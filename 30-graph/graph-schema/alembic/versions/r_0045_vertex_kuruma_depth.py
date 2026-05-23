@@ -330,13 +330,13 @@ UP = [{'sql': 'CREATE TABLE IF NOT EXISTS vertex_kuruma_model (\n'
   'parameters': []},
  {'sql': 'CREATE MATERIALIZED VIEW IF NOT EXISTS mv_kuruma_dealer_density_by_country AS\n'
          '    SELECT\n'
-         "      SPLIT_PART(SPLIT_PART(repo, '.gftd.ai', 1), 'did:web:', 2) AS app_host,\n"
+         "      SPLIT_PART(SPLIT_PART(repo, '.etzhayyim.com', 1), 'did:web:', 2) AS app_host,\n"
          '      CAST(NULL AS VARCHAR) AS country,\n'
          '      COUNT(*)::BIGINT AS dealer_count\n'
          '    FROM vertex_repo_record\n'
          "    WHERE collection = 'ai.gftd.apps.car_dealer.dealer'\n"
-         "      AND repo = 'did:web:kuruma.gftd.ai'\n"
-         "    GROUP BY SPLIT_PART(SPLIT_PART(repo, '.gftd.ai', 1), 'did:web:', 2)",
+         "      AND repo = 'did:web:kuruma.etzhayyim.com'\n"
+         "    GROUP BY SPLIT_PART(SPLIT_PART(repo, '.etzhayyim.com', 1), 'did:web:', 2)",
   'parameters': []}]
 
 DOWN = [{'sql': 'DROP MATERIALIZED VIEW IF EXISTS mv_kuruma_dealer_density_by_country', 'parameters': []},

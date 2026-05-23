@@ -25,14 +25,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-domain-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-domain-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'telecom_register_tsn_domain',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_telecom_register_tsn_domain" '
-                 'targetNamespace="https://gftd.ai/bpmn/telecom" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/telecom" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="telecom_register_tsn_domain" name="registerTsnDomain" '
                  'isExecutable="true">\n'
@@ -62,7 +62,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:telecom.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:telecom.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;telecom.tsn.domain.register&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, domainId: domainId, status: status}" '
                  'target="payload"/></zeebe:ioMapping>\n'
@@ -78,10 +78,10 @@ UP = [{'sql': '\n'
                  2251,
                  '00-contracts/bpmn/ai/gftd/telecom/registerTsnDomain.bpmn',
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-domain-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-domain-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -95,14 +95,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-bridge-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-bridge-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'telecom_register_tsn_bridge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_telecom_register_tsn_bridge" '
-                 'targetNamespace="https://gftd.ai/bpmn/telecom" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/telecom" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="telecom_register_tsn_bridge" name="registerTsnBridge" '
                  'isExecutable="true">\n'
@@ -132,7 +132,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:telecom.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:telecom.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;telecom.tsn.bridge.register&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, bridgeId: bridgeId, status: status}" '
                  'target="payload"/></zeebe:ioMapping>\n'
@@ -148,10 +148,10 @@ UP = [{'sql': '\n'
                  2271,
                  '00-contracts/bpmn/ai/gftd/telecom/registerTsnBridge.bpmn',
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-bridge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-bridge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -165,14 +165,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-provision-gptp-sync-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-provision-gptp-sync-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'telecom_provision_gptp_sync',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_telecom_provision_gptp_sync" '
-                 'targetNamespace="https://gftd.ai/bpmn/telecom" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/telecom" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="telecom_provision_gptp_sync" name="provisionGptpSync" '
                  'isExecutable="true">\n'
@@ -203,7 +203,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:telecom.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:telecom.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;telecom.tsn.gptp.provision&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, syncProfileId: syncProfileId, status: status}" '
                  'target="payload"/></zeebe:ioMapping>\n'
@@ -219,10 +219,10 @@ UP = [{'sql': '\n'
                  2334,
                  '00-contracts/bpmn/ai/gftd/telecom/provisionGptpSync.bpmn',
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-provision-gptp-sync-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-provision-gptp-sync-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -236,14 +236,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-reserve-stream-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-reserve-stream-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'telecom_reserve_stream',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_telecom_reserve_stream" '
-                 'targetNamespace="https://gftd.ai/bpmn/telecom" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/telecom" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="telecom_reserve_stream" name="reserveStream" '
                  'isExecutable="true">\n'
@@ -274,7 +274,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:telecom.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:telecom.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;telecom.tsn.stream.reserve&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, streamId: streamId, status: status}" '
                  'target="payload"/></zeebe:ioMapping>\n'
@@ -290,10 +290,10 @@ UP = [{'sql': '\n'
                  2361,
                  '00-contracts/bpmn/ai/gftd/telecom/reserveStream.bpmn',
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-reserve-stream-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-reserve-stream-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -307,14 +307,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-apply-traffic-shaper-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-apply-traffic-shaper-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'telecom_apply_traffic_shaper',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_telecom_apply_traffic_shaper" '
-                 'targetNamespace="https://gftd.ai/bpmn/telecom" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/telecom" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="telecom_apply_traffic_shaper" name="applyTrafficShaper" '
                  'isExecutable="true">\n'
@@ -343,7 +343,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:telecom.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:telecom.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;telecom.tsn.shaper.apply&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, shaperId: shaperId, status: status}" '
                  'target="payload"/></zeebe:ioMapping>\n'
@@ -359,10 +359,10 @@ UP = [{'sql': '\n'
                  2274,
                  '00-contracts/bpmn/ai/gftd/telecom/applyTrafficShaper.bpmn',
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-apply-traffic-shaper-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-apply-traffic-shaper-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -376,14 +376,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-enable-frer-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-enable-frer-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'telecom_enable_frer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_telecom_enable_frer" '
-                 'targetNamespace="https://gftd.ai/bpmn/telecom" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/telecom" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="telecom_enable_frer" name="enableFrer" isExecutable="true">\n'
                  '    <bpmn:startEvent '
@@ -411,7 +411,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:telecom.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:telecom.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;telecom.tsn.frer.enable&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, frerProfileId: frerProfileId, status: status}" '
                  'target="payload"/></zeebe:ioMapping>\n'
@@ -427,10 +427,10 @@ UP = [{'sql': '\n'
                  2270,
                  '00-contracts/bpmn/ai/gftd/telecom/enableFrer.bpmn',
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-enable-frer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-enable-frer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -444,14 +444,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-record-sync-deviation-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-sync-deviation-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'telecom_record_sync_deviation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_telecom_record_sync_deviation" '
-                 'targetNamespace="https://gftd.ai/bpmn/telecom" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/telecom" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="telecom_record_sync_deviation" name="recordSyncDeviation" '
                  'isExecutable="true">\n'
@@ -480,7 +480,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:telecom.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:telecom.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;telecom.tsn.sync.deviation&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, deviationId: deviationId, breach: breach, status: '
                  'status}" target="payload"/></zeebe:ioMapping>\n'
@@ -496,10 +496,10 @@ UP = [{'sql': '\n'
                  2355,
                  '00-contracts/bpmn/ai/gftd/telecom/recordSyncDeviation.bpmn',
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-record-sync-deviation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-sync-deviation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -513,14 +513,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-record-stream-sla-breach-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-stream-sla-breach-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'telecom_record_stream_sla_breach',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_telecom_record_stream_sla_breach" '
-                 'targetNamespace="https://gftd.ai/bpmn/telecom" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/telecom" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="telecom_record_stream_sla_breach" '
                  'name="recordStreamSlaBreach" isExecutable="true">\n'
@@ -550,7 +550,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:telecom.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:telecom.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;telecom.tsn.sla.breach&quot;" target="action"/><zeebe:input '
                  'source="={vertexId: vertexId, breachId: breachId, ticketId: ticketId, status: '
                  'status}" target="payload"/></zeebe:ioMapping>\n'
@@ -566,10 +566,10 @@ UP = [{'sql': '\n'
                  2370,
                  '00-contracts/bpmn/ai/gftd/telecom/recordStreamSlaBreach.bpmn',
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-record-stream-sla-breach-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-stream-sla-breach-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -583,16 +583,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-registerTsnDomain-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerTsnDomain-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'ai.gftd.apps.telecom.registerTsnDomain',
                  'telecom_register_tsn_domain',
                  30000,
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-registerTsnDomain-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerTsnDomain-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -606,16 +606,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-registerTsnBridge-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerTsnBridge-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'ai.gftd.apps.telecom.registerTsnBridge',
                  'telecom_register_tsn_bridge',
                  30000,
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-registerTsnBridge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerTsnBridge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -629,16 +629,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-provisionGptpSync-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-provisionGptpSync-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'ai.gftd.apps.telecom.provisionGptpSync',
                  'telecom_provision_gptp_sync',
                  30000,
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-provisionGptpSync-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-provisionGptpSync-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -652,16 +652,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-reserveStream-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-reserveStream-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'ai.gftd.apps.telecom.reserveStream',
                  'telecom_reserve_stream',
                  30000,
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-reserveStream-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-reserveStream-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -675,16 +675,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-applyTrafficShaper-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-applyTrafficShaper-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'ai.gftd.apps.telecom.applyTrafficShaper',
                  'telecom_apply_traffic_shaper',
                  15000,
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-applyTrafficShaper-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-applyTrafficShaper-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -698,16 +698,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-enableFrer-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-enableFrer-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'ai.gftd.apps.telecom.enableFrer',
                  'telecom_enable_frer',
                  15000,
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-enableFrer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-enableFrer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -721,16 +721,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-recordSyncDeviation-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordSyncDeviation-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'ai.gftd.apps.telecom.recordSyncDeviation',
                  'telecom_record_sync_deviation',
                  15000,
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-recordSyncDeviation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordSyncDeviation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -744,49 +744,49 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-recordStreamSlaBreach-v1',
-                 'did:web:telecom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordStreamSlaBreach-v1',
+                 'did:web:telecom.etzhayyim.com',
                  'ai.gftd.apps.telecom.recordStreamSlaBreach',
                  'telecom_record_stream_sla_breach',
                  15000,
                  '2026-04-28T18:01:00Z',
-                 'did:web:telecom.gftd.ai',
-                 'did:web:telecom.gftd.ai',
+                 'did:web:telecom.etzhayyim.com',
+                 'did:web:telecom.etzhayyim.com',
                  'sys.bpmn.seed.telecom-tsn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-recordStreamSlaBreach-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordStreamSlaBreach-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-registerTsnDomain-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerTsnDomain-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-registerTsnBridge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-registerTsnBridge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-provisionGptpSync-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-provisionGptpSync-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-reserveStream-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-reserveStream-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-applyTrafficShaper-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-applyTrafficShaper-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-enableFrer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-enableFrer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-recordSyncDeviation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordSyncDeviation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/telecom-recordStreamSlaBreach-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/telecom-recordStreamSlaBreach-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-domain-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-domain-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-bridge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-register-tsn-bridge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-provision-gptp-sync-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-provision-gptp-sync-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-reserve-stream-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-reserve-stream-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-apply-traffic-shaper-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-apply-traffic-shaper-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-enable-frer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-enable-frer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-record-sync-deviation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-sync-deviation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/telecom-record-stream-sla-breach-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/telecom-record-stream-sla-breach-v1']}]
 
 
 def upgrade() -> None:

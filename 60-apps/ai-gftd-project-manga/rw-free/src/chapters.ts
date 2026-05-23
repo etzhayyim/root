@@ -24,15 +24,15 @@ const CHAPTER_COLLECTION = "ai.gftd.manga.chapter";
 const TITLE_COLLECTION = "ai.gftd.manga.title";
 
 const VALID_TRANSITIONS: Record<ChapterStatus, ChapterStatus[]> = {
-  draft: ["in_review", "archived"],
-  in_review: ["approved", "draft", "archived"],
+  draft: ["in_review", "published", "archived"],
+  in_review: ["approved", "published", "draft", "archived"],
   approved: ["published", "draft", "archived"],
   published: ["archived"],
   archived: [],
 };
 
 function isValidChapterId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 function canTransition(from: ChapterStatus, to: ChapterStatus): boolean {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Avatar } from '@gftdcojp/design-system';
+	import { Avatar } from '@etzhayyim/design-system';
 	import { searchActors } from '$lib/atproto-agent';
 
 	function goBack() { if (history.length > 1) history.back(); else void goto('/'); }

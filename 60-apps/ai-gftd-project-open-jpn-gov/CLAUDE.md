@@ -1,6 +1,6 @@
-# open-jpn-gov.gftd.ai — Japanese Gov Directory + e-Gov Law Proxy (OSS)
+# open-jpn-gov.etzhayyim.com — Japanese Gov Directory + e-Gov Law Proxy (OSS)
 
-**Status**: MVP scaffold (2026-04-15). OSS mirror: `github.com/gftdcojp/ai-gftd-project-open-jpn-gov` (Apache-2.0).
+**Status**: MVP scaffold (2026-04-15). OSS mirror: `github.com/etzhayyim/ai-gftd-project-open-jpn-gov` (Apache-2.0).
 
 ## Scope
 
@@ -13,11 +13,11 @@
 ## DID Pattern
 
 ```
-did:web:open-jpn-gov.gftd.ai:{category}:{code}
-# e.g. did:web:open-jpn-gov.gftd.ai:ministry:mof
-#      did:web:open-jpn-gov.gftd.ai:agency:digital
-#      did:web:open-jpn-gov.gftd.ai:cabinet:cao
-#      did:web:open-jpn-gov.gftd.ai:independent:jinji
+did:web:open-jpn-gov.etzhayyim.com:{category}:{code}
+# e.g. did:web:open-jpn-gov.etzhayyim.com:ministry:mof
+#      did:web:open-jpn-gov.etzhayyim.com:agency:digital
+#      did:web:open-jpn-gov.etzhayyim.com:cabinet:cao
+#      did:web:open-jpn-gov.etzhayyim.com:independent:jinji
 ```
 
 `category ∈ {cabinet, ministry, agency, independent}`. `kind` (for agency): `gaikyoku / tokubetsu / iinkai`.

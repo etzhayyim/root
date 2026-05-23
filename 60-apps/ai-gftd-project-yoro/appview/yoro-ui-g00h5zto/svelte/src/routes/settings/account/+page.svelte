@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { Skeleton } from '@gftdcojp/design-system';
+	import { Skeleton } from '@etzhayyim/design-system';
 	import { getSession } from '$lib/atproto-agent';
 	import { getSessionToken } from '$lib/auth';
 

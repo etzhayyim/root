@@ -82,7 +82,7 @@ Tight, honest inventory. No "we're better at everything" bravado.
 
 ## Section 6 — Proof (load-bearing footer)
 
-- Link to the lexicon repo: `https://github.com/gftdcojp/open-saas/tree/main/00-contracts/lexicons/ai/gftd/apps/opensaas/salesforce`.
+- Link to the lexicon repo: `https://github.com/etzhayyim/open-saas/tree/main/00-contracts/lexicons/ai/gftd/apps/opensaas/salesforce`.
 - Link to the Cloudflare Worker source and `magatama.jsonld`.
 - Link to the atproto.etzhayyim.com public firehose — anyone can verify our own dogfooding (we run open-salesforce internally).
 - Link to the `listPipeline` spec JSON.

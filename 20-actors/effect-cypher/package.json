@@ -1,5 +1,5 @@
 {
-	"name": "@gftdcojp/effect-cypher",
+	"name": "@etzhayyim/effect-cypher",
 	"version": "0.1.1",
 	"description": "Type-safe, monadic Neo4j client using Effect and Cypher Builder",
 	"main": "dist/index.js",

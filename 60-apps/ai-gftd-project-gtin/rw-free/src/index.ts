@@ -12,8 +12,9 @@
 
 export * from "./types.js";
 export {
-  registerProduct,
+  registerGtin,
   lookupProduct,
   validateGtin,
+  listProducts,
   gtinCheckDigit,
 } from "./registry.js";

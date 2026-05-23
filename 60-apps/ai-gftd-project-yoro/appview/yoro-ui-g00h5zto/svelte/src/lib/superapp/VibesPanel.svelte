@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import { fade } from 'svelte/transition';
-	import { playTabSwitch, playTap, haptic } from '@gftdcojp/design-system/audio';
+	import { playTabSwitch, playTap, haptic } from '@etzhayyim/design-system/audio';
 	import {
 		getTimeline,
 		getDiscoverFeed,

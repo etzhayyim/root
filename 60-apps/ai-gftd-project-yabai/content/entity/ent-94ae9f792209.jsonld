@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-94ae9f792209",
+  "entityId": "ent-94ae9f792209",
+  "canonicalName": "barzan abd al-ghafur sulaiman majid",
+  "aliases": [
+    "barzan abd al-ghafur sulaiman majid"
+  ]
+}

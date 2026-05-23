@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-740c68f9e083",
+  "entityId": "ent-740c68f9e083",
+  "canonicalName": "elvegard shipping ltd",
+  "aliases": [
+    "elvegard shipping ltd"
+  ]
+}

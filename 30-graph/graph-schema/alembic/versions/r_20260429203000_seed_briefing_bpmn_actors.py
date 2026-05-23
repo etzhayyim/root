@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-create-agenda-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-create-agenda-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'briefing_create_agenda',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_briefing_create_agenda" '
-                 'targetNamespace="https://gftd.ai/bpmn/briefing" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/briefing" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="briefing_create_agenda" name="briefing '
                  'createAgenda" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.briefing.createAgenda", "version": 1, "resultTimeoutMs": 60000 '
@@ -48,11 +48,11 @@ UP = [{'sql': '\n'
                  1100,
                  '00-contracts/bpmn/ai/gftd/briefing/createAgenda.bpmn',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-create-agenda-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-create-agenda-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,18 +67,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-create-agenda-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-create-agenda-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'ai.gftd.apps.briefing.createAgenda',
                  'briefing_create_agenda',
                  60000,
                  'pds:ai.gftd.apps.briefing.briefingAgenda',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-create-agenda-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-create-agenda-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -105,14 +105,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-save-transcript-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-save-transcript-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'briefing_save_transcript',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_briefing_save_transcript" '
-                 'targetNamespace="https://gftd.ai/bpmn/briefing" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/briefing" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="briefing_save_transcript" name="briefing '
                  'saveTranscript" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.briefing.saveTranscript", "version": 1, "resultTimeoutMs": 120000 '
@@ -127,11 +127,11 @@ UP = [{'sql': '\n'
                  1113,
                  '00-contracts/bpmn/ai/gftd/briefing/saveTranscript.bpmn',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-save-transcript-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-save-transcript-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -146,18 +146,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-save-transcript-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-save-transcript-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'ai.gftd.apps.briefing.saveTranscript',
                  'briefing_save_transcript',
                  120000,
                  'pds:ai.gftd.apps.briefing.briefingTranscript',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-save-transcript-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-save-transcript-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -184,14 +184,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-extract-action-items-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-extract-action-items-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'briefing_extract_action_items',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_briefing_extract_action_items" '
-                 'targetNamespace="https://gftd.ai/bpmn/briefing" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/briefing" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="briefing_extract_action_items" '
                  'name="briefing extractActionItems" isExecutable="true"><bpmn:documentation>{ '
                  '"nsid": "ai.gftd.apps.briefing.extractActionItems", "version": 1, '
@@ -206,11 +206,11 @@ UP = [{'sql': '\n'
                  1140,
                  '00-contracts/bpmn/ai/gftd/briefing/extractActionItems.bpmn',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-extract-action-items-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-extract-action-items-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -225,18 +225,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-extract-action-items-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-extract-action-items-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'ai.gftd.apps.briefing.extractActionItems',
                  'briefing_extract_action_items',
                  120000,
                  'pds:ai.gftd.apps.briefing.briefingActionItem',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-extract-action-items-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-extract-action-items-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -263,14 +263,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-generate-summary-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-generate-summary-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'briefing_generate_summary',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_briefing_generate_summary" '
-                 'targetNamespace="https://gftd.ai/bpmn/briefing" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/briefing" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="briefing_generate_summary" '
                  'name="briefing generateSummary" isExecutable="true"><bpmn:documentation>{ '
                  '"nsid": "ai.gftd.apps.briefing.generateSummary", "version": 1, '
@@ -285,11 +285,11 @@ UP = [{'sql': '\n'
                  1119,
                  '00-contracts/bpmn/ai/gftd/briefing/generateSummary.bpmn',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-generate-summary-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-generate-summary-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -304,18 +304,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-generate-summary-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-generate-summary-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'ai.gftd.apps.briefing.generateSummary',
                  'briefing_generate_summary',
                  120000,
                  'pds:ai.gftd.apps.briefing.briefingSummary',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-generate-summary-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-generate-summary-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -342,14 +342,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-record-speaker-turn-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-record-speaker-turn-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'briefing_record_speaker_turn',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_briefing_record_speaker_turn" '
-                 'targetNamespace="https://gftd.ai/bpmn/briefing" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/briefing" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="briefing_record_speaker_turn" '
                  'name="briefing recordSpeakerTurn" isExecutable="true"><bpmn:documentation>{ '
                  '"nsid": "ai.gftd.apps.briefing.recordSpeakerTurn", "version": 1, '
@@ -364,11 +364,11 @@ UP = [{'sql': '\n'
                  1133,
                  '00-contracts/bpmn/ai/gftd/briefing/recordSpeakerTurn.bpmn',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-record-speaker-turn-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-record-speaker-turn-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -383,18 +383,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-record-speaker-turn-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-record-speaker-turn-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'ai.gftd.apps.briefing.recordSpeakerTurn',
                  'briefing_record_speaker_turn',
                  30000,
                  'pds:ai.gftd.apps.briefing.briefingSpeakerTurn',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-record-speaker-turn-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-record-speaker-turn-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -421,14 +421,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-record-decision-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-record-decision-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'briefing_record_decision',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_briefing_record_decision" '
-                 'targetNamespace="https://gftd.ai/bpmn/briefing" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/briefing" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="briefing_record_decision" name="briefing '
                  'recordDecision" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.briefing.recordDecision", "version": 1, "resultTimeoutMs": 30000 '
@@ -443,11 +443,11 @@ UP = [{'sql': '\n'
                  1112,
                  '00-contracts/bpmn/ai/gftd/briefing/recordDecision.bpmn',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-record-decision-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-record-decision-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -462,18 +462,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-record-decision-v1',
-                 'did:web:briefing.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-record-decision-v1',
+                 'did:web:briefing.etzhayyim.com',
                  'ai.gftd.apps.briefing.recordDecision',
                  'briefing_record_decision',
                  30000,
                  'pds:ai.gftd.apps.briefing.briefingDecision',
                  '2026-04-29T20:30:00+09:00',
-                 'did:web:briefing.gftd.ai',
-                 'did:web:briefing.gftd.ai',
+                 'did:web:briefing.etzhayyim.com',
+                 'did:web:briefing.etzhayyim.com',
                  'sys.bpmn.seed.briefing',
-                 'did:web:briefing.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-record-decision-v1']},
+                 'did:web:briefing.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-record-decision-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -487,29 +487,29 @@ UP = [{'sql': '\n'
                  'pds:ai.gftd.apps.briefing.briefingDecision']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-create-agenda-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-create-agenda-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-create-agenda-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-create-agenda-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-save-transcript-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-save-transcript-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-save-transcript-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-save-transcript-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-extract-action-items-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-extract-action-items-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-extract-action-items-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-extract-action-items-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-generate-summary-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-generate-summary-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-generate-summary-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-generate-summary-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-record-speaker-turn-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-record-speaker-turn-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-record-speaker-turn-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-record-speaker-turn-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/briefing-record-decision-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/briefing-record-decision-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/briefing-record-decision-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/briefing-record-decision-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-40f61e62f04a",
+  "entityId": "ent-40f61e62f04a",
+  "canonicalName": "日本赤軍 (japanese red army)",
+  "aliases": [
+    "日本赤軍 (japanese red army)"
+  ]
+}

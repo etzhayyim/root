@@ -4,7 +4,7 @@ compatibility_date = "2026-05-17"
 
 # Catch-all routes. Worker handles:
 #   - /.well-known/did.json  → DID Document (local)
-#   - /*                     → reverse-proxy to yoro.gftd.ai
+#   - /*                     → reverse-proxy to yoro.etzhayyim.com
 # zone_name binds to the etzhayyim.com zone in the Cloudflare account that
 # registered etzhayyim.com via Cloudflare Registrar (2026-05-15).
 [[routes]]
@@ -22,6 +22,24 @@ zone_name = "etzhayyim.com"
 [[services]]
 binding = "YORO"
 service = "magatama-yoro"
+
+# Per-NSID upstream map for /xrpc/* routing. Values are public HTTPS origins
+# (CF Tunnel or LoadBalancer) reachable from the Worker via fetch().
+# Empty string = upstream not yet provisioned → Worker returns a clean 503
+# UpstreamNotConfigured JSON instead of the CF edge's HTML 530.
+# Replace with the actual hostname once `kubectl apply -k 50-infra/k8s/lg-open-unispsc`
+# + CF Tunnel to the lg-open-unispsc Service are live.
+# Add new actors as separate vars; never introduce a new subdomain unless
+# wildcard handle DNS is provisioned per ADR-2605212030 §D2.
+[vars]
+XRPC_UNISPSC_UPSTREAM = ""
+# AT Protocol / Bluesky stack — target the etzhayyim.com subdomain (handled by
+# etzhayyim-xrpc-proxy worker, which forwards via service binding to the
+# upstream ai-gftd-pds / ai-gftd-appview workers without hitting the
+# public-HTTP Bot Management blocks).
+XRPC_ATPROTO_UPSTREAM = "https://atproto.etzhayyim.com"
+XRPC_CHAT_UPSTREAM = "https://atproto.etzhayyim.com"
+XRPC_GFTD_UPSTREAM = "https://atproto.etzhayyim.com"
 
 # Observability — capture failed resolution attempts in CF Logs.
 [observability]

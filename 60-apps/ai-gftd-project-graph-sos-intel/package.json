@@ -1,0 +1,9 @@
+{
+  "name": "@gftd/ai-gftd-project-graph-sos-intel",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "gftd deploy",
+    "dev": "wrangler dev"
+  }
+}

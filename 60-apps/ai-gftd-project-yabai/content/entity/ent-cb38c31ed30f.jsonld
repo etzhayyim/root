@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-cb38c31ed30f",
+  "entityId": "ent-cb38c31ed30f",
+  "canonicalName": "голобородько павло миколайович",
+  "aliases": [
+    "голобородько павло миколайович"
+  ]
+}

@@ -82,20 +82,20 @@ yarn add effect-cypher
 
 ```bash
 # Using pnpm
-pnpm add @gftdcojp/effect-cypher
+pnpm add @etzhayyim/effect-cypher
 
 # Using npm (requires auth setup)
-npm install @gftdcojp/effect-cypher
+npm install @etzhayyim/effect-cypher
 
 # Using yarn (requires auth setup)
-yarn add @gftdcojp/effect-cypher
+yarn add @etzhayyim/effect-cypher
 ```
 
 For npm/yarn with GitHub Packages, you'll need to authenticate:
 
 ```bash
 # Create a .npmrc file or run:
-npm config set @gftdcojp:registry https://npm.pkg.github.com
+npm config set @etzhayyim:registry https://npm.pkg.github.com
 # Then authenticate with your GitHub token
 npm login --registry=https://npm.pkg.github.com
 ```

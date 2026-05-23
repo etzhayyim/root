@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-222f02a0e97b",
+  "entityId": "ent-222f02a0e97b",
+  "canonicalName": "limited liability company alis",
+  "aliases": [
+    "limited liability company alis"
+  ]
+}

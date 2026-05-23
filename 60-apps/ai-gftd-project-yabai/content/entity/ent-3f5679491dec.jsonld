@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-3f5679491dec",
+  "entityId": "ent-3f5679491dec",
+  "canonicalName": "rodriguez orejuela, gilberto jose",
+  "aliases": [
+    "rodriguez orejuela, gilberto jose"
+  ]
+}

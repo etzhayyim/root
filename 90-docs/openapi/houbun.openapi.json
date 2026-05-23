@@ -375,7 +375,7 @@
           },
           "articleDid": {
             "type": "string",
-            "description": "did:web:houbun.gftd.ai:article:{blake3_prefix12}"
+            "description": "did:web:houbun.etzhayyim.com:article:{blake3_prefix12}"
           },
           "blake3Hash": {
             "type": "string",

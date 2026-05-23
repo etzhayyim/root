@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Fetch Mapillary v4 image metadata for an H3 tile bbox. Used as a LangServer handler (`maps3d.fetchMapillary`) inside `processTile.bpmn`. Output is metadata only (image_id + camera_pose + captured_at + url); the actual JPEG fetch + B2 upload happens after image curation narrows the candidate set. Source DID `did:web:maps.gftd.ai:street_view`.",
+      "description": "Fetch Mapillary v4 image metadata for an H3 tile bbox. Used as a LangServer handler (`maps3d.fetchMapillary`) inside `processTile.bpmn`. Output is metadata only (image_id + camera_pose + captured_at + url); the actual JPEG fetch + B2 upload happens after image curation narrows the candidate set. Source DID `did:web:maps.etzhayyim.com:street_view`.",
       "input": {
         "encoding": "application/json",
         "schema": {

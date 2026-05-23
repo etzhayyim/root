@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaSignals-v1',
-                 'did:web:coverage.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaSignals-v1',
+                 'did:web:coverage.etzhayyim.com',
                  'coverage_infer_lda_signals',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
                  '(`ai.gftd.apps.coverage.inferLdaSignals`).\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-signals-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-signals-v1\n'
                  '  NSID:      ai.gftd.apps.coverage.inferLdaSignals\n'
                  '-->\n'
                  '<bpmn:definitions\n'
@@ -59,7 +59,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_coverage_infer_lda_signals"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/coverage"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/coverage"\n'
                  '    exporter="hand-written" exporterVersion="2.0">\n'
                  '  <bpmn:process id="coverage_infer_lda_signals" name="coverage infer LDA '
                  'signals" isExecutable="true">\n'
@@ -197,7 +197,7 @@ UP = [{'sql': '\n'
                  '    &quot;vertex_id&quot;:         s.vertex_id,\n'
                  '    &quot;_seq&quot;:              1,\n'
                  '    &quot;sensitivity_ord&quot;:   0,\n'
-                 '    &quot;owner_did&quot;:         &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;owner_did&quot;:         &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;viewpoint_vid&quot;:     s.viewpoint_vid,\n'
                  '    &quot;signal_token&quot;:      s.signal_token,\n'
                  '    &quot;signal_kind&quot;:       s.signal_kind,\n'
@@ -213,8 +213,8 @@ UP = [{'sql': '\n'
                  '(count(collectionCounts[source_collection = s.source_collection]) > 0) then '
                  'collectionCounts[source_collection = s.source_collection][1].cnt else '
                  's.doc_frequency) else 1.0,\n'
-                 '    &quot;actor_did&quot;:         &quot;did:web:coverage.gftd.ai&quot;,\n'
-                 '    &quot;org_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;actor_did&quot;:         &quot;did:web:coverage.etzhayyim.com&quot;,\n'
+                 '    &quot;org_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;created_at&quot;:        now()\n'
                  '  }" target="rows"/>\n'
                  '          <zeebe:output source="=inserted" target="upsertedCount"/>\n'
@@ -231,7 +231,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;coverage.inferLdaSignals.refresh&quot;" '
                  'target="action"/>\n'
@@ -253,7 +253,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;coverage.inferLdaSignals.abort&quot;" '
                  'target="action"/>\n'
@@ -281,10 +281,10 @@ UP = [{'sql': '\n'
                  11028,
                  '00-contracts/bpmn/ai/gftd/coverage/inferLdaSignals.bpmn',
                  '2026-04-29T09:13:00Z',
-                 'did:web:coverage.gftd.ai',
-                 'did:web:coverage.gftd.ai',
+                 'did:web:coverage.etzhayyim.com',
+                 'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaSignals-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaSignals-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -298,16 +298,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaSignals-v1',
-                 'did:web:coverage.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaSignals-v1',
+                 'did:web:coverage.etzhayyim.com',
                  'ai.gftd.apps.coverage.inferLdaSignals',
                  'coverage_infer_lda_signals',
                  120000,
                  '2026-04-29T09:13:00Z',
-                 'did:web:coverage.gftd.ai',
-                 'did:web:coverage.gftd.ai',
+                 'did:web:coverage.etzhayyim.com',
+                 'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaSignals-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaSignals-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -321,8 +321,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaTopics-v1',
-                 'did:web:coverage.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaTopics-v1',
+                 'did:web:coverage.etzhayyim.com',
                  'coverage_infer_lda_topics',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -353,7 +353,7 @@ UP = [{'sql': '\n'
                  '(`ai.gftd.apps.coverage.inferLdaTopics`).\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-topics-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-topics-v1\n'
                  '  NSID:      ai.gftd.apps.coverage.inferLdaTopics\n'
                  '-->\n'
                  '<bpmn:definitions\n'
@@ -361,7 +361,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_coverage_infer_lda_topics"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/coverage"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/coverage"\n'
                  '    exporter="hand-written" exporterVersion="2.0">\n'
                  '  <bpmn:process id="coverage_infer_lda_topics" name="coverage infer LDA topics" '
                  'isExecutable="true">\n'
@@ -510,12 +510,12 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_lda_model&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '            &quot;vertex_id&quot;:             '
-                 '&quot;at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.ldaModel/&quot; + '
+                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaModel/&quot; + '
                  'modelSlug,\n'
                  '            &quot;_seq&quot;:                   1,\n'
                  '            &quot;sensitivity_ord&quot;:        0,\n'
                  '            &quot;owner_did&quot;:              '
-                 '&quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '&quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '            &quot;model_slug&quot;:             modelSlug,\n'
                  '            &quot;model_version&quot;:          &quot;1.0.0&quot;,\n'
                  '            &quot;k_topics&quot;:              count(topicResults),\n'
@@ -533,9 +533,9 @@ UP = [{'sql': '\n'
                  '            &quot;status&quot;:                 &quot;converged&quot;,\n'
                  '            &quot;trained_at&quot;:             now(),\n'
                  '            &quot;actor_did&quot;:              '
-                 '&quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '&quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '            &quot;org_did&quot;:               '
-                 '&quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '&quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '            &quot;created_at&quot;:             now()\n'
                  '          }" target="row"/>\n'
                  '          <zeebe:output source="=inserted" target="modelInserted"/>\n'
@@ -555,21 +555,21 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_lda_topic&quot;" target="table"/>\n'
                  '          <zeebe:input source="=for t in topicResults return {\n'
                  '            &quot;vertex_id&quot;:             '
-                 '&quot;at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.ldaTopic/&quot; + '
+                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaTopic/&quot; + '
                  'modelSlug + &quot;-&quot; + string(t.index),\n'
                  '            &quot;_seq&quot;:                   t.index + 1,\n'
                  '            &quot;sensitivity_ord&quot;:        0,\n'
                  '            &quot;owner_did&quot;:              '
-                 '&quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '&quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '            &quot;model_vid&quot;:              '
-                 '&quot;at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.ldaModel/&quot; + '
+                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaModel/&quot; + '
                  'modelSlug,\n'
                  '            &quot;topic_index&quot;:            t.index,\n'
                  '            &quot;primary_viewpoint_vid&quot;:  if (t.primary_viewpoint != null) '
                  'then '
-                 '&quot;at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.ldaViewpoint/&quot; + '
+                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaViewpoint/&quot; + '
                  't.primary_viewpoint else '
-                 '&quot;at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.ldaViewpoint/lexical&quot;,\n'
+                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaViewpoint/lexical&quot;,\n'
                  '            &quot;topic_label&quot;:            if (t.label != null) then '
                  't.label else &quot;topic-&quot; + string(t.index),\n'
                  '            &quot;coherence_score&quot;:        if (t.coherence != null) then '
@@ -579,9 +579,9 @@ UP = [{'sql': '\n'
                  '            &quot;entity_kind_hint&quot;:       if (t.entity_kind != null) then '
                  't.entity_kind else &quot;unknown&quot;,\n'
                  '            &quot;actor_did&quot;:              '
-                 '&quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '&quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '            &quot;org_did&quot;:               '
-                 '&quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '&quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '            &quot;created_at&quot;:             now()\n'
                  '          }" target="rows"/>\n'
                  '          <zeebe:output source="=inserted" target="topicsWritten"/>\n'
@@ -607,15 +607,15 @@ UP = [{'sql': '\n'
                  '    &quot;edge_id&quot;:         &quot;lda-phi-&quot; + modelSlug + '
                  '&quot;-&quot; + string(t.index) + &quot;-&quot; + substring(sw.signal_id, 60),\n'
                  '    &quot;src_vid&quot;:         '
-                 '&quot;at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.ldaTopic/&quot; + '
+                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaTopic/&quot; + '
                  'modelSlug + &quot;-&quot; + string(t.index),\n'
                  '    &quot;dst_vid&quot;:         sw.signal_id,\n'
                  '    &quot;_seq&quot;:            1,\n'
                  '    &quot;sensitivity_ord&quot;: 0,\n'
-                 '    &quot;owner_did&quot;:       &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;owner_did&quot;:       &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;weight&quot;:          sw.weight,\n'
-                 '    &quot;actor_did&quot;:       &quot;did:web:coverage.gftd.ai&quot;,\n'
-                 '    &quot;org_did&quot;:         &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;actor_did&quot;:       &quot;did:web:coverage.etzhayyim.com&quot;,\n'
+                 '    &quot;org_did&quot;:         &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;created_at&quot;:      now()\n'
                  '  }" target="rows"/>\n'
                  '          <zeebe:output source="=inserted" target="phiEdgesWritten"/>\n'
@@ -632,7 +632,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;coverage.inferLdaTopics.train&quot;" '
                  'target="action"/>\n'
@@ -659,7 +659,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;coverage.inferLdaTopics.noInput&quot;" '
                  'target="action"/>\n'
@@ -684,10 +684,10 @@ UP = [{'sql': '\n'
                  16379,
                  '00-contracts/bpmn/ai/gftd/coverage/inferLdaTopics.bpmn',
                  '2026-04-29T09:13:00Z',
-                 'did:web:coverage.gftd.ai',
-                 'did:web:coverage.gftd.ai',
+                 'did:web:coverage.etzhayyim.com',
+                 'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaTopics-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaTopics-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -701,16 +701,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaTopics-v1',
-                 'did:web:coverage.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaTopics-v1',
+                 'did:web:coverage.etzhayyim.com',
                  'ai.gftd.apps.coverage.inferLdaTopics',
                  'coverage_infer_lda_topics',
                  600000,
                  '2026-04-29T09:13:00Z',
-                 'did:web:coverage.gftd.ai',
-                 'did:web:coverage.gftd.ai',
+                 'did:web:coverage.etzhayyim.com',
+                 'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaTopics-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaTopics-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -724,8 +724,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaEntities-v1',
-                 'did:web:coverage.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaEntities-v1',
+                 'did:web:coverage.etzhayyim.com',
                  'coverage_infer_lda_entities',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -758,7 +758,7 @@ UP = [{'sql': '\n'
                  '(`ai.gftd.apps.coverage.inferLdaEntities`).\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-entities-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-entities-v1\n'
                  '  NSID:      ai.gftd.apps.coverage.inferLdaEntities\n'
                  '-->\n'
                  '<bpmn:definitions\n'
@@ -766,7 +766,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_coverage_infer_lda_entities"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/coverage"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/coverage"\n'
                  '    exporter="hand-written" exporterVersion="2.0">\n'
                  '  <bpmn:process id="coverage_infer_lda_entities" name="coverage infer LDA '
                  'entities" isExecutable="true">\n'
@@ -888,12 +888,12 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=for t in topics[count(thetaEdges[dst_vid = '
                  'vertex_id]) >= 5] return {\n'
                  '    &quot;vertex_id&quot;:             '
-                 '&quot;at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
+                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
                  '+ substring(t.vertex_id, 80),\n'
                  '    &quot;_seq&quot;:                   t.topic_index + 1,\n'
                  '    &quot;sensitivity_ord&quot;:        if (t.entity_kind_hint = '
                  '&quot;person&quot;) then 300 else 0,\n'
-                 '    &quot;owner_did&quot;:              &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;owner_did&quot;:              &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;entity_kind&quot;:            if (t.entity_kind_hint != null) then '
                  't.entity_kind_hint else &quot;unknown&quot;,\n'
                  '    &quot;canonical_label&quot;:        t.topic_label,\n'
@@ -915,8 +915,8 @@ UP = [{'sql': '\n'
                  '= t.vertex_id] return e.weight) > 0) then 1 - exp(-(sum(for e in '
                  'thetaEdges[dst_vid = t.vertex_id] return e.weight)) / 10) else 0.0) > 0.5) then '
                  '&quot;emerging&quot; else &quot;latent&quot;,\n'
-                 '    &quot;actor_did&quot;:              &quot;did:web:coverage.gftd.ai&quot;,\n'
-                 '    &quot;org_did&quot;:               &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;actor_did&quot;:              &quot;did:web:coverage.etzhayyim.com&quot;,\n'
+                 '    &quot;org_did&quot;:               &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;created_at&quot;:             now()\n'
                  '  }" target="rows"/>\n'
                  '          <zeebe:output source="=inserted" target="entitiesCreated"/>\n'
@@ -941,16 +941,16 @@ UP = [{'sql': '\n'
                  'substring(t.vertex_id, 60),\n'
                  '    &quot;src_vid&quot;:             t.vertex_id,\n'
                  '    &quot;dst_vid&quot;:             '
-                 '&quot;at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
+                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
                  '+ substring(t.vertex_id, 80),\n'
                  '    &quot;_seq&quot;:                1,\n'
                  '    &quot;sensitivity_ord&quot;:     0,\n'
-                 '    &quot;owner_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;binding_confidence&quot;:  t.coherence_score,\n'
                  '    &quot;stability_score&quot;:     0.5,\n'
                  '    &quot;binding_type&quot;:        &quot;primary&quot;,\n'
-                 '    &quot;actor_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,\n'
-                 '    &quot;org_did&quot;:             &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,\n'
+                 '    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;created_at&quot;:          now()\n'
                  '  }" target="rows"/>\n'
                  '          <zeebe:output source="=inserted" target="bindingsCreated"/>\n'
@@ -975,18 +975,18 @@ UP = [{'sql': '\n'
                  '60) + &quot;-&quot; + substring(e.dst_vid, 60),\n'
                  '    &quot;src_vid&quot;:             e.src_vid,\n'
                  '    &quot;dst_vid&quot;:             '
-                 '&quot;at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
+                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
                  '+ substring(e.dst_vid, 80),\n'
                  '    &quot;_seq&quot;:                1,\n'
                  '    &quot;sensitivity_ord&quot;:     0,\n'
-                 '    &quot;owner_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;evidence_weight&quot;:     e.weight,\n'
                  '    &quot;evidence_kind&quot;:       &quot;statistical&quot;,\n'
                  '    &quot;source_collection&quot;:   if (e.source_collection != null) then '
                  'e.source_collection else &quot;unknown&quot;,\n'
                  '    &quot;observed_at&quot;:         now(),\n'
-                 '    &quot;actor_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,\n'
-                 '    &quot;org_did&quot;:             &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,\n'
+                 '    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;created_at&quot;:          now()\n'
                  '  }" target="rows"/>\n'
                  '          <zeebe:output source="=inserted" target="evidenceLinked"/>\n'
@@ -1014,19 +1014,19 @@ UP = [{'sql': '\n'
                  '    &quot;edge_id&quot;:             &quot;lda-cohort-link-&quot; + '
                  'substring(t.vertex_id, 60),\n'
                  '    &quot;src_vid&quot;:             '
-                 '&quot;at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
+                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
                  '+ substring(t.vertex_id, 80),\n'
                  '    &quot;dst_vid&quot;:             '
-                 '&quot;at://did:web:natural-person.gftd.ai/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,\n'
+                 '&quot;at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,\n'
                  '    &quot;_seq&quot;:                1,\n'
                  '    &quot;sensitivity_ord&quot;:     0,\n'
-                 '    &quot;owner_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;link_confidence&quot;:     if (sum(thetaEdges[dst_vid = '
                  't.vertex_id].weight) &gt; 0) then 1 - exp(-(sum(thetaEdges[dst_vid = '
                  't.vertex_id].weight)) / 10) else 0.0,\n'
                  '    &quot;link_type&quot;:           &quot;fission_candidate&quot;,\n'
-                 '    &quot;actor_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,\n'
-                 '    &quot;org_did&quot;:             &quot;did:web:coverage.gftd.ai&quot;,\n'
+                 '    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,\n'
+                 '    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '    &quot;created_at&quot;:          now()\n'
                  '  }" target="rows"/>\n'
                  '          <zeebe:output source="=inserted" target="cohortLinked"/>\n'
@@ -1043,7 +1043,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;coverage.inferLdaEntities.bind&quot;" '
                  'target="action"/>\n'
@@ -1067,7 +1067,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;coverage.inferLdaEntities.noInput&quot;" '
                  'target="action"/>\n'
@@ -1091,10 +1091,10 @@ UP = [{'sql': '\n'
                  16636,
                  '00-contracts/bpmn/ai/gftd/coverage/inferLdaEntities.bpmn',
                  '2026-04-29T09:13:00Z',
-                 'did:web:coverage.gftd.ai',
-                 'did:web:coverage.gftd.ai',
+                 'did:web:coverage.etzhayyim.com',
+                 'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaEntities-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaEntities-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1108,29 +1108,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaEntities-v1',
-                 'did:web:coverage.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaEntities-v1',
+                 'did:web:coverage.etzhayyim.com',
                  'ai.gftd.apps.coverage.inferLdaEntities',
                  'coverage_infer_lda_entities',
                  300000,
                  '2026-04-29T09:13:00Z',
-                 'did:web:coverage.gftd.ai',
-                 'did:web:coverage.gftd.ai',
+                 'did:web:coverage.etzhayyim.com',
+                 'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaEntities-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaEntities-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaSignals-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaSignals-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaSignals-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaSignals-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaTopics-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaTopics-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaTopics-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaTopics-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/coverage-inferLdaEntities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaEntities-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/coverage-inferLdaEntities-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaEntities-v1']}]
 
 
 def upgrade() -> None:

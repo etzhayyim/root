@@ -3,9 +3,9 @@
 	import { onMount } from 'svelte';
 	import { isSignedIn } from '$lib/auth';
 	import { ProfilePanel } from '$lib/superapp';
-	import { playTap, haptic } from '@gftdcojp/design-system/audio';
+	import { playTap, haptic } from '@etzhayyim/design-system/audio';
 	import { fade } from 'svelte/transition';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import BrainrotMascot from '$lib/components/BrainrotMascot.svelte';
 </script>
 

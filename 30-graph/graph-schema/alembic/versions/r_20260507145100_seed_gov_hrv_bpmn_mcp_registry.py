@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-seedOrgs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-seedOrgs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_seed_orgs" name="govHrv seed orgs" '
@@ -63,10 +63,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govHrv/seedOrgs.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -80,15 +80,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-registerDIDs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-registerDIDs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_register_dids" name="govHrv register DIDs" '
@@ -120,10 +120,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govHrv/registerDIDs.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -137,15 +137,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-followSiteDeps-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-followSiteDeps-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_follow_site_deps" name="govHrv follow site deps" '
@@ -175,10 +175,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govHrv/followSiteDeps.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,15 +192,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-resolveOrgPath-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-resolveOrgPath-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_resolve_org_path" name="govHrv resolve org path" '
@@ -233,10 +233,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govHrv/resolveOrgPath.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -250,15 +250,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-listOrgs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-listOrgs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_list_orgs" name="govHrv list orgs" '
@@ -287,10 +287,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govHrv/listOrgs.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -304,15 +304,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-syncWetUpdates-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-syncWetUpdates-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_sync_wet_updates" name="govHrv sync wet updates" '
@@ -343,10 +343,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govHrv/syncWetUpdates.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -360,15 +360,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-shinka-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-shinka-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_shinka',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_shinka"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_shinka" name="govHrv shinka" isExecutable="true">\n'
@@ -398,10 +398,10 @@ UP = [{'sql': '\n'
                  1351,
                  '00-contracts/bpmn/ai/gftd/govHrv/shinka.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -415,8 +415,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeatTick-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeatTick-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -424,7 +424,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_hrv_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_heartbeat_tick" name="govHrv heartbeat tick" '
@@ -467,10 +467,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govHrv/heartbeatTick.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -484,15 +484,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-seed-orgs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-seed-orgs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_seed_orgs" name="govHrv seed orgs" '
@@ -522,10 +522,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govHrv/seedOrgs.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-seed-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-seed-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -539,15 +539,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-register-dids-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-register-dids-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_register_dids" name="govHrv register DIDs" '
@@ -579,10 +579,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govHrv/registerDIDs.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-register-dids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -596,15 +596,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-follow-site-deps-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-follow-site-deps-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_follow_site_deps" name="govHrv follow site deps" '
@@ -634,10 +634,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govHrv/followSiteDeps.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-follow-site-deps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-follow-site-deps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -651,15 +651,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-resolve-org-path-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-resolve-org-path-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_resolve_org_path" name="govHrv resolve org path" '
@@ -692,10 +692,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govHrv/resolveOrgPath.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-resolve-org-path-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-resolve-org-path-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -709,15 +709,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-list-orgs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-list-orgs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_list_orgs" name="govHrv list orgs" '
@@ -746,10 +746,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govHrv/listOrgs.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-list-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-list-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -763,15 +763,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-sync-wet-updates-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-sync-wet-updates-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_hrv_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_sync_wet_updates" name="govHrv sync wet updates" '
@@ -802,10 +802,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govHrv/syncWetUpdates.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-sync-wet-updates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-sync-wet-updates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -819,8 +819,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeat-tick-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeat-tick-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'gov_hrv_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -828,7 +828,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_hrv_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govHrv"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govHrv"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_hrv_heartbeat_tick" name="govHrv heartbeat tick" '
@@ -871,10 +871,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govHrv/heartbeatTick.bpmn',
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeat-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeat-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -889,17 +889,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.seedOrgs',
                  'gov_hrv_seed_orgs',
                  90000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -914,17 +914,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.registerDIDs',
                  'gov_hrv_register_dids',
                  90000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,17 +939,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.followSiteDeps',
                  'gov_hrv_follow_site_deps',
                  90000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -964,17 +964,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.resolveOrgPath',
                  'gov_hrv_resolve_org_path',
                  60000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -989,17 +989,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.listOrgs',
                  'gov_hrv_list_orgs',
                  60000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1014,17 +1014,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.syncWetUpdates',
                  'gov_hrv_sync_wet_updates',
                  180000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1039,17 +1039,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-shinka-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-shinka-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.shinka',
                  'gov_hrv_shinka',
                  180000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1064,17 +1064,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.heartbeatTick',
                  'gov_hrv_heartbeat_tick',
                  180000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1089,17 +1089,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.seedOrgs',
                  'gov_hrv_seed_orgs',
                  90000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1114,17 +1114,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.registerDIDs',
                  'gov_hrv_register_dids',
                  90000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1139,17 +1139,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.followSiteDeps',
                  'gov_hrv_follow_site_deps',
                  90000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1164,17 +1164,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.resolveOrgPath',
                  'gov_hrv_resolve_org_path',
                  60000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1189,17 +1189,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.listOrgs',
                  'gov_hrv_list_orgs',
                  60000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1214,17 +1214,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.syncWetUpdates',
                  'gov_hrv_sync_wet_updates',
                  180000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1239,17 +1239,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1',
-                 'did:web:hrv-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1',
+                 'did:web:hrv-state.etzhayyim.com',
                  'ai.gftd.govHrv.heartbeatTick',
                  'gov_hrv_heartbeat_tick',
                  180000,
                  '2026-05-07T14:51:00Z',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1266,10 +1266,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs',
                  'ai.gftd.govHrv.seedOrgs',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Croatia government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1277,12 +1277,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govHrv/seedOrgs.json',
                  '60115a3a88a505fc',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1299,10 +1299,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs',
                  'ai.gftd.govHrv.registerDIDs',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Croatia government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1310,12 +1310,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govHrv/registerDIDs.json',
                  '9cf39f34ff8b272d',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1332,10 +1332,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps',
                  'ai.gftd.govHrv.followSiteDeps',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Croatia government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1343,12 +1343,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govHrv/followSiteDeps.json',
                  '053ebae6450ae760',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1365,10 +1365,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath',
                  'ai.gftd.govHrv.resolveOrgPath',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'query',
                  'Resolve a Croatia government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1376,12 +1376,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govHrv/resolveOrgPath.json',
                  '4110a5eeaa7a7294',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1398,10 +1398,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs',
                  'ai.gftd.govHrv.listOrgs',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'query',
                  'List Croatia government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1409,12 +1409,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govHrv/listOrgs.json',
                  '5345484783c00503',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1431,10 +1431,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates',
                  'ai.gftd.govHrv.syncWetUpdates',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Croatia government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1442,12 +1442,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govHrv/syncWetUpdates.json',
                  '557a18227aa8fa8d',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1464,10 +1464,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-shinka',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-shinka',
                  'ai.gftd.govHrv.shinka',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Post a periodic graph-visible Croatia government organization update.',
                  '{"properties":{"limit":{"default":1,"maximum":5,"minimum":1,"type":"integer"},"postUpdates":{"default":true,"type":"boolean"}},"required":[],"type":"object"}',
@@ -1475,12 +1475,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.shinka',
                  '00-contracts/lexicons/ai/gftd/govHrv/shinka.json',
                  '68142edc9753e473',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-shinka']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-shinka']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1497,10 +1497,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick',
                  'ai.gftd.govHrv.heartbeatTick',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Run the Croatia government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1508,12 +1508,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govHrv/heartbeatTick.json',
                  '6d2bc9652d652c7b',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1530,10 +1530,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs',
                  'ai.gftd.govHrv.seedOrgs',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Croatia government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1541,12 +1541,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govHrv/seedOrgs.json',
                  '60115a3a88a505fc',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1563,10 +1563,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs',
                  'ai.gftd.govHrv.registerDIDs',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Croatia government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1574,12 +1574,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govHrv/registerDIDs.json',
                  '9cf39f34ff8b272d',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1596,10 +1596,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps',
                  'ai.gftd.govHrv.followSiteDeps',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Croatia government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1607,12 +1607,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govHrv/followSiteDeps.json',
                  '053ebae6450ae760',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1629,10 +1629,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath',
                  'ai.gftd.govHrv.resolveOrgPath',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'query',
                  'Resolve a Croatia government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1640,12 +1640,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govHrv/resolveOrgPath.json',
                  '4110a5eeaa7a7294',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1662,10 +1662,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs',
                  'ai.gftd.govHrv.listOrgs',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'query',
                  'List Croatia government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1673,12 +1673,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govHrv/listOrgs.json',
                  '5345484783c00503',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1695,10 +1695,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates',
                  'ai.gftd.govHrv.syncWetUpdates',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Croatia government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1706,12 +1706,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govHrv/syncWetUpdates.json',
                  '557a18227aa8fa8d',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates']},
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1728,10 +1728,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick',
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick',
                  'ai.gftd.govHrv.heartbeatTick',
-                 'did:web:hrv-state.gftd.ai',
-                 'hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'hrv-state.etzhayyim.com',
                  'procedure',
                  'Run the Croatia government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1739,103 +1739,103 @@ UP = [{'sql': '\n'
                  'ai.gftd.govHrv.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govHrv/heartbeatTick.json',
                  '6d2bc9652d652c7b',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
-                 'did:web:hrv-state.gftd.ai',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
+                 'did:web:hrv-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-hrv',
                  '2026-05-07T14:51:00Z',
-                 'at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick']}]
+                 'at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-shinka']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-shinka']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:hrv-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick']},
+  'parameters': ['at://did:web:hrv-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govHrv-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govHrv-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-seed-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-seed-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-follow-site-deps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-follow-site-deps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-resolve-org-path-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-resolve-org-path-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-list-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-list-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-sync-wet-updates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-sync-wet-updates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeat-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-hrv-heartbeat-tick-v1']}]
 
 
 def upgrade() -> None:

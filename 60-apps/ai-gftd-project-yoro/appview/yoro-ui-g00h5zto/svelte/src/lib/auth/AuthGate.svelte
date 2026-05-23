@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { Button } from '@gftdcojp/design-system';
+	import { Button } from '@etzhayyim/design-system';
 	import { signIn, signUp } from './passkey.js';
 
 	interface Props {

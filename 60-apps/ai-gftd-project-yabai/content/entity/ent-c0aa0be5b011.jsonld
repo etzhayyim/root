@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-c0aa0be5b011",
+  "entityId": "ent-c0aa0be5b011",
+  "canonicalName": "electra pro llc",
+  "aliases": [
+    "electra pro llc"
+  ]
+}

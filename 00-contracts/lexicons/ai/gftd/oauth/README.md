@@ -23,9 +23,9 @@ vendor scope per the Custody axis (session state is operator-held).
 
 - `10-protocol/did-etzhayyim/` (DID method spec, Wave 2)
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
-- [ADR-2604231821 atproto OAuth wire-format snake_case](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2604231821-atproto-oauth-wire-format-snake-case.md) (foundational)
-- [ADR-2604240914 OAuth RS DPoP + revoke + introspect](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2604240914-oauth-rs-binding-revocation-introspection.md) (foundational)
-- [ADR-2605152100 Phase 3 callsite migration](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605152100-etzhayyim-github-org-boundary.md) (vendor-side auth callsite work)
+- [ADR-2604231821 atproto OAuth wire-format snake_case](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/2604231821-atproto-oauth-wire-format-snake-case.md) (foundational)
+- [ADR-2604240914 OAuth RS DPoP + revoke + introspect](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/2604240914-oauth-rs-binding-revocation-introspection.md) (foundational)
+- [ADR-2605152100 Phase 3 callsite migration](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/2605152100-etzhayyim-github-org-boundary.md) (vendor-side auth callsite work)
 
 ## Wire-format note
 

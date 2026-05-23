@@ -32,7 +32,7 @@
             },
             "consentToken": {
               "type": "string",
-              "description": "ES256 JWT signed by onBehalfOfDid. Claims: iss, sub, aud=did:web:meeting-recorder.gftd.ai, lxm=ai.gftd.apps.meetingRecorder.joinMeeting, meetingRef, audio (bool), video (bool), purpose, exp."
+              "description": "ES256 JWT signed by onBehalfOfDid. Claims: iss, sub, aud=did:web:meeting-recorder.etzhayyim.com, lxm=ai.gftd.apps.meetingRecorder.joinMeeting, meetingRef, audio (bool), video (bool), purpose, exp."
             },
             "recordAudio": {"type": "boolean", "default": true},
             "recordVideo": {"type": "boolean", "default": true},

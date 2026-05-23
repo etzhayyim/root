@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Entry point for the maps3d photogrammetry pipeline. Triggers a single H3 tile through Mapillary fetch → image curation (LangGraph) → COLMAP CPU dense reconstruction → mesh simplification → Murakumo Vision annotation → actor disambiguation → vertex_spatial ingest. BPMN-as-actor (ADR-0056) — invoked via `POST http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.maps3d.processTile` or auto-fired by timer-start R/PT15M against `vertex_maps3d_tile WHERE status IN ('pending','stale')`. Real work runs in LangServer handlers under namespace `maps3d` in Vultr LKE. Backed by `00-contracts/bpmn/ai/gftd/maps3d/processTile.bpmn` v1, `vertex_id = at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1`.",
+      "description": "Entry point for the maps3d photogrammetry pipeline. Triggers a single H3 tile through Mapillary fetch → image curation (LangGraph) → COLMAP CPU dense reconstruction → mesh simplification → Murakumo Vision annotation → actor disambiguation → vertex_spatial ingest. BPMN-as-actor (ADR-0056) — invoked via `POST http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.maps3d.processTile` or auto-fired by timer-start R/PT15M against `vertex_maps3d_tile WHERE status IN ('pending','stale')`. Real work runs in LangServer handlers under namespace `maps3d` in Vultr LKE. Backed by `00-contracts/bpmn/ai/gftd/maps3d/processTile.bpmn` v1, `vertex_id = at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1`.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e706b4cb3670",
+  "entityId": "ent-e706b4cb3670",
+  "canonicalName": "товариство з обмеженою відповідальністю \"мтс авто\"",
+  "aliases": [
+    "товариство з обмеженою відповідальністю \"мтс авто\""
+  ]
+}

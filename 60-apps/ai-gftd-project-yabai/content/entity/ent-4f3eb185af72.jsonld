@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4f3eb185af72",
+  "entityId": "ent-4f3eb185af72",
+  "canonicalName": "harakat al-nujaba",
+  "aliases": [
+    "harakat al-nujaba"
+  ]
+}

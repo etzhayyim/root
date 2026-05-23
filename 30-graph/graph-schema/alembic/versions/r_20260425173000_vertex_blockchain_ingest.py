@@ -85,15 +85,15 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1',
-                 'did:web:blockchain.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1',
+                 'did:web:blockchain.etzhayyim.com',
                  'blockchain_bitcoin_head_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_blockchain_bitcoin_head_delta"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/ingest/blockchain"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/ingest/blockchain"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="blockchain_bitcoin_head_delta" name="blockchain bitcoin head '
@@ -139,7 +139,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:blockchain.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:blockchain.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;blockchain.bitcoin.head.delta&quot;" '
                  'target="action"/>\n'
@@ -180,10 +180,10 @@ UP = [{'sql': '\n'
                  3918,
                  '00-contracts/bpmn/ai/gftd/ingest/blockchainBitcoinHeadDelta.bpmn',
                  '2026-04-25T17:30:00Z',
-                 'did:web:blockchain.gftd.ai',
-                 'did:web:blockchain.gftd.ai',
+                 'did:web:blockchain.etzhayyim.com',
+                 'did:web:blockchain.etzhayyim.com',
                  'sys.bpmn.seed.blockchain-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -197,14 +197,14 @@ UP = [{'sql': '\n'
          "'vertex_blockchain_block,vertex_blockchain_tx,vertex_ingest_cursor,vertex_ingest_run,vertex_ingest_artifact'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'blockchain_bitcoin_head_delta',
                  '2026-04-25T17:30:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.blockchain-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -215,15 +215,15 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1',
-                 'did:web:blockchain.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1',
+                 'did:web:blockchain.etzhayyim.com',
                  'blockchain_ethereum_head_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_blockchain_ethereum_head_delta"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/ingest/blockchain"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/ingest/blockchain"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="blockchain_ethereum_head_delta" name="blockchain ethereum '
@@ -269,7 +269,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:blockchain.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:blockchain.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;blockchain.ethereum.head.delta&quot;" '
                  'target="action"/>\n'
@@ -310,10 +310,10 @@ UP = [{'sql': '\n'
                  3925,
                  '00-contracts/bpmn/ai/gftd/ingest/blockchainEthereumHeadDelta.bpmn',
                  '2026-04-25T17:30:00Z',
-                 'did:web:blockchain.gftd.ai',
-                 'did:web:blockchain.gftd.ai',
+                 'did:web:blockchain.etzhayyim.com',
+                 'did:web:blockchain.etzhayyim.com',
                  'sys.bpmn.seed.blockchain-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -327,23 +327,23 @@ UP = [{'sql': '\n'
          "'vertex_blockchain_block,vertex_blockchain_tx,vertex_ingest_cursor,vertex_ingest_run,vertex_ingest_artifact'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  'blockchain_ethereum_head_delta',
                  '2026-04-25T17:30:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.blockchain-ingest',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_blockchain_tx', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_blockchain_block', 'parameters': []}]
 

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f69f8a0c371c",
+  "entityId": "ent-f69f8a0c371c",
+  "canonicalName": "баєва катерина миколаївна",
+  "aliases": [
+    "баєва катерина миколаївна"
+  ]
+}

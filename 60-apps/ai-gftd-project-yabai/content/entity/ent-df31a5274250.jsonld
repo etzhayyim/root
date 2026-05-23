@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-df31a5274250",
+  "entityId": "ent-df31a5274250",
+  "canonicalName": "rt-capital limited liability company",
+  "aliases": [
+    "rt-capital limited liability company"
+  ]
+}

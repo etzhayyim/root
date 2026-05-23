@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-add-tag-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-add-tag-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_add_tag',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_add_tag" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_add_tag" name="organizer.addTag" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -60,11 +60,11 @@ UP = [{'sql': '\n'
                  1097,
                  '00-contracts/bpmn/ai/gftd/organizer/addTag.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-add-tag-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-add-tag-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -79,18 +79,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-add-tag-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-add-tag-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.addTag',
                  'organizer_add_tag',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-add-tag-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-add-tag-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -106,14 +106,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-add-to-collection-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-add-to-collection-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_add_to_collection',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_add_to_collection" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_add_to_collection" '
                  'name="organizer.addToCollection" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -140,11 +140,11 @@ UP = [{'sql': '\n'
                  1171,
                  '00-contracts/bpmn/ai/gftd/organizer/addToCollection.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-add-to-collection-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-add-to-collection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -159,18 +159,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-add-to-collection-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-add-to-collection-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.addToCollection',
                  'organizer_add_to_collection',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-add-to-collection-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-add-to-collection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -186,14 +186,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-analyze-subscriptions-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-analyze-subscriptions-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_analyze_subscriptions',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_analyze_subscriptions" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_analyze_subscriptions" '
                  'name="organizer.analyzeSubscriptions" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -220,11 +220,11 @@ UP = [{'sql': '\n'
                  1209,
                  '00-contracts/bpmn/ai/gftd/organizer/analyzeSubscriptions.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-analyze-subscriptions-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-analyze-subscriptions-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -239,18 +239,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-analyze-subscriptions-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-analyze-subscriptions-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.analyzeSubscriptions',
                  'organizer_analyze_subscriptions',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-analyze-subscriptions-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-analyze-subscriptions-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -266,14 +266,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-create-collection-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-create-collection-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_create_collection',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_create_collection" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_create_collection" '
                  'name="organizer.createCollection" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -300,11 +300,11 @@ UP = [{'sql': '\n'
                  1177,
                  '00-contracts/bpmn/ai/gftd/organizer/createCollection.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-create-collection-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-create-collection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -319,18 +319,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-create-collection-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-create-collection-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.createCollection',
                  'organizer_create_collection',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-create-collection-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-create-collection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -346,14 +346,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-create-rule-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-create-rule-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_create_rule',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_create_rule" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_create_rule" name="organizer.createRule" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -379,11 +379,11 @@ UP = [{'sql': '\n'
                  1129,
                  '00-contracts/bpmn/ai/gftd/organizer/createRule.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-create-rule-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-create-rule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -398,18 +398,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-create-rule-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-create-rule-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.createRule',
                  'organizer_create_rule',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-create-rule-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-create-rule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -425,14 +425,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-delete-item-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-delete-item-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_delete_item',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_delete_item" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_delete_item" name="organizer.deleteItem" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -458,11 +458,11 @@ UP = [{'sql': '\n'
                  1129,
                  '00-contracts/bpmn/ai/gftd/organizer/deleteItem.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-delete-item-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-delete-item-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -477,18 +477,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-delete-item-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-delete-item-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.deleteItem',
                  'organizer_delete_item',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-delete-item-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-delete-item-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -504,14 +504,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-delete-rule-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-delete-rule-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_delete_rule',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_delete_rule" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_delete_rule" name="organizer.deleteRule" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -537,11 +537,11 @@ UP = [{'sql': '\n'
                  1129,
                  '00-contracts/bpmn/ai/gftd/organizer/deleteRule.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-delete-rule-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-delete-rule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -556,18 +556,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-delete-rule-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-delete-rule-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.deleteRule',
                  'organizer_delete_rule',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-delete-rule-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-delete-rule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -583,14 +583,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-detect-subscription-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-detect-subscription-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_detect_subscription',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_detect_subscription" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_detect_subscription" '
                  'name="organizer.detectSubscription" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -617,11 +617,11 @@ UP = [{'sql': '\n'
                  1193,
                  '00-contracts/bpmn/ai/gftd/organizer/detectSubscription.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-detect-subscription-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-detect-subscription-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -636,18 +636,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-detect-subscription-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-detect-subscription-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.detectSubscription',
                  'organizer_detect_subscription',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-detect-subscription-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-detect-subscription-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -663,14 +663,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-get-recommendations-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-get-recommendations-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_get_recommendations',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_get_recommendations" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_get_recommendations" '
                  'name="organizer.getRecommendations" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -697,11 +697,11 @@ UP = [{'sql': '\n'
                  1193,
                  '00-contracts/bpmn/ai/gftd/organizer/getRecommendations.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-get-recommendations-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-get-recommendations-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -716,18 +716,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-get-recommendations-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-get-recommendations-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.getRecommendations',
                  'organizer_get_recommendations',
                  30000,
                  '',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-get-recommendations-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-get-recommendations-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -743,14 +743,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-get-vault-stats-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-get-vault-stats-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_get_vault_stats',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_get_vault_stats" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_get_vault_stats" name="organizer.getVaultStats" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -776,11 +776,11 @@ UP = [{'sql': '\n'
                  1155,
                  '00-contracts/bpmn/ai/gftd/organizer/getVaultStats.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-get-vault-stats-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-get-vault-stats-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -795,18 +795,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-get-vault-stats-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-get-vault-stats-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.getVaultStats',
                  'organizer_get_vault_stats',
                  30000,
                  '',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-get-vault-stats-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-get-vault-stats-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -822,14 +822,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-list-collections-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-list-collections-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_list_collections',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_list_collections" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_list_collections" name="organizer.listCollections" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -856,11 +856,11 @@ UP = [{'sql': '\n'
                  1169,
                  '00-contracts/bpmn/ai/gftd/organizer/listCollections.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-list-collections-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-list-collections-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -875,18 +875,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-list-collections-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-list-collections-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.listCollections',
                  'organizer_list_collections',
                  30000,
                  '',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-list-collections-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-list-collections-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -902,14 +902,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-list-items-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-list-items-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_list_items',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_list_items" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_list_items" name="organizer.listItems" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -935,11 +935,11 @@ UP = [{'sql': '\n'
                  1121,
                  '00-contracts/bpmn/ai/gftd/organizer/listItems.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-list-items-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-list-items-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -954,18 +954,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-list-items-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-list-items-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.listItems',
                  'organizer_list_items',
                  30000,
                  '',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-list-items-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-list-items-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -981,14 +981,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-reclassify-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-reclassify-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_reclassify',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_reclassify" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_reclassify" name="organizer.reclassify" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1014,11 +1014,11 @@ UP = [{'sql': '\n'
                  1127,
                  '00-contracts/bpmn/ai/gftd/organizer/reclassify.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-reclassify-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-reclassify-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1033,18 +1033,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-reclassify-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-reclassify-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.reclassify',
                  'organizer_reclassify',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-reclassify-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-reclassify-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1060,14 +1060,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-register-item-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-register-item-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_register_item',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_register_item" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_register_item" name="organizer.registerItem" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1093,11 +1093,11 @@ UP = [{'sql': '\n'
                  1145,
                  '00-contracts/bpmn/ai/gftd/organizer/registerItem.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-register-item-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-register-item-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1112,18 +1112,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-register-item-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-register-item-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.registerItem',
                  'organizer_register_item',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-register-item-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-register-item-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1139,14 +1139,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-remove-from-collection-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-remove-from-collection-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_remove_from_collection',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_remove_from_collection" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_remove_from_collection" '
                  'name="organizer.removeFromCollection" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1173,11 +1173,11 @@ UP = [{'sql': '\n'
                  1211,
                  '00-contracts/bpmn/ai/gftd/organizer/removeFromCollection.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-remove-from-collection-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-remove-from-collection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1192,18 +1192,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-remove-from-collection-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-remove-from-collection-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.removeFromCollection',
                  'organizer_remove_from_collection',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-remove-from-collection-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-remove-from-collection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1219,14 +1219,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-remove-tag-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-remove-tag-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_remove_tag',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_remove_tag" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_remove_tag" name="organizer.removeTag" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1252,11 +1252,11 @@ UP = [{'sql': '\n'
                  1121,
                  '00-contracts/bpmn/ai/gftd/organizer/removeTag.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-remove-tag-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-remove-tag-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1271,18 +1271,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-remove-tag-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-remove-tag-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.removeTag',
                  'organizer_remove_tag',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-remove-tag-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-remove-tag-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1298,14 +1298,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-request-cancellation-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-request-cancellation-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_request_cancellation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_request_cancellation" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_request_cancellation" '
                  'name="organizer.requestCancellation" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1332,11 +1332,11 @@ UP = [{'sql': '\n'
                  1201,
                  '00-contracts/bpmn/ai/gftd/organizer/requestCancellation.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-request-cancellation-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-request-cancellation-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1351,18 +1351,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-request-cancellation-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-request-cancellation-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.requestCancellation',
                  'organizer_request_cancellation',
                  30000,
                  'vertex_organizer_item,vertex_organizer_classification,vertex_organizer_tag,vertex_organizer_collection,vertex_organizer_rule,vertex_organizer_subscription_item,vertex_organizer_subscription_analysis,vertex_organizer_item_deletion,vertex_organizer_tag_deletion,vertex_organizer_collection_item_deletion,vertex_organizer_rule_deletion,vertex_organizer_subscription_review_job,vertex_organizer_subscription_item_update,edge_organizer_item_classification,edge_organizer_item_tag,edge_organizer_collection_item,edge_organizer_rule_collection,edge_organizer_subscription_analysis,edge_organizer_subscription_review_job',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-request-cancellation-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-request-cancellation-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1378,14 +1378,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-search-items-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-search-items-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_search_items',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_search_items" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_search_items" name="organizer.searchItems" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1411,11 +1411,11 @@ UP = [{'sql': '\n'
                  1137,
                  '00-contracts/bpmn/ai/gftd/organizer/searchItems.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-search-items-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-search-items-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1430,18 +1430,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-search-items-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-search-items-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.searchItems',
                  'organizer_search_items',
                  30000,
                  '',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-search-items-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-search-items-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1457,14 +1457,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-suggest-rules-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-suggest-rules-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'organizer_suggest_rules',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_organizer_suggest_rules" '
-                 'targetNamespace="https://gftd.ai/bpmn/organizer">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/organizer">\n'
                  '  <bpmn:process id="organizer_suggest_rules" name="organizer.suggestRules" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1490,11 +1490,11 @@ UP = [{'sql': '\n'
                  1145,
                  '00-contracts/bpmn/ai/gftd/organizer/suggestRules.bpmn',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-suggest-rules-v1']},
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-suggest-rules-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1509,95 +1509,95 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-suggest-rules-v1',
-                 'did:web:organizer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-suggest-rules-v1',
+                 'did:web:organizer.etzhayyim.com',
                  'ai.gftd.apps.organizer.suggestRules',
                  'organizer_suggest_rules',
                  30000,
                  '',
                  '2026-05-07T01:25:00Z',
-                 'did:web:organizer.gftd.ai',
-                 'did:web:organizer.gftd.ai',
+                 'did:web:organizer.etzhayyim.com',
+                 'did:web:organizer.etzhayyim.com',
                  'sys.bpmn.seed.organizer',
-                 'did:web:organizer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-suggest-rules-v1']}]
+                 'did:web:organizer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-suggest-rules-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-add-tag-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-add-tag-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-add-tag-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-add-tag-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-add-to-collection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-add-to-collection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-add-to-collection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-add-to-collection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-analyze-subscriptions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-analyze-subscriptions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-analyze-subscriptions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-analyze-subscriptions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-create-collection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-create-collection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-create-collection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-create-collection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-create-rule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-create-rule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-create-rule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-create-rule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-delete-item-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-delete-item-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-delete-item-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-delete-item-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-delete-rule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-delete-rule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-delete-rule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-delete-rule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-detect-subscription-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-detect-subscription-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-detect-subscription-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-detect-subscription-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-get-recommendations-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-get-recommendations-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-get-recommendations-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-get-recommendations-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-get-vault-stats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-get-vault-stats-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-get-vault-stats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-get-vault-stats-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-list-collections-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-list-collections-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-list-collections-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-list-collections-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-list-items-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-list-items-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-list-items-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-list-items-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-reclassify-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-reclassify-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-reclassify-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-reclassify-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-register-item-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-register-item-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-register-item-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-register-item-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-remove-from-collection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-remove-from-collection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-remove-from-collection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-remove-from-collection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-remove-tag-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-remove-tag-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-remove-tag-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-remove-tag-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-request-cancellation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-request-cancellation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-request-cancellation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-request-cancellation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-search-items-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-search-items-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-search-items-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-search-items-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/organizer-suggest-rules-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/organizer-suggest-rules-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/organizer-suggest-rules-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/organizer-suggest-rules-v1']}]
 
 
 def upgrade() -> None:

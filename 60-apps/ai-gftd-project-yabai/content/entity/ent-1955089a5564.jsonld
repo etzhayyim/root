@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1955089a5564",
+  "entityId": "ent-1955089a5564",
+  "canonicalName": "jui pang shipping co ltd",
+  "aliases": [
+    "jui pang shipping co ltd"
+  ]
+}

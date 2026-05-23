@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jp-fiscal-edinet-daily-v1',
-                 'did:web:jp-fiscal.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-fiscal-edinet-daily-v1',
+                 'did:web:jp-fiscal.etzhayyim.com',
                  'jp_fiscal_edinet_daily',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -44,14 +44,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.jpFiscal.fiscalEdinetDaily\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jp-fiscal-edinet-daily-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-fiscal-edinet-daily-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_jp_fiscal_edinet_daily"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/jp-fiscal"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/jp-fiscal"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="jp_fiscal_edinet_daily" name="JP Fiscal EDINET daily" '
@@ -103,7 +103,7 @@ UP = [{'sql': '\n'
                  'source="=&quot;ai.gftd.apps.jpFiscal.fiscalEdinetDaily&quot;"  '
                  'target="event_type"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:jp-fiscal.gftd.ai&quot;"                 '
+                 'source="=&quot;did:web:jp-fiscal.etzhayyim.com&quot;"                 '
                  'target="actor_did"/>\n'
                  '          <zeebe:input source="={ edinetWritten: edinetWritten, edinetTotal: '
                  'edinetTotal }" target="attributes"/>\n'
@@ -118,10 +118,10 @@ UP = [{'sql': '\n'
                  3435,
                  '00-contracts/bpmn/ai/gftd/jp-fiscal/fiscalEdinetDaily.bpmn',
                  '2026-04-29T13:01:00Z',
-                 'did:web:jp-fiscal.gftd.ai',
-                 'did:web:jp-fiscal.gftd.ai',
+                 'did:web:jp-fiscal.etzhayyim.com',
+                 'did:web:jp-fiscal.etzhayyim.com',
                  'sys.bpmn.seed.jp-fiscal',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jp-fiscal-edinet-daily-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-fiscal-edinet-daily-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -135,16 +135,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jp-fiscal-edinet-daily-v1',
-                 'did:web:jp-fiscal.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-fiscal-edinet-daily-v1',
+                 'did:web:jp-fiscal.etzhayyim.com',
                  'ai.gftd.apps.jpFiscal.fiscalEdinetDaily',
                  'jp_fiscal_edinet_daily',
                  300000,
                  '2026-04-29T13:01:00Z',
-                 'did:web:jp-fiscal.gftd.ai',
-                 'did:web:jp-fiscal.gftd.ai',
+                 'did:web:jp-fiscal.etzhayyim.com',
+                 'did:web:jp-fiscal.etzhayyim.com',
                  'sys.bpmn.seed.jp-fiscal',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jp-fiscal-edinet-daily-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-fiscal-edinet-daily-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -158,8 +158,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1',
-                 'did:web:jp-fiscal.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1',
+                 'did:web:jp-fiscal.etzhayyim.com',
                  'jp_fiscal_contract_weekly',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -175,14 +175,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.jpFiscal.fiscalContractWeekly\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_jp_fiscal_contract_weekly"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/jp-fiscal"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/jp-fiscal"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="jp_fiscal_contract_weekly" name="JP Fiscal contract weekly" '
@@ -236,7 +236,7 @@ UP = [{'sql': '\n'
                  'source="=&quot;ai.gftd.apps.jpFiscal.fiscalContractWeekly&quot;"  '
                  'target="event_type"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:jp-fiscal.gftd.ai&quot;"                    '
+                 'source="=&quot;did:web:jp-fiscal.etzhayyim.com&quot;"                    '
                  'target="actor_did"/>\n'
                  '          <zeebe:input source="={ contractWritten: contractWritten, '
                  'contractErrors: contractErrors }" target="attributes"/>\n'
@@ -251,10 +251,10 @@ UP = [{'sql': '\n'
                  3473,
                  '00-contracts/bpmn/ai/gftd/jp-fiscal/fiscalContractWeekly.bpmn',
                  '2026-04-29T13:01:00Z',
-                 'did:web:jp-fiscal.gftd.ai',
-                 'did:web:jp-fiscal.gftd.ai',
+                 'did:web:jp-fiscal.etzhayyim.com',
+                 'did:web:jp-fiscal.etzhayyim.com',
                  'sys.bpmn.seed.jp-fiscal',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -268,25 +268,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jp-fiscal-contract-weekly-v1',
-                 'did:web:jp-fiscal.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-fiscal-contract-weekly-v1',
+                 'did:web:jp-fiscal.etzhayyim.com',
                  'ai.gftd.apps.jpFiscal.fiscalContractWeekly',
                  'jp_fiscal_contract_weekly',
                  600000,
                  '2026-04-29T13:01:00Z',
-                 'did:web:jp-fiscal.gftd.ai',
-                 'did:web:jp-fiscal.gftd.ai',
+                 'did:web:jp-fiscal.etzhayyim.com',
+                 'did:web:jp-fiscal.etzhayyim.com',
                  'sys.bpmn.seed.jp-fiscal',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jp-fiscal-contract-weekly-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-fiscal-contract-weekly-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jp-fiscal-edinet-daily-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-fiscal-edinet-daily-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jp-fiscal-edinet-daily-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-fiscal-edinet-daily-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jp-fiscal-contract-weekly-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-fiscal-contract-weekly-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-00302ebe37e4",
+  "entityId": "ent-00302ebe37e4",
+  "canonicalName": "marsolut management dmcc",
+  "aliases": [
+    "marsolut management dmcc"
+  ]
+}

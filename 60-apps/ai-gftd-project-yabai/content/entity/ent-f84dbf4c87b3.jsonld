@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f84dbf4c87b3",
+  "entityId": "ent-f84dbf4c87b3",
+  "canonicalName": "tahsin kurt",
+  "aliases": [
+    "tahsin kurt"
+  ]
+}

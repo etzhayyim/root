@@ -9,13 +9,13 @@ last_verified: 2026-05-20
 priority: 7.5
 axis: doctrine-runtime
 weight: 0.75
-priority_note: "etzhayyim Mission Charter §1 (構造的労働解放) の **金銭的負債** 局面における doctrinal runtime。bankruptcy.gftd.ai (vendor, mandatory legal procedure intelligence) と相補的に、religious-corp 主導の voluntary 集合債務免除 rite を AT MST + Base L2 USDC で実装する。SBT-gated eligibility + Council Lv6+ ratification + transparent on-chain settlement の三条件下で運用される。"
+priority_note: "etzhayyim Mission Charter §1 (構造的労働解放) の **金銭的負債** 局面における doctrinal runtime。bankruptcy.etzhayyim.com (vendor, mandatory legal procedure intelligence) と相補的に、religious-corp 主導の voluntary 集合債務免除 rite を AT MST + Base L2 USDC で実装する。SBT-gated eligibility + Council Lv6+ ratification + transparent on-chain settlement の三条件下で運用される。"
 authoritative_for:
   - org.etzhayyim.yobel.* lexicon family (transitional NSID: ai.gftd.apps.etzhayyim.yobel.*)
   - shmita / yobel / tokusei-rei / Catholic Jubilee / political amnesty rite catalog
   - voluntary creditor opt-in + signedConsent invariant
   - USDC-on-Base-L2 settlement boundary (no fiat)
-  - cross-actor fallback to bankruptcy.gftd.ai (vendor side, mandatory legal)
+  - cross-actor fallback to bankruptcy.etzhayyim.com (vendor side, mandatory legal)
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192115-etzhayyim-tithe-public-fund
@@ -49,7 +49,7 @@ etzhayyim Mission Charter (ADR-2605192100) は **構造的労働解放** を最�
 | Catholic Holy Year | Boniface VIII 1300 / Indulgentiarum doctrina 1967 | 25 年毎 | indulgentia plenaria |
 | Modern Political Amnesty | HIPC 1996 / Jubilee 2000 / Paris Club | ad-hoc | sovereign debt |
 
-**設計空白**: vendor 側 `bankruptcy.gftd.ai` (84 jurisdictions, ~170 法定手続) は **個別・法的強制力ある手続** の intelligence + 代行を扱う。これに対し本 ADR が扱う rite は:
+**設計空白**: vendor 側 `bankruptcy.etzhayyim.com` (84 jurisdictions, ~170 法定手続) は **個別・法的強制力ある手続** の intelligence + 代行を扱う。これに対し本 ADR が扱う rite は:
 
 1. **voluntary opt-in** — 強制力なし、creditor 同意必須
 2. **教義的権威に基づく宣言** — etzhayyim religious-corp doctrinal act (Charter §1 mission の直接実装)
@@ -144,8 +144,8 @@ Where the line gets fuzzy (e.g. a sole-proprietor's business debt where the prop
 
 ```
 etzhayyim/yobel (this repo — voluntary, doctrinal, USDC on Base L2)
-   ├── fallback to    → vendor:bankruptcy.gftd.ai   (mandatory legal, 84 jurisdictions)
-   ├── represented by → vendor:lawfirm.gftd.ai      (creditor consent letters, court filings)
+   ├── fallback to    → vendor:bankruptcy.etzhayyim.com   (mandatory legal, 84 jurisdictions)
+   ├── represented by → vendor:lawfirm.etzhayyim.com      (creditor consent letters, court filings)
    ├── eligibility    ← council SBT registry        (Lv1+ membership gate)
    ├── ratification   ← council Lv6+                (rite declaration approval)
    ├── settlement     → ERC725 Smart Wallet + Base L2 USDC
@@ -159,13 +159,13 @@ vendor 境界 (3-axis split, vendor ADR-2605172400):
 - **Custody** = AT MST + IPFS (etzhayyim substrate)
 - **Settlement** = USDC on Base L2 (etzhayyim substrate)
 
-vendor (Gftd Japan) は **意思決定権なし**。本 actor の出力 (release 記録) を読み取って bankruptcy.gftd.ai の case management に紐付ける逆方向参照は許容 (vendor → etzhayyim の read-only consumer)。
+vendor (Gftd Japan) は **意思決定権なし**。本 actor の出力 (release 記録) を読み取って bankruptcy.etzhayyim.com の case management に紐付ける逆方向参照は許容 (vendor → etzhayyim の read-only consumer)。
 
 # Consequences
 
 **Positive**
 - Mission §1 (構造的労働解放) を金銭債務局面で具現化する最初の actor。Charter doctrine → 実行可能 lexicon contract の path が確立
-- bankruptcy.gftd.ai (mandatory legal) と yobel.gftd.ai (voluntary doctrinal) の責務分離が明確化
+- bankruptcy.etzhayyim.com (mandatory legal) と yobel.etzhayyim.com (voluntary doctrinal) の責務分離が明確化
 - shmita 7-yr / yobel 50-yr の周期的 rite を append-only audit trail で歴史記録できる
 - Charter Rider §2(b) speculative finance 禁止の **正反対** = 構造的 anti-predatory-lending として CR v2 の正当性を強化
 - HIPC / Jubilee 2000 / Paris Club 等の現代政治 amnesty を同一データモデルで記録可能、religious-corp が中立 record-keeper として機能可能
@@ -173,8 +173,8 @@ vendor (Gftd Japan) は **意思決定権なし**。本 actor の出力 (release
 
 **Negative / Risk**
 - **権威の濫用リスク** — 主宰者が任意に rite 宣言可能 → Council Lv6+ ratification + voluntary opt-in 必須 + PDS commit log 全 public audit + 3rd-party religious-corp も同様の rite 宣言可能 (multi-issuer)
-- **税務影響** — debt forgiveness は jurisdiction によって課税所得 (e.g. US IRC §61(a)(11) COD income)。`jurisdictionNotes` field で warning、税務 advice は vendor:lawfirm.gftd.ai に delegate
-- **法的拘束力の限界** — voluntary opt-in のため secular creditor は無視可能。formal binding が必要な場合 vendor:bankruptcy.gftd.ai fallback
+- **税務影響** — debt forgiveness は jurisdiction によって課税所得 (e.g. US IRC §61(a)(11) COD income)。`jurisdictionNotes` field で warning、税務 advice は vendor:lawfirm.etzhayyim.com に delegate
+- **法的拘束力の限界** — voluntary opt-in のため secular creditor は無視可能。formal binding が必要な場合 vendor:bankruptcy.etzhayyim.com fallback
 - **Charter Rider §2(b) 抵触可能性** — もし actor 自身が利息計算 / leverage / arbitrage を行えば自身が SPECULATIVE FINANCE に該当しうる → **本 actor は debt forgiveness one-way のみ。新規貸付 / 利息計算 / margin / liquidation を持たない** invariant を schema レベルで担保
 - **歴史データ ambiguity** — 徳政令の史料 (大乗院寺社雑事記 等) を schema に乗せる際の uncertainty → `doctrinalBasis` free-text で吸収
 
@@ -185,7 +185,7 @@ vendor (Gftd Japan) は **意思決定権なし**。本 actor の出力 (release
 
 # Alternatives Considered
 
-**A. vendor:bankruptcy.gftd.ai を拡張して `voluntary_collective_release` process type を追加** — 却下。voluntary doctrinal rite と mandatory legal procedure を同 actor に同居させると 3-axis split (vendor:ADR-2605172400) 違反 (liability axis = doctrine vs. secular law が混在)。
+**A. vendor:bankruptcy.etzhayyim.com を拡張して `voluntary_collective_release` process type を追加** — 却下。voluntary doctrinal rite と mandatory legal procedure を同 actor に同居させると 3-axis split (vendor:ADR-2605172400) 違反 (liability axis = doctrine vs. secular law が混在)。
 
 **B. 5 actor cluster (shmita / yobel / tokusei / jubilee / amnesty を分離)** — 却下。データモデル (debt registration + voluntary opt-in + release tx) はすべて同一。rite type discriminator で 1 actor に統合する方が Shannon-optimal。
 

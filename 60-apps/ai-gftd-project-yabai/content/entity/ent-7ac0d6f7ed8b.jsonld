@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7ac0d6f7ed8b",
+  "entityId": "ent-7ac0d6f7ed8b",
+  "canonicalName": "nihat abdul kadir asan",
+  "aliases": [
+    "nihat abdul kadir asan"
+  ]
+}

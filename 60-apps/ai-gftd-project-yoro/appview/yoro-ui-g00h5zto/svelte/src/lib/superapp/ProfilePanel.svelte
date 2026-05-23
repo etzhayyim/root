@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { Avatar, Badge, Button, Card, TabBar, Skeleton } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { Avatar, Badge, Button, Card, TabBar, Skeleton } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import { fade, fly } from 'svelte/transition';
-	import { playTap, haptic } from '@gftdcojp/design-system/audio';
+	import { playTap, haptic } from '@etzhayyim/design-system/audio';
 	import {
 		isSignedIn,
 		clerkUser,

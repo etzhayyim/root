@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-cb6b802147ea",
+  "entityId": "ent-cb6b802147ea",
+  "canonicalName": "акціонерне товариство \"торговельна компанія \"мегаполіс\"",
+  "aliases": [
+    "акціонерне товариство \"торговельна компанія \"мегаполіс\""
+  ]
+}

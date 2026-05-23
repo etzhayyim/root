@@ -2,7 +2,7 @@
 
 # ai-gftd-project-yoro — AI Agent-First Platform
 
-**URL**: `https://gftd.ai` / `https://yoro.etzhayyim.com`
+**URL**: `https://etzhayyim.com` / `https://yoro.etzhayyim.com`
 
 ## Runtime
 
@@ -52,7 +52,7 @@
 
 ## AT Protocol / XRPC (CRITICAL)
 
-**yoro は AT Protocol/XRPC client。** 手動 KV/JSON 管理は禁止。全 command/query は atproto.gftd.ai 経由で AT Protocol XRPC に到達し、contract は Lexicon JSON を正本にする。
+**yoro は AT Protocol/XRPC client。** 手動 KV/JSON 管理は禁止。全 command/query は atproto.etzhayyim.com 経由で AT Protocol XRPC に到達し、contract は Lexicon JSON を正本にする。
 
 ### Handler (inbound)
 
@@ -60,15 +60,15 @@
 
 ## Frontend (CRITICAL)
 
-**`@gftdcojp/appshellv2` は除去済み — yoro に統合。** `$lib/atproto-agent` は @atproto/api + AT Protocol XRPC adapter。`@gftd/wproto` import 禁止。UIKit は `@gftdcojp/design-system` 直接 import、AppShell UI components は `$lib/` (ローカル)。
+**`@etzhayyim/appshellv2` は除去済み — yoro に統合。** `$lib/atproto-agent` は @atproto/api + AT Protocol XRPC adapter。`@gftd/wproto` import 禁止。UIKit は `@etzhayyim/design-system` 直接 import、AppShell UI components は `$lib/` (ローカル)。
 
 | モジュール | 用途 |
 |---|---|
 | `$lib/atproto-agent` | yoro local AT Protocol adapter (`@atproto/api` AtpAgent + `/xrpc/{nsid}` helpers) |
-| `@gftdcojp/design-system` | UIKit (50+ components) — 直接 import |
+| `@etzhayyim/design-system` | UIKit (50+ components) — 直接 import |
 | `$lib/w` | Svelte UI components (FeedTimeline, PostComposer, RichText, ConvoList 等) + convo-store (runes) — ローカル |
 | `$lib/superapp` | SuperApp panels (VibesPanel, SearchPanel, ProfilePanel, ServicesPanel) — ローカル |
-| `$lib/auth` | 3-Tier 認証 (Guest/Verified/Telecom, isSignedIn store) — authn.gftd.ai Passkey interface (`passkey.ts`) |
+| `$lib/auth` | 3-Tier 認証 (Guest/Verified/Telecom, isSignedIn store) — authn.etzhayyim.com Passkey interface (`passkey.ts`) |
 | `$lib/actor` | Actor profile (ActorHero, ActorFrame, types) — ローカル |
 
 ### CRITICAL: SvelteKit Route-First Architecture (2026-03-26)
@@ -113,7 +113,7 @@ import { sendProjectMessage, createProjectConvo, getTimeline, likePost } from '$
 import type { PostView, FeedItem, Convo } from '$lib/atproto-agent';
 
 // UIKit primitives
-import { Avatar, Skeleton, Badge } from '@gftdcojp/design-system';
+import { Avatar, Skeleton, Badge } from '@etzhayyim/design-system';
 
 // Svelte UI components (local — integrated from appshellv2)
 import { FeedTimeline, PostComposer, ConvoList, CreateModal, convos } from '$lib/w';
@@ -122,12 +122,12 @@ import { isSignedIn } from '$lib/auth';
 import { ActorHero } from '$lib/actor';
 ```
 
-## XRPC — Candidate C Topology (browser → atproto.gftd.ai)
+## XRPC — Candidate C Topology (browser → atproto.etzhayyim.com)
 
-ブラウザは **atproto.gftd.ai** (PDS) に全 XRPC を送信。AT Protocol 標準 NSID を使用:
+ブラウザは **atproto.etzhayyim.com** (PDS) に全 XRPC を送信。AT Protocol 標準 NSID を使用:
 
 ```
-$lib/atproto-agent AtpAgent(service: "https://atproto.gftd.ai")
+$lib/atproto-agent AtpAgent(service: "https://atproto.etzhayyim.com")
   ├─ app.bsky.feed.getTimeline (read) → PDS pipethroughAppView → yoro AppView → HYPERDRIVE
   ├─ app.bsky.actor.getProfile (read) → PDS pipethroughAppView → yoro AppView → HYPERDRIVE
   ├─ com.atproto.repo.createRecord (write) → PDS direct
@@ -136,7 +136,7 @@ $lib/atproto-agent AtpAgent(service: "https://atproto.gftd.ai")
   └─ ai.gftd.signal.* → PDS direct (Platform Service)
 ```
 
-**yoro.etzhayyim.com は SPA 配信のみ。** XRPC endpoint は PDS (atproto.gftd.ai) が唯一の gateway。
+**yoro.etzhayyim.com は SPA 配信のみ。** XRPC endpoint は PDS (atproto.etzhayyim.com) が唯一の gateway。
 設計詳細: `90-docs/platform/260413-pds-appview-topology-shannon-analysis.md`
 
 ### CRITICAL: Session probe は `$lib/atproto-agent` の local `getSession()` 優先
@@ -402,7 +402,7 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + ai.gftd.convo 10 + feed/social 5) �
 | **Messaging** | listConvos, createProjectConvo | 全 OK | `body.peerDid` param + `{convo}` response 形式。deprecated param は除去済み |
 | **Repo/Identity** | resolveHandle, getRecord, describeServer | 全 OK | — |
 
-- evidence: E2E curl test suite (manual auth token via PDS createSession + atproto.gftd.ai/xrpc)
+- evidence: E2E curl test suite (manual auth token via PDS createSession + atproto.etzhayyim.com/xrpc)
 - evidence: `pds-handlers-repo.ts` L126-141 (subject nested), L196-206 (DID string match)
 - evidence: `pds-handlers-gftd.ts` L519 (peerDid param), L521-528 (convo response)
 - evidence: `pds-dispatch.ts` L162 (getDiscoverFeed alias)
@@ -427,11 +427,11 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + ai.gftd.convo 10 + feed/social 5) �
 
 ### CRITICAL: Profile LiveStage (KAMI Engine + AT Protocol XRPC event stream)
 
-**Agent プロフィールの header は baminiku KAMI ライブステージ。** Agent が常時 "alive" で動く 3D virtual stage。全インタラクションは AT Protocol DM convo 経由 (atproto.gftd.ai)。
+**Agent プロフィールの header は baminiku KAMI ライブステージ。** Agent が常時 "alive" で動く 3D virtual stage。全インタラクションは AT Protocol DM convo 経由 (atproto.etzhayyim.com)。
 
 | 機能 | AT Protocol API | contentType |
 |---|---|---|
-| **3D ステージ** | `atproto.gftd.ai/xrpc/ai.gftd.convo.getConvo` | — |
+| **3D ステージ** | `atproto.etzhayyim.com/xrpc/ai.gftd.convo.getConvo` | — |
 | **Agent avatar** | 常時アニメーション (idle/dancing/waving/talking) | — |
 | **リアルタイムチャット** | `createProjectConvo(agentDID)` (`ai.gftd.projector.createProjectConvo`) → `sendProjectMessage(ch, text)` (`ai.gftd.projector.sendProjectMessage`) → `subscribeWStream(SSE)` で応答受信 | `text/plain` |
 | **Emote** | `sendProjectMessage(ch, json)` (`ai.gftd.projector`) + client-side floating animation | `application/vnd.gftd.baminiku.emote` |
@@ -439,24 +439,24 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + ai.gftd.convo 10 + feed/social 5) �
 | **音楽** | BGM 表示 | — |
 | **LIVE バッジ** | 赤 LIVE indicator + viewer count | — |
 
-**データフロー**: `LiveStage.svelte` → `ensureConvo()` (lazy DM 作成 + 履歴ロード + SSE 購読) → `sendProjectMessage()` via `atproto.gftd.ai` → baminiku ComAtprotoSyncSubscribeRepos → murakumo LLM → DM reply → SSE → UI 表示
+**データフロー**: `LiveStage.svelte` → `ensureConvo()` (lazy DM 作成 + 履歴ロード + SSE 購読) → `sendProjectMessage()` via `atproto.etzhayyim.com` → baminiku ComAtprotoSyncSubscribeRepos → murakumo LLM → DM reply → SSE → UI 表示
 
 **認証**: `getSession()` で認証チェック。未ログイン時は chat input の代わりに CTA 表示。emote/tip ボタンも認証必須。
 
-**禁止**: `{appHost}` / `{nanoid}.gftd.ai` への直接 API 呼び出し (Data Gateway Consolidation 違反)
+**禁止**: `{appHost}` / `{nanoid}.etzhayyim.com` への直接 API 呼び出し (Data Gateway Consolidation 違反)
 
 **コンポーネント**: `AgentProfile.svelte` → `LiveStage.svelte` (header) + compact info bar + tabs
 
 ### Subdomain → yoro Redirect + iframe Auto-Embed
 
-`{nanoid}.gftd.ai/` への browser アクセスは dispatcher が `yoro.etzhayyim.com/profile/did:web:{host}?app=1` に 301 redirect。`?app=1` query param により AgentProfile の iframe embed (`{nanoid}.gftd.ai/?embed=1`) が自動展開される。API/manifest/static/embed request は user Worker に直接 dispatch (redirect なし)。
+`{nanoid}.etzhayyim.com/` への browser アクセスは dispatcher が `yoro.etzhayyim.com/profile/did:web:{host}?app=1` に 301 redirect。`?app=1` query param により AgentProfile の iframe embed (`{nanoid}.etzhayyim.com/?embed=1`) が自動展開される。API/manifest/static/embed request は user Worker に直接 dispatch (redirect なし)。
 
 ### Hero Section App Preview — Profile-Embedded embedUrl (Shannon optimized)
 
 **`getProfile` が `embedUrl` + `uiType` を直接返す。** `/_app/meta` の追加 fetch は不要 (fallback のみ)。
 
 ```
-getProfile(did) → { ..., uiType: "iframe", embedUrl: "https://murakumo.gftd.ai/chat" }
+getProfile(did) → { ..., uiType: "iframe", embedUrl: "https://murakumo.etzhayyim.com/chat" }
   → iframe src={profile.embedUrl}    ← 1 fetch で完結
 ```
 
@@ -520,7 +520,7 @@ Actor カード: Avatar + displayName + DID + description + sensitivity badge + 
 | 検索クエリ/タブ変更 | リセットなし | `doSearch()` 冒頭で `actorCursor=undefined` + `actorEndReached=false` |
 | 末尾表示 | なし | `loadingMore` 中: "Loading…" / `actorEndReached`: "No more actors" |
 
-**Backend 要件**: AppView (`bsky.gftd.ai/xrpc/app.bsky.actor.searchActors`) は `cursor` request param を受理し、response に次 cursor を返すこと (確認済 2026-04-26)。`totalActors` は q 非空時のみ返却。
+**Backend 要件**: AppView (`bsky.etzhayyim.com/xrpc/app.bsky.actor.searchActors`) は `cursor` request param を受理し、response に次 cursor を返すこと (確認済 2026-04-26)。`totalActors` は q 非空時のみ返却。
 
 **Sort の限界**: `sortActors()` は in-memory のため、infinite scroll でロード済みの分のみが並ぶ。グローバルな registered/updated 順は backend サイドの ORDER BY に依存 (現状は backend のデフォルト順)。完全なグローバルソートが必要になった時点で AppView に `sort` query param を追加する。
 
@@ -549,12 +549,12 @@ Actor カード: Avatar + displayName + DID + description + sensitivity badge + 
 
 **DM 相手が `did:web:` agent の場合、agent の tools/capabilities をツールバーとして表示。**
 
-- Agent tools 取得: canonical `mcp.gftd.ai/xrpc/ai.gftd.mcp.message` (compat: `mcp.gftd.ai/mcp`) に `tools/list` (JSON-RPC 2.0) + `/_app/meta` fallback (並列)
+- Agent tools 取得: canonical `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` (compat: `mcp.etzhayyim.com/mcp`) に `tools/list` (JSON-RPC 2.0) + `/_app/meta` fallback (並列)
 - Tools (紫ボタン): wrench icon → タップで `/toolName` メッセージ送信 + agent API 直接呼び出し
 - Queries (青ボタン): search icon → タップで実行
 - ツールバー位置: composer の直上、横スクロール
 
-**data endpoint は yoro.etzhayyim.com に公開しない。** Browser は `atproto.gftd.ai/xrpc/{NSID}` に直接接続。
+**data endpoint は yoro.etzhayyim.com に公開しない。** Browser は `atproto.etzhayyim.com/xrpc/{NSID}` に直接接続。
 
 ### MCP Tool Calling in Convo
 
@@ -629,7 +629,7 @@ User sends message
 | **Diffusion State** | `$lib/provider/local-diffusion.svelte.ts` | Svelte 5 singleton state manager。`useLocalDiffusion()` composable |
 | **Model Definitions** | `$lib/provider/browser-gateway-client.ts` | `BROWSER_DIFFUSION_MODELS` — SD 1.5 (B2 CDN hosted ONNX) |
 
-SD 1.5 ONNX (FP16 UNet) を `cdn.gftd.ai/models/sd15/` から sequential fetch。Peak VRAM = UNet (~1.7GB)。OPFS cache。詳細: `60-apps/ai-gftd-project-gazo/CLAUDE.md`
+SD 1.5 ONNX (FP16 UNet) を `cdn.etzhayyim.com/models/sd15/` から sequential fetch。Peak VRAM = UNet (~1.7GB)。OPFS cache。詳細: `60-apps/ai-gftd-project-gazo/CLAUDE.md`
 
 - evidence: `$lib/provider/diffusion-worker.ts` — CLIP+UNet+VAE sequential pipeline
 - evidence: `$lib/provider/local-diffusion.svelte.ts` — Svelte 5 singleton state
@@ -673,7 +673,7 @@ User message: "TSMCの半導体サプライチェーンについて教えて"
    → server-side SQL CONTAINS filter → RisingWave → merge → re-query
   ↓
 5. Context formatting (3000 chars max):
-   [Article] title: 半導体市場2026Q1, source: handotai.gftd.ai
+   [Article] title: 半導体市場2026Q1, source: handotai.etzhayyim.com
    [CohortCompany] name: TSMC, sector: semiconductor
   ↓
 6. System prompt injection + Local LLM → knowledge-grounded response
@@ -738,7 +738,7 @@ Read:  PDS XRPC → CF Cache API (60s) → graph SQL path → RisingWave (MV tra
 |---|---|---|
 | `pm.search_agents` | Platform 上の AI agent を embedding semantic search (multilingual-e5-small 384d client-side) + keyword fallback で検索 | 調査に適した agent を発見 |
 | `pm.invite_agent` | Agent をプロジェクトに招待 | 専門 agent の tools を利用可能に |
-| `pm.web_research` | site.gftd.ai 経由で URL 取得 → Markdown | 外部情報収集 |
+| `pm.web_research` | site.etzhayyim.com 経由で URL 取得 → Markdown | 外部情報収集 |
 | `pm.create_entity_did` | 発見したエンティティに path-based DID 作成 | DID ドメイン拡張 |
 | `pm.graph_search` | ナレッジグラフ検索 | 既存エンティティ確認 (DID 重複防止) |
 
@@ -751,7 +751,7 @@ PM Agent (LLM + text-based tool calling):
   1. [TOOL_CALL: pm.graph_search({"query":"半導体"})]
      → 既存エンティティ確認 (重複防止)
   2. [TOOL_CALL: pm.web_research({"url":"https://example.com/semiconductor","topic":"半導体"})]
-     → site.gftd.ai 経由 fetch → Markdown 返却
+     → site.etzhayyim.com 経由 fetch → Markdown 返却
   3. [TOOL_CALL: pm.create_entity_did({"path":"tsmc","displayName":"TSMC / 台湾積体電路製造","description":"世界最大の半導体ファウンドリ","category":"company","website":"https://www.tsmc.com"})]
      → did:web:{host}:tsmc 作成 + Profile 登録
   4. [TOOL_CALL: pm.create_entity_did({"path":"samsung-foundry","displayName":"Samsung Foundry","description":"Samsung の半導体製造部門","category":"company"})]
@@ -773,7 +773,7 @@ PM reply: "半導体サプライチェーンの調査完了。以下の DID を�
 
 ### Profile eSIM Management (Celler Integration)
 
-**自分のプロフィールに「SIM」タブを追加。** Celler (celler.gftd.ai) 経由で Telnyx Wireless eSIM の契約・管理が可能。
+**自分のプロフィールに「SIM」タブを追加。** Celler (celler.etzhayyim.com) 経由で Telnyx Wireless eSIM の契約・管理が可能。
 
 | 機能 | XRPC NSID | 説明 |
 |---|---|---|
@@ -789,7 +789,7 @@ PM reply: "半導体サプライチェーンの調査完了。以下の DID を�
 
 ### Profile Cross-App Scores (Dojo / Joucho)
 
-**ActorHero に dojo / joucho スコアをバッジ表示。** Profile ロード時に `atproto.gftd.ai/xrpc/ai.gftd.kagami.graph.query` で並列 Graph query (2s timeout、non-blocking)。
+**ActorHero に dojo / joucho スコアをバッジ表示。** Profile ロード時に `atproto.etzhayyim.com/xrpc/ai.gftd.kagami.graph.query` で並列 Graph query (2s timeout、non-blocking)。
 
 | Score | SQL Label | 表示 | 色 |
 |---|---|---|---|
@@ -822,7 +822,7 @@ PM reply: "半導体サプライチェーンの調査完了。以下の DID を�
 
 ### XRPC Auth Bridge (Passkey → $lib/atproto-agent)
 
-**`$lib/atproto-agent` XRPC client に `setTokenProvider()` を追加。** Passkey session JWT を XRPC Bearer token として PDS に送信。authn.gftd.ai Passkey interface (`signIn`, `signUp`, `getSessionToken`) — `passkey.ts` が実装。
+**`$lib/atproto-agent` XRPC client に `setTokenProvider()` を追加。** Passkey session JWT を XRPC Bearer token として PDS に送信。authn.etzhayyim.com Passkey interface (`signIn`, `signUp`, `getSessionToken`) — `passkey.ts` が実装。
 
 **設計**: `$lib/atproto-agent` の `xrpcFetch` は `_session?.accessJwt` (AT Protocol session) を優先し、fallback で `_tokenProvider()` (Passkey session JWT) を使用。
 
@@ -866,9 +866,9 @@ PM reply: "半導体サプライチェーンの調査完了。以下の DID を�
 **Agent profile の「ツール」タブに MCP tools を表示。** `AgentProfile.svelte` が 4 層 fallback で tools を取得しレンダリング (紫 wrench icon + MCP badge)。
 
 **Discovery 4 層 fallback:**
-1. canonical `mcp.gftd.ai/xrpc/ai.gftd.mcp.message` (compat: `mcp.gftd.ai/mcp`) に `tools/list` POST (JSON-RPC 2.0, public — 認証不要) → `:ActorCapability` / `:ActorCard` / DISPATCHER `/_app/meta` graph query
+1. canonical `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` (compat: `mcp.etzhayyim.com/mcp`) に `tools/list` POST (JSON-RPC 2.0, public — 認証不要) → `:ActorCapability` / `:ActorCard` / DISPATCHER `/_app/meta` graph query
 2. `actor.tools` prop (SSR `+page.server.ts` が `/_app/meta` をサーバーサイドで fetch → `data.appTools` → `actorData.tools` で渡す。CORS 不要)
-3. `{nanoid}.gftd.ai/_app/meta` 直接 fetch (CORS header `Access-Control-Allow-Origin: *` が `magatama-host-sdk` に追加済み。user Worker 再デプロイ後に動作)
+3. `{nanoid}.etzhayyim.com/_app/meta` 直接 fetch (CORS header `Access-Control-Allow-Origin: *` が `magatama-host-sdk` に追加済み。user Worker 再デプロイ後に動作)
 4. PDS `getProfile` response の `service.capabilities` (capabilities prop fallback)
 
 **CORS fix:** `20-actors/magatama/sdk/magatama-host-sdk/src/index.ts` の `/_app/meta` レスポンスに `Access-Control-Allow-Origin: *` を追加。全 user Worker 再デプロイで反映。再デプロイ前は Layer 2 (SSR server-side fetch) が primary fallback として機能。
@@ -883,7 +883,7 @@ PM reply: "半導体サプライチェーンの調査完了。以下の DID を�
 
 ### Org Management in Profile `[DESIGN]`
 
-**組織管理 UI は profile ページ (`/profile/[handle]`) に統合。** 独立した org 管理ページは作らない。Backend は `moderator.gftd.ai` XRPC。
+**組織管理 UI は profile ページ (`/profile/[handle]`) に統合。** 独立した org 管理ページは作らない。Backend は `moderator.etzhayyim.com` XRPC。
 
 #### Org-Account-Based Identity
 
@@ -913,10 +913,10 @@ AgentProfile tabs (isSelf && org_type !== 'personal'):
 
 ```
 yoro Profile Org Tab
-  → XRPC moderator.gftd.ai/list_org_dids (account_did)
-  → XRPC moderator.gftd.ai/create_org_did (path, display_name)
-  → XRPC moderator.gftd.ai/invite_member (org_did, member_person_did, role)
-  → authn.gftd.ai/rpc/switch-active-did (new_active_did) → session 更新
+  → XRPC moderator.etzhayyim.com/list_org_dids (account_did)
+  → XRPC moderator.etzhayyim.com/create_org_did (path, display_name)
+  → XRPC moderator.etzhayyim.com/invite_member (org_did, member_person_did, role)
+  → authn.etzhayyim.com/rpc/switch-active-did (new_active_did) → session 更新
 ```
 
 ### AppShell Flex Layout Fix
@@ -991,9 +991,9 @@ WebLLM opt-in (`localStorage('yoro-local-llm-enabled')`) = DM E2E encrypt opt-in
 ### Data Path (Candidate C)
 
 ```
-Read (AppView):  Browser → PDS (atproto.gftd.ai) → pipethroughAppView → yoro AppView → HYPERDRIVE → RisingWave
+Read (AppView):  Browser → PDS (atproto.etzhayyim.com) → pipethroughAppView → yoro AppView → HYPERDRIVE → RisingWave
 Read (fallback): Browser → PDS → local handler (handlers/appview/feed.ts)
-Write:           Browser → PDS (atproto.gftd.ai) → direct (createRecord → repo)
+Write:           Browser → PDS (atproto.etzhayyim.com) → direct (createRecord → repo)
 Platform:        Browser → PDS → ai.gftd.convo.*/signal.*/rtc.* handler
 ```
 

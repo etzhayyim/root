@@ -10,7 +10,7 @@
         "type": "object",
         "required": ["tenantDid", "name", "type", "createdAt"],
         "properties": {
-          "tenantDid": { "type": "string", "description": "owning tenant DID (did:web:<slug>.opensaas.gftd.ai)" },
+          "tenantDid": { "type": "string", "description": "owning tenant DID (did:web:<slug>.opensaas.etzhayyim.com)" },
           "ownerDid": { "type": "string", "description": "seat DID owning this account" },
           "name": { "type": "string", "maxLength": 255 },
           "type": { "type": "string", "enum": ["prospect", "customer-direct", "customer-channel", "partner", "other"] },

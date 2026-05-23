@@ -15,7 +15,7 @@ const DID_DOCUMENT = {
     {
       id: "#atproto_pds",
       type: "AtprotoPersonalDataServer",
-      serviceEndpoint: "https://atproto.gftd.ai"
+      serviceEndpoint: "https://atproto.etzhayyim.com"
     },
     {
       id: "#appview",

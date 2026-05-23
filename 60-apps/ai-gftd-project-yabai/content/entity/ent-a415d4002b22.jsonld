@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a415d4002b22",
+  "entityId": "ent-a415d4002b22",
+  "canonicalName": "акціонерне товариство \"федеральна вантажна компанія\"",
+  "aliases": [
+    "акціонерне товариство \"федеральна вантажна компанія\""
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6975027e5871",
+  "entityId": "ent-6975027e5871",
+  "canonicalName": "denis igorevich gusev",
+  "aliases": [
+    "denis igorevich gusev"
+  ]
+}

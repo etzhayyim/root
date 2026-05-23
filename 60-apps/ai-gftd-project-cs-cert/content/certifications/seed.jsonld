@@ -1,0 +1,75 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "gftd": "https://resources.etzhayyim.com/ontology#",
+      "prov": "http://www.w3.org/ns/prov#"
+    }
+  ],
+  "@type": "ItemList",
+  "name": "GFTD CS Certified — Sample Certificates",
+  "description": "セキュリティ診断済み認証のサンプルデータ。certs.etzhayyim.com で公開される認証バッジの参照実装。",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "gftd:CsCertificate",
+        "@id": "https://certs.etzhayyim.com/cert/gftd-cs-a1b2c3d4",
+        "identifier": "gftd-cs-a1b2c3d4",
+        "gftd:subjectDomain": "etzhayyim.com",
+        "gftd:subjectOrgName": "GFTD Inc.",
+        "gftd:certLevel": "cs-advanced",
+        "gftd:certStatus": "active",
+        "gftd:issuedAt": "2026-02-01T00:00:00Z",
+        "gftd:expiresAt": "2027-02-01T00:00:00Z",
+        "gftd:assessmentId": "assess-gftd-ai-20260201",
+        "gftd:overallScore": 96.5,
+        "gftd:verificationUrl": "https://certs.etzhayyim.com/verify/gftd-cs-a1b2c3d4",
+        "gftd:badgeEmbed": "<script src=\"https://certs.etzhayyim.com/badge/gftd-cs-a1b2c3d4.js\" async></script>",
+        "prov:generatedAtTime": "2026-02-01T00:00:00Z"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "gftd:CsAssessment",
+        "@id": "https://certs.etzhayyim.com/assessment/assess-gftd-ai-20260201",
+        "identifier": "assess-gftd-ai-20260201",
+        "gftd:subjectDomain": "etzhayyim.com",
+        "gftd:certLevel": "cs-advanced",
+        "actionStatus": "completed",
+        "gftd:assessorId": "gftd-security-team",
+        "gftd:checksCompleted": 42,
+        "gftd:checksFailed": 0,
+        "gftd:overallScore": 96.5,
+        "gftd:findings": [
+          {
+            "@type": "gftd:CsFinding",
+            "identifier": "finding-001",
+            "gftd:assessmentId": "assess-gftd-ai-20260201",
+            "name": "HSTS max-age below recommended minimum",
+            "description": "Strict-Transport-Security max-age is 15768000 (6 months). Recommended: 31536000 (1 year) or higher.",
+            "gftd:findingSeverity": "low",
+            "gftd:findingCategory": "header-security",
+            "gftd:findingStatus": "remediated",
+            "prov:generatedAtTime": "2026-02-01T00:00:00Z"
+          },
+          {
+            "@type": "gftd:CsFinding",
+            "identifier": "finding-002",
+            "gftd:assessmentId": "assess-gftd-ai-20260201",
+            "name": "CAA record present and valid",
+            "description": "DNS CAA records correctly restrict certificate issuance to authorized CAs.",
+            "gftd:findingSeverity": "informational",
+            "gftd:findingCategory": "dns-security",
+            "gftd:findingStatus": "accepted",
+            "prov:generatedAtTime": "2026-02-01T00:00:00Z"
+          }
+        ],
+        "prov:generatedAtTime": "2026-02-01T00:00:00Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-cad9ddaf04c3",
+  "entityId": "ent-cad9ddaf04c3",
+  "canonicalName": "panamerican import and export commercial corporation",
+  "aliases": [
+    "panamerican import and export commercial corporation"
+  ]
+}

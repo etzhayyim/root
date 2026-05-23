@@ -1,0 +1,19 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "HowTo",
+  "@id": "https://yabai.etzhayyim.com/content/public/collection-methods",
+  "name": "YABAI Collection and Analysis Methods",
+  "steps": [
+    "Ingest sanctions/PEP/regulatory/watchlist/crawl/legal datasets",
+    "Normalize to JSON-LD (Person, Organization, WebSite, ContactPoint)",
+    "Resolve aliases and relationships (email/domain/name graph)",
+    "Create evidence with source reliability and confidence",
+    "Compute WellBecomingScore, PenaltyScore, InfoRisk, YabaiRiskScore",
+    "Publish explainable snapshot and evidence references"
+  ],
+  "controls": [
+    "Source reliability grading (A-D)",
+    "Confidence and severity calibration",
+    "Continuous re-score and appeal workflow"
+  ]
+}

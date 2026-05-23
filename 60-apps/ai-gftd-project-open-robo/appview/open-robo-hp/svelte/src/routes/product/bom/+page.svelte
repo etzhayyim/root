@@ -55,7 +55,7 @@
     },
   ];
 
-  const githubBase = 'https://github.com/gftdcojp/otete';
+  const githubBase = 'https://github.com/etzhayyim/otete';
 </script>
 
 <svelte:head>

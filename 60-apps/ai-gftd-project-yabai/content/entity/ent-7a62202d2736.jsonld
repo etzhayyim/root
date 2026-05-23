@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7a62202d2736",
+  "entityId": "ent-7a62202d2736",
+  "canonicalName": "amezcua contreras, luis ignacio",
+  "aliases": [
+    "amezcua contreras, luis ignacio"
+  ]
+}

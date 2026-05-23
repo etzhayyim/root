@@ -1,4 +1,4 @@
-# open-denki.gftd.ai — Smart Grid Operations & Network Design (OSS)
+# open-denki.etzhayyim.com — Smart Grid Operations & Network Design (OSS)
 
 **Status**: MVP (2026-05-07). Reference implementation for smart-grid topology
 design (generation nodes / substations / feeders / AMI smart meters) and
@@ -27,7 +27,7 @@ Apache-2.0. IEC 61968/61970 CIM aligned.
 - **Runtime**: Single CF Worker (`worker/src/app.ts`)
 - **Storage**: D1. Tables: `substations`, `gen_nodes`, `feeders`, `smart_meters`, `meter_readings`, `faults`, `demand_response_events`, `renewable_output`
 - **Identity**: all entities use path-based DIDs
-  `did:web:open-denki.gftd.ai:{sub|gen|feeder|meter|fault|dr|output}:{id}`
+  `did:web:open-denki.etzhayyim.com:{sub|gen|feeder|meter|fault|dr|output}:{id}`
 - **Topology**: generation nodes + substations → feeders → smart meters
 - **Fault severity** by DMN (`openDenki.faultSeverity`):
   - `earth_fault` / `short_circuit` → critical + public notice

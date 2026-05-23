@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ee4d564c4720",
+  "entityId": "ent-ee4d564c4720",
+  "canonicalName": "tariq aziz",
+  "aliases": [
+    "tariq aziz"
+  ]
+}

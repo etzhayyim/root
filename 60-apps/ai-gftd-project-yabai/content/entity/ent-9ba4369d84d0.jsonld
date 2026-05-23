@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9ba4369d84d0",
+  "entityId": "ent-9ba4369d84d0",
+  "canonicalName": "ali hassan al-majid",
+  "aliases": [
+    "ali hassan al-majid"
+  ]
+}

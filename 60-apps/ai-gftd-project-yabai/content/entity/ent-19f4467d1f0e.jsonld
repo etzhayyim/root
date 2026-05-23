@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-19f4467d1f0e",
+  "entityId": "ent-19f4467d1f0e",
+  "canonicalName": "miramonte investments limited",
+  "aliases": [
+    "miramonte investments limited"
+  ]
+}

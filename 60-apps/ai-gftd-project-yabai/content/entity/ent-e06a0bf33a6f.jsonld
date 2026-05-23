@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e06a0bf33a6f",
+  "entityId": "ent-e06a0bf33a6f",
+  "canonicalName": "blue berri shipping inc.",
+  "aliases": [
+    "blue berri shipping inc."
+  ]
+}

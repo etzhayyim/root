@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6872a3e32a88",
+  "entityId": "ent-6872a3e32a88",
+  "canonicalName": "viktor georgiyevich spiridonov",
+  "aliases": [
+    "viktor georgiyevich spiridonov"
+  ]
+}

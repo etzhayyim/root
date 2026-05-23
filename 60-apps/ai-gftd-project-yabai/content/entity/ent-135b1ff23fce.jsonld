@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-135b1ff23fce",
+  "entityId": "ent-135b1ff23fce",
+  "canonicalName": "sayyid salah mahdi hantush al-maksusi",
+  "aliases": [
+    "sayyid salah mahdi hantush al-maksusi"
+  ]
+}

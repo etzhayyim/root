@@ -18,7 +18,7 @@ UP = [{'sql': '\n'
          '      VALUES ($1, $2, $3, $4, $5, $6)\n'
          '    ',
   'parameters': ['gftd:Thing',
-                 'https://schema.gftd.ai/owl#Thing',
+                 'https://schema.etzhayyim.com/owl#Thing',
                  'owl:Thing (root)',
                  'gftd_core_v1',
                  'ai.gftd.apps.owl.seedTbox',
@@ -29,7 +29,7 @@ UP = [{'sql': '\n'
          '      VALUES ($1, $2, $3, $4, $5, $6)\n'
          '    ',
   'parameters': ['gftd:Resource',
-                 'https://schema.gftd.ai/owl#Resource',
+                 'https://schema.etzhayyim.com/owl#Resource',
                  'GFTD Resource',
                  'gftd_core_v1',
                  'ai.gftd.apps.owl.seedTbox',
@@ -40,7 +40,7 @@ UP = [{'sql': '\n'
          '      VALUES ($1, $2, $3, $4, $5, $6)\n'
          '    ',
   'parameters': ['gftd:Actor',
-                 'https://schema.gftd.ai/owl#Actor',
+                 'https://schema.etzhayyim.com/owl#Actor',
                  'GFTD Actor',
                  'gftd_core_v1',
                  'ai.gftd.apps.owl.seedTbox',
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
          '      VALUES ($1, $2, $3, $4, $5, $6)\n'
          '    ',
   'parameters': ['gftd:MagatamaActor',
-                 'https://schema.gftd.ai/owl#MagatamaActor',
+                 'https://schema.etzhayyim.com/owl#MagatamaActor',
                  'Magatama Actor (BPMN-resident)',
                  'gftd_core_v1',
                  'ai.gftd.apps.owl.seedTbox',
@@ -62,7 +62,7 @@ UP = [{'sql': '\n'
          '      VALUES ($1, $2, $3, $4, $5, $6)\n'
          '    ',
   'parameters': ['gftd:HumanActor',
-                 'https://schema.gftd.ai/owl#HumanActor',
+                 'https://schema.etzhayyim.com/owl#HumanActor',
                  'Human Actor (natural person)',
                  'gftd_core_v1',
                  'ai.gftd.apps.owl.seedTbox',
@@ -73,7 +73,7 @@ UP = [{'sql': '\n'
          '      VALUES ($1, $2, $3, $4, $5, $6)\n'
          '    ',
   'parameters': ['gftd:OrgActor',
-                 'https://schema.gftd.ai/owl#OrgActor',
+                 'https://schema.etzhayyim.com/owl#OrgActor',
                  'Organisation Actor',
                  'gftd_core_v1',
                  'ai.gftd.apps.owl.seedTbox',
@@ -84,7 +84,7 @@ UP = [{'sql': '\n'
          '      VALUES ($1, $2, $3, $4, $5, $6)\n'
          '    ',
   'parameters': ['gftd:BpmnProcess',
-                 'https://schema.gftd.ai/owl#BpmnProcess',
+                 'https://schema.etzhayyim.com/owl#BpmnProcess',
                  'BPMN Process (Zeebe-deployed)',
                  'gftd_core_v1',
                  'ai.gftd.apps.owl.seedTbox',
@@ -95,7 +95,7 @@ UP = [{'sql': '\n'
          '      VALUES ($1, $2, $3, $4, $5, $6)\n'
          '    ',
   'parameters': ['gftd:KnowledgeGraph',
-                 'https://schema.gftd.ai/owl#KnowledgeGraph',
+                 'https://schema.etzhayyim.com/owl#KnowledgeGraph',
                  'Knowledge Graph node',
                  'gftd_core_v1',
                  'ai.gftd.apps.owl.seedTbox',
@@ -111,7 +111,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['gftd:follows',
-                 'https://schema.gftd.ai/owl#follows',
+                 'https://schema.etzhayyim.com/owl#follows',
                  'ObjectProperty',
                  False,
                  False,
@@ -131,7 +131,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['gftd:hasBpmnProcess',
-                 'https://schema.gftd.ai/owl#hasBpmnProcess',
+                 'https://schema.etzhayyim.com/owl#hasBpmnProcess',
                  'ObjectProperty',
                  False,
                  False,
@@ -151,7 +151,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['gftd:managedBy',
-                 'https://schema.gftd.ai/owl#managedBy',
+                 'https://schema.etzhayyim.com/owl#managedBy',
                  'ObjectProperty',
                  True,
                  False,
@@ -171,7 +171,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['gftd:memberOf',
-                 'https://schema.gftd.ai/owl#memberOf',
+                 'https://schema.etzhayyim.com/owl#memberOf',
                  'ObjectProperty',
                  False,
                  False,
@@ -191,7 +191,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['gftd:handle',
-                 'https://schema.gftd.ai/owl#handle',
+                 'https://schema.etzhayyim.com/owl#handle',
                  'DatatypeProperty',
                  False,
                  False,
@@ -376,7 +376,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['shacl:ActorShape',
-                 'https://schema.gftd.ai/owl#ActorShape',
+                 'https://schema.etzhayyim.com/owl#ActorShape',
                  'gftd:Actor',
                  'minCount',
                  '{"path":"gftd:handle","minCount":1}',
@@ -394,7 +394,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['shacl:BpmnProcessShape',
-                 'https://schema.gftd.ai/owl#BpmnProcessShape',
+                 'https://schema.etzhayyim.com/owl#BpmnProcessShape',
                  'gftd:BpmnProcess',
                  'minCount',
                  '{"path":"gftd:managedBy","minCount":1}',
@@ -412,7 +412,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['shacl:FollowsSymmetryShape',
-                 'https://schema.gftd.ai/owl#FollowsSymmetryShape',
+                 'https://schema.etzhayyim.com/owl#FollowsSymmetryShape',
                  'gftd:Actor',
                  'qualifiedValueShape',
                  '{"path":"gftd:follows","qualifiedMinCount":0,"qualifiedValueShape":{"class":"gftd:Actor"}}',

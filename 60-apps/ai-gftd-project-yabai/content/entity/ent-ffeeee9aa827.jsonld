@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ffeeee9aa827",
+  "entityId": "ent-ffeeee9aa827",
+  "canonicalName": "vitelhomme innocent",
+  "aliases": [
+    "vitelhomme innocent"
+  ]
+}

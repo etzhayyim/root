@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge, BottomSheet, Button, Card } from '@gftdcojp/design-system';
+	import { Badge, BottomSheet, Button, Card } from '@etzhayyim/design-system';
 	import type { CreateAgentInput } from './types.js';
 	import { randomCharacterAppearance } from './types.js';
 	import type { CharacterAppearance } from './types.js';

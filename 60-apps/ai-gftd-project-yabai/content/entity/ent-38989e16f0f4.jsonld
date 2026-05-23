@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-38989e16f0f4",
+  "entityId": "ent-38989e16f0f4",
+  "canonicalName": "casa de cuba",
+  "aliases": [
+    "casa de cuba"
+  ]
+}

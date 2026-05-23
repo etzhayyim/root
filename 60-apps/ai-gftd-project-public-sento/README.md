@@ -1,11 +1,11 @@
 # ai-gftd-project-public-sento
 
 銭湯の立ち上げ・運営に特化した Public Fund プロジェクト。
-`public-sento.gftd.ai` を公開窓口にし、資金調達・設備更新・運営費配分を一元管理する。
+`public-sento.etzhayyim.com` を公開窓口にし、資金調達・設備更新・運営費配分を一元管理する。
 
-- 公開ドメイン: `public-sento.gftd.ai`
+- 公開ドメイン: `public-sento.etzhayyim.com`
 - API: XRPC-Web (`/xrpc`)
-- 会計台帳: `credits.gftd.ai` を残高基盤として利用
+- 会計台帳: `credits.etzhayyim.com` を残高基盤として利用
 - 運用対象:
   - 新規銭湯の開業準備 (物件・設備・法令対応)
   - 既存銭湯の改修/衛生強化/省エネ化

@@ -23,12 +23,12 @@ UP = [{'sql': '\n'
          '           1, $8, $9, $10\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1',
-                 'did:web:sbom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1',
+                 'did:web:sbom.etzhayyim.com',
                  'sbom_register_artifact',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  sbom.gftd.ai — registerArtifact BPMN (Phase C).\n'
+                 '  sbom.etzhayyim.com — registerArtifact BPMN (Phase C).\n'
                  '\n'
                  '  Persist the artifact + components, then run vuln-match against\n'
                  '  vertex_cve_entry (yabai feed), then audit-emit.\n'
@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_sbom_register_artifact"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/sbom"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/sbom"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="sbom_register_artifact" name="sbom registerArtifact" '
@@ -73,7 +73,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sb0m001x.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sb0m001x.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;sbom.registerArtifact&quot;" '
                  'target="action"/>\n'
@@ -94,10 +94,10 @@ UP = [{'sql': '\n'
                  2490,
                  '00-contracts/bpmn/ai/gftd/sbom/registerArtifact.bpmn',
                  '2026-05-06T10:01:00Z',
-                 'did:web:sbom.gftd.ai',
-                 'did:web:sbom.gftd.ai',
+                 'did:web:sbom.etzhayyim.com',
+                 'did:web:sbom.etzhayyim.com',
                  'sys.bpmn.seed.sbom-register-artifact',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -109,21 +109,21 @@ UP = [{'sql': '\n'
          '           1, $7, $8, $9\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1',
-                 'did:web:sbom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1',
+                 'did:web:sbom.etzhayyim.com',
                  'ai.gftd.apps.sbom.registerArtifact',
                  'sbom_register_artifact',
                  300000,
                  '2026-05-06T10:01:00Z',
-                 'did:web:sbom.gftd.ai',
-                 'did:web:sbom.gftd.ai',
+                 'did:web:sbom.etzhayyim.com',
+                 'did:web:sbom.etzhayyim.com',
                  'sys.bpmn.seed.sbom-register-artifact',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-215a3c01f8e6",
+  "entityId": "ent-215a3c01f8e6",
+  "canonicalName": "muhammad nasr al-din al-ghazlani",
+  "aliases": [
+    "muhammad nasr al-din al-ghazlani"
+  ]
+}

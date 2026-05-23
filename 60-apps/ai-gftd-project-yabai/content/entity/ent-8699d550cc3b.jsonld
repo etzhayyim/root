@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8699d550cc3b",
+  "entityId": "ent-8699d550cc3b",
+  "canonicalName": "luoyang institute of science and technology",
+  "aliases": [
+    "luoyang institute of science and technology"
+  ]
+}

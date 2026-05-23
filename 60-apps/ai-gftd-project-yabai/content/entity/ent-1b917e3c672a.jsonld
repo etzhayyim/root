@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1b917e3c672a",
+  "entityId": "ent-1b917e3c672a",
+  "canonicalName": "jahangir yevgenyevich aliyev",
+  "aliases": [
+    "jahangir yevgenyevich aliyev"
+  ]
+}

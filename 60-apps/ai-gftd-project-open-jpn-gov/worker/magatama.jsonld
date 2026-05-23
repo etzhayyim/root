@@ -1,8 +1,8 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-jpn-gov.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-jpn-gov.etzhayyim.com",
   "name": "open-jpn-gov",
-  "handle": "open-jpn-gov.gftd.ai",
+  "handle": "open-jpn-gov.etzhayyim.com",
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-jpn-gov",

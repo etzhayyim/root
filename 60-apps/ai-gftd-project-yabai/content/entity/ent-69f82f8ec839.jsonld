@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-69f82f8ec839",
+  "entityId": "ent-69f82f8ec839",
+  "canonicalName": "ignace murwanashyaka",
+  "aliases": [
+    "ignace murwanashyaka"
+  ]
+}

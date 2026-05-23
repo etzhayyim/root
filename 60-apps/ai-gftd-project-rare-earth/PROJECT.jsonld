@@ -1,0 +1,62 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
+    "id": "@id",
+    "type": "@type"
+  },
+  "@type": "gftd:Project",
+  "@id": "https://resources.etzhayyim.com/ai-gftd-project-rare-earth/id/Project/ai-gftd-project-rare-earth",
+  "schema:name": "ai-gftd-project-rare-earth",
+  "schema:description": "Rare earth supply chain coverage project. Registers major mining, separation, magnet, policy, finance, and demand actors as mitama DIDs and exposes coverage, actor, and flow views for bottleneck analysis.",
+  "schema:dateModified": "2026-04-13T17:40:00Z",
+  "gftd:domain": "rare-earth-supply-chain",
+  "gftd:architecture": "contract-bounded",
+  "gftd:primaryActorDid": "did:web:rare-earth-coverage.etzhayyim.com",
+  "gftd:coverageCollections": [
+    "ai.gftd.apps.rareEarth.actor",
+    "ai.gftd.apps.rareEarth.flow",
+    "ai.gftd.apps.rareEarth.coverageSnapshot"
+  ],
+  "gftd:xrpc": [
+    "ai.gftd.apps.rareEarth.coverage.get",
+    "ai.gftd.apps.rareEarth.coverage.listActors",
+    "ai.gftd.apps.rareEarth.coverage.listFlows"
+  ],
+  "gftd:stages": [
+    "extraction",
+    "separation",
+    "magnet-manufacturing",
+    "policy",
+    "finance",
+    "demand"
+  ],
+  "gftd:keyJurisdictions": [
+    "CN",
+    "US",
+    "AU",
+    "MY",
+    "EU",
+    "JP",
+    "FR",
+    "MM"
+  ],
+  "gftd:keyConcentrationRisks": [
+    "China separation and magnet concentration",
+    "Heavy rare earth feed exposure through Myanmar and southern China",
+    "Long lead time for non-China refining diversification"
+  ],
+  "schema:hasPart": [
+    {
+      "@type": "schema:WebApplication",
+      "schema:name": "Rare Earth Coverage Appview",
+      "schema:url": "https://rare-earth.etzhayyim.com"
+    },
+    {
+      "@type": "schema:CreativeWork",
+      "schema:name": "Mitama Actor Manifest",
+      "schema:url": "../../20-actors/rare-earth-coverage/actor-manifest.jsonld"
+    }
+  ]
+}

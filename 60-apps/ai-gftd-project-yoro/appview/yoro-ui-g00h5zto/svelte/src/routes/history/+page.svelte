@@ -5,7 +5,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
 	import { fade } from 'svelte/transition';
 	import { getHistory, loadHistory, isHistoryLoaded, isHistoryLoading, removeEntry, clearHistory, type HistoryEntry } from '$lib/history.svelte';
 

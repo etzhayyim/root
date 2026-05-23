@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { searchActors, searchPosts, followUser, createProjectConvo } from '$lib/atproto-agent';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import { fade } from 'svelte/transition';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { playTap, haptic } from '@gftdcojp/design-system/audio';
+	import { playTap, haptic } from '@etzhayyim/design-system/audio';
 	import { RichText } from './index.js';
 	import type { PostView, AuthorProfile } from '$lib/atproto-agent';
 

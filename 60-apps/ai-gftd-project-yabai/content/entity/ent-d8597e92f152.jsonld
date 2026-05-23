@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d8597e92f152",
+  "entityId": "ent-d8597e92f152",
+  "canonicalName": "guidon shimiray mwissa",
+  "aliases": [
+    "guidon shimiray mwissa"
+  ]
+}

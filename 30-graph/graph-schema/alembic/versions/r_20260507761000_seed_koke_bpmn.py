@@ -25,14 +25,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/koke-photosynthesis-cycle-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/koke-photosynthesis-cycle-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'koke_photosynthesis_cycle',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-                 'id="Definitions_koke_photosynthesis" targetNamespace="https://gftd.ai/bpmn/koke" '
+                 'id="Definitions_koke_photosynthesis" targetNamespace="https://etzhayyim.com/bpmn/koke" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="koke_photosynthesis_cycle" name="photosynthesis-cycle" '
                  'isExecutable="true">\n'
@@ -182,7 +182,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:koke.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:koke.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;koke.photosynthesize&quot;" '
                  'target="action"/>\n'
@@ -206,9 +206,9 @@ UP = [{'sql': '\n'
                  7765,
                  '00-contracts/bpmn/ai/gftd/koke/photosynthesis-cycle.bpmn',
                  '2026-05-07T19:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/koke-photosynthesis-cycle-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/koke-photosynthesis-cycle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -220,19 +220,19 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'koke_photosynthesis_cycle',
                  'ai.gftd.apps.koke.photosynthesize',
                  '2026-05-07T19:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1']}]
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/koke-photosynthesis-cycle-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/koke-photosynthesis-cycle-v1']}]
 
 
 def upgrade() -> None:

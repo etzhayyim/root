@@ -20,7 +20,7 @@ describe("isbn rw-free", () => {
   describe("registerBook", () => {
     it("registers a new book with valid ISBN-13", async () => {
       const result = await registerBook(e, {
-        isbn13: "9784106102845",
+        isbn13: "9784106102844",
         title: "Test Book",
         source: "openlibrary",
       });
@@ -28,12 +28,12 @@ describe("isbn rw-free", () => {
       expect(result.status).toBe("registered");
       expect(result.bookUri).toBeDefined();
       expect(result.did).toBeDefined();
-      expect(result.isbn13).toBe("9784106102845");
+      expect(result.isbn13).toBe("9784106102844");
     });
 
     it("rejects with invalid checksum for ISBN-13", async () => {
       const result = await registerBook(e, {
-        isbn13: "9784106102844", // Wrong check digit
+        isbn13: "9784106102845", // Wrong check digit
         title: "Test Book",
         source: "openlibrary",
       });
@@ -44,7 +44,7 @@ describe("isbn rw-free", () => {
 
     it("is idempotent on ISBN-13", async () => {
       const input = {
-        isbn13: "9784106102845",
+        isbn13: "9784106102844",
         title: "Test Book",
         source: "openlibrary" as const,
       };
@@ -66,7 +66,7 @@ describe("isbn rw-free", () => {
       });
 
       expect(result.status).toBe("registered");
-      expect(result.isbn13).toBe("9784106102845");
+      expect(result.isbn13).toBe("9784106102844");
     });
 
     it("rejects missing title", async () => {
@@ -95,7 +95,7 @@ describe("isbn rw-free", () => {
   describe("lookup", () => {
     beforeEach(async () => {
       await registerBook(e, {
-        isbn13: "9784106102845",
+        isbn13: "9784106102844",
         isbn10: "4106102846",
         title: "Test Book",
         language: "ja",
@@ -105,11 +105,11 @@ describe("isbn rw-free", () => {
     });
 
     it("finds book by ISBN-13", async () => {
-      const result = await lookup(e, { isbn: "9784106102845" });
+      const result = await lookup(e, { isbn: "9784106102844" });
 
       expect(result.error).toBeUndefined();
       expect(result.book).toBeDefined();
-      expect(result.book?.isbn13).toBe("9784106102845");
+      expect(result.book?.isbn13).toBe("9784106102844");
       expect(result.book?.title).toBe("Test Book");
     });
 
@@ -118,18 +118,18 @@ describe("isbn rw-free", () => {
 
       expect(result.error).toBeUndefined();
       expect(result.book).toBeDefined();
-      expect(result.book?.isbn13).toBe("9784106102845");
+      expect(result.book?.isbn13).toBe("9784106102844");
     });
 
     it("handles hyphenated ISBN", async () => {
-      const result = await lookup(e, { isbn: "978-4-10-610284-5" });
+      const result = await lookup(e, { isbn: "978-4-10-610284-4" });
 
       expect(result.error).toBeUndefined();
-      expect(result.book?.isbn13).toBe("9784106102845");
+      expect(result.book?.isbn13).toBe("9784106102844");
     });
 
     it("returns notFound for missing ISBN", async () => {
-      const result = await lookup(e, { isbn: "9999999999999" });
+      const result = await lookup(e, { isbn: "9780000000002" });
 
       expect(result.error).toBe("notFound");
       expect(result.book).toBeUndefined();
@@ -142,7 +142,7 @@ describe("isbn rw-free", () => {
     });
 
     it("rejects invalid ISBN-13 checksum", async () => {
-      const result = await lookup(e, { isbn: "9784106102844" });
+      const result = await lookup(e, { isbn: "9784106102845" });
 
       expect(result.error).toBe("invalidIsbn13");
     });
@@ -151,7 +151,7 @@ describe("isbn rw-free", () => {
   describe("listBooks", () => {
     beforeEach(async () => {
       await registerBook(e, {
-        isbn13: "9784106102845",
+        isbn13: "9784106102844",
         title: "Japanese Book",
         language: "ja",
         registrationGroup: "4",
@@ -240,7 +240,7 @@ describe("isbn rw-free", () => {
   describe("coverage", () => {
     beforeEach(async () => {
       await registerBook(e, {
-        isbn13: "9784106102845",
+        isbn13: "9784106102844",
         title: "Japanese Book 1",
         language: "ja",
         registrationGroup: "4",

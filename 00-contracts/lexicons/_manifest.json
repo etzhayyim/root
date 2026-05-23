@@ -167,7 +167,7 @@
       "id": "ai.gftd.animeka.addCut",
       "path": "00-contracts/lexicons/ai/gftd/animeka/addCut.json",
       "type": "procedure",
-      "description": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.gftd.ai:cut:{rkey}. Sequential addCut calls on the same scene auto-increment"
+      "description": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.etzhayyim.com:cut:{rkey}. Sequential addCut calls on the same scene auto-increment"
     },
     {
       "id": "ai.gftd.animeka.addEpisode",
@@ -203,7 +203,7 @@
       "id": "ai.gftd.animeka.character",
       "path": "00-contracts/lexicons/ai/gftd/animeka/character.json",
       "type": "record",
-      "description": "Tier 2 domain record for a character design (キャラデザ). Each character gets a path-based DID `did:web:animeka.gftd.ai:character:{slug}` used as the mention facet target in social posts. Holds the canonic"
+      "description": "Tier 2 domain record for a character design (キャラデザ). Each character gets a path-based DID `did:web:animeka.etzhayyim.com:character:{slug}` used as the mention facet target in social posts. Holds the canonic"
     },
     {
       "id": "ai.gftd.animeka.chat",
@@ -239,13 +239,13 @@
       "id": "ai.gftd.animeka.createWork",
       "path": "00-contracts/lexicons/ai/gftd/animeka/createWork.json",
       "type": "procedure",
-      "description": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.gftd.ai:work:{slug}."
+      "description": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.etzhayyim.com:work:{slug}."
     },
     {
       "id": "ai.gftd.animeka.cut",
       "path": "00-contracts/lexicons/ai/gftd/animeka/cut.json",
       "type": "record",
-      "description": "Tier 2 domain record for a cut (カット / ショット) — the atomic work unit of anime production. Each cut has a path-based DID `did:web:animeka.gftd.ai:cut:{rkey}` for per-cut addressing. Pipeline progress per"
+      "description": "Tier 2 domain record for a cut (カット / ショット) — the atomic work unit of anime production. Each cut has a path-based DID `did:web:animeka.etzhayyim.com:cut:{rkey}` for per-cut addressing. Pipeline progress per"
     },
     {
       "id": "ai.gftd.animeka.designColorModel",
@@ -569,13 +569,13 @@
       "id": "ai.gftd.apps.adr.registerArbitrator",
       "path": "00-contracts/lexicons/ai/gftd/apps/adr/registerArbitrator.json",
       "type": "procedure",
-      "description": "Register a mediator/arbitrator. Path-based DID: did:web:adr.gftd.ai:arb:{iso3}:{slug}."
+      "description": "Register a mediator/arbitrator. Path-based DID: did:web:adr.etzhayyim.com:arb:{iso3}:{slug}."
     },
     {
       "id": "ai.gftd.apps.ads.createCampaign",
       "path": "00-contracts/lexicons/ai/gftd/apps/ads/createCampaign.json",
       "type": "procedure",
-      "description": "Create a sponsored-post campaign. Issues a path-based DID `did:web:ads.gftd.ai:campaign:{id}` that becomes the advertiser identity for subsequent sponsored posts."
+      "description": "Create a sponsored-post campaign. Issues a path-based DID `did:web:ads.etzhayyim.com:campaign:{id}` that becomes the advertiser identity for subsequent sponsored posts."
     },
     {
       "id": "ai.gftd.apps.ads.listCampaigns",
@@ -1385,7 +1385,7 @@
       "id": "ai.gftd.apps.ameno.cardHome",
       "path": "00-contracts/lexicons/ai/gftd/apps/ameno/cardHome.json",
       "type": "query",
-      "description": "Protocol canvas card for ameno.gftd.ai. Returns the home card metadata (title, description, model picker, recent history snippet). Pure compute on CF Worker edge — no DB access."
+      "description": "Protocol canvas card for ameno.etzhayyim.com. Returns the home card metadata (title, description, model picker, recent history snippet). Pure compute on CF Worker edge — no DB access."
     },
     {
       "id": "ai.gftd.apps.ameno.inferenceResult",
@@ -1541,7 +1541,7 @@
       "id": "ai.gftd.apps.animeka.addCut",
       "path": "00-contracts/lexicons/ai/gftd/apps/animeka/addCut.json",
       "type": "procedure",
-      "description": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.gftd.ai:cut:{rkey}. Sequential addCut calls on the same scene auto-increment"
+      "description": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.etzhayyim.com:cut:{rkey}. Sequential addCut calls on the same scene auto-increment"
     },
     {
       "id": "ai.gftd.apps.animeka.addEpisode",
@@ -1577,7 +1577,7 @@
       "id": "ai.gftd.apps.animeka.character",
       "path": "00-contracts/lexicons/ai/gftd/apps/animeka/character.json",
       "type": "record",
-      "description": "Tier 2 domain record for a character design (キャラデザ). Each character gets a path-based DID `did:web:animeka.gftd.ai:character:{slug}` used as the mention facet target in social posts. Holds the canonic"
+      "description": "Tier 2 domain record for a character design (キャラデザ). Each character gets a path-based DID `did:web:animeka.etzhayyim.com:character:{slug}` used as the mention facet target in social posts. Holds the canonic"
     },
     {
       "id": "ai.gftd.apps.animeka.chat",
@@ -1613,13 +1613,13 @@
       "id": "ai.gftd.apps.animeka.createWork",
       "path": "00-contracts/lexicons/ai/gftd/apps/animeka/createWork.json",
       "type": "procedure",
-      "description": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.gftd.ai:work:{slug}."
+      "description": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.etzhayyim.com:work:{slug}."
     },
     {
       "id": "ai.gftd.apps.animeka.cut",
       "path": "00-contracts/lexicons/ai/gftd/apps/animeka/cut.json",
       "type": "record",
-      "description": "Tier 2 domain record for a cut (カット / ショット) — the atomic work unit of anime production. Each cut has a path-based DID `did:web:animeka.gftd.ai:cut:{rkey}` for per-cut addressing. Pipeline progress per"
+      "description": "Tier 2 domain record for a cut (カット / ショット) — the atomic work unit of anime production. Each cut has a path-based DID `did:web:animeka.etzhayyim.com:cut:{rkey}` for per-cut addressing. Pipeline progress per"
     },
     {
       "id": "ai.gftd.apps.animeka.designColorModel",
@@ -1871,7 +1871,7 @@
       "id": "ai.gftd.apps.apps.listApps",
       "path": "00-contracts/lexicons/ai/gftd/apps/apps/listApps.json",
       "type": "query",
-      "description": "List apps.gftd.ai directory listings with optional category/search filters."
+      "description": "List apps.etzhayyim.com directory listings with optional category/search filters."
     },
     {
       "id": "ai.gftd.apps.apps.recordInstallIntent",
@@ -1883,7 +1883,7 @@
       "id": "ai.gftd.apps.apps.registerAppListing",
       "path": "00-contracts/lexicons/ai/gftd/apps/apps/registerAppListing.json",
       "type": "procedure",
-      "description": "Register an app listing for apps.gftd.ai directory search and category navigation."
+      "description": "Register an app listing for apps.etzhayyim.com directory search and category navigation."
     },
     {
       "id": "ai.gftd.apps.apps.updateAppListing",
@@ -1961,7 +1961,7 @@
       "id": "ai.gftd.apps.arb.publishProposal",
       "path": "00-contracts/lexicons/ai/gftd/apps/arb/publishProposal.json",
       "type": "procedure",
-      "description": "Publish a scored proposal to yoro social (T1 Social via app.bsky.feed.post) with mandatory disclaimer. Mentions are restricted to opt-in trader cohort handle (@trader.gftd.ai). NOT trade execution."
+      "description": "Publish a scored proposal to yoro social (T1 Social via app.bsky.feed.post) with mandatory disclaimer. Mentions are restricted to opt-in trader cohort handle (@trader.etzhayyim.com). NOT trade execution."
     },
     {
       "id": "ai.gftd.apps.arb.scoreProposal",
@@ -2327,7 +2327,7 @@
       "id": "ai.gftd.apps.bim.getStoreyScene",
       "path": "00-contracts/lexicons/ai/gftd/bim/getStoreyScene.json",
       "type": "query",
-      "description": "Return a scene-graph projection of a single storey (IfcBuildingStorey) — the primary LOD unit for `bim.gftd.ai`. Includes contained spaces, elements (walls/slabs/columns/...), materials, and selectabl"
+      "description": "Return a scene-graph projection of a single storey (IfcBuildingStorey) — the primary LOD unit for `bim.etzhayyim.com`. Includes contained spaces, elements (walls/slabs/columns/...), materials, and selectabl"
     },
     {
       "id": "ai.gftd.apps.bim.importIfc",
@@ -2675,7 +2675,7 @@
       "id": "ai.gftd.apps.bunker.registerSupply",
       "path": "00-contracts/lexicons/ai/gftd/apps/bunker/registerSupply.json",
       "type": "procedure",
-      "description": "Register a marine bunker fuel supply event (HFO/MGO/VLSFO/LNG). MARPOL Annex VI sulphur compliance tracking. Path-based DID: did:web:bunker.gftd.ai:supply:{slug}."
+      "description": "Register a marine bunker fuel supply event (HFO/MGO/VLSFO/LNG). MARPOL Annex VI sulphur compliance tracking. Path-based DID: did:web:bunker.etzhayyim.com:supply:{slug}."
     },
     {
       "id": "ai.gftd.apps.businessManager.allocateBudget",
@@ -2867,7 +2867,7 @@
       "id": "ai.gftd.apps.cargo.registerCargo",
       "path": "00-contracts/lexicons/ai/gftd/apps/cargo/registerCargo.json",
       "type": "procedure",
-      "description": "Register a maritime cargo manifest (container/bulk/breakbulk/RoRo). Sources: WCO + national customs + AIS-linked manifests. Path-based DID: did:web:cargo.gftd.ai:cargo:{bookingRef}."
+      "description": "Register a maritime cargo manifest (container/bulk/breakbulk/RoRo). Sources: WCO + national customs + AIS-linked manifests. Path-based DID: did:web:cargo.etzhayyim.com:cargo:{bookingRef}."
     },
     {
       "id": "ai.gftd.apps.carrierCapacity.recordBlankedSailing",
@@ -3923,7 +3923,7 @@
       "id": "ai.gftd.apps.contracts.mintOrganizationDid",
       "path": "00-contracts/lexicons/ai/gftd/apps/contracts/mintOrganizationDid.json",
       "type": "procedure",
-      "description": "Mint a deterministic organization DID under social-contract.gftd.ai from an existing vertex_legal_entity row. Hash input: country_alpha3 + national_id + name_normalized + incorporated_date (blake3 12-"
+      "description": "Mint a deterministic organization DID under social-contract.etzhayyim.com from an existing vertex_legal_entity row. Hash input: country_alpha3 + national_id + name_normalized + incorporated_date (blake3 12-"
     },
     {
       "id": "ai.gftd.apps.contracts.projectFromLegalEntity",
@@ -4067,7 +4067,7 @@
       "id": "ai.gftd.apps.coworkGraph.mailDraft",
       "path": "00-contracts/lexicons/ai/gftd/apps/coworkGraph/mailDraft.json",
       "type": "procedure",
-      "description": "メール下書きを作成する。gftdcojp_agent ルール準拠の draft_only — 実際の送信は行わない。承認後に Outlook/別ツールで送信すること。"
+      "description": "メール下書きを作成する。etzhayyim_agent ルール準拠の draft_only — 実際の送信は行わない。承認後に Outlook/別ツールで送信すること。"
     },
     {
       "id": "ai.gftd.apps.coworkGraph.mailGet",
@@ -4085,7 +4085,7 @@
       "id": "ai.gftd.apps.coworkGraph.sendBpmnGuidance",
       "path": "00-contracts/lexicons/ai/gftd/apps/coworkGraph/sendBpmnGuidance.json",
       "type": "procedure",
-      "description": "gftdcojp BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-gftd-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。"
+      "description": "etzhayyim BPMN 業務フロー案内を Teams チャンネルに投稿する。kaisya-gftd-bot (総合 artificial organism) が kaisya.startProcess トリガーで呼び出す。全メンバーの担当タスク・フォームURL・逆トポロジーソート・Claude Cowork 使い方を HTML カードで送信する。"
     },
     {
       "id": "ai.gftd.apps.coworkGraph.sendTeamsMessage",
@@ -4157,7 +4157,7 @@
       "id": "ai.gftd.apps.crew.registerCrew",
       "path": "00-contracts/lexicons/ai/gftd/apps/crew/registerCrew.json",
       "type": "procedure",
-      "description": "Register a maritime crew member with STCW certification. Sources: STCW Convention + flag state seafarer registries. Path-based DID: did:web:crew.gftd.ai:seafarer:{flagState}:{cdcNo}. PII Tier 3."
+      "description": "Register a maritime crew member with STCW certification. Sources: STCW Convention + flag state seafarer registries. Path-based DID: did:web:crew.etzhayyim.com:seafarer:{flagState}:{cdcNo}. PII Tier 3."
     },
     {
       "id": "ai.gftd.apps.crewWelfare.registerSeafarer",
@@ -4865,7 +4865,7 @@
       "id": "ai.gftd.apps.dns.transferOutcome",
       "path": "00-contracts/lexicons/ai/gftd/apps/dns/transferOutcome.json",
       "type": "record",
-      "description": "Terminal record for a domain transfer. onCommit of this collection triggers (a) zone DID creation (did:web:dns.gftd.ai:zone:{domain_slug}) via cfRegistrar, (b) ai.gftd.apps.dns.ownershipTransfer write"
+      "description": "Terminal record for a domain transfer. onCommit of this collection triggers (a) zone DID creation (did:web:dns.etzhayyim.com:zone:{domain_slug}) via cfRegistrar, (b) ai.gftd.apps.dns.ownershipTransfer write"
     },
     {
       "id": "ai.gftd.apps.dns.transferRequest",
@@ -6329,7 +6329,7 @@
       "id": "ai.gftd.apps.gov.registerAgency",
       "path": "00-contracts/lexicons/ai/gftd/apps/gov/registerAgency.json",
       "type": "procedure",
-      "description": "Register a government agency. Path-based DID: did:web:gov.gftd.ai:{iso3}:{cofog}:{slug}. Sources: CIA + national government directories + UN COFOG."
+      "description": "Register a government agency. Path-based DID: did:web:gov.etzhayyim.com:{iso3}:{cofog}:{slug}. Sources: CIA + national government directories + UN COFOG."
     },
     {
       "id": "ai.gftd.apps.gov.submitConsult",
@@ -10337,13 +10337,13 @@
       "id": "ai.gftd.apps.kafun.agent.research",
       "path": "00-contracts/lexicons/ai/gftd/apps/kafun/agent/research.json",
       "type": "procedure",
-      "description": "Run kafun-bokumetsu researcher LangGraph (kafun.research.v1). Returns findings rows authored under did:web:n97ik10n.gftd.ai:actor:researcher; CF Worker writes them to vertex_kafun_research."
+      "description": "Run kafun-bokumetsu researcher LangGraph (kafun.research.v1). Returns findings rows authored under did:web:n97ik10n.etzhayyim.com:actor:researcher; CF Worker writes them to vertex_kafun_research."
     },
     {
       "id": "ai.gftd.apps.kafun.agent.think",
       "path": "00-contracts/lexicons/ai/gftd/apps/kafun/agent/think.json",
       "type": "procedure",
-      "description": "Run kafun-bokumetsu proposer LangGraph (kafun.think.v1). Synthesises seed findings into one insight + up to 3 proposals authored under did:web:n97ik10n.gftd.ai:actor:proposer."
+      "description": "Run kafun-bokumetsu proposer LangGraph (kafun.think.v1). Synthesises seed findings into one insight + up to 3 proposals authored under did:web:n97ik10n.etzhayyim.com:actor:proposer."
     },
     {
       "id": "ai.gftd.apps.kafun.agent.tick",
@@ -10655,7 +10655,7 @@
       "id": "ai.gftd.apps.kamiSabiotoshi.registerItem",
       "path": "00-contracts/lexicons/ai/gftd/apps/kamiSabiotoshi/registerItem.json",
       "type": "procedure",
-      "description": "Register a game item in the sabiotoshi catalog (KAMI canvas item collector). Path-based DID: did:web:kami.gftd.ai:item:{slug}."
+      "description": "Register a game item in the sabiotoshi catalog (KAMI canvas item collector). Path-based DID: did:web:kami.etzhayyim.com:item:{slug}."
     },
     {
       "id": "ai.gftd.apps.kenkyusha.collectEvidence",
@@ -10823,13 +10823,13 @@
       "id": "ai.gftd.apps.kiyo.getPaper",
       "path": "00-contracts/lexicons/ai/gftd/apps/kiyo/getPaper.json",
       "type": "query",
-      "description": "Get paper metadata and latest revision info. Returns ipfsCid for fetching the PDF from https://ipfs.gftd.ai/ipfs/{cid}."
+      "description": "Get paper metadata and latest revision info. Returns ipfsCid for fetching the PDF from https://ipfs.etzhayyim.com/ipfs/{cid}."
     },
     {
       "id": "ai.gftd.apps.kiyo.getPaperFile",
       "path": "00-contracts/lexicons/ai/gftd/apps/kiyo/getPaperFile.json",
       "type": "query",
-      "description": "Get the IPFS gateway URL for a paper's PDF (or LaTeX source). Content is permanently accessible at https://ipfs.gftd.ai/ipfs/{cid} — no expiry (content-addressed, immutable)."
+      "description": "Get the IPFS gateway URL for a paper's PDF (or LaTeX source). Content is permanently accessible at https://ipfs.etzhayyim.com/ipfs/{cid} — no expiry (content-addressed, immutable)."
     },
     {
       "id": "ai.gftd.apps.kiyo.getStats",
@@ -10859,7 +10859,7 @@
       "id": "ai.gftd.apps.kiyo.submitPaper",
       "path": "00-contracts/lexicons/ai/gftd/apps/kiyo/submitPaper.json",
       "type": "procedure",
-      "description": "Submit a new preprint to kiyo.gftd.ai. The PDF (and optionally LaTeX source) must be supplied as base64. A CIDv1 is assigned via ipfs.gftd.ai and stored in vertex_kiyo_paper. Triggers submitPaper.bpmn"
+      "description": "Submit a new preprint to kiyo.etzhayyim.com. The PDF (and optionally LaTeX source) must be supplied as base64. A CIDv1 is assigned via ipfs.etzhayyim.com and stored in vertex_kiyo_paper. Triggers submitPaper.bpmn"
     },
     {
       "id": "ai.gftd.apps.kiyo.submitRevision",
@@ -11141,7 +11141,7 @@
       "id": "ai.gftd.apps.kyber.provisionTenant",
       "path": "00-contracts/lexicons/ai/gftd/apps/kyber/provisionTenant.json",
       "type": "procedure",
-      "description": "Provision a new kyber tenant. Creates billing_tenant row and Stripe customer. Called by yoro.gftd.ai signup flow on first login. Idempotent by orgDid."
+      "description": "Provision a new kyber tenant. Creates billing_tenant row and Stripe customer. Called by yoro.etzhayyim.com signup flow on first login. Idempotent by orgDid."
     },
     {
       "id": "ai.gftd.apps.kyber.recordUsage",
@@ -11267,7 +11267,7 @@
       "id": "ai.gftd.apps.lifehack.listProducts",
       "path": "00-contracts/lexicons/ai/gftd/apps/lifehack/listProducts.json",
       "type": "query",
-      "description": "List recommended products. Commercial products carry an Amazon search keyword; diy_tsukuru products carry CAD/factory DID cross-references to tsukuru.gftd.ai."
+      "description": "List recommended products. Commercial products carry an Amazon search keyword; diy_tsukuru products carry CAD/factory DID cross-references to tsukuru.etzhayyim.com."
     },
     {
       "id": "ai.gftd.apps.lifehack.listTips",
@@ -11543,7 +11543,7 @@
       "id": "ai.gftd.apps.manga.submitFromNarou",
       "path": "00-contracts/lexicons/ai/gftd/apps/manga/submitFromNarou.json",
       "type": "procedure",
-      "description": "Import title and chapter from narou.gftd.ai"
+      "description": "Import title and chapter from narou.etzhayyim.com"
     },
     {
       "id": "ai.gftd.apps.manga.updateChapterStatus",
@@ -11927,7 +11927,7 @@
       "id": "ai.gftd.apps.mangaka.tools.autoRigHumanoid",
       "path": "00-contracts/lexicons/ai/gftd/apps/mangaka/tools/autoRigHumanoid.json",
       "type": "procedure",
-      "description": "P16 step 6 of ai.gftd.apps.mangaka.composeCharacterVrm. Auto-rigs the reconstructed mesh on the VKE CPU pool, two tracks inside one pod image `ghcr.io/gftdcojp/blender-rigify-rignet:0.1`: (a) Blender "
+      "description": "P16 step 6 of ai.gftd.apps.mangaka.composeCharacterVrm. Auto-rigs the reconstructed mesh on the VKE CPU pool, two tracks inside one pod image `ghcr.io/etzhayyim/blender-rigify-rignet:0.1`: (a) Blender "
     },
     {
       "id": "ai.gftd.apps.mangaka.tools.bindVrm",
@@ -13199,7 +13199,7 @@
       "id": "ai.gftd.apps.maps.seedGtfsJp",
       "path": "00-contracts/lexicons/ai/gftd/apps/maps/seedGtfsJp.json",
       "type": "procedure",
-      "description": "Seed GTFS-JP coverage by asking site.gftd.ai to crawl the gtfs.jp aggregator + transit-agency domains. WET/WAT records flow back into maps via the standard subscribeRepos pipeline; the aggregator's pe"
+      "description": "Seed GTFS-JP coverage by asking site.etzhayyim.com to crawl the gtfs.jp aggregator + transit-agency domains. WET/WAT records flow back into maps via the standard subscribeRepos pipeline; the aggregator's pe"
     },
     {
       "id": "ai.gftd.apps.maps.seedMunicipalities",
@@ -13439,7 +13439,7 @@
       "id": "ai.gftd.apps.maps3d.linkActor",
       "path": "00-contracts/lexicons/ai/gftd/apps/maps3d/linkActor.json",
       "type": "procedure",
-      "description": "LangGraph actor disambiguation. For each VisionResult detection, search Wikidata SPARQL + GLEIF + OSM operator/owner tags + Murakumo LLM disambiguator → emit a candidate `did:web:maps.gftd.ai:registry"
+      "description": "LangGraph actor disambiguation. For each VisionResult detection, search Wikidata SPARQL + GLEIF + OSM operator/owner tags + Murakumo LLM disambiguator → emit a candidate `did:web:maps.etzhayyim.com:registry"
     },
     {
       "id": "ai.gftd.apps.maps3d.processTile",
@@ -13481,7 +13481,7 @@
       "id": "ai.gftd.apps.mapsCollection.registerJob",
       "path": "00-contracts/lexicons/ai/gftd/apps/mapsCollection/registerJob.json",
       "type": "procedure",
-      "description": "Register a maps collection job (control plane). Coordinates web crawl / OSM diff / Overpass query / Microsoft Building Footprint ingestion for maps.gftd.ai."
+      "description": "Register a maps collection job (control plane). Coordinates web crawl / OSM diff / Overpass query / Microsoft Building Footprint ingestion for maps.etzhayyim.com."
     },
     {
       "id": "ai.gftd.apps.marginCall.flagFailure",
@@ -13523,7 +13523,7 @@
       "id": "ai.gftd.apps.marineInsurance.registerPolicy",
       "path": "00-contracts/lexicons/ai/gftd/apps/marineInsurance/registerPolicy.json",
       "type": "procedure",
-      "description": "Register a marine insurance policy (Hull & Machinery, Cargo, P&I). Sources: IUMI + Lloyd's + IG P&I Clubs. Path-based DID: did:web:marine-insurance.gftd.ai:policy:{slug}."
+      "description": "Register a marine insurance policy (Hull & Machinery, Cargo, P&I). Sources: IUMI + Lloyd's + IG P&I Clubs. Path-based DID: did:web:marine-insurance.etzhayyim.com:policy:{slug}."
     },
     {
       "id": "ai.gftd.apps.marineLitter.flagLiabilityGap",
@@ -13721,7 +13721,7 @@
       "id": "ai.gftd.apps.media_gamers.evalModelsProcess",
       "path": "00-contracts/lexicons/ai/gftd/apps/media_gamers/evalModelsProcess.json",
       "type": "procedure",
-      "description": "Start the LangServer model-evaluation pipeline for media-gamers.gftd.ai."
+      "description": "Start the LangServer model-evaluation pipeline for media-gamers.etzhayyim.com."
     },
     {
       "id": "ai.gftd.apps.media_gamers.franchise.getFranchise",
@@ -13793,7 +13793,7 @@
       "id": "ai.gftd.apps.media_gamers.guide.guideGenerate",
       "path": "00-contracts/lexicons/ai/gftd/apps/media_gamers/guide/guideGenerate.json",
       "type": "procedure",
-      "description": "Start the LangServer guide generation pipeline for media-gamers.gftd.ai."
+      "description": "Start the LangServer guide generation pipeline for media-gamers.etzhayyim.com."
     },
     {
       "id": "ai.gftd.apps.media_gamers.guide.listGuides",
@@ -13829,7 +13829,7 @@
       "id": "ai.gftd.apps.media_gamers.knowledge.knowledgeGuideGenerate",
       "path": "00-contracts/lexicons/ai/gftd/apps/media_gamers/knowledge/knowledgeGuideGenerate.json",
       "type": "procedure",
-      "description": "Start the LangServer knowledge-guide generation pipeline for media-gamers.gftd.ai."
+      "description": "Start the LangServer knowledge-guide generation pipeline for media-gamers.etzhayyim.com."
     },
     {
       "id": "ai.gftd.apps.media_gamers.knowledge.publishDomainKnowledge",
@@ -14039,7 +14039,7 @@
       "id": "ai.gftd.apps.mediaAnime.registerTitle",
       "path": "00-contracts/lexicons/ai/gftd/apps/mediaAnime/registerTitle.json",
       "type": "procedure",
-      "description": "Register an anime title. Path-based DID: did:web:media-anime.gftd.ai:title:{slug}. Sources: MAL + AniList + Annict + AniDB."
+      "description": "Register an anime title. Path-based DID: did:web:media-anime.etzhayyim.com:title:{slug}. Sources: MAL + AniList + Annict + AniDB."
     },
     {
       "id": "ai.gftd.apps.meetingRecorder.getSession",
@@ -14573,7 +14573,7 @@
       "id": "ai.gftd.apps.news.analyzeIntel",
       "path": "00-contracts/lexicons/ai/gftd/apps/news/analyzeIntel.json",
       "type": "procedure",
-      "description": "Turn primary/official-source news evidence into an attributed intel brief for news.gftd.ai."
+      "description": "Turn primary/official-source news evidence into an attributed intel brief for news.etzhayyim.com."
     },
     {
       "id": "ai.gftd.apps.news.articleDiag",
@@ -14615,7 +14615,7 @@
       "id": "ai.gftd.apps.news.listIntelSources",
       "path": "00-contracts/lexicons/ai/gftd/apps/news/listIntelSources.json",
       "type": "query",
-      "description": "List official and primary source feeds used by the news.gftd.ai intel actor process."
+      "description": "List official and primary source feeds used by the news.etzhayyim.com intel actor process."
     },
     {
       "id": "ai.gftd.apps.news.listLiveAudioSources",
@@ -14645,7 +14645,7 @@
       "id": "ai.gftd.apps.news.liveAudioSource",
       "path": "00-contracts/lexicons/ai/gftd/apps/news/liveAudioSource.json",
       "type": "record",
-      "description": "Public live-news/radio stream source monitored by news.gftd.ai live audio ingest."
+      "description": "Public live-news/radio stream source monitored by news.etzhayyim.com live audio ingest."
     },
     {
       "id": "ai.gftd.apps.news.pdsDiag",
@@ -14657,7 +14657,7 @@
       "id": "ai.gftd.apps.news.publishIntel",
       "path": "00-contracts/lexicons/ai/gftd/apps/news/publishIntel.json",
       "type": "procedure",
-      "description": "Publish a prepared intel brief as an attributed news.gftd.ai writer DID post."
+      "description": "Publish a prepared intel brief as an attributed news.etzhayyim.com writer DID post."
     },
     {
       "id": "ai.gftd.apps.news.registerLiveAudioSource",
@@ -14669,7 +14669,7 @@
       "id": "ai.gftd.apps.news.rssIngest",
       "path": "00-contracts/lexicons/ai/gftd/apps/news/rssIngest.json",
       "type": "procedure",
-      "description": "Start the LangServer RSS ingest pipeline for news.gftd.ai."
+      "description": "Start the LangServer RSS ingest pipeline for news.etzhayyim.com."
     },
     {
       "id": "ai.gftd.apps.news.scheduleLiveAudioIngest",
@@ -14681,7 +14681,7 @@
       "id": "ai.gftd.apps.news.socialArbitrageIntel",
       "path": "00-contracts/lexicons/ai/gftd/apps/news/socialArbitrageIntel.json",
       "type": "procedure",
-      "description": "Start the LangServer social-arbitrage intel pipeline for news.gftd.ai."
+      "description": "Start the LangServer social-arbitrage intel pipeline for news.etzhayyim.com."
     },
     {
       "id": "ai.gftd.apps.news.stats",
@@ -14699,7 +14699,7 @@
       "id": "ai.gftd.apps.newsletter.createCampaign",
       "path": "00-contracts/lexicons/ai/gftd/apps/newsletter/createCampaign.json",
       "type": "procedure",
-      "description": "Create a newsletter campaign. LangGraph curation loop ingests news.gftd.ai + narou.gftd.ai signals, ranks content, drafts and personalizes per cohort, then delivers via Resend."
+      "description": "Create a newsletter campaign. LangGraph curation loop ingests news.etzhayyim.com + narou.etzhayyim.com signals, ranks content, drafts and personalizes per cohort, then delivers via Resend."
     },
     {
       "id": "ai.gftd.apps.newsletter.getCampaign",
@@ -14975,7 +14975,7 @@
       "id": "ai.gftd.apps.oilDistribution.registerTerminal",
       "path": "00-contracts/lexicons/ai/gftd/apps/oilDistribution/registerTerminal.json",
       "type": "procedure",
-      "description": "Register a downstream product terminal / wholesale hub. Path-based DID: did:web:oil-distribution.gftd.ai:terminal:{iso3}:{slug}."
+      "description": "Register a downstream product terminal / wholesale hub. Path-based DID: did:web:oil-distribution.etzhayyim.com:terminal:{iso3}:{slug}."
     },
     {
       "id": "ai.gftd.apps.oilMidstream.getAsset",
@@ -14993,7 +14993,7 @@
       "id": "ai.gftd.apps.oilMidstream.registerPipeline",
       "path": "00-contracts/lexicons/ai/gftd/apps/oilMidstream/registerPipeline.json",
       "type": "procedure",
-      "description": "Register a midstream pipeline / storage terminal. Path-based DID: did:web:oil-midstream.gftd.ai:pipeline:{slug} or :storage:{slug}. Tracks chokepoint exposure."
+      "description": "Register a midstream pipeline / storage terminal. Path-based DID: did:web:oil-midstream.etzhayyim.com:pipeline:{slug} or :storage:{slug}. Tracks chokepoint exposure."
     },
     {
       "id": "ai.gftd.apps.oilRefining.getRefinery",
@@ -15011,7 +15011,7 @@
       "id": "ai.gftd.apps.oilRefining.registerRefinery",
       "path": "00-contracts/lexicons/ai/gftd/apps/oilRefining/registerRefinery.json",
       "type": "procedure",
-      "description": "Register an oil refinery. Path-based DID: did:web:oil-refining.gftd.ai:refinery:{iso3}:{slug}. Tracks unit configuration, throughput, outage, product yield."
+      "description": "Register an oil refinery. Path-based DID: did:web:oil-refining.etzhayyim.com:refinery:{iso3}:{slug}. Tracks unit configuration, throughput, outage, product yield."
     },
     {
       "id": "ai.gftd.apps.oilShipping.getTanker",
@@ -15029,7 +15029,7 @@
       "id": "ai.gftd.apps.oilShipping.registerTanker",
       "path": "00-contracts/lexicons/ai/gftd/apps/oilShipping/registerTanker.json",
       "type": "procedure",
-      "description": "Register a crude/product tanker (vessel domain superset). Path-based DID: did:web:oil-shipping.gftd.ai:tanker:imo:{imo}. Includes dark-fleet flagging."
+      "description": "Register a crude/product tanker (vessel domain superset). Path-based DID: did:web:oil-shipping.etzhayyim.com:tanker:imo:{imo}. Includes dark-fleet flagging."
     },
     {
       "id": "ai.gftd.apps.oilTrading.getTrade",
@@ -15047,7 +15047,7 @@
       "id": "ai.gftd.apps.oilTrading.registerTrade",
       "path": "00-contracts/lexicons/ai/gftd/apps/oilTrading/registerTrade.json",
       "type": "procedure",
-      "description": "Register a physical oil trade (cargo / offtake / swap). Path-based DID: did:web:oil-trading.gftd.ai:trade:{tradeId}. Counterparty intelligence for benchmark exposure tracking."
+      "description": "Register a physical oil trade (cargo / offtake / swap). Path-based DID: did:web:oil-trading.etzhayyim.com:trade:{tradeId}. Counterparty intelligence for benchmark exposure tracking."
     },
     {
       "id": "ai.gftd.apps.oilUpstream.getField",
@@ -15065,7 +15065,7 @@
       "id": "ai.gftd.apps.oilUpstream.registerField",
       "path": "00-contracts/lexicons/ai/gftd/apps/oilUpstream/registerField.json",
       "type": "procedure",
-      "description": "Register an oil/gas upstream field. Path-based DID: did:web:oil-upstream.gftd.ai:basin:{basin}:field:{slug}. Sources: USGS + IHS Markit + Wood Mackenzie + national petroleum agencies."
+      "description": "Register an oil/gas upstream field. Path-based DID: did:web:oil-upstream.etzhayyim.com:basin:{basin}:field:{slug}. Sources: USGS + IHS Markit + Wood Mackenzie + national petroleum agencies."
     },
     {
       "id": "ai.gftd.apps.omise.acceptOrder",
@@ -15401,7 +15401,7 @@
       "id": "ai.gftd.apps.onion.getStats",
       "path": "00-contracts/lexicons/ai/gftd/apps/onion/getStats.json",
       "type": "query",
-      "description": "Get onion.gftd.ai crawl statistics."
+      "description": "Get onion.etzhayyim.com crawl statistics."
     },
     {
       "id": "ai.gftd.apps.onion.listPages",
@@ -16133,7 +16133,7 @@
       "id": "ai.gftd.apps.openPatent.ingestMulti",
       "path": "00-contracts/lexicons/ai/gftd/apps/openPatent/ingestMulti.json",
       "type": "procedure",
-      "description": "Multi-jurisdiction patent enrichment coordinator (Follow-based: reads from AT firehose data already ingested by patent.gftd.ai)"
+      "description": "Multi-jurisdiction patent enrichment coordinator (Follow-based: reads from AT firehose data already ingested by patent.etzhayyim.com)"
     },
     {
       "id": "ai.gftd.apps.openPatent.inventionSeed",
@@ -17279,7 +17279,7 @@
       "id": "ai.gftd.apps.otakiage.anchorCertificate",
       "path": "00-contracts/lexicons/ai/gftd/apps/otakiage/anchorCertificate.json",
       "type": "procedure",
-      "description": "供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する (Phase 2b1)。authority gated (issuer = did:web:otakiage.gftd.ai:ritual のみ)。Phase 2b1 = state tracking のみ (`anchor_status: pending → queued`)、"
+      "description": "供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する (Phase 2b1)。authority gated (issuer = did:web:otakiage.etzhayyim.com:ritual のみ)。Phase 2b1 = state tracking のみ (`anchor_status: pending → queued`)、"
     },
     {
       "id": "ai.gftd.apps.otakiage.confirmHandover",
@@ -17303,7 +17303,7 @@
       "id": "ai.gftd.apps.otakiage.issueCertificate",
       "path": "00-contracts/lexicons/ai/gftd/apps/otakiage/issueCertificate.json",
       "type": "procedure",
-      "description": "供養完了の永続証跡を発行。authority gated (issuer = did:web:otakiage.gftd.ai:ritual のみ)。matsuri 開催完了時に当該 matsuri に紐づく ritual_pending item を一括処理し、各 ritual record + certificate AT Record を発行 (URI が永続 ID)。Phase 1 = J"
+      "description": "供養完了の永続証跡を発行。authority gated (issuer = did:web:otakiage.etzhayyim.com:ritual のみ)。matsuri 開催完了時に当該 matsuri に紐づく ritual_pending item を一括処理し、各 ritual record + certificate AT Record を発行 (URI が永続 ID)。Phase 1 = J"
     },
     {
       "id": "ai.gftd.apps.otakiage.listItems",
@@ -17327,7 +17327,7 @@
       "id": "ai.gftd.apps.otakiage.scheduleMatsuri",
       "path": "00-contracts/lexicons/ai/gftd/apps/otakiage/scheduleMatsuri.json",
       "type": "procedure",
-      "description": "季節祭 (供養祭) を新規スケジュール。authority gated (issuer = did:web:otakiage.gftd.ai or :matsuri sub-DID のみ)。BPMN matsuriSchedule (cron 月初) からも内部呼出される。"
+      "description": "季節祭 (供養祭) を新規スケジュール。authority gated (issuer = did:web:otakiage.etzhayyim.com or :matsuri sub-DID のみ)。BPMN matsuriSchedule (cron 月初) からも内部呼出される。"
     },
     {
       "id": "ai.gftd.apps.otakiage.submitItem",
@@ -18611,7 +18611,7 @@
       "id": "ai.gftd.apps.resourceFlow.registerEmitter",
       "path": "00-contracts/lexicons/ai/gftd/apps/resourceFlow/registerEmitter.json",
       "type": "procedure",
-      "description": "Subscribe resource-flow.gftd.ai to a legal-entity emitter's firehose by issuing app.bsky.graph.follow and recording the emitter in vertex_profile. ADR-0028. Invoked once per emitter; idempotent on emi"
+      "description": "Subscribe resource-flow.etzhayyim.com to a legal-entity emitter's firehose by issuing app.bsky.graph.follow and recording the emitter in vertex_profile. ADR-0028. Invoked once per emitter; idempotent on emi"
     },
     {
       "id": "ai.gftd.apps.resourceFlow.reviewAnomaly",
@@ -18917,7 +18917,7 @@
       "id": "ai.gftd.apps.sbom.health",
       "path": "00-contracts/lexicons/ai/gftd/apps/sbom/health.json",
       "type": "query",
-      "description": "sbom.gftd.ai liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met."
+      "description": "sbom.etzhayyim.com liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met."
     },
     {
       "id": "ai.gftd.apps.sbom.recall",
@@ -18929,7 +18929,7 @@
       "id": "ai.gftd.apps.sbom.registerArtifact",
       "path": "00-contracts/lexicons/ai/gftd/apps/sbom/registerArtifact.json",
       "type": "procedure",
-      "description": "Register a CycloneDX or SPDX SBOM artifact with sbom.gftd.ai. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact"
+      "description": "Register a CycloneDX or SPDX SBOM artifact with sbom.etzhayyim.com. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact"
     },
     {
       "id": "ai.gftd.apps.sbtnTarget.flagMiss",
@@ -20159,7 +20159,7 @@
       "id": "ai.gftd.apps.states.govOrgSiteDep",
       "path": "00-contracts/lexicons/ai/gftd/apps/states/govOrgSiteDep.json",
       "type": "record",
-      "description": "Declaration that a govOrg is following / depends on a site nanoid for inbound commits. Used by states → site.gftd.ai Follow registration. NOTE: no dedicated vertex_gov_org_site_dep table yet; writes c"
+      "description": "Declaration that a govOrg is following / depends on a site nanoid for inbound commits. Used by states → site.etzhayyim.com Follow registration. NOTE: no dedicated vertex_gov_org_site_dep table yet; writes c"
     },
     {
       "id": "ai.gftd.apps.states.govSource",
@@ -20202,6 +20202,48 @@
       "path": "00-contracts/lexicons/ai/gftd/apps/supplyChainFinance/recordDiscrepancy.json",
       "type": "procedure",
       "description": "Document discrepancy under L/C"
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.flagDeadStock",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/flagDeadStock.json",
+      "type": "procedure",
+      "description": "Flag a surplus lot as no longer redistributable; routing decision recycle-via-kozan -> dispose-licensed enforced per Wellbecoming (ADR-2605211241 / ADR-2605192100 §1.13)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.getSurplusLot",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/getSurplusLot.json",
+      "type": "query",
+      "description": "Get a single surplus lot by DID (ADR-2605211241)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.listSurplusLots",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/listSurplusLots.json",
+      "type": "query",
+      "description": "List surplus lots with optional category/origin/state filters for demand-side matching (ADR-2605211241)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.matchDemand",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/matchDemand.json",
+      "type": "procedure",
+      "description": "Demand-side claim against a registered surplus lot by Adherent-SBT or attested religious-corp downstream actor (ADR-2605211241)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.recordKozanHandoff",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/recordKozanHandoff.json",
+      "type": "procedure",
+      "description": "Bridge a flagged-dead-stock surplus lot into toshiKozan e-waste recovery; emits paired ai.gftd.apps.toshiKozan.registerEwasteStream (ADR-2605211241)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.recordRedistribution",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/recordRedistribution.json",
+      "type": "procedure",
+      "description": "Record physical handoff of a surplus lot from donor to matched receiver; closes redistribution path with optional warehouse.pick/putaway + freeport/FTZ bridge (ADR-2605211241)."
+    },
+    {
+      "id": "ai.gftd.apps.surplusRouter.registerSurplusLot",
+      "path": "00-contracts/lexicons/ai/gftd/apps/surplusRouter/registerSurplusLot.json",
+      "type": "procedure",
+      "description": "Register a globally surplus / dead-stock / overstock / unsold-inventory lot for donation-based redistribution within the religious-corp economy with 10% in-kind tithe coupling (ADR-2605211241)."
     },
     {
       "id": "ai.gftd.apps.taxTransparency.flagDisclosureGap",
@@ -24137,7 +24179,7 @@
       "id": "ai.gftd.apps.yorishiro.createYorishiro",
       "path": "00-contracts/lexicons/ai/gftd/apps/yorishiro/createYorishiro.json",
       "type": "procedure",
-      "description": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.gftd.ai:{type}:{slug}."
+      "description": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.etzhayyim.com:{type}:{slug}."
     },
     {
       "id": "ai.gftd.apps.yorishiro.flyio.closeAccount",
@@ -24323,7 +24365,7 @@
       "id": "ai.gftd.apps.yoro.postAgencyUpdate",
       "path": "00-contracts/lexicons/ai/gftd/apps/yoro/postAgencyUpdate.json",
       "type": "procedure",
-      "description": "Post a public update or policy change from a government agency actor to the yoro.gftd.ai social feed."
+      "description": "Post a public update or policy change from a government agency actor to the yoro.etzhayyim.com social feed."
     },
     {
       "id": "ai.gftd.apps.yoro.productResearch",
@@ -25271,7 +25313,7 @@
       "id": "ai.gftd.dns.transferOutcome",
       "path": "00-contracts/lexicons/ai/gftd/dns/transferOutcome.json",
       "type": "record",
-      "description": "Terminal record for a domain transfer. onCommit of this collection triggers (a) zone DID creation (did:web:dns.gftd.ai:zone:{domain_slug}) via cfRegistrar, (b) ai.gftd.apps.dns.ownershipTransfer write"
+      "description": "Terminal record for a domain transfer. onCommit of this collection triggers (a) zone DID creation (did:web:dns.etzhayyim.com:zone:{domain_slug}) via cfRegistrar, (b) ai.gftd.apps.dns.ownershipTransfer write"
     },
     {
       "id": "ai.gftd.dns.transferRequest",
@@ -25445,7 +25487,7 @@
       "id": "ai.gftd.govAgo.ingestOfficialSources",
       "path": "00-contracts/lexicons/ai/gftd/govAgo/ingestOfficialSources.json",
       "type": "procedure",
-      "description": "Queue official Angola government sources through site.gftd.ai for WET/WAT/screenshot capture."
+      "description": "Queue official Angola government sources through site.etzhayyim.com for WET/WAT/screenshot capture."
     },
     {
       "id": "ai.gftd.govAgo.listOrgs",
@@ -27983,7 +28025,7 @@
       "id": "ai.gftd.govHkg.ingestOfficialSources",
       "path": "00-contracts/lexicons/ai/gftd/govHkg/ingestOfficialSources.json",
       "type": "procedure",
-      "description": "Queue official Hong Kong government sources through site.gftd.ai for WET/WAT/screenshot capture."
+      "description": "Queue official Hong Kong government sources through site.etzhayyim.com for WET/WAT/screenshot capture."
     },
     {
       "id": "ai.gftd.govHkg.listOrgs",
@@ -28961,7 +29003,7 @@
       "id": "ai.gftd.govKor.ingestOfficialSources",
       "path": "00-contracts/lexicons/ai/gftd/govKor/ingestOfficialSources.json",
       "type": "procedure",
-      "description": "Queue official South Korea government sources through site.gftd.ai for WET/WAT/screenshot capture."
+      "description": "Queue official South Korea government sources through site.etzhayyim.com for WET/WAT/screenshot capture."
     },
     {
       "id": "ai.gftd.govKor.listOrgs",
@@ -30551,7 +30593,7 @@
       "id": "ai.gftd.govPrk.ingestOfficialSources",
       "path": "00-contracts/lexicons/ai/gftd/govPrk/ingestOfficialSources.json",
       "type": "procedure",
-      "description": "Queue official North Korea government sources through site.gftd.ai for WET/WAT/screenshot capture."
+      "description": "Queue official North Korea government sources through site.etzhayyim.com for WET/WAT/screenshot capture."
     },
     {
       "id": "ai.gftd.govPrk.listOrgs",
@@ -30845,7 +30887,7 @@
       "id": "ai.gftd.govRus.ingestOfficialSources",
       "path": "00-contracts/lexicons/ai/gftd/govRus/ingestOfficialSources.json",
       "type": "procedure",
-      "description": "Queue official Russia government sources through site.gftd.ai for WET/WAT/screenshot capture."
+      "description": "Queue official Russia government sources through site.etzhayyim.com for WET/WAT/screenshot capture."
     },
     {
       "id": "ai.gftd.govRus.listOrgs",
@@ -32147,7 +32189,7 @@
       "id": "ai.gftd.govZaf.ingestOfficialSources",
       "path": "00-contracts/lexicons/ai/gftd/govZaf/ingestOfficialSources.json",
       "type": "procedure",
-      "description": "Queue official South Africa government sources through site.gftd.ai for WET/WAT/screenshot capture."
+      "description": "Queue official South Africa government sources through site.etzhayyim.com for WET/WAT/screenshot capture."
     },
     {
       "id": "ai.gftd.govZaf.listOrgs",
@@ -33173,13 +33215,13 @@
       "id": "ai.gftd.kiyo.getPaper",
       "path": "00-contracts/lexicons/ai/gftd/kiyo/getPaper.json",
       "type": "query",
-      "description": "Get paper metadata and latest revision info. Returns ipfsCid for fetching the PDF from https://ipfs.gftd.ai/ipfs/{cid}."
+      "description": "Get paper metadata and latest revision info. Returns ipfsCid for fetching the PDF from https://ipfs.etzhayyim.com/ipfs/{cid}."
     },
     {
       "id": "ai.gftd.kiyo.getPaperFile",
       "path": "00-contracts/lexicons/ai/gftd/kiyo/getPaperFile.json",
       "type": "query",
-      "description": "Get the IPFS gateway URL for a paper's PDF (or LaTeX source). Content is permanently accessible at https://ipfs.gftd.ai/ipfs/{cid} — no expiry (content-addressed, immutable)."
+      "description": "Get the IPFS gateway URL for a paper's PDF (or LaTeX source). Content is permanently accessible at https://ipfs.etzhayyim.com/ipfs/{cid} — no expiry (content-addressed, immutable)."
     },
     {
       "id": "ai.gftd.kiyo.getStats",
@@ -33209,7 +33251,7 @@
       "id": "ai.gftd.kiyo.submitPaper",
       "path": "00-contracts/lexicons/ai/gftd/kiyo/submitPaper.json",
       "type": "procedure",
-      "description": "Submit a new preprint to kiyo.gftd.ai. The PDF (and optionally LaTeX source) must be supplied as base64. A CIDv1 is assigned via ipfs.gftd.ai and stored in vertex_kiyo_paper. Triggers submitPaper.bpmn"
+      "description": "Submit a new preprint to kiyo.etzhayyim.com. The PDF (and optionally LaTeX source) must be supplied as base64. A CIDv1 is assigned via ipfs.etzhayyim.com and stored in vertex_kiyo_paper. Triggers submitPaper.bpmn"
     },
     {
       "id": "ai.gftd.kiyo.submitRevision",
@@ -33329,7 +33371,7 @@
       "id": "ai.gftd.kyber.projector.registerApqcActors",
       "path": "00-contracts/lexicons/ai/gftd/kyber/projector/registerApqcActors.json",
       "type": "procedure",
-      "description": "Bulk-register 13 APQC L1 path-based DIDs under did:web:kyber-projector.gftd.ai. Idempotent: re-invocation returns existing DIDs unchanged."
+      "description": "Bulk-register 13 APQC L1 path-based DIDs under did:web:kyber-projector.etzhayyim.com. Idempotent: re-invocation returns existing DIDs unchanged."
     },
     {
       "id": "ai.gftd.kyber.projector.runBpmnTask",
@@ -33647,7 +33689,7 @@
       "id": "ai.gftd.manga.submitFromNarou",
       "path": "00-contracts/lexicons/ai/gftd/manga/submitFromNarou.json",
       "type": "procedure",
-      "description": "Import title and chapter from narou.gftd.ai"
+      "description": "Import title and chapter from narou.etzhayyim.com"
     },
     {
       "id": "ai.gftd.manga.updateChapterStatus",
@@ -34157,7 +34199,7 @@
       "id": "ai.gftd.otakiage.anchorCertificate",
       "path": "00-contracts/lexicons/ai/gftd/otakiage/anchorCertificate.json",
       "type": "procedure",
-      "description": "供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する (Phase 2b1)。authority gated (issuer = did:web:otakiage.gftd.ai:ritual のみ)。Phase 2b1 = state tracking のみ (`anchor_status: pending → queued`)、"
+      "description": "供養証跡 (certificate) を ERC725 anchor token として on-chain に固定する (Phase 2b1)。authority gated (issuer = did:web:otakiage.etzhayyim.com:ritual のみ)。Phase 2b1 = state tracking のみ (`anchor_status: pending → queued`)、"
     },
     {
       "id": "ai.gftd.otakiage.confirmHandover",
@@ -34181,7 +34223,7 @@
       "id": "ai.gftd.otakiage.issueCertificate",
       "path": "00-contracts/lexicons/ai/gftd/otakiage/issueCertificate.json",
       "type": "procedure",
-      "description": "供養完了の永続証跡を発行。authority gated (issuer = did:web:otakiage.gftd.ai:ritual のみ)。matsuri 開催完了時に当該 matsuri に紐づく ritual_pending item を一括処理し、各 ritual record + certificate AT Record を発行 (URI が永続 ID)。Phase 1 = J"
+      "description": "供養完了の永続証跡を発行。authority gated (issuer = did:web:otakiage.etzhayyim.com:ritual のみ)。matsuri 開催完了時に当該 matsuri に紐づく ritual_pending item を一括処理し、各 ritual record + certificate AT Record を発行 (URI が永続 ID)。Phase 1 = J"
     },
     {
       "id": "ai.gftd.otakiage.listItems",
@@ -34205,7 +34247,7 @@
       "id": "ai.gftd.otakiage.scheduleMatsuri",
       "path": "00-contracts/lexicons/ai/gftd/otakiage/scheduleMatsuri.json",
       "type": "procedure",
-      "description": "季節祭 (供養祭) を新規スケジュール。authority gated (issuer = did:web:otakiage.gftd.ai or :matsuri sub-DID のみ)。BPMN matsuriSchedule (cron 月初) からも内部呼出される。"
+      "description": "季節祭 (供養祭) を新規スケジュール。authority gated (issuer = did:web:otakiage.etzhayyim.com or :matsuri sub-DID のみ)。BPMN matsuriSchedule (cron 月初) からも内部呼出される。"
     },
     {
       "id": "ai.gftd.otakiage.submitItem",
@@ -34295,25 +34337,25 @@
       "id": "ai.gftd.plc.getLog",
       "path": "00-contracts/lexicons/ai/gftd/plc/getLog.json",
       "type": "query",
-      "description": "Proxy for plc.gftd.ai GET /{did}/log — returns the full operation log for a DID. Each op is signature-verifiable offline. Used for audit, forensics, and federation sync."
+      "description": "Proxy for plc.etzhayyim.com GET /{did}/log — returns the full operation log for a DID. Each op is signature-verifiable offline. Used for audit, forensics, and federation sync."
     },
     {
       "id": "ai.gftd.plc.migrateActor",
       "path": "00-contracts/lexicons/ai/gftd/plc/migrateActor.json",
       "type": "procedure",
-      "description": "ADR-0014 Phase 5: migrate a did:web actor to did:plc. PDS builds genesis op with rotation key from D1 (ADR-0010 custody), signs with ES256K, computes DID, and registers with plc.gftd.ai. Client never "
+      "description": "ADR-0014 Phase 5: migrate a did:web actor to did:plc. PDS builds genesis op with rotation key from D1 (ADR-0010 custody), signs with ES256K, computes DID, and registers with plc.etzhayyim.com. Client never "
     },
     {
       "id": "ai.gftd.plc.operation",
       "path": "00-contracts/lexicons/ai/gftd/plc/operation.json",
       "type": "record",
-      "description": "PLC operation event emitted to atproto.gftd.ai firehose each time plc.gftd.ai accepts a new op. Used for cross-directory federation, audit trail, and external observers (Bluesky / other PLC replicas) "
+      "description": "PLC operation event emitted to atproto.etzhayyim.com firehose each time plc.etzhayyim.com accepts a new op. Used for cross-directory federation, audit trail, and external observers (Bluesky / other PLC replicas) "
     },
     {
       "id": "ai.gftd.plc.resolveDid",
       "path": "00-contracts/lexicons/ai/gftd/plc/resolveDid.json",
       "type": "query",
-      "description": "Proxy for plc.gftd.ai GET /{did} — returns the current W3C DID document by replaying the signed op log. Caller-side alternative: fetch plc.gftd.ai directly (no PDS auth required for public DIDs)."
+      "description": "Proxy for plc.etzhayyim.com GET /{did} — returns the current W3C DID document by replaying the signed op log. Caller-side alternative: fetch plc.etzhayyim.com directly (no PDS auth required for public DIDs)."
     },
     {
       "id": "ai.gftd.projector",
@@ -34805,7 +34847,7 @@
       "id": "ai.gftd.sbom.health",
       "path": "00-contracts/lexicons/ai/gftd/sbom/health.json",
       "type": "query",
-      "description": "sbom.gftd.ai liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met."
+      "description": "sbom.etzhayyim.com liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met."
     },
     {
       "id": "ai.gftd.sbom.recall",
@@ -34817,7 +34859,7 @@
       "id": "ai.gftd.sbom.registerArtifact",
       "path": "00-contracts/lexicons/ai/gftd/sbom/registerArtifact.json",
       "type": "procedure",
-      "description": "Register a CycloneDX or SPDX SBOM artifact with sbom.gftd.ai. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact"
+      "description": "Register a CycloneDX or SPDX SBOM artifact with sbom.etzhayyim.com. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact"
     },
     {
       "id": "ai.gftd.signal.authEncryption",
@@ -35087,7 +35129,7 @@
       "id": "ai.gftd.yorishiro.createYorishiro",
       "path": "00-contracts/lexicons/ai/gftd/yorishiro/createYorishiro.json",
       "type": "procedure",
-      "description": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.gftd.ai:{type}:{slug}."
+      "description": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.etzhayyim.com:{type}:{slug}."
     },
     {
       "id": "ai.gftd.yorishiro.flyio.closeAccount",

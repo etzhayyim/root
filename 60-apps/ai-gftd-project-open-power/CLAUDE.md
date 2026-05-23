@@ -1,4 +1,4 @@
-# open-power.gftd.ai — Electric Grid Operations & Network Design (OSS)
+# open-power.etzhayyim.com — Electric Grid Operations & Network Design (OSS)
 
 **Status**: MVP scaffold (2026-04-20). Reference implementation for electric
 distribution network design (substations / feeders) and operations
@@ -22,7 +22,7 @@ distribution network design (substations / feeders) and operations
 - **Runtime**: Single CF Worker (`src/app.ts`)
 - **Storage**: D1. Tables: `nodes`, `feeders`, `meter_readings`, `outages`
 - **Identity**: substation/service point/feeder = path-based DIDs
-  `did:web:open-power.gftd.ai:{node|feeder|outage}:{id}`
+  `did:web:open-power.etzhayyim.com:{node|feeder|outage}:{id}`
 - **Topology**: `nodes` (substation, service_point) + `feeders` (directed
   edges substation → service_point cluster). Voltage class on each node
 - **Outage class** by DMN (`openPower.outageClass`): customers affected +

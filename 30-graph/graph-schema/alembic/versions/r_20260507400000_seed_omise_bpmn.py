@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-accept-order-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-accept-order-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_accept_order',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_accept_order" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_accept_order" name="omise.acceptOrder" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -60,11 +60,11 @@ UP = [{'sql': '\n'
                  1113,
                  '00-contracts/bpmn/ai/gftd/omise/acceptOrder.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-accept-order-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-accept-order-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -79,18 +79,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-accept-order-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-accept-order-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.acceptOrder',
                  'omise_accept_order',
                  30000,
                  'vertex_OmiseOrder',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-accept-order-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-accept-order-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -106,14 +106,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-add-to-cart-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-add-to-cart-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_add_to_cart',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_add_to_cart" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_add_to_cart" name="omise.addToCart" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -139,11 +139,11 @@ UP = [{'sql': '\n'
                  1099,
                  '00-contracts/bpmn/ai/gftd/omise/addToCart.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-add-to-cart-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-add-to-cart-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -158,18 +158,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-add-to-cart-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-add-to-cart-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.addToCart',
                  'omise_add_to_cart',
                  30000,
                  'vertex_OmiseCart',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-add-to-cart-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-add-to-cart-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -185,14 +185,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-apply-coupon-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-apply-coupon-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_apply_coupon',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_apply_coupon" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_apply_coupon" name="omise.applyCoupon" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -218,11 +218,11 @@ UP = [{'sql': '\n'
                  1113,
                  '00-contracts/bpmn/ai/gftd/omise/applyCoupon.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-apply-coupon-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-apply-coupon-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -237,18 +237,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-apply-coupon-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-apply-coupon-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.applyCoupon',
                  'omise_apply_coupon',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-apply-coupon-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-apply-coupon-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -264,14 +264,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-approve-seller-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-approve-seller-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_approve_seller',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_approve_seller" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_approve_seller" name="omise.approveSeller" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -297,11 +297,11 @@ UP = [{'sql': '\n'
                  1129,
                  '00-contracts/bpmn/ai/gftd/omise/approveSeller.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-approve-seller-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-approve-seller-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -316,18 +316,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-approve-seller-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-approve-seller-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.approveSeller',
                  'omise_approve_seller',
                  30000,
                  'vertex_OmiseSeller',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-approve-seller-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-approve-seller-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -343,14 +343,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-archive-product-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-archive-product-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_archive_product',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_archive_product" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_archive_product" name="omise.archiveProduct" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -376,11 +376,11 @@ UP = [{'sql': '\n'
                  1137,
                  '00-contracts/bpmn/ai/gftd/omise/archiveProduct.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-archive-product-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-archive-product-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -395,18 +395,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-archive-product-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-archive-product-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.archiveProduct',
                  'omise_archive_product',
                  30000,
                  'vertex_OmiseProduct',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-archive-product-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-archive-product-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -422,13 +422,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-card-home-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-card-home-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_card_home',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_omise_card_home" targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'id="Definitions_omise_card_home" targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_card_home" name="omise.cardHome" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
                  '      <bpmn:outgoing>Flow_Start_Task</bpmn:outgoing>\n'
@@ -453,11 +453,11 @@ UP = [{'sql': '\n'
                  1089,
                  '00-contracts/bpmn/ai/gftd/omise/cardHome.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-card-home-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-card-home-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -472,18 +472,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-card-home-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-card-home-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.cardHome',
                  'omise_card_home',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-card-home-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-card-home-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -499,13 +499,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-clear-cart-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-clear-cart-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_clear_cart',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_omise_clear_cart" targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'id="Definitions_omise_clear_cart" targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_clear_cart" name="omise.clearCart" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -531,11 +531,11 @@ UP = [{'sql': '\n'
                  1097,
                  '00-contracts/bpmn/ai/gftd/omise/clearCart.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-clear-cart-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-clear-cart-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -550,18 +550,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-clear-cart-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-clear-cart-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.clearCart',
                  'omise_clear_cart',
                  30000,
                  'vertex_OmiseCart',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-clear-cart-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-clear-cart-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -577,14 +577,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-coupon-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-coupon-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_create_coupon',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_create_coupon" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_create_coupon" name="omise.createCoupon" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -610,11 +610,11 @@ UP = [{'sql': '\n'
                  1121,
                  '00-contracts/bpmn/ai/gftd/omise/createCoupon.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-coupon-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-coupon-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -629,18 +629,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-coupon-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-coupon-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.createCoupon',
                  'omise_create_coupon',
                  30000,
                  'vertex_OmiseCoupon',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-coupon-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-coupon-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -656,14 +656,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-order-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-order-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_create_order',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_create_order" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_create_order" name="omise.createOrder" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -689,11 +689,11 @@ UP = [{'sql': '\n'
                  1113,
                  '00-contracts/bpmn/ai/gftd/omise/createOrder.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-order-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-order-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -708,18 +708,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-order-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-order-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.createOrder',
                  'omise_create_order',
                  30000,
                  'vertex_OmiseOrder,vertex_OmiseCart',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-order-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-order-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -735,14 +735,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-product-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-product-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_create_product',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_create_product" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_create_product" name="omise.createProduct" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -768,11 +768,11 @@ UP = [{'sql': '\n'
                  1129,
                  '00-contracts/bpmn/ai/gftd/omise/createProduct.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-product-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-product-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -787,18 +787,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-product-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-product-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.createProduct',
                  'omise_create_product',
                  30000,
                  'vertex_OmiseProduct',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-product-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-product-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -814,14 +814,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-shipment-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-shipment-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_create_shipment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_create_shipment" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_create_shipment" name="omise.createShipment" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -847,11 +847,11 @@ UP = [{'sql': '\n'
                  1137,
                  '00-contracts/bpmn/ai/gftd/omise/createShipment.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-shipment-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-shipment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -866,18 +866,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-shipment-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-shipment-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.createShipment',
                  'omise_create_shipment',
                  30000,
                  'vertex_OmiseShipment',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-shipment-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-shipment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -893,14 +893,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-deactivate-coupon-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-deactivate-coupon-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_deactivate_coupon',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_deactivate_coupon" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_deactivate_coupon" name="omise.deactivateCoupon" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -926,11 +926,11 @@ UP = [{'sql': '\n'
                  1153,
                  '00-contracts/bpmn/ai/gftd/omise/deactivateCoupon.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-deactivate-coupon-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-deactivate-coupon-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -945,18 +945,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-deactivate-coupon-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-deactivate-coupon-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.deactivateCoupon',
                  'omise_deactivate_coupon',
                  30000,
                  'vertex_OmiseCoupon',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-deactivate-coupon-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-deactivate-coupon-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -972,13 +972,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-cart-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-cart-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_get_cart',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_omise_get_cart" targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'id="Definitions_omise_get_cart" targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_get_cart" name="omise.getCart" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
                  '      <bpmn:outgoing>Flow_Start_Task</bpmn:outgoing>\n'
@@ -1003,11 +1003,11 @@ UP = [{'sql': '\n'
                  1081,
                  '00-contracts/bpmn/ai/gftd/omise/getCart.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-cart-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-cart-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1022,18 +1022,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-cart-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-cart-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.getCart',
                  'omise_get_cart',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-cart-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-cart-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1049,13 +1049,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-order-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-order-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_get_order',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_omise_get_order" targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'id="Definitions_omise_get_order" targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_get_order" name="omise.getOrder" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
                  '      <bpmn:outgoing>Flow_Start_Task</bpmn:outgoing>\n'
@@ -1080,11 +1080,11 @@ UP = [{'sql': '\n'
                  1089,
                  '00-contracts/bpmn/ai/gftd/omise/getOrder.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-order-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-order-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1099,18 +1099,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-order-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-order-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.getOrder',
                  'omise_get_order',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-order-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-order-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1126,14 +1126,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-product-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-product-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_get_product',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_get_product" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_get_product" name="omise.getProduct" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1159,11 +1159,11 @@ UP = [{'sql': '\n'
                  1105,
                  '00-contracts/bpmn/ai/gftd/omise/getProduct.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-product-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-product-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1178,18 +1178,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-product-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-product-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.getProduct',
                  'omise_get_product',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-product-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-product-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1205,14 +1205,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-seller-balance-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-seller-balance-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_get_seller_balance',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_get_seller_balance" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_get_seller_balance" name="omise.getSellerBalance" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1238,11 +1238,11 @@ UP = [{'sql': '\n'
                  1155,
                  '00-contracts/bpmn/ai/gftd/omise/getSellerBalance.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-seller-balance-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-seller-balance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1257,18 +1257,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-seller-balance-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-seller-balance-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.getSellerBalance',
                  'omise_get_seller_balance',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-seller-balance-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-seller-balance-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1284,14 +1284,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-seller-profile-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-seller-profile-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_get_seller_profile',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_get_seller_profile" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_get_seller_profile" name="omise.getSellerProfile" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1317,11 +1317,11 @@ UP = [{'sql': '\n'
                  1155,
                  '00-contracts/bpmn/ai/gftd/omise/getSellerProfile.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-seller-profile-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-seller-profile-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1336,18 +1336,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-seller-profile-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-seller-profile-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.getSellerProfile',
                  'omise_get_seller_profile',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-seller-profile-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-seller-profile-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1363,14 +1363,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-seller-revenue-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-seller-revenue-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_get_seller_revenue',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_get_seller_revenue" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_get_seller_revenue" name="omise.getSellerRevenue" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1396,11 +1396,11 @@ UP = [{'sql': '\n'
                  1155,
                  '00-contracts/bpmn/ai/gftd/omise/getSellerRevenue.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-seller-revenue-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-seller-revenue-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1415,18 +1415,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-seller-revenue-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-seller-revenue-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.getSellerRevenue',
                  'omise_get_seller_revenue',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-seller-revenue-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-seller-revenue-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1442,14 +1442,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-shipment-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-shipment-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_get_shipment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_get_shipment" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_get_shipment" name="omise.getShipment" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1475,11 +1475,11 @@ UP = [{'sql': '\n'
                  1113,
                  '00-contracts/bpmn/ai/gftd/omise/getShipment.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-shipment-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-shipment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1494,18 +1494,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-shipment-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-shipment-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.getShipment',
                  'omise_get_shipment',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-shipment-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-shipment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1521,14 +1521,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-coupons-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-coupons-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_list_coupons',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_list_coupons" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_list_coupons" name="omise.listCoupons" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1554,11 +1554,11 @@ UP = [{'sql': '\n'
                  1113,
                  '00-contracts/bpmn/ai/gftd/omise/listCoupons.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-coupons-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-coupons-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1573,18 +1573,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-coupons-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-coupons-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.listCoupons',
                  'omise_list_coupons',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-coupons-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-coupons-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1600,14 +1600,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-orders-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-orders-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_list_orders',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_list_orders" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_list_orders" name="omise.listOrders" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1633,11 +1633,11 @@ UP = [{'sql': '\n'
                  1105,
                  '00-contracts/bpmn/ai/gftd/omise/listOrders.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-orders-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-orders-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1652,18 +1652,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-orders-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-orders-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.listOrders',
                  'omise_list_orders',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-orders-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-orders-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1679,14 +1679,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-pending-sellers-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-pending-sellers-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_list_pending_sellers',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_list_pending_sellers" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_list_pending_sellers" name="omise.listPendingSellers" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1713,11 +1713,11 @@ UP = [{'sql': '\n'
                  1171,
                  '00-contracts/bpmn/ai/gftd/omise/listPendingSellers.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-pending-sellers-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-pending-sellers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1732,18 +1732,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-pending-sellers-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-pending-sellers-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.listPendingSellers',
                  'omise_list_pending_sellers',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-pending-sellers-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-pending-sellers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1759,14 +1759,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-reviews-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-reviews-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_list_reviews',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_list_reviews" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_list_reviews" name="omise.listReviews" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1792,11 +1792,11 @@ UP = [{'sql': '\n'
                  1113,
                  '00-contracts/bpmn/ai/gftd/omise/listReviews.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-reviews-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-reviews-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1811,18 +1811,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-reviews-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-reviews-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.listReviews',
                  'omise_list_reviews',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-reviews-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-reviews-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1838,14 +1838,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-seller-orders-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-seller-orders-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_list_seller_orders',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_list_seller_orders" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_list_seller_orders" name="omise.listSellerOrders" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1871,11 +1871,11 @@ UP = [{'sql': '\n'
                  1155,
                  '00-contracts/bpmn/ai/gftd/omise/listSellerOrders.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-seller-orders-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-seller-orders-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1890,18 +1890,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-seller-orders-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-seller-orders-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.listSellerOrders',
                  'omise_list_seller_orders',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-seller-orders-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-seller-orders-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1917,14 +1917,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-seller-products-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-seller-products-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_list_seller_products',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_list_seller_products" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_list_seller_products" name="omise.listSellerProducts" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -1951,11 +1951,11 @@ UP = [{'sql': '\n'
                  1171,
                  '00-contracts/bpmn/ai/gftd/omise/listSellerProducts.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-seller-products-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-seller-products-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1970,18 +1970,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-seller-products-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-seller-products-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.listSellerProducts',
                  'omise_list_seller_products',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-seller-products-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-seller-products-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1997,14 +1997,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-sellers-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-sellers-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_list_sellers',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_list_sellers" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_list_sellers" name="omise.listSellers" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2030,11 +2030,11 @@ UP = [{'sql': '\n'
                  1113,
                  '00-contracts/bpmn/ai/gftd/omise/listSellers.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-sellers-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-sellers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2049,18 +2049,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-sellers-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-sellers-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.listSellers',
                  'omise_list_sellers',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-sellers-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-sellers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2076,14 +2076,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-settlements-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-settlements-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_list_settlements',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_list_settlements" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_list_settlements" name="omise.listSettlements" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2109,11 +2109,11 @@ UP = [{'sql': '\n'
                  1145,
                  '00-contracts/bpmn/ai/gftd/omise/listSettlements.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-settlements-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-settlements-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2128,18 +2128,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-settlements-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-settlements-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.listSettlements',
                  'omise_list_settlements',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-settlements-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-settlements-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2155,14 +2155,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-shipments-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-shipments-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_list_shipments',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_list_shipments" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_list_shipments" name="omise.listShipments" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2188,11 +2188,11 @@ UP = [{'sql': '\n'
                  1129,
                  '00-contracts/bpmn/ai/gftd/omise/listShipments.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-shipments-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-shipments-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2207,18 +2207,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-shipments-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-shipments-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.listShipments',
                  'omise_list_shipments',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-shipments-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-shipments-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2234,14 +2234,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-mark-ready-to-ship-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-mark-ready-to-ship-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_mark_ready_to_ship',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_mark_ready_to_ship" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_mark_ready_to_ship" name="omise.markReadyToShip" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2267,11 +2267,11 @@ UP = [{'sql': '\n'
                  1149,
                  '00-contracts/bpmn/ai/gftd/omise/markReadyToShip.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-mark-ready-to-ship-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-mark-ready-to-ship-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2286,18 +2286,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-mark-ready-to-ship-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-mark-ready-to-ship-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.markReadyToShip',
                  'omise_mark_ready_to_ship',
                  30000,
                  'vertex_OmiseOrder',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-mark-ready-to-ship-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-mark-ready-to-ship-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2313,14 +2313,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-platform-analytics-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-platform-analytics-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_platform_analytics',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_platform_analytics" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_platform_analytics" name="omise.platformAnalytics" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2347,11 +2347,11 @@ UP = [{'sql': '\n'
                  1161,
                  '00-contracts/bpmn/ai/gftd/omise/platformAnalytics.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-platform-analytics-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-platform-analytics-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2366,18 +2366,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-platform-analytics-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-platform-analytics-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.platformAnalytics',
                  'omise_platform_analytics',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-platform-analytics-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-platform-analytics-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2393,14 +2393,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-register-seller-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-register-seller-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_register_seller',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_register_seller" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_register_seller" name="omise.registerSeller" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2426,11 +2426,11 @@ UP = [{'sql': '\n'
                  1137,
                  '00-contracts/bpmn/ai/gftd/omise/registerSeller.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-register-seller-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-register-seller-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2445,18 +2445,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-register-seller-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-register-seller-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.registerSeller',
                  'omise_register_seller',
                  30000,
                  'vertex_OmiseSeller',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-register-seller-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-register-seller-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2472,14 +2472,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-reject-order-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-reject-order-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_reject_order',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_reject_order" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_reject_order" name="omise.rejectOrder" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2505,11 +2505,11 @@ UP = [{'sql': '\n'
                  1113,
                  '00-contracts/bpmn/ai/gftd/omise/rejectOrder.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-reject-order-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-reject-order-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2524,18 +2524,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-reject-order-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-reject-order-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.rejectOrder',
                  'omise_reject_order',
                  30000,
                  'vertex_OmiseOrder',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-reject-order-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-reject-order-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2551,14 +2551,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-remove-from-cart-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-remove-from-cart-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_remove_from_cart',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_remove_from_cart" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_remove_from_cart" name="omise.removeFromCart" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2584,11 +2584,11 @@ UP = [{'sql': '\n'
                  1139,
                  '00-contracts/bpmn/ai/gftd/omise/removeFromCart.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-remove-from-cart-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-remove-from-cart-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2603,18 +2603,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-remove-from-cart-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-remove-from-cart-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.removeFromCart',
                  'omise_remove_from_cart',
                  30000,
                  'vertex_OmiseCart',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-remove-from-cart-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-remove-from-cart-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2630,14 +2630,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-request-payout-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-request-payout-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_request_payout',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_request_payout" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_request_payout" name="omise.requestPayout" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2663,11 +2663,11 @@ UP = [{'sql': '\n'
                  1129,
                  '00-contracts/bpmn/ai/gftd/omise/requestPayout.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-request-payout-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-request-payout-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2682,18 +2682,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-request-payout-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-request-payout-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.requestPayout',
                  'omise_request_payout',
                  30000,
                  'vertex_OmisePayout',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-request-payout-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-request-payout-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2709,14 +2709,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-request-pickup-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-request-pickup-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_request_pickup',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_request_pickup" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_request_pickup" name="omise.requestPickup" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2742,11 +2742,11 @@ UP = [{'sql': '\n'
                  1129,
                  '00-contracts/bpmn/ai/gftd/omise/requestPickup.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-request-pickup-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-request-pickup-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2761,18 +2761,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-request-pickup-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-request-pickup-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.requestPickup',
                  'omise_request_pickup',
                  30000,
                  'vertex_OmisePickupRequest',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-request-pickup-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-request-pickup-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2788,14 +2788,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-resolve-dispute-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-resolve-dispute-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_resolve_dispute',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_resolve_dispute" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_resolve_dispute" name="omise.resolveDispute" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2821,11 +2821,11 @@ UP = [{'sql': '\n'
                  1137,
                  '00-contracts/bpmn/ai/gftd/omise/resolveDispute.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-resolve-dispute-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-resolve-dispute-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2840,18 +2840,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-resolve-dispute-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-resolve-dispute-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.resolveDispute',
                  'omise_resolve_dispute',
                  30000,
                  'vertex_OmiseDispute',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-resolve-dispute-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-resolve-dispute-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2867,14 +2867,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-search-products-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-search-products-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_search_products',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_search_products" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_search_products" name="omise.searchProducts" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2900,11 +2900,11 @@ UP = [{'sql': '\n'
                  1137,
                  '00-contracts/bpmn/ai/gftd/omise/searchProducts.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-search-products-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-search-products-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2919,18 +2919,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-search-products-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-search-products-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.searchProducts',
                  'omise_search_products',
                  30000,
                  '',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-search-products-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-search-products-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -2946,14 +2946,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-submit-review-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-submit-review-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_submit_review',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_submit_review" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_submit_review" name="omise.submitReview" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -2979,11 +2979,11 @@ UP = [{'sql': '\n'
                  1121,
                  '00-contracts/bpmn/ai/gftd/omise/submitReview.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-submit-review-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-submit-review-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -2998,18 +2998,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-submit-review-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-submit-review-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.submitReview',
                  'omise_submit_review',
                  30000,
                  'vertex_OmiseReview',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-submit-review-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-submit-review-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3025,14 +3025,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-suspend-seller-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-suspend-seller-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_suspend_seller',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_suspend_seller" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_suspend_seller" name="omise.suspendSeller" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -3058,11 +3058,11 @@ UP = [{'sql': '\n'
                  1129,
                  '00-contracts/bpmn/ai/gftd/omise/suspendSeller.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-suspend-seller-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-suspend-seller-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3077,18 +3077,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-suspend-seller-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-suspend-seller-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.suspendSeller',
                  'omise_suspend_seller',
                  30000,
                  'vertex_OmiseSeller',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-suspend-seller-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-suspend-seller-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3104,14 +3104,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-inventory-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-inventory-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_update_inventory',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_update_inventory" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_update_inventory" name="omise.updateInventory" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -3137,11 +3137,11 @@ UP = [{'sql': '\n'
                  1145,
                  '00-contracts/bpmn/ai/gftd/omise/updateInventory.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-inventory-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-inventory-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3156,18 +3156,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-inventory-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-inventory-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.updateInventory',
                  'omise_update_inventory',
                  30000,
                  'vertex_OmiseProduct',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-inventory-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-inventory-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3183,14 +3183,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-product-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-product-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_update_product',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_update_product" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_update_product" name="omise.updateProduct" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -3216,11 +3216,11 @@ UP = [{'sql': '\n'
                  1129,
                  '00-contracts/bpmn/ai/gftd/omise/updateProduct.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-product-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-product-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3235,18 +3235,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-product-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-product-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.updateProduct',
                  'omise_update_product',
                  30000,
                  'vertex_OmiseProduct',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-product-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-product-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3262,14 +3262,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-seller-profile-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-seller-profile-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_update_seller_profile',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_update_seller_profile" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_update_seller_profile" '
                  'name="omise.updateSellerProfile" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -3296,11 +3296,11 @@ UP = [{'sql': '\n'
                  1179,
                  '00-contracts/bpmn/ai/gftd/omise/updateSellerProfile.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-seller-profile-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-seller-profile-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3315,18 +3315,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-seller-profile-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-seller-profile-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.updateSellerProfile',
                  'omise_update_seller_profile',
                  30000,
                  'vertex_OmiseSeller',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-seller-profile-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-seller-profile-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -3342,14 +3342,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-shipment-status-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-shipment-status-v1',
+                 'did:web:omise.etzhayyim.com',
                  'omise_update_shipment_status',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_omise_update_shipment_status" '
-                 'targetNamespace="https://gftd.ai/bpmn/omise">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/omise">\n'
                  '  <bpmn:process id="omise_update_shipment_status" '
                  'name="omise.updateShipmentStatus" isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -3376,11 +3376,11 @@ UP = [{'sql': '\n'
                  1187,
                  '00-contracts/bpmn/ai/gftd/omise/updateShipmentStatus.bpmn',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-shipment-status-v1']},
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-shipment-status-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -3395,191 +3395,191 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-shipment-status-v1',
-                 'did:web:omise.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-shipment-status-v1',
+                 'did:web:omise.etzhayyim.com',
                  'ai.gftd.apps.omise.updateShipmentStatus',
                  'omise_update_shipment_status',
                  30000,
                  'vertex_OmiseShipment',
                  '2026-05-07T01:15:00Z',
-                 'did:web:omise.gftd.ai',
-                 'did:web:omise.gftd.ai',
+                 'did:web:omise.etzhayyim.com',
+                 'did:web:omise.etzhayyim.com',
                  'sys.bpmn.seed.omise',
-                 'did:web:omise.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-shipment-status-v1']}]
+                 'did:web:omise.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-shipment-status-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-accept-order-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-accept-order-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-accept-order-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-accept-order-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-add-to-cart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-add-to-cart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-add-to-cart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-add-to-cart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-apply-coupon-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-apply-coupon-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-apply-coupon-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-apply-coupon-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-approve-seller-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-approve-seller-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-approve-seller-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-approve-seller-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-archive-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-archive-product-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-archive-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-archive-product-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-card-home-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-card-home-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-card-home-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-card-home-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-clear-cart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-clear-cart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-clear-cart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-clear-cart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-coupon-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-coupon-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-coupon-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-coupon-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-order-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-order-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-order-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-order-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-product-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-product-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-create-shipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-create-shipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-create-shipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-create-shipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-deactivate-coupon-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-deactivate-coupon-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-deactivate-coupon-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-deactivate-coupon-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-cart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-cart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-cart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-cart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-order-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-order-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-order-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-order-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-product-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-product-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-seller-balance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-seller-balance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-seller-balance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-seller-balance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-seller-profile-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-seller-profile-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-seller-profile-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-seller-profile-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-seller-revenue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-seller-revenue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-seller-revenue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-seller-revenue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-get-shipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-get-shipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-get-shipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-get-shipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-coupons-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-coupons-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-coupons-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-coupons-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-orders-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-orders-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-orders-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-orders-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-pending-sellers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-pending-sellers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-pending-sellers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-pending-sellers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-reviews-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-reviews-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-reviews-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-reviews-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-seller-orders-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-seller-orders-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-seller-orders-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-seller-orders-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-seller-products-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-seller-products-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-seller-products-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-seller-products-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-sellers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-sellers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-sellers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-sellers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-settlements-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-settlements-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-settlements-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-settlements-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-list-shipments-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-list-shipments-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-list-shipments-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-list-shipments-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-mark-ready-to-ship-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-mark-ready-to-ship-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-mark-ready-to-ship-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-mark-ready-to-ship-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-platform-analytics-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-platform-analytics-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-platform-analytics-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-platform-analytics-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-register-seller-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-register-seller-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-register-seller-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-register-seller-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-reject-order-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-reject-order-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-reject-order-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-reject-order-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-remove-from-cart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-remove-from-cart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-remove-from-cart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-remove-from-cart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-request-payout-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-request-payout-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-request-payout-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-request-payout-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-request-pickup-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-request-pickup-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-request-pickup-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-request-pickup-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-resolve-dispute-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-resolve-dispute-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-resolve-dispute-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-resolve-dispute-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-search-products-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-search-products-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-search-products-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-search-products-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-submit-review-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-submit-review-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-submit-review-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-submit-review-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-suspend-seller-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-suspend-seller-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-suspend-seller-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-suspend-seller-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-inventory-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-inventory-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-inventory-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-inventory-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-product-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-product-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-seller-profile-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-seller-profile-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-seller-profile-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-seller-profile-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/omise-update-shipment-status-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/omise-update-shipment-status-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/omise-update-shipment-status-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/omise-update-shipment-status-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9d27a1ef925e",
+  "entityId": "ent-9d27a1ef925e",
+  "canonicalName": "cubafrutas",
+  "aliases": [
+    "cubafrutas"
+  ]
+}

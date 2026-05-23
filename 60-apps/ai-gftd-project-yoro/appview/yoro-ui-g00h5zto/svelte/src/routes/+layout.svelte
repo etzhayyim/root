@@ -14,17 +14,15 @@
 	} from '$lib/auth';
 	import { SuperAppLayout, Tuner } from '$lib/superapp';
 	import { currentTab, pathToTab } from '$lib/superapp';
-	import { ActionSheet } from '@gftdcojp/design-system';
+	import { ActionSheet } from '@etzhayyim/design-system';
 	import { playClick } from '$lib/sound';
-	import { playTap, haptic } from '@gftdcojp/design-system/audio';
+	import { playTap, haptic } from '@etzhayyim/design-system/audio';
 	import { setTokenProvider } from '$lib/atproto-agent';
 	import { useProviderWorker, useBrowserInference, useLocalLLM, useShinkaInference } from '$lib/provider';
 	import { useEvolutionTasks } from '$lib/provider/evolution-tasks.svelte.js';
 	import { useEmbedding } from '$lib/provider/embedding.svelte.js';
 	import AppDrawer from '$lib/components/AppDrawer.svelte';
 	import OpsFAB from '$lib/components/OpsFAB.svelte';
-	import NoCookieBanner from '$lib/components/NoCookieBanner.svelte';
-	import CookieConsent from '$lib/components/CookieConsent.svelte';
 	import InferenceConsent from '$lib/components/InferenceConsent.svelte';
 	import { hasInferenceConsent, requestInferenceConsent } from '$lib/components/inference-consent-state.svelte.js';
 	import { useGamification, AchievementToast } from '$lib/gamification';
@@ -257,6 +255,4 @@
 <AppDrawer bind:open={drawerOpen} />
 <ActionSheet bind:open={menuOpen} actions={menuActions} cancelLabel="キャンセル" />
 <AchievementToast />
-<NoCookieBanner />
-<CookieConsent />
 <InferenceConsent />

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Public live-news/radio stream source monitored by news.gftd.ai live audio ingest.",
+      "description": "Public live-news/radio stream source monitored by news.etzhayyim.com live audio ingest.",
       "key": "any",
       "record": {
         "type": "object",

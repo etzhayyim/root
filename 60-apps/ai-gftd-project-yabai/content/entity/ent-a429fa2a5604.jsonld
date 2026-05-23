@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a429fa2a5604",
+  "entityId": "ent-a429fa2a5604",
+  "canonicalName": "constructora gerlife, s.a. de c.v.",
+  "aliases": [
+    "constructora gerlife, s.a. de c.v."
+  ]
+}

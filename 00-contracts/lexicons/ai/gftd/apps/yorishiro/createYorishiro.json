@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.gftd.ai:{type}:{slug}.",
+      "description": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.etzhayyim.com:{type}:{slug}.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

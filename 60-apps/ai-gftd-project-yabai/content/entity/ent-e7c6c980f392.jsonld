@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e7c6c980f392",
+  "entityId": "ent-e7c6c980f392",
+  "canonicalName": "samara metallurgical plant",
+  "aliases": [
+    "samara metallurgical plant"
+  ]
+}

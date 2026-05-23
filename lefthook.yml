@@ -109,3 +109,65 @@ pre-commit:
       glob: "{package.json,Cargo.toml,pyproject.toml}"
       run: node 70-tools/scripts/lint/charter-rider-notice.mjs {staged_files}
       stage_fixed: false
+
+    validate-religious-corp-lexicons:
+      # Validate etzhayyim religious-corp lexicons per AT Protocol Lexicon v1
+      # rules (no float types, integer with implied units). Per ADR-2605190900.
+      glob: "00-contracts/lexicons/app/etzhayyim/**/*.json"
+      run: python3 70-tools/scripts/validate-lexicons.py --root 00-contracts/lexicons/app/etzhayyim/ --exit-on-error
+      tags: lexicon
+
+    no-external-purchase-purpose:
+      # Enforce ADR-2605211900 §D2 + ADR-2605192115 §4 on every yorishiro
+      # lexicon. Yorishiri are vessels (依代) that bridge external substrate;
+      # their x-charter-purpose must be a non-empty subset of:
+      #   donation / kisha / grant / tithe / escrow-refund
+      # and must never include subscription / purchase / tip /
+      # internal-purchase / internal-subscription / internal-promo
+      # (the internal-* values belong on SBT↔SBT carveout apps, NOT on
+      # yorishiri). x-yorishiro-external must also be true. See
+      # 70-tools/scripts/lint/no-external-purchase-purpose.mjs.
+      glob: "00-contracts/lexicons/ai/etzhayyim/yorishiro/**/*.json"
+      run: node 70-tools/scripts/lint/no-external-purchase-purpose.mjs {staged_files}
+      tags: lexicon yorishiro
+
+    no-two-stage-gftd-domains:
+      # Enforce ADR-2605212340 (legacy domain → etzhayyim.com cutover).
+      # Blocks new introduction of the legacy gftd top-level zone literal
+      # in canonical etzhayyim code, including in .jsonld @context URIs.
+      # Alias docs (/CLAUDE.md, /README.md, /CHARTER-RIDER.md) are exempt.
+      glob: "*.{md,toml,yaml,yml,json,jsonc,jsonld,ts,tsx,js,jsx,mjs,cjs,py,rs,go,sh,sol,svelte}"
+      run: node 70-tools/scripts/lint/no-two-stage-gftd-domains.mjs {staged_files}
+      stage_fixed: false
+
+    e7m-verify:
+      # Per ADR-2605221411 + ADR-2605192100 §1: every commit re-checks the
+      # 8 constitutional hard-invariants surfaced by `e7m verify`. Unlike
+      # the per-file lints above, this is a whole-repo scan that catches
+      # invariant drift introduced by merges, vendored content, or out-of-
+      # tree edits.
+      #
+      # If e7m is not installed (new contributor), the hook is informational
+      # and exits 0. Install via:
+      #   cd 70-tools/e7m && uv venv .venv && source .venv/bin/activate && uv pip install -e .
+      run: |
+        if ! command -v e7m >/dev/null 2>&1; then
+          # Try the project-local venv as a fallback before giving up.
+          if [ -x 70-tools/e7m/.venv/bin/e7m ]; then
+            E7M_BIN=70-tools/e7m/.venv/bin/e7m
+          else
+            echo "ℹ e7m not on PATH; skipping constitutional verify."
+            echo "  Install with: cd 70-tools/e7m && uv venv .venv && source .venv/bin/activate && uv pip install -e ."
+            exit 0
+          fi
+        else
+          E7M_BIN=e7m
+        fi
+        if ! "$E7M_BIN" --json verify > /tmp/e7m-verify.$$.json 2>/dev/null; then
+          echo "✘ e7m verify failed — constitutional invariant violation"
+          "$E7M_BIN" verify || true
+          rm -f /tmp/e7m-verify.$$.json
+          exit 1
+        fi
+        rm -f /tmp/e7m-verify.$$.json
+      stage_fixed: false

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5267678e8afe",
+  "entityId": "ent-5267678e8afe",
+  "canonicalName": "nourredine adam",
+  "aliases": [
+    "nourredine adam"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6e58ad8f8fa2",
+  "entityId": "ent-6e58ad8f8fa2",
+  "canonicalName": "joint stock company vologodsky optiko mekhanichesky factory",
+  "aliases": [
+    "joint stock company vologodsky optiko mekhanichesky factory"
+  ]
+}

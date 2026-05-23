@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b6ee0d69a772",
+  "entityId": "ent-b6ee0d69a772",
+  "canonicalName": "сангаджи-горяєв джангар баатрович",
+  "aliases": [
+    "сангаджи-горяєв джангар баатрович"
+  ]
+}

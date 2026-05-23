@@ -4,7 +4,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 
 	function goBack() {
 		if (history.length > 1) history.back();

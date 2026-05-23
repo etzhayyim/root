@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-16c160a05751",
+  "entityId": "ent-16c160a05751",
+  "canonicalName": "ooo realeksport",
+  "aliases": [
+    "ooo realeksport"
+  ]
+}

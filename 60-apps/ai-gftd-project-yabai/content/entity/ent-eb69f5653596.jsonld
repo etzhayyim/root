@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-eb69f5653596",
+  "entityId": "ent-eb69f5653596",
+  "canonicalName": "tifon",
+  "aliases": [
+    "tifon"
+  ]
+}

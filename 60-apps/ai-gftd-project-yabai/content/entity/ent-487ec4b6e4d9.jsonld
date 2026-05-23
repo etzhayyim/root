@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-487ec4b6e4d9",
+  "entityId": "ent-487ec4b6e4d9",
+  "canonicalName": "jamal mustafa abdallah sultan",
+  "aliases": [
+    "jamal mustafa abdallah sultan"
+  ]
+}

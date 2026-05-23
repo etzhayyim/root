@@ -10,7 +10,7 @@ Architecture: Supervisor + 6 specialist agents + compliance gate + audit.
 Brand axis (CRITICAL):
   - "advocate" — k-bakshi personal practice. BCI Rule 36 strict: information-only,
     no soliciting, no testimonials, no success rate claims. Compliance gate REQUIRED.
-  - "platform" — amanomibashira SaaS marketing. Commercial OK (NOT advocate practice
+  - "platform" — etzhayyim SaaS marketing. Commercial OK (NOT advocate practice
     advertising). Compliance gate skipped, but disclaimer-of-non-legal-advice required.
 
 Persists: vertex_lawfirm_marketing_asset, vertex_lawfirm_marketing_run.
@@ -357,10 +357,10 @@ def outreach_agent(state: MarketingState) -> dict:
     }
 
 
-# ── Node: platform_agent (amanomibashira SaaS marketing) ───────────────────────────
+# ── Node: platform_agent (etzhayyim SaaS marketing) ───────────────────────────
 
 _PLATFORM_SYSTEM = """You are the platform marketing agent for lawfirm.etzhayyim.com
-SaaS, operated by amanomibashira. Brand = PLATFORM, NOT advocate practice.
+SaaS, operated by etzhayyim. Brand = PLATFORM, NOT advocate practice.
 Commercial marketing copy is OK (this is a tech operator product page, not
 advocate solicitation).
 
@@ -371,7 +371,7 @@ Requirements:
 - Word count: tweet 220 chars / landing section 200-400 words / one-pager 600-900 words
 - Highlight differentiation: multilingual intake, cross-border auto-route,
   BCI Rule 36 + DPDP Act 2023-grade encryption, BPMN audit trail
-- Include "amanomibashira is a platform operator. lawfirm.etzhayyim.com SaaS does not
+- Include "etzhayyim is a platform operator. lawfirm.etzhayyim.com SaaS does not
   provide legal advice; the customer firm's advocates retain all
   professional responsibility." disclaimer at the bottom
 - ZERO advocate-practice language (no "we represent clients", etc.)

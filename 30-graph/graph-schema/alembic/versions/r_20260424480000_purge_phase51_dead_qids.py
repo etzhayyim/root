@@ -13,15 +13,15 @@ branch_labels = None
 depends_on = None
 
 UP = [{'sql': 'DELETE FROM vertex_maps_coverage_target WHERE source_did = $1',
-  'parameters': ['did:web:maps.gftd.ai:registry:wikidata:parliamentBldg']},
+  'parameters': ['did:web:maps.etzhayyim.com:registry:wikidata:parliamentBldg']},
  {'sql': 'DELETE FROM vertex_maps_coverage_target WHERE source_did = $1',
-  'parameters': ['did:web:maps.gftd.ai:registry:wikidata:aquariumWd']},
+  'parameters': ['did:web:maps.etzhayyim.com:registry:wikidata:aquariumWd']},
  {'sql': 'DELETE FROM vertex_maps_coverage_target WHERE source_did = $1',
-  'parameters': ['did:web:maps.gftd.ai:registry:wikidata:prisonWd']},
+  'parameters': ['did:web:maps.etzhayyim.com:registry:wikidata:prisonWd']},
  {'sql': 'DELETE FROM vertex_maps_coverage_target WHERE source_did = $1',
-  'parameters': ['did:web:maps.gftd.ai:registry:wikidata:boardingSchool']},
+  'parameters': ['did:web:maps.etzhayyim.com:registry:wikidata:boardingSchool']},
  {'sql': 'DELETE FROM vertex_maps_coverage_target WHERE source_did = $1',
-  'parameters': ['did:web:maps.gftd.ai:registry:wikidata:gurdwara']},
+  'parameters': ['did:web:maps.etzhayyim.com:registry:wikidata:gurdwara']},
  {'sql': 'FLUSH', 'parameters': []}]
 
 DOWN = []

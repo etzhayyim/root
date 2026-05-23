@@ -14,6 +14,7 @@
 // First request after expiry refetches; concurrent requests share the
 // in-flight promise to avoid N parallel SELECTs on cold cache.
 //
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 // See: 90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md
 
 import type { Kysely } from "kysely";

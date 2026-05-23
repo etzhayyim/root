@@ -4,7 +4,6 @@ export { default as Sidebar } from './Sidebar.svelte';
 export { default as Footer } from './Footer.svelte';
 export { default as ContentArea } from './ContentArea.svelte';
 export { default as ThemeToggle } from './ThemeToggle.svelte';
-export { default as GoogleAnalytics } from './GoogleAnalytics.svelte';
 export { default as LegalDocumentPage } from './legal/LegalDocumentPage.svelte';
 export {
 	privacyDocument,
@@ -20,7 +19,7 @@ export { theme, resolvedTheme, setTheme, toggleTheme, ALL_THEMES, THEME_META } f
 export type { Theme, ColorTheme, ThemeMeta } from './theme';
 
 // Re-export design-system primitives for one-stop imports.
-export * from '@gftdcojp/design-system';
+export * from '@etzhayyim/design-system';
 
 // Unified facade for appshellv2-* packages.
 export * from './auth';
@@ -71,4 +70,4 @@ export {
 } from './translate/stores.js';
 
 // Unified facade for build-safety tooling.
-// safe-builder: use @gftdcojp/vite-plugin-safe-builder directly
+// safe-builder: use @etzhayyim/vite-plugin-safe-builder directly

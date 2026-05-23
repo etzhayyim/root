@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4e812471d11d",
+  "entityId": "ent-4e812471d11d",
+  "canonicalName": "innocent zimurinda",
+  "aliases": [
+    "innocent zimurinda"
+  ]
+}

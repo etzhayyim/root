@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ba9cf8b4b457",
+  "entityId": "ent-ba9cf8b4b457",
+  "canonicalName": "prelasa",
+  "aliases": [
+    "prelasa"
+  ]
+}

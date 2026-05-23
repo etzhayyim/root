@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d021c3f81df2",
+  "entityId": "ent-d021c3f81df2",
+  "canonicalName": "cimex iberica",
+  "aliases": [
+    "cimex iberica"
+  ]
+}

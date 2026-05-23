@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7e87057727fa",
+  "entityId": "ent-7e87057727fa",
+  "canonicalName": "jean-marie lugerero runiga",
+  "aliases": [
+    "jean-marie lugerero runiga"
+  ]
+}

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "ADR-0014 Phase 5: migrate a did:web actor to did:plc. PDS builds genesis op with rotation key from D1 (ADR-0010 custody), signs with ES256K, computes DID, and registers with plc.gftd.ai. Client never touches key material.",
+      "description": "ADR-0014 Phase 5: migrate a did:web actor to did:plc. PDS builds genesis op with rotation key from D1 (ADR-0010 custody), signs with ES256K, computes DID, and registers with plc.etzhayyim.com. Client never touches key material.",
       "input": {
         "encoding": "application/json",
         "schema": {
@@ -18,12 +18,12 @@
             "handle": {
               "type": "string",
               "format": "handle",
-              "description": "atproto handle to embed in DID document alsoKnownAs (e.g. adr.gftd.ai)"
+              "description": "atproto handle to embed in DID document alsoKnownAs (e.g. adr.etzhayyim.com)"
             },
             "dryRun": {
               "type": "boolean",
               "default": false,
-              "description": "if true: build + sign genesis op, compute DID, but do NOT register with plc.gftd.ai and do NOT persist rotation mapping"
+              "description": "if true: build + sign genesis op, compute DID, but do NOT register with plc.etzhayyim.com and do NOT persist rotation mapping"
             },
             "existingRotationKeys": {
               "type": "array",
@@ -52,7 +52,7 @@
             "plcUrl": {
               "type": "string",
               "format": "uri",
-              "description": "plc.gftd.ai resolve URL for the new DID"
+              "description": "plc.etzhayyim.com resolve URL for the new DID"
             },
             "handle": {
               "type": "string",
@@ -65,7 +65,7 @@
             },
             "registered": {
               "type": "boolean",
-              "description": "true if DID was successfully POSTed to plc.gftd.ai (false in dryRun or if already exists)"
+              "description": "true if DID was successfully POSTed to plc.etzhayyim.com (false in dryRun or if already exists)"
             }
           }
         }
@@ -85,7 +85,7 @@
         },
         {
           "name": "PlcDirectoryUnreachable",
-          "description": "plc.gftd.ai POST failed (network / auth / rate limit)"
+          "description": "plc.etzhayyim.com POST failed (network / auth / rate limit)"
         },
         {
           "name": "DidCollision",

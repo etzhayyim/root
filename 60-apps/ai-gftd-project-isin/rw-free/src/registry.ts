@@ -288,6 +288,7 @@ export async function validateIsin(
     countryAlpha2: isin.slice(0, 2),
     nsin: isin.slice(2, 11),
     checkDigit: expected,
+    error: valid ? undefined : "invalidCheckDigit",
   };
 }
 

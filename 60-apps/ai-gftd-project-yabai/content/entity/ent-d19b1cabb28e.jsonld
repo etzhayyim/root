@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d19b1cabb28e",
+  "entityId": "ent-d19b1cabb28e",
+  "canonicalName": "abdoulaye hissene",
+  "aliases": [
+    "abdoulaye hissene"
+  ]
+}

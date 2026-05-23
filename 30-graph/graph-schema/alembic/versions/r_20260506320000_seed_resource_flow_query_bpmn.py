@@ -25,14 +25,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-get-sankey-v1',
-                 'did:web:resource-flow.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-get-sankey-v1',
+                 'did:web:resource-flow.etzhayyim.com',
                  'resource_flow_get_sankey',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_resource_flow_get_sankey" '
-                 'targetNamespace="https://gftd.ai/bpmn/resource-flow" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/resource-flow" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="resource_flow_get_sankey" name="resource-flow getSankey" '
                  'isExecutable="true">\n'
@@ -61,10 +61,10 @@ UP = [{'sql': '\n'
                  1410,
                  '00-contracts/bpmn/ai/gftd/resource-flow/getSankey.bpmn',
                  '2026-05-06T23:00:00Z',
-                 'did:web:resource-flow.gftd.ai',
-                 'did:web:resource-flow.gftd.ai',
+                 'did:web:resource-flow.etzhayyim.com',
+                 'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow-query',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-get-sankey-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-get-sankey-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -78,14 +78,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-get-actor-labels-v1',
-                 'did:web:resource-flow.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-get-actor-labels-v1',
+                 'did:web:resource-flow.etzhayyim.com',
                  'resource_flow_get_actor_labels',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_resource_flow_get_actor_labels" '
-                 'targetNamespace="https://gftd.ai/bpmn/resource-flow" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/resource-flow" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="resource_flow_get_actor_labels" name="resource-flow '
                  'getActorLabels" isExecutable="true">\n'
@@ -112,10 +112,10 @@ UP = [{'sql': '\n'
                  1315,
                  '00-contracts/bpmn/ai/gftd/resource-flow/getActorLabels.bpmn',
                  '2026-05-06T23:00:00Z',
-                 'did:web:resource-flow.gftd.ai',
-                 'did:web:resource-flow.gftd.ai',
+                 'did:web:resource-flow.etzhayyim.com',
+                 'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow-query',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-get-actor-labels-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-get-actor-labels-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -129,14 +129,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-list-flows-v1',
-                 'did:web:resource-flow.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-list-flows-v1',
+                 'did:web:resource-flow.etzhayyim.com',
                  'resource_flow_list_flows',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_resource_flow_list_flows" '
-                 'targetNamespace="https://gftd.ai/bpmn/resource-flow" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/resource-flow" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="resource_flow_list_flows" name="resource-flow listFlows" '
                  'isExecutable="true">\n'
@@ -167,10 +167,10 @@ UP = [{'sql': '\n'
                  1528,
                  '00-contracts/bpmn/ai/gftd/resource-flow/listFlows.bpmn',
                  '2026-05-06T23:00:00Z',
-                 'did:web:resource-flow.gftd.ai',
-                 'did:web:resource-flow.gftd.ai',
+                 'did:web:resource-flow.etzhayyim.com',
+                 'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow-query',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-list-flows-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-list-flows-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -184,14 +184,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-list-anomalies-v1',
-                 'did:web:resource-flow.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-list-anomalies-v1',
+                 'did:web:resource-flow.etzhayyim.com',
                  'resource_flow_list_anomalies',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_resource_flow_list_anomalies" '
-                 'targetNamespace="https://gftd.ai/bpmn/resource-flow" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/resource-flow" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="resource_flow_list_anomalies" name="resource-flow '
                  'listAnomalies" isExecutable="true">\n'
@@ -220,10 +220,10 @@ UP = [{'sql': '\n'
                  1426,
                  '00-contracts/bpmn/ai/gftd/resource-flow/listAnomalies.bpmn',
                  '2026-05-06T23:00:00Z',
-                 'did:web:resource-flow.gftd.ai',
-                 'did:web:resource-flow.gftd.ai',
+                 'did:web:resource-flow.etzhayyim.com',
+                 'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow-query',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-list-anomalies-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-list-anomalies-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -237,16 +237,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-getSankey-v1',
-                 'did:web:resource-flow.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-getSankey-v1',
+                 'did:web:resource-flow.etzhayyim.com',
                  'ai.gftd.apps.resourceFlow.getSankey',
                  'resource_flow_get_sankey',
                  30000,
                  '2026-05-06T23:00:00Z',
-                 'did:web:resource-flow.gftd.ai',
-                 'did:web:resource-flow.gftd.ai',
+                 'did:web:resource-flow.etzhayyim.com',
+                 'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow-query',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-getSankey-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-getSankey-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -260,16 +260,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-getActorLabels-v1',
-                 'did:web:resource-flow.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-getActorLabels-v1',
+                 'did:web:resource-flow.etzhayyim.com',
                  'ai.gftd.apps.resourceFlow.getActorLabels',
                  'resource_flow_get_actor_labels',
                  30000,
                  '2026-05-06T23:00:00Z',
-                 'did:web:resource-flow.gftd.ai',
-                 'did:web:resource-flow.gftd.ai',
+                 'did:web:resource-flow.etzhayyim.com',
+                 'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow-query',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-getActorLabels-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-getActorLabels-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -283,16 +283,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-listFlows-v1',
-                 'did:web:resource-flow.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-listFlows-v1',
+                 'did:web:resource-flow.etzhayyim.com',
                  'ai.gftd.apps.resourceFlow.listFlows',
                  'resource_flow_list_flows',
                  30000,
                  '2026-05-06T23:00:00Z',
-                 'did:web:resource-flow.gftd.ai',
-                 'did:web:resource-flow.gftd.ai',
+                 'did:web:resource-flow.etzhayyim.com',
+                 'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow-query',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-listFlows-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-listFlows-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -306,33 +306,33 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-listAnomalies-v1',
-                 'did:web:resource-flow.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-listAnomalies-v1',
+                 'did:web:resource-flow.etzhayyim.com',
                  'ai.gftd.apps.resourceFlow.listAnomalies',
                  'resource_flow_list_anomalies',
                  30000,
                  '2026-05-06T23:00:00Z',
-                 'did:web:resource-flow.gftd.ai',
-                 'did:web:resource-flow.gftd.ai',
+                 'did:web:resource-flow.etzhayyim.com',
+                 'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow-query',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-listAnomalies-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-listAnomalies-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-getSankey-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-getSankey-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-getActorLabels-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-getActorLabels-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-listFlows-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-listFlows-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/resource-flow-listAnomalies-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-listAnomalies-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-get-sankey-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-get-sankey-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-get-actor-labels-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-get-actor-labels-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-list-flows-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-list-flows-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/resource-flow-list-anomalies-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-list-anomalies-v1']}]
 
 
 def upgrade() -> None:

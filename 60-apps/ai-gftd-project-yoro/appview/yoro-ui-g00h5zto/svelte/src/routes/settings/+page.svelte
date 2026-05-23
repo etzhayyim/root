@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Avatar, Badge, Skeleton } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { Avatar, Badge, Skeleton } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 		import { getCurrentDID, getProfile, setProfile, uploadBlob, listDevices } from '$lib/atproto-agent';
 	import { signOut } from '$lib/auth/passkey.js';
 	import { isSignedIn } from '$lib/auth/stores.js';

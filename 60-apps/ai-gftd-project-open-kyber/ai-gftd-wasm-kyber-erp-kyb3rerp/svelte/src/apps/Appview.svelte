@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Input, Textarea, Select, Card, Badge, Chip } from '@gftdcojp/design-system';
+  import { Button, Input, Textarea, Select, Card, Badge, Chip } from '@etzhayyim/design-system';
   import { callXrpc, periodYM } from '../lib/xrpc';
   import { ui } from '../lib/store.svelte';
 

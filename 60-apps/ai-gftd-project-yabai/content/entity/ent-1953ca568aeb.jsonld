@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1953ca568aeb",
+  "entityId": "ent-1953ca568aeb",
+  "canonicalName": "ediciones cubanas",
+  "aliases": [
+    "ediciones cubanas"
+  ]
+}

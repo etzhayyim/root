@@ -1,0 +1,110 @@
+name: Council Nomination Watch
+
+# Autopoietic observation harness: surfaces Council Seat 2-5 self-nominations
+# the moment a PR touches the canonical Council files, runs structural
+# eligibility checks, and posts a check summary back on the PR. Substantive
+# eligibility (SBT held / Charter affirmation / Rider §2 compliance) remains
+# human Council review — this workflow is a detector, not a gate.
+#
+# Active-inference cycle 05 (2026-05-22). Closes Axis 1 Autopoiesis next-action
+# per README.md § As Artificial Organism Ecosystem.
+#
+# Trigger files:
+#   - COUNCIL.md                  (roster table edits)
+#   - COUNCIL-BOOTSTRAP-RFP.md    (RFP-period candidacy declarations)
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'COUNCIL.md'
+      - 'COUNCIL-BOOTSTRAP-RFP.md'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  detect-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Identify nomination diff
+        id: diff
+        run: |
+          BASE="origin/${{ github.base_ref }}"
+          git fetch origin "${{ github.base_ref }}" --depth=200 || true
+          {
+            echo "council_diff<<COUNCIL_EOF"
+            git diff "$BASE...HEAD" -- COUNCIL.md COUNCIL-BOOTSTRAP-RFP.md || true
+            echo "COUNCIL_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Structural eligibility check
+        id: check
+        run: |
+          chmod +x 70-tools/scripts/council/check-nomination.sh
+          {
+            echo "report<<REPORT_EOF"
+            BASE="origin/${{ github.base_ref }}" \
+              70-tools/scripts/council/check-nomination.sh
+            echo "REPORT_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Comment on PR with detector summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const report = `${{ steps.check.outputs.report }}`;
+            const body = [
+              '## Council Nomination Watch — automated detector',
+              '',
+              'This is a **structural** check only. Substantive eligibility',
+              '(Adherent SBT held, Charter affirmation, Rider §2(a)-(h) clearance)',
+              'is the Council\\'s human review per `COUNCIL-BOOTSTRAP-RFP.md §Who Council members are`.',
+              '',
+              '### Findings',
+              '',
+              '```',
+              report || '(empty — see workflow logs)',
+              '```',
+              '',
+              '### Next steps for nominee',
+              '',
+              '1. Wait for the 30-day public objection window (closes 2026-06-19).',
+              '2. Council human review of substantive eligibility.',
+              '3. If approved + un-objected, founder confirms via signed commit to `COUNCIL.md`.',
+              '',
+              '_Active-inference cycle 05 — auto-generated; do not edit by hand._'
+            ].join('\\n');
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+            await github.rest.issues.createComment({ owner, repo, issue_number, body });
+
+      - name: Append to observation log
+        run: |
+          mkdir -p _observations/council
+          PR=${{ github.event.pull_request.number }}
+          STAMP=$(date "+%y%m%d%H%M")
+          OUT="_observations/council/${STAMP}-pr-${PR}.md"
+          {
+            echo "# Council nomination PR ${PR} — $(date -u "+%Y-%m-%dT%H:%MZ")"
+            echo
+            echo "Author: ${{ github.event.pull_request.user.login }}"
+            echo "Title: ${{ github.event.pull_request.title }}"
+            echo "URL: ${{ github.event.pull_request.html_url }}"
+            echo
+            echo '## Structural check'
+            echo
+            echo '```'
+            echo "${{ steps.check.outputs.report }}"
+            echo '```'
+          } > "$OUT"
+          echo "wrote $OUT"
+        # Note: this writes within the ephemeral runner workspace. To persist,
+        # a follow-up cycle should add a step that opens a second PR appending
+        # the observation file to main. Out of scope for cycle 05.

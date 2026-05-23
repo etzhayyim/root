@@ -8,19 +8,19 @@
     "Protocol Buffers"
   ],
   "runtimePlatform": "SpinKube",
-  "url": "https://public-sento.gftd.ai",
+  "url": "https://public-sento.etzhayyim.com",
   "keywords": [
     "public fund",
     "sento",
     "bathhouse",
     "crowdfunding",
-    "credits.gftd.ai",
+    "credits.etzhayyim.com",
     "cofog",
     "isic",
     "apqc"
   ],
   "isPartOf": {
     "@type": "SoftwareApplication",
-    "name": "gftd.ai"
+    "name": "etzhayyim.com"
   }
 }

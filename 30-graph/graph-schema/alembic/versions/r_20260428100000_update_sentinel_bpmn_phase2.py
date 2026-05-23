@@ -44,14 +44,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  ADR-2604271800. NSID: ai.gftd.apps.maps.sentinelIngest.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_maps_sentinel_ingest"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="maps_sentinel_ingest" name="maps sentinel ingest" '
@@ -145,7 +145,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  5557,
                  '00-contracts/bpmn/ai/gftd/maps/sentinelIngest.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -176,14 +176,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  ADR-2604271800. NSID: ai.gftd.apps.maps.sentinelAnalyze.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-sentinel-analyze-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-sentinel-analyze-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_maps_sentinel_analyze"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="maps_sentinel_analyze" name="maps sentinel analyze" '
@@ -298,20 +298,20 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  6301,
                  '00-contracts/bpmn/ai/gftd/maps/sentinelAnalyze.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-sentinel-analyze-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-sentinel-analyze-v1']}]
 
 DOWN = [{'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET version = 1\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-sentinel-ingest-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET version = 1\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-sentinel-analyze-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-sentinel-analyze-v1']}]
 
 
 def upgrade() -> None:

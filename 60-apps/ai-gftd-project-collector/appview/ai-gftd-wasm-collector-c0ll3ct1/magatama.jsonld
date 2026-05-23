@@ -1,0 +1,117 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:collector.etzhayyim.com",
+  "name": "collector",
+  "nanoid": "c0ll3ct1",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "sensitivity": "internal",
+  "source": "custom",
+  "version": "0.1.0",
+  "build": {
+    "guestLanguage": "ts",
+    "role": "thin-edge"
+  },
+  "component": {
+    "path": "src/app.ts"
+  },
+  "profile": {
+    "displayName": "GFTD Collector",
+    "description": "Thin Cloudflare edge facade for the Collector. Network intelligence business logic runs in AgentGateway MCP + pod-side LangServer workers.",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "gftd.co.jp",
+    "capabilities": [
+      "collect-netintel-dns",
+      "collect-blockchain-btc",
+      "collect-blockchain-eth",
+      "collect-common-crawl",
+      "collect-archive",
+      "ingest-scan-result",
+      "bpmn-dispatch",
+      "ingest-abuse-report",
+      "ingest-leak-entity"
+    ]
+  },
+  "interfaces": {
+    "package": "gftd:collector@1.0.0",
+    "requires": [
+      "gftd:collection/collection@1.0.0"
+    ]
+  },
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": []
+  },
+  "convoSystemPrompt": "You are the GFTD Collector agent. You perform unified network intelligence collection: RDAP/DNS lookups, blockchain monitoring (BTC/ETH via self-hosted full nodes), Common Crawl and Internet Archive CDX queries, port scan ingestion, abuse report processing, and leaked database tracking. Respond helpfully in the user's language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "kpi": [
+    "credits の獲得"
+  ],
+  "deploy": {},
+  "routes": [
+    {
+      "host": "collector.etzhayyim.com",
+      "paths": ["/"],
+      "tls": true
+    },
+    {
+      "host": "c0ll3ct1.etzhayyim.com",
+      "paths": ["/"],
+      "tls": true
+    }
+  ],
+  "space": {
+    "name": "GFTD Collector — Network Intelligence",
+    "joinRule": "public",
+    "historyVisibility": "shared",
+    "channels": [
+      {
+        "name": "network-intel",
+        "kind": "public",
+        "default": true
+      },
+      {
+        "name": "blockchain-monitor",
+        "kind": "public"
+      },
+      {
+        "name": "abuse-reports",
+        "kind": "public"
+      }
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.collector.collectorRun",
+        "ai.gftd.apps.collector.dnsObservation",
+        "ai.gftd.apps.collector.blockchainActor",
+        "ai.gftd.apps.collector.riskSignal",
+        "ai.gftd.apps.collector.abuseReport",
+        "ai.gftd.apps.collector.leakEntity",
+        "ai.gftd.apps.collector.commodityValue",
+        "ai.gftd.apps.collector.disclosure",
+        "ai.gftd.apps.collector.dailyEvolution",
+        "ai.gftd.apps.collector.engagement",
+        "ai.gftd.apps.collector.newFollower"
+      ]
+    }
+  },
+  "ui": {
+    "accent": "#2d5a3d",
+    "icon": "📡",
+    "ssrRoutes": {
+      "apps": "gftd.collector.v1.CollectorService/collector.tools",
+      "live": "gftd.collector.v1.CollectorService/collector.dashboard"
+    }
+  },
+  "uiType": "appview"
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8cc5499a77f0",
+  "entityId": "ent-8cc5499a77f0",
+  "canonicalName": "matriks elektronika",
+  "aliases": [
+    "matriks elektronika"
+  ]
+}

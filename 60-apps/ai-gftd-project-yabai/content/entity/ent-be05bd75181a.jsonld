@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-be05bd75181a",
+  "entityId": "ent-be05bd75181a",
+  "canonicalName": "south wealth resources company",
+  "aliases": [
+    "south wealth resources company"
+  ]
+}

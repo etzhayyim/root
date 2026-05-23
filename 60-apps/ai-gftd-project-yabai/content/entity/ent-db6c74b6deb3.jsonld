@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-db6c74b6deb3",
+  "entityId": "ent-db6c74b6deb3",
+  "canonicalName": "ricardo jose moron hernandez",
+  "aliases": [
+    "ricardo jose moron hernandez"
+  ]
+}

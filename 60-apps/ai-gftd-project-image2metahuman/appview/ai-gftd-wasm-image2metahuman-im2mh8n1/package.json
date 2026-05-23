@@ -1,0 +1,8 @@
+{
+  "name": "ai-gftd-wasm-image2metahuman-im2mh8n1",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  }
+}

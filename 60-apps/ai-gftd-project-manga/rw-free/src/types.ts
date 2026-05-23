@@ -30,6 +30,7 @@ export interface TitleView extends TitleRecord {
 
 export interface CreateTitleInput {
   title: string;
+  title_id?: string;
   description?: string;
   genre?: string;
   thumbnail_key?: string;

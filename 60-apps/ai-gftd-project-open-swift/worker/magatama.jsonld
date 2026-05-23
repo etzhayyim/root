@@ -1,8 +1,8 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-swift.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-swift.etzhayyim.com",
   "name": "open-swift",
-  "handle": "open-swift.gftd.ai",
+  "handle": "open-swift.etzhayyim.com",
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-swift",

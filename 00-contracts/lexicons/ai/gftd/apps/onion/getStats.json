@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Get onion.gftd.ai crawl statistics.",
+      "description": "Get onion.etzhayyim.com crawl statistics.",
       "parameters": {
         "type": "params",
         "properties": {}

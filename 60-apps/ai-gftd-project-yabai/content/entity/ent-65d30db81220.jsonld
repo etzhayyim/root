@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-65d30db81220",
+  "entityId": "ent-65d30db81220",
+  "canonicalName": "empresa de turismo nacional y internacional",
+  "aliases": [
+    "empresa de turismo nacional y internacional"
+  ]
+}

@@ -7,8 +7,8 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import { fade } from 'svelte/transition';
 	import * as yoroApi from '$lib/atproto-agent';
 

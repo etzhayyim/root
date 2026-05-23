@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'graphSosIntel_inventoryTick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"\n'
                  '                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '                  id="graph-sos-intel-inventory-tick"\n'
-                 '                  targetNamespace="https://gftd.ai/bpmn/graph-sos-intel">\n'
+                 '                  targetNamespace="https://etzhayyim.com/bpmn/graph-sos-intel">\n'
                  '  <bpmn:process id="graphSosIntelInventoryTick" name="Graph SoS Intel — '
                  'Inventory Tick (R/PT15M)" isExecutable="true">\n'
                  '    <bpmn:startEvent id="StartEvent_Timer" name="R/PT15M timer">\n'
@@ -72,9 +72,9 @@ UP = [{'sql': '\n'
                  1768,
                  '00-contracts/bpmn/ai/gftd/graph-sos-intel/inventory-tick.bpmn',
                  '2026-05-07T09:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -86,14 +86,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'graphSosIntel_inventoryTick',
                  'ai.gftd.apps.graphSosIntel.inventoryTick',
                  '2026-05-07T09:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -107,15 +107,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'graphSosIntel_briefingTick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"\n'
                  '                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '                  id="graph-sos-intel-briefing-tick"\n'
-                 '                  targetNamespace="https://gftd.ai/bpmn/graph-sos-intel">\n'
+                 '                  targetNamespace="https://etzhayyim.com/bpmn/graph-sos-intel">\n'
                  '  <bpmn:process id="graphSosIntelBriefingTick" name="Graph SoS Intel — Topology '
                  'Briefing (R/PT6H)" isExecutable="true">\n'
                  '    <bpmn:startEvent id="StartEvent_Timer" name="R/PT6H timer">\n'
@@ -153,9 +153,9 @@ UP = [{'sql': '\n'
                  1776,
                  '00-contracts/bpmn/ai/gftd/graph-sos-intel/briefing-tick.bpmn',
                  '2026-05-07T09:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -167,23 +167,23 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'graphSosIntel_briefingTick',
                  'ai.gftd.apps.graphSosIntel.briefingTick',
                  '2026-05-07T09:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1']}]
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1']}]
 
 
 def upgrade() -> None:

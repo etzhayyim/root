@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4a75069ef7f5",
+  "entityId": "ent-4a75069ef7f5",
+  "canonicalName": "ramiro martin romero wirichaga",
+  "aliases": [
+    "ramiro martin romero wirichaga"
+  ]
+}

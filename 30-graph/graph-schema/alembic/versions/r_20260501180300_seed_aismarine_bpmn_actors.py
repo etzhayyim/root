@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-ais-stream-consumer-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-ais-stream-consumer-v1',
+                 'did:web:maps.etzhayyim.com',
                  'maps_aismarine_consumer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -44,7 +44,7 @@ UP = [{'sql': '\n'
                  '  (global), batches 5s/500-msg, and flushes via:\n'
                  '\n'
                  '    POST '
-                 'http://dispatcher.gftd.ai:8080/xrpc/ai.gftd.apps.maps.aismarine.ingestAisStream\n'
+                 'http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.maps.aismarine.ingestAisStream\n'
                  '    (x-internal-trust HMAC, ADR-2604241038 invariant 3)\n'
                  '\n'
                  '  which fans out to `aismarine.position.batchInsert` + '
@@ -57,14 +57,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.maps.aismarine.aisStreamConsumer\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-ais-stream-consumer-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-ais-stream-consumer-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_maps_aismarine_consumer"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps/aismarine"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps/aismarine"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="maps_aismarine_consumer" name="maps aismarine consumer" '
@@ -91,10 +91,10 @@ UP = [{'sql': '\n'
                  2420,
                  '00-contracts/bpmn/ai/gftd/maps/aismarine/aisStreamConsumer.bpmn',
                  '2026-05-01T18:00:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps.aismarine',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-ais-stream-consumer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-ais-stream-consumer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -108,8 +108,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-voyage-detector-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-voyage-detector-v1',
+                 'did:web:maps.etzhayyim.com',
                  'maps_aismarine_voyage_detector',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -127,14 +127,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  ADR-2605011500. NSID: ai.gftd.apps.maps.aismarine.voyageDetector.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-voyage-detector-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-voyage-detector-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_maps_aismarine_voyage_detector"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps/aismarine"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps/aismarine"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="maps_aismarine_voyage_detector" name="maps aismarine voyage '
@@ -224,10 +224,10 @@ UP = [{'sql': '\n'
                  4768,
                  '00-contracts/bpmn/ai/gftd/maps/aismarine/voyageDetector.bpmn',
                  '2026-05-01T18:00:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps.aismarine',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-voyage-detector-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-voyage-detector-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -241,8 +241,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-master-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-master-v1',
+                 'did:web:maps.etzhayyim.com',
                  'maps_aismarine_refresh_vessel_master',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -258,14 +258,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  ADR-2605011500. NSID: ai.gftd.apps.maps.aismarine.refreshVesselMaster.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-refresh-vessel-master-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-refresh-vessel-master-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_maps_aismarine_refresh_vessel_master"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps/aismarine"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps/aismarine"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="maps_aismarine_refresh_vessel_master" name="maps aismarine '
@@ -332,10 +332,10 @@ UP = [{'sql': '\n'
                  3586,
                  '00-contracts/bpmn/ai/gftd/maps/aismarine/refreshVesselMaster.bpmn',
                  '2026-05-01T18:00:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps.aismarine',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-master-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-master-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -349,8 +349,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-density-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-density-v1',
+                 'did:web:maps.etzhayyim.com',
                  'maps_aismarine_refresh_vessel_density',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -368,14 +368,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  ADR-2605011500. NSID: ai.gftd.apps.maps.aismarine.refreshVesselDensity.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-refresh-vessel-density-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-refresh-vessel-density-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_maps_aismarine_refresh_vessel_density"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps/aismarine"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps/aismarine"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="maps_aismarine_refresh_vessel_density" name="maps aismarine '
@@ -441,10 +441,10 @@ UP = [{'sql': '\n'
                  3530,
                  '00-contracts/bpmn/ai/gftd/maps/aismarine/refreshVesselDensity.bpmn',
                  '2026-05-01T18:00:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps.aismarine',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-density-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-density-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -458,16 +458,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-aisStreamConsumer-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-aisStreamConsumer-v1',
+                 'did:web:maps.etzhayyim.com',
                  'ai.gftd.apps.maps.aismarine.aisStreamConsumer',
                  'maps_aismarine_consumer',
                  30000,
                  '2026-05-01T18:00:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps.aismarine',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-aisStreamConsumer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-aisStreamConsumer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -481,16 +481,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-voyageDetector-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-voyageDetector-v1',
+                 'did:web:maps.etzhayyim.com',
                  'ai.gftd.apps.maps.aismarine.voyageDetector',
                  'maps_aismarine_voyage_detector',
                  240000,
                  '2026-05-01T18:00:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps.aismarine',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-voyageDetector-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-voyageDetector-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -504,16 +504,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselMaster-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselMaster-v1',
+                 'did:web:maps.etzhayyim.com',
                  'ai.gftd.apps.maps.aismarine.refreshVesselMaster',
                  'maps_aismarine_refresh_vessel_master',
                  240000,
                  '2026-05-01T18:00:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps.aismarine',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselMaster-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselMaster-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -527,33 +527,33 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselDensity-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselDensity-v1',
+                 'did:web:maps.etzhayyim.com',
                  'ai.gftd.apps.maps.aismarine.refreshVesselDensity',
                  'maps_aismarine_refresh_vessel_density',
                  30000,
                  '2026-05-01T18:00:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps.aismarine',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselDensity-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselDensity-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-aisStreamConsumer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-aisStreamConsumer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-voyageDetector-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-voyageDetector-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselMaster-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselMaster-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselDensity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/maps-aismarine-refreshVesselDensity-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-ais-stream-consumer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-ais-stream-consumer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-voyage-detector-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-voyage-detector-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-master-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-master-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-density-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-aismarine-refresh-vessel-density-v1']}]
 
 
 def upgrade() -> None:

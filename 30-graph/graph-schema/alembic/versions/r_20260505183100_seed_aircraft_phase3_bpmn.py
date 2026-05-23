@@ -24,8 +24,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1',
+                 'did:web:maps.etzhayyim.com',
                  'maps_backfill_aircraft_registry',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -46,14 +46,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  ai.gftd.apps.maps.backfillAircraftRegistry\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_maps_backfill_aircraft_registry"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="maps_backfill_aircraft_registry" name="maps backfill '
@@ -139,10 +139,10 @@ UP = [{'sql': '\n'
                  4591,
                  '00-contracts/bpmn/ai/gftd/maps/backfillAircraftRegistry.bpmn',
                  '2026-05-05T18:31:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-aircraft-phase3',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -156,23 +156,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1',
-                 'did:web:maps.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1',
+                 'did:web:maps.etzhayyim.com',
                  'ai.gftd.apps.maps.backfillAircraftRegistry',
                  'maps_backfill_aircraft_registry',
                  1800000,
                  'vertex_aircraft,edge_aircraft_state_for_aircraft',
                  '2026-05-05T18:31:00Z',
-                 'did:web:maps.gftd.ai',
-                 'did:web:maps.gftd.ai',
+                 'did:web:maps.etzhayyim.com',
+                 'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-aircraft-phase3',
-                 'did:web:maps.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1']}]
+                 'did:web:maps.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1']}]
 
 
 def upgrade() -> None:

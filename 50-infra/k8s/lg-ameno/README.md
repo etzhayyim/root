@@ -23,7 +23,7 @@ ADRs:
 ## Boundaries
 
 - **Namespace**: `etzhayyim-langserver`. Distinct from `mitama-udf`
-  (the gftd.ai legacy namespace) so the etzhayyim / gftd split per
+  (the etzhayyim.com legacy namespace) so the etzhayyim / gftd split per
   ADR-2605191346 §2 is reflected at the cluster boundary.
 - **nodeSelector**: `etzhayyim.com/role=murakumo-host`. Bind to Mac-mini
   fleet nodes (physical or via murakumo-kubelet virtual nodes).

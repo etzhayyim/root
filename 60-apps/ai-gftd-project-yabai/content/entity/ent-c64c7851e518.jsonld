@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-c64c7851e518",
+  "entityId": "ent-c64c7851e518",
+  "canonicalName": "umar siddique kathio azmarai",
+  "aliases": [
+    "umar siddique kathio azmarai"
+  ]
+}

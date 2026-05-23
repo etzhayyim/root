@@ -34,7 +34,7 @@ def _minimal_cfg() -> dict:
         "performerType": "service",
         "uiType": "appview",
         "convoSystemPrompt": "You are a helpful assistant.",
-        "governance": {"roles": [{"role": "operator", "did": "did:web:amanomibashira.etzhayyim.com"}]},
+        "governance": {"roles": [{"role": "operator", "did": "did:web:etzhayyim.etzhayyim.com"}]},
         "profile": {
             "displayName": "My App",
             "description": "A test app",

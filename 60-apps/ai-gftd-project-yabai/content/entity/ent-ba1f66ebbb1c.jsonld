@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ba1f66ebbb1c",
+  "entityId": "ent-ba1f66ebbb1c",
+  "canonicalName": "bernard maheshe byamungu",
+  "aliases": [
+    "bernard maheshe byamungu"
+  ]
+}

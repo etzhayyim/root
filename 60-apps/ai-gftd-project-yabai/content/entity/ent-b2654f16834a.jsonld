@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b2654f16834a",
+  "entityId": "ent-b2654f16834a",
+  "canonicalName": "shahid shustari industries",
+  "aliases": [
+    "shahid shustari industries"
+  ]
+}

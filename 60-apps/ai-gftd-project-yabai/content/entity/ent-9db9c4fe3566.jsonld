@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9db9c4fe3566",
+  "entityId": "ent-9db9c4fe3566",
+  "canonicalName": "laurent nkunda",
+  "aliases": [
+    "laurent nkunda"
+  ]
+}

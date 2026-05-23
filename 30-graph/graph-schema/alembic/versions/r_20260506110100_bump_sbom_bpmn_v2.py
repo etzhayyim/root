@@ -22,7 +22,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  sbom.gftd.ai — registerArtifact BPMN (Phase C).\n'
+                 '  sbom.etzhayyim.com — registerArtifact BPMN (Phase C).\n'
                  '\n'
                  '  Persist the artifact + components, then run vuln-match against\n'
                  '  vertex_cve_entry (yabai feed), then audit-emit.\n'
@@ -32,7 +32,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_sbom_register_artifact"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/sbom"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/sbom"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="sbom_register_artifact" name="sbom registerArtifact" '
@@ -67,7 +67,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sb0m001x.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sb0m001x.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;sbom.registerArtifact&quot;" '
                  'target="action"/>\n'
@@ -87,7 +87,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  2490,
                  '2026-05-06T11:01:00Z',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '       SET bpmn_version = 2,\n'
@@ -95,7 +95,7 @@ UP = [{'sql': '\n'
          '     WHERE vertex_id = $2\n'
          '  ',
   'parameters': ['2026-05-06T11:01:00Z',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1']}]
 
 DOWN = []
 

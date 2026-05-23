@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Return a scene-graph projection of a single storey (IfcBuildingStorey) — the primary LOD unit for `bim.gftd.ai`. Includes contained spaces, elements (walls/slabs/columns/...), materials, and selectable element ids for anchored annotations. Consumed by kami-app-bim (run_bim_v2) or any Threlte client.",
+      "description": "Return a scene-graph projection of a single storey (IfcBuildingStorey) — the primary LOD unit for `bim.etzhayyim.com`. Includes contained spaces, elements (walls/slabs/columns/...), materials, and selectable element ids for anchored annotations. Consumed by kami-app-bim (run_bim_v2) or any Threlte client.",
       "parameters": {
         "type": "params",
         "required": ["storeyId"],

@@ -42,6 +42,7 @@ export class LanceDbTextIndex {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let mod: any;
     try {
+      // @ts-ignore — @lancedb/lancedb is an optional peer dep; falls back at runtime
       mod = await import(/* @vite-ignore */ "@lancedb/lancedb");
     } catch (err) {
       throw new Error(

@@ -1,0 +1,29 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-996677619476",
+  "entityId": "ent-996677619476",
+  "canonicalName": "Rokes Pakistan Development Team",
+  "aliases": [
+    "Rokes Pakistan Dev",
+    "Pakistan Dev Team"
+  ],
+  "kyumeiKoji": {
+    "performedAt": "2026-04-05T00:00:00Z",
+    "model": "gemma4",
+    "domainSummary": "Original development team of Rokes Exchange, based in Pakistan. Executed unauthorized access to hot wallets, bypassed logging systems, and transferred stolen funds to their own exchange. Used ETH misidentification attack for unauthorized deposits and small-amount withdrawal evasion for exfiltration. Direct wallet access with no operation logs.",
+    "jurisdiction": "PK",
+    "attackMethods": [
+      "ETH currency misidentification deposit attack",
+      "Small-amount repeated withdrawal evasion",
+      "Direct wallet access bypassing logging",
+      "Trade system logic manipulation"
+    ],
+    "knowledgeEdges": [
+      {"from": "rokes_pakistan_dev", "relation": "PERPETRATOR_OF", "to": "rokes_exchange_theft"},
+      {"from": "rokes_pakistan_dev", "relation": "OPERATES_FROM", "to": "PK"},
+      {"from": "rokes_pakistan_dev", "relation": "CONTROLS_ADDRESS", "to": "0x5c50564cEEEb5B85CFeeC31572A748cC1185356c"},
+      {"from": "rokes_pakistan_dev", "relation": "FUNDS_ROUTED_TO", "to": "tradeogre"}
+    ]
+  }
+}

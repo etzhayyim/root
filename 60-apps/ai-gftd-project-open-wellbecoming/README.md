@@ -30,4 +30,4 @@ Phase 2 (scaffolding) per ADR-2605172400. No content yet.
 
 - [`00-contracts/lexicons/ai/gftd/wellBecoming/`](../../00-contracts/lexicons/ai/gftd/wellBecoming) — Tranche F lexicons
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
-- [vendor: society6 / trust](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/tree/main/60-apps) — monetized reputation, stays vendor
+- [vendor: society6 / trust](https://github.com/etzhayyim/etzhayyim-root/tree/main/60-apps) — monetized reputation, stays vendor

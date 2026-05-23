@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-739e4264f28a",
+  "entityId": "ent-739e4264f28a",
+  "canonicalName": "yard no. 9918781 zvezda-dsme",
+  "aliases": [
+    "yard no. 9918781 zvezda-dsme"
+  ]
+}

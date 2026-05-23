@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7aebae1306ea",
+  "entityId": "ent-7aebae1306ea",
+  "canonicalName": "korea rungrado shipping co",
+  "aliases": [
+    "korea rungrado shipping co"
+  ]
+}

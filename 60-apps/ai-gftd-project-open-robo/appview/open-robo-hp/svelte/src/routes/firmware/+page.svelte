@@ -25,7 +25,7 @@ sudo apt update && sudo apt install -y ros-humble-desktop ros-humble-moveit`,
     {
       title: 'Otete ファームウェアクローン',
       code: `cd ~
-git clone https://github.com/gftdcojp/otete.git
+git clone https://github.com/etzhayyim/otete.git
 cd otete
 pip3 install -r firmware/armcrawler/requirements.txt`,
     },

@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-hs-classify-shipment-v1',
-                 'did:web:open-hs.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-hs-classify-shipment-v1',
+                 'did:web:open-hs.etzhayyim.com',
                  'open_hs_classify_shipment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_hs_classify_shipment"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-hs"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-hs"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_hs_classify_shipment" name="HS 貿易分類" '
                  'isExecutable="true">\n'
@@ -49,7 +49,7 @@ UP = [{'sql': '\n'
                  '&quot;community&quot; else &quot;candidate&quot;" target="verification"/>\n'
                  '          <zeebe:output source="=confidence &lt; 0.5" target="requireReview"/>\n'
                  '          <zeebe:output '
-                 'source="=&quot;at://did:web:open-hs.gftd.ai/ai.gftd.apps.openHs.class/&quot; + '
+                 'source="=&quot;at://did:web:open-hs.etzhayyim.com/ai.gftd.apps.openHs.class/&quot; + '
                  'string(hsCode)" target="classDst"/>\n'
                  '        </zeebe:ioMapping>\n'
                  '      </bpmn:extensionElements>\n'
@@ -126,7 +126,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-hs.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-hs.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openHs.classify.reviewPending&quot;" '
                  'target="action"/>\n'
@@ -144,7 +144,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-hs.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-hs.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openHs.classify.accept&quot;" '
                  'target="action"/>\n'
@@ -167,10 +167,10 @@ UP = [{'sql': '\n'
                  6106,
                  '00-contracts/bpmn/ai/gftd/open-hs/classifyShipment.bpmn',
                  '2026-04-24T16:30:00Z',
-                 'did:web:open-hs.gftd.ai',
-                 'did:web:open-hs.gftd.ai',
+                 'did:web:open-hs.etzhayyim.com',
+                 'did:web:open-hs.etzhayyim.com',
                  'sys.bpmn.seed.open-hs',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-hs-classify-shipment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-hs-classify-shipment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -178,8 +178,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-hs-record-concordance-v1',
-                 'did:web:open-hs.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-hs-record-concordance-v1',
+                 'did:web:open-hs.etzhayyim.com',
                  'open_hs_record_concordance',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -187,7 +187,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_hs_record_concordance"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-hs"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-hs"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_hs_record_concordance" name="HS concordance 記録" '
                  'isExecutable="true">\n'
@@ -221,7 +221,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-hs.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-hs.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openHs.concordance.record&quot;" '
                  'target="action"/>\n'
@@ -241,10 +241,10 @@ UP = [{'sql': '\n'
                  2594,
                  '00-contracts/bpmn/ai/gftd/open-hs/recordConcordance.bpmn',
                  '2026-04-24T16:30:00Z',
-                 'did:web:open-hs.gftd.ai',
-                 'did:web:open-hs.gftd.ai',
+                 'did:web:open-hs.etzhayyim.com',
+                 'did:web:open-hs.etzhayyim.com',
                  'sys.bpmn.seed.open-hs',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-hs-record-concordance-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-hs-record-concordance-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -252,16 +252,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-hs-classifyShipment-v1',
-                 'did:web:open-hs.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-hs-classifyShipment-v1',
+                 'did:web:open-hs.etzhayyim.com',
                  'ai.gftd.apps.openHs.classifyShipment',
                  'open_hs_classify_shipment',
                  30000,
                  '2026-04-24T16:30:00Z',
-                 'did:web:open-hs.gftd.ai',
-                 'did:web:open-hs.gftd.ai',
+                 'did:web:open-hs.etzhayyim.com',
+                 'did:web:open-hs.etzhayyim.com',
                  'sys.bpmn.seed.open-hs',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-hs-classifyShipment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-hs-classifyShipment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -269,25 +269,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-hs-recordConcordance-v1',
-                 'did:web:open-hs.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-hs-recordConcordance-v1',
+                 'did:web:open-hs.etzhayyim.com',
                  'ai.gftd.apps.openHs.recordConcordance',
                  'open_hs_record_concordance',
                  15000,
                  '2026-04-24T16:30:00Z',
-                 'did:web:open-hs.gftd.ai',
-                 'did:web:open-hs.gftd.ai',
+                 'did:web:open-hs.etzhayyim.com',
+                 'did:web:open-hs.etzhayyim.com',
                  'sys.bpmn.seed.open-hs',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-hs-recordConcordance-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-hs-recordConcordance-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-hs-classifyShipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-hs-classifyShipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-hs-recordConcordance-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-hs-recordConcordance-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-hs-classify-shipment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-hs-classify-shipment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-hs-record-concordance-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-hs-record-concordance-v1']}]
 
 
 def upgrade() -> None:

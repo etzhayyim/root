@@ -19,12 +19,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_refresh_sanctions_list',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — sanctions list refresh (autonomous, cron 0 0 1 * * ? = 01:00 '
+                 '  shosha.etzhayyim.com — sanctions list refresh (autonomous, cron 0 0 1 * * ? = 01:00 '
                  'UTC).\n'
                  '\n'
                  '  Pipeline:\n'
@@ -43,7 +43,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_refresh_sanctions_list"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_refresh_sanctions_list" name="shosha refresh '
@@ -90,7 +90,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;ai.gftd.apps.shosha.refreshSanctionsList&quot;" '
@@ -116,13 +116,13 @@ UP = [{'sql': '\n'
                  3711,
                  '00-contracts/bpmn/ai/gftd/shosha/refreshSanctionsList.bpmn',
                  '2026-05-07T12:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha.phase2b',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1']}]
 
 
 def upgrade() -> None:

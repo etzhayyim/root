@@ -245,14 +245,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-summarize-seiyaku-start-progress-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-summarize-seiyaku-start-progress-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_summarize_seiyaku_start_progress',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_summarize_seiyaku_start_progress" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_summarize_seiyaku_start_progress" '
                  'name="summarizeSeiyakuStartProgress" isExecutable="true">\n'
@@ -283,7 +283,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.genericManufacturing.summarizeSeiyakuStartProgress&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId, progressStatus: '
                  'progressStatus, startRequestVid: startRequestVid, ackVid: ackVid}" '
@@ -300,10 +300,10 @@ UP = [{'sql': '\n'
                  2477,
                  '00-contracts/bpmn/ai/gftd/open-patent/summarizeSeiyakuStartProgress.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-summarize-seiyaku-start-progress-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-summarize-seiyaku-start-progress-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -317,14 +317,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-acknowledge-seiyaku-batch-start-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-acknowledge-seiyaku-batch-start-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_acknowledge_seiyaku_batch_start',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_acknowledge_seiyaku_batch_start" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_acknowledge_seiyaku_batch_start" '
                  'name="acknowledgeSeiyakuBatchStart" isExecutable="true">\n'
@@ -354,7 +354,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.genericManufacturing.ackSeiyakuBatchStart&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId, status: status, '
                  'startRequestVid: startRequestVid, seiyakuInstanceKey: seiyakuInstanceKey, '
@@ -372,10 +372,10 @@ UP = [{'sql': '\n'
                  2511,
                  '00-contracts/bpmn/ai/gftd/open-patent/acknowledgeSeiyakuBatchStart.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-acknowledge-seiyaku-batch-start-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-acknowledge-seiyaku-batch-start-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -389,14 +389,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-queue-seiyaku-batch-start-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-queue-seiyaku-batch-start-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_queue_seiyaku_batch_start',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_queue_seiyaku_batch_start" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_queue_seiyaku_batch_start" '
                  'name="queueSeiyakuBatchStart" isExecutable="true">\n'
@@ -423,7 +423,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.genericManufacturing.queueSeiyakuBatchStart&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId, startNsid: '
                  'startNsid, bpmnProcessId: bpmnProcessId, status: status}" '
@@ -440,10 +440,10 @@ UP = [{'sql': '\n'
                  2305,
                  '00-contracts/bpmn/ai/gftd/open-patent/queueSeiyakuBatchStart.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-queue-seiyaku-batch-start-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-queue-seiyaku-batch-start-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -457,14 +457,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-validate-seiyaku-batch-draft-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-validate-seiyaku-batch-draft-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_validate_seiyaku_batch_draft',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_validate_seiyaku_batch_draft" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_validate_seiyaku_batch_draft" '
                  'name="validateSeiyakuBatchDraft" isExecutable="true">\n'
@@ -493,7 +493,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.genericManufacturing.validateSeiyakuBatchDraft&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId, passed: passed, '
                  'status: status, findings: findings}" target="payload"/></zeebe:ioMapping>\n'
@@ -509,10 +509,10 @@ UP = [{'sql': '\n'
                  2400,
                  '00-contracts/bpmn/ai/gftd/open-patent/validateSeiyakuBatchDraft.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-validate-seiyaku-batch-draft-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-validate-seiyaku-batch-draft-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -526,14 +526,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-prepare-seiyaku-batch-draft-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-prepare-seiyaku-batch-draft-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_prepare_seiyaku_batch_draft',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_prepare_seiyaku_batch_draft" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_prepare_seiyaku_batch_draft" '
                  'name="prepareSeiyakuBatchDraft" isExecutable="true">\n'
@@ -562,7 +562,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.genericManufacturing.prepareSeiyakuBatchDraft&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId, seiyakuProcessId: '
                  'seiyakuProcessId, batchNumber: batchNumber, status: status}" '
@@ -579,10 +579,10 @@ UP = [{'sql': '\n'
                  2431,
                  '00-contracts/bpmn/ai/gftd/open-patent/prepareSeiyakuBatchDraft.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-prepare-seiyaku-batch-draft-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-prepare-seiyaku-batch-draft-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -596,14 +596,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-handoff-generic-candidate-to-seiyaku-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-handoff-generic-candidate-to-seiyaku-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_handoff_generic_candidate_to_seiyaku',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_handoff_generic_candidate_to_seiyaku" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_handoff_generic_candidate_to_seiyaku" '
                  'name="handoffGenericCandidateToSeiyaku" isExecutable="true">\n'
@@ -633,7 +633,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.genericManufacturing.handoffSeiyaku&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId, seiyakuProcessId: '
                  'seiyakuProcessId, status: status}" target="payload"/></zeebe:ioMapping>\n'
@@ -649,10 +649,10 @@ UP = [{'sql': '\n'
                  2390,
                  '00-contracts/bpmn/ai/gftd/open-patent/handoffGenericCandidateToSeiyaku.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-handoff-generic-candidate-to-seiyaku-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-handoff-generic-candidate-to-seiyaku-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -666,14 +666,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-record-drug-regulatory-blocker-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-record-drug-regulatory-blocker-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_record_drug_regulatory_blocker',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_record_drug_regulatory_blocker" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_record_drug_regulatory_blocker" '
                  'name="recordDrugRegulatoryBlocker" isExecutable="true">\n'
@@ -701,7 +701,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.expiredDrugPatent.recordBlocker&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId, active: active, '
                  'status: status, blockingUntil: blockingUntil}" '
@@ -718,10 +718,10 @@ UP = [{'sql': '\n'
                  2388,
                  '00-contracts/bpmn/ai/gftd/open-patent/recordDrugRegulatoryBlocker.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-record-drug-regulatory-blocker-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-record-drug-regulatory-blocker-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -735,14 +735,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-run-expired-drug-patent-pipeline-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-run-expired-drug-patent-pipeline-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_run_expired_drug_patent_pipeline',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_run_expired_drug_patent_pipeline" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_run_expired_drug_patent_pipeline" '
                  'name="runExpiredDrugPatentPipeline" isExecutable="true">\n'
@@ -781,7 +781,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.expiredDrugPatent.pipeline&quot;" '
                  'target="action"/><zeebe:input source="={runVertexId: runVertexId, '
                  'collectedCount: collectedCount, screenedCount: screenedCount, plannedCount: '
@@ -801,10 +801,10 @@ UP = [{'sql': '\n'
                  3238,
                  '00-contracts/bpmn/ai/gftd/open-patent/runExpiredDrugPatentPipeline.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-run-expired-drug-patent-pipeline-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-run-expired-drug-patent-pipeline-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -818,14 +818,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-collect-expired-drug-patent-backlog-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-collect-expired-drug-patent-backlog-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_collect_expired_drug_patent_backlog',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_collect_expired_drug_patent_backlog" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_collect_expired_drug_patent_backlog" '
                  'name="collectExpiredDrugPatentBacklog" isExecutable="true">\n'
@@ -854,7 +854,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.expiredDrugPatent.collect&quot;" '
                  'target="action"/><zeebe:input source="={runVertexId: runVertexId, scannedCount: '
                  'scannedCount, candidateCount: candidateCount, insertedCount: insertedCount}" '
@@ -871,10 +871,10 @@ UP = [{'sql': '\n'
                  2312,
                  '00-contracts/bpmn/ai/gftd/open-patent/collectExpiredDrugPatentBacklog.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-collect-expired-drug-patent-backlog-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-collect-expired-drug-patent-backlog-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -888,14 +888,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-screen-expired-drug-patent-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-screen-expired-drug-patent-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_screen_expired_drug_patent',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_screen_expired_drug_patent" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_screen_expired_drug_patent" '
                  'name="screenExpiredDrugPatent" isExecutable="true">\n'
@@ -923,7 +923,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.expiredDrugPatent.screen&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId, eligible: eligible, '
                  'status: status, asOf: asOf}" target="payload"/></zeebe:ioMapping>\n'
@@ -939,10 +939,10 @@ UP = [{'sql': '\n'
                  2328,
                  '00-contracts/bpmn/ai/gftd/open-patent/screenExpiredDrugPatent.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-screen-expired-drug-patent-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-screen-expired-drug-patent-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -956,14 +956,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-start-generic-manufacturing-candidate-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-start-generic-manufacturing-candidate-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'open_patent_start_generic_manufacturing_candidate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_open_patent_start_generic_manufacturing_candidate" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-patent" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-patent" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_patent_start_generic_manufacturing_candidate" '
                  'name="startGenericManufacturingCandidate" isExecutable="true">\n'
@@ -992,7 +992,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-patent.gftd.ai&quot;" target="actor"/><zeebe:input '
+                 'source="=&quot;did:web:open-patent.etzhayyim.com&quot;" target="actor"/><zeebe:input '
                  'source="=&quot;openPatent.genericManufacturing.plan&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId, seiyakuProcessId: '
                  'seiyakuProcessId, status: status}" target="payload"/></zeebe:ioMapping>\n'
@@ -1008,10 +1008,10 @@ UP = [{'sql': '\n'
                  2335,
                  '00-contracts/bpmn/ai/gftd/open-patent/startGenericManufacturingCandidate.bpmn',
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-start-generic-manufacturing-candidate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-start-generic-manufacturing-candidate-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1025,16 +1025,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-summarizeSeiyakuStartProgress-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-summarizeSeiyakuStartProgress-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.summarizeSeiyakuStartProgress',
                  'open_patent_summarize_seiyaku_start_progress',
                  30000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-summarizeSeiyakuStartProgress-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-summarizeSeiyakuStartProgress-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1048,16 +1048,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-acknowledgeSeiyakuBatchStart-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-acknowledgeSeiyakuBatchStart-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.acknowledgeSeiyakuBatchStart',
                  'open_patent_acknowledge_seiyaku_batch_start',
                  30000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-acknowledgeSeiyakuBatchStart-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-acknowledgeSeiyakuBatchStart-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1071,16 +1071,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-queueSeiyakuBatchStart-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-queueSeiyakuBatchStart-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.queueSeiyakuBatchStart',
                  'open_patent_queue_seiyaku_batch_start',
                  30000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-queueSeiyakuBatchStart-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-queueSeiyakuBatchStart-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1094,16 +1094,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-validateSeiyakuBatchDraft-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-validateSeiyakuBatchDraft-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.validateSeiyakuBatchDraft',
                  'open_patent_validate_seiyaku_batch_draft',
                  30000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-validateSeiyakuBatchDraft-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-validateSeiyakuBatchDraft-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1117,16 +1117,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-prepareSeiyakuBatchDraft-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-prepareSeiyakuBatchDraft-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.prepareSeiyakuBatchDraft',
                  'open_patent_prepare_seiyaku_batch_draft',
                  30000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-prepareSeiyakuBatchDraft-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-prepareSeiyakuBatchDraft-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1140,16 +1140,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-handoffGenericCandidateToSeiyaku-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-handoffGenericCandidateToSeiyaku-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.handoffGenericCandidateToSeiyaku',
                  'open_patent_handoff_generic_candidate_to_seiyaku',
                  30000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-handoffGenericCandidateToSeiyaku-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-handoffGenericCandidateToSeiyaku-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1163,16 +1163,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-recordDrugRegulatoryBlocker-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-recordDrugRegulatoryBlocker-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.recordDrugRegulatoryBlocker',
                  'open_patent_record_drug_regulatory_blocker',
                  30000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-recordDrugRegulatoryBlocker-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-recordDrugRegulatoryBlocker-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1186,16 +1186,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-runExpiredDrugPatentPipeline-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-runExpiredDrugPatentPipeline-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.runExpiredDrugPatentPipeline',
                  'open_patent_run_expired_drug_patent_pipeline',
                  120000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-runExpiredDrugPatentPipeline-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-runExpiredDrugPatentPipeline-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1209,16 +1209,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-collectExpiredDrugPatentBacklog-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-collectExpiredDrugPatentBacklog-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.collectExpiredDrugPatentBacklog',
                  'open_patent_collect_expired_drug_patent_backlog',
                  60000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-collectExpiredDrugPatentBacklog-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-collectExpiredDrugPatentBacklog-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1232,16 +1232,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-screenExpiredDrugPatent-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-screenExpiredDrugPatent-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.screenExpiredDrugPatent',
                  'open_patent_screen_expired_drug_patent',
                  30000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-screenExpiredDrugPatent-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-screenExpiredDrugPatent-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1255,61 +1255,61 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-startGenericManufacturingCandidate-v1',
-                 'did:web:open-patent.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-startGenericManufacturingCandidate-v1',
+                 'did:web:open-patent.etzhayyim.com',
                  'ai.gftd.apps.openPatent.startGenericManufacturingCandidate',
                  'open_patent_start_generic_manufacturing_candidate',
                  30000,
                  '2026-04-27T07:50:00Z',
-                 'did:web:open-patent.gftd.ai',
-                 'did:web:open-patent.gftd.ai',
+                 'did:web:open-patent.etzhayyim.com',
+                 'did:web:open-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-patent-expired-pharma',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-startGenericManufacturingCandidate-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-startGenericManufacturingCandidate-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-summarizeSeiyakuStartProgress-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-summarizeSeiyakuStartProgress-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-acknowledgeSeiyakuBatchStart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-acknowledgeSeiyakuBatchStart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-queueSeiyakuBatchStart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-queueSeiyakuBatchStart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-validateSeiyakuBatchDraft-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-validateSeiyakuBatchDraft-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-prepareSeiyakuBatchDraft-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-prepareSeiyakuBatchDraft-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-handoffGenericCandidateToSeiyaku-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-handoffGenericCandidateToSeiyaku-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-recordDrugRegulatoryBlocker-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-recordDrugRegulatoryBlocker-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-runExpiredDrugPatentPipeline-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-runExpiredDrugPatentPipeline-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-collectExpiredDrugPatentBacklog-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-collectExpiredDrugPatentBacklog-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-screenExpiredDrugPatent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-screenExpiredDrugPatent-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-patent-startGenericManufacturingCandidate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-startGenericManufacturingCandidate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-summarize-seiyaku-start-progress-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-summarize-seiyaku-start-progress-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-acknowledge-seiyaku-batch-start-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-acknowledge-seiyaku-batch-start-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-queue-seiyaku-batch-start-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-queue-seiyaku-batch-start-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-validate-seiyaku-batch-draft-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-validate-seiyaku-batch-draft-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-prepare-seiyaku-batch-draft-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-prepare-seiyaku-batch-draft-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-handoff-generic-candidate-to-seiyaku-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-handoff-generic-candidate-to-seiyaku-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-record-drug-regulatory-blocker-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-record-drug-regulatory-blocker-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-run-expired-drug-patent-pipeline-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-run-expired-drug-patent-pipeline-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-collect-expired-drug-patent-backlog-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-collect-expired-drug-patent-backlog-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-screen-expired-drug-patent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-screen-expired-drug-patent-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-patent-start-generic-manufacturing-candidate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-start-generic-manufacturing-candidate-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_open_patent_generic_candidate', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_open_patent_seiyaku_progress', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_open_patent_seiyaku_start_ack', 'parameters': []},

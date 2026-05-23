@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e65d36d05bde",
+  "entityId": "ent-e65d36d05bde",
+  "canonicalName": "tufayli, subhi",
+  "aliases": [
+    "tufayli, subhi"
+  ]
+}

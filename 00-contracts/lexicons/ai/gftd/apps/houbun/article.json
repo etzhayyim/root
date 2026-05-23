@@ -22,7 +22,7 @@
           "title": { "type": "string", "description": "Optional article heading if the source provides one." },
           "text": { "type": "string", "description": "Full article body in the authoritative language." },
           "language": { "type": "string", "description": "ISO 639-1 code of the body." },
-          "articleDid": { "type": "string", "description": "did:web:houbun.gftd.ai:article:{blake3_prefix12}" },
+          "articleDid": { "type": "string", "description": "did:web:houbun.etzhayyim.com:article:{blake3_prefix12}" },
           "blake3Hash": { "type": "string", "description": "12-char hex prefix of blake3(jurisdiction|statuteId|articleNo|amendedAt). Used as the DID suffix." },
           "amendedAt": { "type": "string", "format": "date", "description": "Effective date of the version captured in `text`. NULL for the original enactment." },
           "sourceUrl": { "type": "string", "format": "uri" },

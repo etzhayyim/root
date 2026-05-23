@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9dc3984a2bb9",
+  "entityId": "ent-9dc3984a2bb9",
+  "canonicalName": "ex-301",
+  "aliases": [
+    "ex-301"
+  ]
+}

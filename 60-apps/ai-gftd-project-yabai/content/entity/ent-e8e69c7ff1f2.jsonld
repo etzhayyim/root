@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-e8e69c7ff1f2",
+  "entityId": "ent-e8e69c7ff1f2",
+  "canonicalName": "wanji",
+  "aliases": [
+    "wanji"
+  ]
+}

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register an oil/gas upstream field. Path-based DID: did:web:oil-upstream.gftd.ai:basin:{basin}:field:{slug}. Sources: USGS + IHS Markit + Wood Mackenzie + national petroleum agencies.",
+      "description": "Register an oil/gas upstream field. Path-based DID: did:web:oil-upstream.etzhayyim.com:basin:{basin}:field:{slug}. Sources: USGS + IHS Markit + Wood Mackenzie + national petroleum agencies.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

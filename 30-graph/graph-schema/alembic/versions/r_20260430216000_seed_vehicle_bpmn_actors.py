@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-health-v1',
-                 'did:web:vehicle.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-health-v1',
+                 'did:web:vehicle.etzhayyim.com',
                  'vehicle_health',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_vehicle_health" '
-                 'targetNamespace="https://gftd.ai/bpmn/vehicle"><bpmn:process id="vehicle_health" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/vehicle"><bpmn:process id="vehicle_health" '
                  'name="vehicle health" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.vehicle.health", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
@@ -47,11 +47,11 @@ UP = [{'sql': '\n'
                  973,
                  '00-contracts/bpmn/ai/gftd/vehicle/health.bpmn',
                  '2026-04-30T22:00:00+09:00',
-                 'did:web:vehicle.gftd.ai',
-                 'did:web:vehicle.gftd.ai',
+                 'did:web:vehicle.etzhayyim.com',
+                 'did:web:vehicle.etzhayyim.com',
                  'sys.bpmn.seed.vehicle',
-                 'did:web:vehicle.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-health-v1']},
+                 'did:web:vehicle.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -66,17 +66,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-health-v1',
-                 'did:web:vehicle.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-health-v1',
+                 'did:web:vehicle.etzhayyim.com',
                  'ai.gftd.apps.vehicle.health',
                  'vehicle_health',
                  '',
                  '2026-04-30T22:00:00+09:00',
-                 'did:web:vehicle.gftd.ai',
-                 'did:web:vehicle.gftd.ai',
+                 'did:web:vehicle.etzhayyim.com',
+                 'did:web:vehicle.etzhayyim.com',
                  'sys.bpmn.seed.vehicle',
-                 'did:web:vehicle.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-health-v1']},
+                 'did:web:vehicle.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -92,14 +92,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-describe-v1',
-                 'did:web:vehicle.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-describe-v1',
+                 'did:web:vehicle.etzhayyim.com',
                  'vehicle_describe',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_vehicle_describe" '
-                 'targetNamespace="https://gftd.ai/bpmn/vehicle"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/vehicle"><bpmn:process '
                  'id="vehicle_describe" name="vehicle describe" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.vehicle.describe", "version": 1, "resultTimeoutMs": 30000 '
@@ -113,11 +113,11 @@ UP = [{'sql': '\n'
                  985,
                  '00-contracts/bpmn/ai/gftd/vehicle/describe.bpmn',
                  '2026-04-30T22:00:00+09:00',
-                 'did:web:vehicle.gftd.ai',
-                 'did:web:vehicle.gftd.ai',
+                 'did:web:vehicle.etzhayyim.com',
+                 'did:web:vehicle.etzhayyim.com',
                  'sys.bpmn.seed.vehicle',
-                 'did:web:vehicle.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-describe-v1']},
+                 'did:web:vehicle.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-describe-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -132,17 +132,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-describe-v1',
-                 'did:web:vehicle.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-describe-v1',
+                 'did:web:vehicle.etzhayyim.com',
                  'ai.gftd.apps.vehicle.describe',
                  'vehicle_describe',
                  '',
                  '2026-04-30T22:00:00+09:00',
-                 'did:web:vehicle.gftd.ai',
-                 'did:web:vehicle.gftd.ai',
+                 'did:web:vehicle.etzhayyim.com',
+                 'did:web:vehicle.etzhayyim.com',
                  'sys.bpmn.seed.vehicle',
-                 'did:web:vehicle.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-describe-v1']},
+                 'did:web:vehicle.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-describe-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -158,14 +158,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-file-formats-v1',
-                 'did:web:vehicle.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-file-formats-v1',
+                 'did:web:vehicle.etzhayyim.com',
                  'vehicle_fileFormats',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_vehicle_fileFormats" '
-                 'targetNamespace="https://gftd.ai/bpmn/vehicle"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/vehicle"><bpmn:process '
                  'id="vehicle_fileFormats" name="vehicle fileFormats" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.vehicle.fileFormats", "version": 1, "resultTimeoutMs": 30000 '
@@ -179,11 +179,11 @@ UP = [{'sql': '\n'
                  1003,
                  '00-contracts/bpmn/ai/gftd/vehicle/fileFormats.bpmn',
                  '2026-04-30T22:00:00+09:00',
-                 'did:web:vehicle.gftd.ai',
-                 'did:web:vehicle.gftd.ai',
+                 'did:web:vehicle.etzhayyim.com',
+                 'did:web:vehicle.etzhayyim.com',
                  'sys.bpmn.seed.vehicle',
-                 'did:web:vehicle.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-file-formats-v1']},
+                 'did:web:vehicle.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-file-formats-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -198,17 +198,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-file-formats-v1',
-                 'did:web:vehicle.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-file-formats-v1',
+                 'did:web:vehicle.etzhayyim.com',
                  'ai.gftd.apps.vehicle.fileFormats',
                  'vehicle_fileFormats',
                  '',
                  '2026-04-30T22:00:00+09:00',
-                 'did:web:vehicle.gftd.ai',
-                 'did:web:vehicle.gftd.ai',
+                 'did:web:vehicle.etzhayyim.com',
+                 'did:web:vehicle.etzhayyim.com',
                  'sys.bpmn.seed.vehicle',
-                 'did:web:vehicle.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-file-formats-v1']},
+                 'did:web:vehicle.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-file-formats-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -224,14 +224,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-plan-supply-process-v1',
-                 'did:web:vehicle.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-plan-supply-process-v1',
+                 'did:web:vehicle.etzhayyim.com',
                  'vehicle_planSupplyProcess',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_vehicle_planSupplyProcess" '
-                 'targetNamespace="https://gftd.ai/bpmn/vehicle"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/vehicle"><bpmn:process '
                  'id="vehicle_planSupplyProcess" name="vehicle planSupplyProcess" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.vehicle.planSupplyProcess", "version": 1, "resultTimeoutMs": 30000 '
@@ -245,11 +245,11 @@ UP = [{'sql': '\n'
                  1039,
                  '00-contracts/bpmn/ai/gftd/vehicle/planSupplyProcess.bpmn',
                  '2026-04-30T22:00:00+09:00',
-                 'did:web:vehicle.gftd.ai',
-                 'did:web:vehicle.gftd.ai',
+                 'did:web:vehicle.etzhayyim.com',
+                 'did:web:vehicle.etzhayyim.com',
                  'sys.bpmn.seed.vehicle',
-                 'did:web:vehicle.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-plan-supply-process-v1']},
+                 'did:web:vehicle.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-plan-supply-process-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -264,34 +264,34 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-plan-supply-process-v1',
-                 'did:web:vehicle.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-plan-supply-process-v1',
+                 'did:web:vehicle.etzhayyim.com',
                  'ai.gftd.apps.vehicle.planSupplyProcess',
                  'vehicle_planSupplyProcess',
                  '',
                  '2026-04-30T22:00:00+09:00',
-                 'did:web:vehicle.gftd.ai',
-                 'did:web:vehicle.gftd.ai',
+                 'did:web:vehicle.etzhayyim.com',
+                 'did:web:vehicle.etzhayyim.com',
                  'sys.bpmn.seed.vehicle',
-                 'did:web:vehicle.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-plan-supply-process-v1']}]
+                 'did:web:vehicle.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-plan-supply-process-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-describe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-describe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-describe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-describe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-file-formats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-file-formats-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-file-formats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-file-formats-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/vehicle-plan-supply-process-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vehicle-plan-supply-process-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/vehicle-plan-supply-process-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vehicle-plan-supply-process-v1']}]
 
 
 def upgrade() -> None:

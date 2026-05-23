@@ -30,6 +30,7 @@
 //
 // Opt-out: env.GFTD_METERING_DISABLED === '1'.
 
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { createKyselyDb, type Hyperdrive, type KyselyDb } from "./kysely.js";
 
 // ──────────────────────────────────────────────────────────────────────

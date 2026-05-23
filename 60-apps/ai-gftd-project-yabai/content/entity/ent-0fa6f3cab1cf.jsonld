@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0fa6f3cab1cf",
+  "entityId": "ent-0fa6f3cab1cf",
+  "canonicalName": "interconsult",
+  "aliases": [
+    "interconsult"
+  ]
+}

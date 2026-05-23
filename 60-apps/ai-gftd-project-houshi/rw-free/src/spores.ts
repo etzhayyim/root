@@ -215,6 +215,13 @@ export async function germinate(
     rkey: gRkey,
   });
 
+  // Stamp germinatedAt on the source spore so listSpores can filter it.
+  await e.write({
+    collection: SPORE_COLLECTION,
+    record: { ...spore, germinatedAt: now } as unknown as Record<string, unknown>,
+    rkey: sporeRk,
+  });
+
   return {
     status: "germinated",
     agentVertexId: `kobo-${input.sporeVertexId}`,

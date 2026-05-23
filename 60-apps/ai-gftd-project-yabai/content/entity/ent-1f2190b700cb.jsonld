@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1f2190b700cb",
+  "entityId": "ent-1f2190b700cb",
+  "canonicalName": "auto parts east fzco",
+  "aliases": [
+    "auto parts east fzco"
+  ]
+}

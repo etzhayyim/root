@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-register-construction-v1',
-                 'did:web:jpn-mlit-road.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-register-construction-v1',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
                  'jpn_mlit_road_register_construction',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_jpn_mlit_road_register_construction"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/jpn-mlit-road"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/jpn-mlit-road"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="jpn_mlit_road_register_construction" name="MLIT 道路工事届" '
                  'isExecutable="true">\n'
@@ -66,7 +66,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-mlit-road.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-mlit-road.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;jpnMlitRoad.construction.register&quot;" '
                  'target="action"/>\n'
@@ -86,10 +86,10 @@ UP = [{'sql': '\n'
                  2798,
                  '00-contracts/bpmn/ai/gftd/jpn-mlit-road/registerConstruction.bpmn',
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-mlit-road.gftd.ai',
-                 'did:web:jpn-mlit-road.gftd.ai',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
                  'sys.bpmn.seed.jpn-mlit-road',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-register-construction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-register-construction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -97,8 +97,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-issue-traffic-restriction-v1',
-                 'did:web:jpn-mlit-road.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-issue-traffic-restriction-v1',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
                  'jpn_mlit_road_issue_traffic_restriction',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -106,7 +106,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_jpn_mlit_road_issue_traffic_restriction"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/jpn-mlit-road"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/jpn-mlit-road"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="jpn_mlit_road_issue_traffic_restriction" name="MLIT 交通規制" '
                  'isExecutable="true">\n'
@@ -180,7 +180,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-mlit-road.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-mlit-road.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;jpnMlitRoad.restriction.publicNotice&quot;" target="action"/>\n'
@@ -199,7 +199,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:jpn-mlit-road.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:jpn-mlit-road.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;jpnMlitRoad.restriction.log&quot;" '
                  'target="action"/>\n'
@@ -222,10 +222,10 @@ UP = [{'sql': '\n'
                  5340,
                  '00-contracts/bpmn/ai/gftd/jpn-mlit-road/issueTrafficRestriction.bpmn',
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-mlit-road.gftd.ai',
-                 'did:web:jpn-mlit-road.gftd.ai',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
                  'sys.bpmn.seed.jpn-mlit-road',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-issue-traffic-restriction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-issue-traffic-restriction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -233,16 +233,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-mlit-road-registerConstruction-v1',
-                 'did:web:jpn-mlit-road.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-mlit-road-registerConstruction-v1',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
                  'ai.gftd.apps.jpnMlitRoad.registerConstruction',
                  'jpn_mlit_road_register_construction',
                  15000,
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-mlit-road.gftd.ai',
-                 'did:web:jpn-mlit-road.gftd.ai',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
                  'sys.bpmn.seed.jpn-mlit-road',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-mlit-road-registerConstruction-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-mlit-road-registerConstruction-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -250,25 +250,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-mlit-road-issueTrafficRestriction-v1',
-                 'did:web:jpn-mlit-road.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-mlit-road-issueTrafficRestriction-v1',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
                  'ai.gftd.apps.jpnMlitRoad.issueTrafficRestriction',
                  'jpn_mlit_road_issue_traffic_restriction',
                  30000,
                  '2026-04-24T18:30:00Z',
-                 'did:web:jpn-mlit-road.gftd.ai',
-                 'did:web:jpn-mlit-road.gftd.ai',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
+                 'did:web:jpn-mlit-road.etzhayyim.com',
                  'sys.bpmn.seed.jpn-mlit-road',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-mlit-road-issueTrafficRestriction-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-mlit-road-issueTrafficRestriction-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-mlit-road-registerConstruction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-mlit-road-registerConstruction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/jpn-mlit-road-issueTrafficRestriction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-mlit-road-issueTrafficRestriction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-register-construction-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-register-construction-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-issue-traffic-restriction-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-mlit-road-issue-traffic-restriction-v1']}]
 
 
 def upgrade() -> None:

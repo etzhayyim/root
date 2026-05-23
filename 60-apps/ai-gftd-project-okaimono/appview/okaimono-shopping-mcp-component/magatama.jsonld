@@ -1,0 +1,135 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:okaimono.etzhayyim.com",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are okaimono D2C store agent. Okaimono is a D2C (Direct-to-Consumer) OEM-only EC store. All products are self-branded and manufactured via OEM factories through tsukuru.etzhayyim.com. No resale or third-party marketplace products. Respond helpfully in the users language.",
+  "deploy": {},
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "consumer-protection-act"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "okaimono-d2c-store",
+  "nanoid": "ok4imn1o",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "e-commerce",
+      "product-catalog",
+      "unispsc-classification",
+      "unispsc-catalog-import"
+    ],
+    "category": "commerce",
+    "description": "Okaimono — D2C OEM-only AI-operated EC store. Self-branded OEM products manufactured via tsukuru.etzhayyim.com. Catalog, orders, inventory, dynamic pricing, reviews, recommendations, fulfillment, customer support, analytics, and BTO/MTO/CTO manufacturing.",
+    "displayName": "Okaimono D2C Store",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "okaimono",
+  "routes": [
+    {
+      "host": "okaimono.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    },
+    {
+      "host": "ok4imn1o.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "description": "Store activity — new OEM products, orders, promotions",
+        "kind": "public",
+        "name": "store-feed"
+      },
+      {
+        "description": "OEM manufacturing — production progress, quality inspections, factory updates",
+        "kind": "public",
+        "name": "manufacturing-ops"
+      },
+      {
+        "description": "Customer support cases and resolutions",
+        "kind": "public",
+        "name": "customer-support"
+      },
+      {
+        "description": "Daily KPI digests and business intelligence",
+        "kind": "public",
+        "name": "analytics-digest"
+      }
+    ],
+    "description": "D2C OEM-only AI-operated EC store — catalog, orders, inventory, pricing, reviews, recommendations, fulfillment, support, analytics, OEM manufacturing (tsukuru)",
+    "historyVisibility": "world-readable",
+    "joinRule": "public",
+    "name": "Okaimono D2C Store"
+  },
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8080",
+      "routes": [
+        "/api/grpc/...",
+        "/health",
+        "/healthz",
+        "/readyz",
+        "/..."
+      ],
+      "spa": true,
+      "staticDir": "/wasm/svelte/dist"
+    },
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.apps.okaimono.catalogItem",
+        "ai.gftd.apps.okaimono.order",
+        "ai.gftd.apps.okaimono.stockReservation",
+        "ai.gftd.apps.okaimono.stockMovement",
+        "ai.gftd.apps.okaimono.shipment",
+        "ai.gftd.apps.okaimono.carrierEvent",
+        "ai.gftd.apps.okaimono.review",
+        "ai.gftd.apps.okaimono.promotion",
+        "ai.gftd.apps.okaimono.supportCase",
+        "ai.gftd.apps.okaimono.supportMessage",
+        "ai.gftd.apps.okaimono.return",
+        "ai.gftd.apps.okaimono.refund",
+        "ai.gftd.apps.okaimono.webhookEvent",
+        "ai.gftd.apps.okaimono.analyticsEvent",
+        "ai.gftd.apps.okaimono.productionLink",
+        "ai.gftd.apps.okaimono.productionProgress",
+        "ai.gftd.apps.okaimono.qualityResult",
+        "app.bsky.feed.like",
+        "app.bsky.feed.post",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.kaimonoUreview.product_score",
+        "ai.gftd.apps.kaimonoUreview.best_pick",
+        "ai.gftd.apps.trust.score",
+        "ai.gftd.apps.unispsc.commodity",
+        "ai.gftd.apps.tsukuru.productionOrder",
+        "ai.gftd.apps.tsukuru.productionProgress",
+        "ai.gftd.apps.tsukuru.qualityInspection",
+        "ai.gftd.apps.tsukuru.manufacturer",
+        "ai.gftd.gtin.product"
+      ]
+    }
+  },
+  "uiType": "appview"
+}

@@ -27,7 +27,7 @@ ERC8004_SCHEMA = "https://etzhayyim.com/schemas/erc8004-agent-registration/v1.js
 DEFAULT_CHAIN_ID = 260425
 DEFAULT_AGENT_REGISTRY = "0xcA3480edDAfa39c9377B83eEB18291286C8Cb865"
 DEFAULT_IPFS_BASE = "https://ipfs.etzhayyim.com"
-DEFAULT_RPC_URL = "https://geth.gftd.ai"
+DEFAULT_RPC_URL = "https://geth.etzhayyim.com"
 ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
 
 _HEX_ADDRESS_RE = re.compile(r"^0x[0-9a-fA-F]{40}$")

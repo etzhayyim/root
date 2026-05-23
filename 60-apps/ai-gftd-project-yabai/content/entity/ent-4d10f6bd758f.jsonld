@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4d10f6bd758f",
+  "entityId": "ent-4d10f6bd758f",
+  "canonicalName": "prensa latina canada ltd.",
+  "aliases": [
+    "prensa latina canada ltd."
+  ]
+}

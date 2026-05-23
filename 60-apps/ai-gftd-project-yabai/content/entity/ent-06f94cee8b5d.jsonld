@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-06f94cee8b5d",
+  "entityId": "ent-06f94cee8b5d",
+  "canonicalName": "comercial de rodajes y maquinaria, s.a.",
+  "aliases": [
+    "comercial de rodajes y maquinaria, s.a."
+  ]
+}

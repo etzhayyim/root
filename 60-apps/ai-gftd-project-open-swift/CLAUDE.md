@@ -1,4 +1,4 @@
-# open-swift.gftd.ai — Interbank Messaging (ISO 20022 / pacs.008-style) (OSS)
+# open-swift.etzhayyim.com — Interbank Messaging (ISO 20022 / pacs.008-style) (OSS)
 
 **Status**: MVP scaffold (2026-04-20). Reference implementation for
 DID-addressed interbank wire-transfer messaging — companion to
@@ -20,7 +20,7 @@ DID-addressed interbank wire-transfer messaging — companion to
 - **Runtime**: Single CF Worker (`src/app.ts`)
 - **Storage**: D1. Tables: `institutions`, `messages`, `acknowledgements`
 - **Identity**: institution = path-based DID
-  `did:web:open-swift.gftd.ai:institution:{bic}`
+  `did:web:open-swift.etzhayyim.com:institution:{bic}`
 - **Message UETR**: each message gets a UUIDv4 (Unique End-to-End Transaction
   Reference) — same idea as ISO 20022 `UETR`
 - **Settlement screening** by DMN (`openSwift.screening`):

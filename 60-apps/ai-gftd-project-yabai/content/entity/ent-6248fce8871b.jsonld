@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6248fce8871b",
+  "entityId": "ent-6248fce8871b",
+  "canonicalName": "james nyakuni",
+  "aliases": [
+    "james nyakuni"
+  ]
+}

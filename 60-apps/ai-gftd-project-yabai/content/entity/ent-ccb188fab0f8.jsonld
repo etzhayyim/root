@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ccb188fab0f8",
+  "entityId": "ent-ccb188fab0f8",
+  "canonicalName": "taiyuan jinke semiconductor technology co., ltd.",
+  "aliases": [
+    "taiyuan jinke semiconductor technology co., ltd."
+  ]
+}

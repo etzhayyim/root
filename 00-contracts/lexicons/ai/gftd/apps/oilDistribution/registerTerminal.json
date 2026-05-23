@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a downstream product terminal / wholesale hub. Path-based DID: did:web:oil-distribution.gftd.ai:terminal:{iso3}:{slug}.",
+      "description": "Register a downstream product terminal / wholesale hub. Path-based DID: did:web:oil-distribution.etzhayyim.com:terminal:{iso3}:{slug}.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

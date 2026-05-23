@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ads-create-campaign-v1',
-                 'did:web:ads.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ads-create-campaign-v1',
+                 'did:web:ads.etzhayyim.com',
                  'ads_create_campaign',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_ads_create_campaign" '
-                 'targetNamespace="https://gftd.ai/bpmn/ads"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/ads"><bpmn:process '
                  'id="ads_create_campaign" name="ads createCampaign" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.ads.createCampaign", "version": 1, "resultTimeoutMs": 120000 '
@@ -48,11 +48,11 @@ UP = [{'sql': '\n'
                  1001,
                  '00-contracts/bpmn/ai/gftd/ads/createCampaign.bpmn',
                  '2026-04-29T22:30:00+09:00',
-                 'did:web:ads.gftd.ai',
-                 'did:web:ads.gftd.ai',
+                 'did:web:ads.etzhayyim.com',
+                 'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
-                 'did:web:ads.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ads-create-campaign-v1']},
+                 'did:web:ads.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ads-create-campaign-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,18 +67,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ads-createCampaign-v1',
-                 'did:web:ads.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ads-createCampaign-v1',
+                 'did:web:ads.etzhayyim.com',
                  'ai.gftd.apps.ads.createCampaign',
                  'ads_create_campaign',
                  120000,
                  'vertex_ads_campaign',
                  '2026-04-29T22:30:00+09:00',
-                 'did:web:ads.gftd.ai',
-                 'did:web:ads.gftd.ai',
+                 'did:web:ads.etzhayyim.com',
+                 'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
-                 'did:web:ads.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ads-createCampaign-v1']},
+                 'did:web:ads.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ads-createCampaign-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,14 +94,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ads-post-sponsored-v1',
-                 'did:web:ads.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ads-post-sponsored-v1',
+                 'did:web:ads.etzhayyim.com',
                  'ads_post_sponsored',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_ads_post_sponsored" '
-                 'targetNamespace="https://gftd.ai/bpmn/ads"><bpmn:process id="ads_post_sponsored" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/ads"><bpmn:process id="ads_post_sponsored" '
                  'name="ads postSponsored" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.ads.postSponsored", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
@@ -114,11 +114,11 @@ UP = [{'sql': '\n'
                  995,
                  '00-contracts/bpmn/ai/gftd/ads/postSponsored.bpmn',
                  '2026-04-29T22:30:00+09:00',
-                 'did:web:ads.gftd.ai',
-                 'did:web:ads.gftd.ai',
+                 'did:web:ads.etzhayyim.com',
+                 'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
-                 'did:web:ads.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ads-post-sponsored-v1']},
+                 'did:web:ads.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ads-post-sponsored-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -133,18 +133,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ads-postSponsored-v1',
-                 'did:web:ads.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ads-postSponsored-v1',
+                 'did:web:ads.etzhayyim.com',
                  'ai.gftd.apps.ads.postSponsored',
                  'ads_post_sponsored',
                  120000,
                  'vertex_ads_sponsored_post',
                  '2026-04-29T22:30:00+09:00',
-                 'did:web:ads.gftd.ai',
-                 'did:web:ads.gftd.ai',
+                 'did:web:ads.etzhayyim.com',
+                 'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
-                 'did:web:ads.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ads-postSponsored-v1']},
+                 'did:web:ads.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ads-postSponsored-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -160,14 +160,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ads-list-campaigns-v1',
-                 'did:web:ads.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ads-list-campaigns-v1',
+                 'did:web:ads.etzhayyim.com',
                  'ads_list_campaigns',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_ads_list_campaigns" '
-                 'targetNamespace="https://gftd.ai/bpmn/ads"><bpmn:process id="ads_list_campaigns" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/ads"><bpmn:process id="ads_list_campaigns" '
                  'name="ads listCampaigns" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.ads.listCampaigns", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
@@ -180,11 +180,11 @@ UP = [{'sql': '\n'
                  994,
                  '00-contracts/bpmn/ai/gftd/ads/listCampaigns.bpmn',
                  '2026-04-29T22:30:00+09:00',
-                 'did:web:ads.gftd.ai',
-                 'did:web:ads.gftd.ai',
+                 'did:web:ads.etzhayyim.com',
+                 'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
-                 'did:web:ads.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ads-list-campaigns-v1']},
+                 'did:web:ads.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ads-list-campaigns-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -199,31 +199,31 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ads-listCampaigns-v1',
-                 'did:web:ads.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ads-listCampaigns-v1',
+                 'did:web:ads.etzhayyim.com',
                  'ai.gftd.apps.ads.listCampaigns',
                  'ads_list_campaigns',
                  30000,
                  '',
                  '2026-04-29T22:30:00+09:00',
-                 'did:web:ads.gftd.ai',
-                 'did:web:ads.gftd.ai',
+                 'did:web:ads.etzhayyim.com',
+                 'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
-                 'did:web:ads.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ads-listCampaigns-v1']}]
+                 'did:web:ads.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ads-listCampaigns-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ads-createCampaign-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ads-createCampaign-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ads-create-campaign-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ads-create-campaign-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ads-postSponsored-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ads-postSponsored-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ads-post-sponsored-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ads-post-sponsored-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ads-listCampaigns-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ads-listCampaigns-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ads-list-campaigns-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ads-list-campaigns-v1']}]
 
 
 def upgrade() -> None:

@@ -6,7 +6,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { atQuery, atProcedure } from '$lib/atproto-agent';
-	import { Skeleton } from '@gftdcojp/design-system';
+	import { Skeleton } from '@etzhayyim/design-system';
 
 	type ResearchRow = {
 		vertex_id: string;

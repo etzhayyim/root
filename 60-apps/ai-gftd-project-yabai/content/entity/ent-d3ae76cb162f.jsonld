@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d3ae76cb162f",
+  "entityId": "ent-d3ae76cb162f",
+  "canonicalName": "frank kakolele bwambale",
+  "aliases": [
+    "frank kakolele bwambale"
+  ]
+}

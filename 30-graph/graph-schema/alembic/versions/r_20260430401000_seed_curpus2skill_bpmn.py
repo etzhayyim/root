@@ -24,15 +24,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/curpus2skill-extractEvidence-v1',
-                 'did:web:recruit.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/curpus2skill-extractEvidence-v1',
+                 'did:web:recruit.etzhayyim.com',
                  'curpus2skill_extract_evidence',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_curpus2skill_extract_evidence" '
-                 'targetNamespace="https://gftd.ai/bpmn/curpus2skill" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/curpus2skill" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="curpus2skill_extract_evidence" name="curpus2skill '
                  'extractEvidence" isExecutable="true">\n'
@@ -92,7 +92,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="1"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:recruit.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:recruit.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;curpus2skill.extractEvidence&quot;" '
                  'target="action"/>\n'
@@ -116,13 +116,13 @@ UP = [{'sql': '\n'
                  3947,
                  '00-contracts/bpmn/ai/gftd/curpus2skill/extractEvidence.bpmn',
                  '2026-04-30T12:35:00Z',
-                 'did:web:recruit.gftd.ai',
-                 'did:web:recruit.gftd.ai',
+                 'did:web:recruit.etzhayyim.com',
+                 'did:web:recruit.etzhayyim.com',
                  'sys.bpmn.seed.curpus2skill',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/curpus2skill-extractEvidence-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/curpus2skill-extractEvidence-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/curpus2skill-extractEvidence-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/curpus2skill-extractEvidence-v1']}]
 
 
 def upgrade() -> None:

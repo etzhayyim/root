@@ -288,7 +288,7 @@ function registerServiceDispatcher(definition: any, env: any) {
         result = { error: `no service binding for actor="${actor}" (nsid=${nsidStr})` };
       } else {
         const variables = definition.environment?.variables ?? {};
-        const res = await env[bindingKey].fetch(new Request(`https://${actor}.gftd.ai/xrpc/${nsidStr}`, {
+        const res = await env[bindingKey].fetch(new Request(`https://${actor}.etzhayyim.com/xrpc/${nsidStr}`, {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(variables),

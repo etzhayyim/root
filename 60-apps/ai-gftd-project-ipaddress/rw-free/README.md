@@ -27,7 +27,7 @@ LangServer pod XRPC handler is the next operator task per ADR-2605203000.
 
 ## Pattern translation (Option B)
 
-| Vendor (`ipaddress.gftd.ai`) | etzhayyim (this PR) |
+| Vendor (`ipaddress.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
 | `db.insertInto("vertex_ip_asn").values({...}).execute()` | `e.write({ collection: "ai.gftd.apps.ipaddress.asn", record, rkey })` |
@@ -99,7 +99,7 @@ Option C (IPFS) was rejected — records are small structured data, not blobs. N
 
 **ISN'T**:
 - A deployed Worker — no XRPC handler glue (matches open-isco / tsukuru rw-free scaffold state).
-- A production replacement for `ipaddress.gftd.ai` — vendor `ipaddress` is currently undeployed (HTTP 404), so this slice can land without parallel vendor deploy concerns.
+- A production replacement for `ipaddress.etzhayyim.com` — vendor `ipaddress` is currently undeployed (HTTP 404), so this slice can land without parallel vendor deploy concerns.
 - The full 37-command parity — 35 commands remain (follow-up slices).
 - mst-projector views — Phase 3 dependency for range-scan queries.
 

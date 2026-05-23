@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-22fcb38b3153",
+  "entityId": "ent-22fcb38b3153",
+  "canonicalName": "etco international company, limited",
+  "aliases": [
+    "etco international company, limited"
+  ]
+}

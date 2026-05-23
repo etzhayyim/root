@@ -45,7 +45,7 @@ _B2_KEY = os.environ.get("B2_SECRET_ACCESS_KEY", "").strip()
 _B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com").rstrip("/")
 _B2_REGION = os.environ.get("B2_REGION", "us-west-004")
 _HF_TOKEN = os.environ.get("HF_TOKEN", "").strip()
-_HF_REPO_ID = os.environ.get("HF_REPO_ID", "gftdcojp/gftd-corpus").strip()
+_HF_REPO_ID = os.environ.get("HF_REPO_ID", "etzhayyim/gftd-corpus").strip()
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -316,7 +316,7 @@ def task_training_push_huggingface(
 
     Env vars:
       HF_TOKEN    HuggingFace API token with write access to HF_REPO_ID
-      HF_REPO_ID  HuggingFace dataset repo (default: gftdcojp/gftd-corpus)
+      HF_REPO_ID  HuggingFace dataset repo (default: etzhayyim/gftd-corpus)
 
     Returns:
       {status, pushed_count, repo_id}

@@ -1,0 +1,23 @@
+[project]
+name = "e7m"
+version = "0.1.0"
+description = "etzhayyim operator CLI + MCP server — the only sanctioned external surface for the religious-corp organism (per ADR-2605192100 §1.6 substrate boundary)"
+requires-python = ">=3.11"
+dependencies = [
+  "httpx>=0.27.0",
+  "rich>=13.0",
+]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.0.0"]
+
+[project.scripts]
+e7m = "e7m.__main__:main"
+e7m-mcp = "e7m.mcp_server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/e7m"]

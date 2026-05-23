@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0a4716223ad4",
+  "entityId": "ent-0a4716223ad4",
+  "canonicalName": "tropic tours gmbh",
+  "aliases": [
+    "tropic tours gmbh"
+  ]
+}

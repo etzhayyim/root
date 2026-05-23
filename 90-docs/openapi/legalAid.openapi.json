@@ -27,7 +27,7 @@
                   },
                   "lawyerDid": {
                     "type": "string",
-                    "description": "bengoshi.gftd.ai DID",
+                    "description": "bengoshi.etzhayyim.com DID",
                     "format": "did"
                   },
                   "assignedAt": {

@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Turn primary/official-source news evidence into an attributed intel brief for news.gftd.ai.",
+      "description": "Turn primary/official-source news evidence into an attributed intel brief for news.etzhayyim.com.",
       "input": {
         "encoding": "application/json",
         "schema": {

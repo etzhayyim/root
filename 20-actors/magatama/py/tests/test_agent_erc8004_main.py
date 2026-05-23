@@ -64,7 +64,7 @@ def test_execute_publish_flow_blocks_placeholder_chain_submit(tmp_path: Path) ->
         submit_chain=True,
         dry_run=True,
         ipfs_base="https://ipfs.etzhayyim.com",
-        rpc_url="https://geth.gftd.ai",
+        rpc_url="https://geth.etzhayyim.com",
         chain_id=260425,
         registry="0xcA3480edDAfa39c9377B83eEB18291286C8Cb865",
     )
@@ -92,7 +92,7 @@ def test_run_chain_register_uses_gftd_cli(monkeypatch, tmp_path: Path) -> None:
         registration_path=tmp_path / "agent.json",
         agent_uri="ipfs://bafy-agent",
         registry="0xcA3480edDAfa39c9377B83eEB18291286C8Cb865",
-        rpc_url="https://geth.gftd.ai",
+        rpc_url="https://geth.etzhayyim.com",
         chain_id=260425,
         dry_run=False,
     )
@@ -128,7 +128,7 @@ def test_execute_publish_flow_rewrites_existing_registration_before_chain(monkey
         submit_chain=True,
         dry_run=True,
         ipfs_base="https://ipfs.etzhayyim.com",
-        rpc_url="https://geth.gftd.ai",
+        rpc_url="https://geth.etzhayyim.com",
         chain_id=260425,
         registry="0xcA3480edDAfa39c9377B83eEB18291286C8Cb865",
     )

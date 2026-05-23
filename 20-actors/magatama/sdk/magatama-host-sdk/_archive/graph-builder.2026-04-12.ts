@@ -33,6 +33,7 @@
 
 import type { GraphOp, WhereClause } from "./types.js";
 import { getKagamiRpc } from "./sql.js";
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { createKyselyDb } from "./kysely.js";
 import { LABEL_TABLE_MAP } from "@gftd/graph-schema/schema";
 import type { GrapharDB } from "@gftd/graph-schema/db";

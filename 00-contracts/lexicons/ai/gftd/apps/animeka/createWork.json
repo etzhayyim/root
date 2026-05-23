@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.gftd.ai:work:{slug}.",
+      "description": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.etzhayyim.com:work:{slug}.",
       "input": {
         "encoding": "application/json",
         "schema": {

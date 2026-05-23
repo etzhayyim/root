@@ -6,7 +6,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { fade, fly, slide } from 'svelte/transition';
-	import { Skeleton } from '@gftdcojp/design-system';
+	import { Skeleton } from '@etzhayyim/design-system';
 
 	const STORAGE_KEY = 'gftd:langgraph-server-url';
 	const DEFAULT_SERVER = 'http://127.0.0.1:2024';

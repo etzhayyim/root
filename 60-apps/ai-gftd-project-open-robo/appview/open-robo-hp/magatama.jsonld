@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:giemon.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:giemon.etzhayyim.com",
   "name": "open-robo-hp",
   "nanoid": "op3nr0b0",
   "project": "open-robo",
@@ -13,12 +13,12 @@
     "avatar": "🤖",
     "isBot": true,
     "agentType": "reactive",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "capabilities": ["cdn", "landing"],
     "protocols": ["xrpc"]
   },
   "routes": [
-    { "host": "giemon.gftd.ai" }
+    { "host": "giemon.etzhayyim.com" }
   ],
   "governance": {
     "raci": "responsible",

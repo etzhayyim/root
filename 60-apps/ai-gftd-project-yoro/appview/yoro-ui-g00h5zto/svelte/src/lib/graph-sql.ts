@@ -4,6 +4,7 @@ import {
 	PostgresAdapter,
 	PostgresQueryCompiler,
 	sql,
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 } from 'kysely';
 import { atProcedure } from '$lib/atproto-agent';
 

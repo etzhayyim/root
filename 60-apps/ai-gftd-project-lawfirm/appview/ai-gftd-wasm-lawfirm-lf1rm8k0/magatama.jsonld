@@ -1,0 +1,102 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:lawfirm.etzhayyim.com",
+  "name": "lf1rm8k0",
+  "nanoid": "lf1rm8k0",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "project": "lawfirm",
+  "convoSystemPrompt": "You are the Lawfirm case management agent. Every matter, hearing, document, and external counsel grant is minted as a recursive did:gftd child of the firm (ADR-0029). Ethical walls are enforced via hash prefix: a grant scoped to matter X cryptographically cannot be replayed on matter Y. Revoking a grant or closing a matter cascades revocation to every descendant capability (sessions, per-document keys, scheduled events). AI-generated legal drafts require ISCO-2611 lawyer approval before filing. Respond helpfully and cite the relevant matterDid/grantDid when discussing a case.",
+  "governance": {
+    "raci": "responsible",
+    "classification": "confidential",
+    "complianceFrameworks": ["attorney-client-privilege","appi","it-act-india","iso-2611"]
+  },
+  "profile": {
+    "displayName": "GFTD Lawfirm",
+    "description": "Law firm case management with ADR-0029 recursive did:gftd identity, external counsel consent grants, and ISCO-2611 lawyer review gate. 18 matter types across JP/IN/US jurisdictions. India intake accepts 22 Scheduled Languages (hi/bn/ta/te/mr/gu/kn/ml/pa/or/as/ur/sa/ne/sd/ks/kok/mai/mni/sat/doi/brx) + en. India cases auto-route to the configured peer firm (e.g. lawyer.etzhayyim.com / Kunal @ k.bakshi) via externalCounselGrant.",
+    "avatar": "⚖️",
+    "category": "legal",
+    "isBot": true,
+    "operator": "gftd.co.jp",
+    "agentType": "semi-autonomous",
+    "capabilities": [
+      "matter-management",
+      "external-counsel-consent",
+      "document-vault",
+      "hearing-scheduling",
+      "case-closure",
+      "conflict-scan",
+      "recursive-did-minting",
+      "india-intake",
+      "translate-hi",
+      "triage-cohort"
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "ai.gftd.apps.lawfirm.matter",
+        "ai.gftd.apps.lawfirm.hearing",
+        "ai.gftd.apps.lawfirm.legalDocument",
+        "ai.gftd.apps.lawfirm.activity",
+        "ai.gftd.apps.lawfirm.externalCounselGrant",
+        "ai.gftd.apps.lawfirm.timeEntry",
+        "ai.gftd.apps.lawfirm.invoice",
+        "ai.gftd.apps.saiban.jiken",
+        "ai.gftd.apps.saiban.trialEvent"
+      ]
+    }
+  },
+  "derive": {
+    "rules": [
+      {
+        "id": "matter-opened-social",
+        "on": { "collection": "ai.gftd.apps.lawfirm.matter", "action": "create" },
+        "emit": {
+          "type": "app.bsky.feed.post",
+          "text": "Matter opened: {{record.matterNumber}} — {{record.matterType}} ({{record.jurisdiction}})",
+          "visibility": "firm"
+        }
+      },
+      {
+        "id": "hearing-cron",
+        "on": { "collection": "ai.gftd.apps.lawfirm.hearing", "action": "create" },
+        "emit": {
+          "type": "scheduler.registerCron",
+          "fireAt": "{{record.scheduledAt - PT24H}}",
+          "action": "notify matter members of upcoming hearing"
+        }
+      },
+      {
+        "id": "external-counsel-invite-dm",
+        "on": { "collection": "ai.gftd.apps.lawfirm.externalCounselGrant", "action": "create" },
+        "emit": {
+          "type": "wproto.convo.createDm",
+          "peerDID": "{{record.granteeDid}}",
+          "kind": "consent.request",
+          "payload": {
+            "grantDid": "{{record.grantDid}}",
+            "matterDid": "{{record.matterDid}}",
+            "capabilities": "{{record.capabilities}}",
+            "expiresAt": "{{record.expiresAt}}"
+          }
+        }
+      }
+    ]
+  },
+  "space": {
+    "name": "GFTD Lawfirm",
+    "description": "Case management — matters, hearings, documents, external counsel collaboration",
+    "joinRule": "invite",
+    "historyVisibility": "firm-only",
+    "convos": [
+      { "name": "lawfirm-matters", "kind": "firm", "description": "Active matter board", "default": true },
+      { "name": "lawfirm-hearings", "kind": "firm", "description": "Upcoming court events" },
+      { "name": "lawfirm-docs-review", "kind": "firm", "description": "ISCO-2611 review queue for AI-generated drafts" },
+      { "name": "lawfirm-external", "kind": "private", "description": "External counsel collaboration threads (matter-scoped)" }
+    ]
+  }
+}

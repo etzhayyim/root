@@ -12,7 +12,7 @@
           "properties": {
             "sceneUri": {
               "type": "string",
-              "description": "AT URI of the satelliteScene record to analyze (at://did:web:maps.gftd.ai/ai.gftd.apps.maps.satelliteScene/{rkey})."
+              "description": "AT URI of the satelliteScene record to analyze (at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/{rkey})."
             },
             "analysisType": {
               "type": "string",

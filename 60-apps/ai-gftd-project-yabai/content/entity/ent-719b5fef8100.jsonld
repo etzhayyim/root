@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-719b5fef8100",
+  "entityId": "ent-719b5fef8100",
+  "canonicalName": "sazeh morakab co. ltd",
+  "aliases": [
+    "sazeh morakab co. ltd"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f3544e5992fd",
+  "entityId": "ent-f3544e5992fd",
+  "canonicalName": "dingtai industrial technology co limited",
+  "aliases": [
+    "dingtai industrial technology co limited"
+  ]
+}

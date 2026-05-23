@@ -2,18 +2,18 @@
   "@context": "https://schema.org",
   "@type": "SoftwareSourceCode",
   "name": "ai-gftd-project-public-fund",
-  "description": "Crowdfunding-style public fund app on pb.gftd.ai where any user can launch funds, with COFOG/ISIC/APQC gRPC workflows and credits.gftd.ai-based accounting.",
+  "description": "Crowdfunding-style public fund app on pb.etzhayyim.com where any user can launch funds, with COFOG/ISIC/APQC gRPC workflows and credits.etzhayyim.com-based accounting.",
   "programmingLanguage": [
     "Go",
     "Protocol Buffers"
   ],
   "runtimePlatform": "SpinKube",
-  "url": "https://pb.gftd.ai",
+  "url": "https://pb.etzhayyim.com",
   "keywords": [
     "cofog",
     "crowdfunding",
     "public fund",
-    "credits.gftd.ai",
+    "credits.etzhayyim.com",
     "isic",
     "apqc",
     "grpc",
@@ -21,6 +21,6 @@
   ],
   "isPartOf": {
     "@type": "SoftwareApplication",
-    "name": "gftd.ai"
+    "name": "etzhayyim.com"
   }
 }

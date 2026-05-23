@@ -180,7 +180,7 @@ export async function listAccounts(
       const v = r.value;
       if (input.ownerDid && v.ownerDid !== input.ownerDid) return false;
       if (input.kind && v.kind !== input.kind) return false;
-      if (input.currency && v.currency !== input.currency.toUpperCase()) {
+      if (input.currency && !v.currency.toUpperCase().startsWith(input.currency.toUpperCase())) {
         return false;
       }
       return true;

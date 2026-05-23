@@ -16,9 +16,9 @@ metadata:
   labels:
     app.kubernetes.io/name: bpmn-engine-timer-tick
     app.kubernetes.io/component: workflow-engine-timer
-    app.kubernetes.io/part-of: mitama.gftd.ai
+    app.kubernetes.io/part-of: mitama.etzhayyim.com
   annotations:
-    gftd.ai/adr: "2605081200"
+    etzhayyim.com/adr: "2605081200"
 spec:
   schedule: "* * * * *"        # every minute
   concurrencyPolicy: Forbid

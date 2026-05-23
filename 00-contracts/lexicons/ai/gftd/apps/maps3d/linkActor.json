@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "LangGraph actor disambiguation. For each VisionResult detection, search Wikidata SPARQL + GLEIF + OSM operator/owner tags + Murakumo LLM disambiguator → emit a candidate `did:web:maps.gftd.ai:registry:*:{code}` plus confidence. Strong matches get an `Operates` / `OwnsProperty` edge to the host Building vertex; weak matches stay as VisionResult-only. Per ADR-0036 the worker writes vertex / edge rows directly via Hyperdrive, no PDS round-trip.",
+      "description": "LangGraph actor disambiguation. For each VisionResult detection, search Wikidata SPARQL + GLEIF + OSM operator/owner tags + Murakumo LLM disambiguator → emit a candidate `did:web:maps.etzhayyim.com:registry:*:{code}` plus confidence. Strong matches get an `Operates` / `OwnsProperty` edge to the host Building vertex; weak matches stay as VisionResult-only. Per ADR-0036 the worker writes vertex / edge rows directly via Hyperdrive, no PDS round-trip.",
       "input": {
         "encoding": "application/json",
         "schema": {
@@ -31,7 +31,7 @@
                 "required": ["detectionId", "actorDid", "confidence", "source"],
                 "properties": {
                   "detectionId": { "type": "string" },
-                  "actorDid": { "type": "string", "description": "Resolved registry-aliased DID, e.g. did:web:maps.gftd.ai:registry:wikidata:Q38076." },
+                  "actorDid": { "type": "string", "description": "Resolved registry-aliased DID, e.g. did:web:maps.etzhayyim.com:registry:wikidata:Q38076." },
                   "actorLabel": { "type": "string" },
                   "edgeKind": { "type": "string", "description": "Operates | OwnsProperty | RegisteredAt | Manages | (skip)." },
                   "buildingVertexId": { "type": "string", "description": "vertex_id of the linked Building, when known." },

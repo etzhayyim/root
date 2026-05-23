@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-09c30ccc8462",
+  "entityId": "ent-09c30ccc8462",
+  "canonicalName": "ali mohamad daoun",
+  "aliases": [
+    "ali mohamad daoun"
+  ]
+}

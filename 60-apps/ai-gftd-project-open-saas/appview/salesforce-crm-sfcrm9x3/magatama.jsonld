@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:salesforce-opensaas.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:salesforce-opensaas.etzhayyim.com",
   "name": "salesforce-crm-sfcrm9x3",
   "nanoid": "sfcrm9x3",
   "project": "open-saas",
@@ -49,7 +49,7 @@
   },
   "routes": [
     {
-      "host": "salesforce-opensaas.gftd.ai",
+      "host": "salesforce-opensaas.etzhayyim.com",
       "paths": [
         "/"
       ],

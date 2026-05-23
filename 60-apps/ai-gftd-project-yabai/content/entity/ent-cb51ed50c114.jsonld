@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-cb51ed50c114",
+  "entityId": "ent-cb51ed50c114",
+  "canonicalName": "limited liability company lithiumion",
+  "aliases": [
+    "limited liability company lithiumion"
+  ]
+}

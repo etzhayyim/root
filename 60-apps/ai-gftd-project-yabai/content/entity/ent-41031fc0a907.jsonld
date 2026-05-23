@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-41031fc0a907",
+  "entityId": "ent-41031fc0a907",
+  "canonicalName": "maria monserrat avila rocha",
+  "aliases": [
+    "maria monserrat avila rocha"
+  ]
+}

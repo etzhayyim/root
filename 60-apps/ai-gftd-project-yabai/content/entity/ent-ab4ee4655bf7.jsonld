@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ab4ee4655bf7",
+  "entityId": "ent-ab4ee4655bf7",
+  "canonicalName": "oumar younous abdoulay",
+  "aliases": [
+    "oumar younous abdoulay"
+  ]
+}

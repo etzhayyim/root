@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-224453ea63b9",
+  "entityId": "ent-224453ea63b9",
+  "canonicalName": "naji, talal muhammad rashid",
+  "aliases": [
+    "naji, talal muhammad rashid"
+  ]
+}

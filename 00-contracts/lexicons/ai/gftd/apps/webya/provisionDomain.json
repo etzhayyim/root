@@ -24,7 +24,7 @@
           "properties": {
             "ok":             { "type": "boolean" },
             "cfHostnameId":   { "type": "string" },
-            "cnameTarget":    { "type": "string", "description": "CNAME 先 (proxy-webya.gftd.ai)" },
+            "cnameTarget":    { "type": "string", "description": "CNAME 先 (proxy-webya.etzhayyim.com)" },
             "txtName":        { "type": "string", "description": "所有権確認 TXT レコード名" },
             "txtValue":       { "type": "string", "description": "所有権確認 TXT レコード値" },
             "sslStatus":      { "type": "string" },

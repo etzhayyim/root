@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d4ce8fa889bc",
+  "entityId": "ent-d4ce8fa889bc",
+  "canonicalName": "xingbiao shen",
+  "aliases": [
+    "xingbiao shen"
+  ]
+}

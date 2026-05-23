@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-dad10a4e8cdf",
+  "entityId": "ent-dad10a4e8cdf",
+  "canonicalName": "kiber servis, ooo",
+  "aliases": [
+    "kiber servis, ooo"
+  ]
+}

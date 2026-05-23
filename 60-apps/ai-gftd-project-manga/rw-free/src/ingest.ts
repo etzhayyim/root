@@ -49,10 +49,10 @@ export async function submitFromNarou(
       title_id: titleId,
     };
   }
-  const titleDid = titleDid(titleId);
+  const titleDidValue = titleDid(titleId);
   const now = new Date().toISOString();
   const titleRecord: TitleRecord = {
-    did: titleDid,
+    did: titleDidValue,
     title: input.title ?? `Title ${titleId}`,
     series_id: input.narou_title_id,
     description: input.description,
@@ -73,9 +73,9 @@ export async function submitFromNarou(
   let chapterId: string | undefined;
   if (input.narou_chapter_id && input.episode_title) {
     const chId = `${titleId}-ch1`;
-    const chapterDid = chapterDid(chId);
+    const chapterDidValue = chapterDid(chId);
     const chapterRecord: ChapterRecord = {
-      did: chapterDid,
+      did: chapterDidValue,
       title_id: titleId,
       chapter_num: 1,
       episode_title: input.episode_title,

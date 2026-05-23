@@ -1,7 +1,7 @@
-# gftdcojp 業務設計 — 逆トポロジーソート計画
+# etzhayyim 業務設計 — 逆トポロジーソート計画
 
 作成日: 2026-04-20  
-対象: gftdcojp 契約メンバー全員
+対象: etzhayyim 契約メンバー全員
 
 ---
 
@@ -105,9 +105,9 @@ dmn-risk-assessment (FIRST hitPolicy)
 
 ---
 
-## hc.gftd.ai 統合
+## hc.etzhayyim.com 統合
 
-各 UserTask は `hc_worker` プロパティを持ち、`hc.gftd.ai` の以下テーブルに反映:
+各 UserTask は `hc_worker` プロパティを持ち、`hc.etzhayyim.com` の以下テーブルに反映:
 
 | BPMN Task | hc テーブル | レコード |
 |---|---|---|
@@ -115,13 +115,13 @@ dmn-risk-assessment (FIRST hitPolicy)
 | 各タスク完了 | `hc_assignments` | worker, task_ref, completed_at |
 | 法務案件 | `hc_compliance_log` | case_id, action, actor, timestamp |
 
-hc.gftd.ai の MCP ツール `gftd.hc.assignTask` を ServiceTask で呼び出し、シフト管理 (`hc_shifts`) と連動。
+hc.etzhayyim.com の MCP ツール `gftd.hc.assignTask` を ServiceTask で呼び出し、シフト管理 (`hc_shifts`) と連動。
 
 ---
 
 ## kaisya ポータル統合
 
-kaisya.gftd.ai の `vertex_form_task` テーブルが各フォーム送信を受け取る:
+kaisya.etzhayyim.com の `vertex_form_task` テーブルが各フォーム送信を受け取る:
 
 ```sql
 INSERT INTO vertex_form_task (
@@ -130,7 +130,7 @@ INSERT INTO vertex_form_task (
 ) VALUES (
   gen_random_uuid()::text,
   $form_type,         -- 'intake'|'contract-review'|'security-assessment'|...
-  $assignee_did,      -- 'did:web:kaisya.gftd.ai'
+  $assignee_did,      -- 'did:web:kaisya.etzhayyim.com'
   $project_ref,       -- 案件ID
   'pending',
   now(),

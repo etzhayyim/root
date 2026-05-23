@@ -12,7 +12,7 @@
   "paths": {
     "/xrpc/ai.gftd.plc.getLog": {
       "get": {
-        "summary": "Proxy for plc.gftd.ai GET /{did}/log — returns the full operation log for a DID. Each op is signature-verifiable offline. Used for audit, forensics, and federation sync.",
+        "summary": "Proxy for plc.etzhayyim.com GET /{did}/log — returns the full operation log for a DID. Each op is signature-verifiable offline. Used for audit, forensics, and federation sync.",
         "operationId": "ai.gftd.plc.getLog",
         "parameters": [
           {
@@ -120,7 +120,7 @@
     },
     "/xrpc/ai.gftd.plc.migrateActor": {
       "post": {
-        "summary": "ADR-0014 Phase 5: migrate a did:web actor to did:plc. PDS builds genesis op with rotation key from D1 (ADR-0010 custody), signs with ES256K, computes DID, and registers with plc.gftd.ai. Client never touches key material.",
+        "summary": "ADR-0014 Phase 5: migrate a did:web actor to did:plc. PDS builds genesis op with rotation key from D1 (ADR-0010 custody), signs with ES256K, computes DID, and registers with plc.etzhayyim.com. Client never touches key material.",
         "operationId": "ai.gftd.plc.migrateActor",
         "requestBody": {
           "required": true,
@@ -135,12 +135,12 @@
                   },
                   "handle": {
                     "type": "string",
-                    "description": "atproto handle to embed in DID document alsoKnownAs (e.g. adr.gftd.ai)",
+                    "description": "atproto handle to embed in DID document alsoKnownAs (e.g. adr.etzhayyim.com)",
                     "format": "handle"
                   },
                   "dryRun": {
                     "type": "boolean",
-                    "description": "if true: build + sign genesis op, compute DID, but do NOT register with plc.gftd.ai and do NOT persist rotation mapping",
+                    "description": "if true: build + sign genesis op, compute DID, but do NOT register with plc.etzhayyim.com and do NOT persist rotation mapping",
                     "default": false
                   },
                   "existingRotationKeys": {
@@ -179,7 +179,7 @@
                     },
                     "plcUrl": {
                       "type": "string",
-                      "description": "plc.gftd.ai resolve URL for the new DID",
+                      "description": "plc.etzhayyim.com resolve URL for the new DID",
                       "format": "uri"
                     },
                     "handle": {
@@ -193,7 +193,7 @@
                     },
                     "registered": {
                       "type": "boolean",
-                      "description": "true if DID was successfully POSTed to plc.gftd.ai (false in dryRun or if already exists)"
+                      "description": "true if DID was successfully POSTed to plc.etzhayyim.com (false in dryRun or if already exists)"
                     }
                   },
                   "required": [
@@ -213,7 +213,7 @@
     },
     "/xrpc/ai.gftd.plc.resolveDid": {
       "get": {
-        "summary": "Proxy for plc.gftd.ai GET /{did} — returns the current W3C DID document by replaying the signed op log. Caller-side alternative: fetch plc.gftd.ai directly (no PDS auth required for public DIDs).",
+        "summary": "Proxy for plc.etzhayyim.com GET /{did} — returns the current W3C DID document by replaying the signed op log. Caller-side alternative: fetch plc.etzhayyim.com directly (no PDS auth required for public DIDs).",
         "operationId": "ai.gftd.plc.resolveDid",
         "parameters": [
           {
@@ -243,7 +243,7 @@
                       "type": "string",
                       "description": "which resolver satisfied the query",
                       "enum": [
-                        "plc.gftd.ai",
+                        "plc.etzhayyim.com",
                         "did:web",
                         "cache"
                       ]
@@ -308,7 +308,7 @@
           },
           "directory": {
             "type": "string",
-            "description": "origin directory (e.g. https://plc.gftd.ai)",
+            "description": "origin directory (e.g. https://plc.etzhayyim.com)",
             "format": "uri"
           },
           "createdAt": {

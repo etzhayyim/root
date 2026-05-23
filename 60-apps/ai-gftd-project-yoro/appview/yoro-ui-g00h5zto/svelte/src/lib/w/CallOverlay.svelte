@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@gftdcojp/design-system';
+	import { Button } from '@etzhayyim/design-system';
 	import { sendCallOffer, sendCallAnswer, sendCallICE, hangupCall, memberLabel, getICEServers } from '$lib/atproto-agent';
 	import type { Did, ConvoId, CallSignal } from '$lib/atproto-agent';
 

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-cdf38bf12c9b",
+  "entityId": "ent-cdf38bf12c9b",
+  "canonicalName": "etco international commodities ltd.",
+  "aliases": [
+    "etco international commodities ltd."
+  ]
+}

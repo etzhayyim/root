@@ -31,7 +31,7 @@
             "ok": {"type": "boolean"},
             "bucketId": {"type": "string"},
             "bucketName": {"type": "string"},
-            "endpointUrl": {"type": "string", "description": "Full S3-compat URL: https://yatabase.gftd.ai/s3/{bucket}/"},
+            "endpointUrl": {"type": "string", "description": "Full S3-compat URL: https://yatabase.etzhayyim.com/s3/{bucket}/"},
             "error": {"type": "string"}
           }
         }

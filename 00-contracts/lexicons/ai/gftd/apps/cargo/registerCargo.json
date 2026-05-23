@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a maritime cargo manifest (container/bulk/breakbulk/RoRo). Sources: WCO + national customs + AIS-linked manifests. Path-based DID: did:web:cargo.gftd.ai:cargo:{bookingRef}.",
+      "description": "Register a maritime cargo manifest (container/bulk/breakbulk/RoRo). Sources: WCO + national customs + AIS-linked manifests. Path-based DID: did:web:cargo.etzhayyim.com:cargo:{bookingRef}.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

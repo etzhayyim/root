@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-list-offer-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-list-offer-v1',
+                 'did:web:market.etzhayyim.com',
                  'market_list_offer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_market_list_offer" '
-                 'targetNamespace="https://gftd.ai/bpmn/market">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/market">\n'
                  '  <bpmn:process id="market_list_offer" name="market.listOffer" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -60,11 +60,11 @@ UP = [{'sql': '\n'
                  1098,
                  '00-contracts/bpmn/ai/gftd/market/listOffer.bpmn',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-list-offer-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-list-offer-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -79,18 +79,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-list-offer-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-list-offer-v1',
+                 'did:web:market.etzhayyim.com',
                  'ai.gftd.market.listOffer',
                  'market_list_offer',
                  30000,
                  '',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-list-offer-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-list-offer-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -106,14 +106,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-observe-demand-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-observe-demand-v1',
+                 'did:web:market.etzhayyim.com',
                  'market_observe_demand',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_market_observe_demand" '
-                 'targetNamespace="https://gftd.ai/bpmn/market">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/market">\n'
                  '  <bpmn:process id="market_observe_demand" name="market.observeDemand" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -139,11 +139,11 @@ UP = [{'sql': '\n'
                  1130,
                  '00-contracts/bpmn/ai/gftd/market/observeDemand.bpmn',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-observe-demand-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-observe-demand-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -158,18 +158,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-observe-demand-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-observe-demand-v1',
+                 'did:web:market.etzhayyim.com',
                  'ai.gftd.market.observeDemand',
                  'market_observe_demand',
                  30000,
                  'vertex_market_demand_signal',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-observe-demand-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-observe-demand-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -185,14 +185,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-publish-offer-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-publish-offer-v1',
+                 'did:web:market.etzhayyim.com',
                  'market_publish_offer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_market_publish_offer" '
-                 'targetNamespace="https://gftd.ai/bpmn/market">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/market">\n'
                  '  <bpmn:process id="market_publish_offer" name="market.publishOffer" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -218,11 +218,11 @@ UP = [{'sql': '\n'
                  1122,
                  '00-contracts/bpmn/ai/gftd/market/publishOffer.bpmn',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-publish-offer-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-publish-offer-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -237,18 +237,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-publish-offer-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-publish-offer-v1',
+                 'did:web:market.etzhayyim.com',
                  'ai.gftd.market.publishOffer',
                  'market_publish_offer',
                  30000,
                  'vertex_market_listing',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-publish-offer-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-publish-offer-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -264,14 +264,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-quote-price-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-quote-price-v1',
+                 'did:web:market.etzhayyim.com',
                  'market_quote_price',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_market_quote_price" '
-                 'targetNamespace="https://gftd.ai/bpmn/market">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/market">\n'
                  '  <bpmn:process id="market_quote_price" name="market.quotePrice" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -297,11 +297,11 @@ UP = [{'sql': '\n'
                  1106,
                  '00-contracts/bpmn/ai/gftd/market/quotePrice.bpmn',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-quote-price-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-quote-price-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -316,18 +316,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-quote-price-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-quote-price-v1',
+                 'did:web:market.etzhayyim.com',
                  'ai.gftd.market.quotePrice',
                  'market_quote_price',
                  30000,
                  '',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-quote-price-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-quote-price-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -343,14 +343,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-settle-invoice-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-settle-invoice-v1',
+                 'did:web:market.etzhayyim.com',
                  'market_settle_invoice',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_market_settle_invoice" '
-                 'targetNamespace="https://gftd.ai/bpmn/market">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/market">\n'
                  '  <bpmn:process id="market_settle_invoice" name="market.settleInvoice" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -376,11 +376,11 @@ UP = [{'sql': '\n'
                  1130,
                  '00-contracts/bpmn/ai/gftd/market/settleInvoice.bpmn',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-settle-invoice-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-settle-invoice-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -395,18 +395,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-settle-invoice-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-settle-invoice-v1',
+                 'did:web:market.etzhayyim.com',
                  'ai.gftd.market.settleInvoice',
                  'market_settle_invoice',
                  30000,
                  'vertex_market_settlement',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-settle-invoice-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-settle-invoice-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -422,14 +422,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-well-known-market-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-well-known-market-v1',
+                 'did:web:market.etzhayyim.com',
                  'market_well_known_market',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_market_well_known_market" '
-                 'targetNamespace="https://gftd.ai/bpmn/market">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/market">\n'
                  '  <bpmn:process id="market_well_known_market" name="market.wellKnownMarket" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="Start">\n'
@@ -455,11 +455,11 @@ UP = [{'sql': '\n'
                  1148,
                  '00-contracts/bpmn/ai/gftd/market/wellKnownMarket.bpmn',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-well-known-market-v1']},
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-well-known-market-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -474,43 +474,43 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-well-known-market-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-well-known-market-v1',
+                 'did:web:market.etzhayyim.com',
                  'ai.gftd.market.wellKnownMarket',
                  'market_well_known_market',
                  30000,
                  '',
                  '2026-05-07T01:05:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-well-known-market-v1']}]
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-well-known-market-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-list-offer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-list-offer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-list-offer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-list-offer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-observe-demand-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-observe-demand-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-observe-demand-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-observe-demand-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-publish-offer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-publish-offer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-publish-offer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-publish-offer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-quote-price-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-quote-price-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-quote-price-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-quote-price-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-settle-invoice-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-settle-invoice-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-settle-invoice-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-settle-invoice-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/market-well-known-market-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/market-well-known-market-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-well-known-market-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-well-known-market-v1']}]
 
 
 def upgrade() -> None:

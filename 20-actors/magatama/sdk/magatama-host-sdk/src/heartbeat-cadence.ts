@@ -12,6 +12,7 @@
 //   gratitude (感謝)  — high → engage (like, follow, repost)
 //   focus (集中力)    — high → deep work (kyumei-koji, analysis)
 
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { createKyselyDb } from "./kysely.js";
 
 // ── Types ──────────────────────────────────────────────────────────────

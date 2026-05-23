@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "メール下書きを作成する。gftdcojp_agent ルール準拠の draft_only — 実際の送信は行わない。承認後に Outlook/別ツールで送信すること。",
+      "description": "メール下書きを作成する。etzhayyim_agent ルール準拠の draft_only — 実際の送信は行わない。承認後に Outlook/別ツールで送信すること。",
       "input": {
         "encoding": "application/json",
         "schema": {

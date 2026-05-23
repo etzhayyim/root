@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a maritime crew member with STCW certification. Sources: STCW Convention + flag state seafarer registries. Path-based DID: did:web:crew.gftd.ai:seafarer:{flagState}:{cdcNo}. PII Tier 3.",
+      "description": "Register a maritime crew member with STCW certification. Sources: STCW Convention + flag state seafarer registries. Path-based DID: did:web:crew.etzhayyim.com:seafarer:{flagState}:{cdcNo}. PII Tier 3.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

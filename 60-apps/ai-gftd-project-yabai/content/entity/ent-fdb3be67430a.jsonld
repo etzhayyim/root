@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fdb3be67430a",
+  "entityId": "ent-fdb3be67430a",
+  "canonicalName": "товариство з обмеженою відповідальністю \"тд ідєалпрод\"",
+  "aliases": [
+    "товариство з обмеженою відповідальністю \"тд ідєалпрод\""
+  ]
+}

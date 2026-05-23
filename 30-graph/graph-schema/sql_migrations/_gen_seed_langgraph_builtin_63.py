@@ -19,7 +19,7 @@ ROWS = [
     ("copyright_ingest", "pymagatama.langgraph_graphs.copyright_ingest"),
     ("coverage_gap_bridge", "pymagatama.langgraph_graphs.coverage_gap_bridge"),
     ("echo", "pymagatama.langgraph_graphs.echo"),
-    ("gftdcojp-company-ops", "pymagatama.langgraph_graphs.gftdcojp_company_ops"),
+    ("etzhayyim-company-ops", "pymagatama.langgraph_graphs.etzhayyim_company_ops"),
     ("isbn_ingest_aozora", "pymagatama.langgraph_graphs.isbn_ingest_aozora"),
     ("isbn_ingest_gutenberg", "pymagatama.langgraph_graphs.isbn_ingest_gutenberg"),
     ("isbn_ingest_hathitrust", "pymagatama.langgraph_graphs.isbn_ingest_hathitrust"),

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-67ff1a6a1dd9",
+  "entityId": "ent-67ff1a6a1dd9",
+  "canonicalName": "ahmad mahmood hassan",
+  "aliases": [
+    "ahmad mahmood hassan"
+  ]
+}

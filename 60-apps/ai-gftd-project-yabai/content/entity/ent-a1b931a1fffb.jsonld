@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a1b931a1fffb",
+  "entityId": "ent-a1b931a1fffb",
+  "canonicalName": "ftx trading ltd.",
+  "aliases": [
+    "ftx trading ltd."
+  ]
+}

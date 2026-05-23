@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-968e551f46ac",
+  "entityId": "ent-968e551f46ac",
+  "canonicalName": "jabril, ahmad",
+  "aliases": [
+    "jabril, ahmad"
+  ]
+}

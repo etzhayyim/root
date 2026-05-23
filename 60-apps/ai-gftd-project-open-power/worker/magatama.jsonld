@@ -1,8 +1,8 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-power.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-power.etzhayyim.com",
   "name": "open-power",
-  "handle": "open-power.gftd.ai",
+  "handle": "open-power.etzhayyim.com",
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-power",

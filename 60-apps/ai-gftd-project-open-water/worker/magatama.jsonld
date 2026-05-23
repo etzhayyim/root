@@ -1,8 +1,8 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-water.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-water.etzhayyim.com",
   "name": "open-water",
-  "handle": "open-water.gftd.ai",
+  "handle": "open-water.etzhayyim.com",
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-water",

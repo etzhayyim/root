@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/natural-person-seed-latent-entities-v1',
-                 'did:web:natural-person.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/natural-person-seed-latent-entities-v1',
+                 'did:web:natural-person.etzhayyim.com',
                  'natural_person_seed_latent_entities_v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -73,7 +73,7 @@ UP = [{'sql': '\n'
                  'planned_entities FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash '
                  "IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM "
                  'vertex_latent_entity e WHERE e.vertex_id = '
-                 "'at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-' "
+                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-' "
                  '|| c.cohort_hash)&quot;" target="sql"/>\n'
                  '          <zeebe:input source="=[]" target="params"/>\n'
                  '          <zeebe:input source="=60000" target="resultTimeoutMs"/>\n'
@@ -95,16 +95,16 @@ UP = [{'sql': '\n'
                  'entity_kind, canonical_label, existence_probability, k_evidence_count, '
                  'viewpoint_consensus, fission_eligible, status, primary_topic_vid, '
                  'individual_did) SELECT '
-                 "'at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-' "
-                 "|| c.cohort_hash, 1, 300, 'did:web:coverage.gftd.ai', "
-                 "'did:web:coverage.gftd.ai', 'did:web:coverage.gftd.ai', NOW(), "
+                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-' "
+                 "|| c.cohort_hash, 1, 300, 'did:web:coverage.etzhayyim.com', "
+                 "'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', NOW(), "
                  "'natural_person_cohort', 'natural person cohort: ' || c.cohort_hash, 0.99, CASE "
                  'WHEN c.intel_estimated_count &gt; 0 THEN 1 ELSE 0 END, 1, c.vital_status = '
-                 "'alive', 'active', c.vertex_id, 'did:web:natural-person.gftd.ai:latent:' || "
+                 "'alive', 'active', c.vertex_id, 'did:web:natural-person.etzhayyim.com:latent:' || "
                  'c.cohort_hash FROM vertex_natural_person_cohort_person c WHERE c.cohort_hash IS '
                  "NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 FROM "
                  'vertex_latent_entity e WHERE e.vertex_id = '
-                 "'at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-' "
+                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-' "
                  '|| c.cohort_hash)&quot;" target="sql"/>\n'
                  '          <zeebe:input source="=[]" target="params"/>\n'
                  '          <zeebe:input source="=300000" target="resultTimeoutMs"/>\n'
@@ -123,14 +123,14 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;INSERT INTO edge_entity_cohort_link '
                  '(edge_id, _seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, '
                  'src_vid, dst_vid, link_confidence) SELECT '
-                 "'at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.entityCohortLink/natural-person-cohort-' "
-                 "|| c.cohort_hash, 1, 300, 'did:web:coverage.gftd.ai', "
-                 "'did:web:coverage.gftd.ai', 'did:web:coverage.gftd.ai', NOW(), "
-                 "'at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-' "
+                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.entityCohortLink/natural-person-cohort-' "
+                 "|| c.cohort_hash, 1, 300, 'did:web:coverage.etzhayyim.com', "
+                 "'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', NOW(), "
+                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-' "
                  '|| c.cohort_hash, c.vertex_id, 0.99 FROM vertex_natural_person_cohort_person c '
                  "WHERE c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS "
                  '(SELECT 1 FROM edge_entity_cohort_link l WHERE l.edge_id = '
-                 "'at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.entityCohortLink/natural-person-cohort-' "
+                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.entityCohortLink/natural-person-cohort-' "
                  '|| c.cohort_hash)&quot;" target="sql"/>\n'
                  '          <zeebe:input source="=[]" target="params"/>\n'
                  '          <zeebe:input source="=300000" target="resultTimeoutMs"/>\n'
@@ -149,14 +149,14 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;INSERT INTO edge_entity_evidence (edge_id, '
                  '_seq, sensitivity_ord, owner_did, actor_did, org_did, created_at, src_vid, '
                  'dst_vid, evidence_weight) SELECT '
-                 "'at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.entityEvidence/natural-person-cohort-' "
-                 "|| c.cohort_hash, 1, 300, 'did:web:coverage.gftd.ai', "
-                 "'did:web:coverage.gftd.ai', 'did:web:coverage.gftd.ai', NOW(), c.vertex_id, "
-                 "'at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-' "
+                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.entityEvidence/natural-person-cohort-' "
+                 "|| c.cohort_hash, 1, 300, 'did:web:coverage.etzhayyim.com', "
+                 "'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', NOW(), c.vertex_id, "
+                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-' "
                  '|| c.cohort_hash, 1.0 FROM vertex_natural_person_cohort_person c WHERE '
                  "c.cohort_hash IS NOT NULL AND c.cohort_hash &lt;&gt; '' AND NOT EXISTS (SELECT 1 "
                  'FROM edge_entity_evidence ev WHERE ev.edge_id = '
-                 "'at://did:web:coverage.gftd.ai/ai.gftd.apps.coverage.entityEvidence/natural-person-cohort-' "
+                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.entityEvidence/natural-person-cohort-' "
                  '|| c.cohort_hash)&quot;" target="sql"/>\n'
                  '          <zeebe:input source="=[]" target="params"/>\n'
                  '          <zeebe:input source="=300000" target="resultTimeoutMs"/>\n'
@@ -187,7 +187,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:natural-person.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:natural-person.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;naturalPerson.seedLatentEntities.complete&quot;" '
@@ -231,10 +231,10 @@ UP = [{'sql': '\n'
                  9850,
                  '00-contracts/bpmn/ai/gftd/natural-person/seedLatentEntities.bpmn',
                  '2026-04-30T20:20:00Z',
-                 'did:web:natural-person.gftd.ai',
-                 'did:web:natural-person.gftd.ai',
+                 'did:web:natural-person.etzhayyim.com',
+                 'did:web:natural-person.etzhayyim.com',
                  'sys.bpmn.seed.natural-person',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/natural-person-seed-latent-entities-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/natural-person-seed-latent-entities-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -248,21 +248,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/natural-person-seedLatentEntities-v1',
-                 'did:web:natural-person.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/natural-person-seedLatentEntities-v1',
+                 'did:web:natural-person.etzhayyim.com',
                  'ai.gftd.apps.naturalPerson.seedLatentEntities',
                  'natural_person_seed_latent_entities_v1',
                  300000,
                  '2026-04-30T20:20:00Z',
-                 'did:web:natural-person.gftd.ai',
-                 'did:web:natural-person.gftd.ai',
+                 'did:web:natural-person.etzhayyim.com',
+                 'did:web:natural-person.etzhayyim.com',
                  'sys.bpmn.seed.natural-person',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/natural-person-seedLatentEntities-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/natural-person-seedLatentEntities-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/natural-person-seedLatentEntities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/natural-person-seedLatentEntities-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/natural-person-seed-latent-entities-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/natural-person-seed-latent-entities-v1']}]
 
 
 def upgrade() -> None:

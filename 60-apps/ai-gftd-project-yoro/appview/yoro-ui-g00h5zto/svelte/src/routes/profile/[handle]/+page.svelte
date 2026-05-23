@@ -4,9 +4,9 @@
 
 	// Server data for SSR OG tags (crawlers)
 	const { data } = $props();
-	import { Avatar, Skeleton, ActionSheet, TabBar } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
-	import { playTap, playTabSwitch, haptic } from '@gftdcojp/design-system/audio';
+	import { Avatar, Skeleton, ActionSheet, TabBar } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
+	import { playTap, playTabSwitch, haptic } from '@etzhayyim/design-system/audio';
 	import { spring } from 'svelte/motion';
 	import { RichText, didFromRouteActor, postRkey, postRouteActor, type ESimProfile, fetchEsimProfile as _fetchEsim, type IssuingCard, type IssuingBalance, fetchCards as _fetchCards, freezeCard as _freezeCard, unfreezeCard as _unfreezeCard, fetchActorScores as _fetchActorScores, timeAgo } from '$lib/w';
 		import { getAuthorProfile, getAuthorFeed, getFollowers, getFollows, followUser, unfollowUser, resolveHandle, getCurrentDID, isDid, setProfile, muteActor, unmuteActor, blockActor, unblockActor, reportContent, atProcedure, atQuery } from '$lib/atproto-agent';
@@ -14,7 +14,6 @@
 	import { isSignedIn } from '$lib/auth';
 	import { fade, fly } from 'svelte/transition';
 	import { ActorHero } from '$lib/actor';
-	import AdSlot from '$lib/components/AdSlot.svelte';
 	import type { ActorProfileView, ActorScores } from '$lib/actor';
 	import AgentProfile from './AgentProfile.svelte';
 	import { XPBar, AchievementsGrid, BeliefKarmaTab } from '$lib/gamification';
@@ -739,11 +738,6 @@
 			<!-- Human Profile — ActorHero + tabs -->
 			<ActorHero profile={actorProfileView} />
 
-			<!-- Sponsored slot under profile header -->
-			<div class="mx-4 mt-3">
-				<AdSlot placement="profile-header" class="rounded-xl" />
-			</div>
-
 			<!-- GCC Token Balance (shown when smart account is activated and balance > 0) -->
 			{#if gccBalanceFormatted}
 				<div class="mx-4 mt-3 flex items-center gap-3 rounded-2xl border border-amber-500/20 bg-gradient-to-r from-amber-500/8 to-yellow-500/8 px-4 py-3" transition:fade={{ duration: 200 }}>
@@ -754,7 +748,7 @@
 					</div>
 					{#if gccSmartAccount}
 						<a
-							href="https://geth.gftd.ai"
+							href="https://geth.etzhayyim.com"
 							target="_blank"
 							rel="noopener noreferrer"
 							class="flex-shrink-0 rounded-full bg-amber-500/15 px-3 py-1 text-[12px] font-medium text-amber-400 touch-manipulation active:scale-95 transition-transform"

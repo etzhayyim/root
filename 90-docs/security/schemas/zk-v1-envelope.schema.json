@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etzhayyim.com/schemas/security/zk-v1-envelope.schema.json",
+  "title": "ZK Envelope v1",
+  "type": "object",
+  "required": [
+    "version",
+    "owner",
+    "device_id",
+    "alg",
+    "wrapped_keys",
+    "aad"
+  ],
+  "properties": {
+    "version": {
+      "const": "zk-v1"
+    },
+    "owner": {
+      "type": "object",
+      "required": [
+        "did",
+        "org_did"
+      ],
+      "properties": {
+        "did": {
+          "type": "string",
+          "minLength": 1,
+          "description": "did:web user or agent DID"
+        },
+        "orgDid": {
+          "type": "string",
+          "minLength": 1,
+          "description": "did:web org DID (tenant isolation)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "deviceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "alg": {
+      "type": "object",
+      "required": [
+        "kdf",
+        "aead",
+        "wrap"
+      ],
+      "properties": {
+        "kdf": {
+          "enum": [
+            "argon2id",
+            "pbkdf2-sha256"
+          ]
+        },
+        "aead": {
+          "enum": [
+            "xchacha20poly1305",
+            "aes-256-gcm"
+          ]
+        },
+        "wrap": {
+          "enum": [
+            "x25519-hkdf"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "wrappedKeys": {
+      "type": "object",
+      "required": [
+        "ak_by_mk",
+        "dk_by_ak",
+        "dek_by_ak"
+      ],
+      "properties": {
+        "akByMk": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dkByAk": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dekByAk": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "aad": {
+      "type": "object",
+      "required": [
+        "object_id",
+        "created_at"
+      ],
+      "properties": {
+        "objectId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

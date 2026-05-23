@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-34c77a8d7ee1",
+  "entityId": "ent-34c77a8d7ee1",
+  "canonicalName": "auroratools limited liability company",
+  "aliases": [
+    "auroratools limited liability company"
+  ]
+}

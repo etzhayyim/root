@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shinshi-seed-gap-fill-v1',
-                 'did:web:shinshi.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shinshi-seed-gap-fill-v1',
+                 'did:web:shinshi.etzhayyim.com',
                  'shinshi_seed_gap_fill',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -42,14 +42,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.shinshi.seedGapFill (informational, no XRPC)\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shinshi-seed-gap-fill-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shinshi-seed-gap-fill-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shinshi_seed_gap_fill"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shinshi"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shinshi"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shinshi_seed_gap_fill" name="shinshi seedGapFill" '
@@ -74,7 +74,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="shinshi.coverage.findIncomplete"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sh1n5h1x.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sh1n5h1x.etzhayyim.com&quot;" '
                  'target="appDid"/>\n'
                  '          <zeebe:input source="=5" target="minScenes"/>\n'
                  '          <zeebe:input source="=5" target="maxModels"/>\n'
@@ -109,7 +109,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="shinshi.scene.bulkSeed"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=slugs" target="slugs"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:sh1n5h1x.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sh1n5h1x.etzhayyim.com&quot;" '
                  'target="appDid"/>\n'
                  '          <zeebe:input source="=&quot;thumb&quot;" target="sceneType"/>\n'
                  '          <zeebe:input source="=[0,1,2,3,4]" target="sceneIndices"/>\n'
@@ -132,7 +132,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:shinshi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:shinshi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.shinshi.seedGapFill&quot;" '
                  'target="nsid"/>\n'
@@ -150,7 +150,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:shinshi.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:shinshi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.shinshi.seedGapFill&quot;" '
                  'target="nsid"/>\n'
@@ -174,13 +174,13 @@ UP = [{'sql': '\n'
                  6382,
                  '00-contracts/bpmn/ai/gftd/shinshi/seedGapFill.bpmn',
                  '2026-05-07T15:00:00Z',
-                 'did:web:shinshi.gftd.ai',
-                 'did:web:shinshi.gftd.ai',
+                 'did:web:shinshi.etzhayyim.com',
+                 'did:web:shinshi.etzhayyim.com',
                  'sys.bpmn.seed.shinshi.gap-fill',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shinshi-seed-gap-fill-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shinshi-seed-gap-fill-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shinshi-seed-gap-fill-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shinshi-seed-gap-fill-v1']}]
 
 
 def upgrade() -> None:

@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hanrei-ingest-v1',
-                 'did:web:hanrei.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hanrei-ingest-v1',
+                 'did:web:hanrei.etzhayyim.com',
                  'hanrei_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -54,14 +54,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.hanrei.hanreiIngest\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hanrei-ingest-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hanrei-ingest-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_hanrei_ingest"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/hanrei"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/hanrei"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="hanrei_ingest" name="hanrei ingest" isExecutable="true">\n'
@@ -184,7 +184,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.hanrei.hanreiIngest&quot;" '
                  'target="event_type"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:hanrei.gftd.ai&quot;"            '
+                 '          <zeebe:input source="=&quot;did:web:hanrei.etzhayyim.com&quot;"            '
                  'target="actor_did"/>\n'
                  '          <zeebe:input source="={ caseJobsCreated: caseJobsCreated, '
                  'egovJobsCreated: egovJobsCreated, wikidataJobsCreated: wikidataJobsCreated, '
@@ -201,7 +201,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input '
                  'source="=&quot;ai.gftd.apps.hanrei.hanreiIngest.abort&quot;" '
                  'target="event_type"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:hanrei.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:hanrei.etzhayyim.com&quot;" '
                  'target="actor_did"/>\n'
                  '          <zeebe:input source="={ reason: '
                  '&quot;no_collection_jobs_created&quot;, caseJobsCreated: caseJobsCreated, '
@@ -221,10 +221,10 @@ UP = [{'sql': '\n'
                  8132,
                  '00-contracts/bpmn/ai/gftd/hanrei/hanreiIngest.bpmn',
                  '2026-04-29T10:01:00Z',
-                 'did:web:hanrei.gftd.ai',
-                 'did:web:hanrei.gftd.ai',
+                 'did:web:hanrei.etzhayyim.com',
+                 'did:web:hanrei.etzhayyim.com',
                  'sys.bpmn.seed.hanrei',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hanrei-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hanrei-ingest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -238,21 +238,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/hanrei-ingest-v1',
-                 'did:web:hanrei.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/hanrei-ingest-v1',
+                 'did:web:hanrei.etzhayyim.com',
                  'ai.gftd.apps.hanrei.hanreiIngest',
                  'hanrei_ingest',
                  600000,
                  '2026-04-29T10:01:00Z',
-                 'did:web:hanrei.gftd.ai',
-                 'did:web:hanrei.gftd.ai',
+                 'did:web:hanrei.etzhayyim.com',
+                 'did:web:hanrei.etzhayyim.com',
                  'sys.bpmn.seed.hanrei',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/hanrei-ingest-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/hanrei-ingest-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/hanrei-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/hanrei-ingest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/hanrei-ingest-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hanrei-ingest-v1']}]
 
 
 def upgrade() -> None:

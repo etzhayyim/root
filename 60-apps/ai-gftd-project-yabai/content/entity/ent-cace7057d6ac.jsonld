@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-cace7057d6ac",
+  "entityId": "ent-cace7057d6ac",
+  "canonicalName": "farmacia y mini super trinidad",
+  "aliases": [
+    "farmacia y mini super trinidad"
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 id: yoro-ocel-activity-log
-title: "yoro.gftd.ai — OCEL v2 Activity Log Design"
+title: "yoro.etzhayyim.com — OCEL v2 Activity Log Design"
 status: active
 doc_type: explanation
 topic: yoro-activity-ocel
@@ -17,7 +17,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# yoro.gftd.ai — OCEL v2 Activity Log Design
+# yoro.etzhayyim.com — OCEL v2 Activity Log Design
 
 ## Goal
 
@@ -151,7 +151,7 @@ The existing `app.bsky.notification.*` XRPC handlers remain unchanged for AT Pro
 ```
 PDS Commit Stream (ComAtprotoSyncSubscribeRepos)
   |
-  +---> OCEL Collector DIDs (existing ocel.gftd.ai)
+  +---> OCEL Collector DIDs (existing ocel.etzhayyim.com)
   |     +-- ingest ai.gftd.ocel.event --> OcelEvent graph label
   |
   +---> Bluesky Notification (existing)
@@ -189,7 +189,7 @@ Browser (/projects)
 
 ## Process Mining Connection
 
-Activity events are compatible with OCEL v2 process mining at `ocel.gftd.ai`:
+Activity events are compatible with OCEL v2 process mining at `ocel.etzhayyim.com`:
 
 | Algorithm | Activity Log Usage |
 |---|---|

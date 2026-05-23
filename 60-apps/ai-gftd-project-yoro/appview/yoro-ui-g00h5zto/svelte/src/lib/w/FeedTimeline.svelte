@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Avatar, Badge, Card } from '@gftdcojp/design-system';
+	import { Avatar, Badge, Card } from '@etzhayyim/design-system';
 	import { memberLabel, blobUrl, decodeMessageBody, sendProjectMessage } from '$lib/atproto-agent';
 	import { parseCardType, type ConvoEnvelope, type ConvoParticipantType, type CardType } from '$lib/atproto-agent';
 	import CardList from './cards/CardList.svelte';

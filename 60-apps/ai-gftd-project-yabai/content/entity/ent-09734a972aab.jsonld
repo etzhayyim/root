@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-09734a972aab",
+  "entityId": "ent-09734a972aab",
+  "canonicalName": "ntabo ntaberi sheka",
+  "aliases": [
+    "ntabo ntaberi sheka"
+  ]
+}

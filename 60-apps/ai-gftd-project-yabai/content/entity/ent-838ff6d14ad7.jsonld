@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-838ff6d14ad7",
+  "entityId": "ent-838ff6d14ad7",
+  "canonicalName": "山口組 (yamaguchi-gumi)",
+  "aliases": [
+    "山口組 (yamaguchi-gumi)"
+  ]
+}

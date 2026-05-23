@@ -8,31 +8,31 @@ from graph_schema.db import execute_bound_statements
 
 
 revision = "r_20260508993000_reseed_saikin_v5_timer_retrigger"
-down_revision = 'r_20260508992000_vertex_gftdcojp_company_ops'
+down_revision = 'r_20260508992000_vertex_etzhayyim_company_ops'
 branch_labels = None
 depends_on = None
 
 UP = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
          '       source_path, status, created_at, sensitivity_ord, org_id, user_id, actor_id)\n'
          '    VALUES (\n'
-         "      $1, 'did:web:bpmn.gftd.ai', 'saikin_horizontal_transfer_cycle', 5,\n"
+         "      $1, 'did:web:bpmn.etzhayyim.com', 'saikin_horizontal_transfer_cycle', 5,\n"
          '      $2, CAST($3 AS integer),\n'
          "      $4, 'active', $5,\n"
-         "      1, 'did:web:bpmn.gftd.ai', 'did:web:bpmn.gftd.ai', "
+         "      1, 'did:web:bpmn.etzhayyim.com', 'did:web:bpmn.etzhayyim.com', "
          "'sys.bpmn.reseed.timer-retrigger'\n"
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_saikin_horizontal_transfer" '
-                 'targetNamespace="https://gftd.ai/bpmn/saikin" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/saikin" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="saikin_horizontal_transfer_cycle" '
                  'name="horizontal-transfer-cycle" isExecutable="true">\n'
@@ -174,7 +174,7 @@ UP = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:saikin.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:saikin.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;saikin.horizontal_transfer&quot;" '
                  'target="action"/>\n'

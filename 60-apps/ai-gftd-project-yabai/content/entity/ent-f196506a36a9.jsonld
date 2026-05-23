@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f196506a36a9",
+  "entityId": "ent-f196506a36a9",
+  "canonicalName": "euzkadi ta askatasuna",
+  "aliases": [
+    "euzkadi ta askatasuna"
+  ]
+}

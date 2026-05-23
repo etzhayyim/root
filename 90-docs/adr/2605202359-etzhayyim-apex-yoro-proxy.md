@@ -31,13 +31,13 @@ superseded_by: []
 
 `etzhayyim.com` は Cloudflare Registrar で 2026-05-15 に取得し、did:web 解決のため `50-infra/etzhayyim-did-web/` の CF Worker を `etzhayyim.com/.well-known/did.json` に bind 済 (ADR-2605171800 系)。DNS は `AAAA @ 100::` proxied プレースホルダ。`https://etzhayyim.com/` (apex) は origin 未設定で **HTTP 522 (origin connection timeout)** を返していた。
 
-専用 landing page を起こす時間が無い一方、yoro (`60-apps/ai-gftd-project-yoro/`、worker 名 `magatama-yoro`、`https://yoro.gftd.ai/`) は AI Agent-First Social Platform として既に稼働中。暫定として apex を yoro 内容で埋める。
+専用 landing page を起こす時間が無い一方、yoro (`60-apps/ai-gftd-project-yoro/`、worker 名 `magatama-yoro`、`https://yoro.etzhayyim.com/`) は AI Agent-First Social Platform として既に稼働中。暫定として apex を yoro 内容で埋める。
 
 ### 試行と結果
 
 | アプローチ | 結果 |
 |---|---|
-| (A) Worker から `fetch("https://yoro.gftd.ai/")` (public HTTP) | **HTTP 403** — Cloudflare Bot Management が同 CF zone 内 Worker→public のループを検出して challenge interstitial 返却 |
+| (A) Worker から `fetch("https://yoro.etzhayyim.com/")` (public HTTP) | **HTTP 403** — Cloudflare Bot Management が同 CF zone 内 Worker→public のループを検出して challenge interstitial 返却 |
 | (A') User-Agent を browser に偽装 + `cf: {cacheTtl:0}` で再試行 | 同じく 403 |
 | (B) `env.YORO.fetch()` (Service Binding) | **HTTP 200**、yoro SvelteKit 配信成功 |
 
@@ -58,7 +58,7 @@ Service Binding は edge を経由せず CF 内部で Worker 同士を直結す�
   - レスポンスヘッダー処理:
     - 上流の `set-cookie`, `content-security-policy`, `alt-svc`, `strict-transport-security` を strip
     - 自前の `strict-transport-security: max-age=31536000; includeSubDomains` を付与
-    - `Location: yoro.gftd.ai → etzhayyim.com` 書き換え
+    - `Location: yoro.etzhayyim.com → etzhayyim.com` 書き換え
     - デバッグ用 `x-proxied-by`, `x-proxied-upstream` 付与
 
 ## D2. DNS の www レコード
@@ -90,7 +90,7 @@ Service Binding は edge を経由せず CF 内部で Worker 同士を直結す�
 - **Service Binding 依存**: yoro Worker が同 CF account から外れる、worker 名が変わる、削除される、いずれかで本 Worker が 502 を返す。Failover 機構なし
 - **CSP の不一致**: yoro 側 CSP を strip しているため、もし yoro 側で CSP-dependent 機能 (例: external script) があれば挙動差異が出る可能性
 - **Cache hit ミス**: Service Binding 直結のため CF Edge cache が効かない (毎回 origin Worker 実行)
-- **Asset 配信パスの差異**: yoro.gftd.ai 公開ルート経由は SvelteKit edge BFF (`_app/immutable/*`) を返すが、Service Binding 経由は `assets` binding (`./static`) の SPA fallback (`/assets/index-*.js`) を返す。canonical URL も `https://yoro.etzhayyim.com/` 固定。yoro Worker 内部のホスト判別 / assets binding precedence によるもの。**結果**: 表示は yoro brand のままだが SvelteKit server-rendering が効かず、初期 HTML は薄い (3606 bytes)、JS hydration 後に full UI が出る。検索エンジン indexing には不利。専用 landing 完成で解消
+- **Asset 配信パスの差異**: yoro.etzhayyim.com 公開ルート経由は SvelteKit edge BFF (`_app/immutable/*`) を返すが、Service Binding 経由は `assets` binding (`./static`) の SPA fallback (`/assets/index-*.js`) を返す。canonical URL も `https://yoro.etzhayyim.com/` 固定。yoro Worker 内部のホスト判別 / assets binding precedence によるもの。**結果**: 表示は yoro brand のままだが SvelteKit server-rendering が効かず、初期 HTML は薄い (3606 bytes)、JS hydration 後に full UI が出る。検索エンジン indexing には不利。専用 landing 完成で解消
 
 ## Open questions
 - 専用 landing の design / 言語 / コピー → 別 ADR
@@ -100,15 +100,15 @@ Service Binding は edge を経由せず CF 内部で Worker 同士を直結す�
 
 # Alternatives Considered
 
-## A1. 301/302 redirect to yoro.gftd.ai
-- 案: apex root を `Location: https://yoro.gftd.ai/` で redirect
-- 却下: URL bar が `yoro.gftd.ai` になり etzhayyim brand 完全消失。ADR の暫定目的 "etzhayyim apex から content 露出" 達成不可
+## A1. 301/302 redirect to yoro.etzhayyim.com
+- 案: apex root を `Location: https://yoro.etzhayyim.com/` で redirect
+- 却下: URL bar が `yoro.etzhayyim.com` になり etzhayyim brand 完全消失。ADR の暫定目的 "etzhayyim apex から content 露出" 達成不可
 
 ## A2. Cloudflare Pages を etzhayyim.com に bind
 - 案: yoro と並列の独立 Pages project を etzhayyim.com に
 - 却下: Pages project セットアップに content 移送 + ビルド設定の工数が必要。暫定目的に不釣り合い
 
-## A3. CNAME etzhayyim.com → yoro.gftd.ai
+## A3. CNAME etzhayyim.com → yoro.etzhayyim.com
 - 案: DNS レベルで esp. zone apex flatten で yoro origin に向ける
 - 却下: did:web Worker route (`/.well-known/did.json`) が壊れる。両立不可
 

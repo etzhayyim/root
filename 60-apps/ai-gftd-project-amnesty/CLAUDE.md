@@ -62,8 +62,8 @@ Path: `00-contracts/lexicons/ai/gftd/apps/etzhayyim/amnesty/{declareRestructurin
 ```
 amnesty.etzhayyim.com (legal-person, voluntary multi-creditor)
  ├─ defers natural-person → yobel.etzhayyim.com (symmetric pair)
- ├─ represented   → vendor:lawfirm.gftd.ai (sovereign counsel, corporate counsel, court filings)
- ├─ falls back    → vendor:bankruptcy.gftd.ai (formal Ch11 / 会社更生 / scheme — when voluntary multi-creditor consent fails)
+ ├─ represented   → vendor:lawfirm.etzhayyim.com (sovereign counsel, corporate counsel, court filings)
+ ├─ falls back    → vendor:bankruptcy.etzhayyim.com (formal Ch11 / 会社更生 / scheme — when voluntary multi-creditor consent fails)
  ├─ eligibility   ← council SBT registry (Lv1+ proposers, Lv9 chair × 3 for ratification)
  ├─ ratification  ← Council Lv9 × 3 + Five-Bootstrap consultation
  ├─ settlement    → ERC725 Smart Wallet + Base L2 USDC + on-chain restructuring instruments
@@ -77,10 +77,10 @@ amnesty.etzhayyim.com (legal-person, voluntary multi-creditor)
 - **Multi-creditor consent threshold.** Per-rite-type threshold (≥ 50% / 2/3 / 75% / 90% / 60%) MUST be met before any settlement. EVM-level enforcement deferred to Phase 5 Solidity contracts
 - **Voluntary opt-in (creditor side).** No creditor can be force-bound. Out-of-court rites require near-unanimity (90%). Court-supervised rites (`corporate_chapter_11`) follow §1126(c) heuristic + court confirmation
 - **No fiat / no Stripe.** USDC on Base L2 only
-- **No claim to override secular law.** When voluntary restructuring fails, fallback to vendor:bankruptcy.gftd.ai mandatory legal procedure. amnesty is voluntary doctrinal witness + on-chain neutral settlement infrastructure, NOT a court substitute
+- **No claim to override secular law.** When voluntary restructuring fails, fallback to vendor:bankruptcy.etzhayyim.com mandatory legal procedure. amnesty is voluntary doctrinal witness + on-chain neutral settlement infrastructure, NOT a court substitute
 - **Council Lv9 chair × 3 ratification.** Same severity as Mission Charter amendments (legal-person debt restructuring has macro impact on Charter §1 mission). Higher bar than yobel's Lv6+ × 3
 - **Charter Rider §2 compliance review.** Sovereign debtor passing through §2(a) military-state filter, corporate debtor through §2(b) speculative-finance + §2(c-h) filters
-- **Tax advice delegated.** Per-jurisdiction restructuring tax treatment (e.g. cancellation-of-debt income, §382 ownership change limits) is vendor:lawfirm.gftd.ai's domain. amnesty does not opine
+- **Tax advice delegated.** Per-jurisdiction restructuring tax treatment (e.g. cancellation-of-debt income, §382 ownership change limits) is vendor:lawfirm.etzhayyim.com's domain. amnesty does not opine
 
 ## Deferred phases
 
@@ -98,5 +98,5 @@ amnesty.etzhayyim.com (legal-person, voluntary multi-creditor)
 - [yobel](../ai-gftd-project-yobel/) — natural-person sibling actor
 - [ADR-2605202000](../../90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.md) — design SSoT
 - [ADR-2605201800](../../90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md) — yobel ADR (natural-person scope basis)
-- vendor:bankruptcy.gftd.ai — mandatory legal procedure fallback (both natural + legal person cases)
-- vendor:lawfirm.gftd.ai — sovereign / corporate counsel delegation target
+- vendor:bankruptcy.etzhayyim.com — mandatory legal procedure fallback (both natural + legal person cases)
+- vendor:lawfirm.etzhayyim.com — sovereign / corporate counsel delegation target

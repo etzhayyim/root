@@ -1,4 +1,4 @@
-declare module '@gftdcojp/design-system/audio' {
+declare module '@etzhayyim/design-system/audio' {
   export const haptic: any;
   export const playHover: any;
   export const playNavBack: any;

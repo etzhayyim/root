@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-81f043d00ab3",
+  "entityId": "ent-81f043d00ab3",
+  "canonicalName": "pola marina",
+  "aliases": [
+    "pola marina"
+  ]
+}

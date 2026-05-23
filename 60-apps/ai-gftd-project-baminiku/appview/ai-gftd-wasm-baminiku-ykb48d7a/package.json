@@ -1,0 +1,8 @@
+{
+  "name": "ai-gftd-wasm-baminiku-ykb48d7a",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  }
+}

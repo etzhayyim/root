@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9cd1db7228ca",
+  "entityId": "ent-9cd1db7228ca",
+  "canonicalName": "seyyed ali abtahi",
+  "aliases": [
+    "seyyed ali abtahi"
+  ]
+}

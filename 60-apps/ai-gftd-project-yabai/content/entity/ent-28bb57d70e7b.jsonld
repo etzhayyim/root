@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-28bb57d70e7b",
+  "entityId": "ent-28bb57d70e7b",
+  "canonicalName": "thomas lubanga",
+  "aliases": [
+    "thomas lubanga"
+  ]
+}

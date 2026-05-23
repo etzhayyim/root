@@ -6,7 +6,7 @@ import pg from "pg";
 
 const DEFAULT_PROOF = "90-docs/proof/kami-agent-erc8004-publish-attempt.local.json";
 const DEFAULT_REGISTRATION = "90-docs/proof/kami-agent-erc8004-registration.local.json";
-const DEFAULT_RPC = "https://geth.gftd.ai";
+const DEFAULT_RPC = "https://geth.etzhayyim.com";
 
 function argValue(name, fallback = "") {
   const idx = process.argv.indexOf(name);

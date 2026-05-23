@@ -1,8 +1,8 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-ports.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-ports.etzhayyim.com",
   "name": "open-ports",
-  "handle": "open-ports.gftd.ai",
+  "handle": "open-ports.etzhayyim.com",
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-ports",

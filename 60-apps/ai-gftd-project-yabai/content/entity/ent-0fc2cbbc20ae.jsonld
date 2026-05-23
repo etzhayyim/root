@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0fc2cbbc20ae",
+  "entityId": "ent-0fc2cbbc20ae",
+  "canonicalName": "cuban cigars trade",
+  "aliases": [
+    "cuban cigars trade"
+  ]
+}

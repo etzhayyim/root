@@ -1,0 +1,113 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://etzhayyim.com/schema/contracts#",
+    "schema": "https://schema.org/",
+    "gftd": "https://etzhayyim.com/schema/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "gleif": "https://www.gleif.org/ontology/",
+    "Organization": {
+      "@id": "schema:Organization",
+      "@type": "@id"
+    },
+    "Person": {
+      "@id": "schema:Person",
+      "@type": "@id"
+    },
+    "Contract": {
+      "@id": "gftd:Contract",
+      "@type": "@id"
+    },
+    "SocialContract": {
+      "@id": "gftd:SocialContract",
+      "@type": "@id"
+    },
+    "LegalEntity": {
+      "@id": "gleif:LegalEntity",
+      "@type": "@id"
+    },
+    "name": "schema:name",
+    "alternateName": "schema:alternateName",
+    "description": "schema:description",
+    "identifier": "schema:identifier",
+    "url": "schema:url",
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "legalName": "schema:legalName",
+    "taxID": "schema:taxID",
+    "vatID": "schema:vatID",
+    "lei": {
+      "@id": "gleif:hasLEI",
+      "@type": "xsd:string"
+    },
+    "jurisdiction": "gftd:jurisdiction",
+    "foundingDate": {
+      "@id": "schema:foundingDate",
+      "@type": "xsd:date"
+    },
+    "dissolutionDate": {
+      "@id": "schema:dissolutionDate",
+      "@type": "xsd:date"
+    },
+    "givenName": "schema:givenName",
+    "familyName": "schema:familyName",
+    "birthDate": {
+      "@id": "schema:birthDate",
+      "@type": "xsd:date"
+    },
+    "nationality": "schema:nationality",
+    "contractType": "gftd:contractType",
+    "parties": {
+      "@id": "gftd:parties",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "effectiveDate": {
+      "@id": "gftd:effectiveDate",
+      "@type": "xsd:date"
+    },
+    "expirationDate": {
+      "@id": "gftd:expirationDate",
+      "@type": "xsd:date"
+    },
+    "terminationDate": {
+      "@id": "gftd:terminationDate",
+      "@type": "xsd:date"
+    },
+    "value": "schema:value",
+    "currency": "schema:priceCurrency",
+    "status": "gftd:status",
+    "documentUrl": {
+      "@id": "gftd:documentUrl",
+      "@type": "@id"
+    },
+    "constitutionalType": "gftd:constitutionalType",
+    "adoptedDate": {
+      "@id": "gftd:adoptedDate",
+      "@type": "xsd:date"
+    },
+    "signatories": {
+      "@id": "gftd:signatories",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "scope": "gftd:scope",
+    "source": "schema:source",
+    "dateCollected": {
+      "@id": "gftd:dateCollected",
+      "@type": "xsd:dateTime"
+    },
+    "lastVerified": {
+      "@id": "gftd:lastVerified",
+      "@type": "xsd:dateTime"
+    },
+    "confidence": {
+      "@id": "gftd:confidence",
+      "@type": "xsd:float"
+    }
+  }
+}

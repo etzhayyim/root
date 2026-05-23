@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '@gftdcojp/design-system';
+	import { cn } from '@etzhayyim/design-system';
 	import { KNOWN_SCOPES, scopeDescription, installApp } from './installed-apps.js';
 
 	interface Props {

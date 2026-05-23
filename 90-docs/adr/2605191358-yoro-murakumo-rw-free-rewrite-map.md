@@ -37,7 +37,7 @@ superseded_by: []
 
 # Context
 
-ADR-2605171900 (yoro migration) copied yoro code to `etzhayyim/root/60-apps/ai-gftd-project-yoro/` at stages 1–2 (code + DNS placeholder). Stages 3–5 (AppView deployment, legacy redirect, vendor cleanup) are blocked because the copied code still depends on RisingWave via `atproto.gftd.ai PDS + Hyperdrive → RisingWave`, violating ADR-2605172000.
+ADR-2605171900 (yoro migration) copied yoro code to `etzhayyim/root/60-apps/ai-gftd-project-yoro/` at stages 1–2 (code + DNS placeholder). Stages 3–5 (AppView deployment, legacy redirect, vendor cleanup) are blocked because the copied code still depends on RisingWave via `atproto.etzhayyim.com PDS + Hyperdrive → RisingWave`, violating ADR-2605172000.
 
 Grep evidence (`60-apps/ai-gftd-project-yoro/CLAUDE.md`, 2026-05-19) — 14 RW touchpoints retained verbatim from upstream:
 

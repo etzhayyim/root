@@ -145,7 +145,7 @@
     },
     "/xrpc/ai.gftd.govPrk.ingestOfficialSources": {
       "post": {
-        "summary": "Queue official North Korea government sources through site.gftd.ai for WET/WAT/screenshot capture.",
+        "summary": "Queue official North Korea government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
         "operationId": "ai.gftd.govPrk.ingestOfficialSources",
         "requestBody": {
           "required": true,

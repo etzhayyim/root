@@ -6,91 +6,91 @@
  * signals (CO₂) and fixes them into structured vertices (glucose).
  * Reversible until handoff to hakkou (ferment).
  *
- * Bonsai vascular flow:
- *   koke (fixSignal)  →  hakkou (startFerment)  →  ki (absorb)
- *                                                  → synthesize → bloom
- *
- * Identity hierarchy:
- *   did:web:koke.etzhayyim.com                                — controller
- *   did:web:koke.etzhayyim.com:fixation:{fixationId-slug}     — Fixation
- *   did:web:koke.etzhayyim.com:release:{fixationId}-{seq}     — Release (CO₂)
+ * Carbon credit batch management:
+ *   registerCarbon  → batchId (idempotent, rkey=batch-{batchId-slug})
+ *   releaseCarbon   → releaseId from batchId (idempotent, rkey=release-{releaseId-slug})
+ *   recordOffset    → offsetId from releaseId (idempotent, rkey=offset-{offsetId-slug})
+ *   listOffsets     → cursor + project filter
  */
 
 export const KOKE_DID_PREFIX = "did:web:koke.etzhayyim.com:" as const;
 
-export type SignalKind = "text" | "url" | "record" | "stream";
+// ─── Carbon Batch ───────────────────────────────────────────────────
 
-export interface FixationRecord {
-  did: string;
-  fixationId: string;
-  inputKind: SignalKind;
-  rawRef: string;
-  /** SHA-256 of the raw signal payload. */
-  signalHash: string;
-  /** Whether the fixation has been released (CO₂) or still active (glucose). */
-  released: boolean;
-  agentDid?: string;
-  fixedAt: string;
-  releasedAt?: string;
+export interface CarbonBatchRecord {
+  batchId: string;
+  totalCredits: number;
+  vintage: number;
+  methodology: string;
   createdAt: string;
 }
 
-export interface FixationView extends FixationRecord {
-  fixationUri: string;
-  vertexId: string;
+export interface RegisterCarbonInput {
+  batchId: string;
+  totalCredits: number;
+  vintage: number;
+  methodology: string;
 }
 
-export interface FixSignalInput {
-  fixationId: string;
-  inputKind: SignalKind;
-  rawRef: string;
-  signalHash: string;
-  agentDid?: string;
-}
-
-export interface FixSignalOutput {
-  status: "fixed" | "alreadyExists" | "rejected";
-  fixationUri?: string;
-  vertexId?: string;
-  signalHash?: string;
-  fixationId?: string;
+export interface RegisterCarbonOutput {
+  status: "created" | "alreadyExists" | "rejected";
+  batchUri?: string;
   error?: string;
 }
 
-export interface GetFixationInput {
-  fixationId?: string;
+// ─── Release ────────────────────────────────────────────────────────
+
+export interface ReleaseRecord {
+  releaseId: string;
+  batchId: string;
+  releasedCredits: number;
+  createdAt: string;
 }
 
-export interface GetFixationOutput {
-  fixation?: FixationView;
+export interface ReleaseCarbonInput {
+  releaseId: string;
+  batchId: string;
+  releasedCredits: number;
+}
+
+export interface ReleaseCarbonOutput {
+  status: "released" | "alreadyReleased" | "rejected";
+  releaseUri?: string;
   error?: string;
 }
 
-export interface ListFixationsInput {
-  inputKind?: SignalKind;
-  agentDid?: string;
-  released?: boolean;
+// ─── Offset ─────────────────────────────────────────────────────────
+
+export interface OffsetRecord {
+  offsetId: string;
+  releaseId: string;
+  offsetCredits: number;
+  project: string;
+  createdAt: string;
+}
+
+export interface RecordOffsetInput {
+  offsetId: string;
+  releaseId: string;
+  offsetCredits: number;
+  project: string;
+}
+
+export interface RecordOffsetOutput {
+  status: "recorded" | "alreadyRecorded" | "rejected";
+  offsetUri?: string;
+  error?: string;
+}
+
+export interface ListOffsetsInput {
+  project?: string;
   limit?: number;
   cursor?: string;
 }
 
-export interface ListFixationsOutput {
-  items: FixationView[];
+export interface ListOffsetsOutput {
+  items: OffsetRecord[];
   cursor?: string;
-  total: number;
-}
-
-export interface ReleaseCarbonInput {
-  fixationId: string;
-  reason?: string;
-}
-
-export interface ReleaseCarbonOutput {
-  status: "released" | "alreadyReleased" | "rejected" | "fixationNotFound";
-  fixationUri?: string;
-  fixationId?: string;
-  releasedAt?: string;
-  error?: string;
 }
 
 // ─── Slug helpers ───────────────────────────────────────────────────
@@ -99,10 +99,14 @@ export function idSlug(id: string): string {
   return id.toLowerCase().replace(/[^a-z0-9]/g, "-");
 }
 
-export function fixationDid(fixationId: string): string {
-  return `${KOKE_DID_PREFIX}fixation:${idSlug(fixationId)}`;
+export function batchRkey(batchId: string): string {
+  return `batch-${idSlug(batchId)}`;
 }
 
-export function fixationRkey(fixationId: string): string {
-  return `fixation-${idSlug(fixationId)}`;
+export function releaseRkey(releaseId: string): string {
+  return `release-${idSlug(releaseId)}`;
+}
+
+export function offsetRkey(offsetId: string): string {
+  return `offset-${idSlug(offsetId)}`;
 }

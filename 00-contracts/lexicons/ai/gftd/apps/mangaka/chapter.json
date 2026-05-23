@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Tier 2 domain record for a manga chapter. Carries the facet/embed source fields consumed by the derive rule `chapter-published-social` in magatama.jsonld to auto-emit an app.bsky.feed.post with recordWithMedia embed + richtext facets (character mentions, volume/arc tags, reader deep-link). charactersAppearing[] items are expanded to did:web:mangaka.gftd.ai:character:{slug} mention facets; volumeId/arcIds[] become #tag facets; readerUri becomes a #link facet; coverCid + self strongRef become the recordWithMedia embed.",
+      "description": "Tier 2 domain record for a manga chapter. Carries the facet/embed source fields consumed by the derive rule `chapter-published-social` in magatama.jsonld to auto-emit an app.bsky.feed.post with recordWithMedia embed + richtext facets (character mentions, volume/arc tags, reader deep-link). charactersAppearing[] items are expanded to did:web:mangaka.etzhayyim.com:character:{slug} mention facets; volumeId/arcIds[] become #tag facets; readerUri becomes a #link facet; coverCid + self strongRef become the recordWithMedia embed.",
       "key": "any",
       "record": {
         "type": "object",
@@ -38,7 +38,7 @@
           },
           "charactersAppearing": {
             "type": "array",
-            "description": "Characters appearing in this chapter. Derive rule expands each item to an app.bsky.richtext.facet#mention with did = did:web:mangaka.gftd.ai:character:{slug}.",
+            "description": "Characters appearing in this chapter. Derive rule expands each item to an app.bsky.richtext.facet#mention with did = did:web:mangaka.etzhayyim.com:character:{slug}.",
             "items": {
               "type": "ref",
               "ref": "#characterAppearance"
@@ -60,7 +60,7 @@
           "readerUri": {
             "type": "string",
             "format": "uri",
-            "description": "Full-screen reader URL (e.g. https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/ai.gftd.apps.mangaka.chapter/{rkey}). Emitted as app.bsky.richtext.facet#link in the derived post."
+            "description": "Full-screen reader URL (e.g. https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.chapter/{rkey}). Emitted as app.bsky.richtext.facet#link in the derived post."
           },
           "status": {
             "type": "string",
@@ -81,7 +81,7 @@
       "properties": {
         "slug": {
           "type": "string",
-          "description": "Character slug. Used to construct did:web:mangaka.gftd.ai:character:{slug} for the mention facet DID."
+          "description": "Character slug. Used to construct did:web:mangaka.etzhayyim.com:character:{slug} for the mention facet DID."
         },
         "displayName": {
           "type": "string",

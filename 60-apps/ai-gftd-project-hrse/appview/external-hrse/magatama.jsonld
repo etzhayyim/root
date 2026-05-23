@@ -1,0 +1,56 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:hrse.etzhayyim.com",
+  "convoSystemPrompt": "You are ai-gftd-hrse agent. . Respond helpfully in the user's language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "hrse-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "ai-gftd-hrse",
+  "nanoid": "",
+  "org": "org_34dKrNTTK3cNixZzHIzzFwLw1s4",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "HRSE — AI Agent for human resources and social evolution",
+    "displayName": "AI Gftd Hrse",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "hrse",
+  "routes": [
+    {
+      "host": "hrse.etzhayyim.com"
+    },
+    {
+      "host": "cshr.etzhayyim.com"
+    }
+  ],
+  "runtimeType": "worker",
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.hrse.assignment",
+        "ai.gftd.apps.hrse.evaluation"
+      ]
+    }
+  },
+  "uiType": "yoro"
+}

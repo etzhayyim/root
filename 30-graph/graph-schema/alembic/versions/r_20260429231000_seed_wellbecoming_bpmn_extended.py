@@ -23,8 +23,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_detect_bottleneck',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -36,14 +36,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.wellbecoming.detectBottleneck\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_wellbecoming_detect_bottleneck"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/wellbecoming"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/wellbecoming"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '\n'
@@ -91,10 +91,10 @@ UP = [{'sql': '\n'
                  2464,
                  '00-contracts/bpmn/ai/gftd/wellbecoming/detectBottleneck.bpmn',
                  '2026-04-29T23:10:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -106,8 +106,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_proactive_connect',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -119,14 +119,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.wellbecoming.proactiveConnect\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_wellbecoming_proactive_connect"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/wellbecoming"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/wellbecoming"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '\n'
@@ -175,10 +175,10 @@ UP = [{'sql': '\n'
                  2520,
                  '00-contracts/bpmn/ai/gftd/wellbecoming/proactiveConnect.bpmn',
                  '2026-04-29T23:10:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -190,8 +190,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_floor_violation_alert',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -205,14 +205,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.wellbecoming.floorViolationAlert\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_wellbecoming_floor_violation_alert"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/wellbecoming"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/wellbecoming"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '\n'
@@ -296,10 +296,10 @@ UP = [{'sql': '\n'
                  4127,
                  '00-contracts/bpmn/ai/gftd/wellbecoming/floorViolationAlert.bpmn',
                  '2026-04-29T23:10:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -311,8 +311,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_agent_loop',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -328,14 +328,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.wellbecoming.agentLoop\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_wellbecoming_agent_loop"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/wellbecoming"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/wellbecoming"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '\n'
@@ -387,10 +387,10 @@ UP = [{'sql': '\n'
                  2735,
                  '00-contracts/bpmn/ai/gftd/wellbecoming/agentLoop.bpmn',
                  '2026-04-29T23:10:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -403,24 +403,24 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'ai.gftd.apps.wellbecoming.agentLoop',
                  'wellbecoming_agent_loop',
                  '2026-04-29T23:10:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-wellbecoming-agentLoop-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-detect-bottleneck-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-proactive-connect-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-floor-violation-alert-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-agent-loop-v1']},
  {'sql': '\n    DELETE FROM vertex_bpmn_lexicon_binding\n    WHERE nsid = $1\n  ',
   'parameters': ['ai.gftd.apps.wellbecoming.agentLoop']}]
 

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f32a29c7b9b4",
+  "entityId": "ent-f32a29c7b9b4",
+  "canonicalName": "nidal ahmed waked hatum",
+  "aliases": [
+    "nidal ahmed waked hatum"
+  ]
+}

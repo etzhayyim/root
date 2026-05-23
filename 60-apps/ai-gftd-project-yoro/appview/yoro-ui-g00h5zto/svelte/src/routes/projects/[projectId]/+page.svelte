@@ -7,7 +7,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount, onDestroy, tick } from 'svelte';
 	import { fade, fly, slide } from 'svelte/transition';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
 	import { atQuery, atProcedure, getCurrentDID, searchActors, uploadBlob } from '$lib/atproto-agent';
 	import { getSessionToken } from '$lib/auth';
 	import { useGraphRAG } from '$lib/provider/graph-rag.svelte.js';

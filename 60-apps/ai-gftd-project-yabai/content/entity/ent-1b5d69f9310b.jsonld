@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1b5d69f9310b",
+  "entityId": "ent-1b5d69f9310b",
+  "canonicalName": "seka baluku",
+  "aliases": [
+    "seka baluku"
+  ]
+}

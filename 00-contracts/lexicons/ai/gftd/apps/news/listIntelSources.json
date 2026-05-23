@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "List official and primary source feeds used by the news.gftd.ai intel actor process.",
+      "description": "List official and primary source feeds used by the news.etzhayyim.com intel actor process.",
       "parameters": {
         "type": "params",
         "properties": {

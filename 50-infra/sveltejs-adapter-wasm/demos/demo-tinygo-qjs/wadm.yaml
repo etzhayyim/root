@@ -8,7 +8,7 @@ metadata:
 spec:
   components:
     # TinyGo runtime: serves static assets (client/, prerendered/) and
-    # delegates SSR to the JS engine via gftdcojp:svelte-adapter/js-runtime import
+    # delegates SSR to the JS engine via etzhayyim:svelte-adapter/js-runtime import
     - name: svelte-server
       type: component
       properties:
@@ -22,12 +22,12 @@ spec:
         - type: link
           properties:
             target: js-engine
-            namespace: gftdcojp
+            namespace: etzhayyim
             package: svelte-adapter
             interfaces:
               - js-runtime
 
-    # QuickJS/Boa JS engine: implements gftdcojp:svelte-adapter/js-runtime
+    # QuickJS/Boa JS engine: implements etzhayyim:svelte-adapter/js-runtime
     # Evaluates the SvelteKit SSR bundle (index.js) and returns rendered HTML
     - name: js-engine
       type: component

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-503afc29945f",
+  "entityId": "ent-503afc29945f",
+  "canonicalName": "cubanatur",
+  "aliases": [
+    "cubanatur"
+  ]
+}

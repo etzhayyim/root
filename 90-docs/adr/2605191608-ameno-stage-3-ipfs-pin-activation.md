@@ -83,7 +83,7 @@ kubo 到達不能時、sidecar は per-call で warning ログを吐き Stage 1-
 1. **w3up / Storacha / Filecoin direct** — IPFS pin より重い、未要
 2. **Mac mini ローカル CAR ストア(IPFS なし)** — content-addressable
    不在で ADR-2605171800 不整合
-3. **CF R2 + ipfs.io 経由 pin** — gftd.ai に同じ手法あり、 etzhayyim は
+3. **CF R2 + ipfs.io 経由 pin** — etzhayyim.com に同じ手法あり、 etzhayyim は
    self-host を優先
 
 ## References

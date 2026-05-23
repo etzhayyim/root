@@ -1,0 +1,32 @@
+{
+  "@context": "https://etzhayyim.com/magatama/context/v1",
+  "@type": "MagatamaApp",
+  "id": "real-estate-r3alestate",
+  "name": "Real Estate MCP",
+  "description": "Global real-estate source, property, listing, and transaction MCP facade.",
+  "primaryDid": "did:web:real-estate.etzhayyim.com",
+  "runtimeType": "worker",
+  "framework": "ts-thin-edge",
+  "component": { "path": "src/app.ts" },
+  "build": {
+    "role": "thin-edge",
+    "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/real_estate.py",
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/real-estate"
+  },
+  "routes": [
+    {
+      "host": "etzhayyim.com",
+      "paths": ["/r3alestate/api/mcp", "/xrpc/ai.gftd.apps.realEstate.*"]
+    }
+  ],
+  "capabilities": ["mcp", "xrpc", "bpmn-dispatch"],
+  "tools": [
+    "ai.gftd.apps.realEstate.registerSource",
+    "ai.gftd.apps.realEstate.registerProperty",
+    "ai.gftd.apps.realEstate.publishListing",
+    "ai.gftd.apps.realEstate.recordTransaction",
+    "ai.gftd.apps.realEstate.searchListings",
+    "ai.gftd.apps.realEstate.getProperty",
+    "ai.gftd.apps.realEstate.getMarketStats"
+  ]
+}

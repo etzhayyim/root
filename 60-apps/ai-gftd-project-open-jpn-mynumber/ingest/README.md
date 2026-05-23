@@ -53,13 +53,13 @@ The script computes CIDv1 raw SHA-256 locally for every artifact. Actual IPFS
 write requires one of:
 
 - Local `ipfs` CLI in `PATH`.
-- `MYNUMBER_IPFS_API`, for example `https://ipfs.gftd.ai/api/v0`, plus optional
+- `MYNUMBER_IPFS_API`, for example `https://ipfs.etzhayyim.com/api/v0`, plus optional
   `MYNUMBER_IPFS_HMAC` when the proxy requires `X-Gftd-Ipfs-Auth`.
 
 Example:
 
 ```bash
-export MYNUMBER_IPFS_API=https://ipfs.gftd.ai/api/v0
+export MYNUMBER_IPFS_API=https://ipfs.etzhayyim.com/api/v0
 export MYNUMBER_IPFS_HMAC="$(security find-generic-password -s gftd.cloudflare -a IPFS_HMAC -w)"
 python3 ingest/ingest_public_sources.py --ipfs
 ```
@@ -72,5 +72,5 @@ MYNUMBER_IPFS_API=http://127.0.0.1:5001/api/v0 \
   python3 ingest/ingest_public_sources.py --ipfs
 ```
 
-The public `https://ipfs.gftd.ai/api/v0` proxy can be blocked by Cloudflare
+The public `https://ipfs.etzhayyim.com/api/v0` proxy can be blocked by Cloudflare
 security policy from local automation. Prefer port-forward for operator runs.

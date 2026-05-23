@@ -23,12 +23,12 @@ UP = [{'sql': '\n'
          '           1, $8, $9, $10\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-cve-ingest-osv-v1',
-                 'did:web:sbom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-cve-ingest-osv-v1',
+                 'did:web:sbom.etzhayyim.com',
                  'sbom_cve_ingest_osv',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  sbom.gftd.ai — cveIngestOsv (Phase C feeder).\n'
+                 '  sbom.etzhayyim.com — cveIngestOsv (Phase C feeder).\n'
                  '\n'
                  '  Pull open-source vulnerabilities from osv.dev → vertex_cve_entry.\n'
                  '  XRPC-triggered for ad-hoc refresh; timer-start variant lives in\n'
@@ -39,7 +39,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_sbom_cve_ingest_osv"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/sbom"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/sbom"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="sbom_cve_ingest_osv" name="sbom cveIngest OSV" '
@@ -63,7 +63,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sb0m001x.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sb0m001x.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;sbom.cveIngestOsv&quot;" '
                  'target="action"/>\n'
@@ -84,10 +84,10 @@ UP = [{'sql': '\n'
                  2052,
                  '00-contracts/bpmn/ai/gftd/sbom/cveIngestOsv.bpmn',
                  '2026-05-06T12:00:00Z',
-                 'did:web:sbom.gftd.ai',
-                 'did:web:sbom.gftd.ai',
+                 'did:web:sbom.etzhayyim.com',
+                 'did:web:sbom.etzhayyim.com',
                  'sys.bpmn.seed.sbom-phase-cd',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-cve-ingest-osv-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-cve-ingest-osv-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -99,12 +99,12 @@ UP = [{'sql': '\n'
          '           1, $8, $9, $10\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-recall-v1',
-                 'did:web:sbom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-recall-v1',
+                 'did:web:sbom.etzhayyim.com',
                  'sbom_recall',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  sbom.gftd.ai — recall (Phase D blast-radius query).\n'
+                 '  sbom.etzhayyim.com — recall (Phase D blast-radius query).\n'
                  '  Single task: pymagatama runs the supplier-scoped JOIN over\n'
                  '  vertex_sbom_component × vertex_sbom_artifact + vuln_match counts,\n'
                  '  returns the affected artifact list. Audit emit closes the trace.\n'
@@ -114,7 +114,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_sbom_recall"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/sbom"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/sbom"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="sbom_recall" name="sbom recall (blast-radius)" '
@@ -138,7 +138,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:sb0m001x.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:sb0m001x.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;sbom.recall&quot;" target="action"/>\n'
                  '        </zeebe:ioMapping>\n'
@@ -158,10 +158,10 @@ UP = [{'sql': '\n'
                  2056,
                  '00-contracts/bpmn/ai/gftd/sbom/recall.bpmn',
                  '2026-05-06T12:00:00Z',
-                 'did:web:sbom.gftd.ai',
-                 'did:web:sbom.gftd.ai',
+                 'did:web:sbom.etzhayyim.com',
+                 'did:web:sbom.etzhayyim.com',
                  'sys.bpmn.seed.sbom-phase-cd',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-recall-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-recall-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -173,16 +173,16 @@ UP = [{'sql': '\n'
          '           1, $7, $8, $9\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-cveIngestOsv-v1',
-                 'did:web:sbom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-cveIngestOsv-v1',
+                 'did:web:sbom.etzhayyim.com',
                  'ai.gftd.apps.sbom.cveIngestOsv',
                  'sbom_cve_ingest_osv',
                  3600000,
                  '2026-05-06T12:00:00Z',
-                 'did:web:sbom.gftd.ai',
-                 'did:web:sbom.gftd.ai',
+                 'did:web:sbom.etzhayyim.com',
+                 'did:web:sbom.etzhayyim.com',
                  'sys.bpmn.seed.sbom-phase-cd',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-cveIngestOsv-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-cveIngestOsv-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -194,25 +194,25 @@ UP = [{'sql': '\n'
          '           1, $7, $8, $9\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-recall-v1',
-                 'did:web:sbom.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-recall-v1',
+                 'did:web:sbom.etzhayyim.com',
                  'ai.gftd.apps.sbom.recall',
                  'sbom_recall',
                  60000,
                  '2026-05-06T12:00:00Z',
-                 'did:web:sbom.gftd.ai',
-                 'did:web:sbom.gftd.ai',
+                 'did:web:sbom.etzhayyim.com',
+                 'did:web:sbom.etzhayyim.com',
                  'sys.bpmn.seed.sbom-phase-cd',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-recall-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-recall-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-cveIngestOsv-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-cveIngestOsv-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/sbom-recall-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-recall-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-cve-ingest-osv-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-cve-ingest-osv-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/sbom-recall-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-recall-v1']}]
 
 
 def upgrade() -> None:

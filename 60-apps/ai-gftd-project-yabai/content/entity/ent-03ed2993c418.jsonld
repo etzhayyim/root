@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-03ed2993c418",
+  "entityId": "ent-03ed2993c418",
+  "canonicalName": "міжнародна компанія публічне акціонерне товариство «об'єднана компанія «русал»",
+  "aliases": [
+    "міжнародна компанія публічне акціонерне товариство «об'єднана компанія «русал»"
+  ]
+}

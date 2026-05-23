@@ -1,4 +1,4 @@
-"""Converted from Kysely migration 20260508992000_vertex_gftdcojp_company_ops."""
+"""Converted from Kysely migration 20260508992000_vertex_etzhayyim_company_ops."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from alembic import op
 from graph_schema.db import execute_sql_text
 
 
-revision = "r_20260508992000_vertex_gftdcojp_company_ops"
+revision = "r_20260508992000_vertex_etzhayyim_company_ops"
 down_revision = 'r_20260508992000_reseed_ki_saikin_bpmn_outgoing_order_fix'
 branch_labels = None
 depends_on = None
@@ -22,8 +22,8 @@ def _read(name: str) -> str:
 
 
 def upgrade() -> None:
-    execute_sql_text(op.get_bind(), _read("20260508992000_vertex_gftdcojp_company_ops.up.sql"))
+    execute_sql_text(op.get_bind(), _read("20260508992000_vertex_etzhayyim_company_ops.up.sql"))
 
 
 def downgrade() -> None:
-    execute_sql_text(op.get_bind(), _read("20260508992000_vertex_gftdcojp_company_ops.down.sql"))
+    execute_sql_text(op.get_bind(), _read("20260508992000_vertex_etzhayyim_company_ops.down.sql"))

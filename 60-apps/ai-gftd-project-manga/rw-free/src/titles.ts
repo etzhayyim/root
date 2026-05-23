@@ -21,7 +21,7 @@ const TITLE_COLLECTION = "ai.gftd.manga.title";
 const TAG_COLLECTION = "ai.gftd.manga.tag";
 
 function isTitleId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 export async function createTitle(
@@ -31,7 +31,7 @@ export async function createTitle(
   if (!input.title || input.title.trim().length === 0) {
     return { status: "rejected", error: "missingTitle" };
   }
-  const titleId = titleSlug(input.title).slice(0, 32);
+  const titleId = input.title_id || titleSlug(input.title).slice(0, 32);
   if (!isTitleId(titleId)) {
     return { status: "rejected", error: "invalidTitleId" };
   }

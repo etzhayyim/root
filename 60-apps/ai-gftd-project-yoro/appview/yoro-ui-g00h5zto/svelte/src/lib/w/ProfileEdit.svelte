@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '@gftdcojp/design-system';
+	import { Button } from '@etzhayyim/design-system';
 	import { getProfile, setProfile, getCurrentDID } from '$lib/atproto-agent';
 	import type { Did } from '$lib/atproto-agent';
 

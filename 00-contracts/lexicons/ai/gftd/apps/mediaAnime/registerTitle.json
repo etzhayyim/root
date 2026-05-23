@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register an anime title. Path-based DID: did:web:media-anime.gftd.ai:title:{slug}. Sources: MAL + AniList + Annict + AniDB.",
+      "description": "Register an anime title. Path-based DID: did:web:media-anime.etzhayyim.com:title:{slug}. Sources: MAL + AniList + Annict + AniDB.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

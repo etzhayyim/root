@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { get } from 'svelte/store';
-	import { Avatar, Badge, Button, Input } from '@gftdcojp/design-system';
+	import { Avatar, Badge, Button, Input } from '@etzhayyim/design-system';
 	import {
 		clerkLoaded,
 		isSignedIn,

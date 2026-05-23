@@ -52,7 +52,7 @@ UP = [{'sql': '\n'
                  '                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '                  id="Definitions_training_export"\n'
-                 '                  targetNamespace="https://gftd.ai/bpmn/training"\n'
+                 '                  targetNamespace="https://etzhayyim.com/bpmn/training"\n'
                  '                  exporter="hand-written"\n'
                  '                  exporterVersion="1.0">\n'
                  '\n'
@@ -196,7 +196,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:training.gftd.ai&quot;"            '
+                 '          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;"            '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;training.export.complete&quot;"             target="action"/>\n'
@@ -243,7 +243,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  9560,
                  '00-contracts/bpmn/ai/gftd/training/trainingExport.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-export-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-export-v1']}]
 
 DOWN = []
 

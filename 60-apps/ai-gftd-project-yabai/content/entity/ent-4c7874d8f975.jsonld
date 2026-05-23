@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4c7874d8f975",
+  "entityId": "ent-4c7874d8f975",
+  "canonicalName": "liberty shipping co ltd",
+  "aliases": [
+    "liberty shipping co ltd"
+  ]
+}

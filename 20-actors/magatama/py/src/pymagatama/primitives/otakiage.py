@@ -440,7 +440,7 @@ async def task_otakiage_ritual_issue_certificate(
             "donorDids": donor_dids,
             "issuedAt": now,
             "issuer": {
-                "name": "amanomibashira",
+                "name": "etzhayyim",
                 "kind": "religious-corporation",
                 "did": PATH_DID_RITUAL,
             },
@@ -487,7 +487,7 @@ async def task_otakiage_ritual_issue_certificate(
             """,
             (
                 cert_uri, PATH_DID_RITUAL, cert_rkey, ritual_uri, matsuriUri, json.dumps(item_uris), len(item_uris),
-                json.dumps(donor_dids), now, PATH_DID_RITUAL, "amanomibashira", displayText, json.dumps(breakdown),
+                json.dumps(donor_dids), now, PATH_DID_RITUAL, "etzhayyim", displayText, json.dumps(breakdown),
                 ceremonyPhotoBlobKey or None, json.dumps(cert_json, ensure_ascii=False), None, "1.0",
                 now, today, 0, PATH_DID_RITUAL, PATH_DID_RITUAL, "otakiage.ritual.issueCertificate",
             ),
@@ -637,7 +637,7 @@ async def task_otakiage_matsuri_seed_next_month(**_: Any) -> dict[str, Any]:
                 "ehon": f"絵本供養祭 {next_month.year}",
                 "omocha": f"おもちゃ供養祭 {next_month.year}",
             }.get(slug, f"{slug} {next_month.year}")
-            description = f"{display_name} — amanomibashira 主催の digital ritual。Phase 1 は永続証跡 (AT Record JSON) を発行。"
+            description = f"{display_name} — etzhayyim 主催の digital ritual。Phase 1 は永続証跡 (AT Record JSON) を発行。"
             cur.execute(
                 """
                 INSERT INTO vertex_otakiage_matsuri (
@@ -949,7 +949,7 @@ def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     # 90s ceiling because 3 LLM call chain (parse_intent + extract_details +
     # compose_reply) can stack 60s+ on RunPod cold-start.
     t("otakiage.agent.chat",                 task_otakiage_agent_chat,                  ms=90_000)
-    # Phase 2b1 — ERC725 certificate anchoring (ADR-0074, amanomibashira
+    # Phase 2b1 — ERC725 certificate anchoring (ADR-0074, etzhayyim
     # blockchain 登記). State tracking only in 2b1; 2b2 wires real
     # ethers/viem on-chain calls.
     t("otakiage.certificate.anchor",         task_otakiage_certificate_anchor)

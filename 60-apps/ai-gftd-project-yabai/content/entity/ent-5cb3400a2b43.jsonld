@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5cb3400a2b43",
+  "entityId": "ent-5cb3400a2b43",
+  "canonicalName": "alexander franz josef lins",
+  "aliases": [
+    "alexander franz josef lins"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-897cb29bc1bf",
+  "entityId": "ent-897cb29bc1bf",
+  "canonicalName": "open joint stock company “elektrostal chemical and mechanical plant named after n.d. zelinsky”",
+  "aliases": [
+    "open joint stock company “elektrostal chemical and mechanical plant named after n.d. zelinsky”"
+  ]
+}

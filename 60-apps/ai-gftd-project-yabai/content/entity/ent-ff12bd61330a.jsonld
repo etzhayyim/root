@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ff12bd61330a",
+  "entityId": "ent-ff12bd61330a",
+  "canonicalName": "empresa cubana de pescados y mariscos",
+  "aliases": [
+    "empresa cubana de pescados y mariscos"
+  ]
+}

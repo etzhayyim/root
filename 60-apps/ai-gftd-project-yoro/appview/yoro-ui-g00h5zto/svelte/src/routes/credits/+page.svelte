@@ -6,7 +6,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { Badge } from '@gftdcojp/design-system';
+	import { Badge } from '@etzhayyim/design-system';
 	import { isSignedIn } from '$lib/auth/stores.js';
 	import { useProviderWorker } from '$lib/provider/worker-state.svelte.js';
 	import { useProviderMarket } from '$lib/provider/market-state.svelte.js';

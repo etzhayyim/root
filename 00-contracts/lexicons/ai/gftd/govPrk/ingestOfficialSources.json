@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Queue official North Korea government sources through site.gftd.ai for WET/WAT/screenshot capture.",
+      "description": "Queue official North Korea government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
       "input": {
         "encoding": "application/json",
         "schema": {

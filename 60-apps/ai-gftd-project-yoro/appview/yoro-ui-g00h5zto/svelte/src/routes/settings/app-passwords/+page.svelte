@@ -5,8 +5,8 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { Skeleton } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { Skeleton } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import { listAppPasswords, createAppPassword, revokeAppPassword } from '$lib/atproto-agent';
 
 	let passwords = $state<Array<{ name: string; createdAt: string }>>([]);

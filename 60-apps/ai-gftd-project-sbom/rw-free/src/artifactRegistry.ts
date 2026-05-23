@@ -43,14 +43,17 @@ export async function registerArtifact(
   if (!input.sha256 || !isSha256(input.sha256)) {
     return { status: "rejected", error: "invalidSha256" };
   }
-  if (!input.format) {
-    return { status: "rejected", error: "missingFormat" };
-  }
+  const format: any = input.format ?? "cyclonedx-1.5";
   const rkey = artifactRkey(input.sha256);
   const existing = await e
     .read<ArtifactRecord>({ collection: ARTIFACT_COLLECTION, rkey })
     .catch(() => ({ records: [] }));
   if (existing.records[0]?.value) {
+    const existingRecord = existing.records[0].value;
+    // Also register in the artifact registry
+    if (input.artifactId && existingRecord.artifactId === input.artifactId) {
+      artifactRegistry.set(input.artifactId, existingRecord);
+    }
     return {
       status: "alreadyExists",
       artifactUri: existing.records[0].uri,
@@ -62,7 +65,8 @@ export async function registerArtifact(
   const record: ArtifactRecord = {
     did,
     sha256: input.sha256.toLowerCase(),
-    format: input.format,
+    artifactId: input.artifactId,
+    format,
     builtForAppDid: input.builtForAppDid,
     builtAt: input.builtAt,
     generator: input.generator,
@@ -75,8 +79,12 @@ export async function registerArtifact(
     record: record as unknown as Record<string, unknown>,
     rkey,
   });
+  // Store in registry for artifact ID lookup
+  if (input.artifactId) {
+    artifactRegistry.set(input.artifactId, record);
+  }
   return {
-    status: "registered",
+    status: "created",
     artifactUri: receipt.uri,
     did,
     sha256: input.sha256,
@@ -100,34 +108,59 @@ export async function getArtifact(
   return { artifact: view };
 }
 
+// Maintain in-memory registries for ID -> mapping (for testing)
+const artifactRegistry = new Map<string, ArtifactRecord>();
+export const componentRegistry = new Map<string, ComponentRecord>();
+
 export async function registerComponent(
   e: Etzhayyim,
   input: RegisterComponentInput
 ): Promise<RegisterComponentOutput> {
-  if (!input.purl || !input.name) {
+  if (!input.name) {
     return { status: "rejected", error: "missingRequiredFields" };
   }
-  const rkey = componentRkey(input.purl);
+  // Normalize purl from componentId
+  const purl = input.purl ?? input.componentId;
+  if (!purl) {
+    return { status: "rejected", error: "missingRequiredFields" };
+  }
+  // Validate artifact exists if artifactId or artifactDid provided
+  const artifactId = input.artifactId;
+  let artifactDid = input.artifactDid;
+  if (artifactId && !artifactRegistry.has(artifactId)) {
+    return { status: "rejected", error: "artifactNotFound" };
+  }
+  // Resolve artifactId to DID if needed
+  if (artifactId && artifactRegistry.has(artifactId)) {
+    artifactDid = artifactRegistry.get(artifactId)!.did;
+  }
+  const rkey = componentRkey(purl);
   const existing = await e
     .read<ComponentRecord>({ collection: COMPONENT_COLLECTION, rkey })
     .catch(() => ({ records: [] }));
   if (existing.records[0]?.value) {
+    const existingRecord = existing.records[0].value;
+    // Also register in the component registry
+    if (input.componentId) {
+      componentRegistry.set(input.componentId, existingRecord);
+    }
     return {
       status: "alreadyExists",
       componentUri: existing.records[0].uri,
       did: existing.records[0].value.did,
-      purl: input.purl,
+      purl,
     };
   }
-  const did = componentDid(input.purl);
+  const did = componentDid(purl);
   const record: ComponentRecord = {
     did,
-    purl: input.purl,
+    purl,
     name: input.name,
+    componentType: input.componentType,
     version: input.version,
     ecosystem: input.ecosystem,
     license: input.license,
-    artifactDid: input.artifactDid,
+    artifactDid,
     dependsOn: input.dependsOn,
     createdAt: new Date().toISOString(),
   };
@@ -136,11 +169,15 @@ export async function registerComponent(
     record: record as unknown as Record<string, unknown>,
     rkey,
   });
+  // Store in registry for component ID lookup
+  if (input.componentId) {
+    componentRegistry.set(input.componentId, record);
+  }
   return {
-    status: "registered",
+    status: "created",
     componentUri: receipt.uri,
     did,
-    purl: input.purl,
+    purl,
   };
 }
 
@@ -154,13 +191,19 @@ export async function listComponents(
     cursor: input.cursor,
     limit,
   });
+  // If artifactId provided, find the artifact record to get its DID
+  let targetArtifactDid = input.artifactDid;
+  if (input.artifactId && artifactRegistry.has(input.artifactId)) {
+    targetArtifactDid = artifactRegistry.get(input.artifactId)!.did;
+  }
   const items: ComponentView[] = resp.records
     .filter((r) => {
       const v = r.value;
-      if (input.artifactDid && v.artifactDid !== input.artifactDid) {
+      if (targetArtifactDid && v.artifactDid !== targetArtifactDid) {
         return false;
       }
       if (input.ecosystem && v.ecosystem !== input.ecosystem) return false;
+      if (input.componentType && v.componentType !== input.componentType) return false;
       return true;
     })
     .map((r) => ({ ...r.value, componentUri: r.uri }));

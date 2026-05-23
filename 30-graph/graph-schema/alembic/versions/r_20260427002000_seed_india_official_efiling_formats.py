@@ -59,12 +59,12 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.gftd.ai:cbdt:itr1/ai.gftd.apps.ind.efiling.format/ind.itr1.eriSubmitFlow.v1_1',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/ai.gftd.apps.ind.efiling.format/ind.itr1.eriSubmitFlow.v1_1',
                  20260427002000,
-                 'did:web:ind-union.gftd.ai:cbdt:itr1',
+                 'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'ind.itr1.eriSubmitFlow.v1_1',
                  'itr1',
-                 'did:web:ind-union.gftd.ai:cbdt:itr1',
+                 'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'official_api_payload',
                  'active',
                  'https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/API_SubmitFlow_v1.1.pdf',
@@ -77,7 +77,7 @@ UP = [{'sql': '\n'
                  'formData.ITR.ITR1.Form_ITR1.AssessmentYear"},{"internal":"applicant.name","official":"formData.ITR.ITR1.PersonalInfo.AssesseeName"},{"internal":"applicant.dob","official":"formData.ITR.ITR1.PersonalInfo.DOB"},{"internal":"applicant.aadhaar","official":"formData.ITR.ITR1.PersonalInfo.AadhaarCardNo"},{"internal":"applicant.mobile","official":"formData.ITR.ITR1.PersonalInfo.Address.MobileNo"},{"internal":"applicant.email","official":"formData.ITR.ITR1.PersonalInfo.Address.EmailAddress"},{"internal":"income.grossSalaryInrPaise","official":"formData.ITR.ITR1.ITR1_IncomeDeductions.Salary"},{"internal":"income.otherSourcesInrPaise","official":"formData.ITR.ITR1.ITR1_IncomeDeductions.OthersInc"},{"internal":"deductions.*","official":"formData.ITR.ITR1.ITR1_IncomeDeductions.UsrDeductUndChapVIA"},{"internal":"tax.*","official":"formData.ITR.ITR1.TaxComputation '
                  '/ '
                  'TaxPaid"},{"internal":"bank.*","official":"formData.ITR.ITR1.Refund.BankAccountDtls"}]',
-                 '{"formatKey":"ind.itr1.eriSubmitFlow.v1_1","jurisdiction":"itr1","actorDid":"did:web:ind-union.gftd.ai:cbdt:itr1","formatKind":"official_api_payload","officialSourceUrl":"https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/API_SubmitFlow_v1.1.pdf","sourcePageUrl":"https://www.incometax.gov.in/iec/foportal/api-specifications","lastVerified":"2026-04-26","status":"active","api":{"provider":"ItrWeb","serviceName":"ItrService","mode":"real_time","endpoints":[{"name":"validateItr","effect":"validate_only"},{"name":"submitItr","effect":"validate_and_submit"}],"headers":["Content-type","clientId","clientSecret","authToken","accessMode"],"bodyEnvelope":{"data":"base64 '
+                 '{"formatKey":"ind.itr1.eriSubmitFlow.v1_1","jurisdiction":"itr1","actorDid":"did:web:ind-union.etzhayyim.com:cbdt:itr1","formatKind":"official_api_payload","officialSourceUrl":"https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/API_SubmitFlow_v1.1.pdf","sourcePageUrl":"https://www.incometax.gov.in/iec/foportal/api-specifications","lastVerified":"2026-04-26","status":"active","api":{"provider":"ItrWeb","serviceName":"ItrService","mode":"real_time","endpoints":[{"name":"validateItr","effect":"validate_only"},{"name":"submitItr","effect":"validate_and_submit"}],"headers":["Content-type","clientId","clientSecret","authToken","accessMode"],"bodyEnvelope":{"data":"base64 '
                  'encoded request json","sign":"DSC signature over data","eriUserId":"ERI user '
                  'id"}},"officialRequestData":{"serviceName":{"required":true,"values":["EriValidateItr","EriItrSubmit"]},"Pan":{"required":false,"maxLength":10},"Header":{"required":true,"fields":{"formName":{"required":true,"values":["ITR-1"]},"formCode":{"required":true,"value":"1"},"mimeType":{"required":true,"value":"json"},"entityNum":{"required":true,"mapsFrom":"applicant.pan"},"entityType":{"required":true,"value":"P"},"Ay":{"required":true,"mapsFrom":"assessmentYear"},"createdBy":{"required":true,"mapsFrom":"eriUserId"},"filingTypeCd":{"required":true,"values":["O","R"]},"filingMode":{"required":true,"value":"OF"},"incomeTaxSecCd":{"required":true,"values":["11","17","12"]},"submittedBy":{"required":true,"values":["ERI","SLF"]}}},"formData":{"required":true,"description":"ITR '
                  'form JSON as published by Income Tax Department schema for the assessment '
@@ -111,12 +111,12 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.gftd.ai:cbdt:itr1/ai.gftd.apps.ind.efiling.format/ind.itr1.prefillSchema.v6_5',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/ai.gftd.apps.ind.efiling.format/ind.itr1.prefillSchema.v6_5',
                  20260427002001,
-                 'did:web:ind-union.gftd.ai:cbdt:itr1',
+                 'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'ind.itr1.prefillSchema.v6_5',
                  'itr1',
-                 'did:web:ind-union.gftd.ai:cbdt:itr1',
+                 'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'official_json_schema',
                  'active',
                  'https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/PreFillSchemaJSON_V6.5.zip',
@@ -124,7 +124,7 @@ UP = [{'sql': '\n'
                  '00-contracts/formats/ai/gftd/ind/itr1/prefill-schema-v6.5.manifest.json',
                  'itr1-form-v1',
                  '[]',
-                 '{"formatKey":"ind.itr1.prefillSchema.v6_5","jurisdiction":"itr1","actorDid":"did:web:ind-union.gftd.ai:cbdt:itr1","formatKind":"official_json_schema","officialSourceUrl":"https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/PreFillSchemaJSON_V6.5.zip","sourcePageUrl":"https://www.incometax.gov.in/iec/foportal/api-specifications","lastVerified":"2026-04-26","status":"active","downloadedArtifact":{"zipName":"PreFillSchemaJSON_V6.5.zip","jsonName":"PreFillSchemaJSON_V6.5.json","jsonSchemaDefs":45,"topLevelProperties":["ais","assesseeRep","auditInfo","bankAccountDtls","filingReturn","filingStatus","form26as","insights","lastFiledITR","personalInfo","scheduleAL","scheduleCFL","verification"]},"internalFormKeys":["itr1-form-v1"],"usage":"Prefill '
+                 '{"formatKey":"ind.itr1.prefillSchema.v6_5","jurisdiction":"itr1","actorDid":"did:web:ind-union.etzhayyim.com:cbdt:itr1","formatKind":"official_json_schema","officialSourceUrl":"https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/PreFillSchemaJSON_V6.5.zip","sourcePageUrl":"https://www.incometax.gov.in/iec/foportal/api-specifications","lastVerified":"2026-04-26","status":"active","downloadedArtifact":{"zipName":"PreFillSchemaJSON_V6.5.zip","jsonName":"PreFillSchemaJSON_V6.5.json","jsonSchemaDefs":45,"topLevelProperties":["ais","assesseeRep","auditInfo","bankAccountDtls","filingReturn","filingStatus","form26as","insights","lastFiledITR","personalInfo","scheduleAL","scheduleCFL","verification"]},"internalFormKeys":["itr1-form-v1"],"usage":"Prefill '
                  'source schema for mapping taxpayer, AIS/26AS, bank, filing status, and prior '
                  'return data into itr1-form-v1 before review."}',
                  '2026-04-26']},
@@ -149,12 +149,12 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.gftd.ai:cbic:gstr3b/ai.gftd.apps.ind.efiling.format/ind.gstr3b.gspFramework.v3',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/ai.gftd.apps.ind.efiling.format/ind.gstr3b.gspFramework.v3',
                  20260427002002,
-                 'did:web:ind-union.gftd.ai:cbic:gstr3b',
+                 'did:web:ind-union.etzhayyim.com:cbic:gstr3b',
                  'ind.gstr3b.gspFramework.v3',
                  'gstr3b',
-                 'did:web:ind-union.gftd.ai:cbic:gstr3b',
+                 'did:web:ind-union.etzhayyim.com:cbic:gstr3b',
                  'official_provider_framework',
                  'provider_required',
                  'https://www.gstn.org.in/assets/mainDashboard/Pdf/GSP_Implementation_Framework_V_3.0.pdf',
@@ -166,7 +166,7 @@ UP = [{'sql': '\n'
                  'sections"},{"internal":"itc.*","official":"GSTR-3B ITC '
                  'section"},{"internal":"taxPayment.*","official":"GSTR-3B payment/ledger '
                  'section"},{"internal":"arn","official":"Acknowledgement Reference Number"}]',
-                 '{"formatKey":"ind.gstr3b.gspFramework.v3","jurisdiction":"gstr3b","actorDid":"did:web:ind-union.gftd.ai:cbic:gstr3b","formatKind":"official_provider_framework","officialSourceUrl":"https://www.gstn.org.in/assets/mainDashboard/Pdf/GSP_Implementation_Framework_V_3.0.pdf","lastVerified":"2026-04-26","status":"provider_required","internalFormKeys":["gstr3b-form-v1","gstr3b-review-v1","gstr3b-amend-v1"],"fieldMap":[{"internal":"applicant.gstin","official":"GSTIN"},{"internal":"taxPeriod","official":"return '
+                 '{"formatKey":"ind.gstr3b.gspFramework.v3","jurisdiction":"gstr3b","actorDid":"did:web:ind-union.etzhayyim.com:cbic:gstr3b","formatKind":"official_provider_framework","officialSourceUrl":"https://www.gstn.org.in/assets/mainDashboard/Pdf/GSP_Implementation_Framework_V_3.0.pdf","lastVerified":"2026-04-26","status":"provider_required","internalFormKeys":["gstr3b-form-v1","gstr3b-review-v1","gstr3b-amend-v1"],"fieldMap":[{"internal":"applicant.gstin","official":"GSTIN"},{"internal":"taxPeriod","official":"return '
                  'period"},{"internal":"supplies.*","official":"GSTR-3B outward and inward supply '
                  'sections"},{"internal":"itc.*","official":"GSTR-3B ITC '
                  'section"},{"internal":"taxPayment.*","official":"GSTR-3B payment/ledger '
@@ -198,12 +198,12 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.gftd.ai:epfo/ai.gftd.apps.ind.efiling.format/ind.epfo.ecrFile.forEmployers',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/ai.gftd.apps.ind.efiling.format/ind.epfo.ecrFile.forEmployers',
                  20260427002003,
-                 'did:web:ind-payroll.gftd.ai:epfo',
+                 'did:web:ind-payroll.etzhayyim.com:epfo',
                  'ind.epfo.ecrFile.forEmployers',
                  'epfo',
-                 'did:web:ind-payroll.gftd.ai:epfo',
+                 'did:web:ind-payroll.etzhayyim.com:epfo',
                  'official_plain_text_upload',
                  'active',
                  'https://www.epfindia.gov.in/site_docs/PDFs/OnlineECR_PDFs/ECR_ForEmployers_FileStructure.pdf',
@@ -211,7 +211,7 @@ UP = [{'sql': '\n'
                  '00-contracts/formats/ai/gftd/ind/epfo/ecr-file-format.json',
                  'epfo-ecr-form-v1,epfo-review-v1',
                  '[]',
-                 '{"formatKey":"ind.epfo.ecrFile.forEmployers","jurisdiction":"epfo","actorDid":"did:web:ind-payroll.gftd.ai:epfo","formatKind":"official_plain_text_upload","officialSourceUrl":"https://www.epfindia.gov.in/site_docs/PDFs/OnlineECR_PDFs/ECR_ForEmployers_FileStructure.pdf","lastVerified":"2026-04-26","status":"active","file":{"recordKind":"one '
+                 '{"formatKey":"ind.epfo.ecrFile.forEmployers","jurisdiction":"epfo","actorDid":"did:web:ind-payroll.etzhayyim.com:epfo","formatKind":"official_plain_text_upload","officialSourceUrl":"https://www.epfindia.gov.in/site_docs/PDFs/OnlineECR_PDFs/ECR_ForEmployers_FileStructure.pdf","lastVerified":"2026-04-26","status":"active","file":{"recordKind":"one '
                  'detailed line per '
                  'member","delimiter":"#~#","encoding":"plain_text","csvPreparationHint":"Prepare '
                  'as spreadsheet/CSV, then replace commas with #~# and save as '
@@ -277,12 +277,12 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.gftd.ai:esic/ai.gftd.apps.ind.efiling.format/ind.esic.monthlyContribution.portal',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/ai.gftd.apps.ind.efiling.format/ind.esic.monthlyContribution.portal',
                  20260427002004,
-                 'did:web:ind-payroll.gftd.ai:esic',
+                 'did:web:ind-payroll.etzhayyim.com:esic',
                  'ind.esic.monthlyContribution.portal',
                  'esic',
-                 'did:web:ind-payroll.gftd.ai:esic',
+                 'did:web:ind-payroll.etzhayyim.com:esic',
                  'official_portal_or_integrator_payload',
                  'adapter_required',
                  'https://www.esic.gov.in/',
@@ -297,7 +297,7 @@ UP = [{'sql': '\n'
                  'contribution"},{"internal":"members[].employerContribInrPaise","official":"employer '
                  'contribution"},{"internal":"challanReference","official":"bank challan '
                  'reference"}]',
-                 '{"formatKey":"ind.esic.monthlyContribution.portal","jurisdiction":"esic","actorDid":"did:web:ind-payroll.gftd.ai:esic","formatKind":"official_portal_or_integrator_payload","officialSourceUrl":"https://www.esic.gov.in/","lastVerified":"2026-04-26","status":"adapter_required","internalFormKeys":["esic-monthly-form-v1","esic-review-v1","esic-amend-v1"],"fieldMap":[{"internal":"establishment.establishmentEsiCode","official":"employer '
+                 '{"formatKey":"ind.esic.monthlyContribution.portal","jurisdiction":"esic","actorDid":"did:web:ind-payroll.etzhayyim.com:esic","formatKind":"official_portal_or_integrator_payload","officialSourceUrl":"https://www.esic.gov.in/","lastVerified":"2026-04-26","status":"adapter_required","internalFormKeys":["esic-monthly-form-v1","esic-review-v1","esic-amend-v1"],"fieldMap":[{"internal":"establishment.establishmentEsiCode","official":"employer '
                  '/ establishment ESI code"},{"internal":"wageMonth","official":"contribution '
                  'period"},{"internal":"members[].ipNumber","official":"insured person '
                  'number"},{"internal":"members[].grossWageInrPaise","official":"gross '

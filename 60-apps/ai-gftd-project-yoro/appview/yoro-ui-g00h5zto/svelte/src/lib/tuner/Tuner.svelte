@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { spring } from 'svelte/motion';
 	import { fly, scale } from 'svelte/transition';
-	import { Avatar, cn } from '@gftdcojp/design-system';
+	import { Avatar, cn } from '@etzhayyim/design-system';
 	import { isSignedIn, clerkUser, displayName, currentOrg, userOrganizations, orgLoading } from '../auth/stores.js';
 	import { switchOrganization } from '../auth/passkey.js';
 	import { vibesTuning, ALL_MOODS, MOOD_META, MOOD_DEFAULTS, type MoodPreset } from './vibes-store.js';

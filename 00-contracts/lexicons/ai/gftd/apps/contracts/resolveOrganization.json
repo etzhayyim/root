@@ -8,7 +8,7 @@
       "parameters": {
         "type": "params",
         "properties": {
-          "did": { "type": "string", "description": "did:web:social-contract.gftd.ai:entity:..." },
+          "did": { "type": "string", "description": "did:web:social-contract.etzhayyim.com:entity:..." },
           "lei": { "type": "string", "description": "GLEIF LEI (ISO 17442)" },
           "nationalId": { "type": "string", "description": "Jurisdictional registry id (e.g. JP houjin-bangou)" },
           "name": { "type": "string", "description": "Fuzzy name match (app-layer post-filter, not SQL CONTAINS — see LLM Coding Guardrails)" },

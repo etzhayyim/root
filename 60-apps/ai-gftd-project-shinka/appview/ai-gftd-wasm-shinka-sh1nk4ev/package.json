@@ -1,0 +1,7 @@
+{
+  "name": "ai-gftd-wasm-shinka-sh1nk4ev",
+  "private": true,
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  }
+}

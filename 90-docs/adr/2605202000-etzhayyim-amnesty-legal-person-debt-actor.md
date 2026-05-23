@@ -97,8 +97,8 @@ Create **`amnesty.etzhayyim.com`** as the **legal-person** counterpart to yobel.
 ```
 amnesty.etzhayyim.com (legal-person, voluntary multi-creditor)
    ├── rejects natural-person → defers to → yobel.etzhayyim.com
-   ├── represented by → vendor:lawfirm.gftd.ai (court filings, sovereign legal counsel)
-   ├── falls back to → vendor:bankruptcy.gftd.ai (formal corporate Chapter 11 / 会社更生 / scheme of arrangement)
+   ├── represented by → vendor:lawfirm.etzhayyim.com (court filings, sovereign legal counsel)
+   ├── falls back to → vendor:bankruptcy.etzhayyim.com (formal corporate Chapter 11 / 会社更生 / scheme of arrangement)
    ├── eligibility   ← council SBT registry (Lv1+ for proposers, Lv9 chair × 3 for ratification)
    ├── settlement    → ERC725 Smart Wallet + Base L2 USDC + on-chain restructuring instruments
    ├── audit         → AT MST + IPFS append-only + UN/UNCITRAL registry mirror (optional)
@@ -160,13 +160,13 @@ When a debtor enrolls in yobel and the cell determines `entityType=legal_person`
 **Negative / Risk**
 - **Higher governance bar** — Lv9 chair × 3 + Five-Bootstrap consultation is a stringent threshold. May slow down legitimate fast-moving restructurings (Greece 2012 took months — etzhayyim ratification could be similar)
 - **Political legitimacy concerns** — etzhayyim religious-corp ratifying sovereign debt restructuring sits in tension with state sovereignty norms. Mitigation: amnesty is voluntary opt-in; etzhayyim does not claim authority to compel restructuring, only to record + audit voluntary agreements + provide neutral on-chain settlement infrastructure
-- **Creditor class manipulation** — bad-faith debtor could try to manufacture creditor classes to game §1126(c). Mitigation: A13 (analog of yobel R13) enforces creditor class membership via Council SBT + cross-actor verification with vendor:lawfirm.gftd.ai. Bad actors flagged + Council Lv9 audit triggered
+- **Creditor class manipulation** — bad-faith debtor could try to manufacture creditor classes to game §1126(c). Mitigation: A13 (analog of yobel R13) enforces creditor class membership via Council SBT + cross-actor verification with vendor:lawfirm.etzhayyim.com. Bad actors flagged + Council Lv9 audit triggered
 - **Dual-substrate audit complexity** — UN/UNCITRAL registry mirror is optional but introduces inter-substrate consistency risk. Recommendation: keep mirror as informational-only at S2; promote to authoritative only after S5 production hardening
 
 **Neutral**
 - amnesty's settlement instruments are richer than yobel's (haircut / rescheduling / equity swap / nature swap vs simple release). This makes Solidity scope larger — 3 contracts instead of 2
 - deps.toml `[[projects]]` entry added
-- amnesty does NOT need cross-jurisdictional tax DMN (yobel's per-jurisdiction COD income warnings) — legal-person tax treatment is the debtor's own counsel's domain. Vendor:lawfirm.gftd.ai delegation is symmetric to yobel but with different per-jurisdiction tables
+- amnesty does NOT need cross-jurisdictional tax DMN (yobel's per-jurisdiction COD income warnings) — legal-person tax treatment is the debtor's own counsel's domain. Vendor:lawfirm.etzhayyim.com delegation is symmetric to yobel but with different per-jurisdiction tables
 
 # Alternatives Considered
 
@@ -174,7 +174,7 @@ When a debtor enrolls in yobel and the cell determines `entityType=legal_person`
 
 **B. Single rite type for all legal-person debt restructuring** — Rejected. Sovereign multilateral, sovereign bilateral, corporate Chapter 11, out-of-court workout, and debt-for-nature swap have materially different consent thresholds and settlement instruments. Conflating them under one rite type would force the lowest-common-denominator threshold (probably 90% out-of-court) and exclude HIPC-style multilateral cases.
 
-**C. No separate actor — handle legal-person via vendor:bankruptcy.gftd.ai only** — Rejected. vendor:bankruptcy is mandatory legal procedure intelligence. Religious-corp's voluntary doctrinal stance for legal-person debt is distinct (parallel rather than fallback). Vendor handles court-mandated; amnesty handles religious-corp-witnessed multi-creditor consent.
+**C. No separate actor — handle legal-person via vendor:bankruptcy.etzhayyim.com only** — Rejected. vendor:bankruptcy is mandatory legal procedure intelligence. Religious-corp's voluntary doctrinal stance for legal-person debt is distinct (parallel rather than fallback). Vendor handles court-mandated; amnesty handles religious-corp-witnessed multi-creditor consent.
 
 **D. Defer amnesty entirely; let users wait for yobel to mature first** — Rejected. The natural-person-only amendment to yobel made the gap explicit. Documenting it as "out of scope" without a sibling actor leaves a documented design hole. Better to claim the design space now even if implementation is phased.
 
@@ -201,4 +201,4 @@ When a debtor enrolls in yobel and the cell determines `entityType=legal_person`
 
 **Cross-references**:
 - yobel ADR-2605201800 §Invariants → "legal-person debt out of scope, candidate for future amnesty.etzhayyim.com actor" — this ADR fulfills that placeholder
-- vendor:bankruptcy.gftd.ai CLAUDE.md §Cross-Actor: yobel rite attachment restricted to natural-person bankruptcy cases — amnesty will provide the legal-person counterpart attachment lexicon (`ai.gftd.apps.bankruptcy.recordAmnestyRestructuringReference`)
+- vendor:bankruptcy.etzhayyim.com CLAUDE.md §Cross-Actor: yobel rite attachment restricted to natural-person bankruptcy cases — amnesty will provide the legal-person counterpart attachment lexicon (`ai.gftd.apps.bankruptcy.recordAmnestyRestructuringReference`)

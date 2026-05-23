@@ -1,7 +1,7 @@
 """
-gftdcojp.ops — Zeebe task handler: submit to LangGraph gftdcojp-company-ops.
+etzhayyim.ops — Zeebe task handler: submit to LangGraph etzhayyim-company-ops.
 
-Task type: gftdcojp.ops.submit
+Task type: etzhayyim.ops.submit
 
 Input variables:
   task_type      str   e.g. "hr.onboard", "finance.journal", "governance.daily"
@@ -29,9 +29,9 @@ import time
 import uuid
 from typing import Any
 
-LOG = logging.getLogger("gftdcojp.ops")
+LOG = logging.getLogger("etzhayyim.ops")
 
-_ASSISTANT_ID = "gftdcojp-company-ops"
+_ASSISTANT_ID = "etzhayyim-company-ops"
 
 # If running in the same pod as langgraph_server_app, prefer in-process call.
 # Set LANGGRAPH_SERVER_URL=http://localhost:8001 to use HTTP instead.
@@ -40,7 +40,7 @@ _LANGGRAPH_URL = os.environ.get("LANGGRAPH_SERVER_URL", "")
 
 def _run_in_process(task_type: str, payload: dict, requester_did: str, thread_id: str) -> dict:
     """Run graph directly in-process (preferred: same pod, no HTTP hop)."""
-    from pymagatama.langgraph_graphs.gftdcojp_company_ops import build_graph
+    from pymagatama.langgraph_graphs.etzhayyim_company_ops import build_graph
     graph = build_graph()
     state_in = {
         "task_type": task_type,
@@ -58,7 +58,7 @@ def _run_via_http(task_type: str, payload: dict, requester_did: str, thread_id: 
     body = json.dumps({
         "assistant_id": _ASSISTANT_ID,
         "thread_id": thread_id,
-        "actor_did": requester_did or f"did:web:gftdcojp.etzhayyim.com",
+        "actor_did": requester_did or f"did:web:etzhayyim.etzhayyim.com",
         "input": {
             "task_type": task_type,
             "payload": payload,
@@ -97,23 +97,23 @@ def _run_via_http(task_type: str, payload: dict, requester_did: str, thread_id: 
     return {"ok": False, "error": "timeout waiting for LangGraph run"}
 
 
-async def task_gftdcojp_ops_submit(
+async def task_etzhayyim_ops_submit(
     task_type: str = "governance.daily",
     payload: dict | None = None,
     requester_did: str = "",
 ) -> dict:
     """
-    Zeebe task handler: gftdcojp.ops.submit
+    Zeebe task handler: etzhayyim.ops.submit
 
-    Submits a company-ops task to the LangGraph gftdcojp-company-ops graph
+    Submits a company-ops task to the LangGraph etzhayyim-company-ops graph
     (Supervisor → HR/Finance/Legal/Sales/Governance domain agent → audit).
     """
     import asyncio
 
     payload = payload or {}
-    thread_id = f"gftdcojp-{task_type}-{int(time.time() * 1000)}-{uuid.uuid4().hex[:6]}"
+    thread_id = f"etzhayyim-{task_type}-{int(time.time() * 1000)}-{uuid.uuid4().hex[:6]}"
 
-    LOG.info("gftdcojp.ops.submit task_type=%s thread=%s", task_type, thread_id)
+    LOG.info("etzhayyim.ops.submit task_type=%s thread=%s", task_type, thread_id)
 
     try:
         if _LANGGRAPH_URL:
@@ -125,7 +125,7 @@ async def task_gftdcojp_ops_submit(
                 None, _run_in_process, task_type, payload, requester_did, thread_id
             )
     except Exception as exc:
-        LOG.error("gftdcojp.ops.submit failed: %s", exc)
+        LOG.error("etzhayyim.ops.submit failed: %s", exc)
         return {"ok": False, "error": str(exc)}
 
     return {
@@ -139,18 +139,18 @@ async def task_gftdcojp_ops_submit(
 
 
 def register(app: Any) -> None:
-    """Register gftdcojp.ops.submit with the Zeebe worker."""
+    """Register etzhayyim.ops.submit with the Zeebe worker."""
     from pymagatama.langserver_compat import LangServerWorker
     if not isinstance(app, LangServerWorker):
         return
 
-    @app.task(task_type="gftdcojp.ops.submit", timeout_ms=190_000, max_jobs_to_activate=2)
+    @app.task(task_type="etzhayyim.ops.submit", timeout_ms=190_000, max_jobs_to_activate=2)
     async def _handle(task_type: str = "governance.daily", payload: dict | None = None,
                       requester_did: str = "") -> dict:
-        return await task_gftdcojp_ops_submit(
+        return await task_etzhayyim_ops_submit(
             task_type=task_type,
             payload=payload or {},
             requester_did=requester_did,
         )
 
-    LOG.info("Registered task: gftdcojp.ops.submit")
+    LOG.info("Registered task: etzhayyim.ops.submit")

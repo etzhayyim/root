@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-add4abba03dd",
+  "entityId": "ent-add4abba03dd",
+  "canonicalName": "muhammad yusuf ahmad mansur",
+  "aliases": [
+    "muhammad yusuf ahmad mansur"
+  ]
+}

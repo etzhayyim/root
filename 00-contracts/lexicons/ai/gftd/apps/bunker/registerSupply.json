@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a marine bunker fuel supply event (HFO/MGO/VLSFO/LNG). MARPOL Annex VI sulphur compliance tracking. Path-based DID: did:web:bunker.gftd.ai:supply:{slug}.",
+      "description": "Register a marine bunker fuel supply event (HFO/MGO/VLSFO/LNG). MARPOL Annex VI sulphur compliance tracking. Path-based DID: did:web:bunker.etzhayyim.com:supply:{slug}.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

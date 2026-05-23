@@ -699,7 +699,7 @@
     },
     "/xrpc/ai.gftd.manga.submitFromNarou": {
       "post": {
-        "summary": "Import title and chapter from narou.gftd.ai",
+        "summary": "Import title and chapter from narou.etzhayyim.com",
         "operationId": "ai.gftd.manga.submitFromNarou",
         "requestBody": {
           "required": true,

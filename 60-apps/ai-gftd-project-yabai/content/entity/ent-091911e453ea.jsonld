@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-091911e453ea",
+  "entityId": "ent-091911e453ea",
+  "canonicalName": "gama'a al-islamiyya",
+  "aliases": [
+    "gama'a al-islamiyya"
+  ]
+}

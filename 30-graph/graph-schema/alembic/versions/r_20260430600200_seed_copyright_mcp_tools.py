@@ -28,10 +28,10 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-resolve',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-resolve',
                  'ai.gftd.apps.copyright.resolve',
-                 'did:web:copyright.gftd.ai',
-                 'copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'copyright.etzhayyim.com',
                  'query',
                  'Resolve a work by DOI / ISBN-13 / ISRC / ISWC.',
                  '{"properties":{"doi":{"type":"string"},"isbn13":{"maxLength":13,"minLength":13,"type":"string"},"isrc":{"type":"string"},"iswc":{"type":"string"}},"type":"params"}',
@@ -39,12 +39,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.apps.copyright.resolve',
                  '00-contracts/lexicons/ai/gftd/apps/copyright/resolve.json',
                  'afa29be8eabb6cea',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-resolve']},
+                 'at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-resolve']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -61,10 +61,10 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-list',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-list',
                  'ai.gftd.apps.copyright.list',
-                 'did:web:copyright.gftd.ai',
-                 'copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'copyright.etzhayyim.com',
                  'query',
                  'List works filtered by kind / registry / license.',
                  '{"properties":{"kind":{"type":"string"},"license":{"type":"string"},"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"registry":{"type":"string"}},"type":"params"}',
@@ -72,12 +72,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.apps.copyright.list',
                  '00-contracts/lexicons/ai/gftd/apps/copyright/list.json',
                  'a944eccae291d84f',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-list']},
+                 'at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-list']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -94,10 +94,10 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-coverage',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-coverage',
                  'ai.gftd.apps.copyright.coverage',
-                 'did:web:copyright.gftd.ai',
-                 'copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'copyright.etzhayyim.com',
                  'query',
                  'Copyright coverage by registry with kind / license / identifier histograms.',
                  '{"properties":{"registry":{"type":"string"}},"type":"params"}',
@@ -105,12 +105,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.apps.copyright.coverage',
                  '00-contracts/lexicons/ai/gftd/apps/copyright/coverage.json',
                  '4748cb9b284c037f',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-coverage']},
+                 'at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-coverage']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -127,10 +127,10 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestCrossref',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestCrossref',
                  'ai.gftd.apps.copyright.ingestCrossref',
-                 'did:web:copyright.gftd.ai',
-                 'copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'copyright.etzhayyim.com',
                  'procedure',
                  'Trigger a Crossref REST API ingest batch into vertex_work. Cursor-based '
                  'pagination, polite pool.',
@@ -139,12 +139,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.apps.copyright.ingestCrossref',
                  '00-contracts/lexicons/ai/gftd/apps/copyright/ingestCrossref.json',
                  '2ba525df5309f082',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestCrossref']},
+                 'at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestCrossref']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -161,10 +161,10 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestDatacite',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestDatacite',
                  'ai.gftd.apps.copyright.ingestDatacite',
-                 'did:web:copyright.gftd.ai',
-                 'copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'copyright.etzhayyim.com',
                  'procedure',
                  'Trigger a DataCite REST API ingest batch into vertex_work. Cursor-based '
                  'pagination.',
@@ -173,12 +173,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.apps.copyright.ingestDatacite',
                  '00-contracts/lexicons/ai/gftd/apps/copyright/ingestDatacite.json',
                  '18ab7d4ff8cb3196',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestDatacite']},
+                 'at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestDatacite']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -195,10 +195,10 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-socialCoverageReport',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-socialCoverageReport',
                  'ai.gftd.apps.copyright.socialCoverageReport',
-                 'did:web:copyright.gftd.ai',
-                 'copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'copyright.etzhayyim.com',
                  'procedure',
                  'Generate and post a delta-aware copyright coverage social post. Skips if total '
                  'count delta < minDelta.',
@@ -210,12 +210,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.apps.copyright.socialCoverageReport',
                  '00-contracts/lexicons/ai/gftd/apps/copyright/socialCoverageReport.json',
                  'f554a2b27076f2aa',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-socialCoverageReport']},
+                 'at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-socialCoverageReport']},
  {'sql': '\n'
          '      INSERT INTO vertex_mcp_tool_def (\n'
          '        vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -232,10 +232,10 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-chat',
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-chat',
                  'ai.gftd.apps.copyright.chat',
-                 'did:web:copyright.gftd.ai',
-                 'copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'copyright.etzhayyim.com',
                  'procedure',
                  'Chat with the Copyright Registry agent. Ask about works, licenses, DOI/ISBN '
                  'resolution, orphan works detection, and CMO coverage.',
@@ -248,27 +248,27 @@ UP = [{'sql': '\n'
                  'ai.gftd.apps.copyright.chat',
                  '00-contracts/lexicons/ai/gftd/apps/copyright/chat.json',
                  'f954fc0eedfb4076',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
-                 'did:web:copyright.gftd.ai',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
+                 'did:web:copyright.etzhayyim.com',
                  'sys.mcp.seed.copyright',
                  '2026-04-30T15:00:00+09:00',
-                 'at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-chat']}]
+                 'at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-chat']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-resolve']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-resolve']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-list']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-list']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-coverage']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-coverage']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestCrossref']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestCrossref']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestDatacite']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-ingestDatacite']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-socialCoverageReport']},
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-socialCoverageReport']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:copyright.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-chat']}]
+  'parameters': ['at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-chat']}]
 
 
 def upgrade() -> None:

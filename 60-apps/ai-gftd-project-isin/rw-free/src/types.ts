@@ -190,7 +190,7 @@ export function normalizeIsin(isin: string): string {
   return (isin ?? "").replace(/[^0-9A-Za-z]/g, "").toUpperCase();
 }
 
-/** ISIN check digit per ISO 6166 (modulo 10 with Luhn-like double-and-sum). */
+/** ISIN check digit per ISO 6166 (modulo 10 with Luhn algorithm). */
 export function isinCheckDigit(isin11: string): number | undefined {
   if (!/^[A-Z0-9]{11}$/.test(isin11)) return undefined;
   // Convert each char to digits: A=10, B=11, ... Z=35.
@@ -199,17 +199,16 @@ export function isinCheckDigit(isin11: string): number | undefined {
     if (/[0-9]/.test(c)) digits += c;
     else digits += String(c.charCodeAt(0) - 55);
   }
-  // Luhn-like: from right, double every other digit.
+  // Luhn: from right to left, double even-positioned digits (0-indexed from right).
   let sum = 0;
-  let doubleNext = false;
   for (let i = digits.length - 1; i >= 0; i--) {
     let d = Number(digits[i]);
-    if (doubleNext) {
+    const posFromRight = digits.length - 1 - i;
+    if (posFromRight % 2 === 0) {
       d *= 2;
       if (d >= 10) d = Math.floor(d / 10) + (d % 10);
     }
     sum += d;
-    doubleNext = !doubleNext;
   }
   return (10 - (sum % 10)) % 10;
 }

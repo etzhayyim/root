@@ -13,7 +13,7 @@ Also: MST listener on `ai.gftd.apps.etzhayyim.yobel.rite` (`status: declared →
 ## Steps
 
 1. `validateInput` — assert `riteId` exists ∧ `status=active`; `debts[].length ≥ 1` ∧ `≤ 1000`; all `principalMicroUsdc` ≥ 0; all `originationDate` parseable
-2. `verifyCreditorStanding` — `CouncilSBT.balanceOf(creditorDid) ≥ Lv1` ∨ partner religious-corp membership (Charter §1.13 SBT identity invariant). Non-aligned secular creditor: still allowed to opt-in (voluntary act), but receives an `info` warning that fallback to vendor:bankruptcy.gftd.ai is the canonical mandatory-binding path
+2. `verifyCreditorStanding` — `CouncilSBT.balanceOf(creditorDid) ≥ Lv1` ∨ partner religious-corp membership (Charter §1.13 SBT identity invariant). Non-aligned secular creditor: still allowed to opt-in (voluntary act), but receives an `info` warning that fallback to vendor:bankruptcy.etzhayyim.com is the canonical mandatory-binding path
 3. `verifySignedConsent` — `pymagatama.identity.erc725.verify_eip712_signed_consent`:
    - Recover signer address from `signedConsent` (EIP-712 typed data over canonical hash of `(riteId | creditorDid | debts[])`)
    - Assert signer address matches `creditorDid` ERC725 keystore (ADR-0074)

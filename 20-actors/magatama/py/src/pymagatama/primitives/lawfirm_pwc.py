@@ -31,7 +31,7 @@ _CEO_DID  = "did:web:j-kawasaki.etzhayyim.com"
 # private CEO-only channel; override via env.
 _TEAMS_CHANNEL_EMAIL = os.environ.get(
     "PWC_CLEARANCE_TEAMS_EMAIL",
-    "ceo-pwc-clearance.gftdcojp.etzhayyim.com@channels.gftd.co",
+    "ceo-pwc-clearance.etzhayyim.etzhayyim.com@channels.gftd.co",
 )
 
 

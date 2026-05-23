@@ -53,7 +53,7 @@ staged な `.ts` / `.tsx` / `.js` / `.jsx` / `.mjs` / `.cjs` / `.py` / `.svelte`
 "50-infra/anchor-cron/",
 "50-infra/etzhayyim-{paymaster,membership-contract,chain-contracts,did-web,pds-did-web}/",
 "50-infra/cloudflare/",
-"50-infra/vultr/",           // gftd.ai legacy (ADR-2605191346 §2)
+"50-infra/vultr/",           // etzhayyim.com legacy (ADR-2605191346 §2)
 "50-infra/l2-anchor-contract/",
 "_archive/",
 "60-apps/ai-gftd-project-ameno/appview/.../_svelte/",  // vite build output

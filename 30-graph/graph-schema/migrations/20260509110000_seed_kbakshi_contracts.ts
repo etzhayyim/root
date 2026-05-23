@@ -14,8 +14,8 @@ import { sql } from "kysely";
  *     ←─ supersedes ── employment-2025-06-01
  *                          ←─ amendment ── employment-2025-06-01-amended-1y
  *
- * Tier 3 PII (sensitivity_ord=300). owner_did = amanomibashira (operating entity).
- * principal_did = amanomibashira. counterparty_did = k-bakshi.
+ * Tier 3 PII (sensitivity_ord=300). owner_did = etzhayyim (operating entity).
+ * principal_did = etzhayyim. counterparty_did = k-bakshi.
  *
  * NOTE: Day-1 audit row with source URI only. Clause extraction (Step 2 of
  * contract-clause-statute-mapping-plan.md) lands in a follow-up migration.
@@ -27,7 +27,7 @@ const PRINCIPAL_GFTD_JAPAN = "did:web:gftd-japan.etzhayyim.com";
 
 const CONTRACTS = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contract/kbakshi-labor-notice-2025-05-08",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contract/kbakshi-labor-notice-2025-05-08",
     contractId: "kbakshi-labor-notice-2025-05-08",
     contractKind: "labor_condition_notice",
     title: "労働条件通知書 (Kuunal Bakshi)",
@@ -38,7 +38,7 @@ const CONTRACTS = [
     contractUrl: "sharepoint://gftd.co.jp/Shared%20Documents/HR/GJ_労働条件通知書_バクシ・クナル様.pdf",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contract/kbakshi-employment-2025-06-01",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contract/kbakshi-employment-2025-06-01",
     contractId: "kbakshi-employment-2025-06-01",
     contractKind: "employment",
     title: "雇用契約書兼労働条件通知書 (Kuunal Bakshi, v1 期間定めなし)",
@@ -49,7 +49,7 @@ const CONTRACTS = [
     contractUrl: "sharepoint://gftd.co.jp/Shared%20Documents/HR/20250601_GJ_雇用契約書兼労働条件通知書_クナル・バクシ.pdf",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contract/kbakshi-employment-2025-06-01-amended-1y",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contract/kbakshi-employment-2025-06-01-amended-1y",
     contractId: "kbakshi-employment-2025-06-01-amended-1y",
     contractKind: "employment",
     title: "雇用契約書兼労働条件通知書 (Kuunal Bakshi, v2 1年契約)",
@@ -94,7 +94,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   for (const c of CONTRACTS) {
     await sql`
-      INSERT INTO vertex_gftdcojp_contract
+      INSERT INTO vertex_etzhayyim_contract
         (vertex_id, contract_id, contract_kind, principal_did, vendor_did,
          counterparty_did, title, summary, start_date, end_date,
          auto_renewal, monthly_rate_jpy, currency, payment_terms, status,
@@ -104,20 +104,20 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         ${COUNTERPARTY}, ${c.title}, ${c.summary}, ${c.startDate}, ${c.endDate},
         false, CAST(NULL AS DOUBLE PRECISION), 'JPY', '当月末締翌月末払 (社員給与同準)', 'active',
         ${c.signedAt}, ${c.contractUrl}, ${NOW}, 300, ${OWNER}
-      WHERE NOT EXISTS (SELECT 1 FROM vertex_gftdcojp_contract WHERE vertex_id = ${c.vertexId})
+      WHERE NOT EXISTS (SELECT 1 FROM vertex_etzhayyim_contract WHERE vertex_id = ${c.vertexId})
     `.execute(db);
 
     // person ↔ contract edge (k-bakshi as employee)
     const edgeId = `edge:${c.contractId}:kbakshi-employee`;
     await sql`
-      INSERT INTO edge_gftdcojp_person_contract
+      INSERT INTO edge_etzhayyim_person_contract
         (edge_id, src_vid, dst_vid, person_did, contract_id,
          role_in_contract, created_at, sensitivity_ord, owner_did)
       SELECT
         ${edgeId}, ${COUNTERPARTY}, ${c.vertexId},
         ${COUNTERPARTY}, ${c.contractId}, 'employee',
         ${NOW}, 300, ${OWNER}
-      WHERE NOT EXISTS (SELECT 1 FROM edge_gftdcojp_person_contract WHERE edge_id = ${edgeId})
+      WHERE NOT EXISTS (SELECT 1 FROM edge_etzhayyim_person_contract WHERE edge_id = ${edgeId})
     `.execute(db);
   }
 
@@ -140,7 +140,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
   }
   for (const c of CONTRACTS) {
     const edgeId = `edge:${c.contractId}:kbakshi-employee`;
-    await sql`DELETE FROM edge_gftdcojp_person_contract WHERE edge_id = ${edgeId}`.execute(db);
-    await sql`DELETE FROM vertex_gftdcojp_contract WHERE vertex_id = ${c.vertexId}`.execute(db);
+    await sql`DELETE FROM edge_etzhayyim_person_contract WHERE edge_id = ${edgeId}`.execute(db);
+    await sql`DELETE FROM vertex_etzhayyim_contract WHERE vertex_id = ${c.vertexId}`.execute(db);
   }
 }

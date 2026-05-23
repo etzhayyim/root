@@ -156,7 +156,7 @@ def tax_warning_dmn(state):
     if "ISR" in debtor_jur and state.get("rite_type") in ("shmita_7yr", "yobel_50yr"):
         add("Israel: prozbul (Hillel) historically routes around shmita debt cancellation; modern Pkudat Mas Hachnasa does not auto-recognize religious shmita as tax-exempt.", "caution")
     if released_usdc >= 1_000_000:
-        add("Releases ≥ $1M USDC trigger anti-abuse / disguised-gift rules in many jurisdictions. Coordinate with vendor:lawfirm.gftd.ai before settlement.", "high")
+        add("Releases ≥ $1M USDC trigger anti-abuse / disguised-gift rules in many jurisdictions. Coordinate with vendor:lawfirm.etzhayyim.com before settlement.", "high")
     elif released_usdc >= 100:
         add("Release amount may exceed gift tax annual exclusion in many jurisdictions. Verify jurisdiction-specific gift tax rules.", "info")
     if "USA" in debtor_jur and "USA" in creditor_jur and released_usdc >= 600:

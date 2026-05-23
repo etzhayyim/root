@@ -1,0 +1,22 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d8eb667b2481",
+  "entityId": "ent-d8eb667b2481",
+  "canonicalName": "0x5c50564cEEEb5B85CFeeC31572A748cC1185356c",
+  "aliases": [
+    "0x5c50564cEEEb5B85CFeeC31572A748cC1185356c",
+    "Rokes Primary Exfiltration Address"
+  ],
+  "kyumeiKoji": {
+    "performedAt": "2026-04-05T00:00:00Z",
+    "model": "gemma4",
+    "domainSummary": "Primary ETH address used for unauthorized withdrawals from Rokes Exchange. Received repeated ETH withdrawals (1-90 ETH per tx) and HEC token transfers (up to 19,701 HEC). Activity period: 2019-08 to 2020-12. Controlled by Pakistan development team.",
+    "blockchain": "Ethereum",
+    "activityPeriod": "2019-08 to 2020-12",
+    "knowledgeEdges": [
+      {"from": "0x5c50564c", "relation": "CONTROLLED_BY", "to": "rokes_pakistan_dev"},
+      {"from": "0x5c50564c", "relation": "EXFILTRATED_FROM", "to": "rokes_exchange"}
+    ]
+  }
+}

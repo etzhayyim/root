@@ -42,16 +42,16 @@ TS=$(date -u +%Y%m%d-%H%M%S)
 # bpmn-engine-host (build context = this directory)
 70-tools/scripts/buildkit/remote-build.sh \
   -d 50-infra/k8s/bpmn-engine-host \
-  -t "ghcr.io/gftdcojp/bpmn-engine-host:${TS}"
+  -t "ghcr.io/etzhayyim/bpmn-engine-host:${TS}"
 
 # open-lei-mcp (build context = REPO ROOT — vendors pymagatama spiff_worker)
 70-tools/scripts/buildkit/remote-build.sh \
   -f 50-infra/k8s/open-lei-mcp/Dockerfile \
   -d . \
-  -t "ghcr.io/gftdcojp/open-lei-mcp:${TS}"
+  -t "ghcr.io/etzhayyim/open-lei-mcp:${TS}"
 ```
 
-YAML の `image: ghcr.io/gftdcojp/...:latest` を実 tag に書き換えるか、
+YAML の `image: ghcr.io/etzhayyim/...:latest` を実 tag に書き換えるか、
 `kubectl set image` で patch する (latest tag は不変性保証なし、production 非推奨):
 
 ```bash
@@ -118,8 +118,8 @@ polling/read visibility latency and is diagnostic only.
 
 Verified on 2026-05-09:
 
-- `bpmn-engine-host`: `ghcr.io/gftdcojp/bpmn-engine-host:20260509-1705no-inline-cache`
-- `lawfirm-spiff-worker`: `ghcr.io/gftdcojp/lawfirm-spiff-worker:20260509-0250inline-default4`
+- `bpmn-engine-host`: `ghcr.io/etzhayyim/bpmn-engine-host:20260509-1705no-inline-cache`
+- `lawfirm-spiff-worker`: `ghcr.io/etzhayyim/lawfirm-spiff-worker:20260509-0250inline-default4`
 - c100 smoke: `completed=100`, `p95_s=10.888`,
   `history_violations=[]`, `orphan_violations=[]`
 

@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "org.etzhayyim.authz.completeRootProvision",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Complete a root-identity provisioning flow started by beginRootProvision. Caller submits the signed digest plus the nonce. Backend verifies signature, gates on Council approval, then submits an EtzhayyimAuthz.provisionRoot transaction on the target chain. Returns the chain tx hash + the assigned rootId. Per ADR-2605212030.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["nonce", "signature"],
+          "properties": {
+            "nonce": {
+              "type": "string",
+              "description": "Single-use nonce returned by beginRootProvision."
+            },
+            "signature": {
+              "type": "string",
+              "description": "0x-prefixed EIP-191 personal_sign signature (65 bytes r||s||v) of the digest issued by beginRootProvision, signed by the requested activeKey."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["rootId", "did", "dwebDid", "txHash", "chainId", "contractAddress"],
+          "properties": {
+            "rootId": {
+              "type": "string",
+              "description": "0x-prefixed 32-byte rootId assigned by EtzhayyimAuthz."
+            },
+            "did": {
+              "type": "string",
+              "description": "Canonical etzhayyim DID — `did:erc725:base:<contractAddress>#<rootIdHex>`."
+            },
+            "dwebDid": {
+              "type": "string",
+              "description": "Public-facing DID — `did:web:<dwebHandle>`."
+            },
+            "txHash": {
+              "type": "string",
+              "description": "Base L2 transaction hash for the provisionRoot call."
+            },
+            "chainId": {
+              "type": "integer"
+            },
+            "contractAddress": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "errors": [
+        {"name": "NonceUnknown", "description": "nonce does not match any pending provisioning session."},
+        {"name": "NonceExpired", "description": "nonce was valid but expired before completion."},
+        {"name": "SignatureInvalid", "description": "signature does not recover to the activeKey declared in beginRootProvision."},
+        {"name": "CouncilApprovalRequired", "description": "the Council multisig has not yet approved this provisioning request."},
+        {"name": "ChainSubmissionFailed", "description": "the on-chain provisionRoot transaction reverted; see chainError for detail."}
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4704f6fae72a",
+  "entityId": "ent-4704f6fae72a",
+  "canonicalName": "davut yalçin",
+  "aliases": [
+    "davut yalçin"
+  ]
+}

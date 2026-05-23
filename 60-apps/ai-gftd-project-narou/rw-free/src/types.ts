@@ -25,6 +25,7 @@ export interface NovelView extends NovelRecord {
 
 export interface CreateNovelInput {
   title: string;
+  novel_id?: string;
   description?: string;
   genre?: string;
   tags?: string;

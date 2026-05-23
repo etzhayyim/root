@@ -1,0 +1,18 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-43be214b119f",
+  "entityId": "ent-43be214b119f",
+  "canonicalName": "0x539A57AeFF3ab7937a095Fad7060b29576B7eb34",
+  "aliases": [
+    "0x539A57AeFF3ab7937a095Fad7060b29576B7eb34",
+    "Rokes Chainalysis Cluster Root"
+  ],
+  "kyumeiKoji": {
+    "performedAt": "2026-04-05T00:00:00Z",
+    "model": "gemma4",
+    "domainSummary": "Root address of the Chainalysis cluster graph for the Rokes Exchange theft investigation. Links to 10+ addresses including Rokes operational wallets, TradeOgre high-risk exchange, and multiple intermediary addresses.",
+    "blockchain": "Ethereum",
+    "chainalysisGraph": "https://reactor.chainalysis.com/graph/4554f96d90d771c39fa091c19b0344b3"
+  }
+}

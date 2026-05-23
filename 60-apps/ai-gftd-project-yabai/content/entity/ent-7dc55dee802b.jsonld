@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7dc55dee802b",
+  "entityId": "ent-7dc55dee802b",
+  "canonicalName": "sultan hashim ahmad",
+  "aliases": [
+    "sultan hashim ahmad"
+  ]
+}

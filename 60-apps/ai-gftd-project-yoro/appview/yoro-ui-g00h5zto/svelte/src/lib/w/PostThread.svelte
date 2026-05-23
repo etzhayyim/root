@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Avatar } from '@gftdcojp/design-system';
+	import { Avatar } from '@etzhayyim/design-system';
 	import { getThread, sendProjectMessage, memberLabel, decodeMessageBody, isEncryptedVal } from '$lib/atproto-agent';
 	import type { ConvoEnvelope } from '$lib/atproto-agent';
 	import { useLocalLLM } from '$lib/provider/local-llm.svelte.js';

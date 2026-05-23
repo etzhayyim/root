@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-live-tweak-track-v1',
-                 'did:web:live.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-tweak-track-v1',
+                 'did:web:live.etzhayyim.com',
                  'live_tweak_track',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_live_tweak_track"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/apps/live"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/apps/live"\n'
                  '    exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="live_tweak_track" name="live tweakTrack" '
                  'isExecutable="true">\n'
@@ -66,7 +66,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_live_track&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id: &quot;at://&quot; + (if callerDid != null then '
-                 'string(callerDid) else &quot;did:web:live.gftd.ai&quot;) + '
+                 'string(callerDid) else &quot;did:web:live.etzhayyim.com&quot;) + '
                  '&quot;/ai.gftd.apps.live.track/&quot; + string(roomSlug) + &quot;-&quot; + '
                  'string(position),\n'
                  '              room_slug: roomSlug,\n'
@@ -82,7 +82,7 @@ UP = [{'sql': '\n'
                  '              description: &quot;Track #&quot; + string(position) + &quot; of '
                  'room &quot; + string(roomSlug) + &quot; — &quot; + string(title),\n'
                  '              actor_did: if callerDid != null then callerDid else '
-                 '&quot;did:web:live.gftd.ai&quot;,\n'
+                 '&quot;did:web:live.etzhayyim.com&quot;,\n'
                  '              org_did: if orgDid != null then orgDid else &quot;anon&quot;,\n'
                  '              at_did: callerDid,\n'
                  '              created_at: string(now())\n'
@@ -90,7 +90,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>\n'
                  '          <zeebe:output source="=true" target="ok"/>\n'
                  '          <zeebe:output source="=&quot;at://&quot; + (if callerDid != null then '
-                 'string(callerDid) else &quot;did:web:live.gftd.ai&quot;) + '
+                 'string(callerDid) else &quot;did:web:live.etzhayyim.com&quot;) + '
                  '&quot;/ai.gftd.apps.live.track/&quot; + string(roomSlug) + &quot;-&quot; + '
                  'string(position)" target="vertexId"/>\n'
                  '        </zeebe:ioMapping>\n'
@@ -105,7 +105,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:live.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:live.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;live.tweakTrack&quot;" target="action"/>\n'
                  '          <zeebe:input source="={\n'
@@ -130,10 +130,10 @@ UP = [{'sql': '\n'
                  4235,
                  '00-contracts/bpmn/ai/gftd/apps/live/tweakTrack.bpmn',
                  '2026-04-29T04:00:00Z',
-                 'did:web:live.gftd.ai',
-                 'did:web:live.gftd.ai',
+                 'did:web:live.etzhayyim.com',
+                 'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live.tweakTrack',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-live-tweak-track-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-tweak-track-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -147,21 +147,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-live-tweakTrack-v1',
-                 'did:web:live.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-tweakTrack-v1',
+                 'did:web:live.etzhayyim.com',
                  'ai.gftd.apps.live.tweakTrack',
                  'live_tweak_track',
                  8000,
                  '2026-04-29T04:00:00Z',
-                 'did:web:live.gftd.ai',
-                 'did:web:live.gftd.ai',
+                 'did:web:live.etzhayyim.com',
+                 'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live.tweakTrack',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-live-tweakTrack-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-tweakTrack-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/apps-live-tweakTrack-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-tweakTrack-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/apps-live-tweak-track-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-tweak-track-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,14 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "WebSite",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-de5f7f7990df",
+  "entityId": "ent-de5f7f7990df",
+  "canonicalName": "www.youtube.com",
+  "aliases": [
+    "YouTube",
+    "www.youtube.com"
+  ],
+  "websites": [
+    "https://www.youtube.com"
+  ]
+}

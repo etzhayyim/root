@@ -24,7 +24,8 @@ from pathlib import Path
 from typing import Any, Literal, TypedDict
 
 
-OPEN_UNISPSC_DID = "did:web:unispsc.etzhayyim.com"
+OPEN_UNISPSC_DID = "did:web:etzhayyim.com:actor:open-unispsc"
+OPEN_UNISPSC_DID_LEGACY = "did:web:unispsc.etzhayyim.com"
 ACTOR_ID = "sys.worker.open-unispsc"
 Level = Literal["segment", "family", "class", "commodity"]
 

@@ -33,4 +33,4 @@ reputation lookups built on top of it remain vendor.
 
 - `60-apps/ai-gftd-project-open-wellbecoming/` (this repo, scaffolding)
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
-- [vendor: `projects/ai-gftd-project-{society6,trust}/CLAUDE.md`](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/tree/main/60-apps) (monetized reputation, stays vendor)
+- [vendor: `projects/ai-gftd-project-{society6,trust}/CLAUDE.md`](https://github.com/etzhayyim/etzhayyim-root/tree/main/60-apps) (monetized reputation, stays vendor)

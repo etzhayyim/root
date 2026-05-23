@@ -24,8 +24,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-settlementBundle-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-settlementBundle-v1',
+                 'did:web:market.etzhayyim.com',
                  'market_settlement_bundle',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -45,14 +45,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID:      ai.gftd.market.settlementBundle\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-settlementBundle-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-settlementBundle-v1\n'
                  '  binding allowlist: vertex_market_settlement\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_market_settlement_bundle"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/market"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/market"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.2">\n'
                  '  <bpmn:process id="market_settlement_bundle" name="market settlement bundle" '
@@ -134,10 +134,10 @@ UP = [{'sql': '\n'
                  4727,
                  '00-contracts/bpmn/ai/gftd/generic/settlementBundle.bpmn',
                  '2026-05-01T13:00:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-settlementBundle-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-settlementBundle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -151,23 +151,23 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/market-settlementBundle-v1',
-                 'did:web:market.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/market-settlementBundle-v1',
+                 'did:web:market.etzhayyim.com',
                  'ai.gftd.market.settlementBundle',
                  'market_settlement_bundle',
                  120000,
                  'vertex_market_settlement',
                  '2026-05-01T13:00:00Z',
-                 'did:web:market.gftd.ai',
-                 'did:web:market.gftd.ai',
+                 'did:web:market.etzhayyim.com',
+                 'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'did:web:market.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/market-settlementBundle-v1']}]
+                 'did:web:market.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/market-settlementBundle-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/market-settlementBundle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/market-settlementBundle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/market-settlementBundle-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-settlementBundle-v1']}]
 
 
 def upgrade() -> None:

@@ -28,7 +28,7 @@ interface ISafe {
 ///
 /// Usage:
 ///   forge script script/ExecSafeCall.s.sol \
-///     --rpc-url https://geth.gftd.ai --broadcast --legacy
+///     --rpc-url https://geth.etzhayyim.com --broadcast --legacy
 contract ExecSafeCall is Script {
     ISafe constant SAFE = ISafe(0xc0C20918372bf200faf3587eB0C6685a830daFc1);
 

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8f16333bdd34",
+  "entityId": "ent-8f16333bdd34",
+  "canonicalName": "jérôme kakwavu bukande",
+  "aliases": [
+    "jérôme kakwavu bukande"
+  ]
+}

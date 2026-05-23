@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0fb69f005c0a",
+  "entityId": "ent-0fb69f005c0a",
+  "canonicalName": "eşref küllebi",
+  "aliases": [
+    "eşref küllebi"
+  ]
+}

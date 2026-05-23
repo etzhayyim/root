@@ -1,4 +1,4 @@
-# open-gas.gftd.ai — Gas Utility Operations & Network Design (OSS)
+# open-gas.etzhayyim.com — Gas Utility Operations & Network Design (OSS)
 
 **Status**: MVP scaffold (2026-04-20). Reference implementation for natural-gas
 distribution network design (city-gate / regulators / pipe segments) and

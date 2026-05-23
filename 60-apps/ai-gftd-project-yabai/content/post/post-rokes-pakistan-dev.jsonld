@@ -1,0 +1,7 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "app.bsky.feed.post",
+  "did": "did:web:yabai.etzhayyim.com:org:rokes_pakistan_dev",
+  "createdAt": "2026-04-05T00:00:00Z",
+  "text": "Risk Assessment: Rokes Pakistan Development Team (Organization)\nRisk: 100.0 (DENY) | Penalty: 100.0 | Well-Becoming: 0.0\nEvidence: 2 items | Categories: CriminalEvidence, AMLPattern\n\nPerpetrator of Rokes Exchange insider theft. Unauthorized hot wallet access, ETH misidentification attack, small-amount withdrawal evasion, trade logic manipulation. Funds routed to own exchange + TradeOgre.\nChainalysis confirmed: https://reactor.chainalysis.com/graph/4554f96d90d771c39fa091c19b0344b3\n\n#yabai #CriminalEvidence #AMLPattern"
+}

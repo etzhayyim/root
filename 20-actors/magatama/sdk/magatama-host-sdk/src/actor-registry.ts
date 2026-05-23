@@ -12,6 +12,7 @@
  */
 
 import type { XrpcClient } from "./xrpc-client.js";
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { createKyselyDb } from "./kysely.js";
 import { str, nowISO } from "./helpers.js";
 import { USE_CASE_DEFAULTS } from "./llm-model-registry.js";

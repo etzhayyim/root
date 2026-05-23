@@ -21,26 +21,26 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          '    LANGUAGE sql\n'
          '    AS $$\n'
          '      SELECT CASE\n'
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:gleif'       THEN 'gleif'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata'    THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:gleif'       THEN 'gleif'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata'    THEN "
          "'wikidata'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata:%'  THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata:%'  THEN "
          "'wikidata'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:%'           THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:%'           THEN "
          "'registry_other'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite'            THEN 'stac'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite:%'          THEN 'stac'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic'              THEN 'seismic'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:street_view'          THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite'            THEN 'stac'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite:%'          THEN 'stac'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic'              THEN 'seismic'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:street_view'          THEN "
          "'mapillary'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:infrastructure'       THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:infrastructure'       THEN "
          "'overpass'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:geocode'              THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:geocode'              THEN "
          "'overpass'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:weather'              THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:weather'              THEN "
          "'overpass'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:gtfs'                 THEN 'gtfs'\n"
-         "        WHEN source_did LIKE 'did:web:site.gftd.ai'                      THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gtfs'                 THEN 'gtfs'\n"
+         "        WHEN source_did LIKE 'did:web:site.etzhayyim.com'                      THEN "
          "'web_crawl'\n"
          "        ELSE 'unsupported'\n"
          '      END\n'
@@ -56,13 +56,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-river:River',
-                 'did:web:maps.gftd.ai:registry:wikidata:river',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-river:River',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:river',
                  'River',
                  250000,
                  0.6,
                  720,
-                 'did:web:maps.gftd.ai:registry:wikidata:river',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:river',
                  '2026-05-08T00:16:46.135Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -73,13 +73,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-mountain:Mountain',
-                 'did:web:maps.gftd.ai:registry:wikidata:mountain',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-mountain:Mountain',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:mountain',
                  'Mountain',
                  500000,
                  0.6,
                  720,
-                 'did:web:maps.gftd.ai:registry:wikidata:mountain',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:mountain',
                  '2026-05-08T00:16:46.135Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -90,13 +90,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-lake:Lake',
-                 'did:web:maps.gftd.ai:registry:wikidata:lake',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-lake:Lake',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:lake',
                  'Lake',
                  100000,
                  0.6,
                  720,
-                 'did:web:maps.gftd.ai:registry:wikidata:lake',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:lake',
                  '2026-05-08T00:16:46.135Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -107,13 +107,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-island:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:island',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-island:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:island',
                  'Spot',
                  100000,
                  0.3,
                  720,
-                 'did:web:maps.gftd.ai:registry:wikidata:island',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:island',
                  '2026-05-08T00:16:46.135Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -124,13 +124,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-airport:Airport',
-                 'did:web:maps.gftd.ai:registry:wikidata:airport',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-airport:Airport',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:airport',
                  'Airport',
                  50000,
                  0.6,
                  720,
-                 'did:web:maps.gftd.ai:registry:wikidata:airport',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:airport',
                  '2026-05-08T00:16:46.135Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -141,13 +141,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-university:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:university',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-university:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:university',
                  'Spot',
                  30000,
                  0.3,
                  720,
-                 'did:web:maps.gftd.ai:registry:wikidata:university',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:university',
                  '2026-05-08T00:16:46.135Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

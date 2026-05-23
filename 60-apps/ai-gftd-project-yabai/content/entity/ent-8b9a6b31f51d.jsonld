@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8b9a6b31f51d",
+  "entityId": "ent-8b9a6b31f51d",
+  "canonicalName": "nagham al hayat ltd.",
+  "aliases": [
+    "nagham al hayat ltd."
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "@context": "https://magatama.etzhayyim.com/ns/v1",
+  "@type": "MagatamaApp",
+  "nanoid": "otch0001",
+  "name": "outreach",
+  "displayName": "GFTD Sales Outreach",
+  "description": "Sales Outreach Automation — LangGraph research→draft loop + DNC gate + Resend multi-step sequence + reply detection via gmail/m365Ingest.",
+  "did": "did:web:outreach.etzhayyim.com",
+  "domain": "outreach.etzhayyim.com",
+  "performerType": "service",
+  "uiType": "appview",
+  "runtimeType": "ts-thin-edge",
+  "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/outreach",
+  "routes": [
+    { "pattern": "otch0001.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
+    { "pattern": "outreach.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
+  ],
+  "subscribeRepos": [
+    {
+      "collection": "ai.gftd.apps.gmail.message",
+      "description": "Reply detection from Gmail ingest — correlate thread to active outreach sequence"
+    },
+    {
+      "collection": "ai.gftd.apps.m365Ingest.email",
+      "description": "Reply detection from M365 ingest — correlate thread to active outreach sequence"
+    }
+  ],
+  "capabilities": [
+    "ai.gftd.apps.outreach.createSequence",
+    "ai.gftd.apps.outreach.getSequence",
+    "ai.gftd.apps.outreach.listSequences",
+    "ai.gftd.apps.outreach.addProspect",
+    "ai.gftd.apps.outreach.addDnc"
+  ],
+  "integrations": {
+    "ads": "ai.gftd.apps.ads.createCampaign",
+    "email": "resend",
+    "replyIngest": ["ai.gftd.apps.gmail.message", "ai.gftd.apps.m365Ingest.email"]
+  },
+  "piiPolicy": {
+    "tier": 3,
+    "sensitivity_ord": 3,
+    "fields": ["email", "prospectName", "title", "company"],
+    "adr": "ADR-0018"
+  }
+}

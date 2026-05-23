@@ -631,7 +631,7 @@ async def test_sql_insert_row_derives_vertex_id_from_template(monkeypatch):
 @pytest.mark.asyncio
 async def test_sql_insert_row_existing_vertex_id_not_overwritten(monkeypatch):
     """If row already has vertex_id, the template is ignored — caller has
-    final say. (Mirrors gftdcojp_company_ops `_db_insert` semantics.)"""
+    final say. (Mirrors etzhayyim_company_ops `_db_insert` semantics.)"""
     import sys, types
     from pymagatama.tools_sql_worker_main import task_sql_insert_row
 

@@ -26,7 +26,7 @@ Vultr VKE remote buildx verification:
 
 ```sh
 70-tools/scripts/buildkit/remote-build.sh \
-  --image ghcr.io/gftdcojp/holochain-agent-actor-runtime \
+  --image ghcr.io/etzhayyim/holochain-agent-actor-runtime \
   --tag experimental-amd64 \
   --context 20-actors/magatama/holochain/agent-actor-runtime \
   --dockerfile 20-actors/magatama/holochain/agent-actor-runtime/Dockerfile \
@@ -36,7 +36,7 @@ Vultr VKE remote buildx verification:
 Verified pushed image:
 
 ```text
-ghcr.io/gftdcojp/holochain-agent-actor-runtime:experimental-amd64
+ghcr.io/etzhayyim/holochain-agent-actor-runtime:experimental-amd64
 digest: sha256:29a1f2f037a31a8ae0518272706368714610b3eba845667e9690834b31a031b0
 platform: linux/amd64
 ```
@@ -50,7 +50,7 @@ smoke previously lived in `70-tools/gftd/gftd/`; that tree was removed
 # (former) cd 70-tools/gftd/gftd
 # (former) go test . -run Holochain
 # (former) go run . agent-runtime holochain-plan \
-  --agent-did did:web:kami-agent.gftd.ai \
+  --agent-did did:web:kami-agent.etzhayyim.com \
   --happ-uri ipfs://bafy-happ \
   --dna-hash uhC0kagentactorruntime
 ```
@@ -58,7 +58,7 @@ smoke previously lived in `70-tools/gftd/gftd/`; that tree was removed
 VKE runtime smoke, 2026-05-09:
 
 - `mitama-udf/langgraph-server` returned `/healthz` OK and listed `echo`.
-- `POST /runs` with actor DID `did:web:holochain-agent-runtime.gftd.ai`
+- `POST /runs` with actor DID `did:web:holochain-agent-runtime.etzhayyim.com`
   completed as run `be761cd8-0a01-46e4-836f-4709ceabd925`.
 - The run output was `echo: holochain langgraph actor smoke 2026-05-09`.
 - The Holochain artifact image started in namespace `agent-runtime-holochain`

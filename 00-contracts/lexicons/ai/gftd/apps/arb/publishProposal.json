@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Publish a scored proposal to yoro social (T1 Social via app.bsky.feed.post) with mandatory disclaimer. Mentions are restricted to opt-in trader cohort handle (@trader.gftd.ai). NOT trade execution.",
+      "description": "Publish a scored proposal to yoro social (T1 Social via app.bsky.feed.post) with mandatory disclaimer. Mentions are restricted to opt-in trader cohort handle (@trader.etzhayyim.com). NOT trade execution.",
       "input": {
         "encoding": "application/json",
         "schema": {
@@ -12,7 +12,7 @@
           "required": ["proposalId"],
           "properties": {
             "proposalId":   { "type": "string" },
-            "mentionCohort": { "type": "string", "default": "trader.gftd.ai" }
+            "mentionCohort": { "type": "string", "default": "trader.etzhayyim.com" }
           }
         }
       },

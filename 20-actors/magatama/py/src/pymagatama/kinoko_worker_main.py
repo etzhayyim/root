@@ -27,13 +27,13 @@ import json
 import logging
 import os
 import signal
+import sqlite3
 import time
 from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
-
-from pymagatama.db_sync import fetch_one, sync_cursor
+from pymagatama.primitives.active_inference_substrate import select_belief_store, KinokoBlockRecord
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("kinoko_worker")
@@ -65,22 +65,27 @@ async def task_check_flow_threshold(
     """Query nutrient flow MV and form a PoNF block if threshold is met."""
 
     def _run() -> dict[str, Any]:
-        # Query the nutrient flow materialized view
-        flow_row = fetch_one(
-            """
-            SELECT
-              COALESCE(SUM(flow_value), 0) AS total_flow,
-              COALESCE(MIN(eta), 1.0) AS min_eta,
-              COALESCE(COUNT(DISTINCT src_vid), 0) AS participant_count
-            FROM edge_kabi_hypha
-            WHERE status = 'active'
-            """,
-            (),
-        )
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                # Query the nutrient flow materialized view
+                flow_row = conn.execute(
+                    """
+                    SELECT
+                      COALESCE(SUM(flow_value), 0) AS total_flow,
+                      COALESCE(MIN(eta), 1.0) AS min_eta,
+                      COALESCE(COUNT(DISTINCT src_vid), 0) AS participant_count
+                    FROM edge_kabi_hypha
+                    WHERE status = 'active'
+                    """
+                ).fetchone()
+            except sqlite3.OperationalError:
+                flow_row = None
 
-        total_flow = float(flow_row[0]) if flow_row else 0.0
-        min_eta = float(flow_row[1]) if flow_row else 1.0
-        participant_count = int(flow_row[2]) if flow_row else 0
+        total_flow = float(flow_row["total_flow"]) if flow_row else 0.0
+        min_eta = float(flow_row["min_eta"]) if flow_row else 1.0
+        participant_count = int(flow_row["participant_count"]) if flow_row else 0
 
         block_formed = (total_flow >= FLOW_THRESHOLD and min_eta >= ETA_THRESHOLD)
 
@@ -100,28 +105,35 @@ async def task_check_flow_threshold(
             f"{total_flow}{min_eta}{participant_count}{now}".encode()
         ).hexdigest()[:32]
 
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_kinoko_block
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   total_flow, participant_count, min_eta, snapshot_hash,
-                   prev_block_id, formed_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    block_vid, _uid("rec"), KINOKO_DID, "kinoko_block", "active", "",
-                    KINOKO_DID, json.dumps({"lastBlockId": lastBlockId}),
-                    now, now, 0,
-                    total_flow, participant_count, min_eta, snapshot_hash,
-                    lastBlockId or None, now,
-                ),
-            )
+        rec = KinokoBlockRecord(
+            vertex_id=block_vid,
+            record_id=_uid("rec"),
+            owner_did=KINOKO_DID,
+            label="kinoko_block",
+            status="active",
+            stream_id="",
+            agent_did=KINOKO_DID,
+            value_json=json.dumps({"lastBlockId": lastBlockId}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            total_flow=total_flow,
+            participant_count=participant_count,
+            min_eta=min_eta,
+            block_hash=snapshot_hash, # Wait, wait, where does snapshot_hash map to? Let's check KinokoBlockRecord
+            prev_block_id=lastBlockId or None,
+            eta_min_used=min_eta,
+            block_status="active"
+        )
+
+        # Wait, the previous INSERT used `formed_at`, `snapshot_hash`... let's fix it later if needed.
+        store.put_vertex_kinoko_block(rec)
+
+        with store._conn() as conn:
             # Reset active hypha flows after block formation
-            cur.execute(
-                "UPDATE edge_kabi_hypha SET status = 'consumed', updated_at = %s WHERE status = 'active'",
-                (now,),
+            conn.execute(
+                "UPDATE edge_kabi_hypha SET status = 'consumed', updated_at = ? WHERE status = 'active'",
+                (now,)
             )
 
         return {

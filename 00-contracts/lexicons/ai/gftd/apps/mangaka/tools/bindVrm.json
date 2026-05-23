@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "P16 step 7 of ai.gftd.apps.mangaka.composeCharacterVrm. Headless Blender (`--background --python`) on the VKE CPU pool runs the saturday06 VRM Add-on to take the rigged glTF + blendshape pack + spring-bone hints derived from `profile.gh:hair` and emit a VRM 1.0 binary. ARKit blendshape names are mapped onto VRM Expression presets. Self-hosted on `ghcr.io/gftdcojp/blender-vrm:4.1` (no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_bind_vrm.",
+      "description": "P16 step 7 of ai.gftd.apps.mangaka.composeCharacterVrm. Headless Blender (`--background --python`) on the VKE CPU pool runs the saturday06 VRM Add-on to take the rigged glTF + blendshape pack + spring-bone hints derived from `profile.gh:hair` and emit a VRM 1.0 binary. ARKit blendshape names are mapped onto VRM Expression presets. Self-hosted on `ghcr.io/etzhayyim/blender-vrm:4.1` (no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_bind_vrm.",
       "input": {
         "encoding": "application/json",
         "schema": {

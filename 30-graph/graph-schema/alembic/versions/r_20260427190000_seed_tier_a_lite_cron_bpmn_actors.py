@@ -46,8 +46,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/atproto-cron-tick-v1',
-                 'did:web:atproto.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/atproto-cron-tick-v1',
+                 'did:web:atproto.etzhayyim.com',
                  'atproto_cron_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -56,13 +56,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.atproto.cronTick\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/atproto-cron-tick-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/atproto-cron-tick-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_atproto_cron_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/atproto"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/atproto"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="atproto_cron_tick" name="atproto cron tick (R/PT5M)" '
@@ -125,9 +125,9 @@ UP = [{'sql': '\n'
                  2795,
                  '00-contracts/bpmn/ai/gftd/atproto/cronTick.bpmn',
                  '2026-04-27T19:00:00Z',
-                 'did:web:atproto.gftd.ai',
-                 'did:web:atproto.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/atproto-cron-tick-v1']},
+                 'did:web:atproto.etzhayyim.com',
+                 'did:web:atproto.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/atproto-cron-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -162,8 +162,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/claim-cron-tick-v1',
-                 'did:web:claim-consumer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/claim-cron-tick-v1',
+                 'did:web:claim-consumer.etzhayyim.com',
                  'claim_cron_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -172,13 +172,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.claim.cronTick\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/claim-cron-tick-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/claim-cron-tick-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_claim_cron_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/claim"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/claim"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="claim_cron_tick" name="claim cron tick (R/PT1M)" '
@@ -204,7 +204,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.http.fetch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;https://claim-consumer.gftd.ai/xrpc/ai.gftd.apps.claim.cronTick&quot;" '
+                 'source="=&quot;https://claim-consumer.etzhayyim.com/xrpc/ai.gftd.apps.claim.cronTick&quot;" '
                  'target="url"/>\n'
                  '          <zeebe:input source="=&quot;POST&quot;"             target="method"/>\n'
                  '          <zeebe:input source="=&quot;application/json&quot;" '
@@ -246,9 +246,9 @@ UP = [{'sql': '\n'
                  3038,
                  '00-contracts/bpmn/ai/gftd/claim/cronTick.bpmn',
                  '2026-04-27T19:00:00Z',
-                 'did:web:claim-consumer.gftd.ai',
-                 'did:web:claim-consumer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/claim-cron-tick-v1']},
+                 'did:web:claim-consumer.etzhayyim.com',
+                 'did:web:claim-consumer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/claim-cron-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -283,8 +283,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/murakumo-cron-tick-v1',
-                 'did:web:murakumo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/murakumo-cron-tick-v1',
+                 'did:web:murakumo.etzhayyim.com',
                  'murakumo_cron_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -293,13 +293,13 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.murakumo.cronTick\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/murakumo-cron-tick-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/murakumo-cron-tick-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_murakumo_cron_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/murakumo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/murakumo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="murakumo_cron_tick" name="murakumo cron tick (R/PT5M)" '
@@ -325,7 +325,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.http.fetch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;https://murakumo.gftd.ai/xrpc/ai.gftd.apps.murakumo.cronTick&quot;" '
+                 'source="=&quot;https://murakumo.etzhayyim.com/xrpc/ai.gftd.apps.murakumo.cronTick&quot;" '
                  'target="url"/>\n'
                  '          <zeebe:input source="=&quot;POST&quot;"             target="method"/>\n'
                  '          <zeebe:input source="=&quot;application/json&quot;" '
@@ -367,9 +367,9 @@ UP = [{'sql': '\n'
                  3065,
                  '00-contracts/bpmn/ai/gftd/murakumo/cronTick.bpmn',
                  '2026-04-27T19:00:00Z',
-                 'did:web:murakumo.gftd.ai',
-                 'did:web:murakumo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/murakumo-cron-tick-v1']},
+                 'did:web:murakumo.etzhayyim.com',
+                 'did:web:murakumo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/murakumo-cron-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -402,15 +402,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/atproto-cronTick-v1',
-                 'did:web:atproto.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/atproto-cronTick-v1',
+                 'did:web:atproto.etzhayyim.com',
                  'ai.gftd.apps.atproto.cronTick',
                  'atproto_cron_tick',
                  60000,
                  '2026-04-27T19:00:00Z',
-                 'did:web:atproto.gftd.ai',
-                 'did:web:atproto.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/atproto-cronTick-v1']},
+                 'did:web:atproto.etzhayyim.com',
+                 'did:web:atproto.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/atproto-cronTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -443,15 +443,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/claim-cronTick-v1',
-                 'did:web:claim-consumer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/claim-cronTick-v1',
+                 'did:web:claim-consumer.etzhayyim.com',
                  'ai.gftd.apps.claim.cronTick',
                  'claim_cron_tick',
                  60000,
                  '2026-04-27T19:00:00Z',
-                 'did:web:claim-consumer.gftd.ai',
-                 'did:web:claim-consumer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/claim-cronTick-v1']},
+                 'did:web:claim-consumer.etzhayyim.com',
+                 'did:web:claim-consumer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/claim-cronTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -484,28 +484,28 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/murakumo-cronTick-v1',
-                 'did:web:murakumo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/murakumo-cronTick-v1',
+                 'did:web:murakumo.etzhayyim.com',
                  'ai.gftd.apps.murakumo.cronTick',
                  'murakumo_cron_tick',
                  60000,
                  '2026-04-27T19:00:00Z',
-                 'did:web:murakumo.gftd.ai',
-                 'did:web:murakumo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/murakumo-cronTick-v1']}]
+                 'did:web:murakumo.etzhayyim.com',
+                 'did:web:murakumo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/murakumo-cronTick-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/atproto-cronTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/atproto-cronTick-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/claim-cronTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/claim-cronTick-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/murakumo-cronTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/murakumo-cronTick-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/atproto-cron-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/atproto-cron-tick-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/claim-cron-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/claim-cron-tick-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/murakumo-cron-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/murakumo-cron-tick-v1']}]
 
 
 def upgrade() -> None:

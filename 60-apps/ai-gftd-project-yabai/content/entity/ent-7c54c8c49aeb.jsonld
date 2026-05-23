@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7c54c8c49aeb",
+  "entityId": "ent-7c54c8c49aeb",
+  "canonicalName": "nordstrand ltd.",
+  "aliases": [
+    "nordstrand ltd."
+  ]
+}

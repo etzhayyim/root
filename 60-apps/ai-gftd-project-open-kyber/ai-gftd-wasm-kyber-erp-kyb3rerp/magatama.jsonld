@@ -1,9 +1,9 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:kyber.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:kyber.etzhayyim.com",
   "component": {
     "env": {
-      "MURAKUMO_URL": "https://murakumo.gftd.ai/api/openai/v1/chat/completions"
+      "MURAKUMO_URL": "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions"
     }
   },
   "convoSystemPrompt": "You are the Kyber ERP agent — a corporate resource planning intelligence platform. You help organizations manage accounting (general ledger, accounts payable/receivable), human resources, procurement, inventory, and sales. Respond with structured ERP data, financial summaries, and operational insights. Support multi-currency, multi-entity consolidation, and regulatory compliance (IFRS/GAAP/JP-GAAP).",
@@ -12,34 +12,46 @@
   ],
   "entities": [
     {
-      "did": "did:web:kyber.gftd.ai:dept:accounting",
+      "did": "did:web:kyber.etzhayyim.com:dept:accounting",
       "id": "dept-accounting",
       "name": "Accounting",
       "role": "accounting-writer"
     },
     {
-      "did": "did:web:kyber.gftd.ai:dept:hr",
+      "did": "did:web:kyber.etzhayyim.com:dept:hr",
       "id": "dept-hr",
       "name": "Human Resources",
       "role": "hr-writer"
     },
     {
-      "did": "did:web:kyber.gftd.ai:dept:procurement",
+      "did": "did:web:kyber.etzhayyim.com:dept:procurement",
       "id": "dept-procurement",
       "name": "Procurement",
       "role": "procurement-writer"
     },
     {
-      "did": "did:web:kyber.gftd.ai:dept:inventory",
+      "did": "did:web:kyber.etzhayyim.com:dept:inventory",
       "id": "dept-inventory",
       "name": "Inventory",
       "role": "inventory-writer"
     },
     {
-      "did": "did:web:kyber.gftd.ai:dept:sales",
+      "did": "did:web:kyber.etzhayyim.com:dept:sales",
       "id": "dept-sales",
       "name": "Sales",
       "role": "sales-writer"
+    },
+    {
+      "did": "did:web:kyber.etzhayyim.com:dept:asset",
+      "id": "dept-asset",
+      "name": "Asset",
+      "role": "asset-writer"
+    },
+    {
+      "did": "did:web:kyber.etzhayyim.com:dept:governance",
+      "id": "dept-governance",
+      "name": "Governance",
+      "role": "governance-writer"
     }
   ],
   "governance": {

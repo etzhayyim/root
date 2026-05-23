@@ -25,8 +25,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'media_gamers_chart_fetch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -58,7 +58,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_media_gamers_chart_fetch"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/media-gamers"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/media-gamers"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '\n'
@@ -114,10 +114,10 @@ UP = [{'sql': '\n'
                  '00-contracts/bpmn/ai/gftd/media-gamers/chartFetch.bpmn',
                  'active',
                  '2026-04-30T16:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers-chart',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -131,8 +131,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'media_gamers_chart_analyze',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -156,7 +156,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_media_gamers_chart_analyze"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/media-gamers"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/media-gamers"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '\n'
@@ -193,10 +193,10 @@ UP = [{'sql': '\n'
                  '00-contracts/bpmn/ai/gftd/media-gamers/chartAnalyze.bpmn',
                  'active',
                  '2026-04-30T16:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers-chart',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -211,24 +211,24 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'ai.gftd.apps.media_gamers.analyzeChart',
                  'media_gamers_chart_analyze',
                  180000,
                  'active',
                  '2026-04-30T16:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers-chart',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1']}]
 
 
 def upgrade() -> None:

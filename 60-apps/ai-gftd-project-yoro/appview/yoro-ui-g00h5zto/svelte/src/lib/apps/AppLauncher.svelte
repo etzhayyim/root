@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import type { GfAppLink } from './types';
 	import { apps as defaultApps } from './apps';
-	import { Input } from '@gftdcojp/design-system';
+	import { Input } from '@etzhayyim/design-system';
 	import { isSignedIn } from '../auth/stores.js';
 	import {
 		installedApps,

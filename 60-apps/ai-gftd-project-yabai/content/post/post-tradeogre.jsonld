@@ -1,0 +1,7 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "app.bsky.feed.post",
+  "did": "did:web:yabai.etzhayyim.com:org:tradeogre",
+  "createdAt": "2026-04-05T00:00:00Z",
+  "text": "Risk Assessment: TradeOgre (Organization)\nRisk: 97.0 (DENY) | Penalty: 30.0 | Well-Becoming: 7.0\nEvidence: 1 item | Categories: AMLPattern\n\nChainalysis categorized as high-risk exchange. Received stolen funds from Rokes Exchange insider theft. ETH address 0x4648451b5F87FF8F0F7D622bD40574bb97E25980 — 124.67 ETH balance, 59,483 transfers.\n\n#yabai #AMLPattern #TradeOgre #HighRiskExchange"
+}

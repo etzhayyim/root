@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7487814a7770",
+  "entityId": "ent-7487814a7770",
+  "canonicalName": "la compania general de niquel",
+  "aliases": [
+    "la compania general de niquel"
+  ]
+}

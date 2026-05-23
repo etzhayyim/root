@@ -45,7 +45,7 @@ The private chain currently runs on:
 - Single sealer EOA `0xaFed0Cb7633EDBd26aA52658e71528309F562501` (legacy-held key)
 - Canonical RPC at the legacy private-chain RPC host (legacy CF zone, Worker proxy)
 
-This is fine as a legacy-operated bootstrap. But per the operating-entity boundary (`amanomibashira` → `etzhayyim`, ADR-2605102200 + ADR-2605152100): the **religious-corp internal chain** belongs to etzhayyim, not to its upstream operator. The current state is a hold-over from before the org boundary was established. Now is the time to actualize the move.
+This is fine as a legacy-operated bootstrap. But per the operating-entity boundary (`etzhayyim` → `etzhayyim`, ADR-2605102200 + ADR-2605152100): the **religious-corp internal chain** belongs to etzhayyim, not to its upstream operator. The current state is a hold-over from before the org boundary was established. Now is the time to actualize the move.
 
 The chain itself does **not** need to physically move clouds today. The migration is staged so that brand / DNS / domain / governance shift to etzhayyim immediately, while the K8s deployment can stay on Vultr (under etzhayyim's governance contract with the legacy operator continuing as service provider) until natural infra-refresh time.
 

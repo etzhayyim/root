@@ -21,11 +21,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/osm_notes-eu:Spot',
-                 'did:web:maps.gftd.ai:osm_notes:eu',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/osm_notes-eu:Spot',
+                 'did:web:maps.etzhayyim.com:osm_notes:eu',
                  40000,
                  0.7,
-                 'did:web:maps.gftd.ai:osm_notes:eu',
+                 'did:web:maps.etzhayyim.com:osm_notes:eu',
                  '2026-05-08T00:20:39.953Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -36,11 +36,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/osm_notes-us:Spot',
-                 'did:web:maps.gftd.ai:osm_notes:us',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/osm_notes-us:Spot',
+                 'did:web:maps.etzhayyim.com:osm_notes:us',
                  30000,
                  0.7,
-                 'did:web:maps.gftd.ai:osm_notes:us',
+                 'did:web:maps.etzhayyim.com:osm_notes:us',
                  '2026-05-08T00:20:39.953Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -51,11 +51,11 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/osm_notes-global:Spot',
-                 'did:web:maps.gftd.ai:osm_notes:global',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/osm_notes-global:Spot',
+                 'did:web:maps.etzhayyim.com:osm_notes:global',
                  30000,
                  0.6,
-                 'did:web:maps.gftd.ai:osm_notes:global',
+                 'did:web:maps.etzhayyim.com:osm_notes:global',
                  '2026-05-08T00:20:39.953Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

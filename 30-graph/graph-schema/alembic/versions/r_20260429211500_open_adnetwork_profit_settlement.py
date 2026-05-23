@@ -56,8 +56,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-adnetwork-settle-business-profit-v1',
-                 'did:web:yoro.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-adnetwork-settle-business-profit-v1',
+                 'did:web:yoro.etzhayyim.com',
                  'open_adnetwork_settle_business_profit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -79,7 +79,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_adnetwork_settle_business_profit" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-adnetwork" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-adnetwork" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_adnetwork_settle_business_profit" '
                  'name="settleBusinessProfit" isExecutable="true">\n'
@@ -149,7 +149,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:yoro.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:yoro.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;business.profit.settleOpenAdnetwork&quot;" '
                  'target="action"/>\n'
@@ -172,12 +172,12 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/open-adnetwork/settleBusinessProfit.bpmn',
                  '2026-04-29T21:15:00+09:00',
-                 'did:web:yoro.gftd.ai',
-                 'did:web:yoro.gftd.ai',
+                 'did:web:yoro.etzhayyim.com',
+                 'did:web:yoro.etzhayyim.com',
                  'sys.bpmn.seed.business-profit',
-                 'did:web:yoro.gftd.ai',
-                 'did:web:yoro.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-adnetwork-settle-business-profit-v1']},
+                 'did:web:yoro.etzhayyim.com',
+                 'did:web:yoro.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-adnetwork-settle-business-profit-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_process_def\n'
          '    SET "xml" = $1,\n'
@@ -208,7 +208,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_adnetwork_settle_business_profit" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-adnetwork" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-adnetwork" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_adnetwork_settle_business_profit" '
                  'name="settleBusinessProfit" isExecutable="true">\n'
@@ -278,7 +278,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:yoro.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:yoro.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;business.profit.settleOpenAdnetwork&quot;" '
                  'target="action"/>\n'
@@ -300,7 +300,7 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  '00-contracts/bpmn/ai/gftd/open-adnetwork/settleBusinessProfit.bpmn',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-adnetwork-settle-business-profit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-adnetwork-settle-business-profit-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -316,17 +316,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-adnetwork-settle-business-profit-v1',
-                 'did:web:yoro.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-adnetwork-settle-business-profit-v1',
+                 'did:web:yoro.etzhayyim.com',
                  'ai.gftd.apps.openAdnetwork.settleBusinessProfit',
                  'open_adnetwork_settle_business_profit',
                  '2026-04-29T21:15:00+09:00',
-                 'did:web:yoro.gftd.ai',
-                 'did:web:yoro.gftd.ai',
+                 'did:web:yoro.etzhayyim.com',
+                 'did:web:yoro.etzhayyim.com',
                  'sys.bpmn.seed.business-profit',
-                 'did:web:yoro.gftd.ai',
-                 'did:web:yoro.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-adnetwork-settle-business-profit-v1']},
+                 'did:web:yoro.etzhayyim.com',
+                 'did:web:yoro.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-adnetwork-settle-business-profit-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          "    SET write_table_allowlist = 'vertex_open_adnetwork_profit_settlement',\n"
@@ -339,9 +339,9 @@ UP = [{'sql': '\n'
                  'ai.gftd.apps.openAdnetwork.settleBusinessProfit']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-adnetwork-settle-business-profit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-adnetwork-settle-business-profit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-adnetwork-settle-business-profit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-adnetwork-settle-business-profit-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_open_adnetwork_profit_settlement', 'parameters': []}]
 
 

@@ -21,12 +21,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-powerLineWd:PowerLine',
-                 'did:web:maps.gftd.ai:registry:wikidata:powerLineWd',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-powerLineWd:PowerLine',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:powerLineWd',
                  'PowerLine',
                  20000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:powerLineWd',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:powerLineWd',
                  '2026-05-08T00:21:19.048Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -37,12 +37,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-radioAntenna:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:radioAntenna',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-radioAntenna:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:radioAntenna',
                  'Spot',
                  5000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:radioAntenna',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:radioAntenna',
                  '2026-05-08T00:21:19.048Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -53,12 +53,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-fishingHarbor:Port',
-                 'did:web:maps.gftd.ai:registry:wikidata:fishingHarbor',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-fishingHarbor:Port',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:fishingHarbor',
                  'Port',
                  3000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:fishingHarbor',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:fishingHarbor',
                  '2026-05-08T00:21:19.048Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -69,12 +69,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-artificialIsland:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:artificialIsland',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-artificialIsland:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:artificialIsland',
                  'Spot',
                  1500,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:artificialIsland',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:artificialIsland',
                  '2026-05-08T00:21:19.048Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -85,12 +85,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-amusementRideWd:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:amusementRideWd',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-amusementRideWd:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:amusementRideWd',
                  'Spot',
                  5000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:amusementRideWd',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:amusementRideWd',
                  '2026-05-08T00:21:19.048Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

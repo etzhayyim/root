@@ -124,7 +124,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── clause→hanrei cite edges via edge_cites ─────────────────────────────────
   for (const cite of CITES) {
-    const srcVid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${cite.clauseCid}`;
+    const srcVid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contractClause/${cite.clauseCid}`;
     const dstVid = `at://did:web:hanrei.etzhayyim.com/ai.gftd.apps.hanrei.caseRecord/${cite.caseRkey}`;
     const edgeId = `edge:${cite.clauseCid}:cites:hanrei--${cite.caseRkey}`;
     const label = `判例 ${cite.caseRkey} — ${cite.paragraph}`;
@@ -149,7 +149,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       COUNT(DISTINCT e.dst_vid) FILTER (WHERE e.dst_vid LIKE 'at://did:web:hourei.etzhayyim.com/%') AS hourei_cites,
       COUNT(DISTINCT e.dst_vid) FILTER (WHERE e.dst_vid LIKE 'at://did:web:hanrei.etzhayyim.com/%') AS hanrei_cites,
       COUNT(DISTINCT e.dst_vid)                                                                AS total_cites
-    FROM vertex_gftdcojp_contract_clause cc
+    FROM vertex_etzhayyim_contract_clause cc
     LEFT JOIN edge_cites e ON e.src_vid = cc.vertex_id
     GROUP BY cc.contract_id, cc.clause_kind, cc.severity
   `.execute(db);

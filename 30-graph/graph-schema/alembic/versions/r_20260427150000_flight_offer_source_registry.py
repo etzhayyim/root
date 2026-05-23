@@ -10,7 +10,7 @@ from graph_schema.db import execute_sql_text
 
 
 revision = "r_20260427150000_flight_offer_source_registry"
-down_revision = 'r_20260427150000_backfill_operator_amanomibashira'
+down_revision = 'r_20260427150000_backfill_operator_etzhayyim'
 branch_labels = None
 depends_on = None
 

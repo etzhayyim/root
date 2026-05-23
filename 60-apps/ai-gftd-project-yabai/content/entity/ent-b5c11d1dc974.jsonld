@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-b5c11d1dc974",
+  "entityId": "ent-b5c11d1dc974",
+  "canonicalName": "nasser al sheikh ali",
+  "aliases": [
+    "nasser al sheikh ali"
+  ]
+}

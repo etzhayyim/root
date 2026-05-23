@@ -24,14 +24,14 @@ const CHAPTER_COLLECTION = "ai.gftd.narou.chapter";
 const NOVEL_COLLECTION = "ai.gftd.narou.novel";
 
 const VALID_TRANSITIONS: Record<ChapterStatus, ChapterStatus[]> = {
-  draft: ["in_review", "archived"],
+  draft: ["in_review", "published", "archived"],
   in_review: ["draft", "published", "archived"],
   published: ["archived"],
   archived: [],
 };
 
 function isValidChapterId(id: string): boolean {
-  return /^[a-z0-9]{1,64}$/i.test(id);
+  return /^[a-z0-9-]{1,64}$/i.test(id);
 }
 
 function canTransition(from: ChapterStatus, to: ChapterStatus): boolean {
@@ -45,6 +45,12 @@ export async function createChapter(
   if (!input.novel_id || !input.title || input.title.trim().length === 0) {
     return { status: "rejected", error: "missingRequiredFields" };
   }
+
+  // Validate novel_id first
+  if (!isValidChapterId(input.novel_id)) {
+    return { status: "rejected", error: "invalidNovelId" };
+  }
+
   const chapterIdBase = chapterSlug(input.title).slice(0, 32);
   const chapterId = input.chapter_num
     ? `${input.novel_id}-ch${input.chapter_num}`

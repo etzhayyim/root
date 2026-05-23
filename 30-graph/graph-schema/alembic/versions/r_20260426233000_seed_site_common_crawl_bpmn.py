@@ -22,14 +22,14 @@ UP = [{'sql': '\n'
          '           $6, 1, $7, $8, $9\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_ingest_site_common_crawl_delta"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/ingest"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/ingest"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="ingest_site_common_crawl_delta" name="ingest site Common '
@@ -223,10 +223,10 @@ UP = [{'sql': '\n'
                  8293,
                  '00-contracts/bpmn/ai/gftd/ingest/siteCommonCrawlDelta.bpmn',
                  '2026-04-26T23:30:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.site-common-crawl',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -237,18 +237,18 @@ UP = [{'sql': '\n'
          '           $3, 1, $4, $5, $6\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $7)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1',
-                 'did:web:ingest.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1',
+                 'did:web:ingest.etzhayyim.com',
                  '2026-04-26T23:30:00Z',
-                 'did:web:ingest.gftd.ai',
-                 'did:web:ingest.gftd.ai',
+                 'did:web:ingest.etzhayyim.com',
+                 'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.site-common-crawl',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1']}]
 
 
 def upgrade() -> None:

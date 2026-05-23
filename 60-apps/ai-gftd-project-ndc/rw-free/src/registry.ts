@@ -74,6 +74,15 @@ export async function registerDrug(
     record: record as unknown as Record<string, unknown>,
     rkey,
   });
+  // When both NDC and ATC are present, also index under the ATC rkey so
+  // lookupByCode({ atc }) can resolve the same record without scanning.
+  if (input.ndc && input.atc) {
+    await e.write({
+      collection: DRUG_COLLECTION,
+      record: record as unknown as Record<string, unknown>,
+      rkey: drugRkeyByAtc(input.atc),
+    });
+  }
   return {
     status: "registered",
     drugUri: receipt.uri,

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-3fefcdd006c3",
+  "entityId": "ent-3fefcdd006c3",
+  "canonicalName": "hawatma, nayif",
+  "aliases": [
+    "hawatma, nayif"
+  ]
+}

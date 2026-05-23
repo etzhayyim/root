@@ -13,7 +13,7 @@
           "did": {
             "type": "string",
             "format": "did",
-            "description": "Canonical nanoid DID (did:web:{nanoid}.gftd.ai). Compatible with app.bsky.actor.defs profile DID."
+            "description": "Canonical nanoid DID (did:web:{nanoid}.etzhayyim.com). Compatible with app.bsky.actor.defs profile DID."
           },
           "nanoid": { "type": "string", "description": "App nanoid identifier" },
           "handle": {

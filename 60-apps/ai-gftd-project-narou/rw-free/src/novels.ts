@@ -18,7 +18,7 @@ import {
 const NOVEL_COLLECTION = "ai.gftd.narou.novel";
 
 function isNovelId(id: string): boolean {
-  return /^[a-z0-9]{1,32}$/i.test(id);
+  return /^[a-z0-9-]{1,32}$/i.test(id);
 }
 
 export async function createNovel(
@@ -28,7 +28,9 @@ export async function createNovel(
   if (!input.title || input.title.trim().length === 0) {
     return { status: "rejected", error: "missingTitle" };
   }
-  const novelId = novelSlug(input.title).slice(0, 32);
+  const novelId = input.novel_id
+    ? input.novel_id
+    : novelSlug(input.title).slice(0, 32);
   if (!isNovelId(novelId)) {
     return { status: "rejected", error: "invalidNovelId" };
   }

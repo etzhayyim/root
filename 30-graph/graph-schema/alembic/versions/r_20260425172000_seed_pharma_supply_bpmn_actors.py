@@ -46,15 +46,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-pharma-supply-register-product-v1',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-pharma-supply-register-product-v1',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'open_pharma_supply_register_product',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_pharma_supply_register_product" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-pharma-supply" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-pharma-supply" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_pharma_supply_register_product" name="registerProduct" '
                  'isExecutable="true">\n'
@@ -82,7 +82,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-pharma-supply.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-pharma-supply.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.pharmaSupply.registerProduct&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -99,10 +99,10 @@ UP = [{'sql': '\n'
                  2391,
                  '00-contracts/bpmn/ai/gftd/open-pharma-supply/registerProduct.bpmn',
                  '2026-04-25T17:20:00Z',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'sys.bpmn.seed.pharma-supply',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-pharma-supply-register-product-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-pharma-supply-register-product-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -137,15 +137,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'open_pharma_supply_flag_shortage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_pharma_supply_flag_shortage" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-pharma-supply" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-pharma-supply" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_pharma_supply_flag_shortage" name="flagShortage" '
                  'isExecutable="true">\n'
@@ -176,7 +176,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-pharma-supply.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-pharma-supply.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.pharmaSupply.flagShortage&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -193,10 +193,10 @@ UP = [{'sql': '\n'
                  2623,
                  '00-contracts/bpmn/ai/gftd/open-pharma-supply/flagShortage.bpmn',
                  '2026-04-25T17:20:00Z',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'sys.bpmn.seed.pharma-supply',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -229,16 +229,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-pharma-supply-registerProduct-v1',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-pharma-supply-registerProduct-v1',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'ai.gftd.apps.pharmaSupply.registerProduct',
                  'open_pharma_supply_register_product',
                  15000,
                  '2026-04-25T17:20:00Z',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'sys.bpmn.seed.pharma-supply',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-pharma-supply-registerProduct-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-pharma-supply-registerProduct-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -271,25 +271,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-pharma-supply-flagShortage-v1',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-pharma-supply-flagShortage-v1',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'ai.gftd.apps.pharmaSupply.flagShortage',
                  'open_pharma_supply_flag_shortage',
                  15000,
                  '2026-04-25T17:20:00Z',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
-                 'did:web:open-pharma-supply.gftd.ai:ops',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
+                 'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'sys.bpmn.seed.pharma-supply',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-pharma-supply-flagShortage-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-pharma-supply-flagShortage-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-pharma-supply-registerProduct-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-pharma-supply-registerProduct-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-pharma-supply-flagShortage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-pharma-supply-flagShortage-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-pharma-supply-register-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-pharma-supply-register-product-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1']}]
 
 
 def upgrade() -> None:

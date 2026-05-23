@@ -1,0 +1,9 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "CreativeWork",
+  "@id": "https://yabai.etzhayyim.com/content/public/design-summary",
+  "name": "YABAI Public Design Summary",
+  "description": "Public disclosure of YABAI scoring design, collection pipeline, and governance model.",
+  "publishedAt": "2026-03-03T00:00:00Z",
+  "detailDocument": "https://yabai.etzhayyim.com/content/public/260303-yabai-wellbecoming-risk-design.md"
+}

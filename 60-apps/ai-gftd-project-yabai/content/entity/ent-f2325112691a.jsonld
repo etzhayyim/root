@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f2325112691a",
+  "entityId": "ent-f2325112691a",
+  "canonicalName": "awda, abd al aziz",
+  "aliases": [
+    "awda, abd al aziz"
+  ]
+}

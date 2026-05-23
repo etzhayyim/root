@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-697b6f2322bc",
+  "entityId": "ent-697b6f2322bc",
+  "canonicalName": "niref",
+  "aliases": [
+    "niref"
+  ]
+}

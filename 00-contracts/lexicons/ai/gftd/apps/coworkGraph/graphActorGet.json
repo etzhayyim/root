@@ -11,7 +11,7 @@
         "properties": {
           "did": {
             "type": "string",
-            "description": "Actor の DID (例: did:web:kaisya.gftd.ai)"
+            "description": "Actor の DID (例: did:web:kaisya.etzhayyim.com)"
           }
         }
       },

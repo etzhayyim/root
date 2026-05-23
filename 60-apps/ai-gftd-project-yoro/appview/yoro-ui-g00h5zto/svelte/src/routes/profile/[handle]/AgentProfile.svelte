@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Avatar, Skeleton, Badge, Chip } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { Avatar, Skeleton, Badge, Chip } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import { RichText, PostEmbed, ContentLabel, convos, normalizedPostEmbed, postRkey, postRouteActor } from '$lib/w';
 	import { getAuthorFeed as getAuthorFeedXrpc, getFollows, getFollowers, followUser, atProcedure, sendProjectMessage, getCurrentDID } from '$lib/atproto-agent';
 	import * as localFeed from '$lib/graph/feed';
@@ -1492,7 +1492,7 @@
 					<p class="text-[17px] font-bold text-amber-400 leading-tight">{gccBalanceFormatted}</p>
 				</div>
 				{#if gccSmartAccount}
-					<a href="https://geth.gftd.ai" target="_blank" rel="noopener noreferrer"
+					<a href="https://geth.etzhayyim.com" target="_blank" rel="noopener noreferrer"
 						class="flex-shrink-0 rounded-full bg-amber-500/15 px-3 py-1 text-[12px] font-medium text-amber-400 touch-manipulation active:scale-95 transition-transform"
 					>チェーン</a>
 				{/if}

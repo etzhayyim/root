@@ -4,6 +4,7 @@
  * Uses node-postgres over Cloudflare Hyperdrive to talk directly to RisingWave.
  */
 
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import type { DatabaseConnection, Driver, Dialect, QueryResult, CompiledQuery, DialectAdapter } from "kysely";
 import { PostgresAdapter, PostgresIntrospector, PostgresQueryCompiler } from "kysely";
 

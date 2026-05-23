@@ -31,7 +31,7 @@ name = "etzhayyim"
 name_ja = "天御柱"
 name_hebrew = "עץ חיים"
 name_hebrew_romanized = "etzhayyim"
-aliases = ["amanomibashira", "etz hayim", "etz_hayim", "etzhayim", "etz chaim", "etz chayim", "エツ・ハイム", "天御柱"]
+aliases = ["etzhayyim", "etz hayim", "etz_hayim", "etzhayim", "etz chaim", "etz chayim", "エツ・ハイム", "天御柱"]
 form = "宗教法人 (任意団体)"
 form_en = "Religious voluntary association (unincorporated)"
 registry = "On-chain (blockchain-registered constitution and member roster)"
@@ -50,7 +50,7 @@ github_org_open_monorepo = "etzhayyim/root"
 
 [platform.deployment]
 # etzhayyim/* の deployment target は Murakumo Mac-mini fleet のみ。
-# gftd.ai legacy は Vultr 残置(本 monorepo 範囲外)。
+# etzhayyim.com legacy は Vultr 残置(本 monorepo 範囲外)。
 # ADR-2605191346 で hard rule 化。
 tier_0_edge = "Cloudflare Workers / Pages (CDN as thin layer; persistent state in MST/IPFS/L2)"
 tier_1_compute = "Murakumo Mac-mini fleet (10 nodes, ADR-2605182312)"
@@ -63,7 +63,7 @@ prohibited = [
   "EKS / GKE / AKS / DigitalOcean Kubernetes",
   "any commercial K8s control plane",
 ]
-vultr_status = "gftd.ai legacy only; etzhayyim/* completely separated per ADR-2605191346"
+vultr_status = "etzhayyim.com legacy only; etzhayyim/* completely separated per ADR-2605191346"
 
 [platform.substrate]
 # Hard rules for any module under etzhayyim/root.
@@ -122,6 +122,59 @@ address_testnet = ""
 address_local_anvil = "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0"  # anvil chainId 260425, deployed 2026-05-17 (validated: join + advance L1→L7 OK)
 levels = ["1=誓 Oath", "2=修 Practice", "3=献 Dedication", "4=証 Witness", "5=護 Steward", "6=議 Council", "7=老 Elder"]
 deploy_status = "local-anvil-validated"
+
+# ─── Substrate-axis migration contracts (ADR-2605211950 axis) ────────
+
+[platform.l2.authz_contract]
+# EtzhayyimAuthz — ERC725 root identity registry (etzhayyim authz; replaces
+# vendor authz.etzhayyim.com ERC725 issuance per substrate centralization axis).
+# Source: 50-infra/etzhayyim-authz/contracts/src/EtzhayyimAuthz.sol
+source = "50-infra/etzhayyim-authz/contracts/"
+xrpc_handler = "50-infra/etzhayyim-authz/src/worker.ts"   # CF Worker, viem chain integration
+lexicons = "00-contracts/lexicons/org/etzhayyim/authz/"   # 5 lexicons (begin/complete/resolve/mirror/getProvenance)
+adr_design = "2605212030"
+adr_axis = "2605211950"
+forge_tests = "17 passing locally (provisioning + mirror + rotation + deactivate + ownership)"
+address_mainnet = ""
+address_testnet = ""    # set after `forge script Deploy.s.sol run(councilSafe) --rpc-url base_sepolia --broadcast`
+address_local_anvil = "0x5fbdb2315678afecb367f032d93f642f64180aa3"  # anvil chainId 31337, 2026-05-21 smoke (deploy + provisionRoot + resolveDwebHandle E2E PASS)
+deploy_status = "anvil-31337-smoke-validated, base-sepolia-dry-run-validated (gas ~0.000016 ETH)"
+
+[platform.l2.karma_anchor_contract]
+# KarmaAnchor — daily Merkle-root + IPFS CID anchor for K2 cohort-internal events.
+# Source: 50-infra/etzhayyim-k2/contracts/src/KarmaAnchor.sol
+source = "50-infra/etzhayyim-k2/contracts/"
+adr_design = "2605212040"
+adr_axis = "2605211950"
+forge_tests = "10 passing (submitAnchor happy + reverts, verifyLeaf 4-leaf tree, ownership)"
+address_mainnet = ""
+address_testnet = ""
+deploy_status = "phase-β-scaffold (foundry build + test passing locally; testnet deploy pending)"
+
+[platform.l2.cohort_lifecycle_contract]
+# CohortLifecycle — K2 cohort state machine (Genesis / Active / Fissioned / Decommissioned / Resumed).
+# Source: 50-infra/etzhayyim-k2/contracts/src/CohortLifecycle.sol
+source = "50-infra/etzhayyim-k2/contracts/"
+adr_design = "2605212040"
+adr_axis = "2605211950"
+forge_tests = "12 passing (genesis / activate / fission / decommission / resume / ownership)"
+address_mainnet = ""
+address_testnet = ""
+deploy_status = "phase-β-scaffold (foundry build + test passing locally; testnet deploy pending)"
+
+[platform.l2.fiat_bridge_reserve]
+# Reserve — Council-controlled USDC reserve for the Stripe Issuing → ERC-4337 bridge.
+# Operator-gated creditFromFiat with atomic 90/10 split (recipient / Public Fund tithe).
+# Source: 50-infra/etzhayyim-fiat-bridge/contracts/src/Reserve.sol
+source = "50-infra/etzhayyim-fiat-bridge/contracts/"
+adr_design = "2605212050"
+adr_axis = "2605211950"
+forge_tests = "25 passing (construction + credit happy/reverts + cap rollover + tithe + Council config + withdraw)"
+default_daily_cap_micros = 50_000_000_000   # 50,000 USDC/day initial proposal
+default_tithe_bps = 1000                    # 10% per ADR-2605192130
+address_mainnet = ""
+address_testnet = ""
+deploy_status = "phase-δ-scaffold (foundry build + test passing locally; testnet deploy pending)"
 
 # ─── Private chain ────────────────────────────────────────────────────
 # geth-private migration to etzhayyim.com per ADR-2605172800 (in progress).
@@ -289,6 +342,121 @@ gateway_url = "http://simeonnomac-mini.local:8080"
 location_host = "simeon"
 kubo_version = "0.41.0"
 deploy_status = "live"
+
+[platform.langserver]
+# etzhayyim-langserver — Murakumo-fleet LSP 常駐 substrate.
+# Tier 1 launchd 常駐 per ADR-2605192415 §7.1.
+# Status as of 2026-05-21: L1–L9 all 9 reverse-topo layers landed in one
+# session (host inventory → plist → binary pins → socket transport → mesh →
+# health probe → observability → editor bridge → cell-runner integration).
+# plist load gated on user confirmation per CLAUDE.md (HW probe required).
+# ADR: 2605212150-etzhayyim-langserver-substrate.md
+adr = "2605212150"
+session_built = "2026-05-21 (reverse-topo, 9 layers in one /loop run)"
+module_path = "50-infra/etzhayyim-langserver/"
+manifest    = "50-infra/etzhayyim-langserver/langservers.toml"
+hosts_toml  = "50-infra/etzhayyim-langserver/hosts.toml"
+plist_template = "50-infra/etzhayyim-langserver/launchd/com.etzhayyim.langserver.template.plist"
+listen_port_range_proposed = [15500, 15600]  # collision-free vs cells 13000-14000, phenotype 14000+
+languages_pinned = ["rust", "python", "typescript", "go", "lua", "ruby"]
+transport_prereqs = ["socat@1.8.0.3", "jq@1.7.1"]
+ssot_authority = "langservers.toml"  # deps.toml mirrors; bumps land in langservers.toml first
+transports_toml = "50-infra/etzhayyim-langserver/transports.toml"
+
+[platform.langserver.transport_ports]
+# Mirror of transports.toml [[transport]] entries (L4 SSoT).
+# Default mode = mesh-both (Unix socket + mesh-IP TCP). L5 upgrades bind addr.
+rust       = 15510
+python     = 15511
+typescript = 15512
+go         = 15513
+lua        = 15514
+ruby       = 15515
+socket_dir_macos = "/tmp/etzhayyim-langserver-$USER"
+socket_mode = "0600"
+
+[platform.langserver.mesh]
+# L5 mesh binding policy. Mesh substrate: 50-infra/cluster/murakumo/.
+# Runtime mesh-IP resolved from ~/.etzhayyim/mesh/identity.json (target) or
+# ~/.gftd/mesh/identity.json (legacy; cutover pending).
+mesh_substrate_path = "50-infra/cluster/murakumo/"
+mesh_subnet = "10.99.0.0/16"
+default_bind_policy = "mesh"      # bind langserver TCP to mesh-IP, not loopback
+fleet_registry_script = "50-infra/etzhayyim-langserver/scripts/generate-fleet-registry.sh"
+fleet_registry_output = "50-infra/etzhayyim-langserver/scripts/lsp-fleet.json"
+listen_addr_default = "mesh-both"  # ETZHAYYIM_LISTEN_ADDR default in run-langserver.sh
+
+[platform.langserver.healthz]
+# L6 health-check sidecar. Spawned as background process by run-langserver.sh
+# (Python stdlib http.server, no third-party deps). Port = LSP port + 100.
+sidecar = "50-infra/etzhayyim-langserver/healthz/healthz-sidecar.py"
+port_range = [15600, 15700]
+port_offset_from_lsp = 100
+watchdog_script = "50-infra/etzhayyim-langserver/scripts/watchdog.sh"
+endpoint_path = "/healthz"
+probe_modes = ["tcp_connect", "lsp_initialize_handshake"]
+probe_mode_default = "tcp_connect"  # --deep flag opts into lsp_initialize_handshake
+process_supervision = "launchd KeepAlive + ThrottleInterval=15 (defined in plist)"
+flap_handling = "ThrottleInterval=15s minimum between restarts; deeper flap handling in future LangserverHealthMonitoringCell (L9)"
+
+[platform.langserver.observability]
+# L7 observability stack. Three signals: on-disk logs (launchd), metrics
+# (Prometheus textfile on healthz sidecar /metrics), optional stream (NATS).
+obs_toml = "50-infra/etzhayyim-langserver/obs.toml"
+on_disk_log_pattern = "/Users/<tribe>/.etzhayyim/log/langserver.<lang>.{stdout,stderr}.log"
+rotation_mechanism = "macOS newsyslog (system-provided)"
+rotation_config = "50-infra/etzhayyim-langserver/newsyslog.d/etzhayyim-langserver.conf"
+rotation_size_mb = 50
+rotation_keep = 5
+metrics_endpoint = "/metrics on healthz sidecar (Prometheus text/plain v0.0.4)"
+metrics_exposed = [
+  "etzhayyim_langserver_up",
+  "etzhayyim_langserver_uptime_seconds",
+  "etzhayyim_langserver_probe_latency_seconds (probe=tcp|deep)",
+  "etzhayyim_langserver_probe_failures_total",
+  "etzhayyim_langserver_probe_total",
+]
+nats_forwarder = "50-infra/etzhayyim-langserver/scripts/ship-logs-to-nats.sh"
+nats_enabled_default = false  # opt-in via --apply
+nats_subject_template = "etzhayyim.langserver.<host>.<lang>.<stream>"
+nats_dep = "nats CLI (brew install nats-io/nats-tools/nats)"
+prometheus_existing_endpoint = "http://murakumo.etzhayyim.local:9090"  # per [monitoring] in fleet.toml
+
+[platform.langserver.editor_bridge]
+# L8 editor remote-LSP attach. Single shim (attach-langserver.sh) is the
+# fleet-wide socat stdio↔TCP bridge; Neovim is special-cased to use its
+# native vim.lsp.rpc.connect() (no socat needed).
+attach_script = "50-infra/etzhayyim-langserver/scripts/attach-langserver.sh"
+attach_script_dependency = "socat (L3 prereq)"
+configs_dir = "50-infra/etzhayyim-langserver/editor-configs/"
+editors_supported = ["nvim", "helix", "zed", "vscode"]
+nvim_transport = "vim.lsp.rpc.connect (native TCP, no socat)"
+other_editor_transport = "stdio via attach-langserver.sh shim → socat → tcp://<mesh-ip>:<port>"
+source_of_truth = "scripts/lsp-fleet.json (no IPs duplicated in editor configs)"
+
+[platform.langserver.cell_integration]
+# L9 root layer. Pregel cells query fleet LSPs via langserver_client helper.
+client_module = "20-actors/magatama/py/src/pymagatama/primitives/langserver_client.py"
+reference_cell_module = "20-actors/magatama/py/src/pymagatama/primitives/langserver_murakumo.py"
+reference_cell_name = "LangserverHealthMonitoringCell"
+reference_cell_node = "levi"
+reference_cell_trigger = "cron */5 * * * *"
+reference_cell_healthz_port = 13028  # registered in cells.toml; sibling of joucho 13027
+cells_toml_path = "50-infra/cluster/murakumo/cell-runner/cells.toml"
+mst_listener_nsid_target = "ai.gftd.apps.etzhayyim.langserver.health"  # pending lexicon registration
+lexicon_status = "deferred (00-contracts/lexicons/app/etzhayyim/langserver/ unregistered as of 2026-05-21)"
+helpers_available = ["initialize", "shutdown", "hover", "definition", "references", "rename"]
+transport_default = "tcp"  # mesh-IP path; "unix" available for same-host cells
+
+[platform.langserver.pins]
+# Mirror of [[langserver]] entries in langservers.toml — keep in sync.
+# Bump via PR-per-language; refuse silent upgrades.
+rust       = { name = "rust-analyzer",             version = "2026-01-13", install = "rustup component add rust-analyzer" }
+python     = { name = "pyright",                   version = "1.1.401",    install = "npm install -g pyright@1.1.401" }
+typescript = { name = "typescript-language-server", version = "4.3.4",     install = "npm install -g typescript-language-server@4.3.4 typescript@5.7.3" }
+go         = { name = "gopls",                     version = "v0.18.1",    install = "go install golang.org/x/tools/gopls@v0.18.1" }
+lua        = { name = "lua-language-server",       version = "3.15.0",     install = "brew install lua-language-server" }
+ruby       = { name = "ruby-lsp",                  version = "0.23.0",     install = "gem install --user-install ruby-lsp -v 0.23.0" }
 
 [platform.cell_fleet]
 runtime = "Python 3 + web3.py + eth-account (uv-managed)"
@@ -528,7 +696,7 @@ path = "90-docs/adr/2605191257-ameno-daemon-path-b-pymagatama-python.md"
 id = "2605191346"
 title = "etzhayyim is Vultr-free — Murakumo Mac-mini fleet as the only Tier-1 substrate"
 status = "proposed"
-status_note = "Hard architectural boundary: etzhayyim/* は Vultr / 他 commercial K8s 一切非依存。gftd.ai legacy は Vultr 残置(本 ADR 範囲外)。Tier 1 = Murakumo Mac-mini fleet only。Control plane primary = native systemd/launchd(軽量 stateless)、secondary = K3s HA on 3 Mac minis(HA stateful only)。geth-private migration ADR-2605172800 §Option C を本 ADR で確定。Cloudflare edge は retain(別 ADR で離脱検討)。Deadlines: M1 K3s bring-up 2026-06-15, M5 geth production switch 2026-08-15, M6 Vultr decommission 2026-09-01, M7 50-infra/vultr/* 別 repo 物理分離 2026-09-15。"
+status_note = "Hard architectural boundary: etzhayyim/* は Vultr / 他 commercial K8s 一切非依存。etzhayyim.com legacy は Vultr 残置(本 ADR 範囲外)。Tier 1 = Murakumo Mac-mini fleet only。Control plane primary = native systemd/launchd(軽量 stateless)、secondary = K3s HA on 3 Mac minis(HA stateful only)。geth-private migration ADR-2605172800 §Option C を本 ADR で確定。Cloudflare edge は retain(別 ADR で離脱検討)。Deadlines: M1 K3s bring-up 2026-06-15, M5 geth production switch 2026-08-15, M6 Vultr decommission 2026-09-01, M7 50-infra/vultr/* 別 repo 物理分離 2026-09-15。"
 path = "90-docs/adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md"
 
 [[adrs]]
@@ -665,6 +833,7 @@ title = "etzhayyim Bootstrap Council 5名 — initial Lv6+ ロスター + 5軸 e
 status = "proposed"
 status_note = "Seat 1 (Founder=Jun Kawasaki) 固定 + Seat 2-5 (Substrate/Legal-Ethics/Economics/Stewardship) を 30日 public objection period で確定。3-of-5 multisig が Charter attestation / PublicFund grant / Land dispute / Force authorization / Steward succession / Eros-Gore boundary 判断の sign-off。Phase 2 (formal Council ADR) 移行 trigger: 構成員1000名 / Council 1名 死亡 / 構成員 3 名 request / 12ヶ月経過"
 path = "90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md"
+operational_addendum = "90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md"  # 2026-06-19 selection rubric + objection workflow + 5-mode failure tree (2026-05-21 session)
 
 [[adrs]]
 id = "2605192315"
@@ -749,6 +918,13 @@ title = "magatama-cell-runner launchd LaunchAgent — operationalising Tier 1 �
 status = "proposed"
 status_note = "ADR-2605192415 §7.1 + ADR-2605201400-1900 (kuni-umi S0-S5) で spec 完成済みの religious-corp + kuni-umi daemon を Murakumo Mac mini fleet で 常駐起動するための OS-level boot path を closure。3 artefact: (1) 20-actors/magatama/py/pyproject.toml に `[project.scripts] magatama-cell-runner = pymagatama.cell_runner_main:main` 追加で CLI を PATH-resolvable に、(2) 50-infra/cluster/murakumo/cell-runner/com.etzhayyim.magatama-cell-runner.plist を @@PLACEHOLDER@@ 形式 template として固定 (litellm/ameno-daemon plist と同 pattern、no personal paths in git per GitGuardian lesson)、(3) install.sh が --node 12-tribe allowlist 検証 + uv sync + --health pre-flight check + bash parameter expansion 経由 placeholder substitution + sanity gate (@@-marker residue check) + idempotent launchctl reload。`start_cell` の subprocess spawn / MstCheckpointSaver / MST listener / healthz / swarm heartbeat は引き続き staged TODO — 本 ADR scope は OS-level boot path のみ。Plutil syntax + bash substitution + magatama-cell-runner --health smoke 全 PASS 検証済 (2026-05-20 dev laptop)."
 path = "90-docs/adr/2605202100-etzhayyim-magatama-cell-runner-launchd.md"
+
+[[adrs]]
+id = "2605211845"
+title = "gftd org cleanup completion + kami-engine-sdk standalone publication"
+status = "accepted"
+status_note = "Closes the long-running etzhayyim [MOVED → etzhayyim/root] cleanup. 15 MOVED-tagged repos physically deleted (0 remaining). public-global was MOVED-tagged but never actually imported — fetched into 60-apps/ai-gftd-project-public-global/ before deletion to reconcile the description (commit 690135d3). kami-engine-sdk republished as standalone read-only mirror at github.com/etzhayyim/kami-engine-sdk (monorepo SoT preserved); npm scope renamed @etzhayyim/kami-engine-sdk → @etzhayyim/kami-engine-sdk in 7 files (commit d302f274). Standalone-mirror policy = explicit one-by-one decision, no bulk; kami-engine-sdk is the only carve-out at the time of this ADR. Operational note: a concurrent 6-wave religious-corp cell substrate commit plan (yoro / shinka / etzhayyim-sdk-py / joucho / council + cross-cutting) committed 5 waves (64804ab2..0b6bfa55) to PR #254 but the cross-cutting wave was lost to a parallel git reset --hard origin/main; PR #254 closed without merge in favour of the user's parallel reconstruction."
+path = "90-docs/adr/2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone.md"
 
 # ─── Module registry ────────────────────────────────────────────────
 
@@ -1481,7 +1657,7 @@ status = "mechanical-complete-2026-05-18"
 closure_summary = """Tranche F mechanical migration COMPLETE 2026-05-18.
 27 PRs landed (17 vendor + 10 etzhayyim/root). ~520 items NSID-migrated,
 ~3,500 files touched, 17 npm packages published. Vendor side closure
-canonical: gftdcojp/ai-gftd-apps-gftdcojp deps.toml [[migrations]]
+canonical: etzhayyim/etzhayyim-root deps.toml [[migrations]]
 id=tranche-f-closure-summary-2026-05-18 (PR #1306).
 ADR closure: 90-docs/adr/2605172400 # Closure section (PR #1307).
 
@@ -1578,10 +1754,270 @@ Phase 4 (business-app dep switch) and Phase 5 (upstream open-scope
 deletion). No file content is moved in Phase 2; Phase 3 (content copy via
 `git subtree split` / `git filter-repo`) is a separate work item."""
 
+# ─── Tranche F Phase 3-6 governance + runbook layer (2026-05-21) ───────
+
+[platform.tranche_f.phase_3_to_6_governance_2026_05_21]
+# Closure governance dossier landed during the 2026-05-21 evening session.
+# Captures the design + runbook + survey + checklist artifacts. Per-worker
+# Python code execution (gate (a)) remains OPEN at session end — see the
+# gate-a-execution-checklist + session post-mortem.
+status = "governance-complete-2026-05-21"
+gates_design_closed_at = "2026-05-21T17:57:00Z"
+gate_a_execution_state = "IN_PROGRESS — 11 / 42 rows ticked in checklist (§1 primitives 4/4 + §5 utility audit 5/5 + §3 Wave A 2/2; 31 remaining across §2/§3 Wave B-C/§4/§6)"
+gate_a_execution_percent = 26  # 11/42 ≈ 26%
+gate_a_session_progress_2026_05_21 = """Session 2026-05-21 evening Phase 1 close:
+
+§1 substrate primitives (P1-P4): 4/4 ✅
+  - P1 active_inference_substrate.py: _DualWriteBeliefStore class removed,
+    _build_single_backend_store rewritten RW-free, default backend at-ipfs-local
+  - P2 at_ipfs_belief_store.py: vendor verbatim copy (no RW imports in vendor)
+  - P3 worker_runtime.py: new file at pymagatama root, 4 symbols
+    (watchdog/activation_monitor/task_sqlite_health_probe/make_degraded_ingest_stub)
+  - P4 ingest/core.py: _psql_enabled() → False (RW path disabled);
+    4 helpers (upsert_run/mark_run_finished/upsert_cursor/upsert_artifact) retained
+
+§5 utility audit (U1-U5): 5/5 ✅
+  - tools_const/http/json/time/transform: all 0 SQL hits, byte-identical
+    copy to religious-corp
+
+§3 Wave A (W9-W10): 2/2 ✅
+  - tools_audit_worker_main.py: already ported (docstring confirms
+    "No psycopg / RW_URL dependency"); task_audit_emit importable
+  - sixir_worker_main.py: already ported; 8 task handlers importable
+    (list/get × company/filing/earnings)
+
+Remaining (31 rows):
+  §2 BeliefStore organism cluster (W1-W8):    8 rows
+  §3 Wave B+C (W11-W20):                      10 rows
+  §4 ingest-coupled (W21-W24):                4 rows
+  §6 ingest modules (I1-I4):                  4 rows
+  + 5 utility rows already done (§5)
+
+Session limit hit on parallel agent execution (Sonnet rate limit, Asia/Tokyo
+9:10pm reset). Direct implementation closed §1 P3+P4 + verified §5 + §3 Wave A
+imports."""
+governance_summary = """ADR-2605152100 6-phase cutover doc-runbook complete:
+
+- Phase 3 gate (a) per-worker re-impl       — 42-row execution checklist
+                                                (90-docs/2605211949-gate-a-execution-checklist.md)
+- Phase 3 gate (b) DNS cutover              — ADR-2605211757 (431 lines)
+- Phase 3 gate (c) deployment surface       — inline in ADR-2605211757 §0 + §3.1
+- Phase 3 gate (d) vendor importer survey   — 90-docs/2605211800-...md
+                                                + 3 lg relocates + 1 hume inline
+- Phase 4 vendor business-app dep switch    — ADR-2605211913 §1
+- Phase 5 vendor open-scope deletion        — ADR-2605211913 §2 (gated on gate (a))
+- Phase 6 archive markers                   — ADR-2605211925 (gated on Phase 5)
+
+Snapshot: 90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md
+Index:    90-docs/TRANCHE-F-INDEX.md
+Post-mortem: 90-docs/2605212020-session-post-mortem-2026-05-21.md (covers
+             intentional revert pattern + remaining open execution items)
+
+Cross-repo: gftd-side deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17
+            closure_confirmed_by + closure_evidence point back to this repo.
+            ADR-2605212100 §2 STATUS blocks (gftd) match this repo's honest framing."""
+artifacts = [
+  "README.md (Status section, +20 lines)",
+  "90-docs/TRANCHE-F-INDEX.md (120 lines, operator navigator)",
+  "90-docs/CLAUDE.md (Tranche F dossier section, +18 lines)",
+  "90-docs/2605211800-vendor-importer-survey-gate-d.md (99 lines)",
+  "90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md (159 lines)",
+  "90-docs/2605211949-gate-a-execution-checklist.md (200 lines, 42 checkbox rows)",
+  "90-docs/2605212020-session-post-mortem-2026-05-21.md (180 lines)",
+  "90-docs/adr/2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com.md (431 lines)",
+  "90-docs/adr/2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook.md (388 lines)",
+  "90-docs/adr/2605211925-phase-6-archive-markers-runbook.md (361 lines)",
+  "20-actors/magatama/CLAUDE.md (Tranche F gate (a) section, +40 lines)",
+  "60-apps/ai-gftd-project-curpus2skill/lg/ (gate (d) #3 relocate, 7 files)",
+  "60-apps/ai-gftd-project-legal-entity/lg/ (gate (d) #2 relocate, 7 files)",
+]
+remaining_execution = [
+  "Gate (a): per-worker SQLite ports (31 / 42 rows remaining) → 20-actors/magatama/py/src/pymagatama/",
+  "Gate (b): DNS cutover Wave A-D execution (operator-side, ADR-2605211757)",
+  "Phase 5: vendor git rm (operator-side, ADR-2605211913 §2)",
+  "Phase 6: archive markers (operator-side, ADR-2605211925)",
+]
+gate_a_execution_session_2026_05_21_evening = """Phase 1 close — 11 / 42 rows ticked.
+See `90-docs/2605211949-gate-a-execution-checklist.md` for the per-row status.
+deps.toml [platform.tranche_f.phase_3_to_6_governance_2026_05_21]
+gate_a_session_progress_2026_05_21 has the full audit trail."""
+related = [
+  "adr-2605152100-etzhayyim-github-org-boundary",
+  "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
+  "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+  "adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook",
+  "adr-2605211925-phase-6-archive-markers-runbook",
+]
+
 [bring-up.murakumo]
 date = "2026-05-18"
 adr = "ADR-2605182312"
 description = "Local bring-up of Artificial Organism ecosystem on Murakumo Mac mini fleet using gemma4:e4b"
+
+# ─── Bootstrap Council Lv6+ — 2026-06-19 selection window ──────────────
+
+[platform.bootstrap_council]
+# Constitutional mechanics: ADR-2605192300.
+# Operational mechanics: 90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md
+# Public RFP doc: COUNCIL-BOOTSTRAP-RFP.md (window 2026-05-20 → 2026-06-19, 30 days)
+# Roster doc: COUNCIL.md
+status = "rfp-open-window-closes-2026-06-19"
+constitutional_adr = "ADR-2605192300"
+operational_addendum = "90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md"
+rfp_doc = "COUNCIL-BOOTSTRAP-RFP.md"
+roster_doc = "COUNCIL.md"
+window_opens_at = "2026-05-20"
+window_closes_at = "2026-06-19"
+constructor_target_at = "2026-06-22"  # Mon following Fri close (per addendum §3)
+deploy_target = "Base Sepolia testnet → ChartersComplianceRegistry.constructor(addresses[])"
+seats = [
+  { seat = 1, axis = "Doctrine", holder = "Jun Kawasaki", did = "did:web:jun.gftd.group (interim)", status = "confirmed" },
+  { seat = 2, axis = "Substrate / Technology", status = "open" },
+  { seat = 3, axis = "Legal / Ethics", status = "open" },
+  { seat = 4, axis = "Economics / Treasury", status = "open" },
+  { seat = 5, axis = "Stewardship / Land", status = "open" },
+]
+operator_checklist_ref = "90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md#5-operator-checklist-for-the-2026-06-19-deadline"
+failure_modes_ref = "90-docs/2605212036-council-bootstrap-rfp-operational-addendum.md#4-failure-modes"
+phase_2_transition_triggers = [
+  "1000 active Adherent SBTs",
+  "any seat vacancy (death / resignation / objection upheld)",
+  "3 Adherent SBT holders' formal governance request",
+  "12 months from initial Bootstrap deploy",
+]
+operational_addendum_landed_at = "2026-05-21T20:36:00Z"  # rubric + objection workflow + failure modes landed
+session_closed_at = "2026-05-21T20:45:00Z"  # 2026-05-21 Tranche F + Council ops session terminus
+
+# ─── Migrations (Step 8 cutover) ─────────────────────────────────────
+
+[[migrations]]
+id = "murakumo-cluster-runtime-step8-rename"
+status = "pending"
+blocked_on = "Step 8 master gate (legal registration) per repo-root CLAUDE.md §Status row 8"
+authoritative_doc = "50-infra/cluster/murakumo/MIGRATION-NOTES.md"
+authoritative_adr = "2605214000"
+target_count = 40
+scope = "50-infra/cluster/murakumo/ (Rust runtime — Cargo.toml, src/*.rs, deploy-mesh.sh)"
+description = "Atomic rename of cluster runtime identifiers: GFTD_* env vars → ETZHAYYIM_*, ~/.gftd/ → ~/.etzhayyim/, binary gftd-murakumo → etzhayyim-murakumo, DNS .mesh.etzhayyim.com → .mesh.etzhayyim.com, launchd label ai.gftd.murakumo-mesh → com.etzhayyim.murakumo-mesh, cargo crate name. Dry-run verified cargo check PASSES with all renames applied. Intentional remainders: MESH_KEY_CTX (DH crypto context tag, fleet protocol bump needed) + gftd.murakumo.v1.* XRPC namespace (separate CF Worker + Lexicon update)."
+dry_run_completed_at = "2026-05-21"
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "pymagatama-runpod-free-step8-cutover"
+status = "pending"
+blocked_on = "Step 8 master gate (legal registration) per repo-root CLAUDE.md §Status row 8"
+authoritative_doc = "20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md"
+authoritative_adr = "2605215000"
+target_count = 76
+scope = "20-actors/magatama/py/** (pymagatama + magatama-host-sdk model registry) — REDIRECT 30 / VENDOR-ONLY 25 / REIMPLEMENT 15"
+description = "Strip all RunPod coupling from religious-corp pymagatama paths. Inference SSoT becomes Murakumo fleet only (LiteLLM gateway 127.0.0.1:4000 + EVO-X2 LAN 192.168.1.70 + per-node Ollama gemma3:4b fallback). REIMPLEMENT targets include maps_sentinel L7/L8 (Sentinel-1/2 satellite analysis — needs successor MLX/ROCm impl per follow-up ADR), training_run.py (CPU client + GPU Serverless handler split), zeebe_worker_main.py ComfyUI dispatch (RunPod /runsync wrapper vs native /prompt+/history protocol diverge). VENDOR-ONLY paths stay operational for vendor gftd.co.jp — religious-corp callers must avoid via consent capability boundary. PYMAGATAMA-MIGRATION-NOTES.md authored 2026-05-21 with 24 file:line targets + verdicts (30 REDIRECT / 25 VENDOR-ONLY / 15 REIMPLEMENT). M5 maps_sentinel REIMPLEMENT delivered as separate maps_sentinel_murakumo.py per ADR-2605215100."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "yoro-python-primitives-rewrite"
+status = "largely_complete"
+completion_percent = 100
+blocked_on = "Step 8 master gate (legal registration)"
+authoritative_doc = "20-actors/magatama/py/YORO-PYTHON-MIGRATION-NOTES.md"
+authoritative_adr = "ADR-2605215200"
+target_count = 40
+scope = "20-actors/magatama/py/src/pymagatama/primitives/yoro*.py (yoro.py + yoro_validation.py + yoro_registry.py)"
+description = "M2-M7 waves complete 2026-05-21. All 40 functions in YORO-PYTHON-MIGRATION-NOTES table implemented (4 sync shims, 1 VENDOR-ONLY at row #13, rest REIMPLEMENT). 313 tests pass. Step 8 cutover unblocked from yoro side."
+completion_note = "M2-M7 waves complete 2026-05-21. All 40 functions in YORO-PYTHON-MIGRATION-NOTES table implemented (4 sync shims, 1 VENDOR-ONLY at row #13, rest REIMPLEMENT). 313 tests pass. Step 8 cutover unblocked from yoro side."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "shinka-mst-rewrite"
+status = "largely_complete"
+completion_percent = 95
+blocked_on = "Council DID registry population pending RFP close 2026-06-19"
+authoritative_doc = "20-actors/magatama/py/SHINKA-MIGRATION-NOTES.md"
+authoritative_adr = "ADR-2605215300"
+target_count = 4
+scope = "20-actors/magatama/py/src/pymagatama/primitives/shinka*.py (4 cells: ShinkaTick + ShinkaTrigger + ShinkaBoundary + ShinkaBoundaryValidator)"
+description = "M2-M3 complete: 4 cells + tick + 3-tier Lv1-7 validation + Lv7 objection window enforcement + canonical EVOLUTION_WITNESS_MIN per ADR-2605215400 + Council DID registry binding (placeholder COUNCIL_LV6_DIDS until post-RFP-close 2026-06-19) + Charter Compliance gate. 46 shinka tests pass."
+completion_note = "M2-M3 complete: 4 cells + tick + 3-tier Lv1-7 validation + Lv7 objection window enforcement + canonical EVOLUTION_WITNESS_MIN per ADR-2605215400 + Council DID registry binding (placeholder COUNCIL_LV6_DIDS until post-RFP-close 2026-06-19) + Charter Compliance gate. 46 shinka tests pass."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "mst-projector-deploy-phase-3"
+status = "deploy_ready"
+completion_percent = 90
+blocked_on = "Physical deploy to simeon Mac mini"
+authoritative_doc = "50-infra/mst-projector/README.md"
+authoritative_adr = "ADR-2605215400"
+target_count = 5
+scope = "50-infra/mst-projector/ (indexer M1 + subscriber M2 + query_api M3 + M4 deploy assets + SDK wrapper M5)"
+description = "Python service M1 (indexer) + M2 (subscriber) + M3 (query_api 4 XRPC endpoints) + M5 (SDK client wrapper) all real impl. 51 tests pass. M4 deploy assets ready: launchd plist + install.sh + uninstall.sh + main.py CLI. Awaiting physical deploy to simeon Mac mini."
+completion_note = "Python service M1 (indexer) + M2 (subscriber) + M3 (query_api 4 XRPC endpoints) + M5 (SDK client wrapper) all real impl. 51 tests pass. M4 deploy assets ready: launchd plist + install.sh + uninstall.sh + main.py CLI. Awaiting physical deploy to simeon Mac mini."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "rasterio-pyproject-add-m1-unblock"
+status = "pending"
+blocked_on = "pyproject.toml dependency add"
+authoritative_doc = "20-actors/magatama/py/MAPS-SENTINEL-MIGRATION-NOTES.md"
+authoritative_adr = "ADR-2605215100"
+target_count = 3
+scope = "20-actors/magatama/py/pyproject.toml (rasterio>=1.3 + Pillow + GDAL)"
+description = "Required for maps_sentinel T0 _scene_to_thumbnail_png real impl. Currently a NotImplementedError stub; T1/T2 dispatch gracefully degrades. Blocking T1 LiteLLM dispatch + T2 VLM dispatch ready states."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "joucho-aggregation-cell-deploy"
+status = "deploy_ready"
+completion_percent = 100
+blocked_on = "Physical deploy to levi (Mac mini) via deploy-religious-corp-stack.sh"
+authoritative_doc = "20-actors/magatama/py/JOUCHO-MIGRATION-DESIGN.md"
+authoritative_adr = "ADR-2605215200 + ADR-2605215500"
+target_count = 4
+scope = "20-actors/magatama/py/src/pymagatama/primitives/joucho_murakumo.py + 00-contracts/lexicons/app/etzhayyim/joucho/joucho.json + 50-infra/murakumo/fleet.toml [cells.JouchoAggregationCell] + tests"
+description = "JouchoAggregationCell real impl on levi (port 13027) — aggregates 7-day kyumeiSignal records into 5-axis JouchoRecord. Hourly cron trigger. mst-projector wired for server-side filter. 63 joucho tests pass."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "religious-corp-fleet-deploy-readiness"
+status = "ready"
+blocked_on = "Operator physical deploy on Mac mini fleet + Step 8 legal registration cutover"
+authoritative_doc = "90-docs/operations/religious-corp-runbook.md"
+authoritative_adr = "ADR-2605191346 + ADR-2605215200 + ADR-2605215500"
+target_count = 10
+scope = "50-infra/deploy/deploy-religious-corp-stack.sh + 50-infra/deploy/precheck-node.sh + 50-infra/monitoring/{prometheus.yml,alerts.yml} + 90-docs/operations/religious-corp-runbook.md"
+description = "Deploy assets complete: master orchestrator (416 LoC, 5 phases, parallel SSH), per-node precheck (15 checks), Prometheus scrape config + 5 alert rules, 2131-word operations runbook with topology + bring-up + debug commands + rollback + backup procedures."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "evo-x2-litellm-benchmark-execution"
+status = "pending"
+blocked_on = "LAN access to 192.168.1.70 EVO-X2 inference pod (operator hands-on)"
+authoritative_doc = "20-actors/magatama/py/scripts/README.md"
+authoritative_adr = "ADR-2605215100"
+target_count = 1
+scope = "20-actors/magatama/py/scripts/bench_evo_x2_qwen3_vl_8b.py (340 LoC script ready)"
+description = "Qwen3-VL-8B-Instruct-4bit benchmark on EVO-X2 ROCm gfx1151 ready to execute. Pass criteria: p95 latency ≤60s + success rate ≥90% per ADR-2605215100 §1 T1. Awaits operator with LAN access."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "maps-sentinel-rasterio-pyproject-add"
+status = "pending"
+blocked_on = "pyproject.toml deps add: rasterio>=1.3 + Pillow + GDAL"
+authoritative_doc = "ADR-2605215100 §4 M1"
+authoritative_adr = "ADR-2605215100"
+target_count = 1
+scope = "20-actors/magatama/py/pyproject.toml [project.dependencies]"
+description = "maps_sentinel_murakumo.py _scene_to_thumbnail_png currently NotImplementedError. T0 preprocessing pipeline needs rasterio for Sentinel raster I/O. M2 deadline per ADR-2605215100 §4 (M0+30d 2026-07-15)."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "council-lv6-did-registry-population"
+status = "blocked_on_rfp_close"
+blocked_on = "Bootstrap Council RFP close 2026-06-19 (ADR-2605192300) + Council members write ratification records to PDS"
+authoritative_doc = "ADR-2605215400 §3.4"
+authoritative_adr = "ADR-2605215400"
+target_count = 4
+scope = "PDS records: app.etzhayyim.council.member (4 new records post-RFP)"
+description = "mst.get_council_lv6_dids() lazy query depends on Council member ratification records. Currently COUNCIL_LV6_DIDS hardcoded fallback contains founder seat 1 only. Lv6/Lv7 evolution gates (per ADR-2605215400) depend on this for Council co-signer count + supermajority enforcement."
+last_verified = "2026-05-21"
 
 # ─── Session summaries ──────────────────────────────────────────────
 
@@ -1619,7 +2055,7 @@ follow_up = [
 date = "2026-05-20"
 adrs_added = 2
 prs_merged = []
-prs_open = ["#73 (yobel)", "#75 (amnesty)", "gftdcojp#1312 (vendor cross-actor wire)"]
+prs_open = ["#73 (yobel)", "#75 (amnesty)", "etzhayyim#1312 (vendor cross-actor wire)"]
 description = """Religious-corp doctrinal runtime for monetary debt release.
 Two symmetric sibling actors fill the Charter §1 (構造的労働解放)
 monetary-debt dimension under voluntary opt-in + Council ratification +
@@ -1648,7 +2084,7 @@ violation (1024-run fuzz). Symmetric mutual deferral: yobel returns
 deferToAmnesty=true for legal-person debtors; amnesty returns
 deferToYobel=true for natural-person debtors.
 
-Cross-repo: vendor gftdcojp#1312 adds the consumer-side
+Cross-repo: vendor etzhayyim#1312 adds the consumer-side
 recordYobelRiteReference lexicon + yobel-bridge CLI utility + 12 anvil
 integration tests + vendor:bankruptcy CLAUDE.md cross-actor doc.
 Amnesty counterpart (recordAmnestyRestructuringReference) follows in
@@ -1669,7 +2105,7 @@ date = "2026-05-21"
 prs_open = []
 description = """public-malak.etzhayyim.com — Phase 1 scaffold mirror landed.
 
-Vendor (gftdcojp/ai-gftd-apps-gftdcojp) deps.toml
+Vendor (etzhayyim/etzhayyim-root) deps.toml
 `tranche-f-public-malak-classification-2026-05-20` (status
 `judgment-recorded`) confirmed public-malak as an etzhayyim move target
 via 3-axis OR-test (Liability + Custody + Settlement all clean — TLP
@@ -1713,7 +2149,7 @@ etzhayyim already had the BPMN (00-contracts/bpmn/ai/gftd/public-malak/
 follow_up = [
   "Phase 2 rw-free implementation (src/app.ts + ad-library API ingest + PDS XRPC writes)",
   "Phase 3 corpus residency Option A activation (vendor B2 mirror retention contract)",
-  "Phase 4 vendor sunset (gftdcojp git rm of 60-apps/ai-gftd-project-public-malak/ + publicMalak/ lexicons)",
+  "Phase 4 vendor sunset (etzhayyim git rm of 60-apps/ai-gftd-project-public-malak/ + publicMalak/ lexicons)",
   "Worker XRPC adapter wiring per ADR-2605211000 (when rw-free lands; public-malak slots into Tier 1 or Tier 2 depending on user-session exposure)",
 ]
 
@@ -1723,7 +2159,7 @@ prs_open = []
 description = """open-jpn-mynumber.etzhayyim.com — Tranche F classification +
 corpus residency Option A recorded.
 
-Vendor (gftdcojp/ai-gftd-apps-gftdcojp) deps.toml
+Vendor (etzhayyim/etzhayyim-root) deps.toml
 `tranche-f-open-jpn-mynumber-classification-2026-05-20` judged this
 project an etzhayyim move target (3-axis OR-test all clean: PUBLIC
 gov-published policy docs, no fiduciary, no citizen PII, no commerce).
@@ -1747,7 +2183,7 @@ mirror) for the 923-file ~177 MB corpus.
   lexicon for this project; not 14 like publicMalak).
 - `60-apps/ai-gftd-project-open-jpn-mynumber/CLAUDE.md` — adds Tranche F
   status section + cross-repo state table + substrate-boundary notes.
-  Domain reference flipped from `*.gftd.ai` → `*.etzhayyim.com`.
+  Domain reference flipped from `*.etzhayyim.com` → `*.etzhayyim.com`.
 - This session_summary entry.
 
 ## Corpus residency Option A — activated, not migrated
@@ -1800,7 +2236,7 @@ workflow with customer custody (lg/ pod) → vendor.
 
 ## Cross-repo state (2026-05-21 audit)
 
-| Artifact | Vendor (gftdcojp/ai-gftd-apps-gftdcojp) | etzhayyim (this repo) |
+| Artifact | Vendor (etzhayyim/etzhayyim-root) | etzhayyim (this repo) |
 |---|---|---|
 | Lexicons (`apps/dougaka/`) | present (2 JSON files) | **present** (`health.json`, `render.json` — 2 files, already mirrored Phase 3 wave 6) |
 | BPMN (`bpmn/ai/gftd/dougaka/`) | absent | absent |
@@ -1843,4 +2279,259 @@ contract checks) import them from
   rule, C-group SPLIT pattern)"""
 follow_up = [
   "No follow-up — SPLIT is the steady state. Re-check on quarterly Tranche F re-judgment cycle (2026-08-17 / 2026-11-17 / 2027-02-17 per ADR-2605172400).",
+]
+
+[session_summaries.ransomwatch-scaffold-2026-05-21]
+date = "2026-05-21"
+prs_open = []
+description = """ransomwatch.etzhayyim.com — Phase 1 scaffold mirror landed.
+
+Vendor `etzhayyim/etzhayyim-root` deps.toml
+`tranche-f-post-freeze-7-actors-audit-2026-05-21` (vendor PR #1339,
+audit-recorded) classified ransomwatch as MOVE TARGET: 3-axis OR-test
+all clean (TLP:WHITE public OSINT, no victim PII, no commerce), and
+the vendor `magatama.jsonld` already declared `profile.operator =
+"etzhayyim"`. This commit formalizes the existing intent.
+
+## What this commit lands
+
+- `60-apps/ai-gftd-project-ransomwatch/{CLAUDE.md, OWNERS,
+  PROJECT.jsonld, magatama.jsonld}` — scaffold mirror sed-transformed
+  for etzhayyim domain (`did:web:ransomwatch.etzhayyim.com`)
+- `00-contracts/lexicons/ai/gftd/apps/ransomwatch/` — 4 lexicons
+  (seedGroup procedure + listGroups/listPosts/getStats queries)
+  mirrored from vendor
+- This session_summary entry
+
+## Cross-repo state at this commit
+
+| Artifact | Vendor (etzhayyim) | etzhayyim (this repo) |
+|---|---|---|
+| Spec / CLAUDE.md | absent (only magatama.jsonld + wrangler.jsonc at appview path) | present (this commit) |
+| Lexicons (apps/ransomwatch/) | present (4 JSON) | present (this commit, mirrored) |
+| Worker / appview | present (vendor wasm/ai-gftd-wasm-ransomwatch-r4ns0w4t01/) | absent (Phase 2 follow-up) |
+| LangGraph pod | present (in-cluster ransomwatch-langgraph.mitama-udf) | absent (Phase 3 follow-up — rehome to etzhayyim Murakumo) |
+
+## Deferred (per user direction 2026-05-21)
+
+- Phase 2 rw-free implementation — post-migration per user direction
+- Phase 3 LangGraph pod rehome to Murakumo — per ADR-2605215000
+- Phase 4 vendor sunset — after 7-day soak
+
+## Pattern reference
+
+Same shape as Lane B (public-malak scaffold mirror, etz PR #226). Both
+are sibling sanitized public security feeds in Tranche F A-group.
+
+## Cross-repo
+
+- vendor: `tranche-f-post-freeze-7-actors-audit-2026-05-21` (audit-
+  recorded; follow-up vendor PR amends to add `code_side_complete = true`
+  + `move_status = "scaffold-landed-etz-PR-XXX"`)
+- ADR refs: 2605172000 (RW-free substrate) / 2605172400 (3-axis split
+  rule) / 2605211000 (worker XRPC deploy runbook, when Phase 2 lands) /
+  2605215000 (Murakumo-fleet-only inference, for Phase 3)"""
+follow_up = [
+  "Phase 2 worker rw-free implementation (PDS XRPC + LangGraph pod stub on etz)",
+  "Phase 3 LangGraph pod rehome from vendor mitama-udf cluster to etzhayyim Murakumo",
+  "Phase 4 vendor sunset after 7-day soak",
+  "Vendor amend: add code_side_complete=true entry for ransomwatch move",
+]
+
+[session_summaries.deai-council-referral-2026-05-21]
+date = "2026-05-21"
+prs_open = []
+description = """deai.etzhayyim.com — Council Lv6+ ruling referral filed.
+
+Vendor post-freeze 3-axis audit (etzhayyim PR #1339) flagged deai for
+charter-compatibility ruling: magatama.jsonld declares
+`operator: etzhayyim` but the 3-axis OR-test default verdict is
+vendor (2 of 3 HIT: Liability + Custody, Settlement clean).
+
+This commit lands the Council referral as a `proposed` ADR. No
+scaffold mirror, no lexicon copy, no project dir created until
+Council rules disposition (A: full move / B: SPLIT / C: vendor
+confirmed).
+
+## What this commit lands
+
+- `90-docs/adr/2605211400-deai-disposition-council-ruling-required.md`
+  — proposed ADR with 3 dispositions + 5 ruling questions for Council
+- This session_summary entry
+
+## Default if no ruling within 30 days
+
+If Council does not rule by 2026-06-20 (= Bootstrap Council Seat 2-5
+RFP close + 1 day), default to Disposition C (vendor confirmed,
+correct magatama operator field). Preserves vendor liability
+shielding; matches default 3-axis verdict. Can later upgrade to A or
+B if charter clarification arrives.
+
+## Cross-repo
+
+- vendor `tranche-f-post-freeze-7-actors-audit-2026-05-21` (vendor PR
+  #1339) — original 3-axis judgment
+- ADR-2605211335 (this session Tranche F closure) — references this
+  ADR as the deai hanging-question pointer
+- ADR-2605192100 — Mission Charter §1.4 / §1.13 / §2(g) (decision
+  rule basis)"""
+follow_up = [
+  "Council Lv6+ ruling on deai disposition (A/B/C)",
+  "If A: etzhayyim scaffold mirror following public-malak (etz PR #226) / ransomwatch (etz PR #233) pattern + vendor sunset",
+  "If B: lexicon copy only + vendor magatama operator field correction (no runtime move)",
+  "If C: vendor magatama operator correction + add deai to next vendor bulk closure entry",
+  "Default disposition C activates 2026-06-20 if no Council ruling",
+]
+
+[session_summaries.gftd-org-cleanup-completion-2026-05-21]
+date = "2026-05-21"
+adr = "2605211845"
+prs_closed = ["#254 (Religious-corp Pregel cell waves — closed without merge in favour of user parallel reconstruction)"]
+description = """etzhayyim [MOVED → etzhayyim/root] cleanup completion +
+kami-engine-sdk standalone publication + religious-corp Pregel cell
+substrate wave attempt (partial, see Operational note).
+
+## etzhayyim MOVED-tagged repos: deleted (15 → 0)
+
+Physical deletion (not archive). Verified outcome:
+`gh repo list etzhayyim --jq '[.[]|select(.description|startswith(\"[MOVED\"))]|length'` = **0**.
+
+Deletion batches and corresponding etzhayyim/root SoT paths:
+
+| Batch | Repo | etzhayyim/root path |
+|---|---|---|
+| 1 | ai-gftd-project-open-banking | 60-apps/ai-gftd-project-open-banking/ |
+| 2 | signal-client / at-client / wproto | 10-protocol/{signal-client,at-client,wproto}/ |
+| 3 | ai-gftd-project-public-malak / resources / ai-gftd-project-public-global | 60-apps/ai-gftd-project-public-malak/, 00-contracts/resources/, 60-apps/ai-gftd-project-public-global/ (last one **fetched first**, see below) |
+| 4 | ai-gftd-project-open-lexicon / open-bpmn / open-isic / open-jpn-gov | 00-contracts/lexicons/ai/gftd/ + 00-contracts/bpmn/ai/gftd/ + 60-apps/ai-gftd-project-open-{isic,jpn-gov}/ |
+| 5 | magatama-go / watashi / yata / gftd-bpmn-sdk / kami-engine-sdk | 20-actors/{magatama-go,kami-engine-sdk,etzhayyim-bpmn-sdk}/, 60-apps/watashi/, 50-infra/yata/ |
+| 6 | cdn / nats-tiered-storage / nats-jetstream-objectstore-s3 | 70-tools/cdn/, 50-infra/{nats-tiered-storage,nats-jetstream-objectstore-s3}/ |
+
+## public-global reconciliation (commit 690135d3)
+
+`ai-gftd-project-public-global` was MOVED-tagged but never imported (gh
+api description vs local filesystem mismatch detected). 16 files
+(LICENSE, MCP_TOOLS.md, PROJECT.jsonld, README, scheduler.jsonld,
+wasm/global-mcp-component + wasm/resource-collector-component) fetched
+via `git clone --depth 1` and committed to
+`60-apps/ai-gftd-project-public-global/` before deletion. The initial
+`gh api .../contents` fetch missed nested subdirs (wadm/, wit/, k8s/) —
+`git clone` was required for full fidelity.
+
+## kami-engine-sdk standalone publication (commit d302f274)
+
+`github.com/etzhayyim/kami-engine-sdk` created as **public read-only
+mirror**. Monorepo subdir `20-actors/kami-engine-sdk/` is SoT. Package
+name renamed `@etzhayyim/kami-engine-sdk` → `@etzhayyim/kami-engine-sdk`
+in 7 files (package.json + README + src + 3 consumer files in
+magatama-host-sdk / yoro genko-stub).
+
+Mirror commit on standalone: 78 files pushed as single initial-mirror
+commit. Future syncs are manual one-time pushes (no automation).
+
+## Standalone-mirror policy
+
+`kami-engine-sdk` is the only intentional carve-out at the time of this
+ADR. Other etzhayyim public SDKs (bpmn-engine-ts, bpmn-sdk-rs, rs-jsonnet,
+effect-actor, ontology, shigarami, sparql-ts, gftd) are left at
+etzhayyim per user direction — they are vendor-tier SDKs without
+Charter Rider and replicating would imply etzhayyim sponsorship that
+does not exist.
+
+## Operational note (lost cross-cutting work)
+
+In the same session, a 6-wave commit plan was attempted for
+CLAUDE.md milestones #28-32 (yoro / shinka / etzhayyim-sdk-py /
+joucho / council + cross-cutting cleanup). Waves 1-5 landed as
+commits `64804ab2`, `88e97621`, `06946371`, `20d6c958`, `0b6bfa55`.
+The cross-cutting wave (94 staged entries) was committed externally
+as `e4868a8e` and wiped by a concurrent `git reset --hard
+origin/main` (reflog HEAD@{2}); working-tree restoration did not
+follow. Waves 1-5 were preserved as branch `260521-cell-waves` and
+PR #254 opened, but CI failed across the board (vitest + tsc)
+because the supporting cross-cutting (lockfile + pyproject +
+fleet.toml) was missing. User reconstructed the same primitives in
+parallel in the working tree (verified byte-identical); PR #254
+closed without merge to avoid duplication. SHAs still in reflog —
+cherry-pick recovery available within gc window if user's
+reconstruction misses anything.
+
+## What this commit lands
+
+- `90-docs/adr/2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone.md` — proposed-accepted ADR documenting the cleanup pattern + standalone-mirror policy
+- deps.toml: 1 ADR registry entry (id 2605211845) + this session_summary
+"""
+follow_up = [
+  "User-side fresh PR for religious-corp Pregel cell substrate (yoro / shinka / etzhayyim-sdk-py / joucho / council + cross-cutting) — supersedes the closed PR #254",
+  "Reconstruct lost CLAUDE.md milestone-table rows 28-32 in the user's fresh PR (content available from this session's reflog if needed)",
+  "Decide standalone-mirror status for ontology (DoDAF — etzhayyim adjacency) if/when downstream demand surfaces",
+  "Generic standalone-mirror sync runbook (manual one-time push) — currently only kami-engine-sdk; add when 2nd mirror lands",
+]
+
+# ─── Session 2605222200 — CI 100% green + Phase 2/3 TRANSFORM progress ──
+
+[session_2605222200]
+adr = "2605222200"
+date = "2026-05-22"
+duration_estimate_hours = 6
+commit_range_start = "46bd07404"  # ci(council): activate nomination-watch
+commit_range_end   = "aea1401f0"  # fix(sdk): donate.ts cast purpose via mapDonationPurpose
+commits_total = 30
+sub_agents_dispatched = 20
+
+[session_2605222200.ci_test_workflow]
+before = "6 / 31 jobs passing (19.4%)"
+after  = "31 / 31 jobs passing (100%)"
+delta  = "+25 jobs"
+final_commit = "aea1401f0"
+
+[session_2605222200.transform_progress]
+stripe_live_call_paths_before = 14
+stripe_live_call_paths_after  = 0
+ad_tech_production_sources_before = 9
+ad_tech_production_sources_after  = 0
+substrate_boundary_imports = 6  # SDK gap closed (atproto.ts re-exports), consumer migration follow-up
+rw_postgres_production_paths_before = 41
+rw_postgres_production_paths_migrated = 1  # bmc/db.py — PoC
+rw_postgres_production_paths_markered = 10
+yatabase_remaining_estimate_weeks = "4-6"  # revised from 6-9
+
+[session_2605222200.council_rfp]
+deadline = "2026-06-19"
+seats_filled = 1
+seats_open = 4
+discussions = ["257", "258", "259", "260", "261"]
+applications_received = 0
+weekly_status_template = "Discussion #257 comment 17014329"
+
+[session_2605222200.deploy_checklists]
+sepolia = "50-infra/etzhayyim-chain-contracts/DEPLOY-CHECKLIST-SEPOLIA.md"
+mainnet = "50-infra/etzhayyim-chain-contracts/DEPLOY-CHECKLIST-MAINNET.md"
+forge_tests_passing = 126
+solidity_contracts = 15
+
+[session_2605222200.sdk_extensions]
+new_modules = [
+  "atproto.ts — AtpAgent + AtpBaseClient + AppBsky{Actor,Feed}Defs + AppBskyRichtextFacet + createAgent + xrpc helper",
+  "donate.ts — donate({to, amountUsdc, purpose}) with 8 Charter-§2 purposes + mapDonationPurpose + isAllowedDonationPurpose"
+]
+new_yatabase_endpoints = [
+  "POST /api/donate — replaces /auth/v1/upgrade",
+  "POST /webhook/usdc — replaces /webhook/stripe"
+]
+new_yatabase_components = ["svelte/src/lib/donate.ts useDonate() composable"]
+
+[session_2605222200.session_summary]
+phase_1_ci_safety_net = "8 CI infra fixes + surgical rw-free fixes + 10 parallel haiku agents + integration-tests cascade resolution. 6/31 → 31/31."
+phase_2_charter_2_cleanup = "4 parallel haiku agents: substrate boundary markers / ad-tech removal / Stripe disable / RW marker first-pass. 65 files."
+phase_3_implementation = "4 parallel haiku agents (SDK extension + USDC v0.2 + BMC PoC + Council outreach) + 2 locally-authored deploy checklists. DonatePurpose enum cascade at 8aae29862 fixed at aea1401f0."
+
+[session_2605222200.follow_up]
+items = [
+  "Consumer migration: point 6 substrate-boundary files at @etzhayyim/sdk (0.5 day)",
+  "USDC v0.3: fill ERC-4337 sponsored write + webhook attestation verification (3-5 days)",
+  "Yatabase RW→MST: replicate bmc/db.py pattern across 10 marked files (4-6 weeks)",
+  "Council fill: weekly status updates on #257; provisional appointment fallback if seats open at 2026-06-19",
+  "Step 19 Sepolia deploy: post-Council per DEPLOY-CHECKLIST-SEPOLIA.md",
+  "Step 20 mainnet deploy: post-Sepolia + audit per DEPLOY-CHECKLIST-MAINNET.md"
 ]

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-55a68de6e34f",
+  "entityId": "ent-55a68de6e34f",
+  "canonicalName": "nordstrand maritime and trading company",
+  "aliases": [
+    "nordstrand maritime and trading company"
+  ]
+}

@@ -31,7 +31,7 @@ type M = {
 const createdAt = "2026-05-08T17:00:00Z";
 const ownerDid = "did:web:otakiage.etzhayyim.com:matsuri";
 const actorTag = "sys.matsuri.seed.otakiage";
-const issuerName = "amanomibashira";
+const issuerName = "etzhayyim";
 
 const matsuriSeeds: M[] = [
   {
@@ -40,7 +40,7 @@ const matsuriSeeds: M[] = [
     name: "春の人形供養祭 2026",
     categoryScope: JSON.stringify(["ningyo", "nuigurumi"]),
     scheduledDate: "2026-04-15",
-    description: "春の人形供養祭 — 雛人形・五月人形・ぬいぐるみ をお焚き上げいたします。amanomibashira 主催。Phase 1 は digital ritual (証跡 AT Record JSON 発行)。",
+    description: "春の人形供養祭 — 雛人形・五月人形・ぬいぐるみ をお焚き上げいたします。etzhayyim 主催。Phase 1 は digital ritual (証跡 AT Record JSON 発行)。",
   },
   {
     vertexId: "at://did:web:otakiage.etzhayyim.com:matsuri/ai.gftd.apps.otakiage.matsuri/matsuri-ehon-202604",

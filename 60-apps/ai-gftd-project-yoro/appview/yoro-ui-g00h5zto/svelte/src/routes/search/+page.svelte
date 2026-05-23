@@ -8,8 +8,8 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { fade } from 'svelte/transition';
-	import { Avatar, Skeleton, Badge } from '@gftdcojp/design-system';
-	import { staggerFade } from '@gftdcojp/design-system/motion';
+	import { Avatar, Skeleton, Badge } from '@etzhayyim/design-system';
+	import { staggerFade } from '@etzhayyim/design-system/motion';
 	import { RichText } from '$lib/w';
 	import type { PostView } from '$lib/atproto-agent';
 	import { recordVisit, recordSearch } from '$lib/history.svelte';

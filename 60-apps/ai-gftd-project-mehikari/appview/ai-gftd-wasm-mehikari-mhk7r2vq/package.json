@@ -1,0 +1,13 @@
+{
+  "name": "mehikari-mhk7r2vq",
+  "version": "1.0.0",
+  "description": "眼光り (mehikari) — open-vocabulary scene search + warrant-gated person re-identification for JP police + opt-in B2G sales LangGraph. ai.gftd.apps.mehikari.* XRPC + MCP. Operating entity = etzhayyim; vendor = Gftd Japan株式会社.",
+  "main": "src/app.ts",
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260414.1"
+  }
+}

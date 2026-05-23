@@ -21,31 +21,31 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          '    LANGUAGE sql\n'
          '    AS $$\n'
          '      SELECT CASE\n'
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:gleif'       THEN 'gleif'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata'    THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:gleif'       THEN 'gleif'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata'    THEN "
          "'wikidata'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:wikidata:%'  THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:wikidata:%'  THEN "
          "'wikidata'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:registry:%'           THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:registry:%'           THEN "
          "'registry_other'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikipedia'            THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikipedia'            THEN "
          "'wikipedia'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:wikipedia:%'          THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:wikipedia:%'          THEN "
          "'wikipedia'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite'            THEN 'stac'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:satellite:%'          THEN 'stac'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic'              THEN 'seismic'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:seismic:%'            THEN 'seismic'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:street_view'          THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite'            THEN 'stac'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:satellite:%'          THEN 'stac'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic'              THEN 'seismic'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:seismic:%'            THEN 'seismic'\n"
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:street_view'          THEN "
          "'mapillary'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:infrastructure'       THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:infrastructure'       THEN "
          "'overpass'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:geocode'              THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:geocode'              THEN "
          "'overpass'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:weather'              THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:weather'              THEN "
          "'overpass'\n"
-         "        WHEN source_did LIKE 'did:web:maps.gftd.ai:gtfs'                 THEN 'gtfs'\n"
-         "        WHEN source_did LIKE 'did:web:site.gftd.ai'                      THEN "
+         "        WHEN source_did LIKE 'did:web:maps.etzhayyim.com:gtfs'                 THEN 'gtfs'\n"
+         "        WHEN source_did LIKE 'did:web:site.etzhayyim.com'                      THEN "
          "'web_crawl'\n"
          "        ELSE 'unsupported'\n"
          '      END\n'
@@ -61,13 +61,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-de:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:de',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-de:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:de',
                  'Spot',
                  1500000,
                  0.6,
                  168,
-                 'did:web:maps.gftd.ai:wikipedia:de',
+                 'did:web:maps.etzhayyim.com:wikipedia:de',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -78,13 +78,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-fr:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:fr',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-fr:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:fr',
                  'Spot',
                  1200000,
                  0.6,
                  168,
-                 'did:web:maps.gftd.ai:wikipedia:fr',
+                 'did:web:maps.etzhayyim.com:wikipedia:fr',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -95,13 +95,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-it:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:it',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-it:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:it',
                  'Spot',
                  700000,
                  0.6,
                  168,
-                 'did:web:maps.gftd.ai:wikipedia:it',
+                 'did:web:maps.etzhayyim.com:wikipedia:it',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -112,13 +112,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-zh:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:zh',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-zh:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:zh',
                  'Spot',
                  800000,
                  0.6,
                  168,
-                 'did:web:maps.gftd.ai:wikipedia:zh',
+                 'did:web:maps.etzhayyim.com:wikipedia:zh',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -129,13 +129,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-ru:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:ru',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-ru:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:ru',
                  'Spot',
                  900000,
                  0.6,
                  168,
-                 'did:web:maps.gftd.ai:wikipedia:ru',
+                 'did:web:maps.etzhayyim.com:wikipedia:ru',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -146,13 +146,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-ar:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:ar',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-ar:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:ar',
                  'Spot',
                  300000,
                  0.6,
                  168,
-                 'did:web:maps.gftd.ai:wikipedia:ar',
+                 'did:web:maps.etzhayyim.com:wikipedia:ar',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -163,13 +163,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/wikipedia-pt:Spot',
-                 'did:web:maps.gftd.ai:wikipedia:pt',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/wikipedia-pt:Spot',
+                 'did:web:maps.etzhayyim.com:wikipedia:pt',
                  'Spot',
                  600000,
                  0.6,
                  168,
-                 'did:web:maps.gftd.ai:wikipedia:pt',
+                 'did:web:maps.etzhayyim.com:wikipedia:pt',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -180,13 +180,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/seismic-week:SpatialEvent',
-                 'did:web:maps.gftd.ai:seismic:week',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/seismic-week:SpatialEvent',
+                 'did:web:maps.etzhayyim.com:seismic:week',
                  'SpatialEvent',
                  20000,
                  0.3,
                  1,
-                 'did:web:maps.gftd.ai:seismic:week',
+                 'did:web:maps.etzhayyim.com:seismic:week',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -197,13 +197,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/seismic-month:SpatialEvent',
-                 'did:web:maps.gftd.ai:seismic:month',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/seismic-month:SpatialEvent',
+                 'did:web:maps.etzhayyim.com:seismic:month',
                  'SpatialEvent',
                  100000,
                  0.3,
                  24,
-                 'did:web:maps.gftd.ai:seismic:month',
+                 'did:web:maps.etzhayyim.com:seismic:month',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -214,13 +214,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/seismic-sig_month:SpatialEvent',
-                 'did:web:maps.gftd.ai:seismic:sig_month',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/seismic-sig_month:SpatialEvent',
+                 'did:web:maps.etzhayyim.com:seismic:sig_month',
                  'SpatialEvent',
                  100,
                  0.6,
                  24,
-                 'did:web:maps.gftd.ai:seismic:sig_month',
+                 'did:web:maps.etzhayyim.com:seismic:sig_month',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -231,13 +231,13 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/seismic-m6:SpatialEvent',
-                 'did:web:maps.gftd.ai:seismic:m6',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/seismic-m6:SpatialEvent',
+                 'did:web:maps.etzhayyim.com:seismic:m6',
                  'SpatialEvent',
                  500,
                  0.6,
                  24,
-                 'did:web:maps.gftd.ai:seismic:m6',
+                 'did:web:maps.etzhayyim.com:seismic:m6',
                  '2026-05-08T00:18:28.240Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

@@ -1,13 +1,13 @@
 # ai-gftd-project-open-patent — Open Patent IP Factory
 
-> **T1 Logical Actor** `open-patent.gftd.ai` (nanoid: `op3np4t1`).
+> **T1 Logical Actor** `open-patent.etzhayyim.com` (nanoid: `op3np4t1`).
 > 特許コーパスを基盤に新しい IP を継続生成し、人間のクレーム起草・出願判断を支援する。
 
-`did:web:open-patent.gftd.ai` — 知的財産生成 + 多管轄特許取得 enrichment actor。
+`did:web:open-patent.etzhayyim.com` — 知的財産生成 + 多管轄特許取得 enrichment actor。
 
 ## Role
 
-- **Ingest (Follow-based)**: `patent.gftd.ai` (+ jurisdiction actors) を Follow → AT Protocol firehose から特許データを受信 → `vertex_open_patent_*` に書き込む
+- **Ingest (Follow-based)**: `patent.etzhayyim.com` (+ jurisdiction actors) を Follow → AT Protocol firehose から特許データを受信 → `vertex_open_patent_*` に書き込む
 - **Enrich**: EPO OPS 引用補填 / JPO / WIPO citation cross-link
 - **Generate (Pregel)**: 既存コーパスから技術トレンドを抽出 → LLM が invention seed を生成 → prior art 探索 → novelty スコアリング → HITL flag
 - **HITL boundary**: novelty ≥ 60 の seed を `novelty_status='review'` で保存。クレーム起草・出願は人間が行う
@@ -16,9 +16,9 @@
 
 | DID | 用途 |
 |---|---|
-| `did:web:open-patent.gftd.ai` | Controller |
-| `did:web:open-patent.gftd.ai:actor:inventor` | Invention seed 生成 出力 DID |
-| `did:web:open-patent.gftd.ai:actor:analyst` | Novelty report 出力 DID |
+| `did:web:open-patent.etzhayyim.com` | Controller |
+| `did:web:open-patent.etzhayyim.com:actor:inventor` | Invention seed 生成 出力 DID |
+| `did:web:open-patent.etzhayyim.com:actor:analyst` | Novelty report 出力 DID |
 
 ## Collections (NSID)
 
@@ -49,12 +49,12 @@
 ## Ingest Architecture (Follow-based)
 
 ```
-patent.gftd.ai  →  AT firehose  →  open-patent subscribeRepos
+patent.etzhayyim.com  →  AT firehose  →  open-patent subscribeRepos
                                      └→ onCommit(ai.gftd.apps.openPatent.patent)
                                           └→ enrich (EPO citations, JPO cross-link)
 ```
 
-自前 HTTP pull 禁止。upstream actor (patent.gftd.ai) が PatentsView/EPO OPS/JPO を pull し
+自前 HTTP pull 禁止。upstream actor (patent.etzhayyim.com) が PatentsView/EPO OPS/JPO を pull し
 AT record として公開。open-patent は Follow 経由でのみデータを受信する。
 
 ## Generation Pipeline
@@ -72,10 +72,10 @@ gather_tech_trends
 
 | Jurisdiction | Status | Source actor |
 |---|---|---|
-| USPTO | ✅ ingest済 | patent.gftd.ai via PatentsView |
-| EPO | ✅ citation fill済 | patent.gftd.ai via EPO OPS |
-| JPO | 🚧 skeleton | future: patent.gftd.ai:jp |
-| WIPO/CN/KR | 🚧 skeleton | future: patent.gftd.ai:wo |
+| USPTO | ✅ ingest済 | patent.etzhayyim.com via PatentsView |
+| EPO | ✅ citation fill済 | patent.etzhayyim.com via EPO OPS |
+| JPO | 🚧 skeleton | future: patent.etzhayyim.com:jp |
+| WIPO/CN/KR | 🚧 skeleton | future: patent.etzhayyim.com:wo |
 
 ## Component
 

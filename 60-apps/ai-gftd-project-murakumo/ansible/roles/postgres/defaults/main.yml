@@ -1,0 +1,6 @@
+---
+postgres_port: 5432
+postgres_version: "17"
+postgres_db_name: "gftd_control"
+postgres_db_user: "gftd_control"
+postgres_db_password: "gftd_control_local"

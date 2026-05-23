@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d976f6820be9",
+  "entityId": "ent-d976f6820be9",
+  "canonicalName": "jamil mukulu",
+  "aliases": [
+    "jamil mukulu"
+  ]
+}

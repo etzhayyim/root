@@ -1,0 +1,65 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Project",
+  "name": "Live Briefing Project",
+  "identifier": "ai-gftd-project-briefing",
+  "description": "Live briefing and video conferencing platform with LiveKit-powered meeting rooms, C2ISR situational awareness, and strategic briefing workflows.",
+  "hasPart": [
+    {
+      "@type": "WebApplication",
+      "name": "Briefing App",
+      "url": "https://briefing.etzhayyim.com"
+    }
+  ],
+  "performers": [
+    {
+      "@type": "Service",
+      "name": "Briefing Actor",
+      "identifier": "ai-gftd-performer-org-gftd-sys-briefing-nkx5tcsp",
+      "description": "App actor for meeting lifecycle management, participant coordination, LiveKit room orchestration, and recording."
+    },
+    {
+      "@type": "Service",
+      "name": "Briefing App Performer",
+      "identifier": "ai-gftd-performer-sys-gftd-app-briefing-bis87j5v",
+      "description": "Briefing application performer."
+    }
+  ],
+  "rdfUnifiedDocuments": {
+    "@type": "Dataset",
+    "name": "Unified top-level RDF/JSON-LD documents",
+    "description": "Consolidated from project top-level *.jsonld files except PROJECT.jsonld.",
+    "documents": [
+      {
+        "fileName": "scheduler.jsonld",
+        "content": {
+          "@context": [
+            "https://schema.org/",
+            {
+              "gftd": "https://etzhayyim.com/schemas/",
+              "capabilities": "gftd:capabilities",
+              "survivalIndicators": "gftd:survivalIndicators",
+              "scheduler": "gftd:scheduler",
+              "milestones": "gftd:milestones",
+              "blockers": "gftd:blockers",
+              "dependsOn": {
+                "@id": "gftd:dependsOn",
+                "@type": "@id"
+              },
+              "ingestKey": "gftd:ingestKey",
+              "window": "gftd:window",
+              "valueUpdatedAt": "gftd:valueUpdatedAt"
+            }
+          ],
+          "@type": "CreativeWork",
+          "name": "Live Briefing Project Scheduler",
+          "identifier": "ai-gftd-project-briefing/scheduler",
+          "description": "Project schedule (milestones) and blockers.",
+          "dateCreated": "2026-02-15T04:25:26+00:00",
+          "milestones": [],
+          "blockers": []
+        }
+      }
+    ]
+  }
+}

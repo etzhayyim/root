@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d28401ab1646",
+  "entityId": "ent-d28401ab1646",
+  "canonicalName": "sepehr energy jahan nama pars (sej)",
+  "aliases": [
+    "sepehr energy jahan nama pars (sej)"
+  ]
+}

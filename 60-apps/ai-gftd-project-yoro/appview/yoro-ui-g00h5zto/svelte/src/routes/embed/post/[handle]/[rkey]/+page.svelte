@@ -4,7 +4,7 @@
   No header, no nav, no auth — minimal chrome.
 -->
 <script lang="ts">
-	import { Avatar } from '@gftdcojp/design-system';
+	import { Avatar } from '@etzhayyim/design-system';
 	import { RichText } from '$lib/w';
 
 	const { data } = $props();

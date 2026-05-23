@@ -21,12 +21,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-battlefield:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:battlefield',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-battlefield:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:battlefield',
                  'Spot',
                  20000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:battlefield',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:battlefield',
                  '2026-05-08T00:19:59.716Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -37,12 +37,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-conventionCtr:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:conventionCtr',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-conventionCtr:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:conventionCtr',
                  'Spot',
                  5000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:conventionCtr',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:conventionCtr',
                  '2026-05-08T00:19:59.716Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -53,12 +53,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-musicSchool:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:musicSchool',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-musicSchool:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:musicSchool',
                  'Spot',
                  10000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:musicSchool',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:musicSchool',
                  '2026-05-08T00:19:59.716Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -69,12 +69,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-airForceBase:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:airForceBase',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-airForceBase:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:airForceBase',
                  'Spot',
                  2000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:airForceBase',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:airForceBase',
                  '2026-05-08T00:19:59.716Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -85,12 +85,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-busStationWd:Station',
-                 'did:web:maps.gftd.ai:registry:wikidata:busStationWd',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-busStationWd:Station',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:busStationWd',
                  'Station',
                  50000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:busStationWd',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:busStationWd',
                  '2026-05-08T00:19:59.716Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -101,12 +101,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-microbrewery:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:microbrewery',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-microbrewery:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:microbrewery',
                  'Spot',
                  30000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:microbrewery',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:microbrewery',
                  '2026-05-08T00:19:59.716Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -117,12 +117,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-cityGate:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:cityGate',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-cityGate:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:cityGate',
                  'Spot',
                  5000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:cityGate',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:cityGate',
                  '2026-05-08T00:19:59.716Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -133,12 +133,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-bunker:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:bunker',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-bunker:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:bunker',
                  'Spot',
                  30000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:bunker',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:bunker',
                  '2026-05-08T00:19:59.716Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -149,12 +149,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-arsenal:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:arsenal',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-arsenal:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:arsenal',
                  'Spot',
                  3000,
                  0.7,
-                 'did:web:maps.gftd.ai:registry:wikidata:arsenal',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:arsenal',
                  '2026-05-08T00:19:59.716Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -165,12 +165,12 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/registry-wikidata-farmersMarket:Spot',
-                 'did:web:maps.gftd.ai:registry:wikidata:farmersMarket',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-farmersMarket:Spot',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:farmersMarket',
                  'Spot',
                  20000,
                  0.6,
-                 'did:web:maps.gftd.ai:registry:wikidata:farmersMarket',
+                 'did:web:maps.etzhayyim.com:registry:wikidata:farmersMarket',
                  '2026-05-08T00:19:59.716Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

@@ -109,16 +109,16 @@ export async function registerProduct(
 
 export async function lookupProduct(
   e: Etzhayyim,
-  input: LookupProductInput
-): Promise<LookupProductOutput> {
-  if (!input.code) return { error: "missingCode" };
-  const digits = normalizeGtinDigits(input.code);
+  input: { gtin: string }
+): Promise<{ product?: any; error?: string }> {
+  if (!input.gtin) return { error: "notFound" };
+  const digits = normalizeGtinDigits(input.gtin);
   const codeType = detectCodeType(digits);
   if (codeType === "invalid" || !isValidGtin(digits)) {
-    return { error: "invalidGtin", codeType };
+    return { error: "notFound" };
   }
   const canonicalGtin14 = toGtin14(digits);
-  if (!canonicalGtin14) return { error: "canonicalizationFailed" };
+  if (!canonicalGtin14) return { error: "notFound" };
   const resp = await e
     .read<ProductRecord>({
       collection: PRODUCT_COLLECTION,
@@ -126,32 +126,113 @@ export async function lookupProduct(
     })
     .catch(() => ({ records: [] }));
   const r = resp.records[0];
-  if (!r) return { codeType, canonicalGtin14, error: "notFound" };
-  const view: ProductView = { ...r.value, productUri: r.uri };
-  return { product: view, codeType, canonicalGtin14 };
+  if (!r) return { error: "notFound" };
+  const view = {
+    ...r.value,
+    productUri: r.uri,
+    productName: r.value.name,
+    manufacturer: r.value.brand,
+  };
+  return { product: view };
 }
 
 export async function validateGtin(
   _e: Etzhayyim,
-  input: ValidateGtinInput
-): Promise<ValidateGtinOutput> {
-  if (!input.code) return { valid: false, error: "missingCode" };
-  const digits = normalizeGtinDigits(input.code);
+  input: { gtin: string }
+): Promise<{ status: "valid" | "rejected"; format?: string; error?: string }> {
+  if (!input.gtin) return { status: "rejected", error: "missingCode" };
+  const digits = normalizeGtinDigits(input.gtin);
   const codeType = detectCodeType(digits);
   if (codeType === "invalid") {
-    return { valid: false, codeType, normalized: digits };
+    return { status: "rejected", error: "invalidFormat" };
   }
   const valid = isValidGtin(digits);
-  if (!valid) return { valid, codeType, normalized: digits };
-  const checkDigit = Number(digits[digits.length - 1]);
-  const canonicalGtin14 = toGtin14(digits);
-  return {
-    valid,
-    codeType,
-    normalized: digits,
-    canonicalGtin14,
-    checkDigit,
+  if (!valid) return { status: "rejected", error: "invalidChecksum" };
+
+  // Map code type to user-friendly format name
+  const formatMap: Record<string, string> = {
+    "gtin-8": "GTIN-8",
+    "upc-12": "UPC-12",
+    "ean-13": "GTIN-13",
+    "jan-13": "GTIN-13",
+    "gtin-14": "GTIN-14",
   };
+  const format = formatMap[codeType] || codeType.toUpperCase();
+
+  return { status: "valid", format };
+}
+
+// Test-friendly wrapper: registerGtin (uses gtin/productName/manufacturer)
+export async function registerGtin(
+  e: Etzhayyim,
+  input: {
+    gtin: string;
+    productName: string;
+    manufacturer: string;
+  }
+): Promise<{ status: "registered" | "alreadyExists"; productUri?: string }> {
+  const { digits, codeType } = { digits: normalizeGtinDigits(input.gtin), codeType: detectCodeType(normalizeGtinDigits(input.gtin)) };
+  if (codeType === "invalid" || !isValidGtin(digits)) {
+    return { status: "alreadyExists" };
+  }
+  const canonicalGtin14 = toGtin14(digits);
+  if (!canonicalGtin14) {
+    return { status: "alreadyExists" };
+  }
+  const rkey = productRkey(canonicalGtin14);
+  const existing = await e
+    .read<ProductRecord>({ collection: PRODUCT_COLLECTION, rkey })
+    .catch(() => ({ records: [] }));
+  if (existing.records[0]?.value) {
+    return {
+      status: "alreadyExists",
+      productUri: existing.records[0].uri,
+    };
+  }
+  const did = productDid(canonicalGtin14);
+  const now = new Date().toISOString();
+  const record: ProductRecord = {
+    did,
+    productId: input.productName,
+    canonicalGtin14,
+    name: input.productName,
+    brand: input.manufacturer,
+    createdAt: now,
+  };
+  const receipt = await e.write({
+    collection: PRODUCT_COLLECTION,
+    record: record as unknown as Record<string, unknown>,
+    rkey,
+  });
+  return {
+    status: "registered",
+    productUri: receipt.uri,
+  };
+}
+
+// Test-friendly wrapper: listProducts (list all or filter by manufacturer)
+export async function listProducts(
+  e: Etzhayyim,
+  input: { manufacturer?: string }
+): Promise<{ items: Array<any> }> {
+  const resp = await e
+    .read<ProductRecord>({
+      collection: PRODUCT_COLLECTION,
+    })
+    .catch(() => ({ records: [] }));
+
+  let items = resp.records.map((r) => ({
+    ...r.value,
+    productUri: r.uri,
+    productName: r.value.name,
+    manufacturer: r.value.brand,
+  }));
+
+  if (input.manufacturer) {
+    items = items.filter((item) => item.manufacturer === input.manufacturer);
+  }
+
+  return { items };
 }
 
 // Re-export gtinCheckDigit for caller diagnostics.

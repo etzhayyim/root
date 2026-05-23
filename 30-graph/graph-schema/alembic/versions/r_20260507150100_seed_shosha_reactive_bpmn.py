@@ -19,12 +19,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-react-to-upstream-v1',
-                 'did:web:shosha.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-react-to-upstream-v1',
+                 'did:web:shosha.etzhayyim.com',
                  'shosha_react_to_upstream',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.gftd.ai — react to upstream actors (autonomous, R/PT5M).\n'
+                 '  shosha.etzhayyim.com — react to upstream actors (autonomous, R/PT5M).\n'
                  '\n'
                  '  Polls vertex_repo_record for commits from configured upstream actors\n'
                  '  (oil-trading, cargo, port — Phase 2a hard-coded set; table-driven\n'
@@ -42,7 +42,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_shosha_react_to_upstream"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/shosha"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/shosha"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="shosha_react_to_upstream" name="shosha react to upstream '
@@ -77,7 +77,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:shosha.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;ai.gftd.apps.shosha.reactToUpstream&quot;" '
                  'target="eventType"/>\n'
@@ -101,13 +101,13 @@ UP = [{'sql': '\n'
                  3274,
                  '00-contracts/bpmn/ai/gftd/shosha/reactToUpstream.bpmn',
                  '2026-05-07T15:00:00Z',
-                 'did:web:shosha.gftd.ai',
-                 'did:web:shosha.gftd.ai',
+                 'did:web:shosha.etzhayyim.com',
+                 'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha.phase2a',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-react-to-upstream-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-react-to-upstream-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/shosha-react-to-upstream-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-react-to-upstream-v1']}]
 
 
 def upgrade() -> None:

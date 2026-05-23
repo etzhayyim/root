@@ -1,0 +1,35 @@
+{
+  "name": "magatama-p0rt7890",
+  "main": "svelte/.svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2025-03-17",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_als"
+  ],
+  "vars": {
+    "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"port-registry\",\"port-call-tracking\",\"maritime-intelligence\"]",
+    "APP_DESCRIPTION": "World port infrastructure, berths, terminals, vessel call tracking",
+    "APP_DISPLAY_NAME": "Port Infrastructure (port.gftd.ai)",
+    "APP_FRAMEWORK": "sveltekit-edge-bff",
+    "APP_NANOID": "p0rt7890",
+    "APP_PERFORMER_TYPE": "service",
+    "APP_UI_TYPE": "yoro",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+  },
+  "routes": [
+    {
+      "pattern": "p0rt7890.gftd.ai/*",
+      "zone_name": "gftd.ai"
+    },
+    {
+      "pattern": "port.gftd.ai/*",
+      "zone_name": "gftd.ai"
+    }
+  ],
+  "assets": {
+    "directory": "./svelte/.svelte-kit/cloudflare/client",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}

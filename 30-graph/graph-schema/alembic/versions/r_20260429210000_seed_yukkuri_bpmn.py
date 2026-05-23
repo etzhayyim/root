@@ -26,8 +26,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yukkuri-compose-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yukkuri-compose-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'yukkuri_compose',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
                  '    6. generic.audit.emit       — OCEL event with pipeline stats.\n'
                  '    7. yukkuri.social.post      — Emit app.bsky.feed.post to '
                  'vertex_repo_record.\n'
-                 '                                   Visible on yoro.gftd.ai.\n'
+                 '                                   Visible on yoro.etzhayyim.com.\n'
                  '\n'
                  '  XRPC entry: POST /xrpc/ai.gftd.apps.yukkuri.composeVideo\n'
                  '  Process timeout: 10 min.\n'
@@ -63,14 +63,14 @@ UP = [{'sql': '\n'
                  '  ADR-0056 BPMN-as-actor.\n'
                  '  NSID: ai.gftd.apps.yukkuri.composeVideo\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yukkuri-compose-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yukkuri-compose-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_yukkuri_compose"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/yukkuri"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/yukkuri"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="yukkuri_compose" name="yukkuri compose" '
@@ -226,9 +226,9 @@ UP = [{'sql': '\n'
                  'targetRef="Task_SocialPost"/>\n'
                  '\n'
                  '    <!-- Step 7: Social post — emit app.bsky.feed.post to vertex_repo_record.\n'
-                 '         Visible on yoro.gftd.ai once the record propagates through the MV. -->\n'
+                 '         Visible on yoro.etzhayyim.com once the record propagates through the MV. -->\n'
                  '    <bpmn:serviceTask id="Task_SocialPost" name="social post '
-                 '(yukkuri.gftd.ai)">\n'
+                 '(yukkuri.etzhayyim.com)">\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="yukkuri.social.post"/>\n'
                  '        <zeebe:ioMapping>\n'
@@ -264,9 +264,9 @@ UP = [{'sql': '\n'
                  10468,
                  '00-contracts/bpmn/ai/gftd/yukkuri/yukkuriCompose.bpmn',
                  '2026-04-29T20:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yukkuri-compose-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yukkuri-compose-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id,\n'
@@ -280,19 +280,19 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/yukkuri-compose-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/yukkuri-compose-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'ai.gftd.apps.yukkuri.composeVideo',
                  'yukkuri_compose',
                  '2026-04-29T20:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/yukkuri-compose-v1']}]
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/yukkuri-compose-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/yukkuri-compose-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/yukkuri-compose-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yukkuri-compose-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yukkuri-compose-v1']}]
 
 
 def upgrade() -> None:

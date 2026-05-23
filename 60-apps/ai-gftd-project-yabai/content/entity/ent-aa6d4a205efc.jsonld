@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-aa6d4a205efc",
+  "entityId": "ent-aa6d4a205efc",
+  "canonicalName": "paragon dawn",
+  "aliases": [
+    "paragon dawn"
+  ]
+}

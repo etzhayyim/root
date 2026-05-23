@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fffcebae73bf",
+  "entityId": "ent-fffcebae73bf",
+  "canonicalName": "eugène barret ngaïkosset",
+  "aliases": [
+    "eugène barret ngaïkosset"
+  ]
+}

@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yadoya-confirm-reservation-v1',
-                 'did:web:yadoya.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-confirm-reservation-v1',
+                 'did:web:yadoya.etzhayyim.com',
                  'yadoya_confirm_reservation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_yadoya_confirm_reservation" '
-                 'targetNamespace="https://gftd.ai/bpmn/yadoya" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/yadoya" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="yadoya_confirm_reservation" name="confirmReservation" '
                  'isExecutable="true">\n'
@@ -79,7 +79,7 @@ UP = [{'sql': '\n'
                  'reservation">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:yadoya.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:yadoya.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;yadoya.reservation.confirm.abort&quot;" '
                  'target="action"/>\n'
@@ -112,13 +112,13 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_yadoya_reservation&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: reservation.reservation_vid, '
-                 'sensitivity_ord: 3, owner_did: &quot;did:web:yadoya.gftd.ai&quot;, '
+                 'sensitivity_ord: 3, owner_did: &quot;did:web:yadoya.etzhayyim.com&quot;, '
                  'reservation_id: reservationId, hotel_vid: reservation.hotel_vid, guest_did: '
                  'reservation.guest_did, checkin: reservation.checkin, checkout: checkout, guests: '
                  'guests, nights: reservation.nights, amount_bucket: reservation.amount_bucket, '
                  'currency: reservation.currency, channel: channel, status: &quot;confirmed&quot;, '
                  'created_at: createdAt, org_id: orgId, user_id: userId, actor_id: '
-                 '&quot;did:web:yadoya.gftd.ai&quot;}" target="row"/>\n'
+                 '&quot;did:web:yadoya.etzhayyim.com&quot;}" target="row"/>\n'
                  '        </zeebe:ioMapping>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -132,10 +132,10 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_yadoya_flow_event&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:yadoya.gftd.ai/ai.gftd.apps.yadoya.flowEvent/&quot; + '
+                 '&quot;at://did:web:yadoya.etzhayyim.com/ai.gftd.apps.yadoya.flowEvent/&quot; + '
                  'reservationId, sensitivity_ord: 1, owner_did: '
-                 '&quot;did:web:yadoya.gftd.ai&quot;, flow_event_id: reservationId, source_did: '
-                 '&quot;did:web:yadoya.gftd.ai&quot;, counterparty_did: if reservation.chain_did '
+                 '&quot;did:web:yadoya.etzhayyim.com&quot;, flow_event_id: reservationId, source_did: '
+                 '&quot;did:web:yadoya.etzhayyim.com&quot;, counterparty_did: if reservation.chain_did '
                  '!= null then reservation.chain_did else reservation.property_did, '
                  'reservation_vid: reservation.reservation_vid, hotel_vid: reservation.hotel_vid, '
                  'fiscal_period: fiscalPeriod, industry_code: if reservation.isic_code != null '
@@ -144,9 +144,9 @@ UP = [{'sql': '\n'
                  'reservation.currency else &quot;JPY&quot;, amount_bucket: '
                  'reservation.amount_bucket, service_class: &quot;room_night&quot;, service_count: '
                  'reservation.nights, service_unit: &quot;room_nights&quot;, source_url: '
-                 '&quot;https://yadoya.gftd.ai/about&quot;, source_license: '
+                 '&quot;https://yadoya.etzhayyim.com/about&quot;, source_license: '
                  '&quot;gftd-internal-aggregate-v1&quot;, created_at: createdAt, org_id: orgId, '
-                 'user_id: userId, actor_id: &quot;did:web:yadoya.gftd.ai&quot;}" target="row"/>\n'
+                 'user_id: userId, actor_id: &quot;did:web:yadoya.etzhayyim.com&quot;}" target="row"/>\n'
                  '        </zeebe:ioMapping>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -161,22 +161,22 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_resource_flow_currency&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:yadoya.gftd.ai/ai.gftd.apps.resourceFlow.legalEntityCurrencyFlow/&quot; '
+                 '&quot;at://did:web:yadoya.etzhayyim.com/ai.gftd.apps.resourceFlow.legalEntityCurrencyFlow/&quot; '
                  '+ reservationId, sensitivity_ord: 1, owner_did: '
-                 '&quot;did:web:yadoya.gftd.ai&quot;, source_did: '
-                 '&quot;did:web:yadoya.gftd.ai&quot;, counterparty_did: if reservation.chain_did '
+                 '&quot;did:web:yadoya.etzhayyim.com&quot;, source_did: '
+                 '&quot;did:web:yadoya.etzhayyim.com&quot;, counterparty_did: if reservation.chain_did '
                  '!= null then reservation.chain_did else reservation.property_did, '
                  'counterparty_root_did: null, counterparty_root_did_hash: null, facade_did: null, '
                  'facade_did_hash: null, identity_method: null, root_did: null, root_did_hash: '
                  'null, root_identity_addr: null, migration_status: &quot;facade_only&quot;, '
                  'fiscal_period: fiscalPeriod, industry_code: if reservation.isic_code != null '
                  'then reservation.isic_code else &quot;I5510&quot;, cohort_id: null, cohort_size: '
-                 'null, source_url: &quot;https://yadoya.gftd.ai/about&quot;, source_license: '
+                 'null, source_url: &quot;https://yadoya.etzhayyim.com/about&quot;, source_license: '
                  '&quot;gftd-internal-aggregate-v1&quot;, note: &quot;yadoya reservation &quot; + '
                  'reservationId + &quot; confirmed&quot;, record_uri: '
-                 '&quot;at://did:web:yadoya.gftd.ai/ai.gftd.apps.yadoya.flowEvent/&quot; + '
+                 '&quot;at://did:web:yadoya.etzhayyim.com/ai.gftd.apps.yadoya.flowEvent/&quot; + '
                  'reservationId, observed_at: createdAt, created_at: createdAt, org_id: orgId, '
-                 'user_id: userId, actor_id: &quot;did:web:yadoya.gftd.ai&quot;, flow_type: '
+                 'user_id: userId, actor_id: &quot;did:web:yadoya.etzhayyim.com&quot;, flow_type: '
                  '&quot;revenue&quot;, amount: 0, amount_bucket: reservation.amount_bucket, '
                  'currency: if reservation.currency != null then reservation.currency else '
                  '&quot;JPY&quot;}" target="row"/>\n'
@@ -194,22 +194,22 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_resource_flow_service&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:yadoya.gftd.ai/ai.gftd.apps.resourceFlow.legalEntityServiceFlow/&quot; '
+                 '&quot;at://did:web:yadoya.etzhayyim.com/ai.gftd.apps.resourceFlow.legalEntityServiceFlow/&quot; '
                  '+ reservationId, sensitivity_ord: 1, owner_did: '
-                 '&quot;did:web:yadoya.gftd.ai&quot;, source_did: '
-                 '&quot;did:web:yadoya.gftd.ai&quot;, counterparty_did: if reservation.chain_did '
+                 '&quot;did:web:yadoya.etzhayyim.com&quot;, source_did: '
+                 '&quot;did:web:yadoya.etzhayyim.com&quot;, counterparty_did: if reservation.chain_did '
                  '!= null then reservation.chain_did else reservation.property_did, '
                  'counterparty_root_did: null, counterparty_root_did_hash: null, facade_did: null, '
                  'facade_did_hash: null, identity_method: null, root_did: null, root_did_hash: '
                  'null, root_identity_addr: null, migration_status: &quot;facade_only&quot;, '
                  'fiscal_period: fiscalPeriod, industry_code: if reservation.isic_code != null '
                  'then reservation.isic_code else &quot;I5510&quot;, cohort_id: null, cohort_size: '
-                 'null, source_url: &quot;https://yadoya.gftd.ai/about&quot;, source_license: '
+                 'null, source_url: &quot;https://yadoya.etzhayyim.com/about&quot;, source_license: '
                  '&quot;gftd-internal-aggregate-v1&quot;, note: &quot;yadoya reservation &quot; + '
                  'reservationId, record_uri: '
-                 '&quot;at://did:web:yadoya.gftd.ai/ai.gftd.apps.yadoya.flowEvent/&quot; + '
+                 '&quot;at://did:web:yadoya.etzhayyim.com/ai.gftd.apps.yadoya.flowEvent/&quot; + '
                  'reservationId, observed_at: createdAt, created_at: createdAt, org_id: orgId, '
-                 'user_id: userId, actor_id: &quot;did:web:yadoya.gftd.ai&quot;, service_class: '
+                 'user_id: userId, actor_id: &quot;did:web:yadoya.etzhayyim.com&quot;, service_class: '
                  '&quot;room_night&quot;, service_count: reservation.nights, service_unit: '
                  '&quot;room_nights&quot;, revenue: 0, revenue_currency: if reservation.currency '
                  '!= null then reservation.currency else &quot;JPY&quot;}" target="row"/>\n'
@@ -223,7 +223,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:yadoya.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:yadoya.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;yadoya.reservation.confirm&quot;" '
                  'target="action"/>\n'
@@ -244,10 +244,10 @@ UP = [{'sql': '\n'
                  11424,
                  '00-contracts/bpmn/ai/gftd/yadoya/confirmReservation.bpmn',
                  '2026-04-28T15:01:00Z',
-                 'did:web:yadoya.gftd.ai',
-                 'did:web:yadoya.gftd.ai',
+                 'did:web:yadoya.etzhayyim.com',
+                 'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-confirm',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yadoya-confirm-reservation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-confirm-reservation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -261,21 +261,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yadoya-confirmReservation-v1',
-                 'did:web:yadoya.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-confirmReservation-v1',
+                 'did:web:yadoya.etzhayyim.com',
                  'ai.gftd.apps.yadoya.confirmReservation',
                  'yadoya_confirm_reservation',
                  45000,
                  '2026-04-28T15:01:00Z',
-                 'did:web:yadoya.gftd.ai',
-                 'did:web:yadoya.gftd.ai',
+                 'did:web:yadoya.etzhayyim.com',
+                 'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-confirm',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yadoya-confirmReservation-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-confirmReservation-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/yadoya-confirmReservation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-confirmReservation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/yadoya-confirm-reservation-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-confirm-reservation-v1']}]
 
 
 def upgrade() -> None:

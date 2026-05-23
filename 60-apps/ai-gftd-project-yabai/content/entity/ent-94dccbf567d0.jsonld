@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-94dccbf567d0",
+  "entityId": "ent-94dccbf567d0",
+  "canonicalName": "лужбін ігор сергійович",
+  "aliases": [
+    "лужбін ігор сергійович"
+  ]
+}

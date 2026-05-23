@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "sbom.gftd.ai liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met.",
+      "description": "sbom.etzhayyim.com liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met.",
       "output": {
         "encoding": "application/json",
         "schema": {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Toggle } from '@gftdcojp/design-system';
+	import { Button, Toggle } from '@etzhayyim/design-system';
 	import type { CardFormPayload } from '../w-types.js';
 
 	interface Props {

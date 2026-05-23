@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-46e67552f12a",
+  "entityId": "ent-46e67552f12a",
+  "canonicalName": "filistin vakfi",
+  "aliases": [
+    "filistin vakfi"
+  ]
+}

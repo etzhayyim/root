@@ -1,17 +1,17 @@
 # ai-gftd-project-yobel — Collective Debt Release Rites
 
-集合的・教義的・政治的な債務免除 rite (`yobel.etzhayyim.com` / `yobel.gftd.ai` federation alias)。
+集合的・教義的・政治的な債務免除 rite (`yobel.etzhayyim.com` / `yobel.etzhayyim.com` federation alias)。
 שמיטה (shmita 7yr) / יובל (yobel 49yr) / 徳政令 / Catholic Jubilee / modern political amnesty を統一データモデルで扱う。
 
 **設計 SSoT**: `90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md`
-**Twin design ADR (vendor side)**: `gftdcojp:90-docs/adr/2605201700-yobel-jubilee-shmita-debt-release-actor.md`
+**Twin design ADR (vendor side)**: `etzhayyim:90-docs/adr/2605201700-yobel-jubilee-shmita-debt-release-actor.md`
 
 ## Identity & Boundary
 
 | 項目 | 値 |
 |---|---|
 | Operating entity | **etzhayyim** (3-axis split clean: liability=doctrine / custody=AT MST+IPFS / settlement=USDC on Base L2) |
-| DID | `did:web:yobel.etzhayyim.com` (primary), `did:web:yobel.gftd.ai` (federation alias) |
+| DID | `did:web:yobel.etzhayyim.com` (primary), `did:web:yobel.etzhayyim.com` (federation alias) |
 | License | Apache-2.0 + Charter Compliance Rider v2.0 (`/CHARTER-RIDER.md`) |
 | Charter alignment | Mission §1 (構造的労働解放) の monetary-debt 局面 doctrinal runtime |
 | Substrate | AT MST + IPFS + Base L2 (RW-free) |
@@ -44,8 +44,8 @@ Path: `00-contracts/lexicons/ai/gftd/apps/etzhayyim/yobel/{declareRite,enrollCre
 
 ```
 etzhayyim/yobel (voluntary doctrinal, USDC on Base L2)
- ├─ fallback     → vendor:bankruptcy.gftd.ai  (mandatory legal procedure, 84 jurisdictions)
- ├─ represented  → vendor:lawfirm.gftd.ai     (creditor consent letters, court filings)
+ ├─ fallback     → vendor:bankruptcy.etzhayyim.com  (mandatory legal procedure, 84 jurisdictions)
+ ├─ represented  → vendor:lawfirm.etzhayyim.com     (creditor consent letters, court filings)
  ├─ eligibility  ← council SBT registry       (Lv1+ membership gate)
  ├─ ratification ← council Lv6+               (rite declaration approval)
  ├─ settlement   → ERC725 Smart Wallet + Base L2 USDC release tx
@@ -57,9 +57,9 @@ etzhayyim/yobel (voluntary doctrinal, USDC on Base L2)
 ## Invariants (CRITICAL — Charter §1 + Rider §2(b) compliance)
 
 - **One-way debt forgiveness only.** 新規貸付・利息計算・margin・liquidation・arbitrage は不実装。schema レベルで担保 (lexicon に貸付メソッドなし)
-- **Voluntary opt-in only.** secular creditor が無視した場合は vendor:bankruptcy.gftd.ai fallback
+- **Voluntary opt-in only.** secular creditor が無視した場合は vendor:bankruptcy.etzhayyim.com fallback
 - **Religious-corp doctrinal authority のみ.** secular law を override する主張は出さない
-- **Tax warning は出すが税務 advice は出さない.** `jurisdictionNotes` field で per-jurisdiction COD income warning を返却、税務 advice は vendor:lawfirm.gftd.ai に delegate
+- **Tax warning は出すが税務 advice は出さない.** `jurisdictionNotes` field で per-jurisdiction COD income warning を返却、税務 advice は vendor:lawfirm.etzhayyim.com に delegate
 - **No fiat settlement.** USDC on Base L2 only
 - **No RisingWave.** etzhayyim substrate boundary (vendor:ADR-2605172000) により AT MST + IPFS + Base L2 のみ
 - **Council Lv6+ ratification for rite declaration.** Three-Tier Enforcement (ADR-2605192230) tier 3 と同等の重要性を持つため

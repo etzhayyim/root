@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a9b9ba5fdc09",
+  "entityId": "ent-a9b9ba5fdc09",
+  "canonicalName": "ali darassa",
+  "aliases": [
+    "ali darassa"
+  ]
+}

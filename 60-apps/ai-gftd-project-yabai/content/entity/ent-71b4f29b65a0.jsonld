@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-71b4f29b65a0",
+  "entityId": "ent-71b4f29b65a0",
+  "canonicalName": "акціонерне товариство \"електроагрегат\"",
+  "aliases": [
+    "акціонерне товариство \"електроагрегат\""
+  ]
+}

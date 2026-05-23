@@ -1,0 +1,19 @@
+{
+  "name": "@aima/ai-gftd-wasm-laser-ls7s8t9u-agent",
+  "description": "agent manifest for ai-gftd-project-aima/ai-gftd-wasm-laser-ls7s8t9u.",
+  "url": "https://ai-gftd-wasm-laser-ls7s8t9u.etzhayyim.com/api/grpc",
+  "version": "1.0.0",
+  "provider": {
+    "service": "GFTD",
+    "url": "https://kyber-services.etzhayyim.com"
+  },
+  "supportedProtocols": [
+    "mcp/1.0"
+  ],
+  "skills": [
+    {
+      "name": "ai-gftd-wasm-laser-ls7s8t9u.handle",
+      "description": "Default default handler skill for ai-gftd-wasm-laser-ls7s8t9u."
+    }
+  ]
+}

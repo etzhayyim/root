@@ -75,7 +75,7 @@ async function collectLexicons(dir: string): Promise<LexiconDoc[]> {
               parsed.defs &&
               typeof parsed.defs === "object"
             ) {
-              out.push(parsed as LexiconDoc);
+              out.push(parsed as unknown as LexiconDoc);
             }
           } catch (parseErr) {
             // Skip unparseable files silently

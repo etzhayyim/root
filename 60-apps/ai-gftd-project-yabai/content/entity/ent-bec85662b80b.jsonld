@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-bec85662b80b",
+  "entityId": "ent-bec85662b80b",
+  "canonicalName": "вебер марія юріївна",
+  "aliases": [
+    "вебер марія юріївна"
+  ]
+}

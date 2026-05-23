@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-aacf9498e8e1",
+  "entityId": "ent-aacf9498e8e1",
+  "canonicalName": "cecoex, s.a.",
+  "aliases": [
+    "cecoex, s.a."
+  ]
+}

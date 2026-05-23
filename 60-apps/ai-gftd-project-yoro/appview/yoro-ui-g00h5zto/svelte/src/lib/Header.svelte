@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
-  import { Badge, Button } from '@gftdcojp/design-system';
-  import { playTap, haptic } from '@gftdcojp/design-system/audio';
+  import { Badge, Button } from '@etzhayyim/design-system';
+  import { playTap, haptic } from '@etzhayyim/design-system/audio';
   import AppLauncher from './apps/AppLauncher.svelte';
   import Tuner from './tuner/Tuner.svelte';
   import HeaderYoroAnimation from './components/HeaderYoroAnimation.svelte';

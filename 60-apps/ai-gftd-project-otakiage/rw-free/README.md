@@ -47,7 +47,7 @@ did:web:otakiage.etzhayyim.com:matsuri:{matsuriId-slug}  — Matsuri (future)
 
 ## Pattern translation (Option B)
 
-| Vendor (`otakiage.gftd.ai`) | etzhayyim (this PR) |
+| Vendor (`otakiage.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
 | `db.insertInto("vertex_otakiage_item").values({...}).execute()` | `e.write({ collection: "ai.gftd.otakiage.item", record, rkey })` |

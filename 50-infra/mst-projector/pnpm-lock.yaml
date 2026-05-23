@@ -17,6 +17,9 @@ importers:
       cborg:
         specifier: ^4.2.0
         version: 4.5.8
+      multiformats:
+        specifier: ^14.0.0
+        version: 14.0.0
       ws:
         specifier: ^8.18.0
         version: 8.20.1
@@ -349,6 +352,9 @@ packages:
 
   iso-datestring-validator@2.2.2:
     resolution: {integrity: sha512-yLEMkBbLZTlVQqOnQ4FiMujR6T4DEcCb1xizmvXS+OxuhwcbtynoosRzdMA69zZCShCNAbi+gJ71FxZBBXx1SA==}
+
+  multiformats@14.0.0:
+    resolution: {integrity: sha512-iWK1RrAS58p2NDfeZFuSUSv3ZPewTIhsGbh/5NgeGGJwJmRljLxGtjRR3nkn+loG3zl+IrfR/W1590QnrSK+Gg==}
 
   multiformats@9.9.0:
     resolution: {integrity: sha512-HoMUjhH9T8DDBNT+6xzkrd9ga/XiBI4xLr58LJACwK6G3HTOPeMz4nB4KJs33L2BelrIJa7P0VuNaVF3hMYfjg==}
@@ -744,6 +750,8 @@ snapshots:
   ieee754@1.2.1: {}
 
   iso-datestring-validator@2.2.2: {}
+
+  multiformats@14.0.0: {}
 
   multiformats@9.9.0: {}
 

@@ -15,6 +15,7 @@ import type {
   HostImports,
 } from "./types.js";
 import { toSnake, toKebab, decodeJson, genID, nowISO, rlsDefaults, str, parseUrl, respondJson } from "./helpers.js";
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { createKyselyDb } from "./kysely.js";
 import { llmAsk } from "./llm.js";
 import { resolveHeartbeatCadence, createCadenceState, createInboxBuffer, type CadenceState, type InboxBuffer, type InboundCommit, type InboundReaction, type HeartbeatCadence } from "./heartbeat-cadence.js";

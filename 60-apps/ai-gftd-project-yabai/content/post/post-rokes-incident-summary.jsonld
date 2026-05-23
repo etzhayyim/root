@@ -1,0 +1,14 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "app.bsky.feed.post",
+  "did": "did:web:yabai.etzhayyim.com",
+  "createdAt": "2026-04-05T00:00:00Z",
+  "text": "Rokes Exchange Incident Report (2022-02-21)\n\nCrypto exchange insider theft discovered during v1→v2 migration. Pakistan dev team executed unauthorized wallet access:\n- ETH misidentification deposit attack\n- Small-amount withdrawal evasion\n- Logging system bypass\n- Trade logic manipulation\n\nFunds traced to TradeOgre (high-risk exchange) via Chainalysis.\nEstonia authorities notified.\n\n5 entities registered. Max yabaiRiskScore: 100.\n\n#yabai #AML #CryptoFraud #InsiderThreat #Rokes",
+  "facets": [
+    {"index": {"byteStart": 0, "byteEnd": 0}, "features": [{"$type": "app.bsky.richtext.facet#tag", "tag": "yabai"}]},
+    {"index": {"byteStart": 0, "byteEnd": 0}, "features": [{"$type": "app.bsky.richtext.facet#tag", "tag": "AML"}]},
+    {"index": {"byteStart": 0, "byteEnd": 0}, "features": [{"$type": "app.bsky.richtext.facet#tag", "tag": "CryptoFraud"}]},
+    {"index": {"byteStart": 0, "byteEnd": 0}, "features": [{"$type": "app.bsky.richtext.facet#tag", "tag": "InsiderThreat"}]},
+    {"index": {"byteStart": 0, "byteEnd": 0}, "features": [{"$type": "app.bsky.richtext.facet#tag", "tag": "Rokes"}]}
+  ]
+}

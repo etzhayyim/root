@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-schedule-flight-v1',
-                 'did:web:open-airplane.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-schedule-flight-v1',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'open_airplane_schedule_flight',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_airplane_schedule_flight"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-airplane"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-airplane"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_airplane_schedule_flight" name="便 登録" '
@@ -128,7 +128,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-airplane.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-airplane.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openAirplane.flight.schedule&quot;" '
                  'target="action"/>\n'
@@ -152,10 +152,10 @@ UP = [{'sql': '\n'
                  5287,
                  '00-contracts/bpmn/ai/gftd/open-airplane/scheduleFlight.bpmn',
                  '2026-04-24T13:30:00Z',
-                 'did:web:open-airplane.gftd.ai:ops',
-                 'did:web:open-airplane.gftd.ai:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-airplane',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-schedule-flight-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-schedule-flight-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -163,8 +163,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-report-incident-v1',
-                 'did:web:open-airplane.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-report-incident-v1',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'open_airplane_report_incident',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -172,7 +172,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_airplane_report_incident"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-airplane"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-airplane"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_airplane_report_incident" name="事故 報告" '
@@ -288,7 +288,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-airplane.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-airplane.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openAirplane.incident.publicNotice&quot;" '
                  'target="action"/>\n'
@@ -306,7 +306,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:open-airplane.gftd.ai:ops&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:open-airplane.etzhayyim.com:ops&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openAirplane.incident.log&quot;" '
                  'target="action"/>\n'
@@ -329,10 +329,10 @@ UP = [{'sql': '\n'
                  6882,
                  '00-contracts/bpmn/ai/gftd/open-airplane/reportIncident.bpmn',
                  '2026-04-24T13:30:00Z',
-                 'did:web:open-airplane.gftd.ai:ops',
-                 'did:web:open-airplane.gftd.ai:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-airplane',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-report-incident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-report-incident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -340,16 +340,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-scheduleFlight-v1',
-                 'did:web:open-airplane.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-scheduleFlight-v1',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'ai.gftd.apps.openAirplane.scheduleFlight',
                  'open_airplane_schedule_flight',
                  15000,
                  '2026-04-24T13:30:00Z',
-                 'did:web:open-airplane.gftd.ai:ops',
-                 'did:web:open-airplane.gftd.ai:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-airplane',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-scheduleFlight-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-scheduleFlight-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -357,25 +357,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-reportIncident-v1',
-                 'did:web:open-airplane.gftd.ai:ops',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-reportIncident-v1',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'ai.gftd.apps.openAirplane.reportIncident',
                  'open_airplane_report_incident',
                  30000,
                  '2026-04-24T13:30:00Z',
-                 'did:web:open-airplane.gftd.ai:ops',
-                 'did:web:open-airplane.gftd.ai:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
+                 'did:web:open-airplane.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-airplane',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-reportIncident-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-reportIncident-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-scheduleFlight-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-scheduleFlight-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-airplane-reportIncident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-airplane-reportIncident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-schedule-flight-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-schedule-flight-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-airplane-report-incident-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-airplane-report-incident-v1']}]
 
 
 def upgrade() -> None:

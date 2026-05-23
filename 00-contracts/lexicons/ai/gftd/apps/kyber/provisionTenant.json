@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Provision a new kyber tenant. Creates billing_tenant row and Stripe customer. Called by yoro.gftd.ai signup flow on first login. Idempotent by orgDid.",
+      "description": "Provision a new kyber tenant. Creates billing_tenant row and Stripe customer. Called by yoro.etzhayyim.com signup flow on first login. Idempotent by orgDid.",
       "input": {
         "encoding": "application/json",
         "schema": {

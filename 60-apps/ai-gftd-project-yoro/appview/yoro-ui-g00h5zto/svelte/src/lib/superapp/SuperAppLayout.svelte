@@ -18,13 +18,13 @@
 	import type { Snippet } from 'svelte';
 	import AppShell from '../AppShell.svelte';
 	import Header from '../Header.svelte';
-	import { ActionSheet } from '@gftdcojp/design-system';
+	import { ActionSheet } from '@etzhayyim/design-system';
 	import SuperAppTabBar from './SuperAppTabBar.svelte';
 	import AmbientBackground from './AmbientBackground.svelte';
 	import SplashScreen from './SplashScreen.svelte';
 	import { currentTab, type SuperAppTab } from './stores.js';
 	import { vibesTuning, MOOD_META } from '../tuner/vibes-store.js';
-	import { playNavForward, playNavBack } from '@gftdcojp/design-system/audio';
+	import { playNavForward, playNavBack } from '@etzhayyim/design-system/audio';
 	import { page } from '$app/stores';
 
 	// Embed mode: strip all chrome (Header, TabBar, splash) when loaded in iframe via ?embed=1

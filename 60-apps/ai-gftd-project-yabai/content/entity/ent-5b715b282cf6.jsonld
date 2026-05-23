@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5b715b282cf6",
+  "entityId": "ent-5b715b282cf6",
+  "canonicalName": "gédéon kyungu mutanga wa bafunkwa",
+  "aliases": [
+    "gédéon kyungu mutanga wa bafunkwa"
+  ]
+}

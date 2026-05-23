@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5b0e2199dd15",
+  "entityId": "ent-5b0e2199dd15",
+  "canonicalName": "аширов станіслав олегович",
+  "aliases": [
+    "аширов станіслав олегович"
+  ]
+}

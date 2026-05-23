@@ -41,10 +41,10 @@ UP = [{'sql': '\n'
          '        $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:gameka.gftd.ai/ai.gftd.apps.gameka.gameSpec/spec-merge-grid-2048',
-                 'did:web:gameka.gftd.ai',
+  'parameters': ['at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.gameSpec/spec-merge-grid-2048',
+                 'did:web:gameka.etzhayyim.com',
                  'spec-merge-grid-2048',
-                 'did:web:gameka.gftd.ai',
+                 'did:web:gameka.etzhayyim.com',
                  'spec-merge-grid-2048',
                  'A relaxing quarry-themed 2048 swipe-merge with stone-slab tiles and '
                  'Nintendo-pastel polish.',
@@ -96,10 +96,10 @@ UP = [{'sql': '\n'
          '        $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:gameka.gftd.ai/ai.gftd.apps.gameka.gameSpec/spec-merge-drop-suika',
-                 'did:web:gameka.gftd.ai',
+  'parameters': ['at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.gameSpec/spec-merge-drop-suika',
+                 'did:web:gameka.etzhayyim.com',
                  'spec-merge-drop-suika',
-                 'did:web:gameka.gftd.ai',
+                 'did:web:gameka.etzhayyim.com',
                  'spec-merge-drop-suika',
                  'Suika-style physics merge in a tundra glass jar — drop snowballs, fuse them, '
                  'create a glacier.',
@@ -153,10 +153,10 @@ UP = [{'sql': '\n'
          '        $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:gameka.gftd.ai/ai.gftd.apps.gameka.gameSpec/spec-merge-field-triple',
-                 'did:web:gameka.gftd.ai',
+  'parameters': ['at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.gameSpec/spec-merge-field-triple',
+                 'did:web:gameka.etzhayyim.com',
                  'spec-merge-field-triple',
-                 'did:web:gameka.gftd.ai',
+                 'did:web:gameka.etzhayyim.com',
                  'spec-merge-field-triple',
                  'Triple Town-style place-and-merge on a plains board — grass to castle, '
                  'golden-hour vibes.',

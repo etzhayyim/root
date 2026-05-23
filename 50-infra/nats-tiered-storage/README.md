@@ -1,8 +1,8 @@
 # nats-tiered-storage
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/gftdcojp/nats-tiered-storage/pkg/nts.svg)](https://pkg.go.dev/github.com/gftdcojp/nats-tiered-storage/pkg/nts)
-[![Go Report Card](https://goreportcard.com/badge/github.com/gftdcojp/nats-tiered-storage)](https://goreportcard.com/report/github.com/gftdcojp/nats-tiered-storage)
-[![GHCR](https://img.shields.io/badge/GHCR-v0.3.0-blue)](https://github.com/gftdcojp/nats-tiered-storage/pkgs/container/nats-tiered-storage)
+[![Go Reference](https://pkg.go.dev/badge/github.com/etzhayyim/nats-tiered-storage/pkg/nts.svg)](https://pkg.go.dev/github.com/etzhayyim/nats-tiered-storage/pkg/nts)
+[![Go Report Card](https://goreportcard.com/badge/github.com/etzhayyim/nats-tiered-storage)](https://goreportcard.com/report/github.com/etzhayyim/nats-tiered-storage)
+[![GHCR](https://img.shields.io/badge/GHCR-v0.3.0-blue)](https://github.com/etzhayyim/nats-tiered-storage/pkgs/container/nats-tiered-storage)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 Tiered storage sidecar for [NATS JetStream](https://docs.nats.io/nats-concepts/jetstream).
@@ -25,11 +25,11 @@ and cold data from S3-compatible object storage. It supports **Streams**, **KV S
 ### Go client library
 
 ```bash
-go get github.com/gftdcojp/nats-tiered-storage/pkg/nts@latest
+go get github.com/etzhayyim/nats-tiered-storage/pkg/nts@latest
 ```
 
 ```go
-import "github.com/gftdcojp/nats-tiered-storage/pkg/nts"
+import "github.com/etzhayyim/nats-tiered-storage/pkg/nts"
 
 client, _ := nts.New(nts.Config{NC: nc, JS: js})
 
@@ -60,9 +60,9 @@ make build
 Multi-arch images (linux/amd64, linux/arm64) are published to GHCR:
 
 ```bash
-docker pull ghcr.io/gftdcojp/nats-tiered-storage:0.3.0
+docker pull ghcr.io/etzhayyim/nats-tiered-storage:0.3.0
 docker run -v /path/to/config.yaml:/etc/nts/config.yaml \
-  ghcr.io/gftdcojp/nats-tiered-storage:0.3.0
+  ghcr.io/etzhayyim/nats-tiered-storage:0.3.0
 ```
 
 ### Docker (local build)
@@ -109,7 +109,7 @@ Clients ──> nats-server <────>  |  ┌──────────
 | On-demand promotion | Explicitly promote cold blocks back into hotter tiers |
 | KV Store support | Key-based indexing, revision history, prefix scan for `KV_*` streams |
 | Object Store support | Chunk reassembly, metadata indexing for `OBJ_*` streams |
-| Transparent client | [`pkg/nts`](https://pkg.go.dev/github.com/gftdcojp/nats-tiered-storage/pkg/nts) library wraps JetStream with automatic cold fallback |
+| Transparent client | [`pkg/nts`](https://pkg.go.dev/github.com/etzhayyim/nats-tiered-storage/pkg/nts) library wraps JetStream with automatic cold fallback |
 | HTTP REST API | Query messages, KV keys, objects, list blocks, trigger demote/promote |
 | NATS request-reply | `nts.get.*`, `nts.kv.*`, `nts.obj.*` subjects |
 | Prometheus metrics | `nts_*` metrics for ingestion, tier usage, KV/Object ops, latency |
@@ -191,10 +191,10 @@ nts-ctl obj list files
 
 ## Client Library (`pkg/nts`)
 
-The [`pkg/nts`](https://pkg.go.dev/github.com/gftdcojp/nats-tiered-storage/pkg/nts) package provides a drop-in wrapper for JetStream with automatic cold storage fallback. It requires only `nats.go` — no other dependencies from this project.
+The [`pkg/nts`](https://pkg.go.dev/github.com/etzhayyim/nats-tiered-storage/pkg/nts) package provides a drop-in wrapper for JetStream with automatic cold storage fallback. It requires only `nats.go` — no other dependencies from this project.
 
 ```bash
-go get github.com/gftdcojp/nats-tiered-storage/pkg/nts@latest
+go get github.com/etzhayyim/nats-tiered-storage/pkg/nts@latest
 ```
 
 ### API
@@ -355,7 +355,7 @@ bin/nats-tiered-storage -config /path/to/config.yaml
 # Docker (GHCR)
 docker run -v /path/to/config.yaml:/etc/nts/config.yaml \
            -v /var/lib/nts:/var/lib/nts \
-           ghcr.io/gftdcojp/nats-tiered-storage:0.3.0
+           ghcr.io/etzhayyim/nats-tiered-storage:0.3.0
 
 # Kubernetes
 kubectl apply -f deploy/kubernetes/configmap.yaml

@@ -19,7 +19,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 SEALER=0xaFed0Cb7633EDBd26aA52658e71528309F562501
 GCC=0x8e9A5162b2800E0D19acC1708A531A3954900E21
-RPC=https://geth.gftd.ai
+RPC=https://geth.etzhayyim.com
 
 echo "==> Fetching keys from macOS Keychain..."
 K1_PRIV=$(security find-generic-password -s "gftd.safe-owners" -a "K1_PRIV" -w)

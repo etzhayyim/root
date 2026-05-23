@@ -27,8 +27,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-export-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-export-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'training_export',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -63,7 +63,7 @@ UP = [{'sql': '\n'
                  '                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '                  id="Definitions_training_export"\n'
-                 '                  targetNamespace="https://gftd.ai/bpmn/training"\n'
+                 '                  targetNamespace="https://etzhayyim.com/bpmn/training"\n'
                  '                  exporter="hand-written"\n'
                  '                  exporterVersion="1.0">\n'
                  '\n'
@@ -207,7 +207,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:training.gftd.ai&quot;"            '
+                 '          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;"            '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;training.export.complete&quot;"             target="action"/>\n'
@@ -255,11 +255,11 @@ UP = [{'sql': '\n'
                  9560,
                  '00-contracts/bpmn/ai/gftd/training/trainingExport.bpmn',
                  '2026-05-02T13:00:00+09:00',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.training-export',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-export-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-export-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id,\n'
@@ -274,21 +274,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-export-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-export-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'ai.gftd.apps.training.startExport',
                  'training_export',
                  '2026-05-02T13:00:00+09:00',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.training-export',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-export-v1']}]
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-export-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/training-export-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-export-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/training-export-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-export-v1']}]
 
 
 def upgrade() -> None:

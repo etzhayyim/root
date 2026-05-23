@@ -1,0 +1,9 @@
+{
+  "name": "ai-gftd-wasm-editor-ed1t0r00",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  }
+}

@@ -1,4 +1,4 @@
-# India Ad Monetization Design — yoro.gftd.ai
+# India Ad Monetization Design — yoro.etzhayyim.com
 
 **Date**: 2026-03-30
 **Status**: `[DESIGN]`
@@ -15,22 +15,22 @@ AdSense をベースラインとして維持しつつ、Header Bidding (AdPushup
 
 | Priority | Provider | Role | India CPM (USD) | Registration |
 |---|---|---|---|---|
-| **1** | **AdPushup** (Delhi HQ) | Header Bidding + AdX access | $0.60-$2.50 | `adpushup@gftd.ai` |
-| **2** | **Ezoic** (US, India-optimized) | AI layout optimization + AdX | $0.80-$3.00 | `ezoic@gftd.ai` |
-| **3** | **Media.net** (Mumbai HQ) | Contextual ads (Yahoo/Bing demand) | $0.50-$2.00 | `medianet@gftd.ai` |
+| **1** | **AdPushup** (Delhi HQ) | Header Bidding + AdX access | $0.60-$2.50 | `adpushup@etzhayyim.com` |
+| **2** | **Ezoic** (US, India-optimized) | AI layout optimization + AdX | $0.80-$3.00 | `ezoic@etzhayyim.com` |
+| **3** | **Media.net** (Mumbai HQ) | Contextual ads (Yahoo/Bing demand) | $0.50-$2.00 | `medianet@etzhayyim.com` |
 | **4** | **Google AdSense** (current) | Baseline fill rate 95-99% | $0.30-$1.50 | existing `ca-pub-8017914559680125` |
 
 **Expected combined RPM**: $1.00-$4.00 (vs $0.30-$1.50 AdSense-only, 2-3x uplift)
 
 ### Registration Plan
 
-DID-based email: `{provider}@gftd.ai` → mailer.gftd.ai で受信。
+DID-based email: `{provider}@etzhayyim.com` → mailer.etzhayyim.com で受信。
 
 | Step | Provider | Email DID | URL | Requirements |
 |---|---|---|---|---|
-| 1 | AdPushup | `did:web:mailer.gftd.ai:adpushup` | https://www.adpushup.com/signup | Website URL, monthly pageviews, current revenue |
-| 2 | Ezoic | `did:web:mailer.gftd.ai:ezoic` | https://www.ezoic.com/signup | Website URL, Google Analytics access |
-| 3 | Media.net | `did:web:mailer.gftd.ai:medianet` | https://www.media.net/signup | Website URL, English content, traffic stats |
+| 1 | AdPushup | `did:web:mailer.etzhayyim.com:adpushup` | https://www.adpushup.com/signup | Website URL, monthly pageviews, current revenue |
+| 2 | Ezoic | `did:web:mailer.etzhayyim.com:ezoic` | https://www.ezoic.com/signup | Website URL, Google Analytics access |
+| 3 | Media.net | `did:web:mailer.etzhayyim.com:medianet` | https://www.media.net/signup | Website URL, English content, traffic stats |
 
 ### Integration Architecture
 
@@ -91,12 +91,12 @@ Consent state は `localStorage('yoro-cookie-consent')` で統一管理 (変更�
 
 #### Phase 1: Account Registration (Week 1)
 
-1. Create DID emails via mailer.gftd.ai
+1. Create DID emails via mailer.etzhayyim.com
    - `magatama.DIDCreate("adpushup", {displayName: "AdPushup", description: "Ad monetization provider"})`
    - `magatama.DIDCreate("ezoic", {displayName: "Ezoic", description: "Ad optimization provider"})`
    - `magatama.DIDCreate("medianet", {displayName: "Media.net", description: "Contextual ad provider"})`
-2. Register at each provider with `{name}@gftd.ai` email
-3. Submit yoro.gftd.ai for review
+2. Register at each provider with `{name}@etzhayyim.com` email
+3. Submit yoro.etzhayyim.com for review
 4. Await approval (AdPushup: 2-5 days, Ezoic: 1-3 days, Media.net: 5-10 days)
 
 #### Phase 2: AdPushup Integration (Week 2-3)

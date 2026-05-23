@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ee223e582d42",
+  "entityId": "ent-ee223e582d42",
+  "canonicalName": "朝鮮総聯 (chongryon)",
+  "aliases": [
+    "朝鮮総聯 (chongryon)"
+  ]
+}

@@ -59,15 +59,15 @@ const CLAUSES: Clause[] = [
     summaryJa: "労基法39条準拠の年休。年5日取得義務 (使用者管理)。",
     severity: "high" },
   { cid: "kbakshi-1y-ip-assignment",   kind: "ip_assignment",
-    summaryEn: "All work product = work-for-hire to amanomibashira. Moral rights non-exercise covenant.",
-    summaryJa: "業務上作成成果物は職務著作として amanomibashira 帰属。著作者人格権不行使特約。",
+    summaryEn: "All work product = work-for-hire to etzhayyim. Moral rights non-exercise covenant.",
+    summaryJa: "業務上作成成果物は職務著作として etzhayyim 帰属。著作者人格権不行使特約。",
     severity: "critical",
     ipAssignedTo: "did:web:etz-hayim.etzhayyim.com" },
   { cid: "kbakshi-1y-confidentiality", kind: "confidentiality",
-    summaryEn: "Trade secret + business confidentials, scope = amanomibashira platform internals + roadmap + customer info, term = 60mo post-term.",
-    summaryJa: "営業秘密 + 業務上知り得た一切の機密。範囲: amanomibashira platform 内部 + roadmap + 顧客情報。退職後 60ヶ月。",
+    summaryEn: "Trade secret + business confidentials, scope = etzhayyim platform internals + roadmap + customer info, term = 60mo post-term.",
+    summaryJa: "営業秘密 + 業務上知り得た一切の機密。範囲: etzhayyim platform 内部 + roadmap + 顧客情報。退職後 60ヶ月。",
     severity: "critical",
-    ndaScope: "amanomibashira platform internals + roadmap + customer info",
+    ndaScope: "etzhayyim platform internals + roadmap + customer info",
     termMonths: 60 },
   { cid: "kbakshi-1y-data-protection", kind: "data_protection",
     summaryEn: "PII handling per APPI; cross-border transfer (DPDP / EU GDPR) requires explicit consent.",
@@ -125,9 +125,9 @@ const CITES: Cite[] = [
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── clause inserts ──────────────────────────────────────────────────────────
   for (const c of CLAUSES) {
-    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${c.cid}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contractClause/${c.cid}`;
     await sql`
-      INSERT INTO vertex_gftdcojp_contract_clause
+      INSERT INTO vertex_etzhayyim_contract_clause
         (vertex_id, contract_id, clause_kind, ip_assigned_to, nda_scope,
          term_months, summary, summary_ja, severity, created_at,
          sensitivity_ord, owner_did)
@@ -136,13 +136,13 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         ${c.ipAssignedTo ?? null}, ${c.ndaScope ?? null}, CAST(${c.termMonths ?? null} AS integer),
         ${c.summaryEn}, ${c.summaryJa}, ${c.severity},
         ${NOW}, 300, ${OWNER}
-      WHERE NOT EXISTS (SELECT 1 FROM vertex_gftdcojp_contract_clause WHERE vertex_id = ${vid})
+      WHERE NOT EXISTS (SELECT 1 FROM vertex_etzhayyim_contract_clause WHERE vertex_id = ${vid})
     `.execute(db);
   }
 
   // ── clause→hourei.jobun cite edges via existing edge_cites ────────────────
   for (const cite of CITES) {
-    const srcVid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${cite.clauseCid}`;
+    const srcVid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contractClause/${cite.clauseCid}`;
     const dstVid = `at://did:web:hourei.etzhayyim.com/ai.gftd.apps.hourei.article/${cite.hourei}--${cite.art}`;
     const edgeId = `edge:${cite.clauseCid}:cites:${cite.hourei}--${cite.art}`;
     const label = `${cite.hourei} 第${cite.art}条 — ${cite.paragraph}`;
@@ -166,7 +166,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       cc.severity,
       COUNT(DISTINCT e.dst_vid) AS cite_count,
       ARRAY_AGG(DISTINCT e.dst_vid) AS cited_jobun
-    FROM vertex_gftdcojp_contract_clause cc
+    FROM vertex_etzhayyim_contract_clause cc
     LEFT JOIN edge_cites e ON e.src_vid = cc.vertex_id
     WHERE e.dst_vid LIKE 'at://did:web:hourei.etzhayyim.com/%'
        OR e.dst_vid IS NULL
@@ -181,7 +181,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     await sql`DELETE FROM edge_cites WHERE edge_id = ${edgeId}`.execute(db);
   }
   for (const c of CLAUSES) {
-    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.gftdcojp.contractClause/${c.cid}`;
-    await sql`DELETE FROM vertex_gftdcojp_contract_clause WHERE vertex_id = ${vid}`.execute(db);
+    const vid = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contractClause/${c.cid}`;
+    await sql`DELETE FROM vertex_etzhayyim_contract_clause WHERE vertex_id = ${vid}`.execute(db);
   }
 }

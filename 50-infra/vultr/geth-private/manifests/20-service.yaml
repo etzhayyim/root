@@ -2,7 +2,7 @@
 #
 # Public exposure goes through `caddy-geth-tls` (40-tls-proxy.yaml) on a
 # Vultr LoadBalancer — that's the canonical Worker path via
-# `https://geth.gftd.ai`. This Service stays internal-only.
+# `https://geth.etzhayyim.com`. This Service stays internal-only.
 #
 # From inside the cluster:
 #   http://geth-private.geth-private.svc.cluster.local:8545

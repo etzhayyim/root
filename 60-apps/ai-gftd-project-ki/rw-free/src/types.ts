@@ -13,7 +13,7 @@
  *   ring       → RingRecord       (time-window snapshot, dendrochronology)
  *
  * Note on architecture: ki is a thin-edge dispatcher in vendor — its
- * Worker proxies XRPC calls to dispatcher.gftd.ai which then writes to
+ * Worker proxies XRPC calls to dispatcher.etzhayyim.com which then writes to
  * RisingWave. On the etzhayyim substrate, ki's record stream IS the
  * dispatch — the LangServer pod owns the LLM call and writes the
  * SynthesisRecord directly via e.write(). Worker = pure thin facade.
@@ -78,20 +78,20 @@ export interface SynthesisRecord {
 }
 
 export interface SynthesisView extends SynthesisRecord {
-  synthesisUri: string;
+  synthesizeUri: string;
 }
 
 export interface SynthesizeInput {
-  artifactId: string;
+  synthesizeId: string;
   absorbId: string;
-  synthesis: string;
+  name?: string;
   confidencePermille?: number;
   model?: string;
 }
 
 export interface SynthesizeOutput {
-  status: "registered" | "alreadyExists" | "rejected" | "absorbNotFound";
-  synthesisUri?: string;
+  status: "created" | "alreadyExists" | "rejected";
+  synthesizeUri?: string;
   artifactId?: string;
   did?: string;
   error?: string;
@@ -113,11 +113,12 @@ export interface BloomView extends BloomRecord {
 
 export interface BloomInput {
   bloomId: string;
-  artifactId: string;
+  synthesizeId: string;
+  artifactId?: string;
 }
 
 export interface BloomOutput {
-  status: "registered" | "alreadyExists" | "rejected" | "artifactNotFound";
+  status: "bloomed" | "alreadyExists" | "rejected";
   bloomUri?: string;
   bloomId?: string;
   publishedAt?: string;

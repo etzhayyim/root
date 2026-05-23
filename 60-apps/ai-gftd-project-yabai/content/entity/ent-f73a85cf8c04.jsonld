@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f73a85cf8c04",
+  "entityId": "ent-f73a85cf8c04",
+  "canonicalName": "dimitra ii",
+  "aliases": [
+    "dimitra ii"
+  ]
+}

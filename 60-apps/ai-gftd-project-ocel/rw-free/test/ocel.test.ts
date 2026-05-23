@@ -252,18 +252,17 @@ describe("ocel rw-free", () => {
         },
       ];
 
-      for (const e of events) {
-        await recordEvent(e as any as Parameters<typeof recordEvent>[1] & {
-          eventId: string;
-          activity: string;
-          objectType: string;
-        }, {
-          eventType: `type-${e.activity.toLowerCase()}`,
+      for (const evt of events) {
+        await recordEvent(e, {
+          eventId: evt.eventId,
+          activity: evt.activity,
+          objectType: evt.objectType,
+          eventType: `type-${evt.activity.toLowerCase()}`,
           phase: "start",
           status: "success",
           actorDid: "did:plc:test",
-          objectId: `id-${e.eventId}`,
-        } as any);
+          objectId: `id-${evt.eventId}`,
+        });
       }
 
       const procEvents = await listEvents(e, { objectType: "Process" });

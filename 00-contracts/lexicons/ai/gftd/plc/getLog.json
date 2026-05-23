@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Proxy for plc.gftd.ai GET /{did}/log — returns the full operation log for a DID. Each op is signature-verifiable offline. Used for audit, forensics, and federation sync.",
+      "description": "Proxy for plc.etzhayyim.com GET /{did}/log — returns the full operation log for a DID. Each op is signature-verifiable offline. Used for audit, forensics, and federation sync.",
       "parameters": {
         "type": "params",
         "required": ["did"],

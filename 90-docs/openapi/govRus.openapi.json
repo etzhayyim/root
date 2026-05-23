@@ -134,7 +134,7 @@
     },
     "/xrpc/ai.gftd.govRus.ingestOfficialSources": {
       "post": {
-        "summary": "Queue official Russia government sources through site.gftd.ai for WET/WAT/screenshot capture.",
+        "summary": "Queue official Russia government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
         "operationId": "ai.gftd.govRus.ingestOfficialSources",
         "requestBody": {
           "required": true,

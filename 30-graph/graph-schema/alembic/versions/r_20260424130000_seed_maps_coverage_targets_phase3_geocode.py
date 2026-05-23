@@ -21,13 +21,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/geocode:Airport',
-                 'did:web:maps.gftd.ai:geocode',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/geocode:Airport',
+                 'did:web:maps.etzhayyim.com:geocode',
                  'Airport',
                  3000,
                  1,
                  168,
-                 'did:web:maps.gftd.ai:geocode',
+                 'did:web:maps.etzhayyim.com:geocode',
                  '2026-05-08T00:13:05.176Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -38,13 +38,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/geocode:Port',
-                 'did:web:maps.gftd.ai:geocode',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/geocode:Port',
+                 'did:web:maps.etzhayyim.com:geocode',
                  'Port',
                  5000,
                  1,
                  168,
-                 'did:web:maps.gftd.ai:geocode',
+                 'did:web:maps.etzhayyim.com:geocode',
                  '2026-05-08T00:13:05.176Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -55,13 +55,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/geocode:Station',
-                 'did:web:maps.gftd.ai:geocode',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/geocode:Station',
+                 'did:web:maps.etzhayyim.com:geocode',
                  'Station',
                  10000,
                  0.6,
                  168,
-                 'did:web:maps.gftd.ai:geocode',
+                 'did:web:maps.etzhayyim.com:geocode',
                  '2026-05-08T00:13:05.176Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -72,13 +72,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/weather:WeatherPoint',
-                 'did:web:maps.gftd.ai:weather',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/weather:WeatherPoint',
+                 'did:web:maps.etzhayyim.com:weather',
                  'WeatherPoint',
                  50000,
                  0.3,
                  1,
-                 'did:web:maps.gftd.ai:weather',
+                 'did:web:maps.etzhayyim.com:weather',
                  '2026-05-08T00:13:05.176Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -89,13 +89,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/infrastructure:InfraSegment',
-                 'did:web:maps.gftd.ai:infrastructure',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:InfraSegment',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  'InfraSegment',
                  1000000,
                  0.3,
                  720,
-                 'did:web:maps.gftd.ai:infrastructure',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  '2026-05-08T00:13:05.176Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_maps_coverage_target (\n'
@@ -106,13 +106,13 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.gftd.ai/ai.gftd.apps.maps.coverageTarget/infrastructure:CollectionJob',
-                 'did:web:maps.gftd.ai:infrastructure',
+  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:CollectionJob',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  'CollectionJob',
                  100000,
                  0.1,
                  720,
-                 'did:web:maps.gftd.ai:infrastructure',
+                 'did:web:maps.etzhayyim.com:infrastructure',
                  '2026-05-08T00:13:05.176Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 

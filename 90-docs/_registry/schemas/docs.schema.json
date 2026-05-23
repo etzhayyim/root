@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etzhayyim.com/docs/schemas/docs-registry.schema.json",
+  "title": "Docs Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "updated_at",
+    "entries"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "updatedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "path",
+          "title",
+          "status",
+          "doc_type",
+          "topic",
+          "authoritative"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^docs/.+\\.md$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "deprecated",
+              "superseded",
+              "proposed"
+            ]
+          },
+          "docType": {
+            "type": "string",
+            "enum": [
+              "explanation",
+              "reference",
+              "how-to",
+              "tutorial",
+              "adr"
+            ]
+          },
+          "topic": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authoritative": {
+            "type": "boolean"
+          },
+          "authoritativeFor": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

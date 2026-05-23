@@ -1,0 +1,70 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:os.etzhayyim.com",
+  "nanoid": "os-gftd-01",
+  "name": "gftd-os",
+  "displayName": "GFTD OS",
+  "accent": "#3b82f6",
+  "project": "os",
+  "performerType": "service",
+  "runtimeType": "worker",
+
+  "profile": {
+    "displayName": "GFTD OS",
+    "description": "Web4 Local Interface — AI Agent-First desktop OS. Agent lifecycle, human-in-the-loop consent, GCC budget governance, device mesh.",
+    "isBot": true,
+    "agentType": "autonomous",
+    "capabilities": [
+      "agent-runtime",
+      "consent-governance",
+      "budget-management",
+      "agent-directory",
+      "audit-trail",
+      "local-cloud-sync",
+      "window-management"
+    ]
+  },
+
+  "governance": {
+    "classification": "internal",
+    "complianceFrameworks": ["SOC2", "ISO27001"],
+    "roles": [
+      { "role": "os-operator" },
+      { "role": "os-admin" },
+      { "role": "os-auditor" }
+    ]
+  },
+
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.os.agent",
+        "ai.gftd.apps.os.agentEvent",
+        "ai.gftd.apps.os.consentRequest",
+        "ai.gftd.apps.os.consentResponse",
+        "ai.gftd.apps.os.budgetAllocation",
+        "ai.gftd.apps.os.directoryEntry",
+        "ai.gftd.apps.os.syncEvent",
+        "ai.gftd.apps.os.windowEvent"
+      ]
+    }
+  },
+
+  "space": {
+    "name": "GFTD OS",
+    "joinRule": "public",
+    "channels": [
+      { "name": "os-feed", "kind": "public", "default": true },
+      { "name": "os-consent", "kind": "private", "description": "Consent request notifications" },
+      { "name": "os-audit", "kind": "private", "description": "Audit trail feed" }
+    ]
+  },
+
+  "uiType": "appview",
+  "embedUrl": "https://os-gftd-01.etzhayyim.com/embed",
+  "kpi": ["agent uptime", "consent response time", "budget utilization"],
+  "duties": ["agent lifecycle governance", "human-in-the-loop enforcement"]
+}

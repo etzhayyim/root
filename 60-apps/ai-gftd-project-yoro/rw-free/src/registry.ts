@@ -47,7 +47,7 @@ export async function projectEntity(
       record,
       rkey,
     });
-    return { uri: result.uri, rkey: result.rkey };
+    return { uri: result.uri, rkey };
   } catch (err) {
     return { error: String(err) };
   }
@@ -68,7 +68,7 @@ export async function productResearch(
       record,
       rkey,
     });
-    return { uri: result.uri, rkey: result.rkey };
+    return { uri: result.uri, rkey };
   } catch (err) {
     return { error: String(err) };
   }
@@ -88,7 +88,7 @@ export async function activitySeen(
       record,
       rkey,
     });
-    return { uri: result.uri, rkey: result.rkey };
+    return { uri: result.uri, rkey };
   } catch (err) {
     return { error: String(err) };
   }
@@ -109,7 +109,7 @@ export async function shinkaEvolution(
       record,
       rkey,
     });
-    return { uri: result.uri, rkey: result.rkey };
+    return { uri: result.uri, rkey };
   } catch (err) {
     return { error: String(err) };
   }
@@ -130,7 +130,7 @@ export async function shinkaKnowledge(
       record,
       rkey,
     });
-    return { uri: result.uri, rkey: result.rkey };
+    return { uri: result.uri, rkey };
   } catch (err) {
     return { error: String(err) };
   }

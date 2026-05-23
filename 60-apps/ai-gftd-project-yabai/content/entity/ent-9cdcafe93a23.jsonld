@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9cdcafe93a23",
+  "entityId": "ent-9cdcafe93a23",
+  "canonicalName": "jimmy cherizier",
+  "aliases": [
+    "jimmy cherizier"
+  ]
+}

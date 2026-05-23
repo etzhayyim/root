@@ -5,7 +5,7 @@ status: active
 doc_type: reference
 topic: adr-readme
 authoritative: true
-last_verified: 2026-05-17
+last_verified: 2026-05-21
 authoritative_for:
   - ADR index for etzhayyim/root
   - placement policy for open-scope ADRs
@@ -71,6 +71,11 @@ New open-scope ADRs go here (`etzhayyim/root/90-docs/adr/`). Scope:
 | [2605202030](./2605202030-etzhayyim-tithe-router-v1-create2.md) | TitheRouter v1 — CREATE2 sequencing で Constitution.getMutable 経由 publicFund 読み出しを実現 (post-mainnet migration) | proposed | 2026-05-20 |
 | [2605202100](./2605202100-etzhayyim-magatama-cell-runner-launchd.md) | magatama-cell-runner launchd LaunchAgent (operationalising Tier 1 常駐稼働 on Murakumo fleet; pyproject `[project.scripts]` entry + plist template + idempotent installer + per-node `--health` smoke; closes spec → OS-level boot path gap) | proposed | 2026-05-20 |
 | [2605202115](./2605202115-baien-graft-3d-augmented-dataset.md) | Baien graft 3D-augmented dataset — TripoSR + Hunyuan3D-2 image→3D, moderngl 4-view render, Florence-2 multi-view caption; baien Move 1 supervision を 3D-aware text で強化 (input 2D 据置) | proposed | 2026-05-20 |
+| [2605211241](./2605211241-etzhayyim-surplus-router-warehouse-bridge.md) | etzhayyim Surplus Router — global surplus / dead-stock / overstock redistribution bridge across warehouse × toshiKozan × ftzZones × freeportRegistry × payment.tithe (donation-only, 10% in-kind tithe coupling, Wellbecoming routing priority enforcement, 7 Lexicons under `ai.gftd.apps.surplusRouter.*`) | proposed | 2026-05-21 |
+| [2605215200](./2605215200-etzhayyim-shinka-pregel-mst-rewrite.md) | etzhayyim shinka Pregel/MST rewrite — 4 core cells + mst-projector + charter compliance gate | proposed | 2026-05-21 |
+| [2605215300](./2605215300-etzhayyim-yoro-python-primitives-mst-rewrite-addendum.md) | etzhayyim yoro Python primitives MST rewrite addendum — migration waves M2–M7 (40 functions) | proposed | 2026-05-21 |
+| [2605215400](./2605215400-etzhayyim-shinka-evolution-witness-min.md) | etzhayyim shinka EVOLUTION_WITNESS_MIN — 7-level witness thresholds + Council gate + 30-day appeal | proposed | 2026-05-21 |
+| [2605212150](./2605212150-etzhayyim-langserver-substrate.md) | etzhayyim-langserver — Fleet-resident LSP substrate on Murakumo Mac mini fleet (9-layer reverse-topo build) | proposed | 2026-05-21 |
 
 (Future ADRs added here as they're authored.)
 

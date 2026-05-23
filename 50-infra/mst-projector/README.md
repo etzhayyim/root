@@ -25,9 +25,15 @@ The projection is **append-only deterministic**: the same firehose replay yields
 
 ## Status
 
-**Phase 1 (v0.1.0, ADR-2605191358 step 5)** — working firehose consumer + per-shard JSON manifest emit + IPFS pin (best-effort) + `app.etzhayyim.substrate.shardSnapshot` AT record publish. Counter-derived snapshotHash (sha-256 of canonical-JSON record list) stands in for the true MST root.
+**Phase 2 (ADR-2605191358 step 5 + ADR-2605191655)** — working firehose
+consumer + per-shard CAR flush (root + unstored MST blocks via
+`@atproto/repo`) + IPFS pin (best-effort) + `app.etzhayyim.substrate.shardSnapshot`
+AT record publish with `phase: 2`, true `rootCid`, and `snapshotCid`.
+Tests: 10/10 (`pnpm test`, node:test under tsx).
 
-**Phase 2** — swap JSON manifest for CAR; swap counter-derived hash for true MST root CID via `@atproto/repo`. Lexicon already reserves the `snapshotCid` slot.
+Phase 1's counter-derived `snapshotHash` + JSON manifest path is
+removed; the lexicon's 4-week deprecation grace for the
+`snapshotHash` field starts at the first Phase 2 emission.
 
 ## Layout
 
@@ -39,9 +45,10 @@ mst-projector/
 ├── src/
 │   ├── index.ts       # CLI entry — runs the firehose consumer
 │   ├── firehose.ts    # subscribeRepos client
-│   ├── mst.ts         # Phase 1: per-shard record list + sha-256 root (Phase 2: true MST)
-│   ├── shard.ts       # shard partitioning (per-collection) + flush policy + JSON manifest writer
-│   └── emit.ts        # IPFS pin + writes app.etzhayyim.substrate.shardSnapshot records via @atproto/api
+│   ├── mst.ts         # per-shard @atproto/repo MST (key=`<did>/<rkey>`, value=record CID)
+│   ├── mst.test.ts    # node:test — root determinism + CAR roundtrip (10 tests)
+│   ├── shard.ts       # shard partitioning (per-collection) + flush policy + CAR file writer
+│   └── emit.ts        # IPFS pin + writes app.etzhayyim.substrate.shardSnapshot (phase=2) records via @atproto/api
 └── Dockerfile          # K8s deployment image
 ```
 
@@ -54,7 +61,7 @@ mst-projector/
 | `ETZ_PROJECTOR_PDS_URL` | `https://pds.etzhayyim.com` | PDS where snapshot records are written |
 | `ETZ_PROJECTOR_PDS_SESSION` | — | JSON `{did,handle,accessJwt,refreshJwt}` (preferred) |
 | `ETZ_PROJECTOR_PDS_AUTH` | — | JSON `{handle,password}` (fallback when session missing) |
-| `ETZ_PROJECTOR_DATA_DIR` | `/data/mst-projector` | local snapshot manifest storage |
+| `ETZ_PROJECTOR_DATA_DIR` | `/data/mst-projector` | local CAR file storage (`<dataDir>/<urlencoded shardKey>/<rootCid>.car`) |
 | `ETZ_PROJECTOR_FLUSH_RECORDS` | `1000` | flush threshold by record count |
 | `ETZ_PROJECTOR_FLUSH_SECONDS` | `60` | flush threshold by wall-clock seconds |
 | `ETZ_PROJECTOR_COLLECTIONS` | `app.etzhayyim.,ai.gftd.apps.` | NSID prefix filter (comma list) |

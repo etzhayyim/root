@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "PLC operation event emitted to atproto.gftd.ai firehose each time plc.gftd.ai accepts a new op. Used for cross-directory federation, audit trail, and external observers (Bluesky / other PLC replicas) to mirror GFTD-originated DIDs.",
+      "description": "PLC operation event emitted to atproto.etzhayyim.com firehose each time plc.etzhayyim.com accepts a new op. Used for cross-directory federation, audit trail, and external observers (Bluesky / other PLC replicas) to mirror GFTD-originated DIDs.",
       "key": "tid",
       "record": {
         "type": "object",
@@ -43,7 +43,7 @@
           "directory": {
             "type": "string",
             "format": "uri",
-            "description": "origin directory (e.g. https://plc.gftd.ai)"
+            "description": "origin directory (e.g. https://plc.etzhayyim.com)"
           },
           "createdAt": {
             "type": "string",

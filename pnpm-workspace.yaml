@@ -1,10 +1,63 @@
-# pnpm workspace — scoped intentionally narrow.
+# pnpm workspace.
 #
-# Only includes packages that participate in the ameno browser-WebGPU appview
-# (ADR-2605190824). Other packages under 10-protocol / 20-actors / 50-infra /
-# 60-apps remain independent installs to avoid cross-coupling their lockfiles
-# until each one is explicitly opted in.
+# Two cohorts live here:
+#
+# 1. ameno browser-WebGPU appview (ADR-2605190824) — pre-existing.
+# 2. Phase E rw-free reference impls + Phase F worker XRPC adapters
+#    (ADRs 2605210000 / 2605211000 / 2605213000) — 27 actors + sdk + sdk-auth +
+#    sdk-mock + mst-projector + 70-tools workspaces.
+#
+# The Phase E/F cohort is opted in so that `workspace:*` deps resolve in the
+# CI matrix (.github/workflows/test.yml, wrangler-validate.yml) and in local
+# pre-flight runs. Without this, vitest / tsc / wrangler --dry-run fail to
+# resolve `@etzhayyim/sdk*` and `@etzhayyim/<actor>-rw-free`.
+
+# pnpm 10 defaults to autoInstallPeers=true. mst-projector declares
+# @lancedb/lancedb / duckdb-async / @huggingface/{transformers,inference}
+# as OPTIONAL peers (peerDependenciesMeta.optional = true) — they install
+# on the projector pod at deploy time per ADR-2605212000, not in CI / local.
+# Disabling auto peer install keeps the workspace install clean and matches
+# the "in-memory ships, heavy deps graduate at deploy time" pattern (lessons
+# learned in deps.toml phases-f-g-h-i milestone).
+# Inlined here instead of .npmrc because .npmrc is gitignored (credentials).
+autoInstallPeers: false
+
 packages:
+  # etzhayyim chain-substrate (ADR-2605211950 axis)
+  - "50-infra/etzhayyim-authz"
+
+  # ameno cohort
   - "20-actors/ameno"
   - "60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte"
   - "60-apps/ai-gftd-project-ameno/daemon"
+
+  # yoro cohort (Charter-compliant rebuild — AdSense/GA4 removed)
+  - "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte"
+  - "10-protocol/signal"
+  - "10-protocol/xrpc"
+  - "40-engine/svelte/auth"
+  - "40-engine/svelte/design-system"
+
+  # etzhayyim substrate SDKs
+  - "20-actors/etzhayyim-sdk"
+  - "20-actors/etzhayyim-sdk-auth"
+  - "20-actors/etzhayyim-sdk-mock"
+  - "20-actors/mst-projector"
+
+  # 70-tools workspaces referenced by CI tsc matrix
+  - "70-tools/integration-tests"
+  - "70-tools/lexicon-to-openapi"
+  - "70-tools/lexicon-to-zod"
+
+  # Phase E rw-free reference impls (27 actors)
+  - "60-apps/ai-gftd-project-*/rw-free"
+
+  # Phase F worker XRPC adapters (25 actors)
+  - "60-apps/ai-gftd-project-*/xrpc-adapter"
+
+  # yorishiro generator + emitted MCP servers (ADR-2605211900)
+  - "70-tools/etzhayyim-cli/yorishiro"
+  - "20-actors/magatama/mcp/yorishiro-*-mcp"
+
+  # etzhayyim-organism-viz Svelte frontend (ADR-2605221411)
+  - "60-apps/etzhayyim-organism-viz/web"

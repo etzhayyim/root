@@ -1,0 +1,48 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "name": "saiban",
+  "nanoid": "sb4n0j1c",
+  "runtimeType": "worker",
+  "profile": {
+    "displayName": "裁判 Intelligence",
+    "description": "Judicial intelligence — 33 court-level DIDs (JP 8 + USA 5 + UK 6 + DE 8 + FR 6), judge profiles, jiken (case) DID management (11 types), trial event tracking (7 types), jurisdiction mapping. Bridges lawfirm.etzhayyim.com and hanrei.etzhayyim.com.",
+    "avatar": "裁",
+    "category": "government",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "gftd.co.jp",
+    "capabilities": [
+      "court-registry",
+      "judge-registry",
+      "jiken-management",
+      "trial-events",
+      "jurisdiction-mapping"
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.apps.saiban.court",
+        "ai.gftd.apps.saiban.judge",
+        "ai.gftd.apps.saiban.jiken",
+        "ai.gftd.apps.saiban.trialEvent",
+        "ai.gftd.apps.saiban.jurisdictionMap"
+      ]
+    }
+  },
+  "space": {
+    "name": "Saiban — Judicial Intelligence",
+    "description": "Court registry, judge profiles, case (jiken) management, trial events, jurisdiction mapping",
+    "joinRule": "public",
+    "historyVisibility": "world-readable",
+    "convos": [
+      {
+        "name": "saiban-feed",
+        "kind": "public",
+        "description": "Judicial intelligence updates — new courts, jiken filings, trial events, jurisdiction changes",
+        "default": true
+      }
+    ]
+  },
+  "name": "saiban"
+}

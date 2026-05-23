@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-02a808024cbb",
+  "entityId": "ent-02a808024cbb",
+  "canonicalName": "mustafa habib harb",
+  "aliases": [
+    "mustafa habib harb"
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "lexicon": 1,
+  "id": "ai.etzhayyim.yorishiro.demo-fixture.head",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Read up to MAX_LINES from INPUT_PATH and write to OUTPUT_PATH.",
+      "x-yorishiro-external": true,
+      "x-yorishiro-kami": "bin:demo-fixture",
+      "x-yorishiro-transport": "binary-cli",
+      "x-yorishiro-binary": {
+        "binary": "demo-fixture",
+        "argv": [
+          {
+            "kind": "positional",
+            "name": "input_path",
+            "position": 0,
+            "required": true,
+            "type": "string"
+          },
+          {
+            "kind": "positional",
+            "name": "output_path",
+            "position": 1,
+            "required": false,
+            "type": "string",
+            "default": "-"
+          },
+          {
+            "kind": "flag",
+            "name": "max_lines",
+            "flag": "--max-lines",
+            "type": "integer",
+            "default": 100,
+            "description": "Maximum lines to read."
+          },
+          {
+            "kind": "flag",
+            "name": "encoding",
+            "flag": "--encoding",
+            "type": "string",
+            "default": "utf-8",
+            "description": "Input encoding."
+          }
+        ],
+        "stdout_capture": true,
+        "stderr_capture": true,
+        "exit_code_ok": [
+          0
+        ],
+        "timeout_seconds": 300
+      },
+      "x-charter-purpose": [
+        "grant"
+      ],
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "input_path"
+          ],
+          "properties": {
+            "input_path": {
+              "type": "string"
+            },
+            "output_path": {
+              "type": "string",
+              "default": "-"
+            },
+            "max_lines": {
+              "type": "integer",
+              "description": "Maximum lines to read.",
+              "default": 100
+            },
+            "encoding": {
+              "type": "string",
+              "description": "Input encoding.",
+              "default": "utf-8"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "exitCode"
+          ],
+          "properties": {
+            "exitCode": {
+              "type": "integer",
+              "description": "Exit code of the binary."
+            },
+            "stdout": {
+              "type": "string",
+              "description": "Captured stdout (UTF-8 best-effort)."
+            },
+            "stderr": {
+              "type": "string",
+              "description": "Captured stderr (UTF-8 best-effort)."
+            },
+            "error": {
+              "type": "string",
+              "description": "Set when the binary could not be launched at all."
+            }
+          }
+        }
+      }
+    }
+  }
+}

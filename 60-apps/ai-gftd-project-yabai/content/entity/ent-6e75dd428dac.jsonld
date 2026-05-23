@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-6e75dd428dac",
+  "entityId": "ent-6e75dd428dac",
+  "canonicalName": "antónio injai",
+  "aliases": [
+    "antónio injai"
+  ]
+}

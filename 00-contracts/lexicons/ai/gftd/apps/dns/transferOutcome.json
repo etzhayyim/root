@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Terminal record for a domain transfer. onCommit of this collection triggers (a) zone DID creation (did:web:dns.gftd.ai:zone:{domain_slug}) via cfRegistrar, (b) ai.gftd.apps.dns.ownershipTransfer write, (c) T1 social announce via derive rule.",
+      "description": "Terminal record for a domain transfer. onCommit of this collection triggers (a) zone DID creation (did:web:dns.etzhayyim.com:zone:{domain_slug}) via cfRegistrar, (b) ai.gftd.apps.dns.ownershipTransfer write, (c) T1 social announce via derive rule.",
       "key": "tid",
       "record": {
         "type": "object",
@@ -13,7 +13,7 @@
           "transferRequestUri": { "type": "string" },
           "domain": { "type": "string" },
           "result": { "type": "string", "enum": ["success", "failure", "aborted"] },
-          "zoneDid": { "type": "string", "description": "did:web:dns.gftd.ai:zone:{domain_slug} — populated on success" },
+          "zoneDid": { "type": "string", "description": "did:web:dns.etzhayyim.com:zone:{domain_slug} — populated on success" },
           "cloudflareZoneId": { "type": "string" },
           "failureReason": { "type": "string", "maxLength": 1024 },
           "rollbackSteps": {

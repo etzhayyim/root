@@ -26,7 +26,7 @@
             "strategyJson":   { "type": "string", "description": "JSON-encoded strategy document." },
             "copyMarkdown":   { "type": "string", "description": "Generated ad copy in Markdown." },
             "qualityScore":   { "type": "number" },
-            "campaignId":     { "type": "string", "description": "ads.gftd.ai campaignId if createAdCampaign was true." },
+            "campaignId":     { "type": "string", "description": "ads.etzhayyim.com campaignId if createAdCampaign was true." },
             "deliveredAt":    { "type": "string", "format": "datetime" },
             "createdAt":      { "type": "string", "format": "datetime" }
           }

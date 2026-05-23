@@ -12,7 +12,7 @@
   "paths": {
     "/xrpc/ai.gftd.yorishiro.createYorishiro": {
       "post": {
-        "summary": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.gftd.ai:{type}:{slug}.",
+        "summary": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.etzhayyim.com:{type}:{slug}.",
         "operationId": "ai.gftd.yorishiro.createYorishiro",
         "requestBody": {
           "required": true,

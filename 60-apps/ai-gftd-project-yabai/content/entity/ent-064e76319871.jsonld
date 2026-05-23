@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-064e76319871",
+  "entityId": "ent-064e76319871",
+  "canonicalName": "sun science international co., limited",
+  "aliases": [
+    "sun science international co., limited"
+  ]
+}

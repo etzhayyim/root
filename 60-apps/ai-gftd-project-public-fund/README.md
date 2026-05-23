@@ -1,14 +1,14 @@
 # ai-gftd-project-public-fund
 
 公的基金の「立ち上げ」「条件付け」「分配」を一貫管理する COFOG ベースの App プロジェクト。
-`pb.gftd.ai` ではクラウドファンディング方式を採用し、誰でも基金を起案できる。
+`pb.etzhayyim.com` ではクラウドファンディング方式を採用し、誰でも基金を起案できる。
 
-- 公開ドメイン: `pb.gftd.ai`
+- 公開ドメイン: `pb.etzhayyim.com`
 - API: XRPC-Web (`/xrpc`)
-- Fund accounting: `credits.gftd.ai` の credits を唯一の残高台帳として利用
+- Fund accounting: `credits.etzhayyim.com` の credits を唯一の残高台帳として利用
 - Funding inflow:
   - user の direct pledge
-  - `credits.gftd.ai` 側で credits 消費時に自動ルーティングされる 10% allocation
+  - `credits.etzhayyim.com` 側で credits 消費時に自動ルーティングされる 10% allocation
 - 分類軸:
   - 政策/予算目的: `COFOG`
   - 受給者産業: `ISIC`

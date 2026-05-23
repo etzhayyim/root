@@ -9,16 +9,16 @@ AI Agent (Murakumo/Qwen) が花粉症を撲滅するために自律的に調査�
 
 ## Domains
 
-- `kafun-bokumetsu.gftd.ai` — メインドメイン
-- `n97ik10n.gftd.ai` — nanoid ドメイン
+- `kafun-bokumetsu.etzhayyim.com` — メインドメイン
+- `n97ik10n.etzhayyim.com` — nanoid ドメイン
 
 ## Architecture
 
 - **Runtime**: magatama runtime (TS Native)
 - **nanoid**: `n97ik10n`
-- **LLM**: Murakumo (`murakumo.gftd.ai`, model: `qwen3-vl-8b`)
+- **LLM**: Murakumo (`murakumo.etzhayyim.com`, model: `qwen3-vl-8b`)
 - **Evolution**: W Protocol cross-actorEvolution via Connect command façade `Evolution.run` (performer-framework)
-- **Matrix UI**: `@gftdcojp/appshell/matrix` (RoomList, EventTimeline, MessageComposer)
+- **Matrix UI**: `@etzhayyim/appshell/matrix` (RoomList, EventTimeline, MessageComposer)
 - **Storage**: magatama WIT bindings (SQL graph)
 
 ## Components

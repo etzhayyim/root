@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-030603a199c2",
+  "entityId": "ent-030603a199c2",
+  "canonicalName": "bargawine hong kong limited",
+  "aliases": [
+    "bargawine hong kong limited"
+  ]
+}

@@ -14,12 +14,12 @@
   ],
   "profile": {
     "displayName": "otakiage — 物の供養と再生",
-    "description": "amanomibashira 主催。物の reuse (ローカル譲渡) と ritual (お焚き上げ) を 1 つのライフサイクルで扱う AI Agent platform。絵本 / ぬいぐるみ / おもちゃ / 家具 / 大型家電。",
+    "description": "etzhayyim 主催。物の reuse (ローカル譲渡) と ritual (お焚き上げ) を 1 つのライフサイクルで扱う AI Agent platform。絵本 / ぬいぐるみ / おもちゃ / 家具 / 大型家電。",
     "avatar": "✨",
     "category": "religious",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "contract": "ADR-2605081700",
     "country": "jpn"
   },

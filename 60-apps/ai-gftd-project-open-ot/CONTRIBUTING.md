@@ -2,9 +2,9 @@
 
 ## Where this code lives
 
-`open-ot` currently develops inside the `gftdcojp/ai-gftd-apps-gftdcojp` monorepo at `60-apps/ai-gftd-project-open-ot/`. A standalone OSS repo (`gftdcojp/ai-gftd-project-open-ot`) is planned for split after **Risk-1 PASS** (per ADR-2605151200 §R4, target Q3 2026).
+`open-ot` currently develops inside the `etzhayyim/etzhayyim-root` monorepo at `60-apps/ai-gftd-project-open-ot/`. A standalone OSS repo (`etzhayyim/ai-gftd-project-open-ot`) is planned for split after **Risk-1 PASS** (per ADR-2605151200 §R4, target Q3 2026).
 
-Until split, all contributions go through the monorepo: open issues against `gftdcojp/ai-gftd-apps-gftdcojp` with the label `area/open-ot`. The same Apache-2.0 license applies.
+Until split, all contributions go through the monorepo: open issues against `etzhayyim/etzhayyim-root` with the label `area/open-ot`. The same Apache-2.0 license applies.
 
 ## Repo split plan (post-Risk-1)
 

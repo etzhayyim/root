@@ -11,7 +11,7 @@
           "type": "object",
           "properties": {
             "limit": { "type": "integer", "minimum": 1, "maximum": 10 },
-            "sourceDid": { "type": "string", "description": "Optional filter: only advance this source DID (e.g. did:web:maps.gftd.ai:registry:gleif)" },
+            "sourceDid": { "type": "string", "description": "Optional filter: only advance this source DID (e.g. did:web:maps.etzhayyim.com:registry:gleif)" },
             "label": { "type": "string", "description": "Optional filter: only advance this spatial label (e.g. LegalEntity, AdminArea, Airport)" },
             "dryRun": { "type": "boolean", "default": false }
           }

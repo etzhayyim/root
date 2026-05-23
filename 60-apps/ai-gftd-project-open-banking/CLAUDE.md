@@ -1,7 +1,7 @@
-# open-banking.gftd.ai — Core-Banking MVP (OSS)
+# open-banking.etzhayyim.com — Core-Banking MVP (OSS)
 
 **Status**: MVP scaffold (2026-04-15). Published as OSS at
-`https://github.com/gftdcojp/ai-gftd-project-open-banking` (Apache-2.0).
+`https://github.com/etzhayyim/ai-gftd-project-open-banking` (Apache-2.0).
 
 ## Scope (MVP)
 
@@ -22,7 +22,7 @@
   derived from `SUM(credit) − SUM(debit)` per account. Ledger = SSoT,
   tamper-evident
 - **Identity**: accounts are path-based DIDs
-  `did:web:open-banking.gftd.ai:account:{id}`. Owner = any DID
+  `did:web:open-banking.etzhayyim.com:account:{id}`. Owner = any DID
 - **Idempotency**: `transfer` accepts `clientRequestId`; response cached for replay
 - **Concurrency**: D1 is strongly serialized per-shard → no race on balance
   (read-check-write within single `batch()` is atomic)
@@ -57,5 +57,5 @@ e7m actor deploy .   # standard monorepo deploy
 ## OSS Split
 
 Source of truth lives in the monorepo. A subtree-split copy is published to
-`gftdcojp/ai-gftd-project-open-banking` on GitHub (Apache-2.0). Keep the two
+`etzhayyim/ai-gftd-project-open-banking` on GitHub (Apache-2.0). Keep the two
 in sync via `git subtree push` or a CI mirror job (future work).

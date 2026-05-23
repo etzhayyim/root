@@ -25,14 +25,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-guideGenerate-v1',
-                 'did:web:media-gamers.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-guideGenerate-v1',
+                 'did:web:media-gamers.etzhayyim.com',
                  'media_gamers_guide_generate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  media-gamers.guideGenerate\n'
                  '\n'
-                 '  Zeebe-owned guide generation pipeline for media-gamers.gftd.ai. Python '
+                 '  Zeebe-owned guide generation pipeline for media-gamers.etzhayyim.com. Python '
                  'workers\n'
                  '  perform target resolution, LLM generation, translation, quality scoring, and\n'
                  '  social-post drafting. Cloudflare app.ts remains the edge/PDS write boundary\n'
@@ -45,7 +45,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_media_gamers_guide_generate"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/media-gamers"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/media-gamers"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="media_gamers_guide_generate" name="media gamers guide '
@@ -96,7 +96,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:media-gamers.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:media-gamers.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;media-gamers.guideGenerate&quot;" '
                  'target="action"/>\n'
@@ -118,10 +118,10 @@ UP = [{'sql': '\n'
                  3673,
                  '00-contracts/bpmn/ai/gftd/media-gamers/guideGenerate.bpmn',
                  '2026-04-29T09:02:00Z',
-                 'did:web:media-gamers.gftd.ai',
-                 'did:web:media-gamers.gftd.ai',
+                 'did:web:media-gamers.etzhayyim.com',
+                 'did:web:media-gamers.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-guideGenerate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-guideGenerate-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -135,16 +135,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/media-gamers-guideGenerate-v1',
-                 'did:web:media-gamers.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/media-gamers-guideGenerate-v1',
+                 'did:web:media-gamers.etzhayyim.com',
                  'ai.gftd.apps.media_gamers.guide.guideGenerate',
                  'media_gamers_guide_generate',
                  120000,
                  '2026-04-29T09:02:00Z',
-                 'did:web:media-gamers.gftd.ai',
-                 'did:web:media-gamers.gftd.ai',
+                 'did:web:media-gamers.etzhayyim.com',
+                 'did:web:media-gamers.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/media-gamers-guideGenerate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/media-gamers-guideGenerate-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -158,15 +158,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-knowledgeGuideGenerate-v1',
-                 'did:web:media-gamers.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-knowledgeGuideGenerate-v1',
+                 'did:web:media-gamers.etzhayyim.com',
                  'media_gamers_knowledge_guide_generate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_media_gamers_knowledge_guide_generate"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/media-gamers"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/media-gamers"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="media_gamers_knowledge_guide_generate" name="media gamers '
@@ -197,7 +197,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:media-gamers.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:media-gamers.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;media-gamers.knowledgeGuideGenerate&quot;" '
                  'target="action"/>\n'
@@ -218,10 +218,10 @@ UP = [{'sql': '\n'
                  2459,
                  '00-contracts/bpmn/ai/gftd/media-gamers/knowledgeGuideGenerate.bpmn',
                  '2026-04-29T09:02:00Z',
-                 'did:web:media-gamers.gftd.ai',
-                 'did:web:media-gamers.gftd.ai',
+                 'did:web:media-gamers.etzhayyim.com',
+                 'did:web:media-gamers.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-knowledgeGuideGenerate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-knowledgeGuideGenerate-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -235,16 +235,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/media-gamers-knowledgeGuideGenerate-v1',
-                 'did:web:media-gamers.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/media-gamers-knowledgeGuideGenerate-v1',
+                 'did:web:media-gamers.etzhayyim.com',
                  'ai.gftd.apps.media_gamers.knowledge.knowledgeGuideGenerate',
                  'media_gamers_knowledge_guide_generate',
                  120000,
                  '2026-04-29T09:02:00Z',
-                 'did:web:media-gamers.gftd.ai',
-                 'did:web:media-gamers.gftd.ai',
+                 'did:web:media-gamers.etzhayyim.com',
+                 'did:web:media-gamers.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/media-gamers-knowledgeGuideGenerate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/media-gamers-knowledgeGuideGenerate-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -258,15 +258,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-evalModels-v1',
-                 'did:web:media-gamers.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-evalModels-v1',
+                 'did:web:media-gamers.etzhayyim.com',
                  'media_gamers_eval_models',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_media_gamers_eval_models"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/media-gamers"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/media-gamers"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="media_gamers_eval_models" name="media gamers eval models" '
@@ -291,7 +291,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:media-gamers.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:media-gamers.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;media-gamers.evalModels&quot;" '
                  'target="action"/>\n'
@@ -311,10 +311,10 @@ UP = [{'sql': '\n'
                  2052,
                  '00-contracts/bpmn/ai/gftd/media-gamers/evalModels.bpmn',
                  '2026-04-29T09:02:00Z',
-                 'did:web:media-gamers.gftd.ai',
-                 'did:web:media-gamers.gftd.ai',
+                 'did:web:media-gamers.etzhayyim.com',
+                 'did:web:media-gamers.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-evalModels-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-evalModels-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -328,29 +328,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/media-gamers-evalModels-v1',
-                 'did:web:media-gamers.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/media-gamers-evalModels-v1',
+                 'did:web:media-gamers.etzhayyim.com',
                  'ai.gftd.apps.media_gamers.evalModelsProcess',
                  'media_gamers_eval_models',
                  120000,
                  '2026-04-29T09:02:00Z',
-                 'did:web:media-gamers.gftd.ai',
-                 'did:web:media-gamers.gftd.ai',
+                 'did:web:media-gamers.etzhayyim.com',
+                 'did:web:media-gamers.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/media-gamers-evalModels-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/media-gamers-evalModels-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/media-gamers-guideGenerate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/media-gamers-guideGenerate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-guideGenerate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-guideGenerate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/media-gamers-knowledgeGuideGenerate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/media-gamers-knowledgeGuideGenerate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-knowledgeGuideGenerate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-knowledgeGuideGenerate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/media-gamers-evalModels-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/media-gamers-evalModels-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/media-gamers-evalModels-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-evalModels-v1']}]
 
 
 def upgrade() -> None:

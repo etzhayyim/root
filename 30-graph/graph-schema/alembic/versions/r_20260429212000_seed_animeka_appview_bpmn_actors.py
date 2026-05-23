@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-create-work-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-create-work-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_create_work',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_animeka_create_work" '
-                 'targetNamespace="https://gftd.ai/bpmn/animeka" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_create_work" name="animeka '
                  'createWork" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.createWork", "version": 1, "resultTimeoutMs": 30000 '
@@ -48,11 +48,11 @@ UP = [{'sql': '\n'
                  1082,
                  '00-contracts/bpmn/ai/gftd/animeka/createWork.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-create-work-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-create-work-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,18 +67,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-create-work-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-create-work-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.createWork',
                  'animeka_create_work',
                  30000,
                  'vertex_animeka',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-create-work-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-create-work-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,14 +94,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-works-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-works-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_list_works',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_animeka_list_works" '
-                 'targetNamespace="https://gftd.ai/bpmn/animeka" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_list_works" name="animeka '
                  'listWorks" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.listWorks", "version": 1, "resultTimeoutMs": 30000 '
@@ -115,11 +115,11 @@ UP = [{'sql': '\n'
                  1076,
                  '00-contracts/bpmn/ai/gftd/animeka/listWorks.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-works-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-works-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,18 +134,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-works-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-works-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.listWorks',
                  'animeka_list_works',
                  30000,
                  '',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-works-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-works-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -161,14 +161,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-add-episode-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-add-episode-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_add_episode',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_animeka_add_episode" '
-                 'targetNamespace="https://gftd.ai/bpmn/animeka" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_add_episode" name="animeka '
                  'addEpisode" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.addEpisode", "version": 1, "resultTimeoutMs": 30000 '
@@ -182,11 +182,11 @@ UP = [{'sql': '\n'
                  1082,
                  '00-contracts/bpmn/ai/gftd/animeka/addEpisode.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-add-episode-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-add-episode-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -201,18 +201,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-add-episode-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-add-episode-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.addEpisode',
                  'animeka_add_episode',
                  30000,
                  'vertex_animeka',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-add-episode-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-add-episode-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -228,14 +228,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-episodes-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-episodes-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_list_episodes',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_animeka_list_episodes" '
-                 'targetNamespace="https://gftd.ai/bpmn/animeka" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_list_episodes" name="animeka '
                  'listEpisodes" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.listEpisodes", "version": 1, "resultTimeoutMs": 30000 '
@@ -249,11 +249,11 @@ UP = [{'sql': '\n'
                  1094,
                  '00-contracts/bpmn/ai/gftd/animeka/listEpisodes.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-episodes-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-episodes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -268,18 +268,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-episodes-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-episodes-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.listEpisodes',
                  'animeka_list_episodes',
                  30000,
                  '',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-episodes-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-episodes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -295,13 +295,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-add-cut-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-add-cut-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_add_cut',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_animeka_add_cut" targetNamespace="https://gftd.ai/bpmn/animeka" '
+                 'id="Definitions_animeka_add_cut" targetNamespace="https://etzhayyim.com/bpmn/animeka" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process id="animeka_add_cut" '
                  'name="animeka addCut" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.addCut", "version": 1, "resultTimeoutMs": 30000 '
@@ -315,11 +315,11 @@ UP = [{'sql': '\n'
                  1058,
                  '00-contracts/bpmn/ai/gftd/animeka/addCut.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-add-cut-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-add-cut-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -334,18 +334,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-add-cut-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-add-cut-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.addCut',
                  'animeka_add_cut',
                  30000,
                  'vertex_animeka',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-add-cut-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-add-cut-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -361,14 +361,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-cuts-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-cuts-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_list_cuts',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_animeka_list_cuts" '
-                 'targetNamespace="https://gftd.ai/bpmn/animeka" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_list_cuts" name="animeka '
                  'listCuts" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.listCuts", "version": 1, "resultTimeoutMs": 30000 '
@@ -382,11 +382,11 @@ UP = [{'sql': '\n'
                  1070,
                  '00-contracts/bpmn/ai/gftd/animeka/listCuts.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-cuts-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-cuts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -401,18 +401,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-cuts-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-cuts-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.listCuts',
                  'animeka_list_cuts',
                  30000,
                  '',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-cuts-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-cuts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -428,13 +428,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-get-cut-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-get-cut-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_get_cut',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_animeka_get_cut" targetNamespace="https://gftd.ai/bpmn/animeka" '
+                 'id="Definitions_animeka_get_cut" targetNamespace="https://etzhayyim.com/bpmn/animeka" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process id="animeka_get_cut" '
                  'name="animeka getCut" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.getCut", "version": 1, "resultTimeoutMs": 30000 '
@@ -448,11 +448,11 @@ UP = [{'sql': '\n'
                  1058,
                  '00-contracts/bpmn/ai/gftd/animeka/getCut.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-get-cut-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-get-cut-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -467,18 +467,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-get-cut-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-get-cut-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.getCut',
                  'animeka_get_cut',
                  30000,
                  '',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-get-cut-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-get-cut-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -494,14 +494,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-update-cut-stage-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-update-cut-stage-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_update_cut_stage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_animeka_update_cut_stage" '
-                 'targetNamespace="https://gftd.ai/bpmn/animeka" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_update_cut_stage" name="animeka '
                  'updateCutStage" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.updateCutStage", "version": 1, "resultTimeoutMs": 30000 '
@@ -516,11 +516,11 @@ UP = [{'sql': '\n'
                  1109,
                  '00-contracts/bpmn/ai/gftd/animeka/updateCutStage.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-update-cut-stage-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-update-cut-stage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -535,18 +535,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-update-cut-stage-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-update-cut-stage-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.updateCutStage',
                  'animeka_update_cut_stage',
                  30000,
                  'vertex_animeka',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-update-cut-stage-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-update-cut-stage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -562,14 +562,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-submit-retake-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-submit-retake-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_submit_retake',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_animeka_submit_retake" '
-                 'targetNamespace="https://gftd.ai/bpmn/animeka" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_submit_retake" name="animeka '
                  'submitRetake" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.submitRetake", "version": 1, "resultTimeoutMs": 30000 '
@@ -583,11 +583,11 @@ UP = [{'sql': '\n'
                  1094,
                  '00-contracts/bpmn/ai/gftd/animeka/submitRetake.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-submit-retake-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-submit-retake-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -602,18 +602,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-submit-retake-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-submit-retake-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.submitRetake',
                  'animeka_submit_retake',
                  30000,
                  'vertex_animeka',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-submit-retake-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-submit-retake-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -629,14 +629,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-resolve-retake-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-resolve-retake-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_resolve_retake',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_animeka_resolve_retake" '
-                 'targetNamespace="https://gftd.ai/bpmn/animeka" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_resolve_retake" name="animeka '
                  'resolveRetake" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.resolveRetake", "version": 1, "resultTimeoutMs": 30000 '
@@ -651,11 +651,11 @@ UP = [{'sql': '\n'
                  1100,
                  '00-contracts/bpmn/ai/gftd/animeka/resolveRetake.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-resolve-retake-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-resolve-retake-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -670,18 +670,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-resolve-retake-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-resolve-retake-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.resolveRetake',
                  'animeka_resolve_retake',
                  30000,
                  'vertex_animeka',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-resolve-retake-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-resolve-retake-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -697,14 +697,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-retakes-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-retakes-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_list_retakes',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_animeka_list_retakes" '
-                 'targetNamespace="https://gftd.ai/bpmn/animeka" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_list_retakes" name="animeka '
                  'listRetakes" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.listRetakes", "version": 1, "resultTimeoutMs": 30000 '
@@ -718,11 +718,11 @@ UP = [{'sql': '\n'
                  1088,
                  '00-contracts/bpmn/ai/gftd/animeka/listRetakes.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-retakes-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-retakes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -737,18 +737,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-retakes-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-retakes-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.listRetakes',
                  'animeka_list_retakes',
                  30000,
                  '',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-retakes-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-retakes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -764,13 +764,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-health-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-health-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'animeka_health',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_animeka_health" targetNamespace="https://gftd.ai/bpmn/animeka" '
+                 'id="Definitions_animeka_health" targetNamespace="https://etzhayyim.com/bpmn/animeka" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process id="animeka_health" '
                  'name="animeka health" isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.animeka.health", "version": 1, "resultTimeoutMs": 30000 '
@@ -784,11 +784,11 @@ UP = [{'sql': '\n'
                  1055,
                  '00-contracts/bpmn/ai/gftd/animeka/health.bpmn',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-health-v1']},
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -803,67 +803,67 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-health-v1',
-                 'did:web:animeka.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-health-v1',
+                 'did:web:animeka.etzhayyim.com',
                  'ai.gftd.apps.animeka.health',
                  'animeka_health',
                  30000,
                  '',
                  '2026-04-29T21:20:00+09:00',
-                 'did:web:animeka.gftd.ai',
-                 'did:web:animeka.gftd.ai',
+                 'did:web:animeka.etzhayyim.com',
+                 'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
-                 'did:web:animeka.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-health-v1']}]
+                 'did:web:animeka.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-health-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-create-work-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-create-work-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-create-work-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-create-work-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-works-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-works-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-works-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-works-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-add-episode-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-add-episode-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-add-episode-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-add-episode-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-episodes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-episodes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-episodes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-episodes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-add-cut-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-add-cut-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-add-cut-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-add-cut-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-cuts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-cuts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-cuts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-cuts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-get-cut-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-get-cut-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-get-cut-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-get-cut-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-update-cut-stage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-update-cut-stage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-update-cut-stage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-update-cut-stage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-submit-retake-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-submit-retake-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-submit-retake-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-submit-retake-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-resolve-retake-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-resolve-retake-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-resolve-retake-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-resolve-retake-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-list-retakes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-list-retakes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-list-retakes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-list-retakes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/animeka-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/animeka-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/animeka-health-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/animeka-health-v1']}]
 
 
 def upgrade() -> None:

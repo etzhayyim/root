@@ -46,13 +46,13 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_newsletter_weekly_send" '
-                 'targetNamespace="https://gftd.ai/bpmn/newsletter">\n'
+                 'targetNamespace="https://etzhayyim.com/bpmn/newsletter">\n'
                  '  <bpmn:process id="newsletter_weekly_send" name="newsletter weeklySend" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>{ "nsid": "ai.gftd.apps.newsletter.weeklySend", '
@@ -85,7 +85,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:outgoing>F3</bpmn:outgoing>\n'
                  '    </bpmn:serviceTask>\n'
                  '\n'
-                 '    <!-- Step 3: Optionally create ads.gftd.ai sponsor slot -->\n'
+                 '    <!-- Step 3: Optionally create ads.etzhayyim.com sponsor slot -->\n'
                  '    <bpmn:sequenceFlow id="F3" sourceRef="SendViaResend" '
                  'targetRef="AdGateway"/>\n'
                  '    <bpmn:exclusiveGateway id="AdGateway" name="includeAdSlot?">\n'
@@ -99,7 +99,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:conditionExpression>=includeAdSlot = '
                  'true</bpmn:conditionExpression>\n'
                  '    </bpmn:sequenceFlow>\n'
-                 '    <bpmn:serviceTask id="CreateSponsorSlot" name="Create ads.gftd.ai sponsor '
+                 '    <bpmn:serviceTask id="CreateSponsorSlot" name="Create ads.etzhayyim.com sponsor '
                  'slot">\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="newsletter.create_sponsor_slot" '
@@ -123,9 +123,9 @@ UP = [{'sql': '\n'
                  2867,
                  '00-contracts/bpmn/ai/gftd/newsletter/weeklySend.bpmn',
                  '2026-05-08T09:45:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1']}]
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1']}]
 
 DOWN = [{'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
@@ -148,7 +148,7 @@ DOWN = [{'sql': '\n'
  {'sql': '\n'
          '    DELETE FROM vertex_bpmn_process_def\n'
          '    WHERE vertex_id = '
-         "'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1'\n"
+         "'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1'\n"
          '  ',
   'parameters': []}]
 

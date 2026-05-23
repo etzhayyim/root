@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-fac99d6ba83d",
+  "entityId": "ent-fac99d6ba83d",
+  "canonicalName": "callixte mbarushimana",
+  "aliases": [
+    "callixte mbarushimana"
+  ]
+}

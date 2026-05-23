@@ -1,27 +1,29 @@
 /**
- * Emit shard-snapshot records (Phase 1).
+ * Emit shard-snapshot records (Phase 2).
  *
- * After a shard flush, the projector:
- *   1. Pins the JSON manifest to IPFS via the configured Kubo HTTP API
- *      (best-effort — Phase 1 tolerates pin failure and proceeds with
- *      snapshotCid unset).
- *   2. Publishes an `app.etzhayyim.substrate.shardSnapshot` record under the
- *      projector's DID containing {shardKey, recordCount, snapshotHash,
- *      snapshotCid?, byteSize, flushedAt}.
+ * After a shard flush:
+ *   1. Pin the CAR file to IPFS via the configured Kubo HTTP API
+ *      (best-effort — fall back to omitting `snapshotCid` if the pin
+ *      service is unreachable; the `rootCid` still guarantees content
+ *      identity).
+ *   2. Publish an `app.etzhayyim.substrate.shardSnapshot` record under
+ *      the projector's DID with `phase: 2`, the AT-Protocol MST
+ *      `rootCid`, the IPFS `snapshotCid`, and the seq range covered.
  *
- * Downstream consumers (`ipfs-pinner` for replication, `anchor-cron` for L2
- * anchoring, app readers that need cached aggregates) subscribe to this
- * lexicon via the firehose or `listRecords`.
+ * Downstream consumers (ipfs-pinner for replication, anchor-cron for L2
+ * anchoring, app readers) subscribe to this lexicon via the firehose or
+ * `listRecords`.
  *
- * Phase 2 swaps the JSON manifest for a CAR file and emits a true MST root
- * CID — the lexicon already has the schema slot (`snapshotCid` becomes
- * required, `snapshotHash` becomes deprecated/dropped).
+ * Phase 1's `snapshotHash` field is no longer populated; the lexicon's
+ * 4-week deprecation grace (per ADR-2605191655) starts at the first
+ * Phase 2 emission.
  */
 
 import { readFile } from "node:fs/promises";
 import { AtpAgent } from "@atproto/api";
 
 const COLLECTION = "app.etzhayyim.substrate.shardSnapshot";
+const PHASE = 2 as const;
 
 export interface ShardSnapshotEmitOpts {
   /** DID of the projector emitting the record. */
@@ -39,10 +41,10 @@ export interface ShardSnapshotEmitOpts {
   /** Kubo HTTP API for IPFS pinning, e.g. http://localhost:5001. */
   ipfsApiUrl?: string;
 
-  // Snapshot payload
+  // Snapshot payload (Phase 2 fields)
   shardKey: string;
-  manifestPath: string;
-  snapshotHash: string;
+  carPath: string;
+  rootCid: string;
   recordCount: number;
   byteSize: number;
   firstSeq?: string;
@@ -69,26 +71,26 @@ async function getAgent(opts: ShardSnapshotEmitOpts): Promise<AtpAgent> {
     });
   } else {
     throw new Error(
-      "[mst-projector/emit] no PDS auth configured (set ETZ_PROJECTOR_PDS_SESSION or ETZ_PROJECTOR_PDS_AUTH)"
+      "[mst-projector/emit] no PDS auth configured (set ETZ_PROJECTOR_PDS_SESSION or ETZ_PROJECTOR_PDS_AUTH)",
     );
   }
   cachedAgent = agent;
   return agent;
 }
 
-async function pinManifestToIpfs(
+async function pinCarToIpfs(
   apiUrl: string,
-  manifestPath: string
+  carPath: string,
 ): Promise<string | undefined> {
-  const bytes = await readFile(manifestPath);
+  const bytes = await readFile(carPath);
   const form = new FormData();
   const blob = new Blob([bytes as BlobPart], {
-    type: "application/json",
+    type: "application/vnd.ipld.car",
   });
   form.append("file", blob);
   const res = await fetch(
     `${apiUrl.replace(/\/+$/, "")}/api/v0/add?pin=true&cid-version=1`,
-    { method: "POST", body: form }
+    { method: "POST", body: form },
   );
   if (!res.ok) {
     throw new Error(`pin failed: ${res.status} ${await res.text()}`);
@@ -100,16 +102,16 @@ async function pinManifestToIpfs(
 }
 
 export async function emitShardSnapshot(
-  opts: ShardSnapshotEmitOpts
+  opts: ShardSnapshotEmitOpts,
 ): Promise<{ uri: string; cid: string; snapshotCid?: string }> {
   let snapshotCid: string | undefined;
   if (opts.ipfsApiUrl) {
     try {
-      snapshotCid = await pinManifestToIpfs(opts.ipfsApiUrl, opts.manifestPath);
+      snapshotCid = await pinCarToIpfs(opts.ipfsApiUrl, opts.carPath);
     } catch (err) {
       console.warn(
         `[mst-projector/emit] IPFS pin failed for ${opts.shardKey}:`,
-        err
+        err,
       );
     }
   }
@@ -118,9 +120,9 @@ export async function emitShardSnapshot(
   const body: Record<string, unknown> = {
     $type: COLLECTION,
     shardKey: opts.shardKey,
-    phase: 1,
+    phase: PHASE,
+    rootCid: opts.rootCid,
     recordCount: opts.recordCount,
-    snapshotHash: opts.snapshotHash,
     byteSize: opts.byteSize,
     flushedAt: new Date().toISOString(),
   };
@@ -135,35 +137,12 @@ export async function emitShardSnapshot(
   });
   if (!res.success) {
     throw new Error(
-      `[mst-projector/emit] createRecord failed: ${JSON.stringify(res)}`
+      `[mst-projector/emit] createRecord failed: ${JSON.stringify(res)}`,
     );
   }
   return { uri: res.data.uri, cid: res.data.cid as string, snapshotCid };
 }
 
-/**
- * Backwards-compatible export for `index.ts` which still calls `emitMstRoot`.
- * Phase 1 wraps the shardSnapshot emit; the function name persists for the
- * upcoming Phase 2 rename.
- */
-export async function emitMstRoot(opts: {
-  did: string;
-  pdsUrl: string;
-  auth?: { handle: string; password: string };
-  session?: {
-    did: string;
-    handle: string;
-    accessJwt: string;
-    refreshJwt: string;
-  };
-  ipfsApiUrl?: string;
-  shardKey: string;
-  manifestPath: string;
-  snapshotHash: string;
-  recordCount: number;
-  byteSize: number;
-  firstSeq?: string;
-  lastSeq?: string;
-}): Promise<{ uri: string; cid: string; snapshotCid?: string }> {
-  return emitShardSnapshot(opts);
-}
+/** Phase 1 alias retained for `index.ts` callers; will be removed once they
+ *  migrate to `emitShardSnapshot`. Identical implementation. */
+export const emitMstRoot = emitShardSnapshot;

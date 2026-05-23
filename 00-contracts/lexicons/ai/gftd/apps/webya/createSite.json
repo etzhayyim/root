@@ -23,7 +23,7 @@
             "registrationNumber":     { "type": "string", "description": "弁護士/税理士/司法書士登録番号 (士業必須)" },
             "associationName":        { "type": "string", "description": "所属会名 (士業必須)" },
             "corporateNumber":        { "type": "string", "description": "法人番号 13桁 (一般企業)" },
-            "customDomain":           { "type": "string", "description": "希望独自ドメイン (例: yamada-law.jp)。未指定時は {slug}.webya.gftd.ai を自動付与" },
+            "customDomain":           { "type": "string", "description": "希望独自ドメイン (例: yamada-law.jp)。未指定時は {slug}.webya.etzhayyim.com を自動付与" },
             "contactEmail":           { "type": "string" }
           }
         }
@@ -37,7 +37,7 @@
             "ok":        { "type": "boolean" },
             "siteId":    { "type": "string" },
             "jobId":     { "type": "string" },
-            "subdomain": { "type": "string", "description": "自動付与サブドメイン (例: yamada-law-webya.gftd.ai)" },
+            "subdomain": { "type": "string", "description": "自動付与サブドメイン (例: yamada-law-webya.etzhayyim.com)" },
             "status":    { "type": "string", "enum": ["generating", "failed"] },
             "error":     { "type": "string" }
           }

@@ -375,6 +375,17 @@ app = FastAPI(
     lifespan=_lifespan,
 )
 
+# ---------------------------------------------------------------------------
+# XRPC façade routers (one per NSID family).
+#
+# Mounted here so that every actor's procedures/queries are served from the
+# same FastAPI app and reachable through the unified etzhayyim.com/xrpc/
+# gateway (CF Worker at 50-infra/etzhayyim-did-web). No per-actor subdomain.
+# ---------------------------------------------------------------------------
+from pymagatama.xrpc.unispsc import router as _unispsc_xrpc_router  # noqa: E402
+
+app.include_router(_unispsc_xrpc_router)
+
 
 # ---------------------------------------------------------------------------
 # /runs API
@@ -840,9 +851,9 @@ def _register_builtin_graphs() -> None:
     except Exception as e:
         LOG.warning("Could not register wellbecoming_trust_weight_update graph: %s", e)
     try:
-        _register_gftdcojp_company_ops()
+        _register_etzhayyim_company_ops()
     except Exception as e:
-        LOG.warning("Could not register gftdcojp_company_ops graph: %s", e)
+        LOG.warning("Could not register etzhayyim_company_ops graph: %s", e)
     try:
         _register_lawfirm_marketing_ops()
     except Exception as e:
@@ -1147,12 +1158,12 @@ def _register_isbn_ingest_internet_archive() -> None:
     LOG.info("Registered isbn_ingest_internet_archive graph")
 
 
-def _register_gftdcojp_company_ops() -> None:
-    """gftdcojp Company Ops — Supervisor + HR/Finance/Legal/Sales/Governance multi-agent."""
-    from pymagatama.langgraph_graphs.gftdcojp_company_ops import build_graph
+def _register_etzhayyim_company_ops() -> None:
+    """etzhayyim Company Ops — Supervisor + HR/Finance/Legal/Sales/Governance multi-agent."""
+    from pymagatama.langgraph_graphs.etzhayyim_company_ops import build_graph
 
-    register_graph("gftdcojp-company-ops", build_graph())
-    LOG.info("Registered gftdcojp-company-ops graph")
+    register_graph("etzhayyim-company-ops", build_graph())
+    LOG.info("Registered etzhayyim-company-ops graph")
 
 
 def _register_lawfirm_marketing_ops() -> None:

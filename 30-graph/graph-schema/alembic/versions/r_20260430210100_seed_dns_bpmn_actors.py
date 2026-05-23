@@ -27,14 +27,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/dns-transfer-from-squarespace-v1',
-                 'did:web:scndu0rf.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-from-squarespace-v1',
+                 'did:web:scndu0rf.etzhayyim.com',
                  'dns_transfer_from_squarespace',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_dns_transfer_from_squarespace" '
-                 'targetNamespace="https://gftd.ai/bpmn/dns"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/dns"><bpmn:process '
                  'id="dns_transfer_from_squarespace" name="dns transferFromSquarespace" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.dns.transferFromSquarespace", "version": 1, "resultTimeoutMs": '
@@ -48,11 +48,11 @@ UP = [{'sql': '\n'
                  1058,
                  '00-contracts/bpmn/ai/gftd/dns/transferFromSquarespace.bpmn',
                  '2026-04-30T21:01:00+09:00',
-                 'did:web:scndu0rf.gftd.ai',
-                 'did:web:scndu0rf.gftd.ai',
+                 'did:web:scndu0rf.etzhayyim.com',
+                 'did:web:scndu0rf.etzhayyim.com',
                  'sys.bpmn.seed.dns',
-                 'did:web:scndu0rf.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/dns-transfer-from-squarespace-v1']},
+                 'did:web:scndu0rf.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-from-squarespace-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,18 +67,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/dns-transferFromSquarespace-v1',
-                 'did:web:scndu0rf.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferFromSquarespace-v1',
+                 'did:web:scndu0rf.etzhayyim.com',
                  'ai.gftd.apps.dns.transferFromSquarespace',
                  'dns_transfer_from_squarespace',
                  120000,
                  'vertex_atrecord_dns_transfer_request,vertex_actor,vertex_actor_manifest',
                  '2026-04-30T21:01:00+09:00',
-                 'did:web:scndu0rf.gftd.ai',
-                 'did:web:scndu0rf.gftd.ai',
+                 'did:web:scndu0rf.etzhayyim.com',
+                 'did:web:scndu0rf.etzhayyim.com',
                  'sys.bpmn.seed.dns',
-                 'did:web:scndu0rf.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/dns-transferFromSquarespace-v1']},
+                 'did:web:scndu0rf.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferFromSquarespace-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,14 +94,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/dns-transfer-outcome-v1',
-                 'did:web:scndu0rf.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-outcome-v1',
+                 'did:web:scndu0rf.etzhayyim.com',
                  'dns_transfer_outcome',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_dns_transfer_outcome" '
-                 'targetNamespace="https://gftd.ai/bpmn/dns"><bpmn:process '
+                 'targetNamespace="https://etzhayyim.com/bpmn/dns"><bpmn:process '
                  'id="dns_transfer_outcome" name="dns transferOutcome" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
                  '"ai.gftd.apps.dns.transferOutcome", "version": 1, "resultTimeoutMs": 120000 '
@@ -115,11 +115,11 @@ UP = [{'sql': '\n'
                  1007,
                  '00-contracts/bpmn/ai/gftd/dns/transferOutcome.bpmn',
                  '2026-04-30T21:01:00+09:00',
-                 'did:web:scndu0rf.gftd.ai',
-                 'did:web:scndu0rf.gftd.ai',
+                 'did:web:scndu0rf.etzhayyim.com',
+                 'did:web:scndu0rf.etzhayyim.com',
                  'sys.bpmn.seed.dns',
-                 'did:web:scndu0rf.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/dns-transfer-outcome-v1']},
+                 'did:web:scndu0rf.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-outcome-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,27 +134,27 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/dns-transferOutcome-v1',
-                 'did:web:scndu0rf.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferOutcome-v1',
+                 'did:web:scndu0rf.etzhayyim.com',
                  'ai.gftd.apps.dns.transferOutcome',
                  'dns_transfer_outcome',
                  120000,
                  'vertex_atrecord_dns_transfer_outcome,vertex_atrecord_dns_ownership_transfer,vertex_actor,vertex_actor_manifest',
                  '2026-04-30T21:01:00+09:00',
-                 'did:web:scndu0rf.gftd.ai',
-                 'did:web:scndu0rf.gftd.ai',
+                 'did:web:scndu0rf.etzhayyim.com',
+                 'did:web:scndu0rf.etzhayyim.com',
                  'sys.bpmn.seed.dns',
-                 'did:web:scndu0rf.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/dns-transferOutcome-v1']}]
+                 'did:web:scndu0rf.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferOutcome-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/dns-transferFromSquarespace-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferFromSquarespace-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/dns-transfer-from-squarespace-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-from-squarespace-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/dns-transferOutcome-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferOutcome-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/dns-transfer-outcome-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-outcome-v1']}]
 
 
 def upgrade() -> None:

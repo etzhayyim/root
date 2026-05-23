@@ -7,7 +7,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount, tick } from 'svelte';
 	import { fade, fly, slide } from 'svelte/transition';
-	import { Avatar, Skeleton } from '@gftdcojp/design-system';
+	import { Avatar, Skeleton } from '@etzhayyim/design-system';
 	import { isSignedIn } from '$lib/auth/stores.js';
 	import { getSessionToken } from '$lib/auth';
 	import { atQuery, atProcedure, getCurrentDID, searchActors } from '$lib/atproto-agent';

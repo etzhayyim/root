@@ -31,7 +31,7 @@ superseded_by: []
 
 # Context
 
-`maps.gftd.ai` is the largest RisingWave-dependent vendor app (`vertex_spatial` + 12 `vertex_maps_*` tables + 6 streaming MV + Hyperdrive direct write + GraphAr traversal). Applying the 3-axis split rule (ADR-2605172400):
+`maps.etzhayyim.com` is the largest RisingWave-dependent vendor app (`vertex_spatial` + 12 `vertex_maps_*` tables + 6 streaming MV + Hyperdrive direct write + GraphAr traversal). Applying the 3-axis split rule (ADR-2605172400):
 
 | Axis | Verdict | Reason |
 |------|---------|--------|
@@ -57,7 +57,7 @@ A prior draft (vendor ADR-2605201800, reverted) proposed a parallel "AT record +
 
 | Item | Value |
 |---|---|
-| Domain | `maps.etzhayyim.com` (primary), `maps.gftd.ai` (federation alias only, AT layer) |
+| Domain | `maps.etzhayyim.com` (primary), `maps.etzhayyim.com` (federation alias only, AT layer) |
 | Publisher DID | `did:web:maps.etzhayyim.com` |
 | Operating entity | etzhayyim (3/3 axes clean) |
 | Substrate | AT MST + IPFS + Base L2 anchor (ADR-2605172000) |
@@ -134,4 +134,4 @@ maps app
 - `00-contracts/lexicons/app/etzhayyim/substrate/shardSnapshot.json` — the snapshot record consumed by `tileGeoJson`
 - `50-infra/mst-projector/` — projector daemon
 - `20-actors/etzhayyim-sdk/src/{checkpointer.ts,ipfs.ts,l2.ts}` — substrate-client sidecar
-- Reverted vendor commit: ai-gftd-apps-gftdcojp@54898e99111 (revert of 1fa63bf1f0b)
+- Reverted vendor commit: etzhayyim-root@54898e99111 (revert of 1fa63bf1f0b)

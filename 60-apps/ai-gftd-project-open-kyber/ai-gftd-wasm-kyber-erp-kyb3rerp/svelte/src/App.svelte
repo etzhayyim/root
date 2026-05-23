@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { Avatar, Badge, Button } from '@gftdcojp/design-system';
+  import { Avatar, Badge, Button } from '@etzhayyim/design-system';
   import { apps, appMap, type AppId } from './lib/apps';
   import { ui } from './lib/store.svelte';
   import Overview from './apps/Overview.svelte';
   import Appview from './apps/Appview.svelte';
   import Projector from './apps/Projector.svelte';
   // Calendar UI imported as a workspace package from 60-apps/ai-gftd-project-calendar
-  import CalendarApp from '@gftdcojp/kyber-calendar-frontend';
+  import CalendarApp from '@etzhayyim/kyber-calendar-frontend';
   import Drive from './apps/Drive.svelte';
   import Mailer from './apps/Mailer.svelte';
   import Organizer from './apps/Organizer.svelte';

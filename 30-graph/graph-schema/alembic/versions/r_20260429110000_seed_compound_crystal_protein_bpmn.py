@@ -20,7 +20,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '      SELECT\n'
          '        $1,\n'
-         "        'did:web:bpmn.gftd.ai',\n"
+         "        'did:web:bpmn.etzhayyim.com',\n"
          '        $2,\n'
          '        1,\n'
          '        $3,\n'
@@ -29,15 +29,15 @@ UP = [{'sql': '\n'
          "        'active',\n"
          '        NOW()::VARCHAR,\n'
          '        0,\n'
-         "        'bpmn.gftd.ai',\n"
+         "        'bpmn.etzhayyim.com',\n"
          "        'system',\n"
-         "        'did:web:bpmn.gftd.ai'\n"
+         "        'did:web:bpmn.etzhayyim.com'\n"
          '      WHERE NOT EXISTS (\n'
          '        SELECT 1 FROM vertex_bpmn_process_def\n'
          '        WHERE bpmn_process_id = $6\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-compound-seed-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-compound-seed-v1',
                  'science_compound_seed',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -85,7 +85,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '      SELECT\n'
          '        $1,\n'
-         "        'did:web:bpmn.gftd.ai',\n"
+         "        'did:web:bpmn.etzhayyim.com',\n"
          '        $2,\n'
          '        1,\n'
          '        $3,\n'
@@ -94,15 +94,15 @@ UP = [{'sql': '\n'
          "        'active',\n"
          '        NOW()::VARCHAR,\n'
          '        0,\n'
-         "        'bpmn.gftd.ai',\n"
+         "        'bpmn.etzhayyim.com',\n"
          "        'system',\n"
-         "        'did:web:bpmn.gftd.ai'\n"
+         "        'did:web:bpmn.etzhayyim.com'\n"
          '      WHERE NOT EXISTS (\n'
          '        SELECT 1 FROM vertex_bpmn_process_def\n'
          '        WHERE bpmn_process_id = $6\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-crystal-seed-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-crystal-seed-v1',
                  'science_crystal_seed',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -151,7 +151,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '      SELECT\n'
          '        $1,\n'
-         "        'did:web:bpmn.gftd.ai',\n"
+         "        'did:web:bpmn.etzhayyim.com',\n"
          '        $2,\n'
          '        1,\n'
          '        $3,\n'
@@ -160,15 +160,15 @@ UP = [{'sql': '\n'
          "        'active',\n"
          '        NOW()::VARCHAR,\n'
          '        0,\n'
-         "        'bpmn.gftd.ai',\n"
+         "        'bpmn.etzhayyim.com',\n"
          "        'system',\n"
-         "        'did:web:bpmn.gftd.ai'\n"
+         "        'did:web:bpmn.etzhayyim.com'\n"
          '      WHERE NOT EXISTS (\n'
          '        SELECT 1 FROM vertex_bpmn_process_def\n'
          '        WHERE bpmn_process_id = $6\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-protein-seed-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-protein-seed-v1',
                  'science_protein_seed',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -216,7 +216,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '      SELECT\n'
          '        $1,\n'
-         "        'did:web:bpmn.gftd.ai',\n"
+         "        'did:web:bpmn.etzhayyim.com',\n"
          '        $2,\n'
          '        1,\n'
          '        $3,\n'
@@ -225,15 +225,15 @@ UP = [{'sql': '\n'
          "        'active',\n"
          '        NOW()::VARCHAR,\n'
          '        0,\n'
-         "        'bpmn.gftd.ai',\n"
+         "        'bpmn.etzhayyim.com',\n"
          "        'system',\n"
-         "        'did:web:bpmn.gftd.ai'\n"
+         "        'did:web:bpmn.etzhayyim.com'\n"
          '      WHERE NOT EXISTS (\n'
          '        SELECT 1 FROM vertex_bpmn_process_def\n'
          '        WHERE bpmn_process_id = $6\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/science-link-graph-phase2-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-link-graph-phase2-v1',
                  'science_link_graph_phase2',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'

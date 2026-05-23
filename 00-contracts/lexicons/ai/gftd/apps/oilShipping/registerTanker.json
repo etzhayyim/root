@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a crude/product tanker (vessel domain superset). Path-based DID: did:web:oil-shipping.gftd.ai:tanker:imo:{imo}. Includes dark-fleet flagging.",
+      "description": "Register a crude/product tanker (vessel domain superset). Path-based DID: did:web:oil-shipping.etzhayyim.com:tanker:imo:{imo}. Includes dark-fleet flagging.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

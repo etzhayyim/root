@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7a01ac513e1b",
+  "entityId": "ent-7a01ac513e1b",
+  "canonicalName": "fars news agency",
+  "aliases": [
+    "fars news agency"
+  ]
+}

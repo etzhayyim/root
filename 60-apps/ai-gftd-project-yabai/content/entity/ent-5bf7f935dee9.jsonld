@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5bf7f935dee9",
+  "entityId": "ent-5bf7f935dee9",
+  "canonicalName": "al rahman, shaykh umar abd",
+  "aliases": [
+    "al rahman, shaykh umar abd"
+  ]
+}

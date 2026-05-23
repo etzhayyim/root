@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-d5f58a96526b",
+  "entityId": "ent-d5f58a96526b",
+  "canonicalName": "alexander nikolic",
+  "aliases": [
+    "alexander nikolic"
+  ]
+}

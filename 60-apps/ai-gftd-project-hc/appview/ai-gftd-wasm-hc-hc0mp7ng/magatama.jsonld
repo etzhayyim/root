@@ -1,0 +1,84 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:hc.etzhayyim.com",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are the HC Platform agent. Human Computing Platform for gig work, micro-tasks, and OEM service provider registration. You help users register as OEM manufacturers/factories (KYC/KYB verification → factory audit → tsukuru.etzhayyim.com DID registration), browse/accept tasks, and manage work assignments. Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "hc-policy"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "hc",
+  "nanoid": "hc0mp7ng",
+  "performerType": "service",
+  "pool": {},
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "domain-query",
+      "data-management"
+    ],
+    "description": "Human Computing Platform — gig work + micro-tasks + OEM service provider registration pipeline (KYC/KYB → factory audit → tsukuru DID registration)",
+    "displayName": "HC Platform",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "hc",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "hc0mp7ng-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Hc"
+  },
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8080",
+      "routes": [
+        "/api/grpc/...",
+        "/health",
+        "/healthz",
+        "/readyz",
+        "/..."
+      ],
+      "spa": true,
+      "staticDir": "/wasm/svelte/dist"
+    },
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.hc.hcEntity",
+        "ai.gftd.apps.hc.hcEvent",
+        "ai.gftd.apps.hc.hcReport",
+        "ai.gftd.apps.hc.task",
+        "ai.gftd.apps.hc.spApplication",
+        "ai.gftd.apps.hc.spVerification",
+        "ai.gftd.apps.hc.spAudit",
+        "ai.gftd.apps.hc.spRegistration",
+        "ai.gftd.apps.hc.contractAcceptance",
+        "ai.gftd.apps.tsukuru.manufacturer",
+        "ai.gftd.apps.tsukuru.productionOrder",
+        "ai.gftd.apps.tsukuru.qualityInspection"
+      ]
+    }
+  },
+  "uiType": "appview"
+}

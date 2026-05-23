@@ -27,13 +27,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-scout-quotes-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-scout-quotes-v1',
+                 'did:web:arb.etzhayyim.com',
                  'arb_scout_quotes',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arb_scout_quotes" targetNamespace="https://gftd.ai/bpmn/arb" '
+                 'id="Definitions_arb_scout_quotes" targetNamespace="https://etzhayyim.com/bpmn/arb" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="arb_scout_quotes" name="arb scoutQuotes" '
                  'isExecutable="true">\n'
@@ -57,11 +57,11 @@ UP = [{'sql': '\n'
                  1211,
                  '00-contracts/bpmn/ai/gftd/arb/scoutQuotes.bpmn',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-scout-quotes-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-scout-quotes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -76,18 +76,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-scout-quotes-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-scout-quotes-v1',
+                 'did:web:arb.etzhayyim.com',
                  'ai.gftd.apps.arb.scoutQuotes',
                  'arb_scout_quotes',
                  120000,
                  'vertex_arb_quote',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-scout-quotes-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-scout-quotes-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -114,13 +114,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-ingest-quote-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-ingest-quote-v1',
+                 'did:web:arb.etzhayyim.com',
                  'arb_ingest_quote',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arb_ingest_quote" targetNamespace="https://gftd.ai/bpmn/arb" '
+                 'id="Definitions_arb_ingest_quote" targetNamespace="https://etzhayyim.com/bpmn/arb" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="arb_ingest_quote" name="arb ingestQuote" '
                  'isExecutable="true">\n'
@@ -143,11 +143,11 @@ UP = [{'sql': '\n'
                  1120,
                  '00-contracts/bpmn/ai/gftd/arb/ingestQuote.bpmn',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-ingest-quote-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-ingest-quote-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -162,18 +162,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-ingest-quote-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-ingest-quote-v1',
+                 'did:web:arb.etzhayyim.com',
                  'ai.gftd.apps.arb.ingestQuote',
                  'arb_ingest_quote',
                  30000,
                  'vertex_arb_quote',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-ingest-quote-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-ingest-quote-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -200,13 +200,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-detect-spread-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-detect-spread-v1',
+                 'did:web:arb.etzhayyim.com',
                  'arb_detect_spread',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arb_detect_spread" targetNamespace="https://gftd.ai/bpmn/arb" '
+                 'id="Definitions_arb_detect_spread" targetNamespace="https://etzhayyim.com/bpmn/arb" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="arb_detect_spread" name="arb detectSpread" '
                  'isExecutable="true">\n'
@@ -232,11 +232,11 @@ UP = [{'sql': '\n'
                  1311,
                  '00-contracts/bpmn/ai/gftd/arb/detectSpread.bpmn',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-detect-spread-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-detect-spread-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -251,18 +251,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-detect-spread-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-detect-spread-v1',
+                 'did:web:arb.etzhayyim.com',
                  'ai.gftd.apps.arb.detectSpread',
                  'arb_detect_spread',
                  30000,
                  '',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-detect-spread-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-detect-spread-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -286,13 +286,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-propose-trade-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-propose-trade-v1',
+                 'did:web:arb.etzhayyim.com',
                  'arb_propose_trade',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arb_propose_trade" targetNamespace="https://gftd.ai/bpmn/arb" '
+                 'id="Definitions_arb_propose_trade" targetNamespace="https://etzhayyim.com/bpmn/arb" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="arb_propose_trade" name="arb proposeTrade" '
                  'isExecutable="true">\n'
@@ -315,11 +315,11 @@ UP = [{'sql': '\n'
                  1126,
                  '00-contracts/bpmn/ai/gftd/arb/proposeTrade.bpmn',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-propose-trade-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-propose-trade-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -334,18 +334,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-propose-trade-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-propose-trade-v1',
+                 'did:web:arb.etzhayyim.com',
                  'ai.gftd.apps.arb.proposeTrade',
                  'arb_propose_trade',
                  30000,
                  'vertex_arb_proposal,edge_arb_proposal_leg',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-propose-trade-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-propose-trade-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -372,13 +372,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-score-proposal-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-score-proposal-v1',
+                 'did:web:arb.etzhayyim.com',
                  'arb_score_proposal',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arb_score_proposal" targetNamespace="https://gftd.ai/bpmn/arb" '
+                 'id="Definitions_arb_score_proposal" targetNamespace="https://etzhayyim.com/bpmn/arb" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="arb_score_proposal" name="arb scoreProposal" '
                  'isExecutable="true">\n'
@@ -404,11 +404,11 @@ UP = [{'sql': '\n'
                  1318,
                  '00-contracts/bpmn/ai/gftd/arb/scoreProposal.bpmn',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-score-proposal-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-score-proposal-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -423,18 +423,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-score-proposal-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-score-proposal-v1',
+                 'did:web:arb.etzhayyim.com',
                  'ai.gftd.apps.arb.scoreProposal',
                  'arb_score_proposal',
                  30000,
                  'vertex_arb_score',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-score-proposal-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-score-proposal-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -461,13 +461,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-publish-proposal-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-publish-proposal-v1',
+                 'did:web:arb.etzhayyim.com',
                  'arb_publish_proposal',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arb_publish_proposal" targetNamespace="https://gftd.ai/bpmn/arb" '
+                 'id="Definitions_arb_publish_proposal" targetNamespace="https://etzhayyim.com/bpmn/arb" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="arb_publish_proposal" name="arb publishProposal" '
                  'isExecutable="true">\n'
@@ -480,7 +480,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
                  'type="arb.publishProposal"/><zeebe:ioMapping><zeebe:input source="=proposalId" '
                  'target="proposalId"/><zeebe:input source="=if mentionCohort = null then '
-                 '&quot;trader.gftd.ai&quot; else mentionCohort" '
+                 '&quot;trader.etzhayyim.com&quot; else mentionCohort" '
                  'target="mentionCohort"/></zeebe:ioMapping></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_1</bpmn:incoming><bpmn:outgoing>Flow_2</bpmn:outgoing>\n'
@@ -493,11 +493,11 @@ UP = [{'sql': '\n'
                  1357,
                  '00-contracts/bpmn/ai/gftd/arb/publishProposal.bpmn',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-publish-proposal-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-publish-proposal-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -512,18 +512,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-publish-proposal-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-publish-proposal-v1',
+                 'did:web:arb.etzhayyim.com',
                  'ai.gftd.apps.arb.publishProposal',
                  'arb_publish_proposal',
                  120000,
                  'vertex_arb_publication',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-publish-proposal-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-publish-proposal-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -550,13 +550,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-list-proposals-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-list-proposals-v1',
+                 'did:web:arb.etzhayyim.com',
                  'arb_list_proposals',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arb_list_proposals" targetNamespace="https://gftd.ai/bpmn/arb" '
+                 'id="Definitions_arb_list_proposals" targetNamespace="https://etzhayyim.com/bpmn/arb" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="arb_list_proposals" name="arb listProposals" '
                  'isExecutable="true">\n'
@@ -579,11 +579,11 @@ UP = [{'sql': '\n'
                  1132,
                  '00-contracts/bpmn/ai/gftd/arb/listProposals.bpmn',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-list-proposals-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-list-proposals-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -598,18 +598,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-list-proposals-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-list-proposals-v1',
+                 'did:web:arb.etzhayyim.com',
                  'ai.gftd.apps.arb.listProposals',
                  'arb_list_proposals',
                  30000,
                  '',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-list-proposals-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-list-proposals-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -633,13 +633,13 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-get-proposal-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-get-proposal-v1',
+                 'did:web:arb.etzhayyim.com',
                  'arb_get_proposal',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
-                 'id="Definitions_arb_get_proposal" targetNamespace="https://gftd.ai/bpmn/arb" '
+                 'id="Definitions_arb_get_proposal" targetNamespace="https://etzhayyim.com/bpmn/arb" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="arb_get_proposal" name="arb getProposal" '
                  'isExecutable="true">\n'
@@ -663,11 +663,11 @@ UP = [{'sql': '\n'
                  1210,
                  '00-contracts/bpmn/ai/gftd/arb/getProposal.bpmn',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-get-proposal-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-get-proposal-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -682,18 +682,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-get-proposal-v1',
-                 'did:web:arb.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-get-proposal-v1',
+                 'did:web:arb.etzhayyim.com',
                  'ai.gftd.apps.arb.getProposal',
                  'arb_get_proposal',
                  30000,
                  '',
                  '2026-04-29T20:20:00+09:00',
-                 'did:web:arb.gftd.ai',
-                 'did:web:arb.gftd.ai',
+                 'did:web:arb.etzhayyim.com',
+                 'did:web:arb.etzhayyim.com',
                  'sys.bpmn.seed.arb',
-                 'did:web:arb.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-get-proposal-v1']},
+                 'did:web:arb.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-get-proposal-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -704,37 +704,37 @@ UP = [{'sql': '\n'
   'parameters': ['', 'arb_get_proposal', 'ai.gftd.apps.arb.getProposal', '']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-scout-quotes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-scout-quotes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-scout-quotes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-scout-quotes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-ingest-quote-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-ingest-quote-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-ingest-quote-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-ingest-quote-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-detect-spread-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-detect-spread-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-detect-spread-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-detect-spread-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-propose-trade-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-propose-trade-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-propose-trade-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-propose-trade-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-score-proposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-score-proposal-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-score-proposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-score-proposal-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-publish-proposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-publish-proposal-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-publish-proposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-publish-proposal-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-list-proposals-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-list-proposals-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-list-proposals-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-list-proposals-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/arb-get-proposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arb-get-proposal-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/arb-get-proposal-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arb-get-proposal-v1']}]
 
 
 def upgrade() -> None:

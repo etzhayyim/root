@@ -92,7 +92,7 @@ describe("isin rw-free", () => {
 
     it("supports optional asset class and currency", async () => {
       const result = await registerSecurity(e, {
-        isin: "JP3735400001",
+        isin: "JP3735400008",
         name: "Toyota Motor Corp.",
         assetClass: "equity",
         currency: "jpy",
@@ -100,7 +100,7 @@ describe("isin rw-free", () => {
       });
 
       expect(result.status).toBe("registered");
-      const sec = await getSecurity(e, { isin: "JP3735400001" });
+      const sec = await getSecurity(e, { isin: "JP3735400008" });
       expect(sec.security?.assetClass).toBe("equity");
       expect(sec.security?.currency).toBe("JPY");
     });
@@ -133,7 +133,7 @@ describe("isin rw-free", () => {
 
     it("returns error for non-existent ISIN", async () => {
       const result = await getSecurity(e, {
-        isin: "US0000000001",
+        isin: "US1111111118",
       });
 
       expect(result.error).toBe("notFound");
@@ -156,7 +156,7 @@ describe("isin rw-free", () => {
         assetClass: "equity",
       });
       await registerSecurity(e, {
-        isin: "JP3735400001",
+        isin: "JP3735400008",
         name: "Toyota Motor Corp.",
         country: "jp",
         assetClass: "equity",
@@ -206,7 +206,7 @@ describe("isin rw-free", () => {
         assetClass: "equity",
       });
       await registerSecurity(e, {
-        isin: "US0100054308",
+        isin: "US0100054305",
         name: "Federal Home Loan Bank Bond",
         country: "us",
         assetClass: "debt",
@@ -234,19 +234,19 @@ describe("isin rw-free", () => {
   describe("registerEntity", () => {
     it("registers an entity with valid LEI", async () => {
       const result = await registerEntity(e, {
-        lei: "APISTM2DUXWWGH83GX92", // Valid LEI format
+        lei: "5493001KJTIIGC8Y1R12", // Valid LEI format
         name: "Apple Inc.",
         country: "us",
       });
 
       expect(result.status).toBe("registered");
       expect(result.entityUri).toBeDefined();
-      expect(result.lei).toBe("APISTM2DUXWWGH83GX92");
+      expect(result.lei).toBe("5493001KJTIIGC8Y1R12");
     });
 
     it("rejects entity with invalid LEI checksum", async () => {
       const result = await registerEntity(e, {
-        lei: "APISTM2DUXWWGH83GX99", // Invalid checksum
+        lei: "5493001KJTIIGC8Y1R99", // Invalid checksum
         name: "Invalid Corp",
       });
 
@@ -255,7 +255,7 @@ describe("isin rw-free", () => {
 
     it("is idempotent on LEI", async () => {
       const input = {
-        lei: "APISTM2DUXWWGH83GX92",
+        lei: "5493001KJTIIGC8Y1R12",
         name: "Apple Inc.",
       };
 
@@ -301,7 +301,7 @@ describe("isin rw-free", () => {
       expect(isValidIsin("US0378331005")).toBe(true);
       expect(isValidIsin("US0378331006")).toBe(false);
       expect(isValidIsin("invalid")).toBe(false);
-      expect(isValidIsin("JP3735400001")).toBe(true);
+      expect(isValidIsin("JP3735400008")).toBe(true);
     });
 
     it("computes correct ISIN check digit", () => {
@@ -312,7 +312,7 @@ describe("isin rw-free", () => {
     it("validates well-known ISINs", () => {
       // Test various real ISINs
       expect(isValidIsin("US0378331005")).toBe(true);
-      expect(isValidIsin("JP3735400001")).toBe(true);
+      expect(isValidIsin("JP3735400008")).toBe(true);
       expect(isValidIsin("DE0005140008")).toBe(true);
     });
   });

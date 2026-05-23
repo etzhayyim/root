@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge } from '@gftdcojp/design-system';
+	import { Badge } from '@etzhayyim/design-system';
 	import type { CardServicePayload } from '../w-types.js';
 
 	interface Props {

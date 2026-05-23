@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-ec2a475a1b3a",
+  "entityId": "ent-ec2a475a1b3a",
+  "canonicalName": "apt41 (winnti / barium)",
+  "aliases": [
+    "apt41 (winnti / barium)"
+  ]
+}

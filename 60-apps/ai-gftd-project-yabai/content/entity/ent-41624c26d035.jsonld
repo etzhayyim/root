@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-41624c26d035",
+  "entityId": "ent-41624c26d035",
+  "canonicalName": "limited liability company khaverim",
+  "aliases": [
+    "limited liability company khaverim"
+  ]
+}

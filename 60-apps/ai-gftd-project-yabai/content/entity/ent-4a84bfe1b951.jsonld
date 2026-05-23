@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4a84bfe1b951",
+  "entityId": "ent-4a84bfe1b951",
+  "canonicalName": "scientific and production association of measuring equipment jsc",
+  "aliases": [
+    "scientific and production association of measuring equipment jsc"
+  ]
+}

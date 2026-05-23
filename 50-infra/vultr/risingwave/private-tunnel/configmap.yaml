@@ -12,7 +12,7 @@ data:
     # GitGuardian incident). Hyperdrive in CF connects to the cluster privately
     # via this tunnel; no public IP on RW.
     #
-    # DNS: risingwave-private.gftd.ai CNAME → a17cdf9d-7b9d-4cf4-a482-66129bc2a43d.cfargotunnel.com
+    # DNS: risingwave-private.etzhayyim.com CNAME → a17cdf9d-7b9d-4cf4-a482-66129bc2a43d.cfargotunnel.com
     #
     # Origin (in-cluster): tcp://risingwave.risingwave.svc.cluster.local:4566
     # (ClusterIP service; root user auth enabled 2026-05-17)
@@ -21,7 +21,7 @@ data:
     metrics: 0.0.0.0:2000
     no-autoupdate: true
     ingress:
-      - hostname: risingwave-private.gftd.ai
+      - hostname: risingwave-private.etzhayyim.com
         service: tcp://risingwave.risingwave.svc.cluster.local:4566
         originRequest:
           connectTimeout: 30s

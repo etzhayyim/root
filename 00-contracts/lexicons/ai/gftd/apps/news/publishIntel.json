@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Publish a prepared intel brief as an attributed news.gftd.ai writer DID post.",
+      "description": "Publish a prepared intel brief as an attributed news.etzhayyim.com writer DID post.",
       "input": {
         "encoding": "application/json",
         "schema": {

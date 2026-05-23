@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-3347c8a53852",
+  "entityId": "ent-3347c8a53852",
+  "canonicalName": "pacifique ntawunguka",
+  "aliases": [
+    "pacifique ntawunguka"
+  ]
+}

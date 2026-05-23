@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-seedOrgs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-seedOrgs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_seed_orgs" name="govGeo seed orgs" '
@@ -63,10 +63,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govGeo/seedOrgs.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -80,15 +80,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-registerDIDs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-registerDIDs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_register_dids" name="govGeo register DIDs" '
@@ -120,10 +120,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govGeo/registerDIDs.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -137,15 +137,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-followSiteDeps-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-followSiteDeps-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_follow_site_deps" name="govGeo follow site deps" '
@@ -175,10 +175,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govGeo/followSiteDeps.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,15 +192,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-resolveOrgPath-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-resolveOrgPath-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_resolve_org_path" name="govGeo resolve org path" '
@@ -233,10 +233,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govGeo/resolveOrgPath.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -250,15 +250,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-listOrgs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-listOrgs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_list_orgs" name="govGeo list orgs" '
@@ -287,10 +287,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govGeo/listOrgs.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -304,15 +304,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-syncWetUpdates-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-syncWetUpdates-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_sync_wet_updates" name="govGeo sync wet updates" '
@@ -343,10 +343,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govGeo/syncWetUpdates.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -360,15 +360,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-shinka-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-shinka-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_shinka',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_shinka"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_shinka" name="govGeo shinka" isExecutable="true">\n'
@@ -398,10 +398,10 @@ UP = [{'sql': '\n'
                  1351,
                  '00-contracts/bpmn/ai/gftd/govGeo/shinka.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -415,8 +415,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeatTick-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeatTick-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -424,7 +424,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_geo_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_heartbeat_tick" name="govGeo heartbeat tick" '
@@ -467,10 +467,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govGeo/heartbeatTick.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -484,15 +484,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-seed-orgs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-seed-orgs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_seed_orgs" name="govGeo seed orgs" '
@@ -522,10 +522,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govGeo/seedOrgs.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-seed-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-seed-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -539,15 +539,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-register-dids-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-register-dids-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_register_dids" name="govGeo register DIDs" '
@@ -579,10 +579,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govGeo/registerDIDs.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-register-dids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -596,15 +596,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-follow-site-deps-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-follow-site-deps-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_follow_site_deps" name="govGeo follow site deps" '
@@ -634,10 +634,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govGeo/followSiteDeps.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-follow-site-deps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-follow-site-deps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -651,15 +651,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-resolve-org-path-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-resolve-org-path-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_resolve_org_path" name="govGeo resolve org path" '
@@ -692,10 +692,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govGeo/resolveOrgPath.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-resolve-org-path-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-resolve-org-path-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -709,15 +709,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-list-orgs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-list-orgs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_list_orgs" name="govGeo list orgs" '
@@ -746,10 +746,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govGeo/listOrgs.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-list-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-list-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -763,15 +763,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-sync-wet-updates-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-sync-wet-updates-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_geo_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_sync_wet_updates" name="govGeo sync wet updates" '
@@ -802,10 +802,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govGeo/syncWetUpdates.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-sync-wet-updates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-sync-wet-updates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -819,8 +819,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeat-tick-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeat-tick-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'gov_geo_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -828,7 +828,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_geo_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govGeo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govGeo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_geo_heartbeat_tick" name="govGeo heartbeat tick" '
@@ -871,10 +871,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govGeo/heartbeatTick.bpmn',
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeat-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeat-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -889,17 +889,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.seedOrgs',
                  'gov_geo_seed_orgs',
                  90000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -914,17 +914,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.registerDIDs',
                  'gov_geo_register_dids',
                  90000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,17 +939,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.followSiteDeps',
                  'gov_geo_follow_site_deps',
                  90000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -964,17 +964,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.resolveOrgPath',
                  'gov_geo_resolve_org_path',
                  60000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -989,17 +989,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.listOrgs',
                  'gov_geo_list_orgs',
                  60000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1014,17 +1014,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.syncWetUpdates',
                  'gov_geo_sync_wet_updates',
                  180000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1039,17 +1039,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-shinka-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-shinka-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.shinka',
                  'gov_geo_shinka',
                  180000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1064,17 +1064,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.heartbeatTick',
                  'gov_geo_heartbeat_tick',
                  180000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1089,17 +1089,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.seedOrgs',
                  'gov_geo_seed_orgs',
                  90000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1114,17 +1114,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.registerDIDs',
                  'gov_geo_register_dids',
                  90000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1139,17 +1139,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.followSiteDeps',
                  'gov_geo_follow_site_deps',
                  90000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1164,17 +1164,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.resolveOrgPath',
                  'gov_geo_resolve_org_path',
                  60000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1189,17 +1189,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.listOrgs',
                  'gov_geo_list_orgs',
                  60000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1214,17 +1214,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.syncWetUpdates',
                  'gov_geo_sync_wet_updates',
                  180000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1239,17 +1239,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1',
-                 'did:web:geo-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1',
+                 'did:web:geo-state.etzhayyim.com',
                  'ai.gftd.govGeo.heartbeatTick',
                  'gov_geo_heartbeat_tick',
                  180000,
                  '2026-05-07T14:44:00Z',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1266,10 +1266,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs',
                  'ai.gftd.govGeo.seedOrgs',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Georgia government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1277,12 +1277,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govGeo/seedOrgs.json',
                  '273ad265fc6ae8ba',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1299,10 +1299,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs',
                  'ai.gftd.govGeo.registerDIDs',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Georgia government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1310,12 +1310,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govGeo/registerDIDs.json',
                  'f19bcf313ababcc3',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1332,10 +1332,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps',
                  'ai.gftd.govGeo.followSiteDeps',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Georgia government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1343,12 +1343,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govGeo/followSiteDeps.json',
                  '8a88ea4b9605e866',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1365,10 +1365,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath',
                  'ai.gftd.govGeo.resolveOrgPath',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'query',
                  'Resolve a Georgia government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1376,12 +1376,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govGeo/resolveOrgPath.json',
                  '726f00d9f8047754',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1398,10 +1398,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs',
                  'ai.gftd.govGeo.listOrgs',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'query',
                  'List Georgia government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1409,12 +1409,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govGeo/listOrgs.json',
                  'ca39a4d8da247bc6',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1431,10 +1431,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates',
                  'ai.gftd.govGeo.syncWetUpdates',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Georgia government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1442,12 +1442,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govGeo/syncWetUpdates.json',
                  '7a9c0578d3747491',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1464,10 +1464,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-shinka',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-shinka',
                  'ai.gftd.govGeo.shinka',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Post a periodic graph-visible Georgia government organization update.',
                  '{"properties":{"limit":{"default":1,"maximum":5,"minimum":1,"type":"integer"},"postUpdates":{"default":true,"type":"boolean"}},"required":[],"type":"object"}',
@@ -1475,12 +1475,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.shinka',
                  '00-contracts/lexicons/ai/gftd/govGeo/shinka.json',
                  'b2da2f8ce7f2e6d6',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-shinka']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-shinka']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1497,10 +1497,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick',
                  'ai.gftd.govGeo.heartbeatTick',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Run the Georgia government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1508,12 +1508,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govGeo/heartbeatTick.json',
                  'af3b0db28cc16a58',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1530,10 +1530,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs',
                  'ai.gftd.govGeo.seedOrgs',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Georgia government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1541,12 +1541,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govGeo/seedOrgs.json',
                  '273ad265fc6ae8ba',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1563,10 +1563,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs',
                  'ai.gftd.govGeo.registerDIDs',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Georgia government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1574,12 +1574,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govGeo/registerDIDs.json',
                  'f19bcf313ababcc3',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1596,10 +1596,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps',
                  'ai.gftd.govGeo.followSiteDeps',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Georgia government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1607,12 +1607,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govGeo/followSiteDeps.json',
                  '8a88ea4b9605e866',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1629,10 +1629,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath',
                  'ai.gftd.govGeo.resolveOrgPath',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'query',
                  'Resolve a Georgia government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1640,12 +1640,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govGeo/resolveOrgPath.json',
                  '726f00d9f8047754',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1662,10 +1662,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs',
                  'ai.gftd.govGeo.listOrgs',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'query',
                  'List Georgia government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1673,12 +1673,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govGeo/listOrgs.json',
                  'ca39a4d8da247bc6',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1695,10 +1695,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates',
                  'ai.gftd.govGeo.syncWetUpdates',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Georgia government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1706,12 +1706,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govGeo/syncWetUpdates.json',
                  '7a9c0578d3747491',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates']},
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1728,10 +1728,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick',
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick',
                  'ai.gftd.govGeo.heartbeatTick',
-                 'did:web:geo-state.gftd.ai',
-                 'geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'geo-state.etzhayyim.com',
                  'procedure',
                  'Run the Georgia government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1739,103 +1739,103 @@ UP = [{'sql': '\n'
                  'ai.gftd.govGeo.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govGeo/heartbeatTick.json',
                  'af3b0db28cc16a58',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
-                 'did:web:geo-state.gftd.ai',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
+                 'did:web:geo-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-geo',
                  '2026-05-07T14:44:00Z',
-                 'at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick']}]
+                 'at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-shinka']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-shinka']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:geo-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick']},
+  'parameters': ['at://did:web:geo-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govGeo-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govGeo-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-seed-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-seed-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-follow-site-deps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-follow-site-deps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-resolve-org-path-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-resolve-org-path-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-list-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-list-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-sync-wet-updates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-sync-wet-updates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeat-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-geo-heartbeat-tick-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,1227 @@
+{
+  "@context": {
+    "id": "@id",
+    "type": "@type",
+    "title": "http://purl.org/dc/terms/title",
+    "status": "https://schema.org/creativeWorkStatus",
+    "topic": "https://schema.org/about",
+    "authoritative": "https://schema.org/authoritativeLegalValue",
+    "authoritativeFor": "https://etzhayyim.com/docs/authoritativeFor",
+    "related": {
+      "@id": "https://schema.org/isRelatedTo",
+      "@type": "@id"
+    },
+    "supersedes": {
+      "@id": "https://schema.org/supersedes",
+      "@type": "@id"
+    },
+    "supersededBy": {
+      "@id": "https://schema.org/supersededBy",
+      "@type": "@id"
+    }
+  },
+  "@graph": [
+    {
+      "id": "doc:260319-magatama-wit-dodaf-nist-coverage",
+      "type": "TechArticle",
+      "title": "App WIT — DoDAF v2 / NIST CSF 2.0 Coverage Map",
+      "status": "active",
+      "topic": "wit-coverage",
+      "authoritative": true,
+      "authoritativeFor": [
+        "magatama wit package coverage and compliance mapping"
+      ]
+    },
+    {
+      "id": "doc:260319-w-protocol-component-composition-design",
+      "type": "TechArticle",
+      "title": "W Protocol Component Composition Design",
+      "status": "active",
+      "topic": "w-protocol-component-composition",
+      "authoritative": true,
+      "authoritativeFor": [
+        "cross app wit level typed function call over w protocol"
+      ]
+    },
+    {
+      "id": "doc:260320-magatama-cloudflare-containers-evaluation",
+      "type": "TechArticle",
+      "title": "Magatama vs Cloudflare Containers Evaluation",
+      "status": "active",
+      "topic": "runtime-selection",
+      "authoritative": true,
+      "authoritativeFor": [
+        "magatama runtime default vs container fallback"
+      ]
+    },
+    {
+      "id": "doc:260320-magatama-cloudflare-worker-rpc-optimization",
+      "type": "TechArticle",
+      "title": "Magatama Cloudflare Worker RPC Optimization",
+      "status": "active",
+      "topic": "worker-rpc-transport",
+      "authoritative": true,
+      "authoritativeFor": [
+        "worker internal transport selection between rpc and http service bindings"
+      ]
+    },
+    {
+      "id": "doc:260320-vault-zero-knowledge-design",
+      "type": "TechArticle",
+      "title": "Vault Zero-Knowledge Design — 1Password-Style Key Hierarchy for All Principal Types",
+      "status": "active",
+      "topic": "vault-zero-knowledge-crypto",
+      "authoritative": true,
+      "authoritativeFor": [
+        "vault.etzhayyim.com zero knowledge key hierarchy and encryption design",
+        "vault principal types and key exchange patterns",
+        "vault WIT interface design (magatama:secrets/vault)"
+      ]
+    },
+    {
+      "id": "doc:260321-wproto-cqrs-migration",
+      "type": "TechArticle",
+      "title": "W Protocol Event Stream Migration Guide",
+      "status": "active",
+      "topic": "wproto-cqrs-migration",
+      "authoritative": true,
+      "authoritativeFor": [
+        "w protocol cqrs migration from legacy patterns"
+      ]
+    },
+    {
+      "id": "doc:260322-platform-dependency-architecture",
+      "type": "TechArticle",
+      "title": "Platform Dependency Architecture — TS/Rust/Go/WASM/Container 通信マップ",
+      "status": "active",
+      "topic": "platform-dependency-architecture",
+      "authoritative": true,
+      "authoritativeFor": [
+        "platform language dependency graph",
+        "runtime communication topology",
+        "service binding map",
+        "build chain dependencies"
+      ]
+    },
+    {
+      "id": "doc:260322-w-protocol-record-encryption-lexicon-design",
+      "type": "TechArticle",
+      "title": "W Protocol Record Encryption & Lexicon Design — API 使い分けガイド",
+      "status": "active",
+      "topic": "w-protocol-encryption-lexicon",
+      "authoritative": true,
+      "authoritativeFor": [
+        "W Protocol record encryption model",
+        "Lexicon namespace encryption classification",
+        "ATPost vs WRecord vs WSend API selection"
+      ]
+    },
+    {
+      "id": "doc:260323-yoro-human-credit-economy-design",
+      "type": "TechArticle",
+      "title": "yoro.etzhayyim.com Human Credit Economy — Murakumo + HC Task Rewards",
+      "status": "active",
+      "topic": "yoro-credit-economy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "yoro human participation credit system",
+        "murakumo credit reward rates",
+        "hc.etzhayyim.com credit integration"
+      ]
+    },
+    {
+      "id": "doc:260324-dt-secure-file-transfer-design",
+      "type": "TechArticle",
+      "title": "dt.etzhayyim.com — Secure File Transfer Design",
+      "status": "active",
+      "topic": "dt-secure-file-transfer",
+      "authoritative": true,
+      "authoritativeFor": [
+        "dt.etzhayyim.com secure file transfer architecture",
+        "ai-gftd-project-data-transfer app boundary and transfer lifecycle"
+      ]
+    },
+    {
+      "id": "doc:260324-isin-coverage-social-evolution",
+      "type": "TechArticle",
+      "title": "ISIN Coverage-Driven Social Evolution Design",
+      "status": "active",
+      "topic": "isin-social-evolution",
+      "authoritative": true,
+      "authoritativeFor": [
+        "isin-coverage-heartbeat"
+      ]
+    },
+    {
+      "id": "doc:260324-source-graph-hybrid-design",
+      "type": "TechArticle",
+      "title": "Source Graph — 3-Layer Hybrid Extraction (Shannon-Optimal)",
+      "status": "active",
+      "topic": "source-graph-annotation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "source-level annotation system",
+        "source graph extraction architecture",
+        "gftd source-graph CLI"
+      ]
+    },
+    {
+      "id": "doc:260325-claude-native-lifecycle-management",
+      "type": "TechArticle",
+      "title": "Claude-Native Lifecycle Management — Delete Over Annotate",
+      "status": "active",
+      "topic": "lifecycle-management",
+      "authoritative": true,
+      "authoritativeFor": [
+        "lifecycle management for code artifacts",
+        "deprecated/legacy/removed symbol handling",
+        "CLAUDE.md inventory elimination policy",
+        "symbol graph and structural validation"
+      ]
+    },
+    {
+      "id": "doc:260331-soshiki-unified-organization-design",
+      "type": "TechArticle",
+      "title": "Soshiki — Unified Organic & Social Organization Intelligence Design",
+      "status": "active",
+      "topic": "soshiki-unified-organization",
+      "authoritative": true,
+      "authoritativeFor": []
+    },
+    {
+      "id": "doc:260403-atproto-reference-coverage-compliance-consolidated",
+      "type": "TechArticle",
+      "title": "AT Protocol Reference, Coverage, and Compliance (Consolidated)",
+      "status": "active",
+      "topic": "atproto-reference-coverage-compliance",
+      "authoritative": true,
+      "authoritativeFor": [
+        "AT Protocol lexicon reference baseline used in this repo",
+        "atproto.etzhayyim.com implementation coverage summary",
+        "AT Protocol normative compliance summary"
+      ]
+    },
+    {
+      "id": "doc:260403-did-namespace-and-lexicon-consolidated",
+      "type": "TechArticle",
+      "title": "DID, Namespace, and Lexicon Mapping (Consolidated)",
+      "status": "active",
+      "topic": "did-namespace-lexicon",
+      "authoritative": true,
+      "authoritativeFor": [
+        "did path and nsid correspondence baseline",
+        "performerType and multi-did consolidation baseline",
+        "namespace and resource-flow lexicon governance"
+      ]
+    },
+    {
+      "id": "doc:260403-governance-and-compliance-consolidated",
+      "type": "TechArticle",
+      "title": "Governance and Compliance (Consolidated)",
+      "status": "active",
+      "topic": "governance-and-compliance",
+      "authoritative": true,
+      "authoritativeFor": [
+        "governance policy baseline across visibility and consent",
+        "authority chain and content access compliance baseline"
+      ]
+    },
+    {
+      "id": "doc:260403-inference-runtime-and-artifacts-consolidated",
+      "type": "TechArticle",
+      "title": "Inference Runtime and Artifacts (Consolidated)",
+      "status": "active",
+      "topic": "inference-runtime-artifacts",
+      "authoritative": true,
+      "authoritativeFor": [
+        "inference runtime baseline across rust and wasm paths",
+        "hayate artifact schema and runtime compatibility baseline"
+      ]
+    },
+    {
+      "id": "doc:260403-live-data-kyumei-shinka-consolidated",
+      "type": "TechArticle",
+      "title": "Live Data and Kyumei-Shinka (Consolidated)",
+      "status": "active",
+      "topic": "live-data-kyumei-shinka",
+      "authoritative": true,
+      "authoritativeFor": [
+        "live data stability and operation baseline",
+        "kyumei-koji and shinka execution baseline",
+        "per-did autonomy integration baseline"
+      ]
+    },
+    {
+      "id": "doc:260403-reactive-event-stream-architecture-consolidated",
+      "type": "TechArticle",
+      "title": "Reactive Event Stream Architecture (Consolidated)",
+      "status": "active",
+      "topic": "reactive-event-stream-architecture",
+      "authoritative": true,
+      "authoritativeFor": [
+        "reactive event stream architecture for app workloads on gftd",
+        "firehose to app processing and subscriber delivery model",
+        "no polling and no do queue baseline for reactive delivery"
+      ]
+    },
+    {
+      "id": "doc:260403-security-architecture-threat-key-consolidated",
+      "type": "TechArticle",
+      "title": "Security Architecture, Threat Model, and Key Management (Consolidated)",
+      "status": "active",
+      "topic": "security-architecture-threat-key",
+      "authoritative": true,
+      "authoritativeFor": [
+        "repository wide security architecture and identity model",
+        "zero knowledge plus did:web passkey threat model",
+        "client held decryption key management standard"
+      ]
+    },
+    {
+      "id": "doc:260403-w-protocol-core-and-security-consolidated",
+      "type": "TechArticle",
+      "title": "W Protocol Core and Security (Consolidated)",
+      "status": "active",
+      "topic": "w-protocol-core-security",
+      "authoritative": true,
+      "authoritativeFor": [
+        "w protocol core architecture baseline",
+        "federation and trust boundary baseline",
+        "confidential container position in w protocol security model"
+      ]
+    },
+    {
+      "id": "doc:260403-wproto-transport-and-routing-consolidated",
+      "type": "TechArticle",
+      "title": "W Protocol Transport and Routing (Consolidated)",
+      "status": "active",
+      "topic": "wproto-transport-routing",
+      "authoritative": true,
+      "authoritativeFor": [
+        "w protocol stream transport baseline",
+        "wit to transport binding generation policy",
+        "xrpc service-proxy routing boundary"
+      ]
+    },
+    {
+      "id": "doc:adr-0001-live-data-status-source-of-truth",
+      "type": "TechArticle",
+      "title": "ADR-0001: live_data の真実源を ai.gftd.liveData.status に統一する",
+      "status": "proposed",
+      "topic": "live-data-status",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kyumei-koji readiness live_data 判定",
+        "live data status record schema"
+      ]
+    },
+    {
+      "id": "doc:adr-readme",
+      "type": "TechArticle",
+      "title": "ADR",
+      "status": "active",
+      "topic": "adr-index",
+      "authoritative": true,
+      "authoritativeFor": [
+        "adr directory entrypoint"
+      ]
+    },
+    {
+      "id": "doc:adr-template",
+      "type": "TechArticle",
+      "title": "ADR Title",
+      "status": "proposed",
+      "topic": "replace-me",
+      "authoritative": true,
+      "authoritativeFor": [
+        "replace-me"
+      ]
+    },
+    {
+      "id": "doc:atproto-layer-separation",
+      "type": "TechArticle",
+      "title": "AT Protocol Layer Separation — Layer 0 (AT Faithful) + Layer 1 (W Protocol Extension)",
+      "status": "active",
+      "topic": "at-protocol-layer-separation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "AT Protocol vs W Protocol layer boundary",
+        "W Protocol extension classification",
+        "AT Protocol conflicting feature isolation"
+      ]
+    },
+    {
+      "id": "doc:atproto-permission-scope-design",
+      "type": "TechArticle",
+      "title": "AT Protocol Permission Scope — 2-Layer Authorization Design",
+      "status": "active",
+      "topic": "atproto-permission-oauth-scope",
+      "authoritative": true,
+      "authoritativeFor": [
+        "AT Protocol permission spec integration",
+        "OAuth scope enforcement architecture"
+      ]
+    },
+    {
+      "id": "doc:data-gateway-consolidation",
+      "type": "TechArticle",
+      "title": "Data Gateway Consolidation — atproto.etzhayyim.com 一元化",
+      "status": "superseded",
+      "topic": "data-gateway-security-boundary",
+      "authoritative": true,
+      "authoritativeFor": [
+        "data gateway security boundary",
+        "yata external access policy",
+        "yoro/wproto data endpoint policy"
+      ]
+    },
+    {
+      "id": "doc:docs-claude",
+      "type": "TechArticle",
+      "title": "docs — Documentation System Rules",
+      "status": "active",
+      "topic": "docs-system-rules",
+      "authoritative": true,
+      "authoritativeFor": [
+        "docs system rules and metadata policy"
+      ]
+    },
+    {
+      "id": "doc:docs-readme",
+      "type": "TechArticle",
+      "title": "Docs System",
+      "status": "active",
+      "topic": "docs-system-index",
+      "authoritative": true,
+      "authoritativeFor": [
+        "docs system entrypoint"
+      ]
+    },
+    {
+      "id": "doc:ingredient-safety-scoring",
+      "type": "TechArticle",
+      "title": "原材料安全性スコアリング設計 — コンビニ食品全原材料の Well-Becoming 評価",
+      "status": "active",
+      "topic": "ingredient-safety-scoring",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ingredient safety scoring system",
+        "convenience store food ingredient evaluation",
+        "omatsuri × dojo × society6 food safety integration"
+      ]
+    },
+    {
+      "id": "doc:maps-vision-satellite-pipeline",
+      "type": "TechArticle",
+      "title": "Maps Vision & Satellite Pipeline Design",
+      "status": "active",
+      "topic": "maps-vision-satellite",
+      "authoritative": true,
+      "authoritativeFor": [
+        "maps image analysis pipeline",
+        "maps satellite data integration",
+        "maps EXIF geolocation extraction",
+        "maps Mapraly ingest"
+      ]
+    },
+    {
+      "id": "doc:richtext-facet-l1-extension",
+      "type": "TechArticle",
+      "title": "Richtext Facet L1 Extension — Notion-Level Block & Inline Formatting via AT Protocol Facets",
+      "status": "active",
+      "topic": "richtext-facet-extension",
+      "authoritative": true,
+      "authoritativeFor": [
+        "W Protocol richtext facet extension",
+        "L1 inline formatting facets",
+        "L1 block structure facets",
+        "Notion feature coverage via facets"
+      ]
+    },
+    {
+      "id": "doc:security-crypto-agility-policy",
+      "type": "TechArticle",
+      "title": "Crypto Agility Policy",
+      "status": "active",
+      "topic": "crypto-agility",
+      "authoritative": true,
+      "authoritativeFor": [
+        "crypto suite upgrade and compatibility policy"
+      ]
+    },
+    {
+      "id": "doc:security-readme",
+      "type": "TechArticle",
+      "title": "Security Architecture Documents",
+      "status": "active",
+      "topic": "security-index",
+      "authoritative": true,
+      "authoritativeFor": [
+        "security documentation entrypoint"
+      ]
+    },
+    {
+      "id": "doc:sveltekit-primary-design-g",
+      "type": "TechArticle",
+      "title": "SvelteKit-Primary Worker Architecture (Design G)",
+      "status": "active",
+      "topic": "sveltekit-primary-worker-architecture",
+      "authoritative": true,
+      "authoritativeFor": [
+        "SvelteKit-primary Worker deploy pattern",
+        "iframe mode account-level Worker architecture",
+        "Dispatcher service binding routing for SvelteKit apps"
+      ]
+    },
+    {
+      "id": "doc:w-protocol-at-superset",
+      "type": "TechArticle",
+      "title": "W Protocol = AT Protocol Superset Architecture",
+      "status": "superseded",
+      "topic": "w-protocol-at-superset",
+      "authoritative": true,
+      "authoritativeFor": [
+        "W Protocol AT Protocol superset design",
+        "internal vs external transport split",
+        "Event Stream transport architecture",
+        "AT Protocol compatibility layer",
+        "Bluesky network federation status"
+      ]
+    },
+    {
+      "id": "doc:wit-lexicon-typed-alignment",
+      "type": "TechArticle",
+      "title": "WIT Lexicon Typed Alignment — AT Protocol 型体系の WIT 直接写像 [SUPERSEDED 2026-04-13]",
+      "status": "superseded",
+      "topic": "wit-lexicon-alignment",
+      "authoritative": false,
+      "supersededBy": "doc:f-plan-lexicon-as-contract"
+    },
+    {
+      "id": "doc:f-plan-lexicon-as-contract",
+      "type": "TechArticle",
+      "title": "F-Plan — Lexicon-as-Contract: Host Capability SSoT 統合 (WIT 廃止)",
+      "status": "active",
+      "topic": "lexicon-as-contract",
+      "authoritative": true,
+      "authoritativeFor": [
+        "magatama-host-sdk host capability surface の Single Source of Truth",
+        "host capability の codegen pipeline (lex-cli analog)",
+        "WIT vs Lexicon JSON contract 戦略",
+        "in-process host capability dispatch (BindingTransport pattern)",
+        "F-Plan migration phases (1 → 2 → 3 → 3b)",
+        "Shannon η 計算 (host capability surface)"
+      ],
+      "supersedes": "doc:wit-lexicon-typed-alignment"
+    },
+    {
+      "id": "doc:kagami-query-engine-benchmark",
+      "type": "TechArticle",
+      "title": "kagami Query Engine Benchmark — 7 Engines × 8 Scale Tiers",
+      "status": "active",
+      "topic": "kagami-query-engine-selection",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kagami query engine selection and scaling strategy"
+      ],
+      "related": [
+        "doc:graphscope-scale-projection"
+      ]
+    },
+    {
+      "id": "doc:graphscope-scale-projection",
+      "type": "TechArticle",
+      "title": "GraphScope Scale Projection — 実測ベース 248K→1T",
+      "status": "active",
+      "topic": "kagami-query-engine-selection",
+      "authoritative": false,
+      "authoritativeFor": [],
+      "related": [
+        "doc:kagami-query-engine-benchmark"
+      ]
+    },
+    {
+      "id": "doc:yoro-superapp-oembed-design",
+      "type": "TechArticle",
+      "title": "yoro.etzhayyim.com SuperApp-Only Architecture + oEmbed (Lexicon Web)",
+      "status": "active",
+      "topic": "yoro-superapp-oembed",
+      "authoritative": true,
+      "authoritativeFor": [
+        "yoro URL routing (Bluesky-compatible)",
+        "oEmbed / Lexicon Web endpoint design",
+        "channel concept removal",
+        "SSR OG tag strategy",
+        "yoro SEO (robots.txt, sitemap.xml, JSON-LD, OGP)"
+      ]
+    },
+    {
+      "id": "doc:adr-0022-auth-topology-consolidation",
+      "type": "TechArticle",
+      "title": "ADR-0022: Auth Topology Consolidation — atproto-native 2-token Model",
+      "status": "proposed",
+      "topic": "auth-topology",
+      "authoritative": true,
+      "authoritativeFor": [
+        "CLI token resolution (GFTD_TOKEN / ~/.gftd/auth.json)",
+        "PDS authenticate() dispatcher layering",
+        "Service Auth JWT (ES256, lxm-scoped) as sole per-request auth",
+        "API Key (sk_live_*) as root of trust",
+        "AUTH_SERVICE delegation / Cookie / unsafe JWT fallback deprecation"
+      ],
+      "related": [
+        "doc:adr-0010-per-did-signing-key-custody",
+        "doc:adr-0019-atproto-native-identifier-topology"
+      ]
+    },
+    {
+      "id": "doc:adr-0024-auth-accounts-worker-topology",
+      "type": "TechArticle",
+      "title": "ADR-0024: Auth / Accounts Worker Topology — Domain Separation and PDS Gateway Alignment",
+      "status": "proposed",
+      "topic": "auth-worker-topology",
+      "authoritative": true,
+      "authoritativeFor": [
+        "auth.etzhayyim.com worker responsibilities",
+        "accounts.etzhayyim.com worker responsibilities",
+        "cross-domain session / redirect flow",
+        "PDS XRPC gateway single-entry rule for com.atproto.server.*"
+      ],
+      "related": [
+        "doc:adr-0022-auth-topology-consolidation",
+        "doc:adr-0010-per-did-signing-key-custody",
+        "doc:adr-0013-dns-routing-consolidate",
+        "doc:adr-0014-self-hosted-did-plc",
+        "doc:adr-0019-atproto-native-identifier-topology"
+      ]
+    },
+    {
+      "id": "doc:adr-0025-kyber-apqc-bpmn-projector-consolidation",
+      "type": "TechArticle",
+      "title": "ADR-0025: Kyber APQC/BPMN/OCEL Projector — 13-WASM → 1 Worker + 13 Path-Based DIDs Consolidation",
+      "status": "active",
+      "topic": "kyber-apqc-projector",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kyber-apqc-projector",
+        "apqc-actor-did-topology",
+        "bpmn-task-binding",
+        "ocel-event-projection"
+      ],
+      "related": [
+        "doc:adr-0002-persistence-risingwave-graphar",
+        "doc:adr-0013-dns-routing-consolidate",
+        "doc:adr-0019-atproto-native-identifier-topology"
+      ]
+    },
+    {
+      "id": "doc:jun-gftd-group-data-ingest-risingwave-vertex-edge-design-260416",
+      "type": "TechArticle",
+      "title": "jun@gftd.group 全量取り込み設計 — RisingWave / Vertex / Edge",
+      "status": "active",
+      "topic": "personal-workspace-ingest",
+      "authoritative": true,
+      "authoritativeFor": [
+        "jun@gftd.group の非 Microsoft 系データ取り込み設計",
+        "RisingWave 上の Vertex / Edge モデル",
+        "full backfill + incremental sync + cursor 運用"
+      ],
+      "related": [
+        "doc:adr-0018-pii-tier3-cohort-first",
+        "doc:adr-0019-atproto-native-identifier-topology",
+        "doc:260407-kagami-p10v2-graphar-native-design"
+      ]
+    },
+    {
+      "id": "doc:adr-0076-moneyforward-actor-replacement",
+      "type": "TechArticle",
+      "title": "ADR-0031: MoneyForward Replacement — 6-Actor Corporate Finance/Ops Topology",
+      "status": "proposed",
+      "topic": "moneyforward-actor-replacement",
+      "authoritative": true,
+      "authoritativeFor": [
+        "moneyforward-actor-replacement",
+        "kaikei-general-ledger-topology",
+        "seikyu-invoice-topology",
+        "keiyaku-internal-contract-topology",
+        "kousuu-project-costing-topology"
+      ],
+      "related": [
+        "doc:adr-0002-persistence-risingwave-graphar",
+        "doc:adr-0018-pii-tier3-cohort-first",
+        "doc:adr-0019-atproto-native-identifier-topology",
+        "doc:adr-0022-auth-topology-consolidation",
+        "doc:adr-0025-kyber-apqc-bpmn-projector-consolidation",
+        "doc:adr-0073-did-gftd-recursive-hash-merkle"
+      ]
+    },
+    {
+      "id": "doc:adr-0035-jp-tax-money-flow-reverse-topology",
+      "type": "TechArticle",
+      "title": "ADR-0035: 日本政府 税金フロー reverse-topology actor DID 配線",
+      "status": "proposed",
+      "topic": "jp-tax-money-flow",
+      "authoritative": true,
+      "authoritativeFor": [
+        "jp-tax-money-flow",
+        "jp-budget-procurement-ubo-ingest",
+        "reverse-topology-emission-order",
+        "fiscal-contract-autopost-derive"
+      ],
+      "related": [
+        "doc:adr-0004-write-only-derived-architecture",
+        "doc:adr-0016-legal-cluster-topology",
+        "doc:adr-0017-maritime-energy-cluster-topology",
+        "doc:adr-0018-pii-tier3-cohort-first",
+        "doc:adr-0019-atproto-native-identifier-topology",
+        "doc:adr-0026-agent-only-reverse-identity-topology",
+        "doc:adr-0028-cohort-mv-sharding",
+        "doc:adr-0029-did-gftd-method-specification"
+      ]
+    },
+    {
+      "id": "doc:adr-0032-jpn-seizure-cluster-topology",
+      "type": "TechArticle",
+      "title": "ADR-0032: JPN Seizure (差し押さえ) Cluster Topology — 5-regime path-based DID under jpn.state.etzhayyim.com",
+      "status": "proposed",
+      "topic": "jpn-seizure-cluster",
+      "authoritative": true,
+      "authoritativeFor": [
+        "jpn-seizure-cluster",
+        "sashiosae-aggregator-topology",
+        "kokuzei-taino-shobun-path-did",
+        "chihozei-taino-shobun-path-did",
+        "shakaihoken-ryou-choushuu-path-did",
+        "minji-shikkou-cross-ref",
+        "keiji-sashiosae-cross-ref"
+      ],
+      "related": [
+        "doc:adr-0016-legal-cluster-topology",
+        "doc:adr-0017-maritime-energy-cluster-topology",
+        "doc:adr-0018-pii-tier3-cohort-first",
+        "doc:adr-0019-atproto-native-identifier-topology",
+        "doc:adr-0026-agent-only-reverse-identity-topology",
+        "doc:adr-0028-cohort-mv-sharding",
+        "doc:adr-0029-did-gftd-method-specification"
+      ]
+    },
+    {
+      "id": "doc:adr-0032-jpn-seizure-cluster-topology",
+      "type": "TechArticle",
+      "title": "ADR-0032: JPN Seizure (差し押さえ) Cluster Topology — 5-regime path-based DID under jpn.state.etzhayyim.com",
+      "status": "proposed",
+      "topic": "jpn-seizure-cluster",
+      "authoritative": true,
+      "authoritativeFor": [
+        "jpn-seizure-cluster",
+        "sashiosae-aggregator-topology",
+        "kokuzei-taino-shobun-path-did",
+        "chihozei-taino-shobun-path-did",
+        "shakaihoken-ryou-choushuu-path-did",
+        "minji-shikkou-cross-ref",
+        "keiji-sashiosae-cross-ref"
+      ],
+      "related": [
+        "doc:adr-0016-legal-cluster-topology",
+        "doc:adr-0017-maritime-energy-cluster-topology",
+        "doc:adr-0018-pii-tier3-cohort-first",
+        "doc:adr-0019-atproto-native-identifier-topology",
+        "doc:adr-0022-auth-topology-consolidation"
+      ]
+    },
+    {
+      "id": "doc:adr-0014-self-hosted-did-plc",
+      "type": "TechArticle",
+      "title": "ADR-0014: Self-Hosted did:plc Directory — 自前 PLC 運用 (SUPERSEDED 2026-04-19)",
+      "status": "superseded",
+      "topic": "self-hosted-did-plc",
+      "authoritative": false,
+      "supersededBy": "doc:adr-0033-did-gftd-federation-via-did-web-shim",
+      "related": [
+        "doc:adr-0010-per-did-signing-key-custody",
+        "doc:adr-0013-dns-routing-consolidate",
+        "doc:adr-0019-atproto-native-identifier-topology"
+      ]
+    },
+    {
+      "id": "doc:adr-0033-did-gftd-federation-via-did-web-shim",
+      "type": "TechArticle",
+      "title": "ADR-0033: did:gftd Federation via did:web Shim — plc.directory 依存を排し did.etzhayyim.com に集約",
+      "status": "proposed",
+      "topic": "did-gftd-federation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "did-gftd-federation-canonical-path",
+        "did-gftd-ai-resolver-did-web-shim",
+        "federation-visible-tier-boundary",
+        "plc-directory-plc-gftd-ai-dependency-removal"
+      ],
+      "supersedes": "doc:adr-0014-self-hosted-did-plc",
+      "related": [
+        "doc:adr-0010-per-did-signing-key-custody",
+        "doc:adr-0019-atproto-native-identifier-topology",
+        "doc:adr-0023-auth-shannon-optimal-4-layer",
+        "doc:adr-0073-did-gftd-recursive-hash-merkle",
+        "doc:adr-0030-did-gftd-recursive-adoption-rollout"
+      ]
+    },
+    {
+      "id": "doc:adr-0034-agent-cron-goose-risingwave-direct",
+      "type": "TechArticle",
+      "title": "ADR-0034: Agent Cron — Goose + Ollama + RisingWave Direct Path (retiring openclaw cron for yoro-heartbeat)",
+      "status": "proposed",
+      "topic": "agent-cron-goose-risingwave-direct",
+      "authoritative": true,
+      "related": [
+        "doc:adr-0002-persistence-risingwave-graphar",
+        "doc:adr-0022-auth-topology-consolidation",
+        "doc:adr-0026-agent-only-reverse-identity-topology"
+      ]
+    },
+    {
+      "id": "doc:adr-0038-actor-as-data-bpmn-dmn-form-mcp-faas",
+      "type": "TechArticle",
+      "title": "ADR-0038: Actor-as-Data — BPMN / DMN / Form / MCP manifest as SSoT, FaaS execution",
+      "status": "proposed",
+      "topic": "actor-as-data-faas",
+      "authoritative": true,
+      "authoritativeFor": [
+        "actor-as-data",
+        "bpmn-dmn-form-mcp-ssot",
+        "faas-execution-model",
+        "magatama-jsonld-sunset",
+        "app-ts-sunset"
+      ],
+      "related": [
+        "doc:adr-0002-persistence-risingwave-graphar",
+        "doc:adr-0004-write-only-derived-architecture",
+        "doc:adr-0025-kyber-apqc-bpmn-projector-consolidation",
+        "doc:adr-0081-worker-direct-hyperdrive-persistence",
+        "doc:adr-0083-repository-in-graph-faas"
+      ]
+    },
+    {
+      "id": "doc:adr-0083-repository-in-graph-faas",
+      "type": "TechArticle",
+      "title": "ADR-0039: Repository-in-Graph — Git object model over Actor DID, FaaS execution via Workers for Platforms",
+      "status": "proposed",
+      "topic": "repository-in-graph-faas",
+      "authoritative": true,
+      "authoritativeFor": [
+        "repository-in-graph",
+        "git-object-graph-model",
+        "code-as-data-ssot",
+        "workers-for-platforms-runtime",
+        "webcontainer-authoring-surface"
+      ],
+      "related": [
+        "doc:adr-0002-persistence-risingwave-graphar",
+        "doc:adr-0010-per-did-signing-key-custody",
+        "doc:adr-0019-atproto-native-identifier-topology",
+        "doc:adr-0029-did-gftd-method-specification",
+        "doc:adr-0081-worker-direct-hyperdrive-persistence",
+        "doc:adr-0038-actor-as-data-bpmn-dmn-form-mcp-faas"
+      ]
+    },
+    {
+      "id": "doc:adr-0041-pds-commit-content-addressed-pk",
+      "type": "TechArticle",
+      "title": "ADR-0041: PDS vertex_repo_commit uses content-addressed primary key",
+      "status": "active",
+      "topic": "pds-write-path",
+      "authoritative": true,
+      "authoritativeFor": [
+        "vertex_repo_commit PK composition",
+        "idempotent PDS write semantics",
+        "seq column role (ordering-only)",
+        "app-side retry pattern for PDS writes"
+      ],
+      "related": [
+        "doc:adr-0002-persistence-risingwave-graphar"
+      ]
+    },
+    {
+      "id": "doc:adr-0087-magatama-mcp-tool-facade",
+      "type": "TechArticle",
+      "title": "ADR-0042: magatama per-actor MCP tool facade (Hono Streamable HTTP)",
+      "status": "proposed",
+      "topic": "mcp-tool-facade",
+      "authoritative": true,
+      "authoritativeFor": [
+        "per-actor MCP Streamable HTTP endpoint",
+        "LLM agent tool discovery for magatama actors",
+        "asAgentTool external exposure via MCP",
+        "Service Auth JWT lxm-scoped bearer for MCP"
+      ],
+      "related": [
+        "doc:adr-0004-write-only-derived-architecture",
+        "doc:adr-0005-shannon-redundancy-prohibition",
+        "doc:adr-0022-auth-topology-consolidation",
+        "doc:adr-0023-auth-shannon-optimal-4-layer",
+        "doc:adr-0081-worker-direct-hyperdrive-persistence"
+      ]
+    },
+    {
+      "id": "doc:adr-0081-worker-direct-hyperdrive-persistence",
+      "type": "TechArticle",
+      "title": "ADR-0036: Worker-direct Hyperdrive + Kysely persistence — reserve PDS for social only",
+      "status": "active",
+      "topic": "persistence-architecture",
+      "authoritative": true,
+      "authoritativeFor": [
+        "domain data write/read path via Worker-direct Hyperdrive",
+        "PDS usage scope limited to social/federation/messaging/vault/signal",
+        "graph worker role downgrade (social consumer + optional audit)",
+        "UDF compute offload invariant (write wire remains Worker-direct after ADR-0044)"
+      ],
+      "related": [
+        "doc:adr-0002-persistence-risingwave-graphar",
+        "doc:adr-0044-risingwave-udf-language-strategy"
+      ]
+    },
+    {
+      "id": "doc:adr-0047-per-actor-worker-collapse-to-pds",
+      "type": "TechArticle",
+      "title": "ADR-0047: per-actor Worker collapse to PDS dispatch + UDF compute (candidate)",
+      "status": "proposed",
+      "topic": "runtime-topology",
+      "authoritative": true,
+      "authoritativeFor": [
+        "per-actor Cloudflare Worker retirement candidate",
+        "cross-actor invoke = 0 prerequisite verified 2026-04-21",
+        "PDS Worker as NSID dispatch + RLS + INSERT ... SELECT udf(...) layer",
+        "Phase B pilot gate (bpmn + playwright) before batched rollout",
+        "permanent per-actor Worker exclusions (auth / vault / signal / yoro / murakumo / ameno / toshi-kozan)"
+      ],
+      "related": [
+        "doc:adr-0002-persistence-risingwave-graphar",
+        "doc:adr-0004-write-only-derived-architecture",
+        "doc:adr-0022-auth-topology-consolidation",
+        "doc:adr-0023-auth-shannon-optimal-4-layer",
+        "doc:adr-0081-worker-direct-hyperdrive-persistence",
+        "doc:adr-0087-magatama-mcp-tool-facade",
+        "doc:adr-0044-risingwave-udf-language-strategy"
+      ]
+    },
+    {
+      "id": "doc:adr-0044-risingwave-udf-language-strategy",
+      "type": "TechArticle",
+      "title": "ADR-0044: RisingWave UDF language strategy — SQL default, Rust Embedded for heavy compute, Python External (io_threads) for IO/LLM",
+      "status": "active",
+      "topic": "risingwave-udf-strategy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "rule-based classifier / projector / MV refresh → SQL UDF",
+        "heavy per-row compute impossible in SQL → Embedded Rust (WASM)",
+        "external IO / LLM call / heavy Python lib → Python External UDF with @udf(io_threads=N)",
+        "Java External UDF not recommended (no public batch API, bounded ~7.5 parallel)",
+        "Embedded JavaScript prototype-only; Embedded Python disabled",
+        "RW SQL UDF case-insensitive regex workaround (LOWER + lowercase pattern)"
+      ],
+      "related": [
+        "doc:adr-0002-persistence-risingwave-graphar",
+        "doc:adr-0004-write-only-derived-architecture",
+        "doc:adr-0005-shannon-redundancy-prohibition",
+        "doc:adr-0023-auth-shannon-optimal-4-layer",
+        "doc:adr-0081-worker-direct-hyperdrive-persistence"
+      ]
+    },
+    {
+      "id": "doc:adr-0045-projector-agentic-flow-camunda-aligned",
+      "type": "TechArticle",
+      "title": "ADR-0045: Projector agentic flow — Design A (Kyber BPMN Projector extension) + Camunda 8.9 alignment",
+      "status": "active",
+      "topic": "projector-agentic-flow",
+      "authoritative": true,
+      "authoritativeFor": [
+        "projector DAG storage in RisingWave (vertex_projector_flow / _node / _run / _step + edge_projector_flow_edge)",
+        "vertex_projector_flow_node.node_type enum (agentLoop / tool / approval / script / guardrail / http)",
+        "edge_projector_flow_edge deterministic-only semantics",
+        "OCEL 2.0 event naming for projector flows",
+        "vertex_apqc_event storage for projector OCEL emits (Hyperdrive direct)",
+        "Runner row locking via owner_token (RW pg_advisory_lock-less optimistic claim)",
+        "Tool dispatch config_json.type schema (static / xrpc / http)",
+        "HTTP outbound safety invariant (allowedHosts + SSRF literal-IP block + 15s timeout)",
+        "Kyber BPMN_CATALOG reuse (no agent-specific entries; flow_node.bpmn_task_id references catalog entries as tools; config_json.ocel_event_type overrides terminal OCEL event name)",
+        "Phase 4 cron-driven runner (agent/flow-runner.ts) dispatch contract",
+        "REJECTION of agent.reasoning as a leaf BPMN task type",
+        "REJECTION of vertex_projector_thought / vertex_projector_vote (speculative, no consumer)",
+        "REJECTION of WASM runtime for script node (functional/security η comparison favors Function Registry + Phase 5e HTTP tool escape hatch)",
+        "ai.gftd.projector.flow / .branch / .reflection AT record retirement"
+      ],
+      "related": [
+        "doc:adr-0025-kyber-apqc-bpmn-projector-consolidation",
+        "doc:adr-0081-worker-direct-hyperdrive-persistence",
+        "doc:adr-0041-pds-commit-content-addressed-pk",
+        "doc:adr-0004-write-only-derived-architecture",
+        "doc:adr-0005-shannon-redundancy-prohibition"
+      ]
+    },
+    {
+      "id": "doc:adr-2604251758-murakumo-yoro-actor-worker-fleet",
+      "type": "TechArticle",
+      "title": "ADR: Murakumo Mac mini fleet as persistent yoro actor workers",
+      "status": "proposed",
+      "topic": "murakumo-yoro-actor-worker-fleet",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Murakumo Mac mini k3s fleet placement for Zeebe workers",
+        "yoro.etzhayyim.com persistent AT Protocol actor loop on Murakumo",
+        "LangGraph agent worker and MCP tool boundary for yoro social actions",
+        "llama.cpp Vulkan inference tier for actor workers"
+      ],
+      "related": [
+        "doc:adr-2604240946-yoro-autonomous-actor-hybrid-loop",
+        "doc:adr-2604250836-langgraph-as-zeebe-servicetask",
+        "doc:adr-0056-bpmn-as-actor",
+        "doc:adr-0087-magatama-mcp-tool-facade",
+        "doc:adr-2604231811-atproto-extension-service-layers",
+        "doc:adr-2604241038-yoro-pds-ideal-topology",
+        "doc:adr-0061-murakumo-platform-auth-unification"
+      ]
+    },
+    {
+      "id": "doc:adr-2604251821-vke-murakumo-multicluster-control",
+      "type": "TechArticle",
+      "title": "ADR: VKE hub + Murakumo k3s pull-mode multi-cluster control",
+      "status": "proposed",
+      "topic": "vke-murakumo-multicluster-control",
+      "authoritative": true,
+      "authoritativeFor": [
+        "VKE and Murakumo k3s multi-cluster control topology",
+        "Murakumo Mac mini fleet registration without joining VKE as nodes",
+        "placement policy for yoro actor workers across VKE and Murakumo",
+        "pull-mode cluster control boundary for private LAN clusters"
+      ],
+      "related": [
+        "doc:adr-2604251758-murakumo-yoro-actor-worker-fleet",
+        "doc:adr-2604250836-langgraph-as-zeebe-servicetask",
+        "doc:adr-0056-bpmn-as-actor",
+        "doc:adr-0048-risingwave-vultr-b2-primary",
+        "doc:adr-0061-murakumo-platform-auth-unification"
+      ]
+    },
+    {
+      "id": "doc:adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
+      "type": "TechArticle",
+      "title": "ADR: Bonsai Cultivar Layer Above Myco-Yeast Substrate",
+      "status": "active",
+      "topic": "bonsai-cultivar-architecture",
+      "authoritative": true,
+      "authoritativeFor": [
+        "bonsai cultivar layer (root/trunk/branch/leaf/flower/fruit)",
+        "plant/soil two-stratum metaphor",
+        "human-as-gardener role boundary (water + prune only)",
+        "cohort = bonsai trunk lineage"
+      ],
+      "related": [
+        "doc:adr-2605080100-bonsai-growth-prune-model",
+        "doc:adr-0026-agent-only-reverse-identity-topology",
+        "doc:adr-2605082000-langgraph-graph-definition-as-data"
+      ],
+      "supersedes": [
+        "doc:adr-2605080100-bonsai-growth-prune-model"
+      ]
+    },
+    {
+      "id": "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+      "type": "TechArticle",
+      "title": "ADR: MCP-as-Cell-Membrane — Lexicon/XRPC Demotion",
+      "status": "active",
+      "topic": "mcp-membrane-lexicon-demotion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "MCP as sole external API surface",
+        "lexicon/XRPC demotion to internal channel",
+        "magatama MCP facade as SSoT for outward capability"
+      ],
+      "related": [
+        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2605091600-plasmid-graft-horizontal-tool-acquisition"
+      ]
+    },
+    {
+      "id": "doc:adr-2605091500-mycorrhizal-watering-consent-gated-mutation",
+      "type": "TechArticle",
+      "title": "ADR: Mycorrhizal Watering & Consent-Gated Chromosome Mutation",
+      "status": "active",
+      "topic": "bonsai-watering-symbiosis",
+      "authoritative": true,
+      "authoritativeFor": [
+        "bonsai.water MCP tool surface",
+        "consent-gated chromosome mutation permits",
+        "mycorrhizal symbiosis protocol"
+      ],
+      "related": [
+        "doc:adr-0095-simplified-3layer-identity-rw-vault",
+        "doc:adr-2605091800-pruning-protocol"
+      ]
+    },
+    {
+      "id": "doc:adr-2605091600-plasmid-graft-horizontal-tool-acquisition",
+      "type": "TechArticle",
+      "title": "ADR: Plasmid + Graft — Horizontal Tool Acquisition",
+      "status": "active",
+      "topic": "plasmid-horizontal-acquisition",
+      "authoritative": true,
+      "authoritativeFor": [
+        "vertex_kobo_plasmid schema",
+        "conjugation protocol",
+        "graft protocol",
+        "MCP tool registration as plasmid"
+      ],
+      "related": [
+        "doc:adr-0026-agent-only-reverse-identity-topology",
+        "doc:adr-2605092400-tool-weight-as-learnable-plasmid-affinity"
+      ]
+    },
+    {
+      "id": "doc:adr-2605091800-pruning-protocol",
+      "type": "TechArticle",
+      "title": "ADR: Pruning Protocol — 6-tier hierarchy",
+      "status": "active",
+      "topic": "bonsai-pruning-protocol",
+      "authoritative": true,
+      "authoritativeFor": [
+        "6-tier pruning hierarchy",
+        "edge_yoro_prune schema",
+        "pruning authority hierarchy",
+        "bonsai.prune.* MCP tool surface"
+      ],
+      "related": [
+        "doc:adr-2605091500-mycorrhizal-watering-consent-gated-mutation",
+        "doc:adr-2605091900-yoro-flower-fruit-lifecycle"
+      ],
+      "supersedes": [
+        "doc:adr-2605080100-bonsai-growth-prune-model"
+      ]
+    },
+    {
+      "id": "doc:adr-2605091900-yoro-flower-fruit-lifecycle",
+      "type": "TechArticle",
+      "title": "ADR: Yoro Social Layer = Flowering / Fruiting Surface",
+      "status": "active",
+      "topic": "yoro-flower-fruit",
+      "authoritative": true,
+      "authoritativeFor": [
+        "yoro = pollination / fruiting surface",
+        "vertex_yoro_flower / vertex_yoro_fruit schema",
+        "flower-to-fruit lifecycle",
+        "AT Protocol post = spore release"
+      ],
+      "related": [
+        "doc:adr-2604231828-appview-domain-separation-bsky-gftd-ai",
+        "doc:adr-2605091500-mycorrhizal-watering-consent-gated-mutation"
+      ]
+    },
+    {
+      "id": "doc:adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
+      "type": "TechArticle",
+      "title": "ADR: Ecosystem-as-Model — Unified Multimodal FP8 Vector Substrate",
+      "status": "active",
+      "topic": "ecosystem-as-model-vector-substrate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "unified D-dim multimodal vector space",
+        "vertex_organism_embedding schema",
+        "vertex_model_checkpoint lineage",
+        "modality encoder set"
+      ],
+      "related": [
+        "doc:adr-0044-risingwave-udf-language-strategy",
+        "doc:adr-2605092100-lora-per-cell-moe-expert-cohort-fission",
+        "doc:adr-2605092300-fp8-train-inference-colocation"
+      ],
+      "supersedes": [
+        "doc:adr-0096-lda-latent-entity-inference"
+      ]
+    },
+    {
+      "id": "doc:adr-2605092100-lora-per-cell-moe-expert-cohort-fission",
+      "type": "TechArticle",
+      "title": "ADR: LoRA-per-Cell as MoE Expert with Cohort Fission",
+      "status": "active",
+      "topic": "lora-per-cell-moe",
+      "authoritative": true,
+      "authoritativeFor": [
+        "1 cell = 1 LoRA adapter = 1 MoE expert",
+        "adapter genesis / shuga / graft / rebirth",
+        "cohort fission as MoE re-population"
+      ],
+      "related": [
+        "doc:adr-0026-agent-only-reverse-identity-topology",
+        "doc:adr-2605092500-reasoning-as-sap-flow-walk"
+      ]
+    },
+    {
+      "id": "doc:adr-2605092200-continuous-metabolic-training",
+      "type": "TechArticle",
+      "title": "ADR: Continuous Metabolic Training — No-Batch Online Learning",
+      "status": "active",
+      "topic": "continuous-metabolic-training",
+      "authoritative": true,
+      "authoritativeFor": [
+        "edge_gradient_flow as universal training signal",
+        "online (no-batch) SGD policy",
+        "watering / pruning / karma to reward signal mapping",
+        "trunk checkpoint cadence"
+      ],
+      "related": [
+        "doc:adr-2605092300-fp8-train-inference-colocation"
+      ]
+    },
+    {
+      "id": "doc:adr-2605092300-fp8-train-inference-colocation",
+      "type": "TechArticle",
+      "title": "ADR: FP8 Train+Inference Colocation on Ada/Hopper",
+      "status": "active",
+      "topic": "fp8-train-inference-colocation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "FP8 format conventions (E4M3 fwd / E5M2 bwd)",
+        "per-tensor scaling + master weight policy",
+        "KV cache FP8 + NCCL config",
+        "train/inference time-share scheduling"
+      ],
+      "related": [
+        "doc:adr-2605080600-langgraph-server-granian-l3-runtime",
+        "doc:adr-2605092100-lora-per-cell-moe-expert-cohort-fission"
+      ]
+    },
+    {
+      "id": "doc:adr-2605092400-tool-weight-as-learnable-plasmid-affinity",
+      "type": "TechArticle",
+      "title": "ADR: Tool Weight as Learnable Plasmid Affinity",
+      "status": "active",
+      "topic": "tool-weight-plasmid-affinity",
+      "authoritative": true,
+      "authoritativeFor": [
+        "2-embedding tool model",
+        "vertex_router_weight schema",
+        "tool selection probability formula",
+        "reward attribution on tool calls"
+      ],
+      "related": [
+        "doc:adr-0087-magatama-mcp-tool-facade"
+      ]
+    },
+    {
+      "id": "doc:adr-2605092500-reasoning-as-sap-flow-walk",
+      "type": "TechArticle",
+      "title": "ADR: Reasoning as Sap-Flow Walk in Vector Space",
+      "status": "active",
+      "topic": "reasoning-sap-flow-walk",
+      "authoritative": true,
+      "authoritativeFor": [
+        "reasoning as sampled walk in unified vector space",
+        "3-tier routing (substrate / cohort / tool)",
+        "LangGraph node spawn = prion crystallization",
+        "sap-flow checkpoint commit"
+      ],
+      "related": [
+        "doc:adr-2605072000-langgraph-agent-loop-pattern",
+        "doc:adr-2605091500-mycorrhizal-watering-consent-gated-mutation"
+      ]
+    }
+  ]
+}

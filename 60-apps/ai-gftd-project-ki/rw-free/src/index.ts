@@ -11,11 +11,11 @@
  *   absorb + synthesize + bloom + ring
  *
  * Architectural note: vendor's ki is a thin-edge dispatcher proxying
- * to dispatcher.gftd.ai. On the etzhayyim substrate, the LangServer pod
+ * to dispatcher.etzhayyim.com. On the etzhayyim substrate, the LangServer pod
  * owns the LLM call (synthesize stage) and writes the SynthesisRecord
  * via e.write() — the CF Worker is a pure thin XRPC facade. This
  * package supplies the persistence layer used by both pod and Worker.
  */
 
 export * from "./types.js";
-export { absorb, synthesize, bloom, ring } from "./vascular.js";
+export { absorb, synthesize, bloom, ring, mapRoute, getStatus } from "./vascular.js";

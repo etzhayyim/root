@@ -1,0 +1,3 @@
+[submodule "performers/apps/ai-gftd-lawfirm"]
+	path = performers/apps/ai-gftd-lawfirm
+	url = https://github.com/gftdcojp/ai-gftd-lawfirm

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-45d5acc38bcd",
+  "entityId": "ent-45d5acc38bcd",
+  "canonicalName": "abu marzook, mousa mohammed",
+  "aliases": [
+    "abu marzook, mousa mohammed"
+  ]
+}

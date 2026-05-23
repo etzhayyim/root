@@ -26,6 +26,7 @@ export {
   listStatutes,
   registerArticle,
   getArticle,
+  listArticles,
   registerTreaty,
   getTreaty,
   recordAmendment,

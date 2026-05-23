@@ -1,0 +1,93 @@
+{
+  "@context": [
+    "https://schema.org/",
+    {
+      "gftd": "https://etzhayyim.com/schemas/",
+      "capabilities": "gftd:capabilities",
+      "survivalIndicators": "gftd:survivalIndicators",
+      "scheduler": "gftd:scheduler",
+      "milestones": "gftd:milestones",
+      "blockers": "gftd:blockers",
+      "dependsOn": {
+        "@id": "gftd:dependsOn",
+        "@type": "@id"
+      },
+      "ingestKey": "gftd:ingestKey",
+      "window": "gftd:window",
+      "valueUpdatedAt": "gftd:valueUpdatedAt"
+    }
+  ],
+  "@type": "Project",
+  "identifier": "ai-gftd-project-forms",
+  "name": "ai gftd project forms",
+  "status": "Planned",
+  "description": "TBD",
+  "capabilities": {
+    "@type": "DefinedTermSet",
+    "name": "Capabilities",
+    "description": "Summary of the capabilities this project is responsible for (CV-1).",
+    "terms": []
+  },
+  "survivalIndicators": [
+    {
+      "@type": "PropertyValue",
+      "identifier": "requests",
+      "name": "Requests",
+      "description": "Request count (traffic) as a basic survival indicator.",
+      "unitText": "count",
+      "value": null,
+      "ingestKey": "requests",
+      "window": "1d",
+      "valueUpdatedAt": null
+    },
+    {
+      "@type": "PropertyValue",
+      "identifier": "gccCredit",
+      "name": "GCC Credit",
+      "description": "GCC credit balance (or net credit change) as a basic survival indicator.",
+      "unitText": "GCC",
+      "value": null,
+      "ingestKey": "gccCredit",
+      "window": "1d",
+      "valueUpdatedAt": null
+    }
+  ],
+  "scheduler": "scheduler.jsonld",
+  "rdfUnifiedDocuments": {
+    "@type": "Dataset",
+    "name": "Unified top-level RDF/JSON-LD documents",
+    "description": "Consolidated from project top-level *.jsonld files except PROJECT.jsonld.",
+    "documents": [
+      {
+        "fileName": "scheduler.jsonld",
+        "content": {
+          "@context": [
+            "https://schema.org/",
+            {
+              "gftd": "https://etzhayyim.com/schemas/",
+              "capabilities": "gftd:capabilities",
+              "survivalIndicators": "gftd:survivalIndicators",
+              "scheduler": "gftd:scheduler",
+              "milestones": "gftd:milestones",
+              "blockers": "gftd:blockers",
+              "dependsOn": {
+                "@id": "gftd:dependsOn",
+                "@type": "@id"
+              },
+              "ingestKey": "gftd:ingestKey",
+              "window": "gftd:window",
+              "valueUpdatedAt": "gftd:valueUpdatedAt"
+            }
+          ],
+          "@type": "CreativeWork",
+          "name": "ai gftd project forms Scheduler",
+          "identifier": "ai-gftd-project-forms/scheduler",
+          "description": "Project schedule (milestones) and blockers.",
+          "dateCreated": "2026-02-15T04:25:26+00:00",
+          "milestones": [],
+          "blockers": []
+        }
+      }
+    ]
+  }
+}

@@ -46,8 +46,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'contribution_royalty_distribute',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -64,14 +64,14 @@ UP = [{'sql': '\n'
                  '  Process ID  : contribution_royalty_distribute\n'
                  '  NSID        : (timer-start — no lexicon binding needed)\n'
                  '  vertex_id   : '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_contribution_royalty_distribute"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/contribution"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/contribution"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '\n'
@@ -204,12 +204,12 @@ UP = [{'sql': '\n'
                  6318,
                  '00-contracts/bpmn/ai/gftd/contribution/contributionRoyaltyDistribute.bpmn',
                  '2026-04-28T20:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1']}]
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/contribution-royalty-distribute-v1']}]
 
 
 def upgrade() -> None:

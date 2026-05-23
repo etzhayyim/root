@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-64f14664f135",
+  "entityId": "ent-64f14664f135",
+  "canonicalName": "pescabrava, s.a.",
+  "aliases": [
+    "pescabrava, s.a."
+  ]
+}

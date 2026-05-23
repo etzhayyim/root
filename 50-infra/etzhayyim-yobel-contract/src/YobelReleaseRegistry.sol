@@ -53,7 +53,7 @@ import {YobelRiteRegistry} from "./YobelRiteRegistry.sol";
  *      cost and keeps the invariant under cell-level governance where it can
  *      be amended via ADR rather than redeploying contracts.
  *
- *      Cross-link to bankruptcy.gftd.ai (vendor): off-chain pipeline can
+ *      Cross-link to bankruptcy.etzhayyim.com (vendor): off-chain pipeline can
  *      attach this {YobelReleaseRegistry} contract address + releaseId hash
  *      to a `bankruptcyCase.parallelReleases[]` field on vendor side to
  *      satisfy "voluntary release attached to formal bankruptcy filing"

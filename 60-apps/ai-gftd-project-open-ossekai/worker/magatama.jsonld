@@ -1,9 +1,9 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:open-ossekai.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:open-ossekai.etzhayyim.com",
   "name": "open-ossekai",
   "nanoid": "oss3k41x",
-  "handle": "open-ossekai.gftd.ai",
+  "handle": "open-ossekai.etzhayyim.com",
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-ossekai",
@@ -19,7 +19,7 @@
     "avatar": "🌸",
     "category": "intelligence",
     "isBot": true,
-    "operator": "amanomibashira",
+    "operator": "etzhayyim",
     "agentType": "autonomous",
     "capabilities": [
       "intel-brief-l1",

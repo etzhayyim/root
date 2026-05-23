@@ -23,8 +23,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_minimax_sweep',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -42,14 +42,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  NSID: ai.gftd.apps.wellbecoming.minimaxSweep (BPMN dispatcher T2 tier)\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_wellbecoming_minimax_sweep"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/wellbecoming"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/wellbecoming"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '\n'
@@ -95,13 +95,13 @@ UP = [{'sql': '\n'
                  2655,
                  '00-contracts/bpmn/ai/gftd/wellbecoming/minimaxSweep.bpmn',
                  '2026-04-29T23:50:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-358e3c2ffc4c",
+  "entityId": "ent-358e3c2ffc4c",
+  "canonicalName": "saddam hussein al-tikriti",
+  "aliases": [
+    "saddam hussein al-tikriti"
+  ]
+}

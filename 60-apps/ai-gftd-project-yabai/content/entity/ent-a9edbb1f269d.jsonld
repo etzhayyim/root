@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-a9edbb1f269d",
+  "entityId": "ent-a9edbb1f269d",
+  "canonicalName": "anti-globalization movement of russia",
+  "aliases": [
+    "anti-globalization movement of russia"
+  ]
+}

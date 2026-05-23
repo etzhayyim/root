@@ -47,9 +47,11 @@ jobs:
         with:
           node-version: "22"
       - name: Install pnpm
-        run: npm install -g pnpm@9
+        run: npm install -g pnpm@10
       - name: Install deps
-        run: pnpm install --frozen-lockfile || pnpm install
+        run: pnpm install --frozen-lockfile || pnpm install --no-frozen-lockfile
+      - name: Build @etzhayyim/sdk
+        run: pnpm -F @etzhayyim/sdk build
       - name: Run vitest
         working-directory: 60-apps/ai-gftd-project-${{ matrix.actor }}/rw-free
         run: pnpm test --reporter=verbose
@@ -71,12 +73,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npm install -g pnpm@9
+      - run: npm install -g pnpm@10
       - name: Install deps
-        run: pnpm install --frozen-lockfile || pnpm install
+        run: pnpm install --frozen-lockfile || pnpm install --no-frozen-lockfile
+      - name: Build @etzhayyim/sdk
+        run: pnpm -F @etzhayyim/sdk build
       - name: tsc --noEmit
         working-directory: ${{ matrix.scope }}
-        run: npx tsc --noEmit
+        run: pnpm exec tsc --noEmit
 
   integration:
     name: integration-tests
@@ -86,9 +90,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npm install -g pnpm@9
+      - run: npm install -g pnpm@10
       - name: Install deps
-        run: pnpm install --frozen-lockfile || pnpm install
+        run: pnpm install --frozen-lockfile || pnpm install --no-frozen-lockfile
+      - name: Build @etzhayyim/sdk
+        run: pnpm -F @etzhayyim/sdk build
       - name: Run Phase H suite
         working-directory: 70-tools/integration-tests
         run: pnpm test --reporter=verbose

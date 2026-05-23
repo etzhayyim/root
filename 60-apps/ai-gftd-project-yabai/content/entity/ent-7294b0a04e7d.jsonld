@@ -1,0 +1,40 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-7294b0a04e7d",
+  "entityId": "ent-7294b0a04e7d",
+  "canonicalName": "Rokes Exchange",
+  "aliases": [
+    "Rokes Exchange",
+    "Rokes",
+    "app.rokes.exchange",
+    "v2app.rokes.exchange"
+  ],
+  "kyumeiKoji": {
+    "performedAt": "2026-04-05T00:00:00Z",
+    "model": "gemma4",
+    "domainSummary": "Cryptocurrency exchange (HEC token). Victim of insider theft by Pakistani development team. Wallet balance discrepancy discovered 2022/02/21 during v1→v2 migration. Unauthorized deposits via ETH misidentification trick, unauthorized withdrawals via small-amount evasion. Estonia jurisdiction. Chainalysis tracked.",
+    "incidentDate": "2022-02-21",
+    "jurisdiction": "EE",
+    "platforms": ["app.rokes.exchange", "v2app.rokes.exchange"],
+    "token": "HEC",
+    "balances": {
+      "rokesWallet": 85858641.75,
+      "rokesTrading": 11706752.27,
+      "82excWallet": 36464.60,
+      "82excTrading": 53921.33,
+      "ico1": 1746117,
+      "ico2": 33465,
+      "ico3": 51791,
+      "eduAube": 88750000
+    },
+    "chainalysisGraph": "https://reactor.chainalysis.com/graph/4554f96d90d771c39fa091c19b0344b3",
+    "rootAddress": "0xBC786eF06878207F861202b0fD51c295A3c13CC4",
+    "knowledgeEdges": [
+      {"from": "rokes_exchange", "relation": "VICTIM_OF", "to": "rokes_pakistan_dev"},
+      {"from": "rokes_exchange", "relation": "FUNDS_FLOWED_TO", "to": "tradeogre"},
+      {"from": "rokes_exchange", "relation": "OPERATES_TOKEN", "to": "HEC"},
+      {"from": "rokes_exchange", "relation": "JURISDICTION", "to": "EE"}
+    ]
+  }
+}

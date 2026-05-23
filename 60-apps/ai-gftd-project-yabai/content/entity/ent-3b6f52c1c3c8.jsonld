@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-3b6f52c1c3c8",
+  "entityId": "ent-3b6f52c1c3c8",
+  "canonicalName": "compania de importacion y exportacion iberia",
+  "aliases": [
+    "compania de importacion y exportacion iberia"
+  ]
+}

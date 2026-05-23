@@ -7,7 +7,7 @@ Task types:
   lawfirm.billing.modeBStartSubscription   Sub-tenant subscription with platform-fee split
   lawfirm.billing.processWebhookInvoicePaid Webhook handler: persist payment + bump lead.stage='paid'
 
-Paired with `_working/gftdcojp-revenue/stripe-connect-onboarding-runbook.md`.
+Paired with `_working/etzhayyim-revenue/stripe-connect-onboarding-runbook.md`.
 
 Account routing reuses _select_stripe_account convention from lawfirm_checkout.
 Falls back to dry-run when STRIPE_*_API_KEY env vars are unset (Day-0 safe).

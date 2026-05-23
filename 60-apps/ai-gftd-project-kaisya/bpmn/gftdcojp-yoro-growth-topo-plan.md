@@ -1,15 +1,15 @@
-# gftdcojp × yoro.gftd.ai — 事業成長推進 逆トポロジーソート設計
+# etzhayyim × yoro.etzhayyim.com — 事業成長推進 逆トポロジーソート設計
 
 作成日: 2026-04-20  
-対象: 契約メンバー全員 × Claude Cowork × yoro.gftd.ai
+対象: 契約メンバー全員 × Claude Cowork × yoro.etzhayyim.com
 
 ---
 
 ## 設計思想
 
-**yoro.gftd.ai = 事業成長の可視化ハブ**
+**yoro.etzhayyim.com = 事業成長の可視化ハブ**
 
-各メンバーが Claude Cowork でタスクを実行 → AT Protocol 記録 → yoro.gftd.ai のフィードに可視化
+各メンバーが Claude Cowork でタスクを実行 → AT Protocol 記録 → yoro.etzhayyim.com のフィードに可視化
 → 社会的信頼・ブランド認知・ネットワーク効果 → 新規顧客獲得 → 事業成長 (MRR↑)
 
 ---
@@ -21,7 +21,7 @@ L9: [最終目標] 事業成長 — 売上拡大・MRR向上・新規顧客獲�
       ↑ depends on
 L8: [受注・成約] 顧客信頼の獲得・提案→契約クローズ (CLO k.bakshi × CEO j.kawasaki)
       ↑ depends on
-L7: [社会的可視性] yoro.gftd.ai での実績公開・ブランド確立 (全メンバー AT 投稿)
+L7: [社会的可視性] yoro.etzhayyim.com での実績公開・ブランド確立 (全メンバー AT 投稿)
       ↑ depends on
 L6: [専門成果物] 各専門ドメインの成果生成・品質確認 (parallel: Cyber/Brand/Legal/Tech/Creative)
       ↑ depends on
@@ -33,7 +33,7 @@ L3: [プロセス開始] kaisya.startProcess → vertex_human_task 登録 → Te
       ↑ depends on
 L2: [案件受付] COO 案件受付 × CEO 戦略方針 → DMN ルーティング
       ↑ depends on
-L1: [機会発掘] yoro.gftd.ai フィード監視・外部シグナル検知・顧客アプローチ
+L1: [機会発掘] yoro.etzhayyim.com フィード監視・外部シグナル検知・顧客アプローチ
 ```
 
 ---
@@ -60,9 +60,9 @@ L1: [機会発掘] yoro.gftd.ai フィード監視・外部シグナル検知・
 
 | Claude Cowork アクション | yoro 統合 |
 |---|---|
-| `「project-intake フォームを開いて」` → kaisya.gftd.ai/forms/project-intake | フォーム送信 → AT Repo 記録 → yoro フィードに「案件開始」投稿 |
+| `「project-intake フォームを開いて」` → kaisya.etzhayyim.com/forms/project-intake | フォーム送信 → AT Repo 記録 → yoro フィードに「案件開始」投稿 |
 | `「DMN でこの案件のルーティングを確認して」` | `ai.gftd.apps.kaisya.routeDecision` 結果を AT Repo 記録 |
-| `「a.nakamura の今週のタスクを確認して」` | `listMyFormTasks(assigneeDid="did:web:kaisya.gftd.ai:member:a-nakamura")` |
+| `「a.nakamura の今週のタスクを確認して」` | `listMyFormTasks(assigneeDid="did:web:kaisya.etzhayyim.com:member:a-nakamura")` |
 
 ---
 
@@ -100,7 +100,7 @@ L1: [機会発掘] yoro.gftd.ai フィード監視・外部シグナル検知・
 → listMyFormTasks(role=coo, status=pending) + graph で案件ステータス取得
 
 「Step K の delivery-confirm フォームを開いて」
-→ kaisya.gftd.ai/forms/delivery-confirm に誘導
+→ kaisya.etzhayyim.com/forms/delivery-confirm に誘導
 
 「この案件、k.bakshi に契約締結をお願いして」
 → sendTeamsMessage でタスクリマインド + vertex_human_task priority 更新
@@ -113,7 +113,7 @@ L1: [機会発掘] yoro.gftd.ai フィード監視・外部シグナル検知・
 → Claude が legal-case フォームデータ + ZeLo API 参照して回答案生成
 
 「Step C の contract-review フォームを開いて」
-→ kaisya.gftd.ai/forms/contract-review に誘導
+→ kaisya.etzhayyim.com/forms/contract-review に誘導
 
 「インド法務案件の自動ルーティングを確認して」
 → ai.gftd.apps.lawfirm.createCase の autoRoute 結果確認
@@ -216,13 +216,13 @@ L1: [機会発掘] yoro.gftd.ai フィード監視・外部シグナル検知・
 
 ---
 
-### L7 — yoro.gftd.ai での可視性 (Social Proof Hub)
+### L7 — yoro.etzhayyim.com での可視性 (Social Proof Hub)
 
 **yoro での統合表示**:
 
 ```
 yoro Discover タブ
-  ├── gftdcojp メンバーフィード (follow-based)
+  ├── etzhayyim メンバーフィード (follow-based)
   │     ├── CEO: 戦略・ビジョン投稿
   │     ├── COO: 案件進捗・業務透明性
   │     ├── CLO: 法務ナレッジ
@@ -260,7 +260,7 @@ yoro Discover タブ
 
 ### L9 — 事業成長 (Business Growth)
 
-**KPI → yoro.gftd.ai で可視化**:
+**KPI → yoro.etzhayyim.com で可視化**:
 
 | KPI | AT Record | yoro 表示 |
 |---|---|---|
@@ -281,7 +281,7 @@ yoro Discover タブ
 
 # タスク実行
 「[タスク名] のフォームを開いて記入を手伝って」
-→ kaisya.gftd.ai/forms/{form-name} に誘導 + 入力支援
+→ kaisya.etzhayyim.com/forms/{form-name} に誘導 + 入力支援
 
 # 完了後
 「Step [X] の進捗を yoro に投稿する文章を作って」
@@ -319,7 +319,7 @@ yoro Discover タブ
 
 ## BPMN growth 追加定義
 
-`gftdcojp-yoro-growth-flow.bpmn` — yoro 可視化ゲートを BPMN フローに組み込む
+`etzhayyim-yoro-growth-flow.bpmn` — yoro 可視化ゲートを BPMN フローに組み込む
 
 ```
 [タスク完了 (Step A–L)]

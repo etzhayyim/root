@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'maps_building_ingest_3d',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -50,14 +50,14 @@ UP = [{'sql': '\n'
                  '\n'
                  '  ADR-0056 (BPMN-as-actor). NSID: ai.gftd.apps.maps.buildingIngest3d.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_maps_building_ingest_3d"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/maps"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/maps"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="maps_building_ingest_3d" name="maps building ingest 3d" '
@@ -183,13 +183,13 @@ UP = [{'sql': '\n'
                  7006,
                  '00-contracts/bpmn/ai/gftd/maps/buildingIngest3d.bpmn',
                  '2026-04-28T21:00:00+09:00',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.maps',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1']}]
 
 
 def upgrade() -> None:

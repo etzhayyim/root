@@ -46,13 +46,13 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawyer-health-v1',
-                 'did:web:lawyer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawyer-health-v1',
+                 'did:web:lawyer.etzhayyim.com',
                  'lawyer_health',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  Phase D pilot #1 (ADR-0056, 2026-04-23): lawyer.health — retire the\n'
-                 '  38-LoC lawyer.gftd.ai Worker by mapping its single XRPC command to\n'
+                 '  38-LoC lawyer.etzhayyim.com Worker by mapping its single XRPC command to\n'
                  '  one `generic.audit.emit` task. No DB, no LLM, no HTTP.\n'
                  '\n'
                  '  Flow:\n'
@@ -60,9 +60,9 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Output variables (returned as XRPC response body by bpmn-dispatcher):\n'
                  '    ok        = true  (audit emitted)\n'
-                 '    nanoid    = "334bbd5f"  (lawyer.gftd.ai worker nanoid, grandfathered)\n'
-                 '    handle    = "lawyer.gftd.ai"\n'
-                 '    tenant    = "gftdcojp"\n'
+                 '    nanoid    = "334bbd5f"  (lawyer.etzhayyim.com worker nanoid, grandfathered)\n'
+                 '    handle    = "lawyer.etzhayyim.com"\n'
+                 '    tenant    = "etzhayyim"\n'
                  '    note      = "MVP stub — record writes delegate to lawfirm Worker via firmDid '
                  'scoping"\n'
                  '-->\n'
@@ -70,7 +70,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_lawyer_health"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/lawyer"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/lawyer"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="lawyer_health" name="lawyer health" isExecutable="true">\n'
@@ -85,7 +85,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:lawyer.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:lawyer.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;lawyer.health.probe&quot;" '
                  'target="action"/>\n'
@@ -94,9 +94,9 @@ UP = [{'sql': '\n'
                  '          <zeebe:output source="=true"                     target="ok"/>\n'
                  '          <zeebe:output source="=&quot;334bbd5f&quot;"                '
                  'target="nanoid"/>\n'
-                 '          <zeebe:output source="=&quot;lawyer.gftd.ai&quot;"           '
+                 '          <zeebe:output source="=&quot;lawyer.etzhayyim.com&quot;"           '
                  'target="handle"/>\n'
-                 '          <zeebe:output source="=&quot;gftdcojp&quot;"                 '
+                 '          <zeebe:output source="=&quot;etzhayyim&quot;"                 '
                  'target="tenant"/>\n'
                  '          <zeebe:output source="=&quot;MVP stub — record writes delegate to '
                  'lawfirm Worker via firmDid scoping&quot;" target="note"/>\n'
@@ -116,9 +116,9 @@ UP = [{'sql': '\n'
                  2507,
                  '00-contracts/bpmn/ai/gftd/lawyer/health.bpmn',
                  '2026-04-23T23:00:00Z',
-                 'did:web:lawyer.gftd.ai',
-                 'did:web:lawyer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawyer-health-v1']},
+                 'did:web:lawyer.etzhayyim.com',
+                 'did:web:lawyer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawyer-health-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -151,20 +151,20 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawyer-health-v1',
-                 'did:web:lawyer.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawyer-health-v1',
+                 'did:web:lawyer.etzhayyim.com',
                  'ai.gftd.apps.lawyer.health',
                  'lawyer_health',
                  5000,
                  '2026-04-23T23:00:00Z',
-                 'did:web:lawyer.gftd.ai',
-                 'did:web:lawyer.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawyer-health-v1']}]
+                 'did:web:lawyer.etzhayyim.com',
+                 'did:web:lawyer.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawyer-health-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/lawyer-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawyer-health-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/lawyer-health-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawyer-health-v1']}]
 
 
 def upgrade() -> None:

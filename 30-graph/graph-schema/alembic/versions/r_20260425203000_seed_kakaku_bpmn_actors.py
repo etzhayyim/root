@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-upsertOffer-v1',
-                 'did:web:kakaku.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-upsertOffer-v1',
+                 'did:web:kakaku.etzhayyim.com',
                  'kakaku_upsert_offer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_kakaku_upsert_offer"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/kakaku"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/kakaku"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="kakaku_upsert_offer" name="kakaku upsert offer" '
@@ -75,10 +75,10 @@ UP = [{'sql': '\n'
                  1998,
                  '00-contracts/bpmn/ai/gftd/kakaku/upsertOffer.bpmn',
                  '2026-04-25T20:30:00Z',
-                 'did:web:kakaku.gftd.ai',
-                 'did:web:kakaku.gftd.ai',
+                 'did:web:kakaku.etzhayyim.com',
+                 'did:web:kakaku.etzhayyim.com',
                  'sys.bpmn.seed.kakaku',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-upsertOffer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-upsertOffer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -92,15 +92,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-ingestOfferFromUrl-v1',
-                 'did:web:kakaku.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-ingestOfferFromUrl-v1',
+                 'did:web:kakaku.etzhayyim.com',
                  'kakaku_ingest_offer_from_url',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_kakaku_ingest_offer_from_url"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/kakaku"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/kakaku"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="kakaku_ingest_offer_from_url" name="kakaku ingest offer from '
@@ -162,10 +162,10 @@ UP = [{'sql': '\n'
                  3026,
                  '00-contracts/bpmn/ai/gftd/kakaku/ingestOfferFromUrl.bpmn',
                  '2026-04-25T20:30:00Z',
-                 'did:web:kakaku.gftd.ai',
-                 'did:web:kakaku.gftd.ai',
+                 'did:web:kakaku.etzhayyim.com',
+                 'did:web:kakaku.etzhayyim.com',
                  'sys.bpmn.seed.kakaku',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-ingestOfferFromUrl-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-ingestOfferFromUrl-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -179,15 +179,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-compareOffers-v1',
-                 'did:web:kakaku.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-compareOffers-v1',
+                 'did:web:kakaku.etzhayyim.com',
                  'kakaku_compare_offers',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_kakaku_compare_offers"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/kakaku"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/kakaku"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="kakaku_compare_offers" name="kakaku compare offers" '
@@ -223,10 +223,10 @@ UP = [{'sql': '\n'
                  1645,
                  '00-contracts/bpmn/ai/gftd/kakaku/compareOffers.bpmn',
                  '2026-04-25T20:30:00Z',
-                 'did:web:kakaku.gftd.ai',
-                 'did:web:kakaku.gftd.ai',
+                 'did:web:kakaku.etzhayyim.com',
+                 'did:web:kakaku.etzhayyim.com',
                  'sys.bpmn.seed.kakaku',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-compareOffers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-compareOffers-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -241,17 +241,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-upsertOffer-v1',
-                 'did:web:kakaku.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-upsertOffer-v1',
+                 'did:web:kakaku.etzhayyim.com',
                  'ai.gftd.apps.kakaku.upsertOffer',
                  'kakaku_upsert_offer',
                  90000,
                  '2026-04-25T20:30:00Z',
-                 'did:web:kakaku.gftd.ai',
-                 'did:web:kakaku.gftd.ai',
+                 'did:web:kakaku.etzhayyim.com',
+                 'did:web:kakaku.etzhayyim.com',
                  'sys.bpmn.seed.kakaku',
                  'vertex_kakaku_product,vertex_kakaku_merchant,vertex_kakaku_offer,vertex_kakaku_price_history,vertex_kakaku_match_candidate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-upsertOffer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-upsertOffer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -266,17 +266,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-ingestOfferFromUrl-v1',
-                 'did:web:kakaku.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-ingestOfferFromUrl-v1',
+                 'did:web:kakaku.etzhayyim.com',
                  'ai.gftd.apps.kakaku.ingestOfferFromUrl',
                  'kakaku_ingest_offer_from_url',
                  120000,
                  '2026-04-25T20:30:00Z',
-                 'did:web:kakaku.gftd.ai',
-                 'did:web:kakaku.gftd.ai',
+                 'did:web:kakaku.etzhayyim.com',
+                 'did:web:kakaku.etzhayyim.com',
                  'sys.bpmn.seed.kakaku',
                  'vertex_kakaku_product,vertex_kakaku_merchant,vertex_kakaku_offer,vertex_kakaku_price_history,vertex_kakaku_match_candidate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-ingestOfferFromUrl-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-ingestOfferFromUrl-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -291,30 +291,30 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-compareOffers-v1',
-                 'did:web:kakaku.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-compareOffers-v1',
+                 'did:web:kakaku.etzhayyim.com',
                  'ai.gftd.apps.kakaku.compareOffers',
                  'kakaku_compare_offers',
                  60000,
                  '2026-04-25T20:30:00Z',
-                 'did:web:kakaku.gftd.ai',
-                 'did:web:kakaku.gftd.ai',
+                 'did:web:kakaku.etzhayyim.com',
+                 'did:web:kakaku.etzhayyim.com',
                  'sys.bpmn.seed.kakaku',
                  'vertex_kakaku_product,vertex_kakaku_merchant,vertex_kakaku_offer,vertex_kakaku_price_history,vertex_kakaku_match_candidate',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-compareOffers-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-compareOffers-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-upsertOffer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-upsertOffer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-ingestOfferFromUrl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-ingestOfferFromUrl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kakaku-compareOffers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kakaku-compareOffers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-upsertOffer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-upsertOffer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-ingestOfferFromUrl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-ingestOfferFromUrl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kakaku-compareOffers-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kakaku-compareOffers-v1']}]
 
 
 def upgrade() -> None:

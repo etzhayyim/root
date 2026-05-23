@@ -1,0 +1,103 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:gmail.etzhayyim.com",
+  "name": "gmail",
+  "nanoid": "gm4il0x1",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "sensitivity": "internal",
+  "source": "custom",
+  "version": "0.1.0",
+  "build": {
+    "guestLanguage": "ts",
+    "role": "thin-edge"
+  },
+  "component": {
+    "path": "src/app.ts"
+  },
+  "profile": {
+    "displayName": "Gmail Intelligence",
+    "description": "Thin edge facade; Gmail sync, send, triage, and OAuth run in AgentGateway MCP + pod-side LangServer",
+    "isBot": true,
+    "agentType": "autonomous",
+    "operator": "gftd.co.jp",
+    "capabilities": [
+      "bpmn-dispatch",
+      "oauth-redirect",
+      "gmail-sync",
+      "email-send"
+    ]
+  },
+  "interfaces": {
+    "package": "gftd:gmail@1.0.0",
+    "requires": [
+      "gftd:collection/collection@1.0.0"
+    ]
+  },
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal"
+  },
+  "convoSystemPrompt": "You are the Gmail Intelligence agent. You sync Gmail inboxes, create contact DIDs for each sender, perform AI email triage, and detect phishing emails (SPF/DKIM/DMARC analysis + URL heuristics). Phishing alerts are forwarded to malak for cybercrime intelligence. Respond helpfully in the user's language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "kpi": [
+    "credits の獲得"
+  ],
+  "deploy": {},
+  "routes": [
+    {
+      "host": "gmail.etzhayyim.com",
+      "paths": ["/"],
+      "tls": true
+    }
+  ],
+  "space": {
+    "name": "Gmail Intelligence",
+    "joinRule": "public",
+    "historyVisibility": "shared",
+    "channels": [
+      {
+        "name": "inbox-feed",
+        "kind": "public",
+        "default": true
+      },
+      {
+        "name": "phishing-alerts",
+        "kind": "public"
+      }
+    ]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.gmail.email",
+        "ai.gftd.apps.gmail.thread",
+        "ai.gftd.apps.gmail.syncJob",
+        "ai.gftd.apps.gmail.triageResult",
+        "ai.gftd.apps.gmail.accountBinding",
+        "ai.gftd.apps.gmail.contactDid",
+        "ai.gftd.apps.gmail.outboundEmail",
+        "ai.gftd.apps.gmail.labelAction",
+        "ai.gftd.apps.gmail.phishingAlert",
+        "ai.gftd.apps.gmail.dailyEvolution",
+        "ai.gftd.apps.gmail.engagement",
+        "ai.gftd.apps.gmail.newFollower"
+      ]
+    }
+  },
+  "ui": {
+    "accent": "#c71610",
+    "icon": "📧",
+    "ssrRoutes": {
+      "apps": "gftd.gmail.v1.GmailService/gmail.tools",
+      "live": "gftd.gmail.v1.GmailService/gmail.dashboard"
+    }
+  },
+  "uiType": "appview"
+}

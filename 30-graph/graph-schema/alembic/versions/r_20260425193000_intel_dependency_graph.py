@@ -156,15 +156,15 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1',
+                 'did:web:intel.etzhayyim.com',
                  'intel_infer_dependencies',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_intel_infer_dependencies" '
-                 'targetNamespace="https://gftd.ai/bpmn/intel" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/intel" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="intel_infer_dependencies" name="inferDependencies" '
                  'isExecutable="true">\n'
@@ -257,7 +257,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:intel.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:intel.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;intel.inferDependencies&quot;" '
                  'target="action"/>\n'
@@ -273,7 +273,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_AuditNoCandidates" name="audit no candidates">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:intel.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:intel.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;intel.inferDependencies.abort&quot;" '
                  'target="action"/>\n'
@@ -295,10 +295,10 @@ UP = [{'sql': '\n'
                  6340,
                  '00-contracts/bpmn/ai/gftd/intel/inferDependencies.bpmn',
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -306,14 +306,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1',
+                 'did:web:intel.etzhayyim.com',
                  'intel_resolve_entity',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_intel_resolve_entity" '
-                 'targetNamespace="https://gftd.ai/bpmn/intel" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/intel" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="intel_resolve_entity" name="resolveEntity" '
                  'isExecutable="true">\n'
@@ -354,7 +354,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;did:web:intel.gftd.ai&quot;" '
+                 '          <zeebe:input source="=&quot;did:web:intel.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input source="=&quot;intel.resolveEntity&quot;" '
                  'target="action"/>\n'
@@ -374,10 +374,10 @@ UP = [{'sql': '\n'
                  2884,
                  '00-contracts/bpmn/ai/gftd/intel/resolveEntity.bpmn',
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -385,14 +385,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1',
+                 'did:web:intel.etzhayyim.com',
                  'intel_explain_dependency',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_intel_explain_dependency" '
-                 'targetNamespace="https://gftd.ai/bpmn/intel" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/intel" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="intel_explain_dependency" name="explainDependency" '
                  'isExecutable="true">\n'
@@ -422,10 +422,10 @@ UP = [{'sql': '\n'
                  1405,
                  '00-contracts/bpmn/ai/gftd/intel/explainDependency.bpmn',
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -433,14 +433,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1',
+                 'did:web:intel.etzhayyim.com',
                  'intel_list_dependency_candidates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_intel_list_dependency_candidates" '
-                 'targetNamespace="https://gftd.ai/bpmn/intel" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/intel" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="intel_list_dependency_candidates" '
                  'name="listDependencyCandidates" isExecutable="true">\n'
@@ -470,10 +470,10 @@ UP = [{'sql': '\n'
                  1411,
                  '00-contracts/bpmn/ai/gftd/intel/listDependencyCandidates.bpmn',
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -481,14 +481,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1',
+                 'did:web:intel.etzhayyim.com',
                  'intel_get_building_ownership_graph',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_intel_get_building_ownership_graph" '
-                 'targetNamespace="https://gftd.ai/bpmn/intel" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/intel" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="intel_get_building_ownership_graph" '
                  'name="getBuildingOwnershipGraph" isExecutable="true">\n'
@@ -518,10 +518,10 @@ UP = [{'sql': '\n'
                  1430,
                  '00-contracts/bpmn/ai/gftd/intel/getBuildingOwnershipGraph.bpmn',
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -529,14 +529,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1',
+                 'did:web:intel.etzhayyim.com',
                  'intel_get_counterparty_graph',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'id="Definitions_intel_get_counterparty_graph" '
-                 'targetNamespace="https://gftd.ai/bpmn/intel" exporter="hand-written" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/intel" exporter="hand-written" '
                  'exporterVersion="1.0">\n'
                  '  <bpmn:process id="intel_get_counterparty_graph" name="getCounterpartyGraph" '
                  'isExecutable="true">\n'
@@ -566,10 +566,10 @@ UP = [{'sql': '\n'
                  1418,
                  '00-contracts/bpmn/ai/gftd/intel/getCounterpartyGraph.bpmn',
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -577,16 +577,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1',
+                 'did:web:intel.etzhayyim.com',
                  'ai.gftd.apps.intel.inferDependencies',
                  'intel_infer_dependencies',
                  180000,
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -594,16 +594,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1',
+                 'did:web:intel.etzhayyim.com',
                  'ai.gftd.apps.intel.resolveEntity',
                  'intel_resolve_entity',
                  60000,
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -611,16 +611,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1',
+                 'did:web:intel.etzhayyim.com',
                  'ai.gftd.apps.intel.explainDependency',
                  'intel_explain_dependency',
                  15000,
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -628,16 +628,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1',
+                 'did:web:intel.etzhayyim.com',
                  'ai.gftd.apps.intel.listDependencyCandidates',
                  'intel_list_dependency_candidates',
                  15000,
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -645,16 +645,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1',
+                 'did:web:intel.etzhayyim.com',
                  'ai.gftd.apps.intel.getBuildingOwnershipGraph',
                  'intel_get_building_ownership_graph',
                  20000,
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -662,41 +662,41 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1',
-                 'did:web:intel.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1',
+                 'did:web:intel.etzhayyim.com',
                  'ai.gftd.apps.intel.getCounterpartyGraph',
                  'intel_get_counterparty_graph',
                  20000,
                  '2026-04-25T19:30:00+09:00',
-                 'did:web:intel.gftd.ai',
-                 'did:web:intel.gftd.ai',
+                 'did:web:intel.etzhayyim.com',
+                 'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1']},
  {'sql': 'DROP MATERIALIZED VIEW IF EXISTS mv_intel_building_owner_lei', 'parameters': []},
  {'sql': 'DROP MATERIALIZED VIEW IF EXISTS mv_intel_dependency_status', 'parameters': []},
  {'sql': 'DROP INDEX IF EXISTS idx_intel_dependency_predicate', 'parameters': []},

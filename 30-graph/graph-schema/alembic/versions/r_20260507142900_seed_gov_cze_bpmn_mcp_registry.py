@@ -25,15 +25,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-seedOrgs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-seedOrgs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_seed_orgs" name="govCze seed orgs" '
@@ -63,10 +63,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govCze/seedOrgs.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -80,15 +80,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-registerDIDs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-registerDIDs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_register_dids" name="govCze register DIDs" '
@@ -120,10 +120,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govCze/registerDIDs.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -137,15 +137,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-followSiteDeps-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-followSiteDeps-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_follow_site_deps" name="govCze follow site deps" '
@@ -175,10 +175,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govCze/followSiteDeps.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,15 +192,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-resolveOrgPath-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-resolveOrgPath-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_resolve_org_path" name="govCze resolve org path" '
@@ -233,10 +233,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govCze/resolveOrgPath.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -250,15 +250,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-listOrgs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-listOrgs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_list_orgs" name="govCze list orgs" '
@@ -287,10 +287,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govCze/listOrgs.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -304,15 +304,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-syncWetUpdates-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-syncWetUpdates-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_sync_wet_updates" name="govCze sync wet updates" '
@@ -343,10 +343,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govCze/syncWetUpdates.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -360,15 +360,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-shinka-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-shinka-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_shinka',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_shinka"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_shinka" name="govCze shinka" isExecutable="true">\n'
@@ -398,10 +398,10 @@ UP = [{'sql': '\n'
                  1351,
                  '00-contracts/bpmn/ai/gftd/govCze/shinka.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -415,8 +415,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeatTick-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeatTick-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -424,7 +424,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_cze_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_heartbeat_tick" name="govCze heartbeat tick" '
@@ -467,10 +467,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govCze/heartbeatTick.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -484,15 +484,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-seed-orgs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-seed-orgs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_seed_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_seed_orgs" name="govCze seed orgs" '
@@ -522,10 +522,10 @@ UP = [{'sql': '\n'
                  1361,
                  '00-contracts/bpmn/ai/gftd/govCze/seedOrgs.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-seed-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-seed-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -539,15 +539,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-register-dids-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-register-dids-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_register_dids"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_register_dids" name="govCze register DIDs" '
@@ -579,10 +579,10 @@ UP = [{'sql': '\n'
                  1403,
                  '00-contracts/bpmn/ai/gftd/govCze/registerDIDs.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-register-dids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -596,15 +596,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-follow-site-deps-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-follow-site-deps-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_follow_site_deps"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_follow_site_deps" name="govCze follow site deps" '
@@ -634,10 +634,10 @@ UP = [{'sql': '\n'
                  1344,
                  '00-contracts/bpmn/ai/gftd/govCze/followSiteDeps.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-follow-site-deps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-follow-site-deps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -651,15 +651,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-resolve-org-path-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-resolve-org-path-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_resolve_org_path"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_resolve_org_path" name="govCze resolve org path" '
@@ -692,10 +692,10 @@ UP = [{'sql': '\n'
                  1519,
                  '00-contracts/bpmn/ai/gftd/govCze/resolveOrgPath.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-resolve-org-path-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-resolve-org-path-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -709,15 +709,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-list-orgs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-list-orgs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_list_orgs"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_list_orgs" name="govCze list orgs" '
@@ -746,10 +746,10 @@ UP = [{'sql': '\n'
                  1298,
                  '00-contracts/bpmn/ai/gftd/govCze/listOrgs.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-list-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-list-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -763,15 +763,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-sync-wet-updates-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-sync-wet-updates-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_gov_cze_sync_wet_updates"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_sync_wet_updates" name="govCze sync wet updates" '
@@ -802,10 +802,10 @@ UP = [{'sql': '\n'
                  1452,
                  '00-contracts/bpmn/ai/gftd/govCze/syncWetUpdates.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-sync-wet-updates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-sync-wet-updates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -819,8 +819,8 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeat-tick-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeat-tick-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'gov_cze_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -828,7 +828,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_gov_cze_heartbeat_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/govCze"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/govCze"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="gov_cze_heartbeat_tick" name="govCze heartbeat tick" '
@@ -871,10 +871,10 @@ UP = [{'sql': '\n'
                  2098,
                  '00-contracts/bpmn/ai/gftd/govCze/heartbeatTick.bpmn',
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeat-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeat-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -889,17 +889,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.seedOrgs',
                  'gov_cze_seed_orgs',
                  90000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -914,17 +914,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.registerDIDs',
                  'gov_cze_register_dids',
                  90000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,17 +939,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.followSiteDeps',
                  'gov_cze_follow_site_deps',
                  90000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -964,17 +964,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.resolveOrgPath',
                  'gov_cze_resolve_org_path',
                  60000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -989,17 +989,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.listOrgs',
                  'gov_cze_list_orgs',
                  60000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1014,17 +1014,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.syncWetUpdates',
                  'gov_cze_sync_wet_updates',
                  180000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1039,17 +1039,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-shinka-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-shinka-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.shinka',
                  'gov_cze_shinka',
                  180000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1064,17 +1064,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.heartbeatTick',
                  'gov_cze_heartbeat_tick',
                  180000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1089,17 +1089,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.seedOrgs',
                  'gov_cze_seed_orgs',
                  90000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1114,17 +1114,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.registerDIDs',
                  'gov_cze_register_dids',
                  90000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1139,17 +1139,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.followSiteDeps',
                  'gov_cze_follow_site_deps',
                  90000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1164,17 +1164,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.resolveOrgPath',
                  'gov_cze_resolve_org_path',
                  60000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1189,17 +1189,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.listOrgs',
                  'gov_cze_list_orgs',
                  60000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1214,17 +1214,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.syncWetUpdates',
                  'gov_cze_sync_wet_updates',
                  180000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1239,17 +1239,17 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1',
-                 'did:web:cze-state.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1',
+                 'did:web:cze-state.etzhayyim.com',
                  'ai.gftd.govCze.heartbeatTick',
                  'gov_cze_heartbeat_tick',
                  180000,
                  '2026-05-07T14:29:00Z',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1266,10 +1266,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs',
                  'ai.gftd.govCze.seedOrgs',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Czech Republic government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1277,12 +1277,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govCze/seedOrgs.json',
                  'c22a2d1e0fe84469',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1299,10 +1299,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs',
                  'ai.gftd.govCze.registerDIDs',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Czech Republic government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1310,12 +1310,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govCze/registerDIDs.json',
                  '1b28d6e88b3390e4',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1332,10 +1332,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps',
                  'ai.gftd.govCze.followSiteDeps',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Czech Republic government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1343,12 +1343,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govCze/followSiteDeps.json',
                  '12be40530f908b2d',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1365,10 +1365,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath',
                  'ai.gftd.govCze.resolveOrgPath',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'query',
                  'Resolve a Czech Republic government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1376,12 +1376,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govCze/resolveOrgPath.json',
                  '24235fdb6cf57d54',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1398,10 +1398,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs',
                  'ai.gftd.govCze.listOrgs',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'query',
                  'List Czech Republic government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1409,12 +1409,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govCze/listOrgs.json',
                  '6f691a58a544bfe6',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1431,10 +1431,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates',
                  'ai.gftd.govCze.syncWetUpdates',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Czech Republic government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1442,12 +1442,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govCze/syncWetUpdates.json',
                  '065ed81071bfec02',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1464,10 +1464,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-shinka',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-shinka',
                  'ai.gftd.govCze.shinka',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Post a periodic graph-visible Czech Republic government organization update.',
                  '{"properties":{"limit":{"default":1,"maximum":5,"minimum":1,"type":"integer"},"postUpdates":{"default":true,"type":"boolean"}},"required":[],"type":"object"}',
@@ -1475,12 +1475,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.shinka',
                  '00-contracts/lexicons/ai/gftd/govCze/shinka.json',
                  'd6ed315c703c7e01',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-shinka']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-shinka']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1497,10 +1497,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick',
                  'ai.gftd.govCze.heartbeatTick',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Run the Czech Republic government actor scheduled maintenance loop through '
                  'Zeebe.',
@@ -1509,12 +1509,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govCze/heartbeatTick.json',
                  'a21dee2c01851bad',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1531,10 +1531,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs',
                  'ai.gftd.govCze.seedOrgs',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Czech Republic government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1542,12 +1542,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govCze/seedOrgs.json',
                  'c22a2d1e0fe84469',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1564,10 +1564,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs',
                  'ai.gftd.govCze.registerDIDs',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Czech Republic government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1575,12 +1575,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govCze/registerDIDs.json',
                  '1b28d6e88b3390e4',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1597,10 +1597,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps',
                  'ai.gftd.govCze.followSiteDeps',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Czech Republic government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1608,12 +1608,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govCze/followSiteDeps.json',
                  '12be40530f908b2d',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1630,10 +1630,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath',
                  'ai.gftd.govCze.resolveOrgPath',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'query',
                  'Resolve a Czech Republic government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
@@ -1641,12 +1641,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govCze/resolveOrgPath.json',
                  '24235fdb6cf57d54',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1663,10 +1663,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs',
                  'ai.gftd.govCze.listOrgs',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'query',
                  'List Czech Republic government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
@@ -1674,12 +1674,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govCze/listOrgs.json',
                  '6f691a58a544bfe6',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1696,10 +1696,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates',
                  'ai.gftd.govCze.syncWetUpdates',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Czech Republic government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
@@ -1707,12 +1707,12 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govCze/syncWetUpdates.json',
                  '065ed81071bfec02',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates']},
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1729,10 +1729,10 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick',
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick',
                  'ai.gftd.govCze.heartbeatTick',
-                 'did:web:cze-state.gftd.ai',
-                 'cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'cze-state.etzhayyim.com',
                  'procedure',
                  'Run the Czech Republic government actor scheduled maintenance loop through '
                  'Zeebe.',
@@ -1741,103 +1741,103 @@ UP = [{'sql': '\n'
                  'ai.gftd.govCze.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govCze/heartbeatTick.json',
                  'a21dee2c01851bad',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
-                 'did:web:cze-state.gftd.ai',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
+                 'did:web:cze-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-cze',
                  '2026-05-07T14:29:00Z',
-                 'at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick']}]
+                 'at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-shinka']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-shinka']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:cze-state.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick']},
+  'parameters': ['at://did:web:cze-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govCze-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govCze-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-seed-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-seed-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-follow-site-deps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-follow-site-deps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-resolve-org-path-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-resolve-org-path-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-list-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-list-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-sync-wet-updates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-sync-wet-updates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeat-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-cze-heartbeat-tick-v1']}]
 
 
 def upgrade() -> None:

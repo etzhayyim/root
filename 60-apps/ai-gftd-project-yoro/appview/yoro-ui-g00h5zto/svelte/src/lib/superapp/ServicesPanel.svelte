@@ -3,7 +3,7 @@
 	import { appsStore, loadAppsFromRegistry } from '../apps/appsStore.js';
 	import type { GfAppLink } from '../apps/index.js';
 	import { spring } from 'svelte/motion';
-	import { playTap, playSelect, haptic } from '@gftdcojp/design-system/audio';
+	import { playTap, playSelect, haptic } from '@etzhayyim/design-system/audio';
 	import { goto } from '$app/navigation';
 
 	onMount(() => { loadAppsFromRegistry(); });

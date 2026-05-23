@@ -22,6 +22,7 @@ import { setReactPdsClient } from "./react.js";
 import { createHostWebRouter, type McpFacadeConfig, type McpRegistryConfig } from "./host-web-router.js";
 // ADR-2605111200: Worker-direct DB connection is prohibited.
 // `setKyselyHyperdrive` is kept as a no-op for backwards compatibility with createHostSDK callers.
+// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { setKyselyHyperdrive } from "./kysely.js";
 
 export interface HostSDKConfig {

@@ -35,7 +35,7 @@ superseded_by: []
 
 # Context
 
-`tsukuru.gftd.ai` is the vendor B2B factory-direct ordering platform —
+`tsukuru.etzhayyim.com` is the vendor B2B factory-direct ordering platform —
 460+ manufacturer DIDs across 30+ countries, BTO/MTO/CTO production
 orders, EUV lithography + CNT manufacturing flows, supplier exchange
 package normalization, trade compliance + HS classification. Current
@@ -45,10 +45,10 @@ implementation:
   write, T2 Domain per ADR-0036)
 - **Payment**: `payment.method = "stripe_issuing"` — Stripe Issuing
   virtual cards for factory disbursement, cross-actor invoke
-  `did:web:stripe.gftd.ai cancelCard`
+  `did:web:stripe.etzhayyim.com cancelCard`
 - **Runtime**: `runtime = "k8s-langserver"` with bpmn-dispatcher +
   pymagatama.worker_api on Vultr VKE
-- **Identity**: `did:web:tsukuru.gftd.ai` controller + path-based DIDs
+- **Identity**: `did:web:tsukuru.etzhayyim.com` controller + path-based DIDs
   for industry sections (ISIC A-U) + manufacturer registry path DIDs
 - **Storage**: `graph = "risingwave"` (vertex_tsukuru_*)
 
@@ -71,7 +71,7 @@ etzhayyim deploy of tsukuru runs RW-free (PDS + IPFS) and on-chain-only
 (ERC-4337 + USDC), satisfying ADR-2605172000 and ADR-2605172100.
 
 Multi-phase rollout to avoid breaking the 460+ manufacturer production
-workload. Vendor `tsukuru.gftd.ai` runs in parallel with etzhayyim
+workload. Vendor `tsukuru.etzhayyim.com` runs in parallel with etzhayyim
 implementation until factory migration completes.
 
 ## Phase 1 — scaffold + plan (THIS ADR + sibling vendor PR)
@@ -125,7 +125,7 @@ Read path:
 Current vendor:
 ```ts
 payment: { method: "stripe_issuing", stripeCardId: "isc_xyz" }
-await magatama.Invoke("did:web:stripe.gftd.ai", "cancelCard", { cardId });
+await magatama.Invoke("did:web:stripe.etzhayyim.com", "cancelCard", { cardId });
 ```
 
 Etzhayyim:
@@ -170,7 +170,7 @@ Current Stripe invoke calls become:
 
 ## Phase 4 — factory DID migration (operator + factory consent)
 
-460+ manufacturer DIDs currently at `did:web:tsukuru.gftd.ai:manufacturer:{slug}`.
+460+ manufacturer DIDs currently at `did:web:tsukuru.etzhayyim.com:manufacturer:{slug}`.
 
 For each factory:
 1. Notify factory of platform migration (etzhayyim non-profit operator,
@@ -180,7 +180,7 @@ For each factory:
 3. Mint `tsukuru.etzhayyim.com:manufacturer:{slug}` DID on etzhayyim PDS
 4. Mirror manufacturer registry record from vendor to etzhayyim
 5. Forward future RFQs to new DID
-6. Sunset old `tsukuru.gftd.ai:manufacturer:{slug}` after first successful
+6. Sunset old `tsukuru.etzhayyim.com:manufacturer:{slug}` after first successful
    etzhayyim-side order
 
 Estimated timeline: 460 factories × ~1 day onboarding = 6 month rolling
@@ -233,7 +233,7 @@ proven:
   `sanctions-screening` actor (which stays vendor per ADR-2605172400).
 - **Customer (buyer) flow**: buyers must hold USDC and sign ERC-4337
   UserOperations. Higher friction than credit card payment. May need
-  vendor-side `okaimono.gftd.ai` Stripe-frontend that bridges to
+  vendor-side `okaimono.etzhayyim.com` Stripe-frontend that bridges to
   etzhayyim USDC behind the scenes (acceptable per ADR-2605172400
   vendor → etzhayyim consent-capability pattern).
 - **Dispute resolution complexity**: ERC-4337 lacks Stripe-style

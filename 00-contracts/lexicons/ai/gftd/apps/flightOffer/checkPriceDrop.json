@@ -16,7 +16,7 @@
             "outboundDate":    { "type": "string", "format": "datetime" },
             "currency":        { "type": "string", "minLength": 3, "maxLength": 3 },
             "thresholdPct":    { "type": "number", "minimum": 0, "description": "Minimum drop % vs last recorded alert price (or first observation) to fire. Default 10." },
-            "notifyDid":       { "type": "string", "description": "DID to publish the app.bsky.feed.post drop alert from. Defaults to flight-offer.gftd.ai actor DID." }
+            "notifyDid":       { "type": "string", "description": "DID to publish the app.bsky.feed.post drop alert from. Defaults to flight-offer.etzhayyim.com actor DID." }
           }
         }
       },

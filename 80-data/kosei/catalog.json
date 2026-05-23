@@ -1,0 +1,38 @@
+{
+  "format_version": 1,
+  "table_uuid": "kosei-local-001",
+  "location": "/Users/junkawasaki/github/etzhayyim-root/80-data/kosei",
+  "snapshots": [
+    {
+      "snapshot_id": 1775696674654,
+      "snapshot_ms": 1775696674654,
+      "summary": "2026-04-09 01:04 apps=1740 T1=881 T2=343 T3=516 ?=0 η=0.706",
+      "data_file": "snapshots/snap-20260409-010434.parquet"
+    },
+    {
+      "snapshot_id": 1775697400660,
+      "snapshot_ms": 1775697400660,
+      "summary": "2026-04-09 01:16 apps=1740 T1=881 T2=344 T3=515 ?=0 η=0.706",
+      "data_file": "snapshots/snap-20260409-011640.parquet"
+    },
+    {
+      "snapshot_id": 1775723081629,
+      "snapshot_ms": 1775723081629,
+      "summary": "2026-04-09 08:24 apps=354 T1=19 T2=280 T3=51 ?=4 η=0.562",
+      "data_file": "snapshots/snap-20260409-082441.parquet"
+    },
+    {
+      "snapshot_id": 1775723554745,
+      "snapshot_ms": 1775723554745,
+      "summary": "2026-04-09 08:32 apps=354 T1=242 T2=57 T3=51 ?=4 η=0.668",
+      "data_file": "snapshots/snap-20260409-083234.parquet"
+    },
+    {
+      "snapshot_id": 1776673577763,
+      "snapshot_ms": 1776673577763,
+      "summary": "2026-04-20 08:26 apps=2 T1=1 T2=0 T3=0 ?=1 η=0.334",
+      "data_file": "snapshots/snap-20260420-082617.parquet"
+    }
+  ],
+  "current_snapshot_id": 1776673577763
+}

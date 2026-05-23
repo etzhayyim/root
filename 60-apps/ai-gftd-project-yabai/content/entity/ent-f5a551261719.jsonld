@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f5a551261719",
+  "entityId": "ent-f5a551261719",
+  "canonicalName": "elizabet",
+  "aliases": [
+    "elizabet"
+  ]
+}

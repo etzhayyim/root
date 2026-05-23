@@ -13,10 +13,10 @@ wit-bindgen-rt = { version = "0.44.0", features = ["bitflags"] }
 crate-type = ["cdylib"]
 
 [package.metadata.component]
-package = "gftdcojp:quickjs-engine"
+package = "etzhayyim:quickjs-engine"
 
 [package.metadata.component.target]
 world = "engine"
 
 [package.metadata.component.target.dependencies]
-"gftdcojp:svelte-adapter" = { path = "wit/deps/gftdcojp-svelte-adapter" }
+"etzhayyim:svelte-adapter" = { path = "wit/deps/etzhayyim-svelte-adapter" }

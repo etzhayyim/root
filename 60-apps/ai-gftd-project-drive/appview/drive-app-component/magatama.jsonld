@@ -1,0 +1,39 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:drive.etzhayyim.com",
+  "name": "drive",
+  "nanoid": "dr1v3st0",
+  "performerType": "service",
+  "runtimeType": "worker",
+  "project": "drive",
+  "component": {
+    "path": "src/app.ts"
+  },
+  "build": {
+    "guestLanguage": "ts",
+    "role": "thin-edge"
+  },
+  "profile": {
+    "displayName": "GFTD Drive",
+    "description": "Thin edge facade; Google Drive OAuth and sync run in AgentGateway MCP + pod-side LangServer",
+    "isBot": true,
+    "agentType": "autonomous",
+    "category": "storage",
+    "operator": "gftd.co.jp",
+    "capabilities": ["bpmn-dispatch", "oauth-redirect"]
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "ai.gftd.apps.drive.file",
+        "ai.gftd.apps.drive.folder",
+        "ai.gftd.apps.drive.fileShare",
+        "ai.gftd.apps.drive.fileDeletion",
+        "ai.gftd.apps.drive.fileMove",
+        "ai.gftd.apps.drive.fileStatusUpdate",
+        "ai.gftd.apps.drive.fileLocationUpdate"
+      ]
+    }
+  },
+  "uiType": "appview"
+}

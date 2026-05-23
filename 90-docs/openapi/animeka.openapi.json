@@ -12,7 +12,7 @@
   "paths": {
     "/xrpc/ai.gftd.animeka.addCut": {
       "post": {
-        "summary": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.gftd.ai:cut:{rkey}. Sequential addCut calls on the same scene auto-increment cutNum if omitted.",
+        "summary": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.etzhayyim.com:cut:{rkey}. Sequential addCut calls on the same scene auto-increment cutNum if omitted.",
         "operationId": "ai.gftd.animeka.addCut",
         "requestBody": {
           "required": true,
@@ -422,7 +422,7 @@
     },
     "/xrpc/ai.gftd.animeka.createWork": {
       "post": {
-        "summary": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.gftd.ai:work:{slug}.",
+        "summary": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.etzhayyim.com:work:{slug}.",
         "operationId": "ai.gftd.animeka.createWork",
         "requestBody": {
           "required": true,
@@ -2295,7 +2295,7 @@
           },
           "slug": {
             "type": "string",
-            "description": "URL-safe slug. Used for did:web:animeka.gftd.ai:character:{slug}."
+            "description": "URL-safe slug. Used for did:web:animeka.etzhayyim.com:character:{slug}."
           },
           "name": {
             "type": "string",
@@ -3316,7 +3316,7 @@
           },
           "slug": {
             "type": "string",
-            "description": "URL-safe slug. Used to construct did:web:animeka.gftd.ai:work:{slug}."
+            "description": "URL-safe slug. Used to construct did:web:animeka.etzhayyim.com:work:{slug}."
           },
           "genre": {
             "type": "string",

@@ -1,0 +1,52 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HuggingFace Inference API (yorishiro kami spec)",
+    "version": "0.1.0",
+    "description": "Hand-authored OpenAPI 3 spec for the HuggingFace Inference API. Separate kami from `huggingface.co` (Hub) — Inference is a different service that runs model forward passes. Reference: https://huggingface.co/docs/api-inference/index"
+  },
+  "servers": [
+    { "url": "https://api-inference.huggingface.co", "description": "HuggingFace Inference" }
+  ],
+  "paths": {
+    "/pipeline/feature-extraction/{model_id}": {
+      "post": {
+        "operationId": "extractFeatures",
+        "summary": "Run a feature-extraction (embedding) pipeline against a model",
+        "description": "POST text to the configured model and receive its hidden-state vector representation. Used by mst-projector embedders. The API key is supplied via Authorization: Bearer <key> by the caller and is NOT part of this lexicon — yorishiri never store credentials.",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "description": "Model id on the Hub (e.g. `sentence-transformers/all-MiniLM-L6-v2`).",
+            "schema": { "type": "string", "minLength": 3, "maxLength": 256 }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["inputs"],
+                "properties": {
+                  "inputs": { "type": "string", "minLength": 1, "maxLength": 32768, "description": "Text to embed (single string or batched). Phase 1: single only." },
+                  "wait_for_model": { "type": "boolean", "default": true, "description": "Wait for cold-start instead of returning 503." }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Feature vector(s) — typically a 2-D array of floats.",
+            "content": {
+              "application/json": { "schema": { "type": "object", "description": "number[][] (or number[]) depending on model output shape." } }
+            }
+          }
+        }
+      }
+    }
+  }
+}

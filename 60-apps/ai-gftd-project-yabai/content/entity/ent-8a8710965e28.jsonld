@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-8a8710965e28",
+  "entityId": "ent-8a8710965e28",
+  "canonicalName": "cumexint, s.a.",
+  "aliases": [
+    "cumexint, s.a."
+  ]
+}

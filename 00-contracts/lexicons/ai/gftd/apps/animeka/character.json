@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "Tier 2 domain record for a character design (キャラデザ). Each character gets a path-based DID `did:web:animeka.gftd.ai:character:{slug}` used as the mention facet target in social posts. Holds the canonical reference sheet + pointers to color models.",
+      "description": "Tier 2 domain record for a character design (キャラデザ). Each character gets a path-based DID `did:web:animeka.etzhayyim.com:character:{slug}` used as the mention facet target in social posts. Holds the canonical reference sheet + pointers to color models.",
       "key": "any",
       "record": {
         "type": "object",
@@ -16,7 +16,7 @@
           },
           "slug": {
             "type": "string",
-            "description": "URL-safe slug. Used for did:web:animeka.gftd.ai:character:{slug}."
+            "description": "URL-safe slug. Used for did:web:animeka.etzhayyim.com:character:{slug}."
           },
           "name": {
             "type": "string",

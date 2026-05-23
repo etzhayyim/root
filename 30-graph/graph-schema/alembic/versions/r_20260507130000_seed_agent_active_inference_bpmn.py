@@ -26,8 +26,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-active-inference-tick-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-active-inference-tick-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'agent_active_inference_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -50,7 +50,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_agent_active_inference_tick"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/agent"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/agent"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="agent_active_inference_tick" name="Agent active inference '
@@ -130,11 +130,11 @@ UP = [{'sql': '\n'
                  4101,
                  '00-contracts/bpmn/ai/gftd/agent/activeInferenceTick.bpmn',
                  '2026-05-07T13:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.agent-active-inference',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-active-inference-tick-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-active-inference-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -148,17 +148,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-active-inference-tick-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-active-inference-tick-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'ai.gftd.apps.agent.activeInferenceTick',
                  'agent_active_inference_tick',
                  'vertex_agent_active_inference_tick',
                  '2026-05-07T13:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.agent-active-inference',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-active-inference-tick-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-active-inference-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -173,8 +173,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-homeostasis-watch-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-homeostasis-watch-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'agent_homeostasis_watch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -193,7 +193,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_agent_homeostasis_watch"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/agent"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/agent"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="agent_homeostasis_watch" name="Agent homeostasis watch" '
@@ -272,11 +272,11 @@ UP = [{'sql': '\n'
                  3954,
                  '00-contracts/bpmn/ai/gftd/agent/homeostasisWatch.bpmn',
                  '2026-05-07T13:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.agent-active-inference',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-homeostasis-watch-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-homeostasis-watch-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -290,17 +290,17 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-homeostasis-watch-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-homeostasis-watch-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'ai.gftd.apps.agent.recordHomeostasis',
                  'agent_homeostasis_watch',
                  'vertex_agent_homeostasis_snapshot',
                  '2026-05-07T13:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.agent-active-inference',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-homeostasis-watch-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-homeostasis-watch-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -315,8 +315,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-realworld-effect-dispatch-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-realworld-effect-dispatch-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'agent_realworld_effect_dispatch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -330,7 +330,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_agent_realworld_effect_dispatch"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/agent"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/agent"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="agent_realworld_effect_dispatch" name="Agent real-world '
@@ -426,11 +426,11 @@ UP = [{'sql': '\n'
                  5164,
                  '00-contracts/bpmn/ai/gftd/agent/realWorldEffectDispatch.bpmn',
                  '2026-05-07T13:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.agent-active-inference',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-realworld-effect-dispatch-v1']},
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-realworld-effect-dispatch-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -444,30 +444,30 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-effect-dispatch-v1',
-                 'did:web:bpmn.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-effect-dispatch-v1',
+                 'did:web:bpmn.etzhayyim.com',
                  'ai.gftd.apps.agent.classifyRealWorldEffect',
                  'agent_realworld_effect_dispatch',
                  'vertex_agent_realworld_effect',
                  '2026-05-07T13:00:00Z',
-                 'did:web:bpmn.gftd.ai',
-                 'did:web:bpmn.gftd.ai',
+                 'did:web:bpmn.etzhayyim.com',
+                 'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.agent-active-inference',
-                 'did:web:bpmn.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-effect-dispatch-v1']}]
+                 'did:web:bpmn.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-effect-dispatch-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-effect-dispatch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-realworld-effect-dispatch-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-realworld-effect-dispatch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-realworld-effect-dispatch-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-homeostasis-watch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-homeostasis-watch-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-homeostasis-watch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-homeostasis-watch-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.lexiconBinding/agent-active-inference-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/agent-active-inference-tick-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/agent-active-inference-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-active-inference-tick-v1']}]
 
 
 def upgrade() -> None:

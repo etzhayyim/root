@@ -33,7 +33,7 @@ GftdRootIdentityRegistry and GftdAgentRegistry, also listed in
 | Storage | 50 GiB Vultr Block Storage (`vultr-block-storage` SC) |
 | RPC (in-cluster) | `http://geth-private.geth-private.svc.cluster.local:8545` |
 | WS (in-cluster)  | `ws://geth-private.geth-private.svc.cluster.local:8546` |
-| External access | `https://geth.gftd.ai` — CF Worker proxy (`50-infra/cloudflare/workers/geth-rpc-proxy/`) → Cloudflare Tunnel (`50-infra/vultr/cloudflared/geth-tunnel.yaml`, namespace `geth-private`, replicas=2) → in-cluster `geth-private:8545` (cutover 2026-05-07, tunnel ID `69cf11d5-001f-494c-abce-4a1422ac47d8`) |
+| External access | `https://geth.etzhayyim.com` — CF Worker proxy (`50-infra/cloudflare/workers/geth-rpc-proxy/`) → Cloudflare Tunnel (`50-infra/vultr/cloudflared/geth-tunnel.yaml`, namespace `geth-private`, replicas=2) → in-cluster `geth-private:8545` (cutover 2026-05-07, tunnel ID `69cf11d5-001f-494c-abce-4a1422ac47d8`) |
 
 ## Layout
 
@@ -138,15 +138,15 @@ kubectl -n geth-private exec -it geth-private-0 -- geth attach /data/geth.ipc
 ## Caller integration
 
 - **authz Worker** (`60-apps/ai-gftd-project-auth/worker-authz/`) — chainId
-  `ETH_PRIVATE_CHAIN_ID=260425`, RPC `ETH_PRIVATE_RPC_URL=https://geth.gftd.ai`.
+  `ETH_PRIVATE_CHAIN_ID=260425`, RPC `ETH_PRIVATE_RPC_URL=https://geth.etzhayyim.com`.
   `getActorAccount` XRPC reads `GftdActorRegistry.actorByDid` via eth_call.
 - **gftd CLI** (removed 2026-05-20) — previously emitted
   `DeployRegistry.recordDeploy` per `gftd deploy` via `cast send` against
-  `https://geth.gftd.ai`, signed with SEALER_PRIV from macOS Keychain. Until
+  `https://geth.etzhayyim.com`, signed with SEALER_PRIV from macOS Keychain. Until
   a replacement lands (e.g. `e7m chain deploy-receipt`), the recordDeploy
   side-effect must be issued manually with `cast send`.
 - **Phase 2 contracts** are deployed via the Foundry project at
   `50-infra/vultr/geth-private/contracts/`. Local development uses
   `kubectl -n geth-private port-forward svc/geth-private 18545:8545` and
   points `RPC_URL=http://localhost:18545`; production-style runs target
-  `https://geth.gftd.ai` directly.
+  `https://geth.etzhayyim.com` directly.

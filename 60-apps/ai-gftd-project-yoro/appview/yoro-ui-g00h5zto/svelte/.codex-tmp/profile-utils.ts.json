@@ -9,13 +9,13 @@
       "@gftd/wproto": [
         "./src/typecheck-shims/wproto.d.ts"
       ],
-      "@gftdcojp/design-system": [
+      "@etzhayyim/design-system": [
         "./src/typecheck-shims/design-system.d.ts"
       ],
-      "@gftdcojp/design-system/audio": [
+      "@etzhayyim/design-system/audio": [
         "./src/typecheck-shims/design-system-audio.d.ts"
       ],
-      "@gftdcojp/design-system/motion": [
+      "@etzhayyim/design-system/motion": [
         "./src/typecheck-shims/design-system-motion.d.ts"
       ],
       "@gftd/ameno/inference": [

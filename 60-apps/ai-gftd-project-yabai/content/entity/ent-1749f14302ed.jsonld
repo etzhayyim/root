@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-1749f14302ed",
+  "entityId": "ent-1749f14302ed",
+  "canonicalName": "song chol ri",
+  "aliases": [
+    "song chol ri"
+  ]
+}

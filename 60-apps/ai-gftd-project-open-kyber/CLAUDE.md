@@ -1,6 +1,6 @@
 # ai-gftd-project-open-kyber — Open Source ERP (APQC-aligned)
 
-**Status**: Source-of-truth (2026-04-15). Apache-2.0 OSS mirror at `github.com/gftdcojp/ai-gftd-project-open-kyber`. Deployed instance: `kyber.gftd.ai` (proprietary tenancy of this codebase).
+**Status**: Source-of-truth (2026-04-15; etzhayyim DID-swap 2026-05-21). Apache-2.0 OSS mirror originally at `github.com/etzhayyim/ai-gftd-project-open-kyber`; this monorepo (`github.com/etzhayyim/root`) runs the etzhayyim tenancy. Deployed instance: `kyber.etzhayyim.com` (replaces former `kyber.etzhayyim.com`). Legacy gftd tenancy remains a separate proprietary deployment.
 
 **Consolidates** the former `ai-gftd-project-kyber/appview/*`. Product brand = **Kyber**; repo folder = **open-kyber**. NSIDs remain `ai.gftd.apps.kyber.*` / `ai.gftd.kyber.projector.*` (rename would break deployed records + graph labels + ADR-0025 bootstrap).
 
@@ -11,14 +11,14 @@
 ├── CLAUDE.md                                   # this file
 ├── PROJECT.jsonld                              # schema.org (Apache-2.0)
 ├── README.md                                   # OSS public readme
-├── ai-gftd-wasm-kyber-erp-kyb3rerp/            # ERP Worker (kyber.gftd.ai, nanoid kyb3rerp)
+├── ai-gftd-wasm-kyber-erp-kyb3rerp/            # ERP Worker (kyber.etzhayyim.com, nanoid kyb3rerp)
 │   ├── magatama.jsonld                         # AI-Agent profile + triggers
 │   ├── wrangler.jsonc                          # CF Worker config
 │   ├── package.json
 │   ├── src/app.ts                              # single-file ERP business logic (24 XRPC commands)
 │   ├── svelte/                                 # Hono + Svelte read/write SPA
 │   └── e2e/                                    # Playwright visual tests
-└── ai-gftd-wasm-kyber-projector-kyb3proj/      # APQC/BPMN/OCEL projector (kyber-projector.gftd.ai)
+└── ai-gftd-wasm-kyber-projector-kyb3proj/      # APQC/BPMN/OCEL projector (kyber-projector.etzhayyim.com)
     ├── magatama.jsonld                         # 13 entities[] for path-based L1 DIDs
     ├── wrangler.jsonc
     ├── package.json
@@ -30,7 +30,7 @@
 | Key | ERP | Projector |
 |---|---|---|
 | **nanoid** | `kyb3rerp` | `kyb3proj` |
-| **AT bot DID** | `did:web:kyber.gftd.ai` | `did:web:kyber-projector.gftd.ai` |
+| **AT bot DID** | `did:web:kyber.etzhayyim.com` | `did:web:kyber-projector.etzhayyim.com` |
 | **Runtime** | TS Native (`src/app.ts` + `@gftd/magatama-host-sdk` → esbuild) | TS Native |
 | **Write path** | `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` | same + `ai.gftd.apps.apqc.apqcEvent` OCEL emit |
 | **Read path** | `createKyselyDb(env.HYPERDRIVE)` | Kysely + Hyperdrive |
@@ -41,7 +41,7 @@
 | Artifact | License |
 |---|---|
 | `CLAUDE.md`, `README.md`, `PROJECT.jsonld`, `ai-gftd-wasm-kyber-erp-kyb3rerp/**`, `ai-gftd-wasm-kyber-projector-kyb3proj/**` | Apache-2.0 |
-| Deployed `kyber.gftd.ai` + `kyber-projector.gftd.ai` tenant data, Signal keys, Hyperdrive creds | Proprietary (not in repo) |
+| Deployed `kyber.etzhayyim.com` + `kyber-projector.etzhayyim.com` (and legacy `*.etzhayyim.com`) tenant data, Signal keys, Hyperdrive creds | Proprietary (not in repo) |
 | `00-contracts/lexicons/ai/gftd/kyber/**`, `00-contracts/lexicons/ai/gftd/app/kyber/**` | Apache-2.0 (contract) |
 | `90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md` | Apache-2.0 (governance record) |
 
@@ -69,13 +69,13 @@ NSIDs use snake_case kind intentionally (deployed data compat). New records adde
 
 | DID | Role |
 |---|---|
-| `did:web:kyber.gftd.ai:dept:accounting` | Accounting writer |
-| `did:web:kyber.gftd.ai:dept:hr` | HR writer |
-| `did:web:kyber.gftd.ai:dept:procurement` | Procurement writer |
-| `did:web:kyber.gftd.ai:dept:inventory` | Inventory writer |
-| `did:web:kyber.gftd.ai:dept:sales` | Sales writer |
-| `did:web:kyber.gftd.ai:dept:asset` | Asset writer |
-| `did:web:kyber.gftd.ai:dept:governance` | Governance writer |
+| `did:web:kyber.etzhayyim.com:dept:accounting` | Accounting writer |
+| `did:web:kyber.etzhayyim.com:dept:hr` | HR writer |
+| `did:web:kyber.etzhayyim.com:dept:procurement` | Procurement writer |
+| `did:web:kyber.etzhayyim.com:dept:inventory` | Inventory writer |
+| `did:web:kyber.etzhayyim.com:dept:sales` | Sales writer |
+| `did:web:kyber.etzhayyim.com:dept:asset` | Asset writer |
+| `did:web:kyber.etzhayyim.com:dept:governance` | Governance writer |
 
 ## ERP XRPC Commands — 24 total
 

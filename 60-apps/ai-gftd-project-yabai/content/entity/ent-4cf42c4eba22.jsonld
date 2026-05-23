@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-4cf42c4eba22",
+  "entityId": "ent-4cf42c4eba22",
+  "canonicalName": "michael david mummert",
+  "aliases": [
+    "michael david mummert"
+  ]
+}

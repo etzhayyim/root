@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-33dca74bd99b",
+  "entityId": "ent-33dca74bd99b",
+  "canonicalName": "jose maria negrete luna",
+  "aliases": [
+    "jose maria negrete luna"
+  ]
+}

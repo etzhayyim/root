@@ -19,8 +19,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1',
-                 'did:web:open-logistics-lastmile.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
                  'open_logistics_lastmile_dispatch_leg',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_logistics_lastmile_dispatch_leg"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-logistics-lastmile"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-logistics-lastmile"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_logistics_lastmile_dispatch_leg" name="dispatchLeg" '
@@ -108,7 +108,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>\n'
+                 'source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openLogistics_lastmile.dispatch.customsPending&quot;" '
                  'target="action"/>\n'
@@ -223,7 +223,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>\n'
+                 'source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>\n'
                  '          <zeebe:input source="=&quot;openLogistics_lastmile.dispatch.leg&quot;" '
                  'target="action"/>\n'
                  '          <zeebe:input source="={\n'
@@ -246,7 +246,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>\n'
+                 'source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openLogistics_lastmile.dispatch.rejected&quot;" '
                  'target="action"/>\n'
@@ -277,10 +277,10 @@ UP = [{'sql': '\n'
                  10990,
                  '00-contracts/bpmn/ai/gftd/open-logistics-lastmile/dispatchLeg.bpmn',
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-logistics-lastmile.gftd.ai',
-                 'did:web:open-logistics-lastmile.gftd.ai',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -288,8 +288,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1',
-                 'did:web:open-logistics-lastmile.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
                  'open_logistics_lastmile_confirm_delivery',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -297,7 +297,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_logistics_lastmile_confirm_delivery"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-logistics-lastmile"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-logistics-lastmile"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="open_logistics_lastmile_confirm_delivery" '
@@ -442,7 +442,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>\n'
+                 'source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openLogistics_lastmile.delivery.claimOpened&quot;" '
                  'target="action"/>\n'
@@ -461,7 +461,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>\n'
+                 'source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openLogistics_lastmile.confirm.delivery&quot;" target="action"/>\n'
                  '          <zeebe:input source="={\n'
@@ -484,7 +484,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>\n'
+                 'source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openLogistics_lastmile.delivery.invalidProof&quot;" '
                  'target="action"/>\n'
@@ -510,10 +510,10 @@ UP = [{'sql': '\n'
                  9389,
                  '00-contracts/bpmn/ai/gftd/open-logistics-lastmile/confirmDelivery.bpmn',
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-logistics-lastmile.gftd.ai',
-                 'did:web:open-logistics-lastmile.gftd.ai',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -521,8 +521,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1',
-                 'did:web:open-machinery-maintenance.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
                  'open_machinery_maintenance_record_plan',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -530,7 +530,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_machinery_maintenance_record_plan"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-machinery-maintenance"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-machinery-maintenance"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_machinery_maintenance_record_plan" '
@@ -630,7 +630,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-machinery-maintenance.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-machinery-maintenance.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openMachineryMaintenance.plan.record&quot;" target="action"/>\n'
@@ -648,7 +648,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-machinery-maintenance.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-machinery-maintenance.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openMachineryMaintenance.plan.reject&quot;" target="action"/>\n'
@@ -673,10 +673,10 @@ UP = [{'sql': '\n'
                  6242,
                  '00-contracts/bpmn/ai/gftd/open-machinery-maintenance/recordMaintenancePlan.bpmn',
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-machinery-maintenance.gftd.ai',
-                 'did:web:open-machinery-maintenance.gftd.ai',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -684,8 +684,8 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1',
-                 'did:web:open-machinery-maintenance.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
                  'open_machinery_maintenance_flag_downtime',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -693,7 +693,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_open_machinery_maintenance_flag_downtime"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/open-machinery-maintenance"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/open-machinery-maintenance"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_machinery_maintenance_flag_downtime" '
@@ -792,7 +792,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-machinery-maintenance.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-machinery-maintenance.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openMachineryMaintenance.downtime.escalate&quot;" '
@@ -812,7 +812,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;did:web:open-machinery-maintenance.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-machinery-maintenance.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
                  'source="=&quot;openMachineryMaintenance.downtime.flag&quot;" target="action"/>\n'
@@ -834,10 +834,10 @@ UP = [{'sql': '\n'
                  6277,
                  '00-contracts/bpmn/ai/gftd/open-machinery-maintenance/flagDowntime.bpmn',
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-machinery-maintenance.gftd.ai',
-                 'did:web:open-machinery-maintenance.gftd.ai',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -845,15 +845,15 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1',
-                 'did:web:open-industrial-safety.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1',
+                 'did:web:open-industrial-safety.etzhayyim.com',
                  'open_industrial_safety_record_safety_assessment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_industrial_safety_record_safety_assessment" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-industrial-safety" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-industrial-safety" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_industrial_safety_record_safety_assessment" '
                  'name="recordSafetyAssessment" isExecutable="true">\n'
@@ -880,7 +880,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-industrial-safety.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-industrial-safety.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.industrialSafety.recordSafetyAssessment&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -897,10 +897,10 @@ UP = [{'sql': '\n'
                  2427,
                  '00-contracts/bpmn/ai/gftd/open-industrial-safety/recordSafetyAssessment.bpmn',
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-industrial-safety.gftd.ai',
-                 'did:web:open-industrial-safety.gftd.ai',
+                 'did:web:open-industrial-safety.etzhayyim.com',
+                 'did:web:open-industrial-safety.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -908,15 +908,15 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1',
-                 'did:web:open-industrial-safety.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1',
+                 'did:web:open-industrial-safety.etzhayyim.com',
                  'open_industrial_safety_flag_major_accident',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
                  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
                  'id="Definitions_open_industrial_safety_flag_major_accident" '
-                 'targetNamespace="https://gftd.ai/bpmn/open-industrial-safety" '
+                 'targetNamespace="https://etzhayyim.com/bpmn/open-industrial-safety" '
                  'exporter="hand-written" exporterVersion="1.0">\n'
                  '  <bpmn:process id="open_industrial_safety_flag_major_accident" '
                  'name="flagMajorAccident" isExecutable="true">\n'
@@ -947,7 +947,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Audit" name="audit">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping><zeebe:input '
-                 'source="=&quot;did:web:open-industrial-safety.gftd.ai&quot;" '
+                 'source="=&quot;did:web:open-industrial-safety.etzhayyim.com&quot;" '
                  'target="actor"/><zeebe:input '
                  'source="=&quot;open.industrialSafety.flagMajorAccident&quot;" '
                  'target="action"/><zeebe:input source="={vertexId: vertexId}" '
@@ -964,10 +964,10 @@ UP = [{'sql': '\n'
                  2653,
                  '00-contracts/bpmn/ai/gftd/open-industrial-safety/flagMajorAccident.bpmn',
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-industrial-safety.gftd.ai',
-                 'did:web:open-industrial-safety.gftd.ai',
+                 'did:web:open-industrial-safety.etzhayyim.com',
+                 'did:web:open-industrial-safety.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -975,16 +975,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1',
-                 'did:web:open-logistics-lastmile.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
                  'ai.gftd.apps.openLogisticsLastmile.dispatchLeg',
                  'open_logistics_lastmile_dispatch_leg',
                  30000,
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-logistics-lastmile.gftd.ai',
-                 'did:web:open-logistics-lastmile.gftd.ai',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -992,16 +992,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1',
-                 'did:web:open-logistics-lastmile.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
                  'ai.gftd.apps.openLogisticsLastmile.confirmDelivery',
                  'open_logistics_lastmile_confirm_delivery',
                  30000,
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-logistics-lastmile.gftd.ai',
-                 'did:web:open-logistics-lastmile.gftd.ai',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
+                 'did:web:open-logistics-lastmile.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1009,16 +1009,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1',
-                 'did:web:open-machinery-maintenance.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
                  'ai.gftd.apps.openMachineryMaintenance.recordMaintenancePlan',
                  'open_machinery_maintenance_record_plan',
                  30000,
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-machinery-maintenance.gftd.ai',
-                 'did:web:open-machinery-maintenance.gftd.ai',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1026,16 +1026,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1',
-                 'did:web:open-machinery-maintenance.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
                  'ai.gftd.apps.openMachineryMaintenance.flagDowntime',
                  'open_machinery_maintenance_flag_downtime',
                  30000,
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-machinery-maintenance.gftd.ai',
-                 'did:web:open-machinery-maintenance.gftd.ai',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
+                 'did:web:open-machinery-maintenance.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1043,16 +1043,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1',
-                 'did:web:open-industrial-safety.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1',
+                 'did:web:open-industrial-safety.etzhayyim.com',
                  'ai.gftd.apps.industrialSafety.recordSafetyAssessment',
                  'open_industrial_safety_record_safety_assessment',
                  30000,
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-industrial-safety.gftd.ai',
-                 'did:web:open-industrial-safety.gftd.ai',
+                 'did:web:open-industrial-safety.etzhayyim.com',
+                 'did:web:open-industrial-safety.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1060,41 +1060,41 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1',
-                 'did:web:open-industrial-safety.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1',
+                 'did:web:open-industrial-safety.etzhayyim.com',
                  'ai.gftd.apps.industrialSafety.flagMajorAccident',
                  'open_industrial_safety_flag_major_accident',
                  30000,
                  '2026-04-25T17:10:00Z',
-                 'did:web:open-industrial-safety.gftd.ai',
-                 'did:web:open-industrial-safety.gftd.ai',
+                 'did:web:open-industrial-safety.etzhayyim.com',
+                 'did:web:open-industrial-safety.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1']}]
 
 
 def upgrade() -> None:

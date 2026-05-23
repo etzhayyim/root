@@ -1,0 +1,281 @@
+{
+  "@context": [
+    "https://resources.etzhayyim.com/ontology/cs-cert/context.jsonld",
+    {
+      "sh": "http://www.w3.org/ns/shacl#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "gftd:CsCertificateShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:CsCertificate",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1,
+          "sh:pattern": "^gftd-cs-[a-z0-9]{8,}$"
+        },
+        {
+          "sh:path": "gftd:subjectDomain",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:pattern": "^[a-z0-9][a-z0-9.-]+\\.[a-z]{2,}$"
+        },
+        {
+          "sh:path": "gftd:subjectOrgName",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:certLevel",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "cs-basic",
+            "cs-standard",
+            "cs-advanced"
+          ]
+        },
+        {
+          "sh:path": "gftd:certStatus",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "active",
+            "expired",
+            "revoked",
+            "suspended"
+          ]
+        },
+        {
+          "sh:path": "gftd:issuedAt",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:expiresAt",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:assessmentId",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:overallScore",
+          "sh:datatype": "xsd:decimal",
+          "sh:minCount": 1,
+          "sh:minInclusive": 0,
+          "sh:maxInclusive": 100
+        },
+        {
+          "sh:path": "gftd:verificationUrl",
+          "sh:datatype": "xsd:anyURI",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:CsAssessmentShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:CsAssessment",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "gftd:subjectDomain",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:certLevel",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "cs-basic",
+            "cs-standard",
+            "cs-advanced"
+          ]
+        },
+        {
+          "sh:path": "schema:actionStatus",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "requested",
+            "in-progress",
+            "completed",
+            "failed"
+          ]
+        },
+        {
+          "sh:path": "gftd:assessorId",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:checksCompleted",
+          "sh:datatype": "xsd:integer",
+          "sh:minCount": 0
+        },
+        {
+          "sh:path": "gftd:checksFailed",
+          "sh:datatype": "xsd:integer",
+          "sh:minCount": 0
+        },
+        {
+          "sh:path": "gftd:overallScore",
+          "sh:datatype": "xsd:decimal",
+          "sh:minInclusive": 0,
+          "sh:maxInclusive": 100
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:CsFindingShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:CsFinding",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "gftd:assessmentId",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "schema:name",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "schema:description",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "gftd:findingSeverity",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "critical",
+            "high",
+            "medium",
+            "low",
+            "informational"
+          ]
+        },
+        {
+          "sh:path": "gftd:findingCategory",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "injection",
+            "broken-auth",
+            "sensitive-data",
+            "xxe",
+            "broken-access",
+            "misconfiguration",
+            "xss",
+            "deserialization",
+            "components",
+            "logging",
+            "ssrf",
+            "cryptographic-failure",
+            "ssl-tls",
+            "header-security",
+            "dns-security"
+          ]
+        },
+        {
+          "sh:path": "gftd:findingStatus",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "open",
+            "remediated",
+            "accepted",
+            "false-positive"
+          ]
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    },
+    {
+      "@id": "gftd:CsBadgeShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "gftd:CsBadge",
+      "sh:property": [
+        {
+          "sh:path": "schema:identifier",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:maxCount": 1
+        },
+        {
+          "sh:path": "gftd:certLevel",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "cs-basic",
+            "cs-standard",
+            "cs-advanced"
+          ]
+        },
+        {
+          "sh:path": "gftd:badgeFormat",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:in": [
+            "svg",
+            "png",
+            "js-widget"
+          ]
+        },
+        {
+          "sh:path": "gftd:badgeColor",
+          "sh:datatype": "xsd:string",
+          "sh:minCount": 1,
+          "sh:pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        {
+          "sh:path": "gftd:verificationUrl",
+          "sh:datatype": "xsd:anyURI",
+          "sh:minCount": 1
+        },
+        {
+          "sh:path": "prov:generatedAtTime",
+          "sh:datatype": "xsd:dateTime",
+          "sh:minCount": 1
+        }
+      ]
+    }
+  ]
+}

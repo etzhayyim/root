@@ -3,6 +3,11 @@
 
 The default adapter mode is mock. Real government connectors require separate
 approval, credentials, private specifications, and security review.
+
+TODO(substrate-boundary): replace RW writes (psycopg execute INSERT/UPDATE)
+with AT Protocol MST writes via @etzhayyim/sdk per ADR-2605172000.
+Collection: 'ai.gftd.apps.openJpnMynumber.personRef', rkey=person_id_hash.
+Remove RW_URL env dependency when migration complete.
 """
 
 from __future__ import annotations
@@ -702,6 +707,7 @@ def main() -> int:
     if args.init_db:
         init_db()
     if args.dry_run:
+# CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
         print(json.dumps({"ok": True, "db": "kysely-risingwave", "url_env": "RW_URL|DATABASE_URL"}, ensure_ascii=False))
         return 0
     if args.command == "serve":

@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "ai.etzhayyim.yorishiro.argparse-sub.inspect",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Print metadata only.",
+      "x-yorishiro-external": true,
+      "x-yorishiro-kami": "bin:argparse-sub",
+      "x-yorishiro-transport": "binary-cli",
+      "x-yorishiro-binary": {
+        "binary": "argparse-sub",
+        "argv": [
+          {
+            "kind": "flag",
+            "name": "verbose",
+            "flag": "--verbose",
+            "type": "boolean",
+            "description": "Enable verbose logging across all subcommands."
+          },
+          {
+            "kind": "flag",
+            "name": "config",
+            "flag": "--config",
+            "type": "string",
+            "default": "/etc/sub.conf",
+            "description": "Path to config file."
+          },
+          {
+            "kind": "positional",
+            "name": "input_path",
+            "position": 0,
+            "required": true,
+            "type": "string",
+            "description": "Source path."
+          }
+        ],
+        "stdout_capture": true,
+        "stderr_capture": true,
+        "exit_code_ok": [
+          0
+        ],
+        "timeout_seconds": 300
+      },
+      "x-charter-purpose": [
+        "grant"
+      ],
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "input_path"
+          ],
+          "properties": {
+            "verbose": {
+              "type": "boolean",
+              "description": "Enable verbose logging across all subcommands."
+            },
+            "config": {
+              "type": "string",
+              "description": "Path to config file.",
+              "default": "/etc/sub.conf"
+            },
+            "input_path": {
+              "type": "string",
+              "description": "Source path."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "exitCode"
+          ],
+          "properties": {
+            "exitCode": {
+              "type": "integer",
+              "description": "Exit code of the binary."
+            },
+            "stdout": {
+              "type": "string",
+              "description": "Captured stdout (UTF-8 best-effort)."
+            },
+            "stderr": {
+              "type": "string",
+              "description": "Captured stderr (UTF-8 best-effort)."
+            },
+            "error": {
+              "type": "string",
+              "description": "Set when the binary could not be launched at all."
+            }
+          }
+        }
+      }
+    }
+  }
+}

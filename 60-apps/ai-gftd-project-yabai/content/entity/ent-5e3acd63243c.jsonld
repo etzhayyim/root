@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-5e3acd63243c",
+  "entityId": "ent-5e3acd63243c",
+  "canonicalName": "prince seashore no. 1 co. ltd.",
+  "aliases": [
+    "prince seashore no. 1 co. ltd."
+  ]
+}

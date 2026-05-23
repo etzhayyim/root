@@ -1,0 +1,109 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:intel.etzhayyim.com",
+  "component": {
+    "path": "component.wasm"
+  },
+  "convoSystemPrompt": "You are intel agent. Intel — AI Agent for multi-INT fusion intelligence analysis (30 INT disciplines). Respond helpfully in the users language.",
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "internal",
+    "complianceFrameworks": [
+      "intel-policy"
+    ]
+  },
+  "interfaces": {
+    "package": "gftd:intel@0.1.0"
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "intel",
+  "nanoid": "i7n73l0x",
+  "performerType": "service",
+  "pool": {},
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "multi-int-fusion",
+      "entity-intelligence"
+    ],
+    "description": "Intel — AI Agent for multi-INT fusion intelligence analysis (30 INT disciplines)",
+    "displayName": "Intel",
+    "isBot": true,
+    "operator": "gftd.co.jp"
+  },
+  "project": "intel",
+  "runtimeType": "worker",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "i7n73l0x-feed"
+      }
+    ],
+    "joinRule": "public",
+    "name": "Intel"
+  },
+  "triggers": {
+    "http": {
+      "listen": "0.0.0.0:8080",
+      "routes": [
+        "/api/grpc/gftd.intel.v1.IntelService/...",
+        "/health",
+        "/healthz",
+        "/readyz",
+        "/..."
+      ],
+      "spa": true,
+      "staticDir": "/wasm/svelte/dist"
+    },
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.intel.report",
+        "ai.gftd.apps.intel.source",
+        "ai.gftd.apps.intel.indicator",
+        "ai.gftd.apps.intel.feedObservation",
+        "ai.gftd.apps.intel.peerObservation",
+        "ai.gftd.apps.intel.engagementEvent",
+        "ai.gftd.apps.intel.entityDid",
+        "ai.gftd.apps.intel.inferredCohort",
+        "ai.gftd.apps.intel.inferenceChain",
+        "ai.gftd.apps.intel.inferenceEvidence",
+        "ai.gftd.apps.handotai.article",
+        "ai.gftd.apps.handotai.company",
+        "ai.gftd.apps.handotai.product",
+        "ai.gftd.apps.kuruma.article",
+        "ai.gftd.apps.kuruma.company",
+        "ai.gftd.apps.kuruma.product",
+        "ai.gftd.apps.malak.threatActor",
+        "ai.gftd.apps.malak.intelReport",
+        "ai.gftd.apps.malak.osintFinding",
+        "ai.gftd.apps.malak.emailMessage",
+        "ai.gftd.apps.yabai.entity",
+        "ai.gftd.apps.yabai.alert",
+        "ai.gftd.apps.yabai.risk",
+        "ai.gftd.apps.ctUmonitor.ct_alert",
+        "ai.gftd.apps.ctUmonitor.bgp_alert",
+        "ai.gftd.apps.ctUmonitor.kev_entry",
+        "ai.gftd.apps.ipaddress.ipAddress",
+        "ai.gftd.apps.ipaddress.ipAnalysis",
+        "ai.gftd.apps.naturalPerson.cohortPerson",
+        "ai.gftd.apps.naturalPerson.identifiedPerson"
+      ]
+    }
+  },
+  "uiType": "appview",
+  "yata": {
+    "dataDir": "/data/yata",
+    "graphUri": "/data/graph"
+  }
+}

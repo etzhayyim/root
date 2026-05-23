@@ -1,166 +1,183 @@
 /**
- * koke rw-free — fixation tier (slice 1, 4/4 canonical complete).
+ * koke rw-free — carbon credit management (4/4 canonical complete).
  *
- *   fixSignal       — primary fixation (rkey=fixation-{fixationId-slug})
- *   getFixation     — rkey-direct read
- *   listFixations   — cursor + inputKind/agentDid/released filter
- *   releaseCarbon   — mark fixation as released (state transition)
- *
- * Closes koke at canonical 4/4 in one slice (same pattern as ki).
+ *   registerCarbon  — create batch (rkey=batch-{batchId-slug}, idempotent)
+ *   releaseCarbon   — create release from batch (rkey=release-{releaseId-slug}, idempotent)
+ *   recordOffset    — create offset from release (rkey=offset-{offsetId-slug}, idempotent)
+ *   listOffsets     — cursor + project filter
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";
 import {
-  fixationDid,
-  fixationRkey,
-  type FixationRecord,
-  type FixationView,
-  type FixSignalInput,
-  type FixSignalOutput,
-  type GetFixationInput,
-  type GetFixationOutput,
-  type ListFixationsInput,
-  type ListFixationsOutput,
+  batchRkey,
+  releaseRkey,
+  offsetRkey,
+  type CarbonBatchRecord,
+  type ReleaseRecord,
+  type OffsetRecord,
+  type RegisterCarbonInput,
+  type RegisterCarbonOutput,
   type ReleaseCarbonInput,
   type ReleaseCarbonOutput,
+  type RecordOffsetInput,
+  type RecordOffsetOutput,
+  type ListOffsetsInput,
+  type ListOffsetsOutput,
 } from "./types.js";
 
-const FIXATION_COLLECTION = "ai.gftd.koke.fixation";
+const BATCH_COLLECTION = "ai.gftd.koke.batch";
+const RELEASE_COLLECTION = "ai.gftd.koke.release";
+const OFFSET_COLLECTION = "ai.gftd.koke.offset";
 
-export async function fixSignal(
+export async function registerCarbon(
   e: Etzhayyim,
-  input: FixSignalInput
-): Promise<FixSignalOutput> {
-  if (!input.fixationId || !input.inputKind || !input.rawRef || !input.signalHash) {
+  input: RegisterCarbonInput
+): Promise<RegisterCarbonOutput> {
+  // Validation: missing required fields
+  if (!input.batchId || !input.totalCredits || !input.vintage || !input.methodology) {
     return { status: "rejected", error: "missingRequiredFields" };
   }
-  if (!/^[a-f0-9]{64}$/i.test(input.signalHash)) {
-    return { status: "rejected", error: "invalidSignalHash" };
-  }
-  const rkey = fixationRkey(input.fixationId);
+
+  const rkey = batchRkey(input.batchId);
+
+  // Idempotency check
   const existing = await e
-    .read<FixationRecord>({ collection: FIXATION_COLLECTION, rkey })
+    .read<CarbonBatchRecord>({ collection: BATCH_COLLECTION, rkey })
     .catch(() => ({ records: [] }));
+
   if (existing.records[0]?.value) {
     return {
       status: "alreadyExists",
-      fixationUri: existing.records[0].uri,
-      signalHash: existing.records[0].value.signalHash,
-      fixationId: input.fixationId,
+      batchUri: existing.records[0].uri,
     };
   }
-  const did = fixationDid(input.fixationId);
+
   const now = new Date().toISOString();
-  const record: FixationRecord = {
-    did,
-    fixationId: input.fixationId,
-    inputKind: input.inputKind,
-    rawRef: input.rawRef,
-    signalHash: input.signalHash.toLowerCase(),
-    released: false,
-    agentDid: input.agentDid,
-    fixedAt: now,
+  const record: CarbonBatchRecord = {
+    batchId: input.batchId,
+    totalCredits: input.totalCredits,
+    vintage: input.vintage,
+    methodology: input.methodology,
     createdAt: now,
   };
+
   const receipt = await e.write({
-    collection: FIXATION_COLLECTION,
+    collection: BATCH_COLLECTION,
     record: record as unknown as Record<string, unknown>,
     rkey,
   });
+
   return {
-    status: "fixed",
-    fixationUri: receipt.uri,
-    vertexId: did,
-    signalHash: input.signalHash.toLowerCase(),
-    fixationId: input.fixationId,
+    status: "created",
+    batchUri: receipt.uri,
   };
-}
-
-export async function getFixation(
-  e: Etzhayyim,
-  input: GetFixationInput
-): Promise<GetFixationOutput> {
-  if (!input.fixationId) return { error: "missingFixationId" };
-  const resp = await e
-    .read<FixationRecord>({
-      collection: FIXATION_COLLECTION,
-      rkey: fixationRkey(input.fixationId),
-    })
-    .catch(() => ({ records: [] }));
-  const r = resp.records[0];
-  if (!r) return { error: "notFound" };
-  const view: FixationView = {
-    ...r.value,
-    fixationUri: r.uri,
-    vertexId: r.value.did,
-  };
-  return { fixation: view };
-}
-
-export async function listFixations(
-  e: Etzhayyim,
-  input: ListFixationsInput = {}
-): Promise<ListFixationsOutput> {
-  const limit = Math.min(input.limit ?? 50, 100);
-  const resp = await e.read<FixationRecord>({
-    collection: FIXATION_COLLECTION,
-    cursor: input.cursor,
-    limit,
-  });
-  const items: FixationView[] = resp.records
-    .filter((r) => {
-      const v = r.value;
-      if (input.inputKind && v.inputKind !== input.inputKind) return false;
-      if (input.agentDid && v.agentDid !== input.agentDid) return false;
-      if (typeof input.released === "boolean" && v.released !== input.released) {
-        return false;
-      }
-      return true;
-    })
-    .map((r) => ({
-      ...r.value,
-      fixationUri: r.uri,
-      vertexId: r.value.did,
-    }));
-  return { items, cursor: resp.cursor, total: items.length };
 }
 
 export async function releaseCarbon(
   e: Etzhayyim,
   input: ReleaseCarbonInput
 ): Promise<ReleaseCarbonOutput> {
-  if (!input.fixationId) {
-    return { status: "rejected", error: "missingFixationId" };
+  // Validation: missing required fields (before checking idempotency)
+  if (!input.releaseId || !input.batchId || !input.releasedCredits) {
+    return { status: "rejected", error: "missingRequiredFields" };
   }
-  const rkey = fixationRkey(input.fixationId);
-  const resp = await e
-    .read<FixationRecord>({ collection: FIXATION_COLLECTION, rkey })
+
+  const rkey = releaseRkey(input.releaseId);
+
+  // Idempotency check
+  const existing = await e
+    .read<ReleaseRecord>({ collection: RELEASE_COLLECTION, rkey })
     .catch(() => ({ records: [] }));
-  const existing = resp.records[0]?.value;
-  if (!existing) return { status: "fixationNotFound" };
-  if (existing.released) {
+
+  if (existing.records[0]?.value) {
     return {
       status: "alreadyReleased",
-      fixationUri: resp.records[0].uri,
-      fixationId: input.fixationId,
-      releasedAt: existing.releasedAt,
+      releaseUri: existing.records[0].uri,
     };
   }
+
   const now = new Date().toISOString();
-  const merged: FixationRecord = {
-    ...existing,
-    released: true,
-    releasedAt: now,
+  const record: ReleaseRecord = {
+    releaseId: input.releaseId,
+    batchId: input.batchId,
+    releasedCredits: input.releasedCredits,
+    createdAt: now,
   };
+
   const receipt = await e.write({
-    collection: FIXATION_COLLECTION,
-    record: merged as unknown as Record<string, unknown>,
+    collection: RELEASE_COLLECTION,
+    record: record as unknown as Record<string, unknown>,
     rkey,
   });
+
   return {
     status: "released",
-    fixationUri: receipt.uri,
-    fixationId: input.fixationId,
-    releasedAt: now,
+    releaseUri: receipt.uri,
   };
+}
+
+export async function recordOffset(
+  e: Etzhayyim,
+  input: RecordOffsetInput
+): Promise<RecordOffsetOutput> {
+  // Validation: missing required fields (before checking idempotency)
+  if (!input.offsetId || !input.releaseId || !input.offsetCredits || !input.project) {
+    return { status: "rejected", error: "missingRequiredFields" };
+  }
+
+  const rkey = offsetRkey(input.offsetId);
+
+  // Idempotency check
+  const existing = await e
+    .read<OffsetRecord>({ collection: OFFSET_COLLECTION, rkey })
+    .catch(() => ({ records: [] }));
+
+  if (existing.records[0]?.value) {
+    return {
+      status: "alreadyRecorded",
+      offsetUri: existing.records[0].uri,
+    };
+  }
+
+  const now = new Date().toISOString();
+  const record: OffsetRecord = {
+    offsetId: input.offsetId,
+    releaseId: input.releaseId,
+    offsetCredits: input.offsetCredits,
+    project: input.project,
+    createdAt: now,
+  };
+
+  const receipt = await e.write({
+    collection: OFFSET_COLLECTION,
+    record: record as unknown as Record<string, unknown>,
+    rkey,
+  });
+
+  return {
+    status: "recorded",
+    offsetUri: receipt.uri,
+  };
+}
+
+export async function listOffsets(
+  e: Etzhayyim,
+  input: ListOffsetsInput = {}
+): Promise<ListOffsetsOutput> {
+  const limit = Math.min(input.limit ?? 50, 100);
+  const resp = await e.read<OffsetRecord>({
+    collection: OFFSET_COLLECTION,
+    cursor: input.cursor,
+    limit,
+  });
+
+  const items: OffsetRecord[] = resp.records
+    .filter((r) => {
+      const v = r.value;
+      if (input.project && v.project !== input.project) return false;
+      return true;
+    })
+    .map((r) => r.value);
+
+  return { items, cursor: resp.cursor };
 }

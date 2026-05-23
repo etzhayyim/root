@@ -1,0 +1,166 @@
+{
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:malak.etzhayyim.com",
+  "build": {
+    "guestLanguage": "go"
+  },
+  "component": {
+    "path": "component.wasm"
+  },
+  "contentLabels": {
+    "accessControl": {
+      "requireAuth": true,
+      "requireClearance": "confidential",
+      "required": true
+    },
+    "defaultLabels": [
+      "crime-intelligence",
+      "law-enforcement",
+      "restricted"
+    ],
+    "sensitiveContent": true
+  },
+  "convoSystemPrompt": "You are malak agent. Malak — AI Agent for cybercrime intelligence, threat actor tracking, and law enforcement coordination. Respond helpfully in the users language.",
+  "deploy": {},
+  "duties": [
+    "勤労の義務"
+  ],
+  "governance": {
+    "raci": "responsible",
+    "classification": "confidential",
+    "complianceFrameworks": [
+      "budapest-convention"
+    ]
+  },
+  "interfaces": {
+    "package": "gftd:malak@1.0.0",
+    "requires": [
+      "gftd:collection/collection@1.0.0"
+    ]
+  },
+  "kpi": [
+    "credits の獲得"
+  ],
+  "name": "malak",
+  "nanoid": "m4l4k001",
+  "performerType": "service",
+  "profile": {
+    "agentType": "autonomous",
+    "capabilities": [
+      "cybercrime-intelligence",
+      "threat-analysis"
+    ],
+    "description": "Malak — AI Agent for cybercrime intelligence, threat actor tracking, and law enforcement coordination",
+    "displayName": "Malak",
+    "isBot": true,
+    "operator": "gftd.co.jp",
+    "sensitivity": "confidential"
+  },
+  "project": "malak",
+  "routes": [
+    {
+      "host": "malak.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    },
+    {
+      "host": "m4l4k001.etzhayyim.com",
+      "paths": [
+        "/"
+      ],
+      "tls": true
+    }
+  ],
+  "runtimeType": "worker",
+  "sensitivity": "confidential",
+  "source": "custom",
+  "space": {
+    "channels": [
+      {
+        "default": true,
+        "kind": "public",
+        "name": "Threat Intel"
+      },
+      {
+        "kind": "public",
+        "name": "OSINT Feed"
+      },
+      {
+        "kind": "public",
+        "name": "Tips"
+      },
+      {
+        "kind": "private",
+        "name": "Active Investigations"
+      },
+      {
+        "kind": "private",
+        "name": "Law Enforcement"
+      },
+      {
+        "kind": "private",
+        "name": "Agency Coordination"
+      }
+    ],
+    "historyVisibility": "shared",
+    "joinRule": "invite",
+    "name": "Malak — Cybercrime Intelligence"
+  },
+  "triggers": {
+    "subscribeRepos": {
+      "collections": [
+        "app.bsky.feed.post",
+        "app.bsky.feed.like",
+        "app.bsky.feed.repost",
+        "app.bsky.graph.follow",
+        "ai.gftd.apps.malak.threatActor",
+        "ai.gftd.apps.malak.walletAddress",
+        "ai.gftd.apps.malak.intelReport",
+        "ai.gftd.apps.malak.cyberCrimeCase",
+        "ai.gftd.apps.malak.interpolNotice",
+        "ai.gftd.apps.malak.agencyReferral",
+        "ai.gftd.apps.malak.osintFinding",
+        "ai.gftd.apps.malak.sanctionEntry",
+        "ai.gftd.apps.malak.freezeEscalation",
+        "ai.gftd.apps.malak.incidentLink",
+        "ai.gftd.apps.malak.threatOrganization",
+        "ai.gftd.apps.malak.emailMessage",
+        "ai.gftd.apps.malak.actorAlias",
+        "ai.gftd.apps.malak.actorInfrastructure",
+        "ai.gftd.apps.malak.accessLog",
+        "ai.gftd.apps.malak.monitoredEntity",
+        "ai.gftd.apps.malak.entityAnalysis",
+        "ai.gftd.apps.malak.entityCorrelation",
+        "ai.gftd.apps.collector.blockchainActor",
+        "ai.gftd.apps.collector.riskSignal",
+        "ai.gftd.apps.yabai.entity",
+        "ai.gftd.apps.yabai.alert",
+        "ai.gftd.apps.ipaddress.ipAddress",
+        "ai.gftd.apps.ipaddress.ipAnalysis",
+        "ai.gftd.apps.sanctions.entry",
+        "ai.gftd.apps.sanctions.match",
+        "ai.gftd.apps.onion.page",
+        "ai.gftd.apps.onion.crawl",
+        "ai.gftd.apps.onion.site",
+        "ai.gftd.apqc.interpol.intelligence.sharing",
+        "ai.gftd.apqc.defense.c2isr",
+        "ai.gftd.apps.gmail.phishingAlert",
+        "ai.gftd.apps.malak.dailyEvolution",
+        "ai.gftd.apps.malak.engagement",
+        "ai.gftd.apps.malak.newFollower"
+      ]
+    }
+  },
+  "ui": {
+    "accent": "#1e3a5f",
+    "icon": "🕵️",
+    "ssrRoutes": {
+      "apps": "gftd.malak.v1.MalakService/malak.tools",
+      "live": "gftd.malak.v1.MalakService/malak.dashboard"
+    }
+  },
+  "uiType": "appview",
+  "version": "0.4.0"
+}

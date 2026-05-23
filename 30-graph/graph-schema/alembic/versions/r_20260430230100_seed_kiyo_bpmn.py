@@ -27,24 +27,24 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-submit-paper-v1',
-                 'did:web:kiyo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-submit-paper-v1',
+                 'did:web:kiyo.etzhayyim.com',
                  'kiyo_submit_paper',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  XRPC-triggered: ai.gftd.apps.kiyo.submitPaper\n'
                  '  Flow: validateAuthor → pinToIpfs → insertPaper → announceSubmission\n'
-                 '  Storage: ipfs.gftd.ai (CIDv1, content-addressed)\n'
+                 '  Storage: ipfs.etzhayyim.com (CIDv1, content-addressed)\n'
                  '\n'
                  '  NSID: ai.gftd.apps.kiyo.submitPaper\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-submit-paper-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-submit-paper-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_kiyo_submit_paper"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/kiyo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/kiyo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="kiyo_submit_paper" name="kiyo submit paper" '
@@ -77,13 +77,13 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_AfterValidate" sourceRef="Task_ValidateAuthor" '
                  'targetRef="Task_PinToIpfs"/>\n'
                  '\n'
-                 '    <!-- 2. Pin PDF to ipfs.gftd.ai -->\n'
-                 '    <bpmn:serviceTask id="Task_PinToIpfs" name="pin PDF to ipfs.gftd.ai">\n'
+                 '    <!-- 2. Pin PDF to ipfs.etzhayyim.com -->\n'
+                 '    <bpmn:serviceTask id="Task_PinToIpfs" name="pin PDF to ipfs.etzhayyim.com">\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.http.fetch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;https://ip5s7b2x.gftd.ai/xrpc/gftd.ipfs.v1.IpfsCommandService/Publish&quot;" '
+                 'source="=&quot;https://ip5s7b2x.etzhayyim.com/xrpc/gftd.ipfs.v1.IpfsCommandService/Publish&quot;" '
                  'target="url"/>\n'
                  '          <zeebe:input source="=&quot;POST&quot;"               '
                  'target="method"/>\n'
@@ -133,7 +133,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="type"/>\n'
                  '          <zeebe:input source="=ownerDid"                       target="did"/>\n'
                  '          <zeebe:input source="=&quot;📄 New preprint: &quot; + title + &quot; — '
-                 'kiyo:&quot; + paperId + &quot; https://kiyo.gftd.ai/paper/&quot; + paperId" '
+                 'kiyo:&quot; + paperId + &quot; https://kiyo.etzhayyim.com/paper/&quot; + paperId" '
                  'target="text"/>\n'
                  '        </zeebe:ioMapping>\n'
                  '      </bpmn:extensionElements>\n'
@@ -148,11 +148,11 @@ UP = [{'sql': '\n'
                  5030,
                  '00-contracts/bpmn/ai/gftd/kiyo/submitPaper.bpmn',
                  '2026-04-30T23:01:00+09:00',
-                 'did:web:kiyo.gftd.ai',
-                 'did:web:kiyo.gftd.ai',
+                 'did:web:kiyo.etzhayyim.com',
+                 'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo',
-                 'did:web:kiyo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-submit-paper-v1']},
+                 'did:web:kiyo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-submit-paper-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -167,18 +167,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-submit-paper-v1',
-                 'did:web:kiyo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-submit-paper-v1',
+                 'did:web:kiyo.etzhayyim.com',
                  'ai.gftd.apps.kiyo.submitPaper',
                  'kiyo_submit_paper',
                  60000,
                  'vertex_kiyo_paper,vertex_kiyo_revision,edge_kiyo_authored_by',
                  '2026-04-30T23:01:00+09:00',
-                 'did:web:kiyo.gftd.ai',
-                 'did:web:kiyo.gftd.ai',
+                 'did:web:kiyo.etzhayyim.com',
+                 'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo',
-                 'did:web:kiyo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-submit-paper-v1']},
+                 'did:web:kiyo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-submit-paper-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -194,8 +194,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-submit-revision-v1',
-                 'did:web:kiyo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-submit-revision-v1',
+                 'did:web:kiyo.etzhayyim.com',
                  'kiyo_submit_revision',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -207,7 +207,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_kiyo_submit_revision"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/kiyo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/kiyo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="kiyo_submit_revision" name="kiyo submit revision" '
@@ -240,12 +240,12 @@ UP = [{'sql': '\n'
                  'targetRef="Task_PinRevision"/>\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_PinRevision" name="pin new version to '
-                 'ipfs.gftd.ai">\n'
+                 'ipfs.etzhayyim.com">\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.http.fetch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;https://ip5s7b2x.gftd.ai/xrpc/gftd.ipfs.v1.IpfsCommandService/Publish&quot;" '
+                 'source="=&quot;https://ip5s7b2x.etzhayyim.com/xrpc/gftd.ipfs.v1.IpfsCommandService/Publish&quot;" '
                  'target="url"/>\n'
                  '          <zeebe:input source="=&quot;POST&quot;"             target="method"/>\n'
                  '          <zeebe:input source="=&quot;application/json&quot;" '
@@ -286,11 +286,11 @@ UP = [{'sql': '\n'
                  3589,
                  '00-contracts/bpmn/ai/gftd/kiyo/submitRevision.bpmn',
                  '2026-04-30T23:01:00+09:00',
-                 'did:web:kiyo.gftd.ai',
-                 'did:web:kiyo.gftd.ai',
+                 'did:web:kiyo.etzhayyim.com',
+                 'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo',
-                 'did:web:kiyo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-submit-revision-v1']},
+                 'did:web:kiyo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-submit-revision-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -305,18 +305,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-submit-revision-v1',
-                 'did:web:kiyo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-submit-revision-v1',
+                 'did:web:kiyo.etzhayyim.com',
                  'ai.gftd.apps.kiyo.submitRevision',
                  'kiyo_submit_revision',
                  60000,
                  'vertex_kiyo_revision,vertex_kiyo_paper',
                  '2026-04-30T23:01:00+09:00',
-                 'did:web:kiyo.gftd.ai',
-                 'did:web:kiyo.gftd.ai',
+                 'did:web:kiyo.etzhayyim.com',
+                 'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo',
-                 'did:web:kiyo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-submit-revision-v1']},
+                 'did:web:kiyo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-submit-revision-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -332,8 +332,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-citation-sync-v1',
-                 'did:web:kiyo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-citation-sync-v1',
+                 'did:web:kiyo.etzhayyim.com',
                  'kiyo_citation_sync',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -345,7 +345,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_kiyo_citation_sync"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/kiyo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/kiyo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="kiyo_citation_sync" name="kiyo citation sync" '
@@ -426,11 +426,11 @@ UP = [{'sql': '\n'
                  3705,
                  '00-contracts/bpmn/ai/gftd/kiyo/citationSync.bpmn',
                  '2026-04-30T23:01:00+09:00',
-                 'did:web:kiyo.gftd.ai',
-                 'did:web:kiyo.gftd.ai',
+                 'did:web:kiyo.etzhayyim.com',
+                 'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo',
-                 'did:web:kiyo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-citation-sync-v1']},
+                 'did:web:kiyo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-citation-sync-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -445,18 +445,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-citation-sync-v1',
-                 'did:web:kiyo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-citation-sync-v1',
+                 'did:web:kiyo.etzhayyim.com',
                  'ai.gftd.apps.kiyo.citationSync',
                  'kiyo_citation_sync',
                  300000,
                  'edge_kiyo_cites',
                  '2026-04-30T23:01:00+09:00',
-                 'did:web:kiyo.gftd.ai',
-                 'did:web:kiyo.gftd.ai',
+                 'did:web:kiyo.etzhayyim.com',
+                 'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo',
-                 'did:web:kiyo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-citation-sync-v1']},
+                 'did:web:kiyo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-citation-sync-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -472,8 +472,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-embedding-index-v1',
-                 'did:web:kiyo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-embedding-index-v1',
+                 'did:web:kiyo.etzhayyim.com',
                  'kiyo_embedding_index',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -485,7 +485,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_kiyo_embedding_index"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/kiyo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/kiyo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="kiyo_embedding_index" name="kiyo embedding index" '
@@ -565,11 +565,11 @@ UP = [{'sql': '\n'
                  3577,
                  '00-contracts/bpmn/ai/gftd/kiyo/embeddingIndex.bpmn',
                  '2026-04-30T23:01:00+09:00',
-                 'did:web:kiyo.gftd.ai',
-                 'did:web:kiyo.gftd.ai',
+                 'did:web:kiyo.etzhayyim.com',
+                 'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo',
-                 'did:web:kiyo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-embedding-index-v1']},
+                 'did:web:kiyo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-embedding-index-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -584,18 +584,18 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-embedding-index-v1',
-                 'did:web:kiyo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-embedding-index-v1',
+                 'did:web:kiyo.etzhayyim.com',
                  'ai.gftd.apps.kiyo.embeddingIndex',
                  'kiyo_embedding_index',
                  180000,
                  'vertex_kiyo_paper',
                  '2026-04-30T23:01:00+09:00',
-                 'did:web:kiyo.gftd.ai',
-                 'did:web:kiyo.gftd.ai',
+                 'did:web:kiyo.etzhayyim.com',
+                 'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo',
-                 'did:web:kiyo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-embedding-index-v1']},
+                 'did:web:kiyo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-embedding-index-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -611,8 +611,8 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-weekly-digest-v1',
-                 'did:web:kiyo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-weekly-digest-v1',
+                 'did:web:kiyo.etzhayyim.com',
                  'kiyo_weekly_digest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -623,7 +623,7 @@ UP = [{'sql': '\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    id="Definitions_kiyo_weekly_digest"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/kiyo"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/kiyo"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="kiyo_weekly_digest" name="kiyo weekly digest" '
@@ -672,7 +672,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.llm.json"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;You are the editorial bot for kiyo.gftd.ai '
+                 '          <zeebe:input source="=&quot;You are the editorial bot for kiyo.etzhayyim.com '
                  '(紀要), a self-hosted research archive. Summarize the top papers of the week in '
                  '280 characters or less (Japanese or English). Include paper IDs.&quot;" '
                  'target="systemPrompt"/>\n'
@@ -695,7 +695,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;app.bsky.feed.post&quot;"     '
                  'target="type"/>\n'
-                 '          <zeebe:input source="=&quot;did:web:kiyo.gftd.ai&quot;"  '
+                 '          <zeebe:input source="=&quot;did:web:kiyo.etzhayyim.com&quot;"  '
                  'target="did"/>\n'
                  '          <zeebe:input source="=&quot;📚 kiyo weekly digest\\n&quot; + '
                  'digestText" target="text"/>\n'
@@ -712,11 +712,11 @@ UP = [{'sql': '\n'
                  4033,
                  '00-contracts/bpmn/ai/gftd/kiyo/weeklyDigest.bpmn',
                  '2026-04-30T23:01:00+09:00',
-                 'did:web:kiyo.gftd.ai',
-                 'did:web:kiyo.gftd.ai',
+                 'did:web:kiyo.etzhayyim.com',
+                 'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo',
-                 'did:web:kiyo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-weekly-digest-v1']},
+                 'did:web:kiyo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-weekly-digest-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -731,39 +731,39 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-weekly-digest-v1',
-                 'did:web:kiyo.gftd.ai',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-weekly-digest-v1',
+                 'did:web:kiyo.etzhayyim.com',
                  'ai.gftd.apps.kiyo.weeklyDigest',
                  'kiyo_weekly_digest',
                  60000,
                  '',
                  '2026-04-30T23:01:00+09:00',
-                 'did:web:kiyo.gftd.ai',
-                 'did:web:kiyo.gftd.ai',
+                 'did:web:kiyo.etzhayyim.com',
+                 'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo',
-                 'did:web:kiyo.gftd.ai',
-                 'at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-weekly-digest-v1']}]
+                 'did:web:kiyo.etzhayyim.com',
+                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-weekly-digest-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-submit-paper-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-submit-paper-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-submit-paper-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-submit-paper-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-submit-revision-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-submit-revision-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-submit-revision-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-submit-revision-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-citation-sync-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-citation-sync-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-citation-sync-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-citation-sync-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-embedding-index-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-embedding-index-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-embedding-index-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-embedding-index-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/kiyo-weekly-digest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-weekly-digest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/kiyo-weekly-digest-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-weekly-digest-v1']}]
 
 
 def upgrade() -> None:

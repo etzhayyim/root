@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-9735e48c0081",
+  "entityId": "ent-9735e48c0081",
+  "canonicalName": "kempes sanon",
+  "aliases": [
+    "kempes sanon"
+  ]
+}

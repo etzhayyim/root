@@ -52,9 +52,9 @@ UP = [{'sql': '\n'
          '      )\n'
          '    LIMIT 200\n'
          '  ',
-  'parameters': ['did:web:yadoya.gftd.ai',
-                 'did:web:yadoya.gftd.ai',
-                 'did:web:hospitality.gftd.ai',
+  'parameters': ['did:web:yadoya.etzhayyim.com',
+                 'did:web:yadoya.etzhayyim.com',
+                 'did:web:hospitality.etzhayyim.com',
                  '2026-04-28T13:00:00Z',
                  'sys.seed.yadoya-from-accommodation',
                  'Tokyo',
@@ -70,7 +70,7 @@ UP = [{'sql': '\n'
                  'hotel',
                  'hostel',
                  'guest_house',
-                 'did:web:yadoya.gftd.ai']},
+                 'did:web:yadoya.etzhayyim.com']},
  {'sql': '\n'
          '    INSERT INTO vertex_profile (\n'
          '      vertex_id, sensitivity_ord, owner_did,\n'
@@ -82,7 +82,7 @@ UP = [{'sql': '\n'
          '      1, $1,\n'
          '      y.property_did,\n'
          '      y.property_did,\n'
-         "      'property-' || y.osm_id || '.hospitality.gftd.ai',\n"
+         "      'property-' || y.osm_id || '.hospitality.etzhayyim.com',\n"
          '      y.name,\n'
          "      'Hospitality property (OSM ' || y.osm_id || ', ' || y.city || ', ' || y.country || "
          "')',\n"
@@ -97,7 +97,7 @@ UP = [{'sql': '\n'
          "        WHERE p.vertex_id = 'at://' || y.property_did || '/app.bsky.actor.profile/self'\n"
          '      )\n'
          '  ',
-  'parameters': ['did:web:hospitality.gftd.ai',
+  'parameters': ['did:web:hospitality.etzhayyim.com',
                  '2026-04-28T13:00:00Z',
                  'sys.seed.yadoya-from-accommodation']},
  {'sql': '\n'
@@ -121,7 +121,7 @@ UP = [{'sql': '\n'
          "        WHERE e.edge_id = 'edge:yadoya:' || y.osm_id || ':property'\n"
          '      )\n'
          '  ',
-  'parameters': ['did:web:yadoya.gftd.ai',
+  'parameters': ['did:web:yadoya.etzhayyim.com',
                  '2026-04-28T13:00:00Z',
                  'sys.seed.yadoya-from-accommodation',
                  'sys.seed.yadoya-from-accommodation']}]
@@ -129,8 +129,8 @@ UP = [{'sql': '\n'
 DOWN = [{'sql': 'DELETE FROM edge_yadoya_property_to_chain WHERE actor_id = $1',
   'parameters': ['sys.seed.yadoya-from-accommodation']},
  {'sql': 'DELETE FROM vertex_profile WHERE owner_did = $1 AND handle LIKE '
-         "'property-%.hospitality.gftd.ai'",
-  'parameters': ['did:web:hospitality.gftd.ai']},
+         "'property-%.hospitality.etzhayyim.com'",
+  'parameters': ['did:web:hospitality.etzhayyim.com']},
  {'sql': 'DELETE FROM vertex_yadoya_hotel WHERE actor_id = $1',
   'parameters': ['sys.seed.yadoya-from-accommodation']}]
 

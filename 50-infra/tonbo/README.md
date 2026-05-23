@@ -88,7 +88,7 @@ The `go/` package is a LanceDB REST + SQL compatibility client for Go and TinyGo
 ### Import
 
 ```go
-import "github.com/gftdcojp/tonbo/go"
+import "github.com/etzhayyim/tonbo/go"
 ```
 
 ### Usage

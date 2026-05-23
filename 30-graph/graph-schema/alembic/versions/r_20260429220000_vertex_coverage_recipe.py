@@ -528,7 +528,7 @@ UP = [{'sql': '\n'
                  'fast',
                  '',
                  1000000000,
-                 '1B API endpoints — discoverable only via crawl; site.gftd.ai dependency',
+                 '1B API endpoints — discoverable only via crawl; site.etzhayyim.com dependency',
                  'api_endpoint',
                  'world']},
  {'sql': '\n'

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-979854310e71",
+  "entityId": "ent-979854310e71",
+  "canonicalName": "limited liability company taymyrskie resursy",
+  "aliases": [
+    "limited liability company taymyrskie resursy"
+  ]
+}

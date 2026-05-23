@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-f7f40214e8d8",
+  "entityId": "ent-f7f40214e8d8",
+  "canonicalName": "la empresa cubana de fletes",
+  "aliases": [
+    "la empresa cubana de fletes"
+  ]
+}

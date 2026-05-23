@@ -21,11 +21,11 @@ UP = [{'sql': '\n'
          "        $4, 'active', NULL, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webya-create-site-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-create-site-v1',
                  'webya_create_site',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  webya.gftd.ai — createSite workflow (XRPC ai.gftd.apps.webya.createSite).\n'
+                 '  webya.etzhayyim.com — createSite workflow (XRPC ai.gftd.apps.webya.createSite).\n'
                  '\n'
                  "  routing_target = 'langgraph'\n"
                  "  assistant_id   = 'webya_create_site'\n"
@@ -47,7 +47,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_webya_create_site"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/webya"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/webya"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="webya_create_site" name="webya create site" '
@@ -117,7 +117,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 'did:web:webya.gftd.ai',
+                 'did:web:webya.etzhayyim.com',
                  '2026-05-08T09:10:00Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
@@ -128,11 +128,11 @@ UP = [{'sql': '\n'
          "        $4, 'active', NULL, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webya-revise-site-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-revise-site-v1',
                  'webya_revise_site',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  webya.gftd.ai — reviseSite workflow (XRPC ai.gftd.apps.webya.reviseSite).\n'
+                 '  webya.etzhayyim.com — reviseSite workflow (XRPC ai.gftd.apps.webya.reviseSite).\n'
                  '\n'
                  "  routing_target = 'langgraph'\n"
                  "  assistant_id   = 'webya_revise_site'\n"
@@ -148,7 +148,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_webya_revise_site"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/webya"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/webya"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="webya_revise_site" name="webya revise site" '
@@ -206,7 +206,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 'did:web:webya.gftd.ai',
+                 'did:web:webya.etzhayyim.com',
                  '2026-05-08T09:10:00Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
@@ -217,11 +217,11 @@ UP = [{'sql': '\n'
          "        $4, 'active', NULL, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webya-domain-ssl-monitor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-domain-ssl-monitor-v1',
                  'webya_domain_ssl_monitor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  webya.gftd.ai — domainSslMonitor (autonomous timer R/PT30M).\n'
+                 '  webya.etzhayyim.com — domainSslMonitor (autonomous timer R/PT30M).\n'
                  '\n'
                  "  Polls all vertex_webya_domain WHERE ssl_status != 'active'.\n"
                  '  Calls CF API GET /zones/{zone}/custom_hostnames/{id} for each pending domain.\n'
@@ -234,7 +234,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_webya_domain_ssl_monitor"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/webya"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/webya"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="webya_domain_ssl_monitor" name="webya domain ssl monitor" '
@@ -290,7 +290,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 'did:web:webya.gftd.ai',
+                 'did:web:webya.etzhayyim.com',
                  '2026-05-08T09:10:00Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
@@ -301,11 +301,11 @@ UP = [{'sql': '\n'
          "        $4, 'active', NULL, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webya-seo-audit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-seo-audit-v1',
                  'webya_seo_audit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  webya.gftd.ai — seoAudit (autonomous cron 0 0 0 ? * MON — 毎週月曜 00:00 UTC).\n'
+                 '  webya.etzhayyim.com — seoAudit (autonomous cron 0 0 0 ? * MON — 毎週月曜 00:00 UTC).\n'
                  '\n'
                  '  Audits all published sites for SEO health (meta description length,\n'
                  '  JSON-LD completeness, title uniqueness). LLM generates improvement\n'
@@ -318,7 +318,7 @@ UP = [{'sql': '\n'
                  '    xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                  '    id="Definitions_webya_seo_audit"\n'
-                 '    targetNamespace="https://gftd.ai/bpmn/webya"\n'
+                 '    targetNamespace="https://etzhayyim.com/bpmn/webya"\n'
                  '    exporter="hand-written"\n'
                  '    exporterVersion="2.0">\n'
                  '  <bpmn:process id="webya_seo_audit" name="webya seo audit" '
@@ -375,7 +375,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 'did:web:webya.gftd.ai',
+                 'did:web:webya.etzhayyim.com',
                  '2026-05-08T09:10:00Z']},
  {'sql': 'FLUSH', 'parameters': []},
  {'sql': '\n'
@@ -387,10 +387,10 @@ UP = [{'sql': '\n'
          "        $5, $6, 'active', $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/webya-createSite-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webya-createSite-v1',
                  'ai.gftd.apps.webya.createSite',
                  'webya_create_site',
-                 'did:web:webya.gftd.ai',
+                 'did:web:webya.etzhayyim.com',
                  300000,
                  'langgraph',
                  '2026-05-08T09:10:00Z']},
@@ -403,27 +403,27 @@ UP = [{'sql': '\n'
          "        $5, $6, 'active', $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/webya-reviseSite-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webya-reviseSite-v1',
                  'ai.gftd.apps.webya.reviseSite',
                  'webya_revise_site',
-                 'did:web:webya.gftd.ai',
+                 'did:web:webya.etzhayyim.com',
                  180000,
                  'langgraph',
                  '2026-05-08T09:10:00Z']},
  {'sql': 'FLUSH', 'parameters': []}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/webya-createSite-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webya-createSite-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.binding/webya-reviseSite-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webya-reviseSite-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webya-create-site-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-create-site-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webya-revise-site-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-revise-site-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webya-domain-ssl-monitor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-domain-ssl-monitor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.gftd.ai/ai.gftd.apps.bpmn.processDef/webya-seo-audit-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-seo-audit-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-3782074d80ed",
+  "entityId": "ent-3782074d80ed",
+  "canonicalName": "zuhayr haydar",
+  "aliases": [
+    "zuhayr haydar"
+  ]
+}

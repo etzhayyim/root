@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Bulk-register 13 APQC L1 path-based DIDs under did:web:kyber-projector.gftd.ai. Idempotent: re-invocation returns existing DIDs unchanged.",
+      "description": "Bulk-register 13 APQC L1 path-based DIDs under did:web:kyber-projector.etzhayyim.com. Idempotent: re-invocation returns existing DIDs unchanged.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -5,7 +5,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Multi-jurisdiction patent enrichment coordinator (Follow-based: reads from AT firehose data already ingested by patent.gftd.ai)",
+      "description": "Multi-jurisdiction patent enrichment coordinator (Follow-based: reads from AT firehose data already ingested by patent.etzhayyim.com)",
       "input": {
         "encoding": "application/json",
         "schema": {

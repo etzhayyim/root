@@ -33,8 +33,10 @@
             "description": "Literal value (literal-typed edge, e.g. 'has-version' -> '1.2.3'). Mutually exclusive with 'object' — exactly one of {object, literal} MUST be set."
           },
           "weight": {
-            "type": "number",
-            "description": "Optional numeric weight for weighted-graph algorithms."
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Optional numeric weight for weighted-graph algorithms. Scale 0-1000 (permille: weight/1000 = normalized 0.0-1.0). Per AT Protocol Lexicon v1: no float types; use integer with implied units."
           },
           "context": {
             "type": "string",

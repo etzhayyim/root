@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-0fa2d0ff2e63",
+  "entityId": "ent-0fa2d0ff2e63",
+  "canonicalName": "esmail hamidi",
+  "aliases": [
+    "esmail hamidi"
+  ]
+}

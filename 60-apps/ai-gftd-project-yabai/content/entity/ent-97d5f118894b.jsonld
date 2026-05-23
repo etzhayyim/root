@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Organization",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-97d5f118894b",
+  "entityId": "ent-97d5f118894b",
+  "canonicalName": "svyatoy knyaz vladimir",
+  "aliases": [
+    "svyatoy knyaz vladimir"
+  ]
+}

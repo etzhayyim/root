@@ -1,0 +1,10 @@
+{
+  "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
+  "@type": "Person",
+  "@id": "https://yabai.etzhayyim.com/content/entity/ent-10fb26109689",
+  "entityId": "ent-10fb26109689",
+  "canonicalName": "chong chol ri",
+  "aliases": [
+    "chong chol ri"
+  ]
+}

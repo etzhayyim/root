@@ -20,7 +20,7 @@
             "cadenceMinutes":  { "type": "integer", "minimum": 30, "description": "Polling cadence in minutes (default 360 = 6h)." },
             "providerHint":    { "type": "string" },
             "maxOffers":       { "type": "integer", "minimum": 1, "maximum": 50 },
-            "notifyDid":       { "type": "string", "description": "DID to post drop alerts as. Defaults to flight-offer.gftd.ai actor DID." }
+            "notifyDid":       { "type": "string", "description": "DID to post drop alerts as. Defaults to flight-offer.etzhayyim.com actor DID." }
           }
         }
       },
