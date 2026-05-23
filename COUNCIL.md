@@ -13,6 +13,19 @@
 
 After 2026-06-19, the founder selects from candidates that have cleared the public objection mechanism.
 
+### 2026-05-21 — RFP Day 2 of 30
+
+- **Period**: 2026-05-20 → 2026-06-19 (30-day public objection window per ADR-2605192300)
+- **Days remaining**: 29
+- **Proposals received**: 0 — RFP newly opened
+- **Objections filed**: 0 — no objections recorded
+- **Seats filled / open**: Seat 1 (Jun Kawasaki, Lv7) / Seats 2–5 open
+- **Constitutional ADRs accepted under proposed status during RFP**:
+  - ADR-2605214000 (Murakumo mesh, no-VKE + lexicon port rules) — 2026-05-21
+  - ADR-2605215000 (Murakumo-fleet-only inference, no RunPod) — 2026-05-21
+  - ADR-2605215100 (Sentinel-1/2 satellite analysis on Murakumo fleet, tiered MLX/ROCm) — 2026-05-21
+- **Next checkpoint**: 2026-06-04 (RFP Day 15 / mid-period)
+
 ## The 5 seats
 
 Each seat covers an axis of expertise needed for Council deliberations across the religious-corp ADR surface. The founder may not act unilaterally — Council attestations require ≥3 multisig per ChartersComplianceRegistry / LandRegistry contracts.

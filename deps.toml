@@ -1,7 +1,7 @@
 # etzhayyim/root — deps.toml
 #
 # Machine-readable SSoT for the etzhayyim/root monorepo.
-# Updated 2026-05-17 after:
+# Updated 2026-05-25 after:
 #   1. Substrate scaffolding wave (ADR-2605170900 through ADR-2605172200,
 #      SDK + 4 infra modules + paymaster)
 #   2. Mechanical legacy-prefix sweep (1934 files rewritten, ADR-2605172900
@@ -11,12 +11,35 @@
 #      hook, ClusterIP lockdown, RW root auth enforced via ALTER USER,
 #      CF Private Tunnel for Hyperdrive, 1Password rotation runbook,
 #      Vultr firewall template)
+#   4. Gov-coverage wave (CLAUDE.md §Status row 35, 2026-05-25):
+#      - ADR-2605212100 (back-authored gftd→etzhayyim migration batch — 36-file
+#        blind-copy restore + substrate-port deferral list)
+#      - ADR-2605214000 (back-authored Murakumo no-VKE mesh + lexicon-port
+#        verdict taxonomy + §3 atomic identifier cutover rules; closes
+#        14-citation ghost reference)
+#      - ADR-2605242330 (gov coverage 5-layer taxonomy + 195-country plan)
+#      - ADR-2605250100 / 2605250200 / 2605250300 (L5 routing-around cell
+#        ladder: member_registry / religious_marriage / religious_corp_taxation;
+#        all three Council-attestation-gated scaffolds, import-time RuntimeError
+#        until activation per ADR-2605192300)
+#      - 5 new Lexicons under app.etzhayyim.gov.* (agency / official / consult /
+#        municipality / procedure)
+#      - L1 BPMN namespace fill-out 140→196 (100% ISO-3, +448 BPMN files under
+#        00-contracts/bpmn/ai/gftd/gov<ISO3>/)
+#      - 3 new L4 ingest scripts under 70-tools/scripts/gov/ emitting 421
+#        demonstrator records against app.etzhayyim.gov.agency
+#      - 3 L3 app substrate-ports (ai-gftd-project-{gov,lawfirm-admin,
+#        legal-entity}) at edge layer; runtime gftd.ai residue zero; package
+#        rename deferred to ADR-2605214000 §3 atomic cutover wave
+#      - 3 L5 Pregel cell scaffolds under 20-actors/magatama/cells/{member_registry,
+#        religious_marriage,religious_corp_taxation}/ with Council-gated cell.py
 #
 # Human-readable docs:
 #   - CLAUDE.md (this dir)            ← index, operating-entity boundary
 #   - 90-docs/CLAUDE.md               ← docs system rules + ADR placement
 #   - 90-docs/adr/README.md           ← ADR index
 #   - 20-actors/etzhayyim-sdk/README.md ← SDK API surface
+#   - 60-apps/MIGRATION-NOTES-GOV-2026-05-24.md ← gov migration audit record
 
 # ─── Platform identity ──────────────────────────────────────────────
 

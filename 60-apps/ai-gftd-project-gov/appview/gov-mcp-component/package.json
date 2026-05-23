@@ -1,0 +1,15 @@
+{
+  "name": "@gftd/magatama-gv7ps2m1",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "wrangler build",
+    "deploy": "gftd deploy",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
+    "typescript": "^5.0.0",
+    "wrangler": "^4.0.0"
+  }
+}

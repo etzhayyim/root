@@ -68,7 +68,7 @@ applicable to all four tiers.
 | Tier | Namespace | Trunk ceiling | Weights | Target hardware | Edge invariant applies? |
 |---|---|---|---|---|---|
 | **edge** | `baien-edge-*` (default `baien-*`) | ≤ 4 B | ≤ 1.6 GB | WASM-32 / iPhone 12+ / Android 4 GB | **YES** (ADR-2605241900) |
-| **bonsai** | `baien-bonsai-*` | ≤ 2 B (1-bit packing, Bonsai density) | ≤ 0.8 GB | sub-iPhone-12 / Android 2 GB | **YES** (tighter than edge) |
+| **bonsai** | `roso-*` | ≤ 2 B (1-bit packing, Bonsai density) | ≤ 0.8 GB | sub-iPhone-12 / Android 2 GB | **YES** (tighter than edge) |
 | **server** | `baien-server-*` | ≤ 16 B | ≤ 32 GB bf16 | EVO-X2 / single 80 GB GPU | **NO** |
 | **XL** | `baien-XL-*` | unlimited | unlimited | multi-GPU datacenter | **NO** |
 
@@ -78,7 +78,7 @@ applicable to all four tiers.
   artifact published bare under the `baien` name MUST satisfy the
   edge ceiling. There is no "small / medium / large" within `baien-*`
   that escapes the ceiling.
-- `baien-bonsai-{name}` for 1-bit Bonsai-density edge sub-variants
+- `roso-{name}` for 1-bit Bonsai-density edge sub-variants
   targeting sub-iPhone-12 / Android 2 GB. The tighter ceiling is not
   formally codified in this ADR; a follow-up ADR pins exact numbers
   once a Bonsai checkpoint exists.

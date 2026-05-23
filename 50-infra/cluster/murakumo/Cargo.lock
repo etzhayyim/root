@@ -330,6 +330,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "etzhayyim-murakumo"
+version = "0.1.0"
+dependencies = [
+ "base64",
+ "blake3",
+ "chacha20poly1305",
+ "chrono",
+ "dirs",
+ "flate2",
+ "hex",
+ "hostname",
+ "libc",
+ "rand",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tar",
+ "tokio",
+ "which",
+ "x25519-dalek",
+]
+
+[[package]]
 name = "fastrand"
 version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -485,30 +509,6 @@ dependencies = [
  "r-efi",
  "wasip2",
  "wasip3",
-]
-
-[[package]]
-name = "gftd-murakumo"
-version = "0.1.0"
-dependencies = [
- "base64",
- "blake3",
- "chacha20poly1305",
- "chrono",
- "dirs",
- "flate2",
- "hex",
- "hostname",
- "libc",
- "rand",
- "reqwest",
- "serde",
- "serde_json",
- "sha2",
- "tar",
- "tokio",
- "which",
- "x25519-dalek",
 ]
 
 [[package]]

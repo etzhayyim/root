@@ -1,0 +1,27 @@
+# SUBSTRATE-PORT-PENDING — ai-gftd-project-lawfirm-admin
+
+**Status**: 🟡 **PARTIAL — 2026-05-24** (`src/app.ts` ported; Svelte adapter + package rename still deferred to ADR-2605214000).
+
+## Background
+
+11 files of `appview/lawfirm-admin-mcp-component/` (Svelte appview + worker + Magatama SDK wiring) were dropped during the 2026-05-21 batch migration because the gftd implementation uses substrate primitives that are prohibited on the etzhayyim side.
+
+## What's done (2026-05-24 substrate-port wave)
+
+- Surprise audit finding: this app is a **thin-edge proxy** with no Kysely / HyperDrive usage. Substrate-port is correspondingly simple — no MST rewrite needed.
+- `src/app.ts` — `ACTOR_DID` gftd.ai → etzhayyim.com; `NSID_PREFIX` `ai.gftd.apps.lawfirmAdmin.` → `app.etzhayyim.lawfirmAdmin.`; dispatcher default URL gftd.ai → etzhayyim.com.
+
+## Substrate violations remaining (ADR-2605172000 / 2605172100 boundary)
+
+1. ~~`src/app.ts` — DID / NSID / dispatcher URL rename.~~ **DONE 2026-05-24.**
+2. `svelte/src/routes/xrpc/[...path]/+server.ts` — forwards to `mcp.gftd.ai/xrpc/ai.gftd.mcp.message` → re-target to `mcp.etzhayyim.com` (same pattern as gov-mcp-component port).
+3. ~~Kysely / HyperDrive references.~~ **N/A — never present in this app.**
+4. ~~Lexicon namespace rename.~~ **DONE 2026-05-24** (NSID_PREFIX cutover in `src/app.ts`).
+5. Package name `@gftd/magatama-*` → `@etzhayyim/magatama-*` (ADR-2605214000 atomic cutover — still pending).
+
+## Cross-links
+
+- Source archive: `/Users/junkawasaki/github/ai-gftd-apps-gftdcojp/_archive/migrated-to-etzhayyim-2026-05-21/60-apps/ai-gftd-project-lawfirm-admin/`
+- Substrate rules: ADR-2605172000, ADR-2605172100
+- Rename plan: ADR-2605214000 §3
+- Migration batch: ADR-2605212100 (referenced by DEPRECATED.md but missing — author as part of follow-up)

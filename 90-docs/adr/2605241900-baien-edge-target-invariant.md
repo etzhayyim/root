@@ -58,8 +58,12 @@ A model artifact may be tagged `baien` AND `useCases: ["edge", "browser", "cpu"]
 in the magatama `MODEL_REGISTRY` (and shipped to first-party endpoints
 that expect edge baien) **if and only if** it satisfies **all** of:
 
-1. **Trunk params ≤ 4 B** (BitNet 1.58-bit quantization assumed).
-2. **Total weights packed ≤ 1.6 GB** (i2_s ternary or equivalent).
+1. **Trunk params ≤ 12 B** (amended 2026-05-23 per ADR-2605242000 §Conflict —
+   the original 4 B limit assumed BitNet 1.58 packing density; Bonsai-pattern
+   1-bit can pack 8 B params in 1.15 GB per Prism ML 2026 reference,
+   keeping criterion 2 binding. Hard wall stays at 12 B since beyond that
+   the 1-bit packed size exceeds 1.6 GB regardless).
+2. **Total weights packed ≤ 1.6 GB** (i2_s ternary or 1-bit Bonsai or equivalent — this is the binding criterion).
 3. **Inference RAM peak at 4 k context ≤ 2.0 GB** (weights + KV cache + activations + runtime overhead).
 4. **Inference RAM peak at 16 k context ≤ 2.5 GB** (Stage 1/2 rope-extend permitted).
 5. **Context window ≤ 16 384 tokens** for the edge variant.

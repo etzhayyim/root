@@ -46,6 +46,8 @@ func runBench(args []string) error {
 		return cmdBenchRopeExtend(args[1:])
 	case "mx-train":
 		return cmdBenchMxTrain(args[1:])
+	case "roso":
+		return cmdBenchRoso(args[1:])
 	case "smoke", "lite", "core", "full":
 		return cmdBenchBundle(args[0], args[1:])
 	case "help", "--help", "-h":
@@ -112,6 +114,70 @@ func cmdBenchCore4Bundle(taskIds []string, args []string) error {
 	}
 	core4Tasks = extended
 	return cmdBenchCore4(args)
+}
+
+// ----- subcommand: roso (Bonsai-pattern 1-bit Mamba/Zamba family) -------------------------------------------------
+
+func cmdBenchRoso(args []string) error {
+	fs := flag.NewFlagSet("bench roso", flag.ContinueOnError)
+	base := fs.String("base", "Zyphra/Zamba2-1.2B",
+		"HF base model id (must be in BASE_CANDIDATES)")
+	quant := fs.String("quant-method", "bonsai-w1",
+		"quantization method (bonsai-w1 / bnb-nf4 / bnb-int8 / gptq-w4)")
+	phase := fs.String("phase", "A",
+		"A = quantize only; B = + distill recovery")
+	outRoot := fs.String("out-root", "roso-out", "output dir")
+	benchDir := fs.String("bench-dir", filepath.Join("90-docs", "baien"),
+		"manifest write target (roso-models.jsonl)")
+	dryRun := fs.Bool("dry-run", false, "walk pipeline without loading weights")
+	if err := fs.Parse(args); err != nil {
+		return err
+	}
+	cmdline := []string{
+		pyExecutable(), "-m", "roso_distill",
+		"--base-model", *base,
+		"--quant-method", *quant,
+		"--phase", *phase,
+		"--out-root", *outRoot,
+		"--bench-dir", *benchDir,
+	}
+	if *dryRun {
+		cmdline = append(cmdline, "--dry-run")
+	}
+	fmt.Printf("[bench roso] %s\n", strings.Join(cmdline, " "))
+	c := exec.Command(cmdline[0], cmdline[1:]...)
+	c.Stdout = os.Stdout
+	c.Stderr = os.Stderr
+	// Run from the caller's cwd (typically repo root) so relative bench-dir
+	// like "90-docs/baien" resolves where the operator expects. Add the
+	// module's src/ to PYTHONPATH so no pip install is required.
+	c.Env = appendPyPath(os.Environ(), "70-tools/roso-distill/src")
+	return c.Run()
+}
+
+// pyExecutable prefers `python3` (POSIX), falls back to `python` (Windows).
+func pyExecutable() string {
+	if _, err := exec.LookPath("python3"); err == nil {
+		return "python3"
+	}
+	return "python"
+}
+
+func appendPyPath(env []string, addPath string) []string {
+	out := make([]string, 0, len(env))
+	found := false
+	for _, e := range env {
+		if strings.HasPrefix(e, "PYTHONPATH=") {
+			out = append(out, e+":"+addPath)
+			found = true
+		} else {
+			out = append(out, e)
+		}
+	}
+	if !found {
+		out = append(out, "PYTHONPATH="+addPath)
+	}
+	return out
 }
 
 // ----- subcommand: mx-train ----------------------------------------------
@@ -203,6 +269,11 @@ SUBCOMMANDS:
   mx-train  baien Move 1 image graft self-training (frozen SigLIP + 1.58-bit
            projector + frozen baien trunk) per ADR-2605232500. Phase A=80s
            smoke / B=40min bootstrap / C=6.7h scale on EVO-X2 ROCm.
+  roso      Roso family — Bonsai-pattern post-train 1-bit + distill recovery
+           for edge-fit Mamba/Zamba sibling trunks per ADR-2605242000.
+           Pick base ≤8B Apache-2.0 (Zyphra/Zamba2-{1.2B,2.7B,7B}-Instruct,
+           Qwen3-8B, Qwen2.5-Coder-7B, DeepSeek-R1-Distill-Qwen-7B, …).
+           Phase A=quantize only; B=+ distill (1-3 days ROCm).
   smoke / lite / core / full
            Pre-packaged bench bundles per the 2026-05-23 light-bench reorg
            (see 'e7m bench list'):

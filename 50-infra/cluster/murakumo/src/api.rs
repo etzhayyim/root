@@ -17,7 +17,7 @@ pub fn http_client() -> Client {
 }
 
 fn connect_timeout() -> Duration {
-    let raw = env_or("GFTD_MURAKUMO_HTTP_TIMEOUT", "90s");
+    let raw = env_or("ETZHAYYIM_MURAKUMO_HTTP_TIMEOUT", "90s");
     parse_duration(&raw).unwrap_or(Duration::from_secs(90))
 }
 
@@ -128,7 +128,7 @@ pub async fn magatama_app_call<Req: Serialize, Resp: DeserializeOwned>(
     command: &str,
     args: &Req,
 ) -> Result<Resp, String> {
-    let endpoint = env_or("GFTD_MURAKUMO_APP", DEFAULT_MURAKUMO_APP_ENDPOINT);
+    let endpoint = env_or("ETZHAYYIM_MURAKUMO_APP", DEFAULT_MURAKUMO_APP_ENDPOINT);
     let url = format!(
         "{}/xrpc/gftd.murakumo.v1.MurakumoCommandService/{}",
         endpoint, command

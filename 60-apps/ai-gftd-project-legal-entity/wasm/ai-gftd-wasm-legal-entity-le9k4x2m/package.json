@@ -1,0 +1,16 @@
+{
+  "name": "magatama-le9k4x2m",
+  "version": "1.0.0",
+  "description": "GFTD Legal Entity Collector — GLEIF LEI global corporate registry (legal-entity.gftd.ai)",
+  "main": "src/app.ts",
+  "scripts": {
+    "test": "echo \"no tests\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@gftd/magatama-host-sdk": "workspace:*"
+  }
+}
