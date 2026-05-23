@@ -1,4 +1,5 @@
 ---
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 # lg-open-unispsc — resident LangServer for 18,342 UNSPSC commodity agents.
 #
 # Surface (per 00-contracts/lexicons/ai/gftd/apps/unispsc/*.json):

@@ -1,3 +1,4 @@
+// no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 {
   "name": "magatama-l334bbd5f",
   "main": "src/app.ts",

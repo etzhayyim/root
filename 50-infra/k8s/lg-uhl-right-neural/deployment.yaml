@@ -1,3 +1,4 @@
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 # lg-uhl-right-neural — LangServer pod for the uhl_right_neural Pregel.
 #
 # Serves the 16-vertex StateGraph defined at
