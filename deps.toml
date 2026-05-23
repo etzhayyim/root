@@ -407,6 +407,23 @@ replication_status = "warn-only-single-node"  # bootstrap window
 charter_rider_gate = "pymagatama.organism.sensors.charter_rider.scan"
 backend_default = "SHA256E"         # ADR §D2; smoke seed used MD5E (DataLad text2git default) — fix on next add
 
+[platform.dataset_substrate.did_worker]
+# ADR-2605241500 §D9 (DID Worker scaffold). Cloudflare Worker mirrors
+# the etzhayyim-esign / etzhayyim-pinner pattern. Identity is published
+# at the spec-required /.well-known/did.json on the same hostname; the
+# runtime actor (the actual pinning logic) lives on operator
+# workstations under 70-tools/e7m-dataset/ — not on a public Worker.
+did = "did:web:dataset-pinner.etzhayyim.com"
+worker_path = "50-infra/etzhayyim-dataset-pinner-did-web"
+hostname = "dataset-pinner.etzhayyim.com"
+route_pattern = "dataset-pinner.etzhayyim.com/.well-known/did.json"
+healthz_path = "/healthz"
+dns_required = "AAAA @ 100:: proxied on etzhayyim.com zone (per esign / pinner / audit pattern)"
+verification_method_status = "empty []; Ed25519 keypair pending Phase 2 (per esign pattern)"
+keychain_account = "DID_PRIVATE_KEY_ED25519_DATASET_PINNER"
+deploy_status = "scaffolded"
+verified_locally = "2026-05-24 wrangler dev — /.well-known/did.json 200, /healthz 200, other paths 404"
+
 [[platform.dataset_substrate.nodes]]
 # Deciding Mac — Jun's Mac mini with /Volumes/260317 external disk.
 # Smoke-verified 2026-05-24 JST.

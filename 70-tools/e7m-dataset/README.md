@@ -151,9 +151,21 @@ JSON over the password fallback:
 export ETZ_E7M_PDS_SESSION='{"did":"...","handle":"...","accessJwt":"...","refreshJwt":"..."}'
 ```
 
-The pinner's atproto identity (`did:web:dataset-pinner.etzhayyim.com`)
-is a Phase 2 deliverable — DID Worker scaffold lands when first live
-emission is needed.
+The pinner's atproto identity is
+**`did:web:dataset-pinner.etzhayyim.com`** — scaffolded under
+[`50-infra/etzhayyim-dataset-pinner-did-web/`](../../50-infra/etzhayyim-dataset-pinner-did-web/),
+mirroring the esign / pinner DID Worker pattern. Before going live the
+operator must:
+
+1. `wrangler deploy` the Worker.
+2. Provision the AAAA record on the etzhayyim.com zone (CF dashboard).
+3. Generate the Ed25519 keypair, populate `did.json verificationMethod`.
+4. Have PDS issue an app-password for the `dataset-pinner.etzhayyim.com`
+   handle, decant via Keychain as above.
+
+Until step 1+2 land the DID resolves only via local `wrangler dev`;
+`--emit` will still POST to PDS using the app-password but the resolver
+won't yet trust the DID.
 
 ## Second-node replication runbook
 
