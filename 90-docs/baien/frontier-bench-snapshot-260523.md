@@ -299,6 +299,44 @@ pass the gate.
 - Synthetic 10-shape dataset is too thin for real training; need baien-graft data (per ADR-2605202115 + datagen runbook in `70-tools/baien-mx-train/scripts/datagen_runbook.md`).
 - Move 1 training gate of ≥60% needs *image-grounded* signal, not scorer-leniency drift; tightened scorers will move the gate to a more honest target.
 
+## H. `e7m bench lite --limit 100` actual (CPU run 2026-05-23 T18:01–18:23)
+
+First text-bench data point on baien with revised infra. Each task limited
+to 100 questions (loglikelihood scoring):
+
+| Task | acc | stderr | §A frontier |
+|---|---|---|---|
+| arc_challenge | **0.520** | ±0.050 | (not in §A — comparable to ARC reference) |
+| winogrande | **0.780** | ±0.042 | (not in §A — frontier 80-85%, baien close) |
+| truthfulqa_mc1 | **0.310** | ±0.046 | (not in §A — 2B typical 30-40%) |
+
+Wall: **~22 min** (CPU fallback, BitNet × ROCm not yet activated at run time).
+
+## I. GPU activation probe (2026-05-23 T18:30) — **honest reality**
+
+`device_map='cuda'` + `TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=1`
+activates ROCm gfx1151 for baien BUT speedup is **workload-pattern
+dependent**, not the uniform 7× the initial probe suggested:
+
+| Workload pattern | tok/s | speedup vs CPU | Why |
+|---|---|---|---|
+| **32-tok autoregressive `generate()`** (probe) | 1.4 | 7× | KV cache warm, per-token amortizes load + BitLinear CPU-side cost |
+| **arc_challenge ll scoring** (longer prompts + 4 options) | n/a | **2.3×** | longer prompts benefit from GPU forward |
+| **winogrande ll** (short prompt + 2 options) | n/a | **0.5× (slower)** | per-call overhead dominates short forwards |
+| **truthfulqa_mc1 ll** (short multi-option) | n/a | **0.7×** | same as winogrande |
+| Bench lite total (3 tasks × 100 q each) | n/a | **1.2×** | mixed pattern dilutes GPU win |
+
+Verified score equality CPU vs GPU (same logits to 4 decimals).
+
+BitNet's `BitLinear` forward retains CPU-side ops that introduce
+per-call overhead → GPU only wins when forward work / call exceeds
+that overhead. **For agent-coding & long-form generation, GPU 5-7×
+remains the expectation; for short ll-scoring, GPU is parity-to-slower.**
+
+`e7m bench core4` invokes the GPU path by default (`device_map=cuda`
+in `bench.go`) but operators iterating on ll-only benches may want
+to revert via env override.
+
 ## Caveats
 
 - 5-prompt categories are too small to be statistically meaningful — these

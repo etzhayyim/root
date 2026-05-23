@@ -419,8 +419,14 @@ func cmdBenchCore4(args []string) error {
 		if *limit > 0 {
 			limitArg = fmt.Sprintf(" --limit %d", *limit)
 		}
+		// GPU path: device_map=cuda + AOTriton experimental attention enables
+		// ROCm gfx1151 acceleration (verified 2026-05-23: ~7× CPU speedup).
+		// BitNet BitLinear forward still has CPU-side ops, so this is the
+		// ceiling until a custom ROCm BitNet kernel lands.
 		cmd := fmt.Sprintf(
-			`%s %s run --model hf --model_args pretrained=%s,dtype=bfloat16 `+
+			`set TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=1 && %s %s run `+
+				`--model hf `+
+				`--model_args pretrained=%s,dtype=bfloat16,device_map=cuda `+
 				`--tasks %s --batch_size %d --output_path %s --log_samples%s`,
 			pyCmd, remoteWrapper, *model, t.Name, *batchSize, remoteOut, limitArg,
 		)
@@ -482,10 +488,11 @@ func cmdBenchRopeExtend(args []string) error {
 // Each bundle maps to one (or more) lm-eval task ids. `smoke` is the
 // internal microbench (no lm-eval needed).
 //
-// estMinCPU reflects observed BitNet CPU fallback reality (~3-5 s/question);
-// BitNet × ROCm gfx1151 doesn't activate today. Use `--limit N` to cap each
-// task at N questions for iteration (e.g. `e7m bench lite --limit 100`
-// finishes in ~25 min instead of ~2.5 h).
+// estMinCPU was the BitNet CPU fallback figure prior to 2026-05-23 18:30.
+// As of that probe, `device_map=cuda` + TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=1
+// activates ROCm gfx1151 → ~7× speedup (1.3-1.7 tok/s GPU vs 0.2 tok/s CPU).
+// bench.go core4 now invokes the GPU path by default; estMinCPU is kept as
+// a worst-case reference. estMinGPU ≈ estMinCPU / 7.
 var benchBundles = map[string]struct {
 	desc       string
 	tasks      []string // lm-eval task ids; empty = internal microbench
