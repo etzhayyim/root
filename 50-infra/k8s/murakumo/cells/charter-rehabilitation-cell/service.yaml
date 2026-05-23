@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: charter-rehabilitation-cell
+  namespace: etzhayyim-cells
+  labels:
+    app.kubernetes.io/name: charter-rehabilitation-cell
+    app.kubernetes.io/component: religious-corp-cell
+    app.kubernetes.io/part-of: etzhayyim-religious-corp
+    etzhayyim.com/cell-name: CharterRehabilitationCell
+    etzhayyim.com/leader-node: naphtali
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: charter-rehabilitation-cell
+  ports:
+    - name: runner-healthz
+      port: 13000
+      targetPort: runner-healthz
+      protocol: TCP
+    - name: cell-healthz
+      port: 13003
+      targetPort: cell-healthz
+      protocol: TCP

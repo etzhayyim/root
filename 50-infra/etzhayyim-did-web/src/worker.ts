@@ -4,6 +4,10 @@ import {
   UNISPSC_GENERATED_AT,
   UNISPSC_TOTAL_COUNT,
 } from "./registry/unispsc-handles.gen";
+import {
+  INFRA_ACTOR_HANDLES,
+  getInfraActor,
+} from "./registry/infra-actors";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -233,6 +237,11 @@ function isNamespacedHandle(handle: string): boolean {
 
 function isKnownHandle(handle: string): boolean {
   if (UNISPSC_HANDLE_SHAPE.test(handle)) return UNISPSC_HANDLES.has(handle);
+  // Infra-actor registry — collapses the 8 per-actor Workers (pinner /
+  // esign / audit / dataset-pinner / pds / anchorer / projector /
+  // karute) to a single path-based DID Doc surface. Per ADR-2605241800
+  // §Phase A.
+  if (INFRA_ACTOR_HANDLES.has(handle)) return true;
   // Free-form handles (not yet in a registry) are permitted during Phase α
   // so council seats / human members can resolve without a registry round-trip.
   return true;
@@ -243,6 +252,7 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
   const subdomainDid = `did:web:${handle}.etzhayyim.com`;
   const alsoKnownAs: string[] = [subdomainDid];
   const registered = isNamespacedHandle(handle);
+  const infraActor = getInfraActor(handle);
 
   // When chain integration lands, embed the did:erc725:base form by reading
   // EtzhayyimAuthz.resolveDwebHandle(keccak256("<handle>.etzhayyim.com")).
@@ -252,6 +262,26 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
       `did:erc725:base:${env.AUTHZ_CONTRACT_ADDRESS}#__rootId-pending-chain-lookup__`,
     );
   }
+
+  // Default service[] (Phase α P1 — chain lookup placeholder). Infra
+  // actors override this entirely with their declared service set
+  // (PDS endpoint, libp2p Multiaddr, HTTPS legacy fallback).
+  const defaultService: Record<string, unknown>[] = [
+    {
+      id: `${pathBasedDid}#etzhayyim-authz`,
+      type: "EtzhayyimAuthzResolver",
+      serviceEndpoint: env.AUTHZ_CONTRACT_ADDRESS
+        ? `https://authz.etzhayyim.com/xrpc/org.etzhayyim.authz.resolveRoot?dwebHandle=${encodeURIComponent(handle)}.etzhayyim.com`
+        : null,
+    },
+  ];
+  const service = infraActor
+    ? (infraActor.service as Record<string, unknown>[])
+    : defaultService;
+
+  const adrs = infraActor
+    ? ["2605212030", "2605241800", ...infraActor.adrs]
+    : ["2605212030", "2605171800"];
 
   return {
     "@context": [
@@ -264,18 +294,13 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
     // when chain integration lands. Phase α P1 scaffold returns an empty array
     // so the document validates against W3C DID Core minimal requirements.
     verificationMethod: [],
-    service: [
-      {
-        id: `${pathBasedDid}#etzhayyim-authz`,
-        type: "EtzhayyimAuthzResolver",
-        serviceEndpoint: env.AUTHZ_CONTRACT_ADDRESS
-          ? `https://authz.etzhayyim.com/xrpc/org.etzhayyim.authz.resolveRoot?dwebHandle=${encodeURIComponent(handle)}.etzhayyim.com`
-          : null,
-      },
-    ],
+    service,
     _meta: {
-      adr: ["2605212030", "2605171800"],
-      phase: "α P1 scaffold",
+      adr: adrs,
+      phase: infraActor ? "Phase A (infra-actor)" : "α P1 scaffold",
+      kind: infraActor ? "infra-actor" : registered ? "unispsc-actor" : "free-form",
+      description: infraActor?.description,
+      primaryLexicon: infraActor?.primaryLexicon,
       registry: registered
         ? {
             lexicon: "ai.gftd.apps.unispsc",

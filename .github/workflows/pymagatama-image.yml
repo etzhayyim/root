@@ -10,11 +10,15 @@ on:
     branches: [main]
     paths:
       - "20-actors/magatama/py/**"
+      - "20-actors/magatama/cells/**"
+      - "50-infra/cluster/murakumo/cell-runner/cells.toml"
       - ".github/workflows/pymagatama-image.yml"
   pull_request:
     branches: [main]
     paths:
       - "20-actors/magatama/py/**"
+      - "20-actors/magatama/cells/**"
+      - "50-infra/cluster/murakumo/cell-runner/cells.toml"
       - ".github/workflows/pymagatama-image.yml"
   workflow_dispatch:
 
@@ -62,9 +66,9 @@ jobs:
       - name: Build (and push on main)
         uses: docker/build-push-action@v6
         with:
-          context: 20-actors/magatama/py
+          context: .
           file: 20-actors/magatama/py/Dockerfile
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ steps.tags.outputs.sha_tag }}

@@ -31,7 +31,7 @@ spec:
     spec:
       serviceAccountName: charter-attestation-request-cell
       nodeSelector:
-        kubernetes.io/hostname: orbstack
+        kubernetes.io/hostname: naphtalinomac-mini.local
       imagePullSecrets:
         - name: ghcr-pull
       containers:
@@ -58,9 +58,7 @@ spec:
             - name: ETZ_HEALTHZ_BIND
               value: 0.0.0.0
             - name: FLEET_TOML
-              value: /repo/50-infra/murakumo/fleet.toml
-            - name: ETZ_REPO
-              value: /repo
+              value: /etc/etzhayyim/fleet.toml
           ports:
             - name: runner-healthz
               containerPort: 13000
@@ -100,14 +98,16 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp
-            - name: repo
-              mountPath: /repo
+            - name: fleet-config
+              mountPath: /etc/etzhayyim
               readOnly: true
       volumes:
         - name: tmp
           emptyDir:
             sizeLimit: 128Mi
-        - name: repo
-          hostPath:
-            path: /Users/junkawasaki/github/etzhayyim-root
-            type: Directory
+        - name: fleet-config
+          configMap:
+            name: fleet-config
+            items:
+              - key: fleet.toml
+                path: fleet.toml
