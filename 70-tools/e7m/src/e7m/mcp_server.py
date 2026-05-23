@@ -143,6 +143,81 @@ TOOLS: list[dict[str, Any]] = [
         "description": "Reachability check — confirm the etzhayyim organism is online.",
         "inputSchema": {"type": "object", "properties": {}, "required": []},
     },
+    # ── PDS / yoro substrate probes ──────────────────────────────────────
+    #
+    # Mirrors `e7m pds ...` and `e7m yoro probe`. All read-only; the
+    # write-side `pds_create_account` is intentionally NOT exposed via MCP
+    # (mirrors the prune_approve carve-out) — account creation touches the
+    # PDS substrate and must be operator-initiated via the local CLI with
+    # explicit credentials.
+    {
+        "name": "etzhayyim_pds_describe_server",
+        "description": "GET com.atproto.server.describeServer — server identity + policy (invite required? available user domains?). Host alias: atproto (live yoro PDS) | pds (xrpc-adapter backend) | yoro | apex, or a full URL.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"host": {"type": "string", "default": "atproto"}},
+            "required": [],
+        },
+    },
+    {
+        "name": "etzhayyim_pds_list_repos",
+        "description": "GET com.atproto.sync.listRepos — DIDs the PDS knows about. Use to confirm whether a did:web is registered on a given PDS.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "host":   {"type": "string", "default": "atproto"},
+                "limit":  {"type": "integer", "default": 20},
+                "cursor": {"type": "string"},
+            },
+            "required": [],
+        },
+    },
+    {
+        "name": "etzhayyim_pds_describe_repo",
+        "description": "GET com.atproto.repo.describeRepo — does this DID have a repo on the PDS? Sets exists=true only when describeRepo returns a real DID.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "did":  {"type": "string", "description": "DID to probe (e.g. did:web:yoro.etzhayyim.com)"},
+                "host": {"type": "string", "default": "atproto"},
+            },
+            "required": ["did"],
+        },
+    },
+    {
+        "name": "etzhayyim_pds_resolve_handle",
+        "description": "GET com.atproto.identity.resolveHandle — handle → DID lookup against a PDS / appview.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "handle": {"type": "string"},
+                "host":   {"type": "string", "default": "atproto"},
+            },
+            "required": ["handle"],
+        },
+    },
+    {
+        "name": "etzhayyim_pds_xrpc",
+        "description": "Generic XRPC call. Defaults to GET against apex. POSTs to non-read NSIDs require allow_write=true (mirrors the operator's explicit-mutation policy).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "nsid":        {"type": "string"},
+                "method":      {"type": "string", "enum": ["GET", "POST"], "default": "GET"},
+                "host":        {"type": "string", "default": "apex"},
+                "params":      {"type": "object", "description": "URL params for GET"},
+                "body":        {"type": "object", "description": "JSON body for POST"},
+                "bearer":      {"type": "string", "description": "Authorization Bearer token"},
+                "allow_write": {"type": "boolean", "default": False},
+            },
+            "required": ["nsid"],
+        },
+    },
+    {
+        "name": "etzhayyim_yoro_probe",
+        "description": "Snapshot the yoro deployment — apex HTML entrypoint, deployed bundle's atQuery (GET vs the historical POST bug), and the three feed endpoints (getSuggestedFeeds / getDiscoverFeed / getTimeline). Read-only, idempotent. Use this first when the timeline is reported failing.",
+        "inputSchema": {"type": "object", "properties": {}, "required": []},
+    },
 ]
 
 # tool name → callable
@@ -163,6 +238,12 @@ DISPATCH = {
     "etzhayyim_about":             lambda **kw: cmd.about(),
     "etzhayyim_doctor":            lambda **kw: cmd.doctor(),
     "etzhayyim_ping":              lambda **kw: cmd.ping(),
+    "etzhayyim_pds_describe_server": lambda host="atproto", **kw: cmd.pds_describe_server(host=host),
+    "etzhayyim_pds_list_repos":      lambda host="atproto", limit=20, cursor=None, **kw: cmd.pds_list_repos(host=host, limit=limit, cursor=cursor),
+    "etzhayyim_pds_describe_repo":   lambda did, host="atproto", **kw: cmd.pds_describe_repo(did, host=host),
+    "etzhayyim_pds_resolve_handle":  lambda handle, host="atproto", **kw: cmd.pds_resolve_handle(handle, host=host),
+    "etzhayyim_pds_xrpc":            lambda nsid, method="GET", host="apex", params=None, body=None, bearer=None, allow_write=False, **kw: cmd.pds_xrpc(nsid, method=method, host=host, params=params, body=body, bearer=bearer, allow_write=allow_write),
+    "etzhayyim_yoro_probe":          lambda **kw: cmd.yoro_probe(),
 }
 
 

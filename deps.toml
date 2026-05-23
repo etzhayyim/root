@@ -1125,6 +1125,15 @@ path = "90-docs/adr/2605241500-etzhayyim-dataset-cid-substrate.md"
 depends_on = ["2605170900", "2605171800", "2605172000", "2605192200"]
 related = ["2605231300", "2605232500"]
 
+[[adrs]]
+id = "2605231737"
+title = "e7m PDS / yoro substrate probes — operator + MCP surface for timeline-class debugging"
+status = "active"
+status_note = "Closes the 'how does the operator (or an agent) debug yoro timeline-class failures through a sanctioned surface' gap that surfaced during the 2026-05-23 timeline-load incident. Three root causes diagnosed by ad-hoc curl + grep + wrangler: (1) deployed yoro-ui bundle's minified `atQuery` emitted POST for every XRPC because the source fix had not been rebuilt — patched in-place on static/assets/index-KYx0b32R.js (`Rf(\"POST\",t,a,void 0,o)` → `Rf(\"GET\",t,void 0,a,o)`, 1-byte diff) and redeployed as magatama-yoro Version a054ad4d-f5d7-4803-8a0d-7cac4a727685; (2) rw-free `collectFeed` 500'd with `Could not find repo: did:web:yoro.etzhayyim.com` because the configured pds.etzhayyim.com has no repo for that DID — try/catch added to return empty feed instead of 500, redeployed as yoro-xrpc-adapter Version a60f975d-a578-429e-bc26-3a42de1aa7fe; (3) no sanctioned operator surface existed for any of the probes — closed by this ADR. Adds to 70-tools/e7m (Python operator CLI + MCP server): `e7m pds describe-server | list-repos | describe-repo | resolve-handle | xrpc | create-account` and `e7m yoro probe` (composite). Host aliases: atproto | pds | yoro | apex, or full URL. 6 new MCP tools exposed via e7m-mcp; the write-class `create-account` is intentionally CLI-only (mirrors the prune_approve carve-out — substrate mutation stays operator-attributed). `e7m pds xrpc` POST to non-safelisted NSIDs requires explicit `--allow-write`. Smoke verified: `e7m --json yoro probe` returns ok=true with 5 checks after today's fixes; MCP round-trip (initialize → tools/list → tools/call etzhayyim_yoro_probe) returns 22 tools total (16 baseline + 6 new) and runs the probe end-to-end. Wheel build verified via `uv build --wheel`. Implementation: new e7m/src/e7m/pds.py (~270 lines, httpx-based) + thin wrappers in commands.py + subcommand wiring in __main__.py + tool entries in mcp_server.py. Downstream `did:web:yoro.etzhayyim.com` PDS seed is now a one-liner `e7m pds create-account --host pds --handle yoro.etzhayyim.com --did did:web:yoro.etzhayyim.com --invite <CODE>` blocked on operator obtaining the invite code (correct boundary)."
+path = "90-docs/adr/2605231737-e7m-pds-yoro-substrate-probes.md"
+depends_on = ["2605172000", "2605192100", "2605211000"]
+related = ["2605222330", "2605211000"]
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -1447,7 +1456,20 @@ kind = "appview-svelte"
 version = "migration-stage-3-prep"
 status = "stages-1-2-done"
 description = "yoro AppView. Sed pass to yoro.etzhayyim.com committed. Stages 3-5 (deploy + redirect + cleanup) pending."
-adr = ["2605171900"]
+adr = ["2605171900", "2605231737"]
+deployed_workers = [
+  # 2026-05-23 timeline-load incident — see ADR-2605231737.
+  # (a) magatama-yoro static worker: serves the apex SPA; minified atQuery
+  #     POST→GET 1-byte patch applied to static/assets/index-KYx0b32R.js,
+  #     redeployed as Version a054ad4d-f5d7-4803-8a0d-7cac4a727685.
+  # (b) yoro-xrpc-adapter: rw-free collectFeed try/catch around "Could not
+  #     find repo" so unseeded DIDs return {feed:[]} instead of 500;
+  #     redeployed as Version a60f975d-a578-429e-bc26-3a42de1aa7fe.
+  # Both are stopgaps until the SvelteKit build pipeline ships the corrected
+  # bundle and pds.etzhayyim.com is seeded with did:web:yoro.etzhayyim.com.
+  "magatama-yoro@a054ad4d-f5d7-4803-8a0d-7cac4a727685",
+  "yoro-xrpc-adapter@a60f975d-a578-429e-bc26-3a42de1aa7fe",
+]
 
 [[modules]]
 path = "20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents"
@@ -1908,6 +1930,19 @@ adr = ["2605241500"]
 sibling_modules = [
   "70-tools/e7m-dataset",
   "00-contracts/lexicons/app/etzhayyim/substrate/datasetPin.json",
+]
+
+[[modules]]
+path = "70-tools/e7m"
+kind = "operator-cli + mcp-server"
+version = "0.1.0"
+status = "active"
+description = "Python operator CLI (`e7m`) + MCP server (`e7m-mcp`). Per ADR-2605192100 §1.6, the only sanctioned external surface for ad-hoc substrate touchpoints — both human operators and other AI agents route through here so audit hooks land in one place. Editable-installed in a uv-managed `.venv`; wheel build via `uv build --wheel`. Surface: organism aliveness (status/state/entities/chat), bonsai pruning (candidates/show; approve is CLI-only), pod control, members/lands rosters, 8-invariant verify, doctor rollup, dataset CID substrate hooks. **PDS / yoro substrate probes added 2026-05-23 (ADR-2605231737)**: `e7m pds describe-server | list-repos | describe-repo | resolve-handle | xrpc | create-account`, `e7m yoro probe`. 6 new MCP tools (write-class create-account intentionally CLI-only, mirroring the prune_approve carve-out). Host aliases: atproto | pds | yoro | apex, or full URL."
+adr = ["2605192100", "2605172000", "2605231737"]
+binaries = ["e7m", "e7m-mcp"]
+sibling_modules = [
+  "70-tools/e7m-cli",
+  "70-tools/e7m-dataset",
 ]
 
 [[modules]]

@@ -340,6 +340,78 @@ def cmd_ping(args) -> int:
     return 0 if out["ok"] else 2
 
 
+def _parse_json_arg(raw: str | None, flag: str) -> dict[str, Any] | None:
+    if raw is None:
+        return None
+    try:
+        out = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        print(f"{flag}: invalid JSON — {exc}", file=sys.stderr)
+        sys.exit(2)
+    if not isinstance(out, dict):
+        print(f"{flag}: expected JSON object, got {type(out).__name__}", file=sys.stderr)
+        sys.exit(2)
+    return out
+
+
+def cmd_pds(args) -> int:
+    a = args.action
+    if a == "describe-server":
+        out = cmd.pds_describe_server(host=args.host)
+    elif a == "list-repos":
+        out = cmd.pds_list_repos(host=args.host, limit=args.limit, cursor=args.cursor)
+    elif a == "describe-repo":
+        if not args.target:
+            print("e7m pds describe-repo <did> --host <host>", file=sys.stderr)
+            return 2
+        out = cmd.pds_describe_repo(args.target, host=args.host)
+    elif a == "resolve-handle":
+        if not args.target:
+            print("e7m pds resolve-handle <handle> --host <host>", file=sys.stderr)
+            return 2
+        out = cmd.pds_resolve_handle(args.target, host=args.host)
+    elif a == "xrpc":
+        if not args.target:
+            print("e7m pds xrpc <nsid> [--method GET|POST] [--params JSON] [--body JSON]", file=sys.stderr)
+            return 2
+        out = cmd.pds_xrpc(
+            args.target,
+            method=args.method,
+            host=args.host,
+            params=_parse_json_arg(args.params, "--params"),
+            body=_parse_json_arg(args.body, "--body"),
+            bearer=args.bearer,
+            allow_write=args.allow_write,
+        )
+    elif a == "create-account":
+        if not args.handle:
+            print("e7m pds create-account --handle <h> --host <host> [--did ...] [--invite ...]", file=sys.stderr)
+            return 2
+        out = cmd.pds_create_account(
+            host=args.host,
+            handle=args.handle,
+            did=args.did,
+            email=args.email,
+            invite_code=args.invite,
+            password=args.password,
+        )
+    else:
+        print(f"unknown action: {a}", file=sys.stderr)
+        return 2
+    _emit(out, args.json)
+    return 0 if out.get("ok") else 1
+
+
+def cmd_yoro(args) -> int:
+    if args.action == "probe":
+        out = cmd.yoro_probe()
+    else:
+        print(f"unknown action: {args.action}", file=sys.stderr)
+        return 2
+    _emit(out, args.json)
+    return 0 if out.get("ok") else 1
+
+
 def main() -> int:
     p = argparse.ArgumentParser(prog="e7m", description="etzhayyim operator surface")
     p.add_argument("--json", action="store_true", help="machine-readable JSON output")
@@ -373,6 +445,31 @@ def main() -> int:
     pp.set_defaults(func=cmd_pod)
 
     sub.add_parser("tick", help="fire one CNS tick").set_defaults(func=cmd_tick)
+
+    pds = sub.add_parser("pds", help="PDS / XRPC introspection (atproto / pds / yoro / apex)")
+    pds.add_argument(
+        "action",
+        choices=["describe-server", "list-repos", "describe-repo", "resolve-handle", "xrpc", "create-account"],
+    )
+    pds.add_argument("target", nargs="?", help="DID / handle / NSID depending on action")
+    pds.add_argument("--host", default="atproto", help="host alias (atproto|pds|yoro|apex) or full URL")
+    pds.add_argument("--limit", type=int, default=20)
+    pds.add_argument("--cursor", default=None)
+    pds.add_argument("--method", default="GET", choices=["GET", "POST"])
+    pds.add_argument("--params", default=None, help="JSON params for xrpc GET")
+    pds.add_argument("--body", default=None, help="JSON body for xrpc POST")
+    pds.add_argument("--bearer", default=None, help="Authorization Bearer token")
+    pds.add_argument("--allow-write", action="store_true", help="explicit acknowledgement for POST writes")
+    pds.add_argument("--handle", default=None, help="create-account: account handle")
+    pds.add_argument("--did", default=None, help="create-account: pre-existing DID")
+    pds.add_argument("--email", default=None, help="create-account: contact email")
+    pds.add_argument("--invite", default=None, help="create-account: PDS invite code")
+    pds.add_argument("--password", default=None, help="create-account: initial password")
+    pds.set_defaults(func=cmd_pds)
+
+    py = sub.add_parser("yoro", help="yoro deployment probes (apex bundle + feed endpoints)")
+    py.add_argument("action", choices=["probe"])
+    py.set_defaults(func=cmd_yoro)
     sub.add_parser("members", help="信者 roster (MEMBERS.md)").set_defaults(func=cmd_members)
     sub.add_parser("lands",   help="護持地 registry (LANDS.md)").set_defaults(func=cmd_lands)
     sub.add_parser("verify",  help="scan 8 constitutional hard invariants").set_defaults(func=cmd_verify)
