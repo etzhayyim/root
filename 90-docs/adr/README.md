@@ -82,6 +82,7 @@ New open-scope ADRs go here (`etzhayyim/root/90-docs/adr/`). Scope:
 | [2605242100](./2605242100-baien-server-xl-carve-out.md) | baien-server / baien-XL carve-out from edge invariant — 4-tier ladder (edge / bonsai / server / XL) with shared Charter Rider + Murakumo-only invariants across tiers | accepted | 2026-05-24 |
 | [2605242110](./2605242110-baien-mx-move5-video-graft.md) | baien Move 5 — video graft (VideoMAE-base + 1.58-bit projector + 4 modal configs A/B/C/D; edge tier on-demand modality loading to respect ADR-2605241900 cumulative encoder ceiling) | accepted | 2026-05-24 |
 | [2605242120](./2605242120-baien-mx-move6-robotics-graft.md) | baien Move 6 — robotics graft (edge = scene description only / server = OpenVLA-style action head post-Council; safety-driven tier split per Charter Rider §2(h) + §2(a)) | accepted | 2026-05-24 |
+| [2605242400](./2605242400-baien-smoke-is-destructive-finding.md) | baien smoke runs are destructive, not informative — Move 1 Phase A + distill iter-00 honest signal; formalises Phase B as minimum-informative tier + operator gate against publishing smoke-tier adapters to distilled-models.jsonl | accepted | 2026-05-24 |
 
 (Future ADRs added here as they're authored.)
 
