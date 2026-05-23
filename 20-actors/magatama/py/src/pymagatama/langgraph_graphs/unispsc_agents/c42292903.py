@@ -1,30 +1,68 @@
-from typing import TypedDict, List
-from langgraph.graph import StateGraph, END
+# codemod:2605231300-unispsc-placeholder v1
+"""
+Unispsc actor agent c42292903 — Surgical Device (segment 42).
 
-class SurgicalDeviceState(TypedDict):
-    device_id: str
-    material_compliance: bool
-    sterilization_validated: bool
-    final_approval: bool
+Placeholder graph emitted by the 2026-05-23 corpus rebuild codemod. The
+upstream Gemini exec rebuild will overwrite this file with bespoke per-
+code logic; until then this 3-node compliance/process/emit pipeline
+ensures the agent is callable from UnispscAgentExecutorCell and exercises
+the MstCheckpointSaver substrate path.
 
-def check_material(state: SurgicalDeviceState):
-    print(f'Validating material specs for {state[\'device_id\']}')
-    return {'material_compliance': True}
+This module is regenerated automatically — hand-edit at your own risk.
+"""
 
-def check_sterilization(state: SurgicalDeviceState):
-    print('Verifying sterilization protocols')
-    return {'sterilization_validated': True}
+from __future__ import annotations
 
-def approve_device(state: SurgicalDeviceState):
-    is_ready = state['material_compliance'] and state['sterilization_validated']
-    return {'final_approval': is_ready}
+from operator import add
+from typing import Annotated, Any, TypedDict
 
-graph = StateGraph(SurgicalDeviceState)
-graph.add_node('material_check', check_material)
-graph.add_node('sterilization_check', check_sterilization)
-graph.add_node('approval', approve_device)
-graph.set_entry_point('material_check')
-graph.add_edge('material_check', 'sterilization_check')
-graph.add_edge('sterilization_check', 'approval')
-graph.add_edge('approval', END)
-graphics = graph.compile()
+from langgraph.graph import END, START, StateGraph
+
+UNISPSC_CODE = "42292903"
+UNISPSC_TITLE = "Surgical Device"
+UNISPSC_SEGMENT = "42"
+UNISPSC_DID = "did:web:etzhayyim.com:actor:c42292903"
+
+
+class State(TypedDict, total=False):
+    input: dict[str, Any]
+    compliance_check: bool
+    log: Annotated[list[str], add]
+    result: dict[str, Any]
+
+
+def receive(state: State) -> dict[str, Any]:
+    inp = state.get("input") or {}
+    return {
+        "log": [f"{UNISPSC_CODE}:receive"],
+        "compliance_check": bool(inp),
+    }
+
+
+def process(state: State) -> dict[str, Any]:
+    return {"log": [f"{UNISPSC_CODE}:process"]}
+
+
+def emit(state: State) -> dict[str, Any]:
+    return {
+        "log": [f"{UNISPSC_CODE}:emit"],
+        "result": {
+            "code": UNISPSC_CODE,
+            "title": UNISPSC_TITLE,
+            "segment": UNISPSC_SEGMENT,
+            "did": UNISPSC_DID,
+            "ok": True,
+        },
+    }
+
+
+_g = StateGraph(State)
+_g.add_node("receive", receive)
+_g.add_node("process", process)
+_g.add_node("emit", emit)
+_g.add_edge(START, "receive")
+_g.add_edge("receive", "process")
+_g.add_edge("process", "emit")
+_g.add_edge("emit", END)
+
+graph = _g.compile()

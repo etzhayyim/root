@@ -9,7 +9,7 @@ class CompassState(TypedDict):
 def validate_specs(state: CompassState):
     # Precision validation logic for directional instruments
     accuracy = state['specs'].get('accuracy', 0)
-    if accuracy < 0.5: 
+    if accuracy < 0.5:
         return {'validation_passed': True}
     return {'validation_passed': False}
 

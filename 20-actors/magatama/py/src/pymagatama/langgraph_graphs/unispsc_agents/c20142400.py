@@ -11,7 +11,7 @@ def validate_specs(state: BearingState):
     errors = []
     if 'load_capacity' not in specs: errors.append('Missing load capacity')
     if 'material' not in specs: errors.append('Missing material cert')
-    
+
     return {'validation_passed': len(errors) == 0, 'error_log': errors}
 
 def process_procurement(state: BearingState):

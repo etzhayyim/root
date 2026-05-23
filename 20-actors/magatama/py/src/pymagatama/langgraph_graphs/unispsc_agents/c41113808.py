@@ -11,7 +11,7 @@ def validate_specs(state: GravimeterState):
     return state
 
 def check_export_compliance(state: GravimeterState):
-    state['export_control_verified'] = True 
+    state['export_control_verified'] = True
     return state
 
 graph = StateGraph(GravimeterState)

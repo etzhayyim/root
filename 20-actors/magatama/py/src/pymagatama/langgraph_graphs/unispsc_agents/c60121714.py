@@ -11,7 +11,7 @@ def validate_specs(state: ToolState):
     errors = []
     if specs.get('tip_hardness_hrc', 0) < 55:
         errors.append('Insufficient tip hardness')
-    
+
     return {'is_validated': len(errors) == 0, 'errors': errors}
 
 def process_tool_req(state: ToolState):

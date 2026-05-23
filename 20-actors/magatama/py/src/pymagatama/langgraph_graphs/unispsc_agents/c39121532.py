@@ -1,1 +1,68 @@
-from typing import TypedDict, Annotated; import operator; from langgraph.graph import StateGraph, END; class RFSwitchState(TypedDict): specs: dict; validation_log: Annotated[list, operator.add]; passed: bool; def validate_specs(state: RFSwitchState): specs = state['specs']; logs = []; passed = True; if specs.get('frequency_range_ghz', 0) < 0: logs.append('Invalid frequency'); passed = False; return {'validation_log': logs, 'passed': passed}; def check_export_control(state: RFSwitchState): if state['specs'].get('power_handling_watts', 0) > 1000: return {'validation_log': ['High power rating: Export license required']}; return {'validation_log': []}; graph = StateGraph(RFSwitchState); graph.add_node('validate', validate_specs); graph.add_node('export', check_export_control); graph.set_entry_point('validate'); graph.add_edge('validate', 'export'); graph.add_edge('export', END); app = graph.compile()
+# codemod:2605231300-unispsc-placeholder v1
+"""
+Unispsc actor agent c39121532 — R F Switch (segment 39).
+
+Placeholder graph emitted by the 2026-05-23 corpus rebuild codemod. The
+upstream Gemini exec rebuild will overwrite this file with bespoke per-
+code logic; until then this 3-node compliance/process/emit pipeline
+ensures the agent is callable from UnispscAgentExecutorCell and exercises
+the MstCheckpointSaver substrate path.
+
+This module is regenerated automatically — hand-edit at your own risk.
+"""
+
+from __future__ import annotations
+
+from operator import add
+from typing import Annotated, Any, TypedDict
+
+from langgraph.graph import END, START, StateGraph
+
+UNISPSC_CODE = "39121532"
+UNISPSC_TITLE = "R F Switch"
+UNISPSC_SEGMENT = "39"
+UNISPSC_DID = "did:web:etzhayyim.com:actor:c39121532"
+
+
+class State(TypedDict, total=False):
+    input: dict[str, Any]
+    compliance_check: bool
+    log: Annotated[list[str], add]
+    result: dict[str, Any]
+
+
+def receive(state: State) -> dict[str, Any]:
+    inp = state.get("input") or {}
+    return {
+        "log": [f"{UNISPSC_CODE}:receive"],
+        "compliance_check": bool(inp),
+    }
+
+
+def process(state: State) -> dict[str, Any]:
+    return {"log": [f"{UNISPSC_CODE}:process"]}
+
+
+def emit(state: State) -> dict[str, Any]:
+    return {
+        "log": [f"{UNISPSC_CODE}:emit"],
+        "result": {
+            "code": UNISPSC_CODE,
+            "title": UNISPSC_TITLE,
+            "segment": UNISPSC_SEGMENT,
+            "did": UNISPSC_DID,
+            "ok": True,
+        },
+    }
+
+
+_g = StateGraph(State)
+_g.add_node("receive", receive)
+_g.add_node("process", process)
+_g.add_node("emit", emit)
+_g.add_edge(START, "receive")
+_g.add_edge("receive", "process")
+_g.add_edge("process", "emit")
+_g.add_edge("emit", END)
+
+graph = _g.compile()

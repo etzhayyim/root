@@ -9,7 +9,7 @@ class MineralState(TypedDict):
 
 def validate_purity(state: MineralState):
     # Simulate purity analysis logic
-    is_pure = True 
+    is_pure = True
     return {"purity_check": is_pure, "steps": state["steps"] + ["Purity Validated"]}
 
 def check_compliance(state: MineralState):

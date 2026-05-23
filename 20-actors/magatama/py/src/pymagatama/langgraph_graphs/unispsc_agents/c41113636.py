@@ -10,7 +10,7 @@ def validate_specs(state: LevelGeneratorState):
     error_log = []
     if 'frequency_range' not in state['spec_data']:
         error_log.append('Missing frequency_range')
-    
+
     validated = len(error_log) == 0
     return {'validated': validated, 'error_log': error_log}
 

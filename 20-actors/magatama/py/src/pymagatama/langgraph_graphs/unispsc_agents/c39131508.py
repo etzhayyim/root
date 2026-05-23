@@ -13,7 +13,7 @@ def validate_materials(state: WireMarkerState):
 
 def check_dispenser_fit(state: WireMarkerState):
     # Logic to verify roll compatibility with existing inventory
-    return {'is_compliant': state['is_compliant']} 
+    return {'is_compliant': state['is_compliant']}
 
 workflow = StateGraph(WireMarkerState)
 workflow.add_node('validate', validate_materials)

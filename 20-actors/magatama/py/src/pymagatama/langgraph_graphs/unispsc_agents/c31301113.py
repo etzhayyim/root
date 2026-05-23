@@ -8,7 +8,7 @@ class ForgingState(TypedDict):
 
 def validate_material_grade(state: ForgingState):
     grade = state['spec_data'].get('grade')
-    if not grade: 
+    if not grade:
         state['validation_errors'].append('Missing alloy grade')
     return state
 

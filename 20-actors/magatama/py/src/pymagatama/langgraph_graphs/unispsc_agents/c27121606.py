@@ -8,7 +8,7 @@ class MountingBaseState(TypedDict):
     validation_log: List[str]
 
 def validate_load_specs(state: MountingBaseState):
-    if state['pressure_rating'] > 500: 
+    if state['pressure_rating'] > 500:
         state['validation_log'].append('High pressure load validation passed.')
     else:
         state['validation_log'].append('Standard pressure load validation.')

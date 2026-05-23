@@ -1,1 +1,68 @@
-from typing import TypedDict, Annotated; from langgraph.graph import StateGraph, END; class EtalonState(TypedDict): specs: dict; validation_results: dict; def validate_geometry(state: EtalonState): flatness = state['specs'].get('flatness'); angle = state['specs'].get('angle'); return {'validation_results': {'geometry_ok': flatness < 0.1 and angle < 5.0}}; def validate_compliance(state: EtalonState): is_dual_use = state['specs'].get('precision_grade') == 'aerospace'; return {'validation_results': {'export_license_required': is_dual_use}}; graph = StateGraph(EtalonState); graph.add_node('validate_geometry', validate_geometry); graph.add_node('validate_compliance', validate_compliance); graph.set_entry_point('validate_geometry'); graph.add_edge('validate_geometry', 'validate_compliance'); graph.add_edge('validate_compliance', END); graph = graph.compile()
+# codemod:2605231300-unispsc-placeholder v1
+"""
+Unispsc actor agent c41111620 — Etalon (segment 41).
+
+Placeholder graph emitted by the 2026-05-23 corpus rebuild codemod. The
+upstream Gemini exec rebuild will overwrite this file with bespoke per-
+code logic; until then this 3-node compliance/process/emit pipeline
+ensures the agent is callable from UnispscAgentExecutorCell and exercises
+the MstCheckpointSaver substrate path.
+
+This module is regenerated automatically — hand-edit at your own risk.
+"""
+
+from __future__ import annotations
+
+from operator import add
+from typing import Annotated, Any, TypedDict
+
+from langgraph.graph import END, START, StateGraph
+
+UNISPSC_CODE = "41111620"
+UNISPSC_TITLE = "Etalon"
+UNISPSC_SEGMENT = "41"
+UNISPSC_DID = "did:web:etzhayyim.com:actor:c41111620"
+
+
+class State(TypedDict, total=False):
+    input: dict[str, Any]
+    compliance_check: bool
+    log: Annotated[list[str], add]
+    result: dict[str, Any]
+
+
+def receive(state: State) -> dict[str, Any]:
+    inp = state.get("input") or {}
+    return {
+        "log": [f"{UNISPSC_CODE}:receive"],
+        "compliance_check": bool(inp),
+    }
+
+
+def process(state: State) -> dict[str, Any]:
+    return {"log": [f"{UNISPSC_CODE}:process"]}
+
+
+def emit(state: State) -> dict[str, Any]:
+    return {
+        "log": [f"{UNISPSC_CODE}:emit"],
+        "result": {
+            "code": UNISPSC_CODE,
+            "title": UNISPSC_TITLE,
+            "segment": UNISPSC_SEGMENT,
+            "did": UNISPSC_DID,
+            "ok": True,
+        },
+    }
+
+
+_g = StateGraph(State)
+_g.add_node("receive", receive)
+_g.add_node("process", process)
+_g.add_node("emit", emit)
+_g.add_edge(START, "receive")
+_g.add_edge("receive", "process")
+_g.add_edge("process", "emit")
+_g.add_edge("emit", END)
+
+graph = _g.compile()

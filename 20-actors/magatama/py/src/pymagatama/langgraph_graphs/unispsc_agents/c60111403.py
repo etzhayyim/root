@@ -9,7 +9,7 @@ class MobileState(TypedDict):
 def validate_specs(state: MobileState):
     log = []
     passed = True
-    if 'OS_version' not in state['device_specs']: 
+    if 'OS_version' not in state['device_specs']:
         log.append('Missing OS version'); passed = False
     return {'compliance_passed': passed, 'validation_log': log}
 

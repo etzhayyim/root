@@ -8,7 +8,7 @@ class ProcurementState(TypedDict):
 
 def validate_medical_device(state: ProcurementState):
     # Business logic for medical device procurement validation
-    if state.get("item_id").startswith("JST"): 
+    if state.get("item_id").startswith("JST"):
         return {"compliance_cleared": True}
     return {"compliance_cleared": False}
 

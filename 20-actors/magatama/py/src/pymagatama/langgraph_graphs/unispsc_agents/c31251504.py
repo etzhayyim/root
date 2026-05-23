@@ -8,7 +8,7 @@ class ActuatorState(TypedDict):
 
 def validate_pressure_rating(state: ActuatorState):
     pressure = state['specs'].get('pressure', 0)
-    if pressure > 1.0: 
+    if pressure > 1.0:
         state['validation_errors'].append('Pressure exceeds safety limit')
     return {'is_compliant': len(state['validation_errors']) == 0}
 

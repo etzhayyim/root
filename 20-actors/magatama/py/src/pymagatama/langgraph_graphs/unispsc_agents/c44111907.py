@@ -5,7 +5,7 @@ class BulletinState(TypedDict):
     spec_data: dict
     validated: bool
 
-def validate_specs(state: BulletinState): 
+def validate_specs(state: BulletinState):
     required = ['dimensions', 'material', 'mounting']
     valid = all(k in state['spec_data'] for k in required)
     return {'validated': valid}

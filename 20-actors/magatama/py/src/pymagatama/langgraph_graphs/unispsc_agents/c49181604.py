@@ -16,7 +16,7 @@ def validate_specs(state: State):
     errors = []
     if specs['weight'] > 50.0:
         errors.append('Weight exceeds competition limit')
-    
+
     return {'validated': len(errors) == 0, 'errors': errors}
 
 workflow = StateGraph(State)

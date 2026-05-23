@@ -9,7 +9,7 @@ class ProcurementState(TypedDict):
 
 def validate_ingredients(state: ProcurementState):
     # Simulate safety check for cosmetic ingredients
-    unsafe = {'parabens', 'formaldehyde'} 
+    unsafe = {'parabens', 'formaldehyde'}
     state['approved'] = not any(i.lower() in unsafe for i in state['ingredients'])
     return state
 

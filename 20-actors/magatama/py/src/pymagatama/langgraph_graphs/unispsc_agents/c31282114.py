@@ -14,7 +14,7 @@ def validate_precious_metal(state: ProcurementState):
 
 def security_check(state: ProcurementState):
     print('Running dual-use export control audit...')
-    return {} 
+    return {}
 
 graph = StateGraph(ProcurementState)
 graph.add_node('validate', validate_precious_metal)

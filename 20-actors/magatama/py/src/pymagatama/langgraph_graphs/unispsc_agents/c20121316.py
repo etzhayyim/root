@@ -10,7 +10,7 @@ class GearState(TypedDict):
 def validate_gearing_specs(state: GearState) -> GearState:
     specs = state.get('spec_data', {})
     logs = state.get('validation_logs', [])
-    
+
     backlash = specs.get('backlash', 10)
     if backlash > 5:
         logs.append(f'Validation Warning: Backlash {backlash} exceeds high-precision threshold.')

@@ -1,1 +1,68 @@
-from langgraph.graph import StateGraph, END; from typing import Dict, Any; class ProcurementState(Dict[str, Any]): pass; def validate_weld_certs(state: ProcurementState) -> dict: return {'status': 'certs_verified'}; def inspect_material_grades(state: ProcurementState) -> dict: return {'status': 'grade_validated'}; graph = StateGraph(ProcurementState); graph.add_node('validate_certs', validate_weld_certs); graph.add_node('check_grades', inspect_material_grades); graph.set_entry_point('validate_certs'); graph.add_edge('validate_certs', 'check_grades'); graph.add_edge('check_grades', END); graph = graph.compile()
+# codemod:2605231300-unispsc-placeholder v1
+"""
+Unispsc actor agent c31351711 — Procurement (segment 31).
+
+Placeholder graph emitted by the 2026-05-23 corpus rebuild codemod. The
+upstream Gemini exec rebuild will overwrite this file with bespoke per-
+code logic; until then this 3-node compliance/process/emit pipeline
+ensures the agent is callable from UnispscAgentExecutorCell and exercises
+the MstCheckpointSaver substrate path.
+
+This module is regenerated automatically — hand-edit at your own risk.
+"""
+
+from __future__ import annotations
+
+from operator import add
+from typing import Annotated, Any, TypedDict
+
+from langgraph.graph import END, START, StateGraph
+
+UNISPSC_CODE = "31351711"
+UNISPSC_TITLE = "Procurement"
+UNISPSC_SEGMENT = "31"
+UNISPSC_DID = "did:web:etzhayyim.com:actor:c31351711"
+
+
+class State(TypedDict, total=False):
+    input: dict[str, Any]
+    compliance_check: bool
+    log: Annotated[list[str], add]
+    result: dict[str, Any]
+
+
+def receive(state: State) -> dict[str, Any]:
+    inp = state.get("input") or {}
+    return {
+        "log": [f"{UNISPSC_CODE}:receive"],
+        "compliance_check": bool(inp),
+    }
+
+
+def process(state: State) -> dict[str, Any]:
+    return {"log": [f"{UNISPSC_CODE}:process"]}
+
+
+def emit(state: State) -> dict[str, Any]:
+    return {
+        "log": [f"{UNISPSC_CODE}:emit"],
+        "result": {
+            "code": UNISPSC_CODE,
+            "title": UNISPSC_TITLE,
+            "segment": UNISPSC_SEGMENT,
+            "did": UNISPSC_DID,
+            "ok": True,
+        },
+    }
+
+
+_g = StateGraph(State)
+_g.add_node("receive", receive)
+_g.add_node("process", process)
+_g.add_node("emit", emit)
+_g.add_edge(START, "receive")
+_g.add_edge("receive", "process")
+_g.add_edge("process", "emit")
+_g.add_edge("emit", END)
+
+graph = _g.compile()

@@ -10,7 +10,7 @@ def validate_specs(state: AgitatorState):
     specs = state.get('specs', {})
     log = []
     compliant = True
-    if 'motor_power_kw' not in specs: 
+    if 'motor_power_kw' not in specs:
         log.append("Missing motor_power_kw"); compliant = False
     return {"is_compliant": compliant, "validation_log": log}
 

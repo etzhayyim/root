@@ -11,7 +11,7 @@ def validate_specs(state: MonitoringState):
     logs = []
     compliant = True
     if specs.get('voltage', 0) > 1000: logs.append('Voltage exceeds safety threshold')
-    if not specs.get('protocol'): 
+    if not specs.get('protocol'):
         logs.append('Protocol missing'); compliant = False
     return {'validation_logs': logs, 'is_compliant': compliant}
 

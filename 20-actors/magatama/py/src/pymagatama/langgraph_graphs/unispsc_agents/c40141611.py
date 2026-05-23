@@ -12,7 +12,7 @@ def validate_valve_specs(state: ValveProcurementState):
     return {**state, 'validation_passed': passed}
 
 def generate_compliance(state: ValveProcurementState):
-    report = 'Compliance confirmed for high-pressure industrial application.' if state['validation_passed'] else 'Compliance failed.' 
+    report = 'Compliance confirmed for high-pressure industrial application.' if state['validation_passed'] else 'Compliance failed.'
     return {**state, 'compliance_report': report}
 
 graph = StateGraph(ValveProcurementState)

@@ -14,7 +14,7 @@ def validate_coal_quality(state: CoalProcurementState):
         log.append(f'Carbon content {state['carbon_content']}% below threshold')
     if state['moisture'] > 12.0:
         log.append(f'Moisture level {state['moisture']}% exceeds limit')
-    
+
     new_status = 'REJECTED' if log else 'APPROVED'
     return {'status': new_status, 'validation_log': log}
 

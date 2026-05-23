@@ -10,7 +10,7 @@ class CatalystState(TypedDict):
 
 def validate_purity(state: CatalystState):
     # Simulate high-precision validation logic for catalyst purity
-    is_pure = True 
+    is_pure = True
     return {"purity_check": is_pure, "validation_logs": ["Purity validation passed."]}
 
 def check_compliance(state: CatalystState):

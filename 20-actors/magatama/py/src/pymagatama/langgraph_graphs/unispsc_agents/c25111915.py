@@ -8,7 +8,7 @@ class DockStepState(TypedDict):
 
 def validate_load_capacity(state: DockStepState):
     capacity = state['spec_sheet'].get('load_capacity', 0)
-    if capacity < 500: 
+    if capacity < 500:
         state['validation_errors'].append('Load capacity too low for industrial use.')
     return state
 

@@ -8,7 +8,7 @@ class ReinforcementState(TypedDict):
 
 def validate_dimensions(state: ReinforcementState):
     inner = state['spec_data'].get('inner_diameter_mm', 0)
-    if inner < 6.0: 
+    if inner < 6.0:
         state['validation_issues'].append('Inner diameter too small for standard binders')
     return {'status': 'validated' if not state['validation_issues'] else 'rejected'}
 

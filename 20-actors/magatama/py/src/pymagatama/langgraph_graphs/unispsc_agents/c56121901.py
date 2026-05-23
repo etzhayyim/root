@@ -7,7 +7,7 @@ class ProcurementState(TypedDict):
 
 def validate_stability(state: ProcurementState):
     load = state['table_specs'].get('load_capacity', 0)
-    if load < 50: 
+    if load < 50:
         state['validation_results'].append('Load capacity too low for industrial sewing machines.')
     return state
 

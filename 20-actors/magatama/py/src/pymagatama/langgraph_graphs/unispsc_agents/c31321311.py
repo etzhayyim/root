@@ -5,7 +5,7 @@ class ProcurementState(TypedDict):
     inspection_passed: bool
     compliant: bool
 def validate_material(state: ProcurementState):
-    state['compliant'] = state['material_spec'] == 'Waspalloy-AMS' 
+    state['compliant'] = state['material_spec'] == 'Waspalloy-AMS'
     return state
 def check_quality(state: ProcurementState):
     state['inspection_passed'] = state['compliant']

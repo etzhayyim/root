@@ -9,7 +9,7 @@ class CastingState(TypedDict):
 def validate_material(state: CastingState):
     # Ensure lead-ceramic composition meets hazardous material safety protocols
     comp = state['spec_data'].get('composition', {})
-    if 'lead' not in comp: 
+    if 'lead' not in comp:
         state['validation_errors'].append('Lead content certification missing.')
     return {'validation_errors': state['validation_errors']}
 

@@ -8,7 +8,7 @@ class CurriculumState(TypedDict):
 
 def validate_curriculum_standard(state: CurriculumState):
     # Simulate alignment check with national standards
-    state['compliance_check'] = True 
+    state['compliance_check'] = True
     return state
 
 def verify_metadata(state: CurriculumState):

@@ -9,7 +9,7 @@ class TitaniumState(TypedDict):
 def validate_material_specs(state: TitaniumState):
     # Simulate material compliance check for aerospace grade Titanium
     specs = state.get('specs', {})
-    state['is_compliant'] = specs.get('grade') == 'Grade 5' 
+    state['is_compliant'] = specs.get('grade') == 'Grade 5'
     return state
 
 def run_ndt_check(state: TitaniumState):

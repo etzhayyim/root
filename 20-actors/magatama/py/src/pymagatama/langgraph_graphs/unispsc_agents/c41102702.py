@@ -12,8 +12,8 @@ def validate_crystal_specs(state: ScintillatorState):
     return {'validation_passed': passed}
 
 def check_compliance(state: ScintillatorState):
-    if state.get('dimension', 0) > 100: 
-        return {'compliance_risk': 'high_export_control'} 
+    if state.get('dimension', 0) > 100:
+        return {'compliance_risk': 'high_export_control'}
     return {'compliance_risk': 'low'}
 
 graph = StateGraph(ScintillatorState)

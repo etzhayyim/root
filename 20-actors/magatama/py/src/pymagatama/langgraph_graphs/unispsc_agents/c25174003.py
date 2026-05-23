@@ -8,7 +8,7 @@ class RadiatorSpecState(TypedDict):
     errors: List[str]
 
 def validate_pressure(state: RadiatorSpecState):
-    if state['pressure_rating'] < 88.0: 
+    if state['pressure_rating'] < 88.0:
         return {'verified': False, 'errors': ['Pressure rating below safety threshold']}
     return {'verified': True}
 

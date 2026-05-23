@@ -8,7 +8,7 @@ class DocState(TypedDict):
 
 def validate_content(state: DocState):
     errors = []
-    if not state['content']: 
+    if not state['content']:
         errors.append('Content is empty')
     return {'validation_errors': errors}
 

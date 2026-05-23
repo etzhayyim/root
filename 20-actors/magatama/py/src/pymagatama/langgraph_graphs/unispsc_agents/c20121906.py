@@ -9,7 +9,7 @@ class BearingState(TypedDict):
 
 def validate_load_capacity(state: BearingState):
     load = state['specs'].get('load_capacity_rating', 0)
-    if load > 500: 
+    if load > 500:
         state['validation_log'].append('High capacity verified.')
     return {'validation_log': state['validation_log']}
 

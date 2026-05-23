@@ -10,7 +10,7 @@ def validate_materials(state: GraphiteMoldState):
     # Simulate CAD/Spec validation for thermal tolerances
     purity = state['spec_data'].get('purity_percentage', 0)
     is_valid = purity >= 99.9
-    return {'validation_report': {'passed': is_valid, 'details': 'Purity check'}} 
+    return {'validation_report': {'passed': is_valid, 'details': 'Purity check'}}
 
 def finalize_order(state: GraphiteMoldState):
     approved = state['validation_report'].get('passed')

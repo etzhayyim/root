@@ -1,1 +1,91 @@
-from typing import TypedDict, Annotated, List; from langgraph.graph import StateGraph, END; from langgraph.graph.message import add_messages; class SensorState(TypedDict): sensor_id: str; specifications: dict; validation_status: bool; workflow_log: Annotated[List[str], add_messages]; def validate_specs(state: SensorState): specs = state['specifications']; status = all([key in specs for key in ['detection_range_mm', 'response_time_ms', 'operating_voltage_range']]); return {'validation_status': status, 'workflow_log': [f'Validation complete: {status}']}; def trigger_deployment(state: SensorState): return {'workflow_log': ['Sensor ready for integration']}; graph = StateGraph(SensorState); graph.add_node('validate', validate_specs); graph.add_node('deploy', trigger_deployment); graph.add_edge('validate', 'deploy'); graph.add_edge('deploy', END); graph.set_entry_point('validate'); compile_graph = graph.compile()
+# codemod:2605231400-unispsc-gemini-bespoke v1
+"""
+Unispsc actor agent c20122704 — Sensor (segment 20).
+Bespoke logic for sensor data acquisition, calibration, and telemetry formatting.
+"""
+
+from __future__ import annotations
+
+from operator import add
+from typing import Annotated, Any, TypedDict
+
+from langgraph.graph import END, START, StateGraph
+
+UNISPSC_CODE = "20122704"
+UNISPSC_TITLE = "Sensor"
+UNISPSC_SEGMENT = "20"
+UNISPSC_DID = "did:web:etzhayyim.com:actor:c20122704"
+
+
+class State(TypedDict, total=False):
+    input: dict[str, Any]
+    log: Annotated[list[str], add]
+    result: dict[str, Any]
+    # Domain specific fields for Sensor
+    sensor_mode: str
+    is_faulty: bool
+    calibration_coefficient: float
+    telemetry_buffer: list[float]
+
+
+def validate_parameters(state: State) -> dict[str, Any]:
+    """Validates the sensor configuration parameters from the input context."""
+    inp = state.get("input") or {}
+    mode = inp.get("mode", "continuous")
+    # Simulation of hardware verification
+    return {
+        "log": [f"{UNISPSC_CODE}:validate_parameters"],
+        "sensor_mode": mode,
+        "is_faulty": False,
+    }
+
+
+def perform_calibration(state: State) -> dict[str, Any]:
+    """Calculates calibration coefficients based on system baseline signals."""
+    inp = state.get("input") or {}
+    baseline = inp.get("baseline_signal", 0.05)
+    # Apply a synthetic calibration curve
+    coeff = 1.0 + (baseline * 0.15)
+    return {
+        "log": [f"{UNISPSC_CODE}:perform_calibration"],
+        "calibration_coefficient": coeff,
+    }
+
+
+def capture_telemetry(state: State) -> dict[str, Any]:
+    """Simulates signal sampling, applies calibration, and generates final telemetry."""
+    inp = state.get("input") or {}
+    raw_signals = inp.get("samples", [0.5, 0.51, 0.49])
+    coeff = state.get("calibration_coefficient", 1.0)
+
+    calibrated_signals = [s * coeff for s in raw_signals]
+    avg_value = sum(calibrated_signals) / len(calibrated_signals) if calibrated_signals else 0.0
+
+    return {
+        "log": [f"{UNISPSC_CODE}:capture_telemetry"],
+        "telemetry_buffer": calibrated_signals,
+        "result": {
+            "code": UNISPSC_CODE,
+            "title": UNISPSC_TITLE,
+            "segment": UNISPSC_SEGMENT,
+            "did": UNISPSC_DID,
+            "measurement": round(avg_value, 4),
+            "sample_count": len(calibrated_signals),
+            "mode": state.get("sensor_mode"),
+            "status": "operational" if not state.get("is_faulty") else "fault",
+            "unit": "standard_unit",
+        },
+    }
+
+
+_g = StateGraph(State)
+_g.add_node("validate", validate_parameters)
+_g.add_node("calibrate", perform_calibration)
+_g.add_node("capture", capture_telemetry)
+
+_g.add_edge(START, "validate")
+_g.add_edge("validate", "calibrate")
+_g.add_edge("calibrate", "capture")
+_g.add_edge("capture", END)
+
+graph = _g.compile()

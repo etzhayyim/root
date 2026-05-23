@@ -7,7 +7,7 @@ class LeatherState(TypedDict):
 
 def validate_leather_quality(state: LeatherState):
     spec = state['material_spec']
-    if spec.get('thickness_mm', 0) < 0.5: 
+    if spec.get('thickness_mm', 0) < 0.5:
         return {'compliance_report': 'REJECTED: Thickness below threshold'}
     return {'compliance_report': 'APPROVED: Quality standards met'}
 

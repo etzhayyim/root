@@ -9,7 +9,7 @@ class PCRState(TypedDict):
 
 def validate_sequence(state: PCRState):
     # Business logic for sequence validation
-    if len(state['sequence']) > 15: 
+    if len(state['sequence']) > 15:
         return {'purity_validated': True}
     return {'purity_validated': False}
 

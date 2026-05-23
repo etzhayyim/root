@@ -8,7 +8,7 @@ class ExplosimeterState(TypedDict):
 
 def validate_certification(state: ExplosimeterState):
     # Simulate logic to verify ATEX/IECEx compliance
-    state['is_compliant'] = True 
+    state['is_compliant'] = True
     return state
 
 def run_calibration_check(state: ExplosimeterState):

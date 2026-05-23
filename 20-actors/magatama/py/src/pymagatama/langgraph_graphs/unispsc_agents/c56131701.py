@@ -14,7 +14,7 @@ def validate_specs(state: RailSpecState):
         errors.append('Invalid load capacity')
     if not state['material']:
         errors.append('Material missing')
-    
+
     return {'is_compliant': len(errors) == 0, 'validation_errors': errors}
 
 def route_by_compliance(state: RailSpecState):

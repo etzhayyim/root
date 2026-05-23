@@ -8,7 +8,7 @@ class HWRState(TypedDict):
 
 def validate_image(state: HWRState):
     # Business logic for image validation
-    return {'extracted_text': 'sample'} 
+    return {'extracted_text': 'sample'}
 
 def process_ocr(state: HWRState):
     # Business logic for OCR processing

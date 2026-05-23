@@ -9,7 +9,7 @@ class BougieState(TypedDict):
 def validate_compliance(state: BougieState):
     log = []
     compliant = True
-    if 'iso13485' not in state['spec_data']: 
+    if 'iso13485' not in state['spec_data']:
         compliant = False
         log.append('Missing ISO 13485 certification.')
     return {'is_compliant': compliant, 'validation_log': log}

@@ -15,7 +15,7 @@ def validate_load_specs(state: LinearBearingState):
 
 def export_review(state: LinearBearingState):
     # Dual-use review logic
-    state['export_control_flag'] = False 
+    state['export_control_flag'] = False
     return state
 
 graph = StateGraph(LinearBearingState)

@@ -10,7 +10,7 @@ class FeedState(TypedDict):
 
 def validate_batch(state: FeedState) -> FeedState:
     # Simulate purity validation logic
-    is_pure = True 
+    is_pure = True
     return {"purity_check": is_pure, "log": [f"Batch {state['batch_id']} purity verified: {is_pure}"]}
 
 def verify_safety(state: FeedState) -> FeedState:

@@ -1,33 +1,68 @@
-from langgraph.graph import StateGraph
-from typing import TypedDict, List
+# codemod:2605231300-unispsc-placeholder v1
+"""
+Unispsc actor agent c50211610 — Pipe Cleaner (segment 50).
 
-class PipeCleanerState(TypedDict):
-    spec_data: dict
-    validation_errors: List[str]
-    is_approved: bool
+Placeholder graph emitted by the 2026-05-23 corpus rebuild codemod. The
+upstream Gemini exec rebuild will overwrite this file with bespoke per-
+code logic; until then this 3-node compliance/process/emit pipeline
+ensures the agent is callable from UnispscAgentExecutorCell and exercises
+the MstCheckpointSaver substrate path.
 
-def validate_materials(state: PipeCleanerState) -> PipeCleanerState:
-    materials = state['spec_data'].get('materials', [])
-    if not all(m in ['cotton', 'synthetic_fiber'] for m in materials):
-        state['validation_errors'].append('Invalid material type detected.')
-    return state
+This module is regenerated automatically — hand-edit at your own risk.
+"""
 
-def check_dimensions(state: PipeCleanerState) -> PipeCleanerState:
-    if state['spec_data'].get('diameter_mm', 0) > 5:
-        state['validation_errors'].append('Diameter exceeds standard pipe gauge.')
-    return state
+from __future__ import annotations
 
-def finalize_check(state: PipeCleanerState) -> PipeCleanerState:
-    state['is_approved'] = len(state['validation_errors']) == 0
-    return state
+from operator import add
+from typing import Annotated, Any, TypedDict
 
-graph = StateGraph(PipeCleanerState)
-graph.add_node('validate_materials', validate_materials)
-graph.add_node('check_dimensions', check_dimensions)
-graph.add_node('finalize', finalize_check)
-graph.set_entry_point('validate_materials')
-graph.add_edge('validate_materials', 'check_dimensions')
-graph.add_edge('check_dimensions', 'finalize')
-graph.add_edge('finalize', None)
+from langgraph.graph import END, START, StateGraph
 
-compiled_graph = graph.compile()
+UNISPSC_CODE = "50211610"
+UNISPSC_TITLE = "Pipe Cleaner"
+UNISPSC_SEGMENT = "50"
+UNISPSC_DID = "did:web:etzhayyim.com:actor:c50211610"
+
+
+class State(TypedDict, total=False):
+    input: dict[str, Any]
+    compliance_check: bool
+    log: Annotated[list[str], add]
+    result: dict[str, Any]
+
+
+def receive(state: State) -> dict[str, Any]:
+    inp = state.get("input") or {}
+    return {
+        "log": [f"{UNISPSC_CODE}:receive"],
+        "compliance_check": bool(inp),
+    }
+
+
+def process(state: State) -> dict[str, Any]:
+    return {"log": [f"{UNISPSC_CODE}:process"]}
+
+
+def emit(state: State) -> dict[str, Any]:
+    return {
+        "log": [f"{UNISPSC_CODE}:emit"],
+        "result": {
+            "code": UNISPSC_CODE,
+            "title": UNISPSC_TITLE,
+            "segment": UNISPSC_SEGMENT,
+            "did": UNISPSC_DID,
+            "ok": True,
+        },
+    }
+
+
+_g = StateGraph(State)
+_g.add_node("receive", receive)
+_g.add_node("process", process)
+_g.add_node("emit", emit)
+_g.add_edge(START, "receive")
+_g.add_edge("receive", "process")
+_g.add_edge("process", "emit")
+_g.add_edge("emit", END)
+
+graph = _g.compile()
