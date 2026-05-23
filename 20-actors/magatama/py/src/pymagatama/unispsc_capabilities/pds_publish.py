@@ -73,7 +73,14 @@ def make_publish_callback() -> Callable[[str, str, dict[str, Any]], str | None] 
 
     url = _build_create_record_url(endpoint)
     token = _service_token()
-    headers = {"Content-Type": "application/json"}
+    # Cloudflare WAF in front of pds.etzhayyim.com blocks Python urllib's
+    # default User-Agent (returns HTTP 403 with CF error code 1010).
+    # Identify ourselves as the religious-corp organism — readable + auditable.
+    headers = {
+        "Content-Type": "application/json",
+        "User-Agent": "etzhayyim-organism/0.1.0 (+https://etzhayyim.com)",
+        "Accept": "application/json",
+    }
     if token:
         headers["Authorization"] = f"Bearer {token}"
 
