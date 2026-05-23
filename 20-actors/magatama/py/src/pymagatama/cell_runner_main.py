@@ -339,16 +339,22 @@ async def _cell_runner_healthz(request: Any) -> Any:
 
 
 async def _start_healthz_server(port: int) -> None:
-    """Run /healthz endpoint as concurrent asyncio task."""
+    """Run /healthz endpoint as concurrent asyncio task.
+
+    Bind defaults to 127.0.0.1 (launchd / local-dev). In-Pod deploys per
+    ADR-2605232100 set ETZ_HEALTHZ_BIND=0.0.0.0 so kubelet probes against
+    PodIP reach the listener.
+    """
     from aiohttp import web as _web
 
+    bind = os.environ.get("ETZ_HEALTHZ_BIND", "127.0.0.1")
     app = _web.Application()
     app.router.add_get("/healthz", _cell_runner_healthz)
     runner = _web.AppRunner(app)
     await runner.setup()
-    site = _web.TCPSite(runner, "127.0.0.1", port)
+    site = _web.TCPSite(runner, bind, port)
     await site.start()
-    _log.info("cell-runner /healthz at http://127.0.0.1:%d/healthz", port)
+    _log.info("cell-runner /healthz at http://%s:%d/healthz", bind, port)
 
 
 async def _spawn_xrpc_cell(cell: dict[str, Any], stop_event: asyncio.Event) -> None:

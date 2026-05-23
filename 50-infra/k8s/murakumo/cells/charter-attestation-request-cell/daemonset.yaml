@@ -53,18 +53,23 @@ spec:
               value: /run/etzhayyim/checkpointer.sock
             - name: ETZ_CELL_NAME
               value: CharterAttestationRequestCell
+            - name: ETZHAYYIM_LOG_DIR
+              value: /tmp/etzhayyim/log
             - name: FLEET_TOML
               value: /repo/50-infra/murakumo/fleet.toml
             - name: ETZ_REPO
               value: /repo
           ports:
-            - name: healthz
+            - name: runner-healthz
+              containerPort: 13000
+              protocol: TCP
+            - name: cell-healthz
               containerPort: 13001
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /healthz
-              port: healthz
+              port: runner-healthz
             initialDelaySeconds: 30
             periodSeconds: 30
             timeoutSeconds: 5
@@ -72,7 +77,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /healthz
-              port: healthz
+              port: runner-healthz
             initialDelaySeconds: 15
             periodSeconds: 10
             timeoutSeconds: 3

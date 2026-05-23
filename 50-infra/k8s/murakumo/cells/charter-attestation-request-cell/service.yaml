@@ -14,7 +14,11 @@ spec:
   selector:
     app.kubernetes.io/name: charter-attestation-request-cell
   ports:
-    - name: healthz
+    - name: runner-healthz
+      port: 13000
+      targetPort: runner-healthz
+      protocol: TCP
+    - name: cell-healthz
       port: 13001
-      targetPort: healthz
+      targetPort: cell-healthz
       protocol: TCP

@@ -138,10 +138,21 @@ def render_service(p: Placement, ns: str) -> dict[str, Any]:
             "type": "ClusterIP",
             "selector": {"app.kubernetes.io/name": name},
             "ports": [
+                # The cell-runner process serves /healthz on 13000 reflecting
+                # overall runner + cells.toml registry state. Probed by k8s.
                 {
-                    "name": "healthz",
+                    "name": "runner-healthz",
+                    "port": 13000,
+                    "targetPort": "runner-healthz",
+                    "protocol": "TCP",
+                },
+                # Per-cell subprocess healthz (declared in fleet.toml). May
+                # 404 until the cell finishes init — not used by k8s probes
+                # in Stage 2 (per-cell readiness gating is Stage 4+ work).
+                {
+                    "name": "cell-healthz",
                     "port": p.healthz_port,
-                    "targetPort": "healthz",
+                    "targetPort": "cell-healthz",
                     "protocol": "TCP",
                 },
             ],
@@ -195,16 +206,34 @@ def render_daemonset(
                         "value": "/run/etzhayyim/checkpointer.sock",
                     },
                     {"name": "ETZ_CELL_NAME", "value": p.cell_name},
+                    # cell_runner_main.py defaults log_dir to ~/.etzhayyim/log
+                    # which is read-only under readOnlyRootFilesystem=true.
+                    # Redirect into the writable emptyDir at /tmp.
+                    {"name": "ETZHAYYIM_LOG_DIR", "value": "/tmp/etzhayyim/log"},
+                    # cell-runner /healthz defaults to 127.0.0.1 bind which is
+                    # unreachable from the kubelet. ADR-2605232100 enables
+                    # 0.0.0.0 bind inside Pods.
+                    {"name": "ETZ_HEALTHZ_BIND", "value": "0.0.0.0"},
                 ],
                 "ports": [
                     {
-                        "name": "healthz",
+                        "name": "runner-healthz",
+                        "containerPort": 13000,
+                        "protocol": "TCP",
+                    },
+                    {
+                        "name": "cell-healthz",
                         "containerPort": p.healthz_port,
                         "protocol": "TCP",
                     },
                 ],
-                "livenessProbe": _probe(p.healthz_port, 30, 30, 5),
-                "readinessProbe": _probe(p.healthz_port, 15, 10, 3),
+                # Stage 2 (per ADR-2605232100 §Migration plan): probe the
+                # runner's overall /healthz on 13000. Per-cell readiness
+                # gating (using p.healthz_port) is Stage 4+ work — it
+                # requires every cell.py to expose a working /healthz, which
+                # is not yet uniformly true across the 15-cell catalog.
+                "livenessProbe": _runner_probe(30, 30, 5),
+                "readinessProbe": _runner_probe(15, 10, 3),
                 "resources": {
                     "requests": {"cpu": "50m", "memory": "128Mi"},
                     "limits": {"cpu": "500m", "memory": "512Mi"},
@@ -270,9 +299,15 @@ def _common_labels(p: Placement) -> dict[str, str]:
     }
 
 
-def _probe(port: int, initial: int, period: int, timeout: int) -> dict[str, Any]:
+def _runner_probe(initial: int, period: int, timeout: int) -> dict[str, Any]:
+    """Probe the cell-runner's overall /healthz on port 13000.
+
+    Reflects "runner process alive + cells.toml registry loaded" (Stage 2
+    Pod-level readiness criterion). Independent of individual cell
+    subprocess init status.
+    """
     return {
-        "httpGet": {"path": "/healthz", "port": "healthz"},
+        "httpGet": {"path": "/healthz", "port": "runner-healthz"},
         "initialDelaySeconds": initial,
         "periodSeconds": period,
         "timeoutSeconds": timeout,
