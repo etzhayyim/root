@@ -187,11 +187,28 @@ async def invoke_agent(body: InvokeAgentInput) -> dict[str, Any]:
     except (ValueError, RuntimeError) as e:
         raise HTTPException(status_code=500, detail={"error": "AgentLoadFailed", "message": str(e)})
 
+    # Stage D (per ADR-2605232100) — opt-in perceive/record wrapper around
+    # the per-actor LangGraph. ETZ_UNISPSC_CAPABILITY_WRAP=1 turns on the
+    # belief-store loop; without it the bare graph.ainvoke contract is
+    # preserved for callers that don't expect the augmented response.
+    from pymagatama.unispsc_capabilities.wrapper import (
+        capability_wrapping_enabled,
+        invoke_with_capability,
+    )
+
     try:
-        result = await asyncio.wait_for(
-            graph.ainvoke(body.payload),
-            timeout=body.timeoutMs / 1000.0,
-        )
+        if capability_wrapping_enabled():
+            result = await invoke_with_capability(
+                body.code,
+                graph,
+                body.payload,
+                timeout_s=body.timeoutMs / 1000.0,
+            )
+        else:
+            result = await asyncio.wait_for(
+                graph.ainvoke(body.payload),
+                timeout=body.timeoutMs / 1000.0,
+            )
     except asyncio.TimeoutError:
         return {
             "ok": False,

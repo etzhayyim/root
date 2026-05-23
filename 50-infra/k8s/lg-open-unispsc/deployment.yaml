@@ -81,6 +81,16 @@ spec:
             # a checkpointer to serve listAgents / invokeAgent / classify.
             - name: ETZ_CHECKPOINTER_SOCKET
               value: "/run/etzhayyim/checkpointer.sock"
+            # Stage D (ADR-2605232100) — UNSPSC actor capability wrapping.
+            # Turns on the perceive → inner-graph → record loop in
+            # pymagatama.xrpc.unispsc.invoke_agent. Belief-store SQLite
+            # files land in /tmp (writable emptyDir, ephemeral until the
+            # MstCheckpointSaver sidecar replaces it with substrate-anchored
+            # persistence).
+            - name: ETZ_UNISPSC_CAPABILITY_WRAP
+              value: "1"
+            - name: ORGANISM_SQLITE_DIR
+              value: "/tmp/etzhayyim/organism"
             # Suppress the static-builtin assistants — this server's surface
             # is the XRPC façade, not /runs?assistant_id=builtin_*.
             - name: LANGGRAPH_DISABLE_BUILTINS
