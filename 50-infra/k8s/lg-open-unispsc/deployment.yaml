@@ -92,6 +92,25 @@ spec:
               value: "1"
             - name: ORGANISM_SQLITE_DIR
               value: "/tmp/etzhayyim/organism"
+            # Stage D / yatachain wire-up (ADR-2605231400 §2 + §3): each
+            # observation is POSTed to the PDS via com.atproto.repo.createRecord
+            # in addition to the local SQLite hot cache. Downstream the
+            # existing mst-projector + ipfs-pinner + anchor-cron pipeline
+            # makes the record IPFS-content-addressed + L2-anchored.
+            # Publish errors degrade gracefully to local-only.
+            - name: ETZ_PDS_ENDPOINT
+              value: "https://pds.etzhayyim.com"
+            # Service token for PDS writes — optional. If absent, anonymous
+            # writes (rejected by PDS for protected NSIDs). Long-term:
+            # member-signed writes per ADR-2605231525 Stage E. The legacy
+            # service-token shim is acceptable while the wrapper is gated
+            # behind the no-server-key exemption marker.
+            - name: ETZ_PDS_SERVICE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: pds-service-token
+                  key: token
+                  optional: true
             # Suppress the static-builtin assistants — this server's surface
             # is the XRPC façade, not /runs?assistant_id=builtin_*.
             - name: LANGGRAPH_DISABLE_BUILTINS

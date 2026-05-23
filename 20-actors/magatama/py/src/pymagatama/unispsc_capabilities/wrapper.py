@@ -60,7 +60,27 @@ def _open_store(agent_did: str) -> Any | None:
             from pathlib import Path
 
             Path(env_dir).mkdir(parents=True, exist_ok=True)
-            store = AtIpfsLocalBeliefStore(db_path=f"{env_dir}/{_sanitize_did(agent_did)}.db")
+            # Publish callback (best-effort) sends each observation to the AT
+            # PDS so downstream mst-projector + ipfs-pinner + anchor-cron pick
+            # it up — making the record public + IPFS-content-addressed +
+            # L2-anchored per ADR-2605231400 yatachain composition. If the
+            # PDS endpoint env is unset (or auth fails / network error) the
+            # callback returns None and the store stays local-SQLite-only.
+            from pymagatama.unispsc_capabilities.pds_publish import (
+                make_publish_callback,
+            )
+
+            publish_cb = make_publish_callback()
+            store = AtIpfsLocalBeliefStore(
+                db_path=f"{env_dir}/{_sanitize_did(agent_did)}.db",
+                publish=publish_cb,
+            )
+            if publish_cb is not None:
+                LOG.info(
+                    "unispsc-capabilities: belief store armed with PDS publish "
+                    "(observations will be committed to AT + IPFS + L2 anchor "
+                    "pipeline downstream)"
+                )
         except Exception as e:  # noqa: BLE001
             LOG.warning(
                 "unispsc-capabilities: cannot open belief store at %s (%s); disabling",
