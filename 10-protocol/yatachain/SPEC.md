@@ -223,6 +223,16 @@ are **pre-L0-projection** — they read from RW without a manifest or rebuild
 runbook. Phase 4 of the maps migration brings them to L0-projection; Phase 5
 to L1-projection.
 
+The first concrete **L1-projection** in the monorepo is **feed-discover**
+(`50-infra/mst-projector/src/feed-discover.ts`, manifest at
+`50-infra/mst-projector/projection/yatachain-projection.toml`, CI smoke at
+`50-infra/mst-projector/test/feed-discover.replay.test.ts`). It indexes
+`app.bsky.feed.post` records cross-DID and emits
+`app.etzhayyim.projection.feedDiscover` snapshots; the lexicon's `verdict`
+field carries the membrane attestation observed via the
+`app.etzhayyim.membrane.verdict` sidecar. Per
+[ADR-2605231902](../../90-docs/adr/2605231902-feed-post-membrane-and-feed-discover-projection.md).
+
 ### Combined claim
 
 A module's full yatachain conformance claim is a pair `(primary L?, projection
@@ -245,10 +255,12 @@ of the GTFS index).
 - **OQ-3**: does yatachain-dht require IPFS to be globally addressable, or can
   intra-cohort use a private cluster swarm? Probably the latter, with global
   IPFS as a publish surface only — TBD.
-- **OQ-4**: how does yatachain-projection (regenerable cache for hot-path
-  queries like maps bbox / GTFS-RT) interact with conformance levels? Probably
-  a separate "L1-projection" tier that asserts the cache is rebuildable but not
-  individually witnessed — TBD in the follow-up projection ADR.
+- ~~**OQ-4**: how does yatachain-projection (regenerable cache for hot-path
+  queries like maps bbox / GTFS-RT) interact with conformance levels?~~ —
+  **resolved** by [ADR-2605231500](../../90-docs/adr/2605231500-yatachain-projection.md)
+  (the L0/L1/L2-projection ladder, defined above in §"Projection (derived
+  read path)") and first instantiated by feed-discover per
+  [ADR-2605231902](../../90-docs/adr/2605231902-feed-post-membrane-and-feed-discover-projection.md).
 
 ## Versioning
 

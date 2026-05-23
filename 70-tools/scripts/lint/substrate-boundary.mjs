@@ -57,6 +57,10 @@ const allowedPrefixes = [
   "50-infra/cloudflare/",                      // CF Workers stack
   "50-infra/vultr/",                           // etzhayyim.com legacy (ADR-2605191346 §2)
   "50-infra/l2-anchor-contract/",              // Solidity
+  // Operator-only CLIs that bootstrap the substrate. They live in 70-tools/
+  // and are run from a developer machine, never deployed. Same category
+  // as 50-infra/mst-projector/emit.ts which uses @atproto/api directly.
+  "70-tools/seed-post/",                       // ADR-2605231902 seed CLI
   // Tests + archives.
   "_archive/",
   "60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/_svelte/", // vite build output

@@ -35,6 +35,13 @@ interface Env {
   L2_RPC_URL: string;
   PDS_ACCESS_JWT?: string;
   PDS_REFRESH_JWT?: string;
+  /**
+   * yatachain-projection: feed-discover (ADR-2605231500).
+   * `did:web:projector.etzhayyim.com` (or similar). When set, the rw-free
+   * feed.ts getDiscoverFeed / getTimeline read the cross-DID projection
+   * instead of the single ACTOR_DID MST.
+   */
+  PROJECTION_DISCOVER_DID?: string;
   // UnispscAgentExecutorCell shard URLs (Phase β). Each is a cloudflared
   // tunnel published from joseph/issachar/dan inside the Murakumo LAN to
   // the corresponding cell at port 16100/16101/16102. Empty string ⇒
@@ -418,6 +425,7 @@ export default {
         L2_RPC_URL: env.L2_RPC_URL,
         PDS_ACCESS_JWT: env.PDS_ACCESS_JWT,
         PDS_REFRESH_JWT: env.PDS_REFRESH_JWT,
+        PROJECTION_DISCOVER_DID: env.PROJECTION_DISCOVER_DID,
       },
       bearerToken,
     });
