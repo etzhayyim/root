@@ -55,10 +55,24 @@ class CharterAttestationRequestState(TypedDict, total=False):
 
 def build_graph(
     checkpointer: BaseCheckpointSaver,
-    llm_client,  # Claude Sonnet 4.6 (primary) or Murakumo Gemma (fallback)
-    council_dispatcher,  # interface to Council Lv6+ notification
-    charter_registry_port,  # interface to ChartersComplianceRegistry contract
+    llm_client=None,  # Claude Sonnet 4.6 (primary) or Murakumo Gemma (fallback)
+    council_dispatcher=None,  # interface to Council Lv6+ notification
+    charter_registry_port=None,  # interface to ChartersComplianceRegistry contract
 ):
+    """Cell entrypoint.
+
+    Two call-sites are supported (per ADR-2605202200 + ADR-2605232100):
+      1. New contract: `cell_host.py` calls `build_graph(deps: CellDeps)` —
+         see the module-level `__call__` adapter below which unwraps deps
+         and re-invokes this function with the four positional kwargs.
+      2. Legacy direct call: tests + ad-hoc invocations pass the four args
+         explicitly. Defaults to None so the Pod can boot without all deps
+         wired (substrate ports / council interface not yet exported by
+         the production cell-host).
+
+    Missing deps degrade gracefully — nodes that need them log + return
+    state unchanged rather than crashing the runner subprocess.
+    """
     g = StateGraph(CharterAttestationRequestState)
 
     g.add_node("load_request", load_request)
