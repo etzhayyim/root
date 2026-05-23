@@ -77,6 +77,20 @@ state_substrate = ["AT Protocol MST", "IPFS", "Base L2 anchor"]
 state_prohibited = ["RisingWave", "Postgres", "Kysely", "MySQL", "MongoDB", "centralized DB"]
 state_rule_adr = "2605172000"
 
+# Learning loop status (Stage D Phase A, ADR-2605232200, 2026-05-23)
+# UNSPSC actor invocations are wrapped with perceive→reason→act→record:
+#   1. perceive: read up to 5 recent ObservationRecords from AtIpfsLocalBeliefStore
+#   2. reason:   _compute_prior_consensus() → (outcome_count, dominant_status, confidence_permille, input_match_count)
+#   3. act:      inner LangGraph runs; cells OPT-IN read state["_prior_consensus"] for prior-informed routing
+#   4. record:   ObservationRecord persisted to SQLite hot cache + (when ETZ_PDS_SERVICE_TOKEN set) PDS createRecord
+# Reference impl: c10101500.py verify_health prior_shortcut (conf >= 800 + n >= 3 + match >= 1 + dominant = authorized)
+# Adoption surface: 1 / 18,342 actors today (reference only); other 18,341 keep deterministic-only behavior.
+learning_loop_status = "Phase A — wrapper signal live across 18,342 actors; cell-side opt-in adoption pending (reference: c10101500)"
+learning_loop_adr = "2605232200"
+learning_loop_wrapper_module = "pymagatama.unispsc_capabilities.wrapper"
+learning_loop_reference_cell = "20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents/c10101500.py"
+learning_loop_publish_endpoint_env = "ETZ_PDS_ENDPOINT (https://pds.etzhayyim.com); auth via ETZ_PDS_SERVICE_TOKEN secret (optional — graceful degradation to local-only on absence)"
+
 payment_substrate = ["USDC on Base L2", "ERC-4337 Smart Account", "Coinbase Smart Wallet", "Superfluid streams", "0xSplits", "Gnosis Safe escrow"]
 payment_prohibited = ["Stripe", "PayPal", "Square", "Razorpay", "Braintree", "Adyen", "credit-card gateways", "bank ACH", "wire transfer"]
 payment_rule_adr = "2605172100"
@@ -2439,6 +2453,17 @@ target_count = 40
 scope = "20-actors/magatama/py/src/pymagatama/primitives/yoro*.py (yoro.py + yoro_validation.py + yoro_registry.py)"
 description = "M2-M7 waves complete 2026-05-21. All 40 functions in YORO-PYTHON-MIGRATION-NOTES table implemented (4 sync shims, 1 VENDOR-ONLY at row #13, rest REIMPLEMENT). 313 tests pass. Step 8 cutover unblocked from yoro side."
 completion_note = "M2-M7 waves complete 2026-05-21. All 40 functions in YORO-PYTHON-MIGRATION-NOTES table implemented (4 sync shims, 1 VENDOR-ONLY at row #13, rest REIMPLEMENT). 313 tests pass. Step 8 cutover unblocked from yoro side."
+last_verified = "2026-05-21"
+
+[[migrations]]
+id = "yoro-stripe-fiat-removal-urgent"
+status = "pending"
+blocked_on = "Council decision — active Stripe Issuing UI deployed on religious-corp domain violates Charter Rider §2(i) and ADR-2605172100 (payments on-chain only)"
+authoritative_doc = "20-actors/AUDIT-RUNPOD-RW-2026-05-21.md §3 (yoro)"
+authoritative_adr = "2605215000"
+target_count = 8
+scope = "60-apps/ai-gftd-project-yoro/.../ProfilePanel.svelte (lines 424–563) + 20-actors/.../legacy-nanoid-map.ts:110 (stripe.etzhayyim.com routing)"
+description = "Active fiat payment surface deployed on religious-corp identity domain. Live `atProcedure('ai.gftd.apps.stripe.*', ...)` calls wired to a card-management UI any authenticated etzhayyim user can reach. 8 REJECT findings per audit 2026-05-21. Requires: (a) feature-flag the Stripe UI off in religious-corp builds, (b) remove stripe.etzhayyim.com from legacy-nanoid-map.ts, (c) draft a fiat-removal ADR (proposed ID 2605215200) gating ai.gftd.apps.stripe.* NSIDs as VENDOR-ONLY. Cannot wait for Step 8 — Charter Rider §2(i) violation is active today."
 last_verified = "2026-05-21"
 
 [[migrations]]
