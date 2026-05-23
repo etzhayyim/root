@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: etzhayyim-cells
+  labels:
+    app.kubernetes.io/part-of: etzhayyim-religious-corp
+    etzhayyim.com/adr: '2605232100'
