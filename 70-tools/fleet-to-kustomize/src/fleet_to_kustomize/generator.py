@@ -188,6 +188,11 @@ def render_daemonset(
     `FLEET_TOML` env knob.
     """
     name = kebab(p.cell_name)
+    # Although k3s registers the node's NAME as the bare tribe ("naphtali"),
+    # the `kubernetes.io/hostname` LABEL on each node is set to the macOS
+    # `.local` form (e.g. "naphtalinomac-mini.local"). Use leader_hostname
+    # so nodeSelector matches the label, not the NAME. Verified 2026-05-23
+    # against the live naphtali k3s cluster (`kubectl get nodes --show-labels`).
     selected_host = target_hostname or p.leader_hostname
 
     pod_spec: dict[str, Any] = {
