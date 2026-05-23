@@ -38,6 +38,7 @@ import argparse
 import importlib.util
 import json
 import logging
+import os
 import signal
 import sys
 import threading
@@ -55,7 +56,11 @@ from pymagatama.cell_runtime import (
 
 logger = logging.getLogger("magatama-cell-host")
 
-REPO_ROOT = Path(__file__).resolve().parents[5]
+# Same env override as cell_runner_main.py — ETZ_REPO redirects path
+# resolution from `__file__.parents[5]` (installed-package layout) to a
+# mounted repo root (orbstack hostPath, future ConfigMap). Per ADR-2605232100.
+_ENV_REPO = os.environ.get("ETZ_REPO")
+REPO_ROOT = Path(_ENV_REPO) if _ENV_REPO else Path(__file__).resolve().parents[5]
 MAGATAMA_CELLS_DIR = REPO_ROOT / "20-actors" / "magatama" / "cells"
 KUNI_UMI_CELLS_DIR = REPO_ROOT / "20-actors" / "kuni-umi" / "cells"
 
