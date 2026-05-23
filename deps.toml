@@ -91,6 +91,40 @@ holochain_iso_projection_adr = "2605231500"          # derived read-path rules (
 holochain_iso_engine_exploration_adr = "2605232300"  # EXPLORATORY only — engine selection (Hummock fork / RW fork / GraphAr+MV no-fork) deferred pending Council multisig post 2026-06-19
 holochain_iso_engine_decision = "deferred"
 
+# ── No-Server-Key posture (ADR-2605231525, Council ratify pending) ──
+# etzhayyim-operated infrastructure holds zero signing capability.
+# All writes are member-signed; etzhayyim runs read-only surfaces.
+server_key_posture = "no-server-key"
+server_key_adr = "2605231525"
+server_key_status = "proposed-council-ratify-pending"
+server_key_forbidden_env = [
+  "YATA_DONATE_PRIVATE_KEY",     # Stage A — USDC signer (removed in donate.ts rewrite)
+  "DATABASE_URL",                # Stage B — RisingWave creds (bulk-ingest moves to community)
+  "B2_ACCESS_KEY_ID",            # Stage B/D — Backblaze blob upload (community-owned)
+  "B2_SECRET_ACCESS_KEY",        # Stage B/D — Backblaze blob upload (community-owned)
+  "MAPILLARY_ACCESS_TOKEN",      # Stage D — community-owned
+  "RUNPOD_API_KEY",              # Stage D — community-owned
+  "ODPT_API_KEY",                # Stage D — community-owned
+  "EMBED_AUTH_TOKEN",            # Stage D — community-owned
+  "SS_REPO_SIGNING_KEK",         # Stage C-4 — KEK envelope master (per-member after devolve)
+  "AUTH_KEYS_KEK",               # Stage C-4 — auth Worker KEK alias
+  "RESEND_API_KEY",              # Stage D — member-side SMTP after handover
+  "DISPATCHER_INTERNAL_SECRET",  # Stage E — Worker↔pod HMAC (disappears with internal pods)
+  "YATA_AGENT_ADMIN_KEY",        # Stage E — single-operator admin gate → Council multisig
+]
+server_key_allowed_surfaces = [
+  "com.atproto.sync.subscribeRepos (read-only firehose)",
+  "yatachain-projection L0 indexer (regenerable from MST + IPFS + Base L2 anchor)",
+  "Public DID Document serving (document itself signed off-line by Council Safe + committed to repo)",
+  "Lexicon publication (00-contracts/lexicons/**/*.json as static assets)",
+  "Contract verification via read-only Base L2 RPC",
+  "IPFS pinning (content-addressed, signer-free)",
+  "Static asset serving (Workers Assets / GitHub Pages)",
+]
+server_key_exemption_marker = "// no-server-key: read-only"  # comment marker for documented Stage handover rollback windows
+server_key_verifier = "70-tools/e7m/src/e7m/commands.py:_check_no_server_key (9th constitutional invariant in `e7m verify`)"
+server_key_charter_rider_amendment = "CHARTER-RIDER.md Annex A — §1.5 PLATFORM POSTURE proposed (Council 5-of-7 ratify pending)"
+
 # ─── L2 / Base contracts (testnet first → mainnet) ──────────────────
 
 [platform.l2]
@@ -353,6 +387,41 @@ api_url = "http://simeonnomac-mini.local:5001"
 gateway_url = "http://simeonnomac-mini.local:8080"
 location_host = "simeon"
 kubo_version = "0.41.0"
+deploy_status = "live"
+# Note: this is the religious-corp shared Kubo on simeon (Murakumo Tier-1).
+# Per-machine dataset substrate Kubos (per ADR-2605241500) are tracked
+# under [platform.dataset_substrate.nodes] below.
+
+[platform.dataset_substrate]
+# ADR-2605241500 — DataLad + git-annex (directory remote) + sidecar IPFS
+# pinner for large (10TB+) training/reference/baien datasets. Bytes
+# never enter git history; CIDs in 90-docs/baien/datasets.jsonl and PDS
+# records (app.etzhayyim.substrate.datasetPin).
+adr = "2605241500"
+superdataset_path = "90-docs/baien/datasets"
+manifest_path = "90-docs/baien/datasets.jsonl"
+lexicon = "app.etzhayyim.substrate.datasetPin"
+operator_cli = "70-tools/e7m-dataset"
+replication_min = 2                 # ADR §D6 invariant; warn-only until 2nd node lands
+replication_status = "warn-only-single-node"  # bootstrap window
+charter_rider_gate = "pymagatama.organism.sensors.charter_rider.scan"
+backend_default = "SHA256E"         # ADR §D2; smoke seed used MD5E (DataLad text2git default) — fix on next add
+
+[[platform.dataset_substrate.nodes]]
+# Deciding Mac — Jun's Mac mini with /Volumes/260317 external disk.
+# Smoke-verified 2026-05-24 JST.
+node_did = "did:web:mac-260317.etzhayyim.com"
+hostname = "mac-mini-jun"
+dataset_root = "/Volumes/260317/etzhayyim"
+ipfs_data = "/Volumes/260317/etzhayyim/ipfs-data"
+annex_store = "/Volumes/260317/etzhayyim/annex-store"
+staging = "/Volumes/260317/etzhayyim/datasets-staging"
+kubo_peer_id = "12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"
+kubo_api = "http://127.0.0.1:5001"
+kubo_version = "0.41.0"
+launchd_plist = "~/Library/LaunchAgents/com.etzhayyim.kubo.plist"
+volume_capacity_gib = 931
+assigned_kinds_initial = ["baien-graft-3d", "baien-graft-image", "reference"]
 deploy_status = "live"
 
 [platform.langserver]
@@ -1016,12 +1085,28 @@ status_note = "Defines the canonical wiring between the 18,346 UNSPSC LangGraph 
 path = "90-docs/adr/2605231500-etzhayyim-agent-driven-unspsc-supply-flows.md"
 
 [[adrs]]
+id = "2605231525"
+title = "No-Server-Key Religious-Corp Architecture — etzhayyim infra holds zero signing capability; member-write model + 5-stage flip roadmap"
+status = "proposed"
+status_note = "Constitutional invariant: etzhayyim-operated infrastructure (Workers, K8s pods, CronJobs, CI runners, hosted bots) MUST NOT hold private keys, signing tokens, or master credentials. All writes are signed by the member, donor, contributor, or community operator. etzhayyim provides public read surfaces only (AT firehose relay, yatachain-projection L0 indexer, DID Document serving via Council-Safe-signed static blob, lexicon publication, contract verification via read-only RPC, IPFS pinning, static asset serving). 13-row server-secret inventory enumerated (YATA_DONATE_PRIVATE_KEY / DATABASE_URL / B2_ACCESS_KEY_ID / B2_SECRET_ACCESS_KEY / MAPILLARY_ACCESS_TOKEN / RUNPOD_API_KEY / ODPT_API_KEY / EMBED_AUTH_TOKEN / SS_REPO_SIGNING_KEK / AUTH_KEYS_KEK / RESEND_API_KEY / DISPATCHER_INTERNAL_SECRET / YATA_AGENT_ADMIN_KEY) with per-row member-write replacement. 5-stage flip roadmap: A USDC signer removal (donate.ts verify-only via Base L2 RPC; EIP-1193 wallet flow in Studio billing + auth sign-up — APPLIED), B bulk-ingest community-operator handover (13 maps pods republished to etzhayyim-community/*, ETZHAYYIM_SUBSTRATE_MODE=mst, relay subscribe — scaffold APPLIED, GitHub org creation pending), C identity-signing devolution (did:web:etzhayyim.com multi-controller with Council 5-of-7 Safe via ERC-1271, did:web:authn.etzhayyim.com per-agent device-generated ES256, SS_REPO_SIGNING_KEK 30-day quarantine drop — Stage C-1 scaffold APPLIED, C-2/C-3/C-4 pending Council ratify), D external-API liability handover (RESEND/B2/Mapillary/RunPod/ODPT/EMBED to community-operator-owned credentials — scaffold APPLIED), E internal-HMAC dissolution (DISPATCHER_INTERNAL_SECRET + YATA_AGENT_ADMIN_KEY removed in final PR — pending Stages A-D). Acceptance criteria: `e7m verify --no-server-key` invariant added (9th constitutional check, scans wrangler.jsonc / k8s manifests / docker-compose / GitHub Actions for 13 forbidden env names; `// no-server-key: read-only` marker exemption for documented rollback windows). Charter Rider v2.0 §1.5 PLATFORM POSTURE amendment proposed (CHARTER-RIDER.md Annex A, Council 5-of-7 ratify pending). Companion runbooks: 60-apps/ai-gftd-project-yatabase/RUNBOOK-USDC-DONATE.md (Stage A operator), 60-apps/ai-gftd-project-maps/bulk-ingest/COMMUNITY-OPERATOR-HANDOVER.md (Stage B), 60-apps/ai-gftd-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md (Stage C), _working/STAGE-D-EXTERNAL-API-HANDOVER.md (Stage D), 50-infra/etzhayyim-did-web/STAGE-C1-DID-CUTOVER.md + cutover-stage-c1.sh (Stage C-1 Council signing flow)."
+path = "90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md"
+
+[[adrs]]
 id = "2605232300"
 title = "yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork)"
 status = "proposed"
 authoritative = false
 status_note = "EXPLORATORY ONLY — NOT ADOPTED. Captures numerical comparison of 4 options for the yatachain projection engine layer: (A) Hummock fork as yata-slate (150-230K new LOC, 44-67 person-months, completion risk 50%, strategic independence ★★★), (B) RisingWave full fork as yata-wave (57-99K new LOC, 20-29 person-months, completion risk 85%, strategic independence ★), (D) RW upstream + Apache GraphAr + MV with no fork — 'yatabase' configuration (30-50K new LOC, 20-32 person-months, completion risk 90-95%, strategic independence ★★, 7-axis weighted score 8.4/10 = numerically dominant). (C) SlateDB fork rejected early — pure KV LSM lacks Pregel epoch semantics required for LangGraph super-step / Hummock barrier isomorphism. (E) Lance dropped per user direction. Bulk graph frameworks surveyed and triaged: Apache Giraph ✗ dormant, Spark GraphX ✗ deprecated, Spark GraphFrames △ overkill, Apache HAMA ✗ Attic, NVIDIA cuGraph ✗ CUDA-only (Mac Silicon incompatible), GraphScope △ Stage-2 candidate via GraphAr external connection, timely-dataflow △ research, Materialize ✗ BSL incompatible with Charter Rider. 5 strategic findings recorded: (1) Hummock epoch = LangGraph Pregel super-step internal isomorphism, (2) Mac Silicon unified memory forces CPU/GPU per-node co-location not either/or, (3) data sovereignty achievable without engine fork via GraphAr/Parquet open format, (4) GraphAr append-only chunk semantics integrate with MST immutability, (5) options compose evolutionary D→D+plugin→D+B-partial→A across 2026-2029+. 7 open questions deferred (GraphAr religious-corp extension upstream contribution, witness quorum + GraphAr chunk hash unification, Arrow Flight UDF server topology for 18,345 agents, GraphQL Subscription / barrier alignment, MLX production stability benchmark, Lance re-introduction conditions, Solidity Base L2 event → RW source connector). Decision deferred pending: Council 5-of-7 multisig (post-2026-06-19), GraphAr Apache Incubator graduation outlook, Mac Silicon MLX production benchmark, religious-corp constitutional weight on engine ownership vs format ownership. Future decision ADR will reference this as input."
 path = "90-docs/adr/2605232300-yatachain-engine-options-exploration.md"
+
+[[adrs]]
+id = "2605241500"
+title = "etzhayyim Dataset CID Substrate — DataLad + git-annex (directory remote) + sidecar IPFS pinner, CIDs anchored as datasetPin records on PDS"
+status = "proposed"
+status_note = "Defines how the monorepo references large (10TB+) training / reference / baien datasets without putting bytes in git. Six layers: (1) DataLad superdataset at 90-docs/baien/datasets/ — pointers + provenance commits; (2) git-annex SHA256E catalog; (3) `directory` special remote `local-store` at ${ETZ_DATASET_ROOT}/annex-store/<subdataset>/ — bytes at rest on a per-machine external volume; (4) sidecar IPFS pinner (`e7m-dataset publish-ipfs`) walks the directory remote, runs Kubo `/api/v0/add` per annex object, composes a SHA256E-key → IPFS-CID map JSON, pins the map and returns its root CID; (5) Kubo data root co-located on the same volume — substrate-compliant distribution layer; (6) app.etzhayyim.substrate.datasetPin records on PDS — religious-corp-canonical receipt. The `type=external externaltype=ipfs` route is deliberately NOT taken because every in-the-wild `git-annex-remote-ipfs` returns FAILURE for CHECKPRESENT / REMOVE; the sidecar pinner sidesteps that class of failure. Phase 1 smoke (2026-05-24 JST) verified end-to-end: 2 random blobs → annex add → copy --to local-store → publish-ipfs → map CID `bafkreiep2df7htkfdkzamahpbr6gmqatmkfxth2fzl3nmizd2ksldf5z2q` round-trip; per-entry `ipfs cat` returned bytes with matching SHA-256 on the deciding Mac (volume `/Volumes/260317`, Kubo peer `12D3KooWGRn…`). Follow-ups: HF `add` flow, real PDS emit (currently dry-run), SHA256E backend default (smoke used DataLad's text2git default of MD5E), Charter Rider scanner availability (currently warn-only when pymagatama unimportable; tighten with ETZ_DATASET_CHARTER_STRICT=1), second always-on replica."
+path = "90-docs/adr/2605241500-etzhayyim-dataset-cid-substrate.md"
+depends_on = ["2605170900", "2605171800", "2605172000", "2605192200"]
+related = ["2605231300", "2605232500"]
 
 # ─── Module registry ────────────────────────────────────────────────
 
@@ -1796,6 +1881,30 @@ status = "spec-scaffold"
 description = "yatachain — canonical name for the Holochain-isomorphic composition of substrate primitives mandated by ADR-2605172000. 7-layer mapping: yatachain-agent (DID+passkey+SBT) / yatachain-chain (PDS MST) / yatachain-dht (IPFS+L2 anchor) / yatachain-membrane (Lexicon+Rego+LangGraph) / yatachain-witnesses (Pregel cells, quorum ≥3-of-5) / yatachain-cap (atproto JWT+WebAuthn) / yatachain-cells (Pregel cells per ADR-2605192415). Spec-only directory — implementations live in 50-infra/, 20-actors/, 00-contracts/ per the existing layer trees. Naming: single-token lowercase 'yatachain'; hyphenated 'yata-chain' prohibited to avoid shadow of yata-* Cargo workspace crate convention in 50-infra/yata/. Distinct from yata (LanceDB graph engine) and yatabase (commercial BaaS) despite shared 八- family prefix. Projection engine selection is OPEN — see ADR-2605232300 (exploratory comparison of Hummock-fork / RW-fork / GraphAr+MV no-fork options); engine decision deferred pending Council 5-of-7 multisig post 2026-06-19."
 adr = ["2605231400", "2605172000", "2605181100", "2605192100", "2605192415", "2605232300"]
 
+[[modules]]
+path = "90-docs/baien/datasets"
+kind = "datalad-superdataset"
+version = "0.0.1"
+status = "P1-smoke-verified"
+description = "etzhayyim dataset superdataset (DataLad). One subdataset per (kind, source-host) pair. Holds only pointers + metadata + .gitattributes; bytes live in the `directory` special remote `local-store` at ${ETZ_DATASET_ROOT}/annex-store/<subdataset>/ and are mirrored to IPFS by the sidecar pinner (e7m-dataset publish-ipfs). Phase-1 smoke (2026-05-24 JST) added 2 random blobs, copied to local-store, published map CID bafkreiep2df7htkfdkzamahpbr6gmqatmkfxth2fzl3nmizd2ksldf5z2q, and round-trip-verified per-entry `ipfs cat`. text2git is ON only at the superdataset root (READMEs + pointers); subdatasets MUST be created without text2git so every binary is annexed."
+adr = ["2605241500"]
+sibling_modules = [
+  "70-tools/e7m-dataset",
+  "00-contracts/lexicons/app/etzhayyim/substrate/datasetPin.json",
+]
+
+[[modules]]
+path = "70-tools/e7m-dataset"
+kind = "operator-cli"
+version = "0.0.1"
+status = "P1-where-and-publish-ipfs-implemented"
+description = "etzhayyim dataset operator wrapper (Python). Glues DataLad + git-annex (directory remote) + Kubo HTTP API + Charter Rider §2 scan + datasetPin PDS record emit. Phase-1 commands: `where` (print resolved per-machine paths from ETZ_DATASET_ROOT env or ~/.etzhayyim/local-paths.toml) and `publish-ipfs <subdataset> [--git-commit] [--append-manifest --name --revision --kind]` (walks the directory remote, ipfs-adds each annex object, composes SHA256E-key→IPFS-CID map JSON, pins the map and returns its root CID, optionally appends a row to 90-docs/baien/datasets.jsonl + emits a dry-run datasetPin record). Phase-2 commands stubbed: `add hf://...`, `sync`, `gc`, `verify`. Install via `pipx install -e 70-tools/e7m-dataset/`. Pure-stdlib runtime (urllib for Kubo HTTP); subprocesses for `datalad` / `git annex`. The Kubo HTTP API is the only network contract shared with 50-infra/ipfs-pinner — no library coupling between the TypeScript pinner and the Python wrapper."
+adr = ["2605241500"]
+sibling_modules = [
+  "90-docs/baien/datasets",
+  "50-infra/ipfs-pinner",
+]
+
 # ─── Religious-Corp Wave Status (ADRs 2605192100..2605192415 cumulative) ──
 
 [platform.religious_corp_wave]
@@ -2297,6 +2406,74 @@ target_count = 4
 scope = "PDS records: app.etzhayyim.council.member (4 new records post-RFP)"
 description = "mst.get_council_lv6_dids() lazy query depends on Council member ratification records. Currently COUNCIL_LV6_DIDS hardcoded fallback contains founder seat 1 only. Lv6/Lv7 evolution gates (per ADR-2605215400) depend on this for Council co-signer count + supermajority enforcement."
 last_verified = "2026-05-21"
+
+# ─── No-Server-Key Religious-Corp Architecture (ADR-2605231525, 5 stages) ─────
+# etzhayyim-operated infrastructure progressively loses every signing-
+# capable secret. Stage A done (USDC signer removed, donate.ts verify-only).
+# Stages B-E carry scaffolds + runbooks; production cutover gated on
+# Council 5-of-7 ratification of ADR-2605231525 and Treasury Safe deploy.
+
+[[migrations]]
+id = "no-server-key-stage-a-usdc-signer-removal"
+status = "in_progress"
+blocked_on = "Treasury Safe + TitheRouter mainnet deploy → operator updates wrangler.jsonc placeholder zero addresses → wrangler deploy → wrangler secret delete YATA_DONATE_PRIVATE_KEY"
+authoritative_doc = "60-apps/ai-gftd-project-yatabase/RUNBOOK-USDC-DONATE.md"
+authoritative_adr = "ADR-2605231525"
+scope = "yatabase Worker /api/donate handler + EIP-1193 wallet flow in Studio billing + auth sign-up Telecom membership flow"
+description = "donate.ts rewritten as verify-only: accepts member-signed Base L2 txHash, queries public RPC for receipt, decodes USDC Transfer log, validates recipient ∈ {treasury, TitheRouter, expectedRecipient}, emits payment.sent receipt for the member's client to commit to their own PDS. No YATA_DONATE_PRIVATE_KEY. Svelte + auth sign-up use window.ethereum (Coinbase Wallet / MetaMask) → switch to Base L2 (chainId 0x2105) → ABI-encode USDC.transfer → eth_sendTransaction → poll receipt → POST txHash to /api/donate. Stage A code change verified: yatabase wrangler.jsonc carries new public-address-only env (YATA_DONATE_RPC_URL / YATA_DONATE_USDC_CONTRACT / YATA_DONATE_TREASURY / YATA_DONATE_TITHE_ROUTER / YATA_DONATE_MAX_USDC_MICROS) with `// no-server-key: read-only` marker; e7m no_server_key check no longer flags it."
+last_verified = "2026-05-23"
+
+[[migrations]]
+id = "no-server-key-stage-b-community-operator-handover"
+status = "pending"
+blocked_on = "etzhayyim-community GitHub org creation → 13 dumper repo split (fork from etzhayyim/root with vendored _etzhayyim_substrate.py) → community operators register own PDS DID with ChartersComplianceRegistry → relay subscribes via com.atproto.sync.subscribeRepos → etzhayyim kubectl delete deploy/bulk-ingest-{pod}"
+authoritative_doc = "60-apps/ai-gftd-project-maps/bulk-ingest/COMMUNITY-OPERATOR-HANDOVER.md"
+authoritative_adr = "ADR-2605231525"
+target_count = 13
+scope = "maps bulk-ingest pods: openflights / overture / gtfs-jp / gtfs-rt / geonames / wikidata / wikipedia / ferry-routes / aismarine / aismarine-noaa-cronjob / search-ivf-backfill / gsplat-train / embedder"
+description = "13 maps bulk-ingest pods republished as etzhayyim-community/maps-{dataset}-dumper. Substrate seam _etzhayyim_substrate.py (already vendored in workers/) auto-dispatches on ETZHAYYIM_SUBSTRATE_MODE — community operators set mst, configure their own PDS handle + upstream API credential, run from their own infra. Existing yatachain-projection.toml (60-apps/ai-gftd-project-maps/bulk-ingest/workers/) declares the RW projection as L0-rebuildable from MST, so the read cache survives the operator handover. Scaffold APPLIED: _working/stage-b/community-repo-template/ (README + NOTICE + .github/workflows/charter-compliance.yml) and _working/stage-b/issue-templates/13-pod-handover.md + 13-rows.csv. Per-pod credentials (B2_ACCESS_KEY_ID, MAPILLARY_ACCESS_TOKEN, RUNPOD_API_KEY, ODPT_API_KEY, EMBED_AUTH_TOKEN, DATABASE_URL) move to community operator's secret store, never return to etzhayyim infra."
+last_verified = "2026-05-23"
+
+[[migrations]]
+id = "no-server-key-stage-c1-did-multi-controller-cutover"
+status = "scaffold_ready"
+blocked_on = "Bootstrap Council 5-of-7 Safe deployed on Base L2 → operator runs 50-infra/etzhayyim-did-web/cutover-stage-c1.sh <safe-addr> → ≥5 Council members sign attestation hash over their EOA → git commit canonical did.json + attestation → wrangler deploy"
+authoritative_doc = "50-infra/etzhayyim-did-web/STAGE-C1-DID-CUTOVER.md"
+authoritative_adr = "ADR-2605231525"
+scope = "did:web:etzhayyim.com DID Document (CF Worker at 50-infra/etzhayyim-did-web/, serves /.well-known/did.json statically)"
+description = "did-multi-controller.json proposed next-state shipped: controller becomes [did:web:etzhayyim.com, did:pkh:eip155:8453:0x<safe>], verificationMethod adds #council-safe with type EcdsaSecp256k1RecoveryMethod2020 (ERC-1271 isValidSignature), capabilityInvocation + capabilityDelegation restricted to #council-safe only. Existing Ed25519 #key-0 retained for 30-day backward-compat rollback window, then dropped in C-1.b. cutover-stage-c1.sh automates Steps 2-3 (sed Safe address into placeholder zeros + jq-strip _comment_* fields → canonical doc + sha256 attestation hash). Smoke verified with placeholder Safe address; produces valid canonical JSON + attestation envelope. Worker holds NO key — serves static JSON via wrangler deploy."
+last_verified = "2026-05-23"
+
+[[migrations]]
+id = "no-server-key-stage-c2-c3-c4-auth-worker-key-devolution"
+status = "pending"
+blocked_on = "Stage C-1 complete → vertex_gftd_key_signing.private_key_b64 D1 schema migration drops column → per-agent ai.gftd.auth.createAgentSession refactored to expect device-generated public key + WebAuthn PoP → 30-day SS_REPO_SIGNING_KEK quarantine window with zero reads logged → wrangler secret delete SS_REPO_SIGNING_KEK"
+authoritative_doc = "60-apps/ai-gftd-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md"
+authoritative_adr = "ADR-2605231525"
+scope = "auth Worker: per-agent ES256 keypair generation (715+ keys), AT Protocol session JWT HS256 signing, SS_REPO_SIGNING_KEK envelope encryption master"
+description = "Stage C-2: agent runtime generates own P-256 keypair via WebCrypto crypto.subtle.generateKey on the operator's own device, POSTs public key + WebAuthn-style PoP attestation to ai.gftd.auth.registerAgentKey. auth Worker stores only public key in vertex_gftd_key_signing projection. Stage C-3: WebAuthn passkey derives ES256 session keypair on member's device; session token becomes DPoP-style PoP signed by passkey. Stage C-4: SS_REPO_SIGNING_KEK 30-day quarantine (worker logs all reads, expects zero) then secret deletion. yatachain-projection manifest at 60-apps/ai-gftd-project-auth/yatachain-projection.toml already declares D1 AUTH_DB / KEYS_DB tables as L0-rebuildable from app.etzhayyim.encrypted.record envelopes (ADR-2605181100) keyed innerType = ai.gftd.auth.credential — scaffold APPLIED for the projection contract; the integration into passkeyVerifyRegister / linkOAuthStart / linkEmailVerify / smsOtpSend handlers is the Stage C-2 PR."
+last_verified = "2026-05-23"
+
+[[migrations]]
+id = "no-server-key-stage-d-external-api-handover"
+status = "pending"
+blocked_on = "Stage B per-pod handover progresses → each upstream credential (RESEND_API_KEY / B2_* / MAPILLARY_ACCESS_TOKEN / RUNPOD_API_KEY / ODPT_API_KEY / EMBED_AUTH_TOKEN) moves with the corresponding pod's operator → wrangler secret delete on each Worker, kubectl delete secret on each pod"
+authoritative_doc = "_working/STAGE-D-EXTERNAL-API-HANDOVER.md"
+authoritative_adr = "ADR-2605231525"
+target_count = 6
+scope = "External SaaS / cloud credentials currently held by etzhayyim-operated Workers + pods: RESEND (auth + yatabase email), Backblaze B2 (maps bulk-ingest blob upload), Mapillary (gsplat trainer), RunPod (gsplat trainer GPU), ODPT (gtfs-rt realtime feeds), EMBED service-to-service token (maps embedder)"
+description = "Each external integration migrates to a community-operator-owned credential. etzhayyim publishes only the lexicon (inbound record shape) — never the credential. Inbound lexicons: Resend/SMTP → ai.gftd.apps.email.outbox + delivered; B2/S3/IPFS → app.etzhayyim.encrypted.record.ciphertextBlob CID; Mapillary → app.etzhayyim.maps.gsplatAsset; RunPod → app.etzhayyim.maps.gsplatJob (carries cost_usd); ODPT → app.etzhayyim.maps.vehiclePosition/tripUpdate/serviceAlert; Embedder → app.etzhayyim.maps.visionResult. Sequencing depends on Stage B per-pod handover. Acceptance: zero hard-coded credential VALUES in any etzhayyim-operated wrangler.jsonc / k8s manifest / GitHub Action."
+last_verified = "2026-05-23"
+
+[[migrations]]
+id = "no-server-key-stage-e-internal-hmac-dissolution"
+status = "pending"
+blocked_on = "Stages A-D complete → no internal Worker ↔ pod path remains across an etzhayyim-owned trust boundary → wrangler secret delete DISPATCHER_INTERNAL_SECRET on every Worker + kubectl delete secret on bpmn-dispatcher → wrangler secret delete YATA_AGENT_ADMIN_KEY → admin surfaces migrated to Council Safe multisig (1 SBT = 1 vote)"
+authoritative_doc = "90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md §4 Stage E"
+authoritative_adr = "ADR-2605231525"
+scope = "DISPATCHER_INTERNAL_SECRET (Worker ↔ bpmn-dispatcher HMAC), YATA_AGENT_ADMIN_KEY (single-operator admin gate for yatabase outbox approve + batch trigger), per-agent ES256 keypair shared-secret fallback"
+description = "Once Stages A-D land, the remaining etzhayyim-internal trust boundaries dissolve. DISPATCHER_INTERNAL_SECRET disappears with the last internal pod (Stage B removes bulk-ingest pods; remaining bpmn-dispatcher proxies XRPC through public PDS firehose subscription). YATA_AGENT_ADMIN_KEY admin surfaces (yatabase outbox approve, batch usage-alert trigger) migrate to ChartersComplianceRegistry attestation via Council Lv6+ multisig (1 SBT = 1 vote per ADR-2605192300 §3-tier enforcement). Acceptance: e7m verify --no-server-key reports zero violations + zero exemptions across the entire monorepo."
+last_verified = "2026-05-23"
 
 # ─── Session summaries ──────────────────────────────────────────────
 

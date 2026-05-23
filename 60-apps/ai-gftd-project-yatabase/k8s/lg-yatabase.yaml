@@ -1,4 +1,5 @@
 ---
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 # lg-yatabase Granian/FastAPI pod. Mirrors lg-narou pattern.
 # Owns vertex_bmc_* + vertex_api_key + vertex_lead writes per
 # ADR-2605111200 (CF Worker is edge-only).
