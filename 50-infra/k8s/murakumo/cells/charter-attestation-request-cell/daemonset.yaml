@@ -55,6 +55,8 @@ spec:
               value: CharterAttestationRequestCell
             - name: ETZHAYYIM_LOG_DIR
               value: /tmp/etzhayyim/log
+            - name: ETZ_HEALTHZ_BIND
+              value: 0.0.0.0
             - name: FLEET_TOML
               value: /repo/50-infra/murakumo/fleet.toml
             - name: ETZ_REPO
