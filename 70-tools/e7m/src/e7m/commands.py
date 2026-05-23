@@ -15,6 +15,67 @@ from pathlib import Path
 from typing import Any
 
 from . import api
+from . import pds as _pds
+
+
+# ── PDS / yoro substrate probes (delegated to e7m.pds) ────────────────────
+
+def pds_describe_server(host: str = "atproto") -> dict[str, Any]:
+    return _pds.describe_server(host)
+
+
+def pds_list_repos(host: str = "atproto", limit: int = 20, cursor: str | None = None) -> dict[str, Any]:
+    return _pds.list_repos(host, limit=limit, cursor=cursor)
+
+
+def pds_describe_repo(did: str, host: str = "atproto") -> dict[str, Any]:
+    return _pds.describe_repo(did, host=host)
+
+
+def pds_resolve_handle(handle: str, host: str = "atproto") -> dict[str, Any]:
+    return _pds.resolve_handle(handle, host=host)
+
+
+def pds_xrpc(
+    nsid: str,
+    method: str = "GET",
+    host: str = "apex",
+    params: dict[str, Any] | None = None,
+    body: dict[str, Any] | None = None,
+    bearer: str | None = None,
+    allow_write: bool = False,
+) -> dict[str, Any]:
+    return _pds.xrpc(
+        nsid,
+        method=method,
+        host=host,
+        params=params,
+        body=body,
+        bearer=bearer,
+        allow_write=allow_write,
+    )
+
+
+def pds_create_account(
+    host: str,
+    handle: str,
+    did: str | None = None,
+    email: str | None = None,
+    invite_code: str | None = None,
+    password: str | None = None,
+) -> dict[str, Any]:
+    return _pds.create_account(
+        host=host,
+        handle=handle,
+        did=did,
+        email=email,
+        invite_code=invite_code,
+        password=password,
+    )
+
+
+def yoro_probe() -> dict[str, Any]:
+    return _pds.yoro_probe()
 
 
 # ── observation ───────────────────────────────────────────────────────────
@@ -665,6 +726,93 @@ def _check_transparent_force(repo: Path) -> tuple[bool, list[str]]:
     return True, ["transparent-force R&D registry scaffolded"]
 
 
+# Per ADR-2605231525 — etzhayyim infrastructure holds zero signing
+# capability. The 13 secret-bearing env vars enumerated in the ADR
+# must not appear in any wrangler.jsonc / k8s manifest / docker-compose
+# / GitHub Action that etzhayyim operates, with one exception: a file
+# may opt into the `// no-server-key: read-only` exemption marker
+# (anywhere on a comment line), in which case the check skips it.
+_NO_SERVER_KEY_FORBIDDEN_ENV = [
+    # Stage A — USDC signer
+    "YATA_DONATE_PRIVATE_KEY",
+    # Stage B — bulk-ingest community handover
+    "DATABASE_URL",
+    "B2_ACCESS_KEY_ID",
+    "B2_SECRET_ACCESS_KEY",
+    "MAPILLARY_ACCESS_TOKEN",
+    "RUNPOD_API_KEY",
+    "ODPT_API_KEY",
+    "EMBED_AUTH_TOKEN",
+    # Stage C — identity-signing devolution
+    "SS_REPO_SIGNING_KEK",
+    "AUTH_KEYS_KEK",
+    # Stage D — external-API liability handover
+    "RESEND_API_KEY",
+    # Stage E — internal-HMAC dissolution
+    "DISPATCHER_INTERNAL_SECRET",
+    "YATA_AGENT_ADMIN_KEY",
+]
+
+_NO_SERVER_KEY_SCAN_GLOBS = (
+    "**/wrangler.jsonc",
+    "**/wrangler.toml",
+    "**/wrangler.json",
+    "**/k8s/**/*.yaml",
+    "**/k8s/**/*.yml",
+    "**/docker-compose*.yml",
+    "**/docker-compose*.yaml",
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+)
+
+_NO_SERVER_KEY_EXEMPTION_MARKER = "no-server-key: read-only"
+
+
+def _check_no_server_key(repo: Path) -> tuple[bool, list[str]]:
+    """ADR-2605231525 — etzhayyim-operated infrastructure must not hold
+    any of the 13 server-side signing / master-credential env vars.
+
+    Configuration files (wrangler.jsonc / k8s manifests / docker-compose /
+    GitHub Actions) are scanned. A file containing the literal marker
+    `no-server-key: read-only` anywhere on a comment line is exempted —
+    use that to declare an entry as part of a documented Stage handover
+    rollback window.
+    """
+    hits: list[str] = []
+    exemptions = 0
+    for glob in _NO_SERVER_KEY_SCAN_GLOBS:
+        for f in repo.glob(glob):
+            parts = set(f.parts)
+            if "node_modules" in parts or ".venv" in parts or ".git" in parts:
+                continue
+            try:
+                text = f.read_text(encoding="utf-8", errors="ignore")
+            except OSError:
+                continue
+            if _NO_SERVER_KEY_EXEMPTION_MARKER in text:
+                exemptions += 1
+                continue
+            for needle in _NO_SERVER_KEY_FORBIDDEN_ENV:
+                if needle in text:
+                    hits.append(f"  {needle} in {f.relative_to(repo)}")
+                    if len(hits) >= 20:
+                        break
+            if len(hits) >= 20:
+                break
+        if len(hits) >= 20:
+            break
+    if hits:
+        return False, [
+            "ADR-2605231525 — server-side secrets present in operated infra:",
+            *hits,
+            f"  ({exemptions} file(s) exempted via 'no-server-key: read-only' marker)",
+        ]
+    return True, [
+        f"scanned {sum(1 for _ in (repo.glob(g) for g in _NO_SERVER_KEY_SCAN_GLOBS))} glob group(s); zero violations",
+        f"({exemptions} file(s) exempted via marker)",
+    ]
+
+
 _CHECKS: list[tuple[str, str, callable]] = [
     ("non_profit_only",        "§1.5 — substrate boundary (no fiat processor in app code)", _check_substrate_boundary),
     ("no_advertising",         "§1.13 — third-party advertising prohibited",                 _check_no_advertising),
@@ -674,6 +822,7 @@ _CHECKS: list[tuple[str, str, callable]] = [
     ("non_eschatological",     "§1.15 — no Book of Revelation / no end-state",               _check_non_eschatological),
     ("anti_individualist",     "§1.3 — payoff attribution = etzhayyim",                      _check_anti_individualist),
     ("charter_rider_required", "ADR-2605192200 — first-party packages carry the Rider",     _check_charter_rider),
+    ("no_server_key",          "ADR-2605231525 — operated infra holds zero signing keys",   _check_no_server_key),
 ]
 
 

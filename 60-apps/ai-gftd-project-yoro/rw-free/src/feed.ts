@@ -51,17 +51,28 @@ async function collectFeed(
 ): Promise<{ feed: FeedViewPost[]; cursor?: string }> {
   // `e.read` is implemented by both @etzhayyim/sdk and @etzhayyim/sdk-mock;
   // mock returns `{records: [{uri, value}], cursor?}`, real adds `cid`.
-  const res = await (e as unknown as {
-    read: (opts: {
-      collection: string;
-      cursor?: string;
-      limit?: number;
-    }) => Promise<{ records: MstRecord[]; cursor?: string }>;
-  }).read({
-    collection: "app.bsky.feed.post",
-    cursor,
-    limit: Math.min(wantedLimit, 100),
-  });
+  // Pre-seed: when the configured actor repo doesn't exist on the PDS yet,
+  // surface an empty feed instead of 500 so the UI shows "no posts".
+  let res: { records: MstRecord[]; cursor?: string };
+  try {
+    res = await (e as unknown as {
+      read: (opts: {
+        collection: string;
+        cursor?: string;
+        limit?: number;
+      }) => Promise<{ records: MstRecord[]; cursor?: string }>;
+    }).read({
+      collection: "app.bsky.feed.post",
+      cursor,
+      limit: Math.min(wantedLimit, 100),
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    if (/Could not find repo|RepoNotFound|repo not found/i.test(message)) {
+      return { feed: [], cursor: undefined };
+    }
+    throw err;
+  }
 
   const feed = res.records.map(recordToFeedItem);
   // Newest-first ordering. MST is TID-keyed (timestamp-prefixed) so insertion

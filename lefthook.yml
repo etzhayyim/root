@@ -153,6 +153,60 @@ pre-commit:
       run: node 70-tools/scripts/lint/no-two-stage-gftd-domains.mjs {staged_files}
       stage_fixed: false
 
+    dataset-substrate-guard:
+      # Enforce ADR-2605241500 invariants:
+      #   1. `90-docs/baien/datasets.jsonl` is append-only — no row
+      #      may be modified or removed in place. Tombstone via a new
+      #      row instead.
+      #   2. No first-party file > 100 MiB enters git history. Datasets
+      #      MUST go through `e7m-dataset add` (git-annex on
+      #      /Volumes/<vol>/etzhayyim/annex-store/), not direct `git add`.
+      #
+      # The 100 MiB ceiling is conservative; GitHub itself rejects
+      # blobs > 100 MiB. Exempt paths: 50-infra/etzhayyim-paymaster/lib/,
+      # any path containing `/vendor/`, `/lib/forge-std/`, or under
+      # 90-docs/baien/datasets/<subdataset>/ (those route through
+      # git-annex symlinks, not regular blobs).
+      run: |
+        set -e
+        viol=0
+
+        # (1) datasets.jsonl append-only check
+        if echo "{staged_files}" | tr ' ' '\n' | grep -qx '90-docs/baien/datasets.jsonl'; then
+          # Diff existing rows in HEAD vs the staged version. If any row
+          # disappears or changes in place, that's a violation.
+          if git rev-parse --verify HEAD >/dev/null 2>&1 \
+             && git show HEAD:90-docs/baien/datasets.jsonl > /tmp/dsm-head.$$ 2>/dev/null; then
+            git show :90-docs/baien/datasets.jsonl > /tmp/dsm-staged.$$ 2>/dev/null || true
+            head_lines=$(wc -l < /tmp/dsm-head.$$ | tr -d ' ')
+            if ! head -n "$head_lines" /tmp/dsm-staged.$$ | diff -q /tmp/dsm-head.$$ - >/dev/null 2>&1; then
+              echo "✘ datasets.jsonl is append-only (ADR-2605241500 §D1)."
+              echo "  HEAD's $head_lines existing rows must remain byte-identical."
+              echo "  To retire a row, APPEND a tombstone row instead."
+              viol=1
+            fi
+            rm -f /tmp/dsm-head.$$ /tmp/dsm-staged.$$
+          fi
+        fi
+
+        # (2) 100 MiB blob ceiling
+        for f in {staged_files}; do
+          [ -f "$f" ] || continue
+          case "$f" in
+            */vendor/*|*/lib/forge-std/*|50-infra/etzhayyim-paymaster/lib/*|90-docs/baien/datasets/*) continue ;;
+          esac
+          size=$(stat -f%z "$f" 2>/dev/null || stat -c%s "$f" 2>/dev/null || echo 0)
+          if [ "$size" -gt 104857600 ]; then
+            echo "✘ $f is ${size} bytes (> 100 MiB)."
+            echo "  Datasets MUST route via \`e7m-dataset add\` (ADR-2605241500 §D2)."
+            echo "  Direct \`git add\` of large blobs is prohibited."
+            viol=1
+          fi
+        done
+
+        exit $viol
+      stage_fixed: false
+
     e7m-verify:
       # Per ADR-2605221411 + ADR-2605192100 §1: every commit re-checks the
       # 8 constitutional hard-invariants surfaced by `e7m verify`. Unlike

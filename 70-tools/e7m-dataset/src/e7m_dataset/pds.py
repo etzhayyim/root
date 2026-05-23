@@ -28,6 +28,7 @@ import httpx
 
 COLLECTION = "app.etzhayyim.substrate.datasetPin"
 DEFAULT_PDS = "https://pds.etzhayyim.com"
+DEFAULT_DID = "did:web:dataset-pinner.etzhayyim.com"
 
 
 class PdsError(RuntimeError):
@@ -127,7 +128,7 @@ def emit(record: dict[str, Any], *, dry_run: bool = True) -> dict[str, Any]:
 
     pds_url = os.environ.get("ETZ_E7M_PDS_URL", DEFAULT_PDS).rstrip("/")
     sess_did, sess = _resolve_session(pds_url)
-    repo_did = os.environ.get("ETZ_E7M_PDS_DID", sess_did)
+    repo_did = os.environ.get("ETZ_E7M_PDS_DID", DEFAULT_DID if sess_did != DEFAULT_DID else sess_did)
 
     with _client(headers={"Authorization": f"Bearer {sess['accessJwt']}"}) as c:
         r = c.post(

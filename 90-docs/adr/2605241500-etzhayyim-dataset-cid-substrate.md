@@ -305,6 +305,46 @@ subdataset before `git annex copy --to ipfs`:
 Scan failure aborts the add flow before any IPFS bytes are written. Scan
 result is recorded both in the manifest row and in the PDS record.
 
+## D8a. DID Worker — `did:web:dataset-pinner.etzhayyim.com`
+
+The dataset pinner is a distinct AT-Protocol identity from
+`pinner.etzhayyim.com` (which exists for ADR-2605171800 MST/CAR
+pinning). A separate Cloudflare Worker publishes the DID Document at
+`https://dataset-pinner.etzhayyim.com/.well-known/did.json` — the
+spec-required resolution endpoint — mirroring the esign / pinner
+Worker pattern.
+
+Scaffold lives at `50-infra/etzhayyim-dataset-pinner-did-web/`:
+
+- `did.json` — DID Document; `verificationMethod: []` at Phase 1
+  (Ed25519 keypair generation deferred to Phase 2, same pattern as
+  esign Phase 0 and ipfs-pinner Phase 0).
+- `src/worker.ts` — serves `/.well-known/did.json` + `/healthz`;
+  returns 404 otherwise.
+- `wrangler.toml` — route `dataset-pinner.etzhayyim.com/.well-known/did.json`
+  on the `etzhayyim.com` zone.
+- `NOTICE` + `CHARTER-RIDER.md` symlink (per ADR-2605192200 §3+§4
+  first-party package requirements).
+
+Deploy gates:
+
+1. **Worker push**: `npm install && npm run deploy`.
+2. **DNS provision**: `AAAA dataset-pinner.etzhayyim.com 100::` proxied
+   (CF orange-cloud) on the `etzhayyim.com` zone. One-time CF dashboard
+   step; same pattern as `pinner.etzhayyim.com` / `esign.etzhayyim.com`.
+3. **Keypair (Phase 2)**: generate Ed25519 → store private in
+   macOS Keychain (service `etzhayyim`, account
+   `DID_PRIVATE_KEY_ED25519_DATASET_PINNER`) + 1Password mirror →
+   replace `did.json verificationMethod` placeholder.
+4. **App-password**: PDS operator issues a handle+password for the
+   `dataset-pinner.etzhayyim.com` repo; consumer (`70-tools/e7m-dataset`)
+   reads it via the `ETZ_E7M_PDS_AUTH` env var (Keychain decant
+   pattern documented in `70-tools/e7m-dataset/README.md`).
+
+`e7m_dataset.pds.DEFAULT_DID` defaults to
+`did:web:dataset-pinner.etzhayyim.com`; operators override per-deploy
+via `ETZ_E7M_PDS_DID`.
+
 ## D8. Reuse boundary with `ipfs-pinner`
 
 `50-infra/ipfs-pinner/` continues to own MST CAR pinning (ADR-2605171800
