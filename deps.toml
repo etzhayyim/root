@@ -78,6 +78,9 @@ payment_rule_adr = "2605172100"
 identity_substrate = ["did:web:etzhayyim.com", "did:plc", "WebAuthn passkey", "Coinbase Smart Wallet"]
 auth_substrate = ["DID-bound signature", "WebAuthn", "passkey"]
 sdk_seam = "@etzhayyim/sdk (20-actors/etzhayyim-sdk/) — only seam allowed to import substrate clients"
+holochain_iso = "yatachain"   # ADR-2605231400 — canonical name for the Holochain-isomorphic composition of the substrate primitives above
+holochain_iso_spec = "10-protocol/yatachain/SPEC.md"
+holochain_iso_adr = "2605231400"
 
 # ─── L2 / Base contracts (testnet first → mainnet) ──────────────────
 
@@ -940,6 +943,13 @@ status = "proposed"
 status_note = "Religious-corp native replacement for DocuSign / Adobe Sign / RazorpaySign. Phase 0 closed this session: 7 lexicons under app.etzhayyim.esign.* (envelope/signature/completedEvent/anchoredEvent records + requestEnvelope/signEnvelope/declineEnvelope procedures), actor scaffold at 20-actors/etzhayyim-esign/ (procedures return 501 NotYetImplemented), DID Worker scaffold + deployed at 50-infra/etzhayyim-esign-did-web/ (route esign.etzhayyim.com/.well-known/did.json bound at CF, Worker version cfb3b6c0). DNS for esign.etzhayyim.com (AAAA @=100:: proxied) still missing on the etzhayyim.com zone — Worker unreachable from public DNS until that one-time CF dashboard step lands. gftd lawfirm DocuSign passthrough (ai.gftd.apps.lawfirm.eSign*) retained but scoped to fiat receipts + India counsel intake only (ADR-2605192115 §4); religious-corp documents MUST use app.etzhayyim.esign.*. Phase 1 wires requestEnvelope through @etzhayyim/sdk + ipfs-pinner for Bootstrap Council Seats 2-5 RFP minutes (deadline 2026-06-19); Phase 2 adds Base Sepolia anchor via EsignAnchor.sol; Phase 3 adds mainnet + geth-private mirror; Phase 4 integrates Adherent SBT mint affirmation."
 path = "90-docs/adr/2605231230-etzhayyim-esign-actor-did-bound-mst-anchored.md"
 
+[[adrs]]
+id = "2605231500"
+title = "agent-driven UNSPSC supply flows — business-model wiring for 18,346-actor commodity automation"
+status = "proposed"
+status_note = "Defines the canonical wiring between the 18,346 UNSPSC LangGraph actors (commit 9cd4fe73d) and the religious-corp economic-body contracts (Charter / Tithe / Public Fund / Force / Sanctions / Council / Surplus Router / Wellbecoming). Introduces the AgentAuthorityToken (AAT) — a soulbound ERC-721+ERC-5192 token analogous to AdherentRegistry but for AI agents, minted by a Steward who holds an Adherent SBT. Four canonical purposes (donation-in-kind / internal-allocation / surplus-routing / operational-supply) extend the esign purpose enum; purchase/sale/subscription remain prohibited. Charter-compliance gate library (charters / sanctions / force / counterparty / eros-gore) ships as TS stubs with NotImplementedError; production stubs reach Phase 4. Phase 1 landed this session: 2 new lexicon namespaces (app.etzhayyim.agent.authority + app.etzhayyim.unspsc.processManifest) + esign envelope/requestEnvelope/signature extensions + AgentAuthorityToken.sol Foundry scaffold (11/11 forge tests passing) + charter-compliance-gate.ts library scaffold + ADR. Phases 1.5/2/3/4 deferred. Initially authored as 2605231400 but renumbered to 2605231500 to avoid ID collision with yatachain ADR registered at the same minute."
+path = "90-docs/adr/2605231500-etzhayyim-agent-driven-unspsc-supply-flows.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -1050,6 +1060,24 @@ version = "0.0.1"
 status = "scaffold"
 description = "etzhayyim-esign runtime actor — Phase 0 scaffold per ADR-2605231230. 3 XRPC procedures (app.etzhayyim.esign.requestEnvelope / signEnvelope / declineEnvelope) all return 501 NotYetImplemented. No route binding yet; Phase 1 will wire requestEnvelope through @etzhayyim/sdk + ipfs-pinner for Bootstrap Council Seats 2-5 RFP minutes (deadline 2026-06-19)."
 adr = ["2605231230"]
+
+[[modules]]
+path = "50-infra/etzhayyim-chain-contracts/src/AgentAuthorityToken.sol"
+kind = "solidity-foundry"
+version = "0.0.1"
+status = "forge-covered"
+description = "AgentAuthorityToken (AAT) — ERC-721 + ERC-5192 soulbound token representing scoped, revocable, delegated authority for an AI agent acting on behalf of a human Steward (who holds an Adherent SBT). Companion to AdherentRegistry. Mint requires the Steward to hold a non-revoked Adherent SBT (verified via IAdherentRegistry.tokenOf + isRevoked); scope (UNSPSC prefixes + esign purposes + value cap) is immutable; soulbound transferFrom permanently disabled; revocable by Steward or Council. 11/11 forge tests passing (mint happy path + 4 reject paths + revoke 3 paths + expiry + soulbound). Per ADR-2605231500."
+adr = ["2605231500"]
+solc_version = "0.8.27"
+test_count = 11
+
+[[modules]]
+path = "20-actors/etzhayyim-sdk/src/charter-compliance-gate.ts"
+kind = "ts-library"
+version = "0.0.1"
+status = "stub-not-implemented-error"
+description = "Atomic five-sub-gate library for AAT-bound agent-driven UNSPSC commodity flows: chartersAttest / sanctionsScreen / forcePreAttest / counterpartyClassify / erosGoreCategoryCheck. combineGate(ctx, config, opts) fans out concurrently and aggregates to a single {allowed, results, reasons, attestationRefs} verdict. Phase 1 ships only function signatures + NotImplementedError; production stubs land in Phase 4. testingAllowAll opt-in flag for unit-test fixtures. Per ADR-2605231500."
+adr = ["2605231500"]
 
 [[modules]]
 path = "50-infra/mst-projector"
@@ -1559,6 +1587,14 @@ version = "0.1.0"
 status = "anvil-verified"
 description = "Religious-corp wave deploy script per ADR-2605192415 §10 S2 roadmap. Deploys Constitution (38 const + 16 mut) + AdherentRegistry + ChartersComplianceRegistry (5-seat bootstrap council) + TitheRouter (publicFund immutable v0) + LandRegistry (charters.isCouncilMember single SoT). runLocal() entry uses Anvil deterministic accounts 0-6 for testnet-style smoke. run() entry takes (USDC, officers[], council[5], publicFundSafe) for Base Sepolia / mainnet. Anvil deploy 2026-05-20 verified: 4 constitutional constants + council bootstrap state read back correctly via cast call."
 adr = ["2605192415", "2605192100", "2605192115", "2605192130", "2605192200", "2605192230", "2605192245", "2605192300", "2605192315"]
+
+[[modules]]
+path = "10-protocol/yatachain"
+kind = "protocol-spec"
+version = "0.0.0"
+status = "spec-scaffold"
+description = "yatachain — canonical name for the Holochain-isomorphic composition of substrate primitives mandated by ADR-2605172000. 7-layer mapping: yatachain-agent (DID+passkey+SBT) / yatachain-chain (PDS MST) / yatachain-dht (IPFS+L2 anchor) / yatachain-membrane (Lexicon+Rego+LangGraph) / yatachain-witnesses (Pregel cells, quorum ≥3-of-5) / yatachain-cap (atproto JWT+WebAuthn) / yatachain-cells (Pregel cells per ADR-2605192415). Spec-only directory — implementations live in 50-infra/, 20-actors/, 00-contracts/ per the existing layer trees. Naming: single-token lowercase 'yatachain'; hyphenated 'yata-chain' prohibited to avoid shadow of yata-* Cargo workspace crate convention in 50-infra/yata/. Distinct from yata (LanceDB graph engine) and yatabase (commercial BaaS) despite shared 八- family prefix."
+adr = ["2605231400", "2605172000", "2605181100", "2605192100", "2605192415"]
 
 # ─── Religious-Corp Wave Status (ADRs 2605192100..2605192415 cumulative) ──
 

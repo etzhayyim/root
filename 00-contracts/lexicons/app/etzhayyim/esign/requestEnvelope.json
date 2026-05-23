@@ -57,6 +57,7 @@
             },
             "purpose": {
               "type": "string",
+              "description": "Charter-aligned purpose tag. Commodity-flow values (`donation-in-kind`, `internal-allocation`, `surplus-routing`, `operational-supply`) require `requesterAgentAuthorityRef` when the requester is an AAT-bound agent (per ADR-2605231500).",
               "enum": [
                 "council-resolution",
                 "land-donation",
@@ -64,8 +65,36 @@
                 "force-rd-consent",
                 "public-fund-disbursement",
                 "internal-agreement",
-                "general"
+                "general",
+                "donation-in-kind",
+                "internal-allocation",
+                "surplus-routing",
+                "operational-supply"
               ]
+            },
+            "requesterAgentAuthorityRef": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "AT URI of the AAT (`app.etzhayyim.agent.authority`) backing this request. Required when the requester is an AI agent; the Worker verifies the AAT scope covers the requested purpose + (if applicable) UNSPSC subject classifications. Per ADR-2605231500."
+            },
+            "subjectClassifications": {
+              "type": "array",
+              "description": "Optional classification-system subjects this envelope is about. Persists onto `envelope.subjectClassifications`.",
+              "maxLength": 256,
+              "items": {
+                "type": "ref",
+                "ref": "app.etzhayyim.esign.envelope#subjectClassification"
+              }
+            },
+            "commodityManifestUri": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "Optional AT URI of an existing commodityManifest record. If absent and `subjectClassifications` describes a UNSPSC batch, the Worker creates the manifest record from the agent-supplied items array."
+            },
+            "customsRef": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "Optional AT URI of the customs declaration record. Required when the matching UNSPSC processManifest has customsRequired=true."
             },
             "councilMirror": {
               "type": "boolean",
@@ -121,6 +150,26 @@
         {
           "name": "CharterViolation",
           "description": "Purpose tag conflicts with Charter Rider §2 — for example, an advertising or for-profit-sale document."
+        },
+        {
+          "name": "InvalidAgentAuthority",
+          "description": "requesterAgentAuthorityRef is missing, revoked, expired, or its scope does not cover the requested purpose / UNSPSC subjects."
+        },
+        {
+          "name": "CharterAttestationFailed",
+          "description": "ChartersComplianceRegistry attestation lookup failed (no current attestation covers this purpose + classification)."
+        },
+        {
+          "name": "SanctionsDeny",
+          "description": "Sanctions screening of the counterparty or destination returned a deny."
+        },
+        {
+          "name": "ForceAuthorizationRequired",
+          "description": "UNSPSC processManifest marks this code as force-sensitive but ForceAuthorization.preAttest() has not been satisfied."
+        },
+        {
+          "name": "CouncilEscalationRequired",
+          "description": "Envelope value/count exceeds the per-commodity councilEscalationThreshold; requester-only signing not permitted — submit via Council multisig path."
         }
       ]
     }

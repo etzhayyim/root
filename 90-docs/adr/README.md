@@ -77,6 +77,7 @@ New open-scope ADRs go here (`etzhayyim/root/90-docs/adr/`). Scope:
 | [2605215400](./2605215400-etzhayyim-shinka-evolution-witness-min.md) | etzhayyim shinka EVOLUTION_WITNESS_MIN — 7-level witness thresholds + Council gate + 30-day appeal | proposed | 2026-05-21 |
 | [2605212150](./2605212150-etzhayyim-langserver-substrate.md) | etzhayyim-langserver — Fleet-resident LSP substrate on Murakumo Mac mini fleet (9-layer reverse-topo build) | proposed | 2026-05-21 |
 | [2605231230](./2605231230-etzhayyim-esign-actor-did-bound-mst-anchored.md) | etzhayyim-esign actor — DID-bound, MST-recorded, L2-anchored document signing (religious-corp native replacement for DocuSign / Adobe Sign / RazorpaySign; gftd lawfirm passthrough retained only for fiat / India counsel intake) | proposed | 2026-05-23 |
+| [2605231500](./2605231500-etzhayyim-agent-driven-unspsc-supply-flows.md) | agent-driven UNSPSC supply flows — business-model wiring for 18,346-actor commodity automation (AgentAuthorityToken soulbound contract + 2 new lexicon namespaces + esign envelope extensions + charter-compliance-gate library; companion to ADR-2605231230 for AAT-bound agent signing) | proposed | 2026-05-23 |
 
 (Future ADRs added here as they're authored.)
 

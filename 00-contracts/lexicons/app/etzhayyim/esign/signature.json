@@ -64,6 +64,11 @@
             "type": "string",
             "format": "datetime",
             "description": "ISO 8601 timestamp at signature submission."
+          },
+          "signerAgentAuthorityRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional AT URI of the signer's AAT (`app.etzhayyim.agent.authority`). Present when the signer is an AI agent acting under delegated authority; absent when the signer is a human Adherent signing in their own capacity. Per ADR-2605231500. Verifiers MUST check that the AAT scope covers the envelope's purpose at sign time."
           }
         }
       }
