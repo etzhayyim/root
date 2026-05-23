@@ -28,4 +28,4 @@ graph.add_edge('validate_purity', 'safety_check')
 graph.add_edge('safety_check', END)
 
 # Compile the graph
-app = graph.compile()
+graph = graph.compile()

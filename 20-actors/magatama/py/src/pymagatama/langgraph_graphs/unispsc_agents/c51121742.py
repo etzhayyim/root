@@ -21,4 +21,4 @@ graph.set_entry_point('validate_gmp')
 graph.add_edge('validate_gmp', 'validate_storage')
 graph.add_edge('validate_storage', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

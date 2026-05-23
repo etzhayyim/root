@@ -46,3 +46,44 @@ Detected violations:
 ```
   @atproto/api: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-hrse/appview/external-hrse/src/lib/connect/server-client.ts:9
 ```
+
+---
+
+## Stripe → USDC codemod (2026-05-23)
+
+<!-- stripe-usdc-codemod-closure:2605231830 -->
+
+**Status (Stripe layer)**: ✅ verified — only JSDoc comment mentions in `appview/external-hrse/src/lib/clerk-subscription.ts` (no active Stripe SDK calls). Comment language can be updated in a future docs sweep; no behavioural change required.
+
+_Verified by manual review 2026-05-23._
+
+---
+
+## RW → MST substrate codemod (2026-05-23)
+
+<!-- rw-mst-codemod-progress:2605231930 -->
+
+**Status**: 🟡 partial — annotated; runtime migration pending.
+
+### Applied
+
+- 4 operational scripts annotated with `// CHARTER-VIOLATION §substrate` at the
+  `import postgres from "postgres"` line so the lint catches them:
+  - `appview/external-hrse/scripts/migrate-data.ts`
+  - `appview/external-hrse/scripts/run-migrations.ts`
+  - `appview/external-hrse/scripts/seed-master-data.ts`
+  - `appview/external-hrse/scripts/verify-seed-data.ts`
+
+These are one-shot operational scripts (data migration + verification), not
+runtime worker code. They are kept in place because the underlying Postgres
+schema they target will exist until hrse adopts the MST PDS write path.
+
+### Remaining
+
+- Adopt `_etzhayyim_substrate.py`-style seam (or its TypeScript equivalent
+  against `@etzhayyim/sdk`) for the four scripts so they can be re-run
+  against MST + IPFS once hrse cuts over.
+- `appview/external-hrse/src/lib/clerk-subscription.ts` — Stripe references
+  in JSDoc only; no runtime change needed.
+
+_Closed (Stage 1) by manual codemod 2026-05-23._

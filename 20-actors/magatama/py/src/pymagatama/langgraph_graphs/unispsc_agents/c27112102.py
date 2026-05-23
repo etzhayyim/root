@@ -20,4 +20,4 @@ graph.set_entry_point('validate_specs')
 graph.add_edge('validate_specs', 'perform_quality_check')
 graph.add_edge('perform_quality_check', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

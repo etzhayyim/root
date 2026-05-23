@@ -28,4 +28,4 @@ graph.add_conditional_edges('validate', route_by_compliance)
 graph.add_edge('process', END)
 
 # Compile the graph
-app = graph.compile()
+graph = graph.compile()

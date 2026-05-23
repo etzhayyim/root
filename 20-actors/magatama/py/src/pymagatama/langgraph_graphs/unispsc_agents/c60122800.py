@@ -20,4 +20,4 @@ graph.set_entry_point('compliance')
 graph.add_edge('compliance', 'specs')
 graph.add_edge('specs', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

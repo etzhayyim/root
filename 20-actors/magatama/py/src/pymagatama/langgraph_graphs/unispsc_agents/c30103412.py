@@ -20,3 +20,5 @@ graph = StateGraph(IngotsState)
 graph.add_node('validate', validate_composition)
 graph.add_edge('validate', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

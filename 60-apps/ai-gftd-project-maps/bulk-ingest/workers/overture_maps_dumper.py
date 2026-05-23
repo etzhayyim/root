@@ -31,10 +31,15 @@ from io import BytesIO
 from threading import Lock, Thread
 
 import boto3
-import psycopg2
 import pyarrow as pa
 import pyarrow.dataset as ds
 import pyarrow.parquet as pq
+
+# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# the substrate seam below; direct psycopg2 imports are no longer
+# permitted in this worker. The seam still supports a transitional RW
+# mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.
+from _etzhayyim_substrate import open_substrate_writer
 
 logging.basicConfig(
     level=logging.INFO,
@@ -142,7 +147,7 @@ def _row_from_overture(theme: str, record: dict) -> dict | None:
     if isinstance(bbox, dict) and "xmin" in bbox and "ymin" in bbox and "xmax" in bbox and "ymax" in bbox:
         lon = (bbox["xmin"] + bbox["xmax"]) / 2.0
         lat = (bbox["ymin"] + bbox["ymax"]) / 2.0
-    
+
     if lat is None or lon is None:
         return None
 
@@ -184,38 +189,38 @@ def _flush(rows: list[dict], dump_id: str, theme: str, idx: int) -> str:
     return key
 
 
-def _insert_rows_into_rw(rows: list[dict], batch_size: int = 1000) -> int:
+def _insert_rows_into_substrate(rows: list[dict], batch_size: int = 1000) -> int:
+    """Upsert ingested rows via the etzhayyim substrate seam.
+
+    Per ADR-2605172000 the writer dispatches on
+    ``ETZHAYYIM_SUBSTRATE_MODE``: ``mst`` (PDS → MST + IPFS + Base L2
+    anchor, post-migration) or ``rw`` (psycopg2 → vertex_spatial,
+    transitional). Idempotent upsert keyed on ``vertex_id``.
+    """
     if not rows:
         return 0
     total = 0
-    conn = psycopg2.connect(DATABASE_URL)
-    conn.autocommit = False
-    try:
-        cur = conn.cursor()
-        cols = list(rows[0].keys())
+    with open_substrate_writer() as writer:
         for i in range(0, len(rows), batch_size):
             chunk = rows[i : i + batch_size]
-            placeholders = ", ".join("(" + ", ".join(["%s"] * len(cols)) + ")" for _ in chunk)
-            sql = f"INSERT INTO vertex_spatial ({', '.join(cols)}) VALUES {placeholders}"
-            params = [r[c] for r in chunk for c in cols]
             try:
-                cur.execute(sql, params)
-                conn.commit()
-                total += len(chunk)
+                total += writer.upsert_vertex_spatial(chunk)
             except Exception as e:
-                conn.rollback()
-                log.warning("batch insert failed (chunk %d-%d): %s", i, i + len(chunk), e)
-    finally:
-        conn.close()
+                log.warning(
+                    "substrate upsert failed (chunk %d-%d): %s",
+                    i,
+                    i + len(chunk),
+                    e,
+                )
     return total
 
 
 def _process_theme(theme: str, dump_id: str) -> int:
     log.info("Processing Overture theme: %s (release %s)", theme, OVERTURE_RELEASE)
-    
+
     # S3 path to Overture Maps release
     bucket_path = f"overturemaps-us-west-2/release/{OVERTURE_RELEASE}/theme={theme}"
-    
+
     try:
         from pyarrow import fs
         s3 = fs.S3FileSystem(anonymous=True, region="us-west-2")
@@ -235,9 +240,9 @@ def _process_theme(theme: str, dump_id: str) -> int:
             row = _row_from_overture(theme, record)
             if not row:
                 continue
-            
+
             shard_rows.append(row)
-            
+
             should_flush = (
                 len(shard_rows) >= SHARD_ROWS
                 or (time.time() - last_flush) > FLUSH_INTERVAL_SEC
@@ -246,17 +251,17 @@ def _process_theme(theme: str, dump_id: str) -> int:
                 f_rows = shard_rows[:]
                 shard_rows.clear()
                 _flush_pool.submit(_flush, f_rows, dump_id, theme, shard_idx)
-                rw_total += _insert_rows_into_rw(f_rows)
+                rw_total += _insert_rows_into_substrate(f_rows)
                 shard_idx += 1
                 last_flush = time.time()
-                
+
                 with _lock:
                     _state["rows_per_theme"][theme] = rw_total
                     _state["rows_written"] = sum(_state["rows_per_theme"].values())
 
     if shard_rows:
         _flush_pool.submit(_flush, shard_rows, dump_id, theme, shard_idx)
-        rw_total += _insert_rows_into_rw(shard_rows)
+        rw_total += _insert_rows_into_substrate(shard_rows)
         with _lock:
             _state["rows_per_theme"][theme] = rw_total
             _state["rows_written"] = sum(_state["rows_per_theme"].values())

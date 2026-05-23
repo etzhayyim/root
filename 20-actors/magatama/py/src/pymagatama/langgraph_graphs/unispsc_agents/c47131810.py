@@ -21,4 +21,4 @@ graph.set_entry_point('validate_sds')
 graph.add_edge('validate_sds', 'assess_compliance')
 graph.add_edge('assess_compliance', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

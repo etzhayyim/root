@@ -34,4 +34,4 @@ graph.add_edge('safety_check', 'storage_check')
 graph.add_edge('storage_check', END)
 graph.set_entry_point('validate_purity')
 
-compiled_graph = graph.compile()
+graph = graph.compile()

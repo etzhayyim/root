@@ -23,4 +23,4 @@ graph.set_entry_point('validate_material')
 graph.add_edge('validate_material', 'check_autoclave')
 graph.add_edge('check_autoclave', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

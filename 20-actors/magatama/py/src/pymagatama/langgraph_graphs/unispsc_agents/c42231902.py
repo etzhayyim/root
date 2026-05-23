@@ -19,3 +19,5 @@ graph.add_node("inspect", perform_quality_inspection)
 graph.add_edge("validate", "inspect")
 graph.add_edge("inspect", END)
 graph.set_entry_point("validate")
+
+graph = graph.compile()

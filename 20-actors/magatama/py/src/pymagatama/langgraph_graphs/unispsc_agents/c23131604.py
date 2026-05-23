@@ -19,3 +19,5 @@ graph = StateGraph(GrindingState)
 graph.add_node('validate', validate_tech)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

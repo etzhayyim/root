@@ -21,4 +21,4 @@ graph.set_entry_point('material_check')
 graph.add_edge('material_check', 'dimension_check')
 graph.add_edge('dimension_check', END)
 
-app = graph.compile()
+graph = graph.compile()

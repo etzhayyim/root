@@ -21,4 +21,4 @@ graph.set_entry_point('validate_compliance')
 graph.add_edge('validate_compliance', 'verify_batch')
 graph.add_edge('verify_batch', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

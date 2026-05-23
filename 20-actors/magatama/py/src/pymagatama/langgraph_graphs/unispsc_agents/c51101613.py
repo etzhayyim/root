@@ -28,4 +28,4 @@ graph.add_edge("finalize", END)
 graph.add_edge("finalize", END)
 
 # Compile the graph
-app = graph.compile()
+graph = graph.compile()

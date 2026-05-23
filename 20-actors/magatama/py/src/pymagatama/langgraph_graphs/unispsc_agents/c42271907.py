@@ -19,3 +19,5 @@ graph = StateGraph(AspiratorState)
 graph.add_node('validate', validate_compliance)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

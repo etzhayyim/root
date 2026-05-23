@@ -1,8 +1,10 @@
 # Migration TODO
 
-**Status**: 🔄 TRANSFORM — seed copied 2026-05-21, codemod pending.
+**Status**: ✅ ad-pixel codemod complete (2026-05-23) — see closure section below for details.
 
 **Codemod required**: remove ad / affiliate revenue paths
+
+> **Resolved (ad-pixel layer)** — see closure section below. DID-bind-auth + affiliate-revenue-paths still pending if listed in the checklist.
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
@@ -62,3 +64,23 @@ Additional violations detected in re-scan:
 ```
 
 Lines annotated with `CHARTER-VIOLATION §substrate` comments.
+
+---
+
+## ad-pixel codemod closure (2026-05-23)
+
+<!-- ad-pixel-codemod-closure:2605231600 -->
+
+**Status**: ✅ ad-pixel / GA4 / AdSense / Meta Pixel codemod **complete** — verified clean.
+
+Re-scan on 2026-05-23 confirmed zero matches across this app's source
+tree (excluding `node_modules/`, `dist/`, `.svelte-kit/`, build outputs)
+for: `googletagmanager.com`, `google-analytics.com`, `gtag(`, `fbq(`,
+`connect.facebook.net`, `adsbygoogle`, `google-adsense`, `amplitude`,
+`mixpanel`, `segment.com/analytics`, `hotjar`, `GoogleAnalytics`.
+
+Per ADR-2605192115 §1.2 (No Advertising hard rule) + ADR-2605192100 §1.6
+(Mission Charter middleman elimination). DID-bind-auth check remains a
+separate item — see `auth` checklist above.
+
+_Closed by `70-tools/scripts/codemod/2605231600-ad-pixel-codemod-closure.mjs`._

@@ -24,4 +24,4 @@ graph.set_entry_point('safety')
 graph.add_edge('safety', 'pedagogy')
 graph.add_edge('pedagogy', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

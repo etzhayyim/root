@@ -16,4 +16,4 @@ graph.add_node('validate', validate_beads)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
 
-app = graph.compile()
+graph = graph.compile()

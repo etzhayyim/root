@@ -61,3 +61,59 @@ Additional violations detected in re-scan:
 ```
 
 Lines annotated with `CHARTER-VIOLATION §substrate` comments.
+
+---
+
+## Stripe → USDC codemod (2026-05-23)
+
+<!-- stripe-usdc-codemod-closure:2605231730 -->
+
+**Status (Stripe layer)**: ✅ codemod applied (substrate code).
+**Status (overall)**: 🔄 RW→MST layer still pending (see schema-describe.ts).
+
+### Applied changes
+
+| File | Change |
+|---|---|
+| `src/billing-stripe.ts` | **deleted** — replaced by `src/billing.ts` |
+| `src/billing.ts` | **new** — dead Stripe code stripped (createStripeCheckoutSession / verifyStripeSignature / kvGetStripeCustomerId / stripePriceForPlan removed), `STRIPE_*` env vars dropped, `stripeSubscriptionId`/`stripeCustomerId` params dropped, handlers return Charter Rider §2 403/410 responses |
+| `src/donate.ts` | **rewritten** — wired to `@etzhayyim/sdk` `donate()` (v0.1 EOA path), stub txHash removed. Returns 503 `SignerUnconfigured` when `YATA_DONATE_PRIVATE_KEY` is absent. |
+| `src/app.ts` | import path updated (`./billing-stripe` → `./billing`); legacy `/webhook/stripe` + `/auth/v1/portal` route comments now flag deprecation; `/auth/v1/whoami` no longer reads `stripeCustomerId` from KV (always `null` + `canOpenPortal: false`) |
+| `src/landing.ts` | feature card "Stripe Live billing (US)" → "USDC donations on Base L2"; upgrade copy now points to POST /api/donate |
+| `svelte/src/lib/api.ts` | `auth.upgrade()` / `auth.stripePortal()` removed; replaced by `auth.downgradeToFree()` + new `donate.submit()` namespace + `DonationPurpose` enum |
+| `svelte/src/routes/studio/billing/+page.svelte` | "Upgrade to Developer — $33/mo" / "Manage subscription" buttons replaced by USDC donation form (amount + purpose + memo) hitting `donate.submit()` |
+| `package.json` | added `@etzhayyim/sdk: workspace:*` to `dependencies` |
+
+### Remaining (documentation rewrites — non-blocking)
+
+These files still contain "Stripe" references that describe legacy endpoints
+in user-facing documentation. The active code paths are unchanged by these
+strings, so they were not rewritten in this codemod:
+
+- `src/openapi.ts` — `/auth/v1/upgrade` / `/auth/v1/portal` / `/webhook/stripe` paths
+  still documented as Stripe surfaces; add `deprecated: true` flag + describe
+  /api/donate replacement.
+- `src/docs.ts` — "Upgrade" + "Customer Portal" sections need rewrite.
+- `src/changelog.ts` / `src/quickstart.ts` / `src/terms.ts` / `src/privacy.ts` /
+  `src/data-rights.ts` / `src/seo.ts` / `src/studio.ts` / `src/invoice.ts` /
+  `src/email-outbox.ts` / `src/plan-quota.ts` — string-level mentions only.
+- `lg/lg_yatabase/graphs/bmc_iteration.py` — BMC iteration template; review.
+- `svelte/README.md` — README rewrite for new USDC flow.
+
+### Remaining (RW→MST layer)
+
+The substrate-boundary RW violations called out in the post-verification gap
+patch above (`schema-describe.ts`, `marketing.py`, `templates.py`,
+`test_marketing_sales_nodes.py`) are out of scope for the Stripe→USDC
+codemod. They will be addressed in a follow-up RW→MST sweep.
+
+### Pre-deploy checklist
+
+- [ ] Configure `YATA_DONATE_PRIVATE_KEY` (Worker secret, EOA on Base L2).
+- [ ] Configure `YATA_DONATE_TREASURY` (Base L2 Safe address).
+- [ ] Run `pnpm typecheck` from `60-apps/ai-gftd-project-yatabase`.
+- [ ] Run `pnpm studio:build` to verify Svelte page compiles.
+- [ ] Run the customer-journey smoke (`70-tools/scripts/yatabase-customer-journey.mjs`) — note steps 7/8 (Stripe webhook + post-checkout) will now respond 410; update smoke script.
+- [ ] Update OpenAPI spec + docs strings (above).
+
+_Closed by manual codemod 2026-05-23._

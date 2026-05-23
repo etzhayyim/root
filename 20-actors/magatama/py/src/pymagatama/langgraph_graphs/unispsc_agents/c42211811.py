@@ -20,4 +20,4 @@ graph.set_entry_point('validate_ergonomics')
 graph.add_edge('validate_ergonomics', 'check_durability')
 graph.add_edge('check_durability', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

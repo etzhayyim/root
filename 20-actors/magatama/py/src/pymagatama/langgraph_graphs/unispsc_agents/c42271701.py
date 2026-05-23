@@ -26,3 +26,5 @@ graph.add_edge('validate_pressure', 'verify_safety')
 graph.add_edge('verify_safety', 'finalize')
 graph.add_edge('finalize', END)
 graph.set_entry_point('validate_pressure')
+
+graph = graph.compile()

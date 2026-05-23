@@ -90,12 +90,13 @@ replicas_of = []
 name = "levi"
 hostname = "levinomac-mini.local"
 ip_lan = "192.168.1.16"
-role = "membership + council orchestration + kuni-umi-audit-leader"
+role = "membership + council orchestration + kuni-umi-audit-leader + kaizen-observer"
 cells = [
   "AdherentAttestationCell",
   "CouncilLevelAdvancementCell",
   "CouncilDeliberationCell",  # generic, multi-instance per attestation
   "AuditWitnessCell",  # kuni-umi continuous robot-witness audit (ADR-2605201400 §9)
+  "KaizenObserverCell",  # ecosystem self-reflection (ADR-2605240200)
 ]
 replicas_of = []
 
@@ -103,11 +104,12 @@ replicas_of = []
 name = "joseph"
 hostname = "josephnomac-mini.local"
 ip_lan = "192.168.1.15"
-role = "phenotype-agent-shard-0 + kuni-umi-construction-leader + unispsc-executor-shard-0"
+role = "phenotype-agent-shard-0 + kuni-umi-construction-leader + unispsc-executor-shard-0 + unispsc-organism-shard-0"
 cells = [
   "PhenotypeAgent",  # SBT tokenId range 0 to N/3
   "ConstructionOrchestrationCell",  # kuni-umi Phase 3 (ADR-2605201400)
-  "UnispscAgentExecutorCell",  # unispsc segments 10-29 (~4260 agents)
+  "UnispscAgentExecutorCell",  # unispsc segments 10-29 (~4597 agents)
+  "UnispscOrganismFleetCell",  # 4597 organisms, segments 10-29 (ADR-2605240000)
 ]
 shard_index = 0
 total_shards = 3
@@ -117,10 +119,11 @@ replicas_of = []
 name = "issachar"
 hostname = "issacharnomac-mini.local"
 ip_lan = "192.168.1.12"
-role = "phenotype-agent-shard-1 + unispsc-executor-shard-1"
+role = "phenotype-agent-shard-1 + unispsc-executor-shard-1 + unispsc-organism-shard-1"
 cells = [
   "PhenotypeAgent",  # SBT tokenId range N/3 to 2N/3
-  "UnispscAgentExecutorCell",  # unispsc segments 30-44 (~8800 agents — heaviest shard, segments 31/41/42)
+  "UnispscAgentExecutorCell",  # unispsc segments 30-44 (~8541 agents — heaviest shard, segments 31/41/42)
+  "UnispscOrganismFleetCell",  # 8541 organisms, segments 30-44 (ADR-2605240000)
 ]
 shard_index = 1
 total_shards = 3
@@ -130,11 +133,12 @@ replicas_of = []
 name = "dan"
 hostname = "dannomac-mini.local"
 ip_lan = "192.168.1.13"
-role = "phenotype-agent-shard-2 + kuni-umi-decommission-leader + unispsc-executor-shard-2"
+role = "phenotype-agent-shard-2 + kuni-umi-decommission-leader + unispsc-executor-shard-2 + unispsc-organism-shard-2"
 cells = [
   "PhenotypeAgent",  # SBT tokenId range 2N/3 to N
   "DecommissionCell",  # kuni-umi end-of-life (ADR-2605201400)
-  "UnispscAgentExecutorCell",  # unispsc segments 45-60 (~5280 agents)
+  "UnispscAgentExecutorCell",  # unispsc segments 45-60 (~5204 agents)
+  "UnispscOrganismFleetCell",  # 5204 organisms, segments 45-60 (ADR-2605240000) — subsumes UnispscOrganismC10101500Cell
 ]
 shard_index = 2
 total_shards = 3
@@ -322,6 +326,59 @@ llm_primary = "claude-haiku-4-5"  # classify hot path
 llm_escalation = "claude-sonnet-4-6"  # classify ambiguous → escalate
 llm_fallback_local = "llama3.2:3b @ evo-x2 (LAN-only, ADR-2605202345)"
 listens_to = ["ai.gftd.apps.unispsc.invokeAgent"]
+
+# ─── UNSPSC organism fleet cell (ADR-2605240000) ──────────────────────
+#
+# Wraps every UNSPSC code in this shard's segment range into a tick-able
+# organism (joucho personality from ADR-2605240015 + InboxBuffer + Shinka
+# cadence + FollowerReward stub from ADR-2605240030). Underlying classify
+# graphs are reused unchanged.
+#
+# Sharding mirrors UnispscAgentExecutorCell:
+#   shard-0 joseph   segments 10-29   4,597 organisms
+#   shard-1 issachar segments 30-44   8,541 organisms
+#   shard-2 dan      segments 45-60   5,204 organisms
+#
+# Supersedes UnispscOrganismC10101500Cell (single-organism reference,
+# ADR-2605232345) — c10101500 is now hosted by shard-0 on joseph.
+
+[cells.UnispscOrganismFleetCell]
+healthz_port_base = 13040  # +10 per shard (13040 joseph, 13050 issachar, 13060 dan)
+trigger = "lan-api"
+api_port_base = 13140
+adr = ["2605240000", "2605232345", "2605240015", "2605240030", "2605171300"]
+sharding = "by-segment-prefix"
+shard_assignments = { shard-0 = "10-29", shard-1 = "30-44", shard-2 = "45-60" }
+module = "pymagatama.organism.fleet_cell_main"
+registry_path = "00-contracts/actor-registry/unispsc.json"
+organism_lru_max = 4096
+tick_interval_s = 300  # 5-min heartbeat per organism (cooldowns suppress most ticks)
+joucho_provider = "deterministic-personality"  # ADR-2605240015 Layer 1
+follower_provider = "stub-empty"               # ADR-2605240030 default; MST read deferred
+supersedes = ["UnispscOrganismC10101500Cell"]  # subsumed by shard-0 on joseph
+
+# ─── kaizen observer (ADR-2605240200) ─────────────────────────────────
+#
+# Ecosystem self-reflection actor. Single observer (Deployment, not
+# DaemonSet) on levi. Probes shard healthz every 10 min, tails NDJSON
+# post queues, runs rule registry, appends KaizenProposal NDJSON lines
+# to /var/lib/etzhayyim/kaizen-proposals/observer.ndjson.
+#
+# Downstream: a PR agent (Wave 4) consumes the proposal queue and opens
+# PRs on github.com/etzhayyim/root for human / agent review. The
+# observer itself never opens a PR or mutates state.
+
+[cells.KaizenObserverCell]
+healthz_port = 13070
+trigger = "cron"
+cron = "*/10 * * * *"
+adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
+module = "pymagatama.organism.kaizen_cell_main"
+entry = "fire"
+actor_did = "did:web:etzhayyim.com:actor:kaizen-observer"
+proposal_path = "/var/lib/etzhayyim/kaizen-proposals/observer.ndjson"
+dedup_window_s = 7200  # 2 hours
+notes = "Emits KaizenProposal NDJSON. PR agent (Wave 4) opens GitHub PRs from the queue."
 
 # ─── kuni-umi cells (ADR-2605201400) ────────────────────────────────
 

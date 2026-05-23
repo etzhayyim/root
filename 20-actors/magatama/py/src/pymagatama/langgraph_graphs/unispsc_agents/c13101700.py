@@ -27,3 +27,5 @@ graph.add_conditional_edges('route', route_procurement, {'manual_review': 'revie
 graph.add_node('review', lambda x: x)
 graph.add_edge('review', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

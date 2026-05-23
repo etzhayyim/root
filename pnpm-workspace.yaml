@@ -33,6 +33,9 @@ packages:
 
   # yoro cohort (Charter-compliant rebuild — AdSense/GA4 removed)
   - "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte"
+
+  # karute (電子カルテ / EMR) — ADR-2605231100
+  - "60-apps/ai-gftd-project-karute/appview/ai-gftd-wasm-karute-karu7t3e/svelte"
   - "10-protocol/signal"
   - "10-protocol/xrpc"
   - "40-engine/svelte/auth"
@@ -58,6 +61,7 @@ packages:
   # yorishiro generator + emitted MCP servers (ADR-2605211900)
   - "70-tools/etzhayyim-cli/yorishiro"
   - "20-actors/magatama/mcp/yorishiro-*-mcp"
+  - "20-actors/magatama/mcp/open-seiyaku-mcp"
 
   # etzhayyim-organism-viz Svelte frontend (ADR-2605221411)
   - "60-apps/etzhayyim-organism-viz/web"

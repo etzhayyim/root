@@ -1,24 +1,68 @@
-from langgraph.graph import StateGraph, END
-from typing import TypedDict, List
+# codemod:2605231300-unispsc-placeholder v1
+"""
+Unispsc actor agent c41121707 — Procurement (segment 41).
 
-class ProcurementState(TypedDict):
-    item_name: str
-    specs: dict
-    validation_passed: bool
-    compliance_status: List[str]
+Placeholder graph emitted by the 2026-05-23 corpus rebuild codemod. The
+upstream Gemini exec rebuild will overwrite this file with bespoke per-
+code logic; until then this 3-node compliance/process/emit pipeline
+ensures the agent is callable from UnispscAgentExecutorCell and exercises
+the MstCheckpointSaver substrate path.
 
-def validate_specs(state: ProcurementState):
-    required = ['material_specification', 'sterile_certification']
-    passed = all(k in state['specs'] for k in required)
-    return {'validation_passed': passed, 'compliance_status': ['Specs Verified'] if passed else ['Specs Incomplete']}
+This module is regenerated automatically — hand-edit at your own risk.
+"""
 
-def approval_check(state: ProcurementState):
-    return 'APPROVED' if state['validation_passed'] else 'REJECTED'
+from __future__ import annotations
 
-graph = StateGraph(ProcurementState)
-graph.add_node('validate', validate_specs)
-graph.add_node('approval', approval_check)
-graph.set_entry_point('validate')
-graph.add_edge('validate', 'approval')
-graph.add_edge('approval', END)
-compiled_graph = graph.compile()
+from operator import add
+from typing import Annotated, Any, TypedDict
+
+from langgraph.graph import END, START, StateGraph
+
+UNISPSC_CODE = "41121707"
+UNISPSC_TITLE = "Procurement"
+UNISPSC_SEGMENT = "41"
+UNISPSC_DID = "did:web:etzhayyim.com:actor:c41121707"
+
+
+class State(TypedDict, total=False):
+    input: dict[str, Any]
+    compliance_check: bool
+    log: Annotated[list[str], add]
+    result: dict[str, Any]
+
+
+def receive(state: State) -> dict[str, Any]:
+    inp = state.get("input") or {}
+    return {
+        "log": [f"{UNISPSC_CODE}:receive"],
+        "compliance_check": bool(inp),
+    }
+
+
+def process(state: State) -> dict[str, Any]:
+    return {"log": [f"{UNISPSC_CODE}:process"]}
+
+
+def emit(state: State) -> dict[str, Any]:
+    return {
+        "log": [f"{UNISPSC_CODE}:emit"],
+        "result": {
+            "code": UNISPSC_CODE,
+            "title": UNISPSC_TITLE,
+            "segment": UNISPSC_SEGMENT,
+            "did": UNISPSC_DID,
+            "ok": True,
+        },
+    }
+
+
+_g = StateGraph(State)
+_g.add_node("receive", receive)
+_g.add_node("process", process)
+_g.add_node("emit", emit)
+_g.add_edge(START, "receive")
+_g.add_edge("receive", "process")
+_g.add_edge("process", "emit")
+_g.add_edge("emit", END)
+
+graph = _g.compile()

@@ -23,3 +23,5 @@ graph.add_node('finalize', finalize_procurement)
 graph.add_edge('validate', 'finalize')
 graph.add_edge('finalize', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

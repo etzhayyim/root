@@ -2260,24 +2260,19 @@ async function resolveSecret(source: unknown): Promise<string> {
   return "";
 }
 
-// CHARTER RIDER §2 MIGRATION: Stripe payment helpers disabled.
-// External fiat subscription (Stripe) is prohibited per Charter Rider §2.
-// See ADR-2605192115.
-
-async function resolveStripeSecretKey(env: Env): Promise<string> {
-  // TODO(charter §2): Stripe removed. Use USDC donation flow via @etzhayyim/sdk.
-  return "";
-}
-
-async function resolveStripePublishableKey(env: Env): Promise<string> {
-  // TODO(charter §2): Stripe removed. Use USDC donation flow via @etzhayyim/sdk.
-  return "";
-}
-
-async function handleCreateSetupIntent(env: Env): Promise<Response> {
-  // CHARTER RIDER §2: External fiat payment (Stripe) is prohibited.
-  return jsonErr(403, "external-fiat-not-permitted", "Stripe payment setup is not permitted per Charter Rider §2. Use USDC donation flow instead.");
-}
+// CHARTER RIDER §2 (ADR-2605192115) — Stripe payment helpers removed.
+// External fiat subscription is prohibited. Telecom-tier provisioning
+// now requires a USDC donation on Base L2 with
+// purpose='internal-subscription' via @etzhayyim/sdk donate(); see the
+// donate flow on the yatabase Studio / yoro membership UI.
+//
+// The legacy XRPC surface ai.gftd.auth.createSetupIntent is permanently
+// removed below (route is unregistered, not stubbed). Clients still
+// calling it will receive the Worker's 404 fallback.
+//
+// `getConfig` no longer exposes a `stripePk`. Frontends must request
+// the USDC treasury address + Base L2 RPC URL via the new SDK config
+// endpoint when that lands.
 
 async function storeCredential(env: Env, credentialId: string, value: Record<string, unknown>): Promise<void> {
   if (!env.AUTH_DB) return;
@@ -2720,10 +2715,11 @@ app.get("/users/:id/did.json", async (c) => {
   });
 });
 app.get("/xrpc/ai.gftd.auth.getConfig", async (c) =>
-  // CHARTER RIDER §2: stripePk removed. Stripe payment is prohibited.
+  // Charter Rider §2 (ADR-2605192115): Stripe is permanently removed.
+  // `stripePk: ""` is kept in the response shape only for backward-compat
+  // with older Svelte builds that destructure it; new clients should ignore.
   json({
-    // stripePk: await resolveStripePublishableKey(c.env), // DISABLED per Charter Rider §2
-    stripePk: "", // Stripe is prohibited; use USDC donation flow
+    stripePk: "",
     countryCode: c.req.raw.headers.get("CF-IPCountry") || "JP",
   }),
 );
@@ -2870,8 +2866,8 @@ app.post("/rpc/check-revoked", (c) => handleCheckRevoked(c.req.raw, c.env));
 app.post("/rpc/verify-session", (c) => handleVerifySession(c.req.raw, c.env));
 app.post("/webhook/telnyx", (c) => handleTelnyxWebhook(c.req.raw));
 app.post("/xrpc/ai.gftd.auth.createGuestAccount", (c) => handleCreateGuestAccount(c.req.raw, c.env));
-// CHARTER RIDER §2: Stripe setup intent disabled. External fiat payment prohibited.
-// app.post("/xrpc/ai.gftd.auth.createSetupIntent", (c) => handleCreateSetupIntent(c.env));
+// Charter Rider §2 (ADR-2605192115): ai.gftd.auth.createSetupIntent removed.
+// Replacement is the USDC donation flow (purpose='internal-subscription').
 
 // Fallback: static assets for unmatched GET (Svelte CSR build).
 app.get("*", async (c) => {

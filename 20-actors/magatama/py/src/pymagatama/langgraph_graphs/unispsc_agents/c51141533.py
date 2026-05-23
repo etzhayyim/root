@@ -21,4 +21,4 @@ graph.set_entry_point('compliance')
 graph.add_edge('compliance', 'storage')
 graph.add_edge('storage', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

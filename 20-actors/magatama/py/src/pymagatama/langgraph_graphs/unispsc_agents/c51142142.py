@@ -26,3 +26,5 @@ graph.set_entry_point('validate_purity')
 graph.add_edge('validate_purity', 'verify_gmp')
 graph.add_edge('verify_gmp', 'compliance')
 graph.add_edge('compliance', END)
+
+graph = graph.compile()

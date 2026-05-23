@@ -23,3 +23,5 @@ graph.add_node('validate', validate_composition)
 graph.add_edge('validate', 'route')
 graph.add_conditional_edges('route', route_by_purity, {'APPROVE': END, 'REJECT': END})
 graph.set_entry_point('validate')
+
+graph = graph.compile()

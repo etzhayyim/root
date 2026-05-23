@@ -26,4 +26,4 @@ graph.add_edge('validate', 'audit')
 graph.add_edge('audit', END)
 
 # Compile the graph
-app = graph.compile()
+graph = graph.compile()

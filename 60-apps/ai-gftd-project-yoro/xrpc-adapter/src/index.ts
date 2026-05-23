@@ -35,6 +35,14 @@ interface Env {
   L2_RPC_URL: string;
   PDS_ACCESS_JWT?: string;
   PDS_REFRESH_JWT?: string;
+  // UnispscAgentExecutorCell shard URLs (Phase β). Each is a cloudflared
+  // tunnel published from joseph/issachar/dan inside the Murakumo LAN to
+  // the corresponding cell at port 16100/16101/16102. Empty string ⇒
+  // shard offline; the façade reports notReady + ExecutorOffline.
+  UNISPSC_EXECUTOR_SHARD_0?: string;
+  UNISPSC_EXECUTOR_SHARD_1?: string;
+  UNISPSC_EXECUTOR_SHARD_2?: string;
+  UNISPSC_EXECUTOR_TIMEOUT_MS?: string;
 }
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
@@ -143,26 +151,92 @@ async function unispscClassify(
   };
 }
 
-async function unispscInvokeAgent(
-  _e: Etzhayyim,
+function resolveExecutorShard(code: string): 0 | 1 | 2 | null {
+  if (code.length < 2 || !/^\d+$/u.test(code)) return null;
+  const seg = Number(code.slice(0, 2));
+  if (seg >= 10 && seg <= 29) return 0;
+  if (seg >= 30 && seg <= 44) return 1;
+  if (seg >= 45 && seg <= 60) return 2;
+  return null;
+}
+
+function executorUrlFor(env: Env, shard: 0 | 1 | 2): string {
+  switch (shard) {
+    case 0: return env.UNISPSC_EXECUTOR_SHARD_0 ?? "";
+    case 1: return env.UNISPSC_EXECUTOR_SHARD_1 ?? "";
+    case 2: return env.UNISPSC_EXECUTOR_SHARD_2 ?? "";
+  }
+}
+
+async function unispscInvokeAgentWithEnv(
+  env: Env,
   input: unknown,
 ): Promise<unknown> {
-  const body = (input ?? {}) as { code?: string };
+  const body = (input ?? {}) as {
+    code?: string;
+    input?: Record<string, unknown>;
+    state?: Record<string, unknown>;
+    threadId?: string;
+  };
   const code = body.code?.toString() ?? "";
   if (!UNISPSC_CODE_INDEX.has(code)) {
     return { status: "notFound", error: "AgentNotFound", code };
   }
-  // Phase α: this adapter is read-only. invokeAgent dispatches to the
-  // Murakumo cell-runner (UnispscAgentExecutorCell, sharded across joseph/
-  // issachar/dan per fleet.toml). The bridge requires a service binding +
-  // mTLS to the LAN-side cell-runner that is not yet provisioned.
-  return {
-    status: "notReady",
-    error: "ExecutorBindingNotConfigured",
-    message:
-      "invokeAgent requires the UnispscAgentExecutorCell bridge; see ADR-2605192415 + fleet.toml",
-    code,
-  };
+  const shard = resolveExecutorShard(code);
+  if (shard === null) {
+    return { status: "rejected", error: "InvalidCode", code };
+  }
+  const base = executorUrlFor(env, shard).replace(/\/$/, "");
+  if (!base) {
+    return {
+      status: "notReady",
+      error: "ExecutorOffline",
+      message: `UnispscAgentExecutorCell shard-${shard} tunnel not configured (env UNISPSC_EXECUTOR_SHARD_${shard})`,
+      code,
+      shard,
+    };
+  }
+  const timeoutMs = Math.max(
+    1_000,
+    Math.min(30_000, Number(env.UNISPSC_EXECUTOR_TIMEOUT_MS) || 10_000),
+  );
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const resp = await fetch(`${base}/api/invoke`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        code,
+        input: body.input ?? body.state ?? {},
+        threadId: body.threadId,
+      }),
+      signal: ctrl.signal,
+    });
+    const text = await resp.text();
+    let parsed: unknown;
+    try { parsed = text ? JSON.parse(text) : {}; } catch { parsed = { raw: text }; }
+    if (!resp.ok) {
+      return {
+        status: "executorError",
+        httpStatus: resp.status,
+        code,
+        shard,
+        detail: parsed,
+      };
+    }
+    return parsed;
+  } catch (err) {
+    return {
+      status: "executorUnreachable",
+      error: (err as Error).name === "AbortError" ? "Timeout" : "FetchFailed",
+      code,
+      shard,
+      message: (err as Error).message,
+    };
+  } finally {
+    clearTimeout(t);
+  }
 }
 
 const routes: Record<string, RouteConfig> = {
@@ -170,7 +244,8 @@ const routes: Record<string, RouteConfig> = {
   ["ai.gftd.apps.unispsc.health"]: { method: "GET", handler: unispscHealth },
   ["ai.gftd.apps.unispsc.listAgents"]: { method: "GET", handler: unispscListAgents },
   ["ai.gftd.apps.unispsc.classify"]: { method: "POST", handler: unispscClassify },
-  ["ai.gftd.apps.unispsc.invokeAgent"]: { method: "POST", handler: unispscInvokeAgent },
+  // invokeAgent needs env access for shard tunnel URLs — handled specially
+  // in the fetch dispatcher below (see UNISPSC_INVOKE_NSID).
 
   // Health & Registry
   ["ai.gftd.yoro.health"]: {
@@ -281,6 +356,9 @@ function mapStatus(status?: string): number {
   if (status === "rejected") return 400;
   if (status === "notFound" || status === "invalidId") return 400;
   if (status === "alreadyExists") return 200;
+  if (status === "notReady") return 503;
+  if (status === "executorError") return 502;
+  if (status === "executorUnreachable") return 504;
   return 200;
 }
 
@@ -308,6 +386,20 @@ export default {
     }
 
     const nsid = url.pathname.slice("/xrpc/".length);
+
+    // Special-case: invokeAgent needs env-bound shard tunnel URLs.
+    if (nsid === "ai.gftd.apps.unispsc.invokeAgent") {
+      if (req.method !== "POST") {
+        return jsonResponse({ error: "MethodNotAllowed" }, 405);
+      }
+      let body: unknown;
+      try { body = await req.json().catch(() => ({})); }
+      catch { return jsonResponse({ error: "InvalidInput" }, 400); }
+      const result = await unispscInvokeAgentWithEnv(env, body);
+      const status = mapStatus((result as Record<string, unknown>)?.status as string | undefined);
+      return jsonResponse(result, status);
+    }
+
     const route = routes[nsid];
 
     if (!route) {

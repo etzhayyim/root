@@ -29,4 +29,4 @@ graph.add_edge('safety', 'purity')
 graph.add_edge('purity', 'record')
 graph.add_edge('record', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

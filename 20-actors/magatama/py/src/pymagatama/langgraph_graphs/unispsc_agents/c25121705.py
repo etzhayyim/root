@@ -17,3 +17,5 @@ graph = StateGraph(RailState)
 graph.add_node('validate', validate_spec)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

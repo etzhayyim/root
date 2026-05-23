@@ -18,3 +18,5 @@ graph = StateGraph(ProcurementState)
 graph.add_node('validate', validate_electrical_specs)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

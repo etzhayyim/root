@@ -20,3 +20,5 @@ graph.add_node('sterilize_check', check_sterilization)
 graph.add_edge('validate', 'sterilize_check')
 graph.add_edge('sterilize_check', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

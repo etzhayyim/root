@@ -22,4 +22,4 @@ graph.add_conditional_edges('validate', route_by_validation, {'process': 'proces
 graph.add_node('process', lambda state: {'error_logs': 'Processing gear geometry...'})
 graph.add_edge('process', END)
 
-app = graph.compile()
+graph = graph.compile()

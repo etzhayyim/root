@@ -20,3 +20,5 @@ graph.add_node("sterility", verify_sterile_integrity)
 graph.add_edge("validate", "sterility")
 graph.add_edge("sterility", END)
 graph.set_entry_point("validate")
+
+graph = graph.compile()

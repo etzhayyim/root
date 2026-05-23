@@ -19,3 +19,5 @@ graph.add_node('validate', validate_quality_specs)
 graph.add_edge('validate', 'route')
 graph.add_conditional_edges('route', route_by_compliance, {'process': END, 'reject': END})
 graph.set_entry_point('validate')
+
+graph = graph.compile()

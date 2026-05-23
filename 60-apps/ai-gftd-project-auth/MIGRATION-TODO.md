@@ -58,3 +58,78 @@ Additional violations detected in re-scan:
 ```
 
 Lines annotated with `CHARTER-VIOLATION §substrate` comments.
+
+---
+
+## Stripe → USDC codemod (2026-05-23)
+
+<!-- stripe-usdc-codemod-closure:2605231830 -->
+
+**Status (Stripe layer)**: ✅ codemod applied.
+
+### Applied changes
+
+| File | Change |
+|---|---|
+| `worker/src-ts/index.ts` | removed `resolveStripeSecretKey`/`resolveStripePublishableKey`/`handleCreateSetupIntent` stubs; `getConfig` now returns empty `stripePk` (legacy field for backward-compat); legacy `ai.gftd.auth.createSetupIntent` route removed |
+| `worker/svelte/src/routes/sign-up/+page.svelte` | Stripe.js CDN load removed; card element + SetupIntent flow replaced with USDC donation form (POST /api/donate, purpose=`internal-subscription`); eSIM provisioning runs after donation tx confirms |
+
+### Remaining
+
+- CLAUDE.md still describes "Telecom (Stripe)" — needs rewrite to reflect USDC flow.
+- A new `auth.getDonationConfig` XRPC surface should expose `donate_treasury_base_l2`; for now the page falls back to a placeholder address.
+
+_Closed by manual codemod 2026-05-23._
+
+---
+
+## RW → MST substrate codemod (2026-05-23)
+
+<!-- rw-mst-codemod-progress:2605231930 -->
+
+**Status**: 🟡 partial — substrate boundary annotated; runtime migration pending.
+
+### Applied
+
+- `worker/src-ts/gftd-identity-schema.ts` — CHARTER-VIOLATION header expanded to
+  describe the concrete migration target for both D1 (`vertex_gftd_auth_*` /
+  `vertex_gftd_key_*` → encrypted MST envelopes per ADR-2605181100 + Workers KV
+  index) and RisingWave (`vertex_gftd_identity` → `ai.gftd.apps.identity.*`
+  lexicons with yatachain-projection RW cache per ADR-2605231500).
+
+### Remaining
+
+- Ship `app.etzhayyim.encrypted.auth.credential` lexicon + Signal-wrapped
+  envelope encryption for D1 credentials.
+- Migrate `vertex_gftd_identity` writes to MST + register yatachain-projection
+  manifest for the RW read cache.
+- Remove the type-only `kysely` import once the D1 auth schema is regeneratable
+  from the encrypted MST records.
+
+_Closed (Stage 1) by manual codemod 2026-05-23._
+
+---
+
+## Encrypted MST envelope scaffold (Stage 1, 2026-05-23)
+
+<!-- auth-encrypted-mst-stage-1:2605232100 -->
+
+**Status**: ✅ Stage 1 scaffold shipped. Stage 2 (wire into live handlers) pending.
+
+### Applied (this PR)
+
+| File | Purpose |
+|---|---|
+| `00-contracts/lexicons/ai/gftd/auth/credential.json` | Inner-type lexicon describing the plaintext shape of an auth credential envelope (passkey / oauthLink / emailLink / smsOtp). |
+| `60-apps/ai-gftd-project-auth/yatachain-projection.toml` | Declares the D1 `vertex_gftd_auth_*` / `edge_gftd_auth_*` / `vertex_gftd_key_*` tables as L0 projections of `app.etzhayyim.encrypted.record` envelopes per ADR-2605231500. Lints reading this manifest can now exempt the auth Worker's D1 access from the substrate-boundary rule. |
+| `60-apps/ai-gftd-project-auth/worker/src-ts/substrate-mst-credential.ts` | TypeScript seam: `writeAuthCredential()` / `readAuthCredential()` / `projectPasskeyToD1Row()`. Uses `@etzhayyim/sdk/encrypted` (`encryptedWriteStandalone` / `encryptedReadStandalone`) — already shipping (XChaCha20-Poly1305 + Signal-wrapped per-recipient keys per ADR-2605181100). |
+
+### Stage 2 (next PR)
+
+- [ ] Add `60-apps/ai-gftd-project-auth/worker/package.json` and register the package in root `pnpm-workspace.yaml` so `@etzhayyim/sdk/encrypted` resolves at build time (currently the auth Worker is outside the pnpm workspace cohort).
+- [ ] Replace D1 writes in `passkeyVerifyRegister`, `linkOAuthStart`, `linkEmailVerify`, `smsOtpSend` with `writeAuthCredential(...)`. D1 row is then written from the same flow as a projection-only cache.
+- [ ] On revocation paths, emit an `app.etzhayyim.encrypted.tombstone` envelope (existing lexicon) and soft-delete the D1 row.
+- [ ] Stand up the rebuild runbook as a one-shot Worker command (`wrangler dev rebuild-projection`) that walks the PDS firehose, decrypts each envelope, and rebuilds D1 + KV from scratch.
+- [ ] Drift detector cron (D1 ↔ MST envelope re-derive + alert on divergence) per `promotion_to_l1` in the projection manifest.
+
+_Shipped Stage 1 by manual codemod 2026-05-23._

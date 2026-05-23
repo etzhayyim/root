@@ -81,6 +81,9 @@ sdk_seam = "@etzhayyim/sdk (20-actors/etzhayyim-sdk/) — only seam allowed to i
 holochain_iso = "yatachain"   # ADR-2605231400 — canonical name for the Holochain-isomorphic composition of the substrate primitives above
 holochain_iso_spec = "10-protocol/yatachain/SPEC.md"
 holochain_iso_adr = "2605231400"
+holochain_iso_projection_adr = "2605231500"          # derived read-path rules (when RW / Lance / Iroh / index are permitted)
+holochain_iso_engine_exploration_adr = "2605232300"  # EXPLORATORY only — engine selection (Hummock fork / RW fork / GraphAr+MV no-fork) deferred pending Council multisig post 2026-06-19
+holochain_iso_engine_decision = "deferred"
 
 # ─── L2 / Base contracts (testnet first → mainnet) ──────────────────
 
@@ -937,6 +940,48 @@ status_note = "Documents the current transient Charter §2 substrate violation i
 path = "90-docs/adr/2605222330-etzhayyim-com-substrate-violation-transition-window.md"
 
 [[adrs]]
+id = "2605231100"
+title = "karute.etzhayyim.com — FHIR R5 EMR Phase 1"
+status = "proposed"
+status_note = "Adds the electronic medical record (電子カルテ) actor on the etzhayyim RW-free substrate. PHI flows through the ADR-2605181100 encrypted envelope (`app.etzhayyim.encrypted.record` with `innerType = app.etzhayyim.karute.*`); public meta + LOINC/ICD-10/RxNorm codes + DIDs + timestamps live plaintext for discovery and timeline construction. 7 inner-type FHIR R5 lexicons (patient/encounter/soapNote/observation/condition/medicationRequest/serviceRequest) + 13 XRPC contracts (7 create procedures + 6 query methods + healthKarute + chartSummary + fhirBundle export + terminologyBinding/coverageSnapshot/referral public records). 3-axis split: Liability/Custody/Settlement all resolve to etzhayyim. Drug-drug interaction check runs as upstream agent.chat step on createMedicationRequest with contraindication-blocks-default semantics. SuperApp mobile-first Svelte 5 UI scaffolded (Home / Chart / Orders / Talk tabs, SOAP editor with S/O/A/P blocks, RxComposer with InteractionAlert override flow, VitalsForm with LOINC-coded refs + interpretation, FHIR R5 Bundle export assembler client-side). Phase 1 ships actor manifest + lexicons + ADR + UI scaffold; Phase 2 (lefthook PHI-plaintext-guard hook, consent-capability ADR + iryo billing bridge, pharmacy dispense, on-device SOAP-assist) deferred."
+path = "90-docs/adr/2605231100-karute-emr-phase1.md"
+
+[[adrs]]
+id = "2605231400"
+title = "karute consent capability + iryo billing bridge"
+status = "proposed"
+status_note = "Closes the substrate hop between etzhayyim (PHI custody, USDC self-pay) and vendor iryo.gftd.ai (RisingWave + Stripe + DPC/DRG insurance billing) without weakening the 3-axis-split rule (ADR-2605172400). Introduces `app.etzhayyim.consent.capability` — an Ed25519-signed delegation token (granter/grantee/purpose/scope/expiresAt/constraints) stored as a public AT Protocol record in the granter's PDS. 6 purpose values (insurance-billing / second-opinion / data-portability / research-deidentified / emergency-disclosure / legal-disclosure). XRPC surface (4): grantConsent / revokeConsent / listConsent / requestIryoBilling. Actor manifest pipelines added for all 4. PatientPortalView grant/revoke UI integrated. Single primitive serves clinician-peer second opinion, vendor billing bridge, patient-initiated portability, research opt-in. Constitutional guarantees preserved: vendor calls remain progressive enhancement; substrate boundary unchanged; capability metadata public (signature verifiable) but record ciphertext still requires key-wrap. Revocation observable but not retroactive — mitigated by audit webhook + downstream-redistribution constraint."
+path = "90-docs/adr/2605231400-karute-consent-capability-iryo-bridge.md"
+
+[[adrs]]
+id = "2605231603"
+title = "Per-record rekey + tombstone protocol"
+status = "proposed"
+status_note = "Closes ADR-2605181100 §5.3 (group rekey on member removal) + §5.4 (forward-secrecy follow-up) for the etzhayyim substrate. Introduces `app.etzhayyim.encrypted.tombstone` — an Ed25519-signed record that binds prior↔successor envelope CIDs (3 kinds: `rekey`/`redact`/`sealed`) with 3 scopes (`single-record`/`channel-window`/`group-rekey`). Karute XRPC surface (3): `rekeyRecord` / `redactRecord` / `listTombstones`. Logical-present view algorithm specified for consumers. Consent-revocation-flush protocol formalized — `revokeConsent` triggers automated rekey of every envelope whose key-wrap set included the revoked grantee. Forward secrecy guarantee: new readers cannot decrypt prior records under rekey'd keys. Limitation acknowledged: cached-key recipients retain access to historical ciphertext (fundamental cryptographic limit — mitigated by contractual obligation + audit webhook event flow). Charter-authorized override path exists for `regulator-order` reason."
+path = "90-docs/adr/2605231603-per-record-rekey-tombstone-protocol.md"
+
+[[adrs]]
+id = "2605231700"
+title = "Audit webhook subsystem (constitutional observability)"
+status = "proposed"
+status_note = "Closes the consent observability gap from ADR-2605231400 §'Revocation semantics' + ADR-2605231603 §'Audit emission'. Introduces `app.etzhayyim.audit.event` — a typed, PHI-free, Ed25519-signed, hash-chained event record written to the subject's PDS (typically the patient). 13 eventType values cover consent.{granted,revoked,invoked,expired} / encrypted.{write,read,keyWrap.issued,keyWrap.refused} / tombstone.{rekey,redact,sealed} / billing.{requested,claim.statusChanged} / phi.guard.violation. `auditChainPrev` forms a per-(actor, subject) hash chain detecting silent omission. Per-(subject) timeline aggregates events from every actor that touches their data, enabling clinician-licensure board / regulator subpoena patterns. Karute XRPC `listAuditEvents` exposes the timeline. PatientPortalView audit-log card displays the feed. Events are public-within-subject-PDS by design — PHI-aware redaction deferred to Phase 4."
+path = "90-docs/adr/2605231700-audit-webhook-subsystem.md"
+
+[[adrs]]
+id = "2605231900"
+title = "karute deployment topology — DID Worker + LangServer Pod + CF Pages"
+status = "proposed"
+status_note = "Operationalizes karute (ADR-2605231100/1400/1603/1700) by specifying the concrete CF Worker + k3s Pod + CF Tunnel + CF Pages layout. Single public origin `karute.etzhayyim.com` resolves three concerns: `/.well-known/did.json` (DID Document, served by karute-did-web Worker), `/xrpc/*` (proxied to lg-karute Pod via CF Tunnel `karu7t3e.etzhayyim.com`), and `/*` (Svelte SuperApp static bundle on CF Pages). lg-karute Pod uses the 2-container ADR-2605171800 pattern (Python langgraph server + TS @etzhayyim/sdk-checkpointer sidecar) with PHI sealing mandatory (ETZ_CHECKPOINTER_ENCRYPT_CELLS=did:web:karute.etzhayyim.com). PVC 16Gi ReadWriteOnce Retain. Pregel module ships as Phase 1 stub at `pymagatama.projects.karute.pregel:app` — 31-pipeline StateGraph that mirrors actor-manifest.jsonld nodes; every node returns `{status: stub}` until substrate seams wire in Phase 3. ALSO provisions `did:web:audit.etzhayyim.com` DID Worker (closes ADR-2605231700 substrate-wide audit-target gap — every actor's emission step now has a real target). End-to-end deploy: `50-infra/karute-deploy.sh` orchestrates 6 stages (did-worker / audit-worker / k8s-pod / cf-tunnel / pages-deploy / smoke) with idempotent --only flags."
+path = "90-docs/adr/2605231900-karute-deployment-topology.md"
+
+[[adrs]]
+id = "2605232000"
+title = "Agent-led autonomous deploy — e7m actor + e7m agent-token + capability-gated authority"
+status = "proposed"
+status_note = "Closes the 'how does an autonomous agent actually deploy a new actor?' gap. (1) Declarative `actor.toml` per actor — read by `gftd actor deploy --actor <name>` (Go implementation in 70-tools/etzhayyim-cli/actor.go). Stages typed (cf-worker / cf-pages / k8s / docker-build / cf-tunnel / cmd / smoke) with `require_cap` scope NSIDs. (2) `gftd agent-token --lxm <nsid> --ttl <sec>` mints Ed25519-signed JWS (single scope per token, max TTL 3600s); signing key from macOS Keychain or --key-file. (3) `app.etzhayyim.consent.capability` purpose enum extended with `deploy-execution` — Steward issues a 24h capability binding agent DID to a scope set; e7m actor deploy gates each stage against the capability. 3-tier credential model: T1 cloud-provider creds (CF API token / GHCR PAT / k8s context, long-lived from 1Password), T2 deploy capability (hours-to-day, PDS record, revocable), T3 scoped per-call JWS (60-300s, in-memory). Every stage emits a `DEPLOY_EVENT` audit row (Phase 1: stderr structured JSON; Phase 2: POST to audit.etzhayyim.com aggregator). Smoke verified: `gftd actor deploy --actor karute --dry-run --only pages-build` parses actor.toml, evaluates the stage, emits DEPLOY_EVENT, completes. JWT mint verified: `gftd agent-token --lxm deploy.cfWorker:karute-did-web --ttl 300 --key-file test.b64` produces a valid Ed25519 JWS decodable by the standard `jwt`/`jose` libraries. 2 new lexicons (app.etzhayyim.deploy.agentToken, app.etzhayyim.deploy.deployEvent)."
+path = "90-docs/adr/2605232000-agent-led-autonomous-deploy.md"
+
+[[adrs]]
 id = "2605231230"
 title = "etzhayyim-esign actor — DID-bound, MST-recorded, L2-anchored document signing"
 status = "proposed"
@@ -944,11 +989,33 @@ status_note = "Religious-corp native replacement for DocuSign / Adobe Sign / Raz
 path = "90-docs/adr/2605231230-etzhayyim-esign-actor-did-bound-mst-anchored.md"
 
 [[adrs]]
+id = "2605231451"
+title = "Level System Unification — society6 Kyu/Dan canonical scale + 信者 7段 + dojo 帯 + joucho S-D 正規化 + 自他非分離体験ゲート"
+status = "proposed"
+status_note = "Person rank の SoT を society6 Kyu 6 → Dan 10 に固定。信者 7段 (MEMBERS.md 誓/修/献/証/護/議/老) と dojo 帯 (白〜Shihan3 = Kyu 7-1 + Dan 1-5 + Shihan 1-3) を society6 Kyu/Dan に正規化。joucho S-D は object-axis として person rank に非変換 (Wellbecoming = 動的軌跡 invariant)。Elder ↔ Dan 10 peg を信者経由のみに限定し、Council/Elder の意思決定権を Charter 軌道に揃える。D6 自他非分離体験ゲート (Non-Duality Embodiment Gate) を Kyu 1 → Dan 1 の一度きり追加: 反個人主義 ontology / 縁起 / 万人祭司 を概念ではなく身体で知っていることを Dan 領域 entry の前提とする。Accepted methods は Default path (瞑想 Vipassana/Zazen/内観, ブレスワーク Holotropic/SOMA/Wim Hof, 感覚遮断, 断食/修行) + Sacramental path (アヤワスカ Santo Daime/UDV/curandero, シロシビン 米国オレゴン/豪/カナダ例外, ペヨーテ/サン・ペドロ NAC等) — Council Lv6+ ≥3 multisig で拡張可。Attestation は新 Lexicon ai.gftd.apps.etzhayyim.nonDualityAttestation (本 ADR で予約) を self-attested AT Record + (optional but recommended) Dan+ witness DID counter-signature で記録 (信者 Lv4 証 shou と同 pattern)。§D6.5 法的明示: 日本国内 DMT/シロシビンは controlled、§1.12 Transparent Religious Force routing-around は個人薬物使用を免責しない、Default path のみで完全通過可能。D6.7 Council challenge は ≥30-day appeal window + Council ≥3 multisig 判定で invalid 時は Dan-derived 権限失効。:S6Rank ノードに dojo_belt / shinja_lv / non_duality_attested を derived property として保持、:NonDualityAttestation label を新設。Follow-up: Lexicon JSON 起草、society6 watcher で EtzhayyimMembership.join() + nonDualityAttestation を subscribe、dojo UI と society6 UI の Dan 表記一致、Yoro Auth Gate の 信者 CTA → joining ritual wiring (mode=adherent flow)。"
+path = "90-docs/adr/2605231451-level-system-unification.md"
+depends_on = ["2605172600", "2605192100", "2605192230"]
+related = [
+  "MEMBERS.md",
+  "20-actors/society6/CLAUDE.md",
+  "60-apps/ai-gftd-project-dojo/CLAUDE.md",
+  "20-actors/joucho/CLAUDE.md",
+]
+
+[[adrs]]
 id = "2605231500"
 title = "agent-driven UNSPSC supply flows — business-model wiring for 18,346-actor commodity automation"
 status = "proposed"
 status_note = "Defines the canonical wiring between the 18,346 UNSPSC LangGraph actors (commit 9cd4fe73d) and the religious-corp economic-body contracts (Charter / Tithe / Public Fund / Force / Sanctions / Council / Surplus Router / Wellbecoming). Introduces the AgentAuthorityToken (AAT) — a soulbound ERC-721+ERC-5192 token analogous to AdherentRegistry but for AI agents, minted by a Steward who holds an Adherent SBT. Four canonical purposes (donation-in-kind / internal-allocation / surplus-routing / operational-supply) extend the esign purpose enum; purchase/sale/subscription remain prohibited. Charter-compliance gate library (charters / sanctions / force / counterparty / eros-gore) ships as TS stubs with NotImplementedError; production stubs reach Phase 4. Phase 1 landed this session: 2 new lexicon namespaces (app.etzhayyim.agent.authority + app.etzhayyim.unspsc.processManifest) + esign envelope/requestEnvelope/signature extensions + AgentAuthorityToken.sol Foundry scaffold (11/11 forge tests passing) + charter-compliance-gate.ts library scaffold + ADR. Phases 1.5/2/3/4 deferred. Initially authored as 2605231400 but renumbered to 2605231500 to avoid ID collision with yatachain ADR registered at the same minute."
 path = "90-docs/adr/2605231500-etzhayyim-agent-driven-unspsc-supply-flows.md"
+
+[[adrs]]
+id = "2605232300"
+title = "yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork)"
+status = "proposed"
+authoritative = false
+status_note = "EXPLORATORY ONLY — NOT ADOPTED. Captures numerical comparison of 4 options for the yatachain projection engine layer: (A) Hummock fork as yata-slate (150-230K new LOC, 44-67 person-months, completion risk 50%, strategic independence ★★★), (B) RisingWave full fork as yata-wave (57-99K new LOC, 20-29 person-months, completion risk 85%, strategic independence ★), (D) RW upstream + Apache GraphAr + MV with no fork — 'yatabase' configuration (30-50K new LOC, 20-32 person-months, completion risk 90-95%, strategic independence ★★, 7-axis weighted score 8.4/10 = numerically dominant). (C) SlateDB fork rejected early — pure KV LSM lacks Pregel epoch semantics required for LangGraph super-step / Hummock barrier isomorphism. (E) Lance dropped per user direction. Bulk graph frameworks surveyed and triaged: Apache Giraph ✗ dormant, Spark GraphX ✗ deprecated, Spark GraphFrames △ overkill, Apache HAMA ✗ Attic, NVIDIA cuGraph ✗ CUDA-only (Mac Silicon incompatible), GraphScope △ Stage-2 candidate via GraphAr external connection, timely-dataflow △ research, Materialize ✗ BSL incompatible with Charter Rider. 5 strategic findings recorded: (1) Hummock epoch = LangGraph Pregel super-step internal isomorphism, (2) Mac Silicon unified memory forces CPU/GPU per-node co-location not either/or, (3) data sovereignty achievable without engine fork via GraphAr/Parquet open format, (4) GraphAr append-only chunk semantics integrate with MST immutability, (5) options compose evolutionary D→D+plugin→D+B-partial→A across 2026-2029+. 7 open questions deferred (GraphAr religious-corp extension upstream contribution, witness quorum + GraphAr chunk hash unification, Arrow Flight UDF server topology for 18,345 agents, GraphQL Subscription / barrier alignment, MLX production stability benchmark, Lance re-introduction conditions, Solidity Base L2 event → RW source connector). Decision deferred pending: Council 5-of-7 multisig (post-2026-06-19), GraphAr Apache Incubator graduation outlook, Mac Silicon MLX production benchmark, religious-corp constitutional weight on engine ownership vs format ownership. Future decision ADR will reference this as input."
+path = "90-docs/adr/2605232300-yatachain-engine-options-exploration.md"
 
 # ─── Module registry ────────────────────────────────────────────────
 
@@ -1060,6 +1127,124 @@ version = "0.0.1"
 status = "scaffold"
 description = "etzhayyim-esign runtime actor — Phase 0 scaffold per ADR-2605231230. 3 XRPC procedures (app.etzhayyim.esign.requestEnvelope / signEnvelope / declineEnvelope) all return 501 NotYetImplemented. No route binding yet; Phase 1 will wire requestEnvelope through @etzhayyim/sdk + ipfs-pinner for Bootstrap Council Seats 2-5 RFP minutes (deadline 2026-06-19)."
 adr = ["2605231230"]
+
+[[modules]]
+path = "20-actors/karute"
+kind = "actor-manifest"
+version = "0.1.0"
+status = "phase1-scaffold"
+description = "karute — 電子カルテ (EMR / FHIR R5) actor. DID did:web:karute.etzhayyim.com (nanoid karu7t3e). Pipelines: listPatients / getPatient / createSoapNote (encrypt + index + Matrix notify) / createMedicationRequest (agent.chat interaction check → encrypt + index) / createObservation (encrypt + LOINC index) / getChartSummary (PHI-redacted LLM summary) / exportFhirBundle / dailyEncounters cron / coverageSnapshot cron. Capabilities include encrypted.write / encrypted.read / fhir.bundle.export per ADR-2605231100."
+adr = ["2605231100", "2605181100", "2605172000"]
+lexicons_external_xrpc = "00-contracts/lexicons/ai/gftd/apps/karute"
+lexicons_internal_records = "00-contracts/lexicons/app/etzhayyim/karute"
+sibling_modules = [
+  "60-apps/ai-gftd-project-karute",
+]
+
+[[modules]]
+path = "50-infra/karute-did-web"
+kind = "cf-worker"
+version = "0.1.0"
+status = "scaffold-pending-keygen"
+description = "CF Worker serving did:web:karute.etzhayyim.com — DID Document at /.well-known/did.json (cache 5m), XRPC reverse-proxy /xrpc/* → karu7t3e.etzhayyim.com (CF Tunnel to lg-karute), static-bundle reverse-proxy /* → CF Pages karute-pages.pages.dev, /healthz Worker-local liveness. Routes karute.etzhayyim.com/* in zone etzhayyim.com. PHI never decrypts at this Worker — transport-only. Per ADR-2605231900. Pre-deploy: Ed25519 keypair generated and stored in macOS Keychain (service=etzhayyim, account=DID_PRIVATE_KEY_ED25519_KARUTE) + 1Password mirror; placeholders in did.json replaced with real publicKeyJwk.x and publicKeyMultibase."
+adr = ["2605231900", "2605231100"]
+
+[[modules]]
+path = "50-infra/audit-did-web"
+kind = "cf-worker"
+version = "0.1.0"
+status = "scaffold-pending-keygen"
+description = "CF Worker serving did:web:audit.etzhayyim.com — the substrate-wide canonical audit subject referenced by every actor manifest's `agent.invoke targetDid: did:web:audit.etzhayyim.com` step. Routes audit.etzhayyim.com/* in zone etzhayyim.com. /.well-known/did.json (cache 5m) + /xrpc/* forwards to AUDIT_AGGREGATOR_UPSTREAM (the aggregator service that signs the app.etzhayyim.audit.event and writes into the named subject's PDS — implementation deferred). /healthz Worker-local liveness. Per ADR-2605231700 + ADR-2605231900. Closes the constitutional gap from ADR-2605231700 ('audit subsystem deferred until first consumer lands') by provisioning the routing target as part of the karute rollout."
+adr = ["2605231900", "2605231700"]
+
+[[modules]]
+path = "50-infra/k8s/lg-karute"
+kind = "k8s-manifests"
+version = "0.1.0"
+status = "scaffold-image-not-yet-built"
+description = "LangServer Pod manifest for karute (mitama-udf namespace). 2-container topology per ADR-2605171800: Python langgraph server (port 8080, MstCheckpointSaver) + TS @etzhayyim/sdk-checkpointer sidecar sharing /run/etzhayyim/ emptyDir Unix socket and PVC-backed /var/etzhayyim/checkpointer-state (16Gi ReadWriteOnce Retain). Both containers run as uid 65532 with fsGroup=65532. PHI sealing mandatory — ETZ_CHECKPOINTER_ENCRYPT_CELLS=did:web:karute.etzhayyim.com. Stage 3 (IPFS pin) targets simeonnomac-mini.local:5001. Stage 4 (Base L2 anchor) deferred until EtzhayyimAnchor lands. Image `ghcr.io/etzhayyim/lg-karute:main` built via 50-infra/k8s/lg-karute/build.sh from repo root. Resources: server 200m/512Mi requests, 2 CPU/2Gi limits. Per ADR-2605231900."
+adr = ["2605231900", "2605231100", "2605181100", "2605171800"]
+image = "ghcr.io/etzhayyim/lg-karute:main"
+sidecar_image = "ghcr.io/etzhayyim/etzhayyim-sdk-checkpointer:main"
+pvc = "lg-karute-checkpointer-state"
+
+[[modules]]
+path = "20-actors/karute/actor.toml"
+kind = "actor-deploy-manifest"
+version = "0.1.0"
+status = "phase1-9-stages-defined"
+description = "Declarative deployment manifest for karute. 9 stages (did-worker / audit-worker / image-build / k8s-pod-apply / k8s-pod-rollout / cf-tunnel-ensure / pages-build / pages-deploy / lexicon-bundle / smoke). Each stage typed, working-dir-scoped, command-vectored, and gated by require_cap scope NSIDs (deploy.cfWorker:* / deploy.docker:* / deploy.k8s:* / deploy.pages:* / deploy.cfTunnel:*). Read by `gftd actor deploy --actor karute` (70-tools/etzhayyim-cli/actor.go). Per ADR-2605232000. Smoke verified `gftd actor deploy --actor karute --dry-run --only pages-build` end-to-end."
+adr = ["2605232000", "2605231900", "2605231100"]
+sibling_modules = [
+  "70-tools/etzhayyim-cli",
+  "20-actors/karute",
+  "50-infra/karute-did-web",
+  "50-infra/k8s/lg-karute",
+]
+
+[[modules]]
+path = "70-tools/etzhayyim-cli/actor.go"
+kind = "go-source"
+version = "0.2.0"
+status = "phase2-shipped"
+description = "e7m actor subcommand — `e7m actor {deploy,list,show}`. Reads actor.toml (minimal hand-rolled TOML parser; no 3rd-party dep). `deploy` runs preflight (wrangler/kubectl/docker/cloudflared on PATH), gates each stage against --capability JWS scope (FULL Ed25519 verification against granter DID document; ETZ_CAPABILITY_VERIFY=offline for structural-only, ETZ_CAPABILITY_DID_DOCUMENT=<path> for local DID doc override), executes via exec.Command with working_dir + env overlay, emits DEPLOY_EVENT JSON to stderr per stage AND async POST to https://audit.etzhayyim.com/xrpc/app.etzhayyim.audit.emitAuditEvent (ETZ_AUDIT_DISABLE=1 to skip). Supports --only <stage> / --skip <stage> / --dry-run / --non-interactive / --commit-sha. Per ADR-2605232000. 11 unit tests in actor_test.go cover TOML parse + stage gating matrix."
+adr = ["2605232000"]
+
+[[modules]]
+path = "70-tools/etzhayyim-cli/agent_token.go"
+kind = "go-source"
+version = "0.2.0"
+status = "phase2-shipped"
+description = "e7m agent-token subcommand — mints Ed25519-signed JWS (JWT compact) for scoped per-call deploy/XRPC authority. Single --lxm scope, default TTL 60s (max 3600). Signing key from macOS Keychain (--keychain-service etzhayyim, --keychain-account DID_PRIVATE_KEY_ED25519) or --key-file (raw 32-byte private key, base64url or std). Claim shape: iss/sub/aud/lxm/cap/iat/exp/jti. Audience DID inferred from lxm prefix (ai.gftd.apps.<actor>.* → did:web:<actor>.etzhayyim.com; deploy.cfWorker:<name> → did:web:<name>.etzhayyim.com). Per ADR-2605232000. 4 unit tests in agent_token_test.go: TestSignJWS_RoundTrip / WrongKeyVerifyFails / TestInferAudienceFromLxm (5 cases) / TestRandomHex_Unique (100-sample collision check)."
+adr = ["2605232000"]
+
+[[modules]]
+path = "70-tools/etzhayyim-cli/capability.go"
+kind = "go-source"
+version = "0.1.0"
+status = "phase2-shipped"
+description = "e7m capability subcommand — full lifecycle for app.etzhayyim.consent.capability records. `issue`: canonical-JSON payload + Ed25519 sign → JWS (no PDS write; caller forwards). `verify`: Ed25519-verify against granter DID document (HTTPS GET /.well-known/did.json OR --did-document local override). Extracts pubkey from JsonWebKey2020 OKP/Ed25519 + Ed25519VerificationKey2020 publicKeyMultibase (built-in base58btc decoder, no math/big dep — keeps binary lean). Detects forged-payload / expired / revoked / wrong-key / malformed-JWS. `revoke`: produces revocation record body (--pds-xrpc forwards). `list`: GET ai.gftd.apps.karute.listConsent. Also exports postAuditEvent(eventBody) used by actor.go for the DEPLOY_EVENT HTTP POST emission to https://audit.etzhayyim.com (async, best-effort, non-fatal). Per ADR-2605231400 + ADR-2605232000 + ADR-2605231700."
+adr = ["2605231400", "2605231700", "2605232000"]
+
+[[modules]]
+path = "70-tools/etzhayyim-cli/capability_test.go"
+kind = "go-test"
+version = "0.1.0"
+status = "phase2-shipped"
+description = "Capability lifecycle test rig — 11 tests covering verify-success / expired / forged-payload / revoked / wrong-key / offline-mode-with-payload-decode / malformed-JWS (4 sub-cases: empty/one-part/two-parts/bad-base64) / pubkey-extraction (JWK present + missing-verificationMethod) / canonical-JSON-deterministic-key-order. Self-contained — no live DID resolution; injects local DID document via verifyOpts.didDocLocal. All PASS in 0.349s."
+adr = ["2605232000"]
+
+[[modules]]
+path = "70-tools/etzhayyim-cli/actor_test.go"
+kind = "go-test"
+version = "0.1.0"
+status = "phase2-shipped"
+description = "Actor.toml + stage gating test rig — 11 tests covering TOML parse (3-stage fixture with [stages.env] nested table), stageGate matrix (no-cap denial / no-require-cap pass / full-scope pass / missing-scope deny / multi-required all-match pass / partial-match deny), filterStagesByName / removeStages utilities, sanitizeCommand secret-token redaction, splitTopLevelCommas. All PASS."
+adr = ["2605232000"]
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/projects/karute"
+kind = "langgraph-pregel-project"
+version = "0.1.0-stub"
+status = "phase1-stub-31-pipelines"
+description = "karute Pregel module — 31-pipeline StateGraph mirroring actor-manifest.jsonld. Phase 1 stub: every node returns {status: 'stub', pipeline: '<name>'} so `langgraph dev` validates topology before substrate seams wire. Conditional-edge router dispatches on state.pipeline. Pipelines: create_patient / encounter / soap_note / observation / condition / medication_request / service_request / dispense / homecare_episode / home_visit + grant_consent / revoke_consent / list_consent / request_iryo_billing + rekey_record / redact_record / list_tombstones + list_audit_events + get_chart_summary / export_fhir_bundle + list_* / get_patient + health_karute. Imported by 50-infra/k8s/lg-karute/langgraph.json. Per ADR-2605231100 + ADR-2605231900."
+adr = ["2605231100", "2605231900"]
+sibling_modules = [
+  "50-infra/k8s/lg-karute",
+  "20-actors/karute",
+  "60-apps/ai-gftd-project-karute",
+]
+
+[[modules]]
+path = "60-apps/ai-gftd-project-karute"
+kind = "svelte-superapp"
+version = "0.1.0"
+status = "phase1-scaffold-ui-only"
+description = "karute SuperApp mobile-first UI (max-w-[600px], Svelte 5 runes, hash-based mini router). 4 primary tabs (Home / Chart / Orders / Talk) + 4 patient-action routes (SOAP / Rx / Vitals / Order). SoapEditor with S/O/A/P blocks + sign-and-encrypt flow. RxComposer with InteractionAlert override + contraindication-blocks-default UX. VitalsForm with LOINC-coded vital signs + auto-interpretation (normal/low/high/critical-low/critical-high) using scaled-integer FHIR R5 reconstruction. OrderView with LOINC quick-picks. FHIR R5 Bundle export assembler (`lib/fhir/exportBundle.ts`) reconstructs scaled integers to FHIR decimals client-side. Encryption seam stubbed in `lib/api/karute-client.ts:encryptedWrite()` until `@etzhayyim/sdk` integration lands. Phase 1 also seeds mock data fallbacks so the UI runs without a live PDS."
+adr = ["2605231100", "2605181100"]
+sibling_modules = [
+  "20-actors/karute",
+]
 
 [[modules]]
 path = "50-infra/etzhayyim-chain-contracts/src/AgentAuthorityToken.sol"
@@ -1299,6 +1484,15 @@ status = "active"
 description = "MCP server with 9 tools (classify / invokeAgent / listAgents / health × 2 taxonomies + isic.hierarchicalClassify). Stdio (`unispsc-isic-mcp` bin) + programmatic HTTP transports. 25/25 vitest. Phase 8."
 adr = ["2605180900"]
 package = "@etzhayyim/unispsc-isic-mcp"
+
+[[modules]]
+path = "20-actors/magatama/mcp/open-seiyaku-mcp"
+kind = "mcp-server"
+version = "0.1.0"
+status = "active"
+description = "MCP server exposing Pharma Robotics Supply Chain visualization and Social Posting tools. Integrates open-seiyaku and robotics automation."
+adr = ["2605231600"]
+package = "@etzhayyim/open-seiyaku-mcp"
 
 # ── Ameno (Tier 2 browser inference) — engine + appview ──
 
@@ -1593,8 +1787,8 @@ path = "10-protocol/yatachain"
 kind = "protocol-spec"
 version = "0.0.0"
 status = "spec-scaffold"
-description = "yatachain — canonical name for the Holochain-isomorphic composition of substrate primitives mandated by ADR-2605172000. 7-layer mapping: yatachain-agent (DID+passkey+SBT) / yatachain-chain (PDS MST) / yatachain-dht (IPFS+L2 anchor) / yatachain-membrane (Lexicon+Rego+LangGraph) / yatachain-witnesses (Pregel cells, quorum ≥3-of-5) / yatachain-cap (atproto JWT+WebAuthn) / yatachain-cells (Pregel cells per ADR-2605192415). Spec-only directory — implementations live in 50-infra/, 20-actors/, 00-contracts/ per the existing layer trees. Naming: single-token lowercase 'yatachain'; hyphenated 'yata-chain' prohibited to avoid shadow of yata-* Cargo workspace crate convention in 50-infra/yata/. Distinct from yata (LanceDB graph engine) and yatabase (commercial BaaS) despite shared 八- family prefix."
-adr = ["2605231400", "2605172000", "2605181100", "2605192100", "2605192415"]
+description = "yatachain — canonical name for the Holochain-isomorphic composition of substrate primitives mandated by ADR-2605172000. 7-layer mapping: yatachain-agent (DID+passkey+SBT) / yatachain-chain (PDS MST) / yatachain-dht (IPFS+L2 anchor) / yatachain-membrane (Lexicon+Rego+LangGraph) / yatachain-witnesses (Pregel cells, quorum ≥3-of-5) / yatachain-cap (atproto JWT+WebAuthn) / yatachain-cells (Pregel cells per ADR-2605192415). Spec-only directory — implementations live in 50-infra/, 20-actors/, 00-contracts/ per the existing layer trees. Naming: single-token lowercase 'yatachain'; hyphenated 'yata-chain' prohibited to avoid shadow of yata-* Cargo workspace crate convention in 50-infra/yata/. Distinct from yata (LanceDB graph engine) and yatabase (commercial BaaS) despite shared 八- family prefix. Projection engine selection is OPEN — see ADR-2605232300 (exploratory comparison of Hummock-fork / RW-fork / GraphAr+MV no-fork options); engine decision deferred pending Council 5-of-7 multisig post 2026-06-19."
+adr = ["2605231400", "2605172000", "2605181100", "2605192100", "2605192415", "2605232300"]
 
 # ─── Religious-Corp Wave Status (ADRs 2605192100..2605192415 cumulative) ──
 
@@ -2075,6 +2269,17 @@ target_count = 1
 scope = "20-actors/magatama/py/pyproject.toml [project.dependencies]"
 description = "maps_sentinel_murakumo.py _scene_to_thumbnail_png currently NotImplementedError. T0 preprocessing pipeline needs rasterio for Sentinel raster I/O. M2 deadline per ADR-2605215100 §4 (M0+30d 2026-07-15)."
 last_verified = "2026-05-21"
+
+[[migrations]]
+id = "baien-core3-bench-strategy-revision"
+status = "in_progress"
+blocked_on = "ComfyUI python_embeded lm-eval install + re-queue Core 3' (running 2026-05-23T14:30Z)"
+authoritative_doc = "90-docs/adr/2605232400-baien-core3-bench-strategy-revision.md"
+authoritative_adr = "ADR-2605232400"
+target_count = 3
+scope = "70-tools/etzhayyim-cli/bench.go core4Tasks (mmlu_redux_generative → mmlu_redux), ComfyUI python_embeded venv lm-eval install, snapshot doc §F back-fill"
+description = "Original Core 3 _generative plan estimate = 38-40h on baien CPU (5,000 Q × 25s × MMLU-Redux alone). Killed 2026-05-23T14:00Z after 1h40min with 0 persisted results. Revised to ll-based mmlu_redux (~25 min ROCm), unchanged global_piqa_completions + ifeval. Expected new total wall = 3.5-4h on EVO-X2 ComfyUI ROCm. apples-to-apples with §A frontier table MMLU-Redux=acc metric."
+last_verified = "2026-05-23"
 
 [[migrations]]
 id = "council-lv6-did-registry-population"

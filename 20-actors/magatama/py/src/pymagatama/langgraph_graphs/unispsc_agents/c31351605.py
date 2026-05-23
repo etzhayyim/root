@@ -30,3 +30,5 @@ graph.add_edge('material_check', 'leak_test')
 graph.add_edge('leak_test', 'compliance')
 graph.add_edge('compliance', END)
 graph.add_edge('compliance', END)
+
+graph = graph.compile()

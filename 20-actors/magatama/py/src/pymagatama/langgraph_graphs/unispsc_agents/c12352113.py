@@ -21,3 +21,5 @@ graph.add_node('check_certs', check_certs)
 graph.add_edge('validate_purity', 'check_certs')
 graph.add_edge('check_certs', END)
 graph.set_entry_point('validate_purity')
+
+graph = graph.compile()

@@ -23,4 +23,4 @@ graph.set_entry_point('safety_check')
 graph.add_edge('safety_check', 'compliance_check')
 graph.add_edge('compliance_check', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

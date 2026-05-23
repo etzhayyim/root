@@ -22,3 +22,5 @@ graph = StateGraph(AgriculturalMachineState)
 graph.add_node('validation', validate_specs)
 graph.add_edge('validation', 'manual_review')
 graph.set_entry_point('validation')
+
+graph = graph.compile()

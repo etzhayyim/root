@@ -19,3 +19,5 @@ graph = StateGraph(PharmaProcurementState)
 graph.add_node('validate', validate_gmp_certs)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

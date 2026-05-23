@@ -22,4 +22,4 @@ graph.add_conditional_edges('validate', route_by_compliance)
 graph.add_edge('process_order', END)
 graph.add_edge('request_revision', END)
 
-app = graph.compile()
+graph = graph.compile()

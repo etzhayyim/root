@@ -36,4 +36,4 @@ graph.add_edge('validate_purity', 'validate_structure')
 graph.add_edge('validate_structure', 'check_export_compliance')
 graph.add_edge('check_export_compliance', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()
