@@ -104,3 +104,10 @@ foundry.lock
 
 # npm auth (NEVER commit — GH Packages token)
 .npmrc
+
+# dataset substrate (ADR-2605241500): staging is machine-local.
+# DataLad / git-annex objects live OUTSIDE the worktree
+# (annex.objectdir → /Volumes/<vol>/etzhayyim/annex-store/), so no in-tree
+# git-annex ignore patterns are needed.
+**/datasets-staging/
+

@@ -50,6 +50,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | 22. UNSPSC actor-as-organism Wave 2 (18,342 mass-deploy via `UnispscOrganismFleetCell` shard-0/1/2 + per-code joucho personality + follower stub) | ✅ 2026-05-24 (ADRs 2605240000 / 2605240015 / 2605240030; manifests-ready, apply pending) |
 | 23. UNSPSC organism post sink (NDJSON queue + TS drainer interface) + k8s DaemonSet manifests | ✅ 2026-05-24 (ADR-2605240100; `50-infra/k8s/unispsc-organism-fleet/`; drainer sidecar Wave 3) |
 | 24. Ecosystem self-reflection: `KaizenObserverCell` + 6 rules + KaizenProposal NDJSON + PR agent contract | ✅ 2026-05-24 (ADR-2605240200; `pymagatama.organism.kaizen`; PR agent Wave 4) |
+| 25. Dataset CID substrate (DataLad + git-annex `directory` remote + sidecar IPFS pinner; HF `add` E2E + 4 fetchers `pull hf\|geonames\|osm\|wikidata` + PDS `datasetPin` emit) | ✅ 2026-05-24 (ADR-2605241500; `70-tools/e7m-dataset/` + `app.etzhayyim.substrate.datasetPin`; smoke map CID `bafkrei…f5z2q`; HF add map CID `bafybeigeput…fr7a` on `hf-internal-testing/fixtures_image_utils@8665b8ad` 9 files / 1.5 MiB; Kubo on `/Volumes/260317`; 28/28 pytest; PDS emit defaults to dry-run, real wiring via `ETZ_E7M_PDS_{SESSION,AUTH,DID}`; Charter Rider scanner warn-only until pymagatama installed) |
 
 ## Repo Layout (Shannon-Optimal 8-Layer, ADR-2604251830)
 
@@ -171,6 +172,7 @@ This repo is **blockchain-self-contained**. Hard rules enforced by ADRs and (fut
 | Substrate client imports | Only via `@etzhayyim/sdk` | Direct `@atproto/api` / `viem` / IPFS client / `@noble/ciphers` / `@signalapp/libsignal-client` from app code |
 | Architecture reference (Holochain-iso) | `yatachain` (`10-protocol/yatachain/`, ADR-2605231400) — names the composition of the substrate primitives above | inventing a parallel composition name without ADR |
 | Derived read path (hot-path queries) | `yatachain-projection` (ADR-2605231500) — RW / Lance / Iroh / index used for range/spatial/aggregate reads, IFF (a) deterministically rebuildable from MST+IPFS, (b) never the sole write home, (c) marked with `// yatachain-projection` line comment or `yatachain-projection.toml` manifest | using RW/Postgres as a primary write store; un-marked carve-outs; "projection of projection" without documented chain back to MST |
+| Server-side signing capability (ADR-2605231525, Council ratify pending) | Member wallet sign (USDC), member passkey-derived ES256 (session), community-operator DID (bulk-ingest), Council 5-of-7 Safe (governance), read-only RPC / firehose subscribe / IPFS pin / static asset serve | Any platform-held private key, master credential, or signing token in etzhayyim-operated Workers / pods / CronJobs / CI / hosted bots. Exemption: `// no-server-key: read-only` marker on documented Stage handover rollback windows. Enforced by `e7m verify` (9th invariant) |
 
 Apps that need fiat / paid features call an external backend via XRPC consent-capability (progressive enhancement, **non-profit領収書 用途のみ** per ADR-2605192115 §4). Open app remains operational without it.
 
