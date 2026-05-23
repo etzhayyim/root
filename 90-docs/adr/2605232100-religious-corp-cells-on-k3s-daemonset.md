@@ -113,12 +113,31 @@ adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "26
 
 ## Migration plan (out of scope for this ADR — Stage 1+ work)
 
-1. **Stage 1 (this ADR)**: ADR text + fleet.toml `control_plane` update + lg-open-unispsc RW decontamination patch
-2. **Stage 2**: `70-tools/fleet-to-kustomize/` generator + first DaemonSet apply for `CharterAttestationRequestCell` on orbstack (single-node validation)
-3. **Stage 3**: 10 Mac mini Lima/k3s bring-up (existing `50-infra/k8s/lima-k3s/bring-up.sh`)
-4. **Stage 4**: `kubectl apply -k 50-infra/k8s/murakumo/` rolls out all 15 religious-corp cells per fleet.toml placement
-5. **Stage 5**: `lg-open-unispsc` apply + verify 18,342 UNSPSC agents resolvable via `/xrpc/ai.gftd.apps.unispsc.invokeAgent`
-6. **Stage 6**: `cell_runner_main.py` retired to debug-only path, swarm leader election code deleted in favor of Kubernetes Lease
+1. **Stage 1 (this ADR)**: ADR text + fleet.toml `control_plane` update + lg-open-unispsc RW decontamination patch ✅ 2026-05-23
+2. **Stage 2**: `70-tools/fleet-to-kustomize/` generator + first DaemonSet apply for `CharterAttestationRequestCell` on orbstack (single-node validation) ✅ 2026-05-23
+3. **Stage 3 (revised 2026-05-23)**: Fleet-wide k3s bring-up via the **existing Ansible playbook** at `60-apps/ai-gftd-project-murakumo/ansible/k8s-gpu-cluster.yml`. `50-infra/k8s/lima-k3s/bring-up.sh` is a local 3-VM smoke-test on the developer host only — NOT the production path. Operator commands (from jacob):
+
+   ```bash
+   cd 60-apps/ai-gftd-project-murakumo/ansible
+   ansible-playbook k8s-gpu-cluster.yml --tags=tools       # host toolchain (Lima, k3s installer)
+   ansible-playbook k8s-gpu-cluster.yml --tags=preflight   # prerequisite checks
+   MURAKUMO_K3S_TOKEN="$(openssl rand -hex 32)" \
+   ansible-playbook k8s-gpu-cluster.yml --tags=bootstrap   # one Lima VM per Mac mini → k3s join over WireGuard wg0
+   ```
+
+   `lima_k3s_gpu` role (`roles/lima_k3s_gpu/`) implements `tools / preflight / bootstrap / deploy_llama_vulkan` modes. Cross-VM pod networking goes over WireGuard (`wg0`) with k3s `node-ip` and flannel both bound to `wg0` — set up by the playbook, not the operator. Inventory at `60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml` covers `jacob` (control plane, 127.0.0.1) + 10 tribe nodes.
+4. **Stage 4**: `kubectl apply -k 50-infra/k8s/murakumo/` rolls out all 15 religious-corp cells per fleet.toml placement (target = `production`, no `--target orbstack` override).
+5. **Stage 5**: `lg-open-unispsc` apply + verify 18,342 UNSPSC agents resolvable via `/xrpc/ai.gftd.apps.unispsc.invokeAgent` ✅ 2026-05-23 (on orbstack; production fleet pending Stage 3).
+6. **Stage 6**: `cell_runner_main.py` retired to debug-only path, swarm leader election code deleted in favor of Kubernetes Lease.
+
+### Why two k3s paths exist in the repo (clarification, 2026-05-23)
+
+| Path | Purpose | Production use? |
+|---|---|---|
+| `60-apps/ai-gftd-project-murakumo/ansible/` | **The real fleet bootstrapper.** One Lima VM per Mac mini, joined into one k3s cluster over WireGuard. Inventory-driven, idempotent, includes preflight + tools + bootstrap + GPU workload deploy. | ✅ Stage 3 production path |
+| `50-infra/k8s/lima-k3s/bring-up.sh` | Local 3-VM smoke test on the developer host (`k3s-server-01..03`, embedded etcd HA on one machine). Validates k3s manifests before they hit the fleet. | ❌ Dev/test only — does NOT touch Mac minis |
+
+The first ADR draft (2026-05-23 morning) cited `bring-up.sh` as the Stage 3 path, which was wrong. The Ansible playbook is the source-of-truth and has been in place since the Murakumo Mac mini fleet was provisioned. fleet.toml `[fleet] ansible_playbook` now records this explicitly.
 
 ## References
 
@@ -130,6 +149,9 @@ adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "26
 - `50-infra/murakumo/fleet.toml` — cell placement SoT
 - `50-infra/k8s/lg-open-unispsc/deployment.yaml` — UNSPSC façade manifest (patched in this ADR scope)
 - `50-infra/k8s/etzhayyim-organism/deployment.yaml` — existing Pod-based daemon precedent (CNS, 24h+ Running)
-- `50-infra/k8s/lima-k3s/bring-up.sh` — Mac mini k3s join recipe
+- `60-apps/ai-gftd-project-murakumo/ansible/k8s-gpu-cluster.yml` — **Stage 3 production playbook** (one Lima VM per Mac mini, WireGuard overlay, ansible-driven)
+- `60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml` — fleet inventory SoT (jacob + 10 tribe nodes)
+- `60-apps/ai-gftd-project-murakumo/ansible/roles/lima_k3s_gpu/` — k3s role (tools / preflight / bootstrap / deploy_llama_vulkan)
+- `50-infra/k8s/lima-k3s/bring-up.sh` — **local 3-VM smoke test only**, not the fleet bootstrapper (clarified in Stage 3 above)
 - `20-actors/etzhayyim-sdk/src/checkpointer.ts` — MstCheckpointSaver sidecar (Pod sidecar target)
 - `20-actors/magatama/py/src/pymagatama/cell_runner_main.py` — legacy launchd entrypoint (downgraded to debug-only post-Stage 6)

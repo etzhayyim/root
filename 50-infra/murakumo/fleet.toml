@@ -17,17 +17,34 @@
 # mDNS (`*.local`) + ARP on `en0 [ethernet]` from jacob (192.168.1.9).
 # These are the Ethernet-side post-migration values; the WiFi-side
 # vendor-repo inventory (.49..67) is superseded for etzhayyim scope.
+#
+# `hostname` below is the mDNS/`.local` form used for IP-level reachability.
+# The Ansible SSH alias is the short tribe name (e.g. `naphtali`) configured
+# in the operator's ~/.ssh/config; `ansible_user` matches the short name.
+# Both pointers are recorded so the fleet-to-kustomize generator can choose
+# the right kubernetes.io/hostname value (k3s registers VMs under their
+# inside-VM hostname, not the macOS `.local` name).
 
 [fleet]
 name = "etzhayyim-murakumo"
 adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "2605232100"]
-# religious-corp Pregel cells run as k3s DaemonSet on Lima/OrbStack across the
-# Mac mini fleet per ADR-2605232100 (re-classified as HA stateful service per
-# ADR-2605191346 §3). Native launchd is retained only for Tier-2 host-resident
-# daemons (ameno-daemon, agent_daemon_main) — NOT for religious-corp cells.
+# religious-corp Pregel cells run as k3s DaemonSet on a Lima-on-each-Mac-mini
+# fleet per ADR-2605232100. Deployment is driven by the existing Ansible
+# playbook at 60-apps/ai-gftd-project-murakumo/ansible/k8s-gpu-cluster.yml
+# (NOT the placeholder 50-infra/k8s/lima-k3s/bring-up.sh, which is a local
+# 3-VM smoke test on the developer machine only).
+#
+# Native launchd is retained only for Tier-2 host-resident daemons
+# (ameno-daemon, agent_daemon_main) — NOT for religious-corp cells.
 # Commercial K8s (Vultr/EKS/GKE/AKS/DOK) remains forbidden per ADR-2605191346 §1.
-control_plane = "k3s (Lima/OrbStack on Mac mini fleet) — religious-corp cells per ADR-2605232100"
+control_plane = "k3s on Lima VMs across the Mac mini fleet (Ansible-driven, see ansible_playbook below)"
+ansible_inventory = "60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml"
+ansible_playbook = "60-apps/ai-gftd-project-murakumo/ansible/k8s-gpu-cluster.yml"
+ansible_role = "lima_k3s_gpu"  # roles/lima_k3s_gpu, modes: tools / preflight / bootstrap / deploy_llama_vulkan
+ansible_bootstrap_token_env = "MURAKUMO_K3S_TOKEN"
+control_plane_node = "jacob"  # ansible inventory: control_plane group (this dev machine, 127.0.0.1, doubles as LiteLLM gateway + 11th Ollama worker)
 control_plane_legacy = "launchd (macOS) — superseded for religious-corp cells by ADR-2605232100, retained for Tier-2 host-resident daemons per ADR-2605191346 §3"
+overlay_network = "WireGuard wg0 (VM-to-VM cross-host pod traffic); flannel + k3s node-ip bind to wg0 per ansible playbook header"
 swarm_leader_election_adr = "2605191603"  # superseded post-Stage 6 by Kubernetes Lease per ADR-2605232100
 swarm_broadcast_adr = "2605191524"
 heartbeat_adr = "2605191645"
