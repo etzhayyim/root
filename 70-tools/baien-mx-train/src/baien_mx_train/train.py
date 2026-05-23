@@ -75,10 +75,15 @@ def train(state: Move1State) -> Move1State:
     import torch
     from torch.optim import AdamW
 
-    # frozen image encoder
-    from transformers import AutoModel, AutoProcessor, AutoModelForCausalLM, AutoTokenizer
+    # Pick the best available device. transformers ROCm reports as "cuda".
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    state.notes.append(f"[mx-train] device = {device}")
+
+    # frozen image encoder (vision-only tower; SiglipModel needs text too)
+    from transformers import (AutoProcessor, AutoModelForCausalLM, AutoTokenizer,
+                              SiglipVisionModel)
     siglip_proc = AutoProcessor.from_pretrained(cfg.image_encoder)
-    siglip = AutoModel.from_pretrained(cfg.image_encoder, torch_dtype=torch.bfloat16)
+    siglip = SiglipVisionModel.from_pretrained(cfg.image_encoder, dtype=torch.bfloat16).to(device)
     siglip.eval()
     for p in siglip.parameters():
         p.requires_grad = False
@@ -87,19 +92,19 @@ def train(state: Move1State) -> Move1State:
     tok = AutoTokenizer.from_pretrained(cfg.base_model)
     if IMAGE_PLACEHOLDER_TOKEN not in tok.get_vocab():
         tok.add_special_tokens({"additional_special_tokens": [IMAGE_PLACEHOLDER_TOKEN]})
-    model = AutoModelForCausalLM.from_pretrained(cfg.base_model, dtype=torch.bfloat16)
+    model = AutoModelForCausalLM.from_pretrained(cfg.base_model, dtype=torch.bfloat16).to(device)
     if len(tok) != model.get_input_embeddings().num_embeddings:
         model.resize_token_embeddings(len(tok))
     model.eval()
     for p in model.parameters():
         p.requires_grad = False
 
-    # trainable projector
+    # trainable projector (bf16 to match SigLIP / baien dtypes)
     projector = build_projector(
         siglip_dim=cfg.siglip_out_dim,
         baien_dim=cfg.baien_hidden_size,
         n_image_tokens=cfg.image_token_count,
-    )
+    ).to(torch.bfloat16).to(device)
     n_train = count_trainable(projector)
     state.notes.append(f"[mx-train] projector trainable params = {n_train:,}")
 
@@ -141,7 +146,7 @@ def train(state: Move1State) -> Move1State:
             image = Image.open(row.image_path).convert("RGB")
             pixel_values = siglip_proc(
                 images=image, return_tensors="pt"
-            ).pixel_values.to(torch.bfloat16)
+            ).pixel_values.to(torch.bfloat16).to(device)
 
             with torch.no_grad():
                 sig_out = siglip(pixel_values=pixel_values).last_hidden_state  # (1, 196, 768)
@@ -157,8 +162,8 @@ def train(state: Move1State) -> Move1State:
             )
             full_str = prompt_str + response_text + tok.eos_token
 
-            prompt_ids = tok(prompt_str, return_tensors="pt", add_special_tokens=False).input_ids
-            full_ids = tok(full_str, return_tensors="pt", add_special_tokens=False).input_ids
+            prompt_ids = tok(prompt_str, return_tensors="pt", add_special_tokens=False).input_ids.to(device)
+            full_ids = tok(full_str, return_tensors="pt", add_special_tokens=False).input_ids.to(device)
             n_prompt = int(prompt_ids.shape[1])
             n_full = int(full_ids.shape[1])
 
@@ -168,10 +173,10 @@ def train(state: Move1State) -> Move1State:
             labels = full_ids.clone()
             labels[:, :n_prompt] = -100   # mask prompt
             # prepend -100 for image tokens (they don't contribute to loss)
-            img_label_pad = torch.full((1, n_img), -100, dtype=labels.dtype)
+            img_label_pad = torch.full((1, n_img), -100, dtype=labels.dtype, device=device)
             labels = torch.cat([img_label_pad, labels], dim=1)
 
-            attn = torch.ones(inputs_embeds.shape[:2], dtype=torch.long)
+            attn = torch.ones(inputs_embeds.shape[:2], dtype=torch.long, device=device)
 
             outputs = model(
                 inputs_embeds=inputs_embeds,

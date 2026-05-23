@@ -209,6 +209,96 @@ post boot). `~/.ssh/config` was updated on jacob. Recommended follow-ups:
 2. Add `evo` (or `gad`) entry to `dnsmasq.d/murakumo-fleet.conf` on jacob.
 3. Update ADR-2605202345 endpoint URLs once the reservation is in place.
 
+## G. Multimodal Move 1 baseline (untrained projector) — 2026-05-23
+
+Per ADR-2605232500 §Eval, the first multimodal data point on this fleet:
+
+| Setup | Value |
+|---|---|
+| Image encoder | `google/siglip-base-patch16-224` (frozen, SiglipVisionModel) |
+| Trunk | `microsoft/bitnet-b1.58-2B-4T-bf16` (frozen, vocab resized +1 for `<image>`) |
+| Projector | 1.58-bit (built-in BitLinear) 2-layer, 14 image tokens, **random init** |
+| Training data | none (eval-only mode) |
+| Data for eval | 5 synthetic PIL-drawn shapes (`baien-graft-smoke`) |
+| Device | CPU (BitNet `.to("cuda")` falls back; ROCm hookup is a follow-up) |
+| Decode | manual greedy via forward-hook on `embed_tokens` (LLaVA pattern; BitNet rejects `inputs_embeds=`) |
+
+Per-prompt result:
+
+| prompt | response | scored | note |
+|---|---|---|---|
+| vmb_main_object (red-square → ?) | `"Sun."` | ❌ FAIL | random projector returns random word |
+| vmb_animate_yn (non-animate → no?) | `"No."` | ✅ PASS | yes/no default-bias coincidence |
+| vmb_color (red-square → ?) | `"The primary color of the object is red"` | ✅ PASS | 🟡 needs color-invariance check |
+| vmb_single (single obj → yes?) | `"I'm sorry, but I can't"` | ❌ FAIL | refusal mode |
+| vmb_caption (caption with main_obj) | `"A group of friends enjoying a picnic in the park."` | ❌ FAIL | hallucination |
+
+**Baseline pass rate: 2/5 = 40%** with current scorers.
+
+### Interpretation
+
+- **Pipeline validated end-to-end** ✓: SigLIP vision → 1.58-bit projector
+  → forward-hook injection at `<image>` placeholder positions → frozen
+  baien trunk → greedy decode. Each stage is exercised.
+- The 2 "passes" are **scorer-lenient artifacts**, not image grounding:
+  - `vmb_animate_yn` passes because baien defaults to "No" for yes/no questions about non-animate items (synthetic shapes happen to all be non-animate).
+  - `vmb_color` passes if the response mentions any palette color word; needs the color-invariance probe to verify the "red" answer wasn't lucky.
+- **3 real fails** show baien has no image understanding without training:
+  hallucinated picnic for a synthetic shape; refusal-mode for a single-object yes/no; wrong noun for the main object.
+- **Move 1 training gate (≥60% per ADR-2605232500)** has headroom: trained Move 1 should
+  push at least 3/5 = 60% and likely 4-5/5 if scorers stay this lenient.
+
+### Color-invariance probe — 2026-05-23
+
+To verify whether the random projector conveys ANY image-specific signal,
+ran the same prompt (`"What is the primary color? One word."`) on 4
+differently-colored synthetic images. **All 4 returned `"Red."`**:
+
+```
+red-square     -> 'Red.'
+green-triangle -> 'Red.'
+blue-circle    -> 'Red.'
+yellow-star    -> 'Red.'
+```
+
+This proves the random projector conveys **zero image-specific signal**.
+The vmb_color "PASS" on red-square earlier was pure coincidence (baien
+defaults to "Red." for the color prompt; red-square happens to be red).
+
+**Real floor**: `0/5 image-grounded passes` with current synthetic data.
+The 2/5 = 40% scorer rate is **all leniency artifacts**:
+- vmb_animate_yn: baien defaults to "No" → passes for all non-animate items
+- vmb_color: baien defaults to "Red" → passes only if image is actually red
+
+### Tightened-scorer baseline — 2026-05-23 (replaces the above)
+
+Re-ran the baseline after:
+- Removing `vmb_animate_yn` (synthetic data can't validate — all shapes are inanimate)
+- Tightening `vmb_color` with `_color` ground-truth check from sample.json
+- Round-robin assigning a different image per prompt (so the color bias above shows)
+
+Result (4 prompts × 4 different colored images):
+
+| Prompt | Image | Response | Pass |
+|---|---|---|---|
+| vmb_main_object | black-square | `"Sorry, I can't see the image"` | ❌ |
+| vmb_color | blue-circle (GT=blue) | `"Red."` | ❌ ← ground-truth catches default-Red bias |
+| vmb_single | brown-triangle | `"No."` | ❌ |
+| vmb_caption | gray-square | `"A serene landscape with a gentle breeze."` | ❌ |
+
+**Honest floor: 0/4 = 0.0%.** Move 1 training (Phase A/B per
+ADR-2605232500 §Numerical analysis) must lift this to ≥60% (3/4) to
+pass the gate.
+
+### Known follow-ups (multimodal)
+
+- **Scorer tightening**: vmb_color should ground-truth check against image's
+  actual color (synthetic samples include `_color` in sample.json); vmb_animate_yn
+  needs a counter-example (animate row) to disambiguate default-bias from grounding.
+- BitNet × ROCm device move doesn't activate gfx1151 — `.to("cuda")` succeeds but inference falls back to CPU. Either (a) custom ROCm BitLinear kernel, or (b) accept CPU and pursue bitnet.cpp.
+- Synthetic 10-shape dataset is too thin for real training; need baien-graft data (per ADR-2605202115 + datagen runbook in `70-tools/baien-mx-train/scripts/datagen_runbook.md`).
+- Move 1 training gate of ≥60% needs *image-grounded* signal, not scorer-leniency drift; tightened scorers will move the gate to a more honest target.
+
 ## Caveats
 
 - 5-prompt categories are too small to be statistically meaningful — these

@@ -1126,6 +1126,15 @@ depends_on = ["2605170900", "2605171800", "2605172000", "2605192200"]
 related = ["2605231300", "2605232500"]
 
 [[adrs]]
+id = "2605232400"
+title = "yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure"
+status = "active"
+status_note = "Closes the last two substrate-boundary gaps that survived the 2026-05-23 yatachain wave. (1) Adds a cross-language Tier D blob upload primitive — `Etzhayyim.uploadBlob({data, mediaType?})` in `@etzhayyim/sdk` (TS, wraps the existing `pinBlob` against Kubo `/api/v0/add?pin=true&cid-version=1`) and `Etzhayyim.upload_blob(data, media_type=?)` in `pymagatama.substrate` (Python, httpx multipart) — with a bit-identical `{cid,sizeBytes,mediaType}` receipt shape and 7 vitest + 6 pytest covering empty-payload / missing-apiUrl rejection / NDJSON last-line parsing / 5xx surfacing / mediaType default + Blob.type derivation / trailing-slash normalisation. (2) Wires the primitive through `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_train_dumper.py` via a new `_blob_upload` / `_blob_download` dispatch behind `USE_PYMAGATAMA_SUBSTRATE_BLOB=1` — train side pins PLY (and GLB on the bake path) through `pymagatama.substrate.upload_blob` and writes `ipfs://{cid}` URIs into `vertex_maps_gsplat_{asset,mesh}.b2_key` instead of B2 keys; bake side branches on the `ipfs://` scheme via Kubo `/api/v0/cat`; the legacy B2 path stays bit-for-bit identical when the flag is off so blue/green cutover is non-disruptive. Boot guard relaxed: `B2_*` becomes optional when the flag is set, replaced by `ETZ_IPFS_API_URL` requirement. (3) Completes the yoro `@atproto/api` → `@etzhayyim/sdk/atproto` facade migration — 6 callsites rewritten (lib/atproto-agent.ts, lib/superapp/messaging-client.ts, lib/translate/client.ts, lib/mcp/client.ts, lib/actor/ActorEmbed.svelte, routes/moderation/blocked-accounts/+page.svelte); `@etzhayyim/sdk` added as a workspace dependency on `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/package.json`; `pnpm check:ts` clean. SDK test count: 111 → 118 (+7 vitest), pymagatama.substrate 18 → 24 (+6 pytest). Tier A + Tier B + Tier D are now end-to-end SDK-mediated; Tier C / projection remains the ADR-2605222330 carve-out until the projection-sweep ADR ships. Backfill of existing B2 blobs into IPFS pins and the browser-side gsplat loader URL swap remain follow-ups in maps MIGRATION-TODO Phase 2."
+path = "90-docs/adr/2605232400-yatachain-tier-d-blob-substrate-closure.md"
+depends_on = ["2605172000", "2605231400", "2605231500", "2605241500"]
+related = ["2605171800", "2605231525"]
+
+[[adrs]]
 id = "2605231737"
 title = "e7m PDS / yoro substrate probes — operator + MCP surface for timeline-class debugging"
 status = "active"

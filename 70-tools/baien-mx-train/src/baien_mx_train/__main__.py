@@ -27,6 +27,13 @@ def main() -> int:
     ap.add_argument("--out-root", type=Path, default=Path("baien-mx-out"))
     ap.add_argument("--dry-run", action="store_true",
                     help="walk the trainer setup without loading SigLIP / baien")
+    ap.add_argument("--eval-only", action="store_true",
+                    help="skip training; init random projector + run visual_microbench "
+                         "to measure the eval floor (untrained baseline). "
+                         "Quality smoke per user request 2026-05-23.")
+    ap.add_argument("--force-cpu", action="store_true",
+                    help="force CPU even if CUDA/ROCm available "
+                         "(workaround for BitNet × ROCm device-move issue)")
     args = ap.parse_args()
 
     cfg = Move1Config(
@@ -39,7 +46,14 @@ def main() -> int:
         dry_run=args.dry_run,
     )
     state = Move1State(cfg=cfg)
-    train(state)
+    if args.force_cpu:
+        import os as _os
+        _os.environ["CUDA_VISIBLE_DEVICES"] = ""
+    if args.eval_only:
+        from .eval import evaluate_baseline
+        evaluate_baseline(state)
+    else:
+        train(state)
 
     print("\n=== mx-train notes ===")
     for n in state.notes:

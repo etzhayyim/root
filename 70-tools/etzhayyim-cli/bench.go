@@ -46,12 +46,72 @@ func runBench(args []string) error {
 		return cmdBenchRopeExtend(args[1:])
 	case "mx-train":
 		return cmdBenchMxTrain(args[1:])
+	case "smoke", "lite", "core", "full":
+		return cmdBenchBundle(args[0], args[1:])
 	case "help", "--help", "-h":
 		printBenchUsage()
 		return nil
 	default:
 		return fmt.Errorf("unknown bench subcommand: %s\nRun 'e7m bench help' for usage.", args[0])
 	}
+}
+
+// ----- subcommand: bundle (smoke/lite/core/full) -------------------------
+
+func cmdBenchBundle(name string, args []string) error {
+	b, ok := benchBundles[name]
+	if !ok {
+		return fmt.Errorf("unknown bundle %q (known: smoke / lite / core / full)", name)
+	}
+	fmt.Printf("[bench %s] %s\n", name, b.desc)
+	if len(b.tasks) == 0 {
+		// "smoke" = internal microbench, no lm-eval needed.
+		return cmdBenchMicro(args)
+	}
+	// lite / core / full = lm-eval-harness with a fixed task list. Pass through
+	// to cmdBenchCore4 via --only override, ignoring core4Tasks defaults.
+	// Auto-apply limitHint unless the caller already passed --limit.
+	hasLimit := false
+	for _, a := range args {
+		if a == "--limit" || strings.HasPrefix(a, "--limit=") {
+			hasLimit = true
+			break
+		}
+	}
+	prefix := []string{"--only", strings.Join(b.tasks, ",")}
+	if !hasLimit && b.limitHint > 0 {
+		prefix = append(prefix, "--limit", fmt.Sprintf("%d", b.limitHint))
+		fmt.Printf("[bench %s] auto-applying --limit %d (bundle default). Pass --limit 0 for full.\n",
+			name, b.limitHint)
+	}
+	core4Args := append(prefix, args...)
+	return cmdBenchCore4Bundle(b.tasks, core4Args)
+}
+
+func cmdBenchCore4Bundle(taskIds []string, args []string) error {
+	// Build a transient core4Tasks-shaped slice for the bundle, with default
+	// EstMin (since we don't have per-task numbers for the new ids); the
+	// dispatch path tolerates missing EstMin.
+	orig := core4Tasks
+	defer func() { core4Tasks = orig }()
+	var extended []core4Task
+	for _, id := range taskIds {
+		found := false
+		for _, t := range orig {
+			if t.Name == id {
+				extended = append(extended, t)
+				found = true
+				break
+			}
+		}
+		if !found {
+			extended = append(extended, core4Task{
+				Name: id, DisplayName: id + " (bundle-supplied)", EstMin: 15,
+			})
+		}
+	}
+	core4Tasks = extended
+	return cmdBenchCore4(args)
 }
 
 // ----- subcommand: mx-train ----------------------------------------------
@@ -143,6 +203,13 @@ SUBCOMMANDS:
   mx-train  baien Move 1 image graft self-training (frozen SigLIP + 1.58-bit
            projector + frozen baien trunk) per ADR-2605232500. Phase A=80s
            smoke / B=40min bootstrap / C=6.7h scale on EVO-X2 ROCm.
+  smoke / lite / core / full
+           Pre-packaged bench bundles per the 2026-05-23 light-bench reorg
+           (see 'e7m bench list'):
+             smoke ~5min   = internal 15-prompt microbench (no lm-eval)
+             lite  ~20min  = arc_challenge + winogrande + truthfulqa_mc1
+             core  ~60min  = + mmlu_redux + global_piqa_completions
+             full  ~4h     = + ifeval (matches §A frontier table)
 
 COMMON FLAGS:
   --host <alias>     SSH host (default: %s). Must accept ssh <alias>:python.
@@ -287,6 +354,8 @@ func cmdBenchCore4(args []string) error {
 	out := fs.String("out", "", "local output dir (default: 90-docs/baien/lm-eval-<date>/)")
 	only := fs.String("only", "", "comma-separated subset (e.g. 'ifeval,gpqa_diamond_zeroshot')")
 	batchSize := fs.Int("batch-size", 1, "lm-eval batch size (CPU bf16 → keep small)")
+	limit := fs.Int("limit", 0, "lm-eval --limit N per task (0 = full). Use 50–200 for fast iteration "+
+		"on baien CPU fallback (BitNet × ROCm gfx1151 doesn't activate; ~3-5 s/question on CPU).")
 	if err := fs.Parse(args); err != nil {
 		return err
 	}
@@ -346,10 +415,14 @@ func cmdBenchCore4(args []string) error {
 		remoteFile := remoteOut + "/" + t.Name + ".json"
 		// model_args use transformers `bitnet` arch via lm-eval `hf` provider.
 		// Invoke the wrapper so dynamo+inductor are pre-patched before lm-eval imports.
+		limitArg := ""
+		if *limit > 0 {
+			limitArg = fmt.Sprintf(" --limit %d", *limit)
+		}
 		cmd := fmt.Sprintf(
 			`%s %s run --model hf --model_args pretrained=%s,dtype=bfloat16 `+
-				`--tasks %s --batch_size %d --output_path %s --log_samples`,
-			pyCmd, remoteWrapper, *model, t.Name, *batchSize, remoteOut,
+				`--tasks %s --batch_size %d --output_path %s --log_samples%s`,
+			pyCmd, remoteWrapper, *model, t.Name, *batchSize, remoteOut, limitArg,
 		)
 		if err := sshRunStream(*host, cmd); err != nil {
 			fmt.Fprintf(os.Stderr, "  WARN: %s failed: %v (continuing)\n", t.Name, err)
@@ -405,13 +478,71 @@ func cmdBenchRopeExtend(args []string) error {
 
 // ----- subcommand: list ---------------------------------------------------
 
+// BENCH_BUNDLES = ADR-2605232400 + 2026-05-23 light-bench reorganization.
+// Each bundle maps to one (or more) lm-eval task ids. `smoke` is the
+// internal microbench (no lm-eval needed).
+//
+// estMinCPU reflects observed BitNet CPU fallback reality (~3-5 s/question);
+// BitNet × ROCm gfx1151 doesn't activate today. Use `--limit N` to cap each
+// task at N questions for iteration (e.g. `e7m bench lite --limit 100`
+// finishes in ~25 min instead of ~2.5 h).
+var benchBundles = map[string]struct {
+	desc       string
+	tasks      []string // lm-eval task ids; empty = internal microbench
+	estMinCPU  int      // realistic wall on BitNet CPU fallback (full set)
+	limitHint  int      // recommended --limit N for fast iteration
+}{
+	"smoke": {
+		desc:      "internal 15-prompt rule-based microbench (no lm-eval) — iterate-default",
+		tasks:     nil,
+		estMinCPU: 5,
+		limitHint: 0,
+	},
+	"lite": {
+		desc:      "lite — arc_challenge + winogrande + truthfulqa_mc1 (all loglikelihood)",
+		tasks:     []string{"arc_challenge", "winogrande", "truthfulqa_mc1"},
+		estMinCPU: 180, // ~3 h full; --limit 100 ≈ 25 min
+		limitHint: 100,
+	},
+	"core": {
+		desc:      "core — adds mmlu_redux (ll) + global_piqa_completions",
+		tasks:     []string{"arc_challenge", "winogrande", "mmlu_redux", "global_piqa_completions"},
+		estMinCPU: 480, // ~8 h full; --limit 100 ≈ 40 min
+		limitHint: 100,
+	},
+	"full": {
+		desc:      "full — adds ifeval (generative) for §A comparability",
+		tasks:     []string{"mmlu_redux", "global_piqa_completions", "ifeval"},
+		estMinCPU: 720, // ~12 h full; --limit 200 ≈ 1.5 h (ifeval=generative, --limit slower)
+		limitHint: 200,
+	},
+}
+
 func cmdBenchList(_ []string) error {
 	fmt.Println("Supported benches (e7m bench):")
 	fmt.Println()
 	fmt.Println("  micro                       15 verifiable prompts, rule-based, ~5 min")
 	fmt.Println("                              IFEval×5 / MMLU×5 / Reasoning×1 / MLing×2 / Gen×2")
 	fmt.Println()
-	fmt.Println("  core4 (lm-eval-harness):")
+	fmt.Println("  Bundles (e7m bench <name> [--limit N]):")
+	fmt.Println("    Wall times reflect BitNet CPU fallback (ROCm gfx1151 doesn't activate yet).")
+	fmt.Println("    Each bundle auto-applies its limitHint unless --limit is given explicitly.")
+	fmt.Println("    Pass --limit 0 to run the full set.")
+	limitWalls := map[string]int{"lite": 25, "core": 40, "full": 90}
+	for _, name := range []string{"smoke", "lite", "core", "full"} {
+		b := benchBundles[name]
+		hintWall := limitWalls[name]
+		hintStr := ""
+		if b.limitHint > 0 {
+			hintStr = fmt.Sprintf(" | default --limit %d ≈ %d min", b.limitHint, hintWall)
+		}
+		fmt.Printf("    %-7s full ~%3d min%s   %s\n", name, b.estMinCPU, hintStr, b.desc)
+		if len(b.tasks) > 0 {
+			fmt.Printf("            tasks: %s\n", strings.Join(b.tasks, ", "))
+		}
+	}
+	fmt.Println()
+	fmt.Println("  Individual lm-eval-harness tasks:")
 	for _, t := range core4Tasks {
 		fmt.Printf("    %-28s ~%3d min   (%s)\n", t.Name, t.EstMin, t.DisplayName)
 	}
@@ -421,6 +552,10 @@ func cmdBenchList(_ []string) error {
 	fmt.Println("  MMLU-Redux     94.3–95.3")
 	fmt.Println("  GPQA Diamond   86.2–92.4")
 	fmt.Println("  Global PIQA    89.2–91.4")
+	fmt.Println()
+	fmt.Println("Move 1 multimodal (e7m bench mx-train per ADR-2605232500):")
+	fmt.Println("  visual_microbench  5 prompts, rule-based, ~3-10 min on CPU")
+	fmt.Println("                     baseline (random projector) = 2/5 = 40% — gate is ≥60%")
 	return nil
 }
 

@@ -21,6 +21,7 @@ class GraftRow:
     caption: str
     main_object: str
     source_sample: str          # sample slug for lineage
+    color: str | None = None    # ground-truth color (set by synthetic data; None for real images)
 
 
 def iter_graft_rows(graft_root: Path, *, images_per_sample: int = 4,
@@ -47,6 +48,7 @@ def iter_graft_rows(graft_root: Path, *, images_per_sample: int = 4,
         if not views:
             continue
         rng.shuffle(views)
+        color = (meta.get("_color") or "").strip().lower() or None
         for view_name, cap in views[:images_per_sample]:
             img_path = sample_json.parent / f"{view_name}.png"
             if not img_path.exists():
@@ -58,6 +60,7 @@ def iter_graft_rows(graft_root: Path, *, images_per_sample: int = 4,
                 caption=cap,
                 main_object=main_object,
                 source_sample=slug,
+                color=color,
             )
 
 

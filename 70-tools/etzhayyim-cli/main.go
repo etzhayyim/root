@@ -35,6 +35,8 @@ func main() {
 		err = runAgentToken(os.Args[2:])
 	case "capability":
 		err = runCapability(os.Args[2:])
+	case "kuni-umi":
+		err = runKuniUmi(os.Args[2:])
 	case "version", "--version", "-v":
 		fmt.Printf("gftd %s\n", version)
 	case "help", "--help", "-h":
@@ -67,6 +69,9 @@ COMMANDS:
                 Per ADR-2605232000.
   capability    Consent capability lifecycle (issue / verify / revoke / list) — see 'gftd capability help'.
                 Per ADR-2605231400 + ADR-2605232000.
+  kuni-umi      6-phase robotic-deployment flow (define-site / submit-survey / propose-plan /
+                record-progress / commission / audit-event) — see 'gftd kuni-umi help'.
+                Per ADR-2605201400.
   version       Print version
 
 Run 'gftd <command> --help' for command-specific flags.

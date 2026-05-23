@@ -35,8 +35,10 @@ class Move1Config:
     base_model: str = "microsoft/bitnet-b1.58-2B-4T-bf16"
     image_encoder: str = "google/siglip-base-patch16-224"
 
-    # architecture (matches ADR §Decision)
-    image_token_count: int = 16                       # projector downsample target
+    # architecture (matches ADR §Decision; 14 chosen to divide SigLIP's
+    # 196 patches evenly = pool kernel 14. ADR-2605232500 said 16; this
+    # is a 12.5% smaller token budget that matches the math.)
+    image_token_count: int = 14                       # projector downsample target (196/14=14)
     siglip_out_dim: int = 768                          # SigLIP-base patch-16-224
     baien_hidden_size: int = 2560                      # from baien config.json (verified)
 
