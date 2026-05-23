@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "lawfirm_intake": "lg_lawfirm_intake.graph:build_graph"
+  },
+  "env": ".env"
+}
