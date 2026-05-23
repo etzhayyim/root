@@ -23,6 +23,7 @@ GEWP_VERSION = "1.0"
 GEWP_MIME_TYPE = "application/vnd.gewp+json"
 GEWP_ATTACHMENT_NAME = "gewp.json"
 _GEWP_COMMENT_RE = re.compile(r"<!-- GEWP:([A-Za-z0-9_=+-]+) -->")
+_GEWP_PGP_COMMENT_RE = re.compile(r"<!-- GEWP-PGP:([A-Za-z0-9_=+-]+) -->")
 
 
 # ---------------------------------------------------------------------------
@@ -244,6 +245,98 @@ def compose_resend_payload(
     return resend
 
 
+def compose_pgp_mime_raw(
+    *,
+    sender: str,
+    to_address: str,
+    subject: str,
+    text_body: str,
+    html_body: str,
+    msg: GewpMessage,
+    pgp_recipient_key: str,
+    reply_to: str = "",
+    message_id: str = "",
+) -> tuple[str, str]:
+    """Build a PGP/MIME (RFC 3156) raw email with all 3 GEWP layers inside the ciphertext.
+
+    Returns (raw_mime, message_id).
+
+    Encrypted inner content structure:
+      multipart/mixed
+      ├── multipart/alternative  (Layer 2 HTML comment inside html part)
+      │   ├── text/plain
+      │   └── text/html  + <!-- GEWP:{b64url} -->
+      └── application/vnd.gewp+json   (Layer 1)
+
+    Outer envelope carries X-GEWP-* routing headers (Layer 3, unencrypted best-effort).
+    """
+    import email.mime.application
+    import email.mime.multipart
+    import email.mime.text
+    import email.policy
+    from email.utils import formatdate, make_msgid
+    from pymagatama.primitives.pgp import encrypt
+
+    payload_json = to_json(msg)
+    payload_b64url = base64.urlsafe_b64encode(payload_json.encode()).decode().rstrip("=")
+    html_with_layer2 = html_body + f"\n<!-- GEWP:{payload_b64url} -->"
+
+    # Inner multipart/alternative (text + html with GEWP Layer 2)
+    inner_alt = email.mime.multipart.MIMEMultipart("alternative")
+    inner_alt.attach(email.mime.text.MIMEText(text_body, "plain", "utf-8"))
+    inner_alt.attach(email.mime.text.MIMEText(html_with_layer2, "html", "utf-8"))
+
+    # Inner multipart/mixed: alternative + GEWP Layer 1 attachment
+    inner = email.mime.multipart.MIMEMultipart("mixed")
+    inner["Subject"] = subject  # protected header (recovered by PGP-aware clients)
+    inner.attach(inner_alt)
+
+    gewp_part = email.mime.application.MIMEApplication(
+        payload_json.encode("utf-8"), "vnd.gewp+json"
+    )
+    gewp_part.add_header("Content-Disposition", "attachment", filename=GEWP_ATTACHMENT_NAME)
+    inner.attach(gewp_part)
+
+    # Encrypt inner MIME with CRLF serialization (RFC 2822 §2.1)
+    encrypted_str = encrypt(
+        inner.as_bytes(policy=email.policy.SMTP).decode("utf-8"), pgp_recipient_key
+    )
+
+    msg_id = message_id or make_msgid(
+        domain=sender.split("@")[-1] if "@" in sender else "etzhayyim.com"
+    )
+
+    # Outer PGP/MIME envelope (RFC 3156 §4)
+    outer = email.mime.multipart.MIMEMultipart(
+        "encrypted",
+        protocol="application/pgp-encrypted",
+    )
+    outer["From"] = sender
+    outer["To"] = to_address
+    outer["Subject"] = "[Encrypted]"
+    outer["Date"] = formatdate(localtime=False)
+    outer["Message-ID"] = msg_id
+    if reply_to:
+        outer["Reply-To"] = reply_to
+    # GEWP Layer 3: routing hints in outer headers (best-effort, stripped on forward)
+    outer["X-GEWP-Thread"] = msg.thread.id
+    outer["X-GEWP-Step"] = str(msg.thread.step)
+    outer["X-GEWP-Type"] = msg.type
+    outer["X-GEWP-Encrypted"] = "pgp"
+
+    ver_part = email.mime.application.MIMEApplication(b"Version: 1\n", "pgp-encrypted")
+    ver_part.add_header("Content-Disposition", "attachment", filename="version.asc")
+    outer.attach(ver_part)
+
+    enc_part = email.mime.application.MIMEApplication(
+        encrypted_str.encode("ascii"), "octet-stream"
+    )
+    enc_part.add_header("Content-Disposition", "attachment", filename="encrypted.asc")
+    outer.attach(enc_part)
+
+    return outer.as_bytes(policy=email.policy.SMTP).decode("ascii"), msg_id
+
+
 # ---------------------------------------------------------------------------
 # Parse incoming email
 # ---------------------------------------------------------------------------
@@ -257,11 +350,19 @@ def parse_from_email(
 
     Priority:
       1. attachment_json  (Layer 1 — application/vnd.gewp+json content)
-      2. html_body comment (Layer 2 — <!-- GEWP:{base64url} -->)
+      2. html_body comment (Layer 2 — <!-- GEWP:{base64url} --> plaintext)
+      3. html_body PGP comment (Layer 2 encrypted — <!-- GEWP-PGP:{base64url} -->)
+
+    For PGP-encrypted emails (case 3), returns a sentinel GewpMessage with
+    type="pgp.encrypted" so the caller knows decryption is required.
     """
     if attachment_json:
         try:
-            return _from_dict(json.loads(attachment_json))
+            data = json.loads(attachment_json)
+            # PGP-encrypted envelope: {"gewp":"1.0","encrypted":"pgp","ciphertext":"..."}
+            if data.get("encrypted") == "pgp":
+                return _pgp_encrypted_sentinel(data.get("ciphertext", ""))
+            return _from_dict(data)
         except Exception:
             pass
 
@@ -275,7 +376,31 @@ def parse_from_email(
             except Exception:
                 pass
 
+        m2 = _GEWP_PGP_COMMENT_RE.search(html_body)
+        if m2:
+            try:
+                padded = m2.group(1) + "==="
+                ciphertext = base64.urlsafe_b64decode(
+                    padded[: len(padded) - len(padded) % 4]
+                ).decode()
+                return _pgp_encrypted_sentinel(ciphertext)
+            except Exception:
+                pass
+
     return None
+
+
+def _pgp_encrypted_sentinel(ciphertext: str) -> GewpMessage:
+    """Sentinel GewpMessage indicating PGP-encrypted content awaiting decryption."""
+    return GewpMessage(
+        gewp=GEWP_VERSION,
+        type="pgp.encrypted",
+        performative="inform",
+        thread=GewpThread(id="", step=0),
+        sender=GewpActor(id=""),
+        to=[],
+        payload={"ciphertext": ciphertext},
+    )
 
 
 def _from_dict(data: dict[str, Any]) -> GewpMessage:

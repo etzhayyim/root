@@ -14,6 +14,7 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 from pymagatama.gewp import (
     GewpMessage,
+    compose_pgp_mime_raw,
     compose_resend_payload,
     new_message,
     new_thread_id,
@@ -21,6 +22,7 @@ from pymagatama.gewp import (
     to_dict as gewp_to_dict,
 )
 from pymagatama.local_agent_env import load_keychain_secret
+from pymagatama.primitives.pgp import lookup_public_key as _pgp_lookup
 
 ACTOR = "did:web:mailer.etzhayyim.com"
 INBOUND_REPO = "did:web:ml1nb0nd.etzhayyim.com"
@@ -97,6 +99,19 @@ def _secret(*names: str) -> str:
         if value:
             return value
     return ""
+
+
+RESEND_SMTP_HOST = "smtp.resend.com"
+RESEND_SMTP_PORT = 587
+
+
+def _send_smtp(raw_mime: str, *, from_addr: str, to_addrs: list[str], api_key: str) -> None:
+    """Send a raw RFC 2822 message via Resend SMTP relay (STARTTLS, port 587)."""
+    import smtplib
+    with smtplib.SMTP(RESEND_SMTP_HOST, RESEND_SMTP_PORT, timeout=45) as smtp:
+        smtp.starttls()
+        smtp.login("resend", api_key)
+        smtp.sendmail(from_addr, to_addrs, raw_mime)
 
 
 def health(**_: Any) -> dict[str, Any]:
@@ -199,27 +214,65 @@ def send_email(to: str = "", subject: str = "", text: str = "", html: str = "", 
     api_key = _secret("RESEND_API_KEY", "SS_RESEND_API_KEY")
     if not api_key:
         return {"error": "RESEND_API_KEY not configured"}
-    payload: dict[str, Any] = {"from": sender, "to": [to], "subject": subject, "text": text}
-    if html:
-        payload["html"] = html
-    if replyTo:
-        payload["reply_to"] = replyTo
-    status, data, raw = _http_json(
-        "https://api.resend.com/emails",
-        method="POST",
-        headers={"authorization": f"Bearer {api_key}", "content-type": "application/json"},
-        body=json.dumps(payload).encode(),
-    )
-    message_id = _str(data.get("id"))
-    sent_at = now_iso()
-    outbound_record_error = ""
+
+    pgp_key: str | None = None
     try:
-        _record_outbound(message_id, sender, to, subject, text, html, "resend", "sent" if status < 400 else "error", "" if status < 400 else raw[:500])
+        pgp_key = _pgp_lookup(to)
+    except Exception:
+        pass
+
+    content_protection = "plaintext"
+    message_id = ""
+    outbound_record_error = ""
+
+    if pgp_key:
+        from pymagatama.primitives.pgp import build_pgp_mime_raw
+        mime_msg, message_id = build_pgp_mime_raw(
+            sender=sender, to_address=to, subject=subject,
+            text_body=text, html_body=html or None,
+            recipient_pubkey_armored=pgp_key, reply_to=replyTo,
+        )
+        content_protection = "pgp"
+        status = 0
+        raw = ""
+        try:
+            _send_smtp(mime_msg, from_addr=sender, to_addrs=[to], api_key=api_key)
+            status = 200
+        except Exception as exc:
+            status = 500
+            raw = str(exc)[:500]
+        data: dict[str, Any] = {}
+    else:
+        payload: dict[str, Any] = {"from": sender, "to": [to], "subject": subject, "text": text}
+        if html:
+            payload["html"] = html
+        if replyTo:
+            payload["reply_to"] = replyTo
+        status, data, raw = _http_json(
+            "https://api.resend.com/emails",
+            method="POST",
+            headers={"authorization": f"Bearer {api_key}", "content-type": "application/json"},
+            body=json.dumps(payload).encode(),
+        )
+        message_id = _str(data.get("id"))
+
+    sent_at = now_iso()
+    try:
+        _record_outbound(
+            message_id, sender, to, subject, text, html,
+            "resend", "sent" if status < 400 else "error",
+            "" if status < 400 else raw[:500],
+            content_protection=content_protection,
+        )
     except Exception as exc:
         outbound_record_error = str(exc)[:300]
     if status >= 400:
         return {"error": "resend_api_failed", "status": status, "body": raw[:500], "outboundRecordError": outbound_record_error}
-    result = {"messageId": message_id, "provider": "resend", "from": sender, "to": to, "subject": subject, "sentAt": sent_at}
+    result: dict[str, Any] = {
+        "messageId": message_id, "provider": "resend", "from": sender,
+        "to": to, "subject": subject, "sentAt": sent_at,
+        "contentProtection": content_protection,
+    }
     if outbound_record_error:
         result["outboundRecordError"] = outbound_record_error
     return result
@@ -229,6 +282,7 @@ def _record_outbound(
     message_id: str, sender: str, to: str, subject: str, text: str, html: str,
     provider: str, status: str, error: str,
     gewp_thread_id: str = "", gewp_step: int = 0,
+    content_protection: str = "plaintext",
 ) -> None:
     rid = f"outbound-{uuid.uuid4().hex[:16]}"
     now_ms = int(time.time() * 1000)
@@ -238,11 +292,11 @@ def _record_outbound(
         """INSERT INTO vertex_mailer_outbound_email
         (vertex_id, sensitivity_ord, owner_did, rkey, repo, message_id, from_address, to_address,
          subject, body_text, body_html, provider, provider_message_id, status, error, sent_at_ms,
-         created_at, org_id, user_id, actor_id, gewp_thread_id, gewp_step)
-        VALUES (%s,1,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon','anon',%s,%s,%s)""",
+         created_at, org_id, user_id, actor_id, gewp_thread_id, gewp_step, content_protection)
+        VALUES (%s,1,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon','anon',%s,%s,%s,%s)""",
         (vertex_id, ACTOR, rid, ACTOR, message_id, sender, to, subject, text, html,
          provider, message_id, status, error, now_ms, now_iso(), ACTOR,
-         gewp_thread_id or None, gewp_step or None),
+         gewp_thread_id or None, gewp_step or None, content_protection),
     )
 
 
@@ -314,24 +368,42 @@ def send_gewp_message(
         extensions=["ext:atproto"],
     )
 
-    html_body = html or f"<p>{text}</p>"
-    resend_payload = compose_resend_payload(
-        sender=sender,
-        to_addresses=[to],
-        subject=subject,
-        text_body=text,
-        html_body=html_body,
-        msg=msg,
-        reply_to=replyTo,
-    )
+    pgp_key: str | None = None
+    try:
+        pgp_key = _pgp_lookup(to)
+    except Exception:
+        pass
 
-    status, data, raw = _http_json(
-        "https://api.resend.com/emails",
-        method="POST",
-        headers={"authorization": f"Bearer {api_key}", "content-type": "application/json"},
-        body=json.dumps(resend_payload).encode(),
-    )
-    message_id = _str(data.get("id"))
+    html_body = html or f"<p>{text}</p>"
+    content_protection = "pgp" if pgp_key else "plaintext"
+
+    if pgp_key:
+        mime_msg, message_id = compose_pgp_mime_raw(
+            sender=sender, to_address=to, subject=subject,
+            text_body=text, html_body=html_body,
+            msg=msg, pgp_recipient_key=pgp_key, reply_to=replyTo,
+        )
+        status = 0
+        raw = ""
+        data: dict[str, Any] = {}
+        try:
+            _send_smtp(mime_msg, from_addr=sender, to_addrs=[to], api_key=api_key)
+            status = 200
+        except Exception as exc:
+            status = 500
+            raw = str(exc)[:500]
+    else:
+        resend_payload = compose_resend_payload(
+            sender=sender, to_addresses=[to], subject=subject,
+            text_body=text, html_body=html_body, msg=msg, reply_to=replyTo,
+        )
+        status, data, raw = _http_json(
+            "https://api.resend.com/emails",
+            method="POST",
+            headers={"authorization": f"Bearer {api_key}", "content-type": "application/json"},
+            body=json.dumps(resend_payload).encode(),
+        )
+        message_id = _str(data.get("id"))
     sent_at = now_iso()
     try:
         _record_outbound(
@@ -340,6 +412,7 @@ def send_gewp_message(
             "" if status < 400 else raw[:500],
             gewp_thread_id=msg.thread.id,
             gewp_step=msg.thread.step,
+            content_protection=content_protection,
         )
     except Exception:
         pass
@@ -354,6 +427,7 @@ def send_gewp_message(
         "sentAt": sent_at,
         "gewpThreadId": msg.thread.id,
         "gewpStep": msg.thread.step,
+        "contentProtection": content_protection,
     }
 
 
@@ -391,6 +465,57 @@ def parse_inbound_gewp(
         "vertexId": vertex_id,
         "gewp": gewp_to_dict(msg),
     }
+
+
+def register_pgp_key(email: str = "", publicKey: str = "", **_: Any) -> dict[str, Any]:
+    """Register a PGP public key for an email address to enable E2EE outbound."""
+    if not email or not publicKey:
+        return {"error": "email and publicKey are required"}
+    try:
+        from pymagatama.primitives.pgp import register_public_key
+        return register_public_key(email, publicKey)
+    except Exception as exc:
+        return {"error": str(exc)[:300]}
+
+
+def revoke_pgp_key(email: str = "", fingerprint: str = "", **_: Any) -> dict[str, Any]:
+    """Revoke a registered PGP key."""
+    if not email or not fingerprint:
+        return {"error": "email and fingerprint are required"}
+    try:
+        from pymagatama.primitives.pgp import revoke_public_key
+        return revoke_public_key(email, fingerprint)
+    except Exception as exc:
+        return {"error": str(exc)[:300]}
+
+
+def decrypt_inbound(
+    vertex_id: str = "",
+    private_key_armored: str = "",
+    passphrase: str = "",
+    **_: Any,
+) -> dict[str, Any]:
+    """Decrypt a PGP-encrypted inbound email payload.
+
+    Retrieves the stored ciphertext from vertex_mailer_inbound_email and
+    decrypts it using the supplied private key. The private key is NOT stored
+    server-side — it must be supplied by the caller at decrypt time.
+    """
+    if not vertex_id or not private_key_armored:
+        return {"error": "vertex_id and private_key_armored are required"}
+    row = _fetch_one(
+        "SELECT body_text, body_html, gewp_attachment_json FROM vertex_mailer_inbound_email WHERE vertex_id = %s",
+        (vertex_id,),
+    )
+    if not row:
+        return {"error": "not_found"}
+    try:
+        from pymagatama.primitives.pgp import decrypt as pgp_decrypt
+        ciphertext = row.get("body_text") or ""
+        plaintext = pgp_decrypt(ciphertext, private_key_armored, passphrase or None)
+        return {"vertexId": vertex_id, "plaintext": plaintext, "contentProtection": "pgp"}
+    except Exception as exc:
+        return {"error": str(exc)[:300]}
 
 
 def handle_commit(collection: str = "", action: str = "", **_: Any) -> dict[str, Any]:
