@@ -8,9 +8,18 @@ Demonstrates ADR-2605151200's central architectural claim — **IEC 61499 event 
 | `microgrid_langgraph.py` | LangGraph SDK | `:loop:freq-droop` | DROOP_P_F × N | 5 / 5 |
 | `microgrid_async_langgraph.py` | LangGraph async | `:loop:freq-droop` | DROOP_P_F × N | covered |
 | `microgrid_islanding_langgraph.py` | multi-event | `:loop:islanding-decision` | ANTI_ISLANDING_ROCOF | covered |
-| `microgrid_volt_var_langgraph.py` | **multi-cell-type** | `:loop:volt-var` | **VV_CURVE × N + LTC_TAP_FSM** | 7 / 7 |
+| `microgrid_volt_var_langgraph.py` | multi-cell-type, supervisory | `:loop:volt-var` | VV_CURVE × N + LTC_TAP_FSM | 7 / 7 |
+| `microgrid_bess_langgraph.py` | **2-stage chain** with SOC-aware clamps | `:loop:bess-charge-discharge` | **SOC_KALMAN → DROOP_P_F** | 7 / 7 |
+| `microgrid_pv_mppt_langgraph.py` | N strings + aggregator | `:loop:pv-mppt` | MPPT_PERTURB_OBSERVE × N | 7 / 7 |
+| `microgrid_islanding_blackstart_langgraph.py` | **chained-FSM coordination** | `:loop:islanding-decision` ext. | **ANTI_ISLANDING_ROCOF → BLACK_START_SEQ** | 5 / 5 |
 
-The first four demos run a single cell type. `microgrid_volt_var_langgraph.py` is the **first multi-cell-type** orchestrator loop — N inverter VV_CURVE cells feed a bus-voltage aggregator that drives an LTC_TAP_FSM supervisory tap controller. This is the pattern other multi-cell loops (`:loop:bess-charge-discharge` SOC_KALMAN→DROOP_P_F, `:loop:pv-mppt`, full islanding+black-start coordination) will follow.
+All 7 PROTOTYPE-MICROGRID §13.2 field loops have orchestrator references now (dr-response and peak-shave-economic are orchestrator-only / no field cells).
+
+Patterns:
+- `microgrid_volt_var_*`  — **fan-out → aggregate → supervisory cell**: N parallel inverter cells driving a single LTC controller.
+- `microgrid_bess_*`      — **per-asset 2-stage chain**: SOC estimator feeds clamps into droop controller, then all assets fan into a cohort aggregator.
+- `microgrid_pv_mppt_*`   — **fan-out → aggregate**: N PV-string MPPT cells + total power aggregator.
+- `microgrid_islanding_blackstart_*` — **chained-FSM**: protection FSM output gates a restart FSM.
 
 The freq-droop demos produce **byte-identical cohort ΔP outputs** for the same input schedule, which is the equivalence proof for the IEC 61499 ⇄ Pregel binding.
 
