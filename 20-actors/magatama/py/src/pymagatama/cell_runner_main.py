@@ -381,6 +381,55 @@ async def _spawn_xrpc_cell(cell: dict[str, Any], stop_event: asyncio.Event) -> N
     await stop_event.wait()
 
 
+async def _spawn_lan_api_cell(cell: dict[str, Any], stop_event: asyncio.Event) -> None:
+    """Spawn a LAN-API cell: the module owns its own aiohttp listener.
+
+    Per ADR-2605171300 + ADR-2605192415 (UnispscRegistryCell + UnispscAgent-
+    ExecutorCell): the cell exposes an HTTP service inside the fleet LAN that
+    the XRPC façade (yoro-xrpc-adapter on CF) reaches via tunnel. Unlike
+    xrpc-cells, these are NOT dispatched by an in-process gateway — they hold
+    their own socket.
+
+    Contract: the imported module exports
+        async def serve(stop_event, healthz_port, api_port) -> None
+    """
+    name = cell.get("name", "<unnamed>")
+    module_path = cell.get("module")
+    trigger = cell.get("trigger") or {}
+    healthz_port = int(trigger.get("healthz_port") or cell.get("healthz_port") or 0)
+    api_port = int(trigger.get("api_port") or cell.get("api_port") or healthz_port)
+
+    if not module_path:
+        _log.error("lan-api-cell %s: no module path declared", name)
+        return
+    if not healthz_port or not api_port:
+        _log.error(
+            "lan-api-cell %s: missing healthz_port/api_port (healthz=%s api=%s)",
+            name, healthz_port, api_port,
+        )
+        return
+
+    try:
+        mod = importlib.import_module(module_path)
+    except Exception as e:  # noqa: BLE001
+        _log.error("lan-api-cell %s: import failed (%s): %s", name, module_path, e)
+        return
+
+    serve_fn = getattr(mod, "serve", None)
+    if not callable(serve_fn):
+        _log.error("lan-api-cell %s: module %s has no async serve()", name, module_path)
+        return
+
+    _log.info(
+        "lan-api-cell %s: starting (module=%s healthz=%d api=%d)",
+        name, module_path, healthz_port, api_port,
+    )
+    try:
+        await serve_fn(stop_event, healthz_port, api_port)
+    except Exception as e:  # noqa: BLE001 — keep runner alive across one cell's crash
+        _log.exception("lan-api-cell %s: serve() crashed: %s", name, e)
+
+
 async def spawn_cells_for_node(
     cells: list[dict[str, Any]], stop_event: asyncio.Event
 ) -> None:
@@ -397,6 +446,8 @@ async def spawn_cells_for_node(
             task = asyncio.create_task(_spawn_listener_cell(cell, stop_event))
         elif kind == "xrpc":
             task = asyncio.create_task(_spawn_xrpc_cell(cell, stop_event))
+        elif kind == "lan-api":
+            task = asyncio.create_task(_spawn_lan_api_cell(cell, stop_event))
         else:
             _log.warning(
                 "cell %s: unknown trigger kind %r, skipping", cell.get("name"), kind

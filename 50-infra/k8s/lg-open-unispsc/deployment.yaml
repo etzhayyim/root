@@ -11,6 +11,13 @@
 # (50-infra/etzhayyim-did-web). The Worker routes
 # /xrpc/ai.gftd.apps.unispsc.* → this Service via env.XRPC_UNISPSC_UPSTREAM.
 # No per-actor subdomain (ADR-2605212030 §D2).
+#
+# Substrate: yatachain (ADR-2605231400) — RW-free per ADR-2605172000. The
+# previous `mitama-udf-pool-rw` secretRef wiring (RW_URL / DATABASE_URL /
+# RW_SYNC_POOL) was removed in ADR-2605232100. State writes flow through the
+# @etzhayyim/sdk MstCheckpointSaver sidecar (Pod sidecar wiring is Stage 2
+# work, not in this manifest yet — markers ETZ_SUBSTRATE / ETZ_CHECKPOINTER_SOCKET
+# are placeholders for that follow-up).
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -60,18 +67,20 @@ spec:
             - "1"
             - pymagatama.langgraph_server_app:app
           env:
-            - name: RW_URL
-              valueFrom:
-                secretKeyRef:
-                  name: mitama-udf-pool-rw
-                  key: RW_URL
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: mitama-udf-pool-rw
-                  key: RW_URL
-            - name: RW_SYNC_POOL
-              value: "1"
+            # Substrate marker — yatachain composition per ADR-2605231400.
+            # No RisingWave / Postgres / Hyperdrive secrets are referenced from
+            # this Pod (RW-free per ADR-2605172000, decontaminated by
+            # ADR-2605232100). The legacy `mitama-udf-pool-rw` secretRef was
+            # removed in the same change.
+            - name: ETZ_SUBSTRATE
+              value: "yatachain"
+            # Forward-compatible marker for Stage 2 sidecar wiring of
+            # @etzhayyim/sdk MstCheckpointSaver (20-actors/etzhayyim-sdk/src/checkpointer.ts).
+            # Until the sidecar is added to this Pod (separate ADR), the path
+            # is informational only — the XRPC façade itself does not require
+            # a checkpointer to serve listAgents / invokeAgent / classify.
+            - name: ETZ_CHECKPOINTER_SOCKET
+              value: "/run/etzhayyim/checkpointer.sock"
             # Suppress the static-builtin assistants — this server's surface
             # is the XRPC façade, not /runs?assistant_id=builtin_*.
             - name: LANGGRAPH_DISABLE_BUILTINS
@@ -101,8 +110,16 @@ spec:
             timeoutSeconds: 5
             failureThreshold: 3
           readinessProbe:
+            # /healthz returns graph registry counts only (db_loaded / static_filled)
+            # and never touches RisingWave. The unispsc XRPC façade serves
+            # listAgents / invokeAgent / classify from the in-memory _GRAPH_REGISTRY,
+            # so registry-ready is the correct readiness signal.
+            #
+            # Previous target /xrpc/ai.gftd.apps.unispsc.health transitively
+            # exercised /readyz (psycopg DB SELECT 1) → removed by ADR-2605232100
+            # in lockstep with the RW_URL / DATABASE_URL secret removal.
             httpGet:
-              path: /xrpc/ai.gftd.apps.unispsc.health
+              path: /healthz
               port: http
             initialDelaySeconds: 10
             periodSeconds: 10
