@@ -28,4 +28,4 @@ graph.add_edge('validate', 'assess')
 graph.add_edge('assess', 'finalize')
 graph.add_edge('finalize', END)
 
-app = graph.compile()
+graph = graph.compile()

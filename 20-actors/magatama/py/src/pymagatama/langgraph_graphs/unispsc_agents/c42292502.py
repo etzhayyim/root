@@ -28,3 +28,5 @@ graph.add_edge("material_check", "sterilization_check")
 graph.add_edge("sterilization_check", "approval")
 graph.add_edge("approval", END)
 graph.add_edge("approval", END)
+
+graph = graph.compile()

@@ -56,6 +56,10 @@
     "./atproto": {
       "import": "./dist/atproto.js",
       "types": "./dist/atproto.d.ts"
+    },
+    "./yatachain": {
+      "import": "./dist/yatachain/index.js",
+      "types": "./dist/yatachain/index.d.ts"
     }
   },
   "bin": {

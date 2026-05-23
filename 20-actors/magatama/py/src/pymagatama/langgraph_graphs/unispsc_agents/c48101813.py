@@ -22,4 +22,4 @@ graph.add_edge('validate', 'approve')
 graph.add_edge('approve', END)
 
 # Compile the graph
-app = graph.compile()
+graph = graph.compile()

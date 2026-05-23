@@ -15,3 +15,5 @@ graph.add_node("sterilize", log_sterilization)
 graph.add_edge("validate", "sterilize")
 graph.add_edge("sterilize", END)
 graph.set_entry_point("validate")
+
+graph = graph.compile()

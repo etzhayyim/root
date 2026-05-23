@@ -1,11 +1,12 @@
 /**
  * @etzhayyim/cyber-freelance#DataMigration
  * データ移行スクリプト
- * 
+ *
  * freelancers → jobSeekers
  * proposals → applications
  */
 
+// CHARTER-VIOLATION §substrate (ADR-2605172000) — operational script; migrate to MST PDS write path before Council ratifies ETZHAYYIM_SUBSTRATE_MODE=mst.
 import postgres from "postgres";
 
 const DATABASE_URL = process.env.DATABASE_URL;
@@ -23,7 +24,7 @@ async function migrateFreelancersToJobSeekers() {
 	try {
 		// 1. freelancersテーブルからデータを取得
 		const freelancers = await client`
-			SELECT 
+			SELECT
 				id, userId, nationalityId, workPermitId,
 				availableFrom, desiredUnitPriceMin, desiredUnitPriceMax,
 				desiredWorkdaysPerWeek, remotePreference, createdAt, updatedAt
@@ -111,7 +112,7 @@ async function migrateProposalsToApplications() {
 	try {
 		// 1. proposalsテーブルからデータを取得
 		const proposals = await client`
-			SELECT 
+			SELECT
 				id, jobId, freelancerId, message, status, createdAt, updatedAt
 			FROM proposals
 		`;

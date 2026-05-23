@@ -19,4 +19,4 @@ graph.set_entry_point('material_check')
 graph.add_edge('material_check', 'weld_check')
 graph.add_edge('weld_check', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

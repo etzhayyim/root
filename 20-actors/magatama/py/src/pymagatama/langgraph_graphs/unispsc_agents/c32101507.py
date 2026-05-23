@@ -22,3 +22,5 @@ graph.add_node('thermal_check', validate_thermal)
 graph.add_edge('signal_check', 'thermal_check')
 graph.add_edge('thermal_check', END)
 graph.set_entry_point('signal_check')
+
+graph = graph.compile()

@@ -30,4 +30,4 @@ graph.add_edge('validate_material', 'run_inspection')
 graph.add_edge('run_inspection', 'check_approval')
 graph.add_edge('check_approval', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

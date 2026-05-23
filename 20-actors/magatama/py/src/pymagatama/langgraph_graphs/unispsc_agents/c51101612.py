@@ -20,3 +20,5 @@ graph.add_node("coa_validation", validate_coa)
 graph.set_entry_point("compliance")
 graph.add_edge("compliance", "coa_validation")
 graph.add_edge("coa_validation", END)
+
+graph = graph.compile()

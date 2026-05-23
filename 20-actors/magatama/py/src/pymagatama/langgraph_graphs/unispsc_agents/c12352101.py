@@ -22,4 +22,4 @@ graph.add_edge('purity_check', 'storage_check')
 graph.add_edge('storage_check', END)
 graph.set_entry_point('purity_check')
 
-compiled_graph = graph.compile()
+graph = graph.compile()

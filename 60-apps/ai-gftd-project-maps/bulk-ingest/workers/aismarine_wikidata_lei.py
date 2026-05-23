@@ -3,6 +3,17 @@
 
 ADR-2605011500 §Phase-1.2.
 
+yatachain port (TBD): this pod is Phase 1 Tier A in
+``60-apps/ai-gftd-project-maps/MIGRATION-TODO.md``. Target migration is
+``edge_vessel_owned_by`` / ``edge_vessel_operated_by`` INSERTs →
+``app.etzhayyim.maps.ownership`` records via ``pymagatama.substrate``.
+Recipe + per-site row-to-record converter design in
+``bulk-ingest/PORT-NOTES.md`` (apply the same 5-step pattern as
+``geonames_dumper.py`` shipped 2026-05-23). Two INSERT call sites
+(``apply_owner_rows`` and ``apply_operator_rows``) → two ownership
+record writes per matched row. Subject = LegalEntity (owner / operator)
+AT URI; object = vessel feature AT URI.
+
 Pulls ?ship wdt:P31/wdt:P279* wd:Q11446 ; wdt:P458 ?imo (ship with IMO);
 optional wdt:P127 ?owner ; wdt:P137 ?operator ; wdt:P5305 (LEI on the
 owner/operator company). For every (imo, lei, role) triple, joins to
@@ -39,7 +50,21 @@ import time
 import urllib.parse
 import urllib.request
 
-import psycopg2
+# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# the substrate seam below; direct psycopg2 imports are no longer
+# permitted in this worker. The seam still supports a transitional RW
+# mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.
+from _etzhayyim_substrate import open_substrate_writer
+
+# TODO(ADR-2605172000 / Stage 2): the writes below still hit
+# RisingWave directly via psycopg2 patterns specific to this
+# worker. Replace them with `open_substrate_writer().upsert_table(
+# '<table>', rows, conflict_key=...)` per the substrate seam
+# contract in `_etzhayyim_substrate.py`. The legacy import has
+# been re-added below as a guarded fallback so the worker still
+# functions while ETZHAYYIM_SUBSTRATE_MODE=rw; remove it once the
+# call sites are migrated.
+import psycopg2  # noqa: E402 — pending substrate refactor (Stage 2)
 
 logging.basicConfig(
     level=logging.INFO,

@@ -22,4 +22,4 @@ graph.set_entry_point('validate')
 graph.add_edge('validate', 'safety')
 graph.add_edge('safety', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

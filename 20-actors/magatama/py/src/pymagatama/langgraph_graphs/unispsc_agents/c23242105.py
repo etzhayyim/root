@@ -19,4 +19,4 @@ graph.add_node('validation', validate_insert)
 graph.set_entry_point('validation')
 graph.add_edge('validation', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

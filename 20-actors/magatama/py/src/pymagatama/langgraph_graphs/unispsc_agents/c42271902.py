@@ -24,4 +24,4 @@ graph.set_entry_point('biocompatibility_check')
 graph.add_edge('biocompatibility_check', 'sterilization_verify')
 graph.add_edge('sterilization_verify', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

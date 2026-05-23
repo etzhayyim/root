@@ -22,4 +22,4 @@ graph.set_entry_point('validate_material')
 graph.add_edge('validate_material', 'check_tolerances')
 graph.add_edge('check_tolerances', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

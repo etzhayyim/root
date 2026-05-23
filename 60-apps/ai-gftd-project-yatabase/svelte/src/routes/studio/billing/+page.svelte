@@ -9,13 +9,27 @@
 		EmptyState,
 	} from '@etzhayyim/design-system';
 	import { apiKey, plan } from '$lib/stores';
-	import { plan as planApi, auth, ApiError, type UsageMetric } from '$lib/api';
+	import { plan as planApi, donate, ApiError, type UsageMetric, type DonationPurpose } from '$lib/api';
+
+	// Charter Rider §2 (ADR-2605192115): paid-tier upgrades happen by
+	// USDC donation on Base L2 (not Stripe checkout). The form below
+	// drives POST /api/donate with purpose='internal-subscription'.
+	const TREASURY_ADDRESS = '0x0000000000000000000000000000000000000000'; // TODO: replace with yatabase Safe address on Base L2
+	const DEFAULT_PLAN_DONATION_USDC: Record<string, string> = {
+		starter:   '11.00',
+		developer: '33.00',
+		business: '330.00',
+	};
 
 	let usage24 = $state<Record<string, UsageMetric> | null>(null);
 	let usage30 = $state<Record<string, UsageMetric> | null>(null);
 	let loading = $state(true);
-	let portalLoading = $state(false);
-	let upgradeLoading = $state(false);
+	let donateLoading = $state(false);
+	let donateOpen = $state(false);
+	let donateAmount = $state(DEFAULT_PLAN_DONATION_USDC.developer);
+	let donatePurpose = $state<DonationPurpose>('internal-subscription');
+	let donateMemo = $state('');
+	let donateTxHash = $state<string | null>(null);
 	let error = $state('');
 	let upgraded = $state(false);
 
@@ -41,31 +55,39 @@
 		}
 	}
 
-	async function openPortal() {
-		portalLoading = true;
-		error = '';
-		try {
-			const r = await auth.stripePortal($apiKey);
-			const url = r.portalUrl ?? r.url;
-			if (url) window.location.href = url;
-		} catch (e: any) {
-			error = e instanceof ApiError ? `HTTP ${e.status}: ${e.message}` : e?.message || String(e);
-		} finally {
-			portalLoading = false;
-		}
+	function openDonateForm(targetPlan: 'starter' | 'developer' | 'business') {
+		donateAmount = DEFAULT_PLAN_DONATION_USDC[targetPlan] ?? donateAmount;
+		donatePurpose = 'internal-subscription';
+		donateMemo = `yatabase plan: ${targetPlan}`;
+		donateTxHash = null;
+		donateOpen = true;
 	}
 
-	async function startUpgrade() {
-		upgradeLoading = true;
+	async function submitDonation() {
+		donateLoading = true;
 		error = '';
+		donateTxHash = null;
 		try {
-			const r = await auth.upgrade($apiKey, 'developer');
-			if (r.checkoutUrl) window.location.href = r.checkoutUrl;
-			else if (r.message) error = r.message; // stub mode
+			const r = await donate.submit($apiKey, {
+				to: TREASURY_ADDRESS,
+				amountUsdc: donateAmount,
+				purpose: donatePurpose,
+				memo: donateMemo || undefined,
+			});
+			if (r.error) {
+				error = r.message || r.error;
+				return;
+			}
+			donateTxHash = r.txHash ?? r.paymentReceipt?.txHash ?? null;
+			// Plan flip happens asynchronously via /webhook/usdc after
+			// ChartersComplianceRegistry attestation. Refresh after a
+			// short delay so the UI reflects the new tier when KV is
+			// updated.
+			setTimeout(() => { void refresh(); }, 2000);
 		} catch (e: any) {
 			error = e instanceof ApiError ? `HTTP ${e.status}: ${e.message}` : e?.message || String(e);
 		} finally {
-			upgradeLoading = false;
+			donateLoading = false;
 		}
 	}
 
@@ -102,12 +124,12 @@
 		</div>
 		<div class="flex gap-2">
 			{#if ($plan?.plan ?? 'free') === 'free'}
-				<Button size="md" variant="solid-fill" onclick={startUpgrade} aria-disabled={upgradeLoading}>
-					{upgradeLoading ? 'Redirecting…' : 'Upgrade to Developer — $33/mo'}
+				<Button size="md" variant="solid-fill" onclick={() => openDonateForm('developer')}>
+					Upgrade via USDC donation — $33
 				</Button>
 			{:else}
-				<Button size="md" variant="outline" onclick={openPortal} aria-disabled={portalLoading}>
-					{portalLoading ? 'Opening…' : 'Manage subscription'}
+				<Button size="md" variant="outline" onclick={() => openDonateForm('developer')}>
+					Make another donation
 				</Button>
 			{/if}
 		</div>
@@ -115,8 +137,73 @@
 
 	{#if upgraded}
 		<NotificationBanner type="success">
-			Payment confirmed — your plan has been upgraded. Welcome to Developer!
+			Donation confirmed — your plan has been upgraded.
 		</NotificationBanner>
+	{/if}
+
+	{#if donateOpen}
+		<div class="rounded-2xl border border-gftd-border bg-gftd-card p-6">
+			<div class="flex items-start justify-between">
+				<div>
+					<h2 class="text-lg font-medium text-gftd-text">USDC donation (Base L2)</h2>
+					<p class="mt-1 text-sm text-gftd-secondary">
+						Per Charter Rider §2 (<a class="underline" href="https://github.com/etzhayyim/root/blob/main/CHARTER-RIDER.md" target="_blank" rel="noreferrer">link</a>),
+						paid tiers are SBT↔SBT-bound internal-subscriptions funded by a USDC donation on Base L2.
+						The plan flip happens after ChartersComplianceRegistry attestation hits <code>/webhook/usdc</code>.
+					</p>
+				</div>
+				<Button size="sm" variant="outline" onclick={() => (donateOpen = false)}>Close</Button>
+			</div>
+
+			<div class="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
+				<label class="text-sm text-gftd-secondary">
+					Amount (USDC)
+					<input
+						type="text"
+						class="mt-1 w-full rounded-md border border-gftd-border bg-black/30 px-3 py-2 font-mono text-gftd-text"
+						bind:value={donateAmount}
+						placeholder="33.00"
+					/>
+				</label>
+				<label class="text-sm text-gftd-secondary">
+					Purpose
+					<select
+						class="mt-1 w-full rounded-md border border-gftd-border bg-black/30 px-3 py-2 text-gftd-text"
+						bind:value={donatePurpose}
+					>
+						<option value="donation">donation (unrestricted)</option>
+						<option value="kisha">kisha (charitable contribution)</option>
+						<option value="grant">grant (time-bound project funding)</option>
+						<option value="tithe">tithe (10% Public Fund split)</option>
+						<option value="internal-subscription">internal-subscription (plan upgrade)</option>
+						<option value="internal-purchase">internal-purchase (one-time SBT-bound)</option>
+						<option value="internal-promo">internal-promo (promotional SBT mint)</option>
+					</select>
+				</label>
+				<label class="text-sm text-gftd-secondary md:col-span-2">
+					Memo (optional, ≤280 chars)
+					<input
+						type="text"
+						class="mt-1 w-full rounded-md border border-gftd-border bg-black/30 px-3 py-2 text-gftd-text"
+						bind:value={donateMemo}
+						maxlength="280"
+					/>
+				</label>
+			</div>
+
+			<div class="mt-4 flex gap-2">
+				<Button size="md" variant="solid-fill" onclick={submitDonation} aria-disabled={donateLoading}>
+					{donateLoading ? 'Submitting…' : 'Submit donation'}
+				</Button>
+				<Button size="md" variant="outline" onclick={() => (donateOpen = false)}>Cancel</Button>
+			</div>
+
+			{#if donateTxHash}
+				<NotificationBanner type="success">
+					Donation submitted. Tx: <code class="font-mono text-xs">{donateTxHash}</code>
+				</NotificationBanner>
+			{/if}
+		</div>
 	{/if}
 
 	{#if error}

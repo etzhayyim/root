@@ -20,3 +20,5 @@ graph = StateGraph(SurgicalSupplyState)
 graph.add_node('validate', validate_sterility)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

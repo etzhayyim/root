@@ -59,7 +59,7 @@ export function landingResponse(): Response {
     "MCP JSON-RPC 2.0 tool surface",
     "AT Protocol XRPC pass-through",
     "AT Protocol DID auth",
-    "Stripe Live billing (US)",
+    "USDC donations on Base L2",
     "適格請求書 invoicing (JP)",
     "CCPA / GDPR / 改正個人情報保護法 endpoints"
   ]
@@ -264,7 +264,7 @@ curl -X POST <span class="s">https://yatabase.etzhayyim.com/mcp</span> \\
       <ul><li>Unlimited usage</li><li>SLA, SSO, multi-region</li><li>Sales-negotiated</li><li><a href="mailto:sales@etzhayyim.com">Contact sales</a></li></ul>
     </div>
   </div>
-  <p style="font-size:13px;color:#64748b;margin-top:14px">Upgrade in-product via Studio → Plan, or POST /auth/v1/upgrade. Stripe Live (US) — Japan-compliant 適格請求書 included for JP customers (T9007028460042).</p>
+  <p style="font-size:13px;color:#64748b;margin-top:14px">Upgrade in-product via Studio → Plan (POST /api/donate). USDC donations on Base L2 per Charter Rider §2 — Japan-compliant 適格請求書 included for JP customers (T9007028460042).</p>
 </section>
 
 <section id="surfaces">

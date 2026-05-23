@@ -19,4 +19,4 @@ graph.set_entry_point('validate_license')
 graph.add_edge('validate_license', 'check_compatibility')
 graph.add_edge('check_compatibility', END)
 
-app = graph.compile()
+graph = graph.compile()

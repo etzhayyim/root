@@ -20,4 +20,4 @@ graph.add_node('process', validate_holder_specs)
 graph.set_entry_point('process')
 graph.add_edge('process', END)
 
-app = graph.compile()
+graph = graph.compile()

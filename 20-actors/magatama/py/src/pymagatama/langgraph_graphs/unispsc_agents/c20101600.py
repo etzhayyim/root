@@ -20,4 +20,4 @@ graph.set_entry_point('validate')
 graph.add_edge('validate', 'process_mining_order')
 graph.add_edge('process_mining_order', END)
 
-app = graph.compile()
+graph = graph.compile()

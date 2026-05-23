@@ -18,3 +18,5 @@ graph = StateGraph(OutdoorGearState)
 graph.add_node('validate', validate_gear)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

@@ -18,3 +18,5 @@ graph = StateGraph(MountingBoardState)
 graph.add_node('validate', validate_board_specs)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

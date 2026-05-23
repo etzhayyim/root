@@ -25,4 +25,4 @@ graph.set_entry_point('validate_materials')
 graph.add_edge('validate_materials', 'check_sterility')
 graph.add_edge('check_sterility', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

@@ -20,3 +20,5 @@ graph.add_node("qc", perform_quality_check)
 graph.add_edge("validate", "qc")
 graph.add_edge("qc", END)
 graph.set_entry_point("validate")
+
+graph = graph.compile()

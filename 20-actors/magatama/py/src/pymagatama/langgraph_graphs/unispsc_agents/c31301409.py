@@ -21,3 +21,5 @@ graph.add_node('run_ndt_inspection', run_ndt_inspection)
 graph.add_edge('validate_material', 'run_ndt_inspection')
 graph.add_edge('run_ndt_inspection', END)
 graph.set_entry_point('validate_material')
+
+graph = graph.compile()

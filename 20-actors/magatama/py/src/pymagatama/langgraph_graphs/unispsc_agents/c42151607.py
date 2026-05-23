@@ -22,3 +22,5 @@ graph.add_node('autoclave_check', check_autoclave_specs)
 graph.add_edge('material_check', 'autoclave_check')
 graph.add_edge('autoclave_check', END)
 graph.set_entry_point('material_check')
+
+graph = graph.compile()

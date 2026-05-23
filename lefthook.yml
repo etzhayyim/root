@@ -14,7 +14,7 @@ pre-commit:
       # framework content and required remediation.
       #
       # Detection regex covers:
-      #   - postgres://USER:PASSWORD@HOST/DB                     (DSN with embedded password)
+      #   - postgres://USER:PASSWORD@HOST/DB                     (DSN with embedded password — placeholder doc only)
       #   - sk_live_… / sk_test_… (Stripe-style secret keys)     (also matches arbitrary `sk_*` tokens)
       #   - rw_<32-hex>             (RisingWave password format used by upstream)
       #   - AWS_SECRET_ACCESS_KEY=  / aws_secret_access_key=     (env-style aws keys)
@@ -110,6 +110,19 @@ pre-commit:
       run: node 70-tools/scripts/lint/charter-rider-notice.mjs {staged_files}
       stage_fixed: false
 
+    karute-phi-plaintext-guard:
+      # Enforce ADR-2605231100 §"Substrate hard-rules" + ADR-2605181100.
+      # Blocks plaintext writes whose collection / $type / nsid points to a
+      # karute inner type (patient / encounter / soapNote / observation /
+      # condition / medicationRequest / serviceRequest / dispenseRecord)
+      # unless the surrounding lines are an encryptedWrite() context.
+      # Exempt: lexicon SoTs, actor manifest, ADRs/docs, tests, the guard
+      # script itself. Use '// phi-guard: allow' inline to bypass with
+      # documented justification.
+      glob: "*.{ts,tsx,js,jsx,mjs,cjs,py,svelte,jsonld}"
+      run: node 70-tools/scripts/lint/karute-phi-plaintext-guard.mjs {staged_files}
+      stage_fixed: false
+
     validate-religious-corp-lexicons:
       # Validate etzhayyim religious-corp lexicons per AT Protocol Lexicon v1
       # rules (no float types, integer with implied units). Per ADR-2605190900.
@@ -151,17 +164,17 @@ pre-commit:
       # and exits 0. Install via:
       #   cd 70-tools/e7m && uv venv .venv && source .venv/bin/activate && uv pip install -e .
       run: |
-        if ! command -v e7m >/dev/null 2>&1; then
-          # Try the project-local venv as a fallback before giving up.
-          if [ -x 70-tools/e7m/.venv/bin/e7m ]; then
-            E7M_BIN=70-tools/e7m/.venv/bin/e7m
-          else
-            echo "ℹ e7m not on PATH; skipping constitutional verify."
-            echo "  Install with: cd 70-tools/e7m && uv venv .venv && source .venv/bin/activate && uv pip install -e ."
-            exit 0
-          fi
-        else
+        # Prefer the project-local venv binary because PATH `e7m` may
+        # collide with an unrelated `gftd` shim that has no `verify`
+        # subcommand on some workstations.
+        if [ -x 70-tools/e7m/.venv/bin/e7m ]; then
+          E7M_BIN=70-tools/e7m/.venv/bin/e7m
+        elif command -v e7m >/dev/null 2>&1; then
           E7M_BIN=e7m
+        else
+          echo "ℹ e7m not on PATH; skipping constitutional verify."
+          echo "  Install with: cd 70-tools/e7m && uv venv .venv && source .venv/bin/activate && uv pip install -e ."
+          exit 0
         fi
         if ! "$E7M_BIN" --json verify > /tmp/e7m-verify.$$.json 2>/dev/null; then
           echo "✘ e7m verify failed — constitutional invariant violation"

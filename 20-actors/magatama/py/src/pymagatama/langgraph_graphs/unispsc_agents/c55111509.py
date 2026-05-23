@@ -20,4 +20,4 @@ graph.set_entry_point('validate')
 graph.add_edge('validate', 'process_stream')
 graph.add_edge('process_stream', END)
 
-app = graph.compile()
+graph = graph.compile()

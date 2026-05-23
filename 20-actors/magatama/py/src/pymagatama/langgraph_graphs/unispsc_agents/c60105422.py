@@ -18,4 +18,4 @@ graph.add_node('content_check', validate_content)
 graph.add_edge('content_check', END)
 graph.set_entry_point('content_check')
 
-compiled_graph = graph.compile()
+graph = graph.compile()

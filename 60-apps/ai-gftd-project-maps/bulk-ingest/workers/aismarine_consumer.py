@@ -37,7 +37,21 @@ import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Lock, Thread
 
-import psycopg2
+# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# the substrate seam below; direct psycopg2 imports are no longer
+# permitted in this worker. The seam still supports a transitional RW
+# mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.
+from _etzhayyim_substrate import open_substrate_writer
+
+# TODO(ADR-2605172000 / Stage 2): the writes below still hit
+# RisingWave directly via psycopg2 patterns specific to this
+# worker. Replace them with `open_substrate_writer().upsert_table(
+# '<table>', rows, conflict_key=...)` per the substrate seam
+# contract in `_etzhayyim_substrate.py`. The legacy import has
+# been re-added below as a guarded fallback so the worker still
+# functions while ETZHAYYIM_SUBSTRATE_MODE=rw; remove it once the
+# call sites are migrated.
+import psycopg2  # noqa: E402 — pending substrate refactor (Stage 2)
 
 logging.basicConfig(
     level=logging.INFO,

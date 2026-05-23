@@ -10,12 +10,33 @@ projector + frozen BitNet trunk).
 
 Role separation:
 
-| Stage                                 | Where                          | Tool                      |
-| ------------------------------------- | ------------------------------ | ------------------------- |
-| Image → mesh (Hunyuan3D-2 generation) | EVO-X2 (ADR-2605202345)        | ComfyUI + kijai wrapper   |
-| Mesh → 4-view PNG render              | Mac (Apple Silicon, CGL/Metal) | moderngl standalone       |
-| Image + renders → caption             | Mac (MPS)                      | Florence-2-large-ft       |
-| sample.json assembly                  | Mac                            | this package              |
+| Stage                                 | Where                          | Tool                                     |
+| ------------------------------------- | ------------------------------ | ---------------------------------------- |
+| Image → mesh (generator)              | EVO-X2 (ADR-2605202345)        | `--generator hunyuan3d` (ComfyUI + kijai) **or** `--generator pixal3d` (TencentARC Pixal3D-T cascade @512) |
+| Mesh → 4-view PNG render              | Mac (Apple Silicon, CGL/Metal) | moderngl standalone (skip for Pixal3D — it already emits 8 frames × 6 modes) |
+| Image + renders → caption             | Mac (MPS)                      | Florence-2-large-ft                      |
+| sample.json assembly                  | Mac                            | this package                             |
+
+### Generator backends
+
+`bgp-submit --generator <name>` selects the image→3D backend:
+
+| name | underlying checkpoints | wall / sample (EVO-X2 ROCm) | extra outputs vs Hunyuan3D |
+|---|---|---|---|
+| `hunyuan3d` (default) | `hunyuan3d-dit-v2-0-fp16.safetensors` + `hunyuan3d-vae-v2-0-fp16.safetensors` | ~66 s | — |
+| `pixal3d` | `TencentARC/Pixal3D-T` + `camenduru/dinov3-vitl16-pretrain-lvd1689m` + `Ruicheng/moge-2-vitl` | ~120 s (cascade@512, max_num_tokens=49,152, 8 frames) | shape SLAT (.npz) + tex SLAT (.npz) + 8 frames × 6 render modes (normal / clay / base_color / shaded_forest / shaded_sunset / shaded_courtyard) |
+
+Endpoint config (env var or CLI flag):
+
+```
+BGP_GENERATOR=pixal3d                         # default backend
+BGP_COMFY_URL=http://192.168.1.22:8188        # for hunyuan3d
+BGP_PIXAL3D_URL=http://192.168.1.22:7860      # for pixal3d (locally-served Gradio Space)
+```
+
+Upstream Pixal3D Space: https://huggingface.co/spaces/TencentARC/Pixal3D
+(Apache-2.0 wrapper; **per-checkpoint license** at the `TencentARC/Pixal3D-T`
+model card — verify before any first-party redistribution per Charter Rider §2).
 
 ## Install
 

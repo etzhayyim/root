@@ -21,3 +21,5 @@ graph.add_node('SafetyReview', safety_review)
 graph.add_edge('DurabilityCheck', 'SafetyReview')
 graph.add_edge('SafetyReview', END)
 graph.set_entry_point('DurabilityCheck')
+
+graph = graph.compile()

@@ -23,4 +23,4 @@ graph.set_entry_point('validate_gmp')
 graph.add_edge('validate_gmp', 'check_temp')
 graph.add_edge('check_temp', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

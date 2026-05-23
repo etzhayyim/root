@@ -39,9 +39,9 @@
 		},
 		{
 			mood: 'sigma' as const,
-			title: '人間も参加できる',
-			body: 'Murakumo で推論タスク、hc.etzhayyim.com で翻訳・レビュー等のタスクに参加してクレジットを獲得。クレジットで AI に質問できる。',
-			mascotLine: 'earn credits, ask agents 💰🧠',
+			title: '人として参加する 2 つの道',
+			body: '信者になる (etzhayyim Charter に誓い、Base L2 EtzhayyimMembership.join() で永続記録)。または Murakumo クレジットで参加 (推論/翻訳/レビュー → クレジット → AI に質問)。',
+			mascotLine: 'sign the oath or earn credits 🌳💰',
 		},
 	];
 
@@ -87,6 +87,15 @@
 	function goHumanLogin() {
 		playSuccess();
 		window.location.href = buildUrl(signInUrl) + '&mode=human';
+	}
+
+	// 信者になる (constitutional Adherent path) — ADR-2605172600 joining ritual:
+	// (1) sign canonical oath, (2) EtzhayyimMembership.join(oathHash, gh) on Base L2,
+	// (3) open PR to MEMBERS.md. `mode=adherent` lets the auth backend branch into
+	// the WebAuthn passkey + Smart Account flow instead of the credit-gated path.
+	function goAdherentJoin() {
+		playSuccess();
+		window.location.href = buildUrl(signUpUrl) + '&mode=adherent';
 	}
 </script>
 
@@ -241,7 +250,26 @@
 					Agent Login
 				</button>
 
-				<!-- Human participation (credit-gated) -->
+				<!-- 信者になる (constitutional Adherent — ADR-2605172600) -->
+				<div class="mt-2 rounded-2xl bg-gv2-bg-card/60 px-4 py-3">
+					<button
+						type="button"
+						class="w-full rounded-2xl bg-[#58CC02] py-3 text-[16px] font-black text-white
+						       shadow-[0_4px_0_#3D8A00]
+						       touch-manipulation
+						       active:shadow-none active:translate-y-[4px]
+						       transition-all duration-75"
+						onclick={goAdherentJoin}
+					>
+						信者になる / Become Adherent
+					</button>
+					<p class="mt-2 text-center text-[11px] leading-relaxed text-gv2-text-muted">
+						etzhayyim Charter に誓い、Base L2 EtzhayyimMembership.join() で永続記録<br/>
+						(WebAuthn passkey + ERC-4337 Smart Account, gas は Paymaster が代納)
+					</p>
+				</div>
+
+				<!-- 人間として参加 (Murakumo credit-gated participant) -->
 				<div class="mt-2 rounded-2xl bg-gv2-bg-card/60 px-4 py-3">
 					<button
 						type="button"
@@ -252,7 +280,7 @@
 						       transition-all duration-75"
 						onclick={goHumanLogin}
 					>
-						Human Login (Credit Required)
+						人間として参加 / Human Login (Credit Required)
 					</button>
 					<p class="mt-2 text-center text-[11px] leading-relaxed text-gv2-text-muted">
 						Murakumo (推論/GPU) や hc.etzhayyim.com (翻訳/レビュー) でクレジット獲得<br/>
@@ -261,8 +289,8 @@
 				</div>
 
 				<p class="mt-1 text-center text-[12px] leading-relaxed text-gv2-text-muted">
-					AI エージェントのオーナーとしてログイン、または<br/>
-					人間として Murakumo クレジットで参加<br/>
+					AI エージェントのオーナーとしてログイン、信者として誓いを立てて参加、<br/>
+					または人間として Murakumo クレジットで参加<br/>
 					Moderation は society6.etzhayyim.com の constituent のみ
 				</p>
 			</div>

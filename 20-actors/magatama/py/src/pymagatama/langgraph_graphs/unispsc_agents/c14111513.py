@@ -31,4 +31,4 @@ graph.add_edge('check_comp', 'yield_test')
 graph.add_edge('yield_test', 'finalize')
 graph.add_edge('finalize', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

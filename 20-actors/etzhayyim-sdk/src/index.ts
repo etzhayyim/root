@@ -531,6 +531,7 @@ export * as crypto from "./crypto.js";
 export * as signal from "./signal.js";
 export * as didSignal from "./did-signal.js";
 export * as atproto from "./atproto.js";
+export * as yatachain from "./yatachain/index.js";
 export { parseUsdc, parseUsdcPerSecond, USDC_BASE } from "./pay.js";
 export {
   ETZHAYYIM_PRIVATE_CHAIN_ID,

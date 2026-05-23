@@ -25,4 +25,4 @@ graph.set_entry_point('validate_thermal')
 graph.add_edge('validate_thermal', 'verify_safety')
 graph.add_edge('verify_safety', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

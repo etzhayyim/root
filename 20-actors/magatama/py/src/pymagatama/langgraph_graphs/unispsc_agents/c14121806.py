@@ -24,4 +24,4 @@ graph.add_node('process_paper', lambda x: {'validation_log': x['validation_log']
 graph.set_entry_point('validate')
 graph.add_conditional_edges('validate', route_by_material)
 graph.add_edge('process_paper', END)
-app = graph.compile()
+graph = graph.compile()

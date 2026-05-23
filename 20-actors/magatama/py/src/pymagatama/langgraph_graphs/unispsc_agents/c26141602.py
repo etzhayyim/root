@@ -22,4 +22,4 @@ graph.set_entry_point('validate')
 graph.add_edge('validate', 'export_check')
 graph.add_edge('export_check', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

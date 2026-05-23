@@ -22,4 +22,4 @@ graph.set_entry_point('material_validation')
 graph.add_edge('material_validation', 'curriculum_check')
 graph.add_edge('curriculum_check', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

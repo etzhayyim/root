@@ -26,4 +26,4 @@ graph.add_conditional_edges("validate", route_for_processing)
 graph.add_edge("refining", END)
 graph.add_edge("reject", END)
 
-app = graph.compile()
+graph = graph.compile()

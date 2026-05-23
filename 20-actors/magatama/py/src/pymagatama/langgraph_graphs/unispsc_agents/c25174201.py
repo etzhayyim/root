@@ -22,4 +22,4 @@ graph.add_edge('validation', 'assembly')
 graph.add_edge('assembly', END)
 
 if __name__ == '__main__':
-    app = graph.compile()
+    graph = graph.compile()

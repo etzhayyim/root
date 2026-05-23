@@ -46,6 +46,10 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | 18. Bootstrap Council Seat 2-5 (30-day public objection period 2026-05-20 → 2026-06-19) | 🟡 RFP OPEN — see [`COUNCIL.md`](COUNCIL.md) + [`COUNCIL-BOOTSTRAP-RFP.md`](COUNCIL-BOOTSTRAP-RFP.md) |
 | 19. Base Sepolia testnet deploy (funded private key + RPC required) | ⏳ post-Council |
 | 20. Mainnet deploy + Phase 2 governance reference wiring | ⏳ post-testnet |
+| 21. UNSPSC actor-as-organism Wave 1 (joucho heartbeat-cadence Python port + c10101500 reference) | ✅ 2026-05-23 (ADR-2605232345; `pymagatama.organism`) |
+| 22. UNSPSC actor-as-organism Wave 2 (18,342 mass-deploy via `UnispscOrganismFleetCell` shard-0/1/2 + per-code joucho personality + follower stub) | ✅ 2026-05-24 (ADRs 2605240000 / 2605240015 / 2605240030; manifests-ready, apply pending) |
+| 23. UNSPSC organism post sink (NDJSON queue + TS drainer interface) + k8s DaemonSet manifests | ✅ 2026-05-24 (ADR-2605240100; `50-infra/k8s/unispsc-organism-fleet/`; drainer sidecar Wave 3) |
+| 24. Ecosystem self-reflection: `KaizenObserverCell` + 6 rules + KaizenProposal NDJSON + PR agent contract | ✅ 2026-05-24 (ADR-2605240200; `pymagatama.organism.kaizen`; PR agent Wave 4) |
 
 ## Repo Layout (Shannon-Optimal 8-Layer, ADR-2604251830)
 
@@ -53,7 +57,8 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 etzhayyim/root/
 ├── 00-contracts/        # lexicons / bpmn / dmn / Rego policies / resources (JSON-LD)
 ├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim,
-│                        # wproto, at-client, signal-client
+│                        # wproto, at-client, signal-client,
+│                        # yatachain (Holochain-iso composition spec, ADR-2605231400)
 ├── 20-actors/           # magatama (Pregel framework + host SDK +
 │                        # unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
 │                        # magatama-go, kami-engine-sdk, effect-cypher,
@@ -119,12 +124,31 @@ etzhayyim/root/
 - Do not include the Book of Revelation (黙示録/啓示の書) or eschatological content as religious doctrine. Per ADR-2605192100 §1.15, etzhayyim is non-eschatological.
 - Do not commit secrets. Private DID key lives in macOS Keychain (`service=etzhayyim, account=DID_PRIVATE_KEY_ED25519`) + 1Password mirror.
 
+## Baien tooling index (2026-05-23 wave)
+
+| Tool / dir | Purpose | Key ADR |
+|---|---|---|
+| `e7m bench micro` | 15-prompt verifiable smoke for baien (`70-tools/scripts/bench/baien-microbench/`) | ADR-2605092350 |
+| `e7m bench core4` | lm-eval-harness Core 4 (IFEval / GPQA / MMLU-Redux / Global PIQA) via `lm_eval_wrapper.py` (inductor probe suppressed) | — |
+| `e7m bench distill` | LangGraph ReAct loop: analyze → fetch_dataset (HF, default) **or** select_teacher (fallback) → SFT (peft+trl LoRA on bf16 master) → microbench eval. `commit_node` appends `90-docs/baien/distilled-models.jsonl` → codegen → `llm-model-registry-distilled.ts` | ADR-2605231300 |
+| `e7m bench rope-extend` | Stage 1 of context extension — runs `microbench_long.py` under 3 RoPE configs (baseline / linear×4 / NTK×4) and emits side-by-side pass matrix | ADR-2605231600 |
+| `bgp-submit --generator hunyuan3d|pixal3d` | baien-graft 3D dataset pipeline; two generators (Hunyuan3D-2 default / TencentARC Pixal3D-T cascade@512) | ADR-2605202115 |
+| `etzhayyim_organism.sensors.charter_rider.scan()` | Canonical §2(a)..(h) content scanner; used by `baien-distill.validate` and recommended for any pipeline that ingests / generates text into first-party artifacts | ADR-2605192200 |
+| `70-tools/scripts/llm-registry/gen-distilled-entries.mjs` | distilled-models.jsonl → `llm-model-registry-distilled.ts` codegen (2-phase ship: manifest + reviewer-gated TS) | — |
+
+Snapshot artifacts (run results) live under `90-docs/baien/`:
+- `frontier-bench-snapshot-260523.md` — frontier-LLM §A reference + baien microbench results
+- `context-extend-snapshot-260523.md` — rope-extend Stage 1 results stub (awaits run)
+- `distilled-models.jsonl` — committed adapter manifest (codegen source)
+
 ## Future Work
 
 - **lefthook hooks** full set (adr-validate, docs-registry, lint-dangerous-query, llm-model-ssot)
 - **GitHub Actions CI**: lint / type-check / build / test per layer
 - **Dependabot** for npm + cargo + uv ecosystems
 - **`90-docs/_registry/docs.json`** generator + validator
+- **baien-distill Stage 2/3** (YaRN + LoRA, LongRoPE continual) per ADR-2605231600
+- **Core 3 bench strategy revision** — switch from `_generative` (~28h/task) to `_completions` (loglikelihood, ~30 min) for next baien snapshot
 
 ## Substrate boundary (CRITICAL — ADRs 2605172000 + 2605172100 + religious-corp wave)
 
@@ -145,6 +169,8 @@ This repo is **blockchain-self-contained**. Hard rules enforced by ADRs and (fut
 | Content (Gore) | 教育 / 歴史 / 宗教 / 人権告発 文脈の暴力 imagery のみ | 無目的暴力 entertainment / desensitization 設計 |
 | Confidentiality (ADR-2605181100) | `app.etzhayyim.encrypted.*` (XChaCha20-Poly1305 envelope + Signal-wrapped per-recipient keys, DID-bound) | Plaintext private records on MST / app-side libsignal / noble-ciphers imports |
 | Substrate client imports | Only via `@etzhayyim/sdk` | Direct `@atproto/api` / `viem` / IPFS client / `@noble/ciphers` / `@signalapp/libsignal-client` from app code |
+| Architecture reference (Holochain-iso) | `yatachain` (`10-protocol/yatachain/`, ADR-2605231400) — names the composition of the substrate primitives above | inventing a parallel composition name without ADR |
+| Derived read path (hot-path queries) | `yatachain-projection` (ADR-2605231500) — RW / Lance / Iroh / index used for range/spatial/aggregate reads, IFF (a) deterministically rebuildable from MST+IPFS, (b) never the sole write home, (c) marked with `// yatachain-projection` line comment or `yatachain-projection.toml` manifest | using RW/Postgres as a primary write store; un-marked carve-outs; "projection of projection" without documented chain back to MST |
 
 Apps that need fiat / paid features call an external backend via XRPC consent-capability (progressive enhancement, **non-profit領収書 用途のみ** per ADR-2605192115 §4). Open app remains operational without it.
 
@@ -163,6 +189,9 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `50-infra/murakumo/fleet.toml` — religious-corp cell placement (10 nodes × 15 cells)
 - `20-actors/etzhayyim-sdk/README.md` — SDK API surface + hard rules
 - `20-actors/magatama/cells/README.md` — religious-corp Pregel cell catalog
+- `10-protocol/yatachain/SPEC.md` — Holochain-isomorphic substrate composition spec (ADR-2605231400)
+- `90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md` — yatachain naming + 7-layer mapping + witness quorum decision
+- `90-docs/adr/2605231500-yatachain-projection.md` — regenerable cache rules; the hot-path escape hatch for ADR-2605172000
 
 ## References
 

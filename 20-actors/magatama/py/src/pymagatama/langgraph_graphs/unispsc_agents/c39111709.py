@@ -20,3 +20,5 @@ graph = StateGraph(EmergencyLightState)
 graph.add_node('validate', validate_specs)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

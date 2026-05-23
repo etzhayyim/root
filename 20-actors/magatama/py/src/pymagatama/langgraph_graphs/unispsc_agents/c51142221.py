@@ -26,3 +26,5 @@ graph.set_entry_point('verify_license')
 graph.add_edge('verify_license', 'check_compliance')
 graph.add_edge('check_compliance', 'finalize')
 graph.add_edge('finalize', END)
+
+graph = graph.compile()

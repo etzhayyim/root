@@ -20,3 +20,5 @@ graph.add_node('audit', run_dimensional_audit)
 graph.add_edge('validation', 'audit')
 graph.add_edge('audit', END)
 graph.set_entry_point('validation')
+
+graph = graph.compile()

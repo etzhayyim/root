@@ -11,7 +11,7 @@ Idempotent: a dump_id (UTC date) skips if already complete.
 Resumable: tracks last-processed offset in a DUMP_CHECKPOINT KV (B2 small file).
 
 ENV:
-  DATABASE_URL          postgres://root:...@45.32.79.245:4566/dev
+  DATABASE_URL          postgres://root:...@host:4566/dev  (placeholder — set via k8s Secret)
   B2_BUCKET             ai-gftd-nats
   B2_PREFIX             maps-bulk-ingest/wikidata
   B2_ACCESS_KEY_ID
@@ -37,7 +37,11 @@ from typing import Iterator
 from urllib.request import urlopen
 
 import boto3
-import psycopg2
+# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# the substrate seam below; direct psycopg2 imports are no longer
+# permitted in this worker. The seam still supports a transitional RW
+# mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.
+from _etzhayyim_substrate import open_substrate_writer
 import pyarrow as pa
 import pyarrow.parquet as pq
 
@@ -174,41 +178,29 @@ def _flush_shard(rows: list[dict], dump_id: str, shard_idx: int) -> str:
     return key
 
 
-def _insert_rows_into_rw(rows: list[dict], batch_size: int = 1000) -> int:
-    """Insert in-memory rows into RisingWave vertex_spatial via multi-row INSERT.
+def _insert_rows_into_substrate(rows: list[dict], batch_size: int = 1000) -> int:
+    """Upsert ingested rows via the etzhayyim substrate seam.
 
-    Called inline after each shard flush so RW row count grows live during
-    the multi-hour stream, instead of batched at end.
+    Per ADR-2605172000 the writer dispatches on
+    ``ETZHAYYIM_SUBSTRATE_MODE``: ``mst`` (PDS → MST + IPFS + Base L2
+    anchor, post-migration) or ``rw`` (psycopg2 → vertex_spatial,
+    transitional). Idempotent upsert keyed on ``vertex_id``.
     """
     if not rows:
         return 0
     total = 0
-    conn = psycopg2.connect(DATABASE_URL)
-    conn.autocommit = False
-    try:
-        cur = conn.cursor()
-        cols = list(rows[0].keys())
-        # Chunk into batches so a single INSERT doesn't exceed psycopg2's
-        # parameter limit (~32k) — 1000 rows × 18 cols = 18k params.
+    with open_substrate_writer() as writer:
         for i in range(0, len(rows), batch_size):
             chunk = rows[i : i + batch_size]
-            placeholders = ", ".join(
-                "(" + ", ".join(["%s"] * len(cols)) + ")" for _ in chunk
-            )
-            sql = f"INSERT INTO vertex_spatial ({', '.join(cols)}) VALUES {placeholders}"
-            params = []
-            for r in chunk:
-                for c in cols:
-                    params.append(r[c])
             try:
-                cur.execute(sql, params)
-                conn.commit()
-                total += len(chunk)
+                total += writer.upsert_vertex_spatial(chunk)
             except Exception as e:
-                conn.rollback()
-                log.warning("batch insert failed (chunk %d-%d): %s", i, i + len(chunk), e)
-    finally:
-        conn.close()
+                log.warning(
+                    "substrate upsert failed (chunk %d-%d): %s",
+                    i,
+                    i + len(chunk),
+                    e,
+                )
     return total
 
 
@@ -250,7 +242,7 @@ def _run_dump():
             if should_flush:
                 # Run B2 PUT + RW INSERT in parallel
                 fut_b2 = _flush_pool.submit(_flush_shard, list(shard_rows), dump_id, shard_idx)
-                inserted = _insert_rows_into_rw(shard_rows)
+                inserted = _insert_rows_into_substrate(shard_rows)
                 fut_b2.result()  # propagate B2 errors
                 rw_total += inserted
                 log.info("shard %d: r2=%d rw=%d cum=%d", shard_idx, len(shard_rows), inserted, rw_total)
@@ -261,7 +253,7 @@ def _run_dump():
                     _state["rows_written"] = rw_total
         if shard_rows:
             fut_b2 = _flush_pool.submit(_flush_shard, list(shard_rows), dump_id, shard_idx)
-            inserted = _insert_rows_into_rw(shard_rows)
+            inserted = _insert_rows_into_substrate(shard_rows)
             fut_b2.result()
             rw_total += inserted
             log.info("final shard %d: r2=%d rw=%d cum=%d", shard_idx, len(shard_rows), inserted, rw_total)

@@ -338,8 +338,151 @@ async def _cell_runner_healthz(request: Any) -> Any:
     })
 
 
+async def _cell_runner_yatachain_attest(request: Any) -> Any:
+    """yatachain witness endpoint. Receives a WitnessRequest from the
+    orchestrator (`@etzhayyim/sdk/yatachain`), produces a signed
+    attestation against this node's hosted cells, and writes the
+    resulting `app.etzhayyim.yatachain.attestation` record back to PDS.
+
+    Wire contract (matches TS `WitnessTransport.requestAttestation`):
+
+        POST /yatachain/attest
+        Content-Type: application/json
+        {
+          "v": 1,
+          "cellId": "<the cell selected by the orchestrator>",
+          "recordUri": "at://...",
+          "recordCid": "bafy...",
+          "record": { ... domain record being attested ... },
+          "rule": { ... app.etzhayyim.yatachain.membraneRule shape ... }
+        }
+
+    Response:
+      202 Accepted — attestation queued (will appear on PDS shortly).
+      404           — the requested cellId is not hosted on this node.
+      400           — malformed body.
+      500           — internal error during attestation.
+
+    Per ADR-2605231400 §"Implementation plan" #2 + yatachain SPEC §5.
+    """
+    from aiohttp import web as _web
+    from .yatachain import (
+        WitnessRequest,
+        make_cell_signer,
+        produce_attestation,
+    )
+
+    try:
+        body = await request.json()
+    except Exception as caught:  # noqa: BLE001
+        return _web.json_response(
+            {"error": "invalid-json", "detail": str(caught)},
+            status=400,
+        )
+
+    try:
+        req = WitnessRequest.from_wire(body)
+    except (KeyError, TypeError, ValueError) as caught:
+        return _web.json_response(
+            {"error": "invalid-request-shape", "detail": str(caught)},
+            status=400,
+        )
+
+    cell_id = body.get("cellId")
+    if not isinstance(cell_id, str) or not cell_id:
+        return _web.json_response({"error": "missing-cellId"}, status=400)
+
+    # Check the cell is hosted on this node. The cell_runner's active
+    # metadata list is populated at spawn time.
+    hosted_cell_ids = {c.get("name") for c in _active_cells_metadata}
+    if cell_id not in hosted_cell_ids:
+        return _web.json_response(
+            {
+                "error": "cell-not-hosted",
+                "cellId": cell_id,
+                "node": os.environ.get("ETZHAYYIM_NODE_NAME", "unknown"),
+                "hosted": sorted(c for c in hosted_cell_ids if isinstance(c, str)),
+            },
+            status=404,
+        )
+
+    node_name = os.environ.get("ETZHAYYIM_NODE_NAME", "unknown")
+
+    # Resolver chain: macOS Keychain (production) → env var (container
+    # deploys, e.g. K8s Secret-injected) → deterministic test signer
+    # (dev / unit-test only; logged loudly so it's not used in prod).
+    # Per fleet.toml `cell_key_rotation_period_days = 90`, operator runs
+    # `security add-generic-password -s ai.gftd.yatachain -a {cellId} -w '{hexSeed}'`
+    # quarterly to rotate.
+    signer, signer_source = make_cell_signer(cell_id)
+    if signer_source == "deterministic":
+        _log.warning(
+            "yatachain.attest cellId=%s using DETERMINISTIC TEST SIGNER — "
+            "production deploys must publish a real Ed25519 key to macOS "
+            "Keychain (service=ai.gftd.yatachain, account=%s) OR set "
+            "CELL_PRIVATE_KEY_%s env var (hex 32-byte seed)",
+            cell_id, cell_id, cell_id,
+        )
+
+    try:
+        attestation = await produce_attestation(
+            record_uri=req.record_uri,
+            record_cid=req.record_cid,
+            record=req.record,
+            rule=req.rule,
+            cell_id=cell_id,
+            cell_node=node_name,
+            signer=signer,
+        )
+    except Exception as caught:  # noqa: BLE001
+        _log.error(
+            "yatachain.attest cellId=%s failed during produce_attestation: %s",
+            cell_id, caught, exc_info=True,
+        )
+        return _web.json_response(
+            {"error": "produce-attestation-failed", "detail": str(caught)},
+            status=500,
+        )
+
+    # Write the attestation back to PDS via pymagatama.substrate.
+    # Skipped in unit tests (SUBSTRATE_WRITE_DISABLED=1) — they assert
+    # against the produced attestation shape directly.
+    if os.environ.get("SUBSTRATE_WRITE_DISABLED", "0") != "1":
+        try:
+            from .substrate import Etzhayyim, WriteOpts
+
+            substrate_did = os.environ.get("YATACHAIN_ATTESTATION_DID", node_name)
+            async with Etzhayyim(did=substrate_did) as e:
+                await e.write(
+                    WriteOpts(
+                        collection="app.etzhayyim.yatachain.attestation",
+                        record=attestation.to_wire(),
+                    )
+                )
+        except Exception as caught:  # noqa: BLE001
+            # PDS write failures are logged but don't fail the orchestrator
+            # — the attestation is lost for this quorum but won't 500 here.
+            # Orchestrator will time out the slot and either reduce quorum
+            # or escalate per rule.escalationPolicy.
+            _log.warning(
+                "yatachain.attest cellId=%s PDS write failed: %s",
+                cell_id, caught,
+            )
+
+    return _web.json_response(
+        {
+            "ok": True,
+            "verdict": attestation.verdict,
+            "quorumGroup": attestation.quorum_group,
+            "cellId": cell_id,
+            "cellNode": node_name,
+        },
+        status=202,
+    )
+
+
 async def _start_healthz_server(port: int) -> None:
-    """Run /healthz endpoint as concurrent asyncio task.
+    """Run /healthz + /yatachain/attest endpoints as concurrent asyncio task.
 
     Bind defaults to 127.0.0.1 (launchd / local-dev). In-Pod deploys per
     ADR-2605232100 set ETZ_HEALTHZ_BIND=0.0.0.0 so kubelet probes against
@@ -350,11 +493,14 @@ async def _start_healthz_server(port: int) -> None:
     bind = os.environ.get("ETZ_HEALTHZ_BIND", "127.0.0.1")
     app = _web.Application()
     app.router.add_get("/healthz", _cell_runner_healthz)
+    app.router.add_post("/yatachain/attest", _cell_runner_yatachain_attest)
     runner = _web.AppRunner(app)
     await runner.setup()
     site = _web.TCPSite(runner, bind, port)
     await site.start()
-    _log.info("cell-runner /healthz at http://%s:%d/healthz", bind, port)
+    _log.info(
+        "cell-runner http://%s:%d {/healthz, /yatachain/attest}", bind, port
+    )
 
 
 async def _spawn_xrpc_cell(cell: dict[str, Any], stop_event: asyncio.Event) -> None:

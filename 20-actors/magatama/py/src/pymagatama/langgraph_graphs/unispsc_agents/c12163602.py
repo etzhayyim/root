@@ -25,4 +25,4 @@ graph.set_entry_point('validate')
 graph.add_edge('validate', 'plan')
 graph.add_edge('plan', END)
 
-app = graph.compile()
+graph = graph.compile()

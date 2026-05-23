@@ -19,4 +19,4 @@ graph.add_node('validate', validate_instrument_spec)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

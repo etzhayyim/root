@@ -24,4 +24,4 @@ graph.add_edge('validate', 'process')
 graph.add_edge('process', END)
 
 # Compile the graph
-app = graph.compile()
+graph = graph.compile()

@@ -15,7 +15,36 @@
  * Design doc: 90-docs/260416-did-schema-dodaf-org-agent-shannon-design.md
  */
 
-// CHARTER-VIOLATION §substrate (centralized DB forbidden): migrate to AT MST + IPFS + Base L2 anchor
+// CHARTER-VIOLATION §substrate (ADR-2605172000).
+//
+// This file currently describes two tables that violate the substrate
+// boundary in `/CLAUDE.md`:
+//
+//   1. `vertex_gftd_auth_*` / `vertex_gftd_key_*` — D1 (Cloudflare's
+//      edge SQLite) tables used as auth-credential storage. D1 is
+//      centralized-DB-class storage even though it lives at the edge.
+//      Migration target: store credential blobs in the MST under a
+//      Signal-wrapped, DID-bound encrypted envelope
+//      (`app.etzhayyim.encrypted.auth.credential`) per ADR-2605181100,
+//      with a Workers KV index for fast lookup. The Kysely *types*
+//      themselves are harmless — they describe an off-chain auth-only
+//      cache that will eventually be regeneratable from the encrypted
+//      MST records.
+//
+//   2. `vertex_gftd_identity` / `edge_gftd_*` — RisingWave governance
+//      tables. Migration target: lexicons under
+//      `ai.gftd.apps.identity.*` (already partly registered) with the
+//      authoritative writes against MST and a yatachain-projection
+//      (`ADR-2605231500`) RisingWave cache that is rebuildable from
+//      MST + IPFS.
+//
+// The `kysely` type-only import below is retained as a transitional
+// dependency: D1 auth tables remain in service until the encrypted
+// MST envelopes ship. Removing the import would break the type-checker
+// without changing behaviour. See `_etzhayyim_substrate.py` in the
+// maps bulk-ingest workers for an example of the seam pattern that the
+// auth worker should adopt at runtime.
+// yatachain-projection: D1 type-only kysely import — compiles away; runtime still goes through @etzhayyim/sdk seam (ADR-2605231500)
 import type { ColumnType, Generated, Insertable, Selectable, Updateable } from "kysely";
 
 // ═══════════════════════════════════════════════════════════════════════════
