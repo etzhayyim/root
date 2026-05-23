@@ -10,7 +10,7 @@ import time
 from dataclasses import asdict
 from pathlib import Path
 
-from . import charter, manifest, paths, pds, pinner, subdataset
+from . import charter, manifest, paths, pds, pinner, subdataset, verifier
 from .fetchers import FetchResult
 from .fetchers import geonames as geonames_fetcher
 from .fetchers import hf as hf_fetcher
@@ -357,6 +357,61 @@ def _cmd_add(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_verify(args: argparse.Namespace) -> int:
+    p = paths.resolve()
+    remote_root = p.subdataset_annex_dir(args.subdataset)
+    if not remote_root.exists():
+        print(f"e7m-dataset verify: directory remote not found at {remote_root}", file=sys.stderr)
+        return 2
+
+    if args.map_cid:
+        map_cid = args.map_cid
+    else:
+        row = manifest.find_latest_by_subdataset(args.subdataset)
+        if not row:
+            print(f"e7m-dataset verify: no manifest row for subdataset={args.subdataset}", file=sys.stderr)
+            return 2
+        map_cid = row["cid"]
+
+    print(
+        f"[verify] subdataset={args.subdataset} map_cid={map_cid} remote={remote_root}",
+        file=sys.stderr,
+    )
+    report = verifier.verify(
+        kubo_api=p.kubo_api,
+        subdataset=args.subdataset,
+        map_cid=map_cid,
+        remote_root=remote_root,
+        max_entries=(args.max_entries if args.max_entries > 0 else None),
+    )
+
+    summary = {
+        "subdataset": report.subdataset,
+        "map_cid": report.map_cid,
+        "map_object_count": report.map_object_count,
+        "checked": report.checked,
+        "ok_count": report.ok_count,
+        "fail_count": report.fail_count,
+        "ok": report.ok,
+    }
+    if args.verbose:
+        summary["entries"] = [
+            {
+                "key": e.key,
+                "ipfsCid": e.ipfs_cid,
+                "expectedSha256": e.expected_sha256,
+                "actualSha256": e.actual_sha256,
+                "localAnnexSize": e.local_annex_size,
+                "ipfsSize": e.ipfs_size,
+                "ok": e.ok,
+                "note": e.note,
+            }
+            for e in report.entries
+        ]
+    print(json.dumps(summary, indent=2, sort_keys=True))
+    return 0 if report.ok else 4
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="e7m-dataset",
@@ -427,6 +482,17 @@ def main(argv: list[str] | None = None) -> int:
     sub_add.add_argument("--keep-staging", action="store_true", help="Copy files instead of moving them")
     sub_add.add_argument("--emit", action="store_true", help="POST the datasetPin record (default: dry-run only)")
     sub_add.set_defaults(func=_cmd_add)
+
+    # ── verify ───────────────────────────────────────────────────────
+    sub_verify = sub.add_parser(
+        "verify",
+        help="Fetch map CID via Kubo, fetch each entry CID, sha256-check against the SHA256E key",
+    )
+    sub_verify.add_argument("subdataset", help="Subdataset name (e.g. 'HF/owner-repo')")
+    sub_verify.add_argument("--map-cid", help="Override the map CID; default = manifest's most-recent row for this subdataset")
+    sub_verify.add_argument("--max-entries", type=int, default=0, help="Cap entries to check (0 = all)")
+    sub_verify.add_argument("--verbose", action="store_true", help="Include per-entry detail in the output")
+    sub_verify.set_defaults(func=_cmd_verify)
 
     args = parser.parse_args(argv)
     return args.func(args)

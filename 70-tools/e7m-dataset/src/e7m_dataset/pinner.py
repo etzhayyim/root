@@ -126,7 +126,10 @@ def publish(
         "entries": entries,
     }
     map_bytes = json.dumps(map_doc, indent=2, sort_keys=True).encode("utf-8")
-    map_cid = ipfs.add_bytes(kubo_api, map_bytes, filename=f"{subdataset_name}-map.json")
+    # IPFS treats `/` in filename as a path component → ipfs.add wraps in
+    # a directory, breaking `ipfs cat <cid>`. Flatten the subdataset name.
+    safe_name = subdataset_name.replace("/", "-").replace(" ", "_")
+    map_cid = ipfs.add_bytes(kubo_api, map_bytes, filename=f"{safe_name}-map.json")
 
     audit_file = audit_dir / "published" / f"{git_commit or 'no-commit'}.json"
     audit_file.parent.mkdir(parents=True, exist_ok=True)
