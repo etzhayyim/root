@@ -1,0 +1,37 @@
+{
+  "runs": [
+    {
+      "label": "A_baseline",
+      "returncode": 0,
+      "out_file": "C:\\Users\\gad\\context-extend-260524\\results_long_A_baseline.jsonl",
+      "config": {
+        "label": "A_baseline",
+        "rope_theta": null,
+        "max_pos": null,
+        "rope_scaling_type": null
+      }
+    },
+    {
+      "label": "B_linear_x4",
+      "returncode": 0,
+      "out_file": "C:\\Users\\gad\\context-extend-260524\\results_long_B_linear_x4.jsonl",
+      "config": {
+        "label": "B_linear_x4",
+        "rope_theta": 2000000.0,
+        "max_pos": 16384,
+        "rope_scaling_type": null
+      }
+    },
+    {
+      "label": "C_ntk_x4",
+      "returncode": 0,
+      "out_file": "C:\\Users\\gad\\context-extend-260524\\results_long_C_ntk_x4.jsonl",
+      "config": {
+        "label": "C_ntk_x4",
+        "rope_theta": 2044497.121624311,
+        "max_pos": 16384,
+        "rope_scaling_type": null
+      }
+    }
+  ]
+}

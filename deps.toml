@@ -1143,6 +1143,83 @@ path = "90-docs/adr/2605231737-e7m-pds-yoro-substrate-probes.md"
 depends_on = ["2605172000", "2605192100", "2605211000"]
 related = ["2605222330", "2605211000"]
 
+[[adrs]]
+id = "2605231300"
+title = "baien distill ReAct loop — LangGraph analyze → fetch_dataset → validate → train → evaluate → commit"
+status = "accepted"
+status_note = "Specifies the 6-node ReAct loop for distilling weak-category improvements into LoRA adapters on the baien trunk (microsoft/bitnet-b1.58-2B-4T-bf16). analyze reads prior microbench JSONL to identify weak categories; fetch_dataset pulls HF datasets (default) or falls back to select_teacher for synthetic generation; validate runs Charter Rider scanner + JSON parse + token-length filters; train executes peft+trl LoRA on q/k/v/o projections (r=16, alpha=32, dropout=0.05, lr=2e-4, cosine warmup); evaluate runs e7m bench micro on the merged adapter; commit_node promotes (append to distilled-models.jsonl + codegen registry) or aborts (discard adapter dir) on Δ vs baseline. iter-00 smoke 2026-05-24 validated end-to-end (12 examples / 3 SGD steps / Δ=-0.380 → abort fired correctly); minimum-informative tier formalised in ADR-2605242400 as --n-per-category 200 --max-iter 2."
+path = "90-docs/adr/2605231300-baien-distill-react-loop.md"
+
+[[adrs]]
+id = "2605231600"
+title = "baien context extension — Stage 1 RoPE scaling probe + Stage 2 YaRN+LoRA + Stage 3 LongRoPE continual"
+status = "accepted"
+status_note = "3-stage roadmap for extending baien (microsoft/bitnet-b1.58-2B-4T-bf16) effective context beyond the pretrained 4k ceiling toward 16k. Stage 1 = training-free RoPE theta scaling smoke (baseline / linear×4 / NTK×4 head_dim=128) executed 2026-05-23 on EVO-X2 CPU bf16 — result: identical 2/5 = 40% pass rate across all three configs (ctx_8k_summary / ctx_10k_roster / ctx_12k_needle all FAIL with attention-quality failure modes, not range failures). Per snapshot recommendation: do NOT promote to Stage 2 on this evidence alone; expand prompt set 5→20+, add 4k regression run, investigate multi-modal token interaction first. Stage 2 (YaRN + LoRA on long-ctx corpus) + Stage 3 (LongRoPE continual pretraining) remain spec-only until Stage 1 evidence is broadened."
+path = "90-docs/adr/2605231600-baien-context-extension.md"
+
+[[adrs]]
+id = "2605232400"
+title = "baien Core 3 / Core 4 lm-eval-harness bench strategy revision — switch _generative → _completions"
+status = "accepted"
+status_note = "Reframes the baien lm-eval-harness Core 4 bench strategy (IFEval / GPQA / MMLU-Redux / Global PIQA) after the 2026-05-23 snapshot run showed _generative variants take ~28h/task on EVO-X2 CPU bf16 (untenable for an iteration loop). Decision: switch the Core 3 (excluding IFEval which is generative-only by construction) from _generative to _completions (loglikelihood scoring), reducing wall from ~28h to ~30 min per task. Authoritative for the next baien snapshot (frontier-bench-snapshot-260524.md follow-up). Note: this ADR ID 2605232400 collides with the yatachain Tier D blob closure ADR registered at the same JST minute — both rows coexist in this registry (TOML [[adrs]] is an array, not a unique-keyed map); resolution is via the `path` field."
+path = "90-docs/adr/2605232400-baien-core3-bench-strategy-revision.md"
+
+[[adrs]]
+id = "2605232500"
+title = "baien Move 1 — image graft self-training (SigLIP + 1.58-bit projector + frozen BitNet trunk, Phase A/B/C/D corpus tiers)"
+status = "accepted"
+status_note = "First of the 7 baien Move grafts (multi-modal capability landing). Move 1 = image: SigLIP-base-patch16-224 (frozen) → 1.58-bit projector (trainable, ~8.5M params) → BitNet b1.58 2B-4T-bf16 trunk (frozen). Phase tiers: A=100 samples (pipeline validation only), B=1k samples ~250 SGD steps ~40min (minimum-informative), C=10k ~6.7h, D=50k ~33h overnight. Phase A real-train smoke 2026-05-24 ran 10 actual samples (target=100) / 3 SGD steps / 0/4 visual_microbench (degraded from baseline 2/5 = 40%) — confirms the smoke=destructive pattern formalised in ADR-2605242400. Encoder freeze rule per ADR-2605241900 invariant: all modality encoders MUST be frozen; only projector + trunk LoRA are trainable; total inference budget ≤2GB @4k ctx."
+path = "90-docs/adr/2605232500-baien-mx-move1-image-graft-self-training.md"
+
+[[adrs]]
+id = "2605241900"
+title = "baien edge-target invariant — WASM-32 + iPhone 12+ + Android 4GB; trunk ≤4B BitNet 1.58; total ≤2GB @4k / ≤2.5GB @16k"
+status = "accepted"
+status_note = "Constitutional invariant for baien (edge tier): baien MUST run on all three of (1) WASM-32, (2) iPhone 12+, (3) Android 4GB. Trunk ≤4B BitNet 1.58 (microsoft/bitnet-b1.58-2B-4T-bf16 current). Cumulative inference budget ≤2GB @4k ctx / ≤2.5GB @16k ctx including all modality encoders. ALL modality encoders MUST be frozen (only projector + trunk LoRA learnable). Frontier-beating is explicitly NOT a goal — separate `baien-server-*` and `baien-XL-*` tiers carve out larger budgets (ADR-2605242100 4-tier ladder). 8 constitutional ceilings spelled out in detail; Council Lv6+ supermajority required to amend any ceiling."
+path = "90-docs/adr/2605241900-baien-edge-target-invariant.md"
+
+[[adrs]]
+id = "2605241930"
+title = "baien Move 4 — audio graft (HuBERT-base / Whisper-tiny encoder + 1.58-bit projector, edge-tier on-demand load)"
+status = "accepted"
+status_note = "4th Move of the baien multi-modal graft sequence. Audio: HuBERT-base or Whisper-tiny.en encoder (frozen, encoder selection depends on use case — HuBERT for speech-rep / Whisper for transcribe) → 1.58-bit projector → frozen BitNet trunk. Edge-tier on-demand modality loading required to respect ADR-2605241900 cumulative encoder budget (loading audio + image + video simultaneously breaches the 2GB ceiling). Charter Rider §2(d) gore boundary scanned at audio modality boundary (audio transcripts run through canonical scanner before write)."
+path = "90-docs/adr/2605241930-baien-mx-move4-audio-graft.md"
+
+[[adrs]]
+id = "2605241940"
+title = "baien Move 7 — 3D graft (TripoSR / Hunyuan3D-2 image→3D + moderngl 4-view render + Florence-2 multi-view caption)"
+status = "accepted"
+status_note = "7th Move (capstone) of the baien multi-modal graft sequence. 3D capability comes via 2D + caption augmentation, NOT via a native 3D encoder (which would breach the edge invariant): image→3D via TripoSR or Hunyuan3D-2 → moderngl 4-view render → Florence-2 multi-view caption → standard image-graft (Move 1) pipeline on the augmented 2D + text supervision. Companion to ADR-2605202115 (baien-graft-3d-augmented-dataset). Edge tier sees the dataset only at training time; inference path is bit-identical to Move 1 image."
+path = "90-docs/adr/2605241940-baien-mx-move7-3d-graft.md"
+
+[[adrs]]
+id = "2605242100"
+title = "baien-server / baien-XL carve-out from edge invariant — 4-tier ladder (edge / bonsai / server / XL)"
+status = "accepted"
+status_note = "Carves the baien lineage into 4 tiers with separate target envelopes: (1) edge (ADR-2605241900 invariant, ≤4B trunk, ≤2GB inference); (2) bonsai (compressed-but-not-edge, ≤8B trunk, on-prem laptop/desktop); (3) server (no edge constraint, frontier-competing on selected benchmarks, runs on Murakumo fleet); (4) XL (research-scale, post-Council). Shared invariants across all 4 tiers: Charter Rider applies, Murakumo-only inference (no commercial GPU rental per ADR-2605215000 + CHARTER-RIDER.md §2(i)), Apache 2.0 + Rider license. Frontier-beating remains explicitly non-goal for edge tier; server and XL tiers may target frontier benchmarks but inherit all other constitutional constraints."
+path = "90-docs/adr/2605242100-baien-server-xl-carve-out.md"
+
+[[adrs]]
+id = "2605242110"
+title = "baien Move 5 — video graft (VideoMAE-base + 1.58-bit projector, 4 modal configs A/B/C/D)"
+status = "accepted"
+status_note = "5th Move of the baien multi-modal graft sequence. Video: VideoMAE-base encoder (frozen) → 1.58-bit projector → frozen BitNet trunk. 4 modal configs: (A) video-only, (B) video+audio, (C) video+text, (D) video+audio+text — config selection depends on use case and edge-tier on-demand modality loading per ADR-2605241900. Edge tier loads video encoder on-demand (frame-sampled inference) to respect cumulative encoder budget. Server/XL tiers (ADR-2605242100) may load all modality encoders eagerly."
+path = "90-docs/adr/2605242110-baien-mx-move5-video-graft.md"
+
+[[adrs]]
+id = "2605242120"
+title = "baien Move 6 — robotics graft (edge = scene description only / server = OpenVLA-style action head post-Council)"
+status = "accepted"
+status_note = "6th Move of the baien multi-modal graft sequence. Robotics: tier-split for safety reasons per Charter Rider §2(h) (no harm) + §2(a) (no autonomous weapons). Edge tier ships scene-description capability only (no action output to robot controller). Server tier may add an OpenVLA-style action head, but ONLY post-Council ratification (Council Lv6+ supermajority required). Companion to wadachi (ADR-2605242000) and kuni-umi (ADR-2605201400-2605201900) autonomous-mobility / planetary-infra robotics actors — those actors do NOT use baien Move 6 today; they use task-specific stacks under their own governance gates."
+path = "90-docs/adr/2605242120-baien-mx-move6-robotics-graft.md"
+
+[[adrs]]
+id = "2605242400"
+title = "baien smoke is destructive finding — Move 1 Phase A + distill iter-00 honest signal; minimum-informative training tier"
+status = "accepted"
+status_note = "Formalises the lesson from two same-day real-train runs (Move 1 Phase A: 0/4 vs baseline 2/5; distill iter-00: Δ=-0.380 abort). Both run ≤3 SGD steps from a random-init head and produce strictly worse outputs than the frozen baseline — the pattern is mechanical (3 SGD steps from random init under Adam+bf16 defaults push the trainable head into a degenerate region; the frozen trunk then completes the disrupted prefix into template loops). Decision: (a) Phase A is pipeline validation, not learning; (b) minimum-informative tier = Phase B (1000 samples, ~250 SGD steps, ~40min) for Move 1, --n-per-category 200 --max-iter 2 (~30 min) for distill; (c) operator gate against publishing smoke-tier adapters to distilled-models.jsonl — new entries require ≥250 SGD steps OR ≥+5pp microbench improvement over baseline. Companion: trl 1.4.0 API drift fixes in 70-tools/baien-distill/src/baien_distill/nodes/train.py (drop max_seq_length, add use_cpu=not torch.cuda.is_available(), migrate dataset schema to {prompt, completion})."
+path = "90-docs/adr/2605242400-baien-smoke-is-destructive-finding.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]

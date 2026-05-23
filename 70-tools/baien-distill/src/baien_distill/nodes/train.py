@@ -98,21 +98,20 @@ def train_lora(state: DistillState) -> DistillState:
 
     def _format(ex: dict[str, str]) -> dict[str, str]:
         if getattr(tok, "chat_template", None):
-            text = tok.apply_chat_template(
-                [
-                    {"role": "user", "content": ex["prompt"]},
-                    {"role": "assistant", "content": ex["response"]},
-                ],
-                tokenize=False, add_generation_prompt=False,
+            prompt_str = tok.apply_chat_template(
+                [{"role": "user", "content": ex["prompt"]}],
+                tokenize=False, add_generation_prompt=True,
             )
         else:
-            text = f"<|user|>\n{ex['prompt']}\n<|assistant|>\n{ex['response']}"
-        return {"text": text}
+            prompt_str = f"<|user|>\n{ex['prompt']}\n<|assistant|>\n"
+        return {"prompt": prompt_str, "completion": ex["response"]}
 
     ds = Dataset.from_list([ex.to_jsonl() for ex in examples]).map(_format)
 
+    import torch as _t
     from trl import SFTConfig, SFTTrainer  # type: ignore
 
+    _gpu = _t.cuda.is_available()
     sft = SFTConfig(
         output_dir=str(base_out / "sft-run"),
         num_train_epochs=epochs,
@@ -122,11 +121,10 @@ def train_lora(state: DistillState) -> DistillState:
         warmup_steps=cfg["warmup_steps"],
         lr_scheduler_type=cfg["scheduler"],
         bf16=True,
+        use_cpu=not _gpu,
         logging_steps=10,
         save_strategy="epoch",
         report_to=[],
-        max_seq_length=1024,
-        dataset_text_field="text",
         packing=False,
     )
 
