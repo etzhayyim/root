@@ -3636,6 +3636,42 @@ shape_64_1024_512 = {cpu_only_tflops = 1.021, cpu_and_gpu_tflops = 0.100, cpu_an
 shape_128_2048_2048 = {cpu_only_tflops = 2.639, cpu_and_gpu_tflops = 0.694, cpu_and_ne_tflops = 2.872, all_tflops = 2.850}
 shape_256_4096_4096 = {cpu_only_tflops = 2.614, cpu_and_gpu_tflops = 1.613, cpu_and_ne_tflops = 4.091, all_tflops = 4.133}
 
+# EVO Radeon 8060S (gfx1151) ROCm comparison — 2026-05-24
+# Source: bit_packed_xnor.py (--device cuda) + dense_quant_evo_bench2.py
+[experiments."bit-packed-xnor-kernels-260524".evo_radeon_gfx1151]
+device = "AMD Radeon(TM) 8060S Graphics"
+arch = "gfx1151"
+total_mem_gb = 60.0
+torch_version = "2.9.1+rocm7.2.1"
+hip = "7.2.53211-158bd99533"
+host = "EVO-X2 NucBox (Windows + ComfyUI portable py3.12)"
+# Reliable 4096^3 (small shapes hit sub-microsecond timer noise on Win+ROCm)
+shape_256_4096_4096 = {fp32_dense_tflops = 0.89, bf16_dense_tflops = 9.30, fp16_dense_tflops = 9.54, xnor_pytorch_swar_tops = 0.088}
+
+[experiments."bit-packed-xnor-kernels-260524".evo_radeon_gfx1151.vs_mac_m4_4096]
+dense_bf16_ratio = 2.88
+dense_fp16_ratio = 2.92
+xnor_pytorch_ratio = 2.44
+note = "EVO Radeon 8060S has ~2.9x higher raw bf16/fp16 throughput than Apple M4 GPU at 4096^3. RDNA 3.5 matrix accelerators outperform M4's GPU matmul. Pure-PyTorch XNOR tracks the same ratio (both backends pay equal eager dispatch overhead)."
+
+[experiments."bit-packed-xnor-kernels-260524".evo_radeon_gfx1151.blockers]
+custom_hip_kernel = "BLOCKED — Windows ComfyUI portable has no MSVC cl.exe AND no CUDA_HOME. torch.utils.cpp_extension.load() requires both even for hipcc-only HIP builds. Unblock via Visual Studio Build Tools 1.5 GB install + CUDA_HOME=any path, OR switch EVO to WSL2 + Linux torch ROCm."
+triton_kernel = "BLOCKED — no Triton Windows wheel on PyPI. Unblock via WSL2 + Linux triton."
+quanto_int8_int4_int2 = "CRASHED — optimum.quanto + Windows ROCm 7.2 has freeze() bug: 'linear() argument weight must be Tensor not NoneType'. Workaround: upgrade quanto or use quanto bf16-fallback path."
+small_shape_timing = "ROCm + Windows torch.cuda.synchronize doesn't flush for sub-microsecond ops; small shapes (16x256x128, 64x1024x512) report measurement-noise TFLOPS. Use 4096^3 numbers only."
+
+[experiments."bit-packed-xnor-kernels-260524".evo_radeon_gfx1151.extrapolated]
+expected_hip_xnor_tops_4096 = 18.0
+note = "Extrapolation only — not measured. If the HIP build worked, the XNOR kernel should land at the same ~1.95-2.0x multiple of dense bf16 that the Metal kernel hit on Mac. Unblock HIP build to verify."
+
+[experiments."bit-packed-xnor-kernels-260524".evo_radeon_gfx1151.ane_comparison_asymmetry]
+m4_has_ane = true
+m4_ane_dense_fp16_tflops_4096 = 4.13
+evo_has_dedicated_nn_accelerator = false
+evo_equivalent_path = "ROCm dense bf16/fp16 via matrix accelerators in RDNA 3.5 CUs"
+evo_equivalent_tflops_4096 = 9.30
+note = "AMD consumer Radeon (RDNA 3.5) does not ship a separate NN accelerator analogous to Apple ANE. The CU matrix units provide ~2.25x ANE throughput (9.30 vs 4.13 TFLOPS), but as a general-purpose GPU path rather than dedicated silicon. No 'ANE equivalent' to compare against directly."
+
 [experiments."bit-packed-xnor-kernels-260524".coreml_ane_mac_m4.findings]
 ane_is_silver_medal = "ANE is the fastest dense fp16 path on M4 silicon (4.13 TFLOPS @ 4096^3 = 11% of vendor-claimed 38 TFLOPS peak), but the bit-packed AND/XNOR-popcount kernels beat it by 50-60% (6.31-6.82 TOPS). ANE wins on dense paths because no user-programmable XNOR exists; the only way to exceed ANE on M4 is custom Metal popcount kernels."
 ane_not_programmable = "Apple Neural Engine is closed silicon — no custom kernels, no XNOR-popcount path. Bench measures dense fp16 only. The 50-60% margin between bit-packed Metal and ANE is the silicon-level advantage of 1-bit on M4."

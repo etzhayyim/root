@@ -75,6 +75,62 @@ not-multiple-of-32 padding logic.
 | 128,2048,2048 | 1.40 TFLOPS | 2.07 TOPS (1.49×) | 0.131 TFLOPS | **1.586 TOPS (12.11×)** |
 | **256,4096,4096** | **3.20 TFLOPS** | **6.31 TOPS (1.98×)** | **0.136 TFLOPS** | **1.867 TOPS (13.70×)** |
 
+### EVO Radeon 8060S (gfx1151) ROCm comparison — 2026-05-24
+
+To validate the Mac M4 results against another GPU class, the same
+pure-PyTorch SWAR-popcount XNOR + dense fp/bf/int paths were run on
+EVO-X2 (AMD Radeon 8060S Graphics, gfx1151 RDNA 3.5 APU, 60 GB unified,
+ROCm 7.2.53 + torch 2.9.1+rocm7.2.1).
+
+**Reliable 4096³ measurements** (small shapes' sub-microsecond timing
+collapsed to torch.cuda.synchronize sampling noise on Windows ROCm):
+
+| metric | Mac M4 GPU | **EVO Radeon 8060S** | ratio EVO/Mac |
+|---|---|---|---|
+| dense fp32 @ 4096³ | 2.60 TFLOPS | 0.89 TFLOPS | 0.34× (slow path) |
+| dense bf16 @ 4096³ | 3.23 TFLOPS | **9.30 TFLOPS** | **2.88×** |
+| dense fp16 @ 4096³ | 3.27 TFLOPS | **9.54 TFLOPS** | **2.92×** |
+| XNOR-popcount pure-PyTorch SWAR | 0.036 TOPS | 0.088 TOPS | 2.44× |
+| **XNOR-popcount custom Metal/HIP** | **6.31 TOPS** ✓ | source-only, build blocked | — |
+| MLX int8/int4/int2 quant | 2.7 TOPS | quanto crashed (Win+ROCm incompat) | — |
+| ANE (Core ML) | 4.13 TFLOPS | N/A (no NN accelerator on consumer Radeon) | — |
+
+**Findings**:
+
+1. **EVO Radeon 8060S has ~2.9× higher raw bf16/fp16 throughput** than
+   Apple M4 GPU on this shape (9.3 vs 3.2 TFLOPS). The RDNA 3.5 APU's
+   matrix accelerators win at sustained dense matmul.
+2. **fp32 path is unusually slow on gfx1151** (0.89 TFLOPS) — torch.matmul
+   on ROCm Windows hits an unoptimized fp32 dispatch; the fast paths are
+   bf16/fp16 (the tensor-core-equivalent matrix units).
+3. **Pure-PyTorch XNOR runs but stays slow** on both backends (Mac MPS 0.036,
+   EVO ROCm 0.088 TOPS @ 4096³) — the broadcast XOR + SWAR popcount
+   chain in PyTorch eager is dispatch-bound, not compute-bound. The 2.4×
+   EVO advantage tracks the dense bf16 advantage (both backends pay the
+   same eager overhead per call; EVO's raw matmul is just faster).
+4. **Custom HIP kernel remains blocked on EVO** — Windows ComfyUI portable
+   has neither MSVC `cl.exe` nor `CUDA_HOME` set, both required by
+   `torch.utils.cpp_extension.load()` even for hipcc-only builds.
+   Unblock path: install Visual Studio Build Tools (~1.5 GB) + set
+   `CUDA_HOME` to any path, OR switch EVO to WSL2 + Linux torch+ROCm.
+5. **Asymmetric comparison limitation**: we measured Mac M4's full
+   XNOR-Metal speedup (6.31 vs 3.23 dense = 1.95×) but NOT EVO's
+   equivalent HIP path. With a working HIP build, the EVO XNOR kernel
+   would land at the same ~1.95-2.0× multiple of dense = **~18-19 TOPS
+   sustained** (extrapolated). That's the prize waiting for the build
+   environment to be fixed.
+6. **EVO quanto int8/4/2 path crashed** — `optimum.quanto` on Windows
+   ROCm 7.2 has a `linear() argument 'weight' must be Tensor, not
+   NoneType` bug after `freeze()`. Same quanto API works on Mac CPU.
+   Likely a Windows-specific quanto cache / monkey-patch issue;
+   workaround = use quanto's bf16-fallback or upgrade quanto to a
+   newer release.
+7. **ANE comparison is asymmetric** — Apple Silicon ships a dedicated
+   NN accelerator (4.13 TFLOPS dense fp16 measured); AMD consumer
+   Radeon does NOT (no analog of ANE on RDNA 3.5). EVO's GPU matrix
+   accelerators provide the equivalent throughput (9.30 TFLOPS bf16 =
+   2.25× faster than ANE on dense), but no separate silicon block.
+
 ### Core ML + Apple Neural Engine (ANE) dense fp16 matmul
 
 Implemented in `kernels/coreml_ane_bench.py`. Built via the dedicated

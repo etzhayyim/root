@@ -358,7 +358,21 @@ Real bit-packed XNOR-popcount matmul + 4 additional low-bit techniques + dense f
 - ANE is **NOT user-programmable** — no XNOR-popcount kernel possible on it. The only way to exceed ANE throughput on M4 is custom Metal kernels with `popcount(uint)`.
 - Core ML CPU_AND_GPU path is half MLX direct GPU speed at 4096³ — Core ML's per-op Metal dispatch overhead hurts single-op models.
 
-**EVO blockers** documented honestly: Windows ComfyUI portable lacks MSVC `cl.exe` (blocks both AVX-512 and CUDA/HIP cpp_extension builds) and Triton has no Windows PyPI wheel. WSL2 + Linux toolchain unblocks all three; algorithm equivalence already proven on Mac (`max_abs_diff = 0.000` across all sizes including K=1023 padding case).
+**EVO Radeon 8060S (gfx1151) parallel run — 2026-05-24**: pure-PyTorch SWAR XNOR + dense fp/bf measured directly on EVO ROCm 7.2.53 + torch 2.9.1.
+
+| metric @ 4096³ | Mac M4 GPU | **EVO Radeon 8060S** | EVO/Mac ratio |
+|---|---|---|---|
+| dense bf16 | 3.23 TFLOPS | **9.30 TFLOPS** | **2.88×** |
+| dense fp16 | 3.27 TFLOPS | **9.54 TFLOPS** | **2.92×** |
+| dense fp32 | 2.60 TFLOPS | 0.89 TFLOPS | 0.34× (slow path) |
+| XNOR pure-PyTorch SWAR | 0.036 TOPS | 0.088 TOPS | 2.44× |
+| **XNOR custom Metal kernel** | **6.31 TOPS** ✓ | source-only (build blocked) | — |
+| **Extrapolated XNOR HIP** (= 1.95× dense bf16) | — | **~18 TOPS** | — |
+| ANE / NN accelerator | 4.13 TFLOPS | N/A (no dedicated NN block on RDNA 3.5) | — |
+
+**EVO blockers** documented honestly: Windows ComfyUI portable lacks MSVC `cl.exe` AND `CUDA_HOME` (both required by torch.utils.cpp_extension even for hipcc-only HIP builds), Triton has no Windows PyPI wheel, and `optimum.quanto + Windows ROCm 7.2` has a `freeze()` bug that crashes int8/4/2 paths. WSL2 + Linux toolchain unblocks all four; algorithm equivalence already proven on Mac (`max_abs_diff = 0.000` across all sizes including K=1023 padding case).
+
+**Key cross-hw observations**: EVO Radeon 8060S has **~2.9× higher raw bf16/fp16 throughput** than Apple M4 GPU on this shape — RDNA 3.5 matrix accelerators outperform M4's GPU matmul kernels. Pure-PyTorch XNOR tracks the same ratio (both backends pay equal eager dispatch overhead). With a working HIP build, the EVO XNOR custom kernel should land at ~18 TOPS (= 1.95× of dense bf16, matching Mac Metal's speedup ratio) — that's the prize waiting for the build environment to be fixed. AMD consumer Radeon (RDNA 3.5) does NOT ship a separate NN accelerator analogous to Apple's ANE; the CU matrix units provide ~2.25× ANE throughput as a general-purpose GPU path.
 
 **Implication for roso**: with a real bit-packed XNOR/AND kernel, the **Phase 1 naive-sign-1bit anti-pattern** (which trains 0.72× as fast as bf16 in the LoRA shootout) becomes a true speedup path: 2.11× on Apple GPU (AND-popcount), 1.95× on Apple GPU (XNOR), 13.7× on ARM CPU (XNOR NEON), **and beats Apple's own ANE silicon by 50-60%**. Porting `XNORLinear` to call the Metal/NEON kernel directly is the next step before the `roso-real-bonsai-per-layer-port` migration lands. Bit-slice / bit-serial / LUT paths are Phase 2 work (kernel fusion).
 
