@@ -1257,6 +1257,13 @@ status = "accepted"
 status_note = "Formalises the lesson from two same-day real-train runs (Move 1 Phase A: 0/4 vs baseline 2/5; distill iter-00: Δ=-0.380 abort). Both run ≤3 SGD steps from a random-init head and produce strictly worse outputs than the frozen baseline — the pattern is mechanical (3 SGD steps from random init under Adam+bf16 defaults push the trainable head into a degenerate region; the frozen trunk then completes the disrupted prefix into template loops). Decision: (a) Phase A is pipeline validation, not learning; (b) minimum-informative tier = Phase B (1000 samples, ~250 SGD steps, ~40min) for Move 1, --n-per-category 200 --max-iter 2 (~30 min) for distill; (c) operator gate against publishing smoke-tier adapters to distilled-models.jsonl — new entries require ≥250 SGD steps OR ≥+5pp microbench improvement over baseline. Companion: trl 1.4.0 API drift fixes in 70-tools/baien-distill/src/baien_distill/nodes/train.py (drop max_seq_length, add use_cpu=not torch.cuda.is_available(), migrate dataset schema to {prompt, completion})."
 path = "90-docs/adr/2605242400-baien-smoke-is-destructive-finding.md"
 
+[[adrs]]
+id = "2605242600"
+title = "Baien federated training via ameno WebGPU — smartphone-participable LoRA round (R0 scaffold)"
+status = "proposed"
+status_note = "R0 scaffold: smartphone / browser participation in baien post-train via WebGPU LoRA-only autograd (rank-16 on q/k/v/o_proj), frozen BitNet trunk + frozen modality encoders per ADR-2605241900. 5-layer architecture (L1 WebGPU kernel / L2 ameno PWA loop / L3 lexicon + DID / L4 Murakumo aggregator / L5 MST + L2 anchor). 11 constitutional gates (G1 trunk+encoders frozen / G2 LoRA rank-16 q/k/v/o_proj only / G3 IPFS+MST upload / G4 member passkey ES256 / G5 Murakumo-only aggregation / G6 on-device Charter Rider scan / G7 Adherent SBT gate / G8 Wellbecoming gate / G9 Byzantine median/Krum + DP-Gaussian / G10 round-frozen baseModelCid / G11 no per-delta payout). R0 deliverables: this ADR + lexicon app.etzhayyim.baien.distributedTrainDelta + 20-actors/ameno/src/train.ts throw-on-use scaffold + 70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py dry-run-only planner + 20-actors/magatama/cells/baien_federated_aggregator/ Council-attestation-gated cell (import-time RuntimeError, L5-routing-around pattern from CLAUDE.md row 35). R1..R4 phased activation, each phase requires its own ADR (matches wadachi R0 pattern from ADR-2605242000)."
+path = "90-docs/adr/2605242600-baien-federated-train-via-ameno-webgpu.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
