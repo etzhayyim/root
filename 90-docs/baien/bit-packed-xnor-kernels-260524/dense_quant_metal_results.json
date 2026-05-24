@@ -1,0 +1,114 @@
+{
+  "mlx_version": "0.31.1",
+  "device": "Device(gpu, 0)",
+  "shapes": [
+    [
+      16,
+      256,
+      128
+    ],
+    [
+      64,
+      1024,
+      512
+    ],
+    [
+      128,
+      2048,
+      2048
+    ],
+    [
+      256,
+      4096,
+      4096
+    ]
+  ],
+  "results": [
+    {
+      "B": 16,
+      "K": 256,
+      "N": 128,
+      "ops": 1048576,
+      "group_size": 64,
+      "fp32_dense_sec": 0.000312,
+      "fp32_dense_tflops": 0.003,
+      "bf16_dense_sec": 0.000277,
+      "bf16_dense_tflops": 0.004,
+      "fp16_dense_sec": 0.000305,
+      "fp16_dense_tflops": 0.003,
+      "int8_quant_sec": 0.000336,
+      "int8_quant_tops": 0.003,
+      "int4_quant_sec": 0.000207,
+      "int4_quant_tops": 0.005,
+      "int2_quant_sec": 0.000216,
+      "int2_quant_tops": 0.005,
+      "fp8_status": "unsupported on Apple M4 silicon (no fp8 ALU)",
+      "fp4_status": "unsupported on Apple M4 silicon (no fp4 ALU)"
+    },
+    {
+      "B": 64,
+      "K": 1024,
+      "N": 512,
+      "ops": 67108864,
+      "group_size": 64,
+      "fp32_dense_sec": 0.000344,
+      "fp32_dense_tflops": 0.195,
+      "bf16_dense_sec": 0.00026,
+      "bf16_dense_tflops": 0.258,
+      "fp16_dense_sec": 0.000308,
+      "fp16_dense_tflops": 0.218,
+      "int8_quant_sec": 0.000272,
+      "int8_quant_tops": 0.246,
+      "int4_quant_sec": 0.000332,
+      "int4_quant_tops": 0.202,
+      "int2_quant_sec": 0.000284,
+      "int2_quant_tops": 0.236,
+      "fp8_status": "unsupported on Apple M4 silicon (no fp8 ALU)",
+      "fp4_status": "unsupported on Apple M4 silicon (no fp4 ALU)"
+    },
+    {
+      "B": 128,
+      "K": 2048,
+      "N": 2048,
+      "ops": 1073741824,
+      "group_size": 64,
+      "fp32_dense_sec": 0.001064,
+      "fp32_dense_tflops": 1.009,
+      "bf16_dense_sec": 0.000981,
+      "bf16_dense_tflops": 1.094,
+      "fp16_dense_sec": 0.001077,
+      "fp16_dense_tflops": 0.997,
+      "int8_quant_sec": 0.00107,
+      "int8_quant_tops": 1.003,
+      "int4_quant_sec": 0.00105,
+      "int4_quant_tops": 1.023,
+      "int2_quant_sec": 0.001158,
+      "int2_quant_tops": 0.928,
+      "fp8_status": "unsupported on Apple M4 silicon (no fp8 ALU)",
+      "fp4_status": "unsupported on Apple M4 silicon (no fp4 ALU)"
+    },
+    {
+      "B": 256,
+      "K": 4096,
+      "N": 4096,
+      "ops": 8589934592,
+      "group_size": 64,
+      "fp32_dense_sec": 0.003306,
+      "fp32_dense_tflops": 2.598,
+      "bf16_dense_sec": 0.002656,
+      "bf16_dense_tflops": 3.234,
+      "fp16_dense_sec": 0.002631,
+      "fp16_dense_tflops": 3.265,
+      "int8_quant_sec": 0.003193,
+      "int8_quant_tops": 2.69,
+      "int4_quant_sec": 0.003186,
+      "int4_quant_tops": 2.696,
+      "int2_quant_sec": 0.003312,
+      "int2_quant_tops": 2.593,
+      "fp8_status": "unsupported on Apple M4 silicon (no fp8 ALU)",
+      "fp4_status": "unsupported on Apple M4 silicon (no fp4 ALU)"
+    }
+  ],
+  "fp8_status": "unsupported on Apple M4 silicon",
+  "fp4_status": "unsupported on Apple M4 silicon"
+}
