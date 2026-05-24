@@ -96,6 +96,7 @@ New open-scope ADRs go here (`etzhayyim/root/90-docs/adr/`). Scope:
 | [2605250100](./2605250100-l5-routing-around-member-registry-cell.md) | L5 routing-around cell ladder + member_registry_cell P1 (住民登録 substitute for SBT-holding adherents) — 1-gate Council activation; existing Adherent SBT / MEMBERS.md / EtzhayyimMembership.sol orchestrated as coherence layer | proposed | 2026-05-25 |
 | [2605250200](./2605250200-l5-religious-marriage-cell.md) | L5 P2 religious_marriage_cell (婚姻届 substitute for SBT↔SBT bonds) — 2-gate Council activation; 3 open constitutional questions (gender / polygamy / cross-religion); mutual-consent dissolution only | proposed | 2026-05-25 |
 | [2605250300](./2605250300-l5-religious-corp-taxation-cell.md) | L5 P3 religious_corp_taxation_cell (法人税申告 INTERNAL substrate operator; does NOT discharge state-tax obligations) — 3-gate Council activation (+ legal counsel opinion CID); 4 open constitutional questions; Charter Rider §2 violation detection at runtime | proposed | 2026-05-25 |
+| [2605250400](./2605250400-gemma-coder-distill-rocm.md) | gemma-coder distill — gemma3:4b drift → gemma4:e4b の LangGraph コーディング適応 (EVO-X2 ROCm + peft+trl, Unsloth Windows-ROCm 不可確定); first non-baien distill route; 6-fix iter-00 E2E + 4 systematic antipattern fixed by hand-authored Apache 2.0 corpus | accepted | 2026-05-25 |
 
 (Future ADRs added here as they're authored.)
 

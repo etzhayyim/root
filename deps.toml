@@ -1301,7 +1301,53 @@ status = "proposed"
 status_note = "Self-design RTL/CAD/mechanical/robotics for 8 fab equipment categories (industry counterparts: ASML/Nikon/Canon for litho; AMAT/Lam/TEL for deposition + etch; Axcelis/AMAT for ion implant; Ebara/AMAT for CMP; KLA for metrology; Advantest/Teradyne for ATE; ASE/Amkor/TSMC AP/Samsung AP for packaging). 7 decisions: (1) per-step responsibility matrix mapping each equipment to a silicon_<step> Pregel cell; (2) common Pregel super-step contract (super_step(wafer_lot, telemetry, prior_attestations) → (next_wafer_lot, messages)); (3) open-source EDA stack only (yosys / Verilator / cocotb / SymbiYosys / KiCad / FreeCAD / OpenSCAD / ROS 2 / OpenLane); (4) public reference design strategy = transparent religious force per ADR-2605192315 (公開された RTL/CAD コモンズが力の独占を防ぐ); (5) Murakumo node assignment (judah for litho/depo/etch; dan for implant; naphtali for CMP+packaging; simeon for metrology iwakura-coloc; levi for test ternary-aware ATE); (6) Phase 1 scaffold this wave; (7) Phase 2 priority sequencing — Phase 2a silicon_test (ATE bring-up independence) / Phase 2b silicon_metrology (AI on iwakura) / Phase 2c silicon_packaging (fuigo chiplet) / Phase 3 silicon_litho (EUV, year-scale) / Phase 4 残り 4 工程. Charter Rider §2(a)(c) risk classification per equipment: HIGH (litho/implant) / MEDIUM (depo/etch/metrology) / LOW (cmp/test/packaging). 4 Lexicons under app.etzhayyim.silicon (chipManufacturingAttestation / silenForceReview / fabEquipmentTelemetry / waferLotAttestation)."
 path = "90-docs/adr/2605242545-tsukuru-fab-equipment-pregel-charter.md"
 
+# ─── gemma-coder-distill (ADR-2605250400) ───────────────────────────
+
+[[adrs]]
+id = "2605250400"
+title = "gemma-coder distill — gemma3:4b drift → gemma4:e4b の LangGraph コーディング適応 (EVO-X2 ROCm + peft+trl, Unsloth Windows-ROCm 不可確定)"
+status = "accepted"
+status_note = "Murakumo fleet で実 serve 中の `gemma4:e4b` (8B Gemma 4 Effective 4B; judah Ollama 192.168.1.17:11434 で実機確認、CLAUDE.md/fleet.toml の `gemma3:4b` 表記はドリフト) を LangGraph specific に distill する初の non-baien 経路。baien-distill は BitNet 専用 (BASE_MODEL_ID ハードコード) かつ ADR-2605241900 edge invariant に縛られるため、新規 tool `70-tools/gemma-coder-distill/` として分離。Trainer は **peft+trl 直** (Unsloth は gate-1 probe 2026-05-25 で Windows ROCm 7.2.1 + Python 3.12 上で pip dep resolution が CUDA-stack 前提依存で RecursionError 確定、evidence `90-docs/baien/probe_unsloth_rocm.json`)。Teacher signal は **HF Apache 2.0 Opus-distilled SFT のみ** (`lordx64/reasoning-distill-opus-4-7-max-sft` qwen-text format) + 手書き antipattern-corrective corpus (20 row、4 antipattern × ~5 ex)。Anthropic 直叩きは ADR-2605215000 §1.2 で禁止、judah LiteLLM 経由 Claude も distill teacher としては §2 OSS-only 制約継承で除外。Gemma 4 は attention 投影を `Gemma4ClippableLinear` (nn.Linear wrapper) で包んでおり peft が拒否 → `_resolve_targets()` で inner `.linear` を suffix match (trainable params=2,752,512 / total=7.94B / 0.0346%)。配布経路: merged HF dir → llama.cpp convert → Q4_K_M GGUF → Ansible で各 mini に `ollama create gemma4-coder:e4b -f Modelfile` → judah LiteLLM に route 追加。baseline 2/8 (25%) で 4 antipattern systematic 検出 (wrong `MemorySaver`/`Command` import paths / `compile(config=...)` hallucination / `set_entry_point(START)`); iter-00 quick E2E 完走 (6 hot-fix を越えて成立、merged adapter 生成 + bench eval 完了); iter-01 full (5020 ex × 2 epoch、~100 min wall) は detached PowerShell Start-Process で background 実行中。"
+path = "90-docs/adr/2605250400-gemma-coder-distill-rocm.md"
+
 # ─── Module registry ────────────────────────────────────────────────
+
+[[modules]]
+path = "70-tools/gemma-coder-distill"
+kind = "langgraph-distill-tool"
+version = "0.1.0"
+status = "iter-00-E2E-validated"
+description = "LangGraph ReAct loop that distills gemma4:e4b (Murakumo fleet serve target) into a LangGraph-coding specialist. 6-node graph (analyze → fetch → validate → train → evaluate → commit) with peft+trl bf16 LoRA r=16 on EVO-X2 ROCm 7.2.1 (Unsloth Windows ROCm unsupported, gate-1 probe confirmed). Gemma4ClippableLinear inner `.linear` auto-resolution. Hand-authored antipattern-corrective SFT corpus (20 rows, Apache 2.0) targets the 4 systematic gaps detected in gemma4:e4b baseline (wrong MemorySaver / Command import paths, compile(config=) hallucination, set_entry_point(START)). HF Opus reasoning corpus (qwen-text format) provides general SFT signal. Anthropic-direct distillation is constitutionally prohibited (ADR-2605215000 §1.2); Opus reaches the loop only via Apache 2.0 HF datasets per the baien-distill §3a pattern."
+adr = ["2605250400", "2605231300", "2605215000", "2605202345", "2605241900", "2605192200"]
+sibling_modules = [
+  "70-tools/baien-distill",                              # parent pattern (BitNet 専用)
+  "70-tools/scripts/bench/langgraph-coding",             # exec-graded bench (gating signal)
+  "50-infra/cluster/murakumo/litellm",                   # post-distill LiteLLM route addition
+  "50-infra/murakumo",                                   # fleet placement (target serve = each mini)
+]
+trainer = "peft+trl (Unsloth fallback gate-1 probe 2026-05-25 confirmed Windows ROCm unsupported)"
+trainer_evidence = "90-docs/baien/probe_unsloth_rocm.json"
+student = "google/gemma-4-E4B-it"
+serve_target = "gemma4:e4b on judah Ollama (192.168.1.17:11434) + per-node loopback Ollama on each Mac mini"
+bench_artifact = "90-docs/baien/results-langgraph-baseline.jsonl"
+snapshot_artifact = "90-docs/baien/langgraph-coding-baseline-snapshot-260525.md"
+charter_rider_risk = "LOW (training-only artifact; output adapter inherits Apache 2.0 + Charter Rider v2.0); per-iter dataset license review per ADR-2605231300 §License gate"
+phase_gate = "iter-01 full run (5020 ex × 2 epoch, ~100 min wall) is pre-publish smoke; promotion to fleet via Ansible push + LiteLLM route addition requires bench delta ≥ +3pp gate"
+
+[[modules]]
+path = "70-tools/scripts/bench/langgraph-coding"
+kind = "exec-graded-bench"
+version = "0.1.0"
+status = "8-prompt-seed-out-of-50-target"
+description = "Exec-graded LangGraph coding bench. 50-prompt target spanning 10 categories (stategraph / reducer / node / conditional / interrupt / send / subgraph / tool / error / streaming). 8 prompts populated 2026-05-25 (s01 stategraph / r01 reducer / c01-c03 conditional / i01-i03 interrupt). Each grader is a Python module under graders/ with `def check(generation: str) -> tuple[bool, str]`; the runner execs generated code in a subprocess against fixed assertions (no LLM-as-judge — determinism). Output is lm-eval-harness-compatible JSONL consumable by gemma-coder-distill evaluate node and baien-distill bench_reader."
+adr = ["2605250400"]
+sibling_modules = [
+  "70-tools/gemma-coder-distill",
+  "70-tools/scripts/bench/baien-microbench",             # pattern reference
+]
+baseline_result = "90-docs/baien/results-langgraph-baseline.jsonl"
+baseline_score = "2/8 (25%) on gemma4:e4b 2026-05-25"
+remaining_work = "Populate 42 more prompts + graders (send + subgraph + tool + error + streaming categories not yet seeded); each gap-deepen prompt costs ~30-60 LoC grader"
 
 [[modules]]
 path = "50-infra/silicon"
