@@ -60,16 +60,16 @@ ssh evo '...python.exe -m gemma_coder_distill ^
 # 1) convert merged HF → GGUF Q4_K_M
 ssh evo 'cd C:\llama.cpp && python convert.py ^
    C:\path\gemma-coder-distill-out\iter-00\merged ^
-   --outfile gemma3-coder-4b-iter00-Q4_K_M.gguf --outtype Q4_K_M'
+   --outfile gemma4-coder-e4b-iter00-Q4_K_M.gguf --outtype Q4_K_M'
 
 # 2) push to each mini (Ansible — see ADR §3 Step 6)
 ansible-playbook -i 60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml \
    60-apps/ai-gftd-project-murakumo/ansible/push-ollama-model.yml \
-   -e model_file=gemma3-coder-4b-iter00-Q4_K_M.gguf \
-   -e model_tag=gemma3-coder:4b-iter00
+   -e model_file=gemma4-coder-e4b-iter00-Q4_K_M.gguf \
+   -e model_tag=gemma4-coder:e4b-iter00
 
 # 3) add LiteLLM route on judah
-#    edit 50-infra/cluster/murakumo/litellm/config.yaml → add gemma3-coder entry
+#    edit 50-infra/cluster/murakumo/litellm/config.yaml → add gemma4-coder entry
 ```
 
 ## License
@@ -89,4 +89,4 @@ Scaffold + node logic landed 2026-05-25. Awaits:
 - **Step 4**: coding-specific Apache/MIT HF corpora added to `DATASET_REGISTRY`
 - **Step 5**: iter-00 quick run end-to-end on EVO-X2 (requires Step 2 done first)
 - **Step 6**: Ansible push runbook (`60-apps/ai-gftd-project-murakumo/ansible/push-ollama-model.yml`)
-- **Step 7**: LiteLLM route addition (`gemma3-coder:4b` in `50-infra/cluster/murakumo/litellm/config.yaml`)
+- **Step 7**: LiteLLM route addition (`gemma4-coder:e4b` in `50-infra/cluster/murakumo/litellm/config.yaml`)

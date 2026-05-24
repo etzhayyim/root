@@ -37,7 +37,7 @@ def evaluate(state: DistillState) -> DistillState:
     cmd = [
         sys.executable, str(bench_runner),
         "--model", f"file://{merged_dir}",
-        "--model-id", f"gemma3-coder:4b-iter{iter_idx:02d}",
+        "--model-id", f"gemma4-coder:e4b-iter{iter_idx:02d}",
         "--out", str(out_file),
     ]
     state["notes"].append(f"[evaluate] cmd: {' '.join(cmd)}")
