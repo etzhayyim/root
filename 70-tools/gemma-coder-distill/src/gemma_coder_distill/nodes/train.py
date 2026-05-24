@@ -171,7 +171,14 @@ def _merge(base_model_id: str, adapter_dir: Path, out_dir: Path) -> None:
     peft_model = PeftModel.from_pretrained(base, str(adapter_dir))
     merged = peft_model.merge_and_unload()
     out_dir.mkdir(parents=True, exist_ok=True)
-    merged.save_pretrained(str(out_dir))
+    # Bypass save_pretrained's safetensors path entirely — transformers ignores
+    # safe_serialization=False on this version, hitting numpy ctypes int32 overflow
+    # on Windows for >2 GB tensors (e.g. Gemma 4 embed_tokens at 262144*hidden in bf16).
+    # Manual torch.save → pytorch_model.bin is loadable by AutoModelForCausalLM.from_pretrained.
+    torch.save(merged.state_dict(), str(out_dir / "pytorch_model.bin"))
+    merged.config.save_pretrained(str(out_dir))
+    if hasattr(merged, "generation_config") and merged.generation_config is not None:
+        merged.generation_config.save_pretrained(str(out_dir))
     tok.save_pretrained(str(out_dir))
 
 
