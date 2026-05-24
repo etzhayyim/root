@@ -1361,6 +1361,15 @@ status = "proposed"
 status_note = "R1 phase transitions Wave 1c R0 scaffold → operational readiness. Establishes Council Lv6+ ≥3 attestation baseline (silenPharmaReview scope: wave-1c-chiral-resolution-baseline + wave-1c-liquid-formulation-baseline). Defines omeprazole S-enantiomer benchtop PoC protocol (≤1g scale, two parallel routes: crystalline-resolution-mandelate via L-mandelic acid [65-75% yield] or prep-HPLC-chiral Chiralcel OD-H [70-95% yield], enantiomeric purity ≥99.5% ICH M7 Class 5). Specifies guaifenesin 100mg/5mL syrup + benzonatate suspension (100-150mg/5mL) liquid formulation QC baseline (USP <61>/<62> microbial limits, viscosity, pH). Documents benzonatate PMDA jurisdiction margin resolution (monitoring assignment until 2026-06-30 PMDA decision window closes; if approved by 2026-06-30, R1.5 amendment ADR-2605250645 unlocks manufacturing; if denied, benzonatate deferred to Wave 2). No amendment to 14 gates G1..G14 + 10 non-goals N1..N10. Council motion target: 2026-05; gate unlock target: 2026-06-30."
 path = "90-docs/adr/2605250630-yakushi-wave-1c-r1-chiral-commissioning.md"
 
+# ─── Oka × MMSheaf multimodal integration (ADR-2605250700) ──────────
+
+[[adrs]]
+id = "2605250700"
+title = "Oka × MMSheaf — Sheaf-based diffusion as graph-aware multimodal fusion layer (R0 scaffold)"
+status = "proposed"
+status_note = "Integrates Gonzàlez i Català 2025 (Cambridge / P. Liò, UPC bachelor's thesis) MMSheaf family (cellular sheaf diffusion with learnable restriction maps F_{u◁e} parametrised as MLP(x_u‖x_v) reshaped to d×d) as the graph-aware modality-fusion layer for Oka (ADR-2605092345). Closes Oka's missing fusion layer: today's shared trunk + modality adapters loses modality identity at first attention block (paper §4.1 early-fusion diagnosis). **Two-tier deployment**: server = MMSheafV4 (block-structured + α_ij scalar MLP, Ele-Fashion best 86.14%) on Murakumo EVO-X2 ROCm 7.2.1 (religious-corp side; H100 NVL only vendor-side); edge = MMSheafV3 (block-diagonal — ternary-quantisable per-modality BitLinear) distilled to Baien BitNet 1.58 within ≤2GB @ 4k ctx invariant (ADR-2605241900 G3). **9-modality stalk** (constitutionally fixed: text / image / audio / video / 3d / geospatial / document / tabular / time-series — mirrors Oka §1 declared modality vocabulary); d_node = 9; d_edge = 4 (server) / 2 (edge); missing modalities = zero-row + binary mask (extension beyond paper, R1 ablation gates). **Training contract**: peft+trl bf16 LoRA on EVO-X2 ROCm reusing gemma-coder-distill recipe (ADR-2605250400); no RunPod (ADR-2605215000 + CHARTER-RIDER §2(i)); encoders frozen (G1 baien invariant); lineage `vertex_training_run.kind ∈ {mmsheaf-v4-server, mmsheaf-v3-edge, mmsheaf-v1-ablation, mmsheaf-v2-ablation}` reuses ADR-2605070700 schema; Charter Rider §2 scanner pre-pass on text input. **Substrate**: graph from yatachain-projection (ADR-2605231500, deterministically rebuildable from MST); first projection target = feed-discover (ADR-2605231902); output attestation lexicon namespace `app.etzhayyim.mmsheaf.diffusionRoundReceipt` reserved (schema R1). **Repo placement** (R0 scaffold only — declared, not implemented): pymagatama.mmsheaf (variants V1–V4) + magatama/cells/mmsheaf_diffusion_aggregator (Murakumo levi, RuntimeError gate per silicon Wave 1 pattern) + baien-distill/nodes/mmsheaf_v3_ternary + 70-tools/scripts/bench/mmsheaf-microbench. **Phase plan**: R0 ADR + registry (this wave); R1 V1-V4 + synthetic bench replicate ≥+10% over GCN; R2 Ele-Fashion replicate ≥85.5%±1.0; R3 feed-discover production + V3 ternary checkpoint ≤2GB; R4 baien-federated R2+ extension via WebGPU LoRA on restriction maps (separate ADR). Each R-phase requires its own ADR. **New runtime dep**: PyG (torch_geometric ≥2.5) — ROCm wheel availability requires R1 PoC verification. **Reported paper baselines** (replication targets): MMSheafV4 86.14% > DiagSheaf 85.58% > MLP 84.98% > SAGE 84.41% > MMGCN 82.39% on Ele-Fashion (97 766 nodes, ViT+T5, 12 classes, homophily 0.7675); synthetic +5%–+31% absolute over GCN/GAT across all configurations."
+path = "90-docs/adr/2605250700-oka-mmsheaf-multimodal-integration.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -2436,6 +2445,34 @@ adr = ["2605241500"]
 sibling_modules = [
   "90-docs/baien/datasets",
   "50-infra/ipfs-pinner",
+]
+
+# ─── MMSheaf multimodal fusion layer (ADR-2605250700, R0 scaffold) ───
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/mmsheaf"
+kind = "pytorch-sheaf-diffusion-library"
+version = "0.0.0-r0-scaffold-declared"
+status = "scaffold-declared-no-code"
+description = "Cellular sheaf diffusion library for Oka graph-aware multimodal fusion, per ADR-2605250700 R0. Declared modules: stalk.py (9-modality node stalk with mask-aware zero-row missing-modality extension), restriction.py (F_{u◁e} = MLP(x_u‖x_v) reshaped to d×d), laplacian.py (block matrix assembly + D^{-1/2} Δ_F D^{-1/2} normalisation), diffusion.py (X(t+1) = X(t) − σ(δ_F(t) (I_n ⊗ W₁(t)) X(t) W₂(t)) update), variants.py (V1 modality-specific embeddings / V2 modality-aware block-structured restriction maps / V3 modality-isolated block-diagonal / V4 V2 + learnable α_ij scalar weights per modality pair). d_node = 9 constitutionally fixed at R0 (mirrors Oka §1 modality vocabulary). d_edge = 4 (server) / 2 (edge). V4 = server FP8/bf16 deployment target on Murakumo EVO-X2 ROCm; V3 = edge BitNet 1.58 ternary distill target (block-diagonal → per-modality BitLinear plausibility). R0 declares paths only; code implementation lands in R1 ADR. New runtime dep: torch_geometric ≥ 2.5 (ROCm wheel verification required at R1 PoC)."
+adr = ["2605250700", "2605092345", "2605092350", "2605101000", "2605231400", "2605231500", "2605241900", "2605215000", "2605192200"]
+sibling_modules = [
+  "20-actors/magatama/cells/mmsheaf_diffusion_aggregator",   # Pregel cell wrapper (R1)
+  "70-tools/baien-distill",                                   # V3 ternary distill route (R3)
+  "70-tools/scripts/bench/mmsheaf-microbench",                # synthetic + Ele-Fashion replication bench (R1/R2)
+  "20-actors/magatama/py/src/pymagatama",                     # parent Pregel host
+]
+
+[[modules]]
+path = "20-actors/magatama/cells/mmsheaf_diffusion_aggregator"
+kind = "pregel-cell"
+version = "0.0.0-r0-scaffold-declared"
+status = "scaffold-declared-runtime-error-gate"
+description = "Pregel cell wrapping pymagatama.mmsheaf for Murakumo fleet placement on levi (alongside membrane verdict per ADR-2605231902). Per ADR-2605250700 R0: declared, RuntimeError import-time gate on activation per silicon Wave 1 pattern (ADR-2605242545). Inputs = yatachain-projection graph (deterministically rebuildable from MST per ADR-2605231500), node modality vector with binary modality-availability mask, frozen encoder outputs. Output = node embeddings + downstream task output (node classification / link prediction / oka-mm-768 projection) + diffusion round receipt to MST via app.etzhayyim.mmsheaf.diffusionRoundReceipt (lexicon namespace reserved at R0, schema R1). Server tier runs MMSheafV4; edge tier (distilled to Baien) runs MMSheafV3. Code lands in R1 ADR."
+adr = ["2605250700", "2605231902", "2605231500", "2605242545", "2605241900"]
+sibling_modules = [
+  "20-actors/magatama/py/src/pymagatama/mmsheaf",            # underlying library
+  "50-infra/mst-projector",                                   # graph source (feed-discover et al)
 ]
 
 # ─── Religious-Corp Wave Status (ADRs 2605192100..2605192415 cumulative) ──
