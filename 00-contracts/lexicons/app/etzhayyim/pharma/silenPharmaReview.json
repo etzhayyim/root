@@ -64,7 +64,11 @@
               "non-sterile-microbial-limit-baseline",
               "wave-1b-launch-pmda",
               "wave-1b-launch-fda",
-              "wave-1b-launch-ema"
+              "wave-1b-launch-ema",
+              "wave-1c-chiral-resolution-baseline",
+              "wave-1c-laxative-formulation-baseline",
+              "wave-1c-cough-syrup-formulation-baseline",
+              "wave-1c-benzonatate-jp-marginal"
             ]
           },
           "scopeUri": {

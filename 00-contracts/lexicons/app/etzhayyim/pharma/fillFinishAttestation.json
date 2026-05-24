@@ -66,9 +66,12 @@
               "topical-cream",
               "topical-gel",
               "topical-ointment",
-              "topical-spray"
+              "topical-spray",
+              "sachet-powder-for-reconstitution",
+              "oral-liquid-syrup",
+              "oral-suspension"
             ],
-            "description": "Wave 1 = 'eye-drop-sterile-*'. Wave 1b adds tablet + topical. Wave 1c+ adds remaining unit-dose, capsule, spray as separate ADRs."
+            "description": "Wave 1 = 'eye-drop-sterile-*'. Wave 1b adds tablet + topical. Wave 1c adds sachets + oral liquid (cough syrups, laxative solutions). Wave 1c+ adds remaining unit-dose, liquid injectable as separate ADRs."
           },
           "apiConcentrationMicrogPerMl": {
             "type": "integer",

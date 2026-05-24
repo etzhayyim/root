@@ -46,9 +46,16 @@
               "loratadine",
               "famotidine",
               "clotrimazole",
-              "diclofenac-sodium"
+              "diclofenac-sodium",
+              "omeprazole",
+              "polyethylene-glycol-3350",
+              "docusate-sodium",
+              "senna-extract",
+              "bisacodyl",
+              "guaifenesin",
+              "benzonatate"
             ],
-            "description": "Wave 1 + Wave 1b API catalog per ADR-2605250500 §Decision 2 + ADR-2605250600 §Decision 1. Wave 1 triplet (sodium-cromoglicate, naphazoline-hydrochloride, chlorpheniramine-maleate) for sterile eye drop; Wave 1b 9 additions for oral tablet (acetaminophen / aspirin / ibuprofen / diphenhydramine-hydrochloride / cetirizine-dihydrochloride / loratadine / famotidine) + topical (clotrimazole / diclofenac-sodium). Future apis require G1 silen-pharma-review with 'wave-1b-api-addition' or higher scope value."
+            "description": "Wave 1 + Wave 1b + Wave 1c API catalog per ADR-2605250500 §Decision 2 + ADR-2605250600 §Decision 1 + ADR-2605250615 §Decision 1. Wave 1 triplet (sodium-cromoglicate, naphazoline-hydrochloride, chlorpheniramine-maleate) for sterile eye drop; Wave 1b 9 additions for oral tablet + topical; Wave 1c 7 additions (omeprazole chiral + laxatives + cough-expectorant). Future apis require G3 silen-pharma-review with 'wave-1c-*' or higher scope value."
           },
           "stepIndex": {
             "type": "integer",

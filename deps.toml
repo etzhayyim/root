@@ -1347,6 +1347,13 @@ status = "proposed"
 status_note = "Wave 1b extension to master charter (ADR-2605250500) — Wave 1 triplet (eye drop sterile) を 9 化合物 + 2 dosage forms に拡張、Charter Rider §2 全条項 clearance + 14 gates + 10 non-goals 不変。Category A analgesic+antipyretic (oral tablet): acetaminophen (1893) / aspirin (1897 Bayer) / ibuprofen (1969 Boots, Hoechst-Celanese 3-step route post-1981 expired)。Category B oral H1 antihistamine: diphenhydramine HCl (1946) / cetirizine 2HCl (1987 UCB, off-patent ≥ 2007) / loratadine (1988 Schering, off-patent ≥ 2002 US / ≥ 2008 EU exclusivity)。Category C H2 antagonist: famotidine (1986 Yamanouchi, off-patent ≥ 2006)。Category D topical: clotrimazole 1% cream (1969 Bayer) / diclofenac Na 1% gel (1973 Geigy)。全 9 化合物 PMDA/FDA/EMA all-3 OTC switched 確認。明示的除外: pseudoephedrine (CMEA precursor controlled in US) / codeine (Rx全 jurisdiction) / dextromethorphan (marginal) / hydrocortisone (steroid bioprocess Wave 2 候補) / sodium hyaluronate (Streptococcus 発酵 bioprocess Wave 2) / omeprazole (chiral resolution Wave 1c 候補) / naproxen + miconazole + tetrahydrozoline (therapeutic 冗長)。**G7 enforcement extends to acetaminophen + aspirin + ibuprofen** (DSCG と同じ acetic anhydride OPCW Schedule 3 Step 1 issue)。**2 new Pregel cells**: pharma_tablet_manufacture (joseph, non-sterile class C — pre-blend → granulate → final blend + compression → coating → blister-pack) + pharma_topical_formulation (simeon, kuni-umi commissioning sibling — oil phase + aqueous phase emulsification 70-75°C → cooling → tube fill)。**Lexicon extension only** (新 lexicon 無し): apiInn knownValues 3→12 / fillFinishAttestation + lotAttestation に dosageForm field 10 knownValues / qcAttestation に dissolution/disintegration/friability/content-uniformity/viscosity/pH 追加 / silenPharmaReview scope に wave-1b-* triggers (api-addition + dosage-form-tablet-attestation + dosage-form-topical-attestation + tablet-press-equipment-qualification + topical-mixer-equipment-qualification + non-sterile-microbial-limit-baseline + wave-1b-launch-{pmda,fda,ema})。"
 path = "90-docs/adr/2605250600-yakushi-wave-1b-otc-api-catalog-expansion.md"
 
+[[adrs]]
+id = "2605250615"
+title = "yakushi Wave 1c — Chiral synthesis (omeprazole PPI) + deferred OTC expansion (laxative / cough-expectorant)"
+status = "proposed"
+status_note = "Wave 1c extends yakushi from 12 → 19 化合物 + chiral resolution capability + new dosage forms (sachets, oral syrups). omeprazole (chiral S-enantiomer focus; crystalline-resolution-mandelate or prep-HPLC-chiral routes) is flagship API. Category E laxatives: polyethylene glycol 3350 / docusate sodium / senna extract / bisacodyl (all low/zero synthesis complexity). Category G cough-expectorant: guaifenesin / benzonatate (both 1-2 step routes, minimal G7 risk). **G7 risk = NONE** (omeprazole synthesis omits OPCW Schedule 3 precursors — contrast Wave 1b analgesics). **1 new Pregel cell**: pharma_chiral_resolution (levi node, omeprazole S-enantiomer separation). **New dosageForm knownValues**: sachet-powder-for-reconstitution / oral-liquid-syrup / oral-suspension (extends Wave 1b 10→13). **Charter Rider §2 全条項 clearance**: omeprazole § 2(h) wellbecoming margin (long-term PPI use → secondary hypomagnesemia/hypocalcemia risk, labeled). **Benzonatate PMDA jurisdiction margin**: Rx form exists in Japan; OTC elsewhere. R1 phase decision pending Japanese regulatory approval (benzonatate OTC application submitted 2023, decision expected 2024-2025). silenPharmaReview scope additions: wave-1c-chiral-resolution-baseline / wave-1c-laxative-formulation-baseline / wave-1c-cough-syrup-formulation-baseline / wave-1c-benzonatate-jp-marginal。"
+path = "90-docs/adr/2605250615-yakushi-wave-1c-chiral-synthesis-and-deferred-otc-expansion.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -1581,6 +1588,24 @@ version = "0.1.0-scaffold-only"
 status = "import-time-RuntimeError-until-r2-topical-mixer-qualification"
 description = "Non-sterile topical (cream / gel / ointment) compounding per Wave 1b. Oil phase + aqueous phase preparation (70-75°C) → high-shear emulsification → cooling with agitation → viscosity adjustment → aluminum tube or HDPE jar fill + crimp/seal. Wave 1b API → topical products: clotrimazole 1% cream (antifungal) + diclofenac Na 1% gel (NSAID musculoskeletal). Non-sterile for intact skin (sterile only for ophthalmic/wound/mucosal → Wave 1c carve-out). G11 per-API warnings (clotrimazole 7-14 day use limit + diclofenac topical photosensitivity / not on broken skin / not 3rd trimester pregnancy / not under occlusion). Per ADR-2605250600 §Decision 2. Lexicon: app.etzhayyim.pharma.fillFinishAttestation (dosageForm=topical-*). Proposed Murakumo node: simeon (kuni-umi commissioning sibling — container + filling pair)."
 adr = ["2605250600", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.fillFinishAttestation", "app.etzhayyim.pharma.qcAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_chiral_resolution"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-chiral-resolution-baseline"
+description = "Enantiomeric separation (chiral resolution) per Wave 1c. omeprazole S-enantiomer flagship API (crystalline-resolution-mandelate via L-mandelic acid salt crystallization ~70% yield, or prep-HPLC-chiral with Chiralcel OD-H chiral stationary phase). Output: enantiomeric purity ≥ 99.5% (ICH M7 Class 5 allowable ≤ 0.5% R-enantiomer). Future Wave 1c+ candidates: levocetirizine (S-isomer, topical), levofloxacin (S-isomer, ophthalmic). Per ADR-2605250615 §Decision 3. Lexicon: app.etzhayyim.pharma.purificationAttestation (scheme in [crystalline-resolution-mandelate, prep-hplc-chiral, SFC-supercritical]). Proposed Murakumo node: levi (pharma QC/analytical). **No G7 (CWC precursor) risk** — omeprazole synthesis route omits OPCW Schedule 3 reagents (contrast Wave 1b analgesics)."
+adr = ["2605250615", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.purificationAttestation", "app.etzhayyim.pharma.qcAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_liquid_formulation"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-cough-syrup-formulation-baseline"
+description = "Oral liquid formulation (syrup, solution, suspension) fill-finish per Wave 1c. Cough-expectorant syrups (guaifenesin 100 mg/5 mL, benzonatate suspension 100-150 mg/5 mL) + laxative solutions (docusate sodium liquid, post-reconstitution PEG 3350). Non-sterile fill into amber glass bottles with dosing cups. QC: microbial limit USP <61>/<62> (TAMC ≤ 10³ CFU/mL), viscosity (cone-plate rheometer), pH (4-7 range), appearance (no particles, uniform color). G11 per-API warnings (benzonatate: chewing/sucking → throat anesthesia / choking risk; laxatives: electrolyte loss with prolonged use). Per ADR-2605250615 §Decision 4. Lexicon: app.etzhayyim.pharma.fillFinishAttestation (dosageForm in [oral-liquid-syrup, oral-suspension]). Proposed Murakumo node: joseph (fill-finish sibling)."
+adr = ["2605250615", "2605250500"]
 lexicons = ["app.etzhayyim.pharma.fillFinishAttestation", "app.etzhayyim.pharma.qcAttestation"]
 
 

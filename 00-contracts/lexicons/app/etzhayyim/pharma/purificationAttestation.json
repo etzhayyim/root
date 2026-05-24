@@ -60,9 +60,12 @@
               "recryst-double",
               "recryst-charcoal-only",
               "trituration-wash",
-              "vacuum-distillation"
+              "vacuum-distillation",
+              "crystalline-resolution-mandelate",
+              "prep-hplc-chiral",
+              "SFC-supercritical"
             ],
-            "description": "Wave 1: 'recryst-charcoal-filter' (DSCG / naphazoline); 'recryst-charcoal-filter-prephplc' (chlorpheniramine, ICH M7 4-chlorobenzyl chloride removal). Wave 1b extensions: 'recryst-only' (clotrimazole / diclofenac), 'recryst-double' (acetaminophen / aspirin from acetic anhydride route — residual AcOH removal), 'recryst-charcoal-only' (ibuprofen / famotidine), 'trituration-wash' (diphenhydramine HCl salt), 'vacuum-distillation' (loratadine / cetirizine intermediate cleanup)."
+            "description": "Wave 1: 'recryst-charcoal-filter' (DSCG / naphazoline); 'recryst-charcoal-filter-prephplc' (chlorpheniramine, ICH M7 4-chlorobenzyl chloride removal). Wave 1b extensions: 'recryst-only' (clotrimazole / diclofenac), 'recryst-double' (acetaminophen / aspirin), 'recryst-charcoal-only' (ibuprofen / famotidine), 'trituration-wash' (diphenhydramine HCl salt), 'vacuum-distillation' (loratadine / cetirizine). Wave 1c chiral: 'crystalline-resolution-mandelate' (omeprazole S-enantiomer via L-mandelic acid salt), 'prep-hplc-chiral' (Chiralcel OD-H or equiv), 'SFC-supercritical' (deferred Wave 1c+)."
           },
           "recrystSolvent": {
             "type": "string",

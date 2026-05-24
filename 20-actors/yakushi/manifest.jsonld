@@ -4,10 +4,10 @@
   "@type": "Actor",
   "name": "yakushi",
   "displayName": "薬師 (yakushi)",
-  "description": "Religious-corp first-party pharmaceutical R&D actor — Wave 1 reference = OTC 抗アレルギー点眼薬 triplet (sodium cromoglicate, naphazoline HCl, chlorpheniramine maleate). Wave 1b extends API catalog to 12 化合物 across 3 dosage forms (sterile eye drop + oral tablet + topical cream/gel). All cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-pharma-review attestation per ADR-2605250500. Per ADR-2605250500/515/530/545/600.",
-  "version": "0.1.0",
+  "description": "Religious-corp first-party pharmaceutical R&D actor — Wave 1 reference = OTC 抗アレルギー点眼薬 triplet (sodium cromoglicate, naphazoline HCl, chlorpheniramine maleate). Wave 1b extends API catalog to 12 化合物 across 3 dosage forms (sterile eye drop + oral tablet + topical cream/gel). Wave 1c adds 7 化合物 (omeprazole chiral + 4 laxatives + 2 cough-expectorant) + 1 chiral resolution cell. All cells gated import-time RuntimeError until Council Lv6+ ≥ 3 silen-pharma-review attestation per ADR-2605250500. Per ADR-2605250500/515/530/545/600/615.",
+  "version": "0.2.0",
   "tier": "B",
-  "wave": "Wave 1 + Wave 1b R0 — scaffold-only",
+  "wave": "Wave 1 + Wave 1b + Wave 1c R0 — scaffold-only",
   "cells": [
     {
       "name": "PharmaRawMaterialCell",
@@ -140,6 +140,28 @@
       "healthzPort": 13061,
       "gated": true,
       "gateReason": "Council Lv6+ + silen-pharma + topical-mixer-equipment-qualification + non-sterile-microbial-limit-baseline"
+    },
+    {
+      "name": "PharmaChiralResolutionCell",
+      "phase": "wave-1c-chiral",
+      "leaderNode": "levi",
+      "module": "pharma_chiral_resolution.cell",
+      "lexicon": "app.etzhayyim.pharma.purificationAttestation",
+      "trigger": { "kind": "mst-listener" },
+      "healthzPort": 13062,
+      "gated": true,
+      "gateReason": "Council Lv6+ + silen-pharma wave-1c-chiral-resolution-baseline + analytical method suitability"
+    },
+    {
+      "name": "PharmaLiquidFormulationCell",
+      "phase": "wave-1c-liquid",
+      "leaderNode": "joseph",
+      "module": "pharma_liquid_formulation.cell",
+      "lexicon": "app.etzhayyim.pharma.fillFinishAttestation",
+      "trigger": { "kind": "mst-listener" },
+      "healthzPort": 13063,
+      "gated": true,
+      "gateReason": "Council Lv6+ + silen-pharma wave-1c-cough-syrup-formulation-baseline + liquid fill-finish process"
     }
   ],
   "lexicons": [
@@ -322,12 +344,113 @@
       "labelWarnings": ["photosensitivity", "not for broken skin", "not in 3rd trimester pregnancy", "not under occlusion"]
     }
   ],
+  "wave1cReferenceApis": [
+    {
+      "inn": "omeprazole",
+      "inn_ja": "オメプラゾール",
+      "did": "did:web:etzhayyim.com:yakushi:api:omeprazole",
+      "cas": "73590-58-6",
+      "molecularFormula": "C17H19N3O3S",
+      "molecularWeight": 345.42,
+      "role": "proton-pump-inhibitor",
+      "stereochemistry": "racemic → S-enantiomer active only (chiral resolution required)",
+      "dosageForms": ["tablet-film-coated"],
+      "otcSwitch": ["FDA 2003 OTC", "EMA 2004 OTC", "PMDA 2014+ pending"],
+      "originReleaseYear": 1988,
+      "originReleasePartyHistorical": "Astra-Zeneca (SE)",
+      "synthesisScheme": "crystalline-resolution-mandelate | prep-hplc-chiral",
+      "labelWarnings": ["long-term PPI use secondary hypomagnesemia risk", "bone fracture risk with chronic use", "B12 absorption reduction", "Clostridium difficile association"]
+    },
+    {
+      "inn": "polyethylene glycol 3350",
+      "inn_ja": "ポリエチレングリコール 3350",
+      "did": "did:web:etzhayyim.com:yakushi:api:polyethylene-glycol-3350",
+      "cas": "25322-68-3",
+      "molecularFormula": "(C2H6O2)n where n ≈ 75",
+      "role": "osmotic-laxative",
+      "dosageForms": ["sachet-powder-for-reconstitution"],
+      "otcSwitch": ["FDA 1975 OTC", "EMA OTC", "PMDA OTC"],
+      "synthesisScheme": "polymerization / bulk purchase (no synthesis required)",
+      "labelWarnings": ["not for children <2 yr", "electrolyte loss with prolonged use"]
+    },
+    {
+      "inn": "docusate sodium",
+      "inn_ja": "ドキュセートナトリウム",
+      "did": "did:web:etzhayyim.com:yakushi:api:docusate-sodium",
+      "cas": "577-11-7",
+      "molecularFormula": "C20H39NaO7S",
+      "molecularWeight": 442.57,
+      "role": "stool-softener-laxative",
+      "dosageForms": ["sachet-powder-for-reconstitution", "tablet-film-coated"],
+      "otcSwitch": ["FDA 1975 OTC", "EMA OTC", "PMDA OTC"],
+      "synthesisScheme": "1-step neutralization (dioctyl sulfosuccinic acid + NaOH)",
+      "labelWarnings": ["use with adequate water intake"]
+    },
+    {
+      "inn": "senna extract",
+      "inn_ja": "センナ抽出物",
+      "did": "did:web:etzhayyim.com:yakushi:api:senna-extract",
+      "cas": "81-27-6",
+      "role": "stimulant-laxative",
+      "dosageForms": ["sachet-powder-for-reconstitution"],
+      "otcSwitch": ["FDA OTC", "EMA OTC traditional", "PMDA OTC"],
+      "synthesisScheme": "plant-extract standardization (sennoside A+B HPLC)",
+      "source": "Cassia senna (leaflets)",
+      "labelWarnings": ["not for chronic use >1 week", "may produce dark urine or discoloration"]
+    },
+    {
+      "inn": "bisacodyl",
+      "inn_ja": "ビサコジル",
+      "did": "did:web:etzhayyim.com:yakushi:api:bisacodyl",
+      "cas": "603-50-9",
+      "molecularFormula": "C22H19NO4",
+      "molecularWeight": 361.39,
+      "role": "stimulant-laxative",
+      "dosageForms": ["tablet-enteric-coated"],
+      "otcSwitch": ["FDA OTC", "EMA OTC", "PMDA OTC"],
+      "synthesisScheme": "2-step from diphenolic precursor (Smiles rearrangement + acetylation)",
+      "originReleaseYear": 1955,
+      "originReleasePartyHistorical": "Boehringer Ingelheim (DE)",
+      "labelWarnings": ["enteric-coated form only (no dissolution in stomach)", "not for >1 week use"]
+    },
+    {
+      "inn": "guaifenesin",
+      "inn_ja": "グアイフェネシン",
+      "did": "did:web:etzhayyim.com:yakushi:api:guaifenesin",
+      "cas": "93-14-1",
+      "molecularFormula": "C10H14O4",
+      "molecularWeight": 198.22,
+      "role": "expectorant",
+      "dosageForms": ["oral-liquid-syrup"],
+      "otcSwitch": ["FDA OTC", "EMA OTC", "PMDA OTC"],
+      "synthesisScheme": "1-2 steps: eugenol → guaiacol → glycerylation",
+      "originReleaseYear": 1952,
+      "labelWarnings": ["unlikely adverse effects at OTC doses"]
+    },
+    {
+      "inn": "benzonatate",
+      "inn_ja": "ベンゾナテート",
+      "did": "did:web:etzhayyim.com:yakushi:api:benzonatate",
+      "cas": "104-31-4",
+      "molecularFormula": "C30H53NO4",
+      "molecularWeight": 495.76,
+      "role": "non-narcotic-cough-suppressant",
+      "dosageForms": ["oral-liquid-syrup"],
+      "otcSwitch": ["FDA pending 2024-2025", "EMA under review", "PMDA Rx form marginal"],
+      "synthesisScheme": "1-step: para-aminobenzoic acid + n-butanol esterification",
+      "originReleaseYear": 1954,
+      "originReleasePartyHistorical": "Fisons (UK)",
+      "jurisdictionalNote": "PMDA margin — R1 phase decision pending Japanese regulatory approval",
+      "labelWarnings": ["chewing / sucking capsules → throat anesthesia / choking risk", "do not chew"]
+    }
+  ],
   "adrs": [
     "2605250500",
     "2605250515",
     "2605250530",
     "2605250545",
     "2605250600",
+    "2605250615",
     "2605192100",
     "2605192115",
     "2605192200",
@@ -387,5 +510,5 @@
   },
   "charterRiderCompliant": true,
   "license": "Apache-2.0 + Charter Compliance Rider v2.0",
-  "lastUpdated": "2026-05-25"
+  "lastUpdated": "2026-05-25T11:55:50Z"
 }
