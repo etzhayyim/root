@@ -15,9 +15,28 @@ after ADR-2605250400 §3 Step 5.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from ..state import DistillState, TrainExample
+
+_QWEN_TURN_RX = re.compile(
+    r"<\|im_start\|>(system|user|assistant)\n(.*?)<\|im_end\|>",
+    re.DOTALL,
+)
+
+
+def _parse_qwen_chat_text(text: str) -> tuple[str | None, str | None]:
+    """Parse Qwen `<|im_start|>role\n...<|im_end|>` envelope, return (last_user, last_assistant)."""
+    last_user: str | None = None
+    last_assistant: str | None = None
+    for m in _QWEN_TURN_RX.finditer(text):
+        role, content = m.group(1), m.group(2).strip()
+        if role == "user":
+            last_user = content
+        elif role == "assistant" and last_user is not None:
+            last_assistant = content
+    return last_user, last_assistant
 
 # Apache/MIT-licensed only. license must be reviewed per ADR-2605250400 §2.
 # kind: "hf" → datasets.load_dataset(name); "local-jsonl" → read file at path.
@@ -34,10 +53,12 @@ DATASET_REGISTRY: list[dict[str, str]] = [
     {
         "kind": "hf",
         "name": "lordx64/reasoning-distill-opus-4-7-max-sft",
+        "format": "qwen-text",
         "license": "apache-2.0",
         "category": "reasoning",
         "rows": "7823",
-        "notes": "Opus-distilled general reasoning — indirect Opus signal per ADR-2605231300 §3a",
+        "notes": "Opus-distilled general reasoning — indirect Opus signal per ADR-2605231300 §3a; "
+                 "single `text` column with Qwen-style <|im_start|>/<|im_end|> envelope",
     },
 ]
 
@@ -71,7 +92,7 @@ def fetch_dataset(state: DistillState) -> DistillState:
             if kind == "local-jsonl":
                 rows = _read_local_jsonl(Path(spec["path"]))
             elif kind == "hf":
-                rows = _stream_hf(spec["name"], cap)
+                rows = _stream_hf(spec["name"], cap, fmt=spec.get("format", "auto"))
             else:
                 state["notes"].append(f"[fetch] skip {spec['name']}: unknown kind={kind!r}")
                 continue
@@ -115,13 +136,32 @@ def _read_local_jsonl(path: Path):
             yield row.get("prompt"), row.get("response")
 
 
-def _stream_hf(name: str, cap: int):
+def _stream_hf(name: str, cap: int, fmt: str = "auto"):
+    """Stream (prompt, response) tuples from a HF dataset.
+
+    fmt:
+      - "auto"      try prompt/instruction/question + response/output/answer (default)
+      - "qwen-text" single `text` column with Qwen chat envelope (Opus reasoning corpus)
+      - "messages"  `messages` list of {role, content}
+    """
     from datasets import load_dataset  # type: ignore
     ds = load_dataset(name, split="train", streaming=True)
     seen = 0
     for row in ds:
-        prompt = row.get("prompt") or row.get("instruction") or row.get("question")
-        response = row.get("response") or row.get("output") or row.get("answer")
+        if fmt == "qwen-text":
+            prompt, response = _parse_qwen_chat_text(row.get("text", "") or "")
+        elif fmt == "messages":
+            msgs = row.get("messages") or []
+            last_u, last_a = None, None
+            for m in msgs:
+                if m.get("role") == "user":
+                    last_u = m.get("content")
+                elif m.get("role") == "assistant" and last_u is not None:
+                    last_a = m.get("content")
+            prompt, response = last_u, last_a
+        else:
+            prompt = row.get("prompt") or row.get("instruction") or row.get("question")
+            response = row.get("response") or row.get("output") or row.get("answer")
         yield prompt, response
         seen += 1
         if seen >= cap * 2:  # over-yield; caller caps
