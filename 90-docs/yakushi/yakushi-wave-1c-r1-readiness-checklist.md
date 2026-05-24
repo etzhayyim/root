@@ -13,8 +13,8 @@ depends_on:
 
 # yakushi Wave 1c R1 — Pre-manufacturing readiness checklist
 
-**Phase:** R1 (benchtop PoC scale, ≤1g omeprazole per synthesis run)  
-**Scope:** Gate unlock verification → equipment readiness → material sourcing → protocol review → witness coordination → first synthesis authorization.  
+**Phase:** R1 (benchtop PoC scale, ≤1g omeprazole per synthesis run)
+**Scope:** Gate unlock verification → equipment readiness → material sourcing → protocol review → witness coordination → first synthesis authorization.
 
 ## Section A: Gate Unlock Verification (T-7 days before synthesis)
 
@@ -309,7 +309,7 @@ depends_on:
 
 ---
 
-**Document owner:** yakushi QA lead  
-**Last reviewed:** 2026-05-25  
-**Readiness approval authority:** Council Lv6+ (via ADR-2605250630 attestation)  
+**Document owner:** yakushi QA lead
+**Last reviewed:** 2026-05-25
+**Readiness approval authority:** Council Lv6+ (via ADR-2605250630 attestation)
 **Synthesis authority:** QA lead (upon completion of all 7 checklist sections A–G)
