@@ -1301,7 +1301,90 @@ status = "proposed"
 status_note = "Self-design RTL/CAD/mechanical/robotics for 8 fab equipment categories (industry counterparts: ASML/Nikon/Canon for litho; AMAT/Lam/TEL for deposition + etch; Axcelis/AMAT for ion implant; Ebara/AMAT for CMP; KLA for metrology; Advantest/Teradyne for ATE; ASE/Amkor/TSMC AP/Samsung AP for packaging). 7 decisions: (1) per-step responsibility matrix mapping each equipment to a silicon_<step> Pregel cell; (2) common Pregel super-step contract (super_step(wafer_lot, telemetry, prior_attestations) → (next_wafer_lot, messages)); (3) open-source EDA stack only (yosys / Verilator / cocotb / SymbiYosys / KiCad / FreeCAD / OpenSCAD / ROS 2 / OpenLane); (4) public reference design strategy = transparent religious force per ADR-2605192315 (公開された RTL/CAD コモンズが力の独占を防ぐ); (5) Murakumo node assignment (judah for litho/depo/etch; dan for implant; naphtali for CMP+packaging; simeon for metrology iwakura-coloc; levi for test ternary-aware ATE); (6) Phase 1 scaffold this wave; (7) Phase 2 priority sequencing — Phase 2a silicon_test (ATE bring-up independence) / Phase 2b silicon_metrology (AI on iwakura) / Phase 2c silicon_packaging (fuigo chiplet) / Phase 3 silicon_litho (EUV, year-scale) / Phase 4 残り 4 工程. Charter Rider §2(a)(c) risk classification per equipment: HIGH (litho/implant) / MEDIUM (depo/etch/metrology) / LOW (cmp/test/packaging). 4 Lexicons under app.etzhayyim.silicon (chipManufacturingAttestation / silenForceReview / fabEquipmentTelemetry / waferLotAttestation)."
 path = "90-docs/adr/2605242545-tsukuru-fab-equipment-pregel-charter.md"
 
+# ─── gemma-coder-distill (ADR-2605250400) ───────────────────────────
+
+[[adrs]]
+id = "2605250400"
+title = "gemma-coder distill — gemma3:4b drift → gemma4:e4b の LangGraph コーディング適応 (EVO-X2 ROCm + peft+trl, Unsloth Windows-ROCm 不可確定)"
+status = "accepted"
+status_note = "Murakumo fleet で実 serve 中の `gemma4:e4b` (8B Gemma 4 Effective 4B; judah Ollama 192.168.1.17:11434 で実機確認、CLAUDE.md/fleet.toml の `gemma3:4b` 表記はドリフト) を LangGraph specific に distill する初の non-baien 経路。baien-distill は BitNet 専用 (BASE_MODEL_ID ハードコード) かつ ADR-2605241900 edge invariant に縛られるため、新規 tool `70-tools/gemma-coder-distill/` として分離。Trainer は **peft+trl 直** (Unsloth は gate-1 probe 2026-05-25 で Windows ROCm 7.2.1 + Python 3.12 上で pip dep resolution が CUDA-stack 前提依存で RecursionError 確定、evidence `90-docs/baien/probe_unsloth_rocm.json`)。Teacher signal は **HF Apache 2.0 Opus-distilled SFT のみ** (`lordx64/reasoning-distill-opus-4-7-max-sft` qwen-text format) + 手書き antipattern-corrective corpus (20 row、4 antipattern × ~5 ex)。Anthropic 直叩きは ADR-2605215000 §1.2 で禁止、judah LiteLLM 経由 Claude も distill teacher としては §2 OSS-only 制約継承で除外。Gemma 4 は attention 投影を `Gemma4ClippableLinear` (nn.Linear wrapper) で包んでおり peft が拒否 → `_resolve_targets()` で inner `.linear` を suffix match (trainable params=2,752,512 / total=7.94B / 0.0346%)。配布経路: merged HF dir → llama.cpp convert → Q4_K_M GGUF → Ansible で各 mini に `ollama create gemma4-coder:e4b -f Modelfile` → judah LiteLLM に route 追加。baseline 2/8 (25%) で 4 antipattern systematic 検出 (wrong `MemorySaver`/`Command` import paths / `compile(config=...)` hallucination / `set_entry_point(START)`); iter-00 quick E2E 完走 (6 hot-fix を越えて成立、merged adapter 生成 + bench eval 完了); iter-01 full (5020 ex × 2 epoch、~100 min wall) は detached PowerShell Start-Process で background 実行中。"
+path = "90-docs/adr/2605250400-gemma-coder-distill-rocm.md"
+
+# ─── yakushi pharmaceutical R&D Wave 1 (ADR-2605250500..2605250545) ─
+
+[[adrs]]
+id = "2605250500"
+title = "yakushi (薬師) pharmaceutical R&D charter — religious-corp first-party API + sterile fill-finish + supply chain (OTC ophthalmic triplet as Wave 1 reference)"
+status = "proposed"
+status_note = "Master charter establishing yakushi (薬師, 典薬寮系譜 + Yakushi Nyorai echo) as Tier-B religious-corp first-party pharmaceutical R&D actor. Wave 1 reference = OTC 抗アレルギー点眼薬 triplet (cromoglicate Na + naphazoline HCl + chlorpheniramine maleate — 全 80 年級 multi-gen safety, perpetually off-patent, PMDA/FDA/EMA OTC switched). Charter Rider §2 全条項 clearance (§2(e) anti-gatekeeping は constitutional 推進力)。14 constitutional gates (G1 OTC-only / G2 ICH Q3/M7 / G3 silen-pharma-review Council Lv6+ ≥3 / G4 QP co-sign / G5 AE public reporting / G6 no Rx no controlled / G7 CWC dual-use / G8 Annex 1 sterile / G9 witness N≥2 / G10 patient privacy / G11 wellbecoming label / G12 no commercial sale / G13 no server-key / G14 substrate boundary)。10 non-goals (N1 no new molecular entity / N2 no Rx / N3 no biologics / N4 no commercial / N5 no advertising / N6 no patent fence / N7 no insurance coupling / N8 no in-house animal testing / N9 no frontier model / N10 no vendor revenue path)。4-phase roadmap R0→R3 (R0 scaffold only this wave / R1 benchtop ≤1g / R2 pilot ≤100g + Annex 1 / R3 community-scale ~1000 bottles/batch)。Substrate boundary: MST + IPFS + Base L2 anchor via @etzhayyim/sdk; payment USDC + TitheRouter donation/kisha/grant/internal-promo only; inference Murakumo only. Murakumo fleet placement (R1+): naphtali (raw mat + cold chain), zebulun (synthesis + purification), levi (QC + AE + post-market), joseph (fill-finish), simeon (container), dan (packaging). 3 sub-ADRs (2605250515 API synthesis / 2605250530 sterile fill-finish + container / 2605250545 supply chain + 8 robotics specs)."
+path = "90-docs/adr/2605250500-yakushi-pharmaceutical-rd-charter.md"
+
+[[adrs]]
+id = "2605250515"
+title = "yakushi Wave 1 — OTC 抗アレルギー点眼薬 3 API の合成・精製・QC 設計 (cromoglicate Na + naphazoline HCl + chlorpheniramine maleate)"
+status = "proposed"
+status_note = "Sub-ADR for 3 API identity, synthesis routes (DSCG 5-step Fisons 1965 / naphazoline 3-step Ciba 1942 / chlorpheniramine 4-step Schering 1949 — all perpetually off-patent open literature), raw material CWC + safety classification (HIGH §2(a) acetic anhydride OPCW Schedule 3 for DSCG Step 1; HIGH safety NaNH₂ 消防法 危険物 第3類 for chlorpheniramine Step 1-2), purification scheme (recryst + activated charcoal + (chlorpheniramine) prep-HPLC for ICH M7 PGI 4-chlorobenzyl chloride removal ≤1.5 µg/day), QC suite (HPLC purity / IR / NMR / KF / ICP-MS Q3D / GC headspace Q3C / LC-MS/MS M7 PGI / endotoxin LAL / microbial / sterility). 6 silen-pharma-review triggers."
+path = "90-docs/adr/2605250515-yakushi-otc-ophthalmic-api-synthesis.md"
+
+[[adrs]]
+id = "2605250530"
+title = "yakushi Wave 1 — sterile fill-finish + primary container (BFS 5 mL 多用量点眼瓶 / Annex 1 GMP / preservative-free 設計)"
+status = "proposed"
+status_note = "Sub-ADR for LDPE BFS multi-dose 5 mL eye drop container (Wave 1 default — single-use unit-dose deferred to R3 ADR for multi-gen plastic waste review), preservative-free formulation (BAK 不使用 per §2(h) wellbecoming — long-term BAK corneal toxicity), aseptic processing unified across 3 化合物 (DSCG terminal autoclave marginal, SOP unification via 0.22 µm filtration + BFS Class A air), Annex 1 (2023 改訂) compliance scope (R2 3-batch consecutive media fill + CCIT R3 release gate), Hitogata class-A sterile sub-config (kuni-umi inheritance — 316L stainless + electropolished + VHP sterilizable), QC bridging attestation chain (API → bulk → filtration → fill → CCIT → sterility → endotoxin). 5 silen-pharma-review triggers."
+path = "90-docs/adr/2605250530-yakushi-sterile-fill-finish-and-container.md"
+
+[[adrs]]
+id = "2605250545"
+title = "yakushi Wave 1 — 製薬 supply chain (excipient + WFI infra + cold chain) + 8 robotics class 設計 (Pregel cell 8 件と等価対応)"
+status = "proposed"
+status_note = "Sub-ADR for 8 supply chain categories (raw material API precursor / excipient / WFI utility / packaging primary / packaging secondary + labeling / cold chain logistics / spent material disposal / adverse event ingestion) — pharma_raw_material cell が 1+2 共有、pharma_packaging が 5+7 共有 → 結果 8 Pregel cells (+ pharma_post_market_surveillance + pharma_adverse_event = 10 total)。8 robotics class = 既存 6 reuse (Hitogata class-A sterile / Hitogata class-C clean / Otete chem-resist / Mimi pharma-analytical / Otete cold-chain / Funamori marine — silicon Wave 2 inheritance) + 新規 2 placeholder (Kusuko 薬子 single-use sterile autoloader R2+, Sukoyaka 健やか patient-side cold-chain last-mile R3+). GMP attestation chain (rawMaterial → API → purification → QC → fill-finish → packaging → cold chain → distribution → AE). Cold chain default 2-8°C unified (DSCG-driven; SOP single). AE reporting design = ameno PWA + XChaCha20 envelope (G10) + daily aggregated narrative (G5) + Council Lv6+ resale prohibition (Charter Rider §2(c))。Charter Rider §2 per-category 評価表。Funamori 海外 R3+ separate ADR 必須。"
+path = "90-docs/adr/2605250545-yakushi-pharma-supply-chain-and-robotics.md"
+
+[[adrs]]
+id = "2605250600"
+title = "yakushi Wave 1b — OTC API catalog expansion (analgesic / oral antihistamine / H2 antagonist / topical) + 2 new dosage forms (oral tablet + topical cream-gel)"
+status = "proposed"
+status_note = "Wave 1b extension to master charter (ADR-2605250500) — Wave 1 triplet (eye drop sterile) を 9 化合物 + 2 dosage forms に拡張、Charter Rider §2 全条項 clearance + 14 gates + 10 non-goals 不変。Category A analgesic+antipyretic (oral tablet): acetaminophen (1893) / aspirin (1897 Bayer) / ibuprofen (1969 Boots, Hoechst-Celanese 3-step route post-1981 expired)。Category B oral H1 antihistamine: diphenhydramine HCl (1946) / cetirizine 2HCl (1987 UCB, off-patent ≥ 2007) / loratadine (1988 Schering, off-patent ≥ 2002 US / ≥ 2008 EU exclusivity)。Category C H2 antagonist: famotidine (1986 Yamanouchi, off-patent ≥ 2006)。Category D topical: clotrimazole 1% cream (1969 Bayer) / diclofenac Na 1% gel (1973 Geigy)。全 9 化合物 PMDA/FDA/EMA all-3 OTC switched 確認。明示的除外: pseudoephedrine (CMEA precursor controlled in US) / codeine (Rx全 jurisdiction) / dextromethorphan (marginal) / hydrocortisone (steroid bioprocess Wave 2 候補) / sodium hyaluronate (Streptococcus 発酵 bioprocess Wave 2) / omeprazole (chiral resolution Wave 1c 候補) / naproxen + miconazole + tetrahydrozoline (therapeutic 冗長)。**G7 enforcement extends to acetaminophen + aspirin + ibuprofen** (DSCG と同じ acetic anhydride OPCW Schedule 3 Step 1 issue)。**2 new Pregel cells**: pharma_tablet_manufacture (joseph, non-sterile class C — pre-blend → granulate → final blend + compression → coating → blister-pack) + pharma_topical_formulation (simeon, kuni-umi commissioning sibling — oil phase + aqueous phase emulsification 70-75°C → cooling → tube fill)。**Lexicon extension only** (新 lexicon 無し): apiInn knownValues 3→12 / fillFinishAttestation + lotAttestation に dosageForm field 10 knownValues / qcAttestation に dissolution/disintegration/friability/content-uniformity/viscosity/pH 追加 / silenPharmaReview scope に wave-1b-* triggers (api-addition + dosage-form-tablet-attestation + dosage-form-topical-attestation + tablet-press-equipment-qualification + topical-mixer-equipment-qualification + non-sterile-microbial-limit-baseline + wave-1b-launch-{pmda,fda,ema})。"
+path = "90-docs/adr/2605250600-yakushi-wave-1b-otc-api-catalog-expansion.md"
+
 # ─── Module registry ────────────────────────────────────────────────
+
+[[modules]]
+path = "70-tools/gemma-coder-distill"
+kind = "langgraph-distill-tool"
+version = "0.1.0"
+status = "iter-00-E2E-validated"
+description = "LangGraph ReAct loop that distills gemma4:e4b (Murakumo fleet serve target) into a LangGraph-coding specialist. 6-node graph (analyze → fetch → validate → train → evaluate → commit) with peft+trl bf16 LoRA r=16 on EVO-X2 ROCm 7.2.1 (Unsloth Windows ROCm unsupported, gate-1 probe confirmed). Gemma4ClippableLinear inner `.linear` auto-resolution. Hand-authored antipattern-corrective SFT corpus (20 rows, Apache 2.0) targets the 4 systematic gaps detected in gemma4:e4b baseline (wrong MemorySaver / Command import paths, compile(config=) hallucination, set_entry_point(START)). HF Opus reasoning corpus (qwen-text format) provides general SFT signal. Anthropic-direct distillation is constitutionally prohibited (ADR-2605215000 §1.2); Opus reaches the loop only via Apache 2.0 HF datasets per the baien-distill §3a pattern."
+adr = ["2605250400", "2605231300", "2605215000", "2605202345", "2605241900", "2605192200"]
+sibling_modules = [
+  "70-tools/baien-distill",                              # parent pattern (BitNet 専用)
+  "70-tools/scripts/bench/langgraph-coding",             # exec-graded bench (gating signal)
+  "50-infra/cluster/murakumo/litellm",                   # post-distill LiteLLM route addition
+  "50-infra/murakumo",                                   # fleet placement (target serve = each mini)
+]
+trainer = "peft+trl (Unsloth fallback gate-1 probe 2026-05-25 confirmed Windows ROCm unsupported)"
+trainer_evidence = "90-docs/baien/probe_unsloth_rocm.json"
+student = "google/gemma-4-E4B-it"
+serve_target = "gemma4:e4b on judah Ollama (192.168.1.17:11434) + per-node loopback Ollama on each Mac mini"
+bench_artifact = "90-docs/baien/results-langgraph-baseline.jsonl"
+snapshot_artifact = "90-docs/baien/langgraph-coding-baseline-snapshot-260525.md"
+charter_rider_risk = "LOW (training-only artifact; output adapter inherits Apache 2.0 + Charter Rider v2.0); per-iter dataset license review per ADR-2605231300 §License gate"
+phase_gate = "iter-01 full run (5020 ex × 2 epoch, ~100 min wall) is pre-publish smoke; promotion to fleet via Ansible push + LiteLLM route addition requires bench delta ≥ +3pp gate"
+
+[[modules]]
+path = "70-tools/scripts/bench/langgraph-coding"
+kind = "exec-graded-bench"
+version = "0.1.0"
+status = "8-prompt-seed-out-of-50-target"
+description = "Exec-graded LangGraph coding bench. 50-prompt target spanning 10 categories (stategraph / reducer / node / conditional / interrupt / send / subgraph / tool / error / streaming). 8 prompts populated 2026-05-25 (s01 stategraph / r01 reducer / c01-c03 conditional / i01-i03 interrupt). Each grader is a Python module under graders/ with `def check(generation: str) -> tuple[bool, str]`; the runner execs generated code in a subprocess against fixed assertions (no LLM-as-judge — determinism). Output is lm-eval-harness-compatible JSONL consumable by gemma-coder-distill evaluate node and baien-distill bench_reader."
+adr = ["2605250400"]
+sibling_modules = [
+  "70-tools/gemma-coder-distill",
+  "70-tools/scripts/bench/baien-microbench",             # pattern reference
+]
+baseline_result = "90-docs/baien/results-langgraph-baseline.jsonl"
+baseline_score = "2/8 (25%) on gemma4:e4b 2026-05-25"
+remaining_work = "Populate 42 more prompts + graders (send + subgraph + tool + error + streaming categories not yet seeded); each gap-deepen prompt costs ~30-60 LoC grader"
 
 [[modules]]
 path = "50-infra/silicon"
@@ -1324,6 +1407,181 @@ sibling_modules = [
 lexicons = "00-contracts/lexicons/app/etzhayyim/silicon"
 phase_gate = "Phase 2 (FPGA prototype) + Phase 3 (MPW tape-out) require separate ADRs + Council 5-of-7 Safe attestation + tsukuru.etzhayyim.com production_order"
 charter_rider_risk = "HIGH for equipment/lithography + equipment/ion-implant (§2(a) dual-use); MEDIUM for deposition/etch/metrology; LOW for cmp/test/packaging"
+
+# ─── yakushi (薬師) pharmaceutical R&D actor — Wave 1 (ADR-2605250500..2605250545) ───
+
+[[modules]]
+path = "20-actors/yakushi"
+kind = "tier-b-per-domain-leader-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-gated-wave-1-plus-1b"
+description = "yakushi (薬師, Heian-era 典薬寮 + Yakushi Nyorai medicine-as-religious-practice echo) — religious-corp first-party pharmaceutical R&D Tier-B per-domain leader actor. Wave 1 reference = OTC 抗アレルギー点眼薬 triplet (sodium cromoglicate / naphazoline HCl / chlorpheniramine maleate). Wave 1b extension = 9 additional OTC APIs across analgesic+antipyretic + oral H1 antihistamine + H2 antagonist + topical (acetaminophen / aspirin / ibuprofen / diphenhydramine HCl / cetirizine 2HCl / loratadine / famotidine / clotrimazole / diclofenac Na) + 2 new dosage forms (oral tablet, topical cream/gel). 全 12 化合物 PMDA/FDA/EMA all-3 OTC switched + ≥ 18 yr off-patent (Wave 1 80 年級 / Wave 1b ≥ 38 年). 14 constitutional gates + 10 non-goals 不変 (Wave 1b は API + dosage form extension のみ). Substrate: MST + IPFS + Base L2 anchor via @etzhayyim/sdk; payments USDC + TitheRouter donation/kisha/grant/internal-promo only; inference Murakumo only. All 12 pharma_* Pregel cells (Wave 1 = 10 + Wave 1b = 2) under 20-actors/magatama/cells/ are import-time RuntimeError gated. Robotics class = existing 6 reuse (Hitogata class-A sterile / Hitogata class-C clean / Otete chem-resist / Mimi pharma-analytical / Otete cold-chain / Funamori marine inheritance from silicon Wave 2) + 2 new placeholders (Kusuko 薬子 R2+, Sukoyaka 健やか R3+)."
+adr = ["2605250500", "2605250515", "2605250530", "2605250545", "2605250600", "2605192100", "2605192115", "2605192200", "2605192230", "2605192315", "2605192400", "2605192415", "2605201400", "2605181100", "2605172000", "2605231500", "2605231525"]
+sibling_actors = [
+  "kuni-umi (robotics class ontology source)",
+  "tsukuru (silen-force-review pattern reuse → silen-pharma-review)",
+  "wadachi (autonomous mobility R&D — sibling Tier-B)",
+  "iwakura / fuigo (silicon ASICs — sibling Tier-B)",
+]
+sibling_modules = [
+  "20-actors/magatama/cells/pharma_raw_material",
+  "20-actors/magatama/cells/pharma_api_synthesis",
+  "20-actors/magatama/cells/pharma_purification",
+  "20-actors/magatama/cells/pharma_qc",
+  "20-actors/magatama/cells/pharma_sterile_fill_finish",
+  "20-actors/magatama/cells/pharma_container",
+  "20-actors/magatama/cells/pharma_packaging",
+  "20-actors/magatama/cells/pharma_cold_chain",
+  "20-actors/magatama/cells/pharma_adverse_event",
+  "20-actors/magatama/cells/pharma_post_market_surveillance",
+  "20-actors/magatama/cells/pharma_tablet_manufacture",
+  "20-actors/magatama/cells/pharma_topical_formulation",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/pharma"
+wave_1_reference_apis = [
+  "sodium-cromoglicate (CAS 15826-37-6, 1965 Fisons)",
+  "naphazoline-hydrochloride (CAS 550-99-2, 1942 Ciba)",
+  "chlorpheniramine-maleate (CAS 113-92-8, 1949 Schering, racemic)",
+]
+wave_1b_reference_apis = [
+  "acetaminophen (CAS 103-90-2, 1893)",
+  "aspirin (CAS 50-78-2, 1897 Bayer)",
+  "ibuprofen (CAS 15687-27-1, 1969 Boots, Hoechst-Celanese 3-step post-1981 expired)",
+  "diphenhydramine-hydrochloride (CAS 147-24-0, 1946)",
+  "cetirizine-dihydrochloride (CAS 83881-52-1, 1987 UCB, off-patent ≥ 2007/2009)",
+  "loratadine (CAS 79794-75-5, 1988 Schering, off-patent ≥ 2002/2008)",
+  "famotidine (CAS 76824-35-6, 1986 Yamanouchi, off-patent ≥ 2006)",
+  "clotrimazole (CAS 23593-75-1, 1969 Bayer)",
+  "diclofenac-sodium (CAS 15307-79-6, 1973 Geigy, topical formulation)",
+]
+wave_1b_excluded_apis_with_reasoning = [
+  "pseudoephedrine — CMEA 2005 methamphetamine precursor controlled (US) → G6",
+  "codeine — Rx all 3 jurisdictions → N2",
+  "dextromethorphan — partial jurisdiction restriction → G6 marginal",
+  "hydrocortisone — steroid bioprocess/fermentation Wave 2 候補",
+  "sodium hyaluronate — Streptococcus 発酵 bioprocess Wave 2 候補",
+  "omeprazole / esomeprazole — chiral resolution + 多段合成 Wave 1c 候補",
+  "naproxen / miconazole / tetrahydrozoline / oxymetazoline — therapeutic class 冗長 (Wave 1+1b covered)",
+]
+wave_1b_new_dosage_forms = [
+  "oral solid tablet (uncoated / film-coated / enteric-coated; pharma_tablet_manufacture cell on joseph)",
+  "topical semi-solid (cream / gel / ointment; pharma_topical_formulation cell on simeon)",
+]
+constitutional_gates_count = 14
+non_goals_count = 10
+phased_roadmap = "R0 scaffold (this wave, no physical activity) / R1 benchtop ≤1g (separate ADR + QP-equivalent on Council) / R2 pilot ≤100g + Annex 1 (separate ADR + 製造管理者 + facility attestation) / R3 community-scale ~1000 bottles/batch (separate ADR + 60-day public review + jurisdiction 薬事手続)"
+charter_rider_risk = "HIGH §2(a) on raw material category 1 (acetic anhydride for DSCG Step 1 — OPCW Schedule 3 + Council Lv6+ + OPCW declaration verify per G7); HIGH §2(c) on adverse event category 8 (G10 XChaCha20 envelope + no resale); HIGH §2(h) on adverse event labeling (G11 wellbecoming warnings); MEDIUM §2(f) on utility/packaging/cold-chain/spent-material (multi-gen impact narratives required at R2-R3 ADRs); §2(e) PRO-CLEAR (yakushi の存在意義は §2(e) anti-gatekeeping の constitutional 推進力)"
+phase_gate = "R1+ requires (a) Council Lv6+ ≥ 3 silen-pharma-review baseline (G3), (b) QP-equivalent registry (G4), (c) 危険物取扱主任者 registry (G2-safety for NaNH₂ handling), (d) OPCW declaration channel DID (G7 for acetic anhydride). R2+ adds Annex 1 facility integrity + 3-batch consecutive media fill (G8). R3+ adds 60-day public review + jurisdiction-specific 薬事手続."
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_raw_material"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-council-attestation"
+description = "Raw material (API precursor + excipient) intake orchestration. CWC Schedule 1/2/3 + Australia Group precursor + 国内 (薬機法 / 化審法 / 麻向法 / 毒劇法 / 消防法 危険物 / 高圧ガス保安法) classification + safety class assignment. HIGH-§2(a) (acetic anhydride OPCW Schedule 3 for DSCG Step 1) requires Council Lv6+ co-sign + OPCW declaration verify; HIGH-safety (NaNH₂ for chlorpheniramine) requires 消防法 危険物 取扱主任者 DID co-sign. Lexicon: app.etzhayyim.pharma.rawMaterialAttestation. Proposed Murakumo node: naphtali (procurement leader)."
+adr = ["2605250515", "2605250545", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.rawMaterialAttestation", "app.etzhayyim.pharma.silenPharmaReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_api_synthesis"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-council-attestation"
+description = "Multi-step API synthesis orchestration per ADR-2605250515 §Decision 2. DSCG 5 steps (Fisons 1965) / naphazoline 3 steps (Ciba 1942) / chlorpheniramine 4 steps (Schering 1949) — all perpetually off-patent open literature. Driven by kuni-umi Otete chem-resist sub-config (hard-RT motion on robot firmware per G11). Lexicon: app.etzhayyim.pharma.apiSynthesisAttestation. Proposed Murakumo node: zebulun (chemistry orchestration)."
+adr = ["2605250515", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.apiSynthesisAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_purification"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-council-attestation"
+description = "API purification — recrystallization + activated charcoal + filtration; (chlorpheniramine only) preparative-scale HPLC for ICH M7 PGI (4-chlorobenzyl chloride) removal to ≤ 1.5 µg/day per 70 kg patient. Per ADR-2605250515 §Decision 4. Lexicon: app.etzhayyim.pharma.purificationAttestation. Proposed Murakumo node: zebulun (paired with synthesis)."
+adr = ["2605250515", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.purificationAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_qc"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-council-attestation"
+description = "Per-lot QC suite (HPLC purity / IR identity / NMR / Karl Fischer water / ICP-MS Q3D heavy metal / GC headspace Q3C residual solvent / LC-MS/MS M7 PGI for chlorpheniramine / endotoxin LAL / microbial limit / sterility). Auto-reject on any ICH Q3/M7 deviation (G2). Witness invariant N≥2 (QC analyst DID + QP-equivalent DID). Per ADR-2605250515 §Decision 5. Lexicon: app.etzhayyim.pharma.qcAttestation. Proposed Murakumo node: levi (audit/witness leader)."
+adr = ["2605250515", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.qcAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_sterile_fill_finish"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-annex-1-attestation"
+description = "Aseptic processing + BFS fill-finish per Annex 1 (2023 改訂). 0.22 µm sterile filter + Class A air BFS + container closure integrity test (CCIT). Hitogata class-A sterile sub-config (kuni-umi inheritance). G8 enforcement: R2→R3 transition requires 3-batch consecutive media fill + CCIT passed. Per ADR-2605250530 §Decision 3-6. Lexicon: app.etzhayyim.pharma.fillFinishAttestation. Proposed Murakumo node: joseph (commissioning leader — clean room construction extension)."
+adr = ["2605250530", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.fillFinishAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_container"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-extractable-leachable-attestation"
+description = "BFS LDPE 5 mL multi-dose container manufacture / qualification. Extractable / leachable studies vs. all 3 Wave 1 formulations. CCIT per lot. R2-R3 future: religious-corp 自製 BFS resin handling + mold (Kusuko 薬子 placeholder per ADR-2605250545 §Decision 2b). Per ADR-2605250530 §Decision 1. Lexicon: app.etzhayyim.pharma.fillFinishAttestation (shared). Proposed Murakumo node: simeon (kuni-umi commissioning sibling)."
+adr = ["2605250530", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.fillFinishAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_packaging"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-label-template-baseline"
+description = "Secondary packaging (FSC recycled cardboard + 添付文書) + label scanner G11 enforcement (naphazoline ≥ 0.05% MUST include 連用警告) + Apache 2.0 + Charter Rider attribution + final lot release attestation chain. Witness N≥2 (operator + QP-equivalent). Per ADR-2605250545 §Decision 4 + ADR-2605250500 §Decision 3 G4/G9/G11. Lexicon: app.etzhayyim.pharma.lotAttestation. Proposed Murakumo node: dan (decommission leader — lot 終端 natural pair)."
+adr = ["2605250545", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.lotAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_cold_chain"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-gdp-attestation"
+description = "2-8°C controlled distribution (DSCG-driven SOP unification with naphazoline + chlorpheniramine on same chain). kuni-umi Otete cold-chain + Quad ground (国内 ≤ 200 km). Funamori marine for 海外 adherent community (R3+, separate ADR). Sukoyaka 健やか placeholder for patient-side last-mile (R3+). Per ADR-2605250545 §Decision 5. Lexicon: app.etzhayyim.pharma.lotAttestation (shared). Proposed Murakumo node: naphtali (logistics paired with raw-material intake)."
+adr = ["2605250545", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.lotAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_adverse_event"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r3-sealed-recipient-registry-attestation"
+description = "Patient AE intake. Submission UI = ameno PWA + non-adherent anonymous form. Patient identity XChaCha20-Poly1305 envelope per ADR-2605181100 (sealed-recipient to Council Lv6+ DIDs only). CIOMS Form III severity + WHO-UMC causality. G5 (public reporting via aggregation) + G10 (patient identity non-traceable) + Charter Rider §2(c) (no resale to advertisers / insurers / employers). Per ADR-2605250500 §Decision 3 G5/G10 + ADR-2605250545 §Decision 6. Lexicon: app.etzhayyim.pharma.adverseEventReport. Proposed Murakumo node: levi (audit/witness)."
+adr = ["2605250545", "2605250500", "2605181100"]
+lexicons = ["app.etzhayyim.pharma.adverseEventReport"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_post_market_surveillance"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r3-aggregation-algorithm-baseline"
+description = "Daily AE aggregation (cron 0 8 * * * JST) + open published narrative. G10 PII isolation (no patient DID in aggregates — only by lot + severity + outcome). Signal detection: any serious/life-threatening/fatal → immediate Council Lv6+ escalation; severe cluster ≥ 3 in single lot → escalation; new symptom not in label → escalation. Per ADR-2605250500 §Decision 3 G5 + ADR-2605250545 §Decision 6. Lexicon: app.etzhayyim.pharma.adverseEventReport (read) + silenPharmaReview (signal escalation). Proposed Murakumo node: levi (paired with pharma_adverse_event)."
+adr = ["2605250545", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.adverseEventReport", "app.etzhayyim.pharma.silenPharmaReview"]
+
+# ─── yakushi Wave 1b additions (ADR-2605250600) ─────────────────────
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_tablet_manufacture"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-tablet-press-qualification"
+description = "Non-sterile oral solid (tablet / capsule) manufacture per Wave 1b. Pre-blend → granulate (wet/dry) or direct compression → final blend + compression → film-coating (HPMC + TiO₂) → blistering (PVC/aluminum) or bottling. Wave 1b API → tablet products: acetaminophen 500 mg / aspirin 325-500 mg / ibuprofen 200-400 mg / diphenhydramine HCl 25-50 mg / cetirizine 2HCl 10 mg / loratadine 10 mg / famotidine 10-20 mg. Annex 1 G8 NA (non-sterile); USP <61>/<62> microbial limit + <701>/<711>/<905>/<1216> dissolution+disintegration+CU+friability. G11 per-API label warnings (acetaminophen hepatotoxicity / aspirin Reye / ibuprofen GI+renal / diphenhydramine sedation). Per ADR-2605250600 §Decision 2. Lexicon: app.etzhayyim.pharma.fillFinishAttestation (dosageForm=tablet-*). Proposed Murakumo node: joseph (non-sterile class C)."
+adr = ["2605250600", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.fillFinishAttestation", "app.etzhayyim.pharma.qcAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/pharma_topical_formulation"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-topical-mixer-qualification"
+description = "Non-sterile topical (cream / gel / ointment) compounding per Wave 1b. Oil phase + aqueous phase preparation (70-75°C) → high-shear emulsification → cooling with agitation → viscosity adjustment → aluminum tube or HDPE jar fill + crimp/seal. Wave 1b API → topical products: clotrimazole 1% cream (antifungal) + diclofenac Na 1% gel (NSAID musculoskeletal). Non-sterile for intact skin (sterile only for ophthalmic/wound/mucosal → Wave 1c carve-out). G11 per-API warnings (clotrimazole 7-14 day use limit + diclofenac topical photosensitivity / not on broken skin / not 3rd trimester pregnancy / not under occlusion). Per ADR-2605250600 §Decision 2. Lexicon: app.etzhayyim.pharma.fillFinishAttestation (dosageForm=topical-*). Proposed Murakumo node: simeon (kuni-umi commissioning sibling — container + filling pair)."
+adr = ["2605250600", "2605250500"]
+lexicons = ["app.etzhayyim.pharma.fillFinishAttestation", "app.etzhayyim.pharma.qcAttestation"]
 
 
 
@@ -3245,3 +3503,190 @@ items = [
   "Step 19 Sepolia deploy: post-Council per DEPLOY-CHECKLIST-SEPOLIA.md",
   "Step 20 mainnet deploy: post-Sepolia + audit per DEPLOY-CHECKLIST-MAINNET.md"
 ]
+
+# ─── Bit-packed XNOR-popcount matmul kernels (2026-05-24) ─────────────────
+# 4-backend implementation: MLX Metal / CPU SIMD (AVX-512+NEON) / CUDA-HIP / Triton
+# Authoritative doc: 90-docs/baien/bit-packed-xnor-kernels-260524/README.md
+# Companion to ADR-2605242000 (roso family).
+
+[experiments."bit-packed-xnor-kernels-260524"]
+adr = "2605242000"
+date = "2026-05-24"
+status = "complete-2-of-4"      # 2 backends measured, 2 sources-only (EVO env blocked)
+authoritative_doc = "90-docs/baien/bit-packed-xnor-kernels-260524/README.md"
+algorithm = "y[i,j] = alpha * beta * (2 * popcount(~(x_bits[i] ^ w_bits[j])) - K_padded - pad)"
+correctness_oracle = "70-tools/scripts/bench/quant-training-shootout/bit_packed_xnor.py (pure-PyTorch SWAR popcount)"
+verified_sizes = ["8x64x16", "16x256x128", "32x1023x256 (unaligned K padding)", "64x4096x512"]
+max_abs_diff = 0.0  # both built backends, all sizes
+
+[experiments."bit-packed-xnor-kernels-260524".backends.mlx_metal]
+source = "70-tools/scripts/bench/quant-training-shootout/kernels/xnor_metal_mlx.py"
+popcount_primitive = "MSL popcount(uint) builtin"
+build_host = "Mac M4 (Apple GPU)"
+status = "built+verified"
+correctness = "PASS (max_diff=0.0)"
+sustained_tops_4096 = 6.31
+dense_bf16_tflops_4096 = 3.20
+speedup_vs_dense_4096 = 1.98
+threadgroup_size = "8x8x1"
+
+[experiments."bit-packed-xnor-kernels-260524".backends.cpu_neon]
+source = "70-tools/scripts/bench/quant-training-shootout/kernels/xnor_cpu_simd.cpp"
+popcount_primitive = "ARM vcntq_u8 + vpaddlq_u8/u16 + vaddvq_u32"
+build_host = "Mac M4 (arm64, clang via cpp_extension)"
+build_flags = ["-O3", "-std=c++17", "-Xpreprocessor", "-fopenmp"]
+status = "built+verified"
+correctness = "PASS (max_diff=0.0)"
+sustained_tops_4096 = 1.867
+dense_bf16_tflops_4096 = 0.136
+speedup_vs_dense_4096 = 13.70
+
+[experiments."bit-packed-xnor-kernels-260524".backends.cpu_avx512]
+source = "70-tools/scripts/bench/quant-training-shootout/kernels/xnor_cpu_simd.cpp"
+popcount_primitive = "_mm512_popcnt_epi32 (VPOPCNTDQ; 1 cycle / 16 lanes)"
+build_host_required = "Intel Ice Lake+ / AMD Zen 4+ with cl.exe (MSVC) or gcc/clang"
+status = "source-written-build-blocked"
+blocked_on = "EVO Windows ComfyUI portable has no MSVC cl.exe. Compile-time gate: #if defined(__AVX512F__) && defined(__AVX512VPOPCNTDQ__)"
+unblock_path = "Install Visual Studio Build Tools (~1.5 GB) on EVO, OR run via WSL2 + gcc -O3 -mavx512f -mavx512vpopcntdq"
+
+[experiments."bit-packed-xnor-kernels-260524".backends.cuda_hip]
+source = "70-tools/scripts/bench/quant-training-shootout/kernels/xnor_cuda_hip.cu"
+popcount_primitive = "__popc(uint) → NVIDIA POPC (SM 7.0+) or AMD V_BCNT_U32_B32 (RDNA/CDNA)"
+build_host_required = "nvcc (NVIDIA) or hipcc (AMD ROCm) + host compiler"
+status = "source-written-build-blocked"
+blocked_on = "EVO Windows: no MSVC cl.exe AND CUDA_HOME not set. PyTorch cpp_extension on Windows ROCm still requires CUDA_HOME for the LIBPATH /x64 join."
+unblock_path = "Set CUDA_HOME env + install MSVC Build Tools on EVO; OR run via Linux/WSL2 with ROCm SDK installed"
+
+[experiments."bit-packed-xnor-kernels-260524".backends.triton]
+source = "70-tools/scripts/bench/quant-training-shootout/kernels/xnor_triton.py"
+popcount_primitive = "tl.popcount autodetect (with SWAR fallback for older triton)"
+build_host_required = "CUDA (Linux/Windows) or ROCm (Linux) with triton installed"
+status = "source-written-install-blocked"
+blocked_on = "Triton has no Windows wheel on PyPI as of 2026-05-24 (no `pip install triton` on EVO Windows)"
+unblock_path = "WSL2 + Linux triton wheel, OR Linux host with triton + ROCm/CUDA"
+
+[experiments."bit-packed-xnor-kernels-260524".measurements_mac_m4]
+shape_16_256_128 = {dense_bf16_mps_tflops = 0.003, xnor_mlx_metal_tops = 0.007, xnor_neon_cpu_tops = 0.076, neon_speedup = 5.96}
+shape_64_1024_512 = {dense_bf16_mps_tflops = 0.24, xnor_mlx_metal_tops = 0.26, xnor_neon_cpu_tops = 1.391, mlx_speedup = 1.04, neon_speedup = 11.95}
+shape_128_2048_2048 = {dense_bf16_mps_tflops = 1.40, xnor_mlx_metal_tops = 2.07, xnor_neon_cpu_tops = 1.586, mlx_speedup = 1.49, neon_speedup = 12.11}
+shape_256_4096_4096 = {dense_bf16_mps_tflops = 3.20, xnor_mlx_metal_tops = 6.31, xnor_neon_cpu_tops = 1.867, mlx_speedup = 1.98, neon_speedup = 13.70}
+
+# Dense quant matmul on Apple M4 Metal (MLX 0.31, group_size=64)
+# At 4096^3: int8/int4/int2 all hit ~2.7 TOPS (same as bf16) because Apple
+# M4 GPU has no native int matmul accelerator — quantized path dequants
+# on-the-fly to fp16 for the ALU. XNOR-popcount Metal at 6.31 TOPS is
+# the only path that wins on compute, not just memory.
+[experiments."bit-packed-xnor-kernels-260524".dense_quant_metal_mac_m4]
+mlx_version = "0.31.1"
+group_size = 64
+fp8_status = "unsupported on Apple M4 silicon (no fp8 ALU; NV H100/B200 + AMD MI300X only)"
+fp4_status = "unsupported on Apple M4 silicon (no fp4 ALU; NV B200 / Blackwell only)"
+shape_16_256_128 = {fp32_tflops = 0.003, bf16_tflops = 0.004, fp16_tflops = 0.003, int8_tops = 0.003, int4_tops = 0.005, int2_tops = 0.005}
+shape_64_1024_512 = {fp32_tflops = 0.195, bf16_tflops = 0.258, fp16_tflops = 0.218, int8_tops = 0.246, int4_tops = 0.202, int2_tops = 0.236}
+shape_128_2048_2048 = {fp32_tflops = 1.009, bf16_tflops = 1.094, fp16_tflops = 0.997, int8_tops = 1.003, int4_tops = 1.023, int2_tops = 0.928}
+shape_256_4096_4096 = {fp32_tflops = 2.598, bf16_tflops = 3.234, fp16_tflops = 3.265, int8_tops = 2.690, int4_tops = 2.696, int2_tops = 2.593}
+
+[experiments."bit-packed-xnor-kernels-260524".speed_ranking_4096_apple_m4]
+# At 256x4096x4096, Mac M4, all paths measured (2026-05-24):
+ranking = [
+  {rank = 1,  kernel = "AND-popcount Metal (this work)",         tops = 6.817, vs_bf16 = 2.11},
+  {rank = 2,  kernel = "XNOR-popcount Metal (this work)",        tops = 6.31,  vs_bf16 = 1.95},
+  {rank = 3,  kernel = "Core ML ALL (auto-dispatch -> ANE)",     tflops = 4.133, vs_bf16 = 1.28},
+  {rank = 4,  kernel = "Core ML CPU_AND_NE (ANE)",               tflops = 4.091, vs_bf16 = 1.27},
+  {rank = 5,  kernel = "fp16 dense matmul (MLX)",                tflops = 3.27, vs_bf16 = 1.01},
+  {rank = 6,  kernel = "bf16 dense matmul (MLX baseline)",       tflops = 3.23, vs_bf16 = 1.00},
+  {rank = 7,  kernel = "int4 quantized matmul (MLX, g=64)",      tops = 2.70,  vs_bf16 = 0.83},
+  {rank = 8,  kernel = "int8 quantized matmul (MLX, g=64)",      tops = 2.69,  vs_bf16 = 0.83},
+  {rank = 9,  kernel = "Core ML CPU_ONLY (fp16)",                tflops = 2.61, vs_bf16 = 0.81},
+  {rank = 10, kernel = "fp32 dense matmul (MLX)",                tflops = 2.60, vs_bf16 = 0.80},
+  {rank = 11, kernel = "int2 quantized matmul (MLX, g=64)",      tops = 2.59,  vs_bf16 = 0.80},
+  {rank = 12, kernel = "XNOR-popcount NEON CPU (this work)",     tops = 1.87,  vs_bf16_cpu = 13.70},
+  {rank = 13, kernel = "Core ML CPU_AND_GPU (overhead-heavy)",   tflops = 1.61, vs_bf16 = 0.50},
+  {rank = 14, kernel = "bit-slice W=2bit/X=1bit Metal (un-fused)", tops = 0.245, vs_bf16 = 0.076},
+  {rank = 15, kernel = "bit-serial 2x2 Metal (un-fused)",        tops = 0.217, vs_bf16 = 0.067},
+  {rank = 16, kernel = "bit-slice W=4bit/X=1bit Metal (un-fused)", tops = 0.141, vs_bf16 = 0.044},
+  {rank = 17, kernel = "LUT 8x8 Metal (L2-bound)",               tops = 0.117, vs_bf16 = 0.036},
+]
+not_runnable = [
+  {kernel = "fp8 dense matmul",  reason = "Apple M4 silicon has no fp8 ALU (H100/B200/MI300X only)"},
+  {kernel = "fp4 dense matmul",  reason = "Apple M4 silicon has no fp4 ALU (B200/Blackwell only)"},
+]
+verdict = "1-bit family (AND/XNOR-popcount) wins on compute. Multi-bit / bit-slice / bit-serial / LUT lose due to un-fused kernel dispatch + cache pressure — Phase 2 work fuses them into single Metal launches."
+
+# Bit-slice / bit-serial / LUT / AND-popcount measurements on Mac M4 Metal
+# Source: kernels/xnor_techniques_metal.py
+[experiments."bit-packed-xnor-kernels-260524".bit_techniques_metal_mac_m4]
+correctness = "AND-popcount verified max_diff=0.0 across 4 sizes against dense unsigned reference. Bit-slice/serial/LUT correctness is documented in source (numerically reproduce fp matmul up to quantization rounding)."
+mlx_version = "0.31.1"
+shape_16_256_128 = {and_popcount_tops = 0.006, bitslice_W2_X1_tops = 0.002, bitslice_W4_X1_tops = 0.002, bitserial_2x2_tops = 0.002, lut_8x8_tops = 0.001}
+shape_64_1024_512 = {and_popcount_tops = 0.381, bitslice_W2_X1_tops = 0.046, bitslice_W4_X1_tops = 0.038, bitserial_2x2_tops = 0.052, lut_8x8_tops = 0.037}
+shape_128_2048_2048 = {and_popcount_tops = 2.013, bitslice_W2_X1_tops = 0.123, bitslice_W4_X1_tops = 0.071, bitserial_2x2_tops = 0.109, lut_8x8_tops = 0.097}
+shape_256_4096_4096 = {and_popcount_tops = 6.817, bitslice_W2_X1_tops = 0.245, bitslice_W4_X1_tops = 0.141, bitserial_2x2_tops = 0.217, lut_8x8_tops = 0.117}
+
+# Core ML + Apple Neural Engine bench (M4, coremltools 9.0 via py3.12 venv)
+# ANE is NOT user-programmable — represents dense fp16 silicon upper bound.
+# Source: kernels/coreml_ane_bench.py
+[experiments."bit-packed-xnor-kernels-260524".coreml_ane_mac_m4]
+coremltools_version = "9.0"
+python_venv = "/tmp/coreml-venv (py3.12 because coremltools has no py3.14 wheel)"
+m4_ane_peak_tflops_vendor = 38     # Apple-claimed peak fp16 ANE TOPS for M4
+ane_utilization_at_4096 = 0.108    # 4.13 / 38 = 11% utilization on this arbitrary GEMM shape
+shape_16_256_128 = {cpu_only_tflops = 0.030, cpu_and_gpu_tflops = 0.030, cpu_and_ne_tflops = 0.033, all_tflops = 0.023}
+shape_64_1024_512 = {cpu_only_tflops = 1.021, cpu_and_gpu_tflops = 0.100, cpu_and_ne_tflops = 0.403, all_tflops = 0.378}
+shape_128_2048_2048 = {cpu_only_tflops = 2.639, cpu_and_gpu_tflops = 0.694, cpu_and_ne_tflops = 2.872, all_tflops = 2.850}
+shape_256_4096_4096 = {cpu_only_tflops = 2.614, cpu_and_gpu_tflops = 1.613, cpu_and_ne_tflops = 4.091, all_tflops = 4.133}
+
+# EVO Radeon 8060S (gfx1151) ROCm comparison — 2026-05-24
+# Source: bit_packed_xnor.py (--device cuda) + dense_quant_evo_bench2.py
+[experiments."bit-packed-xnor-kernels-260524".evo_radeon_gfx1151]
+device = "AMD Radeon(TM) 8060S Graphics"
+arch = "gfx1151"
+total_mem_gb = 60.0
+torch_version = "2.9.1+rocm7.2.1"
+hip = "7.2.53211-158bd99533"
+host = "EVO-X2 NucBox (Windows + ComfyUI portable py3.12)"
+# Reliable 4096^3 (small shapes hit sub-microsecond timer noise on Win+ROCm)
+shape_256_4096_4096 = {fp32_dense_tflops = 0.89, bf16_dense_tflops = 9.30, fp16_dense_tflops = 9.54, xnor_pytorch_swar_tops = 0.088}
+
+[experiments."bit-packed-xnor-kernels-260524".evo_radeon_gfx1151.vs_mac_m4_4096]
+dense_bf16_ratio = 2.88
+dense_fp16_ratio = 2.92
+xnor_pytorch_ratio = 2.44
+note = "EVO Radeon 8060S has ~2.9x higher raw bf16/fp16 throughput than Apple M4 GPU at 4096^3. RDNA 3.5 matrix accelerators outperform M4's GPU matmul. Pure-PyTorch XNOR tracks the same ratio (both backends pay equal eager dispatch overhead)."
+
+[experiments."bit-packed-xnor-kernels-260524".evo_radeon_gfx1151.blockers]
+custom_hip_kernel = "BLOCKED — Windows ComfyUI portable has no MSVC cl.exe AND no CUDA_HOME. torch.utils.cpp_extension.load() requires both even for hipcc-only HIP builds. Unblock via Visual Studio Build Tools 1.5 GB install + CUDA_HOME=any path, OR switch EVO to WSL2 + Linux torch ROCm."
+triton_kernel = "BLOCKED — no Triton Windows wheel on PyPI. Unblock via WSL2 + Linux triton."
+quanto_int8_int4_int2 = "CRASHED — optimum.quanto + Windows ROCm 7.2 has freeze() bug: 'linear() argument weight must be Tensor not NoneType'. Workaround: upgrade quanto or use quanto bf16-fallback path."
+small_shape_timing = "ROCm + Windows torch.cuda.synchronize doesn't flush for sub-microsecond ops; small shapes (16x256x128, 64x1024x512) report measurement-noise TFLOPS. Use 4096^3 numbers only."
+
+[experiments."bit-packed-xnor-kernels-260524".evo_radeon_gfx1151.extrapolated]
+expected_hip_xnor_tops_4096 = 18.0
+note = "Extrapolation only — not measured. If the HIP build worked, the XNOR kernel should land at the same ~1.95-2.0x multiple of dense bf16 that the Metal kernel hit on Mac. Unblock HIP build to verify."
+
+[experiments."bit-packed-xnor-kernels-260524".evo_radeon_gfx1151.ane_comparison_asymmetry]
+m4_has_ane = true
+m4_ane_dense_fp16_tflops_4096 = 4.13
+evo_has_dedicated_nn_accelerator = false
+evo_equivalent_path = "ROCm dense bf16/fp16 via matrix accelerators in RDNA 3.5 CUs"
+evo_equivalent_tflops_4096 = 9.30
+note = "AMD consumer Radeon (RDNA 3.5) does not ship a separate NN accelerator analogous to Apple ANE. The CU matrix units provide ~2.25x ANE throughput (9.30 vs 4.13 TFLOPS), but as a general-purpose GPU path rather than dedicated silicon. No 'ANE equivalent' to compare against directly."
+
+[experiments."bit-packed-xnor-kernels-260524".coreml_ane_mac_m4.findings]
+ane_is_silver_medal = "ANE is the fastest dense fp16 path on M4 silicon (4.13 TFLOPS @ 4096^3 = 11% of vendor-claimed 38 TFLOPS peak), but the bit-packed AND/XNOR-popcount kernels beat it by 50-60% (6.31-6.82 TOPS). ANE wins on dense paths because no user-programmable XNOR exists; the only way to exceed ANE on M4 is custom Metal popcount kernels."
+ane_not_programmable = "Apple Neural Engine is closed silicon — no custom kernels, no XNOR-popcount path. Bench measures dense fp16 only. The 50-60% margin between bit-packed Metal and ANE is the silicon-level advantage of 1-bit on M4."
+coreml_gpu_overhead = "Core ML CPU_AND_GPU (1.61 TFLOPS) is HALF MLX direct (3.23 TFLOPS) at 4096^3. Core ML Metal dispatch has per-op overhead that compounds for single-op models. Use Core ML only for ANE-eligible models or whole-network compile; for arbitrary GEMM prefer MLX direct."
+compiler_dispatch_choice = "ALL ≈ CPU_AND_NE at 4096^3 (4.13 vs 4.09 TFLOPS), confirming the Core ML compiler chose to dispatch the matmul to ANE for this shape. For smaller shapes (64,1024,512) ALL drops to 0.378 TFLOPS vs CPU_ONLY 1.021 — small GEMMs are better off on CPU than ANE due to ANE setup cost."
+
+[experiments."bit-packed-xnor-kernels-260524".bit_techniques_metal_mac_m4.findings]
+and_vs_xnor = "AND-popcount slightly beats XNOR-popcount (6.817 vs 6.31 TOPS, +8%) because AND kernel saves one bitwise-NOT op. Choice between AND ({0,1}) and XNOR ({-1,+1}) is a training-stability question, not a perf question."
+bitslice_overhead = "Un-fused bit-slice paths pay 2-4x kernel launch overhead. A fused Metal kernel doing all bit-plane multiplies in one launch should hit ~3-5 TOPS for W=2bit/X=1bit, closing most of the gap with the dedicated AND/XNOR kernels."
+lut_cache_pressure = "LUT 8x8 needs a 128 KB int16 table (256x256 products). M4 GPU L1 = 32 KB, so the table lives in L2 and each lookup pays an L2 hit (~10x slower than register-resident popcount). LUT path wins only when K is small enough to amortize the table load + small enough to fit in L1."
+fp8_fp4_silicon_gap = "Both fp8 and fp4 are blocked on Apple Silicon at the SILICON LEVEL, not just software. M-series GPUs do not contain fp8 or fp4 matrix-multiply units. Listed as out-of-scope for the Apple Silicon edge-target invariant (ADR-2605241900)."
+
+[experiments."bit-packed-xnor-kernels-260524".key_findings]
+finding_1 = "PyTorch eager bit-packed XNOR-popcount caps near dense bf16 throughput because of broadcast + dispatch overhead; custom kernels are required to unlock the speedup"
+finding_2 = "Mac M4 NEON CPU achieves 13.70x speedup at 4096^3 because the popcount instruction (vcntq_u8) is a single cycle on 16 bytes while the bf16 matmul falls back to NEON fmla on f16"
+finding_3 = "Mac M4 Metal GPU achieves 1.98x speedup at 4096^3; absolute throughput 6.31 TOPS sustained (highest measured in this run) while dense bf16 also wins on parallelism"
+finding_4 = "Theoretical 16-32x peak vs FP16 (from vendor specs for bit-matmul-capable hw like NV B200 int1 / AMD MI300X dpp_bcnt) is unreachable in pytorch-eager mode at the per-call granularity; would need kernel fusion across RMSNorm + activation binarization to amortize"
+finding_5 = "Correctness oracle is the pure-PyTorch SWAR popcount kernel; all 4 backend sources share the same `2*popcount(~(x^w))-K_padded-pad` formula so EVO build (when unblocked) is expected to pass without source changes"

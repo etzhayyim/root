@@ -1,0 +1,93 @@
+{
+  "device": "AMD Radeon(TM) 8060S Graphics",
+  "arch": "gfx1151",
+  "total_mem_gb": 60.0,
+  "torch_version": "2.9.1+rocm7.2.1",
+  "hip": "7.2.53211-158bd99533",
+  "shapes": [
+    [
+      16,
+      256,
+      128
+    ],
+    [
+      64,
+      1024,
+      512
+    ],
+    [
+      128,
+      2048,
+      2048
+    ],
+    [
+      256,
+      4096,
+      4096
+    ]
+  ],
+  "results": [
+    {
+      "B": 16,
+      "K": 256,
+      "N": 128,
+      "ops": 1048576,
+      "fp32_dense_sec": 0.0,
+      "fp32_dense_tflops": 1048.576,
+      "bf16_dense_sec": 0.0,
+      "bf16_dense_tflops": 1048.576,
+      "fp16_dense_sec": 0.0,
+      "fp16_dense_tflops": 1048.576,
+      "int8_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType",
+      "int4_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType",
+      "int2_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType"
+    },
+    {
+      "B": 64,
+      "K": 1024,
+      "N": 512,
+      "ops": 67108864,
+      "fp32_dense_sec": 4.8e-05,
+      "fp32_dense_tflops": 1.399,
+      "bf16_dense_sec": 0.0,
+      "bf16_dense_tflops": 67108.864,
+      "fp16_dense_sec": 0.0,
+      "fp16_dense_tflops": 67108.864,
+      "int8_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType",
+      "int4_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType",
+      "int2_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType"
+    },
+    {
+      "B": 128,
+      "K": 2048,
+      "N": 2048,
+      "ops": 1073741824,
+      "fp32_dense_sec": 0.000593,
+      "fp32_dense_tflops": 1.812,
+      "bf16_dense_sec": 7.7e-05,
+      "bf16_dense_tflops": 13.917,
+      "fp16_dense_sec": 7.5e-05,
+      "fp16_dense_tflops": 14.317,
+      "int8_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType",
+      "int4_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType",
+      "int2_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType"
+    },
+    {
+      "B": 256,
+      "K": 4096,
+      "N": 4096,
+      "ops": 8589934592,
+      "fp32_dense_sec": 0.0097,
+      "fp32_dense_tflops": 0.886,
+      "bf16_dense_sec": 0.000924,
+      "bf16_dense_tflops": 9.298,
+      "fp16_dense_sec": 0.000901,
+      "fp16_dense_tflops": 9.535,
+      "int8_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType",
+      "int4_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType",
+      "int2_quant_error": "TypeError: linear(): argument 'weight' (position 2) must be Tensor, not NoneType"
+    }
+  ],
+  "fp8_status": "unsupported on RDNA 3.5 gfx1151 (no native fp8 ALU; MI300X CDNA3 only)",
+  "fp4_status": "unsupported on RDNA 3.5 gfx1151 (no native fp4 ALU)"
+}

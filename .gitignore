@@ -111,3 +111,9 @@ foundry.lock
 # git-annex ignore patterns are needed.
 **/datasets-staging/
 
+# Claude Code agent worktrees (full repo copies for parallel agents — never commit)
+.claude/worktrees/
+
+# torch.utils.cpp_extension build dirs (kernel shootout, ADR-2605242000)
+**/_build_cpu/
+
