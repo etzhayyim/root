@@ -1,11 +1,12 @@
 ---
 id: adr-2605242600-baien-federated-train-via-ameno-webgpu
 title: "Baien federated training via ameno WebGPU — smartphone-participable LoRA round"
-status: proposed
+status: accepted
 doc_type: adr
 topic: baien-federated-training
 authoritative: true
 last_verified: 2026-05-24
+status_note: "R0 scaffold landed via PR #273 (commit 0134acb1d, 8 files / 992 LoC). Lexicon `app.etzhayyim.baien.distributedTrainDelta` + ameno throw-on-use stubs + Murakumo cell (import-time RuntimeError) + baien-distill dry-run planner all in place. R1 ADR (ADR-2605242630) + R1a framework (PR #276) build directly on this."
 authoritative_for:
   - smartphone / browser participation contract for baien post-train (LoRA-only)
   - WebGPU LoRA-only autograd budget on iPhone 12 / Android 4GB / WASM-32

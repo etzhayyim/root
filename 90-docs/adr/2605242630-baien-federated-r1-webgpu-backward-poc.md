@@ -1,11 +1,12 @@
 ---
 id: adr-2605242630-baien-federated-r1-webgpu-backward-poc
 title: "Baien federated R1 — single-device WebGPU LoRA backward-pass PoC"
-status: proposed
+status: accepted
 doc_type: adr
 topic: baien-federated-r1
 authoritative: true
 last_verified: 2026-05-24
+status_note: "R1 ADR + R1a framework both landed (PRs #274 + #276). R1a delivers OPFS Adam-state + device-class detection + shard load/CID verify + Charter Rider on-device scanner + WGSL kernel sources (forward / backward / Adam) — every piece except the WebGPU autograd dispatch itself. R1b (WebGPU dispatch via transformers.js layer-replacement OR tfjs-webgpu autograd bridge + per-device run-log capture for the 3-consecutive-runs success criterion) is the remaining work item, scoped for a dedicated agent + real-device validation."
 authoritative_for:
   - R1 device matrix (which devices count as "passing" before moving to R2)
   - WebGPU numerics fallback rules (fp32 grad accumulation gate)
