@@ -60,34 +60,40 @@ TELECOM_ROBOTICS_MEDIA: list[dict[str, Any]] = [
         "implementationCoverage": "planning-runtime",
         "telecomSchemas": ["vertex_telecom_optical_fiber_span", "vertex_telecom_optical_roadm", "vertex_telecom_optical_pm_event"],
         "robotAssets": ["rack-service-arm", "fiber-inspection-robot"],
-        "gaps": ["submarine repeater/landing-station model is not explicit"],
+        "gaps": [],
     },
     {
         "medium": "submarine-cable",
         "roboticsScope": "ROV survey, cable fault localization, repair-fleet dispatch package",
-        "designCoverage": "partial",
+        "designCoverage": "schema",
         "implementationCoverage": "planning-runtime",
-        "telecomSchemas": ["vertex_telecom_optical_fiber_span"],
+        "telecomSchemas": [
+            "vertex_telecom_submarine_cable_system",
+            "vertex_telecom_submarine_landing_station",
+            "vertex_telecom_submarine_repeater",
+            "vertex_telecom_submarine_route_segment",
+            "vertex_telecom_submarine_repair_event",
+        ],
         "robotAssets": ["rov-survey", "cable-deck-handling-robot"],
-        "gaps": ["no dedicated submarine cable route, landing station, repeater, or repair vessel schema"],
+        "gaps": ["no wet-plant control loop or repair-vessel runtime integration"],
     },
     {
         "medium": "wlan-passpoint",
         "roboticsScope": "venue survey, AP placement validation, roaming/session test",
         "designCoverage": "schema",
         "implementationCoverage": "planning-runtime",
-        "telecomSchemas": ["vertex_telecom_wlan_venue", "vertex_telecom_wlan_anqp_query", "vertex_telecom_wlan_session"],
+        "telecomSchemas": ["vertex_telecom_wlan_venue", "vertex_telecom_wlan_anqp_query", "vertex_telecom_wlan_session", "vertex_telecom_wlan_mesh_node", "vertex_telecom_wlan_mesh_link"],
         "robotAssets": ["indoor-survey-robot", "wifi-test-handset-rig"],
-        "gaps": ["802.11s mesh routing is not implemented"],
+        "gaps": ["802.11s/HWMP radio stack is modeled, not implemented"],
     },
     {
         "medium": "bluetooth-ble",
         "roboticsScope": "short-range peripheral survey and actuator/proximity telemetry capture",
-        "designCoverage": "gap",
-        "implementationCoverage": "planned-only",
-        "telecomSchemas": [],
+        "designCoverage": "schema",
+        "implementationCoverage": "planning-runtime",
+        "telecomSchemas": ["vertex_telecom_bluetooth_device", "vertex_telecom_bluetooth_mesh_node", "vertex_telecom_bluetooth_observation"],
         "robotAssets": ["ble-beacon-survey-robot"],
-        "gaps": ["no Bluetooth/BLE schema", "no Bluetooth Mesh transport"],
+        "gaps": ["Bluetooth Mesh transport is modeled, not implemented"],
     },
     {
         "medium": "neutron-communication",
@@ -338,7 +344,7 @@ def robotics_network_deployment_plan(
         f"{entry['medium']}: {gap}"
         for entry in selected
         for gap in entry["gaps"]
-        if entry["designCoverage"] in {"gap", "out-of-scope"} or entry["medium"] in {"bluetooth-ble", "neutron-communication"}
+        if entry["designCoverage"] in {"gap", "out-of-scope"} or entry["medium"] in {"neutron-communication"}
     ]
     return {
         "roboticsNetworkDeploymentPlan": {

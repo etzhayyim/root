@@ -242,6 +242,13 @@ def test_robotics_network_deployment_plan_blocks_neutron() -> None:
     assert plan["missions"][0]["status"] == "blocked"
 
 
+def test_robotics_network_deployment_plan_bluetooth_has_schema() -> None:
+    result = RB.robotics_network_deployment_plan(media=["bluetooth-ble"])
+    plan = result["roboticsNetworkDeploymentPlan"]
+    assert plan["status"] == "review"
+    assert "vertex_telecom_bluetooth_device" in plan["missions"][0]["telecomSchemas"]
+
+
 def test_robotics_network_deployment_plan_ran_is_review() -> None:
     result = RB.robotics_network_deployment_plan(media=["cellular-ran"], site_id="site-001")
     plan = result["roboticsNetworkDeploymentPlan"]
