@@ -7,6 +7,7 @@ as a subprocess; emits results-langgraph-iterNN.jsonl alongside baseline.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -33,11 +34,25 @@ def evaluate(state: DistillState) -> DistillState:
         state["decision"] = "commit"
         return state
 
-    bench_runner = Path(__file__).resolve().parents[5] / "scripts" / "bench" / "langgraph-coding" / "run.py"
+    env_override = os.environ.get("GEMMA_CODER_BENCH_RUNNER")
+    if env_override:
+        bench_runner = Path(env_override)
+    else:
+        # repo-relative resolution (fails when installed standalone — set the env var instead)
+        try:
+            bench_runner = (
+                Path(__file__).resolve().parents[5]
+                / "scripts" / "bench" / "langgraph-coding" / "run.py"
+            )
+        except IndexError:
+            raise RuntimeError(
+                "Cannot resolve bench runner via repo layout; "
+                "set GEMMA_CODER_BENCH_RUNNER=/path/to/run.py"
+            )
     cmd = [
         sys.executable, str(bench_runner),
         "--model", f"file://{merged_dir}",
-        "--model-id", f"gemma3-coder:4b-iter{iter_idx:02d}",
+        "--model-id", f"gemma4-coder:e4b-iter{iter_idx:02d}",
         "--out", str(out_file),
     ]
     state["notes"].append(f"[evaluate] cmd: {' '.join(cmd)}")

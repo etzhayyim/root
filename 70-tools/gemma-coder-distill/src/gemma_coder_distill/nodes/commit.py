@@ -34,7 +34,7 @@ def commit(state: DistillState) -> DistillState:
         "delta_pp": state.get("delta_pp"),
         "n_examples": len(state.get("training_examples", [])),
         "weak_categories": state.get("weak_categories", []),
-        "tag": f"gemma3-coder:4b-iter{iter_idx:02d}",
+        "tag": f"gemma4-coder:e4b-iter{iter_idx:02d}",
     }
     MANIFEST.parent.mkdir(parents=True, exist_ok=True)
     with MANIFEST.open("a", encoding="utf-8") as f:

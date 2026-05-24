@@ -36,7 +36,7 @@ python 70-tools/scripts/bench/langgraph-coding/run.py \
 # post-distill check
 python 70-tools/scripts/bench/langgraph-coding/run.py \
   --model file:///path/to/merged \
-  --model-id gemma3-coder:4b-iter01 \
+  --model-id gemma4-coder:e4b-iter01 \
   --out 90-docs/baien/results-langgraph-iter01.jsonl
 
 # delta

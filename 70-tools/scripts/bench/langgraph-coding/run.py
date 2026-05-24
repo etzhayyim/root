@@ -54,6 +54,24 @@ def load_prompts() -> list[PromptSpec]:
     return out
 
 
+_LOCAL_CACHE: dict[str, tuple] = {}
+
+
+def _local_load(model_dir: str):
+    if model_dir in _LOCAL_CACHE:
+        return _LOCAL_CACHE[model_dir]
+    import torch
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    tok = AutoTokenizer.from_pretrained(model_dir)
+    dtype = torch.bfloat16 if torch.cuda.is_available() else torch.float32
+    model = AutoModelForCausalLM.from_pretrained(model_dir, dtype=dtype)
+    if torch.cuda.is_available():
+        model = model.to("cuda")
+    model.eval()
+    _LOCAL_CACHE[model_dir] = (tok, model)
+    return tok, model
+
+
 def generate(endpoint: str, model_id: str, prompt: str, max_tokens: int) -> str:
     """Dispatch on endpoint scheme:
     - http://...  → OpenAI-compat (LiteLLM gateway / Ollama)
@@ -70,8 +88,25 @@ def generate(endpoint: str, model_id: str, prompt: str, max_tokens: int) -> str:
         )
         return resp.choices[0].message.content or ""
     elif endpoint.startswith("file://"):
-        # TODO: local HF load path for post-distill eval
-        raise NotImplementedError("file:// endpoint TBD in Step 4")
+        model_dir = endpoint[len("file://"):]
+        tok, model = _local_load(model_dir)
+        import torch
+        if getattr(tok, "chat_template", None):
+            prompt_str = tok.apply_chat_template(
+                [{"role": "user", "content": prompt}],
+                tokenize=False, add_generation_prompt=True,
+            )
+        else:
+            prompt_str = prompt
+        enc = tok(prompt_str, return_tensors="pt").to(model.device)
+        with torch.no_grad():
+            out = model.generate(
+                **enc, max_new_tokens=max_tokens, do_sample=False, temperature=1.0,
+                pad_token_id=tok.eos_token_id,
+            )
+        # Strip the prompt prefix from the generated tokens
+        gen_tokens = out[0][enc["input_ids"].shape[1]:]
+        return tok.decode(gen_tokens, skip_special_tokens=True)
     else:
         raise ValueError(f"unknown endpoint scheme: {endpoint}")
 

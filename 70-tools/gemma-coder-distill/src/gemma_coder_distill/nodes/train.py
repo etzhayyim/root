@@ -20,12 +20,36 @@ LORA_DEFAULTS = {
     "r": 16,
     "alpha": 32,
     "dropout": 0.05,
-    "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj"],
+    # Gemma 4 wraps attention projections in Gemma4ClippableLinear (which wraps an inner
+    # nn.Linear). peft.LoraConfig refuses non-Linear targets, so we target the inner ".linear"
+    # by suffix. For non-Gemma-4 students this is overridden at runtime via _resolve_targets().
+    "target_modules": ["q_proj.linear", "k_proj.linear", "v_proj.linear", "o_proj.linear"],
     "optim": "adamw_torch",
     "learning_rate": 2e-4,
     "warmup_steps": 100,
     "scheduler": "cosine",
 }
+
+
+def _resolve_targets(model, student_id: str) -> list[str]:
+    """Inspect the model and return LoRA target_modules appropriate for its arch.
+
+    Most HF models expose `q_proj/k_proj/v_proj/o_proj` as plain nn.Linear. Gemma 4 wraps
+    them in `Gemma4ClippableLinear`, so we must target the inner `.linear` submodule.
+    """
+    import torch.nn as nn
+    has_wrapper = False
+    for name, mod in model.named_modules():
+        if name.endswith(".q_proj") and not isinstance(mod, nn.Linear):
+            inner_linear = any(
+                isinstance(sub, nn.Linear) for sub in mod.modules()
+            )
+            if inner_linear:
+                has_wrapper = True
+            break
+    if has_wrapper:
+        return ["q_proj.linear", "k_proj.linear", "v_proj.linear", "o_proj.linear"]
+    return ["q_proj", "k_proj", "v_proj", "o_proj"]
 
 
 def train_lora(state: DistillState) -> DistillState:
@@ -78,9 +102,11 @@ def train_lora(state: DistillState) -> DistillState:
     model = AutoModelForCausalLM.from_pretrained(student_id, dtype=torch.bfloat16)
 
     from peft import LoraConfig, get_peft_model
+    resolved_targets = _resolve_targets(model, student_id)
+    state["notes"].append(f"[train] LoRA targets resolved: {resolved_targets}")
     lora_cfg = LoraConfig(
         r=cfg["r"], lora_alpha=cfg["alpha"], lora_dropout=cfg["dropout"],
-        target_modules=list(cfg["target_modules"]),
+        target_modules=resolved_targets,
         task_type="CAUSAL_LM", bias="none",
     )
     model = get_peft_model(model, lora_cfg)
@@ -145,7 +171,14 @@ def _merge(base_model_id: str, adapter_dir: Path, out_dir: Path) -> None:
     peft_model = PeftModel.from_pretrained(base, str(adapter_dir))
     merged = peft_model.merge_and_unload()
     out_dir.mkdir(parents=True, exist_ok=True)
-    merged.save_pretrained(str(out_dir))
+    # Bypass save_pretrained's safetensors path entirely — transformers ignores
+    # safe_serialization=False on this version, hitting numpy ctypes int32 overflow
+    # on Windows for >2 GB tensors (e.g. Gemma 4 embed_tokens at 262144*hidden in bf16).
+    # Manual torch.save → pytorch_model.bin is loadable by AutoModelForCausalLM.from_pretrained.
+    torch.save(merged.state_dict(), str(out_dir / "pytorch_model.bin"))
+    merged.config.save_pretrained(str(out_dir))
+    if hasattr(merged, "generation_config") and merged.generation_config is not None:
+        merged.generation_config.save_pretrained(str(out_dir))
     tok.save_pretrained(str(out_dir))
 
 
