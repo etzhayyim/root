@@ -1,0 +1,136 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.pharma.adverseEventReport",
+  "description": "Patient-reported adverse event intake record. Patient identity is XChaCha20-Poly1305 encrypted with the patient's passkey-derived key + sealed-recipient to Council Lv6+ DIDs per ADR-2605181100. Public aggregated narrative (no PII) is emitted by pharma_post_market_surveillance daily. G5 (public reporting) + G10 (patient identity non-traceable) + Charter Rider §2(c) (no resale to advertisers / insurers / employers). Per ADR-2605250500 §Decision 3 G5/G10 + ADR-2605250545 §Decision 6.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "reportId",
+          "lotAttestationUri",
+          "apiInn",
+          "severity",
+          "causality",
+          "narrative",
+          "submittedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "reportId": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "lotAttestationUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Back-reference to the lot the patient received. Allows full safety-signal investigation."
+          },
+          "apiInn": {
+            "type": "string",
+            "knownValues": [
+              "sodium-cromoglicate",
+              "naphazoline-hydrochloride",
+              "chlorpheniramine-maleate",
+              "acetaminophen",
+              "aspirin",
+              "ibuprofen",
+              "diphenhydramine-hydrochloride",
+              "cetirizine-dihydrochloride",
+              "loratadine",
+              "famotidine",
+              "clotrimazole",
+              "diclofenac-sodium"
+            ]
+          },
+          "encryptedPatientIdentityEnvelope": {
+            "type": "string",
+            "format": "cid",
+            "description": "CID of XChaCha20-Poly1305 envelope. Plaintext contains patient_did, contact preference, and any patient-supplied context. Sealed-recipient = Council Lv6+ DIDs only. NEVER decryptable by ad / insurance / employer entities. Optional only when submission is via anonymous form."
+          },
+          "deviceFingerprintHash": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Optional for anonymous form submissions; SHA-256 of (device user-agent + locale + tz), used only for dedupe — never for re-identification."
+          },
+          "severity": {
+            "type": "string",
+            "knownValues": [
+              "mild",
+              "moderate",
+              "severe",
+              "serious",
+              "life-threatening",
+              "fatal"
+            ],
+            "description": "CIOMS Form III standardized severity scale."
+          },
+          "causality": {
+            "type": "string",
+            "knownValues": [
+              "certain",
+              "probable",
+              "possible",
+              "unlikely",
+              "unrelated",
+              "unassessable"
+            ],
+            "description": "WHO-UMC standardized causality assessment."
+          },
+          "onsetTimingMinutesAfterDose": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Onset timing in minutes after dosing (integer; use 60 for 1 hour, 1440 for 24 hours)."
+          },
+          "narrative": {
+            "type": "string",
+            "maxLength": 8000,
+            "description": "Patient-authored description of the event. SHOULD NOT contain personally identifying information; intake validator scrubs obvious PII patterns before commit."
+          },
+          "symptomCodes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 32
+            },
+            "description": "MedDRA SOC / PT codes (LLT optional). Used for histogram aggregation."
+          },
+          "outcome": {
+            "type": "string",
+            "knownValues": [
+              "recovered",
+              "recovering",
+              "not-recovered",
+              "recovered-with-sequelae",
+              "fatal",
+              "unknown"
+            ]
+          },
+          "reChallengePositive": {
+            "type": "boolean",
+            "description": "If patient resumed the product after symptoms resolved, did symptoms recur?"
+          },
+          "submittedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "submissionChannel": {
+            "type": "string",
+            "knownValues": [
+              "ameno-pwa-passkey",
+              "anonymous-form-no-did",
+              "council-direct"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
