@@ -63,7 +63,61 @@ def quantize(state: RosoState) -> RosoState:
         state.decision = "abort"
         return state
 
-    state.notes.append(f"[quantize] loading {state.base_local_path} (fp16)")
+    # Server tier / large bases: use shard-streaming quantizer (bypasses
+    # transformers.from_pretrained which mmaps ALL shards at once and
+    # blows past Windows paging file on 35B BF16 / 72 GB).
+    tier = spec.get("tier", "edge")
+    expected_load_gb = float(spec.get("fp16_gb", 0))
+    if tier == "server" or expected_load_gb > 20:
+        from .shard_quantize import shard_streaming_quantize
+        state.notes.append(
+            f"[quantize] server tier path: shard-streaming quantize "
+            f"(bypasses transformers.from_pretrained mmap of all {expected_load_gb} GB)"
+        )
+        summary = shard_streaming_quantize(
+            base_dir=state.base_local_path,
+            out_dir=out_dir,
+            method=cfg.quant_method,
+        )
+        # Save tokenizer to output (shard_streaming_quantize copies non-weight
+        # files including tokenizer_config.json already; AutoTokenizer load
+        # for save_pretrained is unnecessary but kept for parity with edge path)
+        try:
+            tok = AutoTokenizer.from_pretrained(str(state.base_local_path))
+            tok.save_pretrained(str(out_dir))
+        except Exception as e:
+            state.notes.append(f"[quantize] tokenizer save skipped ({type(e).__name__})")
+        # Persist manifest
+        manifest = {
+            "ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "base_model": cfg.base_model,
+            "method": cfg.quant_method,
+            "phase": cfg.phase,
+            "iter": state.iter,
+            "actual_params": summary["total_params"],
+            "actual_quantized_params": summary["quantized_params"],
+            "actual_packed_gb": summary["expected_packed_gb_at_1bit"],
+            "expected_packed_gb": spec["expected_1bit_gb"],
+            "quantized_layers": summary["quantized_layers"],
+            "skipped_layers": summary["skipped_layers"],
+            "n_shards": summary["n_shards"],
+            "total_time_sec": summary["total_time_sec"],
+            "status": "shard-streaming naive-sign-quantize (server tier path)",
+        }
+        (out_dir / "quantize_manifest.json").write_text(
+            json.dumps(manifest, indent=2), encoding="utf-8")
+        state.quantized_path = out_dir
+        state.packed_weights_gb = float(summary["expected_packed_gb_at_1bit"])
+        state.notes.append(
+            f"[quantize] shard-streaming done: "
+            f"{summary['quantized_layers']} layers quantized / "
+            f"{summary['skipped_layers']} skipped, "
+            f"projected packed {summary['expected_packed_gb_at_1bit']:.2f} GB "
+            f"(at true 1-bit), {summary['total_time_sec']:.1f}s total"
+        )
+        return state
+
+    state.notes.append(f"[quantize] loading {state.base_local_path} (fp16, in-memory)")
     model = AutoModelForCausalLM.from_pretrained(
         str(state.base_local_path), dtype=torch.float16
     )
