@@ -30,25 +30,43 @@ first reading of gemma4:e4b's LangGraph competence on the Murakumo fleet.
 | Grader | exec-graded subprocess on EVO-X2 (langgraph importable) |
 | Result file | `90-docs/baien/results-langgraph-baseline.jsonl` |
 
-## Result
+## Result (v2 — 8 prompts after conditional+interrupt deep-dive)
 
-**2/4 pass (50.0%)**
+**2/8 pass (25.0%)** — by category:
 
-| id | category | passed | reason |
+| category | pass/total |
+|---|---|
+| stategraph | 1/1 |
+| reducer | 1/1 |
+| conditional | 0/3 |
+| interrupt | 0/3 |
+
+Per-prompt:
+
+| id | category | passed | reason / failure pattern |
 |---|---|---|---|
 | s01_stategraph_basic | stategraph | ✅ | ok |
 | r01_reducer_add | reducer | ✅ | ok |
-| c01_conditional_branch | conditional | ❌ | `SyntaxError: positional argument follows keyword argument` (line 70) |
-| i01_interrupt_resume | interrupt | ❌ | `workflow.compile(checkpointer=..., config={...})` — `compile()` does not accept `config` kwarg |
+| c01_conditional_branch | conditional | ❌ | `SyntaxError: positional argument follows keyword argument` |
+| c02_conditional_minimal | conditional | ❌ | called `set_entry_point(START)` — START is not a node name |
+| c03_conditional_path_map | conditional | ❌ | crashed inside `build_graph()` |
+| i01_interrupt_resume | interrupt | ❌ | `compile(checkpointer=..., config=...)` — config not a compile kwarg |
+| i02_interrupt_minimal | interrupt | ❌ | `from langgraph.checkpoint import MemorySaver` — wrong path (correct: `.memory`) |
+| i03_interrupt_explicit_api | interrupt | ❌ | `from langgraph.graph.message import Command` — wrong path (correct: `langgraph.types`) |
 
-## What the failures mean
+## Systematic failure patterns (confirmed)
 
-Both failures are **genuine LangGraph API knowledge gaps** in gemma4:e4b, not bench bugs:
+After deepening conditional and interrupt to 3 prompts each, **both categories are 0/3** — the failure is systematic, not prompt-specific. Distinct antipatterns recur:
 
-- **c01**: model produced syntactically invalid Python — broken function call ordering after a complex sequence of `add_conditional_edges` arguments. Suggests the model knows the API name but not the calling convention well enough to keep arguments syntactically valid in a longer function call.
-- **i01**: model invented `compile(config=...)` — actual API is `compile(checkpointer=...)` and `config` lives on `invoke()` / `stream()`. Classic plausible-looking hallucination of API surface.
+| Antipattern | Frequency | Correct API |
+|---|---|---|
+| `from langgraph.checkpoint import MemorySaver` | i02 | `from langgraph.checkpoint.memory import MemorySaver` |
+| `from langgraph.graph.message import Command` | i03 | `from langgraph.types import Command` |
+| `compile(checkpointer=..., config=...)` | i01 | `compile(checkpointer=...)` ; `invoke(state, config=...)` |
+| `set_entry_point(START)` | c02 | `set_entry_point('node_name')` or use `add_edge(START, 'node_name')` |
+| Syntactically broken `add_conditional_edges(...)` calls | c01, c03 | (model knows the API name but fails the call surface under length) |
 
-These are precisely the kind of issues that distilling against an Opus-corrected corpus should fix.
+These are exactly the kinds of issues that distilling against an Opus-corrected corpus should fix — they're shallow API-knowledge defects, not deep reasoning failures.
 
 ## Bench harness validation
 
@@ -66,11 +84,12 @@ First-run findings that drove fixes before this snapshot:
 
 ## Next bench-population priorities
 
-Order by "category fail signal" (i.e. where to deepen first):
+(updated after v2 results — systematic gap confirmed)
 
-1. **conditional** + **interrupt** (categories that failed on baseline) — add 4-5 more per category to confirm the failure pattern is systematic vs. prompt-specific
+1. ~~**conditional** + **interrupt** deepen to 3 each~~ — done in v2 (0/3 + 0/3, systematic)
 2. **send** (multi-node fan-out) + **subgraph** — not yet probed; high LangGraph specificity
 3. **tool / error / streaming** — broader API surface
+4. Add at least 1 prompt per the 4 detected antipatterns to ensure distill iter coverage of each
 
 ## How to re-run
 
