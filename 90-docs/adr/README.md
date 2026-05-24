@@ -5,7 +5,7 @@ status: active
 doc_type: reference
 topic: adr-readme
 authoritative: true
-last_verified: 2026-05-21
+last_verified: 2026-05-24
 authoritative_for:
   - ADR index for etzhayyim/root
   - placement policy for open-scope ADRs
@@ -85,6 +85,11 @@ New open-scope ADRs go here (`etzhayyim/root/90-docs/adr/`). Scope:
 | [2605242110](./2605242110-baien-mx-move5-video-graft.md) | baien Move 5 — video graft (VideoMAE-base + 1.58-bit projector + 4 modal configs A/B/C/D; edge tier on-demand modality loading to respect ADR-2605241900 cumulative encoder ceiling) | accepted | 2026-05-24 |
 | [2605242120](./2605242120-baien-mx-move6-robotics-graft.md) | baien Move 6 — robotics graft (edge = scene description only / server = OpenVLA-style action head post-Council; safety-driven tier split per Charter Rider §2(h) + §2(a)) | accepted | 2026-05-24 |
 | [2605242400](./2605242400-baien-smoke-is-destructive-finding.md) | baien smoke runs are destructive, not informative — Move 1 Phase A + distill iter-00 honest signal; formalises Phase B as minimum-informative tier + operator gate against publishing smoke-tier adapters to distilled-models.jsonl | accepted | 2026-05-24 |
+| [2605242500](./2605242500-baien-ternary-silicon-and-tsukuru-fab-charter.md) | baien ternary silicon + tsukuru fab — religious-corp first-party RTL/装置設計 charter (生命のコア); 2 ASICs (iwakura/fuigo) + 8 fab equipment categories owned by religious-corp under Apache 2.0 + Charter Rider; tsukuru.etzhayyim.com sole orchestration SSoT; §2(a)(c) Council gate; 4-phase roadmap | proposed | 2026-05-24 |
+| [2605242515](./2605242515-iwakura-ternary-inference-asic.md) | iwakura (磐座) — baien ternary 専用推論 ASIC architecture (256×256 multiplier-less ternary PE = 65 Tera-ternary-ops/s; radix-3 5-weights-per-byte packing; 16 MB SRAM + 2 GB LPDDR5X-7500; 3-5 W edge / 15 W workstation; Phase 1 = RTL + cocotb sim) | proposed | 2026-05-24 |
+| [2605242530](./2605242530-fuigo-hybrid-ternary-bf16-training-asic.md) | fuigo (鞴) — baien hybrid ternary/BF16 training ASIC architecture (1024×1024 ternary forward + 8k BF16 backward dual-SA; STE Glue + Lion hardwire; HBM3e 96 GB / 4.8 TB/s; libp2p NIC on-die for Murakumo no-VKE mesh; closes ADR-2605215000 with training-only-Murakumo) | proposed | 2026-05-24 |
+| [2605242545](./2605242545-tsukuru-fab-equipment-pregel-charter.md) | tsukuru fab 8-equipment Pregel charter — litho/depo/etch/implant/CMP/metrology/test/packaging self-design + per-step silicon_* Pregel cell; open-source toolchain only (yosys/Verilator/cocotb/KiCad/FreeCAD/ROS 2); public reference design as transparent religious force; Phase 2 priority sequencing (test → metrology → packaging → litho → 残り 4) | proposed | 2026-05-24 |
+| [2605242600](./2605242600-baien-federated-train-via-ameno-webgpu.md) | baien federated training via ameno WebGPU — smartphone-participable LoRA round (R0 scaffold); 5-layer (WebGPU kernel / ameno PWA / lexicon+DID / Murakumo aggregator / MST+L2 anchor); 11 constitutional gates G1..G11 | proposed | 2026-05-24 |
 | [2605212100](./2605212100-gftd-to-etzhayyim-migration-batch.md) | gftd→etzhayyim 60-apps migration batch (gov / law / legal scope) — closes the dangling ADR reference in 3 DEPRECATED.md markers + documents 36-file blind-copy restore + substrate-port deferral list | active | 2026-05-21 |
 | [2605214000](./2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules.md) | Murakumo distributed cluster (no-VKE mesh) + lexicon port verdict taxonomy (REDIRECT/VENDOR-ONLY/REIMPLEMENT) + §3 atomic identifier cutover rules — closes 14-citation ghost reference; 220-file atomic-PR invariant; legal-registration master gate | active | 2026-05-21 |
 | [2605242330](./2605242330-gov-procedure-pregel-mcp-coverage.md) | Gov-procedure Pregel/MCP coverage 5-layer taxonomy (L1 namespace / L2 COFOG×country / L3 public-services hub / L4 ingest / L5 routing-around) + 195-country scale-out plan + explicit non-roadmap | proposed | 2026-05-24 |

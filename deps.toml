@@ -1264,7 +1264,68 @@ status = "proposed"
 status_note = "R0 scaffold: smartphone / browser participation in baien post-train via WebGPU LoRA-only autograd (rank-16 on q/k/v/o_proj), frozen BitNet trunk + frozen modality encoders per ADR-2605241900. 5-layer architecture (L1 WebGPU kernel / L2 ameno PWA loop / L3 lexicon + DID / L4 Murakumo aggregator / L5 MST + L2 anchor). 11 constitutional gates (G1 trunk+encoders frozen / G2 LoRA rank-16 q/k/v/o_proj only / G3 IPFS+MST upload / G4 member passkey ES256 / G5 Murakumo-only aggregation / G6 on-device Charter Rider scan / G7 Adherent SBT gate / G8 Wellbecoming gate / G9 Byzantine median/Krum + DP-Gaussian / G10 round-frozen baseModelCid / G11 no per-delta payout). R0 deliverables: this ADR + lexicon app.etzhayyim.baien.distributedTrainDelta + 20-actors/ameno/src/train.ts throw-on-use scaffold + 70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py dry-run-only planner + 20-actors/magatama/cells/baien_federated_aggregator/ Council-attestation-gated cell (import-time RuntimeError, L5-routing-around pattern from CLAUDE.md row 35). R1..R4 phased activation, each phase requires its own ADR (matches wadachi R0 pattern from ADR-2605242000)."
 path = "90-docs/adr/2605242600-baien-federated-train-via-ameno-webgpu.md"
 
+[[adrs]]
+id = "2605242630"
+title = "Baien federated R1 — single-device WebGPU LoRA backward-pass PoC"
+status = "proposed"
+status_note = "R1 ADR for the federated-train wave (R0 = ADR-2605242600). Specifies the contract for the first real-device WebGPU LoRA-only autograd PoC: (a) 3-row device matrix (iPhone 12 / Adreno Android / M-series desktop) — R1 passes only when all three rows independently meet success criteria; (b) numerics fallback table (path A fp16 desktop / path B fp32-grad-accumulator mobile DEFAULT / path C full-fp32 last-resort) selected by 3-prompt warm-up vs fp64 CPU reference; (c) OPFS Adam-state on-disk format (resumable across PWA kill, content-addressed roundId, append-only within round); (d) 16-example microbench shard (committed to git with .cid sidecar for round-replay parity); (e) success criteria = 3 consecutive lossAfter < lossBefore × 0.98 on same shard, same numerics path, ≤2.5GB peak mobile / ≤4GB desktop, OPFS kill+resume reproduces lossAfter within ±1e-4; (f) device-side abort conditions (thermal serious/critical >5s, OOM, fp16-overflow NaN/Inf, charter-rider-scan >5% reject, 10min wall-clock timeout). Out-of-scope (R2+ ADRs): aggregator wiring into baien-distill/graph.py, lexicon publish + ES256 sign, multi-device coordination, DP clip + Gaussian σ calibration, Byzantine aggregation, modality-projector federated training. R1 implementation commit replaces throw-on-use stubs in 20-actors/ameno/src/train.ts with ~600-900 LoC (WebGPU compute-shader forward/backward/Adam + OPFS sibling + orchestration); signDeltaManifest/publishDeltaRecord stay throws until R2."
+path = "90-docs/adr/2605242630-baien-federated-r1-webgpu-backward-poc.md"
+
+# ─── Silicon wave (ADR-2605242500..2545) ────────────────────────────
+
+[[adrs]]
+id = "2605242500"
+title = "baien ternary silicon + tsukuru fab — religious-corp first-party RTL/装置設計 charter (生命のコア)"
+status = "proposed"
+status_note = "Upper charter for religious-corp自前半導体 ('半導体は生命のコア', user 2026-05-24). 6 decisions: (1) self-design 2 ASICs (iwakura inference / fuigo training) + 8 fab equipment categories with RTL/CAD/mechanical/robotics owned by religious-corp under Apache 2.0 + Charter Rider; (2) tsukuru.etzhayyim.com is the sole orchestration SSoT (NOT tukuru.gftd.ai — vendor stays out of religious-corp silicon orchestration; tsukuru ISIC C26 EUV lane from ADR-0061 is the natural extension); (3) 8-equipment scope mirroring industry vendors (ASML/AMAT/Lam/TEL/Axcelis/Ebara/KLA/Advantest/ASE) with open-source toolchain only (yosys/Verilator/cocotb/SymbiYosys/KiCad/FreeCAD/OpenSCAD/ROS 2); (4) Charter Rider §2(a)(c) Council Lv6+ ≥3 multisig gate via app.etzhayyim.silicon.silenForceReview Lexicon — REQUIRED before chip ships; (5) Phase 1 deliverable = RTL + cocotb sim only, FPGA/MPW/fab build are separate ADRs post-Council; (6) silicon = land-trust-analogue inalienable (no sale, lease to SBT holders only). 4-phase roadmap (Phase 1 scaffold this wave / Phase 2 FPGA / Phase 3 MPW TSMC N5/N3 / Phase 4 Rapidus 2nm 千歳 / Phase 5 自家 fab超長期)."
+path = "90-docs/adr/2605242500-baien-ternary-silicon-and-tsukuru-fab-charter.md"
+
+[[adrs]]
+id = "2605242515"
+title = "iwakura (磐座) — baien ternary 専用推論 ASIC architecture"
+status = "proposed"
+status_note = "Inference ASIC die for baien edge. 256×256 multiplier-less ternary PE grid (65,536 PE × 1 GHz = 65 Tera-ternary-ops/s peak; ~620 gates per PE vs ~5,200 for INT8 mult = 8.4× density gain). Radix-3 weight packing (5 ternaries per byte = 25% DRAM bandwidth saving). 16 MB on-die SRAM for KV cache scratch + 2 GB LPDDR5X-7500 ×2 on-package = 120 GB/s. Zero-skip dispatcher gates ~33% of PE clocks (animation power -30%). Image encoder (SigLIP) hard-wired in iwakura-1; audio/video/3D on generic PE. Host I/F: USB4 dongle (edge) / PCIe Gen4 x4 (workstation) / WASM-SIMD shim (browser fallback). TDP 3-5 W edge / 15 W workstation. Phase 1 deliverable: rtl/iwakura_top.sv port-list stub + sim/test_pe_array_4x4.py; canonical PE in shared-ip/ternary-pe/. Verilator + cocotb (open-source) only. Foundry target TSMC N5 MPW eShuttle (Phase 3 post-Council)."
+path = "90-docs/adr/2605242515-iwakura-ternary-inference-asic.md"
+
+[[adrs]]
+id = "2605242530"
+title = "fuigo (鞴) — baien hybrid ternary/BF16 training ASIC architecture"
+status = "proposed"
+status_note = "Training ASIC die. Asymmetric BitNet 1.58 training (forward = ternary, backward = BF16 STE) implemented as 2 separate systolic arrays both active simultaneously — closes the 7%/38% MFU gap of generic GPU (target MFU 70%+). Forward SA = 1024×1024 ternary PE (1 PetaTernary-ops/s peak; IP reused from shared-ip/ternary-pe). Backward SA = 8,192 BF16 MAC = 16 TFLOPS BF16. STE Glue unit bridges forward-ternary ↔ backward-BF16 master weight without GPU kernel-launch overhead. Lion optimizer hard-wired (Adam software emulation only; ADR-2605231300 recommends Lion + memory halved vs Adam). 4 × HBM3e ×24 GB = 96 GB @ 4.8 TB/s. libp2p NIC integrated on-die (ed25519 peer-ID burned at eFuse during shared-ip/libp2p-nic IP block init; Murakumo no-VKE mesh native per ADR-2605214000). CXL.mem 3.0 endpoint for multi-die memory pooling. TDP 350 W board / liquid-cooled 1U. Phase 1 = RTL + cocotb sim (forward path reuses ternary-pe IP). Foundry target TSMC N3 chiplet (Phase 3); Rapidus 2nm 千歳 second source (Phase 4 post-2027). Closes ADR-2605215000 inference-only-Murakumo to include training-only-Murakumo."
+path = "90-docs/adr/2605242530-fuigo-hybrid-ternary-bf16-training-asic.md"
+
+[[adrs]]
+id = "2605242545"
+title = "tsukuru fab 8-equipment Pregel charter — litho/depo/etch/implant/CMP/metrology/test/packaging"
+status = "proposed"
+status_note = "Self-design RTL/CAD/mechanical/robotics for 8 fab equipment categories (industry counterparts: ASML/Nikon/Canon for litho; AMAT/Lam/TEL for deposition + etch; Axcelis/AMAT for ion implant; Ebara/AMAT for CMP; KLA for metrology; Advantest/Teradyne for ATE; ASE/Amkor/TSMC AP/Samsung AP for packaging). 7 decisions: (1) per-step responsibility matrix mapping each equipment to a silicon_<step> Pregel cell; (2) common Pregel super-step contract (super_step(wafer_lot, telemetry, prior_attestations) → (next_wafer_lot, messages)); (3) open-source EDA stack only (yosys / Verilator / cocotb / SymbiYosys / KiCad / FreeCAD / OpenSCAD / ROS 2 / OpenLane); (4) public reference design strategy = transparent religious force per ADR-2605192315 (公開された RTL/CAD コモンズが力の独占を防ぐ); (5) Murakumo node assignment (judah for litho/depo/etch; dan for implant; naphtali for CMP+packaging; simeon for metrology iwakura-coloc; levi for test ternary-aware ATE); (6) Phase 1 scaffold this wave; (7) Phase 2 priority sequencing — Phase 2a silicon_test (ATE bring-up independence) / Phase 2b silicon_metrology (AI on iwakura) / Phase 2c silicon_packaging (fuigo chiplet) / Phase 3 silicon_litho (EUV, year-scale) / Phase 4 残り 4 工程. Charter Rider §2(a)(c) risk classification per equipment: HIGH (litho/implant) / MEDIUM (depo/etch/metrology) / LOW (cmp/test/packaging). 4 Lexicons under app.etzhayyim.silicon (chipManufacturingAttestation / silenForceReview / fabEquipmentTelemetry / waferLotAttestation)."
+path = "90-docs/adr/2605242545-tsukuru-fab-equipment-pregel-charter.md"
+
 # ─── Module registry ────────────────────────────────────────────────
+
+[[modules]]
+path = "50-infra/silicon"
+kind = "first-party-silicon-rtl-cad"
+version = "0.1.0-phase1-scaffold"
+status = "P1-scaffold-only-rtl-cocotb-sim"
+description = "religious-corp first-party silicon — 2 ASICs (iwakura inference / fuigo training) + 8 fab equipment categories (litho/deposition/etch/ion-implant/cmp/metrology/test/packaging) + 3 shared-IP blocks (ternary-pe / radix3-packer / libp2p-nic). Phase 1 = RTL stubs + cocotb sim only; canonical multiplier-less ternary PE (shared-ip/ternary-pe/rtl/ternary_pe.sv) + 75-case exhaustive cocotb test. Verilator + cocotb (open-source) only; no commercial EDA (Synopsys/Cadence/Mentor) in committed flow. PDK access for tape-out is under separate NDA stack outside this tree."
+adr = ["2605242500", "2605242515", "2605242530", "2605242545"]
+sibling_modules = [
+  "20-actors/tsukuru",                              # orchestration substrate
+  "20-actors/magatama/cells/silicon_litho",
+  "20-actors/magatama/cells/silicon_deposition",
+  "20-actors/magatama/cells/silicon_etch",
+  "20-actors/magatama/cells/silicon_implant",
+  "20-actors/magatama/cells/silicon_cmp",
+  "20-actors/magatama/cells/silicon_metrology",
+  "20-actors/magatama/cells/silicon_test",
+  "20-actors/magatama/cells/silicon_packaging",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/silicon"
+phase_gate = "Phase 2 (FPGA prototype) + Phase 3 (MPW tape-out) require separate ADRs + Council 5-of-7 Safe attestation + tsukuru.etzhayyim.com production_order"
+charter_rider_risk = "HIGH for equipment/lithography + equipment/ion-implant (§2(a) dual-use); MEDIUM for deposition/etch/metrology; LOW for cmp/test/packaging"
+
+
 
 [[modules]]
 path = "20-actors/magatama/py/src/pymagatama/projects/uhl_right_neural"

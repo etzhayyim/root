@@ -37,7 +37,7 @@ Each config writes to
 `90-docs/baien/context-extend-260523/results_long_<label>.jsonl` plus
 a side-by-side pass-rate matrix to stdout.
 
-## Results
+## Results (2026-05-24, EVO-X2 CPU bf16)
 
 Run executed 2026-05-23T11:20 → 12:18 UTC on EVO-X2 (Ryzen AI Max+ 395, CPU
 bf16, transformers 5.9.0). Raw rows mirrored to
