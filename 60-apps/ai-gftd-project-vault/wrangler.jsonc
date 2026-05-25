@@ -5,8 +5,8 @@
   "compatibility_flags": ["nodejs_compat"],
   "routes": [
     {
-      "pattern": "vault.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "vault.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {
@@ -23,7 +23,7 @@
     }
   ],
   "vars": {
-    "AUTHN_URL": "https://auth.gftd.ai"
+    "AUTHN_URL": "https://auth.etzhayyim.com"
   },
   "observability": {
     "enabled": true

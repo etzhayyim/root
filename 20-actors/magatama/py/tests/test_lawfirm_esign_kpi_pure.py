@@ -68,7 +68,7 @@ class TestEsignRequestHappyPath(unittest.TestCase):
                 matter_uri="at://test/matter-1",
                 recipients=[
                     {"email": "vyapak@nishithdesai.com", "name": "Vyapak Desai", "role": "client"},
-                    {"email": "j-kawasaki@gftd.co", "name": "Jun Kawasaki", "role": "advocate"},
+                    {"email": "j-kawasaki@etzhayyim.com", "name": "Jun Kawasaki", "role": "advocate"},
                 ],
                 document_pdf_b64="JVBERi0xLjMKJeLjz9MK",
                 provider="docusign",

@@ -43,7 +43,7 @@
     {
       capabilityUri: 'at://did:plc:self/app.etzhayyim.consent.capability/def456',
       granterDid: 'did:plc:self',
-      granteeDid: 'did:web:iryo.gftd.ai',
+      granteeDid: 'did:web:iryo.etzhayyim.com',
       scope: ['app.etzhayyim.karute.encounter', 'app.etzhayyim.karute.serviceRequest'],
       purpose: 'insurance-billing',
       status: 'active',
@@ -206,7 +206,7 @@
           目的
           <select bind:value={consentPurpose}>
             <option value="second-opinion">セカンドオピニオン</option>
-            <option value="insurance-billing">保険請求 (iryo.gftd.ai)</option>
+            <option value="insurance-billing">保険請求 (iryo.etzhayyim.com)</option>
             <option value="data-portability">データ可搬性 (他 EHR への移行)</option>
             <option value="research-deidentified">研究 (de-identified データのみ)</option>
           </select>

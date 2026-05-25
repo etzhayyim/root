@@ -38,21 +38,21 @@ _OWNER_DID = "did:web:bpmn.etzhayyim.com"
 
 # UPN → member DID resolution table (extend as new members onboard)
 _UPN_TO_DID: dict[str, str] = {
-    "j-kawasaki@gftd.co":  "did:web:j-kawasaki.etzhayyim.com",
-    "j.kawasaki@gftd.co":  "did:web:j-kawasaki.etzhayyim.com",
-    "a-nakamura@gftd.co":  "did:web:a-nakamura.etzhayyim.com",
-    "a.nakamura@gftd.co":  "did:web:a-nakamura.etzhayyim.com",
-    "k-bakshi@gftd.co":    "did:web:k-bakshi.etzhayyim.com",
-    "k.bakshi@gftd.co":    "did:web:k-bakshi.etzhayyim.com",
-    "t-chikada@gftd.co":   "did:web:t-chikada.etzhayyim.com",
-    "t.chikada@gftd.co":   "did:web:t-chikada.etzhayyim.com",
-    "f-tanaka@gftd.co":    "did:web:f-tanaka.etzhayyim.com",
-    "f.tanaka@gftd.co":    "did:web:f-tanaka.etzhayyim.com",
-    "y-nishino@gftd.co":   "did:web:y-nishino.etzhayyim.com",
-    "y.nishino@gftd.co":   "did:web:y-nishino.etzhayyim.com",
-    "t-ichihara@gftd.co":  "did:web:t-ichihara.etzhayyim.com",
-    "k-takahashi@gftd.co": "did:web:k-takahashi.etzhayyim.com",
-    "n-takahashi@gftd.co": "did:web:n-takahashi.etzhayyim.com",
+    "j-kawasaki@etzhayyim.com":  "did:web:j-kawasaki.etzhayyim.com",
+    "j.kawasaki@etzhayyim.com":  "did:web:j-kawasaki.etzhayyim.com",
+    "a-nakamura@etzhayyim.com":  "did:web:a-nakamura.etzhayyim.com",
+    "a.nakamura@etzhayyim.com":  "did:web:a-nakamura.etzhayyim.com",
+    "k-bakshi@etzhayyim.com":    "did:web:k-bakshi.etzhayyim.com",
+    "k.bakshi@etzhayyim.com":    "did:web:k-bakshi.etzhayyim.com",
+    "t-chikada@etzhayyim.com":   "did:web:t-chikada.etzhayyim.com",
+    "t.chikada@etzhayyim.com":   "did:web:t-chikada.etzhayyim.com",
+    "f-tanaka@etzhayyim.com":    "did:web:f-tanaka.etzhayyim.com",
+    "f.tanaka@etzhayyim.com":    "did:web:f-tanaka.etzhayyim.com",
+    "y-nishino@etzhayyim.com":   "did:web:y-nishino.etzhayyim.com",
+    "y.nishino@etzhayyim.com":   "did:web:y-nishino.etzhayyim.com",
+    "t-ichihara@etzhayyim.com":  "did:web:t-ichihara.etzhayyim.com",
+    "k-takahashi@etzhayyim.com": "did:web:k-takahashi.etzhayyim.com",
+    "n-takahashi@etzhayyim.com": "did:web:n-takahashi.etzhayyim.com",
 }
 
 

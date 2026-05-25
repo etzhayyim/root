@@ -52,7 +52,7 @@ microsoft-bridge-appservice (native Go first)
 Matrix homeserver / appservice
   ├─ Matrix users
   ├─ Spaces / rooms / threads
-  └─ org.gftd.command.microsoft-* events
+  └─ org.etzhayyim.command.microsoft-* events
           ↓
 microsoft-gateway App
   ├─ Matrix command handlers
@@ -160,16 +160,16 @@ microsoft miniapp UI (Matrix widget)
 ### Matrix Commands
 
 正規入口 event type:
-- `org.gftd.command.microsoft-tenant.connect`
-- `org.gftd.command.microsoft-sync.run`
-- `org.gftd.command.microsoft-teams.link-room`
-- `org.gftd.command.microsoft-mail.import`
-- `org.gftd.command.microsoft-calendar.import`
-- `org.gftd.command.microsoft-file.import`
-- `org.gftd.command.microsoft-message.send`
-- `org.gftd.command.microsoft-message.redact`
-- `org.gftd.command.microsoft-membership.sync`
-- `org.gftd.command.microsoft-policy.reconcile`
+- `org.etzhayyim.command.microsoft-tenant.connect`
+- `org.etzhayyim.command.microsoft-sync.run`
+- `org.etzhayyim.command.microsoft-teams.link-room`
+- `org.etzhayyim.command.microsoft-mail.import`
+- `org.etzhayyim.command.microsoft-calendar.import`
+- `org.etzhayyim.command.microsoft-file.import`
+- `org.etzhayyim.command.microsoft-message.send`
+- `org.etzhayyim.command.microsoft-message.redact`
+- `org.etzhayyim.command.microsoft-membership.sync`
+- `org.etzhayyim.command.microsoft-policy.reconcile`
 
 共通 envelope:
 
@@ -418,14 +418,14 @@ Microsoft domain を Matrix に取り込むときは、Matrix の room/event/use
 ### App-Specific Event Namespace
 
 標準 Matrix event で表せない制御面は app-specific namespace に閉じる:
-- `org.gftd.command.microsoft-*`
-- `org.gftd.state.microsoft-*`
-- `org.gftd.policy.microsoft-*`
+- `org.etzhayyim.command.microsoft-*`
+- `org.etzhayyim.state.microsoft-*`
+- `org.etzhayyim.policy.microsoft-*`
 
 ルール:
 - user-visible conversation はできるだけ `m.room.message` 系に寄せる
 - operational state や sync cursor は app-specific state event へ分離する
-- public contract に `org.gftd.query.*` を追加しない
+- public contract に `org.etzhayyim.query.*` を追加しない
 
 ### Identity Compatibility
 
@@ -459,7 +459,7 @@ Microsoft domain を Matrix に取り込むときは、Matrix の room/event/use
 
 ### Matrix / etzhayyim → Microsoft
 
-1. user/agent が Matrix room で `org.gftd.command.microsoft-message.send` などを発行
+1. user/agent が Matrix room で `org.etzhayyim.command.microsoft-message.send` などを発行
 2. `microsoft-gateway` が command validation
 3. bridge が Graph API へ送信
 4. Microsoft 側 object ID を取得

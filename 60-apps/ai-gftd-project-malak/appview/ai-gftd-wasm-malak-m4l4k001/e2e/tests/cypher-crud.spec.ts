@@ -67,7 +67,7 @@ test.describe('malak.etzhayyim.com — SQL CRUD: seed → query → dashboard', 
 		const r = await request.post(`${SVC}/malak.threatActors`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
 		const b = await r.json();
-		expect(b.contentType).toBe('application/vnd.gftd.card.list');
+		expect(b.contentType).toBe('application/vnd.etzhayyim.card.list');
 		expect(b.payload.items.length).toBeGreaterThanOrEqual(1);
 		expect(b.payload.items[0].icon).toBeTruthy();
 	});

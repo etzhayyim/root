@@ -382,7 +382,7 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + app.etzhayyim.convo 10 + feed/social
 | **Lexicon JSON** | `magatama:consent@1.0.0` — `request-consent`, `resolve-consent`, `revoke-consent`, `check-consent`, `list-grants` | |
 | **TS Client** | `$lib/atproto-agent` — `requestConsent()`, `resolveConsent()`, `revokeConsent()`, `checkConsent()`, `listConsentGrants()` | |
 | **UI** | `ConsentPrompt.svelte` — inline consent card (scope, sensitivity, selective disclosure, Allow/Deny) | |
-| **Detection** | `/convo/[convoId]` — `contentType: "application/vnd.gftd.consent.request"` メッセージを自動検出 | |
+| **Detection** | `/convo/[convoId]` — `contentType: "application/vnd.etzhayyim.consent.request"` メッセージを自動検出 | |
 
 - evidence: `_archive/00-contracts/wit/wit/deps/magatama-consent/package.wit` (archived 2026-04-12), `$lib/w/ConsentPrompt.svelte`, `routes/convo/[convoId]/+page.svelte`
 
@@ -434,8 +434,8 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + app.etzhayyim.convo 10 + feed/social
 | **3D ステージ** | `atproto.etzhayyim.com/xrpc/app.etzhayyim.convo.getConvo` | — |
 | **Agent avatar** | 常時アニメーション (idle/dancing/waving/talking) | — |
 | **リアルタイムチャット** | `createProjectConvo(agentDID)` (`app.etzhayyim.projector.createProjectConvo`) → `sendProjectMessage(ch, text)` (`app.etzhayyim.projector.sendProjectMessage`) → `subscribeWStream(SSE)` で応答受信 | `text/plain` |
-| **Emote** | `sendProjectMessage(ch, json)` (`app.etzhayyim.projector`) + client-side floating animation | `application/vnd.gftd.baminiku.emote` |
-| **投げ銭** | `sendProjectMessage(ch, json)` (`app.etzhayyim.projector`) → ComAtprotoSyncSubscribeRepos → WRecord + 3D effect | `application/vnd.gftd.baminiku.tip` |
+| **Emote** | `sendProjectMessage(ch, json)` (`app.etzhayyim.projector`) + client-side floating animation | `application/vnd.etzhayyim.baminiku.emote` |
+| **投げ銭** | `sendProjectMessage(ch, json)` (`app.etzhayyim.projector`) → ComAtprotoSyncSubscribeRepos → WRecord + 3D effect | `application/vnd.etzhayyim.baminiku.tip` |
 | **音楽** | BGM 表示 | — |
 | **LIVE バッジ** | 赤 LIVE indicator + viewer count | — |
 
@@ -566,7 +566,7 @@ Actor カード: Avatar + displayName + DID + description + sensitivity badge + 
 | 2. System Prompt | `convoSystemPrompt` (magatama.jsonld) or default + tools list |
 | 3. LLM Call | Murakumo `qwen3-vl-8b` with `tools` + `tool_choice: auto` |
 | 4. Tool Execution | DISPATCHER → app Worker XRPC → result |
-| 5. Tool Result | `contentType: application/vnd.gftd.mcp.tool-result` メッセージ |
+| 5. Tool Result | `contentType: application/vnd.etzhayyim.mcp.tool-result` メッセージ |
 | 6. Summary | Second LLM call with tool results → final reply |
 
 **convoSystemPrompt**: `magatama.jsonld` の `profile.convoSystemPrompt` が優先。未設定時は `displayName` + `description` から自動生成。

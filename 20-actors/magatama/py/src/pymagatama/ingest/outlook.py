@@ -283,16 +283,16 @@ def disconnect(**kwargs: Any) -> dict[str, Any]:
 
 def card_home(**kwargs: Any) -> dict[str, Any]:
     conn = get_connection(**kwargs).get("connection") or {"connected": False}
-    return {"ok": True, "contentType": "application/vnd.gftd.card.list", "payload": {"title": "Outlook", "items": [{"label": "Connected", "value": "yes" if conn.get("connected") else "no"}, {"label": "Account", "value": _str(conn.get("email") or "-")}, {"label": "Last Sync", "value": "never"}]}}
+    return {"ok": True, "contentType": "application/vnd.etzhayyim.card.list", "payload": {"title": "Outlook", "items": [{"label": "Connected", "value": "yes" if conn.get("connected") else "no"}, {"label": "Account", "value": _str(conn.get("email") or "-")}, {"label": "Last Sync", "value": "never"}]}}
 
 
 def card_compose(**_: Any) -> dict[str, Any]:
-    return {"ok": True, "contentType": "application/vnd.gftd.card.form", "payload": {"title": "Compose", "fields": [{"key": "to", "type": "email", "required": True}, {"key": "subject", "type": "text", "required": True}, {"key": "body", "type": "textarea", "required": True}], "action": "outlook.send"}}
+    return {"ok": True, "contentType": "application/vnd.etzhayyim.card.form", "payload": {"title": "Compose", "fields": [{"key": "to", "type": "email", "required": True}, {"key": "subject", "type": "text", "required": True}, {"key": "body", "type": "textarea", "required": True}], "action": "outlook.send"}}
 
 
 def card_action(action: str = "", **kwargs: Any) -> dict[str, Any]:
     if action == "outlook.disconnect":
-        return {"ok": True, "contentType": "application/vnd.gftd.card.confirmation", "payload": {"title": "Disconnect Outlook", "body": "Are you sure you want to disconnect?", "destructive": True}}
+        return {"ok": True, "contentType": "application/vnd.etzhayyim.card.confirmation", "payload": {"title": "Disconnect Outlook", "body": "Are you sure you want to disconnect?", "destructive": True}}
     return card_home(**kwargs)
 
 

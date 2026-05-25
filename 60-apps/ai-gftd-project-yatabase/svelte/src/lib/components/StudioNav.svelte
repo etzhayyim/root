@@ -24,11 +24,11 @@
 </script>
 
 <aside
-	class="hidden w-60 shrink-0 flex-col border-r border-gftd-border bg-gftd-card/40 md:flex"
+	class="hidden w-60 shrink-0 flex-col border-r border-etzhayyim-border bg-gftd-card/40 md:flex"
 >
 	<div class="flex items-center gap-2 px-5 py-5">
 		<span class="text-2xl">🟦</span>
-		<a href="/studio" class="text-lg font-semibold text-gftd-text">yatabase</a>
+		<a href="/studio" class="text-lg font-semibold text-etzhayyim-text">yatabase</a>
 		<Badge type="secondary">Studio</Badge>
 	</div>
 
@@ -41,8 +41,8 @@
 						class={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition
 							${
 								active(item.href)
-									? 'bg-gftd-accent/15 text-gftd-text font-medium'
-									: 'text-gftd-secondary hover:bg-white/5 hover:text-gftd-text'
+									? 'bg-etzhayyim-accent/15 text-etzhayyim-text font-medium'
+									: 'text-etzhayyim-secondary hover:bg-white/5 hover:text-etzhayyim-text'
 							}`}
 						aria-current={active(item.href) ? 'page' : undefined}
 					>
@@ -54,7 +54,7 @@
 		</ul>
 
 		{#if $adminKey}
-			<p class="mt-6 px-3 text-xs font-medium uppercase tracking-wider text-gftd-muted">
+			<p class="mt-6 px-3 text-xs font-medium uppercase tracking-wider text-etzhayyim-muted">
 				Admin
 			</p>
 			<ul class="mt-2 space-y-1">
@@ -65,8 +65,8 @@
 							class={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition
 								${
 									active(item.href)
-										? 'bg-amber-500/15 text-gftd-text font-medium'
-										: 'text-gftd-secondary hover:bg-white/5 hover:text-gftd-text'
+										? 'bg-amber-500/15 text-etzhayyim-text font-medium'
+										: 'text-etzhayyim-secondary hover:bg-white/5 hover:text-etzhayyim-text'
 								}`}
 							aria-current={active(item.href) ? 'page' : undefined}
 						>
@@ -79,14 +79,14 @@
 		{/if}
 	</nav>
 
-	<div class="border-t border-gftd-border p-4 text-xs">
+	<div class="border-t border-etzhayyim-border p-4 text-xs">
 		<div class="flex items-center justify-between gap-2">
 			<div class="min-w-0">
-				<div class="truncate text-gftd-text">{$tenantLabel || '—'}</div>
-				<div class="truncate text-gftd-muted">{$plan?.plan ?? 'free'} plan</div>
+				<div class="truncate text-etzhayyim-text">{$tenantLabel || '—'}</div>
+				<div class="truncate text-etzhayyim-muted">{$plan?.plan ?? 'free'} plan</div>
 			</div>
 			<button
-				class="rounded-md border border-gftd-border px-2 py-1 text-gftd-secondary hover:bg-white/5"
+				class="rounded-md border border-etzhayyim-border px-2 py-1 text-etzhayyim-secondary hover:bg-white/5"
 				onclick={toggleTheme}
 				type="button"
 				aria-label="Toggle theme"
@@ -96,7 +96,7 @@
 		</div>
 		{#if $tenantLabel}
 			<button
-				class="mt-3 w-full rounded-md border border-gftd-border px-2 py-1 text-gftd-secondary hover:bg-white/5"
+				class="mt-3 w-full rounded-md border border-etzhayyim-border px-2 py-1 text-etzhayyim-secondary hover:bg-white/5"
 				type="button"
 				onclick={() => signOut()}>Sign out</button
 			>

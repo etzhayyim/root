@@ -20,7 +20,7 @@ superseded_by: []
 
 # Context
 
-The Google Workspace ingest pipeline (`90-docs/260417-google-workspace-ingest-runbook.md`) consents one OAuth grant per (Google account × service) and persists the resulting refresh_token in `vertex_g<svc>_oauth_token` for 9 services (gmail / calendar / drive / contacts / tasks / docs / sheets / slides / meet). 11 Google accounts span at least 5 separate Workspace tenants (gftd.group / junkawasaki.com / jk.luxury / de.school / michael.ne.jp / edutek.company / gmail.com), which rules out Domain-Wide Delegation. Two OAuth Web Clients exist in GCP project `ai-gftd-ws-ingest`:
+The Google Workspace ingest pipeline (`90-docs/260417-google-workspace-ingest-runbook.md`) consents one OAuth grant per (Google account × service) and persists the resulting refresh_token in `vertex_g<svc>_oauth_token` for 9 services (gmail / calendar / drive / contacts / tasks / docs / sheets / slides / meet). 11 Google accounts span at least 5 separate Workspace tenants (etzhayyim.com / junkawasaki.com / jk.luxury / de.school / michael.ne.jp / edutek.company / gmail.com), which rules out Domain-Wide Delegation. Two OAuth Web Clients exist in GCP project `ai-gftd-ws-ingest`:
 
 | Client | Purpose | scopes | redirect_uris |
 |---|---|---|---|

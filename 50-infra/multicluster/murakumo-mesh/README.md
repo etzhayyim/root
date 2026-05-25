@@ -4,7 +4,7 @@ This directory replaces the vendor `murakumo-vke/` design (Karmada pull-mode aga
 
 ## Why this exists
 
-The vendor murakumo at `gftd.co.jp` used Karmada v1.17 with a Vultr VKE hub cluster and a member k3s cluster on the Mac mini fleet. That topology required:
+The vendor murakumo at `etzhayyim.com` used Karmada v1.17 with a Vultr VKE hub cluster and a member k3s cluster on the Mac mini fleet. That topology required:
 
 - VKE control plane (kube-apiserver, etcd, scheduler) on Vultr
 - Karmada hub + member registration (PropagationPolicy CRDs)
@@ -106,4 +106,4 @@ curl -fs http://192.168.1.70:8188/system_stats  # comfyui
 
 ## Vendor parity (NOT in scope here)
 
-The vendor `gftd.co.jp/ai-gftd-apps-gftdcojp` keeps its `50-infra/multicluster/murakumo-vke/` (Karmada + Vultr VKE) for its own paid SaaS workloads. That topology is **not** mirrored here and **must not** be re-introduced. If religious-corp activity needs commercial cloud compute (it should not), open an ADR amending 2605191346 first.
+The vendor `etzhayyim.com/ai-gftd-apps-gftdcojp` keeps its `50-infra/multicluster/murakumo-vke/` (Karmada + Vultr VKE) for its own paid SaaS workloads. That topology is **not** mirrored here and **must not** be re-introduced. If religious-corp activity needs commercial cloud compute (it should not), open an ADR amending 2605191346 first.

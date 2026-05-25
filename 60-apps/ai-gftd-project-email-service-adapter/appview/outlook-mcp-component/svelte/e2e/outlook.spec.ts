@@ -59,7 +59,7 @@ test.describe('outlook.etzhayyim.com — API Endpoints', () => {
     });
     expect(res.ok()).toBeTruthy();
     const body = await res.json();
-    expect(body.contentType).toBe('application/vnd.gftd.card.list');
+    expect(body.contentType).toBe('application/vnd.etzhayyim.card.list');
     expect(body.payload.items.length).toBeGreaterThan(0);
   });
 
@@ -70,7 +70,7 @@ test.describe('outlook.etzhayyim.com — API Endpoints', () => {
     });
     expect(res.ok()).toBeTruthy();
     const body = await res.json();
-    expect(body.contentType).toBe('application/vnd.gftd.card.form');
+    expect(body.contentType).toBe('application/vnd.etzhayyim.card.form');
     expect(body.payload.fields.length).toBe(3);
     expect(body.payload.action).toBe('outlook.send');
   });
@@ -82,7 +82,7 @@ test.describe('outlook.etzhayyim.com — API Endpoints', () => {
     });
     expect(res.ok()).toBeTruthy();
     const body = await res.json();
-    expect(body.contentType).toBe('application/vnd.gftd.card.list');
+    expect(body.contentType).toBe('application/vnd.etzhayyim.card.list');
   });
 
   test('card.action disconnect shows confirmation card', async ({ request }) => {
@@ -92,7 +92,7 @@ test.describe('outlook.etzhayyim.com — API Endpoints', () => {
     });
     expect(res.ok()).toBeTruthy();
     const body = await res.json();
-    expect(body.contentType).toBe('application/vnd.gftd.card.confirmation');
+    expect(body.contentType).toBe('application/vnd.etzhayyim.card.confirmation');
     expect(body.payload.destructive).toBe(true);
   });
 });

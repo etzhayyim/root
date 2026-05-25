@@ -80,7 +80,7 @@ class TestEmlParsing(unittest.TestCase):
     def test_parses_headers_and_body(self):
         from pymagatama.primitives.lawfirm_cadence_dispatch import _parse_eml
         raw = (
-            "From: k.bakshi@gftd.co\n"
+            "From: k.bakshi@etzhayyim.com\n"
             "To: a@x.com, b@x.com\n"
             "Cc: c@x.com\n"
             "Subject: Hello\n"

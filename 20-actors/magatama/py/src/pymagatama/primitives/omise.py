@@ -513,7 +513,7 @@ def task_omise_platform_analytics(**_: Any) -> dict[str, Any]:
 
 def task_omise_card_home(**_: Any) -> dict[str, Any]:
     return {
-        "contentType": "application/vnd.gftd.card.list",
+        "contentType": "application/vnd.etzhayyim.card.list",
         "payload": {
             "title": "Omise Marketplace",
             "items": [

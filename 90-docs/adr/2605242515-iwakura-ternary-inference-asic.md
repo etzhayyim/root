@@ -237,7 +237,7 @@ benchmark target: baien 2B trunk @ ≥10 tok/s @ <30 W FPGA power.
 ## Phase 3 (MPW tape-out) — 別 ADR
 
 shuttle: TSMC eShuttle N5 (~$1M / lot, 6–9 ヶ月).
-tsukuru.etzhayyim.com `production_order` で起票 → Council 5-of-7 Safe 承認 → vendor (gftd.co.jp) が tape-out 実行。
+tsukuru.etzhayyim.com `production_order` で起票 → Council 5-of-7 Safe 承認 → vendor (etzhayyim.com) が tape-out 実行。
 
 # Consequences
 

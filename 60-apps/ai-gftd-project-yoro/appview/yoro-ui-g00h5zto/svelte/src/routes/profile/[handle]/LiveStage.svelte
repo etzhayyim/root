@@ -361,7 +361,7 @@
 			const ch = await ensureConvo();
 			if (!ch) return;
 			await sendProjectMessage(ch, JSON.stringify({ emote: emote.id, icon: emote.icon }), {
-				contentType: 'application/vnd.gftd.baminiku.emote',
+				contentType: 'application/vnd.etzhayyim.baminiku.emote',
 			});
 		} catch (e) {
 			console.warn('livestage: sendEmote failed', e);
@@ -381,7 +381,7 @@
 			const ch = await ensureConvo();
 			if (!ch) return;
 			await sendProjectMessage(ch, JSON.stringify({ amount, currency: 'JPY' }), {
-				contentType: 'application/vnd.gftd.baminiku.tip',
+				contentType: 'application/vnd.etzhayyim.baminiku.tip',
 			});
 		} catch (e) {
 			console.warn('livestage: sendTip failed', e);

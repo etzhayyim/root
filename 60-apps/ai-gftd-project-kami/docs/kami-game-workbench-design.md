@@ -448,7 +448,7 @@ kami-world (k4m1w0ld)
      → WRecord: game catalog
      → Hub Island: Portal 自動配置 (portal_x/y/z)
    → W Protocol WSend: "creations" channel
-     → card type: application/vnd.gftd.card.island-published
+     → card type: application/vnd.etzhayyim.card.island-published
    → island.state = "published"
 
 4. games.etzhayyim.com 上で

@@ -126,8 +126,8 @@
 <div class="mx-auto w-full max-w-6xl space-y-6 px-6 py-10">
 	<div>
 		<p class="text-sm uppercase tracking-wider text-amber-400/80">Operator</p>
-		<h1 class="mt-1 text-2xl font-semibold text-gftd-text">Outbox review</h1>
-		<p class="mt-1 text-sm text-gftd-secondary">
+		<h1 class="mt-1 text-2xl font-semibold text-etzhayyim-text">Outbox review</h1>
+		<p class="mt-1 text-sm text-etzhayyim-secondary">
 			Marketing + sales LangGraph nodes write drafts here at
 			<code>queued-no-recipient</code>. Fill in the recipient, edit the body if needed, and
 			approve to flip to <code>queued</code> for the send worker.
@@ -138,8 +138,8 @@
 		<div
 			class="mx-auto max-w-xl rounded-2xl border border-amber-700/40 bg-amber-900/10 p-6"
 		>
-			<h2 class="text-lg font-medium text-gftd-text">Admin key required</h2>
-			<p class="mt-2 text-sm text-gftd-secondary">
+			<h2 class="text-lg font-medium text-etzhayyim-text">Admin key required</h2>
+			<p class="mt-2 text-sm text-etzhayyim-secondary">
 				Paste your <code>x-yata-admin-key</code> (set in wrangler secrets as
 				<code>YATA_AGENT_ADMIN_KEY</code>). Stored locally, never sent except to admin
 				surfaces.
@@ -164,10 +164,10 @@
 		</div>
 	{:else}
 		<div class="flex flex-wrap items-center gap-3">
-			<label class="flex items-center gap-2 text-xs text-gftd-secondary">
+			<label class="flex items-center gap-2 text-xs text-etzhayyim-secondary">
 				status
 				<select
-					class="rounded-md border border-gftd-border bg-gftd-card px-2 py-1 text-sm text-gftd-text"
+					class="rounded-md border border-etzhayyim-border bg-gftd-card px-2 py-1 text-sm text-etzhayyim-text"
 					bind:value={statusFilter}
 					onchange={() => load()}
 				>
@@ -179,10 +179,10 @@
 					<option value="">all</option>
 				</select>
 			</label>
-			<label class="flex items-center gap-2 text-xs text-gftd-secondary">
+			<label class="flex items-center gap-2 text-xs text-etzhayyim-secondary">
 				kind
 				<select
-					class="rounded-md border border-gftd-border bg-gftd-card px-2 py-1 text-sm text-gftd-text"
+					class="rounded-md border border-etzhayyim-border bg-gftd-card px-2 py-1 text-sm text-etzhayyim-text"
 					bind:value={kindFilter}
 					onchange={() => load()}
 				>
@@ -198,7 +198,7 @@
 			<Button size="sm" variant="outline" onclick={() => load()} aria-disabled={loading}>
 				{loading ? 'Loading…' : 'Refresh'}
 			</Button>
-			<span class="ml-auto text-xs text-gftd-muted">{total} match · showing {rows.length}</span>
+			<span class="ml-auto text-xs text-etzhayyim-muted">{total} match · showing {rows.length}</span>
 		</div>
 
 		{#if error}
@@ -225,7 +225,7 @@
 					{@const isOpen = expanded === row.vertex_id}
 					{@const draft = recipientByRow[row.vertex_id] ?? { email: '', name: '' }}
 					{@const placeholder = detectsPlaceholder(row.body_text)}
-					<li class="rounded-xl border border-gftd-border bg-gftd-card">
+					<li class="rounded-xl border border-etzhayyim-border bg-gftd-card">
 						<div class="flex items-start gap-3 px-4 py-3">
 							<button
 								class="flex-1 text-left"
@@ -243,22 +243,22 @@
 										>
 									{/if}
 								</div>
-								<p class="mt-1 truncate font-medium text-gftd-text">
+								<p class="mt-1 truncate font-medium text-etzhayyim-text">
 									{row.subject ?? '(no subject)'}
 								</p>
-								<p class="truncate font-mono text-xs text-gftd-muted">
+								<p class="truncate font-mono text-xs text-etzhayyim-muted">
 									{row.vertex_id} · {row.scheduled_at
 										? new Date(row.scheduled_at).toLocaleString()
 										: ''}
 								</p>
 							</button>
-							<span class="text-gftd-muted">{isOpen ? '▾' : '▸'}</span>
+							<span class="text-etzhayyim-muted">{isOpen ? '▾' : '▸'}</span>
 						</div>
 
 						{#if isOpen}
-							<div class="space-y-4 border-t border-gftd-border px-4 py-4">
+							<div class="space-y-4 border-t border-etzhayyim-border px-4 py-4">
 								<div class="grid gap-2 sm:grid-cols-2">
-									<label class="block text-xs text-gftd-secondary">
+									<label class="block text-xs text-etzhayyim-secondary">
 										recipient email
 										<Input
 											type="email"
@@ -268,7 +268,7 @@
 											blockSize="md"
 										/>
 									</label>
-									<label class="block text-xs text-gftd-secondary">
+									<label class="block text-xs text-etzhayyim-secondary">
 										recipient name (optional)
 										<Input
 											type="text"
@@ -282,7 +282,7 @@
 
 								<div>
 									<div class="flex items-center justify-between">
-										<p class="text-xs uppercase tracking-wider text-gftd-muted">Body (text)</p>
+										<p class="text-xs uppercase tracking-wider text-etzhayyim-muted">Body (text)</p>
 										{#if placeholder}
 											<p class="text-xs text-amber-400">
 												Body contains <code>[[PARTNER_NAME]]</code> — edit before approving.
@@ -290,7 +290,7 @@
 										{/if}
 									</div>
 									<pre
-										class="mt-2 max-h-72 overflow-auto whitespace-pre-wrap rounded-md border border-gftd-border bg-black/30 p-3 font-mono text-xs text-gftd-text">{row.body_text ??
+										class="mt-2 max-h-72 overflow-auto whitespace-pre-wrap rounded-md border border-etzhayyim-border bg-black/30 p-3 font-mono text-xs text-etzhayyim-text">{row.body_text ??
 											'(no body)'}</pre>
 								</div>
 

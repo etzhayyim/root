@@ -14,7 +14,7 @@
 | BPMN namespace (`00-contracts/bpmn/ai/gftd/`) | 1127 .bpmn / 140国 | unchanged |
 | Ingest script (`70-tools/scripts/gov/`) | 6 (5 IN + 1 AGO) | unchanged |
 
-The "real" gov coverage was always in `ai-gftd-project-cofog` (already 99.9% migrated, 1229/1230) and `ai-gftd-project-gov` (gov.gftd.ai public-services hub), not in religious-corp Pregel cells. The substrate boundary (ADR-2605172000) was the reason the gftd→etzhayyim migration left some apps as scaffold-only — the gftd code uses Kysely + HyperDrive Postgres which is prohibited on the etzhayyim side.
+The "real" gov coverage was always in `ai-gftd-project-cofog` (already 99.9% migrated, 1229/1230) and `ai-gftd-project-gov` (gov.etzhayyim.com public-services hub), not in religious-corp Pregel cells. The substrate boundary (ADR-2605172000) was the reason the gftd→etzhayyim migration left some apps as scaffold-only — the gftd code uses Kysely + HyperDrive Postgres which is prohibited on the etzhayyim side.
 
 ## Per-app migration gap matrix
 
@@ -36,7 +36,7 @@ Plus `60-apps/ai-gftd-project-gov/scaffold/actor-manifest.jsonld` (23 JP ministr
 ## Items intentionally NOT migrated
 
 - `_archive/10-protocol/capabilities/wproto-governance-registry/deps.graph.jsonld` — gftd's pre-migration archive (not the migrate-out archive), obsolete.
-- `50-infra/cloudflare/workers/gov-fetch-proxy` — still live in gftd source repo, serves `*.gftd.ai` traffic. Per the religious-corp routing-around stance, etzhayyim should not depend on gftd-side proxies.
+- `50-infra/cloudflare/workers/gov-fetch-proxy` — still live in gftd source repo, serves `*.etzhayyim.com` traffic. Per the religious-corp routing-around stance, etzhayyim should not depend on gftd-side proxies.
 - DEPRECATED.md files from each source app — gftd-side markers, irrelevant on etzhayyim side. Replaced with `SUBSTRATE-PORT-PENDING.md` per app.
 
 ## Cofog appview — already-migrated world gov coverage

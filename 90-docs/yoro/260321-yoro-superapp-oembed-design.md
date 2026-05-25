@@ -211,7 +211,7 @@ AT Protocol の post embed は **open union** (`$type` discriminator)。Custom e
 ```json
 {
   "$type": "app.etzhayyim.w.card",
-  "content_type": "application/vnd.gftd.card.chart",
+  "content_type": "application/vnd.etzhayyim.card.chart",
   "payload": { "title": "...", "data": [...] }
 }
 ```

@@ -208,7 +208,7 @@ Each R-phase requires its own ADR (mirrors wadachi R0 ADR-2605242000 and baien-f
 - `diffusionRoundReceipt` lexicon schema (R1 ADR)
 - Specific encoder weight provenance / versioning (uses Oka existing per-modality encoder registry)
 - baien-federated WebGPU implementation of V3 restriction-map LoRA (R4 ADR)
-- vendor (gftd.co.jp) Oka deployment of V4 — vendor side is free to use H100 NVL but is governed by ADR-2605092345, not this ADR
+- vendor (etzhayyim.com) Oka deployment of V4 — vendor side is free to use H100 NVL but is governed by ADR-2605092345, not this ADR
 
 # Alternatives Considered
 

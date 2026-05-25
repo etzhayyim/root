@@ -89,7 +89,7 @@ def _ms_post(url: str, body_json: dict, method: str = "POST") -> dict:
 # ── Task: subscriptionEnsure ─────────────────────────────────────────────────
 
 async def task_lawfirm_msgraph_subscription_ensure(
-    user_upn: str = "k.bakshi@gftd.co",
+    user_upn: str = "k.bakshi@etzhayyim.com",
     folder: str = "Inbox",
     notification_url: str = "https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.mailReplyWebhook",
     client_state: str = "",
@@ -208,7 +208,7 @@ def register(app: Any, timeout_ms: int = 60_000) -> None:
 
     @app.task(task_type="lawfirm.msGraph.subscriptionEnsure",
               timeout_ms=timeout_ms, max_jobs_to_activate=2)
-    async def _ensure(user_upn: str = "k.bakshi@gftd.co",
+    async def _ensure(user_upn: str = "k.bakshi@etzhayyim.com",
                       folder: str = "Inbox",
                       notification_url: str = "https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.mailReplyWebhook",
                       client_state: str = "") -> dict:

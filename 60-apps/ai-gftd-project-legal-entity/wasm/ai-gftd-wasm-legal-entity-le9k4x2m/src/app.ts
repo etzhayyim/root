@@ -1,5 +1,5 @@
 // SUBSTRATE-PORT (ADR-2605212100 follow-up, 2026-05-24):
-// - ACTOR_DID, NSID_PREFIX, dispatcher default URL retargeted from gftd.ai to etzhayyim.com.
+// - ACTOR_DID, NSID_PREFIX, dispatcher default URL retargeted from etzhayyim.com to etzhayyim.com.
 // - Thin-edge proxy — no Kysely / HyperDrive usage to remove. Business logic lives on the
 //   dispatcher side; collectors / projection retain the gftd-side write path documented in
 //   CLAUDE.md until the dispatcher itself is ported (separate wave).

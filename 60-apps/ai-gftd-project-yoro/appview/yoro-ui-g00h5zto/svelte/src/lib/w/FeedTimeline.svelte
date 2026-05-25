@@ -92,7 +92,7 @@
 
 	function handleCardAction(convoId: string, action: string, data?: Record<string, unknown>) {
 		void sendProjectMessage(convoId, JSON.stringify({ action, ...data }), {
-			contentType: 'application/vnd.gftd.card.action',
+			contentType: 'application/vnd.etzhayyim.card.action',
 		});
 	}
 
@@ -144,7 +144,7 @@
 
 	/** Parse MCP tool result from envelope payload. */
 	function getToolResult(env: ConvoEnvelope): { toolName: string; toolResult: string } | null {
-		if (env.contentType !== 'application/vnd.gftd.mcp.tool-result') return null;
+		if (env.contentType !== 'application/vnd.etzhayyim.mcp.tool-result') return null;
 		try {
 			const body = decodeMessageBody(env);
 			const parsed = JSON.parse(body);

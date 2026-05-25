@@ -236,7 +236,7 @@ Configure email alerts during migration:
 Set environment variables:
 
 ```bash
-export NOTIFICATION_EMAIL="platform-team@gftd.co.jp"
+export NOTIFICATION_EMAIL="platform-team@etzhayyim.com"
 export SMTP_SERVER="smtp.gmail.com"  # or your mail server
 export SMTP_PORT="587"
 export SMTP_USER="<your-email>"
@@ -316,9 +316,9 @@ EOF
 chmod +x /tmp/email_notifier.sh
 
 # Usage during migration:
-# /tmp/email_notifier.sh "platform-team@gftd.co.jp" 10 success
-# /tmp/email_notifier.sh "platform-team@gftd.co.jp" 20 success
-# /tmp/email_notifier.sh "platform-team@gftd.co.jp" 25 failed
+# /tmp/email_notifier.sh "platform-team@etzhayyim.com" 10 success
+# /tmp/email_notifier.sh "platform-team@etzhayyim.com" 20 success
+# /tmp/email_notifier.sh "platform-team@etzhayyim.com" 25 failed
 ```
 
 ### 5.3 Alternative: Using Mailgun API
@@ -501,7 +501,7 @@ chmod +x /tmp/live_dashboard.sh
 
 ```bash
 export RW_STAGING_PASSWORD="<staging-password>"
-export NOTIFICATION_EMAIL="platform-team@gftd.co.jp"
+export NOTIFICATION_EMAIL="platform-team@etzhayyim.com"
 
 # Terminal 1: Health checks (5-min polling)
 /tmp/monitor_health.sh &

@@ -135,7 +135,7 @@ function methodForAnnouncement(announcementType: string): { method: string; wto:
 async function fetchText(url: string): Promise<{ text: string; finalUrl: string; sha256: string }> {
   const response = await fetch(url, {
     redirect: 'follow',
-    headers: { 'user-agent': 'gftd-jp-fiscal-ingest/0.1 (+https://gftd.co.jp)' },
+    headers: { 'user-agent': 'gftd-jp-fiscal-ingest/0.1 (+https://etzhayyim.com)' },
   });
   if (!response.ok) throw new Error(`fetch failed ${response.status} ${response.statusText}: ${url}`);
   const bytes = new Uint8Array(await response.arrayBuffer());

@@ -78,7 +78,7 @@ class TestRenewExpiringSoon(unittest.TestCase):
         stub = _Stub(
             query_returns=[[
                 {"vertex_id": "at://sub-1", "subscription_id": "sub_abc",
-                 "user_upn": "k.bakshi@gftd.co", "expires_at": soon},
+                 "user_upn": "k.bakshi@etzhayyim.com", "expires_at": soon},
             ]],
             post_returns=[{"id": "sub_abc", "expirationDateTime": "renewed"}],
         )
@@ -112,7 +112,7 @@ class TestRenewSkipsHealthySubscriptions(unittest.TestCase):
                + _dt.timedelta(days=7)).strftime("%Y-%m-%d %H:%M:%S")
         stub = _Stub(query_returns=[[
             {"vertex_id": "at://sub-1", "subscription_id": "sub_xyz",
-             "user_upn": "k.bakshi@gftd.co", "expires_at": far},
+             "user_upn": "k.bakshi@etzhayyim.com", "expires_at": far},
         ]])
         stub.install()
         try:
@@ -135,7 +135,7 @@ class TestRenewEmptyExpiry(unittest.TestCase):
         stub = _Stub(
             query_returns=[[
                 {"vertex_id": "at://sub-1", "subscription_id": "sub_new",
-                 "user_upn": "k.bakshi@gftd.co", "expires_at": ""},
+                 "user_upn": "k.bakshi@etzhayyim.com", "expires_at": ""},
             ]],
             post_returns=[{"id": "sub_new"}],
         )
@@ -159,11 +159,11 @@ class TestRenewMixedBatch(unittest.TestCase):
         stub = _Stub(
             query_returns=[[
                 {"vertex_id": "at://sub-1", "subscription_id": "sub_old",
-                 "user_upn": "k.bakshi@gftd.co", "expires_at": soon},
+                 "user_upn": "k.bakshi@etzhayyim.com", "expires_at": soon},
                 {"vertex_id": "at://sub-2", "subscription_id": "sub_new",
-                 "user_upn": "k.bakshi@gftd.co", "expires_at": far},
+                 "user_upn": "k.bakshi@etzhayyim.com", "expires_at": far},
                 {"vertex_id": "at://sub-3", "subscription_id": "sub_other",
-                 "user_upn": "n-takahashi@gftd.co", "expires_at": far},
+                 "user_upn": "n-takahashi@etzhayyim.com", "expires_at": far},
             ]],
             post_returns=[{"id": "sub_old"}],
         )
@@ -239,7 +239,7 @@ class TestEnsureRequiresUserUpn(unittest.TestCase):
                 task_lawfirm_msgraph_subscription_ensure,
             )
             out = asyncio.run(task_lawfirm_msgraph_subscription_ensure(
-                user_upn="k.bakshi@gftd.co",
+                user_upn="k.bakshi@etzhayyim.com",
                 folder="Inbox",
                 notification_url="https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.mailReplyWebhook",
                 client_state="test-state-32-chars-or-more-secret-x",

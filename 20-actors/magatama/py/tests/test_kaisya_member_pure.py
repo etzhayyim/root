@@ -25,13 +25,13 @@ class TestUpnResolution(unittest.TestCase):
 
     def test_known_upn_resolves(self):
         from pymagatama.langgraph_graphs.kaisya_member_assistant import resolve_member
-        out = resolve_member(_make_state(user_upn="f-tanaka@gftd.co"))
+        out = resolve_member(_make_state(user_upn="f-tanaka@etzhayyim.com"))
         self.assertEqual(out["member_did"], "did:web:f-tanaka.etzhayyim.com")
         self.assertTrue(out["ok"])
 
     def test_lowercase_upn(self):
         from pymagatama.langgraph_graphs.kaisya_member_assistant import resolve_member
-        out = resolve_member(_make_state(user_upn="K-Bakshi@gftd.co"))
+        out = resolve_member(_make_state(user_upn="K-Bakshi@etzhayyim.com"))
         self.assertEqual(out["member_did"], "did:web:k-bakshi.etzhayyim.com")
 
     def test_unknown_upn_denied(self):
@@ -42,7 +42,7 @@ class TestUpnResolution(unittest.TestCase):
 
     def test_dot_separator_alias(self):
         from pymagatama.langgraph_graphs.kaisya_member_assistant import resolve_member
-        out = resolve_member(_make_state(user_upn="y.nishino@gftd.co"))
+        out = resolve_member(_make_state(user_upn="y.nishino@etzhayyim.com"))
         self.assertEqual(out["member_did"], "did:web:y-nishino.etzhayyim.com")
 
 
@@ -68,9 +68,9 @@ class TestRouterFunctions(unittest.TestCase):
 class TestUpnToDidTable(unittest.TestCase):
     def test_all_known_members_present(self):
         from pymagatama.langgraph_graphs.kaisya_member_assistant import _UPN_TO_DID
-        for upn in ("j-kawasaki@gftd.co", "a-nakamura@gftd.co", "k-bakshi@gftd.co",
-                    "t-chikada@gftd.co", "f-tanaka@gftd.co", "y-nishino@gftd.co",
-                    "t-ichihara@gftd.co", "k-takahashi@gftd.co", "n-takahashi@gftd.co"):
+        for upn in ("j-kawasaki@etzhayyim.com", "a-nakamura@etzhayyim.com", "k-bakshi@etzhayyim.com",
+                    "t-chikada@etzhayyim.com", "f-tanaka@etzhayyim.com", "y-nishino@etzhayyim.com",
+                    "t-ichihara@etzhayyim.com", "k-takahashi@etzhayyim.com", "n-takahashi@etzhayyim.com"):
             self.assertIn(upn, _UPN_TO_DID, f"missing UPN: {upn}")
 
 

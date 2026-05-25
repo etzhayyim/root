@@ -140,7 +140,7 @@ spec:
     - tool: vke-loadbalancer
       reason: no commercial K8s per ADR-2605191346
     - tool: runpod
-      reason: vendor-only (gftd.co.jp); etzhayyim uses on-LAN evo-x2 per ADR-2605202345
+      reason: vendor-only (etzhayyim.com); etzhayyim uses on-LAN evo-x2 per ADR-2605202345
 
   # ─── Migration history ───
   migrationFromVendor:

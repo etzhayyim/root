@@ -379,7 +379,7 @@ def task_isekai_analyze(**_: Any) -> dict[str, Any]:
 
 
 def task_isekai_card_home(**_: Any) -> dict[str, Any]:
-    return {"contentType": "application/vnd.gftd.card.list", "payload": {"title": "ISEKAI World", "items": [{"id": "worlds", "label": "Worlds", "sublabel": f"{_count('vertex_isekai_world_state')} created", "icon": "globe", "action": "isekai.browseWorlds"}, {"id": "pokoa", "label": "Pokoa", "sublabel": f"{_count('vertex_isekai_game_capture')} caught", "icon": "sparkle", "action": "isekai.getRoster"}]}}
+    return {"contentType": "application/vnd.etzhayyim.card.list", "payload": {"title": "ISEKAI World", "items": [{"id": "worlds", "label": "Worlds", "sublabel": f"{_count('vertex_isekai_world_state')} created", "icon": "globe", "action": "isekai.browseWorlds"}, {"id": "pokoa", "label": "Pokoa", "sublabel": f"{_count('vertex_isekai_game_capture')} caught", "icon": "sparkle", "action": "isekai.getRoster"}]}}
 
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:

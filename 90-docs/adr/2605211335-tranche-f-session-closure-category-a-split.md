@@ -83,7 +83,7 @@ The 45 actors with identical `60-apps/ai-gftd-project-<name>` directories in bot
 - **What "SPLIT" means concretely**:
   - `00-contracts/bpmn/ai/gftd/<actor>/*.bpmn` lives in etzhayyim/root (spec, open)
   - Worker / appview / LangServer task handlers / pymagatama primitives stay in vendor (runtime)
-  - Per-actor `magatama.jsonld` typically declares `operator: gftd.co.jp` (or unspecified)
+  - Per-actor `magatama.jsonld` typically declares `operator: etzhayyim.com` (or unspecified)
   - No 3-axis re-test required at quarterly cycle if no trigger fires
 
 The 33 Category A actors at 2026-05-21 audit:

@@ -8,7 +8,7 @@ vi.mock('moddle-xml', () => ({
       $type: 'bpmn:Definitions',
       id: 'Definitions_1',
       name: 'Test Definitions',
-      targetNamespace: 'http://www.gftd.co.jp/bpmn',
+      targetNamespace: 'http://www.etzhayyim.com/bpmn',
       rootElements: [
         {
           $type: 'bpmn:Process',

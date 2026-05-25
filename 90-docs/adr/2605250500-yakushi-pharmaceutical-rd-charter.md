@@ -163,7 +163,7 @@ ADR-2605192100 が宣言する「人類の構造的労働解放」「Wellbecomin
 | N7 | **Insurance / employer / state への patient adverse event 売却・連動** | G10 + Charter Rider §2(c) |
 | N8 | **Animal testing in-house** ― 既存文献ベース + in-silico + 既存 generic safety record で必要十分な範囲のみ実施;新規 in-vivo testing は別 ADR と Wellbecoming review (§2(h)) を要求 | §2(f) + §2(h);3 化合物 Wave 1 は 80 年級既存 safety で N8 ベース運用可能 |
 | N9 | **Frontier-beating pharmaceutical design model targeting** | ADR-2605241900 baien edge-target invariant inheritance;QC / impurity-prediction の AI 補助は edge tier に限定 |
-| N10 | **Vendor (gftd.co.jp) revenue path** | yakushi inference は ADR-2605215000 Murakumo only;§2(i) inherited |
+| N10 | **Vendor (etzhayyim.com) revenue path** | yakushi inference は ADR-2605215000 Murakumo only;§2(i) inherited |
 
 ## Decision 6 — Substrate (binding)
 

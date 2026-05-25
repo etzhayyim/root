@@ -54,25 +54,25 @@
 ### 4.1 Cross-Project Event Types
 
 ```
-org.gftd.xproject.referral.request      — プロジェクト間の照会依頼
-org.gftd.xproject.referral.response     — 照会への応答
-org.gftd.xproject.assessment.request    — 評価依頼 (fund → becoming)
-org.gftd.xproject.assessment.result     — 評価結果 (becoming → fund)
-org.gftd.xproject.safeguard.alert       — セーフガード緊急通知
-org.gftd.xproject.safeguard.resolution  — セーフガード解決報告
-org.gftd.xproject.outcome.report        — 成果指標報告
-org.gftd.xproject.outcome.acknowledge   — 成果指標確認
+org.etzhayyim.xproject.referral.request      — プロジェクト間の照会依頼
+org.etzhayyim.xproject.referral.response     — 照会への応答
+org.etzhayyim.xproject.assessment.request    — 評価依頼 (fund → becoming)
+org.etzhayyim.xproject.assessment.result     — 評価結果 (becoming → fund)
+org.etzhayyim.xproject.safeguard.alert       — セーフガード緊急通知
+org.etzhayyim.xproject.safeguard.resolution  — セーフガード解決報告
+org.etzhayyim.xproject.outcome.report        — 成果指標報告
+org.etzhayyim.xproject.outcome.acknowledge   — 成果指標確認
 ```
 
 ### 4.2 Event Payload Schema
 
 ```json
 {
-  "type": "org.gftd.xproject.assessment.request",
+  "type": "org.etzhayyim.xproject.assessment.request",
   "content": {
     "msgtype": "m.text",
     "body": "[学 (Manabu)] 教育ファンド申請 app_42 の子ども発達評価を依頼します。",
-    "org.gftd.xproject": {
+    "org.etzhayyim.xproject": {
       "source_project": "ai-gftd-project-public-fund",
       "target_project": "ai-gftd-project-well-becoming",
       "source_agent": "@pb-edu-mgr-{nanoid}:etzhayyim.com",
@@ -91,11 +91,11 @@ org.gftd.xproject.outcome.acknowledge   — 成果指標確認
 
 ```json
 {
-  "type": "org.gftd.xproject.safeguard.alert",
+  "type": "org.etzhayyim.xproject.safeguard.alert",
   "content": {
     "msgtype": "m.text",
     "body": "[盾 (Tate)] セーフガード懸念: ケース case_17 に対する緊急評価を要請します。",
-    "org.gftd.xproject": {
+    "org.etzhayyim.xproject": {
       "source_project": "ai-gftd-project-well-becoming",
       "target_project": "ai-gftd-project-public-fund",
       "source_agent": "@becoming-protector-{nanoid}:etzhayyim.com",
@@ -116,16 +116,16 @@ org.gftd.xproject.outcome.acknowledge   — 成果指標確認
 ```
 Timeline in !case-{application-id}:etzhayyim.com
 
-1. [心 Kokoro] org.gftd.xproject.referral.request
+1. [心 Kokoro] org.etzhayyim.xproject.referral.request
    "教育ファンド申請 app_42 受理。子どもの発達評価を becoming チームに依頼します。"
    → @becoming-guardian-{nanoid} と @becoming-nurturer-{nanoid} を room に invite
 
-2. [守 Mamoru] org.gftd.xproject.assessment.result
+2. [守 Mamoru] org.etzhayyim.xproject.assessment.result
    "発達段階評価完了。Piaget: 具体的操作期、Erikson: 勤勉性 vs 劣等感。
     成長曲線は標準範囲内。特筆すべきリスクなし。"
    → thread で詳細データを添付
 
-3. [育 Hagukumi] org.gftd.xproject.assessment.result
+3. [育 Hagukumi] org.etzhayyim.xproject.assessment.result
    "Capability 8次元評価:
     - 身体的健康: 0.85, 感覚/想像/思考: 0.72, 遊び: 0.90
     - 実践的推論: 0.55 (要支援), 環境制御: 0.48 (要支援)
@@ -139,7 +139,7 @@ Timeline in !case-{application-id}:etzhayyim.com
    "教育成果予測: capability score 実践的推論 0.55→0.70 (6ヶ月)。
     予算配分: 承認。education_budget_allocation 実行。"
 
-6. [心 Kokoro] org.gftd.xproject.outcome.acknowledge
+6. [心 Kokoro] org.etzhayyim.xproject.outcome.acknowledge
    "審査完了。Decision: approved。フォローアップ: 3ヶ月後に capability 再評価。"
 ```
 
@@ -148,20 +148,20 @@ Timeline in !case-{application-id}:etzhayyim.com
 ```
 Timeline in !xp-fam-child-{nanoid}:etzhayyim.com
 
-1. [結 Yui] org.gftd.xproject.referral.request
+1. [結 Yui] org.etzhayyim.xproject.referral.request
    "家庭支援申請 app_58。世帯人数5、子ども3名。becoming チームに家族環境評価を依頼。"
 
-2. [和 Nagomi] org.gftd.xproject.assessment.result
+2. [和 Nagomi] org.etzhayyim.xproject.assessment.result
    "家族ダイナミクス評価: 親子間愛着は安定。
     ペアレンティングストレス: 中程度。経済的ストレスが主因。
     家族レジリエンス: 中。コミュニティ接続が弱い。"
 
-3. [盾 Tate] org.gftd.xproject.assessment.result
+3. [盾 Tate] org.etzhayyim.xproject.assessment.result
    "安全リスクスクリーニング: 低リスク。
     CRC 権利モニタリング: 適切。教育権・遊び権が確保されている。
     セーフガード懸念なし。"
 
-4. [守 Mamoru] org.gftd.xproject.assessment.result
+4. [守 Mamoru] org.etzhayyim.xproject.assessment.result
    "3名の子どもの発達評価サマリ:
     - 子A (8歳): 標準発達。capability score 平均 0.78
     - 子B (5歳): 言語発達やや遅延。早期介入推奨。
@@ -177,7 +177,7 @@ Timeline in !xp-fam-child-{nanoid}:etzhayyim.com
     - ペアレンティング支援 (和 Nagomi 設計) を付帯
     - 3ヶ月後フォローアップ: 全 capability 再評価"
 
-7. [心 Kokoro] org.gftd.xproject.outcome.acknowledge
+7. [心 Kokoro] org.etzhayyim.xproject.outcome.acknowledge
    "家庭支援申請 app_58: 条件付き承認。子B 早期介入を最優先。"
 ```
 
@@ -186,7 +186,7 @@ Timeline in !xp-fam-child-{nanoid}:etzhayyim.com
 ```
 Timeline in !xp-safeguard-{nanoid}:etzhayyim.com
 
-1. [盾 Tate] org.gftd.xproject.safeguard.alert
+1. [盾 Tate] org.etzhayyim.xproject.safeguard.alert
    "緊急: ケース case_31。定期モニタリングで身体的安全 capability score が
     0.72→0.31 に急落。虐待リスク指標が閾値超過。
     action_required: suspend_disbursement, escalate_human_review"
@@ -196,15 +196,15 @@ Timeline in !xp-safeguard-{nanoid}:etzhayyim.com
    "Fund 側で該当ケースの disbursement を即時停止。
     人間レビュワーへのエスカレーションを開始。"
 
-3. [守 Mamoru] org.gftd.xproject.assessment.result
+3. [守 Mamoru] org.etzhayyim.xproject.assessment.result
    "緊急発達評価: 感情 capability が 0.68→0.29 に低下。
     愛着パターンに不安定化の兆候。環境変化の可能性。"
 
-4. [和 Nagomi] org.gftd.xproject.assessment.result
+4. [和 Nagomi] org.etzhayyim.xproject.assessment.result
    "家族ダイナミクス緊急評価: 家庭内ストレスの急増を検出。
     レジリエンス低下。保護計画の策定を推奨。"
 
-5. [盾 Tate] org.gftd.xproject.safeguard.resolution
+5. [盾 Tate] org.etzhayyim.xproject.safeguard.resolution
    "保護計画策定完了。人間レビュワー介入待ち。
     Fund 側: disbursement は human_approved まで停止維持。
     Becoming 側: 週次モニタリングに切替。"
@@ -311,10 +311,10 @@ func handleIncomingCrossProjectEvent(ctx *performer.PerformerContext, payload []
     _ = json.Unmarshal(payload, &ev)
 
     switch ev.EventType {
-    case "org.gftd.xproject.assessment.result":
+    case "org.etzhayyim.xproject.assessment.result":
         // becoming agent からの capability 評価結果を Fund 審査に統合
         return integrateAssessmentResult(ctx, ev.RoomID, ev.Sender, ev.Content)
-    case "org.gftd.xproject.safeguard.alert":
+    case "org.etzhayyim.xproject.safeguard.alert":
         // 盾 (Tate) からのセーフガード警告 → disbursement 即時停止
         return handleSafeguardAlert(ctx, ev.RoomID, ev.Content)
     default:
@@ -337,10 +337,10 @@ func handleIncomingCrossProjectEvent(ctx *performer.PerformerContext, payload []
     _ = json.Unmarshal(payload, &ev)
 
     switch ev.EventType {
-    case "org.gftd.xproject.assessment.request":
+    case "org.etzhayyim.xproject.assessment.request":
         // fund agent からの capability 評価依頼 → 子ども評価を実行
         return executeAssessmentForFund(ctx, ev.RoomID, ev.Sender, ev.Content)
-    case "org.gftd.xproject.referral.request":
+    case "org.etzhayyim.xproject.referral.request":
         // fund agent からの照会 → 該当 agent を room に参加させる
         return handleReferralRequest(ctx, ev.RoomID, ev.Content)
     default:

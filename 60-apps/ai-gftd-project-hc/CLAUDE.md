@@ -34,7 +34,7 @@ Browser (SuperApp Mobile-First)
 
 ### Transport Rule
 
-- 正規 command contract は Matrix `org.gftd.command.hc.*`
+- 正規 command contract は Matrix `org.etzhayyim.command.hc.*`
 - typed read は XRPC `HCQueryService`
 - この文書時点では notifications は Matrix、business mutation は compatibility endpoint から段階移行対象
 

@@ -1,6 +1,6 @@
 # ai-gftd-project-drone
 
-Autonomous drone operation AI agent platform (drone.gftd.ai). Matrix protocol for command/video/telemetry, XRPC for queries.
+Autonomous drone operation AI agent platform (drone.etzhayyim.com). Matrix protocol for command/video/telemetry, XRPC for queries.
 
 ## Frontend UI
 
@@ -15,7 +15,7 @@ Autonomous drone operation AI agent platform (drone.gftd.ai). Matrix protocol fo
 ## Architecture
 
 - **Runtime**: TS Native + Lexicon Contract + Native Go service (drone-bridge)
-- **Domain**: `drone.gftd.ai`
+- **Domain**: `drone.etzhayyim.com`
 - **nanoid**: `dr0n3x8k` (main), `msnp1an2` (mission planner)
 - **Static**: static delivery for `svelte/build/`
 - **Structured reads/writes**: `G()` builder (squirrel 互換 SQL builder)
@@ -30,12 +30,12 @@ Autonomous drone operation AI agent platform (drone.gftd.ai). Matrix protocol fo
 
 ## Matrix Protocol Integration
 
-- Each drone = Matrix appservice user (`@drone_{id}:gftd.ai`)
-- Commands: `org.gftd.command.drone.*` events
-- Telemetry: `org.gftd.telemetry.drone.*` events
+- Each drone = Matrix appservice user (`@drone_{id}:etzhayyim.com`)
+- Commands: `org.etzhayyim.command.drone.*` events
+- Telemetry: `org.etzhayyim.telemetry.drone.*` events
 - Video: `m.call.*` (WebRTC signaling via Matrix VoIP)
-- Fleet room: `!fleet_{org_id}:gftd.ai`
-- Per-drone room: `!drone_{drone_id}:gftd.ai`
+- Fleet room: `!fleet_{org_id}:etzhayyim.com`
+- Per-drone room: `!drone_{drone_id}:etzhayyim.com`
 
 ## Tables (Arrow schema, RLS mandatory)
 

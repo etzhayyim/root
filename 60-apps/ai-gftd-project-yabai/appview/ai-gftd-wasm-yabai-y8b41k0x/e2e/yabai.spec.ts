@@ -31,7 +31,7 @@ test.describe('yabai.etzhayyim.com — Card API', () => {
     const r = await request.post(`${SVC}/card.home`, { headers: hdr, data: {} });
     expect(r.ok()).toBeTruthy();
     const b = await r.json();
-    expect(b.contentType).toBe('application/vnd.gftd.card.list');
+    expect(b.contentType).toBe('application/vnd.etzhayyim.card.list');
     expect(b.payload.items.length).toBe(5);
   });
 
@@ -39,7 +39,7 @@ test.describe('yabai.etzhayyim.com — Card API', () => {
     const r = await request.post(`${SVC}/card.action`, { headers: hdr, data: { action: 'yabai.summary' } });
     expect(r.ok()).toBeTruthy();
     const b = await r.json();
-    expect(b.contentType).toBe('application/vnd.gftd.card.metric-dashboard');
+    expect(b.contentType).toBe('application/vnd.etzhayyim.card.metric-dashboard');
     expect(b.payload.metrics.length).toBe(4);
   });
 
@@ -47,7 +47,7 @@ test.describe('yabai.etzhayyim.com — Card API', () => {
     const r = await request.post(`${SVC}/card.action`, { headers: hdr, data: { action: 'yabai.search' } });
     expect(r.ok()).toBeTruthy();
     const b = await r.json();
-    expect(b.contentType).toBe('application/vnd.gftd.card.form');
+    expect(b.contentType).toBe('application/vnd.etzhayyim.card.form');
     expect(b.payload.action).toBe('yabai.search.exec');
   });
 
@@ -55,7 +55,7 @@ test.describe('yabai.etzhayyim.com — Card API', () => {
     const r = await request.post(`${SVC}/card.action`, { headers: hdr, data: { action: 'yabai.ingest' } });
     expect(r.ok()).toBeTruthy();
     const b = await r.json();
-    expect(b.contentType).toBe('application/vnd.gftd.card.form');
+    expect(b.contentType).toBe('application/vnd.etzhayyim.card.form');
     expect(b.payload.fields.length).toBe(3);
   });
 
@@ -63,21 +63,21 @@ test.describe('yabai.etzhayyim.com — Card API', () => {
     const r = await request.post(`${SVC}/card.action`, { headers: hdr, data: { action: 'yabai.entities' } });
     expect(r.ok()).toBeTruthy();
     const b = await r.json();
-    expect(b.contentType).toBe('application/vnd.gftd.card.list');
+    expect(b.contentType).toBe('application/vnd.etzhayyim.card.list');
   });
 
   test('card.action: alerts returns list', async ({ request }) => {
     const r = await request.post(`${SVC}/card.action`, { headers: hdr, data: { action: 'yabai.alerts' } });
     expect(r.ok()).toBeTruthy();
     const b = await r.json();
-    expect(b.contentType).toBe('application/vnd.gftd.card.list');
+    expect(b.contentType).toBe('application/vnd.etzhayyim.card.list');
   });
 
   test('card.action: unknown returns home', async ({ request }) => {
     const r = await request.post(`${SVC}/card.action`, { headers: hdr, data: { action: 'unknown' } });
     expect(r.ok()).toBeTruthy();
     const b = await r.json();
-    expect(b.contentType).toBe('application/vnd.gftd.card.list');
+    expect(b.contentType).toBe('application/vnd.etzhayyim.card.list');
   });
 });
 

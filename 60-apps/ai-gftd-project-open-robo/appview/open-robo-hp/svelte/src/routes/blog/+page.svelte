@@ -109,9 +109,9 @@
   <div class="max-w-3xl mx-auto text-center">
     <h2 class="text-white font-bold text-xl mb-3">新着記事をメールで受け取る</h2>
     <p class="text-slate-400 text-sm mb-6">ロボット制御・オープンハードウェアの最新情報をお届けします</p>
-    <a href="mailto:newsletter@gftd.co.jp?subject=Giemon ブログ購読希望"
+    <a href="mailto:newsletter@etzhayyim.com?subject=Giemon ブログ購読希望"
       class="inline-block px-6 py-2.5 border border-[#30363d] hover:border-slate-500 text-slate-300 hover:text-white text-sm rounded-full transition-colors">
-      購読する (newsletter@gftd.co.jp)
+      購読する (newsletter@etzhayyim.com)
     </a>
   </div>
 </section>

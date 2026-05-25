@@ -186,7 +186,7 @@ type OneTimePreKeyRecord struct {
 }
 
 // Command is the AT Lexicon record for a SpinApp command event.
-// Replaces Matrix org.gftd.command.* event. rkey = commandId.
+// Replaces Matrix org.etzhayyim.command.* event. rkey = commandId.
 type Command struct {
 	Type          string    `json:"$type"`
 	LexiconID     string    `json:"lexiconId"`     // e.g. "app.etzhayyim.command.updateProfile"

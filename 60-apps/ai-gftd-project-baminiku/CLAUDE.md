@@ -44,8 +44,8 @@ Browser (yoro.etzhayyim.com/profile/{did})
   ├─ KNP WebTransport (real-time entity sync)
   └─ W Protocol DM channel (agent DID)
        ├─ Chat: createProjectConvo(agentDID) → sendProjectMessage(ch, text) → atproto.etzhayyim.com
-       ├─ Emote: sendProjectMessage(ch, payload, contentType: 'application/vnd.gftd.baminiku.emote')
-       ├─ Tip:   sendProjectMessage(ch, payload, contentType: 'application/vnd.gftd.baminiku.tip')
+       ├─ Emote: sendProjectMessage(ch, payload, contentType: 'application/vnd.etzhayyim.baminiku.emote')
+       ├─ Tip:   sendProjectMessage(ch, payload, contentType: 'application/vnd.etzhayyim.baminiku.tip')
        └─ Real-time: subscribeWStream(SSE) → agent response 受信
                 ↓
          atproto.etzhayyim.com (XRPC → W Protocol WIT → yata)
@@ -64,8 +64,8 @@ Browser (yoro.etzhayyim.com/profile/{did})
 | 操作 | W Protocol API | contentType | 経路 |
 |---|---|---|---|
 | **Chat** | `sendProjectMessage(convoId, text)` | `text/plain` | DM → ComAtprotoSyncSubscribeRepos → LLM → DM reply |
-| **Emote** | `sendProjectMessage(convoId, json)` | `application/vnd.gftd.baminiku.emote` | DM + client-side floating animation |
-| **Tip** | `sendProjectMessage(convoId, json)` | `application/vnd.gftd.baminiku.tip` | DM → ComAtprotoSyncSubscribeRepos → WRecord + 3D effect |
+| **Emote** | `sendProjectMessage(convoId, json)` | `application/vnd.etzhayyim.baminiku.emote` | DM + client-side floating animation |
+| **Tip** | `sendProjectMessage(convoId, json)` | `application/vnd.etzhayyim.baminiku.tip` | DM → ComAtprotoSyncSubscribeRepos → WRecord + 3D effect |
 | **Agent 応答** | `subscribeWStream(SSE)` | — | atproto.etzhayyim.com SSE → LiveStage overlay |
 | **Stage 取得** | `atproto.etzhayyim.com/xrpc/app.etzhayyim.convo.getConvo` | — | KAMI scene JSON-LD |
 

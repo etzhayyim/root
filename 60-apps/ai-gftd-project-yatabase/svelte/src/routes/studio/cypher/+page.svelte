@@ -62,8 +62,8 @@
 <div class="mx-auto w-full max-w-6xl space-y-6 px-6 py-10">
 	<div class="flex items-center justify-between">
 		<div>
-			<h1 class="text-2xl font-semibold text-gftd-text">Cypher editor</h1>
-			<p class="mt-1 text-sm text-gftd-secondary">
+			<h1 class="text-2xl font-semibold text-etzhayyim-text">Cypher editor</h1>
+			<p class="mt-1 text-sm text-etzhayyim-secondary">
 				POSTs to <code class="font-mono">/cypher</code> with your API key. Use Ctrl/⌘+Enter to
 				run.
 			</p>
@@ -76,7 +76,7 @@
 	<div class="grid gap-4 lg:grid-cols-[1fr_280px]">
 		<!-- Editor + result -->
 		<div class="space-y-4">
-			<div class="rounded-xl border border-gftd-border bg-gftd-card">
+			<div class="rounded-xl border border-etzhayyim-border bg-gftd-card">
 				<Textarea
 					blockSize="lg"
 					rows={10}
@@ -99,9 +99,9 @@
 			{/if}
 
 			{#if resp}
-				<div class="rounded-xl border border-gftd-border bg-gftd-card">
+				<div class="rounded-xl border border-etzhayyim-border bg-gftd-card">
 					<div
-						class="flex items-center justify-between border-b border-gftd-border px-4 py-2 text-xs text-gftd-muted"
+						class="flex items-center justify-between border-b border-etzhayyim-border px-4 py-2 text-xs text-etzhayyim-muted"
 					>
 						<span>
 							{resp.row_count ?? resp.rows?.length ?? 0} row(s)
@@ -124,7 +124,7 @@
 						<div class="overflow-x-auto">
 							<table class="w-full border-collapse text-sm">
 								<thead>
-									<tr class="border-b border-gftd-border bg-black/20 text-left text-gftd-muted">
+									<tr class="border-b border-etzhayyim-border bg-black/20 text-left text-etzhayyim-muted">
 										{#each columns as col}
 											<th class="px-4 py-2 font-medium">{col}</th>
 										{/each}
@@ -132,9 +132,9 @@
 								</thead>
 								<tbody>
 									{#each resp.rows as row, i (i)}
-										<tr class="border-b border-gftd-border/60 last:border-0">
+										<tr class="border-b border-etzhayyim-border/60 last:border-0">
 											{#each columns as col}
-												<td class="px-4 py-2 font-mono text-xs text-gftd-text">
+												<td class="px-4 py-2 font-mono text-xs text-etzhayyim-text">
 													{typeof row[col] === 'object'
 														? JSON.stringify(row[col])
 														: String(row[col] ?? '')}
@@ -152,13 +152,13 @@
 
 		<!-- Sidebar: samples + history -->
 		<aside class="space-y-4 lg:sticky lg:top-6">
-			<div class="rounded-xl border border-gftd-border bg-gftd-card p-4">
-				<h2 class="text-sm font-medium text-gftd-secondary">Samples</h2>
+			<div class="rounded-xl border border-etzhayyim-border bg-gftd-card p-4">
+				<h2 class="text-sm font-medium text-etzhayyim-secondary">Samples</h2>
 				<ul class="mt-3 space-y-1 text-xs">
 					{#each SAMPLES as s, i}
 						<li>
 							<button
-								class="w-full rounded-md px-2 py-1.5 text-left font-mono text-gftd-text hover:bg-white/5"
+								class="w-full rounded-md px-2 py-1.5 text-left font-mono text-etzhayyim-text hover:bg-white/5"
 								onclick={() => loadSample(s)}
 								type="button"
 							>
@@ -169,25 +169,25 @@
 				</ul>
 			</div>
 
-			<div class="rounded-xl border border-gftd-border bg-gftd-card p-4">
+			<div class="rounded-xl border border-etzhayyim-border bg-gftd-card p-4">
 				<div class="flex items-center justify-between">
-					<h2 class="text-sm font-medium text-gftd-secondary">History</h2>
+					<h2 class="text-sm font-medium text-etzhayyim-secondary">History</h2>
 					{#if history.length > 0}
 						<button
-							class="text-xs text-gftd-muted hover:text-gftd-text"
+							class="text-xs text-etzhayyim-muted hover:text-etzhayyim-text"
 							onclick={clearHistory}
 							type="button">clear</button
 						>
 					{/if}
 				</div>
 				{#if history.length === 0}
-					<p class="mt-2 text-xs text-gftd-muted">No queries yet.</p>
+					<p class="mt-2 text-xs text-etzhayyim-muted">No queries yet.</p>
 				{:else}
 					<ul class="mt-3 space-y-1 text-xs">
 						{#each history as q, i (i + q)}
 							<li>
 								<button
-									class="block w-full truncate rounded-md px-2 py-1 text-left font-mono text-gftd-secondary hover:bg-white/5 hover:text-gftd-text"
+									class="block w-full truncate rounded-md px-2 py-1 text-left font-mono text-etzhayyim-secondary hover:bg-white/5 hover:text-etzhayyim-text"
 									onclick={() => loadHistory(q)}
 									title={q}
 									type="button"

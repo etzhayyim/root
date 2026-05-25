@@ -105,14 +105,14 @@ superseded_by: []
 
 ## Decision 2 — tsukuru.etzhayyim.com を一気通貫 orchestration の単一 SSoT に確定する
 
-ユーザ最初の依頼では "tukuru.gftd.ai" だったが、実態は `tsukuru.etzhayyim.com` (religious-corp 側、DID 取得済み)。
-**vendor (gftd.co.jp) 側に並行 manufacturing orchestrator を作らない**。理由:
+ユーザ最初の依頼では "tukuru.etzhayyim.com" だったが、実態は `tsukuru.etzhayyim.com` (religious-corp 側、DID 取得済み)。
+**vendor (etzhayyim.com) 側に並行 manufacturing orchestrator を作らない**。理由:
 
 1. tsukuru は既に religious-corp DID + Lexicon + BPMN actor を持つ
 2. ADR-2605215000 + Charter Rider §2(i) と整合する (commercial GPU rental は別だが、orchestration は religious-corp 側で持つほうが consent capability 境界が明快)
 3. 重複 orchestrator は Shannon redundancy 違反 (ADR-2604251830)
 
-vendor (gftd.co.jp) が gftd.ai sub-domain に手を出すのは、religious-corp の制約外の vendor 内部商用ワークロード (=現状の `pymagatama` legacy / RunPod 経路) のみ。
+vendor (etzhayyim.com) が etzhayyim.com sub-domain に手を出すのは、religious-corp の制約外の vendor 内部商用ワークロード (=現状の `pymagatama` legacy / RunPod 経路) のみ。
 silicon 製造 orchestrator は **religious-corp の tsukuru に統一** する。
 
 ## Decision 3 — 自社 fab 装置 8 工程の設計憲章 (ADR-2605242545 がここから派生)

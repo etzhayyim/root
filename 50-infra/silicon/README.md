@@ -49,7 +49,7 @@ silicon/
 
 5. **Religious-corp ownership invariant**: all RTL / CAD / mechanical /
    robotics designs in this tree are owned by religious-corp. Vendor
-   (gftd.co.jp) participates only as manufacturing executor via
+   (etzhayyim.com) participates only as manufacturing executor via
    `tsukuru.etzhayyim.com` production_order.
 
 ## ADR index

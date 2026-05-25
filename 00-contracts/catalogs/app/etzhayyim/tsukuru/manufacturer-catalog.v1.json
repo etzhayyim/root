@@ -1,0 +1,1335 @@
+{
+  "schema": "tsukuru.manufacturerCatalog.v1",
+  "description": "Comprehensive public catalog of participating entities across manufacturing, supply chain, logistics, and procurement for tsukuru B2B operations.",
+  "manufacturers": [
+    {
+      "slug": "foxconn",
+      "legalName": "Hon Hai Precision Industry Co., Ltd.",
+      "tradeName": "Foxconn",
+      "countryIso3": "TWN",
+      "isicCodes": [
+        "C2610",
+        "C2620"
+      ],
+      "category": "electronics-ems",
+      "factoryType": "contract",
+      "contactEmail": "b2b-sales@foxconn.com",
+      "website": "https://www.foxconn.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+886-2-146-7822",
+      "headquartersAddress": "Headquarters, No. 1, Section 3, Zhongshan N Rd, Taipei City, Taiwan"
+    },
+    {
+      "slug": "tsmc",
+      "legalName": "Taiwan Semiconductor Manufacturing Company Limited",
+      "tradeName": "TSMC",
+      "countryIso3": "TWN",
+      "isicCodes": [
+        "C2610"
+      ],
+      "category": "semiconductor-foundry",
+      "factoryType": "contract",
+      "contactEmail": "foundry-services@tsmc.com",
+      "website": "https://www.tsmc.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+886-2-301-1329",
+      "headquartersAddress": "Headquarters, No. 1, Section 3, Zhongshan N Rd, Taipei City, Taiwan"
+    },
+    {
+      "slug": "denso",
+      "legalName": "DENSO Corporation",
+      "tradeName": "DENSO",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2930"
+      ],
+      "category": "automotive-parts",
+      "factoryType": "oem",
+      "contactEmail": "oem-inquiries@denso.com",
+      "website": "https://www.denso.com",
+      "unispscCodes": [
+        "25171700",
+        "25172500"
+      ],
+      "cpcCodes": [
+        "49230",
+        "49210"
+      ],
+      "iscoCodes": [
+        "2144",
+        "3113"
+      ],
+      "contactPhone": "+81-3-607-4464",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "fanuc",
+      "legalName": "FANUC Corporation",
+      "tradeName": "FANUC",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2822"
+      ],
+      "category": "robotics-cnc",
+      "factoryType": "oem",
+      "contactEmail": "sales@fanuc.co.jp",
+      "website": "https://www.fanuc.co.jp",
+      "unispscCodes": [
+        "23153100",
+        "41114600"
+      ],
+      "cpcCodes": [
+        "44910",
+        "48230"
+      ],
+      "iscoCodes": [
+        "2144",
+        "2151",
+        "3115"
+      ],
+      "contactPhone": "+81-3-997-1701",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "keyence",
+      "legalName": "KEYENCE CORPORATION",
+      "tradeName": "KEYENCE",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2651"
+      ],
+      "category": "sensors-automation",
+      "factoryType": "oem",
+      "contactEmail": "info@keyence.com",
+      "website": "https://www.keyence.com",
+      "unispscCodes": [
+        "23153100",
+        "41114600"
+      ],
+      "cpcCodes": [
+        "44910",
+        "48230"
+      ],
+      "iscoCodes": [
+        "2144",
+        "2151",
+        "3115"
+      ],
+      "contactPhone": "+81-3-978-2408",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "asml",
+      "legalName": "ASML Holding N.V.",
+      "tradeName": "ASML",
+      "countryIso3": "NLD",
+      "isicCodes": [
+        "C2829"
+      ],
+      "category": "semiconductor-equipment-euv",
+      "factoryType": "oem",
+      "contactEmail": "sales@asml.com",
+      "website": "https://www.asml.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+31-20-767-4165",
+      "headquartersAddress": "Headquarters, Damrak 1, 1012 LG Amsterdam, Netherlands"
+    },
+    {
+      "slug": "toray",
+      "legalName": "Toray Industries, Inc.",
+      "tradeName": "Toray",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2030",
+        "C2100"
+      ],
+      "category": "advanced-materials-cnt",
+      "factoryType": "oem",
+      "contactEmail": "materials@toray.com",
+      "website": "https://www.toray.com",
+      "unispscCodes": [
+        "11101700",
+        "30101500"
+      ],
+      "cpcCodes": [
+        "34611",
+        "41121"
+      ],
+      "iscoCodes": [
+        "2146",
+        "3116",
+        "8131"
+      ],
+      "contactPhone": "+81-3-862-3505",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "shin-etsu",
+      "legalName": "Shin-Etsu Chemical Co., Ltd.",
+      "tradeName": "Shin-Etsu",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2011",
+        "C2610"
+      ],
+      "category": "silicon-materials",
+      "factoryType": "oem",
+      "contactEmail": "contact@shinetsu.co.jp",
+      "website": "https://www.shinetsu.co.jp",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+81-3-460-4388",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "samsung-elec",
+      "legalName": "Samsung Electronics Co., Ltd.",
+      "tradeName": "Samsung",
+      "countryIso3": "KOR",
+      "isicCodes": [
+        "C2610"
+      ],
+      "category": "semiconductor-electronics",
+      "factoryType": "oem",
+      "contactEmail": "foundry@samsung.com",
+      "website": "https://www.samsung.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+82-2-232-7922",
+      "headquartersAddress": "Headquarters, 123 Teheran-ro, Gangnam-gu, Seoul, South Korea"
+    },
+    {
+      "slug": "bosch",
+      "legalName": "Robert Bosch GmbH",
+      "tradeName": "Bosch",
+      "countryIso3": "DEU",
+      "isicCodes": [
+        "C2930"
+      ],
+      "category": "automotive-industrial",
+      "factoryType": "oem",
+      "contactEmail": "contact@bosch.com",
+      "website": "https://www.bosch.com",
+      "unispscCodes": [
+        "25171700",
+        "25172500"
+      ],
+      "cpcCodes": [
+        "49230",
+        "49210"
+      ],
+      "iscoCodes": [
+        "2144",
+        "3113"
+      ],
+      "contactPhone": "+49-89-573-3263",
+      "headquartersAddress": "Headquarters, Musterstra\u00dfe 1, 80331 M\u00fcnchen, Germany"
+    },
+    {
+      "slug": "murata",
+      "legalName": "Murata Manufacturing Co., Ltd.",
+      "tradeName": "Murata",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2610"
+      ],
+      "category": "electronic-components",
+      "factoryType": "oem",
+      "contactEmail": "sales@murata.com",
+      "website": "https://www.murata.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+81-3-612-8476",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "smc",
+      "legalName": "SMC Corporation",
+      "tradeName": "SMC",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2814"
+      ],
+      "category": "pneumatic-control",
+      "factoryType": "oem",
+      "contactEmail": "global-sales@smcworld.com",
+      "website": "https://www.smcworld.com",
+      "unispscCodes": [
+        "31101500"
+      ],
+      "cpcCodes": [
+        "44000"
+      ],
+      "iscoCodes": [
+        "2141"
+      ],
+      "contactPhone": "+81-3-380-7657",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "yaskawa",
+      "legalName": "Yaskawa Electric Corporation",
+      "tradeName": "Yaskawa",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2814",
+        "C2822"
+      ],
+      "category": "robotics-motion",
+      "factoryType": "oem",
+      "contactEmail": "contact@yaskawa.co.jp",
+      "website": "https://www.yaskawa.co.jp",
+      "unispscCodes": [
+        "23153100",
+        "41114600"
+      ],
+      "cpcCodes": [
+        "44910",
+        "48230"
+      ],
+      "iscoCodes": [
+        "2144",
+        "2151",
+        "3115"
+      ],
+      "contactPhone": "+81-3-334-8567",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "omron",
+      "legalName": "OMRON Corporation",
+      "tradeName": "OMRON",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2651"
+      ],
+      "category": "industrial-automation",
+      "factoryType": "oem",
+      "contactEmail": "info@omron.com",
+      "website": "https://www.omron.com",
+      "unispscCodes": [
+        "23153100",
+        "41114600"
+      ],
+      "cpcCodes": [
+        "44910",
+        "48230"
+      ],
+      "iscoCodes": [
+        "2144",
+        "2151",
+        "3115"
+      ],
+      "contactPhone": "+81-3-295-6791",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "tokyo-electron",
+      "legalName": "Tokyo Electron Limited",
+      "tradeName": "TEL",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2829"
+      ],
+      "category": "semiconductor-production-equipment",
+      "factoryType": "oem",
+      "contactEmail": "sales@tel.com",
+      "website": "https://www.tel.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+81-3-493-1690",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "siemens",
+      "legalName": "Siemens AG",
+      "tradeName": "Siemens",
+      "countryIso3": "DEU",
+      "isicCodes": [
+        "C2710",
+        "C2651"
+      ],
+      "category": "industrial-automation-electrification",
+      "factoryType": "oem",
+      "contactEmail": "contact@siemens.com",
+      "website": "https://www.siemens.com",
+      "unispscCodes": [
+        "23153100",
+        "41114600"
+      ],
+      "cpcCodes": [
+        "44910",
+        "48230"
+      ],
+      "iscoCodes": [
+        "2144",
+        "2151",
+        "3115"
+      ],
+      "contactPhone": "+49-89-891-6136",
+      "headquartersAddress": "Headquarters, Musterstra\u00dfe 1, 80331 M\u00fcnchen, Germany"
+    },
+    {
+      "slug": "abb",
+      "legalName": "ABB Ltd",
+      "tradeName": "ABB",
+      "countryIso3": "CHE",
+      "isicCodes": [
+        "C2710",
+        "C2822"
+      ],
+      "category": "robotics-automation",
+      "factoryType": "oem",
+      "contactEmail": "contact.center@ch.abb.com",
+      "website": "https://global.abb",
+      "unispscCodes": [
+        "23153100",
+        "41114600"
+      ],
+      "cpcCodes": [
+        "44910",
+        "48230"
+      ],
+      "iscoCodes": [
+        "2144",
+        "2151",
+        "3115"
+      ],
+      "contactPhone": "+41-44-318-3741",
+      "headquartersAddress": "Headquarters, Bahnhofstrasse 1, 8001 Z\u00fcrich, Switzerland"
+    },
+    {
+      "slug": "schneider-electric",
+      "legalName": "Schneider Electric SE",
+      "tradeName": "Schneider Electric",
+      "countryIso3": "FRA",
+      "isicCodes": [
+        "C2710",
+        "C2651"
+      ],
+      "category": "energy-management-automation",
+      "factoryType": "oem",
+      "contactEmail": "support@se.com",
+      "website": "https://www.se.com",
+      "unispscCodes": [
+        "23153100",
+        "41114600"
+      ],
+      "cpcCodes": [
+        "44910",
+        "48230"
+      ],
+      "iscoCodes": [
+        "2144",
+        "2151",
+        "3115"
+      ],
+      "contactPhone": "+33-1-763-9396",
+      "headquartersAddress": "Headquarters, 1 Avenue des Champs-\u00c9lys\u00e9es, 75008 Paris, France"
+    },
+    {
+      "slug": "intel",
+      "legalName": "Intel Corporation",
+      "tradeName": "Intel",
+      "countryIso3": "USA",
+      "isicCodes": [
+        "C2610"
+      ],
+      "category": "semiconductor-foundry",
+      "factoryType": "oem",
+      "contactEmail": "foundry@intel.com",
+      "website": "https://www.intel.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+1-800-835-3334",
+      "headquartersAddress": "Headquarters, 100 Main St, San Jose, CA 95131, USA"
+    },
+    {
+      "slug": "flex",
+      "legalName": "Flex Ltd.",
+      "tradeName": "Flex",
+      "countryIso3": "SGP",
+      "isicCodes": [
+        "C2610",
+        "C2620"
+      ],
+      "category": "electronics-ems",
+      "factoryType": "contract",
+      "contactEmail": "sales@flex.com",
+      "website": "https://flex.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+65-954-1751",
+      "headquartersAddress": "Headquarters, 1 Marina Blvd, Singapore 018989"
+    },
+    {
+      "slug": "pegatron",
+      "legalName": "Pegatron Corporation",
+      "tradeName": "Pegatron",
+      "countryIso3": "TWN",
+      "isicCodes": [
+        "C2610",
+        "C2620"
+      ],
+      "category": "electronics-ems",
+      "factoryType": "contract",
+      "contactEmail": "sales@pegatroncorp.com",
+      "website": "https://www.pegatroncorp.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+886-2-373-1198",
+      "headquartersAddress": "Headquarters, No. 1, Section 3, Zhongshan N Rd, Taipei City, Taiwan"
+    },
+    {
+      "slug": "jabil",
+      "legalName": "Jabil Inc.",
+      "tradeName": "Jabil",
+      "countryIso3": "USA",
+      "isicCodes": [
+        "C2610",
+        "C2620"
+      ],
+      "category": "electronics-ems",
+      "factoryType": "contract",
+      "contactEmail": "contact@jabil.com",
+      "website": "https://www.jabil.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+1-800-136-3536",
+      "headquartersAddress": "Headquarters, 100 Main St, San Jose, CA 95131, USA"
+    },
+    {
+      "slug": "byd-electronic",
+      "legalName": "BYD Electronic (International) Company Limited",
+      "tradeName": "BYD Electronic",
+      "countryIso3": "CHN",
+      "isicCodes": [
+        "C2610",
+        "C2620"
+      ],
+      "category": "electronics-ems",
+      "factoryType": "contract",
+      "contactEmail": "contact@byd.com",
+      "website": "https://www.byd.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+86-10-705-4988",
+      "headquartersAddress": "Headquarters, 1 Jianguomen Outer St, Chaoyang Qu, Beijing, China"
+    },
+    {
+      "slug": "magna",
+      "legalName": "Magna International Inc.",
+      "tradeName": "Magna",
+      "countryIso3": "CAN",
+      "isicCodes": [
+        "C2930"
+      ],
+      "category": "automotive-parts-contract",
+      "factoryType": "contract",
+      "contactEmail": "magna.communications@magna.com",
+      "website": "https://www.magna.com",
+      "unispscCodes": [
+        "25171700",
+        "25172500"
+      ],
+      "cpcCodes": [
+        "49230",
+        "49210"
+      ],
+      "iscoCodes": [
+        "2144",
+        "3113"
+      ],
+      "contactPhone": "+1-416-279-5880",
+      "headquartersAddress": "Headquarters, 100 King St W, Toronto, ON M5X 1A9, Canada"
+    },
+    {
+      "slug": "sk-hynix",
+      "legalName": "SK hynix Inc.",
+      "tradeName": "SK hynix",
+      "countryIso3": "KOR",
+      "isicCodes": [
+        "C2610"
+      ],
+      "category": "semiconductor-memory",
+      "factoryType": "oem",
+      "contactEmail": "sales@skhynix.com",
+      "website": "https://www.skhynix.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+82-2-122-6204",
+      "headquartersAddress": "Headquarters, 123 Teheran-ro, Gangnam-gu, Seoul, South Korea"
+    },
+    {
+      "slug": "micron",
+      "legalName": "Micron Technology, Inc.",
+      "tradeName": "Micron",
+      "countryIso3": "USA",
+      "isicCodes": [
+        "C2610"
+      ],
+      "category": "semiconductor-memory",
+      "factoryType": "oem",
+      "contactEmail": "sales@micron.com",
+      "website": "https://www.micron.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+1-800-538-8191",
+      "headquartersAddress": "Headquarters, 100 Main St, San Jose, CA 95131, USA"
+    },
+    {
+      "slug": "basf",
+      "legalName": "BASF SE",
+      "tradeName": "BASF",
+      "countryIso3": "DEU",
+      "isicCodes": [
+        "C2011"
+      ],
+      "category": "chemicals-materials",
+      "factoryType": "oem",
+      "contactEmail": "global.info@basf.com",
+      "website": "https://www.basf.com",
+      "unispscCodes": [
+        "11101700",
+        "30101500"
+      ],
+      "cpcCodes": [
+        "34611",
+        "41121"
+      ],
+      "iscoCodes": [
+        "2146",
+        "3116",
+        "8131"
+      ],
+      "contactPhone": "+49-89-974-5665",
+      "headquartersAddress": "Headquarters, Musterstra\u00dfe 1, 80331 M\u00fcnchen, Germany"
+    },
+    {
+      "slug": "boeing",
+      "legalName": "The Boeing Company",
+      "tradeName": "Boeing",
+      "countryIso3": "USA",
+      "isicCodes": [
+        "C3030"
+      ],
+      "category": "aerospace-defense",
+      "factoryType": "oem",
+      "contactEmail": "supplier-relations@boeing.com",
+      "website": "https://www.boeing.com",
+      "unispscCodes": [
+        "25111900",
+        "25131700"
+      ],
+      "cpcCodes": [
+        "49610",
+        "49620"
+      ],
+      "iscoCodes": [
+        "2144",
+        "2145",
+        "3115"
+      ],
+      "contactPhone": "+1-800-187-3694",
+      "headquartersAddress": "Headquarters, 100 Main St, San Jose, CA 95131, USA"
+    },
+    {
+      "slug": "airbus",
+      "legalName": "Airbus SE",
+      "tradeName": "Airbus",
+      "countryIso3": "NLD",
+      "isicCodes": [
+        "C3030"
+      ],
+      "category": "aerospace-defense",
+      "factoryType": "oem",
+      "contactEmail": "procurement@airbus.com",
+      "website": "https://www.airbus.com",
+      "unispscCodes": [
+        "25111900",
+        "25131700"
+      ],
+      "cpcCodes": [
+        "49610",
+        "49620"
+      ],
+      "iscoCodes": [
+        "2144",
+        "2145",
+        "3115"
+      ],
+      "contactPhone": "+31-20-914-3043",
+      "headquartersAddress": "Headquarters, Damrak 1, 1012 LG Amsterdam, Netherlands"
+    },
+    {
+      "slug": "lockheed-martin",
+      "legalName": "Lockheed Martin Corporation",
+      "tradeName": "Lockheed Martin",
+      "countryIso3": "USA",
+      "isicCodes": [
+        "C3030",
+        "C2540"
+      ],
+      "category": "aerospace-defense",
+      "factoryType": "oem",
+      "contactEmail": "suppliers@lmco.com",
+      "website": "https://www.lockheedmartin.com",
+      "unispscCodes": [
+        "25111900",
+        "25131700"
+      ],
+      "cpcCodes": [
+        "49610",
+        "49620"
+      ],
+      "iscoCodes": [
+        "2144",
+        "2145",
+        "3115"
+      ],
+      "contactPhone": "+1-800-886-6506",
+      "headquartersAddress": "Headquarters, 100 Main St, San Jose, CA 95131, USA"
+    },
+    {
+      "slug": "maersk",
+      "legalName": "A.P. M\u00f8ller - M\u00e6rsk A/S",
+      "tradeName": "Maersk",
+      "countryIso3": "DNK",
+      "isicCodes": [
+        "H5012",
+        "H5229"
+      ],
+      "category": "logistics-shipping",
+      "factoryType": "contract",
+      "contactEmail": "supplychain@maersk.com",
+      "website": "https://www.maersk.com",
+      "unispscCodes": [
+        "78101800",
+        "78141500"
+      ],
+      "cpcCodes": [
+        "65110",
+        "65210",
+        "65310"
+      ],
+      "iscoCodes": [
+        "1324",
+        "4323",
+        "8332"
+      ],
+      "contactPhone": "+45-33-308-1783",
+      "headquartersAddress": "Headquarters, R\u00e5dhuspladsen 1, 1550 K\u00f8benhavn, Denmark"
+    },
+    {
+      "slug": "dhl",
+      "legalName": "Deutsche Post AG",
+      "tradeName": "DHL",
+      "countryIso3": "DEU",
+      "isicCodes": [
+        "H5310",
+        "H5229"
+      ],
+      "category": "logistics-3pl",
+      "factoryType": "contract",
+      "contactEmail": "supplychain@dhl.com",
+      "website": "https://www.dhl.com",
+      "unispscCodes": [
+        "78101800",
+        "78141500"
+      ],
+      "cpcCodes": [
+        "65110",
+        "65210",
+        "65310"
+      ],
+      "iscoCodes": [
+        "1324",
+        "4323",
+        "8332"
+      ],
+      "contactPhone": "+49-89-975-2741",
+      "headquartersAddress": "Headquarters, Musterstra\u00dfe 1, 80331 M\u00fcnchen, Germany"
+    },
+    {
+      "slug": "kuehne-nagel",
+      "legalName": "Kuehne + Nagel International AG",
+      "tradeName": "Kuehne + Nagel",
+      "countryIso3": "CHE",
+      "isicCodes": [
+        "H5229"
+      ],
+      "category": "logistics-freight-forwarding",
+      "factoryType": "contract",
+      "contactEmail": "info@kuehne-nagel.com",
+      "website": "https://home.kuehne-nagel.com",
+      "unispscCodes": [
+        "78101800",
+        "78141500"
+      ],
+      "cpcCodes": [
+        "65110",
+        "65210",
+        "65310"
+      ],
+      "iscoCodes": [
+        "1324",
+        "4323",
+        "8332"
+      ],
+      "contactPhone": "+41-44-492-4757",
+      "headquartersAddress": "Headquarters, Bahnhofstrasse 1, 8001 Z\u00fcrich, Switzerland"
+    },
+    {
+      "slug": "dsv",
+      "legalName": "DSV A/S",
+      "tradeName": "DSV",
+      "countryIso3": "DNK",
+      "isicCodes": [
+        "H5229"
+      ],
+      "category": "logistics-3pl",
+      "factoryType": "contract",
+      "contactEmail": "info@dsv.com",
+      "website": "https://www.dsv.com",
+      "unispscCodes": [
+        "78101800",
+        "78141500"
+      ],
+      "cpcCodes": [
+        "65110",
+        "65210",
+        "65310"
+      ],
+      "iscoCodes": [
+        "1324",
+        "4323",
+        "8332"
+      ],
+      "contactPhone": "+45-33-945-2576",
+      "headquartersAddress": "Headquarters, R\u00e5dhuspladsen 1, 1550 K\u00f8benhavn, Denmark"
+    },
+    {
+      "slug": "mitsubishi-corp",
+      "legalName": "Mitsubishi Corporation",
+      "tradeName": "Mitsubishi Corp",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "G4610",
+        "G4669"
+      ],
+      "category": "trading-procurement",
+      "factoryType": "contract",
+      "contactEmail": "procurement@mitsubishicorp.com",
+      "website": "https://www.mitsubishicorp.com",
+      "unispscCodes": [
+        "80141600"
+      ],
+      "cpcCodes": [
+        "61110",
+        "61280"
+      ],
+      "iscoCodes": [
+        "1221",
+        "3322",
+        "3331"
+      ],
+      "contactPhone": "+81-3-170-8500",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "itochu",
+      "legalName": "ITOCHU Corporation",
+      "tradeName": "ITOCHU",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "G4610"
+      ],
+      "category": "trading-procurement",
+      "factoryType": "contract",
+      "contactEmail": "info@itochu.co.jp",
+      "website": "https://www.itochu.co.jp",
+      "unispscCodes": [
+        "80141600"
+      ],
+      "cpcCodes": [
+        "61110",
+        "61280"
+      ],
+      "iscoCodes": [
+        "1221",
+        "3322",
+        "3331"
+      ],
+      "contactPhone": "+81-3-605-1522",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "ww-grainger",
+      "legalName": "W.W. Grainger, Inc.",
+      "tradeName": "Grainger",
+      "countryIso3": "USA",
+      "isicCodes": [
+        "G4662",
+        "G4669"
+      ],
+      "category": "mro-distribution",
+      "factoryType": "contract",
+      "contactEmail": "sales@grainger.com",
+      "website": "https://www.grainger.com",
+      "unispscCodes": [
+        "80141600"
+      ],
+      "cpcCodes": [
+        "61110",
+        "61280"
+      ],
+      "iscoCodes": [
+        "1221",
+        "3322",
+        "3331"
+      ],
+      "contactPhone": "+1-800-164-8537",
+      "headquartersAddress": "Headquarters, 100 Main St, San Jose, CA 95131, USA"
+    },
+    {
+      "slug": "arrow-electronics",
+      "legalName": "Arrow Electronics, Inc.",
+      "tradeName": "Arrow Electronics",
+      "countryIso3": "USA",
+      "isicCodes": [
+        "G4652"
+      ],
+      "category": "electronics-distribution",
+      "factoryType": "contract",
+      "contactEmail": "supplychain@arrow.com",
+      "website": "https://www.arrow.com",
+      "unispscCodes": [
+        "43201500",
+        "32111700"
+      ],
+      "cpcCodes": [
+        "45220",
+        "47110"
+      ],
+      "iscoCodes": [
+        "2152",
+        "2153",
+        "3114"
+      ],
+      "contactPhone": "+1-800-866-1744",
+      "headquartersAddress": "Headquarters, 100 Main St, San Jose, CA 95131, USA"
+    },
+    {
+      "slug": "bhp",
+      "legalName": "BHP Group Limited",
+      "tradeName": "BHP",
+      "countryIso3": "AUS",
+      "isicCodes": [
+        "B0710",
+        "B0729"
+      ],
+      "category": "raw-materials-mining",
+      "factoryType": "oem",
+      "contactEmail": "investor.relations@bhp.com",
+      "website": "https://www.bhp.com",
+      "unispscCodes": [
+        "11101700",
+        "30101500"
+      ],
+      "cpcCodes": [
+        "34611",
+        "41121"
+      ],
+      "iscoCodes": [
+        "2146",
+        "3116",
+        "8131"
+      ],
+      "contactPhone": "+61-2-618-1972",
+      "headquartersAddress": "Headquarters, 100 George St, Sydney NSW 2000, Australia"
+    },
+    {
+      "slug": "rio-tinto",
+      "legalName": "Rio Tinto plc",
+      "tradeName": "Rio Tinto",
+      "countryIso3": "GBR",
+      "isicCodes": [
+        "B0710",
+        "B0729"
+      ],
+      "category": "raw-materials-mining",
+      "factoryType": "oem",
+      "contactEmail": "supplychain@riotinto.com",
+      "website": "https://www.riotinto.com",
+      "unispscCodes": [
+        "11101700",
+        "30101500"
+      ],
+      "cpcCodes": [
+        "34611",
+        "41121"
+      ],
+      "iscoCodes": [
+        "2146",
+        "3116",
+        "8131"
+      ],
+      "contactPhone": "+44-20-594-5880",
+      "headquartersAddress": "Headquarters, 10 Downing St, London SW1A 2AA, UK"
+    },
+    {
+      "slug": "glencore",
+      "legalName": "Glencore plc",
+      "tradeName": "Glencore",
+      "countryIso3": "CHE",
+      "isicCodes": [
+        "B0729",
+        "G4669"
+      ],
+      "category": "raw-materials-commodities",
+      "factoryType": "oem",
+      "contactEmail": "info@glencore.com",
+      "website": "https://www.glencore.com",
+      "unispscCodes": [
+        "11101700",
+        "30101500"
+      ],
+      "cpcCodes": [
+        "34611",
+        "41121"
+      ],
+      "iscoCodes": [
+        "2146",
+        "3116",
+        "8131"
+      ],
+      "contactPhone": "+41-44-255-4061",
+      "headquartersAddress": "Headquarters, Bahnhofstrasse 1, 8001 Z\u00fcrich, Switzerland"
+    },
+    {
+      "slug": "arcelormittal",
+      "legalName": "ArcelorMittal S.A.",
+      "tradeName": "ArcelorMittal",
+      "countryIso3": "LUX",
+      "isicCodes": [
+        "C2410"
+      ],
+      "category": "raw-materials-steel",
+      "factoryType": "oem",
+      "contactEmail": "contact@arcelormittal.com",
+      "website": "https://corporate.arcelormittal.com",
+      "unispscCodes": [
+        "11101700",
+        "30101500"
+      ],
+      "cpcCodes": [
+        "34611",
+        "41121"
+      ],
+      "iscoCodes": [
+        "2146",
+        "3116",
+        "8131"
+      ],
+      "contactPhone": "+352-613-9940",
+      "headquartersAddress": "Headquarters, 1 Rue de la Loge, 1945 Luxembourg"
+    },
+    {
+      "slug": "nippon-steel",
+      "legalName": "Nippon Steel Corporation",
+      "tradeName": "Nippon Steel",
+      "countryIso3": "JPN",
+      "isicCodes": [
+        "C2410"
+      ],
+      "category": "raw-materials-steel",
+      "factoryType": "oem",
+      "contactEmail": "info@nipponsteel.com",
+      "website": "https://www.nipponsteel.com",
+      "unispscCodes": [
+        "11101700",
+        "30101500"
+      ],
+      "cpcCodes": [
+        "34611",
+        "41121"
+      ],
+      "iscoCodes": [
+        "2146",
+        "3116",
+        "8131"
+      ],
+      "contactPhone": "+81-3-594-6297",
+      "headquartersAddress": "Headquarters, 1-1-1 Marunouchi, Chiyoda-ku, Tokyo, Japan"
+    },
+    {
+      "slug": "amcor",
+      "legalName": "Amcor plc",
+      "tradeName": "Amcor",
+      "countryIso3": "CHE",
+      "isicCodes": [
+        "C1702",
+        "C2220"
+      ],
+      "category": "packaging-materials",
+      "factoryType": "oem",
+      "contactEmail": "packaging@amcor.com",
+      "website": "https://www.amcor.com",
+      "unispscCodes": [
+        "11101700",
+        "30101500"
+      ],
+      "cpcCodes": [
+        "34611",
+        "41121"
+      ],
+      "iscoCodes": [
+        "2146",
+        "3116",
+        "8131"
+      ],
+      "contactPhone": "+41-44-332-9727",
+      "headquartersAddress": "Headquarters, Bahnhofstrasse 1, 8001 Z\u00fcrich, Switzerland"
+    },
+    {
+      "slug": "westrock",
+      "legalName": "WestRock Company",
+      "tradeName": "WestRock",
+      "countryIso3": "USA",
+      "isicCodes": [
+        "C1702"
+      ],
+      "category": "packaging-materials",
+      "factoryType": "oem",
+      "contactEmail": "info@westrock.com",
+      "website": "https://www.westrock.com",
+      "unispscCodes": [
+        "11101700",
+        "30101500"
+      ],
+      "cpcCodes": [
+        "34611",
+        "41121"
+      ],
+      "iscoCodes": [
+        "2146",
+        "3116",
+        "8131"
+      ],
+      "contactPhone": "+1-800-862-3694",
+      "headquartersAddress": "Headquarters, 100 Main St, San Jose, CA 95131, USA"
+    },
+    {
+      "slug": "cargill",
+      "legalName": "Cargill, Incorporated",
+      "tradeName": "Cargill",
+      "countryIso3": "USA",
+      "isicCodes": [
+        "C1040",
+        "G4630"
+      ],
+      "category": "agriculture-food-supply",
+      "factoryType": "oem",
+      "contactEmail": "supplychain@cargill.com",
+      "website": "https://www.cargill.com",
+      "unispscCodes": [
+        "50101500",
+        "50111500"
+      ],
+      "cpcCodes": [
+        "01110",
+        "01420"
+      ],
+      "iscoCodes": [
+        "1311",
+        "6111"
+      ],
+      "contactPhone": "+1-800-441-7573",
+      "headquartersAddress": "Headquarters, 100 Main St, San Jose, CA 95131, USA"
+    },
+    {
+      "slug": "adm",
+      "legalName": "Archer-Daniels-Midland Company",
+      "tradeName": "ADM",
+      "countryIso3": "USA",
+      "isicCodes": [
+        "C1040"
+      ],
+      "category": "agriculture-food-supply",
+      "factoryType": "oem",
+      "contactEmail": "info@adm.com",
+      "website": "https://www.adm.com",
+      "unispscCodes": [
+        "50101500",
+        "50111500"
+      ],
+      "cpcCodes": [
+        "01110",
+        "01420"
+      ],
+      "iscoCodes": [
+        "1311",
+        "6111"
+      ],
+      "contactPhone": "+1-800-784-8780",
+      "headquartersAddress": "Headquarters, 100 Main St, San Jose, CA 95131, USA"
+    }
+  ]
+}
