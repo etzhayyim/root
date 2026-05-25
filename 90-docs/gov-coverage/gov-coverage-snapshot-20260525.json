@@ -1,11 +1,11 @@
 {
-  "total": 84.62,
-  "timestamp": "2026-05-25T03:59:48.841Z",
+  "total": 85,
+  "timestamp": "2026-05-25T04:17:16.360Z",
   "metrics": {
     "l1IsoCoverage": 100,
     "l2CofogDensity": 100,
     "l3SubstratePort": 100,
-    "l4IngestRecords": 98.1,
+    "l4IngestRecords": 100,
     "l5CellActivation": 0
   },
   "breakdown": {
@@ -29,7 +29,7 @@
     },
     "l4": {
       "label": "ingest records / target",
-      "value": 98,
+      "value": 100,
       "weight": 0.2,
       "contribution": 20
     },
