@@ -217,7 +217,7 @@
 					in:scale={{ start: 0.8, duration: 400, delay: 200, easing: elasticEase }}
 				>
 					<h1 class="text-xl font-bold tracking-wide text-white">{appName}</h1>
-					<p class="mt-1 text-xs text-white/40">Powered by GFTD</p>
+					<p class="mt-1 text-xs text-white/40">Powered by etzhayyim</p>
 				</div>
 
 				<!-- Loading dots -->

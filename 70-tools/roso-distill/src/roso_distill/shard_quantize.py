@@ -40,6 +40,20 @@ SKIP_PATTERNS = (
     "router",             # MoE router/gate weights
     "gate.weight",        # MoE gate (top-k routing)
     "mtp",                # multi-token prediction head
+    # 2026-05-24 kaizen iter 1: Mamba SSM dynamics break under naive sign
+    "linear_attn",
+    # MoE shared expert — high-frequency path, keep full. Small (~0.4 GB).
+    "shared_expert",
+    # First + last 3 decoder layers full (extended Bonsai recipe — naive sign
+    # without activation calibration needs wider boundary buffer).
+    "layers.0.", "layers.1.", "layers.2.",
+    "layers.37.", "layers.38.", "layers.39.",
+    # 2026-05-24 kaizen iter 2: full_attention layers (every 4th) loop on
+    # quantize. self_attn weights are critical for attention scoring.
+    "self_attn",
+    # 2026-05-24 kaizen iter 3: MoE down_proj (intermediate -> hidden) propagates
+    # noise back to residual stream. Keep full-precision; quantize only gate_up_proj.
+    "experts.down_proj",
 )
 
 
@@ -70,20 +84,27 @@ def _should_quantize(name: str, tensor: torch.Tensor) -> bool:
 
 def _sign_quantize_tensor(t: torch.Tensor) -> torch.Tensor:
     """Sign-quantize a 2-D or 3-D tensor in-place semantically.
-    - 2-D: per-tensor alpha = mean(|W|)
-    - 3-D [E, ...]: per-expert alpha = mean(|W[e]|) for each expert e
+
+    - 2-D [d_out, d_in]: PER-OUTPUT-CHANNEL alpha = mean(|W[i,:]|) for each i.
+                          ~1000× more granular than per-tensor; quality boost.
+    - 3-D [E, d_out, d_in]: per-(expert, output_channel) alpha = mean over d_in.
+                            Each of E experts × d_out output channels has own scale.
     Returns new tensor in original dtype.
     """
     orig_dtype = t.dtype
     t_fp = t.to(torch.float32)
+    # Empirical α scale factor: 0.5 dampens reconstruction overshoot for
+    # naive sign-quantize without calibration. Real Bonsai paper computes
+    # this via per-layer optimization; we approximate with a global 0.5.
+    ALPHA_SCALE = 0.5
     if t_fp.ndim == 2:
-        alpha = t_fp.abs().mean()
-        q = torch.sign(t_fp) * alpha
+        # Per-output-channel alpha. t shape [d_out, d_in] -> alpha [d_out, 1]
+        alphas = t_fp.abs().mean(dim=-1, keepdim=True) * ALPHA_SCALE
+        q = torch.sign(t_fp) * alphas
     elif t_fp.ndim == 3:
-        # Per-expert alpha; flatten last 2 dims, mean per expert
-        E = t_fp.shape[0]
-        alphas = t_fp.abs().reshape(E, -1).mean(dim=-1)        # [E]
-        alphas = alphas.view(E, 1, 1)                          # broadcast
+        # Per-(expert, output_channel) alpha. shape [E, d_out, d_in]
+        # alpha shape [E, d_out, 1]; broadcast over d_in
+        alphas = t_fp.abs().mean(dim=-1, keepdim=True) * ALPHA_SCALE
         q = torch.sign(t_fp) * alphas
     else:
         raise ValueError(f"unsupported ndim={t_fp.ndim} for sign-quantize")

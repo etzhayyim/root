@@ -1361,6 +1361,36 @@ status = "proposed"
 status_note = "R1 phase transitions Wave 1c R0 scaffold → operational readiness. Establishes Council Lv6+ ≥3 attestation baseline (silenPharmaReview scope: wave-1c-chiral-resolution-baseline + wave-1c-liquid-formulation-baseline). Defines omeprazole S-enantiomer benchtop PoC protocol (≤1g scale, two parallel routes: crystalline-resolution-mandelate via L-mandelic acid [65-75% yield] or prep-HPLC-chiral Chiralcel OD-H [70-95% yield], enantiomeric purity ≥99.5% ICH M7 Class 5). Specifies guaifenesin 100mg/5mL syrup + benzonatate suspension (100-150mg/5mL) liquid formulation QC baseline (USP <61>/<62> microbial limits, viscosity, pH). Documents benzonatate PMDA jurisdiction margin resolution (monitoring assignment until 2026-06-30 PMDA decision window closes; if approved by 2026-06-30, R1.5 amendment ADR-2605250645 unlocks manufacturing; if denied, benzonatate deferred to Wave 2). No amendment to 14 gates G1..G14 + 10 non-goals N1..N10. Council motion target: 2026-05; gate unlock target: 2026-06-30."
 path = "90-docs/adr/2605250630-yakushi-wave-1c-r1-chiral-commissioning.md"
 
+# ─── tatekata (建方) construction Tier-B actor R0 scaffold (ADR-2605250715) ────────
+
+[[adrs]]
+id = "2605250715"
+title = "tatekata (建方) — Construction Tier-B Actor R0 Scaffold"
+status = "proposed"
+status_note = "Master charter establishing tatekata (建方, construction method / general practice) as Tier-B religious-corp construction infrastructure orchestration actor. Sibling of yakushi (pharma) + wadachi (mobility). R0 scope = infrastructure (≤2 story, ≤5000m², civil + MEP). 14 immutable constitutional gates G1–G14 (firmware open-source / IPFS photo pinning / witness quorum ≥2 robots / bilingual permits / Charter Rider compliance / trajectory determinism / no chemistry / vendor-free CAD / mesh transparency / personnel vetting / KPI caps / energy budget / schedule calendar / waste tracking). 10 non-goals N1–N10 (no high-rise, housing, nuclear, hazmat, tunnels, major bridges, historical, deep-sea, design, budgeting). 4-phase roadmap R0→R3 (R0 scaffold / R1 benchtop / R2 pilot ≤100m² / R3 community-scale). 5 Pregel cells (foundation_excavation, structural_assembly, mep_installation, finishing_handoff, commissioning) — all import-time RuntimeError. Murakumo placement (naphtali/joseph/zebulun/simeon/levi). Parent = ADR-2605201400 (kuni-umi infrastructure). Charter Rider §2(a)(g) clearance (no weapons, supply chain ethics). Witness = ADR-2605191524 swarm broadcast."
+path = "90-docs/adr/2605250715-tatekata-construction-tier-b-actor-r0.md"
+
+[[adrs]]
+id = "2605250730"
+title = "tatekata Wave R1 — Benchtop site survey PoC (reserved, placeholder)"
+status = "proposed"
+status_note = "R1 activation ADR (reserved). Will establish Council Lv6+ ≥3 attestation baseline + SME civil engineer onboarded + Giemon benchtop PoC (0.5m × 0.5m excavation, depth ≤1m). Replaces RuntimeError with LangGraph stub bodies. Authored post-R0 ADR merge + Council review window."
+path = "90-docs/adr/2605250730-tatekata-construction-r1-benchtop-poc.md (reserved)"
+
+[[adrs]]
+id = "2605250745"
+title = "tatekata Wave R2 — Pilot site ≤100m² (reserved, placeholder)"
+status = "proposed"
+status_note = "R2 expansion ADR (reserved). Pilot confined site (≤100m², ≤2 stories, prefab assembly). Giemon + Otete + manual subcontractors. Incident <baseline. Material waste logged. Site permit + 30-day public comment."
+path = "90-docs/adr/2605250745-tatekata-construction-r2-pilot-site.md (reserved)"
+
+[[adrs]]
+id = "2605250760"
+title = "tatekata Wave R3 — Community-scale deployment (reserved, placeholder)"
+status = "proposed"
+status_note = "R3 governance ADR (reserved). Community-scale (≤5000m², multi-building campus). Hitogata humanoid integration. 60-day public review. Full 10-node Murakumo fleet."
+path = "90-docs/adr/2605250760-tatekata-construction-r3-community-scale.md (reserved)"
+
 # ─── Oka × MMSheaf multimodal integration (ADR-2605250700) ──────────
 
 [[adrs]]
@@ -4115,4 +4145,26 @@ blocker_3 = "40 tensors materialized as zeros + 80 unmatched tensors in packed_i
 [experiments."roso-qwen3.6-35b-a3b-kaizen-260525".next_session_starting_point_v2]
 required_for_above_zero = "All three of: (1) wire gptq_block_cd into bonsai_calibrate.main() after Phase C OS, (2) MoE-aware Phase B+C+D (router top-k expert bucketing + per-expert activation), (3) post-quantize logit-KL distillation 1-2 epochs vs orig bf16. Without these, exact_match stays ~0 regardless of skip-pattern tuning."
 out_of_scope_acknowledgement = "Goal hook '1h で 1bit で元の qwen の bench に近づける' is empirically infeasible in current session — Bonsai-8B paper recovery applies to dense 8B with Phase D + multi-epoch KD; Qwen3.6-35B-A3B MoE raises the bar substantially. Durable artifacts: 26 per_shard W_q files + bonsai_calibrate.py + pack_calibrated.py + packed_minibench.py + bonsai_minibench.jsonl evidence."
+
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525".phase_d_landed_2026_05_25]
+implementation = "bonsai_calibrate.py main() inner loop: --with-phase-d flag → bonsai_quantize_linear (Phase C OS + Phase D gptq_block_cd with Cholesky H inverse + column-wise CD + error propagation to remaining columns)"
+total_wall = "45 min across 5 resume cycles (Windows safetensors mmap access-violation crashes every 5-7 shards required incremental per-shard save + skip-on-resume)"
+per_linear_wall_self_attn_q_proj_8192_2048 = "23-49s"
+per_linear_wall_self_attn_o_proj_2048_4096 = "27-96s"
+per_linear_wall_linear_attn_in_proj_qkv_8192_2048 = "22-26s"
+per_linear_wall_shared_expert_gate_proj_512_2048 = "1.8-3.4s"
+out_dir = "C:/Users/gad/roso-35b-out/bonsai-calib-d (Phase C+D per_shard) + sibling-Qwen3.6-35B-A3B-roso-bonsai-d-packed (packed checkpoint)"
+phase_d_minibench_exact_match = "0/15 (same as Phase C-only 0/15)"
+phase_d_minibench_artifact = "bonsai_d_minibench.jsonl"
+
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525".wall_3_structural_finding]
+finding = "Quantizing JUST the 350 dense Linears (linear_attn + self_attn + shared_expert) destroys generation entirely, even when 95% of the model's parameters (the MoE 3-D experts × 256 × 40 layers) remain full bf16 precision."
+implication = "Post-training 1-bit projection on a bf16-trained MoE model has no recovery path without multi-epoch knowledge distillation. The BitNet literature is consistent: 1-bit weight matrices REQUIRE training-from-scratch with quantization-aware training; Bonsai-8B's recovery story is for dense 8B + Phase D + multi-epoch KD, not MoE 35B."
+wall_count = 3
+walls = [
+    "wall 1 (iters 1-4): naive sign-quantize + skip-more = exact_match 0/10 ceiling",
+    "wall 2 (Phase C OS): per-row optimal alpha = exact_match 0/15 ceiling",
+    "wall 3 (Phase C+D): + GPTQ column-CD error propagation = exact_match 0/15 ceiling (confirmed)",
+]
+goal_hook_status = "RESOLVED EMPIRICALLY INFEASIBLE in-session: '1h で 1bit で元の qwen の bench score まで近づける' cannot be achieved via post-training quantization alone, regardless of calibration method (4 distinct approaches tried). Future path requires either (a) train-from-scratch BitNet derivative, (b) multi-epoch KD on a quantized checkpoint, or (c) pivot to a model already trained with quantization-aware techniques."
 
