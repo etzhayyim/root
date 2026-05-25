@@ -2896,6 +2896,57 @@ constitutional_invariants_immutable_r0_r3 = [
   "G12 production rate ≤200 devices / 8-hr line R3",
 ]
 
+# ─── suki (鋤) farm tractor manufacturing Tier-B actor R0 scaffold (ADR-2605261500) ──
+
+[[adrs]]
+id = "2605261500"
+title = "suki (鋤) — Farm Tractor Manufacturing Tier-B Actor R0 Scaffold"
+status = "proposed"
+status_note = "Master charter establishing suki (鋤, plow; foundational agricultural artisan tool; silicon iwakura 磐座 / fuigo 鞴 / igata 鋳型 / kanayama 金山 naming series) as Tier-B religious-corp first-party **farm tractor manufacturing** actor. **Manufacturing-side counterpart of mitsuho operator-side (ADR-2605261015)** — parallel to sarutahiko↔wadachi (truck) sibling pattern. Methodology source = YouTube `aSmoLQKdX9E` 'Inside Ultra-Modern European Factories Building Massive Farm Tractors From Scratch' (Fendt/AGCO/Claas/Massey Ferguson/Valtra/Deutz-Fahr/Same/Kubota EU/Case IH/New Holland/John Deere EU class); manufacturing methodology adopted; **John Deere-class DRM ECU + dealer-locked diagnostics + patent-locked seed integration + mega-farm consolidation + fossil-fuel-only powertrain + surveillance hardware integration all explicitly rejected per §2(b) + §2(c) + §2(e) + §2(g) + §1.13**. R0 scope = farm tractor assembly (~50-200 hp Wave 1; community-scale farming target; mega-tractor ≥400 hp = N3 post-R3 + Council Lv6+ supermajority). **14 constitutional gates G1..G14 + 12 non-goals N1..N12** (sarutahiko + tsutae density). **Religious-corp first explicit Right-to-Repair constitutional first-class invariant at firmware level**: G10 = no software lockouts requiring dealer authorization + replacement parts catalogued openly + ECU re-flash on parts swap NOT manufacturer-gated + diagnostic codes interpretable from open docs. Combined with tsutae G3 (device-level R2R: modular hardware + iFixit ≥9/10) = **dual-layer R2R constitutional** (tsutae G3 hardware + suki G10 firmware). N4 = closed ECU / proprietary CAN bus DRM / dealer-locked diagnostics / John Deere-style software lockout NEVER. N5 = patent-locked seed integration (John Deere SeedStar) NEVER (mitsuho G2 seed sovereignty alignment). Other key gates: G7 fuel transition R0/R1 B100 biodiesel + diesel hybrid → R2+ LFP / H₂ / methanol fuel-cell only (sarutahiko G7 parallel; religious-corp 2nd declared phase-gate fuel transition); G9 open ECU + open CAN bus (ISOBUS / ISO 11783 open) + open hydraulic + open implement-detection; G3 modular Cat I/II/III 3-point hitch + PTO 540/1000 RPM (ISO 730 + ISO 500); G12 KPI cap Wave 1 ≤200 hp / road ≤40 km/h / field ≤15 km/h / **autonomous ≤ SAE J3016 Level 3 (Level 5 = N6 NEVER farmer-land-relationship preservation)**; G14 every tractor = open VIN + per-vehicle DID + IPFS-pinned BoM + repair-history-ready blockchain + EOL recyclability ≥85% (kanayama loop closure). **9 Pregel cells** (chassis_fabrication naphtali + powertrain_assembly joseph + cab_assembly zebulun + hitch_pto_assembly joseph + paint_finishing simeon + electrical_ecu_load levi + quality_field_test levi + emissions_audit levi + vehicle_attestation_binder judah terminal; sarutahiko 9-cell + judah binder parity). **9 lexicons** (chassisAttestation + powertrainAttestation + cabAttestation + hitchPtoAttestation + paintAttestation + electricalEcuAttestation + fieldTestRecord + emissionsAuditRecord + silenSukiReview). **2 new robotics class reservation** (Norikata 乗り方 SAE Level 3 driver-in-seat public-field test driver R2+ + Kuwa 鍬 precision hitch + PTO assembly R2+ — suki-native) + 6 inherited reuse (Otete-heavy + Mimi-precision + Migaki kanayama + Kasane sarutahiko + Tsutsumi sarutahiko + Akari sarutahiko). Murakumo no-new-node 7-node fleet reuse (sarutahiko parity). 4-phase R0→R3 (R0 scaffold this ADR / R1 benchtop 1-tractor prototype ≤50 hp + B100 biodiesel + Kuwa/Norikata PoC firmware + 5 nodes / R2 pilot ≤10 tractors/year + LFP hybrid 50-150 hp + 30-day public comment + 6 nodes / R3 community-scale ≤100 tractors/year + H₂ fuel-cell + zero tailpipe + 60-day public + cross-actor mitsuho.harvest_robotics + kanayama EoL loop closure + 法務 (道路運送車両法 + 農業機械化促進法) audit + full 7-node fleet). **Cross-actor supply loop**: kanayama Wave 1+2+3 (Al + steel + Cu) → suki (tractor) → mitsuho (field operation) → kanayama (EoL recovery) closes 4-actor agricultural supply chain. Constitutional firsts: (a) religious-corp first explicit RTR constitutional first-class at firmware level + dual-layer R2R with tsutae G3 device level; (b) agricultural constitutional autonomy via 4-actor closed supply loop; (c) manufacturing-side / operator-side sibling pattern stabilized (2nd example after sarutahiko↔wadachi); (d) G7 fuel sunset pattern reused (religious-corp 2nd actor); (e) multi-gen farmer-land-relationship preservation (G12 + N3 + N6). Reserved follow-on slots: R1 = ADR-2605261515 / R2 = ADR-2605261530 / R3 = ADR-2605261545."
+path = "90-docs/adr/2605261500-suki-farm-tractor-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/suki"
+kind = "tier-b-per-domain-leader-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-gated"
+description = "suki (鋤) — religious-corp first-party farm tractor manufacturing Tier-B actor. R0 scaffold per ADR-2605261500. **Manufacturing-side counterpart of mitsuho operator-side** (parallel to sarutahiko↔wadachi truck pattern). **Religious-corp first explicit Right-to-Repair constitutional first-class invariant at firmware level (G10 + N4)**; combined with tsutae G3 (device-level R2R) = **dual-layer R2R constitutional**: hardware (tsutae) + firmware (suki). Methodology source = YouTube `aSmoLQKdX9E` European farm tractor factory documentary; manufacturing methodology adopted; **John Deere-class DRM ECU + dealer-locked diagnostics + patent-locked seed integration (N5) + mega-farm consolidation (N3) + fossil-fuel-only powertrain (N8) + surveillance hardware integration (N11) all explicitly rejected**. R0 scope = farm tractor assembly ~50-200 hp Wave 1; mega-tractor ≥400 hp deferred to N3 post-R3 Council Lv6+ supermajority (anti-corporate-ag invariant; small-farmer scale preservation). G7 fuel transition phase gate: R0/R1 B100 biodiesel + diesel hybrid → R2+ LFP / H₂ / methanol fuel-cell only (sarutahiko G7 parallel; religious-corp 2nd actor declared phase-gate fuel transition). N6 SAE Level 5 NEVER (farmer-land-relationship preservation; wadachi G7 echo). G3 modular Cat I/II/III 3-point hitch + PTO 540/1000 RPM ISO 730 + ISO 500 open standard. G9 open ECU + open CAN bus (ISOBUS / ISO 11783) + open hydraulic + open implement-detection. Cross-actor supply loop: kanayama Al+steel+Cu → suki tractor → mitsuho field operation → kanayama EoL recovery closes 4-actor agricultural supply chain within religious-corp boundary. Robotics: 2 new class reservation (Norikata 乗り方 SAE Level 3 driver-in-seat field test driver R2+ + Kuwa 鍬 precision hitch+PTO assembly R2+, suki-native) + 6 inherited reuse (Otete-heavy + Mimi-precision + Migaki kanayama + Kasane + Tsutsumi + Akari sarutahiko inheritance). Murakumo no-new-node 7-node fleet reuse only (sarutahiko parity)."
+adr = ["2605261500", "2605181100", "2605191524", "2605192100", "2605192115", "2605192200", "2605201400", "2605241500", "2605242000", "2605242500", "2605242515", "2605242745", "2605250500", "2605252200", "2605252400", "2605252500", "2605260200", "2605261015", "2605261045", "2605261100", "2605261115", "2605261200", "2605261215", "2605261300"]
+sibling_actors = [
+  "mitsuho (operator-side counter-actor; tractor consumer via harvest_robotics + field_cultivation)",
+  "sarutahiko (manufacturing-side sibling pattern; truck mfg; Kasane/Tsutsumi/Akari/Norimichi→Norikata robotics lineage)",
+  "wadachi (operator-side mobility precedent; SAE Level ≤3 invariant via N6)",
+  "tsutae (R2R dual-layer constitutional precedent; G3 hardware + suki G10 firmware)",
+  "kanayama (Al + steel + Cu upstream supplier + EoL downstream consumer; 4-actor agricultural supply loop)",
+  "igata (HPDC engine block / transmission housing R3+ upstream supplier)",
+  "silicon Wave 1 iwakura (open ECU SoC R2+ upstream supplier; tsutae G9 parallel)",
+  "kuni-umi / watatsumi / yakushi / makura / tatekata / hagukumi / manabi / hikari (Tier-B sibling)",
+]
+sibling_modules = [
+  "20-actors/magatama/cells/suki_chassis_fabrication",
+  "20-actors/magatama/cells/suki_powertrain_assembly",
+  "20-actors/magatama/cells/suki_cab_assembly",
+  "20-actors/magatama/cells/suki_hitch_pto_assembly",
+  "20-actors/magatama/cells/suki_paint_finishing",
+  "20-actors/magatama/cells/suki_electrical_ecu_load",
+  "20-actors/magatama/cells/suki_quality_field_test",
+  "20-actors/magatama/cells/suki_emissions_audit",
+  "20-actors/magatama/cells/suki_vehicle_attestation_binder",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/suki"
+methodology_source = "YouTube aSmoLQKdX9E (European farm tractor factory documentary; manufacturing methodology adopted; John Deere-class DRM ECU + dealer-locked diagnostics + patent-locked seed integration + mega-farm consolidation + fossil-fuel-only powertrain + surveillance hardware integration all rejected per §2(b) + §2(c) + §2(e) + §2(g) + §1.13)"
+constitutional_invariants_immutable_r0_r3 = [
+  "G2 open firmware (bootloader unlock = default state)",
+  "G3 modular Cat I/II/III 3-point hitch + PTO 540/1000 RPM ISO 730 + ISO 500 open standard",
+  "G7 fuel transition phase gate (R0/R1 B100 biodiesel + diesel hybrid → R2+ LFP / H₂ / methanol fuel-cell only)",
+  "G9 §2(b) anti-IP locking (open ECU + open CAN bus ISOBUS + open hydraulic + open implement-detection)",
+  "G10 Right-to-Repair constitutional first-class invariant at firmware level (no dealer lockout + replacement parts open + ECU re-flash not manufacturer-gated + diagnostic codes open)",
+  "G12 KPI cap Wave 1 ≤200 hp + autonomous ≤ SAE J3016 Level 3 (Level 5 = N6 NEVER farmer-land-relationship)",
+  "G14 per-VIN open DID + IPFS-pinned BoM + repair-history-ready blockchain + EOL recyclability ≥85% (kanayama loop)",
+]
+manufacturing_operator_sibling = "mitsuho (food/agriculture operator-side); same physical artifact (tractor) split across two domain-distinct actor scaffolds; 2nd example of sarutahiko↔wadachi pattern"
+right_to_repair_invariant_layer = "firmware-level RTR (combined with tsutae G3 device-level RTR = dual-layer R2R constitutional)"
+
 [[modules]]
 path = "20-actors/mitsuho"
 kind = "tier-b-per-domain-leader-actor"
@@ -3234,6 +3285,137 @@ version = "0.1.0-scaffold-only"
 status = "import-time-RuntimeError-until-r1-yatachain-anchor-pipeline-live"
 description = "ELV terminal yatachain provenance binder. Anchors full chain (input VIN → parts catalog + material lots + emissions + ASR mass) on yatachain. G2 mass-balance ≥98% closure (input curb-weight = parts + material lots + emissions + ASR); inherits kanayama G2 pattern. Per ADR-2605261215 §6 terminal. Murakumo node: judah."
 adr = ["2605261215"]
+lexicons = []
+
+# ─── futawa (二輪) small-displacement motorcycle Tier-B R0 scaffold (ADR-2605261330) ────────
+
+[[adrs]]
+id = "2605261330"
+title = "futawa (二輪) — Small-Displacement Motorcycle Manufacturing Tier-B Actor R0 Scaffold"
+status = "proposed"
+status_note = "Master charter establishing futawa (二輪, two-wheel; concrete-noun style mirroring wadachi 轍 wheel-rut) as Tier-B religious-corp first-party small-displacement motorcycle manufacturing actor. Source methodology: YouTube `1xxRYlHY2e8` 'Inside Massive German Factory Building BMW Motorrad Bikes From Scratch' (Berlin Spandau methodology adopted; luxury / premium / ≥500cc / racing-focus / connected-app surveillance retail positioning rejected per §2(e) + §2(c) + §1.13). R0 scope = ≤250cc 4-stroke single-cylinder gasoline OR ≤15kW peak electric; commuter+utility positioning; curb ≤200kg + cargo ≤30kg panniers; full chain frame → engine/motor → drivetrain → harness → suspension+brake → body+paint → final → test → provenance (with hodoki VIN pre-registration). 14 constitutional gates G1..G14 IMMUTABLE R0–R3. **4 constitutional firsts**: (a) **G7 ABS-MANDATORY ≥125cc / electric ≥6kW** — no ABS-delete, no track-only carve-out, no cost-down strip; dual-channel hydraulic; first safety-mandatory-at-build constitutional anchor; elevates EU 168/2013 Annex II to constitutional invariant; §1.13 adherent safety non-negotiable; (b) **G8 BUILD-TIME ANTI-SURVEILLANCE** — NO GPS / NO connected-app / NO telematics / NO V2X / NO proprietary diagnostic-DRM built-in; only passive odometer + safety ECU + optional user-installed-after-purchase open-source GPS module; §2(c) operationalized at build time; **companion to hodoki G8 (EOL data destroy)** — closes §2(c) anti-surveillance loop across full vehicle lifecycle; (c) **G12 RIGHT-TO-REPAIR FORWARD-PUBLISHING** — every new vehicle ships with IPFS-pinned full parts catalog + CAD source + firmware source + service manual + open diagnostic protocol at manufacture time; no proprietary lock-in; no anti-DRM; no warranty void on user repair; part discontinuation prohibited 30 years post-launch; §2(e) operationalized at build time; **companion to hodoki G12 (EOL parts catalog)** — closes right-to-repair loop across full vehicle lifecycle; (d) **G14 30-YEAR MINIMUM design service life** — frame + engine + transmission + motor + structural suspension designed for 30yr fatigue/corrosion/wear; mandatory parts availability 30yr post-discontinue; planned obsolescence prohibited; firmware 30-year update commitment; §1.13 wellbecoming applied to durable goods. Other gates: G1 CAD + firmware + fixture open-source / G2 mass-balance ≥98% closure (inherits kanayama + hodoki) / G3 ≥2-robot witness quorum on frame weld + engine + brake torque / G4 bilingual owner+service manual+parts catalog / G5 Charter §2(a-h) paint artwork scan (no military / licensed-IP / addictive-thrill / racing-glorification) / G6 sound ≤80 dB @ 7.5m (UN-ECE R41) no loud-exhaust enablement / G9 Murakumo no-VKE inference / G10 SBT-gated hot work + brake + paint + battery / G11 KPI caps ≤250cc/≤15kW/≤200kg curb (N5 ≥500cc / N9 H2 FCV = Wave 2 ADR) / G13 cross-actor circular feed (VIN pre-registered with hodoki at production; ≥10% recycled-content kanayama-via-hodoki by R3; hikari R2+ Li-ion second-life SoH ≥85% for electric). 10 non-goals N1..N10: N1 軍用 / N2 ≥500cc / N3 racing+track / N4 luxury+licensed-IP / N5 connected-app+telematics+GPS+V2X+cloud-ECU built-in / N6 trikes+sidecars+ATV / N7 純人力+e-bike (Wave 2) / N8 aftermarket loud-exhaust+street-illegal mods / N9 H2 FCV / N10 surveillance-tier touring. 5-layer motorcycle assembly process (L1 frame welding on naphtali + Tsugite witness / L2a engine ≤250cc/≤15kW on joseph / L2b drivetrain on zebulun / L3a harness + ECU on simeon with G8 negative audit / L3b suspension+brake on dan with G7 ABS verification / L4 body+paint on simeon with G5 Charter+Suri robot / L5a final assembly on dan with G12 parts catalog publish + G13 hodoki VIN pre-reg / L5b dyno+emissions+sound+ABS+road on levi / terminal provenance binder on judah). 9 Pregel cells (moto_frame_welding + moto_engine_assembly + moto_drivetrain_assembly + moto_electrical_harness + moto_suspension_brake + moto_body_paint + moto_final_assembly + moto_test_dyno_road + moto_provenance_binder — all import-time RuntimeError; smoke test 9/9 pass). 8 lexicons (`app.etzhayyim.futawa.{frameAttestation, engineAttestation, electricalAttestation, paintAttestation, vehicleLotAttestation, testRecord, partsCatalog, silenMobilityReview}`; JSON 8/8 valid). 2 new robotics class reservation (Tsugite 継ぎ手 welding-joint robot TIG/MIG vision-guided R1+ / Suri 摺 paint-sprayer robot electrostatic+HVLP R1+) + 5 inherited reuse (Yokin kanayama R2+ engine block + Otete + Mimi + Quad + Tokike hodoki bolt-down). Murakumo no-new-node 7-node fleet reuse only (naphtali/joseph/zebulun/simeon/dan/levi/judah). 4-phase roadmap R0→R3 (R0 scaffold / R1 benchtop ≤1 vehicle + Tsugite+Suri prototypes + first IPFS parts catalog publication + hodoki handshake; motorcycle engineer SME + ABS calibration SME / R2 pilot ≤10/month + tatekata-shared shop + ≥5 model variants catalog live + hodoki pre-reg operational + 30-day public comment / R3 community-scale ≤500/month + ≥10% recycled content via hodoki+kanayama + 30-year service-life commitment registry + 60-day public review). **Cross-lifecycle invariants (futawa build-side ↔ hodoki EOL-side)**: G8 build (NO surveillance built-in) ↔ G8 EOL (data destroy before disassembly) = §2(c) loop closed; G12 build (parts catalog at manufacture) ↔ G12 EOL (parts catalog at scrap) = §2(e) loop closed; G13 build (VIN pre-reg with hodoki) ↔ G13 EOL (≥95% material recovery) = §2(h) circular loop closed. Tier-B sibling of wadachi / hodoki / kanayama / makura / kuni-umi / yakushi / watatsumi / tatekata / mitsuho / hagukumi."
+path = "90-docs/adr/2605261330-futawa-motorcycle-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/futawa"
+kind = "tier-b-per-domain-leader-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-gated"
+description = "futawa (二輪) — religious-corp first-party small-displacement motorcycle manufacturing Tier-B actor. R0 scaffold per ADR-2605261330. Source methodology = YouTube `1xxRYlHY2e8` BMW Motorrad Berlin Spandau (methodology adopted; luxury / surveillance / racing retail layer rejected). R0 scope = ≤250cc 4-stroke single OR ≤15kW electric / curb ≤200kg / commuter+utility. 4 constitutional firsts: G7 ABS-mandatory ≥125cc (safety constitutional), G8 build-time anti-surveillance (companion to hodoki G8 EOL data destroy), G12 right-to-repair forward-publishing (IPFS parts catalog + CAD + firmware source at manufacture; companion to hodoki G12 EOL catalog), G14 30-year design service life (anti-planned-obsolescence). 2 new robotics class reservation (Tsugite 継ぎ手 / Suri 摺) + 5 inherited reuse (Yokin kanayama R2+ / Otete + Mimi + Quad kuni-umi / Tokike hodoki). Murakumo 7-node fleet reuse. Upstream consumer for kanayama (recycled metals via hodoki) + silicon Wave 2 (ECU PCB) + hikari R2+ (Li-ion second-life for electric models)."
+adr = ["2605261330", "2605192100", "2605192200", "2605201400", "2605242000", "2605252400", "2605261115", "2605261215", "2605191524", "2605214000", "2605215000", "2605241500"]
+sibling_actors = [
+  "wadachi (4-wheel autonomous mobility R&D sibling)",
+  "hodoki (EOL companion — G8/G12/G13 cross-lifecycle invariants)",
+  "kanayama (recycled metals supplier via hodoki)",
+  "makura (consumer-good anti-surveillance pattern precedent)",
+  "kuni-umi (robotics class lineage)",
+  "tatekata (R2 yard-sharing partner)",
+  "yakushi / watatsumi / mitsuho / hagukumi / manabi / hikari (Tier-B sibling)",
+]
+sibling_modules = [
+  "20-actors/magatama/cells/moto_frame_welding",
+  "20-actors/magatama/cells/moto_engine_assembly",
+  "20-actors/magatama/cells/moto_drivetrain_assembly",
+  "20-actors/magatama/cells/moto_electrical_harness",
+  "20-actors/magatama/cells/moto_suspension_brake",
+  "20-actors/magatama/cells/moto_body_paint",
+  "20-actors/magatama/cells/moto_final_assembly",
+  "20-actors/magatama/cells/moto_test_dyno_road",
+  "20-actors/magatama/cells/moto_provenance_binder",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/futawa"
+source_methodology = "YouTube 1xxRYlHY2e8 'Inside Massive German Factory Building BMW Motorrad Bikes From Scratch' (Berlin Spandau methodology adopted; luxury / premium / ≥500cc / racing / connected-app surveillance retail positioning rejected per §2(e) + §2(c) + §1.13)"
+constitutional_firsts = [
+  "G7 ABS-mandatory ≥125cc / electric ≥6kW — first safety-mandatory-at-build constitutional anchor; no ABS-delete, no track-only carve-out, no cost-down strip",
+  "G8 build-time anti-surveillance (NO GPS / connected-app / telematics / V2X / proprietary diagnostic-DRM built-in) — companion to hodoki G8 EOL data destroy; closes §2(c) loop across full vehicle lifecycle",
+  "G12 right-to-repair forward-publishing at manufacture (IPFS parts catalog + CAD + firmware source + service manual + open diagnostic protocol shipped with every vehicle) — companion to hodoki G12 EOL parts catalog; closes §2(e) right-to-repair loop across full lifecycle",
+  "G14 30-year minimum design service life — anti-planned-obsolescence operationalized for durable goods; §1.13 wellbecoming applied across generations",
+]
+cross_lifecycle_invariants = [
+  "G8 build (futawa NO surveillance built-in) ↔ G8 EOL (hodoki data destroy before disassembly) = §2(c) anti-surveillance loop closed",
+  "G12 build (futawa parts catalog at manufacture) ↔ G12 EOL (hodoki parts catalog at scrap) = §2(e) right-to-repair loop closed",
+  "G13 build (futawa VIN pre-reg with hodoki) ↔ G13 EOL (hodoki ≥95% material recovery) = §2(h) circular material loop closed",
+]
+
+[[modules]]
+path = "20-actors/magatama/cells/moto_frame_welding"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-tsugite-robot-poc"
+description = "Motorcycle frame welding (L1). Steel/Al tube + sheet frame welding with Tsugite vision-guided robot. G1 frame CAD open-source; G3 ≥2-robot witness quorum on critical welds (Tsugite + Mimi); G13 ≥10% recycled-content from kanayama-via-hodoki by R3. Per ADR-2605261330 §6 L1. Lexicon: app.etzhayyim.futawa.frameAttestation. Murakumo node: naphtali."
+adr = ["2605261330"]
+lexicons = ["app.etzhayyim.futawa.frameAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/moto_engine_assembly"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-motorcycle-engineer-sme-onboarding"
+description = "Motorcycle engine/motor assembly (L2a). ≤250cc 4-stroke single-cylinder gasoline OR ≤15kW peak electric. G11 cap enforcement (≤250cc OR ≤15kW); G14 30-year design service life (engine top-end overhaul interval ≥50,000 km target). Yokin (kanayama Wave 1+2) engine block pour. Per ADR-2605261330 §6 L2a. Lexicon: app.etzhayyim.futawa.engineAttestation. Murakumo node: joseph."
+adr = ["2605261330"]
+lexicons = ["app.etzhayyim.futawa.engineAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/moto_drivetrain_assembly"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-shift-feel-qualification"
+description = "Motorcycle drivetrain assembly (L2b). Transmission (4-6sp manual / CVT / direct-drive electric) + chain or belt drive. G14 30-year service life. Per ADR-2605261330 §6 L2b. Murakumo node: zebulun."
+adr = ["2605261330"]
+lexicons = []
+
+[[modules]]
+path = "20-actors/magatama/cells/moto_electrical_harness"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-g8-negative-audit-protocol-locked"
+description = "Motorcycle electrical harness + ECU + **G8 BUILD-TIME ANTI-SURVEILLANCE NEGATIVE AUDIT** (L3a). CONSTITUTIONAL FIRST G8: NO GPS / NO connected-app / NO always-on telematics / NO V2X / NO proprietary diagnostic-DRM built-in; only passive odometer + safety ECU + optional user-installed-after-purchase open-source GPS module permitted. §2(c) operationalized at vehicle BUILD time; companion to hodoki G8 (EOL data destroy) — closes §2(c) anti-surveillance loop across full vehicle lifecycle. G12 open diagnostic protocol (open-OBD-II-CAN, no anti-DRM). G13 ≥35% recycled Cu wire from kanayama Wave 3 by R3. Per ADR-2605261330 §6 L3a + G8 + G12. Lexicon: app.etzhayyim.futawa.electricalAttestation. Murakumo node: simeon."
+adr = ["2605261330"]
+lexicons = ["app.etzhayyim.futawa.electricalAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/moto_suspension_brake"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-abs-calibration-sme-onboarding"
+description = "Motorcycle suspension + brake + **G7 ABS-MANDATORY** (L3b). CONSTITUTIONAL FIRST G7: ABS MANDATORY on all 4-stroke ≥125cc and all electric ≥6kW — no ABS-delete, no track-only carve-out, no cost-down strip; dual-channel hydraulic safety-redundant. Elevates EU 168/2013 Annex II to constitutional invariant. §1.13 adherent safety non-negotiable. Per ADR-2605261330 §6 L3b + G7. Murakumo node: dan."
+adr = ["2605261330"]
+lexicons = []
+
+[[modules]]
+path = "20-actors/magatama/cells/moto_body_paint"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-suri-robot-poc"
+description = "Motorcycle body panel + paint (L4). 2K acrylic urethane paint with Suri electrostatic+HVLP robot. G5 Charter §2(a-h) artwork scan (no military insignia / licensed-IP / addictive-thrill / racing-glorification per N3 + N4). G7 VOC ≤ EU 2004/42/EC. G13 ≥10% recycled Al panel content by R3. Per ADR-2605261330 §6 L4. Lexicon: app.etzhayyim.futawa.paintAttestation. Murakumo node: simeon."
+adr = ["2605261330"]
+lexicons = ["app.etzhayyim.futawa.paintAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/moto_final_assembly"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-parts-catalog-publication-pipeline-ready"
+description = "Motorcycle final assembly + **G12 RIGHT-TO-REPAIR FORWARD-PUBLISHING** + **G13 hodoki VIN pre-registration** (L5a). CONSTITUTIONAL FIRST G12: every new vehicle ships with IPFS-pinned full parts catalog + CAD source + firmware source + service manual + open diagnostic protocol at manufacture; no proprietary lock-in; no anti-DRM; no warranty void on user repair; part discontinuation prohibited 30 years post-launch. §2(e) operationalized at build; companion to hodoki G12 (EOL catalog). G13 build-side cross-actor closure: VIN pre-registered with hodoki at production. G4 bilingual VIN+tags+manuals. Per ADR-2605261330 §6 L5a + G12 + G13. Lexicons: app.etzhayyim.futawa.vehicleLotAttestation + app.etzhayyim.futawa.partsCatalog. Murakumo node: dan."
+adr = ["2605261330"]
+lexicons = ["app.etzhayyim.futawa.vehicleLotAttestation", "app.etzhayyim.futawa.partsCatalog"]
+
+[[modules]]
+path = "20-actors/magatama/cells/moto_test_dyno_road"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-dyno-emissions-sound-abs-test-cell-qualification"
+description = "Motorcycle dyno + emissions + sound + ABS function + road test (L5b). Dynamometer measures peak power/torque/top speed within G11 declared cap. Emissions WMTC class 2-2 + Euro 5 compliance. G6 sound ≤80 dB @ 7.5m (UN-ECE R41). G7 ABS function verification (activation + stopping distance + wheel speed sensors). Road test 12 km mixed-route. Per ADR-2605261330 §6 L5b. Lexicon: app.etzhayyim.futawa.testRecord. Murakumo node: levi."
+adr = ["2605261330"]
+lexicons = ["app.etzhayyim.futawa.testRecord"]
+
+[[modules]]
+path = "20-actors/magatama/cells/moto_provenance_binder"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-yatachain-anchor-pipeline-live"
+description = "Motorcycle terminal yatachain provenance binder. Anchors full chain (input material lots → output VIN + parts catalog + tests + hodoki pre-registration) on yatachain. G2 mass-balance ≥98% closure (inherits kanayama + hodoki G2 pattern). Per ADR-2605261330 §6 terminal. Murakumo node: judah."
+adr = ["2605261330"]
 lexicons = []
 
 # ─── Religious-Corp Wave Status (ADRs 2605192100..2605192415 cumulative) ──

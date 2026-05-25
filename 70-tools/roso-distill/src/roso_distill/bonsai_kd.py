@@ -163,6 +163,10 @@ def main():
     ap.add_argument("--save-every", type=int, default=50)
     ap.add_argument("--max-steps", type=int, default=0,
                     help="If >0, cap training to this many steps")
+    ap.add_argument("--resume-from", type=Path, default=None,
+                    help="If set, load student master_weight + α from this prior "
+                         "KD output dir (uses per_shard/kd_step.safetensors.W_q.safetensors "
+                         "+ calibrated_alphas.json) instead of Phase C init")
     args = ap.parse_args()
 
     from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -193,6 +197,29 @@ def main():
     n_repl, n_no_a = replace_linears_with_trainable(student, calib_alphas)
     print(f"[kd] replaced {n_repl} Linears with TrainableBinaryLinear "
           f"(no-α fallback: {n_no_a})", flush=True)
+
+    # Resume from prior KD run if requested — overwrite master_weight + α
+    # with the saved KD-trained values (recover student state without rerunning Phase C).
+    if args.resume_from is not None:
+        from safetensors.torch import load_file
+        rwq = args.resume_from / "per_shard" / "kd_step.safetensors.W_q.safetensors"
+        rdict = load_file(str(rwq))
+        ralphas = json.loads(
+            (args.resume_from / "calibrated_alphas.json").read_text(encoding="utf-8"))
+        n_restored = 0
+        for name, mod in student.named_modules():
+            if not isinstance(mod, TrainableBinaryLinear):
+                continue
+            wq_key = f"{name}.W_q"
+            if wq_key in rdict and name in ralphas:
+                # master_weight = W_q (= sign(prev_master) * α) is a fine init;
+                # subsequent training continues from this signed state
+                with torch.no_grad():
+                    mod.master_weight.copy_(rdict[wq_key].to(torch.float32))
+                    mod.alpha.copy_(torch.tensor(ralphas[name], dtype=torch.float32))
+                n_restored += 1
+        print(f"[kd] RESUMED from {args.resume_from}: restored {n_restored} TrainableBinaryLinears",
+              flush=True)
 
     # Freeze everything NOT in a TrainableBinaryLinear so optimizer only
     # updates the master_weight + α (embed/lm_head/norms stay teacher-exact)
