@@ -1,24 +1,24 @@
 # Government Coverage Maturity Report
 
-**Generated**: 2026/5/25 12:47:52
+**Generated**: 2026/5/25 12:54:04
 
-## Overall Score: 49.18/100
+## Overall Score: 53.89/100
 
 ### Breakdown
 
 | Layer | Coverage | Weight | Contribution |
 |-------|----------|--------|--------------|
 | L1 ISO-3 completeness | 90% | 20% | 18 |
-| L2 COFOG×country density | 0% | 25% | 0 |
+| L2 COFOG×country density | 8% | 25% | 2 |
 | L3 substrate-port coverage | 100% | 20% | 20 |
-| L4 ingest records | 56% | 20% | 11 |
+| L4 ingest records | 70% | 20% | 14 |
 | L5 cell activation | 0% | 15% | 0 |
 
 ### Coverage Gaps
 
 - L1: Missing ISO-3 country codes (target: 100%)
 - L2: BPMN coverage incomplete (need 50+ more files)
-- L4: Only 56% of target ingest records (need ~580 more)
+- L4: Only 70% of target ingest records (need ~580 more)
 - L5: 3 cells awaiting Council activation (ADR-2605250100/200/300)
 
 ### Reference
