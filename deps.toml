@@ -2673,6 +2673,19 @@ adr = ["2605260100", "2605260115", "2605260130", "2605260145", "2605260160", "26
 lexicons = ["app.etzhayyim.mitate.outcomeFollowup", "app.etzhayyim.pharma.adverseEventReport", "app.etzhayyim.mitate.silenMitateReview"]
 
 [[modules]]
+path = "50-infra/hanami-robot"
+kind = "robot-hardware-path-reservation"
+version = "0.0.0-r0-path-reservation-only"
+status = "path-reservation-only-r1-creates-artifacts"
+description = "Hanami (鼻見) robot hardware / firmware / CAD / classifier corpus path reservation per ADR-2605260230 §Decision 7 (G13 open-source release). R0 commits the path marker only — actual CAD / firmware / network whitelist / classifier training corpus metadata / validation result attestations land at R1 prototype phase (separate Hanami R1 prototype ADR TBD). Cross-corp manufacturing gated on silenMitateReview scope `hanami-cross-corp-manufacture-attestation`. Mitate-native 8th robotics class (sibling pattern to silicon Wave 2 Funamori introduction). Owned by mitate actor (20-actors/mitate/), not kuni-umi. Apache 2.0 + Charter Compliance Rider v2.0. Activation requires: mitate R1 shipped + Hanami R1 prototype ADR landed + ≥1 ENT specialist on Council medical advisory + manufacturing partner DID registered + Council Lv6+ ≥3 attestation of Decision 2 safety validation matrix (5×4 hazard × mitigation grid)."
+adr = ["2605260230", "2605260100", "2605260145", "2605260160", "2605260200", "2605215000", "2605231525"]
+sibling_modules = [
+  "20-actors/mitate",                                              # owning actor
+  "20-actors/magatama/cells/mitate_nasal_endoscopy_acquire",       # the cell that drives Hanami at runtime
+  "20-actors/kuni-umi",                                            # robotics class ontology source (sibling pattern reference)
+]
+
+[[modules]]
 path = "60-apps/mitate-pwa"
 kind = "religious-corp-patient-pwa-t3-ts-native"
 version = "0.1.0-r0-scaffold-only"
