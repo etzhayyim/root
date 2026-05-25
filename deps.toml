@@ -4940,6 +4940,37 @@ recommended_first_session_path = [
 ]
 boundary_with_roso_baien = "roso/baien train deferral (per experiments.roso-baien-train-deferral-decision-260525) remains in effect independently. The new LoRA-on-Gemma4-+-Oka strategy is a SEPARATE pipeline requiring its own scaffold (peft+trl LoRA driver + adapter manager + Murakumo serve-with-adapter overlay) and its own ADR when the next project boots."
 
+[experiments."roso-bonsai-session-close-260525"]
+closed_at = "2026-05-25T16:00 JST"
+status_row = 59
+adr = "2605242000"
+walls_summary = "5 walls all 0/15: (1) naive sign × 35B MoE 0/10, (2) Phase C OS × 35B 0/15, (3) Phase C+D × 35B 0/15, (4) Phase C+D × 1.7B dense clean 0/15 (proves algorithm-class wall), (5) +KD 1200 steps × 1.7B 0/15 (catastrophic basin trap)"
+fp16_baseline_ceiling = "4/15 (26.7%) on Qwen3-1.7B-Base — Bonsai paper-equivalent ~89% retention = ~3-4/15 target unreachable in 1 session"
+tflops_gap_documented = "40-160× session-budget for Qwen3-1.7B paper-min; EVO 1-node 13-92 days continuous"
+decisions = [
+    "roso/baien train DEFERRED until iwakura ASIC / Murakumo ≥8 nodes / W7900 / BitNet-base trigger",
+    "Future projects = Oka model / Gemma 4 26B-A4B / Gemma 4 E4B with Unsloth+LoRA (replaces 1-bit Bonsai post-quantization)",
+    "Unsloth Windows-ROCm blocked → fallback peft+trl (already validated row 40) or Linux+CUDA",
+    "Gemma license requires CHARTER-RIDER §2 cross-check + NOTICE preservation",
+    "Oka model needs dedicated ADR before training",
+]
+durable_artifacts = [
+    "70-tools/roso-distill/src/roso_distill/bonsai_calibrate.py (Phase A+B+C+D + resume + single-file safetensors)",
+    "70-tools/roso-distill/src/roso_distill/pack_calibrated.py (packed-bit ckpt builder, single+multi-shard)",
+    "70-tools/roso-distill/src/roso_distill/packed_minibench.py (15-prompt verifiable eval)",
+    "70-tools/roso-distill/src/roso_distill/bonsai_kd.py (KD logit-KL + TrainableBinaryLinear + resume)",
+    "90-docs/baien/roso-bonsai-260525/ (6 minibench .jsonl evidence + README)",
+]
+evo_cleanup_freed_gb = 370.6
+evo_preserved = "bases/Qwen3-1.7B-Base (3.2 GB) + HF cache gemma-4-E4B-it (32 GB) + bitnet-b1.58-2B-4T (9.7 GB) + siglip + ComfyUI infrastructure"
+commits = "11c27581a (ADR walls 1-5 + deps experiment blocks) + 6cf8f8cd0 (evidence files; auto-message-gen mismatch noted in session log)"
+branch = "feat/yakushi-wave-1c-r1-commissioning (unpushed)"
+outstanding_low_priority = [
+    "7 paged-out python zombies on EVO (Stop-Process / taskkill /F failed; clears on reboot/admin escalation; WS 2-4 MB harmless)",
+    "lefthook commit-commands plugin auto-message-gen mismatched files vs message in 6cf8f8cd0 — worth investigating for future commits",
+    "Qwen3.6-35B-A3B + Qwen3-8B-Base bases deleted from EVO; re-pull ~3 min each when train resumes",
+]
+
 
 [[adrs]]
 id = "2605260000"
