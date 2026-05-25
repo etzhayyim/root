@@ -774,3 +774,149 @@ references = [
   "20-actors/yamabiko/manifest.jsonld",
   "00-contracts/lexicons/app/etzhayyim/yamabiko/",
 ]
+
+[knowledge."hodoki-elv-disassembly-tier-b-actor-r0-20260526"]
+discovered_on = "2026-05-26"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "hodoki (解き) — End-of-Life Vehicle (ELV) disassembly + materials recovery Tier-B actor R0 scaffold (ADR-2605261215). Counterpart of sarutahiko (manufacturer); closes wadachi→sarutahiko→hodoki→kanayama EoL loop physically."
+details = """
+A new Tier-B actor `hodoki` (解き — "unbinding / disassembling") is reserved
+at `20-actors/hodoki/` with DID `did:web:etzhayyim.com:hodoki` and namespace
+`app.etzhayyim.hodoki.*`.
+
+Positioning: ELV (end-of-life vehicle) disassembly + materials recovery actor.
+Reverse-counterpart of sarutahiko (truck manufacturer ADR-2605252500) — closes
+the physical lifecycle loop: kanayama Al/steel/Cu supply → sarutahiko
+manufacture → wadachi operate → hodoki disassemble → kanayama recycle. First
+religious-corp actor that structurally embodies the §2(h) circular economy at
+the vehicle scale.
+
+R0 deliverables: ADR-2605261215 master; actor scaffold; 8 ELV Pregel cells
+under `20-actors/magatama/cells/elv_*` (elv_intake_audit, elv_depollution,
+elv_parts_harvest, elv_battery_handling, elv_body_shred, elv_catalyst_recovery,
+elv_seat_textile_recovery, elv_emissions_audit, elv_provenance_binder); lexicon
+namespace reserved.
+
+Constitutional posture: STRONGLY FAVORABLE — §2(h) circular economy +
+§2(g) habitat + §2(e) anti-gatekeeping (no parts-pairing / no proprietary
+diagnostic NDA) all positively align. ELV depollution + catalyst Pt/Pd/Rh
+recovery + battery Li-ion safe handling + textile/seat reuse forms the
+physical embodiment of cradle-to-cradle for civilian land mobility.
+"""
+impact = "ELV disassembly + materials recovery design surface; closes wadachi→sarutahiko→hodoki→kanayama lifecycle loop physically; §2(h) circular economy at vehicle scale; sibling of sarutahiko (forward manufacturer) + kanayama (downstream recycler)"
+references = [
+  "90-docs/adr/2605261215-hodoki-elv-disassembly-tier-b-actor-r0.md",
+  "20-actors/hodoki/",
+  "20-actors/magatama/cells/elv_intake_audit/",
+  "20-actors/magatama/cells/elv_depollution/",
+  "20-actors/magatama/cells/elv_parts_harvest/",
+  "20-actors/magatama/cells/elv_battery_handling/",
+  "20-actors/magatama/cells/elv_body_shred/",
+  "20-actors/magatama/cells/elv_catalyst_recovery/",
+  "20-actors/magatama/cells/elv_seat_textile_recovery/",
+  "20-actors/magatama/cells/elv_emissions_audit/",
+  "20-actors/magatama/cells/elv_provenance_binder/",
+  "00-contracts/lexicons/app/etzhayyim/hodoki/",
+]
+
+[knowledge."tsutae-handheld-communication-tier-b-actor-r0-20260526"]
+discovered_on = "2026-05-26"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "tsutae (伝え) — Handheld communication device Tier-B actor R0 scaffold (ADR-2605261300). Source = `J4GoOScUO5k` Samsung Galaxy methodology. Constitutional firsts: G6 anti-surveillance hardware (cellular module hardware-removable + microphone kill switch) + G8 anti-addiction OS-level UX + G9 anti-IP-locking open SoC mandatory + G10 repair-right + parts-pairing prohibition."
+details = """
+A new Tier-B actor `tsutae` (伝え — "transmission / handing-down"; multi-gen
+communication echo) is reserved at `20-actors/tsutae/` with DID
+`did:web:etzhayyim.com:tsutae` and namespace `app.etzhayyim.tsutae.*`.
+
+Wave 1 scope (R0–R3): handheld communication device assembly (smartphone-class
+≤200g + ≤7-inch display + ≤500 cm³ enclosure). ARM64 or RISC-V 64-bit SoC,
+modular battery + display + camera + USB-C + cellular module. Methodology
+adopted from Samsung Galaxy SMT + AOI + OLED + Knox firmware + QC pipeline;
+surveillance / addiction / IP locking / closed bootloader / mass production
+at any cost rejected per §2(b) + §2(c) + §2(d) + §2(e).
+
+R0 deliverables: ADR-2605261300 master; actor scaffold; 8 Pregel cells under
+`20-actors/magatama/cells/tsutae_*` (tsutae_pcb_smt, tsutae_chassis_assembly,
+tsutae_display_attachment, tsutae_firmware_load, tsutae_final_qc,
+tsutae_packaging, tsutae_device_attestation, tsutae_recycling_intake); 6
+lexicons under `00-contracts/lexicons/app/etzhayyim/tsutae/`.
+
+Constitutional firsts (5):
+(a) §2(c) physical embodiment at device level — G6 cellular module
+hardware-removable physical screw-mount + microphone hardware kill switch
+mandatory + biometric open-firmware no SEP/Knox enclave;
+(b) §2(d) anti-addiction OS-level UX — G8 calm-default OS + notification
+batching ≥15 min default + no infinite-scroll OS-API + no dopamine-loop API +
+screen-time aggregate self-report only;
+(c) §2(b) anti-IP-locking at SoC + bootloader — G9 open SoC mandatory
+(Snapdragon/Apple A/closed Helio/closed Exynos NEVER; R1 = StarFive JH7110 /
+SiFive Unmatched / Allwinner D1; R2+ = silicon Wave 1 iwakura SoC) + G2
+bootloader unlock default-state;
+(d) §2(e) repair-right at device level — G3 modular ≤5g adhesive/assembly +
+iFixit ≥9/10 + G10 user-replaceable + no parts pairing + take-back ≥80% R3;
+(e) vendor independence chain 5th link — silicon Wave 1 GPU + yakushi OTC +
+watatsumi 潜水艇 + kanayama Al + igata HPDC + tsutae handheld = first
+end-to-end self-sufficient consumer electronics with multi-gen reuse.
+
+14 gates G1..G14 + 12 non-goals N1..N12 IMMUTABLE R0..R3 (+2 N over igata
+reflecting smartphone-specific §2(c) + §2(d) compound risk).
+
+R1 = StarFive JH7110 RISC-V PoC ≤10 devices, R2 = iwakura SoC R&D ≤100/year,
+R3 = community-scale ≤10,000/year (igata N1 mass-production parity gate).
+"""
+impact = "Handheld communication device design surface with structural §2(b)+§2(c)+§2(d)+§2(e) compound enforcement; vendor independence chain 5th link; sibling of silicon Wave 1+2 / igata / kanayama / makura / yakushi / sarutahiko / wadachi / tatekata / mitsuho / hagukumi / manabi / hikari"
+references = [
+  "90-docs/adr/2605261300-tsutae-handheld-communication-tier-b-actor-r0.md",
+  "20-actors/tsutae/",
+  "20-actors/magatama/cells/tsutae_pcb_smt/",
+  "20-actors/magatama/cells/tsutae_chassis_assembly/",
+  "20-actors/magatama/cells/tsutae_display_attachment/",
+  "20-actors/magatama/cells/tsutae_firmware_load/",
+  "20-actors/magatama/cells/tsutae_final_qc/",
+  "20-actors/magatama/cells/tsutae_packaging/",
+  "20-actors/magatama/cells/tsutae_device_attestation/",
+  "20-actors/magatama/cells/tsutae_recycling_intake/",
+  "00-contracts/lexicons/app/etzhayyim/tsutae/",
+]
+
+[knowledge."futawa-motorcycle-tier-b-actor-r0-20260526"]
+discovered_on = "2026-05-26"
+category = "architecture"
+severity = "info"
+status = "active"
+summary = "futawa (二輪) — Small-displacement motorcycle manufacturing Tier-B actor R0 scaffold (ADR-2605261330). Smaller-vehicle sibling of sarutahiko (heavy truck) within civilian land-mobility manufacturing pattern."
+details = """
+A new Tier-B actor `futawa` (二輪 — "two-wheel") is reserved with ADR
+2605261330. Civilian small-displacement two-wheel manufacturing actor —
+methodology adopted from mature small-bike factory practice, military /
+racing / luxury vanity applications rejected per §2(a) + §2(b) + §2(c).
+
+R0 scope: ≤250 cc / ≤140 kg / ≤80 km/h utility commuter motorcycle (delivery
++ agricultural + community-mobility tier). Smaller-scope vehicle category
+sibling of sarutahiko (heavy truck manufacturer) + wadachi (road operator) +
+yamabiko (rail manufacturer).
+
+R0 partial scaffold landed: ADR + 4+ cells under `20-actors/magatama/cells/
+moto_*` (moto_frame_welding, moto_engine_assembly, moto_drivetrain_assembly,
+moto_electrical_harness, with moto_body_paint + moto_suspension_brake in
+progress as of session close). Final assembly + qc + emissions + vin binder
+cells deferred to R1 expansion.
+
+REGISTRY PARITY GAP: futawa actor layout uses `magatama/cells/moto_*` rather
+than `futawa/cells/` per other Tier-B precedents; manifest.jsonld + lexicon
+namespace + R1 ADR pending. Next session R1 commissioning ADR should resolve
+the layout question and complete the standard scaffold.
+"""
+impact = "Small-displacement motorcycle design surface; smaller-vehicle scope sibling within civilian land-mobility pattern; registry parity gap to resolve in R1 ADR"
+references = [
+  "90-docs/adr/2605261330-futawa-motorcycle-tier-b-actor-r0.md",
+  "20-actors/futawa/",
+  "20-actors/magatama/cells/moto_frame_welding/",
+  "20-actors/magatama/cells/moto_engine_assembly/",
+  "20-actors/magatama/cells/moto_drivetrain_assembly/",
+  "20-actors/magatama/cells/moto_electrical_harness/",
+]
