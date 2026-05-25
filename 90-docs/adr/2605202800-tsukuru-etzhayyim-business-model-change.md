@@ -298,3 +298,4 @@ clearer migration arc.
 - `@etzhayyim/sdk` `pay()` reference: `etzhayyim-root/20-actors/etzhayyim-sdk/`
 - `etzhayyim-paymaster` ERC-4337 reference: `etzhayyim-root/50-infra/etzhayyim-paymaster/`
 - vendor deps.toml `tranche-f-tsukuru-etzhayyim-fullmove-2026-05-20`
+- Seed Data: `00-contracts/catalogs/app/etzhayyim/tsukuru/manufacturer-catalog.v1.json` (465 companies)

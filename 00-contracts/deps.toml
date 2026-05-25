@@ -306,3 +306,18 @@ references = [
   "30-graph/graph-schema/migrations/20260429193000_udf_bpmn_analyze_process.ts",
   "90-docs/adr/0056-bpmn-as-actor.md",
 ]
+
+[knowledge."tsukuru-manufacturer-catalog-seed-20260525"]
+discovered_on = "2026-05-25"
+category = "contract"
+severity = "info"
+status = "active"
+summary = "Tsukuru manufacturer seed catalog (465 companies) committed for baseline supply chain operations."
+details = """
+The public entity registry for tsukuru now has a comprehensive seed catalog in
+`00-contracts/catalogs/app/etzhayyim/tsukuru/manufacturer-catalog.v1.json`.
+This provides 465 global supply-chain profiles mapped across multiple taxonomies
+(ISIC, UNSPSC, CPC, ISCO) containing full dummy contact data to be utilized for
+test migrations and operational baselining before real PDS ingestion.
+"""
+impact = "Seed data testing, baseline platform coverage"
