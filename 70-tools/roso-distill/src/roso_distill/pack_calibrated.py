@@ -84,9 +84,23 @@ def main():
         wq_tensors = load_file(str(wq_path))
     print(f"[pack-calib] total {len(wq_tensors)} W_q tensors loaded", flush=True)
 
-    # Walk original shards, swap calibrated tensors with packed, copy others
-    idx = json.loads((args.orig_ckpt / "model.safetensors.index.json").read_text(encoding="utf-8"))
-    weight_map = idx["weight_map"]
+    # Walk original shards, swap calibrated tensors with packed, copy others.
+    # Handle BOTH multi-shard (model.safetensors.index.json) AND single-file
+    # (model.safetensors) checkpoints.
+    index_path = args.orig_ckpt / "model.safetensors.index.json"
+    if index_path.exists():
+        idx = json.loads(index_path.read_text(encoding="utf-8"))
+        weight_map = idx["weight_map"]
+    else:
+        singles = list(args.orig_ckpt.glob("model*.safetensors"))
+        if len(singles) != 1:
+            raise RuntimeError(
+                f"Need either index.json or single model.safetensors in {args.orig_ckpt}; "
+                f"got {len(singles)} candidates")
+        single = singles[0]
+        with safe_open(str(single), framework="pt", device="cpu") as f:
+            weight_map = {k: single.name for k in f.keys()}
+        idx = {"metadata": {}, "weight_map": weight_map}
     shards_to_tensors: dict[str, list[str]] = {}
     for tname, shard in weight_map.items():
         shards_to_tensors.setdefault(shard, []).append(tname)

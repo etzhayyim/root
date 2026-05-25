@@ -80,8 +80,26 @@ class ShardWeightLoader:
     of the mmap so it's safe after close.
     """
     def __init__(self, ckpt_dir: Path):
-        idx = json.loads((ckpt_dir / "model.safetensors.index.json").read_text(encoding="utf-8"))
-        self.weight_map: dict[str, str] = idx["weight_map"]
+        index_path = ckpt_dir / "model.safetensors.index.json"
+        if index_path.exists():
+            idx = json.loads(index_path.read_text(encoding="utf-8"))
+            self.weight_map: dict[str, str] = idx["weight_map"]
+        else:
+            # Single-file safetensors (small dense models like Qwen3-1.7B-Base
+            # ship as `model.safetensors` without an index). Build a synthetic
+            # weight_map that points every tensor to the single file.
+            from safetensors import safe_open
+            singles = list(ckpt_dir.glob("model*.safetensors"))
+            if not singles:
+                raise FileNotFoundError(
+                    f"No safetensors files in {ckpt_dir}; need either "
+                    "model.safetensors.index.json or model.safetensors")
+            if len(singles) != 1:
+                raise RuntimeError(
+                    f"Multiple safetensors in {ckpt_dir} but no index.json: {singles}")
+            single = singles[0]
+            with safe_open(str(single), framework="pt", device="cpu") as f:
+                self.weight_map = {k: single.name for k in f.keys()}
         self.ckpt_dir = ckpt_dir
 
     def get(self, name: str) -> torch.Tensor:

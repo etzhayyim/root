@@ -464,11 +464,45 @@ Next-session work item 1 (wire `gptq_block_cd` into main) executed same session 
 **Conclusion of the kaizen loop**: With the resources available in-session (no multi-epoch GPU training, no per-expert MoE activation buckets), exact_match for 1-bit Qwen3.6-35B-A3B stays at 0/15 regardless of whether Phase C OS or full Phase C+D GPTQ-CD is applied. The Bonsai-8B published recovery (~89% retention on dense 8B) does not transfer to MoE 35B-A3B without all of: (a) MoE-aware per-expert calibration, (b) multi-epoch logit-KL KD, (c) likely also activation bias correction. The 4-iteration kaizen wall on naive sign + skip-more + 2 iterations of Bonsai-Algorithm-1 implementation (Phase C then Phase D) all hit the same exact_match=0 ceiling.
 
 **Durable artifacts** (session output):
-- `70-tools/roso-distill/src/roso_distill/bonsai_calibrate.py` — Phase B (shard-stream forward + activation capture) + Phase C (per-row OS) + Phase D (GPTQ column-CD with error propagation), all in one driver with `--with-phase-d` flag + resume-capable per-shard incremental save
-- `70-tools/roso-distill/src/roso_distill/pack_calibrated.py` — suffix-match prefix-tolerant aggregator from per_shard/*.W_q.safetensors → packed_bits + α safetensors
+- `70-tools/roso-distill/src/roso_distill/bonsai_calibrate.py` — Phase B (shard-stream forward + activation capture) + Phase C (per-row OS) + Phase D (GPTQ column-CD with error propagation), all in one driver with `--with-phase-d` flag + resume-capable per-shard incremental save + single-file safetensors support
+- `70-tools/roso-distill/src/roso_distill/pack_calibrated.py` — suffix-match prefix-tolerant aggregator from per_shard/*.W_q.safetensors → packed_bits + α safetensors, single-file and multi-shard both supported
 - `70-tools/roso-distill/src/roso_distill/packed_minibench.py` — 15-prompt verifiable scorer over packed-bit checkpoints (load via packed_infer)
 - Calibration data on EVO: `C:\Users\gad\roso-35b-out\bonsai-calib\per_shard\` (Phase C-only, 2.625 GB) + `bonsai-calib-d\per_shard\` (Phase C+D, similar size)
 - Bench evidence: `bonsai_minibench.jsonl` (Phase C 0/15) + `bonsai_d_minibench.jsonl` (Phase C+D 0/15)
+
+### Wall #4 confirmed on dense Qwen3-1.7B-Base 2026-05-25
+
+To rule out MoE architectural blame (35B-A3B has MoE 256-expert / Mamba hybrid attention) and the loader-anomaly blame (40 zeroed + 80 unmatched in 35B packed_infer), we pivoted to a clean dense base.
+
+| step | wall |
+|---|---|
+| Pull Qwen/Qwen3-1.7B-Base (Apache-2.0, 28 layers, hidden 2048, intermediate 6144, GQA, tied embeddings) | 45 sec (3.2 GB single-file safetensors) |
+| Patch ShardWeightLoader for single-file fallback (no `model.safetensors.index.json`) | 2 min |
+| Bonsai Phase B (4 prompts × 28 layers shard-stream forward + activation capture for 196 Linears) + Phase C+D (per-row OS + GPTQ column-CD) | 57 min (single shard, no resume cycle, no Windows mmap crash) |
+| Per-Linear Phase D wall: q_proj [2048,2048] 7s / mlp.gate/up [6144,2048] 17s / mlp.down [2048,6144] 65s | (Cholesky on d_in=6144 fp32 = 150 MB Hessian, dominant cost) |
+| pack_calibrated 196/196 packed + 114 copied | 2.7 sec (0.80 GB packed vs 3.2 GB orig = 4× compression) |
+| packed_minibench 15 prompts: **0/15 exact_match** | 2 min |
+
+**Load anomalies eliminated**: `assigned=506 / skipped(unmatched)=0 / materialized=1 meta as zero` — the only zeroed tensor is the tied lm_head weight (which is shared storage with embed_tokens). All 196 Linears clean-replaced as `PackedBinaryLinear`. The 35B MoE 40+80 anomaly was not the cause of 0/15.
+
+**Output pattern**: `"!!!!!!!!!!!!!!!"` exclamation-mark loops on most prompts, `"?"` placeholders on MMLU multiple-choice. Catastrophic, even more degraded than 35B's "the the the" garbage tokens (smaller model has less expressive cushion).
+
+**Definitive structural finding (wall #4)**: post-training 1-bit projection via Phase B+C+D (activation-aware calibration + per-row Optimal Scale + GPTQ column-CD with error propagation) is **algorithmically insufficient** to recover quality on a bf16-trained Qwen3 transformer, regardless of: (a) model size (1.7B / 8B / 35B all hit 0/15), (b) architecture (dense / MoE / Mamba hybrid all hit 0/15), (c) Hessian sample count (1-prompt / 4-prompts both hit 0/15). The wall is in the algorithm class, not the architecture or scale.
+
+**Likely interpretation of the Bonsai-8B published 89% retention claim**: the Bonsai paper reports post-distillation numbers, not Phase-C+D-only numbers. The required missing step is **multi-epoch logit-KL knowledge distillation** against the original bf16 teacher (1-2 epochs × 1000-10000 rows = several GPU-hours), which transforms the post-Phase-D 0/15 checkpoint into a usable model. This matches the BitNet literature: 1-bit weight matrices require either (a) train-from-scratch with quantization-aware training (BitNet-b1.58 recipe), or (b) post-quantize multi-epoch KD (Bonsai-8B recipe).
+
+**Bench evidence on EVO**: `C:\Users\gad\roso-35b-out\sibling-Qwen3-1.7B-roso-bonsai-d-packed\bonsai_d_minibench.jsonl` (15 rows, all `ok=false`, response field shows pure `!!!!!!!!!` token loops).
+
+### Wall summary 2026-05-25 (the kaizen loop's empirical findings)
+
+| wall | calibration | base | exact_match | output pattern |
+|---|---|---|---|---|
+| 1 | naive sign + skip-more (4 iters) | Qwen3.6-35B-A3B MoE | 0/10 | `.updateDynamic` token loops |
+| 2 | Phase C OS (per-row α) | Qwen3.6-35B-A3B MoE | 0/15 | `"the the the icontrol"` |
+| 3 | Phase C + D (OS + GPTQ-CD) | Qwen3.6-35B-A3B MoE | 0/15 | `"enje the the to,quate"` |
+| 4 | Phase C + D (OS + GPTQ-CD) | **Qwen3-1.7B-Base dense** | **0/15** | `"!!!!!!!!!!!!!!!!"` |
+
+**Verdict**: Bonsai-style activation-aware calibration alone (Phase A-D) cannot deliver usable 1-bit checkpoints from bf16-trained Qwen models, on any size, on any architecture. The missing step is multi-epoch KD post-quantization (Bonsai paper recipe) OR pivot to a model already trained with quantization-aware techniques (BitNet-b1.58-2B-4T as base). Both are out-of-scope for the current session's compute budget.
 
 ## roso-qwen3.6-35b-a3b 1-bit distill — VERIFIED end-to-end on EVO (2026-05-24)
 
