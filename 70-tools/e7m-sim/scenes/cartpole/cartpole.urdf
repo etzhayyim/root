@@ -5,7 +5,7 @@
   (Apache-2.0 task DSL header port; cf. ADR-2605261600 N3 carve-out).
 
   Topology:
-    world  --slider--> cart  --revolute--> pole_link
+    world  -[slider]-  cart  -[revolute]-  pole_link
 
   Tuned for Cartpole-v1 baseline: pole length 0.5 m, pole mass 0.1 kg,
   cart mass 1.0 kg, slider range ±2.4 m, gravity 9.81 m/s², action = force on cart.
