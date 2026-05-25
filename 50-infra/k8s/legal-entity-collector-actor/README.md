@@ -6,7 +6,7 @@ Responsibilities:
 
 - Fetch GLEIF LEI pages outside the Cloudflare/WASM edge.
 - Fetch active country registry pages for JPN/GBR/FRA/NOR/DNK/FIN/EST/CZE/NZL/CHE/NLD/ISR outside the Cloudflare/WASM edge.
-- Normalize records to `ai.gftd.apps.legalEntity.legalEntity`.
-- Commit each page through `ai.gftd.apps.legalEntity.commitEntities`.
+- Normalize records to `app.etzhayyim.apps.legalEntity.legalEntity`.
+- Commit each page through `app.etzhayyim.apps.legalEntity.commitEntities`.
 
 The legal-entity edge worker remains the XRPC contract and PDS write boundary.

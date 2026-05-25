@@ -122,7 +122,7 @@ cohort_did = "did:web:deai.etzhayyim.com:" + cohort_hash
 spirit-in-physics リポジトリ（com-junkawasaki/spirit-in-physics）の Capacitor 構成を
 参考に同一パターンで構築:
 
-- `appId = "ai.gftd.deai"`
+- `appId = "app.etzhayyim.deai"`
 - WebDir = `../svelte/build`（SvelteKit static adapter）
 - Plugins: Camera（Hume face）, Voice Recorder（Hume voice）, Preferences（token store）
 - iOS: `contentInset: always`（safe area 対応）
@@ -171,8 +171,8 @@ const HUME_PROXY_WS = (import.meta.env.VITE_HUME_PROXY_WS as string | undefined)
 
 | Graph | NSID（予定） | 説明 |
 |---|---|---|
-| `deaiSpiritAssessment` | `ai.gftd.apps.deai.spiritAssessment` | 語連想応答 → Spirit Type + Resonance Field |
-| `deaiMatchEngine` | `ai.gftd.apps.deai.matchEngine` | テンセグリティ共鳴マッチスコア |
+| `deaiSpiritAssessment` | `app.etzhayyim.apps.deai.spiritAssessment` | 語連想応答 → Spirit Type + Resonance Field |
+| `deaiMatchEngine` | `app.etzhayyim.apps.deai.matchEngine` | テンセグリティ共鳴マッチスコア |
 
 # Consequences
 

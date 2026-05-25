@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-dashboard-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-dashboard-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_dashboard',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -36,7 +36,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_ka_get_dashboard" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_dashboard" '
                  'name="ka getDashboard" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getDashboard", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getDashboard", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-dashboard-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-dashboard-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -66,16 +66,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getDashboard-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getDashboard-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getDashboard',
+                 'app.etzhayyim.apps.ka.getDashboard',
                  'ka_get_dashboard',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getDashboard-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getDashboard-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -91,7 +91,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-goals-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-goals-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_goals',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -99,7 +99,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_ka_get_goals" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_goals" '
                  'name="ka getGoals" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getGoals", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getGoals", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -114,7 +114,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-goals-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-goals-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -129,16 +129,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getGoals-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getGoals-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getGoals',
+                 'app.etzhayyim.apps.ka.getGoals',
                  'ka_get_goals',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getGoals-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getGoals-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -154,7 +154,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-actions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-actions-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_actions',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -163,7 +163,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_ka_get_actions" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_actions" '
                  'name="ka getActions" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getActions", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getActions", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -178,7 +178,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-actions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-actions-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -193,16 +193,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getActions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getActions-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getActions',
+                 'app.etzhayyim.apps.ka.getActions',
                  'ka_get_actions',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getActions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getActions-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -218,7 +218,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-revenue-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-revenue-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_revenue',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -227,7 +227,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_ka_get_revenue" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_revenue" '
                  'name="ka getRevenue" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getRevenue", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getRevenue", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -242,7 +242,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-revenue-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-revenue-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -257,16 +257,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getRevenue-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getRevenue-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getRevenue',
+                 'app.etzhayyim.apps.ka.getRevenue',
                  'ka_get_revenue',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getRevenue-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getRevenue-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -282,7 +282,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-burn-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-burn-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_burn',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -290,7 +290,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_ka_get_burn" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_burn" '
                  'name="ka getBurn" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getBurn", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getBurn", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-burn-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-burn-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -320,16 +320,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getBurn-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getBurn-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getBurn',
+                 'app.etzhayyim.apps.ka.getBurn',
                  'ka_get_burn',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getBurn-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getBurn-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -345,7 +345,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-risks-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-risks-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_risks',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -353,7 +353,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_ka_get_risks" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_risks" '
                  'name="ka getRisks" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getRisks", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getRisks", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -368,7 +368,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-risks-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-risks-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -383,16 +383,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getRisks-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getRisks-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getRisks',
+                 'app.etzhayyim.apps.ka.getRisks',
                  'ka_get_risks',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getRisks-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getRisks-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -408,7 +408,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-cases-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-cases-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_cases',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -416,7 +416,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_ka_get_cases" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_cases" '
                  'name="ka getCases" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getCases", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getCases", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -431,7 +431,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-cases-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-cases-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -446,16 +446,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getCases-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getCases-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getCases',
+                 'app.etzhayyim.apps.ka.getCases',
                  'ka_get_cases',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getCases-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getCases-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -471,7 +471,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-kpi-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-kpi-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_kpi',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -479,7 +479,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_ka_get_kpi" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_kpi" name="ka '
                  'getKpi" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getKpi", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getKpi", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -494,7 +494,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-kpi-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-kpi-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -509,16 +509,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getKpi-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getKpi-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getKpi',
+                 'app.etzhayyim.apps.ka.getKpi',
                  'ka_get_kpi',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getKpi-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getKpi-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -534,7 +534,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-projects-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-projects-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_projects',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -543,7 +543,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_ka_get_projects" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_projects" '
                  'name="ka getProjects" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getProjects", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getProjects", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -558,7 +558,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-projects-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-projects-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -573,16 +573,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getProjects-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getProjects-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getProjects',
+                 'app.etzhayyim.apps.ka.getProjects',
                  'ka_get_projects',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getProjects-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getProjects-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -598,7 +598,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-infra-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-infra-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_infra',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -606,7 +606,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_ka_get_infra" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_infra" '
                  'name="ka getInfra" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getInfra", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getInfra", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -621,7 +621,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-infra-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-infra-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -636,16 +636,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getInfra-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getInfra-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getInfra',
+                 'app.etzhayyim.apps.ka.getInfra',
                  'ka_get_infra',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getInfra-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getInfra-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -661,7 +661,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-milestones-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-milestones-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_milestones',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -670,7 +670,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_ka_get_milestones" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_milestones" '
                  'name="ka getMilestones" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getMilestones", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getMilestones", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -685,7 +685,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-milestones-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-milestones-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -700,16 +700,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getMilestones-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getMilestones-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getMilestones',
+                 'app.etzhayyim.apps.ka.getMilestones',
                  'ka_get_milestones',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getMilestones-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getMilestones-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -725,7 +725,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-snapshots-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-snapshots-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_snapshots',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -734,7 +734,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_ka_get_snapshots" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_snapshots" '
                  'name="ka getSnapshots" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getSnapshots", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getSnapshots", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -749,7 +749,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-snapshots-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-snapshots-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -764,16 +764,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getSnapshots-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getSnapshots-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getSnapshots',
+                 'app.etzhayyim.apps.ka.getSnapshots',
                  'ka_get_snapshots',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getSnapshots-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getSnapshots-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -789,7 +789,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-topo-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-topo-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_topo',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -797,7 +797,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_ka_get_topo" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_topo" '
                  'name="ka getTopo" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getTopo", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getTopo", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -812,7 +812,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-topo-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-topo-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -827,16 +827,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getTopo-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getTopo-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getTopo',
+                 'app.etzhayyim.apps.ka.getTopo',
                  'ka_get_topo',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getTopo-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getTopo-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -852,7 +852,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-inbox-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-inbox-v1',
                  'did:web:ka.etzhayyim.com',
                  'ka_get_inbox',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -860,7 +860,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_ka_get_inbox" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ka"><bpmn:process id="ka_get_inbox" '
                  'name="ka getInbox" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.ka.getInbox", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.ka.getInbox", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -875,7 +875,7 @@ UP = [{'sql': '\n'
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-inbox-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-inbox-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -890,73 +890,73 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getInbox-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getInbox-v1',
                  'did:web:ka.etzhayyim.com',
-                 'ai.gftd.apps.ka.getInbox',
+                 'app.etzhayyim.apps.ka.getInbox',
                  'ka_get_inbox',
                  '2026-04-30T20:30:00+09:00',
                  'did:web:ka.etzhayyim.com',
                  'did:web:ka.etzhayyim.com',
                  'sys.bpmn.seed.ka-dashboard',
                  'did:web:ka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getInbox-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getInbox-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getDashboard-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getDashboard-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-dashboard-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-dashboard-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getGoals-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getGoals-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-goals-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-goals-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getActions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getActions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-actions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-actions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getRevenue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getRevenue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-revenue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-revenue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getBurn-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getBurn-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-burn-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-burn-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getRisks-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getRisks-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-risks-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-risks-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getCases-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getCases-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-cases-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-cases-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getKpi-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getKpi-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-kpi-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-kpi-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getProjects-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getProjects-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-projects-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-projects-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getInfra-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getInfra-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-infra-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-infra-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getMilestones-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getMilestones-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-milestones-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-milestones-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getSnapshots-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getSnapshots-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-snapshots-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-snapshots-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getTopo-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getTopo-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-topo-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-topo-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ka-getInbox-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ka-getInbox-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ka-get-inbox-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ka-get-inbox-v1']}]
 
 
 def upgrade() -> None:

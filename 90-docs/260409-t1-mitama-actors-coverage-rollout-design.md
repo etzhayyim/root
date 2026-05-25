@@ -19,7 +19,7 @@ Per actor で追加する pipeline:
 - Query top collections (`repo = $did`)
 - Write `ActorCoverageSnapshot`
 
-2. `xrpc` (`ai.gftd.apps.<actor-segment>.coverage.get`)
+2. `xrpc` (`app.etzhayyim.apps.<actor-segment>.coverage.get`)
 - Query latest `ActorCoverageSnapshot`
 - Query freshness rate (last 24h)
 
@@ -32,7 +32,7 @@ Per actor で追加する pipeline:
 - `latestTs`
 - `topCollections`
 - `timestamp_ms`
-- `collection` (`ai.gftd.apps.<actor-segment>.coverageSnapshot`)
+- `collection` (`app.etzhayyim.apps.<actor-segment>.coverageSnapshot`)
 
 ## Rollout Automation
 Script:

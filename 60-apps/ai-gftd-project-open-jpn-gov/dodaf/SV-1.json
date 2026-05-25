@@ -12,11 +12,11 @@
         "platform": "Cloudflare Workers",
         "entrypoint": "worker/src/app.ts",
         "interfaces": [
-          { "id": "if.xrpc.listMinistries", "kind": "XRPC", "method": "GET", "nsid": "ai.gftd.apps.openJpnGov.listMinistries" },
-          { "id": "if.xrpc.getMinistry",    "kind": "XRPC", "method": "GET", "nsid": "ai.gftd.apps.openJpnGov.getMinistry" },
-          { "id": "if.xrpc.listAgencies",   "kind": "XRPC", "method": "GET", "nsid": "ai.gftd.apps.openJpnGov.listAgencies" },
-          { "id": "if.xrpc.searchLaws",     "kind": "XRPC", "method": "GET", "nsid": "ai.gftd.apps.openJpnGov.searchLaws" },
-          { "id": "if.xrpc.getLaw",         "kind": "XRPC", "method": "GET", "nsid": "ai.gftd.apps.openJpnGov.getLaw" }
+          { "id": "if.xrpc.listMinistries", "kind": "XRPC", "method": "GET", "nsid": "app.etzhayyim.apps.openJpnGov.listMinistries" },
+          { "id": "if.xrpc.getMinistry",    "kind": "XRPC", "method": "GET", "nsid": "app.etzhayyim.apps.openJpnGov.getMinistry" },
+          { "id": "if.xrpc.listAgencies",   "kind": "XRPC", "method": "GET", "nsid": "app.etzhayyim.apps.openJpnGov.listAgencies" },
+          { "id": "if.xrpc.searchLaws",     "kind": "XRPC", "method": "GET", "nsid": "app.etzhayyim.apps.openJpnGov.searchLaws" },
+          { "id": "if.xrpc.getLaw",         "kind": "XRPC", "method": "GET", "nsid": "app.etzhayyim.apps.openJpnGov.getLaw" }
         ]
       },
       {

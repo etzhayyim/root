@@ -18,15 +18,15 @@ dispatch pipeline.
   `calendar.txt` and writes Railway / BusRoute / Station / BusStop rows
   with `{first_departure, last_departure, num_trips, num_stops,
   service_days{mon..sun}}` summary in `props`. BPMN
-  `ai.gftd.apps.maps.bulkRefreshGtfsJp` (R/PT24H).
+  `app.etzhayyim.apps.maps.bulkRefreshGtfsJp` (R/PT24H).
 - **openflights** — `airports.dat` + `routes.dat` + `airlines.dat` (ODbL).
   ~7.7K Airport + ~67K AirRoute (one row per (airline, src, dst); midpoint
   lat/lng anchor; src/dst metadata in `props`). BPMN
-  `ai.gftd.apps.maps.bulkRefreshOpenflights` (R/P7D).
+  `app.etzhayyim.apps.maps.bulkRefreshOpenflights` (R/P7D).
 - **ferry-routes** — OSM Overpass `relation[route=ferry]` worldwide
   (paginated by 7 continent bboxes) + `node[amenity=ferry_terminal]` /
   `node[harbour=yes]`. Writes SeaRoute / Port. BPMN
-  `ai.gftd.apps.maps.bulkRefreshFerryRoutes` (R/P7D). ODbL.
+  `app.etzhayyim.apps.maps.bulkRefreshFerryRoutes` (R/P7D). ODbL.
 
 ## Disabled dumpers
 
@@ -45,7 +45,7 @@ dispatch pipeline.
 
 ```
 ┌─────────────────────────────────┐
-│  BPMN timer R/PT24H             │  ai.gftd.apps.maps.bulkRefreshXxx
+│  BPMN timer R/PT24H             │  app.etzhayyim.apps.maps.bulkRefreshXxx
 │  generic.http.fetch             │   (LangServer-deployed)
 │      ↓ POST /trigger            │
 └─────────┬───────────────────────┘

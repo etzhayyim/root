@@ -9,21 +9,21 @@
   "vars": {
     "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"vessel-registry\",\"ais-tracking\",\"voyage-management\",\"port-call-tracking\",\"maritime-intelligence\"]",
     "APP_DESCRIPTION": "Vessel Registry & AIS Tracking - ship registry, real-time position tracking, voyage management, owner-vessel-port-satellite chain intelligence",
-    "APP_DISPLAY_NAME": "Vessel Registry (vessel.gftd.ai)",
+    "APP_DISPLAY_NAME": "Vessel Registry (vessel.etzhayyim.com)",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "v3ss3l01",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "yoro",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "v3ss3l01.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "v3ss3l01.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "vessel.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "vessel.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

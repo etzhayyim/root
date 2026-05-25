@@ -164,7 +164,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   await sql`FLUSH`.execute(db);
 
-  // GFTD platform — secular with Shinto aesthetic influence (Japanese origin, non-dual design)
+  // etzhayyim platform — secular with Shinto aesthetic influence (Japanese origin, non-dual design)
   await sql`INSERT INTO edge_constrained_by (
     edge_id, src_vid, dst_vid, created_date, sensitivity_ord, owner_did,
     constraint_type, binding_strength, epoch, evidence_type, rationale
@@ -176,7 +176,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     'epistemological', 0.65,
     '2023-present',
     'institutional',
-    'GFTD is a technology platform built on Shannon information theory, AT Protocol, and empirical agent evaluation. Secular rationalist epistemology underlies design principles (η efficiency, formal verification, game-theoretic trust).'
+    'etzhayyim is a technology platform built on Shannon information theory, AT Protocol, and empirical agent evaluation. Secular rationalist epistemology underlies design principles (η efficiency, formal verification, game-theoretic trust).'
   )`.execute(db);
 
   await sql`INSERT INTO edge_constrained_by (

@@ -4,7 +4,7 @@
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat","nodejs_als"],
-  "alias": { "@gftd/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts", "pg": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js", "@gftd/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts", "@gftd/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts", "@gftd/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts", "@gftd/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts", "@gftd/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts", "@cloudflare/puppeteer": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/@cloudflare+puppeteer@0.0.14_bufferutil@4.1.0_utf-8-validate@5.0.10/node_modules/@cloudflare/puppeteer/lib/esm/puppeteer/puppeteer-cloudflare.js" },
+  "alias": { "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts", "pg": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js", "@etzhayyim/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts", "@etzhayyim/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts", "@etzhayyim/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts", "@etzhayyim/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts", "@etzhayyim/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts", "@cloudflare/puppeteer": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/@cloudflare+puppeteer@0.0.14_bufferutil@4.1.0_utf-8-validate@5.0.10/node_modules/@cloudflare/puppeteer/lib/esm/puppeteer/puppeteer-cloudflare.js" },
   "assets": {
     "directory": "./svelte/build",
     "binding": "ASSETS",
@@ -14,16 +14,16 @@
   "vars": {
     "APP_ACTOR_HANDLE": "microsoft",
     "APP_CAPABILITIES": "[\"send-email\",\"draft-email\",\"list-drafts\",\"teams-channel-email-post\"]",
-    "APP_DESCRIPTION": "Microsoft 365 write facade — Mail.Send (app-only) with policy routing (internal=direct / external=draft_only) per deps.toml [gftdcojp_agent.auth]. Exposes ai.gftd.apps.microsoft.{sendMail,sendDraft,listDrafts} over XRPC, auto-published as MCP tools via atproto.gftd.ai.",
+    "APP_DESCRIPTION": "Microsoft 365 write facade — Mail.Send (app-only) with policy routing (internal=direct / external=draft_only) per deps.toml [gftdcojp_agent.auth]. Exposes app.etzhayyim.apps.microsoft.{sendMail,sendDraft,listDrafts} over XRPC, auto-published as MCP tools via atproto.etzhayyim.com.",
     "APP_DISPLAY_NAME": "Microsoft 365 Send",
     "APP_FRAMEWORK": "ts-native",
     "APP_NANOID": "m1cr5nd5",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "none",
-    "DEFAULT_SENDER_UPN": "j.kawasaki@gftd.co.jp",
-    "INTERNAL_EMAIL_DOMAINS": "gftd.co.jp,gftd.ai,gftd.works,gftd.group",
+    "DEFAULT_SENDER_UPN": "j.kawasaki@etzhayyim.com",
+    "INTERNAL_EMAIL_DOMAINS": "etzhayyim.com,etzhayyim.com,gftd.works,etzhayyim.com",
     "INTERNAL_EMAIL_SUFFIXES": ".onmicrosoft.com",
-    "KAISYA_CREATE_TASK_URL": "https://kaisya.gftd.ai",
+    "KAISYA_CREATE_TASK_URL": "https://kaisya.etzhayyim.com",
     "M365_CLIENT_ID": "9ad011ba-148c-4965-8f80-62086440c3df",
     "M365_TENANT_ID": "e9b32269-81a5-4d3a-bf94-048ba6770c99"
   },
@@ -68,7 +68,7 @@
     { "type": "CompiledWasm", "globs": ["**/*.wasm"] }
   ],
   "routes": [
-    { "pattern": "m1cr5nd5.gftd.ai/*", "zone_name": "gftd.ai" },
-    { "pattern": "microsoft.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "m1cr5nd5.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
+    { "pattern": "microsoft.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

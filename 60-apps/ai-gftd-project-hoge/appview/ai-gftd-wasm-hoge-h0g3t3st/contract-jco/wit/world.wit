@@ -5,7 +5,7 @@
 /// Transpile: jco transpile shannon-jco.wasm --instantiation async → ESM JS
 /// CF Workers: CompiledWasm rule bundles shannon-jco.core.wasm as WebAssembly.Module.
 ///
-/// NSID: ai.gftd.apps.hoge.witShannonJco
+/// NSID: app.etzhayyim.apps.hoge.witShannonJco
 package gftd:hoge-compute@1.0.0;
 
 world compute-world {

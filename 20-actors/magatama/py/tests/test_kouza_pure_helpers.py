@@ -107,16 +107,16 @@ def test_hash_works_on_list():
     assert len(KZ._hash([1, 2, 3])) == 24
 
 def test_record_did_format():
-    result = KZ._record_did("did:web:kouza.etzhayyim.com", "ai.gftd.apps.kouza.connection", "rkey123")
-    assert result == "at://did:web:kouza.etzhayyim.com/ai.gftd.apps.kouza.connection/rkey123"
+    result = KZ._record_did("did:web:kouza.etzhayyim.com", "app.etzhayyim.apps.kouza.connection", "rkey123")
+    assert result == "at://did:web:kouza.etzhayyim.com/app.etzhayyim.apps.kouza.connection/rkey123"
 
 def test_record_did_starts_with_at():
     assert KZ._record_did("owner", "collection", "rkey").startswith("at://")
 
 def test_record_did_contains_all_parts():
-    result = KZ._record_did("did:web:x", "ai.gftd.apps.x.y", "rk001")
+    result = KZ._record_did("did:web:x", "app.etzhayyim.apps.x.y", "rk001")
     assert "did:web:x" in result
-    assert "ai.gftd.apps.x.y" in result
+    assert "app.etzhayyim.apps.x.y" in result
     assert "rk001" in result
 
 def test_core_sync_endpoint_empty_when_no_env():

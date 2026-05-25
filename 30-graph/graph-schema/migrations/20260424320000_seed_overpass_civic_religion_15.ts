@@ -32,7 +32,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     ["SikhTemple",     10_000],
   ];
   for (const [label, worldTotal] of seed) {
-    const vid = `at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/infrastructure:${label}`;
+    const vid = `at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

@@ -55,7 +55,7 @@ operator-karma issuance for successful deploys.
 A new BPMN actor encapsulates the entire deploy sequence:
 
 ```
-karma_deploy (XRPC: ai.gftd.apps.karma.deploy)
+karma_deploy (XRPC: app.etzhayyim.apps.karma.deploy)
   ├─ migration.applyPending  — apply N migrations sequentially
   │   ├─ ddl.queueWait        — poll rw_ddl_progress until drained
   │   ├─ ddl.applyBatch       — issue 1 DDL at a time with 5min timeout

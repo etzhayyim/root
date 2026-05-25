@@ -173,7 +173,7 @@ export function createHostWebRouter(args: {
           ...(appVersion ? { version: appVersion } : {}),
         },
         {
-          id: `${appDID}#gftd_actor`, type: "GftdActor",
+          id: `${appDID}#gftd_actor`, type: "etzhayyimActor",
           serviceEndpoint: selfOrigin,
         },
       ],

@@ -5,8 +5,8 @@
 // (rw-health-gate.sh exit 0, no SlowDown/recovery in last 5 min).
 //
 // Phase 1 writes to vertex_repo_record with collections:
-//   ai.gftd.apps.maps.satelliteScene
-//   ai.gftd.apps.maps.satelliteAnalysis
+//   app.etzhayyim.apps.maps.satelliteScene
+//   app.etzhayyim.apps.maps.satelliteAnalysis
 //
 // Phase 2 (this migration) adds typed tables. Once applied, update
 // maps_sentinel.py to use vertex_satellite_scene / vertex_satellite_analysis

@@ -25,8 +25,8 @@ describe("Seed open-doi BPMN actors migration", () => {
     expect(migrationSource).toContain('bpmnProcessId: "open_doi_record_citation"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openDoi.registerDoi"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openDoi.recordCitation"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openDoi.registerDoi"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openDoi.recordCitation"');
   });
   it("uses open-doi-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-doi');

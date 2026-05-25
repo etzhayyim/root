@@ -35,7 +35,7 @@
       transitionFadeMs: 320,
       cineBridge,
       onOpLog: (e) => {
-        // Optional XRPC sink: dispatch to ai.gftd.apps.cyberDrill.recordDecision
+        // Optional XRPC sink: dispatch to app.etzhayyim.apps.cyberDrill.recordDecision
         // via Worker. Stubbed here.
         // eslint-disable-next-line no-console
         console.debug('[op-log]', e);

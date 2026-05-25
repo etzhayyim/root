@@ -25,14 +25,14 @@ const seeds: Seed[] = [
   {
     proc: "ingestJobs",
     bpmnProcessId: "shigotoba_ingest_jobs",
-    nsid: "ai.gftd.apps.shigotoba.ingestJobs",
+    nsid: "app.etzhayyim.apps.shigotoba.ingestJobs",
     sourcePath: "00-contracts/bpmn/ai/gftd/shigotoba/ingestJobs.bpmn",
     resultTimeoutMs: 600000,
   },
   {
     proc: "summarize",
     bpmnProcessId: "shigotoba_summarize",
-    nsid: "ai.gftd.apps.shigotoba.summarize",
+    nsid: "app.etzhayyim.apps.shigotoba.summarize",
     sourcePath: "00-contracts/bpmn/ai/gftd/shigotoba/summarize.bpmn",
     resultTimeoutMs: 180000,
   },
@@ -43,9 +43,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

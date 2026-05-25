@@ -31,9 +31,9 @@ import {
   type RirRecord,
 } from "./types.js";
 
-const RIR_COLLECTION = "ai.gftd.apps.ipaddress.rir";
-const NIR_COLLECTION = "ai.gftd.apps.ipaddress.nir";
-const PREFIX_COLLECTION = "ai.gftd.apps.ipaddress.prefix";
+const RIR_COLLECTION = "app.etzhayyim.apps.ipaddress.rir";
+const NIR_COLLECTION = "app.etzhayyim.apps.ipaddress.nir";
+const PREFIX_COLLECTION = "app.etzhayyim.apps.ipaddress.prefix";
 
 const DEFAULT_MAX_SCAN = 5000;
 const PAGE_LIMIT = 100;

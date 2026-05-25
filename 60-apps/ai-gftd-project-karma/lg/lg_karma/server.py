@@ -127,63 +127,63 @@ def _make_health_graph():
 
 
 # ---------------------------------------------------------------------------
-# TASKS dict: NSID → handler (task type karma.X.Y → ai.gftd.apps.karma.XY)
+# TASKS dict: NSID → handler (task type karma.X.Y → app.etzhayyim.apps.karma.XY)
 # ---------------------------------------------------------------------------
 
 TASKS: dict[str, Any] = {
     # karma.py
-    "ai.gftd.apps.karma.inputValidate":        task_karma_input_validate,
-    "ai.gftd.apps.karma.floorGate":            task_karma_floor_gate,
-    "ai.gftd.apps.karma.edgePersist":          task_karma_edge_persist,
-    "ai.gftd.apps.karma.organismDissolve":     task_karma_organism_dissolve,
-    "ai.gftd.apps.karma.witnessPersist":       task_karma_witness_persist,
-    "ai.gftd.apps.karma.ipfsFindUnpinned":     task_karma_ipfs_find_unpinned,
-    "ai.gftd.apps.karma.ipfsPinBatch":         task_karma_ipfs_pin_batch,
-    "ai.gftd.apps.karma.atrepoFindUnlifted":   task_karma_atrepo_find_unlifted,
-    "ai.gftd.apps.karma.atrepoLiftBatch":      task_karma_atrepo_lift_batch,
-    "ai.gftd.apps.karma.anchorComputeRoot":    task_karma_anchor_compute_root,
-    "ai.gftd.apps.karma.anchorSubmitTx":       task_karma_anchor_submit_tx,
-    "ai.gftd.apps.karma.anchorBacklinkEdges":  task_karma_anchor_backlink_edges,
-    "ai.gftd.apps.karma.ipfsVerifyRandom":     task_karma_ipfs_verify_random,
-    "ai.gftd.apps.karma.coverageSnapshot":     task_karma_coverage_snapshot,
-    "ai.gftd.apps.karma.rebirthPrecheck":      task_karma_rebirth_precheck,
-    "ai.gftd.apps.karma.rebirthForfeit":       task_karma_rebirth_forfeit,
-    "ai.gftd.apps.karma.rebirthSeverFollows":  task_karma_rebirth_sever_follows,
-    "ai.gftd.apps.karma.rebirthWipeAgents":    task_karma_rebirth_wipe_agents,
-    "ai.gftd.apps.karma.rebirthEmerge":        task_karma_rebirth_emerge,
+    "app.etzhayyim.apps.karma.inputValidate":        task_karma_input_validate,
+    "app.etzhayyim.apps.karma.floorGate":            task_karma_floor_gate,
+    "app.etzhayyim.apps.karma.edgePersist":          task_karma_edge_persist,
+    "app.etzhayyim.apps.karma.organismDissolve":     task_karma_organism_dissolve,
+    "app.etzhayyim.apps.karma.witnessPersist":       task_karma_witness_persist,
+    "app.etzhayyim.apps.karma.ipfsFindUnpinned":     task_karma_ipfs_find_unpinned,
+    "app.etzhayyim.apps.karma.ipfsPinBatch":         task_karma_ipfs_pin_batch,
+    "app.etzhayyim.apps.karma.atrepoFindUnlifted":   task_karma_atrepo_find_unlifted,
+    "app.etzhayyim.apps.karma.atrepoLiftBatch":      task_karma_atrepo_lift_batch,
+    "app.etzhayyim.apps.karma.anchorComputeRoot":    task_karma_anchor_compute_root,
+    "app.etzhayyim.apps.karma.anchorSubmitTx":       task_karma_anchor_submit_tx,
+    "app.etzhayyim.apps.karma.anchorBacklinkEdges":  task_karma_anchor_backlink_edges,
+    "app.etzhayyim.apps.karma.ipfsVerifyRandom":     task_karma_ipfs_verify_random,
+    "app.etzhayyim.apps.karma.coverageSnapshot":     task_karma_coverage_snapshot,
+    "app.etzhayyim.apps.karma.rebirthPrecheck":      task_karma_rebirth_precheck,
+    "app.etzhayyim.apps.karma.rebirthForfeit":       task_karma_rebirth_forfeit,
+    "app.etzhayyim.apps.karma.rebirthSeverFollows":  task_karma_rebirth_sever_follows,
+    "app.etzhayyim.apps.karma.rebirthWipeAgents":    task_karma_rebirth_wipe_agents,
+    "app.etzhayyim.apps.karma.rebirthEmerge":        task_karma_rebirth_emerge,
     # karma_agent.py
-    "ai.gftd.apps.karma.agentEvaluate":        task_karma_agent_evaluate,
+    "app.etzhayyim.apps.karma.agentEvaluate":        task_karma_agent_evaluate,
     # karma_dao.py
-    "ai.gftd.apps.karma.daoFindVoters":        task_karma_dao_find_voters,
-    "ai.gftd.apps.karma.daoOpenArbitration":   task_karma_dao_open_arbitration,
-    "ai.gftd.apps.karma.daoCastVote":          task_karma_dao_cast_vote,
-    "ai.gftd.apps.karma.daoFinalize":          task_karma_dao_finalize,
-    "ai.gftd.apps.karma.daoSweepExpired":      task_karma_dao_sweep_expired,
+    "app.etzhayyim.apps.karma.daoFindVoters":        task_karma_dao_find_voters,
+    "app.etzhayyim.apps.karma.daoOpenArbitration":   task_karma_dao_open_arbitration,
+    "app.etzhayyim.apps.karma.daoCastVote":          task_karma_dao_cast_vote,
+    "app.etzhayyim.apps.karma.daoFinalize":          task_karma_dao_finalize,
+    "app.etzhayyim.apps.karma.daoSweepExpired":      task_karma_dao_sweep_expired,
     # karma_wbt.py
-    "ai.gftd.apps.karma.wbtBalanceGet":        task_karma_wbt_balance_get,
-    "ai.gftd.apps.karma.wbtTransfer":          task_karma_wbt_transfer,
-    "ai.gftd.apps.karma.wbtForfeitToCommons":  task_karma_wbt_forfeit_to_commons,
+    "app.etzhayyim.apps.karma.wbtBalanceGet":        task_karma_wbt_balance_get,
+    "app.etzhayyim.apps.karma.wbtTransfer":          task_karma_wbt_transfer,
+    "app.etzhayyim.apps.karma.wbtForfeitToCommons":  task_karma_wbt_forfeit_to_commons,
     # karma_witness.py
-    "ai.gftd.apps.karma.witnessInviteFanOut":          task_karma_witness_invite_fan_out,
-    "ai.gftd.apps.karma.witnessRespondToInvitation":   task_karma_witness_respond_to_invitation,
-    "ai.gftd.apps.karma.witnessSweepExpired":          task_karma_witness_sweep_expired,
+    "app.etzhayyim.apps.karma.witnessInviteFanOut":          task_karma_witness_invite_fan_out,
+    "app.etzhayyim.apps.karma.witnessRespondToInvitation":   task_karma_witness_respond_to_invitation,
+    "app.etzhayyim.apps.karma.witnessSweepExpired":          task_karma_witness_sweep_expired,
     # karma_zk.py
-    "ai.gftd.apps.karma.zkRebirthVerify":      task_karma_zk_rebirth_verify,
-    "ai.gftd.apps.karma.zkRebirthProofLookup": task_karma_zk_rebirth_proof_lookup,
+    "app.etzhayyim.apps.karma.zkRebirthVerify":      task_karma_zk_rebirth_verify,
+    "app.etzhayyim.apps.karma.zkRebirthProofLookup": task_karma_zk_rebirth_proof_lookup,
     # karma_filecoin.py
-    "ai.gftd.apps.karma.filecoinProposeBatch":  task_karma_filecoin_propose_batch,
-    "ai.gftd.apps.karma.filecoinRenewExpiring": task_karma_filecoin_renew_expiring,
-    "ai.gftd.apps.karma.filecoinStatusGet":     task_karma_filecoin_status_get,
+    "app.etzhayyim.apps.karma.filecoinProposeBatch":  task_karma_filecoin_propose_batch,
+    "app.etzhayyim.apps.karma.filecoinRenewExpiring": task_karma_filecoin_renew_expiring,
+    "app.etzhayyim.apps.karma.filecoinStatusGet":     task_karma_filecoin_status_get,
     # karma_resident.py
-    "ai.gftd.apps.karma.organismSpawn":            task_karma_organism_spawn,
-    "ai.gftd.apps.karma.organismTick":             task_karma_organism_tick,
-    "ai.gftd.apps.karma.organismTickBatch":        task_karma_organism_tick_batch,
-    "ai.gftd.apps.karma.organismCheckpoint":       task_karma_organism_checkpoint,
-    "ai.gftd.apps.karma.organismResume":           task_karma_organism_resume,
-    "ai.gftd.apps.karma.organismHarvest":          task_karma_organism_harvest,
-    "ai.gftd.apps.karma.organismDissolveRuntime":  task_karma_organism_dissolve_runtime,
-    "ai.gftd.apps.karma.cohortFission":            task_karma_cohort_fission,
-    "ai.gftd.apps.karma.cohortFissionScan":        task_karma_cohort_fission_scan,
+    "app.etzhayyim.apps.karma.organismSpawn":            task_karma_organism_spawn,
+    "app.etzhayyim.apps.karma.organismTick":             task_karma_organism_tick,
+    "app.etzhayyim.apps.karma.organismTickBatch":        task_karma_organism_tick_batch,
+    "app.etzhayyim.apps.karma.organismCheckpoint":       task_karma_organism_checkpoint,
+    "app.etzhayyim.apps.karma.organismResume":           task_karma_organism_resume,
+    "app.etzhayyim.apps.karma.organismHarvest":          task_karma_organism_harvest,
+    "app.etzhayyim.apps.karma.organismDissolveRuntime":  task_karma_organism_dissolve_runtime,
+    "app.etzhayyim.apps.karma.cohortFission":            task_karma_cohort_fission,
+    "app.etzhayyim.apps.karma.cohortFissionScan":        task_karma_cohort_fission_scan,
 }
 
 
@@ -197,7 +197,7 @@ GRAPHS.update({
     for nsid, handler in TASKS.items()
 })
 
-_NSID_TO_ASSISTANT: dict[str, str] = {"ai.gftd.apps.karma.health": "health"}
+_NSID_TO_ASSISTANT: dict[str, str] = {"app.etzhayyim.apps.karma.health": "health"}
 for _nsid in TASKS:
     _NSID_TO_ASSISTANT[_nsid] = _nsid.rsplit(".", 1)[-1]
 

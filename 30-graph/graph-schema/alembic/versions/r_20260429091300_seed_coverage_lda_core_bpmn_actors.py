@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaSignals-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaSignals-v1',
                  'did:web:coverage.etzhayyim.com',
                  'coverage_infer_lda_signals',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -48,11 +48,11 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Trigger:\n'
                  '    timer-start R/P1D (daily) AND XRPC '
-                 '(`ai.gftd.apps.coverage.inferLdaSignals`).\n'
+                 '(`app.etzhayyim.apps.coverage.inferLdaSignals`).\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-signals-v1\n'
-                 '  NSID:      ai.gftd.apps.coverage.inferLdaSignals\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-signals-v1\n'
+                 '  NSID:      app.etzhayyim.apps.coverage.inferLdaSignals\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -65,7 +65,7 @@ UP = [{'sql': '\n'
                  'signals" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.coverage.inferLdaSignals", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.coverage.inferLdaSignals", "version": 1, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -284,7 +284,7 @@ UP = [{'sql': '\n'
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaSignals-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaSignals-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -298,16 +298,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaSignals-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaSignals-v1',
                  'did:web:coverage.etzhayyim.com',
-                 'ai.gftd.apps.coverage.inferLdaSignals',
+                 'app.etzhayyim.apps.coverage.inferLdaSignals',
                  'coverage_infer_lda_signals',
                  120000,
                  '2026-04-29T09:13:00Z',
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaSignals-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaSignals-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -321,7 +321,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaTopics-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaTopics-v1',
                  'did:web:coverage.etzhayyim.com',
                  'coverage_infer_lda_topics',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -350,11 +350,11 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Trigger:\n'
                  '    timer-start R/P7D (weekly) AND XRPC '
-                 '(`ai.gftd.apps.coverage.inferLdaTopics`).\n'
+                 '(`app.etzhayyim.apps.coverage.inferLdaTopics`).\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-topics-v1\n'
-                 '  NSID:      ai.gftd.apps.coverage.inferLdaTopics\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-topics-v1\n'
+                 '  NSID:      app.etzhayyim.apps.coverage.inferLdaTopics\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -367,7 +367,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.coverage.inferLdaTopics", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.coverage.inferLdaTopics", "version": 1, '
                  '"resultTimeoutMs": 600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -510,7 +510,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_lda_model&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '            &quot;vertex_id&quot;:             '
-                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaModel/&quot; + '
+                 '&quot;at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.ldaModel/&quot; + '
                  'modelSlug,\n'
                  '            &quot;_seq&quot;:                   1,\n'
                  '            &quot;sensitivity_ord&quot;:        0,\n'
@@ -555,21 +555,21 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_lda_topic&quot;" target="table"/>\n'
                  '          <zeebe:input source="=for t in topicResults return {\n'
                  '            &quot;vertex_id&quot;:             '
-                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaTopic/&quot; + '
+                 '&quot;at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.ldaTopic/&quot; + '
                  'modelSlug + &quot;-&quot; + string(t.index),\n'
                  '            &quot;_seq&quot;:                   t.index + 1,\n'
                  '            &quot;sensitivity_ord&quot;:        0,\n'
                  '            &quot;owner_did&quot;:              '
                  '&quot;did:web:coverage.etzhayyim.com&quot;,\n'
                  '            &quot;model_vid&quot;:              '
-                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaModel/&quot; + '
+                 '&quot;at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.ldaModel/&quot; + '
                  'modelSlug,\n'
                  '            &quot;topic_index&quot;:            t.index,\n'
                  '            &quot;primary_viewpoint_vid&quot;:  if (t.primary_viewpoint != null) '
                  'then '
-                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaViewpoint/&quot; + '
+                 '&quot;at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.ldaViewpoint/&quot; + '
                  't.primary_viewpoint else '
-                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaViewpoint/lexical&quot;,\n'
+                 '&quot;at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.ldaViewpoint/lexical&quot;,\n'
                  '            &quot;topic_label&quot;:            if (t.label != null) then '
                  't.label else &quot;topic-&quot; + string(t.index),\n'
                  '            &quot;coherence_score&quot;:        if (t.coherence != null) then '
@@ -607,7 +607,7 @@ UP = [{'sql': '\n'
                  '    &quot;edge_id&quot;:         &quot;lda-phi-&quot; + modelSlug + '
                  '&quot;-&quot; + string(t.index) + &quot;-&quot; + substring(sw.signal_id, 60),\n'
                  '    &quot;src_vid&quot;:         '
-                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaTopic/&quot; + '
+                 '&quot;at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.ldaTopic/&quot; + '
                  'modelSlug + &quot;-&quot; + string(t.index),\n'
                  '    &quot;dst_vid&quot;:         sw.signal_id,\n'
                  '    &quot;_seq&quot;:            1,\n'
@@ -687,7 +687,7 @@ UP = [{'sql': '\n'
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaTopics-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaTopics-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -701,16 +701,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaTopics-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaTopics-v1',
                  'did:web:coverage.etzhayyim.com',
-                 'ai.gftd.apps.coverage.inferLdaTopics',
+                 'app.etzhayyim.apps.coverage.inferLdaTopics',
                  'coverage_infer_lda_topics',
                  600000,
                  '2026-04-29T09:13:00Z',
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaTopics-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaTopics-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -724,7 +724,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaEntities-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaEntities-v1',
                  'did:web:coverage.etzhayyim.com',
                  'coverage_infer_lda_entities',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -755,11 +755,11 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Trigger:\n'
                  '    timer-start R/P7D (weekly, after inferLdaTopics) AND XRPC '
-                 '(`ai.gftd.apps.coverage.inferLdaEntities`).\n'
+                 '(`app.etzhayyim.apps.coverage.inferLdaEntities`).\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-lda-entities-v1\n'
-                 '  NSID:      ai.gftd.apps.coverage.inferLdaEntities\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-entities-v1\n'
+                 '  NSID:      app.etzhayyim.apps.coverage.inferLdaEntities\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -772,7 +772,7 @@ UP = [{'sql': '\n'
                  'entities" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.coverage.inferLdaEntities", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.coverage.inferLdaEntities", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -888,7 +888,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=for t in topics[count(thetaEdges[dst_vid = '
                  'vertex_id]) >= 5] return {\n'
                  '    &quot;vertex_id&quot;:             '
-                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
+                 '&quot;at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.latentEntity/lda-&quot; '
                  '+ substring(t.vertex_id, 80),\n'
                  '    &quot;_seq&quot;:                   t.topic_index + 1,\n'
                  '    &quot;sensitivity_ord&quot;:        if (t.entity_kind_hint = '
@@ -941,7 +941,7 @@ UP = [{'sql': '\n'
                  'substring(t.vertex_id, 60),\n'
                  '    &quot;src_vid&quot;:             t.vertex_id,\n'
                  '    &quot;dst_vid&quot;:             '
-                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
+                 '&quot;at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.latentEntity/lda-&quot; '
                  '+ substring(t.vertex_id, 80),\n'
                  '    &quot;_seq&quot;:                1,\n'
                  '    &quot;sensitivity_ord&quot;:     0,\n'
@@ -975,7 +975,7 @@ UP = [{'sql': '\n'
                  '60) + &quot;-&quot; + substring(e.dst_vid, 60),\n'
                  '    &quot;src_vid&quot;:             e.src_vid,\n'
                  '    &quot;dst_vid&quot;:             '
-                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
+                 '&quot;at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.latentEntity/lda-&quot; '
                  '+ substring(e.dst_vid, 80),\n'
                  '    &quot;_seq&quot;:                1,\n'
                  '    &quot;sensitivity_ord&quot;:     0,\n'
@@ -1014,10 +1014,10 @@ UP = [{'sql': '\n'
                  '    &quot;edge_id&quot;:             &quot;lda-cohort-link-&quot; + '
                  'substring(t.vertex_id, 60),\n'
                  '    &quot;src_vid&quot;:             '
-                 '&quot;at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/lda-&quot; '
+                 '&quot;at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.latentEntity/lda-&quot; '
                  '+ substring(t.vertex_id, 80),\n'
                  '    &quot;dst_vid&quot;:             '
-                 '&quot;at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,\n'
+                 '&quot;at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000&quot;,\n'
                  '    &quot;_seq&quot;:                1,\n'
                  '    &quot;sensitivity_ord&quot;:     0,\n'
                  '    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,\n'
@@ -1094,7 +1094,7 @@ UP = [{'sql': '\n'
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaEntities-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaEntities-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1108,29 +1108,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaEntities-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaEntities-v1',
                  'did:web:coverage.etzhayyim.com',
-                 'ai.gftd.apps.coverage.inferLdaEntities',
+                 'app.etzhayyim.apps.coverage.inferLdaEntities',
                  'coverage_infer_lda_entities',
                  300000,
                  '2026-04-29T09:13:00Z',
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaEntities-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaEntities-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaSignals-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaSignals-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaSignals-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaSignals-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaTopics-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaTopics-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaTopics-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaTopics-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferLdaEntities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferLdaEntities-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferLdaEntities-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferLdaEntities-v1']}]
 
 
 def upgrade() -> None:

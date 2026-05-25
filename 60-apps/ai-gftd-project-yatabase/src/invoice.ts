@@ -29,7 +29,7 @@ interface AnyKyselyDb {
 async function getDb(env: InvoiceEnv): Promise<AnyKyselyDb | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     return sdk.createKyselyDb(env.HYPERDRIVE as never) as unknown as AnyKyselyDb;
   } catch {
     return null;
@@ -161,7 +161,7 @@ export async function buildInvoiceSummary(
   let rows: Array<Record<string, unknown>> = [];
   let sqlTag: ((strings: TemplateStringsArray, ...values: unknown[]) => unknown) | null = null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     sqlTag = (sdk as unknown as { sql?: typeof sqlTag }).sql ?? null;
   } catch {
     sqlTag = null;
@@ -406,7 +406,7 @@ export async function listInvoiceMonths(env: InvoiceEnv, orgDid: string): Promis
   // Try RW first.
   let sqlTag: ((strings: TemplateStringsArray, ...values: unknown[]) => unknown) | null = null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     sqlTag = (sdk as unknown as { sql?: typeof sqlTag }).sql ?? null;
   } catch {
     sqlTag = null;

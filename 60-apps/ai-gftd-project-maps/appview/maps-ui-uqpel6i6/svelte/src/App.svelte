@@ -680,7 +680,7 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
     mapillaryToken = (cfg?.mapillaryAccessToken || cfg?.mapillary_access_token || '').trim();
     const mapTileUrlRaw = (cfg?.mapTileUrl || cfg?.map_tile_url || '').trim();
     // RisingWave-native rendering: vector layers now come from
-    // `ai.gftd.apps.maps.tileGeoJson` XRPC, not external MVT tiles. Only honor
+    // `app.etzhayyim.apps.maps.tileGeoJson` XRPC, not external MVT tiles. Only honor
     // an explicit MVT URL from server config (legacy path for self-hosted
     // tile-server); otherwise keep empty so KAMI uses raster basemap + the
     // RisingWave overlay attached below.
@@ -2806,7 +2806,7 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
     { id: 'ais-vessels', name: 'AIS Vessels', category: 'maritime', enabled: true, color: '#0ea5e9', description: 'AIS marine traffic' },
     { id: 'weather-grid', name: 'Weather Grid', category: 'environment', enabled: false, color: '#60a5fa', description: 'Open-Meteo wind and precipitation' },
     { id: 'h3-grid', name: 'H3 Grid', category: 'spatial', enabled: true, color: '#00ffcc', description: 'H3 operational cells' },
-    { id: 'actor-locations', name: 'Actor Locations', category: 'graph', enabled: true, color: '#a78bfa', description: 'GFTD actor locations' },
+    { id: 'actor-locations', name: 'Actor Locations', category: 'graph', enabled: true, color: '#a78bfa', description: 'etzhayyim actor locations' },
   ];
 
   function fallbackDashboard(): MapsDashboard {

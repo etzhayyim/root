@@ -91,7 +91,7 @@ def _rls(orgId: Any = "", userId: Any = "", actorId: Any = "") -> dict[str, str]
 
 
 def _collection(name: str) -> str:
-    return f"ai.gftd.apps.organizer.{name}"
+    return f"app.etzhayyim.apps.organizer.{name}"
 
 
 def _record_key(name: str, record: dict[str, Any]) -> str:
@@ -569,25 +569,25 @@ def task_organizer_request_cancellation(subscriptionId: str = "", orgId: str = "
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     tasks = {
-        "xrpc.ai.gftd.apps.organizer.addTag": task_organizer_add_tag,
-        "xrpc.ai.gftd.apps.organizer.addToCollection": task_organizer_add_to_collection,
-        "xrpc.ai.gftd.apps.organizer.analyzeSubscriptions": task_organizer_analyze_subscriptions,
-        "xrpc.ai.gftd.apps.organizer.createCollection": task_organizer_create_collection,
-        "xrpc.ai.gftd.apps.organizer.createRule": task_organizer_create_rule,
-        "xrpc.ai.gftd.apps.organizer.deleteItem": task_organizer_delete_item,
-        "xrpc.ai.gftd.apps.organizer.deleteRule": task_organizer_delete_rule,
-        "xrpc.ai.gftd.apps.organizer.detectSubscription": task_organizer_detect_subscription,
-        "xrpc.ai.gftd.apps.organizer.getRecommendations": task_organizer_get_recommendations,
-        "xrpc.ai.gftd.apps.organizer.getVaultStats": task_organizer_get_vault_stats,
-        "xrpc.ai.gftd.apps.organizer.listCollections": task_organizer_list_collections,
-        "xrpc.ai.gftd.apps.organizer.listItems": task_organizer_list_items,
-        "xrpc.ai.gftd.apps.organizer.reclassify": task_organizer_reclassify,
-        "xrpc.ai.gftd.apps.organizer.registerItem": task_organizer_register_item,
-        "xrpc.ai.gftd.apps.organizer.removeFromCollection": task_organizer_remove_from_collection,
-        "xrpc.ai.gftd.apps.organizer.removeTag": task_organizer_remove_tag,
-        "xrpc.ai.gftd.apps.organizer.requestCancellation": task_organizer_request_cancellation,
-        "xrpc.ai.gftd.apps.organizer.searchItems": task_organizer_search_items,
-        "xrpc.ai.gftd.apps.organizer.suggestRules": task_organizer_suggest_rules,
+        "xrpc.app.etzhayyim.apps.organizer.addTag": task_organizer_add_tag,
+        "xrpc.app.etzhayyim.apps.organizer.addToCollection": task_organizer_add_to_collection,
+        "xrpc.app.etzhayyim.apps.organizer.analyzeSubscriptions": task_organizer_analyze_subscriptions,
+        "xrpc.app.etzhayyim.apps.organizer.createCollection": task_organizer_create_collection,
+        "xrpc.app.etzhayyim.apps.organizer.createRule": task_organizer_create_rule,
+        "xrpc.app.etzhayyim.apps.organizer.deleteItem": task_organizer_delete_item,
+        "xrpc.app.etzhayyim.apps.organizer.deleteRule": task_organizer_delete_rule,
+        "xrpc.app.etzhayyim.apps.organizer.detectSubscription": task_organizer_detect_subscription,
+        "xrpc.app.etzhayyim.apps.organizer.getRecommendations": task_organizer_get_recommendations,
+        "xrpc.app.etzhayyim.apps.organizer.getVaultStats": task_organizer_get_vault_stats,
+        "xrpc.app.etzhayyim.apps.organizer.listCollections": task_organizer_list_collections,
+        "xrpc.app.etzhayyim.apps.organizer.listItems": task_organizer_list_items,
+        "xrpc.app.etzhayyim.apps.organizer.reclassify": task_organizer_reclassify,
+        "xrpc.app.etzhayyim.apps.organizer.registerItem": task_organizer_register_item,
+        "xrpc.app.etzhayyim.apps.organizer.removeFromCollection": task_organizer_remove_from_collection,
+        "xrpc.app.etzhayyim.apps.organizer.removeTag": task_organizer_remove_tag,
+        "xrpc.app.etzhayyim.apps.organizer.requestCancellation": task_organizer_request_cancellation,
+        "xrpc.app.etzhayyim.apps.organizer.searchItems": task_organizer_search_items,
+        "xrpc.app.etzhayyim.apps.organizer.suggestRules": task_organizer_suggest_rules,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

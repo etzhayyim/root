@@ -27,28 +27,28 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     CREATE FUNCTION bpmn_compile_json_to_xml(VARCHAR)
       RETURNS VARCHAR
-      AS 'ai.gftd.apps.bpmn.compileJsonToXml'
+      AS 'app.etzhayyim.apps.bpmn.compileJsonToXml'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 
   await sql`
     CREATE FUNCTION bpmn_validate_xml(VARCHAR)
       RETURNS VARCHAR
-      AS 'ai.gftd.apps.bpmn.validateXml'
+      AS 'app.etzhayyim.apps.bpmn.validateXml'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 
   await sql`
     CREATE FUNCTION playwright_session_open(VARCHAR)
       RETURNS VARCHAR
-      AS 'ai.gftd.apps.playwright.sessionOpen'
+      AS 'app.etzhayyim.apps.playwright.sessionOpen'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 
   await sql`
     CREATE FUNCTION playwright_session_close(VARCHAR)
       RETURNS VARCHAR
-      AS 'ai.gftd.apps.playwright.sessionClose'
+      AS 'app.etzhayyim.apps.playwright.sessionClose'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 }

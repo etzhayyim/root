@@ -31,19 +31,19 @@ interface ProcessSeed {
 const processSeeds: ProcessSeed[] = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-paper-ingest-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1",
     bpmnProcessId: "science_paper_ingest",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/sciencePaperIngest.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-element-seed-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-element-seed-v1",
     bpmnProcessId: "science_element_seed",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/scienceElementSeed.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-taxon-sync-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-taxon-sync-v1",
     bpmnProcessId: "science_taxon_sync",
     sourcePath: "00-contracts/bpmn/ai/gftd/maps/scienceTaxonSync.bpmn",
   },

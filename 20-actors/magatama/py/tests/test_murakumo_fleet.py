@@ -82,6 +82,6 @@ def test_task_writes_fleet_health_record(monkeypatch):
     assert out["nodesTotal"] == 10
     row = factory.cursors[0].params[0]
     assert row["repo"] == "did:web:murakumo.etzhayyim.com"
-    assert row["collection"] == "ai.gftd.apps.murakumo.fleetHealth"
+    assert row["collection"] == "app.etzhayyim.apps.murakumo.fleetHealth"
     assert json.loads(row["value_json"])["litellm"]["error"] == "down"
     assert factory.cursors[0].sqls[-1] == "FLUSH"

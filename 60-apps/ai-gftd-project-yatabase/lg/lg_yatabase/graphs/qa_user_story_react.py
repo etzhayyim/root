@@ -9,7 +9,7 @@ missing (not run at all), the story is SKIP. FAIL otherwise.
 ReAct loop:
   classify_stories → analyze_stories → build_story_report
 
-NSID: ai.gftd.apps.yata.lg.qaUserStory.run
+NSID: app.etzhayyim.apps.yata.lg.qaUserStory.run
 Graph ID: qa_user_story_react
 Triggered: manually or as post-deploy gate
 
@@ -241,7 +241,7 @@ def build_story_report(state: QAUserStoryState) -> QAUserStoryState:
     failed_stories = [s for s in results if s["status"] == "FAIL"]
     report = {
         "run_id": state.get("run_id"),
-        "host": state.get("host", "https://yatabase.gftd.ai"),
+        "host": state.get("host", "https://yatabase.etzhayyim.com"),
         "ts": int(time.time() * 1000),
         "summary": {
             "passed": state.get("passed", 0),

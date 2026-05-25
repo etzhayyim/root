@@ -9,20 +9,20 @@
   "vars": {
     "APP_CAPABILITIES": "[\"edge-facade\",\"bpmn-dispatch\"]",
     "APP_DESCRIPTION": "Key Management Service — access policy issuance for etzhayyim private records.",
-    "APP_DISPLAY_NAME": "GFTD KMS",
-    "APP_EMBED_URL": "https://kms.gftd.ai/?embed=1",
+    "APP_DISPLAY_NAME": "etzhayyim KMS",
+    "APP_EMBED_URL": "https://kms.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "ts-native",
     "APP_NANOID": "kms",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "none",
-    "APP_HANDLE": "kms.gftd.ai",
-    "PRIMARY_DID": "did:web:kms.gftd.ai",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "APP_HANDLE": "kms.etzhayyim.com",
+    "PRIMARY_DID": "did:web:kms.etzhayyim.com",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "kms.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "kms.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

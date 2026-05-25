@@ -71,7 +71,7 @@ def _new_id(prefix: str, *parts: Any) -> str:
 
 
 def _vid(kind: str, key: str) -> str:
-    return f"at://{TELECOM_DID}/ai.gftd.apps.telecom.{kind}/{key}"
+    return f"at://{TELECOM_DID}/app.etzhayyim.apps.telecom.{kind}/{key}"
 
 
 def _hash_pii(value: str | None) -> str | None:

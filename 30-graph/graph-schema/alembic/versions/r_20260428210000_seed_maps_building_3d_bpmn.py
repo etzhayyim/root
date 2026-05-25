@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-building-ingest-3d-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'maps_building_ingest_3d',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -48,9 +48,9 @@ UP = [{'sql': '\n'
                  '  Sentinel coverage flag comes from vertex_satellite_scene bbox intersection.\n'
                  '  Mapraly coverage flag is reserved (has_mapraly=false until Phase 2).\n'
                  '\n'
-                 '  ADR-0056 (BPMN-as-actor). NSID: ai.gftd.apps.maps.buildingIngest3d.\n'
+                 '  ADR-0056 (BPMN-as-actor). NSID: app.etzhayyim.apps.maps.buildingIngest3d.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-building-ingest-3d-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -64,7 +64,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.maps.buildingIngest3d", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.maps.buildingIngest3d", "version": 1, '
                  '"resultTimeoutMs": 3600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.maps.building.ingest3d&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.maps.building.ingest3d&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, '
                  '&quot;cellCount&quot;: cellCount, &quot;cellsProcessed&quot;: cellsProcessed, '
@@ -186,10 +186,10 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.maps',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-building-ingest-3d-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps-building-ingest-3d-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-building-ingest-3d-v1']}]
 
 
 def upgrade() -> None:

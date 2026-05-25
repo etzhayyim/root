@@ -25,7 +25,7 @@ from lg_yatabase.bmc.db import close_pool, execute, fetchval
 
 ORG_DID = "did:web:deai.etzhayyim.com"
 ACTOR_DID = "did:web:deai.etzhayyim.com"
-AUTHORED_BY = "jun@gftd.group"
+AUTHORED_BY = "jun@etzhayyim.com"
 
 # ── BMC canvas (9 blocks + 5 Lean-Canvas extensions) ───────────────────
 CANVAS: dict = {

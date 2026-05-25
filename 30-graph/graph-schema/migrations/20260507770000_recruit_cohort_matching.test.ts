@@ -67,13 +67,13 @@ describe("Recruit cohort matching migration", () => {
   });
 
   it("registers read, write, and list NSIDs on the recruit actor", () => {
-    expect(recruitManifest).toContain("ai.gftd.apps.recruit.recommendCohorts");
-    expect(recruitManifest).toContain("ai.gftd.apps.recruit.matchStats");
-    expect(recruitManifest).toContain("ai.gftd.apps.recruit.proposeCohortMatch");
-    expect(recruitManifest).toContain("ai.gftd.apps.recruit.listMatchProposals");
-    expect(recruitManifest).toContain("ai.gftd.apps.recruit.getMatchProposal");
-    expect(recruitManifest).toContain("ai.gftd.apps.recruit.decideMatchProposal");
-    expect(recruitManifest).toContain("ai.gftd.apps.recruit.listMatchDecisionEvents");
+    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.recommendCohorts");
+    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.matchStats");
+    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.proposeCohortMatch");
+    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.listMatchProposals");
+    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.getMatchProposal");
+    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.decideMatchProposal");
+    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.listMatchDecisionEvents");
     expect(recruitManifest).toContain("RecruitCohortMatchCandidate");
     expect(recruitManifest).toContain("RecruitMatchProposal");
     expect(recruitManifest).toContain("RecruitMatchDecisionEvent");

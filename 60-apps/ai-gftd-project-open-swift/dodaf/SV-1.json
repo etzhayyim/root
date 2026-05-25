@@ -10,12 +10,12 @@
         "id": "sys.worker", "name": "open-swift Worker",
         "platform": "Cloudflare Workers", "entrypoint": "worker/src/app.ts",
         "interfaces": [
-          { "id": "if.xrpc.registerInstitution",         "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openSwift.registerInstitution" },
-          { "id": "if.xrpc.listInstitutions",            "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openSwift.listInstitutions" },
-          { "id": "if.xrpc.sendCustomerCreditTransfer",  "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openSwift.sendCustomerCreditTransfer" },
-          { "id": "if.xrpc.acknowledgeMessage",          "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openSwift.acknowledgeMessage" },
-          { "id": "if.xrpc.getMessage",                  "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openSwift.getMessage" },
-          { "id": "if.xrpc.listMessages",                "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openSwift.listMessages" }
+          { "id": "if.xrpc.registerInstitution",         "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openSwift.registerInstitution" },
+          { "id": "if.xrpc.listInstitutions",            "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openSwift.listInstitutions" },
+          { "id": "if.xrpc.sendCustomerCreditTransfer",  "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer" },
+          { "id": "if.xrpc.acknowledgeMessage",          "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openSwift.acknowledgeMessage" },
+          { "id": "if.xrpc.getMessage",                  "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openSwift.getMessage" },
+          { "id": "if.xrpc.listMessages",                "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openSwift.listMessages" }
         ]
       },
       { "id": "sys.d1", "name": "Cloudflare D1 (SQLite)", "platform": "D1",

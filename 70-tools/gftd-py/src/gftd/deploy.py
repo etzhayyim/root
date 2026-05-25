@@ -22,7 +22,7 @@ import httpx
 # ── constants ──────────────────────────────────────────────────────────────────
 
 _CF_ACCOUNT_ID = "4da88288dc30d9ee257f319d3c33ecf0"
-_SECRETS_STORE_ID = os.environ.get("GFTD_SECRETS_STORE_ID", "1824561668fe47cc9127d493961885af")
+_SECRETS_STORE_ID = os.environ.get("etzhayyim_SECRETS_STORE_ID", "1824561668fe47cc9127d493961885af")
 _DEFAULT_PDS_SERVICE = "ai-gftd-pds-2603241700"
 
 _WRANGLER_SHARED_SECRETS: list[tuple[str, str]] = [
@@ -107,11 +107,11 @@ def _ui_type(cfg: dict) -> str:
 
 
 def _resolve_pds_service() -> str:
-    return os.environ.get("GFTD_PDS_SERVICE", _DEFAULT_PDS_SERVICE).strip()
+    return os.environ.get("etzhayyim_PDS_SERVICE", _DEFAULT_PDS_SERVICE).strip()
 
 
 def _resolve_gftd_token() -> str:
-    return os.environ.get("GFTD_TOKEN", "")
+    return os.environ.get("etzhayyim_TOKEN", "")
 
 
 # ── validation ─────────────────────────────────────────────────────────────────
@@ -237,7 +237,7 @@ def _find_xrpc_alias(root: Path) -> dict[str, str]:
     for sub in ["transport", "auth", "error", "nsid", "encode"]:
         p = xrpc_dir / f"{sub}.ts"
         if p.exists():
-            aliases[f"@gftd/xrpc/{sub}"] = str(p)
+            aliases[f"@etzhayyim/xrpc/{sub}"] = str(p)
     return aliases
 
 
@@ -314,7 +314,7 @@ def generate_wrangler_jsonc(cfg: dict, comp_dir: Path, git_root: Path | None = N
     interfaces = cfg.get("interfaces") or {}
     if requires := interfaces.get("requires"):
         vars_dict["INTERFACES_REQUIRES"] = json.dumps(requires)
-    for env_key in ("GFTD_SIGNING_PUBLIC_KEY", "SIGNING_PUBLIC_KEY"):
+    for env_key in ("etzhayyim_SIGNING_PUBLIC_KEY", "SIGNING_PUBLIC_KEY"):
         if v := os.environ.get(env_key, ""):
             vars_dict["SIGNING_PUBLIC_KEY"] = v
             break
@@ -365,7 +365,7 @@ def generate_wrangler_jsonc(cfg: dict, comp_dir: Path, git_root: Path | None = N
         git_root = _find_git_root(comp_dir)
     host_sdk = _find_host_sdk_path(git_root)
     if host_sdk and git_root:
-        aliases: dict[str, str] = {"@gftd/magatama-host-sdk": host_sdk}
+        aliases: dict[str, str] = {"@etzhayyim/magatama-host-sdk": host_sdk}
         if pg := _find_pg_alias(git_root):
             aliases["pg"] = pg
         aliases.update(_find_xrpc_alias(git_root))

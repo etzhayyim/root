@@ -115,7 +115,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   for (const h of HOUREI) {
-    const vid = `at://did:web:hourei.etzhayyim.com/ai.gftd.apps.hourei.law/${h.hid}`;
+    const vid = `at://did:web:hourei.etzhayyim.com/app.etzhayyim.apps.hourei.law/${h.hid}`;
     const sourceUri = `https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/?lawId=${encodeURIComponent(h.lawNo)}`;
     await sql`
       INSERT INTO vertex_hourei
@@ -129,7 +129,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   }
 
   for (const j of JOBUN) {
-    const vid = `at://did:web:hourei.etzhayyim.com/ai.gftd.apps.hourei.article/${j.hid}--${j.art}`;
+    const vid = `at://did:web:hourei.etzhayyim.com/app.etzhayyim.apps.hourei.article/${j.hid}--${j.art}`;
     const size = Buffer.byteLength(j.summary, "utf8");
     await sql`
       INSERT INTO vertex_hourei_jobun

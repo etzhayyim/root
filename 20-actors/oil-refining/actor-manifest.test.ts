@@ -21,15 +21,15 @@ describe("Oil Refining Actor Manifest", () => {
   });
   it("subscribes to oilShipping.cargo", () => {
     const sub = m.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
-    expect(sub.trigger.collections).toContain("ai.gftd.apps.oilShipping.cargo");
+    expect(sub.trigger.collections).toContain("app.etzhayyim.apps.oilShipping.cargo");
   });
   it("xrpc covers refinery, units, yield pressure, health", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("ai.gftd.apps.oilRefining.registry.getRefinery");
-    expect(nsids).toContain("ai.gftd.apps.oilRefining.registry.listRefineries");
-    expect(nsids).toContain("ai.gftd.apps.oilRefining.registry.listUnits");
-    expect(nsids).toContain("ai.gftd.apps.oilRefining.analytics.getYieldPressure");
-    expect(nsids).toContain("ai.gftd.apps.oilRefining.health");
+    expect(nsids).toContain("app.etzhayyim.apps.oilRefining.registry.getRefinery");
+    expect(nsids).toContain("app.etzhayyim.apps.oilRefining.registry.listRefineries");
+    expect(nsids).toContain("app.etzhayyim.apps.oilRefining.registry.listUnits");
+    expect(nsids).toContain("app.etzhayyim.apps.oilRefining.analytics.getYieldPressure");
+    expect(nsids).toContain("app.etzhayyim.apps.oilRefining.health");
   });
   it("4 actor paths", () => { expect(m.actors).toHaveLength(4); });
 });

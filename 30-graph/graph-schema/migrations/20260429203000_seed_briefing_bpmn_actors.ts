@@ -15,16 +15,16 @@ const actorId = "sys.bpmn.seed.briefing";
 const project = "briefing";
 
 const seeds: Seed[] = [
-  { slug: "create-agenda", processId: "briefing_create_agenda", nsid: "ai.gftd.apps.briefing.createAgenda", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/createAgenda.bpmn", timeoutMs: 60000, writeTableAllowlist: "pds:ai.gftd.apps.briefing.briefingAgenda" },
-  { slug: "save-transcript", processId: "briefing_save_transcript", nsid: "ai.gftd.apps.briefing.saveTranscript", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/saveTranscript.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:ai.gftd.apps.briefing.briefingTranscript" },
-  { slug: "extract-action-items", processId: "briefing_extract_action_items", nsid: "ai.gftd.apps.briefing.extractActionItems", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/extractActionItems.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:ai.gftd.apps.briefing.briefingActionItem" },
-  { slug: "generate-summary", processId: "briefing_generate_summary", nsid: "ai.gftd.apps.briefing.generateSummary", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/generateSummary.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:ai.gftd.apps.briefing.briefingSummary" },
-  { slug: "record-speaker-turn", processId: "briefing_record_speaker_turn", nsid: "ai.gftd.apps.briefing.recordSpeakerTurn", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/recordSpeakerTurn.bpmn", timeoutMs: 30000, writeTableAllowlist: "pds:ai.gftd.apps.briefing.briefingSpeakerTurn" },
-  { slug: "record-decision", processId: "briefing_record_decision", nsid: "ai.gftd.apps.briefing.recordDecision", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/recordDecision.bpmn", timeoutMs: 30000, writeTableAllowlist: "pds:ai.gftd.apps.briefing.briefingDecision" },
+  { slug: "create-agenda", processId: "briefing_create_agenda", nsid: "app.etzhayyim.apps.briefing.createAgenda", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/createAgenda.bpmn", timeoutMs: 60000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingAgenda" },
+  { slug: "save-transcript", processId: "briefing_save_transcript", nsid: "app.etzhayyim.apps.briefing.saveTranscript", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/saveTranscript.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingTranscript" },
+  { slug: "extract-action-items", processId: "briefing_extract_action_items", nsid: "app.etzhayyim.apps.briefing.extractActionItems", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/extractActionItems.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingActionItem" },
+  { slug: "generate-summary", processId: "briefing_generate_summary", nsid: "app.etzhayyim.apps.briefing.generateSummary", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/generateSummary.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingSummary" },
+  { slug: "record-speaker-turn", processId: "briefing_record_speaker_turn", nsid: "app.etzhayyim.apps.briefing.recordSpeakerTurn", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/recordSpeakerTurn.bpmn", timeoutMs: 30000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingSpeakerTurn" },
+  { slug: "record-decision", processId: "briefing_record_decision", nsid: "app.etzhayyim.apps.briefing.recordDecision", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/recordDecision.bpmn", timeoutMs: 30000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingDecision" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

@@ -1,2 +1,2 @@
-export { default as AiGftdProjectSreToolbar } from './components/AiGftdProjectSreToolbar.svelte';
+export { default as AietzhayyimProjectSreToolbar } from './components/AietzhayyimProjectSreToolbar.svelte';
 export { submitFeedbackViaMcp } from './mcp/toolbar';

@@ -184,7 +184,7 @@ def _predict(model: dict[str, Any], text: str) -> dict[str, Any]:
             break
     primary = top[0] if top else None
     return {
-        "schema": "ai.gftd.apps.hume.normalizedExpression.v1",
+        "schema": "app.etzhayyim.apps.hume.normalizedExpression.v1",
         "primary": primary,
         "topEmotions": top,
         "confidence": primary["score"] if primary else 0,
@@ -235,11 +235,11 @@ def _train(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "\n".join(json.dumps(row, sort_keys=True) for row in rows).encode("utf-8")
     ).hexdigest()
     return {
-        "schema": "ai.gftd.apps.hume.studentTextExpressionModel.v1",
+        "schema": "app.etzhayyim.apps.hume.studentTextExpressionModel.v1",
         "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "algorithm": "tfidf_emotion_centroid",
         "teacher": {"provider": "hume", "api": "expression-measurement", "sunset": hume_emotion.EXPRESSION_SUNSET},
-        "outputSchema": "ai.gftd.apps.hume.normalizedExpression.v1",
+        "outputSchema": "app.etzhayyim.apps.hume.normalizedExpression.v1",
         "vocab": vocab,
         "idf": idf,
         "emotionCentroids": centroids,
@@ -275,7 +275,7 @@ def _evaluate(rows: list[dict[str, Any]], model: dict[str, Any]) -> dict[str, An
         stats["meanConfidenceAbsError"] = stats["confidenceAbsError"] / total
         del stats["confidenceAbsError"]
     return {
-        "schema": "ai.gftd.apps.hume.studentTextTrainingReport.v1",
+        "schema": "app.etzhayyim.apps.hume.studentTextTrainingReport.v1",
         "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "rows": len(rows),
         "metrics": metrics,
@@ -303,7 +303,7 @@ def _media_feature_text(row: dict[str, Any]) -> str:
 def _train_media(rows: list[dict[str, Any]]) -> dict[str, Any]:
     materialized = [{**row, "input": {**(row.get("input") or {}), "text": _media_feature_text(row)}} for row in rows]
     model = _train(materialized)
-    model["schema"] = "ai.gftd.apps.hume.studentMediaExpressionModel.v1"
+    model["schema"] = "app.etzhayyim.apps.hume.studentMediaExpressionModel.v1"
     model["algorithm"] = "media_metadata_tfidf_emotion_centroid"
     model["modalities"] = sorted({str(row.get("modality") or "media") for row in rows})
     model["featureContract"] = {
@@ -343,7 +343,7 @@ def _evaluate_media(rows: list[dict[str, Any]], model: dict[str, Any]) -> dict[s
         stats["meanConfidenceAbsError"] = stats["confidenceAbsError"] / total
         del stats["confidenceAbsError"]
     return {
-        "schema": "ai.gftd.apps.hume.studentMediaTrainingReport.v1",
+        "schema": "app.etzhayyim.apps.hume.studentMediaTrainingReport.v1",
         "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "rows": len(rows),
         "modalities": model.get("modalities") or [],
@@ -357,7 +357,7 @@ def _sft_rows(examples: list[dict[str, Any]]) -> list[dict[str, Any]]:
     system = (
         "You are an emotion-expression classifier used as a student model. "
         "Infer perceived expression from the provided evidence. Return only valid JSON "
-        "matching ai.gftd.apps.hume.normalizedExpression.v1. Do not claim a person's true internal state."
+        "matching app.etzhayyim.apps.hume.normalizedExpression.v1. Do not claim a person's true internal state."
     )
     rows = []
     for row in examples:
@@ -596,7 +596,7 @@ async def task_hume_distill_collect_teacher_labels(
                         pass
                     break  # first matching file is enough
             return {
-                "schema": "ai.gftd.apps.hume.distillationExample.v1",
+                "schema": "app.etzhayyim.apps.hume.distillationExample.v1",
                 "sourceId": sample.get("sourceId") or f"ops-text-{index + 1:04d}",
                 "split": sample.get("split") or "train",
                 "modality": modality,
@@ -690,7 +690,7 @@ async def task_hume_distill_run_text_pipeline(
     model = trained.pop("model")
     sft = _sft_rows(collected["examples"])
     manifest = {
-        "schema": "ai.gftd.apps.hume.distillationRunManifest.v1",
+        "schema": "app.etzhayyim.apps.hume.distillationRunManifest.v1",
         "runId": run_id,
         "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "sampleCount": len(generated["samples"]),
@@ -757,7 +757,7 @@ async def task_hume_distill_run_media_pipeline(
     model = trained.pop("model")
     sft = _sft_rows(collected["examples"])
     manifest = {
-        "schema": "ai.gftd.apps.hume.mediaDistillationRunManifest.v1",
+        "schema": "app.etzhayyim.apps.hume.mediaDistillationRunManifest.v1",
         "runId": run_id,
         "createdAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "sampleCount": len(generated["samples"]),

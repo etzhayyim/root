@@ -1,5 +1,5 @@
 {
-  "name": "@gftd/magatama-host-sdk",
+  "name": "@etzhayyim/magatama-host-sdk",
   "version": "1.0.0",
   "description": "Magatama SDK business logic — single source for all guest languages",
   "type": "module",
@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@etzhayyim/did-etzhayyim": "workspace:*",
-    "@gftd/graph-schema": "workspace:*",
+    "@etzhayyim/graph-schema": "workspace:*",
     "@etzhayyim/xrpc": "workspace:*",
     "@etzhayyim/kami-engine-sdk": "workspace:*",
     "@hono/zod-openapi": "^1.3.0",

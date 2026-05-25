@@ -24,7 +24,7 @@ export interface SSGValidateOptions {
   /** Check internal links in HTML files (default: true) */
   checkLinks?: boolean;
   /** Check routes declared in gftd.json (default: true) */
-  checkGftdRoutes?: boolean;
+  checketzhayyimRoutes?: boolean;
   /** Additional route paths to validate exist (e.g. ["/dashboard", "/settings"]) */
   requiredPaths?: string[];
   /** Treat warnings as errors (default: false) */
@@ -257,18 +257,18 @@ function checkInternalLinks(
 // Check: gftd.json routes
 // ---------------------------------------------------------------------------
 
-interface GftdJson {
+interface etzhayyimJson {
   spa?: boolean;
   routes?: Array<{ host?: string; path?: string; paths?: string[] }>;
 }
 
-function checkGftdRoutes(
+function checketzhayyimRoutes(
   buildDir: string,
   projectDir: string,
   issues: ValidationIssue[]
 ): void {
   const gftdPath = path.join(projectDir, "gftd.json");
-  const gftd = readJson(gftdPath) as GftdJson | null;
+  const gftd = readJson(gftdPath) as etzhayyimJson | null;
   if (!gftd?.routes) return;
 
   // SPA apps use adapter-static with fallback — index.html is generated after
@@ -328,7 +328,7 @@ export function validateSSGOutput(options: SSGValidateOptions): ValidationResult
     projectDir,
     checkLocales = true,
     checkLinks = true,
-    checkGftdRoutes: checkGftd = true,
+    checketzhayyimRoutes: checketzhayyim = true,
     requiredPaths = [],
     strict = false,
   } = options;
@@ -371,8 +371,8 @@ export function validateSSGOutput(options: SSGValidateOptions): ValidationResult
     brokenLinks = result.broken;
   }
 
-  if (checkGftd) {
-    checkGftdRoutes(buildDir, projectDir, issues);
+  if (checketzhayyim) {
+    checketzhayyimRoutes(buildDir, projectDir, issues);
   }
 
   if (requiredPaths.length > 0) {

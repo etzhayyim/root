@@ -4,7 +4,7 @@ Charter Compliance attestation requests.
 
 Per ADR-2605192230 (Three-Tier Enforcement) + ADR-2605192200 (Charter Rider v2.0).
 
-Trigger: MST listener on `ai.gftd.apps.etzhayyim.charter-attestation-request`
+Trigger: MST listener on `app.etzhayyim.apps.etzhayyim.charter-attestation-request`
 Effect: LLM pre-analysis + dispatch to Council Lv6+ for deliberation
         → on quorum (≥3 signatures) → emit ChartersComplianceRegistry.attestNonAligned() tx
 
@@ -142,7 +142,7 @@ def llm_analyze(state: CharterAttestationRequestState, llm_client) -> CharterAtt
 
 def dispatch_to_council(state: CharterAttestationRequestState, council_dispatcher) -> CharterAttestationRequestState:
     """Notify Council Lv6+ members for deliberation."""
-    # TODO: emit ai.gftd.apps.etzhayyim.charter-attestation-council-dispatch record
+    # TODO: emit app.etzhayyim.apps.etzhayyim.charter-attestation-council-dispatch record
     return state
 
 
@@ -163,6 +163,6 @@ def emit_onchain(state: CharterAttestationRequestState, charter_registry_port) -
 
 
 def emit_at_record(state: CharterAttestationRequestState) -> CharterAttestationRequestState:
-    """Emit ai.gftd.apps.etzhayyim.charter-attestation record to MST."""
+    """Emit app.etzhayyim.apps.etzhayyim.charter-attestation record to MST."""
     # TODO: write via @etzhayyim/sdk checkpointer sidecar
     return state

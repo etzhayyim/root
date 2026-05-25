@@ -53,7 +53,7 @@ def upgrade() -> None:
             updated_at
         ) VALUES (
             'at://sys.worker.gyosei.pregel/deployment/gyosei-procedure-pregel',
-            'ai.gftd.apps.gyosei.startProcedure',
+            'app.etzhayyim.apps.gyosei.startProcedure',
             'gyosei-procedure-pregel',
             1,
             'active',

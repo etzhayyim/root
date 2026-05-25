@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.apps.cad.addAnchoredComment": {
+    "/xrpc/app.etzhayyim.apps.cad.addAnchoredComment": {
       "post": {
         "summary": "Add a comment anchored to a specific topology ref (face / edge / vertex) on a revision. Stored as a domain record via Hyperdrive (vertex_cad_comment per ADR-0036). Social announcement (app.bsky.feed.post) is derived automatically on first post of a thread.",
-        "operationId": "ai.gftd.apps.cad.addAnchoredComment",
+        "operationId": "app.etzhayyim.apps.cad.addAnchoredComment",
         "requestBody": {
           "required": true,
           "content": {
@@ -132,10 +132,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.apps.cad.getRevisionScene": {
+    "/xrpc/app.etzhayyim.apps.cad.getRevisionScene": {
       "get": {
         "summary": "Return a scene-graph projection of a specific revision, consumable by kami-app-cad (run_cad_v2) or any Threlte client. Includes parts tree, tessellated meshes (or blob refs), materials, camera, bounds, and selectable topology ids for anchored comments.",
-        "operationId": "ai.gftd.apps.cad.getRevisionScene",
+        "operationId": "app.etzhayyim.apps.cad.getRevisionScene",
         "parameters": [
           {
             "name": "revisionId",
@@ -285,10 +285,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.apps.cad.importCadFile": {
+    "/xrpc/app.etzhayyim.apps.cad.importCadFile": {
       "post": {
-        "summary": "Import a CAD file (STEP / IGES / BREP / STL / glTF) into a workspace. Heavy parsing runs asynchronously in the CF Container job service; this procedure returns immediately with a jobId. The uploaded binary is content-addressed in B2 (Backblaze B2 S3-compatible) (SHA-256). Subscribe to ai.gftd.apps.cad.importJobEvent commits to track progress.",
-        "operationId": "ai.gftd.apps.cad.importCadFile",
+        "summary": "Import a CAD file (STEP / IGES / BREP / STL / glTF) into a workspace. Heavy parsing runs asynchronously in the CF Container job service; this procedure returns immediately with a jobId. The uploaded binary is content-addressed in B2 (Backblaze B2 S3-compatible) (SHA-256). Subscribe to app.etzhayyim.apps.cad.importJobEvent commits to track progress.",
+        "operationId": "app.etzhayyim.apps.cad.importCadFile",
         "requestBody": {
           "required": true,
           "content": {
@@ -394,10 +394,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.apps.cad.listComments": {
+    "/xrpc/app.etzhayyim.apps.cad.listComments": {
       "get": {
         "summary": "List comments for a revision (optionally filtered by part occurrence path or resolution status). Paginated with offset/limit per 60-apps rules.",
-        "operationId": "ai.gftd.apps.cad.listComments",
+        "operationId": "app.etzhayyim.apps.cad.listComments",
         "parameters": [
           {
             "name": "revisionId",
@@ -536,10 +536,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.apps.cad.requestExport": {
+    "/xrpc/app.etzhayyim.apps.cad.requestExport": {
       "post": {
         "summary": "Enqueue an export of a revision to another format (STEP / IGES / glTF / STL / 2D drawing PDF/DXF). Heavy conversion runs in the CF Container job service. Returns jobId; the finished blob appears in B2 (Backblaze B2 S3-compatible) under `cad/exports/{sha256}` and is referenced by the job's completion commit.",
-        "operationId": "ai.gftd.apps.cad.requestExport",
+        "operationId": "app.etzhayyim.apps.cad.requestExport",
         "requestBody": {
           "required": true,
           "content": {

@@ -303,7 +303,7 @@ export function createHostImports(
 
     agentChat(userMessage: string, llmContextJson: string): string {
       // Push to write buffer for async murakumo call during flush.
-      // Sync return is empty; result stored as ai.gftd.agent.chatResult record.
+      // Sync return is empty; result stored as app.etzhayyim.agent.chatResult record.
       pds.dispatch({ type: "agent-chat", payload: { userMessage, llmContextJson } });
       return EMPTY_JSON;
     },

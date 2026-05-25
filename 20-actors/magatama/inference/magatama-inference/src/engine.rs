@@ -21,7 +21,7 @@ pub struct InferenceEngine {
 impl InferenceEngine {
     pub async fn new() -> Result<Self, EngineError> {
         let forced_backend = std::env::var("MAGATAMA_INFERENCE_BACKEND")
-            .or_else(|_| std::env::var("GFTD_MAGATAMA_BACKEND"))
+            .or_else(|_| std::env::var("etzhayyim_MAGATAMA_BACKEND"))
             .ok()
             .map(|v| v.to_ascii_lowercase());
 

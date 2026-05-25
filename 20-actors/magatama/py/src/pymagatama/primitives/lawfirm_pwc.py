@@ -31,7 +31,7 @@ _CEO_DID  = "did:web:j-kawasaki.etzhayyim.com"
 # private CEO-only channel; override via env.
 _TEAMS_CHANNEL_EMAIL = os.environ.get(
     "PWC_CLEARANCE_TEAMS_EMAIL",
-    "ceo-pwc-clearance.etzhayyim.etzhayyim.com@channels.gftd.co",
+    "ceo-pwc-clearance.etzhayyim.etzhayyim.com@channels.etzhayyim.com",
 )
 
 
@@ -40,7 +40,7 @@ def _now_iso() -> str:
 
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _execute(sql_str: str, params: dict) -> bool:
@@ -135,7 +135,7 @@ async def task_lawfirm_pwc_notify_ceo(
         url = os.environ.get(
             "BPMN_DISPATCHER_INTERNAL_URL",
             "http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080",
-        ) + "/xrpc/ai.gftd.apps.microsoft.sendMail"
+        ) + "/xrpc/app.etzhayyim.apps.microsoft.sendMail"
         secret = os.environ.get("BPMN_DISPATCHER_INTERNAL_SECRET", "")
         headers = {"Content-Type": "application/json"}
         if secret:

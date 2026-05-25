@@ -6,7 +6,7 @@ Murakumo leader: `judah` (declaration / proclamation tribe — Gen 49:8-10, king
 ## Trigger
 
 `declareRite` XRPC request from an etzhayyim-aligned religious-corp DID (or partner religious-corp DID).
-Input lexicon: `ai.gftd.apps.etzhayyim.yobel.declareRite`.
+Input lexicon: `app.etzhayyim.apps.etzhayyim.yobel.declareRite`.
 
 ## Steps
 
@@ -33,13 +33,13 @@ Input lexicon: `ai.gftd.apps.etzhayyim.yobel.declareRite`.
 
 ## Output
 
-Lexicon `ai.gftd.apps.etzhayyim.yobel.declareRite` response:
+Lexicon `app.etzhayyim.apps.etzhayyim.yobel.declareRite` response:
 
 ```json
 {
   "ok": true,
   "riteId": "yobel-2074-tree-of-life-50yr",
-  "vertexId": "at://did:web:yobel.etzhayyim.com/ai.gftd.apps.etzhayyim.yobel.rite/<tid>"
+  "vertexId": "at://did:web:yobel.etzhayyim.com/app.etzhayyim.apps.etzhayyim.yobel.rite/<tid>"
 }
 ```
 

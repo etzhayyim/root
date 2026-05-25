@@ -8,12 +8,12 @@
 
 set -euo pipefail
 BASE="https://jp4n41y0.etzhayyim.com"
-TOKEN="${GFTD_TOKEN:?set GFTD_TOKEN (AT Protocol session JWT)}"
+TOKEN="${etzhayyim_TOKEN:?set etzhayyim_TOKEN (AT Protocol session JWT)}"
 
 step() { printf '\n===== %s =====\n' "$*"; }
 
 step "1. createDraft"
-DRAFT=$(curl -sS -X POST "$BASE/xrpc/ai.gftd.apps.yorishiroEnaiyo.createDraft" \
+DRAFT=$(curl -sS -X POST "$BASE/xrpc/app.etzhayyim.apps.yorishiroEnaiyo.createDraft" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   --data @draft-matsuoka.json)
@@ -21,7 +21,7 @@ echo "$DRAFT"
 DRAFT_ID=$(echo "$DRAFT" | jq -r .draftId)
 
 step "2. renderDocx (delegate to yorishiro-provider docx renderer)"
-curl -sS -X POST "$BASE/xrpc/ai.gftd.apps.yorishiroEnaiyo.renderDocx" \
+curl -sS -X POST "$BASE/xrpc/app.etzhayyim.apps.yorishiroEnaiyo.renderDocx" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   --data "{\"draftId\":\"$DRAFT_ID\"}"
@@ -29,7 +29,7 @@ curl -sS -X POST "$BASE/xrpc/ai.gftd.apps.yorishiroEnaiyo.renderDocx" \
 step "3. submitNaiyo (BILLABLE + LEGALLY BINDING — confirm=true required)"
 echo "Review $DRAFT_ID, then press ENTER to continue or Ctrl+C to abort"
 read -r
-curl -sS -X POST "$BASE/xrpc/ai.gftd.apps.yorishiroEnaiyo.submitNaiyo" \
+curl -sS -X POST "$BASE/xrpc/app.etzhayyim.apps.yorishiroEnaiyo.submitNaiyo" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   --data "{\"draftId\":\"$DRAFT_ID\",\"confirm\":true}"
@@ -37,7 +37,7 @@ curl -sS -X POST "$BASE/xrpc/ai.gftd.apps.yorishiroEnaiyo.submitNaiyo" \
 step "4. getStatus (poll until receiptNumber appears)"
 for i in 1 2 3 4 5 6; do
   sleep 30
-  curl -sS -X POST "$BASE/xrpc/ai.gftd.apps.yorishiroEnaiyo.getStatus" \
+  curl -sS -X POST "$BASE/xrpc/app.etzhayyim.apps.yorishiroEnaiyo.getStatus" \
     -H "Authorization: Bearer $TOKEN" \
     -H "Content-Type: application/json" \
     --data "{\"draftId\":\"$DRAFT_ID\"}"

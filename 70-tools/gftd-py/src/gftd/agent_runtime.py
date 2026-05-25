@@ -87,7 +87,7 @@ def ar_status(pds: str | None, json_out: bool) -> None:
     """Runtime health and active graphs."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.agentRuntime.getStatus",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.agentRuntime.getStatus",
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -109,7 +109,7 @@ def ar_list(pds: str | None, json_out: bool) -> None:
     """List active LangGraph runs."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.agentRuntime.listRuns",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.agentRuntime.listRuns",
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -132,7 +132,7 @@ def ar_logs(run_id: str, pds: str | None, limit: int, json_out: bool) -> None:
     """Fetch logs for a LangGraph run."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.agentRuntime.getRunLogs",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.agentRuntime.getRunLogs",
                          params={"id": run_id, "limit": limit},
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
@@ -225,7 +225,7 @@ def ar_publish(cluster: str, out_path: str, ipfs_base: str, dry_run: bool,
 @click.option("--metadata-hash", "metadata_hash", default="",
               help="bytes32 metadata hash (defaults to sha256(registration JSON))")
 @click.option("--registry", default=_DEFAULT_REGISTRY, show_default=True,
-              help="GftdAgentRegistry contract address")
+              help="etzhayyimAgentRegistry contract address")
 @click.option("--rpc-url", "rpc_url", default=_DEFAULT_RPC, show_default=True)
 @click.option("--chain-id", "chain_id", default=_DEFAULT_CHAIN_ID, show_default=True)
 @click.option("--out", "out_path", default="")

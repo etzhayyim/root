@@ -8,7 +8,7 @@
 | performerType | service |
 | nanoid | hs6c0d3x |
 | primary DID | `did:web:hs.etzhayyim.com` |
-| NSID prefix | `ai.gftd.apps.hs.*` |
+| NSID prefix | `app.etzhayyim.apps.hs.*` |
 
 ## What This Project Does
 
@@ -47,12 +47,12 @@ GTIN の商品実体、ISIC の産業活動、states の customs/tariff 制度�
 
 | collection | NSID | 内容 |
 |---|---|---|
-| node | `ai.gftd.apps.hs.node` | taxonomy node |
-| concordance | `ai.gftd.apps.hs.concordance` | GTIN/CPC/ISIC mapping |
-| tradeEvidence | `ai.gftd.apps.hs.tradeEvidence` | trade-flow / customs evidence |
-| policyOverlay | `ai.gftd.apps.hs.policyOverlay` | country overlay |
-| coverageReport | `ai.gftd.apps.hs.coverageReport` | per-DID coverage report |
-| revisionDelta | `ai.gftd.apps.hs.revisionDelta` | edition diff |
+| node | `app.etzhayyim.apps.hs.node` | taxonomy node |
+| concordance | `app.etzhayyim.apps.hs.concordance` | GTIN/CPC/ISIC mapping |
+| tradeEvidence | `app.etzhayyim.apps.hs.tradeEvidence` | trade-flow / customs evidence |
+| policyOverlay | `app.etzhayyim.apps.hs.policyOverlay` | country overlay |
+| coverageReport | `app.etzhayyim.apps.hs.coverageReport` | per-DID coverage report |
+| revisionDelta | `app.etzhayyim.apps.hs.revisionDelta` | edition diff |
 
 ## Commands
 

@@ -1,6 +1,6 @@
 """animeka `generateLayout` graph — LLM layout plan + ComfyUI 1024×1024 layout drawing.
 
-NSID: ai.gftd.animeka.generateLayout
+NSID: app.etzhayyim.animeka.generateLayout
 
 Takes a cut_id and optional storyboard_cid, generates a layout plan
 JSON via LLM (camera angle, character blocking, bg mood), renders a
@@ -58,7 +58,7 @@ async def _node_fetch_context(state: _State) -> dict[str, Any]:
             cur = conn.cursor()
             # Try to find storyboard visual_prompt for this cut
             await cur.execute(
-                "SELECT camera_note, thumb_cid FROM vertex_animeka WHERE collection='ai.gftd.animeka.storyboard' AND cut_id=%s ORDER BY created_at DESC LIMIT 1",
+                "SELECT camera_note, thumb_cid FROM vertex_animeka WHERE collection='app.etzhayyim.animeka.storyboard' AND cut_id=%s ORDER BY created_at DESC LIMIT 1",
                 [cut_id],
             )
             row = await cur.fetchone()
@@ -147,7 +147,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     from datetime import datetime, timezone
     cut_id = state.get("cut_id") or ""
     rkey = f"ly-{secrets.token_hex(4)}"
-    vertex_id = f"at://{_REPO}/ai.gftd.animeka.layout/{rkey}"
+    vertex_id = f"at://{_REPO}/app.etzhayyim.animeka.layout/{rkey}"
     try:
         import psycopg
         conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
@@ -156,7 +156,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
                 """INSERT INTO vertex_animeka
                    (vertex_id, repo, rkey, collection, kind, owner_did,
                     cut_id, image_cid, lighting_mood, status, created_at)
-                   VALUES (%s, %s, %s, 'ai.gftd.animeka.layout', 'layout',
+                   VALUES (%s, %s, %s, 'app.etzhayyim.animeka.layout', 'layout',
                            %s, %s, %s, %s, 'draft', %s)""",
                 [vertex_id, _REPO, rkey, _DEFAULT_APP_DID,
                  cut_id, state.get("blob_cid"), state.get("bg_mood"),

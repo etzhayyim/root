@@ -13,7 +13,7 @@ import {
   parseLexiconInput,
   sql,
   createKyselyDb,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
@@ -29,7 +29,7 @@ function escapeLike(value: string): string {
 
 // ── Typed vertex_hc_* readers (migration 20260423100000_vertex_hc_platform) ──
 // Legacy catch-all storage is a dead path; graph-worker `nsidToConventionTable` projects
-// `ai.gftd.apps.hc.<entity>` → `vertex_hc_<snake>` automatically.
+// `app.etzhayyim.apps.hc.<entity>` → `vertex_hc_<snake>` automatically.
 
 function hcDb() { return createKyselyDb(); }
 
@@ -65,7 +65,7 @@ function writePrivate(sdk: HostSDK, key: string, value: Record<string, unknown>)
 // --- Commands ---
 
 async function cmdListHc(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.listHc", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.listHc", body);
   const limit = Math.min(Number(args.limit) || 50, 200);
   const offset = Number(args.offset) || 0;
   const items = await hcListByTable("vertex_hc_task", limit, offset);
@@ -73,14 +73,14 @@ async function cmdListHc(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 async function cmdGetHc(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.getHc", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.getHc", body);
   const id = str(args.id ?? "");
   if (!id) return { error: "id required" };
   return await hcGetById("vertex_hc_task", id) ?? { error: "not found" };
 }
 
 async function cmdSearchHc(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.searchHc", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.searchHc", body);
   const q = str(args.q ?? "");
   const limit = Math.min(Number(args.limit) || 20, 100);
   if (!q) return { items: [] };
@@ -92,10 +92,10 @@ async function cmdSearchHc(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 async function cmdCreateHc(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.createHc", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.createHc", body);
   const id = genID("hc");
   await hcDb().insertInto("vertex_hc_task" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.task/${id}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.task/${id}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id,
@@ -109,7 +109,7 @@ async function cmdCreateHc(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 function cmdWave(sdk: HostSDK, body: Uint8Array): unknown {
-  const args = parseLexiconInput("ai.gftd.apps.hc.wave", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.wave", body);
   const msg = str(args.message ?? "Hello");
   return { ok: true, agent: "Hc", nanoid: APP_NANOID };
 }
@@ -120,7 +120,7 @@ const SUPPORTED_LOCALES = ["ja", "us", "eu", "gb", "cn", "kr", "in", "vn", "th",
 const CONTRACT_TYPES = ["worker-agreement", "sp-service-agreement", "task-terms", "shift-terms"] as const;
 
 function cmdGetContract(_sdk: HostSDK, body: Uint8Array): unknown {
-  const args = parseLexiconInput("ai.gftd.apps.hc.getContract", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.getContract", body);
   const contractType = args.type ?? "worker-agreement";
   const locale = args.locale ?? "ja";
   if (!CONTRACT_TYPES.includes(contractType)) return { error: `type must be one of: ${CONTRACT_TYPES.join(", ")}` };
@@ -149,13 +149,13 @@ function cmdListContracts(_sdk: HostSDK, _body: Uint8Array): unknown {
 }
 
 async function cmdAcceptContract(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.acceptContract", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.acceptContract", body);
   if (!args.contractType) return { error: "contractType required" };
   if (!args.acceptorDid) return { error: "acceptorDid required" };
   const locale = args.locale ?? "ja";
   const acceptId = genID("accept");
   await hcDb().insertInto("vertex_hc_contract_acceptance" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.contractAcceptance/${acceptId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.contractAcceptance/${acceptId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: acceptId,
@@ -174,14 +174,14 @@ async function cmdAcceptContract(sdk: HostSDK, body: Uint8Array): Promise<unknow
 // --- Service Provider Registration Commands ---
 
 async function cmdCreateSpApplication(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.createSpApplication", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.createSpApplication", body);
   if (!args.legalName) return { error: "legalName required" };
   if (!args.countryIso3) return { error: "countryIso3 required" };
   if (!args.category) return { error: "category required (e.g. electronics, textile-apparel, food-beverage)" };
 
   const appId = genID("sp");
   await hcDb().insertInto("vertex_hc_sp_application" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.spApplication/${appId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.spApplication/${appId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: appId,
@@ -203,7 +203,7 @@ async function cmdCreateSpApplication(sdk: HostSDK, body: Uint8Array): Promise<u
   // Auto-generate KYC verification task
   const kycTaskId = genID("sp-kyc");
   await hcDb().insertInto("vertex_hc_task" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.task/${kycTaskId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.task/${kycTaskId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: kycTaskId,
@@ -221,13 +221,13 @@ async function cmdCreateSpApplication(sdk: HostSDK, body: Uint8Array): Promise<u
 }
 
 async function cmdGetSpApplication(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.getSpApplication", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.getSpApplication", body);
   if (!args.applicationId) return { error: "applicationId required" };
   return await hcGetById("vertex_hc_sp_application", str(args.applicationId)) ?? { error: "not found" };
 }
 
 async function cmdListSpApplications(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.listSpApplications", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.listSpApplications", body);
   const limit = Math.min(Number(args.limit) || 50, 200);
   const offset = Number(args.offset) || 0;
   let query = hcDb().selectFrom("vertex_hc_sp_application" as any).selectAll();
@@ -239,13 +239,13 @@ async function cmdListSpApplications(sdk: HostSDK, body: Uint8Array): Promise<un
 }
 
 async function cmdSubmitSpVerification(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.submitSpVerification", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.submitSpVerification", body);
   if (!args.applicationId) return { error: "applicationId required" };
   if (!args.result) return { error: "result required (approved/rejected/needsMoreInfo)" };
 
   const verifyId = genID("sp-verify");
   await hcDb().insertInto("vertex_hc_sp_verification" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.spVerification/${verifyId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.spVerification/${verifyId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: verifyId,
@@ -265,7 +265,7 @@ async function cmdSubmitSpVerification(sdk: HostSDK, body: Uint8Array): Promise<
   if (args.result === "approved") {
     const auditTaskId = genID("sp-audit");
     await hcDb().insertInto("vertex_hc_task" as any).values({
-      vertex_id: `at://${actorDID}/ai.gftd.apps.hc.task/${auditTaskId}`,
+      vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.task/${auditTaskId}`,
       sensitivity_ord: 2,
       owner_did: actorDID,
       id: auditTaskId,
@@ -285,13 +285,13 @@ async function cmdSubmitSpVerification(sdk: HostSDK, body: Uint8Array): Promise<
 }
 
 async function cmdSubmitAuditResult(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.submitAuditResult", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.submitAuditResult", body);
   if (!args.applicationId) return { error: "applicationId required" };
   if (!args.result) return { error: "result required (pass/conditionalPass/fail)" };
 
   const auditId = genID("sp-audit-result");
   await hcDb().insertInto("vertex_hc_sp_audit" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.spAudit/${auditId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.spAudit/${auditId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: auditId,
@@ -310,12 +310,12 @@ async function cmdSubmitAuditResult(sdk: HostSDK, body: Uint8Array): Promise<unk
 }
 
 async function cmdRegisterToTsukuru(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.registerToTsukuru", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.registerToTsukuru", body);
   if (!args.applicationId) return { error: "applicationId required" };
 
   // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invokeRemote tsukuru/register-
   // manufacturer. The spRegistration record below is the write-only derived
-  // source; tsukuru can consume via onCommit on ai.gftd.apps.hc.spRegistration
+  // source; tsukuru can consume via onCommit on app.etzhayyim.apps.hc.spRegistration
   // once the derive rule is wired. hc CLAUDE.md notes this actor is deprecated
   // (migrated to 20-actors/hc/actor-manifest.jsonld T1 MCP-Compose), so the
   // outbound stub is acceptable.
@@ -323,7 +323,7 @@ async function cmdRegisterToTsukuru(sdk: HostSDK, body: Uint8Array): Promise<unk
 
   const spRegId = genID("sp-reg");
   await hcDb().insertInto("vertex_hc_sp_registration" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.spRegistration/${spRegId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.spRegistration/${spRegId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: spRegId,
@@ -338,12 +338,12 @@ async function cmdRegisterToTsukuru(sdk: HostSDK, body: Uint8Array): Promise<unk
 }
 
 async function cmdCreateInspectionTask(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.createInspectionTask", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.createInspectionTask", body);
   if (!args.productionOrderId) return { error: "productionOrderId required" };
 
   const taskId = genID("sp-qc");
   await hcDb().insertInto("vertex_hc_task" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.task/${taskId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.task/${taskId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: taskId,
@@ -371,22 +371,22 @@ function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, commit: ComAtpro
 
   const collection = str(commit.collection ?? "");
 
-  if (collection === "ai.gftd.apps.hc.spVerification") {
+  if (collection === "app.etzhayyim.apps.hc.spVerification") {
     // SP verification completed → check if audit needed or register to tsukuru
     return { ok: true, detail: "processedSpVerification" };
   }
 
-  if (collection === "ai.gftd.apps.hc.spAudit") {
+  if (collection === "app.etzhayyim.apps.hc.spAudit") {
     // SP audit completed → if pass, ready for tsukuru registration
     return { ok: true, detail: "processedSpAudit" };
   }
 
-  if (collection.startsWith("ai.gftd.apps.tsukuru.")) {
+  if (collection.startsWith("app.etzhayyim.apps.tsukuru.")) {
     // tsukuru events (manufacturer registered, production progress, etc.)
     return { ok: true, detail: `processedTsukuru ${collection}` };
   }
 
-  if (collection.startsWith("ai.gftd.apps.hc.")) {
+  if (collection.startsWith("app.etzhayyim.apps.hc.")) {
     // Other HC domain records
     return { ok: true, detail: `processed ${collection}` };
   }
@@ -404,92 +404,92 @@ function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, commit: ComAtpro
 
 function registerHcCommands(sdk: HostSDK): void {
   sdk.app
-    .command(nsid("ai.gftd.apps.hc.listHc"), (_, body) => cmdListHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.listHc"), (_, body) => cmdListHc(sdk, body),
       asAgentTool("List Hc records"),
       withCapabilityTags('query', 'hc'),
       withOCELEvent("governance.audit"),
     )
-    .command(nsid("ai.gftd.apps.hc.getHc"), (ctx, body) => cmdGetHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.getHc"), (ctx, body) => cmdGetHc(sdk, body),
       asAgentTool("Get Hc record by ID"),
       withCapabilityTags('query', 'hc'),
     )
-    .command(nsid("ai.gftd.apps.hc.searchHc"), (ctx, body) => cmdSearchHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.searchHc"), (ctx, body) => cmdSearchHc(sdk, body),
       asAgentTool("Search Hc records"),
       withCapabilityTags('search', 'hc'),
     )
-    .command(nsid("ai.gftd.apps.hc.createHc"), (ctx, body) => cmdCreateHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.createHc"), (ctx, body) => cmdCreateHc(sdk, body),
       asAgentTool("Create Hc record"),
       withCapabilityTags('write', 'hc'),
     )
-    .command(nsid("ai.gftd.apps.hc.wave"), (ctx, body) => cmdWave(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.wave"), (ctx, body) => cmdWave(sdk, body),
       asAgentTool("Respond to wave greeting"),
       withCapabilityTags('social', 'greeting'),
     )
-    .command(nsid("ai.gftd.apps.hc.getContract"), (ctx, body) => cmdGetContract(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.getContract"), (ctx, body) => cmdGetContract(sdk, body),
       asAgentTool("Get HC contract by type and locale (worker-agreement/sp-service-agreement/task-terms/shift-terms × 13 locales)"),
       withCapabilityTags('query', 'legal', 'contract'),
     )
-    .command(nsid("ai.gftd.apps.hc.listContracts"), (ctx, body) => cmdListContracts(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.listContracts"), (ctx, body) => cmdListContracts(sdk, body),
       asAgentTool("List all HC contract types and supported locales"),
       withCapabilityTags('query', 'legal', 'contract'),
     )
-    .command(nsid("ai.gftd.apps.hc.acceptContract"), (ctx, body) => cmdAcceptContract(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.acceptContract"), (ctx, body) => cmdAcceptContract(sdk, body),
       asAgentTool("Record contract acceptance (legally binding, immutable)"),
       withCapabilityTags('write', 'legal', 'contract'),
     )
-    .command(nsid("ai.gftd.apps.hc.createSpApplication"), (ctx, body) => cmdCreateSpApplication(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.createSpApplication"), (ctx, body) => cmdCreateSpApplication(sdk, body),
       asAgentTool("Submit OEM service provider application (manufacturer/factory registration)"),
       withCapabilityTags('write', 'service-provider', 'onboarding'),
     )
-    .command(nsid("ai.gftd.apps.hc.getSpApplication"), (ctx, body) => cmdGetSpApplication(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.getSpApplication"), (ctx, body) => cmdGetSpApplication(sdk, body),
       asAgentTool("Get service provider application status"),
       withCapabilityTags('query', 'service-provider'),
     )
-    .command(nsid("ai.gftd.apps.hc.listSpApplications"), (ctx, body) => cmdListSpApplications(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.listSpApplications"), (ctx, body) => cmdListSpApplications(sdk, body),
       asAgentTool("List service provider applications (filter by status/country/category)"),
       withCapabilityTags('query', 'service-provider'),
     )
-    .command(nsid("ai.gftd.apps.hc.submitSpVerification"), (ctx, body) => cmdSubmitSpVerification(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.submitSpVerification"), (ctx, body) => cmdSubmitSpVerification(sdk, body),
       asAgentTool("Submit KYC/KYB verification result for SP application"),
       withCapabilityTags('write', 'service-provider', 'kyc'),
     )
-    .command(nsid("ai.gftd.apps.hc.submitAuditResult"), (ctx, body) => cmdSubmitAuditResult(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.submitAuditResult"), (ctx, body) => cmdSubmitAuditResult(sdk, body),
       asAgentTool("Submit factory audit result for SP application"),
       withCapabilityTags('write', 'service-provider', 'audit'),
     )
-    .command(nsid("ai.gftd.apps.hc.registerToTsukuru"), (ctx, body) => cmdRegisterToTsukuru(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.registerToTsukuru"), (ctx, body) => cmdRegisterToTsukuru(sdk, body),
       asAgentTool("Register approved SP to tsukuru.etzhayyim.com (issues manufacturer/factory DID)"),
       withCapabilityTags('write', 'service-provider', 'tsukuru'),
     )
-    .command(nsid("ai.gftd.apps.hc.createInspectionTask"), (ctx, body) => cmdCreateInspectionTask(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.createInspectionTask"), (ctx, body) => cmdCreateInspectionTask(sdk, body),
       asAgentTool("Create quality inspection task for OEM production order"),
       withCapabilityTags('write', 'service-provider', 'quality'),
     )
-    .command(nsid("ai.gftd.apps.hc.statsHc"), (ctx, body) => cmdStatsHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.statsHc"), (ctx, body) => cmdStatsHc(sdk, body),
       asAgentTool("Get Hc statistics"),
       withCapabilityTags("analytics", "hc"),
     )
-    .command(nsid("ai.gftd.apps.hc.exportHc"), (ctx, body) => cmdExportHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.exportHc"), (ctx, body) => cmdExportHc(sdk, body),
       asAgentTool("Export Hc data"),
       withCapabilityTags("export", "hc"),
     )
-    .command(nsid("ai.gftd.apps.hc.healthHc"), (ctx, body) => cmdHealthHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.healthHc"), (ctx, body) => cmdHealthHc(sdk, body),
       asAgentTool("Hc health check"),
       withCapabilityTags("diagnostics", "hc"),
     )
-    .command(nsid("ai.gftd.apps.hc.describeHc"), (ctx, body) => cmdDescribeHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.describeHc"), (ctx, body) => cmdDescribeHc(sdk, body),
       asAgentTool("Describe Hc capabilities"),
       withCapabilityTags("meta", "hc"),
     )
-    .command(nsid("ai.gftd.apps.hc.summarizeHc"), (ctx, body) => cmdSummarizeHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.summarizeHc"), (ctx, body) => cmdSummarizeHc(sdk, body),
       asAgentTool("AI summary of Hc"),
       withCapabilityTags("ai", "hc"),
     )
-    .command(nsid("ai.gftd.apps.hc.ingestHc"), (ctx, body) => cmdIngestHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.ingestHc"), (ctx, body) => cmdIngestHc(sdk, body),
       asAgentTool("Trigger Hc ingestion"),
       withCapabilityTags("pipeline", "hc"),
     )
-    .command(nsid("ai.gftd.apps.hc.auditHc"), (ctx, body) => cmdAuditHc(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.auditHc"), (ctx, body) => cmdAuditHc(sdk, body),
       asAgentTool("Audit log for Hc"),
       withCapabilityTags("audit", "hc"),
     )
@@ -537,7 +537,7 @@ async function cmdStatsHc(_sdk: HostSDK, _body: Uint8Array): Promise<unknown> {
 }
 
 async function cmdExportHc(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.exportHc", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.exportHc", body);
   const fmt = str(args.format ?? "json");
   const lim = Math.min(Number(args.limit) || 100, 1000);
   const perTable = Math.max(1, Math.floor(lim / HC_TABLES.length));
@@ -563,7 +563,7 @@ function cmdDescribeHc(sdk: HostSDK, _body: Uint8Array): unknown {
 }
 
 async function cmdSummarizeHc(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.summarizeHc", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.summarizeHc", body);
   const topic = str(args.topic ?? "Hc");
   const rows = await hcDb().selectFrom("vertex_hc_game_capture_task" as any)
     .select(["title", "game_name", "platform", "genre", "audience"] as any)
@@ -576,11 +576,11 @@ async function cmdSummarizeHc(_sdk: HostSDK, body: Uint8Array): Promise<unknown>
 }
 
 async function cmdIngestHc(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.ingestHc", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.ingestHc", body);
   const source = str(args.source ?? "default");
   const jobId = `ingest-${Date.now()}`;
   await hcDb().insertInto("vertex_hc_record" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.record/${jobId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.record/${jobId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: jobId, type: "ingestJob", source, status: "pending",
@@ -590,13 +590,13 @@ async function cmdIngestHc(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 async function cmdAuditHc(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.hc.auditHc", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.hc.auditHc", body);
   const since = str(args.since ?? "");
   const lim = Math.min(Number(args.limit) || 50, 200);
   // Audit = AT Repo commit log (canonical, cross-table, append-only).
   let q = hcDb().selectFrom("vertex_repo_commit" as any)
     .select(["collection", "rkey", "action", "repo", "ts_ms", "seq"] as any)
-    .where("collection" as any, "like", "ai.gftd.apps.hc.%");
+    .where("collection" as any, "like", "app.etzhayyim.apps.hc.%");
   if (since) q = q.where(sql<boolean>`ts_ms >= ${Date.parse(since) || 0}`);
   const rows = await q.orderBy("seq" as any, "desc").limit(lim).execute();
   return { audit: rows, count: (rows as unknown[]).length };
@@ -662,7 +662,7 @@ function validateRecord(record: Record<string, unknown>): { valid: boolean; erro
 // hc actor is deprecated (migrated to 20-actors/hc/actor-manifest.jsonld T1
 // MCP-Compose per hc/CLAUDE.md header); remaining app.ts call (cmdRegisterToTsukuru)
 // now uses the write-only derived pattern (ADR-0004) — tsukuru consumes
-// ai.gftd.apps.hc.spRegistration commits instead of receiving a direct RPC.
+// app.etzhayyim.apps.hc.spRegistration commits instead of receiving a direct RPC.
 
 // --- Email (Resend + outbox fallback) ---
 
@@ -683,7 +683,7 @@ async function sendEmail(sdk: HostSDK, env: EmailEnvelope): Promise<{ sent: bool
       // fall through to outbox
       const outboxId = genID("mail");
       await hcDb().insertInto("vertex_hc_email_outbox" as any).values({
-        vertex_id: `at://${actorDID}/ai.gftd.apps.hc.emailOutbox/${outboxId}`,
+        vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.emailOutbox/${outboxId}`,
         sensitivity_ord: 2,
         owner_did: actorDID,
         id: outboxId, to: env.to, subject: env.subject, html: env.html, tag: env.tag ?? "",
@@ -697,7 +697,7 @@ async function sendEmail(sdk: HostSDK, env: EmailEnvelope): Promise<{ sent: bool
   }
   const outboxId = genID("mail");
   await hcDb().insertInto("vertex_hc_email_outbox" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.emailOutbox/${outboxId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.emailOutbox/${outboxId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: outboxId, to: env.to, subject: env.subject, html: env.html, tag: env.tag ?? "",
@@ -821,7 +821,7 @@ async function cmdRegisterWorker(sdk: HostSDK, body: Uint8Array): Promise<unknow
 
   // Public record — PII redacted, only governance-relevant metadata
   await hcDb().insertInto("vertex_hc_worker_intake" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.workerIntake/${intakeId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.workerIntake/${intakeId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: intakeId,
@@ -842,7 +842,7 @@ async function cmdRegisterWorker(sdk: HostSDK, body: Uint8Array): Promise<unknow
     if (t === "worker-agreement" || t === "task-terms" || t === "shift-terms") {
       const acceptId = genID("accept");
       await hcDb().insertInto("vertex_hc_contract_acceptance" as any).values({
-        vertex_id: `at://${actorDID}/ai.gftd.apps.hc.contractAcceptance/${acceptId}`,
+        vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.contractAcceptance/${acceptId}`,
         sensitivity_ord: 2,
         owner_did: actorDID,
         id: acceptId,
@@ -899,7 +899,7 @@ async function cmdRegisterMinorGuardian(sdk: HostSDK, body: Uint8Array): Promise
   });
 
   await hcDb().insertInto("vertex_hc_minor_guardian_intake" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.minorGuardianIntake/${intakeId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.minorGuardianIntake/${intakeId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: intakeId,
@@ -925,7 +925,7 @@ async function cmdRegisterMinorGuardian(sdk: HostSDK, body: Uint8Array): Promise
       const acceptId = genID("accept");
       const contractType = t === "minor-consent" ? "minor-consent" : t;
       await hcDb().insertInto("vertex_hc_contract_acceptance" as any).values({
-        vertex_id: `at://${actorDID}/ai.gftd.apps.hc.contractAcceptance/${acceptId}`,
+        vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.contractAcceptance/${acceptId}`,
         sensitivity_ord: 2,
         owner_did: actorDID,
         id: acceptId,
@@ -980,7 +980,7 @@ async function cmdCreateGameCaptureTask(sdk: HostSDK, body: Uint8Array): Promise
 
   const taskId = genID("gct");
   await hcDb().insertInto("vertex_hc_game_capture_task" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.gameCaptureTask/${taskId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.gameCaptureTask/${taskId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: taskId,
@@ -1008,7 +1008,7 @@ async function cmdAcceptGameCaptureTask(sdk: HostSDK, body: Uint8Array): Promise
 
   const assignmentId = genID("gca");
   await hcDb().insertInto("vertex_hc_game_capture_assignment" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.gameCaptureAssignment/${assignmentId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.gameCaptureAssignment/${assignmentId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: assignmentId,
@@ -1035,7 +1035,7 @@ async function cmdSubmitGameCaptureUpload(sdk: HostSDK, body: Uint8Array): Promi
 
   const submissionId = genID("gcs");
   await hcDb().insertInto("vertex_hc_game_capture_submission" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.gameCaptureSubmission/${submissionId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.gameCaptureSubmission/${submissionId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: submissionId,
@@ -1070,7 +1070,7 @@ async function cmdApproveGameCaptureSubmission(sdk: HostSDK, body: Uint8Array): 
 
   const reviewId = genID("gcr");
   await hcDb().insertInto("vertex_hc_game_capture_review" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.gameCaptureReview/${reviewId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.gameCaptureReview/${reviewId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: reviewId,
@@ -1161,7 +1161,7 @@ async function cmdSubmitKycDocument(sdk: HostSDK, body: Uint8Array): Promise<unk
 
   const submissionId = genID("kyc-sub");
   await hcDb().insertInto("vertex_hc_kyc_submission" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.kycSubmission/${submissionId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.kycSubmission/${submissionId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: submissionId,
@@ -1196,7 +1196,7 @@ async function cmdReviewKycSubmission(sdk: HostSDK, body: Uint8Array): Promise<u
 
   const reviewId = genID("kyc-rev");
   await hcDb().insertInto("vertex_hc_kyc_review" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.hc.kycReview/${reviewId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.hc.kycReview/${reviewId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: reviewId,
@@ -1312,54 +1312,54 @@ async function cmdGetIntakeSummary(_sdk: HostSDK, body: Uint8Array): Promise<unk
 
 function registerGameCaptureCommands(sdk: HostSDK): void {
   sdk.app
-    .command(nsid("ai.gftd.apps.hc.registerWorker"), (_ctx, body) => cmdRegisterWorker(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.registerWorker"), (_ctx, body) => cmdRegisterWorker(sdk, body),
       asAgentTool("Register an adult worker (18+) via hc.etzhayyim.com /register form"),
       withCapabilityTags("write", "onboarding", "worker"),
       withOCELEvent("onboarding.workerIntake.created"),
     )
-    .command(nsid("ai.gftd.apps.hc.registerMinorGuardian"), (_ctx, body) => cmdRegisterMinorGuardian(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.registerMinorGuardian"), (_ctx, body) => cmdRegisterMinorGuardian(sdk, body),
       asAgentTool("Register a minor (8-17) with guardian as counterparty"),
       withCapabilityTags("write", "onboarding", "minor", "guardian"),
       withOCELEvent("onboarding.minorGuardianIntake.created"),
     )
-    .command(nsid("ai.gftd.apps.hc.createGameCaptureTask"), (_ctx, body) => cmdCreateGameCaptureTask(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.createGameCaptureTask"), (_ctx, body) => cmdCreateGameCaptureTask(sdk, body),
       asAgentTool("Create a game capture task (domain coverage dataset)"),
       withCapabilityTags("write", "game-capture", "task"),
     )
-    .command(nsid("ai.gftd.apps.hc.acceptGameCaptureTask"), (_ctx, body) => cmdAcceptGameCaptureTask(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.acceptGameCaptureTask"), (_ctx, body) => cmdAcceptGameCaptureTask(sdk, body),
       asAgentTool("Worker accepts a game capture task"),
       withCapabilityTags("write", "game-capture", "assignment"),
     )
-    .command(nsid("ai.gftd.apps.hc.submitGameCaptureUpload"), (_ctx, body) => cmdSubmitGameCaptureUpload(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.submitGameCaptureUpload"), (_ctx, body) => cmdSubmitGameCaptureUpload(sdk, body),
       asAgentTool("Submit a recorded gameplay video for an accepted task"),
       withCapabilityTags("write", "game-capture", "upload"),
     )
-    .command(nsid("ai.gftd.apps.hc.approveGameCaptureSubmission"), (_ctx, body) => cmdApproveGameCaptureSubmission(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.approveGameCaptureSubmission"), (_ctx, body) => cmdApproveGameCaptureSubmission(sdk, body),
       asAgentTool("Approve or reject a game capture submission (triggers gift-card payout queue on approve)"),
       withCapabilityTags("write", "game-capture", "review"),
     )
-    .command(nsid("ai.gftd.apps.hc.submitKycDocument"), (_ctx, body) => cmdSubmitKycDocument(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.submitKycDocument"), (_ctx, body) => cmdSubmitKycDocument(sdk, body),
       asAgentTool("Submit KYC identity document (base64-encoded; stored in R2 content-addressed)"),
       withCapabilityTags("write", "kyc", "pii"),
       withOCELEvent("kyc.document.submitted"),
     )
-    .command(nsid("ai.gftd.apps.hc.reviewKycSubmission"), (_ctx, body) => cmdReviewKycSubmission(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.reviewKycSubmission"), (_ctx, body) => cmdReviewKycSubmission(sdk, body),
       asAgentTool("Admin review of a KYC submission"),
       withCapabilityTags("write", "kyc", "review"),
     )
-    .command(nsid("ai.gftd.apps.hc.listGameCaptureTasks"), (_ctx, body) => cmdListGameCaptureTasks(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.listGameCaptureTasks"), (_ctx, body) => cmdListGameCaptureTasks(sdk, body),
       asAgentTool("List published game capture tasks (optional status/audience filter)"),
       withCapabilityTags("query", "game-capture"),
     )
-    .command(nsid("ai.gftd.apps.hc.listMyAssignments"), (_ctx, body) => cmdListMyAssignments(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.listMyAssignments"), (_ctx, body) => cmdListMyAssignments(sdk, body),
       asAgentTool("List a worker's own game capture assignments"),
       withCapabilityTags("query", "game-capture", "self"),
     )
-    .command(nsid("ai.gftd.apps.hc.getMyEarnings"), (_ctx, body) => cmdGetMyEarnings(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.getMyEarnings"), (_ctx, body) => cmdGetMyEarnings(sdk, body),
       asAgentTool("Earnings summary for a worker (approvals / rejections / JPY paid)"),
       withCapabilityTags("query", "earnings", "self"),
     )
-    .command(nsid("ai.gftd.apps.hc.getIntakeSummary"), (_ctx, body) => cmdGetIntakeSummary(sdk, body),
+    .command(nsid("app.etzhayyim.apps.hc.getIntakeSummary"), (_ctx, body) => cmdGetIntakeSummary(sdk, body),
       asAgentTool("Public metadata for an intake (no PII) — used by SuperApp UI header"),
       withCapabilityTags("query", "onboarding", "self"),
     );

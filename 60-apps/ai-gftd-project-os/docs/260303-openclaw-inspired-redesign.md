@@ -1,4 +1,4 @@
-# GFTD OS — OpenClaw-Inspired Redesign on magatama runtime
+# etzhayyim OS — OpenClaw-Inspired Redesign on magatama runtime
 
 **Date**: 2026-03-03
 **Status**: Draft Proposal
@@ -7,12 +7,12 @@
 ## 1. Executive Summary
 
 OpenClaw の「AI がチャットで返事するだけでなく、実際にタスクを実行する」体験を
-GFTD OS で再現する。ただしローカル Node.js ではなく **K8s + magatama runtime** 上に構築し、
+etzhayyim OS で再現する。ただしローカル Node.js ではなく **K8s + magatama runtime** 上に構築し、
 WASM サンドボックスの安全性とクラウドスケールを両立する。
 
-### OpenClaw → GFTD OS 対応表
+### OpenClaw → etzhayyim OS 対応表
 
-| OpenClaw 機能 | GFTD OS 実装 | magatama runtime component |
+| OpenClaw 機能 | etzhayyim OS 実装 | magatama runtime component |
 |---|---|---|
 | ローカル AI アシスタント | クラウド常駐 + Tauri ローカル UI | `os-agent-{nanoid}` |
 | チャット統合 (8 platform) | Messaging component 拡張 | `os-messaging-component` |
@@ -131,7 +131,7 @@ Platform webhook POST → os-messaging-component (App)
 | Key pattern | Purpose |
 |---|---|
 | `msg.{platform}.{channel_id}.config` | Channel config (enabled, mention-only, etc.) |
-| `msg.{platform}.{user_id}.mapping` | Platform user → GFTD user mapping |
+| `msg.{platform}.{user_id}.mapping` | Platform user → etzhayyim user mapping |
 | `msg.webhook.secret.{platform}` | Webhook verification secrets |
 
 ### 3.2 os-agent — AI エージェントコア
@@ -371,9 +371,9 @@ type ToolDefinition struct {
 | **Smart Home** | SwitchBot, Home Assistant | 外部 API コール |
 | **Media** | 画像生成, 音声文字起こし | 外部 API or gftd-browserless |
 | **Developer** | コード実行, Git操作, Deploy | os-runner 連携 |
-| **GFTD Platform** | News投稿, 記事検索, Analytics | 既存 GFTD App 連携 |
+| **etzhayyim Platform** | News投稿, 記事検索, Analytics | 既存 etzhayyim App 連携 |
 
-**既存 GFTD App との統合**: 既存の performer App (news-mcp, threads-mcp, www-crawler 等) は XRPC で呼び出すことで、そのまま Skill として利用可能。新しい App を作る必要はない。
+**既存 etzhayyim App との統合**: 既存の performer App (news-mcp, threads-mcp, www-crawler 等) は XRPC で呼び出すことで、そのまま Skill として利用可能。新しい App を作る必要はない。
 
 ```
 os-agent → tool_call: "search_news"
@@ -560,7 +560,7 @@ Settings → Profile (Semantic Memory bootstrap)
 6. `os-memory` 拡張 — Long-term + Semantic memory
 7. `os-messaging-component` 拡張 — Discord + Telegram adapter
 8. `os-llm` 拡張 — OpenAI + OpenRouter 追加
-9. `os-skills` 拡張 — GFTD platform skills (news, threads, crawler)
+9. `os-skills` 拡張 — etzhayyim platform skills (news, threads, crawler)
 
 ### Phase 3: Full Experience
 **目標**: OpenClaw 同等の体験
@@ -574,7 +574,7 @@ Settings → Profile (Semantic Memory bootstrap)
 
 ## 10. OpenClaw との差別化ポイント
 
-| 観点 | OpenClaw | GFTD OS |
+| 観点 | OpenClaw | etzhayyim OS |
 |---|---|---|
 | **実行環境** | ローカル Node.js | K8s magatama runtime (WASM sandbox) |
 | **安全性** | OS レベルのファイルアクセス | WASM サンドボックス + Consent UI |

@@ -32,8 +32,8 @@ _LG_DIR = Path(__file__).resolve().parents[1]
 _EXPECTED_GRAPHS = {"health", "extractEvidence"}
 
 _EXPECTED_NSID_MAP = {
-    "ai.gftd.apps.curpus2skill.health":          "health",
-    "ai.gftd.apps.curpus2skill.extractEvidence": "extractEvidence",
+    "app.etzhayyim.apps.curpus2skill.health":          "health",
+    "app.etzhayyim.apps.curpus2skill.extractEvidence": "extractEvidence",
 }
 
 
@@ -111,5 +111,5 @@ def test_unknown_assistant_404(client):
 
 
 def test_unknown_nsid_xrpc_404(client):
-    r = client.post("/xrpc/ai.gftd.apps.curpus2skill.unknownMethod", json={})
+    r = client.post("/xrpc/app.etzhayyim.apps.curpus2skill.unknownMethod", json={})
     assert r.status_code == 404

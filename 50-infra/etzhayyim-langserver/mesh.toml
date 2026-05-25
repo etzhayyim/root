@@ -8,7 +8,7 @@
 # Mesh IP alloc:  Ipv4Addr(10, 99, H, L) where H,L = blake3(node_id) bytes[0..2].
 #
 # Each Mac mini already runs the murakumo-mesh tunnel daemon as a LaunchAgent
-# (currently legacy-labeled ai.gftd.murakumo-mesh; rename to com.etzhayyim.*
+# (currently legacy-labeled app.etzhayyim.murakumo-mesh; rename to com.etzhayyim.*
 # pending cutover). The mesh identity file lives at:
 #   ~/.gftd/mesh/identity.json     (current; legacy path)
 #   ~/.etzhayyim/mesh/identity.json (target; post-cutover)
@@ -26,7 +26,7 @@ mesh_identity_paths = [
   "~/.etzhayyim/mesh/identity.json",   # target (post-cutover)
   "~/.gftd/mesh/identity.json",        # current (legacy; CLAUDE.md cutover pending)
 ]
-mesh_daemon_launchd_label = "ai.gftd.murakumo-mesh"  # legacy; rename pending
+mesh_daemon_launchd_label = "app.etzhayyim.murakumo-mesh"  # legacy; rename pending
 mesh_daemon_launchd_label_target = "com.etzhayyim.murakumo-mesh"
 
 # ─── Bind policy ────────────────────────────────────────────────────────

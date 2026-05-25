@@ -2,14 +2,14 @@
 // 6-phase robotic-deployment flow (ADR-2605201400).
 //
 // Each subcommand maps 1:1 to a Lexicon procedure under
-// ai.gftd.apps.etzhayyim.kuniUmi.* and POSTs a JSON payload whose shape
+// app.etzhayyim.apps.etzhayyim.kuniUmi.* and POSTs a JSON payload whose shape
 // is dictated by the lexicon's defs.main.input.schema (canonical at
 // 00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/).
 //
 // The default --target points at the SiteSurveyCell loopback healthz
 // port (13017) as a placeholder pending the kuni-umi/api gateway. Real
 // production traffic will hit
-//   https://etzhayyim.com/xrpc/ai.gftd.apps.etzhayyim.kuniUmi.<procedure>
+//   https://etzhayyim.com/xrpc/app.etzhayyim.apps.etzhayyim.kuniUmi.<procedure>
 // — the CLI is shape-agnostic and works against either endpoint via the
 // --target flag.
 package main
@@ -171,7 +171,7 @@ func cmdKuniUmiDefineSite(args []string) error {
 		payload["localLawAttestationCid"] = *localLawCid
 	}
 
-	return postKuniUmi(*target, "ai.gftd.apps.etzhayyim.kuniUmi.defineDeploymentSite", payload, *dryRun)
+	return postKuniUmi(*target, "app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite", payload, *dryRun)
 }
 
 // ----- subcommand: submit-survey -----------------------------------------
@@ -234,7 +234,7 @@ func cmdKuniUmiSubmitSurvey(args []string) error {
 		payload["reversibilityScore"] = *reversibilityScore
 	}
 
-	return postKuniUmi(*target, "ai.gftd.apps.etzhayyim.kuniUmi.submitSiteSurvey", payload, *dryRun)
+	return postKuniUmi(*target, "app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey", payload, *dryRun)
 }
 
 // ----- subcommand: propose-plan ------------------------------------------
@@ -329,7 +329,7 @@ func cmdKuniUmiProposePlan(args []string) error {
 		payload["councilThirdPartyReviewCid"] = *thirdPartyReviewCid
 	}
 
-	return postKuniUmi(*target, "ai.gftd.apps.etzhayyim.kuniUmi.proposeDeploymentPlan", payload, *dryRun)
+	return postKuniUmi(*target, "app.etzhayyim.apps.etzhayyim.kuniUmi.proposeDeploymentPlan", payload, *dryRun)
 }
 
 // ----- subcommand: record-progress ---------------------------------------
@@ -399,7 +399,7 @@ func cmdKuniUmiRecordProgress(args []string) error {
 		payload["anomalyFlags"] = []string(anomalyFlags)
 	}
 
-	return postKuniUmi(*target, "ai.gftd.apps.etzhayyim.kuniUmi.recordConstructionProgress", payload, *dryRun)
+	return postKuniUmi(*target, "app.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress", payload, *dryRun)
 }
 
 // ----- subcommand: commission --------------------------------------------
@@ -459,7 +459,7 @@ func cmdKuniUmiCommission(args []string) error {
 		"stewardOperatorDid": *stewardOperatorDid,
 	}
 
-	return postKuniUmi(*target, "ai.gftd.apps.etzhayyim.kuniUmi.commissionDeployment", payload, *dryRun)
+	return postKuniUmi(*target, "app.etzhayyim.apps.etzhayyim.kuniUmi.commissionDeployment", payload, *dryRun)
 }
 
 // ----- subcommand: audit-event -------------------------------------------
@@ -527,7 +527,7 @@ func cmdKuniUmiAuditEvent(args []string) error {
 		payload["phenotypeDeltaBps"] = *phenotypeDeltaBps
 	}
 
-	return postKuniUmi(*target, "ai.gftd.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent", payload, *dryRun)
+	return postKuniUmi(*target, "app.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent", payload, *dryRun)
 }
 
 // ----- helpers -----------------------------------------------------------

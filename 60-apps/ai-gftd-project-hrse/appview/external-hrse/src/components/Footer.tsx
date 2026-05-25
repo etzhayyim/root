@@ -16,7 +16,7 @@ export function Footer() {
 								<span className="text-xl font-bold">CF</span>
 							</div>
 							<span className="text-xl font-bold text-neutral-900 dark:text-white">
-								Gftd HRSE
+								etzhayyim HRSE
 							</span>
 						</div>
 						<p className="text-sm text-neutral-600 dark:text-neutral-400">
@@ -90,7 +90,7 @@ export function Footer() {
 						<ul className="space-y-2">
 							<li>
 								<Link
-									href="https://gftd.co.jp/about"
+									href="https://etzhayyim.com/about"
 									className="text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
 								>
 									会社概要
@@ -98,7 +98,7 @@ export function Footer() {
 							</li>
 							<li>
 								<Link
-									href="https://gftd.co.jp/contact"
+									href="https://etzhayyim.com/contact"
 									className="text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
 								>
 									お問い合わせ
@@ -106,7 +106,7 @@ export function Footer() {
 							</li>
 							<li>
 								<Link
-									href="https://gftd.co.jp/g1nSERUt/privacypolicy"
+									href="https://etzhayyim.com/g1nSERUt/privacypolicy"
 									className="text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
 								>
 									プライバシーポリシー
@@ -114,7 +114,7 @@ export function Footer() {
 							</li>
 							<li>
 								<Link
-									href="https://gftd.co.jp/g1nSERUt/csfm_termsofservice"
+									href="https://etzhayyim.com/g1nSERUt/csfm_termsofservice"
 									className="text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
 								>
 									利用規約
@@ -128,12 +128,12 @@ export function Footer() {
 				<div className="mt-8 border-t border-neutral-200 dark:border-neutral-900 pt-8">
 					<div className="flex flex-col items-center justify-between space-y-4 md:flex-row">
 						<p className="text-sm text-neutral-600 dark:text-neutral-400">
-							© {new Date().getFullYear()} Gftd HRSE. All
+							© {new Date().getFullYear()} etzhayyim HRSE. All
 							rights reserved.
 						</p>
 						<div className="flex space-x-6">
 						<a
-							href="https://x.com/Gftdjapan"
+							href="https://x.com/etzhayyimjapan"
 							className="text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
 							aria-label="X"
 						>

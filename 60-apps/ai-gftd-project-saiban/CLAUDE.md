@@ -8,7 +8,7 @@
 |---|---|
 | **AT bot DID** | `did:web:saiban.etzhayyim.com` |
 | **nanoid** | `sb4n0j1c` |
-| **Runtime** | **TS Native** (`src/app.ts` + `@gftd/magatama-host-sdk`) |
+| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/magatama-host-sdk`) |
 | **Data store** | W Protocol Event Stream |
 | **UI mode** | `appview` (yoro) |
 
@@ -60,11 +60,11 @@ did:web:saiban.etzhayyim.com:court:{iso3}:{court-id}  # Global (US/UK/DE/FR)
 
 | Collection | SQL Label |
 |---|---|
-| `ai.gftd.apps.saiban.court` | `Court` |
-| `ai.gftd.apps.saiban.judge` | `Judge` |
-| `ai.gftd.apps.saiban.jiken` | `Jiken` |
-| `ai.gftd.apps.saiban.trialEvent` | `TrialEvent` |
-| `ai.gftd.apps.saiban.jurisdictionMap` | `JurisdictionMap` |
+| `app.etzhayyim.apps.saiban.court` | `Court` |
+| `app.etzhayyim.apps.saiban.judge` | `Judge` |
+| `app.etzhayyim.apps.saiban.jiken` | `Jiken` |
+| `app.etzhayyim.apps.saiban.trialEvent` | `TrialEvent` |
+| `app.etzhayyim.apps.saiban.jurisdictionMap` | `JurisdictionMap` |
 
 ## Build & Deploy
 

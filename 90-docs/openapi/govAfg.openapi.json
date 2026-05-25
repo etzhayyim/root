@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govAfg.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govAfg.followSiteDeps": {
       "post": {
         "summary": "Create graph-visible site dependency follow records for Afghanistan government organizations.",
-        "operationId": "ai.gftd.govAfg.followSiteDeps",
+        "operationId": "app.etzhayyim.govAfg.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAfg.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govAfg.heartbeatTick": {
       "post": {
         "summary": "Run the Afghanistan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govAfg.heartbeatTick",
+        "operationId": "app.etzhayyim.govAfg.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAfg.listOrgs": {
+    "/xrpc/app.etzhayyim.govAfg.listOrgs": {
       "get": {
         "summary": "List Afghanistan government organizations by tier.",
-        "operationId": "ai.gftd.govAfg.listOrgs",
+        "operationId": "app.etzhayyim.govAfg.listOrgs",
         "parameters": [
           {
             "name": "orgTier",
@@ -228,10 +228,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAfg.registerDIDs": {
+    "/xrpc/app.etzhayyim.govAfg.registerDIDs": {
       "post": {
         "summary": "Register graph-visible DID records for Afghanistan government organizations.",
-        "operationId": "ai.gftd.govAfg.registerDIDs",
+        "operationId": "app.etzhayyim.govAfg.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -281,10 +281,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAfg.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govAfg.resolveOrgPath": {
       "get": {
         "summary": "Resolve an Afghanistan government organization path to its actor DID and display metadata.",
-        "operationId": "ai.gftd.govAfg.resolveOrgPath",
+        "operationId": "app.etzhayyim.govAfg.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -329,10 +329,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAfg.seedOrgs": {
+    "/xrpc/app.etzhayyim.govAfg.seedOrgs": {
       "post": {
         "summary": "Seed Afghanistan central ministry and province organization rows into the graph.",
-        "operationId": "ai.gftd.govAfg.seedOrgs",
+        "operationId": "app.etzhayyim.govAfg.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -379,10 +379,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAfg.shinka": {
+    "/xrpc/app.etzhayyim.govAfg.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Afghanistan government organization update.",
-        "operationId": "ai.gftd.govAfg.shinka",
+        "operationId": "app.etzhayyim.govAfg.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -433,10 +433,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAfg.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govAfg.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated Afghanistan government organization content.",
-        "operationId": "ai.gftd.govAfg.syncWetUpdates",
+        "operationId": "app.etzhayyim.govAfg.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

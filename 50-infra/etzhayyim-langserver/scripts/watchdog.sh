@@ -7,7 +7,7 @@
 #   - manual ad-hoc: ./watchdog.sh
 #   - L9 cell:       a future LangserverHealthMonitoringCell calls this
 #                    on cron and writes results to MST listener
-#                    ai.gftd.apps.etzhayyim.langserver.health
+#                    app.etzhayyim.apps.etzhayyim.langserver.health
 #
 # Output (TSV per row):
 #   <lang>  <host>  <mesh_ip>:<healthz_port>  <http_status>  <body_summary>

@@ -15,7 +15,7 @@ const __dirname   = path.dirname(__filename);
 const repoRoot    = path.resolve(__dirname, "..", "..", "..");
 
 const BPMN_PATH   = "00-contracts/bpmn/ai/gftd/training/trainingExport.bpmn";
-const PROCESS_VID = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-export-v1";
+const PROCESS_VID = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-export-v1";
 const updatedAt   = "2026-05-02T14:00:00+09:00";
 
 export async function up(db: Kysely<unknown>): Promise<void> {

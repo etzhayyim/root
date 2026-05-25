@@ -122,7 +122,7 @@ def test_plan_classify_task_llm_success():
         "ok": True,
         "data": {
             "branch": "thorough",
-            "nextTool": "ai.gftd.apps.yabai.trackPhishingInfra",
+            "nextTool": "app.etzhayyim.apps.yabai.trackPhishingInfra",
             "confidence": 0.9,
             "reason": "Complex entity requires deep analysis",
         },
@@ -132,7 +132,7 @@ def test_plan_classify_task_llm_success():
         out = PA._classify_task({"context": {"type": "entity"}, "taskHint": "classify"})
     assert out["branch"] == "thorough"
     assert out["confidence"] == 0.9
-    assert out["nextTool"] == "ai.gftd.apps.yabai.trackPhishingInfra"
+    assert out["nextTool"] == "app.etzhayyim.apps.yabai.trackPhishingInfra"
     assert out["llmModel"] == "test-model"
 
 
@@ -198,7 +198,7 @@ def test_plan_audit_plan_db_failure_returns_empty_rkey():
 
 
 def test_plan_audit_plan_success_returns_rkey():
-    state = {"branch": "thorough", "nextTool": "ai.gftd.foo", "confidence": 0.8, "reason": "ok"}
+    state = {"branch": "thorough", "nextTool": "app.etzhayyim.foo", "confidence": 0.8, "reason": "ok"}
     mock_cur = MagicMock()
     mock_cm = MagicMock()
     mock_cm.__enter__ = MagicMock(return_value=mock_cur)

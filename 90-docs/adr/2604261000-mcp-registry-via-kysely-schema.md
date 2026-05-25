@@ -71,13 +71,13 @@ ADR-0087 §D1 (per-actor `/mcp` endpoint)・§D2 (`/.well-known/openapi.json`)
 
 ```sql
 CREATE TABLE vertex_mcp_tool_def (
-  vertex_id        VARCHAR PRIMARY KEY,    -- at://did:web:{host}.etzhayyim.com/ai.gftd.mcp.toolDef/{slug}
+  vertex_id        VARCHAR PRIMARY KEY,    -- at://did:web:{host}.etzhayyim.com/app.etzhayyim.mcp.toolDef/{slug}
   _seq             BIGINT,
   created_date     DATE,
   sensitivity_ord  BIGINT,
   owner_did        VARCHAR,                -- = actor_did
 
-  nsid             VARCHAR NOT NULL,       -- 'ai.gftd.apps.lawfirm.createCase'
+  nsid             VARCHAR NOT NULL,       -- 'app.etzhayyim.apps.lawfirm.createCase'
   actor_did        VARCHAR NOT NULL,       -- 'did:web:lawfirm.etzhayyim.com'
   actor_host       VARCHAR,
   lexicon_type     VARCHAR,                -- 'procedure' | 'query'
@@ -124,7 +124,7 @@ vertex_mcp_tool_def                            (runtime registry)
 
 - walk lexicons under `00-contracts/lexicons/ai/gftd/apps/**/*.json`
 - procedure / query 以外は skip
-- `vertex_id` 規約 = `at://did:web:{actor}.etzhayyim.com/ai.gftd.mcp.toolDef/{nsid.replace('.','-')}`
+- `vertex_id` 規約 = `at://did:web:{actor}.etzhayyim.com/app.etzhayyim.mcp.toolDef/{nsid.replace('.','-')}`
 - `actor_did` = `did:web:{actor}.etzhayyim.com` (NSID 第 4 segment から導出)
 - `schema_hash` で drift 検出 → INSERT or UPDATE
 - DELETE 操作なし (`enabled=false` で論理削除、手動 / 別 ADR で物理削除)
@@ -211,7 +211,7 @@ migration 完了時に注入)。`mcpFacade` (codegen) と併用された場合�
 - 監査が `vertex_repo_commit` (ADR-0046 triple-witness) の schema 軸と
   一致 (`actor_did + nsid + schema_hash`)。
 - ADR-0023 strict-match `lxm` claim は `lxm_scope` 列に明示保存
-  (default = `nsid`)、将来 wildcard scope (`ai.gftd.apps.foo.*`) へ
+  (default = `nsid`)、将来 wildcard scope (`app.etzhayyim.apps.foo.*`) へ
   拡張する余地を残す。
 
 ## Negative / Trade-off
@@ -304,7 +304,7 @@ strict mode 準備)。
 INSERT INTO vertex_bpmn_lexicon_binding
   (vertex_id, nsid, bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at)
 VALUES
-  ('at://did:web:bpmn.etzhayyim.com/ai.gftd.bpmn.binding/{ns-action}-v1',
+  ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.bpmn.binding/{ns-action}-v1',
    '{nsid}', '{bpmn_process_id}', 1, 30000, 'active',
    to_char(now() AT TIME ZONE 'UTC','YYYY-MM-DD"T"HH24:MI:SS"Z"'));
 ```
@@ -327,7 +327,7 @@ VALUES
 mcpRegistry.actorDid → APP_DID → PERFORMER_DID → did:web:{APP_NANOID}.etzhayyim.com
 ```
 
-一方 `sync-mcp-registry.py` は NSID 4th segment (`ai.gftd.apps.{actorSlug}.*`)
+一方 `sync-mcp-registry.py` は NSID 4th segment (`app.etzhayyim.apps.{actorSlug}.*`)
 から `did:web:{actorSlug}.etzhayyim.com` を生成する。lawfirm の場合:
 
 | Source | Value |
@@ -410,7 +410,7 @@ fewer-larger-batches を好む。
 - AJV ~30 KB を host-sdk に追加。MCP 層 + handler 層で 2 重 validation。
 - ADR-0005 違反、却下。
 
-## D. PDS 集約 `ai.gftd.mcp.message` を per-actor scope 拡張
+## D. PDS 集約 `app.etzhayyim.mcp.message` を per-actor scope 拡張
 
 - ADR-0087 で既に却下済 (SPoF, ADR-0036 逆行)。本 ADR でも採用しない。
 

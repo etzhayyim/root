@@ -5,8 +5,8 @@
 // and the receiving component dispatches it to a registered handler.
 //
 // Collections:
-//   ai.gftd.a2a.task   — task envelope (from, to, method, toolName, argumentsJson)
-//   ai.gftd.a2a.result — result envelope (taskId, from, to, status, outputJson, error)
+//   app.etzhayyim.a2a.task   — task envelope (from, to, method, toolName, argumentsJson)
+//   app.etzhayyim.a2a.result — result envelope (taskId, from, to, status, outputJson, error)
 //
 // Usage:
 //
@@ -27,9 +27,9 @@ import (
 
 const (
 	// A2ACollectionTask is the W Protocol collection for A2A task records.
-	A2ACollectionTask = "ai.gftd.a2a.task"
+	A2ACollectionTask = "app.etzhayyim.a2a.task"
 	// A2ACollectionResult is the W Protocol collection for A2A result records.
-	A2ACollectionResult = "ai.gftd.a2a.result"
+	A2ACollectionResult = "app.etzhayyim.a2a.result"
 )
 
 // a2aHandler is the registered A2A task handler (set via App.HandleA2ATask).
@@ -140,17 +140,17 @@ func A2AAsk(targetNanoid, question string) (string, error) {
 }
 
 // HandleA2ATask registers a handler for incoming A2A tasks on the App.
-// The handler is called when an ai.gftd.a2a.task commit is received via W Protocol Firehose
+// The handler is called when an app.etzhayyim.a2a.task commit is received via W Protocol Firehose
 // and the "to" field matches this actor's nanoid.
 //
 // If the handler returns a non-nil A2AResult, it is automatically sent back
-// as an ai.gftd.a2a.result W Protocol message.
+// as an app.etzhayyim.a2a.result W Protocol message.
 func (a *App) HandleA2ATask(fn func(*AppContext, A2ATask) (*A2AResult, error)) *App {
 	a2aHandler = fn
 	return a
 }
 
-// dispatchA2ATask is called from handleWCommit when collection = ai.gftd.a2a.task.
+// dispatchA2ATask is called from handleWCommit when collection = app.etzhayyim.a2a.task.
 func (a *App) dispatchA2ATask(commit WCommit, recordJSON []byte) error {
 	if a2aHandler == nil {
 		return nil
@@ -395,7 +395,7 @@ func (a *App) HandleConversationMessage(fn func(*AppContext, ConversationMessage
 	return a
 }
 
-// dispatchConversationMessage is called from handleWCommit for ai.gftd.a2a.message commits.
+// dispatchConversationMessage is called from handleWCommit for app.etzhayyim.a2a.message commits.
 func (a *App) dispatchConversationMessage(commit WCommit, recordJSON []byte) error {
 	if conversationMessageHandler == nil {
 		return nil

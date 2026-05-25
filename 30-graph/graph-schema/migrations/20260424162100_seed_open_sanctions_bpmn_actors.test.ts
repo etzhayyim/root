@@ -27,8 +27,8 @@ describe("Seed open-sanctions BPMN actors migration", () => {
     expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-sanctions/screenEntity.bpmn"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openSanctions.recordSanctionsEntry"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openSanctions.screenEntity"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSanctions.recordSanctionsEntry"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSanctions.screenEntity"');
   });
   it("uses open-sanctions-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-sanctions"');

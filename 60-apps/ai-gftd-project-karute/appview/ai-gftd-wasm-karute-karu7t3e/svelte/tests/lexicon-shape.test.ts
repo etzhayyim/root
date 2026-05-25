@@ -41,7 +41,7 @@ describe('karute lexicon shape', () => {
     expect(lexicons.length).toBeGreaterThan(20);
   });
 
-  it('every doc has lexicon=1 and an id starting with ai.gftd. or app.etzhayyim.', () => {
+  it('every doc has lexicon=1 and an id starting with app.etzhayyim. or app.etzhayyim.', () => {
     for (const { doc } of lexicons) {
       expect(doc.lexicon).toBe(1);
       expect(doc.id).toMatch(/^(ai\.gftd\.|app\.etzhayyim\.)/);
@@ -56,7 +56,7 @@ describe('karute lexicon shape', () => {
       // listPatients carries a `limit` / `offset` declared as number for legacy bootstrap reasons.
       // For strictness we accept up to N occurrences in the bootstrap files; everything else fails.
       if (matches.length > 0) {
-        // Allow only ai.gftd.apps.karute.listPatients / listEncounters that carry stub `number` types.
+        // Allow only app.etzhayyim.apps.karute.listPatients / listEncounters that carry stub `number` types.
         const allowed = /listPatients\.json|listEncounters\.json$/.test(path);
         expect(allowed, `unexpected type:number in ${path}`).toBe(true);
       }

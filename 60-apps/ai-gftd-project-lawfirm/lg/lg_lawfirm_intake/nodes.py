@@ -4,7 +4,7 @@ Flow: triage_node → summarize_node → search_node → match_node
 
 triage_node   — LLM classify domain / urgency / specialization from summary
 summarize_node — encrypt summary with signal:v1: prefix (ADR-0018 Stage 1)
-search_node   — GET bengoshi.gftd.ai searchLawyers by jurisdiction + specialization
+search_node   — GET bengoshi.etzhayyim.com searchLawyers by jurisdiction + specialization
 match_node    — POST inviteExternalCounsel for top-3 matched lawyers
 """
 
@@ -27,13 +27,13 @@ _log = logging.getLogger(__name__)
 # Config
 # ---------------------------------------------------------------------------
 
-_LLM_URL = os.environ.get("GFTD_LLM_URL", "https://gemma-e4b.gftd.ai/v1/chat/completions")
-_LLM_KEY = os.environ.get("GFTD_LLM_API_KEY", "")
-_LLM_MODEL = os.environ.get("LAWFIRM_LLM_MODEL", os.environ.get("GFTD_LLM_MODEL", "gemma-4-E4B-it"))
+_LLM_URL = os.environ.get("etzhayyim_LLM_URL", "https://gemma-e4b.etzhayyim.com/v1/chat/completions")
+_LLM_KEY = os.environ.get("etzhayyim_LLM_API_KEY", "")
+_LLM_MODEL = os.environ.get("LAWFIRM_LLM_MODEL", os.environ.get("etzhayyim_LLM_MODEL", "gemma-4-E4B-it"))
 _LLM_TIMEOUT = float(os.environ.get("LAWFIRM_LLM_TIMEOUT_SEC", "20"))
 
-_BENGOSHI_URL = os.environ.get("BENGOSHI_URL", "https://bengoshi.gftd.ai")
-_DISPATCHER_URL = os.environ.get("DISPATCHER_URL", "https://dispatcher.gftd.ai")
+_BENGOSHI_URL = os.environ.get("BENGOSHI_URL", "https://bengoshi.etzhayyim.com")
+_DISPATCHER_URL = os.environ.get("DISPATCHER_URL", "https://dispatcher.etzhayyim.com")
 _INTERNAL_SECRET = os.environ.get("DISPATCHER_INTERNAL_SECRET", "")
 
 _INVITE_LIMIT = int(os.environ.get("LAWFIRM_INVITE_LIMIT", "3"))
@@ -83,7 +83,7 @@ def _internal_headers() -> dict[str, str]:
 # ---------------------------------------------------------------------------
 
 _TRIAGE_SYSTEM = (
-    "You are a legal intake triage assistant for lawfirm.gftd.ai.\n"
+    "You are a legal intake triage assistant for lawfirm.etzhayyim.com.\n"
     "Given a client complaint in any language, classify it and return JSON:\n"
     '{"domain": "<one of: ni138|land|family|consumer|labour|corporate|tax|criminal|rera|fema|pil-rti|visa|other>",\n'
     ' "urgency": "<routine|urgent|ex-parte>",\n'
@@ -185,7 +185,7 @@ async def summarize_node(state: IntakeState) -> dict:
 
 
 async def search_node(state: IntakeState) -> dict:
-    """Search bengoshi.gftd.ai for verified lawyers matching jurisdiction + specialization."""
+    """Search bengoshi.etzhayyim.com for verified lawyers matching jurisdiction + specialization."""
     jurisdiction = state.get("jurisdiction") or "IND"
     triage = state.get("triage_result") or {}
     specializations: list[str] = triage.get("specializations") or []
@@ -201,7 +201,7 @@ async def search_node(state: IntakeState) -> dict:
 
     try:
         resp = _http_get(
-            f"{_BENGOSHI_URL}/xrpc/ai.gftd.apps.bengoshi.searchLawyers",
+            f"{_BENGOSHI_URL}/xrpc/app.etzhayyim.apps.bengoshi.searchLawyers",
             params=params,
         )
         lawyers: list[dict] = resp.get("lawyers") or []
@@ -232,7 +232,7 @@ async def match_node(state: IntakeState) -> dict:
             continue
         try:
             resp = _http_post(
-                f"{_DISPATCHER_URL}/xrpc/ai.gftd.apps.lawfirm.inviteExternalCounsel",
+                f"{_DISPATCHER_URL}/xrpc/app.etzhayyim.apps.lawfirm.inviteExternalCounsel",
                 body={
                     "matterDid": case_did,
                     "granteeDid": grantee_did,

@@ -91,7 +91,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps3d-process-tile-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'maps3d_process_tile',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -100,7 +100,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Cadence: timer-start R/PT15M draws one pending tile per tick; manual\n'
                  '  invocation via `POST '
-                 'http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.maps3d.processTile`\n'
+                 'http://dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.apps.maps3d.processTile`\n'
                  '  with { tileH3 } skips the picker.\n'
                  '\n'
                  '  Pipeline (sequential within one tile, time-budgeted):\n'
@@ -126,9 +126,9 @@ UP = [{'sql': '\n'
                  '  Steady-state throughput: 1 tile / ~45 min on a 2-core colmap-worker pod.\n'
                  '  Tokyo landmark backfill (~2,000 tiles) ≈ 60 days end-to-end with one pod.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.maps3d.processTile\n'
+                 '  NSID: app.etzhayyim.apps.maps3d.processTile\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps3d-process-tile-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -142,7 +142,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.maps3d.processTile", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.maps3d.processTile", "version": 1, '
                  '"resultTimeoutMs": 5400000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -506,7 +506,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.maps3d.tile.processed&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.maps3d.tile.processed&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;tileH3&quot;: tileRows[1].tile_h3, '
                  '&quot;triangles&quot;: finalTriangles, &quot;cameras&quot;: registeredImages, '
@@ -561,7 +561,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.maps3d',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps3d-process-tile-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -569,21 +569,21 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps3d-process-tile-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps3d-process-tile-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'ai.gftd.apps.maps3d.processTile',
+                 'app.etzhayyim.apps.maps3d.processTile',
                  'maps3d_process_tile',
                  5400000,
                  '2026-04-26T01:00:00+09:00',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.maps3d',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps3d-process-tile-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps3d-process-tile-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/maps3d-process-tile-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps3d-process-tile-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps3d-process-tile-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_langgraph_state', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_maps3d_tile', 'parameters': []}]
 

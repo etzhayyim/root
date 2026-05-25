@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          "        $7, 1, $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-search-listings-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-search-listings-v1',
                  'did:web:real-estate.etzhayyim.com:ops',
                  'real_estate_search_listings',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -34,7 +34,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/real-estate"><bpmn:process '
                  'id="real_estate_search_listings" name="realEstate searchListings" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.realEstate.searchListings", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.realEstate.searchListings", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -49,7 +49,7 @@ UP = [{'sql': '\n'
                  'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate-read',
                  'did:web:real-estate.etzhayyim.com:ops',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-search-listings-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-search-listings-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -63,9 +63,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-search-listings-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-search-listings-v1',
                  'did:web:real-estate.etzhayyim.com:ops',
-                 'ai.gftd.apps.realEstate.searchListings',
+                 'app.etzhayyim.apps.realEstate.searchListings',
                  'real_estate_search_listings',
                  30000,
                  '2026-04-30T21:20:00+09:00',
@@ -73,7 +73,7 @@ UP = [{'sql': '\n'
                  'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate-read',
                  'did:web:real-estate.etzhayyim.com:ops',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-search-listings-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-search-listings-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -86,7 +86,7 @@ UP = [{'sql': '\n'
          "        $7, 1, $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-get-property-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-get-property-v1',
                  'did:web:real-estate.etzhayyim.com:ops',
                  'real_estate_get_property',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -96,7 +96,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/real-estate"><bpmn:process '
                  'id="real_estate_get_property" name="realEstate getProperty" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.realEstate.getProperty", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.realEstate.getProperty", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -111,7 +111,7 @@ UP = [{'sql': '\n'
                  'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate-read',
                  'did:web:real-estate.etzhayyim.com:ops',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-get-property-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-get-property-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -125,9 +125,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-get-property-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-get-property-v1',
                  'did:web:real-estate.etzhayyim.com:ops',
-                 'ai.gftd.apps.realEstate.getProperty',
+                 'app.etzhayyim.apps.realEstate.getProperty',
                  'real_estate_get_property',
                  30000,
                  '2026-04-30T21:20:00+09:00',
@@ -135,7 +135,7 @@ UP = [{'sql': '\n'
                  'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate-read',
                  'did:web:real-estate.etzhayyim.com:ops',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-get-property-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-get-property-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -148,7 +148,7 @@ UP = [{'sql': '\n'
          "        $7, 1, $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-get-market-stats-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-get-market-stats-v1',
                  'did:web:real-estate.etzhayyim.com:ops',
                  'real_estate_get_market_stats',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -158,7 +158,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/real-estate"><bpmn:process '
                  'id="real_estate_get_market_stats" name="realEstate getMarketStats" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.realEstate.getMarketStats", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.realEstate.getMarketStats", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -173,7 +173,7 @@ UP = [{'sql': '\n'
                  'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate-read',
                  'did:web:real-estate.etzhayyim.com:ops',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-get-market-stats-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-get-market-stats-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -187,9 +187,9 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-get-market-stats-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-get-market-stats-v1',
                  'did:web:real-estate.etzhayyim.com:ops',
-                 'ai.gftd.apps.realEstate.getMarketStats',
+                 'app.etzhayyim.apps.realEstate.getMarketStats',
                  'real_estate_get_market_stats',
                  30000,
                  '2026-04-30T21:20:00+09:00',
@@ -197,20 +197,20 @@ UP = [{'sql': '\n'
                  'did:web:real-estate.etzhayyim.com:ops',
                  'sys.bpmn.seed.real-estate-read',
                  'did:web:real-estate.etzhayyim.com:ops',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-get-market-stats-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-get-market-stats-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-search-listings-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-search-listings-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-search-listings-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-search-listings-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-get-property-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-get-property-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-get-property-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-get-property-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-get-market-stats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-get-market-stats-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-get-market-stats-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-get-market-stats-v1']}]
 
 
 def upgrade() -> None:

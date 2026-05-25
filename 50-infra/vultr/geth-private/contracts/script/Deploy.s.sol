@@ -8,19 +8,19 @@ import {CoinbaseSmartWalletFactory} from "smart-wallet/CoinbaseSmartWalletFactor
 
 import {DeployRegistry} from "../src/DeployRegistry.sol";
 import {GCCStablecoin} from "../src/GCCStablecoin.sol";
-import {GftdActorAccount} from "../src/GftdActorAccount.sol";
-import {GftdActorRegistry} from "../src/GftdActorRegistry.sol";
+import {etzhayyimActorAccount} from "../src/etzhayyimActorAccount.sol";
+import {etzhayyimActorRegistry} from "../src/etzhayyimActorRegistry.sol";
 
 /// @title Phase 2-A unified deploy
 ///
 /// Deploys, in dependency order:
 ///   1. EntryPoint (ERC-4337 v0.6, vendored unchanged from eth-infinitism)
-///   2. GftdActorAccount impl (CoinbaseSmartWallet subclass with chain-local
+///   2. etzhayyimActorAccount impl (CoinbaseSmartWallet subclass with chain-local
 ///      EntryPoint override — used as the implementation for all ERC-1967
 ///      proxies the factory clones)
 ///   3. CoinbaseSmartWalletFactory (canonical Coinbase factory pointed at
 ///      our impl)
-///   4. GftdActorRegistry (root DID hash → account address index, salt convention)
+///   4. etzhayyimActorRegistry (root DID hash → account address index, salt convention)
 ///   5. GCCStablecoin (USDC-style ERC-20 — credits / stake / payment unit)
 ///   6. DeployRegistry (`gftd deploy` provenance ledger)
 ///
@@ -39,23 +39,23 @@ contract Deploy is Script {
         console.log("EntryPoint:               ", address(entryPoint));
 
         // 2. Smart-wallet implementation (Coinbase subclass with our EntryPoint).
-        GftdActorAccount actorImpl = new GftdActorAccount(address(entryPoint));
-        console.log("GftdActorAccount (impl):  ", address(actorImpl));
+        etzhayyimActorAccount actorImpl = new etzhayyimActorAccount(address(entryPoint));
+        console.log("etzhayyimActorAccount (impl):  ", address(actorImpl));
 
         // 3. Factory pointed at our subclass — clones ERC-1967 proxies that
-        //    delegate to GftdActorAccount.
+        //    delegate to etzhayyimActorAccount.
         CoinbaseSmartWalletFactory cswFactory = new CoinbaseSmartWalletFactory(address(actorImpl));
         console.log("CoinbaseSmartWalletFactory:", address(cswFactory));
 
         // 4. Root DID hash → account index + salt convention.
-        GftdActorRegistry actorRegistry = new GftdActorRegistry(cswFactory);
-        console.log("GftdActorRegistry:         ", address(actorRegistry));
+        etzhayyimActorRegistry actorRegistry = new etzhayyimActorRegistry(cswFactory);
+        console.log("etzhayyimActorRegistry:         ", address(actorRegistry));
 
-        // 5. GFTD Compute Credit (GCC) — USDC-style. Deployer holds all roles
+        // 5. etzhayyim Compute Credit (GCC) — USDC-style. Deployer holds all roles
         //    initially; configureMinter gives the deployer 100M GCC mint
         //    headroom for bootstrap (Murakumo escrow funding, faucet, etc.).
         GCCStablecoin gcc = new GCCStablecoin(
-            "GFTD Compute Credit", // name
+            "etzhayyim Compute Credit", // name
             "GCC",                  // symbol
             18,                     // decimals
             1_000_000_000 ether,    // supplyCap (1B GCC)

@@ -43,23 +43,23 @@ from pymagatama.handlers import actor_embed  # noqa: F401
 
 # ADR-0049 Phase C — DNS-over-HTTPS resolver (Cloudflare DoH).
 # Replaces per-row DoH fetches in 70-tools/scripts/hourly_collect.py +
-# collect-dns-global.sh. NSIDs ai.gftd.apps.dns.{resolve,resolveJson}.
+# collect-dns-global.sh. NSIDs app.etzhayyim.apps.dns.{resolve,resolveJson}.
 from pymagatama.handlers import dns_resolve  # noqa: F401
 
 # ADR-0049 Phase C — GLEIF LEI lookup. Replaces per-row GLEIF fetch in
 # 70-tools/scripts/gleif-reconcile-repo-record.mjs +
-# multi-country-direct-ingest.mjs. NSID ai.gftd.apps.gleif.lookup.
+# multi-country-direct-ingest.mjs. NSID app.etzhayyim.apps.gleif.lookup.
 from pymagatama.handlers import gleif_lookup  # noqa: F401
 
 # ADR-0049 Phase C — Wikidata entity claims. Replaces per-QID
 # `wbgetentities` fetch in 70-tools/scripts/media_gamers_enrich_sources.py.
-# NSID ai.gftd.apps.wikidata.entityClaims.
+# NSID app.etzhayyim.apps.wikidata.entityClaims.
 from pymagatama.handlers import wikidata_entity  # noqa: F401
 
 # ADR-0049 Phase C — Steam appdetails release-date backfill. Replaces
 # 70-tools/scripts/media_gamers_backfill_release_year.py +
 # media_gamers_enrich_sources.py --steam-backfill. NSID
-# ai.gftd.apps.steam.releaseDate.
+# app.etzhayyim.apps.steam.releaseDate.
 from pymagatama.handlers import steam_release  # noqa: F401
 
 # APQC / ISIC / ISCO migration — deterministic UDF companions for the LangServer +

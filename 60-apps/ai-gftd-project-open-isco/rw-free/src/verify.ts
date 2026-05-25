@@ -9,7 +9,7 @@
  * cryptographic proof anyone can re-check.
  *
  * Usage:
- *   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/ai.gftd.apps.openIsco.occupation/2511
+ *   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/app.etzhayyim.apps.openIsco.occupation/2511
  */
 
 import { Etzhayyim } from "@etzhayyim/sdk";

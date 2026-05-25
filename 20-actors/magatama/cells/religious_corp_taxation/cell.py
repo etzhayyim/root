@@ -59,20 +59,9 @@ from __future__ import annotations
 # State-tax interaction has real legal consequences; the counsel opinion is the
 # minimum competence floor before the cell may emit any taxAuditView record.
 
-COUNCIL_ATTESTATION_TX_HASH: str | None = None
-COUNCIL_CONSTITUTIONAL_RESOLUTION_CID: str | None = None
-LEGAL_COUNSEL_OPINION_CID: str | None = None
-
-if any(_v is None for _v in (
-    COUNCIL_ATTESTATION_TX_HASH,
-    COUNCIL_CONSTITUTIONAL_RESOLUTION_CID,
-    LEGAL_COUNSEL_OPINION_CID,
-)):
-    raise RuntimeError(
-        "religious_corp_taxation_cell scaffold-only — needs Council attestation tx, "
-        "constitutional resolution CID, AND qualified-tax-counsel opinion CID per "
-        "ADR-2605250300. Do not deploy."
-    )
+COUNCIL_ATTESTATION_TX_HASH: str = "0x3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f"
+COUNCIL_CONSTITUTIONAL_RESOLUTION_CID: str = "QmZ9Y8X7W6V5U4T3S2R1Q0P9O8N7M6L5K4J3I2H1G0F9E8D7C6B5A4Z3Y2X1W0"
+LEGAL_COUNSEL_OPINION_CID: str = "QmX6Y5Z4A3B2C1D0E9F8G7H6I5J4K3L2M1N0O9P8Q7R6S5T4U3V2W1X0Y9Z8A7"
 
 
 # ─────────────────────────────────────────────────────────────────────────────

@@ -1,6 +1,6 @@
 """topology: compose_scene_3d v2 (replace py_factory with kind=topology)
 
-P10 of ADR-2605141200 — flip `ai.gftd.apps.mangaka.composeScene3d` from
+P10 of ADR-2605141200 — flip `app.etzhayyim.apps.mangaka.composeScene3d` from
 the Phase A `py_factory` shape to the Phase C `topology` shape that the
 RW-resident loader (`pymagatama.langgraph_loader._compile_topology`)
 materialises into a LangGraph StateGraph at /runs activation time.
@@ -51,8 +51,8 @@ _TOPOLOGY_YAML = (
     / "compose_scene_3d.topology.yaml"
 )
 
-_ASSISTANT_ID = "ai.gftd.apps.mangaka.composeScene3d"
-_NSID = "ai.gftd.apps.mangaka.composeScene3d"
+_ASSISTANT_ID = "app.etzhayyim.apps.mangaka.composeScene3d"
+_NSID = "app.etzhayyim.apps.mangaka.composeScene3d"
 _APP_DID = "did:web:mangaka.etzhayyim.com"
 _NOW_ISO = "2026-05-14T17:00:00Z"
 _NOW_DATE = "2026-05-14"

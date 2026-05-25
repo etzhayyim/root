@@ -1,6 +1,6 @@
 """jukyu `health` graph — RW probe + liveness.
 
-NSID: ai.gftd.apps.jukyu.health
+NSID: app.etzhayyim.apps.jukyu.health
 """
 
 from __future__ import annotations

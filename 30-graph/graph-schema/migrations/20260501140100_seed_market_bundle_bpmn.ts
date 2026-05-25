@@ -29,10 +29,10 @@ interface BpmnSeed {
 
 const seeds: BpmnSeed[] = [
   {
-    processVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/market-settlementBundle-v1",
-    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/market-settlementBundle-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/market-settlementBundle-v1",
     processId: "market_settlement_bundle",
-    nsid: "ai.gftd.market.settlementBundle",
+    nsid: "app.etzhayyim.market.settlementBundle",
     sourcePath: "00-contracts/bpmn/ai/gftd/generic/settlementBundle.bpmn",
     resultTimeoutMs: 120_000,
     writeTableAllowlist: "vertex_market_settlement",

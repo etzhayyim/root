@@ -7,10 +7,10 @@ import { sql } from "kysely";
 // Coverage literals:
 // - 00-contracts/bpmn/ai/gftd/yoro/translatePost.bpmn
 //   yoro_translate_post
-//   ai.gftd.apps.yoro.translatePost
+//   app.etzhayyim.apps.yoro.translatePost
 // - 00-contracts/bpmn/ai/gftd/yoro/translatePostBatch.bpmn
 //   yoro_translate_post_batch
-//   ai.gftd.apps.yoro.translatePostBatch
+//   app.etzhayyim.apps.yoro.translatePostBatch
 
 type Seed = {
   proc: string;
@@ -30,13 +30,13 @@ const seeds: Seed[] = [
   {
     proc: "translatePost",
     bpmnProcessId: "yoro_translate_post",
-    nsid: "ai.gftd.apps.yoro.translatePost",
+    nsid: "app.etzhayyim.apps.yoro.translatePost",
     resultTimeoutMs: 90000,
   },
   {
     proc: "translatePostBatch",
     bpmnProcessId: "yoro_translate_post_batch",
-    nsid: "ai.gftd.apps.yoro.translatePostBatch",
+    nsid: "app.etzhayyim.apps.yoro.translatePostBatch",
     resultTimeoutMs: 300000,
   },
 ];
@@ -44,9 +44,9 @@ const seeds: Seed[] = [
 const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/yoro/${s.proc}.bpmn`;
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVid = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yoro-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yoro-${slug(s.proc)}-v1`;
 const bindingVid = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yoro-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yoro-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

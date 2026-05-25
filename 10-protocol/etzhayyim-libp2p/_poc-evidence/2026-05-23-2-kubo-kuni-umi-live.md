@@ -42,9 +42,9 @@ $ diff <(curl ...:29030/healthz) <(curl ...:13030/healthz)
   → identical, 505 bytes each
 ```
 
-### POST /xrpc/ai.gftd.apps.etzhayyim.kuniUmi.defineDeploymentSite through tunnel
+### POST /xrpc/app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite through tunnel
 ```
-$ curl -X POST http://127.0.0.1:29030/xrpc/ai.gftd.apps.etzhayyim.kuniUmi.defineDeploymentSite \
+$ curl -X POST http://127.0.0.1:29030/xrpc/app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite \
     -d '{"siteCode":"LIBP2P-2KUBO-001","name":"libp2p 2-Kubo PoC",
          "geo":{"type":"Feature","geometry":{"type":"Point","coordinates":[138.86,35.42]}},
          "utilityClass":"electric","domain":"terrestrial",
@@ -58,7 +58,7 @@ $ curl -X POST http://127.0.0.1:29030/xrpc/ai.gftd.apps.etzhayyim.kuniUmi.define
   state.jurisdiction_ok=True
   state.charter_rider_ok=True
   state.ecology_baseline.impactScore=25
-  state.submission_at_uri=at://did:web:etzhayyim.com:site:unknown/ai.gftd.apps.etzhayyim.kuniUmi.submitSiteSurvey/1779531205755
+  state.submission_at_uri=at://did:web:etzhayyim.com:site:unknown/app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey/1779531205755
 ```
 
 ## Interpretation

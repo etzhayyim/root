@@ -9,11 +9,11 @@ last_verified: 2026-05-21
 priority: 9.0
 axis: governance
 weight: 0.90
-priority_note: "STRONG — closes the Phase 2 rollout from ADR-2605211200 by physically moving the organism source-of-truth to etzhayyim/root, dropping the vendor RW tables, and completing the ai.gftd.agent.* / ai.gftd.consent.capability.* NSID rename to ai.etzhayyim.*. Blocked on Phase 2 30d clean run; not executable before then."
+priority_note: "STRONG — closes the Phase 2 rollout from ADR-2605211200 by physically moving the organism source-of-truth to etzhayyim/root, dropping the vendor RW tables, and completing the app.etzhayyim.agent.* / app.etzhayyim.consent.capability.* NSID rename to ai.etzhayyim.*. Blocked on Phase 2 30d clean run; not executable before then."
 authoritative_for:
   - physical location of active-inference primitives (etzhayyim/root vs vendor monorepo)
   - vertex_agent_* table lifecycle (archive + drop)
-  - NSID rename catalog (ai.gftd.agent.* / ai.gftd.consent.capability.* → ai.etzhayyim.*)
+  - NSID rename catalog (app.etzhayyim.agent.* / app.etzhayyim.consent.capability.* → ai.etzhayyim.*)
   - vendor monorepo cleanup pass (delete what moved)
 depends_on:
   - adr-2605211200-etzhayyim-active-inference-organism-on-murakumo
@@ -114,22 +114,22 @@ window:
 
 | Current (vendor) | New (etzhayyim) |
 |---|---|
-| `ai.gftd.agent.observation` | `ai.etzhayyim.agent.observation` |
-| `ai.gftd.agent.beliefState` | `ai.etzhayyim.agent.beliefState` |
-| `ai.gftd.agent.priorPreference` | `ai.etzhayyim.agent.priorPreference` |
-| `ai.gftd.agent.activeInferenceTick` | `ai.etzhayyim.agent.activeInferenceTick` |
-| `ai.gftd.agent.actionProposal` | `ai.etzhayyim.agent.actionProposal` |
-| `ai.gftd.agent.realworldEffect` | `ai.etzhayyim.agent.realworldEffect` |
-| `ai.gftd.agent.homeostasisSnapshot` | `ai.etzhayyim.agent.homeostasisSnapshot` |
-| `ai.gftd.agent.dispatchLedger` | `ai.etzhayyim.agent.dispatchLedger` |
-| `ai.gftd.agent.delegatedAuthorityPolicy` | `ai.etzhayyim.agent.delegatedAuthorityPolicy` |
-| `ai.gftd.agent.policyAdaptationProposal` | `ai.etzhayyim.agent.policyAdaptationProposal` |
-| `ai.gftd.agent.counterpartyModel` | `ai.etzhayyim.agent.counterpartyModel` |
-| `ai.gftd.agent.protectedAsset` | `ai.etzhayyim.agent.protectedAsset` |
-| `ai.gftd.consent.capability.issueToken` | `ai.etzhayyim.consent.capability.issueToken` |
-| `ai.gftd.consent.capability.verifyToken` | `ai.etzhayyim.consent.capability.verifyToken` |
-| `ai.gftd.consent.capability.revokeToken` | `ai.etzhayyim.consent.capability.revokeToken` |
-| `ai.gftd.consent.capability.jwks` | `ai.etzhayyim.consent.capability.jwks` |
+| `app.etzhayyim.agent.observation` | `ai.etzhayyim.agent.observation` |
+| `app.etzhayyim.agent.beliefState` | `ai.etzhayyim.agent.beliefState` |
+| `app.etzhayyim.agent.priorPreference` | `ai.etzhayyim.agent.priorPreference` |
+| `app.etzhayyim.agent.activeInferenceTick` | `ai.etzhayyim.agent.activeInferenceTick` |
+| `app.etzhayyim.agent.actionProposal` | `ai.etzhayyim.agent.actionProposal` |
+| `app.etzhayyim.agent.realworldEffect` | `ai.etzhayyim.agent.realworldEffect` |
+| `app.etzhayyim.agent.homeostasisSnapshot` | `ai.etzhayyim.agent.homeostasisSnapshot` |
+| `app.etzhayyim.agent.dispatchLedger` | `ai.etzhayyim.agent.dispatchLedger` |
+| `app.etzhayyim.agent.delegatedAuthorityPolicy` | `ai.etzhayyim.agent.delegatedAuthorityPolicy` |
+| `app.etzhayyim.agent.policyAdaptationProposal` | `ai.etzhayyim.agent.policyAdaptationProposal` |
+| `app.etzhayyim.agent.counterpartyModel` | `ai.etzhayyim.agent.counterpartyModel` |
+| `app.etzhayyim.agent.protectedAsset` | `ai.etzhayyim.agent.protectedAsset` |
+| `app.etzhayyim.consent.capability.issueToken` | `ai.etzhayyim.consent.capability.issueToken` |
+| `app.etzhayyim.consent.capability.verifyToken` | `ai.etzhayyim.consent.capability.verifyToken` |
+| `app.etzhayyim.consent.capability.revokeToken` | `ai.etzhayyim.consent.capability.revokeToken` |
+| `app.etzhayyim.consent.capability.jwks` | `ai.etzhayyim.consent.capability.jwks` |
 
 (16 NSIDs total — 12 from Phase 1, 4 from Phase 2C.3 + 2C.4 + 2C.4.3.)
 
@@ -140,7 +140,7 @@ client code at the agent SDK + CF Worker handler reads either form.
 
 Pass criteria after 30 days of dual-publish:
   - All callers in vendor monorepo use the new form (grep returns 0
-    `ai.gftd.agent.*` / `ai.gftd.consent.capability.*` references)
+    `app.etzhayyim.agent.*` / `app.etzhayyim.consent.capability.*` references)
   - PDS bundle includes both forms; deprecation warning logs the
     old form
 
@@ -171,7 +171,7 @@ then delete from vendor monorepo with `[MOVED]` README stub):
 
 Pass criteria:
   - `grep -r "from pymagatama.primitives.active_inference" vendor-monorepo` returns 0
-  - `grep -r "ai.gftd.agent\." vendor-monorepo` returns 0 (Stage C condition reused)
+  - `grep -r "app.etzhayyim.agent\." vendor-monorepo` returns 0 (Stage C condition reused)
   - etzhayyim/root organism k8s deployment runs ≥7 days clean
   - vendor monorepo build still passes (delete pass should not have broken any imports)
 
@@ -208,7 +208,7 @@ Pass criteria: zero rows lost (parquet row count matches RW row count at archive
   the Liability + Custody axes of the 3-axis split per ADR-2605172400)
 - `vertex_agent_*` tables eliminated from vendor RW (Custody axis fully
   resolved — operator no longer holds any organism state)
-- NSID namespace cleanup (`ai.gftd.agent.*` retired, single `ai.etzhayyim.*`
+- NSID namespace cleanup (`app.etzhayyim.agent.*` retired, single `ai.etzhayyim.*`
   surface)
 - Vendor monorepo shrinks by ~7 worker modules + 5 primitive modules +
   16 lexicons + 14 schema migration files
@@ -246,7 +246,7 @@ completion criterion is:
 1. All 14 vertex_agent_* tables DROPped + archived
 2. All 16 lexicon NSIDs renamed to `ai.etzhayyim.*`
 3. 12 primitive Python modules physically reside in etzhayyim/root
-4. Vendor monorepo grep for `ai.gftd.agent.*` + `vertex_agent_*` returns 0
+4. Vendor monorepo grep for `app.etzhayyim.agent.*` + `vertex_agent_*` returns 0
 5. ≥30 days clean SLO alerts post-completion
 
 When all 5 are met, this ADR can be flipped from `proposed` →

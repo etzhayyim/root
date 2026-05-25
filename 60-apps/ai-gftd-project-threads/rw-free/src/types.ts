@@ -1,5 +1,5 @@
 /**
- * Mirrors the ai.gftd.apps.threads.post Lexicon record shape.
+ * Mirrors the app.etzhayyim.apps.threads.post Lexicon record shape.
  * Source: 00-contracts/lexicons/ai/gftd/apps/threads/post.json
  */
 export interface StrongRef {

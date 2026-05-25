@@ -40,8 +40,8 @@ superseded_by: []
 | P3    | ISIC fleet first generation run           | ⏸ gated               | —   | Requires `ANTHROPIC_API_KEY` + explicit operator approval (~$0.30 Anthropic Batch spend) |
 | P4    | UNSPSC langserver pod                     | ✅ manifests-ready    | #19 | `50-infra/k8s/lg-open-unispsc/` Deployment + Service + HPA + Dockerfile; 18,342 agents lazy-loaded; smoke against `c10101501` PASS in 11 ms |
 | P5    | ISIC langserver pod                       | ✅ manifests-ready    | #19 | `50-infra/k8s/lg-open-isic/` same shape; empty registry is a valid steady state until P3 |
-| P6    | Magatama actor wrapper                    | ✅ complete           | #21 | `@gftd/magatama-host-sdk/langserver-actor`; `UnispscActor` + `IsicActor` + `LangserverActorError`; 12/12 vitest |
-| P7    | XRPC handler + AppView                    | ✅ complete           | #27 | `@gftd/magatama-host-sdk/langserver-xrpc-handler` (Hono); 2 CF Workers bound to `unispsc.etzhayyim.com` + `isic.etzhayyim.com`; 10/10 vitest |
+| P6    | Magatama actor wrapper                    | ✅ complete           | #21 | `@etzhayyim/magatama-host-sdk/langserver-actor`; `UnispscActor` + `IsicActor` + `LangserverActorError`; 12/12 vitest |
+| P7    | XRPC handler + AppView                    | ✅ complete           | #27 | `@etzhayyim/magatama-host-sdk/langserver-xrpc-handler` (Hono); 2 CF Workers bound to `unispsc.etzhayyim.com` + `isic.etzhayyim.com`; 10/10 vitest |
 | P8    | MCP server                                | ✅ complete           | #22 | `@etzhayyim/unispsc-isic-mcp` v0.1.0; 9 MCP tools (zod 4 schemas); stdio + programmatic HTTP transports; 25/25 vitest |
 | P9    | Real Anthropic-SDK-backed classifier      | ⏳ pending            | —   | Replaces `stub_classifier` in `pymagatama.langserver.router`; requires `ANTHROPIC_API_KEY` at runtime |
 
@@ -145,15 +145,15 @@ Lexicons are authored under `00-contracts/lexicons/ai/gftd/apps/{unispsc,isic}/`
 
 | NSID | Type | Purpose |
 |---|---|---|
-| `ai.gftd.apps.unispsc.classify` | procedure | description → top-K UNSPSC codes |
-| `ai.gftd.apps.unispsc.invokeAgent` | procedure | code → agent.ainvoke(state) |
-| `ai.gftd.apps.unispsc.listAgents` | query | paged registry listing |
-| `ai.gftd.apps.unispsc.health` | query | langserver health probe |
-| `ai.gftd.apps.isic.classify` | procedure | single-level class classification |
-| `ai.gftd.apps.isic.hierarchicalClassify` | procedure | section → division → group → class |
-| `ai.gftd.apps.isic.invokeAgent` | procedure | classCode → agent.ainvoke(state) |
-| `ai.gftd.apps.isic.listAgents` | query | paged registry listing |
-| `ai.gftd.apps.isic.health` | query | langserver health probe |
+| `app.etzhayyim.apps.unispsc.classify` | procedure | description → top-K UNSPSC codes |
+| `app.etzhayyim.apps.unispsc.invokeAgent` | procedure | code → agent.ainvoke(state) |
+| `app.etzhayyim.apps.unispsc.listAgents` | query | paged registry listing |
+| `app.etzhayyim.apps.unispsc.health` | query | langserver health probe |
+| `app.etzhayyim.apps.isic.classify` | procedure | single-level class classification |
+| `app.etzhayyim.apps.isic.hierarchicalClassify` | procedure | section → division → group → class |
+| `app.etzhayyim.apps.isic.invokeAgent` | procedure | classCode → agent.ainvoke(state) |
+| `app.etzhayyim.apps.isic.listAgents` | query | paged registry listing |
+| `app.etzhayyim.apps.isic.health` | query | langserver health probe |
 
 XRPC handler lives in the corresponding AppView under `60-apps/ai-gftd-project-open-{unispsc,isic}/`.
 The handler validates the input against the Lexicon schema, then dispatches

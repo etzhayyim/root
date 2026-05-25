@@ -52,7 +52,7 @@
 
 ## Lexicon Collections
 
-`ai.gftd.apps.omatsuri.{activity,meal,biomarker,mibyou_assessment,credit_tx,matsuri_event,matsuri_participant,ingredient,ingredient_risk_profile,product_scan,product_ingredient,daily_intake}`
+`app.etzhayyim.apps.omatsuri.{activity,meal,biomarker,mibyou_assessment,credit_tx,matsuri_event,matsuri_participant,ingredient,ingredient_risk_profile,product_scan,product_ingredient,daily_intake}`
 
 ## WIT
 

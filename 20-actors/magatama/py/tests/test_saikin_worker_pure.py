@@ -46,8 +46,8 @@ def test_probe_empty():
 
 def test_probe_returns_signals():
     rows = [
-        ("at://saikin.etzhayyim.com/ai.gftd.apps.saikin.signal/s41k-abc", "hash1", "text", "content A"),
-        ("at://saikin.etzhayyim.com/ai.gftd.apps.saikin.signal/s41k-def", "hash2", "url", "https://x.com"),
+        ("at://saikin.etzhayyim.com/app.etzhayyim.apps.saikin.signal/s41k-abc", "hash1", "text", "content A"),
+        ("at://saikin.etzhayyim.com/app.etzhayyim.apps.saikin.signal/s41k-def", "hash2", "url", "https://x.com"),
     ]
     with patch("pymagatama.saikin_worker_main.fetch_all", return_value=rows):
         from pymagatama.saikin_worker_main import task_probe_environment
@@ -169,7 +169,7 @@ def test_lyse_success():
     mock_cm.__enter__ = MagicMock(return_value=MagicMock())
     mock_cm.__exit__ = MagicMock(return_value=False)
 
-    row = ("at://saikin.etzhayyim.com/ai.gftd.apps.saikin.signal/s41k-abc",)
+    row = ("at://saikin.etzhayyim.com/app.etzhayyim.apps.saikin.signal/s41k-abc",)
 
     with (
         patch("pymagatama.saikin_worker_main.fetch_one", return_value=row),
@@ -209,7 +209,7 @@ def test_handoff_to_ki_via_colony():
     mock_cm.__exit__ = MagicMock(return_value=False)
 
     colony_row = (
-        "at://saikin.etzhayyim.com/ai.gftd.apps.saikin.colony/col-abc",
+        "at://saikin.etzhayyim.com/app.etzhayyim.apps.saikin.colony/col-abc",
         "knowledge colony",
         '{"signalIds":["s41k-001"]}',
     )
@@ -224,7 +224,7 @@ def test_handoff_to_ki_via_colony():
 
     assert result["kiAbsorbId"].startswith("xyl-")
     assert result["kiAbsorbVertexId"].startswith("at://did:web:ki.etzhayyim.com/")
-    assert result["sourceVertexId"] == "at://saikin.etzhayyim.com/ai.gftd.apps.saikin.colony/col-abc"
+    assert result["sourceVertexId"] == "at://saikin.etzhayyim.com/app.etzhayyim.apps.saikin.colony/col-abc"
     assert result["handedOffAt"]
 
 
@@ -235,7 +235,7 @@ def test_handoff_to_ki_falls_back_to_signal():
     mock_cm.__exit__ = MagicMock(return_value=False)
 
     signal_row = (
-        "at://saikin.etzhayyim.com/ai.gftd.apps.saikin.signal/s41k-xyz",
+        "at://saikin.etzhayyim.com/app.etzhayyim.apps.saikin.signal/s41k-xyz",
         "text",
         "horizontal gene transfer content",
     )
@@ -250,4 +250,4 @@ def test_handoff_to_ki_falls_back_to_signal():
         result = _run(task_handoff_to_ki(colonyId="col-missing", signalId="s41k-xyz"))
 
     assert result["kiAbsorbId"].startswith("xyl-")
-    assert result["sourceVertexId"] == "at://saikin.etzhayyim.com/ai.gftd.apps.saikin.signal/s41k-xyz"
+    assert result["sourceVertexId"] == "at://saikin.etzhayyim.com/app.etzhayyim.apps.saikin.signal/s41k-xyz"

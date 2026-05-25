@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govLtu.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govLtu.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Lithuania government.",
-        "operationId": "ai.gftd.govLtu.followSiteDeps",
+        "operationId": "app.etzhayyim.govLtu.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLtu.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govLtu.heartbeatTick": {
       "post": {
         "summary": "Run the Lithuania government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govLtu.heartbeatTick",
+        "operationId": "app.etzhayyim.govLtu.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLtu.listOrgs": {
+    "/xrpc/app.etzhayyim.govLtu.listOrgs": {
       "get": {
         "summary": "List Lithuania government organization graph records.",
-        "operationId": "ai.gftd.govLtu.listOrgs",
+        "operationId": "app.etzhayyim.govLtu.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLtu.registerDIDs": {
+    "/xrpc/app.etzhayyim.govLtu.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Lithuania government organizations.",
-        "operationId": "ai.gftd.govLtu.registerDIDs",
+        "operationId": "app.etzhayyim.govLtu.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLtu.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govLtu.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Lithuania government organization path to its graph record.",
-        "operationId": "ai.gftd.govLtu.resolveOrgPath",
+        "operationId": "app.etzhayyim.govLtu.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLtu.seedOrgs": {
+    "/xrpc/app.etzhayyim.govLtu.seedOrgs": {
       "post": {
         "summary": "Seed initial Lithuania government organization records into the graph.",
-        "operationId": "ai.gftd.govLtu.seedOrgs",
+        "operationId": "app.etzhayyim.govLtu.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLtu.shinka": {
+    "/xrpc/app.etzhayyim.govLtu.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Lithuania government organization update.",
-        "operationId": "ai.gftd.govLtu.shinka",
+        "operationId": "app.etzhayyim.govLtu.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLtu.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govLtu.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Lithuania government organization changes to graph.",
-        "operationId": "ai.gftd.govLtu.syncWetUpdates",
+        "operationId": "app.etzhayyim.govLtu.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

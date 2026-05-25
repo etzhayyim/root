@@ -16,7 +16,7 @@ authoritative_for:
   - "dojo 帯 ↔ society6 Kyu/Dan の正規化"
   - "joucho S-D は object-axis であり person rank に変換しない (非変換ルール)"
   - "Dan 昇格 = 自他非分離体験ゲート (D6 non-duality embodiment gate)"
-  - "ai.gftd.apps.etzhayyim.nonDualityAttestation Lexicon 予約"
+  - "app.etzhayyim.apps.etzhayyim.nonDualityAttestation Lexicon 予約"
 depends_on:
   - "2605172600-etzhayyim-membership-ritual"
   - "2605192100-etzhayyim-mission-charter"
@@ -227,11 +227,11 @@ ADR-2605192100 (Mission Charter) の以下三原則を **概念ではなく身�
 
 ### D6.3 Attestation pattern (AT Record + optional witness)
 
-新 Lexicon: `ai.gftd.apps.etzhayyim.nonDualityAttestation` (本 ADR で予約、Lexicon JSON 起草は follow-up)
+新 Lexicon: `app.etzhayyim.apps.etzhayyim.nonDualityAttestation` (本 ADR で予約、Lexicon JSON 起草は follow-up)
 
 ```jsonc
 {
-  "$type": "ai.gftd.apps.etzhayyim.nonDualityAttestation",
+  "$type": "app.etzhayyim.apps.etzhayyim.nonDualityAttestation",
   "method": "meditation",                    // D6.2 enum
   "method_specifier": "Vipassana 10-day",   // free text (optional)
   "context": "Dhamma Bhanu, Kyoto, 2026-04", // facilitator / location / date
@@ -290,7 +290,7 @@ ADR-2605192100 (Mission Charter) の以下三原則を **概念ではなく身�
 
 constituent が他の constituent の attestation を **不誠実 (fraudulent)** と判断した場合:
 
-1. Council Lv6+ に challenge を発行 (`ai.gftd.apps.etzhayyim.nonDualityChallenge` Lexicon, follow-up)。
+1. Council Lv6+ に challenge を発行 (`app.etzhayyim.apps.etzhayyim.nonDualityChallenge` Lexicon, follow-up)。
 2. Council ≥3 multisig で **30-day appeal window** を開く。
 3. 当該 constituent は反論証拠を提出 (witness 追加、facilitator letter、retreat 参加証等)。
 4. 30 日後、Council ≥3 multisig が valid/invalid を判定。

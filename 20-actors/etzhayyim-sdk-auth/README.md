@@ -19,7 +19,7 @@ export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const bearerToken = extractBearerToken(req);
     const e = createAuthedEtzhayyim({ env, bearerToken });
-    const result = await e.read({ collection: "ai.gftd.apps.example.item" });
+    const result = await e.read({ collection: "app.etzhayyim.apps.example.item" });
     return new Response(JSON.stringify(result), {
       headers: { "content-type": "application/json" },
     });

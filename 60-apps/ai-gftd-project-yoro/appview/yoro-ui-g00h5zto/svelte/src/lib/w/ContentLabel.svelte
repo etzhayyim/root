@@ -115,7 +115,7 @@
 							<p class="mt-2 font-semibold text-gv2-text-primary">第6条（準拠法）</p>
 							<p class="mt-1">本同意は日本法に準拠し、東京地方裁判所を第一審の専属的合意管轄裁判所とします。</p>
 
-							<p class="mt-2 text-[11px] text-gv2-text-muted/60">運営: gftd.co.jp — 施行日: 2026年3月28日 — Version {CONSENT_VERSION}</p>
+							<p class="mt-2 text-[11px] text-gv2-text-muted/60">運営: etzhayyim.com — 施行日: 2026年3月28日 — Version {CONSENT_VERSION}</p>
 						</div>
 						<div class="mt-4 flex items-center justify-center gap-3">
 							<button

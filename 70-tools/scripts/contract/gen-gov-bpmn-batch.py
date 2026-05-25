@@ -101,7 +101,7 @@ def bpmn_heartbeat(cc: str) -> str:
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Tick"/>
     <bpmn:serviceTask id="Task_Tick" name="heartbeat tick">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="xrpc.ai.gftd.{p}.heartbeatTick"/>
+        <zeebe:taskDefinition type="xrpc.app.etzhayyim.{p}.heartbeatTick"/>
         <zeebe:ioMapping>
           <zeebe:output source="=ok" target="ok"/>
           <zeebe:output source="=seeded" target="seeded"/>
@@ -142,7 +142,7 @@ def bpmn_shinka(cc: str) -> str:
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Shinka"/>
     <bpmn:serviceTask id="Task_Shinka" name="shinka">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="xrpc.ai.gftd.{p}.shinka"/>
+        <zeebe:taskDefinition type="xrpc.app.etzhayyim.{p}.shinka"/>
         <zeebe:ioMapping>
           <zeebe:output source="=ok" target="ok"/>
           <zeebe:output source="=posted" target="posted"/>
@@ -179,7 +179,7 @@ def bpmn_seed_orgs(cc: str) -> str:
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Seed"/>
     <bpmn:serviceTask id="Task_Seed" name="seed orgs">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="xrpc.ai.gftd.{p}.seedOrgs"/>
+        <zeebe:taskDefinition type="xrpc.app.etzhayyim.{p}.seedOrgs"/>
         <zeebe:ioMapping>
           <zeebe:output source="=ok" target="ok"/>
           <zeebe:output source="=seeded" target="seeded"/>
@@ -216,7 +216,7 @@ def bpmn_register_dids(cc: str) -> str:
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Register"/>
     <bpmn:serviceTask id="Task_Register" name="register DIDs">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="xrpc.ai.gftd.{p}.registerDIDs"/>
+        <zeebe:taskDefinition type="xrpc.app.etzhayyim.{p}.registerDIDs"/>
         <zeebe:ioMapping>
           <zeebe:output source="=ok" target="ok"/>
           <zeebe:output source="=registered" target="registered"/>
@@ -253,7 +253,7 @@ def bpmn_follow_site_deps(cc: str) -> str:
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Follow"/>
     <bpmn:serviceTask id="Task_Follow" name="follow site deps">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="xrpc.ai.gftd.{p}.followSiteDeps"/>
+        <zeebe:taskDefinition type="xrpc.app.etzhayyim.{p}.followSiteDeps"/>
         <zeebe:ioMapping>
           <zeebe:output source="=ok" target="ok"/>
           <zeebe:output source="=followed" target="followed"/>
@@ -289,7 +289,7 @@ def bpmn_resolve_org_path(cc: str) -> str:
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Resolve"/>
     <bpmn:serviceTask id="Task_Resolve" name="resolve org path">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="xrpc.ai.gftd.{p}.resolveOrgPath"/>
+        <zeebe:taskDefinition type="xrpc.app.etzhayyim.{p}.resolveOrgPath"/>
         <zeebe:ioMapping>
           <zeebe:output source="=did" target="did"/>
           <zeebe:output source="=name" target="name"/>
@@ -328,7 +328,7 @@ def bpmn_list_orgs(cc: str) -> str:
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_List"/>
     <bpmn:serviceTask id="Task_List" name="list orgs">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="xrpc.ai.gftd.{p}.listOrgs"/>
+        <zeebe:taskDefinition type="xrpc.app.etzhayyim.{p}.listOrgs"/>
         <zeebe:ioMapping>
           <zeebe:output source="=orgs" target="orgs"/>
           <zeebe:output source="=total" target="total"/>
@@ -364,7 +364,7 @@ def bpmn_sync_wet_updates(cc: str) -> str:
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Sync"/>
     <bpmn:serviceTask id="Task_Sync" name="sync wet updates">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="xrpc.ai.gftd.{p}.syncWetUpdates"/>
+        <zeebe:taskDefinition type="xrpc.app.etzhayyim.{p}.syncWetUpdates"/>
         <zeebe:ioMapping>
           <zeebe:output source="=ok" target="ok"/>
           <zeebe:output source="=checked" target="checked"/>
@@ -402,7 +402,7 @@ def bpmn_ingest_official_sources(cc: str) -> str:
     <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Ingest"/>
     <bpmn:serviceTask id="Task_Ingest" name="ingest official sources">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="xrpc.ai.gftd.{p}.ingestOfficialSources"/>
+        <zeebe:taskDefinition type="xrpc.app.etzhayyim.{p}.ingestOfficialSources"/>
         <zeebe:ioMapping>
           <zeebe:output source="=ok" target="ok"/>
           <zeebe:output source="=enqueued" target="enqueued"/>
@@ -427,7 +427,7 @@ def lexicon_heartbeat_tick(cc: str, country_name: str) -> dict:
     p = nsid_prefix(cc)
     return {
         "lexicon": 1,
-        "id": f"ai.gftd.{p}.heartbeatTick",
+        "id": f"app.etzhayyim.{p}.heartbeatTick",
         "defs": {
             "main": {
                 "type": "procedure",
@@ -470,7 +470,7 @@ def lexicon_shinka(cc: str, country_name: str) -> dict:
     p = nsid_prefix(cc)
     return {
         "lexicon": 1,
-        "id": f"ai.gftd.{p}.shinka",
+        "id": f"app.etzhayyim.{p}.shinka",
         "defs": {
             "main": {
                 "type": "procedure",
@@ -507,7 +507,7 @@ def lexicon_seed_orgs(cc: str, country_name: str) -> dict:
     p = nsid_prefix(cc)
     return {
         "lexicon": 1,
-        "id": f"ai.gftd.{p}.seedOrgs",
+        "id": f"app.etzhayyim.{p}.seedOrgs",
         "defs": {
             "main": {
                 "type": "procedure",
@@ -543,7 +543,7 @@ def lexicon_register_dids(cc: str, country_name: str) -> dict:
     p = nsid_prefix(cc)
     return {
         "lexicon": 1,
-        "id": f"ai.gftd.{p}.registerDIDs",
+        "id": f"app.etzhayyim.{p}.registerDIDs",
         "defs": {
             "main": {
                 "type": "procedure",
@@ -579,7 +579,7 @@ def lexicon_follow_site_deps(cc: str, country_name: str) -> dict:
     p = nsid_prefix(cc)
     return {
         "lexicon": 1,
-        "id": f"ai.gftd.{p}.followSiteDeps",
+        "id": f"app.etzhayyim.{p}.followSiteDeps",
         "defs": {
             "main": {
                 "type": "procedure",
@@ -614,7 +614,7 @@ def lexicon_resolve_org_path(cc: str, country_name: str) -> dict:
     p = nsid_prefix(cc)
     return {
         "lexicon": 1,
-        "id": f"ai.gftd.{p}.resolveOrgPath",
+        "id": f"app.etzhayyim.{p}.resolveOrgPath",
         "defs": {
             "main": {
                 "type": "query",
@@ -650,7 +650,7 @@ def lexicon_list_orgs(cc: str, country_name: str) -> dict:
     p = nsid_prefix(cc)
     return {
         "lexicon": 1,
-        "id": f"ai.gftd.{p}.listOrgs",
+        "id": f"app.etzhayyim.{p}.listOrgs",
         "defs": {
             "main": {
                 "type": "query",
@@ -695,7 +695,7 @@ def lexicon_sync_wet_updates(cc: str, country_name: str) -> dict:
     p = nsid_prefix(cc)
     return {
         "lexicon": 1,
-        "id": f"ai.gftd.{p}.syncWetUpdates",
+        "id": f"app.etzhayyim.{p}.syncWetUpdates",
         "defs": {
             "main": {
                 "type": "procedure",
@@ -732,7 +732,7 @@ def lexicon_ingest_official_sources(cc: str, country_name: str) -> dict:
     p = nsid_prefix(cc)
     return {
         "lexicon": 1,
-        "id": f"ai.gftd.{p}.ingestOfficialSources",
+        "id": f"app.etzhayyim.{p}.ingestOfficialSources",
         "defs": {
             "main": {
                 "type": "procedure",
@@ -775,18 +775,18 @@ def generate_migration(cc: str, country_name: str, has_ingest: bool, timestamp: 
     created_at = f"2026-05-07T{timestamp[8:10]}:{timestamp[10:12]}:{timestamp[12:14]}Z"
 
     seeds_base = [
-        (f"gov-{c}-seedOrgs-v1", f"ai.gftd.{p}.seedOrgs", f"gov_{c}_seed_orgs", f"govDir/seedOrgs.bpmn", 90_000),
-        (f"gov-{c}-registerDIDs-v1", f"ai.gftd.{p}.registerDIDs", f"gov_{c}_register_dids", f"govDir/registerDIDs.bpmn", 90_000),
-        (f"gov-{c}-followSiteDeps-v1", f"ai.gftd.{p}.followSiteDeps", f"gov_{c}_follow_site_deps", f"govDir/followSiteDeps.bpmn", 90_000),
+        (f"gov-{c}-seedOrgs-v1", f"app.etzhayyim.{p}.seedOrgs", f"gov_{c}_seed_orgs", f"govDir/seedOrgs.bpmn", 90_000),
+        (f"gov-{c}-registerDIDs-v1", f"app.etzhayyim.{p}.registerDIDs", f"gov_{c}_register_dids", f"govDir/registerDIDs.bpmn", 90_000),
+        (f"gov-{c}-followSiteDeps-v1", f"app.etzhayyim.{p}.followSiteDeps", f"gov_{c}_follow_site_deps", f"govDir/followSiteDeps.bpmn", 90_000),
     ]
     if has_ingest:
-        seeds_base.append((f"gov-{c}-ingestOfficialSources-v1", f"ai.gftd.{p}.ingestOfficialSources", f"gov_{c}_ingest_official_sources", f"govDir/ingestOfficialSources.bpmn", 180_000))
+        seeds_base.append((f"gov-{c}-ingestOfficialSources-v1", f"app.etzhayyim.{p}.ingestOfficialSources", f"gov_{c}_ingest_official_sources", f"govDir/ingestOfficialSources.bpmn", 180_000))
     seeds_base += [
-        (f"gov-{c}-resolveOrgPath-v1", f"ai.gftd.{p}.resolveOrgPath", f"gov_{c}_resolve_org_path", f"govDir/resolveOrgPath.bpmn", 60_000),
-        (f"gov-{c}-listOrgs-v1", f"ai.gftd.{p}.listOrgs", f"gov_{c}_list_orgs", f"govDir/listOrgs.bpmn", 60_000),
-        (f"gov-{c}-syncWetUpdates-v1", f"ai.gftd.{p}.syncWetUpdates", f"gov_{c}_sync_wet_updates", f"govDir/syncWetUpdates.bpmn", 180_000),
-        (f"gov-{c}-shinka-v1", f"ai.gftd.{p}.shinka", f"gov_{c}_shinka", f"govDir/shinka.bpmn", 180_000),
-        (f"gov-{c}-heartbeatTick-v1", f"ai.gftd.{p}.heartbeatTick", f"gov_{c}_heartbeat_tick", f"govDir/heartbeatTick.bpmn", 180_000),
+        (f"gov-{c}-resolveOrgPath-v1", f"app.etzhayyim.{p}.resolveOrgPath", f"gov_{c}_resolve_org_path", f"govDir/resolveOrgPath.bpmn", 60_000),
+        (f"gov-{c}-listOrgs-v1", f"app.etzhayyim.{p}.listOrgs", f"gov_{c}_list_orgs", f"govDir/listOrgs.bpmn", 60_000),
+        (f"gov-{c}-syncWetUpdates-v1", f"app.etzhayyim.{p}.syncWetUpdates", f"gov_{c}_sync_wet_updates", f"govDir/syncWetUpdates.bpmn", 180_000),
+        (f"gov-{c}-shinka-v1", f"app.etzhayyim.{p}.shinka", f"gov_{c}_shinka", f"govDir/shinka.bpmn", 180_000),
+        (f"gov-{c}-heartbeatTick-v1", f"app.etzhayyim.{p}.heartbeatTick", f"gov_{c}_heartbeat_tick", f"govDir/heartbeatTick.bpmn", 180_000),
     ]
 
     gov_dir = f"gov{c[0].upper()}{c[1:]}"
@@ -795,7 +795,7 @@ def generate_migration(cc: str, country_name: str, has_ingest: bool, timestamp: 
     for (vid, nsid, proc_id, src_tmpl, timeout) in seeds_base:
         src = src_tmpl.replace("govDir", f"00-contracts/bpmn/ai/gftd/{gov_dir}")
         seeds_str += f"""  {{
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/{vid}",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/{vid}",
     nsid: "{nsid}",
     bpmnProcessId: "{proc_id}",
     sourcePath: "{src}",
@@ -828,7 +828,7 @@ def generate_migration(cc: str, country_name: str, has_ingest: bool, timestamp: 
         k_proc = f"gov_{c}_{proc_kebab_map[method]}"
         src = src_tmpl.replace("govDir", f"00-contracts/bpmn/ai/gftd/{gov_dir}")
         seeds_str += f"""  {{
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/{k_vid}",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/{k_vid}",
     nsid: "{nsid}",
     bpmnProcessId: "{k_proc}",
     sourcePath: "{src}",
@@ -876,11 +876,11 @@ function lexiconPath(nsid: string): string {{
 }}
 
 function mcpVertexId(nsid: string): string {{
-  return `at://${{ownerDid}}/ai.gftd.mcp.toolDef/${{nsid.replaceAll(".", "-")}}`;
+  return `at://${{ownerDid}}/app.etzhayyim.mcp.toolDef/${{nsid.replaceAll(".", "-")}}`;
 }}
 
 function bindingVertexId(nsid: string): string {{
-  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${{nsid.replaceAll(".", "-")}}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${{nsid.replaceAll(".", "-")}}-v1`;
 }}
 
 function stableStringify(value: unknown): string {{
@@ -1069,7 +1069,7 @@ def main() -> None:
 
         # 4. Routing entry
         routing_entries.append(
-            f'  {{ prefix: "ai.gftd.{p}.", target: {{ kind: "http", actor: "{cc}-state.etzhayyim.com" }},\n'
+            f'  {{ prefix: "app.etzhayyim.{p}.", target: {{ kind: "http", actor: "{cc}-state.etzhayyim.com" }},\n'
             f'    trust: "internal", fallback: "local", owner: "gov{cc.capitalize()} BPMN-as-actor (ADR-0056, 2026-05-07)" }},'
         )
 

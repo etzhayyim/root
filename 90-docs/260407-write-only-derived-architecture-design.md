@@ -25,7 +25,7 @@ superseded_by: []
 
 ## Rationale
 
-AT Protocol の commit stream → Feed Generator / Notification / Labeler パターンは元々 Write-Only Derived Architecture。GFTD の explicit `postFeed()` / `invoke()` は AT Protocol に対して冗長 (η≈33%)。
+AT Protocol の commit stream → Feed Generator / Notification / Labeler パターンは元々 Write-Only Derived Architecture。etzhayyim の explicit `postFeed()` / `invoke()` は AT Protocol に対して冗長 (η≈33%)。
 
 ## Rules
 
@@ -61,17 +61,17 @@ async function cmdLaunch(sdk, payload) {
   "derive": {
     "social": [
       {
-        "on": "ai.gftd.apps.{app}.{collection}",
+        "on": "app.etzhayyim.apps.{app}.{collection}",
         "when": { "field": "value" },
         "template": "text with {{field}} interpolation"
       }
     ],
     "invoke": [
       {
-        "on": "ai.gftd.apps.{app}.{collection}",
+        "on": "app.etzhayyim.apps.{app}.{collection}",
         "when": { "status": "value" },
         "target": "did:web:{target}.etzhayyim.com",
-        "method": "ai.gftd.apps.{target}.{method}",
+        "method": "app.etzhayyim.apps.{target}.{method}",
         "map": { "targetField": "{{sourceField}}" }
       }
     ]

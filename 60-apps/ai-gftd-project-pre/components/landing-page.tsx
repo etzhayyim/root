@@ -13,7 +13,7 @@ export default function LandingPage() {
             サイバー危機を、信頼回復の機会に変える。
           </h1>
           <p className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-600">
-            Gftd PREは、NIST CSF 2.0準拠のインシデント対応広報プラットフォームです。
+            etzhayyim PREは、NIST CSF 2.0準拠のインシデント対応広報プラットフォームです。
             複雑な危機対応コミュニケーションを自動化・最適化し、あなたのビジネスとブランドを守ります。
           </p>
           <div className="mt-10 flex justify-center gap-4">
@@ -68,7 +68,7 @@ export default function LandingPage() {
       <section className="w-full bg-gray-50 py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold">Gftd PREで、統制の取れた広報対応を</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">etzhayyim PREで、統制の取れた広報対応を</h2>
             <p className="mt-4 max-w-3xl mx-auto text-gray-600">
               NIST CSF 2.0の「Respond（対応）」と「Recover（復旧）」フレームワークに基づき、
               危機発生から信頼回復までの全プロセスを支援します。
@@ -156,7 +156,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold">備えあれば憂いなし。今すぐ、危機対応能力をアップデートしませんか？</h2>
           <p className="mt-4 max-w-2xl mx-auto text-gray-600">
-            Gftd PREが、いつ起こるかわからない「その時」に備え、万全の体制構築をサポートします。
+            etzhayyim PREが、いつ起こるかわからない「その時」に備え、万全の体制構築をサポートします。
           </p>
           <div className="mt-8">
             <Button size="lg" asChild>

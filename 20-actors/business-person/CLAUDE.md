@@ -41,5 +41,5 @@
 
 ## Triggers
 
-- `subscribeRepos`: `ai.gftd.apps.businessPerson.{person,officerRole,boardMembership,affiliation,personnelChange,collectionJob}`
+- `subscribeRepos`: `app.etzhayyim.apps.businessPerson.{person,officerRole,boardMembership,affiliation,personnelChange,collectionJob}`
 - `cron`: `0 3 * * 1` (weekly report), `0 */6 * * *` (coverage snapshot)

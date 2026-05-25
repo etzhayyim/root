@@ -409,7 +409,7 @@ func agentManifest() map[string]any {{
 \t\t"url":         "https://" + componentNanoID + ".etzhayyim.com/api/grpc",
 \t\t"version":     "1.0.0",
 \t\t"provider": map[string]any{{
-\t\t\t"service": "GFTD",
+\t\t\t"service": "etzhayyim",
 \t\t\t"url":     "https://kyber-services.etzhayyim.com",
 \t\t}},
 \t\t"supportedProtocols": []string{{"mcp/1.0", "grpc"}},
@@ -531,7 +531,7 @@ def render_agent_json(slug: str, nanoid: str) -> str:
         "description": f"Agent manifest for {slug}.",
         "url": f"https://{nanoid}.etzhayyim.com/api/grpc",
         "version": "1.0.0",
-        "provider": {"service": "GFTD", "url": "https://kyber-services.etzhayyim.com"},
+        "provider": {"service": "etzhayyim", "url": "https://kyber-services.etzhayyim.com"},
         "supportedProtocols": ["mcp/1.0", "grpc"],
         "skills": [
             {"name": "get_division_info", "description": "Read ADM2 division metadata"},

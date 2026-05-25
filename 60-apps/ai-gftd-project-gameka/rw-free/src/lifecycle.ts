@@ -38,10 +38,10 @@ import {
   type PublishGameOutput,
 } from "./types.js";
 
-const SPEC_COLLECTION = "ai.gftd.gameka.spec";
-const ARTIFACT_COLLECTION = "ai.gftd.gameka.buildArtifact";
-const QA_COLLECTION = "ai.gftd.gameka.gameQa";
-const TITLE_COLLECTION = "ai.gftd.gameka.gameTitle";
+const SPEC_COLLECTION = "app.etzhayyim.gameka.spec";
+const ARTIFACT_COLLECTION = "app.etzhayyim.gameka.buildArtifact";
+const QA_COLLECTION = "app.etzhayyim.gameka.gameQa";
+const TITLE_COLLECTION = "app.etzhayyim.gameka.gameTitle";
 
 function isValidId(id: string): boolean {
   return /^[a-z0-9]{1,32}$/.test(id);

@@ -4,7 +4,7 @@ import { sql } from "kysely";
 /**
  * Register Optimize-free BPMN process mining UDF.
  *
- * `ai.gftd.apps.bpmn.analyzeProcess` reads OCEL-compatible
+ * `app.etzhayyim.apps.bpmn.analyzeProcess` reads OCEL-compatible
  * `vertex_repo_commit` audit rows and returns deterministic process KPIs plus
  * optional LLM diagnosis. It deliberately avoids Camunda Optimize/Operate
  * runtime dependencies.
@@ -16,7 +16,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     CREATE FUNCTION bpmn_analyze_process(VARCHAR)
       RETURNS VARCHAR
-      AS 'ai.gftd.apps.bpmn.analyzeProcess'
+      AS 'app.etzhayyim.apps.bpmn.analyzeProcess'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 }

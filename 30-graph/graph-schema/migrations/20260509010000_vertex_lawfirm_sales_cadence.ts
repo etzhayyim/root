@@ -14,19 +14,19 @@ const seedActorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESSES = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v1",
     bpmnProcessId: "lawfirm_sales_cadence_tick",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/salesCadenceTick.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-pipeline-stage-transition-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-pipeline-stage-transition-v1",
     bpmnProcessId: "lawfirm_pipeline_stage_transition",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/pipelineStageTransition.bpmn",
   },
 ];
 const BINDING = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-pipeline-stage-transition-xrpc-v1",
-  nsid: "ai.gftd.apps.lawfirm.pipelineTransition",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-pipeline-stage-transition-xrpc-v1",
+  nsid: "app.etzhayyim.apps.lawfirm.pipelineTransition",
   bpmnProcessId: "lawfirm_pipeline_stage_transition",
   resultTimeoutMs: 30_000,
 };
@@ -163,7 +163,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        created_at, owner_did)
     VALUES
       (
-        'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/nishith-desai-2026',
+        'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.lead/nishith-desai-2026',
         'nishith-desai-2026', 'saas_pilot', 'Nishith Desai Associates',
         'TBD@nishithdesai.com', 'IN', 'Mumbai', '90+', 'tech-funds-PE',
         'k-bakshi-warm-intro', 'did:web:k-bakshi.etzhayyim.com',
@@ -172,7 +172,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         now()::varchar, 'did:web:lawfirm.etzhayyim.com'
       ),
       (
-        'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/trilegal-2026',
+        'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.lead/trilegal-2026',
         'trilegal-2026', 'saas_pilot', 'Trilegal',
         'TBD@trilegal.com', 'IN', 'Bangalore', '600', 'mid-market-deal',
         'k-bakshi-linkedin', 'did:web:k-bakshi.etzhayyim.com',
@@ -181,7 +181,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         now()::varchar, 'did:web:lawfirm.etzhayyim.com'
       ),
       (
-        'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/induslaw-2026',
+        'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.lead/induslaw-2026',
         'induslaw-2026', 'saas_pilot', 'IndusLaw',
         'TBD@induslaw.com', 'IN', 'Bangalore', '250', 'startup-advisory',
         'k-bakshi-event', 'did:web:k-bakshi.etzhayyim.com',

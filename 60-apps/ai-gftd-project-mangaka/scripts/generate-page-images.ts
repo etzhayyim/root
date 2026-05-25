@@ -4,7 +4,7 @@
  *
  * Flow per chapter:
  *   storyboard.jsonld → per-panel manga prompt
- *                     → POST /xrpc/ai.gftd.apps.llm.generateImage (flux-1-schnell, 1024x1024)
+ *                     → POST /xrpc/app.etzhayyim.apps.llm.generateImage (flux-1-schnell, 1024x1024)
  *                     → cache in prompts/{sha256(prompt)}.jpg
  *   per-page: ImageMagick `convert ... -resize 1080x -append` → pages/page-{N}.jpg (1080 wide, webtoon vertical)
  *   write sidecar page-images.json  (consumed by import-sip.ts stagePages)
@@ -115,7 +115,7 @@ function sanitizePrompt(prompt: string): string {
 }
 
 async function callImageGen(prompt: string): Promise<Response> {
-  return await fetch(`${PDS_BASE}/ai.gftd.apps.llm.generateImage`, {
+  return await fetch(`${PDS_BASE}/app.etzhayyim.apps.llm.generateImage`, {
     method: "POST",
     headers: { "content-type": "application/json", "x-magatama-verified": "true" },
     body: JSON.stringify({ prompt, num_steps: NUM_STEPS }),
@@ -321,4 +321,4 @@ for (const t of targets) {
 }
 console.log(`\n=== done: ok=${okC} fail=${failC} ===`);
 console.log(`Sidecar per chapter: {chapterPath}/page-images.json`);
-console.log(`Ingest:              GFTD_TOKEN=$(gftd auth token) ./import-sip.ts --stage=pages`);
+console.log(`Ingest:              etzhayyim_TOKEN=$(gftd auth token) ./import-sip.ts --stage=pages`);

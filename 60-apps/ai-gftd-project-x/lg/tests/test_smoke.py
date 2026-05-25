@@ -32,10 +32,10 @@ _LG_DIR = Path(__file__).resolve().parents[1]
 _EXPECTED_GRAPHS = {"health", "compose_tweet", "agent_chat"}
 
 _EXPECTED_NSID_MAP = {
-    "ai.gftd.apps.x.health":        "health",
-    "ai.gftd.apps.x.composeTweet":  "compose_tweet",
-    "ai.gftd.apps.x.chat":          "agent_chat",
-    "ai.gftd.apps.x.agentChat":     "agent_chat",
+    "app.etzhayyim.apps.x.health":        "health",
+    "app.etzhayyim.apps.x.composeTweet":  "compose_tweet",
+    "app.etzhayyim.apps.x.chat":          "agent_chat",
+    "app.etzhayyim.apps.x.agentChat":     "agent_chat",
 }
 
 
@@ -123,5 +123,5 @@ def test_ok_endpoint_lists_graphs(client):
 
 
 def test_unknown_nsid_xrpc_404(client):
-    r = client.post("/xrpc/ai.gftd.apps.x.unknownMethod", json={})
+    r = client.post("/xrpc/app.etzhayyim.apps.x.unknownMethod", json={})
     assert r.status_code == 404

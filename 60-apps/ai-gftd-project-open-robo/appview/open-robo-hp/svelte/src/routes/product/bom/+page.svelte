@@ -196,5 +196,5 @@
 </main>
 
 <footer class="border-t border-[#2a2d3a] bg-[#0a0d14] py-10 text-center text-xs text-slate-500">
-  <p>© 2026 Gftd Japan 株式会社 — <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="hover:text-white transition-colors">CC BY-SA 4.0</a> / Hardware CERN-OHL-S v2</p>
+  <p>© 2026 etzhayyim Japan 株式会社 — <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="hover:text-white transition-colors">CC BY-SA 4.0</a> / Hardware CERN-OHL-S v2</p>
 </footer>

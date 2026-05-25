@@ -68,7 +68,10 @@
               "wave-1c-chiral-resolution-baseline",
               "wave-1c-laxative-formulation-baseline",
               "wave-1c-cough-syrup-formulation-baseline",
-              "wave-1c-benzonatate-jp-marginal"
+              "wave-1c-benzonatate-jp-marginal",
+              "cross-actor-ae-aggregation-baseline",
+              "ae-dedupe-event",
+              "label-warning-update-naphazoline"
             ]
           },
           "scopeUri": {

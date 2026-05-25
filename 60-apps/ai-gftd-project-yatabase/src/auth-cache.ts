@@ -47,7 +47,7 @@ export async function rememberApiKeyResolution(
   env: AuthCacheEnv,
   rawKey: string,
   ownerDid: string,
-  scopes: string = "atproto,include:ai.gftd.apps.yata",
+  scopes: string = "atproto,include:app.etzhayyim.apps.yata",
   productScope: string = "yata",
 ): Promise<void> {
   const kv = env.YATABASE_AUTH_CACHE;
@@ -109,7 +109,7 @@ export async function rememberAwsCreds(
   awsAccessKeyId: string,
   awsSecretAccessKey: string,
   ownerDid: string,
-  scopes: string = "atproto,include:ai.gftd.apps.yata",
+  scopes: string = "atproto,include:app.etzhayyim.apps.yata",
   productScope: string = "yata",
 ): Promise<void> {
   const kv = env.YATABASE_AUTH_CACHE;

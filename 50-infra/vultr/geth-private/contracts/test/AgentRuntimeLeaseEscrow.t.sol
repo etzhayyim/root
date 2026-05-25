@@ -22,7 +22,7 @@ contract AgentRuntimeLeaseEscrowTest is Test {
     bytes32 policyHash = keccak256(bytes("slash-policy-v1"));
 
     function setUp() public {
-        gcc = new GCCStablecoin("GFTD Compute Credit", "GCC", 18, 1_000_000 ether, owner, owner, owner, owner);
+        gcc = new GCCStablecoin("etzhayyim Compute Credit", "GCC", 18, 1_000_000 ether, owner, owner, owner, owner);
         vm.prank(owner);
         gcc.configureMinter(owner, 100_000 ether);
         vm.prank(owner);

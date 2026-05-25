@@ -4,7 +4,7 @@
  *
  * Auth: mints a 60s Service Auth JWT scoped to `com.atproto.repo.createRecord`
  * via `gftd agent-token`. Caller must have run `gftd authn signin` once, or
- * have a `sk_live_*` API key in `GFTD_TOKEN`.
+ * have a `sk_live_*` API key in `etzhayyim_TOKEN`.
  *
  * Usage:
  *   70-tools/scripts/ads/post-sponsored.mjs \

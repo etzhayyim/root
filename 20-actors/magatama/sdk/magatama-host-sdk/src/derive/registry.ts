@@ -30,7 +30,7 @@ export const DERIVE_RULES: DeriveRule[] = [
     id: "chapter-published-social",
     app: "mangaka",
     on: {
-      collection: "ai.gftd.apps.mangaka.chapter",
+      collection: "app.etzhayyim.apps.mangaka.chapter",
       action: "create",
       where: { "record.status": "published" },
     },
@@ -88,7 +88,7 @@ export const DERIVE_RULES: DeriveRule[] = [
   {
     id: "page-published-social",
     app: "mangaka",
-    on: { collection: "ai.gftd.apps.mangaka.page", action: "create" },
+    on: { collection: "app.etzhayyim.apps.mangaka.page", action: "create" },
     emit: {
       type: "app.bsky.feed.post",
       did: "{{resolve(record.chapterRef).workDid}}",

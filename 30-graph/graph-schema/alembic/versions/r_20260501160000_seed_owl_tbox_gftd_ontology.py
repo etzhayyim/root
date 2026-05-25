@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
                  'https://schema.etzhayyim.com/owl#Thing',
                  'owl:Thing (root)',
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_class (vertex_id, class_iri, label, profile, source_nsid, '
@@ -30,9 +30,9 @@ UP = [{'sql': '\n'
          '    ',
   'parameters': ['gftd:Resource',
                  'https://schema.etzhayyim.com/owl#Resource',
-                 'GFTD Resource',
+                 'etzhayyim Resource',
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_class (vertex_id, class_iri, label, profile, source_nsid, '
@@ -41,9 +41,9 @@ UP = [{'sql': '\n'
          '    ',
   'parameters': ['gftd:Actor',
                  'https://schema.etzhayyim.com/owl#Actor',
-                 'GFTD Actor',
+                 'etzhayyim Actor',
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_class (vertex_id, class_iri, label, profile, source_nsid, '
@@ -54,7 +54,7 @@ UP = [{'sql': '\n'
                  'https://schema.etzhayyim.com/owl#MagatamaActor',
                  'Magatama Actor (BPMN-resident)',
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_class (vertex_id, class_iri, label, profile, source_nsid, '
@@ -65,7 +65,7 @@ UP = [{'sql': '\n'
                  'https://schema.etzhayyim.com/owl#HumanActor',
                  'Human Actor (natural person)',
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_class (vertex_id, class_iri, label, profile, source_nsid, '
@@ -76,7 +76,7 @@ UP = [{'sql': '\n'
                  'https://schema.etzhayyim.com/owl#OrgActor',
                  'Organisation Actor',
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_class (vertex_id, class_iri, label, profile, source_nsid, '
@@ -87,7 +87,7 @@ UP = [{'sql': '\n'
                  'https://schema.etzhayyim.com/owl#BpmnProcess',
                  'BPMN Process (Zeebe-deployed)',
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_class (vertex_id, class_iri, label, profile, source_nsid, '
@@ -98,7 +98,7 @@ UP = [{'sql': '\n'
                  'https://schema.etzhayyim.com/owl#KnowledgeGraph',
                  'Knowledge Graph node',
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_property\n'
@@ -118,7 +118,7 @@ UP = [{'sql': '\n'
                  False,
                  False,
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_property\n'
@@ -138,7 +138,7 @@ UP = [{'sql': '\n'
                  False,
                  False,
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_property\n'
@@ -158,7 +158,7 @@ UP = [{'sql': '\n'
                  False,
                  False,
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_property\n'
@@ -178,7 +178,7 @@ UP = [{'sql': '\n'
                  False,
                  False,
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_property\n'
@@ -198,7 +198,7 @@ UP = [{'sql': '\n'
                  False,
                  False,
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_owl_property\n'
@@ -218,7 +218,7 @@ UP = [{'sql': '\n'
                  False,
                  False,
                  'gftd_core_v1',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO edge_owl_subclass (from_vertex_id, to_vertex_id, axiom_type, profile, '
@@ -381,7 +381,7 @@ UP = [{'sql': '\n'
                  'minCount',
                  '{"path":"gftd:handle","minCount":1}',
                  'Warning',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_shacl_shape\n'
@@ -399,7 +399,7 @@ UP = [{'sql': '\n'
                  'minCount',
                  '{"path":"gftd:managedBy","minCount":1}',
                  'Info',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']},
  {'sql': '\n'
          '      INSERT INTO vertex_shacl_shape\n'
@@ -417,11 +417,11 @@ UP = [{'sql': '\n'
                  'qualifiedValueShape',
                  '{"path":"gftd:follows","qualifiedMinCount":0,"qualifiedValueShape":{"class":"gftd:Actor"}}',
                  'Info',
-                 'ai.gftd.apps.owl.seedTbox',
+                 'app.etzhayyim.apps.owl.seedTbox',
                  '2026-05-08T00:42:53.785Z']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_shacl_shape      WHERE source_nsid = $1',
-  'parameters': ['ai.gftd.apps.owl.seedTbox']},
+  'parameters': ['app.etzhayyim.apps.owl.seedTbox']},
  {'sql': 'DELETE FROM edge_owl_property_range WHERE profile = $1', 'parameters': ['gftd_core_v1']},
  {'sql': 'DELETE FROM edge_owl_property_domain WHERE profile = $1', 'parameters': ['gftd_core_v1']},
  {'sql': 'DELETE FROM edge_owl_subclass        WHERE profile = $1', 'parameters': ['gftd_core_v1']},

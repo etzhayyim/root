@@ -29,10 +29,10 @@ worker/wrangler.jsonc            CF Worker config
 
 | NSID | Description |
 |---|---|
-| `ai.gftd.apps.openCofog.listDivisions` | list 10 divisions |
-| `ai.gftd.apps.openCofog.listGroups` | list ~65 groups (filter by division) |
-| `ai.gftd.apps.openCofog.listClasses` | list 96 classes (filter by division/group), paginated |
-| `ai.gftd.apps.openCofog.getClass` | get one class with full description |
+| `app.etzhayyim.apps.openCofog.listDivisions` | list 10 divisions |
+| `app.etzhayyim.apps.openCofog.listGroups` | list ~65 groups (filter by division) |
+| `app.etzhayyim.apps.openCofog.listClasses` | list 96 classes (filter by division/group), paginated |
+| `app.etzhayyim.apps.openCofog.getClass` | get one class with full description |
 
 ## DID
 

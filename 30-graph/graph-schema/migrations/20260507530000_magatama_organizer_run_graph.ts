@@ -2,7 +2,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 const ownerDid = "did:web:magatama.etzhayyim.com";
-const nsid = "ai.gftd.apps.magatama.organizerRun";
+const nsid = "app.etzhayyim.apps.magatama.organizerRun";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`

@@ -26,7 +26,7 @@ export const animeProjector: ProjectorConfig = {
   actorDid: "did:web:anime.etzhayyim.com",
   collections: {
     title: {
-      collection: "ai.gftd.anime.title",
+      collection: "app.etzhayyim.anime.title",
       textIndex: { fields: ["title", "titleLocal", "synopsis"], model: MODEL },
       attributes: ["status", "genre", "studio"],
       aggregates: ["status", "genre"],
@@ -39,7 +39,7 @@ export const bpmnProjector: ProjectorConfig = {
   actorDid: "did:web:bpmn.etzhayyim.com",
   collections: {
     process: {
-      collection: "ai.gftd.bpmn.process",
+      collection: "app.etzhayyim.bpmn.process",
       textIndex: { fields: ["name", "description"], model: MODEL },
       attributes: ["status", "namespace"],
       aggregates: ["status", "namespace"],
@@ -52,13 +52,13 @@ export const dnsProjector: ProjectorConfig = {
   actorDid: "did:web:dns.etzhayyim.com",
   collections: {
     zone: {
-      collection: "ai.gftd.dns.zone",
+      collection: "app.etzhayyim.dns.zone",
       textIndex: { fields: ["zoneName"], model: MODEL },
       attributes: ["status", "tld"],
       aggregates: ["status", "tld"],
     },
     record: {
-      collection: "ai.gftd.dns.record",
+      collection: "app.etzhayyim.dns.record",
       attributes: ["recordType", "zoneDid"],
       aggregates: ["recordType"],
     },
@@ -70,7 +70,7 @@ export const gamekaProjector: ProjectorConfig = {
   actorDid: "did:web:gameka.etzhayyim.com",
   collections: {
     title: {
-      collection: "ai.gftd.gameka.title",
+      collection: "app.etzhayyim.gameka.title",
       textIndex: { fields: ["title", "summary"], model: MODEL },
       attributes: ["status", "platform", "genre"],
       aggregates: ["status", "platform"],
@@ -83,7 +83,7 @@ export const gtinProjector: ProjectorConfig = {
   actorDid: "did:web:gtin.etzhayyim.com",
   collections: {
     product: {
-      collection: "ai.gftd.gtin.product",
+      collection: "app.etzhayyim.gtin.product",
       textIndex: { fields: ["name", "brand"], model: MODEL },
       attributes: ["status", "category", "gs1Prefix"],
       aggregates: ["status", "category"],
@@ -96,7 +96,7 @@ export const hakkouProjector: ProjectorConfig = {
   actorDid: "did:web:hakkou.etzhayyim.com",
   collections: {
     item: {
-      collection: "ai.gftd.hakkou.item",
+      collection: "app.etzhayyim.hakkou.item",
       textIndex: { fields: ["name", "description"], model: MODEL },
       attributes: ["status", "category", "starter"],
       aggregates: ["status", "category"],
@@ -109,18 +109,18 @@ export const hanreiProjector: ProjectorConfig = {
   actorDid: "did:web:hanrei.etzhayyim.com",
   collections: {
     case: {
-      collection: "ai.gftd.hanrei.case",
+      collection: "app.etzhayyim.hanrei.case",
       textIndex: { fields: ["title", "summary", "tags"], model: MODEL },
       attributes: ["jurisdiction", "court"],
       aggregates: ["jurisdiction", "court"],
     },
     law: {
-      collection: "ai.gftd.hanrei.law",
+      collection: "app.etzhayyim.hanrei.law",
       attributes: ["jurisdiction", "type"],
       aggregates: ["jurisdiction"],
     },
     gazetteEntry: {
-      collection: "ai.gftd.hanrei.gazetteEntry",
+      collection: "app.etzhayyim.hanrei.gazetteEntry",
       attributes: ["jurisdiction"],
       aggregates: ["jurisdiction"],
     },
@@ -132,7 +132,7 @@ export const houbunProjector: ProjectorConfig = {
   actorDid: "did:web:houbun.etzhayyim.com",
   collections: {
     statute: {
-      collection: "ai.gftd.houbun.statute",
+      collection: "app.etzhayyim.houbun.statute",
       textIndex: { fields: ["title", "preamble"], model: MODEL },
       attributes: ["status", "language", "jurisdiction"],
       aggregates: ["status", "language"],
@@ -145,7 +145,7 @@ export const houkiProjector: ProjectorConfig = {
   actorDid: "did:web:houki.etzhayyim.com",
   collections: {
     regulation: {
-      collection: "ai.gftd.houki.regulation",
+      collection: "app.etzhayyim.houki.regulation",
       textIndex: { fields: ["title", "summary"], model: MODEL },
       attributes: ["status", "sourceJurisdiction"],
       aggregates: ["status", "sourceJurisdiction"],
@@ -158,7 +158,7 @@ export const houshiProjector: ProjectorConfig = {
   actorDid: "did:web:houshi.etzhayyim.com",
   collections: {
     organization: {
-      collection: "ai.gftd.houshi.organization",
+      collection: "app.etzhayyim.houshi.organization",
       textIndex: { fields: ["name", "description"], model: MODEL },
       attributes: ["status", "sector", "jurisdiction"],
       aggregates: ["status", "sector"],
@@ -171,13 +171,13 @@ export const ipaddressProjector: ProjectorConfig = {
   actorDid: "did:web:ipaddress.etzhayyim.com",
   collections: {
     provider: {
-      collection: "ai.gftd.ipaddress.provider",
+      collection: "app.etzhayyim.ipaddress.provider",
       textIndex: { fields: ["name", "slug"], model: MODEL },
       attributes: ["countryIso3", "abuseType"],
       aggregates: ["countryIso3"],
     },
     scan: {
-      collection: "ai.gftd.ipaddress.scan",
+      collection: "app.etzhayyim.ipaddress.scan",
       attributes: ["providerDid", "scanType"],
       aggregates: ["providerDid", "scanType"],
     },
@@ -189,7 +189,7 @@ export const isbnProjector: ProjectorConfig = {
   actorDid: "did:web:isbn.etzhayyim.com",
   collections: {
     book: {
-      collection: "ai.gftd.isbn.book",
+      collection: "app.etzhayyim.isbn.book",
       textIndex: { fields: ["title", "subtitle", "authors"], model: MODEL },
       attributes: ["status", "language", "publisher"],
       aggregates: ["status", "language"],
@@ -202,7 +202,7 @@ export const isinProjector: ProjectorConfig = {
   actorDid: "did:web:isin.etzhayyim.com",
   collections: {
     security: {
-      collection: "ai.gftd.isin.security",
+      collection: "app.etzhayyim.isin.security",
       textIndex: { fields: ["name", "ticker", "issuer"], model: MODEL },
       attributes: ["status", "market", "currency"],
       aggregates: ["status", "market"],
@@ -215,7 +215,7 @@ export const kiProjector: ProjectorConfig = {
   actorDid: "did:web:ki.etzhayyim.com",
   collections: {
     organism: {
-      collection: "ai.gftd.ki.organism",
+      collection: "app.etzhayyim.ki.organism",
       textIndex: {
         fields: ["scientificName", "commonName", "vernacular"],
         model: MODEL,
@@ -231,7 +231,7 @@ export const kokeProjector: ProjectorConfig = {
   actorDid: "did:web:koke.etzhayyim.com",
   collections: {
     specimen: {
-      collection: "ai.gftd.koke.specimen",
+      collection: "app.etzhayyim.koke.specimen",
       textIndex: { fields: ["scientificName", "locality"], model: MODEL },
       attributes: ["status", "locality", "family"],
       aggregates: ["family"],
@@ -244,7 +244,7 @@ export const mangaProjector: ProjectorConfig = {
   actorDid: "did:web:manga.etzhayyim.com",
   collections: {
     title: {
-      collection: "ai.gftd.manga.title",
+      collection: "app.etzhayyim.manga.title",
       textIndex: { fields: ["title", "titleLocal", "synopsis"], model: MODEL },
       attributes: ["status", "genre", "publicationStatus"],
       aggregates: ["status", "genre"],
@@ -257,7 +257,7 @@ export const narouProjector: ProjectorConfig = {
   actorDid: "did:web:narou.etzhayyim.com",
   collections: {
     novel: {
-      collection: "ai.gftd.narou.novel",
+      collection: "app.etzhayyim.narou.novel",
       textIndex: { fields: ["title", "synopsis"], model: MODEL },
       attributes: ["status", "genre", "completionStatus"],
       aggregates: ["status", "completionStatus"],
@@ -270,7 +270,7 @@ export const ndcProjector: ProjectorConfig = {
   actorDid: "did:web:ndc.etzhayyim.com",
   collections: {
     classification: {
-      collection: "ai.gftd.ndc.classification",
+      collection: "app.etzhayyim.ndc.classification",
       textIndex: { fields: ["label", "description"], model: MODEL },
       attributes: ["status", "level", "parent"],
       aggregates: ["status", "level"],
@@ -283,7 +283,7 @@ export const ocelProjector: ProjectorConfig = {
   actorDid: "did:web:ocel.etzhayyim.com",
   collections: {
     process: {
-      collection: "ai.gftd.ocel.process",
+      collection: "app.etzhayyim.ocel.process",
       textIndex: { fields: ["name", "description"], model: MODEL },
       attributes: ["status", "namespace"],
       aggregates: ["status"],
@@ -296,7 +296,7 @@ export const openBankingProjector: ProjectorConfig = {
   actorDid: "did:web:open-banking.etzhayyim.com",
   collections: {
     institution: {
-      collection: "ai.gftd.openBanking.institution",
+      collection: "app.etzhayyim.openBanking.institution",
       textIndex: { fields: ["name", "country"], model: MODEL },
       attributes: ["status", "country", "type"],
       aggregates: ["country", "type"],
@@ -309,7 +309,7 @@ export const openDenkiProjector: ProjectorConfig = {
   actorDid: "did:web:open-denki.etzhayyim.com",
   collections: {
     utility: {
-      collection: "ai.gftd.openDenki.utility",
+      collection: "app.etzhayyim.openDenki.utility",
       textIndex: { fields: ["name", "region"], model: MODEL },
       attributes: ["status", "region", "voltageClass"],
       aggregates: ["region", "voltageClass"],
@@ -322,7 +322,7 @@ export const openIscoProjector: ProjectorConfig = {
   actorDid: "did:web:open-isco.etzhayyim.com",
   collections: {
     occupation: {
-      collection: "ai.gftd.openIsco.occupation",
+      collection: "app.etzhayyim.openIsco.occupation",
       textIndex: { fields: ["title", "definition"], model: MODEL },
       attributes: ["status", "majorGroup", "language"],
       aggregates: ["majorGroup", "language"],
@@ -335,7 +335,7 @@ export const otakiageProjector: ProjectorConfig = {
   actorDid: "did:web:otakiage.etzhayyim.com",
   collections: {
     event: {
-      collection: "ai.gftd.otakiage.event",
+      collection: "app.etzhayyim.otakiage.event",
       textIndex: { fields: ["title", "location"], model: MODEL },
       attributes: ["status", "kind"],
       aggregates: ["status", "kind"],
@@ -348,7 +348,7 @@ export const sbomProjector: ProjectorConfig = {
   actorDid: "did:web:sbom.etzhayyim.com",
   collections: {
     component: {
-      collection: "ai.gftd.sbom.component",
+      collection: "app.etzhayyim.sbom.component",
       textIndex: { fields: ["name", "supplier"], model: MODEL },
       attributes: ["status", "ecosystem", "license"],
       aggregates: ["ecosystem", "license"],
@@ -361,7 +361,7 @@ export const tsukuruProjector: ProjectorConfig = {
   actorDid: "did:web:tsukuru.etzhayyim.com",
   collections: {
     product: {
-      collection: "ai.gftd.tsukuru.product",
+      collection: "app.etzhayyim.tsukuru.product",
       textIndex: { fields: ["name", "description"], model: MODEL },
       attributes: ["status", "lifecycleStage", "category"],
       aggregates: ["lifecycleStage", "category"],
@@ -374,7 +374,7 @@ export const yoroProjector: ProjectorConfig = {
   actorDid: "did:web:yoro.etzhayyim.com",
   collections: {
     item: {
-      collection: "ai.gftd.yoro.item",
+      collection: "app.etzhayyim.yoro.item",
       textIndex: { fields: ["name", "condition"], model: MODEL },
       attributes: ["status", "category", "repairability"],
       aggregates: ["status", "category"],

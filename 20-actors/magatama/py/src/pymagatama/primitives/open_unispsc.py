@@ -76,26 +76,26 @@ _GRAPH_TABLES: dict[str, dict[str, set[str] | str]] = {
 }
 
 _EXPECTED_TOOL_SPECS: list[dict[str, Any]] = [
-    {"method": "segment", "nsid": "ai.gftd.apps.openUnispsc.segment", "lexicon": "segment.json", "bpmn": [], "graphTargets": []},
-    {"method": "family", "nsid": "ai.gftd.apps.openUnispsc.family", "lexicon": "family.json", "bpmn": [], "graphTargets": []},
-    {"method": "class", "nsid": "ai.gftd.apps.openUnispsc.class", "lexicon": "class.json", "bpmn": [], "graphTargets": []},
-    {"method": "commodity", "nsid": "ai.gftd.apps.openUnispsc.commodity", "lexicon": "commodity.json", "bpmn": [], "graphTargets": []},
-    {"method": "designItem", "nsid": "ai.gftd.apps.openUnispsc.designItem", "lexicon": "designItem.json", "bpmn": ["procurement.bpmn", "supplier.bpmn", "flagArmsCommodity.bpmn", "flagDualUseCommodity.bpmn"], "graphTargets": []},
-    {"method": "itemGetSpec", "nsid": "ai.gftd.apps.openUnispsc.itemGetSpec", "lexicon": "itemGetSpec.json", "bpmn": ["procurement.bpmn", "supplier.bpmn"], "graphTargets": []},
-    {"method": "itemScreenSupplier", "nsid": "ai.gftd.apps.openUnispsc.itemScreenSupplier", "lexicon": "itemScreenSupplier.json", "bpmn": ["supplier.bpmn"], "graphTargets": []},
-    {"method": "itemPlanProcurement", "nsid": "ai.gftd.apps.openUnispsc.itemPlanProcurement", "lexicon": "itemPlanProcurement.json", "bpmn": ["procurement.bpmn"], "graphTargets": []},
-    {"method": "itemFlagCompliance", "nsid": "ai.gftd.apps.openUnispsc.itemFlagCompliance", "lexicon": "itemFlagCompliance.json", "bpmn": ["flagArmsCommodity.bpmn", "flagDualUseCommodity.bpmn"], "graphTargets": []},
-    {"method": "syncCatalogItem", "nsid": "ai.gftd.apps.openUnispsc.syncCatalogItem", "lexicon": "syncCatalogItem.json", "bpmn": [], "graphTargets": []},
-    {"method": "planCatalogPurchase", "nsid": "ai.gftd.apps.openUnispsc.planCatalogPurchase", "lexicon": "planCatalogPurchase.json", "bpmn": ["procurement.bpmn"], "graphTargets": []},
-    {"method": "syncAllCommodityDids", "nsid": "ai.gftd.apps.openUnispsc.syncAllCommodityDids", "lexicon": "syncAllCommodityDids.json", "bpmn": [], "graphTargets": []},
-    {"method": "importSegmentCatalog", "nsid": "ai.gftd.apps.openUnispsc.importSegmentCatalog", "lexicon": "importSegmentCatalog.json", "bpmn": [], "graphTargets": []},
-    {"method": "supplier", "nsid": "ai.gftd.apps.openUnispsc.supplier", "lexicon": "supplier.json", "bpmn": ["supplier.bpmn"], "graphTargets": ["vertex_open_unispsc_supplier"]},
-    {"method": "procurement", "nsid": "ai.gftd.apps.openUnispsc.procurement", "lexicon": "procurement.json", "bpmn": ["procurement.bpmn"], "graphTargets": ["vertex_open_unispsc_procurement", "edge_open_unispsc_procurement_commodity"]},
-    {"method": "flagArmsCommodity", "nsid": "ai.gftd.apps.openUnispsc.flagArmsCommodity", "lexicon": "flagArmsCommodity.json", "bpmn": ["flagArmsCommodity.bpmn"], "graphTargets": ["vertex_open_defence_event"]},
-    {"method": "flagDualUseCommodity", "nsid": "ai.gftd.apps.openUnispsc.flagDualUseCommodity", "lexicon": "flagDualUseCommodity.json", "bpmn": ["flagDualUseCommodity.bpmn"], "graphTargets": ["vertex_open_defence_event"]},
-    {"method": "applyGraphWritePlan", "nsid": "ai.gftd.apps.openUnispsc.applyGraphWritePlan", "lexicon": "applyGraphWritePlan.json", "bpmn": [], "graphTargets": list(_GRAPH_TABLES.keys())},
-    {"method": "runItemWorkflow", "nsid": "ai.gftd.apps.openUnispsc.runItemWorkflow", "lexicon": "runItemWorkflow.json", "bpmn": ["procurement.bpmn", "supplier.bpmn", "flagArmsCommodity.bpmn", "flagDualUseCommodity.bpmn"], "graphTargets": list(_GRAPH_TABLES.keys())},
-    {"method": "coverageSnapshot", "nsid": "ai.gftd.apps.openUnispsc.coverageSnapshot", "lexicon": "coverageSnapshot.json", "bpmn": [], "graphTargets": []},
+    {"method": "segment", "nsid": "app.etzhayyim.apps.openUnispsc.segment", "lexicon": "segment.json", "bpmn": [], "graphTargets": []},
+    {"method": "family", "nsid": "app.etzhayyim.apps.openUnispsc.family", "lexicon": "family.json", "bpmn": [], "graphTargets": []},
+    {"method": "class", "nsid": "app.etzhayyim.apps.openUnispsc.class", "lexicon": "class.json", "bpmn": [], "graphTargets": []},
+    {"method": "commodity", "nsid": "app.etzhayyim.apps.openUnispsc.commodity", "lexicon": "commodity.json", "bpmn": [], "graphTargets": []},
+    {"method": "designItem", "nsid": "app.etzhayyim.apps.openUnispsc.designItem", "lexicon": "designItem.json", "bpmn": ["procurement.bpmn", "supplier.bpmn", "flagArmsCommodity.bpmn", "flagDualUseCommodity.bpmn"], "graphTargets": []},
+    {"method": "itemGetSpec", "nsid": "app.etzhayyim.apps.openUnispsc.itemGetSpec", "lexicon": "itemGetSpec.json", "bpmn": ["procurement.bpmn", "supplier.bpmn"], "graphTargets": []},
+    {"method": "itemScreenSupplier", "nsid": "app.etzhayyim.apps.openUnispsc.itemScreenSupplier", "lexicon": "itemScreenSupplier.json", "bpmn": ["supplier.bpmn"], "graphTargets": []},
+    {"method": "itemPlanProcurement", "nsid": "app.etzhayyim.apps.openUnispsc.itemPlanProcurement", "lexicon": "itemPlanProcurement.json", "bpmn": ["procurement.bpmn"], "graphTargets": []},
+    {"method": "itemFlagCompliance", "nsid": "app.etzhayyim.apps.openUnispsc.itemFlagCompliance", "lexicon": "itemFlagCompliance.json", "bpmn": ["flagArmsCommodity.bpmn", "flagDualUseCommodity.bpmn"], "graphTargets": []},
+    {"method": "syncCatalogItem", "nsid": "app.etzhayyim.apps.openUnispsc.syncCatalogItem", "lexicon": "syncCatalogItem.json", "bpmn": [], "graphTargets": []},
+    {"method": "planCatalogPurchase", "nsid": "app.etzhayyim.apps.openUnispsc.planCatalogPurchase", "lexicon": "planCatalogPurchase.json", "bpmn": ["procurement.bpmn"], "graphTargets": []},
+    {"method": "syncAllCommodityDids", "nsid": "app.etzhayyim.apps.openUnispsc.syncAllCommodityDids", "lexicon": "syncAllCommodityDids.json", "bpmn": [], "graphTargets": []},
+    {"method": "importSegmentCatalog", "nsid": "app.etzhayyim.apps.openUnispsc.importSegmentCatalog", "lexicon": "importSegmentCatalog.json", "bpmn": [], "graphTargets": []},
+    {"method": "supplier", "nsid": "app.etzhayyim.apps.openUnispsc.supplier", "lexicon": "supplier.json", "bpmn": ["supplier.bpmn"], "graphTargets": ["vertex_open_unispsc_supplier"]},
+    {"method": "procurement", "nsid": "app.etzhayyim.apps.openUnispsc.procurement", "lexicon": "procurement.json", "bpmn": ["procurement.bpmn"], "graphTargets": ["vertex_open_unispsc_procurement", "edge_open_unispsc_procurement_commodity"]},
+    {"method": "flagArmsCommodity", "nsid": "app.etzhayyim.apps.openUnispsc.flagArmsCommodity", "lexicon": "flagArmsCommodity.json", "bpmn": ["flagArmsCommodity.bpmn"], "graphTargets": ["vertex_open_defence_event"]},
+    {"method": "flagDualUseCommodity", "nsid": "app.etzhayyim.apps.openUnispsc.flagDualUseCommodity", "lexicon": "flagDualUseCommodity.json", "bpmn": ["flagDualUseCommodity.bpmn"], "graphTargets": ["vertex_open_defence_event"]},
+    {"method": "applyGraphWritePlan", "nsid": "app.etzhayyim.apps.openUnispsc.applyGraphWritePlan", "lexicon": "applyGraphWritePlan.json", "bpmn": [], "graphTargets": list(_GRAPH_TABLES.keys())},
+    {"method": "runItemWorkflow", "nsid": "app.etzhayyim.apps.openUnispsc.runItemWorkflow", "lexicon": "runItemWorkflow.json", "bpmn": ["procurement.bpmn", "supplier.bpmn", "flagArmsCommodity.bpmn", "flagDualUseCommodity.bpmn"], "graphTargets": list(_GRAPH_TABLES.keys())},
+    {"method": "coverageSnapshot", "nsid": "app.etzhayyim.apps.openUnispsc.coverageSnapshot", "lexicon": "coverageSnapshot.json", "bpmn": [], "graphTargets": []},
 ]
 
 
@@ -256,7 +256,7 @@ def _risk_tags(code: str, *, dangerous_goods: bool = False, sanctions_check: str
 
 
 def _tool_name(level: Level) -> str:
-    return f"ai.gftd.apps.openUnispsc.{level}"
+    return f"app.etzhayyim.apps.openUnispsc.{level}"
 
 
 def _stable_int(*parts: Any) -> int:
@@ -427,7 +427,7 @@ def _record(
         ),
         "riskTags": risk_tags,
         "ownerActor": ACTOR_ID,
-        "collection": f"ai.gftd.apps.openUnispsc.{level}",
+        "collection": f"app.etzhayyim.apps.openUnispsc.{level}",
     }
     if segment_name:
         logic["segmentName"] = segment_name
@@ -559,7 +559,7 @@ async def task_open_unispsc_design_item(
     try:
         code = _norm_code(commodityCode, "commodity")
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.designItem"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.designItem"}
     from pymagatama.langgraph_graphs.open_unispsc_item import run_item_design
 
     result = await run_item_design({
@@ -570,7 +570,7 @@ async def task_open_unispsc_design_item(
         "class_code": classCode or code[:6],
         "description": description,
     })
-    result["mcpTool"] = "ai.gftd.apps.openUnispsc.designItem"
+    result["mcpTool"] = "app.etzhayyim.apps.openUnispsc.designItem"
     return result
 
 
@@ -583,14 +583,14 @@ async def task_open_unispsc_item_get_spec(
     try:
         code = _norm_code(commodityCode, "commodity")
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.itemGetSpec"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.itemGetSpec"}
     from pymagatama.langgraph_graphs.open_unispsc_item import run_item_operation
 
     result = await run_item_operation("getSpec", {
         "commodity_code": code,
         "commodity_name": commodityName or code,
     })
-    result["mcpTool"] = "ai.gftd.apps.openUnispsc.itemGetSpec"
+    result["mcpTool"] = "app.etzhayyim.apps.openUnispsc.itemGetSpec"
     return result
 
 
@@ -608,7 +608,7 @@ async def task_open_unispsc_item_screen_supplier(
     try:
         code = _norm_code(commodityCode, "commodity")
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.itemScreenSupplier"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.itemScreenSupplier"}
     from pymagatama.langgraph_graphs.open_unispsc_item import run_item_operation
 
     result = await run_item_operation("screenSupplier", {
@@ -620,7 +620,7 @@ async def task_open_unispsc_item_screen_supplier(
         "kyc_cleared": kycCleared,
         "quality_score": qualityScore,
     })
-    result["mcpTool"] = "ai.gftd.apps.openUnispsc.itemScreenSupplier"
+    result["mcpTool"] = "app.etzhayyim.apps.openUnispsc.itemScreenSupplier"
     return result
 
 
@@ -639,7 +639,7 @@ async def task_open_unispsc_item_plan_procurement(
     try:
         code = _norm_code(commodityCode, "commodity")
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.itemPlanProcurement"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.itemPlanProcurement"}
     from pymagatama.langgraph_graphs.open_unispsc_item import run_item_operation
 
     result = await run_item_operation("planProcurement", {
@@ -652,7 +652,7 @@ async def task_open_unispsc_item_plan_procurement(
         "dangerous_goods": dangerousGoods,
         "sanctions_check": sanctionsCheck,
     })
-    result["mcpTool"] = "ai.gftd.apps.openUnispsc.itemPlanProcurement"
+    result["mcpTool"] = "app.etzhayyim.apps.openUnispsc.itemPlanProcurement"
     return result
 
 
@@ -666,7 +666,7 @@ async def task_open_unispsc_item_flag_compliance(
     try:
         code = _norm_code(commodityCode, "commodity")
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.itemFlagCompliance"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.itemFlagCompliance"}
     from pymagatama.langgraph_graphs.open_unispsc_item import run_item_operation
 
     result = await run_item_operation("flagCompliance", {
@@ -674,7 +674,7 @@ async def task_open_unispsc_item_flag_compliance(
         "commodity_name": commodityName or code,
         "dual_use_category": dualUseCategory,
     })
-    result["mcpTool"] = "ai.gftd.apps.openUnispsc.itemFlagCompliance"
+    result["mcpTool"] = "app.etzhayyim.apps.openUnispsc.itemFlagCompliance"
     return result
 
 
@@ -690,7 +690,7 @@ async def task_open_unispsc_sync_catalog_item(
     try:
         code = _norm_code(commodityCode, "commodity")
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.syncCatalogItem"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.syncCatalogItem"}
     from pymagatama.langgraph_graphs.open_unispsc_item import run_item_operation
 
     result = await run_item_operation("syncCatalogItem", {
@@ -700,7 +700,7 @@ async def task_open_unispsc_sync_catalog_item(
         "rkey": rkey,
         "active": active,
     })
-    result["mcpTool"] = "ai.gftd.apps.openUnispsc.syncCatalogItem"
+    result["mcpTool"] = "app.etzhayyim.apps.openUnispsc.syncCatalogItem"
     return result
 
 
@@ -719,7 +719,7 @@ async def task_open_unispsc_plan_catalog_purchase(
     try:
         code = _norm_code(commodityCode, "commodity") if commodityCode else _code_from_product_id(productId)
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.planCatalogPurchase"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.planCatalogPurchase"}
     from pymagatama.langgraph_graphs.open_unispsc_item import run_item_operation
 
     result = await run_item_operation("planCatalogPurchase", {
@@ -732,7 +732,7 @@ async def task_open_unispsc_plan_catalog_purchase(
         "unit_price": unitPrice,
         "currency": currency,
     })
-    result["mcpTool"] = "ai.gftd.apps.openUnispsc.planCatalogPurchase"
+    result["mcpTool"] = "app.etzhayyim.apps.openUnispsc.planCatalogPurchase"
     return result
 
 
@@ -748,19 +748,19 @@ async def task_open_unispsc_sync_all_commodity_dids(
         return {
             "ok": False,
             "error": f"segments catalog not found: {_segments_csv()}",
-            "mcpTool": "ai.gftd.apps.openUnispsc.syncAllCommodityDids",
+            "mcpTool": "app.etzhayyim.apps.openUnispsc.syncAllCommodityDids",
         }
     requested = [str(code) for code in (segmentCodes or [])]
     try:
         codes = [_norm_code(code, "segment") for code in requested] if requested else sorted(catalog)
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.syncAllCommodityDids"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.syncAllCommodityDids"}
     missing = [code for code in codes if code not in catalog]
     if missing:
         return {
             "ok": False,
             "error": f"unknown UNSPSC segment codes: {missing}",
-            "mcpTool": "ai.gftd.apps.openUnispsc.syncAllCommodityDids",
+            "mcpTool": "app.etzhayyim.apps.openUnispsc.syncAllCommodityDids",
         }
     safe_batch = max(1, int(batchSize or 500))
     segments = []
@@ -775,7 +775,7 @@ async def task_open_unispsc_sync_all_commodity_dids(
             "commands": [
                 {
                     "command": "register-commodities-bulk",
-                    "collection": "ai.gftd.apps.unispsc.commodity",
+                    "collection": "app.etzhayyim.apps.unispsc.commodity",
                     "arguments": {"segment": code, "batchSize": safe_batch},
                 },
                 {
@@ -792,7 +792,7 @@ async def task_open_unispsc_sync_all_commodity_dids(
         })
     return {
         "ok": True,
-        "mcpTool": "ai.gftd.apps.openUnispsc.syncAllCommodityDids",
+        "mcpTool": "app.etzhayyim.apps.openUnispsc.syncAllCommodityDids",
         "dryRun": dryRun,
         "segmentCount": len(segments),
         "batchSize": safe_batch,
@@ -816,19 +816,19 @@ async def task_open_unispsc_import_segment_catalog(
     try:
         segment = _norm_code(segmentCode, "segment")
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.importSegmentCatalog"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.importSegmentCatalog"}
     catalog = _load_segments()
     if segment not in catalog:
         return {
             "ok": False,
             "error": f"unknown UNSPSC segment code: {segment}",
-            "mcpTool": "ai.gftd.apps.openUnispsc.importSegmentCatalog",
+            "mcpTool": "app.etzhayyim.apps.openUnispsc.importSegmentCatalog",
         }
     safe_page_size = max(1, int(pageSize or 1000))
     row = catalog[segment]
     return {
         "ok": True,
-        "mcpTool": "ai.gftd.apps.openUnispsc.importSegmentCatalog",
+        "mcpTool": "app.etzhayyim.apps.openUnispsc.importSegmentCatalog",
         "dryRun": dryRun,
         "segment": segment,
         "slug": row.get("slug", ""),
@@ -842,10 +842,10 @@ async def task_open_unispsc_import_segment_catalog(
         },
         "importPlan": {
             "mode": "bulk-query-to-catalog-upsert",
-            "upstreamCollection": "ai.gftd.apps.unispsc.commodity",
+            "upstreamCollection": "app.etzhayyim.apps.unispsc.commodity",
             "targetRepo": "did:web:okaimono.etzhayyim.com",
-            "targetCollection": "ai.gftd.apps.okaimono.catalogItem",
-            "transformTool": "ai.gftd.apps.openUnispsc.syncCatalogItem",
+            "targetCollection": "app.etzhayyim.apps.okaimono.catalogItem",
+            "transformTool": "app.etzhayyim.apps.openUnispsc.syncCatalogItem",
             "idempotencyKey": f"import-unispsc-segment-{segment}",
             "catalogKeyTemplate": "unispsc-{code}",
             "commodityDidTemplate": f"{OPEN_UNISPSC_DID}:seg{segment}:commodity:c{{code}}",
@@ -872,11 +872,11 @@ async def task_open_unispsc_supplier(
         kycCleared=kycCleared,
         qualityScore=qualityScore,
     )
-    result["mcpTool"] = "ai.gftd.apps.openUnispsc.supplier"
+    result["mcpTool"] = "app.etzhayyim.apps.openUnispsc.supplier"
     if not result.get("ok"):
         return result
     result["vertexId"] = _vertex_id(
-        "ai.gftd.apps.openUnispsc.supplier",
+        "app.etzhayyim.apps.openUnispsc.supplier",
         supplierDid,
         result.get("commodityCode", ""),
         registeredAt,
@@ -930,11 +930,11 @@ async def task_open_unispsc_procurement(
         dangerousGoods=dangerousGoods,
         sanctionsCheck=sanctionsCheck,
     )
-    result["mcpTool"] = "ai.gftd.apps.openUnispsc.procurement"
+    result["mcpTool"] = "app.etzhayyim.apps.openUnispsc.procurement"
     if not result.get("ok"):
         return result
     result["vertexId"] = _vertex_id(
-        "ai.gftd.apps.openUnispsc.procurement",
+        "app.etzhayyim.apps.openUnispsc.procurement",
         buyerOrgId,
         result.get("commodityCode", ""),
         submittedAt,
@@ -1006,11 +1006,11 @@ async def task_open_unispsc_flag_arms_commodity(
     try:
         code = _norm_code(unspscCode, "commodity")
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.flagArmsCommodity"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.flagArmsCommodity"}
     result = await task_open_unispsc_item_flag_compliance(commodityCode=code, commodityName=subFamily or code)
     is_arms = bool(result.get("arms"))
     commodity_vid = commodityVid or result.get("commodityVid", "")
-    event_vid = vertexId or _vertex_id("ai.gftd.apps.openDefence.event", "arms", code, commodity_vid, detectedAt)
+    event_vid = vertexId or _vertex_id("app.etzhayyim.apps.openDefence.event", "arms", code, commodity_vid, detectedAt)
     timestamp = detectedAt or _now_iso()
     graph_write_plan = _graph_write_plan(
         operation="upsertOpenUnispscArmsDefenceEvent",
@@ -1021,7 +1021,7 @@ async def task_open_unispsc_flag_arms_commodity(
                 **_base_defence_event_row(timestamp, callerDid),
                 "vertex_id": event_vid,
                 "bpmn_process_id": "open_unispsc_flag_arms_commodity",
-                "nsid": "ai.gftd.apps.openUnispsc.flagArmsCommodity",
+                "nsid": "app.etzhayyim.apps.openUnispsc.flagArmsCommodity",
                 "project": "open-unispsc",
                 "subject_vid": commodity_vid,
                 "action_class": "commodity.arms",
@@ -1042,7 +1042,7 @@ async def task_open_unispsc_flag_arms_commodity(
         "instanceKey": _stable_int("open_unispsc_flag_arms_commodity", event_vid, commodity_vid, code),
         "auditAction": "commodity.arms",
         "graphWritePlan": graph_write_plan,
-        "mcpTool": "ai.gftd.apps.openUnispsc.flagArmsCommodity",
+        "mcpTool": "app.etzhayyim.apps.openUnispsc.flagArmsCommodity",
         **({} if is_arms else {"error": "UNSPSC arms flag requires segment 46 commodity code"}),
     }
 
@@ -1062,7 +1062,7 @@ async def task_open_unispsc_flag_dual_use_commodity(
     try:
         code = _norm_code(unspscCode, "commodity")
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.flagDualUseCommodity"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.flagDualUseCommodity"}
     result = await task_open_unispsc_item_flag_compliance(
         commodityCode=code,
         commodityName=dualUseCategory or code,
@@ -1070,7 +1070,7 @@ async def task_open_unispsc_flag_dual_use_commodity(
     )
     is_dual_use = bool(result.get("dualUse"))
     commodity_vid = commodityVid or result.get("commodityVid", "")
-    event_vid = vertexId or _vertex_id("ai.gftd.apps.openDefence.event", "dualUse", code, commodity_vid, dualUseCategory, detectedAt)
+    event_vid = vertexId or _vertex_id("app.etzhayyim.apps.openDefence.event", "dualUse", code, commodity_vid, dualUseCategory, detectedAt)
     timestamp = detectedAt or _now_iso()
     graph_write_plan = _graph_write_plan(
         operation="upsertOpenUnispscDualUseDefenceEvent",
@@ -1081,7 +1081,7 @@ async def task_open_unispsc_flag_dual_use_commodity(
                 **_base_defence_event_row(timestamp, callerDid),
                 "vertex_id": event_vid,
                 "bpmn_process_id": "open_unispsc_flag_dual_use_commodity",
-                "nsid": "ai.gftd.apps.openUnispsc.flagDualUseCommodity",
+                "nsid": "app.etzhayyim.apps.openUnispsc.flagDualUseCommodity",
                 "project": "open-unispsc",
                 "subject_vid": commodity_vid,
                 "action_class": "commodity.dualUse",
@@ -1102,7 +1102,7 @@ async def task_open_unispsc_flag_dual_use_commodity(
         "instanceKey": _stable_int("open_unispsc_flag_dual_use_commodity", event_vid, commodity_vid, code, dualUseCategory),
         "auditAction": "openUnispsc.commodity.flagDualUse",
         "graphWritePlan": graph_write_plan,
-        "mcpTool": "ai.gftd.apps.openUnispsc.flagDualUseCommodity",
+        "mcpTool": "app.etzhayyim.apps.openUnispsc.flagDualUseCommodity",
         **({} if is_dual_use else {"error": "UNSPSC dual-use flag requires a dual-use category or regulated segment"}),
     }
 
@@ -1124,7 +1124,7 @@ async def task_open_unispsc_apply_graph_write_plan(
         return {
             "ok": False,
             "dryRun": dryRun,
-            "mcpTool": "ai.gftd.apps.openUnispsc.applyGraphWritePlan",
+            "mcpTool": "app.etzhayyim.apps.openUnispsc.applyGraphWritePlan",
             "errors": errors,
             "validatedRows": len(rows),
             "sqlStatements": statements,
@@ -1134,7 +1134,7 @@ async def task_open_unispsc_apply_graph_write_plan(
         return {
             "ok": True,
             "dryRun": True,
-            "mcpTool": "ai.gftd.apps.openUnispsc.applyGraphWritePlan",
+            "mcpTool": "app.etzhayyim.apps.openUnispsc.applyGraphWritePlan",
             "appliedRows": 0,
             "validatedRows": len(rows),
             "sqlStatements": statements,
@@ -1146,7 +1146,7 @@ async def task_open_unispsc_apply_graph_write_plan(
         return {
             "ok": False,
             "dryRun": False,
-            "mcpTool": "ai.gftd.apps.openUnispsc.applyGraphWritePlan",
+            "mcpTool": "app.etzhayyim.apps.openUnispsc.applyGraphWritePlan",
             "error": f"db_sync unavailable: {exc}",
             "validatedRows": len(rows),
             "sqlStatements": statements,
@@ -1160,7 +1160,7 @@ async def task_open_unispsc_apply_graph_write_plan(
     return {
         "ok": True,
         "dryRun": False,
-        "mcpTool": "ai.gftd.apps.openUnispsc.applyGraphWritePlan",
+        "mcpTool": "app.etzhayyim.apps.openUnispsc.applyGraphWritePlan",
         "appliedRows": applied,
         "validatedRows": len(rows),
         "sqlStatements": statements,
@@ -1192,7 +1192,7 @@ async def task_open_unispsc_run_item_workflow(
     try:
         code = _norm_code(commodityCode, "commodity")
     except ValueError as exc:
-        return {"ok": False, "error": str(exc), "mcpTool": "ai.gftd.apps.openUnispsc.runItemWorkflow"}
+        return {"ok": False, "error": str(exc), "mcpTool": "app.etzhayyim.apps.openUnispsc.runItemWorkflow"}
 
     timestamp = eventAt or _now_iso()
     spec = await task_open_unispsc_item_get_spec(commodityCode=code, commodityName=commodityName or code)
@@ -1261,7 +1261,7 @@ async def task_open_unispsc_run_item_workflow(
     )
     return {
         "ok": not validation_errors and all(step.get("ok") for step in [spec, supplier, procurement, compliance]),
-        "mcpTool": "ai.gftd.apps.openUnispsc.runItemWorkflow",
+        "mcpTool": "app.etzhayyim.apps.openUnispsc.runItemWorkflow",
         "workflowStatus": workflow_status,
         "commodityCode": code,
         "commodityName": commodityName or code,
@@ -1379,7 +1379,7 @@ async def task_open_unispsc_coverage_snapshot(**_: Any) -> dict[str, Any]:
 
     return {
         "ok": not missing and not dispatcher_error and not seed_error and not down_error and not alembic_error,
-        "mcpTool": "ai.gftd.apps.openUnispsc.coverageSnapshot",
+        "mcpTool": "app.etzhayyim.apps.openUnispsc.coverageSnapshot",
         "toolCount": len(tools),
         "graphTargetCount": len(_GRAPH_TABLES),
         "bpmnDir": str(bpmn_dir.relative_to(_repo_root())),
@@ -1443,7 +1443,7 @@ async def smoke_call(level: Level, code: str) -> dict[str, Any]:
 
 def stable_vertex_id(level: Level, code: str) -> str:
     digest = hashlib.sha256(f"{level}:{code}".encode("utf-8")).hexdigest()[:24]
-    return f"at://{OPEN_UNISPSC_DID}/ai.gftd.apps.openUnispsc.{level}/{digest}"
+    return f"at://{OPEN_UNISPSC_DID}/app.etzhayyim.apps.openUnispsc.{level}/{digest}"
 
 
 def smoke_call_sync(level: Level, code: str) -> dict[str, Any]:

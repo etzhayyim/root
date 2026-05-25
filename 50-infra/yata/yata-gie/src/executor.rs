@@ -691,8 +691,8 @@ mod tests {
                 ("age", PropValue::Int(35)),
             ],
         );
-        // vid=3: GFTD (Company)
-        store.add_vertex("Company", &[("name", PropValue::Str("GFTD".into()))]);
+        // vid=3: etzhayyim (Company)
+        store.add_vertex("Company", &[("name", PropValue::Str("etzhayyim".into()))]);
 
         // Alice -> Bob (KNOWS)
         store.add_edge(0, 1, "KNOWS", &[("since", PropValue::Int(2020))]);
@@ -700,7 +700,7 @@ mod tests {
         store.add_edge(0, 2, "KNOWS", &[("since", PropValue::Int(2021))]);
         // Bob -> Charlie (KNOWS)
         store.add_edge(1, 2, "KNOWS", &[]);
-        // Alice -> GFTD (WORKS_AT)
+        // Alice -> etzhayyim (WORKS_AT)
         store.add_edge(0, 3, "WORKS_AT", &[]);
 
         store.commit();
@@ -1129,7 +1129,7 @@ mod tests {
     #[test]
     fn test_execute_cross_label_traversal() {
         let store = test_store();
-        // Alice WORKS_AT GFTD
+        // Alice WORKS_AT etzhayyim
         let plan = PlanBuilder::new()
             .scan_with_predicate(
                 "Person",
@@ -1142,7 +1142,7 @@ mod tests {
 
         let results = execute(&plan, &store);
         assert_eq!(results.len(), 1);
-        assert_eq!(results[0].values[0], PropValue::Str("GFTD".into()));
+        assert_eq!(results[0].values[0], PropValue::Str("etzhayyim".into()));
     }
 
     #[test]
@@ -1643,7 +1643,7 @@ mod untyped_edge_tests {
         let mut store = TestStore::new();
         let a = store.add_vertex("Person", &[("name", PropValue::Str("Alice".into()))]);
         let b = store.add_vertex("Person", &[("name", PropValue::Str("Bob".into()))]);
-        let c = store.add_vertex("Company", &[("name", PropValue::Str("GFTD".into()))]);
+        let c = store.add_vertex("Company", &[("name", PropValue::Str("etzhayyim".into()))]);
         store.add_edge(a, b, "KNOWS", &[]);
         store.add_edge(a, c, "WORKS_AT", &[]);
         store.commit();
@@ -1673,14 +1673,14 @@ mod untyped_edge_tests {
             })
             .collect();
         assert!(names.contains(&"Bob"));
-        assert!(names.contains(&"GFTD"));
+        assert!(names.contains(&"etzhayyim"));
     }
 
     #[test]
     fn test_untyped_scan_all_vertices() {
         let mut store = TestStore::new();
         store.add_vertex("Person", &[("name", PropValue::Str("Alice".into()))]);
-        store.add_vertex("Company", &[("name", PropValue::Str("GFTD".into()))]);
+        store.add_vertex("Company", &[("name", PropValue::Str("etzhayyim".into()))]);
         store.commit();
 
         // Unlabeled scan: (n) — empty label scans all vertices
@@ -1757,7 +1757,7 @@ mod coverage_tests {
                 ("age", PropValue::Int(35)),
             ],
         );
-        store.add_vertex("Company", &[("name", PropValue::Str("GFTD".into()))]);
+        store.add_vertex("Company", &[("name", PropValue::Str("etzhayyim".into()))]);
 
         store.add_edge(0, 1, "KNOWS", &[("since", PropValue::Int(2020))]);
         store.add_edge(0, 2, "KNOWS", &[("since", PropValue::Int(2021))]);
@@ -1963,7 +1963,7 @@ mod coverage_tests {
     #[test]
     fn test_chained_expands() {
         let store = test_store();
-        // Alice -[:KNOWS]-> Bob/Charlie, Alice -[:WORKS_AT]-> GFTD
+        // Alice -[:KNOWS]-> Bob/Charlie, Alice -[:WORKS_AT]-> etzhayyim
         // Chain: (a)-[:KNOWS]->(b)-[:KNOWS]->(c), project c.name
         // Alice->Bob->Charlie, Alice->Charlie->(no outgoing KNOWS)
         let plan = PlanBuilder::new()
@@ -2076,7 +2076,7 @@ mod security_filter_tests {
             ("rkey", PropValue::Str("post3".into())),
             ("sensitivity_ord", PropValue::Int(2)), // confidential
             ("owner_hash", PropValue::Int(3000)),
-            ("collection", PropValue::Str("ai.gftd.apps.yabai.entity".into())),
+            ("collection", PropValue::Str("app.etzhayyim.apps.yabai.entity".into())),
         ]);
         // vid=3: restricted post
         store.add_vertex("Post", &[
@@ -2165,7 +2165,7 @@ mod security_filter_tests {
         let store = security_store();
         let scope = SecurityScope {
             max_sensitivity_ord: 0, // public only by clearance
-            collection_scopes: vec!["ai.gftd.apps.yabai.".into()], // RBAC grants yabai access
+            collection_scopes: vec!["app.etzhayyim.apps.yabai.".into()], // RBAC grants yabai access
             ..Default::default()
         };
         let mut plan = PlanBuilder::new()
@@ -2259,7 +2259,7 @@ mod security_filter_tests {
         let store = security_store();
         let scope = SecurityScope {
             max_sensitivity_ord: 0,
-            collection_scopes: vec!["ai.gftd.apps.yabai.".into()],
+            collection_scopes: vec!["app.etzhayyim.apps.yabai.".into()],
             allowed_owner_hashes: vec![4000], // consent for restricted post owner
             ..Default::default()
         };

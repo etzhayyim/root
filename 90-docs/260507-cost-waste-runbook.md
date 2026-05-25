@@ -287,7 +287,7 @@ curl -sS "https://${POD}-4000.proxy.runpod.net/v1/chat/completions" \
 ADR §163 に列挙された箇所が pod ID 維持のため **変更不要**:
 
 - `50-infra/cloudflare/workers/comfyui/wrangler.jsonc` `UPSTREAM_URL` (pod ID 同じ)
-- `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` `LLM_CHAT_COMPLETIONS_URL` + `GFTD_LLM_URL`
+- `50-infra/vultr/mitama-udf-pool/templates/zeebe-worker.yaml` `LLM_CHAT_COMPLETIONS_URL` + `etzhayyim_LLM_URL`
 - `60-apps/ai-gftd-project-shinshi/.../wrangler.jsonc` `COMFY_POD_URL`
 
 ただし wait, image 変更で port が変わるなら URL 確認。LiteLLM :4000 と vLLM :8000 が起動することを Stage C で確認後、`LLM_CHAT_COMPLETIONS_URL` が `:4000` を指していることを再確認。

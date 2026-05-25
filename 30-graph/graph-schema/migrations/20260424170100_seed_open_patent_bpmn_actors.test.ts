@@ -25,8 +25,8 @@ describe("Seed open-patent BPMN actors migration", () => {
     expect(migrationSource).toContain('bpmnProcessId: "open_patent_record_citation"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openPatent.registerPatent"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openPatent.recordCitation"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPatent.registerPatent"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPatent.recordCitation"');
   });
   it("uses open-patent-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-patent');

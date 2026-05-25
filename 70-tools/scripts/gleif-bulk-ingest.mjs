@@ -43,7 +43,7 @@ import { execSync } from "node:child_process";
 
 const PDS_URL = "https://atproto.etzhayyim.com";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
-const COLLECTION = "ai.gftd.apps.legalEntity.legalEntity";
+const COLLECTION = "app.etzhayyim.apps.legalEntity.legalEntity";
 const PROGRESS_FILE = "/tmp/gleif-ingest-progress.json";
 const RW_CONN = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 

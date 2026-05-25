@@ -17,7 +17,7 @@
       "standards": ["AT Protocol XRPC", "DoDAF v2.02", "BPMN 2.0", "DMN 1.3", "Camunda Forms", "IEC 61968 (CIM-aligned naming)"]
     },
     "toolsAndMethods": [
-      "XRPC Lexicons for external contracts (ai.gftd.apps.openPower.*)",
+      "XRPC Lexicons for external contracts (app.etzhayyim.apps.openPower.*)",
       "BPMN 2.0 for process definition (defineFeeder, reportOutage)",
       "DMN 1.3 for decision rules (outageClass)",
       "Camunda Forms for human-task UI"

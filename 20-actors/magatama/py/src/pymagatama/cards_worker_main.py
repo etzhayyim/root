@@ -42,7 +42,7 @@ async def run_worker() -> None:
     worker = LangServerWorker(channel)
 
     # ── createCardholder ──────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.createCardholder")
+    @worker.task(task_type="app.etzhayyim.apps.cards.createCardholder")
     async def task_create_cardholder(**kwargs):
         name = kwargs.get("name", "")
         email = kwargs.get("email", "")
@@ -72,7 +72,7 @@ async def run_worker() -> None:
         return {"ok": True, "cardholderId": cardholder_id, "createdAt": now}
 
     # ── issueCard ─────────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.issueCard")
+    @worker.task(task_type="app.etzhayyim.apps.cards.issueCard")
     async def task_issue_card(**kwargs):
         cardholder_id = kwargs.get("cardholderId", "")
         card_type = kwargs.get("cardType", "virtual")
@@ -102,7 +102,7 @@ async def run_worker() -> None:
         return {"ok": True, "cardId": card_id, "status": "active", "createdAt": now}
 
     # ── assignCardCredits ─────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.assignCardCredits")
+    @worker.task(task_type="app.etzhayyim.apps.cards.assignCardCredits")
     async def task_assign_card_credits(**kwargs):
         card_id = kwargs.get("cardId", "")
         amount = float(kwargs.get("amount", 0))
@@ -124,7 +124,7 @@ async def run_worker() -> None:
         return {"ok": True, "cardId": card_id, "addedAmount": amount, "currency": currency, "updatedAt": now}
 
     # ── getCardCredits ────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.getCardCredits")
+    @worker.task(task_type="app.etzhayyim.apps.cards.getCardCredits")
     async def task_get_card_credits(**kwargs):
         card_id = kwargs.get("cardId", "")
 
@@ -142,7 +142,7 @@ async def run_worker() -> None:
         return {"cardId": row["card_id"], "spendingLimit": float(row["spending_limit"]), "currency": row["currency"]}
 
     # ── handleAuthorization ───────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.handleAuthorization")
+    @worker.task(task_type="app.etzhayyim.apps.cards.handleAuthorization")
     async def task_handle_authorization(**kwargs):
         card_id = kwargs.get("cardId", "")
         merchant = kwargs.get("merchant", "")
@@ -181,7 +181,7 @@ async def run_worker() -> None:
         return {"ok": True, "authId": auth_id, "decision": decision, "createdAt": now}
 
     # ── listCards ─────────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.listCards")
+    @worker.task(task_type="app.etzhayyim.apps.cards.listCards")
     async def task_list_cards(**kwargs):
         cardholder_id = kwargs.get("cardholderId", "")
         limit = int(kwargs.get("limit", 50))
@@ -213,7 +213,7 @@ async def run_worker() -> None:
         return {"cards": [dict(r) for r in rows], "total": total, "offset": offset, "limit": limit}
 
     # ── getCard ───────────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.getCard")
+    @worker.task(task_type="app.etzhayyim.apps.cards.getCard")
     async def task_get_card(**kwargs):
         card_id = kwargs.get("cardId", "")
 
@@ -232,7 +232,7 @@ async def run_worker() -> None:
         return dict(row)
 
     # ── freezeCard ────────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.freezeCard")
+    @worker.task(task_type="app.etzhayyim.apps.cards.freezeCard")
     async def task_freeze_card(**kwargs):
         card_id = kwargs.get("cardId", "")
         now = _now()
@@ -249,7 +249,7 @@ async def run_worker() -> None:
         return {"ok": True, "cardId": card_id, "status": "frozen", "updatedAt": now}
 
     # ── unfreezeCard ──────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.unfreezeCard")
+    @worker.task(task_type="app.etzhayyim.apps.cards.unfreezeCard")
     async def task_unfreeze_card(**kwargs):
         card_id = kwargs.get("cardId", "")
         now = _now()
@@ -266,7 +266,7 @@ async def run_worker() -> None:
         return {"ok": True, "cardId": card_id, "status": "active", "updatedAt": now}
 
     # ── cancelCard ────────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.cancelCard")
+    @worker.task(task_type="app.etzhayyim.apps.cards.cancelCard")
     async def task_cancel_card(**kwargs):
         card_id = kwargs.get("cardId", "")
         now = _now()
@@ -283,7 +283,7 @@ async def run_worker() -> None:
         return {"ok": True, "cardId": card_id, "status": "cancelled", "updatedAt": now}
 
     # ── listTransactions ──────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.listTransactions")
+    @worker.task(task_type="app.etzhayyim.apps.cards.listTransactions")
     async def task_list_transactions(**kwargs):
         card_id = kwargs.get("cardId", "")
         limit = int(kwargs.get("limit", 50))
@@ -315,7 +315,7 @@ async def run_worker() -> None:
         return {"transactions": [dict(r) for r in rows], "total": total, "offset": offset, "limit": limit}
 
     # ── getTransaction ────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.getTransaction")
+    @worker.task(task_type="app.etzhayyim.apps.cards.getTransaction")
     async def task_get_transaction(**kwargs):
         txn_id = kwargs.get("txnId", "")
 
@@ -334,7 +334,7 @@ async def run_worker() -> None:
         return dict(row)
 
     # ── listAuthorizations ────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.listAuthorizations")
+    @worker.task(task_type="app.etzhayyim.apps.cards.listAuthorizations")
     async def task_list_authorizations(**kwargs):
         card_id = kwargs.get("cardId", "")
         limit = int(kwargs.get("limit", 50))
@@ -366,7 +366,7 @@ async def run_worker() -> None:
         return {"authorizations": [dict(r) for r in rows], "total": total, "offset": offset, "limit": limit}
 
     # ── approveAuthorization ──────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.approveAuthorization")
+    @worker.task(task_type="app.etzhayyim.apps.cards.approveAuthorization")
     async def task_approve_authorization(**kwargs):
         auth_id = kwargs.get("authId", "")
         now = _now()
@@ -383,7 +383,7 @@ async def run_worker() -> None:
         return {"ok": True, "authId": auth_id, "decision": "approved", "updatedAt": now}
 
     # ── declineAuthorization ──────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.declineAuthorization")
+    @worker.task(task_type="app.etzhayyim.apps.cards.declineAuthorization")
     async def task_decline_authorization(**kwargs):
         auth_id = kwargs.get("authId", "")
         reason = kwargs.get("reason", "")
@@ -401,7 +401,7 @@ async def run_worker() -> None:
         return {"ok": True, "authId": auth_id, "decision": "declined", "reason": reason, "updatedAt": now}
 
     # ── updateSpendingLimit ───────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.updateSpendingLimit")
+    @worker.task(task_type="app.etzhayyim.apps.cards.updateSpendingLimit")
     async def task_update_spending_limit(**kwargs):
         card_id = kwargs.get("cardId", "")
         new_limit = float(kwargs.get("spendingLimit", 0))
@@ -419,7 +419,7 @@ async def run_worker() -> None:
         return {"ok": True, "cardId": card_id, "spendingLimit": new_limit, "updatedAt": now}
 
     # ── topUp ─────────────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.topUp")
+    @worker.task(task_type="app.etzhayyim.apps.cards.topUp")
     async def task_top_up(**kwargs):
         card_id = kwargs.get("cardId", "")
         amount = float(kwargs.get("amount", 0))
@@ -452,7 +452,7 @@ async def run_worker() -> None:
         return {"ok": True, "txnId": txn_id, "cardId": card_id, "amount": amount, "currency": currency, "createdAt": now}
 
     # ── getBalance ────────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.getBalance")
+    @worker.task(task_type="app.etzhayyim.apps.cards.getBalance")
     async def task_get_balance(**kwargs):
         card_id = kwargs.get("cardId", "")
 
@@ -470,7 +470,7 @@ async def run_worker() -> None:
         return {"cardId": row["card_id"], "balance": float(row["spending_limit"]), "currency": row["currency"]}
 
     # ── listDisputes ──────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.listDisputes")
+    @worker.task(task_type="app.etzhayyim.apps.cards.listDisputes")
     async def task_list_disputes(**kwargs):
         card_id = kwargs.get("cardId", "")
         limit = int(kwargs.get("limit", 50))
@@ -502,7 +502,7 @@ async def run_worker() -> None:
         return {"disputes": [dict(r) for r in rows], "total": total, "offset": offset, "limit": limit}
 
     # ── createDispute ─────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.createDispute")
+    @worker.task(task_type="app.etzhayyim.apps.cards.createDispute")
     async def task_create_dispute(**kwargs):
         card_id = kwargs.get("cardId", "")
         txn_id = kwargs.get("txnId", "")
@@ -531,7 +531,7 @@ async def run_worker() -> None:
         return {"ok": True, "disputeId": dispute_id, "status": "open", "createdAt": now}
 
     # ── summarize ─────────────────────────────────────────────────────────────
-    @worker.task(task_type="ai.gftd.apps.cards.summarize")
+    @worker.task(task_type="app.etzhayyim.apps.cards.summarize")
     async def task_summarize(**kwargs):
         org_did = kwargs.get("orgDid", "")
 

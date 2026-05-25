@@ -17,7 +17,7 @@ function expectedSourcePath(binding) {
 }
 
 function expectedLexiconPath(binding) {
-  const nsidPrefix = "ai.gftd.apps.";
+  const nsidPrefix = "app.etzhayyim.apps.";
   if (!binding.nsid?.startsWith(nsidPrefix)) return null;
   const parts = binding.nsid.slice(nsidPrefix.length).split(".");
   if (parts.length < 2) return null;

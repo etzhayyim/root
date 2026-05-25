@@ -9,8 +9,8 @@ the audit with `--only-drift --strict` against the same files should exit 0
 for rows this tool owns.
 
 Convention (canonical 2026-04-23 per ADR-0056 addendum):
-  process_def vid  at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/{slug}-v{N}
-  binding vid     at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/{ns-action}-v{N}
+  process_def vid  at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/{slug}-v{N}
+  binding vid     at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/{ns-action}-v{N}
 
 Where:
   slug       = kebab-case of the BPMN <bpmn:process id="…">
@@ -22,7 +22,7 @@ Metadata discovery per BPMN file:
      JSON object, that JSON wins. Supported keys: `nsid`, `version`,
      `resultTimeoutMs`.
   2. Otherwise the NSID is derived from the path as
-     `ai.gftd.apps.{parent-dir}.{camelCase(filename-no-ext)}`.
+     `app.etzhayyim.apps.{parent-dir}.{camelCase(filename-no-ext)}`.
   3. Timer-start processes (startEvent with timerEventDefinition) never
      get a binding — they fire on Zeebe's schedule, not XRPC.
 
@@ -67,7 +67,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 BPMN_ROOT = REPO_ROOT / "00-contracts" / "bpmn"
 
 NS_BPMN = "http://www.omg.org/spec/BPMN/20100524/MODEL"
-BPMN_REPO_PREFIX = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn"
+BPMN_REPO_PREFIX = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn"
 
 DEFAULT_RESULT_TIMEOUT_MS = 60_000
 
@@ -123,7 +123,7 @@ def is_valid_nsid(nsid: str) -> bool:
 
 
 def derive_nsid_from_path(path: Path) -> str | None:
-    """`00-contracts/bpmn/ai/gftd/{ns}/{action}.bpmn` → `ai.gftd.apps.{ns}.{camelCase(action)}`.
+    """`00-contracts/bpmn/ai/gftd/{ns}/{action}.bpmn` → `app.etzhayyim.apps.{ns}.{camelCase(action)}`.
     Returns None if the derived NSID wouldn't be valid (e.g. the dir name
     contains a hyphen which NSIDs don't allow). Caller should emit a
     skip action in that case — a BPMN `<bpmn:documentation>` override is
@@ -136,7 +136,7 @@ def derive_nsid_from_path(path: Path) -> str | None:
         return None
     ns = rel[-2]
     stem = path.stem
-    candidate = f"ai.gftd.apps.{ns}.{stem}"
+    candidate = f"app.etzhayyim.apps.{ns}.{stem}"
     return candidate if is_valid_nsid(candidate) else None
 
 

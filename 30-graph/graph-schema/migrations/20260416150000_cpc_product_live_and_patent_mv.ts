@@ -4,7 +4,7 @@ import { Kysely, sql } from 'kysely';
  * CPC live-product projection + patent prefix bridge.
  *
  * Source of truth stays in `vertex_repo_record`:
- * - `ai.gftd.apps.cpc.product` records written by the CPC app
+ * - `app.etzhayyim.apps.cpc.product` records written by the CPC app
  * - `vertex_patent` promoted patent rows
  *
  * This migration adds:
@@ -48,7 +48,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.cpc.product'
+    WHERE collection = 'app.etzhayyim.apps.cpc.product'
   `.execute(db);
 
   await sql`

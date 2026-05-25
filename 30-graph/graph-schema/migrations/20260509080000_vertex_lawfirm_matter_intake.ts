@@ -14,26 +14,26 @@ const seedActorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESSES = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-intake-funnel-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-intake-funnel-v1",
     bpmnProcessId: "lawfirm_intake_funnel",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/intakeFunnel.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-matter-create-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-matter-create-v1",
     bpmnProcessId: "lawfirm_matter_create",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/matterCreate.bpmn",
   },
 ];
 const BINDINGS = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-intake-submit-xrpc-v1",
-    nsid: "ai.gftd.apps.lawfirm.intakeSubmit",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-intake-submit-xrpc-v1",
+    nsid: "app.etzhayyim.apps.lawfirm.intakeSubmit",
     bpmnProcessId: "lawfirm_intake_funnel",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-matter-create-xrpc-v1",
-    nsid: "ai.gftd.apps.lawfirm.matterCreate",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-matter-create-xrpc-v1",
+    nsid: "app.etzhayyim.apps.lawfirm.matterCreate",
     bpmnProcessId: "lawfirm_matter_create",
     resultTimeoutMs: 60_000,
   },
@@ -56,7 +56,7 @@ const BINDINGS = [
  *   mv_lawfirm_intake_lang_dist    intake distribution by language
  *
  * BPMN:
- *   lawfirm_intake_funnel  XRPC ai.gftd.apps.lawfirm.intakeSubmit
+ *   lawfirm_intake_funnel  XRPC app.etzhayyim.apps.lawfirm.intakeSubmit
  *
  * Tier 2 sensitivity (privileged content field-encrypted at app layer
  * with signal:v1 prefix; sensitivity_ord=200).

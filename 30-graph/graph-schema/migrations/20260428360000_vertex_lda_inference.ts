@@ -434,7 +434,7 @@ GROUP BY e.dst_vid`,
 
   for (let i = 0; i < viewpoints.length; i++) {
     const vp = viewpoints[i];
-    const vid = `at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaViewpoint/${vp.kind}`;
+    const vid = `at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.ldaViewpoint/${vp.kind}`;
     await db
       .insertInto("vertex_lda_viewpoint" as any)
       .values({
@@ -465,14 +465,14 @@ GROUP BY e.dst_vid`,
 
   const signals: SignalSeed[] = [
     // lexical
-    { vp_kind: "lexical", token: "nsid:ai.gftd.apps", kind: "nsid_prefix", source: "vertex_repo_record", expr: "SPLIT_PART(collection,'.',3)" },
+    { vp_kind: "lexical", token: "nsid:app.etzhayyim.apps", kind: "nsid_prefix", source: "vertex_repo_record", expr: "SPLIT_PART(collection,'.',3)" },
     { vp_kind: "lexical", token: "nsid:app.bsky", kind: "nsid_prefix", source: "vertex_repo_record", expr: "SPLIT_PART(collection,'.',1)||'.'||SPLIT_PART(collection,'.',2)" },
     { vp_kind: "lexical", token: "domain:etzhayyim.com", kind: "domain_token", source: "vertex_page", expr: "SPLIT_PART(vertex_id,'/',3)" },
     { vp_kind: "lexical", token: "lang:ja", kind: "language", source: "vertex_repo_record", expr: "detect_language(value_json)" },
     // behavioral
-    { vp_kind: "behavioral", token: "col:ai.gftd.apps.naturalPerson.naturalPerson", kind: "collection", source: "vertex_repo_record", expr: "collection" },
+    { vp_kind: "behavioral", token: "col:app.etzhayyim.apps.naturalPerson.naturalPerson", kind: "collection", source: "vertex_repo_record", expr: "collection" },
     { vp_kind: "behavioral", token: "col:app.bsky.feed.post", kind: "collection", source: "vertex_repo_record", expr: "collection" },
-    { vp_kind: "behavioral", token: "col:ai.gftd.apps.coverage.ldaViewpoint", kind: "collection", source: "vertex_repo_record", expr: "collection" },
+    { vp_kind: "behavioral", token: "col:app.etzhayyim.apps.coverage.ldaViewpoint", kind: "collection", source: "vertex_repo_record", expr: "collection" },
     { vp_kind: "behavioral", token: "bpmn:generic.db.select", kind: "bpmn_task_type", source: "vertex_bpmn_process_def", expr: "process_type" },
     // network
     { vp_kind: "network", token: "edge:follows", kind: "edge_type", source: "edge_follows", expr: "'edge:follows'" },
@@ -504,9 +504,9 @@ GROUP BY e.dst_vid`,
 
   for (let i = 0; i < signals.length; i++) {
     const s = signals[i];
-    const vpVid = `at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaViewpoint/${s.vp_kind}`;
+    const vpVid = `at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.ldaViewpoint/${s.vp_kind}`;
     const hash6 = s.token.replace(/[^a-z0-9]/g, "").substring(0, 12).padEnd(6, "0").substring(0, 6);
-    const sid = `at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.ldaSignal/${s.vp_kind}-${hash6}${i}`;
+    const sid = `at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.ldaSignal/${s.vp_kind}-${hash6}${i}`;
     await db
       .insertInto("vertex_lda_signal" as any)
       .values({

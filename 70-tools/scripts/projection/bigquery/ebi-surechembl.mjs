@@ -13,7 +13,7 @@ import {
 const INGEST_FAMILY = "bigquery.public_dataset.projection";
 const DATASET_ID = "bigquery-public-data:ebi_surechembl";
 const ACTOR_HOST = "chemistry-patent";
-const COLLECTION = "ai.gftd.apps.chemistry.patent_mention";
+const COLLECTION = "app.etzhayyim.apps.chemistry.patent_mention";
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));

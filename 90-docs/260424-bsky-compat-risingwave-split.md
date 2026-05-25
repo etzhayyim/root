@@ -151,7 +151,7 @@ The tranquil POC proved that **RW is the constraint, not the choice of PDS imple
 - **Held**: all XRPC NSID the client calls → gftd handlers return spec-shaped JSON. Tested via `50-infra/cloudflare/workers/atproto/src/cc-profile-e2e.test.ts`, `e2e-coverage.test.ts`, `business-person-integration.test.ts`.
 - **Firehose**: `subscribeRepos` serves content-addressed commit sequence. Client-side reconstructs repo. ADR-0041 tolerance to RW's last-write-wins is correct for social-app.
 - **Auth**: ADR-0022 2-token model (API key + Service Auth JWT) works under OAuth 2.1 spec. Client uses `createSession` → refresh → Service Auth per call.
-- **Lexicon**: `app.bsky.*` / `com.atproto.*` + custom `ai.gftd.*`. Bluesky client ignores unknown NSID (forward-compat). ai.gftd clients use `@gftd/wproto` which wraps AtpAgent.
+- **Lexicon**: `app.bsky.*` / `com.atproto.*` + custom `app.etzhayyim.*`. Bluesky client ignores unknown NSID (forward-compat). ai.gftd clients use `@etzhayyim/wproto` which wraps AtpAgent.
 - **Blob upload**: `com.atproto.repo.uploadBlob` → B2 PUT works. Client reads blob ref from AT record normally.
 
 **Bluesky social-app would connect to gftd PDS transparently if we registered the `atproto.etzhayyim.com` endpoint.** The RW gaps are internal storage concerns that never leak to the client.

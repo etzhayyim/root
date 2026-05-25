@@ -8,7 +8,7 @@ all RisingWave writes happen in the K8s LangServer pod (ADR-2604282300).
 ```
 caller (kami-cad-import / cargo-cyclonedx)
     │
-    ▼  POST /xrpc/ai.gftd.sbom.registerArtifact
+    ▼  POST /xrpc/app.etzhayyim.sbom.registerArtifact
 sbom.etzhayyim.com  (this CF Worker)
     │   validate input shape
     │   parse cdxJson, count components
@@ -97,8 +97,8 @@ cargo run -p kami-cad-import --example register_roadster | bash
 
 # Software SBOM (cargo-cyclonedx)
 cargo cyclonedx -f json
-gftd agent-token --lxm ai.gftd.sbom.registerArtifact > /tmp/tok
-curl -fsSL -X POST https://sbom.etzhayyim.com/xrpc/ai.gftd.sbom.registerArtifact \
+gftd agent-token --lxm app.etzhayyim.sbom.registerArtifact > /tmp/tok
+curl -fsSL -X POST https://sbom.etzhayyim.com/xrpc/app.etzhayyim.sbom.registerArtifact \
   -H "Authorization: Bearer $(cat /tmp/tok)" \
   -H "Content-Type: application/json" \
   --data '{"format":"CycloneDX","specVersion":"1.5","sourceUri":"file://Cargo.lock","sourceSha256":"...","license":"MIT","cdxJson":"<<full doc>>"}'
@@ -106,5 +106,5 @@ curl -fsSL -X POST https://sbom.etzhayyim.com/xrpc/ai.gftd.sbom.registerArtifact
 
 ## Health
 
-`POST /xrpc/ai.gftd.sbom.health` → `{ ok, did, ts, phase, note }`
+`POST /xrpc/app.etzhayyim.sbom.health` → `{ ok, did, ts, phase, note }`
 — public, no auth.

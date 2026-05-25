@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govSgp.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govSgp.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Singapore government.",
-        "operationId": "ai.gftd.govSgp.followSiteDeps",
+        "operationId": "app.etzhayyim.govSgp.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSgp.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govSgp.heartbeatTick": {
       "post": {
         "summary": "Run the Singapore government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govSgp.heartbeatTick",
+        "operationId": "app.etzhayyim.govSgp.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSgp.listOrgs": {
+    "/xrpc/app.etzhayyim.govSgp.listOrgs": {
       "get": {
         "summary": "List Singapore government organization graph records.",
-        "operationId": "ai.gftd.govSgp.listOrgs",
+        "operationId": "app.etzhayyim.govSgp.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSgp.registerDIDs": {
+    "/xrpc/app.etzhayyim.govSgp.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Singapore government organizations.",
-        "operationId": "ai.gftd.govSgp.registerDIDs",
+        "operationId": "app.etzhayyim.govSgp.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSgp.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govSgp.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Singapore government organization path to its graph record.",
-        "operationId": "ai.gftd.govSgp.resolveOrgPath",
+        "operationId": "app.etzhayyim.govSgp.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSgp.seedOrgs": {
+    "/xrpc/app.etzhayyim.govSgp.seedOrgs": {
       "post": {
         "summary": "Seed initial Singapore government organization records into the graph.",
-        "operationId": "ai.gftd.govSgp.seedOrgs",
+        "operationId": "app.etzhayyim.govSgp.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSgp.shinka": {
+    "/xrpc/app.etzhayyim.govSgp.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Singapore government organization update.",
-        "operationId": "ai.gftd.govSgp.shinka",
+        "operationId": "app.etzhayyim.govSgp.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSgp.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govSgp.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Singapore government organization changes to graph.",
-        "operationId": "ai.gftd.govSgp.syncWetUpdates",
+        "operationId": "app.etzhayyim.govSgp.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

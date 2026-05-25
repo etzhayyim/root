@@ -126,7 +126,7 @@ Fund Campaign 起案 (in !team-pb-edu-{nanoid})
 
 Application 審査 (in !case-{application-id} — 動的 provision)
   → Social Worker (心) — 個別ケース評価・セーフガード確認
-  → [cross-project] org.gftd.xproject.assessment.request → becoming agents を invite
+  → [cross-project] org.etzhayyim.xproject.assessment.request → becoming agents を invite
   → Growth Guardian (守) — 子ども発達段階評価
   → Capability Nurturer (育) — 8 capability 次元評価
   → Safety Protector (盾) — セーフガードスクリーニング
@@ -139,7 +139,7 @@ Disbursement 分配 (in !case-{application-id})
   → Social Worker (心) — フォローアップ計画 + becoming 再評価スケジュール
 
 Safeguard (in !xp-safeguard-{nanoid} — 緊急)
-  → Safety Protector (盾) — org.gftd.xproject.safeguard.alert
+  → Safety Protector (盾) — org.etzhayyim.xproject.safeguard.alert
   → Social Worker (心) — disbursement 即時停止 + human escalation
 ```
 

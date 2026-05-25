@@ -10,7 +10,7 @@ import {
   sql,
   nsid,
   genID,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 let appId = "";
 
@@ -69,7 +69,7 @@ async function write(_sdk: HostSDK, collection: string, rec: Record<string, unkn
   const table = tableMap[collection] ?? `vertex_sanctions_${camelToSnake(collection)}`;
   const ownerDid = `did:web:sn4c8t1x.etzhayyim.com`;
   const rkey = str(rec.matchId ?? rec.entryId ?? rec.updateId ?? "") || genID();
-  const vertex_id = `at://${ownerDid}/ai.gftd.apps.sanctions.${collection}/${rkey}`;
+  const vertex_id = `at://${ownerDid}/app.etzhayyim.apps.sanctions.${collection}/${rkey}`;
   const snakeRec = Object.fromEntries(Object.entries(rec).map(([k, v]) => [camelToSnake(k), v]));
   await createKyselyDb().insertInto(table as any).values({ vertex_id, sensitivity_ord: 2, owner_did: ownerDid, actor_id: appId, ...snakeRec }).execute();
 }
@@ -100,7 +100,7 @@ export default createWorkerExport((sdk: HostSDK) => {
 
   // ── Commands ──
 
-  sdk.app.command(nsid("ai.gftd.apps.sanctions.screenEntity"),
+  sdk.app.command(nsid("app.etzhayyim.apps.sanctions.screenEntity"),
     async (_ctx, params) => {
       const name = str(params?.name ?? "");
       const entityType = str(params?.entityType ?? "any");
@@ -145,7 +145,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     withCapabilityTags("sanctions", "compliance", "aml"),
   );
 
-  sdk.app.command(nsid("ai.gftd.sanctions.getEntry"),
+  sdk.app.command(nsid("app.etzhayyim.sanctions.getEntry"),
     async (_ctx, params) => {
       const entryId = str(params?.entryId ?? "");
       if (!entryId) return { error: "entryId is required" };
@@ -171,7 +171,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     asAgentTool("Get sanctions list entry by ID"),
   );
 
-  sdk.app.command(nsid("ai.gftd.sanctions.listUpdates"),
+  sdk.app.command(nsid("app.etzhayyim.sanctions.listUpdates"),
     async (_ctx, params) => {
       const limit = Number(params?.limit ?? 20);
       const rows = await getDb()
@@ -204,8 +204,8 @@ async function handleComAtprotoSyncSubscribeReposCommit(
 
   // malak threat actor/org → auto-screen against sanctions
   if (
-    commit.collection === "ai.gftd.apps.malak.threatActor" ||
-    commit.collection === "ai.gftd.apps.malak.threatOrganization"
+    commit.collection === "app.etzhayyim.apps.malak.threatActor" ||
+    commit.collection === "app.etzhayyim.apps.malak.threatOrganization"
   ) {
     const rec = commit.record as Record<string, unknown> | undefined;
     const name = str(rec?.entity_name ?? rec?.name ?? "");

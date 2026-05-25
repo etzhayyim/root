@@ -26,11 +26,11 @@
       },
       "publication": {
         "cid": "3mkmf36owkk2m",
-        "uri": "at://did:web:pd-color.etzhayyim.com/ai.gftd.apps.publicDomainColorization.publication/3mkmf36owkk2m",
+        "uri": "at://did:web:pd-color.etzhayyim.com/app.etzhayyim.apps.publicDomainColorization.publication/3mkmf36owkk2m",
         "repo": "did:web:pd-color.etzhayyim.com",
-        "collection": "ai.gftd.apps.publicDomainColorization.publication",
+        "collection": "app.etzhayyim.apps.publicDomainColorization.publication",
         "rkey": "3mkmf36owkk2m",
-        "recordUrl": "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.getRecord?repo=did%3Aweb%3Apd-color.etzhayyim.com&collection=ai.gftd.apps.publicDomainColorization.publication&rkey=3mkmf36owkk2m"
+        "recordUrl": "https://atproto.etzhayyim.com/xrpc/com.atproto.repo.getRecord?repo=did%3Aweb%3Apd-color.etzhayyim.com&collection=app.etzhayyim.apps.publicDomainColorization.publication&rkey=3mkmf36owkk2m"
       },
       "assets": {
         "masterVideoCid": "bafkreibf2d5q7t4thvtro2qjomq4ejytqlv2rh3z5vg5otrpwngma4fice",

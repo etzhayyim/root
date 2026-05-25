@@ -10,7 +10,7 @@
 //       hit the same RW table.
 //     → return { apiKey, orgDid } once. Customer saves the key.
 //
-// This bypasses PDS XRPC `ai.gftd.auth.createApiKey` because that endpoint
+// This bypasses PDS XRPC `app.etzhayyim.auth.createApiKey` because that endpoint
 // requires session auth — yatabase signup is anonymous by design and
 // owns its own tenant boundary.
 //
@@ -43,10 +43,10 @@ async function getDb(env: SignupEnv): Promise<AnyKyselyDb | null> {
     return null;
   }
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     const factory = (sdk as { createKyselyDb?: unknown }).createKyselyDb;
     if (typeof factory !== "function") {
-      console.warn("[yatabase][signup] @gftd/magatama-host-sdk has no createKyselyDb export");
+      console.warn("[yatabase][signup] @etzhayyim/magatama-host-sdk has no createKyselyDb export");
       return null;
     }
     return (factory as (h: unknown) => unknown)(env.HYPERDRIVE) as unknown as AnyKyselyDb;
@@ -241,7 +241,7 @@ export async function handleSignup(env: SignupEnv, req?: Request): Promise<Respo
 
   // FALLBACK PATH (pre-cutover or pod unreachable): direct Hyperdrive.
   // Will fail with `Hyperdrive binding missing` when ADR-2605111200 is
-  // enforced in @gftd/magatama-host-sdk — that's by design; surfaces
+  // enforced in @etzhayyim/magatama-host-sdk — that's by design; surfaces
   // the gap explicitly so the operator wires LG_YATABASE_URL.
   const db = await getDb(env);
   if (!db) {
@@ -273,7 +273,7 @@ export async function handleSignup(env: SignupEnv, req?: Request): Promise<Respo
       key_hash: keyHash,
       key_prefix: "sk_live_yata_",
       name: tenantName,
-      scopes: "atproto,include:ai.gftd.apps.yata",
+      scopes: "atproto,include:app.etzhayyim.apps.yata",
       status: "active",
       product_scope: "yata",
       aws_access_key_id: aws.id,

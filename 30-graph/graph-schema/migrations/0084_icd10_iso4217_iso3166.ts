@@ -10,7 +10,7 @@ import { Kysely, sql } from 'kysely';
  *
  * | Collection                       | Rows    | Source                                            |
  * |----------------------------------|---------|---------------------------------------------------|
- * | ai.gftd.apps.icd10.disease       | 90,168  | WHO ICD-10-CM 2019 (via github.com/k4m1113/ICD-10-CSV) |
+ * | app.etzhayyim.apps.icd10.disease       | 90,168  | WHO ICD-10-CM 2019 (via github.com/k4m1113/ICD-10-CSV) |
  *
  * ### WHO ICD-10-CM (International Classification of Diseases, 10th revision, Clinical Modification)
  * 90,168 nodes in 4-level hierarchy:
@@ -35,7 +35,7 @@ import { Kysely, sql } from 'kysely';
  *
  * ## New views
  *
- * - view_icd10_disease: projection of ai.gftd.apps.icd10.disease
+ * - view_icd10_disease: projection of app.etzhayyim.apps.icd10.disease
  *
  * ## Topology integrity (post-apply)
  *
@@ -69,7 +69,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'code_range' AS code_range,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.icd10.disease'
+    WHERE collection = 'app.etzhayyim.apps.icd10.disease'
   `.execute(db);
 
   // ── dim_world_domain ───────────────────────────────────────────────────
@@ -86,7 +86,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
 export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_icd10_disease`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.icd10.disease'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.icd10.disease'`.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain = 'icd10'`.execute(db);
   await sql`DELETE FROM edge_classified_as WHERE system = 'iso4217_iso3166'`.execute(db);
 }

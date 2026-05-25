@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.agent.chat": {
+    "/xrpc/app.etzhayyim.agent.chat": {
       "post": {
-        "summary": "ai.gftd.agent.chat",
-        "operationId": "ai.gftd.agent.chat",
+        "summary": "app.etzhayyim.agent.chat",
+        "operationId": "app.etzhayyim.agent.chat",
         "requestBody": {
           "required": true,
           "content": {
@@ -66,10 +66,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.agent.registerTools": {
+    "/xrpc/app.etzhayyim.agent.registerTools": {
       "post": {
-        "summary": "ai.gftd.agent.registerTools",
-        "operationId": "ai.gftd.agent.registerTools",
+        "summary": "app.etzhayyim.agent.registerTools",
+        "operationId": "app.etzhayyim.agent.registerTools",
         "requestBody": {
           "required": true,
           "content": {
@@ -124,10 +124,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.agent.spawnChildOrg": {
+    "/xrpc/app.etzhayyim.agent.spawnChildOrg": {
       "post": {
         "summary": "ADR-2604301200 governed child-org spawn request for a contract-DID autonomous agent.",
-        "operationId": "ai.gftd.agent.spawnChildOrg",
+        "operationId": "app.etzhayyim.agent.spawnChildOrg",
         "requestBody": {
           "required": true,
           "content": {
@@ -206,10 +206,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.agent.startRuntimeLeaseLifecycle": {
+    "/xrpc/app.etzhayyim.agent.startRuntimeLeaseLifecycle": {
       "post": {
         "summary": "ADR-2604301200 start request for quoting and reserving a persistent autonomous-agent runtime lease.",
-        "operationId": "ai.gftd.agent.startRuntimeLeaseLifecycle",
+        "operationId": "app.etzhayyim.agent.startRuntimeLeaseLifecycle",
         "requestBody": {
           "required": true,
           "content": {
@@ -432,7 +432,7 @@
           },
           "erc8004AgentId": {
             "type": "string",
-            "description": "ERC-8004-shaped GftdAgentRegistry token id."
+            "description": "ERC-8004-shaped etzhayyimAgentRegistry token id."
           },
           "economyMode": {
             "type": "string",

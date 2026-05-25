@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-network.etzhayyim.com:core";
 const actorTag = "sys.bpmn.seed.open-network";
 
 const processSeeds: ProcessSeed[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-network-define-link-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-network-define-link-v1",
     bpmnProcessId: "open_network_define_link",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-network/defineLink.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-network-request-change-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-network-request-change-v1",
     bpmnProcessId: "open_network_request_change",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-network/requestChange.bpmn", ownerDid },
 ];
 
 const bindingSeeds: BindingSeed[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-network-defineLink-v1",
-    nsid: "ai.gftd.apps.openNetwork.defineLink", bpmnProcessId: "open_network_define_link",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-network-defineLink-v1",
+    nsid: "app.etzhayyim.apps.openNetwork.defineLink", bpmnProcessId: "open_network_define_link",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-network-requestChange-v1",
-    nsid: "ai.gftd.apps.openNetwork.requestChange", bpmnProcessId: "open_network_request_change",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-network-requestChange-v1",
+    nsid: "app.etzhayyim.apps.openNetwork.requestChange", bpmnProcessId: "open_network_request_change",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

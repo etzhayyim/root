@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-search-hotels-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-search-hotels-v1',
                  'did:web:yadoya.etzhayyim.com',
                  'yadoya_search_hotels',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -41,7 +41,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Search"/>\n'
                  '    <bpmn:serviceTask id="Task_Search" name="search published hotels">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.ai.gftd.apps.yadoya.searchHotels"/>\n'
+                 'type="xrpc.app.etzhayyim.apps.yadoya.searchHotels"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=hotels" target="hotels"/>\n'
                  '          <zeebe:output source="=total" target="total"/>\n'
@@ -61,7 +61,7 @@ UP = [{'sql': '\n'
                  'did:web:yadoya.etzhayyim.com',
                  'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-catalog',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-search-hotels-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-search-hotels-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -75,7 +75,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-list-hotels-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-list-hotels-v1',
                  'did:web:yadoya.etzhayyim.com',
                  'yadoya_list_hotels',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -90,7 +90,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_List"/>\n'
                  '    <bpmn:serviceTask id="Task_List" name="list published hotels">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.ai.gftd.apps.yadoya.listHotels"/>\n'
+                 'type="xrpc.app.etzhayyim.apps.yadoya.listHotels"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=hotels" target="hotels"/>\n'
                  '          <zeebe:output source="=total" target="total"/>\n'
@@ -112,7 +112,7 @@ UP = [{'sql': '\n'
                  'did:web:yadoya.etzhayyim.com',
                  'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-catalog',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-list-hotels-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-list-hotels-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -126,16 +126,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-searchHotels-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-searchHotels-v1',
                  'did:web:yadoya.etzhayyim.com',
-                 'ai.gftd.apps.yadoya.searchHotels',
+                 'app.etzhayyim.apps.yadoya.searchHotels',
                  'yadoya_search_hotels',
                  30000,
                  '2026-05-06T22:00:00Z',
                  'did:web:yadoya.etzhayyim.com',
                  'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-catalog',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-searchHotels-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-searchHotels-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -149,25 +149,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-listHotels-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-listHotels-v1',
                  'did:web:yadoya.etzhayyim.com',
-                 'ai.gftd.apps.yadoya.listHotels',
+                 'app.etzhayyim.apps.yadoya.listHotels',
                  'yadoya_list_hotels',
                  30000,
                  '2026-05-06T22:00:00Z',
                  'did:web:yadoya.etzhayyim.com',
                  'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-catalog',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-listHotels-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-listHotels-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-searchHotels-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-searchHotels-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-listHotels-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-listHotels-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-search-hotels-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-search-hotels-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-list-hotels-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-list-hotels-v1']}]
 
 
 def upgrade() -> None:

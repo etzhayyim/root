@@ -17,7 +17,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-register-ship-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-register-ship-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_registerShip',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -27,7 +27,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_registerShip" name="vessel_registry_registerShip" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.registerShip", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.registry.registerShip", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -42,15 +42,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-register-ship-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-register-ship-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-register-ship-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-register-ship-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.registerShip',
+                 'app.etzhayyim.apps.vessel.registry.registerShip',
                  'vessel_registry_registerShip',
                  'vertex_vessel_ship',
                  '2026-04-30T22:02:00+09:00',
@@ -58,13 +58,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-register-ship-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-register-ship-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-update-ship-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-update-ship-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_updateShip',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -74,7 +74,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_updateShip" name="vessel_registry_updateShip" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.updateShip", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.registry.updateShip", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -89,15 +89,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-update-ship-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-update-ship-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-update-ship-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-update-ship-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.updateShip',
+                 'app.etzhayyim.apps.vessel.registry.updateShip',
                  'vessel_registry_updateShip',
                  'vertex_vessel_ship',
                  '2026-04-30T22:02:00+09:00',
@@ -105,13 +105,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-update-ship-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-update-ship-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-register-owner-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-register-owner-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_registerOwner',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -121,7 +121,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_registerOwner" name="vessel_registry_registerOwner" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.registerOwner", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.registry.registerOwner", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -136,15 +136,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-register-owner-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-register-owner-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-register-owner-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-register-owner-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.registerOwner',
+                 'app.etzhayyim.apps.vessel.registry.registerOwner',
                  'vessel_registry_registerOwner',
                  'vertex_vessel_shipowner',
                  '2026-04-30T22:02:00+09:00',
@@ -152,13 +152,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-register-owner-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-register-owner-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-transfer-ownership-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-transfer-ownership-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_transferOwnership',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -168,7 +168,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_transferOwnership" name="vessel_registry_transferOwnership" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.transferOwnership", "version": 1, '
+                 '"app.etzhayyim.apps.vessel.registry.transferOwnership", "version": 1, '
                  '"resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -183,15 +183,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-transfer-ownership-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-transfer-ownership-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-transfer-ownership-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-transfer-ownership-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.transferOwnership',
+                 'app.etzhayyim.apps.vessel.registry.transferOwnership',
                  'vessel_registry_transferOwnership',
                  'vertex_vessel_owner_link,edge_vessel_owner_link',
                  '2026-04-30T22:02:00+09:00',
@@ -199,13 +199,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-transfer-ownership-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-transfer-ownership-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-register-registry-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-register-registry-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_registerRegistry',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -215,7 +215,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_registerRegistry" name="vessel_registry_registerRegistry" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.registerRegistry", "version": 1, '
+                 '"app.etzhayyim.apps.vessel.registry.registerRegistry", "version": 1, '
                  '"resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -230,15 +230,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-register-registry-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-register-registry-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-register-registry-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-register-registry-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.registerRegistry',
+                 'app.etzhayyim.apps.vessel.registry.registerRegistry',
                  'vessel_registry_registerRegistry',
                  'vertex_vessel_ship_registry',
                  '2026-04-30T22:02:00+09:00',
@@ -246,13 +246,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-register-registry-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-register-registry-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-change-flag-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-change-flag-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_changeFlag',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -262,7 +262,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_changeFlag" name="vessel_registry_changeFlag" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.changeFlag", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.registry.changeFlag", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -277,15 +277,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-change-flag-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-change-flag-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-change-flag-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-change-flag-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.changeFlag',
+                 'app.etzhayyim.apps.vessel.registry.changeFlag',
                  'vessel_registry_changeFlag',
                  'vertex_vessel_ship',
                  '2026-04-30T22:02:00+09:00',
@@ -293,13 +293,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-change-flag-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-change-flag-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-ship-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-ship-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_getShip',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -309,7 +309,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_getShip" name="vessel_registry_getShip" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.getShip", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vessel.registry.getShip", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -324,15 +324,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-ship-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-ship-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-ship-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-ship-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.getShip',
+                 'app.etzhayyim.apps.vessel.registry.getShip',
                  'vessel_registry_getShip',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -340,13 +340,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-ship-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-ship-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-list-ships-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-list-ships-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_listShips',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -356,7 +356,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_listShips" name="vessel_registry_listShips" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.listShips", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vessel.registry.listShips", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -371,15 +371,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-list-ships-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-list-ships-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-list-ships-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-list-ships-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.listShips',
+                 'app.etzhayyim.apps.vessel.registry.listShips',
                  'vessel_registry_listShips',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -387,13 +387,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-list-ships-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-list-ships-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-search-ships-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-search-ships-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_searchShips',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -403,7 +403,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_searchShips" name="vessel_registry_searchShips" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.searchShips", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.registry.searchShips", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -418,15 +418,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-search-ships-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-search-ships-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-search-ships-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-search-ships-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.searchShips',
+                 'app.etzhayyim.apps.vessel.registry.searchShips',
                  'vessel_registry_searchShips',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -434,13 +434,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-search-ships-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-search-ships-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-owner-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-owner-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_getOwner',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -450,7 +450,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_getOwner" name="vessel_registry_getOwner" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.getOwner", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vessel.registry.getOwner", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -465,15 +465,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-owner-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-owner-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-owner-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-owner-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.getOwner',
+                 'app.etzhayyim.apps.vessel.registry.getOwner',
                  'vessel_registry_getOwner',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -481,13 +481,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-owner-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-owner-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-ship-owner-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-ship-owner-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_getShipOwner',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -497,7 +497,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_getShipOwner" name="vessel_registry_getShipOwner" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.getShipOwner", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.registry.getShipOwner", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -512,15 +512,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-ship-owner-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-ship-owner-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-ship-owner-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-ship-owner-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.getShipOwner',
+                 'app.etzhayyim.apps.vessel.registry.getShipOwner',
                  'vessel_registry_getShipOwner',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -528,13 +528,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-ship-owner-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-ship-owner-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-ships-by-flag-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-ships-by-flag-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_registry_getShipsByFlag',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -544,7 +544,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_registry_getShipsByFlag" name="vessel_registry_getShipsByFlag" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.registry.getShipsByFlag", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.registry.getShipsByFlag", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -559,15 +559,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-ships-by-flag-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-ships-by-flag-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-ships-by-flag-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-ships-by-flag-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.registry.getShipsByFlag',
+                 'app.etzhayyim.apps.vessel.registry.getShipsByFlag',
                  'vessel_registry_getShipsByFlag',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -575,13 +575,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-ships-by-flag-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-ships-by-flag-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-ingest-positions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-ingest-positions-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_tracking_ingestPositions',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -591,7 +591,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_tracking_ingestPositions" name="vessel_tracking_ingestPositions" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.tracking.ingestPositions", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.tracking.ingestPositions", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -606,15 +606,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-ingest-positions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-ingest-positions-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-ingest-positions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-ingest-positions-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.tracking.ingestPositions',
+                 'app.etzhayyim.apps.vessel.tracking.ingestPositions',
                  'vessel_tracking_ingestPositions',
                  'vertex_vessel_position',
                  '2026-04-30T22:02:00+09:00',
@@ -622,13 +622,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-ingest-positions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-ingest-positions-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-get-vessel-position-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-get-vessel-position-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_tracking_getVesselPosition',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -638,7 +638,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_tracking_getVesselPosition" name="vessel_tracking_getVesselPosition" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.tracking.getVesselPosition", "version": 1, '
+                 '"app.etzhayyim.apps.vessel.tracking.getVesselPosition", "version": 1, '
                  '"resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -653,15 +653,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-get-vessel-position-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-get-vessel-position-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-get-vessel-position-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-get-vessel-position-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.tracking.getVesselPosition',
+                 'app.etzhayyim.apps.vessel.tracking.getVesselPosition',
                  'vessel_tracking_getVesselPosition',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -669,13 +669,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-get-vessel-position-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-get-vessel-position-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-get-position-by-mmsi-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-get-position-by-mmsi-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_tracking_getPositionByMmsi',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -685,7 +685,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_tracking_getPositionByMmsi" name="vessel_tracking_getPositionByMmsi" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.tracking.getPositionByMmsi", "version": 1, '
+                 '"app.etzhayyim.apps.vessel.tracking.getPositionByMmsi", "version": 1, '
                  '"resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -700,15 +700,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-get-position-by-mmsi-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-get-position-by-mmsi-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-get-position-by-mmsi-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-get-position-by-mmsi-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.tracking.getPositionByMmsi',
+                 'app.etzhayyim.apps.vessel.tracking.getPositionByMmsi',
                  'vessel_tracking_getPositionByMmsi',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -716,13 +716,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-get-position-by-mmsi-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-get-position-by-mmsi-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-list-vessels-in-area-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-list-vessels-in-area-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_tracking_listVesselsInArea',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -732,7 +732,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_tracking_listVesselsInArea" name="vessel_tracking_listVesselsInArea" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.tracking.listVesselsInArea", "version": 1, '
+                 '"app.etzhayyim.apps.vessel.tracking.listVesselsInArea", "version": 1, '
                  '"resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -747,15 +747,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-list-vessels-in-area-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-list-vessels-in-area-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-list-vessels-in-area-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-list-vessels-in-area-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.tracking.listVesselsInArea',
+                 'app.etzhayyim.apps.vessel.tracking.listVesselsInArea',
                  'vessel_tracking_listVesselsInArea',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -763,13 +763,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-list-vessels-in-area-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-list-vessels-in-area-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-get-position-history-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-get-position-history-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_tracking_getPositionHistory',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -780,7 +780,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'id="vessel_tracking_getPositionHistory" '
                  'name="vessel_tracking_getPositionHistory" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.tracking.getPositionHistory", "version": 1, '
+                 '"app.etzhayyim.apps.vessel.tracking.getPositionHistory", "version": 1, '
                  '"resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -795,15 +795,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-get-position-history-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-get-position-history-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-get-position-history-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-get-position-history-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.tracking.getPositionHistory',
+                 'app.etzhayyim.apps.vessel.tracking.getPositionHistory',
                  'vessel_tracking_getPositionHistory',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -811,13 +811,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-get-position-history-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-get-position-history-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-list-vessels-near-port-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-list-vessels-near-port-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_tracking_listVesselsNearPort',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -828,7 +828,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'id="vessel_tracking_listVesselsNearPort" '
                  'name="vessel_tracking_listVesselsNearPort" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.tracking.listVesselsNearPort", "version": 1, '
+                 '"app.etzhayyim.apps.vessel.tracking.listVesselsNearPort", "version": 1, '
                  '"resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -843,15 +843,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-list-vessels-near-port-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-list-vessels-near-port-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-list-vessels-near-port-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-list-vessels-near-port-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.tracking.listVesselsNearPort',
+                 'app.etzhayyim.apps.vessel.tracking.listVesselsNearPort',
                  'vessel_tracking_listVesselsNearPort',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -859,13 +859,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-list-vessels-near-port-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-list-vessels-near-port-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-register-voyage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-register-voyage-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_voyage_registerVoyage',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -875,7 +875,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_voyage_registerVoyage" name="vessel_voyage_registerVoyage" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.voyage.registerVoyage", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.voyage.registerVoyage", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -890,15 +890,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-register-voyage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-register-voyage-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-register-voyage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-register-voyage-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.voyage.registerVoyage',
+                 'app.etzhayyim.apps.vessel.voyage.registerVoyage',
                  'vessel_voyage_registerVoyage',
                  'vertex_vessel_voyage',
                  '2026-04-30T22:02:00+09:00',
@@ -906,13 +906,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-register-voyage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-register-voyage-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-update-voyage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-update-voyage-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_voyage_updateVoyage',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -922,7 +922,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_voyage_updateVoyage" name="vessel_voyage_updateVoyage" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.voyage.updateVoyage", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.voyage.updateVoyage", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -937,15 +937,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-update-voyage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-update-voyage-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-update-voyage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-update-voyage-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.voyage.updateVoyage',
+                 'app.etzhayyim.apps.vessel.voyage.updateVoyage',
                  'vessel_voyage_updateVoyage',
                  'vertex_vessel_voyage',
                  '2026-04-30T22:02:00+09:00',
@@ -953,13 +953,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-update-voyage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-update-voyage-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-list-voyages-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-list-voyages-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_voyage_listVoyages',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -969,7 +969,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_voyage_listVoyages" name="vessel_voyage_listVoyages" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.voyage.listVoyages", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vessel.voyage.listVoyages", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -984,15 +984,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-list-voyages-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-list-voyages-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-list-voyages-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-list-voyages-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.voyage.listVoyages',
+                 'app.etzhayyim.apps.vessel.voyage.listVoyages',
                  'vessel_voyage_listVoyages',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -1000,13 +1000,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-list-voyages-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-list-voyages-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-record-port-call-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-record-port-call-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_voyage_recordPortCall',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1016,7 +1016,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_voyage_recordPortCall" name="vessel_voyage_recordPortCall" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.voyage.recordPortCall", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.voyage.recordPortCall", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1031,15 +1031,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-record-port-call-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-record-port-call-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-record-port-call-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-record-port-call-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.voyage.recordPortCall',
+                 'app.etzhayyim.apps.vessel.voyage.recordPortCall',
                  'vessel_voyage_recordPortCall',
                  'vertex_vessel_port_call,edge_vessel_port_call_endpoint',
                  '2026-04-30T22:02:00+09:00',
@@ -1047,13 +1047,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-record-port-call-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-record-port-call-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-list-port-calls-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-list-port-calls-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_voyage_listPortCalls',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1063,7 +1063,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_voyage_listPortCalls" name="vessel_voyage_listPortCalls" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.voyage.listPortCalls", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.voyage.listPortCalls", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1078,15 +1078,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-list-port-calls-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-list-port-calls-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-list-port-calls-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-list-port-calls-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.voyage.listPortCalls',
+                 'app.etzhayyim.apps.vessel.voyage.listPortCalls',
                  'vessel_voyage_listPortCalls',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -1094,13 +1094,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-list-port-calls-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-list-port-calls-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-link-owner-entity-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-link-owner-entity-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_voyage_linkOwnerEntity',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1110,7 +1110,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_voyage_linkOwnerEntity" name="vessel_voyage_linkOwnerEntity" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.voyage.linkOwnerEntity", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.voyage.linkOwnerEntity", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1125,15 +1125,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-link-owner-entity-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-link-owner-entity-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-link-owner-entity-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-link-owner-entity-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.voyage.linkOwnerEntity',
+                 'app.etzhayyim.apps.vessel.voyage.linkOwnerEntity',
                  'vessel_voyage_linkOwnerEntity',
                  'vertex_vessel_owner_link,edge_vessel_owner_link',
                  '2026-04-30T22:02:00+09:00',
@@ -1141,13 +1141,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-link-owner-entity-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-link-owner-entity-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-get-vessel-chain-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-get-vessel-chain-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_voyage_getVesselChain',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1157,7 +1157,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_voyage_getVesselChain" name="vessel_voyage_getVesselChain" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.voyage.getVesselChain", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.vessel.voyage.getVesselChain", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1172,15 +1172,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-get-vessel-chain-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-get-vessel-chain-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-get-vessel-chain-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-get-vessel-chain-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.voyage.getVesselChain',
+                 'app.etzhayyim.apps.vessel.voyage.getVesselChain',
                  'vessel_voyage_getVesselChain',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -1188,13 +1188,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-get-vessel-chain-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-get-vessel-chain-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-seed-maritime-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-seed-maritime-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_seedMaritime',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1204,7 +1204,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_seedMaritime" name="vessel_seedMaritime" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.seedMaritime", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vessel.seedMaritime", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1219,15 +1219,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-seed-maritime-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-seed-maritime-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-seed-maritime-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-seed-maritime-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.seedMaritime',
+                 'app.etzhayyim.apps.vessel.seedMaritime',
                  'vessel_seedMaritime',
                  'vertex_vessel_ship,vertex_vessel_shipowner,vertex_vessel_ship_registry,vertex_vessel_position,vertex_vessel_voyage,vertex_vessel_port_call,vertex_vessel_owner_link,edge_vessel_owner_link,edge_vessel_port_call_endpoint',
                  '2026-04-30T22:02:00+09:00',
@@ -1235,13 +1235,13 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-seed-maritime-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-seed-maritime-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
          'actor_id, actor_did, org_did) SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, '
          "'active', $7, 100, $8, $9, $10, $11, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-get-dashboard-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-get-dashboard-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
                  'vessel_getDashboard',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1251,7 +1251,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'targetNamespace="https://etzhayyim.com/bpmn/vessel"><bpmn:process '
                  'id="vessel_getDashboard" name="vessel_getDashboard" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.vessel.getDashboard", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.vessel.getDashboard", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -1266,15 +1266,15 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-get-dashboard-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-get-dashboard-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, '
          'bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, '
          'sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did) SELECT $1, $2, $3, $4, '
          "1, 30000, $5, 'active', $6, 100, $7, $8, $9, $10, 'anon' WHERE NOT EXISTS (SELECT 1 FROM "
          'vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-get-dashboard-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-get-dashboard-v1',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'ai.gftd.apps.vessel.getDashboard',
+                 'app.etzhayyim.apps.vessel.getDashboard',
                  'vessel_getDashboard',
                  '',
                  '2026-04-30T22:02:00+09:00',
@@ -1282,116 +1282,116 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_p
                  'did:web:v3ss3l01.etzhayyim.com',
                  'sys.bpmn.seed.vessel',
                  'did:web:v3ss3l01.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-get-dashboard-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-get-dashboard-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-register-ship-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-register-ship-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-register-ship-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-register-ship-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-update-ship-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-update-ship-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-update-ship-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-update-ship-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-register-owner-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-register-owner-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-register-owner-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-register-owner-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-transfer-ownership-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-transfer-ownership-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-transfer-ownership-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-transfer-ownership-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-register-registry-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-register-registry-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-register-registry-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-register-registry-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-change-flag-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-change-flag-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-change-flag-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-change-flag-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-ship-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-ship-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-ship-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-ship-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-list-ships-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-list-ships-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-list-ships-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-list-ships-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-search-ships-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-search-ships-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-search-ships-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-search-ships-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-owner-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-owner-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-owner-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-owner-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-ship-owner-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-ship-owner-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-ship-owner-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-ship-owner-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-registry-get-ships-by-flag-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-registry-get-ships-by-flag-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-registry-get-ships-by-flag-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-registry-get-ships-by-flag-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-ingest-positions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-ingest-positions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-ingest-positions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-ingest-positions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-get-vessel-position-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-get-vessel-position-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-get-vessel-position-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-get-vessel-position-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-get-position-by-mmsi-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-get-position-by-mmsi-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-get-position-by-mmsi-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-get-position-by-mmsi-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-list-vessels-in-area-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-list-vessels-in-area-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-list-vessels-in-area-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-list-vessels-in-area-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-get-position-history-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-get-position-history-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-get-position-history-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-get-position-history-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-tracking-list-vessels-near-port-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-tracking-list-vessels-near-port-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-tracking-list-vessels-near-port-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-tracking-list-vessels-near-port-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-register-voyage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-register-voyage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-register-voyage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-register-voyage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-update-voyage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-update-voyage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-update-voyage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-update-voyage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-list-voyages-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-list-voyages-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-list-voyages-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-list-voyages-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-record-port-call-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-record-port-call-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-record-port-call-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-record-port-call-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-list-port-calls-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-list-port-calls-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-list-port-calls-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-list-port-calls-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-link-owner-entity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-link-owner-entity-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-link-owner-entity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-link-owner-entity-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-voyage-get-vessel-chain-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-voyage-get-vessel-chain-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-voyage-get-vessel-chain-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-voyage-get-vessel-chain-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-seed-maritime-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-seed-maritime-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-seed-maritime-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-seed-maritime-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/vessel-get-dashboard-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vessel-get-dashboard-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/vessel-get-dashboard-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vessel-get-dashboard-v1']}]
 
 
 def upgrade() -> None:

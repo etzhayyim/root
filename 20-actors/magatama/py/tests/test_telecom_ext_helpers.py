@@ -18,7 +18,7 @@ from pymagatama.primitives import telecom_5g_security as T5G
 def test_tmf_vid_format() -> None:
     vid = TMF._vid("productOffering", "offer-001")
     assert "at://" in vid
-    assert "ai.gftd.apps.telecom.productOffering" in vid
+    assert "app.etzhayyim.apps.telecom.productOffering" in vid
     assert "offer-001" in vid
 
 

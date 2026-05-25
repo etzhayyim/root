@@ -21,7 +21,7 @@ import {
   type RegisterDigestOutput,
 } from "./types.js";
 
-const DIGEST_COLLECTION = "ai.gftd.hanrei.digest";
+const DIGEST_COLLECTION = "app.etzhayyim.hanrei.digest";
 
 function digestSlug(caseId: string, model: string): string {
   const c = caseId.toLowerCase().replace(/[^a-z0-9]/g, "-");

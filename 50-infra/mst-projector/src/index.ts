@@ -85,7 +85,7 @@ function loadConfig(): ResolvedConfig {
       // index posts. `app.etzhayyim.membrane.` is the FeedPostCell verdict
       // sidecar that drives applyVerdict on the projection. Per ADR-2605231500
       // + ADR-2605231400 SPEC §4.
-      "app.etzhayyim.,ai.gftd.apps.,app.bsky.feed.,app.etzhayyim.membrane."
+      "app.etzhayyim.,app.etzhayyim.apps.,app.bsky.feed.,app.etzhayyim.membrane."
     )
       .split(",")
       .map((s) => s.trim())

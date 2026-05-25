@@ -75,7 +75,7 @@ Evidence:
 - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`
   - `StoredSession` contains `accessJwt` and `refreshJwt`
   - session is stored in `sessionStorage`
-  - both JWTs are synced into `@gftd/wproto`
+  - both JWTs are synced into `@etzhayyim/wproto`
 - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`
   - `#auth=` hash content is copied into `sessionStorage` before URL cleanup
 

@@ -23,7 +23,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_minimax_sweep',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -40,9 +40,9 @@ UP = [{'sql': '\n'
                  '    2. Minimize separation_delta (heal loneliness / Spirit axis)\n'
                  '    3. Maximize Spirit × Shannon dual (U_total)\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.wellbecoming.minimaxSweep (BPMN dispatcher T2 tier)\n'
+                 '  NSID: app.etzhayyim.apps.wellbecoming.minimaxSweep (BPMN dispatcher T2 tier)\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -56,7 +56,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="wellbecoming_minimax_sweep" name="Well-Becoming Minimax '
                  'Sweep" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.wellbecoming.minimaxSweep", "version": 1, "tier": '
+                 '      { "nsid": "app.etzhayyim.apps.wellbecoming.minimaxSweep", "version": 1, "tier": '
                  '"T2" }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -98,10 +98,10 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1']}]
 
 
 def upgrade() -> None:

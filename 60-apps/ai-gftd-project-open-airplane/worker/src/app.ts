@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 Gftd Japan株式会社 / etzhayyim. All rights reserved.
+// Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 // ai-gftd-project-open-airplane — aviation operations + airport network
 //
-// 8 XRPC under ai.gftd.apps.openAirplane.*:
+// 8 XRPC under app.etzhayyim.apps.openAirplane.*:
 //   defineAirport         (proc)  airport (ICAO + IATA + runways)
 //   listAirports          (query) airport directory
 //   registerAircraft      (proc)  aircraft (tail + ICAO 24-bit)
@@ -395,14 +395,14 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "ai.gftd.apps.openAirplane.defineAirport",
-            "ai.gftd.apps.openAirplane.listAirports",
-            "ai.gftd.apps.openAirplane.registerAircraft",
-            "ai.gftd.apps.openAirplane.scheduleFlight",
-            "ai.gftd.apps.openAirplane.recordFlightStatus",
-            "ai.gftd.apps.openAirplane.listFlights",
-            "ai.gftd.apps.openAirplane.reportIncident",
-            "ai.gftd.apps.openAirplane.listIncidents",
+            "app.etzhayyim.apps.openAirplane.defineAirport",
+            "app.etzhayyim.apps.openAirplane.listAirports",
+            "app.etzhayyim.apps.openAirplane.registerAircraft",
+            "app.etzhayyim.apps.openAirplane.scheduleFlight",
+            "app.etzhayyim.apps.openAirplane.recordFlightStatus",
+            "app.etzhayyim.apps.openAirplane.listFlights",
+            "app.etzhayyim.apps.openAirplane.reportIncident",
+            "app.etzhayyim.apps.openAirplane.listIncidents",
           ],
           dodaf: Object.keys(DODAF_VIEWS), forms: Object.keys(FORMS),
           bpmn: ["scheduleFlight", "reportAviationIncident"],
@@ -429,20 +429,20 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "ai.gftd.apps.openAirplane.listAirports":  return await listAirports(env, url.searchParams);
-          case "ai.gftd.apps.openAirplane.listFlights":   return await listFlights(env, url.searchParams);
-          case "ai.gftd.apps.openAirplane.listIncidents": return await listIncidents(env, url.searchParams);
+          case "app.etzhayyim.apps.openAirplane.listAirports":  return await listAirports(env, url.searchParams);
+          case "app.etzhayyim.apps.openAirplane.listFlights":   return await listFlights(env, url.searchParams);
+          case "app.etzhayyim.apps.openAirplane.listIncidents": return await listIncidents(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "ai.gftd.apps.openAirplane.defineAirport":      return await defineAirport(env, body);
-          case "ai.gftd.apps.openAirplane.registerAircraft":   return await registerAircraft(env, body);
-          case "ai.gftd.apps.openAirplane.scheduleFlight":     return await scheduleFlight(env, body);
-          case "ai.gftd.apps.openAirplane.recordFlightStatus": return await recordFlightStatus(env, body);
-          case "ai.gftd.apps.openAirplane.reportIncident":     return await reportIncident(env, body);
+          case "app.etzhayyim.apps.openAirplane.defineAirport":      return await defineAirport(env, body);
+          case "app.etzhayyim.apps.openAirplane.registerAircraft":   return await registerAircraft(env, body);
+          case "app.etzhayyim.apps.openAirplane.scheduleFlight":     return await scheduleFlight(env, body);
+          case "app.etzhayyim.apps.openAirplane.recordFlightStatus": return await recordFlightStatus(env, body);
+          case "app.etzhayyim.apps.openAirplane.reportIncident":     return await reportIncident(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

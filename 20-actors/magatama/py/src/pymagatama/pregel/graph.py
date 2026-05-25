@@ -43,9 +43,9 @@ from typing_extensions import TypedDict
 _log = logging.getLogger(__name__)
 
 # ── LLM client (resolveModelId pattern — no hardcoded model names) ───────────
-_LLM_URL   = os.getenv("GFTD_LLM_URL", "https://gemma.etzhayyim.com/v1")
-_LLM_MODEL = os.getenv("GFTD_LLM_MODEL", "gemma-4-E2B-it")
-_LLM_KEY   = os.getenv("GFTD_LLM_API_KEY", "")
+_LLM_URL   = os.getenv("etzhayyim_LLM_URL", "https://gemma.etzhayyim.com/v1")
+_LLM_MODEL = os.getenv("etzhayyim_LLM_MODEL", "gemma-4-E2B-it")
+_LLM_KEY   = os.getenv("etzhayyim_LLM_API_KEY", "")
 
 _DB_URL = os.getenv(
     "DATABASE_URL",
@@ -513,7 +513,7 @@ async def ingest_malak(state: PregelState) -> dict[str, Any]:
     try:
         conn = await asyncpg.connect(_DB_URL)
         try:
-            vid = f"at://{_ACTOR_MALAK}/ai.gftd.apps.malak.trapMessage/{message_id}"
+            vid = f"at://{_ACTOR_MALAK}/app.etzhayyim.apps.malak.trapMessage/{message_id}"
             await conn.execute(
                 """
                 INSERT INTO graphar.vertex_malak_trap_message
@@ -533,7 +533,7 @@ async def ingest_malak(state: PregelState) -> dict[str, Any]:
                 vid, message_id, _ACTOR_MALAK,
                 message_id, evidence_id,
                 f"pregel-outlook-trap", "email",
-                "j.kawasaki@gftd.co.jp", "microsoft365",
+                "j.kawasaki@etzhayyim.com", "microsoft365",
                 state.get("message_id", ""),
                 sender, subject, body,
                 json.dumps(urls), "{}",
@@ -563,7 +563,7 @@ async def ingest_intel(state: PregelState) -> dict[str, Any]:
     org    = state.get("spam_sender_org", "") or domain
     ckey   = f"ses-recruiter:{domain}"
     subj_id = _hash(ckey)
-    vid    = f"at://{_ACTOR_INTEL}/ai.gftd.apps.intel.subject/{subj_id}"
+    vid    = f"at://{_ACTOR_INTEL}/app.etzhayyim.apps.intel.subject/{subj_id}"
 
     try:
         conn = await asyncpg.connect(_DB_URL)
@@ -619,9 +619,9 @@ async def register_yabai(state: PregelState) -> dict[str, Any]:
     }
     category, confidence, severity = _YABAI_META.get(kind, ("spam", 0.70, 3))
 
-    entity_vid  = f"at://{_ACTOR_YABAI}/ai.gftd.apps.yabai.entity/{entity_id}"
+    entity_vid  = f"at://{_ACTOR_YABAI}/app.etzhayyim.apps.yabai.entity/{entity_id}"
     evidence_id = f"ev-{_hash(state['message_id'] + 'yabai')}"
-    evidence_vid = f"at://{_ACTOR_YABAI}/ai.gftd.apps.yabai.evidence/{evidence_id}"
+    evidence_vid = f"at://{_ACTOR_YABAI}/app.etzhayyim.apps.yabai.evidence/{evidence_id}"
 
     try:
         conn = await asyncpg.connect(_DB_URL)
@@ -730,7 +730,7 @@ async def handle_blocker(state: PregelState) -> dict[str, Any]:
                 "bodyText": ack_body,
             }).encode()
             req = urllib.request.Request(
-                f"{_MICROSOFT_XRPC}/ai.gftd.apps.microsoft.sendMail",
+                f"{_MICROSOFT_XRPC}/app.etzhayyim.apps.microsoft.sendMail",
                 data=payload,
                 headers={"Content-Type": "application/json"},
                 method="POST",
@@ -1086,7 +1086,7 @@ _TRIAGE_ORG_DID   = os.getenv("PREGEL_ORG_DID",   "did:web:etzhayyim.com")
 
 # Internal sender domains — always KEEP regardless of any signals
 _INTERNAL_DOMAINS: frozenset[str] = frozenset({
-    "gftd.co.jp", "etzhayyim.com", "gftd.works", "gftd.group",
+    "etzhayyim.com", "etzhayyim.com", "gftd.works", "etzhayyim.com",
     "gftd.onmicrosoft.com",
 })
 
@@ -1262,7 +1262,7 @@ async def triage_ingest_rw(state: TriageState) -> dict[str, Any]:
     if not message_id:
         return {"triage_written": False, "triage_error": "missing message_id"}
 
-    vertex_id  = f"at://{_TRIAGE_OWNER_DID}/ai.gftd.apps.pregel.inboxTriage/{message_id}"
+    vertex_id  = f"at://{_TRIAGE_OWNER_DID}/app.etzhayyim.apps.pregel.inboxTriage/{message_id}"
     now        = _utc_now_str()
 
     try:

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Thin driver for ai.gftd.apps.yabai.trackPhishingInfra BPMN.
+// Thin driver for app.etzhayyim.apps.yabai.trackPhishingInfra BPMN.
 //
 // Replaces: 60-apps/ai-gftd-project-yabai/tools/track-phishing-infra/track-phishing-infra.mjs
 // The legacy script iterated phishing_url entities and ran local shell
@@ -53,7 +53,7 @@ async function trackOne(entityId, rawValue) {
   const body = { entityId, domain };
   const r = await sh("curl", [
     "-sS", "--max-time", "80",
-    "-X", "POST", `${DISPATCHER}/xrpc/ai.gftd.apps.yabai.trackPhishingInfra`,
+    "-X", "POST", `${DISPATCHER}/xrpc/app.etzhayyim.apps.yabai.trackPhishingInfra`,
     "-H", "Content-Type: application/json",
     "-d", JSON.stringify(body),
   ], { timeoutMs: 90000 });

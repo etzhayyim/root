@@ -113,7 +113,7 @@ def register_open_ot_loops(state: CommissioningState) -> dict[str, Any]:
 
     Scaffold: emits one placeholder loop DID per registered utility
     asset. Real wiring calls
-    ``ai.gftd.apps.openot.defineLoop`` per asset class.
+    ``app.etzhayyim.apps.openot.defineLoop`` per asset class.
     """
     existing = list(state.get("openOtLoopDids") or [])
     if existing:
@@ -205,7 +205,7 @@ def emit_commission_record(state: CommissioningState) -> dict[str, Any]:
     ts_ms = int(time.time() * 1000)
     commission_did = f"{plan_did}:commission:{ts_ms}"
     commission_uri = (
-        f"at://{site_did}/ai.gftd.apps.etzhayyim.kuniUmi.commissionDeployment/"
+        f"at://{site_did}/app.etzhayyim.apps.etzhayyim.kuniUmi.commissionDeployment/"
         f"{ts_ms}"
     )
     commissioned_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())

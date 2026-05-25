@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/curpus2skill-extractEvidence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/curpus2skill-extractEvidence-v1',
                  'did:web:recruit.etzhayyim.com',
                  'curpus2skill_extract_evidence',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -119,10 +119,10 @@ UP = [{'sql': '\n'
                  'did:web:recruit.etzhayyim.com',
                  'did:web:recruit.etzhayyim.com',
                  'sys.bpmn.seed.curpus2skill',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/curpus2skill-extractEvidence-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/curpus2skill-extractEvidence-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/curpus2skill-extractEvidence-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/curpus2skill-extractEvidence-v1']}]
 
 
 def upgrade() -> None:

@@ -28,7 +28,7 @@ Research input — does not supersede an existing ADR. Feeds:
 - **2605092000–2605092300** (Bonsai cultivar / FP8 colocation / continuous metabolic training)
 - **2605010000** (RunPod 6000 Ada unified pod)
 
-Operating Entity: etzhayyim. Vendor: Gftd Japan株式会社.
+Operating Entity: etzhayyim. Vendor: etzhayyim Japan株式会社.
 
 ## 0. Source data persistence
 

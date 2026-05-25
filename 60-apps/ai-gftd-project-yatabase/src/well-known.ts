@@ -18,8 +18,8 @@ export function buildAgentJson(env: WellKnownEnv): Record<string, unknown> {
     url: "https://yatabase.etzhayyim.com",
     provider: {
       organization: "etz hayim",
-      vendor: "Gftd Japan株式会社",
-      url: "https://gftd.group",
+      vendor: "etzhayyim Japan株式会社",
+      url: "https://etzhayyim.com",
     },
     version: env.YATA_VERSION ?? "0.0.0",
     did: env.YATA_ACTOR_DID ?? "did:web:yatabase.etzhayyim.com",

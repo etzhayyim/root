@@ -9,7 +9,7 @@ export async function listVideos(opts: { status?: string; offset?: number; limit
   if (opts.status) params.set('status', opts.status);
   params.set('offset', String(opts.offset ?? 0));
   params.set('limit', String(opts.limit ?? 20));
-  const r = await fetch(`${BASE}/ai.gftd.apps.yukkuri.listVideos?${params}`);
+  const r = await fetch(`${BASE}/app.etzhayyim.apps.yukkuri.listVideos?${params}`);
   if (!r.ok) throw new Error(`listVideos ${r.status}`);
   const data = unwrap<{ videos: VideoSummary[]; total: number; offset: number; limit: number }>(await r.json());
   return { ...data, videos: data.videos ?? [] };
@@ -17,7 +17,7 @@ export async function listVideos(opts: { status?: string; offset?: number; limit
 
 export async function getVideo(videoUri: string) {
   const params = new URLSearchParams({ videoUri });
-  const r = await fetch(`${BASE}/ai.gftd.apps.yukkuri.getVideo?${params}`);
+  const r = await fetch(`${BASE}/app.etzhayyim.apps.yukkuri.getVideo?${params}`);
   if (!r.ok) throw new Error(`getVideo ${r.status}`);
   return unwrap<VideoDetail>(await r.json());
 }
@@ -27,7 +27,7 @@ export async function compose(input: {
   title?: string;
   outline?: string;
 }) {
-  const r = await fetch(`${BASE}/ai.gftd.apps.yukkuri.compose`, {
+  const r = await fetch(`${BASE}/app.etzhayyim.apps.yukkuri.compose`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(input),

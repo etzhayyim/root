@@ -1,4 +1,4 @@
-// arb.gftd.ai thin edge facade (ADR-2604282300).
+// arb.etzhayyim.com thin edge facade (ADR-2604282300).
 //
 // Business logic lives in BPMN + Python LangServer:
 //   - BPMN: etzhayyim-root/00-contracts/bpmn/ai/gftd/arb
@@ -15,8 +15,8 @@ interface Env {
   APP_DISPLAY_NAME?: string;
 }
 
-const OWNER_DID = "did:web:arb.gftd.ai";
-const NSID_PREFIX = "ai.gftd.apps.arb.";
+const OWNER_DID = "did:web:arb.etzhayyim.com";
+const NSID_PREFIX = "app.etzhayyim.apps.arb.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -55,7 +55,7 @@ export default {
 } satisfies ExportedHandler<Env>;
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers: Record<string, string> = { "content-type": "application/json" };
   const trust = await internalTrustSecret(env);
   if (trust) headers["x-internal-trust"] = trust;

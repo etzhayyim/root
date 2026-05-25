@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govUsa.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govUsa.followSiteDeps": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govUsa.followSiteDeps",
+        "operationId": "app.etzhayyim.govUsa.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -46,10 +46,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUsa.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govUsa.heartbeatTick": {
       "post": {
         "summary": "Run the United States government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govUsa.heartbeatTick",
+        "operationId": "app.etzhayyim.govUsa.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -129,10 +129,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUsa.listOrgs": {
+    "/xrpc/app.etzhayyim.govUsa.listOrgs": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govUsa.listOrgs",
+        "operationId": "app.etzhayyim.govUsa.listOrgs",
         "parameters": [],
         "responses": {
           "200": {
@@ -151,10 +151,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUsa.registerDIDs": {
+    "/xrpc/app.etzhayyim.govUsa.registerDIDs": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govUsa.registerDIDs",
+        "operationId": "app.etzhayyim.govUsa.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -187,10 +187,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUsa.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govUsa.resolveOrgPath": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govUsa.resolveOrgPath",
+        "operationId": "app.etzhayyim.govUsa.resolveOrgPath",
         "parameters": [],
         "responses": {
           "200": {
@@ -209,10 +209,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUsa.seedOrgs": {
+    "/xrpc/app.etzhayyim.govUsa.seedOrgs": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govUsa.seedOrgs",
+        "operationId": "app.etzhayyim.govUsa.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -245,10 +245,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUsa.shinka": {
+    "/xrpc/app.etzhayyim.govUsa.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible United States government organization update.",
-        "operationId": "ai.gftd.govUsa.shinka",
+        "operationId": "app.etzhayyim.govUsa.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -299,10 +299,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUsa.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govUsa.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated United States government organization content.",
-        "operationId": "ai.gftd.govUsa.syncWetUpdates",
+        "operationId": "app.etzhayyim.govUsa.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -147,25 +147,25 @@ await sdk.did.create("actor:sqExporter", {
 **Reactive flow (Design E, Follow-based, no explicit cross-actor):**
 
 ```
-① User → XRPC ai.gftd.dns.transferFromSquarespace {domain}
-     → cfRegistrar が ai.gftd.dns.transferRequest record 作成 (ClassA 3 signers)
+① User → XRPC app.etzhayyim.dns.transferFromSquarespace {domain}
+     → cfRegistrar が app.etzhayyim.dns.transferRequest record 作成 (ClassA 3 signers)
      → transferRequest.rkey = projectConvoId
 
 ② sqExporter は cfRegistrar を Follow → onCommit(transferRequest) 受信
      → browser automation を 5 step 実行
-     → 各 step で ai.gftd.dns.transferStep emit
+     → 各 step で app.etzhayyim.dns.transferStep emit
          - step 3 (authCode) は必ず signal:v1: 暗号化 (field-key は sqExporter DID 派生、AT Record 連携用のみ)
          - step 4 で BIND zone file を R2 blob に export
          - step 5 (cfTransfer) sqExporter が **自ら** Cloudflare Registrar API を call
            (cross-Worker E2E で authCode を渡すのは deriveFieldKey が per-DID のため不可能。
             plaintext authCode は sqExporter process memory のみに滞在)
 
-③ sqExporter → ai.gftd.dns.transferOutcome emit (result=success|failure)
+③ sqExporter → app.etzhayyim.dns.transferOutcome emit (result=success|failure)
      → success: zoneId (CF API response) + computed zoneDid を記録
      → failure: failureReason を記録
 
 ④ cfRegistrar の onCommit(transferOutcome) →
-     - success: zone DID create (`sdk.did.create("zone:{slug}")`) + ai.gftd.dns.ownershipTransfer record
+     - success: zone DID create (`sdk.did.create("zone:{slug}")`) + app.etzhayyim.dns.ownershipTransfer record
      - T1 social announce は magatama.jsonld derive rule で自動導出
      - failure: derive rule で失敗通知のみ (rollback は sqExporter が step 単位で re-lock 等を実行)
 ```
@@ -174,9 +174,9 @@ await sdk.did.create("actor:sqExporter", {
 
 | NSID | 役割 | 権威 lexicon |
 |---|---|---|
-| `ai.gftd.dns.transferRequest` | 申請レコード (domain, fromRegistrar, 3 signer approvals) | `00-contracts/lexicons/ai/gftd/apps/dns/transferRequest.json` |
-| `ai.gftd.dns.transferStep` | 5 step 進捗 (disableAutoRenew/unlock/authCode/dnsExport/cfTransfer) | `00-contracts/lexicons/ai/gftd/apps/dns/transferStep.json` |
-| `ai.gftd.dns.transferOutcome` | 成立/失敗 最終レコード → zone DID 生成 trigger | `00-contracts/lexicons/ai/gftd/apps/dns/transferOutcome.json` |
+| `app.etzhayyim.dns.transferRequest` | 申請レコード (domain, fromRegistrar, 3 signer approvals) | `00-contracts/lexicons/ai/gftd/apps/dns/transferRequest.json` |
+| `app.etzhayyim.dns.transferStep` | 5 step 進捗 (disableAutoRenew/unlock/authCode/dnsExport/cfTransfer) | `00-contracts/lexicons/ai/gftd/apps/dns/transferStep.json` |
+| `app.etzhayyim.dns.transferOutcome` | 成立/失敗 最終レコード → zone DID 生成 trigger | `00-contracts/lexicons/ai/gftd/apps/dns/transferOutcome.json` |
 
 **Design E rule compliance:**
 - 3 record とも Tier 2 `ComAtprotoRepoCreateRecord()` で書く。handler 内で `postFeed` / explicit Invoke は呼ばない
@@ -233,20 +233,20 @@ await sdk.did.create("actor:sqExporter", {
 
 | collection (camelCase) | 説明 |
 |---|---|
-| `ai.gftd.dns.zone` | DNS zone メタデータ (domain, zone_id, status) |
-| `ai.gftd.dns.record` | DNS record (type, name, content, ttl, proxied) |
-| `ai.gftd.dns.registration` | ドメイン登録イベント (purchase/transfer/renew) |
-| `ai.gftd.dns.certificate` | SSL/TLS 証明書 |
-| `ai.gftd.dns.dnssec_config` | DNSSEC 設定 |
-| `ai.gftd.dns.health_check` | ヘルスチェック結果 |
-| `ai.gftd.dns.audit_log` | 変更監査ログ |
-| `ai.gftd.dns.whois_privacy` | WHOIS プライバシー設定 |
-| `ai.gftd.dns.whois_snapshot` | WHOIS 定期スナップショット (registrant, registrar, NS, expiry, raw) |
-| `ai.gftd.dns.whois_change` | WHOIS 変更検知 (field, old_value, new_value, detected_at) |
-| `ai.gftd.dns.ownership_transfer` | 所有権移転履歴 (from/to registrar, from/to registrant, auth_method) |
-| `ai.gftd.dns.domain_lifecycle` | ドメインライフサイクル (registered/renewed/expired/redemption/deleted/dropcatch) |
-| `ai.gftd.dns.cert_history` | 証明書発行履歴 (serial, issuer, not_before/after, SAN, CT log) |
-| `ai.gftd.dns.dns_record_history` | DNS レコード変更履歴 (record_type, old/new value, changed_at) |
+| `app.etzhayyim.dns.zone` | DNS zone メタデータ (domain, zone_id, status) |
+| `app.etzhayyim.dns.record` | DNS record (type, name, content, ttl, proxied) |
+| `app.etzhayyim.dns.registration` | ドメイン登録イベント (purchase/transfer/renew) |
+| `app.etzhayyim.dns.certificate` | SSL/TLS 証明書 |
+| `app.etzhayyim.dns.dnssec_config` | DNSSEC 設定 |
+| `app.etzhayyim.dns.health_check` | ヘルスチェック結果 |
+| `app.etzhayyim.dns.audit_log` | 変更監査ログ |
+| `app.etzhayyim.dns.whois_privacy` | WHOIS プライバシー設定 |
+| `app.etzhayyim.dns.whois_snapshot` | WHOIS 定期スナップショット (registrant, registrar, NS, expiry, raw) |
+| `app.etzhayyim.dns.whois_change` | WHOIS 変更検知 (field, old_value, new_value, detected_at) |
+| `app.etzhayyim.dns.ownership_transfer` | 所有権移転履歴 (from/to registrar, from/to registrant, auth_method) |
+| `app.etzhayyim.dns.domain_lifecycle` | ドメインライフサイクル (registered/renewed/expired/redemption/deleted/dropcatch) |
+| `app.etzhayyim.dns.cert_history` | 証明書発行履歴 (serial, issuer, not_before/after, SAN, CT log) |
+| `app.etzhayyim.dns.dns_record_history` | DNS レコード変更履歴 (record_type, old/new value, changed_at) |
 
 ### T3 State (ConfigGet)
 
@@ -313,21 +313,21 @@ await sdk.did.create("actor:sqExporter", {
 
 ```
 subscribeRepos collections:
-  - ai.gftd.dns.zone
-  - ai.gftd.dns.record
-  - ai.gftd.dns.registration
-  - ai.gftd.dns.certificate
-  - ai.gftd.dns.dnssec_config
-  - ai.gftd.dns.health_check
-  - ai.gftd.dns.audit_log
-  - ai.gftd.dns.whois_privacy
-  - ai.gftd.dns.whois_snapshot
-  - ai.gftd.dns.whois_change
-  - ai.gftd.dns.ownership_transfer
-  - ai.gftd.dns.domain_lifecycle
-  - ai.gftd.dns.cert_history
-  - ai.gftd.dns.dns_record_history
-  - ai.gftd.apps.ct_monitor.ct_log_entry
+  - app.etzhayyim.dns.zone
+  - app.etzhayyim.dns.record
+  - app.etzhayyim.dns.registration
+  - app.etzhayyim.dns.certificate
+  - app.etzhayyim.dns.dnssec_config
+  - app.etzhayyim.dns.health_check
+  - app.etzhayyim.dns.audit_log
+  - app.etzhayyim.dns.whois_privacy
+  - app.etzhayyim.dns.whois_snapshot
+  - app.etzhayyim.dns.whois_change
+  - app.etzhayyim.dns.ownership_transfer
+  - app.etzhayyim.dns.domain_lifecycle
+  - app.etzhayyim.dns.cert_history
+  - app.etzhayyim.dns.dns_record_history
+  - app.etzhayyim.apps.ct_monitor.ct_log_entry
   - app.bsky.feed.post
   - app.bsky.feed.like
   - app.bsky.graph.follow

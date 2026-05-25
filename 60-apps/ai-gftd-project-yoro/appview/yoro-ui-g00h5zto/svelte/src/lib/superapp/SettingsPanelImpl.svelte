@@ -50,8 +50,8 @@
 	}
 
 	let {
-		appName = 'GFTD',
-		accentColor = 'bg-gftd-accent',
+		appName = 'etzhayyim',
+		accentColor = 'bg-etzhayyim-accent',
 		whatsappNumber = '',
 		privacyHref = 'https://etzhayyim.com/privacy/',
 		termsHref = 'https://etzhayyim.com/terms/',
@@ -116,7 +116,7 @@
 		if (!get(isSignedIn)) { claims = []; return; }
 		claimsLoading = true;
 		try {
-			const resp = await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.claim.listStakedAttestations?limit=20', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/app.etzhayyim.claim.listStakedAttestations?limit=20', {
 				credentials: 'include',
 			});
 			if (!resp.ok) { claims = []; return; }
@@ -151,7 +151,7 @@
 		}
 		linkedMethodsLoading = true;
 		try {
-			const resp = await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.authz.getSession', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/app.etzhayyim.authz.getSession', {
 				credentials: 'include',
 			});
 			if (!resp.ok) return;
@@ -178,8 +178,8 @@
 	}
 
 	// ── Smart account (ADR-0074 Phase 2-B) ─────────────────────────────────
-	// Resolved by `ai.gftd.authz.getActorAccount` (eth_call into
-	// GftdActorRegistry on the gftd private chain 260425). When the account
+	// Resolved by `app.etzhayyim.authz.getActorAccount` (eth_call into
+	// etzhayyimActorRegistry on the gftd private chain 260425). When the account
 	// hasn't been activated yet, `smartAccount` is null — display will show
 	// "Not yet activated" and the user can opt in via a future activation
 	// flow (Phase 2-C, sealer-sponsored tx). Read failure is non-fatal:
@@ -204,7 +204,7 @@
 		actorAccountLoading = true;
 		actorAccountError = '';
 		try {
-			const resp = await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.authz.getActorAccount', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/app.etzhayyim.authz.getActorAccount', {
 				credentials: 'include',
 			});
 			if (!resp.ok) {
@@ -235,7 +235,7 @@
 		activating = true;
 		actorAccountError = '';
 		try {
-			const resp = await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.authz.activateActorAccount', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/app.etzhayyim.authz.activateActorAccount', {
 				method: 'POST',
 				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },
@@ -361,12 +361,12 @@
 </script>
 
 <div class="w-full max-w-[600px] mx-auto p-4 flex flex-col gap-4">
-	<h2 class="text-[17px] font-bold text-gftd-text">Settings</h2>
+	<h2 class="text-[17px] font-bold text-etzhayyim-text">Settings</h2>
 
 	<!-- Account -->
-	<div class="bg-gftd-card rounded-2xl border border-gftd-border overflow-hidden">
-		<div class="px-4 py-3 border-b border-gftd-border">
-			<span class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider">Account</span>
+	<div class="bg-gftd-card rounded-2xl border border-etzhayyim-border overflow-hidden">
+		<div class="px-4 py-3 border-b border-etzhayyim-border">
+			<span class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider">Account</span>
 		</div>
 		{#if $isSignedIn}
 			<div class="p-4 flex items-center gap-3">
@@ -377,28 +377,28 @@
 					class="!{accentColor} !text-white"
 				/>
 				<div class="flex-1 min-w-0">
-					<div class="text-[15px] font-bold text-gftd-text truncate">{$displayName}</div>
-					<div class="text-[12px] text-gftd-muted">{$userPlan}</div>
+					<div class="text-[15px] font-bold text-etzhayyim-text truncate">{$displayName}</div>
+					<div class="text-[12px] text-etzhayyim-muted">{$userPlan}</div>
 					<div class="mt-1 flex flex-wrap items-center gap-2">
 						<Badge value={`T${$trustSummary.score}`} variant={trustVariantFromScore($trustSummary.score)} />
 						{#if $clerkUser?.username}
-							<span class="text-[12px] text-gftd-secondary">@{$clerkUser.username}</span>
+							<span class="text-[12px] text-etzhayyim-secondary">@{$clerkUser.username}</span>
 						{/if}
 						{#if $clerkUser?.phoneNumber}
-							<span class="text-[12px] text-gftd-secondary">{$clerkUser.phoneNumber}</span>
+							<span class="text-[12px] text-etzhayyim-secondary">{$clerkUser.phoneNumber}</span>
 						{/if}
 					</div>
 					{#if $clerkUser?.emailAddress}
-						<div class="text-[12px] text-gftd-secondary truncate">{$clerkUser.emailAddress}</div>
+						<div class="text-[12px] text-etzhayyim-secondary truncate">{$clerkUser.emailAddress}</div>
 					{/if}
 				</div>
 			</div>
-			<div class="border-t border-gftd-border divide-y divide-gftd-border">
+			<div class="border-t border-etzhayyim-border divide-y divide-etzhayyim-border">
 				<button
-					class="w-full flex items-center gap-3 px-4 py-3 text-[15px] text-gftd-text active:bg-gftd-hover transition-colors min-h-[44px] touch-manipulation"
+					class="w-full flex items-center gap-3 px-4 py-3 text-[15px] text-etzhayyim-text active:bg-gftd-hover transition-colors min-h-[44px] touch-manipulation"
 					onclick={() => openUserProfile()}
 				>
-					<svg class="w-5 h-5 text-gftd-secondary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<svg class="w-5 h-5 text-etzhayyim-secondary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
 					</svg>
 					Profile
@@ -415,7 +415,7 @@
 			</div>
 		{:else}
 			<div class="p-4 flex flex-col gap-3">
-				<p class="text-[14px] text-gftd-secondary">
+				<p class="text-[14px] text-etzhayyim-secondary">
 					Sign in with a passkey (Touch ID / Face ID / device PIN). Ethereum wallets, Google,
 					Microsoft, and additional devices can be linked once you're signed in.
 				</p>
@@ -436,11 +436,11 @@
 					>
 						{accountBusy === 'clerk' ? 'Opening...' : 'Create account with passkey'}
 					</Button>
-					<div class="rounded-2xl border border-gftd-border p-3 flex flex-col gap-3">
+					<div class="rounded-2xl border border-etzhayyim-border p-3 flex flex-col gap-3">
 						<div class="flex items-center justify-between gap-3">
 							<div>
-								<div class="text-[14px] font-semibold text-gftd-text">Create with username</div>
-								<div class="text-[12px] text-gftd-secondary">Great for lightweight org creation before stronger verification.</div>
+								<div class="text-[14px] font-semibold text-etzhayyim-text">Create with username</div>
+								<div class="text-[12px] text-etzhayyim-secondary">Great for lightweight org creation before stronger verification.</div>
 							</div>
 							<Badge value="+15" variant="accent" />
 						</div>
@@ -448,7 +448,7 @@
 							bind:value={usernameDraft}
 							placeholder="your-handle"
 							autocomplete="username"
-							class="!border-gftd-border !bg-gftd-hover !text-gftd-text"
+							class="!border-etzhayyim-border !bg-gftd-hover !text-etzhayyim-text"
 						/>
 						<Button
 							variant="outline"
@@ -469,25 +469,25 @@
 
 	<!-- Smart account (ADR-0074 Phase 2-B: ERC-4337 wallet on gftd private chain 260425) -->
 	{#if $isSignedIn}
-		<div class="bg-gftd-card rounded-2xl border border-gftd-border overflow-hidden">
-			<div class="px-4 py-3 border-b border-gftd-border flex items-center justify-between">
-				<span class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider">Smart account</span>
-				<span class="text-[11px] text-gftd-secondary">gftd private chain · 260425</span>
+		<div class="bg-gftd-card rounded-2xl border border-etzhayyim-border overflow-hidden">
+			<div class="px-4 py-3 border-b border-etzhayyim-border flex items-center justify-between">
+				<span class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider">Smart account</span>
+				<span class="text-[11px] text-etzhayyim-secondary">gftd private chain · 260425</span>
 			</div>
 			<div class="p-4 flex flex-col gap-3">
 				{#if actorAccountLoading}
-					<p class="text-[13px] text-gftd-secondary">Resolving on chain…</p>
+					<p class="text-[13px] text-etzhayyim-secondary">Resolving on chain…</p>
 				{:else if actorAccount?.activated && actorAccount.smartAccount}
 					<div class="flex items-start justify-between gap-3">
 						<div class="min-w-0">
-							<div class="text-[13px] text-gftd-secondary">ERC-4337 wallet</div>
-							<div class="text-[14px] font-mono text-gftd-text break-all">{actorAccount.smartAccount}</div>
+							<div class="text-[13px] text-etzhayyim-secondary">ERC-4337 wallet</div>
+							<div class="text-[14px] font-mono text-etzhayyim-text break-all">{actorAccount.smartAccount}</div>
 						</div>
 						<Badge value="Activated" variant="success" />
 					</div>
 					<button
 						type="button"
-						class="self-start text-[12px] underline text-gftd-secondary hover:text-gftd-text"
+						class="self-start text-[12px] underline text-etzhayyim-secondary hover:text-etzhayyim-text"
 						onclick={copySmartAccount}
 					>
 						Copy address
@@ -495,9 +495,9 @@
 				{:else if actorAccount && !actorAccount.activated}
 					<div class="flex items-start justify-between gap-3">
 						<div class="min-w-0">
-							<div class="text-[13px] text-gftd-secondary">Status</div>
-							<div class="text-[14px] text-gftd-text">Not yet activated</div>
-							<div class="text-[12px] text-gftd-muted mt-1">
+							<div class="text-[13px] text-etzhayyim-secondary">Status</div>
+							<div class="text-[14px] text-etzhayyim-text">Not yet activated</div>
+							<div class="text-[12px] text-etzhayyim-muted mt-1">
 								Deploy your ERC-4337 smart account now (sealer-sponsored, gasless). Your passkey becomes a P-256 owner of the wallet.
 							</div>
 						</div>
@@ -517,7 +517,7 @@
 				{:else if actorAccountError}
 					<p class="text-[12px] text-amber-500">Could not resolve smart account: {actorAccountError}</p>
 				{:else}
-					<p class="text-[13px] text-gftd-secondary">Sign in to view your smart account.</p>
+					<p class="text-[13px] text-etzhayyim-secondary">Sign in to view your smart account.</p>
 				{/if}
 			</div>
 		</div>
@@ -525,32 +525,32 @@
 
 	<!-- Staked claims (ADR-2604261717 Phase 3) -->
 	{#if $isSignedIn}
-		<div class="bg-gftd-card rounded-2xl border border-gftd-border overflow-hidden">
-			<div class="px-4 py-3 border-b border-gftd-border flex items-center justify-between">
-				<span class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider">Staked Claims</span>
-				<span class="text-[11px] text-gftd-secondary">GCC bond · 7-day challenge window</span>
+		<div class="bg-gftd-card rounded-2xl border border-etzhayyim-border overflow-hidden">
+			<div class="px-4 py-3 border-b border-etzhayyim-border flex items-center justify-between">
+				<span class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider">Staked Claims</span>
+				<span class="text-[11px] text-etzhayyim-secondary">GCC bond · 7-day challenge window</span>
 			</div>
 			<div class="p-4 flex flex-col gap-3">
 				{#if claimsLoading && claims.length === 0}
-					<p class="text-[13px] text-gftd-secondary">Loading…</p>
+					<p class="text-[13px] text-etzhayyim-secondary">Loading…</p>
 				{:else if claims.length === 0}
-					<p class="text-[13px] text-gftd-secondary">No staked claims yet. Use the ⚖ button in the post composer to stake GCC on a claim.</p>
+					<p class="text-[13px] text-etzhayyim-secondary">No staked claims yet. Use the ⚖ button in the post composer to stake GCC on a claim.</p>
 				{:else}
 					<ul class="flex flex-col gap-2">
 						{#each claims as claim (claim.claimId)}
 							<li>
 								<a
 									href="/claim/{claim.claimId}"
-									class="flex items-start justify-between gap-3 rounded-xl border border-gftd-border px-3 py-2 no-underline active:bg-gftd-hover transition-colors"
+									class="flex items-start justify-between gap-3 rounded-xl border border-etzhayyim-border px-3 py-2 no-underline active:bg-gftd-hover transition-colors"
 								>
 									<div class="min-w-0 flex-1">
-										<div class="text-[12px] font-mono text-gftd-muted truncate">{claim.claimId.slice(0, 18)}…</div>
+										<div class="text-[12px] font-mono text-etzhayyim-muted truncate">{claim.claimId.slice(0, 18)}…</div>
 										<div class="flex flex-wrap items-center gap-2 mt-1">
 											{#if claim.bondGcc && Number(claim.bondGcc) > 0}
-												<span class="text-[11px] text-gftd-secondary">{claim.bondGcc} GCC staked</span>
+												<span class="text-[11px] text-etzhayyim-secondary">{claim.bondGcc} GCC staked</span>
 											{/if}
 											{#if claim.postedAt}
-												<span class="text-[11px] text-gftd-muted">{new Date(claim.postedAt * 1000).toLocaleDateString()}</span>
+												<span class="text-[11px] text-etzhayyim-muted">{new Date(claim.postedAt * 1000).toLocaleDateString()}</span>
 											{/if}
 											{#if claim.state === 'challenged' && claim.counterBond}
 												<span class="text-[11px] text-amber-500">Counter-bond: {claim.counterBond} GCC</span>
@@ -572,26 +572,26 @@
 
 	<!-- Linked methods (ADR-0074 Phase 1: passkey-required, Ethereum private chain + multi-device) -->
 	{#if $isSignedIn}
-		<div class="bg-gftd-card rounded-2xl border border-gftd-border overflow-hidden">
-			<div class="px-4 py-3 border-b border-gftd-border flex items-center justify-between">
-				<span class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider">Linked methods</span>
-				<span class="text-[11px] text-gftd-secondary">Each verified method = +25 trust (max 100)</span>
+		<div class="bg-gftd-card rounded-2xl border border-etzhayyim-border overflow-hidden">
+			<div class="px-4 py-3 border-b border-etzhayyim-border flex items-center justify-between">
+				<span class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider">Linked methods</span>
+				<span class="text-[11px] text-etzhayyim-secondary">Each verified method = +25 trust (max 100)</span>
 			</div>
 			<div class="p-4 flex flex-col gap-3">
 				{#if linkedMethodsLoading && linkedMethods.length === 0}
-					<p class="text-[13px] text-gftd-secondary">Loading…</p>
+					<p class="text-[13px] text-etzhayyim-secondary">Loading…</p>
 				{:else if linkedMethods.length === 0}
-					<p class="text-[13px] text-gftd-secondary">No methods linked yet. Link a wallet or another device below.</p>
+					<p class="text-[13px] text-etzhayyim-secondary">No methods linked yet. Link a wallet or another device below.</p>
 				{:else}
 					<ul class="flex flex-col gap-2">
 						{#each linkedMethods as method (method.provider + ':' + method.providerSubject)}
-							<li class="flex items-center justify-between gap-3 rounded-xl border border-gftd-border px-3 py-2">
+							<li class="flex items-center justify-between gap-3 rounded-xl border border-etzhayyim-border px-3 py-2">
 								<div class="min-w-0">
 									<div class="flex items-center gap-2">
-										<span class="text-[14px] font-semibold text-gftd-text">{method.displayLabel}</span>
+										<span class="text-[14px] font-semibold text-etzhayyim-text">{method.displayLabel}</span>
 										<Badge value={method.provider} variant={method.verified ? 'success' : 'warning'} />
 									</div>
-									<div class="text-[11px] font-mono text-gftd-muted truncate">{method.providerSubject}</div>
+									<div class="text-[11px] font-mono text-etzhayyim-muted truncate">{method.providerSubject}</div>
 								</div>
 								{#if method.provider !== 'passkey'}
 									<Button
@@ -603,7 +603,7 @@
 												await unlinkEthereumAddress(method.providerSubject, method.provider);
 											}
 											else if (method.provider === 'webauthn-additional') await unlinkAdditionalPasskey(method.providerSubject);
-											else await fetch('https://authz.etzhayyim.com/xrpc/ai.gftd.authz.unlinkMethod', {
+											else await fetch('https://authz.etzhayyim.com/xrpc/app.etzhayyim.authz.unlinkMethod', {
 												method: 'POST',
 												credentials: 'include',
 												headers: { 'Content-Type': 'application/json' },
@@ -619,11 +619,11 @@
 					</ul>
 				{/if}
 
-				<div class="border-t border-gftd-border pt-3 flex flex-col gap-2">
+				<div class="border-t border-etzhayyim-border pt-3 flex flex-col gap-2">
 					<div class="flex items-center justify-between gap-3">
 						<div class="min-w-0">
-							<div class="text-[14px] font-semibold text-gftd-text">Coinbase Smart Wallet / Ethereum wallet</div>
-							<div class="text-[12px] text-gftd-secondary">
+							<div class="text-[14px] font-semibold text-etzhayyim-text">Coinbase Smart Wallet / Ethereum wallet</div>
+							<div class="text-[12px] text-etzhayyim-secondary">
 								Sign a SIWE message on the gftd private chain (chainId 260425, native token NETH, base unit wu).
 								{#if !ethereumAvailable}<span class="text-amber-500"> Install Coinbase Wallet or another EIP-1193 wallet.</span>{/if}
 							</div>
@@ -639,12 +639,12 @@
 					</div>
 					<div class="flex items-center justify-between gap-3">
 						<div class="min-w-0 flex-1">
-							<div class="text-[14px] font-semibold text-gftd-text">Additional device passkey</div>
-							<div class="text-[12px] text-gftd-secondary">Enrol another device (iPhone / MacBook / hardware key) so either can sign in.</div>
+							<div class="text-[14px] font-semibold text-etzhayyim-text">Additional device passkey</div>
+							<div class="text-[12px] text-etzhayyim-secondary">Enrol another device (iPhone / MacBook / hardware key) so either can sign in.</div>
 							<Input
 								bind:value={additionalPasskeyLabel}
 								placeholder="Label (optional, e.g. iPhone 15)"
-								class="!border-gftd-border !bg-gftd-hover !text-gftd-text mt-2"
+								class="!border-etzhayyim-border !bg-gftd-hover !text-etzhayyim-text mt-2"
 							/>
 						</div>
 						<Button
@@ -666,21 +666,21 @@
 	{/if}
 
 	<!-- Workspace -->
-	<div class="bg-gftd-card rounded-2xl border border-gftd-border overflow-hidden">
-		<div class="px-4 py-3 border-b border-gftd-border">
-			<span class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider">Workspace</span>
+	<div class="bg-gftd-card rounded-2xl border border-etzhayyim-border overflow-hidden">
+		<div class="px-4 py-3 border-b border-etzhayyim-border">
+			<span class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider">Workspace</span>
 		</div>
 		{#if !$isSignedIn}
 			<div class="p-4">
-				<p class="text-[14px] text-gftd-secondary">Sign in to switch orgs and create workspaces.</p>
+				<p class="text-[14px] text-etzhayyim-secondary">Sign in to switch orgs and create workspaces.</p>
 			</div>
 		{:else}
 			<div class="p-4 flex flex-col gap-3">
-				<div class="rounded-2xl border border-gftd-border p-4 flex items-start justify-between gap-3">
+				<div class="rounded-2xl border border-etzhayyim-border p-4 flex items-start justify-between gap-3">
 					<div class="min-w-0">
-						<div class="text-[12px] uppercase tracking-wider text-gftd-muted">Active</div>
-						<div class="text-[15px] font-bold text-gftd-text truncate">{$currentOrg?.name || 'No org selected'}</div>
-						<div class="mt-1 flex flex-wrap gap-2 text-[12px] text-gftd-secondary">
+						<div class="text-[12px] uppercase tracking-wider text-etzhayyim-muted">Active</div>
+						<div class="text-[15px] font-bold text-etzhayyim-text truncate">{$currentOrg?.name || 'No org selected'}</div>
+						<div class="mt-1 flex flex-wrap gap-2 text-[12px] text-etzhayyim-secondary">
 							<span>{$currentOrg?.category || 'individual'}</span>
 							{#if $currentOrg?.role}
 								<span>{$currentOrg.role.replace('org:', '')}</span>
@@ -697,19 +697,19 @@
 				</div>
 				<div class="flex flex-col gap-2">
 					{#if $orgLoading}
-						<p class="text-[13px] text-gftd-secondary">Loading orgs...</p>
+						<p class="text-[13px] text-etzhayyim-secondary">Loading orgs...</p>
 					{:else if $userOrganizations.length === 0}
-						<p class="text-[13px] text-gftd-secondary">Create your first workspace below.</p>
+						<p class="text-[13px] text-etzhayyim-secondary">Create your first workspace below.</p>
 					{:else}
 						{#each $userOrganizations as org (org.id)}
 							<button
-								class="w-full rounded-2xl border border-gftd-border px-4 py-3 text-left active:bg-gftd-hover transition-colors"
+								class="w-full rounded-2xl border border-etzhayyim-border px-4 py-3 text-left active:bg-gftd-hover transition-colors"
 								onclick={() => handleWorkspaceSwitch(org.id)}
 							>
 								<div class="flex items-center justify-between gap-3">
 									<div class="min-w-0">
-										<div class="truncate text-[14px] font-semibold text-gftd-text">{org.name}</div>
-										<div class="flex flex-wrap gap-2 text-[12px] text-gftd-secondary">
+										<div class="truncate text-[14px] font-semibold text-etzhayyim-text">{org.name}</div>
+										<div class="flex flex-wrap gap-2 text-[12px] text-etzhayyim-secondary">
 											<span>{org.category}</span>
 											{#if org.memberCount}
 												<span>{org.memberCount} members</span>
@@ -729,15 +729,15 @@
 						{/each}
 					{/if}
 				</div>
-				<div class="rounded-2xl border border-dashed border-gftd-border p-4 flex flex-col gap-3">
+				<div class="rounded-2xl border border-dashed border-etzhayyim-border p-4 flex flex-col gap-3">
 					<div>
-						<div class="text-[14px] font-semibold text-gftd-text">Create org</div>
-						<div class="text-[12px] text-gftd-secondary">Spin up a new org for a project, client, or community.</div>
+						<div class="text-[14px] font-semibold text-etzhayyim-text">Create org</div>
+						<div class="text-[12px] text-etzhayyim-secondary">Spin up a new org for a project, client, or community.</div>
 					</div>
 					<Input
 						bind:value={newOrgName}
 						placeholder="Acme Labs"
-						class="!border-gftd-border !bg-gftd-hover !text-gftd-text"
+						class="!border-etzhayyim-border !bg-gftd-hover !text-etzhayyim-text"
 					/>
 					<Button
 						variant="solid-fill"
@@ -756,22 +756,22 @@
 	</div>
 
 	<!-- Trust -->
-	<div class="bg-gftd-card rounded-2xl border border-gftd-border overflow-hidden">
-		<div class="px-4 py-3 border-b border-gftd-border">
-			<span class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider">Trust & Access</span>
+	<div class="bg-gftd-card rounded-2xl border border-etzhayyim-border overflow-hidden">
+		<div class="px-4 py-3 border-b border-etzhayyim-border">
+			<span class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider">Trust & Access</span>
 		</div>
 		<div class="p-4 flex flex-col gap-3">
 			<div class="flex items-start justify-between gap-3">
 				<div>
-					<div class="text-[15px] font-bold text-gftd-text">Trust score {$trustSummary.score}</div>
-					<div class="text-[12px] text-gftd-secondary">
+					<div class="text-[15px] font-bold text-etzhayyim-text">Trust score {$trustSummary.score}</div>
+					<div class="text-[12px] text-etzhayyim-secondary">
 						Level {$trustSummary.label}. SpinApps can gate actions with trust score and age rules.
 					</div>
 				</div>
 				<Badge value={`T${$trustSummary.score}`} variant={trustVariantFromScore($trustSummary.score)} />
 			</div>
 			{#if $trustSummary.methods.length > 0}
-				<div class="flex flex-wrap gap-2 text-[12px] text-gftd-secondary">
+				<div class="flex flex-wrap gap-2 text-[12px] text-etzhayyim-secondary">
 					{#each $trustSummary.methods as method}
 						<span class="rounded-full bg-gftd-hover px-3 py-1">{method}</span>
 					{/each}
@@ -779,11 +779,11 @@
 			{/if}
 			<div class="flex flex-col gap-2">
 				{#each $trustSummary.steps as step (step.id)}
-					<div class="rounded-2xl border border-gftd-border px-4 py-3">
+					<div class="rounded-2xl border border-etzhayyim-border px-4 py-3">
 						<div class="flex items-center justify-between gap-3">
 							<div>
-								<div class="text-[14px] font-semibold text-gftd-text">{step.label}</div>
-								<div class="text-[12px] text-gftd-secondary">{step.description}</div>
+								<div class="text-[14px] font-semibold text-etzhayyim-text">{step.label}</div>
+								<div class="text-[12px] text-etzhayyim-secondary">{step.description}</div>
 							</div>
 							<Badge
 								value={step.completed ? 'Done' : `+${step.trustGain}`}
@@ -795,8 +795,8 @@
 			</div>
 			{#if !$trustSummary.accessReady}
 				<div class="rounded-2xl border border-yellow-500/40 bg-yellow-500/10 px-4 py-3">
-					<div class="text-[13px] font-semibold text-gftd-text">Current access gaps</div>
-					<div class="mt-1 flex flex-wrap gap-2 text-[12px] text-gftd-secondary">
+					<div class="text-[13px] font-semibold text-etzhayyim-text">Current access gaps</div>
+					<div class="mt-1 flex flex-wrap gap-2 text-[12px] text-etzhayyim-secondary">
 						{#each $trustSummary.accessReasons as reason}
 							<span class="rounded-full bg-white/10 px-3 py-1">{reason}</span>
 						{/each}
@@ -807,27 +807,27 @@
 	</div>
 
 	<!-- Appearance -->
-	<div class="bg-gftd-card rounded-2xl border border-gftd-border overflow-hidden">
-		<div class="px-4 py-3 border-b border-gftd-border">
-			<span class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider">Appearance</span>
+	<div class="bg-gftd-card rounded-2xl border border-etzhayyim-border overflow-hidden">
+		<div class="px-4 py-3 border-b border-etzhayyim-border">
+			<span class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider">Appearance</span>
 		</div>
 		<div class="p-4 flex items-center justify-between min-h-[44px]">
-			<span class="text-[15px] text-gftd-text">Theme</span>
+			<span class="text-[15px] text-etzhayyim-text">Theme</span>
 			<ThemeToggle showSystem={true} size={36} />
 		</div>
 	</div>
 
 	<!-- Language -->
 	{#if languages.length > 1}
-		<div class="bg-gftd-card rounded-2xl border border-gftd-border overflow-hidden">
-			<div class="px-4 py-3 border-b border-gftd-border">
-				<span class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider">Language</span>
+		<div class="bg-gftd-card rounded-2xl border border-etzhayyim-border overflow-hidden">
+			<div class="px-4 py-3 border-b border-etzhayyim-border">
+				<span class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider">Language</span>
 			</div>
 			<div class="p-4">
 				<div class="flex flex-wrap gap-2">
 					{#each languages as lang}
 						<button
-							class="px-3 py-1.5 rounded-full text-[13px] font-medium touch-manipulation transition-colors min-h-[36px] {currentLang === lang.code ? 'bg-gftd-accent text-white' : 'bg-gftd-hover text-gftd-secondary active:bg-gftd-border'}"
+							class="px-3 py-1.5 rounded-full text-[13px] font-medium touch-manipulation transition-colors min-h-[36px] {currentLang === lang.code ? 'bg-etzhayyim-accent text-white' : 'bg-gftd-hover text-etzhayyim-secondary active:bg-etzhayyim-border'}"
 							onclick={() => selectLang(lang.code)}
 						>{lang.name}</button>
 					{/each}
@@ -837,17 +837,17 @@
 	{/if}
 
 	<!-- Support -->
-	<div class="bg-gftd-card rounded-2xl border border-gftd-border overflow-hidden">
-		<div class="px-4 py-3 border-b border-gftd-border">
-			<span class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider">Support</span>
+	<div class="bg-gftd-card rounded-2xl border border-etzhayyim-border overflow-hidden">
+		<div class="px-4 py-3 border-b border-etzhayyim-border">
+			<span class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider">Support</span>
 		</div>
-		<div class="divide-y divide-gftd-border">
+		<div class="divide-y divide-etzhayyim-border">
 			{#if whatsappNumber}
 				<a
 					href="https://wa.me/{whatsappNumber}"
 					target="_blank"
 					rel="noopener"
-					class="w-full flex items-center gap-3 px-4 py-3 text-[15px] text-gftd-text active:bg-gftd-hover transition-colors min-h-[44px] touch-manipulation no-underline"
+					class="w-full flex items-center gap-3 px-4 py-3 text-[15px] text-etzhayyim-text active:bg-gftd-hover transition-colors min-h-[44px] touch-manipulation no-underline"
 				>
 					<svg class="w-5 h-5 text-green-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
 						<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
@@ -860,9 +860,9 @@
 					href={supportHref}
 					target="_blank"
 					rel="noopener"
-					class="w-full flex items-center gap-3 px-4 py-3 text-[15px] text-gftd-text active:bg-gftd-hover transition-colors min-h-[44px] touch-manipulation no-underline"
+					class="w-full flex items-center gap-3 px-4 py-3 text-[15px] text-etzhayyim-text active:bg-gftd-hover transition-colors min-h-[44px] touch-manipulation no-underline"
 				>
-					<svg class="w-5 h-5 text-gftd-secondary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<svg class="w-5 h-5 text-etzhayyim-secondary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" />
 					</svg>
 					Help Center
@@ -872,35 +872,35 @@
 	</div>
 
 	<!-- Legal -->
-	<div class="bg-gftd-card rounded-2xl border border-gftd-border overflow-hidden">
-		<div class="px-4 py-3 border-b border-gftd-border">
-			<span class="text-[12px] font-semibold text-gftd-muted uppercase tracking-wider">Legal</span>
+	<div class="bg-gftd-card rounded-2xl border border-etzhayyim-border overflow-hidden">
+		<div class="px-4 py-3 border-b border-etzhayyim-border">
+			<span class="text-[12px] font-semibold text-etzhayyim-muted uppercase tracking-wider">Legal</span>
 		</div>
-		<div class="divide-y divide-gftd-border">
+		<div class="divide-y divide-etzhayyim-border">
 			<a
 				href={privacyHref}
 				target="_blank"
 				rel="noopener"
-				class="w-full flex items-center justify-between px-4 py-3 text-[15px] text-gftd-text active:bg-gftd-hover transition-colors min-h-[44px] touch-manipulation no-underline"
+				class="w-full flex items-center justify-between px-4 py-3 text-[15px] text-etzhayyim-text active:bg-gftd-hover transition-colors min-h-[44px] touch-manipulation no-underline"
 			>
 				Privacy Policy
-				<svg class="w-4 h-4 text-gftd-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+				<svg class="w-4 h-4 text-etzhayyim-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
 			</a>
 			<a
 				href={termsHref}
 				target="_blank"
 				rel="noopener"
-				class="w-full flex items-center justify-between px-4 py-3 text-[15px] text-gftd-text active:bg-gftd-hover transition-colors min-h-[44px] touch-manipulation no-underline"
+				class="w-full flex items-center justify-between px-4 py-3 text-[15px] text-etzhayyim-text active:bg-gftd-hover transition-colors min-h-[44px] touch-manipulation no-underline"
 			>
 				Terms of Use
-				<svg class="w-4 h-4 text-gftd-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+				<svg class="w-4 h-4 text-etzhayyim-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
 			</a>
 		</div>
 	</div>
 
 	<!-- App Info -->
 	<div class="text-center py-4">
-		<p class="text-[12px] text-gftd-muted">{appName}</p>
-		<p class="text-[11px] text-gftd-muted mt-0.5">&copy; {new Date().getFullYear()} gftd.co.jp</p>
+		<p class="text-[12px] text-etzhayyim-muted">{appName}</p>
+		<p class="text-[11px] text-etzhayyim-muted mt-0.5">&copy; {new Date().getFullYear()} etzhayyim.com</p>
 	</div>
 </div>

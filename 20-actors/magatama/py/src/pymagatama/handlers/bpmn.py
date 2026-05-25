@@ -4,9 +4,9 @@ ADR-0047 Phase B pilot — bpmn actor on shared Python UDF pool.
 Ports the *pure* subset of the TS implementation at
 `60-apps/ai-gftd-project-bpmn/.../src/app.ts`:
 
-- `ai.gftd.apps.bpmn.compileJsonToXml` — JSON subset → BPMN 2.0 XML
-- `ai.gftd.apps.bpmn.validateXml` — cheap well-formedness check
-- `ai.gftd.apps.bpmn.analyzeProcess` — Optimize-free OCEL process mining
+- `app.etzhayyim.apps.bpmn.compileJsonToXml` — JSON subset → BPMN 2.0 XML
+- `app.etzhayyim.apps.bpmn.validateXml` — cheap well-formedness check
+- `app.etzhayyim.apps.bpmn.analyzeProcess` — Optimize-free OCEL process mining
   over RisingWave BPMN audit rows, with optional LLM diagnosis
 
 Stateful commands (deployProcess / startInstance / signalInstance /
@@ -175,7 +175,7 @@ def _compile_json_to_xml(doc: dict[str, Any]) -> str:
 
 
 @udf(
-    nsid="ai.gftd.apps.bpmn.compileJsonToXml",
+    nsid="app.etzhayyim.apps.bpmn.compileJsonToXml",
     io_threads=20,  # CPU-bound, minimal IO
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -224,7 +224,7 @@ _HAS_CLOSE = re.compile(r"</bpmn:definitions>")
 
 
 @udf(
-    nsid="ai.gftd.apps.bpmn.validateXml",
+    nsid="app.etzhayyim.apps.bpmn.validateXml",
     io_threads=20,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -298,7 +298,7 @@ def _str_param(params: dict[str, Any], key: str) -> str:
 
 def _fetch_audit_events(params: dict[str, Any]) -> list[dict[str, Any]]:
     limit = _int_param(params, "limit", 500, 1, 5000)
-    where = ["collection = 'ai.gftd.bpmn.audit'"]
+    where = ["collection = 'app.etzhayyim.bpmn.audit'"]
     bind: list[Any] = []
 
     action_prefix = _str_param(params, "actionPrefix")
@@ -514,7 +514,7 @@ def _llm_analysis(params: dict[str, Any], summary: dict[str, Any]) -> dict[str, 
 
 
 @udf(
-    nsid="ai.gftd.apps.bpmn.analyzeProcess",
+    nsid="app.etzhayyim.apps.bpmn.analyzeProcess",
     io_threads=8,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -529,7 +529,7 @@ def analyze_process(params_json: str) -> str:
         summary = _summarize_events(events)
         out: dict[str, Any] = {
             "ok": True,
-            "source": "vertex_repo_commit:ai.gftd.bpmn.audit",
+            "source": "vertex_repo_commit:app.etzhayyim.bpmn.audit",
             "filters": {
                 "processId": _str_param(params, "processId") or None,
                 "caseId": _str_param(params, "caseId") or None,

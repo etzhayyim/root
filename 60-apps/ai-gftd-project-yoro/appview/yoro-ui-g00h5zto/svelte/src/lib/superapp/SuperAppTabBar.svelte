@@ -84,7 +84,7 @@ const navItems: BottomNavItems = [
 		items={navItems}
 		activePath={$page.url.pathname}
 		accentClass="text-[var(--gv2-accent)]"
-		inactiveClass="text-gftd-muted"
+		inactiveClass="text-etzhayyim-muted"
 		class="!bg-[var(--gv2-bg-primary,#0a0a0a)] !border-[var(--gv2-border,#2f2f2f)] transition-shadow duration-700"
 	/>
 </div>

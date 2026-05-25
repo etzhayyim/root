@@ -61,7 +61,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       vertex_id, source_did, label, world_total, priority_weight,
       ttl_hours, org_id, user_id, actor_id, created_at
     ) VALUES (
-      'at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/osm_notes:Spot',
+      'at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/osm_notes:Spot',
       'did:web:maps.etzhayyim.com:osm_notes', 'Spot', 100000, 0.6, 168.0,
       'anon', 'anon', 'did:web:maps.etzhayyim.com:osm_notes', ${now}
     )

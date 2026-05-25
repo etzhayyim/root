@@ -3,7 +3,7 @@
   "formKey": "openWater.defineMain.v1",
   "name": "Define Main",
   "version": 1,
-  "lexiconRef": "ai.gftd.apps.openWater.defineMain",
+  "lexiconRef": "app.etzhayyim.apps.openWater.defineMain",
   "components": [
     { "key": "reservoirDid", "label": "Reservoir DID (origin)", "type": "textfield",
       "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },

@@ -14,7 +14,7 @@ metadata:
     etzhayyim.com/leader-hostname: levinomac-mini.local
     etzhayyim.com/trigger: mst-listener
     etzhayyim.com/healthz-port: '13015'
-    etzhayyim.com/listens-to: ai.gftd.apps.etzhayyim.oath,ai.gftd.apps.etzhayyim.commitment
+    etzhayyim.com/listens-to: app.etzhayyim.apps.etzhayyim.oath,app.etzhayyim.apps.etzhayyim.commitment
     etzhayyim.com/adr: '2605172600'
 spec:
   selector:

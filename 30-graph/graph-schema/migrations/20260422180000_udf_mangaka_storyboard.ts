@@ -27,7 +27,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     CREATE FUNCTION mangaka_storyboard_from_prompt(VARCHAR)
       RETURNS VARCHAR
-      AS 'ai.gftd.apps.mangaka.storyboardFromPrompt'
+      AS 'app.etzhayyim.apps.mangaka.storyboardFromPrompt'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 }

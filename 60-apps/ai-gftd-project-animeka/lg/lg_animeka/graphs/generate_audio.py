@@ -7,7 +7,7 @@ Pregel (LangGraph):
   SS3  gen_dialogue   edge-tts TTS for any dialogue lines (Japanese voices)
   SS4  apply_audio    ffmpeg replace audio in existing MP4 → PDS upload → DB UPDATE
 
-XRPC: ai.gftd.animeka.generateAudio
+XRPC: app.etzhayyim.animeka.generateAudio
 Input:
   max_cuts   int  (default 5)
   rkeys      list[str]  (optional — target specific cuts)
@@ -423,8 +423,8 @@ async def _ss0_fetch_cuts(state: AudioState) -> dict[str, Any]:
                        w.title as work_title, v.camera_note, v.location
                 FROM public.vertex_animeka v
                 LEFT JOIN public.vertex_animeka w
-                  ON w.collection = 'ai.gftd.animeka.work' AND w.rkey = v.work_id
-                WHERE v.collection = 'ai.gftd.animeka.cut'
+                  ON w.collection = 'app.etzhayyim.animeka.work' AND w.rkey = v.work_id
+                WHERE v.collection = 'app.etzhayyim.animeka.cut'
                   AND v.output_cid IS NOT NULL AND v.output_cid != ''
                   AND v.rkey IN ({placeholders})
             """
@@ -434,8 +434,8 @@ async def _ss0_fetch_cuts(state: AudioState) -> dict[str, Any]:
                        w.title as work_title, v.camera_note, v.location
                 FROM public.vertex_animeka v
                 LEFT JOIN public.vertex_animeka w
-                  ON w.collection = 'ai.gftd.animeka.work' AND w.rkey = v.work_id
-                WHERE v.collection = 'ai.gftd.animeka.cut'
+                  ON w.collection = 'app.etzhayyim.animeka.work' AND w.rkey = v.work_id
+                WHERE v.collection = 'app.etzhayyim.animeka.cut'
                   AND v.output_cid IS NOT NULL AND v.output_cid != ''
                 ORDER BY v.created_at DESC LIMIT {max_cuts}
             """
@@ -713,7 +713,7 @@ async def _ss2_gen_audio(state: AudioState) -> dict[str, Any]:
                 import secrets as _secrets
 
                 repo = _REPO
-                cut_vid = f"at://{repo}/ai.gftd.animeka.cut/{rkey}"
+                cut_vid = f"at://{repo}/app.etzhayyim.animeka.cut/{rkey}"
                 now = datetime.now(tz=timezone.utc).isoformat()
 
                 # Upload audio blobs
@@ -732,7 +732,7 @@ async def _ss2_gen_audio(state: AudioState) -> dict[str, Any]:
                         tracks.append(("narration", narr_cid, f"{rkey}-narr"))
 
                     for track_type, asset_cid, sc_rkey in tracks:
-                        sc_vid = f"at://{repo}/ai.gftd.animeka.soundCue/{sc_rkey}"
+                        sc_vid = f"at://{repo}/app.etzhayyim.animeka.soundCue/{sc_rkey}"
                         # Upsert soundCue vertex
                         await _rw.execute(
                             "DELETE FROM vertex_animeka WHERE vertex_id = %s",
@@ -742,7 +742,7 @@ async def _ss2_gen_audio(state: AudioState) -> dict[str, Any]:
                             """INSERT INTO vertex_animeka
                                (vertex_id, repo, rkey, collection, kind, owner_did,
                                 cut_id, track_type, asset_cid, status, created_at)
-                               VALUES (%s,%s,%s,'ai.gftd.animeka.soundCue','soundCue',%s,
+                               VALUES (%s,%s,%s,'app.etzhayyim.animeka.soundCue','soundCue',%s,
                                        %s,%s,%s,'generated',%s)""",
                             [sc_vid, repo, sc_rkey, repo,
                              rkey, track_type, asset_cid, now],
@@ -793,7 +793,7 @@ async def _ss3_persist(state: AudioState) -> dict[str, Any]:
             for p in successful:
                 await conn.execute(
                     "UPDATE public.vertex_animeka SET output_cid = %s "
-                    "WHERE rkey = %s AND collection = 'ai.gftd.animeka.cut'",
+                    "WHERE rkey = %s AND collection = 'app.etzhayyim.animeka.cut'",
                     [p["new_output_cid"], p["rkey"]],
                 )
             await conn.close()

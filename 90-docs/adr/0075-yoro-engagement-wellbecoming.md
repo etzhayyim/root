@@ -94,9 +94,9 @@ hot path で以下を強制する。bypass 禁止:
 
 ## 5. 新規 NSID / Lexicon
 
-- `ai.gftd.yoro.feed.getRankedFeed` (query, optional: `echoPersistence` / `sessionDwellMs` / `sessionDistinctTopics` / `debug`)
+- `app.etzhayyim.yoro.feed.getRankedFeed` (query, optional: `echoPersistence` / `sessionDwellMs` / `sessionDistinctTopics` / `debug`)
 
-既存 `app.bsky.feed.getTimeline` / `ai.gftd.yoro.feed.getDiscoverFeed` は互換維持。`getRankedFeed` は opt-in path で、MV / 候補取得失敗時は `getDiscoverFeed` に自動降格する (既存フォールバック契約維持)。
+既存 `app.bsky.feed.getTimeline` / `app.etzhayyim.yoro.feed.getDiscoverFeed` は互換維持。`getRankedFeed` は opt-in path で、MV / 候補取得失敗時は `getDiscoverFeed` に自動降格する (既存フォールバック契約維持)。
 
 ## 6. Nintendo-style UX コンポーネント
 

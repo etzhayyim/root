@@ -3,7 +3,7 @@
  *
  * New sessions eventually use `did:erc725:gftd:260425:<identity>` directly.
  * Legacy sessions (`did:gftd` / `did:web`) are treated as facade DIDs and
- * resolved through `GftdRootIdentityRegistry.resolveFacade(bytes32)`.
+ * resolved through `etzhayyimRootIdentityRegistry.resolveFacade(bytes32)`.
  */
 
 import { decodeAddress, ethCall, isZeroAddress, keccakHex, selector } from "./eth-rpc";
@@ -11,7 +11,7 @@ import type { EthRpcEnv } from "./eth-rpc";
 
 export interface RootIdentityEnv extends EthRpcEnv {
   ETH_PRIVATE_CHAIN_ID?: string;
-  GFTD_ROOT_IDENTITY_REGISTRY_ADDR?: string;
+  etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR?: string;
 }
 
 export interface RootIdentityResolution {
@@ -52,7 +52,7 @@ function parseErc725RootDid(did: string, expectedChainId: string): string | null
 }
 
 async function rootIdentityByRootDid(env: RootIdentityEnv, rootDidHash: string): Promise<string | null> {
-  const registry = (env.GFTD_ROOT_IDENTITY_REGISTRY_ADDR || "").trim();
+  const registry = (env.etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR || "").trim();
   if (!registry) return null;
   const raw = await ethCall(env, registry, IDENTITY_BY_ROOT_DID_SELECTOR + rootDidHash.slice(2));
   const addr = decodeAddress(raw);
@@ -60,7 +60,7 @@ async function rootIdentityByRootDid(env: RootIdentityEnv, rootDidHash: string):
 }
 
 async function rootIdentityByFacadeDid(env: RootIdentityEnv, facadeDidHash: string): Promise<string | null> {
-  const registry = (env.GFTD_ROOT_IDENTITY_REGISTRY_ADDR || "").trim();
+  const registry = (env.etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR || "").trim();
   if (!registry) return null;
   const raw = await ethCall(env, registry, RESOLVE_FACADE_SELECTOR + facadeDidHash.slice(2));
   const addr = decodeAddress(raw);
@@ -76,7 +76,7 @@ export async function resolveRootIdentity(
   accountDid: string,
 ): Promise<RootIdentityResolution> {
   const expectedChainId = (env.ETH_PRIVATE_CHAIN_ID || "").trim();
-  const registryAddr = (env.GFTD_ROOT_IDENTITY_REGISTRY_ADDR || "").trim() || null;
+  const registryAddr = (env.etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR || "").trim() || null;
   const parsedIdentity = parseErc725RootDid(accountDid, expectedChainId);
 
   if (parsedIdentity) {

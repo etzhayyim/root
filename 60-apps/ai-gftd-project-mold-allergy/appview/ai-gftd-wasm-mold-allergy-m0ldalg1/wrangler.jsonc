@@ -10,7 +10,7 @@
     "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"allergen-characterization\",\"epidemiology-query\",\"slit-formulation-design\",\"clinical-trial-protocol-drafting\",\"literature-mining\"]",
     "APP_DESCRIPTION": "Mold-Allergy research agent. Fungal allergen catalog, air sampling, and SLIT candidate workflows run in BPMN + Zeebe Python.",
     "APP_DISPLAY_NAME": "Mold-Allergy",
-    "APP_EMBED_URL": "https://m0ldalg1.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://m0ldalg1.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "m0ldalg1",
     "APP_PERFORMER_TYPE": "service",
@@ -18,12 +18,12 @@
     "APP_TEMPLATE": "",
     "APP_UI_TYPE": "appview",
     "APP_VERSION": "0.1.0",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "mold-allergy.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "mold-allergy.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

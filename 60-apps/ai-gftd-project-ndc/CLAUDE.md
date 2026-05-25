@@ -8,7 +8,7 @@
 | performerType | service |
 | nanoid | nd7c3k9m |
 | primary DID | `did:web:ndc.etzhayyim.com` |
-| NSID prefix | `ai.gftd.ndc.*` |
+| NSID prefix | `app.etzhayyim.ndc.*` |
 
 ## What This App Does
 
@@ -32,12 +32,12 @@ National Drug Code + WHO ATC/DDD classification。世界中の医薬品を DID �
 
 | collection | NSID | 内容 |
 |---|---|---|
-| drug | `ai.gftd.ndc.drug` | Drug master (ndc, name, ingredients, form, strength) |
-| atc | `ai.gftd.ndc.atc` | ATC classification mapping |
-| interaction | `ai.gftd.ndc.interaction` | Drug-drug interactions |
-| adverse_event | `ai.gftd.ndc.adverse_event` | Adverse event reports |
-| manufacturer | `ai.gftd.ndc.manufacturer` | Drug manufacturer/labeler |
-| coverage_report | `ai.gftd.ndc.coverage_report` | Coverage metrics |
+| drug | `app.etzhayyim.ndc.drug` | Drug master (ndc, name, ingredients, form, strength) |
+| atc | `app.etzhayyim.ndc.atc` | ATC classification mapping |
+| interaction | `app.etzhayyim.ndc.interaction` | Drug-drug interactions |
+| adverse_event | `app.etzhayyim.ndc.adverse_event` | Adverse event reports |
+| manufacturer | `app.etzhayyim.ndc.manufacturer` | Drug manufacturer/labeler |
+| coverage_report | `app.etzhayyim.ndc.coverage_report` | Coverage metrics |
 
 ## WIT Capability Exports
 

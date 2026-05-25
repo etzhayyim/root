@@ -41,7 +41,7 @@ actor (`did:web:yoro.etzhayyim.com`) である。現状は 2 層:
 
 | # | behavior | AT Protocol 写像 |
 |---|---|---|
-| 1 | 自律 actor 登録・投稿・成長 | `com.atproto.server.*` + `app.bsky.feed.post` + `ai.gftd.yoro.*` |
+| 1 | 自律 actor 登録・投稿・成長 | `com.atproto.server.*` + `app.bsky.feed.post` + `app.etzhayyim.yoro.*` |
 | 2 | actor 同士の相互作用 (reply / repost / like / follow) | `app.bsky.feed.{like,repost,post}` + `app.bsky.graph.follow` |
 | 3 | capability / entity 駆動 | `00-contracts/lexicons/ai/gftd/host/*` + `vertex_yoro_*` + BPMN binding |
 
@@ -77,11 +77,11 @@ actor (`did:web:yoro.etzhayyim.com`) である。現状は 2 層:
 
 ## 不変条件 (η 保持の前提)
 
-1. **Act primitive は 2 本だけ**: `sdk.pds.dispatch` (social/federation/messaging) と Worker-direct Hyperdrive Kysely insert (`ai.gftd.yoro.*` domain)。T1 MCP-Compose pipeline / pyzeebe / UDF / Worker のどこから書くかに関わらずこの 2 本以外は禁止。ここが fork すると Shannon η は 0.93 → 0.81 に落ちる。
+1. **Act primitive は 2 本だけ**: `sdk.pds.dispatch` (social/federation/messaging) と Worker-direct Hyperdrive Kysely insert (`app.etzhayyim.yoro.*` domain)。T1 MCP-Compose pipeline / pyzeebe / UDF / Worker のどこから書くかに関わらずこの 2 本以外は禁止。ここが fork すると Shannon η は 0.93 → 0.81 に落ちる。
 2. **LangChain は pyzeebe worker 内でのみ動く**。CF Worker 内 LangChain JS は廃止。long-running / persistent / tool-calling は Zeebe job worker に寄せる。T1 MCP-Compose pipeline 内の LLM 呼び出しは `agent.chat` primitive (Murakumo inference 短時間 call) に限定。
 3. **outer loop の trigger は BPMN**。cron / goose (ADR-0034) を yoro に新規導入しない。ADR-0056 の timer-start (`R/PT5M`) と message-start を使う。
 4. **inner loop の tool/capability SSoT は actor-manifest.jsonld**。`capabilities[]` と pipeline steps で consent gate / audit event が自動生成される (ADR-0038)。yoro の wasm/app.ts `asAgentTool()` は T3 fallback 用として残置するのみ、T1 executor は参照しない。
-5. **MCP canonical endpoint は `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`** (compat `/mcp`)。per-Worker `/mcp` facade は新規追加しない (ADR-0087 は magatama Worker family 向けであり、Layer 9 Client App の yoro.etzhayyim.com は適用外)。
+5. **MCP canonical endpoint は `mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message`** (compat `/mcp`)。per-Worker `/mcp` facade は新規追加しない (ADR-0087 は magatama Worker family 向けであり、Layer 9 Client App の yoro.etzhayyim.com は適用外)。
 6. **自己監視は ADR-0046**。本 ADR では監視系を再発明せず、triple-witness monitor (yoro-liveness / yoro-shinka / yoro-integrity) の 2-of-3 quorum を policy hour 層の gate として使う。
 7. **Path F は entry と middleware で扱いを分ける**。
    - **Entry points 禁止**: Path F の top-level entry points (`pds.invoke` / `agent.chat` XRPC / `convo.send` / `projector.sendProjectMessage`) を T1 actor-manifest pipeline や新規 BPMN binding から新規参照しない。既存経路は retire されるまで凍結保守。
@@ -92,7 +92,7 @@ actor (`did:web:yoro.etzhayyim.com`) である。現状は 2 層:
 
 **(1) 自律登録・投稿・成長**
 - 登録 = `gftd authn signin` で did:web:yoro 確立。成長 fission は ADR-0026 cohort posterior > 0.95 で path-child DID 発行。
-- 投稿 = BPMN `ai.gftd.yoro.autoplan` process_def が Murakumo で draft → actor-manifest `governance.classification` + `capabilities[]` で executor が consent gate → `sdk.pds.dispatch({type:'app.bsky.feed.post'})`。
+- 投稿 = BPMN `app.etzhayyim.yoro.autoplan` process_def が Murakumo で draft → actor-manifest `governance.classification` + `capabilities[]` で executor が consent gate → `sdk.pds.dispatch({type:'app.bsky.feed.post'})`。
 - 成長 = `udf_yoro_score` (RisingWave Python External, ADR-0049 shared pool) が `mv_yoro_growth_signal` を書き、Zeebe message-start でアクションを発火。
 
 **(2) 相互作用**
@@ -101,7 +101,7 @@ actor (`did:web:yoro.etzhayyim.com`) である。現状は 2 層:
 
 **(3) capability / entity 駆動**
 - capability SSoT = `20-actors/yoro/actor-manifest.jsonld` `capabilities[]` (現状: `graph.query` / `graph.write` / `agent.chat` / `agent.invoke` / `derive:social`) + `00-contracts/lexicons/ai/gftd/host/`。
-- tool discovery = canonical `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` (`tools/list`) + `:ActorCapability` graph + `/_app/meta` fallback の 4 層 (既存実装)。
+- tool discovery = canonical `mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` (`tools/list`) + `:ActorCapability` graph + `/_app/meta` fallback の 4 層 (既存実装)。
 - entity = `vertex_yoro_*` (ADR-0081 Worker-direct Hyperdrive)。
 - BPMN ↔ NSID binding = `vertex_bpmn_lexicon_binding` (ADR-0056)。
 
@@ -164,7 +164,7 @@ yoro と 96 Mitama actor は同じ運用主体 (gftd) で ADR-0056 / Path F / AD
 |---|---|---|---|
 | **P0** | 1 week | (a) `actor-manifest.jsonld` の pipelines[] と capabilities[] を監査し、Act primitive 2 本 (`sdk.pds.dispatch` + Worker-direct Hyperdrive) 以外の write が無いことを確認。(b) `graph.write` primitive の実装が ADR-0081 Kysely insert に一致するか確認、ズレがあれば修正。(c) yoro wasm/app.ts の `asAgentTool()` は T3 fallback として残置だが T1 executor から参照しないことを doc 化 | Zeebe / UDF / `/mcp` facade は未導入 |
 | **P1** | 2 week | `mv_yoro_growth_signal` + `udf_yoro_score` (先に SQL UDF 版, ADR-0044) | Python External UDF はまだ |
-| **P2** | 2 week | BPMN `ai.gftd.yoro.autoplan` process_def + pyzeebe worker in `zeebe-worker` deployment (ADR-0056) + `udf_yoro_score` を Python External に昇格 (ADR-0049 shared pool) | Swarm (E) は採用しない |
+| **P2** | 2 week | BPMN `app.etzhayyim.yoro.autoplan` process_def + pyzeebe worker in `zeebe-worker` deployment (ADR-0056) + `udf_yoro_score` を Python External に昇格 (ADR-0049 shared pool) | Swarm (E) は採用しない |
 | **P3** | 1 week | Murakumo policy loop (hour scale) + `vertex_yoro_policy` write-back + ADR-0046 triple-witness gate 結線 | ADR-0026 fission は cohort k ≥ 50 到達後の別 PR |
 
 P0 完了で自律 actor は minimum live (η ≈ 0.78 相当、既に T1 MCP-Compose が動作している前提)。P3 完了で η ≈ 0.93 に到達。Path F 完全 retire は Mitama 96 actor 横展開完了後の別 ADR。
@@ -210,7 +210,7 @@ P2 BPMN の Act 層は当初 ADR-0056 canonical の `generic.pds.dispatch({type:
 
 - **T1 MCP-Compose actor** (`20-actors/yoro/actor-manifest.jsonld`): inner loop 専用。PDS Shared Executor / ActorExecutorDO が pipeline を解釈。`agent.chat` primitive 経由の短時間 LLM call のみ。LangChain JS は置かない。
 - **yoro wasm Worker** (`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/`): Layer 9 Client App (SPA 配信 + bsky AppView pipethrough target) のみ。自律ループ側からは参照しない。
-- **pyzeebe worker** (`zeebe-worker` deployment): outer loop 専用。LangChain + Murakumo client。ADR-0056 の generic primitives (`generic.{db.select, db.insert, llm.chat, llm.json, http.fetch, pds.dispatch, audit.emit}` + `ai.gftd.shinka.tick`) に加え、Yoro social C-path は専用 primitive `yoro.social.*GraphFallback` が担当する。BPMN file は process orchestration、PyZeebe は serviceTask implementation の境界を守る。
+- **pyzeebe worker** (`zeebe-worker` deployment): outer loop 専用。LangChain + Murakumo client。ADR-0056 の generic primitives (`generic.{db.select, db.insert, llm.chat, llm.json, http.fetch, pds.dispatch, audit.emit}` + `app.etzhayyim.shinka.tick`) に加え、Yoro social C-path は専用 primitive `yoro.social.*GraphFallback` が担当する。BPMN file は process orchestration、PyZeebe は serviceTask implementation の境界を守る。
 - **RisingWave**: sensor と policy の state store。Act 層ではない。UDF から XRPC を呼ぶ場合は pds.dispatch 相当の CF Worker gateway を経由する (直接 HTTP 書き込みは禁止)。
 - **BPMN file**: `20-actors/yoro/bpmn/autoplan.bpmn` を canonical に置く。`vertex_bpmn_process_def` に row を INSERT、F5 watcher (ADR-0056) が 30s 以内に Zeebe deploy。
 
@@ -222,7 +222,7 @@ P2 BPMN の Act 層は当初 ADR-0056 canonical の `generic.pds.dispatch({type:
 - pod-per-actor 構成への移行 (E は本 ADR で却下済み。将来再検討時は新 ADR で supersede)
 - `sdk.pds.createRecord()` の domain collection 直接使用 (ADR-0081 + root rule)
 - Path F **entry points** (`pds.invoke` / `agent.chat` XRPC / `convo.send` / `projector.sendProjectMessage`) を T1 actor-manifest pipeline や新規 BPMN binding から参照すること (Invariant 7 参照。middleware machinery の executor 内部利用は許容)
-- yoro wasm Worker への `/mcp` facade 追加 (MCP canonical は `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`)
+- yoro wasm Worker への `/mcp` facade 追加 (MCP canonical は `mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message`)
 
 ## 監視
 

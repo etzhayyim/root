@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.kiyo.getPaper": {
+    "/xrpc/app.etzhayyim.kiyo.getPaper": {
       "get": {
         "summary": "Get paper metadata and latest revision info. Returns ipfsCid for fetching the PDF from https://ipfs.etzhayyim.com/ipfs/{cid}.",
-        "operationId": "ai.gftd.kiyo.getPaper",
+        "operationId": "app.etzhayyim.kiyo.getPaper",
         "parameters": [
           {
             "name": "paperId",
@@ -94,10 +94,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kiyo.addReview": {
+    "/xrpc/app.etzhayyim.kiyo.addReview": {
       "post": {
         "summary": "Add a peer review or comment to a paper. reviewer_did = caller DID. review_type: peer | comment | editorial.",
-        "operationId": "ai.gftd.kiyo.addReview",
+        "operationId": "app.etzhayyim.kiyo.addReview",
         "requestBody": {
           "required": true,
           "content": {

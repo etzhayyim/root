@@ -24,9 +24,9 @@ AGENTGATEWAY_MCP_URL = os.environ.get(
 PORT = int(os.environ.get("PORT", os.environ.get("HEALTH_PORT", "8080")))
 GLEIF_API = "https://api.gleif.org/api/v1/lei-records"
 SEC_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
-COLLECTION = "ai.gftd.apps.legalEntity.legalEntity"
-COLLECTION_COMPANY_FILING = "ai.gftd.apps.legalEntity.companyFiling"
-COLLECTION_COMPANY_FACT = "ai.gftd.apps.legalEntity.companyFact"
+COLLECTION = "app.etzhayyim.apps.legalEntity.legalEntity"
+COLLECTION_COMPANY_FILING = "app.etzhayyim.apps.legalEntity.companyFiling"
+COLLECTION_COMPANY_FACT = "app.etzhayyim.apps.legalEntity.companyFact"
 COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com"
 SEC_FACT_SPECS = [
     {
@@ -246,7 +246,7 @@ def collect_records(items: list[Any], mapper: Any) -> list[dict[str, Any]]:
 async def commit_entities(source: str, page: int, records: list[dict[str, Any]]) -> dict[str, Any]:
     url = os.environ.get(
         "LEGAL_ENTITY_COMMIT_ENTITIES_URL",
-        "https://legal-entity.etzhayyim.com/xrpc/ai.gftd.apps.legalEntity.commitEntities",
+        "https://legal-entity.etzhayyim.com/xrpc/app.etzhayyim.apps.legalEntity.commitEntities",
     )
     async with httpx.AsyncClient(timeout=60, follow_redirects=True) as client:
         res = await client.post(url, json={"source": source, "page": page, "records": records})
@@ -420,7 +420,7 @@ def build_company_fact_records(company_facts: dict[str, Any], company_did: str, 
 async def commit_sec_disclosure(cik: str, ticker: str, company_did: str, filings: list[dict[str, Any]], facts: list[dict[str, Any]]) -> dict[str, Any]:
     url = os.environ.get(
         "LEGAL_ENTITY_COMMIT_SEC_DISCLOSURE_URL",
-        "https://legal-entity.etzhayyim.com/xrpc/ai.gftd.apps.legalEntity.commitSecDisclosure",
+        "https://legal-entity.etzhayyim.com/xrpc/app.etzhayyim.apps.legalEntity.commitSecDisclosure",
     )
     payload = {"source": "SEC_EDGAR", "cik": cik, "ticker": ticker, "companyDid": company_did, "filings": filings, "facts": facts}
     async with httpx.AsyncClient(timeout=60, follow_redirects=True) as client:
@@ -450,7 +450,7 @@ def gleif_to_did(rec: dict[str, Any]) -> dict[str, Any] | None:
 async def commit_entity_dids(source: str, page: int, dids: list[dict[str, Any]]) -> dict[str, Any]:
     url = os.environ.get(
         "LEGAL_ENTITY_COMMIT_ENTITY_DIDS_URL",
-        "https://legal-entity.etzhayyim.com/xrpc/ai.gftd.apps.legalEntity.commitEntityDids",
+        "https://legal-entity.etzhayyim.com/xrpc/app.etzhayyim.apps.legalEntity.commitEntityDids",
     )
     async with httpx.AsyncClient(timeout=60, follow_redirects=True) as client:
         res = await client.post(url, json={"source": source, "page": page, "dids": dids})

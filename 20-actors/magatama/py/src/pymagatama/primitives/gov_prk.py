@@ -158,7 +158,7 @@ def _load_seed_orgs() -> list[dict[str, Any]]:
 
 
 def _vertex_id(path: str) -> str:
-    return f"at://{PRIMARY_DID}/ai.gftd.apps.states.govOrg/{path}"
+    return f"at://{PRIMARY_DID}/app.etzhayyim.apps.states.govOrg/{path}"
 
 
 def _repo_rkey(prefix: str, key: str) -> str:
@@ -282,7 +282,7 @@ def _insert_repo_record(repo: str, collection: str, rkey: str, record: dict[str,
                     params,
                 )
             return uri
-        if collection == "ai.gftd.apps.states.govOrgSiteDep":
+        if collection == "app.etzhayyim.apps.states.govOrgSiteDep":
             path = str(record.get("path") or "")
             site_did = str(record.get("siteDid") or "")
             params = {
@@ -684,10 +684,10 @@ async def task_gov_prk_follow_site_deps(limit: int = 15) -> dict[str, Any]:
         }
         _insert_repo_record(
             f"{PRIMARY_DID}:{path}",
-            "ai.gftd.apps.states.govOrgSiteDep",
+            "app.etzhayyim.apps.states.govOrgSiteDep",
             _repo_rkey("site-dep", path),
             {
-                "$type": "ai.gftd.apps.states.govOrgSiteDep",
+                "$type": "app.etzhayyim.apps.states.govOrgSiteDep",
                 "path": path,
                 "siteNanoid": SITE_NANOID,
                 "siteTopicDid": SITE_GOV_TOPIC_DID,
@@ -736,12 +736,12 @@ async def task_gov_prk_ingest_official_sources(
     for target in targets[: limit + len(_OFFICIAL_SOURCE_URLS)]:
         if target["kind"] == "page":
             result = await _pds_xrpc(
-                "ai.gftd.apps.site.crawlPage",
+                "app.etzhayyim.apps.site.crawlPage",
                 {"url": target["url"], "topics": ["government", "prk", "official-source"], "depth": 0},
             )
         else:
             result = await _pds_xrpc(
-                "ai.gftd.apps.site.crawlDomain",
+                "app.etzhayyim.apps.site.crawlDomain",
                 {
                     "domain": target["domain"],
                     "topics": ["government", "prk", "official-source"],
@@ -755,7 +755,7 @@ async def task_gov_prk_ingest_official_sources(
         results.append({"target": target, "status": status, "body": result.get("body")})
 
     process_result = await _pds_xrpc(
-        "ai.gftd.apps.site.processFrontier",
+        "app.etzhayyim.apps.site.processFrontier",
         {"batchSize": process_batch_size},
     )
     return {
@@ -936,47 +936,47 @@ async def task_gov_prk_heartbeat_tick(
 
 def register(worker: Any, *, timeout_ms: int) -> None:
     worker.task(
-        task_type="xrpc.ai.gftd.govPrk.seedOrgs",
+        task_type="xrpc.app.etzhayyim.govPrk.seedOrgs",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_prk_seed_orgs)
     worker.task(
-        task_type="xrpc.ai.gftd.govPrk.registerDIDs",
+        task_type="xrpc.app.etzhayyim.govPrk.registerDIDs",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_prk_register_dids)
     worker.task(
-        task_type="xrpc.ai.gftd.govPrk.followSiteDeps",
+        task_type="xrpc.app.etzhayyim.govPrk.followSiteDeps",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_prk_follow_site_deps)
     worker.task(
-        task_type="xrpc.ai.gftd.govPrk.ingestOfficialSources",
+        task_type="xrpc.app.etzhayyim.govPrk.ingestOfficialSources",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_prk_ingest_official_sources)
     worker.task(
-        task_type="xrpc.ai.gftd.govPrk.resolveOrgPath",
+        task_type="xrpc.app.etzhayyim.govPrk.resolveOrgPath",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_prk_resolve_org_path)
     worker.task(
-        task_type="xrpc.ai.gftd.govPrk.listOrgs",
+        task_type="xrpc.app.etzhayyim.govPrk.listOrgs",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_prk_list_orgs)
     worker.task(
-        task_type="xrpc.ai.gftd.govPrk.syncWetUpdates",
+        task_type="xrpc.app.etzhayyim.govPrk.syncWetUpdates",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_prk_sync_wet_updates)
     worker.task(
-        task_type="xrpc.ai.gftd.govPrk.shinka",
+        task_type="xrpc.app.etzhayyim.govPrk.shinka",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_prk_shinka)
     worker.task(
-        task_type="xrpc.ai.gftd.govPrk.heartbeatTick",
+        task_type="xrpc.app.etzhayyim.govPrk.heartbeatTick",
         single_value=False,
         timeout_ms=timeout_ms,
     )(task_gov_prk_heartbeat_tick)

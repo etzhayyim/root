@@ -2,7 +2,7 @@
   import CalendarApp from './CalendarApp.svelte';
 </script>
 
-<main class="min-h-screen p-6 bg-gftd-bg text-gftd-text">
+<main class="min-h-screen p-6 bg-etzhayyim-bg text-etzhayyim-text">
   <div class="max-w-5xl mx-auto">
     <CalendarApp />
   </div>

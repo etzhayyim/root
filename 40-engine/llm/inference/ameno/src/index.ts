@@ -1,5 +1,5 @@
 /**
- * @gftd/ameno — Browser WebGPU inference engine.
+ * @etzhayyim/ameno — Browser WebGPU inference engine.
  *
  * Provides client-side LLM inference via transformers.js + ONNX + WebGPU,
  * per-actor LoRA adapter merge via WebGPU compute shaders,

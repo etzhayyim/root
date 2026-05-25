@@ -26,7 +26,7 @@ ADR-2605191603 で **同 origin / 同 browser** 内の leader election を
 substrate (MST + L2 anchor) を介すれば、 worker は時間軸的に monotonic
 な lease を取り合える:
 
-- 各 worker が自分の DID で `ai.gftd.apps.ameno.swarmLease` record を
+- 各 worker が自分の DID で `app.etzhayyim.apps.ameno.swarmLease` record を
   write
 - `generation` カウンタが MST CAS + L2 anchor 順序で全 worker から
   一意に見える
@@ -57,7 +57,7 @@ takeover algorithm)は別 PR(`ameno-swarm-lease-impl`)。
 
 ### Identification
 
-- collection: `ai.gftd.apps.ameno.swarmLease`
+- collection: `app.etzhayyim.apps.ameno.swarmLease`
 - rkey: literal `current`(`"key": "literal:current"`)
 - repo: holder's PDS repo(`did:plc:…` or `did:web:…` per ADR-2605173000)
 - → 1 lease per (repo, rkey) — single MST slot enforces single-writer

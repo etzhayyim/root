@@ -22,11 +22,11 @@ import { createHash } from "node:crypto";
 const OWNER_DID = "did:web:lifehack.etzhayyim.com";
 const ACTOR_TAG = "sys.lifehack.seed.phase1";
 const CREATED_AT = "2026-05-08T12:00:00Z";
-const NSID_TOPIC = "ai.gftd.apps.lifehack.topic";
-const NSID_TIP = "ai.gftd.apps.lifehack.tip";
-const NSID_PRODUCT = "ai.gftd.apps.lifehack.product";
-const NSID_EDGE_TS = "ai.gftd.apps.lifehack.tipSolvesTopic";
-const NSID_EDGE_TP = "ai.gftd.apps.lifehack.tipRecommendsProduct";
+const NSID_TOPIC = "app.etzhayyim.apps.lifehack.topic";
+const NSID_TIP = "app.etzhayyim.apps.lifehack.tip";
+const NSID_PRODUCT = "app.etzhayyim.apps.lifehack.product";
+const NSID_EDGE_TS = "app.etzhayyim.apps.lifehack.tipSolvesTopic";
+const NSID_EDGE_TP = "app.etzhayyim.apps.lifehack.tipRecommendsProduct";
 
 function hash12(s: string): string {
   return createHash("sha1").update(s).digest("hex").slice(0, 12);

@@ -53,7 +53,7 @@ Register via HashiCorp Vault CLI:
 
 ```bash
 vault kv put secret/orgs/gftd/users/junkawasaki/services/nuro/login \
-  userId=jun@gftd.group \
+  userId=jun@etzhayyim.com \
   password=********
 
 vault kv put secret/orgs/gftd/users/junkawasaki/services/nuro/bankAccount/primary \
@@ -68,7 +68,7 @@ Or via the `provider-vault` XRPC adapter (preferred — scoped by DID session):
 
 ```bash
 curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials.put \
-  -H "Authorization: Bearer $GFTD_TOKEN" \
+  -H "Authorization: Bearer $etzhayyim_TOKEN" \
   -d '{
     "service": "nuro",
     "key": "login",
@@ -77,7 +77,7 @@ curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials
   }'
 
 curl -X POST https://yorishiro.etzhayyim.com/xrpc/gftd.providerVault.credentials.put \
-  -H "Authorization: Bearer $GFTD_TOKEN" \
+  -H "Authorization: Bearer $etzhayyim_TOKEN" \
   -d '{
     "service": "nuro",
     "key": "bankAccount/primary",

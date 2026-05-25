@@ -74,7 +74,7 @@ included here for narrative completeness.)
 │       ├── did-auth.ts          ← did:key Ed25519 sign
 │       ├── embedding.ts         ← MiniLM (lazy)
 │       ├── graph.ts             ← StateGraph (7 nodes)
-│       ├── inference.ts         ← @gftd/ameno re-export
+│       ├── inference.ts         ← @etzhayyim/ameno re-export
 │       ├── local-checkpointer.ts← localStorage persistence
 │       ├── memory-vault.ts      ← IndexedDB + AES-GCM
 │       ├── mediapipe-runtime.ts ← Gemma 4 web.task

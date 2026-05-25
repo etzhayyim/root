@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-patent.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-patent";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-register-patent-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-patent-register-patent-v1",
     bpmnProcessId: "open_patent_register_patent",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-patent/registerPatent.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-patent-record-citation-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-patent-record-citation-v1",
     bpmnProcessId: "open_patent_record_citation",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-patent/recordCitation.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-registerPatent-v1",
-    nsid: "ai.gftd.apps.openPatent.registerPatent", bpmnProcessId: "open_patent_register_patent",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-patent-registerPatent-v1",
+    nsid: "app.etzhayyim.apps.openPatent.registerPatent", bpmnProcessId: "open_patent_register_patent",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-patent-recordCitation-v1",
-    nsid: "ai.gftd.apps.openPatent.recordCitation", bpmnProcessId: "open_patent_record_citation",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-patent-recordCitation-v1",
+    nsid: "app.etzhayyim.apps.openPatent.recordCitation", bpmnProcessId: "open_patent_record_citation",
     ownerDid, resultTimeoutMs: 15000 },
 ];
 

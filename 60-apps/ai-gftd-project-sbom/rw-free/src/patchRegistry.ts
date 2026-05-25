@@ -29,9 +29,9 @@ import {
   type VulnMatchRecord,
 } from "./types.js";
 
-const PATCH_POLICY_COLLECTION = "ai.gftd.apps.sbom.patchPolicy";
-const PATCH_ACTION_COLLECTION = "ai.gftd.apps.sbom.patchAction";
-const VULN_MATCH_COLLECTION = "ai.gftd.apps.sbom.vulnMatch";
+const PATCH_POLICY_COLLECTION = "app.etzhayyim.apps.sbom.patchPolicy";
+const PATCH_ACTION_COLLECTION = "app.etzhayyim.apps.sbom.patchAction";
+const VULN_MATCH_COLLECTION = "app.etzhayyim.apps.sbom.vulnMatch";
 
 /** Default SLA windows (from sbom CLAUDE.md). */
 export const DEFAULT_SLA_HOURS = {

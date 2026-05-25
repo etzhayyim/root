@@ -2,7 +2,7 @@
 /**
  * Create a Ghost Hacker project record that links all episode documents.
  * Saves to R2 via mangaka.etzhayyim.com XRPC + direct project save.
- * AT URI: mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.project/gh-260123-jump
+ * AT URI: mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.project/gh-260123-jump
  */
 
 const JUMP_DIR = "/Users/junkawasaki/github/ghosthacker/260123-jump/resources";
@@ -71,21 +71,21 @@ for (const d of documents) {
 }
 
 // Save project to R2 via saveProject (dedicated project R2 path)
-const r = await xrpc("ai.gftd.mangaka.saveProject", {
+const r = await xrpc("app.etzhayyim.mangaka.saveProject", {
   projectId: PROJECT_ID,
   project: JSON.stringify(project),
 });
 console.log(`\nSave: ${JSON.stringify(r)}`);
 
 // Also update the R2 projects index
-const createR = await xrpc("ai.gftd.mangaka.createProject", {
+const createR = await xrpc("app.etzhayyim.mangaka.createProject", {
   name: project.name,
   description: project.description,
   projectType: "manga-series",
 });
 console.log(`Project index: ${JSON.stringify(createR)}`);
 
-const url = `https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.project/${PROJECT_ID}`;
+const url = `https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.project/${PROJECT_ID}`;
 console.log(`\n=== Done ===`);
-console.log(`AT URI: at://mng4k4x1.etzhayyim.com/ai.gftd.mangaka.project/${PROJECT_ID}`);
+console.log(`AT URI: at://mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.project/${PROJECT_ID}`);
 console.log(`URL:    ${url}`);

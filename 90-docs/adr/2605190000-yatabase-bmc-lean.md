@@ -301,7 +301,7 @@ projector.create_project {
 ### 制約
 
 - PII は ADR-0018 Tier 3 (Preferences) に隔離。billing テナント情報は `signal:v1:` field-encrypt
-- yatabase billing actor が Stripe API を呼ぶ場合は `ai.gftd.apps.stripe.*` XRPC 経由
+- yatabase billing actor が Stripe API を呼ぶ場合は `app.etzhayyim.apps.stripe.*` XRPC 経由
 - B2 egress は BWA ゼロだが Cloudflare egress は従量 → CDN cache 率を 95%+ に維持
 
 ## Alternatives Considered

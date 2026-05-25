@@ -38,8 +38,8 @@ gftd cohort snapshot --out-dir data/staging-cohort-baseline/
 ## 1. Phase A — seed 1 cohort
 
 ```bash
-AT_TOKEN=$(gftd agent-token --lxm ai.gftd.cohort.seed --ttl 600)
-GFTD_TOKEN=$AT_TOKEN gftd cohort gen \
+AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.cohort.seed --ttl 600)
+etzhayyim_TOKEN=$AT_TOKEN gftd cohort gen \
   --pcfL1 3-market-sell --role salesRep --locale jp --k 50
 
 # Output: gen ok: did=did:plc:pending-X1Y2Z3W4 handle=cohort-X1Y2Z3W4.etzhayyim.com
@@ -60,9 +60,9 @@ gftd cohort list --pcfL1 3-market-sell
 COHORT="did:plc:pending-X1Y2Z3W4"
 
 # 49 件 ambient evidence (low posterior, no judge)
-AT_TOKEN=$(gftd agent-token --lxm ai.gftd.cohort.emitEvidence --ttl 600)
+AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.cohort.emitEvidence --ttl 600)
 for i in $(seq 1 49); do
-  GFTD_TOKEN=$AT_TOKEN gftd cohort emit \
+  etzhayyim_TOKEN=$AT_TOKEN gftd cohort emit \
     --cohort "$COHORT" \
     --signal-kind "behavior.observation" \
     --payload "obs-$i" \
@@ -70,7 +70,7 @@ for i in $(seq 1 49); do
 done
 
 # 1 件 fission-ready evidence
-GFTD_TOKEN=$AT_TOKEN gftd cohort emit \
+etzhayyim_TOKEN=$AT_TOKEN gftd cohort emit \
   --cohort "$COHORT" \
   --signal-kind "identity.confirm" \
   --payload "judge-confirmed" \
@@ -87,18 +87,18 @@ gftd cohort evidence --cohort "$COHORT" --min-posterior 0.95 --judge true
 ## 3. Phase C — fission
 
 ```bash
-AT_TOKEN=$(gftd agent-token --lxm ai.gftd.cohort.fission --ttl 60)
-GFTD_TOKEN=$AT_TOKEN gftd cohort fission \
+AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.cohort.fission --ttl 60)
+etzhayyim_TOKEN=$AT_TOKEN gftd cohort fission \
   --cohort "$COHORT" \
   --posterior 0.97 --judge=true \
-  --evidence "at://cohort-X1Y2Z3W4.etzhayyim.com/ai.gftd.cohort.evidence/<rkey>"
+  --evidence "at://cohort-X1Y2Z3W4.etzhayyim.com/app.etzhayyim.cohort.evidence/<rkey>"
 
 # Expected response:
 # {
 #   "individualDid": "did:plc:pending-AABBCCDD",
 #   "individualHandle": "agent-AABBCCDD.etzhayyim.com",
 #   "derivedFrom": "did:plc:pending-X1Y2Z3W4",
-#   "lineageArchiveUri": "at://agent-AABBCCDD.etzhayyim.com/ai.gftd.cohort.fissionLineage/self",
+#   "lineageArchiveUri": "at://agent-AABBCCDD.etzhayyim.com/app.etzhayyim.cohort.fissionLineage/self",
 #   "fissionAt": "2026-04-15T..."
 # }
 ```
@@ -122,8 +122,8 @@ gftd cohort forest --pcfL1 3-market-sell
 
 ```bash
 # Should be 0 drift after a clean E2E run
-curl -H "Authorization: Bearer $GFTD_TOKEN" \
-  "https://atproto.etzhayyim.com/xrpc/ai.gftd.pds.getOcel?index=ai.gftd.cohort.lineageDrift" \
+curl -H "Authorization: Bearer $etzhayyim_TOKEN" \
+  "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.pds.getOcel?index=app.etzhayyim.cohort.lineageDrift" \
   | jq '.data[].doubles[0]'   # edgeMissing count
 ```
 

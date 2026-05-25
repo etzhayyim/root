@@ -19,9 +19,9 @@ import {
   withCapabilityTags,
   type ComAtprotoSyncSubscribeReposCommit,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
-const NS = "ai.gftd.apps.watashi";
+const NS = "app.etzhayyim.apps.watashi";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();

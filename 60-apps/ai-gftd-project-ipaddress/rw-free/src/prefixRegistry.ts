@@ -28,8 +28,8 @@ import {
   type RegisterProviderOutput,
 } from "./types.js";
 
-const PREFIX_COLLECTION = "ai.gftd.apps.ipaddress.prefix";
-const PROVIDER_COLLECTION = "ai.gftd.apps.ipaddress.provider";
+const PREFIX_COLLECTION = "app.etzhayyim.apps.ipaddress.prefix";
+const PROVIDER_COLLECTION = "app.etzhayyim.apps.ipaddress.provider";
 
 function prefixSlug(cidr: string): string {
   return cidr.toLowerCase().replace(/[.:/]/g, "-");

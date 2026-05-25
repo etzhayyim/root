@@ -15,12 +15,12 @@ const SEED_ACTOR_TAG = "sys.bpmn.seed.lawfirm";
 
 const PROCESSES = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-subscription-start-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-subscription-start-v1",
     bpmnProcessId: "lawfirm_subscription_start",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/subscriptionStart.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/lawfirm-connect-onboard-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-connect-onboard-v1",
     bpmnProcessId: "lawfirm_connect_onboard",
     sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/connectOnboard.bpmn",
   },
@@ -28,14 +28,14 @@ const PROCESSES = [
 
 const BINDINGS = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-subscription-start-xrpc-v1",
-    nsid: "ai.gftd.apps.lawfirm.subscriptionStart",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-subscription-start-xrpc-v1",
+    nsid: "app.etzhayyim.apps.lawfirm.subscriptionStart",
     bpmnProcessId: "lawfirm_subscription_start",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/lawfirm-connect-onboard-xrpc-v1",
-    nsid: "ai.gftd.apps.lawfirm.connectOnboard",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-connect-onboard-xrpc-v1",
+    nsid: "app.etzhayyim.apps.lawfirm.connectOnboard",
     bpmnProcessId: "lawfirm_connect_onboard",
     resultTimeoutMs: 60_000,
   },
@@ -46,18 +46,18 @@ const BINDINGS = [
  *
  * Closes the lexicon → BPMN → primitive chain for the W11-W12 conversion path:
  *
- *   ai.gftd.apps.lawfirm.subscriptionStart  (lexicon)
+ *   app.etzhayyim.apps.lawfirm.subscriptionStart  (lexicon)
  *     → vertex_bpmn_lexicon_binding         (this seed)
  *       → vertex_bpmn_process_def           (this seed)
  *         → BPMN serviceTask: lawfirm.billing.modeAStartSubscription
  *           → task_billing_mode_a_start_subscription (lawfirm_billing.py)
  *             → vertex_lawfirm_tenant.{stripe_customer_id, billing_mode}
  *
- *   ai.gftd.apps.lawfirm.connectOnboard     (lexicon)
+ *   app.etzhayyim.apps.lawfirm.connectOnboard     (lexicon)
  *     → ... lawfirm.billing.modeBOnboardConnect
  *       → vertex_lawfirm_tenant.{stripe_connect_account_id, billing_mode='rev_share_y1'}
  *
- * The existing ai.gftd.apps.lawfirm.stripeWebhook lexicon + paymentIntake
+ * The existing app.etzhayyim.apps.lawfirm.stripeWebhook lexicon + paymentIntake
  * BPMN (seeded earlier in 20260508998000) handle invoice.paid events; the
  * webhook handler delegates to lawfirm.billing.processWebhookInvoicePaid
  * task type which is registered alongside the others (not surfaced as XRPC).

@@ -7,8 +7,8 @@ import Footer from "@/components/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Gftd PRE | Public Relation Engineer",
-  description: "Gftd PREは、NIST CSF 2.0準拠のインシデント対応広報プラットフォームです。複雑な危機対応コミュニケーションを自動化・最適化し、あなたのビジネスとブランドを守ります。",
+  title: "etzhayyim PRE | Public Relation Engineer",
+  description: "etzhayyim PREは、NIST CSF 2.0準拠のインシデント対応広報プラットフォームです。複雑な危機対応コミュニケーションを自動化・最適化し、あなたのビジネスとブランドを守ります。",
     generator: 'v0.dev'
 };
 

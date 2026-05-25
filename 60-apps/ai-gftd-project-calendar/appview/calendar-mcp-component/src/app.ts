@@ -15,7 +15,7 @@ interface Env {
   APP_NANOID?: string;
 }
 
-const NSID_PREFIX = "ai.gftd.apps.calendar.";
+const NSID_PREFIX = "app.etzhayyim.apps.calendar.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

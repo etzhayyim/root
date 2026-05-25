@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 Gftd Japan株式会社 / etzhayyim. All rights reserved.
+// Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 // ai-gftd-project-open-rail — railway operations + network design (CF Worker + D1)
 //
-// 7 XRPC methods under ai.gftd.apps.openRail.*:
+// 7 XRPC methods under app.etzhayyim.apps.openRail.*:
 //   defineLine       (procedure)  network design — line + station sequence
 //   getLine          (query)      line + stations
 //   listLines        (query)      paginated lines
@@ -371,13 +371,13 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "ai.gftd.apps.openRail.defineLine",
-            "ai.gftd.apps.openRail.getLine",
-            "ai.gftd.apps.openRail.listLines",
-            "ai.gftd.apps.openRail.scheduleTrain",
-            "ai.gftd.apps.openRail.listTrainRuns",
-            "ai.gftd.apps.openRail.reportIncident",
-            "ai.gftd.apps.openRail.listIncidents",
+            "app.etzhayyim.apps.openRail.defineLine",
+            "app.etzhayyim.apps.openRail.getLine",
+            "app.etzhayyim.apps.openRail.listLines",
+            "app.etzhayyim.apps.openRail.scheduleTrain",
+            "app.etzhayyim.apps.openRail.listTrainRuns",
+            "app.etzhayyim.apps.openRail.reportIncident",
+            "app.etzhayyim.apps.openRail.listIncidents",
           ],
           dodaf: Object.keys(DODAF_VIEWS),
           forms: Object.keys(FORMS),
@@ -405,19 +405,19 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "ai.gftd.apps.openRail.getLine":       return await getLine(env, url.searchParams);
-          case "ai.gftd.apps.openRail.listLines":     return await listLines(env, url.searchParams);
-          case "ai.gftd.apps.openRail.listTrainRuns": return await listTrainRuns(env, url.searchParams);
-          case "ai.gftd.apps.openRail.listIncidents": return await listIncidents(env, url.searchParams);
+          case "app.etzhayyim.apps.openRail.getLine":       return await getLine(env, url.searchParams);
+          case "app.etzhayyim.apps.openRail.listLines":     return await listLines(env, url.searchParams);
+          case "app.etzhayyim.apps.openRail.listTrainRuns": return await listTrainRuns(env, url.searchParams);
+          case "app.etzhayyim.apps.openRail.listIncidents": return await listIncidents(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "ai.gftd.apps.openRail.defineLine":     return await defineLine(env, body);
-          case "ai.gftd.apps.openRail.scheduleTrain":  return await scheduleTrain(env, body);
-          case "ai.gftd.apps.openRail.reportIncident": return await reportIncident(env, body);
+          case "app.etzhayyim.apps.openRail.defineLine":     return await defineLine(env, body);
+          case "app.etzhayyim.apps.openRail.scheduleTrain":  return await scheduleTrain(env, body);
+          case "app.etzhayyim.apps.openRail.reportIncident": return await reportIncident(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

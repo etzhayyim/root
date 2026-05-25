@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govHkg.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govHkg.followSiteDeps": {
       "post": {
         "summary": "Create graph-visible site dependency follow records for Hong Kong government organizations.",
-        "operationId": "ai.gftd.govHkg.followSiteDeps",
+        "operationId": "app.etzhayyim.govHkg.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHkg.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govHkg.heartbeatTick": {
       "post": {
         "summary": "Run the Hong Kong government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govHkg.heartbeatTick",
+        "operationId": "app.etzhayyim.govHkg.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -143,10 +143,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHkg.ingestOfficialSources": {
+    "/xrpc/app.etzhayyim.govHkg.ingestOfficialSources": {
       "post": {
         "summary": "Queue official Hong Kong government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "ai.gftd.govHkg.ingestOfficialSources",
+        "operationId": "app.etzhayyim.govHkg.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -209,10 +209,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHkg.listOrgs": {
+    "/xrpc/app.etzhayyim.govHkg.listOrgs": {
       "get": {
         "summary": "List Hong Kong government organizations by tier.",
-        "operationId": "ai.gftd.govHkg.listOrgs",
+        "operationId": "app.etzhayyim.govHkg.listOrgs",
         "parameters": [
           {
             "name": "orgTier",
@@ -297,10 +297,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHkg.registerDIDs": {
+    "/xrpc/app.etzhayyim.govHkg.registerDIDs": {
       "post": {
         "summary": "Register graph-visible DID records for Hong Kong government organizations.",
-        "operationId": "ai.gftd.govHkg.registerDIDs",
+        "operationId": "app.etzhayyim.govHkg.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -350,10 +350,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHkg.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govHkg.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Hong Kong government organization path to its actor DID and display metadata.",
-        "operationId": "ai.gftd.govHkg.resolveOrgPath",
+        "operationId": "app.etzhayyim.govHkg.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -398,10 +398,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHkg.seedOrgs": {
+    "/xrpc/app.etzhayyim.govHkg.seedOrgs": {
       "post": {
         "summary": "Seed Hong Kong central ministry and province organization rows into the graph.",
-        "operationId": "ai.gftd.govHkg.seedOrgs",
+        "operationId": "app.etzhayyim.govHkg.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -448,10 +448,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHkg.shinka": {
+    "/xrpc/app.etzhayyim.govHkg.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Hong Kong government organization update.",
-        "operationId": "ai.gftd.govHkg.shinka",
+        "operationId": "app.etzhayyim.govHkg.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -502,10 +502,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHkg.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govHkg.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated Hong Kong government organization content.",
-        "operationId": "ai.gftd.govHkg.syncWetUpdates",
+        "operationId": "app.etzhayyim.govHkg.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govFra.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govFra.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for France government.",
-        "operationId": "ai.gftd.govFra.followSiteDeps",
+        "operationId": "app.etzhayyim.govFra.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFra.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govFra.heartbeatTick": {
       "post": {
         "summary": "Run the France government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govFra.heartbeatTick",
+        "operationId": "app.etzhayyim.govFra.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFra.listOrgs": {
+    "/xrpc/app.etzhayyim.govFra.listOrgs": {
       "get": {
         "summary": "List France government organization graph records.",
-        "operationId": "ai.gftd.govFra.listOrgs",
+        "operationId": "app.etzhayyim.govFra.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFra.registerDIDs": {
+    "/xrpc/app.etzhayyim.govFra.registerDIDs": {
       "post": {
         "summary": "Register DIDs for France government organizations.",
-        "operationId": "ai.gftd.govFra.registerDIDs",
+        "operationId": "app.etzhayyim.govFra.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFra.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govFra.resolveOrgPath": {
       "get": {
         "summary": "Resolve a France government organization path to its graph record.",
-        "operationId": "ai.gftd.govFra.resolveOrgPath",
+        "operationId": "app.etzhayyim.govFra.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFra.seedOrgs": {
+    "/xrpc/app.etzhayyim.govFra.seedOrgs": {
       "post": {
         "summary": "Seed initial France government organization records into the graph.",
-        "operationId": "ai.gftd.govFra.seedOrgs",
+        "operationId": "app.etzhayyim.govFra.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFra.shinka": {
+    "/xrpc/app.etzhayyim.govFra.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible France government organization update.",
-        "operationId": "ai.gftd.govFra.shinka",
+        "operationId": "app.etzhayyim.govFra.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govFra.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govFra.syncWetUpdates": {
       "post": {
         "summary": "Sync recent France government organization changes to graph.",
-        "operationId": "ai.gftd.govFra.syncWetUpdates",
+        "operationId": "app.etzhayyim.govFra.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

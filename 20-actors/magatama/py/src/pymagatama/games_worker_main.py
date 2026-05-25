@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.games.createTitle")
+    @worker.task(task_type="app.etzhayyim.apps.games.createTitle")
     async def task_create_title(**kwargs):
         name = kwargs.get("name", "")
         genre = kwargs.get("genre", "")
@@ -48,7 +48,7 @@ async def run_worker():
 
         return {"titleId": title_id, "name": name, "genre": genre, "createdAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.games.listTitles")
+    @worker.task(task_type="app.etzhayyim.apps.games.listTitles")
     async def task_list_titles(**kwargs):
         genre = kwargs.get("genre", "")
         limit = int(kwargs.get("limit", 50))
@@ -82,7 +82,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="ai.gftd.apps.games.recordScore")
+    @worker.task(task_type="app.etzhayyim.apps.games.recordScore")
     async def task_record_score(**kwargs):
         title_id = kwargs.get("titleId", "")
         player_did = kwargs.get("playerDid", "did:web:games.etzhayyim.com")
@@ -111,7 +111,7 @@ async def run_worker():
 
         return {"scoreId": score_id, "titleId": title_id, "playerDid": player_did, "score": score, "recordedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.games.listScores")
+    @worker.task(task_type="app.etzhayyim.apps.games.listScores")
     async def task_list_scores(**kwargs):
         title_id = kwargs.get("titleId", "")
         player_did = kwargs.get("playerDid", "")
@@ -155,7 +155,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="ai.gftd.apps.games.getLeaderboard")
+    @worker.task(task_type="app.etzhayyim.apps.games.getLeaderboard")
     async def task_get_leaderboard(**kwargs):
         title_id = kwargs.get("titleId", "")
         mode = kwargs.get("mode", "")
@@ -186,7 +186,7 @@ async def run_worker():
 
         return {"titleId": title_id, "entries": entries, "total": len(entries)}
 
-    @worker.task(task_type="ai.gftd.apps.games.createSession")
+    @worker.task(task_type="app.etzhayyim.apps.games.createSession")
     async def task_create_session(**kwargs):
         title_id = kwargs.get("titleId", "")
         player_did = kwargs.get("playerDid", "did:web:games.etzhayyim.com")
@@ -197,7 +197,7 @@ async def run_worker():
 
         return {"sessionId": session_id, "titleId": title_id, "playerDid": player_did, "mode": mode, "startedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.games.listSessions")
+    @worker.task(task_type="app.etzhayyim.apps.games.listSessions")
     async def task_list_sessions(**kwargs):
         player_did = kwargs.get("playerDid", "")
         limit = int(kwargs.get("limit", 50))
@@ -210,7 +210,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="ai.gftd.apps.games.getAchievements")
+    @worker.task(task_type="app.etzhayyim.apps.games.getAchievements")
     async def task_get_achievements(**kwargs):
         player_did = kwargs.get("playerDid", "")
         title_id = kwargs.get("titleId", "")

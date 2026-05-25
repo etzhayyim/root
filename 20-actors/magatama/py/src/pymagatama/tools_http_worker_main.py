@@ -1,4 +1,4 @@
-"""Generic-primitive worker for ai.gftd.tools.http.* (ADR-2605082000 §2 follow-up).
+"""Generic-primitive worker for app.etzhayyim.tools.http.* (ADR-2605082000 §2 follow-up).
 
 Read-only HTTP fetch. Write methods (POST/PUT/DELETE) require an explicit
 `allowWrite=true` flag — defense-in-depth against accidental side-effects.
@@ -45,7 +45,7 @@ async def task_http_fetch(
     stays JSON-serializable.
     """
     if not url:
-        return {"error": "ai.gftd.tools.http.fetch: url required"}
+        return {"error": "app.etzhayyim.tools.http.fetch: url required"}
     m = (method or "GET").upper()
     if m not in _READ_METHODS and m not in _WRITE_METHODS:
         return {"error": f"unsupported method {m!r}"}

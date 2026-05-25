@@ -2,7 +2,7 @@ import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
 import * as otakiageRwFree from "@etzhayyim/otakiage-rw-free";
 interface Env { ACTOR_DID: string; PDS_URL: string; L2_RPC_URL: string; PDS_ACCESS_JWT?: string; PDS_REFRESH_JWT?: string; }
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
-const NSID_BASE = "ai.gftd.otakiage";
+const NSID_BASE = "app.etzhayyim.otakiage";
 interface RouteConfig { method: "POST" | "GET"; handler: Handler; }
 const routes: Record<string, RouteConfig> = {
   [`${NSID_BASE}.submitItem`]: { method: "POST", handler: (e, input) => otakiageRwFree.submitItem(e, input as any) },

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.koke.fixSignal": {
+    "/xrpc/app.etzhayyim.koke.fixSignal": {
       "post": {
         "summary": "Primary fixation: capture a raw external signal (CO₂) into a structured vertex_koke_fixation row (glucose). Reversible until handoff to hakkou.",
-        "operationId": "ai.gftd.koke.fixSignal",
+        "operationId": "app.etzhayyim.koke.fixSignal",
         "requestBody": {
           "required": true,
           "content": {
@@ -80,10 +80,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.koke.getFixation": {
+    "/xrpc/app.etzhayyim.koke.getFixation": {
       "get": {
         "summary": "Get fixation status and metadata for a given fixation ID.",
-        "operationId": "ai.gftd.koke.getFixation",
+        "operationId": "app.etzhayyim.koke.getFixation",
         "parameters": [
           {
             "name": "fixationId",
@@ -145,10 +145,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.koke.listFixations": {
+    "/xrpc/app.etzhayyim.koke.listFixations": {
       "get": {
         "summary": "List fixations, optionally filtered by status or classification.",
-        "operationId": "ai.gftd.koke.listFixations",
+        "operationId": "app.etzhayyim.koke.listFixations",
         "parameters": [
           {
             "name": "status",
@@ -248,10 +248,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.koke.releaseCarbon": {
+    "/xrpc/app.etzhayyim.koke.releaseCarbon": {
       "post": {
         "summary": "Release a fixation back to raw state (reversible CO₂ exhalation). Only valid while status='fixed'. Once handed off to hakkou, release is no longer possible.",
-        "operationId": "ai.gftd.koke.releaseCarbon",
+        "operationId": "app.etzhayyim.koke.releaseCarbon",
         "requestBody": {
           "required": true,
           "content": {

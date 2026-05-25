@@ -177,7 +177,7 @@ def _build_searoute_rows(slug: str, bbox: tuple[float, float, float, float],
             "wheelchair": tags.get("wheelchair"),
         }
         rows.append({
-            "vertex_id": f"at://{repo_did}/ai.gftd.apps.maps.seaRoute/{rkey}",
+            "vertex_id": f"at://{repo_did}/app.etzhayyim.apps.maps.seaRoute/{rkey}",
             "rkey": rkey,
             "repo": repo_did,
             "label": "SeaRoute",
@@ -228,7 +228,7 @@ def _build_port_rows(slug: str, elements: list[dict]) -> list[dict]:
             "operator": tags.get("operator"),
         }
         rows.append({
-            "vertex_id": f"at://{repo_did}/ai.gftd.apps.maps.port/{rkey}",
+            "vertex_id": f"at://{repo_did}/app.etzhayyim.apps.maps.port/{rkey}",
             "rkey": rkey,
             "repo": repo_did,
             "label": "Port",

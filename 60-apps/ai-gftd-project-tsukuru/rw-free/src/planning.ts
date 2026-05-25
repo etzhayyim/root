@@ -27,7 +27,7 @@ import type {
 export function designCell(input: DesignCellInput): DesignCellOutput {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.manufacturingCell.v1",
+    schema: "app.etzhayyim.apps.tsukuru.manufacturingCell.v1",
     cellId: input.cellId ?? `cell-${Date.now()}`,
     productionOrderId: input.productionOrderId,
     sceneUnits: "m",
@@ -41,7 +41,7 @@ export function planDeviceOutput(
 ): PlanDeviceOutputResult {
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.manufacturingOutput.v1",
+    schema: "app.etzhayyim.apps.tsukuru.manufacturingOutput.v1",
     planId: input.planId ?? `dev-out-${Date.now()}`,
     productionOrderId: input.productionOrderId,
     deviceKind: input.deviceKind ?? "generic",
@@ -67,7 +67,7 @@ export function designStack(input: DesignStackInput): DesignStackOutput {
   };
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.softwareIntegration.v1",
+    schema: "app.etzhayyim.apps.tsukuru.softwareIntegration.v1",
     stackId: input.stackId ?? `stack-${Date.now()}`,
     productionOrderId: input.productionOrderId,
     domain,
@@ -96,7 +96,7 @@ export function planRoute(input: PlanRouteInput): PlanRouteOutput {
   const estimatedCostUsdcMicros = 100_000_000 * (costMultiplier[modality] ?? 1);
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.logisticsRoute.v1",
+    schema: "app.etzhayyim.apps.tsukuru.logisticsRoute.v1",
     routeId: input.routeId ?? `route-${Date.now()}`,
     productionOrderId: input.productionOrderId,
     originIso3: input.originIso3 ?? "",
@@ -112,7 +112,7 @@ export function planOperation(input: PlanOperationInput): PlanOperationOutput {
   const robotCount = input.robotDids?.length ?? 0;
   return {
     status: "ok",
-    schema: "ai.gftd.apps.tsukuru.autonomyOperation.v1",
+    schema: "app.etzhayyim.apps.tsukuru.autonomyOperation.v1",
     operationId: input.operationId ?? `op-${Date.now()}`,
     productionOrderId: input.productionOrderId,
     robotDids: input.robotDids ?? [],

@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@etzhayyim/sdk": "workspace:*",
-    "@gftd/magatama-host-sdk": "workspace:*"
+    "@etzhayyim/magatama-host-sdk": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250420.0",

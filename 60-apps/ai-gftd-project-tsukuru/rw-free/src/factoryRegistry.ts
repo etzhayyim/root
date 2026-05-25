@@ -20,7 +20,7 @@ import {
   type RegisterFactoryOutput,
 } from "./types.js";
 
-const FACTORY_COLLECTION = "ai.gftd.apps.tsukuru.factory";
+const FACTORY_COLLECTION = "app.etzhayyim.apps.tsukuru.factory";
 
 export async function registerFactory(
   e: Etzhayyim,

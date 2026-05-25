@@ -54,7 +54,7 @@ def test_top_level_required_fields(spec: dict) -> None:
 def test_assistant_id_matches_nsid_convention(spec: dict) -> None:
     assistant_id = spec["assistant_id"]
     assert isinstance(assistant_id, str)
-    assert assistant_id.startswith("ai.gftd.mangaka."), assistant_id
+    assert assistant_id.startswith("app.etzhayyim.mangaka."), assistant_id
     # 4-segment minimum (NSID rule from root CLAUDE.md / ADR-2604231811).
     assert len(assistant_id.split(".")) >= 4
 
@@ -178,7 +178,7 @@ def test_pending_mcp_tools_have_matching_lexicons() -> None:
     raw = _TOPOLOGY_PATH.read_text(encoding="utf-8")
     spec = yaml.safe_load(raw)
     for nsid in spec.get("pending_mcp_tools") or []:
-        # nsid = ai.gftd.mangaka.tools.<action> → <action>.json
+        # nsid = app.etzhayyim.mangaka.tools.<action> → <action>.json
         action = nsid.rsplit(".", 1)[-1]
         path = lex_dir / f"{action}.json"
         assert path.is_file(), f"missing lexicon for {nsid}: {path}"

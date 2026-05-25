@@ -1,11 +1,11 @@
 // AppView Worker for the UNSPSC langserver. Per ADR-2605180900 Phase 7.
 //
-// Mounts `/xrpc/ai.gftd.apps.unispsc.*` at unispsc.etzhayyim.com and
+// Mounts `/xrpc/app.etzhayyim.apps.unispsc.*` at unispsc.etzhayyim.com and
 // proxies each call to the in-cluster lg-open-unispsc langserver. The
-// XRPC handler library lives in @gftd/magatama-host-sdk so the same
+// XRPC handler library lives in @etzhayyim/magatama-host-sdk so the same
 // surface can be re-mounted from any other Worker.
 
-import { createLangserverXrpcHandler } from "@gftd/magatama-host-sdk";
+import { createLangserverXrpcHandler } from "@etzhayyim/magatama-host-sdk";
 
 export interface Env {
   /** Public-or-private base URL of the UNSPSC langserver. */

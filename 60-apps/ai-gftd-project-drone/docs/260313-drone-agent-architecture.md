@@ -1,4 +1,4 @@
-# drone.gftd.ai — Architecture Design
+# drone.etzhayyim.com — Architecture Design
 
 ## Overview
 
@@ -11,10 +11,10 @@ Matrix protocol for command/video/telemetry, XRPC for queries.
 ┌─────────────────────────────────────────────────┐
 │ Matrix Protocol Layer (unified communication)    │
 │                                                  │
-│  Command:    org.gftd.command.drone.*            │
-│  Telemetry:  org.gftd.telemetry.drone.*          │
+│  Command:    org.etzhayyim.command.drone.*            │
+│  Telemetry:  org.etzhayyim.telemetry.drone.*          │
 │  Video:      m.call.* (WebRTC signaling)         │
-│  Log:        org.gftd.event.drone.*              │
+│  Log:        org.etzhayyim.event.drone.*              │
 │  Auth:       Room membership + power_level       │
 │  E2EE:       MLS (command + signaling)           │
 ├─────────────────────────────────────────────────┤
@@ -29,7 +29,7 @@ Matrix protocol for command/video/telemetry, XRPC for queries.
 ## Drone = Matrix User
 
 Each drone is registered as a Matrix appservice user:
-- `@drone_{drone_id}:gftd.ai`
+- `@drone_{drone_id}:etzhayyim.com`
 - Room membership controls access (power_level: operator=50, viewer=0)
 - E2EE via MLS for command + signaling
 - All events form tamper-evident DAG (audit log)
@@ -37,8 +37,8 @@ Each drone is registered as a Matrix appservice user:
 ## Room Structure
 
 ```
-!fleet_{org_id}:gftd.ai          — Fleet management (all drone status)
-!drone_{drone_id}:gftd.ai        — Per-drone (telemetry + commands)
+!fleet_{org_id}:etzhayyim.com          — Fleet management (all drone status)
+!drone_{drone_id}:etzhayyim.com        — Per-drone (telemetry + commands)
   └── Thread: mission_{mission_id}  — Mission-scoped logs
 ```
 
@@ -65,13 +65,13 @@ Signaling through Matrix m.call.* events, media via WebRTC (P2P or TURN):
 ```
 User → XRPC (DroneCommandService/StartMission)
      → App dr0n3x8k (authz, normalize)
-     → Matrix event (org.gftd.command.drone.start_mission)
+     → Matrix event (org.etzhayyim.command.drone.start_mission)
      → drone-bridge (appservice subscribe)
      → MAVLink → Drone Hardware
 
 Drone Hardware → MAVLink → drone-bridge
      → Arrow batch → Tonbo Flight SQL (drone_telemetry table)
-     → Matrix event (org.gftd.telemetry.drone.position)
+     → Matrix event (org.etzhayyim.telemetry.drone.position)
      → AppShell Matrix client → Svelte UI (reactive)
 ```
 

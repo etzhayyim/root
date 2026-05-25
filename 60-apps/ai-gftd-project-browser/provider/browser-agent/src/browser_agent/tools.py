@@ -9,9 +9,9 @@ import httpx
 from bs4 import BeautifulSoup
 
 # SearXNG meta search (internal, no API key required)
-SEARXNG_URL = os.environ.get('SEARXNG_URL', 'https://searxng.gftd.ai')
-CRAWL_ENGINE_URL = os.environ.get('CRAWL_ENGINE_URL', 'https://crawl-engine.gftd.ai')
-BROWSERLESS_URL = os.environ.get('BROWSERLESS_URL', 'https://browserless.gftd.ai')
+SEARXNG_URL = os.environ.get('SEARXNG_URL', 'https://searxng.etzhayyim.com')
+CRAWL_ENGINE_URL = os.environ.get('CRAWL_ENGINE_URL', 'https://crawl-engine.etzhayyim.com')
+BROWSERLESS_URL = os.environ.get('BROWSERLESS_URL', 'https://browserless.etzhayyim.com')
 
 MAX_CONTENT_CHARS = 4000
 

@@ -39,7 +39,7 @@ afterEach(() => {
 
 test("composeScene3d posts JSON body to the pod's xrpc endpoint", async () => {
   stubFetch(async (url, init) => {
-    assert.equal(url.endsWith("/xrpc/ai.gftd.mangaka.composeScene3d"), true);
+    assert.equal(url.endsWith("/xrpc/app.etzhayyim.mangaka.composeScene3d"), true);
     assert.equal((init?.headers as any)["Content-Type"], "application/json");
     assert.equal(init?.method, "POST");
     const body = JSON.parse(String(init?.body));

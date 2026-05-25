@@ -162,7 +162,7 @@ def _rw_query(sql: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
 
 
 def _vertex_id(collection: str, rkey: str) -> str:
-    return f"at://{_IRYO_HOSPITAL}/ai.gftd.apps.iryo.{collection}/{rkey}"
+    return f"at://{_IRYO_HOSPITAL}/app.etzhayyim.apps.iryo.{collection}/{rkey}"
 
 
 # ──────────────────────────────────────────────────────────────────────
@@ -198,7 +198,7 @@ def _ensure_seed() -> None:
         "VALUES (%s, %s, 0, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'active', %s, %s, %s, %s)",
         (
             hospital_vid, _IRYO_HOSPITAL, today, hospital_did, hospital_slug,
-            "GFTD General Hospital (300-bed)", "Generic", "ZZ",
+            "etzhayyim General Hospital (300-bed)", "Generic", "ZZ",
             _SEED_BED_CAPACITY, "tertiary", "GENERIC",
             now, _IRYO_HOSPITAL, _IRYO_HOSPITAL, "iryo.bootstrap",
         ),
@@ -856,7 +856,7 @@ async def task_iryo_kpi_refresh_who_gho(**kwargs: Any) -> dict[str, Any]:
 # ──────────────────────────────────────────────────────────────────────
 
 async def task_iryo_coverage_snapshot(**kwargs: Any) -> dict[str, Any]:
-    """Read-only counts for ai.gftd.apps.iryo.coverage."""
+    """Read-only counts for app.etzhayyim.apps.iryo.coverage."""
     rows = _rw_query(
         "SELECT "
         " (SELECT count(*) FROM vertex_iryo_hospital), "
@@ -888,7 +888,7 @@ async def task_iryo_coverage_snapshot(**kwargs: Any) -> dict[str, Any]:
 
 
 async def task_iryo_bed_occupancy_snapshot(**kwargs: Any) -> dict[str, Any]:
-    """Read-only ward occupancy snapshot for ai.gftd.apps.iryo.getBedOccupancy."""
+    """Read-only ward occupancy snapshot for app.etzhayyim.apps.iryo.getBedOccupancy."""
     dept_filter = (str(kwargs.get("deptSlug") or "")).strip()
     if dept_filter:
         # Join via vertex_iryo_ward to get dept_slug for each ward.
@@ -924,7 +924,7 @@ async def task_iryo_bed_occupancy_snapshot(**kwargs: Any) -> dict[str, Any]:
 
 
 async def task_iryo_encounter_list(**kwargs: Any) -> dict[str, Any]:
-    """Read-only encounter list for ai.gftd.apps.iryo.listEncounters."""
+    """Read-only encounter list for app.etzhayyim.apps.iryo.listEncounters."""
     where: list[str] = []
     params: list[Any] = []
     dept = str(kwargs.get("deptSlug") or "").strip()
@@ -993,7 +993,7 @@ async def task_iryo_encounter_list(**kwargs: Any) -> dict[str, Any]:
 
 
 async def task_iryo_claim_get(**kwargs: Any) -> dict[str, Any]:
-    """Read-only single-claim lookup for ai.gftd.apps.iryo.getDrgClaim."""
+    """Read-only single-claim lookup for app.etzhayyim.apps.iryo.getDrgClaim."""
     claim_id = str(kwargs.get("claimId") or "").strip()
     if not claim_id:
         return {"ok": False, "error": "missing claimId"}

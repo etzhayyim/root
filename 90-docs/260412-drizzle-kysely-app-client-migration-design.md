@@ -2,7 +2,7 @@
 
 > **Superseded in part 2026-04-17**: the "hand-managed `schema.ts`" claim no longer holds.
 > Drizzle `schema.ts` was archived 2026-04-13 (`_archive/2026-04-13-non-kysely/`), and
-> `@gftd/graph-schema/src/database.ts` is now **generated** from live RisingWave
+> `@etzhayyim/graph-schema/src/database.ts` is now **generated** from live RisingWave
 > `information_schema` via `pnpm db:gen`, with `pnpm db:drift` as CI guard.
 > See `30-graph/graph-schema/CLAUDE.md` for the current workflow.
 
@@ -10,9 +10,9 @@
 
 **Cypher string literals (G() builder, cypherQueryAsync) → Drizzle/Kysely type-safe queries.**
 
-- **Schema SSoT**: `@gftd/graph-schema/schema.ts` (Drizzle ORM, hand-managed)
-- **Query builder**: `createKyselyDb()` from `@gftd/magatama-host-sdk`
-- **Type-safe row types**: exported from `@gftd/graph-schema` (e.g., VertexActorRow, VertexOtherRow)
+- **Schema SSoT**: `@etzhayyim/graph-schema/schema.ts` (Drizzle ORM, hand-managed)
+- **Query builder**: `createKyselyDb()` from `@etzhayyim/magatama-host-sdk`
+- **Type-safe row types**: exported from `@etzhayyim/graph-schema` (e.g., VertexActorRow, VertexOtherRow)
 - **Scope**: 40+ wasm app clients (intel, ipaddress, natural-person, site, yorishiro, etc)
 - **Migration**: Phase 1 (SDK + schema) complete 2026-04-11. Phase 2 (app clients) in-progress 2026-04-12.
 
@@ -22,7 +22,7 @@
 
 ```typescript
 // App code
-import { G } from "@gftd/magatama-host-sdk";
+import { G } from "@etzhayyim/magatama-host-sdk";
 
 async function getActors(did: string) {
   const cypher = `MATCH (a:Actor {did: $did}) RETURN a.vertex_id, a.name LIMIT 50`;
@@ -48,8 +48,8 @@ async function getActors(did: string) {
 
 ```typescript
 // App code
-import { createKyselyDb } from "@gftd/magatama-host-sdk";
-import type { Database, VertexActorRow } from "@gftd/graph-schema";
+import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+import type { Database, VertexActorRow } from "@etzhayyim/graph-schema";
 
 async function getActors(sql: Sql, env: WorkerEnv, did: string) {
   const db = createKyselyDb(sql, env.HYPERDRIVE);
@@ -159,7 +159,7 @@ Used for dynamic table selection when label is only known at runtime.
 ```typescript
 // src/app.ts
 export default createWorkerExport((sdk) => {
-  sdk.app.command('ai.gftd.apps.intel.search', searchIntel);
+  sdk.app.command('app.etzhayyim.apps.intel.search', searchIntel);
 });
 
 async function searchIntel(sdk: HostSDK, params: SearchParams) {
@@ -193,7 +193,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
 - [x] drizzle-kit integration (pnpm db:generate)
 - [x] Kysely database.ts + Database type
 - [x] magatama-host-sdk: createKyselyDb() export
-- [x] Type exports: @gftd/graph-schema (Database, VertexActorRow, etc)
+- [x] Type exports: @etzhayyim/graph-schema (Database, VertexActorRow, etc)
 - [x] Python schema archived (_archive/30-graph/graph-schema-py-260412)
 - [x] Documentation: CLAUDE.md + design doc
 
@@ -209,7 +209,7 @@ async function searchIntel(sdk: HostSDK, params: SearchParams) {
 
 **Sub-tasks per app**:
 1. Replace `G(cypher_string)` with `db.selectFrom(table)`
-2. Update row type imports: `import type { VertexOtherRow } from "@gftd/graph-schema"`
+2. Update row type imports: `import type { VertexOtherRow } from "@etzhayyim/graph-schema"`
 3. Fix field references: `row.vertexId` → `row.vertex_id`
 4. Update helper functions: `parseVertexOther(row: any)` → `parseVertexOther(row: VertexOtherRow)`
 
@@ -313,8 +313,8 @@ const rows = await db.selectFrom('vertex_actor')
 
 ## Related
 
-- `@gftd/graph-schema/CLAUDE.md` — schema management + migration procedure
-- `@gftd/graph-schema/drizzle.config.ts` — drizzle-kit configuration
+- `@etzhayyim/graph-schema/CLAUDE.md` — schema management + migration procedure
+- `@etzhayyim/graph-schema/drizzle.config.ts` — drizzle-kit configuration
 - `20-actors/magatama/CLAUDE.md` — SDK architecture + createKyselyDb()
 - `deps.toml [[migrations."drizzle-to-kysely"]]` — phase tracking
 - `deps.toml [[conventions."App Data Access: Drizzle ORM + Kysely"]]` — standards

@@ -9,7 +9,7 @@ import { Kysely, sql } from 'kysely';
  * that was superseded by 0008_analytics_mvs (renamed upstream). Forward-only.
  *
  *   vertex_capability: input_schema_json / tags / capability_worker
- *     — MCP tool definitions registered via ai.gftd.tool.register.
+ *     — MCP tool definitions registered via app.etzhayyim.tool.register.
  *   vertex_convo: encryption ("signal" | "plaintext"), updated_at
  *     — replaces props = {encryption, encryptionUpdatedAt}.
  *   vertex_openclaw_connection: gateway_url / dashboard_url / connected_at

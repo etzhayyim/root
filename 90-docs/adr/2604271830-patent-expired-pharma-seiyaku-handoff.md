@@ -51,7 +51,7 @@ The chain is:
 
 The handoff target is fixed:
 
-- NSID: `ai.gftd.apps.openSeiyaku.startBatchRecord`
+- NSID: `app.etzhayyim.apps.openSeiyaku.startBatchRecord`
 - BPMN process: `seiyaku_register_batch`
 
 # Worker Boundary

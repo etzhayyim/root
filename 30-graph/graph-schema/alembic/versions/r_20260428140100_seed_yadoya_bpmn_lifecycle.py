@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-cancel-reservation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-cancel-reservation-v1',
                  'did:web:yadoya.etzhayyim.com',
                  'yadoya_cancel_reservation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -121,7 +121,7 @@ UP = [{'sql': '\n'
                  'did:web:yadoya.etzhayyim.com',
                  'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-lifecycle',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-cancel-reservation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-cancel-reservation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -135,7 +135,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-get-reservation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-get-reservation-v1',
                  'did:web:yadoya.etzhayyim.com',
                  'yadoya_get_reservation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -199,7 +199,7 @@ UP = [{'sql': '\n'
                  'did:web:yadoya.etzhayyim.com',
                  'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-lifecycle',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-get-reservation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-get-reservation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -213,16 +213,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-cancelReservation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-cancelReservation-v1',
                  'did:web:yadoya.etzhayyim.com',
-                 'ai.gftd.apps.yadoya.cancelReservation',
+                 'app.etzhayyim.apps.yadoya.cancelReservation',
                  'yadoya_cancel_reservation',
                  30000,
                  '2026-04-28T14:01:00Z',
                  'did:web:yadoya.etzhayyim.com',
                  'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-lifecycle',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-cancelReservation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-cancelReservation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -236,25 +236,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-getReservation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-getReservation-v1',
                  'did:web:yadoya.etzhayyim.com',
-                 'ai.gftd.apps.yadoya.getReservation',
+                 'app.etzhayyim.apps.yadoya.getReservation',
                  'yadoya_get_reservation',
                  15000,
                  '2026-04-28T14:01:00Z',
                  'did:web:yadoya.etzhayyim.com',
                  'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-lifecycle',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-getReservation-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-getReservation-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-cancelReservation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-cancelReservation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yadoya-getReservation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-getReservation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-cancel-reservation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-cancel-reservation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-get-reservation-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-get-reservation-v1']}]
 
 
 def upgrade() -> None:

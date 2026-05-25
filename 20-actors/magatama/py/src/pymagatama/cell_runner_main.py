@@ -412,14 +412,14 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
     # deploys, e.g. K8s Secret-injected) → deterministic test signer
     # (dev / unit-test only; logged loudly so it's not used in prod).
     # Per fleet.toml `cell_key_rotation_period_days = 90`, operator runs
-    # `security add-generic-password -s ai.gftd.yatachain -a {cellId} -w '{hexSeed}'`
+    # `security add-generic-password -s app.etzhayyim.yatachain -a {cellId} -w '{hexSeed}'`
     # quarterly to rotate.
     signer, signer_source = make_cell_signer(cell_id)
     if signer_source == "deterministic":
         _log.warning(
             "yatachain.attest cellId=%s using DETERMINISTIC TEST SIGNER — "
             "production deploys must publish a real Ed25519 key to macOS "
-            "Keychain (service=ai.gftd.yatachain, account=%s) OR set "
+            "Keychain (service=app.etzhayyim.yatachain, account=%s) OR set "
             "CELL_PRIVATE_KEY_%s env var (hex 32-byte seed)",
             cell_id, cell_id, cell_id,
         )

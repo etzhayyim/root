@@ -127,7 +127,7 @@ def write_offers(state: YoroProductIngestState) -> dict:
         body = {k: v for k, v in body.items() if v is not None}
         try:
             r = httpx.post(
-                f"{pds_base}/xrpc/ai.gftd.apps.kakaku.ingestOfferFromUrl",
+                f"{pds_base}/xrpc/app.etzhayyim.apps.kakaku.ingestOfferFromUrl",
                 json=body,
                 headers=headers,
                 timeout=30.0,
@@ -154,7 +154,7 @@ def write_research(state: YoroProductIngestState) -> dict:
     actor_did = f"{YORO_DID_BASE}:{actor_path.replace(':', '_')}"
     job_id = state.get("jobId") or "job-unknown"
     rkey = f"{int(time.time() * 1000)}-{job_id}"
-    vertex_id = f"at://{actor_did}/ai.gftd.apps.yoro.productResearch/{rkey}"
+    vertex_id = f"at://{actor_did}/app.etzhayyim.apps.yoro.productResearch/{rkey}"
     now_iso = datetime.now(timezone.utc).isoformat()
 
     table = Table(

@@ -10,7 +10,7 @@ authoritative_for:
   - mangaka 3D scene composition pipeline (character → 3D model → background/camera/object placement → simulation → render)
   - kami-mangaka-scene Rust crate (engine-side facade above kami-vrm / kami-scene-graph / kami-render / kami-postfx / kami-dec / kami-pipelines)
   - LangGraph Pregel `compose_scene_3d` graph wired into lg_mangaka
-  - XRPC procedure `ai.gftd.mangaka.composeScene3d`
+  - XRPC procedure `app.etzhayyim.mangaka.composeScene3d`
 priority: 7.2
 axis: generation-pipeline
 weight: 0.72
@@ -114,7 +114,7 @@ between consecutive nodes per ADR-2605131600 §2):
 | 6 | `simulate` | `scene_dag`, `camera_plan` | `sim_result` | kami-vrm spring-bone settle (~30 ticks) + cloth verlet + optional particles + DEC wind/dust if `env.weather` set; **fan-out via `Send` per character for parallel spring-bone solve** |
 | 7 | `render_keyframes` | `sim_result`, `camera_plan` | `renders[]` | Headless `kami-mangaka-scene::render_multi(angles)` → PNG (base+depth+outline+toon), 1 main + ±2 alt angles, content-addressed B2 upload |
 | 8 | `critique_and_select` | `renders[]`, `panel_plan` | `selected`, `score` | gpt-4o-mini-vision 7-axis (composition, silhouette, character recognisability, framing, manga grammar, lighting drama, action clarity) → best pick; **conditional edge: `score<0.75 ∧ iter<3 → cinematography`** |
-| 9 | `persist` | `selected`, `panel_plan` | `status`, `scene_rkey` | INSERT `vertex_mangaka_scene_3d` via asyncpg (k8s pod side, NOT CF Worker — see ADR-2605111200); optional `ai.gftd.mangaka.generatedImage` record |
+| 9 | `persist` | `selected`, `panel_plan` | `status`, `scene_rkey` | INSERT `vertex_mangaka_scene_3d` via asyncpg (k8s pod side, NOT CF Worker — see ADR-2605111200); optional `app.etzhayyim.mangaka.generatedImage` record |
 
 `Send`-based parallel fan-out from step 6 to per-character spring-bone
 solvers requires the canonical shallow-dict reducer
@@ -246,7 +246,7 @@ iterations.
 `00-contracts/lexicons/ai/gftd/apps/mangaka/composeScene3d.json`:
 
 ```
-ai.gftd.mangaka.composeScene3d  (procedure)
+app.etzhayyim.mangaka.composeScene3d  (procedure)
   input:  { panelRkey: string, refineFromRkey?: string, maxIter?: integer(1..5) }
   output: { sceneRkey: string,
             renders: [{ blobKey, score, angle }],
@@ -259,7 +259,7 @@ ADR-2605111200):
 
 ```
 appview Worker (src/app.ts)
-   └─ sdk.app.command("ai.gftd.mangaka.composeScene3d", h)
+   └─ sdk.app.command("app.etzhayyim.mangaka.composeScene3d", h)
        └─ bpmn-dispatcher
            └─ LangGraph Server `/runs/compose_scene_3d`
                └─ pod: asyncpg → INSERT vertex_mangaka_scene_3d

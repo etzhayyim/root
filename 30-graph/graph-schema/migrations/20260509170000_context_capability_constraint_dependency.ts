@@ -194,7 +194,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       'context-subject:oka-training',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'oka-training',
       'model_training_policy',
       'training',
@@ -219,7 +219,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       'capability:oka-training:a40-bf16-fallback',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'capability:oka-training:a40-bf16-fallback',
       'oka-training',
       'model_training_policy',
@@ -249,7 +249,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       'capability:oka-training:l40s-fp8-training',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'capability:oka-training:l40s-fp8-training',
       'oka-training',
       'model_training_policy',
@@ -278,7 +278,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       'context-subject:oka-training:a40-fp8',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'oka-training:a40-fp8',
       'training_action',
       'training',
@@ -302,7 +302,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       'context-subject:oka-training:l40s-fp8',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'oka-training:l40s-fp8',
       'training_action',
       'training',
@@ -327,7 +327,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       'constraint:oka-training:a40-no-fp8-training',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'constraint:oka-training:a40-no-fp8-training',
       'oka-training:a40-fp8',
       'training_action',
@@ -360,7 +360,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       'constraint:oka-training:fp8-requires-bf16-fallback',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'constraint:oka-training:fp8-requires-bf16-fallback',
       'oka-training:l40s-fp8',
       'training_action',
@@ -393,7 +393,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       'dependency:oka-training:l40s-fp8-capacity',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'dependency:oka-training:l40s-fp8-capacity',
       'oka-training:l40s-fp8',
       'training_action',
@@ -424,7 +424,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'oka-training',
       'capability:oka-training:a40-bf16-fallback',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'has_capability',
       'active',
       '90-docs/adr/2605092345-runpod-l40s-fp8-multimodal-model-design.md'
@@ -442,7 +442,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'oka-training',
       'capability:oka-training:l40s-fp8-training',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'has_capability',
       'pending',
       '90-docs/adr/2605092345-runpod-l40s-fp8-multimodal-model-design.md'
@@ -460,7 +460,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'oka-training:a40-fp8',
       'constraint:oka-training:a40-no-fp8-training',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'constrained_by',
       'active',
       '90-docs/adr/2605092345-runpod-l40s-fp8-multimodal-model-design.md'
@@ -478,7 +478,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'oka-training:l40s-fp8',
       'constraint:oka-training:fp8-requires-bf16-fallback',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'constrained_by',
       'active',
       '90-docs/adr/2605092345-runpod-l40s-fp8-multimodal-model-design.md'
@@ -496,7 +496,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'oka-training:l40s-fp8',
       'capability:oka-training:l40s-fp8-training',
       DATE '2026-05-09',
-      'did:web:gftd.co.jp',
+      'did:web:etzhayyim.com',
       'depends_on',
       'active',
       '90-docs/adr/2605092345-runpod-l40s-fp8-multimodal-model-design.md'

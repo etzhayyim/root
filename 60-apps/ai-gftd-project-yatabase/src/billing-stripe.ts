@@ -90,7 +90,7 @@ interface AnyKyselyDb {
 async function getDb(env: BillingEnv): Promise<AnyKyselyDb | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     return sdk.createKyselyDb(env.HYPERDRIVE as never) as unknown as AnyKyselyDb;
   } catch {
     return null;
@@ -125,7 +125,7 @@ async function persistPlan(
     const now = Date.now();
     const nowIso = new Date(now).toISOString();
     const rules = PLAN_RULES[plan];
-    const vertexId = `at://did:web:billing.gftd.ai/ai.gftd.apps.billing.org_plan/${encodeURIComponent(orgDid)}-${now}`;
+    const vertexId = `at://did:web:billing.etzhayyim.com/app.etzhayyim.apps.billing.org_plan/${encodeURIComponent(orgDid)}-${now}`;
     await db.insertInto("vertex_org_plan").values({
       vertex_id: vertexId,
       org_did: orgDid,
@@ -156,7 +156,7 @@ export async function getPersistedPlan(env: BillingEnv, orgDid: string): Promise
 
   let sqlTag: ((strings: TemplateStringsArray, ...values: unknown[]) => unknown) | null = null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     sqlTag = (sdk as unknown as { sql?: typeof sqlTag }).sql ?? null;
   } catch {
     return null;
@@ -376,7 +376,7 @@ export async function handlePortal(
   }
   const params = new URLSearchParams();
   params.set("customer", customerId);
-  params.set("return_url", body.returnUrl ?? "https://yatabase.gftd.ai/dashboard");
+  params.set("return_url", body.returnUrl ?? "https://yatabase.etzhayyim.com/dashboard");
 
   try {
     const resp = await fetch("https://api.stripe.com/v1/billing_portal/sessions", {
@@ -441,8 +441,8 @@ async function createStripeCheckoutSession(
   params.set("client_reference_id", orgDid);
   params.set("metadata[org_did]", orgDid);
   params.set("metadata[plan]", plan);
-  params.set("success_url", successUrl ?? "https://yatabase.gftd.ai/?upgrade=success");
-  params.set("cancel_url", cancelUrl ?? "https://yatabase.gftd.ai/?upgrade=cancel");
+  params.set("success_url", successUrl ?? "https://yatabase.etzhayyim.com/?upgrade=success");
+  params.set("cancel_url", cancelUrl ?? "https://yatabase.etzhayyim.com/?upgrade=cancel");
   // Stripe Tax: auto-compute US sales tax (Wayfair nexus) + JP consumption
   // tax. `customer_creation` is invalid in subscription mode — Stripe
   // creates the customer record automatically when the subscription

@@ -1,4 +1,4 @@
-// market.gftd.ai thin facade. Domain logic runs in AgentGateway MCP + pod-side LangServer workers.
+// market.etzhayyim.com thin facade. Domain logic runs in AgentGateway MCP + pod-side LangServer workers.
 
 type Env = {
   DISPATCHER_URL?: string;
@@ -7,15 +7,15 @@ type Env = {
   ERC4337_CHAIN_ID?: string;
 };
 
-const PRIMARY_DID = "did:web:market.gftd.ai";
+const PRIMARY_DID = "did:web:market.etzhayyim.com";
 const NANOID = "mk7r3x9p";
 const VALID_LANES = ["vault", "sashiosae", "lawfirm", "bpmn", "murakumo"] as const;
 const MARKET_NSIDS = new Set([
-  "ai.gftd.market.listOffer",
-  "ai.gftd.market.publishOffer",
-  "ai.gftd.market.quotePrice",
-  "ai.gftd.market.settleInvoice",
-  "ai.gftd.market.observeDemand",
+  "app.etzhayyim.market.listOffer",
+  "app.etzhayyim.market.publishOffer",
+  "app.etzhayyim.market.quotePrice",
+  "app.etzhayyim.market.settleInvoice",
+  "app.etzhayyim.market.observeDemand",
 ]);
 
 function json(body: unknown, init: ResponseInit = {}): Response {
@@ -80,7 +80,7 @@ async function readBody(request: Request): Promise<Record<string, unknown> | nul
 }
 
 async function dispatch(env: Env, nsid: string, body: Record<string, unknown>, request: Request): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers = new Headers({ accept: "application/json", "content-type": "application/json" });
   const auth = request.headers.get("authorization");
   if (auth) headers.set("authorization", auth);
@@ -125,7 +125,7 @@ export default {
       });
     }
     if (url.pathname === "/.well-known/atproto-market.json") {
-      return dispatch(env, "ai.gftd.market.wellKnownMarket", {}, request);
+      return dispatch(env, "app.etzhayyim.market.wellKnownMarket", {}, request);
     }
     if (url.pathname.startsWith("/xrpc/")) {
       const nsid = url.pathname.slice("/xrpc/".length);

@@ -166,7 +166,7 @@ def expand_title(scope_did: str = "", target_count: Any = 12, **_: Any) -> dict[
         _execute(
             """INSERT INTO vertex_actor
             (vertex_id, sensitivity_ord, owner_did, did, handle, display_name, name, execution_tier, performer_type, status, category, classification, operator, agent_type, runtime_type, ui_type, country, created_at)
-            VALUES (%s,0,%s,%s,%s,%s,%s,'T0','game-character','active','character',%s,'gftd.co.jp','logical','db-only','metadata-only','jp',%s)
+            VALUES (%s,0,%s,%s,%s,%s,%s,'T0','game-character','active','character',%s,'etzhayyim.com','logical','db-only','metadata-only','jp',%s)
             ON CONFLICT (vertex_id) DO NOTHING""",
             (slug, OWNER_DID, slug, handle, name, name, os.environ.get("KG_LLM_TIER", "T0"), now_date()),
         )

@@ -8,6 +8,7 @@ arguments and returns a meaningful dict.
 from __future__ import annotations
 
 import asyncio
+import inspect
 import importlib.util
 import sys
 import types
@@ -35,6 +36,8 @@ R = sys.modules[_MOD_NAME]
 
 
 def _run(coro):
+    if not inspect.isawaitable(coro):
+        return coro
     return asyncio.run(coro)
 
 
@@ -99,6 +102,18 @@ def test_mission_plan_returns_dict() -> None:
 
 def test_telemetry_schema_returns_dict() -> None:
     assert isinstance(_run(R.task_telemetry_schema()), dict)
+
+
+# ─── task_telecom_coverage ──────────────────────────────────────────────────
+
+def test_telecom_coverage_returns_dict() -> None:
+    assert isinstance(_run(R.task_telecom_coverage()), dict)
+
+
+# ─── task_network_deployment_plan ────────────────────────────────────────────
+
+def test_network_deployment_plan_returns_dict() -> None:
+    assert isinstance(_run(R.task_network_deployment_plan()), dict)
 
 
 # ─── task_mission_simulate ───────────────────────────────────────────────────
@@ -189,6 +204,13 @@ def test_mission_plan_nonempty() -> None:
 def test_telemetry_schema_nonempty() -> None:
     result = _run(R.task_telemetry_schema())
     assert len(result) > 0
+
+
+def test_telemetry_schema_has_network_topics() -> None:
+    result = _run(R.task_telemetry_schema())
+    topics = {topic["topic"] for topic in result["roboticsTelemetrySchema"]["topics"]}
+    assert "robotics.network.link" in topics
+    assert "robotics.telecom.commissioning" in topics
 
 
 def test_approval_record_nonempty() -> None:

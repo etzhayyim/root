@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-expired-permit-scanner-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/arms-expired-permit-scanner-v1',
                  'did:web:arms.etzhayyim.com',
                  'arms_expired_permit_scanner',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -59,9 +59,9 @@ UP = [{'sql': '\n'
                  '  (same vertex_id re-insert = implicit overwrite per ADR-0036 / record-log '
                  'semantics).\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.arms.scanExpiredPermits  (manual trigger + timer)\n'
+                 '  NSID: app.etzhayyim.apps.arms.scanExpiredPermits  (manual trigger + timer)\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-expired-permit-scanner-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/arms-expired-permit-scanner-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -74,7 +74,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="arms_expired_permit_scanner" name="arms expired permit '
                  'scanner" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.arms.scanExpiredPermits", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.arms.scanExpiredPermits", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -145,7 +145,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.arms.scanExpiredPermits&quot;" target="activity"/>\n'
+                 'source="=&quot;app.etzhayyim.apps.arms.scanExpiredPermits&quot;" target="activity"/>\n'
                  '          <zeebe:input source="=&quot;arms.etzhayyim.com&quot;" target="actorDid"/>\n'
                  '          <zeebe:input source="=expiredRows" target="expiredRows"/>\n'
                  '          <zeebe:input source="=expiredCount" target="expiredCountBefore"/>\n'
@@ -166,7 +166,7 @@ UP = [{'sql': '\n'
                  '2026-04-28T00:00:00Z',
                  'did:web:arms.etzhayyim.com',
                  'did:web:arms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-expired-permit-scanner-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/arms-expired-permit-scanner-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -199,19 +199,19 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-scanExpiredPermits-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/arms-scanExpiredPermits-v1',
                  'did:web:arms.etzhayyim.com',
-                 'ai.gftd.apps.arms.scanExpiredPermits',
+                 'app.etzhayyim.apps.arms.scanExpiredPermits',
                  'arms_expired_permit_scanner',
                  '2026-04-28T00:00:00Z',
                  'did:web:arms.etzhayyim.com',
                  'did:web:arms.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-scanExpiredPermits-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/arms-scanExpiredPermits-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-scanExpiredPermits-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/arms-scanExpiredPermits-v1']},
  {'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-expired-permit-scanner-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/arms-expired-permit-scanner-v1']}]
 
 
 def upgrade() -> None:

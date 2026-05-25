@@ -13,7 +13,7 @@
         "bpmnProcessKey": "defineLine",
         "source": "bpmn/define-line.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openRail.defineLine" },
+          { "xrpc": "app.etzhayyim.apps.openRail.defineLine" },
           { "form": "openRail.defineLine.v1" }
         ]
       },
@@ -22,7 +22,7 @@
         "name": "Schedule Train Run",
         "type": "xrpc",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openRail.scheduleTrain" }
+          { "xrpc": "app.etzhayyim.apps.openRail.scheduleTrain" }
         ]
       },
       {
@@ -32,7 +32,7 @@
         "bpmnProcessKey": "reportIncident",
         "source": "bpmn/report-incident.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openRail.reportIncident" },
+          { "xrpc": "app.etzhayyim.apps.openRail.reportIncident" },
           { "form": "openRail.reportIncident.v1" },
           { "dmn":  "openRail.incidentSeverity" }
         ]
@@ -42,10 +42,10 @@
         "name": "Query Lines / Runs / Incidents",
         "type": "xrpc",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openRail.getLine" },
-          { "xrpc": "ai.gftd.apps.openRail.listLines" },
-          { "xrpc": "ai.gftd.apps.openRail.listTrainRuns" },
-          { "xrpc": "ai.gftd.apps.openRail.listIncidents" }
+          { "xrpc": "app.etzhayyim.apps.openRail.getLine" },
+          { "xrpc": "app.etzhayyim.apps.openRail.listLines" },
+          { "xrpc": "app.etzhayyim.apps.openRail.listTrainRuns" },
+          { "xrpc": "app.etzhayyim.apps.openRail.listIncidents" }
         ]
       }
     ]

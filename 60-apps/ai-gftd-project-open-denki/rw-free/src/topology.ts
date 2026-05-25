@@ -46,10 +46,10 @@ import {
   type SubstationView,
 } from "./types.js";
 
-const GEN_COLLECTION = "ai.gftd.apps.openDenki.generationNode";
-const SUB_COLLECTION = "ai.gftd.apps.openDenki.substation";
-const FEEDER_COLLECTION = "ai.gftd.apps.openDenki.feeder";
-const METER_COLLECTION = "ai.gftd.apps.openDenki.smartMeter";
+const GEN_COLLECTION = "app.etzhayyim.apps.openDenki.generationNode";
+const SUB_COLLECTION = "app.etzhayyim.apps.openDenki.substation";
+const FEEDER_COLLECTION = "app.etzhayyim.apps.openDenki.feeder";
+const METER_COLLECTION = "app.etzhayyim.apps.openDenki.smartMeter";
 
 export async function defineGenerationNode(
   e: Etzhayyim,

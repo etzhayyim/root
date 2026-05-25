@@ -3,7 +3,7 @@
 // into vertex_repository_blob (content-addressed, per ADR-0039 §1).
 //
 // Input : 60-apps/**/{bpmn,dmn,forms}/*.{bpmn,dmn,form.json} on disk
-// Action: POST ai.gftd.repository.createBlob → sha256-keyed INSERT into graph
+// Action: POST app.etzhayyim.repository.createBlob → sha256-keyed INSERT into graph
 // Output: JSON mapping array on stdout
 //          [{ path, ownerDid, hash, sizeBytes, tier, deduplicated, contentType }]
 //
@@ -72,7 +72,7 @@ function toB64Url(bytes) {
 }
 
 async function createBlob(ownerDid, content, mimeType) {
-  const res = await fetch(`${ENDPOINT}/xrpc/ai.gftd.repository.createBlob`, {
+  const res = await fetch(`${ENDPOINT}/xrpc/app.etzhayyim.repository.createBlob`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ownerDid, content: toB64Url(content), mimeType }),

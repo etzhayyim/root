@@ -272,7 +272,7 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
 
    Disputes regarding whether an entity is a Non-Aligned Entity under Section 2
    shall be resolved by the etzhayyim Council (Lv6+ per ADR-2605172600) via an
-   on-chain attestation record (ai.gftd.apps.etzhayyim.charter-attestation).
+   on-chain attestation record (app.etzhayyim.apps.etzhayyim.charter-attestation).
    Such attestation creates a public determination but does not preclude
    parallel judicial proceedings under applicable law. Council attestations
    require quorum of three (3) Lv6+ members and are appealable by the
@@ -400,18 +400,18 @@ PR が Apache 2.0 license 宣言の新規 / 既存 package を含むのに NOTIC
 
 §5 で defined した dispute pattern の具体実装:
 
-1. **Charter Compliance Attestation request**: 任意の第三者が `ai.gftd.apps.etzhayyim.charter-attestation-request` AT Record を Member's PDS に書き込む。fields:
+1. **Charter Compliance Attestation request**: 任意の第三者が `app.etzhayyim.apps.etzhayyim.charter-attestation-request` AT Record を Member's PDS に書き込む。fields:
    - subject_entity (DID / 法人名 / URL)
    - alleged_violation_category (§2(a)-(e))
    - evidence (URLs / IPFS CIDs)
 
-2. **Council deliberation**: Lv6+ Council members 3 名以上が `ai.gftd.apps.etzhayyim.charter-attestation` を sign。fields:
+2. **Council deliberation**: Lv6+ Council members 3 名以上が `app.etzhayyim.apps.etzhayyim.charter-attestation` を sign。fields:
    - request_uri
    - determination ("non_aligned" | "aligned" | "insufficient_evidence")
    - rationale
    - effective_at (即時 / 30 日後)
 
-3. **Appeal**: 対象 entity は 30 日以内に counter-evidence を `ai.gftd.apps.etzhayyim.charter-appeal` として書き込む。Council は再評議。
+3. **Appeal**: 対象 entity は 30 日以内に counter-evidence を `app.etzhayyim.apps.etzhayyim.charter-appeal` として書き込む。Council は再評議。
 
 4. **L2 anchor**: すべての attestation は ADR-2605171800 pipeline で Base L2 に anchor される。
 
@@ -451,7 +451,7 @@ for full context.
 | **S1 — applicator script** | `70-tools/charter-rider-applicator/` 実装 | ~1 day |
 | **S2 — retro-active 適用** | applicator を全 sub-repo に実行、NOTICE + symlink 追加 | ~半日 |
 | **S3 — CI lint 有効化** | `lefthook.yml` に `charter-rider-check` 追加、強制 enforce | ~半日 |
-| **S4 — Council attestation** | `ai.gftd.apps.etzhayyim.charter-attestation*` Lexicon 起票 + AppView | ~1 week |
+| **S4 — Council attestation** | `app.etzhayyim.apps.etzhayyim.charter-attestation*` Lexicon 起票 + AppView | ~1 week |
 | **S5 — README 一括更新** | README に License セクション標記を追加 | ~1 day (script で一括) |
 | **S6 — 三層 enforcement** | ADR-2605172300 amendment (KishaStream + Phenotype.sol に complianceGate modifier 追加)、Public Fund に同 gate 追加 | ~1 week |
 

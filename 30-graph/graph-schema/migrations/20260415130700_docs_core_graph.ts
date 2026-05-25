@@ -8,9 +8,9 @@ import { sql } from "kysely";
  * Migration 0074: docs core graph spine.
  *
  * Source collections:
- *   - ai.gftd.apps.docs.docsEntity
- *   - ai.gftd.apps.docs.docsEvent
- *   - ai.gftd.apps.docs.docsReport
+ *   - app.etzhayyim.apps.docs.docsEntity
+ *   - app.etzhayyim.apps.docs.docsEvent
+ *   - app.etzhayyim.apps.docs.docsReport
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`

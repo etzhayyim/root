@@ -112,7 +112,7 @@ mv_iryo_staff_coverage_gap         shifts where required headcount > rostered
 ```
 
 Vertex IDs follow ADR-0041 content-addressed PK pattern:
-`at://did:web:iryo.etzhayyim.com:hospital/ai.gftd.apps.iryo.{collection}/{rkey}`.
+`at://did:web:iryo.etzhayyim.com:hospital/app.etzhayyim.apps.iryo.{collection}/{rkey}`.
 
 PII tier (ADR-0018):
 - Tier 1 (federable): hospital / dept / ward / bed / staff / health_kpi (code/category/aggregate only)
@@ -132,7 +132,7 @@ PII tier (ADR-0018):
 
 ## XRPC surface (Phase 1, 8 lexicons)
 
-`ai.gftd.apps.iryo.*` 全て bpmn-dispatcher 経由 (`http://dispatcher.etzhayyim.com:8080/xrpc/{nsid}`):
+`app.etzhayyim.apps.iryo.*` 全て bpmn-dispatcher 経由 (`http://dispatcher.etzhayyim.com:8080/xrpc/{nsid}`):
 
 | NSID | type | purpose |
 |---|---|---|

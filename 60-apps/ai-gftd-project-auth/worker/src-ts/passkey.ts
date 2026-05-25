@@ -1,7 +1,7 @@
 import { decodeBase64Url, encodeBase64Url } from "./base64url";
 
 const RP_ID = "etzhayyim.com";
-const RP_NAME = "GFTD Platform";
+const RP_NAME = "etzhayyim Platform";
 const RP_ORIGIN = "https://authn.etzhayyim.com";
 
 export interface PasskeyCredential {

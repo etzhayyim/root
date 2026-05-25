@@ -1,4 +1,4 @@
-// Copyright 2026 Gftd Japan株式会社 / amanomibashira.
+// Copyright 2026 etzhayyim Japan株式会社 / amanomibashira.
 // Licensed under the Apache License, Version 2.0.
 
 package provider

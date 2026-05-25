@@ -56,12 +56,12 @@ def test_emit_two_rows_visible_in_sqlite(tmp_sqlite_dir):
     """Emit 2 rows for the same repo; both must appear in the DB."""
     repo = "shosha"
     r1 = asyncio.run(task_audit_emit(
-        repo=repo, collection="ai.gftd.apps.shosha.trade",
+        repo=repo, collection="app.etzhayyim.apps.shosha.trade",
         rkey="rk001", action="create",
         recordJson={"amount": 100},
     ))
     r2 = asyncio.run(task_audit_emit(
-        repo=repo, collection="ai.gftd.apps.shosha.trade",
+        repo=repo, collection="app.etzhayyim.apps.shosha.trade",
         rkey="rk002", action="update",
         recordJson={"amount": 200},
     ))
@@ -81,7 +81,7 @@ def test_insert_or_replace_is_idempotent(tmp_sqlite_dir):
     """Re-emitting the same rkey+action must not create a duplicate row."""
     repo = "isbn"
     kwargs = dict(
-        repo=repo, collection="ai.gftd.apps.isbn.book",
+        repo=repo, collection="app.etzhayyim.apps.isbn.book",
         rkey="fixed-rkey", action="create",
         recordJson={"title": "first"},
     )

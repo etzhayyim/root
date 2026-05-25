@@ -105,7 +105,7 @@ def _frontier_row(item: dict[str, Any], now: str) -> dict[str, Any]:
     official_url = _normalize_url(item.get("officialUrl") or item.get("productUrl"))
     merchant_url = _normalize_url(item.get("merchantUrl"))
     return {
-        "vertex_id": f"at://{OWNER_DID}/ai.gftd.apps.gtin.productIngestFrontier/{frontier_id}",
+        "vertex_id": f"at://{OWNER_DID}/app.etzhayyim.apps.gtin.productIngestFrontier/{frontier_id}",
         "frontier_id": frontier_id,
         "frontier_kind": str(item.get("frontierKind") or "product_hint"),
         "query": str(item.get("query") or ""),
@@ -704,7 +704,7 @@ def update_frontier_status(state: GlobalProductIngestResidentState) -> dict[str,
             run_rows.append((item, "dispatch_failed"))
         for item, status in run_rows:
             run_id = str(item.get("runId") or uuid.uuid4().hex)
-            vertex_id = f"at://{OWNER_DID}/ai.gftd.apps.gtin.productIngestRun/{_sha256(str(item.get('frontierVid')) + '|' + run_id)[:24]}"
+            vertex_id = f"at://{OWNER_DID}/app.etzhayyim.apps.gtin.productIngestRun/{_sha256(str(item.get('frontierVid')) + '|' + run_id)[:24]}"
             cur.execute("DELETE FROM vertex_product_ingest_run WHERE vertex_id = %s", (vertex_id,))
             cur.execute(
                 """

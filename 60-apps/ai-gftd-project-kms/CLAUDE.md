@@ -1,6 +1,6 @@
 # ai-gftd-project-kms
 
-KMS (Key Management Service) for etzhayyim private records (kms.gftd.ai).
+KMS (Key Management Service) for etzhayyim private records (kms.etzhayyim.com).
 Issues, manages, and revokes signed access policies that authorize specific DIDs
 to decrypt `app.etzhayyim.private.*` records.
 
@@ -8,9 +8,9 @@ to decrypt `app.etzhayyim.private.*` records.
 
 ```
 layer:           L3 Dispatcher → L7 LangServer pod
-nsid_prefix:     ai.gftd.kms
-did:             did:web:kms.gftd.ai
-issuer (interim):did:web:gftd.co.jp
+nsid_prefix:     app.etzhayyim.kms
+did:             did:web:kms.etzhayyim.com
+issuer (interim):did:web:etzhayyim.com
 migration target:did:web:etzhayyim.com
 ```
 
@@ -27,11 +27,11 @@ migration target:did:web:etzhayyim.com
 
 | NSID | Type | Description |
 |------|------|-------------|
-| `ai.gftd.kms.issueAccessPolicy`  | procedure | Issue signed policy → `policyCid` + `policyJwt` |
-| `ai.gftd.kms.getAccessPolicy`    | query     | Retrieve policy by CID |
-| `ai.gftd.kms.addRecipient`       | procedure | Add DID → new CID (policy version chain) |
-| `ai.gftd.kms.removeRecipient`    | procedure | Remove DID → new CID |
-| `ai.gftd.kms.revokeAccessPolicy` | procedure | Mark policy revoked |
+| `app.etzhayyim.kms.issueAccessPolicy`  | procedure | Issue signed policy → `policyCid` + `policyJwt` |
+| `app.etzhayyim.kms.getAccessPolicy`    | query     | Retrieve policy by CID |
+| `app.etzhayyim.kms.addRecipient`       | procedure | Add DID → new CID (policy version chain) |
+| `app.etzhayyim.kms.removeRecipient`    | procedure | Remove DID → new CID |
+| `app.etzhayyim.kms.revokeAccessPolicy` | procedure | Mark policy revoked |
 
 ## Policy CID format
 
@@ -44,7 +44,7 @@ Upgrade path: replace with IPFS CIDv1 (base32 SHA2-256) when etzhayyim IPFS pinn
 2. Update `KMS_ISSUER_DID` env var to `did:web:etzhayyim.com`
 3. Re-issue active policies under new issuer
 4. Client verifier accepts both issuers during transition window
-5. After cutover: deprecate `did:web:gftd.co.jp` KMS signing key
+5. After cutover: deprecate `did:web:etzhayyim.com` KMS signing key
 
 ## Vault invariant
 
@@ -57,5 +57,5 @@ CLAUDE.md §Vault Zero-Knowledge Invariant.
 | Var | Required | Description |
 |-----|----------|-------------|
 | `KMS_SIGNING_KEY_PEM` | prod only | EC P-256 private key PEM |
-| `KMS_ISSUER_DID`      | optional  | Default: `did:web:gftd.co.jp` |
+| `KMS_ISSUER_DID`      | optional  | Default: `did:web:etzhayyim.com` |
 | `INTERNAL_TRUST_TOKEN`| optional  | Shared secret for x-internal-trust header |

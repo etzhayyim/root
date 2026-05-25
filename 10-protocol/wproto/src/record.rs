@@ -19,34 +19,34 @@ pub struct CborRecord {
 }
 
 impl RecordMapper {
-    const NAMESPACE: &'static str = "ai.gftd.w";
+    const NAMESPACE: &'static str = "app.etzhayyim.w";
 
     /// Map kind → AT collection NSID.
     ///
     /// | kind              | AT collection NSID            |
     /// |-------------------|-------------------------------|
-    /// | "message"         | ai.gftd.w.message             |
-    /// | "channel"         | ai.gftd.w.channel             |
-    /// | "read-receipt"    | ai.gftd.w.readReceipt         |
-    /// | "prekey-bundle"   | ai.gftd.w.preKeyBundle        |
-    /// | "a2a-task"        | ai.gftd.a2a.task (passthrough)|
-    /// | "yoro.poll"       | ai.gftd.w.yoro.poll           |
+    /// | "message"         | app.etzhayyim.w.message             |
+    /// | "channel"         | app.etzhayyim.w.channel             |
+    /// | "read-receipt"    | app.etzhayyim.w.readReceipt         |
+    /// | "prekey-bundle"   | app.etzhayyim.w.preKeyBundle        |
+    /// | "a2a-task"        | app.etzhayyim.a2a.task (passthrough)|
+    /// | "yoro.poll"       | app.etzhayyim.w.yoro.poll           |
     pub fn kind_to_collection(kind: &str) -> String {
         match kind {
             // A2A passthrough
-            "a2a-task" => "ai.gftd.a2a.task".into(),
-            "a2a-result" => "ai.gftd.a2a.result".into(),
-            "a2a-message" => "ai.gftd.a2a.message".into(),
-            "a2a-session" => "ai.gftd.a2a.session".into(),
+            "a2a-task" => "app.etzhayyim.a2a.task".into(),
+            "a2a-result" => "app.etzhayyim.a2a.result".into(),
+            "a2a-message" => "app.etzhayyim.a2a.message".into(),
+            "a2a-session" => "app.etzhayyim.a2a.session".into(),
             // Governance passthrough
-            "governance-manifest" => "ai.gftd.governance.manifest".into(),
-            "governance-delegation" => "ai.gftd.governance.delegation".into(),
-            "governance-decision" => "ai.gftd.governance.decision".into(),
+            "governance-manifest" => "app.etzhayyim.governance.manifest".into(),
+            "governance-delegation" => "app.etzhayyim.governance.delegation".into(),
+            "governance-decision" => "app.etzhayyim.governance.decision".into(),
             // Built-in W Protocol kinds (camelCase for AT Lexicon convention)
             "read-receipt" => format!("{}.readReceipt", Self::NAMESPACE),
             "prekey-bundle" => format!("{}.preKeyBundle", Self::NAMESPACE),
             "signal-session" => format!("{}.signalSession", Self::NAMESPACE),
-            // Default: ai.gftd.w.{kind}
+            // Default: app.etzhayyim.w.{kind}
             other => format!("{}.{}", Self::NAMESPACE, other),
         }
     }
@@ -91,14 +91,14 @@ impl RecordMapper {
     /// All built-in W Protocol collection NSIDs (for magatama.toml Firehose subscription).
     pub fn builtin_collections() -> Vec<&'static str> {
         vec![
-            "ai.gftd.w.message",
-            "ai.gftd.w.channel",
-            "ai.gftd.w.member",
-            "ai.gftd.w.reaction",
-            "ai.gftd.w.readReceipt",
-            "ai.gftd.w.presence",
-            "ai.gftd.w.preKeyBundle",
-            "ai.gftd.w.signalSession",
+            "app.etzhayyim.w.message",
+            "app.etzhayyim.w.channel",
+            "app.etzhayyim.w.member",
+            "app.etzhayyim.w.reaction",
+            "app.etzhayyim.w.readReceipt",
+            "app.etzhayyim.w.presence",
+            "app.etzhayyim.w.preKeyBundle",
+            "app.etzhayyim.w.signalSession",
         ]
     }
 }
@@ -132,24 +132,24 @@ mod tests {
 
     #[test]
     fn test_builtin_kind_mapping() {
-        assert_eq!(RecordMapper::kind_to_collection("message"), "ai.gftd.w.message");
-        assert_eq!(RecordMapper::kind_to_collection("channel"), "ai.gftd.w.channel");
+        assert_eq!(RecordMapper::kind_to_collection("message"), "app.etzhayyim.w.message");
+        assert_eq!(RecordMapper::kind_to_collection("channel"), "app.etzhayyim.w.channel");
         assert_eq!(
             RecordMapper::kind_to_collection("read-receipt"),
-            "ai.gftd.w.readReceipt"
+            "app.etzhayyim.w.readReceipt"
         );
         assert_eq!(
             RecordMapper::kind_to_collection("prekey-bundle"),
-            "ai.gftd.w.preKeyBundle"
+            "app.etzhayyim.w.preKeyBundle"
         );
     }
 
     #[test]
     fn test_a2a_passthrough() {
-        assert_eq!(RecordMapper::kind_to_collection("a2a-task"), "ai.gftd.a2a.task");
+        assert_eq!(RecordMapper::kind_to_collection("a2a-task"), "app.etzhayyim.a2a.task");
         assert_eq!(
             RecordMapper::kind_to_collection("a2a-result"),
-            "ai.gftd.a2a.result"
+            "app.etzhayyim.a2a.result"
         );
     }
 
@@ -157,7 +157,7 @@ mod tests {
     fn test_governance_passthrough() {
         assert_eq!(
             RecordMapper::kind_to_collection("governance-manifest"),
-            "ai.gftd.governance.manifest"
+            "app.etzhayyim.governance.manifest"
         );
     }
 
@@ -165,27 +165,27 @@ mod tests {
     fn test_custom_kind() {
         assert_eq!(
             RecordMapper::kind_to_collection("yoro.poll"),
-            "ai.gftd.w.yoro.poll"
+            "app.etzhayyim.w.yoro.poll"
         );
         assert_eq!(
             RecordMapper::kind_to_collection("bpmn.task"),
-            "ai.gftd.w.bpmn.task"
+            "app.etzhayyim.w.bpmn.task"
         );
     }
 
     #[test]
     fn test_at_uri() {
         assert_eq!(
-            RecordMapper::at_uri("did:plc:abc", "ai.gftd.w.message", "3jui7kd2z"),
-            "at://did:plc:abc/ai.gftd.w.message/3jui7kd2z"
+            RecordMapper::at_uri("did:plc:abc", "app.etzhayyim.w.message", "3jui7kd2z"),
+            "at://did:plc:abc/app.etzhayyim.w.message/3jui7kd2z"
         );
     }
 
     #[test]
     fn test_builtin_collections() {
         let cols = RecordMapper::builtin_collections();
-        assert!(cols.contains(&"ai.gftd.w.message"));
-        assert!(cols.contains(&"ai.gftd.w.channel"));
+        assert!(cols.contains(&"app.etzhayyim.w.message"));
+        assert!(cols.contains(&"app.etzhayyim.w.channel"));
         assert_eq!(cols.len(), 8);
     }
 
@@ -193,7 +193,7 @@ mod tests {
     fn test_cbor_primary_path() {
         let env = test_env();
         let cbor = RecordMapper::envelope_to_cbor(&env).unwrap();
-        assert_eq!(cbor.collection, "ai.gftd.w.message");
+        assert_eq!(cbor.collection, "app.etzhayyim.w.message");
         assert_eq!(cbor.rkey, "tid123");
         assert!(!cbor.cbor_bytes.is_empty());
         // Deterministic: same input → same CID

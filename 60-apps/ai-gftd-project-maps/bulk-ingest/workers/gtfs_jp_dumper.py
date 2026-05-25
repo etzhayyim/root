@@ -321,7 +321,7 @@ def _build_route_rows(feed: dict, routes: list[dict], trips: list[dict],
             "service_days": days,
         }
         rows.append({
-            "vertex_id": f"at://{repo_did}/ai.gftd.apps.maps.{('railway' if label=='Railway' else 'busRoute')}/{rkey}",
+            "vertex_id": f"at://{repo_did}/app.etzhayyim.apps.maps.{('railway' if label=='Railway' else 'busRoute')}/{rkey}",
             "rkey": rkey,
             "repo": repo_did,
             "label": label,
@@ -401,7 +401,7 @@ def _build_stop_rows(feed: dict, stops: list[dict], routes: list[dict],
             "zone_id": s.get("zone_id"),
         }
         rows.append({
-            "vertex_id": f"at://{repo_did}/ai.gftd.apps.maps.{('station' if label=='Station' else 'busStop')}/{rkey}",
+            "vertex_id": f"at://{repo_did}/app.etzhayyim.apps.maps.{('station' if label=='Station' else 'busStop')}/{rkey}",
             "rkey": rkey,
             "repo": repo_did,
             "label": label,

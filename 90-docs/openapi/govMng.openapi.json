@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govMng.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govMng.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Mongolia government.",
-        "operationId": "ai.gftd.govMng.followSiteDeps",
+        "operationId": "app.etzhayyim.govMng.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMng.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govMng.heartbeatTick": {
       "post": {
         "summary": "Run the Mongolia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govMng.heartbeatTick",
+        "operationId": "app.etzhayyim.govMng.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMng.listOrgs": {
+    "/xrpc/app.etzhayyim.govMng.listOrgs": {
       "get": {
         "summary": "List Mongolia government organization graph records.",
-        "operationId": "ai.gftd.govMng.listOrgs",
+        "operationId": "app.etzhayyim.govMng.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMng.registerDIDs": {
+    "/xrpc/app.etzhayyim.govMng.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Mongolia government organizations.",
-        "operationId": "ai.gftd.govMng.registerDIDs",
+        "operationId": "app.etzhayyim.govMng.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMng.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govMng.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Mongolia government organization path to its graph record.",
-        "operationId": "ai.gftd.govMng.resolveOrgPath",
+        "operationId": "app.etzhayyim.govMng.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMng.seedOrgs": {
+    "/xrpc/app.etzhayyim.govMng.seedOrgs": {
       "post": {
         "summary": "Seed initial Mongolia government organization records into the graph.",
-        "operationId": "ai.gftd.govMng.seedOrgs",
+        "operationId": "app.etzhayyim.govMng.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMng.shinka": {
+    "/xrpc/app.etzhayyim.govMng.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Mongolia government organization update.",
-        "operationId": "ai.gftd.govMng.shinka",
+        "operationId": "app.etzhayyim.govMng.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMng.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govMng.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Mongolia government organization changes to graph.",
-        "operationId": "ai.gftd.govMng.syncWetUpdates",
+        "operationId": "app.etzhayyim.govMng.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

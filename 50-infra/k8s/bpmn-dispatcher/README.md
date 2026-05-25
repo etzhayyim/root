@@ -49,7 +49,7 @@ reconciled with the canonical `pymagatama.dispatcher_main` source in
    - `cloudflared tunnel delete bpmn-dispatcher` on gftd CF account
      (current tunnel ID `be2cc0b0-ddee-4ca7-baf1-2bffbef18f31`)
    - `kubectl delete deployment cloudflared-bpmn-dispatcher bpmn-dispatcher -n mitama-udf` on gftd VKE
-   - Update gftd `00-contracts` references (`dispatcher.gftd.ai` → `dispatcher.etzhayyim.com`) — separate iter (ADR-2605181400 §D3 follow-up).
+   - Update gftd `00-contracts` references (`dispatcher.etzhayyim.com` → `dispatcher.etzhayyim.com`) — separate iter (ADR-2605181400 §D3 follow-up).
 
 ## Substrate boundary
 

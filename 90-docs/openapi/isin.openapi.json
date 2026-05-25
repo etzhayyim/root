@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.isin.getDashboard": {
+    "/xrpc/app.etzhayyim.isin.getDashboard": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.getDashboard",
+        "operationId": "app.etzhayyim.isin.getDashboard",
         "parameters": [],
         "responses": {
           "200": {
@@ -52,10 +52,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.getSecurity": {
+    "/xrpc/app.etzhayyim.isin.getSecurity": {
       "get": {
         "summary": "Get a security by ISIN code or DID.",
-        "operationId": "ai.gftd.isin.getSecurity",
+        "operationId": "app.etzhayyim.isin.getSecurity",
         "parameters": [
           {
             "name": "did",
@@ -142,10 +142,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.collectEntityIR": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.collectEntityIR": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.collectEntityIR",
+        "operationId": "app.etzhayyim.isin.securityRegistry.collectEntityIR",
         "requestBody": {
           "required": true,
           "content": {
@@ -181,10 +181,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.collectJPEntityIR": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.collectJPEntityIR": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.collectJPEntityIR",
+        "operationId": "app.etzhayyim.isin.securityRegistry.collectJPEntityIR",
         "requestBody": {
           "required": true,
           "content": {
@@ -220,10 +220,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.collectJPSecurities": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.collectJPSecurities": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.collectJPSecurities",
+        "operationId": "app.etzhayyim.isin.securityRegistry.collectJPSecurities",
         "requestBody": {
           "required": true,
           "content": {
@@ -259,10 +259,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.collectSecurities": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.collectSecurities": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.collectSecurities",
+        "operationId": "app.etzhayyim.isin.securityRegistry.collectSecurities",
         "requestBody": {
           "required": true,
           "content": {
@@ -298,10 +298,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.enrichISIN": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.enrichISIN": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.enrichISIN",
+        "operationId": "app.etzhayyim.isin.securityRegistry.enrichISIN",
         "requestBody": {
           "required": true,
           "content": {
@@ -337,10 +337,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.getSecurity": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.getSecurity": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.getSecurity",
+        "operationId": "app.etzhayyim.isin.securityRegistry.getSecurity",
         "parameters": [],
         "responses": {
           "200": {
@@ -364,10 +364,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.listByCountry": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.listByCountry": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.listByCountry",
+        "operationId": "app.etzhayyim.isin.securityRegistry.listByCountry",
         "parameters": [
           {
             "name": "limit",
@@ -395,10 +395,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.registerJPProfiles": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.registerJPProfiles": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.registerJPProfiles",
+        "operationId": "app.etzhayyim.isin.securityRegistry.registerJPProfiles",
         "requestBody": {
           "required": true,
           "content": {
@@ -434,10 +434,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.registerSecurityProfiles": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.registerSecurityProfiles": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.registerSecurityProfiles",
+        "operationId": "app.etzhayyim.isin.securityRegistry.registerSecurityProfiles",
         "requestBody": {
           "required": true,
           "content": {
@@ -473,10 +473,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.search": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.search": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.search",
+        "operationId": "app.etzhayyim.isin.securityRegistry.search",
         "parameters": [
           {
             "name": "limit",
@@ -504,10 +504,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.isin.securityRegistry.validateISIN": {
+    "/xrpc/app.etzhayyim.isin.securityRegistry.validateISIN": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.isin.securityRegistry.validateISIN",
+        "operationId": "app.etzhayyim.isin.securityRegistry.validateISIN",
         "requestBody": {
           "required": true,
           "content": {

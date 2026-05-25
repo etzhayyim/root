@@ -1,4 +1,4 @@
-"""GFTD Email Wire Protocol (GEWP) v1.0 — core protocol module.
+"""etzhayyim Email Wire Protocol (GEWP) v1.0 — core protocol module.
 
 Spec: https://spec.etzhayyim.com/gewp/v1/
 License: Apache-2.0

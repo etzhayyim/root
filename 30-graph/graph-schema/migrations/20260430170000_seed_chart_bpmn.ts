@@ -8,7 +8,7 @@ import { sql } from "kysely";
  * Seed vertex_bpmn_process_def for media-gamers chart analysis BPMNs.
  *
  *   chartFetch.bpmn    — R/P7D timer-start; fetchAndPersist + analyze + post.
- *   chartAnalyze.bpmn  — none-start (XRPC ai.gftd.apps.media_gamers.analyzeChart).
+ *   chartAnalyze.bpmn  — none-start (XRPC app.etzhayyim.apps.media_gamers.analyzeChart).
  *
  * F5 watcher deploys each to Zeebe within 30s of insert.
  * ADR-0056 (BPMN-as-actor), INSERT 2 rows convention.
@@ -28,12 +28,12 @@ const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const ACTOR_TAG = "sys.bpmn.seed.media-gamers-chart";
 
 const FETCH_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/media-gamers-chart-fetch-v1";
 const ANALYZE_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/media-gamers-chart-analyze-v1";
 const ANALYZE_BINDING_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1";
-const ANALYZE_NSID = "ai.gftd.apps.media_gamers.analyzeChart";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1";
+const ANALYZE_NSID = "app.etzhayyim.apps.media_gamers.analyzeChart";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── chartFetch.bpmn (timer R/P7D) ──────────────────────────────────────

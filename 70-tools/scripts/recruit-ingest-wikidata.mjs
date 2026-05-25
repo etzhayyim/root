@@ -79,7 +79,7 @@ async function main() {
     for (const r of chunk) {
       const vid = `occ-wikidata:${r.qid}:${r.isco}`;
       const rkey = `${r.qid}-${r.isco}`;
-      const row = [vid, rkey, COLLECTOR_DID, "ai.gftd.apps.recruit.occupationWikidata",
+      const row = [vid, rkey, COLLECTOR_DID, "app.etzhayyim.apps.recruit.occupationWikidata",
         "wikidata", "CC0", "https://www.wikidata.org/",
         r.qid, r.isco,
         ...LANGS.map((l) => r[`label_${l}`]),

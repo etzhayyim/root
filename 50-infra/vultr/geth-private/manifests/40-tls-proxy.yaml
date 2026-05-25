@@ -43,7 +43,7 @@ data:
       reverse_proxy http://geth-private.geth-private.svc.cluster.local:8545 {
         # Strip any caller-supplied Worker auth header — it's enforced at
         # the CF Worker layer, never forwarded to geth itself.
-        header_up -X-Gftd-Rpc-Auth
+        header_up -X-etzhayyim-Rpc-Auth
       }
     }
 ---

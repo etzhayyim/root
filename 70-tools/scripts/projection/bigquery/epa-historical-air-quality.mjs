@@ -14,7 +14,7 @@
  *   - Narrow column projection: state_code, county_code, site_num,
  *     parameter_code, parameter_name, date_local, arithmetic_mean,
  *     units_of_measure, observation_count, latitude, longitude.
- *   - vertex_id = at://did:web:airquality.etzhayyim.com/ai.gftd.apps.airquality.observation/
+ *   - vertex_id = at://did:web:airquality.etzhayyim.com/app.etzhayyim.apps.airquality.observation/
  *                 sha256(state|county|site|parameter|date)
  *   - Record-log upsert: re-running with same window overwrites in place.
  *
@@ -48,7 +48,7 @@ const DEFAULT_TABLES = [
 const DATASET_ID = "bigquery-public-data:epa_historical_air_quality";
 const TARGET_LABEL = "vertex_air_quality_observation";
 const ACTOR_HOST = "airquality";
-const COLLECTION = "ai.gftd.apps.airquality.observation";
+const COLLECTION = "app.etzhayyim.apps.airquality.observation";
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));

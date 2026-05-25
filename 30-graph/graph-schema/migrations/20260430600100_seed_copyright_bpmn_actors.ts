@@ -23,21 +23,21 @@ const seeds: Seed[] = [
   {
     file: "crossrefIngest",
     processId: "copyright_crossref_ingest",
-    nsid: "ai.gftd.apps.copyright.ingestCrossref",
+    nsid: "app.etzhayyim.apps.copyright.ingestCrossref",
     writeTableAllowlist: "vertex_work,vertex_copyright_ingest_state",
     resultTimeoutMs: 300_000,
   },
   {
     file: "dataciteIngest",
     processId: "copyright_datacite_ingest",
-    nsid: "ai.gftd.apps.copyright.ingestDatacite",
+    nsid: "app.etzhayyim.apps.copyright.ingestDatacite",
     writeTableAllowlist: "vertex_work,vertex_copyright_ingest_state",
     resultTimeoutMs: 300_000,
   },
   {
     file: "coverageReport",
     processId: "copyright_coverage_report",
-    nsid: "ai.gftd.apps.copyright.socialCoverageReport",
+    nsid: "app.etzhayyim.apps.copyright.socialCoverageReport",
     // vertex_repo_record is reserved for social posts: this process emits app.bsky.feed.post reports only.
     writeTableAllowlist: "vertex_copyright_ingest_state,vertex_repo_record",
     resultTimeoutMs: 120_000,
@@ -47,9 +47,9 @@ const seeds: Seed[] = [
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/copyright/${s.file}.bpmn`;
 const slug = (s: Seed) => s.file.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/copyright-${slug(s)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-${slug(s)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/copyright-${slug(s)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/copyright-${slug(s)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

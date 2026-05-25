@@ -80,15 +80,15 @@ Strong candidates: a permaculture / regenerative agriculture practitioner, an in
    - Derive an ERC-4337 Smart Account address (Coinbase Smart Wallet recommended)
 
 3. **Submit application** via PDS AT Record:
-   - Lexicon: [`ai.gftd.apps.etzhayyim.council-candidate-application`](00-contracts/lexicons/ai/gftd/apps/etzhayyim/council-candidate-application.json)
+   - Lexicon: [`app.etzhayyim.apps.etzhayyim.council-candidate-application`](00-contracts/lexicons/ai/gftd/apps/etzhayyim/council-candidate-application.json)
    - Fields: `seatAxis`, `candidateNarrative` (why this seat, why now, religious commitment), `qualifications[]`, `smartWalletAddress`, `conflictOfInterestDisclosure`, `riderComplianceDeclaration`, DID-bound signature
 
 4. **Announce publicly**:
    - Open a discussion at https://github.com/etzhayyim/root/discussions linking to the AT Record URI
-   - Optional: send to `jun@gftd.group` for direct review
+   - Optional: send to `jun@etzhayyim.com` for direct review
 
 5. **30-day window**:
-   - Active Adherent SBT holders may file objections via `ai.gftd.apps.etzhayyim.council-objection` Lexicon
+   - Active Adherent SBT holders may file objections via `app.etzhayyim.apps.etzhayyim.council-objection` Lexicon
    - Three (3) cleared objections from distinct SBT holders triggers founder re-proposal for that seat
    - Stay accessible during the window
 
@@ -124,7 +124,7 @@ can self-assess against the rubric there before submitting an application.
 ## Where to ask questions
 
 - **github discussions**: https://github.com/etzhayyim/root/discussions (preferred — public + permanent)
-- **email**: jun@gftd.group (for sensitive COI questions, religious doctrinal questions, or accessibility accommodations)
+- **email**: jun@etzhayyim.com (for sensitive COI questions, religious doctrinal questions, or accessibility accommodations)
 - **DID-bound message**: did:web:etzhayyim.com (via XRPC, future)
 
 We will not have a Discord / Telegram / Twitter for RFP communications — those substrates fall under Rider §2(c) surveillance capitalism partial-applicability concerns. github discussions + AT Records + email are the canonical channels.

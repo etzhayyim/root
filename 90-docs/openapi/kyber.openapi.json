@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.kyber.projector.emitApqcEvent": {
+    "/xrpc/app.etzhayyim.kyber.projector.emitApqcEvent": {
       "post": {
-        "summary": "Emit an OCEL 2.0 event linked to an APQC code + BPMN task + case objects. Writes ai.gftd.apps.apqc.apqcEvent (federable). Intended for handler use and external orchestrators.",
-        "operationId": "ai.gftd.kyber.projector.emitApqcEvent",
+        "summary": "Emit an OCEL 2.0 event linked to an APQC code + BPMN task + case objects. Writes app.etzhayyim.apps.apqc.apqcEvent (federable). Intended for handler use and external orchestrators.",
+        "operationId": "app.etzhayyim.kyber.projector.emitApqcEvent",
         "requestBody": {
           "required": true,
           "content": {
@@ -106,10 +106,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.getActivity": {
+    "/xrpc/app.etzhayyim.kyber.projector.getActivity": {
       "get": {
         "summary": "Compatibility query for one APQC activity by activityId/ocelEventId.",
-        "operationId": "ai.gftd.kyber.projector.getActivity",
+        "operationId": "app.etzhayyim.kyber.projector.getActivity",
         "parameters": [
           {
             "name": "activityId",
@@ -194,10 +194,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.getApqcCoverage": {
+    "/xrpc/app.etzhayyim.kyber.projector.getApqcCoverage": {
       "get": {
         "summary": "APQC coverage summary: registered L1 actors (/13), bound BPMN tasks, observed OCEL events per L1 in the period.",
-        "operationId": "ai.gftd.kyber.projector.getApqcCoverage",
+        "operationId": "app.etzhayyim.kyber.projector.getApqcCoverage",
         "parameters": [
           {
             "name": "period",
@@ -284,10 +284,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.getProcess": {
+    "/xrpc/app.etzhayyim.kyber.projector.getProcess": {
       "get": {
         "summary": "Compatibility query for one APQC/BPMN process by processId/taskId.",
-        "operationId": "ai.gftd.kyber.projector.getProcess",
+        "operationId": "app.etzhayyim.kyber.projector.getProcess",
         "parameters": [
           {
             "name": "processId",
@@ -363,10 +363,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.getProcessGroup": {
+    "/xrpc/app.etzhayyim.kyber.projector.getProcessGroup": {
       "get": {
         "summary": "Compatibility query for a single APQC process group. Resolves one APQC L1 group and its BPMN-bound processes.",
-        "operationId": "ai.gftd.kyber.projector.getProcessGroup",
+        "operationId": "app.etzhayyim.kyber.projector.getProcessGroup",
         "parameters": [
           {
             "name": "groupId",
@@ -466,10 +466,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.listActivities": {
+    "/xrpc/app.etzhayyim.kyber.projector.listActivities": {
       "get": {
         "summary": "Compatibility query for APQC activities. In kyber-projector, an activity maps to one emitted OCEL event.",
-        "operationId": "ai.gftd.kyber.projector.listActivities",
+        "operationId": "app.etzhayyim.kyber.projector.listActivities",
         "parameters": [
           {
             "name": "groupId",
@@ -636,10 +636,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.listApqcActors": {
+    "/xrpc/app.etzhayyim.kyber.projector.listApqcActors": {
       "get": {
         "summary": "List registered APQC L1 actor DIDs with coverage summary.",
-        "operationId": "ai.gftd.kyber.projector.listApqcActors",
+        "operationId": "app.etzhayyim.kyber.projector.listApqcActors",
         "parameters": [
           {
             "name": "apqcCode",
@@ -737,10 +737,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.listBpmnTasks": {
+    "/xrpc/app.etzhayyim.kyber.projector.listBpmnTasks": {
       "get": {
         "summary": "List BPMN 2.0 task bindings to APQC codes. Each task carries {taskId, apqcCode, taskType, ocelEventType, kyberCollection}.",
-        "operationId": "ai.gftd.kyber.projector.listBpmnTasks",
+        "operationId": "app.etzhayyim.kyber.projector.listBpmnTasks",
         "parameters": [
           {
             "name": "apqcCode",
@@ -863,10 +863,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.listProcessGroups": {
+    "/xrpc/app.etzhayyim.kyber.projector.listProcessGroups": {
       "get": {
         "summary": "Compatibility query for APQC process groups. In kyber-projector, a process group maps to one APQC L1 actor/DID.",
-        "operationId": "ai.gftd.kyber.projector.listProcessGroups",
+        "operationId": "app.etzhayyim.kyber.projector.listProcessGroups",
         "parameters": [
           {
             "name": "groupId",
@@ -1000,10 +1000,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.listProcesses": {
+    "/xrpc/app.etzhayyim.kyber.projector.listProcesses": {
       "get": {
         "summary": "Compatibility query for APQC/BPMN processes. In kyber-projector, a process maps to one BPMN task binding.",
-        "operationId": "ai.gftd.kyber.projector.listProcesses",
+        "operationId": "app.etzhayyim.kyber.projector.listProcesses",
         "parameters": [
           {
             "name": "groupId",
@@ -1143,10 +1143,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.registerApqcActors": {
+    "/xrpc/app.etzhayyim.kyber.projector.registerApqcActors": {
       "post": {
         "summary": "Bulk-register 13 APQC L1 path-based DIDs under did:web:kyber-projector.etzhayyim.com. Idempotent: re-invocation returns existing DIDs unchanged.",
-        "operationId": "ai.gftd.kyber.projector.registerApqcActors",
+        "operationId": "app.etzhayyim.kyber.projector.registerApqcActors",
         "requestBody": {
           "required": true,
           "content": {
@@ -1229,10 +1229,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.kyber.projector.runBpmnTask": {
+    "/xrpc/app.etzhayyim.kyber.projector.runBpmnTask": {
       "post": {
         "summary": "Execute a BPMN task bound to an APQC code. Creates a processInstance record (Design E Tier 2), emits an OCEL event (apqcEvent collection), and performs the task effect (e.g. post to dept DID, notify subscriber).",
-        "operationId": "ai.gftd.kyber.projector.runBpmnTask",
+        "operationId": "app.etzhayyim.kyber.projector.runBpmnTask",
         "requestBody": {
           "required": true,
           "content": {

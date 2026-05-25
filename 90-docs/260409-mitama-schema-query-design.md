@@ -16,7 +16,7 @@
 - `status`
 - `timestamp_ms`
 - `_alive`
-- `collection` (=`ai.gftd.actor.manifest`)
+- `collection` (=`app.etzhayyim.actor.manifest`)
 - `repo`
 - `rkey`
 

@@ -7,7 +7,7 @@ topic: etzhayyim-agent
 authoritative: true
 last_verified: 2026-04-25
 authoritative_for:
-  - Claude Agent autonomous action scope as Gftd Japan
+  - Claude Agent autonomous action scope as etzhayyim Japan
   - email send authority (internal vs external)
   - Teams send method
   - payment authority
@@ -20,7 +20,7 @@ superseded_by: []
 
 # Context
 
-Claude Agent (Claude Code / Claude.ai connector) が Gftd Japan 法人として
+Claude Agent (Claude Code / Claude.ai connector) が etzhayyim Japan 法人として
 自律行動する際、外部第三者に与える影響と payment 系の不可逆性から authority
 bound を明示する必要がある。CLAUDE.md Root-Only Rule を ADR 化し、`deps.toml
 [etzhayyim_agent]` を SSoT として参照する。
@@ -31,8 +31,8 @@ bound を明示する必要がある。CLAUDE.md Root-Only Rule を ADR 化し�
 
 | 種別 | authority | 経路 |
 |---|---|---|
-| **社内** (`@gftd.co.jp` recipient のみ) | direct send | `ai.gftd.apps.microsoft.sendMail` を agent から直接 invoke |
-| **社外** (1 件でも非 `@gftd.co.jp` を含む) | draft → approve → send | `sendDraft` で draft 作成 → 人間が `/manage` UI で approve → `sendMail` |
+| **社内** (`@etzhayyim.com` recipient のみ) | direct send | `app.etzhayyim.apps.microsoft.sendMail` を agent から直接 invoke |
+| **社外** (1 件でも非 `@etzhayyim.com` を含む) | draft → approve → send | `sendDraft` で draft 作成 → 人間が `/manage` UI で approve → `sendMail` |
 
 判定は recipient list に **1 件でも** 社外 domain が含まれる時点で社外扱い。
 SSoT: `deps.toml [etzhayyim_agent.auth].email_send_internal` /
@@ -60,9 +60,9 @@ trigger されない:
 
 Agent から送信するには `microsoft.etzhayyim.com` (Layer 9 Client App) の以下 XRPC
 を呼ぶ:
-- `ai.gftd.apps.microsoft.sendMail`
-- `ai.gftd.apps.microsoft.sendDraft`
-- `ai.gftd.apps.microsoft.listDrafts`
+- `app.etzhayyim.apps.microsoft.sendMail`
+- `app.etzhayyim.apps.microsoft.sendDraft`
+- `app.etzhayyim.apps.microsoft.listDrafts`
 
 これら handler 内部で D1 / D2 の authority を再 check し、規約違反 request
 は 403 で reject する (defense in depth)。

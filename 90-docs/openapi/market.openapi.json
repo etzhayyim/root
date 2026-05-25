@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.market.chainDemandPoll": {
+    "/xrpc/app.etzhayyim.market.chainDemandPoll": {
       "post": {
         "summary": "Internal BPMN-driven capital-rail demand poll (ADR 2605011300 §7). Polls public BTC (mempool.space), ETH (eth.llamarpc.com JSON-RPC), and payment-rail status pages (Square, Coinbase, Plaid, Circle), maps signals to lanes by mempool/fee/gas/incident rules, and inserts vertex_market_demand_signal rows. Not externally callable.",
-        "operationId": "ai.gftd.market.chainDemandPoll",
+        "operationId": "app.etzhayyim.market.chainDemandPoll",
         "responses": {
           "200": {
             "description": "OK",
@@ -51,10 +51,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.market.internetDemandPoll": {
+    "/xrpc/app.etzhayyim.market.internetDemandPoll": {
       "post": {
         "summary": "Internal BPMN-driven demand poll (ADR 2605011300 ∇φ axis). Fetches public internet sources (Bluesky AppView searchPosts + HN Algolia) for the union of 5 lane keywords and inserts vertex_market_demand_signal rows. Not externally callable — invoked only by the timer-start BPMN.",
-        "operationId": "ai.gftd.market.internetDemandPoll",
+        "operationId": "app.etzhayyim.market.internetDemandPoll",
         "responses": {
           "200": {
             "description": "OK",
@@ -86,10 +86,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.market.listOffer": {
+    "/xrpc/app.etzhayyim.market.listOffer": {
       "get": {
         "summary": "List published market offers (ADR 2605011300). Returns 5-lane public market listings with priceUnit / settlementCurrency / issuer did:erc725 fields. Phase 1 lanes: vault / sashiosae / lawfirm / bpmn / murakumo.",
-        "operationId": "ai.gftd.market.listOffer",
+        "operationId": "app.etzhayyim.market.listOffer",
         "parameters": [
           {
             "name": "lane",
@@ -207,10 +207,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.market.observeDemand": {
+    "/xrpc/app.etzhayyim.market.observeDemand": {
       "post": {
         "summary": "Record a demand-side observation (ADR 2605011300, ∇φ axis). Trace sources: (1) inbound XRPC 4xx for unknown NSID, (2) Gmail/Teams classifier T3 gray drop (ADR-0032), (3) FraudSignal duplicate detection (yabai). Feeds mv_market_vacuum_score daily aggregation.",
-        "operationId": "ai.gftd.market.observeDemand",
+        "operationId": "app.etzhayyim.market.observeDemand",
         "requestBody": {
           "required": true,
           "content": {
@@ -298,10 +298,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.market.publishOffer": {
+    "/xrpc/app.etzhayyim.market.publishOffer": {
       "post": {
         "summary": "Publish a new market offer in one of 5 Phase-1 lanes (ADR 2605011300). Increases information surface area S. Mokuteki upper gate (child/future floor + Spirit separation healing, ADR-2604291800) is evaluated server-side; floor violations reject the offer.",
-        "operationId": "ai.gftd.market.publishOffer",
+        "operationId": "app.etzhayyim.market.publishOffer",
         "requestBody": {
           "required": true,
           "content": {
@@ -405,10 +405,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.market.quotePrice": {
+    "/xrpc/app.etzhayyim.market.quotePrice": {
       "get": {
         "summary": "Quote spot price for a given listing + quantity (ADR 2605011300). Read-only; does not allocate inventory.",
-        "operationId": "ai.gftd.market.quotePrice",
+        "operationId": "app.etzhayyim.market.quotePrice",
         "parameters": [
           {
             "name": "listingId",
@@ -470,10 +470,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.market.settleInvoice": {
+    "/xrpc/app.etzhayyim.market.settleInvoice": {
       "post": {
         "summary": "Enqueue an invoice for ERC-4337 UserOp bundling (ADR 2605011300). N invoices → 1 UserOp via generic.settlement.bundle BPMN. Returns settlementTxHash once the bundled UserOp is mined; before that, returns bundleQueueId. Mokuteki child/future floor is re-checked at bundle time.",
-        "operationId": "ai.gftd.market.settleInvoice",
+        "operationId": "app.etzhayyim.market.settleInvoice",
         "requestBody": {
           "required": true,
           "content": {

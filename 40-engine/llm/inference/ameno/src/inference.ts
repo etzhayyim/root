@@ -10,7 +10,7 @@ import type { AdapterMergeSpec } from "./lora-runtime";
 import type { RagResult } from "./rag-lora";
 import { buildRagContextPrompt } from "./rag-lora";
 
-/** Engine model id → HuggingFace ONNX repo. SSoT mirrored by ai.gftd.apps.ameno.listModels. */
+/** Engine model id → HuggingFace ONNX repo. SSoT mirrored by app.etzhayyim.apps.ameno.listModels. */
 export const MODELS: Readonly<Record<string, string>> = {
   "gemma-4-e2b-it": "onnx-community/gemma-4-E2B-it-ONNX",
   "gemma-4-e4b-it": "onnx-community/gemma-4-E4B-it-ONNX",

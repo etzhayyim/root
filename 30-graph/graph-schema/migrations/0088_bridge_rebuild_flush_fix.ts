@@ -29,7 +29,7 @@ import { Kysely, sql } from 'kysely';
  *
  * | collection                          | rows  | source                          |
  * |-------------------------------------|-------|---------------------------------|
- * | ai.gftd.apps.iso639_3.language      | 7,929 | SIL International iso-639-3.tab |
+ * | app.etzhayyim.apps.iso639_3.language      | 7,929 | SIL International iso-639-3.tab |
  *
  * Fields: name, iso1 (ISO 639-1 2-letter), part2b (bibliographic), part2t (terminological),
  * scope (I=Individual, M=Macrolanguage, S=Special),
@@ -111,7 +111,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   // Core bridges (all idempotent DELETE + re-derive):
   await sql`DELETE FROM edge_classified_as WHERE system = 'locode_iso3166'`.execute(db);
   // SUBSTRING(v1.rkey,1,2) = v2.value_json->>'iso2'
-  // WHERE v1.collection='ai.gftd.apps.locode.location' AND v2.collection='ai.gftd.apps.iso3166.country'
+  // WHERE v1.collection='app.etzhayyim.apps.locode.location' AND v2.collection='app.etzhayyim.apps.iso3166.country'
 
   await sql`DELETE FROM edge_classified_as WHERE system = 'cpc_isic5'`.execute(db);
   // Chain: SELECT DISTINCT e1.src_vid, e2.dst_vid FROM edge_classified_as e1

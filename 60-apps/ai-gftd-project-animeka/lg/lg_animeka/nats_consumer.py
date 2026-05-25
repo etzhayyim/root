@@ -1,13 +1,13 @@
 """NATS JetStream pull consumer for lg-animeka.
 
 Subject hierarchy mirrors NSID directly:
-  ai.gftd.animeka.{graph_name}
+  app.etzhayyim.animeka.{graph_name}
 
 Stream LG_DISPATCH is auto-created on startup if absent.
 
 Trigger from anywhere:
-  nats pub ai.gftd.animeka.autopilot '{}'
-  nats pub ai.gftd.animeka.cutRunner '{"cut_id":"..."}'
+  nats pub app.etzhayyim.animeka.autopilot '{}'
+  nats pub app.etzhayyim.animeka.cutRunner '{"cut_id":"..."}'
 
 MCP tool can call nats_publish() to enqueue work.
 LLM can inspect state via nats_status() which queries stream/consumer info.
@@ -27,7 +27,7 @@ _log = logging.getLogger(__name__)
 _NATS_URL = os.environ.get("NATS_URL", "nats://nats.nats.svc.cluster.local:4222")
 _NATS_ENABLED = os.environ.get("LG_NATS_ENABLED", "true").lower() not in ("false", "0", "no")
 _STREAM_NAME = os.environ.get("LG_NATS_STREAM", "LG_DISPATCH")
-_STREAM_SUBJECTS = [f"ai.gftd.apps.>"]
+_STREAM_SUBJECTS = [f"app.etzhayyim.apps.>"]
 _ACK_WAIT_SEC = int(os.environ.get("LG_NATS_ACK_WAIT_SEC", "150"))
 _MAX_DELIVER = int(os.environ.get("LG_NATS_MAX_DELIVER", "3"))
 _FETCH_TIMEOUT_SEC = 5
@@ -47,7 +47,7 @@ _ASSISTANT_TO_NSID_TAIL: dict[str, str] = {
 
 def _subject(assistant_id: str) -> str:
     tail = _ASSISTANT_TO_NSID_TAIL.get(assistant_id, assistant_id)
-    return f"ai.gftd.animeka.{tail}"
+    return f"app.etzhayyim.animeka.{tail}"
 
 
 async def _ensure_stream(js: Any) -> None:

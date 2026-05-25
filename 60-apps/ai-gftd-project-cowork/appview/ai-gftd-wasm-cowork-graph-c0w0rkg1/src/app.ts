@@ -7,8 +7,8 @@ import {
   nowISO,
   genID,
   nsid,
-} from "@gftd/magatama-host-sdk";
-import type { Database } from "@gftd/graph-schema";
+} from "@etzhayyim/magatama-host-sdk";
+import type { Database } from "@etzhayyim/graph-schema";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden): migrate to AT MST + IPFS + Base L2 anchor
 import { Kysely } from "kysely";
 
@@ -34,7 +34,7 @@ import { Kysely } from "kysely";
 // ────────────────────────────────────────────────────────────────────────────
 
 const ACTOR_DID = "did:web:cowork-graph.etzhayyim.com";
-const NSID_NS   = "ai.gftd.apps.coworkGraph";
+const NSID_NS   = "app.etzhayyim.apps.coworkGraph";
 const GRAPH_BASE = "https://graph.microsoft.com/v1.0";
 
 // ── 型定義 ───────────────────────────────────────────────────────────────────
@@ -356,7 +356,7 @@ export default createWorkerExport((sdk: HostSDK) => {
       await (dbHandle ?? createKyselyDb(env.HYPERDRIVE!))
         .insertInto("vertex_cowork_graph_mail_draft" as any)
         .values({
-          vertex_id: `at://${ACTOR_DID}/ai.gftd.apps.coworkGraph.mailDraft/${mailDraftRkey}`,
+          vertex_id: `at://${ACTOR_DID}/app.etzhayyim.apps.coworkGraph.mailDraft/${mailDraftRkey}`,
           sensitivity_ord: 2,
           owner_did: ACTOR_DID,
           actor_id: "c0w0rkg1",
@@ -618,7 +618,7 @@ export default createWorkerExport((sdk: HostSDK) => {
       (dbHandle ?? createKyselyDb(env.HYPERDRIVE!))
         .insertInto("vertex_cowork_graph_sync_job" as any)
         .values({
-          vertex_id: `at://${ACTOR_DID}/ai.gftd.apps.coworkGraph.syncJob/${syncJobRkey1}`,
+          vertex_id: `at://${ACTOR_DID}/app.etzhayyim.apps.coworkGraph.syncJob/${syncJobRkey1}`,
           sensitivity_ord: 2,
           owner_did: ACTOR_DID,
           actor_id: "c0w0rkg1",
@@ -821,7 +821,7 @@ ${memberRows}
 <h3>📌 法務案件 (LingLing 等) は別フロー</h3>
 <p>
   法務案件は <a href="${KAISYA_URL}/legal">/legal</a> → <code>legal-case.form.json</code> を使用。<br>
-  CLO k.bakshi が <code>ai.gftd.apps.kaisya.updateCaseStatus</code> で進捗を更新。<br>
+  CLO k.bakshi が <code>app.etzhayyim.apps.kaisya.updateCaseStatus</code> で進捗を更新。<br>
   <b>ZeLo 7問対応:</b> Teams <code>GJ/CE/Legal/2504-LingLing</code> チャンネルで進捗共有。
 </p>
 
@@ -844,7 +844,7 @@ ${memberRows}
       (dbHandle ?? createKyselyDb(env.HYPERDRIVE!))
         .insertInto("vertex_cowork_graph_sync_job" as any)
         .values({
-          vertex_id: `at://${ACTOR_DID}/ai.gftd.apps.coworkGraph.syncJob/${syncJobRkey2}`,
+          vertex_id: `at://${ACTOR_DID}/app.etzhayyim.apps.coworkGraph.syncJob/${syncJobRkey2}`,
           sensitivity_ord: 2,
           owner_did: ACTOR_DID,
           actor_id: "c0w0rkg1",

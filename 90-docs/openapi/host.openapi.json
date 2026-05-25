@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.host.virtualActor.invoke": {
+    "/xrpc/app.etzhayyim.host.virtualActor.invoke": {
       "post": {
         "summary": "Invoke a method on a virtual actor (lifecycle-managed, reentrant).",
-        "operationId": "ai.gftd.host.virtualActor.invoke",
+        "operationId": "app.etzhayyim.host.virtualActor.invoke",
         "requestBody": {
           "required": true,
           "content": {
@@ -69,10 +69,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.telemetry.emitMetric": {
+    "/xrpc/app.etzhayyim.host.telemetry.emitMetric": {
       "post": {
         "summary": "Emit an OTEL metric sample.",
-        "operationId": "ai.gftd.host.telemetry.emitMetric",
+        "operationId": "app.etzhayyim.host.telemetry.emitMetric",
         "requestBody": {
           "required": true,
           "content": {
@@ -124,10 +124,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.telemetry.log": {
+    "/xrpc/app.etzhayyim.host.telemetry.log": {
       "post": {
         "summary": "Emit a structured log line (OTEL logs).",
-        "operationId": "ai.gftd.host.telemetry.log",
+        "operationId": "app.etzhayyim.host.telemetry.log",
         "requestBody": {
           "required": true,
           "content": {
@@ -179,10 +179,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.storage.getObject": {
+    "/xrpc/app.etzhayyim.host.storage.getObject": {
       "get": {
         "summary": "Get an object from the storage satellite.",
-        "operationId": "ai.gftd.host.storage.getObject",
+        "operationId": "app.etzhayyim.host.storage.getObject",
         "parameters": [
           {
             "name": "bucket",
@@ -227,10 +227,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.storage.putObject": {
+    "/xrpc/app.etzhayyim.host.storage.putObject": {
       "post": {
         "summary": "Put an object to the storage satellite (bucket/key addressed).",
-        "operationId": "ai.gftd.host.storage.putObject",
+        "operationId": "app.etzhayyim.host.storage.putObject",
         "requestBody": {
           "required": true,
           "content": {
@@ -287,10 +287,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.pubsub.publish": {
+    "/xrpc/app.etzhayyim.host.pubsub.publish": {
       "post": {
         "summary": "Publish a message to a pubsub topic (at-least-once).",
-        "operationId": "ai.gftd.host.pubsub.publish",
+        "operationId": "app.etzhayyim.host.pubsub.publish",
         "requestBody": {
           "required": true,
           "content": {
@@ -339,10 +339,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.pubsub.pull": {
+    "/xrpc/app.etzhayyim.host.pubsub.pull": {
       "get": {
         "summary": "Pull up to N messages from a topic.",
-        "operationId": "ai.gftd.host.pubsub.pull",
+        "operationId": "app.etzhayyim.host.pubsub.pull",
         "parameters": [
           {
             "name": "topic",
@@ -386,10 +386,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.ocel.emitEvent": {
+    "/xrpc/app.etzhayyim.host.ocel.emitEvent": {
       "post": {
         "summary": "Emit an OCEL event (object-centric event log).",
-        "operationId": "ai.gftd.host.ocel.emitEvent",
+        "operationId": "app.etzhayyim.host.ocel.emitEvent",
         "requestBody": {
           "required": true,
           "content": {
@@ -433,10 +433,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.m365.acquireAppToken": {
+    "/xrpc/app.etzhayyim.host.m365.acquireAppToken": {
       "post": {
         "summary": "Acquire a Microsoft Graph app-only access token via client credentials flow. Uses tenant secret from Cloudflare Secrets Store.",
-        "operationId": "ai.gftd.host.m365.acquireAppToken",
+        "operationId": "app.etzhayyim.host.m365.acquireAppToken",
         "responses": {
           "200": {
             "description": "OK",
@@ -470,10 +470,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.m365.batchMoveMessages": {
+    "/xrpc/app.etzhayyim.host.m365.batchMoveMessages": {
       "post": {
         "summary": "Move up to 20 messages to a well-known folder via Graph $batch API.",
-        "operationId": "ai.gftd.host.m365.batchMoveMessages",
+        "operationId": "app.etzhayyim.host.m365.batchMoveMessages",
         "requestBody": {
           "required": true,
           "content": {
@@ -557,10 +557,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.m365.createDraft": {
+    "/xrpc/app.etzhayyim.host.m365.createDraft": {
       "post": {
         "summary": "Create a draft email via Graph POST /users/{fromUpn}/messages. The message lands in the Drafts folder and is NOT sent. Returns the draft id + Outlook web link for human review/approval. Used for external-recipient policy (draft_only).",
-        "operationId": "ai.gftd.host.m365.createDraft",
+        "operationId": "app.etzhayyim.host.m365.createDraft",
         "requestBody": {
           "required": true,
           "content": {
@@ -660,10 +660,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.m365.enumerateUsers": {
+    "/xrpc/app.etzhayyim.host.m365.enumerateUsers": {
       "get": {
         "summary": "Enumerate tenant users matching a UPN domain filter. Uses ConsistencyLevel=eventual for advanced filters.",
-        "operationId": "ai.gftd.host.m365.enumerateUsers",
+        "operationId": "app.etzhayyim.host.m365.enumerateUsers",
         "parameters": [
           {
             "name": "token",
@@ -679,10 +679,10 @@
             "name": "upnDomainSuffix",
             "in": "query",
             "required": false,
-            "description": "Filter: endsWith(userPrincipalName, suffix), e.g. '@gftd.co.jp'",
+            "description": "Filter: endsWith(userPrincipalName, suffix), e.g. '@etzhayyim.com'",
             "schema": {
               "type": "string",
-              "description": "Filter: endsWith(userPrincipalName, suffix), e.g. '@gftd.co.jp'"
+              "description": "Filter: endsWith(userPrincipalName, suffix), e.g. '@etzhayyim.com'"
             }
           },
           {
@@ -742,10 +742,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.m365.fetchMailFolders": {
+    "/xrpc/app.etzhayyim.host.m365.fetchMailFolders": {
       "get": {
         "summary": "Fetch all mail folders (recursive childFolders) for a user. Returns flat id→displayName map.",
-        "operationId": "ai.gftd.host.m365.fetchMailFolders",
+        "operationId": "app.etzhayyim.host.m365.fetchMailFolders",
         "parameters": [
           {
             "name": "token",
@@ -808,10 +808,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.m365.fetchMessagesPage": {
+    "/xrpc/app.etzhayyim.host.m365.fetchMessagesPage": {
       "get": {
         "summary": "Fetch one page of /users/{upn}/messages. Pagination via nextLink. Classification (folder → signal_class, sender_kind) is caller responsibility.",
-        "operationId": "ai.gftd.host.m365.fetchMessagesPage",
+        "operationId": "app.etzhayyim.host.m365.fetchMessagesPage",
         "parameters": [
           {
             "name": "token",
@@ -891,10 +891,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.m365.listDrafts": {
+    "/xrpc/app.etzhayyim.host.m365.listDrafts": {
       "get": {
         "summary": "List drafts in /users/{fromUpn}/mailFolders/drafts/messages (newest first). Used for approval UIs / audit trails.",
-        "operationId": "ai.gftd.host.m365.listDrafts",
+        "operationId": "app.etzhayyim.host.m365.listDrafts",
         "parameters": [
           {
             "name": "token",
@@ -975,10 +975,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.m365.sendDraft": {
+    "/xrpc/app.etzhayyim.host.m365.sendDraft": {
       "post": {
         "summary": "Send a previously created draft via Graph POST /users/{fromUpn}/messages/{id}/send. Post-approval transition from createDraft → sent. The draft is consumed (removed from Drafts, copy in Sent Items).",
-        "operationId": "ai.gftd.host.m365.sendDraft",
+        "operationId": "app.etzhayyim.host.m365.sendDraft",
         "requestBody": {
           "required": true,
           "content": {
@@ -1031,10 +1031,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.m365.sendMail": {
+    "/xrpc/app.etzhayyim.host.m365.sendMail": {
       "post": {
-        "summary": "Send an email via Graph POST /users/{fromUpn}/sendMail. Requires Azure app-only Mail.Send. This host capability is unconditional — policy routing (internal direct / external draft_only) is enforced by the caller (e.g. ai.gftd.apps.microsoft.sendMail). For Teams channel posting, pass the channel email address as a recipient (channel_email_via_mail_send pattern).",
-        "operationId": "ai.gftd.host.m365.sendMail",
+        "summary": "Send an email via Graph POST /users/{fromUpn}/sendMail. Requires Azure app-only Mail.Send. This host capability is unconditional — policy routing (internal direct / external draft_only) is enforced by the caller (e.g. app.etzhayyim.apps.microsoft.sendMail). For Teams channel posting, pass the channel email address as a recipient (channel_email_via_mail_send pattern).",
+        "operationId": "app.etzhayyim.host.m365.sendMail",
         "requestBody": {
           "required": true,
           "content": {
@@ -1134,10 +1134,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.lock.tryLock": {
+    "/xrpc/app.etzhayyim.host.lock.tryLock": {
       "post": {
         "summary": "Attempt to acquire a distributed lock with a TTL lease.",
-        "operationId": "ai.gftd.host.lock.tryLock",
+        "operationId": "app.etzhayyim.host.lock.tryLock",
         "requestBody": {
           "required": true,
           "content": {
@@ -1185,10 +1185,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.lock.unlock": {
+    "/xrpc/app.etzhayyim.host.lock.unlock": {
       "post": {
         "summary": "Release a previously acquired lock.",
-        "operationId": "ai.gftd.host.lock.unlock",
+        "operationId": "app.etzhayyim.host.lock.unlock",
         "requestBody": {
           "required": true,
           "content": {
@@ -1232,10 +1232,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.llm.chat": {
+    "/xrpc/app.etzhayyim.host.llm.chat": {
       "post": {
         "summary": "Single-turn LLM chat (legacy agentChat). Prefer llm.converse for structured I/O.",
-        "operationId": "ai.gftd.host.llm.chat",
+        "operationId": "app.etzhayyim.host.llm.chat",
         "requestBody": {
           "required": true,
           "content": {
@@ -1283,10 +1283,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.llm.converse": {
+    "/xrpc/app.etzhayyim.host.llm.converse": {
       "post": {
         "summary": "Multi-turn structured LLM conversation. Routes to Murakumo or CF Workers AI per llm-model-registry. In-process capability (BindingTransport).",
-        "operationId": "ai.gftd.host.llm.converse",
+        "operationId": "app.etzhayyim.host.llm.converse",
         "requestBody": {
           "required": true,
           "content": {
@@ -1354,10 +1354,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.llm.react": {
+    "/xrpc/app.etzhayyim.host.llm.react": {
       "post": {
         "summary": "ReAct loop: LLM → tool → observe → repeat until stop condition or max iterations.",
-        "operationId": "ai.gftd.host.llm.react",
+        "operationId": "app.etzhayyim.host.llm.react",
         "requestBody": {
           "required": true,
           "content": {
@@ -1405,10 +1405,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.llm.route": {
+    "/xrpc/app.etzhayyim.host.llm.route": {
       "post": {
         "summary": "Intent classification via LLM tool_choice=required. Returns tool name, does not execute.",
-        "operationId": "ai.gftd.host.llm.route",
+        "operationId": "app.etzhayyim.host.llm.route",
         "requestBody": {
           "required": true,
           "content": {
@@ -1452,10 +1452,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.ipfs.publish": {
+    "/xrpc/app.etzhayyim.host.ipfs.publish": {
       "post": {
         "summary": "Publish bytes to IPFS (S3/R2-backed). Returns CIDv1.",
-        "operationId": "ai.gftd.host.ipfs.publish",
+        "operationId": "app.etzhayyim.host.ipfs.publish",
         "requestBody": {
           "required": true,
           "content": {
@@ -1504,10 +1504,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.invoke.call": {
+    "/xrpc/app.etzhayyim.host.invoke.call": {
       "post": {
         "summary": "DID-addressed RPC call. Governance-gated. Empty did = host auto-discovers provider.",
-        "operationId": "ai.gftd.host.invoke.call",
+        "operationId": "app.etzhayyim.host.invoke.call",
         "requestBody": {
           "required": true,
           "content": {
@@ -1561,10 +1561,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.identity.listActors": {
+    "/xrpc/app.etzhayyim.host.identity.listActors": {
       "get": {
         "summary": "Paginated list of registered actor DIDs.",
-        "operationId": "ai.gftd.host.identity.listActors",
+        "operationId": "app.etzhayyim.host.identity.listActors",
         "parameters": [
           {
             "name": "offset",
@@ -1608,10 +1608,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.identity.resolve": {
+    "/xrpc/app.etzhayyim.host.identity.resolve": {
       "get": {
         "summary": "Resolve a nanoid to its DID. Returns null if not registered.",
-        "operationId": "ai.gftd.host.identity.resolve",
+        "operationId": "app.etzhayyim.host.identity.resolve",
         "parameters": [
           {
             "name": "nanoid",
@@ -1644,10 +1644,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.governance.checkPolicy": {
+    "/xrpc/app.etzhayyim.host.governance.checkPolicy": {
       "get": {
         "summary": "Check whether a command is permitted for a user under current policy.",
-        "operationId": "ai.gftd.host.governance.checkPolicy",
+        "operationId": "app.etzhayyim.host.governance.checkPolicy",
         "parameters": [
           {
             "name": "command",
@@ -1699,10 +1699,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.governance.registerManifest": {
+    "/xrpc/app.etzhayyim.host.governance.registerManifest": {
       "post": {
         "summary": "Register a governance manifest (RACI / approval policy) for the current actor.",
-        "operationId": "ai.gftd.host.governance.registerManifest",
+        "operationId": "app.etzhayyim.host.governance.registerManifest",
         "requestBody": {
           "required": true,
           "content": {
@@ -1746,10 +1746,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.core.configGet": {
+    "/xrpc/app.etzhayyim.host.core.configGet": {
       "get": {
         "summary": "Resolve a configuration value (env var / SPIN_VARIABLE_*).",
-        "operationId": "ai.gftd.host.core.configGet",
+        "operationId": "app.etzhayyim.host.core.configGet",
         "parameters": [
           {
             "name": "key",
@@ -1782,10 +1782,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.core.logAppend": {
+    "/xrpc/app.etzhayyim.host.core.logAppend": {
       "post": {
         "summary": "Append a log record to a named stream.",
-        "operationId": "ai.gftd.host.core.logAppend",
+        "operationId": "app.etzhayyim.host.core.logAppend",
         "requestBody": {
           "required": true,
           "content": {
@@ -1838,10 +1838,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.conversation.createSession": {
+    "/xrpc/app.etzhayyim.host.conversation.createSession": {
       "post": {
         "summary": "Create a W Protocol WChannel conversation session.",
-        "operationId": "ai.gftd.host.conversation.createSession",
+        "operationId": "app.etzhayyim.host.conversation.createSession",
         "requestBody": {
           "required": true,
           "content": {
@@ -1889,10 +1889,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.conversation.sendMessage": {
+    "/xrpc/app.etzhayyim.host.conversation.sendMessage": {
       "post": {
         "summary": "Send a message into an existing conversation session.",
-        "operationId": "ai.gftd.host.conversation.sendMessage",
+        "operationId": "app.etzhayyim.host.conversation.sendMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -1940,10 +1940,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.cdn.publicUrl": {
+    "/xrpc/app.etzhayyim.host.cdn.publicUrl": {
       "get": {
         "summary": "Resolve the public URL for a CDN object.",
-        "operationId": "ai.gftd.host.cdn.publicUrl",
+        "operationId": "app.etzhayyim.host.cdn.publicUrl",
         "parameters": [
           {
             "name": "subdomain",
@@ -1987,10 +1987,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.cdn.upload": {
+    "/xrpc/app.etzhayyim.host.cdn.upload": {
       "post": {
         "summary": "Upload bytes to the CDN under a subdomain/path.",
-        "operationId": "ai.gftd.host.cdn.upload",
+        "operationId": "app.etzhayyim.host.cdn.upload",
         "requestBody": {
           "required": true,
           "content": {
@@ -2047,10 +2047,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.capability.discover": {
+    "/xrpc/app.etzhayyim.host.capability.discover": {
       "get": {
         "summary": "Discover capabilities by tag/status (CV-1 discovery).",
-        "operationId": "ai.gftd.host.capability.discover",
+        "operationId": "app.etzhayyim.host.capability.discover",
         "parameters": [
           {
             "name": "tag",
@@ -2110,10 +2110,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.capability.listOwn": {
+    "/xrpc/app.etzhayyim.host.capability.listOwn": {
       "get": {
         "summary": "List capabilities owned by the current actor.",
-        "operationId": "ai.gftd.host.capability.listOwn",
+        "operationId": "app.etzhayyim.host.capability.listOwn",
         "parameters": [],
         "responses": {
           "200": {
@@ -2140,10 +2140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.authz.enforce": {
+    "/xrpc/app.etzhayyim.host.authz.enforce": {
       "post": {
         "summary": "In-process RBAC enforcement. Throws on deny, returns on allow.",
-        "operationId": "ai.gftd.host.authz.enforce",
+        "operationId": "app.etzhayyim.host.authz.enforce",
         "requestBody": {
           "required": true,
           "content": {
@@ -2212,10 +2212,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.authn.verifyToken": {
+    "/xrpc/app.etzhayyim.host.authn.verifyToken": {
       "post": {
         "summary": "Verify a bearer token and return its claims (base64 bytes).",
-        "operationId": "ai.gftd.host.authn.verifyToken",
+        "operationId": "app.etzhayyim.host.authn.verifyToken",
         "requestBody": {
           "required": true,
           "content": {
@@ -2260,10 +2260,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.activity.awaitAll": {
+    "/xrpc/app.etzhayyim.host.activity.awaitAll": {
       "post": {
         "summary": "Join on a previously spawned parallel batch. Returns results array.",
-        "operationId": "ai.gftd.host.activity.awaitAll",
+        "operationId": "app.etzhayyim.host.activity.awaitAll",
         "requestBody": {
           "required": true,
           "content": {
@@ -2311,10 +2311,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.activity.spawnParallel": {
+    "/xrpc/app.etzhayyim.host.activity.spawnParallel": {
       "post": {
         "summary": "Fan out a batch of activities for parallel execution. Returns batch ID.",
-        "operationId": "ai.gftd.host.activity.spawnParallel",
+        "operationId": "app.etzhayyim.host.activity.spawnParallel",
         "requestBody": {
           "required": true,
           "content": {
@@ -2358,10 +2358,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.host.accessLog.record": {
+    "/xrpc/app.etzhayyim.host.accessLog.record": {
       "post": {
         "summary": "Record an access log entry (auto-collected path).",
-        "operationId": "ai.gftd.host.accessLog.record",
+        "operationId": "app.etzhayyim.host.accessLog.record",
         "requestBody": {
           "required": true,
           "content": {

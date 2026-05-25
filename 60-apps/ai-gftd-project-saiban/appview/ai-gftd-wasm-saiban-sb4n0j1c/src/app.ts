@@ -13,7 +13,7 @@ import {
   createInboxBuffer,
   genID,
   nsid,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 type AnyRow = Record<string, unknown>;
 type KyselyDb = ReturnType<typeof createKyselyDb>;
@@ -105,7 +105,7 @@ async function cmdRegisterCourtProfiles(sdk: HostSDK, _payload: Uint8Array): Pro
     })));
     if (did) c.did = did;
     const courtId = c.path.replace("court:", "");
-    const vertexId = `at://${actorDID}/ai.gftd.apps.saiban.court/${courtId.replace(/:/g, "-")}`;
+    const vertexId = `at://${actorDID}/app.etzhayyim.apps.saiban.court/${courtId.replace(/:/g, "-")}`;
     await getDb().insertInto("vertex_saiban_court" as any).values({
       vertex_id: vertexId,
       court_id: courtId,
@@ -141,7 +141,7 @@ async function cmdCreateJiken(sdk: HostSDK, payload: Uint8Array): Promise<unknow
   })));
   const now = nowISO();
   await getDb().insertInto("vertex_saiban_jiken" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.saiban.jiken/${id}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.saiban.jiken/${id}`,
     jiken_id: id,
     jiken_did: did || null,
     case_number: str(req.caseNumber) || "",
@@ -165,7 +165,7 @@ async function cmdCreateJiken(sdk: HostSDK, payload: Uint8Array): Promise<unknow
   if (title) {
     sdk.pds.dispatch({ type: "magatama.invoke", payload: {
       did: "did:web:hanrei.etzhayyim.com",
-      method: "ai.gftd.hanrei.searchCases",
+      method: "app.etzhayyim.hanrei.searchCases",
       params: JSON.stringify({ query: title, caseType }),
     }});
   }
@@ -174,7 +174,7 @@ async function cmdCreateJiken(sdk: HostSDK, payload: Uint8Array): Promise<unknow
   if (lawfirmCaseId) {
     sdk.pds.dispatch({ type: "magatama.invoke", payload: {
       did: "did:web:lawfirm.etzhayyim.com",
-      method: "ai.gftd.apps.lawfirm.notifyLinkedCase",
+      method: "app.etzhayyim.apps.lawfirm.notifyLinkedCase",
       params: JSON.stringify({ jikenId: id, lawfirmCaseId }),
     }});
   }
@@ -258,7 +258,7 @@ async function cmdRegisterJudge(sdk: HostSDK, payload: Uint8Array): Promise<unkn
   })));
   const now = nowISO();
   await getDb().insertInto("vertex_saiban_judge" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.saiban.judge/${id}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.saiban.judge/${id}`,
     judge_id: id,
     judge_did: did || null,
     name_ja: str(req.nameJa) || "",
@@ -286,7 +286,7 @@ async function cmdScheduleTrialEvent(sdk: HostSDK, payload: Uint8Array): Promise
   const eventType = str(req.eventType) || "hearing";
   const scheduledAt = str(req.scheduledAt) || "";
   await getDb().insertInto("vertex_saiban_trial_event" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.saiban.trialEvent/${id}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.saiban.trialEvent/${id}`,
     event_id: id,
     jiken_id: jikenId,
     event_type: eventType,
@@ -306,7 +306,7 @@ async function cmdScheduleTrialEvent(sdk: HostSDK, payload: Uint8Array): Promise
   if (jikenId) {
     sdk.pds.dispatch({ type: "magatama.invoke", payload: {
       did: "did:web:lawfirm.etzhayyim.com",
-      method: "ai.gftd.apps.lawfirm.notifyTrialEvent",
+      method: "app.etzhayyim.apps.lawfirm.notifyTrialEvent",
       params: JSON.stringify({ jikenId, eventType, scheduledAt }),
     }});
   }
@@ -341,7 +341,7 @@ async function cmdRegisterJurisdictionMap(_sdk: HostSDK, payload: Uint8Array): P
     : "";
   const threshold = req.monetaryThresholdYen != null ? Number(req.monetaryThresholdYen) : null;
   await getDb().insertInto("vertex_saiban_jurisdiction_map" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.saiban.jurisdictionMap/${id}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.saiban.jurisdictionMap/${id}`,
     map_id: id,
     court_id: courtId,
     court_level: str(req.courtLevel) || "",
@@ -413,7 +413,7 @@ async function cmdGetCourt(_sdk: HostSDK, payload: Uint8Array): Promise<unknown>
 // ComAtprotoSyncSubscribeRepos — reactive pipeline
 // ---------------------------------------------------------------------------
 
-// ADR-0036: domain collections (ai.gftd.apps.saiban.*) no longer flow through the
+// ADR-0036: domain collections (app.etzhayyim.apps.saiban.*) no longer flow through the
 // commit stream. Cross-actor notifications are dispatched inline in each command handler.
 // This handler receives only social commits (app.bsky.*).
 export async function handleComAtprotoSyncSubscribeReposCommit(
@@ -445,59 +445,59 @@ export async function runHeartbeat(sdk: HostSDK): Promise<{ ok: boolean; actions
 
 function registerSaibanApp(sdk: HostSDK): void {
   sdk.app
-    .command(nsid("ai.gftd.apps.saiban.registerCourtProfiles"), (_ctx, body) => cmdRegisterCourtProfiles(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.registerCourtProfiles"), (_ctx, body) => cmdRegisterCourtProfiles(sdk, body),
       asAgentTool("Register all 33 court DIDs (JP+US+UK+DE+FR)"),
       withCapabilityTags("court", "did", "registration"),
     )
-    .command(nsid("ai.gftd.apps.saiban.listCourts"), (_ctx, body) => cmdListCourts(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.listCourts"), (_ctx, body) => cmdListCourts(sdk, body),
       asAgentTool("List courts by jurisdiction"),
       withCapabilityTags("court", "query"),
     )
-    .command(nsid("ai.gftd.apps.saiban.getCourt"), (_ctx, body) => cmdGetCourt(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.getCourt"), (_ctx, body) => cmdGetCourt(sdk, body),
       asAgentTool("Get court by ID"),
       withCapabilityTags("court", "query"),
     )
-    .command(nsid("ai.gftd.apps.saiban.registerJudge"), (_ctx, body) => cmdRegisterJudge(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.registerJudge"), (_ctx, body) => cmdRegisterJudge(sdk, body),
       asAgentTool("Register judge profile (restricted)"),
       withCapabilityTags("judge", "did", "registration"),
     )
-    .command(nsid("ai.gftd.apps.saiban.createJiken"), (_ctx, body) => cmdCreateJiken(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.createJiken"), (_ctx, body) => cmdCreateJiken(sdk, body),
       asAgentTool("Create jiken (case) record"),
       withCapabilityTags("jiken", "create"),
     )
-    .command(nsid("ai.gftd.apps.saiban.getJiken"), (_ctx, body) => cmdGetJiken(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.getJiken"), (_ctx, body) => cmdGetJiken(sdk, body),
       asAgentTool("Get jiken by ID"),
       withCapabilityTags("jiken", "query"),
     )
-    .command(nsid("ai.gftd.apps.saiban.searchJiken"), (_ctx, body) => cmdSearchJiken(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.searchJiken"), (_ctx, body) => cmdSearchJiken(sdk, body),
       asAgentTool("Search jiken by title/case number/type"),
       withCapabilityTags("jiken", "search"),
     )
-    .command(nsid("ai.gftd.apps.saiban.updateJikenStatus"), (_ctx, body) => cmdUpdateJikenStatus(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.updateJikenStatus"), (_ctx, body) => cmdUpdateJikenStatus(sdk, body),
       asAgentTool("Update jiken status"),
       withCapabilityTags("jiken", "update"),
     )
-    .command(nsid("ai.gftd.apps.saiban.linkJikenToHanrei"), (_ctx, body) => cmdLinkJikenToHanrei(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.linkJikenToHanrei"), (_ctx, body) => cmdLinkJikenToHanrei(sdk, body),
       asAgentTool("Link jiken to hanrei case law"),
       withCapabilityTags("jiken", "hanrei", "link"),
     )
-    .command(nsid("ai.gftd.apps.saiban.linkJikenToLawfirm"), (_ctx, body) => cmdLinkJikenToLawfirm(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.linkJikenToLawfirm"), (_ctx, body) => cmdLinkJikenToLawfirm(sdk, body),
       asAgentTool("Link jiken to lawfirm case"),
       withCapabilityTags("jiken", "lawfirm", "link"),
     )
-    .command(nsid("ai.gftd.apps.saiban.scheduleTrialEvent"), (_ctx, body) => cmdScheduleTrialEvent(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.scheduleTrialEvent"), (_ctx, body) => cmdScheduleTrialEvent(sdk, body),
       asAgentTool("Schedule trial event"),
       withCapabilityTags("trial-event", "create"),
     )
-    .command(nsid("ai.gftd.apps.saiban.listTrialEvents"), (_ctx, body) => cmdListTrialEvents(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.listTrialEvents"), (_ctx, body) => cmdListTrialEvents(sdk, body),
       asAgentTool("List trial events for jiken"),
       withCapabilityTags("trial-event", "query"),
     )
-    .command(nsid("ai.gftd.apps.saiban.registerJurisdictionMap"), (_ctx, body) => cmdRegisterJurisdictionMap(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.registerJurisdictionMap"), (_ctx, body) => cmdRegisterJurisdictionMap(sdk, body),
       asAgentTool("Register jurisdiction mapping"),
       withCapabilityTags("jurisdiction", "registration"),
     )
-    .command(nsid("ai.gftd.apps.saiban.resolveJurisdiction"), (_ctx, body) => cmdResolveJurisdiction(sdk, body),
+    .command(nsid("app.etzhayyim.apps.saiban.resolveJurisdiction"), (_ctx, body) => cmdResolveJurisdiction(sdk, body),
       asAgentTool("Resolve court jurisdiction by location/subject/amount"),
       withCapabilityTags("jurisdiction", "resolve"),
     );

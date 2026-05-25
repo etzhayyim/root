@@ -24,8 +24,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   for (const e of entries) {
     const sourcePath = `00-contracts/bpmn/ai/gftd/real-estate/${e.proc}.bpmn`;
     const xml = readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
-    const processVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`;
-    const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`;
+    const processVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`;
+    const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`;
     await sql`
       INSERT INTO vertex_bpmn_process_def (
         vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,
@@ -45,7 +45,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did
       )
       SELECT
-        ${bindingVertexId}, ${ownerDid}, ${`ai.gftd.apps.realEstate.${e.proc}`}, ${e.bpmnProcessId}, 1,
+        ${bindingVertexId}, ${ownerDid}, ${`app.etzhayyim.apps.realEstate.${e.proc}`}, ${e.bpmnProcessId}, 1,
         CAST(${e.timeoutMs} AS integer), '', 'active', ${createdAt},
         1, ${ownerDid}, ${ownerDid}, ${actorTag}, ${ownerDid}, 'anon'
       WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${bindingVertexId})
@@ -55,7 +55,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
 export async function down(db: Kysely<unknown>): Promise<void> {
   for (const e of entries) {
-    await sql`DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${`at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
-    await sql`DELETE FROM vertex_bpmn_process_def WHERE vertex_id = ${`at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
+    await sql`DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${`at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
+    await sql`DELETE FROM vertex_bpmn_process_def WHERE vertex_id = ${`at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
   }
 }

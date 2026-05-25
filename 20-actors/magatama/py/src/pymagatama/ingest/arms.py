@@ -81,8 +81,8 @@ def register_firearm(**args: Any) -> dict[str, Any]:
     holder = str(args.get("registrantDid") or caller)
     serial_hash = sha256hex(serial)
     rid = nanoid(10)
-    firearm_vid = f"at://did:web:{APP_HANDLE}/ai.gftd.apps.arms.firearm/{rid}"
-    pii_vid = f"at://did:web:{APP_HANDLE}/ai.gftd.apps.arms.firearmPii/{rid}"
+    firearm_vid = f"at://did:web:{APP_HANDLE}/app.etzhayyim.apps.arms.firearm/{rid}"
+    pii_vid = f"at://did:web:{APP_HANDLE}/app.etzhayyim.apps.arms.firearmPii/{rid}"
     created = now_iso()
     _execute(
         """
@@ -127,7 +127,7 @@ def authenticate_holder(**args: Any) -> dict[str, Any]:
         return _err("PermitRequired", "no active permit found for holder", 403)
     challenge = nanoid(32)
     session_id = nanoid(12)
-    session_vid = f"at://did:web:{APP_HANDLE}/ai.gftd.apps.arms.authSession/{session_id}"
+    session_vid = f"at://did:web:{APP_HANDLE}/app.etzhayyim.apps.arms.authSession/{session_id}"
     initiated = now_iso()
     _execute(
         """
@@ -185,8 +185,8 @@ def issue_permit(**args: Any) -> dict[str, Any]:
     caller = _caller(args)
     permit_hash = sha256hex(permit_number)
     rid = nanoid(10)
-    permit_vid = f"at://did:web:{APP_HANDLE}/ai.gftd.apps.arms.permit/{rid}"
-    pii_vid = f"at://did:web:{APP_HANDLE}/ai.gftd.apps.arms.permitPii/{rid}"
+    permit_vid = f"at://did:web:{APP_HANDLE}/app.etzhayyim.apps.arms.permit/{rid}"
+    pii_vid = f"at://did:web:{APP_HANDLE}/app.etzhayyim.apps.arms.permitPii/{rid}"
     issued = now_iso()
     _execute(
         """
@@ -221,7 +221,7 @@ def transfer_custody(**args: Any) -> dict[str, Any]:
     if permit_vid and not _fetch_one("SELECT vertex_id FROM vertex_arms_permit WHERE vertex_id = %s AND holder_did = %s AND status = 'active' LIMIT 1", (permit_vid, to_holder)):
         return _err("PermitNotFound", "toHolder permit not found or inactive", 404)
     occurred = now_iso()
-    event_vid = f"at://did:web:{APP_HANDLE}/ai.gftd.apps.arms.custodyEvent/{nanoid(10)}"
+    event_vid = f"at://did:web:{APP_HANDLE}/app.etzhayyim.apps.arms.custodyEvent/{nanoid(10)}"
     _custody_event(event_vid, from_holder, firearm_vid, "transfer", from_holder, to_holder, session_vid, permit_vid, args.get("locationCode"), None, occurred, _caller(args))
     _execute("DELETE FROM edge_arms_firearm_to_holder WHERE src = %s", (firearm_vid,))
     _execute("INSERT INTO edge_arms_firearm_to_holder (src, dst, rel, since, permit_vid) VALUES (%s, %s, 'held_by', %s, %s)", (firearm_vid, to_holder, occurred, permit_vid))
@@ -256,7 +256,7 @@ def check_out_firearm(**args: Any) -> dict[str, Any]:
     if firearm[0] != "active":
         return _err("FirearmUnavailable", f"firearm status is {firearm[0]}", 409)
     occurred = now_iso()
-    event_vid = f"at://did:web:{APP_HANDLE}/ai.gftd.apps.arms.custodyEvent/{nanoid(10)}"
+    event_vid = f"at://did:web:{APP_HANDLE}/app.etzhayyim.apps.arms.custodyEvent/{nanoid(10)}"
     _custody_event(event_vid, holder, firearm_vid, "check_out", holder, None, session_vid, None, args.get("locationCode"), None, occurred, _caller(args))
     _execute("UPDATE vertex_arms_firearm SET status = 'checked_out' WHERE vertex_id = %s", (firearm_vid,))
     return {"ok": True, "eventVid": event_vid, "firearmVid": firearm_vid, "holderDid": holder, "status": "checked_out", "occurredAt": occurred}
@@ -272,7 +272,7 @@ def check_in_firearm(**args: Any) -> dict[str, Any]:
     if firearm[0] != "checked_out":
         return _err("InvalidRequest", f"firearm is not checked out (status: {firearm[0]})", 409)
     occurred = now_iso()
-    event_vid = f"at://did:web:{APP_HANDLE}/ai.gftd.apps.arms.custodyEvent/{nanoid(10)}"
+    event_vid = f"at://did:web:{APP_HANDLE}/app.etzhayyim.apps.arms.custodyEvent/{nanoid(10)}"
     _custody_event(event_vid, holder, firearm_vid, "check_in", None, holder, None, None, args.get("locationCode"), args.get("notes"), occurred, _caller(args))
     _execute("UPDATE vertex_arms_firearm SET status = 'active' WHERE vertex_id = %s", (firearm_vid,))
     return {"ok": True, "eventVid": event_vid, "firearmVid": firearm_vid, "holderDid": holder, "status": "active", "occurredAt": occurred}
@@ -291,15 +291,15 @@ def report_incident(**args: Any) -> dict[str, Any]:
     new_status = "stolen" if incident == "theft" else "lost" if incident == "loss" else firearm[0]
     event_type = "reported_stolen" if incident == "theft" else "reported_lost" if incident == "loss" else "check_out"
     occurred = now_iso()
-    event_vid = f"at://did:web:{APP_HANDLE}/ai.gftd.apps.arms.custodyEvent/{nanoid(10)}"
-    defence_vid = f"at://did:web:arms.etzhayyim.com/ai.gftd.apps.arms.incident/{nanoid(12)}"
+    event_vid = f"at://did:web:{APP_HANDLE}/app.etzhayyim.apps.arms.custodyEvent/{nanoid(10)}"
+    defence_vid = f"at://did:web:arms.etzhayyim.com/app.etzhayyim.apps.arms.incident/{nanoid(12)}"
     _custody_event(event_vid, caller, firearm_vid, event_type, caller, None, None, None, args.get("locationCode"), args.get("description"), occurred, caller, 3)
     _execute(
         """
         INSERT INTO vertex_open_defence_event
           (vertex_id, owner_did, bpmn_process_id, nsid, project, subject_vid, action_class,
            severity, detected_at, created_at, sensitivity_ord, org_id, user_id, actor_id)
-        VALUES (%s, %s, 'arms_report_incident', 'ai.gftd.apps.arms.reportIncident', 'arms', %s, %s, %s, %s, %s, 3, %s, %s, 'arms.incident')
+        VALUES (%s, %s, 'arms_report_incident', 'app.etzhayyim.apps.arms.reportIncident', 'arms', %s, %s, %s, %s, %s, 3, %s, %s, 'arms.incident')
         """,
         (defence_vid, caller, firearm_vid, f"arms.{incident}", "critical" if incident in {"theft", "unauthorized_discharge"} else "high", occurred, occurred, caller, caller),
     )

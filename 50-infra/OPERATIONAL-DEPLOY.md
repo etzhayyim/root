@@ -288,7 +288,7 @@ cat > ~/Library/LaunchAgents/com.etzhayyim.mst-projector.plist <<EOF
     <key>ETZ_PROJECTOR_IPFS_API_URL</key>
     <string>http://127.0.0.1:5001</string>
     <key>ETZ_PROJECTOR_COLLECTIONS</key>
-    <string>app.etzhayyim.,ai.gftd.apps.</string>
+    <string>app.etzhayyim.,app.etzhayyim.apps.</string>
   </dict>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><true/>

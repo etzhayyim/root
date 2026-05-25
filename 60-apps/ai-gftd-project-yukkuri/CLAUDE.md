@@ -15,7 +15,7 @@ yukkuri.etzhayyim.com — ゆっくり実況動画を 1 トピック / 1 台本�
 | Primary DID | `did:plc:yukkuri` (Phase 5 `plc.etzhayyim.com` で genesis) |
 | Handle | `yukkuri.etzhayyim.com` |
 | Legacy nanoid | `y5kk5r1x` (grandfather, deprecate 2026-10-01) |
-| NSID | `ai.gftd.apps.yukkuri.*` |
+| NSID | `app.etzhayyim.apps.yukkuri.*` |
 
 ## Project Actor Composition (1 project = N actor DIDs)
 
@@ -30,22 +30,22 @@ yukkuri.etzhayyim.com — ゆっくり実況動画を 1 トピック / 1 台本�
 | `did:web:yukkuri.etzhayyim.com:actor:character` | 立ち絵 pose / 表情 / 口パク timing 生成 | `kami-character` + `kami-skeleton` / VRM part compose |
 | `did:web:yukkuri.etzhayyim.com:actor:illustrator` | 背景 + 挿絵 + テロップ素材 | `murakumo:inference/image` (SDXL / flux) |
 | `did:web:yukkuri.etzhayyim.com:actor:sfx` | 効果音選定 + 必要時生成 | SFX lib + `murakumo:inference/audio` (sfx-mode) |
-| `did:web:yukkuri.etzhayyim.com:actor:composer` | BGM (cross-project invoke `ongakuka.compose`) | `ai.gftd.ongakuka.compose` |
+| `did:web:yukkuri.etzhayyim.com:actor:composer` | BGM (cross-project invoke `ongakuka.compose`) | `app.etzhayyim.ongakuka.compose` |
 | `did:web:yukkuri.etzhayyim.com:actor:editor` | timeline / cut / fade / telop / subtitle 合成仕様 | local TS scheduler |
 | `did:web:yukkuri.etzhayyim.com:actor:renderer` | 最終動画 render (frame → H.264/VP9) | `kami-engine` headless + `ffmpeg-wasm` mux |
 | `did:web:yukkuri.etzhayyim.com:actor:critic` | 尺 / ラウドネス / IP / 表現 QA | text+audio classifier |
 
-actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。中間成果物は `ai.gftd.apps.yukkuri.asset` + `actorDid` / `kind` field で帰属。
+actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。中間成果物は `app.etzhayyim.apps.yukkuri.asset` + `actorDid` / `kind` field で帰属。
 
 ## Domain Model
 
 | 概念 | NSID | Graph node |
 |---|---|---|
-| 動画 (1 project) | `ai.gftd.apps.yukkuri.video` | `YkVideo` |
-| シーン (順序付き切り出し単位) | `ai.gftd.apps.yukkuri.scene` | `YkScene` |
-| セリフ (speaker + text + TTS blob) | `ai.gftd.apps.yukkuri.line` | `YkLine` |
-| アセット (image / sfx / bgm / vrm) | `ai.gftd.apps.yukkuri.asset` | `YkAsset` |
-| 生成イベント (audit + metering) | `ai.gftd.apps.yukkuri.generation` | `YkGeneration` |
+| 動画 (1 project) | `app.etzhayyim.apps.yukkuri.video` | `YkVideo` |
+| シーン (順序付き切り出し単位) | `app.etzhayyim.apps.yukkuri.scene` | `YkScene` |
+| セリフ (speaker + text + TTS blob) | `app.etzhayyim.apps.yukkuri.line` | `YkLine` |
+| アセット (image / sfx / bgm / vrm) | `app.etzhayyim.apps.yukkuri.asset` | `YkAsset` |
+| 生成イベント (audit + metering) | `app.etzhayyim.apps.yukkuri.generation` | `YkGeneration` |
 
 ### Edge predicates
 
@@ -63,12 +63,12 @@ actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。�
 
 | NSID | Type | 用途 |
 |---|---|---|
-| `ai.gftd.apps.yukkuri.compose` | procedure | topic/outline から 1 video を enqueue (returns videoUri 即時) |
-| `ai.gftd.apps.yukkuri.regenerate` | procedure | scene / line / asset 部分再生成 |
-| `ai.gftd.apps.yukkuri.render` | procedure | 全素材揃ったらフル video を render (mp4/webm) |
-| `ai.gftd.apps.yukkuri.listVideos` | query | offset/limit list |
-| `ai.gftd.apps.yukkuri.getVideo` | query | video + scenes + lines + assets + last generation |
-| `ai.gftd.apps.yukkuri.health` | procedure | health probe (bootstrap) |
+| `app.etzhayyim.apps.yukkuri.compose` | procedure | topic/outline から 1 video を enqueue (returns videoUri 即時) |
+| `app.etzhayyim.apps.yukkuri.regenerate` | procedure | scene / line / asset 部分再生成 |
+| `app.etzhayyim.apps.yukkuri.render` | procedure | 全素材揃ったらフル video を render (mp4/webm) |
+| `app.etzhayyim.apps.yukkuri.listVideos` | query | offset/limit list |
+| `app.etzhayyim.apps.yukkuri.getVideo` | query | video + scenes + lines + assets + last generation |
+| `app.etzhayyim.apps.yukkuri.health` | procedure | health probe (bootstrap) |
 
 ## Triggers (magatama.jsonld 予定)
 
@@ -81,11 +81,11 @@ actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。�
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.yukkuri.video",
-        "ai.gftd.apps.yukkuri.scene",
-        "ai.gftd.apps.yukkuri.line",
-        "ai.gftd.apps.yukkuri.asset",
-        "ai.gftd.apps.yukkuri.generation"
+        "app.etzhayyim.apps.yukkuri.video",
+        "app.etzhayyim.apps.yukkuri.scene",
+        "app.etzhayyim.apps.yukkuri.line",
+        "app.etzhayyim.apps.yukkuri.asset",
+        "app.etzhayyim.apps.yukkuri.generation"
       ]
     }
   }
@@ -96,10 +96,10 @@ actor 間連携は **convo chat (`sendProjectMessage`)** + AT Record commit。�
 
 ```
 XRPC compose
-  → handleAiGftdAppsYukkuriCompose
+  → handleAietzhayyimAppsYukkuriCompose
     → ComAtprotoRepoCreateRecord("video", {status:"queued", projectId, topic, ...})
-       ↓ onCommit (subscribeRepos: ai.gftd.apps.yukkuri.video)
-       handleAiGftdAppsYukkuriVideo:
+       ↓ onCommit (subscribeRepos: app.etzhayyim.apps.yukkuri.video)
+       handleAietzhayyimAppsYukkuriVideo:
          video.status === "queued" →
            scriptwriter.draft() → scenes[]+lines[] records (T2) → status "script"
          video.status === "script" →
@@ -130,11 +130,11 @@ XRPC compose
 
 ## LLM Routing (CRITICAL)
 
-**App Workers must call LLM via `llmCall`/`agentConverseAsync` from `@gftd/magatama-host-sdk`.** Direct `fetch()` to `llm.etzhayyim.com` or the Linode Ollama IP (`172.236.133.64`) returns 403 (empty body) from CF WAF for same-account Worker outbound subrequests — confirmed 2026-04-15.
+**App Workers must call LLM via `llmCall`/`agentConverseAsync` from `@etzhayyim/magatama-host-sdk`.** Direct `fetch()` to `llm.etzhayyim.com` or the Linode Ollama IP (`172.236.133.64`) returns 403 (empty body) from CF WAF for same-account Worker outbound subrequests — confirmed 2026-04-15.
 
 | Path | Result | Use |
 |---|---|---|
-| `llmCall(system, user)` (host-sdk) | ✅ 200 | **DEFAULT** — routes via `PDS_SERVICE` binding → `atproto.etzhayyim.com/xrpc/ai.gftd.apps.llm.chatCompletions` → `MURAKUMO_SERVICE` (Worker binding, WAF bypass) |
+| `llmCall(system, user)` (host-sdk) | ✅ 200 | **DEFAULT** — routes via `PDS_SERVICE` binding → `atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.llm.chatCompletions` → `MURAKUMO_SERVICE` (Worker binding, WAF bypass) |
 | `fetch("https://llm.etzhayyim.com/...")` | ❌ 403 CF WAF | Direct outbound — **禁止** |
 | `fetch("http://172.236.133.64/...")` | ❌ 403 CF WAF | Direct outbound — **禁止** |
 
@@ -146,7 +146,7 @@ XRPC compose
 | voiceLeft / voiceRight | `kokoro-ts` inline (edge) or `murakumo:inference/audio` tts | `Kokoro-82M` (ONNX via `kokoro-ts`) |
 | illustrator | `murakumo:inference/image` text-to-image | `flux-schnell` / `sdxl-turbo-ja-lora` |
 | sfx | library lookup + `murakumo:inference/audio` sfx-gen (fallback) | `audiogen-1b` |
-| composer | `ai.gftd.ongakuka.compose` (cross-project) | ongakuka pipeline |
+| composer | `app.etzhayyim.ongakuka.compose` (cross-project) | ongakuka pipeline |
 | character | `kami-character` (WASM, client-side at render time) | kami-engine crates |
 | editor | local TS (Worker) — timeline JSON 生成 | — |
 | renderer | `kami-engine` headless render → frames → `ffmpeg-wasm` mux | wgpu (`Backends::BROWSER_WEBGPU`) in CF Worker Durable Object with browser rendering binding OR Mac render pool |
@@ -173,7 +173,7 @@ XRPC compose
 
 ## CRITICAL: Copyright / Consent / 表現 Invariants
 
-1. **キャラクター資産**: 東方 Project (ZUN) の二次創作 GL の範囲内でのみ利用。公式立ち絵/素材を直接学習/再配布しない。付属立ち絵は **GFTD 独自デザインの reimu-like / marisa-like オリジナルキャラ** を default とし、名前・衣装も差分化する (既定 displayName: `霊夢` ではなく `ゆきり` / `まりり` 等の独自名)
+1. **キャラクター資産**: 東方 Project (ZUN) の二次創作 GL の範囲内でのみ利用。公式立ち絵/素材を直接学習/再配布しない。付属立ち絵は **etzhayyim 独自デザインの reimu-like / marisa-like オリジナルキャラ** を default とし、名前・衣装も差分化する (既定 displayName: `霊夢` ではなく `ゆきり` / `まりり` 等の独自名)
 2. **音声**: `kokoro-ts` 既定 voice は permissive license のもののみ採用。商用利用不可 voice は UI で明示 disabled
 3. **BGM / SFX**: `ongakuka` 経由は copyright invariants を継承 (CLAP cosine > 0.92 は reject)。SFX lib は CC0 / CC-BY のみ
 4. **画像**: `illustrator` は style prompt に実在作家名を指定された場合 reject。reference image アップロードは `license ∈ {permissive, own, licensed}` のみ
@@ -187,10 +187,10 @@ XRPC compose
 | Project | 関係 |
 |---|---|
 | `murakumo` | `inference/{text,image,audio}` provider (CRITICAL) |
-| `ongakuka` | BGM 生成 (cross-project invoke `ai.gftd.ongakuka.compose`) |
+| `ongakuka` | BGM 生成 (cross-project invoke `app.etzhayyim.ongakuka.compose`) |
 | `kakin` | quota check (per compose / per render) |
 | `credits` | consumer spend / operator reward (GPU 秒・render 時間) |
-| `auth` | per-call ES256 Service Auth (`lxm=ai.gftd.apps.yukkuri.compose` etc.) |
+| `auth` | per-call ES256 Service Auth (`lxm=app.etzhayyim.apps.yukkuri.compose` etc.) |
 | `signal` | 台本下書き / private reference image の field encrypt |
 | `vault` | licensed voice pack / 立ち絵素材の zero-knowledge 保管 |
 | `well-becoming` | critic の配慮スコア反映 |
@@ -216,7 +216,7 @@ XRPC compose
   - generation queue + preview player (scene 単位 / full video)
   - timeline ruler (waveform + telop + 口パク dots)
   - render 押下で final mp4 DL
-- Deep-link: `https://yukkuri.etzhayyim.com/at/{handle}/ai.gftd.apps.yukkuri.video/{rkey}`
+- Deep-link: `https://yukkuri.etzhayyim.com/at/{handle}/app.etzhayyim.apps.yukkuri.video/{rkey}`
 
 ## Migration Backlog
 

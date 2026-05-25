@@ -24,9 +24,9 @@
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.legalAid.createCase` | procedure | 扶助 case 作成 (applicantDid = Tier 3 PII) |
-| `ai.gftd.legalAid.assignDefender` | procedure | bengoshi DID を defender にアサイン (verified panel attorney) |
-| `ai.gftd.legalAid.listCases` | query | jurisdiction + matter + status + lawyerDid フィルタ |
+| `app.etzhayyim.legalAid.createCase` | procedure | 扶助 case 作成 (applicantDid = Tier 3 PII) |
+| `app.etzhayyim.legalAid.assignDefender` | procedure | bengoshi DID を defender にアサイン (verified panel attorney) |
+| `app.etzhayyim.legalAid.listCases` | query | jurisdiction + matter + status + lawyerDid フィルタ |
 
 ## cross-actor
 

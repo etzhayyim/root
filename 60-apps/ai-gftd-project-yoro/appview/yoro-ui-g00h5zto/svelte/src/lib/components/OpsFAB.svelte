@@ -49,7 +49,7 @@
 			if (!token) { errorMessage = 'ログインが必要です'; return; }
 			const now = new Date();
 			const name = `Project ${now.toLocaleDateString('ja-JP')} ${now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' })}`;
-			const res = await atProcedure<Record<string, unknown>>('ai.gftd.projector.newProjectConvo', { name }, { bearerToken: token });
+			const res = await atProcedure<Record<string, unknown>>('app.etzhayyim.projector.newProjectConvo', { name }, { bearerToken: token });
 			const parsed = (typeof res === 'string' ? JSON.parse(res) : res) as Record<string, unknown>;
 			const convoId = (parsed?.convoId as string) || '';
 			if (convoId) {

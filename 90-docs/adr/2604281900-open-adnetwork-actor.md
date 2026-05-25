@@ -30,7 +30,7 @@ BPMN-as-actor（ADR-0056）パターンに従い、CF Worker + Zeebe BPMN + Risi
 
 - **Actor DID**: `did:web:open-adnetwork.etzhayyim.com`
 - **Tier**: T1 Actor（ADR-0056 BPMN-as-actor）
-- **NSID prefix**: `ai.gftd.openAdnetwork.*`
+- **NSID prefix**: `app.etzhayyim.openAdnetwork.*`
 - **Dispatcher**: `http://dispatcher.etzhayyim.com:8080/xrpc/{nsid}`
 - **Graph tables**: 8 `vertex_open_adnetwork_*` + 3 `mv_open_adnetwork_*`
 

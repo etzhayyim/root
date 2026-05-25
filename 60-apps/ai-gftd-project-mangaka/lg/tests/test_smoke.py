@@ -10,25 +10,25 @@ from fastapi.testclient import TestClient
 _LANGGRAPH_JSON = Path(__file__).parent.parent / "langgraph.json"
 
 _EXPECTED_NSID_MAP = {
-    "ai.gftd.mangaka.health":              "health",
-    "ai.gftd.mangaka.chat":                "agent_chat",
-    "ai.gftd.mangaka.pipelineChat":        "agent_chat",
-    "ai.gftd.mangaka.projectChat":         "agent_chat",
-    "ai.gftd.mangaka.saveDocument":        "save_document",
-    "ai.gftd.mangaka.loadDocument":        "load_document",
-    "ai.gftd.mangaka.listDocuments":       "list_documents",
-    "ai.gftd.mangaka.importGhosthacker":       "import_ghosthacker",
-    "ai.gftd.mangaka.analyzeCharacterGraph":   "analyze_character_graph",
-    "ai.gftd.mangaka.enrichCharacters":        "enrich_characters",
-    "ai.gftd.mangaka.enrichOrganizations":     "enrich_organizations",
-    "ai.gftd.mangaka.enrichEnvironments":      "enrich_environments",
-    "ai.gftd.mangaka.deriveChapterIncidents":  "derive_chapter_incidents",
-    "ai.gftd.mangaka.importChatHistory":       "import_chat_history",
-    "ai.gftd.mangaka.backfillMangakaEdges":    "backfill_mangaka_edges",
-    "ai.gftd.mangaka.recordOpLog":             "record_op_log",
-    "ai.gftd.mangaka.debugCanvasState":        "debug_canvas_state",
-    "ai.gftd.mangaka.detectFaces":             "detect_faces",
-    "ai.gftd.mangaka.scoreEmotion":            "score_emotion",
+    "app.etzhayyim.mangaka.health":              "health",
+    "app.etzhayyim.mangaka.chat":                "agent_chat",
+    "app.etzhayyim.mangaka.pipelineChat":        "agent_chat",
+    "app.etzhayyim.mangaka.projectChat":         "agent_chat",
+    "app.etzhayyim.mangaka.saveDocument":        "save_document",
+    "app.etzhayyim.mangaka.loadDocument":        "load_document",
+    "app.etzhayyim.mangaka.listDocuments":       "list_documents",
+    "app.etzhayyim.mangaka.importGhosthacker":       "import_ghosthacker",
+    "app.etzhayyim.mangaka.analyzeCharacterGraph":   "analyze_character_graph",
+    "app.etzhayyim.mangaka.enrichCharacters":        "enrich_characters",
+    "app.etzhayyim.mangaka.enrichOrganizations":     "enrich_organizations",
+    "app.etzhayyim.mangaka.enrichEnvironments":      "enrich_environments",
+    "app.etzhayyim.mangaka.deriveChapterIncidents":  "derive_chapter_incidents",
+    "app.etzhayyim.mangaka.importChatHistory":       "import_chat_history",
+    "app.etzhayyim.mangaka.backfillMangakaEdges":    "backfill_mangaka_edges",
+    "app.etzhayyim.mangaka.recordOpLog":             "record_op_log",
+    "app.etzhayyim.mangaka.debugCanvasState":        "debug_canvas_state",
+    "app.etzhayyim.mangaka.detectFaces":             "detect_faces",
+    "app.etzhayyim.mangaka.scoreEmotion":            "score_emotion",
 }
 
 
@@ -98,5 +98,5 @@ def test_langgraph_json_crons_empty() -> None:
 
 
 def test_unknown_nsid_xrpc_404(client: TestClient) -> None:
-    r = client.post("/xrpc/ai.gftd.mangaka.unknownMethod", json={})
+    r = client.post("/xrpc/app.etzhayyim.mangaka.unknownMethod", json={})
     assert r.status_code == 404

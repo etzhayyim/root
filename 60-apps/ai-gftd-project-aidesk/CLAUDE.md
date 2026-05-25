@@ -11,8 +11,8 @@ AI Design Desk — 画像・テキストから CadQuery/STEP を生成し tsukur
 | AT bot DID | `did:web:aidesk.etzhayyim.com` |
 | Primary DID | `did:erc725:gftd:260505:{identityContract}` |
 | Runtime | T3 CF Worker (thin edge) + T2 pymagatama BPMN (LangServer) |
-| NSID prefix (商用) | `ai.gftd.apps.aidesk.*` |
-| NSID prefix (研究) | `ai.gftd.apps.aidesk.research.*` (Phase 2) |
+| NSID prefix (商用) | `app.etzhayyim.apps.aidesk.*` |
+| NSID prefix (研究) | `app.etzhayyim.apps.aidesk.research.*` (Phase 2) |
 | ADR | `90-docs/adr/2605051200-aidesk-cad-synthesis-actor.md` |
 
 ## CRITICAL: ライセンス境界
@@ -33,14 +33,14 @@ AI Design Desk — 画像・テキストから CadQuery/STEP を生成し tsukur
 
 | NSID | Kind |
 |---|---|
-| `ai.gftd.apps.aidesk.submitDesignJob` | procedure |
-| `ai.gftd.apps.aidesk.getDesignJob` | query |
-| `ai.gftd.apps.aidesk.listDesignJobs` | query |
-| `ai.gftd.apps.aidesk.exportToTsukuru` | procedure |
+| `app.etzhayyim.apps.aidesk.submitDesignJob` | procedure |
+| `app.etzhayyim.apps.aidesk.getDesignJob` | query |
+| `app.etzhayyim.apps.aidesk.listDesignJobs` | query |
+| `app.etzhayyim.apps.aidesk.exportToTsukuru` | procedure |
 
 ## tsukuru Integration
 
-aidesk → (K8s-internal bpmn-dispatcher) → `ai.gftd.apps.tsukuru.supplierExchange.normalizePackage`
+aidesk → (K8s-internal bpmn-dispatcher) → `app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage`
 
 normalize/validate は tsukuru 既存 BPMN に委譲。aidesk 側で再実装しない。
 

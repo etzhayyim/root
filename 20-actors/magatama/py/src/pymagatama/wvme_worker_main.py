@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.wvme.create.scan")
+    @worker.task(task_type="app.etzhayyim.apps.wvme.create.scan")
     async def task_create_scan(**kwargs):
         target = kwargs.get("target", "")
         scan_type = kwargs.get("scanType", "full")
@@ -47,7 +47,7 @@ async def run_worker():
 
         return {"scanId": scan_id, "status": "running"}
 
-    @worker.task(task_type="ai.gftd.apps.wvme.list.scans")
+    @worker.task(task_type="app.etzhayyim.apps.wvme.list.scans")
     async def task_list_scans(**kwargs):
         limit = int(kwargs.get("limit", 50))
         offset = int(kwargs.get("offset", 0))
@@ -62,7 +62,7 @@ async def run_worker():
 
         return {"scans": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.wvme.get.scan")
+    @worker.task(task_type="app.etzhayyim.apps.wvme.get.scan")
     async def task_get_scan(**kwargs):
         scan_id = kwargs.get("scanId", "")
 
@@ -79,7 +79,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.wvme.list.vulnerabilities")
+    @worker.task(task_type="app.etzhayyim.apps.wvme.list.vulnerabilities")
     async def task_list_vulnerabilities(**kwargs):
         scan_id = kwargs.get("scanId", "")
         limit = int(kwargs.get("limit", 50))
@@ -99,7 +99,7 @@ async def run_worker():
 
         return {"vulnerabilities": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.wvme.get.vulnerability")
+    @worker.task(task_type="app.etzhayyim.apps.wvme.get.vulnerability")
     async def task_get_vulnerability(**kwargs):
         vuln_id = kwargs.get("vulnerabilityId", "")
 
@@ -116,7 +116,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.wvme.create.remediation")
+    @worker.task(task_type="app.etzhayyim.apps.wvme.create.remediation")
     async def task_create_remediation(**kwargs):
         vuln_id = kwargs.get("vulnerabilityId", "")
         description = kwargs.get("description", "")
@@ -135,7 +135,7 @@ async def run_worker():
 
         return {"remediationId": remediation_id, "vulnerabilityId": vuln_id, "status": "pending", "createdAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.wvme.list.remediations")
+    @worker.task(task_type="app.etzhayyim.apps.wvme.list.remediations")
     async def task_list_remediations(**kwargs):
         scan_id = kwargs.get("scanId", "")
         limit = int(kwargs.get("limit", 50))
@@ -155,7 +155,7 @@ async def run_worker():
 
         return {"remediations": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.wvme.get.scanReport")
+    @worker.task(task_type="app.etzhayyim.apps.wvme.get.scanReport")
     async def task_get_scan_report(**kwargs):
         scan_id = kwargs.get("scanId", "")
 

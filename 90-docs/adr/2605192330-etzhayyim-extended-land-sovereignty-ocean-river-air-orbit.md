@@ -60,7 +60,7 @@ ADR-2605192245 は陸地 (terrestrial surface land) のみを scope とした。
 
 ### 1.2 Lexicon
 
-`ai.gftd.apps.etzhayyim.ocean-donation.json` (新規):
+`app.etzhayyim.apps.etzhayyim.ocean-donation.json` (新規):
 
 - ocean GeoJSON (multi-polygon, WGS84)
 - depth profile (bathymetric data)
@@ -88,7 +88,7 @@ ADR-2605192245 は陸地 (terrestrial surface land) のみを scope とした。
 
 ### 2.2 Lexicon
 
-`ai.gftd.apps.etzhayyim.water-donation.json` (新規):
+`app.etzhayyim.apps.etzhayyim.water-donation.json` (新規):
 
 - water body GeoJSON
 - water right type (`riparian` / `usufructuary` / `stewardship-only`)
@@ -115,7 +115,7 @@ ADR-2605192245 は陸地 (terrestrial surface land) のみを scope とした。
 
 ### 3.2 Lexicon
 
-`ai.gftd.apps.etzhayyim.air-donation.json` (新規):
+`app.etzhayyim.apps.etzhayyim.air-donation.json` (新規):
 
 - spatial extent (GeoJSON column = lat/lon + altitude range)
 - air quality baseline
@@ -142,7 +142,7 @@ ADR-2605192245 は陸地 (terrestrial surface land) のみを scope とした。
 
 ### 4.2 Lexicon
 
-`ai.gftd.apps.etzhayyim.space-donation.json` (新規 — long-horizon):
+`app.etzhayyim.apps.etzhayyim.space-donation.json` (新規 — long-horizon):
 
 - celestial body identifier (NAIF ID / IAU designation)
 - spatial extent (3D bounds in body-fixed frame)

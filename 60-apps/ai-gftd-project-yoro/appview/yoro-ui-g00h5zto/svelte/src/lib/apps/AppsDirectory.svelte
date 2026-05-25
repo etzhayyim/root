@@ -2,7 +2,7 @@
 	import type { GfAppLink } from './types';
 
 	const {
-		title = 'GFTD Apps',
+		title = 'etzhayyim Apps',
 		showSearch = false,
 		apps = []
 	} = $props<{

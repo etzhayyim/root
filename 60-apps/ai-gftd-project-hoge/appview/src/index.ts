@@ -58,7 +58,7 @@ app.get("/health", (c) => c.json({ status: "ok", app: "hoge-appview" }));
 // ── Pattern 1: Static WASM import ───────────────────────────────────────────
 // Validates: CF Workers can instantiate a WebAssembly.Module imported at bundle time.
 
-app.get("/xrpc/ai.gftd.apps.hoge.wasmTest", async (c) => {
+app.get("/xrpc/app.etzhayyim.apps.hoge.wasmTest", async (c) => {
   const t0 = Date.now();
   const instance = new WebAssembly.Instance(CONTRACT_MODULE, {});
   const exp = instance.exports as {
@@ -81,7 +81,7 @@ app.get("/xrpc/ai.gftd.apps.hoge.wasmTest", async (c) => {
 // Validates: CF Workers supports WebAssembly.compile() from user-supplied ArrayBuffer.
 // POST body: { wasmBase64: string, fn: string, args?: number[] }
 
-app.post("/xrpc/ai.gftd.apps.hoge.wasmEval", async (c) => {
+app.post("/xrpc/app.etzhayyim.apps.hoge.wasmEval", async (c) => {
   const body    = await c.req.json<{ wasmBase64: string; fn: string; args?: number[] }>();
   const wasmB64 = body.wasmBase64 ?? "";
   const fnName  = body.fn ?? "";
@@ -141,14 +141,14 @@ function shannonManual(text: string): { score: number; len: number; pattern: str
   return { score, len: encoded.length, pattern: "manual" };
 }
 
-app.get("/xrpc/ai.gftd.apps.hoge.witShannonManual", (c) => {
+app.get("/xrpc/app.etzhayyim.apps.hoge.witShannonManual", (c) => {
   const text = c.req.query("text") ?? "hello world";
   const t0   = Date.now();
   const result = shannonManual(text);
   return c.json({ ...result, ms: Date.now() - t0 });
 });
 
-app.post("/xrpc/ai.gftd.apps.hoge.witShannonManual", async (c) => {
+app.post("/xrpc/app.etzhayyim.apps.hoge.witShannonManual", async (c) => {
   const body   = await c.req.json<{ text?: string }>().catch((error) => {
     console.warn("[silent-fail] hoge/index.ts: witShannonManual body parse failed", error);
     return {};
@@ -171,7 +171,7 @@ app.post("/xrpc/ai.gftd.apps.hoge.witShannonManual", async (c) => {
 // CF Workers constraint satisfied: useWasi: false skips all WASI syscalls.
 // Extism host functions (extism:host/env.*) are provided internally by the SDK.
 
-app.get("/xrpc/ai.gftd.apps.hoge.witShannonExtism", async (c) => {
+app.get("/xrpc/app.etzhayyim.apps.hoge.witShannonExtism", async (c) => {
   const text   = c.req.query("text") ?? "hello world";
   const t0     = Date.now();
   const plugin = await getExtismPlugin();
@@ -182,7 +182,7 @@ app.get("/xrpc/ai.gftd.apps.hoge.witShannonExtism", async (c) => {
   return c.json({ ...result, ms: Date.now() - t0 });
 });
 
-app.post("/xrpc/ai.gftd.apps.hoge.witShannonExtism", async (c) => {
+app.post("/xrpc/app.etzhayyim.apps.hoge.witShannonExtism", async (c) => {
   const body   = await c.req.json<{ text?: string }>().catch((error) => {
     console.warn("[silent-fail] hoge/index.ts: witShannonExtism body parse failed", error);
     return {};
@@ -217,7 +217,7 @@ async function getJco(): Promise<JcoRoot> {
   return _jco;
 }
 
-app.get("/xrpc/ai.gftd.apps.hoge.witShannonJco", async (c) => {
+app.get("/xrpc/app.etzhayyim.apps.hoge.witShannonJco", async (c) => {
   const text   = c.req.query("text") ?? "hello world";
   const t0     = Date.now();
   const jco    = await getJco();
@@ -226,7 +226,7 @@ app.get("/xrpc/ai.gftd.apps.hoge.witShannonJco", async (c) => {
   return c.json({ ...result, ms: Date.now() - t0 });
 });
 
-app.post("/xrpc/ai.gftd.apps.hoge.witShannonJco", async (c) => {
+app.post("/xrpc/app.etzhayyim.apps.hoge.witShannonJco", async (c) => {
   const body   = await c.req.json<{ text?: string }>().catch((error) => {
     console.warn("[silent-fail] hoge/index.ts: witShannonJco body parse failed", error);
     return {};
@@ -241,9 +241,9 @@ app.post("/xrpc/ai.gftd.apps.hoge.witShannonJco", async (c) => {
 
 // ── Pattern comparison ───────────────────────────────────────────────────────
 // Runs the same text through both WASM patterns and compares results.
-// GET /xrpc/ai.gftd.apps.hoge.witShannonCompare?text=hello+world
+// GET /xrpc/app.etzhayyim.apps.hoge.witShannonCompare?text=hello+world
 
-app.get("/xrpc/ai.gftd.apps.hoge.witShannonCompare", async (c) => {
+app.get("/xrpc/app.etzhayyim.apps.hoge.witShannonCompare", async (c) => {
   const text  = c.req.query("text") ?? "hello world";
   const t0    = Date.now();
 

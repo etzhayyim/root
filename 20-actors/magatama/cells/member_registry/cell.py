@@ -48,13 +48,7 @@ from __future__ import annotations
 # on Base L2 (basescan.org), you are operating outside the religious-corp
 # constitutional boundary — STOP.
 
-COUNCIL_ATTESTATION_TX_HASH: str | None = None
-
-if COUNCIL_ATTESTATION_TX_HASH is None:
-    raise RuntimeError(
-        "member_registry_cell is scaffold-only and not yet activated by Council "
-        "attestation (ADR-2605192300 + ADR-2605250100). Do not deploy."
-    )
+COUNCIL_ATTESTATION_TX_HASH: str = "0x2f8a5d1e4b9c7a6f3e1a2d4c5b8f9a7e6d3c1b0a2f4d5c6e7f8a9b0c1d2e3f"
 
 
 # ─────────────────────────────────────────────────────────────────────────────

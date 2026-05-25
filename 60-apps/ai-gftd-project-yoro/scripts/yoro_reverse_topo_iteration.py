@@ -53,7 +53,7 @@ def ensure_graph_labels(state: IterationState) -> None:
         state.changed_files = []
         return
 
-    anchor = 'const EVENT_COLLECTION = "ai.gftd.apps.yoro.engagement";\n'
+    anchor = 'const EVENT_COLLECTION = "app.etzhayyim.apps.yoro.engagement";\n'
     if anchor not in src:
         raise RuntimeError("expected anchor not found in app.ts")
 

@@ -625,13 +625,13 @@ async def _ocr_webp(webp: bytes) -> dict[str, Any]:
         os.environ.get("BIBLIO_OCR_URL")
         or os.environ.get("NDL_OCR_URL")
         or os.environ.get("LLM_CHAT_COMPLETIONS_URL")
-        or os.environ.get("GFTD_LLM_URL")
+        or os.environ.get("etzhayyim_LLM_URL")
         or "https://llm.etzhayyim.com/v1/chat/completions"
     )
     headers = {"Content-Type": "application/json", "x-magatama-verified": "true"}
     token = (
-        os.environ.get("LLM_GFTD_BEARER")
-        or os.environ.get("GFTD_LLM_API_KEY")
+        os.environ.get("LLM_etzhayyim_BEARER")
+        or os.environ.get("etzhayyim_LLM_API_KEY")
         or os.environ.get("LLM_API_KEY")
         or ""
     )
@@ -732,7 +732,7 @@ def _seed_sources(only: set[str] | None = None) -> int:
         if only and src["source_id"] not in only:
             continue
         row = {
-            "vertex_id": f"at://{_ACTOR}/ai.gftd.apps.biblio.source/{src['source_id']}",
+            "vertex_id": f"at://{_ACTOR}/app.etzhayyim.apps.biblio.source/{src['source_id']}",
             "_seq": 0,
             "sensitivity_ord": 2,
             "owner_did": _ACTOR,
@@ -766,7 +766,7 @@ def _raw_record_row(source_id: str, run_id: str, payload: dict[str, Any]) -> tup
     raw = json.dumps(payload, ensure_ascii=False, sort_keys=True)
     source_record_id = _raw_record_id(source_id, payload)
     record_hash = _sha256_text(source_record_id)[:24]
-    vertex_id = f"at://{_ACTOR}/ai.gftd.apps.biblio.rawRecord/{source_id}/{record_hash}"
+    vertex_id = f"at://{_ACTOR}/app.etzhayyim.apps.biblio.rawRecord/{source_id}/{record_hash}"
     return source_record_id, {
         "vertex_id": vertex_id,
         "_seq": 0,
@@ -804,7 +804,7 @@ def _entity_identifier_rows(
     title = str(payload.get("title") or payload.get("name") or source_record_id)
     entity_type = str(payload.get("entity_type") or "Manifestation")
     entity_hash = _sha256_text(source_record_id + entity_type)[:24]
-    entity_id = f"at://{_ACTOR}/ai.gftd.apps.biblio.entity/{source_id}/{entity_hash}"
+    entity_id = f"at://{_ACTOR}/app.etzhayyim.apps.biblio.entity/{source_id}/{entity_hash}"
     publication_year = payload.get("publication_year") or payload.get("year")
     try:
         publication_year_int = int(publication_year) if publication_year else None
@@ -836,7 +836,7 @@ def _entity_identifier_rows(
             continue
         value_s = str(value)
         ident_hash = _sha256_text(value_s)[:24]
-        ident_id = f"at://{_ACTOR}/ai.gftd.apps.biblio.identifier/{scheme}/{ident_hash}"
+        ident_id = f"at://{_ACTOR}/app.etzhayyim.apps.biblio.identifier/{scheme}/{ident_hash}"
         identifier_rows.append({
             **_base_row(ident_id, now),
             "identifier_scheme": scheme,
@@ -1475,7 +1475,7 @@ def _insert_page_asset(
     return _insert(
         vertex_biblio_page_asset,
         {
-            **_base_row(f"at://{_ACTOR}/ai.gftd.apps.biblio.pageAsset/{page_hash}", now),
+            **_base_row(f"at://{_ACTOR}/app.etzhayyim.apps.biblio.pageAsset/{page_hash}", now),
             "source_id": source_id,
             "source_record_id": source_record_id,
             "page_index": page_index,
@@ -1510,7 +1510,7 @@ def _insert_ocr_text(
     return _insert(
         vertex_biblio_ocr_text,
         {
-            **_base_row(f"at://{_ACTOR}/ai.gftd.apps.biblio.ocrText/{ocr_hash}", now),
+            **_base_row(f"at://{_ACTOR}/app.etzhayyim.apps.biblio.ocrText/{ocr_hash}", now),
             "source_id": source_id,
             "source_record_id": source_record_id,
             "page_index": page_index,
@@ -1612,7 +1612,7 @@ def task_biblio_open_data_ingest(
                 chunk_size=200,
             )
         _insert_run({
-            "vertex_id": f"at://{_ACTOR}/ai.gftd.apps.biblio.ingestRun/{run_id}",
+            "vertex_id": f"at://{_ACTOR}/app.etzhayyim.apps.biblio.ingestRun/{run_id}",
             "_seq": 0,
             "sensitivity_ord": 2,
             "owner_did": _ACTOR,

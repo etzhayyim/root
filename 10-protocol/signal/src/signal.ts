@@ -10,7 +10,7 @@
  * and is the SSoT for the CRITICAL `Signal Protocol E2E` convention.
  *
  * Transport: caller wires an XRPC dispatcher via `setSignalTransport(...)`
- * (see ./transport.ts). No dependency on @gftd/wproto.
+ * (see ./transport.ts). No dependency on @etzhayyim/wproto.
  *
  * @see 90-docs/adr/2604261110-wproto-wreactive-wit-retirement.md
  * @see 90-docs/260318-w-protocol-sender-trust-design.md
@@ -179,7 +179,7 @@ export async function registerPreKeys(identity: SignalIdentity): Promise<void> {
 	await dbPut('prekeys', { keyId: 0, type: 'opk', private: opkPrivate, public: opkPublic });
 
 	// Register with server via injected XRPC transport
-	await getSignalTransport().procedure('ai.gftd.signal.registerPrekeys', {
+	await getSignalTransport().procedure('app.etzhayyim.signal.registerPrekeys', {
 		did: identity.did,
 		deviceId: identity.deviceId,
 		identityKey: Array.from(identity.identityKeyPublic),
@@ -209,7 +209,7 @@ export async function fetchPeerBundle(peerDid: string): Promise<PreKeyBundle> {
 	// NOTE: lexicon declares this as `query` (GET), but the original wproto port
 	// called it via POST. Preserving POST here for behavioral parity; a follow-up
 	// can switch to .query() once server-side acceptance is verified.
-	const bundle = await getSignalTransport().procedure<PreKeyBundle>('ai.gftd.signal.getPrekeyBundle', { targetDid: peerDid });
+	const bundle = await getSignalTransport().procedure<PreKeyBundle>('app.etzhayyim.signal.getPrekeyBundle', { targetDid: peerDid });
 	return {
 		...bundle,
 		identityKey: new Uint8Array(bundle.identityKey),

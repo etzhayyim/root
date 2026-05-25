@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govUga.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govUga.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Uganda government.",
-        "operationId": "ai.gftd.govUga.followSiteDeps",
+        "operationId": "app.etzhayyim.govUga.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUga.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govUga.heartbeatTick": {
       "post": {
         "summary": "Run the Uganda government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govUga.heartbeatTick",
+        "operationId": "app.etzhayyim.govUga.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUga.listOrgs": {
+    "/xrpc/app.etzhayyim.govUga.listOrgs": {
       "get": {
         "summary": "List Uganda government organization graph records.",
-        "operationId": "ai.gftd.govUga.listOrgs",
+        "operationId": "app.etzhayyim.govUga.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUga.registerDIDs": {
+    "/xrpc/app.etzhayyim.govUga.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Uganda government organizations.",
-        "operationId": "ai.gftd.govUga.registerDIDs",
+        "operationId": "app.etzhayyim.govUga.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUga.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govUga.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Uganda government organization path to its graph record.",
-        "operationId": "ai.gftd.govUga.resolveOrgPath",
+        "operationId": "app.etzhayyim.govUga.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUga.seedOrgs": {
+    "/xrpc/app.etzhayyim.govUga.seedOrgs": {
       "post": {
         "summary": "Seed initial Uganda government organization records into the graph.",
-        "operationId": "ai.gftd.govUga.seedOrgs",
+        "operationId": "app.etzhayyim.govUga.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUga.shinka": {
+    "/xrpc/app.etzhayyim.govUga.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Uganda government organization update.",
-        "operationId": "ai.gftd.govUga.shinka",
+        "operationId": "app.etzhayyim.govUga.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govUga.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govUga.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Uganda government organization changes to graph.",
-        "operationId": "ai.gftd.govUga.syncWetUpdates",
+        "operationId": "app.etzhayyim.govUga.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

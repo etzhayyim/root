@@ -36,7 +36,7 @@
       capabilities: ['read', 'comment', 'uploadDocument'],
       expiresAt: '2026-08-18T00:00:00Z',
       grantingFirmDid: 'did:web:lawfirm.etzhayyim.com',
-      grantingFirmName: 'Gftd Lawfirm',
+      grantingFirmName: 'etzhayyim Lawfirm',
       status: 'invited',
     },
     {
@@ -61,7 +61,7 @@
       capabilities: ['read', 'comment'],
       expiresAt: '2027-01-01T00:00:00Z',
       grantingFirmDid: 'did:web:lawfirm.etzhayyim.com',
-      grantingFirmName: 'Gftd Lawfirm',
+      grantingFirmName: 'etzhayyim Lawfirm',
       status: 'accepted',
       acceptedAt: '2026-04-01T09:30:00Z',
     },
@@ -69,7 +69,7 @@
 
   onMount(async () => {
     try {
-      const url = new URL('/xrpc/ai.gftd.apps.lawyer.listPendingGrants', window.location.origin);
+      const url = new URL('/xrpc/app.etzhayyim.apps.lawyer.listPendingGrants', window.location.origin);
       url.searchParams.set('lawyerDid', LAWYER_DID);
       const resp = await fetch(url.toString());
       if (!resp.ok) throw new Error(`listPendingGrants failed: ${resp.status}`);
@@ -89,7 +89,7 @@
     successMsg = '';
     errorMsg = '';
     try {
-      const resp = await fetch('/xrpc/ai.gftd.apps.lawyer.acceptGrant', {
+      const resp = await fetch('/xrpc/app.etzhayyim.apps.lawyer.acceptGrant', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
@@ -127,7 +127,7 @@
   }
 </script>
 
-<svelte:head><title>Grants — Gftd Lawyer</title></svelte:head>
+<svelte:head><title>Grants — etzhayyim Lawyer</title></svelte:head>
 
 <div class="page">
   <header class="page-header">

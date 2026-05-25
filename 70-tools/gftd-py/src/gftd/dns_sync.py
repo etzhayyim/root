@@ -91,7 +91,7 @@ def _parse_identifier_tables(deps_path: Path) -> tuple[list[_IdActor], list[_IdL
 
 def _resolve_cf_token() -> tuple[str, str]:
     """Resolve Cloudflare API token. Returns (token, source_key)."""
-    for key in ("CLOUDFLARE_API_TOKEN", "CF_API_TOKEN", "GFTD_CLOUDFLARE_API_TOKEN"):
+    for key in ("CLOUDFLARE_API_TOKEN", "CF_API_TOKEN", "etzhayyim_CLOUDFLARE_API_TOKEN"):
         val = os.environ.get(key, "").strip()
         if val:
             return val, key

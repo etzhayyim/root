@@ -8,7 +8,7 @@ Responsibilities:
 - Generate English guide bodies with Murakumo/OpenAI-compatible inference.
 - Translate title/body into Pattern C target languages.
 - Draft social posts.
-- Commit final records through `ai.gftd.apps.media_gamers.guide.commitGuide`.
+- Commit final records through `app.etzhayyim.apps.media_gamers.guide.commitGuide`.
 
 Cloudflare worker responsibility is intentionally thin: validate XRPC input, write AT/PDS records, create sub-DIDs, and publish social posts.
 

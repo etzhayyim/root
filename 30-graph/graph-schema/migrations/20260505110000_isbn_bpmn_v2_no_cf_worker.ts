@@ -36,41 +36,41 @@ const actorTag = "sys.bpmn.seed.isbn-no-cf-worker";
 
 // Bindings to remove (XRPC entry points retired).
 const bindingVertexIds = [
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isbn-ingestOpenLibrary-v1",
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isbn-ingestAozora-v1",
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isbn-ingestGutenberg-v1",
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isbn-ingestNdl-v1",
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isbn-ingestHathiTrust-v1",
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestOpenLibrary-v1",
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestAozora-v1",
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestGutenberg-v1",
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestNdl-v1",
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestHathiTrust-v1",
 ];
 
 // refreshDaily process_def to drop (subsumed by per-source timers).
 const refreshDailyVertexId =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-refresh-daily-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-refresh-daily-v1";
 
 // v1 process_def rows to drop (replaced by v2 timer-start XML below).
 const v1ProcessVertexIds = [
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-open-library-v1",
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-aozora-v1",
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-gutenberg-v1",
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-ndl-v1",
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-hathitrust-v1",
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-open-library-v1",
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-aozora-v1",
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-gutenberg-v1",
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-ndl-v1",
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-hathitrust-v1",
 ];
 
 // v2 process_def rows (timer-start, autonomous).
 const v2ProcessSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-open-library-v2",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-open-library-v2",
     bpmnProcessId: "isbn_ingest_open_library",
     sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestOpenLibrary.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-aozora-v2",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-aozora-v2",
     bpmnProcessId: "isbn_ingest_aozora",
     sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestAozora.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-gutenberg-v2",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-gutenberg-v2",
     bpmnProcessId: "isbn_ingest_gutenberg",
     sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestGutenberg.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-ndl-v2",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-ndl-v2",
     bpmnProcessId: "isbn_ingest_ndl",
     sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestNdl.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isbn-ingest-hathitrust-v2",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-hathitrust-v2",
     bpmnProcessId: "isbn_ingest_hathitrust",
     sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestHathiTrust.bpmn", ownerDid },
 ];

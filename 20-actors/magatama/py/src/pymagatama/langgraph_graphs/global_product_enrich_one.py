@@ -233,7 +233,7 @@ def _crawl_page(url: str, source_kind: str) -> dict[str, Any]:
     started = time.time()
     try:
         resp = httpx.post(
-            f"{pds_base}/xrpc/ai.gftd.apps.site.crawlPage",
+            f"{pds_base}/xrpc/app.etzhayyim.apps.site.crawlPage",
             json={"url": url, "topics": ["product", "commerce", "pricing", source_kind]},
             headers=headers,
             timeout=DEFAULT_TIMEOUT,
@@ -303,7 +303,7 @@ def resolve_brand_owner(state: GlobalProductEnrichState) -> dict[str, Any]:
     if brand:
         try:
             ok, data = _post_xrpc(
-                "ai.gftd.apps.intel.resolveEntity",
+                "app.etzhayyim.apps.intel.resolveEntity",
                 {
                     "query": brand,
                     "entityKind": "legal_entity",
@@ -423,7 +423,7 @@ def write_graph(state: GlobalProductEnrichState) -> dict[str, Any]:
 
     if facts.get("name"):
         ok, data = _post_xrpc(
-            "ai.gftd.apps.gtin.registerProduct",
+            "app.etzhayyim.apps.gtin.registerProduct",
             {
                 "productId": canonical.get("productId"),
                 "name": facts.get("name"),
@@ -445,7 +445,7 @@ def write_graph(state: GlobalProductEnrichState) -> dict[str, Any]:
         if not evidence.get("url"):
             continue
         ok, data = _post_xrpc(
-            "ai.gftd.apps.kakaku.ingestOfferFromUrl",
+            "app.etzhayyim.apps.kakaku.ingestOfferFromUrl",
             {
                 "productUrl": evidence.get("url"),
                 "merchantName": evidence.get("domain") or "unknown",
@@ -578,7 +578,7 @@ def _write_evidence_rows(state: GlobalProductEnrichState) -> dict[str, Any]:
         if not url:
             continue
         source_id = _sha256(url)[:24]
-        vertex_id = f"at://{OWNER_DID}/ai.gftd.apps.gtin.productSourcePage/{source_id}"
+        vertex_id = f"at://{OWNER_DID}/app.etzhayyim.apps.gtin.productSourcePage/{source_id}"
         source_vid_by_url[url] = vertex_id
         source_kind = str(item.get("sourceKind") or "unknown")
         source_rows.append(
@@ -635,7 +635,7 @@ def _write_evidence_rows(state: GlobalProductEnrichState) -> dict[str, Any]:
         fact_id = _sha256(f"{product_key}|{field}|{value}")[:24]
         fact_rows.append(
             {
-                "vertex_id": f"at://{OWNER_DID}/ai.gftd.apps.gtin.productFactEvidence/{fact_id}",
+                "vertex_id": f"at://{OWNER_DID}/app.etzhayyim.apps.gtin.productFactEvidence/{fact_id}",
                 "fact_id": fact_id,
                 "product_vid": product_vid,
                 "product_key": product_key,

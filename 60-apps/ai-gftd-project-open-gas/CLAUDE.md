@@ -8,15 +8,15 @@ operations (meter readings, leak reports, pressure logs). Apache-2.0.
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.openGas.defineRegulator` | procedure | city-gate / district regulator node + outlet pressure |
-| `ai.gftd.apps.openGas.definePipeSegment` | procedure | pipe segment (regulator → service points), DN + material + MAOP |
-| `ai.gftd.apps.openGas.getNode` | query | node detail + downstream segments |
-| `ai.gftd.apps.openGas.listSegments` | query | segments by regulator / status |
-| `ai.gftd.apps.openGas.recordReading` | procedure | meter reading (m³) |
-| `ai.gftd.apps.openGas.reportLeak` | procedure | leak with class (DOT-aligned 1/2/3) |
-| `ai.gftd.apps.openGas.listLeaks` | query | leaks by segment / since / minClass |
-| `ai.gftd.apps.openGas.recordPressureLog` | procedure | inlet/outlet pressure sample |
-| `ai.gftd.apps.openGas.listPressureLogs` | query | pressure logs by segment / since |
+| `app.etzhayyim.apps.openGas.defineRegulator` | procedure | city-gate / district regulator node + outlet pressure |
+| `app.etzhayyim.apps.openGas.definePipeSegment` | procedure | pipe segment (regulator → service points), DN + material + MAOP |
+| `app.etzhayyim.apps.openGas.getNode` | query | node detail + downstream segments |
+| `app.etzhayyim.apps.openGas.listSegments` | query | segments by regulator / status |
+| `app.etzhayyim.apps.openGas.recordReading` | procedure | meter reading (m³) |
+| `app.etzhayyim.apps.openGas.reportLeak` | procedure | leak with class (DOT-aligned 1/2/3) |
+| `app.etzhayyim.apps.openGas.listLeaks` | query | leaks by segment / since / minClass |
+| `app.etzhayyim.apps.openGas.recordPressureLog` | procedure | inlet/outlet pressure sample |
+| `app.etzhayyim.apps.openGas.listPressureLogs` | query | pressure logs by segment / since |
 
 ## Architecture
 

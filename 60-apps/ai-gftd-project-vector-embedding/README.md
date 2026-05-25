@@ -1,6 +1,6 @@
 # ai-gftd-project-vector-embedding
 
-GFTD search embedding project for text, image, video, audio, and future
+etzhayyim search embedding project for text, image, video, audio, and future
 sensor-inclusive retrieval.
 
 The current schema owner is:

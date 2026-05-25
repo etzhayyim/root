@@ -143,7 +143,7 @@ async function mobileFlow(browser) {
 
 async function xrpcFlow(browser) {
   const page = await browser.newPage();
-  const response = await page.goto(`${url}/xrpc/ai.gftd.apps.gameya.qualityLoop`, {
+  const response = await page.goto(`${url}/xrpc/app.etzhayyim.apps.gameya.qualityLoop`, {
     waitUntil: "domcontentloaded",
   });
   const body = JSON.parse(await page.locator("body").innerText());

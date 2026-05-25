@@ -125,7 +125,7 @@
         const linkNid = nid();
         nodes.push({ id: linkNid, type: 'link', visible: true, data: {
           type: 'link', _nid: linkNid, _visible: true, _parent: groupNid,
-          _href: '/at/' + appHost + '/ai.gftd.apps.mangaka.document/' + d.docId,
+          _href: '/at/' + appHost + '/app.etzhayyim.apps.mangaka.document/' + d.docId,
           linkTitle: d.title || d.docId, _subtitle: (d.pages || 0) + 'p' + (d.images ? ' ' + d.images + 'img' : ''),
           text: d.title || d.docId, x: 320, y: 400, fontSize: 20, color: '#307050', font: 'sans',
         } });
@@ -147,11 +147,11 @@
 
     try {
       if (isProject) {
-        const r = await xrpc('ai.gftd.apps.mangaka.loadProject', { projectId: at.rkey });
+        const r = await xrpc('app.etzhayyim.apps.mangaka.loadProject', { projectId: at.rkey });
         if (r.error) return false;
         return safeDeserialize(JSON.stringify(buildProjectToc(r)));
       } else {
-        const r = await xrpc('ai.gftd.apps.mangaka.loadDocument', { docId: at.rkey });
+        const r = await xrpc('app.etzhayyim.apps.mangaka.loadDocument', { docId: at.rkey });
         const docStr = r.document || r.value_b64;
         if (docStr) return safeDeserialize(docStr);
       }
@@ -174,7 +174,7 @@
       const d = getDoc();
       saveCurrentPage();
       try {
-        await xrpc('ai.gftd.apps.mangaka.saveDocument', { docId: d.docId, name: d.name, document: JSON.stringify(d), convoId: d.convoId || '' });
+        await xrpc('app.etzhayyim.apps.mangaka.saveDocument', { docId: d.docId, name: d.name, document: JSON.stringify(d), convoId: d.convoId || '' });
       } catch (e) { console.warn('auto-save:', e); }
     }, 5000);
   }
@@ -190,7 +190,7 @@
     const d = getDoc();
     saveCurrentPage();
     try {
-      await xrpc('ai.gftd.apps.mangaka.saveDocument', {
+      await xrpc('app.etzhayyim.apps.mangaka.saveDocument', {
         docId: d.docId, name: d.name, document: JSON.stringify(d), convoId: d.convoId || '',
       });
     } catch (e) { console.warn('saveDocument:', e); }
@@ -228,7 +228,7 @@
   async function onSend(text: string) {
     messages = [...messages, { sender: 'You', text, isUser: true }];
     try {
-      const r = await xrpc('ai.gftd.apps.mangaka.chat', { message: text, convoId: activeProjectId });
+      const r = await xrpc('app.etzhayyim.apps.mangaka.chat', { message: text, convoId: activeProjectId });
       if (r?.reply) {
         messages = [...messages, { sender: r.sender || 'Mangaka', text: r.reply, isUser: false }];
       }

@@ -133,7 +133,7 @@ function render(cols: Col[]): string {
 
   lines.push(`/* eslint-disable */`);
   lines.push(`/**`);
-  lines.push(` * Kysely database types for the GFTD graph DB (RisingWave).`);
+  lines.push(` * Kysely database types for the etzhayyim graph DB (RisingWave).`);
   lines.push(` *`);
   lines.push(` * GENERATED FILE — do not edit by hand.`);
   lines.push(` * Regenerate with: DATABASE_URL=... pnpm db:gen`);

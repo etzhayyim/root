@@ -19,14 +19,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-observeActor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-observeActor-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'open_ossekai_observe_actor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  L1 Timer-start: scan social firehose for actor signals every 15min.\n'
                  '  Writes to vertex_ossekai_signal.\n'
-                 '  NSID: ai.gftd.apps.openOssekai.observeActor (timer-start, no binding needed)\n'
+                 '  NSID: app.etzhayyim.apps.openOssekai.observeActor (timer-start, no binding needed)\n'
                  '-->\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
@@ -75,7 +75,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_ossekai_signal&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openOssekai.signal/observe-&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openOssekai.signal/observe-&quot; '
                  '+ string(now()), signal_id: &quot;obs-&quot; + string(now()), target_did: '
                  '&quot;__batch__&quot;, signal_kind: &quot;social.batch&quot;, summary: '
                  '&quot;batch:&quot; + string(socialCount) + &quot; posts observed&quot;, '
@@ -116,7 +116,7 @@ UP = [{'sql': '\n'
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-observeActor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-observeActor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -124,7 +124,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-matchArbitrage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-matchArbitrage-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'open_ossekai_match_arbitrage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -133,7 +133,7 @@ UP = [{'sql': '\n'
                  'opportunities.\n'
                  '  Reads mv_ossekai_signal_recent, finds actors with high relevance but no active '
                  'brief.\n'
-                 '  NSID: ai.gftd.apps.openOssekai.matchArbitrage (timer-start, no binding '
+                 '  NSID: app.etzhayyim.apps.openOssekai.matchArbitrage (timer-start, no binding '
                  'needed)\n'
                  '-->\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
@@ -182,7 +182,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_ossekai_arbitrage&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openOssekai.arbitrage/arb-scan-&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openOssekai.arbitrage/arb-scan-&quot; '
                  '+ string(today()), arb_id: &quot;arb-scan-&quot; + string(today()), '
                  'opportunity_kind: &quot;brief_gap&quot;, gap_description: string(arbCount) + '
                  '&quot; high-relevance actors without intel briefs&quot;, confidence_score: if '
@@ -224,7 +224,7 @@ UP = [{'sql': '\n'
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-matchArbitrage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-matchArbitrage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -232,14 +232,14 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-trackKyuDanProgress-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-trackKyuDanProgress-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'open_ossekai_track_kyu_dan_progress',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  L3 Timer-start: weekly kyu/dan progress review for all active plans.\n'
                  '  Reads active wellbecoming plans past next_review_at, triggers rescore signal.\n'
-                 '  NSID: ai.gftd.apps.openOssekai.trackKyuDanProgress (timer-start, no binding '
+                 '  NSID: app.etzhayyim.apps.openOssekai.trackKyuDanProgress (timer-start, no binding '
                  'needed)\n'
                  '-->\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
@@ -286,7 +286,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_ossekai_signal&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openOssekai.signal/progress-&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openOssekai.signal/progress-&quot; '
                  '+ string(today()), signal_id: &quot;progress-&quot; + string(today()), '
                  'target_did: &quot;__batch__&quot;, signal_kind: '
                  '&quot;kyu_dan.progress_review&quot;, summary: string(reviewCount) + &quot; plans '
@@ -329,7 +329,7 @@ UP = [{'sql': '\n'
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-trackKyuDanProgress-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-trackKyuDanProgress-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -337,7 +337,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-generateIntelBrief-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-generateIntelBrief-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'open_ossekai_generate_intel_brief',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -345,7 +345,7 @@ UP = [{'sql': '\n'
                  '  L1 XRPC-triggered: generate LLM intel brief for a target actor.\n'
                  '  Input: targetDid, targetHandle, contextHint\n'
                  '  Writes to vertex_ossekai_brief + propagates to vertex_open_sales_lead.\n'
-                 '  NSID: ai.gftd.apps.openOssekai.generateIntelBrief\n'
+                 '  NSID: app.etzhayyim.apps.openOssekai.generateIntelBrief\n'
                  '-->\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
@@ -356,7 +356,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_ossekai_generate_intel_brief" name="generateIntelBrief" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.openOssekai.generateIntelBrief", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.openOssekai.generateIntelBrief", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -395,7 +395,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_ossekai_brief&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openOssekai.brief/intel-&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openOssekai.brief/intel-&quot; '
                  '+ targetDid + &quot;-&quot; + string(now()), brief_id: &quot;brief-&quot; + '
                  'targetDid + &quot;-&quot; + string(now()), target_did: targetDid, target_handle: '
                  'if targetHandle != null then targetHandle else null, brief_kind: '
@@ -420,7 +420,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_open_sales_lead&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openSales.lead/ossekai-intel-&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openSales.lead/ossekai-intel-&quot; '
                  '+ targetDid, lead_id: &quot;ossekai-intel-&quot; + targetDid, full_name: if '
                  'targetHandle != null then targetHandle else targetDid, source: '
                  '&quot;ossekai.intel&quot;, lead_score: briefConfidence * 50.0, status: '
@@ -462,7 +462,7 @@ UP = [{'sql': '\n'
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-generateIntelBrief-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-generateIntelBrief-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, write_table_allowlist, status, '
@@ -470,15 +470,15 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST(60000 AS integer), NULL, 'active', $5, 1, $6, $7, $8\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateIntelBrief-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateIntelBrief-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
-                 'ai.gftd.apps.openOssekai.generateIntelBrief',
+                 'app.etzhayyim.apps.openOssekai.generateIntelBrief',
                  'open_ossekai_generate_intel_brief',
                  '2026-04-29T00:00:00Z',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateIntelBrief-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateIntelBrief-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -486,7 +486,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-proposeArbitrageBrief-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-proposeArbitrageBrief-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'open_ossekai_propose_arbitrage_brief',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -495,7 +495,7 @@ UP = [{'sql': '\n'
                  'supply/demand gap.\n'
                  '  Input: supplyActorDid, demandActorDid, opportunityKind, contextHint\n'
                  '  Writes to vertex_ossekai_arbitrage + vertex_open_sales_lead.\n'
-                 '  NSID: ai.gftd.apps.openOssekai.proposeArbitrageBrief\n'
+                 '  NSID: app.etzhayyim.apps.openOssekai.proposeArbitrageBrief\n'
                  '-->\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
@@ -506,7 +506,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_ossekai_propose_arbitrage_brief" '
                  'name="proposeArbitrageBrief" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.openOssekai.proposeArbitrageBrief", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.openOssekai.proposeArbitrageBrief", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -548,7 +548,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_ossekai_arbitrage&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openOssekai.arbitrage/&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openOssekai.arbitrage/&quot; '
                  '+ string(now()), arb_id: &quot;arb-&quot; + string(now()), opportunity_kind: '
                  'opportunityKind, supply_actor_did: if supplyActorDid != null then supplyActorDid '
                  'else null, demand_actor_did: if demandActorDid != null then demandActorDid else '
@@ -573,7 +573,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_open_sales_lead&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openSales.lead/ossekai-arb-&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openSales.lead/ossekai-arb-&quot; '
                  '+ string(now()), lead_id: &quot;ossekai-arb-&quot; + string(now()), full_name: '
                  'if demandActorDid != null then demandActorDid else opportunityKind, source: '
                  '&quot;ossekai.arbitrage&quot;, lead_score: arbConfidence * 70.0, status: '
@@ -615,7 +615,7 @@ UP = [{'sql': '\n'
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-proposeArbitrageBrief-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-proposeArbitrageBrief-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, write_table_allowlist, status, '
@@ -623,15 +623,15 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST(60000 AS integer), NULL, 'active', $5, 1, $6, $7, $8\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-proposeArbitrageBrief-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-proposeArbitrageBrief-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
-                 'ai.gftd.apps.openOssekai.proposeArbitrageBrief',
+                 'app.etzhayyim.apps.openOssekai.proposeArbitrageBrief',
                  'open_ossekai_propose_arbitrage_brief',
                  '2026-04-29T00:00:00Z',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-proposeArbitrageBrief-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-proposeArbitrageBrief-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -639,7 +639,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-requestOssekaiConsent-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-requestOssekaiConsent-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'open_ossekai_request_ossekai_consent',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -649,7 +649,7 @@ UP = [{'sql': '\n'
                  '  Input: targetDid, consentDid, consentScope\n'
                  '  Writes consent record to vertex_ossekai_wellbecoming_plan '
                  '(status=consent_pending).\n'
-                 '  NSID: ai.gftd.apps.openOssekai.requestOssekaiConsent\n'
+                 '  NSID: app.etzhayyim.apps.openOssekai.requestOssekaiConsent\n'
                  '-->\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
@@ -660,7 +660,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_ossekai_request_ossekai_consent" '
                  'name="requestOssekaiConsent" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.openOssekai.requestOssekaiConsent", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.openOssekai.requestOssekaiConsent", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -674,7 +674,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_ossekai_wellbecoming_plan&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openOssekai.wellBecomingPlan/&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openOssekai.wellBecomingPlan/&quot; '
                  '+ targetDid, plan_id: &quot;wbp-&quot; + targetDid, target_did: targetDid, '
                  'consent_did: consentDid, current_kyu_dan: &quot;6kyu&quot;, target_kyu_dan: '
                  '&quot;5kyu&quot;, jocho_score: 0.0, engagement_delta: 0.0, competence_delta: '
@@ -717,7 +717,7 @@ UP = [{'sql': '\n'
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-requestOssekaiConsent-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-requestOssekaiConsent-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, write_table_allowlist, status, '
@@ -725,15 +725,15 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST(60000 AS integer), NULL, 'active', $5, 1, $6, $7, $8\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-requestOssekaiConsent-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-requestOssekaiConsent-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
-                 'ai.gftd.apps.openOssekai.requestOssekaiConsent',
+                 'app.etzhayyim.apps.openOssekai.requestOssekaiConsent',
                  'open_ossekai_request_ossekai_consent',
                  '2026-04-29T00:00:00Z',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-requestOssekaiConsent-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-requestOssekaiConsent-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -741,7 +741,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-scoreJocho-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-scoreJocho-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'open_ossekai_score_jocho',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -751,7 +751,7 @@ UP = [{'sql': '\n'
                  '  Requires prior consent via requestOssekaiConsent.\n'
                  '  Input: targetDid\n'
                  '  Updates vertex_ossekai_wellbecoming_plan with jocho scores.\n'
-                 '  NSID: ai.gftd.apps.openOssekai.scoreJocho\n'
+                 '  NSID: app.etzhayyim.apps.openOssekai.scoreJocho\n'
                  '-->\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
@@ -762,7 +762,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_ossekai_score_jocho" name="scoreJocho" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.openOssekai.scoreJocho", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.openOssekai.scoreJocho", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -848,7 +848,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_ossekai_wellbecoming_plan&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openOssekai.wellBecomingPlan/scored-&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openOssekai.wellBecomingPlan/scored-&quot; '
                  '+ targetDid + &quot;-&quot; + string(now()), plan_id: &quot;wbp-scored-&quot; + '
                  'targetDid + &quot;-&quot; + string(now()), target_did: targetDid, consent_did: '
                  'if consentRows != null and count(consentRows) &gt; 0 then '
@@ -893,7 +893,7 @@ UP = [{'sql': '\n'
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-scoreJocho-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-scoreJocho-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, write_table_allowlist, status, '
@@ -901,15 +901,15 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST(60000 AS integer), NULL, 'active', $5, 1, $6, $7, $8\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-scoreJocho-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-scoreJocho-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
-                 'ai.gftd.apps.openOssekai.scoreJocho',
+                 'app.etzhayyim.apps.openOssekai.scoreJocho',
                  'open_ossekai_score_jocho',
                  '2026-04-29T00:00:00Z',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-scoreJocho-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-scoreJocho-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -917,7 +917,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-generateWellBecomingPlan-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-generateWellBecomingPlan-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'open_ossekai_generate_wellbecoming_plan',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -927,7 +927,7 @@ UP = [{'sql': '\n'
                  '  Requires scored wellbecoming plan (run scoreJocho first).\n'
                  '  Input: targetDid\n'
                  '  Updates vertex_ossekai_wellbecoming_plan with action_items + next_review_at.\n'
-                 '  NSID: ai.gftd.apps.openOssekai.generateWellBecomingPlan\n'
+                 '  NSID: app.etzhayyim.apps.openOssekai.generateWellBecomingPlan\n'
                  '-->\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" '
@@ -938,7 +938,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_ossekai_generate_wellbecoming_plan" '
                  'name="generateWellBecomingPlan" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.openOssekai.generateWellBecomingPlan", "version": '
+                 '      { "nsid": "app.etzhayyim.apps.openOssekai.generateWellBecomingPlan", "version": '
                  '1, "resultTimeoutMs": 90000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -1007,7 +1007,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_ossekai_wellbecoming_plan&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openOssekai.wellBecomingPlan/plan-&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openOssekai.wellBecomingPlan/plan-&quot; '
                  '+ targetDid + &quot;-&quot; + string(now()), plan_id: &quot;wbp-plan-&quot; + '
                  'targetDid + &quot;-&quot; + string(now()), target_did: targetDid, consent_did: '
                  'targetDid, current_kyu_dan: if planCount &gt; 0 then planRows[1].current_kyu_dan '
@@ -1039,7 +1039,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_open_sales_lead&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-ossekai.etzhayyim.com/ai.gftd.apps.openSales.lead/ossekai-wb-&quot; '
+                 '&quot;at://did:web:open-ossekai.etzhayyim.com/app.etzhayyim.apps.openSales.lead/ossekai-wb-&quot; '
                  '+ targetDid, lead_id: &quot;ossekai-wb-&quot; + targetDid, full_name: targetDid, '
                  'source: &quot;ossekai.wellbecoming&quot;, lead_score: if planCount &gt; 0 then '
                  'planRows[1].jocho_score * 100.0 else 50.0, status: &quot;qualified&quot;, notes: '
@@ -1080,7 +1080,7 @@ UP = [{'sql': '\n'
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-generateWellBecomingPlan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-generateWellBecomingPlan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, write_table_allowlist, status, '
@@ -1088,42 +1088,42 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST(60000 AS integer), NULL, 'active', $5, 1, $6, $7, $8\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateWellBecomingPlan-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateWellBecomingPlan-v1',
                  'did:web:open-ossekai.etzhayyim.com:ops',
-                 'ai.gftd.apps.openOssekai.generateWellBecomingPlan',
+                 'app.etzhayyim.apps.openOssekai.generateWellBecomingPlan',
                  'open_ossekai_generate_wellbecoming_plan',
                  '2026-04-29T00:00:00Z',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'did:web:open-ossekai.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-ossekai',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateWellBecomingPlan-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateWellBecomingPlan-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateIntelBrief-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateIntelBrief-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-generateIntelBrief-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-generateIntelBrief-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-proposeArbitrageBrief-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-proposeArbitrageBrief-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-proposeArbitrageBrief-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-proposeArbitrageBrief-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-requestOssekaiConsent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-requestOssekaiConsent-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-requestOssekaiConsent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-requestOssekaiConsent-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-scoreJocho-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-scoreJocho-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-scoreJocho-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-scoreJocho-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateWellBecomingPlan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-openOssekai-generateWellBecomingPlan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-generateWellBecomingPlan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-generateWellBecomingPlan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-observeActor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-observeActor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-matchArbitrage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-matchArbitrage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-ossekai-trackKyuDanProgress-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-ossekai-trackKyuDanProgress-v1']}]
 
 
 def upgrade() -> None:

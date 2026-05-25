@@ -22,13 +22,13 @@ import type { EthTxEnv } from "./eth-tx";
 // ── Env shape ───────────────────────────────────────────────────────────────
 
 export interface ClaimStakeEnv extends EthRpcEnv, EthTxEnv {
-  GFTD_CLAIM_STAKE_ESCROW_ADDR?: string;
+  etzhayyim_CLAIM_STAKE_ESCROW_ADDR?: string;
   ETH_PRIVATE_CHAIN_ID?: string;
 }
 
 function escrowAddr(env: ClaimStakeEnv): string {
-  const addr = (env.GFTD_CLAIM_STAKE_ESCROW_ADDR || "").trim();
-  if (!addr) throw new Error("GFTD_CLAIM_STAKE_ESCROW_ADDR is not configured");
+  const addr = (env.etzhayyim_CLAIM_STAKE_ESCROW_ADDR || "").trim();
+  if (!addr) throw new Error("etzhayyim_CLAIM_STAKE_ESCROW_ADDR is not configured");
   return addr;
 }
 

@@ -21,7 +21,7 @@ import {
   type HostSDK,
   nsid,
   str,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 type InternalSecret = string | { get(): Promise<string> };
 type EnvLike = { DISPATCHER_URL?: string; HYPERDRIVE?: unknown; DISPATCHER_INTERNAL_SECRET?: InternalSecret };
@@ -110,7 +110,7 @@ async function writeDomain(
 ): Promise<void> {
   const kind = collection.replace(/[A-Z]/g, (c) => "_" + c.toLowerCase());
   const tableName = `vertex_jp_fiscal_${kind}`;
-  const vertexId = `at://${did}/ai.gftd.apps.jpFiscal.${collection}/${rkey}`;
+  const vertexId = `at://${did}/app.etzhayyim.apps.jpFiscal.${collection}/${rkey}`;
   const row: Record<string, unknown> = { vertex_id: vertexId, sensitivity_ord: 2, owner_did: did };
   for (const [k, v] of Object.entries(record)) {
     row[k.replace(/[A-Z]/g, (c) => "_" + c.toLowerCase())] = v;
@@ -383,7 +383,7 @@ async function backfillMofFy2026(sdk: HostSDK): Promise<IngestResult> {
 // ── Worker export ─────────────────────────────────────────────────────────
 const worker = createWorkerExport((sdk: HostSDK) => {
   const cmd = (id: string, fn: (p: any) => Promise<IngestResult>, desc: string, ...tags: string[]) => {
-    sdk.app.command(nsid(`ai.gftd.apps.jpFiscal.${id}`),
+    sdk.app.command(nsid(`app.etzhayyim.apps.jpFiscal.${id}`),
       async (_ctx, p: any) => fn(decodeParams(p)),
       asAgentTool(desc),
       withCapabilityTags("jp-fiscal", ...tags),
@@ -442,8 +442,8 @@ const worker = createWorkerExport((sdk: HostSDK) => {
         return { wrote: 0, source: "murakumo-probe", note: JSON.stringify(probes).slice(0, 1000) };
       },
       "Probe Murakumo + control endpoints to isolate Worker→Worker routing blocker.", "probe", "llm");
-  sdk.app.command(nsid("ai.gftd.apps.jpFiscal.runScrapers"),
-    async (_ctx, p: any) => proxyToBpmn(sdk, "ai.gftd.apps.jpFiscal.runScrapers", decodeParams(p)),
+  sdk.app.command(nsid("app.etzhayyim.apps.jpFiscal.runScrapers"),
+    async (_ctx, p: any) => proxyToBpmn(sdk, "app.etzhayyim.apps.jpFiscal.runScrapers", decodeParams(p)),
     asAgentTool("Run vertex_scraper_dsl rows via LangServer BPMN-contract (ADR-0056). Pass {dsl_vid} to limit to one."),
     withCapabilityTags("jp-fiscal", "scraper", "dsl"),
   );

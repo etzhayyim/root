@@ -10,7 +10,7 @@
 
 import type { GenesisResult, VerificationMethodInput } from "./genesis";
 
-export interface DidGftdDocument {
+export interface DidetzhayyimDocument {
   "@context": string[];
   id: string;
   controller?: string[];
@@ -39,7 +39,7 @@ export function buildDidDocument(
   did: string,
   vms: VerificationMethodInput[],
   opts: DidDocOptions = {},
-): DidGftdDocument {
+): DidetzhayyimDocument {
   const verificationMethod = vms.map((m) => ({
     id: did + m.id,                 // m.id already starts with "#"
     type: m.type,
@@ -49,7 +49,7 @@ export function buildDidDocument(
 
   const keyRefs = vms.map((m) => m.id);
 
-  const doc: DidGftdDocument = {
+  const doc: DidetzhayyimDocument = {
     "@context": [
       "https://www.w3.org/ns/did/v1",
       "https://w3id.org/security/multikey/v1",
@@ -72,7 +72,7 @@ export function buildDidDocument(
 export function buildDidDocumentFromGenesis(
   genesis: GenesisResult,
   opts: DidDocOptions = {},
-): DidGftdDocument {
+): DidetzhayyimDocument {
   const vms = (genesis.op.vm as unknown as VerificationMethodInput[]) ?? [];
   const merged: DidDocOptions = {
     ...opts,

@@ -15,7 +15,7 @@ authoritative_for:
   - `TitheRouter.sol` contract spec (Base L2)
   - donation / kisha / grant 受領 tx を経由する流路
   - 既存 `Etzhayyim.pay()` SDK との統合 (transparent な auto-skim)
-  - tithe Lexicon (`ai.gftd.apps.payment.tithe`) spec
+  - tithe Lexicon (`app.etzhayyim.apps.payment.tithe`) spec
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
@@ -162,8 +162,8 @@ async pay(args: PayArgs): Promise<PayReceipt> {
       grossAmount,
       purposeBytes32
     );
-    // ... write ai.gftd.apps.payment.sent AT Record (with tithe breakdown)
-    // ... write ai.gftd.apps.payment.tithe AT Record (counterpart)
+    // ... write app.etzhayyim.apps.payment.sent AT Record (with tithe breakdown)
+    // ... write app.etzhayyim.apps.payment.tithe AT Record (counterpart)
   } else {
     // non-titheable path: direct transfer (tithe / escrow-refund)
     await this.usdc.transfer(recipientAddress, grossAmount);
@@ -173,14 +173,14 @@ async pay(args: PayArgs): Promise<PayReceipt> {
 
 呼び出し側から見ると、`amount: 100 USDC` を指定すると recipient は 90 USDC を受け取り、10 USDC が Public Fund に流れる。この **gross / net の透明性** が重要 (UI で必ず breakdown を表示する義務 — §6 参照)。
 
-## 4. Lexicon: `ai.gftd.apps.payment.tithe`
+## 4. Lexicon: `app.etzhayyim.apps.payment.tithe`
 
 新規 Lexicon `00-contracts/lexicons/ai/gftd/apps/payment/tithe.json`:
 
 ```json
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.payment.tithe",
+  "id": "app.etzhayyim.apps.payment.tithe",
   "defs": {
     "main": {
       "type": "record",
@@ -192,7 +192,7 @@ async pay(args: PayArgs): Promise<PayReceipt> {
           "originalSent": {
             "type": "string",
             "format": "at-uri",
-            "description": "AT URI of the ai.gftd.apps.payment.sent record this tithe is derived from"
+            "description": "AT URI of the app.etzhayyim.apps.payment.sent record this tithe is derived from"
           },
           "titheAmount": {
             "type": "string",

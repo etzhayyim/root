@@ -22,30 +22,30 @@ const project = "telecom";
 
 const seeds: Seed[] = [
   { proc: "provisionEuicc", bpmnProcessId: "telecom_provision_euicc",
-    nsid: "ai.gftd.apps.telecom.provisionEuicc", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.provisionEuicc", resultTimeoutMs: 30000 },
   { proc: "downloadEsimProfile", bpmnProcessId: "telecom_download_esim_profile",
-    nsid: "ai.gftd.apps.telecom.downloadEsimProfile", resultTimeoutMs: 60000 },
+    nsid: "app.etzhayyim.apps.telecom.downloadEsimProfile", resultTimeoutMs: 60000 },
   { proc: "enableEsimProfile", bpmnProcessId: "telecom_enable_esim_profile",
-    nsid: "ai.gftd.apps.telecom.enableEsimProfile", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.enableEsimProfile", resultTimeoutMs: 30000 },
   { proc: "disableEsimProfile", bpmnProcessId: "telecom_disable_esim_profile",
-    nsid: "ai.gftd.apps.telecom.disableEsimProfile", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.disableEsimProfile", resultTimeoutMs: 30000 },
   { proc: "deleteEsimProfile", bpmnProcessId: "telecom_delete_esim_profile",
-    nsid: "ai.gftd.apps.telecom.deleteEsimProfile", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.deleteEsimProfile", resultTimeoutMs: 30000 },
   { proc: "registerSmdpEvent", bpmnProcessId: "telecom_register_smdp_event",
-    nsid: "ai.gftd.apps.telecom.registerSmdpEvent", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerSmdpEvent", resultTimeoutMs: 30000 },
   { proc: "auditEuiccState", bpmnProcessId: "telecom_audit_euicc_state",
-    nsid: "ai.gftd.apps.telecom.auditEuiccState", resultTimeoutMs: 60000 },
+    nsid: "app.etzhayyim.apps.telecom.auditEuiccState", resultTimeoutMs: 60000 },
   { proc: "transferEsimOwnership", bpmnProcessId: "telecom_transfer_esim_ownership",
-    nsid: "ai.gftd.apps.telecom.transferEsimOwnership", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.transferEsimOwnership", resultTimeoutMs: 30000 },
 ];
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

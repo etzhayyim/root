@@ -6,7 +6,7 @@ import { sql } from "kysely";
 
 /**
  * etzhayyim.etzhayyim.com Company Ops schema
- * Principal: etzhayyim. Vendor: Gftd Japan株式会社.
+ * Principal: etzhayyim. Vendor: etzhayyim Japan株式会社.
  *
  * Tables (5 domain event tables + 1 streaming MV):
  *   vertex_etzhayyim_hr_event          HR domain events
@@ -39,12 +39,12 @@ type B = { vertexId: string; nsid: string; bpmnProcessId: string; resultTimeoutM
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/etzhayyim-governance-daily-check-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/etzhayyim-governance-daily-check-v1",
     bpmnProcessId: "etzhayyim_governance_daily_check",
     sourcePath: "00-contracts/bpmn/ai/gftd/etzhayyim/governanceDailyCheck.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/etzhayyim-company-ops-dispatch-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/etzhayyim-company-ops-dispatch-v1",
     bpmnProcessId: "etzhayyim_company_ops_dispatch",
     sourcePath: "00-contracts/bpmn/ai/gftd/etzhayyim/companyOpsDispatch.bpmn",
   },
@@ -52,8 +52,8 @@ const processSeeds: P[] = [
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/etzhayyim-company-ops-dispatch-xrpc-v1",
-    nsid: "ai.gftd.apps.etzhayyim.companyOpsDispatch",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/etzhayyim-company-ops-dispatch-xrpc-v1",
+    nsid: "app.etzhayyim.apps.etzhayyim.companyOpsDispatch",
     bpmnProcessId: "etzhayyim_company_ops_dispatch",
     resultTimeoutMs: 180_000,
   },

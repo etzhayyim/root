@@ -60,7 +60,7 @@ Today the vendor repo still holds decentralization primitives:
 
 This mixes the two layers and creates two operational risks:
 
-1. **Identity provenance ambiguity.** ERC725 root issued by `authz.etzhayyim.com` is constitutionally a decentralization primitive (cryptographic, censorship-resistant), but issued by a centralized operator (Gftd Japan). The trust assumption silently inherits vendor trust.
+1. **Identity provenance ambiguity.** ERC725 root issued by `authz.etzhayyim.com` is constitutionally a decentralization primitive (cryptographic, censorship-resistant), but issued by a centralized operator (etzhayyim Japan). The trust assumption silently inherits vendor trust.
 2. **Crossover direction drift.** ADR-2605172100 requires vendor → etzhayyim as paid-tier XRPC. With decentralization primitives in vendor, the crossover can go the other way (etzhayyim depending on vendor for on-chain identity), inverting the substrate hierarchy.
 
 The user-stated principle on 2026-05-21 makes the rule explicit:
@@ -77,11 +77,11 @@ The **centralization axis** is now the constitutional split between vendor and e
 
 | Layer | etzhayyim/root (decentralized exclusive) | etzhayyim vendor (centralized exclusive) |
 |---|---|---|
-| **Identity** | `did:web:etzhayyim.com`, `did:plc:*`, ERC-4337 Smart Wallet (DID-bound), WebAuthn passkey, **ERC725 root identity** | Operator JWT, internal account ID, vendor-issued session token, OAuth (Gftd-side IdP) |
+| **Identity** | `did:web:etzhayyim.com`, `did:plc:*`, ERC-4337 Smart Wallet (DID-bound), WebAuthn passkey, **ERC725 root identity** | Operator JWT, internal account ID, vendor-issued session token, OAuth (etzhayyim-side IdP) |
 | **Payment / settlement** | Base L2 + USDC, ERC-4337 UserOp, 0xSplits, Superfluid, etzhayyim Paymaster, on-chain escrow | Stripe (Charges + Issuing), bank ACH/wire, PayPal/Square/Razorpay, fiat invoicing, tax-recognized commercial relationship |
 | **State / persistence** | AT Protocol MST + IPFS + Base L2 anchor (ADR-2605171800), did:web cloudflare worker | RisingWave / PostgreSQL / Hyperdrive / Kysely, S3 / B2 (operator-controlled), Cloudflare KV/D1, internal materialized views |
 | **Compute / runtime** | langGraph cells on murakumo fleet (launchd), CF Worker edge proxy, k8s pods that read MST | k8s pods over RisingWave, BuildKit on remote builder, vendor-internal cron, vendor CI |
-| **DNS / domain** | `etzhayyim.com` + did:web resolver | `etzhayyim.com`, `gftd.co.jp` and subdomains, vendor-controlled DNS |
+| **DNS / domain** | `etzhayyim.com` + did:web resolver | `etzhayyim.com`, `etzhayyim.com` and subdomains, vendor-controlled DNS |
 | **Governance** | 1 SBT = 1 vote (on-chain), Council attestation (on-chain), Charter Rider (license + on-chain Council) | Vendor org chart, employment contracts, internal RACI, board governance |
 | **Storage of off-chain blobs** | IPFS via etzhayyim ipfs-pinner | S3 / B2 / R2 (operator-owned bucket) |
 | **Anchoring** | l2-anchor-contract → Base L2 (ADR-2605171800 Stage 5) | Vendor-internal audit log, AWS CloudTrail, vendor-only retention |

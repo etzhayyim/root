@@ -8,15 +8,15 @@ operations (meter readings, leak reports, water quality samples). Apache-2.0.
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.openWater.defineReservoir` | procedure | reservoir / pumping station node |
-| `ai.gftd.apps.openWater.defineMain` | procedure | main pipe (reservoir → service points), DN + material |
-| `ai.gftd.apps.openWater.getNode` | query | node detail + downstream mains |
-| `ai.gftd.apps.openWater.listMains` | query | mains by reservoir / status |
-| `ai.gftd.apps.openWater.recordReading` | procedure | meter reading (m³) |
-| `ai.gftd.apps.openWater.reportLeak` | procedure | leak with severity + location |
-| `ai.gftd.apps.openWater.listLeaks` | query | leaks by main / since |
-| `ai.gftd.apps.openWater.recordQualitySample` | procedure | residual chlorine / turbidity / pH |
-| `ai.gftd.apps.openWater.listQualitySamples` | query | quality samples by main / since |
+| `app.etzhayyim.apps.openWater.defineReservoir` | procedure | reservoir / pumping station node |
+| `app.etzhayyim.apps.openWater.defineMain` | procedure | main pipe (reservoir → service points), DN + material |
+| `app.etzhayyim.apps.openWater.getNode` | query | node detail + downstream mains |
+| `app.etzhayyim.apps.openWater.listMains` | query | mains by reservoir / status |
+| `app.etzhayyim.apps.openWater.recordReading` | procedure | meter reading (m³) |
+| `app.etzhayyim.apps.openWater.reportLeak` | procedure | leak with severity + location |
+| `app.etzhayyim.apps.openWater.listLeaks` | query | leaks by main / since |
+| `app.etzhayyim.apps.openWater.recordQualitySample` | procedure | residual chlorine / turbidity / pH |
+| `app.etzhayyim.apps.openWater.listQualitySamples` | query | quality samples by main / since |
 
 ## Architecture
 

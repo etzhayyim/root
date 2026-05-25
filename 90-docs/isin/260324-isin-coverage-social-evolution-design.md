@@ -168,7 +168,7 @@ curl "https://atproto.etzhayyim.com/xrpc/app.bsky.feed.getAuthorFeed?actor=did:w
 
 ```bash
 # Via cross-actor invoke
-curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.projector.sendProjectMessage \
+curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.projector.sendProjectMessage \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $(gftd authn token)" \
   -d '{"app_id":"is1n8k2x","method":"get-coverage","params":"{}"}'

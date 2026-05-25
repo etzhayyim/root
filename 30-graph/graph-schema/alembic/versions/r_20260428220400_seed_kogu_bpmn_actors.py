@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-daily-pulse-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kogu-daily-pulse-v1',
                  'did:web:kogu.etzhayyim.com',
                  'kogu_daily_pulse',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
                  'did:web:kogu.etzhayyim.com',
                  'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-daily-pulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kogu-daily-pulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -175,12 +175,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-schedule-calibration-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kogu-schedule-calibration-v1',
                  'did:web:kogu.etzhayyim.com',
                  'kogu_schedule_calibration',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  scheduleCalibration — XRPC ai.gftd.apps.kogu.scheduleCalibration で起動。\n'
+                 '  scheduleCalibration — XRPC app.etzhayyim.apps.kogu.scheduleCalibration で起動。\n'
                  '  測定器の次回校正日を設定し、item.status=calibration に更新。\n'
                  '\n'
                  '  Inputs:\n'
@@ -306,7 +306,7 @@ UP = [{'sql': '\n'
                  'did:web:kogu.etzhayyim.com',
                  'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-schedule-calibration-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kogu-schedule-calibration-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -320,12 +320,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-checkout-tool-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kogu-checkout-tool-v1',
                  'did:web:kogu.etzhayyim.com',
                  'kogu_checkout_tool',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  checkoutTool — XRPC ai.gftd.apps.kogu.checkoutTool で起動。\n'
+                 '  checkoutTool — XRPC app.etzhayyim.apps.kogu.checkoutTool で起動。\n'
                  '  工具の貸出 (action=checkout) または返却 (action=return) を処理。\n'
                  '  返却時 conditionOnReturn=damaged → inspection レコードを自動起票。\n'
                  '  二重貸出は Gate_Available でブロック (status != available → error audit)。\n'
@@ -507,7 +507,7 @@ UP = [{'sql': '\n'
                  'did:web:kogu.etzhayyim.com',
                  'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-checkout-tool-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kogu-checkout-tool-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -521,16 +521,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-dailyPulse-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kogu-dailyPulse-v1',
                  'did:web:kogu.etzhayyim.com',
-                 'ai.gftd.apps.kogu.dailyPulse',
+                 'app.etzhayyim.apps.kogu.dailyPulse',
                  'kogu_daily_pulse',
                  30000,
                  '2026-04-28T22:04:00Z',
                  'did:web:kogu.etzhayyim.com',
                  'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-dailyPulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kogu-dailyPulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -544,16 +544,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-scheduleCalibration-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kogu-scheduleCalibration-v1',
                  'did:web:kogu.etzhayyim.com',
-                 'ai.gftd.apps.kogu.scheduleCalibration',
+                 'app.etzhayyim.apps.kogu.scheduleCalibration',
                  'kogu_schedule_calibration',
                  30000,
                  '2026-04-28T22:04:00Z',
                  'did:web:kogu.etzhayyim.com',
                  'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-scheduleCalibration-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kogu-scheduleCalibration-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -567,29 +567,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-checkoutTool-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kogu-checkoutTool-v1',
                  'did:web:kogu.etzhayyim.com',
-                 'ai.gftd.apps.kogu.checkoutTool',
+                 'app.etzhayyim.apps.kogu.checkoutTool',
                  'kogu_checkout_tool',
                  30000,
                  '2026-04-28T22:04:00Z',
                  'did:web:kogu.etzhayyim.com',
                  'did:web:kogu.etzhayyim.com',
                  'sys.bpmn.seed.kogu',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-checkoutTool-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kogu-checkoutTool-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-dailyPulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kogu-dailyPulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-scheduleCalibration-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kogu-scheduleCalibration-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kogu-checkoutTool-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kogu-checkoutTool-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-daily-pulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kogu-daily-pulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-schedule-calibration-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kogu-schedule-calibration-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kogu-checkout-tool-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kogu-checkout-tool-v1']}]
 
 
 def upgrade() -> None:

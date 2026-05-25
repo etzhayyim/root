@@ -1,4 +1,4 @@
-"""Unit tests for the /xrpc/ai.gftd.apps.unispsc.* façade.
+"""Unit tests for the /xrpc/app.etzhayyim.apps.unispsc.* façade.
 
 Each test pokes a single endpoint through FastAPI's TestClient. The
 ``invokeAgent`` test exercises the just-fixed SDRAM (c32101621) module and
@@ -23,7 +23,7 @@ def client() -> TestClient:
 
 
 def test_health_reports_registry_ready(client: TestClient) -> None:
-    r = client.get("/xrpc/ai.gftd.apps.unispsc.health")
+    r = client.get("/xrpc/app.etzhayyim.apps.unispsc.health")
     assert r.status_code == 200
     body = r.json()
     assert body["status"] == "healthy"
@@ -33,7 +33,7 @@ def test_health_reports_registry_ready(client: TestClient) -> None:
 
 
 def test_list_agents_pagination_and_prefix(client: TestClient) -> None:
-    r = client.get("/xrpc/ai.gftd.apps.unispsc.listAgents", params={"prefix": "321016", "limit": 50})
+    r = client.get("/xrpc/app.etzhayyim.apps.unispsc.listAgents", params={"prefix": "321016", "limit": 50})
     assert r.status_code == 200
     body = r.json()
     codes = [a["code"] for a in body["agents"]]
@@ -45,7 +45,7 @@ def test_list_agents_pagination_and_prefix(client: TestClient) -> None:
 
 def test_invoke_dram_agent_passes_validation(client: TestClient) -> None:
     r = client.post(
-        "/xrpc/ai.gftd.apps.unispsc.invokeAgent",
+        "/xrpc/app.etzhayyim.apps.unispsc.invokeAgent",
         json={
             "code": "32101602",
             "payload": {
@@ -65,7 +65,7 @@ def test_invoke_dram_agent_passes_validation(client: TestClient) -> None:
 
 def test_invoke_dram_agent_flags_low_clock_speed(client: TestClient) -> None:
     r = client.post(
-        "/xrpc/ai.gftd.apps.unispsc.invokeAgent",
+        "/xrpc/app.etzhayyim.apps.unispsc.invokeAgent",
         json={
             "code": "32101602",
             "payload": {
@@ -85,7 +85,7 @@ def test_invoke_dram_agent_flags_low_clock_speed(client: TestClient) -> None:
 def test_invoke_sdram_agent_after_syntax_fix(client: TestClient) -> None:
     """c32101621.py was previously SyntaxError; this confirms the fix loads."""
     r = client.post(
-        "/xrpc/ai.gftd.apps.unispsc.invokeAgent",
+        "/xrpc/app.etzhayyim.apps.unispsc.invokeAgent",
         json={
             "code": "32101621",
             "payload": {
@@ -103,7 +103,7 @@ def test_invoke_sdram_agent_after_syntax_fix(client: TestClient) -> None:
 
 def test_invoke_unknown_code_returns_404(client: TestClient) -> None:
     r = client.post(
-        "/xrpc/ai.gftd.apps.unispsc.invokeAgent",
+        "/xrpc/app.etzhayyim.apps.unispsc.invokeAgent",
         json={"code": "99999999", "payload": {}},
     )
     assert r.status_code == 404

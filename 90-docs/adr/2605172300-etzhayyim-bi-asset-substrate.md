@@ -281,7 +281,7 @@ A representative attempting to dispose of a corpus asset against governance vote
    │◄────────────────────────────────  Treasury Safe → adherent wallet
    │                                       │
    │                                       ▼
-   │                                     ai.gftd.apps.payment.kisha record
+   │                                     app.etzhayyim.apps.payment.kisha record
    │                                     (NSID per ADR-2605172100 convention)
    │                                       │
    │                                       ▼
@@ -325,7 +325,7 @@ const st = await e.bi.status();
 
 // Claim accrued kisha. Gas sponsored.
 const receipt = await e.bi.claim();
-// → reuses e.pay() internals; writes ai.gftd.apps.payment.kisha record
+// → reuses e.pay() internals; writes app.etzhayyim.apps.payment.kisha record
 
 // Governance.
 const pid = await e.bi.propose({
@@ -342,7 +342,7 @@ await e.bi.vote(pid, "for" | "against" | "abstain");
 | Surface | What is exposed | What is not |
 |---|---|---|
 | geth-private (officer-readable, peer-validator-readable) | DID, SBT tokenId, attestation event-type hash, claim ticket amount | event body, evidence blob preimage, identity tied to DID |
-| Base L2 (public) | total kisha distributed (aggregated), NAV by tier, anchored geth-private root, individual `ai.gftd.apps.payment.kisha` records | individual rates (rates are computed off-chain and only the resulting transfer is observable; an observer can infer per-adherent receipts only by correlating wallet addresses) |
+| Base L2 (public) | total kisha distributed (aggregated), NAV by tier, anchored geth-private root, individual `app.etzhayyim.apps.payment.kisha` records | individual rates (rates are computed off-chain and only the resulting transfer is observable; an observer can infer per-adherent receipts only by correlating wallet addresses) |
 | IPFS | encrypted-to-passkey blobs (default); plaintext only for evidence the adherent chooses to publicize | — |
 
 A future zk upgrade (RISC Zero or SP1 zkVM) can move per-adherent rate proofs to the public surface without exposing the rate itself: `KishaStream` would verify a proof-of-correct-accrual rather than reading individual state. Out of scope for v0.

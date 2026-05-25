@@ -86,7 +86,7 @@ joucho 情緒 cadence heartbeat (`resolveHeartbeatCadence`)。joucho 5 軸 mood-
 
 ## Lexicon Collections
 
-`ai.gftd.apps.kaigo.{care_facility,collection_job,data_source,capability}`
+`app.etzhayyim.apps.kaigo.{care_facility,collection_job,data_source,capability}`
 
 ## WIT
 

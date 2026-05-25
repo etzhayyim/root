@@ -109,7 +109,7 @@ async def add_content(content: bytes, filename: str = "document") -> str:
     body, boundary = _build_multipart(content, filename)
     headers = {"Content-Type": f"multipart/form-data; boundary={boundary}"}
     if _api_requires_hmac():
-        headers["X-Gftd-Ipfs-Auth"] = _sign(body)
+        headers["X-etzhayyim-Ipfs-Auth"] = _sign(body)
     async with httpx.AsyncClient(timeout=180) as client:
         resp = await client.post(
             f"{_api_base_url()}/api/v0/add",
@@ -232,7 +232,7 @@ async def pin_by_cid(cid: str) -> bool:
     empty = b""
     headers = {}
     if _api_requires_hmac():
-        headers["X-Gftd-Ipfs-Auth"] = _sign(empty)
+        headers["X-etzhayyim-Ipfs-Auth"] = _sign(empty)
     async with httpx.AsyncClient(timeout=60) as client:
         resp = await client.post(
             f"{_api_base_url()}/api/v0/pin/add",
@@ -255,7 +255,7 @@ def add_content_sync(content: bytes, filename: str, ipfs_url: str, hmac_key: str
             data=body,
             headers={
                 "Content-Type": f"multipart/form-data; boundary={boundary}",
-                "X-Gftd-Ipfs-Auth": sig,
+                "X-etzhayyim-Ipfs-Auth": sig,
             },
             timeout=180,
         )

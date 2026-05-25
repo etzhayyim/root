@@ -830,7 +830,7 @@ def test_generic_pds_dispatch_exposes_cid_and_uri(monkeypatch) -> None:
 
     monkeypatch.setattr(Z.asyncio, "to_thread", _fake_to_thread)
     result = asyncio.run(Z.task_generic_pds_dispatch(
-        type="ai.gftd.apps.publicDomainColorization.publication",
+        type="app.etzhayyim.apps.publicDomainColorization.publication",
         payload={"workId": "pdcolor:work:gertie"},
     ))
     assert result["cid"] == "bafy-pub"
@@ -1022,13 +1022,13 @@ def test_generic_xrpc_invoke_invalid_nsid_returns_error() -> None:
 
 
 def test_generic_xrpc_invoke_no_base_url_no_actor_returns_error() -> None:
-    result = asyncio.run(Z.task_generic_xrpc_invoke(nsid="ai.gftd.apps.foo.bar"))
+    result = asyncio.run(Z.task_generic_xrpc_invoke(nsid="app.etzhayyim.apps.foo.bar"))
     assert "error" in result
 
 
 def test_generic_xrpc_invoke_bad_scheme_returns_error() -> None:
     result = asyncio.run(Z.task_generic_xrpc_invoke(
-        nsid="ai.gftd.apps.foo.bar", baseUrl="ftp://example.com"
+        nsid="app.etzhayyim.apps.foo.bar", baseUrl="ftp://example.com"
     ))
     assert "error" in result
 
@@ -1040,7 +1040,7 @@ def test_generic_xrpc_invoke_returns_dict() -> None:
 
 def test_pd_color_xrpc_resolve_source_local_response() -> None:
     result = asyncio.run(Z.task_generic_xrpc_invoke(
-        nsid="ai.gftd.apps.storage.resolveSourceAsset",
+        nsid="app.etzhayyim.apps.storage.resolveSourceAsset",
         payload={
             "workId": "pdcolor:work:gertie",
             "title": "Gertie the Dinosaur",
@@ -1059,7 +1059,7 @@ def test_pd_color_xrpc_translate_batch_local_manifest(monkeypatch) -> None:
 
     monkeypatch.setattr(Z, "_pd_color_add_json_manifest", _fake_add)
     result = asyncio.run(Z.task_generic_xrpc_invoke(
-        nsid="ai.gftd.apps.i18n.translateBatch",
+        nsid="app.etzhayyim.apps.i18n.translateBatch",
         payload={"sourceCid": "bafy-timed-text", "sourceLang": "en", "targetLangs": ["ja", "en"]},
     ))
     assert result["response"]["manifestCid"] == "bafy-subtitles"
@@ -1168,7 +1168,7 @@ def test_pd_color_translate_subtitles_worker_calls_i18n_contract(monkeypatch) ->
 
     assert result["response"]["manifestCid"] == "bafy-subtitles"
     nsid, payload, _actor, _base_url, _timeout_sec = calls[0]
-    assert nsid == "ai.gftd.apps.i18n.translateBatch"
+    assert nsid == "app.etzhayyim.apps.i18n.translateBatch"
     assert payload["sourceLang"] == "en"
     assert payload["targetLangs"] == ["ja", "ko"]
     assert payload["contentKind"] == "timed-text"

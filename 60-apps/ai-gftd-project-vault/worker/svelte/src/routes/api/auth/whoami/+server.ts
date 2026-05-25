@@ -4,7 +4,7 @@ type Env = { AUTHN_URL?: string };
 
 export const GET: RequestHandler = async (event) => {
   const env = (event.platform as { env?: Env } | undefined)?.env ?? {};
-  const authnUrl = (env.AUTHN_URL ?? "https://authn.gftd.ai").replace(/\/$/, "");
+  const authnUrl = (env.AUTHN_URL ?? "https://authn.etzhayyim.com").replace(/\/$/, "");
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 4000);

@@ -45,7 +45,7 @@ Verified by the absence of these functions in `LandRegistry.sol`.
 2. Satellite imagery hash (3+ months time series)
 3. Donor oath signing (canonical text)
 4. On-chain `donate()` call
-5. AT Record `ai.gftd.apps.etzhayyim.land-donation`
+5. AT Record `app.etzhayyim.apps.etzhayyim.land-donation`
 6. PR to `/LANDS.md`
 
 ## Steward role

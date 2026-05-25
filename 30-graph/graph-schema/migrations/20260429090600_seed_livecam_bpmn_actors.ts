@@ -25,7 +25,7 @@ const seeds: Seed[] = [
   {
     proc: "analyzeCamera",
     bpmnProcessId: "livecam_analyze_camera",
-    nsid: "ai.gftd.apps.livecam.analyzeCamera",
+    nsid: "app.etzhayyim.apps.livecam.analyzeCamera",
     sourcePath: "00-contracts/bpmn/ai/gftd/livecam/analyzeCamera.bpmn",
     resultTimeoutMs: 120000,
   },
@@ -36,9 +36,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

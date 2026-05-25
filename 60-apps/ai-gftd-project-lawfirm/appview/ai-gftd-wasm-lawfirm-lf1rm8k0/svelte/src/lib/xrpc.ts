@@ -5,7 +5,7 @@
  * Session JWT is pulled from the appshellv2 auth store.
  *
  * Base NSIDs:
- *   ai.gftd.apps.lawfirm.{createMatter,listMatters,recordTimeEntry,registerLawfirm,
+ *   app.etzhayyim.apps.lawfirm.{createMatter,listMatters,recordTimeEntry,registerLawfirm,
  *     inviteExternalCounsel,acceptExternalCounsel,revokeExternalCounsel,
  *     uploadDocument,scheduleHearing,closeMatter}
  */
@@ -214,7 +214,7 @@ export async function createMatter(input: {
   coCounselDids?: string[];
   counterpartyDids?: string[];
 }): Promise<{ matterDid: string; matterRkey: string; uri: string; materialHashProof: string }> {
-  return atProcedure("ai.gftd.apps.lawfirm.createMatter", input);
+  return atProcedure("app.etzhayyim.apps.lawfirm.createMatter", input);
 }
 
 export async function listMatters(input: {
@@ -223,7 +223,7 @@ export async function listMatters(input: {
   limit?: number;
   offset?: number;
 }): Promise<{ items: Matter[]; offset: number; limit: number; total: number }> {
-  return atQuery("ai.gftd.apps.lawfirm.listMatters", input);
+  return atQuery("app.etzhayyim.apps.lawfirm.listMatters", input);
 }
 
 export async function inviteExternalCounsel(input: {
@@ -235,14 +235,14 @@ export async function inviteExternalCounsel(input: {
   expiresAt: string;
   message?: string;
 }): Promise<{ grantDid: string; grantUri: string; conflictCheckPassed: boolean; materialHashProof: string }> {
-  return atProcedure("ai.gftd.apps.lawfirm.inviteExternalCounsel", input);
+  return atProcedure("app.etzhayyim.apps.lawfirm.inviteExternalCounsel", input);
 }
 
 export async function acceptExternalCounsel(input: {
   grantDid: string;
   granteeSignalPubkey?: string;
 }): Promise<{ grantDid: string; status: "accepted"; acceptedAt: string; wrappedDocumentKeyCount: number }> {
-  return atProcedure("ai.gftd.apps.lawfirm.acceptExternalCounsel", input);
+  return atProcedure("app.etzhayyim.apps.lawfirm.acceptExternalCounsel", input);
 }
 
 export async function revokeExternalCounsel(input: {
@@ -250,7 +250,7 @@ export async function revokeExternalCounsel(input: {
   reason: "completed" | "conflict" | "breach" | "request" | "expired" | "other";
   noteToGrantee?: string;
 }): Promise<{ grantDid: string; revokedAt: string; descendantsInvalidated: number }> {
-  return atProcedure("ai.gftd.apps.lawfirm.revokeExternalCounsel", input);
+  return atProcedure("app.etzhayyim.apps.lawfirm.revokeExternalCounsel", input);
 }
 
 export async function uploadDocument(input: {
@@ -263,7 +263,7 @@ export async function uploadDocument(input: {
   aiGenerated?: boolean;
   supersedesDocumentDid?: string;
 }): Promise<{ documentDid: string; uri: string; status: string; materialHashProof: string }> {
-  return atProcedure("ai.gftd.apps.lawfirm.uploadDocument", input);
+  return atProcedure("app.etzhayyim.apps.lawfirm.uploadDocument", input);
 }
 
 export async function scheduleHearing(input: {
@@ -277,7 +277,7 @@ export async function scheduleHearing(input: {
   attendees?: string[];
   agenda?: string;
 }): Promise<{ hearingDid: string; uri: string; saibanJikenRef: string; materialHashProof: string }> {
-  return atProcedure("ai.gftd.apps.lawfirm.scheduleHearing", input);
+  return atProcedure("app.etzhayyim.apps.lawfirm.scheduleHearing", input);
 }
 
 export async function closeMatter(input: {
@@ -286,7 +286,7 @@ export async function closeMatter(input: {
   finalNote?: string;
   archiveBlob?: boolean;
 }): Promise<{ matterDid?: string; closedAt?: string; grantsRevoked?: number; openBlockers?: string[] }> {
-  return atProcedure("ai.gftd.apps.lawfirm.closeMatter", input);
+  return atProcedure("app.etzhayyim.apps.lawfirm.closeMatter", input);
 }
 
 export async function runConflictCheck(input: {
@@ -303,7 +303,7 @@ export async function runConflictCheck(input: {
   wallId?: string;
   scannedAt: string;
 }> {
-  return atProcedure("ai.gftd.apps.lawfirm.runConflictCheck", input);
+  return atProcedure("app.etzhayyim.apps.lawfirm.runConflictCheck", input);
 }
 
 export async function issueInvoice(input: {
@@ -328,7 +328,7 @@ export async function issueInvoice(input: {
   dueAt: string;
   materialHashProof: string;
 }> {
-  return atProcedure("ai.gftd.apps.lawfirm.issueInvoice", input);
+  return atProcedure("app.etzhayyim.apps.lawfirm.issueInvoice", input);
 }
 
 export async function updateMatterStatus(input: {
@@ -342,35 +342,35 @@ export async function updateMatterStatus(input: {
   newStatus: string;
   updatedAt: string;
 }> {
-  return atProcedure("ai.gftd.apps.lawfirm.updateMatterStatus", input);
+  return atProcedure("app.etzhayyim.apps.lawfirm.updateMatterStatus", input);
 }
 
 // ── Derived views (graph MVs) ───────────────────────────────────────────
 
 export async function listGrants(matterDid: string, includeRevoked = false): Promise<ExternalCounselGrant[]> {
   // Phase D: reads view_lawfirm_external_counsel_access via XRPC procedure.
-  return atProcedure("ai.gftd.apps.lawfirm.listGrants", { matterDid, includeRevoked }).then(
+  return atProcedure("app.etzhayyim.apps.lawfirm.listGrants", { matterDid, includeRevoked }).then(
     (r: any) => (r?.items ?? []) as ExternalCounselGrant[],
     () => [] as ExternalCounselGrant[],
   );
 }
 
 export async function listHearings(matterDid: string): Promise<Hearing[]> {
-  return atQuery("ai.gftd.apps.lawfirm.listHearings", { matterDid }).then(
+  return atQuery("app.etzhayyim.apps.lawfirm.listHearings", { matterDid }).then(
     (r: any) => (r?.items ?? []) as Hearing[],
     () => [] as Hearing[],
   );
 }
 
 export async function listDocuments(matterDid: string): Promise<LegalDocument[]> {
-  return atQuery("ai.gftd.apps.lawfirm.listDocuments", { matterDid }).then(
+  return atQuery("app.etzhayyim.apps.lawfirm.listDocuments", { matterDid }).then(
     (r: any) => (r?.items ?? []) as LegalDocument[],
     () => [] as LegalDocument[],
   );
 }
 
 export async function listInvoices(matterDid: string): Promise<(Invoice & { ageingBucket?: string; daysOverdue?: number })[]> {
-  return atProcedure("ai.gftd.apps.lawfirm.listInvoices", { matterDid }).then(
+  return atProcedure("app.etzhayyim.apps.lawfirm.listInvoices", { matterDid }).then(
     (r: any) => (r?.items ?? []) as Invoice[],
     () => [] as Invoice[],
   );
@@ -384,7 +384,7 @@ export async function listConflictChecks(matterDid: string): Promise<Array<{
   conflictsCount?: number;
   wallId?: string;
 }>> {
-  return atProcedure("ai.gftd.apps.lawfirm.listConflictChecks", { matterDid }).then(
+  return atProcedure("app.etzhayyim.apps.lawfirm.listConflictChecks", { matterDid }).then(
     (r: any) => (r?.items ?? []),
     () => [],
   );

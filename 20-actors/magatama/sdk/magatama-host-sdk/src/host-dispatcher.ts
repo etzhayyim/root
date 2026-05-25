@@ -1,6 +1,6 @@
 // host-dispatcher.ts — NSID → host implementation router (BindingTransport pattern).
 //
-// F-Plan (Lexicon SSoT) Phase 2: routes every ai.gftd.host.* NSID to the legacy
+// F-Plan (Lexicon SSoT) Phase 2: routes every app.etzhayyim.host.* NSID to the legacy
 // host-imports.ts methods. The generated host client (src/generated/host-client.ts)
 // calls into this dispatcher, which in turn calls the existing HostImports methods.
 //
@@ -16,7 +16,7 @@ import { HOST_NSID } from "./generated/host-client.js";
 import type { HostImports } from "./types.js";
 
 export interface HostDispatcherExtras {
-	/** Optional Microsoft 365 Graph capability. Required if any `ai.gftd.host.m365.*` NSID is invoked. */
+	/** Optional Microsoft 365 Graph capability. Required if any `app.etzhayyim.host.m365.*` NSID is invoked. */
 	m365?: M365Capability;
 }
 

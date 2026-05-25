@@ -59,8 +59,8 @@ superseded_by: []
 | Nanoid | `a1d3sk00` |
 | Primary DID | `did:erc725:gftd:260505:{identityContract}` |
 | AT facade DID | `did:web:aidesk.etzhayyim.com` |
-| NSID prefix (商用) | `ai.gftd.apps.aidesk.*` |
-| NSID prefix (研究) | `ai.gftd.apps.aidesk.research.*` (Phase 2) |
+| NSID prefix (商用) | `app.etzhayyim.apps.aidesk.*` |
+| NSID prefix (研究) | `app.etzhayyim.apps.aidesk.research.*` (Phase 2) |
 | AT Protocol layer | L3 Dispatcher (CF Worker) + L7 BPMN (pymagatama) |
 | Tier | T2 inference/orchestration + T3 CF Worker facade |
 
@@ -113,7 +113,7 @@ aideskWorker:
 aidesk BPMN の handoff step は以下 K8s-internal call:
 ```
 generic.pds.dispatch (K8s-internal bpmn-dispatcher ClusterIP)
-  NSID: ai.gftd.apps.tsukuru.supplierExchange.normalizePackage
+  NSID: app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage
   variables: { stepB2Key, cadqueryCode, licenseTier, originJobId }
 ```
 
@@ -137,7 +137,7 @@ def _tsukuru_handoff_gate(artifact: dict) -> None:
 
 - `vertex_aidesk_artifact.license_tier` は INSERT 時に model 由来で固定、変更不可
 - tsukuru handoff BPMN step は `license_tier` を SELECT → gate 関数 → pass/fail
-- Non-Commercial モデル出力は `ai.gftd.apps.aidesk.research.*` NSID のみ、`vertex_aidesk_research_artifact` table (別テーブル, tsukuru JOIN 不可)
+- Non-Commercial モデル出力は `app.etzhayyim.apps.aidesk.research.*` NSID のみ、`vertex_aidesk_research_artifact` table (別テーブル, tsukuru JOIN 不可)
 
 ---
 
@@ -147,20 +147,20 @@ def _tsukuru_handoff_gate(artifact: dict) -> None:
 
 | NSID | Kind | Input | Output |
 |---|---|---|---|
-| `ai.gftd.apps.aidesk.submitDesignJob` | procedure | `{ inputImages: BlobRef[], inputType: "multi-view"\|"single-view", notes?: string }` | `{ jobId: string, status: "queued" }` |
-| `ai.gftd.apps.aidesk.getDesignJob` | query | `{ jobId: string }` | `DesignJob` |
-| `ai.gftd.apps.aidesk.listDesignJobs` | query | `{ actorDid?: string, status?: string, limit?: int, offset?: int }` | `{ jobs: DesignJob[], total: int, offset: int, limit: int }` |
-| `ai.gftd.apps.aidesk.exportToTsukuru` | procedure | `{ artifactId: string, rfqNotes?: string }` | `{ tsukuruPackageId: string, status: "submitted" }` |
-| `ai.gftd.apps.aidesk.designJob` | record | — | DesignJob record |
-| `ai.gftd.apps.aidesk.artifact` | record | — | Artifact record |
+| `app.etzhayyim.apps.aidesk.submitDesignJob` | procedure | `{ inputImages: BlobRef[], inputType: "multi-view"\|"single-view", notes?: string }` | `{ jobId: string, status: "queued" }` |
+| `app.etzhayyim.apps.aidesk.getDesignJob` | query | `{ jobId: string }` | `DesignJob` |
+| `app.etzhayyim.apps.aidesk.listDesignJobs` | query | `{ actorDid?: string, status?: string, limit?: int, offset?: int }` | `{ jobs: DesignJob[], total: int, offset: int, limit: int }` |
+| `app.etzhayyim.apps.aidesk.exportToTsukuru` | procedure | `{ artifactId: string, rfqNotes?: string }` | `{ tsukuruPackageId: string, status: "submitted" }` |
+| `app.etzhayyim.apps.aidesk.designJob` | record | — | DesignJob record |
+| `app.etzhayyim.apps.aidesk.artifact` | record | — | Artifact record |
 
 ### Research (Phase 2, Non-Commercial — aidesk.research.* namespace)
 
 | NSID | Model | License |
 |---|---|---|
-| `ai.gftd.apps.aidesk.research.synthesizeFromText` | WaLa-MVDream | Autodesk Non-Commercial |
-| `ai.gftd.apps.aidesk.research.reconstructFromPointCloud` | WaLa-PC-1B | Autodesk Non-Commercial |
-| `ai.gftd.apps.aidesk.research.synthesizeFromSingleView` | Make-A-Shape-single-view | Autodesk Non-Commercial |
+| `app.etzhayyim.apps.aidesk.research.synthesizeFromText` | WaLa-MVDream | Autodesk Non-Commercial |
+| `app.etzhayyim.apps.aidesk.research.reconstructFromPointCloud` | WaLa-PC-1B | Autodesk Non-Commercial |
+| `app.etzhayyim.apps.aidesk.research.synthesizeFromSingleView` | Make-A-Shape-single-view | Autodesk Non-Commercial |
 
 Research NSID は tsukuru handler から **import 不可** (BPMN 依存なし、JOIN 不可)。
 
@@ -171,7 +171,7 @@ Research NSID は tsukuru handler から **import 不可** (BPMN 依存なし、
 ```sql
 -- Commercial artifacts (Apache 2.0 only, tsukuru-joinable)
 CREATE TABLE vertex_aidesk_design_job (
-    vertex_id       VARCHAR PRIMARY KEY,   -- at://did:web:aidesk.etzhayyim.com/ai.gftd.apps.aidesk.designJob/{rkey}
+    vertex_id       VARCHAR PRIMARY KEY,   -- at://did:web:aidesk.etzhayyim.com/app.etzhayyim.apps.aidesk.designJob/{rkey}
     actor_did       VARCHAR NOT NULL,      -- did:erc725:... (ADR-0095)
     org_did         VARCHAR NOT NULL,
     at_did          VARCHAR,               -- nullable, federation alias
@@ -185,7 +185,7 @@ CREATE TABLE vertex_aidesk_design_job (
 );
 
 CREATE TABLE vertex_aidesk_artifact (
-    vertex_id       VARCHAR PRIMARY KEY,   -- at://did:web:aidesk.etzhayyim.com/ai.gftd.apps.aidesk.artifact/{rkey}
+    vertex_id       VARCHAR PRIMARY KEY,   -- at://did:web:aidesk.etzhayyim.com/app.etzhayyim.apps.aidesk.artifact/{rkey}
     job_id          VARCHAR NOT NULL,
     actor_did       VARCHAR NOT NULL,
     org_did         VARCHAR NOT NULL,
@@ -264,7 +264,7 @@ CREATE TABLE vertex_aidesk_research_artifact (
 
 ```
 [設計者]
-  → POST ai.gftd.apps.aidesk.submitDesignJob
+  → POST app.etzhayyim.apps.aidesk.submitDesignJob
       { inputImages: [B2 blob refs], inputType: "multi-view" }
   → CF Worker: INSERT vertex_aidesk_design_job (status=queued)
                Zeebe.publishMessage("aidesk.job.queued", jobId)
@@ -278,11 +278,11 @@ CREATE TABLE vertex_aidesk_research_artifact (
   → UPDATE vertex_aidesk_design_job (status=done)
 
 [設計者がエクスポート指示]
-  → POST ai.gftd.apps.aidesk.exportToTsukuru { artifactId }
+  → POST app.etzhayyim.apps.aidesk.exportToTsukuru { artifactId }
 
 [Zeebe BPMN: aidesk_export_to_tsukuru]
   → license_tier gate (apache2 only)
-  → K8s-internal: ai.gftd.apps.tsukuru.supplierExchange.normalizePackage
+  → K8s-internal: app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage
       { stepB2Key, cadqueryCode, originJobId }
   → tsukuru: normalize-supplier-exchange-package.bpmn
   → tsukuru: validate-supplier-exchange-package.bpmn
@@ -353,7 +353,7 @@ async def task_aidesk_tsukuru_handoff(variables: dict) -> dict:
     """Forward Apache-2.0 artifact to tsukuru normalizePackage via K8s-internal."""
     _tsukuru_handoff_gate(variables)    # structural gate — not a soft check
     # Delegates to generic.pds.dispatch (K8s-internal bpmn-dispatcher ClusterIP)
-    # NSID: ai.gftd.apps.tsukuru.supplierExchange.normalizePackage
+    # NSID: app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage
     return {"tsukuruPackageId": variables.get("tsukuruPackageId"), "dispatched": True}
 ```
 
@@ -363,16 +363,16 @@ async def task_aidesk_tsukuru_handoff(variables: dict) -> dict:
 
 ```typescript
 // 60-apps/ai-gftd-project-aidesk/appview/aidesk-a1d3sk00/src/app.ts
-import { createWorkerExport, createKyselyDb } from "@gftd/magatama-host-sdk";
-import type { Database } from "@gftd/graph-schema";
+import { createWorkerExport, createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+import type { Database } from "@etzhayyim/graph-schema";
 
 export default createWorkerExport((sdk) => {
   const db = createKyselyDb<Database>((sdk.env as any).HYPERDRIVE);
 
-  sdk.app.command("ai.gftd.apps.aidesk.submitDesignJob", async ({ input }) => {
+  sdk.app.command("app.etzhayyim.apps.aidesk.submitDesignJob", async ({ input }) => {
     const jobId = `aidesk-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     await db.insertInto("vertex_aidesk_design_job").values({
-      vertex_id:    `at://did:web:aidesk.etzhayyim.com/ai.gftd.apps.aidesk.designJob/${jobId}`,
+      vertex_id:    `at://did:web:aidesk.etzhayyim.com/app.etzhayyim.apps.aidesk.designJob/${jobId}`,
       actor_did:    input.actorDid,
       org_did:      input.orgDid ?? "anon",
       at_did:       input.atDid ?? null,
@@ -393,7 +393,7 @@ export default createWorkerExport((sdk) => {
     return { jobId, status: "queued" };
   });
 
-  sdk.app.query("ai.gftd.apps.aidesk.getDesignJob", async ({ input }) => {
+  sdk.app.query("app.etzhayyim.apps.aidesk.getDesignJob", async ({ input }) => {
     const job = await db.selectFrom("vertex_aidesk_design_job")
       .where("vertex_id", "like", `%${input.jobId}`)
       .selectAll()
@@ -403,7 +403,7 @@ export default createWorkerExport((sdk) => {
     return job;
   });
 
-  sdk.app.query("ai.gftd.apps.aidesk.listDesignJobs", async ({ input }) => {
+  sdk.app.query("app.etzhayyim.apps.aidesk.listDesignJobs", async ({ input }) => {
     const limit  = Math.min(input.limit ?? 50, 200);
     const offset = input.offset ?? 0;
     const jobs = await db.selectFrom("vertex_aidesk_design_job")
@@ -415,7 +415,7 @@ export default createWorkerExport((sdk) => {
     return { jobs, offset, limit };
   });
 
-  sdk.app.command("ai.gftd.apps.aidesk.exportToTsukuru", async ({ input }) => {
+  sdk.app.command("app.etzhayyim.apps.aidesk.exportToTsukuru", async ({ input }) => {
     // Verify artifact exists + license_tier = apache2 (gate enforced in BPMN)
     const artifact = await db.selectFrom("vertex_aidesk_artifact")
       .where("vertex_id", "like", `%${input.artifactId}`)
@@ -525,7 +525,7 @@ export default createWorkerExport((sdk) => {
 
 - `aidesk-license-tier-immutable` — `vertex_aidesk_artifact.license_tier` は INSERT 時に model 由来で固定。UPDATE 禁止
 - `aidesk-tsukuru-gate-structural` — tsukuru handoff は `license_tier not in COMMERCIAL_LICENSE_TIERS` で ValueError。soft check や flag ではなく構造的 gate
-- `aidesk-research-namespace-isolated` — `ai.gftd.apps.aidesk.research.*` NSID / `vertex_aidesk_research_artifact` table は商用 BPMN から JOIN・import 不可
+- `aidesk-research-namespace-isolated` — `app.etzhayyim.apps.aidesk.research.*` NSID / `vertex_aidesk_research_artifact` table は商用 BPMN から JOIN・import 不可
 
 ---
 

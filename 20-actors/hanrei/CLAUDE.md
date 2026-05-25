@@ -7,7 +7,7 @@
 | Key | Value |
 |---|---|
 | **AT bot DID** | `did:web:hanrei.etzhayyim.com` |
-| **Runtime** | **TS Native** (`src/app.ts` + `@gftd/magatama-host-sdk` → esbuild bundle) |
+| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/magatama-host-sdk` → esbuild bundle) |
 | **Data store** | **W Protocol Event Stream** — Write: `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })`, Read: `createKyselyDb(env.HYPERDRIVE).selectFrom(...)` |
 | **UI mode** | `appview` (Protocol Canvas card, zero frontend) |
 
@@ -22,7 +22,7 @@
 | **Japan source DIDs** | 3 | kanpo (gazette), egov (legislation), wikidata (courts) |
 | **判例DID** | N | `did:web:hanrei.etzhayyim.com:hanrei:{rkey}` — 事件番号・裁判年月日・裁判所で一意識別 |
 | **判決DID** | N | `did:web:hanrei.etzhayyim.com:hanketsu:{rkey}` — 判例に紐づく判決全文 (1判例:N判決) |
-| **Citation graph** | edges | `ai.gftd.hanrei.citationEdge` — 判例間引用関係 |
+| **Citation graph** | edges | `app.etzhayyim.hanrei.citationEdge` — 判例間引用関係 |
 | **Total** | 83 jurisdictions + 6 JP courts + 3 JP sources + 判例/判決 DID |
 
 ## Data Sources
@@ -56,15 +56,15 @@ Social posts: `writeBuffer.push({ type: "app.bsky.feed.post", payload: { text, o
 
 | Collection | SQL Label |
 |---|---|
-| `ai.gftd.hanrei.case_record` | `CaseRecord` |
-| `ai.gftd.hanrei.collection_job` | `CollectionJob` |
-| `ai.gftd.hanrei.jurisdiction` | `Jurisdiction` |
-| `ai.gftd.hanrei.digest` | `Digest` |
-| `ai.gftd.hanrei.egov_law` | `EgovLaw` |
-| `ai.gftd.hanrei.caseParty` | `CaseParty` |
-| `ai.gftd.hanrei.hanreiRecord` | `HanreiRecord` |
-| `ai.gftd.hanrei.hanketsuRecord` | `HanketsuRecord` |
-| `ai.gftd.hanrei.citationEdge` | `CitationEdge` |
+| `app.etzhayyim.hanrei.case_record` | `CaseRecord` |
+| `app.etzhayyim.hanrei.collection_job` | `CollectionJob` |
+| `app.etzhayyim.hanrei.jurisdiction` | `Jurisdiction` |
+| `app.etzhayyim.hanrei.digest` | `Digest` |
+| `app.etzhayyim.hanrei.egov_law` | `EgovLaw` |
+| `app.etzhayyim.hanrei.caseParty` | `CaseParty` |
+| `app.etzhayyim.hanrei.hanreiRecord` | `HanreiRecord` |
+| `app.etzhayyim.hanrei.hanketsuRecord` | `HanketsuRecord` |
+| `app.etzhayyim.hanrei.citationEdge` | `CitationEdge` |
 
 ## Connected Actors
 

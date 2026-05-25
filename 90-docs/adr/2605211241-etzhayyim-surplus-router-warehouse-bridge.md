@@ -9,10 +9,10 @@ last_verified: 2026-05-21
 priority: 6.0
 axis: architecture
 weight: 0.60
-priority_note: "世界中で過剰生産・売れ残りとなった商品製品 (surplus / dead-stock / overstock / unsold inventory) を、religious-corp の donation-only 経済圏と SBT↔SBT internal carve-out の中で再分配し、最終的に解体不能となったものは toshiKozan (都市鉱山) に流す。汎用 WMS Lexicon (ai.gftd.apps.warehouse.*) と都市鉱山 Lexicon (ai.gftd.apps.toshiKozan.*) と FTZ/freeport Lexicon (ai.gftd.apps.ftzZones.* / freeportRegistry.*) と TitheRouter (ai.gftd.apps.payment.tithe) を bridge する surplusRouter app を新設する。"
+priority_note: "世界中で過剰生産・売れ残りとなった商品製品 (surplus / dead-stock / overstock / unsold inventory) を、religious-corp の donation-only 経済圏と SBT↔SBT internal carve-out の中で再分配し、最終的に解体不能となったものは toshiKozan (都市鉱山) に流す。汎用 WMS Lexicon (app.etzhayyim.apps.warehouse.*) と都市鉱山 Lexicon (app.etzhayyim.apps.toshiKozan.*) と FTZ/freeport Lexicon (app.etzhayyim.apps.ftzZones.* / freeportRegistry.*) と TitheRouter (app.etzhayyim.apps.payment.tithe) を bridge する surplusRouter app を新設する。"
 authoritative_for:
   - surplus / overstock / dead-stock の religious-corp 経済圏内 取扱定義
-  - ai.gftd.apps.surplusRouter.* Lexicon 群の API surface
+  - app.etzhayyim.apps.surplusRouter.* Lexicon 群の API surface
   - warehouse / toshiKozan / ftzZones / freeportRegistry / payment.tithe との bridge spec
   - SurplusLot のライフサイクル (registered → matched → redistributed | recycled | dispose)
 depends_on:
@@ -44,10 +44,10 @@ ADR-2605192100 §1.1 (人類の構造的労働解放) と §1.4 (全産業 robot
 
 | 層 | 既存 | 不足 |
 |---|---|---|
-| 汎用 WMS Lexicon (`ai.gftd.apps.warehouse.*`) | ✅ registerSku / putaway / pick / getInventory | surplus 判定モデルなし |
-| 都市鉱山 Lexicon (`ai.gftd.apps.toshiKozan.*`) | ✅ registerEwasteStream / get / list (11 streamType + 12 target material) | 上流 (まだ商品の段階) からの bridge なし |
-| FTZ / Freeport Lexicon (`ai.gftd.apps.ftzZones.recordZone` / `freeportRegistry.recordFreeportEntry`) | ✅ 記録のみ | surplus 流入経路として未結線 |
-| Payment / Tithe (`ai.gftd.apps.payment.sent` / `payment.tithe`) | ✅ donation/kisha/grant/tithe/escrow-refund + SBT↔SBT 4 purposes | surplus 受贈に対する 10% Tithe (物品の場合の評価方法) 未定義 |
+| 汎用 WMS Lexicon (`app.etzhayyim.apps.warehouse.*`) | ✅ registerSku / putaway / pick / getInventory | surplus 判定モデルなし |
+| 都市鉱山 Lexicon (`app.etzhayyim.apps.toshiKozan.*`) | ✅ registerEwasteStream / get / list (11 streamType + 12 target material) | 上流 (まだ商品の段階) からの bridge なし |
+| FTZ / Freeport Lexicon (`app.etzhayyim.apps.ftzZones.recordZone` / `freeportRegistry.recordFreeportEntry`) | ✅ 記録のみ | surplus 流入経路として未結線 |
+| Payment / Tithe (`app.etzhayyim.apps.payment.sent` / `payment.tithe`) | ✅ donation/kisha/grant/tithe/escrow-refund + SBT↔SBT 4 purposes | surplus 受贈に対する 10% Tithe (物品の場合の評価方法) 未定義 |
 | Robotics (`60-apps/ai-gftd-project-open-robo/`) | ✅ urban-mining cell (e-waste 受入) | upstream surplus 受入 cell 仕様なし |
 
 すなわち、**「商品としての surplus」と「e-waste」の連続体の中間に bridge Lexicon が空白**である。
@@ -63,7 +63,7 @@ ADR-2605192100 §1.1 (人類の構造的労働解放) と §1.4 (全産業 robot
 
 # Decision
 
-新規 app namespace `ai.gftd.apps.surplusRouter` を新設し、以下を bridge する:
+新規 app namespace `app.etzhayyim.apps.surplusRouter` を新設し、以下を bridge する:
 
 ```
             ┌───────────────────────────────────────────────────────────┐

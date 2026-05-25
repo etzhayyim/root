@@ -25,12 +25,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-tweak-track-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-tweak-track-v1',
                  'did:web:live.etzhayyim.com',
                  'live_tweak_track',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  ai.gftd.apps.live.tweakTrack — performer edits one track of a setlist.\n'
+                 '  app.etzhayyim.apps.live.tweakTrack — performer edits one track of a setlist.\n'
                  '\n'
                  '  Two-task flow:\n'
                  '    1. generic.db.insert → vertex_live_track (PK rewrite = upsert)\n'
@@ -67,7 +67,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id: &quot;at://&quot; + (if callerDid != null then '
                  'string(callerDid) else &quot;did:web:live.etzhayyim.com&quot;) + '
-                 '&quot;/ai.gftd.apps.live.track/&quot; + string(roomSlug) + &quot;-&quot; + '
+                 '&quot;/app.etzhayyim.apps.live.track/&quot; + string(roomSlug) + &quot;-&quot; + '
                  'string(position),\n'
                  '              room_slug: roomSlug,\n'
                  '              position: position,\n'
@@ -91,7 +91,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:output source="=true" target="ok"/>\n'
                  '          <zeebe:output source="=&quot;at://&quot; + (if callerDid != null then '
                  'string(callerDid) else &quot;did:web:live.etzhayyim.com&quot;) + '
-                 '&quot;/ai.gftd.apps.live.track/&quot; + string(roomSlug) + &quot;-&quot; + '
+                 '&quot;/app.etzhayyim.apps.live.track/&quot; + string(roomSlug) + &quot;-&quot; + '
                  'string(position)" target="vertexId"/>\n'
                  '        </zeebe:ioMapping>\n'
                  '      </bpmn:extensionElements>\n'
@@ -133,7 +133,7 @@ UP = [{'sql': '\n'
                  'did:web:live.etzhayyim.com',
                  'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live.tweakTrack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-tweak-track-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-tweak-track-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -147,21 +147,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-tweakTrack-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-tweakTrack-v1',
                  'did:web:live.etzhayyim.com',
-                 'ai.gftd.apps.live.tweakTrack',
+                 'app.etzhayyim.apps.live.tweakTrack',
                  'live_tweak_track',
                  8000,
                  '2026-04-29T04:00:00Z',
                  'did:web:live.etzhayyim.com',
                  'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live.tweakTrack',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-tweakTrack-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-tweakTrack-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-tweakTrack-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-tweakTrack-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-tweak-track-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-tweak-track-v1']}]
 
 
 def upgrade() -> None:

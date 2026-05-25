@@ -78,7 +78,7 @@ The religious-corp constitutional wave (2026-05-19/20) already shipped most of t
 - `etzhayyim-organism` ecosystem (ADR-2605221411 — BeliefStore feedback loop)
 - `20-actors/sanctions/` (OFAC/EU/UN sanctions list ingest)
 - `20-actors/yobel/cells/audit_witness/` (3-party witness primitive)
-- ADR-2605211241 Surplus Router (`ai.gftd.apps.surplusRouter.*` 7 lexicons)
+- ADR-2605211241 Surplus Router (`app.etzhayyim.apps.surplusRouter.*` 7 lexicons)
 - ADR-2605231230 etzhayyim-esign (Phase 0 landed this session)
 
 What is **missing** is:
@@ -159,7 +159,7 @@ A new record at `app.etzhayyim.unispsc.processManifest`. One record per UNSPSC c
 | `councilEscalationThreshold` | per-envelope value/count at which Council Lv6+ ≥3 multisig required |
 | `auditWitnessRequired` | bool — if true, yobel `audit_witness` cell invoked |
 | `customsRequired` | bool — physical goods crossing borders need `customsRef` field |
-| `chartersAttestation` | AT URI of the most recent `ai.gftd.charters.attest` covering this code |
+| `chartersAttestation` | AT URI of the most recent `app.etzhayyim.charters.attest` covering this code |
 
 ### 5. Charter-compliance gate library
 
@@ -277,7 +277,7 @@ The five OPEN questions from the prior turn are answered as follows:
 
 Rejected. The Adherent SBT is constitutionally 1 SBT = 1 vote per ADR-2605192100 §1.16. Sharing the key with N agents creates ambiguity about voting authority, makes revocation of a specific agent impossible without revoking the Steward, and creates a single point of compromise. AAT separation is the smallest cost to keep the human/agent distinction clean.
 
-### B. Use existing `ai.gftd.apps.lawfirm.eSign*` for commodity flows
+### B. Use existing `app.etzhayyim.apps.lawfirm.eSign*` for commodity flows
 
 Rejected. ADR-2605231230 §8 already excluded religious-corp documents from the gftd lawfirm DocuSign passthrough. Commodity flows are religious-corp documents. Reverting that boundary would re-introduce centralized SaaS dependency for the largest agent-driven flow class.
 

@@ -9,7 +9,7 @@ last_verified: 2026-05-23
 priority: 6.5
 axis: architecture
 weight: 0.65
-priority_note: "Turns the 18,344 UNSPSC LangGraph actors from passive request-reply handlers (ADR-2605180900) into autonomous organisms with joucho 情緒 mood + InboxBuffer + Shinka post cadence, matching the TS heartbeat-cadence pattern in @gftd/magatama-host-sdk. Scope: 1 reference organism (c10101500); mass-deploy gated on a separate hardware-capacity ADR."
+priority_note: "Turns the 18,344 UNSPSC LangGraph actors from passive request-reply handlers (ADR-2605180900) into autonomous organisms with joucho 情緒 mood + InboxBuffer + Shinka post cadence, matching the TS heartbeat-cadence pattern in @etzhayyim/magatama-host-sdk. Scope: 1 reference organism (c10101500); mass-deploy gated on a separate hardware-capacity ADR."
 authoritative_for:
   - Python port of joucho heartbeat-cadence (pymagatama.organism)
   - UNSPSC actor → organism wrapping contract
@@ -38,7 +38,7 @@ ADR-2605171300 generated 18,344 per-commodity LangGraph StateGraphs at
 wired them behind a langserver pod with four call surfaces (HTTP / Actor /
 XRPC / MCP). The result is a sharp asymmetry:
 
-- The TS-native app fleet (~198 apps on `@gftd/magatama-host-sdk`) runs
+- The TS-native app fleet (~198 apps on `@etzhayyim/magatama-host-sdk`) runs
   the **organism pattern**: joucho 情緒 5-axis mood × `InboxBuffer` ×
   `FollowerReward` × Shinka post cadence × Kyumei-Koji self-investigation,
   all driven by `resolveHeartbeatCadence()`

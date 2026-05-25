@@ -45,7 +45,7 @@ _MAX_TOKENS = 250
 
 
 @udf(
-    nsid="ai.gftd.apps.news.translate",
+    nsid="app.etzhayyim.apps.news.translate",
     io_threads=100,
     input_types=["VARCHAR", "VARCHAR", "VARCHAR"],
     result_type="VARCHAR",

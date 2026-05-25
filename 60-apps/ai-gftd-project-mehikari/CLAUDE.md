@@ -6,7 +6,7 @@
 
 | Component | Folder | Domain | Role |
 |---|---|---|---|
-| **mehikari** (mhk7r2vq) | `appview/ai-gftd-wasm-mehikari-mhk7r2vq` | `mehikari.etzhayyim.com` | T3 TS Native L3 dispatcher — `ai.gftd.apps.mehikari.{registerCamera,ingestClip,queryScene,queryPerson,reviewMatches,exportEvidence,registerProspect,draftSalesEmail,reviewSalesEmail,sendSalesEmail,handleInboundReply,unsubscribe,listQueries,getAuditTrail,listOutreach}` XRPC + MCP |
+| **mehikari** (mhk7r2vq) | `appview/ai-gftd-wasm-mehikari-mhk7r2vq` | `mehikari.etzhayyim.com` | T3 TS Native L3 dispatcher — `app.etzhayyim.apps.mehikari.{registerCamera,ingestClip,queryScene,queryPerson,reviewMatches,exportEvidence,registerProspect,draftSalesEmail,reviewSalesEmail,sendSalesEmail,handleInboundReply,unsubscribe,listQueries,getAuditTrail,listOutreach}` XRPC + MCP |
 
 ## CRITICAL — Domestic inference invariant
 
@@ -23,14 +23,14 @@ CF Worker (this dir) は edge L3 dispatcher。直接 face / frame を扱わな�
 ## CRITICAL — Operating entity boundary
 
 - **運営法人 = etzhayyim** (CLAUDE.md root rule)
-- **Vendor (実装受託) = Gftd Japan株式会社**
-- 警察との契約当事者 = etzhayyim。Gftd Japan は再委託先として開示
+- **Vendor (実装受託) = etzhayyim Japan株式会社**
+- 警察との契約当事者 = etzhayyim。etzhayyim Japan は再委託先として開示
 - 個人情報取扱事業者の届出主体 = etzhayyim
 - 顔特徴量管理責任者 = etzhayyim CLO
 
 ## CRITICAL — Sales outreach gate
 
-`ai.gftd.apps.mehikari.{registerProspect, draftSalesEmail, reviewSalesEmail, sendSalesEmail}` は以下を hard-block:
+`app.etzhayyim.apps.mehikari.{registerProspect, draftSalesEmail, reviewSalesEmail, sendSalesEmail}` は以下を hard-block:
 
 | Gate | 違反時の挙動 |
 |---|---|
@@ -43,7 +43,7 @@ CF Worker (this dir) は edge L3 dispatcher。直接 face / frame を扱わな�
 
 ## CRITICAL — Person query gate
 
-`ai.gftd.apps.mehikari.queryPerson` は以下 required (Lexicon enforced):
+`app.etzhayyim.apps.mehikari.queryPerson` は以下 required (Lexicon enforced):
 
 - `legalBasis.warrantRef` (令状) OR `legalBasis.enquiryRef` (捜査関係事項照会書) のいずれか非空
 - `requesterDid` = `mehikari:investigator` role
@@ -79,7 +79,7 @@ CF Worker (this dir) は edge L3 dispatcher。直接 face / frame を扱わな�
 1. Secrets Store に `mehikari_vault_master_key` (face-template 暗号化用 AES-256), `mehikari_ms_client_secret` (営業送信用 microsoft.etzhayyim.com 共有 secret 経路) を登録
 2. DNS: `mehikari.etzhayyim.com` + `reply.mehikari.etzhayyim.com` (inbound email worker) の CNAME を `gftd dns-sync` 経由
 3. R2 bucket `ai-gftd-mehikari-clips` (police-only ACL, lifecycle 90日)
-4. bpmn-dispatcher に `ai.gftd.apps.mehikari.*` の routing 登録 (LangGraph pod を pointers)
+4. bpmn-dispatcher に `app.etzhayyim.apps.mehikari.*` の routing 登録 (LangGraph pod を pointers)
 5. murakumo on-prem pod `mehikari-inference` を JP DC に常駐 (`_working/mehikari/MURAKUMO-DOMESTIC-CONSTRAINT.md` Phase 2)
 6. `gftd deploy` を `appview/ai-gftd-wasm-mehikari-mhk7r2vq/` で実行
 
@@ -94,6 +94,6 @@ CF Worker (this dir) は edge L3 dispatcher。直接 face / frame を扱わな�
 - `_working/mehikari/LEAD-PIPELINE-SEED.md` — 47 県警 + JC3 + 警察庁の優先順
 - `_working/mehikari/MURAKUMO-DOMESTIC-CONSTRAINT.md` — 国内拘束構成
 - `_working/mehikari/langgraph_sales_outreach.py` — 営業 LangGraph mock prototype
-- `60-apps/ai-gftd-project-microsoft/` — 送信経路 (`ai.gftd.apps.microsoft.sendMail`)
+- `60-apps/ai-gftd-project-microsoft/` — 送信経路 (`app.etzhayyim.apps.microsoft.sendMail`)
 - `60-apps/ai-gftd-project-kaisya/` — consent helper (approval gate)
 - `20-actors/magatama/py/src/pymagatama/malak/langgraph/police_report.py` — evidence export base pattern

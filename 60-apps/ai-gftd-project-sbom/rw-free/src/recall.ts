@@ -31,8 +31,8 @@ import {
   type UpdateComponentSupplierOutput,
 } from "./types.js";
 
-const ARTIFACT_COLLECTION = "ai.gftd.apps.sbom.artifact";
-const COMPONENT_COLLECTION = "ai.gftd.apps.sbom.component";
+const ARTIFACT_COLLECTION = "app.etzhayyim.apps.sbom.artifact";
+const COMPONENT_COLLECTION = "app.etzhayyim.apps.sbom.component";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

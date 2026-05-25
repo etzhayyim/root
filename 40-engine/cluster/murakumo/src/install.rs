@@ -219,7 +219,7 @@ fn install_launchd(cfg: &NodeConfig) {
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>ai.gftd.murakumo</string>
+    <string>app.etzhayyim.murakumo</string>
     <key>ProgramArguments</key>
     <array>
         <string>{}</string>
@@ -235,9 +235,9 @@ fn install_launchd(cfg: &NodeConfig) {
     <string>{}/.gftd/daemon.log</string>
     <key>EnvironmentVariables</key>
     <dict>
-        <key>GFTD_MURAKUMO</key>
+        <key>etzhayyim_MURAKUMO</key>
         <string>{}</string>
-        <key>GFTD_PROVIDER_MODE</key>
+        <key>etzhayyim_PROVIDER_MODE</key>
         <string>{}</string>
         <key>PATH</key>
         <string>{}</string>
@@ -256,11 +256,11 @@ fn install_launchd(cfg: &NodeConfig) {
         home_str,
     );
 
-    let plist_path = plist_dir.join("ai.gftd.murakumo.plist");
+    let plist_path = plist_dir.join("app.etzhayyim.murakumo.plist");
     let _ = std::fs::write(&plist_path, &plist);
     let _ = Command::new("launchctl").args(["unload", &plist_path.to_string_lossy()]).status();
     run_cmd("launchctl", &["load", &plist_path.to_string_lossy()]);
-    logf("  launchd: ai.gftd.murakumo (RunAtLoad)");
+    logf("  launchd: app.etzhayyim.murakumo (RunAtLoad)");
 }
 
 fn install_systemd(cfg: &NodeConfig) {
@@ -275,8 +275,8 @@ Type=simple
 ExecStart={} daemon
 Restart=always
 RestartSec=5
-Environment=GFTD_MURAKUMO={}
-Environment=GFTD_PROVIDER_MODE={}
+Environment=etzhayyim_MURAKUMO={}
+Environment=etzhayyim_PROVIDER_MODE={}
 
 [Install]
 WantedBy=multi-user.target

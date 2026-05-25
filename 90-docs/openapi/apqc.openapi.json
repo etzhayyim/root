@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.apqc.coverageSnapshot": {
+    "/xrpc/app.etzhayyim.apqc.coverageSnapshot": {
       "get": {
         "summary": "Return APQC pyzeebe + LangGraph + UDF migration coverage.",
-        "operationId": "ai.gftd.apqc.coverageSnapshot",
+        "operationId": "app.etzhayyim.apqc.coverageSnapshot",
         "parameters": [],
         "responses": {
           "200": {
@@ -55,10 +55,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.apqc.emitEvent": {
+    "/xrpc/app.etzhayyim.apqc.emitEvent": {
       "post": {
         "summary": "Write an APQC OCEL event through the pyzeebe runtime.",
-        "operationId": "ai.gftd.apqc.emitEvent",
+        "operationId": "app.etzhayyim.apqc.emitEvent",
         "requestBody": {
           "required": true,
           "content": {
@@ -135,10 +135,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.apqc.getProcess": {
+    "/xrpc/app.etzhayyim.apqc.getProcess": {
       "get": {
         "summary": "Tranche F stub — fetch one APQC PCF process by ID. Full schema pending Phase 3 content copy.",
-        "operationId": "ai.gftd.apqc.getProcess",
+        "operationId": "app.etzhayyim.apqc.getProcess",
         "parameters": [
           {
             "name": "processId",
@@ -168,10 +168,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.apqc.materializeSubprocessDid": {
+    "/xrpc/app.etzhayyim.apqc.materializeSubprocessDid": {
       "get": {
         "summary": "Return the deterministic APQC subprocess DID for SQL/UDF callers.",
-        "operationId": "ai.gftd.apqc.materializeSubprocessDid",
+        "operationId": "app.etzhayyim.apqc.materializeSubprocessDid",
         "parameters": [],
         "responses": {
           "200": {
@@ -207,10 +207,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.apqc.materializeSubprocesses": {
+    "/xrpc/app.etzhayyim.apqc.materializeSubprocesses": {
       "post": {
         "summary": "Materialize APQC subprocess DIDs for an APQC L1 code using the pyzeebe + LangGraph runtime.",
-        "operationId": "ai.gftd.apqc.materializeSubprocesses",
+        "operationId": "app.etzhayyim.apqc.materializeSubprocesses",
         "requestBody": {
           "required": true,
           "content": {

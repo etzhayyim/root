@@ -98,7 +98,7 @@ Acceptance per file:
 ## Cutover plan
 
 1. Migrate all 13 workers to `open_substrate_writer()` (above).
-2. Land lexicons `ai.gftd.apps.maps.{label}` for the 51 node labels
+2. Land lexicons `app.etzhayyim.apps.maps.{label}` for the 51 node labels
    currently projected onto `vertex_spatial` (Spot, Place, Airport,
    Railway, SeaRoute, BusRoute, Port, Station, BusStop, Parking,
    EvCharger, River, Lake, Coastline, Mountain, MaritimeZone,

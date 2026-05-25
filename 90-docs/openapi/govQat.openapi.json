@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govQat.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govQat.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Qatar government.",
-        "operationId": "ai.gftd.govQat.followSiteDeps",
+        "operationId": "app.etzhayyim.govQat.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govQat.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govQat.heartbeatTick": {
       "post": {
         "summary": "Run the Qatar government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govQat.heartbeatTick",
+        "operationId": "app.etzhayyim.govQat.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govQat.listOrgs": {
+    "/xrpc/app.etzhayyim.govQat.listOrgs": {
       "get": {
         "summary": "List Qatar government organization graph records.",
-        "operationId": "ai.gftd.govQat.listOrgs",
+        "operationId": "app.etzhayyim.govQat.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govQat.registerDIDs": {
+    "/xrpc/app.etzhayyim.govQat.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Qatar government organizations.",
-        "operationId": "ai.gftd.govQat.registerDIDs",
+        "operationId": "app.etzhayyim.govQat.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govQat.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govQat.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Qatar government organization path to its graph record.",
-        "operationId": "ai.gftd.govQat.resolveOrgPath",
+        "operationId": "app.etzhayyim.govQat.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govQat.seedOrgs": {
+    "/xrpc/app.etzhayyim.govQat.seedOrgs": {
       "post": {
         "summary": "Seed initial Qatar government organization records into the graph.",
-        "operationId": "ai.gftd.govQat.seedOrgs",
+        "operationId": "app.etzhayyim.govQat.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govQat.shinka": {
+    "/xrpc/app.etzhayyim.govQat.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Qatar government organization update.",
-        "operationId": "ai.gftd.govQat.shinka",
+        "operationId": "app.etzhayyim.govQat.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govQat.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govQat.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Qatar government organization changes to graph.",
-        "operationId": "ai.gftd.govQat.syncWetUpdates",
+        "operationId": "app.etzhayyim.govQat.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -332,7 +332,7 @@ def snake(s):
 
 def gen_lexicon(actor, method):
     app = actor["app"]
-    nsid = f"ai.gftd.apps.{app}.{method['name']}"
+    nsid = f"app.etzhayyim.apps.{app}.{method['name']}"
     props = {}
     required = []
     for f in method["fields"]:

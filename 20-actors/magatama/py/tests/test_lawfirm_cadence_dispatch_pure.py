@@ -80,7 +80,7 @@ class TestEmlParsing(unittest.TestCase):
     def test_parses_headers_and_body(self):
         from pymagatama.primitives.lawfirm_cadence_dispatch import _parse_eml
         raw = (
-            "From: k.bakshi@gftd.co\n"
+            "From: k.bakshi@etzhayyim.com\n"
             "To: a@x.com, b@x.com\n"
             "Cc: c@x.com\n"
             "Subject: Hello\n"
@@ -116,7 +116,7 @@ class TestDispatchHappyPath(unittest.TestCase):
                 [],
             ],
             eml_returns={"outbox/08a-khaitan-warm-intro.eml": _khaitan_parsed()},
-            dispatch_returns=[{"ok": True, "via": "ai.gftd.apps.microsoft.sendDraft"}],
+            dispatch_returns=[{"ok": True, "via": "app.etzhayyim.apps.microsoft.sendDraft"}],
         )
         stub.install()
         try:

@@ -9,7 +9,7 @@
  *                                        → RisingWave (domain tier)
  */
 
-import { createWorkerExport } from "@gftd/magatama-host-sdk";
+import { createWorkerExport } from "@etzhayyim/magatama-host-sdk";
 import type { Context } from "hono";
 
 const SIP_BASE = "https://spirit-in-physics.com/api";
@@ -151,7 +151,7 @@ export default createWorkerExport((sdk) => {
   // Assessment
   // ──────────────────────────────────────────
   sdk.app.command(
-    "ai.gftd.apps.deai.startAssessment",
+    "app.etzhayyim.apps.deai.startAssessment",
     async (c: Context) => {
       const body = await c.req.json().catch(() => ({}));
       const locale = body.locale ?? "ja";
@@ -166,7 +166,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "ai.gftd.apps.deai.submitResponse",
+    "app.etzhayyim.apps.deai.submitResponse",
     async (c: Context) => {
       const body = await c.req.json();
       const { sessionId, word, reactionTimeMs, humeScores, spDelta, stimulusWordId, participantId, sessionIndex } = body;
@@ -216,7 +216,7 @@ export default createWorkerExport((sdk) => {
           return Math.round(vals.reduce((a: number, b: number) => a + b, 0) / vals.length);
         });
         const cohortHash = computeCohortHash(spiritType, emotionCentroid);
-        const cohortDid = `did:web:deai.gftd.ai:${cohortHash}`;
+        const cohortDid = `did:web:deapp.etzhayyim.ai:${cohortHash}`;
         await sdk.kv?.put(
           `profile:${cohortDid}`,
           JSON.stringify({ cohortDid, spiritType, emotionCentroid, assessedAt: new Date().toISOString(), checkinCount: 0 }),
@@ -236,7 +236,7 @@ export default createWorkerExport((sdk) => {
   // Profile
   // ──────────────────────────────────────────
   sdk.app.command(
-    "ai.gftd.apps.deai.getProfile",
+    "app.etzhayyim.apps.deai.getProfile",
     async (c: Context) => {
       const did = c.req.query("did");
       if (!did) return c.json({ error: "did required" }, 400);
@@ -251,7 +251,7 @@ export default createWorkerExport((sdk) => {
   // Matches
   // ──────────────────────────────────────────
   sdk.app.command(
-    "ai.gftd.apps.deai.listMatches",
+    "app.etzhayyim.apps.deai.listMatches",
     async (c: Context) => {
       const did = c.req.query("did");
       const limit = Math.min(parseInt(c.req.query("limit") ?? "20"), 50);
@@ -297,7 +297,7 @@ export default createWorkerExport((sdk) => {
   // Check-in
   // ──────────────────────────────────────────
   sdk.app.command(
-    "ai.gftd.apps.deai.createCheckin",
+    "app.etzhayyim.apps.deai.createCheckin",
     async (c: Context) => {
       const body = await c.req.json();
       const { humeScores, modality } = body;
@@ -346,7 +346,7 @@ export default createWorkerExport((sdk) => {
   // Messages (E2E encrypted)
   // ──────────────────────────────────────────
   sdk.app.command(
-    "ai.gftd.apps.deai.sendMessage",
+    "app.etzhayyim.apps.deai.sendMessage",
     async (c: Context) => {
       const body = await c.req.json();
       const { toCohortDid, ciphertext, iv, replyToId } = body;
@@ -372,7 +372,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "ai.gftd.apps.deai.listMessages",
+    "app.etzhayyim.apps.deai.listMessages",
     async (c: Context) => {
       const withDid = c.req.query("withCohortDid");
       const selfDid = c.req.header("x-actor-did");

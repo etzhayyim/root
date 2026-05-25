@@ -77,7 +77,7 @@ Three-verdict classifier used by all gftd → etzhayyim port work:
 | Verdict | Meaning | Action |
 |---|---|---|
 | **REDIRECT** | The line/file shape stays; only environment URL / variable name / package name changes. LiteLLM gateway / dispatcher / XRPC router abstracts the backend. | Identifier swap in the §3 atomic cutover wave. No behaviour change. |
-| **VENDOR-ONLY** | The code path serves a commercial-SaaS workload (vendor `gftd.co.jp` paid pipeline). Religious-corp does not use it. | Code stays on the gftd side; religious-corp callers must not invoke. Lefthook enforces caller-side rejection (see ADR-2605215000 §2). |
+| **VENDOR-ONLY** | The code path serves a commercial-SaaS workload (vendor `etzhayyim.com` paid pipeline). Religious-corp does not use it. | Code stays on the gftd side; religious-corp callers must not invoke. Lefthook enforces caller-side rejection (see ADR-2605215000 §2). |
 | **REIMPLEMENT** | Behaviour incompatible with religious-corp substrate boundary (e.g. RunPod cold-start protocol → EVO-X2 native protocol). | Rewrite required; cannot redirect. Tracked as a separate ADR per surface (e.g. ADR-2605215100 for maps-sentinel). |
 
 This taxonomy is used by the two existing MIGRATION-NOTES.md sidecars:
@@ -93,15 +93,15 @@ New MIGRATION-NOTES.md sidecars MUST use the same 3-verdict taxonomy. Lefthook (
 
 The two MIGRATION-NOTES.md sidecars itemise ≈220 `gftd-*` → `etzhayyim-*` identifier sites across two scopes:
 
-- **Murakumo runtime** (`50-infra/cluster/murakumo/src/`): env var prefix (`GFTD_*` → `ETZHAYYIM_*`), config dir (`~/.gftd/` → `~/.etzhayyim/`), DNS suffix (`.mesh.gftd.ai` → `.mesh.etzhayyim.com`), control plane URL, launchd label (`ai.gftd.murakumo` → `com.etzhayyim.murakumo`), systemd unit, binary name (`gftd-murakumo` → `etzhayyim-murakumo`), cargo crate name, CDN URL.
+- **Murakumo runtime** (`50-infra/cluster/murakumo/src/`): env var prefix (`etzhayyim_*` → `ETZHAYYIM_*`), config dir (`~/.gftd/` → `~/.etzhayyim/`), DNS suffix (`.mesh.etzhayyim.com` → `.mesh.etzhayyim.com`), control plane URL, launchd label (`app.etzhayyim.murakumo` → `com.etzhayyim.murakumo`), systemd unit, binary name (`gftd-murakumo` → `etzhayyim-murakumo`), cargo crate name, CDN URL.
 - **pymagatama runtime** (`20-actors/magatama/py/`): RunPod-coupled call sites (REDIRECT / VENDOR-ONLY / REIMPLEMENT classified).
 
 Plus the package-rename half referenced by 3 SUBSTRATE-PORT-PENDING markers in this session:
 
-- `@gftd/magatama-host-sdk` → `@etzhayyim/magatama-host-sdk`
-- `@gftd/magatama-gv7ps2m1` → `@etzhayyim/magatama-gv7ps2m1`
-- `@gftd/magatama-le9k4x2m` → `@etzhayyim/magatama-le9k4x2m`
-- `@gftd/graph-schema` → `@etzhayyim/graph-schema`
+- `@etzhayyim/magatama-host-sdk` → `@etzhayyim/magatama-host-sdk`
+- `@etzhayyim/magatama-gv7ps2m1` → `@etzhayyim/magatama-gv7ps2m1`
+- `@etzhayyim/magatama-le9k4x2m` → `@etzhayyim/magatama-le9k4x2m`
+- `@etzhayyim/graph-schema` → `@etzhayyim/graph-schema`
 
 ### §3.2 The atomic-PR invariant
 
@@ -111,13 +111,13 @@ Interdependent target categories:
 
 | Category | Why interdependent |
 |---|---|
-| env var prefix (`GFTD_*` / `ETZHAYYIM_*`) | If `src/config.rs` reads `ETZHAYYIM_*` but the launchd plist still exports `GFTD_*`, the daemon starts with unset env vars. |
+| env var prefix (`etzhayyim_*` / `ETZHAYYIM_*`) | If `src/config.rs` reads `ETZHAYYIM_*` but the launchd plist still exports `etzhayyim_*`, the daemon starts with unset env vars. |
 | config dir (`~/.gftd` / `~/.etzhayyim`) | If `src/main.rs` writes to `~/.etzhayyim/daemon.log` but the launchd plist's StandardErrorPath still points at `~/.gftd/daemon.log`, logs go to two paths. |
-| DNS suffix (`.mesh.gftd.ai` / `.mesh.etzhayyim.com`) | If half the nodes register under one suffix and half under the other, mesh discovery breaks. |
-| control plane URL (`murakumo.gftd.ai` / `murakumo.etzhayyim.com`) | If the binary defaults to one but the install script `curl`s the other, install instructions silently fail. |
-| launchd label (`ai.gftd.murakumo` / `com.etzhayyim.murakumo`) | If the plist filename and the Label key disagree, `launchctl load` refuses. |
+| DNS suffix (`.mesh.etzhayyim.com` / `.mesh.etzhayyim.com`) | If half the nodes register under one suffix and half under the other, mesh discovery breaks. |
+| control plane URL (`murakumo.etzhayyim.com` / `murakumo.etzhayyim.com`) | If the binary defaults to one but the install script `curl`s the other, install instructions silently fail. |
+| launchd label (`app.etzhayyim.murakumo` / `com.etzhayyim.murakumo`) | If the plist filename and the Label key disagree, `launchctl load` refuses. |
 | cargo crate name (`gftd-murakumo` / `etzhayyim-murakumo`) | If the crate name changes but downstream `Cargo.toml` references the old name, build breaks. |
-| package name (`@gftd/*` / `@etzhayyim/*`) | If `src/app.ts` imports `@etzhayyim/sdk` but `package.json` declares `@gftd/magatama-host-sdk` as a dep, npm resolution fails. |
+| package name (`@etzhayyim/*` / `@etzhayyim/*`) | If `src/app.ts` imports `@etzhayyim/sdk` but `package.json` declares `@etzhayyim/magatama-host-sdk` as a dep, npm resolution fails. |
 
 The single-PR rule is the only safe execution path. Splitting it produces *guaranteed runtime breakage* during the migration window.
 
@@ -141,14 +141,14 @@ When the atomic cutover PR opens, reviewers MUST verify all of:
 5. Charter Rider notice in `NOTICE` files of the 39 first-party Apache-2.0 packages (CLAUDE.md §Status row 11) is preserved.
 6. lefthook hooks (CLAUDE.md §Status row 16) still pass on the renamed paths.
 7. `fleet.toml` and `placement-contract.yaml` references to old identifiers (if any) are updated together.
-8. No remaining occurrences of `gftd.ai` in runtime code (comments may retain ADR references — comment-only mentions are allowed and expected).
+8. No remaining occurrences of `etzhayyim.com` in runtime code (comments may retain ADR references — comment-only mentions are allowed and expected).
 
 ### §3.5 Anti-checklist (what NOT to do during §3)
 
 - Do not skip the `Cargo.lock` regeneration. Crate-name changes invalidate it.
 - Do not use sed across the entire repo without scope filtering. The two MIGRATION-NOTES.md sidecars define the exact scope.
-- Do not rename `@gftd/sdk` imports without first verifying `@etzhayyim/sdk` exposes the equivalent surface. The SDK was rewritten, not aliased (per `20-actors/etzhayyim-sdk/README.md`).
-- Do not introduce backwards-compatibility aliases (`@gftd/magatama-host-sdk` re-export from `@etzhayyim/magatama-host-sdk`). That defeats the atomic invariant and creates indefinite dual-name maintenance.
+- Do not rename `@etzhayyim/sdk` imports without first verifying `@etzhayyim/sdk` exposes the equivalent surface. The SDK was rewritten, not aliased (per `20-actors/etzhayyim-sdk/README.md`).
+- Do not introduce backwards-compatibility aliases (`@etzhayyim/magatama-host-sdk` re-export from `@etzhayyim/magatama-host-sdk`). That defeats the atomic invariant and creates indefinite dual-name maintenance.
 - Do not split the §3 PR into multiple PRs across days. The mesh is broken during any non-atomic intermediate state.
 
 # Consequences

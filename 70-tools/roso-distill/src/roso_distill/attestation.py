@@ -26,8 +26,6 @@ RUNTIME_GB = 0.05
 
 def attest(state: RosoState) -> RosoState:
     cfg = state.cfg
-    state.notes.append("[attestation] computing edge invariant RAM @ 4k + 16k")
-
     spec = BASE_CANDIDATES.get(cfg.base_model)
     if spec is None:
         state.notes.append("[attestation] unknown base — abort")
@@ -45,21 +43,33 @@ def attest(state: RosoState) -> RosoState:
     state.attestation_ram_4k_gb = ram_4k
     state.attestation_ram_16k_gb = ram_16k
 
-    checks = {
-        "trunk_params_max": spec["params"] <= EDGE_INVARIANT["trunk_params_max"],
-        "packed_weights_max": packed <= EDGE_INVARIANT["packed_weights_gb_max"],
-        "inference_4k_max": ram_4k <= EDGE_INVARIANT["inference_4k_gb_max"],
-        "inference_16k_max": ram_16k <= EDGE_INVARIANT["inference_16k_gb_max"],
-    }
-    state.attestation_passed = all(checks.values())
+    tier = spec.get("tier", "edge")
+    if tier == "server":
+        state.notes.append(
+            f"[attestation] tier=server ({spec.get('tier_doc', '')}) - "
+            f"edge invariant ceiling check SKIPPED. packed={packed:.2f} GB | "
+            f"RAM @4k={ram_4k:.2f} GB | @16k={ram_16k:.2f} GB"
+        )
+        state.attestation_passed = True
+        checks = {"_skipped": "server tier per ADR-2605242100"}
+    else:
+        state.notes.append("[attestation] computing edge invariant RAM @ 4k + 16k")
+        checks = {
+            "trunk_params_max": spec["params"] <= EDGE_INVARIANT["trunk_params_max"],
+            "packed_weights_max": packed <= EDGE_INVARIANT["packed_weights_gb_max"],
+            "inference_4k_max": ram_4k <= EDGE_INVARIANT["inference_4k_gb_max"],
+            "inference_16k_max": ram_16k <= EDGE_INVARIANT["inference_16k_gb_max"],
+        }
+        state.attestation_passed = all(checks.values())
 
     state.notes.append(
         f"[attestation] packed={packed:.2f} GB | RAM @4k={ram_4k:.2f} GB | "
         f"RAM @16k={ram_16k:.2f} GB | passed={state.attestation_passed}"
     )
-    for k, v in checks.items():
-        if not v:
-            state.notes.append(f"[attestation] FAIL {k}")
+    if tier != "server":
+        for k, v in checks.items():
+            if not v:
+                state.notes.append(f"[attestation] FAIL {k}")
 
     if state.quantized_path is not None:
         out = Path(state.quantized_path) / "attestation.json"

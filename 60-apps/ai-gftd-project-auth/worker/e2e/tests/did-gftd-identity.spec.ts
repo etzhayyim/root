@@ -3,7 +3,7 @@
  *
  * Tests the full did:gftd lifecycle:
  *   1. Passkey sign-up → did:gftd mint (vertex_gftd_auth_account + vertex_gftd_key_signing)
- *   2. DID Doc resolution (handleResolveGftdDid)
+ *   2. DID Doc resolution (handleResolveetzhayyimDid)
  *   3. Service Auth JWT mint with did:gftd iss
  *   4. OAuth link → auth_methods_summary update + actor_score recalc
  *   5. Org creation + invite + accept (when endpoints are live)
@@ -52,7 +52,7 @@ test.describe("did:gftd identity lifecycle", () => {
         return Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
       };
 
-      const begin = await fetch(`${AUTH}/xrpc/ai.gftd.auth.passkeyBeginRegister`, {
+      const begin = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.passkeyBeginRegister`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -81,7 +81,7 @@ test.describe("did:gftd identity lifecycle", () => {
       })) as PublicKeyCredential;
 
       const att = cred.response as AuthenticatorAttestationResponse;
-      const verify = await fetch(`${AUTH}/xrpc/ai.gftd.auth.passkeyVerifyRegister`, {
+      const verify = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.passkeyVerifyRegister`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -101,8 +101,8 @@ test.describe("did:gftd identity lifecycle", () => {
     const handle = regResult.body.handle as string;
 
     // ── Assertion: did:gftd (post-deploy) or did:web (pre-deploy) ──
-    const isGftdDid = accountDid.startsWith("did:gftd:");
-    if (isGftdDid) {
+    const isetzhayyimDid = accountDid.startsWith("did:gftd:");
+    if (isetzhayyimDid) {
       expect(accountDid).toMatch(/^did:gftd:[a-f0-9]{24}$/);
       expect(activeDid).toMatch(/^did:gftd:[a-f0-9]{24}$/);
     } else {
@@ -119,7 +119,7 @@ test.describe("did:gftd identity lifecycle", () => {
     );
 
     // ── Step 2: Resolve did:gftd DID Document (skip if pre-deploy) ──
-    if (!isGftdDid) {
+    if (!isetzhayyimDid) {
       test.info().annotations.push({ type: "skip", description: "DID Doc resolution skipped (pre-deploy, did:web returned)" });
       await cdp.send("WebAuthn.disable", {});
       return;
@@ -127,7 +127,7 @@ test.describe("did:gftd identity lifecycle", () => {
 
     const didDoc = await page.evaluate(async (did) => {
       const AUTH = location.origin;
-      const resp = await fetch(`${AUTH}/xrpc/ai.gftd.auth.resolveGftdDid`, {
+      const resp = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.resolveetzhayyimDid`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ did }),
@@ -135,7 +135,7 @@ test.describe("did:gftd identity lifecycle", () => {
       return { ok: resp.ok, status: resp.status, body: await resp.json().catch(() => ({})) };
     }, accountDid);
 
-    expect(didDoc.ok, `resolveGftdDid failed: ${JSON.stringify(didDoc)}`).toBe(true);
+    expect(didDoc.ok, `resolveetzhayyimDid failed: ${JSON.stringify(didDoc)}`).toBe(true);
 
     const doc = didDoc.body;
 
@@ -167,7 +167,7 @@ test.describe("did:gftd identity lifecycle", () => {
     // ── Step 3: Resolve activeDid (Person sub-actor) ──
     const activeDoc = await page.evaluate(async (did) => {
       const AUTH = location.origin;
-      const resp = await fetch(`${AUTH}/xrpc/ai.gftd.auth.resolveGftdDid`, {
+      const resp = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.resolveetzhayyimDid`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ did }),
@@ -175,7 +175,7 @@ test.describe("did:gftd identity lifecycle", () => {
       return { ok: resp.ok, status: resp.status, body: await resp.json().catch(() => ({})) };
     }, activeDid);
 
-    expect(activeDoc.ok, `resolveGftdDid (active) failed: ${JSON.stringify(activeDoc)}`).toBe(true);
+    expect(activeDoc.ok, `resolveetzhayyimDid (active) failed: ${JSON.stringify(activeDoc)}`).toBe(true);
     expect(activeDoc.body.id).toBe(activeDid);
     expect(activeDoc.body.type).toContain("Person");
     expect(activeDoc.body.controller).toBe(accountDid);
@@ -186,7 +186,7 @@ test.describe("did:gftd identity lifecycle", () => {
       const resp = await fetch(`${AUTH}/xrpc/com.atproto.server.getServiceAuth`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ iss, aud: aud ?? "did:web:atproto.etzhayyim.com", lxm: "ai.gftd.apps.test.query" }),
+        body: JSON.stringify({ iss, aud: aud ?? "did:web:atproto.etzhayyim.com", lxm: "app.etzhayyim.apps.test.query" }),
       });
       return { ok: resp.ok, status: resp.status, body: await resp.json().catch(() => ({})) };
     }, { iss: accountDid, aud: "did:web:atproto.etzhayyim.com" });
@@ -204,7 +204,7 @@ test.describe("did:gftd identity lifecycle", () => {
     const payload = JSON.parse(atob(jwtParts[1].replace(/-/g, "+").replace(/_/g, "/")));
     expect(payload.iss).toBe(accountDid);
     expect(payload.aud).toBe("did:web:atproto.etzhayyim.com");
-    expect(payload.lxm).toBe("ai.gftd.apps.test.query");
+    expect(payload.lxm).toBe("app.etzhayyim.apps.test.query");
     expect(payload.exp).toBeGreaterThan(Math.floor(Date.now() / 1000));
 
     test.info().annotations.push({
@@ -215,12 +215,12 @@ test.describe("did:gftd identity lifecycle", () => {
     await cdp.send("WebAuthn.disable", {});
   });
 
-  test("resolveGftdDid returns 404 for unknown DID", async ({ page }) => {
+  test("resolveetzhayyimDid returns 404 for unknown DID", async ({ page }) => {
     await page.goto(`${AUTH_BASE}/health`, { waitUntil: "domcontentloaded" });
 
     const result = await page.evaluate(async () => {
       const AUTH = location.origin;
-      const resp = await fetch(`${AUTH}/xrpc/ai.gftd.auth.resolveGftdDid`, {
+      const resp = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.resolveetzhayyimDid`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ did: "did:gftd:000000000000000000000000" }),
@@ -236,16 +236,16 @@ test.describe("did:gftd identity lifecycle", () => {
       expect(result.body.error).toBe("NotFound");
     } else {
       expect(result.status).toBe(404);
-      test.info().annotations.push({ type: "note", description: "pre-deploy: resolveGftdDid endpoint not found" });
+      test.info().annotations.push({ type: "note", description: "pre-deploy: resolveetzhayyimDid endpoint not found" });
     }
   });
 
-  test("resolveGftdDid rejects invalid DID format", async ({ page }) => {
+  test("resolveetzhayyimDid rejects invalid DID format", async ({ page }) => {
     await page.goto(`${AUTH_BASE}/health`, { waitUntil: "domcontentloaded" });
 
     const result = await page.evaluate(async () => {
       const AUTH = location.origin;
-      const resp = await fetch(`${AUTH}/xrpc/ai.gftd.auth.resolveGftdDid`, {
+      const resp = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.resolveetzhayyimDid`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ did: "did:web:example.com" }),
@@ -258,7 +258,7 @@ test.describe("did:gftd identity lifecycle", () => {
       expect(result.status).toBe(400);
     } else {
       // Pre-deploy: endpoint doesn't exist
-      test.info().annotations.push({ type: "note", description: "pre-deploy: resolveGftdDid endpoint not found" });
+      test.info().annotations.push({ type: "note", description: "pre-deploy: resolveetzhayyimDid endpoint not found" });
     }
   });
 });

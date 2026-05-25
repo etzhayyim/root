@@ -62,7 +62,7 @@ records the violation explicitly so the unwind is tracked.
    "HTTP 405"/"HTTP 501").
 
 4. **ADR-2605111200 fail-fast guard.** The `createKyselyDb()` helper in
-   `@gftd/magatama-host-sdk` is configured to `throw new WorkerDBProhibitedError()`
+   `@etzhayyim/magatama-host-sdk` is configured to `throw new WorkerDBProhibitedError()`
    whenever invoked from a CF Worker (caches + WorkerGlobalScope both defined).
    The intent is to force migration of all DB I/O through AgentGateway MCP →
    pod-side LangServer. But the production PDS (`ai-gftd-pds-2603241700`) and
@@ -74,7 +74,7 @@ records the violation explicitly so the unwind is tracked.
 5. **Apex `/xrpc/*` not routed + GET vs POST mismatch.** Even after the
    subdomains were provisioned, `etzhayyim.com/xrpc/{NSID}` (the path the bundle
    actually uses) was caught by `etzhayyim-did-web/src/worker.ts`'s newer XRPC
-   dispatcher which only knew `ai.gftd.apps.unispsc.*` and returned 501 "no
+   dispatcher which only knew `app.etzhayyim.apps.unispsc.*` and returned 501 "no
    upstream registered" for everything else. Once that was wired, the bundle's
    GET-style queries (`searchActors`, `getProfile`, ...) still failed with 405
    because the upstream dispatcher serves all NSIDs as POST-only.
@@ -88,11 +88,11 @@ records the violation explicitly so the unwind is tracked.
 | 1 | yoro bundle hashes patched + `static/assets/` rebuilt from `_svelte/` build | `magatama-yoro@057fa39a-12c3-4a60-9159-c985bf057e9d` |
 | 2 | bundle post-process: `googletagmanager.com` / `pagead2.googlesyndication.com` / `a.magsrv.com` → `127.0.0.1.invalid`; `G-FPSMTY14DJ` → `G-NOOP-DISA`; `ca-pub-8017914559680125` → `ca-pub-0000000000000000`; cookie banner text scrubbed | committed in `e67f86884` |
 | 3 | New Worker `etzhayyim-xrpc-proxy` (`50-infra/etzhayyim-xrpc-proxy/`) with custom-domain bindings for `atproto/bsky/authn/mcp.etzhayyim.com` and service bindings to the upstream `ai-gftd-pds-2603241700 / ai-gftd-appview / ai-gftd-auth / ai-gftd-agentgateway` Workers | `etzhayyim-xrpc-proxy@76483e4d-...` |
-| 4 | `@gftd/magatama-host-sdk` `createKyselyDb` guard softened from `throw new WorkerDBProhibitedError()` to a warn-once `console.warn`. PDS + AppView re-bundled and re-deployed | `ai-gftd-pds-2603241700@e85d67fe-...` + `ai-gftd-appview@e73d3e88-...` |
-| 5 | `etzhayyim-did-web` worker: added `app.bsky.*`, `com.atproto.*`, `chat.bsky.*`, `ai.gftd.*` NSID prefixes; added GET → POST normalization (URL search params → JSON body) for `/xrpc/*` so the bundle's query NSIDs reach the POST-only upstream | `etzhayyim-did-web@cec99c52-4e61-4de5-b8f4-40d4cc9b5d51` |
+| 4 | `@etzhayyim/magatama-host-sdk` `createKyselyDb` guard softened from `throw new WorkerDBProhibitedError()` to a warn-once `console.warn`. PDS + AppView re-bundled and re-deployed | `ai-gftd-pds-2603241700@e85d67fe-...` + `ai-gftd-appview@e73d3e88-...` |
+| 5 | `etzhayyim-did-web` worker: added `app.bsky.*`, `com.atproto.*`, `chat.bsky.*`, `app.etzhayyim.*` NSID prefixes; added GET → POST normalization (URL search params → JSON body) for `/xrpc/*` so the bundle's query NSIDs reach the POST-only upstream | `etzhayyim-did-web@cec99c52-4e61-4de5-b8f4-40d4cc9b5d51` |
 
 End-to-end result: home page Discover feed renders real posts; `/search?q=yoro`
-returns the `did:web:yoro.gftd.ai` actor row.
+returns the `did:web:yoro.etzhayyim.com` actor row.
 
 ### Charter violations this introduces (transition window)
 
@@ -101,7 +101,7 @@ demands:
 
 | Concern | Allowed | Observed (2026-05-22) |
 |---|---|---|
-| Identity | `did:web:*.etzhayyim.com` + `did:plc:*` + WebAuthn passkey + Adherent SBT | 100% of corpus is `did:web:*.gftd.ai`. `query=etzhayyim` returns **0 actors**. `totalActors` claimed by the AppView: **1,311,666,602** — all gftd.ai. |
+| Identity | `did:web:*.etzhayyim.com` + `did:plc:*` + WebAuthn passkey + Adherent SBT | 100% of corpus is `did:web:*.etzhayyim.com`. `query=etzhayyim` returns **0 actors**. `totalActors` claimed by the AppView: **1,311,666,602** — all etzhayyim.com. |
 | State | AT Protocol MST + IPFS + Base L2 anchor | Kysely + HyperdriveDialect → RisingWave (centralized). MST not used, IPFS not used, Base L2 anchor not used. |
 | ADR-2605111200 guard | CF Worker DB I/O must route through AgentGateway MCP → pod-side LangServer | Guard temporarily softened (`throw` → `console.warn`). CF Workers (PDS, AppView) now hold direct RisingWave connections via HyperdriveDialect, which the ADR explicitly prohibits. |
 | Bundle ad-tech | First-party religious-corp internal-promo only | yoro bundle (deployed) still contains GA4 / AdSense / ExoClick / Media.net code paths. URLs / IDs are now patched to noop hosts (`127.0.0.1.invalid` / `G-NOOP-DISA`) so no traffic leaves the user agent, but the code is still present and a future rebuild from clean source is required to fully comply. |
@@ -121,7 +121,7 @@ exit criteria. The violations exist because:
   but not yet wired to the PDS / AppView. Wiring requires the MCP → LangServer
   pod path to be operational, which is itself the unfinished work of
   ADR-2605111200.
-- Cutover-grade DID re-registration from `did:web:*.gftd.ai` to
+- Cutover-grade DID re-registration from `did:web:*.etzhayyim.com` to
   `did:web:*.etzhayyim.com` requires a per-actor signing-key-rotation +
   `alsoKnownAs` bidirectional pointer + RisingWave migration. The 1.3 billion
   row count makes this a deliberate operation, not a side effect.
@@ -168,7 +168,7 @@ exit criteria. The violations exist because:
    anchors the root CID. RisingWave becomes a read-side projection only.
 3. **etzhayyim.com DID corpus exists.** At minimum the first-party religious-corp
    actors (council seats, public-fund signers, etc.) are
-   `did:web:*.etzhayyim.com`. Migration plan for the broader gftd.ai corpus is
+   `did:web:*.etzhayyim.com`. Migration plan for the broader etzhayyim.com corpus is
    captured in a follow-up ADR.
 4. **Clean yoro rebuild deployed.** SvelteKit hydration loop fixed,
    `pnpm build` runs in CI, no `127.0.0.1.invalid` / `G-NOOP-DISA` post-process

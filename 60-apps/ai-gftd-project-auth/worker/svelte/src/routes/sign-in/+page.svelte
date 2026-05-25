@@ -60,7 +60,7 @@
 </script>
 
 <svelte:head>
-	<title>Sign In — GFTD</title>
+	<title>Sign In — etzhayyim</title>
 </svelte:head>
 
 <ParticleCanvas />
@@ -73,7 +73,7 @@
 			? 'bg-[rgba(26,26,26,0.95)] border-[#2a2a2a] shadow-[0_30px_90px_rgba(0,0,0,0.45)]'
 			: 'bg-[rgba(255,255,255,0.92)] border-[#e0e0e0] shadow-[0_20px_60px_rgba(0,0,0,0.1)]'}">
 
-		<h1 class="text-2xl font-bold mb-1 tracking-tight {$theme === 'dark' ? 'text-white' : 'text-gray-900'}">GFTD</h1>
+		<h1 class="text-2xl font-bold mb-1 tracking-tight {$theme === 'dark' ? 'text-white' : 'text-gray-900'}">etzhayyim</h1>
 		<p class="text-[13px] mb-5 {$theme === 'dark' ? 'text-[#888]' : 'text-gray-500'}">Sign In</p>
 
 		<button

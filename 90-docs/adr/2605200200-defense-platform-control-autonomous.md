@@ -39,9 +39,9 @@ Anduril Ghost / Roadrunner / Dive-LD 相当のプラットフォームレジス�
 
 | Method | NSID | 機能 |
 |---|---|---|
-| registerPlatform | `ai.gftd.apps.defPlatform.registerPlatform` | プラットフォーム登録 (classification ≥ 2 必須) |
-| updatePlatformState | `ai.gftd.apps.defPlatform.updatePlatformState` | 状態遷移 + テレメトリ更新 |
-| listPlatforms | `ai.gftd.apps.defPlatform.listPlatforms` | フリート一覧 (clearance-gated) |
+| registerPlatform | `app.etzhayyim.apps.defPlatform.registerPlatform` | プラットフォーム登録 (classification ≥ 2 必須) |
+| updatePlatformState | `app.etzhayyim.apps.defPlatform.updatePlatformState` | 状態遷移 + テレメトリ更新 |
+| listPlatforms | `app.etzhayyim.apps.defPlatform.listPlatforms` | フリート一覧 (clearance-gated) |
 
 ### ドメイン別状態機械
 

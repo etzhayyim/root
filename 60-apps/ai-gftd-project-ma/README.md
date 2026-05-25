@@ -58,5 +58,5 @@ Pulumi 側のデプロイレイヤは `projects/*/wasm/*/wadm/*.wadm.yaml` と `
 ```bash
 cd infra/pulumi
 export PULUMI_CONFIG_PASSPHRASE='***'
-GFTD_WASM_SKIP_AUTOBUILD=1 pulumi up --yes
+etzhayyim_WASM_SKIP_AUTOBUILD=1 pulumi up --yes
 ```

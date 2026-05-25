@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $8\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -42,9 +42,9 @@ UP = [{'sql': '\n'
                  '  mv_belief_restoring_summary tracks deviation_status\n'
                  "  ('at_baseline'/'near_baseline'/'drifting') for D-feed gate.\n"
                  '\n'
-                 '  NSID: ai.gftd.apps.wellbecoming.beliefRestoringCapture\n'
+                 '  NSID: app.etzhayyim.apps.wellbecoming.beliefRestoringCapture\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -58,7 +58,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="wellbecoming_belief_restoring_capture" name="Well-Becoming '
                  'Belief Restoring Capture (γ homeostasis)" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.wellbecoming.beliefRestoringCapture", "version": '
+                 '      { "nsid": "app.etzhayyim.apps.wellbecoming.beliefRestoringCapture", "version": '
                  '1, "resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -105,7 +105,7 @@ UP = [{'sql': '\n'
                  '2026-05-07T23:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -113,24 +113,24 @@ UP = [{'sql': '\n'
          '    SELECT\n'
          '      $1, $2,\n'
          "      'wellbecoming_belief_restoring_capture',\n"
-         "      'ai.gftd.apps.wellbecoming.beliefRestoringCapture',\n"
+         "      'app.etzhayyim.apps.wellbecoming.beliefRestoringCapture',\n"
          '      $3, 1,\n'
          "      $4, $5, 'sys.bpmn.seed.wellbecoming'\n"
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $6\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/wellbecoming-belief-restoring-capture-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-restoring-capture-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '2026-05-07T23:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/wellbecoming-belief-restoring-capture-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-restoring-capture-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/wellbecoming-belief-restoring-capture-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-restoring-capture-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-restoring-capture-v1']}]
 
 
 def upgrade() -> None:

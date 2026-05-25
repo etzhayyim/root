@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govRwa.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govRwa.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Rwanda government.",
-        "operationId": "ai.gftd.govRwa.followSiteDeps",
+        "operationId": "app.etzhayyim.govRwa.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRwa.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govRwa.heartbeatTick": {
       "post": {
         "summary": "Run the Rwanda government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govRwa.heartbeatTick",
+        "operationId": "app.etzhayyim.govRwa.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRwa.listOrgs": {
+    "/xrpc/app.etzhayyim.govRwa.listOrgs": {
       "get": {
         "summary": "List Rwanda government organization graph records.",
-        "operationId": "ai.gftd.govRwa.listOrgs",
+        "operationId": "app.etzhayyim.govRwa.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRwa.registerDIDs": {
+    "/xrpc/app.etzhayyim.govRwa.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Rwanda government organizations.",
-        "operationId": "ai.gftd.govRwa.registerDIDs",
+        "operationId": "app.etzhayyim.govRwa.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRwa.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govRwa.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Rwanda government organization path to its graph record.",
-        "operationId": "ai.gftd.govRwa.resolveOrgPath",
+        "operationId": "app.etzhayyim.govRwa.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRwa.seedOrgs": {
+    "/xrpc/app.etzhayyim.govRwa.seedOrgs": {
       "post": {
         "summary": "Seed initial Rwanda government organization records into the graph.",
-        "operationId": "ai.gftd.govRwa.seedOrgs",
+        "operationId": "app.etzhayyim.govRwa.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRwa.shinka": {
+    "/xrpc/app.etzhayyim.govRwa.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Rwanda government organization update.",
-        "operationId": "ai.gftd.govRwa.shinka",
+        "operationId": "app.etzhayyim.govRwa.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRwa.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govRwa.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Rwanda government organization changes to graph.",
-        "operationId": "ai.gftd.govRwa.syncWetUpdates",
+        "operationId": "app.etzhayyim.govRwa.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govVen.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govVen.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Venezuela government.",
-        "operationId": "ai.gftd.govVen.followSiteDeps",
+        "operationId": "app.etzhayyim.govVen.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govVen.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govVen.heartbeatTick": {
       "post": {
         "summary": "Run the Venezuela government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govVen.heartbeatTick",
+        "operationId": "app.etzhayyim.govVen.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govVen.listOrgs": {
+    "/xrpc/app.etzhayyim.govVen.listOrgs": {
       "get": {
         "summary": "List Venezuela government organization graph records.",
-        "operationId": "ai.gftd.govVen.listOrgs",
+        "operationId": "app.etzhayyim.govVen.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govVen.registerDIDs": {
+    "/xrpc/app.etzhayyim.govVen.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Venezuela government organizations.",
-        "operationId": "ai.gftd.govVen.registerDIDs",
+        "operationId": "app.etzhayyim.govVen.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govVen.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govVen.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Venezuela government organization path to its graph record.",
-        "operationId": "ai.gftd.govVen.resolveOrgPath",
+        "operationId": "app.etzhayyim.govVen.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govVen.seedOrgs": {
+    "/xrpc/app.etzhayyim.govVen.seedOrgs": {
       "post": {
         "summary": "Seed initial Venezuela government organization records into the graph.",
-        "operationId": "ai.gftd.govVen.seedOrgs",
+        "operationId": "app.etzhayyim.govVen.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govVen.shinka": {
+    "/xrpc/app.etzhayyim.govVen.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Venezuela government organization update.",
-        "operationId": "ai.gftd.govVen.shinka",
+        "operationId": "app.etzhayyim.govVen.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govVen.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govVen.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Venezuela government organization changes to graph.",
-        "operationId": "ai.gftd.govVen.syncWetUpdates",
+        "operationId": "app.etzhayyim.govVen.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

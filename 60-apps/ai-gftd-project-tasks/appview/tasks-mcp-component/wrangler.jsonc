@@ -10,21 +10,21 @@
     "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"oauth-redirect\"]",
     "APP_DESCRIPTION": "Thin edge facade; Google Tasks OAuth and sync run in BPMN + Zeebe Python",
     "APP_DISPLAY_NAME": "Google Tasks",
-    "APP_EMBED_URL": "https://tasks-mcp.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://tasks-mcp.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "tasks-mcp",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "tasks-mcp.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "tasks-mcp.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "tasks.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "tasks.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

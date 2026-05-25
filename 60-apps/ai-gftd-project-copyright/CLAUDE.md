@@ -6,7 +6,7 @@
 
 ## Role
 
-copyright = **著作物 (literary, musical, visual, software, audiovisual) perspective**。登録・ライセンス・DOI・ISBN を `ai.gftd.apps.copyright.*` に正規化。Berne Convention → 自動発生 / 登録任意の二層モデルを扱う。
+copyright = **著作物 (literary, musical, visual, software, audiovisual) perspective**。登録・ライセンス・DOI・ISBN を `app.etzhayyim.apps.copyright.*` に正規化。Berne Convention → 自動発生 / 登録任意の二層モデルを扱う。
 
 ## Architecture
 
@@ -17,7 +17,7 @@ copyright = **著作物 (literary, musical, visual, software, audiovisual) persp
 | Primary | `did:web:copyright.etzhayyim.com` | Coordinator |
 | Registry | `did:web:copyright.etzhayyim.com:us-copyright` / `:jasrac` / `:crossref` / `:isbn` | registry 別 coverage |
 
-## Lexicon (`ai.gftd.apps.copyright.*`)
+## Lexicon (`app.etzhayyim.apps.copyright.*`)
 
 | Collection | 用途 |
 |---|---|

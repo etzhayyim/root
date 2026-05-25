@@ -12,14 +12,14 @@ import {
   type HostSDK, resolveHeartbeatCadence, createCadenceState, createInboxBuffer, genID, decodeJson,
   nsid,
   parseLexiconInput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
 
 let appId = ""
 let actorDID = ""
-const COLLECTION = "ai.gftd.apps.kami.sabiotoshi";
+const COLLECTION = "app.etzhayyim.apps.kami.sabiotoshi";
 
 // --- Write Helpers ---
 
@@ -255,13 +255,13 @@ function computeSprayDamage(nozzle: Nozzle, zone: RustZone): number {
 // --- Commands ---
 
 async function cmdNewGame(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.kami.newGame", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.kami.newGame", body);
   const count = Math.min(Math.max(Number(args.itemCount) || 3, 1), ITEM_CATALOG.length);
   const state = newGameState(count);
   const item = ITEM_CATALOG[0];
   const gameRkey = genID("game");
   await createKyselyDb().insertInto("vertex_kami_sabiotoshi_game" as any).values({
-    vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/ai.gftd.apps.kami.sabiotoshi.game/${gameRkey}`,
+    vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/app.etzhayyim.apps.kami.sabiotoshi.game/${gameRkey}`,
     sensitivity_ord: 2,
     owner_did: actorDID || "did:web:s4b10t05.etzhayyim.com",
     actor_id: appId || "s4b10t05",
@@ -279,7 +279,7 @@ async function cmdNewGame(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 async function cmdSpray(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.kami.spray", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.kami.spray", body);
   const zoneId = str(args.zoneId ?? "");
   const nozzleId = str(args.nozzle ?? "standard");
   const stateIn: GameState = args.state;
@@ -332,7 +332,7 @@ async function cmdSpray(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
       stateIn.phase = "complete";
       const sprayScoreRkey = genID("score");
       await createKyselyDb().insertInto("vertex_kami_sabiotoshi_score" as any).values({
-        vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/ai.gftd.apps.kami.sabiotoshi.score/${sprayScoreRkey}`,
+        vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/app.etzhayyim.apps.kami.sabiotoshi.score/${sprayScoreRkey}`,
         sensitivity_ord: 2,
         owner_did: actorDID || "did:web:s4b10t05.etzhayyim.com",
         actor_id: appId || "s4b10t05",
@@ -361,7 +361,7 @@ async function cmdSpray(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 function cmdSelectItem(sdk: HostSDK, body: Uint8Array): unknown {
-  const args = parseLexiconInput("ai.gftd.apps.kami.selectItem", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.kami.selectItem", body);
   const itemId = str(args.itemId ?? "");
   const item = ITEM_CATALOG.find(i => i.id === itemId);
   if (!item) return { error: "unknown item", available: ITEM_CATALOG.map(i => i.id) };
@@ -369,7 +369,7 @@ function cmdSelectItem(sdk: HostSDK, body: Uint8Array): unknown {
 }
 
 function cmdGetState(_sdk: HostSDK, body: Uint8Array): unknown {
-  const args = parseLexiconInput("ai.gftd.apps.kami.getState", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.kami.getState", body);
   return {
     catalog: ITEM_CATALOG.map(i => ({ id: i.id, name: i.name, 'nameJa': i.nameJa, difficulty: i.difficulty, 'baseScore': i.baseScore })),
     nozzles: NOZZLES,
@@ -377,20 +377,20 @@ function cmdGetState(_sdk: HostSDK, body: Uint8Array): unknown {
 }
 
 async function cmdGetLeaderboard(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.kami.getLeaderboard", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.kami.getLeaderboard", body);
   const limit = Math.min(Number(args.limit) || 20, 100);
   const rows = ([] as Record<string, unknown>[]);
   return { leaderboard: rows };
 }
 
 async function cmdSubmitScore(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.kami.submitScore", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.kami.submitScore", body);
   const score = Number(args.score) || 0;
   const items = Number(args.itemsCompleted) || 0;
   const combo = Number(args.maxCombo) || 0;
   const id = genID("score");
   await createKyselyDb().insertInto("vertex_kami_sabiotoshi_score" as any).values({
-    vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/ai.gftd.apps.kami.sabiotoshi.score/${id}`,
+    vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/app.etzhayyim.apps.kami.sabiotoshi.score/${id}`,
     sensitivity_ord: 2,
     owner_did: actorDID || "did:web:s4b10t05.etzhayyim.com",
     actor_id: appId || "s4b10t05",
@@ -405,7 +405,7 @@ async function cmdSubmitScore(sdk: HostSDK, body: Uint8Array): Promise<unknown> 
 }
 
 function cmdWave(sdk: HostSDK, body: Uint8Array): unknown {
-  const args = parseLexiconInput("ai.gftd.apps.kami.wave", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.kami.wave", body);
   const msg = str(args.message ?? "Hello");
   return { ok: true, agent: "Sabi-Otoshi!!", nanoid: appId };
 }
@@ -417,7 +417,7 @@ function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, commit: ComAtpro
 
   const collection = str(commit.collection ?? "");
 
-  if (collection.startsWith("ai.gftd.apps.kami.")) {
+  if (collection.startsWith("app.etzhayyim.apps.kami.")) {
     return { ok: true, detail: `processed ${collection}` };
   }
 
@@ -473,13 +473,13 @@ async function cmdSummarize(sdk: HostSDK, p: Uint8Array): Promise<unknown> {
 // --- CPC/UNSPSC Classification Commands ---
 
 async function cmdClassifyItem(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.kami.classifyItem", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.kami.classifyItem", body);
   const itemId = str(args.itemId ?? "");
   const item = ITEM_CATALOG.find(i => i.id === itemId);
   if (!item) return { error: "unknown item" };
   const classifiedRkey = genID("classified");
   await createKyselyDb().insertInto("vertex_kami_sabiotoshi_classified_item" as any).values({
-    vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/ai.gftd.apps.kami.sabiotoshi.classifiedItem/${classifiedRkey}`,
+    vertex_id: `at://${actorDID || "did:web:s4b10t05.etzhayyim.com"}/app.etzhayyim.apps.kami.sabiotoshi.classifiedItem/${classifiedRkey}`,
     sensitivity_ord: 2,
     owner_did: actorDID || "did:web:s4b10t05.etzhayyim.com",
     actor_id: appId || "s4b10t05",
@@ -499,7 +499,7 @@ async function cmdClassifyItem(sdk: HostSDK, body: Uint8Array): Promise<unknown>
 }
 
 function cmdSearchByCpc(sdk: HostSDK, body: Uint8Array): unknown {
-  const args = parseLexiconInput("ai.gftd.apps.kami.searchByCpc", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.kami.searchByCpc", body);
   const code = str(args.cpcCode ?? "");
   if (!code) return { items: ITEM_CATALOG.map(i => ({ id: i.id, name: i.name, cpc: i.cpcCode, 'cpcDesc': i.cpcDesc })) };
   const matches = ITEM_CATALOG.filter(i => i.cpcCode.startsWith(code));
@@ -507,7 +507,7 @@ function cmdSearchByCpc(sdk: HostSDK, body: Uint8Array): unknown {
 }
 
 function cmdSearchByUnspsc(sdk: HostSDK, body: Uint8Array): unknown {
-  const args = parseLexiconInput("ai.gftd.apps.kami.searchByUnspsc", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.kami.searchByUnspsc", body);
   const code = str(args.unspscCode ?? "");
   if (!code) return { items: ITEM_CATALOG.map(i => ({ id: i.id, name: i.name, unspsc: i.unspscCode, 'unspscDesc': i.unspscDesc })) };
   const matches = ITEM_CATALOG.filter(i => i.unspscCode.startsWith(code));
@@ -558,68 +558,68 @@ export default createWorkerExport((sdk) => {
   appId = sdk.pds.selfNanoid ?? "";
   actorDID = sdk.pds.selfRepo ?? "";
   sdk.app
-      .command(nsid("ai.gftd.apps.kami.newGame"), (ctx, body) => cmdNewGame(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.newGame"), (ctx, body) => cmdNewGame(sdk, body),
       asAgentTool("Start a new Sabi-Otoshi game"),
       withCapabilityTags("game", "kami"),
       withOCELEvent("governance.audit"),
       )
-      .command(nsid("ai.gftd.apps.kami.spray"), (ctx, body) => cmdSpray(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.spray"), (ctx, body) => cmdSpray(sdk, body),
       asAgentTool("Spray water at a rust zone"),
       withCapabilityTags("game", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.selectItem"), (ctx, body) => cmdSelectItem(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.selectItem"), (ctx, body) => cmdSelectItem(sdk, body),
       asAgentTool("View item details"),
       withCapabilityTags("query", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.getState"), (ctx, body) => cmdGetState(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.getState"), (ctx, body) => cmdGetState(sdk, body),
       asAgentTool("Get game catalog and nozzles"),
       withCapabilityTags("query", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.getLeaderboard"), (ctx, body) => cmdGetLeaderboard(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.getLeaderboard"), (ctx, body) => cmdGetLeaderboard(sdk, body),
       asAgentTool("Get Sabi-Otoshi leaderboard"),
       withCapabilityTags("query", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.submitScore"), (ctx, body) => cmdSubmitScore(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.submitScore"), (ctx, body) => cmdSubmitScore(sdk, body),
       asAgentTool("Submit a score"),
       withCapabilityTags("write", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.wave"), (ctx, body) => cmdWave(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.wave"), (ctx, body) => cmdWave(sdk, body),
       asAgentTool("Respond to wave greeting"),
       withCapabilityTags("social", "greeting"),
       )
-      .command(nsid("ai.gftd.apps.kami.statsSabiotoshi"), (ctx, body) => cmdStats(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.statsSabiotoshi"), (ctx, body) => cmdStats(sdk, body),
       asAgentTool("Get Sabi-Otoshi statistics"),
       withCapabilityTags("analytics", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.exportSabiotoshi"), (ctx, body) => cmdExportData(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.exportSabiotoshi"), (ctx, body) => cmdExportData(sdk, body),
       asAgentTool("Export Sabi-Otoshi data"),
       withCapabilityTags("export", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.healthSabiotoshi"), (ctx, body) => cmdHealth(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.healthSabiotoshi"), (ctx, body) => cmdHealth(sdk, body),
       asAgentTool("Sabi-Otoshi health check"),
       withCapabilityTags("diagnostics", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.describeSabiotoshi"), (ctx, body) => cmdDescribe(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.describeSabiotoshi"), (ctx, body) => cmdDescribe(sdk, body),
       asAgentTool("Describe Sabi-Otoshi capabilities"),
       withCapabilityTags("meta", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.summarizeSabiotoshi"), (ctx, body) => cmdSummarize(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.summarizeSabiotoshi"), (ctx, body) => cmdSummarize(sdk, body),
       asAgentTool("AI summary of Sabi-Otoshi"),
       withCapabilityTags("ai", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.auditSabiotoshi"), (ctx, body) => cmdAudit(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.auditSabiotoshi"), (ctx, body) => cmdAudit(sdk, body),
       asAgentTool("Audit log for Sabi-Otoshi"),
       withCapabilityTags("audit", "kami"),
       )
-      .command(nsid("ai.gftd.apps.kami.classifyItem"), (ctx, body) => cmdClassifyItem(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.classifyItem"), (ctx, body) => cmdClassifyItem(sdk, body),
       asAgentTool("Classify item with CPC/UNSPSC codes"),
       withCapabilityTags("classification", "cpc", "unspsc"),
       )
-      .command(nsid("ai.gftd.apps.kami.searchByCpc"), (ctx, body) => cmdSearchByCpc(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.searchByCpc"), (ctx, body) => cmdSearchByCpc(sdk, body),
       asAgentTool("Search items by CPC product code"),
       withCapabilityTags("query", "cpc"),
       )
-      .command(nsid("ai.gftd.apps.kami.searchByUnspsc"), (ctx, body) => cmdSearchByUnspsc(sdk, body),
+      .command(nsid("app.etzhayyim.apps.kami.searchByUnspsc"), (ctx, body) => cmdSearchByUnspsc(sdk, body),
       asAgentTool("Search items by UNSPSC code"),
       withCapabilityTags("query", "unspsc"),
       );

@@ -6,7 +6,7 @@ import type { RequestHandler } from "./$types";
 type Env = { VAULT_DB?: D1Database; AUTHN_URL?: string };
 
 async function getCallerDid(event: { request: Request }, env: Env): Promise<string | null> {
-  const authnUrl = (env.AUTHN_URL ?? "https://authn.gftd.ai").replace(/\/$/, "");
+  const authnUrl = (env.AUTHN_URL ?? "https://authn.etzhayyim.com").replace(/\/$/, "");
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 4000);

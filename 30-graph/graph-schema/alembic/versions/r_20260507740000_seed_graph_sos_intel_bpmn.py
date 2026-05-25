@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'graphSosIntel_inventoryTick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -46,23 +46,23 @@ UP = [{'sql': '\n'
                  'targetRef="Task_InventoryCatalog"/>\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_InventoryCatalog" '
-                 'name="ai.gftd.apps.graphSosIntel.inventoryCatalog"\n'
+                 'name="app.etzhayyim.apps.graphSosIntel.inventoryCatalog"\n'
                  '                      '
-                 'camunda:topic="ai.gftd.apps.graphSosIntel.inventoryCatalog"/>\n'
+                 'camunda:topic="app.etzhayyim.apps.graphSosIntel.inventoryCatalog"/>\n'
                  '    <bpmn:sequenceFlow id="f2" sourceRef="Task_InventoryCatalog" '
                  'targetRef="Task_WriteSnapshot"/>\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_WriteSnapshot" '
-                 'name="ai.gftd.apps.graphSosIntel.writeSnapshot"\n'
+                 'name="app.etzhayyim.apps.graphSosIntel.writeSnapshot"\n'
                  '                      '
-                 'camunda:topic="ai.gftd.apps.graphSosIntel.writeSnapshot"/>\n'
+                 'camunda:topic="app.etzhayyim.apps.graphSosIntel.writeSnapshot"/>\n'
                  '    <bpmn:sequenceFlow id="f3" sourceRef="Task_WriteSnapshot" '
                  'targetRef="Task_DetectFindings"/>\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_DetectFindings" '
-                 'name="ai.gftd.apps.graphSosIntel.detectFindings"\n'
+                 'name="app.etzhayyim.apps.graphSosIntel.detectFindings"\n'
                  '                      '
-                 'camunda:topic="ai.gftd.apps.graphSosIntel.detectFindings"/>\n'
+                 'camunda:topic="app.etzhayyim.apps.graphSosIntel.detectFindings"/>\n'
                  '    <bpmn:sequenceFlow id="f4" sourceRef="Task_DetectFindings" '
                  'targetRef="EndEvent_Done"/>\n'
                  '\n'
@@ -74,7 +74,7 @@ UP = [{'sql': '\n'
                  '2026-05-07T09:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -86,14 +86,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'graphSosIntel_inventoryTick',
-                 'ai.gftd.apps.graphSosIntel.inventoryTick',
+                 'app.etzhayyim.apps.graphSosIntel.inventoryTick',
                  '2026-05-07T09:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -107,7 +107,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'graphSosIntel_briefingTick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -128,22 +128,22 @@ UP = [{'sql': '\n'
                  'targetRef="Task_QuerySnapshot"/>\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_QuerySnapshot" '
-                 'name="ai.gftd.apps.graphSosIntel.queryLatestSnapshot"\n'
+                 'name="app.etzhayyim.apps.graphSosIntel.queryLatestSnapshot"\n'
                  '                      '
-                 'camunda:topic="ai.gftd.apps.graphSosIntel.queryLatestSnapshot"/>\n'
+                 'camunda:topic="app.etzhayyim.apps.graphSosIntel.queryLatestSnapshot"/>\n'
                  '    <bpmn:sequenceFlow id="f2" sourceRef="Task_QuerySnapshot" '
                  'targetRef="Task_GenerateBriefing"/>\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_GenerateBriefing" '
-                 'name="ai.gftd.apps.graphSosIntel.generateBriefing"\n'
+                 'name="app.etzhayyim.apps.graphSosIntel.generateBriefing"\n'
                  '                      '
-                 'camunda:topic="ai.gftd.apps.graphSosIntel.generateBriefing"/>\n'
+                 'camunda:topic="app.etzhayyim.apps.graphSosIntel.generateBriefing"/>\n'
                  '    <bpmn:sequenceFlow id="f3" sourceRef="Task_GenerateBriefing" '
                  'targetRef="Task_WriteFinding"/>\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_WriteFinding" '
-                 'name="ai.gftd.apps.graphSosIntel.writeFinding"\n'
-                 '                      camunda:topic="ai.gftd.apps.graphSosIntel.writeFinding"/>\n'
+                 'name="app.etzhayyim.apps.graphSosIntel.writeFinding"\n'
+                 '                      camunda:topic="app.etzhayyim.apps.graphSosIntel.writeFinding"/>\n'
                  '    <bpmn:sequenceFlow id="f4" sourceRef="Task_WriteFinding" '
                  'targetRef="EndEvent_Done"/>\n'
                  '\n'
@@ -155,7 +155,7 @@ UP = [{'sql': '\n'
                  '2026-05-07T09:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -167,23 +167,23 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'graphSosIntel_briefingTick',
-                 'ai.gftd.apps.graphSosIntel.briefingTick',
+                 'app.etzhayyim.apps.graphSosIntel.briefingTick',
                  '2026-05-07T09:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1']}]
 
 
 def upgrade() -> None:

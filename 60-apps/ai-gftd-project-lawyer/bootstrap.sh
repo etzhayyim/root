@@ -51,13 +51,13 @@ phase1() {
   require_gftd; require_jq; require_auth
   echo "=== Phase 1: mint did:gftd roots + k.bakshi child ==="
 
-  # (1) Gftd Japan (client) root
+  # (1) etzhayyim Japan (client) root
   local etzhayyim_user="etzhayyim-${RANDOM}"
   local etzhayyim_pw
   etzhayyim_pw=$(openssl rand -hex 16)
   echo "→ createGuestAccount etzhayyim root (username=${etzhayyim_user})"
   local etzhayyim_resp
-  etzhayyim_resp=$(gftd xrpc ai.gftd.auth.createGuestAccount \
+  etzhayyim_resp=$(gftd xrpc app.etzhayyim.auth.createGuestAccount \
     -d "$(jq -n --arg u "${etzhayyim_user}" --arg p "${etzhayyim_pw}" '{username:$u,password:$p}')" \
     --json)
   local etzhayyim_did
@@ -75,7 +75,7 @@ phase1() {
   lawyer_pw=$(openssl rand -hex 16)
   echo "→ createGuestAccount lawyer root (username=${lawyer_user})"
   local lawyer_resp
-  lawyer_resp=$(gftd xrpc ai.gftd.auth.createGuestAccount \
+  lawyer_resp=$(gftd xrpc app.etzhayyim.auth.createGuestAccount \
     -d "$(jq -n --arg u "${lawyer_user}" --arg p "${lawyer_pw}" '{username:$u,password:$p}')" \
     --json)
   local lawyer_did
@@ -98,10 +98,10 @@ phase1() {
 
   echo "→ mintChildDid k.bakshi under ${lawyer_did}"
   local bakshi_resp
-  bakshi_resp=$(curl -sf -X POST "https://atproto.etzhayyim.com/xrpc/ai.gftd.auth.mintChildDid" \
+  bakshi_resp=$(curl -sf -X POST "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.auth.mintChildDid" \
     -H "Authorization: Bearer ${lawyer_access}" \
     -H "Content-Type: application/json" \
-    -d "$(jq -n --arg parent "${lawyer_did}" '{parentDid:$parent,materialKind:"pubkey",material:{roleName:"CLO",holderDid:"did:web:gftd.co.jp:user:k.bakshi"},handle:"k.bakshi",performerType:"person"}')")
+    -d "$(jq -n --arg parent "${lawyer_did}" '{parentDid:$parent,materialKind:"pubkey",material:{roleName:"CLO",holderDid:"did:web:etzhayyim.com:user:k.bakshi"},handle:"k.bakshi",performerType:"person"}')")
   local bakshi_did
   bakshi_did=$(echo "${bakshi_resp}" | jq -r .did)
   [ -n "${bakshi_did}" ] && [ "${bakshi_did}" != "null" ] || die "bakshi child mint failed: ${bakshi_resp}"
@@ -134,10 +134,10 @@ phase3() {
   # (1) lawfirmProfile for lawyer.etzhayyim.com
   echo "→ registerLawfirm (lawyer.etzhayyim.com)"
   local lf_resp
-  lf_resp=$(curl -sf -X POST "https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.registerLawfirm" \
+  lf_resp=$(curl -sf -X POST "https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.registerLawfirm" \
     -H "Authorization: Bearer ${lawyer_access}" \
     -H "Content-Type: application/json" \
-    -d "$(jq -n --arg did "${lawyer_did}" '{firmDid:$did,name:"Gftd Lawyer",displayName:"Gftd Lawyer",jurisdictions:["JPN"],barAssociation:"JFBA",websiteUrl:"https://lawyer.etzhayyim.com",contactEmail:"legal@gftd.co.jp"}')")
+    -d "$(jq -n --arg did "${lawyer_did}" '{firmDid:$did,name:"etzhayyim Lawyer",displayName:"etzhayyim Lawyer",jurisdictions:["JPN"],barAssociation:"JFBA",websiteUrl:"https://lawyer.etzhayyim.com",contactEmail:"legal@etzhayyim.com"}')")
   local lf_uri
   lf_uri=$(echo "${lf_resp}" | jq -r .uri)
   save_kv "lawfirm_profile_uri" "${lf_uri}"
@@ -146,7 +146,7 @@ phase3() {
   # (2) engagement: etzhayyim → lawyer
   echo "→ createEngagement (client=${etzhayyim_did}, firm=${lawyer_did})"
   local eng_resp
-  eng_resp=$(curl -sf -X POST "https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.createEngagement" \
+  eng_resp=$(curl -sf -X POST "https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.createEngagement" \
     -H "Authorization: Bearer ${lawyer_access}" \
     -H "Content-Type: application/json" \
     -d "$(jq -n --arg firm "${lawyer_did}" --arg client "${etzhayyim_did}" '{firmDid:$firm,clientDid:$client,scope:"pre-litigation representation — Kagoshima University dispute",status:"active"}')")
@@ -162,7 +162,7 @@ phase3() {
   opened_at=$(date -u +%Y-%m-%dT00:00:00Z)
   echo "→ createMatter (Kagoshima University)"
   local mat_resp
-  mat_resp=$(curl -sf -X POST "https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.createMatter" \
+  mat_resp=$(curl -sf -X POST "https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.createMatter" \
     -H "Authorization: Bearer ${lawyer_access}" \
     -H "Content-Type: application/json" \
     -d "$(jq -n \

@@ -30,7 +30,7 @@ mod tests {
         g.add_node(NodeRef {
             id: "n3".into(),
             labels: vec!["Company".into()],
-            props: [("name".into(), Value::Str("GFTD".into()))]
+            props: [("name".into(), Value::Str("etzhayyim".into()))]
                 .into_iter()
                 .collect(),
         });
@@ -210,7 +210,7 @@ mod tests {
         );
         assert_eq!(
             rs.rows[0].0.get("c.name").cloned(),
-            Some(Value::Str("GFTD".into()))
+            Some(Value::Str("etzhayyim".into()))
         );
     }
 
@@ -3724,9 +3724,9 @@ mod tests {
             r#"CREATE (a:Person {name: "Alice"})-[:KNOWS]->(b:Person {name: "Bob"})"#,
             &mut g,
         );
-        exec(r#"CREATE (c:Company {name: "GFTD"})"#, &mut g);
+        exec(r#"CREATE (c:Company {name: "etzhayyim"})"#, &mut g);
         exec(
-            r#"MATCH (a:Person {name: "Alice"}), (c:Company {name: "GFTD"}) CREATE (a)-[:WORKS_AT]->(c)"#,
+            r#"MATCH (a:Person {name: "Alice"}), (c:Company {name: "etzhayyim"}) CREATE (a)-[:WORKS_AT]->(c)"#,
             &mut g,
         );
 
@@ -3743,7 +3743,7 @@ mod tests {
         assert_eq!(*rs.rows[0].0.get("name").unwrap(), Value::Str("Bob".into()));
         assert_eq!(
             *rs.rows[1].0.get("name").unwrap(),
-            Value::Str("GFTD".into())
+            Value::Str("etzhayyim".into())
         );
     }
 
@@ -3981,13 +3981,13 @@ mod tests {
         let mut g = MemoryGraph::new();
         exec(r#"CREATE (a:Person {name: "Alice"})"#, &mut g);
         exec(r#"CREATE (b:Person {name: "Bob"})"#, &mut g);
-        exec(r#"CREATE (c:Company {name: "GFTD"})"#, &mut g);
+        exec(r#"CREATE (c:Company {name: "etzhayyim"})"#, &mut g);
         exec(
             r#"MATCH (a:Person {name: "Alice"}), (b:Person {name: "Bob"}) CREATE (a)-[:KNOWS]->(b)"#,
             &mut g,
         );
         exec(
-            r#"MATCH (a:Person {name: "Alice"}), (c:Company {name: "GFTD"}) CREATE (a)-[:WORKS_AT]->(c)"#,
+            r#"MATCH (a:Person {name: "Alice"}), (c:Company {name: "etzhayyim"}) CREATE (a)-[:WORKS_AT]->(c)"#,
             &mut g,
         );
         // Match edges of type KNOWS or WORKS_AT
@@ -4009,7 +4009,7 @@ mod tests {
             })
             .collect();
         assert!(names.contains(&"Bob".to_string()));
-        assert!(names.contains(&"GFTD".to_string()));
+        assert!(names.contains(&"etzhayyim".to_string()));
     }
 
     #[test]

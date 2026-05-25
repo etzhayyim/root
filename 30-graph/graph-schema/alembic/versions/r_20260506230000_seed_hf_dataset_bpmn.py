@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $8\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hf-dataset-scan-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/hf-dataset-scan-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -34,9 +34,9 @@ UP = [{'sql': '\n'
                  '  Fires every 24h. Iterates all enabled vertex_hf_filter rows, invokes\n'
                  '  hf.dataset.scan per filter, then fetches splits for newly found datasets.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.hf.datasetScan\n'
+                 '  NSID: app.etzhayyim.apps.hf.datasetScan\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hf-dataset-scan-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/hf-dataset-scan-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -50,7 +50,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="hf_dataset_scan" name="HF Dataset Scan" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.hf.datasetScan", "version": 1, "resultTimeoutMs": '
+                 '      { "nsid": "app.etzhayyim.apps.hf.datasetScan", "version": 1, "resultTimeoutMs": '
                  '300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -122,25 +122,25 @@ UP = [{'sql': '\n'
                  '2026-05-06T22:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hf-dataset-scan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/hf-dataset-scan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, bpmn_process_id, nsid,\n'
          '       created_at, sensitivity_ord, org_id, user_id, actor_id)\n'
          '    SELECT\n'
          "      $1, $2, 'hf_dataset_scan',\n"
-         "      'ai.gftd.apps.hf.datasetScan',\n"
+         "      'app.etzhayyim.apps.hf.datasetScan',\n"
          "      $3, 1, $4, $5, 'sys.bpmn.seed.hf'\n"
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $6\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hf-dataset-scan-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/hf-dataset-scan-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '2026-05-06T22:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hf-dataset-scan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/hf-dataset-scan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_hfhub_filter\n'
          '      (vertex_id, created_date, slug, display_name, description,\n'
@@ -187,9 +187,9 @@ DOWN = [{'sql': 'DELETE FROM vertex_hfhub_filter WHERE vertex_id IN '
          "('hf:filter:nlp-ja','hf:filter:text-clf-popular')",
   'parameters': []},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hf-dataset-scan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/hf-dataset-scan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hf-dataset-scan-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/hf-dataset-scan-v1']}]
 
 
 def upgrade() -> None:

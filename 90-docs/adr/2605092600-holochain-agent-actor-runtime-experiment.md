@@ -43,7 +43,7 @@ they are projected into RisingWave.
 Holochain is a plausible experiment because a hApp is composed from one or
 more DNAs, a DNA defines an isolated peer network and shared graph database,
 and zomes expose the hApp API as WebAssembly functions. This maps naturally
-to a cell-level actor event log, but only if we keep the existing GFTD
+to a cell-level actor event log, but only if we keep the existing etzhayyim
 boundaries intact.
 
 ## Decision

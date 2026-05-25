@@ -16,12 +16,12 @@
     "APP_CAPABILITIES": "null",
     "APP_DESCRIPTION": "Manimani / 随に — drop your scattered fragments and let them settle into the right project on their own. Personal knowledge router.",
     "APP_DISPLAY_NAME": "Manimani",
-    "APP_EMBED_URL": "https://manimani.gftd.ai/embed",
+    "APP_EMBED_URL": "https://manimani.etzhayyim.com/embed",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "m4n1m4n1",
     "APP_PERFORMER_TYPE": "",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -33,12 +33,12 @@
   ],
   "routes": [
     {
-      "pattern": "m4n1m4n1.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "m4n1m4n1.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "manimani.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "manimani.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

@@ -48,15 +48,15 @@ call() {
 echo "==> yadoya smoke @ $HOST"
 
 # 1. listHotels — public, no params required
-code=$(call GET ai.gftd.apps.yadoya.listHotels 'limit=5')
+code=$(call GET app.etzhayyim.apps.yadoya.listHotels 'limit=5')
 assert "listHotels limit=5" "$code" "$(cat /tmp/yadoya-smoke.body)" "200"
 
 # 2. searchHotels — public, region filter
-code=$(call GET ai.gftd.apps.yadoya.searchHotels 'region=asia&limit=5')
+code=$(call GET app.etzhayyim.apps.yadoya.searchHotels 'region=asia&limit=5')
 assert "searchHotels region=asia" "$code" "$(cat /tmp/yadoya-smoke.body)" "200"
 
 # 3. getReservation — should 200 with NotFound payload for synthetic id
-code=$(call GET ai.gftd.apps.yadoya.getReservation 'reservationId=does-not-exist-xx')
+code=$(call GET app.etzhayyim.apps.yadoya.getReservation 'reservationId=does-not-exist-xx')
 # Worker returns the NotFound shape inside a 200; that's the contract.
 assert "getReservation NotFound payload" "$code" "$(cat /tmp/yadoya-smoke.body)" "200"
 
@@ -66,21 +66,21 @@ if [ -n "$BEARER" ]; then
   HOTEL_ID=$(grep -o '"vertex_id":"[^"]*"' /tmp/yadoya-smoke.body 2>/dev/null | head -1 | cut -d'"' -f4)
   if [ -z "$HOTEL_ID" ]; then
     # repeat listHotels to capture a hotel id for the create call
-    call GET ai.gftd.apps.yadoya.listHotels 'limit=1' >/dev/null
+    call GET app.etzhayyim.apps.yadoya.listHotels 'limit=1' >/dev/null
     HOTEL_ID=$(grep -o '"vertex_id":"[^"]*"' /tmp/yadoya-smoke.body | head -1 | cut -d'"' -f4)
   fi
   if [ -n "$HOTEL_ID" ]; then
     body=$(printf '{"hotelId":"%s","checkin":"2026-12-01","checkout":"2026-12-03","guests":2,"channel":"ai-agent"}' "$HOTEL_ID")
-    code=$(call POST ai.gftd.apps.yadoya.createReservation '' "$body")
+    code=$(call POST app.etzhayyim.apps.yadoya.createReservation '' "$body")
     assert "createReservation pending" "$code" "$(cat /tmp/yadoya-smoke.body)" "200"
     RES_ID=$(grep -o '"reservationId":"[^"]*"' /tmp/yadoya-smoke.body | head -1 | cut -d'"' -f4)
     if [ -n "$RES_ID" ]; then
       confirm_body=$(printf '{"reservationId":"%s","amountJpy":45000,"currency":"JPY"}' "$RES_ID")
-      code=$(call POST ai.gftd.apps.yadoya.confirmReservation '' "$confirm_body")
+      code=$(call POST app.etzhayyim.apps.yadoya.confirmReservation '' "$confirm_body")
       assert "confirmReservation + flow emit" "$code" "$(cat /tmp/yadoya-smoke.body)" "200"
 
       cancel_body=$(printf '{"reservationId":"%s","reason":"smoke-test"}' "$RES_ID")
-      code=$(call POST ai.gftd.apps.yadoya.cancelReservation '' "$cancel_body")
+      code=$(call POST app.etzhayyim.apps.yadoya.cancelReservation '' "$cancel_body")
       assert "cancelReservation cancelled" "$code" "$(cat /tmp/yadoya-smoke.body)" "200"
     fi
   else

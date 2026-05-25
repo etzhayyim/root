@@ -63,15 +63,15 @@ def _title(raw: str) -> str:
 
 
 def _channel_vid(platform: str, channel_id: str) -> str:
-    return f"at://{OWNER_DID}/ai.gftd.apps.osMessaging.openChannel/{platform}-{channel_id}"
+    return f"at://{OWNER_DID}/app.etzhayyim.apps.osMessaging.openChannel/{platform}-{channel_id}"
 
 
 def _message_vid(platform: str, message_id: str) -> str:
-    return f"at://{OWNER_DID}/ai.gftd.apps.osMessaging.openMessage/{platform}-{message_id}"
+    return f"at://{OWNER_DID}/app.etzhayyim.apps.osMessaging.openMessage/{platform}-{message_id}"
 
 
 def _run_vid(run_id: str) -> str:
-    return f"at://{OWNER_DID}/ai.gftd.apps.osMessaging.openScraperRun/{run_id}"
+    return f"at://{OWNER_DID}/app.etzhayyim.apps.osMessaging.openScraperRun/{run_id}"
 
 
 def _canonical_seed(raw: dict[str, Any]) -> dict[str, str]:

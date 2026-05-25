@@ -8,23 +8,23 @@
   ],
   "vars": {
     "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"generateContent\",\"getContent\",\"listContent\",\"registerCohortProfile\"]",
-    "APP_DESCRIPTION": "Personalized Content Engine — LangGraph profile→match→draft→rank loop. Cohort-first personalization, no individual PII. Integrates news+narou signals. Optional ads.gftd.ai sponsor slot.",
-    "APP_DISPLAY_NAME": "GFTD Content Engine",
-    "APP_EMBED_URL": "https://cten0001.gftd.ai/?embed=1",
+    "APP_DESCRIPTION": "Personalized Content Engine — LangGraph profile→match→draft→rank loop. Cohort-first personalization, no individual PII. Integrates news+narou signals. Optional ads.etzhayyim.com sponsor slot.",
+    "APP_DISPLAY_NAME": "etzhayyim Content Engine",
+    "APP_EMBED_URL": "https://cten0001.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "cten0001",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "cten0001.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "cten0001.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "contentengine.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "contentengine.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

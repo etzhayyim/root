@@ -1,7 +1,7 @@
 """FastAPI control surface for the SpiffWorkflow engine host.
 
 Cluster-internal HTTP API (`bpmn-engine-host` ClusterIP). Public XRPC
-surface (`ai.gftd.apps.bpmn.startInstance` etc.) terminates at the
+surface (`app.etzhayyim.apps.bpmn.startInstance` etc.) terminates at the
 edge Worker and forwards here via Service Binding / fetch.
 
 PoC endpoints implemented:

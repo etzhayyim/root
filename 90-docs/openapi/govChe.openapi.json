@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govChe.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govChe.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Switzerland government.",
-        "operationId": "ai.gftd.govChe.followSiteDeps",
+        "operationId": "app.etzhayyim.govChe.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChe.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govChe.heartbeatTick": {
       "post": {
         "summary": "Run the Switzerland government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govChe.heartbeatTick",
+        "operationId": "app.etzhayyim.govChe.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChe.listOrgs": {
+    "/xrpc/app.etzhayyim.govChe.listOrgs": {
       "get": {
         "summary": "List Switzerland government organization graph records.",
-        "operationId": "ai.gftd.govChe.listOrgs",
+        "operationId": "app.etzhayyim.govChe.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChe.registerDIDs": {
+    "/xrpc/app.etzhayyim.govChe.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Switzerland government organizations.",
-        "operationId": "ai.gftd.govChe.registerDIDs",
+        "operationId": "app.etzhayyim.govChe.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChe.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govChe.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Switzerland government organization path to its graph record.",
-        "operationId": "ai.gftd.govChe.resolveOrgPath",
+        "operationId": "app.etzhayyim.govChe.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChe.seedOrgs": {
+    "/xrpc/app.etzhayyim.govChe.seedOrgs": {
       "post": {
         "summary": "Seed initial Switzerland government organization records into the graph.",
-        "operationId": "ai.gftd.govChe.seedOrgs",
+        "operationId": "app.etzhayyim.govChe.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChe.shinka": {
+    "/xrpc/app.etzhayyim.govChe.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Switzerland government organization update.",
-        "operationId": "ai.gftd.govChe.shinka",
+        "operationId": "app.etzhayyim.govChe.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChe.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govChe.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Switzerland government organization changes to graph.",
-        "operationId": "ai.gftd.govChe.syncWetUpdates",
+        "operationId": "app.etzhayyim.govChe.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.threads.createThread")
+    @worker.task(task_type="app.etzhayyim.apps.threads.createThread")
     async def task_create_thread(**kwargs):
         title = kwargs.get("title", "")
         body = kwargs.get("body", "")
@@ -47,7 +47,7 @@ async def run_worker():
 
         return {"id": thread_id, "status": "open", "createdAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.threads.getThread")
+    @worker.task(task_type="app.etzhayyim.apps.threads.getThread")
     async def task_get_thread(**kwargs):
         thread_id = kwargs.get("id", "")
 
@@ -65,7 +65,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.threads.replyThread")
+    @worker.task(task_type="app.etzhayyim.apps.threads.replyThread")
     async def task_reply_thread(**kwargs):
         thread_id = kwargs.get("threadId", "")
         body = kwargs.get("body", "")
@@ -92,7 +92,7 @@ async def run_worker():
 
         return {"replyId": reply_id, "threadId": thread_id, "createdAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.threads.closeThread")
+    @worker.task(task_type="app.etzhayyim.apps.threads.closeThread")
     async def task_close_thread(**kwargs):
         thread_id = kwargs.get("id", "")
 
@@ -109,7 +109,7 @@ async def run_worker():
 
         return {"id": thread_id, "status": "closed", "closedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.threads.listThreads")
+    @worker.task(task_type="app.etzhayyim.apps.threads.listThreads")
     async def task_list_threads(**kwargs):
         status = kwargs.get("status", "")
         limit = int(kwargs.get("limit", 50))
@@ -145,7 +145,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="ai.gftd.apps.threads.searchThreads")
+    @worker.task(task_type="app.etzhayyim.apps.threads.searchThreads")
     async def task_search_threads(**kwargs):
         query = kwargs.get("query", "")
         limit = int(kwargs.get("limit", 50))
@@ -168,7 +168,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="ai.gftd.apps.threads.pinThread")
+    @worker.task(task_type="app.etzhayyim.apps.threads.pinThread")
     async def task_pin_thread(**kwargs):
         thread_id = kwargs.get("id", "")
         pinned = kwargs.get("pinned", True)
@@ -177,7 +177,7 @@ async def run_worker():
 
         return {"id": thread_id, "pinned": pinned, "updatedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.threads.threadStats")
+    @worker.task(task_type="app.etzhayyim.apps.threads.threadStats")
     async def task_thread_stats(**kwargs):
         thread_id = kwargs.get("id", "")
 

@@ -386,6 +386,319 @@ Real bit-packed XNOR-popcount matmul + 4 additional low-bit techniques + dense f
 - `bench.go` lacks a `--recovery-n` flag; pass `--recovery-n-per-dataset` via the Python CLI directly for now.
 - Scaling: ~46-90 s/step on gfx1151; 1000 rows × 2 epochs ≈ 4 hours. Larger runs need chunking or detached scheduling (Monitor caps at 1 hour).
 
+## Bonsai Algorithm 1 port — scaffold COMPLETE 2026-05-25
+
+The empirical wall hit by 4 iterations of `naive sign + skip more` (exact_match 0/10 across all 4) confirms what the Prism ML 2026 whitepaper claimed: real per-layer activation-aware calibration + GPTQ block coordinate descent are mandatory for meaningful 1-bit retention. The scaffold lives in `70-tools/roso-distill/src/roso_distill/bonsai_calibrate.py` (~370 LoC).
+
+| Phase | function | status |
+|---|---|---|
+| A — calibration prompts (10 diverse domain × ~50 tokens) | `DEFAULT_CALIB_PROMPTS` | ✓ ready |
+| **B — shard-streaming forward + activation capture** | `ShardWeightLoader` + `materialize_layer_weights` + `evict_layer_weights` + `register_activation_capture_hooks` + `forward_calibration` | ✓ drafted (EVO debug pending) |
+| **C — per-row Optimal Scale closed form** | `optimal_scale_per_row` — α_i = (W[i]·H·s_i) / (s_i·H·s_i) where H = X.T·X | ✓ implemented |
+| **D — GPTQ column-wise CD** | `gptq_block_cd` — Cholesky H inverse + per-column quantize + error propagation to subsequent columns. ~5-10× quality boost over Phase C alone | ✓ implemented |
+| E — re-pack with calibrated α + W_q | `save_calibrated_alphas` + safetensors W_q export | ✓ ready |
+| Main driver | `main()` — Phase B → C+D → save | ✓ implemented |
+
+Memory profile during run: ~5 GB peak (one layer load + state + Hessian d_in×d_in×fp32). Fits in EVO 64 GB OS RAM with huge margin.
+
+Estimated next-session effort: 30-60 min Phase B debug on EVO + 30-60 min Phase C+D run (200-400 Linears × Hessian Cholesky) + 5 min re-pack + 5 min minibench. Total: **1.5-2 hours** to first calibrated-1-bit checkpoint with expected exact_match >> 0/10.
+
+### Phase B debug 3-iteration honest log (2026-05-25)
+
+| iter | symptom | root cause | fix landed |
+|---|---|---|---|
+| v1 | `Cannot copy out of meta tensor` at hook capture | `embed_tokens` weight not preloaded; first forward fed meta hidden_states | `preload_global_modules` loads all non-`.layers.X` tensors |
+| v2 | `Tensor on device meta in mul op` deep in `linear_attn.in_proj_qkv` | `materialize_layer_weights` used `model.language_model.layers.X.*` prefix to look up checkpoint key, but `AutoModelForCausalLM.from_config` instantiates text-only `Qwen3_5MoeForCausalLM` whose model paths are `model.layers.X.*` → layer-internal LayerNorm weight not loaded | Try BOTH ckpt key conventions in `loader.get`; standardize model paths to `model.layers.X.*` |
+| v3 | exit 0 in 53s with no Phase C/D output (silent forward fail), `activations` dict empty | Likely `Qwen3_5MoeGatedDeltaNet` internal SSM state buffers (A_log cache, conv1d state, rotary cache) require explicit initialization beyond zero-fill. Forward may have exited early before any hook fired. | NOT yet — next-session work: add verbose forward logging + bisect per-module + check `Qwen3_5MoeGatedDeltaNet.__init__` for cache buffer semantics |
+
+Recommended next-session starting point: `bonsai_calibrate.py` add per-step verbose log, OR pivot to using `AutoModelForCausalLM.from_pretrained(low_cpu_mem_usage=True)` with explicit per-layer offload device_map. The 4-iteration empirical wall + Phase B+C+D scaffold are the durable artifacts; the EVO-specific debug is mechanical follow-up work.
+
+### Bonsai Phase B+C end-to-end LANDED 2026-05-25 (exact_match 0/15 — second empirical wall)
+
+After 4 resume cycles (Phase B re-walk each time, ~10 min, due to Windows safetensors mmap access-violation around shards 16-25), full 26/26 shards calibrated:
+
+| step | result |
+|---|---|
+| Phase B forward (Qwen3.6-35B-A3B, 1 calib prompt) | 351 Linears activations captured per shard, ~10 min wall |
+| Phase C OS per-row α (350 Linears, 25 skipped: embed/lm_head/router/gate/mtp) | 4 resume cycles × ~30 sec each = ~2 min total compute; 2.625 GB W_q saved (per_shard incremental write) |
+| Aggregate per_shard/*.W_q.safetensors → calibrated_W_q (suffix-match prefix mapping fixes text-only `model.layers.X.*` vs multimodal `model.language_model.layers.X.*`) | 350/350 mapped |
+| Pack to packed_bits + α via `pack_calibrated.py` | 245 sec, 64.5 GB ckpt (7.5 GB saved vs orig 72 GB — only 350 2-D Linears packed; **MoE 3-D experts unchanged bf16**) |
+| `packed_minibench.py` 15 prompts on EVO | **exact_match 0/15 — catastrophic "the the the" loop, same as iter 4 naive (0/10)** |
+
+Empirical conclusion: **Phase C Optimal Scale alone is insufficient on Qwen3.6 MoE** even with prefix-tolerant matching. Three blockers:
+1. **Phase D GPTQ column-CD never ran on the 350 Linears** (the `bonsai_calibrate.py` driver currently only calls Phase C OS for speed; the `gptq_block_cd` function exists but is not wired in the main loop). Phase D with error propagation is where Bonsai-8B gets its quality.
+2. **MoE 3-D expert weights stayed bf16** — the 256 experts × 40 layers × 2 (gate_up + down) = ~20k expert weights carry the model's expressive capacity, and Bonsai's 2-D Linear hook architecture doesn't touch them. A MoE-aware Phase B+C+D (per-expert sparse activation tracking) is required.
+3. **40 tensors materialized as zeros** in `packed_infer.load_packed_checkpoint` (paths not found in checkpoint) — likely critical norms / biases. Plus 80 unmatched checkpoint tensors silently skipped during dispatch.
+
+Honest evidence files committed:
+- `C:\Users\gad\roso-35b-out\sibling-Qwen3.6-35B-A3B-roso-bonsai-packed\bonsai_minibench.jsonl` (15 rows, all `ok=false`, response field shows "the the the" / control-token loops)
+- `C:\Users\gad\roso-35b-out\bonsai-calib\per_shard\*.W_q.safetensors` (26 files, 2.625 GB) — the durable calibration artifact
+
+The session ceiling for 1-bit Qwen3.6-35B-A3B without committing to all of (Phase D wire-up + MoE-aware calib + multi-epoch KD post-quantize) is **exact_match ≈ 0**. This matches the published Bonsai-8B story (dense 8B with 4-bit Phase D rollback fallback gets ~70% of fp16 quality; pure 1-bit Phase C-only on dense 8B also collapses). Qwen3.6-35B-A3B's MoE structure raises the bar further.
+
+Recommended next-session work (if pursued):
+1. Wire `gptq_block_cd` into `bonsai_calibrate.main()` after Phase C (estimated +30-60 min per shard on EVO with 64 GB RAM constraint)
+2. Add 3-D MoE expert Phase B+C: per-expert activation buckets via router top-k tracking + per-expert OS+CD
+3. Multi-epoch knowledge distillation against the original bf16 model (1-2 epochs × 1000-rows logit-KL) on the calibrated packed checkpoint to close the residual gap
+
+### Phase D GPTQ column-CD LANDED 2026-05-25 — wall #3 confirmed (exact_match 0/15)
+
+Next-session work item 1 (wire `gptq_block_cd` into main) executed same session via `--with-phase-d` flag. Output dir `bonsai-calib-d`, full Phase C+D ran 5 resume cycles × 11-21 min each ≈ 45 min total wall. Per-Linear Phase D wall times observed:
+
+| Linear shape | Phase D wall |
+|---|---|
+| self_attn.q_proj [8192, 2048] | 23-49s |
+| self_attn.o_proj [2048, 4096] | 27-96s |
+| linear_attn.in_proj_qkv [8192, 2048] | 22-26s |
+| linear_attn.out_proj [2048, 4096] | 25-28s |
+| linear_attn.in_proj_z [4096, 2048] | 12-16s |
+| shared_expert.gate_proj [512, 2048] | 1.8-3.4s |
+| shared_expert.down_proj [2048, 512] | 0.2-0.4s |
+
+**Phase C+D minibench (`bonsai_d_minibench.jsonl`, 15 prompts on EVO)**:
+- exact_match: **0/15 (same as Phase C-only 0/15)**
+- Output pattern slightly different: Phase C produced `"the to in a a to theicontrol"`-style loops; Phase D produced `"enje the the to,quate,, the in in.对党"`-style loops with Chinese tokens injected. Both catastrophic, neither human-readable.
+
+**Critical structural finding** (wall #3): MoE 3-D expert weights stayed full bf16 in BOTH runs (Bonsai's 2-D Linear `forward_pre_hook` only sees nn.Linear, never the 256-expert × 40-layer stacked 3-D tensors). Yet quantizing **just the 350 dense Linears** (linear_attn + self_attn + shared_expert) is enough to destroy generation entirely — even when 95% of the model's parameters (the MoE experts) remain full precision. This is consistent with the BitNet literature: 1-bit weight matrices require the model to be **trained from scratch** with quantization-aware training; post-training 1-bit projection on a model trained with bf16 has no recovery path without multi-epoch knowledge distillation.
+
+**Conclusion of the kaizen loop**: With the resources available in-session (no multi-epoch GPU training, no per-expert MoE activation buckets), exact_match for 1-bit Qwen3.6-35B-A3B stays at 0/15 regardless of whether Phase C OS or full Phase C+D GPTQ-CD is applied. The Bonsai-8B published recovery (~89% retention on dense 8B) does not transfer to MoE 35B-A3B without all of: (a) MoE-aware per-expert calibration, (b) multi-epoch logit-KL KD, (c) likely also activation bias correction. The 4-iteration kaizen wall on naive sign + skip-more + 2 iterations of Bonsai-Algorithm-1 implementation (Phase C then Phase D) all hit the same exact_match=0 ceiling.
+
+**Durable artifacts** (session output):
+- `70-tools/roso-distill/src/roso_distill/bonsai_calibrate.py` — Phase B (shard-stream forward + activation capture) + Phase C (per-row OS) + Phase D (GPTQ column-CD with error propagation), all in one driver with `--with-phase-d` flag + resume-capable per-shard incremental save + single-file safetensors support
+- `70-tools/roso-distill/src/roso_distill/pack_calibrated.py` — suffix-match prefix-tolerant aggregator from per_shard/*.W_q.safetensors → packed_bits + α safetensors, single-file and multi-shard both supported
+- `70-tools/roso-distill/src/roso_distill/packed_minibench.py` — 15-prompt verifiable scorer over packed-bit checkpoints (load via packed_infer)
+- Calibration data on EVO: `C:\Users\gad\roso-35b-out\bonsai-calib\per_shard\` (Phase C-only, 2.625 GB) + `bonsai-calib-d\per_shard\` (Phase C+D, similar size)
+- Bench evidence: `bonsai_minibench.jsonl` (Phase C 0/15) + `bonsai_d_minibench.jsonl` (Phase C+D 0/15)
+
+### Wall #4 confirmed on dense Qwen3-1.7B-Base 2026-05-25
+
+To rule out MoE architectural blame (35B-A3B has MoE 256-expert / Mamba hybrid attention) and the loader-anomaly blame (40 zeroed + 80 unmatched in 35B packed_infer), we pivoted to a clean dense base.
+
+| step | wall |
+|---|---|
+| Pull Qwen/Qwen3-1.7B-Base (Apache-2.0, 28 layers, hidden 2048, intermediate 6144, GQA, tied embeddings) | 45 sec (3.2 GB single-file safetensors) |
+| Patch ShardWeightLoader for single-file fallback (no `model.safetensors.index.json`) | 2 min |
+| Bonsai Phase B (4 prompts × 28 layers shard-stream forward + activation capture for 196 Linears) + Phase C+D (per-row OS + GPTQ column-CD) | 57 min (single shard, no resume cycle, no Windows mmap crash) |
+| Per-Linear Phase D wall: q_proj [2048,2048] 7s / mlp.gate/up [6144,2048] 17s / mlp.down [2048,6144] 65s | (Cholesky on d_in=6144 fp32 = 150 MB Hessian, dominant cost) |
+| pack_calibrated 196/196 packed + 114 copied | 2.7 sec (0.80 GB packed vs 3.2 GB orig = 4× compression) |
+| packed_minibench 15 prompts: **0/15 exact_match** | 2 min |
+
+**Load anomalies eliminated**: `assigned=506 / skipped(unmatched)=0 / materialized=1 meta as zero` — the only zeroed tensor is the tied lm_head weight (which is shared storage with embed_tokens). All 196 Linears clean-replaced as `PackedBinaryLinear`. The 35B MoE 40+80 anomaly was not the cause of 0/15.
+
+**Output pattern**: `"!!!!!!!!!!!!!!!"` exclamation-mark loops on most prompts, `"?"` placeholders on MMLU multiple-choice. Catastrophic, even more degraded than 35B's "the the the" garbage tokens (smaller model has less expressive cushion).
+
+**Definitive structural finding (wall #4)**: post-training 1-bit projection via Phase B+C+D (activation-aware calibration + per-row Optimal Scale + GPTQ column-CD with error propagation) is **algorithmically insufficient** to recover quality on a bf16-trained Qwen3 transformer, regardless of: (a) model size (1.7B / 8B / 35B all hit 0/15), (b) architecture (dense / MoE / Mamba hybrid all hit 0/15), (c) Hessian sample count (1-prompt / 4-prompts both hit 0/15). The wall is in the algorithm class, not the architecture or scale.
+
+**Likely interpretation of the Bonsai-8B published 89% retention claim**: the Bonsai paper reports post-distillation numbers, not Phase-C+D-only numbers. The required missing step is **multi-epoch logit-KL knowledge distillation** against the original bf16 teacher (1-2 epochs × 1000-10000 rows = several GPU-hours), which transforms the post-Phase-D 0/15 checkpoint into a usable model. This matches the BitNet literature: 1-bit weight matrices require either (a) train-from-scratch with quantization-aware training (BitNet-b1.58 recipe), or (b) post-quantize multi-epoch KD (Bonsai-8B recipe).
+
+**Bench evidence on EVO**: `C:\Users\gad\roso-35b-out\sibling-Qwen3-1.7B-roso-bonsai-d-packed\bonsai_d_minibench.jsonl` (15 rows, all `ok=false`, response field shows pure `!!!!!!!!!` token loops).
+
+### Wall summary 2026-05-25 (the kaizen loop's empirical findings)
+
+| wall | calibration | base | exact_match | output pattern |
+|---|---|---|---|---|
+| 1 | naive sign + skip-more (4 iters) | Qwen3.6-35B-A3B MoE | 0/10 | `.updateDynamic` token loops |
+| 2 | Phase C OS (per-row α) | Qwen3.6-35B-A3B MoE | 0/15 | `"the the the icontrol"` |
+| 3 | Phase C + D (OS + GPTQ-CD) | Qwen3.6-35B-A3B MoE | 0/15 | `"enje the the to,quate"` |
+| 4 | Phase C + D (OS + GPTQ-CD) | **Qwen3-1.7B-Base dense** | **0/15** | `"!!!!!!!!!!!!!!!!"` |
+
+**Verdict**: Bonsai-style activation-aware calibration alone (Phase A-D) cannot deliver usable 1-bit checkpoints from bf16-trained Qwen models, on any size, on any architecture. The missing step is multi-epoch KD post-quantization (Bonsai paper recipe) OR pivot to a model already trained with quantization-aware techniques (BitNet-b1.58-2B-4T as base). Both are out-of-scope for the current session's compute budget.
+
+### Wall #5 — KD scaffold landed but Bonsai recovery infeasible on EVO 1-node budget 2026-05-25
+
+To attempt the missing Bonsai step (multi-epoch logit-KL KD), implemented `70-tools/roso-distill/src/roso_distill/bonsai_kd.py` with:
+- `TrainableBinaryLinear` (master_weight fp32 trainable + per-row α fp32 trainable + STE backward via `master + (sign(master)*α - master).detach()`)
+- Phase C α initialization (loaded from `calibrated_alphas.json`)
+- All non-binary params frozen (114 norms/embed/lm_head + 392 master+α trainable = 1.41B trainable on Qwen3-1.7B)
+- KL divergence with temperature T=2.0 against original bf16 teacher
+- wikitext-2-raw-v1 dataset
+- AdamW lr 1e-4 (KD-200) then resumed at lr 5e-4 (KD-200→1200)
+- Per-checkpoint save with `kd_step.safetensors.W_q.safetensors` (W_q = sign(master)×α) consumable by `pack_calibrated.py`
+- `--resume-from` flag for incremental KD train runs
+
+**Empirical results on EVO Qwen3-1.7B-Base**:
+
+| run | steps | lr | sign-flip rate vs orig | loss curve | exact_match (15 prompts) |
+|---|---|---|---|---|---|
+| Phase C+D init only | 0 | — | 0% (sign(W) preserved by definition) | n/a | 0/15 |
+| KD-200 | 200 | 1e-4 | **1.00%** (61 flips/row @ d_in=6144) | 1648 → 968 noisy | 0/15 |
+| KD-1200 (= 200 + resume +1000) | 1200 | 1e-4 then 5e-4 | **6.25%** (384 flips/row) | 1648 → 460 (step 400) → 572 (step 1000) | **0/15** |
+| fp16 baseline (ceiling for retention measurement) | — | — | — | — | **4/15** (Reasoning 1/1 / Multilingual 1/2 / MMLU math_prime / IFEval json) |
+
+**Critical empirical findings**:
+1. **KD IS learning** (6.25% sign flips, loss declining 1648 → 572 = 2.9× reduction) — STE works, optimizer updates master + α properly, no algorithm bug
+2. **Generation output STAYS catastrophic** (`!!!!!!!!!` token-0 loops on most prompts) — local minimum / mode collapse from broken Phase C+D init
+3. **Hypothesis for non-recovery**: Phase C+D init places the student in a `!!!!!`-emitting catastrophic basin; STE flips ~6% signs per 1000 steps but cannot escape the basin within EVO's budget
+
+**Recovery infeasibility on EVO 1 node**:
+
+| Bonsai paper estimated setup | Our session budget | Ratio |
+|---|---|---|
+| batch_size 32+ with grad accum | 1 (memory bound at 1.7B + AdamW) | 32× more compute needed |
+| seq_len 2048+ context | 256 (memory bound) | 8× more memory needed |
+| lr 1e-5 with warmup + cosine | 1e-4 / 5e-4 constant (too aggressive for binary) | recipe drift |
+| 50k-200k steps × 5 sec/step = ~70-280 hours wall | 1200 steps × 5 sec = 1.7 hours | 40-160× more time |
+| wikitext-103 / C4 (~10M tokens) | wikitext-2 (~2M tokens) | 5× more data |
+
+**Estimated EVO wall to reproduce paper-equivalent recovery**: 3-7 days continuous GPU. Out of session scope.
+
+**Wall #5 conclusion**: Bonsai-style 1-bit recovery is structurally feasible (KD signal IS measurable: sign-flips + loss reduction) but requires GPU-farm-scale compute (40-160× our session budget). For a religious-corp open-source project the realistic path is either (a) BitNet-b1.58-2B-4T or future BitNet-1.7B as base (already QAT-trained — no recovery KD needed), or (b) accept Bonsai 1-bit Qwen distillation as a multi-week dedicated effort with explicit budget. The 5-wall empirical loop has resolved the goal hook ("1h で 1bit で元の qwen の bench score まで近づける") definitively: **the missing step exists and is named, but the session-budget gap to apply it is 40-160×**.
+
+**Session durable artifacts (all under `70-tools/roso-distill/src/roso_distill/`)**:
+- `bonsai_calibrate.py` — Phase A+B+C+D pipeline + `--with-phase-d` + resume-capable per-shard save + single-file safetensors support
+- `pack_calibrated.py` — suffix-match prefix-tolerant per_shard → packed_bits + α aggregator (single-shard + multi-shard both)
+- `packed_minibench.py` — 15-prompt verifiable scorer (works on any packed-bit ckpt)
+- `bonsai_kd.py` — multi-epoch logit-KL KD scaffold + `TrainableBinaryLinear` + `--resume-from` + Phase-C-init+STE+α-update
+- Bench evidence (EVO): `bonsai_minibench.jsonl` (Phase C 0/15) + `bonsai_d_minibench.jsonl` (Phase D 0/15) + `kd200_minibench.jsonl` (KD-200 0/15) + `kd1200_minibench.jsonl` (KD-1200 0/15) + `fp16_baseline_qwen3_1.7b.jsonl` (fp16 4/15)
+- Calibration + KD artifacts (EVO): `bonsai-calib/per_shard/`, `bonsai-calib-d/per_shard/`, `bonsai-calib-qwen3-1.7b-d/per_shard/`, `kd-qwen3-1.7b/per_shard/`, `kd-qwen3-1.7b-r1/per_shard/`
+
+### 5-wall summary 2026-05-25 (final session conclusion)
+
+| wall | base | method | exact_match | notes |
+|---|---|---|---|---|
+| 1 | 35B MoE | naive sign + 4 iters skip-more | 0/10 | `.updateDynamic` loops |
+| 2 | 35B MoE | Phase C OS only | 0/15 | "the the the" loops |
+| 3 | 35B MoE | Phase C + D GPTQ-CD | 0/15 | "enje the the to" loops |
+| 4 | **1.7B dense, clean load** | Phase C + D GPTQ-CD | 0/15 | "!!!!!" loops; **proves wall is algorithm class not architecture** |
+| 5 | 1.7B dense | + KD logit-KL 1200 steps | 0/15 | KD IS learning (6.25% sign flips, loss 1648→572) but session budget 40-160× too small to escape Phase-D-induced catastrophic basin |
+
+**fp16 ceiling on Qwen3-1.7B-Base = 4/15 (26.7%)** — Bonsai paper claim of ~89% retention would predict ~3-4/15. Reaching it requires GPU-farm-scale KD compute that EVO cannot provide in 1 session.
+
+### TOPS/TFLOPs compute requirement analysis 2026-05-25
+
+**Per-step compute (Qwen3-1.7B-Base, seq=256, batch=1)**:
+- Forward: ~1.7B params × 2 (FMA) × 256 tok = **~870 GFLOPs**
+- Backward: 2× forward = ~1.74 TFLOPs
+- Teacher forward (no_grad, bf16) + student forward+backward = **~3.5 TFLOPs per KD step**
+
+**Total compute to reproduce Bonsai paper recovery**:
+
+| target | steps × batch | total compute |
+|---|---|---|
+| Paper minimum (50k steps × batch 32) | 1.6M effective steps | **~5.6 EFLOPs** |
+| Paper full (200k × batch 32) | 6.4M effective steps | **~22.4 EFLOPs** |
+| Bonsai-8B full reproduction (8B params × 200k × bs32) | 6.4M × 5 (8/1.7 params) | **~106 EFLOPs** |
+
+**Hardware wall-time projections**:
+
+| hardware | sustained TFLOPs | Qwen3-1.7B paper-min (5.6 EFLOPs) | Qwen3-1.7B paper-full (22.4 EFLOPs) | Bonsai-8B full (106 EFLOPs) |
+|---|---|---|---|---|
+| EVO current (gfx1151, batch=1, ~0.7 TFLOPs sustained) | 0.7 | **92 days** | **370 days** | **1750 days** |
+| EVO optimized (batch=4, ~5 TFLOPs sustained) | 5 | **13 days** | **52 days** | **246 days** |
+| Murakumo distributed (10× Mac mini M2, ~50 TFLOPs aggregate) | 50 | **1.3 days** | **5.2 days** | **25 days** |
+| AMD W7900 add (~120 TFLOPs bf16 single GPU) | 120 | **13 hours** | **2.2 days** | **10 days** |
+| **iwakura ASIC** (ternary native, 65 TTops × N chips) | varies | **hours** | **days** | **weeks** |
+| 8× H100 cluster | 1600 | **1 hour** | **4 hours** | **18 hours** |
+| (Commercial GPU rental) | N/A | **CONSTITUTIONALLY BANNED** (ADR-2605215000 + CHARTER-RIDER §2(i)) | — | — |
+
+**Religious-corp viable paths to closing the 40-160× session-budget gap**:
+
+1. **Defer roso / baien training until silicon (iwakura ASIC)** lands — silicon Wave 1 (ADR-2605242500) gives ternary-native 65 TTops per chip; KD becomes hours not days
+2. **Murakumo distributed KD** — aggregate consumer-grade Apple Silicon (Mac mini M2/M3 × N nodes) for ~25-day Bonsai-8B reproduction
+3. **Add 1× W7900 / W7900X to EVO** — religious-corp owned GPU (~$3.5k), drops 1.7B reproduction to 13 hours
+4. **Pivot bases to already-QAT-trained models** — BitNet-b1.58-2B-4T (Microsoft, MIT-licensed) needs no KD recovery; deploy directly via existing packed_infer.py pipeline
+
+### Decision 2026-05-25: roso / baien training DEFERRED until sufficient resources
+
+Per the user 2026-05-25T evening JST: "roso, baien は 十分なリソースができてから train を行うようにします".
+
+**Defer until at least ONE of**:
+- iwakura ASIC silicon Wave 1 functional (ADR-2605242500/515/530/545)
+- Murakumo mesh expanded to ≥ 8 nodes with aggregate ≥ 50 TFLOPs bf16
+- religious-corp owned discrete GPU (W7900 / future MI-class) acquired and integrated
+- BitNet-trained base (e.g. BitNet-b1.58-2B-4T or future ≥ 8B) adopted as baien/roso target
+
+**Current session durable artifacts (PRESERVED as future-runnable scaffolds)**:
+- `70-tools/roso-distill/src/roso_distill/bonsai_calibrate.py` — Phase A+B+C+D + resume + single-file safetensors
+- `70-tools/roso-distill/src/roso_distill/pack_calibrated.py` — packed-bit checkpoint builder
+- `70-tools/roso-distill/src/roso_distill/packed_minibench.py` — 15-prompt verifiable evaluator
+- `70-tools/roso-distill/src/roso_distill/bonsai_kd.py` — KD logit-KL with TrainableBinaryLinear + STE + resume
+- 5-wall empirical evidence (`bonsai_minibench.jsonl` × 4 files + `fp16_baseline_qwen3_1.7b.jsonl`) on EVO
+- Calibration data (Phase C+D W_q on 3 bases: Qwen3.6-35B-A3B / Qwen3-1.7B-Base) on EVO
+
+**Re-activation trigger**: when one of the deferral conditions is met, the scaffold runs end-to-end from `bonsai_calibrate.py --with-phase-d` → `bonsai_kd.py` (with longer schedule, higher batch, lower lr, proper warmup+cosine) → `pack_calibrated.py` → `packed_minibench.py`. The mechanical work is done; only sustained compute is missing.
+
+### Future project base-model strategy 2026-05-25 (user decision)
+
+Per the user 2026-05-25T evening JST: "また今後の project では etzhayyim の base model は oka model, gemma 4 26b a4b, gemma 4 e4b をベースに, unsloth で lora などで調整していく, アプローチで."
+
+**Adopted base model lineup** (future etzhayyim projects):
+
+| base | params | scope | license | notes |
+|---|---|---|---|---|
+| Oka model | TBD | religious-corp originated (user-named) | TBD | Identity / provenance to be captured in a dedicated ADR when project lands |
+| Gemma 4 26B-A4B | 26B total / 4B active (MoE) | high-capability tier | Gemma license (NOT Apache-2.0 — requires acceptance / use-restriction review per CHARTER-RIDER §2 + religious-corp compliance gate) | Already serves in Murakumo fleet (see status row 40 `gemma4:e4b` already deployed on judah node) |
+| Gemma 4 E4B | 8B params / 4B effective | edge tier | Gemma license (same caveat as above) | Already in fleet via Ollama on judah 192.168.1.17:11434 |
+
+**Adopted training approach**: **Unsloth + LoRA / QLoRA fine-tuning** (replacing the 1-bit Bonsai post-quantization path explored in walls 1-5)
+
+**Why this replaces the Bonsai 1-bit path**:
+- Bonsai 1-bit from bf16 base requires 40-160× session-budget compute (TFLOPs analysis above)
+- Unsloth + LoRA on Gemma 4 needs only a small adapter (~10-50 MB) per project, trainable in **hours** on EVO single-GPU
+- LoRA adapters compose cleanly with Murakumo fleet's existing serve path (`gemma4:e4b` + adapter overlay)
+- Quality is preserved at base-model level (no 1-bit catastrophic degradation)
+
+**Known blocker requiring re-verification before next training session**:
+- Unsloth Windows-ROCm-7.2.1 + Python 3.12 pip dep-resolution probe FAILED 2026-05-25 with RecursionError (CUDA-stack dependencies). See status row 40 + `90-docs/baien/probe_unsloth_rocm.json`.
+- Two recovery paths:
+  1. **Run Unsloth on Linux + CUDA stack** (different hardware than EVO Windows ROCm) — e.g., future Murakumo Linux node or religious-corp dedicated training box
+  2. **Continue peft+trl** (already working: row 40 `gemma-coder-distill` iter-01 ran successfully on EVO with peft+trl bf16 LoRA r=16 + Gemma4ClippableLinear inner `.linear` auto-resolve). Unsloth would be a future optimization, not a hard requirement.
+
+**License compliance pre-flight** (must complete before public release of Gemma 4-based artifacts):
+- Gemma license acceptance + use-restriction review under CHARTER-RIDER §2 (cross-check against the 8 prohibited categories §2(a)-(h))
+- Distribution rule: per Apache 2.0 §4 + CHARTER-RIDER, the LoRA adapter and merged-and-distributed artifacts must preserve the Gemma NOTICE alongside the etzhayyim Charter Rider
+- Murakumo fleet operates Gemma 4 weights for inference only (consumption side, not redistribution) per ADR-2605215000 §1.2 — this is already accepted
+
+**Path of least resistance for next training session** (recommended):
+1. Use peft+trl on EVO (already validated by row 40 gemma-coder-distill iter-01)
+2. Target Gemma 4 e4b first (smaller, faster iteration); scale to 26B-A4B once recipe validated
+3. Plan to layer Unsloth-on-Linux on top later if 2-3× throughput gain matters for production training runs
+4. "Oka model" needs its own dedicated ADR for identity / provenance / license capture before training begins
+
+**Boundary with this ADR's roso/baien work**: ADR-2605242000 (this doc) remains the canonical record of the 1-bit Bonsai exploration + 5-wall empirical findings + train deferral. The new LoRA-on-Gemma4-+-Oka strategy is a SEPARATE training pipeline (different scaffold needed: peft+trl LoRA driver, adapter manager, Murakumo serve-with-adapter overlay) and warrants its own dedicated ADR when the next project boots. roso/baien train deferral remains until iwakura ASIC / Murakumo expansion / W7900 / BitNet-base trigger is met — independent of the new LoRA path.
+
+## roso-qwen3.6-35b-a3b 1-bit distill — VERIFIED end-to-end on EVO (2026-05-24)
+
+First server-tier roso sibling. Full pipeline: pull → shard-stream quantize → server-tier attestation bypass → commit. Validated `Qwen/Qwen3.6-35B-A3B` (Apache-2.0, MoE 256/8, hybrid linear+full attention, 256k context, multimodal text+image) as a base candidate.
+
+**Three-iteration pipeline build-out**:
+
+| iter | failure / fix |
+|---|---|
+| 1 | `device_map="auto"` default — `caching_allocator_warmup` 48 GB contiguous GPU slab → HIP OOM. Fix: explicit `max_memory={"cpu":"40GiB","disk":"150GiB"}` + `PYTORCH_HIP_ALLOC_CONF=expandable_segments:True` |
+| 2 | `transformers.from_pretrained` + max_memory — safetensors mmap ALL 26 shards (72 GB virtual) → Windows paging file too small (OSError 1455). Fix: wrote `shard_quantize.py` to bypass transformers; open one shard at a time |
+| 3 | shard-streaming v1 — 3-D MoE expert tensors `[256, d_in, d_out]` skipped by `ndim==2` check → only 5.15% quantized. Fix: extended `_should_quantize` for 3-D `experts` + `_sign_quantize_tensor` with per-expert α (256 distinct α per expert tensor) |
+| **4** | **shard-streaming v2 → END-TO-END SUCCESS** |
+
+**Final result** (verified by structural smoke):
+
+```
+sibling_id:           roso-qwen3.6-35b-a3b
+total params:         35,951,822,704 (35.95 B)
+quantized params:     34,065,674,240 (94.7 %)
+skipped params:       1,886,148,464 (5.3 %: embed/lm_head/router/norm/conv1d)
+packed @ true 1-bit:  4.26 GB (vs expected 4.4 GB)
+disk shards:          26  (1045 tensors: 501 quantized + 544 skipped)
+quantize wall on EVO: 363 sec (6:03) shard-streaming, peak VRAM < 4 GB
+attestation:          tier=server, edge-invariant SKIPPED, passed=True
+commit:               roso-qwen3.6-35b-a3b in roso-models.jsonl
+```
+
+**Structural verification** (5 shards sampled with per-tensor / per-expert ternary check):
+- 2-D weights (q/k/v/o + linear_attn projections): ALL ternary, per-tensor α, ratio=1.0
+- 3-D MoE expert weights (gate_up_proj + down_proj): ALL ternary per-expert with 256 distinct α per tensor (sampled: α₀=0.003235 / α₁=0.00296 / α₂=0.005737 for `layers.0.mlp.experts.gate_up_proj`)
+- Skipped (full-precision preserved): embed_tokens / lm_head / router gate (`mlp.gate.weight` [256,2048]) / shared_expert_gate / linear_attn.conv1d (Mamba SSM)
+
+**Functional inference smoke**: blocked on EVO by Windows paging file constraint (`transformers.from_pretrained` mmaps ALL 26 shards on load even with disk offload, exceeding virtual address space). Algorithmic correctness IS verified by the structural smoke. Three paths to unblock per-token inference performance:
+
+1. **Custom shard-streaming inference engine** (~300 LoC): 1-2 layer load → compute → unload → next. Controls disk I/O explicitly, ~5-10× faster than OS demand paging (estimated 100-500 ms/token).
+2. **WSL2 + Linux** (paging constraint relaxed; Linux mmap handles large sparse access better).
+3. **MoE active-expert-only loader**: 35B-A3B's structural advantage — only 3B params active per token. Load embeddings + router + active 3B at a time = ~6 GB BF16 fits in 60 GB RAM with margin. The "right" architecture for serving 1-bit MoE at scale; needs MLX/vLLM-class MoE-aware engine.
+
+Note: simply expanding the Windows paging file alone is NOT a performance solution — it just satisfies the virtual-address-space requirement. The model still doesn't fit in 60 GB physical RAM, so per-token forward pass would page-fault to SSD at every layer → 5-50 sec/token actual latency.
+
+**New code artifact**: `70-tools/roso-distill/src/roso_distill/shard_quantize.py` — server-tier shard-streaming quantizer that bypasses `transformers.from_pretrained` for models too large for any contiguous load path. Handles 2-D (per-tensor α) + 3-D MoE expert (per-expert α). Skip patterns: `embed_tokens`, `embed_out`, `lm_head`, `router`, `gate.weight`, `mtp`, plus 3-D `conv1d` (Mamba SSM). Peak memory = single shard (~4 GB), works on Windows ROCm without paging file expansion.
+
 # References
 
 - ADR-2605092350 baien design

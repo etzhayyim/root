@@ -10,7 +10,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "ai.gftd.houshi.";
+const NSID_PREFIX = "app.etzhayyim.houshi.";
 const ACTOR_DID = "did:web:houshi.etzhayyim.com";
 
 export default {

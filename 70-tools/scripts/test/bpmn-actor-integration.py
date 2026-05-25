@@ -50,9 +50,9 @@ from typing import Any
 DISPATCHER_URL = os.environ.get("BPMN_DISPATCHER_URL", "https://dispatcher.etzhayyim.com").rstrip("/")
 DISPATCHER_INTERNAL_SECRET = os.environ.get("DISPATCHER_INTERNAL_SECRET", "")
 WATCHER_INTERVAL_SEC = 30  # matches dispatcher_main WATCHER_INTERVAL_SEC
-DATACENTER_START_NSID = "ai.gftd.apps.datacenter.startOperation"
-DATACENTER_ACCESS_NSID = "ai.gftd.apps.datacenter.requestAccess"
-DATACENTER_CAPACITY_NSID = "ai.gftd.apps.datacenter.reserveCapacity"
+DATACENTER_START_NSID = "app.etzhayyim.apps.datacenter.startOperation"
+DATACENTER_ACCESS_NSID = "app.etzhayyim.apps.datacenter.requestAccess"
+DATACENTER_CAPACITY_NSID = "app.etzhayyim.apps.datacenter.reserveCapacity"
 
 
 def rw_url() -> str:
@@ -183,10 +183,10 @@ def test_bindings_reach() -> None:
     assert isinstance(body, dict), f"expected dict, got {type(body).__name__}"
     nsids = {b["nsid"] for b in body.get("bindings") or []}
     for required in (
-        "ai.gftd.apps.bot.ping",
-        "ai.gftd.apps.watch.urlDigest",
-        "ai.gftd.apps.yabai.triagePoc",
-        "ai.gftd.apps.bot.reviewAndPost",
+        "app.etzhayyim.apps.bot.ping",
+        "app.etzhayyim.apps.watch.urlDigest",
+        "app.etzhayyim.apps.yabai.triagePoc",
+        "app.etzhayyim.apps.bot.reviewAndPost",
     ):
         assert required in nsids, f"{required} not among {sorted(nsids)}"
 
@@ -197,11 +197,11 @@ def test_new_bpmn_bindings_present() -> None:
     assert status == 200, f"expected 200, got {status}"
     nsids = {b["nsid"] for b in (body or {}).get("bindings") or []}
     for required in (
-        "ai.gftd.apps.yabai.enrichLegalEntity",
-        "ai.gftd.apps.yabai.reverseIpLookup",
-        "ai.gftd.apps.yabai.crtshFuzzySearch",
-        "ai.gftd.apps.yabai.trackPhishingInfra",
-        "ai.gftd.apps.shinshi.backfillGovernanceEdges",
+        "app.etzhayyim.apps.yabai.enrichLegalEntity",
+        "app.etzhayyim.apps.yabai.reverseIpLookup",
+        "app.etzhayyim.apps.yabai.crtshFuzzySearch",
+        "app.etzhayyim.apps.yabai.trackPhishingInfra",
+        "app.etzhayyim.apps.shinshi.backfillGovernanceEdges",
     ):
         assert required in nsids, f"{required} not among {sorted(nsids)}"
 
@@ -212,7 +212,7 @@ def test_yabai_track_phishing_infra() -> None:
     cert is valid, no anomalies expected."""
     entity_id = f"integ-trackinfra-{int(time.time())}"
     status, body = _request(
-        "POST", "/xrpc/ai.gftd.apps.yabai.trackPhishingInfra",
+        "POST", "/xrpc/app.etzhayyim.apps.yabai.trackPhishingInfra",
         {"entityId": entity_id, "domain": "dispatcher.etzhayyim.com"},
         timeout=90,
     )
@@ -232,7 +232,7 @@ def test_yabai_enrich_legal_entity_happy() -> None:
     `inserted=0` is valid on 2nd invocation."""
     yabai_id = f"integ-enrich-{int(time.time())}"
     status, body = _request(
-        "POST", "/xrpc/ai.gftd.apps.yabai.enrichLegalEntity",
+        "POST", "/xrpc/app.etzhayyim.apps.yabai.enrichLegalEntity",
         {
             "yabaiEntityId": yabai_id,
             "search": "Alibaba Cloud US LLC",
@@ -257,7 +257,7 @@ def test_yabai_enrich_legal_entity_no_match() -> None:
     Process must still succeed and emit nolei-<id> rkey + audit, not error."""
     yabai_id = f"integ-nolei-{int(time.time())}"
     status, body = _request(
-        "POST", "/xrpc/ai.gftd.apps.yabai.enrichLegalEntity",
+        "POST", "/xrpc/app.etzhayyim.apps.yabai.enrichLegalEntity",
         {
             "yabaiEntityId": yabai_id,
             "search": "UCloud Information Technology",
@@ -280,7 +280,7 @@ def test_yabai_reverse_ip_lookup() -> None:
     """hackertarget is rate-limited (100/day), so may return rateLimited=true.
     Either siblings list or rate-limit must be returned — never error."""
     status, body = _request(
-        "POST", "/xrpc/ai.gftd.apps.yabai.reverseIpLookup",
+        "POST", "/xrpc/app.etzhayyim.apps.yabai.reverseIpLookup",
         {"ip": "1.1.1.1"},
         timeout=30,
     )
@@ -297,7 +297,7 @@ def test_yabai_crtsh_fuzzy_search() -> None:
     response shape so CI doesn't go red on external outages; just validates
     the BPMN path (URL encode → fetch → flatten → audit) doesn't error."""
     status, body = _request(
-        "POST", "/xrpc/ai.gftd.apps.yabai.crtshFuzzySearch",
+        "POST", "/xrpc/app.etzhayyim.apps.yabai.crtshFuzzySearch",
         {"keyword": "line-me"},
         timeout=30,
     )
@@ -314,7 +314,7 @@ def test_shinshi_backfill_governance_edges() -> None:
     ts = int(time.time())
     folders = [f"integ-shinshi-{ts}-a", f"integ-shinshi-{ts}-b"]
     status, body = _request(
-        "POST", "/xrpc/ai.gftd.apps.shinshi.backfillGovernanceEdges",
+        "POST", "/xrpc/app.etzhayyim.apps.shinshi.backfillGovernanceEdges",
         {"models": [{"folder": f} for f in folders]},
         timeout=60,
     )
@@ -344,7 +344,7 @@ def test_datacenter_binding_present() -> None:
 
 
 def test_bot_ping() -> None:
-    status, body = _request("POST", "/xrpc/ai.gftd.apps.bot.ping",
+    status, body = _request("POST", "/xrpc/app.etzhayyim.apps.bot.ping",
                             {"message": "integration test ping"}, timeout=15)
     assert status == 200, f"expected 200, got {status}: {body!r}"
     assert isinstance(body, dict) and body.get("ok") is True
@@ -354,7 +354,7 @@ def test_bot_ping() -> None:
 
 
 def test_watch_url_digest() -> None:
-    status, body = _request("POST", "/xrpc/ai.gftd.apps.watch.urlDigest",
+    status, body = _request("POST", "/xrpc/app.etzhayyim.apps.watch.urlDigest",
                             {"url": "https://example.com/"}, timeout=60)
     assert status == 200, f"expected 200, got {status}: {body!r}"
     v = body["variables"]
@@ -367,7 +367,7 @@ def test_watch_url_digest() -> None:
 
 def test_yabai_triage_phishing() -> None:
     status, body = _request(
-        "POST", "/xrpc/ai.gftd.apps.yabai.triagePoc",
+        "POST", "/xrpc/app.etzhayyim.apps.yabai.triagePoc",
         {
             "emailId": f"integ-test-{int(time.time())}",
             "fromAddr": "urgent-support@paypa1-secure.xyz",
@@ -388,7 +388,7 @@ def test_yabai_triage_phishing() -> None:
 
 def test_bot_review_accept() -> None:
     status, body = _request(
-        "POST", "/xrpc/ai.gftd.apps.bot.reviewAndPost",
+        "POST", "/xrpc/app.etzhayyim.apps.bot.reviewAndPost",
         {"text": "Quick hello — benign test message.", "channel": "feed"},
         timeout=60,
     )
@@ -459,7 +459,7 @@ def test_datacenter_reserve_capacity() -> None:
 
 
 def test_unknown_nsid_returns_404() -> None:
-    status, body = _request("POST", "/xrpc/ai.gftd.apps.bogus.nonexistent",
+    status, body = _request("POST", "/xrpc/app.etzhayyim.apps.bogus.nonexistent",
                             {}, timeout=10)
     assert status == 404, f"expected 404, got {status}: {body!r}"
 
@@ -481,13 +481,13 @@ def _wait_for(fn, timeout_s: float = 10.0, interval_s: float = 0.5) -> bool:  # 
 def test_rw_audit_row_exists() -> None:
     # Fresh ping so we have a known ts_ms window.
     ts0 = int(time.time() * 1000)
-    _request("POST", "/xrpc/ai.gftd.apps.bot.ping",
+    _request("POST", "/xrpc/app.etzhayyim.apps.bot.ping",
              {"message": "rw audit assertion"}, timeout=15)
     # RW may take a moment for the streaming view to reflect the INSERT.
     # Widen the window generously (60s) to absorb laptop↔RW clock skew.
     ok = _wait_for(lambda: rw_count(
         f"SELECT COUNT(*) FROM vertex_repo_commit "
-        f"WHERE collection='ai.gftd.bpmn.audit' AND ts_ms >= {ts0 - 60_000}"
+        f"WHERE collection='app.etzhayyim.bpmn.audit' AND ts_ms >= {ts0 - 60_000}"
     ) >= 1, timeout_s=10.0)
     assert ok, f"no audit row within 10s after ts {ts0}"
 
@@ -496,7 +496,7 @@ def test_rw_audit_row_exists() -> None:
 
 PROBE_PROC_ID = "integ_probe_actor"
 PROBE_VID_DEF = f"bpmn:{PROBE_PROC_ID}:v1"
-PROBE_NSID = "ai.gftd.apps.test.integProbe"
+PROBE_NSID = "app.etzhayyim.apps.test.integProbe"
 PROBE_VID_BIND = f"bpmn-binding:{PROBE_NSID}"
 
 PROBE_XML = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -594,7 +594,7 @@ def main() -> int:
     ap.add_argument("--skip-rw", action="store_true",
                     help="skip RW assertion tests (no psql available)")
     ap.add_argument("--include-datacenter", action="store_true",
-                    help="also verify ai.gftd.apps.datacenter.startOperation binding + call")
+                    help="also verify app.etzhayyim.apps.datacenter.startOperation binding + call")
     args = ap.parse_args()
 
     print(f"dispatcher: {DISPATCHER_URL}")

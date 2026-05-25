@@ -41,7 +41,7 @@ class OutreachBody:
 
 _FOOTER_TEXT = (
     "\n\n— nishino\nyatabase.etzhayyim.com\n\n"
-    "etzhayyim (operator) — etz hayim (corporate vendor: Gftd Japan株式会社)\n"
+    "etzhayyim (operator) — etz hayim (corporate vendor: etzhayyim Japan株式会社)\n"
     "Tokyo, Japan.\n"
     "Don't want these? Reply 'stop' and we'll never email you again.\n"
 )
@@ -49,7 +49,7 @@ _FOOTER_TEXT = (
 _FOOTER_HTML = (
     '<p style="color:#888;font-size:0.85em;margin-top:32px">'
     "— nishino<br/>yatabase.etzhayyim.com<br/><br/>"
-    "etzhayyim (operator) — etz hayim (corporate vendor: Gftd Japan株式会社)<br/>"
+    "etzhayyim (operator) — etz hayim (corporate vendor: etzhayyim Japan株式会社)<br/>"
     "Tokyo, Japan.<br/>"
     "Don't want these? Reply 'stop' and we'll never email you again."
     "</p>"

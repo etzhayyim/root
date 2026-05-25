@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-register-emitter-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-register-emitter-v1',
                  'did:web:resource-flow.etzhayyim.com',
                  'resource_flow_register_emitter',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -100,7 +100,7 @@ UP = [{'sql': '\n'
                  'did:web:resource-flow.etzhayyim.com',
                  'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-register-emitter-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-register-emitter-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -114,21 +114,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-registerEmitter-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/resource-flow-registerEmitter-v1',
                  'did:web:resource-flow.etzhayyim.com',
-                 'ai.gftd.apps.resourceFlow.registerEmitter',
+                 'app.etzhayyim.apps.resourceFlow.registerEmitter',
                  'resource_flow_register_emitter',
                  30000,
                  '2026-04-28T16:01:00Z',
                  'did:web:resource-flow.etzhayyim.com',
                  'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-registerEmitter-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/resource-flow-registerEmitter-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-registerEmitter-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/resource-flow-registerEmitter-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-register-emitter-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-register-emitter-v1']}]
 
 
 def upgrade() -> None:

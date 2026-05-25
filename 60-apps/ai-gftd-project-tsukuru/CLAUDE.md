@@ -18,8 +18,8 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 
 ## Manufacturer Registry Rules
 
-- Active collection name: `ai.gftd.apps.tsukuru.manufacturer`.
-- Historical collection for migration/read-compat: `ai.gftd.apps.tsukuru-api.manufacturer`.
+- Active collection name: `app.etzhayyim.apps.tsukuru.manufacturer`.
+- Historical collection for migration/read-compat: `app.etzhayyim.apps.tsukuru-api.manufacturer`.
 - Registry scale assumption: 460+ manufacturer DIDs across 30+ countries.
 
 ## Write Buffer Rule
@@ -40,7 +40,7 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 
 **WIT**: `gftd:tsukuru-production-order@1.0.0` — production-order, production-progress, quality-inspection
 
-**Record kinds** (`ai.gftd.apps.tsukuru.*`): `production_order`, `production_progress`, `quality_inspection`
+**Record kinds** (`app.etzhayyim.apps.tsukuru.*`): `production_order`, `production_progress`, `quality_inspection`
 
 **Flow**: okaimono order (paid) → `create-production-order` → factory DID Invoke → progress updates → QC → ship
 

@@ -25,12 +25,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-post-chat-v1',
                  'did:web:live.etzhayyim.com',
                  'live_post_chat',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  ai.gftd.apps.live.postChat — append an actor utterance to a live room.\n'
+                 '  app.etzhayyim.apps.live.postChat — append an actor utterance to a live room.\n'
                  '\n'
                  '  Three-task flow:\n'
                  '    1. generic.db.insert  → vertex_live_chat (Tier 2 Domain write)\n'
@@ -63,7 +63,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_live_chat&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id: &quot;at://&quot; + string(actorDid) + '
-                 '&quot;/ai.gftd.apps.live.chat/&quot; + string(now()) + &quot;-&quot; + '
+                 '&quot;/app.etzhayyim.apps.live.chat/&quot; + string(now()) + &quot;-&quot; + '
                  'string(actorDid),\n'
                  '              room_slug: roomSlug,\n'
                  '              actor_handle: handle,\n'
@@ -157,7 +157,7 @@ UP = [{'sql': '\n'
                  'did:web:live.etzhayyim.com',
                  'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-post-chat-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -171,12 +171,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-schedule-set-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-schedule-set-v1',
                  'did:web:live.etzhayyim.com',
                  'live_schedule_set',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  ai.gftd.apps.live.scheduleSet — performer authors / replaces a room.\n'
+                 '  app.etzhayyim.apps.live.scheduleSet — performer authors / replaces a room.\n'
                  '\n'
                  '  Single-task flow. Upserts (insert with `on conflict ignore` semantics\n'
                  '  via PK rewrite) into `vertex_live_room`. RisingWave overwrites on\n'
@@ -204,7 +204,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_live_room&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id: &quot;at://&quot; + string(performerDid) + '
-                 '&quot;/ai.gftd.apps.live.room/&quot; + string(roomSlug),\n'
+                 '&quot;/app.etzhayyim.apps.live.room/&quot; + string(roomSlug),\n'
                  '              slug: roomSlug,\n'
                  '              bpm: bpm,\n'
                  '              start_at: startAt,\n'
@@ -257,7 +257,7 @@ UP = [{'sql': '\n'
                  'did:web:live.etzhayyim.com',
                  'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-schedule-set-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-schedule-set-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -271,12 +271,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-send-cheer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-send-cheer-v1',
                  'did:web:live.etzhayyim.com',
                  'live_send_cheer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  ai.gftd.apps.live.sendCheer — viewer cheer event.\n'
+                 '  app.etzhayyim.apps.live.sendCheer — viewer cheer event.\n'
                  '\n'
                  '  Single-task flow. Cheers are append-only into vertex_live_chat with\n'
                  '  kind = "cheer-{originalKind}" so the existing chat fan-out picks\n'
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_live_chat&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id: &quot;at://&quot; + (if callerDid != null then '
-                 'string(callerDid) else &quot;anon&quot;) + &quot;/ai.gftd.apps.live.cheer/&quot; '
+                 'string(callerDid) else &quot;anon&quot;) + &quot;/app.etzhayyim.apps.live.cheer/&quot; '
                  '+ string(now()),\n'
                  '              room_slug: roomSlug,\n'
                  '              actor_handle: if callerDid != null then string(callerDid) else '
@@ -343,7 +343,7 @@ UP = [{'sql': '\n'
                  'did:web:live.etzhayyim.com',
                  'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-send-cheer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-send-cheer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -357,16 +357,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-postChat-v1',
                  'did:web:live.etzhayyim.com',
-                 'ai.gftd.apps.live.postChat',
+                 'app.etzhayyim.apps.live.postChat',
                  'live_post_chat',
                  5000,
                  '2026-04-29T01:00:00Z',
                  'did:web:live.etzhayyim.com',
                  'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-postChat-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -380,16 +380,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-scheduleSet-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-scheduleSet-v1',
                  'did:web:live.etzhayyim.com',
-                 'ai.gftd.apps.live.scheduleSet',
+                 'app.etzhayyim.apps.live.scheduleSet',
                  'live_schedule_set',
                  10000,
                  '2026-04-29T01:00:00Z',
                  'did:web:live.etzhayyim.com',
                  'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-scheduleSet-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-scheduleSet-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -403,29 +403,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-sendCheer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-sendCheer-v1',
                  'did:web:live.etzhayyim.com',
-                 'ai.gftd.apps.live.sendCheer',
+                 'app.etzhayyim.apps.live.sendCheer',
                  'live_send_cheer',
                  5000,
                  '2026-04-29T01:00:00Z',
                  'did:web:live.etzhayyim.com',
                  'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-sendCheer-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-sendCheer-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-postChat-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-scheduleSet-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-scheduleSet-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-sendCheer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-sendCheer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-post-chat-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-schedule-set-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-schedule-set-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-send-cheer-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-send-cheer-v1']}]
 
 
 def upgrade() -> None:

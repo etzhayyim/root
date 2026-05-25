@@ -2,14 +2,14 @@ import { test, expect } from '@playwright/test';
 
 const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.etzhayyim.com';
 const SVC = `${BASE}/xrpc/gftd.malak.v1.MalakService`;
-const HDR = { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-test' };
+const HDR = { 'Content-Type': 'application/json', 'X-etzhayyim-USER-ID': 'e2e-test' };
 
 test.describe('malak.etzhayyim.com — Dashboard Card', () => {
 	test('malak.dashboard returns metric-dashboard card', async ({ request }) => {
 		const r = await request.post(`${SVC}/malak.dashboard`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
 		const b = await r.json();
-		expect(b.contentType).toBe('application/vnd.gftd.card.metric-dashboard');
+		expect(b.contentType).toBe('application/vnd.etzhayyim.card.metric-dashboard');
 		expect(b.payload.title).toContain('Malak');
 		expect(b.payload.metrics.length).toBeGreaterThanOrEqual(7);
 	});
@@ -37,7 +37,7 @@ test.describe('malak.etzhayyim.com — Threat Actor Cards', () => {
 		const r = await request.post(`${SVC}/malak.threatActors`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
 		const b = await r.json();
-		expect(b.contentType).toBe('application/vnd.gftd.card.list');
+		expect(b.contentType).toBe('application/vnd.etzhayyim.card.list');
 		expect(b.payload.title).toContain('Threat Actor');
 	});
 });
@@ -47,7 +47,7 @@ test.describe('malak.etzhayyim.com — Submit Tip Form', () => {
 		const r = await request.post(`${SVC}/malak.submitTip`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
 		const b = await r.json();
-		expect(b.contentType).toBe('application/vnd.gftd.card.form');
+		expect(b.contentType).toBe('application/vnd.etzhayyim.card.form');
 		expect(b.payload.title).toContain('Tip');
 	});
 
@@ -75,7 +75,7 @@ test.describe('malak.etzhayyim.com — Agencies & Tools', () => {
 		const r = await request.post(`${SVC}/malak.agencies`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
 		const b = await r.json();
-		expect(b.contentType).toBe('application/vnd.gftd.card.list');
+		expect(b.contentType).toBe('application/vnd.etzhayyim.card.list');
 		expect(b.payload.items.length).toBeGreaterThanOrEqual(16);
 	});
 
@@ -92,7 +92,7 @@ test.describe('malak.etzhayyim.com — Agencies & Tools', () => {
 		const r = await request.post(`${SVC}/malak.tools`, { headers: HDR, data: {} });
 		expect(r.ok()).toBeTruthy();
 		const b = await r.json();
-		expect(b.contentType).toBe('application/vnd.gftd.card.list');
+		expect(b.contentType).toBe('application/vnd.etzhayyim.card.list');
 		const labels = b.payload.items.map((i: any) => i.label);
 		expect(labels).toEqual(expect.arrayContaining([
 			'Threat Actor Tracker', 'Sanctions Check', 'Crypto Asset Freeze',

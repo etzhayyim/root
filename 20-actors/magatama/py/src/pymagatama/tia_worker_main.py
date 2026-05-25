@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.tia.analyzeIntent")
+    @worker.task(task_type="app.etzhayyim.apps.tia.analyzeIntent")
     async def task_analyze_intent(**kwargs):
         text = kwargs.get("text", "")
         context = kwargs.get("context", {})
@@ -34,7 +34,7 @@ async def run_worker():
             "analyzedAt": now,
         }
 
-    @worker.task(task_type="ai.gftd.apps.tia.classifySignal")
+    @worker.task(task_type="app.etzhayyim.apps.tia.classifySignal")
     async def task_classify_signal(**kwargs):
         signal_text = kwargs.get("signal", "")
         source = kwargs.get("source", "")
@@ -60,7 +60,7 @@ async def run_worker():
 
         return {"signalId": signal_id, "classification": "unclassified", "createdAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.tia.extractEntities")
+    @worker.task(task_type="app.etzhayyim.apps.tia.extractEntities")
     async def task_extract_entities(**kwargs):
         text = kwargs.get("text", "")
         entity_types = kwargs.get("entityTypes", [])
@@ -73,7 +73,7 @@ async def run_worker():
             "extractedAt": now,
         }
 
-    @worker.task(task_type="ai.gftd.apps.tia.scoreRisk")
+    @worker.task(task_type="app.etzhayyim.apps.tia.scoreRisk")
     async def task_score_risk(**kwargs):
         subject = kwargs.get("subject", "")
         context = kwargs.get("context", {})
@@ -87,7 +87,7 @@ async def run_worker():
             "scoredAt": now,
         }
 
-    @worker.task(task_type="ai.gftd.apps.tia.generateSummary")
+    @worker.task(task_type="app.etzhayyim.apps.tia.generateSummary")
     async def task_generate_summary(**kwargs):
         signal_ids = kwargs.get("signalIds", [])
         time_range = kwargs.get("timeRange", "24h")
@@ -101,7 +101,7 @@ async def run_worker():
             "generatedAt": now,
         }
 
-    @worker.task(task_type="ai.gftd.apps.tia.lookupProfile")
+    @worker.task(task_type="app.etzhayyim.apps.tia.lookupProfile")
     async def task_lookup_profile(**kwargs):
         subject = kwargs.get("subject", "")
 
@@ -119,7 +119,7 @@ async def run_worker():
             return {"subject": subject, "profile": None}
         return {"subject": subject, "profile": dict(row)}
 
-    @worker.task(task_type="ai.gftd.apps.tia.submitFeedback")
+    @worker.task(task_type="app.etzhayyim.apps.tia.submitFeedback")
     async def task_submit_feedback(**kwargs):
         signal_id = kwargs.get("signalId", "")
         feedback = kwargs.get("feedback", "")
@@ -139,7 +139,7 @@ async def run_worker():
 
         return {"signalId": signal_id, "feedback": feedback, "submittedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.tia.getInsights")
+    @worker.task(task_type="app.etzhayyim.apps.tia.getInsights")
     async def task_get_insights(**kwargs):
         time_range = kwargs.get("timeRange", "24h")
         limit = int(kwargs.get("limit", 10))

@@ -11,7 +11,7 @@ Legal case management and BPO automation platform (`lawfirm.etzhayyim.com`).
 | WASM binary | TS Native (`src/app.ts`) |
 | ランタイム | `magatama-server` (Rust) |
 | トリガー | HTTP (`0.0.0.0:8080`) |
-| AT コレクション | `ai.gftd.command`, `ai.gftd.conversation.message` |
+| AT コレクション | `app.etzhayyim.command`, `app.etzhayyim.conversation.message` |
 | Storage backend | yata Broker (SQL graph) |
 | Config | `magatama/magatama.jsonld` |
 | Deploy | `gftd build && gftd deploy` (Cloudflare Container) |
@@ -29,7 +29,7 @@ Legal case management and BPO automation platform (`lawfirm.etzhayyim.com`).
 
 - `AT_ACTOR_DID` は k8s Secret `lawfirm-at-identity` の `actor-did` key から inject される
 - AT Firehose: **abolished** — events via yata-wrpc (embedded)
-- 購読コレクション: `ai.gftd.command`, `ai.gftd.conversation.message`
+- 購読コレクション: `app.etzhayyim.command`, `app.etzhayyim.conversation.message`
 - AT commit は `dispatchATCommit` → `rt.InvokeATCommand` で performer Runtime に渡る
 
 ## Structured Data
@@ -51,10 +51,10 @@ Hindi / regional-language user が `https://lawfirm.etzhayyim.com` から申込�
 
 | NSID | 役割 | 根拠 |
 |---|---|---|
-| `ai.gftd.apps.lawfirm.translateToLang` | en/JP → hi/bn/ta/… 翻訳 (Murakumo MLX pipethrough) | lexicon L7 |
-| `ai.gftd.apps.lawfirm.translateFromLang` | regional-lang → en (court of record) or hi | lexicon L7 |
-| `ai.gftd.apps.lawfirm.requestConsult` | 初回 intake。**AT Repo には hash のみ** (ADR-0018 Tier 3 PII) | ADR-0018 / ADR-0026 |
-| `ai.gftd.apps.lawfirm.createCase` | 案件作成 + India markers 検出時に peer firm へ auto-invite | ADR-0019 / ADR-0029 |
+| `app.etzhayyim.apps.lawfirm.translateToLang` | en/JP → hi/bn/ta/… 翻訳 (Murakumo MLX pipethrough) | lexicon L7 |
+| `app.etzhayyim.apps.lawfirm.translateFromLang` | regional-lang → en (court of record) or hi | lexicon L7 |
+| `app.etzhayyim.apps.lawfirm.requestConsult` | 初回 intake。**AT Repo には hash のみ** (ADR-0018 Tier 3 PII) | ADR-0018 / ADR-0026 |
+| `app.etzhayyim.apps.lawfirm.createCase` | 案件作成 + India markers 検出時に peer firm へ auto-invite | ADR-0019 / ADR-0029 |
 
 **India marker 判定**: `lang ∈ {hi, bn, ta, te, mr, gu, kn, ml, pa, or, as, ur, sa, ne, sd, ks, kok, mai, mni, sat, doi, brx}` OR `state.startsWith("IN-")` OR `jurisdiction ∈ {IND, IN}`。
 
@@ -85,19 +85,19 @@ wrangler secret put KUNAL_LEAD_DID_HINT    # did:gftd:{h_lawyer}:{h_bakshi}
 
 ```bash
 # Hindi intake
-curl -sX POST https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.requestConsult \
+curl -sX POST https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.requestConsult \
   -H "Authorization: Bearer ${BEARER}" -H "Content-Type: application/json" \
   -d '{"lang":"hi","state":"IN-MH","city":"mumbai","summary":"मेरा चेक बाउंस हो गया","domainHint":"ni138","channel":"web"}'
 # → { consultDid, uri, triageCohortDid, suggestedDomain: "ni138" }
 
 # India case (auto-routes to Kunal if LAWYER_FIRM_DID_HINT set)
-curl -sX POST https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.createCase \
+curl -sX POST https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.createCase \
   -H "Authorization: Bearer ${BEARER}" -H "Content-Type: application/json" \
   -d '{"domain":"ni138","state":"IN-MH","lang":"hi","city":"mumbai","subjectSummary":"Cheque ₹5L bounced","amountInDispute":500000,"currency":"INR","urgency":"routine"}'
 # → { did, uri, cohortDid, caseNumber, autoGrant: { grantDid, granteeDid, granteeHandle: "k.bakshi" } }
 
 # Hindi translation
-curl -sX POST https://lawfirm.etzhayyim.com/xrpc/ai.gftd.apps.lawfirm.translateToLang \
+curl -sX POST https://lawfirm.etzhayyim.com/xrpc/app.etzhayyim.apps.lawfirm.translateToLang \
   -H "Content-Type: application/json" \
   -d '{"text":"Section 138 NI Act complaint","targetLang":"hi","register":"court-of-record","domain":"ni138"}'
 ```

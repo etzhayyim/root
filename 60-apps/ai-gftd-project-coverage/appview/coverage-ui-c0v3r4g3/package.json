@@ -12,6 +12,6 @@
   },
   "type": "module",
   "dependencies": {
-    "@gftd/graph-schema": "workspace:*"
+    "@etzhayyim/graph-schema": "workspace:*"
   }
 }

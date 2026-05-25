@@ -1,6 +1,6 @@
 manifest_version: '1'
 name: gftd-agent-actor-runtime
-description: Experimental Holochain runtime for GFTD agent/actor event cells.
+description: Experimental Holochain runtime for etzhayyim agent/actor event cells.
 roles:
   - name: agent_actor_runtime
     provisioning:

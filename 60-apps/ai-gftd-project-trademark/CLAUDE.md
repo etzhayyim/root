@@ -6,7 +6,7 @@
 
 ## Role
 
-trademark = **標章 (商標・サービスマーク・団体商標) perspective**。出願・公告・登録・更新・Madrid 国際登録を `ai.gftd.apps.trademark.*` に正規化し、権利者 (owner) を LEI / natural-person と相互リンク。
+trademark = **標章 (商標・サービスマーク・団体商標) perspective**。出願・公告・登録・更新・Madrid 国際登録を `app.etzhayyim.apps.trademark.*` に正規化し、権利者 (owner) を LEI / natural-person と相互リンク。
 
 ## Architecture
 
@@ -17,7 +17,7 @@ trademark = **標章 (商標・サービスマーク・団体商標) perspective
 | Primary | `did:web:trademark.etzhayyim.com` | Coordinator, heartbeat |
 | Jurisdiction | `did:web:trademark.etzhayyim.com:jp` / `:us` / `:eu` / `:wo` | 国/地域別 coverage |
 
-## Lexicon (`ai.gftd.apps.trademark.*`)
+## Lexicon (`app.etzhayyim.apps.trademark.*`)
 
 | Collection | 用途 |
 |---|---|

@@ -22,7 +22,7 @@ The first deployable unit is a 6 m x 3 m semi-enclosed sorting cell:
 3. **ArmCrawler handling lane** moves bins and performs low-force pick-and-place.
 4. **Disassembly bench** supports screw removal, lid opening, battery isolation, and PCB extraction.
 5. **Material sort wall** routes items into locked recovery bins for Cu, Al, steel, Li-ion battery, mixed PCB, rare-earth magnet, and reject.
-6. **Audit station** writes every stream event to `ai.gftd.apps.toshiKozan.*` records.
+6. **Audit station** writes every stream event to `app.etzhayyim.apps.toshiKozan.*` records.
 
 ## ROS2 Graph
 
@@ -80,7 +80,7 @@ Audit event:
   "item_id": "urn:uuid:...",
   "stream_type": "smartphone",
   "destination_bin": "li_ion_isolation",
-  "toshi_kozan_lexicon": "ai.gftd.apps.toshiKozan.registerEwasteStream"
+  "toshi_kozan_lexicon": "app.etzhayyim.apps.toshiKozan.registerEwasteStream"
 }
 ```
 

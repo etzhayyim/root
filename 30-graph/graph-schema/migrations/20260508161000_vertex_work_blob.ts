@@ -5,7 +5,7 @@ import { sql } from "kysely";
  * vertex_work_blob — full-text store for copyright works.
  *
  * Populated by the copyright_fulltext LangGraph graph which calls the
- * Unpaywall API (https://api.unpaywall.org/v2/{doi}?email=jun@gftd.group)
+ * Unpaywall API (https://api.unpaywall.org/v2/{doi}?email=jun@etzhayyim.com)
  * to discover open-access PDFs/HTML, then fetches and stores the
  * extracted text for CC-BY / CC0 / public-domain works.
  *

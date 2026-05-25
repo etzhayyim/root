@@ -61,7 +61,7 @@ def _id(prefix: str, *parts: Any) -> str:
 
 
 def _vid(collection: str, ident: str) -> str:
-    return f"at://did:web:agent.etzhayyim.com/ai.gftd.agent.{collection}/{ident}"
+    return f"at://did:web:agent.etzhayyim.com/app.etzhayyim.agent.{collection}/{ident}"
 
 
 def _canonical_hash(payload: dict[str, Any]) -> str:

@@ -133,7 +133,7 @@ specify how an objection is judged cleared (good-faith) vs uncleared
 
 ### Step 2.1 — Receive
 
-An objection arrives as `ai.gftd.apps.etzhayyim.council-objection` AT Record
+An objection arrives as `app.etzhayyim.apps.etzhayyim.council-objection` AT Record
 during the 30-day window. The objector MUST hold an active Adherent SBT
 (checked via `AdherentRegistry.isActive(did) == true`). Objections from
 non-Adherents are filed but not counted.
@@ -168,7 +168,7 @@ The founder reviews each objection within 7 days of receipt:
 ### Step 2.4 — Record
 
 For each judged objection, the founder writes a public reply AT Record
-(`ai.gftd.apps.etzhayyim.council-objection-disposition`) within 7 days:
+(`app.etzhayyim.apps.etzhayyim.council-objection-disposition`) within 7 days:
 
 - Cleared objections list cited evidence
 - Uncleared objections explain why (1-2 sentences, no need to defame the

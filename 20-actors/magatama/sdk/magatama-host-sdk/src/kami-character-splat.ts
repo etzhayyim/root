@@ -5,7 +5,7 @@
  * Photorealistic character rendering from captured splat data.
  *
  * Usage in app.ts:
- *   import { buildSplatCharacterScene } from "@gftd/magatama-host-sdk/kami-character-splat";
+ *   import { buildSplatCharacterScene } from "@etzhayyim/magatama-host-sdk/kami-character-splat";
  *   const scene = buildSplatCharacterScene({ splatKey: "sofia-face.ply", ... });
  */
 
@@ -38,7 +38,7 @@ export function buildSplatCharacterScene(config: SplatCharacterConfig): Record<s
   const rot = config.rotation ?? [0.0, 0.0, 0.0, 1.0];
 
   return {
-    "@context": "https://gftd.co.jp/ns/kami/scene",
+    "@context": "https://etzhayyim.com/ns/kami/scene",
     "@type": "IslandScene",
     name: config.name ?? "3DGS Character",
     genre: "social",

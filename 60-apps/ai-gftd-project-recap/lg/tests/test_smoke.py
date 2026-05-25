@@ -32,10 +32,10 @@ _LG_DIR = Path(__file__).resolve().parents[1]
 _EXPECTED_GRAPHS = {"health", "download", "get_info", "list_downloads", "summarize"}
 
 _EXPECTED_NSID_MAP = {
-    "ai.gftd.apps.recap.download":      "download",
-    "ai.gftd.apps.recap.getInfo":        "get_info",
-    "ai.gftd.apps.recap.listDownloads":  "list_downloads",
-    "ai.gftd.apps.recap.summarize":      "summarize",
+    "app.etzhayyim.apps.recap.download":      "download",
+    "app.etzhayyim.apps.recap.getInfo":        "get_info",
+    "app.etzhayyim.apps.recap.listDownloads":  "list_downloads",
+    "app.etzhayyim.apps.recap.summarize":      "summarize",
 }
 
 
@@ -113,5 +113,5 @@ def test_unknown_assistant_404(client):
 
 
 def test_unknown_nsid_xrpc_404(client):
-    r = client.post("/xrpc/ai.gftd.apps.recap.unknownMethod", json={})
+    r = client.post("/xrpc/app.etzhayyim.apps.recap.unknownMethod", json={})
     assert r.status_code == 404

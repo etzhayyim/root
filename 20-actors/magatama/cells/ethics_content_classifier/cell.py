@@ -59,7 +59,7 @@ def build_graph(
     checkpointer: BaseCheckpointSaver,
     llm_client_primary,  # Claude Sonnet 4.6
     llm_client_fallback,  # Murakumo Gemma 3:4b (for sensitive content not sent to Anthropic)
-    precedent_registry,  # interface to ai.gftd.apps.etzhayyim.eros-gore-precedent collection
+    precedent_registry,  # interface to app.etzhayyim.apps.etzhayyim.eros-gore-precedent collection
     council_dispatcher,
 ):
     g = StateGraph(EthicsContentClassifierState)
@@ -192,5 +192,5 @@ def synthesize(state: EthicsContentClassifierState) -> EthicsContentClassifierSt
 
 
 def emit_record(state: EthicsContentClassifierState) -> EthicsContentClassifierState:
-    """Emit ai.gftd.apps.etzhayyim.eros-gore-judging record to MST."""
+    """Emit app.etzhayyim.apps.etzhayyim.eros-gore-judging record to MST."""
     return state

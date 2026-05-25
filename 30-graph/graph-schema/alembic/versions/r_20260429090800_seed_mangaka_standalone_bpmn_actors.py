@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-generateImageStandalone-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-generateImageStandalone-v1',
                  'did:web:mangaka.etzhayyim.com',
                  'mangaka_generate_image_standalone',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -105,7 +105,7 @@ UP = [{'sql': '\n'
                  'did:web:mangaka.etzhayyim.com',
                  'did:web:mangaka.etzhayyim.com',
                  'sys.bpmn.seed.mangaka.standalone',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-generateImageStandalone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-generateImageStandalone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -119,16 +119,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-generateImageStandalone-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-generateImageStandalone-v1',
                  'did:web:mangaka.etzhayyim.com',
-                 'ai.gftd.apps.mangaka.generateImage',
+                 'app.etzhayyim.apps.mangaka.generateImage',
                  'mangaka_generate_image_standalone',
                  600000,
                  '2026-04-29T09:08:00Z',
                  'did:web:mangaka.etzhayyim.com',
                  'did:web:mangaka.etzhayyim.com',
                  'sys.bpmn.seed.mangaka.standalone',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-generateImageStandalone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-generateImageStandalone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -142,7 +142,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-realtimeDraw-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-realtimeDraw-v1',
                  'did:web:mangaka.etzhayyim.com',
                  'mangaka_realtime_draw',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -216,7 +216,7 @@ UP = [{'sql': '\n'
                  'did:web:mangaka.etzhayyim.com',
                  'did:web:mangaka.etzhayyim.com',
                  'sys.bpmn.seed.mangaka.standalone',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-realtimeDraw-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-realtimeDraw-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -230,16 +230,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-realtimeDraw-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-realtimeDraw-v1',
                  'did:web:mangaka.etzhayyim.com',
-                 'ai.gftd.apps.mangaka.realtimeDraw',
+                 'app.etzhayyim.apps.mangaka.realtimeDraw',
                  'mangaka_realtime_draw',
                  600000,
                  '2026-04-29T09:08:00Z',
                  'did:web:mangaka.etzhayyim.com',
                  'did:web:mangaka.etzhayyim.com',
                  'sys.bpmn.seed.mangaka.standalone',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-realtimeDraw-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-realtimeDraw-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -253,7 +253,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-storyboardStandalone-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-storyboardStandalone-v1',
                  'did:web:mangaka.etzhayyim.com',
                  'mangaka_storyboard_standalone',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -324,7 +324,7 @@ UP = [{'sql': '\n'
                  'did:web:mangaka.etzhayyim.com',
                  'did:web:mangaka.etzhayyim.com',
                  'sys.bpmn.seed.mangaka.standalone',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-storyboardStandalone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-storyboardStandalone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -338,16 +338,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-storyboardStandalone-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-storyboardStandalone-v1',
                  'did:web:mangaka.etzhayyim.com',
-                 'ai.gftd.apps.mangaka.storyboard',
+                 'app.etzhayyim.apps.mangaka.storyboard',
                  'mangaka_storyboard_standalone',
                  180000,
                  '2026-04-29T09:08:00Z',
                  'did:web:mangaka.etzhayyim.com',
                  'did:web:mangaka.etzhayyim.com',
                  'sys.bpmn.seed.mangaka.standalone',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-storyboardStandalone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-storyboardStandalone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -361,7 +361,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-autoLayoutStandalone-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-autoLayoutStandalone-v1',
                  'did:web:mangaka.etzhayyim.com',
                  'mangaka_auto_layout_standalone',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -437,7 +437,7 @@ UP = [{'sql': '\n'
                  'did:web:mangaka.etzhayyim.com',
                  'did:web:mangaka.etzhayyim.com',
                  'sys.bpmn.seed.mangaka.standalone',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-autoLayoutStandalone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-autoLayoutStandalone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -451,16 +451,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-autoLayoutStandalone-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-autoLayoutStandalone-v1',
                  'did:web:mangaka.etzhayyim.com',
-                 'ai.gftd.apps.mangaka.autoLayout',
+                 'app.etzhayyim.apps.mangaka.autoLayout',
                  'mangaka_auto_layout_standalone',
                  180000,
                  '2026-04-29T09:08:00Z',
                  'did:web:mangaka.etzhayyim.com',
                  'did:web:mangaka.etzhayyim.com',
                  'sys.bpmn.seed.mangaka.standalone',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-autoLayoutStandalone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-autoLayoutStandalone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -474,7 +474,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-projectChatStandalone-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-projectChatStandalone-v1',
                  'did:web:mangaka.etzhayyim.com',
                  'mangaka_project_chat_standalone',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -546,7 +546,7 @@ UP = [{'sql': '\n'
                  'did:web:mangaka.etzhayyim.com',
                  'did:web:mangaka.etzhayyim.com',
                  'sys.bpmn.seed.mangaka.standalone',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-projectChatStandalone-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-projectChatStandalone-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -560,37 +560,37 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-projectChatStandalone-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-projectChatStandalone-v1',
                  'did:web:mangaka.etzhayyim.com',
-                 'ai.gftd.apps.mangaka.projectChat',
+                 'app.etzhayyim.apps.mangaka.projectChat',
                  'mangaka_project_chat_standalone',
                  180000,
                  '2026-04-29T09:08:00Z',
                  'did:web:mangaka.etzhayyim.com',
                  'did:web:mangaka.etzhayyim.com',
                  'sys.bpmn.seed.mangaka.standalone',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-projectChatStandalone-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-projectChatStandalone-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-generateImageStandalone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-generateImageStandalone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-generateImageStandalone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-generateImageStandalone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-realtimeDraw-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-realtimeDraw-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-realtimeDraw-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-realtimeDraw-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-storyboardStandalone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-storyboardStandalone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-storyboardStandalone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-storyboardStandalone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-autoLayoutStandalone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-autoLayoutStandalone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-autoLayoutStandalone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-autoLayoutStandalone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/mangaka-projectChatStandalone-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mangaka-projectChatStandalone-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/mangaka-projectChatStandalone-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mangaka-projectChatStandalone-v1']}]
 
 
 def upgrade() -> None:

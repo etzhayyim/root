@@ -16,12 +16,12 @@
     "APP_CAPABILITIES": "null",
     "APP_DESCRIPTION": "Real-time graph DB + Supabase-style object storage. PG / SPARQL / S3-compat / XRPC / MCP — one bill, BWA-free egress.",
     "APP_DISPLAY_NAME": "Yatabase",
-    "APP_EMBED_URL": "https://yatabase.gftd.ai/embed",
+    "APP_EMBED_URL": "https://yatabase.etzhayyim.com/embed",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "y4t4b4se",
     "APP_PERFORMER_TYPE": "",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -33,12 +33,12 @@
   ],
   "routes": [
     {
-      "pattern": "y4t4b4se.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "y4t4b4se.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "yatabase.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "yatabase.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "triggers": {

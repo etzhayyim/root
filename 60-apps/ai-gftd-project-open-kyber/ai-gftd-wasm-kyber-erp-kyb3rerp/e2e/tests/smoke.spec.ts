@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 Gftd Japan株式会社 / etzhayyim. All rights reserved.
+// Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 import { test, expect, type Page } from '@playwright/test';
@@ -49,7 +49,7 @@ test.describe('kyber.etzhayyim.com — smoke', () => {
     await gotoShell(page);
     await selectApp(page, 'AppView');
     const responsePromise = page.waitForResponse(
-      (r) => r.url().includes('/xrpc/ai.gftd.apps.kyber.dashboard') && r.request().method() === 'POST',
+      (r) => r.url().includes('/xrpc/app.etzhayyim.apps.kyber.dashboard') && r.request().method() === 'POST',
       { timeout: 15_000 }
     );
     await page.getByRole('button', { name: 'Dashboard', exact: false }).first().click();
@@ -64,7 +64,7 @@ test.describe('kyber.etzhayyim.com — smoke', () => {
     await gotoShell(page);
     await selectApp(page, 'AppView');
     const responsePromise = page.waitForResponse(
-      (r) => r.url().includes('/xrpc/ai.gftd.apps.kyber.listInvoices'),
+      (r) => r.url().includes('/xrpc/app.etzhayyim.apps.kyber.listInvoices'),
       { timeout: 15_000 }
     );
     await page.getByRole('button', { name: 'Invoices', exact: false }).first().click();

@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@etzhayyim/sdk": "workspace:*",
-    "@gftd/graph-schema": "workspace:*",
-    "@gftd/magatama-host-sdk": "workspace:*",
+    "@etzhayyim/graph-schema": "workspace:*",
+    "@etzhayyim/magatama-host-sdk": "workspace:*",
     "hono": "^4.6.12"
   },
   "devDependencies": {

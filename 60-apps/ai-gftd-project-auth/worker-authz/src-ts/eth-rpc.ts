@@ -3,7 +3,7 @@
  *
  * Read-only paths (eth_call, eth_chainId, etc.) are public on the proxy.
  * Privileged paths (eth_sendRawTransaction, etc.) require an HMAC-SHA256
- * over the body in `X-Gftd-Rpc-Auth`. This module exposes both.
+ * over the body in `X-etzhayyim-Rpc-Auth`. This module exposes both.
  *
  * Worker-side keccak256 comes from `@noble/hashes/sha3.js` (already in the
  * workspace from the SIWE link work).

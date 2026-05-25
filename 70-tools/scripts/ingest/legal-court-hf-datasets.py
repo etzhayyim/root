@@ -175,7 +175,7 @@ def record_id_for_row(table: str, row: dict[str, Any], index: int) -> str:
 def vertex_id_for_record(slug: str, record_id: str) -> str:
     safe_slug = re.sub(r"[^a-zA-Z0-9._-]", "-", slug)[:160]
     safe_record = re.sub(r"[^a-zA-Z0-9._-]", "-", record_id)[:180]
-    return f"at://{SF_OWNER_DID}/ai.gftd.apps.legalCourtDataset.record/{safe_slug}--{safe_record}"
+    return f"at://{SF_OWNER_DID}/app.etzhayyim.apps.legalCourtDataset.record/{safe_slug}--{safe_record}"
 
 
 def connect_rw(dsn: str):
@@ -225,7 +225,7 @@ def ensure_catalog(
     sensitivity_ord: int,
 ) -> None:
     ts = now_iso()
-    vertex_id = f"at://{SF_OWNER_DID}/ai.gftd.apps.legalCourtDataset.dataset/{re.sub(r'[^a-zA-Z0-9]', '-', slug)}"
+    vertex_id = f"at://{SF_OWNER_DID}/app.etzhayyim.apps.legalCourtDataset.dataset/{re.sub(r'[^a-zA-Z0-9]', '-', slug)}"
     cur.execute(
         CATALOG_SQL,
         (

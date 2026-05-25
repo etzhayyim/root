@@ -35,12 +35,12 @@ superseded_by: []
 
 # Context
 
-`etzhayyim/root` currently has no electronic medical record (EMR / 電子カルテ) actor. The closest adjacencies — ADR-2605080800 (`iryo.gftd.ai:hospital`, vendor-side, DRG-oriented hospital ops), `medical-coverage-{ingester,mcp}` (PubMed / ClinicalTrials.gov ingest), `00-contracts/lexicons/ai/gftd/apps/fhirHealthData/` (terminology registration only) — all sit *adjacent to* the clinical encounter but none implement the **patient-centric chart**: SOAP, Rx, vitals, orders. ADR-2605181100 §1.3 names "uhl-right-neural patient referrals" as a primary driver for encrypted records, and §5.2 explicitly defers EMR consumer implementation.
+`etzhayyim/root` currently has no electronic medical record (EMR / 電子カルテ) actor. The closest adjacencies — ADR-2605080800 (`iryo.etzhayyim.com:hospital`, vendor-side, DRG-oriented hospital ops), `medical-coverage-{ingester,mcp}` (PubMed / ClinicalTrials.gov ingest), `00-contracts/lexicons/ai/gftd/apps/fhirHealthData/` (terminology registration only) — all sit *adjacent to* the clinical encounter but none implement the **patient-centric chart**: SOAP, Rx, vitals, orders. ADR-2605181100 §1.3 names "uhl-right-neural patient referrals" as a primary driver for encrypted records, and §5.2 explicitly defers EMR consumer implementation.
 
 Phase 1 fills that gap. Three forces shape the design:
 
 1. **PHI confidentiality is non-negotiable.** Clinical records are 要配慮個人情報 (個保法 §2-3); the etzhayyim charter's Wellbecoming + 反個人主義 ontology raises this to a constitutional invariant. Plaintext PHI on MST is prohibited.
-2. **The substrate is RW-free.** No RisingWave, no Postgres, no fiat processor. AT MST + IPFS + Base L2 + USDC/ERC-4337. Apps that need insurance billing call `iryo.gftd.ai` (vendor) via consent capability.
+2. **The substrate is RW-free.** No RisingWave, no Postgres, no fiat processor. AT MST + IPFS + Base L2 + USDC/ERC-4337. Apps that need insurance billing call `iryo.etzhayyim.com` (vendor) via consent capability.
 3. **FHIR R5 is the international portability anchor.** JP DPC, US MS-DRG, EU AR-DRG all flow through FHIR R5 + ICD-10 + LOINC + SNOMED. The lexicon must be a 1:1 FHIR R5 mirror so export is mechanical and ingestion from external EHRs lands without translation loss.
 
 # Decision
@@ -49,15 +49,15 @@ Phase 1 fills that gap. Three forces shape the design:
 
 - **DID**: `did:web:karute.etzhayyim.com`
 - **Nanoid**: `karu7t3e`
-- **Entrypoint**: `https://karu7t3e.etzhayyim.com/xrpc/ai.gftd.apps.karute.*`
-- **Topology**: standalone actor (NOT `did:web:iryo.gftd.ai:karute`). `iryo.gftd.ai` is vendor-side (DPC/DRG billing, hospital ops); the etzhayyim karute actor is its peer for patient-centric clinical content. The two can call each other via consent capability when insurance billing is needed.
+- **Entrypoint**: `https://karu7t3e.etzhayyim.com/xrpc/app.etzhayyim.apps.karute.*`
+- **Topology**: standalone actor (NOT `did:web:iryo.etzhayyim.com:karute`). `iryo.etzhayyim.com` is vendor-side (DPC/DRG billing, hospital ops); the etzhayyim karute actor is its peer for patient-centric clinical content. The two can call each other via consent capability when insurance billing is needed.
 
 ## Two-tier record split
 
 | Tier | Collection | Content | Visibility |
 |---|---|---|---|
 | **Encrypted (PHI)** | `app.etzhayyim.encrypted.record` envelope with `innerType = app.etzhayyim.karute.*` | Patient, Encounter, SOAP, Observation, Condition, MedicationRequest, ServiceRequest | Ciphertext on PDS; readable only by holders of Signal-wrapped key-wrap |
-| **Public meta** | `ai.gftd.apps.karute.*` collections + graph `KaruteX` nodes | rkey pointers, occurredAt, *Did refs, terminology codes (LOINC/ICD-10/RxNorm), interaction-severity-max | Plaintext for discovery / timeline / coverage stats |
+| **Public meta** | `app.etzhayyim.apps.karute.*` collections + graph `KaruteX` nodes | rkey pointers, occurredAt, *Did refs, terminology codes (LOINC/ICD-10/RxNorm), interaction-severity-max | Plaintext for discovery / timeline / coverage stats |
 
 Public meta MUST NOT contain: patient name, DOB, address, free-text symptom, lab values, drug strengths, diagnosis labels. It MAY contain: terminology codes (de-identified by design), DIDs (identifiers but not by themselves identifying), timestamps, status enums.
 
@@ -108,14 +108,14 @@ The pipelines invoke `agent.chat` for three specific tasks:
 
 1. App code MUST NOT import `@noble/ciphers` / `@signalapp/libsignal-client` directly; only `@etzhayyim/sdk` is allowed.
 2. App code MUST NOT write plaintext PHI to MST. Lefthook hook `karute-phi-plaintext-guard` (Phase 2 deliverable) greps the diff for `app.etzhayyim.karute.*` writes outside the encrypted envelope.
-3. App code MUST NOT call `iryo.gftd.ai` (vendor) directly for billing unless the patient has issued a consent capability via `app.etzhayyim.consent.capability` (separate ADR, deferred).
+3. App code MUST NOT call `iryo.etzhayyim.com` (vendor) directly for billing unless the patient has issued a consent capability via `app.etzhayyim.consent.capability` (separate ADR, deferred).
 4. Public-meta projections MUST NOT include any of: family/given name, DOB, address line, free-text symptom, lab numeric value, diagnosis display string. Allowed: code system + code (LOINC/ICD-10/RxNorm), DID, timestamp, status enum, interaction-severity-max.
 
 ## 3-axis split (ADR-2605172400) classification
 
 | Axis | Disposition | Rationale |
 |---|---|---|
-| **Liability** | etzhayyim | PHI custody liability rests with patient (DID-owned read-cap) + clinician (treatment relationship). No vendor commercial liability shield required for the core substrate. Insurance-billing liability is delegated to `iryo.gftd.ai` (vendor) only when invoked. |
+| **Liability** | etzhayyim | PHI custody liability rests with patient (DID-owned read-cap) + clinician (treatment relationship). No vendor commercial liability shield required for the core substrate. Insurance-billing liability is delegated to `iryo.etzhayyim.com` (vendor) only when invoked. |
 | **Custody** | etzhayyim | PDS + IPFS self-hosted; encrypted at rest; key custody = patient + clinician DIDs. No vendor data-controller role. |
 | **Settlement** | etzhayyim | Self-pay clinics use USDC + ERC-4337 (etzhayyim primitive). Insurance settlement is delegated through consent capability — not an etzhayyim concern. |
 
@@ -134,7 +134,7 @@ All three axes resolve to etzhayyim → `etzhayyim/root` is the correct home.
 
 - **No PHI search on the substrate.** Free-text search of clinical notes requires client-side decryption + local index, or a separate consent-bound search service. Phase 1 punts: list/filter is by code + timestamp only.
 - **Interaction check requires up-to-date public meta.** Allergies and active medication list must be queryable via public meta (or via patient-bundled disclosure to the prescribing clinician). Phase 1 surfaces RxNorm/YJ codes + allergy code list in public meta — these are codes, not PHI in the strict sense, but they leak the *fact* that the patient is on medication X.
-- **No insurance billing in Phase 1.** Self-pay clinics work day one; insurance-billing clinics need the consent-capability ADR + `iryo.gftd.ai` integration first.
+- **No insurance billing in Phase 1.** Self-pay clinics work day one; insurance-billing clinics need the consent-capability ADR + `iryo.etzhayyim.com` integration first.
 - **Key-wrap fan-out per record.** Every record carries N key-wrap records (one per recipient: patient, attending MD, attending NP, RN, etc.). Group-rekey on team change is manual (re-encrypt and re-wrap to remaining members). ADR-2605181100 §5.4 already names this as substrate-wide cost.
 - **No PCS for data at rest.** A leaked record key reveals all past records under that key. Mitigation: per-encounter rekey + tombstone on member removal (deferred operational protocol).
 - **AT Lexicon has no float.** Every numeric in clinical records (BP, temperature, drug strength, lab value) uses `{valueScaled, scale, unit}`. Round-trip with FHIR R5 requires explicit scale reconstruction in export.
@@ -149,7 +149,7 @@ All three axes resolve to etzhayyim → `etzhayyim/root` is the correct home.
 
 # Alternatives Considered
 
-## A. Extend `iryo.gftd.ai:karute` path-based topology
+## A. Extend `iryo.etzhayyim.com:karute` path-based topology
 
 The Phase 1 iryo ADR (2605080800) sketches `:hospital` / `:clinic` / `:zaitaku`, suggesting `:karute` would follow naturally. Rejected because iryo is vendor-side (RisingWave + Stripe + DRG billing): putting patient-centric chart there means PHI lives in a substrate that the etzhayyim charter prohibits for confidential records. The two actors can interoperate (consent capability), but they belong in different repos for the same 3-axis reason that splits them at all.
 
@@ -175,7 +175,7 @@ The `hc` (Human Computing) actor handles gig/microtask flows and could in princi
 - ADR-2605181100 [MST encrypted records + Signal key-wrap](./2605181100-mst-encrypted-records-signal-keywrap.md) — the confidentiality layer this ADR consumes
 - ADR-2605172100 [etzhayyim payments on-chain only](./2605172100-etzhayyim-payments-on-chain-only.md)
 - ADR-2605172400 [etzhayyim/vendor 3-axis split rule](./2605172400-etzhayyim-vendor-three-axis-split-rule.md)
-- ADR-2605080800 [iryo.gftd.ai hospital ops Phase 1](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605080800-iryo-hospital-ops-phase1.md) — vendor-side peer for billing
+- ADR-2605080800 [iryo.etzhayyim.com hospital ops Phase 1](https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605080800-iryo-hospital-ops-phase1.md) — vendor-side peer for billing
 - ADR-2605192100 [etzhayyim mission charter](./2605192100-etzhayyim-mission-charter.md) — Wellbecoming + 反個人主義 grounds for PHI confidentiality
 - HL7 FHIR R5 — https://hl7.org/fhir/R5/
 - LOINC — https://loinc.org/

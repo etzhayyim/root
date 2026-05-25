@@ -45,12 +45,12 @@ graph を「育てる」第一歩として、新規の K8s Deployment や CronJo
 
 ## Decision
 
-新 BPMN actor `ai.gftd.apps.graph.expandTick` を追加する。
+新 BPMN actor `app.etzhayyim.apps.graph.expandTick` を追加する。
 
 ### Topology
 
 ```
-Timer-start (R/PT30M)  or  XRPC POST /xrpc/ai.gftd.apps.graph.expandTick
+Timer-start (R/PT30M)  or  XRPC POST /xrpc/app.etzhayyim.apps.graph.expandTick
         │
         ▼
 [ Task_Pick ]   generic.db.select
@@ -80,7 +80,7 @@ Timer-start (R/PT30M)  or  XRPC POST /xrpc/ai.gftd.apps.graph.expandTick
    VALUES ($1..$15)
         │
         ▼
-[ Task_Audit ]  generic.audit.emit  (ai.gftd.apps.graph.expand.proposal)
+[ Task_Audit ]  generic.audit.emit  (app.etzhayyim.apps.graph.expand.proposal)
         │
         ▼
        End
@@ -111,7 +111,7 @@ ADR-2604282300 §「CF Worker = edge only / business logic = Zeebe Python worker
 
 ```sql
 CREATE TABLE vertex_graph_expand_proposal (
-  vertex_id          VARCHAR PRIMARY KEY,    -- at://did:web:graph.etzhayyim.com/ai.gftd.apps.graph.expandProposal/{rkey}
+  vertex_id          VARCHAR PRIMARY KEY,    -- at://did:web:graph.etzhayyim.com/app.etzhayyim.apps.graph.expandProposal/{rkey}
   _seq               BIGINT,
   created_date       DATE,
   sensitivity_ord    BIGINT,
@@ -179,9 +179,9 @@ Shinka が既に `langgraph.StateGraph` を使用している (`pymagatama/shink
 
 ```sql
 DELETE FROM vertex_bpmn_lexicon_binding
- WHERE vertex_id = 'at://did:web:bpmn.etzhayyim.com/ai.gftd.bpmn.lexiconBinding/graph-expandTick-v1';
+ WHERE vertex_id = 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.bpmn.lexiconBinding/graph-expandTick-v1';
 DELETE FROM vertex_bpmn_process_def
- WHERE vertex_id = 'at://did:web:bpmn.etzhayyim.com/ai.gftd.bpmn.processDef/graph-expandTick-v1';
+ WHERE vertex_id = 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.bpmn.processDef/graph-expandTick-v1';
 DROP TABLE IF EXISTS vertex_graph_expand_proposal;
 ```
 

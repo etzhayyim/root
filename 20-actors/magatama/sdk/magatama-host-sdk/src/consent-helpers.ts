@@ -129,7 +129,7 @@ export function createConsentHelper(
       // Persist as AT record for graph query
       await pds.dispatch({
         type: "com.atproto.repo.createRecord",
-        payload: { collection: "ai.gftd.consent.request", record: {
+        payload: { collection: "app.etzhayyim.consent.request", record: {
           requestId,
           agentDid: input.agentDid,
           action: input.action,
@@ -151,7 +151,7 @@ export function createConsentHelper(
       const ts = nowISO();
       await pds.dispatch({
         type: "com.atproto.repo.createRecord",
-        payload: { collection: "ai.gftd.consent.response", record: {
+        payload: { collection: "app.etzhayyim.consent.response", record: {
           requestId,
           verdict: "approved",
           org_id: "anon",
@@ -167,7 +167,7 @@ export function createConsentHelper(
       const ts = nowISO();
       await pds.dispatch({
         type: "com.atproto.repo.createRecord",
-        payload: { collection: "ai.gftd.consent.response", record: {
+        payload: { collection: "app.etzhayyim.consent.response", record: {
           requestId,
           verdict: "denied",
           reason: reason ?? "",

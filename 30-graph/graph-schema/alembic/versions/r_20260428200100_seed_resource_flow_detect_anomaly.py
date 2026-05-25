@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-detect-anomaly-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-detect-anomaly-v1',
                  'did:web:resource-flow.etzhayyim.com',
                  'resource_flow_detect_anomaly',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -38,9 +38,9 @@ UP = [{'sql': '\n'
                  '  resource-flow.detect.anomaly (pymagatama/primitives/resource_flow.py).\n'
                  '  CF Worker XRPC endpoint is a thin dispatcher stub only.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.resourceFlow.detectAnomaly\n'
+                 '  NSID: app.etzhayyim.apps.resourceFlow.detectAnomaly\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-detect-anomaly-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-detect-anomaly-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -53,7 +53,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="resource_flow_detect_anomaly" name="resource-flow '
                  'detectAnomaly" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.resourceFlow.detectAnomaly", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.resourceFlow.detectAnomaly", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -112,7 +112,7 @@ UP = [{'sql': '\n'
                  'did:web:resource-flow.etzhayyim.com',
                  'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow-anomaly',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-detect-anomaly-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-detect-anomaly-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -126,21 +126,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-detectAnomaly-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/resource-flow-detectAnomaly-v1',
                  'did:web:resource-flow.etzhayyim.com',
-                 'ai.gftd.apps.resourceFlow.detectAnomaly',
+                 'app.etzhayyim.apps.resourceFlow.detectAnomaly',
                  'resource_flow_detect_anomaly',
                  60000,
                  '2026-04-28T20:01:00Z',
                  'did:web:resource-flow.etzhayyim.com',
                  'did:web:resource-flow.etzhayyim.com',
                  'sys.bpmn.seed.resource-flow-anomaly',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-detectAnomaly-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/resource-flow-detectAnomaly-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/resource-flow-detectAnomaly-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/resource-flow-detectAnomaly-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/resource-flow-detect-anomaly-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-detect-anomaly-v1']}]
 
 
 def upgrade() -> None:

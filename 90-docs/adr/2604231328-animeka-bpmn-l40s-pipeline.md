@@ -89,18 +89,18 @@ One BPMN file per stage. Filenames: `etzhayyim-root/00-contracts/bpmn/ai/gftd/an
 
 | # | NSID | Primitive chain | HITL gate |
 |---|---|---|---|
-| 1 | `ai.gftd.animeka.generateScript` | llm.chat(deep) → llm.json → db.insert (script + N scene rows) → pds.dispatch (social) → audit.emit | — |
-| 2 | `ai.gftd.animeka.breakdownScene` | db.select → llm.json(mid) → db.insert × N cut rows → audit.emit | — |
-| 3 | `ai.gftd.animeka.generateStoryboard` | db.select → llm.chat(deep) → comfyui.call × 3 (Animagine 512²) → db.insert × 3 storyboard (status=draft) → audit.emit | **✓** pick 1 of 3 |
-| 4 | `ai.gftd.animeka.generateLayout` | db.select → llm.json → comfyui.call (ControlNet-depth 1024²) → db.insert layout → audit.emit | **✓** approve |
-| 5 | `ai.gftd.animeka.generateKeyframes` | db.select → llm.json (key-pose plan) → comfyui.call (ControlNet-pose + IPAdapter char-ref) × N → db.insert × N keyframe → audit.emit | **✓** approve |
-| 6 | `ai.gftd.animeka.generateInbetween` | llm.json (easing plan) → comfyui.call (Seedance 2 i2v default; WAN 5B / AnimateDiff / SVD via `videoBackend`) → db.insert × N inbetween → audit.emit | — |
-| 7 | `ai.gftd.animeka.designColorModel` | llm.chat(deep) → comfyui.call → db.insert colorModel → audit.emit | — (once per character) |
-| 8 | `ai.gftd.animeka.autoTrace` | comfyui.call (lineart-controlnet + palette-cond inpaint) → db.insert colorTrace → audit.emit | — |
-| 9 | `ai.gftd.animeka.generateBackground` | db.select → llm.chat → comfyui.call (FLUX or Animagine 1920×1080) → db.insert background → audit.emit | — |
-| 10 | `ai.gftd.animeka.renderComposite` | llm.json (FX stack) → comfyui.call (Seedance 2 default for camera moves; WAN 5B / AnimateDiff via `videoBackend`) → db.insert composite → audit.emit | — |
-| 11 | `ai.gftd.animeka.generateSoundCue` | fanout: speech (SBV2) / sfx (StableAudio) / bgm (MusicGen) via comfyui.call × N → db.insert × N soundCue → audit.emit | — |
-| 12 | `ai.gftd.animeka.publishEpisode` | db.select all cuts → comfyui.call (final ffmpeg stitch) → db.insert master → pds.dispatch (PV social post) → audit.emit | **✓** final review |
+| 1 | `app.etzhayyim.animeka.generateScript` | llm.chat(deep) → llm.json → db.insert (script + N scene rows) → pds.dispatch (social) → audit.emit | — |
+| 2 | `app.etzhayyim.animeka.breakdownScene` | db.select → llm.json(mid) → db.insert × N cut rows → audit.emit | — |
+| 3 | `app.etzhayyim.animeka.generateStoryboard` | db.select → llm.chat(deep) → comfyui.call × 3 (Animagine 512²) → db.insert × 3 storyboard (status=draft) → audit.emit | **✓** pick 1 of 3 |
+| 4 | `app.etzhayyim.animeka.generateLayout` | db.select → llm.json → comfyui.call (ControlNet-depth 1024²) → db.insert layout → audit.emit | **✓** approve |
+| 5 | `app.etzhayyim.animeka.generateKeyframes` | db.select → llm.json (key-pose plan) → comfyui.call (ControlNet-pose + IPAdapter char-ref) × N → db.insert × N keyframe → audit.emit | **✓** approve |
+| 6 | `app.etzhayyim.animeka.generateInbetween` | llm.json (easing plan) → comfyui.call (Seedance 2 i2v default; WAN 5B / AnimateDiff / SVD via `videoBackend`) → db.insert × N inbetween → audit.emit | — |
+| 7 | `app.etzhayyim.animeka.designColorModel` | llm.chat(deep) → comfyui.call → db.insert colorModel → audit.emit | — (once per character) |
+| 8 | `app.etzhayyim.animeka.autoTrace` | comfyui.call (lineart-controlnet + palette-cond inpaint) → db.insert colorTrace → audit.emit | — |
+| 9 | `app.etzhayyim.animeka.generateBackground` | db.select → llm.chat → comfyui.call (FLUX or Animagine 1920×1080) → db.insert background → audit.emit | — |
+| 10 | `app.etzhayyim.animeka.renderComposite` | llm.json (FX stack) → comfyui.call (Seedance 2 default for camera moves; WAN 5B / AnimateDiff via `videoBackend`) → db.insert composite → audit.emit | — |
+| 11 | `app.etzhayyim.animeka.generateSoundCue` | fanout: speech (SBV2) / sfx (StableAudio) / bgm (MusicGen) via comfyui.call × N → db.insert × N soundCue → audit.emit | — |
+| 12 | `app.etzhayyim.animeka.publishEpisode` | db.select all cuts → comfyui.call (final ffmpeg stitch) → db.insert master → pds.dispatch (PV social post) → audit.emit | **✓** final review |
 
 HITL is expressed as a human update to the upstream record's status (e.g. `storyboard.status=approved`). The next stage's derive rule (§4) watches for that commit.
 
@@ -263,7 +263,7 @@ Two subtle landmines were addressed in the same commit:
 **End-to-end verified 2026-04-24T06:39Z**:
 
 ```
-POST https://dispatcher.etzhayyim.com/xrpc/ai.gftd.animeka.generateScript
+POST https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.animeka.generateScript
 { episodeId, episodeTitle, synopsis, targetSceneCount: 8 }
 
 → ok=true, instanceKey=…, latencyMs=12969
@@ -278,7 +278,7 @@ POST https://dispatcher.etzhayyim.com/xrpc/ai.gftd.animeka.generateScript
 
 SELECT * FROM vertex_animeka
 WHERE vertex_id = 'at://did:web:animeka.etzhayyim.com/
-                    ai.gftd.animeka.script/ep-1776928323916-1-v1'
+                    app.etzhayyim.animeka.script/ep-1776928323916-1-v1'
 → 1 row, title "春、始発駅で待つ彼女", stage "script", desc_len 696
 ```
 
@@ -328,13 +328,13 @@ payload: {
 **BPMN publishEpisode live 2026-04-24T07:38Z**:
 
 ```
-POST dispatcher.etzhayyim.com/xrpc/ai.gftd.animeka.publishEpisode
+POST dispatcher.etzhayyim.com/xrpc/app.etzhayyim.animeka.publishEpisode
 → announceStatus = 200
   announceBody.uri = at://did:web:animeka.etzhayyim.com/
                     app.bsky.feed.post/3mk7zhexkls24
   body text = "🎬 #1 春、始発駅で待つ彼女 公開
                watch → https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/
-                       ai.gftd.animeka.episode/ep-1776928323916-1"
+                       app.etzhayyim.animeka.episode/ep-1776928323916-1"
 ```
 
 Worker-side `cmdPublishEpisode` (`sdk.pds.createRecord`) still works
@@ -344,7 +344,7 @@ is now dispatcher → BPMN → Zeebe → pds primitive → PDS.
 **Image-stage blob persistence (Stage 3 / generateStoryboard, 2026-04-24T07:19Z)**:
 
 ```
-POST dispatcher.etzhayyim.com/xrpc/ai.gftd.animeka.generateStoryboard
+POST dispatcher.etzhayyim.com/xrpc/app.etzhayyim.animeka.generateStoryboard
   in:  cutId, cutSummary, candidateNum, characters
   out: blobCid      = bafkreidbdd2a…ueguelqx6y (PDS content-addressed)
        blobMeta     = { mimeType: image/png, size: 254482 }
@@ -393,14 +393,14 @@ hooks.
 
 ## 7. Registration mechanics (renumbered from §7)
 
-Exactly 24 INSERTs land in one migration (`20260423160000_animeka_bpmn_registrations.ts`): 12 `vertex_bpmn_process_def` + 12 `vertex_bpmn_lexicon_binding` rows. The F5 watcher in `bpmn-dispatcher` ships the XML to Zeebe within 30 s of commit. After that, `POST https://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.animeka.<stage>` is live.
+Exactly 24 INSERTs land in one migration (`20260423160000_animeka_bpmn_registrations.ts`): 12 `vertex_bpmn_process_def` + 12 `vertex_bpmn_lexicon_binding` rows. The F5 watcher in `bpmn-dispatcher` ships the XML to Zeebe within 30 s of commit. After that, `POST https://dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.animeka.<stage>` is live.
 
 ## 8. /cuts UI alignment
 
 - Each of the 12 stage cards renders a **Generate** button that XRPC-POSTs the stage NSID for the current cut.
-- A 12-segment **progress strip** reads `vertex_repo_commit` where `collection='ai.gftd.bpmn.audit'` and actor matches the stage invocation; the strip shows `{queued / running / done / failed}` per stage.
+- A 12-segment **progress strip** reads `vertex_repo_commit` where `collection='app.etzhayyim.bpmn.audit'` and actor matches the stage invocation; the strip shows `{queued / running / done / failed}` per stage.
 - Preview thumbs read `blob_cid` from the corresponding `vertex_animeka_*` row and render `https://cdn.etzhayyim.com/b/{cid}`.
-- The current broken in-Worker chat UI is replaced with a thin XRPC call to `ai.gftd.animeka.chat`, which is itself a BPMN process wrapping `generic.llm.chat` (mid tier default, `?tier=deep` for director critique).
+- The current broken in-Worker chat UI is replaced with a thin XRPC call to `app.etzhayyim.animeka.chat`, which is itself a BPMN process wrapping `generic.llm.chat` (mid tier default, `?tier=deep` for director critique).
 
 ## 9. animeka Worker scope
 

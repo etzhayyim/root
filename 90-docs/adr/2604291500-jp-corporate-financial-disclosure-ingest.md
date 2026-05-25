@@ -367,11 +367,11 @@ Add lexicons under `00-contracts/lexicons/ai/gftd/apps/jpCorpFinance/`.
 
 | NSID | Type | Purpose |
 |---|---|---|
-| `ai.gftd.apps.jpCorpFinance.startDailyIngest` | procedure | start daily process |
-| `ai.gftd.apps.jpCorpFinance.backfillKanpo` | procedure | date range backfill |
-| `ai.gftd.apps.jpCorpFinance.repairCompany` | procedure | one JCN / EDINET code repair |
-| `ai.gftd.apps.jpCorpFinance.getCoverage` | query | coverage row by JCN |
-| `ai.gftd.apps.jpCorpFinance.listMissing` | query | missing/stale companies |
+| `app.etzhayyim.apps.jpCorpFinance.startDailyIngest` | procedure | start daily process |
+| `app.etzhayyim.apps.jpCorpFinance.backfillKanpo` | procedure | date range backfill |
+| `app.etzhayyim.apps.jpCorpFinance.repairCompany` | procedure | one JCN / EDINET code repair |
+| `app.etzhayyim.apps.jpCorpFinance.getCoverage` | query | coverage row by JCN |
+| `app.etzhayyim.apps.jpCorpFinance.listMissing` | query | missing/stale companies |
 
 All mutating procedures dispatch BPMN and return `{ runId, processInstanceKey }`.
 They do not fetch PDFs or call LLM inside CF Worker.

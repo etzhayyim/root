@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govJpn.evaluateCoverage": {
+    "/xrpc/app.etzhayyim.govJpn.evaluateCoverage": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govJpn.evaluateCoverage",
+        "operationId": "app.etzhayyim.govJpn.evaluateCoverage",
         "requestBody": {
           "required": true,
           "content": {
@@ -51,10 +51,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govJpn.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Japan government.",
-        "operationId": "ai.gftd.govJpn.followSiteDeps",
+        "operationId": "app.etzhayyim.govJpn.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -98,10 +98,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.getBpmnProcess": {
+    "/xrpc/app.etzhayyim.govJpn.getBpmnProcess": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govJpn.getBpmnProcess",
+        "operationId": "app.etzhayyim.govJpn.getBpmnProcess",
         "parameters": [],
         "responses": {
           "200": {
@@ -120,10 +120,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.getCoverage": {
+    "/xrpc/app.etzhayyim.govJpn.getCoverage": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govJpn.getCoverage",
+        "operationId": "app.etzhayyim.govJpn.getCoverage",
         "parameters": [],
         "responses": {
           "200": {
@@ -142,10 +142,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govJpn.heartbeatTick": {
       "post": {
         "summary": "Run the Japan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govJpn.heartbeatTick",
+        "operationId": "app.etzhayyim.govJpn.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -225,10 +225,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.listBpmnDefs": {
+    "/xrpc/app.etzhayyim.govJpn.listBpmnDefs": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govJpn.listBpmnDefs",
+        "operationId": "app.etzhayyim.govJpn.listBpmnDefs",
         "parameters": [],
         "responses": {
           "200": {
@@ -247,10 +247,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.listMunicipalities": {
+    "/xrpc/app.etzhayyim.govJpn.listMunicipalities": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govJpn.listMunicipalities",
+        "operationId": "app.etzhayyim.govJpn.listMunicipalities",
         "parameters": [],
         "responses": {
           "200": {
@@ -269,10 +269,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.listOrgs": {
+    "/xrpc/app.etzhayyim.govJpn.listOrgs": {
       "get": {
         "summary": "List Japan government organization graph records.",
-        "operationId": "ai.gftd.govJpn.listOrgs",
+        "operationId": "app.etzhayyim.govJpn.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -343,10 +343,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.registerBpmnDefs": {
+    "/xrpc/app.etzhayyim.govJpn.registerBpmnDefs": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govJpn.registerBpmnDefs",
+        "operationId": "app.etzhayyim.govJpn.registerBpmnDefs",
         "requestBody": {
           "required": true,
           "content": {
@@ -379,10 +379,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.registerDIDs": {
+    "/xrpc/app.etzhayyim.govJpn.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Japan government organizations.",
-        "operationId": "ai.gftd.govJpn.registerDIDs",
+        "operationId": "app.etzhayyim.govJpn.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -432,10 +432,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.registerGovernanceLinkage": {
+    "/xrpc/app.etzhayyim.govJpn.registerGovernanceLinkage": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govJpn.registerGovernanceLinkage",
+        "operationId": "app.etzhayyim.govJpn.registerGovernanceLinkage",
         "requestBody": {
           "required": true,
           "content": {
@@ -468,10 +468,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govJpn.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Japan government organization path to its graph record.",
-        "operationId": "ai.gftd.govJpn.resolveOrgPath",
+        "operationId": "app.etzhayyim.govJpn.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -524,10 +524,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.seedMunicipalities": {
+    "/xrpc/app.etzhayyim.govJpn.seedMunicipalities": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govJpn.seedMunicipalities",
+        "operationId": "app.etzhayyim.govJpn.seedMunicipalities",
         "requestBody": {
           "required": true,
           "content": {
@@ -560,10 +560,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.seedOrgs": {
+    "/xrpc/app.etzhayyim.govJpn.seedOrgs": {
       "post": {
         "summary": "Seed initial Japan government organization records into the graph.",
-        "operationId": "ai.gftd.govJpn.seedOrgs",
+        "operationId": "app.etzhayyim.govJpn.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -610,10 +610,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.shinka": {
+    "/xrpc/app.etzhayyim.govJpn.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Japan government organization update.",
-        "operationId": "ai.gftd.govJpn.shinka",
+        "operationId": "app.etzhayyim.govJpn.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -664,10 +664,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJpn.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govJpn.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Japan government organization changes to graph.",
-        "operationId": "ai.gftd.govJpn.syncWetUpdates",
+        "operationId": "app.etzhayyim.govJpn.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

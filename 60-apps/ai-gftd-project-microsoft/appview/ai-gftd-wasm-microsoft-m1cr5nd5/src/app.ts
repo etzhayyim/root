@@ -20,7 +20,7 @@ import {
 	parseLexiconInput,
 	requireApproval,
 	type LexiconOutput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 function parseList(s: string | undefined): string[] {
 	return (s ?? "")
@@ -57,9 +57,9 @@ function resolveFromUpn(input: { fromUpn?: string }, env: Record<string, unknown
 }
 
 // ── MCP tool registration ────────────────────────────────────────────────
-// Tools are registered once as `ai.gftd.tool.tool` records in `vertex_capability`
-// (via `ai.gftd.kagami.sql` INSERT). See `60-apps/ai-gftd-project-microsoft/CLAUDE.md`
-// §"MCP tool registration" for the one-shot seed command. The PDS `ai.gftd.tool.register*`
+// Tools are registered once as `app.etzhayyim.tool.tool` records in `vertex_capability`
+// (via `app.etzhayyim.kagami.sql` INSERT). See `60-apps/ai-gftd-project-microsoft/CLAUDE.md`
+// §"MCP tool registration" for the one-shot seed command. The PDS `app.etzhayyim.tool.register*`
 // XRPC handlers are currently unusable (RisingWave rejects the `ON CONFLICT` Kysely
 // emits); direct INSERT is the workaround.
 //
@@ -68,12 +68,12 @@ function resolveFromUpn(input: { fromUpn?: string }, env: Record<string, unknown
 
 export default createWorkerExport((sdk) => {
 	sdk.app.command(
-		nsid("ai.gftd.apps.microsoft.sendMail"),
+		nsid("app.etzhayyim.apps.microsoft.sendMail"),
 		async (_ctx, body) => {
 			const env = sdk.env;
-			const internalDomains = parseList(String(env.INTERNAL_EMAIL_DOMAINS ?? "gftd.co.jp,etzhayyim.com,gftd.works,gftd.group"));
+			const internalDomains = parseList(String(env.INTERNAL_EMAIL_DOMAINS ?? "etzhayyim.com,etzhayyim.com,gftd.works,etzhayyim.com"));
 			const internalSuffixes = parseList(String(env.INTERNAL_EMAIL_SUFFIXES ?? ".onmicrosoft.com"));
-			const input = parseLexiconInput("ai.gftd.apps.microsoft.sendMail", body);
+			const input = parseLexiconInput("app.etzhayyim.apps.microsoft.sendMail", body);
 			const fromUpn = resolveFromUpn(input, env);
 			const to = input.to ?? [];
 			const cc = input.cc ?? [];
@@ -96,7 +96,7 @@ export default createWorkerExport((sdk) => {
 					importance: input.importance,
 					replyTo: input.replyTo,
 				});
-				const output: LexiconOutput<"ai.gftd.apps.microsoft.sendMail"> = {
+				const output: LexiconOutput<"app.etzhayyim.apps.microsoft.sendMail"> = {
 					status: "sent",
 					fromUpn,
 					recipientCount: allRecipients.length,
@@ -128,7 +128,7 @@ export default createWorkerExport((sdk) => {
 				if (serviceKey) {
 					const kaisyaUrl = String(env.KAISYA_CREATE_TASK_URL ?? "https://kaisya.etzhayyim.com");
 					const externalList = allRecipients.slice(0, 3).join(", ") + (allRecipients.length > 3 ? ` 他${allRecipients.length - 3}名` : "");
-					await fetch(`${kaisyaUrl}/xrpc/ai.gftd.apps.kaisya.createTask`, {
+					await fetch(`${kaisyaUrl}/xrpc/app.etzhayyim.apps.kaisya.createTask`, {
 						method: "POST",
 						headers: { "content-type": "application/json", authorization: `Bearer ${serviceKey}` },
 						body: JSON.stringify({
@@ -142,7 +142,7 @@ export default createWorkerExport((sdk) => {
 				}
 			}
 
-			const output: LexiconOutput<"ai.gftd.apps.microsoft.sendMail"> = {
+			const output: LexiconOutput<"app.etzhayyim.apps.microsoft.sendMail"> = {
 				status: "drafted",
 				reason: "external recipient(s) detected — human approval required",
 				fromUpn,
@@ -153,15 +153,15 @@ export default createWorkerExport((sdk) => {
 			return JSON.stringify(output);
 		},
 		asAgentTool(
-			"Send email via Microsoft 365. All-internal recipients (@gftd.co.jp / @etzhayyim.com / @gftd.works / @gftd.group and Teams channel email addresses) send directly. Any external recipient creates a draft in Outlook and returns draftId + webLink for human approval (caller then invokes sendDraft).",
+			"Send email via Microsoft 365. All-internal recipients (@etzhayyim.com / @etzhayyim.com / @gftd.works / @etzhayyim.com and Teams channel email addresses) send directly. Any external recipient creates a draft in Outlook and returns draftId + webLink for human approval (caller then invokes sendDraft).",
 		),
 	);
 
 	sdk.app.command(
-		nsid("ai.gftd.apps.microsoft.sendDraft"),
+		nsid("app.etzhayyim.apps.microsoft.sendDraft"),
 		async (_ctx, body) => {
 			const env = sdk.env;
-			const input = parseLexiconInput("ai.gftd.apps.microsoft.sendDraft", body);
+			const input = parseLexiconInput("app.etzhayyim.apps.microsoft.sendDraft", body);
 			const fromUpn = resolveFromUpn(input, env);
 			if (!input.draftId) throw new Error("draftId required");
 			const { access_token } = await hostClient.m365AcquireAppToken({});
@@ -170,7 +170,7 @@ export default createWorkerExport((sdk) => {
 				fromUpn,
 				draftId: input.draftId,
 			});
-			const output: LexiconOutput<"ai.gftd.apps.microsoft.sendDraft"> = {
+			const output: LexiconOutput<"app.etzhayyim.apps.microsoft.sendDraft"> = {
 				status: "sent",
 				fromUpn,
 				draftId: input.draftId,
@@ -178,7 +178,7 @@ export default createWorkerExport((sdk) => {
 			return JSON.stringify(output);
 		},
 		asAgentTool(
-			"Send a previously created draft by id (post human approval). Use after ai.gftd.apps.microsoft.sendMail returns status=drafted, once a human has reviewed the draft at webLink.",
+			"Send a previously created draft by id (post human approval). Use after app.etzhayyim.apps.microsoft.sendMail returns status=drafted, once a human has reviewed the draft at webLink.",
 		),
 		// Governance gate: external-recipient mail requires human approval.
 		// deps.toml [etzhayyim_agent.auth].email_send_external = "draft_only" → sendDraft
@@ -187,7 +187,7 @@ export default createWorkerExport((sdk) => {
 		requireApproval(DecisionClass.C, 1, "low"),
 	);
 
-	sdk.app.query(nsid("ai.gftd.apps.microsoft.listInbox"), async (_ctx, body) => {
+	sdk.app.query(nsid("app.etzhayyim.apps.microsoft.listInbox"), async (_ctx, body) => {
 		const env = sdk.env;
 		const decoded: Record<string, unknown> = (() => {
 			try {
@@ -200,7 +200,7 @@ export default createWorkerExport((sdk) => {
 			if (Number.isFinite(n)) decoded.top = Math.round(n);
 		}
 		const coerced = new TextEncoder().encode(JSON.stringify(decoded));
-		const input = parseLexiconInput("ai.gftd.apps.microsoft.listInbox", coerced);
+		const input = parseLexiconInput("app.etzhayyim.apps.microsoft.listInbox", coerced);
 		const fromUpn = resolveFromUpn(input, env);
 		const { access_token } = await hostClient.m365AcquireAppToken({});
 		const { messages, nextLink } = await hostClient.m365FetchMessagesPage({
@@ -233,7 +233,7 @@ export default createWorkerExport((sdk) => {
 			importance:     m.importance ?? "normal",
 			hasAttachments: m.hasAttachments ?? false,
 		}));
-		const output: LexiconOutput<"ai.gftd.apps.microsoft.listInbox"> = {
+		const output: LexiconOutput<"app.etzhayyim.apps.microsoft.listInbox"> = {
 			fromUpn,
 			messages: normalized,
 			nextLink: nextLink ?? "",
@@ -241,8 +241,8 @@ export default createWorkerExport((sdk) => {
 		return JSON.stringify(output);
 	});
 
-	sdk.app.command(nsid("ai.gftd.apps.microsoft.batchMoveMessages"), async (_ctx, body) => {
-		const input = parseLexiconInput("ai.gftd.apps.microsoft.batchMoveMessages", body);
+	sdk.app.command(nsid("app.etzhayyim.apps.microsoft.batchMoveMessages"), async (_ctx, body) => {
+		const input = parseLexiconInput("app.etzhayyim.apps.microsoft.batchMoveMessages", body);
 		const { access_token } = await hostClient.m365AcquireAppToken({});
 		const { results, succeeded, failed } = await hostClient.m365BatchMoveMessages({
 			token: access_token,
@@ -250,15 +250,15 @@ export default createWorkerExport((sdk) => {
 			messageIds: input.messageIds as string[],
 			targetFolder: input.targetFolder,
 		});
-		const output: LexiconOutput<"ai.gftd.apps.microsoft.batchMoveMessages"> = {
-			results: results as LexiconOutput<"ai.gftd.apps.microsoft.batchMoveMessages">["results"],
+		const output: LexiconOutput<"app.etzhayyim.apps.microsoft.batchMoveMessages"> = {
+			results: results as LexiconOutput<"app.etzhayyim.apps.microsoft.batchMoveMessages">["results"],
 			succeeded,
 			failed,
 		};
 		return JSON.stringify(output);
 	});
 
-	sdk.app.query(nsid("ai.gftd.apps.microsoft.listDrafts"), async (_ctx, body) => {
+	sdk.app.query(nsid("app.etzhayyim.apps.microsoft.listDrafts"), async (_ctx, body) => {
 		const env = sdk.env;
 		// XRPC query params arrive as JSON bytes with string values (e.g. {"top":"3"}).
 		// Decode, coerce numeric fields, then re-encode before Lexicon validation.
@@ -275,7 +275,7 @@ export default createWorkerExport((sdk) => {
 			if (Number.isFinite(n)) decoded.top = Math.round(n);
 		}
 		const coerced = new TextEncoder().encode(JSON.stringify(decoded));
-		const input = parseLexiconInput("ai.gftd.apps.microsoft.listDrafts", coerced);
+		const input = parseLexiconInput("app.etzhayyim.apps.microsoft.listDrafts", coerced);
 		const fromUpn = resolveFromUpn(input, env);
 		const { access_token } = await hostClient.m365AcquireAppToken({});
 		const { drafts } = await hostClient.m365ListDrafts({
@@ -283,7 +283,7 @@ export default createWorkerExport((sdk) => {
 			fromUpn,
 			top: input.top,
 		});
-		const output: LexiconOutput<"ai.gftd.apps.microsoft.listDrafts"> = {
+		const output: LexiconOutput<"app.etzhayyim.apps.microsoft.listDrafts"> = {
 			fromUpn,
 			drafts,
 		};

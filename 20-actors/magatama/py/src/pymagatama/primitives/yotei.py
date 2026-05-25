@@ -74,7 +74,7 @@ def _row_text(row: dict[str, Any], key: str) -> str:
 
 
 def _base(kind: str, id_value: str, status: str = "active") -> dict[str, Any]:
-    collection = f"ai.gftd.apps.yotei.{kind}"
+    collection = f"app.etzhayyim.apps.yotei.{kind}"
     return {
         "vertex_id": f"at://{YOTEI_DID}/{collection}/{id_value}",
         "created_date": _today(),
@@ -386,29 +386,29 @@ def task_yotei_describe(**_: Any) -> dict[str, Any]:
 
 def register(worker: Any, *, timeout_ms: int = 60_000) -> None:
     tasks = {
-        "xrpc.ai.gftd.apps.yotei.analyzeSchedule": task_yotei_analyze_schedule,
-        "xrpc.ai.gftd.apps.yotei.autoReschedule": task_yotei_auto_reschedule,
-        "xrpc.ai.gftd.apps.yotei.cancelBooking": task_yotei_cancel_booking,
-        "xrpc.ai.gftd.apps.yotei.cancelEvent": task_yotei_cancel_event,
-        "xrpc.ai.gftd.apps.yotei.confirmBooking": task_yotei_confirm_booking,
-        "xrpc.ai.gftd.apps.yotei.createCalendar": task_yotei_create_calendar,
-        "xrpc.ai.gftd.apps.yotei.createEvent": task_yotei_create_event,
-        "xrpc.ai.gftd.apps.yotei.deleteCalendar": task_yotei_delete_calendar,
-        "xrpc.ai.gftd.apps.yotei.describe": task_yotei_describe,
-        "xrpc.ai.gftd.apps.yotei.getAvailability": task_yotei_get_availability,
-        "xrpc.ai.gftd.apps.yotei.getBooking": task_yotei_get_booking,
-        "xrpc.ai.gftd.apps.yotei.getCalendar": task_yotei_get_calendar,
-        "xrpc.ai.gftd.apps.yotei.getEvent": task_yotei_get_event,
-        "xrpc.ai.gftd.apps.yotei.getOpenSlots": task_yotei_get_open_slots,
-        "xrpc.ai.gftd.apps.yotei.health": task_yotei_health,
-        "xrpc.ai.gftd.apps.yotei.listBookings": task_yotei_list_bookings,
-        "xrpc.ai.gftd.apps.yotei.listCalendars": task_yotei_list_calendars,
-        "xrpc.ai.gftd.apps.yotei.listEvents": task_yotei_list_events,
-        "xrpc.ai.gftd.apps.yotei.proposeBooking": task_yotei_propose_booking,
-        "xrpc.ai.gftd.apps.yotei.removeAvailability": task_yotei_remove_availability,
-        "xrpc.ai.gftd.apps.yotei.setAvailability": task_yotei_set_availability,
-        "xrpc.ai.gftd.apps.yotei.suggestSlots": task_yotei_suggest_slots,
-        "xrpc.ai.gftd.apps.yotei.updateEvent": task_yotei_update_event,
+        "xrpc.app.etzhayyim.apps.yotei.analyzeSchedule": task_yotei_analyze_schedule,
+        "xrpc.app.etzhayyim.apps.yotei.autoReschedule": task_yotei_auto_reschedule,
+        "xrpc.app.etzhayyim.apps.yotei.cancelBooking": task_yotei_cancel_booking,
+        "xrpc.app.etzhayyim.apps.yotei.cancelEvent": task_yotei_cancel_event,
+        "xrpc.app.etzhayyim.apps.yotei.confirmBooking": task_yotei_confirm_booking,
+        "xrpc.app.etzhayyim.apps.yotei.createCalendar": task_yotei_create_calendar,
+        "xrpc.app.etzhayyim.apps.yotei.createEvent": task_yotei_create_event,
+        "xrpc.app.etzhayyim.apps.yotei.deleteCalendar": task_yotei_delete_calendar,
+        "xrpc.app.etzhayyim.apps.yotei.describe": task_yotei_describe,
+        "xrpc.app.etzhayyim.apps.yotei.getAvailability": task_yotei_get_availability,
+        "xrpc.app.etzhayyim.apps.yotei.getBooking": task_yotei_get_booking,
+        "xrpc.app.etzhayyim.apps.yotei.getCalendar": task_yotei_get_calendar,
+        "xrpc.app.etzhayyim.apps.yotei.getEvent": task_yotei_get_event,
+        "xrpc.app.etzhayyim.apps.yotei.getOpenSlots": task_yotei_get_open_slots,
+        "xrpc.app.etzhayyim.apps.yotei.health": task_yotei_health,
+        "xrpc.app.etzhayyim.apps.yotei.listBookings": task_yotei_list_bookings,
+        "xrpc.app.etzhayyim.apps.yotei.listCalendars": task_yotei_list_calendars,
+        "xrpc.app.etzhayyim.apps.yotei.listEvents": task_yotei_list_events,
+        "xrpc.app.etzhayyim.apps.yotei.proposeBooking": task_yotei_propose_booking,
+        "xrpc.app.etzhayyim.apps.yotei.removeAvailability": task_yotei_remove_availability,
+        "xrpc.app.etzhayyim.apps.yotei.setAvailability": task_yotei_set_availability,
+        "xrpc.app.etzhayyim.apps.yotei.suggestSlots": task_yotei_suggest_slots,
+        "xrpc.app.etzhayyim.apps.yotei.updateEvent": task_yotei_update_event,
     }
     for task_type, handler in tasks.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(handler)

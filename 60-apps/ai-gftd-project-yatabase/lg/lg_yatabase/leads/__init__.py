@@ -5,16 +5,16 @@ createKyselyDb for. Per ADR-2605111200 the pod is the only writer.
 
 Surface (mirrors src/leads.ts function set):
 
-  POST /xrpc/ai.gftd.apps.yata.leadIngest            handleLeadIngest
-  GET  /xrpc/ai.gftd.apps.yata.leadList              listLeads
-  GET  /xrpc/ai.gftd.apps.yata.leadGet               getLeadByVertexId
-  POST /xrpc/ai.gftd.apps.yata.leadSetOutreachStatus setLeadOutreachStatus
-  POST /xrpc/ai.gftd.apps.yata.leadSetContactEmail   setLeadContactEmail
-  POST /xrpc/ai.gftd.apps.yata.leadSetEnrichment     setLeadEnrichment
-  POST /xrpc/ai.gftd.apps.yata.leadMarkDrafted       markLeadDrafted
-  GET  /xrpc/ai.gftd.apps.yata.leadReady             leadsReadyForOutreach
-  GET  /xrpc/ai.gftd.apps.yata.leadSendable          leadsSendable
-  GET  /xrpc/ai.gftd.apps.yata.leadNeedsEnrichment   leadsNeedingEnrichment
+  POST /xrpc/app.etzhayyim.apps.yata.leadIngest            handleLeadIngest
+  GET  /xrpc/app.etzhayyim.apps.yata.leadList              listLeads
+  GET  /xrpc/app.etzhayyim.apps.yata.leadGet               getLeadByVertexId
+  POST /xrpc/app.etzhayyim.apps.yata.leadSetOutreachStatus setLeadOutreachStatus
+  POST /xrpc/app.etzhayyim.apps.yata.leadSetContactEmail   setLeadContactEmail
+  POST /xrpc/app.etzhayyim.apps.yata.leadSetEnrichment     setLeadEnrichment
+  POST /xrpc/app.etzhayyim.apps.yata.leadMarkDrafted       markLeadDrafted
+  GET  /xrpc/app.etzhayyim.apps.yata.leadReady             leadsReadyForOutreach
+  GET  /xrpc/app.etzhayyim.apps.yata.leadSendable          leadsSendable
+  GET  /xrpc/app.etzhayyim.apps.yata.leadNeedsEnrichment   leadsNeedingEnrichment
 
 Unlike vertex_bmc_* / vertex_api_key, vertex_lead IS update-able in
 place (operator triages a single row across many days; PK upsert is

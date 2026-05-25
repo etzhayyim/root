@@ -4,7 +4,7 @@
 // retention window is sourced from a specific table + statute. Each
 // "right" maps to a real endpoint already shipped on yatabase.
 //
-// Operator is `etz hayim`; Gftd Japan株式会社 (T9007028460042) is the
+// Operator is `etz hayim`; etzhayyim Japan株式会社 (T9007028460042) is the
 // Japan-side vendor of record for 適格請求書 invoicing only.
 
 const EFFECTIVE_DATE = "2026-05-11";
@@ -64,7 +64,7 @@ export function privacyResponse(): Response {
 <h2>1. Who we are</h2>
 <p>
   <strong>yatabase.etzhayyim.com</strong> ("Yatabase", "the service") is operated by <strong>etz hayim</strong>
-  (運営法人), a religious organization / blockchain-registered entity. <strong>Gftd Japan株式会社</strong>
+  (運営法人), a religious organization / blockchain-registered entity. <strong>etzhayyim Japan株式会社</strong>
   (Japan corporate ID T9007028460042 — 適格請求書登録番号) is the Japan-side vendor of record for tax-invoice
   issuance only. This policy applies to the entire <code>yatabase.etzhayyim.com</code> domain and every
   endpoint listed in <a href="/_app/meta">/_app/meta</a>.

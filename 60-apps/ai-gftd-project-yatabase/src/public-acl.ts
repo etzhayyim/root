@@ -53,7 +53,7 @@ const PUBLIC_REDIRECT_TTL = 60; // seconds
 async function bucketIsPublic(env: HyperdriveReadEnv, bucket: string): Promise<{ public: boolean; orgDid: string } | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     const db = sdk.createKyselyDb(env.HYPERDRIVE as never) as unknown as AnyKyselyDb;
     const row = await db
       .selectFrom("vertex_yata_bucket")
@@ -191,7 +191,7 @@ export async function handlePublicAcl(
   };
   const result = await dispatchYataXrpc<{ url?: string; expiresAt?: string }>(
     env,
-    "ai.gftd.apps.yata.presignUrl",
+    "app.etzhayyim.apps.yata.presignUrl",
     {
       bucketName: bucket,
       objectKey: key,

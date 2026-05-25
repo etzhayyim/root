@@ -40,7 +40,7 @@
 |---|---|
 | **定義** | `actor-manifest.jsonld` |
 | **実行** | PDS Shared Executor (`executePipeline()`) |
-| **Deploy** | `gftd mitama` → `POST /xrpc/ai.gftd.actor.registerManifest` → graph MERGE |
+| **Deploy** | `gftd mitama` → `POST /xrpc/app.etzhayyim.actor.registerManifest` → graph MERGE |
 | **Worker** | 不要 |
 | **Build** | 不要 |
 | **wrangler** | 不要 |
@@ -149,13 +149,13 @@ Worker deploy が必要だが、数は ~20 に限定。
   "primitiveBackend": ["agent.chat"],
   "skills": [
     {
-      "nsid": "ai.gftd.apps.llm.infer",
+      "nsid": "app.etzhayyim.apps.llm.infer",
       "description": "LLM inference via CF Workers AI",
       "inputSchema": { "message": "string", "model": "string?" },
       "outputSchema": { "text": "string", "model": "string" }
     },
     {
-      "nsid": "ai.gftd.apps.llm.inferStream",
+      "nsid": "app.etzhayyim.apps.llm.inferStream",
       "description": "Streaming LLM inference (SSE)",
       "inputSchema": { "message": "string", "model": "string?" },
       "outputSchema": { "stream": "SSE" }

@@ -1,7 +1,7 @@
 """Substrate abstraction for maps bulk-ingest workers.
 
 Per Charter Rider §1 + ADR-2605172000 (RW-free state substrate), all
-``ai.gftd.apps.maps.*`` writes must land on AT Protocol MST + IPFS +
+``app.etzhayyim.apps.maps.*`` writes must land on AT Protocol MST + IPFS +
 Base L2 anchor (the etzhayyim primary substrate). The pre-migration
 workers in this directory write directly to RisingWave via psycopg —
 a centralized PostgreSQL surface explicitly prohibited by the
@@ -12,7 +12,7 @@ each worker uses instead of ``psycopg2.connect()`` directly. The
 returned writer dispatches based on ``ETZHAYYIM_SUBSTRATE_MODE``:
 
 * ``mst`` (post-migration default once Council ratifies) — writes hit
-  the PDS at ``ai.gftd.apps.maps.{label}.create`` XRPC; the PDS commit
+  the PDS at ``app.etzhayyim.apps.maps.{label}.create`` XRPC; the PDS commit
   pipeline projects to MST + pins to IPFS + anchors to Base L2.
 * ``rw`` (transitional, current default while the bulk feeds are
   still RW-resident) — writes go to ``vertex_spatial`` via psycopg
@@ -107,9 +107,9 @@ class _MstSubstrateWriter(SubstrateWriter):
     """Writes land via PDS XRPC; PDS commits to MST and pins to IPFS.
 
     NSID mapping: ``vertex_spatial`` rows are projected onto the
-    ``ai.gftd.apps.maps.{label}.create`` lexicon (one record per row).
+    ``app.etzhayyim.apps.maps.{label}.create`` lexicon (one record per row).
     The label is read from ``row['label']`` and lower-cased; e.g.
-    ``Airport`` → ``ai.gftd.apps.maps.airport.create``.
+    ``Airport`` → ``app.etzhayyim.apps.maps.airport.create``.
     """
 
     def __init__(self) -> None:
@@ -175,7 +175,7 @@ class _MstSubstrateWriter(SubstrateWriter):
             if not label:
                 log.warning("etzhayyim.substrate: skip row without label vertex_id=%s", row.get("vertex_id"))
                 continue
-            collection = f"ai.gftd.apps.maps.{label}"
+            collection = f"app.etzhayyim.apps.maps.{label}"
             self._post_record(collection, row)
             n += 1
         return n
@@ -188,9 +188,9 @@ class _MstSubstrateWriter(SubstrateWriter):
         conflict_key: str | None = None,
     ) -> int:
         # Auxiliary tables (e.g. vertex_maps_trip, vertex_maps_stop_time)
-        # land on the `ai.gftd.apps.maps.aux.{table}` lexicon namespace
+        # land on the `app.etzhayyim.apps.maps.aux.{table}` lexicon namespace
         # until per-table lexicons are registered (P3 follow-up).
-        collection = f"ai.gftd.apps.maps.aux.{table}"
+        collection = f"app.etzhayyim.apps.maps.aux.{table}"
         for row in rows:
             self._post_record(collection, row)
         return len(rows)

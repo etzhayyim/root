@@ -4,18 +4,18 @@ CF Worker that exposes the 12 rw-free commands as XRPC endpoints.
 
 ## Endpoints
 
-- `POST /xrpc/ai.gftd.manga.createTitle` — register manga title
-- `GET /xrpc/ai.gftd.manga.getTitle?titleId=...` — title + chapters
-- `GET /xrpc/ai.gftd.manga.listTitles?limit=...&offset=...` — paginated titles
-- `GET /xrpc/ai.gftd.manga.searchTitles?q=...` — keyword search
-- `POST /xrpc/ai.gftd.manga.addTag` — add tag to title
-- `POST /xrpc/ai.gftd.manga.createChapter` — create chapter
-- `GET /xrpc/ai.gftd.manga.getChapter?chapterNum=...` — chapter + pages
-- `GET /xrpc/ai.gftd.manga.listChapters?titleId=...` — chapters for title
-- `POST /xrpc/ai.gftd.manga.publishChapter` — publish chapter
-- `POST /xrpc/ai.gftd.manga.updateChapterStatus` — chapter workflow
-- `POST /xrpc/ai.gftd.manga.submitFromNarou` — ingest from Narou
-- `POST /xrpc/ai.gftd.manga.recordReadingProgress` — reading history
+- `POST /xrpc/app.etzhayyim.manga.createTitle` — register manga title
+- `GET /xrpc/app.etzhayyim.manga.getTitle?titleId=...` — title + chapters
+- `GET /xrpc/app.etzhayyim.manga.listTitles?limit=...&offset=...` — paginated titles
+- `GET /xrpc/app.etzhayyim.manga.searchTitles?q=...` — keyword search
+- `POST /xrpc/app.etzhayyim.manga.addTag` — add tag to title
+- `POST /xrpc/app.etzhayyim.manga.createChapter` — create chapter
+- `GET /xrpc/app.etzhayyim.manga.getChapter?chapterNum=...` — chapter + pages
+- `GET /xrpc/app.etzhayyim.manga.listChapters?titleId=...` — chapters for title
+- `POST /xrpc/app.etzhayyim.manga.publishChapter` — publish chapter
+- `POST /xrpc/app.etzhayyim.manga.updateChapterStatus` — chapter workflow
+- `POST /xrpc/app.etzhayyim.manga.submitFromNarou` — ingest from Narou
+- `POST /xrpc/app.etzhayyim.manga.recordReadingProgress` — reading history
 
 ## Setup
 

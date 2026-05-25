@@ -56,7 +56,7 @@ function lineNumberAt(text, index) {
   return line;
 }
 
-function isForbiddenGftdHost(host) {
+function isForbiddenetzhayyimHost(host) {
   const lower = host.toLowerCase();
   if (!lower.endsWith(".etzhayyim.com")) return false;
   const labels = lower.slice(0, -".etzhayyim.com".length).split(".").filter(Boolean);
@@ -75,7 +75,7 @@ for (const file of listFiles()) {
   let match;
   while ((match = HOST_RE.exec(text)) !== null) {
     const host = match[1];
-    if (!host || !isForbiddenGftdHost(host)) continue;
+    if (!host || !isForbiddenetzhayyimHost(host)) continue;
     const line = lineNumberAt(text, match.index);
     violations.push({
       file,
@@ -100,7 +100,7 @@ if (unique.length > 0) {
   const hosts = [...new Map(unique.map((v) => [v.host, v.suggestion])).entries()]
     .sort(([a], [b]) => a.localeCompare(b));
   console.error("lint:no-two-stage-gftd-domains failed");
-  console.error("GFTD public domains must use exactly one label before etzhayyim.com.");
+  console.error("etzhayyim public domains must use exactly one label before etzhayyim.com.");
   console.error("Use hyphenated single-label hosts, e.g. ind-state.etzhayyim.com, not ind.state.etzhayyim.com.\n");
   console.error(`Forbidden hosts (${hosts.length}):`);
   for (const [host, suggestion] of hosts.slice(0, 120)) {

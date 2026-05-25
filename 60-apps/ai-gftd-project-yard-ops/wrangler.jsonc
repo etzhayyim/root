@@ -14,16 +14,16 @@
     "APP_NANOID": "y4rd0p5x",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "yoro",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "y4rd0p5x.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "y4rd0p5x.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "yard-ops.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "yard-ops.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

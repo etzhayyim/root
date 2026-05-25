@@ -61,21 +61,21 @@ _OPENROUTER_LLM_MODEL = os.environ.get(
     "OPENROUTER_LLM_MODEL", "deepseek/deepseek-chat",
 )
 
-# Default resident LLM routing is now OpenRouter. `GFTD_LLM_URL` remains the generic
+# Default resident LLM routing is now OpenRouter. `etzhayyim_LLM_URL` remains the generic
 # env name consumed by existing graph code, but when it is unset we fall back
 # to `OPENROUTER_LLM_URL` instead of the historical runpod/murakumo gateway.
-_GFTD_LLM_URL = os.environ.get("GFTD_LLM_URL", "").strip() or _OPENROUTER_LLM_URL
-_GFTD_LLM_MODEL = os.environ.get("GFTD_LLM_MODEL", "").strip() or _OPENROUTER_LLM_MODEL or None
-_GFTD_KEY_ENV = "OPENROUTER_API_KEY"
+_etzhayyim_LLM_URL = os.environ.get("etzhayyim_LLM_URL", "").strip() or _OPENROUTER_LLM_URL
+_etzhayyim_LLM_MODEL = os.environ.get("etzhayyim_LLM_MODEL", "").strip() or _OPENROUTER_LLM_MODEL or None
+_etzhayyim_KEY_ENV = "OPENROUTER_API_KEY"
 
 TIER_ENDPOINT_OVERRIDES: dict[str, tuple[str, str | None, str | None]] = {
-    "deep":           (_GFTD_LLM_URL, _GFTD_KEY_ENV, _GFTD_LLM_MODEL),
-    "mid":            (_GFTD_LLM_URL, _GFTD_KEY_ENV, _GFTD_LLM_MODEL),
-    "classifier":     (_GFTD_LLM_URL, _GFTD_KEY_ENV, _GFTD_LLM_MODEL),
-    "structured":     (_GFTD_LLM_URL, _GFTD_KEY_ENV, _GFTD_LLM_MODEL),
-    "fast":           (_GFTD_LLM_URL, _GFTD_KEY_ENV, _GFTD_LLM_MODEL),
+    "deep":           (_etzhayyim_LLM_URL, _etzhayyim_KEY_ENV, _etzhayyim_LLM_MODEL),
+    "mid":            (_etzhayyim_LLM_URL, _etzhayyim_KEY_ENV, _etzhayyim_LLM_MODEL),
+    "classifier":     (_etzhayyim_LLM_URL, _etzhayyim_KEY_ENV, _etzhayyim_LLM_MODEL),
+    "structured":     (_etzhayyim_LLM_URL, _etzhayyim_KEY_ENV, _etzhayyim_LLM_MODEL),
+    "fast":           (_etzhayyim_LLM_URL, _etzhayyim_KEY_ENV, _etzhayyim_LLM_MODEL),
     # SES extraction: always llm.etzhayyim.com; model resolved from TIER_MODELS["ses-extraction"].
-    "ses-extraction": (_GFTD_LLM_URL, _GFTD_KEY_ENV, None),
+    "ses-extraction": (_etzhayyim_LLM_URL, _etzhayyim_KEY_ENV, None),
 }
 # Empirical (2026-04-22): Vultr Serverless occasionally hangs for 30s+ then
 # recovers within 5s on retry. Per-attempt timeout 20s + 1 retry keeps the

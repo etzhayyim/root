@@ -63,7 +63,7 @@ import { Kysely, sql } from 'kysely';
  * - U (COVID-19) → J
  * - Z (Health status) → (none)
  *
- * ATC L1 vertex IDs: at://did:web:who.int/ai.gftd.apps.atc.substance/{A-V}
+ * ATC L1 vertex IDs: at://did:web:who.int/app.etzhayyim.apps.atc.substance/{A-V}
  * Note: ATC groups E, F, I, K, O, P, Q, T, U not present in DB (14 of 26
  * ATC L1 codes are in DB: A B C D G H J L M N P R S V).
  *

@@ -23,7 +23,7 @@
  *   - Head tilt: rotate head region splats as rigid body
  *
  * Usage in app.ts:
- *   import { buildSplatVTuberScene } from "@gftd/magatama-host-sdk/kami-vtuber-splat";
+ *   import { buildSplatVTuberScene } from "@etzhayyim/magatama-host-sdk/kami-vtuber-splat";
  *   const scene = buildSplatVTuberScene({
  *     splatKey: "avatar-fullbody.splat",
  *     regionMapKey: "avatar-regions.json",
@@ -147,7 +147,7 @@ export function buildSplatVTuberScene(config: SplatVTuberConfig): Record<string,
   const tracking = config.tracking ?? { source: "mediapipe", blendToSplat: true };
 
   return {
-    "@context": "https://gftd.co.jp/ns/kami/scene",
+    "@context": "https://etzhayyim.com/ns/kami/scene",
     "@type": "IslandScene",
     name: config.name ?? "3DGS VTuber",
     genre: "social",

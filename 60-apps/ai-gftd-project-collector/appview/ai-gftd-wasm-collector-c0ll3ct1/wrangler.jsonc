@@ -11,8 +11,8 @@
     "APP_DEPLOY_AT": "2026-04-12T00:43:11Z",
     "APP_DEPLOY_SHA": "0f598c04445",
     "APP_DESCRIPTION": "Thin edge facade; collector business logic runs in BPMN + Zeebe Python",
-    "APP_DISPLAY_NAME": "GFTD Collector",
-    "APP_EMBED_URL": "https://c0ll3ct1.gftd.ai/?embed=1",
+    "APP_DISPLAY_NAME": "etzhayyim Collector",
+    "APP_EMBED_URL": "https://c0ll3ct1.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "c0ll3ct1",
     "APP_PERFORMER_TYPE": "service",
@@ -21,12 +21,12 @@
     "APP_UI_TYPE": "appview",
     "APP_VERSION": "0.1.0",
     "INTERFACES_REQUIRES": "[\"gftd:collection/collection@1.0.0\"]",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "collector.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "collector.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

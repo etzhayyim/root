@@ -49,7 +49,7 @@ export const threadAppContext = writable<ThreadAppContext | null>(null);
 /** Unread message count for the Talk tab badge. */
 export const threadUnreadCount = writable<number>(0);
 
-/** Open Talk tab to the GFTD support convo. */
+/** Open Talk tab to the etzhayyim support convo. */
 export function openSupportRoom() {
 	openTalkForApp('gftd', 'Support', undefined, {
 		defaultConvos: [{ id: 'support', name: 'support' }],

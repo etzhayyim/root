@@ -5,7 +5,7 @@
  * VRoid Studio / Ready Player Me 互換。
  *
  * Usage in app.ts:
- *   import { buildVRMCharacterScene } from "@gftd/magatama-host-sdk/kami-character-vrm";
+ *   import { buildVRMCharacterScene } from "@etzhayyim/magatama-host-sdk/kami-character-vrm";
  *   const scene = buildVRMCharacterScene({ blobKey: "sofia-vrm.glb", ... });
  */
 
@@ -42,7 +42,7 @@ export function buildVRMCharacterScene(config: VRMCharacterConfig): Record<strin
   const camH = config.cameraHeightOffset ?? 0.1;
 
   return {
-    "@context": "https://gftd.co.jp/ns/kami/scene",
+    "@context": "https://etzhayyim.com/ns/kami/scene",
     "@type": "IslandScene",
     name: config.name ?? "VRM Character",
     genre: "social",

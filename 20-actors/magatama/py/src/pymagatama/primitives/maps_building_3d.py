@@ -26,8 +26,8 @@ from pymagatama.db_sync import sync_cursor
 # ──────────────────────────────────────────────────────────────────────
 
 DEFAULT_REPO = "did:web:maps.etzhayyim.com"
-COLLECTION_BUILDING_3D = "ai.gftd.apps.maps.building3d"
-COLLECTION_COVERAGE = "ai.gftd.apps.maps.buildingCoverage"
+COLLECTION_BUILDING_3D = "app.etzhayyim.apps.maps.building3d"
+COLLECTION_COVERAGE = "app.etzhayyim.apps.maps.buildingCoverage"
 
 # Default H3 resolution for coverage cells (res10 ≈ 53m edge, ~2100m² area).
 _H3_RES = 10

@@ -49,7 +49,7 @@ const ORG_CONTEXT_PATTERNS = [
 	'currentOrg',
 	'orgId',
 	'orgId',
-	'X-GFTD-ORG-ID',
+	'X-etzhayyim-ORG-ID',
 	'getOrgId',
 	'requireOrgContext',
 ];

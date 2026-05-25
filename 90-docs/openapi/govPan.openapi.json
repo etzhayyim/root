@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govPan.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govPan.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Panama government.",
-        "operationId": "ai.gftd.govPan.followSiteDeps",
+        "operationId": "app.etzhayyim.govPan.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPan.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govPan.heartbeatTick": {
       "post": {
         "summary": "Run the Panama government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govPan.heartbeatTick",
+        "operationId": "app.etzhayyim.govPan.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPan.listOrgs": {
+    "/xrpc/app.etzhayyim.govPan.listOrgs": {
       "get": {
         "summary": "List Panama government organization graph records.",
-        "operationId": "ai.gftd.govPan.listOrgs",
+        "operationId": "app.etzhayyim.govPan.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPan.registerDIDs": {
+    "/xrpc/app.etzhayyim.govPan.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Panama government organizations.",
-        "operationId": "ai.gftd.govPan.registerDIDs",
+        "operationId": "app.etzhayyim.govPan.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPan.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govPan.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Panama government organization path to its graph record.",
-        "operationId": "ai.gftd.govPan.resolveOrgPath",
+        "operationId": "app.etzhayyim.govPan.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPan.seedOrgs": {
+    "/xrpc/app.etzhayyim.govPan.seedOrgs": {
       "post": {
         "summary": "Seed initial Panama government organization records into the graph.",
-        "operationId": "ai.gftd.govPan.seedOrgs",
+        "operationId": "app.etzhayyim.govPan.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPan.shinka": {
+    "/xrpc/app.etzhayyim.govPan.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Panama government organization update.",
-        "operationId": "ai.gftd.govPan.shinka",
+        "operationId": "app.etzhayyim.govPan.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPan.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govPan.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Panama government organization changes to graph.",
-        "operationId": "ai.gftd.govPan.syncWetUpdates",
+        "operationId": "app.etzhayyim.govPan.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

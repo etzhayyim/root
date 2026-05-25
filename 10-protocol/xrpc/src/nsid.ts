@@ -4,8 +4,8 @@
  *
  * Handles both kebab-case and snakeCase segments.
  * e.g. "app.bsky.feed.post" → "Post"
- *      "ai.gftd.actor.app" → "App"
- *      "ai.gftd.apps.handotai.supply-chain" → "SupplyChain"
+ *      "app.etzhayyim.actor.app" → "App"
+ *      "app.etzhayyim.apps.handotai.supply-chain" → "SupplyChain"
  */
 export function collectionToLabel(collection: string): string {
   if (!collection) return "";
@@ -20,21 +20,21 @@ export function collectionToLabel(collection: string): string {
 
 /** Expand short kind to full NSID.
  *
- * e.g. expandCollection("machine", "pachinko") → "ai.gftd.apps.pachinko.machine"
+ * e.g. expandCollection("machine", "pachinko") → "app.etzhayyim.apps.pachinko.machine"
  *      expandCollection("app.bsky.feed.post") → "app.bsky.feed.post" (passthrough)
  */
 export function expandCollection(kind: string, appName?: string): string {
   if (!kind || kind.includes(".")) return kind;
-  return appName ? `ai.gftd.apps.${appName}.${kind}` : kind;
+  return appName ? `app.etzhayyim.apps.${appName}.${kind}` : kind;
 }
 
 /** WIT package + type → AT Protocol collection NSID.
  *
- * e.g. witToCollection("gftd:handotai", "article") → "ai.gftd.apps.handotai.article"
- *      witToCollection("magatama:wproto", "record") → "ai.gftd.platform.wproto.record"
+ * e.g. witToCollection("gftd:handotai", "article") → "app.etzhayyim.apps.handotai.article"
+ *      witToCollection("magatama:wproto", "record") → "app.etzhayyim.platform.wproto.record"
  */
 export function witToCollection(witPkg: string, witType: string): string {
-  const ns = witPkg.startsWith("gftd:") ? "ai.gftd.apps" : "ai.gftd.platform";
+  const ns = witPkg.startsWith("gftd:") ? "app.etzhayyim.apps" : "app.etzhayyim.platform";
   const app = witPkg.split(":")[1]?.split("/")[0] ?? witPkg;
   return `${ns}.${app}.${witType}`;
 }
@@ -85,15 +85,15 @@ export function nsidToMethod(nsid: string): string {
 
 /** Build app namespace NSID prefix.
  *
- * e.g. appNamespace("site") -> "ai.gftd.apps.site"
+ * e.g. appNamespace("site") -> "app.etzhayyim.apps.site"
  */
 export function appNamespace(domain: string): string {
-  return `ai.gftd.apps.${domain}`;
+  return `app.etzhayyim.apps.${domain}`;
 }
 
 /** Default collection NSID for an app domain + PascalCase label.
  *
- * e.g. defaultAppCollection("site", "Article") -> "ai.gftd.apps.site.article"
+ * e.g. defaultAppCollection("site", "Article") -> "app.etzhayyim.apps.site.article"
  */
 export function defaultAppCollection(domain: string, label: string): string {
   const ns = appNamespace(domain);
@@ -102,10 +102,10 @@ export function defaultAppCollection(domain: string, label: string): string {
 
 /** W protocol lexicon suffix -> collection NSID.
  *
- * e.g. wLexiconCollection("message") -> "ai.gftd.w.message"
+ * e.g. wLexiconCollection("message") -> "app.etzhayyim.w.message"
  */
 export function wLexiconCollection(suffix: string): string {
-  return `ai.gftd.w.${suffix}`;
+  return `app.etzhayyim.w.${suffix}`;
 }
 
 /** Resolve flat dispatcher method into canonical app NSID. */
@@ -125,7 +125,7 @@ export function resolveFlatDispatchMethod(
     if (!flatMethod.endsWith(suffix)) continue;
     const snake = flatMethod.slice(0, -suffix.length);
     const camel = snake.replace(/_([a-z])/g, (_m, c: string) => c.toUpperCase());
-    return `ai.gftd.apps.${appName}.${camel}`;
+    return `app.etzhayyim.apps.${appName}.${camel}`;
   }
   return null;
 }

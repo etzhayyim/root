@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.23;
 
-/// @title GftdRootIdentity
-/// @notice Minimal ERC725-style root identity for GFTD actors, agents, orgs,
+/// @title etzhayyimRootIdentity
+/// @notice Minimal ERC725-style root identity for etzhayyim actors, agents, orgs,
 ///         and accounts.
 ///
 /// The contract intentionally stores only compact pointers: hashes, CIDs,
 /// account addresses, and revocation roots. Raw OAuth tokens, WebAuthn
 /// credential material, PII, Kubernetes secrets, and policy bodies stay
 /// offchain.
-contract GftdRootIdentity {
+contract etzhayyimRootIdentity {
     bytes4 internal constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
     bytes4 internal constant _INTERFACE_ID_ERC725X = 0x7545acac;
     bytes4 internal constant _INTERFACE_ID_ERC725Y = 0x629aa694;

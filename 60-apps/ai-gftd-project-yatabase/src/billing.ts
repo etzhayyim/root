@@ -14,7 +14,7 @@
 //
 // Plan-state persistence below is unchanged from the pre-migration
 // design: KV is authoritative (per P63), with a best-effort RW
-// insert via `@gftd/magatama-host-sdk` for downstream analytics.
+// insert via `@etzhayyim/magatama-host-sdk` for downstream analytics.
 //
 // 適格請求書 (Japanese qualified invoice, T9007028460042) generation
 // remains deferred to the P8.5 cron worker; tax-receipt issuance now
@@ -89,7 +89,7 @@ interface AnyKyselyDb {
 async function getDb(env: BillingEnv): Promise<AnyKyselyDb | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     return sdk.createKyselyDb(env.HYPERDRIVE as never) as unknown as AnyKyselyDb;
   } catch {
     return null;
@@ -121,7 +121,7 @@ export async function persistPlan(
     const now = Date.now();
     const nowIso = new Date(now).toISOString();
     const rules = PLAN_RULES[plan];
-    const vertexId = `at://did:web:billing.etzhayyim.com/ai.gftd.apps.billing.org_plan/${encodeURIComponent(orgDid)}-${now}`;
+    const vertexId = `at://did:web:billing.etzhayyim.com/app.etzhayyim.apps.billing.org_plan/${encodeURIComponent(orgDid)}-${now}`;
     await db.insertInto("vertex_org_plan").values({
       vertex_id: vertexId,
       org_did: orgDid,
@@ -150,7 +150,7 @@ export async function getPersistedPlan(env: BillingEnv, orgDid: string): Promise
 
   let sqlTag: ((strings: TemplateStringsArray, ...values: unknown[]) => unknown) | null = null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     sqlTag = (sdk as unknown as { sql?: typeof sqlTag }).sql ?? null;
   } catch {
     return null;

@@ -58,7 +58,7 @@ const MOOD_MAP: Record<MoodPreset, string> = {
 async function fetchTracks(mood: MoodPreset): Promise<RadioTrack[]> {
 	const tunerMood = MOOD_MAP[mood] || 'chill';
 	try {
-		const res = await fetch(`${PDS}/xrpc/ai.gftd.apps.tuner.getStationTracks`, {
+		const res = await fetch(`${PDS}/xrpc/app.etzhayyim.apps.tuner.getStationTracks`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ mood: tunerMood, limit: 20 }),

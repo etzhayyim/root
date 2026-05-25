@@ -14,7 +14,7 @@ import {
   genID,
   nsid,
   parseLexiconInput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
@@ -49,7 +49,7 @@ async function write(_sdk: HostSDK, kind: string, rec: Record<string, unknown>):
   const table = `vertex_${camelToSnake(kind)}`;
   const ownerDid = actorDID || "did:web:w3olw1pf.etzhayyim.com";
   const rkey = str(rec.recordingId ?? rec.roomId ?? "") || genID();
-  const vertex_id = `at://${ownerDid}/ai.gftd.apps.briefing.${kind}/${rkey}`;
+  const vertex_id = `at://${ownerDid}/app.etzhayyim.apps.briefing.${kind}/${rkey}`;
   const snakeRec = Object.fromEntries(Object.entries(rec).map(([k, v]) => [camelToSnake(k), v]));
   await createKyselyDb().insertInto(table as any).values({ vertex_id, sensitivity_ord: 2, owner_did: ownerDid, actor_id: appId, ...snakeRec }).execute();
 }
@@ -122,14 +122,14 @@ function cmdDescribe(): Record<string, unknown> {
 // ─── Social ───
 
 function cmdWave(sdk: HostSDK, body: Uint8Array): Record<string, unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.wave", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.wave", body);
   const message = str(args.message ?? "hello");
   post(sdk, `Briefing(${appId}): ${message}`);
   return { ok: true, nanoid: appId };
 }
 
 function cmdEcho(_sdk: HostSDK, body: Uint8Array): Record<string, unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.echo", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.echo", body);
   return { ok: true, nanoid: appId, args };
 }
 
@@ -172,7 +172,7 @@ async function proxyToDispatcher(sdk: HostSDK, targetNsid: string, body: Uint8Ar
 
 /** Create a new briefing room. Tier 1 social + Tier 2 domain record. */
 async function cmdCreateRoom(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.createRoom", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.createRoom", body);
   const roomId = str(args.roomId ?? `briefing-${Date.now()}`);
   const name = str(args.name ?? "Briefing Room");
   let topology = str(args.topology ?? "mesh") as "mesh" | "sfu";
@@ -221,7 +221,7 @@ async function cmdCreateRoom(sdk: HostSDK, body: Uint8Array): Promise<Record<str
 
 /** Join a briefing room. Writes participant record as SQL node. */
 async function cmdJoinRoom(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.joinRoom", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.joinRoom", body);
   const roomId = str(args.roomId ?? "");
   const peerId = str(args.peerId ?? "");
   const displayName = str(args.displayName ?? "Anonymous");
@@ -249,7 +249,7 @@ async function cmdJoinRoom(sdk: HostSDK, body: Uint8Array): Promise<Record<strin
 
 /** Leave a briefing room. Writes leave record as SQL node. */
 async function cmdLeaveRoom(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.leaveRoom", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.leaveRoom", body);
   const roomId = str(args.roomId ?? "");
   const peerId = str(args.peerId ?? "");
 
@@ -279,7 +279,7 @@ async function cmdListRooms(): Promise<Record<string, unknown>> {
 
 /** Update participant position for spatial audio. Writes position record as SQL node. */
 async function cmdUpdatePosition(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.updatePosition", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.updatePosition", body);
   const roomId = str(args.roomId ?? "");
   const peerId = str(args.peerId ?? "");
   const x = Number(args.x ?? 0);
@@ -307,7 +307,7 @@ async function cmdUpdatePosition(sdk: HostSDK, body: Uint8Array): Promise<Record
 
 /** Send data channel message (cursor, annotation, reaction). Writes as SQL node. */
 async function cmdSendData(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.sendData", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.sendData", body);
   const roomId = str(args.roomId ?? "");
   const peerId = str(args.peerId ?? "");
   const dataType = str(args.type ?? "cursor");
@@ -335,7 +335,7 @@ async function cmdSendData(sdk: HostSDK, body: Uint8Array): Promise<Record<strin
 
 /** Store recording metadata as SQL node. */
 async function cmdUploadRecording(sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.uploadRecording", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.uploadRecording", body);
   const roomId = str(args.roomId ?? "");
   const recordingId = str(args.recordingId ?? genID("rec"));
   const r2Key = str(args.r2Key ?? "");
@@ -374,35 +374,35 @@ function handleComAtprotoSyncSubscribeReposCommit(
 
   const collection = str(commit.collection ?? "");
 
-  if (collection === "ai.gftd.apps.briefing.briefingRoom") {
+  if (collection === "app.etzhayyim.apps.briefing.briefingRoom") {
     inbox.inboundCommits.push({ collection, action: "create", ts: Date.now() });
     return { ok: true, detail: `room created: ${collection}` };
   }
-  if (collection === "ai.gftd.apps.briefing.briefingParticipant") {
+  if (collection === "app.etzhayyim.apps.briefing.briefingParticipant") {
     inbox.inboundCommits.push({ collection, action: "create", ts: Date.now() });
     return { ok: true, detail: `participant event: ${collection}` };
   }
-  if (collection === "ai.gftd.apps.briefing.briefingRecording") {
+  if (collection === "app.etzhayyim.apps.briefing.briefingRecording") {
     return { ok: true, detail: `recording: ${collection}` };
   }
-  if (collection === "ai.gftd.apps.briefing.briefingTranscript") {
+  if (collection === "app.etzhayyim.apps.briefing.briefingTranscript") {
     inbox.inboundCommits.push({ collection, action: "create", ts: Date.now() });
     return { ok: true, detail: `transcript: ${collection}` };
   }
-  if (collection === "ai.gftd.apps.briefing.briefingActionItem") {
+  if (collection === "app.etzhayyim.apps.briefing.briefingActionItem") {
     return { ok: true, detail: `action-item: ${collection}` };
   }
-  if (collection === "ai.gftd.apps.briefing.briefingSummary") {
+  if (collection === "app.etzhayyim.apps.briefing.briefingSummary") {
     return { ok: true, detail: `summary: ${collection}` };
   }
-  if (collection === "ai.gftd.apps.briefing.briefingDecision") {
+  if (collection === "app.etzhayyim.apps.briefing.briefingDecision") {
     inbox.inboundCommits.push({ collection, action: "create", ts: Date.now() });
     return { ok: true, detail: `decision: ${collection}` };
   }
-  if (collection === "ai.gftd.apps.briefing.briefingSpeakerTurn") {
+  if (collection === "app.etzhayyim.apps.briefing.briefingSpeakerTurn") {
     return { ok: true, detail: `speaker-turn: ${collection}` };
   }
-  if (collection === "ai.gftd.apps.briefing.briefingAgenda") {
+  if (collection === "app.etzhayyim.apps.briefing.briefingAgenda") {
     return { ok: true, detail: `agenda: ${collection}` };
   }
 
@@ -413,7 +413,7 @@ function handleComAtprotoSyncSubscribeReposCommit(
 
 /** List recent briefing rooms with participant counts. */
 async function cmdListRecentRooms(_sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.listRecentRooms", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.listRecentRooms", body);
   const limit = Math.min(Math.max(Number(args.limit ?? 20), 1), 100);
   const rows = [] as Record<string, unknown>[]; // SQL deprecated 2026-04-12
   return { ok: true, rooms: rows, count: rows.length };
@@ -421,7 +421,7 @@ async function cmdListRecentRooms(_sdk: HostSDK, body: Uint8Array): Promise<Reco
 
 /** Get room details with participants. */
 async function cmdGetRoom(_sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.getRoom", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.getRoom", body);
   const roomId = str(args.roomId ?? "");
   if (!roomId) return { ok: false, error: "roomId required" };
 
@@ -436,7 +436,7 @@ async function cmdGetRoom(_sdk: HostSDK, body: Uint8Array): Promise<Record<strin
 
 /** List recordings for a room. */
 async function cmdListRecordings(_sdk: HostSDK, body: Uint8Array): Promise<Record<string, unknown>> {
-  const args = parseLexiconInput("ai.gftd.apps.briefing.listRecordings", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.briefing.listRecordings", body);
   const roomId = str(args.roomId ?? "");
   if (!roomId) return { ok: false, error: "roomId required" };
 
@@ -472,39 +472,39 @@ function configureApp(sdk: HostSDK): void {
 
   // Core commands
   app
-    .command(nsid("ai.gftd.apps.briefing.health"), async () => cmdHealth(), asAgentTool("Briefing health check"), withCapabilityTags("diagnostics", "briefing"))
-    .command(nsid("ai.gftd.apps.briefing.describe"), async () => cmdDescribe(), asAgentTool("Describe briefing app"), withCapabilityTags("meta", "briefing"))
-    .command(nsid("ai.gftd.apps.briefing.wave"), async (_ctx, body) => cmdWave(sdk, body), asAgentTool("Post briefing status"), withCapabilityTags("social", "briefing"))
-    .command(nsid("ai.gftd.apps.briefing.echo"), async (_ctx, body) => cmdEcho(sdk, body), asAgentTool("Echo payload"), withCapabilityTags("utility", "briefing"));
+    .command(nsid("app.etzhayyim.apps.briefing.health"), async () => cmdHealth(), asAgentTool("Briefing health check"), withCapabilityTags("diagnostics", "briefing"))
+    .command(nsid("app.etzhayyim.apps.briefing.describe"), async () => cmdDescribe(), asAgentTool("Describe briefing app"), withCapabilityTags("meta", "briefing"))
+    .command(nsid("app.etzhayyim.apps.briefing.wave"), async (_ctx, body) => cmdWave(sdk, body), asAgentTool("Post briefing status"), withCapabilityTags("social", "briefing"))
+    .command(nsid("app.etzhayyim.apps.briefing.echo"), async (_ctx, body) => cmdEcho(sdk, body), asAgentTool("Echo payload"), withCapabilityTags("utility", "briefing"));
 
   // WebRTC room commands (KAMI Engine kami-rtc, Design E stateless)
   app
-    .command(nsid("ai.gftd.apps.briefing.createRoom"), async (_ctx, body) => cmdCreateRoom(sdk, body), asAgentTool("Create WebRTC briefing room with KAMI spatial audio"), withCapabilityTags("rtc", "briefing", "spatialAudio"))
-    .command(nsid("ai.gftd.apps.briefing.joinRoom"), async (_ctx, body) => cmdJoinRoom(sdk, body), asAgentTool("Join existing briefing room"), withCapabilityTags("rtc", "briefing"))
-    .command(nsid("ai.gftd.apps.briefing.leaveRoom"), async (_ctx, body) => cmdLeaveRoom(sdk, body), asAgentTool("Leave briefing room"), withCapabilityTags("rtc", "briefing"))
-    .command(nsid("ai.gftd.apps.briefing.listRooms"), async () => cmdListRooms(), asAgentTool("List active briefing rooms"), withCapabilityTags("rtc", "briefing"))
-    .command(nsid("ai.gftd.apps.briefing.updatePosition"), async (_ctx, body) => cmdUpdatePosition(sdk, body), asAgentTool("Update spatial audio position"), withCapabilityTags("rtc", "spatialAudio"))
-    .command(nsid("ai.gftd.apps.briefing.sendData"), async (_ctx, body) => cmdSendData(sdk, body), asAgentTool("Send data channel message"), withCapabilityTags("rtc", "dataChannel"));
+    .command(nsid("app.etzhayyim.apps.briefing.createRoom"), async (_ctx, body) => cmdCreateRoom(sdk, body), asAgentTool("Create WebRTC briefing room with KAMI spatial audio"), withCapabilityTags("rtc", "briefing", "spatialAudio"))
+    .command(nsid("app.etzhayyim.apps.briefing.joinRoom"), async (_ctx, body) => cmdJoinRoom(sdk, body), asAgentTool("Join existing briefing room"), withCapabilityTags("rtc", "briefing"))
+    .command(nsid("app.etzhayyim.apps.briefing.leaveRoom"), async (_ctx, body) => cmdLeaveRoom(sdk, body), asAgentTool("Leave briefing room"), withCapabilityTags("rtc", "briefing"))
+    .command(nsid("app.etzhayyim.apps.briefing.listRooms"), async () => cmdListRooms(), asAgentTool("List active briefing rooms"), withCapabilityTags("rtc", "briefing"))
+    .command(nsid("app.etzhayyim.apps.briefing.updatePosition"), async (_ctx, body) => cmdUpdatePosition(sdk, body), asAgentTool("Update spatial audio position"), withCapabilityTags("rtc", "spatialAudio"))
+    .command(nsid("app.etzhayyim.apps.briefing.sendData"), async (_ctx, body) => cmdSendData(sdk, body), asAgentTool("Send data channel message"), withCapabilityTags("rtc", "dataChannel"));
 
   // Recording & transcription commands
   app
-    .command(nsid("ai.gftd.apps.briefing.uploadRecording"), async (_ctx, body) => cmdUploadRecording(sdk, body), asAgentTool("Store recording metadata"), withCapabilityTags("recording", "briefing"))
-    .command(nsid("ai.gftd.apps.briefing.saveTranscript"), async (_ctx, body) => proxyToDispatcher(sdk, "ai.gftd.apps.briefing.saveTranscript", body), asAgentTool("Save transcript and auto-translate"), withCapabilityTags("transcription", "briefing", "bpmn"));
+    .command(nsid("app.etzhayyim.apps.briefing.uploadRecording"), async (_ctx, body) => cmdUploadRecording(sdk, body), asAgentTool("Store recording metadata"), withCapabilityTags("recording", "briefing"))
+    .command(nsid("app.etzhayyim.apps.briefing.saveTranscript"), async (_ctx, body) => proxyToDispatcher(sdk, "app.etzhayyim.apps.briefing.saveTranscript", body), asAgentTool("Save transcript and auto-translate"), withCapabilityTags("transcription", "briefing", "bpmn"));
 
   // Agenda, action items, summary, speaker analytics, decisions
   app
-    .command(nsid("ai.gftd.apps.briefing.createAgenda"), async (_ctx, body) => proxyToDispatcher(sdk, "ai.gftd.apps.briefing.createAgenda", body), asAgentTool("Create time-boxed meeting agenda"), withCapabilityTags("agenda", "briefing", "bpmn"))
-    .command(nsid("ai.gftd.apps.briefing.extractActionItems"), async (_ctx, body) => proxyToDispatcher(sdk, "ai.gftd.apps.briefing.extractActionItems", body), asAgentTool("Extract action items from transcript"), withCapabilityTags("actionItem", "briefing", "nlp", "bpmn"))
-    .command(nsid("ai.gftd.apps.briefing.generateSummary"), async (_ctx, body) => proxyToDispatcher(sdk, "ai.gftd.apps.briefing.generateSummary", body), asAgentTool("Generate meeting summary from transcript"), withCapabilityTags("summary", "briefing", "nlp", "bpmn"))
-    .command(nsid("ai.gftd.apps.briefing.recordSpeakerTurn"), async (_ctx, body) => proxyToDispatcher(sdk, "ai.gftd.apps.briefing.recordSpeakerTurn", body), asAgentTool("Record speaker turn for talk-time analytics"), withCapabilityTags("analytics", "briefing", "bpmn"))
-    .command(nsid("ai.gftd.apps.briefing.recordDecision"), async (_ctx, body) => proxyToDispatcher(sdk, "ai.gftd.apps.briefing.recordDecision", body), asAgentTool("Record formal meeting decision"), withCapabilityTags("decision", "briefing", "governance", "bpmn"));
+    .command(nsid("app.etzhayyim.apps.briefing.createAgenda"), async (_ctx, body) => proxyToDispatcher(sdk, "app.etzhayyim.apps.briefing.createAgenda", body), asAgentTool("Create time-boxed meeting agenda"), withCapabilityTags("agenda", "briefing", "bpmn"))
+    .command(nsid("app.etzhayyim.apps.briefing.extractActionItems"), async (_ctx, body) => proxyToDispatcher(sdk, "app.etzhayyim.apps.briefing.extractActionItems", body), asAgentTool("Extract action items from transcript"), withCapabilityTags("actionItem", "briefing", "nlp", "bpmn"))
+    .command(nsid("app.etzhayyim.apps.briefing.generateSummary"), async (_ctx, body) => proxyToDispatcher(sdk, "app.etzhayyim.apps.briefing.generateSummary", body), asAgentTool("Generate meeting summary from transcript"), withCapabilityTags("summary", "briefing", "nlp", "bpmn"))
+    .command(nsid("app.etzhayyim.apps.briefing.recordSpeakerTurn"), async (_ctx, body) => proxyToDispatcher(sdk, "app.etzhayyim.apps.briefing.recordSpeakerTurn", body), asAgentTool("Record speaker turn for talk-time analytics"), withCapabilityTags("analytics", "briefing", "bpmn"))
+    .command(nsid("app.etzhayyim.apps.briefing.recordDecision"), async (_ctx, body) => proxyToDispatcher(sdk, "app.etzhayyim.apps.briefing.recordDecision", body), asAgentTool("Record formal meeting decision"), withCapabilityTags("decision", "briefing", "governance", "bpmn"));
 
   // Query commands
   app
-    .command(nsid("ai.gftd.apps.briefing.listRecentRooms"), async (_ctx, body) => cmdListRecentRooms(sdk, body), asAgentTool("List recent briefing rooms"), withCapabilityTags("query", "briefing"))
-    .command(nsid("ai.gftd.apps.briefing.getRoom"), async (_ctx, body) => cmdGetRoom(sdk, body), asAgentTool("Get room details with participants"), withCapabilityTags("query", "briefing"))
-    .command(nsid("ai.gftd.apps.briefing.listRecordings"), async (_ctx, body) => cmdListRecordings(sdk, body), asAgentTool("List recordings for a room"), withCapabilityTags("query", "recording"))
-    .command(nsid("ai.gftd.apps.briefing.coverageStats"), async () => cmdCoverageStats(), asAgentTool("Briefing coverage statistics"), withCapabilityTags("coverage", "stats"));
+    .command(nsid("app.etzhayyim.apps.briefing.listRecentRooms"), async (_ctx, body) => cmdListRecentRooms(sdk, body), asAgentTool("List recent briefing rooms"), withCapabilityTags("query", "briefing"))
+    .command(nsid("app.etzhayyim.apps.briefing.getRoom"), async (_ctx, body) => cmdGetRoom(sdk, body), asAgentTool("Get room details with participants"), withCapabilityTags("query", "briefing"))
+    .command(nsid("app.etzhayyim.apps.briefing.listRecordings"), async (_ctx, body) => cmdListRecordings(sdk, body), asAgentTool("List recordings for a room"), withCapabilityTags("query", "recording"))
+    .command(nsid("app.etzhayyim.apps.briefing.coverageStats"), async () => cmdCoverageStats(), asAgentTool("Briefing coverage statistics"), withCapabilityTags("coverage", "stats"));
 
   configuredApps.add(app as object);
 }

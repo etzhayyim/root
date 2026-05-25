@@ -5,18 +5,18 @@
 // 移設対象 (auth Worker src-ts/index.ts):
 //   - GET  /manage                                    (Svelte SPA delegate)
 //   - GET  /api/accounts/session                      → handleAccountsSession
-//   - POST /xrpc/ai.gftd.auth.linkEmailBegin          → handleLinkEmailBegin
-//   - POST /xrpc/ai.gftd.auth.linkEmailVerify         → handleLinkEmailVerify
-//   - POST /xrpc/ai.gftd.auth.linkOAuthStart          → handleLinkOAuthStart
-//   - POST /xrpc/ai.gftd.auth.unlinkMethod            → handleUnlinkMethod
+//   - POST /xrpc/app.etzhayyim.auth.linkEmailBegin          → handleLinkEmailBegin
+//   - POST /xrpc/app.etzhayyim.auth.linkEmailVerify         → handleLinkEmailVerify
+//   - POST /xrpc/app.etzhayyim.auth.linkOAuthStart          → handleLinkOAuthStart
+//   - POST /xrpc/app.etzhayyim.auth.unlinkMethod            → handleUnlinkMethod
 //   - GET  /oauth/link/google/callback                → handleOAuthLinkCallback
 //   - GET  /oauth/link/microsoft/callback             → handleOAuthLinkCallback
 //
 // NSID rename (ADR-0024 責務マトリクス):
-//   ai.gftd.auth.linkEmailBegin    → ai.gftd.accounts.linkEmailBegin
-//   ai.gftd.auth.linkEmailVerify   → ai.gftd.accounts.linkEmailVerify
-//   ai.gftd.auth.linkOAuthStart    → ai.gftd.accounts.linkOAuthStart
-//   ai.gftd.auth.unlinkMethod      → ai.gftd.accounts.unlinkMethod
+//   app.etzhayyim.auth.linkEmailBegin    → app.etzhayyim.accounts.linkEmailBegin
+//   app.etzhayyim.auth.linkEmailVerify   → app.etzhayyim.accounts.linkEmailVerify
+//   app.etzhayyim.auth.linkOAuthStart    → app.etzhayyim.accounts.linkOAuthStart
+//   app.etzhayyim.auth.unlinkMethod      → app.etzhayyim.accounts.unlinkMethod
 // 旧 NSID は 90 日 alias 期間で受け付ける。
 
 interface Env {

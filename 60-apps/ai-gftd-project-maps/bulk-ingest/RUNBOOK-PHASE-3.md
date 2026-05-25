@@ -43,7 +43,7 @@ Metro / JR East / Toei. No-auth operators (Aomori, OdakyuBus, Donan, etc.)
 publish their own RT URLs and live on `GTFS_RT_FEED_INDEX_URL` instead.
 
 1. **Register**: https://developer.odpt.org/users/sign_up
-   - Use `jun@gftd.group` (per CLAUDE.md userEmail).
+   - Use `jun@etzhayyim.com` (per CLAUDE.md userEmail).
    - Confirm email link, then complete profile (purpose = "spatial intel platform").
 2. **Agree to terms per dataset** at https://developer.odpt.org/info/distribution
    (each operator — TokyoMetro, JR-East, Toei — has its own click-through;

@@ -9,13 +9,13 @@
   "vars": {
     "APP_CAPABILITIES": "[\"gleif-lei-ingest\",\"corporate-registry\",\"legal-entity-search\",\"multi-country-ingest\",\"entity-resolution\"]",
     "APP_DESCRIPTION": "Global corporate registry data collector — 194+ countries. GLEIF LEI, JP NTA, UK CH, FR SIRENE, BR CNPJ, NO/DK/FI/EE Nordic, BE KBO, CZ ARES, NZ/AU/ZA, US SEC EDGAR, CA ISED, CH Zefix, NL KVK, IL Rasham, OpenCorporates.",
-    "APP_DISPLAY_NAME": "GFTD Legal Entity Collector",
-    "APP_EMBED_URL": "https://le9k4x2m.gftd.ai/?embed=1",
+    "APP_DISPLAY_NAME": "etzhayyim Legal Entity Collector",
+    "APP_EMBED_URL": "https://le9k4x2m.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "le9k4x2m",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -27,8 +27,8 @@
   ],
   "routes": [
     {
-      "pattern": "le9k4x2m.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "le9k4x2m.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

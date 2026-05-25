@@ -55,7 +55,7 @@ def _now_iso() -> str:
 
 def _vertex_id(prefix: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{OWNER_DID}/ai.gftd.apps.kaisya.{prefix}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{OWNER_DID}/app.etzhayyim.apps.kaisya.{prefix}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 def _human_did(agent_id: str) -> str:
     return _AGENT_HUMAN.get(agent_id, ORG_DID)
@@ -150,7 +150,7 @@ async def _ceo_synthesize(agent_metrics: list[dict], pending_counts: list[dict])
     metrics_txt = json.dumps(agent_metrics, ensure_ascii=False)[:800]
     pending_txt = json.dumps(pending_counts, ensure_ascii=False)[:400]
     prompt = (
-        f"You are the CEO AI agent of Gftd Japan (etzhayyim). "
+        f"You are the CEO AI agent of etzhayyim Japan (etzhayyim). "
         f"Evaluate the following agent activity and pending task counts. "
         f"Identify if there is OKR drift (key objectives not progressing) and if any action is required.\n\n"
         f"Agent metrics (last 24h): {metrics_txt}\n"

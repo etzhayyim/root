@@ -84,8 +84,8 @@ The five RW-dependent paths above are rewritten against AT MST + IPFS + Base L2,
 
 | Old (RW-backed)                                        | New (`@etzhayyim/sdk`)                                                |
 |---|---|
-| goose recipe INSERT into `ai.gftd.yoro.platformDigest` | `e.write({ collection: 'ai.gftd.yoro.platformDigest', record })`      |
-| LiteLLM `vertex_inference_job` row write               | `e.write({ collection: 'ai.gftd.murakumo.inferenceJob', record })`; status updates as new records (event-sourced; no UPDATE) |
+| goose recipe INSERT into `app.etzhayyim.yoro.platformDigest` | `e.write({ collection: 'app.etzhayyim.yoro.platformDigest', record })`      |
+| LiteLLM `vertex_inference_job` row write               | `e.write({ collection: 'app.etzhayyim.murakumo.inferenceJob', record })`; status updates as new records (event-sourced; no UPDATE) |
 | `vertex_repo_commit` MV                                | `mst-projector` derives commit log → CID-pinned JSON; referenced by MST record |
 | RW PG URL `/Users/judah/.gftd/rw-url`                  | Removed. No PG URL in secrets store.                                  |
 | ansible PG URL distribution                            | ansible distributes `@etzhayyim/sdk` config (PDS URL + DID + paymaster address) only |
@@ -95,9 +95,9 @@ The five RW-dependent paths above are rewritten against AT MST + IPFS + Base L2,
 
 | Old (Kysely + Hyperdrive)                                       | New                                                                |
 |---|---|
-| `import { createKyselyDb } from '@gftd/magatama-host-sdk'`      | `import { Etzhayyim } from '@etzhayyim/sdk'`                       |
+| `import { createKyselyDb } from '@etzhayyim/magatama-host-sdk'`      | `import { Etzhayyim } from '@etzhayyim/sdk'`                       |
 | `createKyselyDb(env.HYPERDRIVE)` + raw SQL                      | `new Etzhayyim({ pdsUrl, did, … })`; no Hyperdrive binding         |
-| `INSERT INTO vertex_inference_job …`                            | `e.write({ collection: 'ai.gftd.murakumo.inferenceJob', record })` |
+| `INSERT INTO vertex_inference_job …`                            | `e.write({ collection: 'app.etzhayyim.murakumo.inferenceJob', record })` |
 | `SELECT … FROM vertex_inference_job WHERE error IS NULL …`      | `e.read({ collection, filter })` (key-prefix MST traverse)         |
 | Hyperdrive `env.HYPERDRIVE` Worker binding                      | Removed from `wrangler.jsonc`                                      |
 | FLUSH / RW-specific SQL semantics                               | Idempotent record creation (collection NSID + rkey scheme)         |
@@ -114,7 +114,7 @@ Per ADR-2605191346 §Substrate hard rule, `etzhayyim/*` workloads run on **Murak
 `templates/yoro-social-post.json` requires `postgres:16-alpine` for a per-actor scratch DB. Replacement:
 
 - Remove the Postgres container from the template.
-- Per-actor scratch state lives in the actor's local IndexedDB / SQLite-WASM and is checkpointed to MST via `e.write({ collection: 'ai.gftd.yoro.actorRunState', record })`.
+- Per-actor scratch state lives in the actor's local IndexedDB / SQLite-WASM and is checkpointed to MST via `e.write({ collection: 'app.etzhayyim.yoro.actorRunState', record })`.
 
 If the actor genuinely needs SQL semantics (joins, aggregates), it runs **DuckDB-WASM** over CID-pinned Parquet snapshots emitted by `mst-projector` — read-only, no shared mutable state.
 
@@ -122,7 +122,7 @@ If the actor genuinely needs SQL semantics (joins, aggregates), it runs **DuckDB
 
 No yoro / murakumo PR merges into `etzhayyim/root/main` unless it passes the substrate hard rule check (ADR-2605172100):
 
-1. No direct import of `@atproto/api`, `viem`, `kysely`, `@gftd/magatama-host-sdk`, `pg`, `postgres`, `@signalapp/libsignal-client`, `@noble/ciphers` from app code.
+1. No direct import of `@atproto/api`, `viem`, `kysely`, `@etzhayyim/magatama-host-sdk`, `pg`, `postgres`, `@signalapp/libsignal-client`, `@noble/ciphers` from app code.
 2. Only `@etzhayyim/sdk` and `@etzhayyim/sdk/encrypted` may appear as substrate-client imports.
 3. CI grep gate (future `lefthook` hook, see §Consequences): `grep -rE 'risingwave|hyperdrive|kysely|createKyselyDb' 60-apps/ ai-gftd-project-yoro 60-apps/ ai-gftd-project-murakumo 50-infra/cloudflare/workers/murakumo` returns empty.
 

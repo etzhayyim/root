@@ -2,7 +2,7 @@
 
 ## Overview
 
-ComfyUI-based image generation service. CF Worker at `comfyui.etzhayyim.com` fronts a local or remote ComfyUI instance, exposing OpenAI-compat `/v1/images/{generations,edits}` + XRPC `ai.gftd.apps.comfyui.*` for txt2img / img2img / (planned) inpaint / ControlNet / LoRA.
+ComfyUI-based image generation service. CF Worker at `comfyui.etzhayyim.com` fronts a local or remote ComfyUI instance, exposing OpenAI-compat `/v1/images/{generations,edits}` + XRPC `app.etzhayyim.apps.comfyui.*` for txt2img / img2img / (planned) inpaint / ControlNet / LoRA.
 
 Identity: `did:web:comfyui.etzhayyim.com` / nanoid `c0mfyu1x` / handle `comfyui.etzhayyim.com`.
 
@@ -15,7 +15,7 @@ Client (OpenAI SDK / curl / CLI)
   → comfyui.etzhayyim.com (CF Worker, auth + proxy) [Phase 2]
     - POST /v1/images/generations   → requireAuth → UPSTREAM_URL
     - POST /v1/images/edits          → requireAuth → UPSTREAM_URL
-    - POST /xrpc/ai.gftd.apps.comfyui.* → XRPC dispatch
+    - POST /xrpc/app.etzhayyim.apps.comfyui.* → XRPC dispatch
     - GET  /v1/models, /_app/meta, /health
   → CF Tunnel comfyui-gftd (cloudflared) [Phase 3]
     ingress catch-all → http://127.0.0.1:8001
@@ -72,7 +72,7 @@ LiteLLM proxy does not forward `/v1/images/edits` (v1.52 pass-through gap). img2
 - `infra/cloudflare/workers/comfyui/` (Hono + TypeScript)
 - Auth layer (Murakumo-equivalent: `sk_live_*` HYPERDRIVE + `mkc_*` HMAC + `COMFYUI_API_KEY` break-glass)
 - OpenAI-compat routes (`/v1/images/generations`, `/v1/images/edits`, `/v1/models`, `/_app/meta`, `/health`)
-- XRPC routes (`ai.gftd.apps.comfyui.*`)
+- XRPC routes (`app.etzhayyim.apps.comfyui.*`)
 - `wrangler.jsonc` with `UPSTREAM_URL` env binding (defaults to tunnel)
 - Lexicon JSONs in `00-contracts/lexicons/ai/gftd/apps/comfyui/`
 
@@ -87,11 +87,11 @@ LiteLLM proxy does not forward `/v1/images/edits` (v1.52 pass-through gap). img2
 ## NSID namespace (planned)
 
 ```
-ai.gftd.apps.comfyui.generateImage    # txt2img (lexicon: prompt, size, steps, cfg, seed, negative)
-ai.gftd.apps.comfyui.editImage         # img2img (lexicon: image blob, prompt, strength, ...)
-ai.gftd.apps.comfyui.inpaintImage      # mask-based inpaint (future)
-ai.gftd.apps.comfyui.runWorkflow       # raw workflow graph submission (advanced / agent use)
-ai.gftd.apps.comfyui.listCheckpoints   # enumerate available models
+app.etzhayyim.apps.comfyui.generateImage    # txt2img (lexicon: prompt, size, steps, cfg, seed, negative)
+app.etzhayyim.apps.comfyui.editImage         # img2img (lexicon: image blob, prompt, strength, ...)
+app.etzhayyim.apps.comfyui.inpaintImage      # mask-based inpaint (future)
+app.etzhayyim.apps.comfyui.runWorkflow       # raw workflow graph submission (advanced / agent use)
+app.etzhayyim.apps.comfyui.listCheckpoints   # enumerate available models
 ```
 
 Lexicon JSONs go in `00-contracts/lexicons/ai/gftd/apps/comfyui/<method>.json` (created in Phase 2 alongside Worker).
@@ -101,12 +101,12 @@ Lexicon JSONs go in `00-contracts/lexicons/ai/gftd/apps/comfyui/<method>.json` (
 - **ComfyUI** (github.com/comfyanonymous/ComfyUI) — workflow-graph inference engine
 - **Animagine XL 4.0** (cagliostrolab/animagine-xl-4.0, ~6.5GB safetensors) — default checkpoint
 - **CF Tunnel** (`cloudflared`) — MacBook Air ↔ `comfyui.etzhayyim.com` connectivity (Phase 3)
-- **@gftd/xrpc**, **@gftd/magatama-host-sdk** — when Worker is added (Phase 2)
+- **@etzhayyim/xrpc**, **@etzhayyim/magatama-host-sdk** — when Worker is added (Phase 2)
 
 ## Relationship to other projects
 
 - **Murakumo** (`projects/ai-gftd-project-murakumo/`) — server-side text inference (Mac Mini fleet + LiteLLM + Ollama). ComfyUI reuses Murakumo's auth/proxy pattern but is image-specialized, MacBook Air for now.
-- **Animeka** / **Mangaka** — future consumers (image gen for character sheets, storyboard panels). They call `comfyui.etzhayyim.com/xrpc/ai.gftd.apps.comfyui.generateImage` once Phase 2 lands.
+- **Animeka** / **Mangaka** — future consumers (image gen for character sheets, storyboard panels). They call `comfyui.etzhayyim.com/xrpc/app.etzhayyim.apps.comfyui.generateImage` once Phase 2 lands.
 - **Ameno** (`projects/ai-gftd-project-ameno/`) — browser WebGPU image gen (per-actor LoRA merge). Complementary: Ameno = browser-local, ComfyUI = server-side with ControlNet/IPAdapter.
 
 ## Non-goals (for now)

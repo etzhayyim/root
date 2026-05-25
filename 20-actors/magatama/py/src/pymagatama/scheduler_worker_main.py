@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.scheduler.createJob")
+    @worker.task(task_type="app.etzhayyim.apps.scheduler.createJob")
     async def task_create_job(**kwargs):
         name = kwargs.get("name", "")
         cron = kwargs.get("cron", "")
@@ -47,7 +47,7 @@ async def run_worker():
 
         return {"id": job_id, "status": "active", "createdAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.scheduler.getJob")
+    @worker.task(task_type="app.etzhayyim.apps.scheduler.getJob")
     async def task_get_job(**kwargs):
         job_id = kwargs.get("id", "")
 
@@ -65,7 +65,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.scheduler.updateJob")
+    @worker.task(task_type="app.etzhayyim.apps.scheduler.updateJob")
     async def task_update_job(**kwargs):
         job_id = kwargs.get("id", "")
         name = kwargs.get("name", "")
@@ -84,7 +84,7 @@ async def run_worker():
 
         return {"id": job_id, "updatedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.scheduler.deleteJob")
+    @worker.task(task_type="app.etzhayyim.apps.scheduler.deleteJob")
     async def task_delete_job(**kwargs):
         job_id = kwargs.get("id", "")
 
@@ -99,7 +99,7 @@ async def run_worker():
 
         return {"id": job_id, "deleted": True}
 
-    @worker.task(task_type="ai.gftd.apps.scheduler.listJobs")
+    @worker.task(task_type="app.etzhayyim.apps.scheduler.listJobs")
     async def task_list_jobs(**kwargs):
         status = kwargs.get("status", "")
         limit = int(kwargs.get("limit", 50))
@@ -135,7 +135,7 @@ async def run_worker():
             "limit": limit,
         }
 
-    @worker.task(task_type="ai.gftd.apps.scheduler.pauseJob")
+    @worker.task(task_type="app.etzhayyim.apps.scheduler.pauseJob")
     async def task_pause_job(**kwargs):
         job_id = kwargs.get("id", "")
 
@@ -152,7 +152,7 @@ async def run_worker():
 
         return {"id": job_id, "status": "paused", "pausedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.scheduler.resumeJob")
+    @worker.task(task_type="app.etzhayyim.apps.scheduler.resumeJob")
     async def task_resume_job(**kwargs):
         job_id = kwargs.get("id", "")
 
@@ -169,7 +169,7 @@ async def run_worker():
 
         return {"id": job_id, "status": "active", "resumedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.scheduler.jobStatus")
+    @worker.task(task_type="app.etzhayyim.apps.scheduler.jobStatus")
     async def task_job_status(**kwargs):
         job_id = kwargs.get("id", "")
 

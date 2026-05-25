@@ -147,9 +147,9 @@ def _insert_cardholder(record: dict[str, Any]) -> None:
     _execute(
         """INSERT INTO vertex_stripe_cardholder
         (vertex_id, sensitivity_ord, owner_did, rkey, repo, collection, status, id, user_id, name, email, phone, auth_tier, stripe_cardholder_id, org_id, actor_id, created_at, actor_did, org_did)
-        VALUES (%s,1,%s,%s,%s,'ai.gftd.apps.stripe.cardholder',%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon')
+        VALUES (%s,1,%s,%s,%s,'app.etzhayyim.apps.stripe.cardholder',%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon')
         ON CONFLICT (vertex_id) DO NOTHING""",
-        (f"at://{ACTOR}/ai.gftd.apps.stripe.cardholder/{_rkey(record['id'])}", ACTOR, record["id"], ACTOR, record["status"], record["id"], record["userId"], record["name"], record["email"], record.get("phone", ""), record["authTier"], record["stripeCardholderId"], ACTOR, record["createdAt"], ACTOR),
+        (f"at://{ACTOR}/app.etzhayyim.apps.stripe.cardholder/{_rkey(record['id'])}", ACTOR, record["id"], ACTOR, record["status"], record["id"], record["userId"], record["name"], record["email"], record.get("phone", ""), record["authTier"], record["stripeCardholderId"], ACTOR, record["createdAt"], ACTOR),
     )
 
 
@@ -157,9 +157,9 @@ def _insert_card(record: dict[str, Any]) -> None:
     _execute(
         """INSERT INTO vertex_stripe_issued_card
         (vertex_id, sensitivity_ord, owner_did, rkey, repo, collection, status, id, cardholder_id, user_id, card_type, last_four, currency, spending_limit_amount, spending_limit_interval, stripe_card_id, org_id, actor_id, created_at, updated_at, actor_did, org_did)
-        VALUES (%s,1,%s,%s,%s,'ai.gftd.apps.stripe.issuedCard',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,%s,'anon')
+        VALUES (%s,1,%s,%s,%s,'app.etzhayyim.apps.stripe.issuedCard',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,%s,'anon')
         ON CONFLICT (vertex_id) DO NOTHING""",
-        (f"at://{ACTOR}/ai.gftd.apps.stripe.issuedCard/{_rkey(record['id'])}", ACTOR, record["id"], ACTOR, record["status"], record["id"], record["cardholderId"], record["userId"], record["cardType"], record["lastFour"], record["currency"], record["spendingLimitAmount"], record["spendingLimitInterval"], record["stripeCardId"], ACTOR, record["createdAt"], record.get("updatedAt", ""), ACTOR),
+        (f"at://{ACTOR}/app.etzhayyim.apps.stripe.issuedCard/{_rkey(record['id'])}", ACTOR, record["id"], ACTOR, record["status"], record["id"], record["cardholderId"], record["userId"], record["cardType"], record["lastFour"], record["currency"], record["spendingLimitAmount"], record["spendingLimitInterval"], record["stripeCardId"], ACTOR, record["createdAt"], record.get("updatedAt", ""), ACTOR),
     )
 
 
@@ -250,7 +250,7 @@ def assign_card_credits(userId: str = "", cardId: str = "", amount: Any = 0, des
 
 def _insert_allocation(card_id: str, user_id: str, amount: int, allocated: int, consumed: int, available: int, destination_id: str) -> None:
     rid = _gid("cca")
-    _execute("INSERT INTO vertex_stripe_card_credit_allocation (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,amount,allocated_total,consumed_total,available_total,destination_id,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'ai.gftd.apps.stripe.cardCreditAllocation','active',%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/ai.gftd.apps.stripe.cardCreditAllocation/{rid}", ACTOR, rid, ACTOR, rid, card_id, user_id, amount, allocated, consumed, available, destination_id, ACTOR, now_iso(), ACTOR))
+    _execute("INSERT INTO vertex_stripe_card_credit_allocation (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,amount,allocated_total,consumed_total,available_total,destination_id,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'app.etzhayyim.apps.stripe.cardCreditAllocation','active',%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/app.etzhayyim.apps.stripe.cardCreditAllocation/{rid}", ACTOR, rid, ACTOR, rid, card_id, user_id, amount, allocated, consumed, available, destination_id, ACTOR, now_iso(), ACTOR))
 
 
 def get_card_credits(userId: str = "", cardId: str = "", **_: Any) -> dict[str, Any]:
@@ -294,12 +294,12 @@ def handle_authorization(authorization: dict[str, Any] | None = None, payload: s
 
 def _insert_authorization(card_id: str, user_id: str, stripe_card_id: str, amount: int, currency: str, decision: str, reason: str, before: int, after: int) -> None:
     rid = _gid("auth")
-    _execute("INSERT INTO vertex_stripe_authorization (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,stripe_card_id,amount,currency,decision,reason,available_before,available_after,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'ai.gftd.apps.stripe.authorization','active',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/ai.gftd.apps.stripe.authorization/{rid}", ACTOR, rid, ACTOR, rid, card_id, user_id, stripe_card_id, amount, currency, decision, reason, before, after, ACTOR, now_iso(), ACTOR))
+    _execute("INSERT INTO vertex_stripe_authorization (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,stripe_card_id,amount,currency,decision,reason,available_before,available_after,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'app.etzhayyim.apps.stripe.authorization','active',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/app.etzhayyim.apps.stripe.authorization/{rid}", ACTOR, rid, ACTOR, rid, card_id, user_id, stripe_card_id, amount, currency, decision, reason, before, after, ACTOR, now_iso(), ACTOR))
 
 
 def _insert_consumption(card_id: str, user_id: str, stripe_card_id: str, amount: int, allocated: int, consumed: int, available: int) -> None:
     rid = _gid("ccc")
-    _execute("INSERT INTO vertex_stripe_card_credit_consumption (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,stripe_card_id,amount,allocated_total,consumed_total,available_total,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'ai.gftd.apps.stripe.cardCreditConsumption','active',%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/ai.gftd.apps.stripe.cardCreditConsumption/{rid}", ACTOR, rid, ACTOR, rid, card_id, user_id, stripe_card_id, amount, allocated, consumed, available, ACTOR, now_iso(), ACTOR))
+    _execute("INSERT INTO vertex_stripe_card_credit_consumption (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,stripe_card_id,amount,allocated_total,consumed_total,available_total,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'app.etzhayyim.apps.stripe.cardCreditConsumption','active',%s,%s,%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/app.etzhayyim.apps.stripe.cardCreditConsumption/{rid}", ACTOR, rid, ACTOR, rid, card_id, user_id, stripe_card_id, amount, allocated, consumed, available, ACTOR, now_iso(), ACTOR))
 
 
 def _card_status(userId: str, cardId: str, status: str, label: str) -> dict[str, Any]:
@@ -334,7 +334,7 @@ def update_spending_limit(userId: str = "", cardId: str = "", amount: Any = None
     if result.get("error"):
         return {"error": "stripeApiError", "detail": result}
     rid = _gid("sl")
-    _execute("INSERT INTO vertex_stripe_spending_limit (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,amount,interval,categories_json,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'ai.gftd.apps.stripe.spendingLimit','active',%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/ai.gftd.apps.stripe.spendingLimit/{rid}", ACTOR, rid, ACTOR, rid, cardId, userId, value, interval or "monthly", json.dumps(categories or []), ACTOR, now_iso(), ACTOR))
+    _execute("INSERT INTO vertex_stripe_spending_limit (vertex_id,sensitivity_ord,owner_did,rkey,repo,collection,status,id,card_id,user_id,amount,interval,categories_json,org_id,actor_id,created_at,actor_did,org_did) VALUES (%s,1,%s,%s,%s,'app.etzhayyim.apps.stripe.spendingLimit','active',%s,%s,%s,%s,%s,%s,'anon',%s,%s,%s,'anon') ON CONFLICT (vertex_id) DO NOTHING", (f"at://{ACTOR}/app.etzhayyim.apps.stripe.spendingLimit/{rid}", ACTOR, rid, ACTOR, rid, cardId, userId, value, interval or "monthly", json.dumps(categories or []), ACTOR, now_iso(), ACTOR))
     return {"status": "updated", "cardId": cardId, "amount": value, "interval": interval or "monthly"}
 
 

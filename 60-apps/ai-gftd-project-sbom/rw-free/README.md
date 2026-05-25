@@ -36,7 +36,7 @@ did:web:sbom.etzhayyim.com:patchaction:{action-id}        — this slice (PatchA
 | Vendor (`sbom.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
-| `db.insertInto("vertex_sbom_artifact").values({...}).execute()` | `e.write({ collection: "ai.gftd.apps.sbom.artifact", record, rkey })` |
+| `db.insertInto("vertex_sbom_artifact").values({...}).execute()` | `e.write({ collection: "app.etzhayyim.apps.sbom.artifact", record, rkey })` |
 | `db.selectFrom("vertex_sbom_artifact").where("sha256","=",h).execute()` | `e.read({ collection, rkey: \`artifact-${sha256Short(h)}\` })` |
 
 ## Usage

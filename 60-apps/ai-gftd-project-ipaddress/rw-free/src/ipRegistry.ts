@@ -19,7 +19,7 @@ import {
   type RegisterIpOutput,
 } from "./types.js";
 
-const IP_COLLECTION = "ai.gftd.apps.ipaddress.ip";
+const IP_COLLECTION = "app.etzhayyim.apps.ipaddress.ip";
 
 function ipSlug(address: string): string {
   return address.toLowerCase().replace(/[.:]/g, "-");

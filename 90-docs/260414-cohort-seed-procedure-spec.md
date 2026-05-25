@@ -1,6 +1,6 @@
 ---
 id: cohort-seed-procedure-spec-260414
-title: "ai.gftd.cohort.seed — PDS Procedure Implementation Spec (ADR-0026 Iter 11)"
+title: "app.etzhayyim.cohort.seed — PDS Procedure Implementation Spec (ADR-0026 Iter 11)"
 status: active
 doc_type: how-to
 topic: cohort-seed
@@ -15,7 +15,7 @@ superseded_by: []
 
 # Goal
 
-`ai.gftd.cohort.seed` procedure (`00-contracts/lexicons/ai/gftd/cohort/seed.json`) の実装手順を固定。
+`app.etzhayyim.cohort.seed` procedure (`00-contracts/lexicons/ai/gftd/cohort/seed.json`) の実装手順を固定。
 `gftd cohort seed --segment <jsonld>` CLI が XRPC 経由で PDS に call して
 `vertex_cohort_actor` row を insert する経路。
 
@@ -43,13 +43,13 @@ superseded_by: []
 
 ## 1. NSID 検証
 
-`StrictCommandNSID<"ai.gftd.cohort.seed">` compile-time guard で lexicon 存在を担保。
-生成済み `LEXICON_NSID["ai.gftd.cohort.seed"]` を使う。
+`StrictCommandNSID<"app.etzhayyim.cohort.seed">` compile-time guard で lexicon 存在を担保。
+生成済み `LEXICON_NSID["app.etzhayyim.cohort.seed"]` を使う。
 
 ## 2. segment_hash 導出
 
 ```typescript
-import { parseSegmentHash } from '@gftd/magatama-host-sdk/cohort';
+import { parseSegmentHash } from '@etzhayyim/magatama-host-sdk/cohort';
 
 async function deriveSegmentHash(segmentJsonld: string): Promise<string> {
   // 1. canonicalize JSON-LD (URDNA2015 相当。当面は sorted-key JSON で代用)
@@ -76,7 +76,7 @@ async function deriveSegmentHash(segmentJsonld: string): Promise<string> {
 ```typescript
 const nano = genID('coh').slice(-8); // 8-char, base36
 const handle = `cohort-${nano}.etzhayyim.com`;
-// Phase 5 (plc.etzhayyim.com live) 後: call ai.gftd.plc.migrateActor with genesis op
+// Phase 5 (plc.etzhayyim.com live) 後: call app.etzhayyim.plc.migrateActor with genesis op
 // 暫定: "did:plc:pending-" + nano
 const did = `did:plc:pending-${nano}`;
 ```
@@ -104,7 +104,7 @@ await db.insertInto('vertex_cohort_actor')
     fission_enabled: input.fissionEnabled ?? false,
     derived_from: null,
     status: 'pending-plc-genesis',
-    signature_uri: `at://${handle}/ai.gftd.cohort.signature/self`,
+    signature_uri: `at://${handle}/app.etzhayyim.cohort.signature/self`,
     genesis_at: new Date().toISOString(),
     owner_did: 'did:web:cohort-watchdog.etzhayyim.com',
     created_date: new Date(),
@@ -114,13 +114,13 @@ await db.insertInto('vertex_cohort_actor')
 
 ## 6. Signature record write
 
-cohort actor の at:// repo に `ai.gftd.cohort.signature` を self rkey で write:
+cohort actor の at:// repo に `app.etzhayyim.cohort.signature` を self rkey で write:
 
 ```typescript
 await sdk.pds.dispatch({
   type: 'com.atproto.repo.createRecord',
   did,
-  collection: 'ai.gftd.cohort.signature',
+  collection: 'app.etzhayyim.cohort.signature',
   rkey: 'self',
   record: {
     segmentHash,
@@ -148,7 +148,7 @@ await forwardOcelToApqc({
 # TODO before implementation
 
 1. `forwardOcelToApqc` の eventType union に `cohort.genesis` を追加 (現 `cohort.kReevaluated` のみ)
-2. PDS handler file に `sdk.app.command(nsid('ai.gftd.cohort.seed'), ...)` を追加
+2. PDS handler file に `sdk.app.command(nsid('app.etzhayyim.cohort.seed'), ...)` を追加
 3. `deps.toml [[cohort_actors]]` への書き戻し reconciliation (optional — runtime は `vertex_cohort_actor` が SSoT)
 
 # References

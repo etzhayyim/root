@@ -53,9 +53,9 @@ contract MigrateOwnersToSafe is Script {
     // contract redeploy.
     address constant GCC                          = 0x8e9A5162b2800E0D19acC1708A531A3954900E21;
     address constant DEPLOY_REGISTRY              = 0x995AD6A2bb4D8916Ba036f5B2e29E7739Ee243b5;
-    address constant GFTD_ACTOR_REGISTRY          = 0xc097cC8f6dfa6f3a539b0De36E9Bb550B9AA7025;
-    address constant GFTD_ROOT_IDENTITY_REGISTRY  = 0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8;
-    address constant GFTD_AGENT_REGISTRY          = 0xcA3480edDAfa39c9377B83eEB18291286C8Cb865;
+    address constant etzhayyim_ACTOR_REGISTRY          = 0xc097cC8f6dfa6f3a539b0De36E9Bb550B9AA7025;
+    address constant etzhayyim_ROOT_IDENTITY_REGISTRY  = 0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8;
+    address constant etzhayyim_AGENT_REGISTRY          = 0xcA3480edDAfa39c9377B83eEB18291286C8Cb865;
     address constant ACTOR_RUNTIME_REGISTRY       = 0x9C730960e9BF7A403E610Dca0C8a565CF655b6a1;
     address constant MURAKUMO_REGISTRY            = 0x4E3d742ece9483f97c3094b40c4b8C7901a6E3B6;
     address constant MURAKUMO_ESCROW              = 0xD0DAB2B574948d4c8Bb9cF1D751CD0C6662f484d; // v2 ERC-1271
@@ -105,11 +105,11 @@ contract MigrateOwnersToSafe is Script {
 
     function _planRolesPerContract(address safe, bool broadcast) internal {
         // Single-role contracts (just `owner()`).
-        // Note: GftdActorRegistry has no Ownable — activate() is permissionless
+        // Note: etzhayyimActorRegistry has no Ownable — activate() is permissionless
         // by design and requires no ownership transfer.
         _maybeTransferOwnership("DeployRegistry",            DEPLOY_REGISTRY,             safe, broadcast);
-        _maybeTransferOwnership("GftdRootIdentityRegistry",  GFTD_ROOT_IDENTITY_REGISTRY, safe, broadcast);
-        _maybeTransferOwnership("GftdAgentRegistry",         GFTD_AGENT_REGISTRY,         safe, broadcast);
+        _maybeTransferOwnership("etzhayyimRootIdentityRegistry",  etzhayyim_ROOT_IDENTITY_REGISTRY, safe, broadcast);
+        _maybeTransferOwnership("etzhayyimAgentRegistry",         etzhayyim_AGENT_REGISTRY,         safe, broadcast);
         _maybeTransferOwnership("ActorRuntimeRegistry",      ACTOR_RUNTIME_REGISTRY,      safe, broadcast);
         _maybeTransferOwnership("MurakumoRegistry",          MURAKUMO_REGISTRY,           safe, broadcast);
 

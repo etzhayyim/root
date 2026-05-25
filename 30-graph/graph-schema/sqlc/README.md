@@ -1,4 +1,4 @@
-# @gftd/graph-schema sqlc — multi-language type-safe queries
+# @etzhayyim/graph-schema sqlc — multi-language type-safe queries
 
 Generates typed query bindings from `.sql` files. Pairs with Alembic (base
 tables) and SQLMesh (MVs) — sqlc owns the **query layer**, not schema.

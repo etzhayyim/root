@@ -10,7 +10,7 @@ Spatial Intelligence + Digital Twin Platform (maps.etzhayyim.com). Graph-first a
 |---|---|
 | **nanoid (UI)** | `uqpel6i6` |
 | **AT bot DID** | `did:web:maps.etzhayyim.com` |
-| **Runtime** | **TS Native** (`src/app.ts` + `@gftd/magatama-host-sdk` → esbuild bundle) |
+| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/magatama-host-sdk` → esbuild bundle) |
 | **Data store** | **RisingWave via Hyperdrive** — Write: `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` → PDS commit pipeline → graph Worker → Hyperdrive RisingWave, Read: `createKyselyDb(env.HYPERDRIVE).selectFrom(...)` → Hyperdrive RisingWave |
 | **UI mode** | `iframe` (SvelteKit-Primary, MapLibre + KAMI engine) |
 
@@ -250,7 +250,7 @@ v1m9k2q8.etzhayyim.com
 
 ## Write Path
 
-`sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", payload: { collection: "ai.gftd.apps.maps.{kind}", recordJson } })` → PDS → graph write path → RisingWave
+`sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", payload: { collection: "app.etzhayyim.apps.maps.{kind}", recordJson } })` → PDS → graph write path → RisingWave
 
 Social posts: `writeBuffer.push({ type: "com-atproto-repo-create-post", payload: { value: { text, createdAt } } })`
 
@@ -273,9 +273,9 @@ Social posts: `writeBuffer.push({ type: "com-atproto-repo-create-post", payload:
 
 STARTS_AT, ENDS_AT, IN_REGION, PARENT_OF, OBSERVED_AT, LOCATED_AT, SEGMENT_OF, NODE_OF, CONNECTS, FLOOR_OF, ASSET_IN, TWIN_OF, BOUND_TO, MONITORS, RELATES_TO, EVENT_ON, VERSION_OF, DETECTED, SAME_AS, ANALYZED_FROM, RESOLVES_TO
 
-## Lexicon (ai.gftd.apps.maps.*)
+## Lexicon (app.etzhayyim.apps.maps.*)
 
-47 record kinds mapped via `LABEL_MAP` in `app.ts`. W Protocol kind `maps.{type}` → AT Lexicon `ai.gftd.apps.maps.{type}`.
+47 record kinds mapped via `LABEL_MAP` in `app.ts`. W Protocol kind `maps.{type}` → AT Lexicon `app.etzhayyim.apps.maps.{type}`.
 
 ## Infrastructure Types (infra_type)
 
@@ -304,16 +304,16 @@ sentinelIngest.bpmn   (timer R/PT24H)
   ──► maps.sentinel.stac.search       (LangChain STAC POST /search)
         Element84 (S-2 L2A, no auth) + Copernicus Dataspace (S-1 GRD, OAuth)
   ──► generic.db.insert × N            (vertex_repo_record,
-                                         collection ai.gftd.apps.maps.satelliteScene)
-  ──► generic.audit.emit               (ai.gftd.apps.maps.sentinel.ingest)
+                                         collection app.etzhayyim.apps.maps.satelliteScene)
+  ──► generic.audit.emit               (app.etzhayyim.apps.maps.sentinel.ingest)
 
-sentinelAnalyze.bpmn  (xrpc POST ai.gftd.apps.maps.sentinelAnalyze)
+sentinelAnalyze.bpmn  (xrpc POST app.etzhayyim.apps.maps.sentinelAnalyze)
   ──► generic.db.select                (load satelliteScene by sceneUri)
   ──► maps.sentinel.runpod.analyze     (LangChain chain → RunPod sync poll)
         models: sentinel2_change_siamese | sentinel2_landuse_unet | sentinel1_flood_unet
   ──► generic.db.insert                (vertex_repo_record,
-                                         collection ai.gftd.apps.maps.satelliteAnalysis)
-  ──► generic.audit.emit               (ai.gftd.apps.maps.sentinel.analyze)
+                                         collection app.etzhayyim.apps.maps.satelliteAnalysis)
+  ──► generic.audit.emit               (app.etzhayyim.apps.maps.sentinel.analyze)
 ```
 
 **Files** (all live in this repo as of 2026-04-27):

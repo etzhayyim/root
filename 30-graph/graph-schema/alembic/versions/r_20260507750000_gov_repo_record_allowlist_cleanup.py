@@ -16,7 +16,7 @@ UP = [{'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          "    SET write_table_allowlist = REPLACE(write_table_allowlist, ',vertex_repo_record', "
          "'')\n"
-         "    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'ai.gftd.gov%')\n"
+         "    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%')\n"
          "      AND write_table_allowlist LIKE '%,vertex_repo_record%'\n"
          '  ',
   'parameters': []},
@@ -24,14 +24,14 @@ UP = [{'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          "    SET write_table_allowlist = REPLACE(write_table_allowlist, 'vertex_repo_record,', "
          "'')\n"
-         "    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'ai.gftd.gov%')\n"
+         "    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%')\n"
          "      AND write_table_allowlist LIKE '%vertex_repo_record,%'\n"
          '  ',
   'parameters': []},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          "    SET write_table_allowlist = ''\n"
-         "    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'ai.gftd.gov%')\n"
+         "    WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%')\n"
          "      AND write_table_allowlist = 'vertex_repo_record'\n"
          '  ',
   'parameters': []},
@@ -42,7 +42,7 @@ UP = [{'sql': '\n'
          "          WHEN COALESCE(write_table_allowlist, '') = '' THEN $1\n"
          "          ELSE write_table_allowlist || ',' || $2\n"
          '        END\n'
-         "      WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'ai.gftd.gov%')\n"
+         "      WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%')\n"
          "        AND COALESCE(write_table_allowlist, '') NOT LIKE $3\n"
          '    ',
   'parameters': ['vertex_gov_org', 'vertex_gov_org', '%vertex_gov_org%']},
@@ -53,7 +53,7 @@ UP = [{'sql': '\n'
          "          WHEN COALESCE(write_table_allowlist, '') = '' THEN $1\n"
          "          ELSE write_table_allowlist || ',' || $2\n"
          '        END\n'
-         "      WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'ai.gftd.gov%')\n"
+         "      WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%')\n"
          "        AND COALESCE(write_table_allowlist, '') NOT LIKE $3\n"
          '    ',
   'parameters': ['vertex_gov_actor_manifest',
@@ -66,7 +66,7 @@ UP = [{'sql': '\n'
          "          WHEN COALESCE(write_table_allowlist, '') = '' THEN $1\n"
          "          ELSE write_table_allowlist || ',' || $2\n"
          '        END\n'
-         "      WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'ai.gftd.gov%')\n"
+         "      WHERE (actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%')\n"
          "        AND COALESCE(write_table_allowlist, '') NOT LIKE $3\n"
          '    ',
   'parameters': ['edge_gov_org_site_dependency',
@@ -81,7 +81,7 @@ DOWN = [{'sql': '\n'
          'write_table_allowlist\n'
          "        ELSE write_table_allowlist || ',vertex_repo_record'\n"
          '      END\n'
-         "    WHERE actor_id LIKE 'gov-%' OR nsid LIKE 'ai.gftd.gov%'\n"
+         "    WHERE actor_id LIKE 'gov-%' OR nsid LIKE 'app.etzhayyim.gov%'\n"
          '  ',
   'parameters': []}]
 

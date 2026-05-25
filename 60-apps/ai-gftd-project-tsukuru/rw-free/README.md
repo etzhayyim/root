@@ -35,7 +35,7 @@ Per ADR-2605202800:
 | Vendor (`tsukuru.etzhayyim.com`) | etzhayyim (`tsukuru.etzhayyim.com`) |
 |---|---|
 | `createKyselyDb().insertInto("vertex_tsukuru_*").values({...})` | `e.write({ collection, record })` |
-| `recordWrite(sdk, "ai.gftd.apps.tsukuru.*", {...})` | `e.write({ collection, record })` |
+| `recordWrite(sdk, "app.etzhayyim.apps.tsukuru.*", {...})` | `e.write({ collection, record })` |
 | `invoke(sdk, "did:web:stripe.etzhayyim.com", "chargeCustomer", {...})` | `escrow.openIntent(e, {...})` (no on-chain tx) |
 | `invoke(sdk, "did:web:stripe.etzhayyim.com", "cancelCard", {...})` | `escrow.refundIntent(e, {...})` (no on-chain tx) |
 | `payment.method === "stripe_issuing"` + `stripeCardId` | `payment.method === "escrow_intent"` + escrow record URI |
@@ -46,7 +46,7 @@ Per ADR-2605202800:
    create order (escrow_intent)
      │
      └─► openIntent()
-           writes ai.gftd.apps.payment.escrowOpened
+           writes app.etzhayyim.apps.payment.escrowOpened
            safeAddress / arbiter = 0x0...0 placeholder (SDK v0.1)
            NO on-chain USDC transfer
            returns escrowIntentUri
@@ -56,11 +56,11 @@ Per ADR-2605202800:
    delivery confirmed (slice 2 — qualityInspection)
      │
      └─► submitInspection(result="pass")
-           writes ai.gftd.apps.tsukuru.qualityInspection
+           writes app.etzhayyim.apps.tsukuru.qualityInspection
            │
            └─► settleEscrow()  →  SDK pay()
                  USDC.transfer to manufacturer wallet on Base L2
-                 writes ai.gftd.apps.payment.sent (auto by SDK)
+                 writes app.etzhayyim.apps.payment.sent (auto by SDK)
                  returns paymentSentUri + txHash
                  │
                  └─► markOrderPassed()
@@ -71,7 +71,7 @@ Per ADR-2605202800:
    cancel before delivery (slice 1)
      │
      └─► refundIntent()
-           writes ai.gftd.apps.payment.escrowRefunded
+           writes app.etzhayyim.apps.payment.escrowRefunded
            NO on-chain tx (USDC was never moved)
            returns escrowRefundUri
            │

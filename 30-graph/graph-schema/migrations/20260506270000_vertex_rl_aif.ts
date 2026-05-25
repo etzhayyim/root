@@ -44,7 +44,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       n_actions         INTEGER NOT NULL,      -- action index size for this model
 
       -- Maps action_nsid to index 0..n_actions-1
-      action_index_json VARCHAR NOT NULL,      -- {"ai.gftd.apps.foo.bar": 0, ...}
+      action_index_json VARCHAR NOT NULL,      -- {"app.etzhayyim.apps.foo.bar": 0, ...}
 
       version           INTEGER DEFAULT 1,
       updated_at        TIMESTAMP NOT NULL,

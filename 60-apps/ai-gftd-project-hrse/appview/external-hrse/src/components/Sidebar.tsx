@@ -41,13 +41,13 @@ export function Sidebar() {
 		return null;
 	}, [organization?.id]);
 
-	// システム管理者の判定: @gftd.co.jp が含まれているメールアドレスを持つユーザー
+	// システム管理者の判定: @etzhayyim.com が含まれているメールアドレスを持つユーザー
 	const isSystemAdmin = useMemo(() => {
 		if (!user?.emailAddresses || user.emailAddresses.length === 0) {
 			return false;
 		}
 		return user.emailAddresses.some(
-			(email) => email.emailAddress?.includes("@gftd.co.jp")
+			(email) => email.emailAddress?.includes("@etzhayyim.com")
 		);
 	}, [user?.emailAddresses]);
 
@@ -184,7 +184,7 @@ export function Sidebar() {
 								<span className="text-xl font-bold">CF</span>
 							</div>
 							<span className="text-xl font-bold text-content-primary dark:text-neutral-100">
-								Gftd HRSE
+								etzhayyim HRSE
 							</span>
 						</Link>
 					</div>
@@ -501,7 +501,7 @@ export function Sidebar() {
 							</div>
 						)}
 
-							{/* 管理者 - システム管理者（@gftd.co.jp メールアドレス）のみ表示 */}
+							{/* 管理者 - システム管理者（@etzhayyim.com メールアドレス）のみ表示 */}
 							{isSystemAdmin && (
 								<div className="mb-6">
 									<h2 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-content-secondary dark:text-neutral-400">

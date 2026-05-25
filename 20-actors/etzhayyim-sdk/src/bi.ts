@@ -166,7 +166,7 @@ export interface JoinOpts {
 
   /**
    * keccak256 of the canonical oath text. The text itself is fixed by
-   * ADR-2605172600's lexicon (`ai.gftd.apps.etzhayyim.oath`). The
+   * ADR-2605172600's lexicon (`app.etzhayyim.apps.etzhayyim.oath`). The
    * adherent's signature over the text is carried inside the AT Record
    * written in Stage 2; only the hash goes on-chain.
    */
@@ -198,7 +198,7 @@ export interface JoinResult {
   /** geth-private tx hash of the `AdherentRegistry.Joined` event. */
   adherentTxHash: `0x${string}`;
 
-  /** AT URI of the `ai.gftd.apps.etzhayyim.oath` record that bridges
+  /** AT URI of the `app.etzhayyim.apps.etzhayyim.oath` record that bridges
    *  both chains + the github commit. */
   oathRecordUri: string;
 
@@ -216,7 +216,7 @@ export interface JoinResult {
  *             adherent is a 信者; the commitment is permanently on Base
  *             and (after Stage 3 PR merges) also on github.
  *
- *   Stage 2 — PDS: write a signed `ai.gftd.apps.etzhayyim.oath` record
+ *   Stage 2 — PDS: write a signed `app.etzhayyim.apps.etzhayyim.oath` record
  *             carrying the full oath text, the DID signature, the Base
  *             chainId + Joined tx hash, the github commit SHA, and the
  *             joinedAt timestamp. The record's CID is the
@@ -275,7 +275,7 @@ export async function join(opts: JoinOpts, cfg: BIConfig): Promise<JoinResult> {
     cfg
   );
 
-  // ─── Stage 2: AT Record (ai.gftd.apps.etzhayyim.oath) ──────────────
+  // ─── Stage 2: AT Record (app.etzhayyim.apps.etzhayyim.oath) ──────────────
   // Stage 2 is optional in the same sense as Stage 4: if no PDS agent
   // is wired we cannot write the cross-substrate index, but the 信者
   // commitment on Base (Stage 1) is already permanent. Caller gets back
@@ -990,7 +990,7 @@ async function _waitForFulfillment(args: _WaitForFulfillmentIn): Promise<Payment
     });
     if (logs.length > 0) {
       const hit = logs[0];
-      // Optional Stage 5: write ai.gftd.apps.payment.kisha record if the
+      // Optional Stage 5: write app.etzhayyim.apps.payment.kisha record if the
       // SDK has a PDS agent. Skipped silently when no agent is bound —
       // the public audit record then comes only from the on-chain
       // Fulfilled event.
@@ -999,9 +999,9 @@ async function _waitForFulfillment(args: _WaitForFulfillmentIn): Promise<Payment
         try {
           const created = await cfg.pdsAgent.com.atproto.repo.createRecord({
             repo: cfg.pdsAgent.session.did,
-            collection: "ai.gftd.apps.payment.kisha",
+            collection: "app.etzhayyim.apps.payment.kisha",
             record: {
-              $type: "ai.gftd.apps.payment.kisha",
+              $type: "app.etzhayyim.apps.payment.kisha",
               ticketId: args.ticketId,
               privateTxHash: args.privateTxHash,
               baseTxHash: hit.transactionHash,

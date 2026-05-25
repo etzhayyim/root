@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.projector.addBlocker": {
+    "/xrpc/app.etzhayyim.projector.addBlocker": {
       "post": {
-        "summary": "ai.gftd.projector.addBlocker",
-        "operationId": "ai.gftd.projector.addBlocker",
+        "summary": "app.etzhayyim.projector.addBlocker",
+        "operationId": "app.etzhayyim.projector.addBlocker",
         "requestBody": {
           "required": true,
           "content": {
@@ -78,10 +78,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.addConvoMember": {
+    "/xrpc/app.etzhayyim.projector.addConvoMember": {
       "post": {
-        "summary": "ai.gftd.projector.addConvoMember",
-        "operationId": "ai.gftd.projector.addConvoMember",
+        "summary": "app.etzhayyim.projector.addConvoMember",
+        "operationId": "app.etzhayyim.projector.addConvoMember",
         "requestBody": {
           "required": true,
           "content": {
@@ -136,10 +136,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.addConvoTask": {
+    "/xrpc/app.etzhayyim.projector.addConvoTask": {
       "post": {
-        "summary": "ai.gftd.projector.addConvoTask",
-        "operationId": "ai.gftd.projector.addConvoTask",
+        "summary": "app.etzhayyim.projector.addConvoTask",
+        "operationId": "app.etzhayyim.projector.addConvoTask",
         "requestBody": {
           "required": true,
           "content": {
@@ -204,10 +204,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.addReflection": {
+    "/xrpc/app.etzhayyim.projector.addReflection": {
       "post": {
-        "summary": "ai.gftd.projector.addReflection",
-        "operationId": "ai.gftd.projector.addReflection",
+        "summary": "app.etzhayyim.projector.addReflection",
+        "operationId": "app.etzhayyim.projector.addReflection",
         "requestBody": {
           "required": true,
           "content": {
@@ -259,10 +259,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.archiveProjectConvo": {
+    "/xrpc/app.etzhayyim.projector.archiveProjectConvo": {
       "post": {
-        "summary": "ai.gftd.projector.archiveProjectConvo",
-        "operationId": "ai.gftd.projector.archiveProjectConvo",
+        "summary": "app.etzhayyim.projector.archiveProjectConvo",
+        "operationId": "app.etzhayyim.projector.archiveProjectConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -318,10 +318,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.branchConvo": {
+    "/xrpc/app.etzhayyim.projector.branchConvo": {
       "post": {
-        "summary": "ai.gftd.projector.branchConvo",
-        "operationId": "ai.gftd.projector.branchConvo",
+        "summary": "app.etzhayyim.projector.branchConvo",
+        "operationId": "app.etzhayyim.projector.branchConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -368,10 +368,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.completeConvoTask": {
+    "/xrpc/app.etzhayyim.projector.completeConvoTask": {
       "post": {
-        "summary": "ai.gftd.projector.completeConvoTask",
-        "operationId": "ai.gftd.projector.completeConvoTask",
+        "summary": "app.etzhayyim.projector.completeConvoTask",
+        "operationId": "app.etzhayyim.projector.completeConvoTask",
         "requestBody": {
           "required": true,
           "content": {
@@ -423,10 +423,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.consistentAnswer": {
+    "/xrpc/app.etzhayyim.projector.consistentAnswer": {
       "post": {
-        "summary": "ai.gftd.projector.consistentAnswer",
-        "operationId": "ai.gftd.projector.consistentAnswer",
+        "summary": "app.etzhayyim.projector.consistentAnswer",
+        "operationId": "app.etzhayyim.projector.consistentAnswer",
         "requestBody": {
           "required": true,
           "content": {
@@ -473,10 +473,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.exploreThoughts": {
+    "/xrpc/app.etzhayyim.projector.exploreThoughts": {
       "post": {
-        "summary": "ai.gftd.projector.exploreThoughts",
-        "operationId": "ai.gftd.projector.exploreThoughts",
+        "summary": "app.etzhayyim.projector.exploreThoughts",
+        "operationId": "app.etzhayyim.projector.exploreThoughts",
         "requestBody": {
           "required": true,
           "content": {
@@ -530,10 +530,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.getConvoProjectStatus": {
+    "/xrpc/app.etzhayyim.projector.getConvoProjectStatus": {
       "get": {
-        "summary": "ai.gftd.projector.getConvoProjectStatus",
-        "operationId": "ai.gftd.projector.getConvoProjectStatus",
+        "summary": "app.etzhayyim.projector.getConvoProjectStatus",
+        "operationId": "app.etzhayyim.projector.getConvoProjectStatus",
         "parameters": [
           {
             "name": "convoId",
@@ -581,10 +581,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.getProjectConvo": {
+    "/xrpc/app.etzhayyim.projector.getProjectConvo": {
       "get": {
-        "summary": "ai.gftd.projector.getProjectConvo",
-        "operationId": "ai.gftd.projector.getProjectConvo",
+        "summary": "app.etzhayyim.projector.getProjectConvo",
+        "operationId": "app.etzhayyim.projector.getProjectConvo",
         "parameters": [
           {
             "name": "convoId",
@@ -650,10 +650,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.getProjectStatus": {
+    "/xrpc/app.etzhayyim.projector.getProjectStatus": {
       "get": {
-        "summary": "ai.gftd.projector.getProjectStatus",
-        "operationId": "ai.gftd.projector.getProjectStatus",
+        "summary": "app.etzhayyim.projector.getProjectStatus",
+        "operationId": "app.etzhayyim.projector.getProjectStatus",
         "parameters": [
           {
             "name": "projectId",
@@ -720,10 +720,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.getProjectUnreadCounts": {
+    "/xrpc/app.etzhayyim.projector.getProjectUnreadCounts": {
       "get": {
-        "summary": "ai.gftd.projector.getProjectUnreadCounts",
-        "operationId": "ai.gftd.projector.getProjectUnreadCounts",
+        "summary": "app.etzhayyim.projector.getProjectUnreadCounts",
+        "operationId": "app.etzhayyim.projector.getProjectUnreadCounts",
         "parameters": [
           {
             "name": "convoId",
@@ -762,10 +762,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.listBranches": {
+    "/xrpc/app.etzhayyim.projector.listBranches": {
       "get": {
-        "summary": "ai.gftd.projector.listBranches",
-        "operationId": "ai.gftd.projector.listBranches",
+        "summary": "app.etzhayyim.projector.listBranches",
+        "operationId": "app.etzhayyim.projector.listBranches",
         "parameters": [
           {
             "name": "convoId",
@@ -820,10 +820,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.listConvoTasks": {
+    "/xrpc/app.etzhayyim.projector.listConvoTasks": {
       "get": {
-        "summary": "ai.gftd.projector.listConvoTasks",
-        "operationId": "ai.gftd.projector.listConvoTasks",
+        "summary": "app.etzhayyim.projector.listConvoTasks",
+        "operationId": "app.etzhayyim.projector.listConvoTasks",
         "parameters": [
           {
             "name": "convoId",
@@ -898,10 +898,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.listProjectConvos": {
+    "/xrpc/app.etzhayyim.projector.listProjectConvos": {
       "get": {
-        "summary": "ai.gftd.projector.listProjectConvos",
-        "operationId": "ai.gftd.projector.listProjectConvos",
+        "summary": "app.etzhayyim.projector.listProjectConvos",
+        "operationId": "app.etzhayyim.projector.listProjectConvos",
         "parameters": [
           {
             "name": "offset",
@@ -968,10 +968,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.listProjectNotifications": {
+    "/xrpc/app.etzhayyim.projector.listProjectNotifications": {
       "get": {
-        "summary": "ai.gftd.projector.listProjectNotifications",
-        "operationId": "ai.gftd.projector.listProjectNotifications",
+        "summary": "app.etzhayyim.projector.listProjectNotifications",
+        "operationId": "app.etzhayyim.projector.listProjectNotifications",
         "parameters": [
           {
             "name": "limit",
@@ -1021,10 +1021,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.listProjectTree": {
+    "/xrpc/app.etzhayyim.projector.listProjectTree": {
       "get": {
-        "summary": "ai.gftd.projector.listProjectTree",
-        "operationId": "ai.gftd.projector.listProjectTree",
+        "summary": "app.etzhayyim.projector.listProjectTree",
+        "operationId": "app.etzhayyim.projector.listProjectTree",
         "parameters": [
           {
             "name": "convoId",
@@ -1071,10 +1071,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.listProjects": {
+    "/xrpc/app.etzhayyim.projector.listProjects": {
       "get": {
-        "summary": "ai.gftd.projector.listProjects",
-        "operationId": "ai.gftd.projector.listProjects",
+        "summary": "app.etzhayyim.projector.listProjects",
+        "operationId": "app.etzhayyim.projector.listProjects",
         "parameters": [
           {
             "name": "orgId",
@@ -1140,10 +1140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.listReflections": {
+    "/xrpc/app.etzhayyim.projector.listReflections": {
       "get": {
-        "summary": "ai.gftd.projector.listReflections",
-        "operationId": "ai.gftd.projector.listReflections",
+        "summary": "app.etzhayyim.projector.listReflections",
+        "operationId": "app.etzhayyim.projector.listReflections",
         "parameters": [
           {
             "name": "convoId",
@@ -1198,10 +1198,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.loadProjectChat": {
+    "/xrpc/app.etzhayyim.projector.loadProjectChat": {
       "get": {
-        "summary": "ai.gftd.projector.loadProjectChat",
-        "operationId": "ai.gftd.projector.loadProjectChat",
+        "summary": "app.etzhayyim.projector.loadProjectChat",
+        "operationId": "app.etzhayyim.projector.loadProjectChat",
         "parameters": [
           {
             "name": "convoId",
@@ -1251,10 +1251,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.moveProject": {
+    "/xrpc/app.etzhayyim.projector.moveProject": {
       "post": {
-        "summary": "ai.gftd.projector.moveProject",
-        "operationId": "ai.gftd.projector.moveProject",
+        "summary": "app.etzhayyim.projector.moveProject",
+        "operationId": "app.etzhayyim.projector.moveProject",
         "requestBody": {
           "required": true,
           "content": {
@@ -1301,10 +1301,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.newProjectConvo": {
+    "/xrpc/app.etzhayyim.projector.newProjectConvo": {
       "post": {
-        "summary": "ai.gftd.projector.newProjectConvo",
-        "operationId": "ai.gftd.projector.newProjectConvo",
+        "summary": "app.etzhayyim.projector.newProjectConvo",
+        "operationId": "app.etzhayyim.projector.newProjectConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -1387,10 +1387,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.resolveBlocker": {
+    "/xrpc/app.etzhayyim.projector.resolveBlocker": {
       "post": {
-        "summary": "ai.gftd.projector.resolveBlocker",
-        "operationId": "ai.gftd.projector.resolveBlocker",
+        "summary": "app.etzhayyim.projector.resolveBlocker",
+        "operationId": "app.etzhayyim.projector.resolveBlocker",
         "requestBody": {
           "required": true,
           "content": {
@@ -1444,10 +1444,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.resolveProjectEmail": {
+    "/xrpc/app.etzhayyim.projector.resolveProjectEmail": {
       "post": {
-        "summary": "ai.gftd.projector.resolveProjectEmail",
-        "operationId": "ai.gftd.projector.resolveProjectEmail",
+        "summary": "app.etzhayyim.projector.resolveProjectEmail",
+        "operationId": "app.etzhayyim.projector.resolveProjectEmail",
         "requestBody": {
           "required": true,
           "content": {
@@ -1491,10 +1491,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.sendProjectMessage": {
+    "/xrpc/app.etzhayyim.projector.sendProjectMessage": {
       "post": {
-        "summary": "ai.gftd.projector.sendProjectMessage",
-        "operationId": "ai.gftd.projector.sendProjectMessage",
+        "summary": "app.etzhayyim.projector.sendProjectMessage",
+        "operationId": "app.etzhayyim.projector.sendProjectMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -1549,10 +1549,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.updateProgress": {
+    "/xrpc/app.etzhayyim.projector.updateProgress": {
       "post": {
-        "summary": "ai.gftd.projector.updateProgress",
-        "operationId": "ai.gftd.projector.updateProgress",
+        "summary": "app.etzhayyim.projector.updateProgress",
+        "operationId": "app.etzhayyim.projector.updateProgress",
         "requestBody": {
           "required": true,
           "content": {
@@ -1612,10 +1612,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.projector.updateProjectConvo": {
+    "/xrpc/app.etzhayyim.projector.updateProjectConvo": {
       "post": {
-        "summary": "ai.gftd.projector.updateProjectConvo",
-        "operationId": "ai.gftd.projector.updateProjectConvo",
+        "summary": "app.etzhayyim.projector.updateProjectConvo",
+        "operationId": "app.etzhayyim.projector.updateProjectConvo",
         "requestBody": {
           "required": true,
           "content": {

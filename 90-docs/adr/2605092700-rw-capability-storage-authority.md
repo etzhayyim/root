@@ -32,7 +32,7 @@ superseded_by: []
 # Context
 
 Current RisingWave (RW) is the canonical queryable graph/projection store for
-`ai.gftd.apps.*` domain rows. It is not an end-to-end encrypted database and not
+`app.etzhayyim.apps.*` domain rows. It is not an end-to-end encrypted database and not
 a Tahoe-LAFS style capability store. Private fields may use the `signal:v1:`
 field convention, and Tenso stores encrypted file manifests/blobs, but RW still
 contains plaintext graph metadata and application rows.
@@ -155,7 +155,7 @@ This means:
 - MCP tool call includes DID-bound authentication plus capability proof.
 - The presented token is validated as an `auth.etzhayyim.com` issued OAuth access
   token, including DPoP `cnf.jkt` proof-of-possession where applicable.
-- The caller's facade DID is normalized through `GftdRootIdentityRegistry` or
+- The caller's facade DID is normalized through `etzhayyimRootIdentityRegistry` or
   the RW projection of it before matching any grant.
 - Gateway hashes/verifies the supplied capability without persisting the secret.
 - Gateway checks grant, caveats, delegation, expiry, revocation, and object state
@@ -295,7 +295,7 @@ Authority is DID-bound and explicit:
 Signature verification order:
 
 1. Resolve `did:web` / `did:plc` / `did:gftd` input to ERC725 root DID.
-2. Resolve ERC725 root to identity contract via `GftdRootIdentityRegistry`.
+2. Resolve ERC725 root to identity contract via `etzhayyimRootIdentityRegistry`.
 3. If signer is a contract/smart account, verify via ERC-1271.
 4. If signer is an EOA, verify ECDSA and root identity binding.
 5. If signer is a DID key, verify through DID Document `capabilityInvocation`.

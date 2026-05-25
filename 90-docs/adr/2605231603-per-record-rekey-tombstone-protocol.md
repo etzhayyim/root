@@ -110,9 +110,9 @@ Every tombstone with non-empty `auditWebhookDids` triggers an `app.etzhayyim.aud
 
 The karute actor manifest gains three pipelines:
 
-- `ai.gftd.apps.karute.rekeyRecord` — for prescriber-initiated correction or scheduled periodic rekey of long-lived chronic records (e.g. allergies list).
-- `ai.gftd.apps.karute.redactRecord` — for mis-entered records (`reason='data-correction'`) and patient-initiated removal of non-mandatory fields.
-- `ai.gftd.apps.karute.listTombstones` — for the chart-summary timeline materialization step.
+- `app.etzhayyim.apps.karute.rekeyRecord` — for prescriber-initiated correction or scheduled periodic rekey of long-lived chronic records (e.g. allergies list).
+- `app.etzhayyim.apps.karute.redactRecord` — for mis-entered records (`reason='data-correction'`) and patient-initiated removal of non-mandatory fields.
+- `app.etzhayyim.apps.karute.listTombstones` — for the chart-summary timeline materialization step.
 
 The `getChartSummary` and `exportFhirBundle` pipelines are updated to apply the logical-present algorithm before returning.
 

@@ -23,11 +23,11 @@ import { sql } from "kysely";
 const NOW = "2026-05-08T00:00:00Z";
 const OWNER = "did:web:etz-hayim.etzhayyim.com";
 const COUNTERPARTY = "did:web:k-bakshi.etzhayyim.com";
-const PRINCIPAL_GFTD_JAPAN = "did:web:gftd-japan.etzhayyim.com";
+const PRINCIPAL_etzhayyim_JAPAN = "did:web:gftd-japan.etzhayyim.com";
 
 const CONTRACTS = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contract/kbakshi-labor-notice-2025-05-08",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contract/kbakshi-labor-notice-2025-05-08",
     contractId: "kbakshi-labor-notice-2025-05-08",
     contractKind: "labor_condition_notice",
     title: "労働条件通知書 (Kuunal Bakshi)",
@@ -35,21 +35,21 @@ const CONTRACTS = [
     startDate: "2025-05-08",
     endDate: null,
     signedAt: "2025-05-08",
-    contractUrl: "sharepoint://gftd.co.jp/Shared%20Documents/HR/GJ_労働条件通知書_バクシ・クナル様.pdf",
+    contractUrl: "sharepoint://etzhayyim.com/Shared%20Documents/HR/GJ_労働条件通知書_バクシ・クナル様.pdf",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contract/kbakshi-employment-2025-06-01",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contract/kbakshi-employment-2025-06-01",
     contractId: "kbakshi-employment-2025-06-01",
     contractKind: "employment",
     title: "雇用契約書兼労働条件通知書 (Kuunal Bakshi, v1 期間定めなし)",
-    summary: "Gftd Japan株式会社 採用、CLO 兼 LLP DP 候補。allocation 50%。当初 期間定めなし版。",
+    summary: "etzhayyim Japan株式会社 採用、CLO 兼 LLP DP 候補。allocation 50%。当初 期間定めなし版。",
     startDate: "2025-06-01",
     endDate: null,
     signedAt: "2025-05-11",
-    contractUrl: "sharepoint://gftd.co.jp/Shared%20Documents/HR/20250601_GJ_雇用契約書兼労働条件通知書_クナル・バクシ.pdf",
+    contractUrl: "sharepoint://etzhayyim.com/Shared%20Documents/HR/20250601_GJ_雇用契約書兼労働条件通知書_クナル・バクシ.pdf",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.etzhayyim.contract/kbakshi-employment-2025-06-01-amended-1y",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contract/kbakshi-employment-2025-06-01-amended-1y",
     contractId: "kbakshi-employment-2025-06-01-amended-1y",
     contractKind: "employment",
     title: "雇用契約書兼労働条件通知書 (Kuunal Bakshi, v2 1年契約)",
@@ -57,7 +57,7 @@ const CONTRACTS = [
     startDate: "2025-06-01",
     endDate: "2026-05-31",
     signedAt: "2025-05-28",
-    contractUrl: "sharepoint://gftd.co.jp/Shared%20Documents/HR/(1年に変更)GJ_雇用契約書兼労働条件通知書.docx",
+    contractUrl: "sharepoint://etzhayyim.com/Shared%20Documents/HR/(1年に変更)GJ_雇用契約書兼労働条件通知書.docx",
   },
 ];
 
@@ -100,7 +100,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
          auto_renewal, monthly_rate_jpy, currency, payment_terms, status,
          signed_at, contract_url, created_at, sensitivity_ord, owner_did)
       SELECT
-        ${c.vertexId}, ${c.contractId}, ${c.contractKind}, ${OWNER}, ${PRINCIPAL_GFTD_JAPAN},
+        ${c.vertexId}, ${c.contractId}, ${c.contractKind}, ${OWNER}, ${PRINCIPAL_etzhayyim_JAPAN},
         ${COUNTERPARTY}, ${c.title}, ${c.summary}, ${c.startDate}, ${c.endDate},
         false, CAST(NULL AS DOUBLE PRECISION), 'JPY', '当月末締翌月末払 (社員給与同準)', 'active',
         ${c.signedAt}, ${c.contractUrl}, ${NOW}, 300, ${OWNER}

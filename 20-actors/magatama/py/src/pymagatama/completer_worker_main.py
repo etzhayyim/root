@@ -5,18 +5,18 @@ Subscribes to Zeebe job types matching the BPMN service tasks in
 60-apps/ai-gftd-project-completer/bpmn/evaluate-compliance.bpmn.
 
 Job types:
-  ai.gftd.apps.completer.queryRules        — fetch applicable rules from graph
-  ai.gftd.apps.completer.matchRules        — match rules to actor capabilities
-  ai.gftd.apps.completer.llmEvaluate       — LLM gap analysis per rule
-  ai.gftd.apps.completer.evaluate          — score + persist audit + findings
-  ai.gftd.apps.completer.evaluateRepoDids  — batch: fan-out per DID in repo
-  ai.gftd.apps.completer.remediate         — generate remediation action plan
+  app.etzhayyim.apps.completer.queryRules        — fetch applicable rules from graph
+  app.etzhayyim.apps.completer.matchRules        — match rules to actor capabilities
+  app.etzhayyim.apps.completer.llmEvaluate       — LLM gap analysis per rule
+  app.etzhayyim.apps.completer.evaluate          — score + persist audit + findings
+  app.etzhayyim.apps.completer.evaluateRepoDids  — batch: fan-out per DID in repo
+  app.etzhayyim.apps.completer.remediate         — generate remediation action plan
 
 Query jobs (served by dispatcher; these workers also handle them for direct BPMN use):
-  ai.gftd.apps.completer.getAuditReport
-  ai.gftd.apps.completer.listFindings
-  ai.gftd.apps.completer.listAudits
-  ai.gftd.apps.completer.getComplianceScore
+  app.etzhayyim.apps.completer.getAuditReport
+  app.etzhayyim.apps.completer.listFindings
+  app.etzhayyim.apps.completer.listAudits
+  app.etzhayyim.apps.completer.getComplianceScore
 
 Run inside cluster:
     python -m pymagatama.completer_worker_main
@@ -208,7 +208,7 @@ async def task_evaluate(
             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,
                       $16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27)
             """,
-            f"at://did:web:completer.etzhayyim.com/ai.gftd.apps.completer.audit/{rkey}",
+            f"at://did:web:completer.etzhayyim.com/app.etzhayyim.apps.completer.audit/{rkey}",
             int(time.time() * 1000),
             now[:10],
             0,
@@ -216,7 +216,7 @@ async def task_evaluate(
             rkey,
             "did:web:completer.etzhayyim.com",
             actor_did,
-            "ai.gftd.apps.completer.audit",
+            "app.etzhayyim.apps.completer.audit",
             "completed",
             audit_id,
             actor_did,
@@ -251,7 +251,7 @@ async def task_evaluate(
                 ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,
                           $16,$17,$18,$19,$20,$21,$22,$23,$24,$25)
                 """,
-                f"at://did:web:completer.etzhayyim.com/ai.gftd.apps.completer.finding/{frkey}",
+                f"at://did:web:completer.etzhayyim.com/app.etzhayyim.apps.completer.finding/{frkey}",
                 int(time.time() * 1000),
                 now[:10],
                 0,
@@ -259,7 +259,7 @@ async def task_evaluate(
                 frkey,
                 "did:web:completer.etzhayyim.com",
                 actor_did,
-                "ai.gftd.apps.completer.finding",
+                "app.etzhayyim.apps.completer.finding",
                 "open",
                 fid,
                 audit_id,
@@ -357,7 +357,7 @@ async def task_remediate(
                         estimated_effort, org_id, user_id, actor_id, created_at, updated_at
                     ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)
                     """,
-                    f"at://did:web:completer.etzhayyim.com/ai.gftd.apps.completer.remediation/{rid}",
+                    f"at://did:web:completer.etzhayyim.com/app.etzhayyim.apps.completer.remediation/{rid}",
                     int(time.time() * 1000),
                     now[:10],
                     0,
@@ -365,7 +365,7 @@ async def task_remediate(
                     rid,
                     "did:web:completer.etzhayyim.com",
                     "did:web:completer.etzhayyim.com",
-                    "ai.gftd.apps.completer.remediation",
+                    "app.etzhayyim.apps.completer.remediation",
                     "active",
                     rid,
                     finding_id,
@@ -495,16 +495,16 @@ async def run_worker() -> None:
     worker = LangServerWorker(channel)
 
     registrations = {
-        "ai.gftd.apps.completer.queryRules":       task_query_rules,
-        "ai.gftd.apps.completer.matchRules":        task_match_rules,
-        "ai.gftd.apps.completer.llmEvaluate":       task_llm_evaluate,
-        "ai.gftd.apps.completer.evaluate":          task_evaluate,
-        "ai.gftd.apps.completer.evaluateRepoDids":  task_evaluate_repo_dids,
-        "ai.gftd.apps.completer.remediate":         task_remediate,
-        "ai.gftd.apps.completer.getAuditReport":    task_get_audit_report,
-        "ai.gftd.apps.completer.listFindings":      task_list_findings,
-        "ai.gftd.apps.completer.listAudits":        task_list_audits,
-        "ai.gftd.apps.completer.getComplianceScore": task_get_compliance_score,
+        "app.etzhayyim.apps.completer.queryRules":       task_query_rules,
+        "app.etzhayyim.apps.completer.matchRules":        task_match_rules,
+        "app.etzhayyim.apps.completer.llmEvaluate":       task_llm_evaluate,
+        "app.etzhayyim.apps.completer.evaluate":          task_evaluate,
+        "app.etzhayyim.apps.completer.evaluateRepoDids":  task_evaluate_repo_dids,
+        "app.etzhayyim.apps.completer.remediate":         task_remediate,
+        "app.etzhayyim.apps.completer.getAuditReport":    task_get_audit_report,
+        "app.etzhayyim.apps.completer.listFindings":      task_list_findings,
+        "app.etzhayyim.apps.completer.listAudits":        task_list_audits,
+        "app.etzhayyim.apps.completer.getComplianceScore": task_get_compliance_score,
     }
 
     for task_type, fn in registrations.items():

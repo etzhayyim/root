@@ -95,14 +95,14 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
             else:
                 rkey = plan["rkey"]
                 name = (plan["new_props"].get("name") or rkey)
-                vid = f"at://{_APP_DID}/ai.gftd.mangaka.environment/{rkey}"
+                vid = f"at://{_APP_DID}/app.etzhayyim.mangaka.environment/{rkey}"
                 await cur.execute("DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vid,))
                 await cur.execute(
                     """INSERT INTO vertex_mangaka (vertex_id, created_date, sensitivity_ord, owner_did,
                         rkey, repo, did, collection, label, title, name, display_name,
                         kind, status, created_at, props, actor_did, org_did
                     ) VALUES (%s, %s, 0, %s, %s, %s, %s, %s, 'environment', %s, %s, %s, 'environment', 'saved', %s, %s, %s, %s)""",
-                    (vid, now_date, _APP_DID, rkey, _APP_DID, _APP_DID, "ai.gftd.mangaka.environment",
+                    (vid, now_date, _APP_DID, rkey, _APP_DID, _APP_DID, "app.etzhayyim.mangaka.environment",
                      name, name, name, now_iso, json.dumps(plan["new_props"], ensure_ascii=False),
                      _APP_DID, _DEFAULT_ORG_DID))
                 created += 1

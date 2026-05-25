@@ -80,4 +80,4 @@ are the interface.
 ## Attribution
 
 ISIC Rev.4 © United Nations Statistics Division, public domain.
-Code © gftd.co.jp, Apache-2.0.
+Code © etzhayyim.com, Apache-2.0.

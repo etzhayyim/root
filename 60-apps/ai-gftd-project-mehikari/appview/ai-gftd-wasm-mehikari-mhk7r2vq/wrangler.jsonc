@@ -17,17 +17,17 @@
     "APP_NANOID": "mhk7r2vq",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
     "OPERATING_ENTITY": "amanomibashira",
-    "VENDOR": "Gftd Japan株式会社",
+    "VENDOR": "etzhayyim Japan株式会社",
     "AUDIT_RETENTION_YEARS": "7",
     "RAW_CLIP_RETENTION_DAYS": "90",
     "OUTREACH_BUSINESS_HOURS_JST": "09:00-17:00",
     "OUTREACH_BUSINESS_DAYS": "Mon,Tue,Wed,Thu,Fri",
-    "REPLY_INBOX_DOMAIN": "reply.mehikari.gftd.ai"
+    "REPLY_INBOX_DOMAIN": "reply.mehikari.etzhayyim.com"
   },
   "routes": [
-    { "pattern": "mhk7r2vq.gftd.ai/*", "zone_name": "gftd.ai" },
-    { "pattern": "mehikari.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "mhk7r2vq.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
+    { "pattern": "mehikari.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

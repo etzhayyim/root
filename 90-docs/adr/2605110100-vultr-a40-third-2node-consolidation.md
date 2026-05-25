@@ -30,7 +30,7 @@ iter134 pivoted target to `vcg-a16-6c-64g-16vram × 2 (sjc)` which is
 in inventory but blocked by the unlock requirement above.
 
 Operating Entity: etzhayyim (sole principal).
-Vendor: Gftd Japan株式会社 (engineering capacity).
+Vendor: etzhayyim Japan株式会社 (engineering capacity).
 
 ## 0. Blockers (iter135)
 
@@ -235,7 +235,7 @@ volume-format conversion.
 | **1** | Add new pool to RW Helm `nodeSelector` tolerance; cordon old vhf nodes; let RW reschedule onto new pool (compute pods migrate one at a time, anti-affinity-preserving) | yes (drop tolerance, re-cordon) | ~5 min RW degraded per compute pod move |
 | **2** | Helm upgrade keiei-llm-pool with `gpu.enabled=true`; deploy dual pod on Node B + LiteLLM on either node | yes (helm rollback) | 0 (additive — old CPU pods still serve until cutover) |
 | **3** | Build/push `ghcr.io/etzhayyim/comfyui:cu124`, deploy ComfyUI Helm chart on Node A, copy SDXL checkpoints from RunPod NV → local NVMe via rsync | yes (RunPod still alive) | 0 (additive) |
-| **4** | Cut `comfyui.etzhayyim.com` Worker `UPSTREAM_URL` env from RunPod → Vultr; flip keiei daemon plist `GFTD_LLM_URL` to keiei-llm.etzhayyim.com (or keep port-forward until CF Worker exclusion) | yes (Worker var flip back) | <1 min |
+| **4** | Cut `comfyui.etzhayyim.com` Worker `UPSTREAM_URL` env from RunPod → Vultr; flip keiei daemon plist `etzhayyim_LLM_URL` to keiei-llm.etzhayyim.com (or keep port-forward until CF Worker exclusion) | yes (Worker var flip back) | <1 min |
 | **5** | Drain + delete `vhf-16c-58gb` pool, terminate RunPod `comfyui-gftd-unified`, archive RunPod ansible role | partially (cluster recreate from B2 + RunPod re-spin needed for full revert) | 0 if Phase 4 healthy |
 
 Detailed step-by-step in

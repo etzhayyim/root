@@ -9,7 +9,7 @@ import {
   withCapabilityTags,
   type B2Env,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 
 let primaryRegistered = false;
@@ -66,12 +66,12 @@ async function cmdListTracks(sdk: HostSDK, body: Uint8Array): Promise<string> {
 }
 
 export default createWorkerExport((sdk) => {
-  sdk.app.query(nsid("ai.gftd.ongakuka.listTracks"), async (_ctx: unknown, body: Uint8Array) => cmdListTracks(sdk, body));
+  sdk.app.query(nsid("app.etzhayyim.ongakuka.listTracks"), async (_ctx: unknown, body: Uint8Array) => cmdListTracks(sdk, body));
 
   // Enqueue 1 track: fire-and-forget to LangServer compose.bpmn (ADR-0056).
   // Heavy work: murakumo audio gen (~30s per attempt, up to 8 retries) +
   // B2 upload + RW writes. Must run in L7 LangServer, not L3 CF Worker.
-  sdk.app.command(nsid("ai.gftd.ongakuka.compose"),
+  sdk.app.command(nsid("app.etzhayyim.ongakuka.compose"),
     async (_ctx: unknown, body: Uint8Array) => {
       const input = decodeJson(body, { title: "", style: "", durationSec: 0, seed: 0, preGenSha: "" });
       const style    = String(input.style    || "").trim();
@@ -80,7 +80,7 @@ export default createWorkerExport((sdk) => {
       const projectId = `proj-${genID()}`;
       const trackRkey = genID();
       await ensurePathDids(sdk);
-      return proxyToBpmn(sdk, "ai.gftd.ongakuka.compose", {
+      return proxyToBpmn(sdk, "app.etzhayyim.ongakuka.compose", {
         style,
         title:       String(input.title || `Track ${nowISO().slice(0, 16)}`),
         duration_sec: Math.min(30, Math.max(5, Number(input.durationSec) || 15)),
@@ -93,7 +93,7 @@ export default createWorkerExport((sdk) => {
     asAgentTool("Enqueue a music track for generation (style prompt → LangServer compose.bpmn → ongakuka.music.generate)"),
     withCapabilityTags("write", "music", "audio", "generation"),
   );
-  sdk.app.command(nsid("ai.gftd.ongakuka.health"), async () => cmdHealth());
+  sdk.app.command(nsid("app.etzhayyim.ongakuka.health"), async () => cmdHealth());
 
   // Public blob serving for generated tracks (Phase 0).
   // GET https://ongakuka.etzhayyim.com/blobs/{sha256}.wav → B2 stream.

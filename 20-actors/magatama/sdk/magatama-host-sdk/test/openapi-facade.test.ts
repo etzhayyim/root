@@ -32,7 +32,7 @@ describe("buildOpenApiDocument", () => {
 			expect(key).toMatch(/^\/xrpc\/ai\.gftd\.apps\.lawfirm\./);
 		}
 		// spot check: createCase is a POST procedure
-		expect(doc.paths["/xrpc/ai.gftd.apps.lawfirm.createCase"]).toHaveProperty("post");
+		expect(doc.paths["/xrpc/app.etzhayyim.apps.lawfirm.createCase"]).toHaveProperty("post");
 	});
 
 	it("honors serverUrl override when provided", () => {

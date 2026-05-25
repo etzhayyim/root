@@ -1,5 +1,5 @@
 /**
- * @gftd/did-gftd — did:gftd DID method reference implementation.
+ * @etzhayyim/did-gftd — did:gftd DID method reference implementation.
  *
  * Spec: 90-docs/adr/0029-did-gftd-method-specification.md
  *
@@ -12,9 +12,9 @@
 
 export {
   // genesis
-  DID_GFTD_PREFIX,
+  DID_etzhayyim_PREFIX,
   MAX_PATH_DEPTH,
-  isValidDidGftd,
+  isValidDidetzhayyim,
   didDepth,
   didParent,
   didRoot,
@@ -36,7 +36,7 @@ export {
 } from "./did-doc";
 
 export type {
-  DidGftdDocument,
+  DidetzhayyimDocument,
   DidDocOptions,
 } from "./did-doc";
 

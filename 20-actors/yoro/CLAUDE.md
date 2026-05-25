@@ -43,11 +43,11 @@
 
 ### Handler (inbound)
 
-`magatama.ComAtprotoSyncSubscribeRepos()` で `ai.gftd.convo.message` の create を受信。SQL graph indexing (Message node + REPLY_TO edges) のみ app が実行。KV/AT Record/Signal は host が自動管理。
+`magatama.ComAtprotoSyncSubscribeRepos()` で `app.etzhayyim.convo.message` の create を受信。SQL graph indexing (Message node + REPLY_TO edges) のみ app が実行。KV/AT Record/Signal は host が自動管理。
 
 ## Frontend (CRITICAL)
 
-**`@etzhayyim/appshellv2` は除去済み — yoro に統合。** `$lib/atproto-agent` は @atproto/api + AT Protocol XRPC adapter。`@gftd/wproto` import 禁止。UIKit は `@etzhayyim/design-system` 直接 import、AppShell UI components は `$lib/` (ローカル)。
+**`@etzhayyim/appshellv2` は除去済み — yoro に統合。** `$lib/atproto-agent` は @atproto/api + AT Protocol XRPC adapter。`@etzhayyim/wproto` import 禁止。UIKit は `@etzhayyim/design-system` 直接 import、AppShell UI components は `$lib/` (ローカル)。
 
 | モジュール | 用途 |
 |---|---|
@@ -113,9 +113,9 @@ import { ActorHero } from '$lib/actor';
 
 人間のブラウザアクセスは **atproto.etzhayyim.com** の XRPC 経由:
 
-- Convo: `atproto.etzhayyim.com/xrpc/ai.gftd.convo.{method}` (messaging/convos/DMs)
-- Signal: `atproto.etzhayyim.com/xrpc/ai.gftd.signal.{method}` (E2E encryption)
-- RTC: `atproto.etzhayyim.com/xrpc/ai.gftd.rtc.{method}` (VoIP/meetings)
+- Convo: `atproto.etzhayyim.com/xrpc/app.etzhayyim.convo.{method}` (messaging/convos/DMs)
+- Signal: `atproto.etzhayyim.com/xrpc/app.etzhayyim.signal.{method}` (E2E encryption)
+- RTC: `atproto.etzhayyim.com/xrpc/app.etzhayyim.rtc.{method}` (VoIP/meetings)
 - AT Standard: `atproto.etzhayyim.com/xrpc/{app.bsky|com.atproto|chat.bsky}.*`
 - Stream: `atproto.etzhayyim.com/xrpc/com.atproto.sync.subscribeRepos` (SSE)
 
@@ -189,7 +189,7 @@ Graph indexing は supplementary — host が canonical data を管理し、app 
 /convo/{convoId}                     → DM conversation
 /convo/settings                      → Chat settings
 /messages/*                          → /convo/* redirect (backward compat)
-/projects                            → Projector — project list + recursive tree (ai.gftd.projector.*)
+/projects                            → Projector — project list + recursive tree (app.etzhayyim.projector.*)
 /projects/{projectId}                → Projector — project chat with PM agent, slash commands, MCP tools
 /profile/{handle}                    → Profile + KAMI LiveStage (SSR OG tags)
 /profile/{handle}/post/{rkey}        → Post thread (SSR OG tags)
@@ -297,19 +297,19 @@ Performance (2026-03-25 実測, warm):
 
 ### channel → convo 完全除去 + AT Protocol 互換拡張
 
-**AT Protocol `chat.bsky.convo.*` を canonical、`ai.gftd.convo.*` を extension として統一。** `channel` 概念は frontend・PDS 双方から完全除去済み。deprecated alias と response/body compat はすべて削除。`convoId` が唯一の識別子。
+**AT Protocol `chat.bsky.convo.*` を canonical、`app.etzhayyim.convo.*` を extension として統一。** `channel` 概念は frontend・PDS 双方から完全除去済み。deprecated alias と response/body compat はすべて削除。`convoId` が唯一の識別子。
 
 **NSID 階層 (AT Protocol Layer Separation 準拠)**:
 
 | Layer | Namespace | 用途 | 例 |
 |---|---|---|---|
 | **Layer 0 (AT faithful)** | `chat.bsky.convo.*` | 標準 DM — Bluesky 互換 | listConvos, getConvo, sendMessage, updateRead |
-| **Layer 1 (W extension)** | `ai.gftd.convo.*` | GFTD AT Protocol extension — presence/typing/pin/forward/encryption/consent | updatePresence, sendTyping, pinMessage, setEncryption |
-| **Layer 2 (Projector)** | `ai.gftd.projector.*` | AI PM project convo — recursive nesting, slash commands, MCP tool calling | newProjectConvo, sendProjectMessage, listProjectConvos, getProjectConvo |
+| **Layer 1 (W extension)** | `app.etzhayyim.convo.*` | etzhayyim AT Protocol extension — presence/typing/pin/forward/encryption/consent | updatePresence, sendTyping, pinMessage, setEncryption |
+| **Layer 2 (Projector)** | `app.etzhayyim.projector.*` | AI PM project convo — recursive nesting, slash commands, MCP tool calling | newProjectConvo, sendProjectMessage, listProjectConvos, getProjectConvo |
 
-**PDS handler 統合**: `chat.bsky.convo.*` write methods は `ai.gftd.convo.*` の unified handler に委譲。`sendMessage` → `ConvoSendMessage`、`updateRead` → `ConvoMarkRead`、`addReaction` → `ConvoReact`、`removeReaction` → `ConvoUnreact`、`deleteMessageForSelf` → `ConvoRedactMessage`、`leaveConvo` → `ConvoLeaveConvo`。Read methods (`ListConvos/GetConvo/GetMessages`) は infra handler に残存 (AT Protocol 互換レスポンス形式)。
+**PDS handler 統合**: `chat.bsky.convo.*` write methods は `app.etzhayyim.convo.*` の unified handler に委譲。`sendMessage` → `ConvoSendMessage`、`updateRead` → `ConvoMarkRead`、`addReaction` → `ConvoReact`、`removeReaction` → `ConvoUnreact`、`deleteMessageForSelf` → `ConvoRedactMessage`、`leaveConvo` → `ConvoLeaveConvo`。Read methods (`ListConvos/GetConvo/GetMessages`) は infra handler に残存 (AT Protocol 互換レスポンス形式)。
 
-**GFTD AT Protocol extension NSIDs** (AT Protocol にない `ai.gftd.convo.*` 独自機能):
+**etzhayyim AT Protocol extension NSIDs** (AT Protocol にない `app.etzhayyim.convo.*` 独自機能):
 - `updatePresence` — オンライン/オフライン/離席
 - `sendTyping` — タイピングインジケーター
 - `pinMessage` / `unpinMessage` — メッセージピン
@@ -317,9 +317,9 @@ Performance (2026-03-25 実測, warm):
 - `setEncryption` — Signal E2E 暗号化切替
 - `setProfile` — convo プロフィール設定
 
-E2E verified: 19 NSIDs (chat.bsky.convo 4 + ai.gftd.convo 10 + feed/social 5) — 18 pass, 1 expected 404
+E2E verified: 19 NSIDs (chat.bsky.convo 4 + app.etzhayyim.convo 10 + feed/social 5) — 18 pass, 1 expected 404
 
-- evidence: `pds-dispatch.ts` L270-290 (chat.bsky write → Convo* delegate)、L356-400 (ai.gftd.convo aliases)
+- evidence: `pds-dispatch.ts` L270-290 (chat.bsky write → Convo* delegate)、L356-400 (app.etzhayyim.convo aliases)
 - evidence: `pds-handlers-gftd.ts` L512-576 (unified handler, `convoId` canonical)
 - evidence: `convo-store.svelte.ts` L167-224 (`convos:` spread)
 - evidence: `$lib/atproto-agent` service.ts L51-64 (`createProjectConvo` return type)
@@ -353,7 +353,7 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + ai.gftd.convo 10 + feed/social 5) �
 | **Lexicon JSON** | `magatama:consent@1.0.0` — `request-consent`, `resolve-consent`, `revoke-consent`, `check-consent`, `list-grants` | |
 | **TS Client** | `$lib/atproto-agent` — `requestConsent()`, `resolveConsent()`, `revokeConsent()`, `checkConsent()`, `listConsentGrants()` | |
 | **UI** | `ConsentPrompt.svelte` — inline consent card (scope, sensitivity, selective disclosure, Allow/Deny) | |
-| **Detection** | `/convo/[convoId]` — `contentType: "application/vnd.gftd.consent.request"` メッセージを自動検出 | |
+| **Detection** | `/convo/[convoId]` — `contentType: "application/vnd.etzhayyim.consent.request"` メッセージを自動検出 | |
 
 - evidence: `_archive/00-contracts/wit/wit/deps/magatama-consent/package.wit` (archived 2026-04-12), `$lib/w/ConsentPrompt.svelte`, `routes/convo/[convoId]/+page.svelte`
 
@@ -387,9 +387,9 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + ai.gftd.convo 10 + feed/social 5) �
 | **Social write** | `app.bsky.feed.like/unlike/repost/unrepost` | (new) | `Like/Unlike/Repost/Unrepost` |
 | **Social graph** | `app.bsky.graph.follow/unfollow/block/unblock` | (new) | `Follow/Unfollow/Block/Unblock` |
 | **Threadgate** | `app.bsky.feed.threadgate/removeThreadgate` | (new) | `CreateThreadgate/DeleteThreadgate` |
-| **Convo short** | `ai.gftd.projector.sendProjectMessage/edit/redact` | `sendProjectMessage/editMessage/redactMessage` | alias |
-| **RTC call** | `ai.gftd.rtc.sendCallOffer/sendCallAnswer/sendCallICE/hangupCall` | `sendOffer/sendAnswer/sendIce/hangup` | alias |
-| **RTC VAPID** | `ai.gftd.rtc.getVAPIDPublicKey` | `getVapidKey` | alias |
+| **Convo short** | `app.etzhayyim.projector.sendProjectMessage/edit/redact` | `sendProjectMessage/editMessage/redactMessage` | alias |
+| **RTC call** | `app.etzhayyim.rtc.sendCallOffer/sendCallAnswer/sendCallICE/hangupCall` | `sendOffer/sendAnswer/sendIce/hangup` | alias |
+| **RTC VAPID** | `app.etzhayyim.rtc.getVAPIDPublicKey` | `getVapidKey` | alias |
 
 - evidence: `50-infra/cloudflare/workers/atproto/src/pds-dispatch.ts` NSID_TO_METHOD
 - evidence: `50-infra/cloudflare/workers/atproto/src/pds-handlers-repo.ts` XRPC_WRITE_METHODS/XRPC_DELETE_METHODS
@@ -401,11 +401,11 @@ E2E verified: 19 NSIDs (chat.bsky.convo 4 + ai.gftd.convo 10 + feed/social 5) �
 
 | 機能 | AT Protocol API | contentType |
 |---|---|---|
-| **3D ステージ** | `atproto.etzhayyim.com/xrpc/ai.gftd.convo.getConvo` | — |
+| **3D ステージ** | `atproto.etzhayyim.com/xrpc/app.etzhayyim.convo.getConvo` | — |
 | **Agent avatar** | 常時アニメーション (idle/dancing/waving/talking) | — |
-| **リアルタイムチャット** | `createProjectConvo(agentDID)` (`ai.gftd.projector.createProjectConvo`) → `sendProjectMessage(ch, text)` (`ai.gftd.projector.sendProjectMessage`) → `subscribeWStream(SSE)` で応答受信 | `text/plain` |
-| **Emote** | `sendProjectMessage(ch, json)` (`ai.gftd.projector`) + client-side floating animation | `application/vnd.gftd.baminiku.emote` |
-| **投げ銭** | `sendProjectMessage(ch, json)` (`ai.gftd.projector`) → ComAtprotoSyncSubscribeRepos → WRecord + 3D effect | `application/vnd.gftd.baminiku.tip` |
+| **リアルタイムチャット** | `createProjectConvo(agentDID)` (`app.etzhayyim.projector.createProjectConvo`) → `sendProjectMessage(ch, text)` (`app.etzhayyim.projector.sendProjectMessage`) → `subscribeWStream(SSE)` で応答受信 | `text/plain` |
+| **Emote** | `sendProjectMessage(ch, json)` (`app.etzhayyim.projector`) + client-side floating animation | `application/vnd.etzhayyim.baminiku.emote` |
+| **投げ銭** | `sendProjectMessage(ch, json)` (`app.etzhayyim.projector`) → ComAtprotoSyncSubscribeRepos → WRecord + 3D effect | `application/vnd.etzhayyim.baminiku.tip` |
 | **音楽** | BGM 表示 | — |
 | **LIVE バッジ** | 赤 LIVE indicator + viewer count | — |
 
@@ -487,22 +487,22 @@ Actor カード: Avatar + displayName + DID + description + sensitivity badge + 
 
 **yoro は AT Protocol に忠実な用語を使用する。AT Protocol 独自用語は internal transport のみ。**
 
-| AT Protocol 用語 | GFTD AT Protocol extension | UI 表示 | 使い分け |
+| AT Protocol 用語 | etzhayyim AT Protocol extension | UI 表示 | 使い分け |
 |---|---|---|---|
 | **Actor** (`app.bsky.actor`) | App (performer) | "Actor" | 全 social context で使用 |
 | **Record** (`com.atproto.repo`) | WEnvelope (内部型) | — | 外部 API は record、内部型名は W prefix 維持 |
 | **Convo** (`chat.bsky.convo`) | Convo (`convoId`) | "Messages" | DM は AT Protocol `convo` 準拠。legacy alias は除去済み |
 | **Post** (`app.bsky.feed.post`) | — | "Post" | AT Protocol そのまま |
 | **Profile** (`app.bsky.actor.getProfile`) | — | "Profile" | AT Protocol そのまま |
-| — (AT Protocol に存在しない) | HandleStream (wRPC) | — | GFTD AT Protocol extension |
-| — (AT Protocol に存在しない) | Signal E2E | — | GFTD AT Protocol extension |
-| — (AT Protocol に存在しない) | SQL graph query | — | GFTD AT Protocol extension |
+| — (AT Protocol に存在しない) | HandleStream (wRPC) | — | etzhayyim AT Protocol extension |
+| — (AT Protocol に存在しない) | Signal E2E | — | etzhayyim AT Protocol extension |
+| — (AT Protocol に存在しない) | SQL graph query | — | etzhayyim AT Protocol extension |
 
 ### CRITICAL: DM Agent Toolbar
 
 **DM 相手が `did:web:` agent の場合、agent の tools/capabilities をツールバーとして表示。**
 
-- Agent tools 取得: canonical `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` (compat: `mcp.etzhayyim.com/mcp`) に `tools/list` (JSON-RPC 2.0) + `/_app/meta` fallback (並列)
+- Agent tools 取得: canonical `mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` (compat: `mcp.etzhayyim.com/mcp`) に `tools/list` (JSON-RPC 2.0) + `/_app/meta` fallback (並列)
 - Tools (紫ボタン): wrench icon → タップで `/toolName` メッセージ送信 + agent API 直接呼び出し
 - Queries (青ボタン): search icon → タップで実行
 - ツールバー位置: composer の直上、横スクロール
@@ -519,7 +519,7 @@ Actor カード: Avatar + displayName + DID + description + sensitivity badge + 
 | 2. System Prompt | `convoSystemPrompt` (magatama.jsonld) or default + tools list |
 | 3. LLM Call | Murakumo `qwen3-vl-8b` with `tools` + `tool_choice: auto` |
 | 4. Tool Execution | DISPATCHER → app Worker XRPC → result |
-| 5. Tool Result | `contentType: application/vnd.gftd.mcp.tool-result` メッセージ |
+| 5. Tool Result | `contentType: application/vnd.etzhayyim.mcp.tool-result` メッセージ |
 | 6. Summary | Second LLM call with tool results → final reply |
 
 **convoSystemPrompt**: `magatama.jsonld` の `profile.convoSystemPrompt` が優先。未設定時は `displayName` + `description` から自動生成。
@@ -532,7 +532,7 @@ Actor カード: Avatar + displayName + DID + description + sensitivity badge + 
 
 | コンポーネント | ファイル | 役割 |
 |---|---|---|
-| **Ameno Engine (PRIMARY)** | `$lib/provider/ameno.svelte.ts` | `@gftd/ameno` Svelte 5 provider — transformers.js ONNX + WebGPU + per-actor LoRA merge + RAG-LoRA context injection。Gemma 4 E2B multimodal (2.3B) |
+| **Ameno Engine (PRIMARY)** | `$lib/provider/ameno.svelte.ts` | `@etzhayyim/ameno` Svelte 5 provider — transformers.js ONNX + WebGPU + per-actor LoRA merge + RAG-LoRA context injection。Gemma 4 E2B multimodal (2.3B) |
 | **WebLLM Engine (SECONDARY)** | `$lib/provider/local-llm.svelte.ts` | WebLLM (`@mlc-ai/web-llm`) エンジン — MLC compiled models。Qwen 3.5 series。Ameno fallback |
 | **Embedding Engine** | `$lib/provider/embedding.svelte.ts` | Transformers.js multilingual-e5-small (384d, 100+ langs, 45MB)。auto-init on mount。Search + post creation + search_agents で使用。$0 |
 | **GraphRAG Engine** | `$lib/provider/graph-rag.svelte.ts` | Design 1+5: Domain-aware lazy loading + federated Parquet query + dual-backend LLM (ameno → WebLLM fallback) |
@@ -559,7 +559,7 @@ User sends message
 
 | Backend | Package | Models | LoRA | RAG | Use Case |
 |---|---|---|---|---|---|
-| **Ameno (primary)** | `@gftd/ameno` | Gemma 4 E2B (ONNX, 2.3B) | per-actor WebGPU merge | ameno RAG-LoRA pipeline | Multimodal inference + personalized response |
+| **Ameno (primary)** | `@etzhayyim/ameno` | Gemma 4 E2B (ONNX, 2.3B) | per-actor WebGPU merge | ameno RAG-LoRA pipeline | Multimodal inference + personalized response |
 | **WebLLM (secondary)** | `@mlc-ai/web-llm` | Qwen 3.5 0.8B/2B/4B (MLC) | なし | keyword + federated | Fast text-only inference |
 | **PDS server (fallback)** | — | qwen3-vl/qwen3-30b/qwq-32b | — | — | Heavy reasoning, image gen, slash commands |
 
@@ -641,7 +641,7 @@ User message: "TSMCの半導体サプライチェーンについて教えて"
 - `federatedQuery(label, filter, limit)` — graph SQL path → RisingWave でフィルタ
 - ローカル結果が 3 行未満の場合に自動 fallback
 - 別 cache key (`snapshot:f-{keyword}.parquet`) でフィルタ済み Parquet をキャッシュ
-- `listAvailableLabels()` — PDS `ai.gftd.kagami.listLabels` XRPC (14+ labels、5min cache)
+- `listAvailableLabels()` — PDS `app.etzhayyim.kagami.listLabels` XRPC (14+ labels、5min cache)
 
 **Data flow**:
 ```
@@ -685,7 +685,7 @@ Read:  PDS XRPC → CF Cache API (60s) → graph SQL path → RisingWave (MV tra
 
 ### Projector PM Tools (Research + DID Expansion)
 
-**Projector (`/projects/[convoId]`, `ai.gftd.projector.*`) の PM agent に 5 つの built-in ツール。** LLM が text-based `[TOOL_CALL: name(args)]` で自動チェーン。設計: `60-apps/ai-gftd-project-projector/CLAUDE.md`
+**Projector (`/projects/[convoId]`, `app.etzhayyim.projector.*`) の PM agent に 5 つの built-in ツール。** LLM が text-based `[TOOL_CALL: name(args)]` で自動チェーン。設計: `60-apps/ai-gftd-project-projector/CLAUDE.md`
 
 | Tool | 説明 | 用途 |
 |---|---|---|
@@ -730,9 +730,9 @@ PM reply: "半導体サプライチェーンの調査完了。以下の DID を�
 
 | 機能 | XRPC NSID | 説明 |
 |---|---|---|
-| **eSIM 発行** | `ai.gftd.apps.celler.provisionEsim` | Telnyx API → QR code + activation code |
-| **アクティベート** | `ai.gftd.apps.celler.activateEsim` | ICCID → enable |
-| **一時停止** | `ai.gftd.apps.celler.suspendEsim` | ICCID → disable |
+| **eSIM 発行** | `app.etzhayyim.apps.celler.provisionEsim` | Telnyx API → QR code + activation code |
+| **アクティベート** | `app.etzhayyim.apps.celler.activateEsim` | ICCID → enable |
+| **一時停止** | `app.etzhayyim.apps.celler.suspendEsim` | ICCID → disable |
 | **使用量確認** | SQL `(:ESimProfile)` query | data_used/remaining MB |
 
 **オンボーディングバナー**: 自分のプロフィール表示時に eSIM 未契約の場合、emerald グラデーションのバナーで契約を促進。Welcome フローにも「eSIM で繋がる」ステップを追加。
@@ -742,7 +742,7 @@ PM reply: "半導体サプライチェーンの調査完了。以下の DID を�
 
 ### Profile Cross-App Scores (Dojo / Joucho)
 
-**ActorHero に dojo / joucho スコアをバッジ表示。** Profile ロード時に `atproto.etzhayyim.com/xrpc/ai.gftd.kagami.graph.query` で並列 Graph query (2s timeout、non-blocking)。
+**ActorHero に dojo / joucho スコアをバッジ表示。** Profile ロード時に `atproto.etzhayyim.com/xrpc/app.etzhayyim.kagami.graph.query` で並列 Graph query (2s timeout、non-blocking)。
 
 | Score | SQL Label | 表示 | 色 |
 |---|---|---|---|
@@ -819,7 +819,7 @@ PM reply: "半導体サプライチェーンの調査完了。以下の DID を�
 **Agent profile の「ツール」タブに MCP tools を表示。** `AgentProfile.svelte` が 4 層 fallback で tools を取得しレンダリング (紫 wrench icon + MCP badge)。
 
 **Discovery 4 層 fallback:**
-1. canonical `mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` (compat: `mcp.etzhayyim.com/mcp`) に `tools/list` POST (JSON-RPC 2.0, public — 認証不要) → `:ActorCapability` / `:ActorCard` / DISPATCHER `/_app/meta` graph query
+1. canonical `mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` (compat: `mcp.etzhayyim.com/mcp`) に `tools/list` POST (JSON-RPC 2.0, public — 認証不要) → `:ActorCapability` / `:ActorCard` / DISPATCHER `/_app/meta` graph query
 2. `actor.tools` prop (SSR `+page.server.ts` が `/_app/meta` をサーバーサイドで fetch → `data.appTools` → `actorData.tools` で渡す。CORS 不要)
 3. `{nanoid}.etzhayyim.com/_app/meta` 直接 fetch (CORS header `Access-Control-Allow-Origin: *` が `magatama-host-sdk` に追加済み。user Worker 再デプロイ後に動作)
 4. PDS `getProfile` response の `service.capabilities` (capabilities prop fallback)
@@ -891,8 +891,8 @@ yoro Profile Org Tab
 
 | 層 | 実装 |
 |---|---|
-| **Write** | `atProcedure('com.atproto.repo.createRecord', { collection: 'ai.gftd.yoro.browsingHistory', record })` → PDS → yata `BrowsingHistory` node |
-| **Read** | `atProcedure('ai.gftd.kagami.graph.query', { statement: 'MATCH (h:BrowsingHistory) WHERE h.repo = $did ... ORDER BY h.created_at DESC LIMIT 200', parameters: { did } })` |
+| **Write** | `atProcedure('com.atproto.repo.createRecord', { collection: 'app.etzhayyim.yoro.browsingHistory', record })` → PDS → yata `BrowsingHistory` node |
+| **Read** | `atProcedure('app.etzhayyim.kagami.graph.query', { statement: 'MATCH (h:BrowsingHistory) WHERE h.repo = $did ... ORDER BY h.created_at DESC LIMIT 200', parameters: { did } })` |
 | **Delete** | `atProcedure('com.atproto.repo.deleteRecord', { collection, rkey })` — 個別 / 全削除 |
 | **Dedup** | Client-side `_recentPaths` Map — 同一 path 1 時間以内の重複 write 抑制 |
 | **UI** | `/history` route — filter tabs (all/profile/post/search) + 個別削除 (X) + 全削除 (確認モーダル) |
@@ -995,13 +995,13 @@ collections = [
     "app.bsky.feed.post",
     "app.bsky.feed.like",
     "app.bsky.graph.follow",
-    "ai.gftd.convo.message",
-    "ai.gftd.convo.convo",
-    "ai.gftd.convo.member",
-    "ai.gftd.convo.reaction",
-    "ai.gftd.convo.readReceipt",
-    "ai.gftd.convo.presence",
-    "ai.gftd.signal.preKeyBundle",
+    "app.etzhayyim.convo.message",
+    "app.etzhayyim.convo.convo",
+    "app.etzhayyim.convo.member",
+    "app.etzhayyim.convo.reaction",
+    "app.etzhayyim.convo.readReceipt",
+    "app.etzhayyim.convo.presence",
+    "app.etzhayyim.signal.preKeyBundle",
 ]
 
 [w_protocol]

@@ -50,7 +50,7 @@ interface Env {
   // Substrate-side XRPC adapter (rw-free reference impl). Service binding
   // to `yoro-xrpc-adapter` — bypasses the public HTTP hop and CF Bot
   // Management. Per ADR-2605172000: reads MUST resolve through MST/IPFS/L2,
-  // never through the gftd.ai PDS+AppView+RisingWave chain.
+  // never through the etzhayyim.com PDS+AppView+RisingWave chain.
   YORO_XRPC?: Fetcher;
   // Phase α P1 (ADR-2605212030): chain config for per-actor DID resolution.
   // Set in wrangler.toml [vars] once EtzhayyimAuthz is deployed to Base Sepolia.
@@ -66,38 +66,38 @@ interface Env {
   XRPC_BSKY_UPSTREAM?: string;
   XRPC_ATPROTO_UPSTREAM?: string;
   XRPC_CHAT_UPSTREAM?: string;
-  XRPC_GFTD_UPSTREAM?: string;
+  XRPC_etzhayyim_UPSTREAM?: string;
 }
 
 // ─── Substrate NSID alias map ──────────────────────────────────────────
 //
 // Per ADR-2605172000, app.bsky.* read NSIDs MUST resolve through the
 // MST/IPFS/L2 substrate via `yoro-xrpc-adapter` (which exposes the
-// rw-free reference impl under the `ai.gftd.yoro.*` NSID family). The
+// rw-free reference impl under the `app.etzhayyim.yoro.*` NSID family). The
 // yoro frontend still sends the standard `app.bsky.*` NSIDs unchanged;
 // this Worker rewrites them to the substrate-side equivalent before
 // dispatching through the service binding.
 //
-// Reads enumerated here SHORT-CIRCUIT the gftd.ai PDS proxy below.
+// Reads enumerated here SHORT-CIRCUIT the etzhayyim.com PDS proxy below.
 // Writes (createRecord, like, repost, follow, etc.) still flow through
 // the legacy path until the rw-free write path lands — they are not in
 // this map.
 const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
-  "app.bsky.feed.getTimeline":     "ai.gftd.yoro.feed.getTimeline",
-  "app.bsky.feed.getDiscoverFeed": "ai.gftd.yoro.feed.getDiscoverFeed",
-  "app.bsky.feed.getAuthorFeed":   "ai.gftd.yoro.feed.getAuthorFeed",
-  "app.bsky.feed.getPostThread":   "ai.gftd.yoro.feed.getPostThread",
-  "app.bsky.actor.getProfile":     "ai.gftd.yoro.actor.getProfile",
-  "app.bsky.actor.searchActors":   "ai.gftd.yoro.actor.searchActors",
-  "app.bsky.graph.getFollowers":   "ai.gftd.yoro.graph.getFollowers",
-  "app.bsky.graph.getFollows":     "ai.gftd.yoro.graph.getFollows",
+  "app.bsky.feed.getTimeline":     "app.etzhayyim.yoro.feed.getTimeline",
+  "app.bsky.feed.getDiscoverFeed": "app.etzhayyim.yoro.feed.getDiscoverFeed",
+  "app.bsky.feed.getAuthorFeed":   "app.etzhayyim.yoro.feed.getAuthorFeed",
+  "app.bsky.feed.getPostThread":   "app.etzhayyim.yoro.feed.getPostThread",
+  "app.bsky.actor.getProfile":     "app.etzhayyim.yoro.actor.getProfile",
+  "app.bsky.actor.searchActors":   "app.etzhayyim.yoro.actor.searchActors",
+  "app.bsky.graph.getFollowers":   "app.etzhayyim.yoro.graph.getFollowers",
+  "app.bsky.graph.getFollows":     "app.etzhayyim.yoro.graph.getFollows",
 };
 
 // Identity-passthrough prefixes that route to YORO_XRPC unchanged. Used for
 // NSID families already in their canonical rw-free shape (no app.bsky.* →
-// ai.gftd.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
+// app.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
 const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
-  "ai.gftd.apps.unispsc.",
+  "app.etzhayyim.apps.unispsc.",
 ];
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
@@ -113,15 +113,15 @@ interface NsidRoute {
 }
 
 const XRPC_ROUTES: NsidRoute[] = [
-  { prefix: "ai.gftd.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
+  { prefix: "app.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
   // AT Protocol / Bluesky read+write (PDS handles both write paths and
   // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
   // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
   { prefix: "app.bsky.",             upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
-  // GFTD platform extensions (convo, signal, kagami, projector, mcp, rtc).
-  { prefix: "ai.gftd.",              upstream: "XRPC_GFTD_UPSTREAM" },
+  // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
+  { prefix: "app.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
 ];
 
 function findXrpcRoute(nsid: string): NsidRoute | null {
@@ -170,7 +170,7 @@ async function proxyXrpc(
     // content-length will be set by fetch from the new body; remove any stale value.
     fwd.delete("content-length");
   }
-  fwd.delete("host");
+  stripIncomingCookies(fwd);
   fwd.set("x-forwarded-host", "etzhayyim.com");
   fwd.set("x-forwarded-proto", "https");
   fwd.set("x-forwarded-method", request.method);
@@ -190,10 +190,8 @@ async function proxyXrpc(
     for (const h of STRIPPED_RESPONSE_HEADERS) respHeaders.delete(h);
     respHeaders.set("x-proxied-by", "etzhayyim-did-web");
     respHeaders.set("x-proxied-upstream", upstream);
-    respHeaders.set(
-      "strict-transport-security",
-      "max-age=31536000; includeSubDomains",
-    );
+    respHeaders.set("x-etzhayyim-no-cookie", "1");
+    applyApexSecurityHeaders(respHeaders, target.pathname);
     return new Response(upstreamResp.body, {
       status: upstreamResp.status,
       statusText: upstreamResp.statusText,
@@ -303,7 +301,7 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
       primaryLexicon: infraActor?.primaryLexicon,
       registry: registered
         ? {
-            lexicon: "ai.gftd.apps.unispsc",
+            lexicon: "app.etzhayyim.apps.unispsc",
             generatedAt: UNISPSC_GENERATED_AT,
             totalCount: UNISPSC_TOTAL_COUNT,
           }
@@ -315,16 +313,39 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
   };
 }
 
-// Headers we strip from the upstream response before sending to the client.
-// `set-cookie` is dropped because the cookie domain would be wrong
-// (yoro.etzhayyim.com), and we don't want cross-domain cookie shenanigans.
+// Headers we strip from the upstream response. `set-cookie` is dropped because
+// etzhayyim.com is a cookie-free zone by constitutional design — see
+// /CHARTER-RIDER.md §2(c) (no surveillance / trackers) + ADR-2605172000
+// (RW-free substrate, identity = DID + WebAuthn, not cookies).
 const STRIPPED_RESPONSE_HEADERS = new Set([
   "set-cookie",
-  "content-security-policy",      // upstream CSP may reference yoro.etzhayyim.com
+  "content-security-policy",
   "content-security-policy-report-only",
-  "strict-transport-security",    // we set our own
+  "strict-transport-security",
   "alt-svc",
 ]);
+
+// Outgoing-request headers to strip. `cookie` dropped so upstream never sees
+// browser cookies that leaked in from a sibling subdomain.
+const STRIPPED_REQUEST_HEADERS = ["cookie", "host"] as const;
+
+const PERMISSIONS_POLICY = "interest-cohort=(), browsing-topics=()";
+
+// `"cookies"` only — we don't wipe localStorage / OPFS / IndexedDB that the
+// yoro SPA depends on.
+const CLEAR_COOKIE_PATHS = new Set(["/", "/privacy"]);
+
+function applyApexSecurityHeaders(headers: Headers, pathname: string): void {
+  headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
+  headers.set("permissions-policy", PERMISSIONS_POLICY);
+  if (CLEAR_COOKIE_PATHS.has(pathname)) {
+    headers.set("clear-site-data", '"cookies"');
+  }
+}
+
+function stripIncomingCookies(headers: Headers): void {
+  for (const h of STRIPPED_REQUEST_HEADERS) headers.delete(h);
+}
 
 function buildUpstreamRequest(request: Request): Request {
   const upstreamUrl = new URL(request.url);
@@ -333,7 +354,7 @@ function buildUpstreamRequest(request: Request): Request {
   upstreamUrl.port = "";
 
   const fwdHeaders = new Headers(request.headers);
-  fwdHeaders.delete("host");
+  stripIncomingCookies(fwdHeaders);
   fwdHeaders.set("x-forwarded-host", "etzhayyim.com");
   fwdHeaders.set("x-forwarded-proto", "https");
 
@@ -345,20 +366,16 @@ function buildUpstreamRequest(request: Request): Request {
   });
 }
 
-function rewriteUpstreamResponse(upstream: Response): Response {
+function rewriteUpstreamResponse(upstream: Response, pathname: string): Response {
   const headers = new Headers(upstream.headers);
   for (const h of STRIPPED_RESPONSE_HEADERS) headers.delete(h);
 
-  // Our own HSTS — long max-age, includeSubDomains so did:web subdomain
-  // resolution stays HTTPS-only.
-  headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
+  applyApexSecurityHeaders(headers, pathname);
 
-  // Mark proxy hop so debugging is easier.
   headers.set("x-proxied-by", "etzhayyim-did-web");
   headers.set("x-proxied-upstream", UPSTREAM_HOST);
+  headers.set("x-etzhayyim-no-cookie", "1");
 
-  // If upstream returned a redirect with a yoro.etzhayyim.com Location, rewrite it
-  // to keep the user on etzhayyim.com.
   const loc = headers.get("location");
   if (loc) {
     try {
@@ -401,6 +418,8 @@ export default {
           "access-control-allow-origin": "*",
           "x-content-type-options": "nosniff",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
         },
       });
     }
@@ -431,7 +450,7 @@ export default {
             JSON.stringify({
               error: "HandleNotInRegistry",
               message: `handle '${handle}' matches a namespaced registry shape but is not registered`,
-              registry: "ai.gftd.apps.unispsc",
+              registry: "app.etzhayyim.apps.unispsc",
               registryTotalCount: UNISPSC_TOTAL_COUNT,
             }),
             {
@@ -454,6 +473,8 @@ export default {
             "access-control-allow-origin": "*",
             "x-content-type-options": "nosniff",
             "strict-transport-security": "max-age=31536000; includeSubDomains",
+            "permissions-policy": PERMISSIONS_POLICY,
+            "x-etzhayyim-no-cookie": "1",
           },
         });
       }
@@ -467,7 +488,7 @@ export default {
     //
     //    Substrate short-circuit: if the NSID has a rw-free equivalent
     //    (see SUBSTRATE_NSID_ALIASES) and the YORO_XRPC service binding
-    //    is configured, route to the adapter instead of the gftd.ai
+    //    is configured, route to the adapter instead of the etzhayyim.com
     //    upstream. Per ADR-2605172000, reads MUST resolve through MST.
     // ──────────────────────────────────────────────────────────────────
     {
@@ -484,7 +505,7 @@ export default {
           const substrateUrl = new URL(request.url);
           substrateUrl.pathname = `/xrpc/${substrateNsid}`;
           const fwd = new Headers(request.headers);
-          fwd.delete("host");
+          stripIncomingCookies(fwd);
           fwd.set("x-forwarded-host", "etzhayyim.com");
           fwd.set("x-forwarded-proto", "https");
           fwd.set("x-etzhayyim-nsid", nsid);
@@ -506,10 +527,8 @@ export default {
             respHeaders.set("x-proxied-by", "etzhayyim-did-web");
             respHeaders.set("x-proxied-upstream", "service:yoro-xrpc-adapter");
             respHeaders.set("x-etzhayyim-substrate", "mst-ipfs-l2");
-            respHeaders.set(
-              "strict-transport-security",
-              "max-age=31536000; includeSubDomains",
-            );
+            respHeaders.set("x-etzhayyim-no-cookie", "1");
+            applyApexSecurityHeaders(respHeaders, substrateUrl.pathname);
             return new Response(upstreamResp.body, {
               status: upstreamResp.status,
               statusText: upstreamResp.statusText,
@@ -576,7 +595,7 @@ export default {
     // ──────────────────────────────────────────────────────────────────
     try {
       const upstream = await env.YORO.fetch(buildUpstreamRequest(request));
-      return rewriteUpstreamResponse(upstream);
+      return rewriteUpstreamResponse(upstream, url.pathname);
     } catch (err) {
       return new Response(
         `Service binding fetch to magatama-yoro failed: ${err instanceof Error ? err.message : String(err)}`,

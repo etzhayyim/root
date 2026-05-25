@@ -121,8 +121,8 @@
 	async function fetchCreditsLedger() {
 		try {
 			const [balRes, txRes] = await Promise.all([
-				fetch(`${PDS}/xrpc/ai.gftd.apps.credits.get_balance`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }),
-				fetch(`${PDS}/xrpc/ai.gftd.apps.credits.list_transactions`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ limit: 20, offset: 0 }) }),
+				fetch(`${PDS}/xrpc/app.etzhayyim.apps.credits.get_balance`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }),
+				fetch(`${PDS}/xrpc/app.etzhayyim.apps.credits.list_transactions`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ limit: 20, offset: 0 }) }),
 			]);
 			if (balRes.ok) {
 				const d = await balRes.json();
@@ -155,7 +155,7 @@ onMount(() => {
 			// Fetch HC jobs
 			(async () => {
 				try {
-					const res = await fetch(`${PDS}/xrpc/ai.gftd.apps.hc.browse_tasks`, {
+					const res = await fetch(`${PDS}/xrpc/app.etzhayyim.apps.hc.browse_tasks`, {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({ category: '', status: 'published', limit: 6, offset: 0 }),

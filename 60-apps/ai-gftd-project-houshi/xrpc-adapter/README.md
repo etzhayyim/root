@@ -4,9 +4,9 @@ CF Worker that exposes the 3 rw-free commands as XRPC endpoints.
 
 ## Endpoints
 
-- `POST /xrpc/ai.gftd.houshi.storeSpore` — store spore data
-- `POST /xrpc/ai.gftd.houshi.germinate` — germinate spore into organism
-- `GET /xrpc/ai.gftd.houshi.listSpores?limit=...` — paginated spore listing
+- `POST /xrpc/app.etzhayyim.houshi.storeSpore` — store spore data
+- `POST /xrpc/app.etzhayyim.houshi.germinate` — germinate spore into organism
+- `GET /xrpc/app.etzhayyim.houshi.listSpores?limit=...` — paginated spore listing
 
 ## Setup
 
@@ -25,7 +25,7 @@ npm run dev
 ## Example: Store Spore
 
 ```bash
-curl -X POST http://localhost:8787/xrpc/ai.gftd.houshi.storeSpore \
+curl -X POST http://localhost:8787/xrpc/app.etzhayyim.houshi.storeSpore \
   -H "Content-Type: application/json" \
   -d '{"sporeId":"sp-001","genomeJson":"{...}"}'
 ```

@@ -1,7 +1,7 @@
 """LangGraph wrapper for Hume expression analysis.
 
 Graph id: ``hume.emotion.analyze.v1``.
-Task type: ``ai.gftd.agent.hume.emotion``.
+Task type: ``app.etzhayyim.agent.hume.emotion``.
 """
 
 from __future__ import annotations

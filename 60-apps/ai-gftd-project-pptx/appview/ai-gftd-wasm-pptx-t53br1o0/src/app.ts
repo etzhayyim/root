@@ -17,7 +17,7 @@ import {
   decodeJson,
   nsid,
   parseLexiconInput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 const getDb = () => createKyselyDb();
 
@@ -39,7 +39,7 @@ let actorDID = "";
 
 /** Upload a PPTX file: parse OOXML structure into kagami graph nodes. */
 async function cmdUploadPresentation(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.upload", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.upload", body);
   const title = str(args.title ?? "Untitled");
   const presId = genID("pres");
   const width = Number(args.width) || 9144000;   // EMU (default 10in)
@@ -47,7 +47,7 @@ async function cmdUploadPresentation(sdk: HostSDK, body: Uint8Array): Promise<Ui
 
   // Create presentation domain record (Tier 2)
   await getDb().insertInto("vertex_pptx_presentation" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.presentation/${presId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.presentation/${presId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: presId,
@@ -72,12 +72,12 @@ async function cmdUploadPresentation(sdk: HostSDK, body: Uint8Array): Promise<Ui
 
 /** Create a new blank presentation. */
 async function cmdCreatePresentation(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.create", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.create", body);
   const title = str(args.title ?? "New Presentation");
   const presId = genID("pres");
 
   await getDb().insertInto("vertex_pptx_presentation" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.presentation/${presId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.presentation/${presId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: presId,
@@ -101,7 +101,7 @@ async function cmdCreatePresentation(sdk: HostSDK, body: Uint8Array): Promise<Ui
 
 /** Delete a presentation and all associated graph nodes. */
 function cmdDeletePresentation(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.delete", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.delete", body);
   const id = str(args.id ?? "");
   if (!id) return encodeJson({ error: "id required" });
 
@@ -115,7 +115,7 @@ function cmdDeletePresentation(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Export a presentation from graph back to PPTX format. */
 async function cmdExportPresentation(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.export", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.export", body);
   const presId = str(args.id ?? "");
   if (!presId) return encodeJson({ error: "id required" });
 
@@ -139,7 +139,7 @@ async function cmdExportPresentation(sdk: HostSDK, body: Uint8Array): Promise<Ui
 
 /** Add a new slide to a presentation. */
 async function cmdAddSlide(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.addSlide", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.addSlide", body);
   const presId = str(args.presentationId ?? "");
   if (!presId) return encodeJson({ error: "presentationId required" });
 
@@ -148,7 +148,7 @@ async function cmdAddSlide(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> 
   const layoutRef = str(args.layoutRef ?? "blank");
 
   await getDb().insertInto("vertex_pptx_slide" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.slide/${slideId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.slide/${slideId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: slideId,
@@ -167,7 +167,7 @@ async function cmdAddSlide(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> 
 
 /** Remove a slide from a presentation. */
 function cmdRemoveSlide(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.removeSlide", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.removeSlide", body);
   const id = str(args.id ?? "");
   if (!id) return encodeJson({ error: "id required" });
 
@@ -181,7 +181,7 @@ function cmdRemoveSlide(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Reorder slides within a presentation. */
 function cmdReorderSlides(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.reorderSlides", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.reorderSlides", body);
   const presId = str(args.presentationId ?? "");
   const slideIds: string[] = args.slideIds ?? [];
   if (!presId || slideIds.length === 0) return encodeJson({ error: "presentationId and slideIds required" });
@@ -198,14 +198,14 @@ function cmdReorderSlides(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Add a shape element to a slide. */
 async function cmdAddShape(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.addShape", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.addShape", body);
   const slideId = str(args.slideId ?? "");
   if (!slideId) return encodeJson({ error: "slideId required" });
 
   const shapeId = genID("shape");
 
   await getDb().insertInto("vertex_pptx_shape" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.shape/${shapeId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.shape/${shapeId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: shapeId,
@@ -229,7 +229,7 @@ async function cmdAddShape(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> 
 
 /** Update shape properties (position, size, rotation, fill, stroke). */
 function cmdUpdateShape(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.updateShape", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.updateShape", body);
   const id = str(args.id ?? "");
   if (!id) return encodeJson({ error: "id required" });
 
@@ -252,7 +252,7 @@ function cmdUpdateShape(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Remove a shape from a slide. */
 function cmdRemoveShape(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.removeShape", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.removeShape", body);
   const id = str(args.id ?? "");
   if (!id) return encodeJson({ error: "id required" });
 
@@ -266,14 +266,14 @@ function cmdRemoveShape(sdk: HostSDK, body: Uint8Array): Uint8Array {
 
 /** Add or update text in a shape (paragraph + run with formatting). */
 async function cmdEditText(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.editText", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.editText", body);
   const shapeId = str(args.shapeId ?? "");
   if (!shapeId) return encodeJson({ error: "shapeId required" });
 
   const runId = genID("run");
 
   await getDb().insertInto("vertex_pptx_run" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.run/${runId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.run/${runId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: runId,
@@ -295,14 +295,14 @@ async function cmdEditText(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> 
 
 /** Add an image to a slide. */
 async function cmdAddImage(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.addImage", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.addImage", body);
   const slideId = str(args.slideId ?? "");
   if (!slideId) return encodeJson({ error: "slideId required" });
 
   const imageId = genID("img");
 
   await getDb().insertInto("vertex_pptx_image" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.image/${imageId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.image/${imageId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: imageId,
@@ -328,7 +328,7 @@ async function cmdAddImage(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> 
 
 /** Search presentations by title or content. */
 async function cmdSearchPresentations(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.search", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.search", body);
   const q = str(args.q ?? "");
   const limit = Math.min(Number(args.limit) || 20, 100);
   if (!q) return encodeJson({ items: [] });
@@ -339,7 +339,7 @@ async function cmdSearchPresentations(sdk: HostSDK, body: Uint8Array): Promise<U
 
 /** List slides in a presentation. */
 async function cmdListSlides(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.listSlides", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.listSlides", body);
   const presId = str(args.presentationId ?? "");
   if (!presId) return encodeJson({ error: "presentationId required" });
 
@@ -349,7 +349,7 @@ async function cmdListSlides(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array
 
 /** Get all elements (shapes, text, images) of a slide as graph subgraph. */
 async function cmdGetSlideElements(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.getSlideElements", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.getSlideElements", body);
   const slideId = str(args.slideId ?? "");
   if (!slideId) return encodeJson({ error: "slideId required" });
 
@@ -368,7 +368,7 @@ async function cmdGetSlideElements(sdk: HostSDK, body: Uint8Array): Promise<Uint
 
 /** Convert a single image to a slide shape. */
 async function cmdConvertImage(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.convertImage", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.convertImage", body);
   const blobCid = str(args.blobCid ?? "");
   const mime = str(args.mime ?? "image/png");
   if (!blobCid) return encodeJson({ error: "blobCid required" });
@@ -376,7 +376,7 @@ async function cmdConvertImage(sdk: HostSDK, body: Uint8Array): Promise<Uint8Arr
   const imageId = genID("img");
   const presId = str(args.presentationId ?? genID("pres"));
   await getDb().insertInto("vertex_pptx_slide" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.slide/${slideId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.slide/${slideId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: slideId,
@@ -389,7 +389,7 @@ async function cmdConvertImage(sdk: HostSDK, body: Uint8Array): Promise<Uint8Arr
     actor_id: appId,
   }).execute();
   await getDb().insertInto("vertex_pptx_image" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.image/${imageId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.image/${imageId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: imageId,
@@ -410,13 +410,13 @@ async function cmdConvertImage(sdk: HostSDK, body: Uint8Array): Promise<Uint8Arr
 
 /** Convert SVG markup to DrawingML custom geometry shapes. */
 async function cmdConvertSvg(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.convertSvg", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.convertSvg", body);
   const svgData = str(args.svg ?? "");
   if (!svgData) return encodeJson({ error: "svg required" });
   const shapeId = genID("shape");
   const slideId = str(args.slideId ?? genID("slide"));
   await getDb().insertInto("vertex_pptx_shape" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.shape/${shapeId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.shape/${shapeId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: shapeId,
@@ -442,13 +442,13 @@ async function cmdConvertSvg(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array
 
 /** Create a multi-slide presentation from multiple image blob references. */
 async function cmdCreateFromImages(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.createFromImages", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.createFromImages", body);
   const images: { blobCid: string; mime?: string }[] = args.images ?? [];
   const title = str(args.title ?? "Image Presentation");
   if (images.length === 0) return encodeJson({ error: "images array required" });
   const presId = genID("pres");
   await getDb().insertInto("vertex_pptx_presentation" as any).values({
-    vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.presentation/${presId}`,
+    vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.presentation/${presId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     id: presId,
@@ -467,7 +467,7 @@ async function cmdCreateFromImages(sdk: HostSDK, body: Uint8Array): Promise<Uint
     const imageId = genID("img");
     slideIds.push(slideId);
     await getDb().insertInto("vertex_pptx_slide" as any).values({
-      vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.slide/${slideId}`,
+      vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.slide/${slideId}`,
       sensitivity_ord: 2,
       owner_did: actorDID,
       id: slideId,
@@ -480,7 +480,7 @@ async function cmdCreateFromImages(sdk: HostSDK, body: Uint8Array): Promise<Uint
       actor_id: appId,
     }).execute();
     await getDb().insertInto("vertex_pptx_image" as any).values({
-      vertex_id: `at://${actorDID}/ai.gftd.apps.pptx.image/${imageId}`,
+      vertex_id: `at://${actorDID}/app.etzhayyim.apps.pptx.image/${imageId}`,
       sensitivity_ord: 2,
       owner_did: actorDID,
       id: imageId,
@@ -506,7 +506,7 @@ async function cmdCreateFromImages(sdk: HostSDK, body: Uint8Array): Promise<Uint
 
 /** Extract all text from all slides of a presentation (for LLM summarization). */
 async function cmdExtractAllText(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.extractAllText", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.extractAllText", body);
   const presId = str(args.presentationId ?? "");
   if (!presId) return encodeJson({ error: "presentationId required" });
   const raw = ([] as Record<string, unknown>[]);
@@ -518,7 +518,7 @@ async function cmdExtractAllText(sdk: HostSDK, body: Uint8Array): Promise<Uint8A
 
 /** Full-text search across all slides. */
 async function cmdSearchText(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.searchText", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.searchText", body);
   const q = str(args.q ?? ""); const limit = Math.min(Number(args.limit) || 20, 100);
   if (!q) return encodeJson({ items: [] });
   const raw = ([] as Record<string, unknown>[]);
@@ -527,7 +527,7 @@ async function cmdSearchText(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array
 
 /** Get presentation metadata. */
 async function cmdGetMetadata(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.getMetadata", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.getMetadata", body);
   const presId = str(args.presentationId ?? "");
   if (!presId) return encodeJson({ error: "presentationId required" });
   const presRaw = ([] as Record<string, unknown>[]);
@@ -537,7 +537,7 @@ async function cmdGetMetadata(sdk: HostSDK, body: Uint8Array): Promise<Uint8Arra
 
 /** Get a single slide by presentationId + slideIndex with text and image refs. */
 async function cmdGetSlide(sdk: HostSDK, body: Uint8Array): Promise<Uint8Array> {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.getSlide", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.getSlide", body);
   const presId = str(args.presentationId ?? ""); const slideIndex = Number(args.slideIndex ?? 0);
   if (!presId) return encodeJson({ error: "presentationId required" });
   const slideRaw = ([] as Record<string, unknown>[]);
@@ -582,7 +582,7 @@ function cmdDescribe(sdk: HostSDK, _body: Uint8Array): Uint8Array {
 
 /** Respond to a wave greeting. */
 function cmdWave(sdk: HostSDK, body: Uint8Array): Uint8Array {
-  const args = parseLexiconInput("ai.gftd.apps.pptx.wave", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.pptx.wave", body);
   const msg = str(args.message ?? "Hello");
   sdk.pds.dispatch({
     type: "app.bsky.feed.post",
@@ -604,8 +604,8 @@ function handleComAtprotoSyncSubscribeReposCommit(
 
   const collection = str(commit.collection ?? "");
 
-  if (collection.startsWith("ai.gftd.apps.pptx.")) {
-    const kind = collection.replace("ai.gftd.apps.pptx.", "");
+  if (collection.startsWith("app.etzhayyim.apps.pptx.")) {
+    const kind = collection.replace("app.etzhayyim.apps.pptx.", "");
     return { ok: true, detail: `processed pptx.${kind}` };
   }
 
@@ -680,108 +680,108 @@ export default createWorkerExport((sdk) => {
   sdk.router.get("/editor", (c) => c.html(editorHTML()));
   sdk.app
     // Presentation Management
-    .command(nsid("ai.gftd.apps.pptx.upload"), (ctx, body) => cmdUploadPresentation(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.upload"), (ctx, body) => cmdUploadPresentation(sdk, body),
       asAgentTool("Upload and parse PPTX file"),
       withCapabilityTags("write", "pptx", "upload"),
     )
-    .command(nsid("ai.gftd.apps.pptx.create"), (ctx, body) => cmdCreatePresentation(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.create"), (ctx, body) => cmdCreatePresentation(sdk, body),
       asAgentTool("Create new blank presentation"),
       withCapabilityTags("write", "pptx"),
     )
-    .command(nsid("ai.gftd.apps.pptx.delete"), (ctx, body) => cmdDeletePresentation(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.delete"), (ctx, body) => cmdDeletePresentation(sdk, body),
       asAgentTool("Delete a presentation"),
       withCapabilityTags("write", "pptx"),
     )
-    .command(nsid("ai.gftd.apps.pptx.export"), (ctx, body) => cmdExportPresentation(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.export"), (ctx, body) => cmdExportPresentation(sdk, body),
       asAgentTool("Export presentation to PPTX"),
       withCapabilityTags("export", "pptx"),
     )
     // Slide Editing
-    .command(nsid("ai.gftd.apps.pptx.addSlide"), (ctx, body) => cmdAddSlide(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.addSlide"), (ctx, body) => cmdAddSlide(sdk, body),
       asAgentTool("Add slide to presentation"),
       withCapabilityTags("write", "pptx", "slide"),
     )
-    .command(nsid("ai.gftd.apps.pptx.removeSlide"), (ctx, body) => cmdRemoveSlide(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.removeSlide"), (ctx, body) => cmdRemoveSlide(sdk, body),
       asAgentTool("Remove slide from presentation"),
       withCapabilityTags("write", "pptx", "slide"),
     )
-    .command(nsid("ai.gftd.apps.pptx.reorderSlides"), (ctx, body) => cmdReorderSlides(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.reorderSlides"), (ctx, body) => cmdReorderSlides(sdk, body),
       asAgentTool("Reorder slides"),
       withCapabilityTags("write", "pptx", "slide"),
     )
-    .command(nsid("ai.gftd.apps.pptx.addShape"), (ctx, body) => cmdAddShape(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.addShape"), (ctx, body) => cmdAddShape(sdk, body),
       asAgentTool("Add shape to slide"),
       withCapabilityTags("write", "pptx", "shape"),
     )
-    .command(nsid("ai.gftd.apps.pptx.updateShape"), (ctx, body) => cmdUpdateShape(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.updateShape"), (ctx, body) => cmdUpdateShape(sdk, body),
       asAgentTool("Update shape properties"),
       withCapabilityTags("write", "pptx", "shape"),
     )
-    .command(nsid("ai.gftd.apps.pptx.removeShape"), (ctx, body) => cmdRemoveShape(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.removeShape"), (ctx, body) => cmdRemoveShape(sdk, body),
       asAgentTool("Remove shape from slide"),
       withCapabilityTags("write", "pptx", "shape"),
     )
-    .command(nsid("ai.gftd.apps.pptx.editText"), (ctx, body) => cmdEditText(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.editText"), (ctx, body) => cmdEditText(sdk, body),
       asAgentTool("Edit text in shape"),
       withCapabilityTags("write", "pptx", "text"),
     )
-    .command(nsid("ai.gftd.apps.pptx.addImage"), (ctx, body) => cmdAddImage(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.addImage"), (ctx, body) => cmdAddImage(sdk, body),
       asAgentTool("Add image to slide"),
       withCapabilityTags("write", "pptx", "image"),
     )
     // Search & Query
-    .command(nsid("ai.gftd.apps.pptx.search"), (ctx, body) => cmdSearchPresentations(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.search"), (ctx, body) => cmdSearchPresentations(sdk, body),
       asAgentTool("Search presentations"),
       withCapabilityTags("search", "pptx"),
     )
-    .command(nsid("ai.gftd.apps.pptx.listSlides"), (ctx, body) => cmdListSlides(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.listSlides"), (ctx, body) => cmdListSlides(sdk, body),
       asAgentTool("List slides in presentation"),
       withCapabilityTags("query", "pptx", "slide"),
     )
-    .command(nsid("ai.gftd.apps.pptx.getSlideElements"), (ctx, body) => cmdGetSlideElements(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.getSlideElements"), (ctx, body) => cmdGetSlideElements(sdk, body),
       asAgentTool("Get slide elements"),
       withCapabilityTags("query", "pptx", "slide"),
     )
     // Image Conversion (img2pptx consolidated)
-    .command(nsid("ai.gftd.apps.pptx.convertImage"), (ctx, body) => cmdConvertImage(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.convertImage"), (ctx, body) => cmdConvertImage(sdk, body),
       asAgentTool("Convert image to slide shape"),
       withCapabilityTags("write", "pptx", "image-conversion"),
     )
-    .command(nsid("ai.gftd.apps.pptx.convertSvg"), (ctx, body) => cmdConvertSvg(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.convertSvg"), (ctx, body) => cmdConvertSvg(sdk, body),
       asAgentTool("Convert SVG to DrawingML shapes"),
       withCapabilityTags("write", "pptx", "svg-conversion"),
     )
-    .command(nsid("ai.gftd.apps.pptx.createFromImages"), (ctx, body) => cmdCreateFromImages(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.createFromImages"), (ctx, body) => cmdCreateFromImages(sdk, body),
       asAgentTool("Create presentation from multiple images"),
       withCapabilityTags("write", "pptx", "batch-conversion"),
     )
     // Content Extraction (mime-pptx consolidated)
-    .command(nsid("ai.gftd.apps.pptx.extractAllText"), (ctx, body) => cmdExtractAllText(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.extractAllText"), (ctx, body) => cmdExtractAllText(sdk, body),
       asAgentTool("Extract all text from presentation"),
       withCapabilityTags("query", "pptx", "text-extraction"),
     )
-    .command(nsid("ai.gftd.apps.pptx.searchText"), (ctx, body) => cmdSearchText(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.searchText"), (ctx, body) => cmdSearchText(sdk, body),
       asAgentTool("Full-text search across slides"),
       withCapabilityTags("search", "pptx", "text-search"),
     )
-    .command(nsid("ai.gftd.apps.pptx.getMetadata"), (ctx, body) => cmdGetMetadata(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.getMetadata"), (ctx, body) => cmdGetMetadata(sdk, body),
       asAgentTool("Get presentation metadata"),
       withCapabilityTags("query", "pptx", "metadata"),
     )
-    .command(nsid("ai.gftd.apps.pptx.getSlide"), (ctx, body) => cmdGetSlide(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.getSlide"), (ctx, body) => cmdGetSlide(sdk, body),
       asAgentTool("Get slide with text and image refs"),
       withCapabilityTags("query", "pptx", "slide-extraction"),
     )
     // Utility
-    .command(nsid("ai.gftd.apps.pptx.health"), (ctx, body) => cmdHealth(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.health"), (ctx, body) => cmdHealth(sdk, body),
       asAgentTool("PPTX health check"),
       withCapabilityTags("diagnostics", "pptx"),
     )
-    .command(nsid("ai.gftd.apps.pptx.describe"), (ctx, body) => cmdDescribe(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.describe"), (ctx, body) => cmdDescribe(sdk, body),
       asAgentTool("Describe PPTX capabilities"),
       withCapabilityTags("meta", "pptx"),
     )
-    .command(nsid("ai.gftd.apps.pptx.wave"), (ctx, body) => cmdWave(sdk, body),
+    .command(nsid("app.etzhayyim.apps.pptx.wave"), (ctx, body) => cmdWave(sdk, body),
       asAgentTool("Respond to wave greeting"),
       withCapabilityTags("social", "greeting"),
     );

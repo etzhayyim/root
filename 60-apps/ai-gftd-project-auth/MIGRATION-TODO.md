@@ -71,7 +71,7 @@ Lines annotated with `CHARTER-VIOLATION §substrate` comments.
 
 | File | Change |
 |---|---|
-| `worker/src-ts/index.ts` | removed `resolveStripeSecretKey`/`resolveStripePublishableKey`/`handleCreateSetupIntent` stubs; `getConfig` now returns empty `stripePk` (legacy field for backward-compat); legacy `ai.gftd.auth.createSetupIntent` route removed |
+| `worker/src-ts/index.ts` | removed `resolveStripeSecretKey`/`resolveStripePublishableKey`/`handleCreateSetupIntent` stubs; `getConfig` now returns empty `stripePk` (legacy field for backward-compat); legacy `app.etzhayyim.auth.createSetupIntent` route removed |
 | `worker/svelte/src/routes/sign-up/+page.svelte` | Stripe.js CDN load removed; card element + SetupIntent flow replaced with USDC donation form (POST /api/donate, purpose=`internal-subscription`); eSIM provisioning runs after donation tx confirms |
 
 ### Remaining
@@ -94,7 +94,7 @@ _Closed by manual codemod 2026-05-23._
 - `worker/src-ts/gftd-identity-schema.ts` — CHARTER-VIOLATION header expanded to
   describe the concrete migration target for both D1 (`vertex_gftd_auth_*` /
   `vertex_gftd_key_*` → encrypted MST envelopes per ADR-2605181100 + Workers KV
-  index) and RisingWave (`vertex_gftd_identity` → `ai.gftd.apps.identity.*`
+  index) and RisingWave (`vertex_gftd_identity` → `app.etzhayyim.apps.identity.*`
   lexicons with yatachain-projection RW cache per ADR-2605231500).
 
 ### Remaining

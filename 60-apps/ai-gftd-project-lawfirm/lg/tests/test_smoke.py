@@ -17,7 +17,7 @@ def anyio_backend():
 
 @pytest.mark.asyncio
 async def test_triage_node_fallback_no_key(monkeypatch):
-    monkeypatch.setenv("GFTD_LLM_API_KEY", "")
+    monkeypatch.setenv("etzhayyim_LLM_API_KEY", "")
     from lg_lawfirm_intake.nodes import triage_node  # type: ignore[import-untyped]
     state = {"summary_plain": "मेरा चेक बाउंस हो गया", "lang": "hi", "domain": "ni138"}
     result = await triage_node(state)
@@ -30,7 +30,7 @@ async def test_triage_node_fallback_no_key(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_triage_node_unknown_domain(monkeypatch):
-    monkeypatch.setenv("GFTD_LLM_API_KEY", "")
+    monkeypatch.setenv("etzhayyim_LLM_API_KEY", "")
     from lg_lawfirm_intake.nodes import triage_node  # type: ignore[import-untyped]
     state = {"summary_plain": "some complaint", "lang": "en", "domain": ""}
     result = await triage_node(state)
@@ -86,7 +86,7 @@ async def test_search_node_returns_empty_on_failure(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_search_node_returns_lawyers(monkeypatch):
-    fake_lawyers = [{"did": "did:web:lawyer1.gftd.ai", "fullName": "Test Lawyer"}]
+    fake_lawyers = [{"did": "did:web:lawyer1.etzhayyim.com", "fullName": "Test Lawyer"}]
 
     def _mock_get(url, params=None):
         return {"lawyers": fake_lawyers, "total": 1, "offset": 0, "limit": 10}
@@ -96,7 +96,7 @@ async def test_search_node_returns_lawyers(monkeypatch):
     state = {"jurisdiction": "IND", "triage_result": {"specializations": ["labor"]}}
     result = await search_node(state)
     assert len(result["lawyers"]) == 1
-    assert result["lawyers"][0]["did"] == "did:web:lawyer1.gftd.ai"
+    assert result["lawyers"][0]["did"] == "did:web:lawyer1.etzhayyim.com"
 
 
 # ---------------------------------------------------------------------------
@@ -107,7 +107,7 @@ async def test_search_node_returns_lawyers(monkeypatch):
 async def test_match_node_skips_when_no_case_did():
     from lg_lawfirm_intake.nodes import match_node  # type: ignore[import-untyped]
     state = {
-        "lawyers": [{"did": "did:web:x.gftd.ai"}],
+        "lawyers": [{"did": "did:web:x.etzhayyim.com"}],
         "case_did": "",
     }
     result = await match_node(state)
@@ -117,7 +117,7 @@ async def test_match_node_skips_when_no_case_did():
 @pytest.mark.asyncio
 async def test_match_node_skips_when_no_lawyers():
     from lg_lawfirm_intake.nodes import match_node  # type: ignore[import-untyped]
-    state = {"lawyers": [], "case_did": "did:web:lawfirm.gftd.ai:case:x"}
+    state = {"lawyers": [], "case_did": "did:web:lawfirm.etzhayyim.com:case:x"}
     result = await match_node(state)
     assert result["grants"] == []
 
@@ -126,8 +126,8 @@ async def test_match_node_skips_when_no_lawyers():
 async def test_match_node_sends_invites(monkeypatch):
     def _mock_post(url, body, *, headers=None, timeout=15):
         return {
-            "grantDid": f"did:web:lawfirm.gftd.ai:grant:{body['granteeDid']}",
-            "grantUri": f"at://lawfirm.gftd.ai/grant/{body['granteeDid']}",
+            "grantDid": f"did:web:lawfirm.etzhayyim.com:grant:{body['granteeDid']}",
+            "grantUri": f"at://lawfirm.etzhayyim.com/grant/{body['granteeDid']}",
             "conflictCheckPassed": True,
         }
 
@@ -135,10 +135,10 @@ async def test_match_node_sends_invites(monkeypatch):
     from lg_lawfirm_intake.nodes import match_node  # type: ignore[import-untyped]
     state = {
         "lawyers": [
-            {"did": "did:web:l1.gftd.ai", "fullName": "Lawyer One"},
-            {"did": "did:web:l2.gftd.ai", "fullName": "Lawyer Two"},
+            {"did": "did:web:l1.etzhayyim.com", "fullName": "Lawyer One"},
+            {"did": "did:web:l2.etzhayyim.com", "fullName": "Lawyer Two"},
         ],
-        "case_did": "did:web:lawfirm.gftd.ai:case:abc",
+        "case_did": "did:web:lawfirm.etzhayyim.com:case:abc",
     }
     result = await match_node(state)
     assert len(result["grants"]) == 2

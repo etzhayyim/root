@@ -41,7 +41,7 @@ const seeds: Seed[] = apps.flatMap((app) => {
       app,
       slug: "connect-account",
       processId: `${app}_connect_account`,
-      nsid: `ai.gftd.apps.${app}.connectAccount`,
+      nsid: `app.etzhayyim.apps.${app}.connectAccount`,
       sourcePath: `00-contracts/bpmn/ai/gftd/${app}/connectAccount.bpmn`,
       timeoutMs: 30000,
       writeTableAllowlist: "",
@@ -50,7 +50,7 @@ const seeds: Seed[] = apps.flatMap((app) => {
       app,
       slug: "oauth-callback",
       processId: `${app}_oauth_callback`,
-      nsid: `ai.gftd.apps.${app}.oauthCallback`,
+      nsid: `app.etzhayyim.apps.${app}.oauthCallback`,
       sourcePath: `00-contracts/bpmn/ai/gftd/${app}/oauthCallback.bpmn`,
       timeoutMs: 120000,
       writeTableAllowlist: `${tables.token},${tables.account}`,
@@ -59,7 +59,7 @@ const seeds: Seed[] = apps.flatMap((app) => {
       app,
       slug: "sync-from-google",
       processId: `${app}_sync_from_google`,
-      nsid: `ai.gftd.apps.${app}.syncFromGoogle`,
+      nsid: `app.etzhayyim.apps.${app}.syncFromGoogle`,
       sourcePath: `00-contracts/bpmn/ai/gftd/${app}/syncFromGoogle.bpmn`,
       timeoutMs: 120000,
       writeTableAllowlist: `${tables.token},${tables.account}`,
@@ -68,7 +68,7 @@ const seeds: Seed[] = apps.flatMap((app) => {
       app,
       slug: "cron-tick",
       processId: `${app}_cron_tick`,
-      nsid: `ai.gftd.apps.${app}.cronTick`,
+      nsid: `app.etzhayyim.apps.${app}.cronTick`,
       sourcePath: `00-contracts/bpmn/ai/gftd/${app}/cronTick.bpmn`,
       timeoutMs: 120000,
       writeTableAllowlist: `${tables.token},${tables.account}`,
@@ -94,7 +94,7 @@ seeds.push(
     app: "gmail",
     slug: String(slug),
     processId: `gmail_${String(slug).replace(/-/g, "_")}`,
-    nsid: `ai.gftd.apps.gmail.${op}`,
+    nsid: `app.etzhayyim.apps.gmail.${op}`,
     sourcePath: `00-contracts/bpmn/ai/gftd/gmail/${op}.bpmn`,
     timeoutMs: Number(timeoutMs),
     writeTableAllowlist: String(writeTableAllowlist),
@@ -103,7 +103,7 @@ seeds.push(
     app: "gmail",
     slug: "cron-tick",
     processId: "gmail_cron_tick",
-    nsid: "ai.gftd.apps.gmail.cronTick",
+    nsid: "app.etzhayyim.apps.gmail.cronTick",
     sourcePath: "00-contracts/bpmn/ai/gftd/gmail/cronTick.bpmn",
     timeoutMs: 180000,
     writeTableAllowlist: "vertex_gmail_oauth_token,vertex_gmail_email,vertex_gmail_sync_job,vertex_gmail_phishing_alert",
@@ -111,9 +111,9 @@ seeds.push(
   },
 );
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${s.app}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${s.app}-${s.slug}-v1`;
 const bindingSlug = (s: Seed) => s.slug === "cron-tick" ? "cronTick" : s.slug;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${s.app}-${bindingSlug(s)}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${s.app}-${bindingSlug(s)}-v1`;
 const ownerDid = (app: string) => `did:web:${app}.etzhayyim.com`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {

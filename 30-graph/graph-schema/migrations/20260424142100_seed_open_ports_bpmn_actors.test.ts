@@ -28,8 +28,8 @@ describe("Seed open-ports BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openPorts.scheduleVesselCall"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openPorts.reportIncident"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPorts.scheduleVesselCall"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPorts.reportIncident"');
   });
 
   it("uses open-ports-specific actor_id + owner_did", () => {

@@ -2,7 +2,7 @@
  * etzhayyim XRPC reverse-proxy
  *
  * Routes inbound requests on the etzhayyim.com zone to the matching
- * gftd.ai-zoned upstream workers via service bindings. Lets the
+ * etzhayyim.com-zoned upstream workers via service bindings. Lets the
  * etzhayyim.com namespace serve the existing AT Protocol / Bluesky
  * stack without redeploying the upstreams.
  *
@@ -11,7 +11,7 @@
  *   authn.etzhayyim.com    → ai-gftd-auth           (Passkey)
  *   mcp.etzhayyim.com      → ai-gftd-agentgateway   (MCP router)
  *
- * Per-host hostname rewrite: the upstream expects its canonical gftd.ai
+ * Per-host hostname rewrite: the upstream expects its canonical etzhayyim.com
  * host (e.g. it may check Host / Origin / CORS allow-lists). The proxy
  * rewrites the URL hostname before invoking the binding so the upstream
  * sees the same request shape it would on its native zone.
@@ -25,10 +25,10 @@ interface Env {
 }
 
 const HOST_MAP: Record<string, { upstream: keyof Env; rewriteHost: string }> = {
-  "atproto.etzhayyim.com": { upstream: "PDS",     rewriteHost: "atproto.gftd.ai" },
-  "bsky.etzhayyim.com":    { upstream: "APPVIEW", rewriteHost: "bsky.gftd.ai" },
-  "authn.etzhayyim.com":   { upstream: "AUTHN",   rewriteHost: "authn.gftd.ai" },
-  "mcp.etzhayyim.com":     { upstream: "MCP",     rewriteHost: "mcp.gftd.ai" },
+  "atproto.etzhayyim.com": { upstream: "PDS",     rewriteHost: "atproto.etzhayyim.com" },
+  "bsky.etzhayyim.com":    { upstream: "APPVIEW", rewriteHost: "bsky.etzhayyim.com" },
+  "authn.etzhayyim.com":   { upstream: "AUTHN",   rewriteHost: "authn.etzhayyim.com" },
+  "mcp.etzhayyim.com":     { upstream: "MCP",     rewriteHost: "mcp.etzhayyim.com" },
 };
 
 const STRIPPED_RESPONSE_HEADERS = new Set<string>([
