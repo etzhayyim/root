@@ -1,0 +1,49 @@
+{
+  "total": 49.18,
+  "timestamp": "2026-05-25T03:47:52.938Z",
+  "metrics": {
+    "l1IsoCoverage": 89.79591836734694,
+    "l2CofogDensity": 0,
+    "l3SubstratePort": 100,
+    "l4IngestRecords": 56.10000000000001,
+    "l5CellActivation": 0
+  },
+  "breakdown": {
+    "l1": {
+      "label": "ISO-3 completeness",
+      "value": 90,
+      "weight": 0.2,
+      "contribution": 18
+    },
+    "l2": {
+      "label": "COFOG×country density",
+      "value": 0,
+      "weight": 0.25,
+      "contribution": 0
+    },
+    "l3": {
+      "label": "substrate-port coverage",
+      "value": 100,
+      "weight": 0.2,
+      "contribution": 20
+    },
+    "l4": {
+      "label": "ingest records / target",
+      "value": 56,
+      "weight": 0.2,
+      "contribution": 11
+    },
+    "l5": {
+      "label": "cell activation gating",
+      "value": 0,
+      "weight": 0.15,
+      "contribution": 0
+    }
+  },
+  "gaps": [
+    "L1: Missing ISO-3 country codes (target: 100%)",
+    "L2: BPMN coverage incomplete (need 50+ more files)",
+    "L4: Only 56% of target ingest records (need ~580 more)",
+    "L5: 3 cells awaiting Council activation (ADR-2605250100/200/300)"
+  ]
+}
