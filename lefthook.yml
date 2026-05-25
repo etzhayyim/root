@@ -42,7 +42,18 @@ pre-commit:
       stage_fixed: false
 
     trailing-whitespace:
+      # Exempt build outputs (analogous to no-cookie's path exemption).
+      # `static/_app/immutable/` is where SvelteKit's adapter-cloudflare with
+      # `fallback: 'spa'` writes its hashed chunks; the trailing whitespace
+      # in those files is inside vendored error-message template literals
+      # (e.g. MLC web-llm), not editable formatting.
       glob: "*.{md,toml,yaml,yml,json,jsonc,ts,tsx,js,mjs,cjs,py,rs,go,sh}"
+      exclude:
+        - "**/node_modules/**"
+        - "**/.svelte-kit/**"
+        - "**/build/**"
+        - "**/dist/**"
+        - "**/static/_app/immutable/**"
       run: |
         if grep -nE ' +$' {staged_files} 2>/dev/null; then
           echo "✘ trailing whitespace found"; exit 1
@@ -51,6 +62,12 @@ pre-commit:
 
     end-of-file:
       glob: "*.{md,toml,yaml,yml,json,jsonc,ts,tsx,js,mjs,cjs,py,rs,go,sh}"
+      exclude:
+        - "**/node_modules/**"
+        - "**/.svelte-kit/**"
+        - "**/build/**"
+        - "**/dist/**"
+        - "**/static/_app/immutable/**"
       run: |
         for f in {staged_files}; do
           if [ -s "$f" ] && [ "$(tail -c1 "$f" | xxd -p)" != "0a" ]; then
