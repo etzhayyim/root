@@ -170,7 +170,7 @@ async function proxyXrpc(
     // content-length will be set by fetch from the new body; remove any stale value.
     fwd.delete("content-length");
   }
-  fwd.delete("host");
+  stripIncomingCookies(fwd);
   fwd.set("x-forwarded-host", "etzhayyim.com");
   fwd.set("x-forwarded-proto", "https");
   fwd.set("x-forwarded-method", request.method);
@@ -190,10 +190,8 @@ async function proxyXrpc(
     for (const h of STRIPPED_RESPONSE_HEADERS) respHeaders.delete(h);
     respHeaders.set("x-proxied-by", "etzhayyim-did-web");
     respHeaders.set("x-proxied-upstream", upstream);
-    respHeaders.set(
-      "strict-transport-security",
-      "max-age=31536000; includeSubDomains",
-    );
+    respHeaders.set("x-etzhayyim-no-cookie", "1");
+    applyApexSecurityHeaders(respHeaders, target.pathname);
     return new Response(upstreamResp.body, {
       status: upstreamResp.status,
       statusText: upstreamResp.statusText,
@@ -315,16 +313,39 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
   };
 }
 
-// Headers we strip from the upstream response before sending to the client.
-// `set-cookie` is dropped because the cookie domain would be wrong
-// (yoro.etzhayyim.com), and we don't want cross-domain cookie shenanigans.
+// Headers we strip from the upstream response. `set-cookie` is dropped because
+// etzhayyim.com is a cookie-free zone by constitutional design — see
+// /CHARTER-RIDER.md §2(c) (no surveillance / trackers) + ADR-2605172000
+// (RW-free substrate, identity = DID + WebAuthn, not cookies).
 const STRIPPED_RESPONSE_HEADERS = new Set([
   "set-cookie",
-  "content-security-policy",      // upstream CSP may reference yoro.etzhayyim.com
+  "content-security-policy",
   "content-security-policy-report-only",
-  "strict-transport-security",    // we set our own
+  "strict-transport-security",
   "alt-svc",
 ]);
+
+// Outgoing-request headers to strip. `cookie` dropped so upstream never sees
+// browser cookies that leaked in from a sibling subdomain.
+const STRIPPED_REQUEST_HEADERS = ["cookie", "host"] as const;
+
+const PERMISSIONS_POLICY = "interest-cohort=(), browsing-topics=()";
+
+// `"cookies"` only — we don't wipe localStorage / OPFS / IndexedDB that the
+// yoro SPA depends on.
+const CLEAR_COOKIE_PATHS = new Set(["/", "/privacy"]);
+
+function applyApexSecurityHeaders(headers: Headers, pathname: string): void {
+  headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
+  headers.set("permissions-policy", PERMISSIONS_POLICY);
+  if (CLEAR_COOKIE_PATHS.has(pathname)) {
+    headers.set("clear-site-data", '"cookies"');
+  }
+}
+
+function stripIncomingCookies(headers: Headers): void {
+  for (const h of STRIPPED_REQUEST_HEADERS) headers.delete(h);
+}
 
 function buildUpstreamRequest(request: Request): Request {
   const upstreamUrl = new URL(request.url);
@@ -333,7 +354,7 @@ function buildUpstreamRequest(request: Request): Request {
   upstreamUrl.port = "";
 
   const fwdHeaders = new Headers(request.headers);
-  fwdHeaders.delete("host");
+  stripIncomingCookies(fwdHeaders);
   fwdHeaders.set("x-forwarded-host", "etzhayyim.com");
   fwdHeaders.set("x-forwarded-proto", "https");
 
@@ -345,20 +366,16 @@ function buildUpstreamRequest(request: Request): Request {
   });
 }
 
-function rewriteUpstreamResponse(upstream: Response): Response {
+function rewriteUpstreamResponse(upstream: Response, pathname: string): Response {
   const headers = new Headers(upstream.headers);
   for (const h of STRIPPED_RESPONSE_HEADERS) headers.delete(h);
 
-  // Our own HSTS — long max-age, includeSubDomains so did:web subdomain
-  // resolution stays HTTPS-only.
-  headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
+  applyApexSecurityHeaders(headers, pathname);
 
-  // Mark proxy hop so debugging is easier.
   headers.set("x-proxied-by", "etzhayyim-did-web");
   headers.set("x-proxied-upstream", UPSTREAM_HOST);
+  headers.set("x-etzhayyim-no-cookie", "1");
 
-  // If upstream returned a redirect with a yoro.etzhayyim.com Location, rewrite it
-  // to keep the user on etzhayyim.com.
   const loc = headers.get("location");
   if (loc) {
     try {
@@ -401,6 +418,8 @@ export default {
           "access-control-allow-origin": "*",
           "x-content-type-options": "nosniff",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
         },
       });
     }
@@ -454,6 +473,8 @@ export default {
             "access-control-allow-origin": "*",
             "x-content-type-options": "nosniff",
             "strict-transport-security": "max-age=31536000; includeSubDomains",
+            "permissions-policy": PERMISSIONS_POLICY,
+            "x-etzhayyim-no-cookie": "1",
           },
         });
       }
@@ -484,7 +505,7 @@ export default {
           const substrateUrl = new URL(request.url);
           substrateUrl.pathname = `/xrpc/${substrateNsid}`;
           const fwd = new Headers(request.headers);
-          fwd.delete("host");
+          stripIncomingCookies(fwd);
           fwd.set("x-forwarded-host", "etzhayyim.com");
           fwd.set("x-forwarded-proto", "https");
           fwd.set("x-etzhayyim-nsid", nsid);
@@ -506,10 +527,8 @@ export default {
             respHeaders.set("x-proxied-by", "etzhayyim-did-web");
             respHeaders.set("x-proxied-upstream", "service:yoro-xrpc-adapter");
             respHeaders.set("x-etzhayyim-substrate", "mst-ipfs-l2");
-            respHeaders.set(
-              "strict-transport-security",
-              "max-age=31536000; includeSubDomains",
-            );
+            respHeaders.set("x-etzhayyim-no-cookie", "1");
+            applyApexSecurityHeaders(respHeaders, substrateUrl.pathname);
             return new Response(upstreamResp.body, {
               status: upstreamResp.status,
               statusText: upstreamResp.statusText,
@@ -576,7 +595,7 @@ export default {
     // ──────────────────────────────────────────────────────────────────
     try {
       const upstream = await env.YORO.fetch(buildUpstreamRequest(request));
-      return rewriteUpstreamResponse(upstream);
+      return rewriteUpstreamResponse(upstream, url.pathname);
     } catch (err) {
       return new Response(
         `Service binding fetch to magatama-yoro failed: ${err instanceof Error ? err.message : String(err)}`,

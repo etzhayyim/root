@@ -3,17 +3,22 @@
 	import { fade, fly } from 'svelte/transition';
 	import { playClick } from '$lib/sound';
 
-	// SHELVED: yoro君バナーはお蔵入り。AdSense 導入に伴い CookieConsent に置換。
-	// 復活時は SHELVED = false にするだけ。
-	const SHELVED = true;
-
+	// Revived 2026-05-25. AdSense は Charter §2(c) で除去済み、etzhayyim-did-web
+	// Worker が apex で Set-Cookie / Cookie / Clear-Site-Data を強制する
+	// cookie-free 設計に確定 (ADR-2605172000)。yoro君が再宣言する。
 	const STORAGE_KEY = 'yoro-no-cookie-seen';
+
+	function isReligiousCorpHost(): boolean {
+		if (typeof window === 'undefined') return false;
+		const h = window.location.hostname;
+		return h === 'etzhayyim.com' || h.endsWith('.etzhayyim.com');
+	}
 
 	let visible = $state(false);
 
 	$effect(() => {
-		if (SHELVED) return;
 		if (typeof window === 'undefined') return;
+		if (!isReligiousCorpHost()) return;
 		if (!localStorage.getItem(STORAGE_KEY)) {
 			setTimeout(() => { visible = true; }, 1500);
 		}

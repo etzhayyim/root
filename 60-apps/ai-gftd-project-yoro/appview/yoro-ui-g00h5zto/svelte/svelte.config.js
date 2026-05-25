@@ -5,7 +5,11 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
 	preprocess: vitePreprocess(),
 	kit: {
-		adapter: adapter(),
+		// fallback: 'spa' tells adapter-cloudflare to emit an index.html SPA
+		// shell (with hashed module preloads) so the parent magatama-yoro
+		// Worker's Assets binding can serve it as the `not_found_handling:
+		// "single-page-application"` fallback.
+		adapter: adapter({ fallback: 'spa' }),
 		alias: {
 			$lib: 'src/lib'
 		}
