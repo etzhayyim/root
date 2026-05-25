@@ -4996,3 +4996,95 @@ status = "import-time-RuntimeError-until-council-activation"
 description = "L5 routing-around: trust-level evaluation and public attestation. R0 scaffold (2026-05-26). 2 Pregel nodes: evaluate_trust_level (assess auth method + evidence) → emit_attestation (public didTrustAttestation). Council gate: COUNCIL_ATTESTATION_TX_HASH + SILEN_GOV_AUTH_BASELINE_REVIEW_CID. Per ADR-2605260000. Trust Level 1 = WebAuthn platform authenticator (FaceID/TouchID/Windows Hello) verified. Trust Level 2 = Trust Level 1 + MyNumber IC binding (XChaCha20 decryption successful). Emits: app.etzhayyim.gov.procedure.auth.didTrustAttestation (public, no PII — blake2b_256 DID hash only). Upstream consumer: member_registry + religious_corp_taxation + other L5 routing-around cells for access control."
 adr = ["2605260000", "2605181100", "2605250100"]
 lexicons = ["app.etzhayyim.gov.procedure.auth.didTrustAttestation"]
+
+# ─── robotics simulation substrate R0 charter (ADR-2605261600) ──
+
+[[adrs]]
+id = "2605261600"
+title = "Robotics Simulation Substrate R0 Charter — OSS USD+Hydra+MuJoCo MJX+Embree+BlenderProc 5-stack reference; Omniverse / Isaac Sim / OptiX / RTX Renderer / Replicator structurally rejected"
+status = "proposed"
+status_note = "Master charter establishing **e7m-sim** as religious-corp first-party robotics simulation substrate and single SoT for every R1+ benchtop / R2+ pilot / R3+ community-scale phase of every robotics-bearing Tier-B actor (wadachi / suki / igata / watatsumi / sarutahiko / futawa / tatekata / kuni-umi / hodoki / makura / tsutae / silicon Wave 1+2 robotics fleet). Audit (2026-05-26): repo-wide grep of `omniverse` / `isaac.?sim` / `optix` / `physx` / NVIDIA-`hydra` (USD) → **0 hits** (the only `optix` match is a `package-lock.json` integrity-hash substring); other robotics simulators (Gazebo / MuJoCo / Drake / Webots / PyBullet / CoppeliaSim / CARLA / AWSIM) → **0 hits**. Without a single canonical substrate, every R1 ADR (yakushi R1 / igata R1 / mitate R1) has to invent its own sim story; cross-actor invariants (sarutahiko↔wadachi same-vehicle physics; suki↔mitsuho operation envelope; igata-cast structural part ↔ wadachi/tatekata/watatsumi finite-element consumer) silently diverge. **Honest scoring** (10 dimensions, OSS combo vs Isaac Sim/Lab): OSS ~60-65/100 vs Isaac Sim ~88/100; main gaps = photoreal rendering (4-5 vs 10) + ray-traced sensor sim (2 vs 10) + asset library (3 vs 9) + synthetic data (5 vs 9). Gaps are engineering-investment-bounded, not architecture-bounded. **Adopting Omniverse / Isaac Sim as-is is REJECTED**: violates §2(b) anti-secrecy (closed source EULA) + §2(e) anti-gatekeeping (NVIDIA account + Nucleus lock-in) + ADR-2605215000 no-commercial-GPU-rental (Omniverse Cloud) + Charter Rider §2(b) NOTICE preservation (closed binaries) + G14 30-year reproducibility infeasible (vendor EULA can revoke). **14 constitutional gates G1..G14**: G1 open architecture invariant (Apache 2.0 / BSD-2/3 / MIT / MPL 2.0 / Pixar USD License; GPL-3 subprocess-only carve-out for BlenderProc) / G2 OpenUSD single scene-composition SoT (URDF/MJCF/SDF as import only) / G3 Vulkan Ray Tracing GPU-neutral ray-tracing backbone + Embree CPU fallback (OptiX = N1 NEVER) / G4 Murakumo-fleet-only execution (ADR-2605215000 strict inheritance; cloud GPU rental = N2 NEVER) / **G5 quantitative quality gate against Isaac Sim ground truth ≥ 0.75** measured on PSNR ≥25 dB + SSIM ≥0.85 (rendering) + Chamfer distance ≤0.05 m + point-cloud IoU ≥0.75 at 0.10 m voxelization (lidar) + end-effector L2 ≤5% across 100 articulated reach trials (physics) + real-world rollout ≥0.75× sim rollout (sim-to-real); reference scene generated **once per actor on a one-time-use isolated Isaac Sim trial machine** (never connected to religious-corp infra, never carrying religious-corp keys, archived as sealed CID, machine decommissioned) / G6 yatachain attestation lineage MANDATORY (simulationRunAttestation lexicon for every run; un-attested sim = unusable downstream cell RuntimeError) / G7 reproducibility invariant (bit-identical replay on identical hardware; cross-hardware noise ≤1e-4 L2/step; ADR-2605242630 R1a numerical-path discipline applied to sim) / G8 no NVIDIA-account-required tool in runtime (build-time GitHub release download acceptable; NVIDIA NGC API key at runtime = N3 NEVER) / G9 no proprietary plugin (Isaac Sim plugins / Unity Editor plugins / Unreal Editor plugins = N4 NEVER; PhysX 5 BSD-3 acceptable as library; cooking from open source every run) / G10 Charter Rider §2 scan applied to every imported 3D asset (blocks military/weapons/surveillance/addiction-design/eschatology imagery from asset-marketplace import) / G11 personnel vetting for sim-to-real handover (Adherent SBT + actor R-phase SME + simToRealHandoverAttestation Ed25519 signed) / G12 KPI caps Murakumo capacity-protective (R1 ≤1 GPU-hour-eq/actor/day / R2 ≤4 / R3 ≤16; Council Lv6+ supermajority raises per-quarter) / G13 no telemetry / no usage analytics / no crash reporting to third parties (zero outbound traffic except Murakumo + yatachain; compile-time disable required) / G14 30-year reproducibility commitment (source pins sealed on yatachain at each R-phase activation; closed-source tools structurally fail this gate). **10 non-goals N1..N10**: N1 OptiX NEVER §2(b) / N2 commercial GPU rental NEVER (Omniverse Cloud / Lambda / RunPod / Vertex AI / AWS Bedrock GPU / Anthropic-direct GPU / Linode) ADR-2605215000 violation / N3 Omniverse Kit / Isaac Sim runtime / Isaac Lab runtime / RTX Renderer / Replicator NEVER (sole carve-out = one-time-use isolated Isaac Sim trial for G5 reference; Isaac Lab Apache-2.0 task DSL headers may be ported to `70-tools/isaac-lab-task-port/`) / N4 NVIDIA DriveSim NEVER (CARLA + AWSIM + AirSim + MetaDrive = OSS replacement for wadachi R2+ AV) / N5 Unity / Unreal closed-source NEVER (Apache-licensed packages case-by-case Council vote OK) / N6 closed-source physics engines NEVER (Havok / proprietary FleX / proprietary destructibles); PhysX 5 BSD-3 library OK / N7 cloud-based asset marketplace runtime fetch NEVER (one-time download + G10 scan + IPFS pin OK) / N8 third-party-cloud collaborative authoring NEVER (Omniverse Nucleus / Autodesk cloud); git + IPFS + Murakumo only / N9 closed-source synthetic-data services NEVER (Replicator / Parallel Domain / AI.Reverie); BlenderProc subprocess + Kubric replacement / N10 telemetry to any third party NEVER §2(c) (compile-time disable). **Wave 1 reference composition (binding for actor R1)**: OpenUSD (Pixar) scene + HdCycles (Apache 2.0) + Mitsuba 3 (BSD-3 differentiable) render delegates + Vulkan RT GPU sensor backbone + Embree CPU fallback + CARLA lidar kernel + MuJoCo MJX (Apache 2.0) articulated physics + PhysX 5 SDK (BSD-3) rigid + Genesis (Apache 2.0) unified experimental + Drake (BSD-3) planning + Brax (Apache 2.0) RL + ported Isaac Lab task DSL + BlenderProc (GPL-3 subprocess) + Kubric (Apache 2.0) synthetic data + Habitat-Matterport 3D (CC-BY) + ProcTHOR (Apache 2.0) + RoboCasa (MIT) indoor assets + CARLA + AWSIM AV scenarios + Project AirSim aerial + rclpy ROS2 bridge + Ray (Apache 2.0) multi-GPU orchestration. **3 non-symmetric advantages over Isaac Sim**: (a) MuJoCo MJX articulated contact accuracy (legged-locomotion / dexterous-manipulation sim-to-real research-SOTA; Boston Dynamics / DeepMind / OpenAI Hand); (b) Mitsuba 3 differentiable rendering (inverse rendering for camera-attestation consistency verification — not in Omniverse stack); (c) Vulkan RT GPU-vendor neutrality (substrate runs on AMD MI / Intel Arc / iwakura ASIC silicon Wave 1 without CUDA / OptiX lock-in). **4-phase R0→R3**: R0 = this ADR + scaffold paths reserved (`70-tools/e7m-sim/` + `70-tools/isaac-lab-task-port/` + `90-docs/baien/sim-substrate-scoring-260526.md`); zero code / cells / lexicons. R1 = HdCycles render delegate wired to USD via Hydra + Mitsuba 3 differentiable PoC + Embree CPU verified on Murakumo Mac mini + Stanford bunny + Cornell box bit-identical deterministic on 3 of 10 Murakumo nodes + G5 rendering gate measured + simulationRunAttestation lexicon scaffolded; first eligible R1 consumer = igata R1 (ADR-2605261215) static die surface render. R2 = Vulkan RT GPU path on EVO-X2 + CARLA lidar kernel wired + MuJoCo MJX PoC on Otete-class 6-DoF arm + first actor pilot (wadachi R1→R2 single intersection AV OR suki R1→R2 single tractor field) + G5 lidar + physics gates measured + BlenderProc synthetic data + G10 Charter scan + IPFS pin + 30-day public comment. R3 = all robotics-bearing Tier-B actor R1+ migrated + cross-actor invariants live-validated (sarutahiko↔wadachi same-vehicle / suki↔mitsuho operation envelope / igata-cast↔wadachi/tatekata/watatsumi FEM consumer) + G5 sim-to-real gate measured + Isaac Lab task DSL port feature parity + 60-day public review + iwakura ASIC silicon Wave 1 R3 capacity migration if shipped. **Bindings (R1 single SoT)**: wadachi R1 / suki R1 (ADR-2605261515) / igata R1 (ADR-2605261215) / watatsumi R1 / sarutahiko R1 / futawa R1 (ADR-2605261345) / tatekata R1 (ADR-2605250730) / hodoki R1 / makura R1 (ADR-2605261130) / tsutae R1 (ADR-2605261315). Deviation requires per-actor sim ADR + Council Lv6+ ≥3 attestation citing this charter. **Vendor-rejection chain extension**: religious-corp now adds constitutional rejection of NVIDIA proprietary sim stack (Omniverse / Isaac Sim / OptiX / DriveSim / Replicator) to its existing chain (silicon Wave 1 自前 GPU + yakushi 自前 OTC + watatsumi 自前 潜水艇 + kanayama 自前 アルミ再生 + igata 自前 HPDC + tsutae 自前 handheld + sarutahiko 自前 truck + suki 自前 tractor + futawa 自前 motorcycle = full robotics + manufacturing + sim self-sufficiency)."
+path = "90-docs/adr/2605261600-robotics-simulation-substrate-r0.md"
+
+[[modules]]
+path = "70-tools/e7m-sim"
+kind = "robotics-simulation-substrate"
+version = "0.0.1-r0-charter-only-no-code"
+status = "R0-charter-paths-reserved-no-code-no-cells-no-lexicons"
+description = "e7m-sim — religious-corp first-party robotics simulation substrate. R0 charter only per ADR-2605261600. Scaffold paths reserved at `70-tools/e7m-sim/` (5-stack OSS reference: OpenUSD + HdCycles + Mitsuba 3 + Vulkan RT + Embree + MuJoCo MJX + PhysX 5 BSD-3 + Genesis + Drake + Brax + BlenderProc + Kubric + Habitat-Matterport + ProcTHOR + RoboCasa + CARLA + AWSIM + Project AirSim + Ray + rclpy ROS2). R1 = HdCycles + Mitsuba 3 + Embree differential PoC + simulationRunAttestation lexicon. R2 = Vulkan RT + CARLA lidar + MuJoCo MJX + 1 actor pilot. R3 = cross-actor validation harness + Isaac Lab task DSL port parity + iwakura ASIC silicon Wave 1 capacity migration if shipped. **Bindings**: single SoT for every R1+ phase of wadachi / suki / igata / watatsumi / sarutahiko / futawa / tatekata / hodoki / makura / tsutae R1 sim layer. **Constitutional rejection chain**: NVIDIA Omniverse Kit + Isaac Sim runtime + Isaac Lab runtime + RTX Renderer + OptiX + Replicator + DriveSim + Omniverse Cloud + Nucleus = N1..N9 NEVER (§2(b) + §2(e) + ADR-2605215000 + G14 30-year reproducibility). Sole carve-out = one-time-use isolated Isaac Sim trial machine to generate G5 ≥0.75 ground-truth reference scenes (never connected to religious-corp infra, never carrying keys, archived as sealed CID, machine decommissioned). Isaac Lab Apache-2.0 task definition DSL headers may be ported to `70-tools/isaac-lab-task-port/` (runtime separated; Isaac Lab runtime N3 NEVER)."
+adr = ["2605261600", "2605215000", "2605192100", "2605192200", "2605201400", "2605231400", "2605242500", "2605242000", "2605242630", "2605250500", "2605250715", "2605252200", "2605252400", "2605252500", "2605261015", "2605261115", "2605261200", "2605261215", "2605261300", "2605261330", "2605261500"]
+sibling_modules = [
+  "70-tools/isaac-lab-task-port (Apache 2.0 task DSL header port; runtime separated)",
+]
+reference_stack_layers = [
+  "scene: OpenUSD (Pixar)",
+  "render-photoreal: HdCycles (Apache 2.0)",
+  "render-differentiable: Mitsuba 3 (BSD-3)",
+  "sensor-gpu: Vulkan Ray Tracing (Khronos)",
+  "sensor-cpu-fallback: Embree (Apache 2.0)",
+  "lidar: CARLA lidar kernel + Vulkan RT delegate",
+  "physics-articulated: MuJoCo MJX (Apache 2.0)",
+  "physics-rigid: PhysX 5 SDK (BSD-3)",
+  "physics-unified-experimental: Genesis (Apache 2.0)",
+  "planning: Drake (BSD-3)",
+  "rl: Brax (Apache 2.0) + Isaac Lab task DSL port (Apache 2.0)",
+  "synth: BlenderProc (GPL-3 subprocess) + Kubric (Apache 2.0)",
+  "assets-indoor: Habitat-Matterport 3D (CC-BY) + ProcTHOR (Apache 2.0) + RoboCasa (MIT)",
+  "scenario-av: CARLA (MIT) + AWSIM (Apache 2.0)",
+  "scenario-aerial: Project AirSim (Apache 2.0)",
+  "ros: rclpy (Apache 2.0)",
+  "orchestration: Ray (Apache 2.0)",
+]
+constitutional_invariants_immutable_r0_r3 = [
+  "G1 open architecture (Apache 2.0 / BSD / MIT / MPL 2.0 / Pixar USD License; GPL-3 subprocess-only carve-out)",
+  "G2 OpenUSD single scene-composition SoT",
+  "G3 Vulkan Ray Tracing GPU-neutral ray-tracing backbone + Embree CPU fallback (OptiX = N1 NEVER)",
+  "G4 Murakumo-fleet-only execution (cloud GPU rental = N2 NEVER per ADR-2605215000)",
+  "G5 quantitative quality gate ≥ 0.75 vs Isaac Sim ground truth (PSNR / SSIM / Chamfer / IoU / sim-to-real)",
+  "G6 yatachain attestation lineage MANDATORY (simulationRunAttestation per run)",
+  "G7 reproducibility invariant (bit-identical replay; cross-hardware ≤1e-4 L2/step)",
+  "G8 no NVIDIA-account-required tool in runtime",
+  "G9 no proprietary plugin in runtime (PhysX 5 BSD-3 library OK; cooking from open source)",
+  "G10 Charter Rider §2 scan applied to every imported asset",
+  "G11 personnel vetting for sim-to-real handover (Adherent SBT + actor R-phase SME)",
+  "G12 KPI caps (R1 ≤1 / R2 ≤4 / R3 ≤16 GPU-hour-eq/actor/day; Council raises per quarter)",
+  "G13 no telemetry / no usage analytics / no crash reporting to third parties",
+  "G14 30-year reproducibility commitment (source pins on yatachain)",
+]
+non_goals_immutable_r0_r3 = [
+  "N1 NVIDIA OptiX (closed) NEVER §2(b)",
+  "N2 commercial GPU rental NEVER (Omniverse Cloud / Lambda / RunPod / Vertex AI GPU / AWS Bedrock GPU / Anthropic-direct GPU / Linode)",
+  "N3 NVIDIA Omniverse Kit / Isaac Sim / Isaac Lab runtime / RTX Renderer / Replicator NEVER (one-time-use isolated G5 reference + Isaac Lab Apache-2.0 task DSL header port are sole carve-outs)",
+  "N4 NVIDIA DriveSim NEVER (CARLA + AWSIM + AirSim + MetaDrive OSS replacement)",
+  "N5 Unity / Unreal closed-source NEVER (Apache packages case-by-case Council vote OK)",
+  "N6 closed-source physics engines NEVER (PhysX 5 BSD-3 library OK)",
+  "N7 cloud-based asset marketplace runtime fetch NEVER (one-time download + G10 scan + IPFS pin OK)",
+  "N8 third-party-cloud collaborative authoring NEVER (git + IPFS + Murakumo only)",
+  "N9 closed-source synthetic-data services NEVER (BlenderProc + Kubric replacement)",
+  "N10 telemetry to any third party NEVER §2(c)",
+]
+quantitative_quality_gate_g5 = "≥ 0.75 vs Isaac Sim ground truth (PSNR ≥25 dB + SSIM ≥0.85 rendering / Chamfer ≤0.05 m + IoU ≥0.75 lidar / end-effector L2 ≤5% across 100 trials physics / real ≥0.75× sim rollout sim-to-real). Reference scene generated once per actor on isolated trial machine; never connected to religious-corp infra; archived as sealed CID; machine decommissioned."
+bindings_r1_single_sot = [
+  "wadachi R1 (intra-site ≤1 m/s navigation)",
+  "suki R1 ADR-2605261515 (field-test ≤50 hp prototype)",
+  "igata R1 ADR-2605261215 (die surface thermal-stress visualization)",
+  "watatsumi R1 (benchtop pressure-vessel + pool)",
+  "sarutahiko R1 (road-test rollout single-vehicle)",
+  "futawa R1 ADR-2605261345 (single-motorcycle dyno + ABS calibration)",
+  "tatekata R1 ADR-2605250730 (benchtop structural assembly)",
+  "hodoki R1 (single-vehicle hand-disassembly demo)",
+  "makura R1 ADR-2605261130 (benchtop ≤1 kg foam batch + 10-pillow lot)",
+  "tsutae R1 ADR-2605261315 (single-device PoC build)",
+]
+vendor_rejection_chain_extension = "religious-corp adds NVIDIA Omniverse Kit + Isaac Sim runtime + Isaac Lab runtime + RTX Renderer + OptiX + Replicator + DriveSim + Omniverse Cloud + Nucleus to constitutional rejection chain (silicon Wave 1 GPU + yakushi OTC + watatsumi 潜水艇 + kanayama Al + igata HPDC + tsutae handheld + sarutahiko truck + suki tractor + futawa motorcycle = full robotics + manufacturing + sim self-sufficiency)"
+
+[[modules]]
+path = "70-tools/isaac-lab-task-port"
+kind = "isaac-lab-task-dsl-port"
+version = "0.0.1-r0-path-reserved-no-code"
+status = "R0-path-reserved-no-code"
+description = "Apache 2.0 Isaac Lab task definition DSL header port (sole carve-out exception from ADR-2605261600 N3 NVIDIA Omniverse/Isaac stack rejection). Only the task-definition language is ported; the Isaac Lab runtime (which depends on Isaac Sim + Omniverse Kit) is N3 NEVER. Ported task definitions are consumed by Brax + MuJoCo MJX backends in e7m-sim. R0 = path reserved only. R3 target = feature parity for the task categories actually used by religious-corp actors."
+adr = ["2605261600"]
+sibling_modules = [
+  "70-tools/e7m-sim (consumer of ported task definitions)",
+]
