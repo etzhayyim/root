@@ -1,0 +1,133 @@
+<!--
+  Kusawake (草分け) — autonomous agri-mobile platform DEV PREVIEW MJCF.
+
+  Scope: developer-side throwaway sanity check of OSS robotics sim stack.
+  NOT religious-corp R1 work. NOT under 70-tools/e7m-sim/ (that path is R0
+  zero-code per ADR-2605261600). This file lives in ~/sandbox/ and is
+  intended to be deleted once R1 sim PoC lands properly.
+
+  Spec source: ADR-2605252615 §Wave 1 mechanical envelope
+    - 4WD / 4WS electric
+    - ~250 kg chassis + 50 kg payload deck
+    - ~1.4 × 0.9 m footprint
+    - 4× wheel radius ~0.20 m
+    - swag-bot-style outdoor platform
+-->
+<mujoco model="kusawake_dev_preview">
+  <compiler angle="degree" coordinate="local" inertiafromgeom="true"/>
+  <option timestep="0.002" iterations="50" solver="Newton" gravity="0 0 -9.81"/>
+
+  <default>
+    <joint armature="0.01" damping="0.5"/>
+    <geom contype="1" conaffinity="1" friction="0.9 0.1 0.05" rgba="0.7 0.7 0.7 1"/>
+    <motor ctrllimited="true" ctrlrange="-1 1"/>
+  </default>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.5 0.7 0.9" rgb2="0.0 0.0 0.0" width="256" height="256"/>
+    <texture type="2d" name="grass" builtin="checker" rgb1="0.25 0.4 0.15" rgb2="0.35 0.5 0.2" width="512" height="512"/>
+    <material name="grass" texture="grass" texrepeat="20 20" reflectance="0.0"/>
+    <material name="chassis_mat" rgba="0.20 0.55 0.20 1"/>
+    <material name="deck_mat" rgba="0.85 0.85 0.85 1"/>
+    <material name="wheel_mat" rgba="0.10 0.10 0.10 1"/>
+    <material name="lidar_mat" rgba="0.95 0.85 0.10 1"/>
+    <material name="cam_mat" rgba="0.10 0.10 0.85 1"/>
+  </asset>
+
+  <worldbody>
+    <light name="sun" pos="0 0 5" dir="0 0 -1" diffuse="0.8 0.8 0.8" specular="0.1 0.1 0.1"/>
+    <light name="fill" pos="3 -3 4" dir="-0.5 0.5 -1" diffuse="0.3 0.3 0.3"/>
+
+    <!-- Orchard-row reference field: 30 m x 30 m grass -->
+    <geom name="ground" type="plane" size="15 15 0.1" material="grass" friction="0.9 0.1 0.05"/>
+
+    <!-- Vine-row markers (visual only) — Wave 2 orchard reference -->
+    <body name="row_1" pos="0 -2.5 0">
+      <geom type="box" size="6 0.05 0.4" rgba="0.4 0.25 0.1 1" contype="0" conaffinity="0"/>
+    </body>
+    <body name="row_2" pos="0 2.5 0">
+      <geom type="box" size="6 0.05 0.4" rgba="0.4 0.25 0.1 1" contype="0" conaffinity="0"/>
+    </body>
+
+    <!-- Kusawake chassis -->
+    <body name="chassis" pos="0 0 0.30">
+      <freejoint name="root"/>
+      <!-- main chassis box: 1.4 x 0.9 x 0.20 m, ~ inertial-equivalent to 250 kg -->
+      <geom name="chassis_box" type="box" size="0.70 0.45 0.10" material="chassis_mat" mass="250"/>
+      <!-- payload deck on top -->
+      <geom name="deck" type="box" pos="0 0 0.18" size="0.55 0.35 0.04" material="deck_mat" mass="50"/>
+
+      <!-- LiDAR puck (visual marker) -->
+      <geom name="lidar_puck" type="cylinder" pos="0.55 0 0.28" size="0.06 0.04" material="lidar_mat" contype="0" conaffinity="0"/>
+      <!-- RGB cameras (visual markers) -->
+      <geom name="cam_front" type="box" pos="0.65 0.15 0.18" size="0.04 0.02 0.03" material="cam_mat" contype="0" conaffinity="0"/>
+      <geom name="cam_front_r" type="box" pos="0.65 -0.15 0.18" size="0.04 0.02 0.03" material="cam_mat" contype="0" conaffinity="0"/>
+
+      <!-- On-board camera (MuJoCo-recordable) -->
+      <camera name="onboard" pos="0.65 0 0.30" euler="90 0 90" fovy="60"/>
+      <!-- 3rd-person tracking camera -->
+      <camera name="track" mode="track" pos="-3 -3 3" xyaxes="1 -1 0 1 1 2"/>
+
+      <!-- ─── 4WS / 4WD wheel modules ─── -->
+
+      <!-- FL: front-left -->
+      <body name="steer_fl" pos="0.55 0.50 -0.05">
+        <joint name="steer_fl" type="hinge" axis="0 0 1" range="-45 45" damping="2"/>
+        <geom name="steer_post_fl" type="cylinder" size="0.04 0.05" rgba="0.3 0.3 0.3 1" mass="0.5"/>
+        <body name="wheel_fl" pos="0 0 -0.10">
+          <joint name="drive_fl" type="hinge" axis="0 1 0" damping="0.1"/>
+          <geom name="wheel_fl" type="cylinder" size="0.20 0.08" euler="90 0 0" material="wheel_mat" mass="6" friction="1.2 0.05 0.05"/>
+        </body>
+      </body>
+
+      <!-- FR: front-right -->
+      <body name="steer_fr" pos="0.55 -0.50 -0.05">
+        <joint name="steer_fr" type="hinge" axis="0 0 1" range="-45 45" damping="2"/>
+        <geom type="cylinder" size="0.04 0.05" rgba="0.3 0.3 0.3 1" mass="0.5"/>
+        <body name="wheel_fr" pos="0 0 -0.10">
+          <joint name="drive_fr" type="hinge" axis="0 1 0" damping="0.1"/>
+          <geom type="cylinder" size="0.20 0.08" euler="90 0 0" material="wheel_mat" mass="6" friction="1.2 0.05 0.05"/>
+        </body>
+      </body>
+
+      <!-- RL: rear-left -->
+      <body name="steer_rl" pos="-0.55 0.50 -0.05">
+        <joint name="steer_rl" type="hinge" axis="0 0 1" range="-45 45" damping="2"/>
+        <geom type="cylinder" size="0.04 0.05" rgba="0.3 0.3 0.3 1" mass="0.5"/>
+        <body name="wheel_rl" pos="0 0 -0.10">
+          <joint name="drive_rl" type="hinge" axis="0 1 0" damping="0.1"/>
+          <geom type="cylinder" size="0.20 0.08" euler="90 0 0" material="wheel_mat" mass="6" friction="1.2 0.05 0.05"/>
+        </body>
+      </body>
+
+      <!-- RR: rear-right -->
+      <body name="steer_rr" pos="-0.55 -0.50 -0.05">
+        <joint name="steer_rr" type="hinge" axis="0 0 1" range="-45 45" damping="2"/>
+        <geom type="cylinder" size="0.04 0.05" rgba="0.3 0.3 0.3 1" mass="0.5"/>
+        <body name="wheel_rr" pos="0 0 -0.10">
+          <joint name="drive_rr" type="hinge" axis="0 1 0" damping="0.1"/>
+          <geom type="cylinder" size="0.20 0.08" euler="90 0 0" material="wheel_mat" mass="6" friction="1.2 0.05 0.05"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <!-- Steering: position-controlled hinge, ±45° -->
+    <position name="steer_fl_act" joint="steer_fl" kp="200" ctrlrange="-0.785 0.785"/>
+    <position name="steer_fr_act" joint="steer_fr" kp="200" ctrlrange="-0.785 0.785"/>
+    <position name="steer_rl_act" joint="steer_rl" kp="200" ctrlrange="-0.785 0.785"/>
+    <position name="steer_rr_act" joint="steer_rr" kp="200" ctrlrange="-0.785 0.785"/>
+
+    <!-- Drive: velocity-controlled wheel hinge, ≈ ≤6 km/h ≈ ≤1.7 m/s ≈ ≤8 rad/s @ r=0.20 -->
+    <velocity name="drive_fl_act" joint="drive_fl" kv="20" ctrlrange="-8 8"/>
+    <velocity name="drive_fr_act" joint="drive_fr" kv="20" ctrlrange="-8 8"/>
+    <velocity name="drive_rl_act" joint="drive_rl" kv="20" ctrlrange="-8 8"/>
+    <velocity name="drive_rr_act" joint="drive_rr" kv="20" ctrlrange="-8 8"/>
+  </actuator>
+
+  <sensor>
+    <framepos name="chassis_pos" objtype="body" objname="chassis"/>
+    <framequat name="chassis_quat" objtype="body" objname="chassis"/>
+  </sensor>
+</mujoco>

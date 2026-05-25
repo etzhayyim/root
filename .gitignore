@@ -16,6 +16,7 @@ node_modules/
 dist/
 build/
 out/
+!70-tools/e7m-sim-preflight/out/
 .turbo/
 .next/
 .svelte-kit/

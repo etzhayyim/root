@@ -48,7 +48,7 @@
   ],
   "scope": {
     "phase": "R0 scaffold",
-    "scopeBoundary": "Farm tractor assembly (~50-200 hp Wave 1; community-scale farming target); Wave 2 = orchard/vineyard specialty <50 hp; Wave 3 = cultivator-only walk-behind ≤25 hp deferred",
+    "scopeBoundary": "Farm tractor assembly (~50-200 hp Wave 1; community-scale farming target); Wave 2 = orchard/vineyard specialty <50 hp electric + autonomous wheeled platform Kusawake ≤300 kg / ≤6 km/h / SAE Level 3 (ADR-2605252615, swagbot methodology reference, mitsuho.autonomous_mobile operator); Wave 3 = cultivator-only walk-behind ≤25 hp deferred",
     "exclusions": [
       "Military tractor (artillery prime mover / military landrover / military engineering / SOF support) — NEVER §2(a)",
       "Riot-control / armored police tractor — NEVER §2(a)",
@@ -65,6 +65,7 @@
     ]
   },
   "roboticsClasses": [
+    "Kusawake 草分け R1+ Wave 2 mfg target — 4WD/4WS electric autonomous wheeled agri-platform ≤300 kg / SAE J3016 Level 3 ceiling (mitsuho operator; ADR-2605252615; swagbot methodology reference)",
     "Otete-heavy ≥200 kg (kuni-umi sarutahiko-heavy inheritance)",
     "Mimi-precision μm-level (kuni-umi inherited)",
     "Migaki coil + body-panel surface inspector (kanayama reuse)",
