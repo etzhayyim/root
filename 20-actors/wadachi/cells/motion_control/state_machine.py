@@ -79,7 +79,7 @@ def transition_to_speed_regulated(state: dict[str, Any]) -> dict[str, Any]:
     ms.phase = MotionPhase.SPEED_REGULATED
     ms.targetSpeed = 1.2
     ms.currentSpeed = 1.19
-    ms.motorMetrics = {**ms.motorMetrics or {}, **mock_speed}
+    ms.motorMetrics = {**(ms.motorMetrics or {}), **mock_speed}
     ms.completionPct = 75
 
     return {"motion_state": ms.__dict__, "next_node": "witness"}

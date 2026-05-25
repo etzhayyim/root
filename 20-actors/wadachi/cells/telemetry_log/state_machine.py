@@ -73,7 +73,7 @@ def transition_to_data_processed(state: dict[str, Any]) -> dict[str, Any]:
     }
 
     ts.phase = TelemetryPhase.DATA_PROCESSED
-    ts.telemetryData = {**ts.telemetryData or {}, **mock_processed}
+    ts.telemetryData = {**(ts.telemetryData or {}), **mock_processed}
     ts.completionPct = 45
 
     return {"telemetry_state": ts.__dict__, "next_node": "verify_records"}
