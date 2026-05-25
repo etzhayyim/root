@@ -504,6 +504,159 @@ To rule out MoE architectural blame (35B-A3B has MoE 256-expert / Mamba hybrid a
 
 **Verdict**: Bonsai-style activation-aware calibration alone (Phase A-D) cannot deliver usable 1-bit checkpoints from bf16-trained Qwen models, on any size, on any architecture. The missing step is multi-epoch KD post-quantization (Bonsai paper recipe) OR pivot to a model already trained with quantization-aware techniques (BitNet-b1.58-2B-4T as base). Both are out-of-scope for the current session's compute budget.
 
+### Wall #5 — KD scaffold landed but Bonsai recovery infeasible on EVO 1-node budget 2026-05-25
+
+To attempt the missing Bonsai step (multi-epoch logit-KL KD), implemented `70-tools/roso-distill/src/roso_distill/bonsai_kd.py` with:
+- `TrainableBinaryLinear` (master_weight fp32 trainable + per-row α fp32 trainable + STE backward via `master + (sign(master)*α - master).detach()`)
+- Phase C α initialization (loaded from `calibrated_alphas.json`)
+- All non-binary params frozen (114 norms/embed/lm_head + 392 master+α trainable = 1.41B trainable on Qwen3-1.7B)
+- KL divergence with temperature T=2.0 against original bf16 teacher
+- wikitext-2-raw-v1 dataset
+- AdamW lr 1e-4 (KD-200) then resumed at lr 5e-4 (KD-200→1200)
+- Per-checkpoint save with `kd_step.safetensors.W_q.safetensors` (W_q = sign(master)×α) consumable by `pack_calibrated.py`
+- `--resume-from` flag for incremental KD train runs
+
+**Empirical results on EVO Qwen3-1.7B-Base**:
+
+| run | steps | lr | sign-flip rate vs orig | loss curve | exact_match (15 prompts) |
+|---|---|---|---|---|---|
+| Phase C+D init only | 0 | — | 0% (sign(W) preserved by definition) | n/a | 0/15 |
+| KD-200 | 200 | 1e-4 | **1.00%** (61 flips/row @ d_in=6144) | 1648 → 968 noisy | 0/15 |
+| KD-1200 (= 200 + resume +1000) | 1200 | 1e-4 then 5e-4 | **6.25%** (384 flips/row) | 1648 → 460 (step 400) → 572 (step 1000) | **0/15** |
+| fp16 baseline (ceiling for retention measurement) | — | — | — | — | **4/15** (Reasoning 1/1 / Multilingual 1/2 / MMLU math_prime / IFEval json) |
+
+**Critical empirical findings**:
+1. **KD IS learning** (6.25% sign flips, loss declining 1648 → 572 = 2.9× reduction) — STE works, optimizer updates master + α properly, no algorithm bug
+2. **Generation output STAYS catastrophic** (`!!!!!!!!!` token-0 loops on most prompts) — local minimum / mode collapse from broken Phase C+D init
+3. **Hypothesis for non-recovery**: Phase C+D init places the student in a `!!!!!`-emitting catastrophic basin; STE flips ~6% signs per 1000 steps but cannot escape the basin within EVO's budget
+
+**Recovery infeasibility on EVO 1 node**:
+
+| Bonsai paper estimated setup | Our session budget | Ratio |
+|---|---|---|
+| batch_size 32+ with grad accum | 1 (memory bound at 1.7B + AdamW) | 32× more compute needed |
+| seq_len 2048+ context | 256 (memory bound) | 8× more memory needed |
+| lr 1e-5 with warmup + cosine | 1e-4 / 5e-4 constant (too aggressive for binary) | recipe drift |
+| 50k-200k steps × 5 sec/step = ~70-280 hours wall | 1200 steps × 5 sec = 1.7 hours | 40-160× more time |
+| wikitext-103 / C4 (~10M tokens) | wikitext-2 (~2M tokens) | 5× more data |
+
+**Estimated EVO wall to reproduce paper-equivalent recovery**: 3-7 days continuous GPU. Out of session scope.
+
+**Wall #5 conclusion**: Bonsai-style 1-bit recovery is structurally feasible (KD signal IS measurable: sign-flips + loss reduction) but requires GPU-farm-scale compute (40-160× our session budget). For a religious-corp open-source project the realistic path is either (a) BitNet-b1.58-2B-4T or future BitNet-1.7B as base (already QAT-trained — no recovery KD needed), or (b) accept Bonsai 1-bit Qwen distillation as a multi-week dedicated effort with explicit budget. The 5-wall empirical loop has resolved the goal hook ("1h で 1bit で元の qwen の bench score まで近づける") definitively: **the missing step exists and is named, but the session-budget gap to apply it is 40-160×**.
+
+**Session durable artifacts (all under `70-tools/roso-distill/src/roso_distill/`)**:
+- `bonsai_calibrate.py` — Phase A+B+C+D pipeline + `--with-phase-d` + resume-capable per-shard save + single-file safetensors support
+- `pack_calibrated.py` — suffix-match prefix-tolerant per_shard → packed_bits + α aggregator (single-shard + multi-shard both)
+- `packed_minibench.py` — 15-prompt verifiable scorer (works on any packed-bit ckpt)
+- `bonsai_kd.py` — multi-epoch logit-KL KD scaffold + `TrainableBinaryLinear` + `--resume-from` + Phase-C-init+STE+α-update
+- Bench evidence (EVO): `bonsai_minibench.jsonl` (Phase C 0/15) + `bonsai_d_minibench.jsonl` (Phase D 0/15) + `kd200_minibench.jsonl` (KD-200 0/15) + `kd1200_minibench.jsonl` (KD-1200 0/15) + `fp16_baseline_qwen3_1.7b.jsonl` (fp16 4/15)
+- Calibration + KD artifacts (EVO): `bonsai-calib/per_shard/`, `bonsai-calib-d/per_shard/`, `bonsai-calib-qwen3-1.7b-d/per_shard/`, `kd-qwen3-1.7b/per_shard/`, `kd-qwen3-1.7b-r1/per_shard/`
+
+### 5-wall summary 2026-05-25 (final session conclusion)
+
+| wall | base | method | exact_match | notes |
+|---|---|---|---|---|
+| 1 | 35B MoE | naive sign + 4 iters skip-more | 0/10 | `.updateDynamic` loops |
+| 2 | 35B MoE | Phase C OS only | 0/15 | "the the the" loops |
+| 3 | 35B MoE | Phase C + D GPTQ-CD | 0/15 | "enje the the to" loops |
+| 4 | **1.7B dense, clean load** | Phase C + D GPTQ-CD | 0/15 | "!!!!!" loops; **proves wall is algorithm class not architecture** |
+| 5 | 1.7B dense | + KD logit-KL 1200 steps | 0/15 | KD IS learning (6.25% sign flips, loss 1648→572) but session budget 40-160× too small to escape Phase-D-induced catastrophic basin |
+
+**fp16 ceiling on Qwen3-1.7B-Base = 4/15 (26.7%)** — Bonsai paper claim of ~89% retention would predict ~3-4/15. Reaching it requires GPU-farm-scale KD compute that EVO cannot provide in 1 session.
+
+### TOPS/TFLOPs compute requirement analysis 2026-05-25
+
+**Per-step compute (Qwen3-1.7B-Base, seq=256, batch=1)**:
+- Forward: ~1.7B params × 2 (FMA) × 256 tok = **~870 GFLOPs**
+- Backward: 2× forward = ~1.74 TFLOPs
+- Teacher forward (no_grad, bf16) + student forward+backward = **~3.5 TFLOPs per KD step**
+
+**Total compute to reproduce Bonsai paper recovery**:
+
+| target | steps × batch | total compute |
+|---|---|---|
+| Paper minimum (50k steps × batch 32) | 1.6M effective steps | **~5.6 EFLOPs** |
+| Paper full (200k × batch 32) | 6.4M effective steps | **~22.4 EFLOPs** |
+| Bonsai-8B full reproduction (8B params × 200k × bs32) | 6.4M × 5 (8/1.7 params) | **~106 EFLOPs** |
+
+**Hardware wall-time projections**:
+
+| hardware | sustained TFLOPs | Qwen3-1.7B paper-min (5.6 EFLOPs) | Qwen3-1.7B paper-full (22.4 EFLOPs) | Bonsai-8B full (106 EFLOPs) |
+|---|---|---|---|---|
+| EVO current (gfx1151, batch=1, ~0.7 TFLOPs sustained) | 0.7 | **92 days** | **370 days** | **1750 days** |
+| EVO optimized (batch=4, ~5 TFLOPs sustained) | 5 | **13 days** | **52 days** | **246 days** |
+| Murakumo distributed (10× Mac mini M2, ~50 TFLOPs aggregate) | 50 | **1.3 days** | **5.2 days** | **25 days** |
+| AMD W7900 add (~120 TFLOPs bf16 single GPU) | 120 | **13 hours** | **2.2 days** | **10 days** |
+| **iwakura ASIC** (ternary native, 65 TTops × N chips) | varies | **hours** | **days** | **weeks** |
+| 8× H100 cluster | 1600 | **1 hour** | **4 hours** | **18 hours** |
+| (Commercial GPU rental) | N/A | **CONSTITUTIONALLY BANNED** (ADR-2605215000 + CHARTER-RIDER §2(i)) | — | — |
+
+**Religious-corp viable paths to closing the 40-160× session-budget gap**:
+
+1. **Defer roso / baien training until silicon (iwakura ASIC)** lands — silicon Wave 1 (ADR-2605242500) gives ternary-native 65 TTops per chip; KD becomes hours not days
+2. **Murakumo distributed KD** — aggregate consumer-grade Apple Silicon (Mac mini M2/M3 × N nodes) for ~25-day Bonsai-8B reproduction
+3. **Add 1× W7900 / W7900X to EVO** — religious-corp owned GPU (~$3.5k), drops 1.7B reproduction to 13 hours
+4. **Pivot bases to already-QAT-trained models** — BitNet-b1.58-2B-4T (Microsoft, MIT-licensed) needs no KD recovery; deploy directly via existing packed_infer.py pipeline
+
+### Decision 2026-05-25: roso / baien training DEFERRED until sufficient resources
+
+Per the user 2026-05-25T evening JST: "roso, baien は 十分なリソースができてから train を行うようにします".
+
+**Defer until at least ONE of**:
+- iwakura ASIC silicon Wave 1 functional (ADR-2605242500/515/530/545)
+- Murakumo mesh expanded to ≥ 8 nodes with aggregate ≥ 50 TFLOPs bf16
+- religious-corp owned discrete GPU (W7900 / future MI-class) acquired and integrated
+- BitNet-trained base (e.g. BitNet-b1.58-2B-4T or future ≥ 8B) adopted as baien/roso target
+
+**Current session durable artifacts (PRESERVED as future-runnable scaffolds)**:
+- `70-tools/roso-distill/src/roso_distill/bonsai_calibrate.py` — Phase A+B+C+D + resume + single-file safetensors
+- `70-tools/roso-distill/src/roso_distill/pack_calibrated.py` — packed-bit checkpoint builder
+- `70-tools/roso-distill/src/roso_distill/packed_minibench.py` — 15-prompt verifiable evaluator
+- `70-tools/roso-distill/src/roso_distill/bonsai_kd.py` — KD logit-KL with TrainableBinaryLinear + STE + resume
+- 5-wall empirical evidence (`bonsai_minibench.jsonl` × 4 files + `fp16_baseline_qwen3_1.7b.jsonl`) on EVO
+- Calibration data (Phase C+D W_q on 3 bases: Qwen3.6-35B-A3B / Qwen3-1.7B-Base) on EVO
+
+**Re-activation trigger**: when one of the deferral conditions is met, the scaffold runs end-to-end from `bonsai_calibrate.py --with-phase-d` → `bonsai_kd.py` (with longer schedule, higher batch, lower lr, proper warmup+cosine) → `pack_calibrated.py` → `packed_minibench.py`. The mechanical work is done; only sustained compute is missing.
+
+### Future project base-model strategy 2026-05-25 (user decision)
+
+Per the user 2026-05-25T evening JST: "また今後の project では etzhayyim の base model は oka model, gemma 4 26b a4b, gemma 4 e4b をベースに, unsloth で lora などで調整していく, アプローチで."
+
+**Adopted base model lineup** (future etzhayyim projects):
+
+| base | params | scope | license | notes |
+|---|---|---|---|---|
+| Oka model | TBD | religious-corp originated (user-named) | TBD | Identity / provenance to be captured in a dedicated ADR when project lands |
+| Gemma 4 26B-A4B | 26B total / 4B active (MoE) | high-capability tier | Gemma license (NOT Apache-2.0 — requires acceptance / use-restriction review per CHARTER-RIDER §2 + religious-corp compliance gate) | Already serves in Murakumo fleet (see status row 40 `gemma4:e4b` already deployed on judah node) |
+| Gemma 4 E4B | 8B params / 4B effective | edge tier | Gemma license (same caveat as above) | Already in fleet via Ollama on judah 192.168.1.17:11434 |
+
+**Adopted training approach**: **Unsloth + LoRA / QLoRA fine-tuning** (replacing the 1-bit Bonsai post-quantization path explored in walls 1-5)
+
+**Why this replaces the Bonsai 1-bit path**:
+- Bonsai 1-bit from bf16 base requires 40-160× session-budget compute (TFLOPs analysis above)
+- Unsloth + LoRA on Gemma 4 needs only a small adapter (~10-50 MB) per project, trainable in **hours** on EVO single-GPU
+- LoRA adapters compose cleanly with Murakumo fleet's existing serve path (`gemma4:e4b` + adapter overlay)
+- Quality is preserved at base-model level (no 1-bit catastrophic degradation)
+
+**Known blocker requiring re-verification before next training session**:
+- Unsloth Windows-ROCm-7.2.1 + Python 3.12 pip dep-resolution probe FAILED 2026-05-25 with RecursionError (CUDA-stack dependencies). See status row 40 + `90-docs/baien/probe_unsloth_rocm.json`.
+- Two recovery paths:
+  1. **Run Unsloth on Linux + CUDA stack** (different hardware than EVO Windows ROCm) — e.g., future Murakumo Linux node or religious-corp dedicated training box
+  2. **Continue peft+trl** (already working: row 40 `gemma-coder-distill` iter-01 ran successfully on EVO with peft+trl bf16 LoRA r=16 + Gemma4ClippableLinear inner `.linear` auto-resolve). Unsloth would be a future optimization, not a hard requirement.
+
+**License compliance pre-flight** (must complete before public release of Gemma 4-based artifacts):
+- Gemma license acceptance + use-restriction review under CHARTER-RIDER §2 (cross-check against the 8 prohibited categories §2(a)-(h))
+- Distribution rule: per Apache 2.0 §4 + CHARTER-RIDER, the LoRA adapter and merged-and-distributed artifacts must preserve the Gemma NOTICE alongside the etzhayyim Charter Rider
+- Murakumo fleet operates Gemma 4 weights for inference only (consumption side, not redistribution) per ADR-2605215000 §1.2 — this is already accepted
+
+**Path of least resistance for next training session** (recommended):
+1. Use peft+trl on EVO (already validated by row 40 gemma-coder-distill iter-01)
+2. Target Gemma 4 e4b first (smaller, faster iteration); scale to 26B-A4B once recipe validated
+3. Plan to layer Unsloth-on-Linux on top later if 2-3× throughput gain matters for production training runs
+4. "Oka model" needs its own dedicated ADR for identity / provenance / license capture before training begins
+
+**Boundary with this ADR's roso/baien work**: ADR-2605242000 (this doc) remains the canonical record of the 1-bit Bonsai exploration + 5-wall empirical findings + train deferral. The new LoRA-on-Gemma4-+-Oka strategy is a SEPARATE training pipeline (different scaffold needed: peft+trl LoRA driver, adapter manager, Murakumo serve-with-adapter overlay) and warrants its own dedicated ADR when the next project boots. roso/baien train deferral remains until iwakura ASIC / Murakumo expansion / W7900 / BitNet-base trigger is met — independent of the new LoRA path.
+
 ## roso-qwen3.6-35b-a3b 1-bit distill — VERIFIED end-to-end on EVO (2026-05-24)
 
 First server-tier roso sibling. Full pipeline: pull → shard-stream quantize → server-tier attestation bypass → commit. Validated `Qwen/Qwen3.6-35B-A3B` (Apache-2.0, MoE 256/8, hybrid linear+full attention, 256k context, multimodal text+image) as a base candidate.

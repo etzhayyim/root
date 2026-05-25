@@ -4879,3 +4879,80 @@ empirical_significance = "Confirms wall is in the Phase-D ALGORITHM ITSELF (not 
 artifacts_evo = "C:/Users/gad/roso-35b-out/bases/Qwen__Qwen3-1.7B-Base (orig) + bonsai-calib-qwen3-1.7b-d/per_shard/ (2.62 GB W_q bf16) + sibling-Qwen3-1.7B-roso-bonsai-d-packed/ (0.80 GB packed) + bonsai_d_minibench.jsonl (evidence)"
 literature_alignment = "Matches BitNet line: 1-bit weights REQUIRE training-from-scratch QAT (BitNet-b1.58 recipe) OR post-quantize multi-epoch logit-KL KD (Bonsai-8B recipe). Pure post-training quantization alone never works on bf16-trained models per Bonsai paper + GPTQ paper + BitNet paper consensus."
 
+[experiments."roso-qwen3-1.7b-base-bonsai-kd-wall-5-260525"]
+purpose = "Implement the missing Bonsai paper step (multi-epoch logit-KL KD) and probe whether session-budget KD can escape Phase-D-induced catastrophic basin"
+implementation = "bonsai_kd.py: TrainableBinaryLinear (master_weight fp32 trainable + per-row α fp32 trainable + STE: master + (sign(master)*α - master).detach()), wikitext-2 dataset, AdamW + KL(T=2.0), resume-from flag for incremental train"
+runs = [
+    "KD-200: 200 steps × lr 1e-4 × seq 256 × batch 1 — 15 min wall, sign-flip 1.00%, loss 1648→968, exact_match 0/15",
+    "KD-1200 (resume +1000): 1200 cumulative steps × lr 5e-4 × seq 256 × batch 1 — 75 min wall total, sign-flip 6.25% (61→384 flips/row), loss 1648→572, exact_match STILL 0/15",
+]
+catastrophic_basin = "Output stays '!!!!!!!!!' (token id 0) loops across KD-200 and KD-1200 despite measurable training signal (loss decline + sign flip increase). Phase D-induced initial state places student in local minimum that STE+KD with session-scale budget cannot escape."
+fp16_baseline_qwen3_1_7b = "4/15 (26.7%) exact_match: IFEval 1/5 (json) + MMLU 1/5 (math_prime) + Reasoning 1/1 (batball) + Multilingual 1/2 (jp_capital) + General 0/2"
+artifacts_evo = "C:/Users/gad/roso-35b-out/kd-qwen3-1.7b/ (KD-200 ckpt + per_shard/ + kd_loss_curve.jsonl) + kd-qwen3-1.7b-r1/ (KD-200→1200 ckpt) + sibling-Qwen3-1.7B-roso-kd200-packed/ + sibling-Qwen3-1.7B-roso-kd1200-packed/ + kd200_minibench.jsonl + kd1200_minibench.jsonl + fp16_baseline_qwen3_1.7b.jsonl"
+
+[experiments."roso-baien-train-deferral-decision-260525"]
+decision_date = "2026-05-25"
+decision_ja = "roso, baien は十分なリソースができてから train を行うようにします"
+decision_en = "roso and baien training is DEFERRED until sufficient compute resources are available"
+trigger_to_resume = "ANY of: (a) iwakura ASIC silicon Wave 1 functional (ADR-2605242500/515/530/545), (b) Murakumo mesh expanded to ≥8 nodes with ≥50 TFLOPs bf16 aggregate, (c) religious-corp owned discrete GPU (W7900 or future MI-class) acquired, (d) BitNet-trained base (BitNet-b1.58-2B-4T or future ≥8B) adopted as baien/roso target replacing Qwen3-base post-quantization"
+compute_gap_documented = "EVO 1 node @ batch=1 sustained 0.7 TFLOPs requires 92 days continuous for Qwen3-1.7B paper-minimum Bonsai recovery (5.6 EFLOPs); ~370 days for paper-full; ~1750 days for Bonsai-8B full reproduction. Session-budget gap is 40-160×."
+banned_path = "Commercial GPU rental (RunPod/AWS/GCP/Vertex/Anthropic-direct) per ADR-2605215000 + CHARTER-RIDER §2(i). No path through paid cloud compute."
+durable_scaffolds_preserved = [
+    "70-tools/roso-distill/src/roso_distill/bonsai_calibrate.py (Phase A+B+C+D + resume + single-file safetensors)",
+    "70-tools/roso-distill/src/roso_distill/pack_calibrated.py (packed-bit ckpt builder)",
+    "70-tools/roso-distill/src/roso_distill/packed_minibench.py (15-prompt verifiable eval)",
+    "70-tools/roso-distill/src/roso_distill/bonsai_kd.py (KD logit-KL + TrainableBinaryLinear + resume)",
+]
+re_activation_path = "When trigger met: bonsai_calibrate.py --with-phase-d → bonsai_kd.py (longer schedule, higher batch, lower lr 1e-5, warmup+cosine) → pack_calibrated.py → packed_minibench.py. Mechanical work done; only sustained compute is missing."
+
+[experiments."future-project-base-model-strategy-260525"]
+decision_date = "2026-05-25"
+decision_ja = "今後の project では etzhayyim の base model は oka model, gemma 4 26b a4b, gemma 4 e4b をベースに, unsloth で lora などで調整していく, アプローチで"
+adopted_bases = [
+    "Oka model (TBD identity / provenance / license — needs dedicated ADR before training begins)",
+    "Gemma 4 26B-A4B (MoE 26B total / 4B active — high-capability tier; already in Murakumo fleet)",
+    "Gemma 4 E4B (8B params / 4B effective — edge tier; already serves on judah 192.168.1.17:11434)",
+]
+adopted_training_approach = "Unsloth + LoRA / QLoRA fine-tuning"
+replaces = "1-bit Bonsai post-quantization path (walls 1-5 in ADR-2605242000)"
+rationale = "Bonsai 1-bit requires 40-160× session-budget compute; LoRA on Gemma 4 needs only ~10-50 MB adapter, hours on EVO. Composes with Murakumo fleet's existing gemma4:e4b serve path."
+known_blocker = "Unsloth Windows-ROCm-7.2.1 + Python 3.12 pip dep resolution FAILED 2026-05-25 with RecursionError (CUDA-stack deps). Recovery paths: (1) Linux+CUDA host, (2) keep peft+trl which already works (row 40 gemma-coder-distill iter-01 succeeded on EVO with peft+trl bf16 LoRA r=16)."
+license_preflight = [
+    "Gemma license acceptance + CHARTER-RIDER §2(a)-(h) cross-check (prohibited categories)",
+    "Apache 2.0 §4 + Rider compliance for LoRA adapter and merged artifacts (Gemma NOTICE preservation)",
+    "Murakumo inference-only consumption is already cleared per ADR-2605215000 §1.2",
+    "Oka model needs its own ADR for identity / provenance / license before training",
+]
+recommended_first_session_path = [
+    "1. peft+trl on EVO (already validated by gemma-coder-distill iter-01)",
+    "2. Target Gemma 4 e4b first (faster iteration), then scale to 26B-A4B",
+    "3. Layer Unsloth-on-Linux later if throughput gain matters",
+    "4. Author dedicated ADR for Oka model before training that base",
+]
+boundary_with_roso_baien = "roso/baien train deferral (per experiments.roso-baien-train-deferral-decision-260525) remains in effect independently. The new LoRA-on-Gemma4-+-Oka strategy is a SEPARATE pipeline requiring its own scaffold (peft+trl LoRA driver + adapter manager + Murakumo serve-with-adapter overlay) and its own ADR when the next project boots."
+
+
+[[adrs]]
+id = "2605260000"
+title = "L5 Gov Auth — DID-primary identity + MyNumber opt-in binding + WebAuthn platform authenticator"
+status = "proposed"
+status_note = "Master charter operationalizing the authentication layer of L5 routing-around ladder (ADR-2605250100/200/300). DID-primary identity model with optional trust-elevation credentials (MyNumber card IC chip binding + WebAuthn FaceID/TouchID/Windows Hello). Trust Level 1 = DID + WebAuthn platform authenticator only. Trust Level 2 = Trust Level 1 + MyNumber IC binding (XChaCha20-encrypted, Signal-wrapped per-recipient keys per ADR-2605181100). One-way read of MyNumber (Web NFC local processing only; no state database interaction) is consistent with §0.4 non-registration. Plaintext credentials encrypted at rest (ADR-2605181100 XChaCha20 mandatory). Public attestation contains no PII (blake2b_256 DID hash only). 3 lexicons (credentialBinding + didTrustAttestation + webauthnChallenge) + 2 Pregel cells (gov_auth_mynumber_bind + gov_auth_trust_attestation). All cells R0 scaffold with import-time RuntimeError; full implementation deferred to R1 ADR-2605260100 (post-Council bootstrap 2026-06-19). ADR-2605250100 §4 Boundary 4 revised to permit opt-in MyNumber binding."
+path = "90-docs/adr/2605260000-l5-gov-auth-mynumber-webauthn.md"
+
+[[modules]]
+path = "20-actors/magatama/cells/gov_auth_mynumber_bind"
+kind = "pregel-cell-gated"
+version = "0.1.0-r0-scaffold-only"
+status = "import-time-RuntimeError-until-council-activation"
+description = "L5 routing-around: MyNumber binding → XChaCha20-encrypted DID-bound credential. R0 scaffold (2026-05-26). 3 Pregel nodes: validate_webauthn (P-256 ECDSA verification) → bind_mynumber_encrypted (Web NFC read + XChaCha20 encrypt + IPFS upload) → emit_trust_attestation (trustLevel=2). Council gate: COUNCIL_ATTESTATION_TX_HASH + SILEN_GOV_AUTH_BASELINE_REVIEW_CID. Per ADR-2605260000. Emits: app.etzhayyim.gov.procedure.auth.credentialBinding (encrypted payload) + app.etzhayyim.gov.procedure.auth.didTrustAttestation (trustLevel=2) + app.etzhayyim.encrypted.keyWrap (Signal-wrapped per-recipient keys). Constitutional invariants: §0.4 non-registration (one-way read, no state DB), §2(c) anti-surveillance (plaintext encrypted per ADR-2605181100)."
+adr = ["2605260000", "2605181100"]
+lexicons = ["app.etzhayyim.gov.procedure.auth.credentialBinding", "app.etzhayyim.gov.procedure.auth.didTrustAttestation"]
+
+[[modules]]
+path = "20-actors/magatama/cells/gov_auth_trust_attestation"
+kind = "pregel-cell-gated"
+version = "0.1.0-r0-scaffold-only"
+status = "import-time-RuntimeError-until-council-activation"
+description = "L5 routing-around: trust-level evaluation and public attestation. R0 scaffold (2026-05-26). 2 Pregel nodes: evaluate_trust_level (assess auth method + evidence) → emit_attestation (public didTrustAttestation). Council gate: COUNCIL_ATTESTATION_TX_HASH + SILEN_GOV_AUTH_BASELINE_REVIEW_CID. Per ADR-2605260000. Trust Level 1 = WebAuthn platform authenticator (FaceID/TouchID/Windows Hello) verified. Trust Level 2 = Trust Level 1 + MyNumber IC binding (XChaCha20 decryption successful). Emits: app.etzhayyim.gov.procedure.auth.didTrustAttestation (public, no PII — blake2b_256 DID hash only). Upstream consumer: member_registry + religious_corp_taxation + other L5 routing-around cells for access control."
+adr = ["2605260000", "2605181100", "2605250100"]
+lexicons = ["app.etzhayyim.gov.procedure.auth.didTrustAttestation"]
