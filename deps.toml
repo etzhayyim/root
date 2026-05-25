@@ -2517,8 +2517,8 @@ path = "70-tools/scripts/lint"
 kind = "lefthook-pre-commit-lints"
 version = "0.1.0"
 status = "active"
-description = "Religious-corp wave lefthook pre-commit lints (per ADR-2605192115 + ADR-2605192200 + ADR-2605191648). 4 new scripts added 2026-05-20: no-advertising.mjs (BLOCK: ad network / affiliate / ad-tracker imports + adsbygoogle/googlesyndication/facebook.net DOM), no-purchase-purpose.mjs (BLOCK: v0 payment.sent.purpose enum subscription/purchase/tip/refund/offering/split — v1 narrow per ADR-2605192115 §1.3), paywall-warn.mjs (WARN: paywall/premium_only patterns — Council Lv6+ review per §2.3), charter-rider-notice.mjs (BLOCK: Apache-2.0 manifest without NOTICE + CHARTER-RIDER.md symlink). Existing substrate-boundary.mjs unchanged. All pre-commit parallel."
-adr = ["2605192115", "2605192130", "2605192200", "2605191648"]
+description = "Religious-corp wave lefthook pre-commit lints (per ADR-2605192115 + ADR-2605192200 + ADR-2605191648 + ADR-2605172000). 5 scripts: no-advertising.mjs (BLOCK: ad network / affiliate / ad-tracker imports + adsbygoogle/googlesyndication/facebook.net DOM), no-purchase-purpose.mjs (BLOCK: v0 payment.sent.purpose enum subscription/purchase/tip/refund/offering/split — v1 narrow per ADR-2605192115 §1.3), paywall-warn.mjs (WARN: paywall/premium_only patterns — Council Lv6+ review per §2.3), charter-rider-notice.mjs (BLOCK: Apache-2.0 manifest without NOTICE + CHARTER-RIDER.md symlink), no-cookie.mjs (BLOCK: document.cookie writes + cookies.set() / setCookie() / cookie.serialize() / raw Set-Cookie header construction; reads allowed for legacy-cookie migration; etzhayyim-did-web Worker exempt as policy enforcer; inline bypass `// no-cookie: allow <reason>`; enforces CHARTER-RIDER §2(c) anti-surveillance + ADR-2605172000 DID+WebAuthn-not-cookies identity invariant). Existing substrate-boundary.mjs unchanged. All pre-commit parallel."
+adr = ["2605192115", "2605192130", "2605192200", "2605191648", "2605172000"]
 
 [[modules]]
 path = "50-infra/etzhayyim-chain-contracts/script/DeployReligiousCorp.s.sol"

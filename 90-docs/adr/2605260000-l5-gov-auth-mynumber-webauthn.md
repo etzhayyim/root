@@ -1,8 +1,8 @@
 # ADR-2605260000: L5 Gov Auth — DID-primary identity + MyNumber opt-in binding + WebAuthn platform authenticator
 
-**Date**: 2026-05-26 (proposed)  
-**Status**: proposed  
-**Authors**: Jun Kawasaki (@junkawasaki), Council members (TBD)  
+**Date**: 2026-05-26 (proposed)
+**Status**: proposed
+**Authors**: Jun Kawasaki (@junkawasaki), Council members (TBD)
 **Relates to**: ADR-2605250100 (L5 routing-around member_registry), ADR-2605250200 (L5 routing-around religious_marriage), ADR-2605250300 (L5 routing-around religious_corp_taxation), ADR-2605181100 (XChaCha20-Poly1305 + Signal-wrapped per-recipient keys), ADR-2605260000 §4 Boundary 4 (revised)
 
 ---

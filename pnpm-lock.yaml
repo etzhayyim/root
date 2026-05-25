@@ -495,7 +495,7 @@ importers:
 
   60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte:
     dependencies:
-      '@gftd/ameno':
+      '@etzhayyim/ameno':
         specifier: workspace:*
         version: link:../../../../../20-actors/ameno
       '@huggingface/transformers':
@@ -1625,6 +1625,9 @@ importers:
       '@connectrpc/connect-web':
         specifier: ^2.1.1
         version: 2.1.1(@bufbuild/protobuf@2.12.0)(@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.12.0))
+      '@etzhayyim/ameno':
+        specifier: workspace:*
+        version: link:../../../../../20-actors/ameno
       '@etzhayyim/auth':
         specifier: workspace:*
         version: link:../../../../../40-engine/svelte/auth
@@ -1637,9 +1640,6 @@ importers:
       '@etzhayyim/xrpc':
         specifier: workspace:*
         version: link:../../../../../10-protocol/xrpc
-      '@gftd/ameno':
-        specifier: workspace:*
-        version: link:../../../../../20-actors/ameno
       '@huggingface/transformers':
         specifier: ^3.8.1
         version: 3.8.1
