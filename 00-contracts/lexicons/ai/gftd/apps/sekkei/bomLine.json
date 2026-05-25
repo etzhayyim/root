@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sekkei.bomLine",
+  "id": "app.etzhayyim.apps.sekkei.bomLine",
   "description": "BOM (Bill of Materials) 明細。親アセンブリ drawingId に対して子部品を階層展開。quantity は親 1 個あたりの員数。tsukuru 発注時は itemCode を全農/tsukuru サプライヤーコードと突合。",
   "defs": {
     "main": {

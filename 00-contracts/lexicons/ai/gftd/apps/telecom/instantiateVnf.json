@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.instantiateVnf",
+  "id": "app.etzhayyim.apps.telecom.instantiateVnf",
   "defs": {
     "main": {
       "type": "procedure",

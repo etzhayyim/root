@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.bpmn.compileJsonToXml",
+  "id": "app.etzhayyim.bpmn.compileJsonToXml",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kyber.projector.getActivity",
+  "id": "app.etzhayyim.kyber.projector.getActivity",
   "defs": {
     "main": {
       "type": "query",

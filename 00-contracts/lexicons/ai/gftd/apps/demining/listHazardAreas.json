@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.demining.listHazardAreas",
+  "id": "app.etzhayyim.apps.demining.listHazardAreas",
   "defs": {
     "main": {
       "type": "query",

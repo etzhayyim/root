@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.animeka.generateInbetween",
+  "id": "app.etzhayyim.animeka.generateInbetween",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Invoke the inbetweener AI actor to interpolate in-between frames between two keyframes on the same cut + layerRole. Creates ai.gftd.apps.animeka.inbetween records with method='aiInterp' and status='review'.",
+      "description": "Invoke the inbetweener AI actor to interpolate in-between frames between two keyframes on the same cut + layerRole. Creates app.etzhayyim.apps.animeka.inbetween records with method='aiInterp' and status='review'.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vaacVolcanic.issueAirAdvisory",
+  "id": "app.etzhayyim.apps.vaacVolcanic.issueAirAdvisory",
   "defs": {
     "main": {
       "type": "procedure",

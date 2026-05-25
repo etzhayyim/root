@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fusionEnergy.registerProject",
+  "id": "app.etzhayyim.apps.fusionEnergy.registerProject",
   "defs": {
     "main": {
       "type": "procedure",

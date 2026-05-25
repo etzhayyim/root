@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.greenSteel.registerOfftake",
+  "id": "app.etzhayyim.apps.greenSteel.registerOfftake",
   "defs": {
     "main": {
       "type": "procedure",

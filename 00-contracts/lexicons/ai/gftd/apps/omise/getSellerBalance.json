@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.getSellerBalance",
+  "id": "app.etzhayyim.apps.omise.getSellerBalance",
   "defs": {
     "main": {
       "type": "query",

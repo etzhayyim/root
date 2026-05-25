@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneEms.listFacilities",
+  "id": "app.etzhayyim.apps.openSmartphoneEms.listFacilities",
   "defs": {
     "main": {
       "type": "query",

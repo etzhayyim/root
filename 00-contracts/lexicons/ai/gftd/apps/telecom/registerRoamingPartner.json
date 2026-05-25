@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.registerRoamingPartner",
+  "id": "app.etzhayyim.apps.telecom.registerRoamingPartner",
   "defs": {
     "main": {
       "type": "procedure",

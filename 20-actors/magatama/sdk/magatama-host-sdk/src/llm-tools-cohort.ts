@@ -1,7 +1,7 @@
 /**
  * Cohort LLM tool registration (ADR-0026).
  *
- * Exposes ai.gftd.cohort.* procedures as OpenAI-compatible tool schemas
+ * Exposes app.etzhayyim.cohort.* procedures as OpenAI-compatible tool schemas
  * so Murakumo / Ameno LLM agents can drive the cohort lifecycle by name.
  *
  * Spec: `90-docs/260415-cohort-llm-tool-registration-spec.md`
@@ -130,7 +130,7 @@ export interface CohortToolDispatchEntry {
 
 export const cohortToolDispatch: Record<string, CohortToolDispatchEntry> = {
   cohort_seed: {
-    nsid: 'ai.gftd.cohort.seed',
+    nsid: 'app.etzhayyim.cohort.seed',
     method: 'POST',
     buildBody: (args) => {
       const segment: Record<string, unknown> = {
@@ -147,17 +147,17 @@ export const cohortToolDispatch: Record<string, CohortToolDispatchEntry> = {
     },
   },
   cohort_emit_evidence: {
-    nsid: 'ai.gftd.cohort.emitEvidence',
+    nsid: 'app.etzhayyim.cohort.emitEvidence',
     method: 'POST',
     buildBody: (args) => args,
   },
   cohort_fission: {
-    nsid: 'ai.gftd.cohort.fission',
+    nsid: 'app.etzhayyim.cohort.fission',
     method: 'POST',
     buildBody: (args) => args,
   },
   cohort_list: {
-    nsid: 'ai.gftd.cohort.listCohorts',
+    nsid: 'app.etzhayyim.cohort.listCohorts',
     method: 'GET',
     buildBody: (args) => args,
   },

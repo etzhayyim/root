@@ -22,30 +22,30 @@ const project = "telecom";
 
 const seeds: Seed[] = [
   { proc: "registerSnpnDeployment", bpmnProcessId: "telecom_register_snpn_deployment",
-    nsid: "ai.gftd.apps.telecom.registerSnpnDeployment", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerSnpnDeployment", resultTimeoutMs: 30000 },
   { proc: "registerCagGroup", bpmnProcessId: "telecom_register_cag_group",
-    nsid: "ai.gftd.apps.telecom.registerCagGroup", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerCagGroup", resultTimeoutMs: 30000 },
   { proc: "registerNidAllocation", bpmnProcessId: "telecom_register_nid_allocation",
-    nsid: "ai.gftd.apps.telecom.registerNidAllocation", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerNidAllocation", resultTimeoutMs: 30000 },
   { proc: "provisionPniNpnSlice", bpmnProcessId: "telecom_provision_pni_npn_slice",
-    nsid: "ai.gftd.apps.telecom.provisionPniNpnSlice", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.provisionPniNpnSlice", resultTimeoutMs: 30000 },
   { proc: "mapSupiToGpsi", bpmnProcessId: "telecom_map_supi_to_gpsi",
-    nsid: "ai.gftd.apps.telecom.mapSupiToGpsi", resultTimeoutMs: 15000 },
+    nsid: "app.etzhayyim.apps.telecom.mapSupiToGpsi", resultTimeoutMs: 15000 },
   { proc: "enforceNsacfSliceAdmission", bpmnProcessId: "telecom_enforce_nsacf_slice_admission",
-    nsid: "ai.gftd.apps.telecom.enforceNsacfSliceAdmission", resultTimeoutMs: 15000 },
+    nsid: "app.etzhayyim.apps.telecom.enforceNsacfSliceAdmission", resultTimeoutMs: 15000 },
   { proc: "provisionProseDirectComm", bpmnProcessId: "telecom_provision_prose_direct_comm",
-    nsid: "ai.gftd.apps.telecom.provisionProseDirectComm", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.provisionProseDirectComm", resultTimeoutMs: 30000 },
   { proc: "registerNonPublicSubscriber", bpmnProcessId: "telecom_register_non_public_subscriber",
-    nsid: "ai.gftd.apps.telecom.registerNonPublicSubscriber", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerNonPublicSubscriber", resultTimeoutMs: 30000 },
 ];
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

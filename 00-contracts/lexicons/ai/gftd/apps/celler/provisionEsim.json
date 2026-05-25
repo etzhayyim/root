@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.celler.provisionEsim",
+  "id": "app.etzhayyim.apps.celler.provisionEsim",
   "defs": {
     "main": {
       "type": "procedure",

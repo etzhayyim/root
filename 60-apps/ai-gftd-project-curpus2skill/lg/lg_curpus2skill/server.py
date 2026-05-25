@@ -84,8 +84,8 @@ GRAPHS: dict[str, Any] = {
 }
 
 _NSID_TO_ASSISTANT: dict[str, str] = {
-    "ai.gftd.apps.curpus2skill.health": "health",
-    "ai.gftd.apps.curpus2skill.extractEvidence": "extractEvidence",
+    "app.etzhayyim.apps.curpus2skill.health": "health",
+    "app.etzhayyim.apps.curpus2skill.extractEvidence": "extractEvidence",
 }
 
 

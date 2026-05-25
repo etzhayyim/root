@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.eudrDeforestation.flagMisalignment",
+  "id": "app.etzhayyim.apps.eudrDeforestation.flagMisalignment",
   "defs": {
     "main": {
       "type": "procedure",

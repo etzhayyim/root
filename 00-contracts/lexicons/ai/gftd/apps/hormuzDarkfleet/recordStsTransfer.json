@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hormuzDarkfleet.recordStsTransfer",
+  "id": "app.etzhayyim.apps.hormuzDarkfleet.recordStsTransfer",
   "defs": {
     "main": {
       "type": "procedure",

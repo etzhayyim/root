@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.scoreEmotion",
+  "id": "app.etzhayyim.apps.mangaka.scoreEmotion",
   "defs": {
     "main": {
       "type": "procedure",

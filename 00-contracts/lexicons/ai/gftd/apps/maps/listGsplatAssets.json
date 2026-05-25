@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listGsplatAssets",
+  "id": "app.etzhayyim.apps.maps.listGsplatAssets",
   "defs": {
     "main": {
       "type": "query",

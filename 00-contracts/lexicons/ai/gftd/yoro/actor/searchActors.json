@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yoro.actor.searchActors",
+  "id": "app.etzhayyim.yoro.actor.searchActors",
   "defs": {
     "main": {
       "type": "query",
@@ -19,7 +19,7 @@
           "type": "object",
           "required": ["actors"],
           "properties": {
-            "actors": { "type": "array", "items": { "type": "ref", "ref": "ai.gftd.yoro.getProfile#defs/profileViewDetailed" } },
+            "actors": { "type": "array", "items": { "type": "ref", "ref": "app.etzhayyim.yoro.getProfile#defs/profileViewDetailed" } },
             "cursor": { "type": "string" }
           }
         }

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.beneficialOwnership.recordUboFiling",
+  "id": "app.etzhayyim.apps.beneficialOwnership.recordUboFiling",
   "defs": {
     "main": {
       "type": "procedure",

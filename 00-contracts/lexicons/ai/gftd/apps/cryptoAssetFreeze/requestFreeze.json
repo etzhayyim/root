@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cryptoAssetFreeze.requestFreeze",
+  "id": "app.etzhayyim.apps.cryptoAssetFreeze.requestFreeze",
   "defs": {
     "main": {
       "type": "procedure",

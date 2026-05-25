@@ -19,12 +19,12 @@ import { sql } from "kysely";
  *  yata_storage_embedding_drain    (autonomous)   R/PT5M
  *  yata_storage_tier_migrate       (autonomous)   cron 0 0 5 * * ?
  *  yata_multipart_reap             (autonomous)   R/PT6H
- *  yata_put_object                 ai.gftd.apps.yata.putObject
- *  yata_get_object                 ai.gftd.apps.yata.getObject
- *  yata_delete_object              ai.gftd.apps.yata.deleteObject
- *  yata_presign_url                ai.gftd.apps.yata.presignUrl
- *  yata_run_sparql                 ai.gftd.apps.yata.runSparql
- *  yata_provision_database         ai.gftd.apps.yata.provisionDatabase
+ *  yata_put_object                 app.etzhayyim.apps.yata.putObject
+ *  yata_get_object                 app.etzhayyim.apps.yata.getObject
+ *  yata_delete_object              app.etzhayyim.apps.yata.deleteObject
+ *  yata_presign_url                app.etzhayyim.apps.yata.presignUrl
+ *  yata_run_sparql                 app.etzhayyim.apps.yata.runSparql
+ *  yata_provision_database         app.etzhayyim.apps.yata.provisionDatabase
  *
  * Lexicons NOT bound here (deferred to P3.1 follow-up; served via
  * generic.db.{select,insert} dispatch directly):
@@ -45,56 +45,56 @@ const ownerDid = "did:web:yatabase.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.yata";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-storage-metering-rollup-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-storage-metering-rollup-v1",
     bpmnProcessId: "yata_storage_metering_rollup",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/storageMeteringRollup.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-storage-embedding-drain-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-storage-embedding-drain-v1",
     bpmnProcessId: "yata_storage_embedding_drain",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/storageEmbeddingDrain.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-storage-tier-migrate-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-storage-tier-migrate-v1",
     bpmnProcessId: "yata_storage_tier_migrate",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/storageTierMigrate.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-multipart-reap-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-multipart-reap-v1",
     bpmnProcessId: "yata_multipart_reap",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/multipartReap.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-put-object-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-put-object-v1",
     bpmnProcessId: "yata_put_object",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/putObject.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-get-object-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-get-object-v1",
     bpmnProcessId: "yata_get_object",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/getObject.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-delete-object-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-delete-object-v1",
     bpmnProcessId: "yata_delete_object",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/deleteObject.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-presign-url-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-presign-url-v1",
     bpmnProcessId: "yata_presign_url",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/presignUrl.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-run-sparql-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-run-sparql-v1",
     bpmnProcessId: "yata_run_sparql",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/runSparql.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yata-provision-database-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yata-provision-database-v1",
     bpmnProcessId: "yata_provision_database",
     sourcePath: "00-contracts/bpmn/ai/gftd/yata/provisionDatabase.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-putObject-v1",
-    nsid: "ai.gftd.apps.yata.putObject",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-putObject-v1",
+    nsid: "app.etzhayyim.apps.yata.putObject",
     bpmnProcessId: "yata_put_object", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-getObject-v1",
-    nsid: "ai.gftd.apps.yata.getObject",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-getObject-v1",
+    nsid: "app.etzhayyim.apps.yata.getObject",
     bpmnProcessId: "yata_get_object", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-deleteObject-v1",
-    nsid: "ai.gftd.apps.yata.deleteObject",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-deleteObject-v1",
+    nsid: "app.etzhayyim.apps.yata.deleteObject",
     bpmnProcessId: "yata_delete_object", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-presignUrl-v1",
-    nsid: "ai.gftd.apps.yata.presignUrl",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-presignUrl-v1",
+    nsid: "app.etzhayyim.apps.yata.presignUrl",
     bpmnProcessId: "yata_presign_url", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-runSparql-v1",
-    nsid: "ai.gftd.apps.yata.runSparql",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-runSparql-v1",
+    nsid: "app.etzhayyim.apps.yata.runSparql",
     bpmnProcessId: "yata_run_sparql", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/yata-provisionDatabase-v1",
-    nsid: "ai.gftd.apps.yata.provisionDatabase",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yata-provisionDatabase-v1",
+    nsid: "app.etzhayyim.apps.yata.provisionDatabase",
     bpmnProcessId: "yata_provision_database", ownerDid, resultTimeoutMs: 60_000 },
 ];
 

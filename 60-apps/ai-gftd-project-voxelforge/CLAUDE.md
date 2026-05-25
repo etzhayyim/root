@@ -13,10 +13,10 @@ CadQuery exec, and writes artifacts to B2 + RisingWave directly.
 
 | Path | Purpose |
 |---|---|
-| `/xrpc/ai.gftd.voxelforge.generate` | procedure — submit text/image/CAD design, returns `runId` |
-| `/xrpc/ai.gftd.voxelforge.getRun` | query — poll a run's status / artifact URIs |
-| `/xrpc/ai.gftd.voxelforge.listArtifacts` | query — filter by designId / actor / format |
-| `/xrpc/ai.gftd.voxelforge.coverage` | query — counters + format breakdown |
+| `/xrpc/app.etzhayyim.voxelforge.generate` | procedure — submit text/image/CAD design, returns `runId` |
+| `/xrpc/app.etzhayyim.voxelforge.getRun` | query — poll a run's status / artifact URIs |
+| `/xrpc/app.etzhayyim.voxelforge.listArtifacts` | query — filter by designId / actor / format |
+| `/xrpc/app.etzhayyim.voxelforge.coverage` | query — counters + format breakdown |
 | `/health`, `/_app/meta` | edge probe |
 
 ## Output formats
@@ -52,10 +52,10 @@ All artifacts live at `b2://ai-gftd-nats/voxelforge/v1/{designId}/...`.
 Client → CF Worker (voxelforge.etzhayyim.com)
    ↓ auth middleware → PDS_SERVICE binding /_internal/resolve-auth
    ↓ resolved { did, orgDid, activeDid, productScope }
-   ↓ POST https://dispatcher.etzhayyim.com/xrpc/ai.gftd.voxelforge.{method}
+   ↓ POST https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.voxelforge.{method}
       headers: x-internal-trust=<HMAC>, x-gftd-{org,actor}-did, x-gftd-trace-id
 bpmn-dispatcher (K8s ClusterIP)
-   ↓ NSID prefix routing (ai.gftd.voxelforge.* → langgraph backend)
+   ↓ NSID prefix routing (app.etzhayyim.voxelforge.* → langgraph backend)
 voxelforge-langgraph (mitama-voxelforge-pool, Granian :8000)
    ↓ /runs (POST) — start StateGraph
    ↓ Pregel: parse → route → generate → post → voxelize → export → register
@@ -68,7 +68,7 @@ voxelforge-langgraph (mitama-voxelforge-pool, Granian :8000)
 
 - Direct RunPod calls from this CF Worker — RunPod URL only known to LangGraph Server pod env.
 - Direct B2 PUT from this CF Worker — artifacts only written from LangGraph nodes.
-- `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` for `ai.gftd.voxelforge.*` — domain writes go to Hyperdrive direct (ADR-0036).
+- `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })` for `app.etzhayyim.voxelforge.*` — domain writes go to Hyperdrive direct (ADR-0036).
 - Adding new XRPC endpoints outside the 4 lexicons in `00-contracts/lexicons/ai/gftd/apps/voxelforge/`. New methods require an ADR addendum + lexicon PR.
 - Federable AT Repo emit — voxelforge is `non-federable` per the deps.toml federable whitelist policy (no `app.bsky.*` derive, no `subscribeRepos` exposure).
 
@@ -88,7 +88,7 @@ curl https://voxelforge.etzhayyim.com/health
 curl https://voxelforge.etzhayyim.com/_app/meta
 
 # 2. Submit a text-driven design (Bearer required)
-curl -X POST https://voxelforge.etzhayyim.com/xrpc/ai.gftd.voxelforge.generate \
+curl -X POST https://voxelforge.etzhayyim.com/xrpc/app.etzhayyim.voxelforge.generate \
   -H "Authorization: Bearer sk_live_xxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -100,11 +100,11 @@ curl -X POST https://voxelforge.etzhayyim.com/xrpc/ai.gftd.voxelforge.generate \
 # → { "runId": "...", "designId": "at://did:web:voxelforge.etzhayyim.com/...", "status": "running", "estimatedSeconds": 90 }
 
 # 3. Poll
-curl "https://voxelforge.etzhayyim.com/xrpc/ai.gftd.voxelforge.getRun?runId=..." \
+curl "https://voxelforge.etzhayyim.com/xrpc/app.etzhayyim.voxelforge.getRun?runId=..." \
   -H "Authorization: Bearer sk_live_xxxxx"
 
 # 4. CAD path (no GPU needed)
-curl -X POST https://voxelforge.etzhayyim.com/xrpc/ai.gftd.voxelforge.generate \
+curl -X POST https://voxelforge.etzhayyim.com/xrpc/app.etzhayyim.voxelforge.generate \
   -H "Authorization: Bearer sk_live_xxxxx" \
   -H "Content-Type: application/json" \
   -d '{

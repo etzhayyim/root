@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.cad.exportStep",
+  "id": "app.etzhayyim.apps.kami.cad.exportStep",
   "defs": {
     "main": {
       "type": "procedure",

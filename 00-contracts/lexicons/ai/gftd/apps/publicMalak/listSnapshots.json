@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.publicMalak.listSnapshots",
+  "id": "app.etzhayyim.apps.publicMalak.listSnapshots",
   "defs": {
     "main": {
       "type": "query",

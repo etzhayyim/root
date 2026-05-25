@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.koke.getFixation",
+  "id": "app.etzhayyim.koke.getFixation",
   "defs": {
     "main": {
       "type": "query",

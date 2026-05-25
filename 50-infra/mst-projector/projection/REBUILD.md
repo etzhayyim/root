@@ -40,7 +40,7 @@ ETZ_PROJECTOR_PDS_SESSION="$(security find-generic-password \
    -s etzhayyim -a PROJECTOR_PDS_SESSION -w)" \
 ETZ_PROJECTOR_DID="did:web:projector.etzhayyim.com" \
 ETZ_PROJECTOR_PDS_URL="https://pds.etzhayyim.com" \
-ETZ_PROJECTOR_COLLECTIONS="app.etzhayyim.,ai.gftd.apps.,app.bsky.feed." \
+ETZ_PROJECTOR_COLLECTIONS="app.etzhayyim.,app.etzhayyim.apps.,app.bsky.feed." \
 ETZ_PROJECTOR_FLUSH_RECORDS=1000 \
 ETZ_PROJECTOR_FLUSH_SECONDS=60 \
 ETZ_PROJECTOR_IPFS_API_URL="http://localhost:5001" \

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.houbun.ingestStatuteJpn",
+  "id": "app.etzhayyim.apps.houbun.ingestStatuteJpn",
   "defs": {
     "main": {
       "type": "procedure",

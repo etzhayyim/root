@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airportNaritaOps.flagBottleneck",
+  "id": "app.etzhayyim.apps.airportNaritaOps.flagBottleneck",
   "defs": {
     "main": {
       "type": "procedure",

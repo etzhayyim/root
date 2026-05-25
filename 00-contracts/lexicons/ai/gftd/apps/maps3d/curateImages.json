@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps3d.curateImages",
+  "id": "app.etzhayyim.apps.maps3d.curateImages",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.terminateNetworkService",
+  "id": "app.etzhayyim.apps.telecom.terminateNetworkService",
   "defs": {
     "main": {
       "type": "procedure",

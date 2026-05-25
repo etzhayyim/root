@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.media_gamers.heartbeat",
+  "id": "app.etzhayyim.apps.media_gamers.heartbeat",
   "defs": {
     "main": {
       "type": "procedure",

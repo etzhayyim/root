@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.constituencyPressure.flagAstroturf",
+  "id": "app.etzhayyim.apps.constituencyPressure.flagAstroturf",
   "defs": {
     "main": {
       "type": "procedure",

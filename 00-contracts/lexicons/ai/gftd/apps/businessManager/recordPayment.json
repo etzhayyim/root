@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.businessManager.recordPayment",
+  "id": "app.etzhayyim.apps.businessManager.recordPayment",
   "defs": {
     "main": {
       "type": "procedure",

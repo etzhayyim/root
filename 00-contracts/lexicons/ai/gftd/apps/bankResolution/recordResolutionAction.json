@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bankResolution.recordResolutionAction",
+  "id": "app.etzhayyim.apps.bankResolution.recordResolutionAction",
   "defs": {
     "main": {
       "type": "procedure",

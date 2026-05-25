@@ -65,7 +65,7 @@ def test_queue_seed_runs_inserts_telegram_run(monkeypatch):
 
 def test_process_queue_writes_channel_and_messages(monkeypatch):
     run = (
-        "at://did:web:os-messaging.etzhayyim.com/ai.gftd.apps.osMessaging.openScraperRun/run-1",
+        "at://did:web:os-messaging.etzhayyim.com/app.etzhayyim.apps.osMessaging.openScraperRun/run-1",
         "telegram",
         "gftd",
         "https://t.me/s/gftd",
@@ -81,7 +81,7 @@ def test_process_queue_writes_channel_and_messages(monkeypatch):
     monkeypatch.setattr(M, "_fetch", lambda _url, _timeout: {
         "httpStatus": 200,
         "text": (
-            '<html><meta property="og:title" content="GFTD">'
+            '<html><meta property="og:title" content="etzhayyim">'
             '<div class="tgme_widget_message" data-post="gftd/1">'
             '<div class="tgme_widget_message_text">hello</div></div></div></html>'
         ),

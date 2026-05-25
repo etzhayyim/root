@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.floodEarlyWarning.recordAlert",
+  "id": "app.etzhayyim.apps.floodEarlyWarning.recordAlert",
   "defs": {
     "main": {
       "type": "procedure",

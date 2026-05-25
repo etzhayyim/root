@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.claim.postStakedAttestation",
+  "id": "app.etzhayyim.claim.postStakedAttestation",
   "defs": {
     "main": {
       "type": "procedure",

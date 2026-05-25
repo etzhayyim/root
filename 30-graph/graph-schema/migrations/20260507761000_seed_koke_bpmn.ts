@@ -23,9 +23,9 @@ const ENTRIES: BpmnEntry[] = [
   {
     processId: "koke_photosynthesis_cycle",
     bpmnPath: "00-contracts/bpmn/ai/gftd/koke/photosynthesis-cycle.bpmn",
-    processVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/koke-photosynthesis-cycle-v1",
-    bindingVid: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1",
-    nsid: "ai.gftd.apps.koke.photosynthesize",
+    processVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/koke-photosynthesis-cycle-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1",
+    nsid: "app.etzhayyim.apps.koke.photosynthesize",
   },
 ];
 

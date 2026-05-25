@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kagami.backfillPromoted",
+  "id": "app.etzhayyim.kagami.backfillPromoted",
   "defs": {
     "main": {
       "type": "query",

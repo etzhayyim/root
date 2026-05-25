@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.society6.registerConstituent",
+  "id": "app.etzhayyim.apps.society6.registerConstituent",
   "defs": {
     "main": {
       "type": "procedure",

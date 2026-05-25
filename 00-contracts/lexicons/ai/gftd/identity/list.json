@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.identity.list",
+  "id": "app.etzhayyim.identity.list",
   "defs": {
     "main": {
       "type": "query",

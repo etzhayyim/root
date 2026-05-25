@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.webya.reviseSite",
+  "id": "app.etzhayyim.apps.webya.reviseSite",
   "defs": {
     "main": {
       "type": "procedure",

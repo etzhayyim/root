@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.micaLicense.recordAuthorization",
+  "id": "app.etzhayyim.apps.micaLicense.recordAuthorization",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.upovPlantBreeders.grantPbr",
+  "id": "app.etzhayyim.apps.upovPlantBreeders.grantPbr",
   "defs": {
     "main": {
       "type": "procedure",

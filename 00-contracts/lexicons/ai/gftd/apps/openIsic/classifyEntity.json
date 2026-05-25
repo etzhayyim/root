@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openIsic.classifyEntity",
+  "id": "app.etzhayyim.apps.openIsic.classifyEntity",
   "defs": {
     "main": {
       "type": "procedure",

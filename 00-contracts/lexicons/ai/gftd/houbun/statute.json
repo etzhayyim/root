@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.houbun.statute",
-  "description": "Record of a statute / regulation / by-law as an addressable document. Full article bodies are emitted as separate `ai.gftd.apps.houbun.article` records linked via `statute_ref`. See ADR-0052.",
+  "id": "app.etzhayyim.houbun.statute",
+  "description": "Record of a statute / regulation / by-law as an addressable document. Full article bodies are emitted as separate `app.etzhayyim.apps.houbun.article` records linked via `statute_ref`. See ADR-0052.",
   "defs": {
     "main": {
       "type": "record",

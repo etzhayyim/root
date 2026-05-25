@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.companyFiling",
+  "id": "app.etzhayyim.legalEntity.companyFiling",
   "description": "Record emitted from public-company disclosure ingest. Represents one filing envelope such as 10-K, 10-Q, 20-F, 40-F, 6-K, or 8-K.",
   "defs": {
     "main": {

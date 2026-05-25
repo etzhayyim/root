@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.unpinMessage",
+  "id": "app.etzhayyim.convo.unpinMessage",
   "defs": {
     "main": {
       "type": "procedure",

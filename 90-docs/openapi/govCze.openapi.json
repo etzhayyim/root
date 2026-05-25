@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govCze.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govCze.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Czech Republic government.",
-        "operationId": "ai.gftd.govCze.followSiteDeps",
+        "operationId": "app.etzhayyim.govCze.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCze.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govCze.heartbeatTick": {
       "post": {
         "summary": "Run the Czech Republic government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govCze.heartbeatTick",
+        "operationId": "app.etzhayyim.govCze.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCze.listOrgs": {
+    "/xrpc/app.etzhayyim.govCze.listOrgs": {
       "get": {
         "summary": "List Czech Republic government organization graph records.",
-        "operationId": "ai.gftd.govCze.listOrgs",
+        "operationId": "app.etzhayyim.govCze.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCze.registerDIDs": {
+    "/xrpc/app.etzhayyim.govCze.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Czech Republic government organizations.",
-        "operationId": "ai.gftd.govCze.registerDIDs",
+        "operationId": "app.etzhayyim.govCze.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCze.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govCze.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Czech Republic government organization path to its graph record.",
-        "operationId": "ai.gftd.govCze.resolveOrgPath",
+        "operationId": "app.etzhayyim.govCze.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCze.seedOrgs": {
+    "/xrpc/app.etzhayyim.govCze.seedOrgs": {
       "post": {
         "summary": "Seed initial Czech Republic government organization records into the graph.",
-        "operationId": "ai.gftd.govCze.seedOrgs",
+        "operationId": "app.etzhayyim.govCze.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCze.shinka": {
+    "/xrpc/app.etzhayyim.govCze.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Czech Republic government organization update.",
-        "operationId": "ai.gftd.govCze.shinka",
+        "operationId": "app.etzhayyim.govCze.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCze.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govCze.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Czech Republic government organization changes to graph.",
-        "operationId": "ai.gftd.govCze.syncWetUpdates",
+        "operationId": "app.etzhayyim.govCze.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

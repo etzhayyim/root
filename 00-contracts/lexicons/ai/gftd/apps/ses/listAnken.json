@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ses.listAnken",
+  "id": "app.etzhayyim.apps.ses.listAnken",
   "defs": {
     "main": {
       "type": "query",

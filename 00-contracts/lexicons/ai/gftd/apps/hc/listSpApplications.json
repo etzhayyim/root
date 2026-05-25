@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hc.listSpApplications",
+  "id": "app.etzhayyim.apps.hc.listSpApplications",
   "defs": {
     "main": {
       "type": "query",

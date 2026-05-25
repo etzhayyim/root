@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cbdc.registerProject",
+  "id": "app.etzhayyim.apps.cbdc.registerProject",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openHs.recordConcordance",
+  "id": "app.etzhayyim.apps.openHs.recordConcordance",
   "defs": {
     "main": {
       "type": "procedure",

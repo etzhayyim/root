@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.repository.refUpdate",
+  "id": "app.etzhayyim.repository.refUpdate",
   "description": "AT Record written to the owning DID's AT Repo every time updateRef succeeds. Travels the com.atproto.sync firehose so peer PDS instances can mirror the ref graph without polling. Immutable per rkey; ref history reconstructed by concatenating all refUpdate records for a given (ownerDid, refName).",
   "defs": {
     "main": {

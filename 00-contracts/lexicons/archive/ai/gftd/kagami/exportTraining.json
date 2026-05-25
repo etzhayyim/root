@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kagami.exportTraining",
+  "id": "app.etzhayyim.kagami.exportTraining",
   "defs": {
     "main": {
       "type": "query",

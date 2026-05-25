@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.agent.runtimeLease",
+  "id": "app.etzhayyim.agent.runtimeLease",
   "defs": {
     "main": {
       "type": "record",

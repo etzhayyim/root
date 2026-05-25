@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.sentinelAnalyze",
+  "id": "app.etzhayyim.apps.maps.sentinelAnalyze",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Run Sentinel scene analysis (change detection / land use / SAR flood) via RunPod Serverless GPU endpoint, persist result as ai.gftd.apps.maps.satelliteAnalysis record. LangChain orchestrates COG retrieval + RunPod invoke + structured JSON parse. ADR-2604271800.",
+      "description": "Run Sentinel scene analysis (change detection / land use / SAR flood) via RunPod Serverless GPU endpoint, persist result as app.etzhayyim.apps.maps.satelliteAnalysis record. LangChain orchestrates COG retrieval + RunPod invoke + structured JSON parse. ADR-2604271800.",
       "input": {
         "encoding": "application/json",
         "schema": {
@@ -12,7 +12,7 @@
           "properties": {
             "sceneUri": {
               "type": "string",
-              "description": "AT URI of the satelliteScene record to analyze (at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.satelliteScene/{rkey})."
+              "description": "AT URI of the satelliteScene record to analyze (at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.satelliteScene/{rkey})."
             },
             "analysisType": {
               "type": "string",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.baminiku.updateStage",
+  "id": "app.etzhayyim.apps.baminiku.updateStage",
   "defs": {
     "main": {
       "type": "procedure",

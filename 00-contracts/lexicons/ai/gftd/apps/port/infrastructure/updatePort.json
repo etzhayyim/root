@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.port.infrastructure.updatePort",
+  "id": "app.etzhayyim.apps.port.infrastructure.updatePort",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "ai.gftd.apps.port.infrastructure.updatePort BPMN-backed port operation.",
+      "description": "app.etzhayyim.apps.port.infrastructure.updatePort BPMN-backed port operation.",
       "input": {
         "encoding": "application/json",
         "schema": {

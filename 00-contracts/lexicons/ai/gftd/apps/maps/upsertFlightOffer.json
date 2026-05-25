@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.upsertFlightOffer",
+  "id": "app.etzhayyim.apps.maps.upsertFlightOffer",
   "defs": {
     "main": {
       "type": "procedure",

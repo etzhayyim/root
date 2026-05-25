@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.usTreasuryDept.sanctionShadowFleet",
+  "id": "app.etzhayyim.apps.usTreasuryDept.sanctionShadowFleet",
   "defs": {
     "main": {
       "type": "procedure",

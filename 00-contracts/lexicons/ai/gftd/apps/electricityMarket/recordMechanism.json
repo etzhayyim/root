@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.electricityMarket.recordMechanism",
+  "id": "app.etzhayyim.apps.electricityMarket.recordMechanism",
   "defs": {
     "main": {
       "type": "procedure",

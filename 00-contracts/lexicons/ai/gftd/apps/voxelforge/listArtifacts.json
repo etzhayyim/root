@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.voxelforge.listArtifacts",
+  "id": "app.etzhayyim.apps.voxelforge.listArtifacts",
   "defs": {
     "main": {
       "type": "query",

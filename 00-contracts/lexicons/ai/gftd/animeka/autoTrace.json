@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.animeka.autoTrace",
+  "id": "app.etzhayyim.animeka.autoTrace",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Invoke the finisher AI actor to auto-color-trace a keyframe or inbetween frame using the given color model. Produces ai.gftd.apps.animeka.colorTrace record with method='aiAutoTrace' and status='review'.",
+      "description": "Invoke the finisher AI actor to auto-color-trace a keyframe or inbetween frame using the given color model. Produces app.etzhayyim.apps.animeka.colorTrace record with method='aiAutoTrace' and status='review'.",
       "input": {
         "encoding": "application/json",
         "schema": {

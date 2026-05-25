@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.manufacturerRegistry.listManufacturers",
+  "id": "app.etzhayyim.apps.tsukuru.manufacturerRegistry.listManufacturers",
   "defs": {
     "main": {
       "type": "query",
@@ -37,7 +37,7 @@
               "type": "array",
               "items": {
                 "type": "ref",
-                "ref": "ai.gftd.apps.tsukuru.manufacturerRegistry.getManufacturer#manufacturerView"
+                "ref": "app.etzhayyim.apps.tsukuru.manufacturerRegistry.getManufacturer#manufacturerView"
               }
             },
             "cursor": { "type": "string" },

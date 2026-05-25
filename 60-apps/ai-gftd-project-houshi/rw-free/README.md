@@ -75,8 +75,8 @@ const germ = await germinate(e, {
 
 | Collection | Record type | Rkey pattern |
 |---|---|---|
-| `ai.gftd.houshi.spore` | SporeRecord | `spore-{sporeId-slug}` |
-| `ai.gftd.houshi.germinate` | GerminateRecord | `germinate-{sporeId-slug}` |
+| `app.etzhayyim.houshi.spore` | SporeRecord | `spore-{sporeId-slug}` |
+| `app.etzhayyim.houshi.germinate` | GerminateRecord | `germinate-{sporeId-slug}` |
 
 ## Why Option B for houshi
 

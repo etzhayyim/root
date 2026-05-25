@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cryptoMixerSanction.recordSanction",
+  "id": "app.etzhayyim.apps.cryptoMixerSanction.recordSanction",
   "defs": {
     "main": {
       "type": "procedure",

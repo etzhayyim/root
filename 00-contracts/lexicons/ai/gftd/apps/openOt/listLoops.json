@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOt.listLoops",
+  "id": "app.etzhayyim.apps.openOt.listLoops",
   "defs": {
     "main": {
       "type": "query",

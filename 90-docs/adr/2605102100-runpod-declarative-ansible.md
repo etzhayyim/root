@@ -125,7 +125,7 @@ Optional metadata (for `deps.toml` cross-references and audit):
 - The single RunPod API key is read once via the local `op` CLI in
   `group_vars/all.yaml`. URI uses the **vault id**, not the vault
   name — `op read` rejects CJK characters in secret references and
-  the vault is named `Gftd Japan株式会社`. The vault id
+  the vault is named `etzhayyim Japan株式会社`. The vault id
   `dk3qlcuqumtoml2oaxrs5mwiji` is exposed as `op_vault_id` so every
   manifest can build URIs like
   `op://dk3qlcuqumtoml2oaxrs5mwiji/gftd.runpod/RUNPOD_API_KEY/password`.
@@ -228,7 +228,7 @@ Implemented 2026-05-10:
 end apply against live RunPod is gated on:
 
 1. The operator's `op` session being authenticated to the
-   `Gftd Japan株式会社` vault (vault id
+   `etzhayyim Japan株式会社` vault (vault id
    `dk3qlcuqumtoml2oaxrs5mwiji`).
 2. `op://dk3qlcuqumtoml2oaxrs5mwiji/gftd.runpod-training/AUTH_TOKEN/password`
    existing — **still missing as of session-close 2026-05-10**.

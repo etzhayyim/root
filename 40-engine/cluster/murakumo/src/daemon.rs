@@ -143,7 +143,7 @@ async fn heartbeat(ctx: &Arc<Mutex<DaemonCtx>>) {
         Ok(hb) => {
             if !hb.worker_id.is_empty() && hb.worker_id != guard.cfg.worker_id {
                 guard.cfg.worker_id = hb.worker_id.clone();
-                guard.cfg.update_field("GFTD_WORKER_ID", &hb.worker_id);
+                guard.cfg.update_field("etzhayyim_WORKER_ID", &hb.worker_id);
                 logf(&format!("worker registered from heartbeat: node={} worker={}", guard.cfg.node_id, hb.worker_id));
             }
             tracef(&format!("heartbeat ok: node={} worker={} model_count={}", guard.cfg.node_id, guard.cfg.worker_id, models.len()));
@@ -185,7 +185,7 @@ async fn register_worker(ctx: &mut tokio::sync::MutexGuard<'_, DaemonCtx>) {
     match resp {
         Ok(r) => {
             ctx.cfg.worker_id = r.worker_id.clone();
-            ctx.cfg.update_field("GFTD_WORKER_ID", &r.worker_id);
+            ctx.cfg.update_field("etzhayyim_WORKER_ID", &r.worker_id);
             logf(&format!(
                 "worker registered: node={} worker={} gpu_tier={} runtime={} accelerator={}",
                 ctx.cfg.node_id, r.worker_id, r.gpu_tier, capability.runtime_class, capability.accelerator_class
@@ -856,7 +856,7 @@ fn run_image_generation_python(
     _params: &serde_json::Map<String, serde_json::Value>,
 ) -> Result<(String, i64), String> {
     // Simplified: delegate to native WebGPU exec or Python diffusers
-    Err("image_generation requires GFTD_NATIVE_WEBGPU_EXEC or Python diffusers".to_string())
+    Err("image_generation requires etzhayyim_NATIVE_WEBGPU_EXEC or Python diffusers".to_string())
 }
 
 fn run_video_generation_python(
@@ -871,21 +871,21 @@ fn run_video_generation_python(
 // ── Native exec ──
 
 fn resolve_native_webgpu_exec_command() -> String {
-    std::env::var("GFTD_NATIVE_WEBGPU_EXEC")
+    std::env::var("etzhayyim_NATIVE_WEBGPU_EXEC")
         .unwrap_or_default()
         .trim()
         .to_string()
 }
 
 fn resolve_native_train_experts_command() -> String {
-    let primary = std::env::var("GFTD_NATIVE_TRAIN_EXPERTS_EXEC")
+    let primary = std::env::var("etzhayyim_NATIVE_TRAIN_EXPERTS_EXEC")
         .unwrap_or_default()
         .trim()
         .to_string();
     if !primary.is_empty() {
         return primary;
     }
-    std::env::var("GFTD_TRAIN_EXPERTS_EXEC")
+    std::env::var("etzhayyim_TRAIN_EXPERTS_EXEC")
         .unwrap_or_default()
         .trim()
         .to_string()
@@ -922,7 +922,7 @@ fn execute_native_train_experts(
     let command = resolve_native_train_experts_command();
     if command.is_empty() {
         return Err(
-            "murakumo_train_experts requires GFTD_NATIVE_TRAIN_EXPERTS_EXEC (python path removed)"
+            "murakumo_train_experts requires etzhayyim_NATIVE_TRAIN_EXPERTS_EXEC (python path removed)"
                 .to_string(),
         );
     }

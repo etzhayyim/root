@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.registerSpot",
+  "id": "app.etzhayyim.apps.maps.registerSpot",
   "defs": {
     "main": {
       "type": "procedure",

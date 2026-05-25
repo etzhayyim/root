@@ -7,7 +7,7 @@ topic: graph-schema-ops
 authoritative: true
 last_verified: 2026-04-25
 authoritative_for:
-  - standard migration workflow for @gftd/graph-schema
+  - standard migration workflow for @etzhayyim/graph-schema
   - known incompatibilities (ON CONFLICT, UNIQUE INDEX, test files in migrations/)
   - when pnpm db:migrate works vs. when to reach for apply-pending.sh
 related:

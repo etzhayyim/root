@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openLei.ingestOwnership",
+  "id": "app.etzhayyim.apps.openLei.ingestOwnership",
   "defs": {
     "main": {
       "type": "procedure",

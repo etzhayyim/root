@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sense.scan.create",
+  "id": "app.etzhayyim.apps.sense.scan.create",
   "defs": {
     "main": {
       "type": "procedure",

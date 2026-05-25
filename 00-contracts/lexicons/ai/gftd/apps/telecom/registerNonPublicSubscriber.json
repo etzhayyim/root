@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.registerNonPublicSubscriber",
+  "id": "app.etzhayyim.apps.telecom.registerNonPublicSubscriber",
   "defs": {
     "main": {
       "type": "procedure",

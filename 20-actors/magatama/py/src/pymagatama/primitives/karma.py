@@ -544,7 +544,7 @@ async def task_karma_atrepo_lift_batch(**kwargs: Any) -> dict[str, Any]:
                 continue
             ts_ms = e.get("tsMs") or _now_ms()
             tid = f"karma-{ts_ms}-{uuid.uuid4().hex[:8]}"
-            atrepo_uri = f"at://{KARMA_DID}/ai.gftd.apps.karma.dependency/{tid}"
+            atrepo_uri = f"at://{KARMA_DID}/app.etzhayyim.apps.karma.dependency/{tid}"
             try:
                 cur.execute(
                     "UPDATE edge_karma_dependency SET atrepo_uri = %s WHERE edge_id = %s",

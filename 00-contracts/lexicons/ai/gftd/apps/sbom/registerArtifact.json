@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sbom.registerArtifact",
+  "id": "app.etzhayyim.apps.sbom.registerArtifact",
   "defs": {
     "main": {
       "type": "procedure",
@@ -70,7 +70,7 @@
           "properties": {
             "artifactUri": {
               "type": "string",
-              "description": "AT URI of the SbomArtifact graph node (at://did:web:sbom.etzhayyim.com/ai.gftd.apps.sbom.artifact/<rkey>)."
+              "description": "AT URI of the SbomArtifact graph node (at://did:web:sbom.etzhayyim.com/app.etzhayyim.apps.sbom.artifact/<rkey>)."
             },
             "componentCount": {
               "type": "integer",

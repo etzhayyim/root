@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.upovPlantBreeders.flagIpIndigenousConflict",
+  "id": "app.etzhayyim.apps.upovPlantBreeders.flagIpIndigenousConflict",
   "defs": {
     "main": {
       "type": "procedure",

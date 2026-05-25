@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yotei.cancelEvent",
+  "id": "app.etzhayyim.apps.yotei.cancelEvent",
   "defs": {
     "main": {
       "type": "procedure",

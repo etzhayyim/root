@@ -28,8 +28,8 @@ describe("Seed open-banking BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openBanking.createAccount"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openBanking.transfer"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openBanking.createAccount"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openBanking.transfer"');
   });
 
   it("uses open-banking-specific actor_id + owner_did", () => {

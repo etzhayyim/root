@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.markReadyToShip",
+  "id": "app.etzhayyim.apps.omise.markReadyToShip",
   "defs": {
     "main": {
       "type": "procedure",

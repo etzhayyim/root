@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shigotoba.export",
+  "id": "app.etzhayyim.apps.shigotoba.export",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpAshiba.createQuote",
+  "id": "app.etzhayyim.apps.jpAshiba.createQuote",
   "defs": {
     "main": {
       "type": "procedure",

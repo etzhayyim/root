@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.biodiversityGbf.declareProtectedArea",
+  "id": "app.etzhayyim.apps.biodiversityGbf.declareProtectedArea",
   "defs": {
     "main": {
       "type": "procedure",

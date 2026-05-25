@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.apps.getAppListing",
+  "id": "app.etzhayyim.apps.apps.getAppListing",
   "defs": {
     "main": {
       "type": "query",

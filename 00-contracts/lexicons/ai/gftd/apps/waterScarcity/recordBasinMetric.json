@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.waterScarcity.recordBasinMetric",
+  "id": "app.etzhayyim.apps.waterScarcity.recordBasinMetric",
   "defs": {
     "main": {
       "type": "procedure",

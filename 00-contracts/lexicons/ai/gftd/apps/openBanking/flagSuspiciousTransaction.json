@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openBanking.flagSuspiciousTransaction",
+  "id": "app.etzhayyim.apps.openBanking.flagSuspiciousTransaction",
   "defs": {
     "main": {
       "type": "procedure",

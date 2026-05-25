@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.crew.getCrewMember",
+  "id": "app.etzhayyim.apps.crew.getCrewMember",
   "defs": {
     "main": {
       "type": "query",

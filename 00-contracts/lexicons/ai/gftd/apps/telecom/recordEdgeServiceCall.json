@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.recordEdgeServiceCall",
+  "id": "app.etzhayyim.apps.telecom.recordEdgeServiceCall",
   "defs": {
     "main": {
       "type": "procedure",

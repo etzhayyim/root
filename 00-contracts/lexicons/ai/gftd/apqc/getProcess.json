@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apqc.getProcess",
+  "id": "app.etzhayyim.apqc.getProcess",
   "defs": {
     "main": {
       "type": "query",

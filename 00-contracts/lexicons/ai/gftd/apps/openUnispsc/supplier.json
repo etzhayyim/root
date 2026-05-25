@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openUnispsc.supplier",
+  "id": "app.etzhayyim.apps.openUnispsc.supplier",
   "defs": {
     "main": {
       "type": "procedure",

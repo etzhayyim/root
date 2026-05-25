@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.taxTransparency.flagDisclosureGap",
+  "id": "app.etzhayyim.apps.taxTransparency.flagDisclosureGap",
   "defs": {
     "main": {
       "type": "procedure",

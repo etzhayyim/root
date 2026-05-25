@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yorishiroEnaiyo.getDraft",
+  "id": "app.etzhayyim.apps.yorishiroEnaiyo.getDraft",
   "defs": {
     "main": {
       "type": "query",

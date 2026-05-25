@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kenkyusha.getFrontier",
+  "id": "app.etzhayyim.apps.kenkyusha.getFrontier",
   "defs": {
     "main": {
       "type": "query",

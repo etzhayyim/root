@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bbnjHighseas.registerMpa",
+  "id": "app.etzhayyim.apps.bbnjHighseas.registerMpa",
   "defs": {
     "main": {
       "type": "procedure",

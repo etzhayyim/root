@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ustrSection301.imposeTariff",
+  "id": "app.etzhayyim.apps.ustrSection301.imposeTariff",
   "defs": {
     "main": {
       "type": "procedure",

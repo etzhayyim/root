@@ -1,7 +1,7 @@
 /**
  * SIWE (EIP-4361) message parser + secp256k1 signature recovery.
  *
- * Used by `ai.gftd.authz.linkEthereumBegin` / `linkEthereumVerify` to bind a
+ * Used by `app.etzhayyim.authz.linkEthereumBegin` / `linkEthereumVerify` to bind a
  * private-chain Ethereum address (did:pkh:eip155:<chainId>:<address>) to an
  * already-authenticated ERC725 root identity. ADR-0074 Phase 1
  * (passkey-first; Ethereum is a linked method, never a primary sign-in path).

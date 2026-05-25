@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.permafrostThaw.recordMonitoringSite",
+  "id": "app.etzhayyim.apps.permafrostThaw.recordMonitoringSite",
   "defs": {
     "main": {
       "type": "procedure",

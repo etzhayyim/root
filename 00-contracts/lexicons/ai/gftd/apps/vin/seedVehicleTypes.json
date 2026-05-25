@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vin.seedVehicleTypes",
+  "id": "app.etzhayyim.apps.vin.seedVehicleTypes",
   "defs": {
     "main": {
       "type": "procedure",

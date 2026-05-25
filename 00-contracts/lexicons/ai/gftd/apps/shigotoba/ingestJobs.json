@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shigotoba.ingestJobs",
+  "id": "app.etzhayyim.apps.shigotoba.ingestJobs",
   "defs": {
     "main": {
       "type": "procedure",

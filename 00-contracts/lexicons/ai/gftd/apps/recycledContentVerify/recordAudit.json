@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.recycledContentVerify.recordAudit",
+  "id": "app.etzhayyim.apps.recycledContentVerify.recordAudit",
   "defs": {
     "main": {
       "type": "procedure",

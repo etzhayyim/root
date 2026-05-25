@@ -161,7 +161,7 @@ EOF
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>ai.gftd.murakumo-mesh</string>
+    <string>app.etzhayyim.murakumo-mesh</string>
     <key>ProgramArguments</key>
     <array>
         <string>${home_dir}/.gftd/mesh/run-mesh.sh</string>
@@ -179,7 +179,7 @@ EOF
 </dict>
 </plist>
 EOF
-  scp_cmd "$name" "$tmp_plist" "${home_dir}/Library/LaunchAgents/ai.gftd.murakumo-mesh.plist"
+  scp_cmd "$name" "$tmp_plist" "${home_dir}/Library/LaunchAgents/app.etzhayyim.murakumo-mesh.plist"
   rm -f "$tmp_plist"
 
   # Kill existing mesh process and restart via nohup (more reliable than launchd for this)

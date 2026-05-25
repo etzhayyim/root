@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.exportControl.screenDeniedParties",
+  "id": "app.etzhayyim.apps.tsukuru.exportControl.screenDeniedParties",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.autonomyOperation.planOperation",
+  "id": "app.etzhayyim.apps.tsukuru.autonomyOperation.planOperation",
   "defs": {
     "main": {
       "type": "query",

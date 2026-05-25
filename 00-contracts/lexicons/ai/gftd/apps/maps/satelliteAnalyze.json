@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.satelliteAnalyze",
+  "id": "app.etzhayyim.apps.maps.satelliteAnalyze",
   "defs": {
     "main": {
       "type": "procedure",

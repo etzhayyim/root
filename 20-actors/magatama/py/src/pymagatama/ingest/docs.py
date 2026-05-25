@@ -100,7 +100,7 @@ def _doc_row(token: dict[str, Any], doc: dict[str, Any], file_id: str, modified_
     body = doc.get("body") or {}
     body_preview, word_count, char_count, page_count = _extract_text(body)
     return {
-        "vertex_id": f"at://{actor}/ai.gftd.apps.docs.document/{document_id}",
+        "vertex_id": f"at://{actor}/app.etzhayyim.apps.docs.document/{document_id}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,

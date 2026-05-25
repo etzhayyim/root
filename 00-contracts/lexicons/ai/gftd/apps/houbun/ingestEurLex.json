@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.houbun.ingestEurLex",
+  "id": "app.etzhayyim.apps.houbun.ingestEurLex",
   "defs": {
     "main": {
       "type": "procedure",

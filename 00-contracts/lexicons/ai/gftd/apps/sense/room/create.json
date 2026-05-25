@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sense.room.create",
+  "id": "app.etzhayyim.apps.sense.room.create",
   "defs": {
     "main": {
       "type": "procedure",

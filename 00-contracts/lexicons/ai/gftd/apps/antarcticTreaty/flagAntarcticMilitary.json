@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.antarcticTreaty.flagAntarcticMilitary",
+  "id": "app.etzhayyim.apps.antarcticTreaty.flagAntarcticMilitary",
   "defs": {
     "main": {
       "type": "procedure",

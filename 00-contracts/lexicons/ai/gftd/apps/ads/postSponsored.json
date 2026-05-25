@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ads.postSponsored",
+  "id": "app.etzhayyim.apps.ads.postSponsored",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Publish a sponsored `app.bsky.feed.post` from the campaign's path DID. Self-labels the post with `!ad` so labelers / other AppViews can filter. Writes an internal `ai.gftd.apps.ads.sponsoredPost` record (Tier 2, non-federable) for campaign analytics.",
+      "description": "Publish a sponsored `app.bsky.feed.post` from the campaign's path DID. Self-labels the post with `!ad` so labelers / other AppViews can filter. Writes an internal `app.etzhayyim.apps.ads.sponsoredPost` record (Tier 2, non-federable) for campaign analytics.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.training.runBaienMx",
+  "id": "app.etzhayyim.apps.training.runBaienMx",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.houbun.treaty",
+  "id": "app.etzhayyim.apps.houbun.treaty",
   "description": "Record of an international treaty / convention. Parties and optional treaty-specific articles are modeled alongside the same `article` record type (statuteRef points at the treaty). See ADR-0052.",
   "defs": {
     "main": {

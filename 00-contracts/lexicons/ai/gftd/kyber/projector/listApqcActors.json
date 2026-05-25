@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kyber.projector.listApqcActors",
+  "id": "app.etzhayyim.kyber.projector.listApqcActors",
   "defs": {
     "main": {
       "type": "query",

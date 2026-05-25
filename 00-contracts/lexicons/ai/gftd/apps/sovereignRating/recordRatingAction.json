@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sovereignRating.recordRatingAction",
+  "id": "app.etzhayyim.apps.sovereignRating.recordRatingAction",
   "defs": {
     "main": {
       "type": "procedure",

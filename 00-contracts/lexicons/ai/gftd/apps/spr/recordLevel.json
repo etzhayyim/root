@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.spr.recordLevel",
+  "id": "app.etzhayyim.apps.spr.recordLevel",
   "defs": {
     "main": {
       "type": "procedure",

@@ -22,11 +22,11 @@ describe("HS Actor Manifest", () => {
   });
   it("xrpc covers node, children, concordance, policy, health", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("ai.gftd.apps.hs.getNode");
-    expect(nsids).toContain("ai.gftd.apps.hs.getChildren");
-    expect(nsids).toContain("ai.gftd.apps.hs.resolveConcordance");
-    expect(nsids).toContain("ai.gftd.apps.hs.getPolicyOverlay");
-    expect(nsids).toContain("ai.gftd.apps.hs.health");
+    expect(nsids).toContain("app.etzhayyim.apps.hs.getNode");
+    expect(nsids).toContain("app.etzhayyim.apps.hs.getChildren");
+    expect(nsids).toContain("app.etzhayyim.apps.hs.resolveConcordance");
+    expect(nsids).toContain("app.etzhayyim.apps.hs.getPolicyOverlay");
+    expect(nsids).toContain("app.etzhayyim.apps.hs.health");
   });
   it("4 actor paths", () => { expect(m.actors).toHaveLength(4); });
 });

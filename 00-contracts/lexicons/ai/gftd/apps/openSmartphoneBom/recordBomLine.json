@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneBom.recordBomLine",
+  "id": "app.etzhayyim.apps.openSmartphoneBom.recordBomLine",
   "defs": {
     "main": {
       "type": "procedure",

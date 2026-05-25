@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govBrn.seedOrgs",
+  "id": "app.etzhayyim.govBrn.seedOrgs",
   "defs": {
     "main": {
       "type": "procedure",

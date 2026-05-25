@@ -9,7 +9,7 @@ USDC運用モデルに近い発行統制で、Safeから `GCCStablecoin` を発�
 
 ## デプロイ時パラメータ（推奨）
 
-- `name`: `GFTD Computing Credit`
+- `name`: `etzhayyim Computing Credit`
 - `symbol`: `GCC`
 - `decimals`: `6`（USDC互換の会計運用）
 - `supplyCap`: 例 `10_000_000_000 * 10^6`

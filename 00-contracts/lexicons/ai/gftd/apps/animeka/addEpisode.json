@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.addEpisode",
+  "id": "app.etzhayyim.apps.animeka.addEpisode",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Create an episode record (ai.gftd.apps.animeka.episode) and bootstrap its project (convoId). The episode inherits work.fps unless overridden. Emits social announcement via derive rule on status transition.",
+      "description": "Create an episode record (app.etzhayyim.apps.animeka.episode) and bootstrap its project (convoId). The episode inherits work.fps unless overridden. Emits social announcement via derive rule on status transition.",
       "input": {
         "encoding": "application/json",
         "schema": {

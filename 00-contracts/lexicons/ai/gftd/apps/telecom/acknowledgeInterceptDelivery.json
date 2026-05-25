@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.acknowledgeInterceptDelivery",
+  "id": "app.etzhayyim.apps.telecom.acknowledgeInterceptDelivery",
   "defs": {
     "main": {
       "type": "procedure",

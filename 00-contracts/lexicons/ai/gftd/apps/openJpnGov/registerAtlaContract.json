@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openJpnGov.registerAtlaContract",
+  "id": "app.etzhayyim.apps.openJpnGov.registerAtlaContract",
   "defs": {
     "main": {
       "type": "procedure",

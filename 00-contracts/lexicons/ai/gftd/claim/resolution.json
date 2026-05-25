@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.claim.resolution",
+  "id": "app.etzhayyim.claim.resolution",
   "defs": {
     "main": {
       "type": "record",

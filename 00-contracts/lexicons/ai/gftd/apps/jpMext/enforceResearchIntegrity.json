@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMext.enforceResearchIntegrity",
+  "id": "app.etzhayyim.apps.jpMext.enforceResearchIntegrity",
   "defs": {
     "main": {
       "type": "procedure",

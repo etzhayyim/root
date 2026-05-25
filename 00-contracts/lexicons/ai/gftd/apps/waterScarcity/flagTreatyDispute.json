@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.waterScarcity.flagTreatyDispute",
+  "id": "app.etzhayyim.apps.waterScarcity.flagTreatyDispute",
   "defs": {
     "main": {
       "type": "procedure",

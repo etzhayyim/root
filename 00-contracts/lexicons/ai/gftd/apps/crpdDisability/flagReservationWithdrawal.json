@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.crpdDisability.flagReservationWithdrawal",
+  "id": "app.etzhayyim.apps.crpdDisability.flagReservationWithdrawal",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 """jukyu `queryBalance` graph — read `mv_jukyu_global_balance`.
 
-NSID: ai.gftd.apps.jukyu.queryBalance
+NSID: app.etzhayyim.apps.jukyu.queryBalance
 Filters: domain, countryCode, productFamily; limit 500.
 """
 

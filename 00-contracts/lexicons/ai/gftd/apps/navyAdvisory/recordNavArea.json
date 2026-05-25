@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.navyAdvisory.recordNavArea",
+  "id": "app.etzhayyim.apps.navyAdvisory.recordNavArea",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.digitalAccessibility.flagAccessibilityComplaint",
+  "id": "app.etzhayyim.apps.digitalAccessibility.flagAccessibilityComplaint",
   "defs": {
     "main": {
       "type": "procedure",

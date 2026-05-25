@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.spsStandardIso.recordStandard",
+  "id": "app.etzhayyim.apps.spsStandardIso.recordStandard",
   "defs": {
     "main": {
       "type": "procedure",

@@ -130,7 +130,7 @@ export async function createDid(path: string, performerType: PerformerType): Pro
 }
 
 /** Generate a did:gftd:{hash} DID. Hash = first 24 chars of hex(SHA-256(compressed public key)). */
-export async function createGftdDid(performerType: PerformerType): Promise<{ privateKeyB64url: string; did: string; publicKeyMultibase: string }> {
+export async function createetzhayyimDid(performerType: PerformerType): Promise<{ privateKeyB64url: string; did: string; publicKeyMultibase: string }> {
   const key = await generateP256Key();
   const hashBuf = await crypto.subtle.digest("SHA-256", key.publicKeyRaw);
   const hashHex = Array.from(new Uint8Array(hashBuf)).map((b) => b.toString(16).padStart(2, "0")).join("");
@@ -257,7 +257,7 @@ export function didParent(did: string): string | null {
   return did.slice(0, idx);
 }
 
-export function didParsesAsGftd(did: string): boolean {
+export function didParsesAsetzhayyim(did: string): boolean {
   return /^did:gftd:[0-9a-f]{24}(:[0-9a-f]{24}){0,5}$/.test(did);
 }
 
@@ -306,8 +306,8 @@ export function encodeMaterialBytes(input: ChildDidInput, pubkeyCompressed?: Uin
   }
 }
 
-export async function createGftdChildDid(input: ChildDidInput): Promise<ChildDidResult> {
-  if (!didParsesAsGftd(input.parentDid)) throw new Error("parentDid must be a valid did:gftd");
+export async function createetzhayyimChildDid(input: ChildDidInput): Promise<ChildDidResult> {
+  if (!didParsesAsetzhayyim(input.parentDid)) throw new Error("parentDid must be a valid did:gftd");
   if (didDepth(input.parentDid) >= MAX_DID_DEPTH) {
     throw new Error(`recursion exceeds MAX_DID_DEPTH (${MAX_DID_DEPTH})`);
   }
@@ -365,7 +365,7 @@ export async function verifyDidChain(childDid: string, parentDid: string, materi
 export type SegmentKind = "root" | "sub" | "id" | "lexicon" | "role" | "pubkey" | "grant";
 
 const SEGMENT_REGEX = /^[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9-]*)*$/;
-const DID_GFTD_SEMANTIC_REGEX = /^did:gftd:[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9-]*)*(:[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9-]*)*){0,5}$/;
+const DID_etzhayyim_SEMANTIC_REGEX = /^did:gftd:[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9-]*)*(:[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9-]*)*){0,5}$/;
 
 export interface SemanticChildDidInput {
   parentDid: string;
@@ -383,12 +383,12 @@ export interface SemanticChildDidResult {
 }
 
 /** True iff `did` is a valid did:gftd in either legacy hex or semantic form. */
-export function didParsesAsGftdAny(did: string): boolean {
-  return didParsesAsGftd(did) || DID_GFTD_SEMANTIC_REGEX.test(did);
+export function didParsesAsetzhayyimAny(did: string): boolean {
+  return didParsesAsetzhayyim(did) || DID_etzhayyim_SEMANTIC_REGEX.test(did);
 }
 
 /** Validate a single semantic segment value (NSID-compatible, DNS-label length). */
-export function isValidGftdSegmentValue(segmentValue: string): boolean {
+export function isValidetzhayyimSegmentValue(segmentValue: string): boolean {
   if (segmentValue.length === 0 || segmentValue.length > 63) return false;
   return SEGMENT_REGEX.test(segmentValue);
 }
@@ -398,14 +398,14 @@ export function isValidGftdSegmentValue(segmentValue: string): boolean {
  * keypair is generated and returned; other kinds are keyless (signing falls
  * through to the nearest ancestor key, ADR-0029 Key Custody).
  */
-export async function createGftdChildDidSemantic(input: SemanticChildDidInput): Promise<SemanticChildDidResult> {
-  if (!didParsesAsGftdAny(input.parentDid)) {
+export async function createetzhayyimChildDidSemantic(input: SemanticChildDidInput): Promise<SemanticChildDidResult> {
+  if (!didParsesAsetzhayyimAny(input.parentDid)) {
     throw new Error("parentDid must be a valid did:gftd (legacy hex or semantic form)");
   }
   if (didDepth(input.parentDid) >= MAX_DID_DEPTH) {
     throw new Error(`recursion exceeds MAX_DID_DEPTH (${MAX_DID_DEPTH})`);
   }
-  if (!isValidGftdSegmentValue(input.segmentValue)) {
+  if (!isValidetzhayyimSegmentValue(input.segmentValue)) {
     throw new Error(`invalid segmentValue (regex: ${SEGMENT_REGEX}): ${input.segmentValue}`);
   }
 

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOssekai.requestOssekaiConsent",
+  "id": "app.etzhayyim.apps.openOssekai.requestOssekaiConsent",
   "defs": {
     "main": {
       "type": "procedure",

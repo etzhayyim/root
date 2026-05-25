@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.gtin.lookupProduct": {
+    "/xrpc/app.etzhayyim.gtin.lookupProduct": {
       "post": {
-        "summary": "ai.gftd.gtin.lookupProduct",
-        "operationId": "ai.gftd.gtin.lookupProduct",
+        "summary": "app.etzhayyim.gtin.lookupProduct",
+        "operationId": "app.etzhayyim.gtin.lookupProduct",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.gtin.registerProduct": {
+    "/xrpc/app.etzhayyim.gtin.registerProduct": {
       "post": {
-        "summary": "ai.gftd.gtin.registerProduct",
-        "operationId": "ai.gftd.gtin.registerProduct",
+        "summary": "app.etzhayyim.gtin.registerProduct",
+        "operationId": "app.etzhayyim.gtin.registerProduct",
         "requestBody": {
           "required": true,
           "content": {
@@ -142,10 +142,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.gtin.validateGtin": {
+    "/xrpc/app.etzhayyim.gtin.validateGtin": {
       "post": {
-        "summary": "ai.gftd.gtin.validateGtin",
-        "operationId": "ai.gftd.gtin.validateGtin",
+        "summary": "app.etzhayyim.gtin.validateGtin",
+        "operationId": "app.etzhayyim.gtin.validateGtin",
         "requestBody": {
           "required": true,
           "content": {

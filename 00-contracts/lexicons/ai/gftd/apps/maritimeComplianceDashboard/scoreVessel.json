@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maritimeComplianceDashboard.scoreVessel",
+  "id": "app.etzhayyim.apps.maritimeComplianceDashboard.scoreVessel",
   "defs": {
     "main": {
       "type": "procedure",

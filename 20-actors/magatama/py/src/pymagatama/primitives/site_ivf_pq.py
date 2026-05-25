@@ -191,7 +191,7 @@ def task_site_ivf_pq_update_centroids(
     now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     with sync_cursor() as cur:
         for i, vec in enumerate(centroids):
-            centroid_id = f"at://{_OWNER_DID}/ai.gftd.apps.site.ivfCentroid/{domain}-{i}"
+            centroid_id = f"at://{_OWNER_DID}/app.etzhayyim.apps.site.ivfCentroid/{domain}-{i}"
             cur.execute(
                 """
                 INSERT INTO vertex_ivf_centroid (vertex_id, rkey, collection, embedding, actor_did, org_did)
@@ -300,7 +300,7 @@ def task_site_ivf_pq_train_codebook(
     codebook_json = json.dumps(all_centroids)
     now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     collection_id = domain
-    vertex_id = f"at://{_OWNER_DID}/ai.gftd.apps.site.pqCodebook/{domain}-{version_tag}"
+    vertex_id = f"at://{_OWNER_DID}/app.etzhayyim.apps.site.pqCodebook/{domain}-{version_tag}"
 
     with sync_cursor() as cur:
         # Mark previous active as superseded

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openJpnGov.listMinistries",
+  "id": "app.etzhayyim.apps.openJpnGov.listMinistries",
   "defs": {
     "main": {
       "type": "query",

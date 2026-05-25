@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projector.sendProjectMessage",
+  "id": "app.etzhayyim.projector.sendProjectMessage",
   "defs": {
     "main": {
       "type": "procedure",

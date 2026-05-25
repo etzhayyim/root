@@ -1,7 +1,7 @@
 /**
  * Live aircraft overlay (Flightradar24-equivalent, 2026-05-05).
  *
- * Polls `ai.gftd.apps.maps.listLiveAircraft` every 10 s for aircraft within
+ * Polls `app.etzhayyim.apps.maps.listLiveAircraft` every 10 s for aircraft within
  * the current viewport bbox. Renders as KAMI circle features colored by
  * source (opensky/adsb-fi). Click handler forwards to host for callsign
  * + altitude detail panel.

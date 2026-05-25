@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.variantClin.interpretVariant",
+  "id": "app.etzhayyim.apps.variantClin.interpretVariant",
   "defs": {
     "main": {
       "type": "procedure",

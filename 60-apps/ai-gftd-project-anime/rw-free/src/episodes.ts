@@ -39,10 +39,10 @@ import {
   type ReviewRecord,
 } from "./types.js";
 
-const SEASON_COLLECTION = "ai.gftd.anime.season";
-const EPISODE_COLLECTION = "ai.gftd.anime.episode";
-const SCHEDULE_COLLECTION = "ai.gftd.anime.schedule";
-const REVIEW_COLLECTION = "ai.gftd.anime.review";
+const SEASON_COLLECTION = "app.etzhayyim.anime.season";
+const EPISODE_COLLECTION = "app.etzhayyim.anime.episode";
+const SCHEDULE_COLLECTION = "app.etzhayyim.anime.schedule";
+const REVIEW_COLLECTION = "app.etzhayyim.anime.review";
 
 function isSeasonId(id: string): boolean {
   return /^[a-z0-9-]{1,32}$/i.test(id);

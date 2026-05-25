@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.autoLayout",
+  "id": "app.etzhayyim.apps.mangaka.autoLayout",
   "defs": {
     "main": {
       "type": "procedure",

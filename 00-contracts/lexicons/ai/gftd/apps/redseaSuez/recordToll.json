@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.redseaSuez.recordToll",
+  "id": "app.etzhayyim.apps.redseaSuez.recordToll",
   "defs": {
     "main": {
       "type": "procedure",

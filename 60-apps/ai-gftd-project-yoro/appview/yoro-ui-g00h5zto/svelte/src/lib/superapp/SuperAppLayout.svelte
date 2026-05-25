@@ -56,7 +56,7 @@
 	}
 
 	let {
-		appName = 'GFTD',
+		appName = 'etzhayyim',
 		accent,
 		headerLeft,
 		headerRight,

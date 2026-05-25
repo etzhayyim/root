@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.euv.prepareOrderPackage",
+  "id": "app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage",
   "defs": {
     "main": {
       "type": "query",

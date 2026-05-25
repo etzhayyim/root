@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aidesk.artifact",
+  "id": "app.etzhayyim.apps.aidesk.artifact",
   "defs": {
     "main": {
       "type": "record",

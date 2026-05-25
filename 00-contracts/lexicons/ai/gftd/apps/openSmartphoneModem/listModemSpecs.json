@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneModem.listModemSpecs",
+  "id": "app.etzhayyim.apps.openSmartphoneModem.listModemSpecs",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpnJma.reportEarthquake",
+  "id": "app.etzhayyim.apps.jpnJma.reportEarthquake",
   "defs": {
     "main": {
       "type": "procedure",

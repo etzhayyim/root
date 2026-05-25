@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.magatama.cronTick",
+  "id": "app.etzhayyim.apps.magatama.cronTick",
   "defs": {
     "main": {
       "type": "procedure",

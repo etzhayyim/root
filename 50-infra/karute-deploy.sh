@@ -128,7 +128,7 @@ stage_smoke() {
   echo "→ Universal Resolver"
   run curl -fsS https://dev.uniresolver.io/1.0/identifiers/did:web:karute.etzhayyim.com | jq '.didDocument.id' || true
   echo "→ XRPC health"
-  run curl -fsS https://karute.etzhayyim.com/xrpc/ai.gftd.apps.karute.healthKarute || true
+  run curl -fsS https://karute.etzhayyim.com/xrpc/app.etzhayyim.apps.karute.healthKarute || true
   echo "→ Static bundle"
   run curl -fsS -o /dev/null -w "%{http_code}\n" https://karute.etzhayyim.com/ || true
 }

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.revolvingDoor.recordTransition",
+  "id": "app.etzhayyim.apps.revolvingDoor.recordTransition",
   "defs": {
     "main": {
       "type": "procedure",

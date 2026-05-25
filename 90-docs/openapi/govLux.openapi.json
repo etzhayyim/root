@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govLux.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govLux.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Luxembourg government.",
-        "operationId": "ai.gftd.govLux.followSiteDeps",
+        "operationId": "app.etzhayyim.govLux.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLux.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govLux.heartbeatTick": {
       "post": {
         "summary": "Run the Luxembourg government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govLux.heartbeatTick",
+        "operationId": "app.etzhayyim.govLux.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLux.listOrgs": {
+    "/xrpc/app.etzhayyim.govLux.listOrgs": {
       "get": {
         "summary": "List Luxembourg government organization graph records.",
-        "operationId": "ai.gftd.govLux.listOrgs",
+        "operationId": "app.etzhayyim.govLux.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLux.registerDIDs": {
+    "/xrpc/app.etzhayyim.govLux.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Luxembourg government organizations.",
-        "operationId": "ai.gftd.govLux.registerDIDs",
+        "operationId": "app.etzhayyim.govLux.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLux.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govLux.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Luxembourg government organization path to its graph record.",
-        "operationId": "ai.gftd.govLux.resolveOrgPath",
+        "operationId": "app.etzhayyim.govLux.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLux.seedOrgs": {
+    "/xrpc/app.etzhayyim.govLux.seedOrgs": {
       "post": {
         "summary": "Seed initial Luxembourg government organization records into the graph.",
-        "operationId": "ai.gftd.govLux.seedOrgs",
+        "operationId": "app.etzhayyim.govLux.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLux.shinka": {
+    "/xrpc/app.etzhayyim.govLux.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Luxembourg government organization update.",
-        "operationId": "ai.gftd.govLux.shinka",
+        "operationId": "app.etzhayyim.govLux.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLux.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govLux.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Luxembourg government organization changes to graph.",
-        "operationId": "ai.gftd.govLux.syncWetUpdates",
+        "operationId": "app.etzhayyim.govLux.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

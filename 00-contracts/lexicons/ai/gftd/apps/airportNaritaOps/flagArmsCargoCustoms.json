@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airportNaritaOps.flagArmsCargoCustoms",
+  "id": "app.etzhayyim.apps.airportNaritaOps.flagArmsCargoCustoms",
   "defs": {
     "main": {
       "type": "procedure",

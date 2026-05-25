@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.artemisLunar.flagSafetyZoneOverlap",
+  "id": "app.etzhayyim.apps.artemisLunar.flagSafetyZoneOverlap",
   "defs": {
     "main": {
       "type": "procedure",

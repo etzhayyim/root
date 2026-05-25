@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cnNdrc.recordPlanAction",
+  "id": "app.etzhayyim.apps.cnNdrc.recordPlanAction",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kagami.ping",
+  "id": "app.etzhayyim.kagami.ping",
   "defs": {
     "main": {
       "type": "query",

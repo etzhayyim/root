@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cyberThreat.assessThreatActor",
+  "id": "app.etzhayyim.apps.cyberThreat.assessThreatActor",
   "defs": {
     "main": {
       "type": "procedure",

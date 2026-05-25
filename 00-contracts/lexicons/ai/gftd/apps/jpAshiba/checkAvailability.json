@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpAshiba.checkAvailability",
+  "id": "app.etzhayyim.apps.jpAshiba.checkAvailability",
   "defs": {
     "main": {
       "type": "query",

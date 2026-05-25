@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.collectUsaEdgar",
+  "id": "app.etzhayyim.legalEntity.collectUsaEdgar",
   "defs": {
     "main": {
       "type": "procedure",

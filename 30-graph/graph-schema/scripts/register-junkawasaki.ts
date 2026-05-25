@@ -16,7 +16,7 @@ import { multibaseEncode } from "../../../10-protocol/did-etzhayyim/src/multibas
 
 const HANDLE = "junkawasaki.com";
 const DISPLAY_NAME = "Jun Kawasaki";
-const DESCRIPTION = "Founder @ Gftd Japan";
+const DESCRIPTION = "Founder @ etzhayyim Japan";
 const COUNTRY = "JP";
 
 async function main() {

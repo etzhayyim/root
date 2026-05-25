@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.dataBrokerRegistry.flagEnforcement",
+  "id": "app.etzhayyim.apps.dataBrokerRegistry.flagEnforcement",
   "defs": {
     "main": {
       "type": "procedure",

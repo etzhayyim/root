@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coworkGraph.userList",
+  "id": "app.etzhayyim.apps.coworkGraph.userList",
   "defs": {
     "main": {
       "type": "query",

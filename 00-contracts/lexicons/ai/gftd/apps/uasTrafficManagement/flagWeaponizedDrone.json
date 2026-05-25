@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.uasTrafficManagement.flagWeaponizedDrone",
+  "id": "app.etzhayyim.apps.uasTrafficManagement.flagWeaponizedDrone",
   "defs": {
     "main": {
       "type": "procedure",

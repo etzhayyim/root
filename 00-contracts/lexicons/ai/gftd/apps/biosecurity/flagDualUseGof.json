@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.biosecurity.flagDualUseGof",
+  "id": "app.etzhayyim.apps.biosecurity.flagDualUseGof",
   "defs": {
     "main": {
       "type": "procedure",

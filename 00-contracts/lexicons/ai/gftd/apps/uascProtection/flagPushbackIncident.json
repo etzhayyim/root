@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.uascProtection.flagPushbackIncident",
+  "id": "app.etzhayyim.apps.uascProtection.flagPushbackIncident",
   "defs": {
     "main": {
       "type": "procedure",

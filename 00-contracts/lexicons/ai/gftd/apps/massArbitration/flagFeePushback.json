@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.massArbitration.flagFeePushback",
+  "id": "app.etzhayyim.apps.massArbitration.flagFeePushback",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yoro.listApps",
+  "id": "app.etzhayyim.yoro.listApps",
   "defs": {
     "main": {
       "type": "procedure",

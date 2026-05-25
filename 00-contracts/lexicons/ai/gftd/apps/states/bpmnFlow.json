@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.states.bpmnFlow",
+  "id": "app.etzhayyim.apps.states.bpmnFlow",
   "defs": {
     "main": {
       "type": "record",

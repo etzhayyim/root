@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.rtc.scheduleMeeting",
+  "id": "app.etzhayyim.rtc.scheduleMeeting",
   "defs": {
     "main": {
       "type": "procedure",

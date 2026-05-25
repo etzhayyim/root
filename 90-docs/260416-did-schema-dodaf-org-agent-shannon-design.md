@@ -52,8 +52,8 @@ DoDAF v2, 組織構造, AI Agent, RBAC, RACI, consent, VP (Verifiable Presentati
 # Scope
 
 - 現行 did:plc + did:web アーキテクチャ (ADR-0019) を基盤とする
-- `did:gftd` を GFTD platform の primary identity として設計 (認証 + 認可 + governance 統合)
-- `did:plc` は AT Protocol federation adapter に限定 (GFTD 内部では使わない)
+- `did:gftd` を etzhayyim platform の primary identity として設計 (認証 + 認可 + governance 統合)
+- `did:plc` は AT Protocol federation adapter に限定 (etzhayyim 内部では使わない)
 - AI agent を別 DID method で分離するパターンの情報理論的妥当性を検証
 - 最終 schema と実装ロードマップを提示
 
@@ -61,7 +61,7 @@ DoDAF v2, 組織構造, AI Agent, RBAC, RACI, consent, VP (Verifiable Presentati
 
 ## Decision
 
-**`did:gftd` = GFTD platform の primary identity (AuthN + AuthZ + Governance 一本化)**
+**`did:gftd` = etzhayyim platform の primary identity (AuthN + AuthZ + Governance 一本化)**
 
 ```
 did:gftd:{hash}    <- platform primary identity
@@ -72,7 +72,7 @@ did:gftd:{hash}    <- platform primary identity
                       1 fetch で認証 + 認可 + governance 全て解決
 
 did:plc:{hash}     <- AT Protocol federation adapter (外部連携のみ)
-                      GFTD 内部の認証・認可には使わない
+                      etzhayyim 内部の認証・認可には使わない
                       did:gftd DID Doc の federationDID で参照
 ```
 
@@ -93,7 +93,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (外部連携のみ)
 | 3 | F: did:plc (auth) + did:gftd (authz) 分離 | 0.88 | 認証と認可で 2 DID / 2 fetch → 無駄 |
 | **4** | **G: did:gftd 一本化 (auth + authz + OAuth + org)** | **0.92 → 0.94** | **adopted** |
 
-Schema F (did:plc で認証 + did:gftd で認可) は 2 fetch / 2 DID の管理コストがあり、platform 内で did:plc を認証に使う必然性がない (did:plc は Bluesky federation protocol であり GFTD の認証基盤ではない)。did:gftd に verificationMethod を持たせることで 1 fetch / 1 DID に統合。
+Schema F (did:plc で認証 + did:gftd で認可) は 2 fetch / 2 DID の管理コストがあり、platform 内で did:plc を認証に使う必然性がない (did:plc は Bluesky federation protocol であり etzhayyim の認証基盤ではない)。did:gftd に verificationMethod を持たせることで 1 fetch / 1 DID に統合。
 
 # Context — 現状の課題
 
@@ -124,7 +124,7 @@ Schema F (did:plc で認証 + did:gftd で認可) は 2 fetch / 2 DID の管理�
 ### Structure
 
 ```
-did:gftd:{hash}    <- GFTD platform primary identity (authn + authz + governance)
+did:gftd:{hash}    <- etzhayyim platform primary identity (authn + authz + governance)
 did:plc:{hash}     <- AT Protocol federation adapter (external only)
 ```
 
@@ -154,7 +154,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
   "capabilityInvocation": [
     {
       "id": "#invoke-xrpc",
-      "scope": ["ai.gftd.apps.*.query", "ai.gftd.apps.*.invoke"],
+      "scope": ["app.etzhayyim.apps.*.query", "app.etzhayyim.apps.*.invoke"],
       "maxLifetime": 60,
       "consentRequired": true
     }
@@ -169,7 +169,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
   ],
   "rbac": {
     "roles": ["agent-runtime"],
-    "grants": ["ai.gftd.apps.*.query"]
+    "grants": ["app.etzhayyim.apps.*.query"]
   },
   "consent": {
     "model": "gnap-vp",
@@ -184,7 +184,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
   "service": [
     {
       "id": "#gftd_pds",
-      "type": "GftdPDS",
+      "type": "etzhayyimPDS",
       "serviceEndpoint": "https://atproto.etzhayyim.com"
     },
     {
@@ -241,7 +241,7 @@ did:plc:{hash}     <- AT Protocol federation adapter (external only)
 ```
 
 - AT Protocol 標準 fields のみ (~500B)
-- GFTD platform 内では参照しない
+- etzhayyim platform 内では参照しない
 - 外部 Bluesky federation / AT Protocol interop 用
 
 ### Resolver
@@ -289,7 +289,7 @@ CREATE TABLE gftd_did_log (
   "payload": {
     "iss": "did:gftd:abc123",
     "aud": "did:gftd:atproto-pds",
-    "lxm": "ai.gftd.yoro.sendMessage",
+    "lxm": "app.etzhayyim.yoro.sendMessage",
     "exp": 1745000060,
     "iat": 1745000000,
     "jti": "uuid-v4"
@@ -297,13 +297,13 @@ CREATE TABLE gftd_did_log (
 }
 ```
 
-`iss` が `did:gftd` — GFTD platform 内の全 XRPC call はこの形式。
+`iss` が `did:gftd` — etzhayyim platform 内の全 XRPC call はこの形式。
 
 ### Complete Auth Chain
 
 ```
 Client (browser / CLI / agent)
-  POST /xrpc/ai.gftd.yoro.sendMessage
+  POST /xrpc/app.etzhayyim.yoro.sendMessage
   Authorization: Bearer <ES256 JWT, iss=did:gftd:abc123>
 
 PDS authenticate()                                    verify.ts
@@ -362,7 +362,7 @@ export async function authenticate(request: Request, env: Env): Promise<PdsAuth>
 
     if (payload.iss.startsWith('did:gftd:')) {
       // ★ did:gftd unified path — authn + authz in 1 fetch
-      const doc = await resolveGftdDID(payload.iss, env);
+      const doc = await resolveetzhayyimDID(payload.iss, env);
       if (!doc) return { level: 'public' };
 
       // AuthN: verify signature against did:gftd verificationMethod
@@ -403,9 +403,9 @@ export async function authenticate(request: Request, env: Env): Promise<PdsAuth>
 }
 
 // did:gftd DID Document resolution with cache
-const _gftdDocCache = new Map<string, { doc: GftdDidDoc; exp: number }>();
+const _gftdDocCache = new Map<string, { doc: etzhayyimDidDoc; exp: number }>();
 
-async function resolveGftdDID(did: string, env: Env): Promise<GftdDidDoc | null> {
+async function resolveetzhayyimDID(did: string, env: Env): Promise<etzhayyimDidDoc | null> {
   const cached = _gftdDocCache.get(did);
   if (cached && cached.exp > Date.now()) return cached.doc;
 
@@ -413,7 +413,7 @@ async function resolveGftdDID(did: string, env: Env): Promise<GftdDidDoc | null>
   const res = await env.DID_SERVICE.fetch(`https://did.etzhayyim.com/${did}`);
   if (!res.ok) return null;
 
-  const doc = await res.json() as GftdDidDoc;
+  const doc = await res.json() as etzhayyimDidDoc;
   _gftdDocCache.set(did, { doc, exp: Date.now() + 300_000 }); // 300s TTL
   return doc;
 }
@@ -592,10 +592,10 @@ did:gftd:org-root   --[informed]-----> did:gftd:audit-agent
 {
   "rbac": {
     "roles": ["agent-runtime", "operator"],
-    "grants": ["ai.gftd.apps.*.query", "ai.gftd.apps.*.invoke"]
+    "grants": ["app.etzhayyim.apps.*.query", "app.etzhayyim.apps.*.invoke"]
   },
   "capabilityInvocation": [{
-    "scope": ["ai.gftd.apps.*.query"],
+    "scope": ["app.etzhayyim.apps.*.query"],
     "maxLifetime": 60,
     "consentRequired": true
   }]
@@ -672,7 +672,7 @@ Agent (did:gftd:agent-1)
   },
   "consent": { "model": "synthetic-cohort-v1", "piiTier": 1 },
   "capabilityInvocation": [{
-    "scope": ["ai.gftd.apps.*.query"],
+    "scope": ["app.etzhayyim.apps.*.query"],
     "consentRequired": false
   }]
 }
@@ -697,7 +697,7 @@ Agent (did:gftd:agent-1)
     "raci": "responsible"
   }],
   "capabilityInvocation": [{
-    "scope": ["ai.gftd.apps.*.query", "ai.gftd.apps.*.invoke"],
+    "scope": ["app.etzhayyim.apps.*.query", "app.etzhayyim.apps.*.invoke"],
     "consentRequired": true
   }]
 }
@@ -709,10 +709,10 @@ Fission 後: capability を cohort から継承、consent model は `synthetic` 
 
 ## 9. AT Protocol Federation (did:plc adapter)
 
-GFTD platform 内では did:gftd を使う。外部 AT Protocol federation (Bluesky 等) が必要な場合のみ did:plc を参照。
+etzhayyim platform 内では did:gftd を使う。外部 AT Protocol federation (Bluesky 等) が必要な場合のみ did:plc を参照。
 
 ```
-GFTD internal call:
+etzhayyim internal call:
   JWT.iss = did:gftd:abc123
   PDS → did.etzhayyim.com resolve → authn + authz
 
@@ -799,7 +799,7 @@ Federation が必要な actor のみ `federationDID` を持つ。cohort agent �
     {
       "id": "#email",
       "type": "EmailVerification",
-      "email": "jun@gftd.group",
+      "email": "jun@etzhayyim.com",
       "verified": true,
       "linkedAt": "2026-04-16T03:00:00Z"
     }
@@ -808,7 +808,7 @@ Federation が必要な actor のみ `federationDID` を持つ。cohort agent �
   "actorScore": 100,
 
   "federationDID": "did:plc:jun123",
-  "capabilityInvocation": [{ "scope": ["ai.gftd.apps.*"] }],
+  "capabilityInvocation": [{ "scope": ["app.etzhayyim.apps.*"] }],
   "rbac": { "roles": ["owner"] },
   "consent": { "model": "gnap-vp", "piiTier": 3 },
   "dodaf": { "viewpoint": "OV-4", "performerBinding": "did:gftd:org-gftd" }
@@ -850,7 +850,7 @@ User → authn.etzhayyim.com /sign-up
 #### OAuth リンク追加
 
 ```
-User → authn.etzhayyim.com /xrpc/ai.gftd.auth.linkOAuthStart { provider: "google" }
+User → authn.etzhayyim.com /xrpc/app.etzhayyim.auth.linkOAuthStart { provider: "google" }
   → Google OAuth flow → callback
   → auth Worker:
       1. Google profile 取得 (openid email)
@@ -878,9 +878,9 @@ User → authn.etzhayyim.com /xrpc/ai.gftd.auth.linkOAuthStart { provider: "goog
     → JWT mint (iss = did:gftd:{hash})
 
 [Email magic link ログイン]
-  User → authn.etzhayyim.com /xrpc/ai.gftd.auth.linkEmailBegin { email: "jun@gftd.group" }
+  User → authn.etzhayyim.com /xrpc/app.etzhayyim.auth.linkEmailBegin { email: "jun@etzhayyim.com" }
     → OTP code 生成 → email 送信
-  User → /xrpc/ai.gftd.auth.linkEmailVerify { email, code }
+  User → /xrpc/app.etzhayyim.auth.linkEmailVerify { email, code }
     → linked_auth_methods WHERE provider='email' AND email=?
     → account DID = did:gftd:{hash}
     → JWT mint (iss = did:gftd:{hash})
@@ -964,13 +964,13 @@ DID_DB (did.etzhayyim.com):
       "id": "#engineering",
       "name": "Engineering",
       "members": ["did:gftd:alice456", "did:gftd:agent-bot1"],
-      "rbac": { "grants": ["ai.gftd.apps.*.create", "ai.gftd.apps.*.query"] }
+      "rbac": { "grants": ["app.etzhayyim.apps.*.create", "app.etzhayyim.apps.*.query"] }
     },
     {
       "id": "#legal",
       "name": "Legal",
       "members": ["did:gftd:jun123"],
-      "rbac": { "grants": ["ai.gftd.apps.legal.*"] }
+      "rbac": { "grants": ["app.etzhayyim.apps.legal.*"] }
     }
   ],
 
@@ -982,7 +982,7 @@ DID_DB (did.etzhayyim.com):
       "enforced": false
     },
     "defaultRole": "member",
-    "allowedDomains": ["gftd.group", "etzhayyim.com"]
+    "allowedDomains": ["etzhayyim.com", "etzhayyim.com"]
   },
 
   "capabilityDelegation": [
@@ -990,7 +990,7 @@ DID_DB (did.etzhayyim.com):
   ],
   "rbac": {
     "roles": ["owner", "admin", "member", "viewer", "agent-runtime"],
-    "grants": ["ai.gftd.apps.*"]
+    "grants": ["app.etzhayyim.apps.*"]
   },
   "consent": { "model": "gnap-vp", "piiTier": 3 },
   "dodaf": { "viewpoint": "OV-4", "performerBinding": "did:gftd:jun123" }
@@ -1038,17 +1038,17 @@ did:gftd:alice456 の DID Doc fetch (1 fetch)
 ```
 [招待]
   Owner (did:gftd:jun123)
-    POST /xrpc/ai.gftd.org.inviteMember
+    POST /xrpc/app.etzhayyim.org.inviteMember
     {
       org: "did:gftd:org-gftd",
-      invitee: "alice@gftd.group",
+      invitee: "alice@etzhayyim.com",
       role: "admin"
     }
 
     → authn.etzhayyim.com が invite token 発行 (HMAC, 7d expiry)
     → email 送信 (invite link with token)
     → org DID Doc の members[] に pending entry 追加:
-        { did: null, role: "admin", email: "alice@gftd.group", acceptedAt: null }
+        { did: null, role: "admin", email: "alice@etzhayyim.com", acceptedAt: null }
 
 [承認]
   Invitee
@@ -1090,26 +1090,26 @@ did:gftd:alice456 の DID Doc fetch (1 fetch)
 ### Org Lexicon (新規 NSID)
 
 ```
-ai.gftd.org.createOrganization    ← org DID 作成 (org_type, name, domain)
-ai.gftd.org.getOrganization       ← org 情報取得
-ai.gftd.org.updateOrganization    ← org 設定更新 (name, sso, allowedDomains)
-ai.gftd.org.deleteOrganization    ← org 削除 (owner only, GDPR cascade purge)
+app.etzhayyim.org.createOrganization    ← org DID 作成 (org_type, name, domain)
+app.etzhayyim.org.getOrganization       ← org 情報取得
+app.etzhayyim.org.updateOrganization    ← org 設定更新 (name, sso, allowedDomains)
+app.etzhayyim.org.deleteOrganization    ← org 削除 (owner only, GDPR cascade purge)
 
-ai.gftd.org.inviteMember          ← メンバー招待 (email or did:gftd)
-ai.gftd.org.acceptInvite          ← 招待承認
-ai.gftd.org.removeMember          ← メンバー削除
-ai.gftd.org.updateMemberRole      ← role 変更
-ai.gftd.org.listMembers           ← メンバー一覧
+app.etzhayyim.org.inviteMember          ← メンバー招待 (email or did:gftd)
+app.etzhayyim.org.acceptInvite          ← 招待承認
+app.etzhayyim.org.removeMember          ← メンバー削除
+app.etzhayyim.org.updateMemberRole      ← role 変更
+app.etzhayyim.org.listMembers           ← メンバー一覧
 
-ai.gftd.org.createTeam            ← チーム作成
-ai.gftd.org.updateTeam            ← チーム設定更新
-ai.gftd.org.deleteTeam            ← チーム削除
-ai.gftd.org.addTeamMember         ← チームにメンバー追加
-ai.gftd.org.removeTeamMember      ← チームからメンバー削除
-ai.gftd.org.listTeams             ← チーム一覧
+app.etzhayyim.org.createTeam            ← チーム作成
+app.etzhayyim.org.updateTeam            ← チーム設定更新
+app.etzhayyim.org.deleteTeam            ← チーム削除
+app.etzhayyim.org.addTeamMember         ← チームにメンバー追加
+app.etzhayyim.org.removeTeamMember      ← チームからメンバー削除
+app.etzhayyim.org.listTeams             ← チーム一覧
 
-ai.gftd.org.configureSso          ← Enterprise SSO 設定
-ai.gftd.org.testSso               ← SSO 接続テスト
+app.etzhayyim.org.configureSso          ← Enterprise SSO 設定
+app.etzhayyim.org.testSso               ← SSO 接続テスト
 ```
 
 ### AI Agent as Org Member
@@ -1152,7 +1152,7 @@ did:gftd DID Doc = verificationMethod + capabilityInvocation + rbac + raci + con
   H_authz = ~90 bit (capability + RBAC + RACI + consent)
   H_gov   = ~20 bit (type + DoDAF)
   H_total = ~170 bit
-  H_wasted = 0 (all fields used by GFTD platform)
+  H_wasted = 0 (all fields used by etzhayyim platform)
 
 Resolution:
   1 fetch (did:gftd DID Doc, ~2KB) → authn + authz + governance 全て
@@ -1224,7 +1224,7 @@ Comparison to Schema F (split):
 
 - `verify.ts` に `did:gftd` 認証パス追加 (上記コード)
 - `DID_SERVICE` binding を PDS `wrangler.jsonc` に追加
-- `resolveGftdDID()` + cache (300s TTL) 実装
+- `resolveetzhayyimDID()` + cache (300s TTL) 実装
 - `canAccess()` に capability/RBAC/RACI check 追加 (DID Doc から)
 - Legacy `did:plc` / `did:web` path は backward compat として維持
 
@@ -1247,7 +1247,7 @@ Comparison to Schema F (split):
 
 ## Phase 6: Organization Management
 
-- `ai.gftd.org.*` Lexicon 新規作成 (15 NSID)
+- `app.etzhayyim.org.*` Lexicon 新規作成 (15 NSID)
 - Org DID Doc 作成 (`createOrganization` → did:gftd mint)
 - メンバー招待フロー (invite token + email + sign-up/login + accept)
 - チーム管理 (create/update/delete team + add/remove members)

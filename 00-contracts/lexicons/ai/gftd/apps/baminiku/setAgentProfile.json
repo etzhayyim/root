@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.baminiku.setAgentProfile",
+  "id": "app.etzhayyim.apps.baminiku.setAgentProfile",
   "defs": {
     "main": {
       "type": "procedure",

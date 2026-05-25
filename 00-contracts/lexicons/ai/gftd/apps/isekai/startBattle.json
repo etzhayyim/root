@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isekai.startBattle",
+  "id": "app.etzhayyim.apps.isekai.startBattle",
   "defs": {
     "main": {
       "type": "procedure",

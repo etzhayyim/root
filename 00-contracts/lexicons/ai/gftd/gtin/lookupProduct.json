@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.gtin.lookupProduct",
+  "id": "app.etzhayyim.gtin.lookupProduct",
   "defs": {
     "main": {
       "type": "procedure",

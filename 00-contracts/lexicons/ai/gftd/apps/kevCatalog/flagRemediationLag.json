@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kevCatalog.flagRemediationLag",
+  "id": "app.etzhayyim.apps.kevCatalog.flagRemediationLag",
   "defs": {
     "main": {
       "type": "procedure",

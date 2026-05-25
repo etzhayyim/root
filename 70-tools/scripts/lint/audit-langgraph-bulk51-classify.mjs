@@ -10,7 +10,7 @@
  *   mcp_tool   — calls a `task_*` from `pymagatama.<X>_worker_main` (already
  *                a thin wrapper, lift directly to the actor's MCP NSID)
  *   sql_udf    — single SELECT / INSERT, candidate for SQL UDF
- *   identity   — constant return, candidate for ai.gftd.tools.const.echo
+ *   identity   — constant return, candidate for app.etzhayyim.tools.const.echo
  *   self_logic — non-trivial inline logic; needs refactor before MCP migration
  *   missing    — function not found in module
  *

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.organizer.analyzeSubscriptions",
+  "id": "app.etzhayyim.apps.organizer.analyzeSubscriptions",
   "defs": {
     "main": {
       "type": "procedure",

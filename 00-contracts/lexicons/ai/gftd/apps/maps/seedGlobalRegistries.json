@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.seedGlobalRegistries",
+  "id": "app.etzhayyim.apps.maps.seedGlobalRegistries",
   "defs": {
     "main": {
       "type": "procedure",

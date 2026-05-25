@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.identity.resolve",
+  "id": "app.etzhayyim.identity.resolve",
   "description": "Resolve identity. Superset of com.atproto.identity.resolveHandle / resolveDid — returns full identityInfo including didDoc.",
   "defs": {
     "main": {

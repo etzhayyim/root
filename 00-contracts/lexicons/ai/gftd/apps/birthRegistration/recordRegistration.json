@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.birthRegistration.recordRegistration",
+  "id": "app.etzhayyim.apps.birthRegistration.recordRegistration",
   "defs": {
     "main": {
       "type": "procedure",

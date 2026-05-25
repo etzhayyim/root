@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.saikin.handoffToKi",
+  "id": "app.etzhayyim.apps.saikin.handoffToKi",
   "defs": {
     "main": {
       "type": "procedure",
@@ -32,7 +32,7 @@
             },
             "kiAbsorbVertexId": {
               "type": "string",
-              "description": "AT URI of the seeded vertex_ki_absorb row (at://{ki_did}/ai.gftd.apps.ki.absorb/{kiAbsorbId})."
+              "description": "AT URI of the seeded vertex_ki_absorb row (at://{ki_did}/app.etzhayyim.apps.ki.absorb/{kiAbsorbId})."
             },
             "error": { "type": "string" }
           },

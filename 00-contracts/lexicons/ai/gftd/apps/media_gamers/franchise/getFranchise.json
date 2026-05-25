@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.media_gamers.franchise.getFranchise",
+  "id": "app.etzhayyim.apps.media_gamers.franchise.getFranchise",
   "defs": {
     "main": {
       "type": "query",

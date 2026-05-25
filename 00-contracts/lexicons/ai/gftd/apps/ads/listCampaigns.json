@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ads.listCampaigns",
+  "id": "app.etzhayyim.apps.ads.listCampaigns",
   "defs": {
     "main": {
       "type": "query",

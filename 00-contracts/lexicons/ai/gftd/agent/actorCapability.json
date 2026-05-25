@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.agent.actorCapability",
+  "id": "app.etzhayyim.agent.actorCapability",
   "defs": {
     "main": {
       "type": "record",

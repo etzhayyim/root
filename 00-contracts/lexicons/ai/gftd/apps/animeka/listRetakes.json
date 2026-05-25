@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.listRetakes",
+  "id": "app.etzhayyim.apps.animeka.listRetakes",
   "defs": {
     "main": {
       "type": "query",

@@ -369,7 +369,7 @@ async def _reconcile_orphan_runs() -> None:
 
 
 app = FastAPI(
-    title="GFTD LangGraph Server",
+    title="etzhayyim LangGraph Server",
     version="2.0.0",
     description="L3 Virtual Actor Runtime — ADR-2605080600",
     lifespan=_lifespan,

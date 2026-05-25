@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.residueMrl.recordMrlMeasurement",
+  "id": "app.etzhayyim.apps.residueMrl.recordMrlMeasurement",
   "defs": {
     "main": {
       "type": "procedure",

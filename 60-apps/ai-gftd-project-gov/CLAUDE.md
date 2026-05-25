@@ -1,12 +1,12 @@
 # ai-gftd-project-gov — 公的サービス Well-Becoming
 
-**gov.gftd.ai** — 医療・保険・福祉・教育の公的サービスを横断的に統合する Well-Becoming ハブ。
+**gov.etzhayyim.com** — 医療・保険・福祉・教育の公的サービスを横断的に統合する Well-Becoming ハブ。
 
 ## Architecture
 
 - **nanoid**: `gv7ps2m1`
 - **performerType**: `service`
-- **DID**: `did:web:gv7ps2m1.gftd.ai` (yata App + Profile 登録済み)
+- **DID**: `did:web:gv7ps2m1.etzhayyim.com` (yata App + Profile 登録済み)
 - **uiType**: `redirect` (zero frontend)
 - **LLM**: Murakumo Opus 4.6 (`claude-opus-4-6`)
 - **Pattern**: Single Worker + multi-DID + W Protocol Event Stream + Social Evolution heartbeat
@@ -15,14 +15,14 @@
 
 | Agent | DID path | 役割 |
 |---|---|---|
-| healthcare | `did:web:gov.gftd.ai:healthcare` | 医療相談・プロバイダマッチング |
-| insurance | `did:web:gov.gftd.ai:insurance` | 公的保険 (国保/社保/後期高齢者) |
-| welfare | `did:web:gov.gftd.ai:welfare` | 社会福祉 (生活保護/障害者支援) |
-| education | `did:web:gov.gftd.ai:education` | 教育・生涯学習・職業訓練 |
-| prevention | `did:web:gov.gftd.ai:prevention` | 予防 (健診/ワクチン) |
-| housing | `did:web:gov.gftd.ai:housing` | 住居支援 |
-| employment | `did:web:gov.gftd.ai:employment` | 雇用・就労支援 |
-| child_family | `did:web:gov.gftd.ai:child_family` | 子育て・児童福祉 |
+| healthcare | `did:web:gov.etzhayyim.com:healthcare` | 医療相談・プロバイダマッチング |
+| insurance | `did:web:gov.etzhayyim.com:insurance` | 公的保険 (国保/社保/後期高齢者) |
+| welfare | `did:web:gov.etzhayyim.com:welfare` | 社会福祉 (生活保護/障害者支援) |
+| education | `did:web:gov.etzhayyim.com:education` | 教育・生涯学習・職業訓練 |
+| prevention | `did:web:gov.etzhayyim.com:prevention` | 予防 (健診/ワクチン) |
+| housing | `did:web:gov.etzhayyim.com:housing` | 住居支援 |
+| employment | `did:web:gov.etzhayyim.com:employment` | 雇用・就労支援 |
+| child_family | `did:web:gov.etzhayyim.com:child_family` | 子育て・児童福祉 |
 
 ## Key Features
 
@@ -34,7 +34,7 @@
 
 ## Lexicon Collections
 
-`ai.gftd.apps.gov.{healthcare_consult,vaccination,education_plan,life_stage_plan,credit_usage}`
+`app.etzhayyim.apps.gov.{healthcare_consult,vaccination,education_plan,life_stage_plan,credit_usage}`
 
 ## WIT
 

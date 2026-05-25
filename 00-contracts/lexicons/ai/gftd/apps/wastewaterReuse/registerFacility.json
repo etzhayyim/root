@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.wastewaterReuse.registerFacility",
+  "id": "app.etzhayyim.apps.wastewaterReuse.registerFacility",
   "defs": {
     "main": {
       "type": "procedure",

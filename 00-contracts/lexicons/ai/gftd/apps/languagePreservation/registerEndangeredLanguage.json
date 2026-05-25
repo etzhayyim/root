@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.languagePreservation.registerEndangeredLanguage",
+  "id": "app.etzhayyim.apps.languagePreservation.registerEndangeredLanguage",
   "defs": {
     "main": {
       "type": "procedure",

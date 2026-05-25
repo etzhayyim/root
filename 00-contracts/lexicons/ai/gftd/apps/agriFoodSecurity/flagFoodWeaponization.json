@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.agriFoodSecurity.flagFoodWeaponization",
+  "id": "app.etzhayyim.apps.agriFoodSecurity.flagFoodWeaponization",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airMro.scheduleMaintenance",
+  "id": "app.etzhayyim.apps.airMro.scheduleMaintenance",
   "defs": {
     "main": {
       "type": "procedure",

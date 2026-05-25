@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.sbom.recall",
+  "id": "app.etzhayyim.sbom.recall",
   "defs": {
     "main": {
       "type": "query",

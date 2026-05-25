@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.arb.detectSpread",
+  "id": "app.etzhayyim.apps.arb.detectSpread",
   "defs": {
     "main": {
       "type": "procedure",

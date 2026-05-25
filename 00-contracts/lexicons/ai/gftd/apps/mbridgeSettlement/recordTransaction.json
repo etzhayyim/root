@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mbridgeSettlement.recordTransaction",
+  "id": "app.etzhayyim.apps.mbridgeSettlement.recordTransaction",
   "defs": {
     "main": {
       "type": "procedure",

@@ -15,7 +15,7 @@ FHIR R5 互換の電子カルテ。Patient / Encounter / SOAP / Observation / Co
 |---|---|
 | RW-free substrate (ADR-2605172000) | ✅ AT MST + IPFS + Base L2 のみ。RisingWave / Postgres 不使用 |
 | 暗号化 envelope (ADR-2605181100) | ✅ 全 PHI は `app.etzhayyim.encrypted.record` envelope。XChaCha20-Poly1305 + Signal key-wrap |
-| Payments on-chain (ADR-2605172100) | ✅ 自費診療は USDC + ERC-4337。保険請求 (社保/国保) は vendor 側 (`iryo.gftd.ai`) progressive enhancement |
+| Payments on-chain (ADR-2605172100) | ✅ 自費診療は USDC + ERC-4337。保険請求 (社保/国保) は vendor 側 (`iryo.etzhayyim.com`) progressive enhancement |
 | Charter Rider v2.0 (ADR-2605192200) | ✅ Apache 2.0 + Rider |
 | 3軸 split (ADR-2605172400) | Liability=etzhayyim (PHI custody は 患者 DID 主体) / Custody=etzhayyim (PDS + IPFS 自己保管) / Settlement=etzhayyim (USDC) → 3軸とも clean → etzhayyim/root |
 
@@ -81,9 +81,9 @@ PHI を露出しない範囲で、検索・タイムライン構築に必要な�
 
 | Collection | NSID | 用途 |
 |---|---|---|
-| terminologyBinding | `ai.gftd.apps.karute.terminologyBinding` | LOINC/ICD-10/SNOMED/RxNorm/JLAC10 binding |
-| coverageSnapshot | `ai.gftd.apps.karute.coverageSnapshot` | 統計 (患者数・受診数・処方数) |
-| referral | `ai.gftd.apps.karute.referral` | 紹介状 metadata (本文は encrypted envelope) |
+| terminologyBinding | `app.etzhayyim.apps.karute.terminologyBinding` | LOINC/ICD-10/SNOMED/RxNorm/JLAC10 binding |
+| coverageSnapshot | `app.etzhayyim.apps.karute.coverageSnapshot` | 統計 (患者数・受診数・処方数) |
+| referral | `app.etzhayyim.apps.karute.referral` | 紹介状 metadata (本文は encrypted envelope) |
 
 ## XRPC API
 
@@ -111,7 +111,7 @@ PHI を露出しない範囲で、検索・タイムライン構築に必要な�
 | `grantConsent` | procedure | consent capability 発行 |
 | `revokeConsent` | procedure | consent capability 取消 |
 | `listConsent` | query | 発行済 capability 一覧 |
-| `requestIryoBilling` | procedure | iryo.gftd.ai (vendor) への保険請求 bridge |
+| `requestIryoBilling` | procedure | iryo.etzhayyim.com (vendor) への保険請求 bridge |
 | `healthKarute` | query | health check |
 
 ## FHIR R5 Mapping Rule
@@ -119,7 +119,7 @@ PHI を露出しない範囲で、検索・タイムライン構築に必要な�
 internal lexicon ↔ FHIR R5 resource は 1:1。Export 時は:
 
 ```
-GET /xrpc/ai.gftd.apps.karute.exportFhirBundle?patientDid=...&recipientDid=...
+GET /xrpc/app.etzhayyim.apps.karute.exportFhirBundle?patientDid=...&recipientDid=...
   ↓ encrypted.read (recipientDid の read-cap 検証)
   ↓ inner records → FHIR R5 Resource transformation
   ↓ wrap in FHIR Bundle (type: collection)
@@ -143,7 +143,7 @@ terminology code system URIs:
 | `trust.etzhayyim.com` | 医療従事者 DID trust score | karute → trust (Invoke) |
 | `credits.etzhayyim.com` | second-opinion compute credit 付与 | karute → credits (Invoke) |
 | `legal-entity.etzhayyim.com` | 医療機関法人確認 | karute → legal-entity (Invoke) |
-| `iryo.gftd.ai` (vendor) | 保険請求 (DPC/DRG) — progressive enhancement | karute → iryo (consent capability) |
+| `iryo.etzhayyim.com` (vendor) | 保険請求 (DPC/DRG) — progressive enhancement | karute → iryo (consent capability) |
 
 ## Clinician Roles
 

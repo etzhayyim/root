@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.requestPickup",
+  "id": "app.etzhayyim.apps.omise.requestPickup",
   "defs": {
     "main": {
       "type": "procedure",

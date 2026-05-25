@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.generateEpisode",
+  "id": "app.etzhayyim.apps.mangaka.generateEpisode",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Generate a 20-page manga episode for a given character. Kicks the BPMN process ai.gftd.apps.bpmn.generateEpisode which orchestrates: LLM script (20 pages × 3-5 panels with dialogue) → ComfyUI panel render (~76 panels) → Pillow speech-balloon overlay → page composition (3-7 panel grids) → multi-record write (1 work + 20 pages) → social post (recordWithMedia + facets) → OCEL audit emit at each phase. Returns the new episode (work) AT URI plus the BPMN process instance key for status tracking.",
+      "description": "Generate a 20-page manga episode for a given character. Kicks the BPMN process app.etzhayyim.apps.bpmn.generateEpisode which orchestrates: LLM script (20 pages × 3-5 panels with dialogue) → ComfyUI panel render (~76 panels) → Pillow speech-balloon overlay → page composition (3-7 panel grids) → multi-record write (1 work + 20 pages) → social post (recordWithMedia + facets) → OCEL audit emit at each phase. Returns the new episode (work) AT URI plus the BPMN process instance key for status tracking.",
       "input": {
         "encoding": "application/json",
         "schema": {
@@ -50,11 +50,11 @@
             "episodeUri": {
               "type": "string",
               "format": "at-uri",
-              "description": "AT URI of the created ai.gftd.apps.mangaka.work record."
+              "description": "AT URI of the created app.etzhayyim.apps.mangaka.work record."
             },
             "processInstanceKey": {
               "type": "string",
-              "description": "LangServer run key — use ai.gftd.apps.mangaka.getProcessTrace to inspect."
+              "description": "LangServer run key — use app.etzhayyim.apps.mangaka.getProcessTrace to inspect."
             },
             "postUri": {
               "type": "string",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pptx.delete",
+  "id": "app.etzhayyim.apps.pptx.delete",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.redseaRerouting.recordCapeDiversion",
+  "id": "app.etzhayyim.apps.redseaRerouting.recordCapeDiversion",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cnStateCouncil.routeRuGazprom",
+  "id": "app.etzhayyim.apps.cnStateCouncil.routeRuGazprom",
   "defs": {
     "main": {
       "type": "procedure",

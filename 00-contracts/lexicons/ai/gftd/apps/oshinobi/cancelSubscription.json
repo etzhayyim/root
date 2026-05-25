@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oshinobi.cancelSubscription",
+  "id": "app.etzhayyim.apps.oshinobi.cancelSubscription",
   "defs": {
     "main": {
       "type": "procedure",

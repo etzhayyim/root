@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.exportFhirBundle",
+  "id": "app.etzhayyim.apps.karute.exportFhirBundle",
   "defs": {
     "main": {
       "type": "query",

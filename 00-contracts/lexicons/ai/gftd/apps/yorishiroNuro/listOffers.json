@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yorishiroNuro.listOffers",
+  "id": "app.etzhayyim.apps.yorishiroNuro.listOffers",
   "defs": {
     "main": {
       "type": "procedure",

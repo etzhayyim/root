@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.playwright.goto",
+  "id": "app.etzhayyim.apps.playwright.goto",
   "defs": {
     "main": {
       "type": "procedure",

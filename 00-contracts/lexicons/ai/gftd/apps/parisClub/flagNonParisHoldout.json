@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.parisClub.flagNonParisHoldout",
+  "id": "app.etzhayyim.apps.parisClub.flagNonParisHoldout",
   "defs": {
     "main": {
       "type": "procedure",

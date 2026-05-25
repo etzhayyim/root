@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.tools.validateCameraPlan",
+  "id": "app.etzhayyim.apps.mangaka.tools.validateCameraPlan",
   "defs": {
     "main": {
       "type": "procedure",

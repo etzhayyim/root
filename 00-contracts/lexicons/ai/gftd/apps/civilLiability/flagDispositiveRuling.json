@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.civilLiability.flagDispositiveRuling",
+  "id": "app.etzhayyim.apps.civilLiability.flagDispositiveRuling",
   "defs": {
     "main": {
       "type": "procedure",

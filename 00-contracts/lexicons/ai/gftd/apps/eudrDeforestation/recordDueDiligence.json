@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.eudrDeforestation.recordDueDiligence",
+  "id": "app.etzhayyim.apps.eudrDeforestation.recordDueDiligence",
   "defs": {
     "main": {
       "type": "procedure",

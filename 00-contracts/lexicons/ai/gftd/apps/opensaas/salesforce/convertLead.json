@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.opensaas.salesforce.convertLead",
+  "id": "app.etzhayyim.apps.opensaas.salesforce.convertLead",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Atomically convert a Lead into (Account, Contact, Opportunity). Replicates Salesforce 'Convert Lead' semantics. Writes all three records in one PDS commit pipeline transaction and updates the original Lead with status=converted plus converted*Did back-references. The PDS derive rule emits a derived ai.gftd.apps.opensaas.salesforce.activity record with kind=conversion.",
+      "description": "Atomically convert a Lead into (Account, Contact, Opportunity). Replicates Salesforce 'Convert Lead' semantics. Writes all three records in one PDS commit pipeline transaction and updates the original Lead with status=converted plus converted*Did back-references. The PDS derive rule emits a derived app.etzhayyim.apps.opensaas.salesforce.activity record with kind=conversion.",
       "input": {
         "encoding": "application/json",
         "schema": {

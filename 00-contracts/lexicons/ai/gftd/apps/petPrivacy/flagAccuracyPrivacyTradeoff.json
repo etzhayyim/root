@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.petPrivacy.flagAccuracyPrivacyTradeoff",
+  "id": "app.etzhayyim.apps.petPrivacy.flagAccuracyPrivacyTradeoff",
   "defs": {
     "main": {
       "type": "procedure",

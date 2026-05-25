@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cryptoDerivatives.registerVenue",
+  "id": "app.etzhayyim.apps.cryptoDerivatives.registerVenue",
   "defs": {
     "main": {
       "type": "procedure",

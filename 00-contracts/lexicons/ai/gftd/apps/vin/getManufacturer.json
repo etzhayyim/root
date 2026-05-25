@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vin.getManufacturer",
+  "id": "app.etzhayyim.apps.vin.getManufacturer",
   "defs": {
     "main": {
       "type": "query",

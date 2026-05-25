@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.charter-rehabilitation",
+  "id": "app.etzhayyim.apps.etzhayyim.charter-rehabilitation",
   "defs": {
     "main": {
       "type": "record",

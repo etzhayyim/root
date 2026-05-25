@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.otakiage.listItems",
+  "id": "app.etzhayyim.otakiage.listItems",
   "defs": {
     "main": {
       "type": "query",

@@ -6,7 +6,7 @@
  * AuthN (passkey/session issuance/DID): → authn.etzhayyim.com (AUTHN_SERVICE binding).
  *
  * Routes: authz.etzhayyim.com/*, accounts.etzhayyim.com/* (absorbed, 301 not needed — same Worker)
- * XRPC NSIDs: ai.gftd.authz.*
+ * XRPC NSIDs: app.etzhayyim.authz.*
  */
 
 import { Hono } from "hono";
@@ -61,19 +61,19 @@ interface Env {
   // the proxy. SIWE link continues to work without any of these — the
   // smart-account `getActorAccount` path skips gracefully if RPC is empty.
   ETH_PRIVATE_RPC_URL?: string;
-  GFTD_ACTOR_REGISTRY_ADDR?: string;
-  GFTD_CSW_FACTORY_ADDR?: string;
-  GFTD_CREDIT_ADDR?: string;
-  GFTD_DEPLOY_REGISTRY_ADDR?: string;
-  GFTD_ROOT_IDENTITY_REGISTRY_ADDR?: string;
-  GFTD_MURAKUMO_REGISTRY_ADDR?: string;
-  GFTD_MURAKUMO_ESCROW_ADDR?: string;
+  etzhayyim_ACTOR_REGISTRY_ADDR?: string;
+  etzhayyim_CSW_FACTORY_ADDR?: string;
+  etzhayyim_CREDIT_ADDR?: string;
+  etzhayyim_DEPLOY_REGISTRY_ADDR?: string;
+  etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR?: string;
+  etzhayyim_MURAKUMO_REGISTRY_ADDR?: string;
+  etzhayyim_MURAKUMO_ESCROW_ADDR?: string;
   // ADR-2604261717 Phase 1 — claim-level stake escrow on the same private chain.
   // Set after `forge script script/DeployClaimStake.s.sol --broadcast`.
-  GFTD_CLAIM_STAKE_ESCROW_ADDR?: string;
+  etzhayyim_CLAIM_STAKE_ESCROW_ADDR?: string;
   SS_RPC_HMAC?: { get(): Promise<string> } | string;
   // ADR-0074 Phase 2-A.5 — sealer private key for activateActorAccount
-  // (sealer-sponsored tx that calls GftdActorRegistry.activate). Provisioned
+  // (sealer-sponsored tx that calls etzhayyimActorRegistry.activate). Provisioned
   // via `wrangler secret put SEALER_PRIV` from the worker-authz/ dir; the
   // canonical local backup is the macOS Keychain entry
   // `gftd.private-chain / SEALER_PRIV`. Holding this secret = holding the
@@ -88,7 +88,7 @@ interface Env {
   CLAIM_SETTLER_HMAC?: string;
   // ADR-2604261717 Phase 2-B — RegoArbiter address for the on-chain
   // decision-registry adapter. Already-deployed `0x53E29CA1...`.
-  GFTD_REGO_ARBITER_ADDR?: string;
+  etzhayyim_REGO_ARBITER_ADDR?: string;
   // ADR-2604261717 Phase 2-B rebuttal pipe — service binding to
   // claim-consumer's `/rebuttal-ingest` route. Persists the off-chain
   // rebuttal text to `vertex_claim_challenge.rebuttal` so judgeTick can
@@ -641,7 +641,7 @@ async function syncAuthMethodToGraph(env: Env, accountDid: string, provider: str
     // is intentionally zero-npm and has no HYPERDRIVE binding. The call is
     // non-fatal (see .catch below) so sync failures never block auth.
     const now = nowIso();
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/ai.gftd.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify({
@@ -803,8 +803,8 @@ async function handleLinkEmailBegin(request: Request, env: Env): Promise<Respons
       INSERT OR REPLACE INTO email_link_codes (account_did, email, code, expires_at, created_at)
       VALUES (?, ?, ?, ?, ?)
     `).bind(storageDid, email, code, expiresAt, nowIso()).run();
-    const subject = "GFTD — Email verification code";
-    const text = `Your GFTD email verification code is: ${code}\n\nThis code expires in 10 minutes. If you didn't request it, you can ignore this message.`;
+    const subject = "etzhayyim — Email verification code";
+    const text = `Your etzhayyim email verification code is: ${code}\n\nThis code expires in 10 minutes. If you didn't request it, you can ignore this message.`;
     const delivery = await sendEmail(env, email, subject, text);
     if (!isProduction(env)) {
       console.log(`[authz] EMAIL LINK CODE ${storageDid} ${email} -> ${code} (delivery.sent=${delivery.sent})`);
@@ -1095,7 +1095,7 @@ async function handleLinkEthereumVerify(request: Request, env: Env): Promise<Res
     // root identity, persist it as a second ethereum-actor linked method so
     // callers get the full picture without a separate getActorAccount call.
     let smartAccount: string | null = null;
-    if ((env.ETH_PRIVATE_RPC_URL || "").trim() && (env.GFTD_ACTOR_REGISTRY_ADDR || "").trim()) {
+    if ((env.ETH_PRIVATE_RPC_URL || "").trim() && (env.etzhayyim_ACTOR_REGISTRY_ADDR || "").trim()) {
       try {
         const snap = await snapshotActorAccount(env, session.accountDid);
         if (snap.activated && snap.smartAccount) {
@@ -1277,8 +1277,8 @@ async function handleGetActorAccount(request: Request, env: Env): Promise<Respon
   if (!(env.ETH_PRIVATE_RPC_URL || "").trim()) {
     return jsonErr(503, "ConfigError", "ETH_PRIVATE_RPC_URL is not configured");
   }
-  if (!(env.GFTD_ACTOR_REGISTRY_ADDR || "").trim()) {
-    return jsonErr(503, "ConfigError", "GFTD_ACTOR_REGISTRY_ADDR is not configured");
+  if (!(env.etzhayyim_ACTOR_REGISTRY_ADDR || "").trim()) {
+    return jsonErr(503, "ConfigError", "etzhayyim_ACTOR_REGISTRY_ADDR is not configured");
   }
   let session: SessionAccount;
   try { session = await requireSessionAccount(request, env); }
@@ -1300,10 +1300,10 @@ async function handleGetActorAccount(request: Request, env: Env): Promise<Respon
 const _ACTOR_BY_DID_SEL = selector("actorByDid(bytes32)");
 
 /**
- * GET /xrpc/ai.gftd.authz.getActorTokenBalance?did={did}
+ * GET /xrpc/app.etzhayyim.authz.getActorTokenBalance?did={did}
  *
  * Public endpoint — no session required. Looks up the caller's (or any DID's)
- * smart-account address on-chain via GftdActorRegistry, then reads the GCC
+ * smart-account address on-chain via etzhayyimActorRegistry, then reads the GCC
  * (GCCStablecoin) balance. Returns wei as a decimal string.
  */
 async function handleGetActorTokenBalance(request: Request, env: Env): Promise<Response> {
@@ -1311,8 +1311,8 @@ async function handleGetActorTokenBalance(request: Request, env: Env): Promise<R
   const did = (url.searchParams.get("did") || "").trim();
   if (!did) return jsonErr(400, "InvalidRequest", "did query parameter is required");
 
-  const registryAddr = (env.GFTD_ACTOR_REGISTRY_ADDR || "").trim();
-  const gccAddr = (env.GFTD_CREDIT_ADDR || "").trim();
+  const registryAddr = (env.etzhayyim_ACTOR_REGISTRY_ADDR || "").trim();
+  const gccAddr = (env.etzhayyim_CREDIT_ADDR || "").trim();
   if (!registryAddr || !gccAddr) return jsonErr(503, "ConfigError", "chain config missing");
   if (!(env.ETH_PRIVATE_RPC_URL || "").trim()) return jsonErr(503, "ConfigError", "ETH_PRIVATE_RPC_URL not configured");
 
@@ -1340,8 +1340,8 @@ async function handleActivateActorAccount(request: Request, env: Env): Promise<R
   if (!(env.ETH_PRIVATE_RPC_URL || "").trim()) {
     return jsonErr(503, "ConfigError", "ETH_PRIVATE_RPC_URL is not configured");
   }
-  if (!(env.GFTD_ACTOR_REGISTRY_ADDR || "").trim()) {
-    return jsonErr(503, "ConfigError", "GFTD_ACTOR_REGISTRY_ADDR is not configured");
+  if (!(env.etzhayyim_ACTOR_REGISTRY_ADDR || "").trim()) {
+    return jsonErr(503, "ConfigError", "etzhayyim_ACTOR_REGISTRY_ADDR is not configured");
   }
   if (!(env.SEALER_PRIV || "").trim()) {
     return jsonErr(503, "ConfigError", "SEALER_PRIV is not configured");
@@ -1363,7 +1363,7 @@ async function handleActivateActorAccount(request: Request, env: Env): Promise<R
 }
 
 /**
- * POST /xrpc/ai.gftd.authz.switchActiveDid
+ * POST /xrpc/app.etzhayyim.authz.switchActiveDid
  * Body: { activeDid }
  * Proxies to authn (AUTHN_SERVICE) which re-issues the session JWT with the
  * new activeDid. Set-Cookie header is forwarded back so the browser picks up
@@ -1376,7 +1376,7 @@ async function handleSwitchActiveDidProxy(request: Request, env: Env): Promise<R
   catch (error) { return jsonErr(401, "AuthRequired", error instanceof Error ? error.message : "auth required"); }
 
   const bodyText = await request.text();
-  const upstream = await env.AUTHN_SERVICE.fetch("https://authn.etzhayyim.com/xrpc/ai.gftd.auth.switchActiveDid", {
+  const upstream = await env.AUTHN_SERVICE.fetch("https://authn.etzhayyim.com/xrpc/app.etzhayyim.auth.switchActiveDid", {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -1457,7 +1457,7 @@ function rootRequiredResponse(error: unknown): Response | null {
 }
 
 /**
- * POST /xrpc/ai.gftd.authz.orgCreate
+ * POST /xrpc/app.etzhayyim.authz.orgCreate
  * Body: { name, domain?, orgType? }
  * Creates (or upgrades) the caller's account DID as an org.
  * Account = Actor = Org (CLAUDE.md §CRITICAL). Personal accounts are already orgs.
@@ -1508,7 +1508,7 @@ async function handleOrgCreate(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * GET /xrpc/ai.gftd.authz.orgInfo?orgDid=...
+ * GET /xrpc/app.etzhayyim.authz.orgInfo?orgDid=...
  */
 async function handleOrgInfo(request: Request, env: Env): Promise<Response> {
   if (!env.AUTH_DB) return jsonErr(503, "ConfigError", "AUTH_DB required");
@@ -1543,7 +1543,7 @@ async function handleOrgInfo(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * GET /xrpc/ai.gftd.authz.orgMembers?orgDid=&offset=&limit=
+ * GET /xrpc/app.etzhayyim.authz.orgMembers?orgDid=&offset=&limit=
  */
 async function handleOrgMembers(request: Request, env: Env): Promise<Response> {
   if (!env.AUTH_DB) return jsonErr(503, "ConfigError", "AUTH_DB required");
@@ -1586,7 +1586,7 @@ async function handleOrgMembers(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * POST /xrpc/ai.gftd.authz.orgInvite
+ * POST /xrpc/app.etzhayyim.authz.orgInvite
  * Body: { orgDid, email, role? }
  * Sends an invite (HMAC token). Must be org owner or admin.
  */
@@ -1626,8 +1626,8 @@ async function handleOrgInvite(request: Request, env: Env): Promise<Response> {
 
     // Prefer the short /invite/<token> public route — it survives sign-in.
     const acceptUrl = `https://accounts.etzhayyim.com/invite/${encodeURIComponent(token)}`;
-    const subject = `GFTD — invited to ${orgDid}`;
-    const text = `You have been invited to join ${orgDid} on GFTD as ${role}.\n\nAccept the invitation: ${acceptUrl}\n\nThis link expires in 7 days.`;
+    const subject = `etzhayyim — invited to ${orgDid}`;
+    const text = `You have been invited to join ${orgDid} on etzhayyim as ${role}.\n\nAccept the invitation: ${acceptUrl}\n\nThis link expires in 7 days.`;
     const delivery = await sendEmail(env, email, subject, text);
     if (!isProduction(env)) {
       console.log(`[authz] ORG INVITE ${orgDid} → ${email} (role=${role}) token=${token.slice(0, 20)}... (delivery.sent=${delivery.sent})`);
@@ -1644,7 +1644,7 @@ async function handleOrgInvite(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * POST /xrpc/ai.gftd.authz.orgInviteAccept
+ * POST /xrpc/app.etzhayyim.authz.orgInviteAccept
  * Body: { token }
  * Accepts an org invite. Caller's DID becomes a member.
  */
@@ -1694,7 +1694,7 @@ async function handleOrgInviteAccept(request: Request, env: Env): Promise<Respon
 }
 
 /**
- * POST /xrpc/ai.gftd.authz.orgMemberRemove
+ * POST /xrpc/app.etzhayyim.authz.orgMemberRemove
  * Body: { orgDid, memberDid }
  * Owner/admin removes a member. Cannot remove the owner.
  */
@@ -1735,7 +1735,7 @@ async function handleOrgMemberRemove(request: Request, env: Env): Promise<Respon
 }
 
 /**
- * POST /xrpc/ai.gftd.authz.orgMemberRoleUpdate
+ * POST /xrpc/app.etzhayyim.authz.orgMemberRoleUpdate
  * Body: { orgDid?, memberDid, role }  role ∈ {member, admin}
  * Owner/admin updates a non-owner member's role. Owners cannot be demoted here
  * (use orgTransferOwnership instead).
@@ -1784,7 +1784,7 @@ async function handleOrgMemberRoleUpdate(request: Request, env: Env): Promise<Re
 }
 
 /**
- * POST /xrpc/ai.gftd.authz.orgTransferOwnership
+ * POST /xrpc/app.etzhayyim.authz.orgTransferOwnership
  * Body: { orgDid?, newOwnerDid }
  * Current owner transfers ownership to another active member. The old owner
  * becomes 'admin'. New owner inherits 'owner'. vertex_gftd_auth_org.owner_did
@@ -1837,7 +1837,7 @@ async function handleOrgTransferOwnership(request: Request, env: Env): Promise<R
 }
 
 /**
- * POST /xrpc/ai.gftd.authz.orgLeave
+ * POST /xrpc/app.etzhayyim.authz.orgLeave
  * Body: { orgDid }
  */
 async function handleOrgLeave(request: Request, env: Env): Promise<Response> {
@@ -1870,7 +1870,7 @@ async function handleOrgLeave(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * GET /xrpc/ai.gftd.authz.orgList?offset=&limit=
+ * GET /xrpc/app.etzhayyim.authz.orgList?offset=&limit=
  * Returns orgs the caller belongs to.
  */
 async function handleOrgList(request: Request, env: Env): Promise<Response> {
@@ -1909,7 +1909,7 @@ async function handleOrgList(request: Request, env: Env): Promise<Response> {
 }
 
 /**
- * POST /xrpc/ai.gftd.authz.orgUpdate
+ * POST /xrpc/app.etzhayyim.authz.orgUpdate
  * Body: { orgDid?, name?, domain?, orgType? }
  * Owner/admin updates org metadata. Only provided fields are changed.
  */
@@ -1977,8 +1977,8 @@ function ensureClaimStakeConfig(env: Env): Response | null {
   if (!(env.ETH_PRIVATE_RPC_URL || "").trim()) {
     return jsonErr(503, "ConfigError", "ETH_PRIVATE_RPC_URL is not configured");
   }
-  if (!(env.GFTD_CLAIM_STAKE_ESCROW_ADDR || "").trim()) {
-    return jsonErr(503, "ConfigError", "GFTD_CLAIM_STAKE_ESCROW_ADDR is not configured (deploy ClaimStakeEscrow + set the env var)");
+  if (!(env.etzhayyim_CLAIM_STAKE_ESCROW_ADDR || "").trim()) {
+    return jsonErr(503, "ConfigError", "etzhayyim_CLAIM_STAKE_ESCROW_ADDR is not configured (deploy ClaimStakeEscrow + set the env var)");
   }
   return null;
 }
@@ -2038,7 +2038,7 @@ async function handlePostStakedAttestation(request: Request, env: Env): Promise<
       claimId: prepared.claimId,
       txHash: result.txHash,
       didHash: prepared.didHash,
-      escrowAddr: env.GFTD_CLAIM_STAKE_ESCROW_ADDR,
+      escrowAddr: env.etzhayyim_CLAIM_STAKE_ESCROW_ADDR,
       chainId: Number((env.ETH_PRIVATE_CHAIN_ID || "0").trim()) || 0,
       challengePeriodSec: Number(prepared.challengePeriodSec),
       receiptStatus: result.receiptStatus ?? null,
@@ -2291,7 +2291,7 @@ async function hmacSha256Hex(key: string, body: ArrayBuffer | Uint8Array): Promi
 }
 
 async function handleRecordRegoDecision(request: Request, env: Env): Promise<Response> {
-  if (!(env.GFTD_REGO_ARBITER_ADDR || "").trim()) return jsonErr(503, "ConfigError", "GFTD_REGO_ARBITER_ADDR is not configured");
+  if (!(env.etzhayyim_REGO_ARBITER_ADDR || "").trim()) return jsonErr(503, "ConfigError", "etzhayyim_REGO_ARBITER_ADDR is not configured");
   if (!(env.SEALER_PRIV || "").trim()) return jsonErr(503, "ConfigError", "SEALER_PRIV is not configured");
   const hmacKey = (env.CLAIM_SETTLER_HMAC || "").trim();
   if (!hmacKey) return jsonErr(503, "ConfigError", "CLAIM_SETTLER_HMAC is not configured");
@@ -2339,8 +2339,8 @@ async function handleRecordRegoDecision(request: Request, env: Env): Promise<Res
 }
 
 async function handleProvisionRootIdentity(request: Request, env: Env): Promise<Response> {
-  if (!(env.GFTD_ROOT_IDENTITY_REGISTRY_ADDR || "").trim()) {
-    return jsonErr(503, "ConfigError", "GFTD_ROOT_IDENTITY_REGISTRY_ADDR is not configured");
+  if (!(env.etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR || "").trim()) {
+    return jsonErr(503, "ConfigError", "etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR is not configured");
   }
   if (!(env.SEALER_PRIV || "").trim()) return jsonErr(503, "ConfigError", "SEALER_PRIV is not configured");
   const hmacKey = (env.CLAIM_SETTLER_HMAC || "").trim();
@@ -2411,7 +2411,7 @@ async function handleAutoSettleClaim(request: Request, env: Env): Promise<Respon
   // before submitting the escrow settle. Best-effort — a chain hiccup here
   // should not block the actual settlement.
   let regoRecord: { txHash: string; receiptStatus: string | null } | null = null;
-  if ((env.GFTD_REGO_ARBITER_ADDR || "").trim()) {
+  if ((env.etzhayyim_REGO_ARBITER_ADDR || "").trim()) {
     // evidenceCid must be bytes32. Use caller-supplied CID or derive a
     // synthetic one from keccak256(claimId ‖ outcome) so it's deterministic.
     const evidenceCid = body.evidenceCid && body.evidenceCid.startsWith("0x") && body.evidenceCid.length === 66
@@ -2442,7 +2442,7 @@ async function handleAutoChallengeClaim(request: Request, env: Env): Promise<Res
   const cfg = ensureClaimStakeConfig(env);
   if (cfg) return cfg;
   if (!(env.SEALER_PRIV || "").trim()) return jsonErr(503, "ConfigError", "SEALER_PRIV is not configured");
-  if (!(env.GFTD_CREDIT_ADDR || "").trim()) return jsonErr(503, "ConfigError", "GFTD_CREDIT_ADDR is not configured");
+  if (!(env.etzhayyim_CREDIT_ADDR || "").trim()) return jsonErr(503, "ConfigError", "etzhayyim_CREDIT_ADDR is not configured");
   const hmacKey = (env.CLAIM_SETTLER_HMAC || "").trim();
   if (!hmacKey) return jsonErr(503, "ConfigError", "CLAIM_SETTLER_HMAC is not configured");
 
@@ -2617,33 +2617,33 @@ app.get("/invite/:token", (c) => {
   return Response.redirect(`https://${url.hostname}/manage?invite=${encodeURIComponent(token)}`, 302);
 });
 
-// XRPC — authz endpoints (ai.gftd.authz.*)
-app.get("/xrpc/ai.gftd.authz.getSession", (c) => handleGetSession(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.linkEmailBegin", (c) => handleLinkEmailBegin(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.linkEmailVerify", (c) => handleLinkEmailVerify(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.linkOAuthStart", (c) => handleLinkOAuthStart(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.unlinkMethod", (c) => handleUnlinkMethod(c.req.raw, c.env));
+// XRPC — authz endpoints (app.etzhayyim.authz.*)
+app.get("/xrpc/app.etzhayyim.authz.getSession", (c) => handleGetSession(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.linkEmailBegin", (c) => handleLinkEmailBegin(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.linkEmailVerify", (c) => handleLinkEmailVerify(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.linkOAuthStart", (c) => handleLinkOAuthStart(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.unlinkMethod", (c) => handleUnlinkMethod(c.req.raw, c.env));
 // ADR-0074 Phase 2-B — read smart-account address for the signed-in actor.
-app.get("/xrpc/ai.gftd.authz.getActorAccount", (c) => handleGetActorAccount(c.req.raw, c.env));
+app.get("/xrpc/app.etzhayyim.authz.getActorAccount", (c) => handleGetActorAccount(c.req.raw, c.env));
 // Public GCC balance lookup by DID (no auth required).
-app.get("/xrpc/ai.gftd.authz.getActorTokenBalance", (c) => handleGetActorTokenBalance(c.req.raw, c.env));
+app.get("/xrpc/app.etzhayyim.authz.getActorTokenBalance", (c) => handleGetActorTokenBalance(c.req.raw, c.env));
 // ADR-0074 Phase 2-B.2 — activate (deploy proxy) the caller's smart account.
-app.post("/xrpc/ai.gftd.authz.activateActorAccount", (c) => handleActivateActorAccount(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.activateActorAccount", (c) => handleActivateActorAccount(c.req.raw, c.env));
 // ADR-0074 Phase 1 — Ethereum (private chain) link as authenticated linked method.
-app.post("/xrpc/ai.gftd.authz.linkEthereumBegin", (c) => handleLinkEthereumBegin(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.linkEthereumVerify", (c) => handleLinkEthereumVerify(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.linkEthereumBegin", (c) => handleLinkEthereumBegin(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.linkEthereumVerify", (c) => handleLinkEthereumVerify(c.req.raw, c.env));
 // Multi-device WebAuthn — adds another passkey to the same account.
-app.post("/xrpc/ai.gftd.authz.linkPasskeyAdditionalBegin", (c) => handleLinkPasskeyAdditionalBegin(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.linkPasskeyAdditionalVerify", (c) => handleLinkPasskeyAdditionalVerify(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.switchActiveDid", (c) => handleSwitchActiveDidProxy(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.linkPasskeyAdditionalBegin", (c) => handleLinkPasskeyAdditionalBegin(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.linkPasskeyAdditionalVerify", (c) => handleLinkPasskeyAdditionalVerify(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.switchActiveDid", (c) => handleSwitchActiveDidProxy(c.req.raw, c.env));
 
 // ADR-2604261717 Phase 1 — staked claim attestation
-app.post("/xrpc/ai.gftd.claim.postStakedAttestation",         (c) => handlePostStakedAttestation(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.claim.challengeStakedAttestation",    (c) => handleChallengeStakedAttestation(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.claim.settleStakedAttestation",       (c) => handleSettleStakedAttestation(c.req.raw, c.env));
-app.get("/xrpc/ai.gftd.claim.getStakedAttestation",           (c) => handleGetStakedAttestation(c.req.raw, c.env));
-app.get("/xrpc/ai.gftd.claim.listStakedAttestations",         (c) => handleListStakedAttestations(c.req.raw, c.env));
-app.get("/xrpc/ai.gftd.claim.lookupStakedAttestations",       (c) => handleLookupStakedAttestations(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.claim.postStakedAttestation",         (c) => handlePostStakedAttestation(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.claim.challengeStakedAttestation",    (c) => handleChallengeStakedAttestation(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.claim.settleStakedAttestation",       (c) => handleSettleStakedAttestation(c.req.raw, c.env));
+app.get("/xrpc/app.etzhayyim.claim.getStakedAttestation",           (c) => handleGetStakedAttestation(c.req.raw, c.env));
+app.get("/xrpc/app.etzhayyim.claim.listStakedAttestations",         (c) => handleListStakedAttestations(c.req.raw, c.env));
+app.get("/xrpc/app.etzhayyim.claim.lookupStakedAttestations",       (c) => handleLookupStakedAttestations(c.req.raw, c.env));
 // ADR-2604261717 yabai auto-challenger — internal-only, HMAC-gated.
 // Called by `claim-consumer.challengerTick` after Murakumo classifies a
 // pending claim as fraud-likely. NOT under /xrpc to make the
@@ -2656,18 +2656,18 @@ app.post("/internal/claim-unchallenged-sweep",             (c) => handleClaimUnc
 // an ERC725 root identity contract on chain 260425. HMAC-gated.
 app.post("/internal/provision-root-identity",              (c) => handleProvisionRootIdentity(c.req.raw, c.env));
 
-// Org management (ai.gftd.authz.org*)
-app.post("/xrpc/ai.gftd.authz.orgCreate", (c) => handleOrgCreate(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.orgUpdate", (c) => handleOrgUpdate(c.req.raw, c.env));
-app.get("/xrpc/ai.gftd.authz.orgInfo", (c) => handleOrgInfo(c.req.raw, c.env));
-app.get("/xrpc/ai.gftd.authz.orgMembers", (c) => handleOrgMembers(c.req.raw, c.env));
-app.get("/xrpc/ai.gftd.authz.orgList", (c) => handleOrgList(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.orgInvite", (c) => handleOrgInvite(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.orgInviteAccept", (c) => handleOrgInviteAccept(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.orgMemberRemove", (c) => handleOrgMemberRemove(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.orgMemberRoleUpdate", (c) => handleOrgMemberRoleUpdate(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.orgTransferOwnership", (c) => handleOrgTransferOwnership(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.authz.orgLeave", (c) => handleOrgLeave(c.req.raw, c.env));
+// Org management (app.etzhayyim.authz.org*)
+app.post("/xrpc/app.etzhayyim.authz.orgCreate", (c) => handleOrgCreate(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.orgUpdate", (c) => handleOrgUpdate(c.req.raw, c.env));
+app.get("/xrpc/app.etzhayyim.authz.orgInfo", (c) => handleOrgInfo(c.req.raw, c.env));
+app.get("/xrpc/app.etzhayyim.authz.orgMembers", (c) => handleOrgMembers(c.req.raw, c.env));
+app.get("/xrpc/app.etzhayyim.authz.orgList", (c) => handleOrgList(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.orgInvite", (c) => handleOrgInvite(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.orgInviteAccept", (c) => handleOrgInviteAccept(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.orgMemberRemove", (c) => handleOrgMemberRemove(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.orgMemberRoleUpdate", (c) => handleOrgMemberRoleUpdate(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.orgTransferOwnership", (c) => handleOrgTransferOwnership(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.authz.orgLeave", (c) => handleOrgLeave(c.req.raw, c.env));
 
 // OAuth link callbacks.
 app.get("/oauth/link/google/callback", (c) => handleOAuthLinkCallback(c.req.raw, c.env, "google"));

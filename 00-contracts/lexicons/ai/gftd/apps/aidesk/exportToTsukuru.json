@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aidesk.exportToTsukuru",
+  "id": "app.etzhayyim.apps.aidesk.exportToTsukuru",
   "defs": {
     "main": {
       "type": "procedure",

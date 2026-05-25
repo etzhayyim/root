@@ -22,7 +22,7 @@ superseded_by: []
 
 # Context
 
-GFTD は CID 中心 (DAG-CBOR + multihash) の design で、ADR-0029 (`did:gftd`),
+etzhayyim は CID 中心 (DAG-CBOR + multihash) の design で、ADR-0029 (`did:gftd`),
 ADR-2604251400 (PDS `uploadBlob` SHA-256 content-addressed → B2),
 ADR-2604261717 (`atRecordCid` field on `stakedAttestation`) のいずれも
 "content-addressed object" を前提とする。これらの blob は現在 **B2 直書き
@@ -138,7 +138,7 @@ identity (peer-id) via PVC; block data is untouched on B2.
 | `/ipns/{name}/...` | GET, HEAD | none | DNSLink / publish-key resolved by Kubo |
 | `/api/v0/{cat,get,resolve,refs/local}` | POST | none | Pure read |
 | `/api/v0/{dag/get,block/get,object/get}` | POST | none | Pure read of any present block |
-| `/api/v0/{add,block/put,dag/put}` | POST | HMAC `X-Gftd-Ipfs-Auth` | Adds blocks to local store + B2 |
+| `/api/v0/{add,block/put,dag/put}` | POST | HMAC `X-etzhayyim-Ipfs-Auth` | Adds blocks to local store + B2 |
 | `/api/v0/pin/add`, `/api/v0/pin/rm` | POST | HMAC | Retention bytes — never expose to anon |
 | `/api/v0/{key,config,repo/gc,bootstrap}/...` | POST | HMAC | Admin |
 | `/api/v0/swarm/peers` | POST | HMAC | Operational |
@@ -152,7 +152,7 @@ Mirror of `ai-gftd-geth-rpc-proxy` (ADR-0074 Phase 2-A).
 | Source | Pin? | TTL |
 |---|---|---|
 | `com.atproto.repo.uploadBlob` (PDS) | **yes** | until repo deletion |
-| `ai.gftd.claim.stakedAttestation.atRecordCid` | **yes** | forever |
+| `app.etzhayyim.claim.stakedAttestation.atRecordCid` | **yes** | forever |
 | `did:gftd` genesis-op DAG-CBOR | **yes** | forever (sovereignty) |
 | User-pin via `/api/v0/pin/add` (HMAC-gated) | yes | until unpin |
 | Anonymous `/ipfs/{cid}` fetch (cache miss → DHT pull) | **no** | until next GC |
@@ -185,7 +185,7 @@ XRPC 経路は新規追加せず、Kubo HTTP API を直接プロキシする。�
 - IPFS gateway が `/ipfs/{cid}` で取れるのは IPFS 標準 contract で、独自 NSID で wrap すると η を下げる (ADR-0005 Shannon redundancy)
 - 内部 caller (PDS, claim-consumer) は CF Worker service binding 経由で `/api/v0/add` `/api/v0/pin/add` を叩く
 
-将来 `ai.gftd.ipfs.pin` lexicon を追加するのは、permission gate / org 単位の quota が必要になった時のみ。
+将来 `app.etzhayyim.ipfs.pin` lexicon を追加するのは、permission gate / org 単位の quota が必要になった時のみ。
 
 # Consequences
 
@@ -254,7 +254,7 @@ XRPC 経路は新規追加せず、Kubo HTTP API を直接プロキシする。�
 ## Alt 2: Pinata / web3.storage / Storj
 
 - **Pro**: Zero ops、即時 production
-- **Con**: monthly cost が GFTD content 量で 5-10x、sovereignty 喪失、API key revocation 依存
+- **Con**: monthly cost が etzhayyim content 量で 5-10x、sovereignty 喪失、API key revocation 依存
 - **Reject**: ADR-0048 / ADR-0014 の自前主義に反する
 
 ## Alt 3: Filecoin Saturn (decentralized CDN)

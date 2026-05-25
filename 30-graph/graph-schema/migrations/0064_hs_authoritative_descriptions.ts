@@ -8,7 +8,7 @@ import { Kysely, sql } from 'kysely';
  * placeholder names of the form `"HS 2017 subheading 010121"`.
  *
  * This migration replaces the `vertex_repo_record` rows for
- * `collection='ai.gftd.apps.hs.commodity'` with entries sourced from
+ * `collection='app.etzhayyim.apps.hs.commodity'` with entries sourced from
  * UN Comtrade's H5 classification reference (6,708 rows: 97 chapters,
  * 1,223 headings, 5,388 subheadings), each carrying the official WCO
  * description in `value_json.name`.
@@ -25,7 +25,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ingestion time from the Comtrade JSON.
   await sql`
     DELETE FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity'
+    WHERE collection = 'app.etzhayyim.apps.hs.commodity'
   `.execute(db);
 
   await sql`UPDATE dim_world_domain SET world_total = 6708 WHERE domain = 'hs'`.execute(db);

@@ -90,7 +90,7 @@ def proxy_fetch_hash(url: str, timeout: int = 20) -> tuple[str, str]:
         headers={
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
             "User-Agent": "gftd-gov-coverage/1.0",
-            "X-Gftd-Gov-Fetch-Auth": sig,
+            "X-etzhayyim-Gov-Fetch-Auth": sig,
         },
         method="GET",
     )
@@ -120,7 +120,7 @@ def proxy_fetch_hash_status(url: str, timeout: int = 20) -> tuple[str, str, str,
         headers={
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
             "User-Agent": "gftd-gov-coverage/1.0",
-            "X-Gftd-Gov-Fetch-Auth": sig,
+            "X-etzhayyim-Gov-Fetch-Auth": sig,
         },
         method="GET",
     )

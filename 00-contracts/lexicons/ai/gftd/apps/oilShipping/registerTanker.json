@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oilShipping.registerTanker",
+  "id": "app.etzhayyim.apps.oilShipping.registerTanker",
   "defs": {
     "main": {
       "type": "procedure",

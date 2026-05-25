@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.applyA1Policy",
+  "id": "app.etzhayyim.apps.telecom.applyA1Policy",
   "defs": {
     "main": {
       "type": "procedure",

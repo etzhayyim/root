@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.agent.buildDispatchReceiptObservation",
+  "id": "app.etzhayyim.apps.agent.buildDispatchReceiptObservation",
   "defs": {
     "main": {
       "type": "procedure",

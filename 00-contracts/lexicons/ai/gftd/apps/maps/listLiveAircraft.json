@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listLiveAircraft",
+  "id": "app.etzhayyim.apps.maps.listLiveAircraft",
   "defs": {
     "main": {
       "type": "query",

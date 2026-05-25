@@ -173,7 +173,7 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 
 ```
 1. SP 申請 → HC `create_sp_application` (基本情報 + 書類)
-   → ai.gftd.apps.hc.sp_application record 作成
+   → app.etzhayyim.apps.hc.sp_application record 作成
    → KYC/KYB verification task 自動生成 (kyc49bb7)
 
 2. KYC/KYB 検証 → HC worker が書類確認タスクを実行
@@ -208,10 +208,10 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 
 | Kind | AT Lexicon NSID | 用途 |
 |---|---|---|
-| `hc_sp_application` | `ai.gftd.apps.hc.sp_application` | SP 登録申請 |
-| `hc_sp_verification` | `ai.gftd.apps.hc.sp_verification` | KYC/KYB 検証結果 |
-| `hc_sp_audit` | `ai.gftd.apps.hc.sp_audit` | 工場監査結果 |
-| `hc_sp_registration` | `ai.gftd.apps.hc.sp_registration` | tsukuru 登録完了 |
+| `hc_sp_application` | `app.etzhayyim.apps.hc.sp_application` | SP 登録申請 |
+| `hc_sp_verification` | `app.etzhayyim.apps.hc.sp_verification` | KYC/KYB 検証結果 |
+| `hc_sp_audit` | `app.etzhayyim.apps.hc.sp_audit` | 工場監査結果 |
+| `hc_sp_registration` | `app.etzhayyim.apps.hc.sp_registration` | tsukuru 登録完了 |
 
 ### Cross-Project Dependencies
 

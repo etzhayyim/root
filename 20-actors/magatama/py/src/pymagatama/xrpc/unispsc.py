@@ -1,4 +1,4 @@
-"""XRPC façade for ``ai.gftd.apps.unispsc.*``.
+"""XRPC façade for ``app.etzhayyim.apps.unispsc.*``.
 
 Mounted by :mod:`pymagatama.langgraph_server_app` so that every UNSPSC
 commodity agent under ``pymagatama.langgraph_graphs.unispsc_agents.c{code}``
@@ -7,10 +7,10 @@ needing a per-actor subdomain.
 
 Endpoints (matching ``00-contracts/lexicons/ai/gftd/apps/unispsc/*.json``):
 
-* ``GET  /xrpc/ai.gftd.apps.unispsc.health``        → :func:`health`
-* ``GET  /xrpc/ai.gftd.apps.unispsc.listAgents``    → :func:`list_agents`
-* ``POST /xrpc/ai.gftd.apps.unispsc.invokeAgent``   → :func:`invoke_agent`
-* ``POST /xrpc/ai.gftd.apps.unispsc.classify``      → :func:`classify`
+* ``GET  /xrpc/app.etzhayyim.apps.unispsc.health``        → :func:`health`
+* ``GET  /xrpc/app.etzhayyim.apps.unispsc.listAgents``    → :func:`list_agents`
+* ``POST /xrpc/app.etzhayyim.apps.unispsc.invokeAgent``   → :func:`invoke_agent`
+* ``POST /xrpc/app.etzhayyim.apps.unispsc.classify``      → :func:`classify`
 
 The agent registry is **lazy**: ``c{code}.py`` is imported on first call and
 the compiled ``graph`` is cached in an in-process LRU. Cold-start cost for
@@ -121,7 +121,7 @@ class ClassifyInput(BaseModel):
 router = APIRouter(prefix="/xrpc", tags=["unispsc"])
 
 
-@router.get("/ai.gftd.apps.unispsc.health")
+@router.get("/app.etzhayyim.apps.unispsc.health")
 async def health() -> dict[str, Any]:
     codes = _all_codes()
     warm = _load_graph.cache_info().currsize  # type: ignore[attr-defined]
@@ -136,7 +136,7 @@ async def health() -> dict[str, Any]:
     }
 
 
-@router.get("/ai.gftd.apps.unispsc.listAgents")
+@router.get("/app.etzhayyim.apps.unispsc.listAgents")
 async def list_agents(
     prefix: str | None = None,
     limit: int = 100,
@@ -177,7 +177,7 @@ async def list_agents(
     }
 
 
-@router.post("/ai.gftd.apps.unispsc.invokeAgent")
+@router.post("/app.etzhayyim.apps.unispsc.invokeAgent")
 async def invoke_agent(body: InvokeAgentInput) -> dict[str, Any]:
     started = time.time()
     try:
@@ -232,7 +232,7 @@ async def invoke_agent(body: InvokeAgentInput) -> dict[str, Any]:
     }
 
 
-@router.post("/ai.gftd.apps.unispsc.classify")
+@router.post("/app.etzhayyim.apps.unispsc.classify")
 async def classify(body: ClassifyInput) -> dict[str, Any]:
     """Description → top-K commodity codes.
 

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.culturalRepatriation.recordClaim",
+  "id": "app.etzhayyim.apps.culturalRepatriation.recordClaim",
   "defs": {
     "main": {
       "type": "procedure",

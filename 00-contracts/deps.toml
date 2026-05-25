@@ -31,12 +31,12 @@ description = "AT Protocol Lexicon JSON (wire format + NSID 定義)"
 [subdirs."lexicons/ai"]
 role = "lexicon-ai-gftd"
 tier = "production"
-description = "ai.gftd.* Lexicon JSON (2344 NSID files, permission scopes, 9 permission-set Lexicons)"
+description = "app.etzhayyim.* Lexicon JSON (2344 NSID files, permission scopes, 9 permission-set Lexicons)"
 
 [subdirs."lexicons/ai/gftd"]
 role = "lexicon-ai-gftd-scope"
 tier = "production"
-description = "ai.gftd.* leaf namespace"
+description = "app.etzhayyim.* leaf namespace"
 
 [subdirs."lexicons/ai/gftd/apps/graphSosIntel"]
 role = "graph-sos-intel-lexicons"
@@ -98,7 +98,7 @@ define the single-post and multi-language translation processes. They call
 PyZeebe task types `yoro.social.translatePost` and
 `yoro.social.translatePostBatch` on the yoro actor LangServer worker.
 The worker creates translated sibling `app.bsky.feed.post` records and writes
-`ai.gftd.apps.media_gamers.record.translationLink` projection rows so
+`app.etzhayyim.apps.media_gamers.record.translationLink` projection rows so
 `yoro.etzhayyim.com` post detail can render language tabs without changing AT URI
 semantics. The Murakumo route is pinned to `gemma-4-e4b-it`.
 """
@@ -130,7 +130,7 @@ details = """
 one-minute graph consumer tick. It calls PyZeebe task type
 `graph.repo.consumeCommits`, which invokes the existing Cloudflare Worker
 `/consume` endpoint and records each run as
-`ai.gftd.apps.graph.consumeTick` in `vertex_repo_record`. This keeps the
+`app.etzhayyim.apps.graph.consumeTick` in `vertex_repo_record`. This keeps the
 projection implementation in the Worker while moving cron/retry ownership to
 K8s/Zeebe. The worker pod must set `GRAPH_CONSUMER_URL` to the routable
 `/consume` URL before the BPMN timer is activated.
@@ -148,7 +148,7 @@ details = """
 five-minute Goose activity organizer tick. It calls PyZeebe task type
 `magatama.organizer.run`, which invokes the existing magatama Cloudflare Worker
 `/api/organizer/run` endpoint and records each run as
-`ai.gftd.apps.magatama.organizerRun` in `vertex_repo_record`. This keeps the
+`app.etzhayyim.apps.magatama.organizerRun` in `vertex_repo_record`. This keeps the
 classification/R2 plan implementation in the dashboard Worker while moving
 cron/retry ownership to K8s/Zeebe. The worker pod must set
 `MAGATAMA_ORGANIZER_URL` to the routable `/api/organizer/run` URL before the
@@ -167,7 +167,7 @@ details = """
 write-outbox replay tick. It calls PyZeebe task type `pds.writeOutbox.sync`,
 which invokes the HMAC-protected PDS internal endpoint
 `/_internal/sync-write-outbox` and records each run as
-`ai.gftd.apps.pds.writeOutboxSync` in `vertex_repo_record`. This keeps XRPC
+`app.etzhayyim.apps.pds.writeOutboxSync` in `vertex_repo_record`. This keeps XRPC
 dispatch and Hyperdrive access inside the PDS Worker while moving the replay
 cron/retry owner to K8s/Zeebe.
 """
@@ -184,7 +184,7 @@ details = """
 per-DID signing key rotation tick. It calls PyZeebe task type
 `pds.signingKeys.rotateStale`, which invokes the HMAC-protected PDS internal
 endpoint `/_internal/rotate-signing-keys` and records each run as
-`ai.gftd.apps.pds.keyRotation` in `vertex_repo_record`. This keeps D1 signing
+`app.etzhayyim.apps.pds.keyRotation` in `vertex_repo_record`. This keeps D1 signing
 key storage and KEK access inside the PDS Worker while moving scheduled
 maintenance ownership to K8s/Zeebe.
 """
@@ -201,7 +201,7 @@ details = """
 five-minute actor manifest cron-trigger resync tick. It calls PyZeebe task type
 `pds.mitama.cronTriggers.resync`, which invokes the HMAC-protected PDS internal
 endpoint `/_internal/resync-mitama-cron-triggers` and records each run as
-`ai.gftd.apps.pds.mitamaCronResync` in `vertex_repo_record`. This keeps actor
+`app.etzhayyim.apps.pds.mitamaCronResync` in `vertex_repo_record`. This keeps actor
 manifest loading and inline pipeline execution inside the PDS Worker while
 moving scheduled trigger ownership to K8s/Zeebe.
 """
@@ -217,7 +217,7 @@ details = """
 `00-contracts/bpmn/ai/gftd/pds/runHeartbeatCron.bpmn` defines the five-minute
 PDS heartbeat batch. It calls PyZeebe task type `pds.heartbeat.run`, which
 invokes the HMAC-protected PDS internal endpoint `/_internal/run-heartbeat-cron`
-and records each run as `ai.gftd.apps.pds.heartbeatCron` in
+and records each run as `app.etzhayyim.apps.pds.heartbeatCron` in
 `vertex_repo_record`. This keeps app graph lookup and HTTP fan-out inside the
 PDS Worker while moving heartbeat scheduling and audit ownership to K8s/Zeebe.
 """
@@ -234,7 +234,7 @@ details = """
 DiscoverFeed cache warm tick. It calls PyZeebe task type
 `pds.discoverCache.warm`, which invokes the HMAC-protected PDS internal
 endpoint `/_internal/warm-discover-cache` and records each run as
-`ai.gftd.apps.pds.discoverCacheWarm` in `vertex_repo_record`. This keeps
+`app.etzhayyim.apps.pds.discoverCacheWarm` in `vertex_repo_record`. This keeps
 Hyperdrive reads and Cloudflare Cache API writes inside the PDS Worker while
 moving scheduling and audit ownership to K8s/Zeebe.
 """
@@ -251,7 +251,7 @@ details = """
 domain coverage expansion tick. It calls PyZeebe task type
 `pds.domainCoverage.expand`, which invokes the HMAC-protected PDS internal
 endpoint `/_internal/expand-domain-coverage` and records each run as
-`ai.gftd.apps.pds.domainCoverageExpansion` in `vertex_repo_record`. PDS still
+`app.etzhayyim.apps.pds.domainCoverageExpansion` in `vertex_repo_record`. PDS still
 owns Common Crawl/site/gyotaku fetches, Murakumo classification, repo writes,
 and the social post, while K8s/Zeebe owns cadence and audit visibility.
 """
@@ -290,10 +290,10 @@ discovered_on = "2026-04-29"
 category = "contract"
 severity = "info"
 status = "active"
-summary = "Process mining contract entrypoint is ai.gftd.apps.bpmn.analyzeProcess"
+summary = "Process mining contract entrypoint is app.etzhayyim.apps.bpmn.analyzeProcess"
 details = """
 The phrase "process mining" maps to the Lexicon query
-`ai.gftd.apps.bpmn.analyzeProcess` unless a request explicitly names another
+`app.etzhayyim.apps.bpmn.analyzeProcess` unless a request explicitly names another
 tool. The contract accepts filter params over BPMN/Zeebe OCEL audit events and
 returns deterministic KPIs plus optional LLM diagnosis. It is intentionally
 Optimize-free and does not assume Operate, Tasklist, Elasticsearch, or

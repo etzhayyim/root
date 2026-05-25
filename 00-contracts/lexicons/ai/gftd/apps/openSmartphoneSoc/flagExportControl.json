@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneSoc.flagExportControl",
+  "id": "app.etzhayyim.apps.openSmartphoneSoc.flagExportControl",
   "defs": {
     "main": {
       "type": "procedure",

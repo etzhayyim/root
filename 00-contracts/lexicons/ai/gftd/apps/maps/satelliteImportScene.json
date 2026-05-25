@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.satelliteImportScene",
+  "id": "app.etzhayyim.apps.maps.satelliteImportScene",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.isbn.book",
+  "id": "app.etzhayyim.isbn.book",
   "defs": {
     "main": {
       "type": "record",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openDenki.listFaults",
+  "id": "app.etzhayyim.apps.openDenki.listFaults",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.enableEsimProfile",
+  "id": "app.etzhayyim.apps.telecom.enableEsimProfile",
   "defs": {
     "main": {
       "type": "procedure",

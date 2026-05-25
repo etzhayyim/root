@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.digitalIdentity.flagVerificationIncident",
+  "id": "app.etzhayyim.apps.digitalIdentity.flagVerificationIncident",
   "defs": {
     "main": {
       "type": "procedure",

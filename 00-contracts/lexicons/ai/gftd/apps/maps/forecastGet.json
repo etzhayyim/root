@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.forecastGet",
+  "id": "app.etzhayyim.apps.maps.forecastGet",
   "defs": {
     "main": {
       "type": "procedure",

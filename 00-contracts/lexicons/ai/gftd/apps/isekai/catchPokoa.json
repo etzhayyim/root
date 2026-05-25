@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isekai.catchPokoa",
+  "id": "app.etzhayyim.apps.isekai.catchPokoa",
   "defs": {
     "main": {
       "type": "procedure",

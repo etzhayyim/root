@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.chat",
+  "id": "app.etzhayyim.apps.animeka.chat",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Send a chat message to one of the 12 animeka actors (or broadcast to director when actorSlug omitted). Writes the user turn + the actor reply as ai.gftd.apps.animeka.chatMessage records scoped to the episode convoId, and returns the reply synchronously for UI rendering.",
+      "description": "Send a chat message to one of the 12 animeka actors (or broadcast to director when actorSlug omitted). Writes the user turn + the actor reply as app.etzhayyim.apps.animeka.chatMessage records scoped to the episode convoId, and returns the reply synchronously for UI rendering.",
       "input": {
         "encoding": "application/json",
         "schema": {

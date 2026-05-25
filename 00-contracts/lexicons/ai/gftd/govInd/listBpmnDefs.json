@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govInd.listBpmnDefs",
+  "id": "app.etzhayyim.govInd.listBpmnDefs",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.copyright.ingestDatacite",
+  "id": "app.etzhayyim.apps.copyright.ingestDatacite",
   "defs": {
     "main": {
       "type": "procedure",

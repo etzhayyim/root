@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-record-cve-disclosure-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-record-cve-disclosure-v1',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'open_cyber_vuln_cve',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -83,7 +83,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-record-cve-disclosure-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-record-cve-disclosure-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -91,7 +91,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-record-patch-advisory-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-record-patch-advisory-v1',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'open_cyber_vuln_patch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -152,7 +152,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-record-patch-advisory-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-record-patch-advisory-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -160,7 +160,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-link-exploit-to-actor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-link-exploit-to-actor-v1',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'open_cyber_vuln_link_exploit_to_actor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -191,7 +191,7 @@ UP = [{'sql': '\n'
                  '              bpmn_process_id:  '
                  '&quot;open_cyber_vuln_link_exploit_to_actor&quot;,\n'
                  '              nsid:             '
-                 '&quot;ai.gftd.apps.cyberVuln.linkExploitToActor&quot;,\n'
+                 '&quot;app.etzhayyim.apps.cyberVuln.linkExploitToActor&quot;,\n'
                  '              project:          &quot;open-cyber-vuln&quot;,\n'
                  '              subject_vid:      cveId,\n'
                  '              action_class:     &quot;cyber.exploitLink&quot;,\n'
@@ -239,7 +239,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-link-exploit-to-actor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-link-exploit-to-actor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -247,7 +247,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cve-cna-record-assignment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cve-cna-record-assignment-v1',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'open_cve_cna_record_assignment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -299,7 +299,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cve-cna-record-assignment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cve-cna-record-assignment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -307,7 +307,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cve-cna-flag-disclosure-gap-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cve-cna-flag-disclosure-gap-v1',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'open_cve_cna_flag_disclosure_gap',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -360,7 +360,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cve-cna-flag-disclosure-gap-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cve-cna-flag-disclosure-gap-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -368,7 +368,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cve-cna-flag-weaponized-cve-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cve-cna-flag-weaponized-cve-v1',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'open_cve_cna_flag_weaponized_cve',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -398,7 +398,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_cve_cna_flag_weaponized_cve&quot;,\n'
                  '              nsid:             '
-                 '&quot;ai.gftd.apps.cveCna.flagWeaponizedCve&quot;,\n'
+                 '&quot;app.etzhayyim.apps.cveCna.flagWeaponizedCve&quot;,\n'
                  '              project:          &quot;open-cve-cna&quot;,\n'
                  '              subject_vid:      cveId,\n'
                  '              action_class:     &quot;cyber.weaponizedCve&quot;,\n'
@@ -446,7 +446,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cve-cna-flag-weaponized-cve-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cve-cna-flag-weaponized-cve-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -454,7 +454,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-record-entry-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-kev-catalog-record-entry-v1',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'open_kev_catalog_record_entry',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -508,7 +508,7 @@ UP = [{'sql': '\n'
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-record-entry-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-kev-catalog-record-entry-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -516,7 +516,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-flag-remediation-lag-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-kev-catalog-flag-remediation-lag-v1',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'open_kev_catalog_flag_remediation_lag',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -570,7 +570,7 @@ UP = [{'sql': '\n'
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-flag-remediation-lag-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-kev-catalog-flag-remediation-lag-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -578,7 +578,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-register-advisory-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-oss-vuln-register-advisory-v1',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'open_oss_vuln_register_advisory',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -638,7 +638,7 @@ UP = [{'sql': '\n'
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-register-advisory-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-oss-vuln-register-advisory-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -646,7 +646,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-record-sbom-match-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-oss-vuln-record-sbom-match-v1',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'open_oss_vuln_record_sbom_match',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -699,7 +699,7 @@ UP = [{'sql': '\n'
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-record-sbom-match-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-oss-vuln-record-sbom-match-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -707,7 +707,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-record-threat-actor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-record-threat-actor-v1',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'open_cyber_threat_actor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -774,7 +774,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-record-threat-actor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-record-threat-actor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -782,7 +782,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-assess-threat-actor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-assess-threat-actor-v1',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'open_cyber_threat_assess_threat_actor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -813,7 +813,7 @@ UP = [{'sql': '\n'
                  '              bpmn_process_id:  '
                  '&quot;open_cyber_threat_assess_threat_actor&quot;,\n'
                  '              nsid:             '
-                 '&quot;ai.gftd.apps.cyberThreat.assessThreatActor&quot;,\n'
+                 '&quot;app.etzhayyim.apps.cyberThreat.assessThreatActor&quot;,\n'
                  '              project:          &quot;open-cyber-threat&quot;,\n'
                  '              subject_vid:      threatActorVid,\n'
                  '              action_class:     &quot;cyber.threatActor&quot;,\n'
@@ -861,7 +861,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-assess-threat-actor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-assess-threat-actor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -869,7 +869,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-record-campaign-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-record-campaign-v1',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'open_cyber_threat_campaign',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -934,7 +934,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-record-campaign-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-record-campaign-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -942,7 +942,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-incident-report-incident-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-incident-report-incident-v1',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'open_cyber_incident_report',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1014,7 +1014,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-incident-report-incident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-incident-report-incident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1022,7 +1022,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-incident-record-i-o-c-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-incident-record-i-o-c-v1',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'open_cyber_incident_ioc',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1082,7 +1082,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-incident-record-i-o-c-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-incident-record-i-o-c-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1090,7 +1090,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-incident-link-incident-to-treaty-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-incident-link-incident-to-treaty-v1',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'open_cyber_incident_link_incident_to_treaty',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1121,7 +1121,7 @@ UP = [{'sql': '\n'
                  '              bpmn_process_id:  '
                  '&quot;open_cyber_incident_link_incident_to_treaty&quot;,\n'
                  '              nsid:             '
-                 '&quot;ai.gftd.apps.cyberIncident.linkIncidentToTreaty&quot;,\n'
+                 '&quot;app.etzhayyim.apps.cyberIncident.linkIncidentToTreaty&quot;,\n'
                  '              project:          &quot;open-cyber-incident&quot;,\n'
                  '              subject_vid:      incidentVid,\n'
                  '              action_class:     &quot;cyber.treatyLink&quot;,\n'
@@ -1169,7 +1169,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-incident-link-incident-to-treaty-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-incident-link-incident-to-treaty-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1177,7 +1177,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-compliance-record-isms-audit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-compliance-record-isms-audit-v1',
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
                  'open_cyber_compliance_isms',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1244,7 +1244,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-compliance-record-isms-audit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-compliance-record-isms-audit-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1252,7 +1252,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-compliance-record-regulatory-reporting-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-compliance-record-regulatory-reporting-v1',
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
                  'open_cyber_compliance_regulatory',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1317,7 +1317,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-compliance-record-regulatory-reporting-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-compliance-record-regulatory-reporting-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1325,7 +1325,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-record-soc-alert-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-record-soc-alert-v1',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'open_cyber_soc_alert',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1389,7 +1389,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-record-soc-alert-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-record-soc-alert-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1397,7 +1397,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-record-incident-response-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-record-incident-response-v1',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'open_cyber_soc_ir',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1463,7 +1463,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-record-incident-response-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-record-incident-response-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1471,7 +1471,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-escalate-state-apt-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-escalate-state-apt-v1',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'open_cyber_soc_escalate_state_apt',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1501,7 +1501,7 @@ UP = [{'sql': '\n'
                  '              owner_did:        callerDid,\n'
                  '              bpmn_process_id:  &quot;open_cyber_soc_escalate_state_apt&quot;,\n'
                  '              nsid:             '
-                 '&quot;ai.gftd.apps.cyberSoc.escalateStateApt&quot;,\n'
+                 '&quot;app.etzhayyim.apps.cyberSoc.escalateStateApt&quot;,\n'
                  '              project:          &quot;open-cyber-soc&quot;,\n'
                  '              subject_vid:      aptId,\n'
                  '              action_class:     &quot;cyber.stateApt&quot;,\n'
@@ -1550,7 +1550,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-escalate-state-apt-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-escalate-state-apt-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1558,7 +1558,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-resilience-stress-record-stress-test-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-resilience-stress-record-stress-test-v1',
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
                  'open_cyber_resilience_stress_record_stress_test',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1615,7 +1615,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-resilience-stress-record-stress-test-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-resilience-stress-record-stress-test-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1623,7 +1623,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-resilience-stress-report-resilience-gap-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-resilience-stress-report-resilience-gap-v1',
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
                  'open_cyber_resilience_stress_report_resilience_gap',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1681,7 +1681,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-resilience-stress-report-resilience-gap-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-resilience-stress-report-resilience-gap-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1689,16 +1689,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-vuln-recordCveDisclosure-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-vuln-recordCveDisclosure-v1',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberVuln.recordCveDisclosure',
+                 'app.etzhayyim.apps.cyberVuln.recordCveDisclosure',
                  'open_cyber_vuln_cve',
                  20000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-vuln-recordCveDisclosure-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-vuln-recordCveDisclosure-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1706,16 +1706,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-vuln-recordPatchAdvisory-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-vuln-recordPatchAdvisory-v1',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberVuln.recordPatchAdvisory',
+                 'app.etzhayyim.apps.cyberVuln.recordPatchAdvisory',
                  'open_cyber_vuln_patch',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-vuln-recordPatchAdvisory-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-vuln-recordPatchAdvisory-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1723,16 +1723,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-vuln-linkExploitToActor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-vuln-linkExploitToActor-v1',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberVuln.linkExploitToActor',
+                 'app.etzhayyim.apps.cyberVuln.linkExploitToActor',
                  'open_cyber_vuln_link_exploit_to_actor',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-vuln-linkExploitToActor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-vuln-linkExploitToActor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1740,16 +1740,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cve-cna-recordAssignment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cve-cna-recordAssignment-v1',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
-                 'ai.gftd.apps.cveCna.recordAssignment',
+                 'app.etzhayyim.apps.cveCna.recordAssignment',
                  'open_cve_cna_record_assignment',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cve-cna-recordAssignment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cve-cna-recordAssignment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1757,16 +1757,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cve-cna-flagDisclosureGap-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cve-cna-flagDisclosureGap-v1',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
-                 'ai.gftd.apps.cveCna.flagDisclosureGap',
+                 'app.etzhayyim.apps.cveCna.flagDisclosureGap',
                  'open_cve_cna_flag_disclosure_gap',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cve-cna-flagDisclosureGap-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cve-cna-flagDisclosureGap-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1774,16 +1774,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cve-cna-flagWeaponizedCve-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cve-cna-flagWeaponizedCve-v1',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
-                 'ai.gftd.apps.cveCna.flagWeaponizedCve',
+                 'app.etzhayyim.apps.cveCna.flagWeaponizedCve',
                  'open_cve_cna_flag_weaponized_cve',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'did:web:open-cve-cna.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cve-cna-flagWeaponizedCve-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cve-cna-flagWeaponizedCve-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1791,16 +1791,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-kev-catalog-recordEntry-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-kev-catalog-recordEntry-v1',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
-                 'ai.gftd.apps.kevCatalog.recordEntry',
+                 'app.etzhayyim.apps.kevCatalog.recordEntry',
                  'open_kev_catalog_record_entry',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-kev-catalog-recordEntry-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-kev-catalog-recordEntry-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1808,16 +1808,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-kev-catalog-flagRemediationLag-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-kev-catalog-flagRemediationLag-v1',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
-                 'ai.gftd.apps.kevCatalog.flagRemediationLag',
+                 'app.etzhayyim.apps.kevCatalog.flagRemediationLag',
                  'open_kev_catalog_flag_remediation_lag',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-kev-catalog-flagRemediationLag-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-kev-catalog-flagRemediationLag-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1825,16 +1825,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-oss-vuln-registerAdvisory-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-oss-vuln-registerAdvisory-v1',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
-                 'ai.gftd.apps.ossVuln.registerAdvisory',
+                 'app.etzhayyim.apps.ossVuln.registerAdvisory',
                  'open_oss_vuln_register_advisory',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-oss-vuln-registerAdvisory-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-oss-vuln-registerAdvisory-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1842,16 +1842,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-oss-vuln-recordSbomMatch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-oss-vuln-recordSbomMatch-v1',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
-                 'ai.gftd.apps.ossVuln.recordSbomMatch',
+                 'app.etzhayyim.apps.ossVuln.recordSbomMatch',
                  'open_oss_vuln_record_sbom_match',
                  20000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-oss-vuln-recordSbomMatch-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-oss-vuln-recordSbomMatch-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1859,16 +1859,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-threat-recordThreatActor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-threat-recordThreatActor-v1',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberThreat.recordThreatActor',
+                 'app.etzhayyim.apps.cyberThreat.recordThreatActor',
                  'open_cyber_threat_actor',
                  20000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-threat-recordThreatActor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-threat-recordThreatActor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1876,16 +1876,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-threat-assessThreatActor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-threat-assessThreatActor-v1',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberThreat.assessThreatActor',
+                 'app.etzhayyim.apps.cyberThreat.assessThreatActor',
                  'open_cyber_threat_assess_threat_actor',
                  30000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-threat-assessThreatActor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-threat-assessThreatActor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1893,16 +1893,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-threat-recordCampaign-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-threat-recordCampaign-v1',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberThreat.recordCampaign',
+                 'app.etzhayyim.apps.cyberThreat.recordCampaign',
                  'open_cyber_threat_campaign',
                  20000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-threat-recordCampaign-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-threat-recordCampaign-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1910,16 +1910,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-incident-reportIncident-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-incident-reportIncident-v1',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberIncident.reportIncident',
+                 'app.etzhayyim.apps.cyberIncident.reportIncident',
                  'open_cyber_incident_report',
                  20000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-incident-reportIncident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-incident-reportIncident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1927,16 +1927,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-incident-recordIOC-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-incident-recordIOC-v1',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberIncident.recordIOC',
+                 'app.etzhayyim.apps.cyberIncident.recordIOC',
                  'open_cyber_incident_ioc',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-incident-recordIOC-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-incident-recordIOC-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1944,16 +1944,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-incident-linkIncidentToTreaty-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-incident-linkIncidentToTreaty-v1',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberIncident.linkIncidentToTreaty',
+                 'app.etzhayyim.apps.cyberIncident.linkIncidentToTreaty',
                  'open_cyber_incident_link_incident_to_treaty',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'did:web:open-cyber-incident.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-incident-linkIncidentToTreaty-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-incident-linkIncidentToTreaty-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1961,16 +1961,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-compliance-recordIsmsAudit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-compliance-recordIsmsAudit-v1',
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberCompliance.recordIsmsAudit',
+                 'app.etzhayyim.apps.cyberCompliance.recordIsmsAudit',
                  'open_cyber_compliance_isms',
                  20000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-compliance-recordIsmsAudit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-compliance-recordIsmsAudit-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1978,16 +1978,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-compliance-recordRegulatoryReporting-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-compliance-recordRegulatoryReporting-v1',
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberCompliance.recordRegulatoryReporting',
+                 'app.etzhayyim.apps.cyberCompliance.recordRegulatoryReporting',
                  'open_cyber_compliance_regulatory',
                  20000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
                  'did:web:open-cyber-compliance.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-compliance-recordRegulatoryReporting-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-compliance-recordRegulatoryReporting-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1995,16 +1995,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-soc-recordSocAlert-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-soc-recordSocAlert-v1',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberSoc.recordSocAlert',
+                 'app.etzhayyim.apps.cyberSoc.recordSocAlert',
                  'open_cyber_soc_alert',
                  15000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-soc-recordSocAlert-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-soc-recordSocAlert-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -2012,16 +2012,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-soc-recordIncidentResponse-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-soc-recordIncidentResponse-v1',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberSoc.recordIncidentResponse',
+                 'app.etzhayyim.apps.cyberSoc.recordIncidentResponse',
                  'open_cyber_soc_ir',
                  20000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-soc-recordIncidentResponse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-soc-recordIncidentResponse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -2029,16 +2029,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-soc-escalateStateApt-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-soc-escalateStateApt-v1',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberSoc.escalateStateApt',
+                 'app.etzhayyim.apps.cyberSoc.escalateStateApt',
                  'open_cyber_soc_escalate_state_apt',
                  30000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-soc-escalateStateApt-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-soc-escalateStateApt-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -2046,16 +2046,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-resilience-stress-recordStressTest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-resilience-stress-recordStressTest-v1',
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberResilienceStress.recordStressTest',
+                 'app.etzhayyim.apps.cyberResilienceStress.recordStressTest',
                  'open_cyber_resilience_stress_record_stress_test',
                  20000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-resilience-stress-recordStressTest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-resilience-stress-recordStressTest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -2063,109 +2063,109 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-resilience-stress-reportResilienceGap-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-resilience-stress-reportResilienceGap-v1',
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
-                 'ai.gftd.apps.cyberResilienceStress.reportResilienceGap',
+                 'app.etzhayyim.apps.cyberResilienceStress.reportResilienceGap',
                  'open_cyber_resilience_stress_report_resilience_gap',
                  20000,
                  '2026-04-28T23:01:00Z',
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
                  'did:web:open-cyber-resilience-stress.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-resilience-stress-reportResilienceGap-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-resilience-stress-reportResilienceGap-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-vuln-recordCveDisclosure-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-vuln-recordCveDisclosure-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-vuln-recordPatchAdvisory-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-vuln-recordPatchAdvisory-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-vuln-linkExploitToActor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-vuln-linkExploitToActor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cve-cna-recordAssignment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cve-cna-recordAssignment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cve-cna-flagDisclosureGap-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cve-cna-flagDisclosureGap-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cve-cna-flagWeaponizedCve-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cve-cna-flagWeaponizedCve-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-kev-catalog-recordEntry-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-kev-catalog-recordEntry-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-kev-catalog-flagRemediationLag-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-kev-catalog-flagRemediationLag-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-oss-vuln-registerAdvisory-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-oss-vuln-registerAdvisory-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-oss-vuln-recordSbomMatch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-oss-vuln-recordSbomMatch-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-threat-recordThreatActor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-threat-recordThreatActor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-threat-assessThreatActor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-threat-assessThreatActor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-threat-recordCampaign-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-threat-recordCampaign-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-incident-reportIncident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-incident-reportIncident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-incident-recordIOC-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-incident-recordIOC-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-incident-linkIncidentToTreaty-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-incident-linkIncidentToTreaty-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-compliance-recordIsmsAudit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-compliance-recordIsmsAudit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-compliance-recordRegulatoryReporting-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-compliance-recordRegulatoryReporting-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-soc-recordSocAlert-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-soc-recordSocAlert-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-soc-recordIncidentResponse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-soc-recordIncidentResponse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-soc-escalateStateApt-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-soc-escalateStateApt-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-resilience-stress-recordStressTest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-resilience-stress-recordStressTest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-cyber-resilience-stress-reportResilienceGap-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-cyber-resilience-stress-reportResilienceGap-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-record-cve-disclosure-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-record-cve-disclosure-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-record-patch-advisory-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-record-patch-advisory-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-link-exploit-to-actor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-link-exploit-to-actor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cve-cna-record-assignment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cve-cna-record-assignment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cve-cna-flag-disclosure-gap-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cve-cna-flag-disclosure-gap-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cve-cna-flag-weaponized-cve-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cve-cna-flag-weaponized-cve-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-record-entry-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-kev-catalog-record-entry-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-flag-remediation-lag-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-kev-catalog-flag-remediation-lag-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-register-advisory-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-oss-vuln-register-advisory-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-record-sbom-match-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-oss-vuln-record-sbom-match-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-record-threat-actor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-record-threat-actor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-assess-threat-actor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-assess-threat-actor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-record-campaign-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-record-campaign-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-incident-report-incident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-incident-report-incident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-incident-record-i-o-c-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-incident-record-i-o-c-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-incident-link-incident-to-treaty-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-incident-link-incident-to-treaty-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-compliance-record-isms-audit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-compliance-record-isms-audit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-compliance-record-regulatory-reporting-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-compliance-record-regulatory-reporting-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-record-soc-alert-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-record-soc-alert-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-record-incident-response-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-record-incident-response-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-escalate-state-apt-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-escalate-state-apt-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-resilience-stress-record-stress-test-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-resilience-stress-record-stress-test-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-resilience-stress-report-resilience-gap-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-resilience-stress-report-resilience-gap-v1']}]
 
 
 def upgrade() -> None:

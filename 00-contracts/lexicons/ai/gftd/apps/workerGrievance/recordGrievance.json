@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.workerGrievance.recordGrievance",
+  "id": "app.etzhayyim.apps.workerGrievance.recordGrievance",
   "defs": {
     "main": {
       "type": "procedure",

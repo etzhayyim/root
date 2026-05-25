@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cyberResilienceStress.reportResilienceGap",
+  "id": "app.etzhayyim.apps.cyberResilienceStress.reportResilienceGap",
   "defs": {
     "main": {
       "type": "procedure",

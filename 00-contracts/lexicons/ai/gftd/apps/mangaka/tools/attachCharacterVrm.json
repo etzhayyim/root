@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.tools.attachCharacterVrm",
+  "id": "app.etzhayyim.apps.mangaka.tools.attachCharacterVrm",
   "defs": {
     "main": {
       "type": "procedure",

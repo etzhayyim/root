@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coworkGraph.sendTeamsMessage",
+  "id": "app.etzhayyim.apps.coworkGraph.sendTeamsMessage",
   "defs": {
     "main": {
       "type": "procedure",

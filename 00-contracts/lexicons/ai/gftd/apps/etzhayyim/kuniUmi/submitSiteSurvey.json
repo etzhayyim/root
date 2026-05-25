@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.kuniUmi.submitSiteSurvey",
+  "id": "app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey",
   "defs": {
     "main": {
       "type": "procedure",

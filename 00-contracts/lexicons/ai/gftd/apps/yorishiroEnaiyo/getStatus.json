@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yorishiroEnaiyo.getStatus",
+  "id": "app.etzhayyim.apps.yorishiroEnaiyo.getStatus",
   "defs": {
     "main": {
       "type": "query",

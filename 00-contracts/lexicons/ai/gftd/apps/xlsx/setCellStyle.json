@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.xlsx.setCellStyle",
+  "id": "app.etzhayyim.apps.xlsx.setCellStyle",
   "defs": {
     "main": {
       "type": "procedure",

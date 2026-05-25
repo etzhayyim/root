@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.generateStoryboard",
+  "id": "app.etzhayyim.apps.animeka.generateStoryboard",
   "defs": {
     "main": {
       "type": "procedure",

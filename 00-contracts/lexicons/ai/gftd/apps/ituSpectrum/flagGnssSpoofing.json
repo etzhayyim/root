@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ituSpectrum.flagGnssSpoofing",
+  "id": "app.etzhayyim.apps.ituSpectrum.flagGnssSpoofing",
   "defs": {
     "main": {
       "type": "procedure",

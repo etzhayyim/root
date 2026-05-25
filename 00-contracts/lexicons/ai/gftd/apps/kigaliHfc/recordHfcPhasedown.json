@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kigaliHfc.recordHfcPhasedown",
+  "id": "app.etzhayyim.apps.kigaliHfc.recordHfcPhasedown",
   "defs": {
     "main": {
       "type": "procedure",

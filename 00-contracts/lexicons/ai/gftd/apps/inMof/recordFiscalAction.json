@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.inMof.recordFiscalAction",
+  "id": "app.etzhayyim.apps.inMof.recordFiscalAction",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.councilPresidency.flagPriorityShift",
+  "id": "app.etzhayyim.apps.councilPresidency.flagPriorityShift",
   "defs": {
     "main": {
       "type": "procedure",

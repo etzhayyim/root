@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yoro.activity.markSeen",
+  "id": "app.etzhayyim.yoro.activity.markSeen",
   "defs": {
     "main": {
       "type": "procedure",

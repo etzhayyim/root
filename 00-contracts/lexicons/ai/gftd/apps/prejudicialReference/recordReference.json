@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.prejudicialReference.recordReference",
+  "id": "app.etzhayyim.apps.prejudicialReference.recordReference",
   "defs": {
     "main": {
       "type": "procedure",

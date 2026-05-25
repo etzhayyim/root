@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hatsubai.titleBuild",
+  "id": "app.etzhayyim.apps.hatsubai.titleBuild",
   "defs": {
     "main": {
       "type": "record",

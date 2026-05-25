@@ -48,4 +48,4 @@ External GPU pod for heavy LLM/image/audio: **evo-x2** (AMD Ryzen AI Max+ 395 + 
 
 ## Boundary notes (vendor vs religious-corp)
 
-This is the **etzhayyim** murakumo. The vendor (Gftd Japan) keeps a separate RunPod-based inference platform at `gftd.co.jp` for paid SaaS workloads. They share no infrastructure — only the `ai.gftd.*` lexicon namespace (vendor-authored, religious-corp-borrowable). etzhayyim murakumo does **not** call out to RunPod, Vultr VKE, Linode GPU, or any commercial K8s.
+This is the **etzhayyim** murakumo. The vendor (etzhayyim Japan) keeps a separate RunPod-based inference platform at `etzhayyim.com` for paid SaaS workloads. They share no infrastructure — only the `app.etzhayyim.*` lexicon namespace (vendor-authored, religious-corp-borrowable). etzhayyim murakumo does **not** call out to RunPod, Vultr VKE, Linode GPU, or any commercial K8s.

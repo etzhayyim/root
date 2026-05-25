@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airQuality.issueHealthAlert",
+  "id": "app.etzhayyim.apps.airQuality.issueHealthAlert",
   "defs": {
     "main": {
       "type": "procedure",

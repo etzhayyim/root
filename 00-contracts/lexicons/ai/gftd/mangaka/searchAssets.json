@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.searchAssets",
+  "id": "app.etzhayyim.mangaka.searchAssets",
   "defs": {
     "main": {
       "type": "query",

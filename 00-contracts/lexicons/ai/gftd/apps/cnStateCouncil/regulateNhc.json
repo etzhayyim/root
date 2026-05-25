@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cnStateCouncil.regulateNhc",
+  "id": "app.etzhayyim.apps.cnStateCouncil.regulateNhc",
   "defs": {
     "main": {
       "type": "procedure",

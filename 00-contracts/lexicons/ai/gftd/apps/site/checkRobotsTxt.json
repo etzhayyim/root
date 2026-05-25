@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.checkRobotsTxt",
+  "id": "app.etzhayyim.apps.site.checkRobotsTxt",
   "defs": {
     "main": {
       "type": "query",

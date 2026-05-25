@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.listConsent",
+  "id": "app.etzhayyim.apps.karute.listConsent",
   "defs": {
     "main": {
       "type": "query",

@@ -20,15 +20,15 @@
 `local`
 
 ```bash
-export GFTD_TOKEN='sk_live_...'
+export etzhayyim_TOKEN='sk_live_...'
 export MURAKUMO_API_KEY='...'
-export GFTD_DATABASE_URL='postgres://root@127.0.0.1:14566/dev?sslmode=disable'
+export etzhayyim_DATABASE_URL='postgres://root@127.0.0.1:14566/dev?sslmode=disable'
 ```
 
 `common-crawl import only`
 
 ```bash
-export GFTD_DATABASE_URL='postgres://root@127.0.0.1:14566/dev?sslmode=disable'
+export etzhayyim_DATABASE_URL='postgres://root@127.0.0.1:14566/dev?sslmode=disable'
 # phase5_inject.py 側の write auth / PDS auth 前提も別途満たすこと
 ```
 
@@ -115,7 +115,7 @@ jq '.liveReadModel, (.reconciliation | length)' /tmp/domain-coverage.json
 または shortcut:
 
 ```bash
-GFTD_BIN=./gftd bash 70-tools/scripts/domain-coverage-strict-health.sh
+etzhayyim_BIN=./gftd bash 70-tools/scripts/domain-coverage-strict-health.sh
 ```
 
 成功条件:
@@ -130,7 +130,7 @@ GFTD_BIN=./gftd bash 70-tools/scripts/domain-coverage-strict-health.sh
 
 確認順:
 
-- `GFTD_TOKEN` が入っているか
+- `etzhayyim_TOKEN` が入っているか
 - `MURAKUMO_API_KEY` が必要なモードなのに未設定でないか
 - `npx` / `tsx` 実行環境が壊れていないか
 - 入力ファイルが `/Volumes/251220/domain-data` に存在するか
@@ -149,7 +149,7 @@ GFTD_BIN=./gftd bash 70-tools/scripts/domain-coverage-strict-health.sh
 まず次を確認:
 
 ```bash
-echo "${GFTD_DATABASE_URL:-${DATABASE_URL:-}}"
+echo "${etzhayyim_DATABASE_URL:-${DATABASE_URL:-}}"
 ./gftd coverage domain --format json --no-reconcile | jq '.authorityModel, .liveReadModel'
 ```
 
@@ -174,7 +174,7 @@ GitHub Actions:
 
 必要 secret:
 
-- `GFTD_DATABASE_URL` 推奨
+- `etzhayyim_DATABASE_URL` 推奨
 - fallback として `DATABASE_URL`
 
 ## Notes

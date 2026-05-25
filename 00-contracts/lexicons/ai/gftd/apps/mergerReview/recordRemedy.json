@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mergerReview.recordRemedy",
+  "id": "app.etzhayyim.apps.mergerReview.recordRemedy",
   "defs": {
     "main": {
       "type": "procedure",

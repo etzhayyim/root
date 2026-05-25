@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sense.structure.list",
+  "id": "app.etzhayyim.apps.sense.structure.list",
   "defs": {
     "main": {
       "type": "query",

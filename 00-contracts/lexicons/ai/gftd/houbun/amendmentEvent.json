@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.houbun.amendmentEvent",
-  "description": "Record of a single amendment / repeal / insertion applied to a statute article. `supersedesArticleDid` points at the prior-version article DID; the new version is addressable as a separate `ai.gftd.apps.houbun.article` record (new blake3 hash). See ADR-0052.",
+  "id": "app.etzhayyim.houbun.amendmentEvent",
+  "description": "Record of a single amendment / repeal / insertion applied to a statute article. `supersedesArticleDid` points at the prior-version article DID; the new version is addressable as a separate `app.etzhayyim.apps.houbun.article` record (new blake3 hash). See ADR-0052.",
   "defs": {
     "main": {
       "type": "record",

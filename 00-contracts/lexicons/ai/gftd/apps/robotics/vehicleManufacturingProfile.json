@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.robotics.vehicle.manufacturing.profile",
+  "id": "app.etzhayyim.apps.robotics.vehicle.manufacturing.profile",
   "defs": {
     "main": {
       "type": "procedure",

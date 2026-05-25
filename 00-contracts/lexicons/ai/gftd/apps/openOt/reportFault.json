@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOt.reportFault",
+  "id": "app.etzhayyim.apps.openOt.reportFault",
   "defs": {
     "main": {
       "type": "procedure",
@@ -20,7 +20,7 @@
             "detectedAt":   { "type": "string", "format": "datetime" },
             "message":      { "type": "string" },
             "dmnInputsJson":{ "type": "string", "description": "Opaque JSON of DMN evaluation inputs for audit" },
-            "cimFaultDid":  { "type": "string", "description": "Optional cross-link to ai.gftd.apps.openDenki.reportFault record" },
+            "cimFaultDid":  { "type": "string", "description": "Optional cross-link to app.etzhayyim.apps.openDenki.reportFault record" },
             "publicNotice": { "type": "boolean", "default": false }
           }
         }

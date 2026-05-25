@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.amrSurveillance.reportResistancePattern",
+  "id": "app.etzhayyim.apps.amrSurveillance.reportResistancePattern",
   "defs": {
     "main": {
       "type": "procedure",

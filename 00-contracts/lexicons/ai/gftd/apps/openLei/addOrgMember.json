@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openLei.addOrgMember",
+  "id": "app.etzhayyim.apps.openLei.addOrgMember",
   "defs": {
     "main": {
       "type": "procedure",

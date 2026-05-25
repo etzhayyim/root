@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pressFinanceCoercion.flagBankingCoercion",
+  "id": "app.etzhayyim.apps.pressFinanceCoercion.flagBankingCoercion",
   "defs": {
     "main": {
       "type": "procedure",

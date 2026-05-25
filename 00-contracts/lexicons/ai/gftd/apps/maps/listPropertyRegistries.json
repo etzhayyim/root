@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listPropertyRegistries",
+  "id": "app.etzhayyim.apps.maps.listPropertyRegistries",
   "defs": {
     "main": {
       "type": "procedure",

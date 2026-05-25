@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sense.building.export",
+  "id": "app.etzhayyim.apps.sense.building.export",
   "defs": {
     "main": {
       "type": "procedure",

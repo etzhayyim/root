@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSwift.registerInstitution",
+  "id": "app.etzhayyim.apps.openSwift.registerInstitution",
   "defs": {
     "main": {
       "type": "procedure",

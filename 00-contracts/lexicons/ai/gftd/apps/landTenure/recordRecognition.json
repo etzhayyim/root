@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.landTenure.recordRecognition",
+  "id": "app.etzhayyim.apps.landTenure.recordRecognition",
   "defs": {
     "main": {
       "type": "procedure",

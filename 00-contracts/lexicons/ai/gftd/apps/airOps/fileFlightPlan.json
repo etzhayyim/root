@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airOps.fileFlightPlan",
+  "id": "app.etzhayyim.apps.airOps.fileFlightPlan",
   "defs": {
     "main": {
       "type": "procedure",

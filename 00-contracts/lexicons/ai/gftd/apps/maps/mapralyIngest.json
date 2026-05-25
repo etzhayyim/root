@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.mapralyIngest",
+  "id": "app.etzhayyim.apps.maps.mapralyIngest",
   "defs": {
     "main": {
       "type": "procedure",

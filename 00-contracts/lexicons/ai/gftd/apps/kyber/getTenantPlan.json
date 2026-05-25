@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kyber.getTenantPlan",
+  "id": "app.etzhayyim.apps.kyber.getTenantPlan",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.provisionSdnFlow",
+  "id": "app.etzhayyim.apps.telecom.provisionSdnFlow",
   "defs": {
     "main": {
       "type": "procedure",

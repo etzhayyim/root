@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.batteryPassport.registerPassport",
+  "id": "app.etzhayyim.apps.batteryPassport.registerPassport",
   "defs": {
     "main": {
       "type": "procedure",

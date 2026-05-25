@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.opensaas.salesforce.lead",
+  "id": "app.etzhayyim.apps.opensaas.salesforce.lead",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Salesforce-equivalent Lead: an unqualified inbound interest not yet linked to an Account. Same PII rules as contact — raw email/phone are Tier 3 only; this record holds hashed indices. A Lead is converted to (Account, Contact, Opportunity) via ai.gftd.apps.opensaas.salesforce.convertLead.",
+      "description": "Salesforce-equivalent Lead: an unqualified inbound interest not yet linked to an Account. Same PII rules as contact — raw email/phone are Tier 3 only; this record holds hashed indices. A Lead is converted to (Account, Contact, Opportunity) via app.etzhayyim.apps.opensaas.salesforce.convertLead.",
       "key": "tid",
       "record": {
         "type": "object",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOt.recordTelemetryBatch",
+  "id": "app.etzhayyim.apps.openOt.recordTelemetryBatch",
   "defs": {
     "main": {
       "type": "procedure",

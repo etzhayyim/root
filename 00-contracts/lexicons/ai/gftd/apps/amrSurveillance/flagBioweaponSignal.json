@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.amrSurveillance.flagBioweaponSignal",
+  "id": "app.etzhayyim.apps.amrSurveillance.flagBioweaponSignal",
   "defs": {
     "main": {
       "type": "procedure",

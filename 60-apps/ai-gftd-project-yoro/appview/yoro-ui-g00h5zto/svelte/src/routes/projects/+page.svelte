@@ -96,7 +96,7 @@
 		try {
 			const payload: Record<string, unknown> = { limit: 50 };
 			if (parentUri) payload.parentUri = parentUri;
-			const res = await atProcedureWithSession<{ convos: ProjectConvo[]; total: number }>('ai.gftd.projector.listProjectConvos', payload);
+			const res = await atProcedureWithSession<{ convos: ProjectConvo[]; total: number }>('app.etzhayyim.projector.listProjectConvos', payload);
 			const data = typeof res === 'string' ? JSON.parse(res) : res;
 			projects = (data?.convos ?? []) as ProjectConvo[];
 		} catch (e) {
@@ -112,7 +112,7 @@
 	/** Load full tree for a project (for sidebar/tree view). */
 	async function loadTree(convoId: string) {
 		try {
-			const res = await atProcedureWithSession<{ tree: TreeNode[] }>('ai.gftd.projector.listProjectTree', { convoId, maxDepth: 5 });
+			const res = await atProcedureWithSession<{ tree: TreeNode[] }>('app.etzhayyim.projector.listProjectTree', { convoId, maxDepth: 5 });
 			const data = typeof res === 'string' ? JSON.parse(res) : res;
 			treeNodes = (data?.tree ?? []) as TreeNode[];
 		} catch (e) {
@@ -124,7 +124,7 @@
 	/** Navigate into a sub-project. */
 	function navigateInto(project: ProjectConvo) {
 		breadcrumb = [...breadcrumb, { convoId: project.convoId, name: project.name }];
-		currentParentUri = `at://${selfDid}/ai.gftd.projector/${project.convoId}`;
+		currentParentUri = `at://${selfDid}/app.etzhayyim.projector/${project.convoId}`;
 		void loadProjects(currentParentUri);
 		void loadTree(project.convoId);
 	}
@@ -139,7 +139,7 @@
 		} else {
 			const target = breadcrumb[index];
 			breadcrumb = breadcrumb.slice(0, index + 1);
-			currentParentUri = `at://${selfDid}/ai.gftd.projector/${target.convoId}`;
+			currentParentUri = `at://${selfDid}/app.etzhayyim.projector/${target.convoId}`;
 			void loadProjects(currentParentUri);
 			void loadTree(target.convoId);
 		}
@@ -161,7 +161,7 @@
 			const payload: Record<string, unknown> = { name };
 			if (currentParentUri) payload.parentProjectUri = currentParentUri;
 
-			const res = await atProcedureWithSession<Record<string, unknown>>('ai.gftd.projector.newProjectConvo', payload);
+			const res = await atProcedureWithSession<Record<string, unknown>>('app.etzhayyim.projector.newProjectConvo', payload);
 			const parsed = (typeof res === 'string' ? JSON.parse(res) : res) as Record<string, unknown>;
 			const convoId = (parsed?.convoId as string) || '';
 			if (convoId) {
@@ -196,7 +196,7 @@
 	/** Load unread notification counts per project. */
 	async function loadUnreadCounts() {
 		try {
-			const res = await atProcedureWithSession<{ counts: UnreadCount[] }>('ai.gftd.projector.getProjectUnreadCounts', {});
+			const res = await atProcedureWithSession<{ counts: UnreadCount[] }>('app.etzhayyim.projector.getProjectUnreadCounts', {});
 			const data = typeof res === 'string' ? JSON.parse(res) : res;
 			const map = new Map<string, number>();
 			for (const c of data?.counts ?? []) {
@@ -211,7 +211,7 @@
 	/** Load cross-project notifications for the notification panel. */
 	async function loadProjectNotifications() {
 		try {
-			const res = await atProcedureWithSession<{ notifications: any[]; unreadCount: number }>('ai.gftd.projector.listProjectNotifications', { limit: 30 });
+			const res = await atProcedureWithSession<{ notifications: any[]; unreadCount: number }>('app.etzhayyim.projector.listProjectNotifications', { limit: 30 });
 			const data = typeof res === 'string' ? JSON.parse(res) : res;
 			projectNotifications = data?.notifications ?? [];
 		} catch (e) {

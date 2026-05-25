@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sourceShieldLaw.flagCompulsoryProcess",
+  "id": "app.etzhayyim.apps.sourceShieldLaw.flagCompulsoryProcess",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openUnispsc.syncCatalogItem",
+  "id": "app.etzhayyim.apps.openUnispsc.syncCatalogItem",
   "defs": {
     "main": {
       "type": "procedure",
@@ -14,7 +14,7 @@
             "commodityCode": { "type": "string", "description": "UNSPSC 8-digit" },
             "commodityName": { "type": "string" },
             "sourceRepo": { "type": "string", "description": "Upstream UNSPSC repo DID" },
-            "rkey": { "type": "string", "description": "Upstream ai.gftd.apps.unispsc.commodity rkey" },
+            "rkey": { "type": "string", "description": "Upstream app.etzhayyim.apps.unispsc.commodity rkey" },
             "active": { "type": "boolean", "default": true }
           }
         }

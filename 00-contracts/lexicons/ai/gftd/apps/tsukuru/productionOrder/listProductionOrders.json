@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.productionOrder.listProductionOrders",
+  "id": "app.etzhayyim.apps.tsukuru.productionOrder.listProductionOrders",
   "defs": {
     "main": {
       "type": "query",
@@ -30,7 +30,7 @@
               "type": "array",
               "items": {
                 "type": "ref",
-                "ref": "ai.gftd.apps.tsukuru.productionOrder.getProductionOrder#productionOrderView"
+                "ref": "app.etzhayyim.apps.tsukuru.productionOrder.getProductionOrder#productionOrderView"
               }
             },
             "cursor": { "type": "string" },

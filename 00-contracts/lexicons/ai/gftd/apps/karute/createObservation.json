@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.createObservation",
+  "id": "app.etzhayyim.apps.karute.createObservation",
   "defs": {
     "main": {
       "type": "procedure",

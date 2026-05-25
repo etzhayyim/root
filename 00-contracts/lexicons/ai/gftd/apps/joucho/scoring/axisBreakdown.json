@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.joucho.scoring.axisBreakdown",
+  "id": "app.etzhayyim.apps.joucho.scoring.axisBreakdown",
   "defs": {
     "main": {
       "type": "procedure",

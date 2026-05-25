@@ -17,7 +17,7 @@ Client (Widget API)
 gftd.coloring.v1.ColoringCommandService / ColoringQueryService
   ↓ performer.Runtime (ATCommandEnvelope)
 WASM component (magatama runtime)
-  ├── AT Protocol   — ai.gftd.command.coloring.paint / create → performer methods
+  ├── AT Protocol   — app.etzhayyim.command.coloring.paint / create → performer methods
   ├── Signal Protocol — group Sender Key session per canvas (E2E canvas events)
   └── SQL Protocol — yata graph (:Cell)-[:ADJACENT]->(:Cell) → color suggestion
 
@@ -31,8 +31,8 @@ Storage: magatama WIT (LanceQuerySQL / LanceUpsertOne / KvGet / KvPut)
 
 | Lexicon ID | performer method |
 |---|---|
-| `ai.gftd.command.coloring.paint` | `paint_cell` |
-| `ai.gftd.command.coloring.create` | `create_canvas` |
+| `app.etzhayyim.command.coloring.paint` | `paint_cell` |
+| `app.etzhayyim.command.coloring.create` | `create_canvas` |
 
 ## XRPC Services
 

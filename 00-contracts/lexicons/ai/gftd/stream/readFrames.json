@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.stream.readFrames",
+  "id": "app.etzhayyim.stream.readFrames",
   "defs": {
     "main": {
       "type": "query",

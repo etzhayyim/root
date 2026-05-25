@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.organizer.removeTag",
+  "id": "app.etzhayyim.apps.organizer.removeTag",
   "defs": {
     "main": {
       "type": "procedure",

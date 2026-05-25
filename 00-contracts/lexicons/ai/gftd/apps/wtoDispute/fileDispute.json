@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.wtoDispute.fileDispute",
+  "id": "app.etzhayyim.apps.wtoDispute.fileDispute",
   "defs": {
     "main": {
       "type": "procedure",

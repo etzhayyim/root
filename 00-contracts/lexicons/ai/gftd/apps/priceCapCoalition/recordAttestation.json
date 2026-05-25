@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.priceCapCoalition.recordAttestation",
+  "id": "app.etzhayyim.apps.priceCapCoalition.recordAttestation",
   "defs": {
     "main": {
       "type": "procedure",

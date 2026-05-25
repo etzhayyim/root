@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.xlsx.listSheets",
+  "id": "app.etzhayyim.apps.xlsx.listSheets",
   "defs": {
     "main": {
       "type": "query",

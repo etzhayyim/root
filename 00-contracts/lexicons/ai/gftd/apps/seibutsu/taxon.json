@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.seibutsu.taxon",
+  "id": "app.etzhayyim.apps.seibutsu.taxon",
   "defs": {
     "main": {
       "type": "record",

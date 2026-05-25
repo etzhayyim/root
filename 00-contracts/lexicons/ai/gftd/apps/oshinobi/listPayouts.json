@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oshinobi.listPayouts",
+  "id": "app.etzhayyim.apps.oshinobi.listPayouts",
   "defs": {
     "main": {
       "type": "query",

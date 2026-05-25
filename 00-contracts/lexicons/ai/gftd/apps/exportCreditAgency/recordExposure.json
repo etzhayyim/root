@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.exportCreditAgency.recordExposure",
+  "id": "app.etzhayyim.apps.exportCreditAgency.recordExposure",
   "defs": {
     "main": {
       "type": "procedure",

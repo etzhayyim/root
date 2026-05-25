@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ses.listJokyo",
+  "id": "app.etzhayyim.apps.ses.listJokyo",
   "defs": {
     "main": {
       "type": "query",

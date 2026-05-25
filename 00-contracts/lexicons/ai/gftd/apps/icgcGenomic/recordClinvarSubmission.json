@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.icgcGenomic.recordClinvarSubmission",
+  "id": "app.etzhayyim.apps.icgcGenomic.recordClinvarSubmission",
   "defs": {
     "main": {
       "type": "procedure",

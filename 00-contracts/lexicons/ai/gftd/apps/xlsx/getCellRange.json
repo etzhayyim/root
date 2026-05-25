@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.xlsx.getCellRange",
+  "id": "app.etzhayyim.apps.xlsx.getCellRange",
   "defs": {
     "main": {
       "type": "query",

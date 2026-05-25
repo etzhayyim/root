@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.electionIntegrity.recordObservation",
+  "id": "app.etzhayyim.apps.electionIntegrity.recordObservation",
   "defs": {
     "main": {
       "type": "procedure",

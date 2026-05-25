@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.updateShipmentStatus",
+  "id": "app.etzhayyim.apps.omise.updateShipmentStatus",
   "defs": {
     "main": {
       "type": "procedure",

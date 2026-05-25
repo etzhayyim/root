@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maritimeSpill.recordSpill",
+  "id": "app.etzhayyim.apps.maritimeSpill.recordSpill",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ongakuka.generation",
+  "id": "app.etzhayyim.apps.ongakuka.generation",
   "description": "One generation/regeneration event for a track or stem. Audit + metering source of truth.",
   "defs": {
     "main": {

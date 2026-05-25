@@ -1,7 +1,7 @@
 # YORO actorQuality Process Mining Snapshot
 
 - generatedAt: 2026-04-29T08:45:54.569Z
-- nsid: ai.gftd.apps.yoro.actorQualityEnrich
+- nsid: app.etzhayyim.apps.yoro.actorQualityEnrich
 - PDS accepted events: 136
 - PDS outcomes: {"ok":136}
 - PDS wall time ms: {"count":136,"min":227,"p50":265,"p95":1465,"max":19949,"avg":1104.7}

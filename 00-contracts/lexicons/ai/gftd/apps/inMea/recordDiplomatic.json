@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.inMea.recordDiplomatic",
+  "id": "app.etzhayyim.apps.inMea.recordDiplomatic",
   "defs": {
     "main": {
       "type": "procedure",

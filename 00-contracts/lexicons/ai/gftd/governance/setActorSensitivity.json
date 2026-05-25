@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.governance.setActorSensitivity",
+  "id": "app.etzhayyim.governance.setActorSensitivity",
   "defs": {
     "main": {
       "type": "procedure",

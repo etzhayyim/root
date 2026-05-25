@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import PokopiaDex entities into the GFTD domain knowledge graph.
+"""Import PokopiaDex entities into the etzhayyim domain knowledge graph.
 
 The importer keeps one document/chunk per entity so chat retrieval can answer
 specific Pokemon, item, habitat/area, and building questions directly.
@@ -264,7 +264,7 @@ def chunk_keywords(entity: Entity) -> list[str]:
 
 def rows_for_entity(entity: Entity, run_id: str, source_vid: str) -> dict[str, tuple[Any, ...]]:
     suffix = f"{entity.kind}-{entity.slug}"
-    doc_vid = f"at://{OWNER_DID}/ai.gftd.apps.llm.domainKnowledge/pokemon-pokopia-{suffix}"
+    doc_vid = f"at://{OWNER_DID}/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-{suffix}"
     chunk_vid = f"{doc_vid}/chunk/000"
     game_item_vid = f"did:gftd:gameitem:pokemon-pokopia:{suffix}"
     edge_id = f"edge:gftd:domain-knowledge-cites:{suffix}:pokopiadex"
@@ -391,7 +391,7 @@ def source_row(kind: str, url: str, run_id: str) -> tuple[Any, ...]:
 
 def delete_existing(cur: psycopg.Cursor[Any], entities: list[Entity]) -> None:
     doc_ids = [
-        f"at://{OWNER_DID}/ai.gftd.apps.llm.domainKnowledge/pokemon-pokopia-{e.kind}-{e.slug}"
+        f"at://{OWNER_DID}/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-{e.kind}-{e.slug}"
         for e in entities
     ]
     chunk_ids = [f"{doc}/chunk/000" for doc in doc_ids]

@@ -103,7 +103,7 @@ Expected response shape on success:
     "amountUsdcMicros": "1000000",
     "purpose": "donation"
   },
-  "message": "Donation verified. Commit `ai.gftd.apps.payment.sent` to your own PDS …"
+  "message": "Donation verified. Commit `app.etzhayyim.apps.payment.sent` to your own PDS …"
 }
 ```
 

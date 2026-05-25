@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yoro.ingestProductCategory",
+  "id": "app.etzhayyim.apps.yoro.ingestProductCategory",
   "defs": {
     "main": {
       "type": "procedure",

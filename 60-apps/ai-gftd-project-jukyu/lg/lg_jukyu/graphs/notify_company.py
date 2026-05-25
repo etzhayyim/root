@@ -1,6 +1,6 @@
 """jukyu `notifyCompany` graph — dispatch signal to target company actor.
 
-NSID: ai.gftd.apps.jukyu.notifyCompany
+NSID: app.etzhayyim.apps.jukyu.notifyCompany
 """
 
 from __future__ import annotations
@@ -103,7 +103,7 @@ async def _node_dispatch(state: _State) -> dict[str, Any]:
                 "signal": state.get("_loaded_signal") or {},
             },
         }
-        url = f"{_BPMN_URL}/xrpc/ai.gftd.generic.audit.emit"
+        url = f"{_BPMN_URL}/xrpc/app.etzhayyim.generic.audit.emit"
         async with httpx.AsyncClient(timeout=10) as client:
             resp = await client.post(url, json=payload, headers=headers)
             dispatch_ok = resp.status_code < 400

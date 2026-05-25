@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.soyMoratorium.recordOriginTrace",
+  "id": "app.etzhayyim.apps.soyMoratorium.recordOriginTrace",
   "defs": {
     "main": {
       "type": "procedure",

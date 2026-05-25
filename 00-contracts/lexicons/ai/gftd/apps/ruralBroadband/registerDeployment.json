@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ruralBroadband.registerDeployment",
+  "id": "app.etzhayyim.apps.ruralBroadband.registerDeployment",
   "defs": {
     "main": {
       "type": "procedure",

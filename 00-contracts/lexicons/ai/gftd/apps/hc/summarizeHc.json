@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hc.summarizeHc",
+  "id": "app.etzhayyim.apps.hc.summarizeHc",
   "defs": {
     "main": {
       "type": "procedure",

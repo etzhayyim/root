@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.psd3OpenFinance.registerApi",
+  "id": "app.etzhayyim.apps.psd3OpenFinance.registerApi",
   "defs": {
     "main": {
       "type": "procedure",

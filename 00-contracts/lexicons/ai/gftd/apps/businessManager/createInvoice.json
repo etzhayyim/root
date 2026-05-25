@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.businessManager.createInvoice",
+  "id": "app.etzhayyim.apps.businessManager.createInvoice",
   "defs": {
     "main": {
       "type": "procedure",

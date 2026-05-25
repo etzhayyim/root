@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.treasuryRulemaking.flagChallenge",
+  "id": "app.etzhayyim.apps.treasuryRulemaking.flagChallenge",
   "defs": {
     "main": {
       "type": "procedure",

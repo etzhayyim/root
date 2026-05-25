@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.smartGridCyber.flagOtIncident",
+  "id": "app.etzhayyim.apps.smartGridCyber.flagOtIncident",
   "defs": {
     "main": {
       "type": "procedure",

@@ -3,7 +3,7 @@ ConstructionOrchestrationCell — Phase 3 of kuni-umi 4-phase deployment workflo
 
 Per ADR-2605201400 §3 + ADR-2605202200 (cell.py contract).
 
-Trigger:    MST listener on `ai.gftd.apps.etzhayyim.kuniUmi.proposeDeploymentPlan`
+Trigger:    MST listener on `app.etzhayyim.apps.etzhayyim.kuniUmi.proposeDeploymentPlan`
             (accepted=true, decision=accept)
 Effect:     Dispatch Giemon fleet via open-robo → drive Pregel super-step (1
             cell = 1 Giemon unit) → stream `recordConstructionProgress` at
@@ -81,7 +81,7 @@ def stream_progress(state: ConstructionOrchestrationState, deps: CellDeps) -> Co
     """Emit `recordConstructionProgress` MST record (1-10 Hz checkpointer cadence)."""
     raise NotImplementedError(
         "Requires deps.sdk for MST write of "
-        "ai.gftd.apps.etzhayyim.kuniUmi.recordConstructionProgress + witness attestation field."
+        "app.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress + witness attestation field."
     )
 
 
@@ -173,7 +173,7 @@ def thread_id_from_event(event_record: dict, nsid: str) -> str:
 def healthz_extra(deps: CellDeps) -> dict:
     return {
         "phase": "3-construction",
-        "trigger_nsid": "ai.gftd.apps.etzhayyim.kuniUmi.proposeDeploymentPlan",
+        "trigger_nsid": "app.etzhayyim.apps.etzhayyim.kuniUmi.proposeDeploymentPlan",
         "cadence_hz_max": deps.config.get("cadence_hz_max", 10),
         "witness_invariant_min": 2,
         "hard_rt_owner": "Giemon firmware (open-robo + open-ot field tier WAMR)",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.importOsmPois",
+  "id": "app.etzhayyim.apps.maps.importOsmPois",
   "defs": {
     "main": {
       "type": "procedure",

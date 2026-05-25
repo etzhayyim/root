@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gameka.gameQa",
+  "id": "app.etzhayyim.apps.gameka.gameQa",
   "defs": {
     "main": {
       "type": "record",

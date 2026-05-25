@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pandemicPrep.recordPrepProgram",
+  "id": "app.etzhayyim.apps.pandemicPrep.recordPrepProgram",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.encryptionDebate.flagCivilSocietyResistance",
+  "id": "app.etzhayyim.apps.encryptionDebate.flagCivilSocietyResistance",
   "defs": {
     "main": {
       "type": "procedure",

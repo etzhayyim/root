@@ -27,7 +27,7 @@
 #   mcp.etzhayyim.com        CNAME REPLACE_ME_TUNNEL_ID.cfargotunnel.com (proxied=True)
 #
 # Predecessor on gftd CF account (tunnel ID be2cc0b0-ddee-4ca7-baf1-2bffbef18f31,
-# DNS dispatcher.gftd.ai / mcp.gftd.ai) must be `cloudflared tunnel delete`d
+# DNS dispatcher.etzhayyim.com / mcp.etzhayyim.com) must be `cloudflared tunnel delete`d
 # after this tunnel is HEALTHY and end-to-end verified.
 
 apiVersion: v1
@@ -58,9 +58,9 @@ data:
     no-autoupdate: true
 
     # Ingress routing (cloudflared evaluates in order, first match wins):
-    # mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message            → bpmn-dispatcher MCP router
-    # dispatcher.etzhayyim.com/xrpc/ai.gftd.apps.shinshi.*  → lg-shinshi LangGraph
-    # dispatcher.etzhayyim.com/xrpc/ai.gftd.animeka.*       → lg-animeka LangGraph
+    # mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message            → bpmn-dispatcher MCP router
+    # dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.shinshi.*  → lg-shinshi LangGraph
+    # dispatcher.etzhayyim.com/xrpc/app.etzhayyim.animeka.*       → lg-animeka LangGraph
     # dispatcher.etzhayyim.com/* and mcp.etzhayyim.com/*    → bpmn-dispatcher (default)
     # Anything else (catch-all) returns 404.
     #

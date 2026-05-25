@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.supplyChainFinance.issueLetterOfCredit",
+  "id": "app.etzhayyim.apps.supplyChainFinance.issueLetterOfCredit",
   "defs": {
     "main": {
       "type": "procedure",

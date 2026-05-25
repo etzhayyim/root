@@ -43,7 +43,7 @@ UP = [{'sql': '\n'
          "        'sys.bpmn.seed.oshinobi'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-subscribe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/oshinobi-subscribe-v1',
                  'did:web:oshinobi.etzhayyim.com',
                  'oshinobi_subscribe',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -337,7 +337,7 @@ UP = [{'sql': '\n'
          "        'sys.bpmn.seed.oshinobi'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/oshinobi-tip-creator-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/oshinobi-tip-creator-v1',
                  'did:web:oshinobi.etzhayyim.com',
                  'oshinobi_tip_creator',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yorishiro.createYorishiro",
+  "id": "app.etzhayyim.apps.yorishiro.createYorishiro",
   "defs": {
     "main": {
       "type": "procedure",

@@ -125,7 +125,7 @@ Cycle-period vs super-step rate: tight inner loops (≥ 100 Hz) run **on the fie
 Aligns with platform invariants:
 
 - Each device, cell, and signal point gets a path-based DID (`did:web:open-ot.etzhayyim.com:{device|cell|signal|loop}:{id}`).
-- Configuration, version pins, capability grants, and audit are atproto records under `ai.gftd.apps.openOt.*` NSIDs.
+- Configuration, version pins, capability grants, and audit are atproto records under `app.etzhayyim.apps.openOt.*` NSIDs.
 - Telemetry is **not** atproto records — it is Zenoh stream + RisingWave continuous ingest (per ADR-2605111200, RW writes happen inside K8s pods via XRPC `recordTelemetryBatch`, not from the edge device directly; a tunnel pod aggregates).
 - Control writes (setpoint changes, mode changes) go XRPC → bpmn-dispatcher → AgentGateway MCP → LangServer pod → Zenoh publish → device cell. The control-plane round trip is human / agent latency, not control-loop latency.
 

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.eprPackaging.flagEcomodulationGap",
+  "id": "app.etzhayyim.apps.eprPackaging.flagEcomodulationGap",
   "defs": {
     "main": {
       "type": "procedure",

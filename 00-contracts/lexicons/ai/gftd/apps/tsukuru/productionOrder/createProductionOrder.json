@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.productionOrder.createProductionOrder",
+  "id": "app.etzhayyim.apps.tsukuru.productionOrder.createProductionOrder",
   "defs": {
     "main": {
       "type": "procedure",

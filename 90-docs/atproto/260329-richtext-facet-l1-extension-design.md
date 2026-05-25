@@ -110,8 +110,8 @@ Evidence: `00-contracts/wit/deps/magatama-bsky/package.wit` (richtext interface)
 | Image | `post-embed.images` | Binary — embed, not facet |
 | Video | `post-embed.video` | Binary — embed, not facet |
 | Bookmark | `post-embed.external` | Link preview — embed |
-| File attachment | `ai.gftd.files.*` | Binary — file upload NSID |
-| Database / Linked DB | `ai.gftd.apps.*.query` | Application-level, not text annotation |
+| File attachment | `app.etzhayyim.files.*` | Binary — file upload NSID |
+| Database / Linked DB | `app.etzhayyim.apps.*.query` | Application-level, not text annotation |
 | Synced block | — | Notion-specific collaborative feature |
 | Column layout | — | UI layout, not text semantics |
 | Table of contents | — | Derived from headings at render time |

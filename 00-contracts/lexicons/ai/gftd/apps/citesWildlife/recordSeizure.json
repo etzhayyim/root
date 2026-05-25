@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.citesWildlife.recordSeizure",
+  "id": "app.etzhayyim.apps.citesWildlife.recordSeizure",
   "defs": {
     "main": {
       "type": "procedure",

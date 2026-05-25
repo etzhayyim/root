@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.xrdXrf.identifyPhase",
+  "id": "app.etzhayyim.apps.xrdXrf.identifyPhase",
   "defs": {
     "main": {
       "type": "procedure",

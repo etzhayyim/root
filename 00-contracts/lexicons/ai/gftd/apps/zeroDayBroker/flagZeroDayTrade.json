@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.zeroDayBroker.flagZeroDayTrade",
+  "id": "app.etzhayyim.apps.zeroDayBroker.flagZeroDayTrade",
   "defs": {
     "main": {
       "type": "procedure",

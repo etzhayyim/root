@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.visionImportEntities",
+  "id": "app.etzhayyim.apps.maps.visionImportEntities",
   "defs": {
     "main": {
       "type": "procedure",

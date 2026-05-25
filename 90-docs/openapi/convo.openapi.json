@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.convo.archiveConvo": {
+    "/xrpc/app.etzhayyim.convo.archiveConvo": {
       "post": {
-        "summary": "ai.gftd.convo.archiveConvo",
-        "operationId": "ai.gftd.convo.archiveConvo",
+        "summary": "app.etzhayyim.convo.archiveConvo",
+        "operationId": "app.etzhayyim.convo.archiveConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -65,10 +65,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.createConvo": {
+    "/xrpc/app.etzhayyim.convo.createConvo": {
       "post": {
-        "summary": "ai.gftd.convo.createConvo",
-        "operationId": "ai.gftd.convo.createConvo",
+        "summary": "app.etzhayyim.convo.createConvo",
+        "operationId": "app.etzhayyim.convo.createConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -81,7 +81,7 @@
                   },
                   "kind": {
                     "type": "string",
-                    "description": "GFTD extension: conversation kind",
+                    "description": "etzhayyim extension: conversation kind",
                     "x-knownValues": [
                       "dm",
                       "group",
@@ -139,10 +139,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.diff": {
+    "/xrpc/app.etzhayyim.convo.diff": {
       "post": {
-        "summary": "ai.gftd.convo.diff",
-        "operationId": "ai.gftd.convo.diff",
+        "summary": "app.etzhayyim.convo.diff",
+        "operationId": "app.etzhayyim.convo.diff",
         "requestBody": {
           "required": true,
           "content": {
@@ -236,10 +236,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.edit": {
+    "/xrpc/app.etzhayyim.convo.edit": {
       "post": {
-        "summary": "ai.gftd.convo.edit",
-        "operationId": "ai.gftd.convo.edit",
+        "summary": "app.etzhayyim.convo.edit",
+        "operationId": "app.etzhayyim.convo.edit",
         "requestBody": {
           "required": true,
           "content": {
@@ -308,10 +308,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.fetchBlocks": {
+    "/xrpc/app.etzhayyim.convo.fetchBlocks": {
       "get": {
-        "summary": "ai.gftd.convo.fetchBlocks",
-        "operationId": "ai.gftd.convo.fetchBlocks",
+        "summary": "app.etzhayyim.convo.fetchBlocks",
+        "operationId": "app.etzhayyim.convo.fetchBlocks",
         "parameters": [
           {
             "name": "convoId",
@@ -350,10 +350,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.forwardMessage": {
+    "/xrpc/app.etzhayyim.convo.forwardMessage": {
       "post": {
-        "summary": "ai.gftd.convo.forwardMessage",
-        "operationId": "ai.gftd.convo.forwardMessage",
+        "summary": "app.etzhayyim.convo.forwardMessage",
+        "operationId": "app.etzhayyim.convo.forwardMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -413,10 +413,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.getProfile": {
+    "/xrpc/app.etzhayyim.convo.getProfile": {
       "get": {
-        "summary": "ai.gftd.convo.getProfile",
-        "operationId": "ai.gftd.convo.getProfile",
+        "summary": "app.etzhayyim.convo.getProfile",
+        "operationId": "app.etzhayyim.convo.getProfile",
         "parameters": [],
         "responses": {
           "200": {
@@ -443,10 +443,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.getThread": {
+    "/xrpc/app.etzhayyim.convo.getThread": {
       "get": {
-        "summary": "ai.gftd.convo.getThread",
-        "operationId": "ai.gftd.convo.getThread",
+        "summary": "app.etzhayyim.convo.getThread",
+        "operationId": "app.etzhayyim.convo.getThread",
         "parameters": [
           {
             "name": "convoId",
@@ -500,10 +500,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.getUnread": {
+    "/xrpc/app.etzhayyim.convo.getUnread": {
       "get": {
-        "summary": "ai.gftd.convo.getUnread",
-        "operationId": "ai.gftd.convo.getUnread",
+        "summary": "app.etzhayyim.convo.getUnread",
+        "operationId": "app.etzhayyim.convo.getUnread",
         "parameters": [],
         "responses": {
           "200": {
@@ -530,10 +530,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.inviteMember": {
+    "/xrpc/app.etzhayyim.convo.inviteMember": {
       "post": {
-        "summary": "ai.gftd.convo.inviteMember",
-        "operationId": "ai.gftd.convo.inviteMember",
+        "summary": "app.etzhayyim.convo.inviteMember",
+        "operationId": "app.etzhayyim.convo.inviteMember",
         "requestBody": {
           "required": true,
           "content": {
@@ -589,10 +589,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.joinConvo": {
+    "/xrpc/app.etzhayyim.convo.joinConvo": {
       "post": {
-        "summary": "ai.gftd.convo.joinConvo",
-        "operationId": "ai.gftd.convo.joinConvo",
+        "summary": "app.etzhayyim.convo.joinConvo",
+        "operationId": "app.etzhayyim.convo.joinConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -644,10 +644,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.listMembers": {
+    "/xrpc/app.etzhayyim.convo.listMembers": {
       "get": {
-        "summary": "ai.gftd.convo.listMembers",
-        "operationId": "ai.gftd.convo.listMembers",
+        "summary": "app.etzhayyim.convo.listMembers",
+        "operationId": "app.etzhayyim.convo.listMembers",
         "parameters": [
           {
             "name": "convoId",
@@ -686,10 +686,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.listPresence": {
+    "/xrpc/app.etzhayyim.convo.listPresence": {
       "get": {
-        "summary": "ai.gftd.convo.listPresence",
-        "operationId": "ai.gftd.convo.listPresence",
+        "summary": "app.etzhayyim.convo.listPresence",
+        "operationId": "app.etzhayyim.convo.listPresence",
         "parameters": [
           {
             "name": "convoId",
@@ -728,10 +728,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.listPublicConvos": {
+    "/xrpc/app.etzhayyim.convo.listPublicConvos": {
       "get": {
-        "summary": "ai.gftd.convo.listPublicConvos",
-        "operationId": "ai.gftd.convo.listPublicConvos",
+        "summary": "app.etzhayyim.convo.listPublicConvos",
+        "operationId": "app.etzhayyim.convo.listPublicConvos",
         "parameters": [
           {
             "name": "limit",
@@ -781,10 +781,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.pinMessage": {
+    "/xrpc/app.etzhayyim.convo.pinMessage": {
       "post": {
-        "summary": "ai.gftd.convo.pinMessage",
-        "operationId": "ai.gftd.convo.pinMessage",
+        "summary": "app.etzhayyim.convo.pinMessage",
+        "operationId": "app.etzhayyim.convo.pinMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -840,10 +840,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.react": {
+    "/xrpc/app.etzhayyim.convo.react": {
       "post": {
-        "summary": "ai.gftd.convo.react",
-        "operationId": "ai.gftd.convo.react",
+        "summary": "app.etzhayyim.convo.react",
+        "operationId": "app.etzhayyim.convo.react",
         "requestBody": {
           "required": true,
           "content": {
@@ -895,10 +895,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.redact": {
+    "/xrpc/app.etzhayyim.convo.redact": {
       "post": {
-        "summary": "ai.gftd.convo.redact",
-        "operationId": "ai.gftd.convo.redact",
+        "summary": "app.etzhayyim.convo.redact",
+        "operationId": "app.etzhayyim.convo.redact",
         "requestBody": {
           "required": true,
           "content": {
@@ -949,10 +949,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.search": {
+    "/xrpc/app.etzhayyim.convo.search": {
       "get": {
-        "summary": "ai.gftd.convo.search",
-        "operationId": "ai.gftd.convo.search",
+        "summary": "app.etzhayyim.convo.search",
+        "operationId": "app.etzhayyim.convo.search",
         "parameters": [
           {
             "name": "q",
@@ -1021,10 +1021,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.send": {
+    "/xrpc/app.etzhayyim.convo.send": {
       "post": {
-        "summary": "ai.gftd.convo.send",
-        "operationId": "ai.gftd.convo.send",
+        "summary": "app.etzhayyim.convo.send",
+        "operationId": "app.etzhayyim.convo.send",
         "requestBody": {
           "required": true,
           "content": {
@@ -1054,11 +1054,11 @@
                   },
                   "kind": {
                     "type": "string",
-                    "description": "GFTD extension: message kind"
+                    "description": "etzhayyim extension: message kind"
                   },
                   "contentType": {
                     "type": "string",
-                    "description": "GFTD extension: MIME content type"
+                    "description": "etzhayyim extension: MIME content type"
                   }
                 },
                 "required": [
@@ -1104,10 +1104,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.sendMessage": {
+    "/xrpc/app.etzhayyim.convo.sendMessage": {
       "post": {
-        "summary": "ai.gftd.convo.sendMessage",
-        "operationId": "ai.gftd.convo.sendMessage",
+        "summary": "app.etzhayyim.convo.sendMessage",
+        "operationId": "app.etzhayyim.convo.sendMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -1137,15 +1137,15 @@
                   },
                   "payload": {
                     "type": "string",
-                    "description": "GFTD extension: arbitrary payload (JSON-stringified)"
+                    "description": "etzhayyim extension: arbitrary payload (JSON-stringified)"
                   },
                   "kind": {
                     "type": "string",
-                    "description": "GFTD extension: message kind"
+                    "description": "etzhayyim extension: message kind"
                   },
                   "contentType": {
                     "type": "string",
-                    "description": "GFTD extension: MIME content type"
+                    "description": "etzhayyim extension: MIME content type"
                   }
                 },
                 "required": [
@@ -1190,10 +1190,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.sendTyping": {
+    "/xrpc/app.etzhayyim.convo.sendTyping": {
       "post": {
-        "summary": "ai.gftd.convo.sendTyping",
-        "operationId": "ai.gftd.convo.sendTyping",
+        "summary": "app.etzhayyim.convo.sendTyping",
+        "operationId": "app.etzhayyim.convo.sendTyping",
         "requestBody": {
           "required": true,
           "content": {
@@ -1237,10 +1237,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.setEncryption": {
+    "/xrpc/app.etzhayyim.convo.setEncryption": {
       "post": {
-        "summary": "ai.gftd.convo.setEncryption",
-        "operationId": "ai.gftd.convo.setEncryption",
+        "summary": "app.etzhayyim.convo.setEncryption",
+        "operationId": "app.etzhayyim.convo.setEncryption",
         "requestBody": {
           "required": true,
           "content": {
@@ -1291,10 +1291,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.setProfile": {
+    "/xrpc/app.etzhayyim.convo.setProfile": {
       "post": {
-        "summary": "ai.gftd.convo.setProfile",
-        "operationId": "ai.gftd.convo.setProfile",
+        "summary": "app.etzhayyim.convo.setProfile",
+        "operationId": "app.etzhayyim.convo.setProfile",
         "requestBody": {
           "required": true,
           "content": {
@@ -1349,10 +1349,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.unpinMessage": {
+    "/xrpc/app.etzhayyim.convo.unpinMessage": {
       "post": {
-        "summary": "ai.gftd.convo.unpinMessage",
-        "operationId": "ai.gftd.convo.unpinMessage",
+        "summary": "app.etzhayyim.convo.unpinMessage",
+        "operationId": "app.etzhayyim.convo.unpinMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -1408,10 +1408,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.unreact": {
+    "/xrpc/app.etzhayyim.convo.unreact": {
       "post": {
-        "summary": "ai.gftd.convo.unreact",
-        "operationId": "ai.gftd.convo.unreact",
+        "summary": "app.etzhayyim.convo.unreact",
+        "operationId": "app.etzhayyim.convo.unreact",
         "requestBody": {
           "required": true,
           "content": {
@@ -1463,10 +1463,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.updateConvo": {
+    "/xrpc/app.etzhayyim.convo.updateConvo": {
       "post": {
-        "summary": "ai.gftd.convo.updateConvo",
-        "operationId": "ai.gftd.convo.updateConvo",
+        "summary": "app.etzhayyim.convo.updateConvo",
+        "operationId": "app.etzhayyim.convo.updateConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -1524,10 +1524,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.updateMemberRole": {
+    "/xrpc/app.etzhayyim.convo.updateMemberRole": {
       "post": {
-        "summary": "ai.gftd.convo.updateMemberRole",
-        "operationId": "ai.gftd.convo.updateMemberRole",
+        "summary": "app.etzhayyim.convo.updateMemberRole",
+        "operationId": "app.etzhayyim.convo.updateMemberRole",
         "requestBody": {
           "required": true,
           "content": {
@@ -1587,10 +1587,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.convo.updatePresence": {
+    "/xrpc/app.etzhayyim.convo.updatePresence": {
       "post": {
-        "summary": "ai.gftd.convo.updatePresence",
-        "operationId": "ai.gftd.convo.updatePresence",
+        "summary": "app.etzhayyim.convo.updatePresence",
+        "operationId": "app.etzhayyim.convo.updatePresence",
         "requestBody": {
           "required": true,
           "content": {
@@ -1653,11 +1653,11 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "GFTD extension: human-readable conversation name (for group convos)"
+            "description": "etzhayyim extension: human-readable conversation name (for group convos)"
           },
           "kind": {
             "type": "string",
-            "description": "GFTD extension: conversation kind (dm, group, channel, project, etc.)",
+            "description": "etzhayyim extension: conversation kind (dm, group, channel, project, etc.)",
             "x-knownValues": [
               "dm",
               "group",
@@ -1778,7 +1778,7 @@
           },
           "role": {
             "type": "string",
-            "description": "GFTD extension: member role in conversation",
+            "description": "etzhayyim extension: member role in conversation",
             "x-knownValues": [
               "owner",
               "admin",
@@ -1843,15 +1843,15 @@
           },
           "kind": {
             "type": "string",
-            "description": "GFTD extension: message kind (text, system, agent, etc.)"
+            "description": "etzhayyim extension: message kind (text, system, agent, etc.)"
           },
           "contentType": {
             "type": "string",
-            "description": "GFTD extension: MIME content type for rich payloads"
+            "description": "etzhayyim extension: MIME content type for rich payloads"
           },
           "encrypted": {
             "type": "boolean",
-            "description": "GFTD extension: whether this message is E2E encrypted via ai.gftd.signal"
+            "description": "etzhayyim extension: whether this message is E2E encrypted via app.etzhayyim.signal"
           }
         },
         "required": [

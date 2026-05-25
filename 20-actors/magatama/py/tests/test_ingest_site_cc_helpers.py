@@ -78,13 +78,13 @@ def test_scc_data_dir_fallback(monkeypatch) -> None:
 # ─── _gftd_binary ────────────────────────────────────────────────────────────
 
 def test_scc_gftd_binary_from_env(monkeypatch) -> None:
-    monkeypatch.setenv("GFTD_BIN", "/usr/local/bin/gftd")
+    monkeypatch.setenv("etzhayyim_BIN", "/usr/local/bin/gftd")
     result = SCC._gftd_binary()
     assert result == "/usr/local/bin/gftd"
 
 
 def test_scc_gftd_binary_default_fallback(monkeypatch) -> None:
-    monkeypatch.delenv("GFTD_BIN", raising=False)
+    monkeypatch.delenv("etzhayyim_BIN", raising=False)
     result = SCC._gftd_binary()
     assert isinstance(result, str)
     assert len(result) > 0

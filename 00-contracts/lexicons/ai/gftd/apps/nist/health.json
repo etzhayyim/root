@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nist.health",
+  "id": "app.etzhayyim.apps.nist.health",
   "defs": {
     "main": {
       "type": "procedure",

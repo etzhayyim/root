@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hormuzTransit.recordTransit",
+  "id": "app.etzhayyim.apps.hormuzTransit.recordTransit",
   "defs": {
     "main": {
       "type": "procedure",

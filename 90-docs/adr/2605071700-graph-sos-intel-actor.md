@@ -60,9 +60,9 @@ and background-DDL governance.
 - `cron R/PT15M`: inventory `vertex_*`, `edge_*`, `mv_*`, and `idx_*`, then write
   a compact `vertex_graph_sos_intel_snapshot`.
 - `cron R/PT6H`: produce a human-readable topology briefing.
-- `ai.gftd.apps.graphSosIntel.health`: return latest snapshot and rollup.
-- `ai.gftd.apps.graphSosIntel.listRelations`: inspect current graph relations.
-- `ai.gftd.apps.graphSosIntel.listFindings`: inspect open findings.
+- `app.etzhayyim.apps.graphSosIntel.health`: return latest snapshot and rollup.
+- `app.etzhayyim.apps.graphSosIntel.listRelations`: inspect current graph relations.
+- `app.etzhayyim.apps.graphSosIntel.listFindings`: inspect open findings.
 
 ## Data Model
 

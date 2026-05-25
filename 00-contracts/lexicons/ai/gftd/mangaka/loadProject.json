@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.loadProject",
+  "id": "app.etzhayyim.mangaka.loadProject",
   "defs": {
     "main": {
       "type": "query",

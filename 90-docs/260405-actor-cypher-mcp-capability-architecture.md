@@ -37,8 +37,8 @@ After:   Actor DID = Cypher graph node (PDS manages)
                     ┌──────────▼──────────────────────┐
                     │         PDS (sole gateway)       │
                     │                                  │
-                    │  XRPC: ai.gftd.actor.*           │
-                    │  XRPC: ai.gftd.tool.*            │
+                    │  XRPC: app.etzhayyim.actor.*           │
+                    │  XRPC: app.etzhayyim.tool.*            │
                     │  MCP:  /mcp (JSON-RPC 2.0)       │
                     │                                  │
                     └──────────┬──────────────────────┘
@@ -90,28 +90,28 @@ SET g.actorDid = "did:web:k3rn5la4.etzhayyim.com", g.toolName = "news.summarize"
 
 | NSID | Auth | Description |
 |---|---|---|
-| `ai.gftd.actor.create` | required | Create Actor node (Cypher MERGE) |
-| `ai.gftd.actor.update` | required | Update Actor properties |
-| `ai.gftd.actor.delete` | required | Archive Actor (status="archived") |
-| `ai.gftd.actor.get` | public | Get Actor by DID |
-| `ai.gftd.actor.list` | public | List Actors by status |
-| `ai.gftd.actor.setStatus` | required | Change Actor status |
-| `ai.gftd.actor.heartbeatBatch` | required | Batch heartbeat update |
-| `ai.gftd.actor.grantTool` | required | Grant CAN_USE (ToolGrant) |
-| `ai.gftd.actor.revokeTool` | required | Revoke ToolGrant |
-| `ai.gftd.actor.listTools` | public | List granted tools for Actor |
-| `ai.gftd.actor.migrateBatch` | required | Bulk migration (App → Actor + Tool + ToolGrant) |
+| `app.etzhayyim.actor.create` | required | Create Actor node (Cypher MERGE) |
+| `app.etzhayyim.actor.update` | required | Update Actor properties |
+| `app.etzhayyim.actor.delete` | required | Archive Actor (status="archived") |
+| `app.etzhayyim.actor.get` | public | Get Actor by DID |
+| `app.etzhayyim.actor.list` | public | List Actors by status |
+| `app.etzhayyim.actor.setStatus` | required | Change Actor status |
+| `app.etzhayyim.actor.heartbeatBatch` | required | Batch heartbeat update |
+| `app.etzhayyim.actor.grantTool` | required | Grant CAN_USE (ToolGrant) |
+| `app.etzhayyim.actor.revokeTool` | required | Revoke ToolGrant |
+| `app.etzhayyim.actor.listTools` | public | List granted tools for Actor |
+| `app.etzhayyim.actor.migrateBatch` | required | Bulk migration (App → Actor + Tool + ToolGrant) |
 
 ### Tool (`pds-actor-tools.ts`)
 
 | NSID | Auth | Description |
 |---|---|---|
-| `ai.gftd.tool.register` | required | Register MCP tool |
-| `ai.gftd.tool.update` | required | Update tool properties |
-| `ai.gftd.tool.delete` | required | Delete tool (status="deleted") |
-| `ai.gftd.tool.get` | public | Get Tool by name |
-| `ai.gftd.tool.list` | public | List Tools (filter by capabilityWorker/tag) |
-| `ai.gftd.tool.registerBatch` | required | Batch register tools (capability worker startup) |
+| `app.etzhayyim.tool.register` | required | Register MCP tool |
+| `app.etzhayyim.tool.update` | required | Update tool properties |
+| `app.etzhayyim.tool.delete` | required | Delete tool (status="deleted") |
+| `app.etzhayyim.tool.get` | public | Get Tool by name |
+| `app.etzhayyim.tool.list` | public | List Tools (filter by capabilityWorker/tag) |
+| `app.etzhayyim.tool.registerBatch` | required | Batch register tools (capability worker startup) |
 
 ## MCP Gateway (`mcp-adapter.ts`)
 
@@ -122,11 +122,11 @@ SET g.actorDid = "did:web:k3rn5la4.etzhayyim.com", g.toolName = "news.summarize"
 | `resources/list` | Actor graph | Active Actor nodes |
 | `resources/read` | Actor graph | Single Actor by DID |
 
-## Runtime (`@gftd/magatama-host-sdk`)
+## Runtime (`@etzhayyim/magatama-host-sdk`)
 
 ### createCapabilityWorker()
 
-DID management なし。MCP tool handler only。Auto-registers tools via `ai.gftd.tool.registerBatch` on first request.
+DID management なし。MCP tool handler only。Auto-registers tools via `app.etzhayyim.tool.registerBatch` on first request.
 
 ```typescript
 export default createCapabilityWorker({
@@ -154,7 +154,7 @@ PDS cron (`*/5 * * * *`):
 
 ## Migration (`pds-migrate-logical.ts`)
 
-`ai.gftd.actor.migrateBatch` endpoint. 3 phases:
+`app.etzhayyim.actor.migrateBatch` endpoint. 3 phases:
 
 | Phase | Input → Output | Method |
 |---|---|---|
@@ -164,7 +164,7 @@ PDS cron (`*/5 * * * *`):
 
 ```bash
 # Run all phases
-curl -X POST atproto.etzhayyim.com/xrpc/ai.gftd.actor.migrateBatch \
+curl -X POST atproto.etzhayyim.com/xrpc/app.etzhayyim.actor.migrateBatch \
   -H 'X-Magatama-Verified: true' \
   -d '{"phase":"all","batchLimit":500}'
 ```
@@ -173,7 +173,7 @@ curl -X POST atproto.etzhayyim.com/xrpc/ai.gftd.actor.migrateBatch \
 
 kagami transpiles Cypher → B2 SQL. Only promoted columns (`did`, `repo`, `status`, `collection`, `updatedAt`, `val`) are SQL columns. Non-promoted fields (nanoid, handle, etc.) are in `val` — extracted in JS after query.
 
-Actor writes use `kagami.cypher()` (Workers RPC → in-memory CSR) for immediate read-after-write. `ctx.aiGftdKagamiCypher()` falls back to B2 SQL which may not have the data yet.
+Actor writes use `kagami.cypher()` (Workers RPC → in-memory CSR) for immediate read-after-write. `ctx.aietzhayyimKagamiCypher()` falls back to B2 SQL which may not have the data yet.
 
 ## P9v20 Stability Update (2026-04-06)
 
@@ -185,7 +185,7 @@ PDS hot paths were patched to stop circuit-breaker cascades caused by non-P9v20 
   - `updated_at` / `_updated_at` / `display_name` -> `updatedAt` / `displayName`
   - `projectBound` DB filter removed from Profile list/suggestions (value is in `val`, not promoted)
   - `App.name` lookup replaced by `displayName`/`val` parsing
-- `aiGftdKagamiCypherCached` parameter handling fixed:
+- `aietzhayyimKagamiCypherCached` parameter handling fixed:
   - when `params` is present, execution now uses diagnose/non-cache path (no param-dropping cache key path)
 - Incorrect Cypher aliases fixed in project/convo queries (`RETURN r.rkey` -> correct alias such as `t.rkey`, `m.rkey`)
 

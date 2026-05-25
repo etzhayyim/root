@@ -14,13 +14,13 @@ const createdAt = "2026-04-30T21:11:00+09:00";
 const actorId = "sys.bpmn.seed.kami-ketsu-gorilla";
 
 const seeds: Seed[] = [
-  { slug: "submit-score", op: "submitScore", nsid: "ai.gftd.apps.kami.ketsuGorilla.submitScore", processId: "kami_ketsu_gorilla_submit_score", timeoutMs: 30000, writeTableAllowlist: "vertex_atrecord_kami_ketsu_gorilla_score" },
-  { slug: "get-leaderboard", op: "getLeaderboard", nsid: "ai.gftd.apps.kami.ketsuGorilla.getLeaderboard", processId: "kami_ketsu_gorilla_get_leaderboard", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "submit-score", op: "submitScore", nsid: "app.etzhayyim.apps.kami.ketsuGorilla.submitScore", processId: "kami_ketsu_gorilla_submit_score", timeoutMs: 30000, writeTableAllowlist: "vertex_atrecord_kami_ketsu_gorilla_score" },
+  { slug: "get-leaderboard", op: "getLeaderboard", nsid: "app.etzhayyim.apps.kami.ketsuGorilla.getLeaderboard", processId: "kami_ketsu_gorilla_get_leaderboard", timeoutMs: 30000, writeTableAllowlist: "" },
 ];
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/kamiKetsuGorilla/${s.op}.bpmn`;
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kami-ketsu-gorilla-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kami-ketsu-gorilla-${s.op}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kami-ketsu-gorilla-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kami-ketsu-gorilla-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

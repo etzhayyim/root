@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shinka.generatePropagationChain",
+  "id": "app.etzhayyim.apps.shinka.generatePropagationChain",
   "defs": {
     "main": {
       "type": "procedure",

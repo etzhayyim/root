@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yardOps.getDockSchedule",
+  "id": "app.etzhayyim.apps.yardOps.getDockSchedule",
   "defs": {
     "main": {
       "type": "query",

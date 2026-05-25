@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cloudflareBrowserRender.createSession",
+  "id": "app.etzhayyim.apps.cloudflareBrowserRender.createSession",
   "defs": {
     "main": {
       "type": "procedure",

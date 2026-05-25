@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openAdnetwork.registerPublisher",
+  "id": "app.etzhayyim.apps.openAdnetwork.registerPublisher",
   "defs": {
     "main": {
       "type": "procedure",

@@ -66,7 +66,7 @@ Evidence:
 - `.../passkey.ts:75-78`
   - session is serialized into `sessionStorage`
 - `.../passkey.ts:99-106`
-  - both JWTs are copied into `@gftd/wproto`
+  - both JWTs are copied into `@etzhayyim/wproto`
 - `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:8-18`
   - `#auth=` fragment is copied into `sessionStorage` before URL cleanup
 
@@ -126,7 +126,7 @@ Evidence reviewed:
 
 Reason:
 
-- `ai.gftd.kagami.sql` is intentionally unauthenticated in current policy
+- `app.etzhayyim.kagami.sql` is intentionally unauthenticated in current policy
 - repo evidence alone does not prove data sensitivity or privilege escalation
 - keep under review, but weaker than direct secret exposure
 

@@ -1,7 +1,7 @@
 /**
  * meeting-recorder.etzhayyim.com — Multi-provider meeting recorder control-plane Worker.
  *
- * 5 XRPC procedures + 2 records (ai.gftd.apps.meetingRecorder.*):
+ * 5 XRPC procedures + 2 records (app.etzhayyim.apps.meetingRecorder.*):
  *   joinMeeting / leaveMeeting / getSession / listSessions / getTranscript
  *   + recordingChunk (record) + transcriptSegment (record)
  *
@@ -28,7 +28,7 @@ import {
   parseLexiconInput,
   sql,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 import { verifySignature, parseDidKey, formatDidKey } from "@atproto/crypto";
 
 const APP_NANOID = "m33tr3c0";
@@ -129,7 +129,7 @@ async function resolveDid(did: string): Promise<DidDocument> {
     // Path convention follows W3C DID Resolution v0.3 but the did string is
     // NOT encodeURIComponent'd (colons preserved) to match the resolver's
     // actual routing (identifiers is routed by exact prefix match).
-    const base = getVar("DID_GFTD_RESOLVER", "https://did.etzhayyim.com");
+    const base = getVar("DID_etzhayyim_RESOLVER", "https://did.etzhayyim.com");
     const url = `${base}/1.0/identifiers/${did}`;
     const res = await fetch(url, cfCache);
     if (!res.ok) throw new Error(`did:gftd resolve ${url}: ${res.status}`);
@@ -361,7 +361,7 @@ interface JoinMeetingInput {
 }
 
 async function cmdJoinMeeting(sdk: HostSDK, body: Uint8Array) {
-  const input = parseLexiconInput("ai.gftd.apps.meetingRecorder.joinMeeting", body) as JoinMeetingInput;
+  const input = parseLexiconInput("app.etzhayyim.apps.meetingRecorder.joinMeeting", body) as JoinMeetingInput;
 
   if (!["teams", "meet", "zoom"].includes(input.provider)) {
     return { status: "failed", error: "invalid provider" };
@@ -384,7 +384,7 @@ async function cmdJoinMeeting(sdk: HostSDK, body: Uint8Array) {
   // 1. Validate consent claims (structural) + verify ES256 signature.
   let claims: ConsentClaims;
   try {
-    claims = validateConsentClaims(input.consentToken, "ai.gftd.apps.meetingRecorder.joinMeeting");
+    claims = validateConsentClaims(input.consentToken, "app.etzhayyim.apps.meetingRecorder.joinMeeting");
   } catch (e) {
     return { status: "failed", error: `consent rejected: ${(e as Error).message}` };
   }
@@ -420,7 +420,7 @@ async function cmdJoinMeeting(sdk: HostSDK, body: Uint8Array) {
     record_video: input.recordVideo ?? true,
     transcribe: input.transcribe ?? true,
     chunk_seconds: input.chunkSeconds ?? parseInt(getVar("RECORDER_CHUNK_SECONDS_DEFAULT", "60"), 10),
-    display_name: input.displayName ?? `Gftd Recorder (${input.onBehalfOfDid.slice(-8)})`,
+    display_name: input.displayName ?? `etzhayyim Recorder (${input.onBehalfOfDid.slice(-8)})`,
     started_at: startedAt,
   } as never).execute();
 
@@ -471,7 +471,7 @@ async function cmdJoinMeeting(sdk: HostSDK, body: Uint8Array) {
 // ── Command: leaveMeeting ──────────────────────────────────────────────────
 
 async function cmdLeaveMeeting(sdk: HostSDK, body: Uint8Array) {
-  const input = parseLexiconInput("ai.gftd.apps.meetingRecorder.leaveMeeting", body) as {
+  const input = parseLexiconInput("app.etzhayyim.apps.meetingRecorder.leaveMeeting", body) as {
     sessionId: string; reason?: string; purgeChunks?: boolean;
   };
   const { sessionId, reason = "user_requested", purgeChunks = false } = input;
@@ -497,7 +497,7 @@ async function cmdLeaveMeeting(sdk: HostSDK, body: Uint8Array) {
 // ── Query: getSession ──────────────────────────────────────────────────────
 
 async function cmdGetSession(sdk: HostSDK, body: Uint8Array) {
-  const input = parseLexiconInput("ai.gftd.apps.meetingRecorder.getSession", body) as {
+  const input = parseLexiconInput("app.etzhayyim.apps.meetingRecorder.getSession", body) as {
     sessionId: string; includeChunks?: boolean; includeParticipants?: boolean;
   };
   const { sessionId, includeChunks = false, includeParticipants = false } = input;
@@ -549,7 +549,7 @@ async function cmdGetSession(sdk: HostSDK, body: Uint8Array) {
 // ── Query: listSessions ────────────────────────────────────────────────────
 
 async function cmdListSessions(sdk: HostSDK, body: Uint8Array) {
-  const input = parseLexiconInput("ai.gftd.apps.meetingRecorder.listSessions", body) as {
+  const input = parseLexiconInput("app.etzhayyim.apps.meetingRecorder.listSessions", body) as {
     onBehalfOfDid: string; provider?: string; status?: string;
     since?: string; until?: string; limit?: number;
   };
@@ -575,7 +575,7 @@ async function cmdListSessions(sdk: HostSDK, body: Uint8Array) {
 // ── Query: getTranscript ───────────────────────────────────────────────────
 
 async function cmdGetTranscript(sdk: HostSDK, body: Uint8Array) {
-  const input = parseLexiconInput("ai.gftd.apps.meetingRecorder.getTranscript", body) as {
+  const input = parseLexiconInput("app.etzhayyim.apps.meetingRecorder.getTranscript", body) as {
     sessionId: string; since?: string; limit?: number;
   };
   const { sessionId, since, limit = 200 } = input;
@@ -609,23 +609,23 @@ async function sha256Hex(s: string): Promise<string> {
 
 const _workerInner = createWorkerExport((sdk) => {
   sdk.app
-    .command(nsid("ai.gftd.apps.meetingRecorder.joinMeeting"),
+    .command(nsid("app.etzhayyim.apps.meetingRecorder.joinMeeting"),
       (_ctx, body) => cmdJoinMeeting(sdk, body),
-      asAgentTool("Dispatch the recorder bot to join a Teams / Meet / Zoom meeting. Requires a consentToken (ES256 JWT, lxm=ai.gftd.apps.meetingRecorder.joinMeeting) signed by the on-behalf-of user."),
+      asAgentTool("Dispatch the recorder bot to join a Teams / Meet / Zoom meeting. Requires a consentToken (ES256 JWT, lxm=app.etzhayyim.apps.meetingRecorder.joinMeeting) signed by the on-behalf-of user."),
       withCapabilityTags("record", "write", "consent-gated", "adr-0050"))
-    .command(nsid("ai.gftd.apps.meetingRecorder.leaveMeeting"),
+    .command(nsid("app.etzhayyim.apps.meetingRecorder.leaveMeeting"),
       (_ctx, body) => cmdLeaveMeeting(sdk, body),
       asAgentTool("Instruct the bot to leave a meeting, flush chunks to B2, and finalize the session."),
       withCapabilityTags("record", "write"))
-    .command(nsid("ai.gftd.apps.meetingRecorder.getSession"),
+    .command(nsid("app.etzhayyim.apps.meetingRecorder.getSession"),
       (_ctx, body) => cmdGetSession(sdk, body),
       asAgentTool("Fetch session metadata. Caller must be onBehalfOfDid."),
       withCapabilityTags("record", "query"))
-    .command(nsid("ai.gftd.apps.meetingRecorder.listSessions"),
+    .command(nsid("app.etzhayyim.apps.meetingRecorder.listSessions"),
       (_ctx, body) => cmdListSessions(sdk, body),
       asAgentTool("List recorder sessions for an on-behalf-of DID."),
       withCapabilityTags("record", "query"))
-    .command(nsid("ai.gftd.apps.meetingRecorder.getTranscript"),
+    .command(nsid("app.etzhayyim.apps.meetingRecorder.getTranscript"),
       (_ctx, body) => cmdGetTranscript(sdk, body),
       asAgentTool("Fetch transcript segments (signal:v1: encrypted). Caller decrypts client-side."),
       withCapabilityTags("record", "query", "e2e-encrypted"));

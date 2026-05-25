@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.flightOffer.removeWatch",
+  "id": "app.etzhayyim.apps.flightOffer.removeWatch",
   "defs": {
     "main": {
       "type": "procedure",

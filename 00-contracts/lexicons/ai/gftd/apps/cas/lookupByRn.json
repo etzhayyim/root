@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cas.lookupByRn",
+  "id": "app.etzhayyim.apps.cas.lookupByRn",
   "defs": {
     "main": {
       "type": "query",

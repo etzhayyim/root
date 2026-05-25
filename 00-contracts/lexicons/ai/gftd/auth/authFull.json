@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.auth.authFull",
-  "description": "Full W Protocol access. Superset of app.bsky.authFullApp — includes all official AT Protocol collections/methods plus GFTD extensions.",
+  "id": "app.etzhayyim.auth.authFull",
+  "description": "Full W Protocol access. Superset of app.bsky.authFullApp — includes all official AT Protocol collections/methods plus etzhayyim extensions.",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -54,15 +54,15 @@
         {
           "type": "permission",
           "resource": "repo",
-          "description": "GFTD extension record collections",
-          "collection": ["ai.gftd.*"],
+          "description": "etzhayyim extension record collections",
+          "collection": ["app.etzhayyim.*"],
           "action": ["create", "update", "delete"]
         },
         {
           "type": "permission",
           "resource": "rpc",
-          "description": "GFTD extension RPCs",
-          "lxm": ["ai.gftd.*"]
+          "description": "etzhayyim extension RPCs",
+          "lxm": ["app.etzhayyim.*"]
         }
       ]
     }

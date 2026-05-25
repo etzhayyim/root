@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projector.newProjectConvo",
+  "id": "app.etzhayyim.projector.newProjectConvo",
   "defs": {
     "main": {
       "type": "procedure",

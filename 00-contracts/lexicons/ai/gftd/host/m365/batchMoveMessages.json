@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.m365.batchMoveMessages",
+  "id": "app.etzhayyim.host.m365.batchMoveMessages",
   "x-hostImportsMethod": "m365BatchMoveMessages",
   "defs": {
     "main": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.massMessagingPlatform.flagEnforcementGap",
+  "id": "app.etzhayyim.apps.massMessagingPlatform.flagEnforcementGap",
   "defs": {
     "main": {
       "type": "procedure",

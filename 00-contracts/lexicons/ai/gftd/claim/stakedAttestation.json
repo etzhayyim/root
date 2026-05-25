@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.claim.stakedAttestation",
+  "id": "app.etzhayyim.claim.stakedAttestation",
   "defs": {
     "main": {
       "type": "record",
-      "description": "ADR-2604261717 staked claim attestation. Posted via ai.gftd.claim.postStakedAttestation. Bond is locked in ClaimStakeEscrow on the gftd private chain (chainId 260425). Game theory: EV(lie) = -P(challenge) * bond < 0 < EV(truth).",
+      "description": "ADR-2604261717 staked claim attestation. Posted via app.etzhayyim.claim.postStakedAttestation. Bond is locked in ClaimStakeEscrow on the gftd private chain (chainId 260425). Game theory: EV(lie) = -P(challenge) * bond < 0 < EV(truth).",
       "key": "tid",
       "record": {
         "type": "object",
@@ -22,7 +22,7 @@
           "evidence":           { "type": "array", "items": { "type": "string" }, "description": "CIDs of supporting AT Records or blobs" },
           "createdAt":          { "type": "string", "format": "datetime" },
           "settled":            { "type": "boolean" },
-          "outcome":            { "type": "string", "description": "unchallenged | upheld | slashed | refunded — set by ai.gftd.claim.resolution annotation" }
+          "outcome":            { "type": "string", "description": "unchallenged | upheld | slashed | refunded — set by app.etzhayyim.claim.resolution annotation" }
         }
       }
     }

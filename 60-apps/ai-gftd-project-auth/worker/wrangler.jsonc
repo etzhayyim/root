@@ -14,7 +14,7 @@
     "MICROSOFT_OAUTH_CLIENT_ID": "",
     "MICROSOFT_OAUTH_CLIENT_SECRET": "",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "services": [
     {
@@ -36,12 +36,12 @@
   ],
   "routes": [
     {
-      "pattern": "auth.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "auth.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "authn.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "authn.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

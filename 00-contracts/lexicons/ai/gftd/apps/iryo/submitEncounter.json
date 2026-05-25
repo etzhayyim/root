@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iryo.submitEncounter",
+  "id": "app.etzhayyim.apps.iryo.submitEncounter",
   "defs": {
     "main": {
       "type": "procedure",

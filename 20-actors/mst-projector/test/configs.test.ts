@@ -58,15 +58,15 @@ describe("ALL_PROJECTORS", () => {
   it("hanrei declares the three Phase E reference collections", () => {
     const cfg = ALL_PROJECTORS["hanrei"];
     const collections = Object.values(cfg.collections).map((c) => c.collection);
-    expect(collections).toContain("ai.gftd.hanrei.case");
-    expect(collections).toContain("ai.gftd.hanrei.law");
-    expect(collections).toContain("ai.gftd.hanrei.gazetteEntry");
+    expect(collections).toContain("app.etzhayyim.hanrei.case");
+    expect(collections).toContain("app.etzhayyim.hanrei.law");
+    expect(collections).toContain("app.etzhayyim.hanrei.gazetteEntry");
   });
 
   it("ipaddress declares provider + scan with countryIso3 facet", () => {
     const cfg = ALL_PROJECTORS["ipaddress"];
     const provider = Object.values(cfg.collections).find(
-      (c) => c.collection === "ai.gftd.ipaddress.provider",
+      (c) => c.collection === "app.etzhayyim.ipaddress.provider",
     );
     expect(provider?.attributes).toContain("countryIso3");
     expect(provider?.aggregates).toContain("countryIso3");

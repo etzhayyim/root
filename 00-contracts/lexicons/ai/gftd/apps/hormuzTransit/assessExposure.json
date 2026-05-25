@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hormuzTransit.assessExposure",
+  "id": "app.etzhayyim.apps.hormuzTransit.assessExposure",
   "defs": {
     "main": {
       "type": "procedure",

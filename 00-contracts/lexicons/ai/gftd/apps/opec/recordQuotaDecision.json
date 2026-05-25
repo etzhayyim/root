@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.opec.recordQuotaDecision",
+  "id": "app.etzhayyim.apps.opec.recordQuotaDecision",
   "defs": {
     "main": {
       "type": "procedure",

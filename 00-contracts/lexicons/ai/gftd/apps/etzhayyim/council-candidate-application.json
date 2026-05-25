@@ -1,11 +1,11 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.council-candidate-application",
+  "id": "app.etzhayyim.apps.etzhayyim.council-candidate-application",
   "defs": {
     "main": {
       "type": "record",
       "key": "tid",
-      "description": "Self-nomination for the etzhayyim Bootstrap Council (Seats 2-5). Per ADR-2605192300 §1-§2. Submitted via PDS during the 30-day public objection period. Founder reviews + selects from applications; objection mechanism is a separate Lexicon (ai.gftd.apps.etzhayyim.council-objection).",
+      "description": "Self-nomination for the etzhayyim Bootstrap Council (Seats 2-5). Per ADR-2605192300 §1-§2. Submitted via PDS during the 30-day public objection period. Founder reviews + selects from applications; objection mechanism is a separate Lexicon (app.etzhayyim.apps.etzhayyim.council-objection).",
       "record": {
         "type": "object",
         "required": [

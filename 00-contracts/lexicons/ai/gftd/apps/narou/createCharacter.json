@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.narou.createCharacter",
+  "id": "app.etzhayyim.apps.narou.createCharacter",
   "defs": {
     "main": {
       "type": "procedure",

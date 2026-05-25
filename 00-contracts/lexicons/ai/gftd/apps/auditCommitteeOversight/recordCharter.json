@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.auditCommitteeOversight.recordCharter",
+  "id": "app.etzhayyim.apps.auditCommitteeOversight.recordCharter",
   "defs": {
     "main": {
       "type": "procedure",

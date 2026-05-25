@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.linkTrade",
+  "id": "app.etzhayyim.legalEntity.linkTrade",
   "defs": {
     "main": {
       "type": "procedure",

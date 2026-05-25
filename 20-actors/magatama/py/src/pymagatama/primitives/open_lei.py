@@ -215,7 +215,7 @@ def normalize_lei_record(record: dict[str, Any]) -> dict[str, Any]:
         legal_name = legal_name.get("name")
     legal_address = entity.get("legalAddress") if isinstance(entity.get("legalAddress"), dict) else {}
     return {
-        "vertex_id": f"at://did:web:open-lei.etzhayyim.com/ai.gftd.apps.openLei.entity/{attributes.get('lei') or record.get('id')}",
+        "vertex_id": f"at://did:web:open-lei.etzhayyim.com/app.etzhayyim.apps.openLei.entity/{attributes.get('lei') or record.get('id')}",
         "lei": attributes.get("lei") or record.get("id"),
         "legal_name": legal_name or attributes.get("legalName"),
         "country": legal_address.get("country") or entity.get("legalJurisdiction"),
@@ -286,10 +286,10 @@ def normalize_ownership_record(record: dict[str, Any]) -> tuple[dict[str, Any], 
         pct = None
 
     now = _utc_now()
-    vertex_id = f"at://{_OWNER_DID}/ai.gftd.apps.openLei.ownership/{parent_lei}--{child_lei}"
+    vertex_id = f"at://{_OWNER_DID}/app.etzhayyim.apps.openLei.ownership/{parent_lei}--{child_lei}"
     edge_id = f"edge-ownership-{parent_lei}--{child_lei}"
-    parent_vid = f"at://{_OWNER_DID}/ai.gftd.apps.openLei.entity/{parent_lei}"
-    child_vid = f"at://{_OWNER_DID}/ai.gftd.apps.openLei.entity/{child_lei}"
+    parent_vid = f"at://{_OWNER_DID}/app.etzhayyim.apps.openLei.entity/{parent_lei}"
+    child_vid = f"at://{_OWNER_DID}/app.etzhayyim.apps.openLei.entity/{child_lei}"
 
     ownership_row: dict[str, Any] = {
         "vertex_id": vertex_id,

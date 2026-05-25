@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kinoko.formBlock",
+  "id": "app.etzhayyim.apps.kinoko.formBlock",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.blockchainMev.recordMevEvent",
+  "id": "app.etzhayyim.apps.blockchainMev.recordMevEvent",
   "defs": {
     "main": {
       "type": "procedure",

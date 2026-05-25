@@ -344,7 +344,7 @@ Supersteps:
 The 2026-05-09 run saved:
 
 - item vertex: `did:gftd:gameitem:pokemon-pokopia:chigo-berry`
-- document: `at://did:web:llm.etzhayyim.com/ai.gftd.apps.llm.domainKnowledge/pokemon-pokopia-chigo-berry`
+- document: `at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-chigo-berry`
 - chunks:
   - acquisition/location
   - farming/restoration

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.malaccaPilotage.recordPilotage",
+  "id": "app.etzhayyim.apps.malaccaPilotage.recordPilotage",
   "defs": {
     "main": {
       "type": "procedure",

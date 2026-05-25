@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.malaccaEmission.recordEmissionReport",
+  "id": "app.etzhayyim.apps.malaccaEmission.recordEmissionReport",
   "defs": {
     "main": {
       "type": "procedure",

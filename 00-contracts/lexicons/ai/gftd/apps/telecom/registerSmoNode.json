@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.registerSmoNode",
+  "id": "app.etzhayyim.apps.telecom.registerSmoNode",
   "defs": {
     "main": {
       "type": "procedure",

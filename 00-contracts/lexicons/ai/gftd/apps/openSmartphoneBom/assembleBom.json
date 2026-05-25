@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneBom.assembleBom",
+  "id": "app.etzhayyim.apps.openSmartphoneBom.assembleBom",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vehicle.planSupplyProcess",
+  "id": "app.etzhayyim.apps.vehicle.planSupplyProcess",
   "defs": {
     "main": {
       "type": "procedure",

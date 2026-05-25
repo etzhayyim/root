@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openDenki.recordMeterReading",
+  "id": "app.etzhayyim.apps.openDenki.recordMeterReading",
   "defs": {
     "main": {
       "type": "procedure",

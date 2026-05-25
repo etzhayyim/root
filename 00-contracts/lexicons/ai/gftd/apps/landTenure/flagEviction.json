@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.landTenure.flagEviction",
+  "id": "app.etzhayyim.apps.landTenure.flagEviction",
   "defs": {
     "main": {
       "type": "procedure",

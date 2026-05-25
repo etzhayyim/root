@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.outreach.addProspect",
+  "id": "app.etzhayyim.apps.outreach.addProspect",
   "defs": {
     "main": {
       "type": "procedure",

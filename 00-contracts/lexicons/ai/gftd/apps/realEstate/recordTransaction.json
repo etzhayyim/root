@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.realEstate.recordTransaction",
+  "id": "app.etzhayyim.apps.realEstate.recordTransaction",
   "defs": {
     "main": {
       "type": "procedure",

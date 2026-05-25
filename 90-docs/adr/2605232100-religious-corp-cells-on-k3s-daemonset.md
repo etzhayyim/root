@@ -71,7 +71,7 @@ adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "26
 **(3) `50-infra/k8s/lg-open-unispsc/deployment.yaml` is decontaminated** in the same change set:
 
 - Remove env vars `RW_URL`, `DATABASE_URL`, `RW_SYNC_POOL` and the `mitama-udf-pool-rw` secretRef
-- Switch readinessProbe target from `/xrpc/ai.gftd.apps.unispsc.health` (which transitively touches RW via `/readyz`) to `/healthz` (graph registry counts only, no DB)
+- Switch readinessProbe target from `/xrpc/app.etzhayyim.apps.unispsc.health` (which transitively touches RW via `/readyz`) to `/healthz` (graph registry counts only, no DB)
 - Add env vars `ETZ_SUBSTRATE=yatachain`, `ETZ_CHECKPOINTER_SOCKET=/run/etzhayyim/checkpointer.sock` as forward-compatible markers for Stage 2 (Pod sidecar wiring of `@etzhayyim/sdk` MstCheckpointSaver — not in this ADR scope)
 - Comment-link the new ADR ID in the manifest header
 
@@ -127,7 +127,7 @@ adr = ["2605192415", "2605191346", "2605182312", "2605211910", "2605171300", "26
 
    `lima_k3s_gpu` role (`roles/lima_k3s_gpu/`) implements `tools / preflight / bootstrap / deploy_llama_vulkan` modes. Cross-VM pod networking goes over WireGuard (`wg0`) with k3s `node-ip` and flannel both bound to `wg0` — set up by the playbook, not the operator. Inventory at `60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml` covers `jacob` (control plane, 127.0.0.1) + 10 tribe nodes.
 4. **Stage 4**: `kubectl apply -k 50-infra/k8s/murakumo/` rolls out all 15 religious-corp cells per fleet.toml placement (target = `production`, no `--target orbstack` override).
-5. **Stage 5**: `lg-open-unispsc` apply + verify 18,342 UNSPSC agents resolvable via `/xrpc/ai.gftd.apps.unispsc.invokeAgent` ✅ 2026-05-23 (on orbstack; production fleet pending Stage 3).
+5. **Stage 5**: `lg-open-unispsc` apply + verify 18,342 UNSPSC agents resolvable via `/xrpc/app.etzhayyim.apps.unispsc.invokeAgent` ✅ 2026-05-23 (on orbstack; production fleet pending Stage 3).
 6. **Stage 6**: `cell_runner_main.py` retired to debug-only path, swarm leader election code deleted in favor of Kubernetes Lease.
 
 ### Why two k3s paths exist in the repo (clarification, 2026-05-23)

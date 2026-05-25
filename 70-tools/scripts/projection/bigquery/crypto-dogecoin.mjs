@@ -16,8 +16,8 @@ const INGEST_FAMILY = "bigquery.public_dataset.projection";
 const DATASET_ID = "bigquery-public-data:crypto_dogecoin";
 const CHAIN_ID = "doge";
 const ACTOR_HOST = "blockchain";
-const COLLECTION_BLOCK = "ai.gftd.apps.blockchain.block";
-const COLLECTION_TX = "ai.gftd.apps.blockchain.tx";
+const COLLECTION_BLOCK = "app.etzhayyim.apps.blockchain.block";
+const COLLECTION_TX = "app.etzhayyim.apps.blockchain.tx";
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));

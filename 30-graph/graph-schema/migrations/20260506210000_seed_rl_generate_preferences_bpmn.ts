@@ -15,9 +15,9 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const CREATED_AT = "2026-05-06T21:00:00Z";
 const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/rl-generate-preferences-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-generate-preferences-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/rl-generate-preferences-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-generate-preferences-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(
@@ -46,7 +46,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT
       ${BINDING_VERTEX_ID}, ${OWNER_DID}, 'rl_generate_preferences',
-      'ai.gftd.apps.rl.generatePreferences',
+      'app.etzhayyim.apps.rl.generatePreferences',
       ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.rl'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${BINDING_VERTEX_ID}

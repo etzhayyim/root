@@ -8,7 +8,7 @@
 | **domain** | `gmail.etzhayyim.com` |
 | **AT bot DID** | `did:web:gmail.etzhayyim.com` |
 | **Runtime** | **Single Worker** (TS Native, appview mode) |
-| **Data store** | **Design E 3-Tier Write** — T2 Domain (`sdk.pds.createRecord`, collection `ai.gftd.apps.gmail.{email,thread,contact,syncJob,outboundEmail,accountBinding,account,phishingAlert}`) → RisingWave `vertex_gmail_*`. T1 Social (`app.bsky.feed.post`) for sync/connect events |
+| **Data store** | **Design E 3-Tier Write** — T2 Domain (`sdk.pds.createRecord`, collection `app.etzhayyim.apps.gmail.{email,thread,contact,syncJob,outboundEmail,accountBinding,account,phishingAlert}`) → RisingWave `vertex_gmail_*`. T1 Social (`app.bsky.feed.post`) for sync/connect events |
 | **OAuth token custody** | **D1 `GMAIL_DB` + KEK envelope** (ADR-0010 Stage 1 pattern) — `vertex_gmail_oauth_token` (refresh_token AES-256-GCM with per-row data key, data key AES-256-GCM wrap by `SS_GMAIL_TOKEN_KEK`). Server-side only, never leaves worker |
 | **UI mode** | `appview` (Protocol Canvas card, zero frontend) |
 | **Capabilities** | gmail-sync, email-triage, contact-did-creation, messenger-email-bridge, phishing-detection |
@@ -40,7 +40,7 @@
 | Binding | Purpose |
 |---|---|
 | `SS_GMAIL_TOKEN_KEK` | AES-256 KEK (base64url, 32 bytes) wrapping per-row data keys (shared across **all** Google Workspace ingest apps per 90-docs/260417-google-workspace-ingest-runbook.md) |
-| `SS_GOOGLE_OAUTH_CLIENT_ID` | Google Cloud OAuth2 Web client id (shared, GCP project `ai-gftd-ws-ingest`, owner `jun@gftd.group`) |
+| `SS_GOOGLE_OAUTH_CLIENT_ID` | Google Cloud OAuth2 Web client id (shared, GCP project `ai-gftd-ws-ingest`, owner `jun@etzhayyim.com`) |
 | `SS_GOOGLE_OAUTH_CLIENT_SECRET` | same, client secret |
 
 All 3 resolved via `resolveSecret(v)` helper at use time (Secrets Store bindings are `SecretBinding` objects with `.get()`, not plain strings — passing them into `URLSearchParams` or `fetch` body directly serializes as `[object Fetcher]`).
@@ -137,17 +137,17 @@ Step 4: メッセンジャーで受信・返信
 
 | NSID | Type | Status |
 |---|---|---|
-| `ai.gftd.apps.gmail.connectAccount` | procedure | ✅ returns `oauthUrl` |
-| `ai.gftd.apps.gmail.oauthCallback` | query | ✅ backend of Hono `GET /oauth/callback` (same logic) |
-| `ai.gftd.apps.gmail.disconnectAccount` | procedure | ✅ marks token row disconnected |
-| `ai.gftd.apps.gmail.syncInbox` | procedure | ✅ messages.list → get metadata → vertex_gmail_email |
-| `ai.gftd.apps.gmail.sendEmail` | procedure | ✅ Gmail API `messages.send` |
-| `ai.gftd.apps.gmail.replyToThread` | procedure | ✅ thread resolve + In-Reply-To/References |
-| `ai.gftd.apps.gmail.listAccounts` | query | ✅ D1 `vertex_gmail_oauth_token` scan |
-| `ai.gftd.apps.gmail.getThread` | query | ✅ live Gmail API fetch |
-| `ai.gftd.apps.gmail.listThreads` | query | ⏳ stub (RisingWave wiring pending) |
-| `ai.gftd.apps.gmail.searchEmails` | query | ⏳ stub (RisingWave wiring pending) |
-| `ai.gftd.apps.gmail.triage` | procedure | ⏳ stub; inline scoring already runs in `syncInbox` |
+| `app.etzhayyim.apps.gmail.connectAccount` | procedure | ✅ returns `oauthUrl` |
+| `app.etzhayyim.apps.gmail.oauthCallback` | query | ✅ backend of Hono `GET /oauth/callback` (same logic) |
+| `app.etzhayyim.apps.gmail.disconnectAccount` | procedure | ✅ marks token row disconnected |
+| `app.etzhayyim.apps.gmail.syncInbox` | procedure | ✅ messages.list → get metadata → vertex_gmail_email |
+| `app.etzhayyim.apps.gmail.sendEmail` | procedure | ✅ Gmail API `messages.send` |
+| `app.etzhayyim.apps.gmail.replyToThread` | procedure | ✅ thread resolve + In-Reply-To/References |
+| `app.etzhayyim.apps.gmail.listAccounts` | query | ✅ D1 `vertex_gmail_oauth_token` scan |
+| `app.etzhayyim.apps.gmail.getThread` | query | ✅ live Gmail API fetch |
+| `app.etzhayyim.apps.gmail.listThreads` | query | ⏳ stub (RisingWave wiring pending) |
+| `app.etzhayyim.apps.gmail.searchEmails` | query | ⏳ stub (RisingWave wiring pending) |
+| `app.etzhayyim.apps.gmail.triage` | procedure | ⏳ stub; inline scoring already runs in `syncInbox` |
 
 ### Future: cross-actor messenger bridge
 
@@ -180,7 +180,7 @@ openssl rand -base64 32 | tr '+/' '-_' | tr -d '=' | \
     --name gmail_token_kek --scopes workers --remote --value -
 
 # 3. Google OAuth client (Google Cloud Console)
-#    - project: ai-gftd-ws-ingest (owner jun@gftd.group)
+#    - project: ai-gftd-ws-ingest (owner jun@etzhayyim.com)
 #    - Web application, Authorized redirect URI: https://gmail.etzhayyim.com/oauth/callback
 #    - Gmail API enabled
 #    - OAuth consent screen → add Test users until sensitive-scope verification clears
@@ -198,19 +198,19 @@ DATABASE_URL=postgresql://root@172.236.132.11:4566/dev pnpm -w run db:migrate
 curl -sS https://gmail.etzhayyim.com/health
 # → {"status":"ok","app":"gm4il0x1"}
 
-curl -sS -X POST https://gmail.etzhayyim.com/xrpc/ai.gftd.apps.gmail.connectAccount \
+curl -sS -X POST https://gmail.etzhayyim.com/xrpc/app.etzhayyim.apps.gmail.connectAccount \
   -H 'content-type: application/json' \
-  -d '{"email":"jun@gftd.group","accountDid":"did:web:gftd.group"}'
+  -d '{"email":"jun@etzhayyim.com","accountDid":"did:web:etzhayyim.com"}'
 # → {"status":"pending_oauth","oauthUrl":"https://accounts.google.com/o/oauth2/v2/auth?..."}
 
 # Open oauthUrl in browser → sign in → consent → redirect to /oauth/callback
 # After callback success:
-curl -sS https://gmail.etzhayyim.com/xrpc/ai.gftd.apps.gmail.listAccounts
-# → {"accounts":[{"email":"jun@gftd.group",...,"status":"active",...}],"total":1}
+curl -sS https://gmail.etzhayyim.com/xrpc/app.etzhayyim.apps.gmail.listAccounts
+# → {"accounts":[{"email":"jun@etzhayyim.com",...,"status":"active",...}],"total":1}
 
 # Manual sync trigger (or wait for cron)
-curl -sS -X POST https://gmail.etzhayyim.com/xrpc/ai.gftd.apps.gmail.syncInbox \
-  -H 'content-type: application/json' -d '{"email":"jun@gftd.group","maxResults":25}'
+curl -sS -X POST https://gmail.etzhayyim.com/xrpc/app.etzhayyim.apps.gmail.syncInbox \
+  -H 'content-type: application/json' -d '{"email":"jun@etzhayyim.com","maxResults":25}'
 
 # Verify rows landed in RisingWave
 psql "$ROOT_URL" -c 'SELECT from_addr, subject FROM vertex_gmail_email ORDER BY _seq DESC LIMIT 5'

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.consent.listConsentGrants": {
+    "/xrpc/app.etzhayyim.consent.listConsentGrants": {
       "get": {
-        "summary": "ai.gftd.consent.listConsentGrants",
-        "operationId": "ai.gftd.consent.listConsentGrants",
+        "summary": "app.etzhayyim.consent.listConsentGrants",
+        "operationId": "app.etzhayyim.consent.listConsentGrants",
         "parameters": [
           {
             "name": "grantorDid",
@@ -87,10 +87,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.consent.requestConsent": {
+    "/xrpc/app.etzhayyim.consent.requestConsent": {
       "post": {
-        "summary": "ai.gftd.consent.requestConsent",
-        "operationId": "ai.gftd.consent.requestConsent",
+        "summary": "app.etzhayyim.consent.requestConsent",
+        "operationId": "app.etzhayyim.consent.requestConsent",
         "requestBody": {
           "required": true,
           "content": {
@@ -148,10 +148,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.consent.resolveConsent": {
+    "/xrpc/app.etzhayyim.consent.resolveConsent": {
       "get": {
-        "summary": "ai.gftd.consent.resolveConsent",
-        "operationId": "ai.gftd.consent.resolveConsent",
+        "summary": "app.etzhayyim.consent.resolveConsent",
+        "operationId": "app.etzhayyim.consent.resolveConsent",
         "parameters": [
           {
             "name": "requestId",
@@ -200,10 +200,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.consent.revokeConsent": {
+    "/xrpc/app.etzhayyim.consent.revokeConsent": {
       "post": {
-        "summary": "ai.gftd.consent.revokeConsent",
-        "operationId": "ai.gftd.consent.revokeConsent",
+        "summary": "app.etzhayyim.consent.revokeConsent",
+        "operationId": "app.etzhayyim.consent.revokeConsent",
         "requestBody": {
           "required": true,
           "content": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.society6.promoteRank",
+  "id": "app.etzhayyim.apps.society6.promoteRank",
   "defs": {
     "main": {
       "type": "procedure",

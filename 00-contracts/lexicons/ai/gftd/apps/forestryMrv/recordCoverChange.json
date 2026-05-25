@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.forestryMrv.recordCoverChange",
+  "id": "app.etzhayyim.apps.forestryMrv.recordCoverChange",
   "defs": {
     "main": {
       "type": "procedure",

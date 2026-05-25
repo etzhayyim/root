@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ecmwfForecast.flagExtremeHitMiss",
+  "id": "app.etzhayyim.apps.ecmwfForecast.flagExtremeHitMiss",
   "defs": {
     "main": {
       "type": "procedure",

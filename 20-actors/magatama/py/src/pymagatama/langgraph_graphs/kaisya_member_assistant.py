@@ -103,7 +103,7 @@ def _now_iso() -> str:
 def _vid(kind: str) -> str:
     import datetime as _dt
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{_OWNER_DID}/ai.gftd.apps.kaisya.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{_OWNER_DID}/app.etzhayyim.apps.kaisya.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _llm_chat(system: str, user: str, max_tokens: int = 1200) -> str:
@@ -161,7 +161,7 @@ def _db_insert_audit(member_did: str, action: str, payload: dict) -> None:
             {
                 "vid":  str(uuid.uuid4()),
                 "repo": _KAISYA_DID,
-                "col":  "ai.gftd.apps.kaisya.memberChat",
+                "col":  "app.etzhayyim.apps.kaisya.memberChat",
                 "rkey": f"chat-{ts_ms}",
                 "act":  "create",
                 "ts":   ts_ms,

@@ -10,8 +10,8 @@
  * the app's own write completes.
  *
  * Usage (mangaka cmdAddChapter):
- *   const ref = await sdk.pds.createRecord("ai.gftd.apps.mangaka.chapter", record, id);
- *   await sdk.derive.emit("ai.gftd.apps.mangaka.chapter", record, ref);
+ *   const ref = await sdk.pds.createRecord("app.etzhayyim.apps.mangaka.chapter", record, id);
+ *   await sdk.derive.emit("app.etzhayyim.apps.mangaka.chapter", record, ref);
  *
  * The caller provides `self = { uri, cid }` because rules reference the
  * newly-created record's strongRef in `{{self.uri}}` / `{{self.cid}}` templates

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.languageEndangerment.flagRevitalization",
+  "id": "app.etzhayyim.apps.languageEndangerment.flagRevitalization",
   "defs": {
     "main": {
       "type": "procedure",

@@ -27,7 +27,7 @@ We are introducing `@etzhayyim/open-seiyaku-mcp`, an MCP server module within th
 
 It exposes three distinct tools:
 
-1.  **`start_generic_manufacturing_candidate`**: A programmatic hook aligning with the `ai.gftd.apps.openPatent.startGenericManufacturingCandidate` lexicon. It triggers the pharmaceutical robotic workflow pipeline for patent-expired items.
+1.  **`start_generic_manufacturing_candidate`**: A programmatic hook aligning with the `app.etzhayyim.apps.openPatent.startGenericManufacturingCandidate` lexicon. It triggers the pharmaceutical robotic workflow pipeline for patent-expired items.
 2.  **`visualize_pharma_supply_chain`**: Generates Mermaid.js diagrams to visualize the supply chain logistics, spanning from the expired patent screening, procurement, robotics manufacturing (tending/handling), quality release, port logistics, and hospital/pharmacy delivery.
 3.  **`post_to_etzhayyim_social`**: Bridges the manufacturing pipeline's events to the `yoro.etzhayyim.com` social feed, allowing for visible, verifiable automation milestones published by the `did:web:seiyaku.etzhayyim.com` actor.
 

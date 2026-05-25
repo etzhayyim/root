@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.dodafv2.validateViewset",
+  "id": "app.etzhayyim.dodafv2.validateViewset",
   "defs": {
     "main": {
       "type": "query",

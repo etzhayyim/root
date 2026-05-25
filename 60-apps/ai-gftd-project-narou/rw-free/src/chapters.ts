@@ -20,8 +20,8 @@ import {
   type PublishChapterOutput,
 } from "./types.js";
 
-const CHAPTER_COLLECTION = "ai.gftd.narou.chapter";
-const NOVEL_COLLECTION = "ai.gftd.narou.novel";
+const CHAPTER_COLLECTION = "app.etzhayyim.narou.chapter";
+const NOVEL_COLLECTION = "app.etzhayyim.narou.novel";
 
 const VALID_TRANSITIONS: Record<ChapterStatus, ChapterStatus[]> = {
   draft: ["in_review", "published", "archived"],

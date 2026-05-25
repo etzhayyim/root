@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.rtc.huddle",
+  "id": "app.etzhayyim.rtc.huddle",
   "defs": {
     "main": {
       "type": "record",

@@ -33,7 +33,7 @@
 //
 //   2. `vertex_gftd_identity` / `edge_gftd_*` — RisingWave governance
 //      tables. Migration target: lexicons under
-//      `ai.gftd.apps.identity.*` (already partly registered) with the
+//      `app.etzhayyim.apps.identity.*` (already partly registered) with the
 //      authoritative writes against MST and a yatachain-projection
 //      (`ADR-2605231500`) RisingWave cache that is rebuildable from
 //      MST + IPFS.
@@ -55,7 +55,7 @@ import type { ColumnType, Generated, Insertable, Selectable, Updateable } from "
 // Auth control record for each did:gftd. No governance data.
 // vertex_id = did:gftd:{hash}
 
-export interface VertexGftdAuthAccountTable {
+export interface VertexetzhayyimAuthAccountTable {
   vertex_id: string;                // did:gftd:{hash}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // = vertex_id (self)
@@ -72,14 +72,14 @@ export interface VertexGftdAuthAccountTable {
   updated_at: string;
 }
 
-export type VertexGftdAuthAccount = Selectable<VertexGftdAuthAccountTable>;
-export type NewVertexGftdAuthAccount = Insertable<VertexGftdAuthAccountTable>;
+export type VertexetzhayyimAuthAccount = Selectable<VertexetzhayyimAuthAccountTable>;
+export type NewVertexetzhayyimAuthAccount = Insertable<VertexetzhayyimAuthAccountTable>;
 
 // ── vertex_gftd_auth_credential ─────────────────────────────────────────
 // WebAuthn passkey credential. Replaces legacy passkey_credentials.
 // vertex_id = credential_id (base64url)
 
-export interface VertexGftdAuthCredentialTable {
+export interface VertexetzhayyimAuthCredentialTable {
   vertex_id: string;                // credential_id (base64url)
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // did:gftd:{hash} of the account
@@ -92,13 +92,13 @@ export interface VertexGftdAuthCredentialTable {
   updated_at: string;
 }
 
-export type VertexGftdAuthCredential = Selectable<VertexGftdAuthCredentialTable>;
+export type VertexetzhayyimAuthCredential = Selectable<VertexetzhayyimAuthCredentialTable>;
 
 // ── vertex_gftd_auth_invite ─────────────────────────────────────────────
 // Pending org invitation. HMAC token (security-sensitive).
 // vertex_id = invite:{id}
 
-export interface VertexGftdAuthInviteTable {
+export interface VertexetzhayyimAuthInviteTable {
   vertex_id: string;                // invite:{auto_id}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // org_did
@@ -116,13 +116,13 @@ export interface VertexGftdAuthInviteTable {
   updated_at: string;
 }
 
-export type VertexGftdAuthInvite = Selectable<VertexGftdAuthInviteTable>;
+export type VertexetzhayyimAuthInvite = Selectable<VertexetzhayyimAuthInviteTable>;
 
 // ── vertex_gftd_auth_otp ────────────────────────────────────────────────
 // Email OTP code (10min expiry). Replaces legacy email_link_codes.
 // vertex_id = otp:{account_did}:{email}
 
-export interface VertexGftdAuthOtpTable {
+export interface VertexetzhayyimAuthOtpTable {
   vertex_id: string;                // otp:{account_did}:{email}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // account_did
@@ -134,13 +134,13 @@ export interface VertexGftdAuthOtpTable {
   created_at: string;
 }
 
-export type VertexGftdAuthOtp = Selectable<VertexGftdAuthOtpTable>;
+export type VertexetzhayyimAuthOtp = Selectable<VertexetzhayyimAuthOtpTable>;
 
 // ── edge_gftd_auth_linked ───────────────────────────────────────────────
 // Linked auth method (OAuth/email). Replaces legacy linked_auth_methods.
 // edge_id = {account_did}:auth:{provider}:{provider_subject}
 
-export interface EdgeGftdAuthLinkedTable {
+export interface EdgeetzhayyimAuthLinkedTable {
   edge_id: string;                  // {account_did}:auth:{provider}:{provider_subject_hash}
   src_vid: string;                  // account did:gftd
   dst_vid: string;                  // provider:{provider_subject}
@@ -156,7 +156,7 @@ export interface EdgeGftdAuthLinkedTable {
   updated_at: string;
 }
 
-export type EdgeGftdAuthLinked = Selectable<EdgeGftdAuthLinkedTable>;
+export type EdgeetzhayyimAuthLinked = Selectable<EdgeetzhayyimAuthLinkedTable>;
 
 // ═══════════════════════════════════════════════════════════════════════════
 // D1 KEYS_DB — key custody (GraphAr schema)
@@ -166,7 +166,7 @@ export type EdgeGftdAuthLinked = Selectable<EdgeGftdAuthLinkedTable>;
 // P-256 signing key custody. Replaces legacy did_keys.
 // vertex_id = did:gftd:{hash}
 
-export interface VertexGftdKeySigningTable {
+export interface VertexetzhayyimKeySigningTable {
   vertex_id: string;                // did:gftd:{hash}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // = vertex_id
@@ -183,13 +183,13 @@ export interface VertexGftdKeySigningTable {
   created_at: string;
 }
 
-export type VertexGftdKeySigning = Selectable<VertexGftdKeySigningTable>;
+export type VertexetzhayyimKeySigning = Selectable<VertexetzhayyimKeySigningTable>;
 
 // ── vertex_gftd_key_revoked_session ─────────────────────────────────────
 // JTI revocation record. Replaces legacy revoked_sessions.
 // vertex_id = jti:{uuid}
 
-export interface VertexGftdKeyRevokedSessionTable {
+export interface VertexetzhayyimKeyRevokedSessionTable {
   vertex_id: string;                // jti:{uuid}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // did of session owner
@@ -199,13 +199,13 @@ export interface VertexGftdKeyRevokedSessionTable {
   revoked_at: string;
 }
 
-export type VertexGftdKeyRevokedSession = Selectable<VertexGftdKeyRevokedSessionTable>;
+export type VertexetzhayyimKeyRevokedSession = Selectable<VertexetzhayyimKeyRevokedSessionTable>;
 
 // ── vertex_gftd_key_otp ─────────────────────────────────────────────────
 // SMS OTP code. Replaces legacy otp_codes.
 // vertex_id = sms:{phone}
 
-export interface VertexGftdKeyOtpTable {
+export interface VertexetzhayyimKeyOtpTable {
   vertex_id: string;                // sms:{phone_digits}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;
@@ -216,24 +216,24 @@ export interface VertexGftdKeyOtpTable {
   created_at: string;
 }
 
-export type VertexGftdKeyOtp = Selectable<VertexGftdKeyOtpTable>;
+export type VertexetzhayyimKeyOtp = Selectable<VertexetzhayyimKeyOtpTable>;
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Database interfaces (Kysely)
 // ═══════════════════════════════════════════════════════════════════════════
 
 /** AUTH_DB (D1) — auth control plane, GraphAr convention. */
-export interface GftdAuthDatabase {
-  vertex_gftd_auth_account: VertexGftdAuthAccountTable;
-  vertex_gftd_auth_credential: VertexGftdAuthCredentialTable;
-  vertex_gftd_auth_invite: VertexGftdAuthInviteTable;
-  vertex_gftd_auth_otp: VertexGftdAuthOtpTable;
-  edge_gftd_auth_linked: EdgeGftdAuthLinkedTable;
+export interface etzhayyimAuthDatabase {
+  vertex_gftd_auth_account: VertexetzhayyimAuthAccountTable;
+  vertex_gftd_auth_credential: VertexetzhayyimAuthCredentialTable;
+  vertex_gftd_auth_invite: VertexetzhayyimAuthInviteTable;
+  vertex_gftd_auth_otp: VertexetzhayyimAuthOtpTable;
+  edge_gftd_auth_linked: EdgeetzhayyimAuthLinkedTable;
 }
 
 /** KEYS_DB (D1) — key custody, GraphAr convention. */
-export interface GftdKeysDatabase {
-  vertex_gftd_key_signing: VertexGftdKeySigningTable;
-  vertex_gftd_key_revoked_session: VertexGftdKeyRevokedSessionTable;
-  vertex_gftd_key_otp: VertexGftdKeyOtpTable;
+export interface etzhayyimKeysDatabase {
+  vertex_gftd_key_signing: VertexetzhayyimKeySigningTable;
+  vertex_gftd_key_revoked_session: VertexetzhayyimKeyRevokedSessionTable;
+  vertex_gftd_key_otp: VertexetzhayyimKeyOtpTable;
 }

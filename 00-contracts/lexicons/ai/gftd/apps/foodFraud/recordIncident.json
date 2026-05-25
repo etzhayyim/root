@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.foodFraud.recordIncident",
+  "id": "app.etzhayyim.apps.foodFraud.recordIncident",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.srsgCoordination.recordFramework",
+  "id": "app.etzhayyim.apps.srsgCoordination.recordFramework",
   "defs": {
     "main": {
       "type": "procedure",

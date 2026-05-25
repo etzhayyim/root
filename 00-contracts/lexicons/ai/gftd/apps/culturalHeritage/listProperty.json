@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.culturalHeritage.listProperty",
+  "id": "app.etzhayyim.apps.culturalHeritage.listProperty",
   "defs": {
     "main": {
       "type": "procedure",

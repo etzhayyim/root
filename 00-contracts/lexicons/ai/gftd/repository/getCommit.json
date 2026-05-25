@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.repository.getCommit",
+  "id": "app.etzhayyim.repository.getCommit",
   "defs": {
     "main": {
       "type": "query",

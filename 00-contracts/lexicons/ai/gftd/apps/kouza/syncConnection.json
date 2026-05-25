@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kouza.syncConnection",
+  "id": "app.etzhayyim.apps.kouza.syncConnection",
   "defs": {
     "main": {
       "type": "procedure",

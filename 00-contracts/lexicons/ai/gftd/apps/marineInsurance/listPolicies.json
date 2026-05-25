@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.marineInsurance.listPolicies",
+  "id": "app.etzhayyim.apps.marineInsurance.listPolicies",
   "defs": {
     "main": {
       "type": "query",

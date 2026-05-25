@@ -1,6 +1,6 @@
 """animeka `autopilot` graph — fully autonomous cut generation (R/PT15M cron).
 
-NSID: ai.gftd.animeka.autopilot
+NSID: app.etzhayyim.animeka.autopilot
 
 Ports pymagatama.langgraph_graphs.animeka_autopilot to proper async
 LangGraph nodes. Each cron fire:
@@ -283,7 +283,7 @@ async def _node_insert_cut(state: _State) -> dict[str, Any]:
         return {}
     cut_id = state.get("cut_id") or f"auto-{secrets.token_hex(4)}"
     rkey = cut_id
-    vertex_id = f"at://{_REPO}/ai.gftd.animeka.cut/{rkey}"
+    vertex_id = f"at://{_REPO}/app.etzhayyim.animeka.cut/{rkey}"
     try:
         import psycopg
         conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
@@ -297,7 +297,7 @@ async def _node_insert_cut(state: _State) -> dict[str, Any]:
                    (vertex_id, repo, rkey, collection, kind, owner_did,
                     camera_note, thumb_cid, flat_cid, image_cid, bg_cid,
                     output_cid, status, created_at)
-                   VALUES (%s,%s,%s,'ai.gftd.animeka.cut','cut',%s,
+                   VALUES (%s,%s,%s,'app.etzhayyim.animeka.cut','cut',%s,
                            %s,%s,%s,%s,%s,%s,'autopilot',%s)""",
                 [vertex_id, _REPO, rkey, _APP_DID,
                  state.get("scene_text"), state.get("sb_cid"),

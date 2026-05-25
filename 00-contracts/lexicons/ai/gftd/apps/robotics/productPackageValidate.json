@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.robotics.product.package.validate",
+  "id": "app.etzhayyim.apps.robotics.product.package.validate",
   "defs": {
     "main": {
       "type": "procedure",

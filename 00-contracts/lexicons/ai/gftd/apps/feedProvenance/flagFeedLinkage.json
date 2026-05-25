@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.feedProvenance.flagFeedLinkage",
+  "id": "app.etzhayyim.apps.feedProvenance.flagFeedLinkage",
   "defs": {
     "main": {
       "type": "procedure",

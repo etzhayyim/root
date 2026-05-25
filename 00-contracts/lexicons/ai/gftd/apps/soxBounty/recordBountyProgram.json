@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.soxBounty.recordBountyProgram",
+  "id": "app.etzhayyim.apps.soxBounty.recordBountyProgram",
   "defs": {
     "main": {
       "type": "procedure",

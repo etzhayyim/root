@@ -93,7 +93,7 @@ def _stale_ips(batch_size: int) -> list[str]:
 
 def _upsert_ip(ip: str, geo: dict, run_id: str) -> bool:
     ts = now_iso()
-    vertex_id = f"at://did:web:ingest.etzhayyim.com/ai.gftd.apps.collector.ipAddress/{ip}"
+    vertex_id = f"at://did:web:ingest.etzhayyim.com/app.etzhayyim.apps.collector.ipAddress/{ip}"
     sql = (
         "INSERT INTO vertex_ip_address "
         "(vertex_id, owner_did, address, country_code, city, region, lat, lon, "

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ongakuka.style",
+  "id": "app.etzhayyim.apps.ongakuka.style",
   "description": "Style reference. Either a text prompt or a CLAP/MuLan embedding extracted from a permissioned reference clip. NOT for storing copyrighted source audio.",
   "defs": {
     "main": {

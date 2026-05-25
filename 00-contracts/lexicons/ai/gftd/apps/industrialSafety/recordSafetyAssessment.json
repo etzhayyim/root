@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.industrialSafety.recordSafetyAssessment",
+  "id": "app.etzhayyim.apps.industrialSafety.recordSafetyAssessment",
   "defs": {
     "main": {
       "type": "procedure",

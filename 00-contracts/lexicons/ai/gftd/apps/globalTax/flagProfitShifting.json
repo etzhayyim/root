@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.globalTax.flagProfitShifting",
+  "id": "app.etzhayyim.apps.globalTax.flagProfitShifting",
   "defs": {
     "main": {
       "type": "procedure",

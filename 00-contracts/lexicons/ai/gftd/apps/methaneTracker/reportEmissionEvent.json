@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.methaneTracker.reportEmissionEvent",
+  "id": "app.etzhayyim.apps.methaneTracker.reportEmissionEvent",
   "defs": {
     "main": {
       "type": "procedure",

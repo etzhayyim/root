@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.dns.transferOutcome",
+  "id": "app.etzhayyim.apps.dns.transferOutcome",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Terminal record for a domain transfer. onCommit of this collection triggers (a) zone DID creation (did:web:dns.etzhayyim.com:zone:{domain_slug}) via cfRegistrar, (b) ai.gftd.apps.dns.ownershipTransfer write, (c) T1 social announce via derive rule.",
+      "description": "Terminal record for a domain transfer. onCommit of this collection triggers (a) zone DID creation (did:web:dns.etzhayyim.com:zone:{domain_slug}) via cfRegistrar, (b) app.etzhayyim.apps.dns.ownershipTransfer write, (c) T1 social announce via derive rule.",
       "key": "tid",
       "record": {
         "type": "object",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isekai.useMove",
+  "id": "app.etzhayyim.apps.isekai.useMove",
   "defs": {
     "main": {
       "type": "procedure",

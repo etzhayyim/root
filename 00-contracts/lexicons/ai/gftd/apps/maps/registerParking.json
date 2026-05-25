@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.registerParking",
+  "id": "app.etzhayyim.apps.maps.registerParking",
   "defs": {
     "main": {
       "type": "procedure",

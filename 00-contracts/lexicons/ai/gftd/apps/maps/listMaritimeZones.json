@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listMaritimeZones",
+  "id": "app.etzhayyim.apps.maps.listMaritimeZones",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.registerRoadm",
+  "id": "app.etzhayyim.apps.telecom.registerRoadm",
   "defs": {
     "main": {
       "type": "procedure",

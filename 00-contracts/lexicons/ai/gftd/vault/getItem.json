@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.vault.getItem",
+  "id": "app.etzhayyim.vault.getItem",
   "defs": {
     "main": {
       "type": "query",

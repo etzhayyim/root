@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.justTransition.reportAdaptationOutcome",
+  "id": "app.etzhayyim.apps.justTransition.reportAdaptationOutcome",
   "defs": {
     "main": {
       "type": "procedure",

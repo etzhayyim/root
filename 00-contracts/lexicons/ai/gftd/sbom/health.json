@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.sbom.health",
+  "id": "app.etzhayyim.sbom.health",
   "defs": {
     "main": {
       "type": "query",

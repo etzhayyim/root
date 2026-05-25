@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fisheryCollapse.recordStockAssessment",
+  "id": "app.etzhayyim.apps.fisheryCollapse.recordStockAssessment",
   "defs": {
     "main": {
       "type": "procedure",

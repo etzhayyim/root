@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cargo.listCargoes",
+  "id": "app.etzhayyim.apps.cargo.listCargoes",
   "defs": {
     "main": {
       "type": "query",

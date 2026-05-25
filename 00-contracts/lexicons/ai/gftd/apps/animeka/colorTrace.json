@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.colorTrace",
+  "id": "app.etzhayyim.apps.animeka.colorTrace",
   "defs": {
     "main": {
       "type": "record",
@@ -17,7 +17,7 @@
           "frameRef": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "strongRef to ai.gftd.apps.animeka.keyframe or .inbetween."
+            "description": "strongRef to app.etzhayyim.apps.animeka.keyframe or .inbetween."
           },
           "colorModelRefs": {
             "type": "array",

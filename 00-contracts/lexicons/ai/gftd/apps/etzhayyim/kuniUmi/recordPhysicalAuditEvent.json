@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
+  "id": "app.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
   "defs": {
     "main": {
       "type": "procedure",

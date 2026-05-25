@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.isin.getSecurity",
+  "id": "app.etzhayyim.isin.getSecurity",
   "defs": {
     "main": {
       "type": "query",

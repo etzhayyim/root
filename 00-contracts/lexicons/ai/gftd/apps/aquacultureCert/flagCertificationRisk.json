@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aquacultureCert.flagCertificationRisk",
+  "id": "app.etzhayyim.apps.aquacultureCert.flagCertificationRisk",
   "defs": {
     "main": {
       "type": "procedure",

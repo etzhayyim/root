@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.agent.chat",
+  "id": "app.etzhayyim.agent.chat",
   "defs": {
     "main": {
       "type": "procedure",

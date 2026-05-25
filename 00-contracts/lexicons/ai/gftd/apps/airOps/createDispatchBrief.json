@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airOps.createDispatchBrief",
+  "id": "app.etzhayyim.apps.airOps.createDispatchBrief",
   "defs": {
     "main": {
       "type": "procedure",

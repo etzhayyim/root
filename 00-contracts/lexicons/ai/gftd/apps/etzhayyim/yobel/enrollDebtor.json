@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.yobel.enrollDebtor",
+  "id": "app.etzhayyim.apps.etzhayyim.yobel.enrollDebtor",
   "defs": {
     "main": {
       "type": "procedure",

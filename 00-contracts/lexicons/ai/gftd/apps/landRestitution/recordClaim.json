@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.landRestitution.recordClaim",
+  "id": "app.etzhayyim.apps.landRestitution.recordClaim",
   "defs": {
     "main": {
       "type": "procedure",

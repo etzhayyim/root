@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneSoc.listChipDesigns",
+  "id": "app.etzhayyim.apps.openSmartphoneSoc.listChipDesigns",
   "defs": {
     "main": {
       "type": "query",

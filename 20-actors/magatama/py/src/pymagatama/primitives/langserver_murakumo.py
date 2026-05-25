@@ -14,7 +14,7 @@ Behavior:
   2. For each language entry, open an LSP session, send ``initialize``, and
      record latency + reachability
   3. Emit a single aggregated record per cycle (in-memory only at L9;
-     wiring to MST listener ``ai.gftd.apps.etzhayyim.langserver.health``
+     wiring to MST listener ``app.etzhayyim.apps.etzhayyim.langserver.health``
      is a follow-up that requires lexicon registration).
 
 The corresponding cells.toml entry is added in this same wave; see
@@ -86,7 +86,7 @@ async def langserver_health_monitoring_cell(
         LangserverHealthCycle with one LangserverHealthResult per registry entry.
 
     Future work (post-L9):
-        - Write to MST listener ai.gftd.apps.etzhayyim.langserver.health
+        - Write to MST listener app.etzhayyim.apps.etzhayyim.langserver.health
           (requires lexicon registration under 00-contracts/lexicons/)
         - Flap detection: track consecutive failures and emit alert.did
           notification per fleet.toml [monitoring]

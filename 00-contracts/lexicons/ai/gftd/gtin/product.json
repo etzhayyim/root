@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.gtin.product",
+  "id": "app.etzhayyim.gtin.product",
   "defs": {
     "main": {
       "type": "record",

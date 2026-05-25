@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openMachineryMaintenance.recordMaintenancePlan",
+  "id": "app.etzhayyim.apps.openMachineryMaintenance.recordMaintenancePlan",
   "defs": {
     "main": {
       "type": "procedure",

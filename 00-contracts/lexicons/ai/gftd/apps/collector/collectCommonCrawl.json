@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.collector.collectCommonCrawl",
+  "id": "app.etzhayyim.apps.collector.collectCommonCrawl",
   "defs": {
     "main": {
       "type": "procedure",

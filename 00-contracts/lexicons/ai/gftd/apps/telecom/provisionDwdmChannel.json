@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.provisionDwdmChannel",
+  "id": "app.etzhayyim.apps.telecom.provisionDwdmChannel",
   "defs": {
     "main": {
       "type": "procedure",

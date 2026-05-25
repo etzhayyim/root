@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openIsic.listClasses",
+  "id": "app.etzhayyim.apps.openIsic.listClasses",
   "defs": {
     "main": {
       "type": "query",

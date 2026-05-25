@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nokyo.saleLot",
+  "id": "app.etzhayyim.apps.nokyo.saleLot",
   "description": "共販ロット (JA 集荷 → 全農 → 卸売市場 / 輸出 / 直販)。米・青果・畜産の規格 (等級) と数量を記録。",
   "defs": {
     "main": {

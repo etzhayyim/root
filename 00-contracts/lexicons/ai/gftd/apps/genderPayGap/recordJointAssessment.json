@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.genderPayGap.recordJointAssessment",
+  "id": "app.etzhayyim.apps.genderPayGap.recordJointAssessment",
   "defs": {
     "main": {
       "type": "procedure",

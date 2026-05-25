@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.unispsc.health",
+  "id": "app.etzhayyim.apps.unispsc.health",
   "defs": {
     "main": {
       "type": "query",

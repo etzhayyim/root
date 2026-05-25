@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.proteome.lookupProtein",
+  "id": "app.etzhayyim.apps.proteome.lookupProtein",
   "defs": {
     "main": {
       "type": "query",

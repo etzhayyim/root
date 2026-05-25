@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sense.scan.complete",
+  "id": "app.etzhayyim.apps.sense.scan.complete",
   "defs": {
     "main": {
       "type": "procedure",

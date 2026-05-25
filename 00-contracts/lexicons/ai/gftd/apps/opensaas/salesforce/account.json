@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.opensaas.salesforce.account",
+  "id": "app.etzhayyim.apps.opensaas.salesforce.account",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Salesforce-equivalent Account: a customer company or household within a tenant. Tier 1 public record (federable). PII-sensitive fields (billing contact, revenue) MUST go into ai.gftd.apps.opensaas.salesforce.accountPrivate (Tier 3 Preferences) and NOT this record.",
+      "description": "Salesforce-equivalent Account: a customer company or household within a tenant. Tier 1 public record (federable). PII-sensitive fields (billing contact, revenue) MUST go into app.etzhayyim.apps.opensaas.salesforce.accountPrivate (Tier 3 Preferences) and NOT this record.",
       "key": "tid",
       "record": {
         "type": "object",

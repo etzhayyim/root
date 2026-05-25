@@ -26,7 +26,7 @@ related:
 
 Status: **Active** (2026-05-11).
 Operating Entity: etzhayyim (sole principal).
-Vendor: Gftd Japan株式会社 (engineering capacity).
+Vendor: etzhayyim Japan株式会社 (engineering capacity).
 Author: etzhayyim Claude Agent on behalf of CEO 河崎.
 
 ## 1. Decision

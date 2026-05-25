@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.uasTrafficManagement.registerFlightAuthorization",
+  "id": "app.etzhayyim.apps.uasTrafficManagement.registerFlightAuthorization",
   "defs": {
     "main": {
       "type": "procedure",

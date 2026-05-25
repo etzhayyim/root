@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.getCoverageStatus",
+  "id": "app.etzhayyim.apps.maps.getCoverageStatus",
   "defs": {
     "main": {
       "type": "query",

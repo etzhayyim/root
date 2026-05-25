@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gigWorker.flagAlgorithmicManagement",
+  "id": "app.etzhayyim.apps.gigWorker.flagAlgorithmicManagement",
   "defs": {
     "main": {
       "type": "procedure",

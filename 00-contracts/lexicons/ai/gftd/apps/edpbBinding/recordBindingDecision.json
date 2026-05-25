@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.edpbBinding.recordBindingDecision",
+  "id": "app.etzhayyim.apps.edpbBinding.recordBindingDecision",
   "defs": {
     "main": {
       "type": "procedure",

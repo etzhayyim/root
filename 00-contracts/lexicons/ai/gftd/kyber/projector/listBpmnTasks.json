@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kyber.projector.listBpmnTasks",
+  "id": "app.etzhayyim.kyber.projector.listBpmnTasks",
   "defs": {
     "main": {
       "type": "query",

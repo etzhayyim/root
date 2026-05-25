@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shinka.listPartitions",
+  "id": "app.etzhayyim.apps.shinka.listPartitions",
   "defs": {
     "main": {
       "type": "query",

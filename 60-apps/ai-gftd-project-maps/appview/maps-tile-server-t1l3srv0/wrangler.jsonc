@@ -16,17 +16,17 @@
     "APP_UI_TYPE": "none",
     "TILE_MANIFEST_KEY": "manifest:v1",
     "TILE_MANIFEST_TTL_SECONDS": "60",
-    "TILE_ATTRIBUTION": "OpenStreetMap contributors (ODbL) - tiles by gftd.co.jp",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "TILE_ATTRIBUTION": "OpenStreetMap contributors (ODbL) - tiles by etzhayyim.com",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "tiles-maps.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "tiles-maps.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "t1l3srv0.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "t1l3srv0.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

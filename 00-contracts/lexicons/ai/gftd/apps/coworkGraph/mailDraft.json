@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coworkGraph.mailDraft",
+  "id": "app.etzhayyim.apps.coworkGraph.mailDraft",
   "defs": {
     "main": {
       "type": "procedure",

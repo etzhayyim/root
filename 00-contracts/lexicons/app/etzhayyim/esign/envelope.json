@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "app.etzhayyim.esign.envelope",
-  "description": "A document-signing envelope native to the religious-corp substrate (per ADR-2605231230). The PDF/document body lives on IPFS (referenced by `documentCid`); only metadata + signer roster lives on MST. Signers authenticate with DID + WebAuthn passkey assertions (no email/OAuth/SMS OTP). Completion produces an `app.etzhayyim.esign.completedEvent`, which is later anchored to Base L2 by anchor-cron yielding an `app.etzhayyim.esign.anchoredEvent`. Document signing for religious-corp documents MUST use this lexicon — DocuSign/Adobe/RazorpaySign passthroughs (`ai.gftd.apps.lawfirm.eSign*`) are reserved for fiat receipts and external counsel intake per ADR-2605192115 §4.",
+  "description": "A document-signing envelope native to the religious-corp substrate (per ADR-2605231230). The PDF/document body lives on IPFS (referenced by `documentCid`); only metadata + signer roster lives on MST. Signers authenticate with DID + WebAuthn passkey assertions (no email/OAuth/SMS OTP). Completion produces an `app.etzhayyim.esign.completedEvent`, which is later anchored to Base L2 by anchor-cron yielding an `app.etzhayyim.esign.anchoredEvent`. Document signing for religious-corp documents MUST use this lexicon — DocuSign/Adobe/RazorpaySign passthroughs (`app.etzhayyim.apps.lawfirm.eSign*`) are reserved for fiat receipts and external counsel intake per ADR-2605192115 §4.",
   "defs": {
     "main": {
       "type": "record",

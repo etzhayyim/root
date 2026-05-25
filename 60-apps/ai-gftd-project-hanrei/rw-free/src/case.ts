@@ -27,7 +27,7 @@ import {
   type SeedCasesOutput,
 } from "./types.js";
 
-const CASE_COLLECTION = "ai.gftd.hanrei.case";
+const CASE_COLLECTION = "app.etzhayyim.hanrei.case";
 
 function caseDid(caseId: string): string {
   return `${HANREI_DID_PREFIX}case:${caseId.toLowerCase()}`;

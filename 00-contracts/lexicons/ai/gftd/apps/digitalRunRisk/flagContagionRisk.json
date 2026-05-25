@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.digitalRunRisk.flagContagionRisk",
+  "id": "app.etzhayyim.apps.digitalRunRisk.flagContagionRisk",
   "defs": {
     "main": {
       "type": "procedure",

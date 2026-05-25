@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.registerLandRegistry",
+  "id": "app.etzhayyim.apps.maps.registerLandRegistry",
   "defs": {
     "main": {
       "type": "procedure",

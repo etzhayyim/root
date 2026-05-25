@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mofcomExportControl.flagPrcExport",
+  "id": "app.etzhayyim.apps.mofcomExportControl.flagPrcExport",
   "defs": {
     "main": {
       "type": "procedure",

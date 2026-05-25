@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.dataLocalization.flagFragmentation",
+  "id": "app.etzhayyim.apps.dataLocalization.flagFragmentation",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.domain.eligibilityCheck",
+  "id": "app.etzhayyim.apps.domain.eligibilityCheck",
   "defs": {
     "main": {
       "type": "procedure",

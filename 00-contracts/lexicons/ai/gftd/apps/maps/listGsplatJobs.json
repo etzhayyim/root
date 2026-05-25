@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listGsplatJobs",
+  "id": "app.etzhayyim.apps.maps.listGsplatJobs",
   "defs": {
     "main": {
       "type": "query",

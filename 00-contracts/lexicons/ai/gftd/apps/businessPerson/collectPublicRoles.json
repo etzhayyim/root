@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.businessPerson.collectPublicRoles",
+  "id": "app.etzhayyim.apps.businessPerson.collectPublicRoles",
   "defs": {
     "main": {
       "type": "procedure",

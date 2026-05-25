@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mineralRoyalty.recordRegime",
+  "id": "app.etzhayyim.apps.mineralRoyalty.recordRegime",
   "defs": {
     "main": {
       "type": "procedure",

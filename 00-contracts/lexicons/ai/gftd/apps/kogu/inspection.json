@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kogu.inspection",
+  "id": "app.etzhayyim.apps.kogu.inspection",
   "description": "工具・設備の定期点検記録。電動工具の安全点検・治具の精度確認等。result=fail 時は status=repair へ遷移。",
   "defs": {
     "main": {

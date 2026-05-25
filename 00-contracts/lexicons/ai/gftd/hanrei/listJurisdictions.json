@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.hanrei.listJurisdictions",
+  "id": "app.etzhayyim.hanrei.listJurisdictions",
   "defs": {
     "main": {
       "type": "query",

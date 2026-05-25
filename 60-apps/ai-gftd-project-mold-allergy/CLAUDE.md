@@ -8,7 +8,7 @@
 - **Domain**: `mold-allergy.etzhayyim.com`
 - **nanoid**: `m0ldalg1`
 - **DID**: `did:web:mold-allergy.etzhayyim.com` (ADR-0019 did:plc 移行候補)
-- **NSID stem**: `ai.gftd.apps.moldAllergy.*`
+- **NSID stem**: `app.etzhayyim.apps.moldAllergy.*`
 
 ## Research Scope
 
@@ -51,7 +51,7 @@
 
 5 Matrix rooms: `#mold-allergen-science` / `#mold-slit-formulation` / `#mold-clinical` / `#mold-regulatory` / `#mold-supply-chain`。
 
-## Record Types (`ai.gftd.apps.moldAllergy.*`)
+## Record Types (`app.etzhayyim.apps.moldAllergy.*`)
 
 - `moldAllergen` — allergen molecule (species, Uniprot, epitope, MW)
 - `airSampling` — site, date, genus count, method (Burkard / MAS-100)

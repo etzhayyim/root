@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.llm.converse",
+  "id": "app.etzhayyim.host.llm.converse",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.market.publishOffer",
+  "id": "app.etzhayyim.market.publishOffer",
   "defs": {
     "main": {
       "type": "procedure",

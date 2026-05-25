@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.lifehack.submitTip",
+  "id": "app.etzhayyim.apps.lifehack.submitTip",
   "defs": {
     "main": {
       "type": "procedure",

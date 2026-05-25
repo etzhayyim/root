@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.metaOversightBoard.recordRuling",
+  "id": "app.etzhayyim.apps.metaOversightBoard.recordRuling",
   "defs": {
     "main": {
       "type": "procedure",

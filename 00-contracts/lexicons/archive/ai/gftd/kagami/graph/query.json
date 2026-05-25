@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kagami.graph.query",
+  "id": "app.etzhayyim.kagami.graph.query",
   "defs": {
     "main": {
       "type": "query",
-      "description": "Legacy graph query endpoint (v2.2 era). Prefer ai.gftd.kagami.sql for new code. Accepts raw SQL via the `statement` field.",
+      "description": "Legacy graph query endpoint (v2.2 era). Prefer app.etzhayyim.kagami.sql for new code. Accepts raw SQL via the `statement` field.",
       "parameters": {
         "type": "params",
         "properties": {

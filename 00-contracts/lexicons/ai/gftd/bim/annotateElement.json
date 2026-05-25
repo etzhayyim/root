@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bim.annotateElement",
+  "id": "app.etzhayyim.apps.bim.annotateElement",
   "defs": {
     "main": {
       "type": "procedure",

@@ -12,7 +12,7 @@ language = "typescript+rust"
 depends_on = ["00-contracts"]
 
 provides = [
-  "@gftd/xrpc",
+  "@etzhayyim/xrpc",
 ]
 
 [invariants]
@@ -24,7 +24,7 @@ capability_count = 9
 [subdirs.xrpc]
 role = "xrpc-transport"
 tier = "production"
-description = "@gftd/xrpc — XRPC single source (NSID, auth, error, transport). Zero deps."
+description = "@etzhayyim/xrpc — XRPC single source (NSID, auth, error, transport). Zero deps."
 
 [files."README.md"]
 role = "doc"

@@ -36,7 +36,7 @@ os-consent (App)        ──────→  agent/consent.ts (PDS 新規 modu
   [Discord] ─┐      │  os-messaging Worker                │
   [Telegram]─┤      │  (ai-gftd-os-messaging-0sm3sg01)    │
   [Slack]   ─┤──────▶  platform adapter → UnifiedMessage   │
-  [LINE]    ─┤      │  → XRPC ai.gftd.convo.send          │
+  [LINE]    ─┤      │  → XRPC app.etzhayyim.convo.send          │
   [WhatsApp]─┤      │  → reply webhook                     │
   [Web/yoro]─┘      └──────────────┬────────────────────────┘
                                     │ XRPC (service binding)
@@ -297,7 +297,7 @@ graphar.vertex_AgentSchedule (
 
 ## 4. os-messaging Worker — Multi-Platform Gateway
 
-**唯一の新規 CF Worker。** 8 platform の webhook を受け、`ai.gftd.convo.send` XRPC で PDS に転送。
+**唯一の新規 CF Worker。** 8 platform の webhook を受け、`app.etzhayyim.convo.send` XRPC で PDS に転送。
 
 ```
 Worker: ai-gftd-os-messaging-0sm3sg01
@@ -313,20 +313,20 @@ Service bindings: PDS_SERVICE, PDS_RPC
 
 export default createWorkerExport((sdk) => {
   // ── Platform webhooks ──
-  sdk.app.command("ai.gftd.apps.osMessaging.webhookDiscord", handleDiscordWebhook, ...);
-  sdk.app.command("ai.gftd.apps.osMessaging.webhookTelegram", handleTelegramWebhook, ...);
-  sdk.app.command("ai.gftd.apps.osMessaging.webhookSlack", handleSlackWebhook, ...);
-  sdk.app.command("ai.gftd.apps.osMessaging.webhookLine", handleLineWebhook, ...);
-  sdk.app.command("ai.gftd.apps.osMessaging.webhookWhatsapp", handleWhatsappWebhook, ...);
+  sdk.app.command("app.etzhayyim.apps.osMessaging.webhookDiscord", handleDiscordWebhook, ...);
+  sdk.app.command("app.etzhayyim.apps.osMessaging.webhookTelegram", handleTelegramWebhook, ...);
+  sdk.app.command("app.etzhayyim.apps.osMessaging.webhookSlack", handleSlackWebhook, ...);
+  sdk.app.command("app.etzhayyim.apps.osMessaging.webhookLine", handleLineWebhook, ...);
+  sdk.app.command("app.etzhayyim.apps.osMessaging.webhookWhatsapp", handleWhatsappWebhook, ...);
 
   // ── Unified dispatch ──
-  // Platform webhook → UnifiedMessage → resolve user DID → ai.gftd.convo.send → PDS → agentInfer
+  // Platform webhook → UnifiedMessage → resolve user DID → app.etzhayyim.convo.send → PDS → agentInfer
   // agentInfer reply → platform API で返信
 
   // ── Platform connection management ──
-  sdk.app.command("ai.gftd.apps.osMessaging.connectPlatform", handleConnect, ...);
-  sdk.app.command("ai.gftd.apps.osMessaging.disconnectPlatform", handleDisconnect, ...);
-  sdk.app.query("ai.gftd.apps.osMessaging.listConnections", handleListConnections, ...);
+  sdk.app.command("app.etzhayyim.apps.osMessaging.connectPlatform", handleConnect, ...);
+  sdk.app.command("app.etzhayyim.apps.osMessaging.disconnectPlatform", handleDisconnect, ...);
+  sdk.app.query("app.etzhayyim.apps.osMessaging.listConnections", handleListConnections, ...);
 });
 ```
 
@@ -337,7 +337,7 @@ interface UnifiedMessage {
   platform: "discord" | "telegram" | "slack" | "line" | "whatsapp" | "web";
   channelId: string;
   userId: string;       // platform user ID
-  userDid?: string;     // resolved GFTD DID (from mapping)
+  userDid?: string;     // resolved etzhayyim DID (from mapping)
   text: string;
   replyToId?: string;
   attachments?: Array<{ type: string; url: string }>;
@@ -470,11 +470,11 @@ export async function agentInferV2(
 
 ```
 00-contracts/lexicons/ai/gftd/agent/
-├── memory.json           -- ai.gftd.agent.memory (query/procedure)
-├── consent.json          -- ai.gftd.agent.consent (query/procedure)
-├── audit.json            -- ai.gftd.agent.audit (query)
-├── schedule.json         -- ai.gftd.agent.schedule (procedure)
-└── infer.json            -- ai.gftd.agent.infer (procedure, V2 params)
+├── memory.json           -- app.etzhayyim.agent.memory (query/procedure)
+├── consent.json          -- app.etzhayyim.agent.consent (query/procedure)
+├── audit.json            -- app.etzhayyim.agent.audit (query)
+├── schedule.json         -- app.etzhayyim.agent.schedule (procedure)
+└── infer.json            -- app.etzhayyim.agent.infer (procedure, V2 params)
 
 00-contracts/lexicons/ai/gftd/apps/osMessaging/
 ├── webhookDiscord.json

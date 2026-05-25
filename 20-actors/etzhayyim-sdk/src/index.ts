@@ -76,7 +76,7 @@ export interface Signer {
 // ─── Write API (replaces SQL INSERT) ────────────────────────────────
 
 export interface WriteOpts<T extends Record<string, unknown>> {
-  /** Lexicon NSID. e.g. `ai.gftd.apps.openIsco.occupation`. */
+  /** Lexicon NSID. e.g. `app.etzhayyim.apps.openIsco.occupation`. */
   collection: string;
 
   /** Record body. Validated against the resolved lexicon shape. */

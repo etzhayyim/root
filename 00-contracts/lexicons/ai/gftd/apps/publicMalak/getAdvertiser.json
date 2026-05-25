@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.publicMalak.getAdvertiser",
+  "id": "app.etzhayyim.apps.publicMalak.getAdvertiser",
   "defs": {
     "main": {
       "type": "query",

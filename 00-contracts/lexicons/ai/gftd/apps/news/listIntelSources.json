@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.news.listIntelSources",
+  "id": "app.etzhayyim.apps.news.listIntelSources",
   "defs": {
     "main": {
       "type": "query",

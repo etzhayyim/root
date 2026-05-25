@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.seedBuildings",
+  "id": "app.etzhayyim.apps.maps.seedBuildings",
   "defs": {
     "main": {
       "type": "procedure",

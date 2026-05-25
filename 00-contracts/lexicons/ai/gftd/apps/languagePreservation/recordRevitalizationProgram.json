@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.languagePreservation.recordRevitalizationProgram",
+  "id": "app.etzhayyim.apps.languagePreservation.recordRevitalizationProgram",
   "defs": {
     "main": {
       "type": "procedure",

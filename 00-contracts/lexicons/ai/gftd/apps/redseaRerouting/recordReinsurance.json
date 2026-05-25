@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.redseaRerouting.recordReinsurance",
+  "id": "app.etzhayyim.apps.redseaRerouting.recordReinsurance",
   "defs": {
     "main": {
       "type": "procedure",

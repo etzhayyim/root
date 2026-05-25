@@ -3,7 +3,7 @@
  *
  * Wires the rw-free reference impl (National Drug Code registry)
  * into a deployable CF Worker that exposes each function as an XRPC endpoint
- * at https://ndc.etzhayyim.com/xrpc/ai.gftd.apps.ndc.<cmd>
+ * at https://ndc.etzhayyim.com/xrpc/app.etzhayyim.apps.ndc.<cmd>
  */
 
 import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
@@ -19,7 +19,7 @@ interface Env {
 
 type Handler = (e: any, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "ai.gftd.apps.ndc";
+const NSID_BASE = "app.etzhayyim.apps.ndc";
 
 interface RouteConfig {
   method: "POST" | "GET";

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.ocel.emitEvent",
+  "id": "app.etzhayyim.host.ocel.emitEvent",
   "defs": {
     "main": {
       "type": "procedure",

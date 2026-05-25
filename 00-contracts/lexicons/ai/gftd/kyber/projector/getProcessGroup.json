@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kyber.projector.getProcessGroup",
+  "id": "app.etzhayyim.kyber.projector.getProcessGroup",
   "defs": {
     "main": {
       "type": "query",

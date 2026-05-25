@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.bpmn.analyzeProcess",
+  "id": "app.etzhayyim.bpmn.analyzeProcess",
   "defs": {
     "main": {
       "type": "query",
-      "description": "Optimize-free process mining over BPMN/Zeebe OCEL audit events. Reads vertex_repo_commit rows where collection=ai.gftd.bpmn.audit, returns deterministic KPIs and optional LLM diagnosis.",
+      "description": "Optimize-free process mining over BPMN/Zeebe OCEL audit events. Reads vertex_repo_commit rows where collection=app.etzhayyim.bpmn.audit, returns deterministic KPIs and optional LLM diagnosis.",
       "parameters": {
         "type": "params",
         "properties": {

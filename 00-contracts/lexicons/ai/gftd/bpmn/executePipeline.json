@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.bpmn.executePipeline",
+  "id": "app.etzhayyim.bpmn.executePipeline",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.murakumo.coverageExport",
+  "id": "app.etzhayyim.murakumo.coverageExport",
   "defs": {
     "main": {
       "type": "procedure",

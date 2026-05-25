@@ -25,112 +25,112 @@ const seeds: Seed[] = [
   {
     proc: "collectGlobalGleif",
     bpmnProcessId: "legal_entity_collect_global_gleif",
-    nsid: "ai.gftd.apps.legalEntity.collectGlobalGleif",
+    nsid: "app.etzhayyim.apps.legalEntity.collectGlobalGleif",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectGlobalGleif.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "registerGleifDids",
     bpmnProcessId: "legal_entity_register_gleif_dids",
-    nsid: "ai.gftd.apps.legalEntity.registerGleifDids",
+    nsid: "app.etzhayyim.apps.legalEntity.registerGleifDids",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/registerGleifDids.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectUsaEdgar",
     bpmnProcessId: "legal_entity_collect_usa_edgar",
-    nsid: "ai.gftd.apps.legalEntity.collectUsaEdgar",
+    nsid: "app.etzhayyim.apps.legalEntity.collectUsaEdgar",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectUsaEdgar.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "ingestSecDisclosure",
     bpmnProcessId: "legal_entity_ingest_sec_disclosure",
-    nsid: "ai.gftd.apps.legalEntity.ingestSecDisclosure",
+    nsid: "app.etzhayyim.apps.legalEntity.ingestSecDisclosure",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/ingestSecDisclosure.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectJpn",
     bpmnProcessId: "legal_entity_collect_jpn",
-    nsid: "ai.gftd.apps.legalEntity.collectJpn",
+    nsid: "app.etzhayyim.apps.legalEntity.collectJpn",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectJpn.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectGbr",
     bpmnProcessId: "legal_entity_collect_gbr",
-    nsid: "ai.gftd.apps.legalEntity.collectGbr",
+    nsid: "app.etzhayyim.apps.legalEntity.collectGbr",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectGbr.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectFra",
     bpmnProcessId: "legal_entity_collect_fra",
-    nsid: "ai.gftd.apps.legalEntity.collectFra",
+    nsid: "app.etzhayyim.apps.legalEntity.collectFra",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectFra.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectNor",
     bpmnProcessId: "legal_entity_collect_nor",
-    nsid: "ai.gftd.apps.legalEntity.collectNor",
+    nsid: "app.etzhayyim.apps.legalEntity.collectNor",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectNor.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectDnk",
     bpmnProcessId: "legal_entity_collect_dnk",
-    nsid: "ai.gftd.apps.legalEntity.collectDnk",
+    nsid: "app.etzhayyim.apps.legalEntity.collectDnk",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectDnk.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectFin",
     bpmnProcessId: "legal_entity_collect_fin",
-    nsid: "ai.gftd.apps.legalEntity.collectFin",
+    nsid: "app.etzhayyim.apps.legalEntity.collectFin",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectFin.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectEst",
     bpmnProcessId: "legal_entity_collect_est",
-    nsid: "ai.gftd.apps.legalEntity.collectEst",
+    nsid: "app.etzhayyim.apps.legalEntity.collectEst",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectEst.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectCze",
     bpmnProcessId: "legal_entity_collect_cze",
-    nsid: "ai.gftd.apps.legalEntity.collectCze",
+    nsid: "app.etzhayyim.apps.legalEntity.collectCze",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectCze.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectNzl",
     bpmnProcessId: "legal_entity_collect_nzl",
-    nsid: "ai.gftd.apps.legalEntity.collectNzl",
+    nsid: "app.etzhayyim.apps.legalEntity.collectNzl",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectNzl.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectChe",
     bpmnProcessId: "legal_entity_collect_che",
-    nsid: "ai.gftd.apps.legalEntity.collectChe",
+    nsid: "app.etzhayyim.apps.legalEntity.collectChe",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectChe.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectNld",
     bpmnProcessId: "legal_entity_collect_nld",
-    nsid: "ai.gftd.apps.legalEntity.collectNld",
+    nsid: "app.etzhayyim.apps.legalEntity.collectNld",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectNld.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "collectIsr",
     bpmnProcessId: "legal_entity_collect_isr",
-    nsid: "ai.gftd.apps.legalEntity.collectIsr",
+    nsid: "app.etzhayyim.apps.legalEntity.collectIsr",
     sourcePath: "00-contracts/bpmn/ai/gftd/legal-entity/collectIsr.bpmn",
     resultTimeoutMs: 120000,
   },
@@ -141,9 +141,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

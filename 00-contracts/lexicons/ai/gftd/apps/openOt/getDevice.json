@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOt.getDevice",
+  "id": "app.etzhayyim.apps.openOt.getDevice",
   "defs": {
     "main": {
       "type": "query",

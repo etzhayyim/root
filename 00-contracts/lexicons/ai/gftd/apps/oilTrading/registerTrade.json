@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oilTrading.registerTrade",
+  "id": "app.etzhayyim.apps.oilTrading.registerTrade",
   "defs": {
     "main": {
       "type": "procedure",

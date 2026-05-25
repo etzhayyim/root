@@ -5,7 +5,7 @@ HTTP surface:
   POST /xrpc/{nsid}       → XRPC shim (NSID → graph mapping)
   GET  /ok / /health      → liveness / readiness
 
-NSID namespace: ai.gftd.apps.dougaka.*
+NSID namespace: app.etzhayyim.apps.dougaka.*
 Auth: optional LG_API_KEY env enforces x-api-key on /runs.
       /xrpc/{nsid} is unauthenticated (trust at cloudflared tunnel layer).
 """
@@ -30,7 +30,7 @@ GRAPHS: dict[str, Any] = {
 }
 
 NSID_MAP: dict[str, str] = {
-    "ai.gftd.apps.dougaka.render": "render",
+    "app.etzhayyim.apps.dougaka.render": "render",
 }
 
 _API_KEY = os.environ.get("LG_API_KEY", "")

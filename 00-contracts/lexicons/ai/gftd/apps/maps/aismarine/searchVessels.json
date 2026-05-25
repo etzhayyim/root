@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.aismarine.searchVessels",
+  "id": "app.etzhayyim.apps.maps.aismarine.searchVessels",
   "defs": {
     "main": {
       "type": "query",

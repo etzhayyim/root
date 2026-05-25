@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.freightRate.recordSpotQuote",
+  "id": "app.etzhayyim.apps.freightRate.recordSpotQuote",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.newsletter.createCampaign",
+  "id": "app.etzhayyim.apps.newsletter.createCampaign",
   "defs": {
     "main": {
       "type": "procedure",

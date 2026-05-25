@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vin.registerCohort",
+  "id": "app.etzhayyim.apps.vin.registerCohort",
   "defs": {
     "main": {
       "type": "procedure",

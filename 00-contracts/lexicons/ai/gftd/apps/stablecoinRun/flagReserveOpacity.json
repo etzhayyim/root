@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.stablecoinRun.flagReserveOpacity",
+  "id": "app.etzhayyim.apps.stablecoinRun.flagReserveOpacity",
   "defs": {
     "main": {
       "type": "procedure",

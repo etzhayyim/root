@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMlit.regulateVehicleInspection",
+  "id": "app.etzhayyim.apps.jpMlit.regulateVehicleInspection",
   "defs": {
     "main": {
       "type": "procedure",

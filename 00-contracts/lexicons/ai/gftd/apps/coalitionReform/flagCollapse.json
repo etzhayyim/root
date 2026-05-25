@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coalitionReform.flagCollapse",
+  "id": "app.etzhayyim.apps.coalitionReform.flagCollapse",
   "defs": {
     "main": {
       "type": "procedure",

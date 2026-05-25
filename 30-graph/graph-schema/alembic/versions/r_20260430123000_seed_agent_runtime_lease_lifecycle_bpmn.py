@@ -25,12 +25,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-lifecycle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-lifecycle-v1',
                  'did:web:agent.etzhayyim.com',
                  'agent_runtime_lease_lifecycle',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  ai.gftd.apps.agent.runtimeLeaseLifecycle — ADR-2604301200 P2.\n'
+                 '  app.etzhayyim.apps.agent.runtimeLeaseLifecycle — ADR-2604301200 P2.\n'
                  '\n'
                  '  XRPC/message-started process for reserving a persistent autonomous-agent\n'
                  '  runtime lease. The k8s namespace is always explicit; `default` is rejected\n'
@@ -59,7 +59,7 @@ UP = [{'sql': '\n'
                  'lifecycle" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
                  '      '
-                 '{"nsid":"ai.gftd.apps.agent.runtimeLeaseLifecycle","version":1,"tier":"T2"}\n'
+                 '{"nsid":"app.etzhayyim.apps.agent.runtimeLeaseLifecycle","version":1,"tier":"T2"}\n'
                  '    </bpmn:documentation>\n'
                  '\n'
                  '    <bpmn:startEvent id="Start" name="runtime lease request">\n'
@@ -198,7 +198,7 @@ UP = [{'sql': '\n'
                  'did:web:agent.etzhayyim.com',
                  'did:web:agent.etzhayyim.com',
                  'sys.bpmn.seed.agent.runtimeLeaseLifecycle',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-lifecycle-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-lifecycle-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -212,21 +212,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/agent-runtimeLeaseLifecycle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/agent-runtimeLeaseLifecycle-v1',
                  'did:web:agent.etzhayyim.com',
-                 'ai.gftd.apps.agent.runtimeLeaseLifecycle',
+                 'app.etzhayyim.apps.agent.runtimeLeaseLifecycle',
                  'agent_runtime_lease_lifecycle',
                  90000,
                  '2026-04-30T12:30:00Z',
                  'did:web:agent.etzhayyim.com',
                  'did:web:agent.etzhayyim.com',
                  'sys.bpmn.seed.agent.runtimeLeaseLifecycle',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/agent-runtimeLeaseLifecycle-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/agent-runtimeLeaseLifecycle-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/agent-runtimeLeaseLifecycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/agent-runtimeLeaseLifecycle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/agent-runtime-lease-lifecycle-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-lifecycle-v1']}]
 
 
 def upgrade() -> None:

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.naturalPerson.cohortPerson",
+  "id": "app.etzhayyim.apps.naturalPerson.cohortPerson",
   "defs": {
     "main": {
       "type": "record",

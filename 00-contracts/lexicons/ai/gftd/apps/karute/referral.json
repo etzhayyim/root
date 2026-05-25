@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.referral",
+  "id": "app.etzhayyim.apps.karute.referral",
   "defs": {
     "main": {
       "type": "record",

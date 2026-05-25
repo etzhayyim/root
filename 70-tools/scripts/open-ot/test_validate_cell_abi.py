@@ -54,7 +54,7 @@ def test_lexicon_type_number_forbidden(tmp_path):
         tmp_path,
         "defineCell",
         {
-            "id": "ai.gftd.apps.openOt.defineCell",
+            "id": "app.etzhayyim.apps.openOt.defineCell",
             "lexicon": 1,
             "defs": {
                 "main": {
@@ -79,7 +79,7 @@ def test_lexicon_inline_object_array_forbidden(tmp_path):
         tmp_path,
         "defineCell",
         {
-            "id": "ai.gftd.apps.openOt.defineCell",
+            "id": "app.etzhayyim.apps.openOt.defineCell",
             "lexicon": 1,
             "defs": {
                 "main": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.batchCoverageCycle",
+  "id": "app.etzhayyim.apps.maps.batchCoverageCycle",
   "defs": {
     "main": {
       "type": "procedure",

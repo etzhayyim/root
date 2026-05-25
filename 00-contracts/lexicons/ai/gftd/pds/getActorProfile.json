@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.pds.getActorProfile",
-  "description": "Get actor profile by DID or handle. Returns app.bsky.actor.defs#profileViewDetailed compatible output plus GFTD extensions.",
+  "id": "app.etzhayyim.pds.getActorProfile",
+  "description": "Get actor profile by DID or handle. Returns app.bsky.actor.defs#profileViewDetailed compatible output plus etzhayyim extensions.",
   "defs": {
     "main": {
       "type": "query",
@@ -49,22 +49,22 @@
             "createdAt": { "type": "string", "format": "datetime" },
             "runtime": {
               "type": "string",
-              "description": "GFTD extension: actor business runtime placement",
+              "description": "etzhayyim extension: actor business runtime placement",
               "knownValues": ["k8s-langserver"]
             },
             "edge": {
               "type": "string",
-              "description": "GFTD extension: public edge placement",
+              "description": "etzhayyim extension: public edge placement",
               "knownValues": ["sveltekit-proxy"]
             },
             "legacyExecutionTier": {
               "type": "string",
-              "description": "GFTD extension: historical migration inventory only",
+              "description": "etzhayyim extension: historical migration inventory only",
               "knownValues": ["T1", "T2", "T3"]
             },
             "actorStatus": {
               "type": "string",
-              "description": "GFTD extension",
+              "description": "etzhayyim extension",
               "knownValues": ["active", "suspended", "archived"]
             }
           },

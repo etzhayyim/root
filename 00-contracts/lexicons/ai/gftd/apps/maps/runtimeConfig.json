@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.runtimeConfig",
+  "id": "app.etzhayyim.apps.maps.runtimeConfig",
   "defs": {
     "main": {
       "type": "procedure",

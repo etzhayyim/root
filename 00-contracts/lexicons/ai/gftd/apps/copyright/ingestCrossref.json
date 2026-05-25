@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.copyright.ingestCrossref",
+  "id": "app.etzhayyim.apps.copyright.ingestCrossref",
   "defs": {
     "main": {
       "type": "procedure",

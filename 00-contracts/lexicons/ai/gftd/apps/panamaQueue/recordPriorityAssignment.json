@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.panamaQueue.recordPriorityAssignment",
+  "id": "app.etzhayyim.apps.panamaQueue.recordPriorityAssignment",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bpmn.signalInstance",
+  "id": "app.etzhayyim.apps.bpmn.signalInstance",
   "defs": {
     "main": {
       "type": "procedure",

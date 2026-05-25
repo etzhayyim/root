@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airMro.reportReliability",
+  "id": "app.etzhayyim.apps.airMro.reportReliability",
   "defs": {
     "main": {
       "type": "procedure",

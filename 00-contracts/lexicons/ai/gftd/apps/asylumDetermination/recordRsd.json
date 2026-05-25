@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.asylumDetermination.recordRsd",
+  "id": "app.etzhayyim.apps.asylumDetermination.recordRsd",
   "defs": {
     "main": {
       "type": "procedure",

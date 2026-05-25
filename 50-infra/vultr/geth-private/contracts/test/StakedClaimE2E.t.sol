@@ -52,7 +52,7 @@ contract StakedClaimE2ETest is Test {
         // Deploy GCC. supplyCap = 1B * 1e18 mirrors the live contract.
         vm.prank(OWNER);
         gcc = new GCCStablecoin(
-            "GFTD Credit",
+            "etzhayyim Credit",
             "GCC",
             18,
             1_000_000_000 ether,

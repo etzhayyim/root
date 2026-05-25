@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.subscribeE2Service",
+  "id": "app.etzhayyim.apps.telecom.subscribeE2Service",
   "defs": {
     "main": {
       "type": "procedure",

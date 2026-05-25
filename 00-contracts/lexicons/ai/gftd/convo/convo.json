@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.convo",
+  "id": "app.etzhayyim.convo.convo",
   "description": "Extended conversation record. Superset of chat.bsky.convo.defs#convoView — adds name, kind, group convo support.",
   "defs": {
     "main": {
@@ -10,11 +10,11 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "GFTD extension: human-readable conversation name (for group convos)"
+            "description": "etzhayyim extension: human-readable conversation name (for group convos)"
           },
           "kind": {
             "type": "string",
-            "description": "GFTD extension: conversation kind (dm, group, channel, project, etc.)",
+            "description": "etzhayyim extension: conversation kind (dm, group, channel, project, etc.)",
             "knownValues": ["dm", "group", "channel", "project"]
           },
           "members": {

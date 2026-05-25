@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.marginCall.flagFailure",
+  "id": "app.etzhayyim.apps.marginCall.flagFailure",
   "defs": {
     "main": {
       "type": "procedure",

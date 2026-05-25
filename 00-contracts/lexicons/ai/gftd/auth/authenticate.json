@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.auth.authenticate",
+  "id": "app.etzhayyim.auth.authenticate",
   "defs": {
     "main": {
       "type": "procedure",
@@ -12,7 +12,7 @@
           "properties": {
             "authorization": { "type": "string", "description": "Bearer token or raw JWT" },
             "xMagatamaVerified": { "type": "boolean", "description": "Internal service binding flag" },
-            "xGftdOrgId": { "type": "string", "description": "Org ID for internal requests" }
+            "xetzhayyimOrgId": { "type": "string", "description": "Org ID for internal requests" }
           }
         }
       },

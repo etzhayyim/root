@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.work",
+  "id": "app.etzhayyim.apps.animeka.work",
   "defs": {
     "main": {
       "type": "record",
@@ -36,7 +36,7 @@
           },
           "episodeCount": {
             "type": "integer",
-            "description": "Planned total episode count (informational; actual episodes are separate ai.gftd.apps.animeka.episode records)."
+            "description": "Planned total episode count (informational; actual episodes are separate app.etzhayyim.apps.animeka.episode records)."
           },
           "fps": {
             "type": "integer",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.lobbyingDisclosure.recordFiling",
+  "id": "app.etzhayyim.apps.lobbyingDisclosure.recordFiling",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.kuniUmi.proposeDeploymentPlan",
+  "id": "app.etzhayyim.apps.etzhayyim.kuniUmi.proposeDeploymentPlan",
   "defs": {
     "main": {
       "type": "procedure",

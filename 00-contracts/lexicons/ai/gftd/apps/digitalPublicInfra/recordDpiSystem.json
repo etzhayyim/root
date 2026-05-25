@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.digitalPublicInfra.recordDpiSystem",
+  "id": "app.etzhayyim.apps.digitalPublicInfra.recordDpiSystem",
   "defs": {
     "main": {
       "type": "procedure",

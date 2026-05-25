@@ -1,4 +1,4 @@
-# `ai.gftd.unispec.*` — UniSpec — unified specification reference
+# `app.etzhayyim.unispec.*` — UniSpec — unified specification reference
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group A).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `ai.gftd.unispec.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `app.etzhayyim.unispec.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

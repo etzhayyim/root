@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sendaiDrr.flagPolicyCoherence",
+  "id": "app.etzhayyim.apps.sendaiDrr.flagPolicyCoherence",
   "defs": {
     "main": {
       "type": "procedure",

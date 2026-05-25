@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.socialMediaInfluenceOp.flagPlatformResponse",
+  "id": "app.etzhayyim.apps.socialMediaInfluenceOp.flagPlatformResponse",
   "defs": {
     "main": {
       "type": "procedure",

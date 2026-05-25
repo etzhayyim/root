@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aisDarkVessel.flagAisManipulation",
+  "id": "app.etzhayyim.apps.aisDarkVessel.flagAisManipulation",
   "defs": {
     "main": {
       "type": "procedure",

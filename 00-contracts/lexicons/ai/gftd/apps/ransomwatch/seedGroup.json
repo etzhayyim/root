@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ransomwatch.seedGroup",
+  "id": "app.etzhayyim.apps.ransomwatch.seedGroup",
   "defs": {
     "main": {
       "type": "procedure",

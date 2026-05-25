@@ -5,7 +5,7 @@ K3s manifests for the Path-B ameno headless daemon
 
 This is the **production / fleet** deploy target for the Python ameno
 daemon. Single-host dev still uses systemd (`ameno-daemon.service`) or
-the TS Path A (`@gftd/ameno-daemon`); this directory is for the
+the TS Path A (`@etzhayyim/ameno-daemon`); this directory is for the
 K3s-on-Murakumo path.
 
 ADRs:

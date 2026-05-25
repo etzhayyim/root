@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yata.bmcAddHypothesis",
+  "id": "app.etzhayyim.apps.yata.bmcAddHypothesis",
   "defs": {
     "main": {
       "type": "procedure",

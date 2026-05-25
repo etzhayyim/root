@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.governance.queryLabels",
+  "id": "app.etzhayyim.governance.queryLabels",
   "description": "Query governance labels. Output uses official com.atproto.label.defs#label schema. Superset of com.atproto.label.queryLabels.",
   "defs": {
     "main": {

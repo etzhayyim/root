@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.commonCrawl.ingestSegment",
+  "id": "app.etzhayyim.apps.commonCrawl.ingestSegment",
   "defs": {
     "main": {
       "type": "procedure",

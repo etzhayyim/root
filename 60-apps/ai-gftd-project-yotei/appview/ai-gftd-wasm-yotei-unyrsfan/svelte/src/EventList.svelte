@@ -17,14 +17,14 @@
     if (!calendarId) return;
     loading = true;
     const now = new Date().toISOString();
-    const res = await xrpc<{ events: EventItem[] }>('ai.gftd.apps.yotei.listEvents', { calendarId, dateFrom: now });
+    const res = await xrpc<{ events: EventItem[] }>('app.etzhayyim.apps.yotei.listEvents', { calendarId, dateFrom: now });
     events = res.events ?? [];
     loading = false;
   }
 
   /** Cancel an event. */
   async function cancel(id: string): Promise<void> {
-    await xrpc('ai.gftd.apps.yotei.cancelEvent', { id });
+    await xrpc('app.etzhayyim.apps.yotei.cancelEvent', { id });
     await load();
   }
 

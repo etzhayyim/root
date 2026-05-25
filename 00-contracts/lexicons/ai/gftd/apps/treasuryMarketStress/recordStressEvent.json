@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.treasuryMarketStress.recordStressEvent",
+  "id": "app.etzhayyim.apps.treasuryMarketStress.recordStressEvent",
   "defs": {
     "main": {
       "type": "procedure",

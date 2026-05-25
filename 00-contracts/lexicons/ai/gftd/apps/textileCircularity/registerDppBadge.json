@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.textileCircularity.registerDppBadge",
+  "id": "app.etzhayyim.apps.textileCircularity.registerDppBadge",
   "defs": {
     "main": {
       "type": "procedure",

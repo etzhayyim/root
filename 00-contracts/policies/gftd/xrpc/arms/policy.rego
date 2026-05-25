@@ -40,7 +40,7 @@ requires_holder_session if {
 
 # Export control gate: block custody transfers to ATT/Wassenaar restricted jurisdictions
 export_restricted if {
-  nsid in {"ai.gftd.apps.arms.transferCustody", "ai.gftd.apps.arms.reportIncident"}
+  nsid in {"app.etzhayyim.apps.arms.transferCustody", "app.etzhayyim.apps.arms.reportIncident"}
   some jur in data.export_restricted_jurisdictions
   input.params.destinationJurisdiction == jur
 }

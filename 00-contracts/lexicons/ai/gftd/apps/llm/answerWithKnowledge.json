@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.llm.answerWithKnowledge",
+  "id": "app.etzhayyim.apps.llm.answerWithKnowledge",
   "defs": {
     "main": {
       "type": "procedure",

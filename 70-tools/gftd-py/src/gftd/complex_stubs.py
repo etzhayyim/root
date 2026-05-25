@@ -127,7 +127,7 @@ def sp_run(dry_run: bool, pds: str | None, workspace_dir: str | None, concurrenc
         payload = {k: v for k, v in profile.items() if k != "_source"}
         try:
             httpx.post(
-                f"{pds_url}/xrpc/ai.gftd.pds.putProfile",
+                f"{pds_url}/xrpc/app.etzhayyim.pds.putProfile",
                 json=payload,
                 headers=headers,
                 timeout=10.0,

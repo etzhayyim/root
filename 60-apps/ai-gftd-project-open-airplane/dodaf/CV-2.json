@@ -9,25 +9,25 @@
       {
         "id": "cap.directory", "name": "Directory",
         "children": [
-          { "id": "cap.airportDef",  "name": "Define airport",   "realisedBy": "ai.gftd.apps.openAirplane.defineAirport" },
-          { "id": "cap.airportList", "name": "List airports",    "realisedBy": "ai.gftd.apps.openAirplane.listAirports" },
-          { "id": "cap.aircraftReg", "name": "Register aircraft","realisedBy": "ai.gftd.apps.openAirplane.registerAircraft" }
+          { "id": "cap.airportDef",  "name": "Define airport",   "realisedBy": "app.etzhayyim.apps.openAirplane.defineAirport" },
+          { "id": "cap.airportList", "name": "List airports",    "realisedBy": "app.etzhayyim.apps.openAirplane.listAirports" },
+          { "id": "cap.aircraftReg", "name": "Register aircraft","realisedBy": "app.etzhayyim.apps.openAirplane.registerAircraft" }
         ]
       },
       {
         "id": "cap.operations", "name": "Flight operations",
         "children": [
-          { "id": "cap.flightSchedule", "name": "Schedule flight",  "realisedBy": "ai.gftd.apps.openAirplane.scheduleFlight" },
-          { "id": "cap.flightStatus",   "name": "OOOI / status",    "realisedBy": "ai.gftd.apps.openAirplane.recordFlightStatus" },
-          { "id": "cap.flightList",     "name": "List flights",     "realisedBy": "ai.gftd.apps.openAirplane.listFlights" }
+          { "id": "cap.flightSchedule", "name": "Schedule flight",  "realisedBy": "app.etzhayyim.apps.openAirplane.scheduleFlight" },
+          { "id": "cap.flightStatus",   "name": "OOOI / status",    "realisedBy": "app.etzhayyim.apps.openAirplane.recordFlightStatus" },
+          { "id": "cap.flightList",     "name": "List flights",     "realisedBy": "app.etzhayyim.apps.openAirplane.listFlights" }
         ]
       },
       {
         "id": "cap.safety", "name": "Safety / incidents",
         "children": [
-          { "id": "cap.incidentReport",   "name": "Report incident",      "realisedBy": "ai.gftd.apps.openAirplane.reportIncident" },
+          { "id": "cap.incidentReport",   "name": "Report incident",      "realisedBy": "app.etzhayyim.apps.openAirplane.reportIncident" },
           { "id": "cap.incidentSeverity", "name": "Severity decisioning", "realisedBy": "openAirplane.incidentSeverity (DMN)" },
-          { "id": "cap.incidentList",     "name": "List incidents",       "realisedBy": "ai.gftd.apps.openAirplane.listIncidents" }
+          { "id": "cap.incidentList",     "name": "List incidents",       "realisedBy": "app.etzhayyim.apps.openAirplane.listIncidents" }
         ]
       }
     ]

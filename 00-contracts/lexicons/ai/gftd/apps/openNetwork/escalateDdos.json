@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openNetwork.escalateDdos",
+  "id": "app.etzhayyim.apps.openNetwork.escalateDdos",
   "defs": {
     "main": {
       "type": "procedure",

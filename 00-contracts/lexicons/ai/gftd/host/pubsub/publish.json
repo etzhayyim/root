@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.pubsub.publish",
+  "id": "app.etzhayyim.host.pubsub.publish",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSwift.screenSanctions",
+  "id": "app.etzhayyim.apps.openSwift.screenSanctions",
   "defs": {
     "main": {
       "type": "procedure",

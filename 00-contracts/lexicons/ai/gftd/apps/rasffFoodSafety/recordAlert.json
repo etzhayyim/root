@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.rasffFoodSafety.recordAlert",
+  "id": "app.etzhayyim.apps.rasffFoodSafety.recordAlert",
   "defs": {
     "main": {
       "type": "procedure",

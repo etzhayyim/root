@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.whistleblowerProtect.recordDisclosure",
+  "id": "app.etzhayyim.apps.whistleblowerProtect.recordDisclosure",
   "defs": {
     "main": {
       "type": "procedure",

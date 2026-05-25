@@ -14,7 +14,7 @@
 //
 // After this migration, any caller that JOINs mv_actor_canonical_did on raw_did
 // will resolve AT Protocol DIDs to their ERC725 canonical DID automatically.
-// ai.gftd.signal.getPrekeyBundle already does an app-layer at_did fallback (ADR-0095 §D4).
+// app.etzhayyim.signal.getPrekeyBundle already does an app-layer at_did fallback (ADR-0095 §D4).
 
 import type { Kysely } from "kysely";
 import { sql } from "kysely";

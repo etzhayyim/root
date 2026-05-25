@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.religiousFreedom.recordRegistry",
+  "id": "app.etzhayyim.apps.religiousFreedom.recordRegistry",
   "defs": {
     "main": {
       "type": "procedure",

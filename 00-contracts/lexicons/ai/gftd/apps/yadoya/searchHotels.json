@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yadoya.searchHotels",
+  "id": "app.etzhayyim.apps.yadoya.searchHotels",
   "defs": {
     "main": {
       "type": "query",

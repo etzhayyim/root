@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.handotai.listArticles",
+  "id": "app.etzhayyim.apps.handotai.listArticles",
   "defs": {
     "main": {
       "type": "query",

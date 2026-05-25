@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aiGovernance.reportIncident",
+  "id": "app.etzhayyim.apps.aiGovernance.reportIncident",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bim.requestExport",
+  "id": "app.etzhayyim.apps.bim.requestExport",
   "defs": {
     "main": {
       "type": "procedure",

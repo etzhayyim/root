@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.mapralyImportPoi",
+  "id": "app.etzhayyim.apps.maps.mapralyImportPoi",
   "defs": {
     "main": {
       "type": "procedure",

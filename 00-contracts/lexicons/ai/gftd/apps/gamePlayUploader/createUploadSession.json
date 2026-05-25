@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gamePlayUploader.createUploadSession",
+  "id": "app.etzhayyim.apps.gamePlayUploader.createUploadSession",
   "defs": {
     "main": {
       "type": "procedure",

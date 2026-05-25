@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.addChapter",
+  "id": "app.etzhayyim.apps.mangaka.addChapter",
   "defs": {
     "main": {
       "type": "procedure",

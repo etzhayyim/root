@@ -5,7 +5,7 @@
   "main": "src/app.ts",
   "type": "module",
   "dependencies": {
-    "@gftd/magatama-host-sdk": "workspace:*",
-    "@gftd/kagami": "file:../../../../_archive/30-graph/kagami-live-260414"
+    "@etzhayyim/magatama-host-sdk": "workspace:*",
+    "@etzhayyim/kagami": "file:../../../../_archive/30-graph/kagami-live-260414"
   }
 }

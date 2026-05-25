@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bluesky.searchPosts",
+  "id": "app.etzhayyim.apps.bluesky.searchPosts",
   "defs": {
     "main": {
       "type": "query",

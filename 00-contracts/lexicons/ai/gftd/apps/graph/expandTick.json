@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.graph.expandTick",
+  "id": "app.etzhayyim.apps.graph.expandTick",
   "defs": {
     "main": {
       "type": "procedure",

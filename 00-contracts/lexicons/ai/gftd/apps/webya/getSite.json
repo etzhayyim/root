@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.webya.getSite",
+  "id": "app.etzhayyim.apps.webya.getSite",
   "defs": {
     "main": {
       "type": "query",

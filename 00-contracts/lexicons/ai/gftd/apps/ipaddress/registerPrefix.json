@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.registerPrefix",
+  "id": "app.etzhayyim.apps.ipaddress.registerPrefix",
   "defs": {
     "main": {
       "type": "procedure",

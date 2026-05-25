@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.esgRiskRating.flagControversy",
+  "id": "app.etzhayyim.apps.esgRiskRating.flagControversy",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.manimani.classify",
+  "id": "app.etzhayyim.apps.manimani.classify",
   "defs": {
     "main": {
       "type": "procedure",

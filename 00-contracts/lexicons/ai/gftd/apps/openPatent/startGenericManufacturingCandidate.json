@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPatent.startGenericManufacturingCandidate",
+  "id": "app.etzhayyim.apps.openPatent.startGenericManufacturingCandidate",
   "defs": {
     "main": {
       "type": "procedure",

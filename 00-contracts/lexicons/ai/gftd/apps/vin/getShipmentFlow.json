@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vin.getShipmentFlow",
+  "id": "app.etzhayyim.apps.vin.getShipmentFlow",
   "defs": {
     "main": {
       "type": "query",

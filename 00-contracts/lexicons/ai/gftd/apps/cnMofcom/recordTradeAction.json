@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cnMofcom.recordTradeAction",
+  "id": "app.etzhayyim.apps.cnMofcom.recordTradeAction",
   "defs": {
     "main": {
       "type": "procedure",

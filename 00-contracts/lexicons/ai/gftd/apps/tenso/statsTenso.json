@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tenso.statsTenso",
+  "id": "app.etzhayyim.apps.tenso.statsTenso",
   "defs": {
     "main": {
       "type": "procedure",

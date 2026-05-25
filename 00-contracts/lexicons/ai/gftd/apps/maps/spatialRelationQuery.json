@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.spatialRelationQuery",
+  "id": "app.etzhayyim.apps.maps.spatialRelationQuery",
   "defs": {
     "main": {
       "type": "procedure",

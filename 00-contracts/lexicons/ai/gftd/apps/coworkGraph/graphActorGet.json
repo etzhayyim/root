@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coworkGraph.graphActorGet",
+  "id": "app.etzhayyim.apps.coworkGraph.graphActorGet",
   "defs": {
     "main": {
       "type": "query",

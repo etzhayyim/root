@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.getProcessTrace",
+  "id": "app.etzhayyim.apps.mangaka.getProcessTrace",
   "defs": {
     "main": {
       "type": "query",

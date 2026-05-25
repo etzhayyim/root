@@ -1,5 +1,5 @@
 /**
- * Mirrors the ai.gftd.apps.openIsco.occupation Lexicon record shape.
+ * Mirrors the app.etzhayyim.apps.openIsco.occupation Lexicon record shape.
  * Source: 00-contracts/lexicons/ai/gftd/apps/openIsco/occupation.json
  */
 export interface Occupation {

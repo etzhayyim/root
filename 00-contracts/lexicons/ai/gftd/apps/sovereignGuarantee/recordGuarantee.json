@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sovereignGuarantee.recordGuarantee",
+  "id": "app.etzhayyim.apps.sovereignGuarantee.recordGuarantee",
   "defs": {
     "main": {
       "type": "procedure",

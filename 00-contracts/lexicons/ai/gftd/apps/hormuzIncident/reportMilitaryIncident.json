@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hormuzIncident.reportMilitaryIncident",
+  "id": "app.etzhayyim.apps.hormuzIncident.reportMilitaryIncident",
   "defs": {
     "main": {
       "type": "procedure",

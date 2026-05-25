@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kobo.spawnAgent",
+  "id": "app.etzhayyim.apps.kobo.spawnAgent",
   "defs": {
     "main": {
       "type": "procedure",

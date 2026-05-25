@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.realEstate.getMarketStats",
+  "id": "app.etzhayyim.apps.realEstate.getMarketStats",
   "defs": {
     "main": {
       "type": "query",

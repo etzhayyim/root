@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.unispsc.listAgents",
+  "id": "app.etzhayyim.apps.unispsc.listAgents",
   "defs": {
     "main": {
       "type": "query",

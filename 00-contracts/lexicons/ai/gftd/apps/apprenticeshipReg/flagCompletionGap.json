@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.apprenticeshipReg.flagCompletionGap",
+  "id": "app.etzhayyim.apps.apprenticeshipReg.flagCompletionGap",
   "defs": {
     "main": {
       "type": "procedure",

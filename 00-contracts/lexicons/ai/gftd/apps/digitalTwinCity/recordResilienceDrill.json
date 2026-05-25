@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.digitalTwinCity.recordResilienceDrill",
+  "id": "app.etzhayyim.apps.digitalTwinCity.recordResilienceDrill",
   "defs": {
     "main": {
       "type": "procedure",

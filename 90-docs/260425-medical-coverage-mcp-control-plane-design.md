@@ -79,7 +79,7 @@ Output:
     {
       "target": "pubmed",
       "domain": "gakujutsu_ronbun",
-      "collection": "ai.gftd.apps.iryo.pubmedPaper",
+      "collection": "app.etzhayyim.apps.iryo.pubmedPaper",
       "recordCount": 500,
       "worldTotal": 200000000,
       "coverageRate": 0.0000025
@@ -309,7 +309,7 @@ Short term:
 - Coverage target state remains in `dim_world_domain_collection`.
 - Coverage progress remains in `mv_world_collection_coverage_live`.
 - Ingester cursor remains in `vertex_repo_record` collection
-  `ai.gftd.apps.iryo.coverageCursor`.
+  `app.etzhayyim.apps.iryo.coverageCursor`.
 - Kubernetes Job status is the run status for bounded Jobs.
 
 Medium term:
@@ -319,7 +319,7 @@ Medium term:
   - `source_id in ('pubmed', 'clinical_trials', 'dsm', 'facilities_csv')`
   - `mode in ('delta', 'backfill', 'repair', 'verify')`
 
-This lets generic `ai.gftd.apps.ingest.status` and domain-specific
+This lets generic `app.etzhayyim.apps.ingest.status` and domain-specific
 `medical.ingest.status` converge.
 
 ## Security
@@ -441,7 +441,7 @@ Cons:
 
 Pros:
 
-- Matches existing `ai.gftd.apps.ingest.*` handler style.
+- Matches existing `app.etzhayyim.apps.ingest.*` handler style.
 - Tool registration and MCP discovery already exist.
 
 Cons:

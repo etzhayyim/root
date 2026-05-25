@@ -1,76 +1,76 @@
 {
   "method_policy": {
-    "ai.gftd.apps.arms.registerFirearm": {
+    "app.etzhayyim.apps.arms.registerFirearm": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.registerFirearm"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.registerFirearm"],
       "allowedPermissionSets": ["arms:authority", "arms:system"],
       "publicRead": false
     },
-    "ai.gftd.apps.arms.authenticateHolder": {
+    "app.etzhayyim.apps.arms.authenticateHolder": {
       "requiresAuth": false,
       "allowedScopes": ["rpc?lxm=*"],
       "allowedPermissionSets": [],
       "publicRead": true
     },
-    "ai.gftd.apps.arms.verifyAuthChallenge": {
+    "app.etzhayyim.apps.arms.verifyAuthChallenge": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.verifyAuthChallenge", "rpc?lxm=*"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.verifyAuthChallenge", "rpc?lxm=*"],
       "allowedPermissionSets": [],
       "publicRead": false
     },
-    "ai.gftd.apps.arms.issuePermit": {
+    "app.etzhayyim.apps.arms.issuePermit": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.issuePermit"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.issuePermit"],
       "allowedPermissionSets": ["arms:authority"],
       "publicRead": false
     },
-    "ai.gftd.apps.arms.transferCustody": {
+    "app.etzhayyim.apps.arms.transferCustody": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.transferCustody"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.transferCustody"],
       "allowedPermissionSets": ["arms:holder", "arms:authority"],
       "publicRead": false,
       "requiresHolderAuthSession": true
     },
-    "ai.gftd.apps.arms.checkOutFirearm": {
+    "app.etzhayyim.apps.arms.checkOutFirearm": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.checkOutFirearm", "rpc?lxm=*"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.checkOutFirearm", "rpc?lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority"],
       "publicRead": false,
       "requiresHolderAuthSession": true
     },
-    "ai.gftd.apps.arms.checkInFirearm": {
+    "app.etzhayyim.apps.arms.checkInFirearm": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.checkInFirearm", "rpc?lxm=*"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.checkInFirearm", "rpc?lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority"],
       "publicRead": false
     },
-    "ai.gftd.apps.arms.reportIncident": {
+    "app.etzhayyim.apps.arms.reportIncident": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.reportIncident", "rpc?lxm=*"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.reportIncident", "rpc?lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
       "publicRead": false
     },
-    "ai.gftd.apps.arms.getFirearm": {
+    "app.etzhayyim.apps.arms.getFirearm": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.getFirearm", "rpc?lxm=*"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.getFirearm", "rpc?lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
       "publicRead": false
     },
-    "ai.gftd.apps.arms.listFirearms": {
+    "app.etzhayyim.apps.arms.listFirearms": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.listFirearms", "rpc?lxm=*"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.listFirearms", "rpc?lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
       "publicRead": false
     },
-    "ai.gftd.apps.arms.listPermits": {
+    "app.etzhayyim.apps.arms.listPermits": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.listPermits", "rpc?lxm=*"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.listPermits", "rpc?lxm=*"],
       "allowedPermissionSets": ["arms:holder", "arms:authority", "arms:law-enforcement"],
       "publicRead": false
     },
-    "ai.gftd.apps.arms.getAuditLog": {
+    "app.etzhayyim.apps.arms.getAuditLog": {
       "requiresAuth": true,
-      "allowedScopes": ["rpc?lxm=ai.gftd.apps.arms.getAuditLog"],
+      "allowedScopes": ["rpc?lxm=app.etzhayyim.apps.arms.getAuditLog"],
       "allowedPermissionSets": ["arms:authority", "arms:law-enforcement"],
       "publicRead": false
     }

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kakaku.getPriceHistory",
+  "id": "app.etzhayyim.apps.kakaku.getPriceHistory",
   "defs": {
     "main": {
       "type": "query",

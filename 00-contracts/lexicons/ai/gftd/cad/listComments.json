@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cad.listComments",
+  "id": "app.etzhayyim.apps.cad.listComments",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.energyCharterExit.recordExitNotice",
+  "id": "app.etzhayyim.apps.energyCharterExit.recordExitNotice",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.climateAdaptationFinance.approveProject",
+  "id": "app.etzhayyim.apps.climateAdaptationFinance.approveProject",
   "defs": {
     "main": {
       "type": "procedure",

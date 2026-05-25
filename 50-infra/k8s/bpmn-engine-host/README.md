@@ -27,7 +27,7 @@ Replaces: Camunda 8 / Zeebe broker pod (license-encumbered).
 - Hot-reload spec cache on RW change-data subscribe (currently explicit
   `POST /v1/process/{id}/reload`)
 - Multi-shard topology + standby leader election
-- Edge XRPC binding (`ai.gftd.apps.bpmn.startInstance` etc. → this host)
+- Edge XRPC binding (`app.etzhayyim.apps.bpmn.startInstance` etc. → this host)
 
 ## Deploy
 

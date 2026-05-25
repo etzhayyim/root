@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.otelObservability.flagDataSovereigntyIncident",
+  "id": "app.etzhayyim.apps.otelObservability.flagDataSovereigntyIncident",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.membership",
+  "id": "app.etzhayyim.convo.membership",
   "defs": {
     "main": {
       "type": "record",

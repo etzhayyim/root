@@ -37,7 +37,7 @@ import {
   MURAKUMO_DEFAULT_MODEL,
   nsid,
   parseLexiconInput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 // ── Murakumo Gemma 4 E2B config ──
 
@@ -411,7 +411,7 @@ ${targetType}: ${description}`;
 
 /** Analyze emotions from text (+ optional image). */
 async function cmdAnalyzeEmotions(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.analyzeEmotions", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.analyzeEmotions", body) as any;
   if (!args.text) return { error: "text required" };
 
   const emotions = await analyzeEmotions(args.text, args.imageBase64);
@@ -439,7 +439,7 @@ async function cmdAnalyzeEmotions(sdk: HostSDK, body: Uint8Array): Promise<unkno
 
 /** Get full 48-emotion profile for an actor. */
 async function cmdGetEmotionProfile(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.getEmotionProfile", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.getEmotionProfile", body) as any;
   if (!args.actorDid) return { error: "actorDid required" };
 
   const rows = [] as Record<string, unknown>[]; // SQL deprecated 2026-04-12
@@ -450,7 +450,7 @@ async function cmdGetEmotionProfile(sdk: HostSDK, body: Uint8Array): Promise<unk
 
 /** Get joucho 5-axis score for an actor. */
 async function cmdGetScore(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.getScore", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.getScore", body) as any;
   if (!args.actorDid) return { error: "actorDid required" };
 
   const rows = [] as Record<string, unknown>[]; // SQL deprecated 2026-04-12
@@ -461,7 +461,7 @@ async function cmdGetScore(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 
 /** Search joucho scores by range. */
 async function cmdSearchScores(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.searchScores", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.searchScores", body) as any;
   const axis = args.axis ?? "joy";
   const minScore = args.minScore ?? 0;
   const maxScore = args.maxScore ?? 100;
@@ -474,7 +474,7 @@ async function cmdSearchScores(sdk: HostSDK, body: Uint8Array): Promise<unknown>
 
 /** Score a meal/restaurant/spot/product/building. */
 async function cmdScoreTarget(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.scoreTarget", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.scoreTarget", body) as any;
   if (!args.targetType || !args.description) {
     return { error: "targetType and description required" };
   }
@@ -524,7 +524,7 @@ async function cmdScoreTarget(sdk: HostSDK, body: Uint8Array): Promise<unknown> 
 
 /** Submit a user review and compute scores. */
 async function cmdSubmitReview(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.submitReview", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.submitReview", body) as any;
   if (!args.targetType || !args.reviewText) {
     return { error: "targetType and reviewText required" };
   }
@@ -566,7 +566,7 @@ async function cmdSubmitReview(sdk: HostSDK, body: Uint8Array): Promise<unknown>
 
 /** Compute 5-axis breakdown for a target. */
 async function cmdAxisBreakdown(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.axisBreakdown", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.axisBreakdown", body) as any;
   if (!args.entityId) return { error: "entityId required" };
 
   const rows = [] as Record<string, unknown>[]; // SQL deprecated 2026-04-12
@@ -577,7 +577,7 @@ async function cmdAxisBreakdown(sdk: HostSDK, body: Uint8Array): Promise<unknown
 
 /** Get ranking of targets by Well-Becoming score. */
 async function cmdRanking(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.ranking", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.ranking", body) as any;
   const limit = Math.min(args.limit ?? 20, 100);
   let where = "";
   if (args.targetType) where = ` WHERE e.target_type = "${str(args.targetType)}"`;
@@ -589,7 +589,7 @@ async function cmdRanking(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 
 /** Score trend over time for a target. */
 async function cmdScoreTrend(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.scoreTrend", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.scoreTrend", body) as any;
   if (!args.actorDid) return { error: "actorDid required" };
   const limit = Math.min(args.limit ?? 30, 100);
 
@@ -600,7 +600,7 @@ async function cmdScoreTrend(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 
 /** AI-powered recommendation based on joucho scores. */
 async function cmdRecommend(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.recommend", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.recommend", body) as any;
   const limit = Math.min(args.limit ?? 5, 20);
   const targetType = args.targetType ?? "restaurant";
 
@@ -618,7 +618,7 @@ Return JSON: {"recommendations":[{"name":"...","reason":"...","expectedScore":N}
 
 /** Compare joucho scores of multiple targets. */
 async function cmdCompare(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.compare", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.compare", body) as any;
   if (!args.entityIds?.length) return { error: "entityIds array required" };
 
   const results: Array<Record<string, unknown>> = [];
@@ -632,7 +632,7 @@ async function cmdCompare(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 
 /** Batch analyze emotions for actor portfolio. */
 async function cmdBatchAnalyze(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.scoring.batchAnalyze", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.scoring.batchAnalyze", body) as any;
   if (!args.actorDid || !args.texts?.length) {
     return { error: "actorDid and texts[] required" };
   }
@@ -690,7 +690,7 @@ async function handleCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeReposCo
     }
   }
 
-  if (commit.collection === "ai.gftd.joucho.jouchoEntity") {
+  if (commit.collection === "app.etzhayyim.joucho.jouchoEntity") {
     console.log(`[joucho] new entity scored: ${commit.rkey}`);
   }
 
@@ -703,7 +703,7 @@ async function handleCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeReposCo
 
 /** Joucho heartbeat: analyze recent activity and update platform emotion state. */
 async function cmdHeartbeat(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.joucho.heartbeat", body) as any;
+  const args = parseLexiconInput("app.etzhayyim.joucho.heartbeat", body) as any;
   const actorDid = args.actorDid ?? "did:web:joucho.etzhayyim.com";
 
   // Generate a mood-reflective post about platform emotional state
@@ -745,58 +745,58 @@ export function setup(sdk: HostSDK): void {
   });
 
   // Emotion analysis commands (SST 48-emotion)
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.analyzeEmotions"), (_ctx, body) => cmdAnalyzeEmotions(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.analyzeEmotions"), (_ctx, body) => cmdAnalyzeEmotions(sdk, body),
     asAgentTool("Analyze 48 SST emotions from text + optional image via Gemma 4 E2B multimodal"),
   );
 
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.getEmotionProfile"), (_ctx, body) => cmdGetEmotionProfile(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.getEmotionProfile"), (_ctx, body) => cmdGetEmotionProfile(sdk, body),
     asAgentTool("Get full 48-emotion profile for an actor DID"),
   );
 
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.batchAnalyze"), (_ctx, body) => cmdBatchAnalyze(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.batchAnalyze"), (_ctx, body) => cmdBatchAnalyze(sdk, body),
     asAgentTool("Batch analyze emotions across multiple texts for an actor"),
   );
 
   // Joucho 5-axis scoring
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.getScore"), (_ctx, body) => cmdGetScore(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.getScore"), (_ctx, body) => cmdGetScore(sdk, body),
     asAgentTool("Get joucho 5-axis score (joy/calm/stress/gratitude/focus) for actor"),
   );
 
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.searchScores"), (_ctx, body) => cmdSearchScores(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.searchScores"), (_ctx, body) => cmdSearchScores(sdk, body),
     asAgentTool("Search joucho scores by axis range"),
   );
 
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.scoreTrend"), (_ctx, body) => cmdScoreTrend(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.scoreTrend"), (_ctx, body) => cmdScoreTrend(sdk, body),
     asAgentTool("Get joucho score trend over time for an actor"),
   );
 
   // Well-Becoming target scoring
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.submitReview"), (_ctx, body) => cmdSubmitReview(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.submitReview"), (_ctx, body) => cmdSubmitReview(sdk, body),
     asAgentTool("Submit a review with emotion analysis + Well-Becoming scoring"),
   );
 
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.scoreTarget"), (_ctx, body) => cmdScoreTarget(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.scoreTarget"), (_ctx, body) => cmdScoreTarget(sdk, body),
     asAgentTool("Score meal/restaurant/spot/product/building on Well-Becoming 5 axes"),
   );
 
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.axisBreakdown"), (_ctx, body) => cmdAxisBreakdown(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.axisBreakdown"), (_ctx, body) => cmdAxisBreakdown(sdk, body),
     asAgentTool("Get 5-axis Well-Becoming breakdown for a scored entity"),
   );
 
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.ranking"), (_ctx, body) => cmdRanking(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.ranking"), (_ctx, body) => cmdRanking(sdk, body),
     asAgentTool("Get Well-Becoming score ranking by target type"),
   );
 
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.recommend"), (_ctx, body) => cmdRecommend(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.recommend"), (_ctx, body) => cmdRecommend(sdk, body),
     asAgentTool("AI recommendation based on joucho scores and mood"),
   );
 
-  sdk.app.command(nsid("ai.gftd.joucho.scoring.compare"), (_ctx, body) => cmdCompare(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.scoring.compare"), (_ctx, body) => cmdCompare(sdk, body),
     asAgentTool("Compare Well-Becoming scores of multiple targets"),
   );
 
   // Shinka heartbeat
-  sdk.app.command(nsid("ai.gftd.joucho.heartbeat"), (_ctx, body) => cmdHeartbeat(sdk, body),
+  sdk.app.command(nsid("app.etzhayyim.joucho.heartbeat"), (_ctx, body) => cmdHeartbeat(sdk, body),
     asAgentTool("Joucho heartbeat: mood reflection + platform emotion state"),
   );
 
@@ -841,4 +841,4 @@ export default createWorkerExport((sdk) => {
 });
 
 /** Legacy alias for gftd deploy entry generation. */
-export { createDefaultHostSDK as createComponentHostSDK } from "@gftd/magatama-host-sdk";
+export { createDefaultHostSDK as createComponentHostSDK } from "@etzhayyim/magatama-host-sdk";

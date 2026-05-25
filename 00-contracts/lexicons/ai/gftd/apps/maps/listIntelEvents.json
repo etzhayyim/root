@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listIntelEvents",
+  "id": "app.etzhayyim.apps.maps.listIntelEvents",
   "defs": {
     "main": {
       "type": "query",

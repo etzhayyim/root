@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.crawlFlightPrices",
+  "id": "app.etzhayyim.apps.maps.crawlFlightPrices",
   "defs": {
     "main": {
       "type": "procedure",

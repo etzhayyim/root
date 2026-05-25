@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-cancel-subscription-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-cancel-subscription-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_cancel_subscription',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -43,7 +43,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_cancelSubscription" name="cancelSubscription">\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition '
-                 'type="xrpc.ai.gftd.apps.jpAshiba.cancelSubscription" retries="2"/>\n'
+                 'type="xrpc.app.etzhayyim.apps.jpAshiba.cancelSubscription" retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -60,7 +60,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-cancel-subscription-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-cancel-subscription-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -74,7 +74,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-change-tier-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-change-tier-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_change_tier',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -91,7 +91,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_changeTier"/>\n'
                  '    <bpmn:serviceTask id="Task_changeTier" name="changeTier">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.changeTier" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.changeTier" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -109,7 +109,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-change-tier-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-change-tier-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -123,7 +123,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-check-availability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-check-availability-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_check_availability',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -141,7 +141,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_checkAvailability" name="checkAvailability">\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition '
-                 'type="xrpc.ai.gftd.apps.jpAshiba.checkAvailability" retries="2"/>\n'
+                 'type="xrpc.app.etzhayyim.apps.jpAshiba.checkAvailability" retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -158,7 +158,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-check-availability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-check-availability-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -172,7 +172,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-confirm-rental-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-confirm-rental-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_confirm_rental',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -189,7 +189,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_confirmRental"/>\n'
                  '    <bpmn:serviceTask id="Task_confirmRental" name="confirmRental">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.confirmRental" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.confirmRental" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -207,7 +207,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-confirm-rental-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-confirm-rental-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -221,7 +221,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-create-quote-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-create-quote-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_create_quote',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -238,7 +238,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_createQuote"/>\n'
                  '    <bpmn:serviceTask id="Task_createQuote" name="createQuote">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.createQuote" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.createQuote" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -256,7 +256,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-create-quote-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-create-quote-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -270,7 +270,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-extend-rental-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-extend-rental-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_extend_rental',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -287,7 +287,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_extendRental"/>\n'
                  '    <bpmn:serviceTask id="Task_extendRental" name="extendRental">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.extendRental" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.extendRental" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-extend-rental-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-extend-rental-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -319,7 +319,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-get-item-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-get-item-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_get_item',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -335,7 +335,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getItem"/>\n'
                  '    <bpmn:serviceTask id="Task_getItem" name="getItem">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.getItem" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.getItem" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -353,7 +353,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-get-item-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-get-item-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -367,7 +367,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-get-usage-summary-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-get-usage-summary-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_get_usage_summary',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -384,7 +384,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getUsageSummary"/>\n'
                  '    <bpmn:serviceTask id="Task_getUsageSummary" name="getUsageSummary">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.getUsageSummary" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.getUsageSummary" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -402,7 +402,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-get-usage-summary-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-get-usage-summary-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -416,7 +416,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-list-catalog-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-list-catalog-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_list_catalog',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -433,7 +433,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_listCatalog"/>\n'
                  '    <bpmn:serviceTask id="Task_listCatalog" name="listCatalog">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.listCatalog" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.listCatalog" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -451,7 +451,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-list-catalog-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-list-catalog-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -465,7 +465,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-record-inspection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-record-inspection-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_record_inspection',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -482,7 +482,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_recordInspection"/>\n'
                  '    <bpmn:serviceTask id="Task_recordInspection" name="recordInspection">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.recordInspection" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.recordInspection" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -500,7 +500,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-record-inspection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-record-inspection-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -514,7 +514,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-report-defect-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-report-defect-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_report_defect',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -531,7 +531,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_reportDefect"/>\n'
                  '    <bpmn:serviceTask id="Task_reportDefect" name="reportDefect">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.reportDefect" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.reportDefect" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -549,7 +549,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-report-defect-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-report-defect-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -563,7 +563,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-return-rental-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-return-rental-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_return_rental',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -580,7 +580,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_returnRental"/>\n'
                  '    <bpmn:serviceTask id="Task_returnRental" name="returnRental">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.returnRental" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.returnRental" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -598,7 +598,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-return-rental-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-return-rental-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -612,7 +612,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-schedule-delivery-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-schedule-delivery-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_schedule_delivery',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -629,7 +629,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_scheduleDelivery"/>\n'
                  '    <bpmn:serviceTask id="Task_scheduleDelivery" name="scheduleDelivery">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.scheduleDelivery" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.scheduleDelivery" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -647,7 +647,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-schedule-delivery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-schedule-delivery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -661,7 +661,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-subscribe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-subscribe-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'jp_ashiba_subscribe',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -677,7 +677,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_subscribe"/>\n'
                  '    <bpmn:serviceTask id="Task_subscribe" name="subscribe">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.jpAshiba.subscribe" '
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.jpAshiba.subscribe" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -695,7 +695,7 @@ UP = [{'sql': '\n'
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-subscribe-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-subscribe-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -709,16 +709,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-cancelSubscription-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-cancelSubscription-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.cancelSubscription',
+                 'app.etzhayyim.apps.jpAshiba.cancelSubscription',
                  'jp_ashiba_cancel_subscription',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-cancelSubscription-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-cancelSubscription-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -732,16 +732,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-changeTier-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-changeTier-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.changeTier',
+                 'app.etzhayyim.apps.jpAshiba.changeTier',
                  'jp_ashiba_change_tier',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-changeTier-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-changeTier-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -755,16 +755,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-checkAvailability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-checkAvailability-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.checkAvailability',
+                 'app.etzhayyim.apps.jpAshiba.checkAvailability',
                  'jp_ashiba_check_availability',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-checkAvailability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-checkAvailability-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -778,16 +778,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-confirmRental-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-confirmRental-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.confirmRental',
+                 'app.etzhayyim.apps.jpAshiba.confirmRental',
                  'jp_ashiba_confirm_rental',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-confirmRental-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-confirmRental-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -801,16 +801,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-createQuote-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-createQuote-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.createQuote',
+                 'app.etzhayyim.apps.jpAshiba.createQuote',
                  'jp_ashiba_create_quote',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-createQuote-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-createQuote-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -824,16 +824,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-extendRental-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-extendRental-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.extendRental',
+                 'app.etzhayyim.apps.jpAshiba.extendRental',
                  'jp_ashiba_extend_rental',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-extendRental-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-extendRental-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -847,16 +847,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-getItem-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-getItem-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.getItem',
+                 'app.etzhayyim.apps.jpAshiba.getItem',
                  'jp_ashiba_get_item',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-getItem-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-getItem-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -870,16 +870,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-getUsageSummary-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-getUsageSummary-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.getUsageSummary',
+                 'app.etzhayyim.apps.jpAshiba.getUsageSummary',
                  'jp_ashiba_get_usage_summary',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-getUsageSummary-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-getUsageSummary-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -893,16 +893,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-listCatalog-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-listCatalog-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.listCatalog',
+                 'app.etzhayyim.apps.jpAshiba.listCatalog',
                  'jp_ashiba_list_catalog',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-listCatalog-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-listCatalog-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -916,16 +916,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-recordInspection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-recordInspection-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.recordInspection',
+                 'app.etzhayyim.apps.jpAshiba.recordInspection',
                  'jp_ashiba_record_inspection',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-recordInspection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-recordInspection-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,16 +939,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-reportDefect-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-reportDefect-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.reportDefect',
+                 'app.etzhayyim.apps.jpAshiba.reportDefect',
                  'jp_ashiba_report_defect',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-reportDefect-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-reportDefect-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -962,16 +962,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-returnRental-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-returnRental-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.returnRental',
+                 'app.etzhayyim.apps.jpAshiba.returnRental',
                  'jp_ashiba_return_rental',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-returnRental-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-returnRental-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -985,16 +985,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-scheduleDelivery-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-scheduleDelivery-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.scheduleDelivery',
+                 'app.etzhayyim.apps.jpAshiba.scheduleDelivery',
                  'jp_ashiba_schedule_delivery',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-scheduleDelivery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-scheduleDelivery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1008,73 +1008,73 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-subscribe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-subscribe-v1',
                  'did:web:jp-ashiba.etzhayyim.com',
-                 'ai.gftd.apps.jpAshiba.subscribe',
+                 'app.etzhayyim.apps.jpAshiba.subscribe',
                  'jp_ashiba_subscribe',
                  30000,
                  '2026-05-06T23:40:00Z',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'did:web:jp-ashiba.etzhayyim.com',
                  'sys.bpmn.seed.jp-ashiba',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-subscribe-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-subscribe-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-cancelSubscription-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-cancelSubscription-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-changeTier-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-changeTier-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-checkAvailability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-checkAvailability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-confirmRental-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-confirmRental-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-createQuote-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-createQuote-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-extendRental-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-extendRental-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-getItem-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-getItem-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-getUsageSummary-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-getUsageSummary-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-listCatalog-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-listCatalog-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-recordInspection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-recordInspection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-reportDefect-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-reportDefect-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-returnRental-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-returnRental-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-scheduleDelivery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-scheduleDelivery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jp-ashiba-subscribe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-ashiba-subscribe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-cancel-subscription-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-cancel-subscription-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-change-tier-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-change-tier-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-check-availability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-check-availability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-confirm-rental-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-confirm-rental-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-create-quote-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-create-quote-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-extend-rental-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-extend-rental-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-get-item-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-get-item-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-get-usage-summary-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-get-usage-summary-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-list-catalog-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-list-catalog-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-record-inspection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-record-inspection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-report-defect-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-report-defect-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-return-rental-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-return-rental-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-schedule-delivery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-schedule-delivery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jp-ashiba-subscribe-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-ashiba-subscribe-v1']}]
 
 
 def upgrade() -> None:

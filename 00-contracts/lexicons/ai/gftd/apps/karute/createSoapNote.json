@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.createSoapNote",
+  "id": "app.etzhayyim.apps.karute.createSoapNote",
   "defs": {
     "main": {
       "type": "procedure",

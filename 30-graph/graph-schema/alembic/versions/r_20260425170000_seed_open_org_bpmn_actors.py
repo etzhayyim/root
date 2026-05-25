@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-org-takeda-gmp-batch-release-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-takeda-gmp-batch-release-v1',
                  'did:web:open-org-takeda.etzhayyim.com',
                  'open_org_takeda_gmp_batch_release',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -276,7 +276,7 @@ UP = [{'sql': '\n'
                  'did:web:open-org-takeda.etzhayyim.com',
                  'did:web:open-org-takeda.etzhayyim.com',
                  'sys.bpmn.seed.open-org',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-org-takeda-gmp-batch-release-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-takeda-gmp-batch-release-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -311,7 +311,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-org-toyota-line-stop-escalation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-toyota-line-stop-escalation-v1',
                  'did:web:open-org-toyota.etzhayyim.com',
                  'open_org_toyota_line_stop_escalation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -494,7 +494,7 @@ UP = [{'sql': '\n'
                  'did:web:open-org-toyota.etzhayyim.com',
                  'did:web:open-org-toyota.etzhayyim.com',
                  'sys.bpmn.seed.open-org',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-org-toyota-line-stop-escalation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-toyota-line-stop-escalation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -529,7 +529,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-org-yamato-cold-chain-delivery-exception-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-yamato-cold-chain-delivery-exception-v1',
                  'did:web:open-org-yamato.etzhayyim.com',
                  'open_org_yamato_cold_chain_delivery_exception',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -711,7 +711,7 @@ UP = [{'sql': '\n'
                  'did:web:open-org-yamato.etzhayyim.com',
                  'did:web:open-org-yamato.etzhayyim.com',
                  'sys.bpmn.seed.open-org',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-org-yamato-cold-chain-delivery-exception-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-yamato-cold-chain-delivery-exception-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -744,16 +744,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-org-takeda-gmpBatchRelease-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-takeda-gmpBatchRelease-v1',
                  'did:web:open-org-takeda.etzhayyim.com',
-                 'ai.gftd.apps.orgTakeda.gmpBatchRelease',
+                 'app.etzhayyim.apps.orgTakeda.gmpBatchRelease',
                  'open_org_takeda_gmp_batch_release',
                  30000,
                  '2026-04-25T17:00:00Z',
                  'did:web:open-org-takeda.etzhayyim.com',
                  'did:web:open-org-takeda.etzhayyim.com',
                  'sys.bpmn.seed.open-org',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-org-takeda-gmpBatchRelease-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-takeda-gmpBatchRelease-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -786,16 +786,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-org-toyota-lineStopEscalation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-toyota-lineStopEscalation-v1',
                  'did:web:open-org-toyota.etzhayyim.com',
-                 'ai.gftd.apps.orgToyota.lineStopEscalation',
+                 'app.etzhayyim.apps.orgToyota.lineStopEscalation',
                  'open_org_toyota_line_stop_escalation',
                  30000,
                  '2026-04-25T17:00:00Z',
                  'did:web:open-org-toyota.etzhayyim.com',
                  'did:web:open-org-toyota.etzhayyim.com',
                  'sys.bpmn.seed.open-org',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-org-toyota-lineStopEscalation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-toyota-lineStopEscalation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -828,29 +828,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-org-yamato-coldChainDeliveryException-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-yamato-coldChainDeliveryException-v1',
                  'did:web:open-org-yamato.etzhayyim.com',
-                 'ai.gftd.apps.orgYamato.coldChainDeliveryException',
+                 'app.etzhayyim.apps.orgYamato.coldChainDeliveryException',
                  'open_org_yamato_cold_chain_delivery_exception',
                  30000,
                  '2026-04-25T17:00:00Z',
                  'did:web:open-org-yamato.etzhayyim.com',
                  'did:web:open-org-yamato.etzhayyim.com',
                  'sys.bpmn.seed.open-org',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-org-yamato-coldChainDeliveryException-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-yamato-coldChainDeliveryException-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-org-takeda-gmpBatchRelease-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-takeda-gmpBatchRelease-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-org-toyota-lineStopEscalation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-toyota-lineStopEscalation-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-org-yamato-coldChainDeliveryException-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-yamato-coldChainDeliveryException-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-org-takeda-gmp-batch-release-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-takeda-gmp-batch-release-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-org-toyota-line-stop-escalation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-toyota-line-stop-escalation-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-org-yamato-cold-chain-delivery-exception-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-yamato-cold-chain-delivery-exception-v1']}]
 
 
 def upgrade() -> None:

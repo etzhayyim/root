@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.market.observeDemand",
+  "id": "app.etzhayyim.market.observeDemand",
   "defs": {
     "main": {
       "type": "procedure",

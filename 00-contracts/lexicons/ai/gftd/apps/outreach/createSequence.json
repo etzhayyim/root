@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.outreach.createSequence",
+  "id": "app.etzhayyim.apps.outreach.createSequence",
   "defs": {
     "main": {
       "type": "procedure",

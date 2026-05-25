@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpAshiba.confirmRental",
+  "id": "app.etzhayyim.apps.jpAshiba.confirmRental",
   "defs": {
     "main": {
       "type": "procedure",

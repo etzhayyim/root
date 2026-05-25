@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.geneOntology.enrichTerms",
+  "id": "app.etzhayyim.apps.geneOntology.enrichTerms",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listOperators",
+  "id": "app.etzhayyim.apps.maps.listOperators",
   "defs": {
     "main": {
       "type": "procedure",

@@ -79,7 +79,7 @@
       earlyNote: '教育機関向け',
       features: ['本体キット × 3 台', '授業カリキュラム PDF (全12回)', '優先メールサポート', '納品書・領収書対応'],
       cta: '見積を依頼',
-      ctaHref: 'mailto:sales@gftd.co.jp',
+      ctaHref: 'mailto:sales@etzhayyim.com',
       highlight: true,
     },
     {
@@ -444,7 +444,7 @@
       <div class="text-white font-bold mb-2 flex items-center gap-2"><span>🤖</span>Giemon Otete</div>
       <p class="text-xs text-slate-500 leading-relaxed">
         6軸アーム × クローラーロボットキット。<br />全国産部品・ROS2 対応・オープンソース。<br />
-        開発元: Gftd Japan株式会社 / amanomibashira
+        開発元: etzhayyim Japan株式会社 / amanomibashira
       </p>
     </div>
     <div>
@@ -460,7 +460,7 @@
       <ul class="space-y-1.5 text-xs">
         <li><a href="https://github.com/etzhayyim/otete" target="_blank" rel="noopener" class="hover:text-white transition-colors">GitHub</a></li>
         <li><a href="/blog" class="hover:text-white transition-colors">技術ブログ</a></li>
-        <li><a href="mailto:sales@gftd.co.jp" class="hover:text-white transition-colors">法人・教育機関問い合わせ</a></li>
+        <li><a href="mailto:sales@etzhayyim.com" class="hover:text-white transition-colors">法人・教育機関問い合わせ</a></li>
         <li><a href="https://tsukuru.etzhayyim.com" target="_blank" rel="noopener" class="hover:text-white transition-colors">tsukuru.etzhayyim.com (B2B)</a></li>
       </ul>
     </div>

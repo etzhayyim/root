@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.disasterResponse.declareEmergency",
+  "id": "app.etzhayyim.apps.disasterResponse.declareEmergency",
   "defs": {
     "main": {
       "type": "procedure",

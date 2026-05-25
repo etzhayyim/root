@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nokyo.directSalesItem",
+  "id": "app.etzhayyim.apps.nokyo.directSalesItem",
   "description": "JA 農産物直売所の出品。生産者 (組合員) 名義で直売所に陳列。価格は生産者が決定、手数料 15% が相場。",
   "defs": {
     "main": {

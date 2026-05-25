@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.heritageAccessibility.flagConservationConflict",
+  "id": "app.etzhayyim.apps.heritageAccessibility.flagConservationConflict",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listOperatingLicenses",
+  "id": "app.etzhayyim.apps.maps.listOperatingLicenses",
   "defs": {
     "main": {
       "type": "procedure",

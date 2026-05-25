@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.universalJurisdiction.recordUjCase",
+  "id": "app.etzhayyim.apps.universalJurisdiction.recordUjCase",
   "defs": {
     "main": {
       "type": "procedure",

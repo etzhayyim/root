@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.councilPresidency.recordPriority",
+  "id": "app.etzhayyim.apps.councilPresidency.recordPriority",
   "defs": {
     "main": {
       "type": "procedure",

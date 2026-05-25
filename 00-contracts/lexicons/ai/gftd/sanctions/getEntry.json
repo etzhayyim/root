@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.sanctions.getEntry",
+  "id": "app.etzhayyim.sanctions.getEntry",
   "defs": {
     "main": {
       "type": "query",

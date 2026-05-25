@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oshinobi.getCreator",
+  "id": "app.etzhayyim.apps.oshinobi.getCreator",
   "defs": {
     "main": {
       "type": "query",

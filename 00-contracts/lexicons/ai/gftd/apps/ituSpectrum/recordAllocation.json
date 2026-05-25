@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ituSpectrum.recordAllocation",
+  "id": "app.etzhayyim.apps.ituSpectrum.recordAllocation",
   "defs": {
     "main": {
       "type": "procedure",

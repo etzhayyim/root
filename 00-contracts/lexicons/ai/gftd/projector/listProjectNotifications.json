@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projector.listProjectNotifications",
+  "id": "app.etzhayyim.projector.listProjectNotifications",
   "defs": {
     "main": {
       "type": "query",

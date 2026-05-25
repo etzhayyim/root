@@ -1,16 +1,16 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.nextDeparturesAtStop",
+  "id": "app.etzhayyim.apps.maps.nextDeparturesAtStop",
   "defs": {
     "main": {
       "type": "query",
-      "description": "Next scheduled departures at a Station / BusStop. Reads vertex_maps_stop_time JOIN vertex_maps_trip JOIN vertex_spatial(label IN ('Railway','BusRoute')); filters by stop_id, departure_time >= fromTime, optional service_id day-pattern. Append-only schedule view (Phase 2 of bus/train ingest). GTFS-RT delays are NOT applied here — see ai.gftd.apps.maps.realtimeDelaysAtStop (Phase 3, gated on ODPT key).",
+      "description": "Next scheduled departures at a Station / BusStop. Reads vertex_maps_stop_time JOIN vertex_maps_trip JOIN vertex_spatial(label IN ('Railway','BusRoute')); filters by stop_id, departure_time >= fromTime, optional service_id day-pattern. Append-only schedule view (Phase 2 of bus/train ingest). GTFS-RT delays are NOT applied here — see app.etzhayyim.apps.maps.realtimeDelaysAtStop (Phase 3, gated on ODPT key).",
       "parameters": {
         "type": "params",
         "properties": {
           "stopId": {
             "type": "string",
-            "description": "vertex_maps_stop_time.stop_id (form: gtfsjp-{feed_id}-{gtfs_stop_id}). Find with ai.gftd.apps.maps.listStations or listBusStops first."
+            "description": "vertex_maps_stop_time.stop_id (form: gtfsjp-{feed_id}-{gtfs_stop_id}). Find with app.etzhayyim.apps.maps.listStations or listBusStops first."
           },
           "fromTime": {
             "type": "string",

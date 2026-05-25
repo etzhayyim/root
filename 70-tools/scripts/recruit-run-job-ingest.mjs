@@ -85,7 +85,7 @@ async function queryCounts() {
 async function persistRun(report) {
   if (dryRun) return;
   const client = await pgClient();
-  const vertexId = `at://did:web:recruit.etzhayyim.com/ai.gftd.apps.recruit.jobIngestRun/${runId.replace(/[^a-zA-Z0-9._:-]/g, "_")}`;
+  const vertexId = `at://did:web:recruit.etzhayyim.com/app.etzhayyim.apps.recruit.jobIngestRun/${runId.replace(/[^a-zA-Z0-9._:-]/g, "_")}`;
   const createdDate = startedAt.slice(0, 10);
   try {
     await client.query(
@@ -132,7 +132,7 @@ async function main() {
   if (!dryRun) {
     await assertDbReady();
     if (!skipMigrate) {
-      await run("pnpm", ["--filter", "@gftd/graph-schema", "run", "db:migrate"], {
+      await run("pnpm", ["--filter", "@etzhayyim/graph-schema", "run", "db:migrate"], {
         env: { ...process.env, DATABASE_URL: process.env.DATABASE_URL ?? RW_CONN },
       });
     }

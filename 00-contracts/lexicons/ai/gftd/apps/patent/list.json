@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.patent.list",
+  "id": "app.etzhayyim.apps.patent.list",
   "defs": {
     "main": {
       "type": "query",

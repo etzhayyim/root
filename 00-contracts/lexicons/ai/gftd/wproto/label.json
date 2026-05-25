@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.wproto.label",
+  "id": "app.etzhayyim.wproto.label",
   "description": "W Protocol label record. Extends com.atproto.label.defs#label with W Protocol label namespace.",
   "defs": {
     "main": {
@@ -34,7 +34,7 @@
           },
           "label": {
             "type": "string",
-            "description": "GFTD extension: W Protocol label namespace identifier"
+            "description": "etzhayyim extension: W Protocol label namespace identifier"
           }
         },
         "required": [

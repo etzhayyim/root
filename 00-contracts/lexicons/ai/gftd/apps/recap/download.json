@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.recap.download",
+  "id": "app.etzhayyim.apps.recap.download",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalAid.assignDefender",
+  "id": "app.etzhayyim.legalAid.assignDefender",
   "defs": {
     "main": {
       "type": "procedure",

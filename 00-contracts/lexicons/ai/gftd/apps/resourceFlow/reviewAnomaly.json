@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.resourceFlow.reviewAnomaly",
+  "id": "app.etzhayyim.apps.resourceFlow.reviewAnomaly",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Record a review action on a resource-flow anomaly. Three actions: acknowledge (operator saw it, accepts as expected), dismiss (false positive, suppress), escalate (route to a downstream investigation channel). Writes vertex_resource_flow_anomaly_review (append-only) and emits a thread reply to the original anomaly post when post_uri is known. Caller must hold a Service Auth JWT with lxm=ai.gftd.apps.resourceFlow.reviewAnomaly.",
+      "description": "Record a review action on a resource-flow anomaly. Three actions: acknowledge (operator saw it, accepts as expected), dismiss (false positive, suppress), escalate (route to a downstream investigation channel). Writes vertex_resource_flow_anomaly_review (append-only) and emits a thread reply to the original anomaly post when post_uri is known. Caller must hold a Service Auth JWT with lxm=app.etzhayyim.apps.resourceFlow.reviewAnomaly.",
       "input": {
         "encoding": "application/json",
         "schema": {

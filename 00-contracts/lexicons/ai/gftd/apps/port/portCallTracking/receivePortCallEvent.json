@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.port.portCallTracking.receivePortCallEvent",
+  "id": "app.etzhayyim.apps.port.portCallTracking.receivePortCallEvent",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "ai.gftd.apps.port.portCallTracking.receivePortCallEvent BPMN-backed port operation.",
+      "description": "app.etzhayyim.apps.port.portCallTracking.receivePortCallEvent BPMN-backed port operation.",
       "input": {
         "encoding": "application/json",
         "schema": {

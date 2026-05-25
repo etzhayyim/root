@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maritimePiracy.reportAttack",
+  "id": "app.etzhayyim.apps.maritimePiracy.reportAttack",
   "defs": {
     "main": {
       "type": "procedure",

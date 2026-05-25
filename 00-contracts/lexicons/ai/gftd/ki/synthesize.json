@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.ki.synthesize",
+  "id": "app.etzhayyim.ki.synthesize",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.emailServiceAdapter.listSyncs",
+  "id": "app.etzhayyim.apps.emailServiceAdapter.listSyncs",
   "defs": {
     "main": {
       "type": "query",

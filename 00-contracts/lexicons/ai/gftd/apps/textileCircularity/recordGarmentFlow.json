@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.textileCircularity.recordGarmentFlow",
+  "id": "app.etzhayyim.apps.textileCircularity.recordGarmentFlow",
   "defs": {
     "main": {
       "type": "procedure",

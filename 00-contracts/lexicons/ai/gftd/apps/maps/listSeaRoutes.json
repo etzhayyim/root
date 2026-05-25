@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listSeaRoutes",
+  "id": "app.etzhayyim.apps.maps.listSeaRoutes",
   "defs": {
     "main": {
       "type": "query",

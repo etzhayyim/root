@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.criticalMinerals.classifyMaterial",
+  "id": "app.etzhayyim.apps.criticalMinerals.classifyMaterial",
   "defs": {
     "main": {
       "type": "procedure",

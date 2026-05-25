@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kouza.accountDocument",
+  "id": "app.etzhayyim.apps.kouza.accountDocument",
   "defs": {
     "main": {
       "type": "record",

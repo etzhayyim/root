@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.spsStandardIso.flagCertificationSleight",
+  "id": "app.etzhayyim.apps.spsStandardIso.flagCertificationSleight",
   "defs": {
     "main": {
       "type": "procedure",

@@ -14,7 +14,7 @@ metadata:
     etzhayyim.com/leader-hostname: benjaminomac-mini.local
     etzhayyim.com/trigger: cron + mst-listener
     etzhayyim.com/healthz-port: '13013'
-    etzhayyim.com/listens-to: ai.gftd.apps.etzhayyim.force-log
+    etzhayyim.com/listens-to: app.etzhayyim.apps.etzhayyim.force-log
     etzhayyim.com/cron: 0 0 * * *
     etzhayyim.com/adr: '2605192315'
 spec:

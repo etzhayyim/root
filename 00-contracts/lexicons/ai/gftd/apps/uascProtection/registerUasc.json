@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.uascProtection.registerUasc",
+  "id": "app.etzhayyim.apps.uascProtection.registerUasc",
   "defs": {
     "main": {
       "type": "procedure",

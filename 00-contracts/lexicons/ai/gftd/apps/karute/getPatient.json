@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.getPatient",
+  "id": "app.etzhayyim.apps.karute.getPatient",
   "defs": {
     "main": {
       "type": "query",

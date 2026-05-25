@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govBel.heartbeatTick",
+  "id": "app.etzhayyim.govBel.heartbeatTick",
   "defs": {
     "main": {
       "type": "procedure",

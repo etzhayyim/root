@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cnStateCouncil.routeIrMois",
+  "id": "app.etzhayyim.apps.cnStateCouncil.routeIrMois",
   "defs": {
     "main": {
       "type": "procedure",

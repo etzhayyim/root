@@ -156,7 +156,7 @@ def register_hazard_area(**kwargs: Any) -> dict[str, Any]:
     public, tier3 = _split_tier3(kwargs)
     res = _store_tier3(area_id, "hazardArea", owner, kwargs.get("jurisdiction"), actor, tier3)
     rec = {**public, "areaId": area_id, "tier": 3, "createdAt": now_iso()}
-    _write_public(owner, "hazardArea", area_id, "ai.gftd.apps.demining.hazardArea", rec, 3)
+    _write_public(owner, "hazardArea", area_id, "app.etzhayyim.apps.demining.hazardArea", rec, 3)
     return {"areaId": area_id, "tier": 3, "tier3Stored": res["stored"], "tier3Skipped": res["skipped"]}
 
 
@@ -204,7 +204,7 @@ def record_detection(**kwargs: Any) -> dict[str, Any]:
     owner = str(kwargs.get("operatorDid") or actor)
     public, tier3 = _split_tier3(kwargs)
     _store_tier3(detection_id, "detectionEvent", owner, kwargs.get("jurisdiction"), actor, tier3)
-    _write_public(owner, "detectionEvent", detection_id, "ai.gftd.apps.demining.detectionEvent", {**public, "detectionId": detection_id, "tier": 3, "createdAt": now_iso()}, 3)
+    _write_public(owner, "detectionEvent", detection_id, "app.etzhayyim.apps.demining.detectionEvent", {**public, "detectionId": detection_id, "tier": 3, "createdAt": now_iso()}, 3)
     return {"detectionId": detection_id}
 
 
@@ -216,7 +216,7 @@ def record_clearance_task(**kwargs: Any) -> dict[str, Any]:
     actor = _ctx_did(kwargs)
     public, tier3 = _split_tier3(kwargs)
     _store_tier3(task_id, "clearanceTask", actor, kwargs.get("jurisdiction"), actor, tier3)
-    _write_public(actor, "clearanceTask", task_id, "ai.gftd.apps.demining.clearanceTask", {**public, "taskId": task_id, "tier": 2, "createdAt": now_iso()}, 2)
+    _write_public(actor, "clearanceTask", task_id, "app.etzhayyim.apps.demining.clearanceTask", {**public, "taskId": task_id, "tier": 2, "createdAt": now_iso()}, 2)
     return {"taskId": task_id}
 
 
@@ -233,7 +233,7 @@ def release_area(**kwargs: Any) -> dict[str, Any]:
     polygon_public = kwargs.get("polygonPublic") or stored
     _mark_released(area_id, decision_id, actor)
     rec = {**kwargs, "decisionId": decision_id, "areaId": area_id, "polygonPublic": polygon_public, "tier": 1, "decidedAt": kwargs.get("decidedAt") or now_iso()}
-    _write_public(actor, "landReleaseDecision", decision_id, "ai.gftd.apps.demining.landReleaseDecision", rec, 1)
+    _write_public(actor, "landReleaseDecision", decision_id, "app.etzhayyim.apps.demining.landReleaseDecision", rec, 1)
     return {"decisionId": decision_id, "tier": 1, "polygonPublished": bool(polygon_public)}
 
 
@@ -241,7 +241,7 @@ def record_eore_session(**kwargs: Any) -> dict[str, Any]:
     session_id = str(kwargs.get("sessionId") or _id("eore"))
     actor = _ctx_did(kwargs)
     rec = {**kwargs, "sessionId": session_id, "tier": 1, "createdAt": now_iso()}
-    _write_public(actor, "eoreSession", session_id, "ai.gftd.apps.demining.eoreSession", rec, 1)
+    _write_public(actor, "eoreSession", session_id, "app.etzhayyim.apps.demining.eoreSession", rec, 1)
     return {"sessionId": session_id}
 
 
@@ -253,5 +253,5 @@ def record_victim(**kwargs: Any) -> dict[str, Any]:
     actor = _ctx_did(kwargs)
     public, tier3 = _split_tier3(kwargs)
     _store_tier3(record_id, "victimRecord", actor, kwargs.get("jurisdiction"), actor, tier3)
-    _write_public(actor, "victimRecord", record_id, "ai.gftd.apps.demining.victimRecord", {**public, "recordId": record_id, "tier": 3, "createdAt": now_iso()}, 3)
+    _write_public(actor, "victimRecord", record_id, "app.etzhayyim.apps.demining.victimRecord", {**public, "recordId": record_id, "tier": 3, "createdAt": now_iso()}, 3)
     return {"recordId": record_id}

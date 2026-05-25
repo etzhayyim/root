@@ -1,4 +1,4 @@
-declare module '@gftd/ameno/inference' {
+declare module '@etzhayyim/ameno/inference' {
   export type ChatMessage = any;
   export type GenerationStats = any;
   export type InferenceState = any;

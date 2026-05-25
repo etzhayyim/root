@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.repository.updateRef",
+  "id": "app.etzhayyim.repository.updateRef",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "The only mutable write in ADR-0039. Move a ref's points-to from expectedCurrent to newCommit. CAS-safe by default; force=true skips ancestry check. Emits OCEL event ref:updated / ref:rolledBack / ref:forcePushed and a firehose ai.gftd.repository.refUpdate record.",
+      "description": "The only mutable write in ADR-0039. Move a ref's points-to from expectedCurrent to newCommit. CAS-safe by default; force=true skips ancestry check. Emits OCEL event ref:updated / ref:rolledBack / ref:forcePushed and a firehose app.etzhayyim.repository.refUpdate record.",
       "input": {
         "encoding": "application/json",
         "schema": {
@@ -47,7 +47,7 @@
             },
             "firehoseCid": {
               "type": "string",
-              "description": "CID of the ai.gftd.repository.refUpdate record written to the owner DID's AT Repo."
+              "description": "CID of the app.etzhayyim.repository.refUpdate record written to the owner DID's AT Repo."
             }
           }
         }

@@ -35,7 +35,7 @@ commercial K8s (Karmada / VKE); fiat payment processors (Stripe / PayPal).
 | **PORT-direct** | Clean reference; no substrate violation; no edit needed |
 | **PORT-adapted** | Comment/docstring-only reference; safe to clean up at Step 8 |
 | **REDIRECT** | Env-var swap sufficient; no logic change required |
-| **VENDOR-ONLY** | Vendor (gftd.co.jp) business logic; religious-corp must not invoke |
+| **VENDOR-ONLY** | Vendor (etzhayyim.com) business logic; religious-corp must not invoke |
 | **REIMPLEMENT** | Structural coupling; requires separate religious-corp implementation |
 | **REJECT** | Required field couples to forbidden infra; lexicon/contract cannot port as-is |
 
@@ -227,14 +227,14 @@ Zero Karmada/VKE matches in TypeScript/Svelte layers.
 
 | File:Line | Finding | Verdict | Reason |
 |---|---|---|---|
-| `appview/.../superapp/ProfilePanel.svelte:54` | `// Card state (Stripe Issuing)` comment | VENDOR-ONLY | Stripe Issuing card-management section in ProfilePanel. The entire card-management block (lines 54, 418–569, 678, 807) invokes `ai.gftd.apps.stripe.*` XRPC procedures (`listCards`, `createCardholder`, `issueCard`, `freezeCard`, `unfreezeCard`, `assignCardCredits`). Stripe Issuing is a commercial fiat processor; prohibited per ADR-2605172000 substrate boundary table. Religious-corp must not surface this UI panel. |
-| `appview/.../superapp/ProfilePanel.svelte:424` | `atProcedure('ai.gftd.apps.stripe.listCards', ...)` | REJECT | Live XRPC call to Stripe-backed procedure. This is an active fiat coupling, not a comment. The NSID `ai.gftd.apps.stripe.*` must not be callable from a religious-corp surface. Entire card-management UI block must be removed or gated behind a vendor-only consent-capability check. |
-| `appview/.../superapp/ProfilePanel.svelte:472` | `atProcedure('ai.gftd.apps.stripe.createCardholder', ...)` | REJECT | Same. |
-| `appview/.../superapp/ProfilePanel.svelte:489–497` | `atProcedure('ai.gftd.apps.stripe.issueCard', ...)` (two call sites) | REJECT | Same. |
-| `appview/.../superapp/ProfilePanel.svelte:533` | `atProcedure('ai.gftd.apps.stripe.freezeCard', ...)` | REJECT | Same. |
-| `appview/.../superapp/ProfilePanel.svelte:536` | `atProcedure('ai.gftd.apps.stripe.unfreezeCard', ...)` | REJECT | Same. |
-| `appview/.../superapp/ProfilePanel.svelte:563` | `atProcedure('ai.gftd.apps.stripe.assignCardCredits', ...)` | REJECT | Same. |
-| `appview/.../server/legacy-nanoid-map.ts:110` | `"st4rp301": "stripe.etzhayyim.com"` | REJECT | Legacy nanoid routing entry maps `st4rp301` → `stripe.etzhayyim.com`. The domain `stripe.etzhayyim.com` implies a Stripe-backed service hosted under the religious-corp domain. This is a domain boundary violation: `stripe.etzhayyim.com` conflates the vendor Stripe processor with the etzhayyim identity namespace. Must be removed or redirected to a vendor-only domain (`stripe.gftd.co.jp`). |
+| `appview/.../superapp/ProfilePanel.svelte:54` | `// Card state (Stripe Issuing)` comment | VENDOR-ONLY | Stripe Issuing card-management section in ProfilePanel. The entire card-management block (lines 54, 418–569, 678, 807) invokes `app.etzhayyim.apps.stripe.*` XRPC procedures (`listCards`, `createCardholder`, `issueCard`, `freezeCard`, `unfreezeCard`, `assignCardCredits`). Stripe Issuing is a commercial fiat processor; prohibited per ADR-2605172000 substrate boundary table. Religious-corp must not surface this UI panel. |
+| `appview/.../superapp/ProfilePanel.svelte:424` | `atProcedure('app.etzhayyim.apps.stripe.listCards', ...)` | REJECT | Live XRPC call to Stripe-backed procedure. This is an active fiat coupling, not a comment. The NSID `app.etzhayyim.apps.stripe.*` must not be callable from a religious-corp surface. Entire card-management UI block must be removed or gated behind a vendor-only consent-capability check. |
+| `appview/.../superapp/ProfilePanel.svelte:472` | `atProcedure('app.etzhayyim.apps.stripe.createCardholder', ...)` | REJECT | Same. |
+| `appview/.../superapp/ProfilePanel.svelte:489–497` | `atProcedure('app.etzhayyim.apps.stripe.issueCard', ...)` (two call sites) | REJECT | Same. |
+| `appview/.../superapp/ProfilePanel.svelte:533` | `atProcedure('app.etzhayyim.apps.stripe.freezeCard', ...)` | REJECT | Same. |
+| `appview/.../superapp/ProfilePanel.svelte:536` | `atProcedure('app.etzhayyim.apps.stripe.unfreezeCard', ...)` | REJECT | Same. |
+| `appview/.../superapp/ProfilePanel.svelte:563` | `atProcedure('app.etzhayyim.apps.stripe.assignCardCredits', ...)` | REJECT | Same. |
+| `appview/.../server/legacy-nanoid-map.ts:110` | `"st4rp301": "stripe.etzhayyim.com"` | REJECT | Legacy nanoid routing entry maps `st4rp301` → `stripe.etzhayyim.com`. The domain `stripe.etzhayyim.com` implies a Stripe-backed service hosted under the religious-corp domain. This is a domain boundary violation: `stripe.etzhayyim.com` conflates the vendor Stripe processor with the etzhayyim identity namespace. Must be removed or redirected to a vendor-only domain (`stripe.etzhayyim.com`). |
 
 #### rw-free library and xrpc-adapter
 `60-apps/ai-gftd-project-yoro/rw-free/src/` — 5 TS files — **zero violations**. This is the target implementation per ADR-2605191358; it is clean.
@@ -275,8 +275,8 @@ The `rw-free/` sub-library is **clean** — the replacement substrate is scaffol
 ### Gaps requiring follow-up ADRs
 
 1. **Stripe Issuing removal from yoro surface (new ADR needed)**
-   The 7 live `ai.gftd.apps.stripe.*` XRPC calls in `ProfilePanel.svelte` and the `stripe.etzhayyim.com` nanoid map entry (REJECT ×8) are not covered by any existing ADR. ADR-2605191358 scopes only to RW coupling. A dedicated ADR is required to:
-   - Declare `ai.gftd.apps.stripe.*` NSIDs as VENDOR-ONLY (callable only from `gftd.co.jp` workers, never from `etzhayyim.com` surface)
+   The 7 live `app.etzhayyim.apps.stripe.*` XRPC calls in `ProfilePanel.svelte` and the `stripe.etzhayyim.com` nanoid map entry (REJECT ×8) are not covered by any existing ADR. ADR-2605191358 scopes only to RW coupling. A dedicated ADR is required to:
+   - Declare `app.etzhayyim.apps.stripe.*` NSIDs as VENDOR-ONLY (callable only from `etzhayyim.com` workers, never from `etzhayyim.com` surface)
    - Remove the `st4rp301` / `stripe.etzhayyim.com` entry from the routing map
    - Gate the ProfilePanel card-management section behind a vendor consent-capability XRPC call (progressive enhancement per ADR-2605192115 §4)
 
@@ -288,7 +288,7 @@ The `rw-free/` sub-library is **clean** — the replacement substrate is scaffol
 
 ### Actor requiring most urgent follow-up ADR
 
-**yoro** — The 8 REJECT items (live Stripe Issuing fiat coupling) are the highest-priority risk: these are not dormant code paths but active XRPC calls available to any authenticated etzhayyim user visiting the ProfilePanel. An ADR removing/gating the `ai.gftd.apps.stripe.*` surface from the religious-corp app should be drafted before Stage 3 deployment of the yoro AppView.
+**yoro** — The 8 REJECT items (live Stripe Issuing fiat coupling) are the highest-priority risk: these are not dormant code paths but active XRPC calls available to any authenticated etzhayyim user visiting the ProfilePanel. An ADR removing/gating the `app.etzhayyim.apps.stripe.*` surface from the religious-corp app should be drafted before Stage 3 deployment of the yoro AppView.
 
 ### Surprisingly clean actor
 

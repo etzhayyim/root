@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openAdnetwork.listPublisherRevenue",
+  "id": "app.etzhayyim.apps.openAdnetwork.listPublisherRevenue",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.states.govDocument",
+  "id": "app.etzhayyim.apps.states.govDocument",
   "defs": {
     "main": {
       "type": "record",

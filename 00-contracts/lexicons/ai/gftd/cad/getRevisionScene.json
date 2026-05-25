@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cad.getRevisionScene",
+  "id": "app.etzhayyim.apps.cad.getRevisionScene",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.rareEarthCoverage.registerSegment",
+  "id": "app.etzhayyim.apps.rareEarthCoverage.registerSegment",
   "defs": {
     "main": {
       "type": "procedure",

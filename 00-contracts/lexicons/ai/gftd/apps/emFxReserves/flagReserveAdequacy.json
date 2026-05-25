@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.emFxReserves.flagReserveAdequacy",
+  "id": "app.etzhayyim.apps.emFxReserves.flagReserveAdequacy",
   "defs": {
     "main": {
       "type": "procedure",

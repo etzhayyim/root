@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.soilCarbon.issueSoilCarbonCredit",
+  "id": "app.etzhayyim.apps.soilCarbon.issueSoilCarbonCredit",
   "defs": {
     "main": {
       "type": "procedure",

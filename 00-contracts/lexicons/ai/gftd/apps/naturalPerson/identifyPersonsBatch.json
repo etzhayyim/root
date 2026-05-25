@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.naturalPerson.identifyPersonsBatch",
+  "id": "app.etzhayyim.apps.naturalPerson.identifyPersonsBatch",
   "defs": {
     "main": {
       "type": "procedure",

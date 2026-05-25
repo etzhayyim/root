@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mapsCollection.registerJob",
+  "id": "app.etzhayyim.apps.mapsCollection.registerJob",
   "defs": {
     "main": {
       "type": "procedure",

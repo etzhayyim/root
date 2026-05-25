@@ -24,28 +24,28 @@ const ACTOR_TAG = "sys.bpmn.seed.aria";
 const ENTRIES = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-attention-ingest-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-attention-ingest-v1",
     bpmnProcessId: "aria_attention_ingest",
     sourcePath: "00-contracts/bpmn/ai/gftd/aria/attentionIngest.bpmn",
     file: "attentionIngest.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-request-ingest-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-request-ingest-v1",
     bpmnProcessId: "aria_request_ingest",
     sourcePath: "00-contracts/bpmn/ai/gftd/aria/requestIngest.bpmn",
     file: "requestIngest.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-money-flow-ingest-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-money-flow-ingest-v1",
     bpmnProcessId: "aria_money_flow_ingest",
     sourcePath: "00-contracts/bpmn/ai/gftd/aria/moneyFlowIngest.bpmn",
     file: "moneyFlowIngest.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-minimax-sweep-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-minimax-sweep-v1",
     bpmnProcessId: "aria_minimax_sweep",
     sourcePath: "00-contracts/bpmn/ai/gftd/aria/ariaMinimaxSweep.bpmn",
     file: "ariaMinimaxSweep.bpmn",

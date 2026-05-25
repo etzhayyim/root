@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cableRepairFleet.logRepairMission",
+  "id": "app.etzhayyim.apps.cableRepairFleet.logRepairMission",
   "defs": {
     "main": {
       "type": "procedure",

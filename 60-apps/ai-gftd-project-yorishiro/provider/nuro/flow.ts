@@ -21,7 +21,7 @@
  *   5. fill bank account form
  *   6. confirm + submit
  *   7. capture 受付番号 + 完了画面 screenshot (PDF if available)
- *   8. callback ai.gftd.apps.yorishiroNuro.recordClaim via XRPC
+ *   8. callback app.etzhayyim.apps.yorishiroNuro.recordClaim via XRPC
  */
 
 import type { Browser, BrowserContext, Page } from "playwright";

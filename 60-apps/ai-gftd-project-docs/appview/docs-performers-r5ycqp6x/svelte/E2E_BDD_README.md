@@ -111,7 +111,7 @@ Feature: Docs Management
 
   Scenario: View workspace list
     Given I am on the "/" page
-    Then I should see "GFTD Docs"
+    Then I should see "etzhayyim Docs"
 ```
 
 ## トラブルシューティング

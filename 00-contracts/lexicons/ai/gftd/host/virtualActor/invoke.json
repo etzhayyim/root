@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.virtualActor.invoke",
+  "id": "app.etzhayyim.host.virtualActor.invoke",
   "defs": {
     "main": {
       "type": "procedure",

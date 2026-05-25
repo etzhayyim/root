@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cad.requestExport",
+  "id": "app.etzhayyim.apps.cad.requestExport",
   "defs": {
     "main": {
       "type": "procedure",

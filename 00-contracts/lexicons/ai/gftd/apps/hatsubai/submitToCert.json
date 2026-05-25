@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hatsubai.submitToCert",
+  "id": "app.etzhayyim.apps.hatsubai.submitToCert",
   "defs": {
     "main": {
       "type": "procedure",

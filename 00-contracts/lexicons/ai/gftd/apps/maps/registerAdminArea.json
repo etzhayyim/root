@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.registerAdminArea",
+  "id": "app.etzhayyim.apps.maps.registerAdminArea",
   "defs": {
     "main": {
       "type": "procedure",

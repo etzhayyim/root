@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.publicMalak.listCampaignClusters",
+  "id": "app.etzhayyim.apps.publicMalak.listCampaignClusters",
   "defs": {
     "main": {
       "type": "query",

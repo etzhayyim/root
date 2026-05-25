@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govSsd.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govSsd.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for South Sudan government.",
-        "operationId": "ai.gftd.govSsd.followSiteDeps",
+        "operationId": "app.etzhayyim.govSsd.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSsd.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govSsd.heartbeatTick": {
       "post": {
         "summary": "Run the South Sudan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govSsd.heartbeatTick",
+        "operationId": "app.etzhayyim.govSsd.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSsd.listOrgs": {
+    "/xrpc/app.etzhayyim.govSsd.listOrgs": {
       "get": {
         "summary": "List South Sudan government organization graph records.",
-        "operationId": "ai.gftd.govSsd.listOrgs",
+        "operationId": "app.etzhayyim.govSsd.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSsd.registerDIDs": {
+    "/xrpc/app.etzhayyim.govSsd.registerDIDs": {
       "post": {
         "summary": "Register DIDs for South Sudan government organizations.",
-        "operationId": "ai.gftd.govSsd.registerDIDs",
+        "operationId": "app.etzhayyim.govSsd.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSsd.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govSsd.resolveOrgPath": {
       "get": {
         "summary": "Resolve a South Sudan government organization path to its graph record.",
-        "operationId": "ai.gftd.govSsd.resolveOrgPath",
+        "operationId": "app.etzhayyim.govSsd.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSsd.seedOrgs": {
+    "/xrpc/app.etzhayyim.govSsd.seedOrgs": {
       "post": {
         "summary": "Seed initial South Sudan government organization records into the graph.",
-        "operationId": "ai.gftd.govSsd.seedOrgs",
+        "operationId": "app.etzhayyim.govSsd.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSsd.shinka": {
+    "/xrpc/app.etzhayyim.govSsd.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible South Sudan government organization update.",
-        "operationId": "ai.gftd.govSsd.shinka",
+        "operationId": "app.etzhayyim.govSsd.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSsd.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govSsd.syncWetUpdates": {
       "post": {
         "summary": "Sync recent South Sudan government organization changes to graph.",
-        "operationId": "ai.gftd.govSsd.syncWetUpdates",
+        "operationId": "app.etzhayyim.govSsd.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

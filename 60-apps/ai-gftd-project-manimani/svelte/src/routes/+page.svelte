@@ -1,6 +1,6 @@
 <script lang="ts">
   const app = {
-  "title": "Ai Gftd Project Manimani",
+  "title": "Ai etzhayyim Project Manimani",
   "project": "ai-gftd-project-manimani",
   "name": "ai-gftd-project-manimani",
   "kind": "cloudflare surface",

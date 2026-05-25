@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shinka.stats",
+  "id": "app.etzhayyim.apps.shinka.stats",
   "defs": {
     "main": {
       "type": "procedure",

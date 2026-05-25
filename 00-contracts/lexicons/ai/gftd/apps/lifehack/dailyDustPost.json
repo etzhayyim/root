@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.lifehack.dailyDustPost",
+  "id": "app.etzhayyim.apps.lifehack.dailyDustPost",
   "defs": {
     "main": {
       "type": "procedure",

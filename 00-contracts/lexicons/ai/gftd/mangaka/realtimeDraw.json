@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.realtimeDraw",
+  "id": "app.etzhayyim.mangaka.realtimeDraw",
   "defs": {
     "main": {
       "type": "procedure",

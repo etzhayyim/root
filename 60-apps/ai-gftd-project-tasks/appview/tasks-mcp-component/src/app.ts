@@ -3,7 +3,7 @@
 interface SecretBinding { get(): Promise<string>; }
 interface Env { ASSETS?: Fetcher; DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | SecretBinding; APP_NANOID?: string; }
 const APP = "tasks";
-const NSID_PREFIX = "ai.gftd.apps.tasks.";
+const NSID_PREFIX = "app.etzhayyim.apps.tasks.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

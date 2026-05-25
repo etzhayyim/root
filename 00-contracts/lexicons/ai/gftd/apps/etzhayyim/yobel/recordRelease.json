@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.yobel.recordRelease",
+  "id": "app.etzhayyim.apps.etzhayyim.yobel.recordRelease",
   "defs": {
     "main": {
       "type": "procedure",

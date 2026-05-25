@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.otakiage.submitItem",
+  "id": "app.etzhayyim.otakiage.submitItem",
   "defs": {
     "main": {
       "type": "procedure",
@@ -31,7 +31,7 @@
           "required": ["ok", "itemUri", "state"],
           "properties": {
             "ok": {"type": "boolean"},
-            "itemUri": {"type": "string", "description": "at://did:web:otakiage.etzhayyim.com/ai.gftd.apps.otakiage.item/{rkey}"},
+            "itemUri": {"type": "string", "description": "at://did:web:otakiage.etzhayyim.com/app.etzhayyim.apps.otakiage.item/{rkey}"},
             "state": {"type": "string", "enum": ["submitted", "reuse_open"]},
             "mode": {"type": "string", "enum": ["reuse_then_ritual", "reuse_only"]},
             "h3Cell": {"type": "string"},

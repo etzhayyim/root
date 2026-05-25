@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.rotateSeppKey",
+  "id": "app.etzhayyim.apps.telecom.rotateSeppKey",
   "defs": {
     "main": {
       "type": "procedure",

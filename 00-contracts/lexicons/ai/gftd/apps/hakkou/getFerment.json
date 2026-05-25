@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hakkou.getFerment",
+  "id": "app.etzhayyim.apps.hakkou.getFerment",
   "defs": {
     "main": {
       "type": "query",

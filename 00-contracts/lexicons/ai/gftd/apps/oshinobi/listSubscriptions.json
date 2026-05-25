@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oshinobi.listSubscriptions",
+  "id": "app.etzhayyim.apps.oshinobi.listSubscriptions",
   "defs": {
     "main": {
       "type": "query",

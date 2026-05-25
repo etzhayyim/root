@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.handotai.reportGenerate",
+  "id": "app.etzhayyim.apps.handotai.reportGenerate",
   "defs": {
     "main": {
       "type": "procedure",

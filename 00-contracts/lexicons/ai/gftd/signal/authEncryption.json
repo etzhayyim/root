@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.signal.authEncryption",
-  "description": "Encryption & Signal Protocol permissions. GFTD-only (no official AT Protocol equivalent). Includes com.atproto.server.getServiceAuth for key exchange bootstrapping.",
+  "id": "app.etzhayyim.signal.authEncryption",
+  "description": "Encryption & Signal Protocol permissions. etzhayyim-only (no official AT Protocol equivalent). Includes com.atproto.server.getServiceAuth for key exchange bootstrapping.",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -27,27 +27,27 @@
         {
           "type": "permission",
           "resource": "repo",
-          "description": "GFTD signal record collections",
-          "collection": ["ai.gftd.signal.*"],
+          "description": "etzhayyim signal record collections",
+          "collection": ["app.etzhayyim.signal.*"],
           "action": ["create", "update", "delete"]
         },
         {
           "type": "permission",
           "resource": "rpc",
-          "description": "GFTD signal extension RPCs",
+          "description": "etzhayyim signal extension RPCs",
           "lxm": [
-            "ai.gftd.signal.listDevices",
-            "ai.gftd.signal.getIdentityFingerprint",
-            "ai.gftd.signal.getPrekeyBundle",
-            "ai.gftd.signal.getPrekeyBundles",
-            "ai.gftd.signal.setEncryption",
-            "ai.gftd.signal.ensureDevice",
-            "ai.gftd.signal.revokeDevice",
-            "ai.gftd.signal.renameDevice",
-            "ai.gftd.signal.verifyIdentity",
-            "ai.gftd.signal.registerPrekeys",
-            "ai.gftd.signal.replenishOtpks",
-            "ai.gftd.signal.rotateGroupKey"
+            "app.etzhayyim.signal.listDevices",
+            "app.etzhayyim.signal.getIdentityFingerprint",
+            "app.etzhayyim.signal.getPrekeyBundle",
+            "app.etzhayyim.signal.getPrekeyBundles",
+            "app.etzhayyim.signal.setEncryption",
+            "app.etzhayyim.signal.ensureDevice",
+            "app.etzhayyim.signal.revokeDevice",
+            "app.etzhayyim.signal.renameDevice",
+            "app.etzhayyim.signal.verifyIdentity",
+            "app.etzhayyim.signal.registerPrekeys",
+            "app.etzhayyim.signal.replenishOtpks",
+            "app.etzhayyim.signal.rotateGroupKey"
           ]
         }
       ]

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pharmacoGx.lookupAllele",
+  "id": "app.etzhayyim.apps.pharmacoGx.lookupAllele",
   "defs": {
     "main": {
       "type": "query",

@@ -7,32 +7,32 @@
   "content": {
     "activities": [
       { "id": "act.definePort", "name": "Define Port", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openPorts.definePort" }] },
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openPorts.definePort" }] },
       { "id": "act.registerVessel", "name": "Register Vessel", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openPorts.registerVessel" }] },
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openPorts.registerVessel" }] },
       { "id": "act.scheduleVesselCall", "name": "Schedule Vessel Call", "type": "bpmn",
         "bpmnProcessKey": "scheduleVesselCall", "source": "bpmn/schedule-call.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openPorts.scheduleVesselCall" },
+          { "xrpc": "app.etzhayyim.apps.openPorts.scheduleVesselCall" },
           { "form": "openPorts.scheduleVesselCall.v1" }
         ] },
       { "id": "act.recordCallEvent", "name": "Record Call Event", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openPorts.recordCallEvent" }] },
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openPorts.recordCallEvent" }] },
       { "id": "act.recordContainerManifest", "name": "Record Container Manifest", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openPorts.recordContainerManifest" }] },
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openPorts.recordContainerManifest" }] },
       { "id": "act.reportIncident", "name": "Report Incident", "type": "bpmn",
         "bpmnProcessKey": "reportPortIncident", "source": "bpmn/report-incident.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openPorts.reportIncident" },
+          { "xrpc": "app.etzhayyim.apps.openPorts.reportIncident" },
           { "form": "openPorts.reportIncident.v1" },
           { "dmn":  "openPorts.incidentSeverity" }
         ] },
       { "id": "act.queryNetwork", "name": "Query Ports / Calls / Containers / Incidents", "type": "xrpc",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openPorts.listPorts" },
-          { "xrpc": "ai.gftd.apps.openPorts.listVesselCalls" },
-          { "xrpc": "ai.gftd.apps.openPorts.listContainers" },
-          { "xrpc": "ai.gftd.apps.openPorts.listIncidents" }
+          { "xrpc": "app.etzhayyim.apps.openPorts.listPorts" },
+          { "xrpc": "app.etzhayyim.apps.openPorts.listVesselCalls" },
+          { "xrpc": "app.etzhayyim.apps.openPorts.listContainers" },
+          { "xrpc": "app.etzhayyim.apps.openPorts.listIncidents" }
         ] }
     ]
   },

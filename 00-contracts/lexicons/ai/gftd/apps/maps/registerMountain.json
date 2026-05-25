@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.registerMountain",
+  "id": "app.etzhayyim.apps.maps.registerMountain",
   "defs": {
     "main": {
       "type": "procedure",

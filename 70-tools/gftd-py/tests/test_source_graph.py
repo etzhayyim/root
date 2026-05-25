@@ -28,7 +28,7 @@ def test_parse_ts_imports_skips_node():
 
 
 def test_parse_ts_imports_skips_at_packages():
-    content = "import { x } from '@gftd/sdk';"
+    content = "import { x } from '@etzhayyim/sdk';"
     imps = _parse_ts_imports(content)
     assert not any(i.startswith("@") for i in imps)
 

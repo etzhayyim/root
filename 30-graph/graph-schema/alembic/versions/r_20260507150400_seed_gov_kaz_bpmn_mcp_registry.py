@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-seedOrgs-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -44,7 +44,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Seed"/>\n'
                  '    <bpmn:serviceTask id="Task_Seed" name="seed orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.seedOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.seedOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -66,7 +66,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -80,7 +80,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-registerDIDs-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -100,7 +100,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Register"/>\n'
                  '    <bpmn:serviceTask id="Task_Register" name="register DIDs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.registerDIDs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.registerDIDs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=registered" target="registered"/>\n'
@@ -123,7 +123,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -137,7 +137,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-followSiteDeps-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -157,7 +157,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Follow"/>\n'
                  '    <bpmn:serviceTask id="Task_Follow" name="follow site deps">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.followSiteDeps"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.followSiteDeps"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=followed" target="followed"/>\n'
@@ -178,7 +178,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,7 +192,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-resolveOrgPath-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -212,7 +212,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Resolve"/>\n'
                  '    <bpmn:serviceTask id="Task_Resolve" name="resolve org path">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.resolveOrgPath"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.resolveOrgPath"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=did" target="did"/>\n'
                  '          <zeebe:output source="=name" target="name"/>\n'
@@ -236,7 +236,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -250,7 +250,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-listOrgs-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -269,7 +269,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_List"/>\n'
                  '    <bpmn:serviceTask id="Task_List" name="list orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.listOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.listOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=orgs" target="orgs"/>\n'
                  '          <zeebe:output source="=total" target="total"/>\n'
@@ -290,7 +290,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -304,7 +304,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-syncWetUpdates-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -323,7 +323,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Sync"/>\n'
                  '    <bpmn:serviceTask id="Task_Sync" name="sync wet updates">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.syncWetUpdates"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.syncWetUpdates"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=checked" target="checked"/>\n'
@@ -346,7 +346,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -360,7 +360,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-shinka-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-shinka-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_shinka',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -379,7 +379,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Shinka"/>\n'
                  '    <bpmn:serviceTask id="Task_Shinka" name="shinka">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.shinka"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.shinka"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=posted" target="posted"/>\n'
@@ -401,7 +401,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -415,7 +415,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-heartbeatTick-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -444,7 +444,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Tick"/>\n'
                  '    <bpmn:serviceTask id="Task_Tick" name="heartbeat tick">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.heartbeatTick"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.heartbeatTick"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -470,7 +470,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -484,7 +484,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-seed-orgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-seed-orgs-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -503,7 +503,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Seed"/>\n'
                  '    <bpmn:serviceTask id="Task_Seed" name="seed orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.seedOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.seedOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -525,7 +525,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-seed-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-seed-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -539,7 +539,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-register-dids-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-register-dids-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -559,7 +559,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Register"/>\n'
                  '    <bpmn:serviceTask id="Task_Register" name="register DIDs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.registerDIDs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.registerDIDs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=registered" target="registered"/>\n'
@@ -582,7 +582,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-register-dids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -596,7 +596,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-follow-site-deps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-follow-site-deps-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -616,7 +616,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Follow"/>\n'
                  '    <bpmn:serviceTask id="Task_Follow" name="follow site deps">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.followSiteDeps"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.followSiteDeps"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=followed" target="followed"/>\n'
@@ -637,7 +637,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-follow-site-deps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-follow-site-deps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -651,7 +651,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-resolve-org-path-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-resolve-org-path-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -671,7 +671,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Resolve"/>\n'
                  '    <bpmn:serviceTask id="Task_Resolve" name="resolve org path">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.resolveOrgPath"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.resolveOrgPath"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=did" target="did"/>\n'
                  '          <zeebe:output source="=name" target="name"/>\n'
@@ -695,7 +695,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-resolve-org-path-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-resolve-org-path-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -709,7 +709,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-list-orgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-list-orgs-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -728,7 +728,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_List"/>\n'
                  '    <bpmn:serviceTask id="Task_List" name="list orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.listOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.listOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=orgs" target="orgs"/>\n'
                  '          <zeebe:output source="=total" target="total"/>\n'
@@ -749,7 +749,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-list-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-list-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -763,7 +763,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-sync-wet-updates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-sync-wet-updates-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -782,7 +782,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Sync"/>\n'
                  '    <bpmn:serviceTask id="Task_Sync" name="sync wet updates">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.syncWetUpdates"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.syncWetUpdates"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=checked" target="checked"/>\n'
@@ -805,7 +805,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-sync-wet-updates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-sync-wet-updates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -819,7 +819,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-heartbeat-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-heartbeat-tick-v1',
                  'did:web:kaz-state.etzhayyim.com',
                  'gov_kaz_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -848,7 +848,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Tick"/>\n'
                  '    <bpmn:serviceTask id="Task_Tick" name="heartbeat tick">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.govKaz.heartbeatTick"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govKaz.heartbeatTick"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -874,7 +874,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-heartbeat-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-heartbeat-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -889,9 +889,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.seedOrgs',
+                 'app.etzhayyim.govKaz.seedOrgs',
                  'gov_kaz_seed_orgs',
                  90000,
                  '2026-05-07T15:04:00Z',
@@ -899,7 +899,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -914,9 +914,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.registerDIDs',
+                 'app.etzhayyim.govKaz.registerDIDs',
                  'gov_kaz_register_dids',
                  90000,
                  '2026-05-07T15:04:00Z',
@@ -924,7 +924,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,9 +939,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.followSiteDeps',
+                 'app.etzhayyim.govKaz.followSiteDeps',
                  'gov_kaz_follow_site_deps',
                  90000,
                  '2026-05-07T15:04:00Z',
@@ -949,7 +949,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -964,9 +964,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.resolveOrgPath',
+                 'app.etzhayyim.govKaz.resolveOrgPath',
                  'gov_kaz_resolve_org_path',
                  60000,
                  '2026-05-07T15:04:00Z',
@@ -974,7 +974,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -989,9 +989,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.listOrgs',
+                 'app.etzhayyim.govKaz.listOrgs',
                  'gov_kaz_list_orgs',
                  60000,
                  '2026-05-07T15:04:00Z',
@@ -999,7 +999,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1014,9 +1014,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.syncWetUpdates',
+                 'app.etzhayyim.govKaz.syncWetUpdates',
                  'gov_kaz_sync_wet_updates',
                  180000,
                  '2026-05-07T15:04:00Z',
@@ -1024,7 +1024,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1039,9 +1039,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-shinka-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-shinka-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.shinka',
+                 'app.etzhayyim.govKaz.shinka',
                  'gov_kaz_shinka',
                  180000,
                  '2026-05-07T15:04:00Z',
@@ -1049,7 +1049,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1064,9 +1064,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.heartbeatTick',
+                 'app.etzhayyim.govKaz.heartbeatTick',
                  'gov_kaz_heartbeat_tick',
                  180000,
                  '2026-05-07T15:04:00Z',
@@ -1074,7 +1074,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1089,9 +1089,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.seedOrgs',
+                 'app.etzhayyim.govKaz.seedOrgs',
                  'gov_kaz_seed_orgs',
                  90000,
                  '2026-05-07T15:04:00Z',
@@ -1099,7 +1099,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1114,9 +1114,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.registerDIDs',
+                 'app.etzhayyim.govKaz.registerDIDs',
                  'gov_kaz_register_dids',
                  90000,
                  '2026-05-07T15:04:00Z',
@@ -1124,7 +1124,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1139,9 +1139,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.followSiteDeps',
+                 'app.etzhayyim.govKaz.followSiteDeps',
                  'gov_kaz_follow_site_deps',
                  90000,
                  '2026-05-07T15:04:00Z',
@@ -1149,7 +1149,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1164,9 +1164,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.resolveOrgPath',
+                 'app.etzhayyim.govKaz.resolveOrgPath',
                  'gov_kaz_resolve_org_path',
                  60000,
                  '2026-05-07T15:04:00Z',
@@ -1174,7 +1174,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1189,9 +1189,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.listOrgs',
+                 'app.etzhayyim.govKaz.listOrgs',
                  'gov_kaz_list_orgs',
                  60000,
                  '2026-05-07T15:04:00Z',
@@ -1199,7 +1199,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1214,9 +1214,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.syncWetUpdates',
+                 'app.etzhayyim.govKaz.syncWetUpdates',
                  'gov_kaz_sync_wet_updates',
                  180000,
                  '2026-05-07T15:04:00Z',
@@ -1224,7 +1224,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1239,9 +1239,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1',
                  'did:web:kaz-state.etzhayyim.com',
-                 'ai.gftd.govKaz.heartbeatTick',
+                 'app.etzhayyim.govKaz.heartbeatTick',
                  'gov_kaz_heartbeat_tick',
                  180000,
                  '2026-05-07T15:04:00Z',
@@ -1249,7 +1249,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1266,15 +1266,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-seedOrgs',
-                 'ai.gftd.govKaz.seedOrgs',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-seedOrgs',
+                 'app.etzhayyim.govKaz.seedOrgs',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Kazakhstan government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"ok":{"type":"boolean"},"remaining":{"type":"integer"},"seeded":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.seedOrgs',
+                 'app.etzhayyim.govKaz.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govKaz/seedOrgs.json',
                  '1d268c3de50af61d',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1282,7 +1282,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-seedOrgs']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1299,15 +1299,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-registerDIDs',
-                 'ai.gftd.govKaz.registerDIDs',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-registerDIDs',
+                 'app.etzhayyim.govKaz.registerDIDs',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Kazakhstan government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"dids":{"items":{"type":"string"},"type":"array"},"ok":{"type":"boolean"},"registered":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.registerDIDs',
+                 'app.etzhayyim.govKaz.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govKaz/registerDIDs.json',
                  '1ff2b5677aff9915',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1315,7 +1315,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-registerDIDs']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1332,15 +1332,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-followSiteDeps',
-                 'ai.gftd.govKaz.followSiteDeps',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-followSiteDeps',
+                 'app.etzhayyim.govKaz.followSiteDeps',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Kazakhstan government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.followSiteDeps',
+                 'app.etzhayyim.govKaz.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govKaz/followSiteDeps.json',
                  'cacee8e0dfa51e37',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1348,7 +1348,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-followSiteDeps']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1365,15 +1365,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath',
-                 'ai.gftd.govKaz.resolveOrgPath',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath',
+                 'app.etzhayyim.govKaz.resolveOrgPath',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'query',
                  'Resolve a Kazakhstan government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
                  '{"properties":{"did":{"type":"string"},"error":{"type":"string"},"name":{"type":"string"},"nameEn":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.resolveOrgPath',
+                 'app.etzhayyim.govKaz.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govKaz/resolveOrgPath.json',
                  'a39a2f17490fef6b',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1381,7 +1381,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1398,15 +1398,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-listOrgs',
-                 'ai.gftd.govKaz.listOrgs',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-listOrgs',
+                 'app.etzhayyim.govKaz.listOrgs',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'query',
                  'List Kazakhstan government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
                  '{"properties":{"orgs":{"items":{"properties":{"did":{"type":"string"},"name":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"},"type":"array"},"total":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.listOrgs',
+                 'app.etzhayyim.govKaz.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govKaz/listOrgs.json',
                  '87fb231835d7a208',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1414,7 +1414,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-listOrgs']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1431,15 +1431,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates',
-                 'ai.gftd.govKaz.syncWetUpdates',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates',
+                 'app.etzhayyim.govKaz.syncWetUpdates',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Kazakhstan government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"checked":{"type":"integer"},"ok":{"type":"boolean"},"posted":{"type":"integer"},"updated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.syncWetUpdates',
+                 'app.etzhayyim.govKaz.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govKaz/syncWetUpdates.json',
                  '3d52eface2fb0290',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1447,7 +1447,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1464,15 +1464,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-shinka',
-                 'ai.gftd.govKaz.shinka',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-shinka',
+                 'app.etzhayyim.govKaz.shinka',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Post a periodic graph-visible Kazakhstan government organization update.',
                  '{"properties":{"limit":{"default":1,"maximum":5,"minimum":1,"type":"integer"},"postUpdates":{"default":true,"type":"boolean"}},"required":[],"type":"object"}',
                  '{"properties":{"ok":{"type":"boolean"},"posted":{"type":"integer"},"touched":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.shinka',
+                 'app.etzhayyim.govKaz.shinka',
                  '00-contracts/lexicons/ai/gftd/govKaz/shinka.json',
                  '88c11125ad96407d',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1480,7 +1480,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-shinka']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-shinka']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1497,15 +1497,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-heartbeatTick',
-                 'ai.gftd.govKaz.heartbeatTick',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-heartbeatTick',
+                 'app.etzhayyim.govKaz.heartbeatTick',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Run the Kazakhstan government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"},"registered":{"type":"integer"},"seeded":{"type":"integer"},"shinkaPosted":{"type":"integer"},"wetUpdated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.heartbeatTick',
+                 'app.etzhayyim.govKaz.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govKaz/heartbeatTick.json',
                  'feb7900dd57f1fd6',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1513,7 +1513,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-heartbeatTick']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-heartbeatTick']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1530,15 +1530,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-seedOrgs',
-                 'ai.gftd.govKaz.seedOrgs',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-seedOrgs',
+                 'app.etzhayyim.govKaz.seedOrgs',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Kazakhstan government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"ok":{"type":"boolean"},"remaining":{"type":"integer"},"seeded":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.seedOrgs',
+                 'app.etzhayyim.govKaz.seedOrgs',
                  '00-contracts/lexicons/ai/gftd/govKaz/seedOrgs.json',
                  '1d268c3de50af61d',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1546,7 +1546,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-seedOrgs']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1563,15 +1563,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-registerDIDs',
-                 'ai.gftd.govKaz.registerDIDs',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-registerDIDs',
+                 'app.etzhayyim.govKaz.registerDIDs',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Kazakhstan government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"dids":{"items":{"type":"string"},"type":"array"},"ok":{"type":"boolean"},"registered":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.registerDIDs',
+                 'app.etzhayyim.govKaz.registerDIDs',
                  '00-contracts/lexicons/ai/gftd/govKaz/registerDIDs.json',
                  '1ff2b5677aff9915',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1579,7 +1579,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-registerDIDs']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1596,15 +1596,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-followSiteDeps',
-                 'ai.gftd.govKaz.followSiteDeps',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-followSiteDeps',
+                 'app.etzhayyim.govKaz.followSiteDeps',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Kazakhstan government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.followSiteDeps',
+                 'app.etzhayyim.govKaz.followSiteDeps',
                  '00-contracts/lexicons/ai/gftd/govKaz/followSiteDeps.json',
                  'cacee8e0dfa51e37',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1612,7 +1612,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-followSiteDeps']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1629,15 +1629,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath',
-                 'ai.gftd.govKaz.resolveOrgPath',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath',
+                 'app.etzhayyim.govKaz.resolveOrgPath',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'query',
                  'Resolve a Kazakhstan government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
                  '{"properties":{"did":{"type":"string"},"error":{"type":"string"},"name":{"type":"string"},"nameEn":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.resolveOrgPath',
+                 'app.etzhayyim.govKaz.resolveOrgPath',
                  '00-contracts/lexicons/ai/gftd/govKaz/resolveOrgPath.json',
                  'a39a2f17490fef6b',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1645,7 +1645,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1662,15 +1662,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-listOrgs',
-                 'ai.gftd.govKaz.listOrgs',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-listOrgs',
+                 'app.etzhayyim.govKaz.listOrgs',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'query',
                  'List Kazakhstan government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
                  '{"properties":{"orgs":{"items":{"properties":{"did":{"type":"string"},"name":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"},"type":"array"},"total":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.listOrgs',
+                 'app.etzhayyim.govKaz.listOrgs',
                  '00-contracts/lexicons/ai/gftd/govKaz/listOrgs.json',
                  '87fb231835d7a208',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1678,7 +1678,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-listOrgs']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1695,15 +1695,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates',
-                 'ai.gftd.govKaz.syncWetUpdates',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates',
+                 'app.etzhayyim.govKaz.syncWetUpdates',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Kazakhstan government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"checked":{"type":"integer"},"ok":{"type":"boolean"},"posted":{"type":"integer"},"updated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.syncWetUpdates',
+                 'app.etzhayyim.govKaz.syncWetUpdates',
                  '00-contracts/lexicons/ai/gftd/govKaz/syncWetUpdates.json',
                  '3d52eface2fb0290',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1711,7 +1711,7 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates']},
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1728,15 +1728,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-heartbeatTick',
-                 'ai.gftd.govKaz.heartbeatTick',
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-heartbeatTick',
+                 'app.etzhayyim.govKaz.heartbeatTick',
                  'did:web:kaz-state.etzhayyim.com',
                  'kaz-state.etzhayyim.com',
                  'procedure',
                  'Run the Kazakhstan government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"},"registered":{"type":"integer"},"seeded":{"type":"integer"},"shinkaPosted":{"type":"integer"},"wetUpdated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'ai.gftd.govKaz.heartbeatTick',
+                 'app.etzhayyim.govKaz.heartbeatTick',
                  '00-contracts/lexicons/ai/gftd/govKaz/heartbeatTick.json',
                  'feb7900dd57f1fd6',
                  'did:web:kaz-state.etzhayyim.com',
@@ -1744,98 +1744,98 @@ UP = [{'sql': '\n'
                  'did:web:kaz-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-kaz',
                  '2026-05-07T15:04:00Z',
-                 'at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-heartbeatTick']}]
+                 'at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-heartbeatTick']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-seedOrgs']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-registerDIDs']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-followSiteDeps']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-listOrgs']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-shinka']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-shinka']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-heartbeatTick']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-seedOrgs']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-registerDIDs']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-followSiteDeps']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-listOrgs']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:kaz-state.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-govKaz-heartbeatTick']},
+  'parameters': ['at://did:web:kaz-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govKaz-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govKaz-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-seed-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-seed-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-follow-site-deps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-follow-site-deps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-resolve-org-path-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-resolve-org-path-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-list-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-list-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-sync-wet-updates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-sync-wet-updates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-kaz-heartbeat-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-kaz-heartbeat-tick-v1']}]
 
 
 def upgrade() -> None:

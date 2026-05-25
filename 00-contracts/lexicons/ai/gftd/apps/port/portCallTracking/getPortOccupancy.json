@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.port.portCallTracking.getPortOccupancy",
+  "id": "app.etzhayyim.apps.port.portCallTracking.getPortOccupancy",
   "defs": {
     "main": {
       "type": "query",
-      "description": "ai.gftd.apps.port.portCallTracking.getPortOccupancy BPMN-backed port operation.",
+      "description": "app.etzhayyim.apps.port.portCallTracking.getPortOccupancy BPMN-backed port operation.",
       "parameters": {
         "type": "params",
         "properties": {},

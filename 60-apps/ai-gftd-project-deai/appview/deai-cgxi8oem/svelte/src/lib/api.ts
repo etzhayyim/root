@@ -1,5 +1,5 @@
-// deai API client — calls deai.gftd.ai XRPC endpoints
-const BASE = "https://deai.gftd.ai/xrpc";
+// deai API client — calls deapp.etzhayyim.ai XRPC endpoints
+const BASE = "https://deapp.etzhayyim.ai/xrpc";
 
 async function post<T>(nsid: string, body: unknown, headers?: Record<string, string>): Promise<T> {
   const res = await fetch(`${BASE}/${nsid}`, {
@@ -21,41 +21,41 @@ async function get<T>(nsid: string, params?: Record<string, string>, headers?: R
 export const deaiApi = {
   startAssessment: (locale?: string) =>
     post<{ sessionId: string; stimulusWords: string[]; expiresAt: string }>(
-      "ai.gftd.apps.deai.startAssessment",
+      "app.etzhayyim.apps.deai.startAssessment",
       { locale: locale ?? "ja" },
     ),
 
   submitResponse: (body: {
     sessionId: string; word: string; responseWord?: string;
     reactionTimeMs: number; humeScores: Record<string, number>; spDelta?: number;
-  }) => post<{ accepted: boolean; progress: number }>("ai.gftd.apps.deai.submitResponse", body),
+  }) => post<{ accepted: boolean; progress: number }>("app.etzhayyim.apps.deai.submitResponse", body),
 
   getProfile: (did: string) =>
     get<{
       cohortDid: string; spiritType: string; emotionCentroid: number[];
       assessedAt: string; checkinCount: number;
-    }>("ai.gftd.apps.deai.getProfile", { did }),
+    }>("app.etzhayyim.apps.deai.getProfile", { did }),
 
   listMatches: (did: string, limit?: number) =>
-    get<{ matches: unknown[] }>("ai.gftd.apps.deai.listMatches", { did, limit: String(limit ?? 20) }),
+    get<{ matches: unknown[] }>("app.etzhayyim.apps.deai.listMatches", { did, limit: String(limit ?? 20) }),
 
   createCheckin: (
     body: { humeScores: Record<string, number>; modality: string; note?: string },
     actorDid: string,
   ) => post<{ checkinId: string; updatedSpiritType: string; spiritDelta: number; nextCheckinAfter: string }>(
-    "ai.gftd.apps.deai.createCheckin", body, { "x-actor-did": actorDid },
+    "app.etzhayyim.apps.deai.createCheckin", body, { "x-actor-did": actorDid },
   ),
 
   sendMessage: (
     body: { toCohortDid: string; ciphertext: string; iv: string; replyToId?: string },
     actorDid: string,
   ) => post<{ messageId: string; sentAt: string }>(
-    "ai.gftd.apps.deai.sendMessage", body, { "x-actor-did": actorDid },
+    "app.etzhayyim.apps.deai.sendMessage", body, { "x-actor-did": actorDid },
   ),
 
   listMessages: (withCohortDid: string, actorDid: string, limit?: number) =>
     get<{ messages: unknown[] }>(
-      "ai.gftd.apps.deai.listMessages",
+      "app.etzhayyim.apps.deai.listMessages",
       { withCohortDid, limit: String(limit ?? 50) },
       { "x-actor-did": actorDid },
     ),

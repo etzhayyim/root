@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yorishiroNuro.recordOffers",
+  "id": "app.etzhayyim.apps.yorishiroNuro.recordOffers",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Provider → app callback. Persist enumerated offers as ai.gftd.apps.yorishiroNuro.offer records.",
+      "description": "Provider → app callback. Persist enumerated offers as app.etzhayyim.apps.yorishiroNuro.offer records.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",

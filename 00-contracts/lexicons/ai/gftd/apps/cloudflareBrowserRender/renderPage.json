@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cloudflareBrowserRender.renderPage",
+  "id": "app.etzhayyim.apps.cloudflareBrowserRender.renderPage",
   "defs": {
     "main": {
       "type": "procedure",

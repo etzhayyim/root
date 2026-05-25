@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cdrVerification.recordRemovalEvent",
+  "id": "app.etzhayyim.apps.cdrVerification.recordRemovalEvent",
   "defs": {
     "main": {
       "type": "procedure",

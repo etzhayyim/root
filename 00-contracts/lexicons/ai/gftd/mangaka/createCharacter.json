@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.createCharacter",
+  "id": "app.etzhayyim.mangaka.createCharacter",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.agent.adaptPolicy",
+  "id": "app.etzhayyim.apps.agent.adaptPolicy",
   "defs": {
     "main": {
       "type": "procedure",

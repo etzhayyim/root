@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maritimePiracy.issueTransitAdvisory",
+  "id": "app.etzhayyim.apps.maritimePiracy.issueTransitAdvisory",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.resourceFlow.registerEmitter",
+  "id": "app.etzhayyim.apps.resourceFlow.registerEmitter",
   "defs": {
     "main": {
       "type": "procedure",

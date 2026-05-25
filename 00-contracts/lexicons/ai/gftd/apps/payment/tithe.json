@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.payment.tithe",
+  "id": "app.etzhayyim.apps.payment.tithe",
   "defs": {
     "main": {
       "type": "record",
@@ -22,7 +22,7 @@
           "originalSentUri": {
             "type": "string",
             "format": "at-uri",
-            "description": "AT URI of the ai.gftd.apps.payment.sent record this tithe is derived from."
+            "description": "AT URI of the app.etzhayyim.apps.payment.sent record this tithe is derived from."
           },
           "titheAmountUsdcMicros": {
             "type": "integer",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mentalHealthParity.reportParityMetric",
+  "id": "app.etzhayyim.apps.mentalHealthParity.reportParityMetric",
   "defs": {
     "main": {
       "type": "procedure",

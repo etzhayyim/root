@@ -113,7 +113,7 @@ AppShell はゼロ設定で HIG 準拠のレイアウトを提供する。消費
 **Header デフォルト動作**:
 - `showAppLauncher={true}` — 左上に App Launcher を標準表示
 - `homeHref="/"` — 中央の `appName` がホームへのリンクになる。クリックで top page に遷移
-- `appName="GFTD"` — 各アプリで上書き (`appName="Shinshi"` 等)
+- `appName="etzhayyim"` — 各アプリで上書き (`appName="Shinshi"` 等)
 - `showStandardActions={true}` — Sign in / Sign up / Wallet ボタンを表示
 
 **Footer**: `Privacy Policy` / `Terms` / `Support` を標準表示（`showStandardLinks` のデフォルトは `true`）。

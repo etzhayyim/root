@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hormuzWarrisk.recordPremiumRate",
+  "id": "app.etzhayyim.apps.hormuzWarrisk.recordPremiumRate",
   "defs": {
     "main": {
       "type": "procedure",

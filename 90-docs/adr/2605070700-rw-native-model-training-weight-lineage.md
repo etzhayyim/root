@@ -106,11 +106,11 @@ Zeebe deploy する既存規約)。
 
 | BPMN process | trigger | task chain |
 |---|---|---|
-| `train_sft_run` | XRPC `ai.gftd.apps.training.runSft` | `train.dataset.snapshot` → `train.sft.run` (GPU pod) → `train.eval.run` → audit |
-| `train_lora_run` | XRPC `ai.gftd.apps.training.runLora` | 同上 (LoRA adapter only) |
-| `train_distill_run` | XRPC `ai.gftd.apps.training.runDistill` | `train.dataset.snapshot` → `train.teacher.label` (Murakumo bulk infer) → `train.distill.run` → `train.eval.run` → audit |
-| `train_eval_run` | XRPC `ai.gftd.apps.training.runEval` | `train.eval.run` → audit |
-| `train_promote_checkpoint` | XRPC `ai.gftd.apps.training.promote` | `train.promote.checkpoint` (edge insert) → audit |
+| `train_sft_run` | XRPC `app.etzhayyim.apps.training.runSft` | `train.dataset.snapshot` → `train.sft.run` (GPU pod) → `train.eval.run` → audit |
+| `train_lora_run` | XRPC `app.etzhayyim.apps.training.runLora` | 同上 (LoRA adapter only) |
+| `train_distill_run` | XRPC `app.etzhayyim.apps.training.runDistill` | `train.dataset.snapshot` → `train.teacher.label` (Murakumo bulk infer) → `train.distill.run` → `train.eval.run` → audit |
+| `train_eval_run` | XRPC `app.etzhayyim.apps.training.runEval` | `train.eval.run` → audit |
+| `train_promote_checkpoint` | XRPC `app.etzhayyim.apps.training.promote` | `train.promote.checkpoint` (edge insert) → audit |
 
 `generic.audit.emit` (ADR-0056 primitive) を全 BPMN の終端に置き、
 OCEL event を `vertex_repo_commit` に残す。
@@ -150,7 +150,7 @@ GPU が要る handler は **`mitama-training-pool` Helm release** (新設、ADR-
 ## 6. CLI / XRPC entry
 
 - `gftd training run --kind sft --base gemma-4-e4b-it --dataset gftd-corpus@latest`
-  → bpmn-dispatcher ClusterIP `http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.training.runSft`
+  → bpmn-dispatcher ClusterIP `http://dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.apps.training.runSft`
 - `gftd training promote <checkpoint_id> --alias murakumo:gemma4-e4b-it`
 - `gftd training list-runs` / `list-checkpoints` / `eval <checkpoint_id>`
 - 全 XRPC は ADR-2604282300 に従い T2 (BPMN-as-actor) で CF Worker を持たない

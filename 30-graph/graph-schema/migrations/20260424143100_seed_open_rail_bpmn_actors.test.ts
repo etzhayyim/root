@@ -28,8 +28,8 @@ describe("Seed open-rail BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openRail.defineLine"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openRail.reportIncident"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openRail.defineLine"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openRail.reportIncident"');
   });
 
   it("uses open-rail-specific actor_id + owner_did", () => {

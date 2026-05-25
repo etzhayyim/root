@@ -2,7 +2,7 @@
 
 const XRPC_BASE = '/xrpc';
 // Blob fetching goes directly to the PDS — animeka's /xrpc proxy only handles
-// ai.gftd.animeka.* and would 404 on com.atproto.sync.getBlob.
+// app.etzhayyim.animeka.* and would 404 on com.atproto.sync.getBlob.
 const PDS_BASE = 'https://atproto.etzhayyim.com';
 
 // Autopilot blobs are uploaded via legacy-trust header (no JWT session),
@@ -51,7 +51,7 @@ export async function atQuery<T = unknown>(
   nsid: string,
   params: Record<string, unknown> = {},
 ): Promise<T> {
-  // PDS XRPC routes ai.gftd.animeka.* as POST-only regardless of lexicon type.
+  // PDS XRPC routes app.etzhayyim.animeka.* as POST-only regardless of lexicon type.
   // Using POST + JSON body keeps both query and procedure call sites uniform.
   const resp = await fetch(`${XRPC_BASE}/${nsid}`, {
     method: 'POST',

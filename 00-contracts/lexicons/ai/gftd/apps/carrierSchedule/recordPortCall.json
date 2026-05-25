@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.carrierSchedule.recordPortCall",
+  "id": "app.etzhayyim.apps.carrierSchedule.recordPortCall",
   "defs": {
     "main": {
       "type": "procedure",

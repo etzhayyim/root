@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sekkei.drawing",
+  "id": "app.etzhayyim.apps.sekkei.drawing",
   "description": "設計図・技術図面のマスタ登録。図番体系: {projectCode}-{assemblyCode}-{seqNo}。CAD ファイルは Drive/B2 blob ref。currentRevNo が最新改訂番号。",
   "defs": {
     "main": {
@@ -10,7 +10,7 @@
         "type": "object",
         "required": ["drawingId", "title", "drawingType", "ownerDid"],
         "properties": {
-          "drawingId": { "type": "string", "description": "図番 (例: GFTD-AGM-0001)" },
+          "drawingId": { "type": "string", "description": "図番 (例: etzhayyim-AGM-0001)" },
           "title": { "type": "string" },
           "drawingType": {
             "type": "string",

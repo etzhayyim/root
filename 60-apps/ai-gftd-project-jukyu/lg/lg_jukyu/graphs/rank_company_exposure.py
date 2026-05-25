@@ -1,6 +1,6 @@
 """jukyu `rankCompanyExposure` graph — read `mv_jukyu_company_exposure_rank`.
 
-NSID: ai.gftd.apps.jukyu.rankCompanyExposure
+NSID: app.etzhayyim.apps.jukyu.rankCompanyExposure
 Filters: domain, countryCode, minRiskScore; limit 250.
 """
 

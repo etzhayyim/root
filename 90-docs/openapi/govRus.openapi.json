@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govRus.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govRus.followSiteDeps": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govRus.followSiteDeps",
+        "operationId": "app.etzhayyim.govRus.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -46,10 +46,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRus.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govRus.heartbeatTick": {
       "post": {
         "summary": "Run the Russia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govRus.heartbeatTick",
+        "operationId": "app.etzhayyim.govRus.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -132,10 +132,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRus.ingestOfficialSources": {
+    "/xrpc/app.etzhayyim.govRus.ingestOfficialSources": {
       "post": {
         "summary": "Queue official Russia government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "ai.gftd.govRus.ingestOfficialSources",
+        "operationId": "app.etzhayyim.govRus.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -198,10 +198,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRus.listOrgs": {
+    "/xrpc/app.etzhayyim.govRus.listOrgs": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govRus.listOrgs",
+        "operationId": "app.etzhayyim.govRus.listOrgs",
         "parameters": [],
         "responses": {
           "200": {
@@ -220,10 +220,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRus.registerDIDs": {
+    "/xrpc/app.etzhayyim.govRus.registerDIDs": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govRus.registerDIDs",
+        "operationId": "app.etzhayyim.govRus.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -256,10 +256,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRus.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govRus.resolveOrgPath": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govRus.resolveOrgPath",
+        "operationId": "app.etzhayyim.govRus.resolveOrgPath",
         "parameters": [],
         "responses": {
           "200": {
@@ -278,10 +278,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRus.seedOrgs": {
+    "/xrpc/app.etzhayyim.govRus.seedOrgs": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "ai.gftd.govRus.seedOrgs",
+        "operationId": "app.etzhayyim.govRus.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -314,10 +314,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRus.shinka": {
+    "/xrpc/app.etzhayyim.govRus.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Russia government organization update.",
-        "operationId": "ai.gftd.govRus.shinka",
+        "operationId": "app.etzhayyim.govRus.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -368,10 +368,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govRus.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govRus.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated Russia government organization content.",
-        "operationId": "ai.gftd.govRus.syncWetUpdates",
+        "operationId": "app.etzhayyim.govRus.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

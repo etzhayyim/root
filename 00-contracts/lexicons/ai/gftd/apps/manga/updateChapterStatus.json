@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.manga.updateChapterStatus",
+  "id": "app.etzhayyim.apps.manga.updateChapterStatus",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.auth.rotateAgentKey",
+  "id": "app.etzhayyim.auth.rotateAgentKey",
   "defs": {
     "main": {
       "type": "procedure",

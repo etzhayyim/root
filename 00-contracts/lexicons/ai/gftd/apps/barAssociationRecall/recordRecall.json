@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.barAssociationRecall.recordRecall",
+  "id": "app.etzhayyim.apps.barAssociationRecall.recordRecall",
   "defs": {
     "main": {
       "type": "procedure",

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govBgr.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govBgr.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Bulgaria government.",
-        "operationId": "ai.gftd.govBgr.followSiteDeps",
+        "operationId": "app.etzhayyim.govBgr.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgr.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govBgr.heartbeatTick": {
       "post": {
         "summary": "Run the Bulgaria government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govBgr.heartbeatTick",
+        "operationId": "app.etzhayyim.govBgr.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgr.listOrgs": {
+    "/xrpc/app.etzhayyim.govBgr.listOrgs": {
       "get": {
         "summary": "List Bulgaria government organization graph records.",
-        "operationId": "ai.gftd.govBgr.listOrgs",
+        "operationId": "app.etzhayyim.govBgr.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgr.registerDIDs": {
+    "/xrpc/app.etzhayyim.govBgr.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Bulgaria government organizations.",
-        "operationId": "ai.gftd.govBgr.registerDIDs",
+        "operationId": "app.etzhayyim.govBgr.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgr.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govBgr.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Bulgaria government organization path to its graph record.",
-        "operationId": "ai.gftd.govBgr.resolveOrgPath",
+        "operationId": "app.etzhayyim.govBgr.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgr.seedOrgs": {
+    "/xrpc/app.etzhayyim.govBgr.seedOrgs": {
       "post": {
         "summary": "Seed initial Bulgaria government organization records into the graph.",
-        "operationId": "ai.gftd.govBgr.seedOrgs",
+        "operationId": "app.etzhayyim.govBgr.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgr.shinka": {
+    "/xrpc/app.etzhayyim.govBgr.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Bulgaria government organization update.",
-        "operationId": "ai.gftd.govBgr.shinka",
+        "operationId": "app.etzhayyim.govBgr.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgr.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govBgr.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Bulgaria government organization changes to graph.",
-        "operationId": "ai.gftd.govBgr.syncWetUpdates",
+        "operationId": "app.etzhayyim.govBgr.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.sbom.cveIngestOsv",
+  "id": "app.etzhayyim.sbom.cveIngestOsv",
   "defs": {
     "main": {
       "type": "procedure",

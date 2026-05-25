@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openIsco.recordConcordance",
+  "id": "app.etzhayyim.apps.openIsco.recordConcordance",
   "defs": {
     "main": {
       "type": "procedure",

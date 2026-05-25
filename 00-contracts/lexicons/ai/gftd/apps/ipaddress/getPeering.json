@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.getPeering",
+  "id": "app.etzhayyim.apps.ipaddress.getPeering",
   "defs": {
     "main": {
       "type": "query",

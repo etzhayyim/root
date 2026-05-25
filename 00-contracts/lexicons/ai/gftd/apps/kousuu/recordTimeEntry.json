@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kousuu.recordTimeEntry",
+  "id": "app.etzhayyim.apps.kousuu.recordTimeEntry",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.core.logAppend",
+  "id": "app.etzhayyim.host.core.logAppend",
   "defs": {
     "main": {
       "type": "procedure",

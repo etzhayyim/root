@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.health",
+  "id": "app.etzhayyim.mangaka.health",
   "defs": {
     "main": {
       "type": "procedure",

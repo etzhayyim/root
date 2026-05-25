@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kafun.agent.research",
+  "id": "app.etzhayyim.apps.kafun.agent.research",
   "defs": {
     "main": {
       "type": "procedure",

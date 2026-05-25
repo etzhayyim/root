@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.labourMobility.registerCorridor",
+  "id": "app.etzhayyim.apps.labourMobility.registerCorridor",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.rejectOrder",
+  "id": "app.etzhayyim.apps.omise.rejectOrder",
   "defs": {
     "main": {
       "type": "procedure",

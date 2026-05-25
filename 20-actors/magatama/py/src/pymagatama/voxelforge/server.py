@@ -15,11 +15,11 @@ scope):
   - ``POST /runs``                      submit a generate run
   - ``GET  /runs/{run_id}``             poll status / artifacts
   - ``GET  /health`` / ``/_app/meta``   probes
-  - ``POST /xrpc/ai.gftd.apps.voxelforge.{generate,getRun,listArtifacts,coverage}``
+  - ``POST /xrpc/app.etzhayyim.apps.voxelforge.{generate,getRun,listArtifacts,coverage}``
                                         bpmn-dispatcher bridge
 
 bpmn-dispatcher (ADR-2604282300) routes
-``ai.gftd.apps.voxelforge.*`` to this service via in-cluster ClusterIP
+``app.etzhayyim.apps.voxelforge.*`` to this service via in-cluster ClusterIP
 ``voxelforge-langgraph.mitama-udf.svc.cluster.local:8000``.
 """
 
@@ -54,7 +54,7 @@ def _utc_now_iso() -> str:
 
 def _make_design_vertex_id(actor_did: str, ts_ms: int, prompt_hash: str) -> str:
     digest = hashlib.sha256(f"{actor_did}|{ts_ms}|{prompt_hash}".encode()).hexdigest()
-    return f"at://{actor_did}/ai.gftd.apps.voxelforge.design/{digest[:16]}"
+    return f"at://{actor_did}/app.etzhayyim.apps.voxelforge.design/{digest[:16]}"
 
 
 def _make_run_id(design_vertex_id: str) -> str:
@@ -70,14 +70,14 @@ def build_app() -> Any:
 
     def _internal_trust_ok(req: Request) -> bool:
         """Phase A: light HMAC check.  bpmn-dispatcher signs every
-        forward; bare requests are rejected unless ``GFTD_VOXELFORGE_DEV=1``."""
-        if os.environ.get("GFTD_VOXELFORGE_DEV") == "1":
+        forward; bare requests are rejected unless ``etzhayyim_VOXELFORGE_DEV=1``."""
+        if os.environ.get("etzhayyim_VOXELFORGE_DEV") == "1":
             return True
         return bool(req.headers.get("x-internal-trust"))
 
     def _resolve_caller(req: Request) -> tuple[str, str]:
-        actor = req.headers.get("x-gftd-actor-did") or os.environ.get("GFTD_DEV_ACTOR_DID", "did:web:voxelforge.etzhayyim.com")
-        org = req.headers.get("x-gftd-org-did") or os.environ.get("GFTD_DEV_ORG_DID", "did:erc725:gftd:260425:dev")
+        actor = req.headers.get("x-gftd-actor-did") or os.environ.get("etzhayyim_DEV_ACTOR_DID", "did:web:voxelforge.etzhayyim.com")
+        org = req.headers.get("x-gftd-org-did") or os.environ.get("etzhayyim_DEV_ORG_DID", "did:erc725:gftd:260425:dev")
         return actor, org
 
     @api.get("/health")
@@ -237,7 +237,7 @@ def build_app() -> Any:
 
     # ── XRPC bridge endpoints (bpmn-dispatcher → here) ──────────────
 
-    @api.post("/xrpc/ai.gftd.apps.voxelforge.generate")
+    @api.post("/xrpc/app.etzhayyim.apps.voxelforge.generate")
     async def xrpc_generate(req: Request) -> JSONResponse:
         if not _internal_trust_ok(req):
             raise HTTPException(status_code=401, detail="x-internal-trust required")
@@ -248,7 +248,7 @@ def build_app() -> Any:
         org_did = header_org
         return JSONResponse(await _start_run(gen_input, actor_did, org_did))
 
-    @api.get("/xrpc/ai.gftd.apps.voxelforge.getRun")
+    @api.get("/xrpc/app.etzhayyim.apps.voxelforge.getRun")
     async def xrpc_get_run(req: Request) -> JSONResponse:
         if not _internal_trust_ok(req):
             raise HTTPException(status_code=401, detail="x-internal-trust required")
@@ -271,7 +271,7 @@ def build_app() -> Any:
             }
         )
 
-    @api.get("/xrpc/ai.gftd.apps.voxelforge.listArtifacts")
+    @api.get("/xrpc/app.etzhayyim.apps.voxelforge.listArtifacts")
     async def xrpc_list_artifacts(req: Request) -> JSONResponse:
         if not _internal_trust_ok(req):
             raise HTTPException(status_code=401, detail="x-internal-trust required")
@@ -309,7 +309,7 @@ def build_app() -> Any:
             }
         )
 
-    @api.get("/xrpc/ai.gftd.apps.voxelforge.coverage")
+    @api.get("/xrpc/app.etzhayyim.apps.voxelforge.coverage")
     async def xrpc_coverage(req: Request) -> JSONResponse:
         if not _internal_trust_ok(req):
             raise HTTPException(status_code=401, detail="x-internal-trust required")

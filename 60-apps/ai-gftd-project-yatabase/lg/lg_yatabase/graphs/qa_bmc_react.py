@@ -7,7 +7,7 @@ the only node that invokes the write path (but skips persistence).
 ReAct loop:
   probe_canvas → probe_hypotheses → run_bmc_dry → analyze_bmc → build_bmc_report
 
-NSID: ai.gftd.apps.yata.lg.qaBmc.run
+NSID: app.etzhayyim.apps.yata.lg.qaBmc.run
 Graph ID: qa_bmc_react
 Triggered: manually or as post-deploy gate
 
@@ -263,7 +263,7 @@ async def build_bmc_report(state: QABmcState) -> QABmcState:
     skipped = sum(1 for c in checks if c["status"] in ("SKIP", "WARN"))
     report = {
         "run_id": state.get("run_id"),
-        "host": state.get("host", "https://yatabase.gftd.ai"),
+        "host": state.get("host", "https://yatabase.etzhayyim.com"),
         "ts": int(time.time() * 1000),
         "org_did": state.get("org_did", "anon"),
         "summary": {

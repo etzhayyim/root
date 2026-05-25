@@ -114,7 +114,7 @@ async function fetchEvidence(url) {
       signal: ac.signal,
       redirect: "follow",
       headers: {
-        "User-Agent": "GFTD/1.0 government local procedure evidence crawl (+https://etzhayyim.com)",
+        "User-Agent": "etzhayyim/1.0 government local procedure evidence crawl (+https://etzhayyim.com)",
         "Accept": "text/html,application/xhtml+xml,application/pdf,*/*;q=0.5",
       },
     });

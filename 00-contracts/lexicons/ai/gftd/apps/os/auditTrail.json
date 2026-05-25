@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.os.auditTrail",
+  "id": "app.etzhayyim.apps.os.auditTrail",
   "defs": {
     "main": {
       "type": "procedure",

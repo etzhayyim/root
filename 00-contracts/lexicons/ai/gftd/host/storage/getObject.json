@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.storage.getObject",
+  "id": "app.etzhayyim.host.storage.getObject",
   "defs": {
     "main": {
       "type": "query",

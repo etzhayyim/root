@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.graphTraverse",
+  "id": "app.etzhayyim.apps.maps.graphTraverse",
   "defs": {
     "main": {
       "type": "procedure",

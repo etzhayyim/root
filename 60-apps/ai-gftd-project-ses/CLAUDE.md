@@ -7,9 +7,9 @@ Nanoid: `s3s4nk3n` | DID: `did:web:ses.etzhayyim.com` | Tier: T3 | Non-federable
 
 ```
 SES案件 email (Outlook/Exchange)
-   ↓ Phase 3: ai.gftd.apps.microsoft.listMails (15min pull)
+   ↓ Phase 3: app.etzhayyim.apps.microsoft.listMails (15min pull)
 CF Worker (ses.etzhayyim.com / s3s4nk3n.etzhayyim.com)
-   ↓ XRPC ai.gftd.apps.ses.ingestAnken
+   ↓ XRPC app.etzhayyim.apps.ses.ingestAnken
 bpmn-dispatcher → LangGraph Server (ses-langgraph.mitama-udf.svc:8000)
    ↓ 6-node StateGraph
    parse_source → classify_anken → extract_details
@@ -21,7 +21,7 @@ RisingWave vertex_ses_anken + vertex_ses_jokyo (append-only)
 **CF Worker** (`60-apps/ai-gftd-project-ses/src/app.ts`):
 - No `env.HYPERDRIVE` binding (ADR-2605111200). No DB writes in Worker.
 - Auth: Bearer `sk_live_*` or ES256 JWT.
-- NSID guard: only `ai.gftd.apps.ses.*` passes.
+- NSID guard: only `app.etzhayyim.apps.ses.*` passes.
 - Forwards to `BPMN_DISPATCHER_URL` with `x-internal-trust` HMAC.
 
 **LangGraph** (`20-actors/magatama/py/src/pymagatama/ses/`):
@@ -36,12 +36,12 @@ RisingWave vertex_ses_anken + vertex_ses_jokyo (append-only)
 
 | NSID | Type | File |
 |---|---|---|
-| `ai.gftd.apps.ses.ingestAnken` | procedure | `00-contracts/lexicons/ai/gftd/apps/ses/ingestAnken.json` |
-| `ai.gftd.apps.ses.updateJokyo` | procedure | `00-contracts/lexicons/ai/gftd/apps/ses/updateJokyo.json` |
-| `ai.gftd.apps.ses.getAnken` | query | `00-contracts/lexicons/ai/gftd/apps/ses/getAnken.json` |
-| `ai.gftd.apps.ses.listAnken` | query | `00-contracts/lexicons/ai/gftd/apps/ses/listAnken.json` |
-| `ai.gftd.apps.ses.listJokyo` | query | `00-contracts/lexicons/ai/gftd/apps/ses/listJokyo.json` |
-| `ai.gftd.apps.ses.coverage` | query | `00-contracts/lexicons/ai/gftd/apps/ses/coverage.json` |
+| `app.etzhayyim.apps.ses.ingestAnken` | procedure | `00-contracts/lexicons/ai/gftd/apps/ses/ingestAnken.json` |
+| `app.etzhayyim.apps.ses.updateJokyo` | procedure | `00-contracts/lexicons/ai/gftd/apps/ses/updateJokyo.json` |
+| `app.etzhayyim.apps.ses.getAnken` | query | `00-contracts/lexicons/ai/gftd/apps/ses/getAnken.json` |
+| `app.etzhayyim.apps.ses.listAnken` | query | `00-contracts/lexicons/ai/gftd/apps/ses/listAnken.json` |
+| `app.etzhayyim.apps.ses.listJokyo` | query | `00-contracts/lexicons/ai/gftd/apps/ses/listJokyo.json` |
+| `app.etzhayyim.apps.ses.coverage` | query | `00-contracts/lexicons/ai/gftd/apps/ses/coverage.json` |
 
 ## Schema (RisingWave vertex tables — append-only)
 
@@ -77,7 +77,7 @@ Forbidden: backward transitions (e.g. 稼働中 → 提案中). Skipped silently
 ## Email Sources
 
 SES案件 emails arrive at:
-- `j.kawasaki@gftd.co.jp` (Outlook/Exchange)
-- `agent@gftd.co.jp` (Outlook/Exchange)
+- `j.kawasaki@etzhayyim.com` (Outlook/Exchange)
+- `agent@etzhayyim.com` (Outlook/Exchange)
 
-Phase 3: Outlook cron pull via `ai.gftd.apps.microsoft.listMails` (15min differential).
+Phase 3: Outlook cron pull via `app.etzhayyim.apps.microsoft.listMails` (15min differential).

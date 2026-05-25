@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSeiyaku.screenExportControl",
+  "id": "app.etzhayyim.apps.openSeiyaku.screenExportControl",
   "defs": {
     "main": {
       "type": "procedure",

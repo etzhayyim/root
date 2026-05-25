@@ -57,7 +57,7 @@ The Safe 2-of-3 escrow contract from `payment.escrowOpened.json` lexicon (Phase 
                  ▼
    ┌────────────────────────────────────────┐
    │ openIntent() — escrow.ts               │
-   │   write ai.gftd.apps.payment.          │
+   │   write app.etzhayyim.apps.payment.          │
    │     escrowOpened                       │
    │   • safeAddress = 0x0...0 placeholder  │
    │   • arbiter     = 0x0...0 placeholder  │
@@ -126,7 +126,7 @@ This aligns with B2B norms (manufacturers regularly get paid Net-30 after delive
 
 Two lexicons updated from `x-bootstrap: true` auto-generated stubs to proper schemas in the same PR as this ADR:
 
-### `ai.gftd.apps.tsukuru.productionOrder.createProductionOrder`
+### `app.etzhayyim.apps.tsukuru.productionOrder.createProductionOrder`
 
 Old (bootstrap):
 ```json
@@ -149,7 +149,7 @@ New:
 
 Also adds `escrowIntentUri`, `estimatedCompletion`, etc. to the output schema.
 
-### `ai.gftd.apps.tsukuru.productionOrder.cancelProductionOrder`
+### `app.etzhayyim.apps.tsukuru.productionOrder.cancelProductionOrder`
 
 Old (bootstrap):
 ```json
@@ -186,7 +186,7 @@ These lexicons are simultaneously SSoT in vendor `00-contracts/lexicons/ai/gftd/
 - **No actual escrow protection until SDK v0.2.** A malicious manufacturer can't be force-refunded by an arbiter today — buyer's recourse before delivery is only "cancel and trust the record". Mitigation: only do business with manufacturers carrying reputable etzhayyim DID + community trust signals.
 - **`safeAddress = 0x0...0` is misleading.** Naive readers might think there's an actual Safe at that address. Mitigation: README documents the placeholder explicitly, and the `escrowOpened.json` lexicon description in this PR is reworded to be clearer.
 - **Buyer commitment is record-level only.** A buyer can ignore the intent and never call `pay()` at delivery. Mitigation: manufacturer-side delivery handler will require pay() before marking delivered (Phase 2 next PR).
-- **`escrowRefunded` lexicon doesn't exist yet.** The refund writes to `ai.gftd.apps.payment.escrowRefunded` but there's no Lexicon JSON for it yet. Filed as inline TODO in `escrow.ts`; PDS validator will throw `Lexicon not found` until the JSON is added. Sub-PR adds the lexicon before any real deploy.
+- **`escrowRefunded` lexicon doesn't exist yet.** The refund writes to `app.etzhayyim.apps.payment.escrowRefunded` but there's no Lexicon JSON for it yet. Filed as inline TODO in `escrow.ts`; PDS validator will throw `Lexicon not found` until the JSON is added. Sub-PR adds the lexicon before any real deploy.
 
 # Alternatives Considered
 

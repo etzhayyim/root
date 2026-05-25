@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bpmn.listProcesses",
+  "id": "app.etzhayyim.apps.bpmn.listProcesses",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yorishiroNuro.claimCashback",
+  "id": "app.etzhayyim.apps.yorishiroNuro.claimCashback",
   "defs": {
     "main": {
       "type": "procedure",

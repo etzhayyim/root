@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.emitImsBillingEvent",
+  "id": "app.etzhayyim.apps.telecom.emitImsBillingEvent",
   "defs": {
     "main": {
       "type": "procedure",

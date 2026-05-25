@@ -28,7 +28,7 @@ pod rewrite is Phase 2 follow-up (deferred per user direction 2026-05-21
 | Primary DID | `did:web:ransomwatch.etzhayyim.com` |
 | nanoid | `r4ns0w4t01` |
 | performerType | service |
-| NSID prefix | `ai.gftd.apps.ransomwatch.*` |
+| NSID prefix | `app.etzhayyim.apps.ransomwatch.*` |
 | Tier | T3 (edge dispatcher) |
 | TLP | WHITE only (AMBER/RED dropped before exposure) |
 
@@ -43,7 +43,7 @@ pod rewrite is Phase 2 follow-up (deferred per user direction 2026-05-21
 
 ## Substrate (etzhayyim — RW-free per ADR-2605172000)
 
-| Concern | Vendor (gftd.co.jp) | etzhayyim (this repo) |
+| Concern | Vendor (etzhayyim.com) | etzhayyim (this repo) |
 |---|---|---|
 | Write path | `createKyselyDb` → RisingWave `vertex_ransomwatch_*` | PDS XRPC `com.atproto.repo.createRecord` against `ai.etzhayyim.apps.ransomwatch.*` (Phase 2 rewrite) |
 | Read path | Hyperdrive + Kysely | `mst-projector` indexed views (Phase 2) |

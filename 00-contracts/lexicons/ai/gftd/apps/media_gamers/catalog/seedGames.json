@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.media_gamers.catalog.seedGames",
+  "id": "app.etzhayyim.apps.media_gamers.catalog.seedGames",
   "defs": {
     "main": {
       "type": "procedure",

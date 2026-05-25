@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.miningOperation.registerMine",
+  "id": "app.etzhayyim.apps.miningOperation.registerMine",
   "defs": {
     "main": {
       "type": "procedure",

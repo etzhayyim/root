@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.usStateDept.coordinateHkLink",
+  "id": "app.etzhayyim.apps.usStateDept.coordinateHkLink",
   "defs": {
     "main": {
       "type": "procedure",

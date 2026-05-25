@@ -47,7 +47,7 @@ def bunseki_arch(ctx: click.Context, pds: str | None, workspace_dir: str | None,
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.bunseki.getArchAnalysis",
+            f"{pds_url}/xrpc/app.etzhayyim.bunseki.getArchAnalysis",
             headers=_auth_headers(), timeout=60,
         )
         resp.raise_for_status()
@@ -400,7 +400,7 @@ def bunseki_bi(pds: str | None, metric: str, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.bunseki.getBIMetrics",
+            f"{pds_url}/xrpc/app.etzhayyim.bunseki.getBIMetrics",
             params={"metric": metric} if metric else {},
             headers=_auth_headers(), timeout=60,
         )
@@ -423,7 +423,7 @@ def bunseki_domain(pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/ai.gftd.bunseki.getDomainAnalysis",
+            f"{pds_url}/xrpc/app.etzhayyim.bunseki.getDomainAnalysis",
             headers=_auth_headers(), timeout=60,
         )
         resp.raise_for_status()

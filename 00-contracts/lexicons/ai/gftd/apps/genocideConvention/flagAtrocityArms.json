@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.genocideConvention.flagAtrocityArms",
+  "id": "app.etzhayyim.apps.genocideConvention.flagAtrocityArms",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.pds.importRepo",
+  "id": "app.etzhayyim.pds.importRepo",
   "description": "Import a repository. Superset of com.atproto.repo.importRepo — accepts both CAR data and JSON wrapper.",
   "defs": {
     "main": {
@@ -17,7 +17,7 @@
             "did": {
               "type": "string",
               "format": "did",
-              "description": "GFTD extension: target DID for import"
+              "description": "etzhayyim extension: target DID for import"
             }
           },
           "required": [

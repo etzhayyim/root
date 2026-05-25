@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.inquiryCommission.flagAccessDenial",
+  "id": "app.etzhayyim.apps.inquiryCommission.flagAccessDenial",
   "defs": {
     "main": {
       "type": "procedure",

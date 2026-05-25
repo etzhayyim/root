@@ -80,7 +80,7 @@ to-be-settled mechanism, with the peer transport being the only
 genuinely new decision:
 
 ```
-L5  Authority         : ERC-725 root + ERC-8004 GftdAgentRegistry +
+L5  Authority         : ERC-725 root + ERC-8004 etzhayyimAgentRegistry +
                         AdherentRegistry + AgentAuthorityToken
                         (Base L2; ERC-1271 multi-controller; AT Protocol mirrors)
         ↑ binds
@@ -137,7 +137,7 @@ L1  App protocol      : AT Protocol XRPC + Lexicons (00-contracts/lexicons/)
     }
   ],
   "capabilities": [
-    { "id": "ai.gftd.apps.substrate.datasetPin", "scope": "0x<aat-scope-hash>" }
+    { "id": "app.etzhayyim.apps.substrate.datasetPin", "scope": "0x<aat-scope-hash>" }
   ]
 }
 ```

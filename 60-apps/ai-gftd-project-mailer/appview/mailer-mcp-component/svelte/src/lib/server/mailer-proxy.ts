@@ -7,7 +7,7 @@ const DISPATCHER_FALLBACK_URLS = [
   'http://149.28.89.211:8080',
   'http://45.77.121.69:8080',
 ];
-const NSID_PREFIX = 'ai.gftd.apps.mailer.';
+const NSID_PREFIX = 'app.etzhayyim.apps.mailer.';
 const PDS_ORIGIN = 'https://atproto.etzhayyim.com';
 
 type SecretBinding = { get(): Promise<string> };
@@ -65,10 +65,10 @@ export async function proxyXrpc(
 }
 
 async function directMailerRead(nsid: string, url: URL): Promise<Response | null> {
-  if (nsid === 'ai.gftd.apps.mailer.health') {
+  if (nsid === 'app.etzhayyim.apps.mailer.health') {
     return json({ ok: true, app: 'mailer', ts: new Date().toISOString() });
   }
-  if (nsid === 'ai.gftd.apps.mailer.listBindings') {
+  if (nsid === 'app.etzhayyim.apps.mailer.listBindings') {
     return json({ items: [], count: 0 });
   }
   return null;

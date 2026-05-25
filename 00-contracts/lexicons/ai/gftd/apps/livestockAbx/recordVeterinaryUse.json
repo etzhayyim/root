@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.livestockAbx.recordVeterinaryUse",
+  "id": "app.etzhayyim.apps.livestockAbx.recordVeterinaryUse",
   "defs": {
     "main": {
       "type": "procedure",

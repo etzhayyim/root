@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gyosei.processCase",
+  "id": "app.etzhayyim.apps.gyosei.processCase",
   "defs": {
     "main": {
       "type": "procedure",

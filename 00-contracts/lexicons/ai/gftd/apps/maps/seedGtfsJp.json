@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.seedGtfsJp",
+  "id": "app.etzhayyim.apps.maps.seedGtfsJp",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Seed GTFS-JP coverage by asking site.etzhayyim.com to crawl the gtfs.jp aggregator + transit-agency domains. WET/WAT records flow back into maps via the standard subscribeRepos pipeline; the aggregator's per-prefecture feed-zip URLs become CollectionJob rows that are then ingested by the K8s GTFS-JP dumper (see ai.gftd.apps.maps.bulkRefreshGtfsJp).",
+      "description": "Seed GTFS-JP coverage by asking site.etzhayyim.com to crawl the gtfs.jp aggregator + transit-agency domains. WET/WAT records flow back into maps via the standard subscribeRepos pipeline; the aggregator's per-prefecture feed-zip URLs become CollectionJob rows that are then ingested by the K8s GTFS-JP dumper (see app.etzhayyim.apps.maps.bulkRefreshGtfsJp).",
       "input": {
         "encoding": "application/json",
         "schema": {

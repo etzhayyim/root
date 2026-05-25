@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.refinerProduct.scheduleOffload",
+  "id": "app.etzhayyim.apps.refinerProduct.scheduleOffload",
   "defs": {
     "main": {
       "type": "procedure",

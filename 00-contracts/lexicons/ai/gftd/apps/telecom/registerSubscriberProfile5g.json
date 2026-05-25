@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.registerSubscriberProfile5g",
+  "id": "app.etzhayyim.apps.telecom.registerSubscriberProfile5g",
   "defs": {
     "main": {
       "type": "procedure",

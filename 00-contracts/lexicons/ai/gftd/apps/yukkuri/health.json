@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yukkuri.health",
+  "id": "app.etzhayyim.apps.yukkuri.health",
   "defs": {
     "main": {
       "type": "procedure",

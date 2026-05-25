@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airDcs.issueDepartureControl",
+  "id": "app.etzhayyim.apps.airDcs.issueDepartureControl",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.seafarerAcademy.logTrainingCourse",
+  "id": "app.etzhayyim.apps.seafarerAcademy.logTrainingCourse",
   "defs": {
     "main": {
       "type": "procedure",

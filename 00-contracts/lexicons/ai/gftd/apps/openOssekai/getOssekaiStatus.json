@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOssekai.getOssekaiStatus",
+  "id": "app.etzhayyim.apps.openOssekai.getOssekaiStatus",
   "defs": {
     "main": {
       "type": "query",

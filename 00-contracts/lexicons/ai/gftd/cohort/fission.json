@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.cohort.fission",
+  "id": "app.etzhayyim.cohort.fission",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oshikatsu.getContent",
+  "id": "app.etzhayyim.apps.oshikatsu.getContent",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.treasuryRulemaking.recordRule",
+  "id": "app.etzhayyim.apps.treasuryRulemaking.recordRule",
   "defs": {
     "main": {
       "type": "procedure",

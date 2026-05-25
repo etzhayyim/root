@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.judiciaryIndependence.flagCourtPackingEvent",
+  "id": "app.etzhayyim.apps.judiciaryIndependence.flagCourtPackingEvent",
   "defs": {
     "main": {
       "type": "procedure",

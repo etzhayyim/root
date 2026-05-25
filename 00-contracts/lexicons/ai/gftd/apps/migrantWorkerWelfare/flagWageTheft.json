@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.migrantWorkerWelfare.flagWageTheft",
+  "id": "app.etzhayyim.apps.migrantWorkerWelfare.flagWageTheft",
   "defs": {
     "main": {
       "type": "procedure",

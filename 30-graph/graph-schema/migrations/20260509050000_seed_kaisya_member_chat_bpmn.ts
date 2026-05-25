@@ -7,7 +7,7 @@ import { sql } from "kysely";
 /**
  * Seed BPMN process_def + lexicon binding for kaisya.memberChat.
  *
- * XRPC ai.gftd.apps.kaisya.memberChat → kaisya_member_chat BPMN →
+ * XRPC app.etzhayyim.apps.kaisya.memberChat → kaisya_member_chat BPMN →
  * kaisya.member.chat task → LangGraph kaisya-member-assistant.
  *
  * Note: kaisya_outlook_auth_callback is NOT a Zeebe process — it lives
@@ -23,13 +23,13 @@ const ownerDid = "did:web:kaisya.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.kaisya";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kaisya-member-chat-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-member-chat-v1",
   bpmnProcessId: "kaisya_member_chat",
   sourcePath: "00-contracts/bpmn/ai/gftd/kaisya/memberChat.bpmn",
 };
 const BINDING = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kaisya-member-chat-xrpc-v1",
-  nsid: "ai.gftd.apps.kaisya.memberChat",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaisya-member-chat-xrpc-v1",
+  nsid: "app.etzhayyim.apps.kaisya.memberChat",
   bpmnProcessId: "kaisya_member_chat",
   resultTimeoutMs: 120_000,
 };

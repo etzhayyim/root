@@ -29,7 +29,7 @@
 #      - 3 new L4 ingest scripts under 70-tools/scripts/gov/ emitting 421
 #        demonstrator records against app.etzhayyim.gov.agency
 #      - 3 L3 app substrate-ports (ai-gftd-project-{gov,lawfirm-admin,
-#        legal-entity}) at edge layer; runtime gftd.ai residue zero; package
+#        legal-entity}) at edge layer; runtime etzhayyim.com residue zero; package
 #        rename deferred to ADR-2605214000 §3 atomic cutover wave
 #      - 3 L5 Pregel cell scaffolds under 20-actors/magatama/cells/{member_registry,
 #        religious_marriage,religious_corp_taxation}/ with Council-gated cell.py
@@ -335,7 +335,7 @@ tunnel_id = "178e0a1b-dd7e-480e-bb01-eb100524a58e"
 created_at = "2026-05-17T12:09:00Z"
 
 # ─── Email Routing (interim, pre-openmail per ADR-2605172200) ─────────
-# Forward *@etzhayyim.com → jun@gftd.group via Cloudflare Email Routing.
+# Forward *@etzhayyim.com → jun@etzhayyim.com via Cloudflare Email Routing.
 # This is a temporary forward-only bridge until the MST-native openmail
 # protocol (ADR-2605172200) ships its own SMTP bridge daemon.
 
@@ -347,7 +347,7 @@ account_id = "4da88288dc30d9ee257f319d3c33ecf0"
 account_name = "ai-gftd-cloud"
 provider = "Cloudflare Email Routing"
 mode = "forward-only"
-destination = "jun@gftd.group"
+destination = "jun@etzhayyim.com"
 destination_id = "bf3fc6a848ae481496096a36a57055d1"
 destination_verified_at = "2026-05-19T13:33:59Z"
 catch_all_rule_id = "3cabde84c7574cd581c1ad13db8bb277"
@@ -578,7 +578,7 @@ reference_cell_node = "levi"
 reference_cell_trigger = "cron */5 * * * *"
 reference_cell_healthz_port = 13028  # registered in cells.toml; sibling of joucho 13027
 cells_toml_path = "50-infra/cluster/murakumo/cell-runner/cells.toml"
-mst_listener_nsid_target = "ai.gftd.apps.etzhayyim.langserver.health"  # pending lexicon registration
+mst_listener_nsid_target = "app.etzhayyim.apps.etzhayyim.langserver.health"  # pending lexicon registration
 lexicon_status = "deferred (00-contracts/lexicons/app/etzhayyim/langserver/ unregistered as of 2026-05-21)"
 helpers_available = ["initialize", "shutdown", "hover", "definition", "references", "rename"]
 transport_default = "tcp"  # mesh-IP path; "unix" available for same-host cells
@@ -817,7 +817,7 @@ path = "90-docs/adr/2605191206-ameno-long-term-memory-vault.md"
 id = "2605191229"
 title = "Ameno headless daemon (Path A) — Bun/Node + Hono + LangGraph + Ollama"
 status = "proposed"
-status_note = "真の 常駐化 path A. @gftd/ameno-daemon under 60-apps/.../daemon. Same graph as svelte appview (reflection + active inference lexical + ReAct tools without memory vault) driven by Ollama instead of MediaPipe. FileCheckpointer persists state to ~/.ameno/checkpointer.json. launchd plist for macOS auto-start, systemd unit follow-up. Python pymagatama port = Path B (separate ADR)."
+status_note = "真の 常駐化 path A. @etzhayyim/ameno-daemon under 60-apps/.../daemon. Same graph as svelte appview (reflection + active inference lexical + ReAct tools without memory vault) driven by Ollama instead of MediaPipe. FileCheckpointer persists state to ~/.ameno/checkpointer.json. launchd plist for macOS auto-start, systemd unit follow-up. Python pymagatama port = Path B (separate ADR)."
 path = "90-docs/adr/2605191229-ameno-daemon-path-a-bun-langgraph.md"
 
 [[adrs]]
@@ -931,7 +931,7 @@ path = "90-docs/adr/2605192115-etzhayyim-non-profit-donation-only-no-ads.md"
 id = "2605192130"
 title = "etzhayyim 10% Tithe — donation / kisha 受領時の Public Fund 自動再分配 (constitutional constant 1000 bps)"
 status = "proposed"
-status_note = "TitheRouter.sol (Base L2) で `route()` に grossAmount → 90% recipient + 10% Public Fund の atomic split。tithe Lexicon (ai.gftd.apps.payment.tithe) + `Etzhayyim.pay()` 内部 rewire。Kisha (BI) は例外で 0%。"
+status_note = "TitheRouter.sol (Base L2) で `route()` に grossAmount → 90% recipient + 10% Public Fund の atomic split。tithe Lexicon (app.etzhayyim.apps.payment.tithe) + `Etzhayyim.pay()` 内部 rewire。Kisha (BI) は例外で 0%。"
 path = "90-docs/adr/2605192130-etzhayyim-tithe-redistribution.md"
 
 [[adrs]]
@@ -1009,7 +1009,7 @@ path = "90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md"
 id = "2605201400"
 title = "etzhayyim kuni-umi (国生み) — planetary-scale infrastructure robotics fleet actor"
 status = "proposed"
-status_note = "labor_liberation pillar の最大 throughput path。20-actors/kuni-umi/ (Tier B per-domain leader) + 6 cells (site_survey / deployment_planning / construction_orchestration / commissioning / audit_witness / decommission) + 6 lexicons (ai.gftd.apps.etzhayyim.kuniUmi.*) + 3 DMN (jurisdiction-eligibility / counterparty-classification / proportionality-check) + BPMN scaffold。open-* utility lexicons (denki/gas/water/network/power/rail/airplane/ports) × open-robo (Giemon Otete/Mimi/Te/Atama) × open-ot (WASM PLC IEC 61499) × UNSPSC 18,345 agent fleet を貫通する施工 workflow を 4 phase Pregel super-step で orchestrate。Land sovereignty (terrestrial + ocean + river + atmosphere + orbit) + Charter Rider §2 + 三層 enforcement + Witness N>=2 invariant を constitutional gate として実装。S0 (本 ADR) → S1 solo survey → S2 single-utility prototype (community microgrid) → S3 multi-utility → S4 multi-site fleet → S5 extended sovereignty"
+status_note = "labor_liberation pillar の最大 throughput path。20-actors/kuni-umi/ (Tier B per-domain leader) + 6 cells (site_survey / deployment_planning / construction_orchestration / commissioning / audit_witness / decommission) + 6 lexicons (app.etzhayyim.apps.etzhayyim.kuniUmi.*) + 3 DMN (jurisdiction-eligibility / counterparty-classification / proportionality-check) + BPMN scaffold。open-* utility lexicons (denki/gas/water/network/power/rail/airplane/ports) × open-robo (Giemon Otete/Mimi/Te/Atama) × open-ot (WASM PLC IEC 61499) × UNSPSC 18,345 agent fleet を貫通する施工 workflow を 4 phase Pregel super-step で orchestrate。Land sovereignty (terrestrial + ocean + river + atmosphere + orbit) + Charter Rider §2 + 三層 enforcement + Witness N>=2 invariant を constitutional gate として実装。S0 (本 ADR) → S1 solo survey → S2 single-utility prototype (community microgrid) → S3 multi-utility → S4 multi-site fleet → S5 extended sovereignty"
 path = "90-docs/adr/2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md"
 
 [[adrs]]
@@ -1065,7 +1065,7 @@ path = "90-docs/adr/2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-s
 id = "2605222330"
 title = "etzhayyim.com substrate violation — transition window"
 status = "accepted"
-status_note = "Documents the current transient Charter §2 substrate violation introduced this session to unblock the yoro UI on etzhayyim.com. Five fixes shipped (bundle hashes / ad-tech URL scrub / xrpc-proxy worker / Kysely guard soften / apex /xrpc routing + GET→POST normalization) restore visible UI but at the cost of: (a) 100% gftd.ai DID corpus (0 etzhayyim.com actors) still served from RisingWave via softened ADR-2605111200 guard, (b) MST + IPFS + Base L2 anchor substrate not yet wired, (c) deployed bundle still contains AdSense/GA4/ExoClick code paths (URLs noop'd at runtime but source not yet rebuilt). Five hard exit criteria recorded. Authoritative for the runtime substrate state until superseded."
+status_note = "Documents the current transient Charter §2 substrate violation introduced this session to unblock the yoro UI on etzhayyim.com. Five fixes shipped (bundle hashes / ad-tech URL scrub / xrpc-proxy worker / Kysely guard soften / apex /xrpc routing + GET→POST normalization) restore visible UI but at the cost of: (a) 100% etzhayyim.com DID corpus (0 etzhayyim.com actors) still served from RisingWave via softened ADR-2605111200 guard, (b) MST + IPFS + Base L2 anchor substrate not yet wired, (c) deployed bundle still contains AdSense/GA4/ExoClick code paths (URLs noop'd at runtime but source not yet rebuilt). Five hard exit criteria recorded. Authoritative for the runtime substrate state until superseded."
 path = "90-docs/adr/2605222330-etzhayyim-com-substrate-violation-transition-window.md"
 
 [[adrs]]
@@ -1079,7 +1079,7 @@ path = "90-docs/adr/2605231100-karute-emr-phase1.md"
 id = "2605231400"
 title = "karute consent capability + iryo billing bridge"
 status = "proposed"
-status_note = "Closes the substrate hop between etzhayyim (PHI custody, USDC self-pay) and vendor iryo.gftd.ai (RisingWave + Stripe + DPC/DRG insurance billing) without weakening the 3-axis-split rule (ADR-2605172400). Introduces `app.etzhayyim.consent.capability` — an Ed25519-signed delegation token (granter/grantee/purpose/scope/expiresAt/constraints) stored as a public AT Protocol record in the granter's PDS. 6 purpose values (insurance-billing / second-opinion / data-portability / research-deidentified / emergency-disclosure / legal-disclosure). XRPC surface (4): grantConsent / revokeConsent / listConsent / requestIryoBilling. Actor manifest pipelines added for all 4. PatientPortalView grant/revoke UI integrated. Single primitive serves clinician-peer second opinion, vendor billing bridge, patient-initiated portability, research opt-in. Constitutional guarantees preserved: vendor calls remain progressive enhancement; substrate boundary unchanged; capability metadata public (signature verifiable) but record ciphertext still requires key-wrap. Revocation observable but not retroactive — mitigated by audit webhook + downstream-redistribution constraint."
+status_note = "Closes the substrate hop between etzhayyim (PHI custody, USDC self-pay) and vendor iryo.etzhayyim.com (RisingWave + Stripe + DPC/DRG insurance billing) without weakening the 3-axis-split rule (ADR-2605172400). Introduces `app.etzhayyim.consent.capability` — an Ed25519-signed delegation token (granter/grantee/purpose/scope/expiresAt/constraints) stored as a public AT Protocol record in the granter's PDS. 6 purpose values (insurance-billing / second-opinion / data-portability / research-deidentified / emergency-disclosure / legal-disclosure). XRPC surface (4): grantConsent / revokeConsent / listConsent / requestIryoBilling. Actor manifest pipelines added for all 4. PatientPortalView grant/revoke UI integrated. Single primitive serves clinician-peer second opinion, vendor billing bridge, patient-initiated portability, research opt-in. Constitutional guarantees preserved: vendor calls remain progressive enhancement; substrate boundary unchanged; capability metadata public (signature verifiable) but record ciphertext still requires key-wrap. Revocation observable but not retroactive — mitigated by audit webhook + downstream-redistribution constraint."
 path = "90-docs/adr/2605231400-karute-consent-capability-iryo-bridge.md"
 
 [[adrs]]
@@ -1114,14 +1114,14 @@ path = "90-docs/adr/2605232000-agent-led-autonomous-deploy.md"
 id = "2605231230"
 title = "etzhayyim-esign actor — DID-bound, MST-recorded, L2-anchored document signing"
 status = "proposed"
-status_note = "Religious-corp native replacement for DocuSign / Adobe Sign / RazorpaySign. Phase 0 closed this session: 7 lexicons under app.etzhayyim.esign.* (envelope/signature/completedEvent/anchoredEvent records + requestEnvelope/signEnvelope/declineEnvelope procedures), actor scaffold at 20-actors/etzhayyim-esign/ (procedures return 501 NotYetImplemented), DID Worker scaffold + deployed at 50-infra/etzhayyim-esign-did-web/ (route esign.etzhayyim.com/.well-known/did.json bound at CF, Worker version cfb3b6c0). DNS for esign.etzhayyim.com (AAAA @=100:: proxied) still missing on the etzhayyim.com zone — Worker unreachable from public DNS until that one-time CF dashboard step lands. gftd lawfirm DocuSign passthrough (ai.gftd.apps.lawfirm.eSign*) retained but scoped to fiat receipts + India counsel intake only (ADR-2605192115 §4); religious-corp documents MUST use app.etzhayyim.esign.*. Phase 1 wires requestEnvelope through @etzhayyim/sdk + ipfs-pinner for Bootstrap Council Seats 2-5 RFP minutes (deadline 2026-06-19); Phase 2 adds Base Sepolia anchor via EsignAnchor.sol; Phase 3 adds mainnet + geth-private mirror; Phase 4 integrates Adherent SBT mint affirmation."
+status_note = "Religious-corp native replacement for DocuSign / Adobe Sign / RazorpaySign. Phase 0 closed this session: 7 lexicons under app.etzhayyim.esign.* (envelope/signature/completedEvent/anchoredEvent records + requestEnvelope/signEnvelope/declineEnvelope procedures), actor scaffold at 20-actors/etzhayyim-esign/ (procedures return 501 NotYetImplemented), DID Worker scaffold + deployed at 50-infra/etzhayyim-esign-did-web/ (route esign.etzhayyim.com/.well-known/did.json bound at CF, Worker version cfb3b6c0). DNS for esign.etzhayyim.com (AAAA @=100:: proxied) still missing on the etzhayyim.com zone — Worker unreachable from public DNS until that one-time CF dashboard step lands. gftd lawfirm DocuSign passthrough (app.etzhayyim.apps.lawfirm.eSign*) retained but scoped to fiat receipts + India counsel intake only (ADR-2605192115 §4); religious-corp documents MUST use app.etzhayyim.esign.*. Phase 1 wires requestEnvelope through @etzhayyim/sdk + ipfs-pinner for Bootstrap Council Seats 2-5 RFP minutes (deadline 2026-06-19); Phase 2 adds Base Sepolia anchor via EsignAnchor.sol; Phase 3 adds mainnet + geth-private mirror; Phase 4 integrates Adherent SBT mint affirmation."
 path = "90-docs/adr/2605231230-etzhayyim-esign-actor-did-bound-mst-anchored.md"
 
 [[adrs]]
 id = "2605231451"
 title = "Level System Unification — society6 Kyu/Dan canonical scale + 信者 7段 + dojo 帯 + joucho S-D 正規化 + 自他非分離体験ゲート"
 status = "proposed"
-status_note = "Person rank の SoT を society6 Kyu 6 → Dan 10 に固定。信者 7段 (MEMBERS.md 誓/修/献/証/護/議/老) と dojo 帯 (白〜Shihan3 = Kyu 7-1 + Dan 1-5 + Shihan 1-3) を society6 Kyu/Dan に正規化。joucho S-D は object-axis として person rank に非変換 (Wellbecoming = 動的軌跡 invariant)。Elder ↔ Dan 10 peg を信者経由のみに限定し、Council/Elder の意思決定権を Charter 軌道に揃える。D6 自他非分離体験ゲート (Non-Duality Embodiment Gate) を Kyu 1 → Dan 1 の一度きり追加: 反個人主義 ontology / 縁起 / 万人祭司 を概念ではなく身体で知っていることを Dan 領域 entry の前提とする。Accepted methods は Default path (瞑想 Vipassana/Zazen/内観, ブレスワーク Holotropic/SOMA/Wim Hof, 感覚遮断, 断食/修行) + Sacramental path (アヤワスカ Santo Daime/UDV/curandero, シロシビン 米国オレゴン/豪/カナダ例外, ペヨーテ/サン・ペドロ NAC等) — Council Lv6+ ≥3 multisig で拡張可。Attestation は新 Lexicon ai.gftd.apps.etzhayyim.nonDualityAttestation (本 ADR で予約) を self-attested AT Record + (optional but recommended) Dan+ witness DID counter-signature で記録 (信者 Lv4 証 shou と同 pattern)。§D6.5 法的明示: 日本国内 DMT/シロシビンは controlled、§1.12 Transparent Religious Force routing-around は個人薬物使用を免責しない、Default path のみで完全通過可能。D6.7 Council challenge は ≥30-day appeal window + Council ≥3 multisig 判定で invalid 時は Dan-derived 権限失効。:S6Rank ノードに dojo_belt / shinja_lv / non_duality_attested を derived property として保持、:NonDualityAttestation label を新設。Follow-up: Lexicon JSON 起草、society6 watcher で EtzhayyimMembership.join() + nonDualityAttestation を subscribe、dojo UI と society6 UI の Dan 表記一致、Yoro Auth Gate の 信者 CTA → joining ritual wiring (mode=adherent flow)。"
+status_note = "Person rank の SoT を society6 Kyu 6 → Dan 10 に固定。信者 7段 (MEMBERS.md 誓/修/献/証/護/議/老) と dojo 帯 (白〜Shihan3 = Kyu 7-1 + Dan 1-5 + Shihan 1-3) を society6 Kyu/Dan に正規化。joucho S-D は object-axis として person rank に非変換 (Wellbecoming = 動的軌跡 invariant)。Elder ↔ Dan 10 peg を信者経由のみに限定し、Council/Elder の意思決定権を Charter 軌道に揃える。D6 自他非分離体験ゲート (Non-Duality Embodiment Gate) を Kyu 1 → Dan 1 の一度きり追加: 反個人主義 ontology / 縁起 / 万人祭司 を概念ではなく身体で知っていることを Dan 領域 entry の前提とする。Accepted methods は Default path (瞑想 Vipassana/Zazen/内観, ブレスワーク Holotropic/SOMA/Wim Hof, 感覚遮断, 断食/修行) + Sacramental path (アヤワスカ Santo Daime/UDV/curandero, シロシビン 米国オレゴン/豪/カナダ例外, ペヨーテ/サン・ペドロ NAC等) — Council Lv6+ ≥3 multisig で拡張可。Attestation は新 Lexicon app.etzhayyim.apps.etzhayyim.nonDualityAttestation (本 ADR で予約) を self-attested AT Record + (optional but recommended) Dan+ witness DID counter-signature で記録 (信者 Lv4 証 shou と同 pattern)。§D6.5 法的明示: 日本国内 DMT/シロシビンは controlled、§1.12 Transparent Religious Force routing-around は個人薬物使用を免責しない、Default path のみで完全通過可能。D6.7 Council challenge は ≥30-day appeal window + Council ≥3 multisig 判定で invalid 時は Dan-derived 権限失効。:S6Rank ノードに dojo_belt / shinja_lv / non_duality_attested を derived property として保持、:NonDualityAttestation label を新設。Follow-up: Lexicon JSON 起草、society6 watcher で EtzhayyimMembership.join() + nonDualityAttestation を subscribe、dojo UI と society6 UI の Dan 表記一致、Yoro Auth Gate の 信者 CTA → joining ritual wiring (mode=adherent flow)。"
 path = "90-docs/adr/2605231451-level-system-unification.md"
 depends_on = ["2605172600", "2605192100", "2605192230"]
 related = [
@@ -1277,7 +1277,7 @@ path = "90-docs/adr/2605242630-baien-federated-r1-webgpu-backward-poc.md"
 id = "2605242500"
 title = "baien ternary silicon + tsukuru fab — religious-corp first-party RTL/装置設計 charter (生命のコア)"
 status = "proposed"
-status_note = "Upper charter for religious-corp自前半導体 ('半導体は生命のコア', user 2026-05-24). 6 decisions: (1) self-design 2 ASICs (iwakura inference / fuigo training) + 8 fab equipment categories with RTL/CAD/mechanical/robotics owned by religious-corp under Apache 2.0 + Charter Rider; (2) tsukuru.etzhayyim.com is the sole orchestration SSoT (NOT tukuru.gftd.ai — vendor stays out of religious-corp silicon orchestration; tsukuru ISIC C26 EUV lane from ADR-0061 is the natural extension); (3) 8-equipment scope mirroring industry vendors (ASML/AMAT/Lam/TEL/Axcelis/Ebara/KLA/Advantest/ASE) with open-source toolchain only (yosys/Verilator/cocotb/SymbiYosys/KiCad/FreeCAD/OpenSCAD/ROS 2); (4) Charter Rider §2(a)(c) Council Lv6+ ≥3 multisig gate via app.etzhayyim.silicon.silenForceReview Lexicon — REQUIRED before chip ships; (5) Phase 1 deliverable = RTL + cocotb sim only, FPGA/MPW/fab build are separate ADRs post-Council; (6) silicon = land-trust-analogue inalienable (no sale, lease to SBT holders only). 4-phase roadmap (Phase 1 scaffold this wave / Phase 2 FPGA / Phase 3 MPW TSMC N5/N3 / Phase 4 Rapidus 2nm 千歳 / Phase 5 自家 fab超長期)."
+status_note = "Upper charter for religious-corp自前半導体 ('半導体は生命のコア', user 2026-05-24). 6 decisions: (1) self-design 2 ASICs (iwakura inference / fuigo training) + 8 fab equipment categories with RTL/CAD/mechanical/robotics owned by religious-corp under Apache 2.0 + Charter Rider; (2) tsukuru.etzhayyim.com is the sole orchestration SSoT (NOT tukuru.etzhayyim.com — vendor stays out of religious-corp silicon orchestration; tsukuru ISIC C26 EUV lane from ADR-0061 is the natural extension); (3) 8-equipment scope mirroring industry vendors (ASML/AMAT/Lam/TEL/Axcelis/Ebara/KLA/Advantest/ASE) with open-source toolchain only (yosys/Verilator/cocotb/SymbiYosys/KiCad/FreeCAD/OpenSCAD/ROS 2); (4) Charter Rider §2(a)(c) Council Lv6+ ≥3 multisig gate via app.etzhayyim.silicon.silenForceReview Lexicon — REQUIRED before chip ships; (5) Phase 1 deliverable = RTL + cocotb sim only, FPGA/MPW/fab build are separate ADRs post-Council; (6) silicon = land-trust-analogue inalienable (no sale, lease to SBT holders only). 4-phase roadmap (Phase 1 scaffold this wave / Phase 2 FPGA / Phase 3 MPW TSMC N5/N3 / Phase 4 Rapidus 2nm 千歳 / Phase 5 自家 fab超長期)."
 path = "90-docs/adr/2605242500-baien-ternary-silicon-and-tsukuru-fab-charter.md"
 
 [[adrs]]
@@ -1390,6 +1390,15 @@ title = "tatekata Wave R3 — Community-scale deployment (reserved, placeholder)
 status = "proposed"
 status_note = "R3 governance ADR (reserved). Community-scale (≤5000m², multi-building campus). Hitogata humanoid integration. 60-day public review. Full 10-node Murakumo fleet."
 path = "90-docs/adr/2605250760-tatekata-construction-r3-community-scale.md (reserved)"
+
+# ─── ameno WebNN inference fast path (ADR-2605252100) ───────────────
+
+[[adrs]]
+id = "2605252100"
+title = "ameno WebNN inference fast path — CoreML / DirectML / NNAPI / Qualcomm AI Engine via the W3C WebNN API"
+status = "accepted"
+status_note = "R0 scaffold landed 2026-05-25 session-close (6 files changed, +49 LoC against existing ameno + 268 LoC new webnn.ts + 340 LoC ADR). Codifies WebNN (W3C CR Draft 2026-05-21) as the inference fast path for ameno + baien, mapping to CoreML (Apple Neural Engine on iPhone 12+ / M-series) / DirectML (Copilot+ PC NPU) / NNAPI → QNN HTP delegate (Snapdragon Hexagon) / NNAPI → TFLite (other Android). 4 hard rules W1..W4: (W1) WebNN is INFERENCE ONLY — training stays on WebGPU per ADR-2605242630 (the 95-op WebNN spec has no backward / gradient / optimizer); (W2) every call site MUST feature-detect via `detectWebnnSupport()` before dispatching; (W3) WebGPU is the universal fallback — Safari/WebKit has no WebNN signal as of 2026-05-25 so iPhone 12+ stays on WebGPU until Apple ships (R2 ADR); (W4) browser picks the native stack — ameno passes `deviceType: 'npu'|'gpu'|'cpu'` and never names CoreML/DirectML/NNAPI explicitly. R0 landed: (a) this ADR; (b) 20-actors/ameno/src/inference/webnn.ts (detectWebnnSupport async UA + MLContext probe across npu/gpu/cpu deviceType / selectInferenceBackend ladder webnn-npu → webnn-gpu → webgpu → wasm / probeAndSelect convenience / dispatchWebnnInference throw-on-use with R1 marker — mirrors train/kernels.ts dispatchLoraForward); (c) `'webnn'` added to InferenceDevice union in inference.ts + R0 honesty guard in loadModel (throws cleanly when device='webnn' until R1 wires ORT WebNN EP); (d) index.ts re-exports (5 symbols + 3 types); (e) package.json `./inference/webnn` export entry; (f) deps.toml + adr/README.md + CLAUDE.md row 44. `tsc --noEmit` clean. No new lexicon, no Pregel cell, no Murakumo placement — client-side only, substrate boundary (ADR-2605172000) untouched. R1 remaining: wire `onnxruntime-web/webnn` EP + MLContext acquisition + session options; flip loadModel(device='webnn') from throw to working; per-device run-log capture across Snapdragon-Chromium / Copilot+ PC / macOS-Chromium 3-device matrix. R2 + R3 wait on Safari/iOS shipping WebNN and Chromium landing direct `qnn` deviceType."
+path = "90-docs/adr/2605252100-ameno-webnn-inference-fast-path.md"
 
 # ─── Oka × MMSheaf multimodal integration (ADR-2605250700) ──────────
 
@@ -1897,7 +1906,7 @@ path = "70-tools/etzhayyim-cli/agent_token.go"
 kind = "go-source"
 version = "0.2.0"
 status = "phase2-shipped"
-description = "e7m agent-token subcommand — mints Ed25519-signed JWS (JWT compact) for scoped per-call deploy/XRPC authority. Single --lxm scope, default TTL 60s (max 3600). Signing key from macOS Keychain (--keychain-service etzhayyim, --keychain-account DID_PRIVATE_KEY_ED25519) or --key-file (raw 32-byte private key, base64url or std). Claim shape: iss/sub/aud/lxm/cap/iat/exp/jti. Audience DID inferred from lxm prefix (ai.gftd.apps.<actor>.* → did:web:<actor>.etzhayyim.com; deploy.cfWorker:<name> → did:web:<name>.etzhayyim.com). Per ADR-2605232000. 4 unit tests in agent_token_test.go: TestSignJWS_RoundTrip / WrongKeyVerifyFails / TestInferAudienceFromLxm (5 cases) / TestRandomHex_Unique (100-sample collision check)."
+description = "e7m agent-token subcommand — mints Ed25519-signed JWS (JWT compact) for scoped per-call deploy/XRPC authority. Single --lxm scope, default TTL 60s (max 3600). Signing key from macOS Keychain (--keychain-service etzhayyim, --keychain-account DID_PRIVATE_KEY_ED25519) or --key-file (raw 32-byte private key, base64url or std). Claim shape: iss/sub/aud/lxm/cap/iat/exp/jti. Audience DID inferred from lxm prefix (app.etzhayyim.apps.<actor>.* → did:web:<actor>.etzhayyim.com; deploy.cfWorker:<name> → did:web:<name>.etzhayyim.com). Per ADR-2605232000. 4 unit tests in agent_token_test.go: TestSignJWS_RoundTrip / WrongKeyVerifyFails / TestInferAudienceFromLxm (5 cases) / TestRandomHex_Unique (100-sample collision check)."
 adr = ["2605232000"]
 
 [[modules]]
@@ -1905,7 +1914,7 @@ path = "70-tools/etzhayyim-cli/capability.go"
 kind = "go-source"
 version = "0.1.0"
 status = "phase2-shipped"
-description = "e7m capability subcommand — full lifecycle for app.etzhayyim.consent.capability records. `issue`: canonical-JSON payload + Ed25519 sign → JWS (no PDS write; caller forwards). `verify`: Ed25519-verify against granter DID document (HTTPS GET /.well-known/did.json OR --did-document local override). Extracts pubkey from JsonWebKey2020 OKP/Ed25519 + Ed25519VerificationKey2020 publicKeyMultibase (built-in base58btc decoder, no math/big dep — keeps binary lean). Detects forged-payload / expired / revoked / wrong-key / malformed-JWS. `revoke`: produces revocation record body (--pds-xrpc forwards). `list`: GET ai.gftd.apps.karute.listConsent. Also exports postAuditEvent(eventBody) used by actor.go for the DEPLOY_EVENT HTTP POST emission to https://audit.etzhayyim.com (async, best-effort, non-fatal). Per ADR-2605231400 + ADR-2605232000 + ADR-2605231700."
+description = "e7m capability subcommand — full lifecycle for app.etzhayyim.consent.capability records. `issue`: canonical-JSON payload + Ed25519 sign → JWS (no PDS write; caller forwards). `verify`: Ed25519-verify against granter DID document (HTTPS GET /.well-known/did.json OR --did-document local override). Extracts pubkey from JsonWebKey2020 OKP/Ed25519 + Ed25519VerificationKey2020 publicKeyMultibase (built-in base58btc decoder, no math/big dep — keeps binary lean). Detects forged-payload / expired / revoked / wrong-key / malformed-JWS. `revoke`: produces revocation record body (--pds-xrpc forwards). `list`: GET app.etzhayyim.apps.karute.listConsent. Also exports postAuditEvent(eventBody) used by actor.go for the DEPLOY_EVENT HTTP POST emission to https://audit.etzhayyim.com (async, best-effort, non-fatal). Per ADR-2605231400 + ADR-2605232000 + ADR-2605231700."
 adr = ["2605231400", "2605231700", "2605232000"]
 
 [[modules]]
@@ -2169,7 +2178,7 @@ path = "20-actors/magatama/sdk/magatama-host-sdk/src/langserver-xrpc-handler.ts"
 kind = "ts-host-sdk-helper"
 version = "0.1.0"
 status = "active"
-description = "Hono XRPC handler exposing one taxonomy as /xrpc/ai.gftd.apps.{taxonomy}.*. Delegates to the actor wrapper. 10/10 vitest. Phase 7."
+description = "Hono XRPC handler exposing one taxonomy as /xrpc/app.etzhayyim.apps.{taxonomy}.*. Delegates to the actor wrapper. 10/10 vitest. Phase 7."
 adr = ["2605180900"]
 exports_subpath = "./langserver-xrpc-handler"
 
@@ -2216,7 +2225,7 @@ path = "20-actors/ameno"
 kind = "ts-engine-package"
 version = "0.1.0"
 status = "active"
-package = "@gftd/ameno"
+package = "@etzhayyim/ameno"
 description = "Browser WebGPU inference engine. transformers.js Gemma/Baien ONNX wrapper + LoRA stub + RAG-LoRA facade. Re-exported by the svelte appview's lib/inference.ts. MediaPipe LiteRT lives separately in the appview (see ADR-2605190824) to keep this package free of the @mediapipe dep."
 adr = ["2605190824"]
 exports = ["./inference", "./lora-runtime", "./rag-lora"]
@@ -2264,7 +2273,7 @@ path = "60-apps/ai-gftd-project-ameno/daemon"
 kind = "tier-2-host-daemon"
 version = "0.1.0"
 status = "active"
-package = "@gftd/ameno-daemon"
+package = "@etzhayyim/ameno-daemon"
 description = "Headless system-resident daemon (Bun/Node + Hono + LangGraph + Ollama). Same StateGraph as the svelte appview (reflection + active inference lexical + ReAct tools without memory vault) but server-side. FileCheckpointer to ~/.ameno/checkpointer.json. launchd plist for macOS auto-start. HTTP endpoints: /healthz, /workerInfo, /threads/:tid/{invoke,stream,state}. Runs alongside (not replaces) the tab-resident svelte appview — same DID namespace, different instance kind (did:web:host:* vs did:web:browser:*). Path A of ADR-2605191229; Path B is the Python pymagatama port."
 adr = ["2605191229", "2605191135"]
 default_port = 12480
@@ -2297,7 +2306,7 @@ domains = ["ameno.etzhayyim.com", "d94d27cb.etzhayyim.com"]
 ui = "vite + svelte 5"
 worker = "Cloudflare Workers (assets binding)"
 dependencies = [
-  "@gftd/ameno (workspace)",
+  "@etzhayyim/ameno (workspace)",
   "@huggingface/transformers@^3.8.1",
   "@mediapipe/tasks-genai@^0.10.27",
   "@langchain/core@^1.1.47",
@@ -2309,12 +2318,12 @@ dependencies = [
 # Implementation status snapshot. Each entry corresponds to a phase in
 # the ADR's 9-phase ordering.
 phases = [
-  { id = "P1", title = "Lexicon contract", status = "complete", pr = 17, note = "9 lexicons under ai.gftd.apps.{unispsc,isic}.*" },
+  { id = "P1", title = "Lexicon contract", status = "complete", pr = 17, note = "9 lexicons under app.etzhayyim.apps.{unispsc,isic}.*" },
   { id = "P2", title = "ISIC fleet generation script", status = "complete", pr = 17, note = "Haiku Batch API runner; ast.parse + top-level graph validation gate" },
   { id = "P3", title = "ISIC fleet first generation run", status = "gated", pr = 0, note = "~$0.30 Anthropic Batch spend; explicit operator approval required" },
   { id = "P4", title = "UNSPSC langserver pod", status = "manifests-ready", pr = 19, note = "K8s Deployment + Service + HPA + Dockerfile; 18,342 agents lazy-loaded" },
   { id = "P5", title = "ISIC langserver pod", status = "manifests-ready", pr = 19, note = "Same shape; empty registry valid until P3 fills agents" },
-  { id = "P6", title = "Magatama actor wrapper", status = "complete", pr = 21, note = "@gftd/magatama-host-sdk/langserver-actor; 12/12 vitest" },
+  { id = "P6", title = "Magatama actor wrapper", status = "complete", pr = 21, note = "@etzhayyim/magatama-host-sdk/langserver-actor; 12/12 vitest" },
   { id = "P7", title = "XRPC handler + AppView", status = "complete", pr = 27, note = "Shared Hono handler + 2 CF Worker entries; 10/10 vitest; bound to unispsc.etzhayyim.com + isic.etzhayyim.com" },
   { id = "P8", title = "MCP server", status = "complete", pr = 22, note = "@etzhayyim/unispsc-isic-mcp; 25/25 vitest; stdio + HTTP" },
   { id = "P9", title = "Anthropic-SDK-backed real classifier", status = "pending", pr = 0, note = "Replaces stub_classifier in router.py; requires ANTHROPIC_API_KEY at runtime" },
@@ -2423,7 +2432,7 @@ path = "20-actors/kuni-umi"
 kind = "langgraph-cell-catalog"
 version = "0.0.1"
 status = "S0-scaffold"
-description = "kuni-umi (国生み) — planetary infrastructure robotics fleet actor (ADR-2605201400)。Tier B per-domain leader。6 cells: site_survey (naphtali) / deployment_planning (zebulun) / construction_orchestration (joseph) / commissioning (simeon) / audit_witness (levi, continuous) / decommission (dan)。6 lexicons under ai.gftd.apps.etzhayyim.kuniUmi.*。3 DMN: jurisdiction-eligibility / counterparty-classification / proportionality-check。BPMN: kuni-umi-deployment-workflow.bpmn (Survey → Plan → Construct → Commission)。Witness N>=2 constitutional invariant。S1+ は別 ADR。"
+description = "kuni-umi (国生み) — planetary infrastructure robotics fleet actor (ADR-2605201400)。Tier B per-domain leader。6 cells: site_survey (naphtali) / deployment_planning (zebulun) / construction_orchestration (joseph) / commissioning (simeon) / audit_witness (levi, continuous) / decommission (dan)。6 lexicons under app.etzhayyim.apps.etzhayyim.kuniUmi.*。3 DMN: jurisdiction-eligibility / counterparty-classification / proportionality-check。BPMN: kuni-umi-deployment-workflow.bpmn (Survey → Plan → Construct → Commission)。Witness N>=2 constitutional invariant。S1+ は別 ADR。"
 adr = ["2605201400", "2605192415", "2605171800", "2605172000", "2605172100", "2605172300", "2605192100", "2605192200", "2605192230", "2605192245", "2605192315", "2605192330", "2605171300"]
 lexicons = "00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi"
 sibling_modules = [
@@ -2758,7 +2767,7 @@ anvil_smoke_chain_id = 31337
 anvil_smoke_addresses = { Constitution = "0x5FbDB2315678afecb367f032d93F642f64180aa3", AdherentRegistry = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", ChartersComplianceRegistry = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", TitheRouter = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", LandRegistry = "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9" }
 
 bootstrap_council_seat1_founder = "Jun Kawasaki (confirmed 2026-05-19)"
-bootstrap_council_seats_2_to_5_status = "RFP open — github.com/etzhayyim/root/discussions + AT Records via ai.gftd.apps.etzhayyim.council-candidate-application"
+bootstrap_council_seats_2_to_5_status = "RFP open — github.com/etzhayyim/root/discussions + AT Records via app.etzhayyim.apps.etzhayyim.council-candidate-application"
 
 repo_root_docs_added = ["CHARTER-RIDER.md", "LANDS.md", "COUNCIL.md", "COUNCIL-BOOTSTRAP-RFP.md"]
 github_issue_templates_added = [".github/ISSUE_TEMPLATE/council-bootstrap-candidate.yml", ".github/ISSUE_TEMPLATE/council-bootstrap-objection.yml"]
@@ -2900,12 +2909,12 @@ phase_4a_publish_state = """GH Packages npm.pkg.github.com publish state (2026-0
 - @etzhayyim/anchor-cron: private=true (operator infra, no publish)
 - @etzhayyim/mst-projector: private=true (operator infra, no publish)
 - @etzhayyim/ipfs-pinner: private=true (operator infra, no publish)
-- @gftd/{xrpc,bpmn-sdk,signal,lexicons-bundle}: BLOCKED on scope-rename decision (gftd npm scope ≠ etzhayyim GH org; need CEO ruling: rename to @etzhayyim/* OR publish to npm public OR separate gftd GH org)"""
+- @etzhayyim/{xrpc,bpmn-sdk,signal,lexicons-bundle}: BLOCKED on scope-rename decision (gftd npm scope ≠ etzhayyim GH org; need CEO ruling: rename to @etzhayyim/* OR publish to npm public OR separate gftd GH org)"""
 phase_4c_roadmap = """Phase 4c (vendor business-app dep switch) is use-case driven and
 NOT a single-session task. Per-app vendor refactor breakdown:
 
 Vendor apps consuming open-scope (per audit 2026-05-18):
-- ai-gftd-project-open-kyber (active code in vendor uses ai.gftd.apps.apqc.*)
+- ai-gftd-project-open-kyber (active code in vendor uses app.etzhayyim.apps.apqc.*)
 - 20-actors/magatama/py/ (10+ Python files reference wellBecoming primitives)
 - 20-actors/magatama/sdk/magatama-host-sdk/ (generated lexicon-nsid-types.ts)
 - 10-protocol/lexicons-bundle (generated lexicons.gen.json)
@@ -2913,19 +2922,19 @@ Vendor apps consuming open-scope (per audit 2026-05-18):
 - 70-tools/config/bpmn-coverage-manifest.json
 - 30-graph/graph-schema/migrations/*_seed_apqc_*.ts
 
-For each consumer: (a) update NSID references ai.gftd.apps.<X>.* → ai.gftd.<X>.*,
+For each consumer: (a) update NSID references app.etzhayyim.apps.<X>.* → app.etzhayyim.<X>.*,
 (b) switch lexicon import from local file path to @etzhayyim/<pkg> npm dep,
 (c) regenerate generated files, (d) run app build + test, (e) deploy to staging.
 Estimated: 1-2 PRs per app, multi-week effort. Start with highest-priority/
 lowest-risk app once a real use case lands."""
 phase_3_wave_1 = """DONE 2026-05-18 — first content-copy wave from vendor monorepo:
 - 60-apps/ai-gftd-project-open-wellbecoming/: PROJECT.jsonld + child-capability-agents-design.md from vendor 60-apps/ai-gftd-project-well-becoming/
-- 00-contracts/lexicons/ai/gftd/apqc/: 4 lexicons (coverageSnapshot, emitEvent, materializeSubprocessDid, materializeSubprocesses) with NSID rename ai.gftd.apps.apqc.* → ai.gftd.apqc.*
-- 00-contracts/lexicons/ai/gftd/sanctions/: 2 of 3 lexicons (getEntry, listUpdates) with NSID rename ai.gftd.apps.sanctions.* → ai.gftd.sanctions.*; screenEntity stays vendor per SPLIT (operator-side AML liability)
+- 00-contracts/lexicons/ai/gftd/apqc/: 4 lexicons (coverageSnapshot, emitEvent, materializeSubprocessDid, materializeSubprocesses) with NSID rename app.etzhayyim.apps.apqc.* → app.etzhayyim.apqc.*
+- 00-contracts/lexicons/ai/gftd/sanctions/: 2 of 3 lexicons (getEntry, listUpdates) with NSID rename app.etzhayyim.apps.sanctions.* → app.etzhayyim.sanctions.*; screenEntity stays vendor per SPLIT (operator-side AML liability)
 Vendor sources NOT yet deleted (Phase 5 task). Vendor consumers still reference old NSID — Phase 4c will migrate."""
 phase_3_wave_2_3 = """DONE 2026-05-18 — bulk content-copy wave 2+3 from vendor monorepo:
 388 lexicon files copied across 30 target dirs; 4 skipped per 3-axis (kyber Stripe + operator-side tenant: provisionTenant, getTenantPlan, recordUsage, reportUsageToStripe).
-All NSIDs renamed: ai.gftd.apps.<X>.* → ai.gftd.<X>.*
+All NSIDs renamed: app.etzhayyim.apps.<X>.* → app.etzhayyim.<X>.*
 Counts by dir: mangaka=60, animeka=44, legalEntity=38, ipAddress=37 (subdir flattening), hanrei=31, yoro=23, kyber=15, bpmn=13, manga=12, anime=10, narou=11, otakiage=11, kiyo=12, gameka=9, houbun=8, dns=7, hakkou=2, joucho=2, yorishiro=2, ki=4, koke=4, gtin=4, isbn=4, sbom=4, commonCrawl=3, houshi=3, legalAid=3, rareEarthCoverage=3, isin=2, ndc=1.
 Vendor sources NOT deleted (Phase 5). Vendor consumers reference old NSID (apps.<X>) — Phase 4c migration TBD per app."""
 decision_rule = "3-axis OR-test (Liability / Custody / Settlement). All 3 clean → etzhayyim. Any 1 hit → out of scope."
@@ -3074,7 +3083,7 @@ window_closes_at = "2026-06-19"
 constructor_target_at = "2026-06-22"  # Mon following Fri close (per addendum §3)
 deploy_target = "Base Sepolia testnet → ChartersComplianceRegistry.constructor(addresses[])"
 seats = [
-  { seat = 1, axis = "Doctrine", holder = "Jun Kawasaki", did = "did:web:jun.gftd.group (interim)", status = "confirmed" },
+  { seat = 1, axis = "Doctrine", holder = "Jun Kawasaki", did = "did:web:jun.etzhayyim.com (interim)", status = "confirmed" },
   { seat = 2, axis = "Substrate / Technology", status = "open" },
   { seat = 3, axis = "Legal / Ethics", status = "open" },
   { seat = 4, axis = "Economics / Treasury", status = "open" },
@@ -3101,7 +3110,7 @@ authoritative_doc = "50-infra/cluster/murakumo/MIGRATION-NOTES.md"
 authoritative_adr = "2605214000"
 target_count = 40
 scope = "50-infra/cluster/murakumo/ (Rust runtime — Cargo.toml, src/*.rs, deploy-mesh.sh)"
-description = "Atomic rename of cluster runtime identifiers: GFTD_* env vars → ETZHAYYIM_*, ~/.gftd/ → ~/.etzhayyim/, binary gftd-murakumo → etzhayyim-murakumo, DNS .mesh.etzhayyim.com → .mesh.etzhayyim.com, launchd label ai.gftd.murakumo-mesh → com.etzhayyim.murakumo-mesh, cargo crate name. Dry-run verified cargo check PASSES with all renames applied. Intentional remainders: MESH_KEY_CTX (DH crypto context tag, fleet protocol bump needed) + gftd.murakumo.v1.* XRPC namespace (separate CF Worker + Lexicon update)."
+description = "Atomic rename of cluster runtime identifiers: etzhayyim_* env vars → ETZHAYYIM_*, ~/.gftd/ → ~/.etzhayyim/, binary gftd-murakumo → etzhayyim-murakumo, DNS .mesh.etzhayyim.com → .mesh.etzhayyim.com, launchd label app.etzhayyim.murakumo-mesh → com.etzhayyim.murakumo-mesh, cargo crate name. Dry-run verified cargo check PASSES with all renames applied. Intentional remainders: MESH_KEY_CTX (DH crypto context tag, fleet protocol bump needed) + gftd.murakumo.v1.* XRPC namespace (separate CF Worker + Lexicon update)."
 dry_run_completed_at = "2026-05-21"
 last_verified = "2026-05-21"
 
@@ -3113,7 +3122,7 @@ authoritative_doc = "20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md"
 authoritative_adr = "2605215000"
 target_count = 76
 scope = "20-actors/magatama/py/** (pymagatama + magatama-host-sdk model registry) — REDIRECT 30 / VENDOR-ONLY 25 / REIMPLEMENT 15"
-description = "Strip all RunPod coupling from religious-corp pymagatama paths. Inference SSoT becomes Murakumo fleet only (LiteLLM gateway 127.0.0.1:4000 + EVO-X2 LAN 192.168.1.70 + per-node Ollama gemma3:4b fallback). REIMPLEMENT targets include maps_sentinel L7/L8 (Sentinel-1/2 satellite analysis — needs successor MLX/ROCm impl per follow-up ADR), training_run.py (CPU client + GPU Serverless handler split), zeebe_worker_main.py ComfyUI dispatch (RunPod /runsync wrapper vs native /prompt+/history protocol diverge). VENDOR-ONLY paths stay operational for vendor gftd.co.jp — religious-corp callers must avoid via consent capability boundary. PYMAGATAMA-MIGRATION-NOTES.md authored 2026-05-21 with 24 file:line targets + verdicts (30 REDIRECT / 25 VENDOR-ONLY / 15 REIMPLEMENT). M5 maps_sentinel REIMPLEMENT delivered as separate maps_sentinel_murakumo.py per ADR-2605215100."
+description = "Strip all RunPod coupling from religious-corp pymagatama paths. Inference SSoT becomes Murakumo fleet only (LiteLLM gateway 127.0.0.1:4000 + EVO-X2 LAN 192.168.1.70 + per-node Ollama gemma3:4b fallback). REIMPLEMENT targets include maps_sentinel L7/L8 (Sentinel-1/2 satellite analysis — needs successor MLX/ROCm impl per follow-up ADR), training_run.py (CPU client + GPU Serverless handler split), zeebe_worker_main.py ComfyUI dispatch (RunPod /runsync wrapper vs native /prompt+/history protocol diverge). VENDOR-ONLY paths stay operational for vendor etzhayyim.com — religious-corp callers must avoid via consent capability boundary. PYMAGATAMA-MIGRATION-NOTES.md authored 2026-05-21 with 24 file:line targets + verdicts (30 REDIRECT / 25 VENDOR-ONLY / 15 REIMPLEMENT). M5 maps_sentinel REIMPLEMENT delivered as separate maps_sentinel_murakumo.py per ADR-2605215100."
 last_verified = "2026-05-21"
 
 [[migrations]]
@@ -3137,7 +3146,7 @@ authoritative_doc = "20-actors/AUDIT-RUNPOD-RW-2026-05-21.md §3 (yoro)"
 authoritative_adr = "2605215000"
 target_count = 8
 scope = "60-apps/ai-gftd-project-yoro/.../ProfilePanel.svelte (lines 424–563) + 20-actors/.../legacy-nanoid-map.ts:110 (stripe.etzhayyim.com routing)"
-description = "Active fiat payment surface deployed on religious-corp identity domain. Live `atProcedure('ai.gftd.apps.stripe.*', ...)` calls wired to a card-management UI any authenticated etzhayyim user can reach. 8 REJECT findings per audit 2026-05-21. Requires: (a) feature-flag the Stripe UI off in religious-corp builds, (b) remove stripe.etzhayyim.com from legacy-nanoid-map.ts, (c) draft a fiat-removal ADR (proposed ID 2605215200) gating ai.gftd.apps.stripe.* NSIDs as VENDOR-ONLY. Cannot wait for Step 8 — Charter Rider §2(i) violation is active today."
+description = "Active fiat payment surface deployed on religious-corp identity domain. Live `atProcedure('app.etzhayyim.apps.stripe.*', ...)` calls wired to a card-management UI any authenticated etzhayyim user can reach. 8 REJECT findings per audit 2026-05-21. Requires: (a) feature-flag the Stripe UI off in religious-corp builds, (b) remove stripe.etzhayyim.com from legacy-nanoid-map.ts, (c) draft a fiat-removal ADR (proposed ID 2605215200) gating app.etzhayyim.apps.stripe.* NSIDs as VENDOR-ONLY. Cannot wait for Step 8 — Charter Rider §2(i) violation is active today."
 last_verified = "2026-05-21"
 
 [[migrations]]
@@ -3284,11 +3293,11 @@ last_verified = "2026-05-23"
 [[migrations]]
 id = "no-server-key-stage-c2-c3-c4-auth-worker-key-devolution"
 status = "pending"
-blocked_on = "Stage C-1 complete → vertex_gftd_key_signing.private_key_b64 D1 schema migration drops column → per-agent ai.gftd.auth.createAgentSession refactored to expect device-generated public key + WebAuthn PoP → 30-day SS_REPO_SIGNING_KEK quarantine window with zero reads logged → wrangler secret delete SS_REPO_SIGNING_KEK"
+blocked_on = "Stage C-1 complete → vertex_gftd_key_signing.private_key_b64 D1 schema migration drops column → per-agent app.etzhayyim.auth.createAgentSession refactored to expect device-generated public key + WebAuthn PoP → 30-day SS_REPO_SIGNING_KEK quarantine window with zero reads logged → wrangler secret delete SS_REPO_SIGNING_KEK"
 authoritative_doc = "60-apps/ai-gftd-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md"
 authoritative_adr = "ADR-2605231525"
 scope = "auth Worker: per-agent ES256 keypair generation (715+ keys), AT Protocol session JWT HS256 signing, SS_REPO_SIGNING_KEK envelope encryption master"
-description = "Stage C-2: agent runtime generates own P-256 keypair via WebCrypto crypto.subtle.generateKey on the operator's own device, POSTs public key + WebAuthn-style PoP attestation to ai.gftd.auth.registerAgentKey. auth Worker stores only public key in vertex_gftd_key_signing projection. Stage C-3: WebAuthn passkey derives ES256 session keypair on member's device; session token becomes DPoP-style PoP signed by passkey. Stage C-4: SS_REPO_SIGNING_KEK 30-day quarantine (worker logs all reads, expects zero) then secret deletion. yatachain-projection manifest at 60-apps/ai-gftd-project-auth/yatachain-projection.toml already declares D1 AUTH_DB / KEYS_DB tables as L0-rebuildable from app.etzhayyim.encrypted.record envelopes (ADR-2605181100) keyed innerType = ai.gftd.auth.credential — scaffold APPLIED for the projection contract; the integration into passkeyVerifyRegister / linkOAuthStart / linkEmailVerify / smsOtpSend handlers is the Stage C-2 PR."
+description = "Stage C-2: agent runtime generates own P-256 keypair via WebCrypto crypto.subtle.generateKey on the operator's own device, POSTs public key + WebAuthn-style PoP attestation to app.etzhayyim.auth.registerAgentKey. auth Worker stores only public key in vertex_gftd_key_signing projection. Stage C-3: WebAuthn passkey derives ES256 session keypair on member's device; session token becomes DPoP-style PoP signed by passkey. Stage C-4: SS_REPO_SIGNING_KEK 30-day quarantine (worker logs all reads, expects zero) then secret deletion. yatachain-projection manifest at 60-apps/ai-gftd-project-auth/yatachain-projection.toml already declares D1 AUTH_DB / KEYS_DB tables as L0-rebuildable from app.etzhayyim.encrypted.record envelopes (ADR-2605181100) keyed innerType = app.etzhayyim.auth.credential — scaffold APPLIED for the projection contract; the integration into passkeyVerifyRegister / linkOAuthStart / linkEmailVerify / smsOtpSend handlers is the Stage C-2 PR."
 last_verified = "2026-05-23"
 
 [[migrations]]
@@ -3299,7 +3308,7 @@ authoritative_doc = "_working/STAGE-D-EXTERNAL-API-HANDOVER.md"
 authoritative_adr = "ADR-2605231525"
 target_count = 6
 scope = "External SaaS / cloud credentials currently held by etzhayyim-operated Workers + pods: RESEND (auth + yatabase email), Backblaze B2 (maps bulk-ingest blob upload), Mapillary (gsplat trainer), RunPod (gsplat trainer GPU), ODPT (gtfs-rt realtime feeds), EMBED service-to-service token (maps embedder)"
-description = "Each external integration migrates to a community-operator-owned credential. etzhayyim publishes only the lexicon (inbound record shape) — never the credential. Inbound lexicons: Resend/SMTP → ai.gftd.apps.email.outbox + delivered; B2/S3/IPFS → app.etzhayyim.encrypted.record.ciphertextBlob CID; Mapillary → app.etzhayyim.maps.gsplatAsset; RunPod → app.etzhayyim.maps.gsplatJob (carries cost_usd); ODPT → app.etzhayyim.maps.vehiclePosition/tripUpdate/serviceAlert; Embedder → app.etzhayyim.maps.visionResult. Sequencing depends on Stage B per-pod handover. Acceptance: zero hard-coded credential VALUES in any etzhayyim-operated wrangler.jsonc / k8s manifest / GitHub Action."
+description = "Each external integration migrates to a community-operator-owned credential. etzhayyim publishes only the lexicon (inbound record shape) — never the credential. Inbound lexicons: Resend/SMTP → app.etzhayyim.apps.email.outbox + delivered; B2/S3/IPFS → app.etzhayyim.encrypted.record.ciphertextBlob CID; Mapillary → app.etzhayyim.maps.gsplatAsset; RunPod → app.etzhayyim.maps.gsplatJob (carries cost_usd); ODPT → app.etzhayyim.maps.vehiclePosition/tripUpdate/serviceAlert; Embedder → app.etzhayyim.maps.visionResult. Sequencing depends on Stage B per-pod handover. Acceptance: zero hard-coded credential VALUES in any etzhayyim-operated wrangler.jsonc / k8s manifest / GitHub Action."
 last_verified = "2026-05-23"
 
 [[migrations]]

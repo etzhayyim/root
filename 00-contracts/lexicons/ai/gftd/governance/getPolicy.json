@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.governance.getPolicy",
+  "id": "app.etzhayyim.governance.getPolicy",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPorts.flagDarkFleet",
+  "id": "app.etzhayyim.apps.openPorts.flagDarkFleet",
   "defs": {
     "main": {
       "type": "procedure",

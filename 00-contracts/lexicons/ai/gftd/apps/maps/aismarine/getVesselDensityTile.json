@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.aismarine.getVesselDensityTile",
+  "id": "app.etzhayyim.apps.maps.aismarine.getVesselDensityTile",
   "defs": {
     "main": {
       "type": "query",

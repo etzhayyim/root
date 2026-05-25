@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.subordinatedDebt.flagResolution",
+  "id": "app.etzhayyim.apps.subordinatedDebt.flagResolution",
   "defs": {
     "main": {
       "type": "procedure",

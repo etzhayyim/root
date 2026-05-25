@@ -3,7 +3,7 @@
   "assistant_id": "echo.v1",
   "run_id": "run_260509_holochain_echo_001",
   "command_id": "cmd_260509_echo_001",
-  "lexicon_nsid": "ai.gftd.agent.langgraph.run",
+  "lexicon_nsid": "app.etzhayyim.agent.langgraph.run",
   "input_cid": "ipfs://bafy-input-echo",
   "output_cid": "ipfs://bafy-output-echo",
   "occurred_at": "2026-05-09T00:00:01Z"

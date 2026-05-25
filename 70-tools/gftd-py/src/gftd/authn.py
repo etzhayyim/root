@@ -47,10 +47,10 @@ def _parse_jwt_claims(token: str) -> tuple[str, str]:
 
 
 def _exchange_for_api_key(session_jwt: str, pds_url: str) -> str:
-    """Try to get a sk_live_* API key via ai.gftd.auth.createApiKey. Returns "" on failure."""
+    """Try to get a sk_live_* API key via app.etzhayyim.auth.createApiKey. Returns "" on failure."""
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/ai.gftd.auth.createApiKey",
+            f"{pds_url}/xrpc/app.etzhayyim.auth.createApiKey",
             json={"name": "gftd-cli-login", "scopes": "read,write"},
             headers={"Authorization": f"Bearer {session_jwt}"},
             timeout=15,
@@ -207,11 +207,11 @@ def authn() -> None:
 
 
 @authn.command("signin")
-@click.option("--pds", default=None, help="PDS base URL (overrides GFTD_PDS_URL)")
+@click.option("--pds", default=None, help="PDS base URL (overrides etzhayyim_PDS_URL)")
 def authn_signin(pds: str | None) -> None:
     """Sign in via OAuth2 Auth Code + PKCE (opens browser, stores token in ~/.gftd/auth.json)."""
     import os
-    pds_url = (pds or os.environ.get("GFTD_PDS_URL", _DEFAULT_PDS)).rstrip("/")
+    pds_url = (pds or os.environ.get("etzhayyim_PDS_URL", _DEFAULT_PDS)).rstrip("/")
     _run_signin(pds_url)
 
 
@@ -262,7 +262,7 @@ def authn_signout() -> None:
 def authn_login(pds: str | None) -> None:
     """Alias for signin."""
     import os
-    pds_url = (pds or os.environ.get("GFTD_PDS_URL", _DEFAULT_PDS)).rstrip("/")
+    pds_url = (pds or os.environ.get("etzhayyim_PDS_URL", _DEFAULT_PDS)).rstrip("/")
     _run_signin(pds_url)
 
 
@@ -288,7 +288,7 @@ def authn_revoke(explicit_token: str, pds: str | None, keep_local: bool, quiet: 
     import urllib.parse
     import urllib.request
 
-    pds_url = (pds or os.environ.get("GFTD_PDS_URL", _DEFAULT_PDS)).rstrip("/")
+    pds_url = (pds or os.environ.get("etzhayyim_PDS_URL", _DEFAULT_PDS)).rstrip("/")
     revoke_url = pds_url + "/oauth/revoke"
     auth = _load_auth()
 
@@ -347,25 +347,25 @@ def authn_migrate(name: str, dry_run: bool, pds: str | None) -> None:
     """Migrate legacy session JWT → API key (sk_live_*) stored in ~/.gftd/auth.json."""
     import os
     import json as _json
-    pds_url = (pds or os.environ.get("GFTD_PDS_URL", _DEFAULT_PDS)).rstrip("/")
+    pds_url = (pds or os.environ.get("etzhayyim_PDS_URL", _DEFAULT_PDS)).rstrip("/")
     auth = _load_auth()
     if auth.get("api_key", ""):
         click.echo("✓ Already migrated (api_key is set). No action needed.")
         return
     token = (auth.get("accessJwt") or auth.get("access_token") or
-             auth.get("id_token") or os.environ.get("GFTD_TOKEN", ""))
+             auth.get("id_token") or os.environ.get("etzhayyim_TOKEN", ""))
     if not token:
         raise click.ClickException("no legacy session token found — run 'gftd authn signin' first")
 
     if dry_run:
-        click.echo(f"Would: POST {pds_url}/xrpc/ai.gftd.auth.createApiKey (name={name}) using session JWT.")
+        click.echo(f"Would: POST {pds_url}/xrpc/app.etzhayyim.auth.createApiKey (name={name}) using session JWT.")
         click.echo(f"Would: overwrite {_AUTH_FILE} with api_key entry.")
         return
 
     import httpx as _httpx
     try:
         resp = _httpx.post(
-            f"{pds_url}/xrpc/ai.gftd.auth.createApiKey",
+            f"{pds_url}/xrpc/app.etzhayyim.auth.createApiKey",
             json={"name": name, "scopes": "read,write"},
             headers={"Authorization": f"Bearer {token}"},
             timeout=30,

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.copyright.coverage",
+  "id": "app.etzhayyim.apps.copyright.coverage",
   "defs": {
     "main": {
       "type": "query",

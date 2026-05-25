@@ -23,9 +23,9 @@ from pymagatama.db_sync import sync_cursor
 
 
 _OWNER_DID = "did:web:handotai.etzhayyim.com"
-_COL_SRC = "ai.gftd.apps.handotai.source"
-_COL_ART = "ai.gftd.apps.handotai.article"
-_COL_DIG = "ai.gftd.apps.handotai.digest"
+_COL_SRC = "app.etzhayyim.apps.handotai.source"
+_COL_ART = "app.etzhayyim.apps.handotai.article"
+_COL_DIG = "app.etzhayyim.apps.handotai.digest"
 
 _WRITERS: list[dict[str, str]] = [
     {"source_id": "src-pcw",  "name": "PC Watch",                  "url": "https://pc.watch.impress.co.jp/data/rss/1.0/pcw/feed.rdf", "language": "ja", "category": "fabrication"},
@@ -224,7 +224,7 @@ async def task_handotai_collect_rss_all(maxPerSource: int = 20) -> dict:
     now = _utc_now()
 
     async with aiohttp.ClientSession(
-        headers={"User-Agent": "handotai.etzhayyim.com/1.0 contact@gftd.co.jp"},
+        headers={"User-Agent": "handotai.etzhayyim.com/1.0 contact@etzhayyim.com"},
         timeout=aiohttp.ClientTimeout(total=30),
     ) as session:
         for w in _WRITERS:

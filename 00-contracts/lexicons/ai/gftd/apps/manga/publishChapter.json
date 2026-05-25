@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.manga.publishChapter",
+  "id": "app.etzhayyim.apps.manga.publishChapter",
   "defs": {
     "main": {
       "type": "procedure",

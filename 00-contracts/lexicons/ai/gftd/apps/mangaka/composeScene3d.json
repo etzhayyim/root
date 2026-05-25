@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.composeScene3d",
+  "id": "app.etzhayyim.apps.mangaka.composeScene3d",
   "defs": {
     "main": {
       "type": "procedure",

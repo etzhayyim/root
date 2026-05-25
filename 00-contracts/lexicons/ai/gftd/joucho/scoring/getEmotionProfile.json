@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.joucho.scoring.getEmotionProfile",
+  "id": "app.etzhayyim.joucho.scoring.getEmotionProfile",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.contracts.ingestSocialContract",
+  "id": "app.etzhayyim.apps.contracts.ingestSocialContract",
   "defs": {
     "main": {
       "type": "procedure",

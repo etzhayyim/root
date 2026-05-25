@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.generateKeyframe",
+  "id": "app.etzhayyim.apps.animeka.generateKeyframe",
   "defs": {
     "main": {
       "type": "procedure",

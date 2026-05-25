@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.rtc.hand",
+  "id": "app.etzhayyim.rtc.hand",
   "defs": {
     "main": {
       "type": "record",

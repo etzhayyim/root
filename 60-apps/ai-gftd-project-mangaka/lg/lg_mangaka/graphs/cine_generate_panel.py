@@ -246,7 +246,7 @@ async def _per_panel_render(payload: dict[str, Any]) -> dict[str, Any]:
             stage="neuralRender",
             pipeline_run_id=rid,
             subject_kind="mangaka.panel",
-            subject_ref=f"at://{_APP_DID}/ai.gftd.mangaka.panel/{panel_rkey}",
+            subject_ref=f"at://{_APP_DID}/app.etzhayyim.mangaka.panel/{panel_rkey}",
             payload=render_payload,
             asset_cid=render_seq_cid,
         )
@@ -301,7 +301,7 @@ async def _per_panel_render(payload: dict[str, Any]) -> dict[str, Any]:
             stage="diffusionPass",
             pipeline_run_id=rid,
             subject_kind="mangaka.panel",
-            subject_ref=f"at://{_APP_DID}/ai.gftd.mangaka.panel/{panel_rkey}",
+            subject_ref=f"at://{_APP_DID}/app.etzhayyim.mangaka.panel/{panel_rkey}",
             payload=db_payload,
             asset_cid=refined_cid,
         )

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.auditCommitteeOversight.flagIndependenceGap",
+  "id": "app.etzhayyim.apps.auditCommitteeOversight.flagIndependenceGap",
   "defs": {
     "main": {
       "type": "procedure",

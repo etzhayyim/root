@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projector.listConvoTasks",
+  "id": "app.etzhayyim.projector.listConvoTasks",
   "defs": {
     "main": {
       "type": "query",

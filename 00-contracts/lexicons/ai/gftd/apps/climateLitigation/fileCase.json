@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.climateLitigation.fileCase",
+  "id": "app.etzhayyim.apps.climateLitigation.fileCase",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.governance.rejectFollowRequest",
+  "id": "app.etzhayyim.governance.rejectFollowRequest",
   "defs": {
     "main": {
       "type": "procedure",

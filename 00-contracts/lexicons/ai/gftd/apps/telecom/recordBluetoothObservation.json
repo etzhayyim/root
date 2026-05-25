@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.recordBluetoothObservation",
+  "id": "app.etzhayyim.apps.telecom.recordBluetoothObservation",
   "defs": {
     "main": {
       "type": "procedure",

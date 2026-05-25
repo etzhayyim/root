@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.resourceFlow.legalEntityServiceFlow",
+  "id": "app.etzhayyim.apps.resourceFlow.legalEntityServiceFlow",
   "description": "Private-sector service flow (customers served / room-nights / transactions / tickets) emitted by legal-entity DIDs. ADR-0028. PII tier 1 — aggregate counts only, no individual customer DID. ADR-0018 k-anonymity: cohort_size >= 5.",
   "defs": {
     "main": {

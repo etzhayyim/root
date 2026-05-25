@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.collectFra",
+  "id": "app.etzhayyim.legalEntity.collectFra",
   "defs": {
     "main": {
       "type": "procedure",

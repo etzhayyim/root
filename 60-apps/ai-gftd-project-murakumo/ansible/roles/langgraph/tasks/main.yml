@@ -80,8 +80,8 @@
 
 - name: Render LangGraph launchd plist
   ansible.builtin.template:
-    src: ai.gftd.langgraph.plist.j2
-    dest: "{{ ansible_facts.env.HOME }}/Library/LaunchAgents/ai.gftd.langgraph.{{ inventory_hostname }}.plist"
+    src: app.etzhayyim.langgraph.plist.j2
+    dest: "{{ ansible_facts.env.HOME }}/Library/LaunchAgents/app.etzhayyim.langgraph.{{ inventory_hostname }}.plist"
     mode: "0644"
   notify: restart langgraph
 
@@ -92,7 +92,7 @@
 
 - name: Load LangGraph launchd service
   ansible.builtin.command:
-    cmd: "launchctl load -w {{ ansible_facts.env.HOME }}/Library/LaunchAgents/ai.gftd.langgraph.{{ inventory_hostname }}.plist"
+    cmd: "launchctl load -w {{ ansible_facts.env.HOME }}/Library/LaunchAgents/app.etzhayyim.langgraph.{{ inventory_hostname }}.plist"
   changed_when: false
   failed_when: false
 

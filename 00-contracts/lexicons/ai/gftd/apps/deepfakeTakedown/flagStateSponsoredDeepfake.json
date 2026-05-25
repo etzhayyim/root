@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.deepfakeTakedown.flagStateSponsoredDeepfake",
+  "id": "app.etzhayyim.apps.deepfakeTakedown.flagStateSponsoredDeepfake",
   "defs": {
     "main": {
       "type": "procedure",

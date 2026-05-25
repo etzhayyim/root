@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.genocideConvention.recordProcedure",
+  "id": "app.etzhayyim.apps.genocideConvention.recordProcedure",
   "defs": {
     "main": {
       "type": "procedure",

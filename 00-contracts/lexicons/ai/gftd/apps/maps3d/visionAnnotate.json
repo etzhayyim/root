@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps3d.visionAnnotate",
+  "id": "app.etzhayyim.apps.maps3d.visionAnnotate",
   "defs": {
     "main": {
       "type": "procedure",

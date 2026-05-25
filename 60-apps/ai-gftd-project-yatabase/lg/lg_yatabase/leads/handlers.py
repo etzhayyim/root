@@ -49,7 +49,7 @@ async def _verify_trust(request: Request, x_internal_trust: str | None) -> bytes
     raise HTTPException(status_code=401, detail="x-internal-trust mismatch")
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.leadIngest")
+@router.post("/xrpc/app.etzhayyim.apps.yata.leadIngest")
 async def lead_ingest(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -87,7 +87,7 @@ async def _read_query_params(request: Request, body_bytes: bytes) -> dict:
     return params
 
 
-@router.api_route("/xrpc/ai.gftd.apps.yata.leadList", methods=["GET", "POST"])
+@router.api_route("/xrpc/app.etzhayyim.apps.yata.leadList", methods=["GET", "POST"])
 async def lead_list(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -105,7 +105,7 @@ async def lead_list(
     return JSONResponse(out)
 
 
-@router.api_route("/xrpc/ai.gftd.apps.yata.leadGet", methods=["GET", "POST"])
+@router.api_route("/xrpc/app.etzhayyim.apps.yata.leadGet", methods=["GET", "POST"])
 async def lead_get(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -121,7 +121,7 @@ async def lead_get(
     return JSONResponse(row)
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.leadSetOutreachStatus")
+@router.post("/xrpc/app.etzhayyim.apps.yata.leadSetOutreachStatus")
 async def lead_set_status(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -135,7 +135,7 @@ async def lead_set_status(
     return JSONResponse(out)
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.leadSetContactEmail")
+@router.post("/xrpc/app.etzhayyim.apps.yata.leadSetContactEmail")
 async def lead_set_email(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -149,7 +149,7 @@ async def lead_set_email(
     return JSONResponse(out, status_code=200 if out.get("ok") else 400)
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.leadSetEnrichment")
+@router.post("/xrpc/app.etzhayyim.apps.yata.leadSetEnrichment")
 async def lead_set_enrichment(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -167,7 +167,7 @@ async def lead_set_enrichment(
     return JSONResponse(out)
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.leadMarkDrafted")
+@router.post("/xrpc/app.etzhayyim.apps.yata.leadMarkDrafted")
 async def lead_mark_drafted(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -181,7 +181,7 @@ async def lead_mark_drafted(
     return JSONResponse(out)
 
 
-@router.api_route("/xrpc/ai.gftd.apps.yata.leadReady", methods=["GET", "POST"])
+@router.api_route("/xrpc/app.etzhayyim.apps.yata.leadReady", methods=["GET", "POST"])
 async def lead_ready(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -196,7 +196,7 @@ async def lead_ready(
     return JSONResponse(out)
 
 
-@router.api_route("/xrpc/ai.gftd.apps.yata.leadSendable", methods=["GET", "POST"])
+@router.api_route("/xrpc/app.etzhayyim.apps.yata.leadSendable", methods=["GET", "POST"])
 async def lead_sendable(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
@@ -211,7 +211,7 @@ async def lead_sendable(
     return JSONResponse(out)
 
 
-@router.api_route("/xrpc/ai.gftd.apps.yata.leadNeedsEnrichment", methods=["GET", "POST"])
+@router.api_route("/xrpc/app.etzhayyim.apps.yata.leadNeedsEnrichment", methods=["GET", "POST"])
 async def lead_needs_enrichment(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),

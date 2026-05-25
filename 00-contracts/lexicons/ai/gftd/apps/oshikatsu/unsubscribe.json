@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oshikatsu.unsubscribe",
+  "id": "app.etzhayyim.apps.oshikatsu.unsubscribe",
   "defs": {
     "main": {
       "type": "procedure",

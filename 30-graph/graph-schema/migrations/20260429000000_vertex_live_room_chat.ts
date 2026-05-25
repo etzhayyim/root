@@ -32,7 +32,7 @@ import { sql } from "kysely";
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── vertex_live_room ─────────────────────────────────────────────
   // One row per concert room (== one BPMN show flow instance).
-  // PK = vertex_id of form `at://<perf_did>/ai.gftd.apps.live.room/<slug>`.
+  // PK = vertex_id of form `at://<perf_did>/app.etzhayyim.apps.live.room/<slug>`.
   await sql`
     CREATE TABLE IF NOT EXISTS vertex_live_room (
       vertex_id VARCHAR PRIMARY KEY,
@@ -57,7 +57,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── vertex_live_chat ─────────────────────────────────────────────
   // Append-only utterance log. PK = vertex_id of form
-  // `at://<actor_did>/ai.gftd.apps.live.chat/<ts>-<nanoid>`.
+  // `at://<actor_did>/app.etzhayyim.apps.live.chat/<ts>-<nanoid>`.
   // text_excerpt is the utterance itself; `name` is a 1-line caption
   // (== "{handle}: {text}") so the universal-view name column is
   // populated without joining.
@@ -94,7 +94,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       name, description, actor_did, org_did, at_did, created_at
     )
     VALUES (
-      'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',
+      'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.room/demo',
       'demo',
       128.0,
       1777380000.0,

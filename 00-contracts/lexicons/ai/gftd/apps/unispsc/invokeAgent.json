@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.unispsc.invokeAgent",
+  "id": "app.etzhayyim.apps.unispsc.invokeAgent",
   "defs": {
     "main": {
       "type": "procedure",

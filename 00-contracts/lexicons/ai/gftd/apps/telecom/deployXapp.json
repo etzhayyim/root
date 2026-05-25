@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.deployXapp",
+  "id": "app.etzhayyim.apps.telecom.deployXapp",
   "defs": {
     "main": {
       "type": "procedure",

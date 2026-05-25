@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.grandChamberRuling.recordRuling",
+  "id": "app.etzhayyim.apps.grandChamberRuling.recordRuling",
   "defs": {
     "main": {
       "type": "procedure",

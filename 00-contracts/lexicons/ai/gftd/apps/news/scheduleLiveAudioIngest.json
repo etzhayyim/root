@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.news.scheduleLiveAudioIngest",
+  "id": "app.etzhayyim.apps.news.scheduleLiveAudioIngest",
   "defs": {
     "main": {
       "type": "procedure",

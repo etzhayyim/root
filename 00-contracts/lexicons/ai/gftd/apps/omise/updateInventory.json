@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.updateInventory",
+  "id": "app.etzhayyim.apps.omise.updateInventory",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.listAuditEvents",
+  "id": "app.etzhayyim.apps.karute.listAuditEvents",
   "defs": {
     "main": {
       "type": "query",

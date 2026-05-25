@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.listDelegations",
+  "id": "app.etzhayyim.apps.ipaddress.listDelegations",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openAirplane.scheduleFlight",
+  "id": "app.etzhayyim.apps.openAirplane.scheduleFlight",
   "defs": {
     "main": {
       "type": "procedure",

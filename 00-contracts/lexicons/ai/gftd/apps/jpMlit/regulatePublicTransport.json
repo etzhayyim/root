@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMlit.regulatePublicTransport",
+  "id": "app.etzhayyim.apps.jpMlit.regulatePublicTransport",
   "defs": {
     "main": {
       "type": "procedure",

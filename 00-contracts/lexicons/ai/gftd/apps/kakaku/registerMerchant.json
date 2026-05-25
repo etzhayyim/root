@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kakaku.registerMerchant",
+  "id": "app.etzhayyim.apps.kakaku.registerMerchant",
   "defs": {
     "main": {
       "type": "procedure",

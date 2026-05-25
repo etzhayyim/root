@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.rareEarthCoverage.listSegments",
+  "id": "app.etzhayyim.apps.rareEarthCoverage.listSegments",
   "defs": {
     "main": {
       "type": "query",

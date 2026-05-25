@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.publishEpisode",
+  "id": "app.etzhayyim.apps.animeka.publishEpisode",
   "defs": {
     "main": {
       "type": "procedure",

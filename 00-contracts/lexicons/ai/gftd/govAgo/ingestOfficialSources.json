@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govAgo.ingestOfficialSources",
+  "id": "app.etzhayyim.govAgo.ingestOfficialSources",
   "defs": {
     "main": {
       "type": "procedure",

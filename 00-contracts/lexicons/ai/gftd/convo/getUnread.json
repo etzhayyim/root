@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.getUnread",
+  "id": "app.etzhayyim.convo.getUnread",
   "defs": {
     "main": {
       "type": "query",

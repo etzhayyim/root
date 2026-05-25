@@ -16,7 +16,7 @@ The CF Worker in `appview/` is a thin presentation layer.
 | **Registry** | 42 IATA airlines (`vertex_airline`) · 8 sources (`vertex_flight_offer_source`) · N:M coverage (`edge_flight_offer_source_covers_airline`) |
 | **Identity** | `did:web:flight-offer.etzhayyim.com`, nanoid `fl1ghts1` |
 
-## XRPC surface (`ai.gftd.apps.flightOffer.*`)
+## XRPC surface (`app.etzhayyim.apps.flightOffer.*`)
 
 | NSID | Summary |
 |---|---|

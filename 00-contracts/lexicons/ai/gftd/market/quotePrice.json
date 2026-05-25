@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.market.quotePrice",
+  "id": "app.etzhayyim.market.quotePrice",
   "defs": {
     "main": {
       "type": "query",

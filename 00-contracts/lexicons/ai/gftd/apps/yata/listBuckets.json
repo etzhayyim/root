@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yata.listBuckets",
+  "id": "app.etzhayyim.apps.yata.listBuckets",
   "defs": {
     "main": {
       "type": "query",

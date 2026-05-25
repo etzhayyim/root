@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.resourceFlow.getSankey",
+  "id": "app.etzhayyim.apps.resourceFlow.getSankey",
   "defs": {
     "main": {
       "type": "query",

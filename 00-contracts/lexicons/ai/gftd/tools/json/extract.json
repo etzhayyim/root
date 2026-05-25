@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.tools.json.extract",
+  "id": "app.etzhayyim.tools.json.extract",
   "defs": {
     "main": {
       "type": "procedure",

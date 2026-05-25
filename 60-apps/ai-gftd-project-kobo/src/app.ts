@@ -10,7 +10,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "ai.gftd.apps.kobo.";
+const NSID_PREFIX = "app.etzhayyim.apps.kobo.";
 const ACTOR_DID = "did:web:kobo.etzhayyim.com";
 
 export default {

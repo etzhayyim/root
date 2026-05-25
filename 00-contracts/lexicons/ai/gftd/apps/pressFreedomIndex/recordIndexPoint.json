@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pressFreedomIndex.recordIndexPoint",
+  "id": "app.etzhayyim.apps.pressFreedomIndex.recordIndexPoint",
   "defs": {
     "main": {
       "type": "procedure",

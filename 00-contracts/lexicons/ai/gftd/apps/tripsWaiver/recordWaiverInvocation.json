@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tripsWaiver.recordWaiverInvocation",
+  "id": "app.etzhayyim.apps.tripsWaiver.recordWaiverInvocation",
   "defs": {
     "main": {
       "type": "procedure",

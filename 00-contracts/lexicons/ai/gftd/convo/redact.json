@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.redact",
+  "id": "app.etzhayyim.convo.redact",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.regulatorySandbox.registerCohort",
+  "id": "app.etzhayyim.apps.regulatorySandbox.registerCohort",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.redseaIncident.reportSuezApproach",
+  "id": "app.etzhayyim.apps.redseaIncident.reportSuezApproach",
   "defs": {
     "main": {
       "type": "procedure",

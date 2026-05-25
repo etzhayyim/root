@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ameno.inferenceResult",
+  "id": "app.etzhayyim.apps.ameno.inferenceResult",
   "defs": {
     "main": {
       "type": "record",

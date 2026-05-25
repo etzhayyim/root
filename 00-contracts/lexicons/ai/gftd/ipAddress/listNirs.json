@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.listNirs",
+  "id": "app.etzhayyim.apps.ipaddress.listNirs",
   "defs": {
     "main": {
       "type": "query",

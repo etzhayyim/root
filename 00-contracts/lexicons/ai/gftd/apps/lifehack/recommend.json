@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.lifehack.recommend",
+  "id": "app.etzhayyim.apps.lifehack.recommend",
   "defs": {
     "main": {
       "type": "procedure",

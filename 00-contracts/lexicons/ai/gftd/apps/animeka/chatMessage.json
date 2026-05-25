@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.chatMessage",
+  "id": "app.etzhayyim.apps.animeka.chatMessage",
   "defs": {
     "main": {
       "type": "record",

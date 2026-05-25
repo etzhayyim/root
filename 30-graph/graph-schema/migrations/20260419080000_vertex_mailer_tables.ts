@@ -10,7 +10,7 @@ import { Kysely, sql } from 'kysely';
  * RLS 3-col (org_id/user_id/actor_id) + created_at required on every table.
  *
  * Records emitted by 50-infra/cloudflare/workers/email-relay/worker.ts via
- *   ai.gftd.apps.mailer.{inboundEmail,emailBinding,inboundEmailStatus,outboundEmail}.
+ *   app.etzhayyim.apps.mailer.{inboundEmail,emailBinding,inboundEmailStatus,outboundEmail}.
  *
  * PII (from/to/subject/body/headers) is AES-256-GCM encrypted at write time
  * by email-relay when DATA_ENCRYPTION_KEY is configured. Plaintext columns

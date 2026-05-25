@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.codexStandard.recordStandardAdoption",
+  "id": "app.etzhayyim.apps.codexStandard.recordStandardAdoption",
   "defs": {
     "main": {
       "type": "procedure",

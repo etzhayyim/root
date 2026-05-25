@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.auditFirmOversight.flagDeficiency",
+  "id": "app.etzhayyim.apps.auditFirmOversight.flagDeficiency",
   "defs": {
     "main": {
       "type": "procedure",

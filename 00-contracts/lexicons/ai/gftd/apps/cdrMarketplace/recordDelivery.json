@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cdrMarketplace.recordDelivery",
+  "id": "app.etzhayyim.apps.cdrMarketplace.recordDelivery",
   "defs": {
     "main": {
       "type": "procedure",

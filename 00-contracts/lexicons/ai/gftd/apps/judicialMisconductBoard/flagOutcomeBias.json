@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.judicialMisconductBoard.flagOutcomeBias",
+  "id": "app.etzhayyim.apps.judicialMisconductBoard.flagOutcomeBias",
   "defs": {
     "main": {
       "type": "procedure",

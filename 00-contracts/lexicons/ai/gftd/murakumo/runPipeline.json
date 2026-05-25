@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.murakumo.runPipeline",
+  "id": "app.etzhayyim.murakumo.runPipeline",
   "defs": {
     "main": {
       "type": "procedure",

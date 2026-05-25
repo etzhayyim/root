@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kiyo.withdrawPaper",
+  "id": "app.etzhayyim.apps.kiyo.withdrawPaper",
   "defs": {
     "main": {
       "type": "procedure",

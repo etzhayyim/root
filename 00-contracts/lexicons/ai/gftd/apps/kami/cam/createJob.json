@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.cam.createJob",
+  "id": "app.etzhayyim.apps.kami.cam.createJob",
   "defs": {
     "main": {
       "type": "procedure",

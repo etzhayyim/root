@@ -4,9 +4,9 @@ import { sql } from "kysely";
 // ADR-0098 F — seeds BPMN actor rows for ξ stochastic noise injection (OU process).
 
 const PROCESS_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-belief-noise-inject-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-noise-inject-v1";
 const BINDING_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/wellbecoming-belief-noise-inject-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-noise-inject-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
@@ -29,7 +29,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        sensitivity_ord, org_id, user_id, actor_id)
     SELECT
       ${BINDING_VID},
-      'ai.gftd.apps.wellbecoming.beliefNoiseInject',
+      'app.etzhayyim.apps.wellbecoming.beliefNoiseInject',
       'wellbecoming_belief_noise_inject',
       1, '', '', 'sys.bpmn.wellbecoming'
     WHERE NOT EXISTS (

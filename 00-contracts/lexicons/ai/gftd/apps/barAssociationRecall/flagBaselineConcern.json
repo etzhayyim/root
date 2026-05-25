@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.barAssociationRecall.flagBaselineConcern",
+  "id": "app.etzhayyim.apps.barAssociationRecall.flagBaselineConcern",
   "defs": {
     "main": {
       "type": "procedure",

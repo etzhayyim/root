@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.getMembers",
+  "id": "app.etzhayyim.mangaka.getMembers",
   "defs": {
     "main": {
       "type": "query",

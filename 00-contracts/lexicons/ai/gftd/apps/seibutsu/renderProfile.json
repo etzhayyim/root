@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.seibutsu.renderProfile",
+  "id": "app.etzhayyim.apps.seibutsu.renderProfile",
   "defs": {
     "main": {
       "type": "query",

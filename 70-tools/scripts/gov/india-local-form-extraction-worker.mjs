@@ -316,7 +316,7 @@ async function fetchHttp(url) {
       signal: ac.signal,
       redirect: "follow",
       headers: {
-        "User-Agent": "GFTD/1.0 government form extraction worker (+https://etzhayyim.com)",
+        "User-Agent": "etzhayyim/1.0 government form extraction worker (+https://etzhayyim.com)",
         "Accept": "text/html,application/xhtml+xml,application/pdf,*/*;q=0.5",
       },
     });
@@ -791,7 +791,7 @@ function buildResult(task, fetched) {
 }
 
 async function writeResult(task, fetched, result) {
-  const vertexId = `at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.formExtractionResult/ind-${hash(`${task.vertex_id}|${fetched.finalUrl}|${result.status}`)}`;
+  const vertexId = `at://did:web:gov.etzhayyim.com/app.etzhayyim.apps.gov.formExtractionResult/ind-${hash(`${task.vertex_id}|${fetched.finalUrl}|${result.status}`)}`;
   await withDbRetry(`write-result:${task.vertex_id}`, async (client) => {
     await client.query("BEGIN");
     try {
@@ -824,7 +824,7 @@ async function writeResult(task, fetched, result) {
 }
 
 function resultValues(task, fetched, result) {
-  const vertexId = `at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.formExtractionResult/ind-${hash(`${task.vertex_id}|${fetched.finalUrl}|${result.status}`)}`;
+  const vertexId = `at://did:web:gov.etzhayyim.com/app.etzhayyim.apps.gov.formExtractionResult/ind-${hash(`${task.vertex_id}|${fetched.finalUrl}|${result.status}`)}`;
   return [
     vertexId,
     Date.now(),

@@ -143,8 +143,8 @@ function writeLexicon(doc) {
 
 const definitions = [];
 
-// --- ai.gftd.consent.consent ---
-const consentNs = 'ai.gftd.consent.consent';
+// --- app.etzhayyim.consent.consent ---
+const consentNs = 'app.etzhayyim.consent.consent';
 for (const m of ['listConsentGrants', 'resolveConsent']) {
   definitions.push(buildEmpty(`${consentNs}.${m}`, 'query'));
 }
@@ -152,8 +152,8 @@ for (const m of ['requestConsent', 'revokeConsent']) {
   definitions.push(buildEmpty(`${consentNs}.${m}`, 'procedure'));
 }
 
-// --- ai.gftd.convo.convo ---
-const convoNs = 'ai.gftd.convo.convo';
+// --- app.etzhayyim.convo.convo ---
+const convoNs = 'app.etzhayyim.convo.convo';
 
 // Empty handlers
 for (const m of ['createSession', 'diff', 'fetchBlocks', 'sendSessionMessage']) {
@@ -198,8 +198,8 @@ definitions.push(buildQuery(`${convoNs}.listEnvelopes`, { convoId: 'string', 'li
 definitions.push(buildQuery(`${convoNs}.listPresence`, { convoId: 'string' }, { presence: 'array' }));
 definitions.push(buildQuery(`${convoNs}.listPublicConvos`, { 'limit?': 'number', 'cursor?': 'string' }, { convos: 'array', cursor: 'string' }));
 
-// --- ai.gftd.projector.projector ---
-const projNs = 'ai.gftd.projector.projector';
+// --- app.etzhayyim.projector.projector ---
+const projNs = 'app.etzhayyim.projector.projector';
 
 definitions.push(buildProcedure(`${projNs}.newProjectConvo`, {
   name: 'string', 'description?': 'string', 'kind?': 'string', 'members?': 'string[]', 'parentProjectUri?': 'string',
@@ -237,8 +237,8 @@ definitions.push(buildQuery(`${projNs}.getConvoProjectStatus`, { convoId: 'strin
   project: 'object', taskSummary: 'object', totalTasks: 'number', childCount: 'number',
 }));
 
-// --- ai.gftd.governance.governance ---
-const govNs = 'ai.gftd.governance.governance';
+// --- app.etzhayyim.governance.governance ---
+const govNs = 'app.etzhayyim.governance.governance';
 
 definitions.push(buildQuery(`${govNs}.checkAccess`, { targetDid: 'string', 'method?': 'string' }, { allowed: 'boolean', 'reason?': 'string' }));
 definitions.push(buildQuery(`${govNs}.getActorSensitivity`, {}, { sensitivity: 'string' }));
@@ -249,8 +249,8 @@ definitions.push(buildProcedure(`${govNs}.registerPolicy`, { name: 'string', rul
 definitions.push(buildQuery(`${govNs}.resolveActorVisibility`, { actor: 'string' }, { sensitivity: 'string', tier: 'number', visible: 'boolean' }));
 definitions.push(buildProcedure(`${govNs}.setActorSensitivity`, { sensitivity: 'string' }, { did: 'string', sensitivity: 'string' }));
 
-// --- ai.gftd.rtc.rtc ---
-const rtcNs = 'ai.gftd.rtc.rtc';
+// --- app.etzhayyim.rtc.rtc ---
+const rtcNs = 'app.etzhayyim.rtc.rtc';
 
 definitions.push(buildQuery(`${rtcNs}.getVapidPublicKey`, {}, { publicKey: 'string' }));
 definitions.push(buildProcedure(`${rtcNs}.hangupCall`, { convoId: 'string', 'callId?': 'string', 'reason?': 'string' }, { ok: 'boolean', signalType: 'string', convoId: 'string' }));
@@ -260,8 +260,8 @@ definitions.push(buildProcedure(`${rtcNs}.sendCallOffer`, { convoId: 'string', t
 definitions.push(buildProcedure(`${rtcNs}.subscribePush`, { subscription: 'object' }, { ...rkeyUriCid }));
 definitions.push(buildProcedure(`${rtcNs}.unsubscribePush`, { 'endpoint?': 'string' }, { unsubscribed: 'boolean' }));
 
-// --- ai.gftd.signal.signal ---
-const sigNs = 'ai.gftd.signal.signal';
+// --- app.etzhayyim.signal.signal ---
+const sigNs = 'app.etzhayyim.signal.signal';
 
 definitions.push(buildProcedure(`${sigNs}.buildPreKeyBundle`, { did: 'string' }, { bundle: 'object' }));
 definitions.push(buildProcedure(`${sigNs}.generateIdentity`, {}, { identityKey: 'string' }));

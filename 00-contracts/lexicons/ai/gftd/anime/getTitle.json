@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.anime.getTitle",
+  "id": "app.etzhayyim.anime.getTitle",
   "defs": {
     "main": {
       "type": "query",

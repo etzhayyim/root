@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.auth.passkeyVerifyRegister",
+  "id": "app.etzhayyim.auth.passkeyVerifyRegister",
   "defs": {
     "main": {
       "type": "procedure",

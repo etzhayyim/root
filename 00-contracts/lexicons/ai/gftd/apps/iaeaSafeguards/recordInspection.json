@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iaeaSafeguards.recordInspection",
+  "id": "app.etzhayyim.apps.iaeaSafeguards.recordInspection",
   "defs": {
     "main": {
       "type": "procedure",

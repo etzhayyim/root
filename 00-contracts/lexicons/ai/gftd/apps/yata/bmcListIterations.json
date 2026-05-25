@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yata.bmcListIterations",
+  "id": "app.etzhayyim.apps.yata.bmcListIterations",
   "defs": {
     "main": {
       "type": "query",

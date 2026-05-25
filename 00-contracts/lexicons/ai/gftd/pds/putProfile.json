@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.pds.putProfile",
+  "id": "app.etzhayyim.pds.putProfile",
   "description": "Update actor profile. Input fields are compatible with app.bsky.actor.profile record schema.",
   "defs": {
     "main": {

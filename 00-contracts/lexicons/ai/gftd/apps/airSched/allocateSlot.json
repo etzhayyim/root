@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airSched.allocateSlot",
+  "id": "app.etzhayyim.apps.airSched.allocateSlot",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.oath",
+  "id": "app.etzhayyim.apps.etzhayyim.oath",
   "defs": {
     "main": {
       "type": "record",

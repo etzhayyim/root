@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOt.defineDevice",
+  "id": "app.etzhayyim.apps.openOt.defineDevice",
   "defs": {
     "main": {
       "type": "procedure",

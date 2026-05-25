@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kouza.createFinancialAccount",
+  "id": "app.etzhayyim.apps.kouza.createFinancialAccount",
   "defs": {
     "main": {
       "type": "procedure",

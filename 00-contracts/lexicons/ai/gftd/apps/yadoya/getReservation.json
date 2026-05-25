@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yadoya.getReservation",
+  "id": "app.etzhayyim.apps.yadoya.getReservation",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.grandChamberRuling.flagDoctrinalShift",
+  "id": "app.etzhayyim.apps.grandChamberRuling.flagDoctrinalShift",
   "defs": {
     "main": {
       "type": "procedure",

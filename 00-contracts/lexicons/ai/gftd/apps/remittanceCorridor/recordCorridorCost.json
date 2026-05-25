@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.remittanceCorridor.recordCorridorCost",
+  "id": "app.etzhayyim.apps.remittanceCorridor.recordCorridorCost",
   "defs": {
     "main": {
       "type": "procedure",

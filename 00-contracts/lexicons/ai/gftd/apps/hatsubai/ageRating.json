@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hatsubai.ageRating",
+  "id": "app.etzhayyim.apps.hatsubai.ageRating",
   "defs": {
     "main": {
       "type": "record",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.getProvider",
+  "id": "app.etzhayyim.apps.ipaddress.getProvider",
   "defs": {
     "main": {
       "type": "query",

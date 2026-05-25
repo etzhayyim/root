@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.languageEndangerment.recordStatus",
+  "id": "app.etzhayyim.apps.languageEndangerment.recordStatus",
   "defs": {
     "main": {
       "type": "procedure",

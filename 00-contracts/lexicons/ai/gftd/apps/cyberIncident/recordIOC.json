@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cyberIncident.recordIOC",
+  "id": "app.etzhayyim.apps.cyberIncident.recordIOC",
   "defs": {
     "main": {
       "type": "procedure",

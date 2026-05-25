@@ -10,9 +10,9 @@
         "id": "cap.accountLifecycle",
         "name": "Account lifecycle management",
         "children": [
-          { "id": "cap.accountOpen",   "name": "Account open",   "realisedBy": "ai.gftd.apps.openBanking.createAccount" },
-          { "id": "cap.accountQuery",  "name": "Account query",  "realisedBy": "ai.gftd.apps.openBanking.getAccount" },
-          { "id": "cap.accountList",   "name": "Account list",   "realisedBy": "ai.gftd.apps.openBanking.listAccounts" }
+          { "id": "cap.accountOpen",   "name": "Account open",   "realisedBy": "app.etzhayyim.apps.openBanking.createAccount" },
+          { "id": "cap.accountQuery",  "name": "Account query",  "realisedBy": "app.etzhayyim.apps.openBanking.getAccount" },
+          { "id": "cap.accountList",   "name": "Account list",   "realisedBy": "app.etzhayyim.apps.openBanking.listAccounts" }
         ]
       },
       {
@@ -27,7 +27,7 @@
         "id": "cap.transfer",
         "name": "Transfer",
         "children": [
-          { "id": "cap.transferSubmit",   "name": "Submit transfer",        "realisedBy": "ai.gftd.apps.openBanking.transfer" },
+          { "id": "cap.transferSubmit",   "name": "Submit transfer",        "realisedBy": "app.etzhayyim.apps.openBanking.transfer" },
           { "id": "cap.transferRules",    "name": "Eligibility decisioning","realisedBy": "openBanking.transferEligibility (DMN)" },
           { "id": "cap.transferIdempotent","name": "Idempotent replay",     "realisedBy": "idempotency table" }
         ]
@@ -36,7 +36,7 @@
         "id": "cap.history",
         "name": "Transaction history",
         "children": [
-          { "id": "cap.listTx", "name": "List transactions", "realisedBy": "ai.gftd.apps.openBanking.listTransactions" }
+          { "id": "cap.listTx", "name": "List transactions", "realisedBy": "app.etzhayyim.apps.openBanking.listTransactions" }
         ]
       }
     ]

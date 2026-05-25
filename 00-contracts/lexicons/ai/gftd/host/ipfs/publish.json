@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.ipfs.publish",
+  "id": "app.etzhayyim.host.ipfs.publish",
   "defs": {
     "main": {
       "type": "procedure",

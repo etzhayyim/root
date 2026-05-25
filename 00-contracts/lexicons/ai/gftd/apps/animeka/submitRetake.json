@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.submitRetake",
+  "id": "app.etzhayyim.apps.animeka.submitRetake",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Submit a retake (リテイク) against a target record. Creates ai.gftd.apps.animeka.retake and flips the target cut's priority to 'retake' and the relevant stage status to 'retake'.",
+      "description": "Submit a retake (リテイク) against a target record. Creates app.etzhayyim.apps.animeka.retake and flips the target cut's priority to 'retake' and the relevant stage status to 'retake'.",
       "input": {
         "encoding": "application/json",
         "schema": {

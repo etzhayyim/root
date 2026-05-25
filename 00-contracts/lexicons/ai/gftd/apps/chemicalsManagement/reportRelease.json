@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.chemicalsManagement.reportRelease",
+  "id": "app.etzhayyim.apps.chemicalsManagement.reportRelease",
   "defs": {
     "main": {
       "type": "procedure",

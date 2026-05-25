@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.work",
+  "id": "app.etzhayyim.mangaka.work",
   "defs": {
     "main": {
       "type": "record",

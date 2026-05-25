@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yorishiroNuro.getOffers",
+  "id": "app.etzhayyim.apps.yorishiroNuro.getOffers",
   "defs": {
     "main": {
       "type": "query",

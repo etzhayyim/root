@@ -49,17 +49,17 @@ isin.etzhayyim.com — ISIN (ISO 6166) ベースの証券識別・上場企業�
 
 ## Lexicon
 
-Namespace: `ai.gftd.isin.*`
+Namespace: `app.etzhayyim.isin.*`
 
 | Collection | 説明 |
 |---|---|
-| `ai.gftd.isin.security` | 証券マスタ (ISIN primary key) |
-| `ai.gftd.isin.filing` | 開示書類 (EDGAR/EDINET XBRL) |
-| `ai.gftd.isin.financial` | 財務諸表 (IS/BS/CF) |
-| `ai.gftd.isin.corporate_group` | 企業グループ・子会社 |
-| `ai.gftd.isin.executive` | 役員・取締役 |
-| `ai.gftd.isin.listing` | 上場情報 (exchange MIC + ticker) |
-| `ai.gftd.isin.coverage_report` | 国別 coverage レポート |
+| `app.etzhayyim.isin.security` | 証券マスタ (ISIN primary key) |
+| `app.etzhayyim.isin.filing` | 開示書類 (EDGAR/EDINET XBRL) |
+| `app.etzhayyim.isin.financial` | 財務諸表 (IS/BS/CF) |
+| `app.etzhayyim.isin.corporate_group` | 企業グループ・子会社 |
+| `app.etzhayyim.isin.executive` | 役員・取締役 |
+| `app.etzhayyim.isin.listing` | 上場情報 (exchange MIC + ticker) |
+| `app.etzhayyim.isin.coverage_report` | 国別 coverage レポート |
 
 ## Cross-Classification Links (SQL edge)
 
@@ -139,7 +139,7 @@ magatama.ATPost(countryDID, fmt.Sprintf(
 ), nil)
 
 // Coverage record も WRecord で永続化
-magatama.DIDWrite(countryDID, "ai.gftd.isin.coverage_report", reportPayload)
+magatama.DIDWrite(countryDID, "app.etzhayyim.isin.coverage_report", reportPayload)
 ```
 
 ### Murakumo LLM 連携
@@ -177,7 +177,7 @@ magatama.ATPost(countryDID, summary, nil)
 
 ## W Protocol Event Stream
 
-- **Write**: `WRecord("security", payload)` / `DIDWrite(countryDID, "ai.gftd.isin.security", payload)`
+- **Write**: `WRecord("security", payload)` / `DIDWrite(countryDID, "app.etzhayyim.isin.security", payload)`
 - **Read (SQL)**: `Q("isinSecurity").Where(Eq{"country_code": "US"}).Query()`
 - **Read (Graph)**: `G("Security").Match(Eq{"isin": isin}).Return("name", "market_cap_usd").Query()`
 

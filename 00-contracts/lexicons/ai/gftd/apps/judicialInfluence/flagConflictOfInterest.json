@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.judicialInfluence.flagConflictOfInterest",
+  "id": "app.etzhayyim.apps.judicialInfluence.flagConflictOfInterest",
   "defs": {
     "main": {
       "type": "procedure",

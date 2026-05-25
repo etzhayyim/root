@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.media_gamers.graph.listEdges",
+  "id": "app.etzhayyim.apps.media_gamers.graph.listEdges",
   "defs": {
     "main": {
       "type": "query",

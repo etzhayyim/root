@@ -1,11 +1,11 @@
 """animeka `designColorModel` graph — LLM palette JSON + ComfyUI character color sheet.
 
-NSID: ai.gftd.animeka.designColorModel
+NSID: app.etzhayyim.animeka.designColorModel
 
 Takes a character_name and optional style hints. LLM generates a
 structured color palette (JSON: primary, secondary, hair, eyes, shadow).
 ComfyUI renders a full-body character reference sheet. Both are saved to
-vertex_animeka collection=ai.gftd.animeka.colorModel.
+vertex_animeka collection=app.etzhayyim.animeka.colorModel.
 """
 
 from __future__ import annotations
@@ -121,7 +121,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     import secrets
     from datetime import datetime, timezone
     rkey = f"cm-{secrets.token_hex(4)}"
-    vertex_id = f"at://{_REPO}/ai.gftd.animeka.colorModel/{rkey}"
+    vertex_id = f"at://{_REPO}/app.etzhayyim.animeka.colorModel/{rkey}"
     palette_json = json.dumps(state.get("palette") or {})
     try:
         import psycopg
@@ -131,7 +131,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
                 """INSERT INTO vertex_animeka
                    (vertex_id, repo, rkey, collection, kind, owner_did,
                     name, ref_sheet_cid, props, work_id, status, created_at)
-                   VALUES (%s, %s, %s, 'ai.gftd.animeka.colorModel', 'colorModel',
+                   VALUES (%s, %s, %s, 'app.etzhayyim.animeka.colorModel', 'colorModel',
                            %s, %s, %s, %s, %s, 'draft', %s)""",
                 [vertex_id, _REPO, rkey, _DEFAULT_APP_DID,
                  state.get("character_name"), state.get("blob_cid"),

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.portOfCallRoster.recordCall",
+  "id": "app.etzhayyim.apps.portOfCallRoster.recordCall",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ingest.status",
+  "id": "app.etzhayyim.apps.ingest.status",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kouza.institutionConnection",
+  "id": "app.etzhayyim.apps.kouza.institutionConnection",
   "defs": {
     "main": {
       "type": "record",

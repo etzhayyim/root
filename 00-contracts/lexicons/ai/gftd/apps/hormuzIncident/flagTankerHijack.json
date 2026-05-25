@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hormuzIncident.flagTankerHijack",
+  "id": "app.etzhayyim.apps.hormuzIncident.flagTankerHijack",
   "defs": {
     "main": {
       "type": "procedure",

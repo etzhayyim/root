@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.statelessPerson.flagGapOutcome",
+  "id": "app.etzhayyim.apps.statelessPerson.flagGapOutcome",
   "defs": {
     "main": {
       "type": "procedure",

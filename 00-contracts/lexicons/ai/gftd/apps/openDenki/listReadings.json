@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openDenki.listReadings",
+  "id": "app.etzhayyim.apps.openDenki.listReadings",
   "defs": {
     "main": {
       "type": "query",

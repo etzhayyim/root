@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.getLinkGraph",
+  "id": "app.etzhayyim.apps.site.getLinkGraph",
   "defs": {
     "main": {
       "type": "query",

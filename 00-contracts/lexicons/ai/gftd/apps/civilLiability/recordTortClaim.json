@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.civilLiability.recordTortClaim",
+  "id": "app.etzhayyim.apps.civilLiability.recordTortClaim",
   "defs": {
     "main": {
       "type": "procedure",

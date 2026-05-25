@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.collectWikisource",
+  "id": "app.etzhayyim.apps.site.collectWikisource",
   "defs": {
     "main": {
       "type": "procedure",

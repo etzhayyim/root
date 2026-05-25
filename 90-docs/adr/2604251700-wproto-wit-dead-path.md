@@ -20,9 +20,9 @@ superseded_by: []
 
 # Context
 
-`@gftd/wproto` and WIT were transitional layers:
+`@etzhayyim/wproto` and WIT were transitional layers:
 
-- `@gftd/wproto` duplicated client/session/XRPC concerns now covered by official AT Protocol libraries and plain XRPC wire calls.
+- `@etzhayyim/wproto` duplicated client/session/XRPC concerns now covered by official AT Protocol libraries and plain XRPC wire calls.
 - WIT duplicated contract ownership now held by AT Protocol Lexicon JSON for active TS Native and Worker paths.
 - The `W*` naming surface in yoro made legacy protocol details look like active product/domain concepts.
 
@@ -35,7 +35,7 @@ Keeping these paths active creates Shannon redundancy: multiple sources appear a
 Active code must use:
 
 - `@atproto/api` and other official AT Protocol libraries for standard AT Protocol client/session behavior.
-- AT Protocol XRPC wire format (`/xrpc/{nsid}`) for app-specific `ai.gftd.*` procedures and queries.
+- AT Protocol XRPC wire format (`/xrpc/{nsid}`) for app-specific `app.etzhayyim.*` procedures and queries.
 - AT Protocol Lexicon JSON as the contract SSoT for active command/query schemas.
 - Domain names such as `PostView`, `FeedItem`, `FeedGeneratorView`, `Session`, `isDid`, and `subscribeAtprotoStream`; do not introduce new protocol-derived `W*` names.
 
@@ -47,15 +47,15 @@ Allowed legacy references:
 
 # Consequences
 
-- New code must not import `@gftd/wproto`.
+- New code must not import `@etzhayyim/wproto`.
 - `10-protocol/wproto` must not be a workspace dependency or active app layer.
 - WIT must not be used as the active contract source for TS Native / Worker apps.
-- `@gftd/xrpc` remains server-side infrastructure only where it provides Worker dispatch, service-binding transport, NSID utilities, or service-auth primitives.
+- `@etzhayyim/xrpc` remains server-side infrastructure only where it provides Worker dispatch, service-binding transport, NSID utilities, or service-auth primitives.
 - Browser and UI code should prefer official AT Protocol SDKs or local app-specific adapters built on the AT Protocol XRPC wire format.
 
 # Alternatives Considered
 
-1. Keep `@gftd/wproto` as an adapter facade.
+1. Keep `@etzhayyim/wproto` as an adapter facade.
    - Rejected: preserves the dead path and keeps `W*` naming alive.
 
 2. Rename `wproto` internals but keep WIT for schemas.

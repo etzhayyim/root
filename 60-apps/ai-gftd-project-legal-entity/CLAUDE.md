@@ -1,6 +1,6 @@
 # ai-gftd-project-legal-entity — Global Legal Entity Intelligence
 
-`legal-entity.gftd.ai` — 全世界の法人登記情報を収集・統合・公開する App。法域別 registry API / GLEIF LEI に加え、SEC disclosure 由来の statement / mention / relation / ownership / trade edge を AT Protocol commit pipeline 経由で RisingWave graph に蓄積し、UBO 分析・コンプライアンス照合の data source として機能する。
+`legal-entity.etzhayyim.com` — 全世界の法人登記情報を収集・統合・公開する App。法域別 registry API / GLEIF LEI に加え、SEC disclosure 由来の statement / mention / relation / ownership / trade edge を AT Protocol commit pipeline 経由で RisingWave graph に蓄積し、UBO 分析・コンプライアンス照合の data source として機能する。
 
 ## Runtime
 
@@ -8,7 +8,7 @@
 
 | 項目 | 値 |
 |---|---|
-| Language | TypeScript (`@gftd/magatama-host-sdk` host, TS Native) |
+| Language | TypeScript (`@etzhayyim/magatama-host-sdk` host, TS Native) |
 | Build | `gftd deploy` (app.ts が直接 wrangler entrypoint) |
 | Architecture | AT Protocol commit pipeline (`com.atproto.repo.applyWrites` batch) |
 | Write | repo record upsert / `com.atproto.repo.applyWrites` → PDS → sign → kagamiWrite → typed vertex / edge tables |
@@ -27,18 +27,18 @@ Natural person cohort パターンを法人に適用した 3 Phase 設計:
 ### Path-based DID 階層
 
 ```
-did:web:legal-entity.gftd.ai                          — primary DID (controller)
-did:web:legal-entity.gftd.ai:{iso3}                   — jurisdiction (e.g. :jpn, :usa, :gbr)
-did:web:legal-entity.gftd.ai:lei:{LEI}                — individual entity by LEI
-did:web:legal-entity.gftd.ai:entity:{reg_slug}        — individual entity by registry
-did:web:legal-entity.gftd.ai:industry:{isic_section}  — ISIC section
+did:web:legal-entity.etzhayyim.com                          — primary DID (controller)
+did:web:legal-entity.etzhayyim.com:{iso3}                   — jurisdiction (e.g. :jpn, :usa, :gbr)
+did:web:legal-entity.etzhayyim.com:lei:{LEI}                — individual entity by LEI
+did:web:legal-entity.etzhayyim.com:entity:{reg_slug}        — individual entity by registry
+did:web:legal-entity.etzhayyim.com:industry:{isic_section}  — ISIC section
 ```
 
 ## Components
 
 | nanoid | 役割 | 状態 |
 |---|---|---|
-| `le9k4x2m` | GLEIF / registry collector + SEC disclosure / relation sync projector | **DEPLOYED** (`le9k4x2m.gftd.ai`) |
+| `le9k4x2m` | GLEIF / registry collector + SEC disclosure / relation sync projector | **DEPLOYED** (`le9k4x2m.etzhayyim.com`) |
 | `le01corp0` | Statistics-first cohort + individual entity registration (Phase 1-2) | 設計のみ |
 
 ## Data Sources (194+ Countries)
@@ -161,56 +161,56 @@ le9k4x2m (Collector Worker)
 
 | Command | Source | Type | パラメータ |
 |---|---|---|---|
-| `ai.gftd.legalEntity.collectGlobal` | GLEIF LEI | procedure | `pages`, `pageSize`, `startPage` |
-| `ai.gftd.legalEntity.collectJpn` | JP NTA 法人番号 | procedure | `pages`, `pageSize`, `from`, `to`, `prefecture`, `kind` |
-| `ai.gftd.legalEntity.collectGbr` | UK Companies House | procedure | `pages`, `pageSize`, `startIndex`, `companyStatus`, `companyType` |
-| `ai.gftd.legalEntity.collectFra` | FR SIRENE | procedure | `pages`, `pageSize`, `cursor`, `activesOnly`, `departement` |
-| `ai.gftd.legalEntity.collectBra` | BR CNPJ | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
-| `ai.gftd.legalEntity.collectNor` | NO Brønnøysund | procedure | `pages`, `pageSize`, `startPage`, `organisasjonsform` |
-| `ai.gftd.legalEntity.collectDnk` | DK CVR | procedure | `pages`, `pageSize`, `virksomhedsform` |
-| `ai.gftd.legalEntity.collectFin` | FI PRH | procedure | `pages`, `pageSize`, `companyForm` |
-| `ai.gftd.legalEntity.collectEst` | EE e-Business | procedure | `pages`, `pageSize`, `legalForm` |
-| `ai.gftd.legalEntity.collectBel` | BE KBO/BCE | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
-| `ai.gftd.legalEntity.collectCze` | CZ ARES | procedure | `pages`, `pageSize`, `pravniForma` |
-| `ai.gftd.legalEntity.collectNzl` | NZ NZBN | procedure | `pages`, `pageSize`, `entityType`, `entityStatus` |
-| `ai.gftd.legalEntity.collectAus` | AU ABR | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
-| `ai.gftd.legalEntity.collectUsa` | US SEC EDGAR | procedure | `pages`, `pageSize`, `sic`, `state` |
-| `ai.gftd.legalEntity.collectCan` | CA ISED | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
-| `ai.gftd.legalEntity.collectZaf` | ZA CIPC | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
-| `ai.gftd.legalEntity.collectChe` | CH Zefix | procedure | `pages`, `pageSize`, `canton`, `legalForm`, `activeOnly` |
-| `ai.gftd.legalEntity.collectNld` | NL KVK | procedure | `pages`, `pageSize` |
-| `ai.gftd.legalEntity.collectIsr` | IL Rasham | procedure | `pages`, `pageSize`, `companyType`, `status` |
+| `app.etzhayyim.legalEntity.collectGlobal` | GLEIF LEI | procedure | `pages`, `pageSize`, `startPage` |
+| `app.etzhayyim.legalEntity.collectJpn` | JP NTA 法人番号 | procedure | `pages`, `pageSize`, `from`, `to`, `prefecture`, `kind` |
+| `app.etzhayyim.legalEntity.collectGbr` | UK Companies House | procedure | `pages`, `pageSize`, `startIndex`, `companyStatus`, `companyType` |
+| `app.etzhayyim.legalEntity.collectFra` | FR SIRENE | procedure | `pages`, `pageSize`, `cursor`, `activesOnly`, `departement` |
+| `app.etzhayyim.legalEntity.collectBra` | BR CNPJ | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
+| `app.etzhayyim.legalEntity.collectNor` | NO Brønnøysund | procedure | `pages`, `pageSize`, `startPage`, `organisasjonsform` |
+| `app.etzhayyim.legalEntity.collectDnk` | DK CVR | procedure | `pages`, `pageSize`, `virksomhedsform` |
+| `app.etzhayyim.legalEntity.collectFin` | FI PRH | procedure | `pages`, `pageSize`, `companyForm` |
+| `app.etzhayyim.legalEntity.collectEst` | EE e-Business | procedure | `pages`, `pageSize`, `legalForm` |
+| `app.etzhayyim.legalEntity.collectBel` | BE KBO/BCE | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
+| `app.etzhayyim.legalEntity.collectCze` | CZ ARES | procedure | `pages`, `pageSize`, `pravniForma` |
+| `app.etzhayyim.legalEntity.collectNzl` | NZ NZBN | procedure | `pages`, `pageSize`, `entityType`, `entityStatus` |
+| `app.etzhayyim.legalEntity.collectAus` | AU ABR | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
+| `app.etzhayyim.legalEntity.collectUsa` | US SEC EDGAR | procedure | `pages`, `pageSize`, `sic`, `state` |
+| `app.etzhayyim.legalEntity.collectCan` | CA ISED | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
+| `app.etzhayyim.legalEntity.collectZaf` | ZA CIPC | procedure | `bulkManifestUri`, `sourceSnapshotId`, `dryRun` |
+| `app.etzhayyim.legalEntity.collectChe` | CH Zefix | procedure | `pages`, `pageSize`, `canton`, `legalForm`, `activeOnly` |
+| `app.etzhayyim.legalEntity.collectNld` | NL KVK | procedure | `pages`, `pageSize` |
+| `app.etzhayyim.legalEntity.collectIsr` | IL Rasham | procedure | `pages`, `pageSize`, `companyType`, `status` |
 
 ### Identity
 
 | Command | Type | 説明 |
 |---|---|---|
-| `ai.gftd.legalEntity.registerDids` | procedure | GLEIF LEI entities の path-based DID 登録 |
+| `app.etzhayyim.legalEntity.registerDids` | procedure | GLEIF LEI entities の path-based DID 登録 |
 
 ### Disclosure / Relations
 
 | Command | Type | 説明 |
 |---|---|---|
-| `ai.gftd.legalEntity.ingestSecDisclosure` | procedure | SEC companyfacts / submissions から filing / fact vertices を upsert |
-| `ai.gftd.legalEntity.linkOwnership` | procedure | curated ownership edge を upsert |
-| `ai.gftd.legalEntity.linkTrade` | procedure | curated trade relationship edge を upsert |
+| `app.etzhayyim.legalEntity.ingestSecDisclosure` | procedure | SEC companyfacts / submissions から filing / fact vertices を upsert |
+| `app.etzhayyim.legalEntity.linkOwnership` | procedure | curated ownership edge を upsert |
+| `app.etzhayyim.legalEntity.linkTrade` | procedure | curated trade relationship edge を upsert |
 
 ### Queries
 
 | Command | Type | 説明 |
 |---|---|---|
-| `ai.gftd.legalEntity.stats` | query | 総数 + 国別 + ソース別カウント |
-| `ai.gftd.legalEntity.search` | query | 法人名 exact match 検索 |
+| `app.etzhayyim.legalEntity.stats` | query | 総数 + 国別 + ソース別カウント |
+| `app.etzhayyim.legalEntity.search` | query | 法人名 exact match 検索 |
 
 ### 使用例
 
 ```bash
 # 200 LEI を batch ingest (1 page)
-curl -X POST https://le9k4x2m.gftd.ai/xrpc/ai.gftd.legalEntity.collectGlobal \
+curl -X POST https://le9k4x2m.etzhayyim.com/xrpc/app.etzhayyim.legalEntity.collectGlobal \
   -H "Content-Type: application/json" -d '{"pages":1,"pageSize":200}'
 
 # 統計
-curl -X POST https://le9k4x2m.gftd.ai/xrpc/ai.gftd.legalEntity.stats \
+curl -X POST https://le9k4x2m.etzhayyim.com/xrpc/app.etzhayyim.legalEntity.stats \
   -H "Content-Type: application/json" -d '{}'
 ```
 
@@ -218,7 +218,7 @@ curl -X POST https://le9k4x2m.gftd.ai/xrpc/ai.gftd.legalEntity.stats \
 
 固定値はすぐ古くなるので、この app の現況確認は live query 前提にする。
 
-- vertex coverage: `ai.gftd.legalEntity.stats`
+- vertex coverage: `app.etzhayyim.legalEntity.stats`
 - relation coverage: `edge_legal_entity_mentions` / `edge_legal_entity_relates_to` / `edge_legal_entity_owns` / `edge_legal_entity_trades_with`
 - statement / filing coverage: `vertex_public_statement` / `vertex_company_filing` / `vertex_company_fact`
 
@@ -232,8 +232,8 @@ curl -X POST https://le9k4x2m.gftd.ai/xrpc/ai.gftd.legalEntity.stats \
 
 | コンポーネント | 変更 | ファイル |
 |---|---|---|
-| `@gftd/graph-schema` helpers.ts | `'LegalEntity': 'vertex_legal_entity'` 追加 | `30-graph/graph-schema/src/helpers.ts` |
-| `@gftd/graph-schema` database.ts | `VertexLegalEntityRow` + `Database` entry 追加 | `30-graph/graph-schema/src/database.ts` |
+| `@etzhayyim/graph-schema` helpers.ts | `'LegalEntity': 'vertex_legal_entity'` 追加 | `30-graph/graph-schema/src/helpers.ts` |
+| `@etzhayyim/graph-schema` database.ts | `VertexLegalEntityRow` + `Database` entry 追加 | `30-graph/graph-schema/src/database.ts` |
 | PDS core.ts | `buildTypedVertex` に `LegalEntity` case 追加 | `50-infra/cloudflare/workers/atproto/src/core.ts` |
 | RisingWave DDL | `vertex_legal_entity` テーブル (27 columns) | 既存 (raw SQL bootstrap) |
 | Lexicon | collectors + identity + disclosure / relation records | `00-contracts/lexicons/ai/gftd/apps/legalEntity/` |
@@ -247,7 +247,7 @@ curl -X POST https://le9k4x2m.gftd.ai/xrpc/ai.gftd.legalEntity.stats \
 
 ## Cross-actor Integration
 
-- `ubo.gftd.ai` — 法人の UBO 分析トリガー
-- `malak.gftd.ai` — 制裁リスト・反社照合
-- `resources.gftd.ai` — entity graph 統合
-- `natural-person.gftd.ai` — 法人 workforce demographics 連携
+- `ubo.etzhayyim.com` — 法人の UBO 分析トリガー
+- `malak.etzhayyim.com` — 制裁リスト・反社照合
+- `resources.etzhayyim.com` — entity graph 統合
+- `natural-person.etzhayyim.com` — 法人 workforce demographics 連携

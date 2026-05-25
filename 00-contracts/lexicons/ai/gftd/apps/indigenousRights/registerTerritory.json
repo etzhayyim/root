@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.indigenousRights.registerTerritory",
+  "id": "app.etzhayyim.apps.indigenousRights.registerTerritory",
   "defs": {
     "main": {
       "type": "procedure",

@@ -14,7 +14,7 @@ interface Env {
   APP_NANOID?: string;
 }
 
-const NSID_PREFIX = "ai.gftd.apps.collector.";
+const NSID_PREFIX = "app.etzhayyim.apps.collector.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneOs.recordHalDriver",
+  "id": "app.etzhayyim.apps.openSmartphoneOs.recordHalDriver",
   "defs": {
     "main": {
       "type": "procedure",

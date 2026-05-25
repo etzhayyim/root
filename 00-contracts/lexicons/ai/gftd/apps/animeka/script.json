@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.script",
+  "id": "app.etzhayyim.apps.animeka.script",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Tier 2 domain record for an episode script (脚本). Body is stored as blob; metadata + scene breakdown lives in graph. Derive rule `script-ready-scene-split` auto-creates ai.gftd.apps.animeka.scene records when status=ready, invoking the screenwriter actor.",
+      "description": "Tier 2 domain record for an episode script (脚本). Body is stored as blob; metadata + scene breakdown lives in graph. Derive rule `script-ready-scene-split` auto-creates app.etzhayyim.apps.animeka.scene records when status=ready, invoking the screenwriter actor.",
       "key": "any",
       "record": {
         "type": "object",
@@ -13,7 +13,7 @@
           "episodeRef": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "strongRef to ai.gftd.apps.animeka.episode."
+            "description": "strongRef to app.etzhayyim.apps.animeka.episode."
           },
           "revision": {
             "type": "integer",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.classSettlement.recordSettlement",
+  "id": "app.etzhayyim.apps.classSettlement.recordSettlement",
   "defs": {
     "main": {
       "type": "procedure",

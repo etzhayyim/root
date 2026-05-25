@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMeti.subsidizeSemiconductor",
+  "id": "app.etzhayyim.apps.jpMeti.subsidizeSemiconductor",
   "defs": {
     "main": {
       "type": "procedure",

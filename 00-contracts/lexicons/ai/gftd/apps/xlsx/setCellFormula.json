@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.xlsx.setCellFormula",
+  "id": "app.etzhayyim.apps.xlsx.setCellFormula",
   "defs": {
     "main": {
       "type": "procedure",

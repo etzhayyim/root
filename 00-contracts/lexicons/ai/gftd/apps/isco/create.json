@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isco.create",
+  "id": "app.etzhayyim.apps.isco.create",
   "defs": {
     "main": {
       "type": "procedure",

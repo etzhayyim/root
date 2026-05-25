@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oilRefining.listRefineries",
+  "id": "app.etzhayyim.apps.oilRefining.listRefineries",
   "defs": {
     "main": {
       "type": "query",

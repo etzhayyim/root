@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shinka.claimJobs",
+  "id": "app.etzhayyim.apps.shinka.claimJobs",
   "defs": {
     "main": {
       "type": "procedure",

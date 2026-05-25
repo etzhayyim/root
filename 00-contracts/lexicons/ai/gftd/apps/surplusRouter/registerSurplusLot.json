@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.surplusRouter.registerSurplusLot",
+  "id": "app.etzhayyim.apps.surplusRouter.registerSurplusLot",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Register a globally surplus / dead-stock / overstock / unsold-inventory lot for donation-based redistribution within the religious-corp economy. Per ADR-2605211241. Donor must be SBT Adherent or attested non-Adherent commercial donor (donation-only, non-profit). Wellbecoming constraint: routing priority redistributed -> recycled (via toshiKozan) -> disposed-licensed; dispose-first is prohibited at the state-enum level (see flagDeadStock). 10% tithe coupling: emit ai.gftd.apps.payment.sent {purpose:donation, amountUsdcMicros: estimatedValueUsdcMicros} in the same batch and the TitheRouter splits 10% to the Public Fund per ADR-2605192130.",
+      "description": "Register a globally surplus / dead-stock / overstock / unsold-inventory lot for donation-based redistribution within the religious-corp economy. Per ADR-2605211241. Donor must be SBT Adherent or attested non-Adherent commercial donor (donation-only, non-profit). Wellbecoming constraint: routing priority redistributed -> recycled (via toshiKozan) -> disposed-licensed; dispose-first is prohibited at the state-enum level (see flagDeadStock). 10% tithe coupling: emit app.etzhayyim.apps.payment.sent {purpose:donation, amountUsdcMicros: estimatedValueUsdcMicros} in the same batch and the TitheRouter splits 10% to the Public Fund per ADR-2605192130.",
       "x-bootstrap": true,
       "input": {
         "encoding": "application/json",
@@ -52,12 +52,12 @@
             },
             "skuCode": {
               "type": "string",
-              "description": "Optional SKU code for catalog reference. May match an existing ai.gftd.apps.warehouse.registerSku record."
+              "description": "Optional SKU code for catalog reference. May match an existing app.etzhayyim.apps.warehouse.registerSku record."
             },
             "warehouseSkuRef": {
               "type": "string",
               "format": "at-uri",
-              "description": "Optional AT URI of an existing ai.gftd.apps.warehouse.registerSku record this lot pertains to. Avoids duplicating the SKU master."
+              "description": "Optional AT URI of an existing app.etzhayyim.apps.warehouse.registerSku record this lot pertains to. Avoids duplicating the SKU master."
             },
             "description": {
               "type": "string",
@@ -137,7 +137,7 @@
             "dppBadgeRef": {
               "type": "string",
               "format": "at-uri",
-              "description": "Optional AT URI of an ESPR Digital Product Passport (ai.gftd.apps.textileCircularity.registerDppBadge) when applicable."
+              "description": "Optional AT URI of an ESPR Digital Product Passport (app.etzhayyim.apps.textileCircularity.registerDppBadge) when applicable."
             },
             "registeredAt": {
               "type": "string",

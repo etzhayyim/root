@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.claim.challenge",
+  "id": "app.etzhayyim.claim.challenge",
   "defs": {
     "main": {
       "type": "record",
@@ -10,7 +10,7 @@
         "type": "object",
         "required": ["targetClaimId", "counterBond", "rebuttal", "createdAt"],
         "properties": {
-          "targetClaimId": { "type": "string", "description": "0x-prefixed 32-byte claimId from the original ai.gftd.claim.stakedAttestation" },
+          "targetClaimId": { "type": "string", "description": "0x-prefixed 32-byte claimId from the original app.etzhayyim.claim.stakedAttestation" },
           "counterBond":   { "type": "string", "description": "GCC wei (uint256 decimal string). Per-actor minimum is enforced by the contract" },
           "rebuttal":      { "type": "string", "maxLength": 4096 },
           "evidence":      { "type": "array", "items": { "type": "string" } },

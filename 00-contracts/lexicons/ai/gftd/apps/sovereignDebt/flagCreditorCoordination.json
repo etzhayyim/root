@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sovereignDebt.flagCreditorCoordination",
+  "id": "app.etzhayyim.apps.sovereignDebt.flagCreditorCoordination",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.reverseGeocode",
+  "id": "app.etzhayyim.apps.maps.reverseGeocode",
   "defs": {
     "main": {
       "type": "procedure",

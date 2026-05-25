@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nogu.lease",
+  "id": "app.etzhayyim.apps.nogu.lease",
   "description": "農機リース記録。農協単協から組合員への農機貸出。nokyo.purchaseOrder category=machinery と連携して一括発注後のリース管理を担う。",
   "defs": {
     "main": {

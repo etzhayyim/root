@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.trustedFlagger.flagAbuseConcern",
+  "id": "app.etzhayyim.apps.trustedFlagger.flagAbuseConcern",
   "defs": {
     "main": {
       "type": "procedure",

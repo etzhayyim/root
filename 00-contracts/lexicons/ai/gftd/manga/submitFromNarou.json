@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.manga.submitFromNarou",
+  "id": "app.etzhayyim.manga.submitFromNarou",
   "defs": {
     "main": {
       "type": "procedure",

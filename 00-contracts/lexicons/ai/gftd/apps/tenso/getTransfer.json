@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tenso.getTransfer",
+  "id": "app.etzhayyim.apps.tenso.getTransfer",
   "defs": {
     "main": {
       "type": "query",

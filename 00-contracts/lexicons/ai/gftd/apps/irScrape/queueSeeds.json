@@ -1,6 +1,6 @@
 {
   "$type": "lexicon",
-  "id": "ai.gftd.apps.irScrape.queueSeeds",
+  "id": "app.etzhayyim.apps.irScrape.queueSeeds",
   "revision": 1,
   "description": "Seed vertex_ir_company from the built-in listed-company registry and queue scraper runs for companies not recently crawled.",
   "defs": {

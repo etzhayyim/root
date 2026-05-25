@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.esgSovereign.recordEsgSovereignScore",
+  "id": "app.etzhayyim.apps.esgSovereign.recordEsgSovereignScore",
   "defs": {
     "main": {
       "type": "procedure",

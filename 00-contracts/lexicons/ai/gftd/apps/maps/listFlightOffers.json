@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listFlightOffers",
+  "id": "app.etzhayyim.apps.maps.listFlightOffers",
   "defs": {
     "main": {
       "type": "query",

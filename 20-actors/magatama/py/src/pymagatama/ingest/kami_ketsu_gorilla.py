@@ -63,7 +63,7 @@ def submit_score(**kwargs: Any) -> dict[str, Any]:
         """INSERT INTO vertex_atrecord_kami_ketsu_gorilla_score
         (vertex_id, _seq, owner_did, player_did, score, slaps, bananas, run_sec, created_at)
         VALUES (%s, _next_seq('vertex_atrecord_kami_ketsu_gorilla_score'), %s, %s, %s, %s, %s, %s, %s)""",
-        (f"at://{OWNER_DID}/ai.gftd.apps.kami.ketsu_gorilla.score/{score_id}", OWNER_DID, player, score, slaps, bananas, run_sec, created_at),
+        (f"at://{OWNER_DID}/app.etzhayyim.apps.kami.ketsu_gorilla.score/{score_id}", OWNER_DID, player, score, slaps, bananas, run_sec, created_at),
     )
     return {"ok": True, "scoreId": score_id}
 

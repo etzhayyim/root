@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openDenki.getNode",
+  "id": "app.etzhayyim.apps.openDenki.getNode",
   "defs": {
     "main": {
       "type": "query",

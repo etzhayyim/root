@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pensionsDc.flagInadequacy",
+  "id": "app.etzhayyim.apps.pensionsDc.flagInadequacy",
   "defs": {
     "main": {
       "type": "procedure",

@@ -23,8 +23,8 @@ server.tool(
   "Publish a milestone update to the yoro.etzhayyim.com social feed regarding the pharma automation supply chain.",
   SocialPostSchema.shape,
   async ({ text, tags }) => {
-    // In a real implementation, this would call `com.atproto.repo.createRecord` via `@gftd/magatama-host-sdk`
-    // or POST to `dispatcher.etzhayyim.com/xrpc/ai.gftd.yoro.postFeedItem`
+    // In a real implementation, this would call `com.atproto.repo.createRecord` via `@etzhayyim/magatama-host-sdk`
+    // or POST to `dispatcher.etzhayyim.com/xrpc/app.etzhayyim.yoro.postFeedItem`
     const did = "did:web:seiyaku.etzhayyim.com";
 
     // Simulate successful post
@@ -93,7 +93,7 @@ server.tool(
     candidateKind: z.enum(["generic", "biosimilar", "api_source"]),
   },
   async ({ expiryScreenVid, productId, candidateKind }) => {
-    // Matches the ai.gftd.apps.openPatent.startGenericManufacturingCandidate lexicon
+    // Matches the app.etzhayyim.apps.openPatent.startGenericManufacturingCandidate lexicon
     const seiyakuProcessId = `proc-${Math.random().toString(36).substring(2, 8)}`;
 
     return {
@@ -102,7 +102,7 @@ server.tool(
           type: "text",
           text: JSON.stringify({
             ok: true,
-            vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${seiyakuProcessId}`,
+            vertexId: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${seiyakuProcessId}`,
             seiyakuProcessId,
             instanceKey: Math.floor(Math.random() * 100000)
           }, null, 2),

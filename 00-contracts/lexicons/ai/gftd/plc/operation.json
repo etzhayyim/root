@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.plc.operation",
+  "id": "app.etzhayyim.plc.operation",
   "defs": {
     "main": {
       "type": "record",
-      "description": "PLC operation event emitted to atproto.etzhayyim.com firehose each time plc.etzhayyim.com accepts a new op. Used for cross-directory federation, audit trail, and external observers (Bluesky / other PLC replicas) to mirror GFTD-originated DIDs.",
+      "description": "PLC operation event emitted to atproto.etzhayyim.com firehose each time plc.etzhayyim.com accepts a new op. Used for cross-directory federation, audit trail, and external observers (Bluesky / other PLC replicas) to mirror etzhayyim-originated DIDs.",
       "key": "tid",
       "record": {
         "type": "object",

@@ -2,7 +2,7 @@
 
 The actor owns expensive/long-running work: LLM guide writing, translation,
 quality scoring, and social-post drafting. Cloudflare app.ts only commits the
-records and posts via ai.gftd.apps.media_gamers.guide.commitGuide.
+records and posts via app.etzhayyim.apps.media_gamers.guide.commitGuide.
 """
 
 from __future__ import annotations
@@ -59,7 +59,7 @@ SEED_GAMES = [
     {
         "slug": "pokoa-world",
         "name": "Pokoa World",
-        "synopsis": "GFTD original creature-collector RPG blending surreal meme aesthetics and community-driven evolution paths.",
+        "synopsis": "etzhayyim original creature-collector RPG blending surreal meme aesthetics and community-driven evolution paths.",
         "developer": "gftd-studio",
         "publisher": "gftd",
         "platforms": ["PC", "Mobile"],
@@ -301,7 +301,7 @@ def social_post(title: str, body: str, game: dict[str, Any], guide_type: str, la
 async def commit_guide(payload: dict[str, Any]) -> dict[str, Any]:
     url = os.environ.get(
         "MEDIA_GAMERS_COMMIT_GUIDE_URL",
-        "https://media-gamers.etzhayyim.com/xrpc/ai.gftd.apps.media_gamers.guide.commitGuide",
+        "https://media-gamers.etzhayyim.com/xrpc/app.etzhayyim.apps.media_gamers.guide.commitGuide",
     )
     async with httpx.AsyncClient(timeout=60, follow_redirects=True) as client:
         res = await client.post(url, json=payload)
@@ -393,7 +393,7 @@ async def generate_knowledge(
     guide = await generate_knowledge_guide(graph or {})
     commit = await post_xrpc(
         "MEDIA_GAMERS_COMMIT_KNOWLEDGE_GUIDE_URL",
-        "https://media-gamers.etzhayyim.com/xrpc/ai.gftd.apps.media_gamers.knowledge.commitKnowledgeGuide",
+        "https://media-gamers.etzhayyim.com/xrpc/app.etzhayyim.apps.media_gamers.knowledge.commitKnowledgeGuide",
         {
             "graph": graph or {},
             "title": guide["title"],
@@ -411,7 +411,7 @@ async def eval_models(**_: Any) -> dict[str, Any]:
     evaluation = await evaluate_model()
     commit = await post_xrpc(
         "MEDIA_GAMERS_COMMIT_MODEL_EVALUATION_URL",
-        "https://media-gamers.etzhayyim.com/xrpc/ai.gftd.apps.media_gamers.commitModelEvaluation",
+        "https://media-gamers.etzhayyim.com/xrpc/app.etzhayyim.apps.media_gamers.commitModelEvaluation",
         {**evaluation, "generatedBy": "media-gamers-guide-actor"},
     )
     return {"result": commit}

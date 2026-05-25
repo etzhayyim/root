@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.spotRecommend",
+  "id": "app.etzhayyim.apps.maps.spotRecommend",
   "defs": {
     "main": {
       "type": "procedure",

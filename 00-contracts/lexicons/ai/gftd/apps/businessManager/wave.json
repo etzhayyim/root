@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.businessManager.wave",
+  "id": "app.etzhayyim.apps.businessManager.wave",
   "defs": {
     "main": {
       "type": "procedure",

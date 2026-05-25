@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coworkGraph.filesGet",
+  "id": "app.etzhayyim.apps.coworkGraph.filesGet",
   "defs": {
     "main": {
       "type": "query",

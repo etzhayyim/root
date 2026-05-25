@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airYield.adjustInventory",
+  "id": "app.etzhayyim.apps.airYield.adjustInventory",
   "defs": {
     "main": {
       "type": "procedure",

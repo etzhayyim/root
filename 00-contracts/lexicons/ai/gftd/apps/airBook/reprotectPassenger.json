@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airBook.reprotectPassenger",
+  "id": "app.etzhayyim.apps.airBook.reprotectPassenger",
   "defs": {
     "main": {
       "type": "procedure",

@@ -25,7 +25,7 @@ import type { LexiconDoc } from "@etzhayyim/lexicon-to-zod";
 const lexicons: LexiconDoc[] = [
   {
     lexicon: 1,
-    id: "ai.gftd.apps.openBanking.transfer",
+    id: "app.etzhayyim.apps.openBanking.transfer",
     defs: {
       main: {
         type: "procedure",
@@ -49,7 +49,7 @@ const validators = buildValidatorMap(lexicons);
 
 // Validate input
 const input = { transferId: "tx123", amount: 1000 };
-const result = validateInput(validators, "ai.gftd.apps.openBanking.transfer", input);
+const result = validateInput(validators, "app.etzhayyim.apps.openBanking.transfer", input);
 
 if ("error" in result) {
   console.error("Validation failed:", result.error.issues);
@@ -112,7 +112,7 @@ Import and use in your handler:
 import { openBankingValidators } from "@etzhayyim/lexicon-to-zod/generated/openBanking.validators.js";
 import { validateInput } from "@etzhayyim/lexicon-to-zod";
 
-const v = validateInput(openBankingValidators, "ai.gftd.apps.openBanking.transfer", input);
+const v = validateInput(openBankingValidators, "app.etzhayyim.apps.openBanking.transfer", input);
 ```
 
 ## Supported Lexicon Features

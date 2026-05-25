@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.correlateAlarms",
+  "id": "app.etzhayyim.apps.telecom.correlateAlarms",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "OSS NOC — correlate child alarms under a parent (root cause), suppressing storm. ruleRef points to a DMN rule (ai.gftd.dmn.*) or a vault://rule pointer.",
+      "description": "OSS NOC — correlate child alarms under a parent (root cause), suppressing storm. ruleRef points to a DMN rule (app.etzhayyim.dmn.*) or a vault://rule pointer.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -25,8 +25,8 @@ describe("Seed open-orcid BPMN actors migration", () => {
     expect(migrationSource).toContain('bpmnProcessId: "open_orcid_record_affiliation"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openOrcid.registerResearcher"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openOrcid.recordAffiliation"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openOrcid.registerResearcher"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openOrcid.recordAffiliation"');
   });
   it("uses open-orcid-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-orcid');

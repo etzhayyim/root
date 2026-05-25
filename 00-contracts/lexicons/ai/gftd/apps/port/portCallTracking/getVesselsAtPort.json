@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.port.portCallTracking.getVesselsAtPort",
+  "id": "app.etzhayyim.apps.port.portCallTracking.getVesselsAtPort",
   "defs": {
     "main": {
       "type": "query",
-      "description": "ai.gftd.apps.port.portCallTracking.getVesselsAtPort BPMN-backed port operation.",
+      "description": "app.etzhayyim.apps.port.portCallTracking.getVesselsAtPort BPMN-backed port operation.",
       "parameters": {
         "type": "params",
         "properties": {},

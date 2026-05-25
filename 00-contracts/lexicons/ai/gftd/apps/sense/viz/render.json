@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sense.viz.render",
+  "id": "app.etzhayyim.apps.sense.viz.render",
   "defs": {
     "main": {
       "type": "procedure",

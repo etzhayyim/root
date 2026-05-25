@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hydrogenEconomy.recordOfftakeAgreement",
+  "id": "app.etzhayyim.apps.hydrogenEconomy.recordOfftakeAgreement",
   "defs": {
     "main": {
       "type": "procedure",

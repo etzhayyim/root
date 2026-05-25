@@ -14,7 +14,7 @@ import { sql } from "kysely";
  * Pattern: T3 actor (CF Worker = edge facade only, ADR-2604282300) with
  * LangGraph Server execution runtime (ADR-2605080600). Domain writes go
  * through `createKyselyDb(env.HYPERDRIVE)` direct from LangGraph nodes
- * (ADR-0036). PDS commit pipeline is NOT used for `ai.gftd.apps.manimani.*`
+ * (ADR-0036). PDS commit pipeline is NOT used for `app.etzhayyim.apps.manimani.*`
  * (non-federable; default block).
  *
  * Tables (4 vertex + 1 edge):

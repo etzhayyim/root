@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.atproto.cronTick",
+  "id": "app.etzhayyim.apps.atproto.cronTick",
   "defs": {
     "main": {
       "type": "procedure",

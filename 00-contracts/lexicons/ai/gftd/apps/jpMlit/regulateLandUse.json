@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMlit.regulateLandUse",
+  "id": "app.etzhayyim.apps.jpMlit.regulateLandUse",
   "defs": {
     "main": {
       "type": "procedure",

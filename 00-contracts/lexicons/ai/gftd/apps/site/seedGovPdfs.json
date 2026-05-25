@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.seedGovPdfs",
+  "id": "app.etzhayyim.apps.site.seedGovPdfs",
   "defs": {
     "main": {
       "type": "procedure",

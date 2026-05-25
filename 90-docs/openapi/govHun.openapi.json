@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govHun.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govHun.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Hungary government.",
-        "operationId": "ai.gftd.govHun.followSiteDeps",
+        "operationId": "app.etzhayyim.govHun.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHun.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govHun.heartbeatTick": {
       "post": {
         "summary": "Run the Hungary government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govHun.heartbeatTick",
+        "operationId": "app.etzhayyim.govHun.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHun.listOrgs": {
+    "/xrpc/app.etzhayyim.govHun.listOrgs": {
       "get": {
         "summary": "List Hungary government organization graph records.",
-        "operationId": "ai.gftd.govHun.listOrgs",
+        "operationId": "app.etzhayyim.govHun.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHun.registerDIDs": {
+    "/xrpc/app.etzhayyim.govHun.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Hungary government organizations.",
-        "operationId": "ai.gftd.govHun.registerDIDs",
+        "operationId": "app.etzhayyim.govHun.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHun.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govHun.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Hungary government organization path to its graph record.",
-        "operationId": "ai.gftd.govHun.resolveOrgPath",
+        "operationId": "app.etzhayyim.govHun.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHun.seedOrgs": {
+    "/xrpc/app.etzhayyim.govHun.seedOrgs": {
       "post": {
         "summary": "Seed initial Hungary government organization records into the graph.",
-        "operationId": "ai.gftd.govHun.seedOrgs",
+        "operationId": "app.etzhayyim.govHun.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHun.shinka": {
+    "/xrpc/app.etzhayyim.govHun.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Hungary government organization update.",
-        "operationId": "ai.gftd.govHun.shinka",
+        "operationId": "app.etzhayyim.govHun.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHun.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govHun.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Hungary government organization changes to graph.",
-        "operationId": "ai.gftd.govHun.syncWetUpdates",
+        "operationId": "app.etzhayyim.govHun.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

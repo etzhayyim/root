@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yoro.feed.getPostThread",
+  "id": "app.etzhayyim.yoro.feed.getPostThread",
   "defs": {
     "main": {
       "type": "query",

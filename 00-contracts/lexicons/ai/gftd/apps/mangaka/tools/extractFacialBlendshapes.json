@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.tools.extractFacialBlendshapes",
+  "id": "app.etzhayyim.apps.mangaka.tools.extractFacialBlendshapes",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "P16 step 5 of ai.gftd.apps.mangaka.composeCharacterVrm. Runs MediaPipe Face Landmarker (Apache-2.0) on the VKE CPU pool to extract 52 ARKit-compatible blendshape weights + 478 face landmarks from the character reference image. The result is folded into bind_vrm so the VRM has working facial animation out of the gate. Self-hosted on `ghcr.io/etzhayyim/mediapipe-face:1` (no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_extract_facial_blendshapes.",
+      "description": "P16 step 5 of app.etzhayyim.apps.mangaka.composeCharacterVrm. Runs MediaPipe Face Landmarker (Apache-2.0) on the VKE CPU pool to extract 52 ARKit-compatible blendshape weights + 478 face landmarks from the character reference image. The result is folded into bind_vrm so the VRM has working facial animation out of the gate. Self-hosted on `ghcr.io/etzhayyim/mediapipe-face:1` (no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_extract_facial_blendshapes.",
       "input": {
         "encoding": "application/json",
         "schema": {

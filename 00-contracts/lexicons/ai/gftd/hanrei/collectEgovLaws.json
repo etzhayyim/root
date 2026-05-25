@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.hanrei.collectEgovLaws",
+  "id": "app.etzhayyim.hanrei.collectEgovLaws",
   "defs": {
     "main": {
       "type": "procedure",

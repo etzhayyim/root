@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.tools.renderKeyframes",
+  "id": "app.etzhayyim.apps.mangaka.tools.renderKeyframes",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Pregel step 7 of ai.gftd.apps.mangaka.composeScene3d. GPU-bound headless render via kami-mangaka-scene PyO3 wheel + B2 content-addressed PUT. When the wheel or B2 is missing, returns placeholder blobKeys ('pending-*') so the rest of the Pregel still progresses. Runs on the VKE render pod pool (`pod_pool: vke-render-pool` per topology spec). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_render_keyframes.",
+      "description": "Pregel step 7 of app.etzhayyim.apps.mangaka.composeScene3d. GPU-bound headless render via kami-mangaka-scene PyO3 wheel + B2 content-addressed PUT. When the wheel or B2 is missing, returns placeholder blobKeys ('pending-*') so the rest of the Pregel still progresses. Runs on the VKE render pod pool (`pod_pool: vke-render-pool` per topology spec). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_render_keyframes.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.gameka.proposeGame",
+  "id": "app.etzhayyim.gameka.proposeGame",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.dns.transferFromSquarespace",
+  "id": "app.etzhayyim.apps.dns.transferFromSquarespace",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Initiate a domain transfer from Squarespace to Cloudflare. Creates the ai.gftd.apps.dns.transferRequest record on the cfRegistrar sub-DID; the yorishiro-squarespace sqExporter picks it up via Follow and drives the 5-step release workflow. Requires ClassA (3 signers, high) approval before status transitions to approved.",
+      "description": "Initiate a domain transfer from Squarespace to Cloudflare. Creates the app.etzhayyim.apps.dns.transferRequest record on the cfRegistrar sub-DID; the yorishiro-squarespace sqExporter picks it up via Follow and drives the 5-step release workflow. Requires ClassA (3 signers, high) approval before status transitions to approved.",
       "input": {
         "encoding": "application/json",
         "schema": {

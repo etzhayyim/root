@@ -1,12 +1,12 @@
 """FastAPI router exposing BMC XRPC handlers.
 
-The yatabase CF Worker forwards `/xrpc/ai.gftd.apps.yata.bmc{Verb}` over
+The yatabase CF Worker forwards `/xrpc/app.etzhayyim.apps.yata.bmc{Verb}` over
 HTTPS with an HMAC-SHA256 of the body in `x-internal-trust` and the
 resolved identity in `x-gftd-actor-did` / `x-gftd-org-did`. The pod is
 the only writer; the Worker holds no Hyperdrive binding.
 
-NSID flat naming (`ai.gftd.apps.yata.bmcGetState` etc.) matches the
-existing `ai.gftd.apps.yata.*` surface — see
+NSID flat naming (`app.etzhayyim.apps.yata.bmcGetState` etc.) matches the
+existing `app.etzhayyim.apps.yata.*` surface — see
 `00-contracts/lexicons/ai/gftd/apps/yata/bmc*.json`.
 """
 
@@ -64,7 +64,7 @@ def _float_str(x: float | None) -> str | None:
 # ── Read endpoints ─────────────────────────────────────────────────────
 
 
-@router.get("/xrpc/ai.gftd.apps.yata.bmcGetState")
+@router.get("/xrpc/app.etzhayyim.apps.yata.bmcGetState")
 async def bmc_get_state(
     request: Request,
     org_did_param: str | None = None,
@@ -90,7 +90,7 @@ async def bmc_get_state(
     })
 
 
-@router.get("/xrpc/ai.gftd.apps.yata.bmcListHypotheses")
+@router.get("/xrpc/app.etzhayyim.apps.yata.bmcListHypotheses")
 async def bmc_list_hypotheses(
     request: Request,
     status: str | None = None,
@@ -126,7 +126,7 @@ async def bmc_list_hypotheses(
     return JSONResponse({"hypotheses": out, "offset": offset, "limit": limit, "total": total})
 
 
-@router.get("/xrpc/ai.gftd.apps.yata.bmcListIterations")
+@router.get("/xrpc/app.etzhayyim.apps.yata.bmcListIterations")
 async def bmc_list_iterations(
     request: Request,
     hypothesisSlug: str | None = None,
@@ -157,7 +157,7 @@ async def bmc_list_iterations(
     return JSONResponse({"iterations": out, "offset": offset, "limit": limit, "total": total})
 
 
-@router.get("/xrpc/ai.gftd.apps.yata.bmcListDecisions")
+@router.get("/xrpc/app.etzhayyim.apps.yata.bmcListDecisions")
 async def bmc_list_decisions(
     request: Request,
     hypothesisSlug: str | None = None,
@@ -187,7 +187,7 @@ async def bmc_list_decisions(
     return JSONResponse({"decisions": out, "offset": offset, "limit": limit, "total": total})
 
 
-@router.get("/xrpc/ai.gftd.apps.yata.bmcBlockHealth")
+@router.get("/xrpc/app.etzhayyim.apps.yata.bmcBlockHealth")
 async def bmc_block_health(
     request: Request,
     x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
@@ -212,7 +212,7 @@ async def bmc_block_health(
 # ── Write endpoints ────────────────────────────────────────────────────
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.bmcAppendState")
+@router.post("/xrpc/app.etzhayyim.apps.yata.bmcAppendState")
 async def bmc_append_state(
     request: Request,
     x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
@@ -234,7 +234,7 @@ async def bmc_append_state(
         return JSONResponse({"ok": False, "vertexId": "", "version": 0, "error": str(e)[:240]}, status_code=500)
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.bmcAddHypothesis")
+@router.post("/xrpc/app.etzhayyim.apps.yata.bmcAddHypothesis")
 async def bmc_add_hypothesis(
     request: Request,
     x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
@@ -260,7 +260,7 @@ async def bmc_add_hypothesis(
         return JSONResponse({"ok": False, "vertexId": "", "error": str(e)[:240]}, status_code=500)
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.bmcSetHypothesisStatus")
+@router.post("/xrpc/app.etzhayyim.apps.yata.bmcSetHypothesisStatus")
 async def bmc_set_hypothesis_status(
     request: Request,
     x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
@@ -284,7 +284,7 @@ async def bmc_set_hypothesis_status(
         return JSONResponse({"ok": False, "vertexId": "", "error": str(e)[:240]}, status_code=500)
 
 
-@router.post("/xrpc/ai.gftd.apps.yata.bmcIterate")
+@router.post("/xrpc/app.etzhayyim.apps.yata.bmcIterate")
 async def bmc_iterate(
     request: Request,
     x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),

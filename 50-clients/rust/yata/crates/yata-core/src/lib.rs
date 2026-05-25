@@ -17,7 +17,7 @@
 //! - `host` defaults to `yatabase.etzhayyim.com`.
 //! - `port` defaults to `5432`.
 //! - `database` is `yata_<sha256(orgDid)[:16]>` provisioned via
-//!   `ai.gftd.apps.yata.provisionDatabase` (P3 BPMN).
+//!   `app.etzhayyim.apps.yata.provisionDatabase` (P3 BPMN).
 //! - Common params: `sslmode=require` (default), `application_name=...`.
 
 #![cfg_attr(docsrs, feature(doc_cfg))]

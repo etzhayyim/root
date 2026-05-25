@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.c2paContentCred.recordManifest",
+  "id": "app.etzhayyim.apps.c2paContentCred.recordManifest",
   "defs": {
     "main": {
       "type": "procedure",

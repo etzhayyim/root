@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.hanrei.compareJurisdictions",
+  "id": "app.etzhayyim.hanrei.compareJurisdictions",
   "defs": {
     "main": {
       "type": "procedure",

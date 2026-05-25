@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.deliverInterceptMetadata",
+  "id": "app.etzhayyim.apps.telecom.deliverInterceptMetadata",
   "defs": {
     "main": {
       "type": "procedure",

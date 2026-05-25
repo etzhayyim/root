@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aisDarkVessel.flagSanctionsEvasion",
+  "id": "app.etzhayyim.apps.aisDarkVessel.flagSanctionsEvasion",
   "defs": {
     "main": {
       "type": "procedure",

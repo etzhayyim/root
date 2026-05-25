@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.uflpaEnforcement.flagUflpaSupplier",
+  "id": "app.etzhayyim.apps.uflpaEnforcement.flagUflpaSupplier",
   "defs": {
     "main": {
       "type": "procedure",

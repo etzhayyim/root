@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.animeka.listEpisodes",
+  "id": "app.etzhayyim.animeka.listEpisodes",
   "defs": {
     "main": {
       "type": "query",

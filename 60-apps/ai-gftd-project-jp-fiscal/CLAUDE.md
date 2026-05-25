@@ -11,7 +11,7 @@ External public sources (e-GOV / MOF / 総務省 / 会計検査院 / NTA / EDINE
     ▼
 ai-gftd-wasm-jpfiscal-jpf15c4l  (TS Native, single Worker)
     ├─ cron */15 * * * *  → scheduler routes per source
-    ├─ XRPC commands (ai.gftd.apps.jpFiscal.ingest{Budget,Contract,...})
+    ├─ XRPC commands (app.etzhayyim.apps.jpFiscal.ingest{Budget,Contract,...})
     ├─ Design E Tier 2 write → ComAtprotoRepoCreateRecord (jpFiscal lexicons)
     └─ Design E Tier 1 social = `gov` actor `derive` rule (NOT this app)
 ```
@@ -28,16 +28,16 @@ All implemented inline in `src/app.ts` per single-file principle.
 
 | Adapter NSID | Source | Cron | Output collection |
 |---|---|---|---|
-| `ai.gftd.apps.jpFiscal.ingestBudgetBook`         | MOF 予算書/決算書                     | monthly  | `jpFiscal.budgetBook` |
-| `ai.gftd.apps.jpFiscal.ingestEgovContract`       | 各省庁 契約公表 CSV                  | weekly   | `jpFiscal.contract` |
-| `ai.gftd.apps.jpFiscal.ingestNjcJcn`             | NTA 法人番号 delta API               | weekly   | (legal-entity actor delegate) |
-| `ai.gftd.apps.jpFiscal.ingestLgFinance`          | 総務省 地方財政状況調査               | annual   | `jpFiscal.lgFinance` |
-| `ai.gftd.apps.jpFiscal.ingestIncorpFinance`      | 独法財務諸表 XBRL                    | annual   | `jpFiscal.incorpFinance` |
-| `ai.gftd.apps.jpFiscal.ingestProgramReview`      | 行政事業レビューシート                | annual   | `jpFiscal.programReview` |
-| `ai.gftd.apps.jpFiscal.ingestBoaAudit`           | 会計検査院 検査報告                  | annual   | `jpFiscal.auditFinding` |
-| `ai.gftd.apps.jpFiscal.ingestNtaStatistic`       | 国税庁 統計年報                      | annual   | `jpFiscal.taxPayment` (cohort) |
-| `ai.gftd.apps.jpFiscal.ingestUboList`            | 法務局 実質的支配者リスト             | on-request | `jpFiscal.beneficialOwner` |
-| `ai.gftd.apps.jpFiscal.ingestEdinetLargeholding` | EDINET v2 大量保有報告               | daily    | `jpFiscal.beneficialOwner` |
+| `app.etzhayyim.apps.jpFiscal.ingestBudgetBook`         | MOF 予算書/決算書                     | monthly  | `jpFiscal.budgetBook` |
+| `app.etzhayyim.apps.jpFiscal.ingestEgovContract`       | 各省庁 契約公表 CSV                  | weekly   | `jpFiscal.contract` |
+| `app.etzhayyim.apps.jpFiscal.ingestNjcJcn`             | NTA 法人番号 delta API               | weekly   | (legal-entity actor delegate) |
+| `app.etzhayyim.apps.jpFiscal.ingestLgFinance`          | 総務省 地方財政状況調査               | annual   | `jpFiscal.lgFinance` |
+| `app.etzhayyim.apps.jpFiscal.ingestIncorpFinance`      | 独法財務諸表 XBRL                    | annual   | `jpFiscal.incorpFinance` |
+| `app.etzhayyim.apps.jpFiscal.ingestProgramReview`      | 行政事業レビューシート                | annual   | `jpFiscal.programReview` |
+| `app.etzhayyim.apps.jpFiscal.ingestBoaAudit`           | 会計検査院 検査報告                  | annual   | `jpFiscal.auditFinding` |
+| `app.etzhayyim.apps.jpFiscal.ingestNtaStatistic`       | 国税庁 統計年報                      | annual   | `jpFiscal.taxPayment` (cohort) |
+| `app.etzhayyim.apps.jpFiscal.ingestUboList`            | 法務局 実質的支配者リスト             | on-request | `jpFiscal.beneficialOwner` |
+| `app.etzhayyim.apps.jpFiscal.ingestEdinetLargeholding` | EDINET v2 大量保有報告               | daily    | `jpFiscal.beneficialOwner` |
 
 ## Non-responsibilities
 

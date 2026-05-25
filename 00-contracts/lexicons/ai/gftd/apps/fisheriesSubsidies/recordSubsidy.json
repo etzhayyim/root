@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fisheriesSubsidies.recordSubsidy",
+  "id": "app.etzhayyim.apps.fisheriesSubsidies.recordSubsidy",
   "defs": {
     "main": {
       "type": "procedure",

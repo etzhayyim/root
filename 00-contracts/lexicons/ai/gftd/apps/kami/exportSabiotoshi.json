@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.exportSabiotoshi",
+  "id": "app.etzhayyim.apps.kami.exportSabiotoshi",
   "defs": {
     "main": {
       "type": "procedure",

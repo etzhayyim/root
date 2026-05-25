@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.rtc.meetingJoin",
+  "id": "app.etzhayyim.rtc.meetingJoin",
   "defs": {
     "main": {
       "type": "record",

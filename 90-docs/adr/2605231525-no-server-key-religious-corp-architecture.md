@@ -134,8 +134,8 @@ None of them require signing capability:
    license layer, not only the operational layer.
 
 2. **Member-write model**: all writes to etzhayyim-controlled
-   collections (`ai.gftd.apps.maps.*`, `ai.gftd.apps.payment.*`,
-   `ai.gftd.auth.*`, `app.etzhayyim.encrypted.*`, …) MUST be
+   collections (`app.etzhayyim.apps.maps.*`, `app.etzhayyim.apps.payment.*`,
+   `app.etzhayyim.auth.*`, `app.etzhayyim.encrypted.*`, …) MUST be
    signed by the member, donor, contributor, or community operator
    whose action they record. etzhayyim relays do not sign on behalf
    of any subject.
@@ -210,8 +210,8 @@ None of them require signing capability:
      (`isValidSignature` magic value `0x1626ba7e`). Smoke-tested
      2026-05-23 with placeholder Safe address — produces valid
      canonical JSON + attestation envelope.
-     **C-2 (per-agent device key)**: `ai.gftd.auth.registerAgentKey`
-     replaces `ai.gftd.auth.createAgentSession`'s server-side
+     **C-2 (per-agent device key)**: `app.etzhayyim.auth.registerAgentKey`
+     replaces `app.etzhayyim.auth.createAgentSession`'s server-side
      `crypto.subtle.generateKey`. Agent runtime (operator's own
      device) generates the keypair locally, POSTs public key + a
      WebAuthn-style PoP. `vertex_gftd_key_signing.private_key_b64`
@@ -230,7 +230,7 @@ None of them require signing capability:
    - **Stage D — External-API liability handover** · 🟡 scaffold ready, blocked on Stage B.
      Six external credentials migrate to community-operator
      ownership: RESEND_API_KEY (auth + yatabase email; replaced by
-     member-side SMTP emitting `ai.gftd.apps.email.outbox`), B2
+     member-side SMTP emitting `app.etzhayyim.apps.email.outbox`), B2
      keys (replaced by content-addressed CIDs pinned via IPFS),
      MAPILLARY_ACCESS_TOKEN + RUNPOD_API_KEY (community operator's
      own gsplat trainer pod), ODPT_API_KEY (community operator's

@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kyber.projector.emitApqcEvent",
+  "id": "app.etzhayyim.kyber.projector.emitApqcEvent",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Emit an OCEL 2.0 event linked to an APQC code + BPMN task + case objects. Writes ai.gftd.apps.apqc.apqcEvent (federable). Intended for handler use and external orchestrators.",
+      "description": "Emit an OCEL 2.0 event linked to an APQC code + BPMN task + case objects. Writes app.etzhayyim.apps.apqc.apqcEvent (federable). Intended for handler use and external orchestrators.",
       "input": {
         "encoding": "application/json",
         "schema": {

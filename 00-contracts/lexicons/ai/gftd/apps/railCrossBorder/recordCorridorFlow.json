@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.railCrossBorder.recordCorridorFlow",
+  "id": "app.etzhayyim.apps.railCrossBorder.recordCorridorFlow",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openJpnMynumber.health",
+  "id": "app.etzhayyim.apps.openJpnMynumber.health",
   "defs": {
     "main": {
       "type": "query",

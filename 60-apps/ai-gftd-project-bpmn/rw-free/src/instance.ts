@@ -32,8 +32,8 @@ import {
   type StartInstanceOutput,
 } from "./types.js";
 
-const INSTANCE_COLLECTION = "ai.gftd.bpmn.instance";
-const ACTIVITY_COLLECTION = "ai.gftd.bpmn.activityLog";
+const INSTANCE_COLLECTION = "app.etzhayyim.bpmn.instance";
+const ACTIVITY_COLLECTION = "app.etzhayyim.bpmn.activityLog";
 
 function isInstanceId(id: string): boolean {
   return /^[a-z0-9._-]{1,64}$/i.test(id);

@@ -39,12 +39,12 @@ describe("loadMcpManifestFromRegistry", () => {
 	it("returns mapped manifest from rows", async () => {
 		executeMock.mockResolvedValueOnce([
 			{
-				nsid: "ai.gftd.apps.lawfirm.createCase",
+				nsid: "app.etzhayyim.apps.lawfirm.createCase",
 				description: "Open a new client matter",
 				input_schema: '{"type":"object","properties":{"domain":{"type":"string"}}}',
 			},
 			{
-				nsid: "ai.gftd.apps.lawfirm.listMatters",
+				nsid: "app.etzhayyim.apps.lawfirm.listMatters",
 				description: "",
 				input_schema: null,
 			},
@@ -59,18 +59,18 @@ describe("loadMcpManifestFromRegistry", () => {
 		expect(manifest.appName).toBe("lawfirm");
 		expect(manifest.mcpTools).toHaveLength(2);
 		expect(manifest.mcpTools[0]).toMatchObject({
-			name: "ai.gftd.apps.lawfirm.createCase",
+			name: "app.etzhayyim.apps.lawfirm.createCase",
 			description: "Open a new client matter",
 			inputSchema: { type: "object" },
 		});
 		expect(manifest.mcpTools[1].inputSchema).toEqual({ type: "object", properties: {}, required: [] });
-		expect(manifest.knownNsids.has("ai.gftd.apps.lawfirm.createCase")).toBe(true);
-		expect(manifest.knownNsids.has("ai.gftd.apps.lawfirm.listMatters")).toBe(true);
+		expect(manifest.knownNsids.has("app.etzhayyim.apps.lawfirm.createCase")).toBe(true);
+		expect(manifest.knownNsids.has("app.etzhayyim.apps.lawfirm.listMatters")).toBe(true);
 	});
 
 	it("hits cache on second call within TTL", async () => {
 		executeMock.mockResolvedValueOnce([
-			{ nsid: "ai.gftd.apps.lawfirm.x", description: "", input_schema: null },
+			{ nsid: "app.etzhayyim.apps.lawfirm.x", description: "", input_schema: null },
 		]);
 
 		await loadMcpManifestFromRegistry({ hyperdrive: HYPERDRIVE, actorDid: ACTOR_DID, appName: "lawfirm" });
@@ -88,7 +88,7 @@ describe("loadMcpManifestFromRegistry", () => {
 		const p1 = loadMcpManifestFromRegistry({ hyperdrive: HYPERDRIVE, actorDid: ACTOR_DID, appName: "lawfirm" });
 		const p2 = loadMcpManifestFromRegistry({ hyperdrive: HYPERDRIVE, actorDid: ACTOR_DID, appName: "lawfirm" });
 
-		resolve([{ nsid: "ai.gftd.apps.lawfirm.y", description: "", input_schema: null }]);
+		resolve([{ nsid: "app.etzhayyim.apps.lawfirm.y", description: "", input_schema: null }]);
 
 		const [m1, m2] = await Promise.all([p1, p2]);
 		expect(m1.mcpTools[0].name).toBe(m2.mcpTools[0].name);
@@ -97,7 +97,7 @@ describe("loadMcpManifestFromRegistry", () => {
 
 	it("noCache: true bypasses cache", async () => {
 		executeMock.mockResolvedValue([
-			{ nsid: "ai.gftd.apps.lawfirm.z", description: "", input_schema: null },
+			{ nsid: "app.etzhayyim.apps.lawfirm.z", description: "", input_schema: null },
 		]);
 
 		await loadMcpManifestFromRegistry({ hyperdrive: HYPERDRIVE, actorDid: ACTOR_DID, appName: "lawfirm" });
@@ -120,7 +120,7 @@ describe("loadMcpManifestFromRegistry", () => {
 
 	it("falls back to empty schema when input_schema is invalid JSON", async () => {
 		executeMock.mockResolvedValueOnce([
-			{ nsid: "ai.gftd.apps.lawfirm.bad", description: "broken", input_schema: "{not-json" },
+			{ nsid: "app.etzhayyim.apps.lawfirm.bad", description: "broken", input_schema: "{not-json" },
 		]);
 
 		const manifest = await loadMcpManifestFromRegistry({

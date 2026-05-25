@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pandemicTreaty.recordCommitment",
+  "id": "app.etzhayyim.apps.pandemicTreaty.recordCommitment",
   "defs": {
     "main": {
       "type": "procedure",

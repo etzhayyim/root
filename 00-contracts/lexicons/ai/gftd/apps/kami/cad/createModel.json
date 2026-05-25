@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.cad.createModel",
+  "id": "app.etzhayyim.apps.kami.cad.createModel",
   "defs": {
     "main": {
       "type": "procedure",

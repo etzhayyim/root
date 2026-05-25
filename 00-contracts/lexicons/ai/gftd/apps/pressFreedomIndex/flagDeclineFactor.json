@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pressFreedomIndex.flagDeclineFactor",
+  "id": "app.etzhayyim.apps.pressFreedomIndex.flagDeclineFactor",
   "defs": {
     "main": {
       "type": "procedure",

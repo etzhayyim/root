@@ -1,6 +1,6 @@
-# @gftd/playwright-daemon
+# @etzhayyim/playwright-daemon
 
-Local daemon for `ai.gftd.apps.playwright` target=local. Long-polls
+Local daemon for `app.etzhayyim.apps.playwright` target=local. Long-polls
 `playwright.etzhayyim.com` for pending actions, executes via Playwright Chromium,
 resolves `valueRef` (Keychain / 1Password / env / literal), reports results.
 
@@ -38,7 +38,7 @@ security add-generic-password \
 
 ```bash
 PLAYWRIGHT_ENDPOINT=https://playwright.etzhayyim.com \
-PLAYWRIGHT_DAEMON_TOKEN="$(gftd agent-token --lxm ai.gftd.apps.playwright.dequeueAction)" \
+PLAYWRIGHT_DAEMON_TOKEN="$(gftd agent-token --lxm app.etzhayyim.apps.playwright.dequeueAction)" \
 npm run dev
 ```
 
@@ -57,12 +57,12 @@ Env vars:
 ## LaunchAgent (run on login)
 
 ```bash
-cat > ~/Library/LaunchAgents/ai.gftd.playwright.daemon.plist <<'PLIST'
+cat > ~/Library/LaunchAgents/app.etzhayyim.playwright.daemon.plist <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>Label</key><string>ai.gftd.playwright.daemon</string>
+  <key>Label</key><string>app.etzhayyim.playwright.daemon</string>
   <key>ProgramArguments</key>
   <array>
     <string>/opt/homebrew/bin/node</string>
@@ -80,13 +80,13 @@ cat > ~/Library/LaunchAgents/ai.gftd.playwright.daemon.plist <<'PLIST'
 </dict>
 </plist>
 PLIST
-launchctl load ~/Library/LaunchAgents/ai.gftd.playwright.daemon.plist
+launchctl load ~/Library/LaunchAgents/app.etzhayyim.playwright.daemon.plist
 ```
 
 ## Architecture
 
 ```
-caller → ai.gftd.apps.playwright.<op> XRPC
+caller → app.etzhayyim.apps.playwright.<op> XRPC
            ↓ enqueue action (D1 session/action table)
            ↓ poll for result
                                           ← dequeueAction
@@ -120,4 +120,4 @@ against the same Chromium page. Idle sessions sweep after 30 min.
 | `keychain entry missing` | `security add-generic-password …` |
 | `1password 'op' CLI not installed` | `brew install --cask 1password-cli` then `op signin` |
 | `evaluate op not yet enabled` | Expected in Phase 1; use scrape/fill/click instead |
-| `authorization: Bearer` 401 | Re-mint `gftd agent-token --lxm ai.gftd.apps.playwright.dequeueAction` |
+| `authorization: Bearer` 401 | Re-mint `gftd agent-token --lxm app.etzhayyim.apps.playwright.dequeueAction` |

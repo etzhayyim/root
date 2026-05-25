@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.marginCall.recordMarginCall",
+  "id": "app.etzhayyim.apps.marginCall.recordMarginCall",
   "defs": {
     "main": {
       "type": "procedure",

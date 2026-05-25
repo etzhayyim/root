@@ -1,17 +1,17 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.tools.resolveAssets",
+  "id": "app.etzhayyim.apps.mangaka.tools.resolveAssets",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Pregel step 2 of ai.gftd.apps.mangaka.composeScene3d. Resolves character / environment / prop vertices referenced by panel_plan to their VRM/glTF blob keys + display metadata. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_resolve_assets.",
+      "description": "Pregel step 2 of app.etzhayyim.apps.mangaka.composeScene3d. Resolves character / environment / prop vertices referenced by panel_plan to their VRM/glTF blob keys + display metadata. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_resolve_assets.",
       "input": {
         "encoding": "application/json",
         "schema": {
           "type": "object",
           "required": ["panelPlan"],
           "properties": {
-            "panelPlan": { "type": "ref", "ref": "ai.gftd.apps.mangaka.tools.loadPanelPlan#panelPlan" },
+            "panelPlan": { "type": "ref", "ref": "app.etzhayyim.apps.mangaka.tools.loadPanelPlan#panelPlan" },
             "rwUrl":     { "type": "string" }
           }
         }

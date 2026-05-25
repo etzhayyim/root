@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.osMessaging.getBridge",
+  "id": "app.etzhayyim.apps.osMessaging.getBridge",
   "defs": {
     "main": {
       "type": "query",

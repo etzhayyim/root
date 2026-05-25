@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listEvChargers",
+  "id": "app.etzhayyim.apps.maps.listEvChargers",
   "defs": {
     "main": {
       "type": "query",

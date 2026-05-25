@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.agent.spawnChildOrg",
+  "id": "app.etzhayyim.agent.spawnChildOrg",
   "defs": {
     "main": {
       "type": "procedure",

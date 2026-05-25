@@ -33,7 +33,7 @@ Time: 2026-04-16 08:02 JST
 2. Browser auth/session layer
    - `passkey.ts` persists `accessJwt` and `refreshJwt` in browser-readable `sessionStorage`.
    - `wproto/client.ts` mirrors both JWTs into the shared in-page `AtpAgent`.
-   - Appstore requests additionally attach `X-GFTD-USER-ID` and `X-GFTD-ORG-ID`.
+   - Appstore requests additionally attach `X-etzhayyim-USER-ID` and `X-etzhayyim-ORG-ID`.
 
 3. Edge worker layer
    - Source defines `withSecurityHeaders()` and mounts `/api/internal/cache/purge`.
@@ -131,7 +131,7 @@ These are still suspicious, but not strong enough to keep as current issues with
 Evidence:
 
 - `svelte/src/lib/apps/installed-apps.ts:57-68`
-  - Browser sends `Authorization`, `X-GFTD-USER-ID`, and `X-GFTD-ORG-ID`.
+  - Browser sends `Authorization`, `X-etzhayyim-USER-ID`, and `X-etzhayyim-ORG-ID`.
 
 Assessment:
 

@@ -29,7 +29,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       NULLIF(value_json::jsonb ->> 'invalidCount', '')::bigint    AS invalid_count,
       value_json                                               AS payload_json
     FROM vertex_repo_commit
-    WHERE collection = 'ai.gftd.bpmn.audit'
+    WHERE collection = 'app.etzhayyim.bpmn.audit'
       AND (value_json::jsonb ->> 'action') LIKE 'jpCorpFinance.%'
   `.execute(db);
 

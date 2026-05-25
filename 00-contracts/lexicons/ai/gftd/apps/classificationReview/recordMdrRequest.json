@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.classificationReview.recordMdrRequest",
+  "id": "app.etzhayyim.apps.classificationReview.recordMdrRequest",
   "defs": {
     "main": {
       "type": "procedure",

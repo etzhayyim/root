@@ -18,7 +18,7 @@
 #
 # Usage: ./rotate-keys.sh [--dry-run]
 #
-# Prereqs: wrangler CLI, node, GFTD repo root cwd.
+# Prereqs: wrangler CLI, node, etzhayyim repo root cwd.
 
 set -euo pipefail
 

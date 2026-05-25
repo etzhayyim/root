@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fairPricing.recordPriceMonitor",
+  "id": "app.etzhayyim.apps.fairPricing.recordPriceMonitor",
   "defs": {
     "main": {
       "type": "procedure",

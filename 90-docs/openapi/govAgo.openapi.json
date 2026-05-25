@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govAgo.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govAgo.followSiteDeps": {
       "post": {
         "summary": "Create graph-visible site dependency follow records for Angola government organizations.",
-        "operationId": "ai.gftd.govAgo.followSiteDeps",
+        "operationId": "app.etzhayyim.govAgo.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAgo.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govAgo.heartbeatTick": {
       "post": {
         "summary": "Run the Angola government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govAgo.heartbeatTick",
+        "operationId": "app.etzhayyim.govAgo.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -143,10 +143,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAgo.ingestOfficialSources": {
+    "/xrpc/app.etzhayyim.govAgo.ingestOfficialSources": {
       "post": {
         "summary": "Queue official Angola government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "ai.gftd.govAgo.ingestOfficialSources",
+        "operationId": "app.etzhayyim.govAgo.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -209,10 +209,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAgo.listOrgs": {
+    "/xrpc/app.etzhayyim.govAgo.listOrgs": {
       "get": {
         "summary": "List Angola government organizations by tier.",
-        "operationId": "ai.gftd.govAgo.listOrgs",
+        "operationId": "app.etzhayyim.govAgo.listOrgs",
         "parameters": [
           {
             "name": "orgTier",
@@ -297,10 +297,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAgo.registerDIDs": {
+    "/xrpc/app.etzhayyim.govAgo.registerDIDs": {
       "post": {
         "summary": "Register graph-visible DID records for Angola government organizations.",
-        "operationId": "ai.gftd.govAgo.registerDIDs",
+        "operationId": "app.etzhayyim.govAgo.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -350,10 +350,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAgo.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govAgo.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Angola government organization path to its actor DID and display metadata.",
-        "operationId": "ai.gftd.govAgo.resolveOrgPath",
+        "operationId": "app.etzhayyim.govAgo.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -398,10 +398,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAgo.seedOrgs": {
+    "/xrpc/app.etzhayyim.govAgo.seedOrgs": {
       "post": {
         "summary": "Seed Angola central ministry and province organization rows into the graph.",
-        "operationId": "ai.gftd.govAgo.seedOrgs",
+        "operationId": "app.etzhayyim.govAgo.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -448,10 +448,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAgo.shinka": {
+    "/xrpc/app.etzhayyim.govAgo.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Angola government organization update.",
-        "operationId": "ai.gftd.govAgo.shinka",
+        "operationId": "app.etzhayyim.govAgo.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -502,10 +502,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAgo.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govAgo.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated Angola government organization content.",
-        "operationId": "ai.gftd.govAgo.syncWetUpdates",
+        "operationId": "app.etzhayyim.govAgo.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

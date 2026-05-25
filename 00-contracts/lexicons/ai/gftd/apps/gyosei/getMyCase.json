@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gyosei.getMyCase",
+  "id": "app.etzhayyim.apps.gyosei.getMyCase",
   "defs": {
     "main": {
       "type": "query",

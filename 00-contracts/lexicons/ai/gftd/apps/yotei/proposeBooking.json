@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yotei.proposeBooking",
+  "id": "app.etzhayyim.apps.yotei.proposeBooking",
   "defs": {
     "main": {
       "type": "procedure",

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.ndc.lookupByCode": {
+    "/xrpc/app.etzhayyim.ndc.lookupByCode": {
       "get": {
         "summary": "Lookup drug by NDC code or WHO ATC code. Auto-generated stub (coverage expansion 2026-04-17).",
-        "operationId": "ai.gftd.ndc.lookupByCode",
+        "operationId": "app.etzhayyim.ndc.lookupByCode",
         "parameters": [
           {
             "name": "ndc",

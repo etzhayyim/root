@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.inviteMember",
+  "id": "app.etzhayyim.convo.inviteMember",
   "defs": {
     "main": {
       "type": "procedure",

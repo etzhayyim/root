@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airlineJalOps.recordFlightSchedule",
+  "id": "app.etzhayyim.apps.airlineJalOps.recordFlightSchedule",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,4 +1,4 @@
-# `ai.gftd.apqc.*` — APQC Process Classification Framework
+# `app.etzhayyim.apqc.*` — APQC Process Classification Framework
 
 Open spec for the APQC PCF (Process Classification Framework) catalog and the
 Kyber BPMN projector that maps PCF process IDs to BPMN process definitions.
@@ -12,10 +12,10 @@ in `etzhayyim/etzhayyim-root` (60-apps/ai-gftd-project-kyber-*).
 
 ## NSIDs (planned)
 
-- `ai.gftd.apqc.getProcess` — fetch one PCF process by ID
-- `ai.gftd.apqc.listProcesses` — list PCF processes (paginated)
-- `ai.gftd.apqc.projectToBpmn` — map a PCF process ID to its BPMN process_def
-- `ai.gftd.apqc.listProjections` — list available PCF → BPMN mappings
+- `app.etzhayyim.apqc.getProcess` — fetch one PCF process by ID
+- `app.etzhayyim.apqc.listProcesses` — list PCF processes (paginated)
+- `app.etzhayyim.apqc.projectToBpmn` — map a PCF process ID to its BPMN process_def
+- `app.etzhayyim.apqc.listProjections` — list available PCF → BPMN mappings
 
 ## See also
 

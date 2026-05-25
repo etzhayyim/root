@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPatent.recordCitation",
+  "id": "app.etzhayyim.apps.openPatent.recordCitation",
   "defs": {
     "main": {
       "type": "procedure",

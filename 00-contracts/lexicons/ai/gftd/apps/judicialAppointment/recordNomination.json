@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.judicialAppointment.recordNomination",
+  "id": "app.etzhayyim.apps.judicialAppointment.recordNomination",
   "defs": {
     "main": {
       "type": "procedure",

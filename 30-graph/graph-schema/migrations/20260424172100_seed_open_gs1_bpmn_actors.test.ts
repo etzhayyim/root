@@ -25,8 +25,8 @@ describe("Seed open-gs1 BPMN actors migration", () => {
     expect(migrationSource).toContain('bpmnProcessId: "open_gs1_map_to_unspsc"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openGs1.registerGtin"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openGs1.mapToUnspsc"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openGs1.registerGtin"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openGs1.mapToUnspsc"');
   });
   it("uses open-gs1-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-gs1');

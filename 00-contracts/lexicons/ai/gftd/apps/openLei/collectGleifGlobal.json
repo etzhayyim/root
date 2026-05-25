@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openLei.collectGleifGlobal",
+  "id": "app.etzhayyim.apps.openLei.collectGleifGlobal",
   "defs": {
     "main": {
       "type": "procedure",

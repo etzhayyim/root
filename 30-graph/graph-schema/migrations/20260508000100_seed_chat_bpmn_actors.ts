@@ -11,7 +11,7 @@ import { sql } from "kysely";
  *   chat_memory_reindex          R/PT24H  (autonomous)
  *   chat_artifact_gc             R/PT24H  (autonomous)
  *   chat_conversation_archive    R/P7D    (autonomous)
- *   chat_schedule_report         XRPC ai.gftd.apps.chat.scheduleReport
+ *   chat_schedule_report         XRPC app.etzhayyim.apps.chat.scheduleReport
  *
  * 1 lexicon binding (scheduleReport only).
  * agentLoop / sendMessage / list / get / delete are served by the aiohttp
@@ -32,26 +32,26 @@ const actorTag = "sys.bpmn.seed.chat";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-memory-reindex-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/chat-memory-reindex-v1",
     bpmnProcessId: "chat_memory_reindex",
     sourcePath: "00-contracts/bpmn/ai/gftd/chat/memoryReindex.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-artifact-gc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/chat-artifact-gc-v1",
     bpmnProcessId: "chat_artifact_gc",
     sourcePath: "00-contracts/bpmn/ai/gftd/chat/artifactGc.bpmn",
     ownerDid,
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-conversation-archive-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/chat-conversation-archive-v1",
     bpmnProcessId: "chat_conversation_archive",
     sourcePath: "00-contracts/bpmn/ai/gftd/chat/conversationArchive.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/chat-schedule-report-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/chat-schedule-report-v1",
     bpmnProcessId: "chat_schedule_report",
     sourcePath: "00-contracts/bpmn/ai/gftd/chat/scheduleReport.bpmn",
     ownerDid,
@@ -60,8 +60,8 @@ const processSeeds: P[] = [
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/chat-scheduleReport-v1",
-    nsid: "ai.gftd.apps.chat.scheduleReport",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/chat-scheduleReport-v1",
+    nsid: "app.etzhayyim.apps.chat.scheduleReport",
     bpmnProcessId: "chat_schedule_report",
     ownerDid,
     resultTimeoutMs: 30_000,

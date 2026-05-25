@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.manufacturerRegistry.getManufacturer",
+  "id": "app.etzhayyim.apps.tsukuru.manufacturerRegistry.getManufacturer",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.drugPriceNegotiation.flagAccessGap",
+  "id": "app.etzhayyim.apps.drugPriceNegotiation.flagAccessGap",
   "defs": {
     "main": {
       "type": "procedure",

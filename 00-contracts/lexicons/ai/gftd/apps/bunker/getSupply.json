@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bunker.getSupply",
+  "id": "app.etzhayyim.apps.bunker.getSupply",
   "defs": {
     "main": {
       "type": "query",

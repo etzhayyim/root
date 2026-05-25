@@ -9,7 +9,7 @@ import { sql } from "kysely";
  *
  * 5 BPMN process defs + 5 XRPC bindings.  No CF Worker (T2 tier:
  * pymagatama + Zeebe only).  Reachable via bpmn-dispatcher
- * `http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.training.*`.
+ * `http://dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.apps.training.*`.
  *
  *  Process / NSID                        Result timeout
  *  -----------------------------------------------------
@@ -38,38 +38,38 @@ const ownerDid = "did:web:training.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.training";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-sft-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-sft-v1",
     bpmnProcessId: "training_run_sft",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/runSft.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-lora-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-lora-v1",
     bpmnProcessId: "training_run_lora",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/runLora.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-distill-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-distill-v1",
     bpmnProcessId: "training_run_distill",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/runDistill.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-eval-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-eval-v1",
     bpmnProcessId: "training_run_eval",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/runEval.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-promote-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-promote-v1",
     bpmnProcessId: "training_promote",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/promote.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runSft-v1",
-    nsid: "ai.gftd.apps.training.runSft",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runSft-v1",
+    nsid: "app.etzhayyim.apps.training.runSft",
     bpmnProcessId: "training_run_sft", ownerDid, resultTimeoutMs: 1_800_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runLora-v1",
-    nsid: "ai.gftd.apps.training.runLora",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runLora-v1",
+    nsid: "app.etzhayyim.apps.training.runLora",
     bpmnProcessId: "training_run_lora", ownerDid, resultTimeoutMs: 1_800_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runDistill-v1",
-    nsid: "ai.gftd.apps.training.runDistill",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runDistill-v1",
+    nsid: "app.etzhayyim.apps.training.runDistill",
     bpmnProcessId: "training_run_distill", ownerDid, resultTimeoutMs: 3_600_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runEval-v1",
-    nsid: "ai.gftd.apps.training.runEval",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runEval-v1",
+    nsid: "app.etzhayyim.apps.training.runEval",
     bpmnProcessId: "training_run_eval", ownerDid, resultTimeoutMs: 600_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-promote-v1",
-    nsid: "ai.gftd.apps.training.promote",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-promote-v1",
+    nsid: "app.etzhayyim.apps.training.promote",
     bpmnProcessId: "training_promote", ownerDid, resultTimeoutMs: 30_000 },
 ];
 

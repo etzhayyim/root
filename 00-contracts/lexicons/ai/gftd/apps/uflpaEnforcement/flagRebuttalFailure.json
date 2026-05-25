@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.uflpaEnforcement.flagRebuttalFailure",
+  "id": "app.etzhayyim.apps.uflpaEnforcement.flagRebuttalFailure",
   "defs": {
     "main": {
       "type": "procedure",

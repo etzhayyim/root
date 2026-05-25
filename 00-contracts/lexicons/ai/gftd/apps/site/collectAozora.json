@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.collectAozora",
+  "id": "app.etzhayyim.apps.site.collectAozora",
   "defs": {
     "main": {
       "type": "procedure",

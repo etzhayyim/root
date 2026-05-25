@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.deviceBind",
+  "id": "app.etzhayyim.apps.maps.deviceBind",
   "defs": {
     "main": {
       "type": "procedure",

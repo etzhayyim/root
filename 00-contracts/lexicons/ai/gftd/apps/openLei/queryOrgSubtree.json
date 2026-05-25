@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openLei.queryOrgSubtree",
+  "id": "app.etzhayyim.apps.openLei.queryOrgSubtree",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yoro.activitySeen",
+  "id": "app.etzhayyim.yoro.activitySeen",
   "defs": {
     "main": {
       "type": "record",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pptx.create",
+  "id": "app.etzhayyim.apps.pptx.create",
   "defs": {
     "main": {
       "type": "procedure",

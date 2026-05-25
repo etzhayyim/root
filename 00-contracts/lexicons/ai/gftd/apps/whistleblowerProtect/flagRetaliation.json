@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.whistleblowerProtect.flagRetaliation",
+  "id": "app.etzhayyim.apps.whistleblowerProtect.flagRetaliation",
   "defs": {
     "main": {
       "type": "procedure",

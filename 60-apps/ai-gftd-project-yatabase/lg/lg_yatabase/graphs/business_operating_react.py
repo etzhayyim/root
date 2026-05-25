@@ -4,7 +4,7 @@ Minimal stub: pymagatama.langgraph_graphs.bo_react_agent does not exist yet.
 This prevents server.py import from crashing the pod.
 Replace with a full ReAct implementation once bo_react_agent is available.
 
-NSID: ai.gftd.apps.yata.lg.businessOperatingReact.run
+NSID: app.etzhayyim.apps.yata.lg.businessOperatingReact.run
 Graph ID: business_operating_react
 Cron: daily 21:00 UTC (06:00 JST)
 """

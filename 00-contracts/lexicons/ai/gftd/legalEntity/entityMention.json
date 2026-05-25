@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.entityMention",
+  "id": "app.etzhayyim.legalEntity.entityMention",
   "description": "Provenance-backed mention of a legal entity inside a public statement or disclosure record.",
   "defs": {
     "main": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.euDpp.recordPassport",
+  "id": "app.etzhayyim.apps.euDpp.recordPassport",
   "defs": {
     "main": {
       "type": "procedure",

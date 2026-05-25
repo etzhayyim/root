@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.extremeWeatherAttribution.publishAttribution",
+  "id": "app.etzhayyim.apps.extremeWeatherAttribution.publishAttribution",
   "defs": {
     "main": {
       "type": "procedure",

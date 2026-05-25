@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.createConvo",
+  "id": "app.etzhayyim.convo.createConvo",
   "description": "Create a conversation. Extends chat.bsky.convo.getConvoForMembers concept — adds name, kind for group/channel convos.",
   "defs": {
     "main": {
@@ -15,7 +15,7 @@
             },
             "kind": {
               "type": "string",
-              "description": "GFTD extension: conversation kind",
+              "description": "etzhayyim extension: conversation kind",
               "knownValues": ["dm", "group", "channel", "project"]
             },
             "members": {

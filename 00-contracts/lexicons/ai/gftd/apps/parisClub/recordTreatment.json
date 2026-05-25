@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.parisClub.recordTreatment",
+  "id": "app.etzhayyim.apps.parisClub.recordTreatment",
   "defs": {
     "main": {
       "type": "procedure",

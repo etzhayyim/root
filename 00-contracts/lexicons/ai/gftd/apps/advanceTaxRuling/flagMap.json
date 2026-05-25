@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.advanceTaxRuling.flagMap",
+  "id": "app.etzhayyim.apps.advanceTaxRuling.flagMap",
   "defs": {
     "main": {
       "type": "procedure",

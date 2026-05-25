@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPatent.screenExpiredDrugPatent",
+  "id": "app.etzhayyim.apps.openPatent.screenExpiredDrugPatent",
   "defs": {
     "main": {
       "type": "procedure",

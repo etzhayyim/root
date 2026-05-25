@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ongakuka.track",
+  "id": "app.etzhayyim.apps.ongakuka.track",
   "description": "Generated music track. T2 domain record (internal). Public release surface = derived AppBskyFeedPost.",
   "defs": {
     "main": {
@@ -13,7 +13,7 @@
           "title": { "type": "string", "maxLength": 200 },
           "lyrics": { "type": "string", "description": "Plaintext lyrics, line-broken. Field-encrypt with signal:v1: prefix if private." },
           "style": { "type": "string", "description": "Style prompt (genre, mood, instrumentation, era, language)" },
-          "styleRefUri": { "type": "string", "description": "AT URI to ai.gftd.apps.ongakuka.style reference (CLAP embedding)" },
+          "styleRefUri": { "type": "string", "description": "AT URI to app.etzhayyim.apps.ongakuka.style reference (CLAP embedding)" },
           "language": { "type": "string", "description": "BCP-47 (ja, en, ko, zh, ...)" },
           "bpm": { "type": "integer", "minimum": 30, "maximum": 300 },
           "durationSec": { "type": "integer", "minimum": 5, "maximum": 600 },

@@ -24,6 +24,6 @@ await createAccount(mock, {
   currency: "USDC",
 });
 
-const allRecords = mock.dump("ai.gftd.apps.openBanking.account");
+const allRecords = mock.dump("app.etzhayyim.apps.openBanking.account");
 console.log(allRecords.length); // 1
 ```

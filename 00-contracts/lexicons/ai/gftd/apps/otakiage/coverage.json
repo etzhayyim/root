@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.otakiage.coverage",
+  "id": "app.etzhayyim.apps.otakiage.coverage",
   "defs": {
     "main": {
       "type": "query",

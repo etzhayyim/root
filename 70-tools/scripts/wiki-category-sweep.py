@@ -2,7 +2,7 @@
 """Walk Wikipedia Category recursively, bulk insert pages as vertex_repo_record.
 
 Usage: PG_URL=... python3 wiki-category-sweep.py <CATEGORY> <REPO> <COLL> <PREFIX>
-  e.g. Category:Semiconductor_devices did:web:handotai.etzhayyim.com ai.gftd.apps.handotai.device wikiHD
+  e.g. Category:Semiconductor_devices did:web:handotai.etzhayyim.com app.etzhayyim.apps.handotai.device wikiHD
 """
 import os, sys, json, time, urllib.request, urllib.parse
 import psycopg2, psycopg2.extras

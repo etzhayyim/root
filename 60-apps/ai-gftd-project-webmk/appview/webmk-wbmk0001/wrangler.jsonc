@@ -10,13 +10,13 @@
     "APP_ACTOR_HANDLE": "webmk",
     "APP_CAPABILITIES": "null",
     "APP_DESCRIPTION": "AI web-marketing proposal agent. Research, competitor analysis, strategy generation, and copy writing — fully automated.",
-    "APP_DISPLAY_NAME": "GFTD Web Marketing",
-    "APP_EMBED_URL": "https://wbmk0001.gftd.ai/?embed=1",
+    "APP_DISPLAY_NAME": "etzhayyim Web Marketing",
+    "APP_EMBED_URL": "https://wbmk0001.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "wbmk0001",
     "APP_PERFORMER_TYPE": "",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -28,8 +28,8 @@
   ],
   "routes": [
     {
-      "pattern": "wbmk0001.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "wbmk0001.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

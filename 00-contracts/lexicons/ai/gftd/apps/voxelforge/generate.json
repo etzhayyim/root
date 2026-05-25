@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.voxelforge.generate",
+  "id": "app.etzhayyim.apps.voxelforge.generate",
   "defs": {
     "main": {
       "type": "procedure",

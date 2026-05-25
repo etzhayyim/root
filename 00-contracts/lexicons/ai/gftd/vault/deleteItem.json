@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.vault.deleteItem",
+  "id": "app.etzhayyim.vault.deleteItem",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.euStabilityMechanism.recordIntervention",
+  "id": "app.etzhayyim.apps.euStabilityMechanism.recordIntervention",
   "defs": {
     "main": {
       "type": "procedure",

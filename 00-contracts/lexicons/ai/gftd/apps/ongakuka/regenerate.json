@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ongakuka.regenerate",
+  "id": "app.etzhayyim.apps.ongakuka.regenerate",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Partial regeneration of an existing track. Targets a section [startSec,endSec] and/or specific stems. Produces a new ai.gftd.apps.ongakuka.generation record and updates blobKey.",
+      "description": "Partial regeneration of an existing track. Targets a section [startSec,endSec] and/or specific stems. Produces a new app.etzhayyim.apps.ongakuka.generation record and updates blobKey.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -5,7 +5,7 @@
  * tx contains that root, and re-check the path cryptographically.
  *
  * Usage:
- *   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/ai.gftd.apqc.processCategory/7.0
+ *   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/app.etzhayyim.apqc.processCategory/7.0
  */
 
 import { Etzhayyim } from "@etzhayyim/sdk";

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govJam.registerDIDs",
+  "id": "app.etzhayyim.govJam.registerDIDs",
   "defs": {
     "main": {
       "type": "procedure",

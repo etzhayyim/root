@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.euDgComp.flagPoliticalPressure",
+  "id": "app.etzhayyim.apps.euDgComp.flagPoliticalPressure",
   "defs": {
     "main": {
       "type": "procedure",

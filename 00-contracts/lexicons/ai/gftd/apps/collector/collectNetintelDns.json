@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.collector.collectNetintelDns",
+  "id": "app.etzhayyim.apps.collector.collectNetintelDns",
   "defs": {
     "main": {
       "type": "procedure",

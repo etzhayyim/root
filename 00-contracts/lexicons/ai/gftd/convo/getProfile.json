@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.getProfile",
+  "id": "app.etzhayyim.convo.getProfile",
   "defs": {
     "main": {
       "type": "query",

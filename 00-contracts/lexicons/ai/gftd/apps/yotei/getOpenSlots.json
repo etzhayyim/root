@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yotei.getOpenSlots",
+  "id": "app.etzhayyim.apps.yotei.getOpenSlots",
   "defs": {
     "main": {
       "type": "query",

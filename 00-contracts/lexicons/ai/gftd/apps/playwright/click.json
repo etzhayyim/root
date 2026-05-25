@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.playwright.click",
+  "id": "app.etzhayyim.apps.playwright.click",
   "defs": {
     "main": {
       "type": "procedure",

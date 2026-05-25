@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bpmn.analyzeProcess",
+  "id": "app.etzhayyim.apps.bpmn.analyzeProcess",
   "defs": {
     "main": {
       "type": "query",
-      "description": "Optimize-free process mining over BPMN/POD-side LangServer OCEL audit events. Reads vertex_repo_commit rows where collection=ai.gftd.bpmn.audit, returns deterministic KPIs and optional LLM diagnosis.",
+      "description": "Optimize-free process mining over BPMN/POD-side LangServer OCEL audit events. Reads vertex_repo_commit rows where collection=app.etzhayyim.bpmn.audit, returns deterministic KPIs and optional LLM diagnosis.",
       "parameters": {
         "type": "params",
         "properties": {

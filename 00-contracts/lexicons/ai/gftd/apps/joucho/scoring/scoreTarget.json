@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.joucho.scoring.scoreTarget",
+  "id": "app.etzhayyim.apps.joucho.scoring.scoreTarget",
   "defs": {
     "main": {
       "type": "procedure",

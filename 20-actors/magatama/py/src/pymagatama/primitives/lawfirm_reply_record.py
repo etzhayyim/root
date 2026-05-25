@@ -1,7 +1,7 @@
 """
 lawfirm.cadence.recordReply — LangServer handler for inbound mail replies.
 
-Backs ai.gftd.apps.lawfirm.mailReplyWebhook lexicon (existing).
+Backs app.etzhayyim.apps.lawfirm.mailReplyWebhook lexicon (existing).
 
 Match strategy (in priority order):
   1. graph_event_id idempotency check (skip if already recorded)
@@ -170,7 +170,7 @@ async def task_lawfirm_record_reply(
     occurred_at = received_at or _now_iso()
 
     ev_uri = (
-        f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.outreachEvent/"
+        f"at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.outreachEvent/"
         f"{lead_id}-reply-{_dt.datetime.now(tz=_dt.UTC).strftime('%Y%m%d%H%M%S')}"
     )
     asset_uri = f"graph:{graph_event_id}" if graph_event_id else (message_id or "")

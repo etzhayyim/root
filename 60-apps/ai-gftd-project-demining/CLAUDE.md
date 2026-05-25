@@ -69,7 +69,7 @@ Tier demotion (3 → 1) happens only on Land Release decision per IMAS 07.11, re
 | `did:web:demining.etzhayyim.com:actor:assets` | Detector / PPE / MDD / flail inventory | UNSPSC 46101500 |
 | `did:web:demining.etzhayyim.com:actor:imsma-sync` | IMSMA XML / NAA interop | 05.10 |
 
-## Planned lexicons (`ai.gftd.apps.demining.*`)
+## Planned lexicons (`app.etzhayyim.apps.demining.*`)
 
 Seed stubs committed in `00-contracts/lexicons/ai/gftd/apps/demining/`:
 

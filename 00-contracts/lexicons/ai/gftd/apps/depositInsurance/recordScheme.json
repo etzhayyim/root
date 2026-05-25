@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.depositInsurance.recordScheme",
+  "id": "app.etzhayyim.apps.depositInsurance.recordScheme",
   "defs": {
     "main": {
       "type": "procedure",

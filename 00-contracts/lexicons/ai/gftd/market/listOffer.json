@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.market.listOffer",
+  "id": "app.etzhayyim.market.listOffer",
   "defs": {
     "main": {
       "type": "query",

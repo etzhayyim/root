@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.soyMoratorium.flagMoratoriumBreach",
+  "id": "app.etzhayyim.apps.soyMoratorium.flagMoratoriumBreach",
   "defs": {
     "main": {
       "type": "procedure",

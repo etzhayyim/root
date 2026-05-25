@@ -1,8 +1,8 @@
 // SUBSTRATE-PORT (ADR-2605212100 follow-up, 2026-05-24):
 // - Kysely + HyperDrive Postgres writes replaced by @etzhayyim/sdk MST PUT (ADR-2605172000).
-// - Lexicon `ai.gftd.apps.gov.*` → `app.etzhayyim.gov.*`.
-// - ACTOR_DID `did:web:gov.gftd.ai` → `did:web:etzhayyim.com:gov`.
-// - Package import `@gftd/magatama-host-sdk` PRESERVED — atomic cutover to `@etzhayyim/magatama-host-sdk`
+// - Lexicon `app.etzhayyim.apps.gov.*` → `app.etzhayyim.gov.*`.
+// - ACTOR_DID `did:web:gov.etzhayyim.com` → `did:web:etzhayyim.com:gov`.
+// - Package import `@etzhayyim/magatama-host-sdk` PRESERVED — atomic cutover to `@etzhayyim/magatama-host-sdk`
 //   deferred to ADR-2605214000 wave.
 
 import {
@@ -14,8 +14,8 @@ import {
   parseLexiconInput,
   withCapabilityTags,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
-import type { Database } from "@gftd/graph-schema";
+} from "@etzhayyim/magatama-host-sdk";
+import type { Database } from "@etzhayyim/graph-schema";
 import { Etzhayyim } from "@etzhayyim/sdk";
 
 const ACTOR_DID = "did:web:etzhayyim.com:gov";

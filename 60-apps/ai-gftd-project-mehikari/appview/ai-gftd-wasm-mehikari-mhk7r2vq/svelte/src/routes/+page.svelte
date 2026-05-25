@@ -5,7 +5,7 @@
 
 <svelte:head>
   <title>眼光り (mehikari) — 監視カメラ シーン/人物検索 技術説明</title>
-  <meta name="description" content="日本の警察捜査支援を目的とした監視カメラ映像の シーン記述検索 + 令状ゲート付き人物再特定の技術説明。運営: amanomibashira / 技術: Gftd Japan株式会社" />
+  <meta name="description" content="日本の警察捜査支援を目的とした監視カメラ映像の シーン記述検索 + 令状ゲート付き人物再特定の技術説明。運営: amanomibashira / 技術: etzhayyim Japan株式会社" />
   <meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
@@ -44,7 +44,7 @@
     <table>
       <tbody>
         <tr><th>運営主体</th><td>amanomibashira (operating entity)</td></tr>
-        <tr><th>実装受託</th><td>Gftd Japan株式会社 (vendor)</td></tr>
+        <tr><th>実装受託</th><td>etzhayyim Japan株式会社 (vendor)</td></tr>
         <tr><th>個人情報保護法上の取扱事業者</th><td>amanomibashira</td></tr>
         <tr><th>顔特徴量管理責任者</th><td>amanomibashira 法務最高責任者 (CLO)</td></tr>
         <tr><th>監査ログ保管期間</th><td>7 年 (法定)</td></tr>
@@ -63,7 +63,7 @@
 
   <footer>
     <p class="disclaimer">本ページは公務員倫理規程・特定電子メール法に配慮し、招待・贈答・無料デモ提供等の利益供与に該当する文言を含みません。本サービスは警察庁通達 R6 公開草案 / 個人情報保護委員会 生体識別子ガイドライン草案を踏まえて設計されています。確定通達が公開され次第、技術仕様を再確認します。</p>
-    <p class="copy">© amanomibashira (operating) / Gftd Japan株式会社 (vendor) — 2026</p>
+    <p class="copy">© amanomibashira (operating) / etzhayyim Japan株式会社 (vendor) — 2026</p>
   </footer>
 </main>
 

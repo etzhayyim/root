@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.biosecurityCertification.trackBslExportControl",
+  "id": "app.etzhayyim.apps.biosecurityCertification.trackBslExportControl",
   "defs": {
     "main": {
       "type": "procedure",

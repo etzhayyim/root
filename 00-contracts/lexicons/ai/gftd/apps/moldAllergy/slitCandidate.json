@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.moldAllergy.slitCandidate",
+  "id": "app.etzhayyim.apps.moldAllergy.slitCandidate",
   "defs": {
     "main": {
       "type": "record",

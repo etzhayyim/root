@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.charter-attestation-request",
+  "id": "app.etzhayyim.apps.etzhayyim.charter-attestation-request",
   "defs": {
     "main": {
       "type": "record",

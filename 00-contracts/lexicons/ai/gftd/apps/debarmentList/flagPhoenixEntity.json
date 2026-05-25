@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.debarmentList.flagPhoenixEntity",
+  "id": "app.etzhayyim.apps.debarmentList.flagPhoenixEntity",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.tools.audit.emit",
+  "id": "app.etzhayyim.tools.audit.emit",
   "defs": {
     "main": {
       "type": "procedure",
@@ -16,7 +16,7 @@
             },
             "collection": {
               "type": "string",
-              "description": "AT collection NSID (e.g. ai.gftd.apps.shosha.audit)"
+              "description": "AT collection NSID (e.g. app.etzhayyim.apps.shosha.audit)"
             },
             "rkey": {
               "type": "string",

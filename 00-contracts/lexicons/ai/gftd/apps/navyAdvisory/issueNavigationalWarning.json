@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.navyAdvisory.issueNavigationalWarning",
+  "id": "app.etzhayyim.apps.navyAdvisory.issueNavigationalWarning",
   "defs": {
     "main": {
       "type": "procedure",

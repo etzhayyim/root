@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.rightToRepair.flagRepairabilityIndex",
+  "id": "app.etzhayyim.apps.rightToRepair.flagRepairabilityIndex",
   "defs": {
     "main": {
       "type": "procedure",

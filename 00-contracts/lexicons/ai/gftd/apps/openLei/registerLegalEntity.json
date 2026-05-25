@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openLei.registerLegalEntity",
+  "id": "app.etzhayyim.apps.openLei.registerLegalEntity",
   "defs": {
     "main": {
       "type": "procedure",

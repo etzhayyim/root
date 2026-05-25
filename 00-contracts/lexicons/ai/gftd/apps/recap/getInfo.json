@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.recap.getInfo",
+  "id": "app.etzhayyim.apps.recap.getInfo",
   "defs": {
     "main": {
       "type": "procedure",

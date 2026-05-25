@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.amnesty.recordSettlement",
+  "id": "app.etzhayyim.apps.etzhayyim.amnesty.recordSettlement",
   "defs": {
     "main": {
       "type": "procedure",

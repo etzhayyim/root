@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.collectImages",
+  "id": "app.etzhayyim.apps.site.collectImages",
   "defs": {
     "main": {
       "type": "procedure",

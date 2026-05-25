@@ -1,4 +1,4 @@
-# `ai.gftd.hakkou.*` — 発光 — bioluminescence / radiance cultural reference
+# `app.etzhayyim.hakkou.*` — 発光 — bioluminescence / radiance cultural reference
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group B).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `ai.gftd.hakkou.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `app.etzhayyim.hakkou.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

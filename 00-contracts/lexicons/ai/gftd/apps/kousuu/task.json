@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kousuu.task",
+  "id": "app.etzhayyim.apps.kousuu.task",
   "defs": {
     "main": {
       "type": "record",

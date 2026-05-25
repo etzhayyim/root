@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.ki.bloom",
+  "id": "app.etzhayyim.ki.bloom",
   "defs": {
     "main": {
       "type": "procedure",

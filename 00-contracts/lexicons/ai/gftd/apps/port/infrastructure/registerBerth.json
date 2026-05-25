@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.port.infrastructure.registerBerth",
+  "id": "app.etzhayyim.apps.port.infrastructure.registerBerth",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "ai.gftd.apps.port.infrastructure.registerBerth BPMN-backed port operation.",
+      "description": "app.etzhayyim.apps.port.infrastructure.registerBerth BPMN-backed port operation.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isic.health",
+  "id": "app.etzhayyim.apps.isic.health",
   "defs": {
     "main": {
       "type": "query",

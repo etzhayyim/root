@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          '      bpmn_task\n'
          '    )\n'
          '    SELECT\n'
-         "      CONCAT('at://', r.actor_did, '/ai.gftd.actor.govOrgRuntime/', r.gov_org_key),\n"
+         "      CONCAT('at://', r.actor_did, '/app.etzhayyim.actor.govOrgRuntime/', r.gov_org_key),\n"
          "      'did:web:gov.etzhayyim.com',\n"
          '      r.actor_did,\n'
          '      r.gov_org_key,\n'
@@ -29,7 +29,7 @@ UP = [{'sql': '\n'
          "      CONCAT('Gov org coverage runtime ', r.gov_org_key),\n"
          "      'pilot',\n"
          "      'active',\n"
-         "      'ai.gftd.actor.govOrgRuntime',\n"
+         "      'app.etzhayyim.actor.govOrgRuntime',\n"
          '      r.gov_org_key,\n'
          "      'did:web:gov.etzhayyim.com',\n"
          '      $1,\n'
@@ -108,10 +108,10 @@ UP = [{'sql': '\n'
          '      actor_id, write_table_allowlist\n'
          '    )\n'
          '      SELECT\n'
-         "      CONCAT('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gov-org-', "
+         "      CONCAT('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/gov-org-', "
          "r.gov_org_key, '-coverage-refresh-v1'),\n"
          '      r.actor_did,\n'
-         "      CONCAT('ai.gftd.apps.govOrgRuntime.coverageRefresh', "
+         "      CONCAT('app.etzhayyim.apps.govOrgRuntime.coverageRefresh', "
          "REPLACE(REPLACE(r.gov_org_key, ':', '-'), '.', '-')),\n"
          '      r.bpmn_process_id,\n'
          '      1,\n'
@@ -128,7 +128,7 @@ UP = [{'sql': '\n'
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding b\n'
          '      WHERE b.vertex_id = '
-         "CONCAT('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gov-org-', r.gov_org_key, "
+         "CONCAT('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/gov-org-', r.gov_org_key, "
          "'-coverage-refresh-v1')\n"
          '    )\n'
          '  ',
@@ -141,7 +141,7 @@ UP = [{'sql': '\n'
          '      actor_id, created_at\n'
          '    )\n'
          '    SELECT\n'
-         "      CONCAT('at://', t.actor_did, '/ai.gftd.mcp.toolDef/', REPLACE(t.nsid, '.', '-')),\n"
+         "      CONCAT('at://', t.actor_did, '/app.etzhayyim.mcp.toolDef/', REPLACE(t.nsid, '.', '-')),\n"
          '      t.nsid,\n'
          '      t.actor_did,\n'
          "      'gov.etzhayyim.com',\n"
@@ -170,7 +170,7 @@ UP = [{'sql': '\n'
          '        SELECT\n'
          '          b.gov_org_key,\n'
          '          b.actor_did,\n'
-         "          'ai.gftd.apps.gov.coverage.get' AS nsid,\n"
+         "          'app.etzhayyim.apps.gov.coverage.get' AS nsid,\n"
          "          'query' AS lexicon_type,\n"
          "          'Read gov organization coverage state.' AS description,\n"
          '          \'{"type":"object","properties":{"govOrgKey":{"type":"string"}}}\' AS '
@@ -181,7 +181,7 @@ UP = [{'sql': '\n'
          '        SELECT\n'
          '          b.gov_org_key,\n'
          '          b.actor_did,\n'
-         "          'ai.gftd.apps.ingest.status' AS nsid,\n"
+         "          'app.etzhayyim.apps.ingest.status' AS nsid,\n"
          "          'query' AS lexicon_type,\n"
          "          'Read ingest status for a gov organization runtime.' AS description,\n"
          '          \'{"type":"object","properties":{"govOrgKey":{"type":"string"}}}\' AS '
@@ -192,7 +192,7 @@ UP = [{'sql': '\n'
          '        SELECT\n'
          '          b.gov_org_key,\n'
          '          b.actor_did,\n'
-         "          'ai.gftd.apps.coverage.refresh' AS nsid,\n"
+         "          'app.etzhayyim.apps.coverage.refresh' AS nsid,\n"
          "          'procedure' AS lexicon_type,\n"
          "          'Request a gov organization coverage refresh.' AS description,\n"
          '          '
@@ -205,7 +205,7 @@ UP = [{'sql': '\n'
          '    ) t\n'
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_mcp_tool_def m\n'
-         "      WHERE m.vertex_id = CONCAT('at://', t.actor_did, '/ai.gftd.mcp.toolDef/', "
+         "      WHERE m.vertex_id = CONCAT('at://', t.actor_did, '/app.etzhayyim.mcp.toolDef/', "
          "REPLACE(t.nsid, '.', '-'))\n"
          '    )\n'
          '  ',

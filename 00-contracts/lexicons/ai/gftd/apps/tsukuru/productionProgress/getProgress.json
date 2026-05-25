@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.productionProgress.getProgress",
+  "id": "app.etzhayyim.apps.tsukuru.productionProgress.getProgress",
   "defs": {
     "main": {
       "type": "query",

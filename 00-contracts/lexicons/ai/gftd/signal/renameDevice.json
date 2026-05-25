@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.signal.renameDevice",
+  "id": "app.etzhayyim.signal.renameDevice",
   "defs": {
     "main": {
       "type": "procedure",

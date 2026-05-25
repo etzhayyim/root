@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.media_gamers.knowledge.publishGameItem",
+  "id": "app.etzhayyim.apps.media_gamers.knowledge.publishGameItem",
   "defs": {
     "main": {
       "type": "procedure",
@@ -66,7 +66,7 @@
         "output_quantity": { "type": "integer" },
         "ingredients": {
           "type": "array",
-          "items": { "type": "ref", "ref": "ai.gftd.apps.media_gamers.record.itemRecipe#ingredient" }
+          "items": { "type": "ref", "ref": "app.etzhayyim.apps.media_gamers.record.itemRecipe#ingredient" }
         },
         "station": { "type": "string" },
         "unlock_condition": { "type": "string" }

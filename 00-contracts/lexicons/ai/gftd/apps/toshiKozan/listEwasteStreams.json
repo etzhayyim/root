@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.toshiKozan.listEwasteStreams",
+  "id": "app.etzhayyim.apps.toshiKozan.listEwasteStreams",
   "defs": {
     "main": {
       "type": "query",

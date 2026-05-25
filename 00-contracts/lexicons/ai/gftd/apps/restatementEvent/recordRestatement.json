@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.restatementEvent.recordRestatement",
+  "id": "app.etzhayyim.apps.restatementEvent.recordRestatement",
   "defs": {
     "main": {
       "type": "procedure",

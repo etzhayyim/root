@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.debarmentList.flagArmsDebarment",
+  "id": "app.etzhayyim.apps.debarmentList.flagArmsDebarment",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.reaction",
+  "id": "app.etzhayyim.convo.reaction",
   "description": "Extended reaction record. Superset of chat.bsky.convo.defs#reactionView — stored as a repo record.",
   "defs": {
     "main": {

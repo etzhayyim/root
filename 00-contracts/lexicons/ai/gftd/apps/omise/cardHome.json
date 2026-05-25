@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.cardHome",
+  "id": "app.etzhayyim.apps.omise.cardHome",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.dns.putTransferStep",
+  "id": "app.etzhayyim.dns.putTransferStep",
   "defs": {
     "main": {
       "type": "procedure",

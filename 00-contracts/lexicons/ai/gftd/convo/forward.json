@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.forward",
-  "description": "GFTD extension: message forwarding record. No official chat.bsky equivalent.",
+  "id": "app.etzhayyim.convo.forward",
+  "description": "etzhayyim extension: message forwarding record. No official chat.bsky equivalent.",
   "defs": {
     "main": {
       "type": "record",

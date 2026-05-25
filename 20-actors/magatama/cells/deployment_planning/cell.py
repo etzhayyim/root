@@ -399,7 +399,7 @@ def emit_governance_proposal(state: DeploymentPlanningState) -> dict[str, Any]:
     """
     site_did = state.get("site_did") or "did:web:etzhayyim.com:site:unknown"
     proposal_uri = (
-        f"at://{site_did}/ai.gftd.governance.councilProposal/"
+        f"at://{site_did}/app.etzhayyim.governance.councilProposal/"
         f"plan-{int(time.time() * 1000)}"
     )
     return {
@@ -435,7 +435,7 @@ def emit_plan_record(state: DeploymentPlanningState) -> dict[str, Any]:
     )
     plan_did = f"{site_did}:plan:{ts}"
     submission_uri = (
-        f"at://{site_did}/ai.gftd.apps.etzhayyim.kuniUmi.proposeDeploymentPlan/"
+        f"at://{site_did}/app.etzhayyim.apps.etzhayyim.kuniUmi.proposeDeploymentPlan/"
         f"{int(time.time() * 1000)}"
     )
     payment_cid = _synthetic_cid("payment", {

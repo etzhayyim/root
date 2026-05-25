@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kobo.getAgent",
+  "id": "app.etzhayyim.apps.kobo.getAgent",
   "defs": {
     "main": {
       "type": "query",

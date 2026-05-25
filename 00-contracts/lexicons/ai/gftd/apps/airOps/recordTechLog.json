@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airOps.recordTechLog",
+  "id": "app.etzhayyim.apps.airOps.recordTechLog",
   "defs": {
     "main": {
       "type": "procedure",

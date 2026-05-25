@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.frugalFourCoalition.recordPosition",
+  "id": "app.etzhayyim.apps.frugalFourCoalition.recordPosition",
   "defs": {
     "main": {
       "type": "procedure",

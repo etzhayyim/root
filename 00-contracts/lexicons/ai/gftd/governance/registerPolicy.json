@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.governance.registerPolicy",
+  "id": "app.etzhayyim.governance.registerPolicy",
   "defs": {
     "main": {
       "type": "procedure",

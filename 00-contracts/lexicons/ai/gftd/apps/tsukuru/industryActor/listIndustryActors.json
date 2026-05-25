@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.industryActor.listIndustryActors",
+  "id": "app.etzhayyim.apps.tsukuru.industryActor.listIndustryActors",
   "defs": {
     "main": {
       "type": "query",

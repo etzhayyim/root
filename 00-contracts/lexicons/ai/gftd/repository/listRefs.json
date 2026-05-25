@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.repository.listRefs",
+  "id": "app.etzhayyim.repository.listRefs",
   "defs": {
     "main": {
       "type": "query",

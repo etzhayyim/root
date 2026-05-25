@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airOps.fetchWeatherBrief",
+  "id": "app.etzhayyim.apps.airOps.fetchWeatherBrief",
   "defs": {
     "main": {
       "type": "procedure",

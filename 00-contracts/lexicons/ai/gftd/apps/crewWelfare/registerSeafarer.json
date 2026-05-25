@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.crewWelfare.registerSeafarer",
+  "id": "app.etzhayyim.apps.crewWelfare.registerSeafarer",
   "defs": {
     "main": {
       "type": "procedure",

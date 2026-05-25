@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.espionageAct.flagChillingEffect",
+  "id": "app.etzhayyim.apps.espionageAct.flagChillingEffect",
   "defs": {
     "main": {
       "type": "procedure",

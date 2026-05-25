@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.globalTax.reportPillar2Liability",
+  "id": "app.etzhayyim.apps.globalTax.reportPillar2Liability",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.instantPayments.recordVolumeMetric",
+  "id": "app.etzhayyim.apps.instantPayments.recordVolumeMetric",
   "defs": {
     "main": {
       "type": "procedure",

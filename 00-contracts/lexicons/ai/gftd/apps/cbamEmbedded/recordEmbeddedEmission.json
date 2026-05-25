@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cbamEmbedded.recordEmbeddedEmission",
+  "id": "app.etzhayyim.apps.cbamEmbedded.recordEmbeddedEmission",
   "defs": {
     "main": {
       "type": "procedure",

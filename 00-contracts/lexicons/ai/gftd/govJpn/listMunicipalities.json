@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govJpn.listMunicipalities",
+  "id": "app.etzhayyim.govJpn.listMunicipalities",
   "defs": {
     "main": {
       "type": "query",

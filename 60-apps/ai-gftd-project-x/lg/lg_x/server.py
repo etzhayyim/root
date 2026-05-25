@@ -144,10 +144,10 @@ async def stream_run(body: dict[str, Any]) -> StreamingResponse:
 # ── XRPC-compat surface (NSID → assistant_id) ──────────────────────────
 
 _NSID_TO_ASSISTANT: dict[str, str] = {
-    "ai.gftd.apps.x.health":        "health",
-    "ai.gftd.apps.x.composeTweet": "compose_tweet",
-    "ai.gftd.apps.x.chat":          "agent_chat",
-    "ai.gftd.apps.x.agentChat":     "agent_chat",
+    "app.etzhayyim.apps.x.health":        "health",
+    "app.etzhayyim.apps.x.composeTweet": "compose_tweet",
+    "app.etzhayyim.apps.x.chat":          "agent_chat",
+    "app.etzhayyim.apps.x.agentChat":     "agent_chat",
 }
 
 

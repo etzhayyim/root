@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMext.administerSchoolLunch",
+  "id": "app.etzhayyim.apps.jpMext.administerSchoolLunch",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.contentModerationAppeal.flagPoliticalCensorship",
+  "id": "app.etzhayyim.apps.contentModerationAppeal.flagPoliticalCensorship",
   "defs": {
     "main": {
       "type": "procedure",

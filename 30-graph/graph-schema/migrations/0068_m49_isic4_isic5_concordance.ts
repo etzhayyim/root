@@ -10,12 +10,12 @@ import { Kysely, sql } from 'kysely';
  *     460 rows (countries + territories + aggregate regions)
  *   - ISIC4↔ISIC5 code-identical correspondence:
  *     700 edges derived by JOIN on rkey across
- *     collection='ai.gftd.apps.open_isic.economic_activity' (Rev.4, 766 rows)
- *     and collection='ai.gftd.apps.open_isic.economic_activity_rev5' (Rev.5, 830 rows)
+ *     collection='app.etzhayyim.apps.open_isic.economic_activity' (Rev.4, 766 rows)
+ *     and collection='app.etzhayyim.apps.open_isic.economic_activity_rev5' (Rev.5, 830 rows)
  *     Represents direct code-continuity mappings (code unchanged across revisions).
  *
  * RisingWave state after apply:
- *   - vertex_repo_record @ collection='ai.gftd.apps.sovereign.m49_region'
+ *   - vertex_repo_record @ collection='app.etzhayyim.apps.sovereign.m49_region'
  *       460 rows
  *   - edge_classified_as system='isic5' : 700 rows
  *     src_vid = ISIC Rev.4 uri → dst_vid = ISIC Rev.5 uri (same code)
@@ -25,7 +25,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   // ── M49 geo areas (data-only, idempotent) ────────────────────────────
   await sql`
     DELETE FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.sovereign.m49_region'
+    WHERE collection = 'app.etzhayyim.apps.sovereign.m49_region'
   `.execute(db);
 
   await sql`
@@ -47,7 +47,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 export async function down(db: Kysely<any>): Promise<void> {
   await sql`DELETE FROM edge_classified_as WHERE system = 'isic5'`.execute(db);
   await sql`
-    DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.sovereign.m49_region'
+    DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.sovereign.m49_region'
   `.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain = 'm49'`.execute(db);
 }

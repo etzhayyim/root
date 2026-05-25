@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.demining.recordEoreSession",
+  "id": "app.etzhayyim.apps.demining.recordEoreSession",
   "defs": {
     "main": {
       "type": "procedure",

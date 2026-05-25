@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.resolveZones3d",
+  "id": "app.etzhayyim.apps.maps.resolveZones3d",
   "defs": {
     "main": {
       "type": "query",

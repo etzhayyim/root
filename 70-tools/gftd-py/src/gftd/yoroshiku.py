@@ -105,7 +105,7 @@ def yoroshiku_register(pds: str | None, workspace_dir: str | None, json_out: boo
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/ai.gftd.yoroshiku.registerWorkspace",
+            f"{pds_url}/xrpc/app.etzhayyim.yoroshiku.registerWorkspace",
             json={"workspace": str(ws)},
             headers=_auth_headers(), timeout=30,
         )

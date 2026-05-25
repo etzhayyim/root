@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.agOpinion.recordOpinion",
+  "id": "app.etzhayyim.apps.agOpinion.recordOpinion",
   "defs": {
     "main": {
       "type": "procedure",

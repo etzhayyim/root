@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.agent.planRealWorldDispatch",
+  "id": "app.etzhayyim.apps.agent.planRealWorldDispatch",
   "defs": {
     "main": {
       "type": "procedure",

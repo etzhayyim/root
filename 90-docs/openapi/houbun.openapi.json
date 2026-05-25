@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.houbun.ingestEurLex": {
+    "/xrpc/app.etzhayyim.houbun.ingestEurLex": {
       "post": {
         "summary": "Crawl EU legal acts from EUR-Lex via its public SPARQL endpoint (https://publications.europa.eu/webapi/rdf/sparql). Phase 2 MVP ingests regulation / directive / decision metadata by CELEX number. Full act text fetch lands in a later PR. Writes to vertex_houbun_statute. Attribution required (CC-BY-SA via ©European Union).",
-        "operationId": "ai.gftd.houbun.ingestEurLex",
+        "operationId": "app.etzhayyim.houbun.ingestEurLex",
         "requestBody": {
           "required": true,
           "content": {
@@ -81,10 +81,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.houbun.ingestStatuteJpn": {
+    "/xrpc/app.etzhayyim.houbun.ingestStatuteJpn": {
       "post": {
         "summary": "Crawl one or more Japanese statutes from the e-Gov 法令 API v2 and write statute / article records to Hyperdrive. Idempotent: existing (jurisdiction, statuteId) is updated; existing (articleDid) rows are skipped.",
-        "operationId": "ai.gftd.houbun.ingestStatuteJpn",
+        "operationId": "app.etzhayyim.houbun.ingestStatuteJpn",
         "requestBody": {
           "required": true,
           "content": {
@@ -149,10 +149,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.houbun.ingestStatuteUsa": {
+    "/xrpc/app.etzhayyim.houbun.ingestStatuteUsa": {
       "post": {
         "summary": "Crawl US federal statutory material (CFR / USC) from GovInfo bulkdata. Phase 2 MVP ingests CFR title-level metadata from the free JSON index (https://www.govinfo.gov/bulkdata/json/CFR); full title XML parse (part / section / paragraph) follows in a later PR. Writes to vertex_houbun_statute. Public domain.",
-        "operationId": "ai.gftd.houbun.ingestStatuteUsa",
+        "operationId": "app.etzhayyim.houbun.ingestStatuteUsa",
         "requestBody": {
           "required": true,
           "content": {
@@ -225,10 +225,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.houbun.ingestTreatyUn": {
+    "/xrpc/app.etzhayyim.houbun.ingestTreatyUn": {
       "post": {
         "summary": "Crawl international treaties from the UN Treaty Collection (https://treaties.un.org/). Writes to vertex_houbun_treaty. Phase 2 contract surface is fixed; the parser lands in a later PR — currently a polite-crawl scaffold.",
-        "operationId": "ai.gftd.houbun.ingestTreatyUn",
+        "operationId": "app.etzhayyim.houbun.ingestTreatyUn",
         "requestBody": {
           "required": true,
           "content": {
@@ -351,7 +351,7 @@
         "properties": {
           "statuteRef": {
             "type": "string",
-            "description": "AT URI of the parent `ai.gftd.apps.houbun.statute` record."
+            "description": "AT URI of the parent `app.etzhayyim.apps.houbun.statute` record."
           },
           "articleNo": {
             "type": "string",

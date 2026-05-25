@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.soilCarbon.recordStock",
+  "id": "app.etzhayyim.apps.soilCarbon.recordStock",
   "defs": {
     "main": {
       "type": "procedure",

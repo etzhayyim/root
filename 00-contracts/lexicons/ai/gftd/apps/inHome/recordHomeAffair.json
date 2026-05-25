@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.inHome.recordHomeAffair",
+  "id": "app.etzhayyim.apps.inHome.recordHomeAffair",
   "defs": {
     "main": {
       "type": "procedure",

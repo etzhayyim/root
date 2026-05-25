@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.listCharacters",
+  "id": "app.etzhayyim.mangaka.listCharacters",
   "defs": {
     "main": {
       "type": "query",

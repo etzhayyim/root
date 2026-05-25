@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.land-attestation",
+  "id": "app.etzhayyim.apps.etzhayyim.land-attestation",
   "defs": {
     "main": {
       "type": "record",

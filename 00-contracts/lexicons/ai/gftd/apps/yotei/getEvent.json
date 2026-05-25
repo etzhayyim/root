@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yotei.getEvent",
+  "id": "app.etzhayyim.apps.yotei.getEvent",
   "defs": {
     "main": {
       "type": "query",

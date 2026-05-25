@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.refugeeLivelihood.registerFinanceProgram",
+  "id": "app.etzhayyim.apps.refugeeLivelihood.registerFinanceProgram",
   "defs": {
     "main": {
       "type": "procedure",

@@ -135,7 +135,7 @@ export function createAgentLifecycle(
 
     await pds.dispatch({
       type: "com.atproto.repo.createRecord",
-      payload: { collection: "ai.gftd.agent.event", record: {
+      payload: { collection: "app.etzhayyim.agent.event", record: {
         agentId,
         event,
         target: extra?.target ?? "",
@@ -167,7 +167,7 @@ export function createAgentLifecycle(
       // Persist agent record
       await pds.dispatch({
         type: "com.atproto.repo.createRecord",
-        payload: { collection: "ai.gftd.agent.instance", record: {
+        payload: { collection: "app.etzhayyim.agent.instance", record: {
           agentId,
           did,
           appId: config.appId,

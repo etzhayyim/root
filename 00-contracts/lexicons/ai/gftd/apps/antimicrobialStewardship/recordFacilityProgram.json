@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.antimicrobialStewardship.recordFacilityProgram",
+  "id": "app.etzhayyim.apps.antimicrobialStewardship.recordFacilityProgram",
   "defs": {
     "main": {
       "type": "procedure",

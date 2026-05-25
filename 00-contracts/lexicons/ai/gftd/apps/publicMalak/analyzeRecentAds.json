@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.publicMalak.analyzeRecentAds",
+  "id": "app.etzhayyim.apps.publicMalak.analyzeRecentAds",
   "defs": {
     "main": {
       "type": "procedure",

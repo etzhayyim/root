@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.public-fund.vote",
+  "id": "app.etzhayyim.apps.public-fund.vote",
   "defs": {
     "main": {
       "type": "record",

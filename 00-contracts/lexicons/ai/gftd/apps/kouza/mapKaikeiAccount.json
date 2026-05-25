@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kouza.mapKaikeiAccount",
+  "id": "app.etzhayyim.apps.kouza.mapKaikeiAccount",
   "defs": {
     "main": {
       "type": "procedure",

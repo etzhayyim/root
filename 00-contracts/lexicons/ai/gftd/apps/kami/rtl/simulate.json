@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.rtl.simulate",
+  "id": "app.etzhayyim.apps.kami.rtl.simulate",
   "defs": {
     "main": {
       "type": "procedure",

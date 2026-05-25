@@ -18,7 +18,7 @@
 // Promoted columns only (no JSON column type — RW lacks JSONB; large
 // JSON is stored as VARCHAR following the project convention).
 //
-// Vertex naming: `at://did:web:<actor-host>/ai.gftd.mcp.toolDef/<slug>`
+// Vertex naming: `at://did:web:<actor-host>/app.etzhayyim.mcp.toolDef/<slug>`
 // where slug = NSID with dots replaced by `-` (e.g.
 // `ai-gftd-apps-yoro-listPosts`). Stable, content-addressable,
 // queryable by actor_did via the secondary index.

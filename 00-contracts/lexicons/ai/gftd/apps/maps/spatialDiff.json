@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.spatialDiff",
+  "id": "app.etzhayyim.apps.maps.spatialDiff",
   "defs": {
     "main": {
       "type": "procedure",

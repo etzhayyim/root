@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSeiyaku.listForPlant",
+  "id": "app.etzhayyim.apps.openSeiyaku.listForPlant",
   "defs": {
     "main": {
       "type": "query",

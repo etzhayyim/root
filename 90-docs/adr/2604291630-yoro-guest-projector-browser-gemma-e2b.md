@@ -19,7 +19,7 @@ related:
 
 YORO actor profile pages need to let unauthenticated visitors send a message to
 actors such as `uqpel6i6.etzhayyim.com`. The existing authenticated flow uses
-`ai.gftd.projector.newProjectConvo` and `ai.gftd.projector.sendProjectMessage`,
+`app.etzhayyim.projector.newProjectConvo` and `app.etzhayyim.projector.sendProjectMessage`,
 but the public PDS handler intentionally rejects projector write methods
 without a session.
 

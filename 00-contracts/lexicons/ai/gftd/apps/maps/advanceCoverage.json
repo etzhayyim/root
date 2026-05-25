@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.advanceCoverage",
+  "id": "app.etzhayyim.apps.maps.advanceCoverage",
   "defs": {
     "main": {
       "type": "procedure",

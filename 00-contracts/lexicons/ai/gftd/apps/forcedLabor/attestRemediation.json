@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.forcedLabor.attestRemediation",
+  "id": "app.etzhayyim.apps.forcedLabor.attestRemediation",
   "defs": {
     "main": {
       "type": "procedure",

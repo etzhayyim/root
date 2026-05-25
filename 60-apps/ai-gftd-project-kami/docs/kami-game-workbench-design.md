@@ -64,7 +64,7 @@ KAMI World (永続共有世界)
   ├─ Hub Island (ロビー、ポータル、ランキング)
   ├─ User Island A ← ユーザー A が KAMI Workbench で制作
   ├─ User Island B ← ユーザー B が制作
-  ├─ Official Island X ← GFTD 公式ゲーム
+  ├─ Official Island X ← etzhayyim 公式ゲーム
   └─ ...
 ```
 

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.redseaIncident.flagShipMissileStrike",
+  "id": "app.etzhayyim.apps.redseaIncident.flagShipMissileStrike",
   "defs": {
     "main": {
       "type": "procedure",

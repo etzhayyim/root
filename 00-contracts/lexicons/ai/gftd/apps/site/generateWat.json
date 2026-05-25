@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.generateWat",
+  "id": "app.etzhayyim.apps.site.generateWat",
   "defs": {
     "main": {
       "type": "procedure",

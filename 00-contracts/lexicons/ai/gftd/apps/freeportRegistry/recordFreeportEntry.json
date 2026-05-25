@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.freeportRegistry.recordFreeportEntry",
+  "id": "app.etzhayyim.apps.freeportRegistry.recordFreeportEntry",
   "defs": {
     "main": {
       "type": "procedure",

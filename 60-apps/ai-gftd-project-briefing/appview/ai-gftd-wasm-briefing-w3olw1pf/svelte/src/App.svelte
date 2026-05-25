@@ -431,7 +431,7 @@
 
     // 2. Store recording metadata via XRPC
     try {
-      await fetch(`/xrpc/ai.gftd.apps.briefing.uploadRecording`, {
+      await fetch(`/xrpc/app.etzhayyim.apps.briefing.uploadRecording`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ roomId, recordingId, r2Key, durationMs: recordingDuration * 1000, mimeType: 'audio/webm', convoId }),
@@ -454,7 +454,7 @@
       // 4. Save transcript + auto-translate via XRPC
       recordingStatus = 'translating';
       log('Translating...');
-      const saveResp = await fetch(`/xrpc/ai.gftd.apps.briefing.saveTranscript`, {
+      const saveResp = await fetch(`/xrpc/app.etzhayyim.apps.briefing.saveTranscript`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -487,7 +487,7 @@
     if (convoId) return;
     try {
       // Create room record
-      await fetch(`/xrpc/ai.gftd.apps.briefing.createRoom`, {
+      await fetch(`/xrpc/app.etzhayyim.apps.briefing.createRoom`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

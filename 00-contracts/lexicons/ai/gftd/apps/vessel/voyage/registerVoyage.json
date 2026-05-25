@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vessel.voyage.registerVoyage",
+  "id": "app.etzhayyim.apps.vessel.voyage.registerVoyage",
   "defs": {
     "main": {
       "type": "procedure",

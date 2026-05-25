@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vessel.tracking.getVesselPosition",
+  "id": "app.etzhayyim.apps.vessel.tracking.getVesselPosition",
   "defs": {
     "main": {
       "type": "query",

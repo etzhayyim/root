@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nokyo.coverageSnapshot",
+  "id": "app.etzhayyim.apps.nokyo.coverageSnapshot",
   "description": "6 時間ごとの actor coverage スナップショット (standard shinka loop)。",
   "defs": {
     "main": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPatent.handoffGenericCandidateToSeiyaku",
+  "id": "app.etzhayyim.apps.openPatent.handoffGenericCandidateToSeiyaku",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSeiyaku.startBatchRecord",
+  "id": "app.etzhayyim.apps.openSeiyaku.startBatchRecord",
   "defs": {
     "main": {
       "type": "procedure",

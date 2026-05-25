@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.esportsIntegrity.logCompetition",
+  "id": "app.etzhayyim.apps.esportsIntegrity.logCompetition",
   "defs": {
     "main": {
       "type": "procedure",

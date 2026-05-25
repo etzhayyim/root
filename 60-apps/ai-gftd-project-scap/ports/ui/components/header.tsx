@@ -45,7 +45,7 @@ export function Header() {
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Shield className="h-6 w-6" />
             <span className="hidden font-bold sm:inline-block">
-              SCAP GFTD.AI
+              SCAP etzhayyim.AI
             </span>
           </Link>
           <NavigationMenu>

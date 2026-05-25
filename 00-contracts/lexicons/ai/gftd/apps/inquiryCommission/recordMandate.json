@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.inquiryCommission.recordMandate",
+  "id": "app.etzhayyim.apps.inquiryCommission.recordMandate",
   "defs": {
     "main": {
       "type": "procedure",

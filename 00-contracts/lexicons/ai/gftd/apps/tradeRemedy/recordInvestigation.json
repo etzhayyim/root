@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tradeRemedy.recordInvestigation",
+  "id": "app.etzhayyim.apps.tradeRemedy.recordInvestigation",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kenkyusha.collectEvidence",
+  "id": "app.etzhayyim.apps.kenkyusha.collectEvidence",
   "defs": {
     "main": {
       "type": "procedure",

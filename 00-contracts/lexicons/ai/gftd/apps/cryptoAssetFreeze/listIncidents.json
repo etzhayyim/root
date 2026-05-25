@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cryptoAssetFreeze.listIncidents",
+  "id": "app.etzhayyim.apps.cryptoAssetFreeze.listIncidents",
   "defs": {
     "main": {
       "type": "query",

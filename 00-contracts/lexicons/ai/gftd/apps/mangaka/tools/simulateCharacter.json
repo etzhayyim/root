@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.tools.simulateCharacter",
+  "id": "app.etzhayyim.apps.mangaka.tools.simulateCharacter",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Pregel step 6 of ai.gftd.apps.mangaka.composeScene3d. Per-character spring-bone + cloth settle. Called via Send fan-out (one invocation per character key in pose_plan). Output is merged into the sim_result channel by the shallow-dict reducer. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_simulate_character.",
+      "description": "Pregel step 6 of app.etzhayyim.apps.mangaka.composeScene3d. Per-character spring-bone + cloth settle. Called via Send fan-out (one invocation per character key in pose_plan). Output is merged into the sim_result channel by the shallow-dict reducer. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_simulate_character.",
       "input": {
         "encoding": "application/json",
         "schema": {

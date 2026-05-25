@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ransomwatch.listGroups",
+  "id": "app.etzhayyim.apps.ransomwatch.listGroups",
   "defs": {
     "main": {
       "type": "query",

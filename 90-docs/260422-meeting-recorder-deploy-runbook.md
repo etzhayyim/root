@@ -11,7 +11,7 @@
 
 ### Microsoft Teams
 
-1. Gftd Japan tenant で Azure AD app `gftd-meeting-recorder` を作成。
+1. etzhayyim Japan tenant で Azure AD app `gftd-meeting-recorder` を作成。
 2. Application permissions 付与 + tenant admin consent:
    - `Calls.JoinGroupCall.All`
    - `Calls.AccessMedia.All`
@@ -96,9 +96,9 @@ gftd deploy   # writes did.json, configures XRPC routes, MCP facade
 
 ```bash
 # Teams
-gftd agent-token --lxm ai.gftd.apps.meetingRecorder.joinMeeting \
+gftd agent-token --lxm app.etzhayyim.apps.meetingRecorder.joinMeeting \
   | xargs -I{} curl -H "Authorization: Bearer {}" \
-    https://meeting-recorder.etzhayyim.com/xrpc/ai.gftd.apps.meetingRecorder.joinMeeting \
+    https://meeting-recorder.etzhayyim.com/xrpc/app.etzhayyim.apps.meetingRecorder.joinMeeting \
     -d '{"provider":"teams","joinTarget":{"joinUrl":"<test-meeting>"},"onBehalfOfDid":"did:web:jun.etzhayyim.com","consentToken":"<signed-jwt>"}'
 
 # Meet / Zoom も同様

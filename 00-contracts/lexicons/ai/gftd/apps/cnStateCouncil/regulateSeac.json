@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cnStateCouncil.regulateSeac",
+  "id": "app.etzhayyim.apps.cnStateCouncil.regulateSeac",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.vault.addMember",
+  "id": "app.etzhayyim.vault.addMember",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Add a member to a vault by providing a vaultKey wrapped to their device key. Caller must be admin/owner. Recipient pubkey is fetched via ai.gftd.signal.getPrekeyBundle.",
+      "description": "Add a member to a vault by providing a vaultKey wrapped to their device key. Caller must be admin/owner. Recipient pubkey is fetched via app.etzhayyim.signal.getPrekeyBundle.",
       "input": {
         "encoding": "application/json",
         "schema": {

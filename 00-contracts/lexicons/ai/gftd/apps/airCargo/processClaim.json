@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airCargo.processClaim",
+  "id": "app.etzhayyim.apps.airCargo.processClaim",
   "defs": {
     "main": {
       "type": "procedure",

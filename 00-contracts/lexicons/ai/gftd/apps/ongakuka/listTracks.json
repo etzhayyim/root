@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ongakuka.listTracks",
+  "id": "app.etzhayyim.apps.ongakuka.listTracks",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cnStateCouncil.regulateMonetaryPolicy",
+  "id": "app.etzhayyim.apps.cnStateCouncil.regulateMonetaryPolicy",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nokyo.member",
+  "id": "app.etzhayyim.apps.nokyo.member",
   "description": "JA 組合員 (正組合員 / 准組合員 / 法人組合員)。coopPath は tanno path (例 tanno:hokkaido:bibai) または zenchu/zennoh/zenkyoren/jabank。",
   "defs": {
     "main": {

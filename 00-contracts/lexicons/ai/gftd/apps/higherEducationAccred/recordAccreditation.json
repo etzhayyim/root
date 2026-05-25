@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.higherEducationAccred.recordAccreditation",
+  "id": "app.etzhayyim.apps.higherEducationAccred.recordAccreditation",
   "defs": {
     "main": {
       "type": "procedure",

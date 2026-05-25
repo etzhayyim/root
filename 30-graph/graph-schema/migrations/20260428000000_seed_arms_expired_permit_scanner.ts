@@ -22,14 +22,14 @@ const createdAt = "2026-04-28T00:00:00Z";
 const ownerDid = "did:web:arms.etzhayyim.com";
 
 const processDefVertexId =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/arms-expired-permit-scanner-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/arms-expired-permit-scanner-v1";
 const bindingVertexId =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/arms-scanExpiredPermits-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/arms-scanExpiredPermits-v1";
 
 const bpmnSourcePath =
   "00-contracts/bpmn/ai/gftd/arms/expiredPermitScanner.bpmn";
 const bpmnProcessId = "arms_expired_permit_scanner";
-const nsid = "ai.gftd.apps.arms.scanExpiredPermits";
+const nsid = "app.etzhayyim.apps.arms.scanExpiredPermits";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readContract(bpmnSourcePath);

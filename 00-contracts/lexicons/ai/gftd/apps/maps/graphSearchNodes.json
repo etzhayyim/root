@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.graphSearchNodes",
+  "id": "app.etzhayyim.apps.maps.graphSearchNodes",
   "defs": {
     "main": {
       "type": "query",

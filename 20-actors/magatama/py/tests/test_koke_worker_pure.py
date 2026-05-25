@@ -94,7 +94,7 @@ def test_fix_signal_from_scan_batch():
 
     signals = [
         {
-            "vertexId": "at://koke.etzhayyim.com/ai.gftd.apps.koke.fixation/kox-abc",
+            "vertexId": "at://koke.etzhayyim.com/app.etzhayyim.apps.koke.fixation/kox-abc",
             "inputKind": "text",
             "rawRef": "some raw content",
             "signalHash": "",
@@ -231,7 +231,7 @@ def test_handoff_success():
     mock_cm.__enter__ = MagicMock(return_value=MagicMock())
     mock_cm.__exit__ = MagicMock(return_value=False)
 
-    fixation_row = ("at://koke.etzhayyim.com/ai.gftd.apps.koke.fixation/kox-abc",)
+    fixation_row = ("at://koke.etzhayyim.com/app.etzhayyim.apps.koke.fixation/kox-abc",)
 
     with (
         patch("pymagatama.koke_worker_main.fetch_one", return_value=fixation_row),
@@ -276,7 +276,7 @@ def test_handoff_to_saikin_success():
     mock_cm.__exit__ = MagicMock(return_value=False)
 
     fixation_row = (
-        "at://koke.etzhayyim.com/ai.gftd.apps.koke.fixation/kox-abc",
+        "at://koke.etzhayyim.com/app.etzhayyim.apps.koke.fixation/kox-abc",
         "text",
         "raw signal content",
         "aabbcc112233",
@@ -318,7 +318,7 @@ def test_handoff_to_saikin_uses_fixation_fields():
     mock_cm.__enter__ = MagicMock(return_value=mock_cursor)
 
     fixation_row = (
-        "at://koke.etzhayyim.com/ai.gftd.apps.koke.fixation/kox-xyz",
+        "at://koke.etzhayyim.com/app.etzhayyim.apps.koke.fixation/kox-xyz",
         "url",
         "https://example.com/signal",
         "deadbeef1234",

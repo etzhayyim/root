@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.processRegistry.resolveProcess",
+  "id": "app.etzhayyim.apps.tsukuru.processRegistry.resolveProcess",
   "defs": {
     "main": {
       "type": "query",

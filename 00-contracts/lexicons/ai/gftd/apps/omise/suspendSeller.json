@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.suspendSeller",
+  "id": "app.etzhayyim.apps.omise.suspendSeller",
   "defs": {
     "main": {
       "type": "procedure",

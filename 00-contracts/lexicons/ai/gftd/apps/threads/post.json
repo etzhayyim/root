@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.threads.post",
+  "id": "app.etzhayyim.apps.threads.post",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Religious-corp social post. AT Protocol record under the writer's DID (typically an SBT-holding adherent), carrying short-form text + optional reply chain. The substrate pipeline (mst-projector → ipfs-pinner → anchor-cron) anchors the writer's MST root including these posts, so any third party can verify the post existed at a given moment without trusting this operator. Distinct from `app.bsky.feed.post`: religious-corp namespace lives at `ai.gftd.apps.threads.*`, SBT-gated write policy is enforced at the PDS layer (not in this lexicon), and the embed surface is intentionally narrow in v1 — no media, no external link unfurl, no quote-post — to bias the medium toward attestation and study over performance. Per ADR-2605172000 substrate posture.",
+      "description": "Religious-corp social post. AT Protocol record under the writer's DID (typically an SBT-holding adherent), carrying short-form text + optional reply chain. The substrate pipeline (mst-projector → ipfs-pinner → anchor-cron) anchors the writer's MST root including these posts, so any third party can verify the post existed at a given moment without trusting this operator. Distinct from `app.bsky.feed.post`: religious-corp namespace lives at `app.etzhayyim.apps.threads.*`, SBT-gated write policy is enforced at the PDS layer (not in this lexicon), and the embed surface is intentionally narrow in v1 — no media, no external link unfurl, no quote-post — to bias the medium toward attestation and study over performance. Per ADR-2605172000 substrate posture.",
       "key": "tid",
       "record": {
         "type": "object",
@@ -19,7 +19,7 @@
           "reply": {
             "type": "ref",
             "ref": "#replyRef",
-            "description": "Reply target — required `root` (thread origin) + `parent` (immediate parent). Both fields point to existing ai.gftd.apps.threads.post records."
+            "description": "Reply target — required `root` (thread origin) + `parent` (immediate parent). Both fields point to existing app.etzhayyim.apps.threads.post records."
           },
           "langs": {
             "type": "array",

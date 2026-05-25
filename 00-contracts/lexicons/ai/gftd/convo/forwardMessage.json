@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.forwardMessage",
+  "id": "app.etzhayyim.convo.forwardMessage",
   "defs": {
     "main": {
       "type": "procedure",

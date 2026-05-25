@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openLogisticsLastmile.confirmDelivery",
+  "id": "app.etzhayyim.apps.openLogisticsLastmile.confirmDelivery",
   "defs": {
     "main": {
       "type": "procedure",

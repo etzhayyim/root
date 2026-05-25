@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.moldAllergy.airSampling",
+  "id": "app.etzhayyim.apps.moldAllergy.airSampling",
   "defs": {
     "main": {
       "type": "record",

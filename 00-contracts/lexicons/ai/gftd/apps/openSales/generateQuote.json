@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSales.generateQuote",
+  "id": "app.etzhayyim.apps.openSales.generateQuote",
   "defs": {
     "main": {
       "type": "procedure",

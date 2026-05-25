@@ -50,7 +50,7 @@ interface Env {
   // Substrate-side XRPC adapter (rw-free reference impl). Service binding
   // to `yoro-xrpc-adapter` — bypasses the public HTTP hop and CF Bot
   // Management. Per ADR-2605172000: reads MUST resolve through MST/IPFS/L2,
-  // never through the gftd.ai PDS+AppView+RisingWave chain.
+  // never through the etzhayyim.com PDS+AppView+RisingWave chain.
   YORO_XRPC?: Fetcher;
   // Phase α P1 (ADR-2605212030): chain config for per-actor DID resolution.
   // Set in wrangler.toml [vars] once EtzhayyimAuthz is deployed to Base Sepolia.
@@ -66,38 +66,38 @@ interface Env {
   XRPC_BSKY_UPSTREAM?: string;
   XRPC_ATPROTO_UPSTREAM?: string;
   XRPC_CHAT_UPSTREAM?: string;
-  XRPC_GFTD_UPSTREAM?: string;
+  XRPC_etzhayyim_UPSTREAM?: string;
 }
 
 // ─── Substrate NSID alias map ──────────────────────────────────────────
 //
 // Per ADR-2605172000, app.bsky.* read NSIDs MUST resolve through the
 // MST/IPFS/L2 substrate via `yoro-xrpc-adapter` (which exposes the
-// rw-free reference impl under the `ai.gftd.yoro.*` NSID family). The
+// rw-free reference impl under the `app.etzhayyim.yoro.*` NSID family). The
 // yoro frontend still sends the standard `app.bsky.*` NSIDs unchanged;
 // this Worker rewrites them to the substrate-side equivalent before
 // dispatching through the service binding.
 //
-// Reads enumerated here SHORT-CIRCUIT the gftd.ai PDS proxy below.
+// Reads enumerated here SHORT-CIRCUIT the etzhayyim.com PDS proxy below.
 // Writes (createRecord, like, repost, follow, etc.) still flow through
 // the legacy path until the rw-free write path lands — they are not in
 // this map.
 const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
-  "app.bsky.feed.getTimeline":     "ai.gftd.yoro.feed.getTimeline",
-  "app.bsky.feed.getDiscoverFeed": "ai.gftd.yoro.feed.getDiscoverFeed",
-  "app.bsky.feed.getAuthorFeed":   "ai.gftd.yoro.feed.getAuthorFeed",
-  "app.bsky.feed.getPostThread":   "ai.gftd.yoro.feed.getPostThread",
-  "app.bsky.actor.getProfile":     "ai.gftd.yoro.actor.getProfile",
-  "app.bsky.actor.searchActors":   "ai.gftd.yoro.actor.searchActors",
-  "app.bsky.graph.getFollowers":   "ai.gftd.yoro.graph.getFollowers",
-  "app.bsky.graph.getFollows":     "ai.gftd.yoro.graph.getFollows",
+  "app.bsky.feed.getTimeline":     "app.etzhayyim.yoro.feed.getTimeline",
+  "app.bsky.feed.getDiscoverFeed": "app.etzhayyim.yoro.feed.getDiscoverFeed",
+  "app.bsky.feed.getAuthorFeed":   "app.etzhayyim.yoro.feed.getAuthorFeed",
+  "app.bsky.feed.getPostThread":   "app.etzhayyim.yoro.feed.getPostThread",
+  "app.bsky.actor.getProfile":     "app.etzhayyim.yoro.actor.getProfile",
+  "app.bsky.actor.searchActors":   "app.etzhayyim.yoro.actor.searchActors",
+  "app.bsky.graph.getFollowers":   "app.etzhayyim.yoro.graph.getFollowers",
+  "app.bsky.graph.getFollows":     "app.etzhayyim.yoro.graph.getFollows",
 };
 
 // Identity-passthrough prefixes that route to YORO_XRPC unchanged. Used for
 // NSID families already in their canonical rw-free shape (no app.bsky.* →
-// ai.gftd.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
+// app.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
 const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
-  "ai.gftd.apps.unispsc.",
+  "app.etzhayyim.apps.unispsc.",
 ];
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
@@ -113,15 +113,15 @@ interface NsidRoute {
 }
 
 const XRPC_ROUTES: NsidRoute[] = [
-  { prefix: "ai.gftd.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
+  { prefix: "app.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
   // AT Protocol / Bluesky read+write (PDS handles both write paths and
   // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
   // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
   { prefix: "app.bsky.",             upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
-  // GFTD platform extensions (convo, signal, kagami, projector, mcp, rtc).
-  { prefix: "ai.gftd.",              upstream: "XRPC_GFTD_UPSTREAM" },
+  // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
+  { prefix: "app.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
 ];
 
 function findXrpcRoute(nsid: string): NsidRoute | null {
@@ -303,7 +303,7 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
       primaryLexicon: infraActor?.primaryLexicon,
       registry: registered
         ? {
-            lexicon: "ai.gftd.apps.unispsc",
+            lexicon: "app.etzhayyim.apps.unispsc",
             generatedAt: UNISPSC_GENERATED_AT,
             totalCount: UNISPSC_TOTAL_COUNT,
           }
@@ -431,7 +431,7 @@ export default {
             JSON.stringify({
               error: "HandleNotInRegistry",
               message: `handle '${handle}' matches a namespaced registry shape but is not registered`,
-              registry: "ai.gftd.apps.unispsc",
+              registry: "app.etzhayyim.apps.unispsc",
               registryTotalCount: UNISPSC_TOTAL_COUNT,
             }),
             {
@@ -467,7 +467,7 @@ export default {
     //
     //    Substrate short-circuit: if the NSID has a rw-free equivalent
     //    (see SUBSTRATE_NSID_ALIASES) and the YORO_XRPC service binding
-    //    is configured, route to the adapter instead of the gftd.ai
+    //    is configured, route to the adapter instead of the etzhayyim.com
     //    upstream. Per ADR-2605172000, reads MUST resolve through MST.
     // ──────────────────────────────────────────────────────────────────
     {

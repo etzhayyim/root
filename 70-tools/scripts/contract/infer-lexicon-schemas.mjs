@@ -221,8 +221,8 @@ function inferSchemaFromHandler(bodyParamName, handlerBody) {
   //   `const args = decodeJson<{foo: string}>(body, { ... })`
   //   `const { foo, bar } = decodeJson(body, { ... })`
   //   `const args = decodeJson(body, {})`
-  //   `const args = parseLexiconInput("ai.gftd.apps.foo.bar", body)`
-  //   `const { foo, bar } = parseLexiconInput("ai.gftd.apps.foo.bar", body)`
+  //   `const args = parseLexiconInput("app.etzhayyim.apps.foo.bar", body)`
+  //   `const { foo, bar } = parseLexiconInput("app.etzhayyim.apps.foo.bar", body)`
   const decodeRe = /(?:const|let|var)\s+(\w+|\{[^}]+\})\s*=\s*decodeJson(?:<([^>]+)>)?\(\s*(\w+)\s*,\s*(\{[^{}]*\}|\{[\s\S]*?\n\s*\})/g;
   // New-form regex: parseLexiconInput("nsid", body)
   const parseRe = /(?:const|let|var)\s+(\w+|\{[^}]+\})\s*=\s*parseLexiconInput\(\s*(?:"[^"]+"|'[^']+')\s*,\s*(\w+)\s*\)/g;

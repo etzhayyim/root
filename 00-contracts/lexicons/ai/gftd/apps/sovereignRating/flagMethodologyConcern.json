@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sovereignRating.flagMethodologyConcern",
+  "id": "app.etzhayyim.apps.sovereignRating.flagMethodologyConcern",
   "defs": {
     "main": {
       "type": "procedure",

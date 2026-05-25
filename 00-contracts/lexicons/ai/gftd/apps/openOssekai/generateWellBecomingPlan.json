@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOssekai.generateWellBecomingPlan",
+  "id": "app.etzhayyim.apps.openOssekai.generateWellBecomingPlan",
   "defs": {
     "main": {
       "type": "procedure",

@@ -23,7 +23,7 @@ describe("Seed kouza BPMN actor migration", () => {
   });
 
   it("seeds the MCP/lexicon binding", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.kouza.syncDueConnections"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.kouza.syncDueConnections"');
     expect(migrationSource).toContain("did:web:kouza.etzhayyim.com");
     expect(migrationSource).toContain("sys.bpmn.seed.kouza");
   });
@@ -32,7 +32,7 @@ describe("Seed kouza BPMN actor migration", () => {
     expect(bpmn).toContain('id="kouza_sync_due_connections"');
     expect(bpmn).toContain("<bpmn:timerEventDefinition");
     expect(bpmn).toContain("R/PT30M");
-    expect(bpmn).toContain('type="ai.gftd.kouza.syncDueConnections"');
+    expect(bpmn).toContain('type="app.etzhayyim.kouza.syncDueConnections"');
     expect(bpmn).toContain('type="generic.audit.emit"');
   });
 });

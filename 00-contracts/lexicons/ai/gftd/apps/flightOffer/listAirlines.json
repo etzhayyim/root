@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.flightOffer.listAirlines",
+  "id": "app.etzhayyim.apps.flightOffer.listAirlines",
   "defs": {
     "main": {
       "type": "procedure",

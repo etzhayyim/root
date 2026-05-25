@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coralReefBleaching.flagMortalityRisk",
+  "id": "app.etzhayyim.apps.coralReefBleaching.flagMortalityRisk",
   "defs": {
     "main": {
       "type": "procedure",

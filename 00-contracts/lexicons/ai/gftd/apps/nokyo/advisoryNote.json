@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nokyo.advisoryNote",
+  "id": "app.etzhayyim.apps.nokyo.advisoryNote",
   "description": "営農指導員の助言レコード。cropPlan submit 時に LLM が一次ドラフト、指導員が check → 承認。",
   "defs": {
     "main": {

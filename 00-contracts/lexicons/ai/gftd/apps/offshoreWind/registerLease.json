@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.offshoreWind.registerLease",
+  "id": "app.etzhayyim.apps.offshoreWind.registerLease",
   "defs": {
     "main": {
       "type": "procedure",

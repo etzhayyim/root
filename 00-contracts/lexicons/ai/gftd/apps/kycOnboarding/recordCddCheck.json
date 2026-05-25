@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kycOnboarding.recordCddCheck",
+  "id": "app.etzhayyim.apps.kycOnboarding.recordCddCheck",
   "defs": {
     "main": {
       "type": "procedure",

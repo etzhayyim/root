@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.cohort.evidence",
+  "id": "app.etzhayyim.cohort.evidence",
   "defs": {
     "main": {
       "type": "record",

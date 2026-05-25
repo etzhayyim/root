@@ -79,7 +79,7 @@ def _repo_root() -> Path | None:
 
 
 def _gftd_binary() -> str:
-    return os.environ.get("GFTD_BIN") or shutil.which("gftd") or "gftd"
+    return os.environ.get("etzhayyim_BIN") or shutil.which("gftd") or "gftd"
 
 
 def _run_command(args: list[str], *, timeout_sec: int, env: dict[str, str]) -> dict[str, Any]:

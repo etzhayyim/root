@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yotei.getBooking",
+  "id": "app.etzhayyim.apps.yotei.getBooking",
   "defs": {
     "main": {
       "type": "query",

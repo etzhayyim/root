@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kouza.listAccounts",
+  "id": "app.etzhayyim.apps.kouza.listAccounts",
   "defs": {
     "main": {
       "type": "query",

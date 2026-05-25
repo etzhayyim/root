@@ -29,7 +29,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     CREATE FUNCTION gmail_upsert_contact(VARCHAR)
       RETURNS VARCHAR
-      AS 'ai.gftd.apps.gmail.upsertContact'
+      AS 'app.etzhayyim.apps.gmail.upsertContact'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 }

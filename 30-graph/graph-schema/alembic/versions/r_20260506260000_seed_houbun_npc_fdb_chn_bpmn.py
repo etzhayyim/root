@@ -22,7 +22,7 @@ UP = [{'sql': '\n'
          '           $5, 1, $6, $7, $8\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $9)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ingest-houbun-npc-fdb-chn-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ingest-houbun-npc-fdb-chn-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -158,7 +158,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.ingest.houbunNpcFdbChnDelta.completed&quot;" '
+                 'source="=&quot;app.etzhayyim.ingest.houbunNpcFdbChnDelta.completed&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;processId&quot;: '
                  '&quot;ingest_houbun_npc_fdb_chn_delta&quot;, &quot;runId&quot;: runId, '
@@ -183,29 +183,29 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.ingest-houbun-chn',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ingest-houbun-npc-fdb-chn-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ingest-houbun-npc-fdb-chn-delta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '      result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id, actor_id\n'
          '    )\n'
-         "    SELECT $1, $2, 'ai.gftd.apps.ingest.startNpcFdbChn',\n"
+         "    SELECT $1, $2, 'app.etzhayyim.apps.ingest.startNpcFdbChn',\n"
          "           'ingest_houbun_npc_fdb_chn_delta', 1, CAST(0 AS integer), 'active',\n"
          '           $3, 1, $4, $5, $6\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $7)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-houbun-npc-fdb-chn-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-houbun-npc-fdb-chn-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  '2026-05-06T26:00:00Z',
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.ingest-houbun-chn',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-houbun-npc-fdb-chn-delta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-houbun-npc-fdb-chn-delta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-houbun-npc-fdb-chn-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-houbun-npc-fdb-chn-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ingest-houbun-npc-fdb-chn-delta-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ingest-houbun-npc-fdb-chn-delta-v1']}]
 
 
 def upgrade() -> None:

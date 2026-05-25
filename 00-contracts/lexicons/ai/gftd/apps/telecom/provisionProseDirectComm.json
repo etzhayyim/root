@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.provisionProseDirectComm",
+  "id": "app.etzhayyim.apps.telecom.provisionProseDirectComm",
   "defs": {
     "main": {
       "type": "procedure",

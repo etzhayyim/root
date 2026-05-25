@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.states.govCoverageGap",
+  "id": "app.etzhayyim.apps.states.govCoverageGap",
   "defs": {
     "main": {
       "type": "record",

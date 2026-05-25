@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openHs.classifyShipment",
+  "id": "app.etzhayyim.apps.openHs.classifyShipment",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.manga.recordReadingProgress",
+  "id": "app.etzhayyim.apps.manga.recordReadingProgress",
   "defs": {
     "main": {
       "type": "procedure",

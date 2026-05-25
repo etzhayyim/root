@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.resourceFlow.getActorLabels",
+  "id": "app.etzhayyim.apps.resourceFlow.getActorLabels",
   "defs": {
     "main": {
       "type": "query",

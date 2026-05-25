@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.tools.loadPanelPlan",
+  "id": "app.etzhayyim.apps.mangaka.tools.loadPanelPlan",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Pregel step 1 of ai.gftd.apps.mangaka.composeScene3d. Reads a kind='panel' row from vertex_mangaka and emits a normalised panel_plan ({rkey, shot, characters[], environment, action, mood, props[]}). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_load_panel_plan.",
+      "description": "Pregel step 1 of app.etzhayyim.apps.mangaka.composeScene3d. Reads a kind='panel' row from vertex_mangaka and emits a normalised panel_plan ({rkey, shot, characters[], environment, action, mood, props[]}). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_load_panel_plan.",
       "input": {
         "encoding": "application/json",
         "schema": {

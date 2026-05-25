@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.xlsx.search",
+  "id": "app.etzhayyim.apps.xlsx.search",
   "defs": {
     "main": {
       "type": "query",

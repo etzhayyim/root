@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.contracts.mintOrganizationDid",
+  "id": "app.etzhayyim.apps.contracts.mintOrganizationDid",
   "defs": {
     "main": {
       "type": "procedure",

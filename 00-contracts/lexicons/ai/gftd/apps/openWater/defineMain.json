@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openWater.defineMain",
+  "id": "app.etzhayyim.apps.openWater.defineMain",
   "defs": {
     "main": {
       "type": "procedure",

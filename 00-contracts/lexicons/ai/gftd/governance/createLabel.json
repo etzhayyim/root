@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.governance.createLabel",
+  "id": "app.etzhayyim.governance.createLabel",
   "description": "Create a governance label. Input uses official com.atproto.label.defs#label schema.",
   "defs": {
     "main": {

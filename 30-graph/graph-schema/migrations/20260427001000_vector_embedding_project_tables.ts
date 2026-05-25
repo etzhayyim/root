@@ -6,7 +6,7 @@ import { sql } from "kysely";
 //
 // Phase 1 stores only vector(768). Native model dimensions remain in the model
 // registry, but every production embedding row is projected/truncated/distilled
-// into the GFTD 768d space before it is inserted into RisingWave.
+// into the etzhayyim 768d space before it is inserted into RisingWave.
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`

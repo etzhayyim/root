@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ituSpectrum.flagJamming",
+  "id": "app.etzhayyim.apps.ituSpectrum.flagJamming",
   "defs": {
     "main": {
       "type": "procedure",

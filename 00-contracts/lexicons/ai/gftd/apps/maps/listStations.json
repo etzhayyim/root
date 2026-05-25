@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listStations",
+  "id": "app.etzhayyim.apps.maps.listStations",
   "defs": {
     "main": {
       "type": "query",

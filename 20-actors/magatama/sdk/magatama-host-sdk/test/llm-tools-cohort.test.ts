@@ -87,7 +87,7 @@ describe('cohortToolDispatch', () => {
 
 describe('cohortToolNsid', () => {
   it('returns NSID for known tool', () => {
-    expect(cohortToolNsid('cohort_fission')).toBe('ai.gftd.cohort.fission');
+    expect(cohortToolNsid('cohort_fission')).toBe('app.etzhayyim.cohort.fission');
   });
   it('returns null for unknown tool', () => {
     expect(cohortToolNsid('not_a_tool')).toBeNull();
@@ -123,7 +123,7 @@ describe('createCohortToolHandler', () => {
       locale: 'jp',
     }) as any;
     expect(r.did).toBe('did:plc:pending-x');
-    expect(captured.url).toBe('https://atproto.etzhayyim.com/xrpc/ai.gftd.cohort.seed');
+    expect(captured.url).toBe('https://atproto.etzhayyim.com/xrpc/app.etzhayyim.cohort.seed');
     expect(captured.init.method).toBe('POST');
     expect(captured.init.headers.Authorization).toBe('Bearer tok-abc');
     const body = JSON.parse(captured.init.body);

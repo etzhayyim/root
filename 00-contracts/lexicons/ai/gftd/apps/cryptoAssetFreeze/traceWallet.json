@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cryptoAssetFreeze.traceWallet",
+  "id": "app.etzhayyim.apps.cryptoAssetFreeze.traceWallet",
   "defs": {
     "main": {
       "type": "procedure",

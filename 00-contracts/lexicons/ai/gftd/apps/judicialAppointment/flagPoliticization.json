@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.judicialAppointment.flagPoliticization",
+  "id": "app.etzhayyim.apps.judicialAppointment.flagPoliticization",
   "defs": {
     "main": {
       "type": "procedure",

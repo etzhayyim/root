@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yoro.activity.listActivities",
+  "id": "app.etzhayyim.yoro.activity.listActivities",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.robotics.telemetry.schema",
+  "id": "app.etzhayyim.apps.robotics.telemetry.schema",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.transshipmentEvasion.flagMaterialFinding",
+  "id": "app.etzhayyim.apps.transshipmentEvasion.flagMaterialFinding",
   "defs": {
     "main": {
       "type": "procedure",

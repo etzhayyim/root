@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.surplusRouter.recordRedistribution",
+  "id": "app.etzhayyim.apps.surplusRouter.recordRedistribution",
   "defs": {
     "main": {
       "type": "procedure",
@@ -39,17 +39,17 @@
             "tithePaymentRef": {
               "type": "string",
               "format": "at-uri",
-              "description": "Optional AT URI of the ai.gftd.apps.payment.sent record that carried the 10% in-kind tithe coupling for this lot. Per ADR-2605192130."
+              "description": "Optional AT URI of the app.etzhayyim.apps.payment.sent record that carried the 10% in-kind tithe coupling for this lot. Per ADR-2605192130."
             },
             "bondedEntryRef": {
               "type": "string",
               "format": "at-uri",
-              "description": "Optional AT URI of ai.gftd.apps.freeportRegistry.recordFreeportEntry for cross-border bonded transit."
+              "description": "Optional AT URI of app.etzhayyim.apps.freeportRegistry.recordFreeportEntry for cross-border bonded transit."
             },
             "ftzZoneRef": {
               "type": "string",
               "format": "at-uri",
-              "description": "Optional AT URI of ai.gftd.apps.ftzZones.recordZone for FTZ-mediated transit."
+              "description": "Optional AT URI of app.etzhayyim.apps.ftzZones.recordZone for FTZ-mediated transit."
             },
             "deliveredAt": { "type": "string", "format": "datetime" },
             "receiverAckSignature": {
@@ -70,12 +70,12 @@
             "warehousePickRef": {
               "type": "string",
               "format": "at-uri",
-              "description": "Auto-emitted ai.gftd.apps.warehouse.pick record on donor side, when applicable."
+              "description": "Auto-emitted app.etzhayyim.apps.warehouse.pick record on donor side, when applicable."
             },
             "warehousePutawayRef": {
               "type": "string",
               "format": "at-uri",
-              "description": "Auto-emitted ai.gftd.apps.warehouse.putaway record on receiver side, when applicable."
+              "description": "Auto-emitted app.etzhayyim.apps.warehouse.putaway record on receiver side, when applicable."
             },
             "error": { "type": "string" }
           }

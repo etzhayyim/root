@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.socialMediaInfluenceOp.flagStateInfluenceOp",
+  "id": "app.etzhayyim.apps.socialMediaInfluenceOp.flagStateInfluenceOp",
   "defs": {
     "main": {
       "type": "procedure",

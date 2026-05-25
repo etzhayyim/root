@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.getGeolocation",
+  "id": "app.etzhayyim.apps.ipaddress.getGeolocation",
   "defs": {
     "main": {
       "type": "query",

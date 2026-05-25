@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.narou.publishChapter",
+  "id": "app.etzhayyim.apps.narou.publishChapter",
   "defs": {
     "main": {
       "type": "procedure",

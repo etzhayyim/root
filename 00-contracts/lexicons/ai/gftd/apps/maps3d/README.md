@@ -1,6 +1,6 @@
-# ai.gftd.apps.maps3d.* — etzhayyim variant
+# app.etzhayyim.apps.maps3d.* — etzhayyim variant
 
-Vendor-authored maps3d lexicons borrowed by religious-corp (etzhayyim) under the shared `ai.gftd.*` namespace pattern. Verdicts assigned per **ADR-2605214000 §2** substrate-fit rules.
+Vendor-authored maps3d lexicons borrowed by religious-corp (etzhayyim) under the shared `app.etzhayyim.*` namespace pattern. Verdicts assigned per **ADR-2605214000 §2** substrate-fit rules.
 
 ## Verdicts (2026-05-21)
 
@@ -21,9 +21,9 @@ Only top-level `description` text in 3 lexicons (`linkActor`, `processTile`, `si
 
 The five PORT-direct lexicons (`colmapTile`, `curateImages`, `fetchMapillary`, `replanReconstruction`, `visionAnnotate`) required no edits; their descriptions already reference substrate-compatible infrastructure (open standards like Mapillary, LangGraph, and OSM; or internal systems like Murakumo Vision).
 
-## Why the namespace stays `ai.gftd.apps.maps3d.*`
+## Why the namespace stays `app.etzhayyim.apps.maps3d.*`
 
-Per ADR-2605214000 §2 namespace placement rule: vendor-authored lexicons borrowed by religious-corp keep the `ai.gftd.*` NSID. The `app.etzhayyim.*` namespace is reserved for religious-corp-only lexicons with no vendor equivalent.
+Per ADR-2605214000 §2 namespace placement rule: vendor-authored lexicons borrowed by religious-corp keep the `app.etzhayyim.*` NSID. The `app.etzhayyim.*` namespace is reserved for religious-corp-only lexicons with no vendor equivalent.
 
 ## Substrate-fit conditions (recap)
 

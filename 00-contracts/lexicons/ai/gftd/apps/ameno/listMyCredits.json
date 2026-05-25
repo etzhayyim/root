@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ameno.listMyCredits",
+  "id": "app.etzhayyim.apps.ameno.listMyCredits",
   "defs": {
     "main": {
       "type": "query",

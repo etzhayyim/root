@@ -1,11 +1,11 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apqc.processCategory",
+  "id": "app.etzhayyim.apqc.processCategory",
   "defs": {
     "main": {
       "type": "record",
       "key": "literal:{code}",
-      "description": "APQC PCF (Process Classification Framework) Level-1 category record. AT Protocol record carrying one of the 13 canonical L1 process categories (v7.4) — `code` is the L1 identifier (e.g. '1.0', '13.0') and is used as the rkey verbatim for idempotent re-seeding. Per ADR-2605172000 substrate posture: replaces the legacy `vertex_open_apqc_l1` RW table with an MST + IPFS-anchored record set so the substrate pipeline (mst-projector → ipfs-pinner → anchor-cron) can anchor + replicate the L1 taxonomy without trusting this operator. Level-2 through Level-5 categories follow in later PRs as separate record lexicons (e.g. `ai.gftd.apqc.processGroup` for L2) reusing the same scaffold. Sibling lexicons under `ai.gftd.apqc.*` (`getProcess`, `materializeSubprocesses`, `coverageSnapshot`, `emitEvent`) remain as active procedures — record-vs-procedure split.",
+      "description": "APQC PCF (Process Classification Framework) Level-1 category record. AT Protocol record carrying one of the 13 canonical L1 process categories (v7.4) — `code` is the L1 identifier (e.g. '1.0', '13.0') and is used as the rkey verbatim for idempotent re-seeding. Per ADR-2605172000 substrate posture: replaces the legacy `vertex_open_apqc_l1` RW table with an MST + IPFS-anchored record set so the substrate pipeline (mst-projector → ipfs-pinner → anchor-cron) can anchor + replicate the L1 taxonomy without trusting this operator. Level-2 through Level-5 categories follow in later PRs as separate record lexicons (e.g. `app.etzhayyim.apqc.processGroup` for L2) reusing the same scaffold. Sibling lexicons under `app.etzhayyim.apqc.*` (`getProcess`, `materializeSubprocesses`, `coverageSnapshot`, `emitEvent`) remain as active procedures — record-vs-procedure split.",
       "record": {
         "type": "object",
         "required": [

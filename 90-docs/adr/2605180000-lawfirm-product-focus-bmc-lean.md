@@ -266,7 +266,7 @@ KPI は `projector.update_status` (ADR-2605130000) で毎スプリント末に�
 ### 制約
 
 - PII は ADR-0018 Tier 3 (Preferences) に隔離。billing テナント情報も `signal:v1:` field-encrypt
-- lawfirm billing actor が Stripe API を直接呼ぶ場合は `ai.gftd.apps.stripe.*` XRPC 経由
+- lawfirm billing actor が Stripe API を直接呼ぶ場合は `app.etzhayyim.apps.stripe.*` XRPC 経由
 - 価格変更は本 ADR を amendment として更新 (直接 deps.toml 書き換えは不可)
 
 ## Alternatives Considered

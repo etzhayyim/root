@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.registerProvider",
+  "id": "app.etzhayyim.apps.ipaddress.registerProvider",
   "defs": {
     "main": {
       "type": "procedure",

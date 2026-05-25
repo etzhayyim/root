@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.narou.getChapter",
+  "id": "app.etzhayyim.narou.getChapter",
   "defs": {
     "main": {
       "type": "query",

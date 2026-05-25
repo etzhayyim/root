@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.crossBorderTransfer.recordTransferMechanism",
+  "id": "app.etzhayyim.apps.crossBorderTransfer.recordTransferMechanism",
   "defs": {
     "main": {
       "type": "procedure",

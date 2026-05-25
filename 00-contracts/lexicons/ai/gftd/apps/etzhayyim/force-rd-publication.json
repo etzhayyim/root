@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.force-rd-publication",
+  "id": "app.etzhayyim.apps.etzhayyim.force-rd-publication",
   "defs": {
     "main": {
       "type": "record",

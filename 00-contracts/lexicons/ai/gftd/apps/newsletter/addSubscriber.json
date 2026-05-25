@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.newsletter.addSubscriber",
+  "id": "app.etzhayyim.apps.newsletter.addSubscriber",
   "defs": {
     "main": {
       "type": "procedure",

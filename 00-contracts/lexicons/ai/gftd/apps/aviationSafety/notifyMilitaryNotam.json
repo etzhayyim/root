@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aviationSafety.notifyMilitaryNotam",
+  "id": "app.etzhayyim.apps.aviationSafety.notifyMilitaryNotam",
   "defs": {
     "main": {
       "type": "procedure",

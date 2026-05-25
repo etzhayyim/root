@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openIsco.classifyWorker",
+  "id": "app.etzhayyim.apps.openIsco.classifyWorker",
   "defs": {
     "main": {
       "type": "procedure",

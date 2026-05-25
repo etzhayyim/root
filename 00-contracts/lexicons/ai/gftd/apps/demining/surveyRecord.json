@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.demining.surveyRecord",
+  "id": "app.etzhayyim.apps.demining.surveyRecord",
   "defs": {
     "main": {
       "type": "record",

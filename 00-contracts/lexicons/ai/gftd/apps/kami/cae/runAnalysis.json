@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.cae.runAnalysis",
+  "id": "app.etzhayyim.apps.kami.cae.runAnalysis",
   "defs": {
     "main": {
       "type": "procedure",

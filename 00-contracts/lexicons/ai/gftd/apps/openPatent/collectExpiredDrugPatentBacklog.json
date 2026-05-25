@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPatent.collectExpiredDrugPatentBacklog",
+  "id": "app.etzhayyim.apps.openPatent.collectExpiredDrugPatentBacklog",
   "defs": {
     "main": {
       "type": "procedure",

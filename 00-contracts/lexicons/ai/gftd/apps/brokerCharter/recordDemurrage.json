@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.brokerCharter.recordDemurrage",
+  "id": "app.etzhayyim.apps.brokerCharter.recordDemurrage",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kenkyusha.publishFrontier",
+  "id": "app.etzhayyim.apps.kenkyusha.publishFrontier",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.joucho.scoring.searchScores",
+  "id": "app.etzhayyim.apps.joucho.scoring.searchScores",
   "defs": {
     "main": {
       "type": "query",

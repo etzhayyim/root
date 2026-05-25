@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.dedupeEdges",
+  "id": "app.etzhayyim.mangaka.dedupeEdges",
   "defs": {
     "main": {
       "type": "procedure",

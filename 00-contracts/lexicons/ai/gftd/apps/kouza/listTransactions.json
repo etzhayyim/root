@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kouza.listTransactions",
+  "id": "app.etzhayyim.apps.kouza.listTransactions",
   "defs": {
     "main": {
       "type": "query",

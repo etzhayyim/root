@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.metaOversightBoard.flagComplianceGap",
+  "id": "app.etzhayyim.apps.metaOversightBoard.flagComplianceGap",
   "defs": {
     "main": {
       "type": "procedure",

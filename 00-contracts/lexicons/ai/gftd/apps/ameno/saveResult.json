@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ameno.saveResult",
+  "id": "app.etzhayyim.apps.ameno.saveResult",
   "defs": {
     "main": {
       "type": "procedure",
@@ -32,7 +32,7 @@
           "required": ["status"],
           "properties": {
             "resultId": { "type": "string" },
-            "uri": { "type": "string", "description": "at://did/ai.gftd.apps.ameno.inferenceResult/{rkey}" },
+            "uri": { "type": "string", "description": "at://did/app.etzhayyim.apps.ameno.inferenceResult/{rkey}" },
             "status": { "type": "string", "description": "queued | persisted | failed" },
             "error": { "type": "string" }
           }

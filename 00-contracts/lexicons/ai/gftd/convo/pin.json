@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.pin",
-  "description": "GFTD extension: pinned message record. No official chat.bsky equivalent.",
+  "id": "app.etzhayyim.convo.pin",
+  "description": "etzhayyim extension: pinned message record. No official chat.bsky equivalent.",
   "defs": {
     "main": {
       "type": "record",

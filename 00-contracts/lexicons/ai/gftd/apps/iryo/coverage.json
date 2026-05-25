@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iryo.coverage",
+  "id": "app.etzhayyim.apps.iryo.coverage",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kousuu.costRate",
+  "id": "app.etzhayyim.apps.kousuu.costRate",
   "defs": {
     "main": {
       "type": "record",

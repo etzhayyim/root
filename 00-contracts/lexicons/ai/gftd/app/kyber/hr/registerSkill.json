@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.app.kyber.hr.registerSkill",
+  "id": "app.etzhayyim.app.kyber.hr.registerSkill",
   "defs": {
     "main": {
       "type": "procedure",

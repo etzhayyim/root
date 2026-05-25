@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSales.updateOpportunity",
+  "id": "app.etzhayyim.apps.openSales.updateOpportunity",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.digitalRunRisk.recordOutflowEvent",
+  "id": "app.etzhayyim.apps.digitalRunRisk.recordOutflowEvent",
   "defs": {
     "main": {
       "type": "procedure",

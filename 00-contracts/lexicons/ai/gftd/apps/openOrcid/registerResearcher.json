@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOrcid.registerResearcher",
+  "id": "app.etzhayyim.apps.openOrcid.registerResearcher",
   "defs": {
     "main": {
       "type": "procedure",

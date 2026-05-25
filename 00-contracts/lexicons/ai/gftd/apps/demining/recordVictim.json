@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.demining.recordVictim",
+  "id": "app.etzhayyim.apps.demining.recordVictim",
   "defs": {
     "main": {
       "type": "procedure",

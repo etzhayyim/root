@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.accessibilityServices.registerService",
+  "id": "app.etzhayyim.apps.accessibilityServices.registerService",
   "defs": {
     "main": {
       "type": "procedure",

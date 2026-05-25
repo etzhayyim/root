@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.panamaTransit.recordReservation",
+  "id": "app.etzhayyim.apps.panamaTransit.recordReservation",
   "defs": {
     "main": {
       "type": "procedure",

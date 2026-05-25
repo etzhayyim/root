@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.rtc.createBreakout",
+  "id": "app.etzhayyim.rtc.createBreakout",
   "defs": {
     "main": {
       "type": "procedure",

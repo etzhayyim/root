@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.qkdQuantum.registerLink",
+  "id": "app.etzhayyim.apps.qkdQuantum.registerLink",
   "defs": {
     "main": {
       "type": "procedure",

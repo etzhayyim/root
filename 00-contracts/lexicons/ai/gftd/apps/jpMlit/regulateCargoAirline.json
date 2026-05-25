@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMlit.regulateCargoAirline",
+  "id": "app.etzhayyim.apps.jpMlit.regulateCargoAirline",
   "defs": {
     "main": {
       "type": "procedure",

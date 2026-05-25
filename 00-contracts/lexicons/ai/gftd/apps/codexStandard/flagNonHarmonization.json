@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.codexStandard.flagNonHarmonization",
+  "id": "app.etzhayyim.apps.codexStandard.flagNonHarmonization",
   "defs": {
     "main": {
       "type": "procedure",

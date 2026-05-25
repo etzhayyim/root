@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.updateConvo",
+  "id": "app.etzhayyim.convo.updateConvo",
   "defs": {
     "main": {
       "type": "procedure",

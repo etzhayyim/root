@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.vault.createVault",
+  "id": "app.etzhayyim.vault.createVault",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.naturalPerson.reconcileVisibility",
+  "id": "app.etzhayyim.apps.naturalPerson.reconcileVisibility",
   "defs": {
     "main": {
       "type": "procedure",

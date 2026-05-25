@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.priceCapCoalition.flagCapBreach",
+  "id": "app.etzhayyim.apps.priceCapCoalition.flagCapBreach",
   "defs": {
     "main": {
       "type": "procedure",

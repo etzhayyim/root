@@ -197,33 +197,33 @@ async def stream_run(body: dict[str, Any]) -> StreamingResponse:
 # ── XRPC-compat surface (NSID → assistant_id) ──────────────────────────
 
 _NSID_TO_ASSISTANT: dict[str, str] = {
-    "ai.gftd.animeka.health":            "health",
-    "ai.gftd.animeka.listWorks":         "list_works",
-    "ai.gftd.animeka.chat":              "agent_chat",
-    "ai.gftd.animeka.getCut":            "get_cut",
-    "ai.gftd.animeka.listCuts":          "list_cuts",
-    "ai.gftd.animeka.listEpisodes":      "list_episodes",
-    "ai.gftd.animeka.listRetakes":       "list_retakes",
-    "ai.gftd.animeka.createWork":        "create_work",
-    "ai.gftd.animeka.addEpisode":        "add_episode",
-    "ai.gftd.animeka.addCut":            "add_cut",
-    "ai.gftd.animeka.updateCutStage":    "update_cut_stage",
-    "ai.gftd.animeka.submitRetake":      "submit_retake",
-    "ai.gftd.animeka.resolveRetake":     "resolve_retake",
-    "ai.gftd.animeka.generateScript":      "generate_script",
-    "ai.gftd.animeka.generateStoryboard":  "generate_storyboard",
-    "ai.gftd.animeka.generateLayout":      "generate_layout",
-    "ai.gftd.animeka.generateKeyframe":    "generate_keyframe",
-    "ai.gftd.animeka.generateInbetween":   "generate_inbetween",
-    "ai.gftd.animeka.generateBackground":  "generate_background",
-    "ai.gftd.animeka.designColorModel":    "design_color_model",
-    "ai.gftd.animeka.autopilot":           "autopilot",
-    "ai.gftd.animeka.cutRunner":           "cut_runner",
-    "ai.gftd.animeka.autoTraceCut":        "auto_trace_cut",
-    "ai.gftd.animeka.breakdownScene":      "breakdown_scene",
-    "ai.gftd.animeka.generateAudio":       "generate_audio",
-    "ai.gftd.animeka.assembleEpisode":     "assemble_episode",
-    "ai.gftd.animeka.publishEpisode":      "publish_episode",
+    "app.etzhayyim.animeka.health":            "health",
+    "app.etzhayyim.animeka.listWorks":         "list_works",
+    "app.etzhayyim.animeka.chat":              "agent_chat",
+    "app.etzhayyim.animeka.getCut":            "get_cut",
+    "app.etzhayyim.animeka.listCuts":          "list_cuts",
+    "app.etzhayyim.animeka.listEpisodes":      "list_episodes",
+    "app.etzhayyim.animeka.listRetakes":       "list_retakes",
+    "app.etzhayyim.animeka.createWork":        "create_work",
+    "app.etzhayyim.animeka.addEpisode":        "add_episode",
+    "app.etzhayyim.animeka.addCut":            "add_cut",
+    "app.etzhayyim.animeka.updateCutStage":    "update_cut_stage",
+    "app.etzhayyim.animeka.submitRetake":      "submit_retake",
+    "app.etzhayyim.animeka.resolveRetake":     "resolve_retake",
+    "app.etzhayyim.animeka.generateScript":      "generate_script",
+    "app.etzhayyim.animeka.generateStoryboard":  "generate_storyboard",
+    "app.etzhayyim.animeka.generateLayout":      "generate_layout",
+    "app.etzhayyim.animeka.generateKeyframe":    "generate_keyframe",
+    "app.etzhayyim.animeka.generateInbetween":   "generate_inbetween",
+    "app.etzhayyim.animeka.generateBackground":  "generate_background",
+    "app.etzhayyim.animeka.designColorModel":    "design_color_model",
+    "app.etzhayyim.animeka.autopilot":           "autopilot",
+    "app.etzhayyim.animeka.cutRunner":           "cut_runner",
+    "app.etzhayyim.animeka.autoTraceCut":        "auto_trace_cut",
+    "app.etzhayyim.animeka.breakdownScene":      "breakdown_scene",
+    "app.etzhayyim.animeka.generateAudio":       "generate_audio",
+    "app.etzhayyim.animeka.assembleEpisode":     "assemble_episode",
+    "app.etzhayyim.animeka.publishEpisode":      "publish_episode",
 }
 
 
@@ -289,7 +289,7 @@ async def nats_publish(body: dict[str, Any]) -> dict[str, Any]:
     """Enqueue a graph invocation via NATS JetStream.
 
     Body: {"assistant_id": "autopilot", "input": {}}
-    Equivalent to: nats pub ai.gftd.animeka.autopilot '{}'
+    Equivalent to: nats pub app.etzhayyim.animeka.autopilot '{}'
     """
     assistant_id = str(body.get("assistant_id") or "")
     if assistant_id not in CONSUMER_GRAPHS:

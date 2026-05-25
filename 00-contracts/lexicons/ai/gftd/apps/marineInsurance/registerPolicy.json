@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.marineInsurance.registerPolicy",
+  "id": "app.etzhayyim.apps.marineInsurance.registerPolicy",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openLei.queryEmsIdentityBridge",
+  "id": "app.etzhayyim.apps.openLei.queryEmsIdentityBridge",
   "defs": {
     "main": {
       "type": "query",

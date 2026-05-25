@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.telemetry.log",
+  "id": "app.etzhayyim.host.telemetry.log",
   "defs": {
     "main": {
       "type": "procedure",

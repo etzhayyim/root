@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.hanrei.collectCases",
+  "id": "app.etzhayyim.hanrei.collectCases",
   "defs": {
     "main": {
       "type": "procedure",

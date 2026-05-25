@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iryo.listEncounters",
+  "id": "app.etzhayyim.apps.iryo.listEncounters",
   "defs": {
     "main": {
       "type": "query",

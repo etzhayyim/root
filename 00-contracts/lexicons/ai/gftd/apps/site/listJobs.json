@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.listJobs",
+  "id": "app.etzhayyim.apps.site.listJobs",
   "defs": {
     "main": {
       "type": "query",

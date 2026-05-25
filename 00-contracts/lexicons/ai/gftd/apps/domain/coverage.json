@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.domain.coverage",
+  "id": "app.etzhayyim.apps.domain.coverage",
   "defs": {
     "main": {
       "type": "query",

@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.authConversation",
-  "description": "Conversation permissions. Superset of chat.bsky.authFullChatClient — includes all official chat.bsky RPCs/collections plus GFTD extensions (edit, pin, forward, presence, encryption).",
+  "id": "app.etzhayyim.convo.authConversation",
+  "description": "Conversation permissions. Superset of chat.bsky.authFullChatClient — includes all official chat.bsky RPCs/collections plus etzhayyim extensions (edit, pin, forward, presence, encryption).",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -9,9 +9,9 @@
       "title:lang": {
         "ja": "会話機能"
       },
-      "detail": "Create, send, and manage conversations. Includes all official chat.bsky features plus GFTD extensions: message editing, pinning, forwarding, presence tracking, and E2E encryption.",
+      "detail": "Create, send, and manage conversations. Includes all official chat.bsky features plus etzhayyim extensions: message editing, pinning, forwarding, presence tracking, and E2E encryption.",
       "detail:lang": {
-        "ja": "会話の作成・送信・管理。公式chat.bsky全機能に加え、メッセージ編集・ピン・転送・プレゼンス・E2E暗号化などGFTD拡張を含む"
+        "ja": "会話の作成・送信・管理。公式chat.bsky全機能に加え、メッセージ編集・ピン・転送・プレゼンス・E2E暗号化などetzhayyim拡張を含む"
       },
       "permissions": [
         {
@@ -51,39 +51,39 @@
         {
           "type": "permission",
           "resource": "repo",
-          "description": "GFTD extension record collections",
-          "collection": ["ai.gftd.convo.*"],
+          "description": "etzhayyim extension record collections",
+          "collection": ["app.etzhayyim.convo.*"],
           "action": ["create", "update", "delete"]
         },
         {
           "type": "permission",
           "resource": "rpc",
-          "description": "GFTD extension RPCs",
+          "description": "etzhayyim extension RPCs",
           "lxm": [
-            "ai.gftd.convo.createConvo",
-            "ai.gftd.convo.send",
-            "ai.gftd.convo.edit",
-            "ai.gftd.convo.getThread",
-            "ai.gftd.convo.search",
-            "ai.gftd.convo.listMembers",
-            "ai.gftd.convo.getUnread",
-            "ai.gftd.convo.listPresence",
-            "ai.gftd.convo.listPublicConvos",
-            "ai.gftd.convo.getProfile",
-            "ai.gftd.convo.diff",
-            "ai.gftd.convo.fetchBlocks",
-            "ai.gftd.convo.joinConvo",
-            "ai.gftd.convo.updateConvo",
-            "ai.gftd.convo.archiveConvo",
-            "ai.gftd.convo.inviteMember",
-            "ai.gftd.convo.updateMemberRole",
-            "ai.gftd.convo.updatePresence",
-            "ai.gftd.convo.sendTyping",
-            "ai.gftd.convo.setProfile",
-            "ai.gftd.convo.pinMessage",
-            "ai.gftd.convo.unpinMessage",
-            "ai.gftd.convo.forwardMessage",
-            "ai.gftd.convo.setEncryption"
+            "app.etzhayyim.convo.createConvo",
+            "app.etzhayyim.convo.send",
+            "app.etzhayyim.convo.edit",
+            "app.etzhayyim.convo.getThread",
+            "app.etzhayyim.convo.search",
+            "app.etzhayyim.convo.listMembers",
+            "app.etzhayyim.convo.getUnread",
+            "app.etzhayyim.convo.listPresence",
+            "app.etzhayyim.convo.listPublicConvos",
+            "app.etzhayyim.convo.getProfile",
+            "app.etzhayyim.convo.diff",
+            "app.etzhayyim.convo.fetchBlocks",
+            "app.etzhayyim.convo.joinConvo",
+            "app.etzhayyim.convo.updateConvo",
+            "app.etzhayyim.convo.archiveConvo",
+            "app.etzhayyim.convo.inviteMember",
+            "app.etzhayyim.convo.updateMemberRole",
+            "app.etzhayyim.convo.updatePresence",
+            "app.etzhayyim.convo.sendTyping",
+            "app.etzhayyim.convo.setProfile",
+            "app.etzhayyim.convo.pinMessage",
+            "app.etzhayyim.convo.unpinMessage",
+            "app.etzhayyim.convo.forwardMessage",
+            "app.etzhayyim.convo.setEncryption"
           ]
         }
       ]

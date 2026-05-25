@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vin.getPlant",
+  "id": "app.etzhayyim.apps.vin.getPlant",
   "defs": {
     "main": {
       "type": "query",

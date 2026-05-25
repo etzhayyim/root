@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isic.hierarchicalClassify",
+  "id": "app.etzhayyim.apps.isic.hierarchicalClassify",
   "defs": {
     "main": {
       "type": "procedure",

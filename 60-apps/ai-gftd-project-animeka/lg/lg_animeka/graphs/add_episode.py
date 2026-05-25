@@ -1,6 +1,6 @@
 """animeka `addEpisode` graph — insert episode record.
 
-NSID: ai.gftd.animeka.addEpisode
+NSID: app.etzhayyim.animeka.addEpisode
 """
 from __future__ import annotations
 
@@ -69,7 +69,7 @@ async def _node_insert(state: _AddEpisodeState) -> dict[str, Any]:
 
     work_rkey = _rkey_from_id(work_id)
     owner_did = _DEFAULT_APP_DID
-    collection = "ai.gftd.animeka.episode"
+    collection = "app.etzhayyim.animeka.episode"
     rkey = state.get("id") or _gen_rkey("ep")
     created_at = datetime.now(tz=timezone.utc).isoformat()
 
@@ -83,11 +83,11 @@ async def _node_insert(state: _AddEpisodeState) -> dict[str, Any]:
             # Resolve work vertex_id
             await cur.execute(
                 """SELECT vertex_id, fps FROM vertex_animeka
-                   WHERE collection='ai.gftd.animeka.work' AND rkey=%s LIMIT 1""",
+                   WHERE collection='app.etzhayyim.animeka.work' AND rkey=%s LIMIT 1""",
                 [work_rkey],
             )
             work_row = await cur.fetchone()
-            work_vertex_id = work_row[0] if work_row else f"at://{owner_did}/ai.gftd.animeka.work/{work_rkey}"
+            work_vertex_id = work_row[0] if work_row else f"at://{owner_did}/app.etzhayyim.animeka.work/{work_rkey}"
             inherited_fps = (work_row[1] if work_row else None) or 24
 
             vertex_id = f"at://{owner_did}/{collection}/{rkey}"

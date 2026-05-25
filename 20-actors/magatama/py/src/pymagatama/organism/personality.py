@@ -131,7 +131,7 @@ def joucho_personality_provider(actor_did: str) -> JouchoScores:
 class MstJouchoProvider(Protocol):
     """Forward-compatible interface for the eventual MST-backed reader.
 
-    Wave 3 implementation will read ``ai.gftd.apps.etzhayyim.joucho.score``
+    Wave 3 implementation will read ``app.etzhayyim.apps.etzhayyim.joucho.score``
     records from the per-actor PDS collection, fall back to
     ``joucho_personality_provider`` on miss or error.
     """

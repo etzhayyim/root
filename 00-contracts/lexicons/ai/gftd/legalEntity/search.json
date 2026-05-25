@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.search",
+  "id": "app.etzhayyim.legalEntity.search",
   "defs": {
     "main": {
       "type": "query",

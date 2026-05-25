@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.murakumo.graphExtract",
+  "id": "app.etzhayyim.murakumo.graphExtract",
   "defs": {
     "main": {
       "type": "procedure",

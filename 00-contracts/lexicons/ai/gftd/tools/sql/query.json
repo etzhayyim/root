@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.tools.sql.query",
+  "id": "app.etzhayyim.tools.sql.query",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.academicIntegrity.flagRetractionWatch",
+  "id": "app.etzhayyim.apps.academicIntegrity.flagRetractionWatch",
   "defs": {
     "main": {
       "type": "procedure",

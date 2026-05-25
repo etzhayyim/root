@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ccpOversight.recordExposure",
+  "id": "app.etzhayyim.apps.ccpOversight.recordExposure",
   "defs": {
     "main": {
       "type": "procedure",

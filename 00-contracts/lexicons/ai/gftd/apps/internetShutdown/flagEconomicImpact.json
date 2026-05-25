@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.internetShutdown.flagEconomicImpact",
+  "id": "app.etzhayyim.apps.internetShutdown.flagEconomicImpact",
   "defs": {
     "main": {
       "type": "procedure",

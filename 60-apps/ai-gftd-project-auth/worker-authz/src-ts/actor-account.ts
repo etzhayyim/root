@@ -2,7 +2,7 @@
  * Resolve an ERC725 root identity's ERC-4337 smart-account address
  * on the gftd private chain (ADR-0074 Phase 2-B).
  *
- * On-chain shape: `GftdActorRegistry.actorByDid(bytes32 didHash) → address`
+ * On-chain shape: `etzhayyimActorRegistry.actorByDid(bytes32 didHash) → address`
  * where `didHash = keccak256(utf8(canonicalRootDid))`. Off-chain mirror lives
  * in `linked_auth_methods` (provider="ethereum-actor") for cheap reads
  * without a chain round-trip; this module is the source of truth that
@@ -14,11 +14,11 @@ import type { EthRpcEnv } from "./eth-rpc";
 import { requireRootIdentity } from "./root-identity";
 
 export interface ActorAccountEnv extends EthRpcEnv {
-  GFTD_ACTOR_REGISTRY_ADDR?: string;
-  GFTD_ROOT_IDENTITY_REGISTRY_ADDR?: string;
+  etzhayyim_ACTOR_REGISTRY_ADDR?: string;
+  etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR?: string;
   ETH_PRIVATE_CHAIN_ID?: string;
-  /** GCCStablecoin contract address (= GFTD_CREDIT_ADDR in wrangler.jsonc). */
-  GFTD_CREDIT_ADDR?: string;
+  /** GCCStablecoin contract address (= etzhayyim_CREDIT_ADDR in wrangler.jsonc). */
+  etzhayyim_CREDIT_ADDR?: string;
 }
 
 const ACTOR_BY_DID_SELECTOR = selector("actorByDid(bytes32)");
@@ -38,10 +38,10 @@ async function fetchErc20Balance(env: EthRpcEnv, tokenAddr: string, address: str
 
 /**
  * Read GCC balance for a known smart-account address.
- * Returns wei as decimal string, "0" if GFTD_CREDIT_ADDR is absent or call fails.
+ * Returns wei as decimal string, "0" if etzhayyim_CREDIT_ADDR is absent or call fails.
  */
 export async function fetchGccBalance(env: ActorAccountEnv, smartAccount: string | null): Promise<string> {
-  const gccAddr = (env.GFTD_CREDIT_ADDR || "").trim();
+  const gccAddr = (env.etzhayyim_CREDIT_ADDR || "").trim();
   if (!gccAddr || !smartAccount) return "0";
   return fetchErc20Balance(env, gccAddr, smartAccount);
 }
@@ -52,8 +52,8 @@ export async function fetchGccBalance(env: ActorAccountEnv, smartAccount: string
  * registry mapping returns the zero address).
  */
 export async function getActivatedAddress(env: ActorAccountEnv, didHash: string): Promise<string | null> {
-  const registry = (env.GFTD_ACTOR_REGISTRY_ADDR || "").trim();
-  if (!registry) throw new Error("GFTD_ACTOR_REGISTRY_ADDR is not configured");
+  const registry = (env.etzhayyim_ACTOR_REGISTRY_ADDR || "").trim();
+  if (!registry) throw new Error("etzhayyim_ACTOR_REGISTRY_ADDR is not configured");
   if (!didHash.startsWith("0x") || didHash.length !== 66) throw new Error("invalid didHash");
   const calldata = ACTOR_BY_DID_SELECTOR + didHash.slice(2);
   const raw = await ethCall(env, registry, calldata);
@@ -68,7 +68,7 @@ export interface ActorAccountSnapshot {
   didHash: string;
   activated: boolean;
   smartAccount: string | null;
-  /** GCC balance of the smart account in wei (decimal string). "0" when not activated or GFTD_CREDIT_ADDR absent. */
+  /** GCC balance of the smart account in wei (decimal string). "0" when not activated or etzhayyim_CREDIT_ADDR absent. */
   gccBalance: string;
   chainId: number;
   registryAddr: string;
@@ -91,7 +91,7 @@ export async function snapshotActorAccount(env: ActorAccountEnv, accountDid: str
     smartAccount,
     gccBalance,
     chainId: Number((env.ETH_PRIVATE_CHAIN_ID || "0").trim()) || 0,
-    registryAddr: (env.GFTD_ACTOR_REGISTRY_ADDR || "").trim(),
+    registryAddr: (env.etzhayyim_ACTOR_REGISTRY_ADDR || "").trim(),
     rootRegistryAddr: root.registryAddr,
     migratedRoot: root.migrated,
     resolvedFromFacade: root.resolvedFromFacade,
@@ -145,7 +145,7 @@ async function ownerFromPrimaryPasskey(
 /**
  * Activate the caller's smart account on the gftd private chain. Reads
  * their primary passkey, packs the P-256 pubkey as a 64-byte owner,
- * builds + signs + sends `GftdActorRegistry.activate(didHash, [owner])`
+ * builds + signs + sends `etzhayyimActorRegistry.activate(didHash, [owner])`
  * from the sealer key, then re-snapshots the registry to confirm.
  *
  * The contract is idempotent: if an account already exists for `didHash`
@@ -158,8 +158,8 @@ export async function activateActorAccount(
   authDb: D1Database,
   accountDid: string,
 ): Promise<ActivateResult> {
-  const registry = (env.GFTD_ACTOR_REGISTRY_ADDR || "").trim();
-  if (!registry) throw new Error("GFTD_ACTOR_REGISTRY_ADDR is not configured");
+  const registry = (env.etzhayyim_ACTOR_REGISTRY_ADDR || "").trim();
+  if (!registry) throw new Error("etzhayyim_ACTOR_REGISTRY_ADDR is not configured");
 
   const root = await requireRootIdentity(env, accountDid);
   const didHash = root.rootDidHash;

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.vault.removeMember",
+  "id": "app.etzhayyim.vault.removeMember",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.kuniUmi.recordConstructionProgress",
+  "id": "app.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress",
   "defs": {
     "main": {
       "type": "procedure",

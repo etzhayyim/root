@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sekkei.approval",
+  "id": "app.etzhayyim.apps.sekkei.approval",
   "description": "設計図改訂の承認記録。decision=approved 時に drawing.currentRevNo を更新し revision.status=approved へ遷移。decision=rejected 時は revision に差し戻し理由を付記。",
   "defs": {
     "main": {

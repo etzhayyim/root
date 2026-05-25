@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fax.listSent",
+  "id": "app.etzhayyim.apps.fax.listSent",
   "defs": {
     "main": {
       "type": "query",

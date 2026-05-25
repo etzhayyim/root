@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.feedProvenance.flagAgroterrorism",
+  "id": "app.etzhayyim.apps.feedProvenance.flagAgroterrorism",
   "defs": {
     "main": {
       "type": "procedure",

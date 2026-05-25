@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oneHealth.recordSurveillanceEvent",
+  "id": "app.etzhayyim.apps.oneHealth.recordSurveillanceEvent",
   "defs": {
     "main": {
       "type": "procedure",

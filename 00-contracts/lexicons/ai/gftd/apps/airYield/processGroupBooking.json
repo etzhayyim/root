@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airYield.processGroupBooking",
+  "id": "app.etzhayyim.apps.airYield.processGroupBooking",
   "defs": {
     "main": {
       "type": "procedure",

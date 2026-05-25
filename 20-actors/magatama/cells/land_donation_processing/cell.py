@@ -3,7 +3,7 @@ LandDonationProcessingCell — Pregel cell orchestrating the 6-step land donatio
 
 Per ADR-2605192245 (Global Land Sovereignty) + ADR-2605192330 (Extended) + ADR-2605192345 (Succession).
 
-Trigger: MST listener on `ai.gftd.apps.etzhayyim.land-donation` records
+Trigger: MST listener on `app.etzhayyim.apps.etzhayyim.land-donation` records
 Effect:
   - Validate WGS84 GeoJSON boundary
   - Verify satellite imagery hash
@@ -159,5 +159,5 @@ def emit_base_l2_mirror(state, port):
 
 
 def emit_at_record(state):
-    """Emit ai.gftd.apps.etzhayyim.land-donation success/failure record to MST."""
+    """Emit app.etzhayyim.apps.etzhayyim.land-donation success/failure record to MST."""
     return state

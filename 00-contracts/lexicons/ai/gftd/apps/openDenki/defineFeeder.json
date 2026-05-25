@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openDenki.defineFeeder",
+  "id": "app.etzhayyim.apps.openDenki.defineFeeder",
   "defs": {
     "main": {
       "type": "procedure",

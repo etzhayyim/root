@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.domain.registerAssist",
+  "id": "app.etzhayyim.apps.domain.registerAssist",
   "defs": {
     "main": {
       "type": "procedure",

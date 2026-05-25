@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.trainGsplatFromMapillary",
+  "id": "app.etzhayyim.apps.maps.trainGsplatFromMapillary",
   "defs": {
     "main": {
       "type": "procedure",

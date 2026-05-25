@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.euTrilogue.recordSession",
+  "id": "app.etzhayyim.apps.euTrilogue.recordSession",
   "defs": {
     "main": {
       "type": "procedure",

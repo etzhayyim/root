@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.onboardSubscriber",
+  "id": "app.etzhayyim.apps.telecom.onboardSubscriber",
   "defs": {
     "main": {
       "type": "procedure",

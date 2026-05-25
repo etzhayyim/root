@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMext.administerNationalAchievement",
+  "id": "app.etzhayyim.apps.jpMext.administerNationalAchievement",
   "defs": {
     "main": {
       "type": "procedure",

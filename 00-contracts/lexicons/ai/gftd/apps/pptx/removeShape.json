@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pptx.removeShape",
+  "id": "app.etzhayyim.apps.pptx.removeShape",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kinoko.checkFlowThreshold",
+  "id": "app.etzhayyim.apps.kinoko.checkFlowThreshold",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.saveDocument",
+  "id": "app.etzhayyim.apps.mangaka.saveDocument",
   "defs": {
     "main": {
       "type": "procedure",

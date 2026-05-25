@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govPrk.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govPrk.followSiteDeps": {
       "post": {
         "summary": "Create graph-visible site dependency follow records for North Korea government organizations.",
-        "operationId": "ai.gftd.govPrk.followSiteDeps",
+        "operationId": "app.etzhayyim.govPrk.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrk.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govPrk.heartbeatTick": {
       "post": {
         "summary": "Run the North Korea government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govPrk.heartbeatTick",
+        "operationId": "app.etzhayyim.govPrk.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -143,10 +143,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrk.ingestOfficialSources": {
+    "/xrpc/app.etzhayyim.govPrk.ingestOfficialSources": {
       "post": {
         "summary": "Queue official North Korea government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "ai.gftd.govPrk.ingestOfficialSources",
+        "operationId": "app.etzhayyim.govPrk.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -209,10 +209,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrk.listOrgs": {
+    "/xrpc/app.etzhayyim.govPrk.listOrgs": {
       "get": {
         "summary": "List North Korea government organizations by tier.",
-        "operationId": "ai.gftd.govPrk.listOrgs",
+        "operationId": "app.etzhayyim.govPrk.listOrgs",
         "parameters": [
           {
             "name": "orgTier",
@@ -297,10 +297,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrk.registerDIDs": {
+    "/xrpc/app.etzhayyim.govPrk.registerDIDs": {
       "post": {
         "summary": "Register graph-visible DID records for North Korea government organizations.",
-        "operationId": "ai.gftd.govPrk.registerDIDs",
+        "operationId": "app.etzhayyim.govPrk.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -350,10 +350,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrk.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govPrk.resolveOrgPath": {
       "get": {
         "summary": "Resolve a North Korea government organization path to its actor DID and display metadata.",
-        "operationId": "ai.gftd.govPrk.resolveOrgPath",
+        "operationId": "app.etzhayyim.govPrk.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -398,10 +398,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrk.seedOrgs": {
+    "/xrpc/app.etzhayyim.govPrk.seedOrgs": {
       "post": {
         "summary": "Seed North Korea central ministry and province organization rows into the graph.",
-        "operationId": "ai.gftd.govPrk.seedOrgs",
+        "operationId": "app.etzhayyim.govPrk.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -448,10 +448,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrk.shinka": {
+    "/xrpc/app.etzhayyim.govPrk.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible North Korea government organization update.",
-        "operationId": "ai.gftd.govPrk.shinka",
+        "operationId": "app.etzhayyim.govPrk.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -502,10 +502,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govPrk.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govPrk.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated North Korea government organization content.",
-        "operationId": "ai.gftd.govPrk.syncWetUpdates",
+        "operationId": "app.etzhayyim.govPrk.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

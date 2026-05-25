@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cellBroadcastAlert.recordBroadcast",
+  "id": "app.etzhayyim.apps.cellBroadcastAlert.recordBroadcast",
   "defs": {
     "main": {
       "type": "procedure",

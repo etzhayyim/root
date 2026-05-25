@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vin.listCohort",
+  "id": "app.etzhayyim.apps.vin.listCohort",
   "defs": {
     "main": {
       "type": "query",

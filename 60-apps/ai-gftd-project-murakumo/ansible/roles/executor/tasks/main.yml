@@ -75,8 +75,8 @@
 
 - name: Render executor launchd plist
   ansible.builtin.template:
-    src: ai.gftd.executor.plist.j2
-    dest: "{{ ansible_facts.env.HOME }}/Library/LaunchAgents/ai.gftd.executor.{{ inventory_hostname }}.plist"
+    src: app.etzhayyim.executor.plist.j2
+    dest: "{{ ansible_facts.env.HOME }}/Library/LaunchAgents/app.etzhayyim.executor.{{ inventory_hostname }}.plist"
     mode: "0644"
   notify: restart executor
 
@@ -87,7 +87,7 @@
 
 - name: Load executor launchd service
   ansible.builtin.command:
-    cmd: "launchctl load -w {{ ansible_facts.env.HOME }}/Library/LaunchAgents/ai.gftd.executor.{{ inventory_hostname }}.plist"
+    cmd: "launchctl load -w {{ ansible_facts.env.HOME }}/Library/LaunchAgents/app.etzhayyim.executor.{{ inventory_hostname }}.plist"
   changed_when: false
   failed_when: false
 

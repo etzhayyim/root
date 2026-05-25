@@ -189,7 +189,7 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   karute: {
     description:
       "Karute electronic medical record actor (EMR / FHIR R5). PHI sealing mandatory. Per ADR-2605231100 + 2605231900.",
-    primaryLexicon: "ai.gftd.apps.karute",
+    primaryLexicon: "app.etzhayyim.apps.karute",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:karute#atproto_pds",

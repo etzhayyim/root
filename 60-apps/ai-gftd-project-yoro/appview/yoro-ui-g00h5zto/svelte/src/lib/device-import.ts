@@ -119,7 +119,7 @@ export async function importContactsToAT(): Promise<{ convoId: string; importedC
 }
 
 /**
- * Write each SMS as an `ai.gftd.apps.smishing.smsMessage` AT Record so the
+ * Write each SMS as an `app.etzhayyim.apps.smishing.smsMessage` AT Record so the
  * smishing-core worker can subscribe and run the detection pipeline.
  * The sender address is SHA-256 hashed (16-hex prefix) for privacy.
  */
@@ -146,7 +146,7 @@ export async function importSmsAsRecords(limit?: number): Promise<{ importedCoun
 					importedAt: now,
 				};
 				await atProcedure('com.atproto.repo.createRecord', {
-					collection: 'ai.gftd.apps.smishing.smsMessage',
+					collection: 'app.etzhayyim.apps.smishing.smsMessage',
 					record,
 				});
 			}),

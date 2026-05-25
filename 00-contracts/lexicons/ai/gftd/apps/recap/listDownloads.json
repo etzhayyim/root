@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.recap.listDownloads",
+  "id": "app.etzhayyim.apps.recap.listDownloads",
   "defs": {
     "main": {
       "type": "query",

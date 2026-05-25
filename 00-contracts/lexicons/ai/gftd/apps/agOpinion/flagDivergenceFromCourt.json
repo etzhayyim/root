@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.agOpinion.flagDivergenceFromCourt",
+  "id": "app.etzhayyim.apps.agOpinion.flagDivergenceFromCourt",
   "defs": {
     "main": {
       "type": "procedure",

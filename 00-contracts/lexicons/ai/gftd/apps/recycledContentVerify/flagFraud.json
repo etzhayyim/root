@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.recycledContentVerify.flagFraud",
+  "id": "app.etzhayyim.apps.recycledContentVerify.flagFraud",
   "defs": {
     "main": {
       "type": "procedure",

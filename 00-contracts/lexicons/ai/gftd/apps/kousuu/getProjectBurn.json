@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kousuu.getProjectBurn",
+  "id": "app.etzhayyim.apps.kousuu.getProjectBurn",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.pinMessage",
+  "id": "app.etzhayyim.convo.pinMessage",
   "defs": {
     "main": {
       "type": "procedure",

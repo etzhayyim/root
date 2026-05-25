@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.pds.registerSyncApp",
+  "id": "app.etzhayyim.pds.registerSyncApp",
   "defs": {
     "main": {
       "type": "procedure",

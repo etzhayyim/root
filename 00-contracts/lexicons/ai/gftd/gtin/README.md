@@ -1,4 +1,4 @@
-# `ai.gftd.gtin.*` — GTIN (Global Trade Item Number) — GS1 product identifier lookup
+# `app.etzhayyim.gtin.*` — GTIN (Global Trade Item Number) — GS1 product identifier lookup
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group A).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `ai.gftd.gtin.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `app.etzhayyim.gtin.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

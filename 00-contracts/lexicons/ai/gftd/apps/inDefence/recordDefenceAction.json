@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.inDefence.recordDefenceAction",
+  "id": "app.etzhayyim.apps.inDefence.recordDefenceAction",
   "defs": {
     "main": {
       "type": "procedure",

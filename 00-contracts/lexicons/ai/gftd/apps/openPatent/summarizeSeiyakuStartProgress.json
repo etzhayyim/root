@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPatent.summarizeSeiyakuStartProgress",
+  "id": "app.etzhayyim.apps.openPatent.summarizeSeiyakuStartProgress",
   "defs": {
     "main": {
       "type": "procedure",

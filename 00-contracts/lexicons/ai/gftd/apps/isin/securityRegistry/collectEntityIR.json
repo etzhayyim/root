@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isin.securityRegistry.collectEntityIR",
+  "id": "app.etzhayyim.apps.isin.securityRegistry.collectEntityIR",
   "defs": {
     "main": {
       "type": "procedure",

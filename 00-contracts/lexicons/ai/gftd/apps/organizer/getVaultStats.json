@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.organizer.getVaultStats",
+  "id": "app.etzhayyim.apps.organizer.getVaultStats",
   "defs": {
     "main": {
       "type": "query",

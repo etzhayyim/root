@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.episode",
+  "id": "app.etzhayyim.apps.animeka.episode",
   "defs": {
     "main": {
       "type": "record",
@@ -13,7 +13,7 @@
           "workRef": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "strongRef to ai.gftd.apps.animeka.work. Resolves the primary DID (= post author)."
+            "description": "strongRef to app.etzhayyim.apps.animeka.work. Resolves the primary DID (= post author)."
           },
           "episodeNum": {
             "type": "integer",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aiWorkerLabor.flagCollectiveBargain",
+  "id": "app.etzhayyim.apps.aiWorkerLabor.flagCollectiveBargain",
   "defs": {
     "main": {
       "type": "procedure",

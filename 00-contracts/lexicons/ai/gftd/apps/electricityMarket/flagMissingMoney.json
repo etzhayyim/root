@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.electricityMarket.flagMissingMoney",
+  "id": "app.etzhayyim.apps.electricityMarket.flagMissingMoney",
   "defs": {
     "main": {
       "type": "procedure",

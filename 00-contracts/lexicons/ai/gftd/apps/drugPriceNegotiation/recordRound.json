@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.drugPriceNegotiation.recordRound",
+  "id": "app.etzhayyim.apps.drugPriceNegotiation.recordRound",
   "defs": {
     "main": {
       "type": "procedure",

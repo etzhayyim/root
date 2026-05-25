@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.saikin.probeEnvironment",
+  "id": "app.etzhayyim.apps.saikin.probeEnvironment",
   "defs": {
     "main": {
       "type": "query",

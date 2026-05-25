@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.wtoTradeCbam.recordSpecificTradeConcern",
+  "id": "app.etzhayyim.apps.wtoTradeCbam.recordSpecificTradeConcern",
   "defs": {
     "main": {
       "type": "procedure",

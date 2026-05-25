@@ -257,7 +257,7 @@ def emit_progress_record(state: ConstructionOrchestrationState) -> dict[str, Any
     idx = state.get("superStepIndex") or 0
     progress_did = f"{plan_did}:progress:{idx}:{int(time.time())}"
     progress_uri = (
-        f"at://{site_did}/ai.gftd.apps.etzhayyim.kuniUmi.recordConstructionProgress/"
+        f"at://{site_did}/app.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress/"
         f"{int(time.time() * 1000)}"
     )
     recorded_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())

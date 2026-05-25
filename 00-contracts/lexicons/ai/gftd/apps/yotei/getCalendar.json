@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yotei.getCalendar",
+  "id": "app.etzhayyim.apps.yotei.getCalendar",
   "defs": {
     "main": {
       "type": "query",

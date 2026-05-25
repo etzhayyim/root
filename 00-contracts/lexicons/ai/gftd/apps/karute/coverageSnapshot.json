@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.coverageSnapshot",
+  "id": "app.etzhayyim.apps.karute.coverageSnapshot",
   "defs": {
     "main": {
       "type": "record",

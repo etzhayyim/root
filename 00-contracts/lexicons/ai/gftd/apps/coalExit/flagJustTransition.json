@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coalExit.flagJustTransition",
+  "id": "app.etzhayyim.apps.coalExit.flagJustTransition",
   "defs": {
     "main": {
       "type": "procedure",

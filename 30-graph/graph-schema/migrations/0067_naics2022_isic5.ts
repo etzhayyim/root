@@ -14,9 +14,9 @@ import { Kysely, sql } from 'kysely';
  *     830 rows (sections / divisions / groups / classes)
  *
  * RisingWave state after apply:
- *   - vertex_repo_record @ collection='ai.gftd.apps.naics.industry'
+ *   - vertex_repo_record @ collection='app.etzhayyim.apps.naics.industry'
  *       2,125 rows
- *   - vertex_repo_record @ collection='ai.gftd.apps.open_isic.economic_activity_rev5'
+ *   - vertex_repo_record @ collection='app.etzhayyim.apps.open_isic.economic_activity_rev5'
  *       830 rows
  *   - view_naics_industry  — typed projection of NAICS 2022
  *   - view_isic5_activity  — typed projection of ISIC Rev.5
@@ -41,7 +41,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.naics.industry'
+    WHERE collection = 'app.etzhayyim.apps.naics.industry'
   `.execute(db);
 
   // ── view_isic5_activity ───────────────────────────────────────────────
@@ -55,7 +55,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.open_isic.economic_activity_rev5'
+    WHERE collection = 'app.etzhayyim.apps.open_isic.economic_activity_rev5'
   `.execute(db);
 
   // ── dim_world_domain ──────────────────────────────────────────────────

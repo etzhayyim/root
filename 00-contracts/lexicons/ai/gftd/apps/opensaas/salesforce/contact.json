@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.opensaas.salesforce.contact",
+  "id": "app.etzhayyim.apps.opensaas.salesforce.contact",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Salesforce-equivalent Contact: a natural person associated with an Account. This Tier 1 record carries ONLY a hashed email index and a DID reference. Raw email / phone / full name live in Tier 3 Preferences (ai.gftd.apps.opensaas.salesforce.contactPrivate) per ADR-0018. Raw PII in free-text fields is field-encrypted with signal:v1: prefix when written.",
+      "description": "Salesforce-equivalent Contact: a natural person associated with an Account. This Tier 1 record carries ONLY a hashed email index and a DID reference. Raw email / phone / full name live in Tier 3 Preferences (app.etzhayyim.apps.opensaas.salesforce.contactPrivate) per ADR-0018. Raw PII in free-text fields is field-encrypted with signal:v1: prefix when written.",
       "key": "tid",
       "record": {
         "type": "object",

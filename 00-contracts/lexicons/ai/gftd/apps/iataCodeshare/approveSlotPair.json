@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iataCodeshare.approveSlotPair",
+  "id": "app.etzhayyim.apps.iataCodeshare.approveSlotPair",
   "defs": {
     "main": {
       "type": "procedure",

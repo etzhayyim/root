@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openDenki.reportFault",
+  "id": "app.etzhayyim.apps.openDenki.reportFault",
   "defs": {
     "main": {
       "type": "procedure",

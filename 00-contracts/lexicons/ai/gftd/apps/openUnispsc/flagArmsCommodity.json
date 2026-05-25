@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openUnispsc.flagArmsCommodity",
+  "id": "app.etzhayyim.apps.openUnispsc.flagArmsCommodity",
   "defs": {
     "main": {
       "type": "procedure",

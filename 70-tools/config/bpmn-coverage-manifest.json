@@ -8,7 +8,7 @@
       "proc": "gmpBatchRelease",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-org-takeda/gmpBatchRelease.bpmn",
       "bpmnProcessId": "open_org_takeda_gmp_batch_release",
-      "nsid": "ai.gftd.apps.orgTakeda.gmpBatchRelease",
+      "nsid": "app.etzhayyim.apps.orgTakeda.gmpBatchRelease",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/orgTakeda/gmpBatchRelease.json"
     },
     {
@@ -17,7 +17,7 @@
       "proc": "lineStopEscalation",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-org-toyota/lineStopEscalation.bpmn",
       "bpmnProcessId": "open_org_toyota_line_stop_escalation",
-      "nsid": "ai.gftd.apps.orgToyota.lineStopEscalation",
+      "nsid": "app.etzhayyim.apps.orgToyota.lineStopEscalation",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/orgToyota/lineStopEscalation.json"
     },
     {
@@ -26,7 +26,7 @@
       "proc": "coldChainDeliveryException",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-org-yamato/coldChainDeliveryException.bpmn",
       "bpmnProcessId": "open_org_yamato_cold_chain_delivery_exception",
-      "nsid": "ai.gftd.apps.orgYamato.coldChainDeliveryException",
+      "nsid": "app.etzhayyim.apps.orgYamato.coldChainDeliveryException",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/orgYamato/coldChainDeliveryException.json"
     },
     {
@@ -35,8 +35,8 @@
       "proc": "sendProjectMessage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/projector/sendProjectMessage.bpmn",
       "bpmnProcessId": "projector_send_project_message",
-      "nsid": "ai.gftd.projector.sendProjectMessage",
-      "bindingNsid": "ai.gftd.apps.projector.sendProjectMessage",
+      "nsid": "app.etzhayyim.projector.sendProjectMessage",
+      "bindingNsid": "app.etzhayyim.apps.projector.sendProjectMessage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/projector/sendProjectMessage.json"
     },
     {
@@ -45,8 +45,8 @@
       "proc": "treeOfThoughts",
       "sourcePath": "00-contracts/bpmn/ai/gftd/projector/treeOfThoughts.bpmn",
       "bpmnProcessId": "projector_tree_of_thoughts",
-      "nsid": "ai.gftd.projector.exploreThoughts",
-      "bindingNsid": "ai.gftd.apps.projector.treeOfThoughts",
+      "nsid": "app.etzhayyim.projector.exploreThoughts",
+      "bindingNsid": "app.etzhayyim.apps.projector.treeOfThoughts",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/projector/exploreThoughts.json"
     },
     {
@@ -55,8 +55,8 @@
       "proc": "selfConsistency",
       "sourcePath": "00-contracts/bpmn/ai/gftd/projector/selfConsistency.bpmn",
       "bpmnProcessId": "projector_self_consistency",
-      "nsid": "ai.gftd.projector.consistentAnswer",
-      "bindingNsid": "ai.gftd.apps.projector.selfConsistency",
+      "nsid": "app.etzhayyim.projector.consistentAnswer",
+      "bindingNsid": "app.etzhayyim.apps.projector.selfConsistency",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/projector/consistentAnswer.json"
     },
     {
@@ -65,7 +65,7 @@
       "proc": "materializeSubprocesses",
       "sourcePath": "00-contracts/bpmn/ai/gftd/apqc/materializeSubprocesses.bpmn",
       "bpmnProcessId": "apqc_materialize_subprocesses",
-      "nsid": "ai.gftd.apps.apqc.materializeSubprocesses",
+      "nsid": "app.etzhayyim.apps.apqc.materializeSubprocesses",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/apqc/materializeSubprocesses.json"
     },
     {
@@ -74,7 +74,7 @@
       "proc": "emitEvent",
       "sourcePath": "00-contracts/bpmn/ai/gftd/apqc/emitEvent.bpmn",
       "bpmnProcessId": "apqc_emit_event",
-      "nsid": "ai.gftd.apps.apqc.emitEvent",
+      "nsid": "app.etzhayyim.apps.apqc.emitEvent",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/apqc/emitEvent.json"
     },
     {
@@ -83,7 +83,7 @@
       "proc": "coverageSnapshot",
       "sourcePath": "00-contracts/bpmn/ai/gftd/apqc/coverageSnapshot.bpmn",
       "bpmnProcessId": "apqc_coverage_snapshot",
-      "nsid": "ai.gftd.apps.apqc.coverageSnapshot",
+      "nsid": "app.etzhayyim.apps.apqc.coverageSnapshot",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/apqc/coverageSnapshot.json"
     },
     {
@@ -92,7 +92,7 @@
       "proc": "classifyEntity",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-isic/classifyEntity.bpmn",
       "bpmnProcessId": "open_isic_classify_entity",
-      "nsid": "ai.gftd.apps.openIsic.classifyEntity",
+      "nsid": "app.etzhayyim.apps.openIsic.classifyEntity",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openIsic/classifyEntity.json"
     },
     {
@@ -101,7 +101,7 @@
       "proc": "recordConcordance",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-isic/recordConcordance.bpmn",
       "bpmnProcessId": "open_isic_record_concordance",
-      "nsid": "ai.gftd.apps.openIsic.recordConcordance",
+      "nsid": "app.etzhayyim.apps.openIsic.recordConcordance",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openIsic/recordConcordance.json"
     },
     {
@@ -110,7 +110,7 @@
       "proc": "flagDualUseIndustry",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-isic/flagDualUseIndustry.bpmn",
       "bpmnProcessId": "open_isic_flag_dual_use_industry",
-      "nsid": "ai.gftd.apps.openIsic.flagDualUseIndustry",
+      "nsid": "app.etzhayyim.apps.openIsic.flagDualUseIndustry",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openIsic/flagDualUseIndustry.json"
     },
     {
@@ -119,7 +119,7 @@
       "proc": "classifyArmsManufacturing",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-isic/classifyArmsManufacturing.bpmn",
       "bpmnProcessId": "open_isic_classify_arms_manufacturing",
-      "nsid": "ai.gftd.apps.openIsic.classifyArmsManufacturing",
+      "nsid": "app.etzhayyim.apps.openIsic.classifyArmsManufacturing",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openIsic/classifyArmsManufacturing.json"
     },
     {
@@ -128,7 +128,7 @@
       "proc": "classifyWorker",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-isco/classifyWorker.bpmn",
       "bpmnProcessId": "open_isco_classify_worker",
-      "nsid": "ai.gftd.apps.openIsco.classifyWorker",
+      "nsid": "app.etzhayyim.apps.openIsco.classifyWorker",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openIsco/classifyWorker.json"
     },
     {
@@ -137,7 +137,7 @@
       "proc": "recordConcordance",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-isco/recordConcordance.bpmn",
       "bpmnProcessId": "open_isco_record_concordance",
-      "nsid": "ai.gftd.apps.openIsco.recordConcordance",
+      "nsid": "app.etzhayyim.apps.openIsco.recordConcordance",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openIsco/recordConcordance.json"
     },
     {
@@ -146,7 +146,7 @@
       "proc": "registerBatch",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-seiyaku/registerBatch.bpmn",
       "bpmnProcessId": "seiyaku_register_batch",
-      "nsid": "ai.gftd.apps.openSeiyaku.startBatchRecord",
+      "nsid": "app.etzhayyim.apps.openSeiyaku.startBatchRecord",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openSeiyaku/startBatchRecord.json"
     },
     {
@@ -155,7 +155,7 @@
       "proc": "amendBatch",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-seiyaku/amendBatch.bpmn",
       "bpmnProcessId": "seiyaku_amend_batch",
-      "nsid": "ai.gftd.apps.openSeiyaku.amendBatchRecord",
+      "nsid": "app.etzhayyim.apps.openSeiyaku.amendBatchRecord",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openSeiyaku/amendBatchRecord.json"
     },
     {
@@ -164,7 +164,7 @@
       "proc": "purge",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-seiyaku/purge.bpmn",
       "bpmnProcessId": "seiyaku_purge",
-      "nsid": "ai.gftd.apps.openSeiyaku.purge",
+      "nsid": "app.etzhayyim.apps.openSeiyaku.purge",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openSeiyaku/purge.json"
     },
     {
@@ -173,7 +173,7 @@
       "proc": "screenExportControl",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-seiyaku/screenExportControl.bpmn",
       "bpmnProcessId": "open_seiyaku_screen_export_control",
-      "nsid": "ai.gftd.apps.openSeiyaku.screenExportControl",
+      "nsid": "app.etzhayyim.apps.openSeiyaku.screenExportControl",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openSeiyaku/screenExportControl.json"
     },
     {
@@ -182,7 +182,7 @@
       "proc": "registerProduct",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-pharma-supply/registerProduct.bpmn",
       "bpmnProcessId": "open_pharma_supply_register_product",
-      "nsid": "ai.gftd.apps.pharmaSupply.registerProduct",
+      "nsid": "app.etzhayyim.apps.pharmaSupply.registerProduct",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/pharmaSupply/registerProduct.json"
     },
     {
@@ -191,7 +191,7 @@
       "proc": "flagShortage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-pharma-supply/flagShortage.bpmn",
       "bpmnProcessId": "open_pharma_supply_flag_shortage",
-      "nsid": "ai.gftd.apps.pharmaSupply.flagShortage",
+      "nsid": "app.etzhayyim.apps.pharmaSupply.flagShortage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/pharmaSupply/flagShortage.json"
     },
     {
@@ -200,7 +200,7 @@
       "proc": "flagCountermeasureGap",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-pharma-supply/flagCountermeasureGap.bpmn",
       "bpmnProcessId": "open_pharma_supply_flag_countermeasure_gap",
-      "nsid": "ai.gftd.apps.pharmaSupply.flagCountermeasureGap",
+      "nsid": "app.etzhayyim.apps.pharmaSupply.flagCountermeasureGap",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/pharmaSupply/flagCountermeasureGap.json"
     },
     {
@@ -209,7 +209,7 @@
       "proc": "recordRound",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-drug-price-negotiation/recordRound.bpmn",
       "bpmnProcessId": "open_drug_price_negotiation_record_round",
-      "nsid": "ai.gftd.apps.drugPriceNegotiation.recordRound",
+      "nsid": "app.etzhayyim.apps.drugPriceNegotiation.recordRound",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/drugPriceNegotiation/recordRound.json"
     },
     {
@@ -218,7 +218,7 @@
       "proc": "flagAccessGap",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-drug-price-negotiation/flagAccessGap.bpmn",
       "bpmnProcessId": "open_drug_price_negotiation_flag_access_gap",
-      "nsid": "ai.gftd.apps.drugPriceNegotiation.flagAccessGap",
+      "nsid": "app.etzhayyim.apps.drugPriceNegotiation.flagAccessGap",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/drugPriceNegotiation/flagAccessGap.json"
     },
     {
@@ -227,7 +227,7 @@
       "proc": "summarizeSeiyakuStartProgress",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/summarizeSeiyakuStartProgress.bpmn",
       "bpmnProcessId": "open_patent_summarize_seiyaku_start_progress",
-      "nsid": "ai.gftd.apps.openPatent.summarizeSeiyakuStartProgress",
+      "nsid": "app.etzhayyim.apps.openPatent.summarizeSeiyakuStartProgress",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/summarizeSeiyakuStartProgress.json"
     },
     {
@@ -236,7 +236,7 @@
       "proc": "acknowledgeSeiyakuBatchStart",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/acknowledgeSeiyakuBatchStart.bpmn",
       "bpmnProcessId": "open_patent_acknowledge_seiyaku_batch_start",
-      "nsid": "ai.gftd.apps.openPatent.acknowledgeSeiyakuBatchStart",
+      "nsid": "app.etzhayyim.apps.openPatent.acknowledgeSeiyakuBatchStart",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/acknowledgeSeiyakuBatchStart.json"
     },
     {
@@ -245,7 +245,7 @@
       "proc": "queueSeiyakuBatchStart",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/queueSeiyakuBatchStart.bpmn",
       "bpmnProcessId": "open_patent_queue_seiyaku_batch_start",
-      "nsid": "ai.gftd.apps.openPatent.queueSeiyakuBatchStart",
+      "nsid": "app.etzhayyim.apps.openPatent.queueSeiyakuBatchStart",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/queueSeiyakuBatchStart.json"
     },
     {
@@ -254,7 +254,7 @@
       "proc": "validateSeiyakuBatchDraft",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/validateSeiyakuBatchDraft.bpmn",
       "bpmnProcessId": "open_patent_validate_seiyaku_batch_draft",
-      "nsid": "ai.gftd.apps.openPatent.validateSeiyakuBatchDraft",
+      "nsid": "app.etzhayyim.apps.openPatent.validateSeiyakuBatchDraft",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/validateSeiyakuBatchDraft.json"
     },
     {
@@ -263,7 +263,7 @@
       "proc": "prepareSeiyakuBatchDraft",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/prepareSeiyakuBatchDraft.bpmn",
       "bpmnProcessId": "open_patent_prepare_seiyaku_batch_draft",
-      "nsid": "ai.gftd.apps.openPatent.prepareSeiyakuBatchDraft",
+      "nsid": "app.etzhayyim.apps.openPatent.prepareSeiyakuBatchDraft",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/prepareSeiyakuBatchDraft.json"
     },
     {
@@ -272,7 +272,7 @@
       "proc": "handoffGenericCandidateToSeiyaku",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/handoffGenericCandidateToSeiyaku.bpmn",
       "bpmnProcessId": "open_patent_handoff_generic_candidate_to_seiyaku",
-      "nsid": "ai.gftd.apps.openPatent.handoffGenericCandidateToSeiyaku",
+      "nsid": "app.etzhayyim.apps.openPatent.handoffGenericCandidateToSeiyaku",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/handoffGenericCandidateToSeiyaku.json"
     },
     {
@@ -281,7 +281,7 @@
       "proc": "recordDrugRegulatoryBlocker",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/recordDrugRegulatoryBlocker.bpmn",
       "bpmnProcessId": "open_patent_record_drug_regulatory_blocker",
-      "nsid": "ai.gftd.apps.openPatent.recordDrugRegulatoryBlocker",
+      "nsid": "app.etzhayyim.apps.openPatent.recordDrugRegulatoryBlocker",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/recordDrugRegulatoryBlocker.json"
     },
     {
@@ -290,7 +290,7 @@
       "proc": "runExpiredDrugPatentPipeline",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/runExpiredDrugPatentPipeline.bpmn",
       "bpmnProcessId": "open_patent_run_expired_drug_patent_pipeline",
-      "nsid": "ai.gftd.apps.openPatent.runExpiredDrugPatentPipeline",
+      "nsid": "app.etzhayyim.apps.openPatent.runExpiredDrugPatentPipeline",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/runExpiredDrugPatentPipeline.json"
     },
     {
@@ -299,7 +299,7 @@
       "proc": "collectExpiredDrugPatentBacklog",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/collectExpiredDrugPatentBacklog.bpmn",
       "bpmnProcessId": "open_patent_collect_expired_drug_patent_backlog",
-      "nsid": "ai.gftd.apps.openPatent.collectExpiredDrugPatentBacklog",
+      "nsid": "app.etzhayyim.apps.openPatent.collectExpiredDrugPatentBacklog",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/collectExpiredDrugPatentBacklog.json"
     },
     {
@@ -308,7 +308,7 @@
       "proc": "screenExpiredDrugPatent",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/screenExpiredDrugPatent.bpmn",
       "bpmnProcessId": "open_patent_screen_expired_drug_patent",
-      "nsid": "ai.gftd.apps.openPatent.screenExpiredDrugPatent",
+      "nsid": "app.etzhayyim.apps.openPatent.screenExpiredDrugPatent",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/screenExpiredDrugPatent.json"
     },
     {
@@ -317,7 +317,7 @@
       "proc": "startGenericManufacturingCandidate",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-patent/startGenericManufacturingCandidate.bpmn",
       "bpmnProcessId": "open_patent_start_generic_manufacturing_candidate",
-      "nsid": "ai.gftd.apps.openPatent.startGenericManufacturingCandidate",
+      "nsid": "app.etzhayyim.apps.openPatent.startGenericManufacturingCandidate",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPatent/startGenericManufacturingCandidate.json"
     },
     {
@@ -326,7 +326,7 @@
       "proc": "recordAction",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-jp-mhlw/recordAction.bpmn",
       "bpmnProcessId": "open_jp_mhlw_record_action",
-      "nsid": "ai.gftd.apps.jpMhlw.recordAction",
+      "nsid": "app.etzhayyim.apps.jpMhlw.recordAction",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/jpMhlw/recordAction.json"
     },
     {
@@ -335,7 +335,7 @@
       "proc": "flagPolicyConcern",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-jp-mhlw/flagPolicyConcern.bpmn",
       "bpmnProcessId": "open_jp_mhlw_flag_policy_concern",
-      "nsid": "ai.gftd.apps.jpMhlw.flagPolicyConcern",
+      "nsid": "app.etzhayyim.apps.jpMhlw.flagPolicyConcern",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/jpMhlw/flagPolicyConcern.json"
     },
     {
@@ -344,7 +344,7 @@
       "proc": "regulateNarcotics",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-jp-mhlw/regulateNarcotics.bpmn",
       "bpmnProcessId": "open_jp_mhlw_regulate_narcotics",
-      "nsid": "ai.gftd.apps.jpMhlw.regulateNarcotics",
+      "nsid": "app.etzhayyim.apps.jpMhlw.regulateNarcotics",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/jpMhlw/regulateNarcotics.json"
     },
     {
@@ -353,7 +353,7 @@
       "proc": "administerInfluenzaVaccine",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-jp-mhlw/administerInfluenzaVaccine.bpmn",
       "bpmnProcessId": "open_jp_mhlw_administer_influenza_vaccine",
-      "nsid": "ai.gftd.apps.jpMhlw.administerInfluenzaVaccine",
+      "nsid": "app.etzhayyim.apps.jpMhlw.administerInfluenzaVaccine",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/jpMhlw/administerInfluenzaVaccine.json"
     },
     {
@@ -362,7 +362,7 @@
       "proc": "dispatchLeg",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-logistics-lastmile/dispatchLeg.bpmn",
       "bpmnProcessId": "open_logistics_lastmile_dispatch_leg",
-      "nsid": "ai.gftd.apps.openLogisticsLastmile.dispatchLeg",
+      "nsid": "app.etzhayyim.apps.openLogisticsLastmile.dispatchLeg",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openLogisticsLastmile/dispatchLeg.json"
     },
     {
@@ -371,7 +371,7 @@
       "proc": "confirmDelivery",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-logistics-lastmile/confirmDelivery.bpmn",
       "bpmnProcessId": "open_logistics_lastmile_confirm_delivery",
-      "nsid": "ai.gftd.apps.openLogisticsLastmile.confirmDelivery",
+      "nsid": "app.etzhayyim.apps.openLogisticsLastmile.confirmDelivery",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openLogisticsLastmile/confirmDelivery.json"
     },
     {
@@ -380,7 +380,7 @@
       "proc": "recordMaintenancePlan",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-machinery-maintenance/recordMaintenancePlan.bpmn",
       "bpmnProcessId": "open_machinery_maintenance_record_plan",
-      "nsid": "ai.gftd.apps.openMachineryMaintenance.recordMaintenancePlan",
+      "nsid": "app.etzhayyim.apps.openMachineryMaintenance.recordMaintenancePlan",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openMachineryMaintenance/recordMaintenancePlan.json"
     },
     {
@@ -389,7 +389,7 @@
       "proc": "flagDowntime",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-machinery-maintenance/flagDowntime.bpmn",
       "bpmnProcessId": "open_machinery_maintenance_flag_downtime",
-      "nsid": "ai.gftd.apps.openMachineryMaintenance.flagDowntime",
+      "nsid": "app.etzhayyim.apps.openMachineryMaintenance.flagDowntime",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openMachineryMaintenance/flagDowntime.json"
     },
     {
@@ -398,7 +398,7 @@
       "proc": "recordSafetyAssessment",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-industrial-safety/recordSafetyAssessment.bpmn",
       "bpmnProcessId": "open_industrial_safety_record_safety_assessment",
-      "nsid": "ai.gftd.apps.industrialSafety.recordSafetyAssessment",
+      "nsid": "app.etzhayyim.apps.industrialSafety.recordSafetyAssessment",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/industrialSafety/recordSafetyAssessment.json"
     },
     {
@@ -407,7 +407,7 @@
       "proc": "flagMajorAccident",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-industrial-safety/flagMajorAccident.bpmn",
       "bpmnProcessId": "open_industrial_safety_flag_major_accident",
-      "nsid": "ai.gftd.apps.industrialSafety.flagMajorAccident",
+      "nsid": "app.etzhayyim.apps.industrialSafety.flagMajorAccident",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/industrialSafety/flagMajorAccident.json"
     },
     {
@@ -416,7 +416,7 @@
       "proc": "defineFeeder",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-power/defineFeeder.bpmn",
       "bpmnProcessId": "open_power_define_feeder",
-      "nsid": "ai.gftd.apps.openPower.defineFeeder",
+      "nsid": "app.etzhayyim.apps.openPower.defineFeeder",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPower/defineFeeder.json"
     },
     {
@@ -425,7 +425,7 @@
       "proc": "reportOutage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-power/reportOutage.bpmn",
       "bpmnProcessId": "open_power_report_outage",
-      "nsid": "ai.gftd.apps.openPower.reportOutage",
+      "nsid": "app.etzhayyim.apps.openPower.reportOutage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPower/reportOutage.json"
     },
     {
@@ -434,7 +434,7 @@
       "proc": "defineMain",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-water/defineMain.bpmn",
       "bpmnProcessId": "open_water_define_main",
-      "nsid": "ai.gftd.apps.openWater.defineMain",
+      "nsid": "app.etzhayyim.apps.openWater.defineMain",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openWater/defineMain.json"
     },
     {
@@ -443,7 +443,7 @@
       "proc": "reportLeak",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-water/reportLeak.bpmn",
       "bpmnProcessId": "open_water_report_leak",
-      "nsid": "ai.gftd.apps.openWater.reportLeak",
+      "nsid": "app.etzhayyim.apps.openWater.reportLeak",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openWater/reportLeak.json"
     },
     {
@@ -452,7 +452,7 @@
       "proc": "definePipeSegment",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-gas/definePipeSegment.bpmn",
       "bpmnProcessId": "open_gas_define_pipe_segment",
-      "nsid": "ai.gftd.apps.openGas.definePipeSegment",
+      "nsid": "app.etzhayyim.apps.openGas.definePipeSegment",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openGas/definePipeSegment.json"
     },
     {
@@ -461,7 +461,7 @@
       "proc": "reportLeak",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-gas/reportLeak.bpmn",
       "bpmnProcessId": "open_gas_report_leak",
-      "nsid": "ai.gftd.apps.openGas.reportLeak",
+      "nsid": "app.etzhayyim.apps.openGas.reportLeak",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openGas/reportLeak.json"
     },
     {
@@ -470,7 +470,7 @@
       "proc": "defineLink",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-network/defineLink.bpmn",
       "bpmnProcessId": "open_network_define_link",
-      "nsid": "ai.gftd.apps.openNetwork.defineLink",
+      "nsid": "app.etzhayyim.apps.openNetwork.defineLink",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openNetwork/defineLink.json"
     },
     {
@@ -479,7 +479,7 @@
       "proc": "requestChange",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-network/requestChange.bpmn",
       "bpmnProcessId": "open_network_request_change",
-      "nsid": "ai.gftd.apps.openNetwork.requestChange",
+      "nsid": "app.etzhayyim.apps.openNetwork.requestChange",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openNetwork/requestChange.json"
     },
     {
@@ -488,7 +488,7 @@
       "proc": "defineRoute",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-transit/defineRoute.bpmn",
       "bpmnProcessId": "open_transit_define_route",
-      "nsid": "ai.gftd.apps.openTransit.defineRoute",
+      "nsid": "app.etzhayyim.apps.openTransit.defineRoute",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openTransit/defineRoute.json"
     },
     {
@@ -497,7 +497,7 @@
       "proc": "reportDelay",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-transit/reportDelay.bpmn",
       "bpmnProcessId": "open_transit_report_delay",
-      "nsid": "ai.gftd.apps.openTransit.reportDelay",
+      "nsid": "app.etzhayyim.apps.openTransit.reportDelay",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openTransit/reportDelay.json"
     },
     {
@@ -506,7 +506,7 @@
       "proc": "defineLine",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-rail/defineLine.bpmn",
       "bpmnProcessId": "open_rail_define_line",
-      "nsid": "ai.gftd.apps.openRail.defineLine",
+      "nsid": "app.etzhayyim.apps.openRail.defineLine",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openRail/defineLine.json"
     },
     {
@@ -515,7 +515,7 @@
       "proc": "reportIncident",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-rail/reportIncident.bpmn",
       "bpmnProcessId": "open_rail_report_incident",
-      "nsid": "ai.gftd.apps.openRail.reportIncident",
+      "nsid": "app.etzhayyim.apps.openRail.reportIncident",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openRail/reportIncident.json"
     },
     {
@@ -524,7 +524,7 @@
       "proc": "defineRoad",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-road/defineRoad.bpmn",
       "bpmnProcessId": "open_road_define_road",
-      "nsid": "ai.gftd.apps.openRoad.defineRoad",
+      "nsid": "app.etzhayyim.apps.openRoad.defineRoad",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openRoad/defineRoad.json"
     },
     {
@@ -533,7 +533,7 @@
       "proc": "reportIncident",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-road/reportIncident.bpmn",
       "bpmnProcessId": "open_road_report_incident",
-      "nsid": "ai.gftd.apps.openRoad.reportIncident",
+      "nsid": "app.etzhayyim.apps.openRoad.reportIncident",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openRoad/reportIncident.json"
     },
     {
@@ -542,7 +542,7 @@
       "proc": "scheduleVesselCall",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-ports/scheduleVesselCall.bpmn",
       "bpmnProcessId": "open_ports_schedule_vessel_call",
-      "nsid": "ai.gftd.apps.openPorts.scheduleVesselCall",
+      "nsid": "app.etzhayyim.apps.openPorts.scheduleVesselCall",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPorts/scheduleVesselCall.json"
     },
     {
@@ -551,7 +551,7 @@
       "proc": "reportIncident",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-ports/reportIncident.bpmn",
       "bpmnProcessId": "open_ports_report_incident",
-      "nsid": "ai.gftd.apps.openPorts.reportIncident",
+      "nsid": "app.etzhayyim.apps.openPorts.reportIncident",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openPorts/reportIncident.json"
     },
     {
@@ -560,7 +560,7 @@
       "proc": "scheduleFlight",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-airplane/scheduleFlight.bpmn",
       "bpmnProcessId": "open_airplane_schedule_flight",
-      "nsid": "ai.gftd.apps.openAirplane.scheduleFlight",
+      "nsid": "app.etzhayyim.apps.openAirplane.scheduleFlight",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openAirplane/scheduleFlight.json"
     },
     {
@@ -569,7 +569,7 @@
       "proc": "reportIncident",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-airplane/reportIncident.bpmn",
       "bpmnProcessId": "open_airplane_report_incident",
-      "nsid": "ai.gftd.apps.openAirplane.reportIncident",
+      "nsid": "app.etzhayyim.apps.openAirplane.reportIncident",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/openAirplane/reportIncident.json"
     },
     {
@@ -578,7 +578,7 @@
       "proc": "recordMechanism",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-electricity-market/recordMechanism.bpmn",
       "bpmnProcessId": "open_electricity_market_record_mechanism",
-      "nsid": "ai.gftd.apps.electricityMarket.recordMechanism",
+      "nsid": "app.etzhayyim.apps.electricityMarket.recordMechanism",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/electricityMarket/recordMechanism.json"
     },
     {
@@ -587,7 +587,7 @@
       "proc": "flagMissingMoney",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-electricity-market/flagMissingMoney.bpmn",
       "bpmnProcessId": "open_electricity_market_flag_missing_money",
-      "nsid": "ai.gftd.apps.electricityMarket.flagMissingMoney",
+      "nsid": "app.etzhayyim.apps.electricityMarket.flagMissingMoney",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/electricityMarket/flagMissingMoney.json"
     },
     {
@@ -596,7 +596,7 @@
       "proc": "recordCrossBorderFlow",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-power-grid-interconnect/recordCrossBorderFlow.bpmn",
       "bpmnProcessId": "open_power_grid_interconnect_record_cross_border_flow",
-      "nsid": "ai.gftd.apps.powerGridInterconnect.recordCrossBorderFlow",
+      "nsid": "app.etzhayyim.apps.powerGridInterconnect.recordCrossBorderFlow",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/powerGridInterconnect/recordCrossBorderFlow.json"
     },
     {
@@ -605,7 +605,7 @@
       "proc": "flagCurtailment",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-power-grid-interconnect/flagCurtailment.bpmn",
       "bpmnProcessId": "open_power_grid_interconnect_flag_curtailment",
-      "nsid": "ai.gftd.apps.powerGridInterconnect.flagCurtailment",
+      "nsid": "app.etzhayyim.apps.powerGridInterconnect.flagCurtailment",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/powerGridInterconnect/flagCurtailment.json"
     },
     {
@@ -614,7 +614,7 @@
       "proc": "recordBasinMetric",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-water-scarcity/recordBasinMetric.bpmn",
       "bpmnProcessId": "open_water_scarcity_record_basin_metric",
-      "nsid": "ai.gftd.apps.waterScarcity.recordBasinMetric",
+      "nsid": "app.etzhayyim.apps.waterScarcity.recordBasinMetric",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/waterScarcity/recordBasinMetric.json"
     },
     {
@@ -623,7 +623,7 @@
       "proc": "flagTreatyDispute",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-water-scarcity/flagTreatyDispute.bpmn",
       "bpmnProcessId": "open_water_scarcity_flag_treaty_dispute",
-      "nsid": "ai.gftd.apps.waterScarcity.flagTreatyDispute",
+      "nsid": "app.etzhayyim.apps.waterScarcity.flagTreatyDispute",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/waterScarcity/flagTreatyDispute.json"
     },
     {
@@ -632,7 +632,7 @@
       "proc": "recordStewardshipPlan",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-water-stewardship/recordStewardshipPlan.bpmn",
       "bpmnProcessId": "open_water_stewardship_record_stewardship_plan",
-      "nsid": "ai.gftd.apps.waterStewardship.recordStewardshipPlan",
+      "nsid": "app.etzhayyim.apps.waterStewardship.recordStewardshipPlan",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/waterStewardship/recordStewardshipPlan.json"
     },
     {
@@ -641,7 +641,7 @@
       "proc": "flagBasinStress",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-water-stewardship/flagBasinStress.bpmn",
       "bpmnProcessId": "open_water_stewardship_flag_basin_stress",
-      "nsid": "ai.gftd.apps.waterStewardship.flagBasinStress",
+      "nsid": "app.etzhayyim.apps.waterStewardship.flagBasinStress",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/waterStewardship/flagBasinStress.json"
     },
     {
@@ -650,7 +650,7 @@
       "proc": "registerFacility",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-wastewater-reuse/registerFacility.bpmn",
       "bpmnProcessId": "open_wastewater_reuse_register_facility",
-      "nsid": "ai.gftd.apps.wastewaterReuse.registerFacility",
+      "nsid": "app.etzhayyim.apps.wastewaterReuse.registerFacility",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/wastewaterReuse/registerFacility.json"
     },
     {
@@ -659,7 +659,7 @@
       "proc": "recordMonitoringMetric",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-wastewater-reuse/recordMonitoringMetric.bpmn",
       "bpmnProcessId": "open_wastewater_reuse_record_monitoring_metric",
-      "nsid": "ai.gftd.apps.wastewaterReuse.recordMonitoringMetric",
+      "nsid": "app.etzhayyim.apps.wastewaterReuse.recordMonitoringMetric",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/wastewaterReuse/recordMonitoringMetric.json"
     },
     {
@@ -668,7 +668,7 @@
       "proc": "registerCable",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-telecom-infra/registerCable.bpmn",
       "bpmnProcessId": "open_telecom_infra_register_cable",
-      "nsid": "ai.gftd.apps.telecomInfra.registerCable",
+      "nsid": "app.etzhayyim.apps.telecomInfra.registerCable",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecomInfra/registerCable.json"
     },
     {
@@ -677,7 +677,7 @@
       "proc": "flagCableFault",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-telecom-infra/flagCableFault.bpmn",
       "bpmnProcessId": "open_telecom_infra_flag_cable_fault",
-      "nsid": "ai.gftd.apps.telecomInfra.flagCableFault",
+      "nsid": "app.etzhayyim.apps.telecomInfra.flagCableFault",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecomInfra/flagCableFault.json"
     },
     {
@@ -686,7 +686,7 @@
       "proc": "onboardSubscriber",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/onboardSubscriber.bpmn",
       "bpmnProcessId": "telecom_onboard_subscriber",
-      "nsid": "ai.gftd.apps.telecom.onboardSubscriber",
+      "nsid": "app.etzhayyim.apps.telecom.onboardSubscriber",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/onboardSubscriber.json"
     },
     {
@@ -695,7 +695,7 @@
       "proc": "activateSim",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/activateSim.bpmn",
       "bpmnProcessId": "telecom_activate_sim",
-      "nsid": "ai.gftd.apps.telecom.activateSim",
+      "nsid": "app.etzhayyim.apps.telecom.activateSim",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/activateSim.json"
     },
     {
@@ -704,7 +704,7 @@
       "proc": "provisionService",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionService.bpmn",
       "bpmnProcessId": "telecom_provision_service",
-      "nsid": "ai.gftd.apps.telecom.provisionService",
+      "nsid": "app.etzhayyim.apps.telecom.provisionService",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionService.json"
     },
     {
@@ -713,7 +713,7 @@
       "proc": "recordUsage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordUsage.bpmn",
       "bpmnProcessId": "telecom_record_usage",
-      "nsid": "ai.gftd.apps.telecom.recordUsage",
+      "nsid": "app.etzhayyim.apps.telecom.recordUsage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordUsage.json"
     },
     {
@@ -722,7 +722,7 @@
       "proc": "runBillingCycle",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/runBillingCycle.bpmn",
       "bpmnProcessId": "telecom_run_billing_cycle",
-      "nsid": "ai.gftd.apps.telecom.runBillingCycle",
+      "nsid": "app.etzhayyim.apps.telecom.runBillingCycle",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/runBillingCycle.json"
     },
     {
@@ -731,7 +731,7 @@
       "proc": "escalateSlaBreach",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/escalateSlaBreach.bpmn",
       "bpmnProcessId": "telecom_escalate_sla_breach",
-      "nsid": "ai.gftd.apps.telecom.escalateSlaBreach",
+      "nsid": "app.etzhayyim.apps.telecom.escalateSlaBreach",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/escalateSlaBreach.json"
     },
     {
@@ -740,7 +740,7 @@
       "proc": "registerSpectrumLicense",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerSpectrumLicense.bpmn",
       "bpmnProcessId": "telecom_register_spectrum_license",
-      "nsid": "ai.gftd.apps.telecom.registerSpectrumLicense",
+      "nsid": "app.etzhayyim.apps.telecom.registerSpectrumLicense",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerSpectrumLicense.json"
     },
     {
@@ -749,7 +749,7 @@
       "proc": "registerCellSite",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerCellSite.bpmn",
       "bpmnProcessId": "telecom_register_cell_site",
-      "nsid": "ai.gftd.apps.telecom.registerCellSite",
+      "nsid": "app.etzhayyim.apps.telecom.registerCellSite",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerCellSite.json"
     },
     {
@@ -758,7 +758,7 @@
       "proc": "registerRanNode",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerRanNode.bpmn",
       "bpmnProcessId": "telecom_register_ran_node",
-      "nsid": "ai.gftd.apps.telecom.registerRanNode",
+      "nsid": "app.etzhayyim.apps.telecom.registerRanNode",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerRanNode.json"
     },
     {
@@ -767,7 +767,7 @@
       "proc": "registerNetworkAsset",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerNetworkAsset.bpmn",
       "bpmnProcessId": "telecom_register_network_asset",
-      "nsid": "ai.gftd.apps.telecom.registerNetworkAsset",
+      "nsid": "app.etzhayyim.apps.telecom.registerNetworkAsset",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerNetworkAsset.json"
     },
     {
@@ -776,7 +776,7 @@
       "proc": "recordSiteIncident",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordSiteIncident.bpmn",
       "bpmnProcessId": "telecom_record_site_incident",
-      "nsid": "ai.gftd.apps.telecom.recordSiteIncident",
+      "nsid": "app.etzhayyim.apps.telecom.recordSiteIncident",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordSiteIncident.json"
     },
     {
@@ -785,7 +785,7 @@
       "proc": "scheduleMaintenance",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/scheduleMaintenance.bpmn",
       "bpmnProcessId": "telecom_schedule_maintenance",
-      "nsid": "ai.gftd.apps.telecom.scheduleMaintenance",
+      "nsid": "app.etzhayyim.apps.telecom.scheduleMaintenance",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/scheduleMaintenance.json"
     },
     {
@@ -794,7 +794,7 @@
       "proc": "requestRma",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/requestRma.bpmn",
       "bpmnProcessId": "telecom_request_rma",
-      "nsid": "ai.gftd.apps.telecom.requestRma",
+      "nsid": "app.etzhayyim.apps.telecom.requestRma",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/requestRma.json"
     },
     {
@@ -803,7 +803,7 @@
       "proc": "auditPerformanceCounters",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/auditPerformanceCounters.bpmn",
       "bpmnProcessId": "telecom_audit_performance_counters",
-      "nsid": "ai.gftd.apps.telecom.auditPerformanceCounters",
+      "nsid": "app.etzhayyim.apps.telecom.auditPerformanceCounters",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/auditPerformanceCounters.json"
     },
     {
@@ -812,7 +812,7 @@
       "proc": "registerInterconnectAgreement",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerInterconnectAgreement.bpmn",
       "bpmnProcessId": "telecom_register_interconnect_agreement",
-      "nsid": "ai.gftd.apps.telecom.registerInterconnectAgreement",
+      "nsid": "app.etzhayyim.apps.telecom.registerInterconnectAgreement",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerInterconnectAgreement.json"
     },
     {
@@ -821,7 +821,7 @@
       "proc": "registerRoamingPartner",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerRoamingPartner.bpmn",
       "bpmnProcessId": "telecom_register_roaming_partner",
-      "nsid": "ai.gftd.apps.telecom.registerRoamingPartner",
+      "nsid": "app.etzhayyim.apps.telecom.registerRoamingPartner",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerRoamingPartner.json"
     },
     {
@@ -830,7 +830,7 @@
       "proc": "recordTapFile",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordTapFile.bpmn",
       "bpmnProcessId": "telecom_record_tap_file",
-      "nsid": "ai.gftd.apps.telecom.recordTapFile",
+      "nsid": "app.etzhayyim.apps.telecom.recordTapFile",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordTapFile.json"
     },
     {
@@ -839,7 +839,7 @@
       "proc": "settleRoamingInvoice",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/settleRoamingInvoice.bpmn",
       "bpmnProcessId": "telecom_settle_roaming_invoice",
-      "nsid": "ai.gftd.apps.telecom.settleRoamingInvoice",
+      "nsid": "app.etzhayyim.apps.telecom.settleRoamingInvoice",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/settleRoamingInvoice.json"
     },
     {
@@ -848,7 +848,7 @@
       "proc": "recordInterconnectCdr",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordInterconnectCdr.bpmn",
       "bpmnProcessId": "telecom_record_interconnect_cdr",
-      "nsid": "ai.gftd.apps.telecom.recordInterconnectCdr",
+      "nsid": "app.etzhayyim.apps.telecom.recordInterconnectCdr",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordInterconnectCdr.json"
     },
     {
@@ -857,7 +857,7 @@
       "proc": "registerNumberRange",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerNumberRange.bpmn",
       "bpmnProcessId": "telecom_register_number_range",
-      "nsid": "ai.gftd.apps.telecom.registerNumberRange",
+      "nsid": "app.etzhayyim.apps.telecom.registerNumberRange",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerNumberRange.json"
     },
     {
@@ -866,7 +866,7 @@
       "proc": "portInRequest",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/portInRequest.bpmn",
       "bpmnProcessId": "telecom_port_in_request",
-      "nsid": "ai.gftd.apps.telecom.portInRequest",
+      "nsid": "app.etzhayyim.apps.telecom.portInRequest",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/portInRequest.json"
     },
     {
@@ -875,7 +875,7 @@
       "proc": "portOutRequest",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/portOutRequest.bpmn",
       "bpmnProcessId": "telecom_port_out_request",
-      "nsid": "ai.gftd.apps.telecom.portOutRequest",
+      "nsid": "app.etzhayyim.apps.telecom.portOutRequest",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/portOutRequest.json"
     },
     {
@@ -884,7 +884,7 @@
       "proc": "registerDeployment",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-rural-broadband/registerDeployment.bpmn",
       "bpmnProcessId": "open_rural_broadband_register_deployment",
-      "nsid": "ai.gftd.apps.ruralBroadband.registerDeployment",
+      "nsid": "app.etzhayyim.apps.ruralBroadband.registerDeployment",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/ruralBroadband/registerDeployment.json"
     },
     {
@@ -893,7 +893,7 @@
       "proc": "flagDigitalDivideGap",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-rural-broadband/flagDigitalDivideGap.bpmn",
       "bpmnProcessId": "open_rural_broadband_flag_digital_divide_gap",
-      "nsid": "ai.gftd.apps.ruralBroadband.flagDigitalDivideGap",
+      "nsid": "app.etzhayyim.apps.ruralBroadband.flagDigitalDivideGap",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/ruralBroadband/flagDigitalDivideGap.json"
     },
     {
@@ -902,7 +902,7 @@
       "proc": "recordCorridorFlow",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-rail-cross-border/recordCorridorFlow.bpmn",
       "bpmnProcessId": "open_rail_cross_border_record_corridor_flow",
-      "nsid": "ai.gftd.apps.railCrossBorder.recordCorridorFlow",
+      "nsid": "app.etzhayyim.apps.railCrossBorder.recordCorridorFlow",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/railCrossBorder/recordCorridorFlow.json"
     },
     {
@@ -911,7 +911,7 @@
       "proc": "flagInteropFailure",
       "sourcePath": "00-contracts/bpmn/ai/gftd/open-rail-cross-border/flagInteropFailure.bpmn",
       "bpmnProcessId": "open_rail_cross_border_flag_interop_failure",
-      "nsid": "ai.gftd.apps.railCrossBorder.flagInteropFailure",
+      "nsid": "app.etzhayyim.apps.railCrossBorder.flagInteropFailure",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/railCrossBorder/flagInteropFailure.json"
     },
     {
@@ -920,7 +920,7 @@
       "proc": "managerDiscovery",
       "sourcePath": "00-contracts/bpmn/ai/gftd/fund/managerDiscovery.bpmn",
       "bpmnProcessId": "fund_manager_discovery",
-      "nsid": "ai.gftd.apps.fund.managerDiscovery",
+      "nsid": "app.etzhayyim.apps.fund.managerDiscovery",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/fund/managerDiscovery.json"
     },
     {
@@ -929,7 +929,7 @@
       "proc": "startDealWorkflow",
       "sourcePath": "00-contracts/bpmn/ai/gftd/ma/startDealWorkflow.bpmn",
       "bpmnProcessId": "ma_start_deal_workflow",
-      "nsid": "ai.gftd.apps.ma.startDealWorkflow",
+      "nsid": "app.etzhayyim.apps.ma.startDealWorkflow",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/ma/startDealWorkflow.json"
     },
     {
@@ -938,7 +938,7 @@
       "proc": "euv-lithography-manufacturing-flow",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/euv-lithography-manufacturing-flow.bpmn",
       "bpmnProcessId": "tsukuru_euv_lithography_manufacturing_flow",
-      "nsid": "ai.gftd.apps.tsukuru.euv.designManufacturingFlow",
+      "nsid": "app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/euv/designManufacturingFlow.json"
     },
     {
@@ -947,7 +947,7 @@
       "proc": "normalize-supplier-exchange-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/normalize-supplier-exchange-package.bpmn",
       "bpmnProcessId": "tsukuru_normalize_supplier_exchange_package",
-      "nsid": "ai.gftd.apps.tsukuru.supplierExchange.normalizePackage",
+      "nsid": "app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/supplierExchange/normalizePackage.json"
     },
     {
@@ -956,7 +956,7 @@
       "proc": "validate-supplier-exchange-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/validate-supplier-exchange-package.bpmn",
       "bpmnProcessId": "tsukuru_validate_supplier_exchange_package",
-      "nsid": "ai.gftd.apps.tsukuru.supplierExchange.validatePackage",
+      "nsid": "app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/supplierExchange/validatePackage.json"
     },
     {
@@ -965,7 +965,7 @@
       "proc": "prepare-euv-order-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/prepare-euv-order-package.bpmn",
       "bpmnProcessId": "tsukuru_prepare_euv_order_package",
-      "nsid": "ai.gftd.apps.tsukuru.euv.prepareOrderPackage",
+      "nsid": "app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/euv/prepareOrderPackage.json"
     },
     {
@@ -974,7 +974,7 @@
       "proc": "get-euv-implementation-coverage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/get-euv-implementation-coverage.bpmn",
       "bpmnProcessId": "tsukuru_get_euv_implementation_coverage",
-      "nsid": "ai.gftd.apps.tsukuru.euv.getImplementationCoverage",
+      "nsid": "app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/euv/getImplementationCoverage.json"
     },
     {
@@ -983,7 +983,7 @@
       "proc": "cnt-fiber-manufacturing-flow",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/cnt-fiber-manufacturing-flow.bpmn",
       "bpmnProcessId": "tsukuru_cnt_fiber_manufacturing_flow",
-      "nsid": "ai.gftd.apps.tsukuru.cnt.designManufacturingFlow",
+      "nsid": "app.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/designManufacturingFlow.json"
     },
     {
@@ -992,7 +992,7 @@
       "proc": "cnt-automation-plan",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/cnt-automation-plan.bpmn",
       "bpmnProcessId": "tsukuru_cnt_automation_plan",
-      "nsid": "ai.gftd.apps.tsukuru.cnt.planAutomation",
+      "nsid": "app.etzhayyim.apps.tsukuru.cnt.planAutomation",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/planAutomation.json"
     },
     {
@@ -1001,7 +1001,7 @@
       "proc": "prepare-cnt-order-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/prepare-cnt-order-package.bpmn",
       "bpmnProcessId": "tsukuru_prepare_cnt_order_package",
-      "nsid": "ai.gftd.apps.tsukuru.cnt.prepareOrderPackage",
+      "nsid": "app.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/prepareOrderPackage.json"
     },
     {
@@ -1010,7 +1010,7 @@
       "proc": "get-cnt-automation-coverage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/get-cnt-automation-coverage.bpmn",
       "bpmnProcessId": "tsukuru_get_cnt_automation_coverage",
-      "nsid": "ai.gftd.apps.tsukuru.cnt.getAutomationCoverage",
+      "nsid": "app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/getAutomationCoverage.json"
     },
     {
@@ -1019,7 +1019,7 @@
       "proc": "prepare-cnt-run-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/prepare-cnt-run-package.bpmn",
       "bpmnProcessId": "tsukuru_prepare_cnt_run_package",
-      "nsid": "ai.gftd.apps.tsukuru.cnt.prepareRunPackage",
+      "nsid": "app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/prepareRunPackage.json"
     },
     {
@@ -1028,7 +1028,7 @@
       "proc": "validate-cnt-run-package",
       "sourcePath": "00-contracts/bpmn/ai/gftd/tsukuru/validate-cnt-run-package.bpmn",
       "bpmnProcessId": "tsukuru_validate_cnt_run_package",
-      "nsid": "ai.gftd.apps.tsukuru.cnt.validateRunPackage",
+      "nsid": "app.etzhayyim.apps.tsukuru.cnt.validateRunPackage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/tsukuru/cnt/validateRunPackage.json"
     },
     {
@@ -1037,7 +1037,7 @@
       "proc": "registerNetworkFunction",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerNetworkFunction.bpmn",
       "bpmnProcessId": "telecom_register_network_function",
-      "nsid": "ai.gftd.apps.telecom.registerNetworkFunction",
+      "nsid": "app.etzhayyim.apps.telecom.registerNetworkFunction",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerNetworkFunction.json"
     },
     {
@@ -1046,7 +1046,7 @@
       "proc": "registerSubscriberProfile5g",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerSubscriberProfile5g.bpmn",
       "bpmnProcessId": "telecom_register_subscriber_profile_5g",
-      "nsid": "ai.gftd.apps.telecom.registerSubscriberProfile5g",
+      "nsid": "app.etzhayyim.apps.telecom.registerSubscriberProfile5g",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerSubscriberProfile5g.json"
     },
     {
@@ -1055,7 +1055,7 @@
       "proc": "authenticateSubscriber",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/authenticateSubscriber.bpmn",
       "bpmnProcessId": "telecom_authenticate_subscriber",
-      "nsid": "ai.gftd.apps.telecom.authenticateSubscriber",
+      "nsid": "app.etzhayyim.apps.telecom.authenticateSubscriber",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/authenticateSubscriber.json"
     },
     {
@@ -1064,7 +1064,7 @@
       "proc": "registerToNetwork",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerToNetwork.bpmn",
       "bpmnProcessId": "telecom_register_to_network",
-      "nsid": "ai.gftd.apps.telecom.registerToNetwork",
+      "nsid": "app.etzhayyim.apps.telecom.registerToNetwork",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerToNetwork.json"
     },
     {
@@ -1073,7 +1073,7 @@
       "proc": "selectNetworkSlice",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/selectNetworkSlice.bpmn",
       "bpmnProcessId": "telecom_select_network_slice",
-      "nsid": "ai.gftd.apps.telecom.selectNetworkSlice",
+      "nsid": "app.etzhayyim.apps.telecom.selectNetworkSlice",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/selectNetworkSlice.json"
     },
     {
@@ -1082,7 +1082,7 @@
       "proc": "applyPolicyDecision",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/applyPolicyDecision.bpmn",
       "bpmnProcessId": "telecom_apply_policy_decision",
-      "nsid": "ai.gftd.apps.telecom.applyPolicyDecision",
+      "nsid": "app.etzhayyim.apps.telecom.applyPolicyDecision",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/applyPolicyDecision.json"
     },
     {
@@ -1091,7 +1091,7 @@
       "proc": "establishPduSession",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/establishPduSession.bpmn",
       "bpmnProcessId": "telecom_establish_pdu_session",
-      "nsid": "ai.gftd.apps.telecom.establishPduSession",
+      "nsid": "app.etzhayyim.apps.telecom.establishPduSession",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/establishPduSession.json"
     },
     {
@@ -1100,7 +1100,7 @@
       "proc": "emitChargingDataRecord",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/emitChargingDataRecord.bpmn",
       "bpmnProcessId": "telecom_emit_charging_data_record",
-      "nsid": "ai.gftd.apps.telecom.emitChargingDataRecord",
+      "nsid": "app.etzhayyim.apps.telecom.emitChargingDataRecord",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/emitChargingDataRecord.json"
     },
     {
@@ -1109,7 +1109,7 @@
       "proc": "registerImsSubscription",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerImsSubscription.bpmn",
       "bpmnProcessId": "telecom_register_ims_subscription",
-      "nsid": "ai.gftd.apps.telecom.registerImsSubscription",
+      "nsid": "app.etzhayyim.apps.telecom.registerImsSubscription",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerImsSubscription.json"
     },
     {
@@ -1118,7 +1118,7 @@
       "proc": "registerSipEndpoint",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerSipEndpoint.bpmn",
       "bpmnProcessId": "telecom_register_sip_endpoint",
-      "nsid": "ai.gftd.apps.telecom.registerSipEndpoint",
+      "nsid": "app.etzhayyim.apps.telecom.registerSipEndpoint",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerSipEndpoint.json"
     },
     {
@@ -1127,7 +1127,7 @@
       "proc": "establishVoiceCall",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/establishVoiceCall.bpmn",
       "bpmnProcessId": "telecom_establish_voice_call",
-      "nsid": "ai.gftd.apps.telecom.establishVoiceCall",
+      "nsid": "app.etzhayyim.apps.telecom.establishVoiceCall",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/establishVoiceCall.json"
     },
     {
@@ -1136,7 +1136,7 @@
       "proc": "terminateVoiceCall",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/terminateVoiceCall.bpmn",
       "bpmnProcessId": "telecom_terminate_voice_call",
-      "nsid": "ai.gftd.apps.telecom.terminateVoiceCall",
+      "nsid": "app.etzhayyim.apps.telecom.terminateVoiceCall",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/terminateVoiceCall.json"
     },
     {
@@ -1145,7 +1145,7 @@
       "proc": "applySupplementaryService",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/applySupplementaryService.bpmn",
       "bpmnProcessId": "telecom_apply_supplementary_service",
-      "nsid": "ai.gftd.apps.telecom.applySupplementaryService",
+      "nsid": "app.etzhayyim.apps.telecom.applySupplementaryService",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/applySupplementaryService.json"
     },
     {
@@ -1154,7 +1154,7 @@
       "proc": "routeEmergencyCall",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/routeEmergencyCall.bpmn",
       "bpmnProcessId": "telecom_route_emergency_call",
-      "nsid": "ai.gftd.apps.telecom.routeEmergencyCall",
+      "nsid": "app.etzhayyim.apps.telecom.routeEmergencyCall",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/routeEmergencyCall.json"
     },
     {
@@ -1163,7 +1163,7 @@
       "proc": "bridgeVoiceToInterconnect",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/bridgeVoiceToInterconnect.bpmn",
       "bpmnProcessId": "telecom_bridge_voice_to_interconnect",
-      "nsid": "ai.gftd.apps.telecom.bridgeVoiceToInterconnect",
+      "nsid": "app.etzhayyim.apps.telecom.bridgeVoiceToInterconnect",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/bridgeVoiceToInterconnect.json"
     },
     {
@@ -1172,7 +1172,7 @@
       "proc": "emitImsBillingEvent",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/emitImsBillingEvent.bpmn",
       "bpmnProcessId": "telecom_emit_ims_billing_event",
-      "nsid": "ai.gftd.apps.telecom.emitImsBillingEvent",
+      "nsid": "app.etzhayyim.apps.telecom.emitImsBillingEvent",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/emitImsBillingEvent.json"
     },
     {
@@ -1181,7 +1181,7 @@
       "proc": "registerInterceptWarrant",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerInterceptWarrant.bpmn",
       "bpmnProcessId": "telecom_register_intercept_warrant",
-      "nsid": "ai.gftd.apps.telecom.registerInterceptWarrant",
+      "nsid": "app.etzhayyim.apps.telecom.registerInterceptWarrant",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerInterceptWarrant.json"
     },
     {
@@ -1190,7 +1190,7 @@
       "proc": "activateInterceptTarget",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/activateInterceptTarget.bpmn",
       "bpmnProcessId": "telecom_activate_intercept_target",
-      "nsid": "ai.gftd.apps.telecom.activateInterceptTarget",
+      "nsid": "app.etzhayyim.apps.telecom.activateInterceptTarget",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/activateInterceptTarget.json"
     },
     {
@@ -1199,7 +1199,7 @@
       "proc": "deactivateInterceptTarget",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/deactivateInterceptTarget.bpmn",
       "bpmnProcessId": "telecom_deactivate_intercept_target",
-      "nsid": "ai.gftd.apps.telecom.deactivateInterceptTarget",
+      "nsid": "app.etzhayyim.apps.telecom.deactivateInterceptTarget",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/deactivateInterceptTarget.json"
     },
     {
@@ -1208,7 +1208,7 @@
       "proc": "deliverInterceptMetadata",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/deliverInterceptMetadata.bpmn",
       "bpmnProcessId": "telecom_deliver_intercept_metadata",
-      "nsid": "ai.gftd.apps.telecom.deliverInterceptMetadata",
+      "nsid": "app.etzhayyim.apps.telecom.deliverInterceptMetadata",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/deliverInterceptMetadata.json"
     },
     {
@@ -1217,7 +1217,7 @@
       "proc": "deliverInterceptContent",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/deliverInterceptContent.bpmn",
       "bpmnProcessId": "telecom_deliver_intercept_content",
-      "nsid": "ai.gftd.apps.telecom.deliverInterceptContent",
+      "nsid": "app.etzhayyim.apps.telecom.deliverInterceptContent",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/deliverInterceptContent.json"
     },
     {
@@ -1226,7 +1226,7 @@
       "proc": "acknowledgeInterceptDelivery",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/acknowledgeInterceptDelivery.bpmn",
       "bpmnProcessId": "telecom_acknowledge_intercept_delivery",
-      "nsid": "ai.gftd.apps.telecom.acknowledgeInterceptDelivery",
+      "nsid": "app.etzhayyim.apps.telecom.acknowledgeInterceptDelivery",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/acknowledgeInterceptDelivery.json"
     },
     {
@@ -1235,7 +1235,7 @@
       "proc": "auditInterceptAccess",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/auditInterceptAccess.bpmn",
       "bpmnProcessId": "telecom_audit_intercept_access",
-      "nsid": "ai.gftd.apps.telecom.auditInterceptAccess",
+      "nsid": "app.etzhayyim.apps.telecom.auditInterceptAccess",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/auditInterceptAccess.json"
     },
     {
@@ -1244,7 +1244,7 @@
       "proc": "closeInterceptWarrant",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/closeInterceptWarrant.bpmn",
       "bpmnProcessId": "telecom_close_intercept_warrant",
-      "nsid": "ai.gftd.apps.telecom.closeInterceptWarrant",
+      "nsid": "app.etzhayyim.apps.telecom.closeInterceptWarrant",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/closeInterceptWarrant.json"
     },
     {
@@ -1253,7 +1253,7 @@
       "proc": "raiseAlarm",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/raiseAlarm.bpmn",
       "bpmnProcessId": "telecom_raise_alarm",
-      "nsid": "ai.gftd.apps.telecom.raiseAlarm",
+      "nsid": "app.etzhayyim.apps.telecom.raiseAlarm",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/raiseAlarm.json"
     },
     {
@@ -1262,7 +1262,7 @@
       "proc": "correlateAlarms",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/correlateAlarms.bpmn",
       "bpmnProcessId": "telecom_correlate_alarms",
-      "nsid": "ai.gftd.apps.telecom.correlateAlarms",
+      "nsid": "app.etzhayyim.apps.telecom.correlateAlarms",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/correlateAlarms.json"
     },
     {
@@ -1271,7 +1271,7 @@
       "proc": "suppressAlarm",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/suppressAlarm.bpmn",
       "bpmnProcessId": "telecom_suppress_alarm",
-      "nsid": "ai.gftd.apps.telecom.suppressAlarm",
+      "nsid": "app.etzhayyim.apps.telecom.suppressAlarm",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/suppressAlarm.json"
     },
     {
@@ -1280,7 +1280,7 @@
       "proc": "clearAlarm",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/clearAlarm.bpmn",
       "bpmnProcessId": "telecom_clear_alarm",
-      "nsid": "ai.gftd.apps.telecom.clearAlarm",
+      "nsid": "app.etzhayyim.apps.telecom.clearAlarm",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/clearAlarm.json"
     },
     {
@@ -1289,7 +1289,7 @@
       "proc": "submitChangeRequest",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/submitChangeRequest.bpmn",
       "bpmnProcessId": "telecom_submit_change_request",
-      "nsid": "ai.gftd.apps.telecom.submitChangeRequest",
+      "nsid": "app.etzhayyim.apps.telecom.submitChangeRequest",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/submitChangeRequest.json"
     },
     {
@@ -1298,7 +1298,7 @@
       "proc": "approveChangeRequest",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/approveChangeRequest.bpmn",
       "bpmnProcessId": "telecom_approve_change_request",
-      "nsid": "ai.gftd.apps.telecom.approveChangeRequest",
+      "nsid": "app.etzhayyim.apps.telecom.approveChangeRequest",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/approveChangeRequest.json"
     },
     {
@@ -1307,7 +1307,7 @@
       "proc": "snapshotConfiguration",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/snapshotConfiguration.bpmn",
       "bpmnProcessId": "telecom_snapshot_configuration",
-      "nsid": "ai.gftd.apps.telecom.snapshotConfiguration",
+      "nsid": "app.etzhayyim.apps.telecom.snapshotConfiguration",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/snapshotConfiguration.json"
     },
     {
@@ -1316,7 +1316,7 @@
       "proc": "forecastCapacity",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/forecastCapacity.bpmn",
       "bpmnProcessId": "telecom_forecast_capacity",
-      "nsid": "ai.gftd.apps.telecom.forecastCapacity",
+      "nsid": "app.etzhayyim.apps.telecom.forecastCapacity",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/forecastCapacity.json"
     },
     {
@@ -1325,7 +1325,7 @@
       "proc": "subscribeNwdafAnalytics",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/subscribeNwdafAnalytics.bpmn",
       "bpmnProcessId": "telecom_subscribe_nwdaf_analytics",
-      "nsid": "ai.gftd.apps.telecom.subscribeNwdafAnalytics",
+      "nsid": "app.etzhayyim.apps.telecom.subscribeNwdafAnalytics",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/subscribeNwdafAnalytics.json"
     },
     {
@@ -1334,7 +1334,7 @@
       "proc": "emitNwdafAnalyticsResult",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/emitNwdafAnalyticsResult.bpmn",
       "bpmnProcessId": "telecom_emit_nwdaf_analytics_result",
-      "nsid": "ai.gftd.apps.telecom.emitNwdafAnalyticsResult",
+      "nsid": "app.etzhayyim.apps.telecom.emitNwdafAnalyticsResult",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/emitNwdafAnalyticsResult.json"
     },
     {
@@ -1343,7 +1343,7 @@
       "proc": "routeServiceRequest",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/routeServiceRequest.bpmn",
       "bpmnProcessId": "telecom_route_service_request",
-      "nsid": "ai.gftd.apps.telecom.routeServiceRequest",
+      "nsid": "app.etzhayyim.apps.telecom.routeServiceRequest",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/routeServiceRequest.json"
     },
     {
@@ -1352,7 +1352,7 @@
       "proc": "delegateNfDiscovery",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/delegateNfDiscovery.bpmn",
       "bpmnProcessId": "telecom_delegate_nf_discovery",
-      "nsid": "ai.gftd.apps.telecom.delegateNfDiscovery",
+      "nsid": "app.etzhayyim.apps.telecom.delegateNfDiscovery",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/delegateNfDiscovery.json"
     },
     {
@@ -1361,7 +1361,7 @@
       "proc": "establishSeppContext",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/establishSeppContext.bpmn",
       "bpmnProcessId": "telecom_establish_sepp_context",
-      "nsid": "ai.gftd.apps.telecom.establishSeppContext",
+      "nsid": "app.etzhayyim.apps.telecom.establishSeppContext",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/establishSeppContext.json"
     },
     {
@@ -1370,7 +1370,7 @@
       "proc": "recordSeppMessage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordSeppMessage.bpmn",
       "bpmnProcessId": "telecom_record_sepp_message",
-      "nsid": "ai.gftd.apps.telecom.recordSeppMessage",
+      "nsid": "app.etzhayyim.apps.telecom.recordSeppMessage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordSeppMessage.json"
     },
     {
@@ -1379,7 +1379,7 @@
       "proc": "rotateSeppKey",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/rotateSeppKey.bpmn",
       "bpmnProcessId": "telecom_rotate_sepp_key",
-      "nsid": "ai.gftd.apps.telecom.rotateSeppKey",
+      "nsid": "app.etzhayyim.apps.telecom.rotateSeppKey",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/rotateSeppKey.json"
     },
     {
@@ -1388,7 +1388,7 @@
       "proc": "recordTrustNegotiation",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordTrustNegotiation.bpmn",
       "bpmnProcessId": "telecom_record_trust_negotiation",
-      "nsid": "ai.gftd.apps.telecom.recordTrustNegotiation",
+      "nsid": "app.etzhayyim.apps.telecom.recordTrustNegotiation",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordTrustNegotiation.json"
     },
     {
@@ -1397,7 +1397,7 @@
       "proc": "registerSmoNode",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerSmoNode.bpmn",
       "bpmnProcessId": "telecom_register_smo_node",
-      "nsid": "ai.gftd.apps.telecom.registerSmoNode",
+      "nsid": "app.etzhayyim.apps.telecom.registerSmoNode",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerSmoNode.json"
     },
     {
@@ -1406,7 +1406,7 @@
       "proc": "onboardRapp",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/onboardRapp.bpmn",
       "bpmnProcessId": "telecom_onboard_rapp",
-      "nsid": "ai.gftd.apps.telecom.onboardRapp",
+      "nsid": "app.etzhayyim.apps.telecom.onboardRapp",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/onboardRapp.json"
     },
     {
@@ -1415,7 +1415,7 @@
       "proc": "deployXapp",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/deployXapp.bpmn",
       "bpmnProcessId": "telecom_deploy_xapp",
-      "nsid": "ai.gftd.apps.telecom.deployXapp",
+      "nsid": "app.etzhayyim.apps.telecom.deployXapp",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/deployXapp.json"
     },
     {
@@ -1424,7 +1424,7 @@
       "proc": "applyA1Policy",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/applyA1Policy.bpmn",
       "bpmnProcessId": "telecom_apply_a1_policy",
-      "nsid": "ai.gftd.apps.telecom.applyA1Policy",
+      "nsid": "app.etzhayyim.apps.telecom.applyA1Policy",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/applyA1Policy.json"
     },
     {
@@ -1433,7 +1433,7 @@
       "proc": "subscribeE2Service",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/subscribeE2Service.bpmn",
       "bpmnProcessId": "telecom_subscribe_e2_service",
-      "nsid": "ai.gftd.apps.telecom.subscribeE2Service",
+      "nsid": "app.etzhayyim.apps.telecom.subscribeE2Service",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/subscribeE2Service.json"
     },
     {
@@ -1442,7 +1442,7 @@
       "proc": "recordE2Indication",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordE2Indication.bpmn",
       "bpmnProcessId": "telecom_record_e2_indication",
-      "nsid": "ai.gftd.apps.telecom.recordE2Indication",
+      "nsid": "app.etzhayyim.apps.telecom.recordE2Indication",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordE2Indication.json"
     },
     {
@@ -1451,7 +1451,7 @@
       "proc": "applyO1Configuration",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/applyO1Configuration.bpmn",
       "bpmnProcessId": "telecom_apply_o1_configuration",
-      "nsid": "ai.gftd.apps.telecom.applyO1Configuration",
+      "nsid": "app.etzhayyim.apps.telecom.applyO1Configuration",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/applyO1Configuration.json"
     },
     {
@@ -1460,7 +1460,7 @@
       "proc": "provisionO2Cloud",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionO2Cloud.bpmn",
       "bpmnProcessId": "telecom_provision_o2_cloud",
-      "nsid": "ai.gftd.apps.telecom.provisionO2Cloud",
+      "nsid": "app.etzhayyim.apps.telecom.provisionO2Cloud",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionO2Cloud.json"
     },
     {
@@ -1469,7 +1469,7 @@
       "proc": "registerEdgeHost",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerEdgeHost.bpmn",
       "bpmnProcessId": "telecom_register_edge_host",
-      "nsid": "ai.gftd.apps.telecom.registerEdgeHost",
+      "nsid": "app.etzhayyim.apps.telecom.registerEdgeHost",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerEdgeHost.json"
     },
     {
@@ -1478,7 +1478,7 @@
       "proc": "onboardEdgeApplication",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/onboardEdgeApplication.bpmn",
       "bpmnProcessId": "telecom_onboard_edge_application",
-      "nsid": "ai.gftd.apps.telecom.onboardEdgeApplication",
+      "nsid": "app.etzhayyim.apps.telecom.onboardEdgeApplication",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/onboardEdgeApplication.json"
     },
     {
@@ -1487,7 +1487,7 @@
       "proc": "instantiateEdgeAppInstance",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/instantiateEdgeAppInstance.bpmn",
       "bpmnProcessId": "telecom_instantiate_edge_app_instance",
-      "nsid": "ai.gftd.apps.telecom.instantiateEdgeAppInstance",
+      "nsid": "app.etzhayyim.apps.telecom.instantiateEdgeAppInstance",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/instantiateEdgeAppInstance.json"
     },
     {
@@ -1496,7 +1496,7 @@
       "proc": "discoverEdgeApplicationServer",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/discoverEdgeApplicationServer.bpmn",
       "bpmnProcessId": "telecom_discover_edge_application_server",
-      "nsid": "ai.gftd.apps.telecom.discoverEdgeApplicationServer",
+      "nsid": "app.etzhayyim.apps.telecom.discoverEdgeApplicationServer",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/discoverEdgeApplicationServer.json"
     },
     {
@@ -1505,7 +1505,7 @@
       "proc": "relocateEdgeAppInstance",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/relocateEdgeAppInstance.bpmn",
       "bpmnProcessId": "telecom_relocate_edge_app_instance",
-      "nsid": "ai.gftd.apps.telecom.relocateEdgeAppInstance",
+      "nsid": "app.etzhayyim.apps.telecom.relocateEdgeAppInstance",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/relocateEdgeAppInstance.json"
     },
     {
@@ -1514,7 +1514,7 @@
       "proc": "recordEdgeServiceCall",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordEdgeServiceCall.bpmn",
       "bpmnProcessId": "telecom_record_edge_service_call",
-      "nsid": "ai.gftd.apps.telecom.recordEdgeServiceCall",
+      "nsid": "app.etzhayyim.apps.telecom.recordEdgeServiceCall",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordEdgeServiceCall.json"
     },
     {
@@ -1523,7 +1523,7 @@
       "proc": "registerEdgeFederation",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerEdgeFederation.bpmn",
       "bpmnProcessId": "telecom_register_edge_federation",
-      "nsid": "ai.gftd.apps.telecom.registerEdgeFederation",
+      "nsid": "app.etzhayyim.apps.telecom.registerEdgeFederation",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerEdgeFederation.json"
     },
     {
@@ -1532,7 +1532,7 @@
       "proc": "terminateEdgeAppInstance",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/terminateEdgeAppInstance.bpmn",
       "bpmnProcessId": "telecom_terminate_edge_app_instance",
-      "nsid": "ai.gftd.apps.telecom.terminateEdgeAppInstance",
+      "nsid": "app.etzhayyim.apps.telecom.terminateEdgeAppInstance",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/terminateEdgeAppInstance.json"
     },
     {
@@ -1541,7 +1541,7 @@
       "proc": "registerSnpnDeployment",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerSnpnDeployment.bpmn",
       "bpmnProcessId": "telecom_register_snpn_deployment",
-      "nsid": "ai.gftd.apps.telecom.registerSnpnDeployment",
+      "nsid": "app.etzhayyim.apps.telecom.registerSnpnDeployment",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerSnpnDeployment.json"
     },
     {
@@ -1550,7 +1550,7 @@
       "proc": "registerCagGroup",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerCagGroup.bpmn",
       "bpmnProcessId": "telecom_register_cag_group",
-      "nsid": "ai.gftd.apps.telecom.registerCagGroup",
+      "nsid": "app.etzhayyim.apps.telecom.registerCagGroup",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerCagGroup.json"
     },
     {
@@ -1559,7 +1559,7 @@
       "proc": "registerNidAllocation",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerNidAllocation.bpmn",
       "bpmnProcessId": "telecom_register_nid_allocation",
-      "nsid": "ai.gftd.apps.telecom.registerNidAllocation",
+      "nsid": "app.etzhayyim.apps.telecom.registerNidAllocation",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerNidAllocation.json"
     },
     {
@@ -1568,7 +1568,7 @@
       "proc": "provisionPniNpnSlice",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionPniNpnSlice.bpmn",
       "bpmnProcessId": "telecom_provision_pni_npn_slice",
-      "nsid": "ai.gftd.apps.telecom.provisionPniNpnSlice",
+      "nsid": "app.etzhayyim.apps.telecom.provisionPniNpnSlice",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionPniNpnSlice.json"
     },
     {
@@ -1577,7 +1577,7 @@
       "proc": "mapSupiToGpsi",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/mapSupiToGpsi.bpmn",
       "bpmnProcessId": "telecom_map_supi_to_gpsi",
-      "nsid": "ai.gftd.apps.telecom.mapSupiToGpsi",
+      "nsid": "app.etzhayyim.apps.telecom.mapSupiToGpsi",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/mapSupiToGpsi.json"
     },
     {
@@ -1586,7 +1586,7 @@
       "proc": "enforceNsacfSliceAdmission",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/enforceNsacfSliceAdmission.bpmn",
       "bpmnProcessId": "telecom_enforce_nsacf_slice_admission",
-      "nsid": "ai.gftd.apps.telecom.enforceNsacfSliceAdmission",
+      "nsid": "app.etzhayyim.apps.telecom.enforceNsacfSliceAdmission",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/enforceNsacfSliceAdmission.json"
     },
     {
@@ -1595,7 +1595,7 @@
       "proc": "provisionProseDirectComm",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionProseDirectComm.bpmn",
       "bpmnProcessId": "telecom_provision_prose_direct_comm",
-      "nsid": "ai.gftd.apps.telecom.provisionProseDirectComm",
+      "nsid": "app.etzhayyim.apps.telecom.provisionProseDirectComm",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionProseDirectComm.json"
     },
     {
@@ -1604,7 +1604,7 @@
       "proc": "registerNonPublicSubscriber",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerNonPublicSubscriber.bpmn",
       "bpmnProcessId": "telecom_register_non_public_subscriber",
-      "nsid": "ai.gftd.apps.telecom.registerNonPublicSubscriber",
+      "nsid": "app.etzhayyim.apps.telecom.registerNonPublicSubscriber",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerNonPublicSubscriber.json"
     },
     {
@@ -1613,7 +1613,7 @@
       "proc": "onboardNetworkServiceDescriptor",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/onboardNetworkServiceDescriptor.bpmn",
       "bpmnProcessId": "telecom_onboard_network_service_descriptor",
-      "nsid": "ai.gftd.apps.telecom.onboardNetworkServiceDescriptor",
+      "nsid": "app.etzhayyim.apps.telecom.onboardNetworkServiceDescriptor",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/onboardNetworkServiceDescriptor.json"
     },
     {
@@ -1622,7 +1622,7 @@
       "proc": "onboardVnfDescriptor",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/onboardVnfDescriptor.bpmn",
       "bpmnProcessId": "telecom_onboard_vnf_descriptor",
-      "nsid": "ai.gftd.apps.telecom.onboardVnfDescriptor",
+      "nsid": "app.etzhayyim.apps.telecom.onboardVnfDescriptor",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/onboardVnfDescriptor.json"
     },
     {
@@ -1631,7 +1631,7 @@
       "proc": "instantiateNetworkService",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/instantiateNetworkService.bpmn",
       "bpmnProcessId": "telecom_instantiate_network_service",
-      "nsid": "ai.gftd.apps.telecom.instantiateNetworkService",
+      "nsid": "app.etzhayyim.apps.telecom.instantiateNetworkService",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/instantiateNetworkService.json"
     },
     {
@@ -1640,7 +1640,7 @@
       "proc": "instantiateVnf",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/instantiateVnf.bpmn",
       "bpmnProcessId": "telecom_instantiate_vnf",
-      "nsid": "ai.gftd.apps.telecom.instantiateVnf",
+      "nsid": "app.etzhayyim.apps.telecom.instantiateVnf",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/instantiateVnf.json"
     },
     {
@@ -1649,7 +1649,7 @@
       "proc": "scaleVnf",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/scaleVnf.bpmn",
       "bpmnProcessId": "telecom_scale_vnf",
-      "nsid": "ai.gftd.apps.telecom.scaleVnf",
+      "nsid": "app.etzhayyim.apps.telecom.scaleVnf",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/scaleVnf.json"
     },
     {
@@ -1658,7 +1658,7 @@
       "proc": "healVnf",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/healVnf.bpmn",
       "bpmnProcessId": "telecom_heal_vnf",
-      "nsid": "ai.gftd.apps.telecom.healVnf",
+      "nsid": "app.etzhayyim.apps.telecom.healVnf",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/healVnf.json"
     },
     {
@@ -1667,7 +1667,7 @@
       "proc": "provisionSdnFlow",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionSdnFlow.bpmn",
       "bpmnProcessId": "telecom_provision_sdn_flow",
-      "nsid": "ai.gftd.apps.telecom.provisionSdnFlow",
+      "nsid": "app.etzhayyim.apps.telecom.provisionSdnFlow",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionSdnFlow.json"
     },
     {
@@ -1676,7 +1676,7 @@
       "proc": "terminateNetworkService",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/terminateNetworkService.bpmn",
       "bpmnProcessId": "telecom_terminate_network_service",
-      "nsid": "ai.gftd.apps.telecom.terminateNetworkService",
+      "nsid": "app.etzhayyim.apps.telecom.terminateNetworkService",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/terminateNetworkService.json"
     },
     {
@@ -1685,7 +1685,7 @@
       "proc": "registerWlanRcoi",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerWlanRcoi.bpmn",
       "bpmnProcessId": "telecom_register_wlan_rcoi",
-      "nsid": "ai.gftd.apps.telecom.registerWlanRcoi",
+      "nsid": "app.etzhayyim.apps.telecom.registerWlanRcoi",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerWlanRcoi.json"
     },
     {
@@ -1694,7 +1694,7 @@
       "proc": "registerHotspotVenue",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerHotspotVenue.bpmn",
       "bpmnProcessId": "telecom_register_hotspot_venue",
-      "nsid": "ai.gftd.apps.telecom.registerHotspotVenue",
+      "nsid": "app.etzhayyim.apps.telecom.registerHotspotVenue",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerHotspotVenue.json"
     },
     {
@@ -1703,7 +1703,7 @@
       "proc": "provisionPasspointPpsMo",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionPasspointPpsMo.bpmn",
       "bpmnProcessId": "telecom_provision_passpoint_pps_mo",
-      "nsid": "ai.gftd.apps.telecom.provisionPasspointPpsMo",
+      "nsid": "app.etzhayyim.apps.telecom.provisionPasspointPpsMo",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionPasspointPpsMo.json"
     },
     {
@@ -1712,7 +1712,7 @@
       "proc": "recordAnqpQuery",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordAnqpQuery.bpmn",
       "bpmnProcessId": "telecom_record_anqp_query",
-      "nsid": "ai.gftd.apps.telecom.recordAnqpQuery",
+      "nsid": "app.etzhayyim.apps.telecom.recordAnqpQuery",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordAnqpQuery.json"
     },
     {
@@ -1721,7 +1721,7 @@
       "proc": "attachWlanSession",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/attachWlanSession.bpmn",
       "bpmnProcessId": "telecom_attach_wlan_session",
-      "nsid": "ai.gftd.apps.telecom.attachWlanSession",
+      "nsid": "app.etzhayyim.apps.telecom.attachWlanSession",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/attachWlanSession.json"
     },
     {
@@ -1730,7 +1730,7 @@
       "proc": "recordWlanRoamingExchange",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordWlanRoamingExchange.bpmn",
       "bpmnProcessId": "telecom_record_wlan_roaming_exchange",
-      "nsid": "ai.gftd.apps.telecom.recordWlanRoamingExchange",
+      "nsid": "app.etzhayyim.apps.telecom.recordWlanRoamingExchange",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordWlanRoamingExchange.json"
     },
     {
@@ -1739,7 +1739,7 @@
       "proc": "bridgeAndspToCellular",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/bridgeAndspToCellular.bpmn",
       "bpmnProcessId": "telecom_bridge_andsp_to_cellular",
-      "nsid": "ai.gftd.apps.telecom.bridgeAndspToCellular",
+      "nsid": "app.etzhayyim.apps.telecom.bridgeAndspToCellular",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/bridgeAndspToCellular.json"
     },
     {
@@ -1748,7 +1748,7 @@
       "proc": "settleWlanRoamingInvoice",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/settleWlanRoamingInvoice.bpmn",
       "bpmnProcessId": "telecom_settle_wlan_roaming_invoice",
-      "nsid": "ai.gftd.apps.telecom.settleWlanRoamingInvoice",
+      "nsid": "app.etzhayyim.apps.telecom.settleWlanRoamingInvoice",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/settleWlanRoamingInvoice.json"
     },
     {
@@ -1757,7 +1757,7 @@
       "proc": "registerSatellite",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerSatellite.bpmn",
       "bpmnProcessId": "telecom_register_satellite",
-      "nsid": "ai.gftd.apps.telecom.registerSatellite",
+      "nsid": "app.etzhayyim.apps.telecom.registerSatellite",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerSatellite.json"
     },
     {
@@ -1766,7 +1766,7 @@
       "proc": "registerEarthStation",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerEarthStation.bpmn",
       "bpmnProcessId": "telecom_register_earth_station",
-      "nsid": "ai.gftd.apps.telecom.registerEarthStation",
+      "nsid": "app.etzhayyim.apps.telecom.registerEarthStation",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerEarthStation.json"
     },
     {
@@ -1775,7 +1775,7 @@
       "proc": "provisionNtnCell",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionNtnCell.bpmn",
       "bpmnProcessId": "telecom_provision_ntn_cell",
-      "nsid": "ai.gftd.apps.telecom.provisionNtnCell",
+      "nsid": "app.etzhayyim.apps.telecom.provisionNtnCell",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionNtnCell.json"
     },
     {
@@ -1784,7 +1784,7 @@
       "proc": "recordEphemeris",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordEphemeris.bpmn",
       "bpmnProcessId": "telecom_record_ephemeris",
-      "nsid": "ai.gftd.apps.telecom.recordEphemeris",
+      "nsid": "app.etzhayyim.apps.telecom.recordEphemeris",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordEphemeris.json"
     },
     {
@@ -1793,7 +1793,7 @@
       "proc": "recordNtnHandover",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordNtnHandover.bpmn",
       "bpmnProcessId": "telecom_record_ntn_handover",
-      "nsid": "ai.gftd.apps.telecom.recordNtnHandover",
+      "nsid": "app.etzhayyim.apps.telecom.recordNtnHandover",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordNtnHandover.json"
     },
     {
@@ -1802,7 +1802,7 @@
       "proc": "provisionInterSatelliteLink",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionInterSatelliteLink.bpmn",
       "bpmnProcessId": "telecom_provision_inter_satellite_link",
-      "nsid": "ai.gftd.apps.telecom.provisionInterSatelliteLink",
+      "nsid": "app.etzhayyim.apps.telecom.provisionInterSatelliteLink",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionInterSatelliteLink.json"
     },
     {
@@ -1811,7 +1811,7 @@
       "proc": "recordEarthStationContact",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordEarthStationContact.bpmn",
       "bpmnProcessId": "telecom_record_earth_station_contact",
-      "nsid": "ai.gftd.apps.telecom.recordEarthStationContact",
+      "nsid": "app.etzhayyim.apps.telecom.recordEarthStationContact",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordEarthStationContact.json"
     },
     {
@@ -1820,7 +1820,7 @@
       "proc": "registerNtnRoamingPartner",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerNtnRoamingPartner.bpmn",
       "bpmnProcessId": "telecom_register_ntn_roaming_partner",
-      "nsid": "ai.gftd.apps.telecom.registerNtnRoamingPartner",
+      "nsid": "app.etzhayyim.apps.telecom.registerNtnRoamingPartner",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerNtnRoamingPartner.json"
     },
     {
@@ -1829,7 +1829,7 @@
       "proc": "registerTsnDomain",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerTsnDomain.bpmn",
       "bpmnProcessId": "telecom_register_tsn_domain",
-      "nsid": "ai.gftd.apps.telecom.registerTsnDomain",
+      "nsid": "app.etzhayyim.apps.telecom.registerTsnDomain",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerTsnDomain.json"
     },
     {
@@ -1838,7 +1838,7 @@
       "proc": "registerTsnBridge",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerTsnBridge.bpmn",
       "bpmnProcessId": "telecom_register_tsn_bridge",
-      "nsid": "ai.gftd.apps.telecom.registerTsnBridge",
+      "nsid": "app.etzhayyim.apps.telecom.registerTsnBridge",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerTsnBridge.json"
     },
     {
@@ -1847,7 +1847,7 @@
       "proc": "provisionGptpSync",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionGptpSync.bpmn",
       "bpmnProcessId": "telecom_provision_gptp_sync",
-      "nsid": "ai.gftd.apps.telecom.provisionGptpSync",
+      "nsid": "app.etzhayyim.apps.telecom.provisionGptpSync",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionGptpSync.json"
     },
     {
@@ -1856,7 +1856,7 @@
       "proc": "reserveStream",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/reserveStream.bpmn",
       "bpmnProcessId": "telecom_reserve_stream",
-      "nsid": "ai.gftd.apps.telecom.reserveStream",
+      "nsid": "app.etzhayyim.apps.telecom.reserveStream",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/reserveStream.json"
     },
     {
@@ -1865,7 +1865,7 @@
       "proc": "applyTrafficShaper",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/applyTrafficShaper.bpmn",
       "bpmnProcessId": "telecom_apply_traffic_shaper",
-      "nsid": "ai.gftd.apps.telecom.applyTrafficShaper",
+      "nsid": "app.etzhayyim.apps.telecom.applyTrafficShaper",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/applyTrafficShaper.json"
     },
     {
@@ -1874,7 +1874,7 @@
       "proc": "enableFrer",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/enableFrer.bpmn",
       "bpmnProcessId": "telecom_enable_frer",
-      "nsid": "ai.gftd.apps.telecom.enableFrer",
+      "nsid": "app.etzhayyim.apps.telecom.enableFrer",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/enableFrer.json"
     },
     {
@@ -1883,7 +1883,7 @@
       "proc": "recordSyncDeviation",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordSyncDeviation.bpmn",
       "bpmnProcessId": "telecom_record_sync_deviation",
-      "nsid": "ai.gftd.apps.telecom.recordSyncDeviation",
+      "nsid": "app.etzhayyim.apps.telecom.recordSyncDeviation",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordSyncDeviation.json"
     },
     {
@@ -1892,7 +1892,7 @@
       "proc": "recordStreamSlaBreach",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordStreamSlaBreach.bpmn",
       "bpmnProcessId": "telecom_record_stream_sla_breach",
-      "nsid": "ai.gftd.apps.telecom.recordStreamSlaBreach",
+      "nsid": "app.etzhayyim.apps.telecom.recordStreamSlaBreach",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordStreamSlaBreach.json"
     },
     {
@@ -1901,7 +1901,7 @@
       "proc": "registerOpticalDomain",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerOpticalDomain.bpmn",
       "bpmnProcessId": "telecom_register_optical_domain",
-      "nsid": "ai.gftd.apps.telecom.registerOpticalDomain",
+      "nsid": "app.etzhayyim.apps.telecom.registerOpticalDomain",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerOpticalDomain.json"
     },
     {
@@ -1910,7 +1910,7 @@
       "proc": "registerOpticalLineSystem",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerOpticalLineSystem.bpmn",
       "bpmnProcessId": "telecom_register_optical_line_system",
-      "nsid": "ai.gftd.apps.telecom.registerOpticalLineSystem",
+      "nsid": "app.etzhayyim.apps.telecom.registerOpticalLineSystem",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerOpticalLineSystem.json"
     },
     {
@@ -1919,7 +1919,7 @@
       "proc": "registerRoadm",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerRoadm.bpmn",
       "bpmnProcessId": "telecom_register_roadm",
-      "nsid": "ai.gftd.apps.telecom.registerRoadm",
+      "nsid": "app.etzhayyim.apps.telecom.registerRoadm",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerRoadm.json"
     },
     {
@@ -1928,7 +1928,7 @@
       "proc": "registerFiberSpan",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerFiberSpan.bpmn",
       "bpmnProcessId": "telecom_register_fiber_span",
-      "nsid": "ai.gftd.apps.telecom.registerFiberSpan",
+      "nsid": "app.etzhayyim.apps.telecom.registerFiberSpan",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerFiberSpan.json"
     },
     {
@@ -1937,7 +1937,7 @@
       "proc": "provisionDwdmChannel",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionDwdmChannel.bpmn",
       "bpmnProcessId": "telecom_provision_dwdm_channel",
-      "nsid": "ai.gftd.apps.telecom.provisionDwdmChannel",
+      "nsid": "app.etzhayyim.apps.telecom.provisionDwdmChannel",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionDwdmChannel.json"
     },
     {
@@ -1946,7 +1946,7 @@
       "proc": "provisionOtnConnection",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionOtnConnection.bpmn",
       "bpmnProcessId": "telecom_provision_otn_connection",
-      "nsid": "ai.gftd.apps.telecom.provisionOtnConnection",
+      "nsid": "app.etzhayyim.apps.telecom.provisionOtnConnection",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionOtnConnection.json"
     },
     {
@@ -1955,7 +1955,7 @@
       "proc": "recordOpticalAlarm",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordOpticalAlarm.bpmn",
       "bpmnProcessId": "telecom_record_optical_alarm",
-      "nsid": "ai.gftd.apps.telecom.recordOpticalAlarm",
+      "nsid": "app.etzhayyim.apps.telecom.recordOpticalAlarm",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordOpticalAlarm.json"
     },
     {
@@ -1964,7 +1964,7 @@
       "proc": "recordPmEvent",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordPmEvent.bpmn",
       "bpmnProcessId": "telecom_record_pm_event",
-      "nsid": "ai.gftd.apps.telecom.recordPmEvent",
+      "nsid": "app.etzhayyim.apps.telecom.recordPmEvent",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordPmEvent.json"
     },
     {
@@ -1973,7 +1973,7 @@
       "proc": "publishProductOffering",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/publishProductOffering.bpmn",
       "bpmnProcessId": "telecom_publish_product_offering",
-      "nsid": "ai.gftd.apps.telecom.publishProductOffering",
+      "nsid": "app.etzhayyim.apps.telecom.publishProductOffering",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/publishProductOffering.json"
     },
     {
@@ -1982,7 +1982,7 @@
       "proc": "submitProductOrder",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/submitProductOrder.bpmn",
       "bpmnProcessId": "telecom_submit_product_order",
-      "nsid": "ai.gftd.apps.telecom.submitProductOrder",
+      "nsid": "app.etzhayyim.apps.telecom.submitProductOrder",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/submitProductOrder.json"
     },
     {
@@ -1991,7 +1991,7 @@
       "proc": "recordProductInventoryItem",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordProductInventoryItem.bpmn",
       "bpmnProcessId": "telecom_record_product_inventory_item",
-      "nsid": "ai.gftd.apps.telecom.recordProductInventoryItem",
+      "nsid": "app.etzhayyim.apps.telecom.recordProductInventoryItem",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordProductInventoryItem.json"
     },
     {
@@ -2000,7 +2000,7 @@
       "proc": "submitServiceOrder",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/submitServiceOrder.bpmn",
       "bpmnProcessId": "telecom_submit_service_order",
-      "nsid": "ai.gftd.apps.telecom.submitServiceOrder",
+      "nsid": "app.etzhayyim.apps.telecom.submitServiceOrder",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/submitServiceOrder.json"
     },
     {
@@ -2009,7 +2009,7 @@
       "proc": "activateServiceInstance",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/activateServiceInstance.bpmn",
       "bpmnProcessId": "telecom_activate_service_instance",
-      "nsid": "ai.gftd.apps.telecom.activateServiceInstance",
+      "nsid": "app.etzhayyim.apps.telecom.activateServiceInstance",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/activateServiceInstance.json"
     },
     {
@@ -2018,7 +2018,7 @@
       "proc": "recordServiceInventoryItem",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/recordServiceInventoryItem.bpmn",
       "bpmnProcessId": "telecom_record_service_inventory_item",
-      "nsid": "ai.gftd.apps.telecom.recordServiceInventoryItem",
+      "nsid": "app.etzhayyim.apps.telecom.recordServiceInventoryItem",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/recordServiceInventoryItem.json"
     },
     {
@@ -2027,7 +2027,7 @@
       "proc": "registerCustomerAccount",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerCustomerAccount.bpmn",
       "bpmnProcessId": "telecom_register_customer_account",
-      "nsid": "ai.gftd.apps.telecom.registerCustomerAccount",
+      "nsid": "app.etzhayyim.apps.telecom.registerCustomerAccount",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerCustomerAccount.json"
     },
     {
@@ -2036,7 +2036,7 @@
       "proc": "issueCustomerBill",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/issueCustomerBill.bpmn",
       "bpmnProcessId": "telecom_issue_customer_bill",
-      "nsid": "ai.gftd.apps.telecom.issueCustomerBill",
+      "nsid": "app.etzhayyim.apps.telecom.issueCustomerBill",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/issueCustomerBill.json"
     },
     {
@@ -2045,7 +2045,7 @@
       "proc": "provisionEuicc",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/provisionEuicc.bpmn",
       "bpmnProcessId": "telecom_provision_euicc",
-      "nsid": "ai.gftd.apps.telecom.provisionEuicc",
+      "nsid": "app.etzhayyim.apps.telecom.provisionEuicc",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/provisionEuicc.json"
     },
     {
@@ -2054,7 +2054,7 @@
       "proc": "downloadEsimProfile",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/downloadEsimProfile.bpmn",
       "bpmnProcessId": "telecom_download_esim_profile",
-      "nsid": "ai.gftd.apps.telecom.downloadEsimProfile",
+      "nsid": "app.etzhayyim.apps.telecom.downloadEsimProfile",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/downloadEsimProfile.json"
     },
     {
@@ -2063,7 +2063,7 @@
       "proc": "enableEsimProfile",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/enableEsimProfile.bpmn",
       "bpmnProcessId": "telecom_enable_esim_profile",
-      "nsid": "ai.gftd.apps.telecom.enableEsimProfile",
+      "nsid": "app.etzhayyim.apps.telecom.enableEsimProfile",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/enableEsimProfile.json"
     },
     {
@@ -2072,7 +2072,7 @@
       "proc": "disableEsimProfile",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/disableEsimProfile.bpmn",
       "bpmnProcessId": "telecom_disable_esim_profile",
-      "nsid": "ai.gftd.apps.telecom.disableEsimProfile",
+      "nsid": "app.etzhayyim.apps.telecom.disableEsimProfile",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/disableEsimProfile.json"
     },
     {
@@ -2081,7 +2081,7 @@
       "proc": "deleteEsimProfile",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/deleteEsimProfile.bpmn",
       "bpmnProcessId": "telecom_delete_esim_profile",
-      "nsid": "ai.gftd.apps.telecom.deleteEsimProfile",
+      "nsid": "app.etzhayyim.apps.telecom.deleteEsimProfile",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/deleteEsimProfile.json"
     },
     {
@@ -2090,7 +2090,7 @@
       "proc": "registerSmdpEvent",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/registerSmdpEvent.bpmn",
       "bpmnProcessId": "telecom_register_smdp_event",
-      "nsid": "ai.gftd.apps.telecom.registerSmdpEvent",
+      "nsid": "app.etzhayyim.apps.telecom.registerSmdpEvent",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/registerSmdpEvent.json"
     },
     {
@@ -2099,7 +2099,7 @@
       "proc": "auditEuiccState",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/auditEuiccState.bpmn",
       "bpmnProcessId": "telecom_audit_euicc_state",
-      "nsid": "ai.gftd.apps.telecom.auditEuiccState",
+      "nsid": "app.etzhayyim.apps.telecom.auditEuiccState",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/auditEuiccState.json"
     },
     {
@@ -2108,7 +2108,7 @@
       "proc": "transferEsimOwnership",
       "sourcePath": "00-contracts/bpmn/ai/gftd/telecom/transferEsimOwnership.bpmn",
       "bpmnProcessId": "telecom_transfer_esim_ownership",
-      "nsid": "ai.gftd.apps.telecom.transferEsimOwnership",
+      "nsid": "app.etzhayyim.apps.telecom.transferEsimOwnership",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/telecom/transferEsimOwnership.json"
     },
     {
@@ -2117,7 +2117,7 @@
       "proc": "socialArbitrageIntel",
       "sourcePath": "00-contracts/bpmn/ai/gftd/news/socialArbitrageIntel.bpmn",
       "bpmnProcessId": "news_social_arbitrage_intel",
-      "nsid": "ai.gftd.apps.news.socialArbitrageIntel",
+      "nsid": "app.etzhayyim.apps.news.socialArbitrageIntel",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/news/socialArbitrageIntel.json"
     },
     {
@@ -2126,7 +2126,7 @@
       "proc": "rssIngest",
       "sourcePath": "00-contracts/bpmn/ai/gftd/news/rssIngest.bpmn",
       "bpmnProcessId": "news_rss_ingest",
-      "nsid": "ai.gftd.apps.news.rssIngest",
+      "nsid": "app.etzhayyim.apps.news.rssIngest",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/news/rssIngest.json"
     },
     {
@@ -2135,7 +2135,7 @@
       "proc": "liveAudioIngest",
       "sourcePath": "00-contracts/bpmn/ai/gftd/news/liveAudioIngest.bpmn",
       "bpmnProcessId": "news_live_audio_ingest",
-      "nsid": "ai.gftd.apps.news.liveAudioIngest",
+      "nsid": "app.etzhayyim.apps.news.liveAudioIngest",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/news/liveAudioIngest.json"
     },
     {
@@ -2144,7 +2144,7 @@
       "proc": "guideGenerate",
       "sourcePath": "00-contracts/bpmn/ai/gftd/media-gamers/guideGenerate.bpmn",
       "bpmnProcessId": "media_gamers_guide_generate",
-      "nsid": "ai.gftd.apps.media_gamers.guide.guideGenerate",
+      "nsid": "app.etzhayyim.apps.media_gamers.guide.guideGenerate",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/media_gamers/guide/guideGenerate.json"
     },
     {
@@ -2153,7 +2153,7 @@
       "proc": "knowledgeGuideGenerate",
       "sourcePath": "00-contracts/bpmn/ai/gftd/media-gamers/knowledgeGuideGenerate.bpmn",
       "bpmnProcessId": "media_gamers_knowledge_guide_generate",
-      "nsid": "ai.gftd.apps.media_gamers.knowledge.knowledgeGuideGenerate",
+      "nsid": "app.etzhayyim.apps.media_gamers.knowledge.knowledgeGuideGenerate",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/media_gamers/knowledge/knowledgeGuideGenerate.json"
     },
     {
@@ -2162,7 +2162,7 @@
       "proc": "evalModels",
       "sourcePath": "00-contracts/bpmn/ai/gftd/media-gamers/evalModels.bpmn",
       "bpmnProcessId": "media_gamers_eval_models",
-      "nsid": "ai.gftd.apps.media_gamers.evalModelsProcess",
+      "nsid": "app.etzhayyim.apps.media_gamers.evalModelsProcess",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/media_gamers/evalModelsProcess.json"
     },
     {
@@ -2171,7 +2171,7 @@
       "proc": "analyzeMessage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/smishing/analyzeMessage.bpmn",
       "bpmnProcessId": "smishing_analyze_message",
-      "nsid": "ai.gftd.apps.smishing.analyzeMessageProcess",
+      "nsid": "app.etzhayyim.apps.smishing.analyzeMessageProcess",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/smishing/analyzeMessageProcess.json"
     },
     {
@@ -2180,7 +2180,7 @@
       "proc": "collectGlobalGleif",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectGlobalGleif.bpmn",
       "bpmnProcessId": "legal_entity_collect_global_gleif",
-      "nsid": "ai.gftd.apps.legalEntity.collectGlobalGleif",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectGlobalGleif",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectGlobalGleif.json"
     },
     {
@@ -2189,7 +2189,7 @@
       "proc": "registerGleifDids",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/registerGleifDids.bpmn",
       "bpmnProcessId": "legal_entity_register_gleif_dids",
-      "nsid": "ai.gftd.apps.legalEntity.registerGleifDids",
+      "nsid": "app.etzhayyim.apps.legalEntity.registerGleifDids",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/registerGleifDids.json"
     },
     {
@@ -2198,7 +2198,7 @@
       "proc": "collectUsaEdgar",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectUsaEdgar.bpmn",
       "bpmnProcessId": "legal_entity_collect_usa_edgar",
-      "nsid": "ai.gftd.apps.legalEntity.collectUsaEdgar",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectUsaEdgar",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectUsaEdgar.json"
     },
     {
@@ -2207,7 +2207,7 @@
       "proc": "ingestSecDisclosure",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/ingestSecDisclosure.bpmn",
       "bpmnProcessId": "legal_entity_ingest_sec_disclosure",
-      "nsid": "ai.gftd.apps.legalEntity.ingestSecDisclosure",
+      "nsid": "app.etzhayyim.apps.legalEntity.ingestSecDisclosure",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/ingestSecDisclosure.json"
     },
     {
@@ -2216,7 +2216,7 @@
       "proc": "collectJpn",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectJpn.bpmn",
       "bpmnProcessId": "legal_entity_collect_jpn",
-      "nsid": "ai.gftd.apps.legalEntity.collectJpn",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectJpn",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectJpn.json"
     },
     {
@@ -2225,7 +2225,7 @@
       "proc": "collectGbr",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectGbr.bpmn",
       "bpmnProcessId": "legal_entity_collect_gbr",
-      "nsid": "ai.gftd.apps.legalEntity.collectGbr",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectGbr",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectGbr.json"
     },
     {
@@ -2234,7 +2234,7 @@
       "proc": "collectFra",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectFra.bpmn",
       "bpmnProcessId": "legal_entity_collect_fra",
-      "nsid": "ai.gftd.apps.legalEntity.collectFra",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectFra",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectFra.json"
     },
     {
@@ -2243,7 +2243,7 @@
       "proc": "collectNor",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectNor.bpmn",
       "bpmnProcessId": "legal_entity_collect_nor",
-      "nsid": "ai.gftd.apps.legalEntity.collectNor",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectNor",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectNor.json"
     },
     {
@@ -2252,7 +2252,7 @@
       "proc": "collectDnk",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectDnk.bpmn",
       "bpmnProcessId": "legal_entity_collect_dnk",
-      "nsid": "ai.gftd.apps.legalEntity.collectDnk",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectDnk",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectDnk.json"
     },
     {
@@ -2261,7 +2261,7 @@
       "proc": "collectFin",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectFin.bpmn",
       "bpmnProcessId": "legal_entity_collect_fin",
-      "nsid": "ai.gftd.apps.legalEntity.collectFin",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectFin",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectFin.json"
     },
     {
@@ -2270,7 +2270,7 @@
       "proc": "collectEst",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectEst.bpmn",
       "bpmnProcessId": "legal_entity_collect_est",
-      "nsid": "ai.gftd.apps.legalEntity.collectEst",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectEst",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectEst.json"
     },
     {
@@ -2279,7 +2279,7 @@
       "proc": "collectCze",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectCze.bpmn",
       "bpmnProcessId": "legal_entity_collect_cze",
-      "nsid": "ai.gftd.apps.legalEntity.collectCze",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectCze",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectCze.json"
     },
     {
@@ -2288,7 +2288,7 @@
       "proc": "collectNzl",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectNzl.bpmn",
       "bpmnProcessId": "legal_entity_collect_nzl",
-      "nsid": "ai.gftd.apps.legalEntity.collectNzl",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectNzl",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectNzl.json"
     },
     {
@@ -2297,7 +2297,7 @@
       "proc": "collectChe",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectChe.bpmn",
       "bpmnProcessId": "legal_entity_collect_che",
-      "nsid": "ai.gftd.apps.legalEntity.collectChe",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectChe",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectChe.json"
     },
     {
@@ -2306,7 +2306,7 @@
       "proc": "collectNld",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectNld.bpmn",
       "bpmnProcessId": "legal_entity_collect_nld",
-      "nsid": "ai.gftd.apps.legalEntity.collectNld",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectNld",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectNld.json"
     },
     {
@@ -2315,7 +2315,7 @@
       "proc": "collectIsr",
       "sourcePath": "00-contracts/bpmn/ai/gftd/legal-entity/collectIsr.bpmn",
       "bpmnProcessId": "legal_entity_collect_isr",
-      "nsid": "ai.gftd.apps.legalEntity.collectIsr",
+      "nsid": "app.etzhayyim.apps.legalEntity.collectIsr",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/legalEntity/collectIsr.json"
     },
     {
@@ -2324,7 +2324,7 @@
       "proc": "analyzeCamera",
       "sourcePath": "00-contracts/bpmn/ai/gftd/livecam/analyzeCamera.bpmn",
       "bpmnProcessId": "livecam_analyze_camera",
-      "nsid": "ai.gftd.apps.livecam.analyzeCamera",
+      "nsid": "app.etzhayyim.apps.livecam.analyzeCamera",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/livecam/analyzeCamera.json"
     },
     {
@@ -2333,7 +2333,7 @@
       "proc": "generateImage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/comfyui/generateImage.bpmn",
       "bpmnProcessId": "comfyui_openai_image_generation",
-      "nsid": "ai.gftd.apps.comfyui.generateImage",
+      "nsid": "app.etzhayyim.apps.comfyui.generateImage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/comfyui/generateImage.json"
     },
     {
@@ -2342,7 +2342,7 @@
       "proc": "editImage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/comfyui/editImage.bpmn",
       "bpmnProcessId": "comfyui_openai_image_edit",
-      "nsid": "ai.gftd.apps.comfyui.editImage",
+      "nsid": "app.etzhayyim.apps.comfyui.editImage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/comfyui/editImage.json"
     },
     {
@@ -2351,7 +2351,7 @@
       "proc": "generateImageStandalone",
       "sourcePath": "00-contracts/bpmn/ai/gftd/mangaka/generateImageStandalone.bpmn",
       "bpmnProcessId": "mangaka_generate_image_standalone",
-      "nsid": "ai.gftd.apps.mangaka.generateImage",
+      "nsid": "app.etzhayyim.apps.mangaka.generateImage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/mangaka/generateImage.json"
     },
     {
@@ -2360,7 +2360,7 @@
       "proc": "realtimeDraw",
       "sourcePath": "00-contracts/bpmn/ai/gftd/mangaka/realtimeDraw.bpmn",
       "bpmnProcessId": "mangaka_realtime_draw",
-      "nsid": "ai.gftd.apps.mangaka.realtimeDraw",
+      "nsid": "app.etzhayyim.apps.mangaka.realtimeDraw",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/mangaka/realtimeDraw.json"
     },
     {
@@ -2369,7 +2369,7 @@
       "proc": "storyboardStandalone",
       "sourcePath": "00-contracts/bpmn/ai/gftd/mangaka/storyboardStandalone.bpmn",
       "bpmnProcessId": "mangaka_storyboard_standalone",
-      "nsid": "ai.gftd.apps.mangaka.storyboard",
+      "nsid": "app.etzhayyim.apps.mangaka.storyboard",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/mangaka/storyboard.json"
     },
     {
@@ -2378,7 +2378,7 @@
       "proc": "autoLayoutStandalone",
       "sourcePath": "00-contracts/bpmn/ai/gftd/mangaka/autoLayoutStandalone.bpmn",
       "bpmnProcessId": "mangaka_auto_layout_standalone",
-      "nsid": "ai.gftd.apps.mangaka.autoLayout",
+      "nsid": "app.etzhayyim.apps.mangaka.autoLayout",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/mangaka/autoLayout.json"
     },
     {
@@ -2387,7 +2387,7 @@
       "proc": "projectChatStandalone",
       "sourcePath": "00-contracts/bpmn/ai/gftd/mangaka/projectChatStandalone.bpmn",
       "bpmnProcessId": "mangaka_project_chat_standalone",
-      "nsid": "ai.gftd.apps.mangaka.projectChat",
+      "nsid": "app.etzhayyim.apps.mangaka.projectChat",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/mangaka/projectChat.json"
     },
     {
@@ -2396,7 +2396,7 @@
       "proc": "ingestJobs",
       "sourcePath": "00-contracts/bpmn/ai/gftd/shigotoba/ingestJobs.bpmn",
       "bpmnProcessId": "shigotoba_ingest_jobs",
-      "nsid": "ai.gftd.apps.shigotoba.ingestJobs",
+      "nsid": "app.etzhayyim.apps.shigotoba.ingestJobs",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/shigotoba/ingestJobs.json"
     },
     {
@@ -2405,7 +2405,7 @@
       "proc": "summarize",
       "sourcePath": "00-contracts/bpmn/ai/gftd/shigotoba/summarize.bpmn",
       "bpmnProcessId": "shigotoba_summarize",
-      "nsid": "ai.gftd.apps.shigotoba.summarize",
+      "nsid": "app.etzhayyim.apps.shigotoba.summarize",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/shigotoba/summarize.json"
     },
     {
@@ -2414,7 +2414,7 @@
       "proc": "registerSource",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/registerSource.bpmn",
       "bpmnProcessId": "maps_collection_registerSource",
-      "nsid": "ai.gftd.apps.maps.registerSource",
+      "nsid": "app.etzhayyim.apps.maps.registerSource",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerSource.json"
     },
     {
@@ -2423,7 +2423,7 @@
       "proc": "listSources",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/listSources.bpmn",
       "bpmnProcessId": "maps_collection_listSources",
-      "nsid": "ai.gftd.apps.maps.listSources",
+      "nsid": "app.etzhayyim.apps.maps.listSources",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listSources.json"
     },
     {
@@ -2432,7 +2432,7 @@
       "proc": "createCollectionJob",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/createCollectionJob.bpmn",
       "bpmnProcessId": "maps_collection_createCollectionJob",
-      "nsid": "ai.gftd.apps.maps.createCollectionJob",
+      "nsid": "app.etzhayyim.apps.maps.createCollectionJob",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/createCollectionJob.json"
     },
     {
@@ -2441,7 +2441,7 @@
       "proc": "advanceJob",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/advanceJob.bpmn",
       "bpmnProcessId": "maps_collection_advanceJob",
-      "nsid": "ai.gftd.apps.maps.advanceJob",
+      "nsid": "app.etzhayyim.apps.maps.advanceJob",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/advanceJob.json"
     },
     {
@@ -2450,7 +2450,7 @@
       "proc": "listJobs",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/listJobs.bpmn",
       "bpmnProcessId": "maps_collection_listJobs",
-      "nsid": "ai.gftd.apps.maps.listJobs",
+      "nsid": "app.etzhayyim.apps.maps.listJobs",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listJobs.json"
     },
     {
@@ -2459,7 +2459,7 @@
       "proc": "getJobStatus",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/getJobStatus.bpmn",
       "bpmnProcessId": "maps_collection_getJobStatus",
-      "nsid": "ai.gftd.apps.maps.getJobStatus",
+      "nsid": "app.etzhayyim.apps.maps.getJobStatus",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/getJobStatus.json"
     },
     {
@@ -2468,7 +2468,7 @@
       "proc": "storeDataset",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/storeDataset.bpmn",
       "bpmnProcessId": "maps_collection_storeDataset",
-      "nsid": "ai.gftd.apps.maps.storeDataset",
+      "nsid": "app.etzhayyim.apps.maps.storeDataset",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/storeDataset.json"
     },
     {
@@ -2477,7 +2477,7 @@
       "proc": "getDataset",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/getDataset.bpmn",
       "bpmnProcessId": "maps_collection_getDataset",
-      "nsid": "ai.gftd.apps.maps.getDataset",
+      "nsid": "app.etzhayyim.apps.maps.getDataset",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/getDataset.json"
     },
     {
@@ -2486,7 +2486,7 @@
       "proc": "listDatasets",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/listDatasets.bpmn",
       "bpmnProcessId": "maps_collection_listDatasets",
-      "nsid": "ai.gftd.apps.maps.listDatasets",
+      "nsid": "app.etzhayyim.apps.maps.listDatasets",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listDatasets.json"
     },
     {
@@ -2495,7 +2495,7 @@
       "proc": "getPipelineStats",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/getPipelineStats.bpmn",
       "bpmnProcessId": "maps_collection_getPipelineStats",
-      "nsid": "ai.gftd.apps.maps.getPipelineStats",
+      "nsid": "app.etzhayyim.apps.maps.getPipelineStats",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/getPipelineStats.json"
     },
     {
@@ -2504,7 +2504,7 @@
       "proc": "importOsmPois",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/importOsmPois.bpmn",
       "bpmnProcessId": "maps_collection_importOsmPois",
-      "nsid": "ai.gftd.apps.maps.importOsmPois",
+      "nsid": "app.etzhayyim.apps.maps.importOsmPois",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/importOsmPois.json"
     },
     {
@@ -2513,7 +2513,7 @@
       "proc": "importWikidataPois",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/importWikidataPois.bpmn",
       "bpmnProcessId": "maps_collection_importWikidataPois",
-      "nsid": "ai.gftd.apps.maps.importWikidataPois",
+      "nsid": "app.etzhayyim.apps.maps.importWikidataPois",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/importWikidataPois.json"
     },
     {
@@ -2522,7 +2522,7 @@
       "proc": "searchPoi",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/searchPoi.bpmn",
       "bpmnProcessId": "maps_collection_searchPoi",
-      "nsid": "ai.gftd.apps.maps.searchPoi",
+      "nsid": "app.etzhayyim.apps.maps.searchPoi",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/searchPoi.json"
     },
     {
@@ -2531,7 +2531,7 @@
       "proc": "getPoi",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/getPoi.bpmn",
       "bpmnProcessId": "maps_collection_getPoi",
-      "nsid": "ai.gftd.apps.maps.getPoi",
+      "nsid": "app.etzhayyim.apps.maps.getPoi",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/getPoi.json"
     },
     {
@@ -2540,7 +2540,7 @@
       "proc": "listPoiTypes",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/listPoiTypes.bpmn",
       "bpmnProcessId": "maps_collection_listPoiTypes",
-      "nsid": "ai.gftd.apps.maps.listPoiTypes",
+      "nsid": "app.etzhayyim.apps.maps.listPoiTypes",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listPoiTypes.json"
     },
     {
@@ -2549,7 +2549,7 @@
       "proc": "registerWriterProfiles",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-collection/registerWriterProfiles.bpmn",
       "bpmnProcessId": "maps_collection_registerWriterProfiles",
-      "nsid": "ai.gftd.apps.maps.registerWriterProfiles",
+      "nsid": "app.etzhayyim.apps.maps.registerWriterProfiles",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerWriterProfiles.json"
     },
     {
@@ -2558,7 +2558,7 @@
       "proc": "getCoverageStatus",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-coverage/getCoverageStatus.bpmn",
       "bpmnProcessId": "maps_coverage_getCoverageStatus",
-      "nsid": "ai.gftd.apps.maps.getCoverageStatus",
+      "nsid": "app.etzhayyim.apps.maps.getCoverageStatus",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/getCoverageStatus.json"
     },
     {
@@ -2567,7 +2567,7 @@
       "proc": "expandFrontier",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-coverage/expandFrontier.bpmn",
       "bpmnProcessId": "maps_coverage_expandFrontier",
-      "nsid": "ai.gftd.apps.maps.expandFrontier",
+      "nsid": "app.etzhayyim.apps.maps.expandFrontier",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/expandFrontier.json"
     },
     {
@@ -2576,7 +2576,7 @@
       "proc": "refreshCoverageStats",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-coverage/refreshCoverageStats.bpmn",
       "bpmnProcessId": "maps_coverage_refreshCoverageStats",
-      "nsid": "ai.gftd.apps.maps.refreshCoverageStats",
+      "nsid": "app.etzhayyim.apps.maps.refreshCoverageStats",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/refreshCoverageStats.json"
     },
     {
@@ -2585,7 +2585,7 @@
       "proc": "advanceCoverage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-coverage/advanceCoverage.bpmn",
       "bpmnProcessId": "maps_coverage_advanceCoverage",
-      "nsid": "ai.gftd.apps.maps.advanceCoverage",
+      "nsid": "app.etzhayyim.apps.maps.advanceCoverage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/advanceCoverage.json"
     },
     {
@@ -2594,7 +2594,7 @@
       "proc": "seedAllKnownVariations",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-coverage/seedAllKnownVariations.bpmn",
       "bpmnProcessId": "maps_coverage_seedAllKnownVariations",
-      "nsid": "ai.gftd.apps.maps.seedAllKnownVariations",
+      "nsid": "app.etzhayyim.apps.maps.seedAllKnownVariations",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/seedAllKnownVariations.json"
     },
     {
@@ -2603,7 +2603,7 @@
       "proc": "batchCoverageCycle",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-coverage/batchCoverageCycle.bpmn",
       "bpmnProcessId": "maps_coverage_batchCoverageCycle",
-      "nsid": "ai.gftd.apps.maps.batchCoverageCycle",
+      "nsid": "app.etzhayyim.apps.maps.batchCoverageCycle",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/batchCoverageCycle.json"
     },
     {
@@ -2612,7 +2612,7 @@
       "proc": "registerRegion",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geo/registerRegion.bpmn",
       "bpmnProcessId": "maps_geo_registerRegion",
-      "nsid": "ai.gftd.apps.maps.registerRegion",
+      "nsid": "app.etzhayyim.apps.maps.registerRegion",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerRegion.json"
     },
     {
@@ -2621,7 +2621,7 @@
       "proc": "resolveGeoAlias",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geo/resolveGeoAlias.bpmn",
       "bpmnProcessId": "maps_geo_resolveGeoAlias",
-      "nsid": "ai.gftd.apps.maps.resolveGeoAlias",
+      "nsid": "app.etzhayyim.apps.maps.resolveGeoAlias",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/resolveGeoAlias.json"
     },
     {
@@ -2630,7 +2630,7 @@
       "proc": "listGeoAliases",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geo/listGeoAliases.bpmn",
       "bpmnProcessId": "maps_geo_listGeoAliases",
-      "nsid": "ai.gftd.apps.maps.listGeoAliases",
+      "nsid": "app.etzhayyim.apps.maps.listGeoAliases",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listGeoAliases.json"
     },
     {
@@ -2639,7 +2639,7 @@
       "proc": "listGeoSchemes",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geo/listGeoSchemes.bpmn",
       "bpmnProcessId": "maps_geo_listGeoSchemes",
-      "nsid": "ai.gftd.apps.maps.listGeoSchemes",
+      "nsid": "app.etzhayyim.apps.maps.listGeoSchemes",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listGeoSchemes.json"
     },
     {
@@ -2648,7 +2648,7 @@
       "proc": "listVerticalZones",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geo/listVerticalZones.bpmn",
       "bpmnProcessId": "maps_geo_listVerticalZones",
-      "nsid": "ai.gftd.apps.maps.listVerticalZones",
+      "nsid": "app.etzhayyim.apps.maps.listVerticalZones",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listVerticalZones.json"
     },
     {
@@ -2657,7 +2657,7 @@
       "proc": "listNaturalZones",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geo/listNaturalZones.bpmn",
       "bpmnProcessId": "maps_geo_listNaturalZones",
-      "nsid": "ai.gftd.apps.maps.listNaturalZones",
+      "nsid": "app.etzhayyim.apps.maps.listNaturalZones",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listNaturalZones.json"
     },
     {
@@ -2666,7 +2666,7 @@
       "proc": "listLayerCoordinators",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geo/listLayerCoordinators.bpmn",
       "bpmnProcessId": "maps_geo_listLayerCoordinators",
-      "nsid": "ai.gftd.apps.maps.listLayerCoordinators",
+      "nsid": "app.etzhayyim.apps.maps.listLayerCoordinators",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listLayerCoordinators.json"
     },
     {
@@ -2675,7 +2675,7 @@
       "proc": "resolveZones3d",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geo/resolveZones3d.bpmn",
       "bpmnProcessId": "maps_geo_resolveZones3d",
-      "nsid": "ai.gftd.apps.maps.resolveZones3d",
+      "nsid": "app.etzhayyim.apps.maps.resolveZones3d",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/resolveZones3d.json"
     },
     {
@@ -2684,7 +2684,7 @@
       "proc": "crawlerLocations",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/place/crawlerLocations.bpmn",
       "bpmnProcessId": "maps_place_crawlerLocations",
-      "nsid": "ai.gftd.apps.maps.crawlerLocations",
+      "nsid": "app.etzhayyim.apps.maps.crawlerLocations",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/crawlerLocations.json"
     },
     {
@@ -2693,7 +2693,7 @@
       "proc": "searchPlaces",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/place/searchPlaces.bpmn",
       "bpmnProcessId": "maps_place_searchPlaces",
-      "nsid": "ai.gftd.apps.maps.searchPlaces",
+      "nsid": "app.etzhayyim.apps.maps.searchPlaces",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/searchPlaces.json"
     },
     {
@@ -2702,7 +2702,7 @@
       "proc": "getPlace",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/place/getPlace.bpmn",
       "bpmnProcessId": "maps_place_getPlace",
-      "nsid": "ai.gftd.apps.maps.getPlace",
+      "nsid": "app.etzhayyim.apps.maps.getPlace",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/getPlace.json"
     },
     {
@@ -2711,7 +2711,7 @@
       "proc": "graphTraverse",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/graph/graphTraverse.bpmn",
       "bpmnProcessId": "maps_graph_graphTraverse",
-      "nsid": "ai.gftd.apps.maps.graphTraverse",
+      "nsid": "app.etzhayyim.apps.maps.graphTraverse",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/graphTraverse.json"
     },
     {
@@ -2720,7 +2720,7 @@
       "proc": "graphNeighbors",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/graph/graphNeighbors.bpmn",
       "bpmnProcessId": "maps_graph_graphNeighbors",
-      "nsid": "ai.gftd.apps.maps.graphNeighbors",
+      "nsid": "app.etzhayyim.apps.maps.graphNeighbors",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/graphNeighbors.json"
     },
     {
@@ -2729,7 +2729,7 @@
       "proc": "searchResources",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/graph/searchResources.bpmn",
       "bpmnProcessId": "maps_graph_searchResources",
-      "nsid": "ai.gftd.apps.maps.searchResources",
+      "nsid": "app.etzhayyim.apps.maps.searchResources",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/searchResources.json"
     },
     {
@@ -2738,7 +2738,7 @@
       "proc": "generateCohortBatch",
       "sourcePath": "00-contracts/bpmn/ai/gftd/natural-person/generateCohortBatch.bpmn",
       "bpmnProcessId": "natural_person_generate_cohort_batch_v1",
-      "nsid": "ai.gftd.apps.naturalPerson.generateCohortBatch",
+      "nsid": "app.etzhayyim.apps.naturalPerson.generateCohortBatch",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/naturalPerson/generateCohortBatch.json"
     },
     {
@@ -2747,7 +2747,7 @@
       "proc": "reconcileVisibility",
       "sourcePath": "00-contracts/bpmn/ai/gftd/natural-person/reconcileVisibility.bpmn",
       "bpmnProcessId": "natural_person_reconcile_visibility_v1",
-      "nsid": "ai.gftd.apps.naturalPerson.reconcileVisibility",
+      "nsid": "app.etzhayyim.apps.naturalPerson.reconcileVisibility",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/naturalPerson/reconcileVisibility.json"
     },
     {
@@ -2756,7 +2756,7 @@
       "proc": "seedLatentEntities",
       "sourcePath": "00-contracts/bpmn/ai/gftd/natural-person/seedLatentEntities.bpmn",
       "bpmnProcessId": "natural_person_seed_latent_entities_v1",
-      "nsid": "ai.gftd.apps.naturalPerson.seedLatentEntities",
+      "nsid": "app.etzhayyim.apps.naturalPerson.seedLatentEntities",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/naturalPerson/seedLatentEntities.json"
     },
     {
@@ -2765,7 +2765,7 @@
       "proc": "materializeAllLatentEntities",
       "sourcePath": "00-contracts/bpmn/ai/gftd/natural-person/materializeAllLatentEntities.bpmn",
       "bpmnProcessId": "natural_person_materialize_all_latent_entities_v1",
-      "nsid": "ai.gftd.apps.naturalPerson.materializeAllLatentEntities",
+      "nsid": "app.etzhayyim.apps.naturalPerson.materializeAllLatentEntities",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/naturalPerson/materializeAllLatentEntities.json"
     },
     {
@@ -2774,7 +2774,7 @@
       "proc": "runtimeLeaseLifecycle",
       "sourcePath": "00-contracts/bpmn/ai/gftd/agent/runtimeLeaseLifecycle.bpmn",
       "bpmnProcessId": "agent_runtime_lease_lifecycle",
-      "nsid": "ai.gftd.apps.agent.runtimeLeaseLifecycle",
+      "nsid": "app.etzhayyim.apps.agent.runtimeLeaseLifecycle",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/agent/runtimeLeaseLifecycle.json"
     },
     {
@@ -2783,7 +2783,7 @@
       "proc": "registerRoute",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/registerRoute.bpmn",
       "bpmnProcessId": "maps_transport_registerRoute",
-      "nsid": "ai.gftd.apps.maps.registerRoute",
+      "nsid": "app.etzhayyim.apps.maps.registerRoute",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerRoute.json"
     },
     {
@@ -2792,7 +2792,7 @@
       "proc": "listRoutes",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/listRoutes.bpmn",
       "bpmnProcessId": "maps_transport_listRoutes",
-      "nsid": "ai.gftd.apps.maps.listRoutes",
+      "nsid": "app.etzhayyim.apps.maps.listRoutes",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listRoutes.json"
     },
     {
@@ -2801,7 +2801,7 @@
       "proc": "getRoute",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/getRoute.bpmn",
       "bpmnProcessId": "maps_transport_getRoute",
-      "nsid": "ai.gftd.apps.maps.getRoute",
+      "nsid": "app.etzhayyim.apps.maps.getRoute",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/getRoute.json"
     },
     {
@@ -2810,7 +2810,7 @@
       "proc": "registerRoad",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/registerRoad.bpmn",
       "bpmnProcessId": "maps_transport_registerRoad",
-      "nsid": "ai.gftd.apps.maps.registerRoad",
+      "nsid": "app.etzhayyim.apps.maps.registerRoad",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerRoad.json"
     },
     {
@@ -2819,7 +2819,7 @@
       "proc": "listRoads",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/listRoads.bpmn",
       "bpmnProcessId": "maps_transport_listRoads",
-      "nsid": "ai.gftd.apps.maps.listRoads",
+      "nsid": "app.etzhayyim.apps.maps.listRoads",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listRoads.json"
     },
     {
@@ -2828,7 +2828,7 @@
       "proc": "registerRailway",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/registerRailway.bpmn",
       "bpmnProcessId": "maps_transport_registerRailway",
-      "nsid": "ai.gftd.apps.maps.registerRailway",
+      "nsid": "app.etzhayyim.apps.maps.registerRailway",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerRailway.json"
     },
     {
@@ -2837,7 +2837,7 @@
       "proc": "listRailways",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/listRailways.bpmn",
       "bpmnProcessId": "maps_transport_listRailways",
-      "nsid": "ai.gftd.apps.maps.listRailways",
+      "nsid": "app.etzhayyim.apps.maps.listRailways",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listRailways.json"
     },
     {
@@ -2846,7 +2846,7 @@
       "proc": "registerSeaRoute",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/registerSeaRoute.bpmn",
       "bpmnProcessId": "maps_transport_registerSeaRoute",
-      "nsid": "ai.gftd.apps.maps.registerSeaRoute",
+      "nsid": "app.etzhayyim.apps.maps.registerSeaRoute",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerSeaRoute.json"
     },
     {
@@ -2855,7 +2855,7 @@
       "proc": "listSeaRoutes",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/listSeaRoutes.bpmn",
       "bpmnProcessId": "maps_transport_listSeaRoutes",
-      "nsid": "ai.gftd.apps.maps.listSeaRoutes",
+      "nsid": "app.etzhayyim.apps.maps.listSeaRoutes",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listSeaRoutes.json"
     },
     {
@@ -2864,7 +2864,7 @@
       "proc": "registerAirRoute",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/registerAirRoute.bpmn",
       "bpmnProcessId": "maps_transport_registerAirRoute",
-      "nsid": "ai.gftd.apps.maps.registerAirRoute",
+      "nsid": "app.etzhayyim.apps.maps.registerAirRoute",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerAirRoute.json"
     },
     {
@@ -2873,7 +2873,7 @@
       "proc": "listAirRoutes",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/listAirRoutes.bpmn",
       "bpmnProcessId": "maps_transport_listAirRoutes",
-      "nsid": "ai.gftd.apps.maps.listAirRoutes",
+      "nsid": "app.etzhayyim.apps.maps.listAirRoutes",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listAirRoutes.json"
     },
     {
@@ -2882,7 +2882,7 @@
       "proc": "registerBusRoute",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/registerBusRoute.bpmn",
       "bpmnProcessId": "maps_transport_registerBusRoute",
-      "nsid": "ai.gftd.apps.maps.registerBusRoute",
+      "nsid": "app.etzhayyim.apps.maps.registerBusRoute",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerBusRoute.json"
     },
     {
@@ -2891,7 +2891,7 @@
       "proc": "listBusRoutes",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport/listBusRoutes.bpmn",
       "bpmnProcessId": "maps_transport_listBusRoutes",
-      "nsid": "ai.gftd.apps.maps.listBusRoutes",
+      "nsid": "app.etzhayyim.apps.maps.listBusRoutes",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listBusRoutes.json"
     },
     {
@@ -2900,7 +2900,7 @@
       "proc": "registerInfraNetwork",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/infra/registerInfraNetwork.bpmn",
       "bpmnProcessId": "maps_infra_registerInfraNetwork",
-      "nsid": "ai.gftd.apps.maps.registerInfraNetwork",
+      "nsid": "app.etzhayyim.apps.maps.registerInfraNetwork",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerInfraNetwork.json"
     },
     {
@@ -2909,7 +2909,7 @@
       "proc": "listInfraNetworks",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/infra/listInfraNetworks.bpmn",
       "bpmnProcessId": "maps_infra_listInfraNetworks",
-      "nsid": "ai.gftd.apps.maps.listInfraNetworks",
+      "nsid": "app.etzhayyim.apps.maps.listInfraNetworks",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listInfraNetworks.json"
     },
     {
@@ -2918,7 +2918,7 @@
       "proc": "registerInfraSegment",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/infra/registerInfraSegment.bpmn",
       "bpmnProcessId": "maps_infra_registerInfraSegment",
-      "nsid": "ai.gftd.apps.maps.registerInfraSegment",
+      "nsid": "app.etzhayyim.apps.maps.registerInfraSegment",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerInfraSegment.json"
     },
     {
@@ -2927,7 +2927,7 @@
       "proc": "listInfraSegments",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/infra/listInfraSegments.bpmn",
       "bpmnProcessId": "maps_infra_listInfraSegments",
-      "nsid": "ai.gftd.apps.maps.listInfraSegments",
+      "nsid": "app.etzhayyim.apps.maps.listInfraSegments",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listInfraSegments.json"
     },
     {
@@ -2936,7 +2936,7 @@
       "proc": "registerInfraNode",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/infra/registerInfraNode.bpmn",
       "bpmnProcessId": "maps_infra_registerInfraNode",
-      "nsid": "ai.gftd.apps.maps.registerInfraNode",
+      "nsid": "app.etzhayyim.apps.maps.registerInfraNode",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerInfraNode.json"
     },
     {
@@ -2945,7 +2945,7 @@
       "proc": "listInfraNodes",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/infra/listInfraNodes.bpmn",
       "bpmnProcessId": "maps_infra_listInfraNodes",
-      "nsid": "ai.gftd.apps.maps.listInfraNodes",
+      "nsid": "app.etzhayyim.apps.maps.listInfraNodes",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listInfraNodes.json"
     },
     {
@@ -2954,7 +2954,7 @@
       "proc": "registerInfraIncident",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/infra/registerInfraIncident.bpmn",
       "bpmnProcessId": "maps_infra_registerInfraIncident",
-      "nsid": "ai.gftd.apps.maps.registerInfraIncident",
+      "nsid": "app.etzhayyim.apps.maps.registerInfraIncident",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerInfraIncident.json"
     },
     {
@@ -2963,7 +2963,7 @@
       "proc": "listInfraIncidents",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/infra/listInfraIncidents.bpmn",
       "bpmnProcessId": "maps_infra_listInfraIncidents",
-      "nsid": "ai.gftd.apps.maps.listInfraIncidents",
+      "nsid": "app.etzhayyim.apps.maps.listInfraIncidents",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listInfraIncidents.json"
     },
     {
@@ -2972,7 +2972,7 @@
       "proc": "infraQuery",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/infra/infraQuery.bpmn",
       "bpmnProcessId": "maps_infra_infraQuery",
-      "nsid": "ai.gftd.apps.maps.infraQuery",
+      "nsid": "app.etzhayyim.apps.maps.infraQuery",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/infraQuery.json"
     },
     {
@@ -2981,7 +2981,7 @@
       "proc": "infraCrossSection",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/infra/infraCrossSection.bpmn",
       "bpmnProcessId": "maps_infra_infraCrossSection",
-      "nsid": "ai.gftd.apps.maps.infraCrossSection",
+      "nsid": "app.etzhayyim.apps.maps.infraCrossSection",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/infraCrossSection.json"
     },
     {
@@ -2990,7 +2990,7 @@
       "proc": "registerSpot",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/registerSpot.bpmn",
       "bpmnProcessId": "maps_geography_registerSpot",
-      "nsid": "ai.gftd.apps.maps.registerSpot",
+      "nsid": "app.etzhayyim.apps.maps.registerSpot",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerSpot.json"
     },
     {
@@ -2999,7 +2999,7 @@
       "proc": "listSpots",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/listSpots.bpmn",
       "bpmnProcessId": "maps_geography_listSpots",
-      "nsid": "ai.gftd.apps.maps.listSpots",
+      "nsid": "app.etzhayyim.apps.maps.listSpots",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listSpots.json"
     },
     {
@@ -3008,7 +3008,7 @@
       "proc": "getSpot",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/getSpot.bpmn",
       "bpmnProcessId": "maps_geography_getSpot",
-      "nsid": "ai.gftd.apps.maps.getSpot",
+      "nsid": "app.etzhayyim.apps.maps.getSpot",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/getSpot.json"
     },
     {
@@ -3017,7 +3017,7 @@
       "proc": "spotSearch",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/spotSearch.bpmn",
       "bpmnProcessId": "maps_geography_spotSearch",
-      "nsid": "ai.gftd.apps.maps.spotSearch",
+      "nsid": "app.etzhayyim.apps.maps.spotSearch",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/spotSearch.json"
     },
     {
@@ -3026,7 +3026,7 @@
       "proc": "spotRecommend",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/spotRecommend.bpmn",
       "bpmnProcessId": "maps_geography_spotRecommend",
-      "nsid": "ai.gftd.apps.maps.spotRecommend",
+      "nsid": "app.etzhayyim.apps.maps.spotRecommend",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/spotRecommend.json"
     },
     {
@@ -3035,7 +3035,7 @@
       "proc": "registerRiver",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/registerRiver.bpmn",
       "bpmnProcessId": "maps_geography_registerRiver",
-      "nsid": "ai.gftd.apps.maps.registerRiver",
+      "nsid": "app.etzhayyim.apps.maps.registerRiver",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerRiver.json"
     },
     {
@@ -3044,7 +3044,7 @@
       "proc": "listRivers",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/listRivers.bpmn",
       "bpmnProcessId": "maps_geography_listRivers",
-      "nsid": "ai.gftd.apps.maps.listRivers",
+      "nsid": "app.etzhayyim.apps.maps.listRivers",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listRivers.json"
     },
     {
@@ -3053,7 +3053,7 @@
       "proc": "registerLake",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/registerLake.bpmn",
       "bpmnProcessId": "maps_geography_registerLake",
-      "nsid": "ai.gftd.apps.maps.registerLake",
+      "nsid": "app.etzhayyim.apps.maps.registerLake",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerLake.json"
     },
     {
@@ -3062,7 +3062,7 @@
       "proc": "listLakes",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/listLakes.bpmn",
       "bpmnProcessId": "maps_geography_listLakes",
-      "nsid": "ai.gftd.apps.maps.listLakes",
+      "nsid": "app.etzhayyim.apps.maps.listLakes",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listLakes.json"
     },
     {
@@ -3071,7 +3071,7 @@
       "proc": "registerCoastline",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/registerCoastline.bpmn",
       "bpmnProcessId": "maps_geography_registerCoastline",
-      "nsid": "ai.gftd.apps.maps.registerCoastline",
+      "nsid": "app.etzhayyim.apps.maps.registerCoastline",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerCoastline.json"
     },
     {
@@ -3080,7 +3080,7 @@
       "proc": "listCoastlines",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/listCoastlines.bpmn",
       "bpmnProcessId": "maps_geography_listCoastlines",
-      "nsid": "ai.gftd.apps.maps.listCoastlines",
+      "nsid": "app.etzhayyim.apps.maps.listCoastlines",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listCoastlines.json"
     },
     {
@@ -3089,7 +3089,7 @@
       "proc": "registerMountain",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/registerMountain.bpmn",
       "bpmnProcessId": "maps_geography_registerMountain",
-      "nsid": "ai.gftd.apps.maps.registerMountain",
+      "nsid": "app.etzhayyim.apps.maps.registerMountain",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerMountain.json"
     },
     {
@@ -3098,7 +3098,7 @@
       "proc": "listMountains",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/listMountains.bpmn",
       "bpmnProcessId": "maps_geography_listMountains",
-      "nsid": "ai.gftd.apps.maps.listMountains",
+      "nsid": "app.etzhayyim.apps.maps.listMountains",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listMountains.json"
     },
     {
@@ -3107,7 +3107,7 @@
       "proc": "registerMaritimeZone",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/registerMaritimeZone.bpmn",
       "bpmnProcessId": "maps_geography_registerMaritimeZone",
-      "nsid": "ai.gftd.apps.maps.registerMaritimeZone",
+      "nsid": "app.etzhayyim.apps.maps.registerMaritimeZone",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerMaritimeZone.json"
     },
     {
@@ -3116,7 +3116,7 @@
       "proc": "listMaritimeZones",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/listMaritimeZones.bpmn",
       "bpmnProcessId": "maps_geography_listMaritimeZones",
-      "nsid": "ai.gftd.apps.maps.listMaritimeZones",
+      "nsid": "app.etzhayyim.apps.maps.listMaritimeZones",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listMaritimeZones.json"
     },
     {
@@ -3125,7 +3125,7 @@
       "proc": "registerAdminArea",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/registerAdminArea.bpmn",
       "bpmnProcessId": "maps_geography_registerAdminArea",
-      "nsid": "ai.gftd.apps.maps.registerAdminArea",
+      "nsid": "app.etzhayyim.apps.maps.registerAdminArea",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerAdminArea.json"
     },
     {
@@ -3134,7 +3134,7 @@
       "proc": "listAdminAreas",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps-geography/listAdminAreas.bpmn",
       "bpmnProcessId": "maps_geography_listAdminAreas",
-      "nsid": "ai.gftd.apps.maps.listAdminAreas",
+      "nsid": "app.etzhayyim.apps.maps.listAdminAreas",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listAdminAreas.json"
     },
     {
@@ -3143,7 +3143,7 @@
       "proc": "registerAircraft",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/registerAircraft.bpmn",
       "bpmnProcessId": "maps_transport_extra_registerAircraft",
-      "nsid": "ai.gftd.apps.maps.registerAircraft",
+      "nsid": "app.etzhayyim.apps.maps.registerAircraft",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerAircraft.json"
     },
     {
@@ -3152,7 +3152,7 @@
       "proc": "upsertFlightOperation",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/upsertFlightOperation.bpmn",
       "bpmnProcessId": "maps_transport_extra_upsertFlightOperation",
-      "nsid": "ai.gftd.apps.maps.upsertFlightOperation",
+      "nsid": "app.etzhayyim.apps.maps.upsertFlightOperation",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/upsertFlightOperation.json"
     },
     {
@@ -3161,7 +3161,7 @@
       "proc": "listFlightOperations",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/listFlightOperations.bpmn",
       "bpmnProcessId": "maps_transport_extra_listFlightOperations",
-      "nsid": "ai.gftd.apps.maps.listFlightOperations",
+      "nsid": "app.etzhayyim.apps.maps.listFlightOperations",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listFlightOperations.json"
     },
     {
@@ -3170,7 +3170,7 @@
       "proc": "registerWaterway",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/registerWaterway.bpmn",
       "bpmnProcessId": "maps_transport_extra_registerWaterway",
-      "nsid": "ai.gftd.apps.maps.registerWaterway",
+      "nsid": "app.etzhayyim.apps.maps.registerWaterway",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerWaterway.json"
     },
     {
@@ -3179,7 +3179,7 @@
       "proc": "listWaterways",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/listWaterways.bpmn",
       "bpmnProcessId": "maps_transport_extra_listWaterways",
-      "nsid": "ai.gftd.apps.maps.listWaterways",
+      "nsid": "app.etzhayyim.apps.maps.listWaterways",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listWaterways.json"
     },
     {
@@ -3188,7 +3188,7 @@
       "proc": "registerPort",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/registerPort.bpmn",
       "bpmnProcessId": "maps_transport_extra_registerPort",
-      "nsid": "ai.gftd.apps.maps.registerPort",
+      "nsid": "app.etzhayyim.apps.maps.registerPort",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerPort.json"
     },
     {
@@ -3197,7 +3197,7 @@
       "proc": "listPorts",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/listPorts.bpmn",
       "bpmnProcessId": "maps_transport_extra_listPorts",
-      "nsid": "ai.gftd.apps.maps.listPorts",
+      "nsid": "app.etzhayyim.apps.maps.listPorts",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listPorts.json"
     },
     {
@@ -3206,7 +3206,7 @@
       "proc": "registerAirport",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/registerAirport.bpmn",
       "bpmnProcessId": "maps_transport_extra_registerAirport",
-      "nsid": "ai.gftd.apps.maps.registerAirport",
+      "nsid": "app.etzhayyim.apps.maps.registerAirport",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerAirport.json"
     },
     {
@@ -3215,7 +3215,7 @@
       "proc": "listAirports",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/listAirports.bpmn",
       "bpmnProcessId": "maps_transport_extra_listAirports",
-      "nsid": "ai.gftd.apps.maps.listAirports",
+      "nsid": "app.etzhayyim.apps.maps.listAirports",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listAirports.json"
     },
     {
@@ -3224,7 +3224,7 @@
       "proc": "registerStation",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/registerStation.bpmn",
       "bpmnProcessId": "maps_transport_extra_registerStation",
-      "nsid": "ai.gftd.apps.maps.registerStation",
+      "nsid": "app.etzhayyim.apps.maps.registerStation",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerStation.json"
     },
     {
@@ -3233,7 +3233,7 @@
       "proc": "listStations",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/listStations.bpmn",
       "bpmnProcessId": "maps_transport_extra_listStations",
-      "nsid": "ai.gftd.apps.maps.listStations",
+      "nsid": "app.etzhayyim.apps.maps.listStations",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listStations.json"
     },
     {
@@ -3242,7 +3242,7 @@
       "proc": "registerBusStop",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/registerBusStop.bpmn",
       "bpmnProcessId": "maps_transport_extra_registerBusStop",
-      "nsid": "ai.gftd.apps.maps.registerBusStop",
+      "nsid": "app.etzhayyim.apps.maps.registerBusStop",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerBusStop.json"
     },
     {
@@ -3251,7 +3251,7 @@
       "proc": "listBusStops",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/listBusStops.bpmn",
       "bpmnProcessId": "maps_transport_extra_listBusStops",
-      "nsid": "ai.gftd.apps.maps.listBusStops",
+      "nsid": "app.etzhayyim.apps.maps.listBusStops",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listBusStops.json"
     },
     {
@@ -3260,7 +3260,7 @@
       "proc": "registerParking",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/registerParking.bpmn",
       "bpmnProcessId": "maps_transport_extra_registerParking",
-      "nsid": "ai.gftd.apps.maps.registerParking",
+      "nsid": "app.etzhayyim.apps.maps.registerParking",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerParking.json"
     },
     {
@@ -3269,7 +3269,7 @@
       "proc": "listParkings",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/listParkings.bpmn",
       "bpmnProcessId": "maps_transport_extra_listParkings",
-      "nsid": "ai.gftd.apps.maps.listParkings",
+      "nsid": "app.etzhayyim.apps.maps.listParkings",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listParkings.json"
     },
     {
@@ -3278,7 +3278,7 @@
       "proc": "registerEvCharger",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/registerEvCharger.bpmn",
       "bpmnProcessId": "maps_transport_extra_registerEvCharger",
-      "nsid": "ai.gftd.apps.maps.registerEvCharger",
+      "nsid": "app.etzhayyim.apps.maps.registerEvCharger",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerEvCharger.json"
     },
     {
@@ -3287,7 +3287,7 @@
       "proc": "listEvChargers",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/listEvChargers.bpmn",
       "bpmnProcessId": "maps_transport_extra_listEvChargers",
-      "nsid": "ai.gftd.apps.maps.listEvChargers",
+      "nsid": "app.etzhayyim.apps.maps.listEvChargers",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listEvChargers.json"
     },
     {
@@ -3296,7 +3296,7 @@
       "proc": "upsertFlightOffer",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/upsertFlightOffer.bpmn",
       "bpmnProcessId": "maps_transport_extra_upsertFlightOffer",
-      "nsid": "ai.gftd.apps.maps.upsertFlightOffer",
+      "nsid": "app.etzhayyim.apps.maps.upsertFlightOffer",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/upsertFlightOffer.json"
     },
     {
@@ -3305,7 +3305,7 @@
       "proc": "listFlightOffers",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/transport-extra/listFlightOffers.bpmn",
       "bpmnProcessId": "maps_transport_extra_listFlightOffers",
-      "nsid": "ai.gftd.apps.maps.listFlightOffers",
+      "nsid": "app.etzhayyim.apps.maps.listFlightOffers",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listFlightOffers.json"
     },
     {
@@ -3314,7 +3314,7 @@
       "proc": "registerBuilding",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/registerBuilding.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_registerBuilding",
-      "nsid": "ai.gftd.apps.maps.registerBuilding",
+      "nsid": "app.etzhayyim.apps.maps.registerBuilding",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerBuilding.json"
     },
     {
@@ -3323,7 +3323,7 @@
       "proc": "listBuildings",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/listBuildings.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_listBuildings",
-      "nsid": "ai.gftd.apps.maps.listBuildings",
+      "nsid": "app.etzhayyim.apps.maps.listBuildings",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listBuildings.json"
     },
     {
@@ -3332,7 +3332,7 @@
       "proc": "getBuilding",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/getBuilding.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_getBuilding",
-      "nsid": "ai.gftd.apps.maps.getBuilding",
+      "nsid": "app.etzhayyim.apps.maps.getBuilding",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/getBuilding.json"
     },
     {
@@ -3341,7 +3341,7 @@
       "proc": "registerBuildingFloor",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/registerBuildingFloor.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_registerBuildingFloor",
-      "nsid": "ai.gftd.apps.maps.registerBuildingFloor",
+      "nsid": "app.etzhayyim.apps.maps.registerBuildingFloor",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerBuildingFloor.json"
     },
     {
@@ -3350,7 +3350,7 @@
       "proc": "registerAsset",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/registerAsset.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_registerAsset",
-      "nsid": "ai.gftd.apps.maps.registerAsset",
+      "nsid": "app.etzhayyim.apps.maps.registerAsset",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerAsset.json"
     },
     {
@@ -3359,7 +3359,7 @@
       "proc": "listAssets",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/listAssets.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_listAssets",
-      "nsid": "ai.gftd.apps.maps.listAssets",
+      "nsid": "app.etzhayyim.apps.maps.listAssets",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listAssets.json"
     },
     {
@@ -3368,7 +3368,7 @@
       "proc": "deviceBind",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/deviceBind.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_deviceBind",
-      "nsid": "ai.gftd.apps.maps.deviceBind",
+      "nsid": "app.etzhayyim.apps.maps.deviceBind",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/deviceBind.json"
     },
     {
@@ -3377,7 +3377,7 @@
       "proc": "listDevices",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/listDevices.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_listDevices",
-      "nsid": "ai.gftd.apps.maps.listDevices",
+      "nsid": "app.etzhayyim.apps.maps.listDevices",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listDevices.json"
     },
     {
@@ -3386,7 +3386,7 @@
       "proc": "twinStateUpdate",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/twinStateUpdate.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_twinStateUpdate",
-      "nsid": "ai.gftd.apps.maps.twinStateUpdate",
+      "nsid": "app.etzhayyim.apps.maps.twinStateUpdate",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/twinStateUpdate.json"
     },
     {
@@ -3395,7 +3395,7 @@
       "proc": "twinStateGet",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/twinStateGet.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_twinStateGet",
-      "nsid": "ai.gftd.apps.maps.twinStateGet",
+      "nsid": "app.etzhayyim.apps.maps.twinStateGet",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/twinStateGet.json"
     },
     {
@@ -3404,7 +3404,7 @@
       "proc": "occupancyUpdate",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/occupancyUpdate.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_occupancyUpdate",
-      "nsid": "ai.gftd.apps.maps.occupancyUpdate",
+      "nsid": "app.etzhayyim.apps.maps.occupancyUpdate",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/occupancyUpdate.json"
     },
     {
@@ -3413,7 +3413,7 @@
       "proc": "registerSensor",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/registerSensor.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_registerSensor",
-      "nsid": "ai.gftd.apps.maps.registerSensor",
+      "nsid": "app.etzhayyim.apps.maps.registerSensor",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerSensor.json"
     },
     {
@@ -3422,7 +3422,7 @@
       "proc": "listSensors",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/listSensors.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_listSensors",
-      "nsid": "ai.gftd.apps.maps.listSensors",
+      "nsid": "app.etzhayyim.apps.maps.listSensors",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listSensors.json"
     },
     {
@@ -3431,7 +3431,7 @@
       "proc": "sensorIngest",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/sensorIngest.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_sensorIngest",
-      "nsid": "ai.gftd.apps.maps.sensorIngest",
+      "nsid": "app.etzhayyim.apps.maps.sensorIngest",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/sensorIngest.json"
     },
     {
@@ -3440,7 +3440,7 @@
       "proc": "sensorQuery",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/sensorQuery.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_sensorQuery",
-      "nsid": "ai.gftd.apps.maps.sensorQuery",
+      "nsid": "app.etzhayyim.apps.maps.sensorQuery",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/sensorQuery.json"
     },
     {
@@ -3449,7 +3449,7 @@
       "proc": "sensorLatest",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/sensorLatest.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_sensorLatest",
-      "nsid": "ai.gftd.apps.maps.sensorLatest",
+      "nsid": "app.etzhayyim.apps.maps.sensorLatest",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/sensorLatest.json"
     },
     {
@@ -3458,7 +3458,7 @@
       "proc": "sensorAlertSet",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/sensorAlertSet.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_sensorAlertSet",
-      "nsid": "ai.gftd.apps.maps.sensorAlertSet",
+      "nsid": "app.etzhayyim.apps.maps.sensorAlertSet",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/sensorAlertSet.json"
     },
     {
@@ -3467,7 +3467,7 @@
       "proc": "listSensorAlerts",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/listSensorAlerts.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_listSensorAlerts",
-      "nsid": "ai.gftd.apps.maps.listSensorAlerts",
+      "nsid": "app.etzhayyim.apps.maps.listSensorAlerts",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listSensorAlerts.json"
     },
     {
@@ -3476,7 +3476,7 @@
       "proc": "simulationCreate",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/simulationCreate.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_simulationCreate",
-      "nsid": "ai.gftd.apps.maps.simulationCreate",
+      "nsid": "app.etzhayyim.apps.maps.simulationCreate",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/simulationCreate.json"
     },
     {
@@ -3485,7 +3485,7 @@
       "proc": "simulationRun",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/simulationRun.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_simulationRun",
-      "nsid": "ai.gftd.apps.maps.simulationRun",
+      "nsid": "app.etzhayyim.apps.maps.simulationRun",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/simulationRun.json"
     },
     {
@@ -3494,7 +3494,7 @@
       "proc": "simulationResult",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/simulationResult.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_simulationResult",
-      "nsid": "ai.gftd.apps.maps.simulationResult",
+      "nsid": "app.etzhayyim.apps.maps.simulationResult",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/simulationResult.json"
     },
     {
@@ -3503,7 +3503,7 @@
       "proc": "forecastGet",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/forecastGet.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_forecastGet",
-      "nsid": "ai.gftd.apps.maps.forecastGet",
+      "nsid": "app.etzhayyim.apps.maps.forecastGet",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/forecastGet.json"
     },
     {
@@ -3512,7 +3512,7 @@
       "proc": "healthAssess",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/healthAssess.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_healthAssess",
-      "nsid": "ai.gftd.apps.maps.healthAssess",
+      "nsid": "app.etzhayyim.apps.maps.healthAssess",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/healthAssess.json"
     },
     {
@@ -3521,7 +3521,7 @@
       "proc": "maintenancePlan",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/twin-sensor-sim/maintenancePlan.bpmn",
       "bpmnProcessId": "maps_twin_sensor_sim_maintenancePlan",
-      "nsid": "ai.gftd.apps.maps.maintenancePlan",
+      "nsid": "app.etzhayyim.apps.maps.maintenancePlan",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/maintenancePlan.json"
     },
     {
@@ -3530,7 +3530,7 @@
       "proc": "spatialEventRecord",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/spatialEventRecord.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_spatialEventRecord",
-      "nsid": "ai.gftd.apps.maps.spatialEventRecord",
+      "nsid": "app.etzhayyim.apps.maps.spatialEventRecord",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/spatialEventRecord.json"
     },
     {
@@ -3539,7 +3539,7 @@
       "proc": "spatialEventQuery",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/spatialEventQuery.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_spatialEventQuery",
-      "nsid": "ai.gftd.apps.maps.spatialEventQuery",
+      "nsid": "app.etzhayyim.apps.maps.spatialEventQuery",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/spatialEventQuery.json"
     },
     {
@@ -3548,7 +3548,7 @@
       "proc": "spatialVersionRecord",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/spatialVersionRecord.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_spatialVersionRecord",
-      "nsid": "ai.gftd.apps.maps.spatialVersionRecord",
+      "nsid": "app.etzhayyim.apps.maps.spatialVersionRecord",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/spatialVersionRecord.json"
     },
     {
@@ -3557,7 +3557,7 @@
       "proc": "spatialVersionQuery",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/spatialVersionQuery.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_spatialVersionQuery",
-      "nsid": "ai.gftd.apps.maps.spatialVersionQuery",
+      "nsid": "app.etzhayyim.apps.maps.spatialVersionQuery",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/spatialVersionQuery.json"
     },
     {
@@ -3566,7 +3566,7 @@
       "proc": "spatialRelationWrite",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/spatialRelationWrite.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_spatialRelationWrite",
-      "nsid": "ai.gftd.apps.maps.spatialRelationWrite",
+      "nsid": "app.etzhayyim.apps.maps.spatialRelationWrite",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/spatialRelationWrite.json"
     },
     {
@@ -3575,7 +3575,7 @@
       "proc": "spatialRelationQuery",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/spatialRelationQuery.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_spatialRelationQuery",
-      "nsid": "ai.gftd.apps.maps.spatialRelationQuery",
+      "nsid": "app.etzhayyim.apps.maps.spatialRelationQuery",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/spatialRelationQuery.json"
     },
     {
@@ -3584,7 +3584,7 @@
       "proc": "timeline",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/timeline.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_timeline",
-      "nsid": "ai.gftd.apps.maps.timeline",
+      "nsid": "app.etzhayyim.apps.maps.timeline",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/timeline.json"
     },
     {
@@ -3593,7 +3593,7 @@
       "proc": "spatialDiff",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/spatialDiff.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_spatialDiff",
-      "nsid": "ai.gftd.apps.maps.spatialDiff",
+      "nsid": "app.etzhayyim.apps.maps.spatialDiff",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/spatialDiff.json"
     },
     {
@@ -3602,7 +3602,7 @@
       "proc": "displayLayerDefine",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/displayLayerDefine.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_displayLayerDefine",
-      "nsid": "ai.gftd.apps.maps.displayLayerDefine",
+      "nsid": "app.etzhayyim.apps.maps.displayLayerDefine",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/displayLayerDefine.json"
     },
     {
@@ -3611,7 +3611,7 @@
       "proc": "listDisplayLayers",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/listDisplayLayers.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_listDisplayLayers",
-      "nsid": "ai.gftd.apps.maps.listDisplayLayers",
+      "nsid": "app.etzhayyim.apps.maps.listDisplayLayers",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listDisplayLayers.json"
     },
     {
@@ -3620,7 +3620,7 @@
       "proc": "getDashboard",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/getDashboard.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_getDashboard",
-      "nsid": "ai.gftd.apps.maps.getDashboard",
+      "nsid": "app.etzhayyim.apps.maps.getDashboard",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/getDashboard.json"
     },
     {
@@ -3629,7 +3629,7 @@
       "proc": "actorLocations",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/spatiotemporal/actorLocations.bpmn",
       "bpmnProcessId": "maps_spatiotemporal_actorLocations",
-      "nsid": "ai.gftd.apps.maps.actorLocations",
+      "nsid": "app.etzhayyim.apps.maps.actorLocations",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/actorLocations.json"
     },
     {
@@ -3638,7 +3638,7 @@
       "proc": "listPostLocations",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listPostLocations.bpmn",
       "bpmnProcessId": "maps_registry_media_listPostLocations",
-      "nsid": "ai.gftd.apps.maps.listPostLocations",
+      "nsid": "app.etzhayyim.apps.maps.listPostLocations",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listPostLocations.json"
     },
     {
@@ -3647,7 +3647,7 @@
       "proc": "mapralyImportPoi",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/mapralyImportPoi.bpmn",
       "bpmnProcessId": "maps_registry_media_mapralyImportPoi",
-      "nsid": "ai.gftd.apps.maps.mapralyImportPoi",
+      "nsid": "app.etzhayyim.apps.maps.mapralyImportPoi",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/mapralyImportPoi.json"
     },
     {
@@ -3656,7 +3656,7 @@
       "proc": "mapralyListPois",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/mapralyListPois.bpmn",
       "bpmnProcessId": "maps_registry_media_mapralyListPois",
-      "nsid": "ai.gftd.apps.maps.mapralyListPois",
+      "nsid": "app.etzhayyim.apps.maps.mapralyListPois",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/mapralyListPois.json"
     },
     {
@@ -3665,7 +3665,7 @@
       "proc": "visionImportEntities",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/visionImportEntities.bpmn",
       "bpmnProcessId": "maps_registry_media_visionImportEntities",
-      "nsid": "ai.gftd.apps.maps.visionImportEntities",
+      "nsid": "app.etzhayyim.apps.maps.visionImportEntities",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/visionImportEntities.json"
     },
     {
@@ -3674,7 +3674,7 @@
       "proc": "listVisionResults",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listVisionResults.bpmn",
       "bpmnProcessId": "maps_registry_media_listVisionResults",
-      "nsid": "ai.gftd.apps.maps.listVisionResults",
+      "nsid": "app.etzhayyim.apps.maps.listVisionResults",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listVisionResults.json"
     },
     {
@@ -3683,7 +3683,7 @@
       "proc": "satelliteImportScene",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/satelliteImportScene.bpmn",
       "bpmnProcessId": "maps_registry_media_satelliteImportScene",
-      "nsid": "ai.gftd.apps.maps.satelliteImportScene",
+      "nsid": "app.etzhayyim.apps.maps.satelliteImportScene",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/satelliteImportScene.json"
     },
     {
@@ -3692,7 +3692,7 @@
       "proc": "listSatelliteScenes",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listSatelliteScenes.bpmn",
       "bpmnProcessId": "maps_registry_media_listSatelliteScenes",
-      "nsid": "ai.gftd.apps.maps.listSatelliteScenes",
+      "nsid": "app.etzhayyim.apps.maps.listSatelliteScenes",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listSatelliteScenes.json"
     },
     {
@@ -3701,7 +3701,7 @@
       "proc": "listSatelliteSources",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listSatelliteSources.bpmn",
       "bpmnProcessId": "maps_registry_media_listSatelliteSources",
-      "nsid": "ai.gftd.apps.maps.listSatelliteSources",
+      "nsid": "app.etzhayyim.apps.maps.listSatelliteSources",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listSatelliteSources.json"
     },
     {
@@ -3710,7 +3710,7 @@
       "proc": "listGeoDomains",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listGeoDomains.bpmn",
       "bpmnProcessId": "maps_registry_media_listGeoDomains",
-      "nsid": "ai.gftd.apps.maps.listGeoDomains",
+      "nsid": "app.etzhayyim.apps.maps.listGeoDomains",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listGeoDomains.json"
     },
     {
@@ -3719,7 +3719,7 @@
       "proc": "listWebCrawlGeoEntities",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listWebCrawlGeoEntities.bpmn",
       "bpmnProcessId": "maps_registry_media_listWebCrawlGeoEntities",
-      "nsid": "ai.gftd.apps.maps.listWebCrawlGeoEntities",
+      "nsid": "app.etzhayyim.apps.maps.listWebCrawlGeoEntities",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listWebCrawlGeoEntities.json"
     },
     {
@@ -3728,7 +3728,7 @@
       "proc": "registerLegalEntity",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/registerLegalEntity.bpmn",
       "bpmnProcessId": "maps_registry_media_registerLegalEntity",
-      "nsid": "ai.gftd.apps.maps.registerLegalEntity",
+      "nsid": "app.etzhayyim.apps.maps.registerLegalEntity",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerLegalEntity.json"
     },
     {
@@ -3737,7 +3737,7 @@
       "proc": "listLegalEntities",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listLegalEntities.bpmn",
       "bpmnProcessId": "maps_registry_media_listLegalEntities",
-      "nsid": "ai.gftd.apps.maps.listLegalEntities",
+      "nsid": "app.etzhayyim.apps.maps.listLegalEntities",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listLegalEntities.json"
     },
     {
@@ -3746,7 +3746,7 @@
       "proc": "registerOperator",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/registerOperator.bpmn",
       "bpmnProcessId": "maps_registry_media_registerOperator",
-      "nsid": "ai.gftd.apps.maps.registerOperator",
+      "nsid": "app.etzhayyim.apps.maps.registerOperator",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerOperator.json"
     },
     {
@@ -3755,7 +3755,7 @@
       "proc": "listOperators",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listOperators.bpmn",
       "bpmnProcessId": "maps_registry_media_listOperators",
-      "nsid": "ai.gftd.apps.maps.listOperators",
+      "nsid": "app.etzhayyim.apps.maps.listOperators",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listOperators.json"
     },
     {
@@ -3764,7 +3764,7 @@
       "proc": "registerPropertyOwner",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/registerPropertyOwner.bpmn",
       "bpmnProcessId": "maps_registry_media_registerPropertyOwner",
-      "nsid": "ai.gftd.apps.maps.registerPropertyOwner",
+      "nsid": "app.etzhayyim.apps.maps.registerPropertyOwner",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerPropertyOwner.json"
     },
     {
@@ -3773,7 +3773,7 @@
       "proc": "listPropertyOwners",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listPropertyOwners.bpmn",
       "bpmnProcessId": "maps_registry_media_listPropertyOwners",
-      "nsid": "ai.gftd.apps.maps.listPropertyOwners",
+      "nsid": "app.etzhayyim.apps.maps.listPropertyOwners",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listPropertyOwners.json"
     },
     {
@@ -3782,7 +3782,7 @@
       "proc": "registerLandRegistry",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/registerLandRegistry.bpmn",
       "bpmnProcessId": "maps_registry_media_registerLandRegistry",
-      "nsid": "ai.gftd.apps.maps.registerLandRegistry",
+      "nsid": "app.etzhayyim.apps.maps.registerLandRegistry",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerLandRegistry.json"
     },
     {
@@ -3791,7 +3791,7 @@
       "proc": "listLandRegistries",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listLandRegistries.bpmn",
       "bpmnProcessId": "maps_registry_media_listLandRegistries",
-      "nsid": "ai.gftd.apps.maps.listLandRegistries",
+      "nsid": "app.etzhayyim.apps.maps.listLandRegistries",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listLandRegistries.json"
     },
     {
@@ -3800,7 +3800,7 @@
       "proc": "registerPropertyRegistry",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/registerPropertyRegistry.bpmn",
       "bpmnProcessId": "maps_registry_media_registerPropertyRegistry",
-      "nsid": "ai.gftd.apps.maps.registerPropertyRegistry",
+      "nsid": "app.etzhayyim.apps.maps.registerPropertyRegistry",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerPropertyRegistry.json"
     },
     {
@@ -3809,7 +3809,7 @@
       "proc": "listPropertyRegistries",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listPropertyRegistries.bpmn",
       "bpmnProcessId": "maps_registry_media_listPropertyRegistries",
-      "nsid": "ai.gftd.apps.maps.listPropertyRegistries",
+      "nsid": "app.etzhayyim.apps.maps.listPropertyRegistries",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listPropertyRegistries.json"
     },
     {
@@ -3818,7 +3818,7 @@
       "proc": "registerBusinessRegistry",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/registerBusinessRegistry.bpmn",
       "bpmnProcessId": "maps_registry_media_registerBusinessRegistry",
-      "nsid": "ai.gftd.apps.maps.registerBusinessRegistry",
+      "nsid": "app.etzhayyim.apps.maps.registerBusinessRegistry",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerBusinessRegistry.json"
     },
     {
@@ -3827,7 +3827,7 @@
       "proc": "listBusinessRegistries",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listBusinessRegistries.bpmn",
       "bpmnProcessId": "maps_registry_media_listBusinessRegistries",
-      "nsid": "ai.gftd.apps.maps.listBusinessRegistries",
+      "nsid": "app.etzhayyim.apps.maps.listBusinessRegistries",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listBusinessRegistries.json"
     },
     {
@@ -3836,7 +3836,7 @@
       "proc": "registerConstructionPermit",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/registerConstructionPermit.bpmn",
       "bpmnProcessId": "maps_registry_media_registerConstructionPermit",
-      "nsid": "ai.gftd.apps.maps.registerConstructionPermit",
+      "nsid": "app.etzhayyim.apps.maps.registerConstructionPermit",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerConstructionPermit.json"
     },
     {
@@ -3845,7 +3845,7 @@
       "proc": "listConstructionPermits",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listConstructionPermits.bpmn",
       "bpmnProcessId": "maps_registry_media_listConstructionPermits",
-      "nsid": "ai.gftd.apps.maps.listConstructionPermits",
+      "nsid": "app.etzhayyim.apps.maps.listConstructionPermits",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listConstructionPermits.json"
     },
     {
@@ -3854,7 +3854,7 @@
       "proc": "registerOperatingLicense",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/registerOperatingLicense.bpmn",
       "bpmnProcessId": "maps_registry_media_registerOperatingLicense",
-      "nsid": "ai.gftd.apps.maps.registerOperatingLicense",
+      "nsid": "app.etzhayyim.apps.maps.registerOperatingLicense",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerOperatingLicense.json"
     },
     {
@@ -3863,7 +3863,7 @@
       "proc": "listOperatingLicenses",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listOperatingLicenses.bpmn",
       "bpmnProcessId": "maps_registry_media_listOperatingLicenses",
-      "nsid": "ai.gftd.apps.maps.listOperatingLicenses",
+      "nsid": "app.etzhayyim.apps.maps.listOperatingLicenses",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listOperatingLicenses.json"
     },
     {
@@ -3872,7 +3872,7 @@
       "proc": "registerZoningRecord",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/registerZoningRecord.bpmn",
       "bpmnProcessId": "maps_registry_media_registerZoningRecord",
-      "nsid": "ai.gftd.apps.maps.registerZoningRecord",
+      "nsid": "app.etzhayyim.apps.maps.registerZoningRecord",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerZoningRecord.json"
     },
     {
@@ -3881,7 +3881,7 @@
       "proc": "listZoningRecords",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/listZoningRecords.bpmn",
       "bpmnProcessId": "maps_registry_media_listZoningRecords",
-      "nsid": "ai.gftd.apps.maps.listZoningRecords",
+      "nsid": "app.etzhayyim.apps.maps.listZoningRecords",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/listZoningRecords.json"
     },
     {
@@ -3890,7 +3890,7 @@
       "proc": "registerOwnership",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/registerOwnership.bpmn",
       "bpmnProcessId": "maps_registry_media_registerOwnership",
-      "nsid": "ai.gftd.apps.maps.registerOwnership",
+      "nsid": "app.etzhayyim.apps.maps.registerOwnership",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/registerOwnership.json"
     },
     {
@@ -3899,7 +3899,7 @@
       "proc": "ownershipChain",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/ownershipChain.bpmn",
       "bpmnProcessId": "maps_registry_media_ownershipChain",
-      "nsid": "ai.gftd.apps.maps.ownershipChain",
+      "nsid": "app.etzhayyim.apps.maps.ownershipChain",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/ownershipChain.json"
     },
     {
@@ -3908,7 +3908,7 @@
       "proc": "entityHistory",
       "sourcePath": "00-contracts/bpmn/ai/gftd/maps/registry-media/entityHistory.bpmn",
       "bpmnProcessId": "maps_registry_media_entityHistory",
-      "nsid": "ai.gftd.apps.maps.entityHistory",
+      "nsid": "app.etzhayyim.apps.maps.entityHistory",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/maps/entityHistory.json"
     },
     {
@@ -3917,7 +3917,7 @@
       "proc": "submitTrade",
       "sourcePath": "00-contracts/bpmn/ai/gftd/shosha/submitTrade.bpmn",
       "bpmnProcessId": "shosha_submit_trade",
-      "nsid": "ai.gftd.apps.shosha.submitTrade",
+      "nsid": "app.etzhayyim.apps.shosha.submitTrade",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/shosha/submitTrade.json"
     },
     {
@@ -3926,7 +3926,7 @@
       "proc": "proposeHedge",
       "sourcePath": "00-contracts/bpmn/ai/gftd/shosha/proposeHedge.bpmn",
       "bpmnProcessId": "shosha_propose_hedge",
-      "nsid": "ai.gftd.apps.shosha.proposeHedge",
+      "nsid": "app.etzhayyim.apps.shosha.proposeHedge",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/shosha/proposeHedge.json"
     },
     {
@@ -3935,7 +3935,7 @@
       "proc": "complyCheck",
       "sourcePath": "00-contracts/bpmn/ai/gftd/shosha/complyCheck.bpmn",
       "bpmnProcessId": "shosha_comply_check",
-      "nsid": "ai.gftd.apps.shosha.complyCheck",
+      "nsid": "app.etzhayyim.apps.shosha.complyCheck",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/shosha/complyCheck.json"
     },
     {
@@ -3944,7 +3944,7 @@
       "proc": "agentLoop",
       "sourcePath": "00-contracts/bpmn/ai/gftd/shosha/agentLoop.bpmn",
       "bpmnProcessId": "shosha_agent_loop",
-      "nsid": "ai.gftd.apps.shosha.agentLoop",
+      "nsid": "app.etzhayyim.apps.shosha.agentLoop",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/shosha/agentLoop.json"
     },
     {
@@ -3953,7 +3953,7 @@
       "proc": "settleTrade",
       "sourcePath": "00-contracts/bpmn/ai/gftd/shosha/settleTrade.bpmn",
       "bpmnProcessId": "shosha_settle_trade",
-      "nsid": "ai.gftd.apps.shosha.settleTrade",
+      "nsid": "app.etzhayyim.apps.shosha.settleTrade",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/shosha/settleTrade.json"
     },
     {
@@ -3962,7 +3962,7 @@
       "proc": "approveTrade",
       "sourcePath": "00-contracts/bpmn/ai/gftd/shosha/approveTrade.bpmn",
       "bpmnProcessId": "shosha_approve_trade",
-      "nsid": "ai.gftd.apps.shosha.approveTrade",
+      "nsid": "app.etzhayyim.apps.shosha.approveTrade",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/shosha/approveTrade.json"
     },
     {
@@ -3971,7 +3971,7 @@
       "proc": "rejectTrade",
       "sourcePath": "00-contracts/bpmn/ai/gftd/shosha/rejectTrade.bpmn",
       "bpmnProcessId": "shosha_reject_trade",
-      "nsid": "ai.gftd.apps.shosha.rejectTrade",
+      "nsid": "app.etzhayyim.apps.shosha.rejectTrade",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/shosha/rejectTrade.json"
     },
     {
@@ -3980,7 +3980,7 @@
       "proc": "coverage",
       "sourcePath": "00-contracts/bpmn/ai/gftd/shosha/coverage.bpmn",
       "bpmnProcessId": "shosha_coverage",
-      "nsid": "ai.gftd.apps.shosha.coverage",
+      "nsid": "app.etzhayyim.apps.shosha.coverage",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/shosha/coverage.json"
     },
     {
@@ -3989,7 +3989,7 @@
       "proc": "translatePost",
       "sourcePath": "00-contracts/bpmn/ai/gftd/yoro/translatePost.bpmn",
       "bpmnProcessId": "yoro_translate_post",
-      "nsid": "ai.gftd.apps.yoro.translatePost",
+      "nsid": "app.etzhayyim.apps.yoro.translatePost",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/yoro/translatePost.json"
     },
     {
@@ -3998,7 +3998,7 @@
       "proc": "translatePostBatch",
       "sourcePath": "00-contracts/bpmn/ai/gftd/yoro/translatePostBatch.bpmn",
       "bpmnProcessId": "yoro_translate_post_batch",
-      "nsid": "ai.gftd.apps.yoro.translatePostBatch",
+      "nsid": "app.etzhayyim.apps.yoro.translatePostBatch",
       "lexiconPath": "00-contracts/lexicons/ai/gftd/apps/yoro/translatePostBatch.json"
     }
   ],

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.listPages",
+  "id": "app.etzhayyim.apps.site.listPages",
   "defs": {
     "main": {
       "type": "query",

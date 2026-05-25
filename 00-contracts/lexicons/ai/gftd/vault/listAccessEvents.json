@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.vault.listAccessEvents",
+  "id": "app.etzhayyim.vault.listAccessEvents",
   "defs": {
     "main": {
       "type": "query",

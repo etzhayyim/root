@@ -6,7 +6,7 @@ Bridges the 8-stage cinematic pipeline (WIT `gftd:kami-cine@1.0.0`,
 persistence:
 
   - shared cine ledger:  graphar.vertex_cine_stage  (one row per stage
-                         artifact, NSID = ai.gftd.apps.cine.<stage>)
+                         artifact, NSID = app.etzhayyim.apps.cine.<stage>)
   - mangaka run summary: graphar.vertex_mangaka_cine_run
   - mangaka panel bind:  graphar.vertex_mangaka_cine_panel
 
@@ -78,11 +78,11 @@ def new_run_id() -> str:
 
 def cine_vertex_id(stage: str, rkey: str, producer_did: str | None = None) -> str:
     did = producer_did or _APP_DID
-    return f"at://{did}/ai.gftd.apps.cine.{stage}/{rkey}"
+    return f"at://{did}/app.etzhayyim.apps.cine.{stage}/{rkey}"
 
 
 def mangaka_vertex_id(kind: str, rkey: str) -> str:
-    return f"at://{_APP_DID}/ai.gftd.mangaka.{kind}/{rkey}"
+    return f"at://{_APP_DID}/app.etzhayyim.mangaka.{kind}/{rkey}"
 
 
 def now_iso() -> str:
@@ -102,7 +102,7 @@ async def record_stage(
     asset_cid: str | None = None,
     rw_url: str | None = None,
 ) -> dict[str, Any]:
-    """INSERT one ai.gftd.apps.cine.<stage> artifact row.
+    """INSERT one app.etzhayyim.apps.cine.<stage> artifact row.
 
     `payload` MUST be the per-stage lexicon body (e.g. for worldModel:
     {prompt, style, referenceCids, worldKind, extentsCm, modelCid, seed,

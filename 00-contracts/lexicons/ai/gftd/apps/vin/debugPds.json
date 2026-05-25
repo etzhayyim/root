@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vin.debugPds",
+  "id": "app.etzhayyim.apps.vin.debugPds",
   "defs": {
     "main": {
       "type": "procedure",

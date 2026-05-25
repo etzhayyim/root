@@ -49,7 +49,7 @@ _TOPOLOGY_PATH = (
     _LG_DIR / "lg_mangaka" / "graphs" / "compose_scene_3d.topology.yaml"
 )
 _DMN_NS = {"dmn": "https://www.omg.org/spec/DMN/20191111/MODEL/"}
-_DECISION_KEY = "ai.gftd.policies.mangaka.composeScene3dRefinement"
+_DECISION_KEY = "app.etzhayyim.policies.mangaka.composeScene3dRefinement"
 _DECISION_VERSION = 1
 
 
@@ -154,7 +154,7 @@ def test_migration_is_idempotent(migration_sql: str) -> None:
     """Re-running the seed must not produce a duplicate row — the NOT EXISTS
     guard on (decision_key, version) is the contract."""
     assert "NOT EXISTS" in migration_sql
-    assert "decision_key = 'ai.gftd.policies.mangaka.composeScene3dRefinement'" in migration_sql
+    assert "decision_key = 'app.etzhayyim.policies.mangaka.composeScene3dRefinement'" in migration_sql
     assert re.search(r"AND\s+version\s*=\s*1", migration_sql)
 
 

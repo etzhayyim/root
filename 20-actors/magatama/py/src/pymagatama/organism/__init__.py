@@ -3,7 +3,7 @@
 Per ADR-2605232345 (UNSPSC actor as ecosystem organism).
 
 Python port of the TS heartbeat-cadence pattern in
-``@gftd/magatama-host-sdk/src/heartbeat-cadence.ts``. Wraps a UNSPSC
+``@etzhayyim/magatama-host-sdk/src/heartbeat-cadence.ts``. Wraps a UNSPSC
 LangGraph code (from ``pymagatama.langgraph_graphs.unispsc_agents``) into
 a tick-able organism with joucho 情緒 mood, InboxBuffer, FollowerReward,
 Shannon content diversity, and Shinka post emission.

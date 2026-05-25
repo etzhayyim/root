@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """NHTSA full-maker model sweep.
 
-Reads every Make_ID from vertex_repo_record (ai.gftd.apps.car_maker.maker),
+Reads every Make_ID from vertex_repo_record (app.etzhayyim.apps.car_maker.maker),
 fetches NHTSA GetModelsForMakeId/{id} for each, bulk-inserts models into
-vertex_repo_record as ai.gftd.apps.kuruma.model.
+vertex_repo_record as app.etzhayyim.apps.kuruma.model.
 
 Usage: PG_URL=postgres://... python3 70-tools/scripts/nhtsa-models-full-sweep.py
 
@@ -20,8 +20,8 @@ import psycopg2.extras
 
 PG_URL = os.environ.get("PG_URL") or sys.exit("set PG_URL")
 REPO = "did:web:kuruma.etzhayyim.com"
-COLL = "ai.gftd.apps.kuruma.model"
-CAR_MAKER_COLL = "ai.gftd.apps.car_maker.maker"
+COLL = "app.etzhayyim.apps.kuruma.model"
+CAR_MAKER_COLL = "app.etzhayyim.apps.car_maker.maker"
 CONCURRENCY = 20
 BATCH_SIZE = 500
 

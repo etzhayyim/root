@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.orbitalDebris.logBreakup",
+  "id": "app.etzhayyim.apps.orbitalDebris.logBreakup",
   "defs": {
     "main": {
       "type": "procedure",

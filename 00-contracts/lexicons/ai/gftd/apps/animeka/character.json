@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.character",
+  "id": "app.etzhayyim.apps.animeka.character",
   "defs": {
     "main": {
       "type": "record",

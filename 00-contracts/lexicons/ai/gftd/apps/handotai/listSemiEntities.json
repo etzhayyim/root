@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.handotai.listSemiEntities",
+  "id": "app.etzhayyim.apps.handotai.listSemiEntities",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kyber.inbox.calendarSignal",
+  "id": "app.etzhayyim.apps.kyber.inbox.calendarSignal",
   "defs": {
     "main": {
       "type": "record",

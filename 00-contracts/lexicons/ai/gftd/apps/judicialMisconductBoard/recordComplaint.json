@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.judicialMisconductBoard.recordComplaint",
+  "id": "app.etzhayyim.apps.judicialMisconductBoard.recordComplaint",
   "defs": {
     "main": {
       "type": "procedure",

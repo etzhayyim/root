@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.dns.transferStep",
+  "id": "app.etzhayyim.apps.dns.transferStep",
   "defs": {
     "main": {
       "type": "record",
@@ -10,7 +10,7 @@
         "type": "object",
         "required": ["transferRequestUri", "step", "status", "occurredAt"],
         "properties": {
-          "transferRequestUri": { "type": "string", "description": "AT URI of the parent ai.gftd.apps.dns.transferRequest" },
+          "transferRequestUri": { "type": "string", "description": "AT URI of the parent app.etzhayyim.apps.dns.transferRequest" },
           "step": {
             "type": "string",
             "enum": ["disableAutoRenew", "unlock", "authCode", "dnsExport", "cfTransfer"]

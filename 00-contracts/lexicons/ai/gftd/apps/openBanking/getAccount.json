@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openBanking.getAccount",
+  "id": "app.etzhayyim.apps.openBanking.getAccount",
   "defs": {
     "main": {
       "type": "query",

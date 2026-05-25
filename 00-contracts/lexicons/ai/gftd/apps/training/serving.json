@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.training.serving",
+  "id": "app.etzhayyim.apps.training.serving",
   "defs": {
     "main": {
       "type": "query",

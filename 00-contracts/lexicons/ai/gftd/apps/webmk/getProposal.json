@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.webmk.getProposal",
+  "id": "app.etzhayyim.apps.webmk.getProposal",
   "defs": {
     "main": {
       "type": "query",

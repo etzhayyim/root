@@ -1,6 +1,6 @@
 """animeka `cutRunner` graph.
 
-NSID: ai.gftd.animeka.cutRunner
+NSID: app.etzhayyim.animeka.cutRunner
 
 Orchestrates the full cut production pipeline for one existing cut:
   fetch_cut → storyboard → layout → keyframe → background → update_cut → audit
@@ -59,7 +59,7 @@ async def _node_fetch_cut(state: _State) -> dict[str, Any]:
             cur = conn.cursor()
             await cur.execute(
                 "SELECT camera_note, status FROM vertex_animeka "
-                "WHERE collection='ai.gftd.animeka.cut' AND rkey=%s LIMIT 1",
+                "WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1",
                 [rkey],
             )
             row = await cur.fetchone()
@@ -163,7 +163,7 @@ async def _node_update_cut(state: _State) -> dict[str, Any]:
         try:
             await conn.execute(
                 "UPDATE vertex_animeka SET stage_status=%s, status='ready_for_review' "
-                "WHERE collection='ai.gftd.animeka.cut' AND rkey=%s",
+                "WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s",
                 [stage_status, rkey],
             )
         finally:

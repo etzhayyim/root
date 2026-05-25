@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mediaAnime.registerTitle",
+  "id": "app.etzhayyim.apps.mediaAnime.registerTitle",
   "defs": {
     "main": {
       "type": "procedure",

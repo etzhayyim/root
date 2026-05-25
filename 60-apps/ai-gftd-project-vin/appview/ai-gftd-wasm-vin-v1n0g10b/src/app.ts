@@ -14,7 +14,7 @@ interface ExportedHandler<E> {
   fetch(req: Request, env: E): Promise<Response>;
 }
 
-const NSID_PREFIX = "ai.gftd.apps.vin.";
+const NSID_PREFIX = "app.etzhayyim.apps.vin.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.hanrei.createInformationHunt",
+  "id": "app.etzhayyim.hanrei.createInformationHunt",
   "defs": {
     "main": {
       "type": "procedure",

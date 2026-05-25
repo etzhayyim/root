@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ethicsDisclosure.recordFiling",
+  "id": "app.etzhayyim.apps.ethicsDisclosure.recordFiling",
   "defs": {
     "main": {
       "type": "procedure",

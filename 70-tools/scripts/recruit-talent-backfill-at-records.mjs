@@ -5,10 +5,10 @@
  * Registers recruit.etzhayyim.com and talent.etzhayyim.com actors + profiles, then
  * backfills vertex_repo_record from the directly-ingested taxonomy tables:
  *
- *   vertex_occupation      → ai.gftd.apps.recruit.occupationTaxonomy  (5,172)
- *   vertex_skill           → ai.gftd.apps.recruit.skillTaxonomy       (13,896)
- *   vertex_talent_cohort   → ai.gftd.apps.talent.talentCohort         (~21K+)
- *   vertex_occupation_bls  → ai.gftd.apps.recruit.occupationBls       (23)
+ *   vertex_occupation      → app.etzhayyim.apps.recruit.occupationTaxonomy  (5,172)
+ *   vertex_skill           → app.etzhayyim.apps.recruit.skillTaxonomy       (13,896)
+ *   vertex_talent_cohort   → app.etzhayyim.apps.talent.talentCohort         (~21K+)
+ *   vertex_occupation_bls  → app.etzhayyim.apps.recruit.occupationBls       (23)
  *
  * Makes all taxonomy data AT-addressable via at://… URIs and queryable
  * through the PDS AppView pipeline.
@@ -162,7 +162,7 @@ async function stepRecords() {
               code, isco_code, esco_code, onet_soc_code, level, name, description
        FROM vertex_occupation`
     );
-    const coll = "ai.gftd.apps.recruit.occupationTaxonomy";
+    const coll = "app.etzhayyim.apps.recruit.occupationTaxonomy";
     const recRows = makeRecRows(rows, coll, r => ({
       $type: coll,
       code: r.code, iscoCode: r.isco_code, escoCode: r.esco_code,
@@ -180,7 +180,7 @@ async function stepRecords() {
               code, esco_id, skill_type, reuse_level, name, description
        FROM vertex_skill`
     );
-    const coll = "ai.gftd.apps.recruit.skillTaxonomy";
+    const coll = "app.etzhayyim.apps.recruit.skillTaxonomy";
     const recRows = makeRecRows(rows, coll, r => ({
       $type: coll,
       code: r.code, escoId: r.esco_id,
@@ -198,7 +198,7 @@ async function stepRecords() {
               isco_code, country, sex, time_period, size_thousands, unit
        FROM vertex_talent_cohort`
     );
-    const coll = "ai.gftd.apps.talent.talentCohort";
+    const coll = "app.etzhayyim.apps.talent.talentCohort";
     const recRows = makeRecRows(rows, coll, r => ({
       $type: coll,
       iscoCode: r.isco_code, country: r.country, sex: r.sex,
@@ -216,7 +216,7 @@ async function stepRecords() {
               tot_emp, h_mean, a_mean, h_pct50, a_pct50
        FROM vertex_occupation_bls`
     );
-    const coll = "ai.gftd.apps.recruit.occupationBls";
+    const coll = "app.etzhayyim.apps.recruit.occupationBls";
     const recRows = makeRecRows(rows, coll, r => ({
       $type: coll,
       socCode: r.soc_code, iscoCode: r.isco_code,
@@ -239,7 +239,7 @@ async function stepRecords() {
        FROM vertex_job_posting
        WHERE rkey IS NOT NULL`
     );
-    const coll = "ai.gftd.apps.recruit.jobPosting";
+    const coll = "app.etzhayyim.apps.recruit.jobPosting";
     // Use vertex_id as rkey (already set in ingest scripts)
     const recRows = rows.map(r => {
       const rk   = r.rkey.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 128);
@@ -267,7 +267,7 @@ async function stepRecords() {
               isco_codes, country, published_at
        FROM vertex_press_signal`
     );
-    const coll = "ai.gftd.apps.recruit.pressSignal";
+    const coll = "app.etzhayyim.apps.recruit.pressSignal";
     const repo  = "did:web:recruit.etzhayyim.com";
     const recRows = rows.map(r => {
       const rk  = r.rkey.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 128);
@@ -293,7 +293,7 @@ async function stepRecords() {
               engagement_types, top_skills, press_signal_count, posting_count
        FROM vertex_demand_forecast`
     );
-    const coll = "ai.gftd.apps.recruit.demandForecast";
+    const coll = "app.etzhayyim.apps.recruit.demandForecast";
     const repo  = "did:web:recruit.etzhayyim.com";
     const recRows = rows.map(r => {
       const rk  = r.rkey.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 128);
@@ -333,13 +333,13 @@ async function main() {
       SELECT collection, COUNT(*) AS cnt
       FROM vertex_repo_record
       WHERE collection IN (
-        'ai.gftd.apps.recruit.occupationTaxonomy',
-        'ai.gftd.apps.recruit.skillTaxonomy',
-        'ai.gftd.apps.talent.talentCohort',
-        'ai.gftd.apps.recruit.occupationBls',
-        'ai.gftd.apps.recruit.jobPosting',
-        'ai.gftd.apps.recruit.pressSignal',
-        'ai.gftd.apps.recruit.demandForecast'
+        'app.etzhayyim.apps.recruit.occupationTaxonomy',
+        'app.etzhayyim.apps.recruit.skillTaxonomy',
+        'app.etzhayyim.apps.talent.talentCohort',
+        'app.etzhayyim.apps.recruit.occupationBls',
+        'app.etzhayyim.apps.recruit.jobPosting',
+        'app.etzhayyim.apps.recruit.pressSignal',
+        'app.etzhayyim.apps.recruit.demandForecast'
       )
       GROUP BY collection ORDER BY collection
     `);

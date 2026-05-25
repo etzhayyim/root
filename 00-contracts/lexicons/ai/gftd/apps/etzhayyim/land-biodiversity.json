@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.land-biodiversity",
+  "id": "app.etzhayyim.apps.etzhayyim.land-biodiversity",
   "defs": {
     "main": {
       "type": "record",

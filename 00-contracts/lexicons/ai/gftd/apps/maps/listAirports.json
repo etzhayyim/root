@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listAirports",
+  "id": "app.etzhayyim.apps.maps.listAirports",
   "defs": {
     "main": {
       "type": "query",

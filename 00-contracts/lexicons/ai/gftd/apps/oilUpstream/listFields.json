@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oilUpstream.listFields",
+  "id": "app.etzhayyim.apps.oilUpstream.listFields",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphonePatent.flagExpiryGate",
+  "id": "app.etzhayyim.apps.openSmartphonePatent.flagExpiryGate",
   "defs": {
     "main": {
       "type": "query",

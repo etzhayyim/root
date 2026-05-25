@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govDeu.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govDeu.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Germany government.",
-        "operationId": "ai.gftd.govDeu.followSiteDeps",
+        "operationId": "app.etzhayyim.govDeu.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDeu.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govDeu.heartbeatTick": {
       "post": {
         "summary": "Run the Germany government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govDeu.heartbeatTick",
+        "operationId": "app.etzhayyim.govDeu.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDeu.listOrgs": {
+    "/xrpc/app.etzhayyim.govDeu.listOrgs": {
       "get": {
         "summary": "List Germany government organization graph records.",
-        "operationId": "ai.gftd.govDeu.listOrgs",
+        "operationId": "app.etzhayyim.govDeu.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDeu.registerDIDs": {
+    "/xrpc/app.etzhayyim.govDeu.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Germany government organizations.",
-        "operationId": "ai.gftd.govDeu.registerDIDs",
+        "operationId": "app.etzhayyim.govDeu.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDeu.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govDeu.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Germany government organization path to its graph record.",
-        "operationId": "ai.gftd.govDeu.resolveOrgPath",
+        "operationId": "app.etzhayyim.govDeu.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDeu.seedOrgs": {
+    "/xrpc/app.etzhayyim.govDeu.seedOrgs": {
       "post": {
         "summary": "Seed initial Germany government organization records into the graph.",
-        "operationId": "ai.gftd.govDeu.seedOrgs",
+        "operationId": "app.etzhayyim.govDeu.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDeu.shinka": {
+    "/xrpc/app.etzhayyim.govDeu.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Germany government organization update.",
-        "operationId": "ai.gftd.govDeu.shinka",
+        "operationId": "app.etzhayyim.govDeu.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDeu.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govDeu.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Germany government organization changes to graph.",
-        "operationId": "ai.gftd.govDeu.syncWetUpdates",
+        "operationId": "app.etzhayyim.govDeu.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kiyo.listByAuthor",
+  "id": "app.etzhayyim.kiyo.listByAuthor",
   "defs": {
     "main": {
       "type": "query",

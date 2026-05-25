@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.news.publishIntel",
+  "id": "app.etzhayyim.apps.news.publishIntel",
   "defs": {
     "main": {
       "type": "procedure",

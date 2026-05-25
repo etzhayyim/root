@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.icgcGenomic.registerCohort",
+  "id": "app.etzhayyim.apps.icgcGenomic.registerCohort",
   "defs": {
     "main": {
       "type": "procedure",

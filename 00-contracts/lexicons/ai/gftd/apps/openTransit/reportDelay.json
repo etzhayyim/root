@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openTransit.reportDelay",
+  "id": "app.etzhayyim.apps.openTransit.reportDelay",
   "defs": {
     "main": {
       "type": "procedure",

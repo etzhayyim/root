@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.artisticFreedom.recordAttack",
+  "id": "app.etzhayyim.apps.artisticFreedom.recordAttack",
   "defs": {
     "main": {
       "type": "procedure",

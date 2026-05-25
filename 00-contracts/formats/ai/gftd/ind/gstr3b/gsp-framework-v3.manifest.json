@@ -17,7 +17,7 @@
   ],
   "notes": [
     "Detailed GSTR-3B API payload is provider/GSP contract material and must be supplied by the configured authorized_gsp adapter.",
-    "This manifest records the official GSP framework boundary and keeps GFTD provider-agnostic."
+    "This manifest records the official GSP framework boundary and keeps etzhayyim provider-agnostic."
   ],
   "liveFilingGate": "ind.efiling.submit with providerKind=gsp_api or authorized_gsp"
 }

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.joucho.scoring.submitReview",
+  "id": "app.etzhayyim.joucho.scoring.submitReview",
   "defs": {
     "main": {
       "type": "procedure",

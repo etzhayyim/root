@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 Gftd Japan株式会社 / etzhayyim. All rights reserved.
+// Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 // kyber.etzhayyim.com — Corporate ERP Intelligence
@@ -24,7 +24,7 @@ import {
   withCapabilityTags,
   type ComAtprotoSyncSubscribeReposCommit,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 // ───────────────────────────── shared state ─────────────────────────────
 
@@ -80,7 +80,7 @@ const CHART_OF_ACCOUNTS_SEED: Array<{ code: string; name: string; type: string }
 // ───────────────────────────── write helpers ─────────────────────────────
 
 function write(sdk: HostSDK, kind: string, rec: Record<string, unknown>, did?: string): void {
-  const collection = `ai.gftd.apps.kyber.${kind}`;
+  const collection = `app.etzhayyim.apps.kyber.${kind}`;
   const enriched = {
     ...rec,
     createdAt: nowISO(),
@@ -160,7 +160,7 @@ async function cmdCreateJournalEntry(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_journal_entry" as never).values({
-      vertex_id: `at://${DEPT.accounting}/ai.gftd.apps.kyber.journalEntry/${journalId}`,
+      vertex_id: `at://${DEPT.accounting}/app.etzhayyim.apps.kyber.journalEntry/${journalId}`,
       entry_id: journalId,
       org_did: "anon",
       actor_did: DEPT.accounting,
@@ -206,7 +206,7 @@ async function cmdCreateAccount(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_account" as never).values({
-      vertex_id: `at://${DEPT.accounting}/ai.gftd.apps.kyber.account/${accountId}`,
+      vertex_id: `at://${DEPT.accounting}/app.etzhayyim.apps.kyber.account/${accountId}`,
       account_id: accountId,
       org_did: "anon",
       actor_did: DEPT.accounting,
@@ -229,7 +229,7 @@ async function cmdSeedChartOfAccounts(sdk: HostSDK, _body: Uint8Array) {
     const accountId = genID("acc");
     try {
       await (db.insertInto("vertex_kyber_account" as never).values({
-        vertex_id: `at://${DEPT.accounting}/ai.gftd.apps.kyber.account/${accountId}`,
+        vertex_id: `at://${DEPT.accounting}/app.etzhayyim.apps.kyber.account/${accountId}`,
         account_id: accountId,
         org_did: "anon",
         actor_did: DEPT.accounting,
@@ -260,7 +260,7 @@ async function cmdCreateInvoice(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_invoice" as never).values({
-      vertex_id: `at://${DEPT.accounting}/ai.gftd.apps.kyber.invoice/${invoiceId}`,
+      vertex_id: `at://${DEPT.accounting}/app.etzhayyim.apps.kyber.invoice/${invoiceId}`,
       invoice_id: invoiceId,
       org_did: "anon",
       actor_did: DEPT.accounting,
@@ -303,7 +303,7 @@ async function cmdRegisterEmployee(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_employee" as never).values({
-      vertex_id: `at://${DEPT.hr}/ai.gftd.apps.kyber.employee/${employeeId}`,
+      vertex_id: `at://${DEPT.hr}/app.etzhayyim.apps.kyber.employee/${employeeId}`,
       employee_id: employeeId,
       org_did: "anon",
       actor_did: DEPT.hr,
@@ -341,7 +341,7 @@ async function cmdCreatePurchaseOrder(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_purchase_order" as never).values({
-      vertex_id: `at://${DEPT.procurement}/ai.gftd.apps.kyber.purchaseOrder/${purchaseOrderId}`,
+      vertex_id: `at://${DEPT.procurement}/app.etzhayyim.apps.kyber.purchaseOrder/${purchaseOrderId}`,
       po_id: purchaseOrderId,
       org_did: "anon",
       actor_did: DEPT.procurement,
@@ -380,7 +380,7 @@ async function cmdRegisterInventoryItem(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_inventory_item" as never).values({
-      vertex_id: `at://${DEPT.inventory}/ai.gftd.apps.kyber.inventoryItem/${inventoryItemId}`,
+      vertex_id: `at://${DEPT.inventory}/app.etzhayyim.apps.kyber.inventoryItem/${inventoryItemId}`,
       item_id: inventoryItemId,
       org_did: "anon",
       actor_did: DEPT.inventory,
@@ -419,7 +419,7 @@ async function cmdCreateSalesOrder(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_sales_order" as never).values({
-      vertex_id: `at://${DEPT.sales}/ai.gftd.apps.kyber.salesOrder/${salesOrderId}`,
+      vertex_id: `at://${DEPT.sales}/app.etzhayyim.apps.kyber.salesOrder/${salesOrderId}`,
       order_id: salesOrderId,
       org_did: "anon",
       actor_did: DEPT.sales,
@@ -465,7 +465,7 @@ async function cmdRegisterFixedAsset(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_fixed_asset" as never).values({
-      vertex_id: `at://${DEPT.asset}/ai.gftd.apps.kyber.fixedAsset/${fixedAssetId}`,
+      vertex_id: `at://${DEPT.asset}/app.etzhayyim.apps.kyber.fixedAsset/${fixedAssetId}`,
       asset_id: fixedAssetId,
       org_did: "anon",
       actor_did: DEPT.asset,
@@ -505,7 +505,7 @@ async function cmdRunDepreciation(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_depreciation_run" as never).values({
-      vertex_id: `at://${DEPT.asset}/ai.gftd.apps.kyber.depreciationRun/${depreciationRunId}`,
+      vertex_id: `at://${DEPT.asset}/app.etzhayyim.apps.kyber.depreciationRun/${depreciationRunId}`,
       run_id: depreciationRunId,
       org_did: "anon",
       actor_did: DEPT.asset,
@@ -535,7 +535,7 @@ async function cmdRegisterPolicyControl(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_policy_control" as never).values({
-      vertex_id: `at://${DEPT.governance}/ai.gftd.apps.kyber.policyControl/${policyControlId}`,
+      vertex_id: `at://${DEPT.governance}/app.etzhayyim.apps.kyber.policyControl/${policyControlId}`,
       control_id: policyControlId,
       org_did: "anon",
       actor_did: DEPT.governance,
@@ -568,7 +568,7 @@ async function cmdRecordRiskIssue(sdk: HostSDK, body: Uint8Array) {
   try {
     const db = createKyselyDb((sdk.env as Record<string, unknown>).HYPERDRIVE as never);
     await (db.insertInto("vertex_kyber_risk_issue" as never).values({
-      vertex_id: `at://${DEPT.governance}/ai.gftd.apps.kyber.riskIssue/${riskIssueId}`,
+      vertex_id: `at://${DEPT.governance}/app.etzhayyim.apps.kyber.riskIssue/${riskIssueId}`,
       issue_id: riskIssueId,
       org_did: "anon",
       actor_did: DEPT.governance,
@@ -687,7 +687,7 @@ async function cmdProvisionTenant(sdk: HostSDK, body: Uint8Array) {
 
   const limits = planLimits(planId);
   const now = nowISO();
-  const vertexId = `at://${BILLING_DID}/ai.gftd.apps.kyber.billingTenant/${tenantId}`;
+  const vertexId = `at://${BILLING_DID}/app.etzhayyim.apps.kyber.billingTenant/${tenantId}`;
 
   // ADR-0036: Hyperdrive direct write → RisingWave (T2 Domain)
   try {
@@ -779,7 +779,7 @@ async function cmdRecordUsage(sdk: HostSDK, body: Uint8Array) {
 
   const meterId = genID("meter");
   const now = nowISO();
-  const vertexId = `at://${BILLING_DID}/ai.gftd.apps.kyber.usageMeter/${meterId}`;
+  const vertexId = `at://${BILLING_DID}/app.etzhayyim.apps.kyber.usageMeter/${meterId}`;
 
   // ADR-0036: Hyperdrive direct write → RisingWave (T2 Domain)
   try {
@@ -867,7 +867,7 @@ async function cmdReportUsageToStripe(sdk: HostSDK, body: Uint8Array) {
           await (db
             .insertInto("vertex_kyber_stripe_report" as never)
             .values({
-              vertex_id: `at://${BILLING_DID}/ai.gftd.apps.kyber.kyberStripeReport/${reportId}`,
+              vertex_id: `at://${BILLING_DID}/app.etzhayyim.apps.kyber.kyberStripeReport/${reportId}`,
               report_id: reportId,
               tenant_id: tenantId,
               org_did: str(row.org_did ?? ""),
@@ -903,7 +903,7 @@ async function cmdRegisterDepartments(sdk: HostSDK, _body: Uint8Array) {
     const departmentId = genID("dept");
     try {
       await (db.insertInto("vertex_kyber_department" as never).values({
-        vertex_id: `at://${did}/ai.gftd.apps.kyber.department/${departmentId}`,
+        vertex_id: `at://${did}/app.etzhayyim.apps.kyber.department/${departmentId}`,
         department_id: departmentId,
         org_did: "anon",
         actor_did: did,
@@ -941,11 +941,11 @@ function cmdDashboard(_sdk: HostSDK, body: Uint8Array) {
 // ───── Bonus: integration catalog (referenced from UI) ─────
 
 const INTEGRATION_CATALOG = [
-  { id: "mailer", name: "ai.gftd.apps.mailer", kind: "messaging", status: "available" },
-  { id: "calendar", name: "ai.gftd.apps.calendar", kind: "scheduling", status: "available" },
-  { id: "projector", name: "ai.gftd.projector", kind: "pm", status: "available" },
-  { id: "drive", name: "ai.gftd.apps.drive", kind: "storage", status: "available" },
-  { id: "apqc", name: "ai.gftd.apps.apqc", kind: "process-framework", status: "available" },
+  { id: "mailer", name: "app.etzhayyim.apps.mailer", kind: "messaging", status: "available" },
+  { id: "calendar", name: "app.etzhayyim.apps.calendar", kind: "scheduling", status: "available" },
+  { id: "projector", name: "app.etzhayyim.projector", kind: "pm", status: "available" },
+  { id: "drive", name: "app.etzhayyim.apps.drive", kind: "storage", status: "available" },
+  { id: "apqc", name: "app.etzhayyim.apps.apqc", kind: "process-framework", status: "available" },
 ];
 
 function cmdListIntegrationCatalog(_sdk: HostSDK, _body: Uint8Array) {
@@ -959,7 +959,7 @@ async function cmdSyncIntegrationCatalog(sdk: HostSDK, _body: Uint8Array) {
     const bindingId = genID("bind");
     try {
       await (db.insertInto("vertex_kyber_integration_binding" as never).values({
-        vertex_id: `at://${actorDID || "did:web:kyber.etzhayyim.com"}/ai.gftd.apps.kyber.integrationBinding/${bindingId}`,
+        vertex_id: `at://${actorDID || "did:web:kyber.etzhayyim.com"}/app.etzhayyim.apps.kyber.integrationBinding/${bindingId}`,
         binding_id: bindingId,
         org_did: "anon",
         actor_did: actorDID || "did:web:kyber.etzhayyim.com",
@@ -1008,7 +1008,7 @@ function cmdInitApqcProjector(sdk: HostSDK, body: Uint8Array) {
   sdk.pds.dispatch({
     type: "com.atproto.repo.createRecord",
     payload: {
-      collection: "ai.gftd.apps.kyber.apqcBootstrap",
+      collection: "app.etzhayyim.apps.kyber.apqcBootstrap",
       recordJson: JSON.stringify({
         projectorDid,
         scope,
@@ -1029,104 +1029,104 @@ function configureApp(sdk: HostSDK): void {
   const app = sdk.app;
   app
     // Accounting (5)
-    .command(nsid("ai.gftd.apps.kyber.createJournalEntry"), async (_c, b) => cmdCreateJournalEntry(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.createJournalEntry"), async (_c, b) => cmdCreateJournalEntry(sdk, b),
       asAgentTool("Create a double-entry journal (debit/credit balance required)"),
       withCapabilityTags("accounting", "gl"))
-    .command(nsid("ai.gftd.apps.kyber.listJournalEntries"), async (_c, b) => cmdListJournalEntries(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.listJournalEntries"), async (_c, b) => cmdListJournalEntries(sdk, b),
       asAgentTool("List journal entries (date/account filter)"),
       withCapabilityTags("accounting", "query"))
-    .command(nsid("ai.gftd.apps.kyber.getTrialBalance"), async (_c, b) => cmdGetTrialBalance(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.getTrialBalance"), async (_c, b) => cmdGetTrialBalance(sdk, b),
       asAgentTool("Trial balance as of date"),
       withCapabilityTags("accounting", "report"))
-    .command(nsid("ai.gftd.apps.kyber.createAccount"), async (_c, b) => cmdCreateAccount(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.createAccount"), async (_c, b) => cmdCreateAccount(sdk, b),
       asAgentTool("Add a chart-of-accounts entry"),
       withCapabilityTags("accounting", "coa"))
-    .command(nsid("ai.gftd.apps.kyber.seedChartOfAccounts"), async (_c, b) => cmdSeedChartOfAccounts(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.seedChartOfAccounts"), async (_c, b) => cmdSeedChartOfAccounts(sdk, b),
       asAgentTool("Seed 25 IFRS-aligned default accounts"),
       withCapabilityTags("accounting", "coa", "seed"))
     // AP/AR (2)
-    .command(nsid("ai.gftd.apps.kyber.createInvoice"), async (_c, b) => cmdCreateInvoice(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.createInvoice"), async (_c, b) => cmdCreateInvoice(sdk, b),
       asAgentTool("Create invoice (AP or AR; multi-line items; tax)"),
       withCapabilityTags("finance", "invoice"))
-    .command(nsid("ai.gftd.apps.kyber.listInvoices"), async (_c, b) => cmdListInvoices(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.listInvoices"), async (_c, b) => cmdListInvoices(sdk, b),
       asAgentTool("List invoices (direction/status filter)"),
       withCapabilityTags("finance", "query"))
     // HR (2)
-    .command(nsid("ai.gftd.apps.kyber.registerEmployee"), async (_c, b) => cmdRegisterEmployee(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.registerEmployee"), async (_c, b) => cmdRegisterEmployee(sdk, b),
       asAgentTool("Register employee with department/position/salary"),
       withCapabilityTags("hr", "employee"))
-    .command(nsid("ai.gftd.apps.kyber.listEmployees"), async (_c, b) => cmdListEmployees(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.listEmployees"), async (_c, b) => cmdListEmployees(sdk, b),
       asAgentTool("List employees (department/status filter)"),
       withCapabilityTags("hr", "query"))
     // Procurement (2)
-    .command(nsid("ai.gftd.apps.kyber.createPurchaseOrder"), async (_c, b) => cmdCreatePurchaseOrder(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.createPurchaseOrder"), async (_c, b) => cmdCreatePurchaseOrder(sdk, b),
       asAgentTool("Create purchase order (vendor / items / delivery)"),
       withCapabilityTags("procurement", "po"))
-    .command(nsid("ai.gftd.apps.kyber.listPurchaseOrders"), async (_c, b) => cmdListPurchaseOrders(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.listPurchaseOrders"), async (_c, b) => cmdListPurchaseOrders(sdk, b),
       asAgentTool("List purchase orders (vendor/status filter)"),
       withCapabilityTags("procurement", "query"))
     // Inventory (2)
-    .command(nsid("ai.gftd.apps.kyber.registerInventoryItem"), async (_c, b) => cmdRegisterInventoryItem(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.registerInventoryItem"), async (_c, b) => cmdRegisterInventoryItem(sdk, b),
       asAgentTool("Register inventory item (SKU / warehouse / reorder)"),
       withCapabilityTags("inventory", "sku"))
-    .command(nsid("ai.gftd.apps.kyber.listInventory"), async (_c, b) => cmdListInventory(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.listInventory"), async (_c, b) => cmdListInventory(sdk, b),
       asAgentTool("List inventory (category / warehouse / low-stock filter)"),
       withCapabilityTags("inventory", "query"))
     // Sales (2)
-    .command(nsid("ai.gftd.apps.kyber.createSalesOrder"), async (_c, b) => cmdCreateSalesOrder(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.createSalesOrder"), async (_c, b) => cmdCreateSalesOrder(sdk, b),
       asAgentTool("Create sales order (customer / items / tax / shipping)"),
       withCapabilityTags("sales", "so"))
-    .command(nsid("ai.gftd.apps.kyber.listSalesOrders"), async (_c, b) => cmdListSalesOrders(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.listSalesOrders"), async (_c, b) => cmdListSalesOrders(sdk, b),
       asAgentTool("List sales orders (customer/status filter)"),
       withCapabilityTags("sales", "query"))
     // Asset (3)
-    .command(nsid("ai.gftd.apps.kyber.registerFixedAsset"), async (_c, b) => cmdRegisterFixedAsset(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.registerFixedAsset"), async (_c, b) => cmdRegisterFixedAsset(sdk, b),
       asAgentTool("Register fixed asset for capitalization and depreciation"),
       withCapabilityTags("asset", "fixed-asset"))
-    .command(nsid("ai.gftd.apps.kyber.listFixedAssets"), async (_c, b) => cmdListFixedAssets(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.listFixedAssets"), async (_c, b) => cmdListFixedAssets(sdk, b),
       asAgentTool("List fixed assets (category/status/owner filter)"),
       withCapabilityTags("asset", "query"))
-    .command(nsid("ai.gftd.apps.kyber.runDepreciation"), async (_c, b) => cmdRunDepreciation(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.runDepreciation"), async (_c, b) => cmdRunDepreciation(sdk, b),
       asAgentTool("Run period depreciation (straight-line) and post summary"),
       withCapabilityTags("asset", "depreciation", "accounting"))
     // Governance (3)
-    .command(nsid("ai.gftd.apps.kyber.registerPolicyControl"), async (_c, b) => cmdRegisterPolicyControl(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.registerPolicyControl"), async (_c, b) => cmdRegisterPolicyControl(sdk, b),
       asAgentTool("Register policy/control item for governance and compliance"),
       withCapabilityTags("governance", "compliance", "control"))
-    .command(nsid("ai.gftd.apps.kyber.recordRiskIssue"), async (_c, b) => cmdRecordRiskIssue(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.recordRiskIssue"), async (_c, b) => cmdRecordRiskIssue(sdk, b),
       asAgentTool("Record enterprise risk issue with severity and mitigation plan"),
       withCapabilityTags("governance", "risk", "issue"))
-    .command(nsid("ai.gftd.apps.kyber.listRiskIssues"), async (_c, b) => cmdListRiskIssues(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.listRiskIssues"), async (_c, b) => cmdListRiskIssues(sdk, b),
       asAgentTool("List risk issues (severity/status/owner filter)"),
       withCapabilityTags("governance", "risk", "query"))
     // Management (5 incl. integrations)
-    .command(nsid("ai.gftd.apps.kyber.registerDepartments"), async (_c, b) => cmdRegisterDepartments(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.registerDepartments"), async (_c, b) => cmdRegisterDepartments(sdk, b),
       asAgentTool("Register the 7 department DIDs"),
       withCapabilityTags("management", "did"))
-    .command(nsid("ai.gftd.apps.kyber.dashboard"), async (_c, b) => cmdDashboard(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.dashboard"), async (_c, b) => cmdDashboard(sdk, b),
       asAgentTool("ERP dashboard — period summary across 8 modules"),
       withCapabilityTags("management", "dashboard"))
-    .command(nsid("ai.gftd.apps.kyber.listIntegrationCatalog"), async (_c, b) => cmdListIntegrationCatalog(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.listIntegrationCatalog"), async (_c, b) => cmdListIntegrationCatalog(sdk, b),
       asAgentTool("List available cross-app integrations"),
       withCapabilityTags("integration", "catalog"))
-    .command(nsid("ai.gftd.apps.kyber.syncIntegrationCatalog"), async (_c, b) => cmdSyncIntegrationCatalog(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.syncIntegrationCatalog"), async (_c, b) => cmdSyncIntegrationCatalog(sdk, b),
       asAgentTool("Sync integration catalog into integrationBinding records"),
       withCapabilityTags("integration", "sync"))
     // APQC/BPMN projector bootstrap (cross-project; ADR-0025)
-    .command(nsid("ai.gftd.apps.kyber.initApqcProjector"), async (_c, b) => cmdInitApqcProjector(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.initApqcProjector"), async (_c, b) => cmdInitApqcProjector(sdk, b),
       asAgentTool("Bootstrap kyber-projector: follow + emit apqcBootstrap record"),
       withCapabilityTags("apqc", "bpmn", "bootstrap", "cross-project"))
     // Billing (4) — ADR-2605072300
-    .command(nsid("ai.gftd.apps.kyber.provisionTenant"), async (_c, b) => cmdProvisionTenant(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.provisionTenant"), async (_c, b) => cmdProvisionTenant(sdk, b),
       asAgentTool("Provision a kyber tenant (idempotent by orgDid). Called by yoro.etzhayyim.com signup flow."),
       withCapabilityTags("billing", "tenant", "signup"))
-    .command(nsid("ai.gftd.apps.kyber.getTenantPlan"), async (_c, b) => cmdGetTenantPlan(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.getTenantPlan"), async (_c, b) => cmdGetTenantPlan(sdk, b),
       asAgentTool("Return current plan, usage counters, and limits for a tenant"),
       withCapabilityTags("billing", "plan", "query"))
-    .command(nsid("ai.gftd.apps.kyber.recordUsage"), async (_c, b) => cmdRecordUsage(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.recordUsage"), async (_c, b) => cmdRecordUsage(sdk, b),
       asAgentTool("Append a usage delta to the usage meter (xrpc_request / rw_row / llm_token / langserver_invocation / pds_byte)"),
       withCapabilityTags("billing", "meter"))
-    .command(nsid("ai.gftd.apps.kyber.reportUsageToStripe"), async (_c, b) => cmdReportUsageToStripe(sdk, b),
+    .command(nsid("app.etzhayyim.apps.kyber.reportUsageToStripe"), async (_c, b) => cmdReportUsageToStripe(sdk, b),
       asAgentTool("Flush monthly usage for paid tenants to Stripe Meter API (scheduled monthly)"),
       withCapabilityTags("billing", "stripe", "scheduled"));
 }

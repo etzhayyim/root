@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.ki.absorb": {
+    "/xrpc/app.etzhayyim.ki.absorb": {
       "post": {
         "summary": "Take in processed signals from koke/hakkou into ki vascular input (xylem). Analogous to root absorption — raw signals enter the vascular system for upward transport toward synthesis.",
-        "operationId": "ai.gftd.ki.absorb",
+        "operationId": "app.etzhayyim.ki.absorb",
         "requestBody": {
           "required": true,
           "content": {
@@ -75,10 +75,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.ki.bloom": {
+    "/xrpc/app.etzhayyim.ki.bloom": {
       "post": {
         "summary": "Publish a synthesized knowledge artifact to the graph. Analogous to phloem transport — synthesized knowledge flows outward (downward) to all parts of the ecosystem.",
-        "operationId": "ai.gftd.ki.bloom",
+        "operationId": "app.etzhayyim.ki.bloom",
         "requestBody": {
           "required": true,
           "content": {
@@ -131,10 +131,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.ki.ring": {
+    "/xrpc/app.etzhayyim.ki.ring": {
       "post": {
         "summary": "Create a versioned knowledge checkpoint (growth ring). Analogous to tree dendrochronology — each ring records conditions at a point in time, enabling knowledge graph time-travel queries.",
-        "operationId": "ai.gftd.ki.ring",
+        "operationId": "app.etzhayyim.ki.ring",
         "requestBody": {
           "required": true,
           "content": {
@@ -187,10 +187,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.ki.synthesize": {
+    "/xrpc/app.etzhayyim.ki.synthesize": {
       "post": {
         "summary": "LLM-based structured synthesis of absorbed signals into a knowledge artifact. Analogous to photosynthesis — absorbed inputs are synthesized into structured knowledge (sugar) for downstream distribution.",
-        "operationId": "ai.gftd.ki.synthesize",
+        "operationId": "app.etzhayyim.ki.synthesize",
         "requestBody": {
           "required": true,
           "content": {

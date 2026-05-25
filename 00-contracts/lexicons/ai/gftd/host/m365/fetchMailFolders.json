@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.m365.fetchMailFolders",
+  "id": "app.etzhayyim.host.m365.fetchMailFolders",
   "defs": {
     "main": {
       "type": "query",

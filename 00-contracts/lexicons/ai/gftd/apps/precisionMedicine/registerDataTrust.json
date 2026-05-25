@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.precisionMedicine.registerDataTrust",
+  "id": "app.etzhayyim.apps.precisionMedicine.registerDataTrust",
   "defs": {
     "main": {
       "type": "procedure",

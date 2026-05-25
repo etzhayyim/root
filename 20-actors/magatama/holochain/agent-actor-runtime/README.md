@@ -1,6 +1,6 @@
 # Holochain Agent Actor Runtime Experiment
 
-This is a packaging scaffold for ADR-2605092600. It models a GFTD actor cell as:
+This is a packaging scaffold for ADR-2605092600. It models a etzhayyim actor cell as:
 
 - DNA: `agent_actor_runtime`
 - Role: `agent_actor_runtime`

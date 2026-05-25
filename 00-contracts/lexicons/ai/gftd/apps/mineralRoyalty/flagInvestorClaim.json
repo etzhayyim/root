@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mineralRoyalty.flagInvestorClaim",
+  "id": "app.etzhayyim.apps.mineralRoyalty.flagInvestorClaim",
   "defs": {
     "main": {
       "type": "procedure",

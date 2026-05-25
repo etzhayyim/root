@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.usStateDept.coordinatePgRelations",
+  "id": "app.etzhayyim.apps.usStateDept.coordinatePgRelations",
   "defs": {
     "main": {
       "type": "procedure",

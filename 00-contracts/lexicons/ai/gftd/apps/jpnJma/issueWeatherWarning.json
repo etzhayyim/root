@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpnJma.issueWeatherWarning",
+  "id": "app.etzhayyim.apps.jpnJma.issueWeatherWarning",
   "defs": {
     "main": {
       "type": "procedure",

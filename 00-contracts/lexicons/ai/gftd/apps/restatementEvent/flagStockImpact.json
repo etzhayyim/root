@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.restatementEvent.flagStockImpact",
+  "id": "app.etzhayyim.apps.restatementEvent.flagStockImpact",
   "defs": {
     "main": {
       "type": "procedure",

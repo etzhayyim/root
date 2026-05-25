@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.plc.migrateActor",
+  "id": "app.etzhayyim.plc.migrateActor",
   "defs": {
     "main": {
       "type": "procedure",

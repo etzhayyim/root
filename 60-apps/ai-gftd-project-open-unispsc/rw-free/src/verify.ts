@@ -5,7 +5,7 @@
  * anchor tx contains that root, and re-check the path cryptographically.
  *
  * Usage:
- *   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/ai.gftd.apps.openUnispsc.segmentDef/43
+ *   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/app.etzhayyim.apps.openUnispsc.segmentDef/43
  */
 
 import { Etzhayyim } from "@etzhayyim/sdk";

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nokyo.loanApplication",
+  "id": "app.etzhayyim.apps.nokyo.loanApplication",
   "description": "JAバンク 農業融資申込 (農機 / 施設 / 運転資金 / 認定農業者スーパーL資金)。農林中金が最終与信、単協が一次審査。",
   "defs": {
     "main": {

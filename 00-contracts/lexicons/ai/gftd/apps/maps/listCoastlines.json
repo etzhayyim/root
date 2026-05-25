@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listCoastlines",
+  "id": "app.etzhayyim.apps.maps.listCoastlines",
   "defs": {
     "main": {
       "type": "query",

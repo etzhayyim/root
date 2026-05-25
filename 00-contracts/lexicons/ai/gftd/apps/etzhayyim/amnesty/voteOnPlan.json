@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.amnesty.voteOnPlan",
+  "id": "app.etzhayyim.apps.etzhayyim.amnesty.voteOnPlan",
   "defs": {
     "main": {
       "type": "procedure",

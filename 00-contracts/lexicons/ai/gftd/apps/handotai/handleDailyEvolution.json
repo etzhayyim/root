@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.handotai.handleDailyEvolution",
+  "id": "app.etzhayyim.apps.handotai.handleDailyEvolution",
   "defs": {
     "main": {
       "type": "procedure",

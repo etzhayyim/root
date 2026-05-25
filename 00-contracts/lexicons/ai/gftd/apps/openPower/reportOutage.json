@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPower.reportOutage",
+  "id": "app.etzhayyim.apps.openPower.reportOutage",
   "defs": {
     "main": {
       "type": "procedure",

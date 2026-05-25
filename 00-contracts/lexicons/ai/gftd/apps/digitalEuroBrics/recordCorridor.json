@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.digitalEuroBrics.recordCorridor",
+  "id": "app.etzhayyim.apps.digitalEuroBrics.recordCorridor",
   "defs": {
     "main": {
       "type": "procedure",

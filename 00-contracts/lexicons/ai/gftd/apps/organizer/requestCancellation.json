@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.organizer.requestCancellation",
+  "id": "app.etzhayyim.apps.organizer.requestCancellation",
   "defs": {
     "main": {
       "type": "procedure",

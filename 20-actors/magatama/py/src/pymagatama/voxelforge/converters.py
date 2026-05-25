@@ -248,11 +248,11 @@ def b2_put(bucket: str, key: str, body: bytes, content_type: str) -> None:
     Credentials from env: ``B2_ACCESS_KEY_ID`` / ``B2_SECRET_ACCESS_KEY``
     / ``B2_ENDPOINT_URL`` (e.g. ``https://s3.us-west-004.backblazeb2.com``).
 
-    ``GFTD_VOXELFORGE_DRY_RUN=1`` skips the upload (returns success). Used
+    ``etzhayyim_VOXELFORGE_DRY_RUN=1`` skips the upload (returns success). Used
     by unit tests + offline development.
     """
 
-    if os.environ.get("GFTD_VOXELFORGE_DRY_RUN") == "1":
+    if os.environ.get("etzhayyim_VOXELFORGE_DRY_RUN") == "1":
         return
 
     import boto3  # type: ignore
@@ -279,13 +279,13 @@ def register_artifacts_to_rw(
 ) -> None:
     """INSERT artifact rows + lineage edges into RisingWave.
 
-    Skips silently when ``GFTD_VOXELFORGE_DRY_RUN=1`` so unit tests do
+    Skips silently when ``etzhayyim_VOXELFORGE_DRY_RUN=1`` so unit tests do
     not need a live cluster. Production goes through the canonical
     sync_cursor path used by every other primitives module
     (``pymagatama.db.sync_cursor`` / ``insert_into``).
     """
 
-    if os.environ.get("GFTD_VOXELFORGE_DRY_RUN") == "1":
+    if os.environ.get("etzhayyim_VOXELFORGE_DRY_RUN") == "1":
         return
 
     from pymagatama.db_alchemy import sa_execute, sync_cursor  # type: ignore

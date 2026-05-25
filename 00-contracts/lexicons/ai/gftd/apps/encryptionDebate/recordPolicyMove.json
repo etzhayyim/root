@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.encryptionDebate.recordPolicyMove",
+  "id": "app.etzhayyim.apps.encryptionDebate.recordPolicyMove",
   "defs": {
     "main": {
       "type": "procedure",

@@ -35,7 +35,7 @@ import {
   type AppDef,
   type HostSDK,
   type ComAtprotoSyncSubscribeReposCommit,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 const APP_DEF: AppDef = {
   id: "sh1nk4n0",
@@ -120,7 +120,7 @@ export default createWorkerExport((sdk) => {
   // ── Queries ──
 
   sdk.app.query(
-    "ai.gftd.apps.shinkansen.searchRoute",
+    "app.etzhayyim.apps.shinkansen.searchRoute",
     asAgentTool(
       withCapabilityTags(["timetable-search"])(
         withOCELEvent("shinkansen:searchRoute")(async (input: { from: string; to: string; date: string; time?: string }) => {
@@ -138,7 +138,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.query(
-    "ai.gftd.apps.shinkansen.checkAvailability",
+    "app.etzhayyim.apps.shinkansen.checkAvailability",
     asAgentTool(
       withCapabilityTags(["timetable-search"])(
         withOCELEvent("shinkansen:checkAvailability")(async (input: { trainNumber: string; date: string; seatClass?: string }) => {
@@ -155,7 +155,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.query(
-    "ai.gftd.apps.shinkansen.compareFare",
+    "app.etzhayyim.apps.shinkansen.compareFare",
     asAgentTool(
       withCapabilityTags(["fare-comparison"])(
         withOCELEvent("shinkansen:compareFare")(async (input: { from: string; to: string; date: string; seatClass?: string }) => {
@@ -174,7 +174,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.query(
-    "ai.gftd.apps.shinkansen.getReservation",
+    "app.etzhayyim.apps.shinkansen.getReservation",
     asAgentTool(
       withCapabilityTags(["reservation-management"])(
         withOCELEvent("shinkansen:getReservation")(async (input: { reservationId: string }) => {
@@ -191,7 +191,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.query(
-    "ai.gftd.apps.shinkansen.listReservations",
+    "app.etzhayyim.apps.shinkansen.listReservations",
     asAgentTool(
       withCapabilityTags(["reservation-management"])(
         withOCELEvent("shinkansen:listReservations")(async (input: { userDid?: string; status?: string; offset?: number; limit?: number }) => {
@@ -214,7 +214,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.query(
-    "ai.gftd.apps.shinkansen.getOperation",
+    "app.etzhayyim.apps.shinkansen.getOperation",
     asAgentTool(
       withCapabilityTags(["operation-status"])(
         withOCELEvent("shinkansen:getOperation")(async (input: { lineId?: string }) => {
@@ -234,7 +234,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.query(
-    "ai.gftd.apps.shinkansen.listLines",
+    "app.etzhayyim.apps.shinkansen.listLines",
     asAgentTool(
       withCapabilityTags(["timetable-search"])(
         withOCELEvent("shinkansen:listLines")(async () => {
@@ -248,7 +248,7 @@ export default createWorkerExport((sdk) => {
   // ── Commands (Tier 2 Domain write) ──
 
   sdk.app.command(
-    "ai.gftd.apps.shinkansen.createReservation",
+    "app.etzhayyim.apps.shinkansen.createReservation",
     asAgentTool(
       withCapabilityTags(["reservation-management"])(
         withOCELEvent("shinkansen:createReservation")(async (input: {
@@ -265,7 +265,7 @@ export default createWorkerExport((sdk) => {
         }) => {
           const reservationId = `rsv-${Date.now().toString(36)}`;
           await createKyselyDb().insertInto("vertex_shinkansen_reservation" as any).values({
-            vertex_id: `at://${A.smartex}/ai.gftd.apps.shinkansen.reservation/${reservationId}`,
+            vertex_id: `at://${A.smartex}/app.etzhayyim.apps.shinkansen.reservation/${reservationId}`,
             sensitivity_ord: 2,
             owner_did: A.smartex,
             reservation_id: reservationId,
@@ -291,12 +291,12 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "ai.gftd.apps.shinkansen.cancelReservation",
+    "app.etzhayyim.apps.shinkansen.cancelReservation",
     asAgentTool(
       withCapabilityTags(["reservation-management"])(
         withOCELEvent("shinkansen:cancelReservation")(async (input: { reservationId: string; reason?: string }) => {
           await createKyselyDb().insertInto("vertex_shinkansen_reservation" as any).values({
-            vertex_id: `at://${A.smartex}/ai.gftd.apps.shinkansen.reservation/cancel-${input.reservationId}`,
+            vertex_id: `at://${A.smartex}/app.etzhayyim.apps.shinkansen.reservation/cancel-${input.reservationId}`,
             sensitivity_ord: 2,
             owner_did: A.smartex,
             reservation_id: input.reservationId,
@@ -313,12 +313,12 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "ai.gftd.apps.shinkansen.selectSeat",
+    "app.etzhayyim.apps.shinkansen.selectSeat",
     asAgentTool(
       withCapabilityTags(["reservation-management"])(
         withOCELEvent("shinkansen:selectSeat")(async (input: { reservationId: string; carNumber: number; seatNumber: string }) => {
           await createKyselyDb().insertInto("vertex_shinkansen_reservation" as any).values({
-            vertex_id: `at://${A.seat}/ai.gftd.apps.shinkansen.reservation/seat-${input.reservationId}`,
+            vertex_id: `at://${A.seat}/app.etzhayyim.apps.shinkansen.reservation/seat-${input.reservationId}`,
             sensitivity_ord: 2,
             owner_did: A.seat,
             reservation_id: input.reservationId,
@@ -335,7 +335,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "ai.gftd.apps.shinkansen.reportOperation",
+    "app.etzhayyim.apps.shinkansen.reportOperation",
     asAgentTool(
       withCapabilityTags(["operation-status"])(
         withOCELEvent("shinkansen:reportOperation")(async (input: {
@@ -349,7 +349,7 @@ export default createWorkerExport((sdk) => {
           const line = lines.find((l) => l.lineId === input.lineId);
           const opRkey = `op-${input.lineId}-${Date.now().toString(36)}`;
           await createKyselyDb().insertInto("vertex_shinkansen_operation" as any).values({
-            vertex_id: `at://${A.operation}/ai.gftd.apps.shinkansen.operation/${opRkey}`,
+            vertex_id: `at://${A.operation}/app.etzhayyim.apps.shinkansen.operation/${opRkey}`,
             sensitivity_ord: 2,
             owner_did: A.operation,
             line_id: input.lineId,
@@ -370,14 +370,14 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "ai.gftd.apps.shinkansen.seedTimetable",
+    "app.etzhayyim.apps.shinkansen.seedTimetable",
     asAgentTool(
       withCapabilityTags(["timetable-search"])(
         withOCELEvent("shinkansen:seedTimetable")(async (input: { lineId: string }) => {
           const line = lines.find((l) => l.lineId === input.lineId);
           if (!line) return { error: `unknown line: ${input.lineId}` };
           await createKyselyDb().insertInto("vertex_shinkansen_timetable" as any).values({
-            vertex_id: `at://${A.timetable}/ai.gftd.apps.shinkansen.timetable/${line.lineId}`,
+            vertex_id: `at://${A.timetable}/app.etzhayyim.apps.shinkansen.timetable/${line.lineId}`,
             sensitivity_ord: 2,
             owner_did: A.timetable,
             line_id: line.lineId,
@@ -429,7 +429,7 @@ async function handleComAtprotoSyncSubscribeReposCommit(
   if (commit.action !== "create") return;
 
   // Calendar event -> auto-suggest reservation
-  if (commit.collection === "ai.gftd.apps.calendar.event") {
+  if (commit.collection === "app.etzhayyim.apps.calendar.event") {
     const record = decodeJson(commit.recordJson);
     const title = str(record.title ?? record.summary ?? "");
     if (title.includes("新幹線") || title.includes("shinkansen") || title.includes("出張")) {
@@ -445,7 +445,7 @@ async function handleComAtprotoSyncSubscribeReposCommit(
   }
 
   // Operation status change -> social post (derive rule backup)
-  if (commit.collection === "ai.gftd.apps.shinkansen.operation") {
+  if (commit.collection === "app.etzhayyim.apps.shinkansen.operation") {
     const record = decodeJson(commit.recordJson);
     const status = str(record.status ?? "");
     if (status === "delay" || status === "suspended") {

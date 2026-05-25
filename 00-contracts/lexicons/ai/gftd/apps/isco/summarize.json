@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isco.summarize",
+  "id": "app.etzhayyim.apps.isco.summarize",
   "defs": {
     "main": {
       "type": "procedure",

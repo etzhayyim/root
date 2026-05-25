@@ -4,7 +4,7 @@
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat","nodejs_als"],
-  "alias": { "@gftd/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts", "pg": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js", "@gftd/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts", "@gftd/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts", "@gftd/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts", "@gftd/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts", "@gftd/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts", "@cloudflare/puppeteer": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/@cloudflare+puppeteer@0.0.14_bufferutil@4.1.0_utf-8-validate@5.0.10/node_modules/@cloudflare/puppeteer/lib/esm/puppeteer/puppeteer-cloudflare.js" },
+  "alias": { "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts", "pg": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js", "@etzhayyim/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts", "@etzhayyim/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts", "@etzhayyim/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts", "@etzhayyim/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts", "@etzhayyim/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts", "@cloudflare/puppeteer": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/@cloudflare+puppeteer@0.0.14_bufferutil@4.1.0_utf-8-validate@5.0.10/node_modules/@cloudflare/puppeteer/lib/esm/puppeteer/puppeteer-cloudflare.js" },
   "assets": {
     "directory": "./svelte/build",
     "binding": "ASSETS",
@@ -15,7 +15,7 @@
     "APP_CAPABILITIES": "[\"game-intelligence\",\"content-catalog\"]",
     "APP_DESCRIPTION": "Media Gamers — AI Agent for gaming intelligence and analytics",
     "APP_DISPLAY_NAME": "Media Gamers",
-    "APP_EMBED_URL": "https://a7m8oocs.gftd.ai/embed",
+    "APP_EMBED_URL": "https://a7m8oocs.etzhayyim.com/embed",
     "APP_FRAMEWORK": "ts-native",
     "APP_NANOID": "a7m8oocs",
     "APP_PERFORMER_TYPE": "service",
@@ -61,6 +61,6 @@
     { "type": "CompiledWasm", "globs": ["**/*.wasm"] }
   ],
   "routes": [
-    { "pattern": "a7m8oocs.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "a7m8oocs.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

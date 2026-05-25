@@ -362,7 +362,7 @@ def _emit_job_state(
     later rate changes don't rewrite history."""
     now_iso = datetime.now(timezone.utc).isoformat()
     vertex_id = (
-        f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.gsplatJob/{job_id}-"
+        f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.gsplatJob/{job_id}-"
         f"{int(time.time() * 1000)}"
     )
     try:
@@ -621,7 +621,7 @@ def _insert_gsplat_row(
     train_job_id: str,
 ) -> None:
     """RW append-only INSERT (no ON CONFLICT, record-log semantics)."""
-    vertex_id = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.gsplatAsset/{tile_h3}-{int(time.time())}"
+    vertex_id = f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.gsplatAsset/{tile_h3}-{int(time.time())}"
     now_iso = datetime.now(timezone.utc).isoformat()
     conn = psycopg2.connect(DATABASE_URL)
     conn.autocommit = False
@@ -742,7 +742,7 @@ def _run_bake(req: dict) -> None:
                         status="running", phase="rw-insert",
                         triangle_count=triangle_count)
         mesh_vertex_id = (
-            f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.gsplatMesh/"
+            f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.gsplatMesh/"
             f"{tile_h3}-{bake_job_id}"
         )
         _insert_mesh_row(

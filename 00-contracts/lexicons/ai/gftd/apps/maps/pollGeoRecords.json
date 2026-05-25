@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.pollGeoRecords",
+  "id": "app.etzhayyim.apps.maps.pollGeoRecords",
   "defs": {
     "main": {
       "type": "procedure",

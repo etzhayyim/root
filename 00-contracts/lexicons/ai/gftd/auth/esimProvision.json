@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.auth.esimProvision",
+  "id": "app.etzhayyim.auth.esimProvision",
   "defs": {
     "main": {
       "type": "procedure",

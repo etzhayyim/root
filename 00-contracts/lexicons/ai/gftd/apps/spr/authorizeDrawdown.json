@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.spr.authorizeDrawdown",
+  "id": "app.etzhayyim.apps.spr.authorizeDrawdown",
   "defs": {
     "main": {
       "type": "procedure",

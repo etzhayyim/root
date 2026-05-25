@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.hanrei.listCases",
+  "id": "app.etzhayyim.hanrei.listCases",
   "defs": {
     "main": {
       "type": "query",

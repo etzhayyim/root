@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.miningOperation.reportTailings",
+  "id": "app.etzhayyim.apps.miningOperation.reportTailings",
   "defs": {
     "main": {
       "type": "procedure",

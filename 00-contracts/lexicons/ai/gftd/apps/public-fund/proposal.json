@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.public-fund.proposal",
+  "id": "app.etzhayyim.apps.public-fund.proposal",
   "defs": {
     "main": {
       "type": "record",

@@ -19,7 +19,7 @@ from gftd.cli import main
 
 class TestResolveBase:
     def test_url_wins_over_app_and_nsid(self):
-        base = _resolve_base("ai.gftd.apps.media_gamers.foo", app="a7m8oocs", url="https://custom.example.com")
+        base = _resolve_base("app.etzhayyim.apps.media_gamers.foo", app="a7m8oocs", url="https://custom.example.com")
         assert base == "https://custom.example.com"
 
     def test_url_strips_trailing_slash(self):
@@ -27,37 +27,37 @@ class TestResolveBase:
         assert base == "https://custom.example.com"
 
     def test_app_nanoid_wins_over_nsid_inference(self):
-        base = _resolve_base("ai.gftd.apps.unknown.foo", app="mynanoid", url=None)
+        base = _resolve_base("app.etzhayyim.apps.unknown.foo", app="mynanoid", url=None)
         assert base == _APP_HOST_TEMPLATE.format(nanoid="mynanoid")
 
     def test_known_slug_inferred_from_nsid(self):
-        base = _resolve_base("ai.gftd.apps.media_gamers.listGames", app=None, url=None)
+        base = _resolve_base("app.etzhayyim.apps.media_gamers.listGames", app=None, url=None)
         expected = _APP_HOST_TEMPLATE.format(nanoid=_KNOWN_APPS["media_gamers"])
         assert base == expected
 
     def test_known_slug_handotai_inferred(self):
-        base = _resolve_base("ai.gftd.apps.handotai.createArticle", app=None, url=None)
+        base = _resolve_base("app.etzhayyim.apps.handotai.createArticle", app=None, url=None)
         expected = _APP_HOST_TEMPLATE.format(nanoid=_KNOWN_APPS["handotai"])
         assert base == expected
 
     def test_unknown_slug_falls_back_to_pds(self, monkeypatch):
-        monkeypatch.delenv("GFTD_PDS_URL", raising=False)
-        base = _resolve_base("ai.gftd.apps.unknown_slug.foo", app=None, url=None)
+        monkeypatch.delenv("etzhayyim_PDS_URL", raising=False)
+        base = _resolve_base("app.etzhayyim.apps.unknown_slug.foo", app=None, url=None)
         assert base == "https://atproto.etzhayyim.com"
 
     def test_non_ai_gftd_apps_nsid_falls_back_to_pds(self, monkeypatch):
-        monkeypatch.delenv("GFTD_PDS_URL", raising=False)
+        monkeypatch.delenv("etzhayyim_PDS_URL", raising=False)
         base = _resolve_base("com.atproto.server.describeServer", app=None, url=None)
         assert base == "https://atproto.etzhayyim.com"
 
     def test_fallback_uses_gftd_pds_url_env(self, monkeypatch):
-        monkeypatch.setenv("GFTD_PDS_URL", "https://custom-pds.example.com")
+        monkeypatch.setenv("etzhayyim_PDS_URL", "https://custom-pds.example.com")
         base = _resolve_base("com.atproto.server.describeServer", app=None, url=None)
         assert base == "https://custom-pds.example.com"
 
     def test_short_nsid_three_parts_falls_back_to_pds(self, monkeypatch):
-        monkeypatch.delenv("GFTD_PDS_URL", raising=False)
-        base = _resolve_base("ai.gftd.apps", app=None, url=None)
+        monkeypatch.delenv("etzhayyim_PDS_URL", raising=False)
+        base = _resolve_base("app.etzhayyim.apps", app=None, url=None)
         assert base == "https://atproto.etzhayyim.com"
 
     def test_known_apps_dict_contains_expected_slugs(self):
@@ -75,7 +75,7 @@ class TestResolveBase:
 
 class TestXrpcUsedScopedAuth:
     def test_xrpc_calls_scoped_auth_headers_with_nsid(self, monkeypatch):
-        monkeypatch.setenv("GFTD_PDS_URL", "https://atproto.etzhayyim.com")
+        monkeypatch.setenv("etzhayyim_PDS_URL", "https://atproto.etzhayyim.com")
 
         mock_resp = MagicMock()
         mock_resp.status_code = 200

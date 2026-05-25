@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.wtoTradeCbam.flagDisputeEscalation",
+  "id": "app.etzhayyim.apps.wtoTradeCbam.flagDisputeEscalation",
   "defs": {
     "main": {
       "type": "procedure",

@@ -412,7 +412,7 @@ atomic from the worker's perspective; clients see at most one minute of
 4. **Skip DNS, route by HTTP host header** (single ingress sees both
    ``*.etzhayyim.com`` and ``*.etzhayyim.com``).
    Rejected: requires the etzhayyim ingress to claim ownership of the
-   ``etzhayyim.com`` zone, which is owned by Gftd Japan株式会社 (vendor). The
+   ``etzhayyim.com`` zone, which is owned by etzhayyim Japan株式会社 (vendor). The
    org-split is precisely about not crossing this boundary.
 
 # References

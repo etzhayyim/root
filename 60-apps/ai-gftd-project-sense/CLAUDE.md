@@ -56,42 +56,42 @@
 | `did:web:sense.etzhayyim.com:structure` | 構造物 (壁/柱/梁/配管) |
 | `did:web:sense.etzhayyim.com:sensor` | センサーデバイス登録 |
 
-## NSID (ai.gftd.apps.sense.*)
+## NSID (app.etzhayyim.apps.sense.*)
 
 ### Scan Session
-- `ai.gftd.apps.sense.scan.create` — スキャンセッション開始
-- `ai.gftd.apps.sense.scan.update` — センサーフレーム追加
-- `ai.gftd.apps.sense.scan.complete` — スキャン完了 → Fusion 起動
-- `ai.gftd.apps.sense.scan.get` — セッション取得
-- `ai.gftd.apps.sense.scan.list` — セッション一覧
+- `app.etzhayyim.apps.sense.scan.create` — スキャンセッション開始
+- `app.etzhayyim.apps.sense.scan.update` — センサーフレーム追加
+- `app.etzhayyim.apps.sense.scan.complete` — スキャン完了 → Fusion 起動
+- `app.etzhayyim.apps.sense.scan.get` — セッション取得
+- `app.etzhayyim.apps.sense.scan.list` — セッション一覧
 
 ### Building Model
-- `ai.gftd.apps.sense.building.create` — 建物モデル生成
-- `ai.gftd.apps.sense.building.get` — 3D モデル取得
-- `ai.gftd.apps.sense.building.list` — 建物一覧
-- `ai.gftd.apps.sense.building.export` — glTF/PLY/OBJ エクスポート
+- `app.etzhayyim.apps.sense.building.create` — 建物モデル生成
+- `app.etzhayyim.apps.sense.building.get` — 3D モデル取得
+- `app.etzhayyim.apps.sense.building.list` — 建物一覧
+- `app.etzhayyim.apps.sense.building.export` — glTF/PLY/OBJ エクスポート
 
 ### Floor & Room
-- `ai.gftd.apps.sense.floor.create` — フロアプラン生成
-- `ai.gftd.apps.sense.floor.get` — フロアプラン取得
-- `ai.gftd.apps.sense.room.create` — 部屋データ生成
-- `ai.gftd.apps.sense.room.get` — 部屋データ取得 (寸法/材質/音響特性)
+- `app.etzhayyim.apps.sense.floor.create` — フロアプラン生成
+- `app.etzhayyim.apps.sense.floor.get` — フロアプラン取得
+- `app.etzhayyim.apps.sense.room.create` — 部屋データ生成
+- `app.etzhayyim.apps.sense.room.get` — 部屋データ取得 (寸法/材質/音響特性)
 
 ### Structure Analysis
-- `ai.gftd.apps.sense.structure.detect` — 構造物検出 (壁/柱/梁/配管/配線)
-- `ai.gftd.apps.sense.structure.get` — 構造物詳細
-- `ai.gftd.apps.sense.structure.list` — 構造物一覧
-- `ai.gftd.apps.sense.structure.cross_section` — 断面図生成
+- `app.etzhayyim.apps.sense.structure.detect` — 構造物検出 (壁/柱/梁/配管/配線)
+- `app.etzhayyim.apps.sense.structure.get` — 構造物詳細
+- `app.etzhayyim.apps.sense.structure.list` — 構造物一覧
+- `app.etzhayyim.apps.sense.structure.cross_section` — 断面図生成
 
 ### Sensor Device
-- `ai.gftd.apps.sense.sensor.register` — デバイス登録
-- `ai.gftd.apps.sense.sensor.calibrate` — キャリブレーション
-- `ai.gftd.apps.sense.sensor.status` — デバイス状態
+- `app.etzhayyim.apps.sense.sensor.register` — デバイス登録
+- `app.etzhayyim.apps.sense.sensor.calibrate` — キャリブレーション
+- `app.etzhayyim.apps.sense.sensor.status` — デバイス状態
 
 ### Visualization
-- `ai.gftd.apps.sense.viz.render` — 3D レンダリングリクエスト
-- `ai.gftd.apps.sense.viz.heatmap` — WiFi/BT/音響ヒートマップ
-- `ai.gftd.apps.sense.viz.timeline` — 時系列スキャン比較
+- `app.etzhayyim.apps.sense.viz.render` — 3D レンダリングリクエスト
+- `app.etzhayyim.apps.sense.viz.heatmap` — WiFi/BT/音響ヒートマップ
+- `app.etzhayyim.apps.sense.viz.timeline` — 時系列スキャン比較
 
 ## Graph Labels (SQL)
 

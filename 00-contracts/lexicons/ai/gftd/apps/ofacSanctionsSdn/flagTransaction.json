@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ofacSanctionsSdn.flagTransaction",
+  "id": "app.etzhayyim.apps.ofacSanctionsSdn.flagTransaction",
   "defs": {
     "main": {
       "type": "procedure",

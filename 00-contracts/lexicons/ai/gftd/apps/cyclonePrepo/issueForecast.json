@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cyclonePrepo.issueForecast",
+  "id": "app.etzhayyim.apps.cyclonePrepo.issueForecast",
   "defs": {
     "main": {
       "type": "procedure",

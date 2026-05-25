@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.publicMalak.getAnalysis",
+  "id": "app.etzhayyim.apps.publicMalak.getAnalysis",
   "defs": {
     "main": {
       "type": "query",
@@ -22,7 +22,7 @@
           "type": "object",
           "required": ["analysis"],
           "properties": {
-            "analysis": { "type": "ref", "ref": "ai.gftd.apps.publicMalak.listAnalyses#analysisView" }
+            "analysis": { "type": "ref", "ref": "app.etzhayyim.apps.publicMalak.listAnalyses#analysisView" }
           }
         }
       }

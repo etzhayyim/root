@@ -220,17 +220,17 @@ async def trigger_domain_adapter(
 # ── XRPC-compat surface ────────────────────────────────────────────────
 
 _NSID_TO_ASSISTANT: dict[str, str] = {
-    "ai.gftd.apps.jukyu.health":                "health",
-    "ai.gftd.apps.jukyu.queryBalance":          "query_balance",
-    "ai.gftd.apps.jukyu.querySupplyChain":      "query_supply_chain",
-    "ai.gftd.apps.jukyu.rankCompanyExposure":   "rank_company_exposure",
-    "ai.gftd.apps.jukyu.explainNode":           "explain_node",
-    "ai.gftd.apps.jukyu.runStressPropagation":  "run_stress_propagation",
-    "ai.gftd.apps.jukyu.upsertSignal":          "upsert_signal",
-    "ai.gftd.apps.jukyu.exportBrief":           "export_brief",
-    "ai.gftd.apps.jukyu.notifyCompany":         "notify_company",
-    "ai.gftd.apps.jukyu.normalizeDomainAdapter": "normalize_domain_adapter",
-    "ai.gftd.apps.jukyu.extractShocks":         "extract_shocks",
+    "app.etzhayyim.apps.jukyu.health":                "health",
+    "app.etzhayyim.apps.jukyu.queryBalance":          "query_balance",
+    "app.etzhayyim.apps.jukyu.querySupplyChain":      "query_supply_chain",
+    "app.etzhayyim.apps.jukyu.rankCompanyExposure":   "rank_company_exposure",
+    "app.etzhayyim.apps.jukyu.explainNode":           "explain_node",
+    "app.etzhayyim.apps.jukyu.runStressPropagation":  "run_stress_propagation",
+    "app.etzhayyim.apps.jukyu.upsertSignal":          "upsert_signal",
+    "app.etzhayyim.apps.jukyu.exportBrief":           "export_brief",
+    "app.etzhayyim.apps.jukyu.notifyCompany":         "notify_company",
+    "app.etzhayyim.apps.jukyu.normalizeDomainAdapter": "normalize_domain_adapter",
+    "app.etzhayyim.apps.jukyu.extractShocks":         "extract_shocks",
 }
 
 

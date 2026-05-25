@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gulfTerminal.recordOutage",
+  "id": "app.etzhayyim.apps.gulfTerminal.recordOutage",
   "defs": {
     "main": {
       "type": "procedure",

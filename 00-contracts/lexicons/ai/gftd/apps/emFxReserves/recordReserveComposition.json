@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.emFxReserves.recordReserveComposition",
+  "id": "app.etzhayyim.apps.emFxReserves.recordReserveComposition",
   "defs": {
     "main": {
       "type": "procedure",

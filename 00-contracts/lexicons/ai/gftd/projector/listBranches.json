@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projector.listBranches",
+  "id": "app.etzhayyim.projector.listBranches",
   "defs": {
     "main": {
       "type": "query",

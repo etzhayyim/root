@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.slsaSupplyChain.registerAttestation",
+  "id": "app.etzhayyim.apps.slsaSupplyChain.registerAttestation",
   "defs": {
     "main": {
       "type": "procedure",

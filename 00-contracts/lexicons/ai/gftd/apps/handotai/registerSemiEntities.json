@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.handotai.registerSemiEntities",
+  "id": "app.etzhayyim.apps.handotai.registerSemiEntities",
   "defs": {
     "main": {
       "type": "procedure",

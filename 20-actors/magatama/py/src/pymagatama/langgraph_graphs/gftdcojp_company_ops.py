@@ -2,7 +2,7 @@
 etzhayyim.etzhayyim.com — Japanese company operations LangGraph (ADR-2605080600).
 
 Principal: etzhayyim (sole operator)
-Vendor capacity: Gftd Japan株式会社 (engineering contractor)
+Vendor capacity: etzhayyim Japan株式会社 (engineering contractor)
 
 Architecture: Supervisor + 5 domain-specialist nodes
   START → supervisor → {hr | finance | legal | sales | governance} → emit_audit → END
@@ -18,7 +18,7 @@ State flow:
   input (task_type + payload) → supervisor classifies → domain node executes
   → result merged back → audit → END
 
-LLM: llm.call_tier("structured", ...) via _GFTD_LLM_URL → murakumo/RunPod
+LLM: llm.call_tier("structured", ...) via _etzhayyim_LLM_URL → murakumo/RunPod
   (ADR-2605010000: RunPod 6000 Ada is LLM SSoT)
 
 Registered as assistant_id="etzhayyim-company-ops" in langgraph_server_app.
@@ -86,7 +86,7 @@ def _now_iso() -> str:
 def _vid(kind: str) -> str:
     import datetime as _dt
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{_OWNER_DID}/ai.gftd.apps.etzhayyim.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{_OWNER_DID}/app.etzhayyim.apps.etzhayyim.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 
 def _llm_structured(system: str, user: str, max_tokens: int = 800) -> dict:
@@ -140,7 +140,7 @@ def _db_query(sql_str: str, params: dict | None = None) -> list[dict]:
 
 # ── Node: supervisor ───────────────────────────────────────────────────────────
 
-_SUPERVISOR_SYSTEM = """You are the AI supervisor for etzhayyim.etzhayyim.com (operated by etzhayyim, vendor: Gftd Japan株式会社).
+_SUPERVISOR_SYSTEM = """You are the AI supervisor for etzhayyim.etzhayyim.com (operated by etzhayyim, vendor: etzhayyim Japan株式会社).
 Classify the incoming task into exactly ONE domain: hr | finance | legal | sales | governance.
 
 Domain definitions:
@@ -189,7 +189,7 @@ def supervisor(state: CompanyOpsState) -> dict:
 
 # ── Node: HR agent ─────────────────────────────────────────────────────────────
 
-_HR_SYSTEM = """You are the HR AI agent for Gftd Japan株式会社 (principal: etzhayyim).
+_HR_SYSTEM = """You are the HR AI agent for etzhayyim Japan株式会社 (principal: etzhayyim).
 Handle: onboarding, offboarding, attendance records, payroll calculation,
 social insurance procedures, performance reviews, hiring decisions.
 
@@ -230,7 +230,7 @@ def hr_agent(state: CompanyOpsState) -> dict:
 
 # ── Node: Finance agent ────────────────────────────────────────────────────────
 
-_FINANCE_SYSTEM = """You are the Finance/Accounting AI agent for Gftd Japan株式会社 (principal: etzhayyim).
+_FINANCE_SYSTEM = """You are the Finance/Accounting AI agent for etzhayyim Japan株式会社 (principal: etzhayyim).
 Handle: journal entries (仕訳), invoices (請求書), expense approval (経費承認),
 tax filings, cash flow forecasts, accounts payable/receivable.
 
@@ -271,7 +271,7 @@ def finance_agent(state: CompanyOpsState) -> dict:
 
 # ── Node: Legal agent ──────────────────────────────────────────────────────────
 
-_LEGAL_SYSTEM = """You are the Legal/Compliance AI agent (CLO support) for Gftd Japan株式会社.
+_LEGAL_SYSTEM = """You are the Legal/Compliance AI agent (CLO support) for etzhayyim Japan株式会社.
 Principal: etzhayyim.
 Active cases in kaisya.etzhayyim.com: LingLing著作権 / 鈴木損害賠償 / 鹿児島大学技術移転 / 松岡NDA.
 
@@ -326,7 +326,7 @@ def legal_agent(state: CompanyOpsState) -> dict:
 
 # ── Node: Sales agent ──────────────────────────────────────────────────────────
 
-_SALES_SYSTEM = """You are the Sales/BD AI agent for Gftd Japan株式会社 (principal: etzhayyim).
+_SALES_SYSTEM = """You are the Sales/BD AI agent for etzhayyim Japan株式会社 (principal: etzhayyim).
 Handle: CRM records, proposal generation (提案書), order management (受注),
 BD pipeline tracking, customer relationship notes.
 
@@ -436,7 +436,7 @@ def governance_agent(state: CompanyOpsState) -> dict:
 
 # ── Node: Personnel agent ──────────────────────────────────────────────────────
 
-_PERSONNEL_SYSTEM = """You are the Personnel/HR-Ops AI agent for Gftd Japan株式会社 (principal: etzhayyim).
+_PERSONNEL_SYSTEM = """You are the Personnel/HR-Ops AI agent for etzhayyim Japan株式会社 (principal: etzhayyim).
 Manage contracted person records, role definitions, project assignments, and RACI matrices.
 
 Tables:
@@ -520,7 +520,7 @@ def emit_audit(state: CompanyOpsState) -> dict:
             {
                 "vid":  str(uuid.uuid4()),
                 "repo": _ORG_DID,
-                "col":  "ai.gftd.apps.etzhayyim.ops",
+                "col":  "app.etzhayyim.apps.etzhayyim.ops",
                 "rkey": f"ops-{ts_ms}",
                 "act":  "create",
                 "ts":   ts_ms,
@@ -544,7 +544,7 @@ def emit_audit(state: CompanyOpsState) -> dict:
 #   <domain>_fetch_ctx (only legal/governance/personnel) — py_primitive that
 #     fetches SQL context and writes a `<domain>Context` field consumed by the
 #     next node's user_template.
-#   <domain>_call_llm — mcp_tool ref=mcp://ai.gftd.tools.llm.chat (in v2 SQL
+#   <domain>_call_llm — mcp_tool ref=mcp://app.etzhayyim.tools.llm.chat (in v2 SQL
 #     migration; not a function here).
 #   <domain>_persist — py_primitive that reads
 #     `state.<domain>LlmOut.result.content` (envelope from llm.chat) or falls
@@ -554,12 +554,12 @@ def emit_audit(state: CompanyOpsState) -> dict:
 #
 # supervisor / emit_audit are NOT decomposed (supervisor stays py_primitive
 # because it sets `state.domain` for Phase D2 field routing; emit_audit becomes
-# mcp_tool ai.gftd.tools.audit.emit consuming `<domain>_audit_record`).
+# mcp_tool app.etzhayyim.tools.audit.emit consuming `<domain>_audit_record`).
 
 
 def _envelope_content(state: CompanyOpsState, envelope_key: str) -> str:
     """Extract content from {envelope_key}.result.content if upstream node was
-    mcp_tool ai.gftd.tools.llm.chat. Returns '' if absent."""
+    mcp_tool app.etzhayyim.tools.llm.chat. Returns '' if absent."""
     envelope = state.get(envelope_key)
     if isinstance(envelope, dict):
         result = envelope.get("result")

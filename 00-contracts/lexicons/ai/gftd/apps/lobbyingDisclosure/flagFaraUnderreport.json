@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.lobbyingDisclosure.flagFaraUnderreport",
+  "id": "app.etzhayyim.apps.lobbyingDisclosure.flagFaraUnderreport",
   "defs": {
     "main": {
       "type": "procedure",

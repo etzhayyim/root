@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.training.runBaienMultimodalGraft",
+  "id": "app.etzhayyim.apps.training.runBaienMultimodalGraft",
   "defs": {
     "main": {
       "type": "procedure",

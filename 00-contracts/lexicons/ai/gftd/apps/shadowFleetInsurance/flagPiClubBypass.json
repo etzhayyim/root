@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shadowFleetInsurance.flagPiClubBypass",
+  "id": "app.etzhayyim.apps.shadowFleetInsurance.flagPiClubBypass",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.remittanceCorridor.flagCorridorStress",
+  "id": "app.etzhayyim.apps.remittanceCorridor.flagCorridorStress",
   "defs": {
     "main": {
       "type": "procedure",

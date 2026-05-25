@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.adr.listCases",
+  "id": "app.etzhayyim.apps.adr.listCases",
   "defs": {
     "main": {
       "type": "query",

@@ -110,15 +110,15 @@ spec:
             # LLM for extract_details + classify_anken nodes.
             - name: MURAKUMO_BASE_URL
               value: "https://murakumo.etzhayyim.com"
-            - name: GFTD_LLM_URL
+            - name: etzhayyim_LLM_URL
               value: "https://gemma.etzhayyim.com/v1"
-            - name: GFTD_LLM_MODEL
+            - name: etzhayyim_LLM_MODEL
               value: "gemma-4-e4b-it"
-            - name: GFTD_LLM_API_KEY
+            - name: etzhayyim_LLM_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: lg-ses-secrets
-                  key: GFTD_LLM_API_KEY
+                  key: etzhayyim_LLM_API_KEY
                   optional: true
           ports:
             - name: http

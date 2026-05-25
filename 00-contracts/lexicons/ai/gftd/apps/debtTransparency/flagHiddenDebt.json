@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.debtTransparency.flagHiddenDebt",
+  "id": "app.etzhayyim.apps.debtTransparency.flagHiddenDebt",
   "defs": {
     "main": {
       "type": "procedure",

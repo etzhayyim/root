@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.apps.registerAppListing",
+  "id": "app.etzhayyim.apps.apps.registerAppListing",
   "defs": {
     "main": {
       "type": "procedure",

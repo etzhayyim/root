@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.srsgCoordination.flagPillarGap",
+  "id": "app.etzhayyim.apps.srsgCoordination.flagPillarGap",
   "defs": {
     "main": {
       "type": "procedure",

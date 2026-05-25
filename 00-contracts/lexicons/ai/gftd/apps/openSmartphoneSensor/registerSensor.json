@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneSensor.registerSensor",
+  "id": "app.etzhayyim.apps.openSmartphoneSensor.registerSensor",
   "defs": {
     "main": {
       "type": "procedure",

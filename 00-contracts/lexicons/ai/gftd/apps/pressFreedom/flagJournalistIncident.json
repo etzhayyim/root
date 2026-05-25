@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pressFreedom.flagJournalistIncident",
+  "id": "app.etzhayyim.apps.pressFreedom.flagJournalistIncident",
   "defs": {
     "main": {
       "type": "procedure",

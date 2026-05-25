@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cyberSoc.recordSocAlert",
+  "id": "app.etzhayyim.apps.cyberSoc.recordSocAlert",
   "defs": {
     "main": {
       "type": "procedure",

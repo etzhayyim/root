@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.publicMalak.getCampaignCluster",
+  "id": "app.etzhayyim.apps.publicMalak.getCampaignCluster",
   "defs": {
     "main": {
       "type": "query",
@@ -20,14 +20,14 @@
           "type": "object",
           "required": ["cluster"],
           "properties": {
-            "cluster": { "type": "ref", "ref": "ai.gftd.apps.publicMalak.listCampaignClusters#campaignClusterView" },
+            "cluster": { "type": "ref", "ref": "app.etzhayyim.apps.publicMalak.listCampaignClusters#campaignClusterView" },
             "creatives": {
               "type": "array",
-              "items": { "type": "ref", "ref": "ai.gftd.apps.publicMalak.listCampaignClusters#clusterCreativeView" }
+              "items": { "type": "ref", "ref": "app.etzhayyim.apps.publicMalak.listCampaignClusters#clusterCreativeView" }
             },
             "analyses": {
               "type": "array",
-              "items": { "type": "ref", "ref": "ai.gftd.apps.publicMalak.listAnalyses#analysisView" }
+              "items": { "type": "ref", "ref": "app.etzhayyim.apps.publicMalak.listAnalyses#analysisView" }
             },
             "error": { "type": "string" }
           }

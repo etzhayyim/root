@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shadowFleetInsurance.flagGapOrFraud",
+  "id": "app.etzhayyim.apps.shadowFleetInsurance.flagGapOrFraud",
   "defs": {
     "main": {
       "type": "procedure",

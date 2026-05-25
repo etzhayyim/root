@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.spaceTraffic.flagAdversarialManeuver",
+  "id": "app.etzhayyim.apps.spaceTraffic.flagAdversarialManeuver",
   "defs": {
     "main": {
       "type": "procedure",

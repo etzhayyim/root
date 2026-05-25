@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.letterPanel",
+  "id": "app.etzhayyim.apps.mangaka.letterPanel",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.handotai.seedArticles",
+  "id": "app.etzhayyim.apps.handotai.seedArticles",
   "defs": {
     "main": {
       "type": "procedure",

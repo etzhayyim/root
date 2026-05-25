@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.ingestGeoData",
+  "id": "app.etzhayyim.apps.site.ingestGeoData",
   "defs": {
     "main": {
       "type": "procedure",

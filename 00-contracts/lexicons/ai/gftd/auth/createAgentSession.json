@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.auth.createAgentSession",
+  "id": "app.etzhayyim.auth.createAgentSession",
   "defs": {
     "main": {
       "type": "procedure",

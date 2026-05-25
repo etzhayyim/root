@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.surplusRouter.flagDeadStock",
+  "id": "app.etzhayyim.apps.surplusRouter.flagDeadStock",
   "defs": {
     "main": {
       "type": "procedure",

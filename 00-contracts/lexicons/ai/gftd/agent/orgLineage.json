@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.agent.orgLineage",
+  "id": "app.etzhayyim.agent.orgLineage",
   "defs": {
     "main": {
       "type": "record",

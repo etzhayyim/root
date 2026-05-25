@@ -24,7 +24,7 @@ related:
 
 ## Context
 
-Salesforce や HubSpot のような営業管理 (CRM) システムは SaaS 契約に縛られており、データのオーナーシップが曖昧である。オープンな CRM actor を GFTD プラットフォーム上に構築することで、誰でも自前で Lead → Opportunity → Pipeline → Forecast のフルサイクルを運用でき、データは RisingWave + AT Protocol repo に完全に自己管理できる。
+Salesforce や HubSpot のような営業管理 (CRM) システムは SaaS 契約に縛られており、データのオーナーシップが曖昧である。オープンな CRM actor を etzhayyim プラットフォーム上に構築することで、誰でも自前で Lead → Opportunity → Pipeline → Forecast のフルサイクルを運用でき、データは RisingWave + AT Protocol repo に完全に自己管理できる。
 
 ADR-0056 (BPMN-as-actor) パターンに従い、新規 CF Worker を 0 追加せずに BPMN 8 flows として実装する。timer-start BPMNs (fetchPipelineDelta / computeForecast) が定期的なデータ取得と AI 予測を自律的に実行する。
 
@@ -38,7 +38,7 @@ ADR-0056 (BPMN-as-actor) パターンに従い、新規 CF Worker を 0 追加�
 | Domain | `open-sales.etzhayyim.com` |
 | DID | `did:web:open-sales.etzhayyim.com` |
 | Layer | T1 (BPMN-as-actor, ADR-0056) |
-| XRPC endpoint | `dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.openSales.*` |
+| XRPC endpoint | `dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.openSales.*` |
 | New CF Workers | 0 |
 
 ### BPMN Inventory — 8 flows
@@ -80,19 +80,19 @@ ADR-0056 (BPMN-as-actor) パターンに従い、新規 CF Worker を 0 追加�
 
 | Lexicon NSID | Type | 概要 |
 |---|---|---|
-| ai.gftd.openSales.createLead | procedure | Lead 新規作成 |
-| ai.gftd.openSales.qualifyLead | procedure | Lead 資格評価 (LLM スコア) |
-| ai.gftd.openSales.updateOpportunity | procedure | 商談更新 |
-| ai.gftd.openSales.logActivity | procedure | 活動ログ記録 |
-| ai.gftd.openSales.generateQuote | procedure | 見積書生成 (LLM サマリ) |
-| ai.gftd.openSales.closeDeal | procedure | 商談クローズ (won / lost) |
-| ai.gftd.openSales.listOpportunities | query | 商談一覧取得 |
-| ai.gftd.openSales.getPipelineHealth | query | Pipeline KPI 取得 |
+| app.etzhayyim.openSales.createLead | procedure | Lead 新規作成 |
+| app.etzhayyim.openSales.qualifyLead | procedure | Lead 資格評価 (LLM スコア) |
+| app.etzhayyim.openSales.updateOpportunity | procedure | 商談更新 |
+| app.etzhayyim.openSales.logActivity | procedure | 活動ログ記録 |
+| app.etzhayyim.openSales.generateQuote | procedure | 見積書生成 (LLM サマリ) |
+| app.etzhayyim.openSales.closeDeal | procedure | 商談クローズ (won / lost) |
+| app.etzhayyim.openSales.listOpportunities | query | 商談一覧取得 |
+| app.etzhayyim.openSales.getPipelineHealth | query | Pipeline KPI 取得 |
 
 ## Consequences
 
 - 全 8 BPMN が Zeebe に deploy される (F5 watcher 経由, 30s 以内)
-- `dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.openSales.*` で XRPC 6 手続きが即座に利用可能
+- `dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.openSales.*` で XRPC 6 手続きが即座に利用可能
 - timer-start 2 flows (fetchPipelineDelta R/P1D, computeForecast R/P7D) が自律的に実行
 - LLM (qualifyLead / generateQuote / computeForecast) は `generic.llm.json` primitive 経由で Murakumo fleet を使用
 - vertex_open_sales_forecast に AI 予測値 (ai_forecast_usd / confidence_pct) が蓄積される

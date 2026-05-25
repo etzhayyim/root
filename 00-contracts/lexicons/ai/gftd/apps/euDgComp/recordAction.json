@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.euDgComp.recordAction",
+  "id": "app.etzhayyim.apps.euDgComp.recordAction",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.eResidency.flagComplianceRisk",
+  "id": "app.etzhayyim.apps.eResidency.flagComplianceRisk",
   "defs": {
     "main": {
       "type": "procedure",

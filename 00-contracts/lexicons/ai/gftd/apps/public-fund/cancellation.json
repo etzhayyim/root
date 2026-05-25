@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.public-fund.cancellation",
+  "id": "app.etzhayyim.apps.public-fund.cancellation",
   "defs": {
     "main": {
       "type": "record",

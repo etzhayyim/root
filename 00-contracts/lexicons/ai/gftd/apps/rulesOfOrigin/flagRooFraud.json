@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.rulesOfOrigin.flagRooFraud",
+  "id": "app.etzhayyim.apps.rulesOfOrigin.flagRooFraud",
   "defs": {
     "main": {
       "type": "procedure",

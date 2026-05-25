@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sbtnTarget.flagMiss",
+  "id": "app.etzhayyim.apps.sbtnTarget.flagMiss",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,4 +1,4 @@
-# ai.gftd.murakumo BPMN — etzhayyim variant
+# app.etzhayyim.murakumo BPMN — etzhayyim variant
 
 BPMN process contracts for the etzhayyim distributed murakumo cluster. Verdicts assigned per **ADR-2605214000 §2** substrate-fit rules.
 
@@ -6,12 +6,12 @@ BPMN process contracts for the etzhayyim distributed murakumo cluster. Verdicts 
 
 | File | bpmn:id | Verdict | Adaptation |
 |---|---|---|---|
-| `cronTick.bpmn` | `murakumo_cron_tick` | **PORT-adapted** | XRPC endpoint default: `murakumo.gftd.ai` → `murakumo.etzhayyim.com`. Process structure + bpmn:id stable. |
+| `cronTick.bpmn` | `murakumo_cron_tick` | **PORT-adapted** | XRPC endpoint default: `murakumo.etzhayyim.com` → `murakumo.etzhayyim.com`. Process structure + bpmn:id stable. |
 | `fleetHealthCheck.bpmn` | `murakumo_fleet_health_check` | **PORT-direct** | No vendor infrastructure coupling. Substrate-fit conditions 1–5 all met as-is. |
 
 ## Migration source
 
-The vendor directory (`gftd.co.jp/ai-gftd-apps-gftdcojp/00-contracts/bpmn/ai/gftd/murakumo/`) **does not exist** in the current vendor repo state — these two BPMN files are religious-corp-originated, written for etzhayyim under ADR-2605202100 (magatama-cell-runner launchd) and ADR-2605191645 (heartbeat). They are listed under `ai.gftd.*` NSID per the shared-namespace pattern (ADR-2605214000 §2 namespace placement rule).
+The vendor directory (`etzhayyim.com/ai-gftd-apps-gftdcojp/00-contracts/bpmn/ai/gftd/murakumo/`) **does not exist** in the current vendor repo state — these two BPMN files are religious-corp-originated, written for etzhayyim under ADR-2605202100 (magatama-cell-runner launchd) and ADR-2605191645 (heartbeat). They are listed under `app.etzhayyim.*` NSID per the shared-namespace pattern (ADR-2605214000 §2 namespace placement rule).
 
 ## Substrate-fit conditions (recap)
 

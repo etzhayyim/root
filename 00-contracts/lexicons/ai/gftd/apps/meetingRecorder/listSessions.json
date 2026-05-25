@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.meetingRecorder.listSessions",
+  "id": "app.etzhayyim.apps.meetingRecorder.listSessions",
   "defs": {
     "main": {
       "type": "query",

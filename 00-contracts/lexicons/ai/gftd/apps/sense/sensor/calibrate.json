@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sense.sensor.calibrate",
+  "id": "app.etzhayyim.apps.sense.sensor.calibrate",
   "defs": {
     "main": {
       "type": "procedure",

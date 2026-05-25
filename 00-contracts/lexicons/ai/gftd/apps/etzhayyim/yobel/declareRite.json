@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.yobel.declareRite",
+  "id": "app.etzhayyim.apps.etzhayyim.yobel.declareRite",
   "defs": {
     "main": {
       "type": "procedure",

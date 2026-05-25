@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.drizzleSmokeTest",
+  "id": "app.etzhayyim.apps.ipaddress.drizzleSmokeTest",
   "defs": {
     "main": {
       "type": "procedure",

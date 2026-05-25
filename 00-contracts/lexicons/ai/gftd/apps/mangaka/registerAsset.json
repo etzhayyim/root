@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.registerAsset",
+  "id": "app.etzhayyim.apps.mangaka.registerAsset",
   "defs": {
     "main": {
       "type": "procedure",

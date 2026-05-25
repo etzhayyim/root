@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cnStateCouncil.routeHuawei",
+  "id": "app.etzhayyim.apps.cnStateCouncil.routeHuawei",
   "defs": {
     "main": {
       "type": "procedure",

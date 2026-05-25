@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.impeachmentTrial.recordTrial",
+  "id": "app.etzhayyim.apps.impeachmentTrial.recordTrial",
   "defs": {
     "main": {
       "type": "procedure",

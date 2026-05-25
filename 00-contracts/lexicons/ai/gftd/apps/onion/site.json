@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.onion.site",
+  "id": "app.etzhayyim.apps.onion.site",
   "defs": {
     "main": {
       "type": "record",

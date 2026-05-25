@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSwift.sendCustomerCreditTransfer",
+  "id": "app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer",
   "defs": {
     "main": {
       "type": "procedure",

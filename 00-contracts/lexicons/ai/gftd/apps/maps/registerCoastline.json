@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.registerCoastline",
+  "id": "app.etzhayyim.apps.maps.registerCoastline",
   "defs": {
     "main": {
       "type": "procedure",

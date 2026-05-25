@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.publicMalak.listScraperRuns",
+  "id": "app.etzhayyim.apps.publicMalak.listScraperRuns",
   "defs": {
     "main": {
       "type": "query",

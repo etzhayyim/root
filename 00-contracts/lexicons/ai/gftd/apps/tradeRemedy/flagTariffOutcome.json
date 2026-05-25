@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tradeRemedy.flagTariffOutcome",
+  "id": "app.etzhayyim.apps.tradeRemedy.flagTariffOutcome",
   "defs": {
     "main": {
       "type": "procedure",

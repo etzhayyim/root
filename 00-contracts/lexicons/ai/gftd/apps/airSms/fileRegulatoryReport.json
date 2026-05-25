@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airSms.fileRegulatoryReport",
+  "id": "app.etzhayyim.apps.airSms.fileRegulatoryReport",
   "defs": {
     "main": {
       "type": "procedure",

@@ -25,7 +25,7 @@ UP = [{'sql': 'UPDATE vertex_bpmn_process_def SET "version" = 3 WHERE bpmn_proce
                  '    in vertex_natural_person_latent_materialization_cursor, so the job is\n'
                  '    idempotent and resumable.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.naturalPerson.materializeAllLatentEntities\n'
+                 '  NSID: app.etzhayyim.apps.naturalPerson.materializeAllLatentEntities\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -61,7 +61,7 @@ UP = [{'sql': 'UPDATE vertex_bpmn_process_def SET "version" = 3 WHERE bpmn_proce
                  'sensitivity_ord, owner_did, actor_did, org_did, created_at, updated_at, '
                  'cohort_vid, cohort_hash, target_count, next_ordinal, materialized_count, '
                  'batch_size, status) SELECT '
-                 "'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.latentCursor/' "
+                 "'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.latentCursor/' "
                  "|| c.cohort_hash, 1, 300, 'did:web:natural-person.etzhayyim.com', "
                  "'did:web:natural-person.etzhayyim.com', 'did:web:natural-person.etzhayyim.com', NOW(), "
                  'NOW(), c.vertex_id, c.cohort_hash, GREATEST(COALESCE(c.intel_estimated_count, '
@@ -110,7 +110,7 @@ UP = [{'sql': 'UPDATE vertex_bpmn_process_def SET "version" = 3 WHERE bpmn_proce
                  'entity_kind, canonical_label, existence_probability, k_evidence_count, '
                  'viewpoint_consensus, fission_eligible, status, primary_topic_vid, '
                  'individual_did) SELECT '
-                 "'at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/natural-person-individual-' "
+                 "'at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.latentEntity/natural-person-individual-' "
                  "|| w.cohort_hash || '-' || LPAD(g.i::VARCHAR, 12, '0'), g.i, 300, "
                  "'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', "
                  "'did:web:coverage.etzhayyim.com', NOW(), 'natural_person_individual_latent', 'natural "

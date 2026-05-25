@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isekai.mineBlock",
+  "id": "app.etzhayyim.apps.isekai.mineBlock",
   "defs": {
     "main": {
       "type": "procedure",

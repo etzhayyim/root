@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.wrpc.call",
+  "id": "app.etzhayyim.wrpc.call",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.maintenancePlan",
+  "id": "app.etzhayyim.apps.maps.maintenancePlan",
   "defs": {
     "main": {
       "type": "procedure",

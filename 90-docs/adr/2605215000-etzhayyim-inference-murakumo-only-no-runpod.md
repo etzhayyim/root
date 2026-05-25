@@ -52,7 +52,7 @@ None of these ADRs explicitly addressed **commercial GPU rental services** (RunP
 
 ## The Problem
 
-The vendor codebase `20-actors/magatama/py` (pymagatama) was authored for `gftd.co.jp`'s commercial SaaS product where RunPod is legitimately used for paid SaaS workloads. Approximately 20 files contain RunPod coupling across multiple layers:
+The vendor codebase `20-actors/magatama/py` (pymagatama) was authored for `etzhayyim.com`'s commercial SaaS product where RunPod is legitimately used for paid SaaS workloads. Approximately 20 files contain RunPod coupling across multiple layers:
 
 - **LLM inference routing** (`llm.py`, `chat.py`, `projector.py`, `karma_resident.py`) — RunPod Pod / Serverless endpoints hardcoded as defaults or primary routes
 - **ComfyUI / image generation** (`zeebe_worker_main.py`, `mangaka.py`, `voxelforge/runpod_client.py`) — RunPod Serverless /runsync as the image generation backend
@@ -62,7 +62,7 @@ The vendor codebase `20-actors/magatama/py` (pymagatama) was authored for `gftd.
 - **Business logic comments** (`kaisya_ai_org.py`, `kaisya_master.py`, `gftdcojp_company_ops.py`) — "RunPod 6000 Ada is LLM SSoT" embedded in docstrings
 - **SDK model registry** (`sdk/magatama-host-sdk/src/llm-model-registry.ts`) — "gemma4-runpod" / "tier0-runpod" model entries
 
-These references are **vendor business logic** appropriate for `gftd.co.jp`'s paid SaaS operation. However, when etzhayyim religious-corp invokes pymagatama modules, it must not route traffic to commercial GPU rental infrastructure.
+These references are **vendor business logic** appropriate for `etzhayyim.com`'s paid SaaS operation. However, when etzhayyim religious-corp invokes pymagatama modules, it must not route traffic to commercial GPU rental infrastructure.
 
 ## The Constitutional Directive
 
@@ -113,7 +113,7 @@ When a pymagatama module reads a RunPod URL from env and etzhayyim invokes it, t
 ```bash
 # LLM inference
 RUNPOD_LLM_URL="http://192.168.1.70:4000/v1/chat/completions"
-GFTD_LLM_URL="http://192.168.1.70:4000/v1/chat/completions"
+etzhayyim_LLM_URL="http://192.168.1.70:4000/v1/chat/completions"
 LLM_PRIMARY_URL="http://192.168.1.70:4000/v1/chat/completions"
 
 # ComfyUI / image generation
@@ -143,14 +143,14 @@ A module is fit for religious-corp use without rewrite if ALL five conditions ho
 2. No Stripe / PayPal / fiat payment processor
 3. No Vultr VKE / commercial K8s scheduling dependency
 4. **No RunPod / no commercial GPU rental** ← NEW (this ADR)
-5. No vendor billing key that would route charges to gftd.co.jp
+5. No vendor billing key that would route charges to etzhayyim.com
 
 ### §2.2 Verdict definitions
 
 | Verdict | Meaning | Required action |
 |---|---|---|
 | **REDIRECT** | An env URL swap is sufficient. LiteLLM gateway already abstracts the backend; no code change needed in pymagatama. | Set env vars per §1.3 before invoking. |
-| **VENDOR-ONLY** | The module implements vendor (`gftd.co.jp`) business logic that etzhayyim does not invoke. Mark with module-level `# ETZHAYYIM: vendor-only — do not invoke from religious-corp` docstring / import guard. No rewrite needed; religious-corp callers must avoid these paths. | Add import guard; ensure no etzhayyim cell calls this. |
+| **VENDOR-ONLY** | The module implements vendor (`etzhayyim.com`) business logic that etzhayyim does not invoke. Mark with module-level `# ETZHAYYIM: vendor-only — do not invoke from religious-corp` docstring / import guard. No rewrite needed; religious-corp callers must avoid these paths. | Add import guard; ensure no etzhayyim cell calls this. |
 | **REIMPLEMENT** | The capability is needed by religious-corp but the implementation has RunPod as a hard structural assumption (not just an env URL). A religious-corp variant must be designed for Murakumo fleet. | Itemise redesign target in companion PYMAGATAMA-MIGRATION-NOTES.md. |
 
 ### §2.3 Itemised pymagatama audit
@@ -158,7 +158,7 @@ A module is fit for religious-corp use without rewrite if ALL five conditions ho
 The full table is in the companion `PYMAGATAMA-MIGRATION-NOTES.md`. Summary by verdict:
 
 **REDIRECT (env URL swap sufficient):**
-- `llm.py` — `_RUNPOD_LLM_URL` / `_GFTD_LLM_URL` / `RUNPOD_LLM_MODEL` are already env-overridable; point at `192.168.1.70:4000`
+- `llm.py` — `_RUNPOD_LLM_URL` / `_etzhayyim_LLM_URL` / `RUNPOD_LLM_MODEL` are already env-overridable; point at `192.168.1.70:4000`
 - `chat.py` — `_LLM_PRIMARY_URL` env-overridable; point at LiteLLM gateway
 - `projector.py` — delegates to `llm.call_tier` which is env-overridable
 - `business_person.py:1595` — delegates to `llm.call_tier`; docstring mention only
@@ -231,7 +231,7 @@ This ADR **extends** (does not supersede) the following:
 
 1. **Architectural sovereignty closure for inference**: etzhayyim now has a complete substrate sovereignty claim across K8s (ADR-2605191346), database (ADR-2605172000), and inference (this ADR). No tier of the stack routes through commercial cloud infrastructure. The sovereignty perimeter is closed for Tier 1 compute.
 
-2. **Vendor pymagatama remains operative for gftd.co.jp**: gftd.co.jp's pymagatama with RunPod stays fully operational for paid SaaS workloads. The two codebases run in parallel forever. This ADR does not require gftd.co.jp to change anything. The split is a consent capability boundary — religious-corp callers must route through etzhayyim-specific env config and avoid VENDOR-ONLY paths.
+2. **Vendor pymagatama remains operative for etzhayyim.com**: etzhayyim.com's pymagatama with RunPod stays fully operational for paid SaaS workloads. The two codebases run in parallel forever. This ADR does not require etzhayyim.com to change anything. The split is a consent capability boundary — religious-corp callers must route through etzhayyim-specific env config and avoid VENDOR-ONLY paths.
 
 3. **Some religious-corp features need successor implementations**: `maps_sentinel.py` L7/L8 satellite analysis (Sentinel-1/2 GPU analysis) requires a Murakumo-native rewrite. The target is MLX-based inference on Mac mini (Apple Silicon) or EVO-X2 ROCm (gfx1151) for ONNX/PyTorch models. This is a new engineering effort; the capability is not available on the Murakumo fleet today and must be tracked as a follow-up ADR.
 
@@ -245,9 +245,9 @@ This ADR **extends** (does not supersede) the following:
 
 ## A1. Keep RunPod for religious-corp with consent capability
 
-Proposal: Allow etzhayyim to use RunPod under a consent-capability XRPC gate — the commercial billing flows to gftd.co.jp, and etzhayyim receives inference as a "donated service".
+Proposal: Allow etzhayyim to use RunPod under a consent-capability XRPC gate — the commercial billing flows to etzhayyim.com, and etzhayyim receives inference as a "donated service".
 
-**Reject**: This is the same slippery-slope pattern that ADR-2605191346 §2 rejected for commercial K8s. A consent-capability wrapper does not change the structural dependency: etzhayyim's inference availability would be contingent on gftd.co.jp maintaining RunPod subscriptions. The religious-corp's operational autonomy is undermined. Substrate sovereignty requires that etzhayyim can operate the inference tier independently of any commercial vendor's willingness to continue service.
+**Reject**: This is the same slippery-slope pattern that ADR-2605191346 §2 rejected for commercial K8s. A consent-capability wrapper does not change the structural dependency: etzhayyim's inference availability would be contingent on etzhayyim.com maintaining RunPod subscriptions. The religious-corp's operational autonomy is undermined. Substrate sovereignty requires that etzhayyim can operate the inference tier independently of any commercial vendor's willingness to continue service.
 
 ## A2. Move to a different commercial GPU rental (Lambda Labs, CoreWeave, Vast.ai)
 
@@ -272,4 +272,4 @@ Proposal: Rent dedicated bare-metal GPU servers (Hetzner GPU, OVH Advance server
 - ADR-2605192415: Religious-Corp Daemon Architecture (Murakumo cell placement)
 - ADR-2605202100: magatama-cell-runner launchd (Murakumo fleet operational pattern)
 - Sister document: `20-actors/magatama/py/PYMAGATAMA-MIGRATION-NOTES.md` (itemised audit companion, Step 8 cutover sub-list)
-- Vendor parallel repo: `ai-gftd-apps-gftdcojp/` — RunPod legitimately used for gftd.co.jp paid SaaS; do not modify
+- Vendor parallel repo: `ai-gftd-apps-gftdcojp/` — RunPod legitimately used for etzhayyim.com paid SaaS; do not modify

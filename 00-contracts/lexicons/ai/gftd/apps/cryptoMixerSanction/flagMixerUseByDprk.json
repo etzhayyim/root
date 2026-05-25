@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cryptoMixerSanction.flagMixerUseByDprk",
+  "id": "app.etzhayyim.apps.cryptoMixerSanction.flagMixerUseByDprk",
   "defs": {
     "main": {
       "type": "procedure",

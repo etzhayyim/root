@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.otakiage.issueCertificate",
+  "id": "app.etzhayyim.otakiage.issueCertificate",
   "defs": {
     "main": {
       "type": "procedure",
@@ -25,7 +25,7 @@
           "required": ["ok", "certificateUri", "ritualUri", "itemCount"],
           "properties": {
             "ok": {"type": "boolean"},
-            "certificateUri": {"type": "string", "description": "at://did:web:otakiage.etzhayyim.com:ritual/ai.gftd.apps.otakiage.certificate/{rkey}"},
+            "certificateUri": {"type": "string", "description": "at://did:web:otakiage.etzhayyim.com:ritual/app.etzhayyim.apps.otakiage.certificate/{rkey}"},
             "ritualUri": {"type": "string"},
             "itemCount": {"type": "integer"},
             "categoryBreakdown": {"type": "string", "description": "JSON {category: count}"},

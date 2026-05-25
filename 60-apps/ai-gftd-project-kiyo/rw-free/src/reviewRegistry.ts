@@ -27,8 +27,8 @@ import {
   type ReviewView,
 } from "./types.js";
 
-const REVIEW_COLLECTION = "ai.gftd.kiyo.review";
-const ENDORSEMENT_COLLECTION = "ai.gftd.kiyo.endorsement";
+const REVIEW_COLLECTION = "app.etzhayyim.kiyo.review";
+const ENDORSEMENT_COLLECTION = "app.etzhayyim.kiyo.endorsement";
 
 function reviewRkey(paperId: string, seq: number): string {
   const padded = String(seq).padStart(6, "0");

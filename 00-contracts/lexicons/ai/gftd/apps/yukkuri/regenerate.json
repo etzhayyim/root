@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yukkuri.regenerate",
+  "id": "app.etzhayyim.apps.yukkuri.regenerate",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Regenerate a scene / line / asset within a yukkuri video project without re-running the entire pipeline. Emits an ai.gftd.apps.yukkuri.generation record linked via REGENERATED_FROM.",
+      "description": "Regenerate a scene / line / asset within a yukkuri video project without re-running the entire pipeline. Emits an app.etzhayyim.apps.yukkuri.generation record linked via REGENERATED_FROM.",
       "input": {
         "encoding": "application/json",
         "schema": {

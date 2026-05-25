@@ -201,7 +201,7 @@ Request (x-org-id, x-user-id, x-api-key)
       ← response (usage: {prompt_tokens, completion_tokens}, x_inference_ms, x_node)
     → calculateCost(usage) → credits debit
     → calculateReward(usage) → node operator credit
-    → emitMeteringEvent() → PDS (ai.gftd.apps.murakumo.inferenceUsage record)
+    → emitMeteringEvent() → PDS (app.etzhayyim.apps.murakumo.inferenceUsage record)
 ```
 
 ### Cost Model (Consumer)
@@ -246,7 +246,7 @@ Request (x-org-id, x-user-id, x-api-key)
 |---|---|---|---|
 | **Consumer spend** | CF Worker | credits.etzhayyim.com | `SpendCredits({user_id, amount, action: "inference"})` |
 | **Operator reward** | CF Worker | credits.etzhayyim.com | `RewardFromCompute({node_id, inference_ms, tokens})` |
-| **Usage log** | CF Worker | PDS | `createRecord("ai.gftd.apps.murakumo.inferenceUsage")` |
+| **Usage log** | CF Worker | PDS | `createRecord("app.etzhayyim.apps.murakumo.inferenceUsage")` |
 | **Quota check** | CF Worker | kakin.etzhayyim.com | `CheckQuota({org_id, estimated_tokens})` |
 
 ## Persistence
@@ -361,7 +361,7 @@ macOS SSH sessions cannot reliably `launchctl bootstrap` into `gui/{uid}` (retur
 | Integration test | 10/10 PASS (wrapper T1–T5 + recipe validate T7–T8) |
 | Ollama context length | 16384 (was 4096 default — root cause of tool-call stalls) |
 | goose `--no-profile --with-builtin developer` | qwen3.5:9b emits structured `tool_calls` + executes shell steps. Verified direct `/api/chat` probe + full recipe e2e |
-| persona-cron e2e write-path | goose read live KPIs (`POSTS=47 ACTORS=49`) → composed persona note → INSERT `ai.gftd.yoro.platformDigest` row into RisingWave → `/tmp/yoro-persona-cron.log` confirmation. Model self-corrected a quote-escape error on first INSERT and retried successfully |
+| persona-cron e2e write-path | goose read live KPIs (`POSTS=47 ACTORS=49`) → composed persona note → INSERT `app.etzhayyim.yoro.platformDigest` row into RisingWave → `/tmp/yoro-persona-cron.log` confirmation. Model self-corrected a quote-escape error on first INSERT and retried successfully |
 | crontab cadence | 3 entries live on judah (heartbeat + persona-cron + mention-drain); cron-fired mention-drain observed at 12:15:01 |
 
 ### Verified (2026-04-18 pm) — Ollama + LiteLLM stack
@@ -378,7 +378,7 @@ macOS SSH sessions cannot reliably `launchctl bootstrap` into `gui/{uid}` (retur
 ### Migration notes
 
 - **openclaw retired (2026-04-20)**: Ansible role + CLI (`70-tools/gftd/gftd/openclaw.go`) + LaunchAgent (`ai.openclaw.gateway`) deleted. goose role ships an idempotent `purge_openclaw.yml` task that removes `~/.openclaw/` on next apply. Replacement topology: 3 goose recipes (heartbeat / persona-cron / mention-drain) co-owned by the wrapper shell script for deterministic side effects + qwen3.5:9b for narrative text.
-- `serve_plain.py` LaunchAgent (`ai.gftd.murakumo-serve`) still loaded on fleet but no longer consumed by the agent path. Retire when public `murakumo.etzhayyim.com` API is either re-wired to LiteLLM or confirmed unused (see `[[migrations]] serve-plain-py-retirement`).
+- `serve_plain.py` LaunchAgent (`app.etzhayyim.murakumo-serve`) still loaded on fleet but no longer consumed by the agent path. Retire when public `murakumo.etzhayyim.com` API is either re-wired to LiteLLM or confirmed unused (see `[[migrations]] serve-plain-py-retirement`).
 - Public `murakumo.etzhayyim.com` endpoint still proxies via CF Worker → CF Tunnel → serve_plain.py on fleet. Unchanged during this phase.
 
 ### Verified (2026-04-18) — 10/10 node restoration
@@ -410,7 +410,7 @@ Recovery: parent `.locks/` is user-owned, so the root-owned subdir can be rm'd b
 
 ```bash
 rm -rf ~/.cache/huggingface/hub/.locks/models--mlx-community--<name>
-launchctl kickstart -k gui/$(id -u)/ai.gftd.murakumo-serve
+launchctl kickstart -k gui/$(id -u)/app.etzhayyim.murakumo-serve
 ```
 
 **Pattern B — entire model tree root-owned**:
@@ -420,24 +420,24 @@ When `models--…/snapshots/`, `blobs/`, `refs/` are all root-owned, the user ca
 ```bash
 # 1. Redirect cache via LaunchAgent env
 /usr/libexec/PlistBuddy -c "Add :EnvironmentVariables:HF_HUB_CACHE string $HOME/.cache/hf-new/hub" \
-  ~/Library/LaunchAgents/ai.gftd.murakumo-serve.plist
+  ~/Library/LaunchAgents/app.etzhayyim.murakumo-serve.plist
 
 # 2. Stop the crash loop
-launchctl bootout gui/$(id -u)/ai.gftd.murakumo-serve
+launchctl bootout gui/$(id -u)/app.etzhayyim.murakumo-serve
 
 # 3. Blocking download (so the serve_plain.py fallback never fires)
 env HF_HUB_CACHE=$HOME/.cache/hf-new/hub ~/.local/share/murakumo-venv/bin/python3 -c \
   "from mlx_lm import load; load('mlx-community/<name>')"
 
 # 4. Re-bootstrap service (picks up new HF_HUB_CACHE)
-launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.gftd.murakumo-serve.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/app.etzhayyim.murakumo-serve.plist
 ```
 
 Note: `HF_HOME` is NOT respected by the pinned `huggingface_hub` version in `murakumo-venv` — only `HF_HUB_CACHE` works as an override.
 
 **Pattern C — LaunchAgent plist installed but never bootstrapped (tunnel)**:
 
-`ansible` `cloudflared` role places the plist but a prior `launchctl bootout` (or ansible run interruption) leaves it unregistered. Recovery: `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.gftd.cloudflared.plist`. Process appears within 2-3s, CF edge registration ~30s.
+`ansible` `cloudflared` role places the plist but a prior `launchctl bootout` (or ansible run interruption) leaves it unregistered. Recovery: `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/app.etzhayyim.cloudflared.plist`. Process appears within 2-3s, CF edge registration ~30s.
 
 ### Saturation + concurrency
 
@@ -494,7 +494,7 @@ crontab @ judah
            │   - shell tool: curl → atproto.etzhayyim.com/xrpc (optional federation)
            │
            ▼ RisingWave public.vertex_repo_commit
-               (repo=did:web:yoro.etzhayyim.com, collection=ai.gftd.yoro.* | ai.gftd.convo.message)
+               (repo=did:web:yoro.etzhayyim.com, collection=app.etzhayyim.yoro.* | app.etzhayyim.convo.message)
 ```
 
 ### Hard requirements
@@ -518,15 +518,15 @@ crontab @ judah
 
 | Recipe | Cron | Wrapper cadence | Actor-manifest link | Side effects |
 |---|---|---|---|---|
-| `yoro-profile-heartbeat` | `*/15 * * * *` | 1h (joucho override) | `heartbeatRequired: true` | tracker row in `ai.gftd.yoro.heartbeat` + optional `heartbeatNote` AT post |
-| `yoro-persona-cron` | `0 */4 * * *` | 4h | `pipelines[].trigger.cron == "0 */4 * * *"` — platformStats→activeUsers→compose→derive:social | tracker row in `ai.gftd.yoro.personaCron` + `platformDigest` row (posts24h, activeActors, narrative) + optional `app.bsky.feed.post` |
-| `yoro-mention-drain` | `*/15 * * * *` | 1m | `pipelines[].trigger.subscribeRepos.collections ⊇ ["ai.gftd.convo.message"]` — indexMessage→linkReply→compose→derive:social | tracker row in `ai.gftd.yoro.mentionDrain` + reply row in `ai.gftd.convo.message` (senderDid=yoro, replyTo=mention.rkey) + optional federated AT post |
+| `yoro-profile-heartbeat` | `*/15 * * * *` | 1h (joucho override) | `heartbeatRequired: true` | tracker row in `app.etzhayyim.yoro.heartbeat` + optional `heartbeatNote` AT post |
+| `yoro-persona-cron` | `0 */4 * * *` | 4h | `pipelines[].trigger.cron == "0 */4 * * *"` — platformStats→activeUsers→compose→derive:social | tracker row in `app.etzhayyim.yoro.personaCron` + `platformDigest` row (posts24h, activeActors, narrative) + optional `app.bsky.feed.post` |
+| `yoro-mention-drain` | `*/15 * * * *` | 1m | `pipelines[].trigger.subscribeRepos.collections ⊇ ["app.etzhayyim.convo.message"]` — indexMessage→linkReply→compose→derive:social | tracker row in `app.etzhayyim.yoro.mentionDrain` + reply row in `app.etzhayyim.convo.message` (senderDid=yoro, replyTo=mention.rkey) + optional federated AT post |
 
-All three recipes ship via the `goose` ansible role (`templates/*.j2` → `~/.config/goose/recipes/*.yaml`) on judah only. Recipes are pure data — no inline secrets, no model config. The wrapper injects `$RW_URL`, `$GFTD_AGENT_TOKEN`, and the cadence env.
+All three recipes ship via the `goose` ansible role (`templates/*.j2` → `~/.config/goose/recipes/*.yaml`) on judah only. Recipes are pure data — no inline secrets, no model config. The wrapper injects `$RW_URL`, `$etzhayyim_AGENT_TOKEN`, and the cadence env.
 
 ### AT Protocol federation (optional per recipe)
 
-Each recipe has a Step 4 guarded by `$GFTD_AGENT_TOKEN_OK`. The wrapper sets it when `gftd agent-token --lxm com.atproto.repo.createRecord -sub did:web:yoro.etzhayyim.com` returns a valid 60s ES256 JWT. Without a live `gftd authn signin` session on judah, Step 4 is skipped and only the RisingWave direct write lands — the actor-manifest pipeline still produces the domain record, just without public federation. Gated on session-auth provisioning for the yoro DID.
+Each recipe has a Step 4 guarded by `$etzhayyim_AGENT_TOKEN_OK`. The wrapper sets it when `gftd agent-token --lxm com.atproto.repo.createRecord -sub did:web:yoro.etzhayyim.com` returns a valid 60s ES256 JWT. Without a live `gftd authn signin` session on judah, Step 4 is skipped and only the RisingWave direct write lands — the actor-manifest pipeline still produces the domain record, just without public federation. Gated on session-auth provisioning for the yoro DID.
 
 ### Scaling the pattern to other actors
 

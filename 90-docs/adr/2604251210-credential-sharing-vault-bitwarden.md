@@ -68,7 +68,7 @@ Vault を補助利用。Claude Code MCP integration:
   knowledge ではないため最終的に server breach で全件流出する。却下。
 - **Bitwarden を primary に昇格**: org plan は per-seat 課金 + audit log は
   Enterprise tier 限定。zero-knowledge は満たすが gftd Vault の AT Protocol
-  native integration (ECIES via `ai.gftd.signal.getPrekeyBundle`) を捨てる
+  native integration (ECIES via `app.etzhayyim.signal.getPrekeyBundle`) を捨てる
   ことになるため、auxiliary に留める。
 
 # References

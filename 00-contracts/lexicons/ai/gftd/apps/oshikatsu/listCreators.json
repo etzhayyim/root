@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oshikatsu.listCreators",
+  "id": "app.etzhayyim.apps.oshikatsu.listCreators",
   "defs": {
     "main": {
       "type": "query",

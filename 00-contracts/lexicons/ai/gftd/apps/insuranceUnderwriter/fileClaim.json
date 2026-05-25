@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.insuranceUnderwriter.fileClaim",
+  "id": "app.etzhayyim.apps.insuranceUnderwriter.fileClaim",
   "defs": {
     "main": {
       "type": "procedure",

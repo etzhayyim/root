@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.m365.listDrafts",
+  "id": "app.etzhayyim.host.m365.listDrafts",
   "defs": {
     "main": {
       "type": "query",

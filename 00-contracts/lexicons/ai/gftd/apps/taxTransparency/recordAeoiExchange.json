@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.taxTransparency.recordAeoiExchange",
+  "id": "app.etzhayyim.apps.taxTransparency.recordAeoiExchange",
   "defs": {
     "main": {
       "type": "procedure",

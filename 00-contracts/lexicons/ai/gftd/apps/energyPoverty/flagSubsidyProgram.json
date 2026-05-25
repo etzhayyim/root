@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.energyPoverty.flagSubsidyProgram",
+  "id": "app.etzhayyim.apps.energyPoverty.flagSubsidyProgram",
   "defs": {
     "main": {
       "type": "procedure",

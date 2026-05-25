@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.ingestSecDisclosure",
+  "id": "app.etzhayyim.legalEntity.ingestSecDisclosure",
   "defs": {
     "main": {
       "type": "procedure",

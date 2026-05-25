@@ -336,7 +336,7 @@ describe("otakiage rw-free", () => {
       const result = await ritualize(e, {
         itemId: "item-ritualize1",
         certificateUri:
-          "at://did:web:otakiage.etzhayyim.com/ai.gftd.otakiage.certificate/cert-001",
+          "at://did:web:otakiage.etzhayyim.com/app.etzhayyim.otakiage.certificate/cert-001",
       });
 
       expect(result.status).toBe("ritualized");

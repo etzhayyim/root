@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fusionEnergy.flagTritiumSupply",
+  "id": "app.etzhayyim.apps.fusionEnergy.flagTritiumSupply",
   "defs": {
     "main": {
       "type": "procedure",

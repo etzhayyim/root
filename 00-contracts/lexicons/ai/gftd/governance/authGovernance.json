@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.governance.authGovernance",
-  "description": "Governance & access control permissions. Superset — includes official com.atproto.label and com.atproto.moderation RPCs plus GFTD governance extensions.",
+  "id": "app.etzhayyim.governance.authGovernance",
+  "description": "Governance & access control permissions. Superset — includes official com.atproto.label and com.atproto.moderation RPCs plus etzhayyim governance extensions.",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -9,9 +9,9 @@
       "title:lang": {
         "ja": "ガバナンス・アクセス制御"
       },
-      "detail": "Manage access policies, labels, moderation, follow requests, role bindings, and actor sensitivity. Includes official AT Protocol label/moderation RPCs plus GFTD governance extensions.",
+      "detail": "Manage access policies, labels, moderation, follow requests, role bindings, and actor sensitivity. Includes official AT Protocol label/moderation RPCs plus etzhayyim governance extensions.",
       "detail:lang": {
-        "ja": "アクセスポリシー、ラベル、モデレーション、フォローリクエスト、ロールバインディング、Actor感度の管理。公式AT Protocolラベル/モデレーションRPCに加えGFTDガバナンス拡張を含む"
+        "ja": "アクセスポリシー、ラベル、モデレーション、フォローリクエスト、ロールバインディング、Actor感度の管理。公式AT Protocolラベル/モデレーションRPCに加えetzhayyimガバナンス拡張を含む"
       },
       "permissions": [
         {
@@ -44,21 +44,21 @@
         {
           "type": "permission",
           "resource": "rpc",
-          "description": "GFTD governance extension RPCs",
+          "description": "etzhayyim governance extension RPCs",
           "lxm": [
-            "ai.gftd.governance.checkAccess",
-            "ai.gftd.governance.getPolicy",
-            "ai.gftd.governance.resolveActorVisibility",
-            "ai.gftd.governance.queryLabels",
-            "ai.gftd.governance.approveFollowRequest",
-            "ai.gftd.governance.rejectFollowRequest",
-            "ai.gftd.governance.approveAllFollowRequests",
-            "ai.gftd.governance.registerPolicy",
-            "ai.gftd.governance.registerMethodPolicy",
-            "ai.gftd.governance.registerManifest",
-            "ai.gftd.governance.registerRoleBindings",
-            "ai.gftd.governance.setActorSensitivity",
-            "ai.gftd.governance.createLabel"
+            "app.etzhayyim.governance.checkAccess",
+            "app.etzhayyim.governance.getPolicy",
+            "app.etzhayyim.governance.resolveActorVisibility",
+            "app.etzhayyim.governance.queryLabels",
+            "app.etzhayyim.governance.approveFollowRequest",
+            "app.etzhayyim.governance.rejectFollowRequest",
+            "app.etzhayyim.governance.approveAllFollowRequests",
+            "app.etzhayyim.governance.registerPolicy",
+            "app.etzhayyim.governance.registerMethodPolicy",
+            "app.etzhayyim.governance.registerManifest",
+            "app.etzhayyim.governance.registerRoleBindings",
+            "app.etzhayyim.governance.setActorSensitivity",
+            "app.etzhayyim.governance.createLabel"
           ]
         }
       ]

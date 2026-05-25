@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.cohort.seed",
+  "id": "app.etzhayyim.cohort.seed",
   "defs": {
     "main": {
       "type": "procedure",

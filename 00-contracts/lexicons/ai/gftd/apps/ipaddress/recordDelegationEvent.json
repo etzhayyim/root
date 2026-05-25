@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.recordDelegationEvent",
+  "id": "app.etzhayyim.apps.ipaddress.recordDelegationEvent",
   "defs": {
     "main": {
       "type": "procedure",

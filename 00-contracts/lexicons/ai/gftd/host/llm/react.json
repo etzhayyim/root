@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.llm.react",
+  "id": "app.etzhayyim.host.llm.react",
   "defs": {
     "main": {
       "type": "procedure",

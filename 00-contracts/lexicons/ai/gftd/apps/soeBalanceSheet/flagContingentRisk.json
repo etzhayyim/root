@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.soeBalanceSheet.flagContingentRisk",
+  "id": "app.etzhayyim.apps.soeBalanceSheet.flagContingentRisk",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPorts.screenVesselSanctions",
+  "id": "app.etzhayyim.apps.openPorts.screenVesselSanctions",
   "defs": {
     "main": {
       "type": "procedure",

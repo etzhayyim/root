@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oshinobi.tipCreator",
+  "id": "app.etzhayyim.apps.oshinobi.tipCreator",
   "defs": {
     "main": {
       "type": "procedure",

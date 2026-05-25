@@ -6,7 +6,7 @@
 
 <svelte:head>
 	<title>Support | YORO</title>
-	<meta name="description" content="GFTD Support Agent — LLM-powered support for YORO and GFTD services." />
+	<meta name="description" content="etzhayyim Support Agent — LLM-powered support for YORO and etzhayyim services." />
 	<meta name="at:did" content="did:web:support.etzhayyim.com" />
 </svelte:head>
 

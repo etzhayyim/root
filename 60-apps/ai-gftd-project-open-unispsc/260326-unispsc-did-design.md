@@ -30,14 +30,14 @@ Rationale:
 ## 3. Lexicon Namespace
 
 Canonical:
-- `ai.gftd.apps.unispsc.*`
+- `app.etzhayyim.apps.unispsc.*`
 
 Examples:
-- `ai.gftd.apps.unispsc.commodity`
-- `ai.gftd.apps.unispsc.procurement`
-- `ai.gftd.apps.unispsc.supplier`
-- `ai.gftd.apps.unispsc.standard`
-- `ai.gftd.apps.unispsc.risk`
+- `app.etzhayyim.apps.unispsc.commodity`
+- `app.etzhayyim.apps.unispsc.procurement`
+- `app.etzhayyim.apps.unispsc.supplier`
+- `app.etzhayyim.apps.unispsc.standard`
+- `app.etzhayyim.apps.unispsc.risk`
 
 ## 4. Migration Phases
 
@@ -48,7 +48,7 @@ Examples:
 - Switch UI/API default links to `unispsc.etzhayyim.com`.
 
 3. Canonical-only
-- Write/read/subscribe all flows only via `ai.gftd.apps.unispsc.*`.
+- Write/read/subscribe all flows only via `app.etzhayyim.apps.unispsc.*`.
 - Do not emit compatibility aliases.
 
 ## 5. Validation Checklist

@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/comfyui-generateImage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/comfyui-generateImage-v1',
                  'did:web:comfyui.etzhayyim.com',
                  'comfyui_openai_image_generation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -83,7 +83,7 @@ UP = [{'sql': '\n'
                  'did:web:comfyui.etzhayyim.com',
                  'did:web:comfyui.etzhayyim.com',
                  'sys.bpmn.seed.comfyui',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/comfyui-generateImage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/comfyui-generateImage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -97,16 +97,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/comfyui-generateImage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/comfyui-generateImage-v1',
                  'did:web:comfyui.etzhayyim.com',
-                 'ai.gftd.apps.comfyui.generateImage',
+                 'app.etzhayyim.apps.comfyui.generateImage',
                  'comfyui_openai_image_generation',
                  600000,
                  '2026-04-29T09:07:00Z',
                  'did:web:comfyui.etzhayyim.com',
                  'did:web:comfyui.etzhayyim.com',
                  'sys.bpmn.seed.comfyui',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/comfyui-generateImage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/comfyui-generateImage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -120,7 +120,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/comfyui-editImage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/comfyui-editImage-v1',
                  'did:web:comfyui.etzhayyim.com',
                  'comfyui_openai_image_edit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -177,7 +177,7 @@ UP = [{'sql': '\n'
                  'did:web:comfyui.etzhayyim.com',
                  'did:web:comfyui.etzhayyim.com',
                  'sys.bpmn.seed.comfyui',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/comfyui-editImage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/comfyui-editImage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -191,25 +191,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/comfyui-editImage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/comfyui-editImage-v1',
                  'did:web:comfyui.etzhayyim.com',
-                 'ai.gftd.apps.comfyui.editImage',
+                 'app.etzhayyim.apps.comfyui.editImage',
                  'comfyui_openai_image_edit',
                  600000,
                  '2026-04-29T09:07:00Z',
                  'did:web:comfyui.etzhayyim.com',
                  'did:web:comfyui.etzhayyim.com',
                  'sys.bpmn.seed.comfyui',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/comfyui-editImage-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/comfyui-editImage-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/comfyui-generateImage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/comfyui-generateImage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/comfyui-generateImage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/comfyui-generateImage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/comfyui-editImage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/comfyui-editImage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/comfyui-editImage-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/comfyui-editImage-v1']}]
 
 
 def upgrade() -> None:

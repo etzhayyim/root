@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.biosecurityCertification.issueBwmCertificate",
+  "id": "app.etzhayyim.apps.biosecurityCertification.issueBwmCertificate",
   "defs": {
     "main": {
       "type": "procedure",

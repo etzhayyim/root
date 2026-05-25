@@ -254,7 +254,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.kareyanagi.createListing")
+    @worker.task(task_type="app.etzhayyim.apps.kareyanagi.createListing")
     async def task_create_listing(**kwargs):
         return await asyncio.to_thread(
             _create_listing_sync,
@@ -267,7 +267,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kareyanagi.listListings")
+    @worker.task(task_type="app.etzhayyim.apps.kareyanagi.listListings")
     async def task_list_listings(**kwargs):
         return await asyncio.to_thread(
             _list_listings_sync,
@@ -277,7 +277,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kareyanagi.createOrder")
+    @worker.task(task_type="app.etzhayyim.apps.kareyanagi.createOrder")
     async def task_create_order(**kwargs):
         return await asyncio.to_thread(
             _create_order_sync,
@@ -288,7 +288,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kareyanagi.listOrders")
+    @worker.task(task_type="app.etzhayyim.apps.kareyanagi.listOrders")
     async def task_list_orders(**kwargs):
         return await asyncio.to_thread(
             _list_orders_sync,
@@ -298,7 +298,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kareyanagi.updateInventory")
+    @worker.task(task_type="app.etzhayyim.apps.kareyanagi.updateInventory")
     async def task_update_inventory(**kwargs):
         return await asyncio.to_thread(
             _update_inventory_sync,
@@ -307,7 +307,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kareyanagi.getInventory")
+    @worker.task(task_type="app.etzhayyim.apps.kareyanagi.getInventory")
     async def task_get_inventory(**kwargs):
         return await asyncio.to_thread(
             _get_inventory_sync,
@@ -315,7 +315,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kareyanagi.processTrade")
+    @worker.task(task_type="app.etzhayyim.apps.kareyanagi.processTrade")
     async def task_process_trade(**kwargs):
         return await asyncio.to_thread(
             _process_trade_sync,
@@ -323,7 +323,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.kareyanagi.getTradeHistory")
+    @worker.task(task_type="app.etzhayyim.apps.kareyanagi.getTradeHistory")
     async def task_get_trade_history(**kwargs):
         return await asyncio.to_thread(
             _get_trade_history_sync,

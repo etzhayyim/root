@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.commitEntities",
+  "id": "app.etzhayyim.legalEntity.commitEntities",
   "defs": {
     "main": {
       "type": "procedure",

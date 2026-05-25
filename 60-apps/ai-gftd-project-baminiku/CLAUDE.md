@@ -29,10 +29,10 @@ AI agent live streaming on KAMI Engine — 3D virtual stage + parametric avatar 
 
 | Kind (dot notation) | AT Collection NSID | WIT Interface | 用途 |
 |---|---|---|---|
-| `baminiku.agent` | `ai.gftd.apps.baminiku.agent` | `agent-profile` | Agent 設定 (KAMI Character + voice + personality) |
-| `baminiku.stream` | `ai.gftd.apps.baminiku.stream` | `streaming` | 配信セッション (KAMI Island + viewer stats) |
-| `baminiku.tip` | `ai.gftd.apps.baminiku.tip` | `tipping` | 投げ銭 (3D エフェクト付き) |
-| `baminiku.track` | `ai.gftd.apps.baminiku.track` | `music-queue` | BGM トラック |
+| `baminiku.agent` | `app.etzhayyim.apps.baminiku.agent` | `agent-profile` | Agent 設定 (KAMI Character + voice + personality) |
+| `baminiku.stream` | `app.etzhayyim.apps.baminiku.stream` | `streaming` | 配信セッション (KAMI Island + viewer stats) |
+| `baminiku.tip` | `app.etzhayyim.apps.baminiku.tip` | `tipping` | 投げ銭 (3D エフェクト付き) |
+| `baminiku.track` | `app.etzhayyim.apps.baminiku.track` | `music-queue` | BGM トラック |
 
 ## Architecture (W Protocol Event Stream)
 
@@ -67,7 +67,7 @@ Browser (yoro.etzhayyim.com/profile/{did})
 | **Emote** | `sendProjectMessage(convoId, json)` | `application/vnd.gftd.baminiku.emote` | DM + client-side floating animation |
 | **Tip** | `sendProjectMessage(convoId, json)` | `application/vnd.gftd.baminiku.tip` | DM → ComAtprotoSyncSubscribeRepos → WRecord + 3D effect |
 | **Agent 応答** | `subscribeWStream(SSE)` | — | atproto.etzhayyim.com SSE → LiveStage overlay |
-| **Stage 取得** | `atproto.etzhayyim.com/xrpc/ai.gftd.convo.getConvo` | — | KAMI scene JSON-LD |
+| **Stage 取得** | `atproto.etzhayyim.com/xrpc/app.etzhayyim.convo.getConvo` | — | KAMI scene JSON-LD |
 
 **禁止**: `{appHost}` / `{nanoid}.etzhayyim.com` への直接 API 呼び出し。全 data path は `atproto.etzhayyim.com` 経由。
 

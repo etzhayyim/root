@@ -27,7 +27,7 @@ fn client() -> reqwest::blocking::Client {
 
 fn cypher(query: &str) -> serde_json::Value {
     let resp = client()
-        .post(&format!("{URL}/xrpc/ai.gftd.yata.cypher"))
+        .post(&format!("{URL}/xrpc/app.etzhayyim.yata.cypher"))
         .header("X-Magatama-Verified", "true")
         .json(&serde_json::json!({ "statement": query }))
         .send()
@@ -40,7 +40,7 @@ fn cypher(query: &str) -> serde_json::Value {
 
 fn merge_record(label: &str, rkey: &str, extra_props: &str) {
     let resp = client()
-        .post(&format!("{URL}/xrpc/ai.gftd.yata.mergeRecord"))
+        .post(&format!("{URL}/xrpc/app.etzhayyim.yata.mergeRecord"))
         .header("X-Magatama-Verified", "true")
         .json(&serde_json::json!({
             "label": label,
@@ -62,7 +62,7 @@ fn merge_record(label: &str, rkey: &str, extra_props: &str) {
 
 fn trigger_compaction() -> serde_json::Value {
     let resp = client()
-        .post(&format!("{URL}/xrpc/ai.gftd.yata.compact"))
+        .post(&format!("{URL}/xrpc/app.etzhayyim.yata.compact"))
         .header("X-Magatama-Verified", "true")
         .json(&serde_json::json!({}))
         .send()

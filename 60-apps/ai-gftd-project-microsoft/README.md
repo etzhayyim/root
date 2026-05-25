@@ -1,12 +1,12 @@
 # ai-gftd-project-microsoft
 
-Microsoft Graph / Microsoft 365 を Matrix protocol に正規化し、GFTD の App 群で扱うための設計メモ。正規入口は `Command=Matrix protocol`, `Query=XRPC` に揃える。
+Microsoft Graph / Microsoft 365 を Matrix protocol に正規化し、etzhayyim の App 群で扱うための設計メモ。正規入口は `Command=Matrix protocol`, `Query=XRPC` に揃える。
 
 ## Goal
 
 - Microsoft 365 の Teams / Outlook / SharePoint / OneDrive / Entra ID を Matrix に正規化する
 - Microsoft 固有 API を business app から隔離し、bridge で吸収する
-- GFTD の agent / human / app 間通信を Matrix に一本化する
+- etzhayyim の agent / human / app 間通信を Matrix に一本化する
 - Microsoft 側の監査・保持・権限制約を Matrix projection に反映する
 
 ## Non-Goals
@@ -457,7 +457,7 @@ Microsoft domain を Matrix に取り込むときは、Matrix の room/event/use
 5. `microsoft-gateway` が projection 更新
 6. miniapp は Cypher graph-backed QueryService で最新 read model を取得
 
-### Matrix / GFTD → Microsoft
+### Matrix / etzhayyim → Microsoft
 
 1. user/agent が Matrix room で `org.gftd.command.microsoft-message.send` などを発行
 2. `microsoft-gateway` が command validation

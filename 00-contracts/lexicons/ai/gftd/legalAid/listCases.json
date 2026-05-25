@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalAid.listCases",
+  "id": "app.etzhayyim.legalAid.listCases",
   "defs": {
     "main": {
       "type": "query",

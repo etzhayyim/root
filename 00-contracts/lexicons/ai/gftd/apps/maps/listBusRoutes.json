@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listBusRoutes",
+  "id": "app.etzhayyim.apps.maps.listBusRoutes",
   "defs": {
     "main": {
       "type": "query",

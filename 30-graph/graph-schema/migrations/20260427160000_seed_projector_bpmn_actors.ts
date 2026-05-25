@@ -32,25 +32,25 @@ const seeds: Seed[] = [
   {
     proc: "sendProjectMessage",
     bpmnProcessId: "projector_send_project_message",
-    nsid: "ai.gftd.apps.projector.sendProjectMessage",
+    nsid: "app.etzhayyim.apps.projector.sendProjectMessage",
     resultTimeoutMs: 60_000,
   },
   {
     proc: "agentLoop",
     bpmnProcessId: "projector_agent_loop",
-    nsid: "ai.gftd.apps.projector.agentLoop",
+    nsid: "app.etzhayyim.apps.projector.agentLoop",
     resultTimeoutMs: 60_000,
   },
   {
     proc: "treeOfThoughts",
     bpmnProcessId: "projector_tree_of_thoughts",
-    nsid: "ai.gftd.apps.projector.treeOfThoughts",
+    nsid: "app.etzhayyim.apps.projector.treeOfThoughts",
     resultTimeoutMs: 90_000,
   },
   {
     proc: "selfConsistency",
     bpmnProcessId: "projector_self_consistency",
-    nsid: "ai.gftd.apps.projector.selfConsistency",
+    nsid: "app.etzhayyim.apps.projector.selfConsistency",
     resultTimeoutMs: 90_000,
   },
 ];
@@ -59,9 +59,9 @@ const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

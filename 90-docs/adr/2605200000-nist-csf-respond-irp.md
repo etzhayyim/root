@@ -59,7 +59,7 @@ IRP の詳細手順書は `90-docs/irp/` に別途置く。
 ### 2. Incident Commander (IC) 制度
 
 IC は **etzhayyim 運営主体の意思決定権者** が担う。
-Gftd Japan (vendor) は IC になれない (Operating Entity Boundary — CLAUDE.md)。
+etzhayyim Japan (vendor) は IC になれない (Operating Entity Boundary — CLAUDE.md)。
 
 | ロール | 権限 | P0/P1 時 |
 |---|---|---|

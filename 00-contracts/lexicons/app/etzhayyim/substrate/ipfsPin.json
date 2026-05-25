@@ -18,7 +18,7 @@
         "properties": {
           "shardKey": {
             "type": "string",
-            "description": "Collection NSID this pin covers, copied from the originating shardSnapshot. e.g. `ai.gftd.apps.threads.post`."
+            "description": "Collection NSID this pin covers, copied from the originating shardSnapshot. e.g. `app.etzhayyim.apps.threads.post`."
           },
           "rootCid": {
             "type": "string",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kyber.provisionTenant",
+  "id": "app.etzhayyim.apps.kyber.provisionTenant",
   "defs": {
     "main": {
       "type": "procedure",

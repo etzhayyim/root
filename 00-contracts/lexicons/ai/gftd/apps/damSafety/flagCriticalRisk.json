@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.damSafety.flagCriticalRisk",
+  "id": "app.etzhayyim.apps.damSafety.flagCriticalRisk",
   "defs": {
     "main": {
       "type": "procedure",

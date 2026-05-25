@@ -1,6 +1,6 @@
 """Auth helpers — token resolution, header construction.
 
-Priority: GFTD_TOKEN env > macOS Keychain api_key > ~/.gftd/auth.json
+Priority: etzhayyim_TOKEN env > macOS Keychain api_key > ~/.gftd/auth.json
 """
 
 import hashlib
@@ -41,7 +41,7 @@ def _load_auth_file() -> dict:
 
 
 def resolve_token() -> str | None:
-    if tok := os.environ.get("GFTD_TOKEN"):
+    if tok := os.environ.get("etzhayyim_TOKEN"):
         return tok
     if key := _read_keychain("api_key"):
         return key
@@ -56,11 +56,11 @@ def resolve_active_did() -> str | None:
 
 
 def resolve_pds() -> str:
-    return os.environ.get("GFTD_PDS_URL", _DEFAULT_PDS).rstrip("/")
+    return os.environ.get("etzhayyim_PDS_URL", _DEFAULT_PDS).rstrip("/")
 
 
 def resolve_org_hint() -> str | None:
-    if org := os.environ.get("GFTD_ORG_ID"):
+    if org := os.environ.get("etzhayyim_ORG_ID"):
         return org
     did = resolve_active_did()
     if did and did.startswith("did:plc:"):
@@ -75,7 +75,7 @@ def auth_headers() -> dict[str, str]:
     if did := resolve_active_did():
         headers["X-Active-DID"] = did
     if org := resolve_org_hint():
-        headers["X-Gftd-Org-Id"] = org
+        headers["X-etzhayyim-Org-Id"] = org
     return headers
 
 
@@ -94,7 +94,7 @@ def _scoped_cache_key(base_token: str, nsid: str) -> str:
 
 
 def _scoped_auth_enabled() -> bool:
-    v = os.environ.get("GFTD_SCOPED_AUTH", "").lower().strip()
+    v = os.environ.get("etzhayyim_SCOPED_AUTH", "").lower().strip()
     return v not in ("off", "0", "false")
 
 
@@ -103,7 +103,7 @@ def mint_scoped_jwt(base_token: str, nsid: str) -> str:
 
     Returns "" on any failure (graceful degradation to base token).
     Caches tokens for 290s (TTL 300s minus 10s skew).
-    Skip conditions: empty token/nsid, nsid is the bootstrap NSID itself, or GFTD_SCOPED_AUTH=off.
+    Skip conditions: empty token/nsid, nsid is the bootstrap NSID itself, or etzhayyim_SCOPED_AUTH=off.
     """
     if not base_token or not nsid or nsid == _SERVICE_AUTH_NSID:
         return ""

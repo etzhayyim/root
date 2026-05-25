@@ -11,7 +11,7 @@ interface Env {
 }
 
 const APP = "webmk";
-const NSID_PREFIX = "ai.gftd.apps.webmk.";
+const NSID_PREFIX = "app.etzhayyim.apps.webmk.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

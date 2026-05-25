@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.agent.inferBelief",
+  "id": "app.etzhayyim.apps.agent.inferBelief",
   "defs": {
     "main": {
       "type": "procedure",

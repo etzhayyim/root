@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.onion.seedCrawl",
+  "id": "app.etzhayyim.apps.onion.seedCrawl",
   "defs": {
     "main": {
       "type": "procedure",

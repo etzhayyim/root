@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aidesk.listDesignJobs",
+  "id": "app.etzhayyim.apps.aidesk.listDesignJobs",
   "defs": {
     "main": {
       "type": "query",

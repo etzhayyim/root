@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.page",
+  "id": "app.etzhayyim.mangaka.page",
   "defs": {
     "main": {
       "type": "record",
@@ -13,7 +13,7 @@
           "chapterRef": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "strongRef to ai.gftd.apps.mangaka.chapter. Resolved by derive engine to set reply.root/parent on the derived post (threaded after the chapter-published post)."
+            "description": "strongRef to app.etzhayyim.apps.mangaka.chapter. Resolved by derive engine to set reply.root/parent on the derived post (threaded after the chapter-published post)."
           },
           "pageNum": {
             "type": "integer",
@@ -44,7 +44,7 @@
           "charactersAppearing": {
             "type": "array",
             "description": "Characters appearing on this page (subset of chapter.charactersAppearing). Derive rule expands each into app.bsky.richtext.facet#mention with did = did:web:mangaka.etzhayyim.com:character:{slug}. Keep the list tight (page-scope) to avoid mention spam in the thread reply.",
-            "items": { "type": "ref", "ref": "ai.gftd.mangaka.chapter#characterAppearance" }
+            "items": { "type": "ref", "ref": "app.etzhayyim.mangaka.chapter#characterAppearance" }
           },
           "layersCid": {
             "type": "string",
@@ -60,7 +60,7 @@
     },
     "panel": {
       "type": "object",
-      "description": "Inline panel geometry within a page. Mirrors ai.gftd.apps.mangaka.panel record fields for embedded read models; panel records may still be created separately if per-panel federated addressing is needed.",
+      "description": "Inline panel geometry within a page. Mirrors app.etzhayyim.apps.mangaka.panel record fields for embedded read models; panel records may still be created separately if per-panel federated addressing is needed.",
       "required": ["x", "y", "w", "h", "order"],
       "properties": {
         "x":     { "type": "number", "description": "Top-left x in normalized [0,1] page coordinates." },

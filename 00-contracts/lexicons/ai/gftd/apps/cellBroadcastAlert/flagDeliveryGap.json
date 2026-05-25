@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cellBroadcastAlert.flagDeliveryGap",
+  "id": "app.etzhayyim.apps.cellBroadcastAlert.flagDeliveryGap",
   "defs": {
     "main": {
       "type": "procedure",

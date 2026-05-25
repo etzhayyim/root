@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oilShipping.listTankers",
+  "id": "app.etzhayyim.apps.oilShipping.listTankers",
   "defs": {
     "main": {
       "type": "query",

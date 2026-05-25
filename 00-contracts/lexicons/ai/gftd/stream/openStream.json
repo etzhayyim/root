@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.stream.openStream",
+  "id": "app.etzhayyim.stream.openStream",
   "defs": {
     "main": {
       "type": "procedure",

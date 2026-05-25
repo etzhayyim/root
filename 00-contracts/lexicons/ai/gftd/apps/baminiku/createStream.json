@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.baminiku.createStream",
+  "id": "app.etzhayyim.apps.baminiku.createStream",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kyber.projector.runBpmnTask",
+  "id": "app.etzhayyim.kyber.projector.runBpmnTask",
   "defs": {
     "main": {
       "type": "procedure",

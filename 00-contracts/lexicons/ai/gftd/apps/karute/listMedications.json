@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.listMedications",
+  "id": "app.etzhayyim.apps.karute.listMedications",
   "defs": {
     "main": {
       "type": "query",

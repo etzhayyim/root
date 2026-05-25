@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kogu.listItems",
+  "id": "app.etzhayyim.apps.kogu.listItems",
   "defs": {
     "main": {
       "type": "query",

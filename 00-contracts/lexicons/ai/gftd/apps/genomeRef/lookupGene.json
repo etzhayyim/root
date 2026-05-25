@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.genomeRef.lookupGene",
+  "id": "app.etzhayyim.apps.genomeRef.lookupGene",
   "defs": {
     "main": {
       "type": "query",

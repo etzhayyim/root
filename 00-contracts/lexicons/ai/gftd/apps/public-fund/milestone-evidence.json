@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.public-fund.milestone-evidence",
+  "id": "app.etzhayyim.apps.public-fund.milestone-evidence",
   "defs": {
     "main": {
       "type": "record",

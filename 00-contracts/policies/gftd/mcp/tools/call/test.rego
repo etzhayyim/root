@@ -10,7 +10,7 @@ test_public_denied if {
 
 test_scope_allowed if {
   allow with input as {
-    "auth": {"method": "oauth", "scopes": ["rpc?lxm=ai.gftd.mcp.*"]},
+    "auth": {"method": "oauth", "scopes": ["rpc?lxm=app.etzhayyim.mcp.*"]},
     "permission_sets": [],
     "route": {"requiresAuth": true}
   }
@@ -19,7 +19,7 @@ test_scope_allowed if {
 test_permission_set_allowed if {
   allow with input as {
     "auth": {"method": "oauth", "scopes": []},
-    "permission_sets": ["ai.gftd.actor.authActorManagement"],
+    "permission_sets": ["app.etzhayyim.actor.authActorManagement"],
     "route": {"requiresAuth": true}
   }
 }

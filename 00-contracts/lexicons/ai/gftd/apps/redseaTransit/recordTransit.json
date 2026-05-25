@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.redseaTransit.recordTransit",
+  "id": "app.etzhayyim.apps.redseaTransit.recordTransit",
   "defs": {
     "main": {
       "type": "procedure",

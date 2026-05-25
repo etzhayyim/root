@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.contentModerationAppeal.recordAppeal",
+  "id": "app.etzhayyim.apps.contentModerationAppeal.recordAppeal",
   "defs": {
     "main": {
       "type": "procedure",

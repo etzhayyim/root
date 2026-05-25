@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.accessibilityWcag.flagDigitalExclusion",
+  "id": "app.etzhayyim.apps.accessibilityWcag.flagDigitalExclusion",
   "defs": {
     "main": {
       "type": "procedure",

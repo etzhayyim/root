@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bluesky.follow",
+  "id": "app.etzhayyim.apps.bluesky.follow",
   "description": "Bluesky follow relation snapshot (ADR-0037)。公開 relation なので T2。subject 側が opt-out した場合は cascade purge。",
   "defs": {
     "main": {

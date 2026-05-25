@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openDoi.recordCitation",
+  "id": "app.etzhayyim.apps.openDoi.recordCitation",
   "defs": {
     "main": {
       "type": "procedure",

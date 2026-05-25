@@ -28,8 +28,8 @@ describe("Seed open-gas BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openGas.definePipeSegment"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openGas.reportLeak"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openGas.definePipeSegment"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openGas.reportLeak"');
   });
 
   it("uses open-gas-specific actor_id + owner_did", () => {

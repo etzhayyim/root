@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.marineLitter.recordLitterEvent",
+  "id": "app.etzhayyim.apps.marineLitter.recordLitterEvent",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cyberVuln.recordPatchAdvisory",
+  "id": "app.etzhayyim.apps.cyberVuln.recordPatchAdvisory",
   "defs": {
     "main": {
       "type": "procedure",

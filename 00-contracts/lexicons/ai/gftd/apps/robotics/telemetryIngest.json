@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.robotics.telemetry.ingest",
+  "id": "app.etzhayyim.apps.robotics.telemetry.ingest",
   "defs": {
     "main": {
       "type": "procedure",

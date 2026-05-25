@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yuubin.validatePdf",
+  "id": "app.etzhayyim.apps.yuubin.validatePdf",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.browser.listSessions",
+  "id": "app.etzhayyim.apps.browser.listSessions",
   "defs": {
     "main": {
       "type": "query",

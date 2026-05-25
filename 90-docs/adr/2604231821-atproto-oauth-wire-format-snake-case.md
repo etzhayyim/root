@@ -96,7 +96,7 @@ profile で、独自の snake_case 拡張 (`dpop_bound_access_tokens: true`,
 ```json
 {
   "clientId": "https://atproto.etzhayyim.com/client-metadata.json",
-  "clientName": "GFTD PDS",
+  "clientName": "etzhayyim PDS",
   "redirectUris": [...],
   "grantTypes": ["authorizationCode", "refreshToken"],
   "responseTypes": ["code"],
@@ -308,7 +308,7 @@ export function handleClientMetadata(c: Context<AppType>): Response {
   c.header("Cache-Control", "public, max-age=3600");
   return c.json({
     client_id: "https://atproto.etzhayyim.com/client-metadata.json",
-    client_name: "GFTD PDS",
+    client_name: "etzhayyim PDS",
     client_uri: "https://atproto.etzhayyim.com",
     redirect_uris: [
       "https://atproto.etzhayyim.com/oauth/callback",
@@ -350,7 +350,7 @@ nonce enforcement は follow-up ADR とする。
 camelCase で返している。OAuth flow 上は atproto.etzhayyim.com が AS の front を張り
 authn は internal binding なので、authn の response が camelCase でも外部
 client には直接見えない。しかし `/xrpc/com.atproto.server.getServiceAuth` や
-`ai.gftd.auth.*` が snake_case/camelCase 混在すると後続 ADR で困る。
+`app.etzhayyim.auth.*` が snake_case/camelCase 混在すると後続 ADR で困る。
 
 **作業**: authn Worker の `/oauth/token` / `/oauth/issue-code` / `/oauth/authorize`
 endpoint の response も snake_case 化。`passkey.ts` の snake_case compat レイヤ
@@ -450,7 +450,7 @@ RFC 7009, introspection endpoint RFC 7662) を別 ADR で扱う。本 ADR の sc
 - pros: Phase 5 (authn 側書き換え) 不要
 - cons: internal consistency が崩れ、今後 T4 split 再構成時に drift 再発。
   少なくとも `/oauth/token` は両 Worker で同じ wire format にする必要がある。
-  **部分採用** — authn の **internal XRPC (`/xrpc/ai.gftd.auth.*`)** は
+  **部分採用** — authn の **internal XRPC (`/xrpc/app.etzhayyim.auth.*`)** は
   camelCase 維持 (内部 alias のため)、**OAuth endpoint (`/oauth/*`)** のみ
   snake_case 化
 

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.softwareIntegration.designStack",
+  "id": "app.etzhayyim.apps.tsukuru.softwareIntegration.designStack",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.productionOrder.getProductionOrder",
+  "id": "app.etzhayyim.apps.tsukuru.productionOrder.getProductionOrder",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mpaEffectiveness.flagEnforcementAction",
+  "id": "app.etzhayyim.apps.mpaEffectiveness.flagEnforcementAction",
   "defs": {
     "main": {
       "type": "procedure",

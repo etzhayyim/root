@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ameno.listHistory",
+  "id": "app.etzhayyim.apps.ameno.listHistory",
   "defs": {
     "main": {
       "type": "query",

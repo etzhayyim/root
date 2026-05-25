@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.cnt.planAutomation",
+  "id": "app.etzhayyim.apps.tsukuru.cnt.planAutomation",
   "defs": {
     "main": {
       "type": "query",

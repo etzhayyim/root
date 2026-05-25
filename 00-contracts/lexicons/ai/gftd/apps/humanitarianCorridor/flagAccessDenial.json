@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.humanitarianCorridor.flagAccessDenial",
+  "id": "app.etzhayyim.apps.humanitarianCorridor.flagAccessDenial",
   "defs": {
     "main": {
       "type": "procedure",

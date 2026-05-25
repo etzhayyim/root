@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.registerSpectrumLicense",
+  "id": "app.etzhayyim.apps.telecom.registerSpectrumLicense",
   "defs": {
     "main": {
       "type": "procedure",

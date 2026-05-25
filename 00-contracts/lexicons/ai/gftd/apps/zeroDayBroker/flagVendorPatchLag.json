@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.zeroDayBroker.flagVendorPatchLag",
+  "id": "app.etzhayyim.apps.zeroDayBroker.flagVendorPatchLag",
   "defs": {
     "main": {
       "type": "procedure",

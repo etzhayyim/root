@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.semiIpLicensing.recordLicense",
+  "id": "app.etzhayyim.apps.semiIpLicensing.recordLicense",
   "defs": {
     "main": {
       "type": "procedure",

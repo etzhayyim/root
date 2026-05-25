@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.seafoodTraceability.flagChainOfCustodyBreak",
+  "id": "app.etzhayyim.apps.seafoodTraceability.flagChainOfCustodyBreak",
   "defs": {
     "main": {
       "type": "procedure",

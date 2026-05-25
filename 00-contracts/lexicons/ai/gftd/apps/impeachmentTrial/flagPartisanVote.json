@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.impeachmentTrial.flagPartisanVote",
+  "id": "app.etzhayyim.apps.impeachmentTrial.flagPartisanVote",
   "defs": {
     "main": {
       "type": "procedure",

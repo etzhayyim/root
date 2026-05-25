@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.federalCourtDocket.recordDocketEntry",
+  "id": "app.etzhayyim.apps.federalCourtDocket.recordDocketEntry",
   "defs": {
     "main": {
       "type": "procedure",

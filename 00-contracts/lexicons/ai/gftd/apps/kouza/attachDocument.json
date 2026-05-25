@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kouza.attachDocument",
+  "id": "app.etzhayyim.apps.kouza.attachDocument",
   "defs": {
     "main": {
       "type": "procedure",

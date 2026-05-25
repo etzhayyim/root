@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.resourceFlow.projectFlow",
+  "id": "app.etzhayyim.apps.resourceFlow.projectFlow",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Internal endpoint invoked by the firehose subscriber to project an emitter's legalEntity{Currency|Service|Personnel}Flow record into vertex_resource_flow_*. Caller must hold a Service Auth JWT with lxm=ai.gftd.apps.resourceFlow.projectFlow. Enforces ADR-0018 cohort_size>=5 and rejects individual DIDs in counterpartyDid.",
+      "description": "Internal endpoint invoked by the firehose subscriber to project an emitter's legalEntity{Currency|Service|Personnel}Flow record into vertex_resource_flow_*. Caller must hold a Service Auth JWT with lxm=app.etzhayyim.apps.resourceFlow.projectFlow. Enforces ADR-0018 cohort_size>=5 and rejects individual DIDs in counterpartyDid.",
       "input": {
         "encoding": "application/json",
         "schema": {

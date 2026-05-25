@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projector.exploreThoughts",
+  "id": "app.etzhayyim.projector.exploreThoughts",
   "defs": {
     "main": {
       "type": "procedure",

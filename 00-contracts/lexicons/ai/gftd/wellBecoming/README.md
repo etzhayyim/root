@@ -1,4 +1,4 @@
-# `ai.gftd.wellBecoming.*` — Well-Becoming Kyu / Dan progression spec
+# `app.etzhayyim.wellBecoming.*` — Well-Becoming Kyu / Dan progression spec
 
 Open spec for the Well-Becoming kyū / dan skill progression system. Tracks
 user-self-asserted skill claims across domains (martial arts, music, craft,
@@ -18,10 +18,10 @@ credentialing authority.
 
 ## NSIDs (planned)
 
-- `ai.gftd.wellBecoming.skillClaim` (record) — user-asserted skill at a given rank
-- `ai.gftd.wellBecoming.attestation` (record) — peer attestation of someone else's claim
-- `ai.gftd.wellBecoming.getRank` — compute current effective rank from claims + attestations
-- `ai.gftd.wellBecoming.listClaims` — list a user's claims (paginated)
+- `app.etzhayyim.wellBecoming.skillClaim` (record) — user-asserted skill at a given rank
+- `app.etzhayyim.wellBecoming.attestation` (record) — peer attestation of someone else's claim
+- `app.etzhayyim.wellBecoming.getRank` — compute current effective rank from claims + attestations
+- `app.etzhayyim.wellBecoming.listClaims` — list a user's claims (paginated)
 
 ## Vendor SPLIT note
 

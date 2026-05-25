@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.export",
+  "id": "app.etzhayyim.mangaka.export",
   "defs": {
     "main": {
       "type": "procedure",

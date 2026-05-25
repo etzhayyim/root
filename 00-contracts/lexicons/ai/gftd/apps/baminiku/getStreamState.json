@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.baminiku.getStreamState",
+  "id": "app.etzhayyim.apps.baminiku.getStreamState",
   "defs": {
     "main": {
       "type": "query",

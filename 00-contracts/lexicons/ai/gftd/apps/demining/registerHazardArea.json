@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.demining.registerHazardArea",
+  "id": "app.etzhayyim.apps.demining.registerHazardArea",
   "defs": {
     "main": {
       "type": "procedure",

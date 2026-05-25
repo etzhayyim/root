@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.port.infrastructure.getPortTerminals",
+  "id": "app.etzhayyim.apps.port.infrastructure.getPortTerminals",
   "defs": {
     "main": {
       "type": "query",
-      "description": "ai.gftd.apps.port.infrastructure.getPortTerminals BPMN-backed port operation.",
+      "description": "app.etzhayyim.apps.port.infrastructure.getPortTerminals BPMN-backed port operation.",
       "parameters": {
         "type": "params",
         "properties": {},

@@ -35,7 +35,7 @@ TALENT_DID = "did:web:talent.etzhayyim.com"
 SOURCE     = "orcid-bulk"
 LICENSE    = "CC0"
 HOMEPAGE   = "https://orcid.org/"
-COLLECTION = "ai.gftd.apps.talent.talentCohort"
+COLLECTION = "app.etzhayyim.apps.talent.talentCohort"
 ISCO_CODE  = "2"
 CHECKPOINT = "/tmp/orcid-bulk-progress.json"
 

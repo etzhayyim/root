@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isekai.getCompliance",
+  "id": "app.etzhayyim.apps.isekai.getCompliance",
   "defs": {
     "main": {
       "type": "query",

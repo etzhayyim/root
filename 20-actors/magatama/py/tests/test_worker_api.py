@@ -33,7 +33,7 @@ def test_worker_api_maps_live_degrades_without_rw(monkeypatch) -> None:
     monkeypatch.setattr(worker_api, "_sync_cursor", boom)
     client = TestClient(worker_api.app)
 
-    response = client.post("/xrpc/ai.gftd.apps.maps.listLiveAircraft", json={"limit": 2})
+    response = client.post("/xrpc/app.etzhayyim.apps.maps.listLiveAircraft", json={"limit": 2})
 
     assert response.status_code == 200
     body = response.json()
@@ -49,7 +49,7 @@ def test_worker_api_maps_dashboard_degrades_without_rw(monkeypatch) -> None:
     monkeypatch.setattr(worker_api, "_sync_cursor", boom)
     client = TestClient(worker_api.app)
 
-    response = client.post("/xrpc/ai.gftd.apps.maps.getDashboard", json={})
+    response = client.post("/xrpc/app.etzhayyim.apps.maps.getDashboard", json={})
 
     assert response.status_code == 200
     body = response.json()
@@ -65,7 +65,7 @@ def test_worker_api_maps_world_monitor_dashboard_degrades_without_rw(monkeypatch
     monkeypatch.setattr(worker_api, "_sync_cursor", boom)
     client = TestClient(worker_api.app)
 
-    response = client.post("/xrpc/ai.gftd.apps.maps.getWorldMonitorDashboard", json={})
+    response = client.post("/xrpc/app.etzhayyim.apps.maps.getWorldMonitorDashboard", json={})
 
     assert response.status_code == 200
     body = response.json()
@@ -120,7 +120,7 @@ def test_worker_api_maps_world_monitor_dashboard_from_existing_graph(monkeypatch
     monkeypatch.setattr(worker_api, "_maps_market_signal_summary", fake_market)
     client = TestClient(worker_api.app)
 
-    response = client.post("/xrpc/ai.gftd.apps.maps.getWorldMonitorDashboard", json={"limit": 5})
+    response = client.post("/xrpc/app.etzhayyim.apps.maps.getWorldMonitorDashboard", json={"limit": 5})
 
     assert response.status_code == 200
     body = response.json()
@@ -138,7 +138,7 @@ def test_worker_api_maps_list_intel_events_degrades_without_rw(monkeypatch) -> N
     monkeypatch.setattr(worker_api, "_sync_cursor", boom)
     client = TestClient(worker_api.app)
 
-    response = client.post("/xrpc/ai.gftd.apps.maps.listIntelEvents", json={"limit": 2})
+    response = client.post("/xrpc/app.etzhayyim.apps.maps.listIntelEvents", json={"limit": 2})
 
     assert response.status_code == 200
     body = response.json()

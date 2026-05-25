@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.getRiskSnapshot",
+  "id": "app.etzhayyim.apps.maps.getRiskSnapshot",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airFfp.processPurchase",
+  "id": "app.etzhayyim.apps.airFfp.processPurchase",
   "defs": {
     "main": {
       "type": "procedure",

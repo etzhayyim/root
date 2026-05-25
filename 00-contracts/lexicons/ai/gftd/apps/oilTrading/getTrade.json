@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oilTrading.getTrade",
+  "id": "app.etzhayyim.apps.oilTrading.getTrade",
   "defs": {
     "main": {
       "type": "query",

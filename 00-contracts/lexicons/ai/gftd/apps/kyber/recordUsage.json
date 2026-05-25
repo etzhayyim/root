@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kyber.recordUsage",
+  "id": "app.etzhayyim.apps.kyber.recordUsage",
   "defs": {
     "main": {
       "type": "procedure",

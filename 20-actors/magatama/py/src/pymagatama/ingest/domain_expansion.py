@@ -148,7 +148,7 @@ async def _fetch_site_context(session: aiohttp.ClientSession, domain: str, slug:
     """Layer 2: site.etzhayyim.com crawlPage fallback."""
     try:
         async with session.post(
-            "https://site.etzhayyim.com/xrpc/ai.gftd.apps.site.crawlPage",
+            "https://site.etzhayyim.com/xrpc/app.etzhayyim.apps.site.crawlPage",
             json={"url": f"https://{domain}", "topics": [slug]},
             headers={"Content-Type": "application/json", "x-magatama-verified": "true"},
             timeout=aiohttp.ClientTimeout(total=8),
@@ -165,7 +165,7 @@ async def _fetch_gyotaku_context(session: aiohttp.ClientSession, domain: str) ->
     """Layer 3: gyotaku.etzhayyim.com searchSnapshots fallback."""
     try:
         async with session.post(
-            "https://gyotaku.etzhayyim.com/xrpc/ai.gftd.apps.gyotaku.searchSnapshots",
+            "https://gyotaku.etzhayyim.com/xrpc/app.etzhayyim.apps.gyotaku.searchSnapshots",
             json={"domain": domain, "limit": 3},
             headers={"Content-Type": "application/json", "x-magatama-verified": "true"},
             timeout=aiohttp.ClientTimeout(total=5),
@@ -316,12 +316,12 @@ async def expand_one_domain() -> dict[str, Any]:
 
             # App record
             await _pds_put_record(
-                session, app_did, "ai.gftd.actor.app", nanoid,
+                session, app_did, "app.etzhayyim.actor.app", nanoid,
                 {
                     "nanoid": nanoid, "displayName": target_domain, "description": description,
                     "did": app_did, "performerType": "service", "contentMode": "timeline",
                     "status": "active", "deployAt": now_ms,
-                    "collection": "ai.gftd.actor.app", "repo": app_did,
+                    "collection": "app.etzhayyim.actor.app", "repo": app_did,
                     "sensitivityOrd": "0", "updatedAt": str(now_ms),
                 },
             )
@@ -335,7 +335,7 @@ async def expand_one_domain() -> dict[str, Any]:
                 rkey = "".join(c if c.isalnum() or c == "-" else "-" for c in rkey)[:64]
                 try:
                     await _pds_put_record(
-                        session, app_did, "ai.gftd.actor.knowledgeEdge", rkey,
+                        session, app_did, "app.etzhayyim.actor.knowledgeEdge", rkey,
                         {
                             "from": nanoid,
                             "relation": edge.get("relation") or "EXPERTISE_IN",
@@ -362,13 +362,13 @@ async def expand_one_domain() -> dict[str, Any]:
             if capabilities:
                 try:
                     await _pds_put_record(
-                        session, app_did, "ai.gftd.actor.app", nanoid,
+                        session, app_did, "app.etzhayyim.actor.app", nanoid,
                         {
                             "nanoid": nanoid, "displayName": target_domain, "description": description,
                             "did": app_did, "performerType": "service", "contentMode": "timeline",
                             "status": "active", "deployAt": now_ms,
                             "capabilitiesJson": json.dumps(capabilities),
-                            "collection": "ai.gftd.actor.app", "repo": app_did,
+                            "collection": "app.etzhayyim.actor.app", "repo": app_did,
                             "sensitivityOrd": "0", "updatedAt": str(now_ms),
                         },
                     )

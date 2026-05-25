@@ -56,22 +56,22 @@ The 105 BPMNs were generated from a 9-column TSV (`project|proc|nsidNs|bpmnId|jp
 ```typescript
 // 60-apps/ai-gftd-project-open-{project}/appview/.../src/app.ts
 import { createWorkerExport, nsid, parseLexiconInput, type LexiconOutput }
-  from "@gftd/magatama-host-sdk";
-import { createKyselyDb } from "@gftd/magatama-host-sdk";
-import type { Database } from "@gftd/graph-schema";
+  from "@etzhayyim/magatama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+import type { Database } from "@etzhayyim/graph-schema";
 
 export default createWorkerExport((sdk) => {
   sdk.app.command(
-    nsid("ai.gftd.apps.{nsidNs}.{proc}"),
+    nsid("app.etzhayyim.apps.{nsidNs}.{proc}"),
     async (ctx, body) => {
-      const input = parseLexiconInput("ai.gftd.apps.{nsidNs}.{proc}", body);
+      const input = parseLexiconInput("app.etzhayyim.apps.{nsidNs}.{proc}", body);
       const db = createKyselyDb<Database>(ctx.env.HYPERDRIVE);
       await db.insertInto("vertex_open_defence_event")
         .values({
           vertex_id: input.vertexId,
           owner_did: ctx.callerDid,
           bpmn_process_id: "{bpmnId}",   // historical key, kept for compatibility
-          nsid: "ai.gftd.apps.{nsidNs}.{proc}",
+          nsid: "app.etzhayyim.apps.{nsidNs}.{proc}",
           project: "{project}",
           subject_vid: input.{subjectField} ?? null,
           action_class: "{actionName}",
@@ -109,7 +109,7 @@ Estimate: 3 files per project × 50 projects = 150 files. All template-generated
 
 ## 6. Auth & scope
 
-Per ADR-0022 each CF Worker invocation receives a Service Auth JWT with `lxm = ai.gftd.apps.{ns}.{proc}` claim. The Worker:
+Per ADR-0022 each CF Worker invocation receives a Service Auth JWT with `lxm = app.etzhayyim.apps.{ns}.{proc}` claim. The Worker:
 - only accepts requests where the JWT `lxm` matches the called NSID (mismatched = 401)
 - writes to `vertex_open_defence_event` via Hyperdrive — the Hyperdrive credential is per-Worker (not shared with pyzeebe)
 - emits audit via the existing `sdk.audit` helper (PDS-routed)

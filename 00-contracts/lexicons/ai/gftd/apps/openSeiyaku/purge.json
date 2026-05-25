@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSeiyaku.purge",
+  "id": "app.etzhayyim.apps.openSeiyaku.purge",
   "defs": {
     "main": {
       "type": "procedure",

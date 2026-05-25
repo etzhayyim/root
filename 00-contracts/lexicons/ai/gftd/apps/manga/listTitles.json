@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.manga.listTitles",
+  "id": "app.etzhayyim.apps.manga.listTitles",
   "defs": {
     "main": {
       "type": "query",

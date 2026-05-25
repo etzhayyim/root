@@ -25,35 +25,35 @@ const seeds: Seed[] = [
   {
     proc: "generateImageStandalone",
     bpmnProcessId: "mangaka_generate_image_standalone",
-    nsid: "ai.gftd.apps.mangaka.generateImage",
+    nsid: "app.etzhayyim.apps.mangaka.generateImage",
     sourcePath: "00-contracts/bpmn/ai/gftd/mangaka/generateImageStandalone.bpmn",
     resultTimeoutMs: 600000,
   },
   {
     proc: "realtimeDraw",
     bpmnProcessId: "mangaka_realtime_draw",
-    nsid: "ai.gftd.apps.mangaka.realtimeDraw",
+    nsid: "app.etzhayyim.apps.mangaka.realtimeDraw",
     sourcePath: "00-contracts/bpmn/ai/gftd/mangaka/realtimeDraw.bpmn",
     resultTimeoutMs: 600000,
   },
   {
     proc: "storyboardStandalone",
     bpmnProcessId: "mangaka_storyboard_standalone",
-    nsid: "ai.gftd.apps.mangaka.storyboard",
+    nsid: "app.etzhayyim.apps.mangaka.storyboard",
     sourcePath: "00-contracts/bpmn/ai/gftd/mangaka/storyboardStandalone.bpmn",
     resultTimeoutMs: 180000,
   },
   {
     proc: "autoLayoutStandalone",
     bpmnProcessId: "mangaka_auto_layout_standalone",
-    nsid: "ai.gftd.apps.mangaka.autoLayout",
+    nsid: "app.etzhayyim.apps.mangaka.autoLayout",
     sourcePath: "00-contracts/bpmn/ai/gftd/mangaka/autoLayoutStandalone.bpmn",
     resultTimeoutMs: 180000,
   },
   {
     proc: "projectChatStandalone",
     bpmnProcessId: "mangaka_project_chat_standalone",
-    nsid: "ai.gftd.apps.mangaka.projectChat",
+    nsid: "app.etzhayyim.apps.mangaka.projectChat",
     sourcePath: "00-contracts/bpmn/ai/gftd/mangaka/projectChatStandalone.bpmn",
     resultTimeoutMs: 180000,
   },
@@ -64,9 +64,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

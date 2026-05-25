@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.listDispenses",
+  "id": "app.etzhayyim.apps.karute.listDispenses",
   "defs": {
     "main": {
       "type": "query",

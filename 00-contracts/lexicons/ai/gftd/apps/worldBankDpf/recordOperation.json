@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.worldBankDpf.recordOperation",
+  "id": "app.etzhayyim.apps.worldBankDpf.recordOperation",
   "defs": {
     "main": {
       "type": "procedure",

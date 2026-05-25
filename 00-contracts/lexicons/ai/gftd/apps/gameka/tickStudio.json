@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gameka.tickStudio",
+  "id": "app.etzhayyim.apps.gameka.tickStudio",
   "defs": {
     "main": {
       "type": "procedure",

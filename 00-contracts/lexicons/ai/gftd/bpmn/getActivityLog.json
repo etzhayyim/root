@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.bpmn.getActivityLog",
+  "id": "app.etzhayyim.bpmn.getActivityLog",
   "defs": {
     "main": {
       "type": "query",

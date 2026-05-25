@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.searchByCpc",
+  "id": "app.etzhayyim.apps.kami.searchByCpc",
   "defs": {
     "main": {
       "type": "query",

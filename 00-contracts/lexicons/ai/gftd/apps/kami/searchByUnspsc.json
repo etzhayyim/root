@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.searchByUnspsc",
+  "id": "app.etzhayyim.apps.kami.searchByUnspsc",
   "defs": {
     "main": {
       "type": "query",

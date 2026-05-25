@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.authn.verifyToken",
+  "id": "app.etzhayyim.host.authn.verifyToken",
   "defs": {
     "main": {
       "type": "procedure",

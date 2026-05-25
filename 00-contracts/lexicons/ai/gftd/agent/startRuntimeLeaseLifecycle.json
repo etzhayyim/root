@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.agent.startRuntimeLeaseLifecycle",
+  "id": "app.etzhayyim.agent.startRuntimeLeaseLifecycle",
   "defs": {
     "main": {
       "type": "procedure",

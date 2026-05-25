@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.app.kyber.hr.coverageStats",
+  "id": "app.etzhayyim.app.kyber.hr.coverageStats",
   "defs": {
     "main": {
       "type": "procedure",

@@ -161,9 +161,9 @@ def test_server_dispatches_attach_character_vrm():
     envelopes route to the right handler."""
     from lg_mangaka import server as srv
 
-    assert "ai.gftd.mangaka.tools.attachCharacterVrm" in srv._TOOL_NSID_TO_HANDLER
+    assert "app.etzhayyim.mangaka.tools.attachCharacterVrm" in srv._TOOL_NSID_TO_HANDLER
     assert (
-        srv._TOOL_NSID_TO_HANDLER["ai.gftd.mangaka.tools.attachCharacterVrm"]
+        srv._TOOL_NSID_TO_HANDLER["app.etzhayyim.mangaka.tools.attachCharacterVrm"]
         is _tools.tool_attach_character_vrm
     )
 
@@ -188,7 +188,7 @@ def test_lexicon_file_exists():
     )
     assert lex_path.is_file()
     lex = json.loads(lex_path.read_text())
-    assert lex["id"] == "ai.gftd.mangaka.tools.attachCharacterVrm"
+    assert lex["id"] == "app.etzhayyim.mangaka.tools.attachCharacterVrm"
     schema = lex["defs"]["main"]["input"]["schema"]
     assert "characterRkey" in schema["required"]
     assert "vrmContentB64" in schema["required"]

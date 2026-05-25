@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tenso.revokeTransfer",
+  "id": "app.etzhayyim.apps.tenso.revokeTransfer",
   "defs": {
     "main": {
       "type": "procedure",

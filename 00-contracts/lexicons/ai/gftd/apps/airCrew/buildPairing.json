@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airCrew.buildPairing",
+  "id": "app.etzhayyim.apps.airCrew.buildPairing",
   "defs": {
     "main": {
       "type": "procedure",

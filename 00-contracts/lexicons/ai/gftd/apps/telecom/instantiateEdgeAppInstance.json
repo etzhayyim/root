@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.instantiateEdgeAppInstance",
+  "id": "app.etzhayyim.apps.telecom.instantiateEdgeAppInstance",
   "defs": {
     "main": {
       "type": "procedure",

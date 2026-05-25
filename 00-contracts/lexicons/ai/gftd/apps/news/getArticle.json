@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.news.getArticle",
+  "id": "app.etzhayyim.apps.news.getArticle",
   "defs": {
     "main": {
       "type": "query",

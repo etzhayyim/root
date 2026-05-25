@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.logisticsRoute.planRoute",
+  "id": "app.etzhayyim.apps.tsukuru.logisticsRoute.planRoute",
   "defs": {
     "main": {
       "type": "query",

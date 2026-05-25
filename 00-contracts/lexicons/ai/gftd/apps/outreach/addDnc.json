@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.outreach.addDnc",
+  "id": "app.etzhayyim.apps.outreach.addDnc",
   "defs": {
     "main": {
       "type": "procedure",

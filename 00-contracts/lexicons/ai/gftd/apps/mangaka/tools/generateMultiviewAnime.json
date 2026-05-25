@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.tools.generateMultiviewAnime",
+  "id": "app.etzhayyim.apps.mangaka.tools.generateMultiviewAnime",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "P16 step 3 of ai.gftd.apps.mangaka.composeCharacterVrm. Runs CharacterGen (PKU, SIGGRAPH 2024, MIT) on the VKE render pool to turn a single anime reference image + prompt pack into 4–6 view-consistent A-pose images. Self-hosted on `ghcr.io/etzhayyim/character-gen:0.1` (open-weight, no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_generate_multiview_anime.",
+      "description": "P16 step 3 of app.etzhayyim.apps.mangaka.composeCharacterVrm. Runs CharacterGen (PKU, SIGGRAPH 2024, MIT) on the VKE render pool to turn a single anime reference image + prompt pack into 4–6 view-consistent A-pose images. Self-hosted on `ghcr.io/etzhayyim/character-gen:0.1` (open-weight, no external API). ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_generate_multiview_anime.",
       "input": {
         "encoding": "application/json",
         "schema": {

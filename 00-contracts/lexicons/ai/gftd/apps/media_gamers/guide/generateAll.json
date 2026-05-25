@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.media_gamers.guide.generateAll",
+  "id": "app.etzhayyim.apps.media_gamers.guide.generateAll",
   "defs": {
     "main": {
       "type": "procedure",

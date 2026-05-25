@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airBook.settleBsp",
+  "id": "app.etzhayyim.apps.airBook.settleBsp",
   "defs": {
     "main": {
       "type": "procedure",

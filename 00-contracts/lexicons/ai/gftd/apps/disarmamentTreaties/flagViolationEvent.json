@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.disarmamentTreaties.flagViolationEvent",
+  "id": "app.etzhayyim.apps.disarmamentTreaties.flagViolationEvent",
   "defs": {
     "main": {
       "type": "procedure",

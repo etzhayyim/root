@@ -8,7 +8,7 @@
 //   /storage/v1/bucket                        — list buckets
 //   /storage/v1/object/public/{bucket}/{key}  — public ACL (P3.2 stub)
 //   /sparql                                   — SPARQL 1.1 SELECT/CONSTRUCT/ASK
-//   /xrpc/ai.gftd.apps.{yata,billing}.*       — XRPC pass-through
+//   /xrpc/app.etzhayyim.apps.{yata,billing}.*       — XRPC pass-through
 //
 // Auth: Bearer sk_live_yata_* / ES256 JWT → PDS service binding
 // `/_internal/resolve-auth` returns { did, orgDid, activeDid, productScope }.
@@ -77,7 +77,7 @@ type Env = {
   PDS_SERVICE?: { fetch(req: Request): Promise<Response> };
   AUTHN_SERVICE?: { fetch(req: Request): Promise<Response> };
   HYPERDRIVE?: unknown;
-  GFTD_METERING_DISABLED?: string;
+  etzhayyim_METERING_DISABLED?: string;
   YATA_AGENT_ADMIN_KEY?: string;   // gate for POST /_agents/*/run
   RESEND_API_KEY?: string;
   EMAIL_FROM?: string;
@@ -216,7 +216,7 @@ app.get("/_app/meta", (c) =>
       "/mcp",
       "/.well-known/agent.json",
       "/.well-known/mcp.json",
-      "/xrpc/ai.gftd.apps.yata.*",
+      "/xrpc/app.etzhayyim.apps.yata.*",
     ],
     backend: c.env.BPMN_DISPATCHER_URL,
   }),
@@ -336,7 +336,7 @@ async function resolveAuthContext(req: Request, env: Env): Promise<AuthContext |
     }
 
     const dispatcherBase = env.LG_YATABASE_URL || "https://dispatcher.etzhayyim.com";
-    const url = `${dispatcherBase.replace(/\/+$/, "")}/xrpc/ai.gftd.apps.yata.authResolveApiKey`;
+    const url = `${dispatcherBase.replace(/\/+$/, "")}/xrpc/app.etzhayyim.apps.yata.authResolveApiKey`;
     try {
       const keyHash = await sha256Hex(rawKey);
       const bodyStr = JSON.stringify({ key_hash: keyHash });
@@ -1394,7 +1394,7 @@ app.post("/sparql", async (c) => {
 
   const result = await dispatchYataXrpc(
     c.env,
-    "ai.gftd.apps.yata.runSparql",
+    "app.etzhayyim.apps.yata.runSparql",
     body as Record<string, unknown>,
     {
       orgDid: auth.orgDid,
@@ -2041,7 +2041,7 @@ app.post("/_agents/:name/run", async (c) => {
 
 app.all("/xrpc/:nsid", async (c) => {
   const nsid = c.req.param("nsid");
-  if (!nsid.startsWith("ai.gftd.apps.yata.") && !nsid.startsWith("ai.gftd.apps.billing.")) {
+  if (!nsid.startsWith("app.etzhayyim.apps.yata.") && !nsid.startsWith("app.etzhayyim.apps.billing.")) {
     return c.json(
       { error: "NotFound", message: `nsid ${nsid} is not handled by yatabase.etzhayyim.com; use atproto.etzhayyim.com` },
       404,

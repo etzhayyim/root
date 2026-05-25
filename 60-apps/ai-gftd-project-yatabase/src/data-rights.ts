@@ -28,7 +28,7 @@ interface RawDb {
 async function getRealDb(env: DataRightsEnv): Promise<{ db: RawDb; sql: ((s: TemplateStringsArray, ...v: unknown[]) => unknown) } | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     const db = (sdk as unknown as { createKyselyDb: (h: unknown) => unknown }).createKyselyDb(env.HYPERDRIVE as never) as RawDb;
     const sql = (sdk as unknown as { sql?: (s: TemplateStringsArray, ...v: unknown[]) => unknown }).sql ?? null;
     if (!sql) return null;

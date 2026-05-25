@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coastalSlr.recordSlrMeasurement",
+  "id": "app.etzhayyim.apps.coastalSlr.recordSlrMeasurement",
   "defs": {
     "main": {
       "type": "procedure",

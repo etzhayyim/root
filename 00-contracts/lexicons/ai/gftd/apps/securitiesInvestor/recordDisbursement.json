@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.securitiesInvestor.recordDisbursement",
+  "id": "app.etzhayyim.apps.securitiesInvestor.recordDisbursement",
   "defs": {
     "main": {
       "type": "procedure",

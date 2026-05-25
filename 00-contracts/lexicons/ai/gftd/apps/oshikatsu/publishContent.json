@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oshikatsu.publishContent",
+  "id": "app.etzhayyim.apps.oshikatsu.publishContent",
   "defs": {
     "main": {
       "type": "procedure",

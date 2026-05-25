@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.generateImage",
+  "id": "app.etzhayyim.apps.mangaka.generateImage",
   "defs": {
     "main": {
       "type": "procedure",

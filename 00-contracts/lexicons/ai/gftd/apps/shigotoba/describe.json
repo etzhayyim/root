@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shigotoba.describe",
+  "id": "app.etzhayyim.apps.shigotoba.describe",
   "defs": {
     "main": {
       "type": "query",

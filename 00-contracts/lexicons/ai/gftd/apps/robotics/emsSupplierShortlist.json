@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.robotics.ems.supplier.shortlist",
+  "id": "app.etzhayyim.apps.robotics.ems.supplier.shortlist",
   "defs": {
     "main": {
       "type": "procedure",

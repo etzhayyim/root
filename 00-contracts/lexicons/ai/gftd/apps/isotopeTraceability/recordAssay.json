@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isotopeTraceability.recordAssay",
+  "id": "app.etzhayyim.apps.isotopeTraceability.recordAssay",
   "defs": {
     "main": {
       "type": "procedure",

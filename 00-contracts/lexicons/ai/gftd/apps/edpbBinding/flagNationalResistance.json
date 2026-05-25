@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.edpbBinding.flagNationalResistance",
+  "id": "app.etzhayyim.apps.edpbBinding.flagNationalResistance",
   "defs": {
     "main": {
       "type": "procedure",

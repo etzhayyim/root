@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.news.liveAudioScheduleState",
+  "id": "app.etzhayyim.apps.news.liveAudioScheduleState",
   "defs": {
     "main": {
       "type": "record",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tenso.downloadChunk",
+  "id": "app.etzhayyim.apps.tenso.downloadChunk",
   "defs": {
     "main": {
       "type": "procedure",

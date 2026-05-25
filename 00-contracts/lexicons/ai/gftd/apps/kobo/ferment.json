@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kobo.ferment",
+  "id": "app.etzhayyim.apps.kobo.ferment",
   "defs": {
     "main": {
       "type": "procedure",

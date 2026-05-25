@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.usStateDept.coordinateMayorsClimate",
+  "id": "app.etzhayyim.apps.usStateDept.coordinateMayorsClimate",
   "defs": {
     "main": {
       "type": "procedure",

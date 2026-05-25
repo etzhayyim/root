@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cbamExtension.registerScopeExpansion",
+  "id": "app.etzhayyim.apps.cbamExtension.registerScopeExpansion",
   "defs": {
     "main": {
       "type": "procedure",

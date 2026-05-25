@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.organizer.listCollections",
+  "id": "app.etzhayyim.apps.organizer.listCollections",
   "defs": {
     "main": {
       "type": "query",

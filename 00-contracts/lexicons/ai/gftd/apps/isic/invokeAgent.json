@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isic.invokeAgent",
+  "id": "app.etzhayyim.apps.isic.invokeAgent",
   "defs": {
     "main": {
       "type": "procedure",

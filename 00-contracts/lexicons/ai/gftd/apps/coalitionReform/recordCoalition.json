@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coalitionReform.recordCoalition",
+  "id": "app.etzhayyim.apps.coalitionReform.recordCoalition",
   "defs": {
     "main": {
       "type": "procedure",

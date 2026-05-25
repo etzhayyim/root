@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.provenanceResearch.recordDossier",
+  "id": "app.etzhayyim.apps.provenanceResearch.recordDossier",
   "defs": {
     "main": {
       "type": "procedure",

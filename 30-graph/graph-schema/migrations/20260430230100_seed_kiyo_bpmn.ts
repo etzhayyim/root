@@ -25,7 +25,7 @@ const seeds: Seed[] = [
     slug:      "submit-paper",
     op:        "submitPaper",
     processId: "kiyo_submit_paper",
-    nsid:      "ai.gftd.apps.kiyo.submitPaper",
+    nsid:      "app.etzhayyim.apps.kiyo.submitPaper",
     timeoutMs: 60_000,
     allowlist: "vertex_kiyo_paper,vertex_kiyo_revision,edge_kiyo_authored_by",
   },
@@ -33,7 +33,7 @@ const seeds: Seed[] = [
     slug:      "submit-revision",
     op:        "submitRevision",
     processId: "kiyo_submit_revision",
-    nsid:      "ai.gftd.apps.kiyo.submitRevision",
+    nsid:      "app.etzhayyim.apps.kiyo.submitRevision",
     timeoutMs: 60_000,
     allowlist: "vertex_kiyo_revision,vertex_kiyo_paper",
   },
@@ -41,7 +41,7 @@ const seeds: Seed[] = [
     slug:      "citation-sync",
     op:        "citationSync",
     processId: "kiyo_citation_sync",
-    nsid:      "ai.gftd.apps.kiyo.citationSync",
+    nsid:      "app.etzhayyim.apps.kiyo.citationSync",
     timeoutMs: 300_000,
     allowlist: "edge_kiyo_cites",
   },
@@ -49,7 +49,7 @@ const seeds: Seed[] = [
     slug:      "embedding-index",
     op:        "embeddingIndex",
     processId: "kiyo_embedding_index",
-    nsid:      "ai.gftd.apps.kiyo.embeddingIndex",
+    nsid:      "app.etzhayyim.apps.kiyo.embeddingIndex",
     timeoutMs: 180_000,
     allowlist: "vertex_kiyo_paper",
   },
@@ -57,15 +57,15 @@ const seeds: Seed[] = [
     slug:      "weekly-digest",
     op:        "weeklyDigest",
     processId: "kiyo_weekly_digest",
-    nsid:      "ai.gftd.apps.kiyo.weeklyDigest",
+    nsid:      "app.etzhayyim.apps.kiyo.weeklyDigest",
     timeoutMs: 60_000,
     allowlist: "",
   },
 ];
 
 const bpmnPath    = (s: Seed) => `00-contracts/bpmn/ai/gftd/kiyo/${s.op}.bpmn`;
-const processVid  = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kiyo-${s.slug}-v1`;
-const bindingVid  = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kiyo-${s.slug}-v1`;
+const processVid  = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-${s.slug}-v1`;
+const bindingVid  = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

@@ -1,6 +1,6 @@
 ---
 id: adr-2605141800-gftd-email-wire-protocol
-title: "ADR-2605141800: GFTD Email Wire Protocol (GEWP) v1.0 — Open Standard"
+title: "ADR-2605141800: etzhayyim Email Wire Protocol (GEWP) v1.0 — Open Standard"
 status: accepted
 doc_type: adr
 topic: gftd-email-wire-protocol
@@ -27,14 +27,14 @@ related:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
 ---
 
-# ADR-2605141800: GFTD Email Wire Protocol (GEWP) v1.0
+# ADR-2605141800: etzhayyim Email Wire Protocol (GEWP) v1.0
 
 ## Goal
 
 LLM agent どうし・グループメール・人間が **SMTP/MIME を transport** として
 Pregel スタイルのメッセージパッシングを行うための wire protocol を規格化する。
 
-本仕様は **GFTD Japan が策定・維持するオープン規格** であり、
+本仕様は **etzhayyim Japan が策定・維持するオープン規格** であり、
 gftd 固有の実装への依存を Core から排除することで第三者実装を可能にする。
 
 ---
@@ -43,7 +43,7 @@ gftd 固有の実装への依存を Core から排除することで第三者実
 
 | 項目 | 値 |
 |---|---|
-| Maintainer | GFTD Japan 株式会社 |
+| Maintainer | etzhayyim Japan 株式会社 |
 | Spec URL | `https://spec.etzhayyim.com/gewp/v1/` |
 | Schema URL | `https://spec.etzhayyim.com/gewp/v1/schema.json` |
 | Spec text license | **CC-BY-4.0** |

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.pds.getEntityGraph",
+  "id": "app.etzhayyim.pds.getEntityGraph",
   "defs": {
     "main": {
       "type": "query",

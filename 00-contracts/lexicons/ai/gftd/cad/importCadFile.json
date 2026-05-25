@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cad.importCadFile",
+  "id": "app.etzhayyim.apps.cad.importCadFile",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Import a CAD file (STEP / IGES / BREP / STL / glTF) into a workspace. Heavy parsing runs asynchronously in the CF Container job service; this procedure returns immediately with a jobId. The uploaded binary is content-addressed in B2 (Backblaze B2 S3-compatible) (SHA-256). Subscribe to ai.gftd.apps.cad.importJobEvent commits to track progress.",
+      "description": "Import a CAD file (STEP / IGES / BREP / STL / glTF) into a workspace. Heavy parsing runs asynchronously in the CF Container job service; this procedure returns immediately with a jobId. The uploaded binary is content-addressed in B2 (Backblaze B2 S3-compatible) (SHA-256). Subscribe to app.etzhayyim.apps.cad.importJobEvent commits to track progress.",
       "input": {
         "encoding": "application/json",
         "schema": {

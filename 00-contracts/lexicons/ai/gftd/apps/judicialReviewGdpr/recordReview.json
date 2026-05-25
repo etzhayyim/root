@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.judicialReviewGdpr.recordReview",
+  "id": "app.etzhayyim.apps.judicialReviewGdpr.recordReview",
   "defs": {
     "main": {
       "type": "procedure",

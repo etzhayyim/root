@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.auth.createSetupIntent",
+  "id": "app.etzhayyim.auth.createSetupIntent",
   "defs": {
     "main": {
       "type": "procedure",

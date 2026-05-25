@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.biodiversityGbf.recordIndicator",
+  "id": "app.etzhayyim.apps.biodiversityGbf.recordIndicator",
   "defs": {
     "main": {
       "type": "procedure",

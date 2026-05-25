@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.waterStewardship.flagBasinStress",
+  "id": "app.etzhayyim.apps.waterStewardship.flagBasinStress",
   "defs": {
     "main": {
       "type": "procedure",

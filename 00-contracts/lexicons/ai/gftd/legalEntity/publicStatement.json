@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.publicStatement",
+  "id": "app.etzhayyim.legalEntity.publicStatement",
   "description": "Public statement, press release, or filing-derived disclosure used as provenance for legal-entity relationship edges.",
   "defs": {
     "main": {

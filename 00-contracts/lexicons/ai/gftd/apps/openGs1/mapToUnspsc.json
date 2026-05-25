@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openGs1.mapToUnspsc",
+  "id": "app.etzhayyim.apps.openGs1.mapToUnspsc",
   "defs": {
     "main": {
       "type": "procedure",

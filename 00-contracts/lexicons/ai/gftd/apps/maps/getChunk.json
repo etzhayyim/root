@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.getChunk",
+  "id": "app.etzhayyim.apps.maps.getChunk",
   "defs": {
     "main": {
       "type": "query",

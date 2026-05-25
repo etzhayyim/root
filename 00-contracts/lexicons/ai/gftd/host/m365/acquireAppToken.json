@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.m365.acquireAppToken",
+  "id": "app.etzhayyim.host.m365.acquireAppToken",
   "defs": {
     "main": {
       "type": "procedure",

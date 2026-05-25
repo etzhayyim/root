@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yata.multipartAbort",
+  "id": "app.etzhayyim.apps.yata.multipartAbort",
   "defs": {
     "main": {
       "type": "procedure",

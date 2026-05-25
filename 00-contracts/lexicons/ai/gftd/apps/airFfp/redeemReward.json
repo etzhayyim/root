@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airFfp.redeemReward",
+  "id": "app.etzhayyim.apps.airFfp.redeemReward",
   "defs": {
     "main": {
       "type": "procedure",

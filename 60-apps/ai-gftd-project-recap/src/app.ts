@@ -5,39 +5,39 @@
 import {
   asAgentTool, createWorkerExport, nsid, withCapabilityTags,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 export default createWorkerExport((sdk: HostSDK) => {
   const env = sdk.env as Record<string, unknown>;
 
   // ── summarize ───────────────────────────────────────────────────────────────
   sdk.app.command(
-    nsid("ai.gftd.apps.recap.summarize"),
-    async (_ctx, body) => proxyToLg(env, "ai.gftd.apps.recap.summarize", decode(body)),
+    nsid("app.etzhayyim.apps.recap.summarize"),
+    async (_ctx, body) => proxyToLg(env, "app.etzhayyim.apps.recap.summarize", decode(body)),
     asAgentTool("Extract transcript and summarize a video. Provide a URL (YouTube, TikTok, NicoNico, etc.) and optionally a lang code (default: ja). Returns structured summary with overview, key points, and conclusion."),
     withCapabilityTags("video", "transcript", "summarize", "yt-dlp", "llm"),
   );
 
   // ── download ────────────────────────────────────────────────────────────────
   sdk.app.command(
-    nsid("ai.gftd.apps.recap.download"),
-    async (_ctx, body) => proxyToLg(env, "ai.gftd.apps.recap.download", decode(body)),
+    nsid("app.etzhayyim.apps.recap.download"),
+    async (_ctx, body) => proxyToLg(env, "app.etzhayyim.apps.recap.download", decode(body)),
     asAgentTool("Download video/audio from a supported platform (YouTube, TikTok, Instagram, X, NicoNico, Bilibili, Vimeo, Twitch, Facebook, Reddit) to B2 storage. Returns blob key and AT record URI. scope must be 'research' or 'authorized' (fair-use only)."),
     withCapabilityTags("video", "download", "yt-dlp", "b2", "multi-platform"),
   );
 
   // ── getInfo ─────────────────────────────────────────────────────────────────
   sdk.app.command(
-    nsid("ai.gftd.apps.recap.getInfo"),
-    async (_ctx, body) => proxyToLg(env, "ai.gftd.apps.recap.getInfo", decode(body)),
+    nsid("app.etzhayyim.apps.recap.getInfo"),
+    async (_ctx, body) => proxyToLg(env, "app.etzhayyim.apps.recap.getInfo", decode(body)),
     asAgentTool("Fetch media metadata from a supported platform without downloading. Returns title, uploader, duration, available formats, thumbnail URL."),
     withCapabilityTags("video", "metadata", "yt-dlp"),
   );
 
   // ── listDownloads ────────────────────────────────────────────────────────────
   sdk.app.query(
-    nsid("ai.gftd.apps.recap.listDownloads"),
-    async (_ctx, body) => proxyToLg(env, "ai.gftd.apps.recap.listDownloads", decode(body)),
+    nsid("app.etzhayyim.apps.recap.listDownloads"),
+    async (_ctx, body) => proxyToLg(env, "app.etzhayyim.apps.recap.listDownloads", decode(body)),
   );
 });
 

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.signal.getIdentityFingerprint",
+  "id": "app.etzhayyim.signal.getIdentityFingerprint",
   "defs": {
     "main": {
       "type": "query",

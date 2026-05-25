@@ -1,7 +1,7 @@
 {
   "$type": "lex:com.atproto.lexicon.schema",
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPatent.synthesizeInvention",
+  "id": "app.etzhayyim.apps.openPatent.synthesizeInvention",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.blueEconomy.recordSectorIndicator",
+  "id": "app.etzhayyim.apps.blueEconomy.recordSectorIndicator",
   "defs": {
     "main": {
       "type": "procedure",

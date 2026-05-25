@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOt.setpointChange",
+  "id": "app.etzhayyim.apps.openOt.setpointChange",
   "defs": {
     "main": {
       "type": "procedure",

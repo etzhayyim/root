@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listBusinessRegistries",
+  "id": "app.etzhayyim.apps.maps.listBusinessRegistries",
   "defs": {
     "main": {
       "type": "procedure",

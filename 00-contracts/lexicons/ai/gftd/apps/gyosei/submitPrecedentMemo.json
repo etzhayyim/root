@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gyosei.submitPrecedentMemo",
+  "id": "app.etzhayyim.apps.gyosei.submitPrecedentMemo",
   "defs": {
     "main": {
       "type": "procedure",

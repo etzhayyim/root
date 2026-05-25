@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.universalHealthCoverage.reportUhcIndex",
+  "id": "app.etzhayyim.apps.universalHealthCoverage.reportUhcIndex",
   "defs": {
     "main": {
       "type": "procedure",

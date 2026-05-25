@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.redseaIncident.reportHouthiAttack",
+  "id": "app.etzhayyim.apps.redseaIncident.reportHouthiAttack",
   "defs": {
     "main": {
       "type": "procedure",

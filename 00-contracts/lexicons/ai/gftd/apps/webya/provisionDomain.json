@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.webya.provisionDomain",
+  "id": "app.etzhayyim.apps.webya.provisionDomain",
   "defs": {
     "main": {
       "type": "procedure",

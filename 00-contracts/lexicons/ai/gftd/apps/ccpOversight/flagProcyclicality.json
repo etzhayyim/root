@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ccpOversight.flagProcyclicality",
+  "id": "app.etzhayyim.apps.ccpOversight.flagProcyclicality",
   "defs": {
     "main": {
       "type": "procedure",

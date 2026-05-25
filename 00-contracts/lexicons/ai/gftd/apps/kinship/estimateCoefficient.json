@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kinship.estimateCoefficient",
+  "id": "app.etzhayyim.apps.kinship.estimateCoefficient",
   "defs": {
     "main": {
       "type": "procedure",

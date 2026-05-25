@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.agent.proposeAction",
+  "id": "app.etzhayyim.apps.agent.proposeAction",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.payment.treasury-rebalance-proposal",
+  "id": "app.etzhayyim.apps.payment.treasury-rebalance-proposal",
   "defs": {
     "main": {
       "type": "record",

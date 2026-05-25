@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airYield.generateRevenueReport",
+  "id": "app.etzhayyim.apps.airYield.generateRevenueReport",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.xlsx.insertRows",
+  "id": "app.etzhayyim.apps.xlsx.insertRows",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.antitrustDma.flagViolation",
+  "id": "app.etzhayyim.apps.antitrustDma.flagViolation",
   "defs": {
     "main": {
       "type": "procedure",

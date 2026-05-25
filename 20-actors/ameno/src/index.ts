@@ -43,6 +43,19 @@ export {
   type RagLoraContext,
 } from "./rag-lora";
 
+// WebNN inference fast path (ADR-2605252100). Detection + routing
+// only at R0; `dispatchWebnnInference` throws until R1 wires the ORT
+// WebNN EP.
+export {
+  detectWebnnSupport,
+  selectInferenceBackend,
+  probeAndSelect,
+  dispatchWebnnInference,
+  type WebnnSupport,
+  type WebnnDeviceType,
+  type InferenceBackend,
+} from "./inference/webnn";
+
 export {
   TRAIN_DEFAULTS,
   DEVICE_STEP_BUDGET,

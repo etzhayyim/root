@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airCargo.issueAirWaybill",
+  "id": "app.etzhayyim.apps.airCargo.issueAirWaybill",
   "defs": {
     "main": {
       "type": "procedure",

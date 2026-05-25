@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iataCodeshare.flagAntitrustReview",
+  "id": "app.etzhayyim.apps.iataCodeshare.flagAntitrustReview",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneBom.listBoms",
+  "id": "app.etzhayyim.apps.openSmartphoneBom.listBoms",
   "defs": {
     "main": {
       "type": "query",

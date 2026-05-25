@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hc.registerToTsukuru",
+  "id": "app.etzhayyim.apps.hc.registerToTsukuru",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.pds.authPlatform",
-  "description": "PDS platform permissions. Superset — includes official com.atproto.repo and com.atproto.server RPCs plus GFTD PDS extensions (entity graph, heartbeat, agent chat).",
+  "id": "app.etzhayyim.pds.authPlatform",
+  "description": "PDS platform permissions. Superset — includes official com.atproto.repo and com.atproto.server RPCs plus etzhayyim PDS extensions (entity graph, heartbeat, agent chat).",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -9,9 +9,9 @@
       "title:lang": {
         "ja": "PDSプラットフォーム"
       },
-      "detail": "Access PDS platform features. Includes official repo CRUD, sync, and server operations plus GFTD extensions: entity graph, heartbeat monitoring, and agent chat.",
+      "detail": "Access PDS platform features. Includes official repo CRUD, sync, and server operations plus etzhayyim extensions: entity graph, heartbeat monitoring, and agent chat.",
       "detail:lang": {
-        "ja": "PDSプラットフォーム機能。公式リポジトリCRUD/同期/サーバー操作に加え、GFTDのエンティティグラフ、ハートビート、エージェントチャットを含む"
+        "ja": "PDSプラットフォーム機能。公式リポジトリCRUD/同期/サーバー操作に加え、etzhayyimのエンティティグラフ、ハートビート、エージェントチャットを含む"
       },
       "permissions": [
         {
@@ -55,20 +55,20 @@
         {
           "type": "permission",
           "resource": "rpc",
-          "description": "GFTD PDS extension RPCs",
+          "description": "etzhayyim PDS extension RPCs",
           "lxm": [
-            "ai.gftd.pds.getActorProfile",
-            "ai.gftd.pds.getAppPreview",
-            "ai.gftd.pds.getEntityGraph",
-            "ai.gftd.pds.getProfile",
-            "ai.gftd.pds.putProfile",
-            "ai.gftd.pds.exportRepo",
-            "ai.gftd.pds.importRepo",
-            "ai.gftd.pds.invoke",
-            "ai.gftd.pds.query",
-            "ai.gftd.pds.listHeartbeatApps",
-            "ai.gftd.pds.registerSyncApp",
-            "ai.gftd.agent.chat"
+            "app.etzhayyim.pds.getActorProfile",
+            "app.etzhayyim.pds.getAppPreview",
+            "app.etzhayyim.pds.getEntityGraph",
+            "app.etzhayyim.pds.getProfile",
+            "app.etzhayyim.pds.putProfile",
+            "app.etzhayyim.pds.exportRepo",
+            "app.etzhayyim.pds.importRepo",
+            "app.etzhayyim.pds.invoke",
+            "app.etzhayyim.pds.query",
+            "app.etzhayyim.pds.listHeartbeatApps",
+            "app.etzhayyim.pds.registerSyncApp",
+            "app.etzhayyim.agent.chat"
           ]
         }
       ]

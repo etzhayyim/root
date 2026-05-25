@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.arcticNsr.recordCommercialViability",
+  "id": "app.etzhayyim.apps.arcticNsr.recordCommercialViability",
   "defs": {
     "main": {
       "type": "procedure",

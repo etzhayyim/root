@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.unispsc.classify",
+  "id": "app.etzhayyim.apps.unispsc.classify",
   "defs": {
     "main": {
       "type": "procedure",

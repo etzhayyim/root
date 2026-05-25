@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.listDocuments",
+  "id": "app.etzhayyim.mangaka.listDocuments",
   "defs": {
     "main": {
       "type": "query",

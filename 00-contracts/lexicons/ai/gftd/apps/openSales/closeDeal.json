@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSales.closeDeal",
+  "id": "app.etzhayyim.apps.openSales.closeDeal",
   "defs": {
     "main": {
       "type": "procedure",

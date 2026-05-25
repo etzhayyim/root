@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.rtc.admitParticipant",
+  "id": "app.etzhayyim.rtc.admitParticipant",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.trustedFlagger.flagStateMandatedTakedown",
+  "id": "app.etzhayyim.apps.trustedFlagger.flagStateMandatedTakedown",
   "defs": {
     "main": {
       "type": "procedure",

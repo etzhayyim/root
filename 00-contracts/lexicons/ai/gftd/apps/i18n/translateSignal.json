@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.i18n.translateSignal",
+  "id": "app.etzhayyim.apps.i18n.translateSignal",
   "defs": {
     "main": {
       "type": "procedure",

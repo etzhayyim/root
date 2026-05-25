@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.euv.designManufacturingFlow",
+  "id": "app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow",
   "defs": {
     "main": {
       "type": "query",

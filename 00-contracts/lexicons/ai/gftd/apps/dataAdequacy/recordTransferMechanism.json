@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.dataAdequacy.recordTransferMechanism",
+  "id": "app.etzhayyim.apps.dataAdequacy.recordTransferMechanism",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.animeka.getCut",
+  "id": "app.etzhayyim.animeka.getCut",
   "defs": {
     "main": {
       "type": "query",

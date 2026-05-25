@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.pds.getProfile",
-  "description": "Get actor profile. Superset of app.bsky.actor.getProfile — output includes official profileViewDetailed plus GFTD extensions.",
+  "id": "app.etzhayyim.pds.getProfile",
+  "description": "Get actor profile. Superset of app.bsky.actor.getProfile — output includes official profileViewDetailed plus etzhayyim extensions.",
   "defs": {
     "main": {
       "type": "query",
@@ -53,27 +53,27 @@
             "createdAt": { "type": "string", "format": "datetime" },
             "runtime": {
               "type": "string",
-              "description": "GFTD extension: actor business runtime placement",
+              "description": "etzhayyim extension: actor business runtime placement",
               "knownValues": ["k8s-langserver"]
             },
             "edge": {
               "type": "string",
-              "description": "GFTD extension: public edge placement",
+              "description": "etzhayyim extension: public edge placement",
               "knownValues": ["sveltekit-proxy"]
             },
             "legacyExecutionTier": {
               "type": "string",
-              "description": "GFTD extension: historical migration inventory only",
+              "description": "etzhayyim extension: historical migration inventory only",
               "knownValues": ["T1", "T2", "T3"]
             },
             "actorStatus": {
               "type": "string",
-              "description": "GFTD extension: actor platform status",
+              "description": "etzhayyim extension: actor platform status",
               "knownValues": ["active", "suspended", "archived"]
             },
             "entityGraph": {
               "type": "unknown",
-              "description": "GFTD extension: entity graph data"
+              "description": "etzhayyim extension: entity graph data"
             }
           },
           "required": [

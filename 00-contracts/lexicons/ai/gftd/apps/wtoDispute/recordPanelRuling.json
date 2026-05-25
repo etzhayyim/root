@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.wtoDispute.recordPanelRuling",
+  "id": "app.etzhayyim.apps.wtoDispute.recordPanelRuling",
   "defs": {
     "main": {
       "type": "procedure",

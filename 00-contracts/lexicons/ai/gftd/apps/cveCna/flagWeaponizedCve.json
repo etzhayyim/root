@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cveCna.flagWeaponizedCve",
+  "id": "app.etzhayyim.apps.cveCna.flagWeaponizedCve",
   "defs": {
     "main": {
       "type": "procedure",

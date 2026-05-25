@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tnfdDisclosure.flagGreenwash",
+  "id": "app.etzhayyim.apps.tnfdDisclosure.flagGreenwash",
   "defs": {
     "main": {
       "type": "procedure",

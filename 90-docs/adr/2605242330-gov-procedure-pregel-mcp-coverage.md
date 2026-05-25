@@ -75,9 +75,9 @@ Per ADR-2605212100, the L3 `gov-mcp-component` carries `SUBSTRATE-PORT-PENDING.m
 
 Concrete deliverable: a substrate-port wave ADR (working name: `2605260XXX-gov-app-substrate-port`) that ports the 3 deferred apps (gov / lawfirm-admin / legal-entity) to MST + `@etzhayyim/sdk`, gated on:
 
-- ADR-2605214000 §3 atomic identifier cutover (`@gftd/magatama-*` → `@etzhayyim/magatama-*`).
-- Lexicon namespace rename (`ai.gftd.apps.gov.*` → `app.etzhayyim.gov.*`).
-- `did:web:gov.gftd.ai` → `did:web:etzhayyim.com:gov`.
+- ADR-2605214000 §3 atomic identifier cutover (`@etzhayyim/magatama-*` → `@etzhayyim/magatama-*`).
+- Lexicon namespace rename (`app.etzhayyim.apps.gov.*` → `app.etzhayyim.gov.*`).
+- `did:web:gov.etzhayyim.com` → `did:web:etzhayyim.com:gov`.
 
 ### 3.2 JP-deep reference (post-substrate-port)
 

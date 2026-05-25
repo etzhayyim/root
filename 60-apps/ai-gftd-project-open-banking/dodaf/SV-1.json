@@ -12,11 +12,11 @@
         "platform": "Cloudflare Workers",
         "entrypoint": "worker/src/app.ts",
         "interfaces": [
-          { "id": "if.xrpc.createAccount",    "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openBanking.createAccount" },
-          { "id": "if.xrpc.getAccount",       "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openBanking.getAccount" },
-          { "id": "if.xrpc.listAccounts",     "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openBanking.listAccounts" },
-          { "id": "if.xrpc.transfer",         "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openBanking.transfer" },
-          { "id": "if.xrpc.listTransactions", "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openBanking.listTransactions" }
+          { "id": "if.xrpc.createAccount",    "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openBanking.createAccount" },
+          { "id": "if.xrpc.getAccount",       "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openBanking.getAccount" },
+          { "id": "if.xrpc.listAccounts",     "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openBanking.listAccounts" },
+          { "id": "if.xrpc.transfer",         "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openBanking.transfer" },
+          { "id": "if.xrpc.listTransactions", "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openBanking.listTransactions" }
         ]
       },
       {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.esgRiskRating.publishEsgScore",
+  "id": "app.etzhayyim.apps.esgRiskRating.publishEsgScore",
   "defs": {
     "main": {
       "type": "procedure",

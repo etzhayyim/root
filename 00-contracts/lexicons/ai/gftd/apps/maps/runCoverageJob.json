@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.runCoverageJob",
+  "id": "app.etzhayyim.apps.maps.runCoverageJob",
   "defs": {
     "main": {
       "type": "procedure",

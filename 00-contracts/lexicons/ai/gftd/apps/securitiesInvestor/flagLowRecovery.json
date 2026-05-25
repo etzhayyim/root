@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.securitiesInvestor.flagLowRecovery",
+  "id": "app.etzhayyim.apps.securitiesInvestor.flagLowRecovery",
   "defs": {
     "main": {
       "type": "procedure",

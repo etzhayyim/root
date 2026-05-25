@@ -10,8 +10,8 @@ if Worker hangs.
 
 | script | source | target NSID | ~rows |
 |---|---|---|---|
-| `pokedex.mjs` | Serebii pokédex | `ai.gftd.apps.media_gamers.knowledge.publishPokemon` | ~500 per game |
-| `items.mjs` | Serebii items DB | `ai.gftd.apps.media_gamers.knowledge.publishGameItem` | ~150-180 per game |
+| `pokedex.mjs` | Serebii pokédex | `app.etzhayyim.apps.media_gamers.knowledge.publishPokemon` | ~500 per game |
+| `items.mjs` | Serebii items DB | `app.etzhayyim.apps.media_gamers.knowledge.publishGameItem` | ~150-180 per game |
 
 ## Usage
 

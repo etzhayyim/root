@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.railCrossBorder.flagInteropFailure",
+  "id": "app.etzhayyim.apps.railCrossBorder.flagInteropFailure",
   "defs": {
     "main": {
       "type": "procedure",

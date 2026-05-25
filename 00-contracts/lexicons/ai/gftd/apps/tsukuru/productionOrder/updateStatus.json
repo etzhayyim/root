@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.productionOrder.updateStatus",
+  "id": "app.etzhayyim.apps.tsukuru.productionOrder.updateStatus",
   "defs": {
     "main": {
       "type": "procedure",

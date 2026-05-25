@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.greenSteel.recordProductionMetric",
+  "id": "app.etzhayyim.apps.greenSteel.recordProductionMetric",
   "defs": {
     "main": {
       "type": "procedure",

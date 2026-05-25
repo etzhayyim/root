@@ -13,14 +13,14 @@
     "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"oauth-redirect\",\"mailbox-sync\"]",
     "APP_DESCRIPTION": "Thin edge facade; Outlook OAuth and Graph sync run in BPMN + Zeebe Python",
     "APP_DISPLAY_NAME": "Outlook",
-    "APP_EMBED_URL": "https://outlook.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://outlook.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
     "APP_NANOID": "outlook",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"
   },
   "routes": [
-    { "pattern": "outlook.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "outlook.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

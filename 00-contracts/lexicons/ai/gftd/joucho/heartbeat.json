@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.joucho.heartbeat",
+  "id": "app.etzhayyim.joucho.heartbeat",
   "defs": {
     "main": {
       "type": "procedure",

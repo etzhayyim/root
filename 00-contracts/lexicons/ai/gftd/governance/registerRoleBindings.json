@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.governance.registerRoleBindings",
+  "id": "app.etzhayyim.governance.registerRoleBindings",
   "defs": {
     "main": {
       "type": "procedure",

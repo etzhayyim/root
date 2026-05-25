@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.rtc.sendCallICE",
+  "id": "app.etzhayyim.rtc.sendCallICE",
   "defs": {
     "main": {
       "type": "procedure",

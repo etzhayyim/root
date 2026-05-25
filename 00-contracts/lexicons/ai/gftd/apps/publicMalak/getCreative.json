@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.publicMalak.getCreative",
+  "id": "app.etzhayyim.apps.publicMalak.getCreative",
   "defs": {
     "main": {
       "type": "query",
@@ -20,7 +20,7 @@
           "type": "object",
           "required": ["creative"],
           "properties": {
-            "creative": { "type": "ref", "ref": "ai.gftd.apps.publicMalak.listAds#creativeView" }
+            "creative": { "type": "ref", "ref": "app.etzhayyim.apps.publicMalak.listAds#creativeView" }
           }
         }
       }

@@ -215,7 +215,7 @@ adr = ["2605240200", "2605240100", "2605240000", "2605232345"]
 # module = "pymagatama.primitives.maps_sentinel_murakumo"
 # entry = "task_t0_preprocess"
 # node = "*"  # runs on any node receiving the XRPC call
-# trigger = { kind = "xrpc", nsid = "ai.gftd.apps.maps.sentinel.analyze" }
+# trigger = { kind = "xrpc", nsid = "app.etzhayyim.apps.maps.sentinel.analyze" }
 # adr = ["2605215100"]
 #
 # [[cell]]

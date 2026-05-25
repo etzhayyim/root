@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.media_gamers.record.translationLink",
+  "id": "app.etzhayyim.apps.media_gamers.record.translationLink",
   "defs": {
     "main": {
       "type": "record",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ituSpectrum.flagInterference",
+  "id": "app.etzhayyim.apps.ituSpectrum.flagInterference",
   "defs": {
     "main": {
       "type": "procedure",

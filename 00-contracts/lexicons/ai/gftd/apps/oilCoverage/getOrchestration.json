@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oilCoverage.getOrchestration",
+  "id": "app.etzhayyim.apps.oilCoverage.getOrchestration",
   "defs": {
     "main": {
       "type": "query",

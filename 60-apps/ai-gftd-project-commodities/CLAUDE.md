@@ -49,7 +49,7 @@ No performers-gateway-provider intermediary. Each App has its own subdomain.
 
 ## SDK & Build
 
-- **Runtime**: TS Native (`src/app.ts` + `@gftd/magatama-host-sdk`)
+- **Runtime**: TS Native (`src/app.ts` + `@etzhayyim/magatama-host-sdk`)
 - **KV**: `performer/rdbms.OpenStore("default")` → sql graph RDBMS backing table
 - **Executor**: `containerd-shim-magatama` (standard, NOT `containerd-shim-magatama-nats`)
 

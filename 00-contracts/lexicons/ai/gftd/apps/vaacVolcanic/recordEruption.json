@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vaacVolcanic.recordEruption",
+  "id": "app.etzhayyim.apps.vaacVolcanic.recordEruption",
   "defs": {
     "main": {
       "type": "procedure",

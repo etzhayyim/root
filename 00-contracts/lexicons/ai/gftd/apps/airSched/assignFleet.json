@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airSched.assignFleet",
+  "id": "app.etzhayyim.apps.airSched.assignFleet",
   "defs": {
     "main": {
       "type": "procedure",

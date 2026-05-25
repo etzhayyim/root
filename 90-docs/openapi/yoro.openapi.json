@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.yoro.health": {
+    "/xrpc/app.etzhayyim.yoro.health": {
       "post": {
         "summary": "Yoro health (F-Plan F2 legacy migration 2026-04-13).",
-        "operationId": "ai.gftd.yoro.health",
+        "operationId": "app.etzhayyim.yoro.health",
         "requestBody": {
           "required": true,
           "content": {
@@ -52,10 +52,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.ingestProductCategory": {
+    "/xrpc/app.etzhayyim.yoro.ingestProductCategory": {
       "post": {
         "summary": "Generic product/price ingest from public retailers (Amazon JP, Rakuten, IKEA, FlexiSpot, Yodobashi, Kagu365). Triggers LangGraph yoro_product_ingest.",
-        "operationId": "ai.gftd.yoro.ingestProductCategory",
+        "operationId": "app.etzhayyim.yoro.ingestProductCategory",
         "requestBody": {
           "required": true,
           "content": {
@@ -126,10 +126,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.listApps": {
+    "/xrpc/app.etzhayyim.yoro.listApps": {
       "post": {
         "summary": "List platform apps from vertex_app registry (replaces hand-curated apps.ts).",
-        "operationId": "ai.gftd.yoro.listApps",
+        "operationId": "app.etzhayyim.yoro.listApps",
         "requestBody": {
           "required": true,
           "content": {
@@ -206,10 +206,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.listPosts": {
+    "/xrpc/app.etzhayyim.yoro.listPosts": {
       "post": {
         "summary": "Yoro listPosts (F-Plan F2 legacy migration 2026-04-13).",
-        "operationId": "ai.gftd.yoro.listPosts",
+        "operationId": "app.etzhayyim.yoro.listPosts",
         "requestBody": {
           "required": true,
           "content": {
@@ -253,10 +253,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.listProductResearch": {
+    "/xrpc/app.etzhayyim.yoro.listProductResearch": {
       "get": {
-        "summary": "ai.gftd.yoro.listProductResearch",
-        "operationId": "ai.gftd.yoro.listProductResearch",
+        "summary": "app.etzhayyim.yoro.listProductResearch",
+        "operationId": "app.etzhayyim.yoro.listProductResearch",
         "parameters": [
           {
             "name": "actorDid",
@@ -340,10 +340,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.stats": {
+    "/xrpc/app.etzhayyim.yoro.stats": {
       "post": {
         "summary": "Yoro stats (F-Plan F2 legacy migration 2026-04-13).",
-        "operationId": "ai.gftd.yoro.stats",
+        "operationId": "app.etzhayyim.yoro.stats",
         "requestBody": {
           "required": true,
           "content": {
@@ -382,10 +382,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.graph.getFollowers": {
+    "/xrpc/app.etzhayyim.yoro.graph.getFollowers": {
       "get": {
         "summary": "Get followers of an actor. Yoro AppView endpoint.",
-        "operationId": "ai.gftd.yoro.graph.getFollowers",
+        "operationId": "app.etzhayyim.yoro.graph.getFollowers",
         "parameters": [
           {
             "name": "actor",
@@ -450,10 +450,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.graph.getFollows": {
+    "/xrpc/app.etzhayyim.yoro.graph.getFollows": {
       "get": {
         "summary": "Get accounts that an actor follows. Yoro AppView endpoint.",
-        "operationId": "ai.gftd.yoro.graph.getFollows",
+        "operationId": "app.etzhayyim.yoro.graph.getFollows",
         "parameters": [
           {
             "name": "actor",
@@ -518,10 +518,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.feed.getAuthorFeed": {
+    "/xrpc/app.etzhayyim.yoro.feed.getAuthorFeed": {
       "get": {
         "summary": "Get posts by a specific author. Yoro AppView endpoint. Supports multi-DID (path-based DID matching).",
-        "operationId": "ai.gftd.yoro.feed.getAuthorFeed",
+        "operationId": "app.etzhayyim.yoro.feed.getAuthorFeed",
         "parameters": [
           {
             "name": "actor",
@@ -587,10 +587,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.feed.getDiscoverFeed": {
+    "/xrpc/app.etzhayyim.yoro.feed.getDiscoverFeed": {
       "get": {
         "summary": "Get discover feed — diverse posts from all actors with per-repo dedup. Yoro AppView endpoint.",
-        "operationId": "ai.gftd.yoro.feed.getDiscoverFeed",
+        "operationId": "app.etzhayyim.yoro.feed.getDiscoverFeed",
         "parameters": [
           {
             "name": "limit",
@@ -645,10 +645,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.feed.getPostThread": {
+    "/xrpc/app.etzhayyim.yoro.feed.getPostThread": {
       "get": {
         "summary": "Get a post with thread context (replies and parent chain). Yoro AppView endpoint.",
-        "operationId": "ai.gftd.yoro.feed.getPostThread",
+        "operationId": "app.etzhayyim.yoro.feed.getPostThread",
         "parameters": [
           {
             "name": "uri",
@@ -705,10 +705,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.feed.getRankedFeed": {
+    "/xrpc/app.etzhayyim.yoro.feed.getRankedFeed": {
       "get": {
-        "summary": "5-theory ranked feed (Shannon + Bayes + Graph PPR + TDA + Joucho emotion). Well-becoming guardrails (PII Tier 3, cohort k>=50, stress/doom-scroll) are enforced on the hot path. Falls back to ai.gftd.yoro.feed.getDiscoverFeed on MV unavailability. See /root/.claude/plans/yoro-gftd-ai-facebook-zazzy-teapot.md.",
-        "operationId": "ai.gftd.yoro.feed.getRankedFeed",
+        "summary": "5-theory ranked feed (Shannon + Bayes + Graph PPR + TDA + Joucho emotion). Well-becoming guardrails (PII Tier 3, cohort k>=50, stress/doom-scroll) are enforced on the hot path. Falls back to app.etzhayyim.yoro.feed.getDiscoverFeed on MV unavailability. See /root/.claude/plans/yoro-gftd-ai-facebook-zazzy-teapot.md.",
+        "operationId": "app.etzhayyim.yoro.feed.getRankedFeed",
         "parameters": [
           {
             "name": "limit",
@@ -835,10 +835,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.feed.getTimeline": {
+    "/xrpc/app.etzhayyim.yoro.feed.getTimeline": {
       "get": {
         "summary": "Get personalized timeline — posts from followed users. Yoro AppView endpoint. Falls back to discover feed if user has no follows.",
-        "operationId": "ai.gftd.yoro.feed.getTimeline",
+        "operationId": "app.etzhayyim.yoro.feed.getTimeline",
         "parameters": [
           {
             "name": "limit",
@@ -893,10 +893,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.actor.getProfile": {
+    "/xrpc/app.etzhayyim.yoro.actor.getProfile": {
       "get": {
         "summary": "Get detailed profile view for an actor. Yoro AppView endpoint — queries RisingWave directly, returns W Protocol extensions (performerType, uiType, embedUrl, capabilities).",
-        "operationId": "ai.gftd.yoro.actor.getProfile",
+        "operationId": "app.etzhayyim.yoro.actor.getProfile",
         "parameters": [
           {
             "name": "actor",
@@ -927,10 +927,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.actor.searchActors": {
+    "/xrpc/app.etzhayyim.yoro.actor.searchActors": {
       "get": {
         "summary": "Search for actors with agent-first ranking. Yoro AppView endpoint — queries RisingWave directly with W Protocol extensions (performerType, sensitivity).",
-        "operationId": "ai.gftd.yoro.actor.searchActors",
+        "operationId": "app.etzhayyim.yoro.actor.searchActors",
         "parameters": [
           {
             "name": "q",
@@ -993,10 +993,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.activity.getActivityTrace": {
+    "/xrpc/app.etzhayyim.yoro.activity.getActivityTrace": {
       "get": {
-        "summary": "ai.gftd.yoro.activity.getActivityTrace",
-        "operationId": "ai.gftd.yoro.activity.getActivityTrace",
+        "summary": "app.etzhayyim.yoro.activity.getActivityTrace",
+        "operationId": "app.etzhayyim.yoro.activity.getActivityTrace",
         "parameters": [
           {
             "name": "objectType",
@@ -1043,10 +1043,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.activity.listActivities": {
+    "/xrpc/app.etzhayyim.yoro.activity.listActivities": {
       "get": {
-        "summary": "ai.gftd.yoro.activity.listActivities",
-        "operationId": "ai.gftd.yoro.activity.listActivities",
+        "summary": "app.etzhayyim.yoro.activity.listActivities",
+        "operationId": "app.etzhayyim.yoro.activity.listActivities",
         "parameters": [
           {
             "name": "limit",
@@ -1112,10 +1112,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.yoro.activity.markSeen": {
+    "/xrpc/app.etzhayyim.yoro.activity.markSeen": {
       "post": {
-        "summary": "ai.gftd.yoro.activity.markSeen",
-        "operationId": "ai.gftd.yoro.activity.markSeen",
+        "summary": "app.etzhayyim.yoro.activity.markSeen",
+        "operationId": "app.etzhayyim.yoro.activity.markSeen",
         "requestBody": {
           "required": true,
           "content": {

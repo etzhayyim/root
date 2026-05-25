@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.powerGridInterconnect.recordCrossBorderFlow",
+  "id": "app.etzhayyim.apps.powerGridInterconnect.recordCrossBorderFlow",
   "defs": {
     "main": {
       "type": "procedure",

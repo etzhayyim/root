@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.arcticNsr.flagArcticMilitarization",
+  "id": "app.etzhayyim.apps.arcticNsr.flagArcticMilitarization",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.land-dispute",
+  "id": "app.etzhayyim.apps.etzhayyim.land-dispute",
   "defs": {
     "main": {
       "type": "record",

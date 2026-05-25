@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listNaturalZones",
+  "id": "app.etzhayyim.apps.maps.listNaturalZones",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.dns.transferRequest",
+  "id": "app.etzhayyim.dns.transferRequest",
   "defs": {
     "main": {
       "type": "record",

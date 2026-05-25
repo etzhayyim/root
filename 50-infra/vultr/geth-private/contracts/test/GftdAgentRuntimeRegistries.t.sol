@@ -3,13 +3,13 @@ pragma solidity 0.8.23;
 
 import {Test} from "forge-std/Test.sol";
 
-import {GftdAgentRegistry} from "../src/GftdAgentRegistry.sol";
-import {GftdRootIdentity} from "../src/GftdRootIdentity.sol";
-import {GftdRootIdentityRegistry} from "../src/GftdRootIdentityRegistry.sol";
+import {etzhayyimAgentRegistry} from "../src/etzhayyimAgentRegistry.sol";
+import {etzhayyimRootIdentity} from "../src/etzhayyimRootIdentity.sol";
+import {etzhayyimRootIdentityRegistry} from "../src/etzhayyimRootIdentityRegistry.sol";
 
-contract GftdAgentRuntimeRegistriesTest is Test {
-    GftdRootIdentityRegistry rootRegistry;
-    GftdAgentRegistry agentRegistry;
+contract etzhayyimAgentRuntimeRegistriesTest is Test {
+    etzhayyimRootIdentityRegistry rootRegistry;
+    etzhayyimAgentRegistry agentRegistry;
 
     address owner = address(0xA11CE);
     address controller = address(0xB0B);
@@ -17,8 +17,8 @@ contract GftdAgentRuntimeRegistriesTest is Test {
     bytes32 facadeDidHash = keccak256(bytes("did:web:yoro.etzhayyim.com"));
 
     function setUp() public {
-        rootRegistry = new GftdRootIdentityRegistry(owner);
-        agentRegistry = new GftdAgentRegistry(owner);
+        rootRegistry = new etzhayyimRootIdentityRegistry(owner);
+        agentRegistry = new etzhayyimAgentRegistry(owner);
     }
 
     function testDeployRootIdentityAndSetERC725Data() public {
@@ -26,7 +26,7 @@ contract GftdAgentRuntimeRegistriesTest is Test {
         address identityAddr = rootRegistry.deployRootIdentity(rootDidHash, "did:erc725:gftd:260425:0xroot", controller);
 
         assertEq(rootRegistry.identityByRootDid(rootDidHash), identityAddr);
-        GftdRootIdentity identity = GftdRootIdentity(payable(identityAddr));
+        etzhayyimRootIdentity identity = etzhayyimRootIdentity(payable(identityAddr));
         assertEq(identity.owner(), controller);
 
         bytes32 policyKey = keccak256(bytes("gftd.root.policy.cid"));
@@ -72,7 +72,7 @@ contract GftdAgentRuntimeRegistriesTest is Test {
             keccak256(bytes("result")),
             "ipfs://bafy-validation"
         );
-        GftdAgentRegistry.ValidationRecord memory validation = agentRegistry.validation(validationId);
+        etzhayyimAgentRegistry.ValidationRecord memory validation = agentRegistry.validation(validationId);
         assertEq(validation.tokenId, tokenId);
         assertEq(validation.validator, address(0xCAFE));
 

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.media_gamers.normalization.registerPokoaPokemon",
+  "id": "app.etzhayyim.apps.media_gamers.normalization.registerPokoaPokemon",
   "defs": {
     "main": {
       "type": "procedure",

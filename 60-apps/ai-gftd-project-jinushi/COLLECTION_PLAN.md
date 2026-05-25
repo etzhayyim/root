@@ -122,7 +122,7 @@ KyumeiDeclareSources(geospatial + registry + authority)
         → KyumeiIntegrate(ComAtprotoRepoCreateRecord + AppBskyFeedPostAs)
 ```
 
-**Murakumo LLM 連携**: `AgentChat` で coverage gap 分析 + 追加ソース発見。結果は `ai.gftd.agent.chat_result` record として永続化。
+**Murakumo LLM 連携**: `AgentChat` で coverage gap 分析 + 追加ソース発見。結果は `app.etzhayyim.agent.chat_result` record として永続化。
 
 ### Collection Job Pattern (標準) `[IMPLEMENTED]`
 
@@ -160,7 +160,7 @@ HandleHeartbeat (60s)
   → G() query: zone/parcel/building/job counts
   → AgentChat(stats, "cadastral analyst") → murakumo.etzhayyim.com (qwen3-vl-8b)
   → KyumeiDeclareSources(geospatial + registry + authority)
-  → Result: ai.gftd.agent.chat_result record (async flush)
+  → Result: app.etzhayyim.agent.chat_result record (async flush)
 ```
 
 ### DID Naming Convention

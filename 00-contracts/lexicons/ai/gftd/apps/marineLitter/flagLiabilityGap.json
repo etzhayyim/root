@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.marineLitter.flagLiabilityGap",
+  "id": "app.etzhayyim.apps.marineLitter.flagLiabilityGap",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vessel.voyage.listVoyages",
+  "id": "app.etzhayyim.apps.vessel.voyage.listVoyages",
   "defs": {
     "main": {
       "type": "query",

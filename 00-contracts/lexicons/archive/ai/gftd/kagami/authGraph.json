@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kagami.authGraph",
-  "description": "Graph database permissions. Superset — includes official app.bsky.graph social graph RPCs plus GFTD kagami SQL access.",
+  "id": "app.etzhayyim.kagami.authGraph",
+  "description": "Graph database permissions. Superset — includes official app.bsky.graph social graph RPCs plus etzhayyim kagami SQL access.",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -9,7 +9,7 @@
       "title:lang": {
         "ja": "グラフデータベース"
       },
-      "detail": "Access social graph and graph database features. Includes official follow/block/list/mute operations plus GFTD kagami SQL queries against RisingWave.",
+      "detail": "Access social graph and graph database features. Includes official follow/block/list/mute operations plus etzhayyim kagami SQL queries against RisingWave.",
       "detail:lang": {
         "ja": "ソーシャルグラフ・グラフDB機能。公式のフォロー/ブロック/リスト/ミュート操作に加え、kagamiグラフ層のSQLクエリ(RisingWave)を含む"
       },
@@ -62,8 +62,8 @@
         {
           "type": "permission",
           "resource": "rpc",
-          "description": "GFTD kagami graph extension RPCs",
-          "lxm": ["ai.gftd.kagami.sql"]
+          "description": "etzhayyim kagami graph extension RPCs",
+          "lxm": ["app.etzhayyim.kagami.sql"]
         }
       ]
     }

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.receiverBankruptcy.recordProceeding",
+  "id": "app.etzhayyim.apps.receiverBankruptcy.recordProceeding",
   "defs": {
     "main": {
       "type": "procedure",

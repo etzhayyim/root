@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.charter-counsel-vote",
+  "id": "app.etzhayyim.apps.etzhayyim.charter-counsel-vote",
   "defs": {
     "main": {
       "type": "record",

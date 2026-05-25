@@ -132,15 +132,15 @@ Derive rules: `magatama.jsonld` `"derive"` section。設計: `90-docs/260407-wri
 
 ## Domain WIT (Lexicon)
 
-**AT Lexicon namespace**: `ai.gftd.apps.crowdfunding.*`
+**AT Lexicon namespace**: `app.etzhayyim.apps.crowdfunding.*`
 
 | WIT interface | Lexicon prefix | Record kinds |
 |---|---|---|
-| `campaign` | `ai.gftd.apps.crowdfunding.campaign` | campaign lifecycle |
-| `reward` | `ai.gftd.apps.crowdfunding.reward` | reward definition |
-| `pledge` | `ai.gftd.apps.crowdfunding.pledge` | backer pledge |
-| `update` | `ai.gftd.apps.crowdfunding.campaignUpdate` | project update posts |
-| `analytics` | `ai.gftd.apps.crowdfunding.analyticsEvent` | KPI events |
+| `campaign` | `app.etzhayyim.apps.crowdfunding.campaign` | campaign lifecycle |
+| `reward` | `app.etzhayyim.apps.crowdfunding.reward` | reward definition |
+| `pledge` | `app.etzhayyim.apps.crowdfunding.pledge` | backer pledge |
+| `update` | `app.etzhayyim.apps.crowdfunding.campaignUpdate` | project update posts |
+| `analytics` | `app.etzhayyim.apps.crowdfunding.analyticsEvent` | KPI events |
 
 ## Integration
 

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.identity.getEngagement": {
+    "/xrpc/app.etzhayyim.identity.getEngagement": {
       "get": {
-        "summary": "ai.gftd.identity.getEngagement",
-        "operationId": "ai.gftd.identity.getEngagement",
+        "summary": "app.etzhayyim.identity.getEngagement",
+        "operationId": "app.etzhayyim.identity.getEngagement",
         "parameters": [
           {
             "name": "did",
@@ -49,10 +49,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.identity.list": {
+    "/xrpc/app.etzhayyim.identity.list": {
       "get": {
-        "summary": "ai.gftd.identity.list",
-        "operationId": "ai.gftd.identity.list",
+        "summary": "app.etzhayyim.identity.list",
+        "operationId": "app.etzhayyim.identity.list",
         "parameters": [
           {
             "name": "limit",
@@ -102,10 +102,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.identity.pullFeed": {
+    "/xrpc/app.etzhayyim.identity.pullFeed": {
       "get": {
-        "summary": "ai.gftd.identity.pullFeed",
-        "operationId": "ai.gftd.identity.pullFeed",
+        "summary": "app.etzhayyim.identity.pullFeed",
+        "operationId": "app.etzhayyim.identity.pullFeed",
         "parameters": [
           {
             "name": "did",
@@ -152,10 +152,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.identity.register": {
+    "/xrpc/app.etzhayyim.identity.register": {
       "post": {
-        "summary": "ai.gftd.identity.register",
-        "operationId": "ai.gftd.identity.register",
+        "summary": "app.etzhayyim.identity.register",
+        "operationId": "app.etzhayyim.identity.register",
         "requestBody": {
           "required": true,
           "content": {
@@ -206,10 +206,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.identity.resolve": {
+    "/xrpc/app.etzhayyim.identity.resolve": {
       "get": {
-        "summary": "ai.gftd.identity.resolve",
-        "operationId": "ai.gftd.identity.resolve",
+        "summary": "app.etzhayyim.identity.resolve",
+        "operationId": "app.etzhayyim.identity.resolve",
         "parameters": [
           {
             "name": "did",
@@ -248,10 +248,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.identity.submitOp": {
+    "/xrpc/app.etzhayyim.identity.submitOp": {
       "post": {
-        "summary": "ai.gftd.identity.submitOp",
-        "operationId": "ai.gftd.identity.submitOp",
+        "summary": "app.etzhayyim.identity.submitOp",
+        "operationId": "app.etzhayyim.identity.submitOp",
         "requestBody": {
           "required": true,
           "content": {

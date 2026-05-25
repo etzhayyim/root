@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.bulkRefreshGtfsJp",
+  "id": "app.etzhayyim.apps.maps.bulkRefreshGtfsJp",
   "defs": {
     "main": {
       "type": "procedure",

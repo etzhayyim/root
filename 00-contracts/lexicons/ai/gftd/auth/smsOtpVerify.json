@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.auth.smsOtpVerify",
+  "id": "app.etzhayyim.auth.smsOtpVerify",
   "defs": {
     "main": {
       "type": "procedure",

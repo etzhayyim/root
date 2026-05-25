@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kagami.vectorSimilarity",
+  "id": "app.etzhayyim.kagami.vectorSimilarity",
   "defs": {
     "main": {
       "type": "query",

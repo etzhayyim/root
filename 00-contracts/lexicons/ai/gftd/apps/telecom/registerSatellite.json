@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.registerSatellite",
+  "id": "app.etzhayyim.apps.telecom.registerSatellite",
   "defs": {
     "main": {
       "type": "procedure",

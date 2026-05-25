@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.tileGeoJson",
+  "id": "app.etzhayyim.apps.maps.tileGeoJson",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneModem.recordModemSpec",
+  "id": "app.etzhayyim.apps.openSmartphoneModem.recordModemSpec",
   "defs": {
     "main": {
       "type": "procedure",

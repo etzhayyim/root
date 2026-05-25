@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kiyo.submitRevision",
+  "id": "app.etzhayyim.kiyo.submitRevision",
   "defs": {
     "main": {
       "type": "procedure",

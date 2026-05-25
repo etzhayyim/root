@@ -234,7 +234,7 @@ async def task_kobo_bud_agent(
             return {"error": f"parent agent not found: {parent_did}"}
 
         now = _now()
-        child_vid = f"at://{KOBO_DID}/ai.gftd.apps.kobo.agent/{child_did.split(':')[-1]}"
+        child_vid = f"at://{KOBO_DID}/app.etzhayyim.apps.kobo.agent/{child_did.split(':')[-1]}"
 
         agent_rec = KoboAgentRecord(
             vertex_id=child_vid,
@@ -257,7 +257,7 @@ async def task_kobo_bud_agent(
 
         # transfer heritable prions
         for p in prions:
-            pvid = f"at://{KOBO_DID}/ai.gftd.apps.kobo.prion/{_uid('prn')}"
+            pvid = f"at://{KOBO_DID}/app.etzhayyim.apps.kobo.prion/{_uid('prn')}"
             prion_rec = KoboPrionRecord(
                 vertex_id=pvid,
                 record_id=_uid("rec"),
@@ -351,7 +351,7 @@ async def task_kobo_sporulate(
         revival_key_hint = hashlib.sha256(blob_json.encode()).hexdigest()[:16]
 
         spore_id = _uid("spr")
-        spore_vid = f"at://{HOUSHI_DID}/ai.gftd.apps.houshi.spore/{spore_id}"
+        spore_vid = f"at://{HOUSHI_DID}/app.etzhayyim.apps.houshi.spore/{spore_id}"
         now = _now()
 
         spore_rec = HoushiSporeRecord(
@@ -507,7 +507,7 @@ async def task_kinoko_check_flow_threshold(**_: Any) -> dict[str, Any]:
         block_hash = hashlib.sha256(
             f"{prev_hash}{total_flow}{avg_eta}{_now()}".encode()
         ).hexdigest()[:32]
-        block_vid = f"at://{KINOKO_DID}/ai.gftd.apps.kinoko.block/{block_id}"
+        block_vid = f"at://{KINOKO_DID}/app.etzhayyim.apps.kinoko.block/{block_id}"
         now = _now()
 
         rec = KinokoBlockRecord(
@@ -569,7 +569,7 @@ async def task_hakkou_create_ferment_record(
         return {"error": "input_ref required"}
 
     ferment_id = _uid("fmnt")
-    vid = f"at://{HAKKOU_DID}/ai.gftd.apps.hakkou.ferment/{ferment_id}"
+    vid = f"at://{HAKKOU_DID}/app.etzhayyim.apps.hakkou.ferment/{ferment_id}"
     now = _now()
 
     def _write() -> None:

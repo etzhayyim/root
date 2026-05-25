@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.kagami.ivfClustering",
+  "id": "app.etzhayyim.kagami.ivfClustering",
   "defs": {
     "main": {
       "type": "query",

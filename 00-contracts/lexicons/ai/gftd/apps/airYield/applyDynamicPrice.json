@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airYield.applyDynamicPrice",
+  "id": "app.etzhayyim.apps.airYield.applyDynamicPrice",
   "defs": {
     "main": {
       "type": "procedure",

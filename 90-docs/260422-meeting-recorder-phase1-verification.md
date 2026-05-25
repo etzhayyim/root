@@ -62,7 +62,7 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 | `HYPERDRIVE` config `e84c0a2babe44fc7b74818e394b4b896` | 既存 | — |
 | `RECORDER_TUNNEL_SECRET` wrangler secret | 未 provisioned | `openssl rand -hex 32 \| wrangler secret put RECORDER_TUNNEL_SECRET` + gftd Vault 登録 |
 | did:web:meeting-recorder.etzhayyim.com signing key (auth Worker KEYS_DB) | 未 provisioned | `gftd deploy` 初回実行で `com.atproto.admin.registerApp` → KEK envelope 化保存 |
-| `vertex_meetingrecorder_*` graph tables | 未 migrated | `pnpm -F @gftd/graph-schema migrate up` |
+| `vertex_meetingrecorder_*` graph tables | 未 migrated | `pnpm -F @etzhayyim/graph-schema migrate up` |
 
 ### (B) `docker build` には以下が必要
 
@@ -89,7 +89,7 @@ provider SDK 本体 (Teams .NET / Meet gRPC / Zoom C++) の live 検証は対象
 ```bash
 gftd authn signin
 gftd agent-token \
-  --lxm ai.gftd.apps.meetingRecorder.joinMeeting \
+  --lxm app.etzhayyim.apps.meetingRecorder.joinMeeting \
   --aud did:web:meeting-recorder.etzhayyim.com \
   --ttl 300 \
   > /tmp/consent.jwt
@@ -98,7 +98,7 @@ gftd agent-token \
 ### 1.2 joinMeeting 呼び出し
 
 ```bash
-curl -X POST https://meeting-recorder.etzhayyim.com/xrpc/ai.gftd.apps.meetingRecorder.joinMeeting \
+curl -X POST https://meeting-recorder.etzhayyim.com/xrpc/app.etzhayyim.apps.meetingRecorder.joinMeeting \
   -H "content-type: application/json" \
   -H "authorization: Bearer $(cat /tmp/session.jwt)" \
   -d "{
@@ -160,7 +160,7 @@ echo "$TOKEN" | cut -d. -f2 | base64 -d 2>/dev/null | jq
 ```bash
 pnpm --filter etzhayyim-root esbuild --bundle \
   --platform=neutral \
-  --external:@gftd/magatama-host-sdk --external:node:async_hooks \
+  --external:@etzhayyim/magatama-host-sdk --external:node:async_hooks \
   60-apps/ai-gftd-project-meeting-recorder/appview/ai-gftd-wasm-meeting-recorder-m33tr3c0/src/app.ts
 # → 355 行の bundle、warning ゼロ
 ```
@@ -188,7 +188,7 @@ curl -X POST http://localhost:8787/_internal/mint-pds-bearer \
 
 # 未知の lxm → 400
 SECRET=$(wrangler secret get RECORDER_TUNNEL_SECRET)
-BODY='{"lxm":"ai.gftd.apps.lawfirm.createMatter"}'
+BODY='{"lxm":"app.etzhayyim.apps.lawfirm.createMatter"}'
 SIG=$(printf '%s' "$BODY" | openssl dgst -sha256 -hmac "$SECRET" -hex | awk '{print $2}')
 curl -X POST http://localhost:8787/_internal/mint-pds-bearer \
   -H "content-type: application/json" -H "x-recorder-auth: $SIG" -d "$BODY"
@@ -201,7 +201,7 @@ curl -X POST http://localhost:8787/_internal/mint-pds-bearer \
 2. `.NET 8 RecorderTeams` sidecar 実装
 3. Meet Media API gRPC subscribe 実装 (auth path は完成)
 4. Zoom C++ sidecar (initContainer pull + SDK wire)
-5. X25519 Signal shared-secret bootstrap via `ai.gftd.signal.getPrekeyBundle` (現 dev key fallback を撤去)
+5. X25519 Signal shared-secret bootstrap via `app.etzhayyim.signal.getPrekeyBundle` (現 dev key fallback を撤去)
 6. Vultr VKE `meeting-recorder` node pool provision + Cloudflare Tunnel + B2 bucket + gftd Vault folder
 7. `gftd deploy` 初回実行で auth Worker KEYS_DB に meeting-recorder signing key 登録
 8. 実 Teams/Meet/Zoom meeting に対する live capture → B2 PUT → transcript 検証 (参加者同意下)

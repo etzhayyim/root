@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sdgReporting.reportIndicatorProgress",
+  "id": "app.etzhayyim.apps.sdgReporting.reportIndicatorProgress",
   "defs": {
     "main": {
       "type": "procedure",

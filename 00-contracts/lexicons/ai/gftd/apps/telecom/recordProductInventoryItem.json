@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.recordProductInventoryItem",
+  "id": "app.etzhayyim.apps.telecom.recordProductInventoryItem",
   "defs": {
     "main": {
       "type": "procedure",

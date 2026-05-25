@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.manufacturingCell.designCell",
+  "id": "app.etzhayyim.apps.tsukuru.manufacturingCell.designCell",
   "defs": {
     "main": {
       "type": "query",

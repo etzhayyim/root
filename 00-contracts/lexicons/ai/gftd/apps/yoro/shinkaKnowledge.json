@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yoro.shinkaKnowledge",
+  "id": "app.etzhayyim.apps.yoro.shinkaKnowledge",
   "defs": {
     "main": {
       "type": "record",

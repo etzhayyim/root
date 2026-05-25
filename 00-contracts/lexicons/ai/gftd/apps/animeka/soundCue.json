@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.soundCue",
+  "id": "app.etzhayyim.apps.animeka.soundCue",
   "defs": {
     "main": {
       "type": "record",

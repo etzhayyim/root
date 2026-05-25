@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.cohort.lineageStats",
+  "id": "app.etzhayyim.cohort.lineageStats",
   "defs": {
     "main": {
       "type": "query",

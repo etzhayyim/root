@@ -1,7 +1,7 @@
 {
   "$type": "lex:com.atproto.lexicon.schema",
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPatent.inventionSeed",
+  "id": "app.etzhayyim.apps.openPatent.inventionSeed",
   "defs": {
     "main": {
       "type": "record",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isin.securityRegistry.search",
+  "id": "app.etzhayyim.apps.isin.securityRegistry.search",
   "defs": {
     "main": {
       "type": "query",

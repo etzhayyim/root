@@ -16,7 +16,7 @@ interface ExportedHandler<E> {
 }
 
 const ACTOR_DID = "did:web:isl-state.etzhayyim.com";
-const NSID_PREFIX = "ai.gftd.govIsl.";
+const NSID_PREFIX = "app.etzhayyim.govIsl.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

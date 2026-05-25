@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bricsBank.recordProjectFinance",
+  "id": "app.etzhayyim.apps.bricsBank.recordProjectFinance",
   "defs": {
     "main": {
       "type": "procedure",

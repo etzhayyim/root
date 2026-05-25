@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.recordTapFile",
+  "id": "app.etzhayyim.apps.telecom.recordTapFile",
   "defs": {
     "main": {
       "type": "procedure",

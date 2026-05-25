@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.createCoupon",
+  "id": "app.etzhayyim.apps.omise.createCoupon",
   "defs": {
     "main": {
       "type": "procedure",

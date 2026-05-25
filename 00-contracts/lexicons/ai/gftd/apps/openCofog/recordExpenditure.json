@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openCofog.recordExpenditure",
+  "id": "app.etzhayyim.apps.openCofog.recordExpenditure",
   "defs": {
     "main": {
       "type": "procedure",

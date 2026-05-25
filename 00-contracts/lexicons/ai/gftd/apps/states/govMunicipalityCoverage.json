@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.states.govMunicipalityCoverage",
+  "id": "app.etzhayyim.apps.states.govMunicipalityCoverage",
   "defs": {
     "main": {
       "type": "record",

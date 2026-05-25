@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.resolveDispute",
+  "id": "app.etzhayyim.apps.omise.resolveDispute",
   "defs": {
     "main": {
       "type": "query",

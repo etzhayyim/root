@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.eResidency.recordProgram",
+  "id": "app.etzhayyim.apps.eResidency.recordProgram",
   "defs": {
     "main": {
       "type": "procedure",

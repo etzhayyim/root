@@ -18,10 +18,10 @@ language = "typescript+python+rust"
 depends_on = ["00-contracts", "10-protocol"]
 
 provides = [
-  "@gftd/graph-schema",    # TS schema types
-  "@gftd/graph-planner",   # archived SQL parse/plan/transpile lineage
-  "@gftd/kagami",          # compat package / archived SQL lineage
-  "@gftd/kagami-provider", # ReadExecutor/CatalogResolver interfaces
+  "@etzhayyim/graph-schema",    # TS schema types
+  "@etzhayyim/graph-planner",   # archived SQL parse/plan/transpile lineage
+  "@etzhayyim/kagami",          # compat package / archived SQL lineage
+  "@etzhayyim/kagami-provider", # ReadExecutor/CatalogResolver interfaces
   "graphar_schema",        # archived Python SQLAlchemy graph schema snapshot
 ]
 
@@ -55,7 +55,7 @@ role = "graph-schema-tooling"
 tier = "production"
 flags = ["generated", "sqlalchemy", "alembic", "sqlmesh", "live-baseline"]
 generated_from = "live RisingWave information_schema via graph_schema/generate_database_ts.py"
-description = "@gftd/graph-schema generated TS Database/Row types plus Python SQLAlchemy/Alembic/SQLMesh schema tooling. As of 2026-05-08, live RisingWave information_schema is the baseline source of truth; src/database.ts is pulled from the live cluster and drift-checked before commit. New schema changes go through alembic/current_versions, and rebuildable derived models move through SQLMesh. Legacy Kysely/Alembic conversions are retained as historical lineage."
+description = "@etzhayyim/graph-schema generated TS Database/Row types plus Python SQLAlchemy/Alembic/SQLMesh schema tooling. As of 2026-05-08, live RisingWave information_schema is the baseline source of truth; src/database.ts is pulled from the live cluster and drift-checked before commit. New schema changes go through alembic/current_versions, and rebuildable derived models move through SQLMesh. Legacy Kysely/Alembic conversions are retained as historical lineage."
 
 [subdirs."graph-schema/migrations"]
 role = "legacy-kysely-migrations"
@@ -550,7 +550,7 @@ details = """
 Generic process mining is exposed from RisingWave as
 `bpmn_analyze_process(VARCHAR)`, created by
 `20260429193000_udf_bpmn_analyze_process.ts`. The function delegates to the
-shared mitama UDF pool under NSID `ai.gftd.apps.bpmn.analyzeProcess`.
+shared mitama UDF pool under NSID `app.etzhayyim.apps.bpmn.analyzeProcess`.
 
 Inputs are a JSON object with optional `processId`, `caseId`, `actionPrefix`,
 `since`, `until`, `limit`, and `includeLlm`. Outputs are JSON with
@@ -741,7 +741,7 @@ status = "active"
 script = "30-graph/graph-schema/scripts/migrate-rw-erc725-root.mjs"
 rw_url_env = "RW_URL or DATABASE_URL"
 rpc_url_env = "ETH_PRIVATE_RPC_URL"
-registry_addr_env = "GFTD_ROOT_IDENTITY_REGISTRY_ADDR"
+registry_addr_env = "etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR"
 root_hash_rule = "root_did_hash = keccak256(utf8(rootDid)) derived from resolved ERC725 identity address"
 facade_rule = "facade_did is lookup/display/federation input only"
 verified_on = "2026-04-27"

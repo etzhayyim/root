@@ -207,7 +207,7 @@ def main() -> None:
         trust = trust_score(c, info)
         vid = f"hf:dataset-reliability:{c.repo_id}"
         hfhub_vid = f"hf:dataset:{c.repo_id}"
-        hf_dataset_vid = f"at://{OWNER_DID}/ai.gftd.apps.hfDataset.dataset/{c.repo_id.replace('/', '-')}"
+        hf_dataset_vid = f"at://{OWNER_DID}/app.etzhayyim.apps.hfDataset.dataset/{c.repo_id.replace('/', '-')}"
 
         exec_retry(
             """INSERT INTO vertex_hfhub_dataset

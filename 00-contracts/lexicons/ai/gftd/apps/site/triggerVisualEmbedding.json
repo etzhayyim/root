@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.triggerVisualEmbedding",
+  "id": "app.etzhayyim.apps.site.triggerVisualEmbedding",
   "defs": {
     "main": {
       "type": "procedure",

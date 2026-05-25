@@ -56,7 +56,7 @@ def _err(msg: str, **extra: Any) -> str:
 
 
 @udf(
-    nsid="ai.gftd.apps.vultrInference.chatCompletions",
+    nsid="app.etzhayyim.apps.vultrInference.chatCompletions",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.getOrder",
+  "id": "app.etzhayyim.apps.omise.getOrder",
   "defs": {
     "main": {
       "type": "query",

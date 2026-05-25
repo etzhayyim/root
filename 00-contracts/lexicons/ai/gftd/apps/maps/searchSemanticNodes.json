@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.searchSemanticNodes",
+  "id": "app.etzhayyim.apps.maps.searchSemanticNodes",
   "defs": {
     "main": {
       "type": "query",

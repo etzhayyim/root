@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govAus.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govAus.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Australia government.",
-        "operationId": "ai.gftd.govAus.followSiteDeps",
+        "operationId": "app.etzhayyim.govAus.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAus.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govAus.heartbeatTick": {
       "post": {
         "summary": "Run the Australia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govAus.heartbeatTick",
+        "operationId": "app.etzhayyim.govAus.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAus.listOrgs": {
+    "/xrpc/app.etzhayyim.govAus.listOrgs": {
       "get": {
         "summary": "List Australia government organization graph records.",
-        "operationId": "ai.gftd.govAus.listOrgs",
+        "operationId": "app.etzhayyim.govAus.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAus.registerDIDs": {
+    "/xrpc/app.etzhayyim.govAus.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Australia government organizations.",
-        "operationId": "ai.gftd.govAus.registerDIDs",
+        "operationId": "app.etzhayyim.govAus.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAus.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govAus.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Australia government organization path to its graph record.",
-        "operationId": "ai.gftd.govAus.resolveOrgPath",
+        "operationId": "app.etzhayyim.govAus.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAus.seedOrgs": {
+    "/xrpc/app.etzhayyim.govAus.seedOrgs": {
       "post": {
         "summary": "Seed initial Australia government organization records into the graph.",
-        "operationId": "ai.gftd.govAus.seedOrgs",
+        "operationId": "app.etzhayyim.govAus.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAus.shinka": {
+    "/xrpc/app.etzhayyim.govAus.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Australia government organization update.",
-        "operationId": "ai.gftd.govAus.shinka",
+        "operationId": "app.etzhayyim.govAus.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAus.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govAus.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Australia government organization changes to graph.",
-        "operationId": "ai.gftd.govAus.syncWetUpdates",
+        "operationId": "app.etzhayyim.govAus.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

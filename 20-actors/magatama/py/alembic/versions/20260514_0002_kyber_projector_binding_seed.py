@@ -6,7 +6,7 @@ Create Date: 2026-05-14
 
 SCOPE
 -----
-Seeds vertex_bpmn_lexicon_binding rows for all 12 ai.gftd.kyber.projector.*
+Seeds vertex_bpmn_lexicon_binding rows for all 12 app.etzhayyim.kyber.projector.*
 NSIDs that were previously handled by the retired TypeScript WASM projector
 (archived: _archive/2026-05-14-kyber-projector-wasm-kyb3proj/).
 
@@ -65,7 +65,7 @@ _BINDINGS: list[tuple[str, str]] = [
 def upgrade() -> None:
     for vid_suffix, nsid_suffix in _BINDINGS:
         vertex_id = f"bpmn-bind-kyber-{vid_suffix}"
-        nsid = f"ai.gftd.kyber.projector.{nsid_suffix}"
+        nsid = f"app.etzhayyim.kyber.projector.{nsid_suffix}"
         op.execute(f"""
 INSERT INTO vertex_bpmn_lexicon_binding
     (vertex_id, owner_did, nsid, bpmn_process_id, status, created_at,

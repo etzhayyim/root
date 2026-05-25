@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.trustedFlagger.recordDesignation",
+  "id": "app.etzhayyim.apps.trustedFlagger.recordDesignation",
   "defs": {
     "main": {
       "type": "procedure",

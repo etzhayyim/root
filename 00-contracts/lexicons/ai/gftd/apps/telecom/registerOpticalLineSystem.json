@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.registerOpticalLineSystem",
+  "id": "app.etzhayyim.apps.telecom.registerOpticalLineSystem",
   "defs": {
     "main": {
       "type": "procedure",

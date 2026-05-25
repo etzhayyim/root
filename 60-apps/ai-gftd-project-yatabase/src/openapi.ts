@@ -59,7 +59,7 @@ const SPEC = {
         scheme: "bearer",
         bearerFormat: "sk_live_yata_*",
         description:
-          "Tenant API key minted via POST /auth/v1/signup. Same shape as `sk_live_*` keys minted via PDS `ai.gftd.auth.createApiKey`. AT Protocol session JWTs (ES256) are also accepted.",
+          "Tenant API key minted via POST /auth/v1/signup. Same shape as `sk_live_*` keys minted via PDS `app.etzhayyim.auth.createApiKey`. AT Protocol session JWTs (ES256) are also accepted.",
       },
     },
     schemas: {
@@ -754,7 +754,7 @@ const SPEC = {
       },
     },
     "/xrpc/{nsid}": {
-      parameters: [{ name: "nsid", in: "path", required: true, schema: { type: "string" }, description: "AT Protocol NSID, e.g. ai.gftd.apps.yata.runCypher", examples: { yata: { value: "ai.gftd.apps.yata.runCypher" }, billing: { value: "ai.gftd.apps.billing.getInvoice" } } }],
+      parameters: [{ name: "nsid", in: "path", required: true, schema: { type: "string" }, description: "AT Protocol NSID, e.g. app.etzhayyim.apps.yata.runCypher", examples: { yata: { value: "app.etzhayyim.apps.yata.runCypher" }, billing: { value: "app.etzhayyim.apps.billing.getInvoice" } } }],
       get: { summary: "XRPC query", operationId: "xrpcQuery", tags: ["xrpc"], responses: { "200": { description: "OK" } } },
       post: { summary: "XRPC procedure", operationId: "xrpcProcedure", tags: ["xrpc"], responses: { "200": { description: "OK" } } },
     },

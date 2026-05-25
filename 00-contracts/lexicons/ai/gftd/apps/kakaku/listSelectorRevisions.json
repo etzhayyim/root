@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kakaku.listSelectorRevisions",
+  "id": "app.etzhayyim.apps.kakaku.listSelectorRevisions",
   "defs": {
     "main": {
       "type": "procedure",

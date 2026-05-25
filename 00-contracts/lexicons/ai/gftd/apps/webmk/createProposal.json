@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.webmk.createProposal",
+  "id": "app.etzhayyim.apps.webmk.createProposal",
   "defs": {
     "main": {
       "type": "procedure",

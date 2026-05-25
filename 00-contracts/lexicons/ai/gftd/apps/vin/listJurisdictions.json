@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vin.listJurisdictions",
+  "id": "app.etzhayyim.apps.vin.listJurisdictions",
   "defs": {
     "main": {
       "type": "query",

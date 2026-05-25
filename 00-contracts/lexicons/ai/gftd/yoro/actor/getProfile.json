@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yoro.actor.getProfile",
+  "id": "app.etzhayyim.yoro.actor.getProfile",
   "defs": {
     "main": {
       "type": "query",

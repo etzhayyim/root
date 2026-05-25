@@ -43,14 +43,14 @@ describe("Seed agent active inference BPMN migration", () => {
   });
 
   it("binds the expected agent NSIDs and write allowlists", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.agent.activeInferenceTick"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.agent.activeInferenceTick"');
     expect(migrationSource).toContain('writeTableAllowlist: "vertex_agent_active_inference_tick"');
 
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.agent.recordHomeostasis"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.agent.recordHomeostasis"');
     expect(migrationSource).toContain('writeTableAllowlist: "vertex_agent_homeostasis_snapshot"');
 
     expect(migrationSource).toContain(
-      'nsid: "ai.gftd.apps.agent.classifyRealWorldEffect"',
+      'nsid: "app.etzhayyim.apps.agent.classifyRealWorldEffect"',
     );
     expect(migrationSource).toContain('writeTableAllowlist: "vertex_agent_realworld_effect"');
   });

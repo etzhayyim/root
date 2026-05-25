@@ -4,18 +4,18 @@ CF Worker exposing 12 rw-free commands as XRPC endpoints.
 
 ## Endpoints
 
-- `POST /xrpc/ai.gftd.houbun.registerStatute` — register statute
-- `GET /xrpc/ai.gftd.houbun.getStatute` — statute by ID
-- `GET /xrpc/ai.gftd.houbun.listStatutes` — paginated list
-- `POST /xrpc/ai.gftd.houbun.registerArticle` — register article
-- `GET /xrpc/ai.gftd.houbun.getArticle` — article by DID
-- `POST /xrpc/ai.gftd.houbun.registerTreaty` — register treaty
-- `GET /xrpc/ai.gftd.houbun.getTreaty` — treaty by ID
-- `POST /xrpc/ai.gftd.houbun.recordAmendment` — record amendment
-- `POST /xrpc/ai.gftd.houbun.ingestStatuteJpn` — Japanese statutes
-- `POST /xrpc/ai.gftd.houbun.ingestStatuteUsa` — US statutes
-- `POST /xrpc/ai.gftd.houbun.ingestEurLex` — EU legislation
-- `POST /xrpc/ai.gftd.houbun.ingestTreatyUn` — UN treaties
+- `POST /xrpc/app.etzhayyim.houbun.registerStatute` — register statute
+- `GET /xrpc/app.etzhayyim.houbun.getStatute` — statute by ID
+- `GET /xrpc/app.etzhayyim.houbun.listStatutes` — paginated list
+- `POST /xrpc/app.etzhayyim.houbun.registerArticle` — register article
+- `GET /xrpc/app.etzhayyim.houbun.getArticle` — article by DID
+- `POST /xrpc/app.etzhayyim.houbun.registerTreaty` — register treaty
+- `GET /xrpc/app.etzhayyim.houbun.getTreaty` — treaty by ID
+- `POST /xrpc/app.etzhayyim.houbun.recordAmendment` — record amendment
+- `POST /xrpc/app.etzhayyim.houbun.ingestStatuteJpn` — Japanese statutes
+- `POST /xrpc/app.etzhayyim.houbun.ingestStatuteUsa` — US statutes
+- `POST /xrpc/app.etzhayyim.houbun.ingestEurLex` — EU legislation
+- `POST /xrpc/app.etzhayyim.houbun.ingestTreatyUn` — UN treaties
 
 ## Deploy
 

@@ -6,7 +6,7 @@ Create Date: 2026-05-14
 
 SCOPE
 -----
-Adds GEWP (GFTD Email Wire Protocol) tracking columns to:
+Adds GEWP (etzhayyim Email Wire Protocol) tracking columns to:
 
   vertex_mailer_inbound_email
     gewp_thread_id    VARCHAR  — Pregel partition key from incoming GEWP message

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bpmn.listInstances",
+  "id": "app.etzhayyim.apps.bpmn.listInstances",
   "defs": {
     "main": {
       "type": "query",

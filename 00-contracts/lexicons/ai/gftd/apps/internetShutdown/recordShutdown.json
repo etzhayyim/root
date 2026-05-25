@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.internetShutdown.recordShutdown",
+  "id": "app.etzhayyim.apps.internetShutdown.recordShutdown",
   "defs": {
     "main": {
       "type": "procedure",

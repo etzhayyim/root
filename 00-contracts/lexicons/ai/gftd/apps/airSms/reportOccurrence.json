@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airSms.reportOccurrence",
+  "id": "app.etzhayyim.apps.airSms.reportOccurrence",
   "defs": {
     "main": {
       "type": "procedure",

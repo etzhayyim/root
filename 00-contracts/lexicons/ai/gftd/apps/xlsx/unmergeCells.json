@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.xlsx.unmergeCells",
+  "id": "app.etzhayyim.apps.xlsx.unmergeCells",
   "defs": {
     "main": {
       "type": "procedure",

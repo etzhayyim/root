@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.climateCarbonMarket.retireCarbonCredit",
+  "id": "app.etzhayyim.apps.climateCarbonMarket.retireCarbonCredit",
   "defs": {
     "main": {
       "type": "procedure",

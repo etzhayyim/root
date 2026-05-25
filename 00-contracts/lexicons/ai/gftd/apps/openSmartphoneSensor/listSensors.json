@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneSensor.listSensors",
+  "id": "app.etzhayyim.apps.openSmartphoneSensor.listSensors",
   "defs": {
     "main": {
       "type": "query",

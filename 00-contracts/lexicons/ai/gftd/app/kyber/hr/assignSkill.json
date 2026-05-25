@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.app.kyber.hr.assignSkill",
+  "id": "app.etzhayyim.app.kyber.hr.assignSkill",
   "defs": {
     "main": {
       "type": "procedure",

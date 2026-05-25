@@ -26,7 +26,7 @@ Per ADR-2605211950 (substrate centralization axis), decentralization
 primitives — including **ERC725 root identity issuance** — are
 etzhayyim-exclusive. The current implementation lives in the vendor
 repo at `etzhayyim-root/60-apps/ai-gftd-project-auth/worker-authz/`
-and is reachable via the `ai.gftd.authz.linkEthereum{Begin,Verify}`
+and is reachable via the `app.etzhayyim.authz.linkEthereum{Begin,Verify}`
 lexicons (now marked `[DEPRECATED — migration target]` in the vendor
 repo).
 

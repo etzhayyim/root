@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.signal.rotateGroupKey",
+  "id": "app.etzhayyim.signal.rotateGroupKey",
   "defs": {
     "main": {
       "type": "procedure",

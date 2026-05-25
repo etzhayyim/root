@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govLka.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govLka.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Sri Lanka government.",
-        "operationId": "ai.gftd.govLka.followSiteDeps",
+        "operationId": "app.etzhayyim.govLka.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLka.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govLka.heartbeatTick": {
       "post": {
         "summary": "Run the Sri Lanka government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govLka.heartbeatTick",
+        "operationId": "app.etzhayyim.govLka.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLka.listOrgs": {
+    "/xrpc/app.etzhayyim.govLka.listOrgs": {
       "get": {
         "summary": "List Sri Lanka government organization graph records.",
-        "operationId": "ai.gftd.govLka.listOrgs",
+        "operationId": "app.etzhayyim.govLka.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLka.registerDIDs": {
+    "/xrpc/app.etzhayyim.govLka.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Sri Lanka government organizations.",
-        "operationId": "ai.gftd.govLka.registerDIDs",
+        "operationId": "app.etzhayyim.govLka.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLka.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govLka.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Sri Lanka government organization path to its graph record.",
-        "operationId": "ai.gftd.govLka.resolveOrgPath",
+        "operationId": "app.etzhayyim.govLka.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLka.seedOrgs": {
+    "/xrpc/app.etzhayyim.govLka.seedOrgs": {
       "post": {
         "summary": "Seed initial Sri Lanka government organization records into the graph.",
-        "operationId": "ai.gftd.govLka.seedOrgs",
+        "operationId": "app.etzhayyim.govLka.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLka.shinka": {
+    "/xrpc/app.etzhayyim.govLka.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Sri Lanka government organization update.",
-        "operationId": "ai.gftd.govLka.shinka",
+        "operationId": "app.etzhayyim.govLka.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govLka.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govLka.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Sri Lanka government organization changes to graph.",
-        "operationId": "ai.gftd.govLka.syncWetUpdates",
+        "operationId": "app.etzhayyim.govLka.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

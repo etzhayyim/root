@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.authz.linkEthereumBegin",
+  "id": "app.etzhayyim.authz.linkEthereumBegin",
   "defs": {
     "main": {
       "type": "procedure",

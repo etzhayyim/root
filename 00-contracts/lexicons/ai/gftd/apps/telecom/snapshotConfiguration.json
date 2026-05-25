@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.snapshotConfiguration",
+  "id": "app.etzhayyim.apps.telecom.snapshotConfiguration",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.foiaTracker.flagResponseDelay",
+  "id": "app.etzhayyim.apps.foiaTracker.flagResponseDelay",
   "defs": {
     "main": {
       "type": "procedure",

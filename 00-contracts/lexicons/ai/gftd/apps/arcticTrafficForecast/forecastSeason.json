@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.arcticTrafficForecast.forecastSeason",
+  "id": "app.etzhayyim.apps.arcticTrafficForecast.forecastSeason",
   "defs": {
     "main": {
       "type": "procedure",

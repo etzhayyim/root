@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.bpmn.validateXml",
+  "id": "app.etzhayyim.bpmn.validateXml",
   "defs": {
     "main": {
       "type": "procedure",

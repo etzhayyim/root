@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vin.seedWmiCodes",
+  "id": "app.etzhayyim.apps.vin.seedWmiCodes",
   "defs": {
     "main": {
       "type": "procedure",

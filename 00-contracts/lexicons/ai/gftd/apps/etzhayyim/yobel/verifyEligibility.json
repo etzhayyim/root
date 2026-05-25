@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.yobel.verifyEligibility",
+  "id": "app.etzhayyim.apps.etzhayyim.yobel.verifyEligibility",
   "defs": {
     "main": {
       "type": "query",

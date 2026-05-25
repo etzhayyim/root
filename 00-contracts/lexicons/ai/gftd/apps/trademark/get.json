@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.trademark.get",
+  "id": "app.etzhayyim.apps.trademark.get",
   "defs": {
     "main": {
       "type": "query",

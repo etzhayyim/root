@@ -2,9 +2,9 @@
 // Thin-edge dispatcher: business logic in AgentGateway MCP + pod-side LangServer.
 // 5 methods: probeEnvironment / transferSignal / formColony / handoffToKi / lyse
 //
-// Also forwards `ai.gftd.mcp.message` envelopes (MCP `tools/call`) to the
-// dispatcher's dedicated `/xrpc/ai.gftd.mcp.message` route so that LangGraph
-// `mcp_tool` nodes (ADR-2605082000 §2.6) bound as `mcp://ai.gftd.apps.saikin.*`
+// Also forwards `app.etzhayyim.mcp.message` envelopes (MCP `tools/call`) to the
+// dispatcher's dedicated `/xrpc/app.etzhayyim.mcp.message` route so that LangGraph
+// `mcp_tool` nodes (ADR-2605082000 §2.6) bound as `mcp://app.etzhayyim.apps.saikin.*`
 // resolve to this Worker via vertex_mcp_tool_def.actor_host=saikin.etzhayyim.com.
 
 interface SecretBinding { get(): Promise<string>; }
@@ -15,8 +15,8 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "ai.gftd.apps.saikin.";
-const MCP_NSID = "ai.gftd.mcp.message";
+const NSID_PREFIX = "app.etzhayyim.apps.saikin.";
+const MCP_NSID = "app.etzhayyim.mcp.message";
 const ACTOR_DID = "did:web:saikin.etzhayyim.com";
 
 export default {
@@ -38,11 +38,11 @@ export default {
         mcp: {
           envelope: MCP_NSID,
           tools: [
-            "ai.gftd.apps.saikin.probeEnvironment",
-            "ai.gftd.apps.saikin.transferSignal",
-            "ai.gftd.apps.saikin.formColony",
-            "ai.gftd.apps.saikin.handoffToKi",
-            "ai.gftd.apps.saikin.lyse",
+            "app.etzhayyim.apps.saikin.probeEnvironment",
+            "app.etzhayyim.apps.saikin.transferSignal",
+            "app.etzhayyim.apps.saikin.formColony",
+            "app.etzhayyim.apps.saikin.handoffToKi",
+            "app.etzhayyim.apps.saikin.lyse",
           ],
         },
       });

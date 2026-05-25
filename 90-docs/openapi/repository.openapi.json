@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.repository.blame": {
+    "/xrpc/app.etzhayyim.repository.blame": {
       "get": {
         "summary": "Per-line blame for a blob at a given ref or commit. Each line is attributed to the commit that last introduced it.",
-        "operationId": "ai.gftd.repository.blame",
+        "operationId": "app.etzhayyim.repository.blame",
         "parameters": [
           {
             "name": "ownerDid",
@@ -109,10 +109,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.createBlob": {
+    "/xrpc/app.etzhayyim.repository.createBlob": {
       "post": {
         "summary": "Insert a content-addressed blob (sha256 keyed). Idempotent — re-insert of same content returns existing hash. Large bytes tiered to B2; small bytes stored inline in vertex_repository_blob.",
-        "operationId": "ai.gftd.repository.createBlob",
+        "operationId": "app.etzhayyim.repository.createBlob",
         "requestBody": {
           "required": true,
           "content": {
@@ -185,10 +185,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.createCommit": {
+    "/xrpc/app.etzhayyim.repository.createCommit": {
       "post": {
         "summary": "Insert a commit object. commitHash = sha256 over canonical-encoded {treeHash, parentHashes, authorDid, committerDid, message, timestamp}. Signature field is NOT included in the hash input so the same commit can be re-signed by key rotation without hash drift. Immutable once written.",
-        "operationId": "ai.gftd.repository.createCommit",
+        "operationId": "app.etzhayyim.repository.createCommit",
         "requestBody": {
           "required": true,
           "content": {
@@ -271,10 +271,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.createRef": {
+    "/xrpc/app.etzhayyim.repository.createRef": {
       "post": {
         "summary": "Create a ref (branch / tag / HEAD) pointing to an initial commit. Ref names are unique per (ownerDid, kind).",
-        "operationId": "ai.gftd.repository.createRef",
+        "operationId": "app.etzhayyim.repository.createRef",
         "requestBody": {
           "required": true,
           "content": {
@@ -362,10 +362,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.createTree": {
+    "/xrpc/app.etzhayyim.repository.createTree": {
       "post": {
         "summary": "Insert a tree (directory snapshot). Hash is sha256 over canonical-sorted (path ASC) entry list. Idempotent.",
-        "operationId": "ai.gftd.repository.createTree",
+        "operationId": "app.etzhayyim.repository.createTree",
         "requestBody": {
           "required": true,
           "content": {
@@ -425,10 +425,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.diff": {
+    "/xrpc/app.etzhayyim.repository.diff": {
       "get": {
         "summary": "Compute tree diff between two commits. Supports path-scoped and binary-aware output.",
-        "operationId": "ai.gftd.repository.diff",
+        "operationId": "app.etzhayyim.repository.diff",
         "parameters": [
           {
             "name": "baseCommit",
@@ -515,10 +515,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.getBlob": {
+    "/xrpc/app.etzhayyim.repository.getBlob": {
       "get": {
         "summary": "Fetch blob bytes by sha256 hash. Global dedup — no owner scope in read path.",
-        "operationId": "ai.gftd.repository.getBlob",
+        "operationId": "app.etzhayyim.repository.getBlob",
         "parameters": [
           {
             "name": "hash",
@@ -566,10 +566,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.getCommit": {
+    "/xrpc/app.etzhayyim.repository.getCommit": {
       "get": {
         "summary": "Fetch a commit object by hash.",
-        "operationId": "ai.gftd.repository.getCommit",
+        "operationId": "app.etzhayyim.repository.getCommit",
         "parameters": [
           {
             "name": "commitHash",
@@ -645,10 +645,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.getTree": {
+    "/xrpc/app.etzhayyim.repository.getTree": {
       "get": {
         "summary": "Fetch a tree by hash, returning canonical-sorted entry list.",
-        "operationId": "ai.gftd.repository.getTree",
+        "operationId": "app.etzhayyim.repository.getTree",
         "parameters": [
           {
             "name": "treeHash",
@@ -716,10 +716,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.listRefs": {
+    "/xrpc/app.etzhayyim.repository.listRefs": {
       "get": {
         "summary": "List refs owned by a single DID, or by all DIDs in a path-DID subtree (ADR-0019). Subtree mode gives Project/App-level 'repo view' without a Repository container.",
-        "operationId": "ai.gftd.repository.listRefs",
+        "operationId": "app.etzhayyim.repository.listRefs",
         "parameters": [
           {
             "name": "ownerDid",
@@ -826,10 +826,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.log": {
+    "/xrpc/app.etzhayyim.repository.log": {
       "get": {
         "summary": "Walk commit ancestry from a ref or commit. Returns linearized history (first-parent by default) or full DAG.",
-        "operationId": "ai.gftd.repository.log",
+        "operationId": "app.etzhayyim.repository.log",
         "parameters": [
           {
             "name": "ownerDid",
@@ -950,10 +950,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.repository.updateRef": {
+    "/xrpc/app.etzhayyim.repository.updateRef": {
       "post": {
-        "summary": "The only mutable write in ADR-0039. Move a ref's points-to from expectedCurrent to newCommit. CAS-safe by default; force=true skips ancestry check. Emits OCEL event ref:updated / ref:rolledBack / ref:forcePushed and a firehose ai.gftd.repository.refUpdate record.",
-        "operationId": "ai.gftd.repository.updateRef",
+        "summary": "The only mutable write in ADR-0039. Move a ref's points-to from expectedCurrent to newCommit. CAS-safe by default; force=true skips ancestry check. Emits OCEL event ref:updated / ref:rolledBack / ref:forcePushed and a firehose app.etzhayyim.repository.refUpdate record.",
+        "operationId": "app.etzhayyim.repository.updateRef",
         "requestBody": {
           "required": true,
           "content": {
@@ -1026,7 +1026,7 @@
                     },
                     "firehoseCid": {
                       "type": "string",
-                      "description": "CID of the ai.gftd.repository.refUpdate record written to the owner DID's AT Repo."
+                      "description": "CID of the app.etzhayyim.repository.refUpdate record written to the owner DID's AT Repo."
                     }
                   },
                   "required": [

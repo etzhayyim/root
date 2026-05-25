@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.llm.recommendModel",
+  "id": "app.etzhayyim.apps.llm.recommendModel",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pharmaSupply.registerProduct",
+  "id": "app.etzhayyim.apps.pharmaSupply.registerProduct",
   "defs": {
     "main": {
       "type": "procedure",

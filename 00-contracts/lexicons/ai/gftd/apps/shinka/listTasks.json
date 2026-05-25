@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shinka.listTasks",
+  "id": "app.etzhayyim.apps.shinka.listTasks",
   "defs": {
     "main": {
       "type": "query",

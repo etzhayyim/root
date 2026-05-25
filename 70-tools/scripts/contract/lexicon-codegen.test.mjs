@@ -253,7 +253,7 @@ function testRegressionStructure() {
 
   // Imports
   assert(content.includes("import { atQuery, atProcedure }"), "Imports atQuery/atProcedure");
-  assert(!content.includes("from '@gftd/xrpc'"), "No longer imports from @gftd/xrpc");
+  assert(!content.includes("from '@etzhayyim/xrpc'"), "No longer imports from @etzhayyim/xrpc");
 
   // Structure
   assert(!content.includes("generatedTransport"), "No generatedTransport wrapper");
@@ -263,13 +263,13 @@ function testRegressionStructure() {
 
   // Namespace sections
   const expectedNamespaces = [
-    "ai.gftd.consent",
-    "ai.gftd.convo",
-    "ai.gftd.governance",
-    "ai.gftd.kagami",
-    "ai.gftd.projector",
-    "ai.gftd.rtc",
-    "ai.gftd.signal",
+    "app.etzhayyim.consent",
+    "app.etzhayyim.convo",
+    "app.etzhayyim.governance",
+    "app.etzhayyim.kagami",
+    "app.etzhayyim.projector",
+    "app.etzhayyim.rtc",
+    "app.etzhayyim.signal",
   ];
   for (const ns of expectedNamespaces) {
     assert(content.includes(`── ${ns} ──`), `Has namespace section: ${ns}`);

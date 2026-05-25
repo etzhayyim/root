@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kiyo.getPaper",
+  "id": "app.etzhayyim.apps.kiyo.getPaper",
   "defs": {
     "main": {
       "type": "query",

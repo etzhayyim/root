@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ocdsProcurement.flagRedFlag",
+  "id": "app.etzhayyim.apps.ocdsProcurement.flagRedFlag",
   "defs": {
     "main": {
       "type": "procedure",

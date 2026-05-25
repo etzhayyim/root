@@ -6,7 +6,7 @@ omise.etzhayyim.com — Shopify-like multi-tenant EC marketplace。Platform / Se
 
 ```
 Browser → omise.etzhayyim.com (Svelte CSR)
-  → XRPC /xrpc/ai.gftd.apps.omise.*
+  → XRPC /xrpc/app.etzhayyim.apps.omise.*
     ↓
   App: ai-gftd-wasm-omise-om1s3sh0p
     ├─ Platform:  approveSeller / suspendSeller / listPendingSellers / resolveDispute / platformAnalytics

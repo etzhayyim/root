@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.send",
+  "id": "app.etzhayyim.convo.send",
   "description": "Send a message to a conversation. Superset of chat.bsky.convo.sendMessage — adds kind, contentType, encryption.",
   "defs": {
     "main": {
@@ -30,11 +30,11 @@
             },
             "kind": {
               "type": "string",
-              "description": "GFTD extension: message kind"
+              "description": "etzhayyim extension: message kind"
             },
             "contentType": {
               "type": "string",
-              "description": "GFTD extension: MIME content type"
+              "description": "etzhayyim extension: MIME content type"
             }
           },
           "required": [

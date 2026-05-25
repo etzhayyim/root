@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.religiousFreedom.flagPersecutionEvent",
+  "id": "app.etzhayyim.apps.religiousFreedom.flagPersecutionEvent",
   "defs": {
     "main": {
       "type": "procedure",

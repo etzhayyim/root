@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOt.listSignals",
+  "id": "app.etzhayyim.apps.openOt.listSignals",
   "defs": {
     "main": {
       "type": "query",

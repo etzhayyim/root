@@ -14,7 +14,7 @@ from pymagatama.primitives.apqc import APQC_L1, L1_BY_CODE, apqc_did
 
 
 @udf(
-    nsid="ai.gftd.apps.apqc.materializeSubprocessDid",
+    nsid="app.etzhayyim.apps.apqc.materializeSubprocessDid",
     io_threads=32,
     input_types=["VARCHAR", "VARCHAR"],
     result_type="VARCHAR",
@@ -33,7 +33,7 @@ def materialize_subprocess_did(apqc_code: str, subprocess_code: str) -> str:
 
 
 @udf(
-    nsid="ai.gftd.apps.apqc.coverageSnapshot",
+    nsid="app.etzhayyim.apps.apqc.coverageSnapshot",
     io_threads=32,
     input_types=["VARCHAR"],
     result_type="VARCHAR",

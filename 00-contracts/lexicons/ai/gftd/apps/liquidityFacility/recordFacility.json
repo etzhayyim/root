@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.liquidityFacility.recordFacility",
+  "id": "app.etzhayyim.apps.liquidityFacility.recordFacility",
   "defs": {
     "main": {
       "type": "procedure",

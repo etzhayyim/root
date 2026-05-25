@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govHti.syncWetUpdates",
+  "id": "app.etzhayyim.govHti.syncWetUpdates",
   "defs": {
     "main": {
       "type": "procedure",

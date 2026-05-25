@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sense.sensor.status",
+  "id": "app.etzhayyim.apps.sense.sensor.status",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphonePatent.mapPatentDependency",
+  "id": "app.etzhayyim.apps.openSmartphonePatent.mapPatentDependency",
   "defs": {
     "main": {
       "type": "procedure",

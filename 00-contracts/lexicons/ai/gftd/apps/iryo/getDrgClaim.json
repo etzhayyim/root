@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iryo.getDrgClaim",
+  "id": "app.etzhayyim.apps.iryo.getDrgClaim",
   "defs": {
     "main": {
       "type": "query",

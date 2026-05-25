@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coworkGraph.calendarList",
+  "id": "app.etzhayyim.apps.coworkGraph.calendarList",
   "defs": {
     "main": {
       "type": "query",

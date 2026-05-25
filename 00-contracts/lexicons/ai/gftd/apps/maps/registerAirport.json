@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.registerAirport",
+  "id": "app.etzhayyim.apps.maps.registerAirport",
   "defs": {
     "main": {
       "type": "procedure",

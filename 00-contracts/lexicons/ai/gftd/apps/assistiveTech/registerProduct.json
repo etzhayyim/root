@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.assistiveTech.registerProduct",
+  "id": "app.etzhayyim.apps.assistiveTech.registerProduct",
   "defs": {
     "main": {
       "type": "procedure",

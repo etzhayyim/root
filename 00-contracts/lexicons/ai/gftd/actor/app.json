@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.actor.app",
+  "id": "app.etzhayyim.actor.app",
   "description": "Developer-authenticated actor (App Store model). Extends app.bsky.actor.defs profile fields with runtime placement, governance, and contract model.",
   "defs": {
     "main": {
@@ -40,12 +40,12 @@
           },
           "runtime": {
             "type": "string",
-            "description": "GFTD extension: business execution runtime placement",
+            "description": "etzhayyim extension: business execution runtime placement",
             "knownValues": ["k8s-langserver"]
           },
           "edge": {
             "type": "string",
-            "description": "GFTD extension: public edge placement",
+            "description": "etzhayyim extension: public edge placement",
             "knownValues": ["sveltekit-proxy"]
           },
           "legacyExecutionTier": {
@@ -55,7 +55,7 @@
           },
           "status": {
             "type": "string",
-            "description": "GFTD extension: app lifecycle status",
+            "description": "etzhayyim extension: app lifecycle status",
             "knownValues": ["active", "suspended", "archived"]
           },
           "performerType": { "type": "string" },

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.createOrder",
+  "id": "app.etzhayyim.apps.omise.createOrder",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.listTombstones",
+  "id": "app.etzhayyim.apps.karute.listTombstones",
   "defs": {
     "main": {
       "type": "query",

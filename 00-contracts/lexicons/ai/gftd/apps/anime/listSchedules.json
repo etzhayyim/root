@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.anime.listSchedules",
+  "id": "app.etzhayyim.apps.anime.listSchedules",
   "defs": {
     "main": {
       "type": "query",

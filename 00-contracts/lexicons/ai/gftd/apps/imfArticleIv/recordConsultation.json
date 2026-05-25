@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.imfArticleIv.recordConsultation",
+  "id": "app.etzhayyim.apps.imfArticleIv.recordConsultation",
   "defs": {
     "main": {
       "type": "procedure",

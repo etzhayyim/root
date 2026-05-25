@@ -115,17 +115,17 @@ telecom のモノリシック設計 (1 DID × 18 フェーズ) と異なり、�
 
 ## NSID 構造
 
-各 actor の XRPC NSID は `ai.gftd.apps.{camelCaseActor}.{operation}` に従う:
-- `ai.gftd.apps.airSched.registerSchedule`
-- `ai.gftd.apps.airBook.createPnr`
-- `ai.gftd.apps.airYield.publishFareClass`
-- `ai.gftd.apps.airDcs.processCheckIn`
-- `ai.gftd.apps.airOps.fileFlightPlan`
-- `ai.gftd.apps.airCrew.publishRoster`
-- `ai.gftd.apps.airMro.createWorkOrder`
-- `ai.gftd.apps.airSms.submitSafetyReport`
-- `ai.gftd.apps.airCargo.createCargoBooking`
-- `ai.gftd.apps.airFfp.enrollMember`
+各 actor の XRPC NSID は `app.etzhayyim.apps.{camelCaseActor}.{operation}` に従う:
+- `app.etzhayyim.apps.airSched.registerSchedule`
+- `app.etzhayyim.apps.airBook.createPnr`
+- `app.etzhayyim.apps.airYield.publishFareClass`
+- `app.etzhayyim.apps.airDcs.processCheckIn`
+- `app.etzhayyim.apps.airOps.fileFlightPlan`
+- `app.etzhayyim.apps.airCrew.publishRoster`
+- `app.etzhayyim.apps.airMro.createWorkOrder`
+- `app.etzhayyim.apps.airSms.submitSafetyReport`
+- `app.etzhayyim.apps.airCargo.createCargoBooking`
+- `app.etzhayyim.apps.airFfp.enrollMember`
 
 ## Cross-Actor 配線
 

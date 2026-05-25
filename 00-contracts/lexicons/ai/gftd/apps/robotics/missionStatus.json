@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.robotics.mission.status",
+  "id": "app.etzhayyim.apps.robotics.mission.status",
   "defs": {
     "main": {
       "type": "query",

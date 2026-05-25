@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.llm.chat",
+  "id": "app.etzhayyim.host.llm.chat",
   "defs": {
     "main": {
       "type": "procedure",

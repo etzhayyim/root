@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.training.runEval",
+  "id": "app.etzhayyim.apps.training.runEval",
   "defs": {
     "main": {
       "type": "procedure",

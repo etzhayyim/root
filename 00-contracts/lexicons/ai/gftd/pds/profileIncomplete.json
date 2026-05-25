@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.pds.profileIncomplete",
+  "id": "app.etzhayyim.pds.profileIncomplete",
   "defs": {
     "main": {
       "type": "record",

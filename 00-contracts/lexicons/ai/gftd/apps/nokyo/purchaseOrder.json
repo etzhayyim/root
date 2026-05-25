@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nokyo.purchaseOrder",
+  "id": "app.etzhayyim.apps.nokyo.purchaseOrder",
   "description": "共同購買 (肥料 / 農薬 / 飼料 / 燃料 / 農機 / 資材) の組合員発注。daily roll-up で 全農 への一括発注に集約。",
   "defs": {
     "main": {

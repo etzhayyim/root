@@ -1,4 +1,4 @@
-# `ai.gftd.sanctions.*` — OFAC / UN / EU sanctions list mirror
+# `app.etzhayyim.sanctions.*` — OFAC / UN / EU sanctions list mirror
 
 Open spec for the sanctions list mirror (OFAC SDN, UN Consolidated List, EU
 Restrictive Measures). This is the **list data + lookup lexicon only**.
@@ -12,10 +12,10 @@ Tranche F scaffolding (Phase 2) per ADR-2605172400.
 
 ## NSIDs (planned)
 
-- `ai.gftd.sanctions.getEntry` — fetch one sanctioned entity by listId
-- `ai.gftd.sanctions.searchByName` — fuzzy name search across all lists
-- `ai.gftd.sanctions.listSources` — enumerate source lists (OFAC, UN, EU, ...)
-- `ai.gftd.sanctions.getListVersion` — current snapshot version per source
+- `app.etzhayyim.sanctions.getEntry` — fetch one sanctioned entity by listId
+- `app.etzhayyim.sanctions.searchByName` — fuzzy name search across all lists
+- `app.etzhayyim.sanctions.listSources` — enumerate source lists (OFAC, UN, EU, ...)
+- `app.etzhayyim.sanctions.getListVersion` — current snapshot version per source
 
 ## See also
 

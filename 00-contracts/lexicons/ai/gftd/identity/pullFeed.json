@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.identity.pullFeed",
+  "id": "app.etzhayyim.identity.pullFeed",
   "defs": {
     "main": {
       "type": "query",

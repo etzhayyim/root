@@ -219,9 +219,9 @@
     }
   ],
   "dataRecords": [
-    "ai.gftd.apps.tsukuru.cntManufacturingFlow",
-    "ai.gftd.apps.tsukuru.cntAutomationPlan",
-    "ai.gftd.apps.tsukuru.supplierExchangePackage",
+    "app.etzhayyim.apps.tsukuru.cntManufacturingFlow",
+    "app.etzhayyim.apps.tsukuru.cntAutomationPlan",
+    "app.etzhayyim.apps.tsukuru.supplierExchangePackage",
     "mes.workOrder",
     "scada.tagHistory",
     "qms.inspectionPlan",

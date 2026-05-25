@@ -4,6 +4,6 @@
   "version": "1.0.0",
   "main": "src/app.ts",
   "dependencies": {
-    "@gftd/magatama-host-sdk": "workspace:*"
+    "@etzhayyim/magatama-host-sdk": "workspace:*"
   }
 }

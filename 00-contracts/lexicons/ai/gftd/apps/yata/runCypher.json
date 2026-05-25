@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yata.runCypher",
+  "id": "app.etzhayyim.apps.yata.runCypher",
   "defs": {
     "main": {
       "type": "procedure",

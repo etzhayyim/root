@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.interpolRedabuse.recordRedNotice",
+  "id": "app.etzhayyim.apps.interpolRedabuse.recordRedNotice",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yata.bmcListDecisions",
+  "id": "app.etzhayyim.apps.yata.bmcListDecisions",
   "defs": {
     "main": {
       "type": "query",

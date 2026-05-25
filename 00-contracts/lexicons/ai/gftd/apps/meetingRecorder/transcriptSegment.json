@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.meetingRecorder.transcriptSegment",
+  "id": "app.etzhayyim.apps.meetingRecorder.transcriptSegment",
   "defs": {
     "main": {
       "type": "record",

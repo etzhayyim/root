@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.dpaAuthority.recordAction",
+  "id": "app.etzhayyim.apps.dpaAuthority.recordAction",
   "defs": {
     "main": {
       "type": "procedure",

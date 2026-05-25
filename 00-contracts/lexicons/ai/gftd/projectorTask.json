@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projectorTask",
+  "id": "app.etzhayyim.projectorTask",
   "defs": {
     "main": {
       "type": "record",

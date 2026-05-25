@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.platformAnalytics",
+  "id": "app.etzhayyim.apps.omise.platformAnalytics",
   "defs": {
     "main": {
       "type": "procedure",

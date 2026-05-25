@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pptx.addShape",
+  "id": "app.etzhayyim.apps.pptx.addShape",
   "defs": {
     "main": {
       "type": "procedure",

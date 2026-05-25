@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shigotoba.health",
+  "id": "app.etzhayyim.apps.shigotoba.health",
   "defs": {
     "main": {
       "type": "procedure",

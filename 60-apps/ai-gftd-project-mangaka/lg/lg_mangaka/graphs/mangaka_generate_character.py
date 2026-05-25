@@ -2,7 +2,7 @@
 
 Wraps a single-pass SDXL character workflow (built by comfy_workflows.
 character_workflow) behind the same submit + poll loop the raw comfy_run
-graph uses. Input is the same shape as the ai.gftd.mangaka.character
+graph uses. Input is the same shape as the app.etzhayyim.mangaka.character
 record (name, description, optional pose/style hints).
 
 Pregel:  build → submit → poll → END
@@ -20,7 +20,7 @@ from lg_mangaka import comfy_workflows as _wf
 
 
 class _State(TypedDict, total=False):
-    # input — mirrors ai.gftd.mangaka.character
+    # input — mirrors app.etzhayyim.mangaka.character
     name: str
     description: str
     style: str

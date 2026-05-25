@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yoro.productResearch",
+  "id": "app.etzhayyim.apps.yoro.productResearch",
   "defs": {
     "main": {
       "type": "record",

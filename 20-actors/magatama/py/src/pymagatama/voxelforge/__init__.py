@@ -8,7 +8,7 @@ Public API surface for the voxelforge actor:
                                    `/runs`, `/runs/{id}`, `/health`,
                                    `/_app/meta` per ADR-2605080600.
   - :func:`register_xrpc_handlers` — bpmn-dispatcher XRPC bridge
-                                     (`ai.gftd.apps.voxelforge.*` →
+                                     (`app.etzhayyim.apps.voxelforge.*` →
                                      graph invocation).
 
 Deployment: `pymagatama.voxelforge.server:app` is the canonical Granian

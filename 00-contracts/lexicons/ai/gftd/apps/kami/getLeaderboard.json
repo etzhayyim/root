@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.getLeaderboard",
+  "id": "app.etzhayyim.apps.kami.getLeaderboard",
   "defs": {
     "main": {
       "type": "query",

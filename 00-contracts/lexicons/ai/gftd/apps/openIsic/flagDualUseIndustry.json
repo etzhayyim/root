@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openIsic.flagDualUseIndustry",
+  "id": "app.etzhayyim.apps.openIsic.flagDualUseIndustry",
   "defs": {
     "main": {
       "type": "procedure",

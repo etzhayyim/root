@@ -4,7 +4,7 @@
 
 ## 責務
 
-- `lexicons`: AT Protocol Lexicon JSON **Single Source of Truth** (2693 files, うち `ai.gftd.*` は 2344 files)。host capability (`ai.gftd.host.*`) / app commands (`ai.gftd.apps.*`) / wire format を一括で定義。F-Plan F2 2026-04-13 以降、TS/Go/Rust bindings は全てこれから codegen
+- `lexicons`: AT Protocol Lexicon JSON **Single Source of Truth** (2693 files, うち `app.etzhayyim.*` は 2344 files)。host capability (`app.etzhayyim.host.*`) / app commands (`app.etzhayyim.apps.*`) / wire format を一括で定義。F-Plan F2 2026-04-13 以降、TS/Go/Rust bindings は全てこれから codegen
 - 共有 schema（graph schema など）の静的定義
 
 ## 非責務
@@ -17,7 +17,7 @@
 
 - contract 層は runtime 層に依存しない
 - contract 層は infra worker に依存しない
-- runtime は contract を参照してよい (`@gftd/magatama-host-sdk` → `00-contracts/lexicons/`)
+- runtime は contract を参照してよい (`@etzhayyim/magatama-host-sdk` → `00-contracts/lexicons/`)
 
 ## Archived (2026-04-13, F-Plan)
 

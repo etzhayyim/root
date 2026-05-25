@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.panamaToll.recordTollPayment",
+  "id": "app.etzhayyim.apps.panamaToll.recordTollPayment",
   "defs": {
     "main": {
       "type": "procedure",

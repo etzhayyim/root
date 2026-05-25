@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airBook.confirmBooking",
+  "id": "app.etzhayyim.apps.airBook.confirmBooking",
   "defs": {
     "main": {
       "type": "procedure",

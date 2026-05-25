@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.xlsx.getFormulaDeps",
+  "id": "app.etzhayyim.apps.xlsx.getFormulaDeps",
   "defs": {
     "main": {
       "type": "query",

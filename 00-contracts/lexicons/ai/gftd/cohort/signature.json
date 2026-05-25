@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.cohort.signature",
+  "id": "app.etzhayyim.cohort.signature",
   "defs": {
     "main": {
       "type": "record",

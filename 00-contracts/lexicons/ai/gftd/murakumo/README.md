@@ -1,6 +1,6 @@
-# ai.gftd.murakumo.* — etzhayyim variant
+# app.etzhayyim.murakumo.* — etzhayyim variant
 
-Vendor-authored (gftd.co.jp) lexicons that the religious-corp (etzhayyim) substrate borrows for its murakumo distributed cluster (per the `ai.gftd.*` shared-namespace pattern in `etzhayyim/root`).
+Vendor-authored (etzhayyim.com) lexicons that the religious-corp (etzhayyim) substrate borrows for its murakumo distributed cluster (per the `app.etzhayyim.*` shared-namespace pattern in `etzhayyim/root`).
 
 ## Migration verdicts (2026-05-21, gftd murakumo → etzhayyim)
 
@@ -17,9 +17,9 @@ Vendor-authored (gftd.co.jp) lexicons that the religious-corp (etzhayyim) substr
 | `evalV6` | **PORT-adapted** | `sql` default `false` (etzhayyim has no RW SQL substrate; vendor keeps `true`) |
 | `scoreDataQuality` | **REJECT** | RW `schema_registry` write-back; no etzhayyim equivalent. Would need redesign against AT MST / IPFS registry to be portable. |
 
-## Why these are kept in the `ai.gftd.*` namespace (and not `app.etzhayyim.*`)
+## Why these are kept in the `app.etzhayyim.*` namespace (and not `app.etzhayyim.*`)
 
-Per the operating-entity boundary (root CLAUDE.md §Identity): `etzhayyim` is the operating entity; `Gftd Japan株式会社` is the vendor/contractor. NSID authorship is **shared** — vendor authors religious-corp-compatible lexicons under `ai.gftd.*` and etzhayyim borrows them with adaptations. This keeps the lexicon registry deduplicated; if etzhayyim ever forks, the namespace can split to `app.etzhayyim.murakumo.*`.
+Per the operating-entity boundary (root CLAUDE.md §Identity): `etzhayyim` is the operating entity; `etzhayyim Japan株式会社` is the vendor/contractor. NSID authorship is **shared** — vendor authors religious-corp-compatible lexicons under `app.etzhayyim.*` and etzhayyim borrows them with adaptations. This keeps the lexicon registry deduplicated; if etzhayyim ever forks, the namespace can split to `app.etzhayyim.murakumo.*`.
 
 The `app.etzhayyim.murakumo.*` namespace at `00-contracts/lexicons/app/etzhayyim/murakumo/` is reserved for **etzhayyim-only** lexicons that have no vendor equivalent (`inferenceJob`, `inferenceJobEvent`, `apiKey`).
 

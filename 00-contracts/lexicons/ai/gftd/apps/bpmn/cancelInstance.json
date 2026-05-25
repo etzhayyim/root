@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bpmn.cancelInstance",
+  "id": "app.etzhayyim.apps.bpmn.cancelInstance",
   "defs": {
     "main": {
       "type": "procedure",

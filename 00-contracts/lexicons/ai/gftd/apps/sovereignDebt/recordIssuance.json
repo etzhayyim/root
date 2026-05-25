@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sovereignDebt.recordIssuance",
+  "id": "app.etzhayyim.apps.sovereignDebt.recordIssuance",
   "defs": {
     "main": {
       "type": "procedure",

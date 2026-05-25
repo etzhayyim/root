@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openNetwork.requestChange",
+  "id": "app.etzhayyim.apps.openNetwork.requestChange",
   "defs": {
     "main": {
       "type": "procedure",

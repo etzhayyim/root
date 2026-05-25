@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.dataAdequacy.flagSupervisoryAction",
+  "id": "app.etzhayyim.apps.dataAdequacy.flagSupervisoryAction",
   "defs": {
     "main": {
       "type": "procedure",

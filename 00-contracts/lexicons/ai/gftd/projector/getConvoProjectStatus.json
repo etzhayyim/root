@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projector.getConvoProjectStatus",
+  "id": "app.etzhayyim.projector.getConvoProjectStatus",
   "defs": {
     "main": {
       "type": "query",

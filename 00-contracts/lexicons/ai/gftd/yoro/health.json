@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yoro.health",
+  "id": "app.etzhayyim.yoro.health",
   "defs": {
     "main": {
       "type": "procedure",

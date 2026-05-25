@@ -5,7 +5,7 @@ HTTP surface:
   POST /xrpc/{nsid}       → XRPC shim (NSID → graph mapping)
   GET  /ok / /health      → liveness / readiness
 
-NSID namespace: ai.gftd.apps.recap.*
+NSID namespace: app.etzhayyim.apps.recap.*
 Auth: optional LG_API_KEY env enforces x-api-key on /runs.
       /xrpc/{nsid} is unauthenticated (trust at cloudflared tunnel layer).
 """
@@ -38,10 +38,10 @@ GRAPHS: dict[str, Any] = {
 
 # NSID → graph name mapping
 NSID_MAP: dict[str, str] = {
-    "ai.gftd.apps.recap.download":       "download",
-    "ai.gftd.apps.recap.getInfo":         "get_info",
-    "ai.gftd.apps.recap.listDownloads":   "list_downloads",
-    "ai.gftd.apps.recap.summarize":       "summarize",
+    "app.etzhayyim.apps.recap.download":       "download",
+    "app.etzhayyim.apps.recap.getInfo":         "get_info",
+    "app.etzhayyim.apps.recap.listDownloads":   "list_downloads",
+    "app.etzhayyim.apps.recap.summarize":       "summarize",
 }
 
 _API_KEY = os.environ.get("LG_API_KEY", "")

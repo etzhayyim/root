@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.recordAnqpQuery",
+  "id": "app.etzhayyim.apps.telecom.recordAnqpQuery",
   "defs": {
     "main": {
       "type": "procedure",

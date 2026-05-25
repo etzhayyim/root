@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-kami-seed-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-kami-seed-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'science_kami_seed_scientific',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -49,9 +49,9 @@ UP = [{'sql': '\n'
                  '    3. generic.audit.emit          — OCEL event with aggregate stats.\n'
                  '\n'
                  '  Cadence: R/PT6H. Seeds are idempotent — re-runs only add missing instances.\n'
-                 '  ADR-0056 (BPMN-as-actor). NSID: ai.gftd.apps.science.kamiSeedScientific.\n'
+                 '  ADR-0056 (BPMN-as-actor). NSID: app.etzhayyim.apps.science.kamiSeedScientific.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-kami-seed-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-kami-seed-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -65,7 +65,7 @@ UP = [{'sql': '\n'
                  'scientific" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.science.kamiSeedScientific", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.science.kamiSeedScientific", "version": 1, '
                  '"resultTimeoutMs": 21600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -123,7 +123,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.science.kamiSeedScientific&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.science.kamiSeedScientific&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;elementCount&quot;: elementCount, '
                  '&quot;elementInstancesSeeded&quot;: elementInstancesSeeded, '
@@ -148,7 +148,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.science',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-kami-seed-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-kami-seed-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -156,7 +156,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-paper-ingest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'science_paper_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -184,9 +184,9 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Cadence: R/PT24H. Each fire processes one domain + query pair.\n'
                  '  Multiple instances can be deployed with different domain/query variables.\n'
-                 '  ADR-0056 (BPMN-as-actor). NSID: ai.gftd.apps.science.sciencePaperIngest.\n'
+                 '  ADR-0056 (BPMN-as-actor). NSID: app.etzhayyim.apps.science.sciencePaperIngest.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-paper-ingest-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -200,7 +200,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.science.sciencePaperIngest", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.science.sciencePaperIngest", "version": 1, '
                  '"resultTimeoutMs": 86400000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -272,7 +272,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.science.sciencePaperIngest&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.science.sciencePaperIngest&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;domain&quot;: domain, '
                  '&quot;insertedCount&quot;: insertedCount, &quot;embeddedCount&quot;: '
@@ -296,12 +296,12 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.science',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-paper-ingest-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-kami-seed-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-kami-seed-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/science-paper-ingest-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1']}]
 
 
 def upgrade() -> None:

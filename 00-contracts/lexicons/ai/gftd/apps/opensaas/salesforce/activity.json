@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.opensaas.salesforce.activity",
+  "id": "app.etzhayyim.apps.opensaas.salesforce.activity",
   "defs": {
     "main": {
       "type": "record",

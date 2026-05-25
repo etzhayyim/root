@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.pds.query",
+  "id": "app.etzhayyim.pds.query",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openDenki.defineSubstation",
+  "id": "app.etzhayyim.apps.openDenki.defineSubstation",
   "defs": {
     "main": {
       "type": "procedure",

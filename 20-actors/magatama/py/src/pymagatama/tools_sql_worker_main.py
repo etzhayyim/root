@@ -1,4 +1,4 @@
-"""Generic-primitive worker for ai.gftd.tools.sql.* (ADR-2605082000 §2 follow-up).
+"""Generic-primitive worker for app.etzhayyim.tools.sql.* (ADR-2605082000 §2 follow-up).
 
 Provides a read-only SELECT primitive that LangGraph nodes can bind to
 without per-actor py_primitive code. Strict guard: rejects anything that
@@ -76,7 +76,7 @@ async def task_sql_query(
     1000) caps the response payload size to protect callers / hosts.
     """
     if not _is_readonly(sql):
-        return {"error": "ai.gftd.tools.sql.query: SQL must start with SELECT or WITH"}
+        return {"error": "app.etzhayyim.tools.sql.query: SQL must start with SELECT or WITH"}
     cap = int(limit) if limit is not None else _DEFAULT_LIMIT
     merged_params: dict[str, Any] = {
         k: v for k, v in extra_kwargs.items() if k not in _RESERVED_KWARGS
@@ -129,10 +129,10 @@ async def task_sql_exec(
       - Else → single ``sa_rowcount`` execute. Returns affected count.
     """
     if not confirmWrite:
-        return {"error": "ai.gftd.tools.sql.exec: confirmWrite must be true"}
+        return {"error": "app.etzhayyim.tools.sql.exec: confirmWrite must be true"}
     ok, why = _is_writeable(sql)
     if not ok:
-        return {"error": f"ai.gftd.tools.sql.exec: {why}"}
+        return {"error": f"app.etzhayyim.tools.sql.exec: {why}"}
 
     merged_params: dict[str, Any] = {
         k: v for k, v in extra_kwargs.items() if k not in _RESERVED_KWARGS
@@ -177,7 +177,7 @@ def _render_vertex_id(template: str, owner_did: str, collection: str) -> str:
 
     Placeholders:
       {owner_did}  — caller-provided DID, e.g. did:web:bpmn.etzhayyim.com
-      {collection} — caller-provided NSID,  e.g. ai.gftd.apps.hr.event
+      {collection} — caller-provided NSID,  e.g. app.etzhayyim.apps.hr.event
       {stamp}      — UTC YYYYMMDDHHMMSS
       {nanoid8}    — 8-char hex nanoid (uuid4 first 8)
 
@@ -224,12 +224,12 @@ async def task_sql_insert_row(
       - No ``DELETE`` / ``UPDATE`` semantics here; only INSERT.
     """
     if not table or not _TABLE_NAME_RE.match(table):
-        return {"error": "ai.gftd.tools.sql.insert_row: invalid table name"}
+        return {"error": "app.etzhayyim.tools.sql.insert_row: invalid table name"}
     if not isinstance(row, dict) or not row:
-        return {"error": "ai.gftd.tools.sql.insert_row: 'row' must be a non-empty object"}
+        return {"error": "app.etzhayyim.tools.sql.insert_row: 'row' must be a non-empty object"}
     bad_cols = [k for k in row if not _COLUMN_NAME_RE.match(str(k))]
     if bad_cols:
-        return {"error": f"ai.gftd.tools.sql.insert_row: invalid column names: {bad_cols}"}
+        return {"error": f"app.etzhayyim.tools.sql.insert_row: invalid column names: {bad_cols}"}
 
     # Derive vertex_id if missing and template given.
     work = dict(row)

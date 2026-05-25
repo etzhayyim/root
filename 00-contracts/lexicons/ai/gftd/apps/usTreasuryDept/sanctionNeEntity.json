@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.usTreasuryDept.sanctionNeEntity",
+  "id": "app.etzhayyim.apps.usTreasuryDept.sanctionNeEntity",
   "defs": {
     "main": {
       "type": "procedure",

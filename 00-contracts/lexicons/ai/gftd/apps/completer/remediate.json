@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.completer.remediate",
+  "id": "app.etzhayyim.apps.completer.remediate",
   "defs": {
     "main": {
       "type": "procedure",

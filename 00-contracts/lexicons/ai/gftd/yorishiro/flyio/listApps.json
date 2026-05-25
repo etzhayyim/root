@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yorishiro.flyio.listApps",
+  "id": "app.etzhayyim.yorishiro.flyio.listApps",
   "defs": {
     "main": {
       "type": "query",

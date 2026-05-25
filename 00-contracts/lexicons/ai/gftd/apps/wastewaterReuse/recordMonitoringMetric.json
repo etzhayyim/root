@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.wastewaterReuse.recordMonitoringMetric",
+  "id": "app.etzhayyim.apps.wastewaterReuse.recordMonitoringMetric",
   "defs": {
     "main": {
       "type": "procedure",

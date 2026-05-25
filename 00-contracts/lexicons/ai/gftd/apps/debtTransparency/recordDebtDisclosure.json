@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.debtTransparency.recordDebtDisclosure",
+  "id": "app.etzhayyim.apps.debtTransparency.recordDebtDisclosure",
   "defs": {
     "main": {
       "type": "procedure",

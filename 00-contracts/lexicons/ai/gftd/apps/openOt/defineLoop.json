@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOt.defineLoop",
+  "id": "app.etzhayyim.apps.openOt.defineLoop",
   "defs": {
     "main": {
       "type": "procedure",

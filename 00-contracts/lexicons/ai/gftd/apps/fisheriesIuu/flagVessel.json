@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fisheriesIuu.flagVessel",
+  "id": "app.etzhayyim.apps.fisheriesIuu.flagVessel",
   "defs": {
     "main": {
       "type": "procedure",

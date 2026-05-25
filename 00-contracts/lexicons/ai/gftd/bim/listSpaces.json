@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bim.listSpaces",
+  "id": "app.etzhayyim.apps.bim.listSpaces",
   "defs": {
     "main": {
       "type": "query",

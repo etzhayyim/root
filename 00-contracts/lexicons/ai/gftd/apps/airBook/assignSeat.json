@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airBook.assignSeat",
+  "id": "app.etzhayyim.apps.airBook.assignSeat",
   "defs": {
     "main": {
       "type": "procedure",

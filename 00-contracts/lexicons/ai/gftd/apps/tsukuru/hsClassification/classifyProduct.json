@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.hsClassification.classifyProduct",
+  "id": "app.etzhayyim.apps.tsukuru.hsClassification.classifyProduct",
   "defs": {
     "main": {
       "type": "procedure",

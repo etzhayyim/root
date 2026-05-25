@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.shigotoba.listJobPostings",
+  "id": "app.etzhayyim.apps.shigotoba.listJobPostings",
   "defs": {
     "main": {
       "type": "query",

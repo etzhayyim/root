@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.crossBorderTransfer.flagScaleRisk",
+  "id": "app.etzhayyim.apps.crossBorderTransfer.flagScaleRisk",
   "defs": {
     "main": {
       "type": "procedure",

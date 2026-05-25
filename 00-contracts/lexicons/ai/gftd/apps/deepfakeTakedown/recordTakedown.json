@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.deepfakeTakedown.recordTakedown",
+  "id": "app.etzhayyim.apps.deepfakeTakedown.recordTakedown",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.narou.generateChapter",
+  "id": "app.etzhayyim.narou.generateChapter",
   "defs": {
     "main": {
       "type": "procedure",

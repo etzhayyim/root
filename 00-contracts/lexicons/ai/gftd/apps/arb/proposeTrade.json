@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.arb.proposeTrade",
+  "id": "app.etzhayyim.apps.arb.proposeTrade",
   "defs": {
     "main": {
       "type": "procedure",

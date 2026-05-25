@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.spsNotification.recordNotification",
+  "id": "app.etzhayyim.apps.spsNotification.recordNotification",
   "defs": {
     "main": {
       "type": "procedure",

@@ -45,7 +45,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Persist" name="register SBOM artifact + '
                  'components">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.sbom.registerArtifact"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.sbom.registerArtifact"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      <bpmn:incoming>Flow_Persist</bpmn:incoming>\n'
                  '      <bpmn:outgoing>Flow_VulnMatch</bpmn:outgoing>\n'
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_VulnMatch" name="run vuln-match (purl × CVE)">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.sbom.runVulnMatch"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.sbom.runVulnMatch"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      <bpmn:incoming>Flow_VulnMatch</bpmn:incoming>\n'
                  '      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>\n'
@@ -87,7 +87,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  2490,
                  '2026-05-06T11:01:00Z',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sbom-register-artifact-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '       SET bpmn_version = 2,\n'
@@ -95,7 +95,7 @@ UP = [{'sql': '\n'
          '     WHERE vertex_id = $2\n'
          '  ',
   'parameters': ['2026-05-06T11:01:00Z',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sbom-registerArtifact-v1']}]
 
 DOWN = []
 

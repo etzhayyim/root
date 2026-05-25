@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.houshi.listSpores",
+  "id": "app.etzhayyim.houshi.listSpores",
   "defs": {
     "main": {
       "type": "query",

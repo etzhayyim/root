@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.sendTyping",
+  "id": "app.etzhayyim.convo.sendTyping",
   "defs": {
     "main": {
       "type": "procedure",

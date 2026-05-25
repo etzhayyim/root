@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-banking.etzhayyim.com:core";
 const actorTag = "sys.bpmn.seed.open-banking";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-banking-create-account-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-banking-create-account-v1",
     bpmnProcessId: "open_banking_create_account",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-banking/createAccount.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-banking-transfer-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-banking-transfer-v1",
     bpmnProcessId: "open_banking_transfer",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-banking/transfer.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-banking-createAccount-v1",
-    nsid: "ai.gftd.apps.openBanking.createAccount", bpmnProcessId: "open_banking_create_account",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-banking-createAccount-v1",
+    nsid: "app.etzhayyim.apps.openBanking.createAccount", bpmnProcessId: "open_banking_create_account",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-banking-transfer-v1",
-    nsid: "ai.gftd.apps.openBanking.transfer", bpmnProcessId: "open_banking_transfer",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-banking-transfer-v1",
+    nsid: "app.etzhayyim.apps.openBanking.transfer", bpmnProcessId: "open_banking_transfer",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

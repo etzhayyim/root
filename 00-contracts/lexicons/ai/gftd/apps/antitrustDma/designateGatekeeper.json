@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.antitrustDma.designateGatekeeper",
+  "id": "app.etzhayyim.apps.antitrustDma.designateGatekeeper",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vaccineEquity.flagCoverageGap",
+  "id": "app.etzhayyim.apps.vaccineEquity.flagCoverageGap",
   "defs": {
     "main": {
       "type": "procedure",

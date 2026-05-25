@@ -13,13 +13,13 @@ import { encodeJson } from "../src/helpers.js";
 describe("F-Plan step 6: parseLexiconInput runtime validator (2026-04-13)", () => {
 	describe("LEXICON_INPUT_SCHEMA registry", () => {
 		it("contains host capability schemas (secrets, invoke, llm)", () => {
-			expect(LEXICON_INPUT_SCHEMA["ai.gftd.host.secrets.get"]).toBeDefined();
-			expect(LEXICON_INPUT_SCHEMA["ai.gftd.host.invoke.call"]).toBeDefined();
-			expect(LEXICON_INPUT_SCHEMA["ai.gftd.host.llm.converse"]).toBeDefined();
+			expect(LEXICON_INPUT_SCHEMA["app.etzhayyim.host.secrets.get"]).toBeDefined();
+			expect(LEXICON_INPUT_SCHEMA["app.etzhayyim.host.invoke.call"]).toBeDefined();
+			expect(LEXICON_INPUT_SCHEMA["app.etzhayyim.host.llm.converse"]).toBeDefined();
 		});
 
 		it("captures required keys from lexicon", () => {
-			const schema = LEXICON_INPUT_SCHEMA["ai.gftd.host.secrets.get"];
+			const schema = LEXICON_INPUT_SCHEMA["app.etzhayyim.host.secrets.get"];
 			expect(schema.required).toContain("key");
 			expect(schema.properties.key).toBe("string");
 		});
@@ -61,13 +61,13 @@ describe("F-Plan step 6: parseLexiconInput runtime validator (2026-04-13)", () =
 	describe("parseLexiconInput end-to-end", () => {
 		it("parses and validates a valid secrets.get body", () => {
 			const body = encodeJson({ key: "API_KEY" });
-			const input = parseLexiconInput("ai.gftd.host.secrets.get", body);
+			const input = parseLexiconInput("app.etzhayyim.host.secrets.get", body);
 			expect(input).toEqual({ key: "API_KEY" });
 		});
 
 		it("throws LexiconValidationError on missing required field", () => {
 			const body = encodeJson({});
-			expect(() => parseLexiconInput("ai.gftd.host.secrets.get", body)).toThrow(
+			expect(() => parseLexiconInput("app.etzhayyim.host.secrets.get", body)).toThrow(
 				LexiconValidationError,
 			);
 		});
@@ -75,12 +75,12 @@ describe("F-Plan step 6: parseLexiconInput runtime validator (2026-04-13)", () =
 		it("LexiconValidationError carries nsid + issues", () => {
 			const body = encodeJson({});
 			try {
-				parseLexiconInput("ai.gftd.host.secrets.get", body);
+				parseLexiconInput("app.etzhayyim.host.secrets.get", body);
 				expect.fail("expected throw");
 			} catch (err) {
 				expect(err).toBeInstanceOf(LexiconValidationError);
 				const e = err as LexiconValidationError;
-				expect(e.nsid).toBe("ai.gftd.host.secrets.get");
+				expect(e.nsid).toBe("app.etzhayyim.host.secrets.get");
 				expect(e.issues.length).toBeGreaterThan(0);
 				expect(e.issues[0]).toMatch(/key/);
 			}
@@ -88,7 +88,7 @@ describe("F-Plan step 6: parseLexiconInput runtime validator (2026-04-13)", () =
 
 		it("throws on wrong type", () => {
 			const body = encodeJson({ key: 42 }); // key should be string
-			expect(() => parseLexiconInput("ai.gftd.host.secrets.get", body)).toThrow(
+			expect(() => parseLexiconInput("app.etzhayyim.host.secrets.get", body)).toThrow(
 				/expected string, got integer/,
 			);
 		});
@@ -97,7 +97,7 @@ describe("F-Plan step 6: parseLexiconInput runtime validator (2026-04-13)", () =
 	describe("tryParseLexiconInput non-throwing variant", () => {
 		it("returns ok:true with typed input on success", () => {
 			const body = encodeJson({ key: "foo" });
-			const result = tryParseLexiconInput("ai.gftd.host.secrets.get", body);
+			const result = tryParseLexiconInput("app.etzhayyim.host.secrets.get", body);
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.input).toEqual({ key: "foo" });
@@ -106,7 +106,7 @@ describe("F-Plan step 6: parseLexiconInput runtime validator (2026-04-13)", () =
 
 		it("returns ok:false with issues on failure", () => {
 			const body = encodeJson({});
-			const result = tryParseLexiconInput("ai.gftd.host.secrets.get", body);
+			const result = tryParseLexiconInput("app.etzhayyim.host.secrets.get", body);
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
 				expect(result.issues.length).toBeGreaterThan(0);

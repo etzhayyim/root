@@ -23,7 +23,7 @@
 	}
 
 	let {
-		appName = 'GFTD',
+		appName = 'etzhayyim',
 		accent = '#2563eb',
 		minDuration = 1200,
 		ready = false,

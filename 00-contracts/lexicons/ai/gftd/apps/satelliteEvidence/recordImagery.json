@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.satelliteEvidence.recordImagery",
+  "id": "app.etzhayyim.apps.satelliteEvidence.recordImagery",
   "defs": {
     "main": {
       "type": "procedure",

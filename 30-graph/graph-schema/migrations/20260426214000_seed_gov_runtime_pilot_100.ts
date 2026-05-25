@@ -14,7 +14,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       bpmn_task
     )
     SELECT
-      CONCAT('at://', r.actor_did, '/ai.gftd.actor.govOrgRuntime/', r.gov_org_key),
+      CONCAT('at://', r.actor_did, '/app.etzhayyim.actor.govOrgRuntime/', r.gov_org_key),
       'did:web:gov.etzhayyim.com',
       r.actor_did,
       r.gov_org_key,
@@ -22,7 +22,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       CONCAT('Gov org coverage runtime ', r.gov_org_key),
       'pilot',
       'active',
-      'ai.gftd.actor.govOrgRuntime',
+      'app.etzhayyim.actor.govOrgRuntime',
       r.gov_org_key,
       'did:web:gov.etzhayyim.com',
       ${createdAt},
@@ -94,9 +94,9 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       actor_id, write_table_allowlist
     )
       SELECT
-      CONCAT('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gov-org-', r.gov_org_key, '-coverage-refresh-v1'),
+      CONCAT('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/gov-org-', r.gov_org_key, '-coverage-refresh-v1'),
       r.actor_did,
-      CONCAT('ai.gftd.apps.govOrgRuntime.coverageRefresh', REPLACE(REPLACE(r.gov_org_key, ':', '-'), '.', '-')),
+      CONCAT('app.etzhayyim.apps.govOrgRuntime.coverageRefresh', REPLACE(REPLACE(r.gov_org_key, ':', '-'), '.', '-')),
       r.bpmn_process_id,
       1,
       180000,
@@ -110,7 +110,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     FROM (SELECT * FROM mv_gov_org_runtime ORDER BY gov_org_key LIMIT 100) r
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding b
-      WHERE b.vertex_id = CONCAT('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gov-org-', r.gov_org_key, '-coverage-refresh-v1')
+      WHERE b.vertex_id = CONCAT('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/gov-org-', r.gov_org_key, '-coverage-refresh-v1')
     )
   `.execute(db);
 
@@ -122,7 +122,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       actor_id, created_at
     )
     SELECT
-      CONCAT('at://', t.actor_did, '/ai.gftd.mcp.toolDef/', REPLACE(t.nsid, '.', '-')),
+      CONCAT('at://', t.actor_did, '/app.etzhayyim.mcp.toolDef/', REPLACE(t.nsid, '.', '-')),
       t.nsid,
       t.actor_did,
       'gov.etzhayyim.com',
@@ -150,7 +150,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         SELECT
           b.gov_org_key,
           b.actor_did,
-          'ai.gftd.apps.gov.coverage.get' AS nsid,
+          'app.etzhayyim.apps.gov.coverage.get' AS nsid,
           'query' AS lexicon_type,
           'Read gov organization coverage state.' AS description,
           '{"type":"object","properties":{"govOrgKey":{"type":"string"}}}' AS input_schema,
@@ -160,7 +160,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         SELECT
           b.gov_org_key,
           b.actor_did,
-          'ai.gftd.apps.ingest.status' AS nsid,
+          'app.etzhayyim.apps.ingest.status' AS nsid,
           'query' AS lexicon_type,
           'Read ingest status for a gov organization runtime.' AS description,
           '{"type":"object","properties":{"govOrgKey":{"type":"string"}}}' AS input_schema,
@@ -170,7 +170,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         SELECT
           b.gov_org_key,
           b.actor_did,
-          'ai.gftd.apps.coverage.refresh' AS nsid,
+          'app.etzhayyim.apps.coverage.refresh' AS nsid,
           'procedure' AS lexicon_type,
           'Request a gov organization coverage refresh.' AS description,
           '{"type":"object","properties":{"govOrgKey":{"type":"string"},"force":{"type":"boolean"}}}' AS input_schema,
@@ -181,7 +181,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     ) t
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_mcp_tool_def m
-      WHERE m.vertex_id = CONCAT('at://', t.actor_did, '/ai.gftd.mcp.toolDef/', REPLACE(t.nsid, '.', '-'))
+      WHERE m.vertex_id = CONCAT('at://', t.actor_did, '/app.etzhayyim.mcp.toolDef/', REPLACE(t.nsid, '.', '-'))
     )
   `.execute(db);
 }

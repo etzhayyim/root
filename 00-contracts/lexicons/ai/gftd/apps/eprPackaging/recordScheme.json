@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.eprPackaging.recordScheme",
+  "id": "app.etzhayyim.apps.eprPackaging.recordScheme",
   "defs": {
     "main": {
       "type": "procedure",

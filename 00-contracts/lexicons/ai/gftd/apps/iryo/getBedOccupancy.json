@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iryo.getBedOccupancy",
+  "id": "app.etzhayyim.apps.iryo.getBedOccupancy",
   "defs": {
     "main": {
       "type": "query",

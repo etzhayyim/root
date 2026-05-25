@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aviationSafety.reportAirprox",
+  "id": "app.etzhayyim.apps.aviationSafety.reportAirprox",
   "defs": {
     "main": {
       "type": "procedure",

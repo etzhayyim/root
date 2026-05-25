@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cyclonePrepo.logPrePositioning",
+  "id": "app.etzhayyim.apps.cyclonePrepo.logPrePositioning",
   "defs": {
     "main": {
       "type": "procedure",

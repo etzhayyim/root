@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.congressionalStock.flagLateFiling",
+  "id": "app.etzhayyim.apps.congressionalStock.flagLateFiling",
   "defs": {
     "main": {
       "type": "procedure",

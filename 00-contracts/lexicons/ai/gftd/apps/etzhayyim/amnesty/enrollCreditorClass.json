@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.amnesty.enrollCreditorClass",
+  "id": "app.etzhayyim.apps.etzhayyim.amnesty.enrollCreditorClass",
   "defs": {
     "main": {
       "type": "procedure",

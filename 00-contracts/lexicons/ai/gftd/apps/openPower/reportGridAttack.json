@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openPower.reportGridAttack",
+  "id": "app.etzhayyim.apps.openPower.reportGridAttack",
   "defs": {
     "main": {
       "type": "procedure",

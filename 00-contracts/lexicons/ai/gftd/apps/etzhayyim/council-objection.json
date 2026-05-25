@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.council-objection",
+  "id": "app.etzhayyim.apps.etzhayyim.council-objection",
   "defs": {
     "main": {
       "type": "record",
@@ -21,7 +21,7 @@
           "applicationUri": {
             "type": "string",
             "format": "at-uri",
-            "description": "AT URI of the ai.gftd.apps.etzhayyim.council-candidate-application being objected to."
+            "description": "AT URI of the app.etzhayyim.apps.etzhayyim.council-candidate-application being objected to."
           },
           "objectorDid": {
             "type": "string",

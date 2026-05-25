@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aiSupplyChain.flagSupplyRisk",
+  "id": "app.etzhayyim.apps.aiSupplyChain.flagSupplyRisk",
   "defs": {
     "main": {
       "type": "procedure",

@@ -16,7 +16,7 @@ interface ExportedHandler<E> {
 }
 
 const ACTOR_DID = "did:web:malak.etzhayyim.com";
-const NSID_PREFIX = "ai.gftd.apps.malak.";
+const NSID_PREFIX = "app.etzhayyim.apps.malak.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -64,13 +64,13 @@ interface GateFailure {
 
 function preflightGate(nsid: string, body: Record<string, unknown>): GateFailure | null {
   switch (nsid) {
-    case "ai.gftd.apps.malak.queryPerson":
+    case "app.etzhayyim.apps.malak.queryPerson":
       return gateWarrantRequired(body);
-    case "ai.gftd.apps.malak.exportSurveillanceEvidence":
+    case "app.etzhayyim.apps.malak.exportSurveillanceEvidence":
       return gateTwoStageApproval(body);
-    case "ai.gftd.apps.malak.registerAgencyProspect":
+    case "app.etzhayyim.apps.malak.registerAgencyProspect":
       return gateOptInSource(body);
-    case "ai.gftd.apps.malak.sendAgencyOutreach":
+    case "app.etzhayyim.apps.malak.sendAgencyOutreach":
       return gateBusinessHour(body);
     default:
       return null;

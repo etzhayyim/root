@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isekai.getLegendaries",
+  "id": "app.etzhayyim.apps.isekai.getLegendaries",
   "defs": {
     "main": {
       "type": "query",

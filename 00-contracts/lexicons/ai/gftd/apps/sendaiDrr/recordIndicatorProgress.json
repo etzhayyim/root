@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sendaiDrr.recordIndicatorProgress",
+  "id": "app.etzhayyim.apps.sendaiDrr.recordIndicatorProgress",
   "defs": {
     "main": {
       "type": "procedure",

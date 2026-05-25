@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.agriFoodSecurity.flagPriceCrisis",
+  "id": "app.etzhayyim.apps.agriFoodSecurity.flagPriceCrisis",
   "defs": {
     "main": {
       "type": "procedure",

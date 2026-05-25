@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bluesky.refreshStalest",
+  "id": "app.etzhayyim.apps.bluesky.refreshStalest",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.xlsx.create",
+  "id": "app.etzhayyim.apps.xlsx.create",
   "defs": {
     "main": {
       "type": "procedure",

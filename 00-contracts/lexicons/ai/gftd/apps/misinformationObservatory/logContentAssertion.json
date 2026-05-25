@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.misinformationObservatory.logContentAssertion",
+  "id": "app.etzhayyim.apps.misinformationObservatory.logContentAssertion",
   "defs": {
     "main": {
       "type": "procedure",

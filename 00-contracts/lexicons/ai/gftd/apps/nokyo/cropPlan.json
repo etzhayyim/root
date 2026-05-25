@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nokyo.cropPlan",
+  "id": "app.etzhayyim.apps.nokyo.cropPlan",
   "description": "作付計画。JA 営農指導員のレビュー対象。submit 時に subscribeRepos → advisoryNote 自動生成 (農薬取締法 / 輪作 / 気候適性 AI 審査)。",
   "defs": {
     "main": {

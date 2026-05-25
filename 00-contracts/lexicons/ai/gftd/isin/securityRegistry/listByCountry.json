@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.isin.securityRegistry.listByCountry",
+  "id": "app.etzhayyim.isin.securityRegistry.listByCountry",
   "defs": {
     "main": {
       "type": "query",

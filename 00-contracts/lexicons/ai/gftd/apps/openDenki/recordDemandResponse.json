@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openDenki.recordDemandResponse",
+  "id": "app.etzhayyim.apps.openDenki.recordDemandResponse",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fpicConsent.flagFpicViolation",
+  "id": "app.etzhayyim.apps.fpicConsent.flagFpicViolation",
   "defs": {
     "main": {
       "type": "procedure",

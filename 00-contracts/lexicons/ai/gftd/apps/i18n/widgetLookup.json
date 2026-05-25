@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.i18n.widgetLookup",
+  "id": "app.etzhayyim.apps.i18n.widgetLookup",
   "defs": {
     "main": {
       "type": "procedure",

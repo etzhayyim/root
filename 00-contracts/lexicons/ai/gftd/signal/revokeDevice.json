@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.signal.revokeDevice",
+  "id": "app.etzhayyim.signal.revokeDevice",
   "defs": {
     "main": {
       "type": "procedure",

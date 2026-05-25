@@ -81,7 +81,7 @@ wasm/
 ### Auth Context
 
 - `authContext(r)` extracts `claims{OrgID, UserID}` from HTTP headers
-- Reads `X-GFTD-ORG-ID`, `X-GFTD-USER-ID` headers (set by frontend)
+- Reads `X-etzhayyim-ORG-ID`, `X-etzhayyim-USER-ID` headers (set by frontend)
 - Falls back to JWT `sub`/`org_id` claims from `Authorization: Bearer` header
 - Backward compatible: returns `UserID: "default"` when no auth headers present
 
@@ -143,7 +143,7 @@ gftd build
 
 ## CORS
 
-Required headers: `Content-Type,Authorization,X-GFTD-ORG-ID,X-GFTD-USER-ID`
+Required headers: `Content-Type,Authorization,X-etzhayyim-ORG-ID,X-etzhayyim-USER-ID`
 
 Allowed origins: `*.etzhayyim.com`, `https://etzhayyim.com`, `http://localhost*`
 

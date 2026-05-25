@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vin.getVehicleHistory",
+  "id": "app.etzhayyim.apps.vin.getVehicleHistory",
   "defs": {
     "main": {
       "type": "query",

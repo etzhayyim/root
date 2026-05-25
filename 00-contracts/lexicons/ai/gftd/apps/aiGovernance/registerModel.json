@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aiGovernance.registerModel",
+  "id": "app.etzhayyim.apps.aiGovernance.registerModel",
   "defs": {
     "main": {
       "type": "procedure",

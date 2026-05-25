@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.murakumo.planPipeline",
+  "id": "app.etzhayyim.murakumo.planPipeline",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kafun.agent.tick",
+  "id": "app.etzhayyim.apps.kafun.agent.tick",
   "defs": {
     "main": {
       "type": "procedure",

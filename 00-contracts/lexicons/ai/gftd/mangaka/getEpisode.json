@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.getEpisode",
+  "id": "app.etzhayyim.mangaka.getEpisode",
   "defs": {
     "main": {
       "type": "query",
@@ -12,7 +12,7 @@
           "episodeUri": {
             "type": "string",
             "format": "at-uri",
-            "description": "AT URI of the ai.gftd.apps.mangaka.work record."
+            "description": "AT URI of the app.etzhayyim.apps.mangaka.work record."
           }
         }
       },

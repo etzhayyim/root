@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.antarcticTreaty.recordActivity",
+  "id": "app.etzhayyim.apps.antarcticTreaty.recordActivity",
   "defs": {
     "main": {
       "type": "procedure",

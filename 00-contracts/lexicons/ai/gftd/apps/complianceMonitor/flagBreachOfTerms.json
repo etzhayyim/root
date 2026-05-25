@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.complianceMonitor.flagBreachOfTerms",
+  "id": "app.etzhayyim.apps.complianceMonitor.flagBreachOfTerms",
   "defs": {
     "main": {
       "type": "procedure",

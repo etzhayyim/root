@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airCargo.reportCargoSecurity",
+  "id": "app.etzhayyim.apps.airCargo.reportCargoSecurity",
   "defs": {
     "main": {
       "type": "procedure",

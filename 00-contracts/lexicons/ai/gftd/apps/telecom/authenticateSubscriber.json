@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.authenticateSubscriber",
+  "id": "app.etzhayyim.apps.telecom.authenticateSubscriber",
   "defs": {
     "main": {
       "type": "procedure",

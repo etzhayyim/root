@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pressFinanceCoercion.recordSlappCase",
+  "id": "app.etzhayyim.apps.pressFinanceCoercion.recordSlappCase",
   "defs": {
     "main": {
       "type": "procedure",

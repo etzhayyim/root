@@ -15,7 +15,7 @@ import {
   createUnispscActor,
   createIsicActor,
   createLangserverActor,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 // Explicit endpoint (dev / external):
 const unispsc = createUnispscActor({ endpoint: "https://lg-open-unispsc.etzhayyim.com" });
@@ -42,15 +42,15 @@ const page = await unispsc.listAgents({ prefix: "101", limit: 50 });
 
 | Method                                  | NSID                                           |
 |-----------------------------------------|------------------------------------------------|
-| `unispsc.classify`                      | `ai.gftd.apps.unispsc.classify`                |
-| `unispsc.invokeAgent`                   | `ai.gftd.apps.unispsc.invokeAgent`             |
-| `unispsc.listAgents`                    | `ai.gftd.apps.unispsc.listAgents`              |
-| `unispsc.health`                        | `ai.gftd.apps.unispsc.health`                  |
-| `isic.classify`                         | `ai.gftd.apps.isic.classify`                   |
-| `isic.hierarchicalClassify`             | `ai.gftd.apps.isic.hierarchicalClassify`       |
-| `isic.invokeAgent`                      | `ai.gftd.apps.isic.invokeAgent`                |
-| `isic.listAgents`                       | `ai.gftd.apps.isic.listAgents`                 |
-| `isic.health`                           | `ai.gftd.apps.isic.health`                     |
+| `unispsc.classify`                      | `app.etzhayyim.apps.unispsc.classify`                |
+| `unispsc.invokeAgent`                   | `app.etzhayyim.apps.unispsc.invokeAgent`             |
+| `unispsc.listAgents`                    | `app.etzhayyim.apps.unispsc.listAgents`              |
+| `unispsc.health`                        | `app.etzhayyim.apps.unispsc.health`                  |
+| `isic.classify`                         | `app.etzhayyim.apps.isic.classify`                   |
+| `isic.hierarchicalClassify`             | `app.etzhayyim.apps.isic.hierarchicalClassify`       |
+| `isic.invokeAgent`                      | `app.etzhayyim.apps.isic.invokeAgent`                |
+| `isic.listAgents`                       | `app.etzhayyim.apps.isic.listAgents`                 |
+| `isic.health`                           | `app.etzhayyim.apps.isic.health`                     |
 
 ## Default Service DNS
 

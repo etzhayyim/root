@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.permafrostThaw.flagInfrastructureRisk",
+  "id": "app.etzhayyim.apps.permafrostThaw.flagInfrastructureRisk",
   "defs": {
     "main": {
       "type": "procedure",

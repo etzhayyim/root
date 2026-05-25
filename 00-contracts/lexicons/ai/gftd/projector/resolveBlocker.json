@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projector.resolveBlocker",
+  "id": "app.etzhayyim.projector.resolveBlocker",
   "defs": {
     "main": {
       "type": "procedure",

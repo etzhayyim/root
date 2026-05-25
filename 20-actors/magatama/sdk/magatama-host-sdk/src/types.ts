@@ -2,7 +2,7 @@
 // Single Source of Truth — replaces duplicated types across Go/Rust/TS/Python guest SDKs.
 // These types back the TS Native runtime and the legacy host-import compatibility surface.
 
-// ── Write buffer / request cache (F-Plan task 4, inlined from @gftd/magatama-host-contract) ──
+// ── Write buffer / request cache (F-Plan task 4, inlined from @etzhayyim/magatama-host-contract) ──
 // These were previously in 00-contracts/magatama-host-contract/ as a 12-line stub package.
 // Inlined 2026-04-13 to eliminate the workspace dependency. The original package is archived.
 

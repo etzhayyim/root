@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iataCodeshare.approveCargoCodeshare",
+  "id": "app.etzhayyim.apps.iataCodeshare.approveCargoCodeshare",
   "defs": {
     "main": {
       "type": "procedure",

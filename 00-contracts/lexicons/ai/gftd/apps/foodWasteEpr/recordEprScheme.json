@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.foodWasteEpr.recordEprScheme",
+  "id": "app.etzhayyim.apps.foodWasteEpr.recordEprScheme",
   "defs": {
     "main": {
       "type": "procedure",

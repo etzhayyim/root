@@ -2,7 +2,7 @@
 
 ## Scope
 
-Target process: `ai.gftd.apps.yoro.actorQualityEnrich`
+Target process: `app.etzhayyim.apps.yoro.actorQualityEnrich`
 
 Observed window: last 12 hours from `2026-04-29T07:11:38Z`.
 
@@ -61,7 +61,7 @@ Implemented next step: lightweight event emission was added to the pod worker pa
 
 Cloudflare Worker remains responsible for ingress/process-start visibility:
 
-- PDS XRPC route accepts `ai.gftd.apps.yoro.actorQualityEnrich`
+- PDS XRPC route accepts `app.etzhayyim.apps.yoro.actorQualityEnrich`
 - PDS tail logs show request outcome and wall time
 
 The pod worker is responsible for task-level process mining:

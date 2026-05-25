@@ -15,7 +15,7 @@ import {
   num,
   nsid,
   parseLexiconInput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 // ── Constants ──────────────────────────────────────────────────────────
 
@@ -93,7 +93,7 @@ function nowISO(): string {
 }
 
 // Graph reads/writes (Kysely + Hyperdrive, ADR-0036).
-// TODO(society6): vertex_society6_* tables not yet in @gftd/graph-schema — score axes /
+// TODO(society6): vertex_society6_* tables not yet in @etzhayyim/graph-schema — score axes /
 // rank queries return neutral defaults until schema lands. Writes use Hyperdrive direct (ADR-0036).
 
 const ACTOR_NANOID = "s6c9m2q1";
@@ -108,7 +108,7 @@ async function write(_sdk: HostSDK, collection: string, rec: Record<string, unkn
   const tableName = `vertex_society6_${kind}`;
   const rkey = String(rec.id ?? genID("r"));
   const did = actorDID || ACTOR_HOST;
-  const vertexId = `at://${did}/ai.gftd.apps.society6.${collection}/${rkey}`;
+  const vertexId = `at://${did}/app.etzhayyim.apps.society6.${collection}/${rkey}`;
   await createKyselyDb().insertInto(tableName as any).values({
     vertex_id: vertexId,
     sensitivity_ord: 2,
@@ -140,7 +140,7 @@ function rankDisplayName(rank: string): string {
 // ── Score Calculation ──────────────────────────────────────────────────
 
 // TODO(society6): vertex_s6_event / vertex_dojo_drill / vertex_s6_agent / vertex_s6_service /
-// vertex_s6_score_history / vertex_dojo_aar not in @gftd/graph-schema — all axes return 0
+// vertex_s6_score_history / vertex_dojo_aar not in @etzhayyim/graph-schema — all axes return 0
 async function calculateEngagement(sdk: HostSDK, constituentDid: string): Promise<number> {
   void sdk; void constituentDid;
   return 0;
@@ -207,7 +207,7 @@ async function computeFullScore(sdk: HostSDK, constituentDid: string): Promise<S
 // ── Commands ───────────────────────────────────────────────────────────
 
 async function cmdCalculateScore(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.society6.calculateScore", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.society6.calculateScore", payload);
   const did = str(req.constituentDid);
   if (!did) return { error: "constituentDid is required" };
 
@@ -260,11 +260,11 @@ async function cmdCalculateScore(sdk: HostSDK, payload: Uint8Array): Promise<unk
 }
 
 async function cmdPromoteRank(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.society6.promoteRank", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.society6.promoteRank", payload);
   const did = str(req.constituentDid);
   if (!did) return { error: "constituentDid is required" };
 
-  // TODO(society6): vertex_s6_rank not in @gftd/graph-schema — assume new constituent at kyu6
+  // TODO(society6): vertex_s6_rank not in @etzhayyim/graph-schema — assume new constituent at kyu6
   const currentRows: Array<Record<string, unknown>> = [];
   const currentRank = str(currentRows[0]?.rank) || "kyu6";
   const currentScore = num(currentRows[0]?.totalScore);
@@ -323,7 +323,7 @@ async function cmdPromoteRank(sdk: HostSDK, payload: Uint8Array): Promise<unknow
 }
 
 async function cmdRegisterConstituent(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.society6.registerConstituent", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.society6.registerConstituent", payload);
   const did = str(req.did);
   if (!did) return { error: "did is required" };
 
@@ -366,11 +366,11 @@ async function cmdRegisterConstituent(sdk: HostSDK, payload: Uint8Array): Promis
 // ── Queries ────────────────────────────────────────────────────────────
 
 async function qryGetScore(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.society6.getScore", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.society6.getScore", payload);
   const did = str(req.constituentDid);
   if (!did) return { error: "constituentDid is required" };
 
-  // TODO(society6): vertex_s6_score not in @gftd/graph-schema — lookup unavailable
+  // TODO(society6): vertex_s6_score not in @etzhayyim/graph-schema — lookup unavailable
   const rows: Array<Record<string, unknown>> = [];
   if (rows.length === 0) return { error: "no score found", 'constituentDid': did };
 
@@ -392,11 +392,11 @@ async function qryGetScore(sdk: HostSDK, payload: Uint8Array): Promise<unknown> 
 }
 
 async function qryListScores(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.society6.listScores", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.society6.listScores", payload);
   const limit = Math.min(Math.max(num(req.limit) || 50, 1), 100);
   const offset = num(req.offset) || 0;
 
-  // TODO(society6): vertex_s6_rank not in @gftd/graph-schema — list unavailable
+  // TODO(society6): vertex_s6_rank not in @etzhayyim/graph-schema — list unavailable
   void limit; void offset; void req;
   const rows: Array<Record<string, unknown>> = [];
   return {
@@ -415,11 +415,11 @@ async function qryListScores(sdk: HostSDK, payload: Uint8Array): Promise<unknown
 }
 
 async function qryGetRank(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.society6.getRank", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.society6.getRank", payload);
   const did = str(req.constituentDid);
   if (!did) return { error: "constituentDid is required" };
 
-  // TODO(society6): vertex_s6_rank not in @gftd/graph-schema — lookup unavailable
+  // TODO(society6): vertex_s6_rank not in @etzhayyim/graph-schema — lookup unavailable
   const rows: Array<Record<string, unknown>> = [];
   if (rows.length === 0) return { error: "no rank found", 'constituentDid': did };
 
@@ -437,10 +437,10 @@ async function qryGetRank(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
 }
 
 async function qryGetLeaderboard(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.society6.getLeaderboard", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.society6.getLeaderboard", payload);
   const limit = Math.min(Math.max(num(req.limit) || 20, 1), 100);
 
-  // TODO(society6): vertex_s6_rank / vertex_s6_constituent not in @gftd/graph-schema — leaderboard unavailable
+  // TODO(society6): vertex_s6_rank / vertex_s6_constituent not in @etzhayyim/graph-schema — leaderboard unavailable
   void limit; void req;
   const rows: Array<Record<string, unknown>> = [];
   return {
@@ -458,18 +458,18 @@ async function qryGetLeaderboard(sdk: HostSDK, payload: Uint8Array): Promise<unk
 }
 
 async function qryListAchievements(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.society6.listAchievements", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.society6.listAchievements", payload);
   const limit = Math.min(Math.max(num(req.limit) || 50, 1), 100);
   const offset = num(req.offset) || 0;
 
-  // TODO(society6): vertex_s6_achievement not in @gftd/graph-schema — achievements list unavailable
+  // TODO(society6): vertex_s6_achievement not in @etzhayyim/graph-schema — achievements list unavailable
   void limit; void offset; void req;
   const rows: Array<Record<string, unknown>> = [];
   return { achievements: rows, total: rows.length, offset, limit };
 }
 
 function qryGetScoreBreakdown(sdk: HostSDK, payload: Uint8Array): unknown {
-  const req = parseLexiconInput("ai.gftd.apps.society6.getScoreBreakdown", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.society6.getScoreBreakdown", payload);
   const did = str(req.constituentDid);
   if (!did) return { error: "constituentDid is required" };
 
@@ -501,7 +501,7 @@ function qryListCofog(_sdk: HostSDK, _payload: Uint8Array): unknown {
 }
 
 function qryLookupCofog(_sdk: HostSDK, payload: Uint8Array): unknown {
-  const req = parseLexiconInput("ai.gftd.apps.society6.lookupCofog", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.society6.lookupCofog", payload);
 
   if (req.code) {
     const found = COFOG_DIVISIONS.find(d => d.code === req.code);
@@ -540,12 +540,12 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
     const collection = str(commit.collection);
 
     // Process inbound score assessment records
-    if (collection === "ai.gftd.apps.society6.assessment" || collection.includes("society6.score")) {
+    if (collection === "app.etzhayyim.apps.society6.assessment" || collection.includes("society6.score")) {
       return await processAssessment(sdk, commit);
     }
 
     // Process dojo drill completions (cross-app) for competence axis update
-    if (collection === "ai.gftd.apps.dojo.drill" || collection.includes("dojo.drill")) {
+    if (collection === "app.etzhayyim.apps.dojo.drill" || collection.includes("dojo.drill")) {
       return await processDojoDrillCompletion(sdk, commit);
     }
 
@@ -572,7 +572,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
 }
 
 async function processAssessment(sdk: HostSDK, commit: ComAtprotoSyncSubscribeReposCommit): Promise<{ ok: boolean; detail: string }> {
-  // TODO(society6): vertex_s6_assessment not in @gftd/graph-schema — fall back to repo DID only
+  // TODO(society6): vertex_s6_assessment not in @etzhayyim/graph-schema — fall back to repo DID only
   const rows: Array<Record<string, unknown>> = [];
   const did = str(rows[0]?.constituentDid) || str(commit.repo);
   if (!did) return { ok: true, detail: "no constituentDid" };
@@ -668,53 +668,53 @@ export default createWorkerExport((sdk) => {
   actorDID = sdk.pds.selfRepo ?? "";
   sdk.app
       // Commands
-      .command(nsid("ai.gftd.apps.society6.calculateScore"), (_, body) => cmdCalculateScore(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.calculateScore"), (_, body) => cmdCalculateScore(sdk, body),
         asAgentTool("Calculate Well-Becoming 5-axis score for a constituent"),
         withCapabilityTags("scoring", "wellBecoming"),
         withOCELEvent("governance.audit"),
       )
-      .command(nsid("ai.gftd.apps.society6.promoteRank"), (_, body) => cmdPromoteRank(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.promoteRank"), (_, body) => cmdPromoteRank(sdk, body),
         asAgentTool("Evaluate and promote constituent Kyu/Dan rank"),
         withCapabilityTags("scoring", "rank", "promotion"),
       )
-      .command(nsid("ai.gftd.apps.society6.registerConstituent"), (_, body) => cmdRegisterConstituent(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.registerConstituent"), (_, body) => cmdRegisterConstituent(sdk, body),
         asAgentTool("Register a new constituent with initial Kyu 6 rank"),
         withCapabilityTags("constituent", "registration"),
       )
       // Queries
-      .command(nsid("ai.gftd.apps.society6.getScore"), (_, body) => qryGetScore(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.getScore"), (_, body) => qryGetScore(sdk, body),
         asAgentTool("Get latest score for a constituent"),
         withCapabilityTags("scoring", "query"),
       )
-      .command(nsid("ai.gftd.apps.society6.listScores"), (_, body) => qryListScores(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.listScores"), (_, body) => qryListScores(sdk, body),
         asAgentTool("List scores with optional rank filter"),
         withCapabilityTags("scoring", "query"),
       )
-      .command(nsid("ai.gftd.apps.society6.getRank"), (_, body) => qryGetRank(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.getRank"), (_, body) => qryGetRank(sdk, body),
         asAgentTool("Get current rank for a constituent"),
         withCapabilityTags("rank", "query"),
       )
-      .command(nsid("ai.gftd.apps.society6.getLeaderboard"), (_, body) => qryGetLeaderboard(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.getLeaderboard"), (_, body) => qryGetLeaderboard(sdk, body),
         asAgentTool("Get leaderboard by score"),
         withCapabilityTags("rank", "leaderboard"),
       )
-      .command(nsid("ai.gftd.apps.society6.listAchievements"), (_, body) => qryListAchievements(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.listAchievements"), (_, body) => qryListAchievements(sdk, body),
         asAgentTool("List achievements for a constituent"),
         withCapabilityTags("achievement", "query"),
       )
-      .command(nsid("ai.gftd.apps.society6.getScoreBreakdown"), (_, body) => qryGetScoreBreakdown(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.getScoreBreakdown"), (_, body) => qryGetScoreBreakdown(sdk, body),
         asAgentTool("Get detailed 5-axis score breakdown with weights"),
         withCapabilityTags("scoring", "breakdown"),
       )
-      .command(nsid("ai.gftd.apps.society6.listCofog"), (_, body) => qryListCofog(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.listCofog"), (_, body) => qryListCofog(sdk, body),
         asAgentTool("List COFOG level-1 divisions"),
         withCapabilityTags("cofog", "classification"),
       )
-      .command(nsid("ai.gftd.apps.society6.lookupCofog"), (_, body) => qryLookupCofog(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.lookupCofog"), (_, body) => qryLookupCofog(sdk, body),
         asAgentTool("Lookup COFOG division by code or search query"),
         withCapabilityTags("cofog", "search"),
       )
-      .command(nsid("ai.gftd.apps.society6.rankLadder"), (_, body) => qryRankLadder(sdk, body),
+      .command(nsid("app.etzhayyim.apps.society6.rankLadder"), (_, body) => qryRankLadder(sdk, body),
         asAgentTool("Get the full Kyu/Dan rank ladder with thresholds"),
         withCapabilityTags("rank", "reference"),
       )

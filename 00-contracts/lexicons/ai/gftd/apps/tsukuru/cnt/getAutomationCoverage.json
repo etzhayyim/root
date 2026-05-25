@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.cnt.getAutomationCoverage",
+  "id": "app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage",
   "defs": {
     "main": {
       "type": "query",

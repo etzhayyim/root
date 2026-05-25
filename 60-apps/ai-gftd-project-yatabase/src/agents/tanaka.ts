@@ -34,7 +34,7 @@ interface TanakaEnv extends AgentEnv {
 async function loadDb(env: AgentEnv): Promise<{ db: AnyDb; sql: SqlTag } | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     const db = (sdk as { createKyselyDb: (h: unknown) => unknown }).createKyselyDb(
       env.HYPERDRIVE as never,
     ) as AnyDb;

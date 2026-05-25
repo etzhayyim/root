@@ -249,7 +249,7 @@ def test_unknown_assistant_404(client_no_lifespan):
 
 def test_unknown_xrpc_nsid_404(client_no_lifespan):
     r = client_no_lifespan.post(
-        "/xrpc/ai.gftd.animeka.doesNotExist",
+        "/xrpc/app.etzhayyim.animeka.doesNotExist",
         json={},
     )
     assert r.status_code == 404

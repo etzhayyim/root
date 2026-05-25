@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.intangibleSafeguard.flagSafeguardingRisk",
+  "id": "app.etzhayyim.apps.intangibleSafeguard.flagSafeguardingRisk",
   "defs": {
     "main": {
       "type": "procedure",

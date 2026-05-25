@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.cohort.fissionLineage",
+  "id": "app.etzhayyim.cohort.fissionLineage",
   "defs": {
     "main": {
       "type": "record",

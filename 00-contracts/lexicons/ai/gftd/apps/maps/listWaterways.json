@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listWaterways",
+  "id": "app.etzhayyim.apps.maps.listWaterways",
   "defs": {
     "main": {
       "type": "query",

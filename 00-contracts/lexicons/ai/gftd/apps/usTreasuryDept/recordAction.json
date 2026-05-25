@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.usTreasuryDept.recordAction",
+  "id": "app.etzhayyim.apps.usTreasuryDept.recordAction",
   "defs": {
     "main": {
       "type": "procedure",

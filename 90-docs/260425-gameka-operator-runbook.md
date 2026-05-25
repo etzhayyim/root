@@ -63,10 +63,10 @@ The shared platform must already be running:
 
 ## Operator hooks (the only 2 things you must wire by hand)
 
-### Hook 1 — `ai.gftd.authz.provisionSubDid`
+### Hook 1 — `app.etzhayyim.authz.provisionSubDid`
 
 `publishGame.bpmn` `Task_ProvisionSubDid` calls
-`ai.gftd.authz.provisionSubDid` with input
+`app.etzhayyim.authz.provisionSubDid` with input
 `{ parentDid, path, displayName, description }` and expects
 `output.did`. If your authn surface uses a different NSID, swap the
 literal in `publishGame.bpmn` — everything downstream consumes the
@@ -84,7 +84,7 @@ INSERT INTO vertex_gameka_studio_config (
   config_id, tick_live_mode, max_iterations, score_threshold,
   note, created_at
 ) VALUES (
-  'at://did:web:gameka.etzhayyim.com/ai.gftd.gameka.studioConfig/global',
+  'at://did:web:gameka.etzhayyim.com/app.etzhayyim.gameka.studioConfig/global',
   'did:web:gameka.etzhayyim.com', 'global', 'did:web:gameka.etzhayyim.com',
   'global', true, 3, 0.8,
   'P7 cutover', NOW()::text
@@ -137,8 +137,8 @@ docker push ghcr.io/etzhayyim/gameka-build-runner:latest
 kubectl apply -f 50-infra/vultr/gameka-build-runner/deployment.yaml
 
 # ── 5. rebuild + roll the zeebe-worker pod (registers 4 task types) ──
-# ai.gftd.agent.gameka.studio
-# ai.gftd.agent.gameka.visualCritic
+# app.etzhayyim.agent.gameka.studio
+# app.etzhayyim.agent.gameka.visualCritic
 # gameka.codegen.renderKamiApp
 # gameka.avatar.render
 cd $REPO/20-actors/magatama/py
@@ -158,7 +158,7 @@ cd $REPO/50-infra/cloudflare/workers/atproto
 pnpm test  # 16/16 routing-table tests must pass
 pnpm deploy
 
-# ── 8. wire your authn surface for ai.gftd.authz.provisionSubDid ──
+# ── 8. wire your authn surface for app.etzhayyim.authz.provisionSubDid ──
 # (see §Hook 1)
 
 # ── 9. final lint after live ──────────────────────────────────
@@ -170,8 +170,8 @@ node $REPO/70-tools/scripts/lint/lint-gameka-rollout.mjs
 ### Smoke 1 — the studio loop (P1 only, no build)
 
 ```bash
-curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.gameka.proposeGame \
-  -H "authorization: Bearer $GFTD_TOKEN" \
+curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.gameka.proposeGame \
+  -H "authorization: Bearer $etzhayyim_TOKEN" \
   -H "content-type: application/json" \
   -d '{"brief":"a cozy quarry-walk roguelike with one weather rune"}'
 ```
@@ -182,8 +182,8 @@ Expect within ~60s: 1 row in `vertex_gameka_spec` with `score >= 0`.
 
 ```bash
 SPEC=spec-merge-grid-2048   # or spec-merge-drop-suika / spec-merge-field-triple
-curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.gameka.generateGame \
-  -H "authorization: Bearer $GFTD_TOKEN" \
+curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.gameka.generateGame \
+  -H "authorization: Bearer $etzhayyim_TOKEN" \
   -d "{\"specId\":\"$SPEC\"}"
 ```
 
@@ -196,8 +196,8 @@ Expect within ~5 min (cold sccache):
 Manual fire of the autonomous tick (skips the 2h timer):
 
 ```bash
-curl -X POST https://atproto.etzhayyim.com/xrpc/ai.gftd.gameka.tickStudio \
-  -H "authorization: Bearer $GFTD_TOKEN" -d '{}'
+curl -X POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.gameka.tickStudio \
+  -H "authorization: Bearer $etzhayyim_TOKEN" -d '{}'
 ```
 
 In dry-run mode (default seed): 1 audit row `gameka.tick.dryRun`, no
@@ -241,7 +241,7 @@ curl -I 'https://game-play.etzhayyim.com/__playtest__.html'
 | `502 backend error` from playtest-shell | Hyperdrive / RisingWave unreachable | check RW health: `kubectl logs -n risingwave …`; B2 SlowDown 503 storm? see `50-infra/vultr/risingwave/deps.toml` |
 | `400 invalid slug` from /play/{slug} | slug doesn't match `[a-z0-9-]{1,32}` | publish path produced an unexpected slug — investigate codegen `_slug()` |
 | Visual critic publishes nothing for 3 iterations | spec is fundamentally broken | the chain ends with `outcome=exhausted`, lineage stays in graph for post-mortem |
-| `gameka.tick.live` fires but no spec row | LangGraph studio LLM error | check `vertex_repo_commit WHERE collection='ai.gftd.bpmn.audit'` for `briefError` events |
+| `gameka.tick.live` fires but no spec row | LangGraph studio LLM error | check `vertex_repo_commit WHERE collection='app.etzhayyim.bpmn.audit'` for `briefError` events |
 | `gameka.title.published` audit shows empty `launchPostUri` | sub-DID provisioned but firehose post failed | manual fix: re-emit the post with the title's `subDid`; provisioning has already succeeded |
 
 ## Per-phase ownership map

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.otakiage.requestReuse",
+  "id": "app.etzhayyim.otakiage.requestReuse",
   "defs": {
     "main": {
       "type": "procedure",

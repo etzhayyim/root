@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.classificationReview.flagOverClassification",
+  "id": "app.etzhayyim.apps.classificationReview.flagOverClassification",
   "defs": {
     "main": {
       "type": "procedure",

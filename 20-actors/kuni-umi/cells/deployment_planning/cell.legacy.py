@@ -3,7 +3,7 @@ DeploymentPlanningCell — Phase 2 of kuni-umi 4-phase deployment workflow.
 
 Per ADR-2605201400 §3 + ADR-2605202200 (cell.py contract).
 
-Trigger:    MST listener on `ai.gftd.apps.etzhayyim.kuniUmi.submitSiteSurvey`
+Trigger:    MST listener on `app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey`
             (accepted=true)
 Effect:     Derive target topology → invoke UNSPSC fleet for BoM →
             counterparty filter → proportionality DMN → optional governance
@@ -174,7 +174,7 @@ def thread_id_from_event(event_record: dict, nsid: str) -> str:
 def healthz_extra(deps: CellDeps) -> dict:
     return {
         "phase": "2-planning",
-        "trigger_nsid": "ai.gftd.apps.etzhayyim.kuniUmi.submitSiteSurvey",
+        "trigger_nsid": "app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey",
         "depends_on_fleet": ["pymagatama.unispsc.dispatch", "pymagatama.open_robo.fleet"],
         "depends_on_contracts": [
             "ChartersComplianceRegistry",

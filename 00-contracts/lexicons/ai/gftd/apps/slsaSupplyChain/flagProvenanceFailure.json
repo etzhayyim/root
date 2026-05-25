@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.slsaSupplyChain.flagProvenanceFailure",
+  "id": "app.etzhayyim.apps.slsaSupplyChain.flagProvenanceFailure",
   "defs": {
     "main": {
       "type": "procedure",

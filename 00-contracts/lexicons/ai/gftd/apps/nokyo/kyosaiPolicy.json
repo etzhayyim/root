@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nokyo.kyosaiPolicy",
+  "id": "app.etzhayyim.apps.nokyo.kyosaiPolicy",
   "description": "JA 共済契約 (建物更生 / 自動車 / 生命 / 年金)。JA共済連 (zenkyoren) が元受、単協が窓口。個人情報は field-level encrypt (Signal E2E)。",
   "defs": {
     "main": {

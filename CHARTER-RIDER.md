@@ -118,7 +118,7 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        Anthropic SDK direct from vendor-billed key, AWS Bedrock direct,
        Linode GPU, Google Colab paid compute, any commercial or rented GPU
        inference service accessed without the Murakumo dispatch layer. The
-       vendor (gftd.co.jp) operates a separate commercial GPU pool for
+       vendor (etzhayyim.com) operates a separate commercial GPU pool for
        paid SaaS workloads; religious-corp callers MUST NOT invoke vendor
        RunPod or equivalent external GPU paths (consent-capability enforcement
        operates at runtime to ensure adherence). This invariant cannot be
@@ -180,7 +180,7 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
 
    Disputes regarding whether an entity is a Non-Aligned Entity under Section 2
    shall be resolved by the etzhayyim Council (Lv6+ per ADR-2605172600) via an
-   on-chain attestation record (ai.gftd.apps.etzhayyim.charter-attestation).
+   on-chain attestation record (app.etzhayyim.apps.etzhayyim.charter-attestation).
    Such attestation creates a public determination but does not preclude
    parallel judicial proceedings under applicable law. Council attestations
    require quorum of three (3) Lv6+ members and are appealable by the

@@ -11,9 +11,9 @@ import { Kysely, sql } from 'kysely';
  *     → 5,484 rows: sections / divisions / groups (SITC Rev.4)
  *
  * RisingWave state after apply:
- *   - vertex_repo_record @ collection='ai.gftd.apps.hs.commodity2022'
+ *   - vertex_repo_record @ collection='app.etzhayyim.apps.hs.commodity2022'
  *       6,939 rows (97 chapters + 1,228 headings + 5,614 subheadings)
- *   - vertex_repo_record @ collection='ai.gftd.apps.sitc.commodity'
+ *   - vertex_repo_record @ collection='app.etzhayyim.apps.sitc.commodity'
  *       5,484 rows
  *   - view_hs2022_commodity  — typed projection of HS 2022
  *   - view_sitc_commodity    — typed projection of SITC Rev.4
@@ -39,7 +39,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity2022'
+    WHERE collection = 'app.etzhayyim.apps.hs.commodity2022'
   `.execute(db);
 
   // ── view_sitc_commodity ───────────────────────────────────────────────
@@ -55,7 +55,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.sitc.commodity'
+    WHERE collection = 'app.etzhayyim.apps.sitc.commodity'
   `.execute(db);
 
   // ── dim_world_domain ──────────────────────────────────────────────────

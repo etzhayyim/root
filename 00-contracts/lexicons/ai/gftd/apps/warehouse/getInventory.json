@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.warehouse.getInventory",
+  "id": "app.etzhayyim.apps.warehouse.getInventory",
   "defs": {
     "main": {
       "type": "query",

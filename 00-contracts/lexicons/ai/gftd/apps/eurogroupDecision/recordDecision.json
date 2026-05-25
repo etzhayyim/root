@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.eurogroupDecision.recordDecision",
+  "id": "app.etzhayyim.apps.eurogroupDecision.recordDecision",
   "defs": {
     "main": {
       "type": "procedure",

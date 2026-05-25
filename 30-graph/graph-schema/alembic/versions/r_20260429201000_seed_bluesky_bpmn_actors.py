@@ -26,16 +26,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/bluesky-ingest-actor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bluesky-ingest-actor-v1',
                  'did:web:bluesky.etzhayyim.com',
                  'bluesky_ingest_actor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  Bluesky ingestActor — manual one-shot ingest via Zeebe/Python.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.bluesky.ingestActor\n'
+                 '  NSID: app.etzhayyim.apps.bluesky.ingestActor\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/bluesky-ingest-actor-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bluesky-ingest-actor-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -47,7 +47,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="bluesky_ingest_actor" name="bluesky ingest actor" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.bluesky.ingestActor", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.bluesky.ingestActor", "version": 1, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
                  'did:web:bluesky.etzhayyim.com',
                  'sys.bpmn.seed.bluesky',
                  'did:web:bluesky.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/bluesky-ingest-actor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bluesky-ingest-actor-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -109,9 +109,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/bluesky-ingest-actor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bluesky-ingest-actor-v1',
                  'did:web:bluesky.etzhayyim.com',
-                 'ai.gftd.apps.bluesky.ingestActor',
+                 'app.etzhayyim.apps.bluesky.ingestActor',
                  'bluesky_ingest_actor',
                  120000,
                  'vertex_bluesky_profile,vertex_bluesky_post,vertex_bluesky_opt_out,vertex_bluesky_tombstone',
@@ -120,7 +120,7 @@ UP = [{'sql': '\n'
                  'did:web:bluesky.etzhayyim.com',
                  'sys.bpmn.seed.bluesky',
                  'did:web:bluesky.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/bluesky-ingest-actor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bluesky-ingest-actor-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -130,7 +130,7 @@ UP = [{'sql': '\n'
          '    ',
   'parameters': ['vertex_bluesky_profile,vertex_bluesky_post,vertex_bluesky_opt_out,vertex_bluesky_tombstone',
                  'bluesky_ingest_actor',
-                 'ai.gftd.apps.bluesky.ingestActor',
+                 'app.etzhayyim.apps.bluesky.ingestActor',
                  'vertex_bluesky_profile,vertex_bluesky_post,vertex_bluesky_opt_out,vertex_bluesky_tombstone']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
@@ -146,16 +146,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/bluesky-refresh-stalest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bluesky-refresh-stalest-v1',
                  'did:web:bluesky.etzhayyim.com',
                  'bluesky_refresh_stalest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  Bluesky refreshStalest — BPMN timer replacement for CF Worker cron.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.bluesky.refreshStalest\n'
+                 '  NSID: app.etzhayyim.apps.bluesky.refreshStalest\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/bluesky-refresh-stalest-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bluesky-refresh-stalest-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -168,7 +168,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="bluesky_refresh_stalest" name="bluesky refresh stalest '
                  'actors (R/PT30M)" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.bluesky.refreshStalest", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.bluesky.refreshStalest", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -209,7 +209,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.bluesky.refreshStalest&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.bluesky.refreshStalest&quot;" '
                  'target="activity"/>\n'
                  '          <zeebe:input source="=&quot;bluesky.etzhayyim.com&quot;" '
                  'target="actorDid"/>\n'
@@ -236,7 +236,7 @@ UP = [{'sql': '\n'
                  'did:web:bluesky.etzhayyim.com',
                  'sys.bpmn.seed.bluesky',
                  'did:web:bluesky.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/bluesky-refresh-stalest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bluesky-refresh-stalest-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -251,9 +251,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/bluesky-refresh-stalest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bluesky-refresh-stalest-v1',
                  'did:web:bluesky.etzhayyim.com',
-                 'ai.gftd.apps.bluesky.refreshStalest',
+                 'app.etzhayyim.apps.bluesky.refreshStalest',
                  'bluesky_refresh_stalest',
                  300000,
                  'vertex_bluesky_profile,vertex_bluesky_post,vertex_bluesky_opt_out,vertex_bluesky_tombstone',
@@ -262,7 +262,7 @@ UP = [{'sql': '\n'
                  'did:web:bluesky.etzhayyim.com',
                  'sys.bpmn.seed.bluesky',
                  'did:web:bluesky.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/bluesky-refresh-stalest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bluesky-refresh-stalest-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_lexicon_binding\n'
          '      SET write_table_allowlist = $1\n'
@@ -272,17 +272,17 @@ UP = [{'sql': '\n'
          '    ',
   'parameters': ['vertex_bluesky_profile,vertex_bluesky_post,vertex_bluesky_opt_out,vertex_bluesky_tombstone',
                  'bluesky_refresh_stalest',
-                 'ai.gftd.apps.bluesky.refreshStalest',
+                 'app.etzhayyim.apps.bluesky.refreshStalest',
                  'vertex_bluesky_profile,vertex_bluesky_post,vertex_bluesky_opt_out,vertex_bluesky_tombstone']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/bluesky-ingest-actor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bluesky-ingest-actor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/bluesky-ingest-actor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bluesky-ingest-actor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/bluesky-refresh-stalest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bluesky-refresh-stalest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/bluesky-refresh-stalest-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bluesky-refresh-stalest-v1']}]
 
 
 def upgrade() -> None:

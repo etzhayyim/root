@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airMro.recordGroundEquipment",
+  "id": "app.etzhayyim.apps.airMro.recordGroundEquipment",
   "defs": {
     "main": {
       "type": "procedure",

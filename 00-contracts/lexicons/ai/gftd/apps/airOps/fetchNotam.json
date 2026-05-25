@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airOps.fetchNotam",
+  "id": "app.etzhayyim.apps.airOps.fetchNotam",
   "defs": {
     "main": {
       "type": "procedure",

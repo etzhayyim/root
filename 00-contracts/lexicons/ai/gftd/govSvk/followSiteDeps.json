@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govSvk.followSiteDeps",
+  "id": "app.etzhayyim.govSvk.followSiteDeps",
   "defs": {
     "main": {
       "type": "procedure",

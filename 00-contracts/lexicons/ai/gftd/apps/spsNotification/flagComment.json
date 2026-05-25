@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.spsNotification.flagComment",
+  "id": "app.etzhayyim.apps.spsNotification.flagComment",
   "defs": {
     "main": {
       "type": "procedure",

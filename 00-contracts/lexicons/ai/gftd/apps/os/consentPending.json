@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.os.consentPending",
+  "id": "app.etzhayyim.apps.os.consentPending",
   "defs": {
     "main": {
       "type": "procedure",

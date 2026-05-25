@@ -34,7 +34,7 @@ class OpenIsicClassifyState(TypedDict, total=False):
 def _get_mcp_nsid_for_code(code: str) -> str | None:
     if not code or len(code) != 4:
         return None
-    return f"ai.gftd.apps.openIsic{code}.classify"
+    return f"app.etzhayyim.apps.openIsic{code}.classify"
 
 
 async def call_mcp_tool(state: OpenIsicClassifyState) -> dict:

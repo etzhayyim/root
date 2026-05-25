@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.llm.generateImage",
+  "id": "app.etzhayyim.apps.llm.generateImage",
   "defs": {
     "main": {
       "type": "procedure",

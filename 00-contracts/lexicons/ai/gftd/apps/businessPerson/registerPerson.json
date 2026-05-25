@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.businessPerson.registerPerson",
+  "id": "app.etzhayyim.apps.businessPerson.registerPerson",
   "defs": {
     "main": {
       "type": "procedure",

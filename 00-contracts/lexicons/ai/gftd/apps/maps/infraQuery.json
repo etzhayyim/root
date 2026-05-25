@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.infraQuery",
+  "id": "app.etzhayyim.apps.maps.infraQuery",
   "defs": {
     "main": {
       "type": "procedure",

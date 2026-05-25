@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openGs1.registerGtin",
+  "id": "app.etzhayyim.apps.openGs1.registerGtin",
   "defs": {
     "main": {
       "type": "procedure",

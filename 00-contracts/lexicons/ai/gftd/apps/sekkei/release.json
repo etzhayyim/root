@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sekkei.release",
+  "id": "app.etzhayyim.apps.sekkei.release",
   "description": "設計図の製造リリース記録。approved 図面を量産・試作に正式リリース。releaseType=production で tsukuru 製造オーダーへの図面参照を有効化。",
   "defs": {
     "main": {

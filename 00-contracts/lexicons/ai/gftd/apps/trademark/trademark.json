@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.trademark.trademark",
+  "id": "app.etzhayyim.apps.trademark.trademark",
   "defs": {
     "main": {
       "type": "record",

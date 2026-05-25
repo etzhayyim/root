@@ -15,7 +15,7 @@ interface ExportedHandler<E> {
   fetch(req: Request, env: E): Promise<Response>;
 }
 
-const NSID_PREFIX = "ai.gftd.apps.aidesk.";
+const NSID_PREFIX = "app.etzhayyim.apps.aidesk.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -31,7 +31,7 @@ export default {
         licenseTier: "apache2",
         businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/aidesk.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/aidesk",
-        tsukuruIntegration: "ai.gftd.apps.tsukuru.supplierExchange.normalizePackage",
+        tsukuruIntegration: "app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
       });
     }
 

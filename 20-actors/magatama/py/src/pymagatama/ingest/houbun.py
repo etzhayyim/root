@@ -385,7 +385,7 @@ def _parse_ecfr_xml(
 def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
     law_id = str(payload["law_id"])
     current = now_iso()
-    statute_vid = f"at://{USA_CFR_PATH_DID}/ai.gftd.apps.houbun.statute/{law_id}"
+    statute_vid = f"at://{USA_CFR_PATH_DID}/app.etzhayyim.apps.houbun.statute/{law_id}"
     articles: list[dict[str, Any]] = list(payload.get("articles") or [])
     source_url = str(payload.get("source_url") or f"https://www.ecfr.gov/current/{law_id}")
     article_inserted = 0
@@ -437,7 +437,7 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
             article_no = str(article.get("article_no") or f"art-{idx + 1}")
             h = _hash("usa", law_id, article_no, payload.get("effective_date") or "")
             article_did = f"{ACTOR_DID}:article:{h}"
-            article_vid = f"at://{article_did}/ai.gftd.apps.houbun.article/{h}"
+            article_vid = f"at://{article_did}/app.etzhayyim.apps.houbun.article/{h}"
             inserted = _insert_ignore(
                 cur,
                 "vertex_houbun_article",
@@ -498,7 +498,7 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
 def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
     law_id = str(payload["law_id"])
     current = now_iso()
-    statute_vid = f"at://{JPN_PATH_DID}/ai.gftd.apps.houbun.statute/{law_id}"
+    statute_vid = f"at://{JPN_PATH_DID}/app.etzhayyim.apps.houbun.statute/{law_id}"
     articles: list[dict[str, Any]] = list(payload.get("articles") or [])
     source_url = str(payload.get("source_url") or f"https://laws.e-gov.go.jp/law/{law_id}")
     article_inserted = 0
@@ -550,7 +550,7 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
             article_no = str(article.get("article_no") or f"art-{idx + 1}")
             h = _hash("jpn", law_id, article_no, payload.get("effective_date") or "")
             article_did = f"{ACTOR_DID}:article:{h}"
-            article_vid = f"at://{article_did}/ai.gftd.apps.houbun.article/{h}"
+            article_vid = f"at://{article_did}/app.etzhayyim.apps.houbun.article/{h}"
             inserted = _insert_ignore(
                 cur,
                 "vertex_houbun_article",
@@ -610,7 +610,7 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
 
 def _verify_visibility(law_id: str, statute_vertex_id: str, article_count: int) -> dict[str, int | bool]:
     if not statute_vertex_id and law_id:
-        statute_vertex_id = f"at://{JPN_PATH_DID}/ai.gftd.apps.houbun.statute/{law_id}"
+        statute_vertex_id = f"at://{JPN_PATH_DID}/app.etzhayyim.apps.houbun.statute/{law_id}"
     with sync_cursor() as cur:
         cur.execute("SELECT count(*) FROM vertex_houbun_statute WHERE vertex_id = ?", (statute_vertex_id,))
         statute_count = int((cur.fetchone() or [0])[0] or 0)
@@ -782,7 +782,7 @@ async def task_houbun_verify_visibility(
             path_did = CHN_NPC_PATH_DID
         else:
             path_did = JPN_PATH_DID
-        statuteVertexId = f"at://{path_did}/ai.gftd.apps.houbun.statute/{lawId}"
+        statuteVertexId = f"at://{path_did}/app.etzhayyim.apps.houbun.statute/{lawId}"
     visibility = await asyncio.to_thread(_verify_visibility, lawId, statuteVertexId, articleCount)
     verified = bool(visibility["verified"])
     return {
@@ -1058,7 +1058,7 @@ def _parse_npc_fdb_html(
 def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
     law_id = str(payload["law_id"])
     current = now_iso()
-    statute_vid = f"at://{CHN_NPC_PATH_DID}/ai.gftd.apps.houbun.statute/{law_id}"
+    statute_vid = f"at://{CHN_NPC_PATH_DID}/app.etzhayyim.apps.houbun.statute/{law_id}"
     articles: list[dict[str, Any]] = list(payload.get("articles") or [])
     source_url = str(payload.get("source_url") or f"{NPC_FDB_BASE}/flfg/detail?id={law_id}")
     article_inserted = 0
@@ -1110,7 +1110,7 @@ def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
             article_no = str(article.get("article_no") or f"art-{idx + 1}")
             h = _hash("chn", law_id, article_no, payload.get("effective_date") or "")
             article_did = f"{ACTOR_DID}:article:{h}"
-            article_vid = f"at://{article_did}/ai.gftd.apps.houbun.article/{h}"
+            article_vid = f"at://{article_did}/app.etzhayyim.apps.houbun.article/{h}"
             inserted = _insert_ignore(
                 cur,
                 "vertex_houbun_article",

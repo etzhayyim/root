@@ -34,9 +34,9 @@ describe("Seed open-lei BPMN actors migration", () => {
     expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-lei/collectGleifGlobalLei.bpmn"');
   });
   it("seeds lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openLei.registerLegalEntity"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openLei.recordOwnership"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openLei.collectGleifGlobal"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openLei.registerLegalEntity"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openLei.recordOwnership"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openLei.collectGleifGlobal"');
   });
   it("uses open-lei-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-lei"');

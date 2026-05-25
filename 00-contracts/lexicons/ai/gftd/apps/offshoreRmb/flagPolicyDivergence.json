@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.offshoreRmb.flagPolicyDivergence",
+  "id": "app.etzhayyim.apps.offshoreRmb.flagPolicyDivergence",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,4 +1,4 @@
-"""Generic-primitive worker for ai.gftd.tools.audit.* — RW-free port.
+"""Generic-primitive worker for app.etzhayyim.tools.audit.* — RW-free port.
 
 Tranche F gate (a) W9 — audit log pattern.
 

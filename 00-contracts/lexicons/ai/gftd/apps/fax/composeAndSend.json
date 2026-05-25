@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fax.composeAndSend",
+  "id": "app.etzhayyim.apps.fax.composeAndSend",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "End-to-end FAX preparation + handoff in one call: takes text/markdown/HTML, renders to a print-ready Japanese A4 business letter PDF, uploads to CDN B2, and triggers the operator handoff. DEFAULT provider is 'manual' (Dropbox Fax UI) — the agent prepares everything and notifies the operator via mailer (Teams channel + email) with PDF URL + step-by-step instructions; operator does the final UI send. After operator confirms, call ai.gftd.apps.fax.confirmManualSend to close the audit chain. Phaxio API path is retained but marked as DEAD PATH (no creds in production). Use for compliance correspondence: 労基署 / 裁判所 / 内容証明 / 行政手続.",
+      "description": "End-to-end FAX preparation + handoff in one call: takes text/markdown/HTML, renders to a print-ready Japanese A4 business letter PDF, uploads to CDN B2, and triggers the operator handoff. DEFAULT provider is 'manual' (Dropbox Fax UI) — the agent prepares everything and notifies the operator via mailer (Teams channel + email) with PDF URL + step-by-step instructions; operator does the final UI send. After operator confirms, call app.etzhayyim.apps.fax.confirmManualSend to close the audit chain. Phaxio API path is retained but marked as DEAD PATH (no creds in production). Use for compliance correspondence: 労基署 / 裁判所 / 内容証明 / 行政手続.",
       "input": {
         "encoding": "application/json",
         "schema": {

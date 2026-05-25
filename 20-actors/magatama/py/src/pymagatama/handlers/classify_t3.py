@@ -63,7 +63,7 @@ def _build_user_prompt(fields: dict[str, Any]) -> str:
 
 
 @udf(
-    nsid="ai.gftd.apps.yabaiClassifier.phishingT3",
+    nsid="app.etzhayyim.apps.yabaiClassifier.phishingT3",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",

@@ -437,7 +437,7 @@ _CF_ACCOUNT_ID = "4da88288dc30d9ee257f319d3c33ecf0"
 
 
 def _resolve_cf_token() -> str:
-    for var in ("CF_API_TOKEN", "CLOUDFLARE_API_TOKEN", "GFTD_CLOUDFLARE_API_TOKEN"):
+    for var in ("CF_API_TOKEN", "CLOUDFLARE_API_TOKEN", "etzhayyim_CLOUDFLARE_API_TOKEN"):
         v = os.environ.get(var, "")
         if v:
             return v
@@ -445,7 +445,7 @@ def _resolve_cf_token() -> str:
 
 
 def _resolve_gftd_token() -> str:
-    tok = os.environ.get("GFTD_TOKEN", "")
+    tok = os.environ.get("etzhayyim_TOKEN", "")
     if tok:
         return tok
     auth = _load_auth()
@@ -516,7 +516,7 @@ def _fetch_ocel_from_pds(token: str, pds_url: str, limit: int) -> dict:
     base = pds_url.rstrip("/")
     headers = {"Authorization": f"Bearer {token}", "User-Agent": "gftd-py/1.0"}
     for endpoint in [f"{base}/_pds/ocel?limit={limit}",
-                     f"{base}/xrpc/ai.gftd.pds.getOcel?limit={limit}"]:
+                     f"{base}/xrpc/app.etzhayyim.pds.getOcel?limit={limit}"]:
         try:
             resp = httpx.get(endpoint, headers=headers, timeout=30)
             if resp.status_code == 404:
@@ -690,7 +690,7 @@ def _run_kaizen_logs_fix_murakumo(summary: dict, pds_url: str) -> None:
     click.echo("==> murakumo scoreDataQuality", err=True)
     try:
         resp = httpx.post(
-            f"{base}/xrpc/ai.gftd.murakumo.scoreDataQuality",
+            f"{base}/xrpc/app.etzhayyim.murakumo.scoreDataQuality",
             json={"minRows": 50, "sampleRows": 64, "maxLabels": 0},
             headers=headers, timeout=60,
         )
@@ -706,7 +706,7 @@ def _run_kaizen_logs_fix_murakumo(summary: dict, pds_url: str) -> None:
     click.echo("==> murakumo optimizeCycle", err=True)
     try:
         resp2 = httpx.post(
-            f"{base}/xrpc/ai.gftd.murakumo.optimizeCycle",
+            f"{base}/xrpc/app.etzhayyim.murakumo.optimizeCycle",
             json=opt_payload, headers=headers, timeout=60,
         )
         click.echo(resp2.text)

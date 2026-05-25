@@ -17,7 +17,7 @@ import {
   nsid,
   parseLexiconInput,
   sql,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
@@ -182,7 +182,7 @@ function writePrivate(sdk: HostSDK, key: string, value: Record<string, unknown>)
 
 /** Create a new file transfer request. Sender calls this after uploading encrypted chunks. */
 async function cmdCreateTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.tenso.createTransfer", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.tenso.createTransfer", body);
   const recipientDid = str(args.recipientDid ?? "");
   const filename = str(args.filename ?? "");
   const mimeType = str(args.mimeType ?? "application/octet-stream");
@@ -203,7 +203,7 @@ async function cmdCreateTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknow
 
   // Tier 2: Domain — transfer request record
   await getDb().insertInto(C.transferRequest as any).values({
-    vertex_id: `at://${selfDid}/ai.gftd.apps.tenso.transferRequest/${transferId}`,
+    vertex_id: `at://${selfDid}/app.etzhayyim.apps.tenso.transferRequest/${transferId}`,
     sensitivity_ord: 2,
     owner_did: selfDid,
     transfer_id: transferId,
@@ -224,7 +224,7 @@ async function cmdCreateTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknow
 
   // Tier 2: Domain — encrypted file manifest (signal:v1: payload containing fileKey + chunk CID list)
   await getDb().insertInto(C.fileManifest as any).values({
-    vertex_id: `at://${selfDid}/ai.gftd.apps.tenso.fileManifest/${transferId}`,
+    vertex_id: `at://${selfDid}/app.etzhayyim.apps.tenso.fileManifest/${transferId}`,
     sensitivity_ord: 2,
     owner_did: selfDid,
     transfer_id: transferId,
@@ -241,7 +241,7 @@ async function cmdCreateTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknow
 
   // Tier 2: Domain — audit log
   await getDb().insertInto(C.transferLog as any).values({
-    vertex_id: `at://${selfDid}/ai.gftd.apps.tenso.transferLog/${genID("log")}`,
+    vertex_id: `at://${selfDid}/app.etzhayyim.apps.tenso.transferLog/${genID("log")}`,
     sensitivity_ord: 2,
     owner_did: selfDid,
     transfer_id: transferId,
@@ -256,7 +256,7 @@ async function cmdCreateTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknow
   // Tier 2: Domain — access control (encrypted with signal:v1:)
   const maxDownloads = Number(args.maxDownloads) || MAX_DOWNLOADS_DEFAULT;
   await getDb().insertInto(C.accessControl as any).values({
-    vertex_id: `at://${selfDid}/ai.gftd.apps.tenso.accessControl/${transferId}`,
+    vertex_id: `at://${selfDid}/app.etzhayyim.apps.tenso.accessControl/${transferId}`,
     sensitivity_ord: 2,
     owner_did: selfDid,
     transfer_id: transferId,
@@ -274,7 +274,7 @@ async function cmdCreateTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknow
 
 /** Accept a transfer — recipient acknowledges and begins download. */
 async function cmdAcceptTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.tenso.acceptTransfer", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.tenso.acceptTransfer", body);
   const transferId = str(args.transferId ?? "");
   if (!transferId) return { error: "transferId required" };
 
@@ -287,7 +287,7 @@ async function cmdAcceptTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknow
   // Log acceptance
   const acceptDid = sdk.pds.selfRepo ?? "";
   await getDb().insertInto(C.transferLog as any).values({
-    vertex_id: `at://${acceptDid}/ai.gftd.apps.tenso.transferLog/${genID("log")}`,
+    vertex_id: `at://${acceptDid}/app.etzhayyim.apps.tenso.transferLog/${genID("log")}`,
     sensitivity_ord: 2,
     owner_did: acceptDid,
     transfer_id: transferId,
@@ -310,7 +310,7 @@ async function cmdAcceptTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknow
 
 /** Log a chunk download event and check download limits. */
 async function cmdDownloadChunk(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.tenso.downloadChunk", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.tenso.downloadChunk", body);
   const transferId = str(args.transferId ?? "");
   const chunkIndex = Number(args.chunkIndex) ?? 0;
   if (!transferId) return { error: "transferId required" };
@@ -335,7 +335,7 @@ async function cmdDownloadChunk(sdk: HostSDK, body: Uint8Array): Promise<unknown
   // Log download event
   const dlDid = sdk.pds.selfRepo ?? "";
   await getDb().insertInto(C.transferLog as any).values({
-    vertex_id: `at://${dlDid}/ai.gftd.apps.tenso.transferLog/${genID("log")}`,
+    vertex_id: `at://${dlDid}/app.etzhayyim.apps.tenso.transferLog/${genID("log")}`,
     sensitivity_ord: 2,
     owner_did: dlDid,
     transfer_id: transferId,
@@ -353,14 +353,14 @@ async function cmdDownloadChunk(sdk: HostSDK, body: Uint8Array): Promise<unknown
 
 /** Revoke a transfer — sender can revoke before expiry. */
 async function cmdRevokeTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.tenso.revokeTransfer", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.tenso.revokeTransfer", body);
   const transferId = str(args.transferId ?? "");
   if (!transferId) return { error: "transferId required" };
 
   // Log revocation
   const revokeDid = sdk.pds.selfRepo ?? "";
   await getDb().insertInto(C.transferLog as any).values({
-    vertex_id: `at://${revokeDid}/ai.gftd.apps.tenso.transferLog/${genID("log")}`,
+    vertex_id: `at://${revokeDid}/app.etzhayyim.apps.tenso.transferLog/${genID("log")}`,
     sensitivity_ord: 2,
     owner_did: revokeDid,
     transfer_id: transferId,
@@ -377,7 +377,7 @@ async function cmdRevokeTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknow
 
 /** Get transfer status by ID. */
 async function cmdGetTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.tenso.getTransfer", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.tenso.getTransfer", body);
   const transferId = str(args.transferId ?? "");
   if (!transferId) return { error: "transferId required" };
 
@@ -390,7 +390,7 @@ async function cmdGetTransfer(sdk: HostSDK, body: Uint8Array): Promise<unknown> 
 
 /** List transfers for the current user (sent or received). */
 async function cmdListTransfers(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.tenso.listTransfers", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.tenso.listTransfers", body);
   const direction = str(args.direction ?? "sent"); // "sent" or "received"
   const limit = Math.min(Number(args.limit) || 50, 200);
   const offset = Number(args.offset) || 0;
@@ -404,7 +404,7 @@ async function cmdListTransfers(sdk: HostSDK, body: Uint8Array): Promise<unknown
 
 /** Initialize Signal session for a peer (fetch prekey bundle). */
 async function cmdInitSignalSession(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.tenso.initSignalSession", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.tenso.initSignalSession", body);
   const peerDid = str(args.peerDid ?? "");
   if (!peerDid) return { error: "peerDid required" };
 
@@ -418,7 +418,7 @@ async function cmdInitSignalSession(sdk: HostSDK, body: Uint8Array): Promise<unk
 
 /** Wave/greeting. */
 function cmdWave(sdk: HostSDK, body: Uint8Array): unknown {
-  const args = parseLexiconInput("ai.gftd.apps.tenso.wave", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.tenso.wave", body);
   return { ok: true, agent: "Tenso", nanoid: APP_NANOID, greeting: "Secure file transfer ready. Send files with Signal E2E encryption." };
 }
 
@@ -429,17 +429,17 @@ function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, commit: ComAtpro
 
   const collection = str(commit.collection ?? "");
 
-  if (collection === "ai.gftd.apps.tenso.transferRequest") {
+  if (collection === "app.etzhayyim.apps.tenso.transferRequest") {
     // New transfer created — derive rule handles recipient notification
     return { ok: true, detail: "processedTransferRequest" };
   }
 
-  if (collection === "ai.gftd.apps.tenso.transferLog") {
+  if (collection === "app.etzhayyim.apps.tenso.transferLog") {
     // Audit event — derive rule handles yabai risk check on errors
     return { ok: true, detail: "processedTransferLog" };
   }
 
-  if (collection === "ai.gftd.apps.tenso.fileManifest") {
+  if (collection === "app.etzhayyim.apps.tenso.fileManifest") {
     return { ok: true, detail: "processedFileManifest" };
   }
 
@@ -496,7 +496,7 @@ function cmdDescribeTenso(sdk: HostSDK, _body: Uint8Array): unknown {
 }
 
 async function cmdSummarizeTenso(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("ai.gftd.apps.tenso.summarizeTenso", body);
+  const args = parseLexiconInput("app.etzhayyim.apps.tenso.summarizeTenso", body);
   const topic = str(args.topic ?? "tenso transfers");
   const data = await listRecentTransferSummaries(APP_NANOID, 10);
   const summary = await llmAsk(`Summarize ${topic} data: ${JSON.stringify(data)}. Be concise.`);
@@ -527,54 +527,54 @@ const TRANSFER_STATUSES = ["pending", "accepted", "completed", "revoked", "expir
 
 function registerTensoCommands(sdk: HostSDK): void {
   sdk.app
-    .command(nsid("ai.gftd.apps.tenso.createTransfer"), (_, body) => cmdCreateTransfer(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.createTransfer"), (_, body) => cmdCreateTransfer(sdk, body),
       asAgentTool("Create a new encrypted file transfer (sender uploads encrypted chunks first, then calls this with signal:v1: wrapped manifest)"),
       withCapabilityTags("write", "transfer", "signal-e2e"),
       withOCELEvent("transfer.created"),
     )
-    .command(nsid("ai.gftd.apps.tenso.acceptTransfer"), (_, body) => cmdAcceptTransfer(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.acceptTransfer"), (_, body) => cmdAcceptTransfer(sdk, body),
       asAgentTool("Accept a file transfer and retrieve encrypted manifest (recipient decrypts client-side)"),
       withCapabilityTags("write", "transfer", "signal-e2e"),
       withOCELEvent("transfer.accepted"),
     )
-    .command(nsid("ai.gftd.apps.tenso.downloadChunk"), (_, body) => cmdDownloadChunk(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.downloadChunk"), (_, body) => cmdDownloadChunk(sdk, body),
       asAgentTool("Log chunk download and check access limits (actual blob download is direct from R2)"),
       withCapabilityTags("read", "transfer", "blob"),
     )
-    .command(nsid("ai.gftd.apps.tenso.revokeTransfer"), (_, body) => cmdRevokeTransfer(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.revokeTransfer"), (_, body) => cmdRevokeTransfer(sdk, body),
       asAgentTool("Revoke a file transfer (sender only, before expiry)"),
       withCapabilityTags("write", "transfer", "revoke"),
       withOCELEvent("transfer.revoked"),
     )
-    .command(nsid("ai.gftd.apps.tenso.getTransfer"), (_, body) => cmdGetTransfer(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.getTransfer"), (_, body) => cmdGetTransfer(sdk, body),
       asAgentTool("Get transfer status and download count"),
       withCapabilityTags("query", "transfer"),
     )
-    .command(nsid("ai.gftd.apps.tenso.listTransfers"), (_, body) => cmdListTransfers(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.listTransfers"), (_, body) => cmdListTransfers(sdk, body),
       asAgentTool("List sent or received transfers"),
       withCapabilityTags("query", "transfer"),
     )
-    .command(nsid("ai.gftd.apps.tenso.initSignalSession"), (_, body) => cmdInitSignalSession(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.initSignalSession"), (_, body) => cmdInitSignalSession(sdk, body),
       asAgentTool("Initialize Signal session with peer (fetch prekey bundle for X3DH)"),
       withCapabilityTags("query", "signal-e2e", "encryption"),
     )
-    .command(nsid("ai.gftd.apps.tenso.wave"), (_, body) => cmdWave(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.wave"), (_, body) => cmdWave(sdk, body),
       asAgentTool("Respond to wave greeting"),
       withCapabilityTags("social", "greeting"),
     )
-    .command(nsid("ai.gftd.apps.tenso.statsTenso"), (_, body) => cmdStatsTenso(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.statsTenso"), (_, body) => cmdStatsTenso(sdk, body),
       asAgentTool("Get Tenso transfer statistics"),
       withCapabilityTags("analytics", "tenso"),
     )
-    .command(nsid("ai.gftd.apps.tenso.healthTenso"), (_, body) => cmdHealthTenso(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.healthTenso"), (_, body) => cmdHealthTenso(sdk, body),
       asAgentTool("Tenso health check"),
       withCapabilityTags("diagnostics", "tenso"),
     )
-    .command(nsid("ai.gftd.apps.tenso.describeTenso"), (_, body) => cmdDescribeTenso(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.describeTenso"), (_, body) => cmdDescribeTenso(sdk, body),
       asAgentTool("Describe Tenso capabilities and encryption properties"),
       withCapabilityTags("meta", "tenso"),
     )
-    .command(nsid("ai.gftd.apps.tenso.summarizeTenso"), (_, body) => cmdSummarizeTenso(sdk, body),
+    .command(nsid("app.etzhayyim.apps.tenso.summarizeTenso"), (_, body) => cmdSummarizeTenso(sdk, body),
       asAgentTool("AI summary of recent transfers"),
       withCapabilityTags("ai", "tenso"),
     );

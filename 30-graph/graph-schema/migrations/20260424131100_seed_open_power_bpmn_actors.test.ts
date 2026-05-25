@@ -28,8 +28,8 @@ describe("Seed open-power BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openPower.defineFeeder"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openPower.reportOutage"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPower.defineFeeder"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPower.reportOutage"');
   });
 
   it("uses open-power-specific actor_id + owner_did", () => {

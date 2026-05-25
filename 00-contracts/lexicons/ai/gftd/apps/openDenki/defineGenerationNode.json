@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openDenki.defineGenerationNode",
+  "id": "app.etzhayyim.apps.openDenki.defineGenerationNode",
   "defs": {
     "main": {
       "type": "procedure",

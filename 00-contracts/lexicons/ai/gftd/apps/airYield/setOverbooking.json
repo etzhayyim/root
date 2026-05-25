@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airYield.setOverbooking",
+  "id": "app.etzhayyim.apps.airYield.setOverbooking",
   "defs": {
     "main": {
       "type": "procedure",

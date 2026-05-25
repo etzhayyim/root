@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listGeoAliases",
+  "id": "app.etzhayyim.apps.maps.listGeoAliases",
   "defs": {
     "main": {
       "type": "query",

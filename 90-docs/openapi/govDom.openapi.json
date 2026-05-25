@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govDom.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govDom.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Dominican Republic government.",
-        "operationId": "ai.gftd.govDom.followSiteDeps",
+        "operationId": "app.etzhayyim.govDom.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDom.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govDom.heartbeatTick": {
       "post": {
         "summary": "Run the Dominican Republic government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govDom.heartbeatTick",
+        "operationId": "app.etzhayyim.govDom.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDom.listOrgs": {
+    "/xrpc/app.etzhayyim.govDom.listOrgs": {
       "get": {
         "summary": "List Dominican Republic government organization graph records.",
-        "operationId": "ai.gftd.govDom.listOrgs",
+        "operationId": "app.etzhayyim.govDom.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDom.registerDIDs": {
+    "/xrpc/app.etzhayyim.govDom.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Dominican Republic government organizations.",
-        "operationId": "ai.gftd.govDom.registerDIDs",
+        "operationId": "app.etzhayyim.govDom.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDom.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govDom.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Dominican Republic government organization path to its graph record.",
-        "operationId": "ai.gftd.govDom.resolveOrgPath",
+        "operationId": "app.etzhayyim.govDom.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDom.seedOrgs": {
+    "/xrpc/app.etzhayyim.govDom.seedOrgs": {
       "post": {
         "summary": "Seed initial Dominican Republic government organization records into the graph.",
-        "operationId": "ai.gftd.govDom.seedOrgs",
+        "operationId": "app.etzhayyim.govDom.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDom.shinka": {
+    "/xrpc/app.etzhayyim.govDom.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Dominican Republic government organization update.",
-        "operationId": "ai.gftd.govDom.shinka",
+        "operationId": "app.etzhayyim.govDom.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDom.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govDom.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Dominican Republic government organization changes to graph.",
-        "operationId": "ai.gftd.govDom.syncWetUpdates",
+        "operationId": "app.etzhayyim.govDom.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

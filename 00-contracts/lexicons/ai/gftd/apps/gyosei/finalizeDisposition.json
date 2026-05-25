@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gyosei.finalizeDisposition",
+  "id": "app.etzhayyim.apps.gyosei.finalizeDisposition",
   "defs": {
     "main": {
       "type": "procedure",

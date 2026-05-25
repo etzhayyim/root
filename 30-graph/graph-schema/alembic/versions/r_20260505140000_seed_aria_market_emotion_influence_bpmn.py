@@ -23,7 +23,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-market-ingest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-market-ingest-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'aria_market_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -33,9 +33,9 @@ UP = [{'sql': '\n'
                  '  Timer-start (R/PT5M): runs every 5 minutes.\n'
                  '  Fetches market delta signals from CoinGecko (crypto top-10 price/volume).\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.aria.marketIngest (BPMN dispatcher T2 tier)\n'
+                 '  NSID: app.etzhayyim.apps.aria.marketIngest (BPMN dispatcher T2 tier)\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-market-ingest-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-market-ingest-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -49,7 +49,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="aria_market_ingest" name="ARIA Market Ingest" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.aria.marketIngest", "version": 1, "tier": "T2" }\n'
+                 '      { "nsid": "app.etzhayyim.apps.aria.marketIngest", "version": 1, "tier": "T2" }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
                  '    <!-- R/PT5M: fires every 5 minutes indefinitely -->\n'
@@ -89,7 +89,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.aria',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-market-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-market-ingest-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -101,7 +101,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-emotion-ingest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-emotion-ingest-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'aria_emotion_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -111,9 +111,9 @@ UP = [{'sql': '\n'
                  '  Timer-start (R/PT5M): runs every 5 minutes.\n'
                  '  Fetches emotion signal from vertex_actor_wellbecoming_profile at-risk actors.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.aria.emotionIngest (BPMN dispatcher T2 tier)\n'
+                 '  NSID: app.etzhayyim.apps.aria.emotionIngest (BPMN dispatcher T2 tier)\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-emotion-ingest-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-emotion-ingest-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -127,7 +127,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="aria_emotion_ingest" name="ARIA Emotion Ingest" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.aria.emotionIngest", "version": 1, "tier": "T2" }\n'
+                 '      { "nsid": "app.etzhayyim.apps.aria.emotionIngest", "version": 1, "tier": "T2" }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
                  '    <!-- R/PT5M: fires every 5 minutes indefinitely -->\n'
@@ -167,7 +167,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.aria',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-emotion-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-emotion-ingest-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -179,7 +179,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-influence-ingest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-influence-ingest-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'aria_influence_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -189,9 +189,9 @@ UP = [{'sql': '\n'
                  '  Timer-start (R/PT5M): runs every 5 minutes.\n'
                  '  Fetches influence signal from edge_follows top-100 follower distribution.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.aria.influenceIngest (BPMN dispatcher T2 tier)\n'
+                 '  NSID: app.etzhayyim.apps.aria.influenceIngest (BPMN dispatcher T2 tier)\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-influence-ingest-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-influence-ingest-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -205,7 +205,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="aria_influence_ingest" name="ARIA Influence Ingest" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.aria.influenceIngest", "version": 1, "tier": "T2" '
+                 '      { "nsid": "app.etzhayyim.apps.aria.influenceIngest", "version": 1, "tier": "T2" '
                  '}\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -246,14 +246,14 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.aria',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-influence-ingest-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-influence-ingest-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-market-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-market-ingest-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-emotion-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-emotion-ingest-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/aria-influence-ingest-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aria-influence-ingest-v1']}]
 
 
 def upgrade() -> None:

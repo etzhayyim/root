@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.resourceFlow.legalEntityPersonnelFlow",
+  "id": "app.etzhayyim.apps.resourceFlow.legalEntityPersonnelFlow",
   "description": "Private-sector personnel flow (hire / retire / transfer / acquisition) emitted by legal-entity DIDs. ADR-0028. PII tier 1 — aggregate headcount delta only, no individual employee DID. ADR-0018 k-anonymity: cohort_size >= 5.",
   "defs": {
     "main": {

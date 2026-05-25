@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.collector.triggerRun",
+  "id": "app.etzhayyim.apps.collector.triggerRun",
   "defs": {
     "main": {
       "type": "procedure",

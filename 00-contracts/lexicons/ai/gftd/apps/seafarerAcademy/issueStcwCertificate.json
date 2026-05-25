@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.seafarerAcademy.issueStcwCertificate",
+  "id": "app.etzhayyim.apps.seafarerAcademy.issueStcwCertificate",
   "defs": {
     "main": {
       "type": "procedure",

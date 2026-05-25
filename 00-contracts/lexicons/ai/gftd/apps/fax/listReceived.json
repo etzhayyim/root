@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fax.listReceived",
+  "id": "app.etzhayyim.apps.fax.listReceived",
   "defs": {
     "main": {
       "type": "query",
-      "description": "List received faxes (inbound). Provider webhook writes ai.gftd.apps.fax.inboundFax records that this query projects.",
+      "description": "List received faxes (inbound). Provider webhook writes app.etzhayyim.apps.fax.inboundFax records that this query projects.",
       "parameters": {
         "type": "params",
         "required": [],

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.registerNidAllocation",
+  "id": "app.etzhayyim.apps.telecom.registerNidAllocation",
   "defs": {
     "main": {
       "type": "procedure",

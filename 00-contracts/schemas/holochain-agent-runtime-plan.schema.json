@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://etzhayyim.com/schemas/holochain-agent-runtime-plan/v1.json",
-  "title": "GFTD Holochain Agent Actor Runtime Plan",
+  "title": "etzhayyim Holochain Agent Actor Runtime Plan",
   "type": "object",
   "additionalProperties": true,
   "required": ["schema", "runtimeKind", "status", "agentDid", "conductor", "happ", "bindings", "verification", "registration"],

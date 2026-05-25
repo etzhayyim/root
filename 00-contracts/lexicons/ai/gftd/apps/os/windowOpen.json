@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.os.windowOpen",
+  "id": "app.etzhayyim.apps.os.windowOpen",
   "defs": {
     "main": {
       "type": "procedure",

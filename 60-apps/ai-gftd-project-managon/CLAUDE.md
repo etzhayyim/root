@@ -50,6 +50,6 @@ page, not the firm's primary web presence, and we do not want it competing with 
 
 ## Out of scope
 
-- No XRPC procedures (no `ai.gftd.apps.managon.*` write methods registered)
+- No XRPC procedures (no `app.etzhayyim.apps.managon.*` write methods registered)
 - No graph projection, no AT Repo records, no Bluesky posts on launch
 - No client-side JavaScript — server returns a single self-contained HTML document

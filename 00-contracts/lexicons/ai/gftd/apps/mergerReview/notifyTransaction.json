@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mergerReview.notifyTransaction",
+  "id": "app.etzhayyim.apps.mergerReview.notifyTransaction",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.createProduct",
+  "id": "app.etzhayyim.apps.omise.createProduct",
   "defs": {
     "main": {
       "type": "procedure",

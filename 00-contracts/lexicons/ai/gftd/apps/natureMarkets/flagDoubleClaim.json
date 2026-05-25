@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.natureMarkets.flagDoubleClaim",
+  "id": "app.etzhayyim.apps.natureMarkets.flagDoubleClaim",
   "defs": {
     "main": {
       "type": "procedure",

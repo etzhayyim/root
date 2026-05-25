@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.media_gamers.graph.clearGame",
+  "id": "app.etzhayyim.apps.media_gamers.graph.clearGame",
   "defs": {
     "main": {
       "type": "procedure",

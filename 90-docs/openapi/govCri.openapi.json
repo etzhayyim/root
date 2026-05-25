@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govCri.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govCri.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Costa Rica government.",
-        "operationId": "ai.gftd.govCri.followSiteDeps",
+        "operationId": "app.etzhayyim.govCri.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCri.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govCri.heartbeatTick": {
       "post": {
         "summary": "Run the Costa Rica government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govCri.heartbeatTick",
+        "operationId": "app.etzhayyim.govCri.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCri.listOrgs": {
+    "/xrpc/app.etzhayyim.govCri.listOrgs": {
       "get": {
         "summary": "List Costa Rica government organization graph records.",
-        "operationId": "ai.gftd.govCri.listOrgs",
+        "operationId": "app.etzhayyim.govCri.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCri.registerDIDs": {
+    "/xrpc/app.etzhayyim.govCri.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Costa Rica government organizations.",
-        "operationId": "ai.gftd.govCri.registerDIDs",
+        "operationId": "app.etzhayyim.govCri.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCri.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govCri.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Costa Rica government organization path to its graph record.",
-        "operationId": "ai.gftd.govCri.resolveOrgPath",
+        "operationId": "app.etzhayyim.govCri.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCri.seedOrgs": {
+    "/xrpc/app.etzhayyim.govCri.seedOrgs": {
       "post": {
         "summary": "Seed initial Costa Rica government organization records into the graph.",
-        "operationId": "ai.gftd.govCri.seedOrgs",
+        "operationId": "app.etzhayyim.govCri.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCri.shinka": {
+    "/xrpc/app.etzhayyim.govCri.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Costa Rica government organization update.",
-        "operationId": "ai.gftd.govCri.shinka",
+        "operationId": "app.etzhayyim.govCri.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCri.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govCri.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Costa Rica government organization changes to graph.",
-        "operationId": "ai.gftd.govCri.syncWetUpdates",
+        "operationId": "app.etzhayyim.govCri.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -20,7 +20,7 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const AUTHN_BASE = process.env.AUTH_BASE_URL ?? "https://authn.etzhayyim.com";
-const AUTH_FILE = process.env.GFTD_AUTH_FILE ?? join(homedir(), ".gftd", "auth.json");
+const AUTH_FILE = process.env.etzhayyim_AUTH_FILE ?? join(homedir(), ".gftd", "auth.json");
 
 function b64url(buf: Buffer): string {
   return buf.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
@@ -56,7 +56,7 @@ test("mint auth.json via headless WebAuthn → OAuth PKCE → apiKey", async ({ 
   // 1. passkeyBeginRegister — Node.js side (avoids SvelteKit patched window.fetch)
   const userId = randomBytes(16).toString("hex");
   const userName = `cli-${randomBytes(4).toString("hex")}@etzhayyim.com`;
-  const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/ai.gftd.auth.passkeyBeginRegister`, {
+  const beginResp = await request.post(`${AUTH_ORIGIN}/xrpc/app.etzhayyim.auth.passkeyBeginRegister`, {
     data: { userId, userName },
   });
   expect(beginResp.ok(), `passkeyBeginRegister failed: ${beginResp.status()}`).toBe(true);
@@ -94,7 +94,7 @@ test("mint auth.json via headless WebAuthn → OAuth PKCE → apiKey", async ({ 
   }, begin);
 
   // 3. passkeyVerifyRegister — Node.js side
-  const verifyResp = await request.post(`${AUTH_ORIGIN}/xrpc/ai.gftd.auth.passkeyVerifyRegister`, {
+  const verifyResp = await request.post(`${AUTH_ORIGIN}/xrpc/app.etzhayyim.auth.passkeyVerifyRegister`, {
     data: {
       challenge: begin.challenge,
       clientDataJson: credResult.clientDataJson,

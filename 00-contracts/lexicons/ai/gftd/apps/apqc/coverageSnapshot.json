@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.apqc.coverageSnapshot",
+  "id": "app.etzhayyim.apps.apqc.coverageSnapshot",
   "defs": {
     "main": {
       "type": "query",

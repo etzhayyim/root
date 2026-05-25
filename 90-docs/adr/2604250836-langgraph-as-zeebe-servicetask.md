@@ -114,7 +114,7 @@ Client
    │                  │         │   generic.http.fetch         │
    │                  │         │   generic.pds.dispatch       │
    │                  │         │   generic.audit.emit         │
-   │                  │         │   ai.gftd.shinka.tick        │
+   │                  │         │   app.etzhayyim.shinka.tick        │
    │                  │         │   generic.langgraph.run  ◀─★ │
    │                  │         └──────────────────────────────┘
    └──────────────────┘
@@ -142,7 +142,7 @@ incident として上がり、Operate UI で再開可能。
 state ref scheme は ADR-0056 の AT URI 流儀を踏襲する:
 
 ```
-at://did:web:langgraph.etzhayyim.com/ai.gftd.langgraph.state/{run_id}
+at://did:web:langgraph.etzhayyim.com/app.etzhayyim.langgraph.state/{run_id}
 ```
 
 ### Tool surface
@@ -150,7 +150,7 @@ at://did:web:langgraph.etzhayyim.com/ai.gftd.langgraph.state/{run_id}
 LangGraph の `@tool` は **既存の generic primitive を呼ぶシン**として
 実装する。新しい tool は ADR-0056 primitive を増やすのと同義であり、
 レビューを通す。これにより agentic loop の各 tool call は
-`vertex_repo_commit` (collection `ai.gftd.bpmn.audit`) に自動的に
+`vertex_repo_commit` (collection `app.etzhayyim.bpmn.audit`) に自動的に
 記録され、ADR-0046 triple-witness と同じ audit shape になる。
 
 ## Routing 制約 (CF / Pod の境界)

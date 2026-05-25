@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kogu.calibration",
+  "id": "app.etzhayyim.apps.kogu.calibration",
   "description": "工具・測定器の校正記録。ISO 9001 §7.1.5 準拠。校正機関 DID または社内校正者 DID を記録。JCSS 認定校正は accreditedCalibration=true。",
   "defs": {
     "main": {

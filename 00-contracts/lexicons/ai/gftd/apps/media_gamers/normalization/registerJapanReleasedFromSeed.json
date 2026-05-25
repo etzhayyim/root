@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.media_gamers.normalization.registerJapanReleasedFromSeed",
+  "id": "app.etzhayyim.apps.media_gamers.normalization.registerJapanReleasedFromSeed",
   "defs": {
     "main": {
       "type": "procedure",

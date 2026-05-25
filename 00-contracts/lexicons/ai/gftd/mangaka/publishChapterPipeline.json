@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.publishChapterPipeline",
+  "id": "app.etzhayyim.mangaka.publishChapterPipeline",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Stage 8/8 — Pipeline-driven publish. Loads approved composedPage rows for the chapter, writes a chapter master row, and emits a Tier 1 social post (AppBskyFeedPost) authored by the work's path-based DID. Distinct from ai.gftd.apps.mangaka.publishChapter (Worker-native stub) — this NSID is the BPMN-backed entry point that actually does the social post.",
+      "description": "Stage 8/8 — Pipeline-driven publish. Loads approved composedPage rows for the chapter, writes a chapter master row, and emits a Tier 1 social post (AppBskyFeedPost) authored by the work's path-based DID. Distinct from app.etzhayyim.apps.mangaka.publishChapter (Worker-native stub) — this NSID is the BPMN-backed entry point that actually does the social post.",
       "input": {
         "encoding": "application/json",
         "schema": {

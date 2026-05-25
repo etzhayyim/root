@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.semiconductorFab.flagFabExportControl",
+  "id": "app.etzhayyim.apps.semiconductorFab.flagFabExportControl",
   "defs": {
     "main": {
       "type": "procedure",

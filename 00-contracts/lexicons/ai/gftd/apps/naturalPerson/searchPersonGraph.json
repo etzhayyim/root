@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.naturalPerson.searchPersonGraph",
+  "id": "app.etzhayyim.apps.naturalPerson.searchPersonGraph",
   "defs": {
     "main": {
       "type": "query",

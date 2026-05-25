@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.bakeGsplatAsset",
+  "id": "app.etzhayyim.apps.maps.bakeGsplatAsset",
   "defs": {
     "main": {
       "type": "procedure",

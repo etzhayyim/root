@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.lifehack.listTips",
+  "id": "app.etzhayyim.apps.lifehack.listTips",
   "defs": {
     "main": {
       "type": "query",

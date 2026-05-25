@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.deepSeaMining.reportEnvBaseline",
+  "id": "app.etzhayyim.apps.deepSeaMining.reportEnvBaseline",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.chapter",
+  "id": "app.etzhayyim.mangaka.chapter",
   "defs": {
     "main": {
       "type": "record",
@@ -13,7 +13,7 @@
           "workRef": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "strongRef to ai.gftd.apps.mangaka.work. Used to resolve the primary DID (= post author) for the derived Bluesky post."
+            "description": "strongRef to app.etzhayyim.apps.mangaka.work. Used to resolve the primary DID (= post author) for the derived Bluesky post."
           },
           "chapterNum": {
             "type": "integer",
@@ -55,12 +55,12 @@
           },
           "pageCount": {
             "type": "integer",
-            "description": "Total page count (informational; actual pages are separate ai.gftd.apps.mangaka.page records)."
+            "description": "Total page count (informational; actual pages are separate app.etzhayyim.apps.mangaka.page records)."
           },
           "readerUri": {
             "type": "string",
             "format": "uri",
-            "description": "Full-screen reader URL (e.g. https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.apps.mangaka.chapter/{rkey}). Emitted as app.bsky.richtext.facet#link in the derived post."
+            "description": "Full-screen reader URL (e.g. https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.apps.mangaka.chapter/{rkey}). Emitted as app.bsky.richtext.facet#link in the derived post."
           },
           "status": {
             "type": "string",

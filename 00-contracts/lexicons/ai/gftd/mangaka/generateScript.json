@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.generateScript",
+  "id": "app.etzhayyim.mangaka.generateScript",
   "defs": {
     "main": {
       "type": "procedure",

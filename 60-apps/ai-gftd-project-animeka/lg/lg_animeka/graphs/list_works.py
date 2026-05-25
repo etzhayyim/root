@@ -1,6 +1,6 @@
 """animeka `list_works` graph — read-only DB query.
 
-Replaces BPMN `animeka_list_works` (NSID: ai.gftd.animeka.listWorks).
+Replaces BPMN `animeka_list_works` (NSID: app.etzhayyim.animeka.listWorks).
 Returns recent work records from `vertex_animeka` filtered by collection.
 """
 
@@ -45,7 +45,7 @@ async def _node_query(state: _ListWorksState) -> dict[str, Any]:
         conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
         try:
             cur = conn.cursor()
-            params: list[Any] = ["ai.gftd.animeka.work"]
+            params: list[Any] = ["app.etzhayyim.animeka.work"]
             where = "collection = %s"
             if owner:
                 where += " AND repo = %s"
@@ -71,7 +71,7 @@ async def _node_query(state: _ListWorksState) -> dict[str, Any]:
     works: list[dict[str, Any]] = []
     for repo, rkey, ts_ms, value_json_text in rows:
         works.append({
-            "uri": f"at://{repo}/ai.gftd.animeka.work/{rkey}",
+            "uri": f"at://{repo}/app.etzhayyim.animeka.work/{rkey}",
             "rkey": rkey,
             "ownerDid": repo,
             "tsMs": int(ts_ms or 0),

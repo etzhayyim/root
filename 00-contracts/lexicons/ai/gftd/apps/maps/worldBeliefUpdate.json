@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.worldBeliefUpdate",
+  "id": "app.etzhayyim.apps.maps.worldBeliefUpdate",
   "defs": {
     "main": {
       "type": "procedure",

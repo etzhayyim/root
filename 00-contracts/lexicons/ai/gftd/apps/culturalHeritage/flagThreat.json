@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.culturalHeritage.flagThreat",
+  "id": "app.etzhayyim.apps.culturalHeritage.flagThreat",
   "defs": {
     "main": {
       "type": "procedure",

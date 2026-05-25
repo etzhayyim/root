@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.demining.victimRecord",
+  "id": "app.etzhayyim.apps.demining.victimRecord",
   "defs": {
     "main": {
       "type": "record",

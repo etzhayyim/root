@@ -1,6 +1,6 @@
 {
   "$type": "lexicon",
-  "id": "ai.gftd.apps.irScrape.processQueue",
+  "id": "app.etzhayyim.apps.irScrape.processQueue",
   "revision": 1,
   "description": "Claim queued IR scraper runs, fetch company IR pages (RSS-first, HTML fallback), extract press releases into vertex_ir_pressrelease, and link to vertex_intel_subject via LEI.",
   "defs": {

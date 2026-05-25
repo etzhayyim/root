@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.businessManager.echo",
+  "id": "app.etzhayyim.apps.businessManager.echo",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listInfraIncidents",
+  "id": "app.etzhayyim.apps.maps.listInfraIncidents",
   "defs": {
     "main": {
       "type": "query",

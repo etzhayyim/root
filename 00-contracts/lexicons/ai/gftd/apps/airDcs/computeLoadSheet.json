@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airDcs.computeLoadSheet",
+  "id": "app.etzhayyim.apps.airDcs.computeLoadSheet",
   "defs": {
     "main": {
       "type": "procedure",

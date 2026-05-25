@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.bricsBank.flagGovernanceDispute",
+  "id": "app.etzhayyim.apps.bricsBank.flagGovernanceDispute",
   "defs": {
     "main": {
       "type": "procedure",

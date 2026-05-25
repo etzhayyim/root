@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.getSpot",
+  "id": "app.etzhayyim.apps.maps.getSpot",
   "defs": {
     "main": {
       "type": "query",

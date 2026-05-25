@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.quantumSafeCrypto.flagPqcMigrationLag",
+  "id": "app.etzhayyim.apps.quantumSafeCrypto.flagPqcMigrationLag",
   "defs": {
     "main": {
       "type": "procedure",

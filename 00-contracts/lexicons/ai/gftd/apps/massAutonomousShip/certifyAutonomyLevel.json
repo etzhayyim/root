@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.massAutonomousShip.certifyAutonomyLevel",
+  "id": "app.etzhayyim.apps.massAutonomousShip.certifyAutonomyLevel",
   "defs": {
     "main": {
       "type": "procedure",

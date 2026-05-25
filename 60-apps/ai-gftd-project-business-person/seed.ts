@@ -12,20 +12,20 @@ const PROJECT_ID = 'business-person';
 
 // ── Helpers ──
 
-// ADR-0023 P4: use GFTD_TOKEN (sk_live_*) Bearer instead of spoofable
-// x-magatama-verified header. Required: `export GFTD_TOKEN=$(gftd auth token)`.
-const GFTD_TOKEN = process.env.GFTD_TOKEN;
-if (!GFTD_TOKEN) {
-  throw new Error('GFTD_TOKEN env var required — run `export GFTD_TOKEN=$(gftd auth token)` first');
+// ADR-0023 P4: use etzhayyim_TOKEN (sk_live_*) Bearer instead of spoofable
+// x-magatama-verified header. Required: `export etzhayyim_TOKEN=$(gftd auth token)`.
+const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
+if (!etzhayyim_TOKEN) {
+  throw new Error('etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(gftd auth token)` first');
 }
 const INTERNAL_HEADERS = {
   'Content-Type': 'application/json',
-  'Authorization': `Bearer ${GFTD_TOKEN}`,
+  'Authorization': `Bearer ${etzhayyim_TOKEN}`,
   'x-gftd-org-id': 'anon',
 };
 
 async function actorCreate(did: string, displayName: string, description: string): Promise<void> {
-  const res = await fetch(`${PDS}/xrpc/ai.gftd.actor.create`, {
+  const res = await fetch(`${PDS}/xrpc/app.etzhayyim.actor.create`, {
     method: 'POST',
     headers: INTERNAL_HEADERS,
     body: JSON.stringify({ did, projectId: PROJECT_ID, displayName, description, hasWorker: false }),
@@ -45,7 +45,7 @@ async function registerApp(body: Record<string, unknown>): Promise<void> {
 }
 
 async function toolRegister(tool: Record<string, unknown>): Promise<void> {
-  const res = await fetch(`${PDS}/xrpc/ai.gftd.tool.register`, {
+  const res = await fetch(`${PDS}/xrpc/app.etzhayyim.tool.register`, {
     method: 'POST',
     headers: INTERNAL_HEADERS,
     body: JSON.stringify(tool),
@@ -174,7 +174,7 @@ async function main(): Promise<void> {
       raci: 'responsible',
       complianceFrameworks: ['APPI', 'GDPR-public-interest'],
       deps: [
-        { to: 'did:web:business-manager.etzhayyim.com', type: 'data', sourceKind: 'graph', collection: 'ai.gftd.apps.businessManager.employee' },
+        { to: 'did:web:business-manager.etzhayyim.com', type: 'data', sourceKind: 'graph', collection: 'app.etzhayyim.apps.businessManager.employee' },
       ],
     },
     icon: '',
@@ -191,7 +191,7 @@ async function main(): Promise<void> {
   // 4. Seed Registry Sources
   console.log(`\n── 4. Registry Sources (${REGISTRY_SOURCES.length}) ──`);
   for (const src of REGISTRY_SOURCES) {
-    await createRecord('ai.gftd.apps.businessPerson.registrySource', {
+    await createRecord('app.etzhayyim.apps.businessPerson.registrySource', {
       ...src,
       ownerDid: ROOT_DID,
     });
@@ -201,7 +201,7 @@ async function main(): Promise<void> {
   // 5. Seed Role Types
   console.log(`\n── 5. Role Types (${ROLE_TYPES.length}) ──`);
   for (const role of ROLE_TYPES) {
-    await createRecord('ai.gftd.apps.businessPerson.roleType', {
+    await createRecord('app.etzhayyim.apps.businessPerson.roleType', {
       ...role,
       ownerDid: ROOT_DID,
     });
@@ -249,7 +249,7 @@ async function main(): Promise<void> {
   ];
 
   for (const job of HP_JOBS) {
-    await createRecord('ai.gftd.apps.businessPerson.collectionJob', {
+    await createRecord('app.etzhayyim.apps.businessPerson.collectionJob', {
       ...job,
       status: 'pending',
       phase: 1,

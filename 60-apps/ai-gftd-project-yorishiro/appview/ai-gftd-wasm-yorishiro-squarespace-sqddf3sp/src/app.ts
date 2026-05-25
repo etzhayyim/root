@@ -2,7 +2,7 @@ import {
   createWorkerExport,
   nowISO,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 // ADR-2605111200 Phase 2 migration (2026-05-11): CF Worker は edge-only。
 // Domain writes/reads は bpmn-dispatcher → LangGraph/LangGraph/pod 経由で dispatch する。
@@ -10,11 +10,11 @@ import {
 
 const NSID = {
   // Reactive input — sqExporter follows cfRegistrar の transferRequest commits.
-  transferRequest: "ai.gftd.dns.transferRequest",
+  transferRequest: "app.etzhayyim.dns.transferRequest",
   // ADR-2605111200 procedure NSIDs (server-side handlers in pymagatama).
-  putTransferStep: "ai.gftd.dns.putTransferStep",
-  getTransferRequest: "ai.gftd.dns.getTransferRequest",
-  putTransferOutcome: "ai.gftd.dns.putTransferOutcome",
+  putTransferStep: "app.etzhayyim.dns.putTransferStep",
+  getTransferRequest: "app.etzhayyim.dns.getTransferRequest",
+  putTransferOutcome: "app.etzhayyim.dns.putTransferOutcome",
 } as const;
 
 const SQ_EXPORTER_PATH = "actor:sqExporter";

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.micaCrypto.flagTokenIssuance",
+  "id": "app.etzhayyim.apps.micaCrypto.flagTokenIssuance",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://etzhayyim.com/schemas/k8s-runtime-public/v1.json",
-  "title": "GFTD Public k8s Runtime Projection",
+  "title": "etzhayyim Public k8s Runtime Projection",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema", "cluster", "namespace", "workload", "image", "runtime", "redactions"],

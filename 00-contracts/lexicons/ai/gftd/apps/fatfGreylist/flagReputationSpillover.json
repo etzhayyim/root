@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fatfGreylist.flagReputationSpillover",
+  "id": "app.etzhayyim.apps.fatfGreylist.flagReputationSpillover",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMext.investigateCulturalProperty",
+  "id": "app.etzhayyim.apps.jpMext.investigateCulturalProperty",
   "defs": {
     "main": {
       "type": "procedure",

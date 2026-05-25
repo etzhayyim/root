@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projector.authProjectManagement",
-  "description": "Project management permissions. Superset — includes official app.bsky feed RPCs (projector extends feed concepts) plus GFTD project management extensions.",
+  "id": "app.etzhayyim.projector.authProjectManagement",
+  "description": "Project management permissions. Superset — includes official app.bsky feed RPCs (projector extends feed concepts) plus etzhayyim project management extensions.",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -9,9 +9,9 @@
       "title:lang": {
         "ja": "プロジェクト管理"
       },
-      "detail": "Create and manage projects, conversations, tasks, branching, and reflection features. Includes official feed/timeline read access plus GFTD projector extensions.",
+      "detail": "Create and manage projects, conversations, tasks, branching, and reflection features. Includes official feed/timeline read access plus etzhayyim projector extensions.",
       "detail:lang": {
-        "ja": "プロジェクトの作成・管理、会話、タスク、ブランチ、リフレクション。公式フィード/タイムライン読取に加えGFTDプロジェクター拡張を含む"
+        "ja": "プロジェクトの作成・管理、会話、タスク、ブランチ、リフレクション。公式フィード/タイムライン読取に加えetzhayyimプロジェクター拡張を含む"
       },
       "permissions": [
         {
@@ -34,38 +34,38 @@
         {
           "type": "permission",
           "resource": "repo",
-          "description": "GFTD projector record collections",
-          "collection": ["ai.gftd.projector.*"],
+          "description": "etzhayyim projector record collections",
+          "collection": ["app.etzhayyim.projector.*"],
           "action": ["create", "update", "delete"]
         },
         {
           "type": "permission",
           "resource": "rpc",
-          "description": "GFTD projector extension RPCs",
+          "description": "etzhayyim projector extension RPCs",
           "lxm": [
-            "ai.gftd.projector.getProjectConvo",
-            "ai.gftd.projector.listProjectConvos",
-            "ai.gftd.projector.listConvoTasks",
-            "ai.gftd.projector.getConvoProjectStatus",
-            "ai.gftd.projector.loadProjectChat",
-            "ai.gftd.projector.listProjectTree",
-            "ai.gftd.projector.resolveProjectEmail",
-            "ai.gftd.projector.listProjectNotifications",
-            "ai.gftd.projector.getProjectUnreadCounts",
-            "ai.gftd.projector.listBranches",
-            "ai.gftd.projector.listReflections",
-            "ai.gftd.projector.newProjectConvo",
-            "ai.gftd.projector.updateProjectConvo",
-            "ai.gftd.projector.archiveProjectConvo",
-            "ai.gftd.projector.sendProjectMessage",
-            "ai.gftd.projector.addConvoTask",
-            "ai.gftd.projector.completeConvoTask",
-            "ai.gftd.projector.addConvoMember",
-            "ai.gftd.projector.moveProject",
-            "ai.gftd.projector.branchConvo",
-            "ai.gftd.projector.exploreThoughts",
-            "ai.gftd.projector.consistentAnswer",
-            "ai.gftd.projector.addReflection"
+            "app.etzhayyim.projector.getProjectConvo",
+            "app.etzhayyim.projector.listProjectConvos",
+            "app.etzhayyim.projector.listConvoTasks",
+            "app.etzhayyim.projector.getConvoProjectStatus",
+            "app.etzhayyim.projector.loadProjectChat",
+            "app.etzhayyim.projector.listProjectTree",
+            "app.etzhayyim.projector.resolveProjectEmail",
+            "app.etzhayyim.projector.listProjectNotifications",
+            "app.etzhayyim.projector.getProjectUnreadCounts",
+            "app.etzhayyim.projector.listBranches",
+            "app.etzhayyim.projector.listReflections",
+            "app.etzhayyim.projector.newProjectConvo",
+            "app.etzhayyim.projector.updateProjectConvo",
+            "app.etzhayyim.projector.archiveProjectConvo",
+            "app.etzhayyim.projector.sendProjectMessage",
+            "app.etzhayyim.projector.addConvoTask",
+            "app.etzhayyim.projector.completeConvoTask",
+            "app.etzhayyim.projector.addConvoMember",
+            "app.etzhayyim.projector.moveProject",
+            "app.etzhayyim.projector.branchConvo",
+            "app.etzhayyim.projector.exploreThoughts",
+            "app.etzhayyim.projector.consistentAnswer",
+            "app.etzhayyim.projector.addReflection"
           ]
         }
       ]

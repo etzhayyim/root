@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.manga.getTitle",
+  "id": "app.etzhayyim.manga.getTitle",
   "defs": {
     "main": {
       "type": "query",

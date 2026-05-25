@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.correspondentBanking.flagDerisking",
+  "id": "app.etzhayyim.apps.correspondentBanking.flagDerisking",
   "defs": {
     "main": {
       "type": "procedure",

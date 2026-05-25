@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sovereignDebt.recordDebtRestructure",
+  "id": "app.etzhayyim.apps.sovereignDebt.recordDebtRestructure",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.karute.listObservations",
+  "id": "app.etzhayyim.apps.karute.listObservations",
   "defs": {
     "main": {
       "type": "query",

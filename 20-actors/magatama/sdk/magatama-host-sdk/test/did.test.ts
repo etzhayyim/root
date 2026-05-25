@@ -8,9 +8,9 @@ import {
   isDidWeb,
   isDidPlc,
   isDidPkh,
-  isDidGftd,
-  assertDidGftdDepth,
-  assertDidPrincipalOrGftdDepth,
+  isDidetzhayyim,
+  assertDidetzhayyimDepth,
+  assertDidPrincipalOretzhayyimDepth,
   DidParseError,
 } from "../src/did";
 
@@ -20,8 +20,8 @@ const WEB_FLAT = "did:web:lawfirm.etzhayyim.com";
 const WEB_PATH = "did:web:judge.etzhayyim.com:JPN:tanaka-001";
 const PLC = "did:plc:abcdefghijklmnopqrstuvwx";
 const PKH = "did:pkh:eip155:1:0xab5801a7d398351b8be11c439e05c5b3259aec9b";
-const GFTD_ROOT = "did:gftd:lf1rm8k0";
-const GFTD_DEPTH2 = "did:gftd:lf1rm8k0:abcdef0123456789abcdef01";
+const etzhayyim_ROOT = "did:gftd:lf1rm8k0";
+const etzhayyim_DEPTH2 = "did:gftd:lf1rm8k0:abcdef0123456789abcdef01";
 
 describe("extractDidMethod", () => {
   it("extracts known methods", () => {
@@ -29,7 +29,7 @@ describe("extractDidMethod", () => {
     expect(extractDidMethod(WEB_FLAT)).toBe("web");
     expect(extractDidMethod(PLC)).toBe("plc");
     expect(extractDidMethod(PKH)).toBe("pkh");
-    expect(extractDidMethod(GFTD_ROOT)).toBe("gftd");
+    expect(extractDidMethod(etzhayyim_ROOT)).toBe("gftd");
   });
   it("returns null for unknown", () => {
     expect(extractDidMethod("did:unknown:foo")).toBeNull();
@@ -56,8 +56,8 @@ describe("parseDid happy paths", () => {
     expect(parseDid(PKH).method).toBe("pkh");
   });
   it("parses did:gftd root and depth 2", () => {
-    expect(parseDid(GFTD_ROOT).method).toBe("gftd");
-    expect(parseDid(GFTD_DEPTH2).method).toBe("gftd");
+    expect(parseDid(etzhayyim_ROOT).method).toBe("gftd");
+    expect(parseDid(etzhayyim_DEPTH2).method).toBe("gftd");
   });
 });
 
@@ -99,42 +99,42 @@ describe("method predicates", () => {
     expect(isDid(ERC725)).toBe(true);
     expect(isDid("garbage")).toBe(false);
   });
-  it("isDidErc725 / Web / Plc / Pkh / Gftd", () => {
+  it("isDidErc725 / Web / Plc / Pkh / etzhayyim", () => {
     expect(isDidErc725(ERC725)).toBe(true);
     expect(isDidErc725(WEB_FLAT)).toBe(false);
     expect(isDidWeb(WEB_FLAT)).toBe(true);
     expect(isDidWeb(WEB_PATH)).toBe(true);
     expect(isDidPlc(PLC)).toBe(true);
     expect(isDidPkh(PKH)).toBe(true);
-    expect(isDidGftd(GFTD_ROOT)).toBe(true);
-    expect(isDidGftd(GFTD_DEPTH2)).toBe(true);
-    expect(isDidGftd(WEB_FLAT)).toBe(false);
+    expect(isDidetzhayyim(etzhayyim_ROOT)).toBe(true);
+    expect(isDidetzhayyim(etzhayyim_DEPTH2)).toBe(true);
+    expect(isDidetzhayyim(WEB_FLAT)).toBe(false);
   });
 });
 
-describe("assertDidGftdDepth", () => {
+describe("assertDidetzhayyimDepth", () => {
   it("passes on matching depth", () => {
-    expect(() => assertDidGftdDepth(GFTD_ROOT, 0)).not.toThrow();
-    expect(() => assertDidGftdDepth(GFTD_DEPTH2, 1)).not.toThrow();
+    expect(() => assertDidetzhayyimDepth(etzhayyim_ROOT, 0)).not.toThrow();
+    expect(() => assertDidetzhayyimDepth(etzhayyim_DEPTH2, 1)).not.toThrow();
   });
   it("throws on depth mismatch", () => {
-    expect(() => assertDidGftdDepth(GFTD_ROOT, 1)).toThrow(/expected depth 1/);
+    expect(() => assertDidetzhayyimDepth(etzhayyim_ROOT, 1)).toThrow(/expected depth 1/);
   });
   it("throws on non-gftd input", () => {
-    expect(() => assertDidGftdDepth(WEB_FLAT, 0)).toThrow(/expected did:gftd/);
+    expect(() => assertDidetzhayyimDepth(WEB_FLAT, 0)).toThrow(/expected did:gftd/);
   });
 });
 
-describe("assertDidPrincipalOrGftdDepth (handler-side gate)", () => {
+describe("assertDidPrincipalOretzhayyimDepth (handler-side gate)", () => {
   it("accepts erc725 / web / plc / pkh without depth check", () => {
-    expect(() => assertDidPrincipalOrGftdDepth(ERC725, 0)).not.toThrow();
-    expect(() => assertDidPrincipalOrGftdDepth(WEB_FLAT, 0)).not.toThrow();
-    expect(() => assertDidPrincipalOrGftdDepth(PLC, 99)).not.toThrow();
-    expect(() => assertDidPrincipalOrGftdDepth(PKH, 99)).not.toThrow();
+    expect(() => assertDidPrincipalOretzhayyimDepth(ERC725, 0)).not.toThrow();
+    expect(() => assertDidPrincipalOretzhayyimDepth(WEB_FLAT, 0)).not.toThrow();
+    expect(() => assertDidPrincipalOretzhayyimDepth(PLC, 99)).not.toThrow();
+    expect(() => assertDidPrincipalOretzhayyimDepth(PKH, 99)).not.toThrow();
   });
   it("enforces depth on did:gftd", () => {
-    expect(() => assertDidPrincipalOrGftdDepth(GFTD_ROOT, 0)).not.toThrow();
-    expect(() => assertDidPrincipalOrGftdDepth(GFTD_DEPTH2, 1)).not.toThrow();
-    expect(() => assertDidPrincipalOrGftdDepth(GFTD_ROOT, 1)).toThrow(/expected depth 1/);
+    expect(() => assertDidPrincipalOretzhayyimDepth(etzhayyim_ROOT, 0)).not.toThrow();
+    expect(() => assertDidPrincipalOretzhayyimDepth(etzhayyim_DEPTH2, 1)).not.toThrow();
+    expect(() => assertDidPrincipalOretzhayyimDepth(etzhayyim_ROOT, 1)).toThrow(/expected depth 1/);
   });
 });

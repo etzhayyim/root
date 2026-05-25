@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.listGeneratedImages",
+  "id": "app.etzhayyim.apps.mangaka.listGeneratedImages",
   "defs": {
     "main": {
       "type": "query",

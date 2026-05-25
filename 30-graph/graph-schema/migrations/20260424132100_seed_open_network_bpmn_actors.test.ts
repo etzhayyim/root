@@ -28,8 +28,8 @@ describe("Seed open-network BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openNetwork.defineLink"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openNetwork.requestChange"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openNetwork.defineLink"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openNetwork.requestChange"');
   });
 
   it("uses open-network-specific actor_id + owner_did", () => {

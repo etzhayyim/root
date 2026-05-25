@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.registerCagGroup",
+  "id": "app.etzhayyim.apps.telecom.registerCagGroup",
   "defs": {
     "main": {
       "type": "procedure",

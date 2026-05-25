@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hormuzDarkfleet.flagDarkFleetVessel",
+  "id": "app.etzhayyim.apps.hormuzDarkfleet.flagDarkFleetVessel",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tosArbitration.recordClauseChange",
+  "id": "app.etzhayyim.apps.tosArbitration.recordClauseChange",
   "defs": {
     "main": {
       "type": "procedure",

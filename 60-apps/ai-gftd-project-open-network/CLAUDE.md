@@ -8,16 +8,16 @@ workflow. Apache-2.0.
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.openNetwork.defineSite` | procedure | network site (PoP / DC / cell tower / customer edge) |
-| `ai.gftd.apps.openNetwork.defineLink` | procedure | bidirectional link between two sites + capacity Mbps + media |
-| `ai.gftd.apps.openNetwork.getSite` | query | site detail + adjacent links |
-| `ai.gftd.apps.openNetwork.listLinks` | query | links by site / status |
-| `ai.gftd.apps.openNetwork.recordUtilization` | procedure | link 5-min Mbps sample (in/out) |
-| `ai.gftd.apps.openNetwork.getLinkUtilization` | query | hourly aggregate per link |
-| `ai.gftd.apps.openNetwork.reportIncident` | procedure | NOC incident with severity + impact |
-| `ai.gftd.apps.openNetwork.listIncidents` | query | incidents by site / link / since |
-| `ai.gftd.apps.openNetwork.requestChange` | procedure | change request with risk DMN |
-| `ai.gftd.apps.openNetwork.listChanges` | query | change requests by status |
+| `app.etzhayyim.apps.openNetwork.defineSite` | procedure | network site (PoP / DC / cell tower / customer edge) |
+| `app.etzhayyim.apps.openNetwork.defineLink` | procedure | bidirectional link between two sites + capacity Mbps + media |
+| `app.etzhayyim.apps.openNetwork.getSite` | query | site detail + adjacent links |
+| `app.etzhayyim.apps.openNetwork.listLinks` | query | links by site / status |
+| `app.etzhayyim.apps.openNetwork.recordUtilization` | procedure | link 5-min Mbps sample (in/out) |
+| `app.etzhayyim.apps.openNetwork.getLinkUtilization` | query | hourly aggregate per link |
+| `app.etzhayyim.apps.openNetwork.reportIncident` | procedure | NOC incident with severity + impact |
+| `app.etzhayyim.apps.openNetwork.listIncidents` | query | incidents by site / link / since |
+| `app.etzhayyim.apps.openNetwork.requestChange` | procedure | change request with risk DMN |
+| `app.etzhayyim.apps.openNetwork.listChanges` | query | change requests by status |
 
 ## Architecture
 

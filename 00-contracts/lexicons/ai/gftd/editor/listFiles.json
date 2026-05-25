@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.editor.listFiles",
+  "id": "app.etzhayyim.apps.editor.listFiles",
   "defs": {
     "main": {
       "type": "query",
@@ -22,7 +22,7 @@
             "projectId": { "type": "string" },
             "files": {
               "type": "array",
-              "items": { "type": "ref", "ref": "ai.gftd.apps.editor.editorFile" }
+              "items": { "type": "ref", "ref": "app.etzhayyim.apps.editor.editorFile" }
             },
             "total": { "type": "integer" },
             "offset": { "type": "integer" },

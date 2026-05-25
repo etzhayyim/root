@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.colorModel",
+  "id": "app.etzhayyim.apps.animeka.colorModel",
   "defs": {
     "main": {
       "type": "record",

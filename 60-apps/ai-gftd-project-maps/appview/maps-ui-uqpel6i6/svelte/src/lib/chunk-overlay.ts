@@ -4,7 +4,7 @@
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
  * Replaces the bbox-per-moveend risingwave-overlay with an H3-indexed chunk
  * cache. The client computes `visibleH3Cells` for the current viewport + LOD,
- * fetches only missing cells via `ai.gftd.apps.maps.getChunk`, keeps them in
+ * fetches only missing cells via `app.etzhayyim.apps.maps.getChunk`, keeps them in
  * an LRU cache keyed by h3Cell (stable across pans), and rebuilds GeoJSON /
  * extrusion layers by unioning cached cell features per label.
  *

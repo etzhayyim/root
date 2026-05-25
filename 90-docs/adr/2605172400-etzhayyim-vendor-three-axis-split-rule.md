@@ -233,7 +233,7 @@ TypeScript paths) keeps existing references valid through the transition.
 | #24 | Phase 3 wave 1 content copy (wellBecoming + apqc + sanctions) |
 | #26 | Phase 3 wave 2+3 bulk (388 lexicons across 30 dirs) |
 | #28 | Phase 4a wave 2 (publish @etzhayyim/did-etzhayyim) |
-| #31 | Phase 4a wave 3 (rename @gftd/* → @etzhayyim/*, publish 3) |
+| #31 | Phase 4a wave 3 (rename @etzhayyim/* → @etzhayyim/*, publish 3) |
 | #33 | membership test 5-tuple fix (stash@{4} recovery) |
 | #34 | Phase 4a wave 4 (rename bpmn-sdk sub-pkg slash → kebab) |
 | #47 | ADR-2605171900 proposed → active (yoro AppView migration) |
@@ -265,7 +265,7 @@ TypeScript paths) keeps existing references valid through the transition.
 1. **Bulk NSID migration**: dir move + `LC_ALL=C` sed + bpmn-coverage-manifest path fix + binding seed verify
 2. **SPLIT migration**: `perl -pe 's/...(?!vendor-stay-patterns)/.../'` negative-lookahead
 3. **GH Packages publish inside workspace**: `NPM_CONFIG_USERCONFIG=/path/to/.npmrc` workaround (npm ignores local .npmrc in workspace members)
-4. **Validator schema evolution**: dual-schema fallback chain (legacy `ai.gftd.apps.<X>` → canonical `ai.gftd.<X>`)
+4. **Validator schema evolution**: dual-schema fallback chain (legacy `app.etzhayyim.apps.<X>` → canonical `app.etzhayyim.<X>`)
 5. **Phase 5 deletion-with-redirect**: `git rm -rf` + [MOVED] stub README + 3-stage operator runbook for live items
 
 ## What's NOT done (deferred, not mechanical)

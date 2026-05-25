@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isotopeTraceability.flagOriginMismatch",
+  "id": "app.etzhayyim.apps.isotopeTraceability.flagOriginMismatch",
   "defs": {
     "main": {
       "type": "procedure",

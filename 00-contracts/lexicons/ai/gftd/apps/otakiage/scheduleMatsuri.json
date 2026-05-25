@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.otakiage.scheduleMatsuri",
+  "id": "app.etzhayyim.apps.otakiage.scheduleMatsuri",
   "defs": {
     "main": {
       "type": "procedure",

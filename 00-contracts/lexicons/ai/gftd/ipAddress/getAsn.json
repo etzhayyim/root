@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.getAsn",
+  "id": "app.etzhayyim.apps.ipaddress.getAsn",
   "defs": {
     "main": {
       "type": "query",

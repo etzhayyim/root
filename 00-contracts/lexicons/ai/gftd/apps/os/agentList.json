@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.os.agentList",
+  "id": "app.etzhayyim.apps.os.agentList",
   "defs": {
     "main": {
       "type": "procedure",

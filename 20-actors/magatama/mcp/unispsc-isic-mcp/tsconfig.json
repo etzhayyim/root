@@ -13,7 +13,7 @@
     "verbatimModuleSyntax": false,
     "types": ["node", "vitest/globals"],
     "paths": {
-      "@gftd/magatama-host-sdk": [
+      "@etzhayyim/magatama-host-sdk": [
         "../../sdk/magatama-host-sdk/src/langserver-actor.ts"
       ]
     }

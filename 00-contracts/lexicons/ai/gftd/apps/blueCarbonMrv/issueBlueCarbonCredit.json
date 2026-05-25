@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.blueCarbonMrv.issueBlueCarbonCredit",
+  "id": "app.etzhayyim.apps.blueCarbonMrv.issueBlueCarbonCredit",
   "defs": {
     "main": {
       "type": "procedure",

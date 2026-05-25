@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-process-mining-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-process-mining-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'wellbecoming_process_mining',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -35,9 +35,9 @@ UP = [{'sql': '\n'
                  '  LLM (spirit / wellbecoming / feeling / buffer), detects floor violations,\n'
                  '  and emits a process mining report to vertex_repo_record.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.wellbecoming.processMining\n'
+                 '  NSID: app.etzhayyim.apps.wellbecoming.processMining\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-process-mining-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-process-mining-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="wellbecoming_process_mining" name="Well-Becoming Process '
                  'Mining" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.wellbecoming.processMining", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.wellbecoming.processMining", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -99,7 +99,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.wellbecoming',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-process-mining-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-process-mining-v1']}]
 
 DOWN = [{'sql': '\n'
          '    DELETE FROM vertex_bpmn_process_def\n'

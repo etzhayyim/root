@@ -10,11 +10,11 @@ News media platform (`news.etzhayyim.com`)。**wRPC stream-native reactive pipel
 
 | 項目            | 値                                                                                    |
 | --------------- | ------------------------------------------------------------------------------------- |
-| Language        | TypeScript (`@gftd/magatama-host-sdk` host, TS Native migration)                      |
+| Language        | TypeScript (`@etzhayyim/magatama-host-sdk` host, TS Native migration)                      |
 | Build           | `gftd deploy` (app.ts が直接 wrangler entrypoint)。`src/app.ts` は legacy 経路        |
 | UI mode         | `appview` (Protocol Canvas card)                                                      |
 | Architecture    | **wRPC stream-native reactive** (Design E)                                            |
-| Host            | `@gftd/magatama-host-sdk` (WIT host + write buffer)                                   |
+| Host            | `@etzhayyim/magatama-host-sdk` (WIT host + write buffer)                                   |
 | Input           | `subscribe-repos.handle-repo-commit` — Follow 先 upstream からの AT commit (reactive) |
 | Output (stream) | `serve.handle-stream("stream-articles")` — wRPC stream to subscribers                 |
 | Output (social) | `ATPost(writerDID, text, opts)` — 1 call = record + post                              |
@@ -87,10 +87,10 @@ Subscribers connect via `InvokeStream("did:web:news.etzhayyim.com", "stream-arti
 | `news-core.news.evolve`                        | Show evolution metrics dashboard                        |
 | `news-core.news.fitness`                       | Show fitness growth history                             |
 | `news-core.card.action`                        | Handle card interaction actions                         |
-| `news-core.ai.gftd.apps.news.listIntelSources` | List primary/official global intel sources              |
-| `news-core.ai.gftd.apps.news.analyzeIntel`     | Convert source evidence into an attributed intel report |
-| `news-core.ai.gftd.apps.news.publishIntel`     | Publish prepared intel as a writer-DID post             |
-| `news-core.ai.gftd.apps.news.liveAudioIngest`  | Start public live-news/radio/HLS audio capture + STT → intel |
+| `news-core.app.etzhayyim.apps.news.listIntelSources` | List primary/official global intel sources              |
+| `news-core.app.etzhayyim.apps.news.analyzeIntel`     | Convert source evidence into an attributed intel report |
+| `news-core.app.etzhayyim.apps.news.publishIntel`     | Publish prepared intel as a writer-DID post             |
+| `news-core.app.etzhayyim.apps.news.liveAudioIngest`  | Start public live-news/radio/HLS audio capture + STT → intel |
 
 Discovery: `POST mcp.etzhayyim.com/mcp` → `{"method":"tools/list","params":{"app":"news-core"}}`。
 Invocation: `POST mcp.etzhayyim.com/mcp` → `{"method":"tools/call","params":{"name":"news-core.GenerateDigest","arguments":{...}}}`。
@@ -121,8 +121,8 @@ did:web:news.etzhayyim.com:writer:{source-id}
 | `platform`          | プラットフォーム公式                                           | YouTube, Spotify                        |
 | `rights-holder`     | IP 権利者                                                      | publisher, studio, production committee |
 | `manufacturer`      | OEM / メーカー直接                                             | product pages, firmware notices         |
-| `llm-generated`     | AI 生成記事                                                    | GFTD AI Writer                          |
-| `llm-analysis`      | AI 分析記事 (既存記事をグラウンディングコンテキストとして合成) | GFTD AI Writer                          |
+| `llm-generated`     | AI 生成記事                                                    | etzhayyim AI Writer                          |
+| `llm-analysis`      | AI 分析記事 (既存記事をグラウンディングコンテキストとして合成) | etzhayyim AI Writer                          |
 
 ### Built-in Writer Entities (48 sources)
 
@@ -140,7 +140,7 @@ did:web:news.etzhayyim.com:writer:{source-id}
 | entertainment (3) | 音楽ナタリー, 映画ナタリー, Variety                                                         | `did:web:news.etzhayyim.com:writer:variety`    |
 | sports (2)        | スポーツ報知, ESPN                                                                          | `did:web:news.etzhayyim.com:writer:espn`       |
 | world (3)         | NHK 国際, BBC World, Al Jazeera                                                             | `did:web:news.etzhayyim.com:writer:bbc`        |
-| llm (1)           | GFTD AI Writer                                                                              | `did:web:news.etzhayyim.com:writer:llm`        |
+| llm (1)           | etzhayyim AI Writer                                                                              | `did:web:news.etzhayyim.com:writer:llm`        |
 
 ### Adding a New Source (Follow-based)
 
@@ -154,14 +154,14 @@ magatama.Follow("rss-tech-nanoid")
 
 | Kind (dot notation) | AT Lexicon NSID             | 説明                                         |
 | ------------------- | --------------------------- | -------------------------------------------- |
-| `news_article`      | `ai.gftd.apps.news.article` | 記事レコード (ATPost で writer_did = author) |
-| `news_source`       | `ai.gftd.apps.news.source`  | 情報ソース定義 (category, writer DID)        |
-| `news_writer`       | `ai.gftd.apps.news.writer`  | Writer entity メタデータ                     |
-| `news_digest`       | `ai.gftd.apps.news.digest`  | カテゴリ別 daily/weekly ダイジェスト         |
+| `news_article`      | `app.etzhayyim.apps.news.article` | 記事レコード (ATPost で writer_did = author) |
+| `news_source`       | `app.etzhayyim.apps.news.source`  | 情報ソース定義 (category, writer DID)        |
+| `news_writer`       | `app.etzhayyim.apps.news.writer`  | Writer entity メタデータ                     |
+| `news_digest`       | `app.etzhayyim.apps.news.digest`  | カテゴリ別 daily/weekly ダイジェスト         |
 
 ## Data Model
 
-### `intel.report` (AT Record via `ai.gftd.apps.intel.report`)
+### `intel.report` (AT Record via `app.etzhayyim.apps.intel.report`)
 
 | Column           | Type | Description                                            |
 | ---------------- | ---- | ------------------------------------------------------ |

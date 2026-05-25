@@ -288,7 +288,7 @@ def normalize_expression(predictions: Any, provider: str = "hume") -> dict[str, 
     else:
         teacher = {"provider": "hume", "api": "expression-measurement", "sunset": EXPRESSION_SUNSET}
     return {
-        "schema": "ai.gftd.apps.hume.normalizedExpression.v1",
+        "schema": "app.etzhayyim.apps.hume.normalizedExpression.v1",
         "primary": primary,
         "topEmotions": top,
         "confidence": primary["score"] if primary else 0,
@@ -349,7 +349,7 @@ def predict_student_text(text: str) -> dict[str, Any]:
             break
     primary = top[0] if top else None
     return {
-        "schema": "ai.gftd.apps.hume.normalizedExpression.v1",
+        "schema": "app.etzhayyim.apps.hume.normalizedExpression.v1",
         "primary": primary,
         "topEmotions": top,
         "confidence": primary["score"] if primary else 0,
@@ -410,7 +410,7 @@ def predict_student_multimodal(
     ][:12]
     primary = fallback[0] if fallback else None
     return {
-        "schema": "ai.gftd.apps.hume.normalizedExpression.v1",
+        "schema": "app.etzhayyim.apps.hume.normalizedExpression.v1",
         "primary": primary,
         "topEmotions": fallback,
         "confidence": primary["score"] if primary else 0,

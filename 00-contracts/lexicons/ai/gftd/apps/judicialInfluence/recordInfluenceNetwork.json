@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.judicialInfluence.recordInfluenceNetwork",
+  "id": "app.etzhayyim.apps.judicialInfluence.recordInfluenceNetwork",
   "defs": {
     "main": {
       "type": "procedure",

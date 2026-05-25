@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.chemicalsManagement.listChemical",
+  "id": "app.etzhayyim.apps.chemicalsManagement.listChemical",
   "defs": {
     "main": {
       "type": "procedure",

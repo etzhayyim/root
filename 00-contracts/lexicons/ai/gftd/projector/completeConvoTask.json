@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.projector.completeConvoTask",
+  "id": "app.etzhayyim.projector.completeConvoTask",
   "defs": {
     "main": {
       "type": "procedure",

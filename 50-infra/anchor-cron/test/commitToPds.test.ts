@@ -19,7 +19,7 @@ const ANCHORER = "0xC0fFEE000000000000000000000000000000Cafe" as const;
 const ZERO_HASH = ("0x" + "0".repeat(64)) as `0x${string}`;
 
 const BASE = {
-  shardKey: "ai.gftd.apps.threads.post",
+  shardKey: "app.etzhayyim.apps.threads.post",
   rootCid: ROOT_CID,
   rootHash: ROOT_HASH,
   chainId: 84532,

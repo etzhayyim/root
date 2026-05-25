@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.training.listSnapshots",
+  "id": "app.etzhayyim.apps.training.listSnapshots",
   "defs": {
     "main": {
       "type": "query",

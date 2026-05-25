@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.nbfiStress.recordStressTest",
+  "id": "app.etzhayyim.apps.nbfiStress.recordStressTest",
   "defs": {
     "main": {
       "type": "procedure",

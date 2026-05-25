@@ -19,12 +19,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-sft-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-sft-v1',
                  'did:web:training.etzhayyim.com',
                  'training_run_sft',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  training.etzhayyim.com - runSft workflow (XRPC ai.gftd.apps.training.runSft).\n'
+                 '  training.etzhayyim.com - runSft workflow (XRPC app.etzhayyim.apps.training.runSft).\n'
                  '  ADR-2605070700.\n'
                  '\n'
                  '  Pipeline:\n'
@@ -48,7 +48,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.training.runSft", "version": 1, "resultTimeoutMs": '
+                 '      { "nsid": "app.etzhayyim.apps.training.runSft", "version": 1, "resultTimeoutMs": '
                  '1800000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -122,7 +122,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.training.runSft&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.training.runSft&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, '
                  '&quot;datasetSnapshotId&quot;: datasetSnapshotId, &quot;finalCheckpointId&quot;: '
@@ -147,7 +147,7 @@ UP = [{'sql': '\n'
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-sft-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-sft-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -155,12 +155,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-lora-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-lora-v1',
                  'did:web:training.etzhayyim.com',
                  'training_run_lora',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  training.etzhayyim.com - runLora workflow (XRPC ai.gftd.apps.training.runLora).\n'
+                 '  training.etzhayyim.com - runLora workflow (XRPC app.etzhayyim.apps.training.runLora).\n'
                  '  ADR-2605070700.\n'
                  '\n'
                  '  Same shape as runSft but emits adapter-only checkpoints (PEFT / LoRA).\n'
@@ -177,7 +177,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.training.runLora", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.training.runLora", "version": 1, '
                  '"resultTimeoutMs": 1800000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -250,7 +250,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.training.runLora&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.training.runLora&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, '
                  '&quot;datasetSnapshotId&quot;: datasetSnapshotId, &quot;finalCheckpointId&quot;: '
@@ -276,7 +276,7 @@ UP = [{'sql': '\n'
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-lora-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-lora-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -284,13 +284,13 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-distill-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-distill-v1',
                  'did:web:training.etzhayyim.com',
                  'training_run_distill',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  training.etzhayyim.com - runDistill workflow (XRPC '
-                 'ai.gftd.apps.training.runDistill).\n'
+                 'app.etzhayyim.apps.training.runDistill).\n'
                  '  ADR-2605070700.\n'
                  '\n'
                  '  Pipeline:\n'
@@ -314,7 +314,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.training.runDistill", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.training.runDistill", "version": 1, '
                  '"resultTimeoutMs": 3600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -421,7 +421,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.training.runDistill&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.training.runDistill&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, '
                  '&quot;datasetSnapshotId&quot;: datasetSnapshotId, &quot;teacherKind&quot;: '
@@ -447,7 +447,7 @@ UP = [{'sql': '\n'
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-distill-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-distill-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -455,12 +455,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-eval-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-eval-v1',
                  'did:web:training.etzhayyim.com',
                  'training_run_eval',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  training.etzhayyim.com - runEval workflow (XRPC ai.gftd.apps.training.runEval).\n'
+                 '  training.etzhayyim.com - runEval workflow (XRPC app.etzhayyim.apps.training.runEval).\n'
                  '  ADR-2605070700.\n'
                  '\n'
                  '  Pipeline:\n'
@@ -480,7 +480,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.training.runEval", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.training.runEval", "version": 1, '
                  '"resultTimeoutMs": 600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -517,7 +517,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.training.runEval&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.training.runEval&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;checkpointId&quot;: checkpointId, '
                  '&quot;evalCount&quot;: evalCount, &quot;primaryScores&quot;: primaryScores }" '
@@ -542,7 +542,7 @@ UP = [{'sql': '\n'
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-eval-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-eval-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -550,12 +550,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-promote-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-promote-v1',
                  'did:web:training.etzhayyim.com',
                  'training_promote',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  training.etzhayyim.com - promote workflow (XRPC ai.gftd.apps.training.promote).\n'
+                 '  training.etzhayyim.com - promote workflow (XRPC app.etzhayyim.apps.training.promote).\n'
                  '  ADR-2605070700.\n'
                  '\n'
                  '  Pipeline:\n'
@@ -575,7 +575,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.training.promote", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.training.promote", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -610,7 +610,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:training.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.training.promote&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.training.promote&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;alias&quot;: alias, '
                  '&quot;checkpointId&quot;: checkpointId, &quot;newEdgeId&quot;: newEdgeId, '
@@ -635,7 +635,7 @@ UP = [{'sql': '\n'
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-promote-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-promote-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -643,16 +643,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runSft-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runSft-v1',
                  'did:web:training.etzhayyim.com',
-                 'ai.gftd.apps.training.runSft',
+                 'app.etzhayyim.apps.training.runSft',
                  'training_run_sft',
                  1800000,
                  '2026-05-08T00:01:00Z',
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runSft-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runSft-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -660,16 +660,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runLora-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runLora-v1',
                  'did:web:training.etzhayyim.com',
-                 'ai.gftd.apps.training.runLora',
+                 'app.etzhayyim.apps.training.runLora',
                  'training_run_lora',
                  1800000,
                  '2026-05-08T00:01:00Z',
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runLora-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runLora-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -677,16 +677,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runDistill-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runDistill-v1',
                  'did:web:training.etzhayyim.com',
-                 'ai.gftd.apps.training.runDistill',
+                 'app.etzhayyim.apps.training.runDistill',
                  'training_run_distill',
                  3600000,
                  '2026-05-08T00:01:00Z',
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runDistill-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runDistill-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -694,16 +694,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runEval-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runEval-v1',
                  'did:web:training.etzhayyim.com',
-                 'ai.gftd.apps.training.runEval',
+                 'app.etzhayyim.apps.training.runEval',
                  'training_run_eval',
                  600000,
                  '2026-05-08T00:01:00Z',
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runEval-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runEval-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -711,37 +711,37 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-promote-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-promote-v1',
                  'did:web:training.etzhayyim.com',
-                 'ai.gftd.apps.training.promote',
+                 'app.etzhayyim.apps.training.promote',
                  'training_promote',
                  30000,
                  '2026-05-08T00:01:00Z',
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-promote-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-promote-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runSft-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runSft-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runLora-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runLora-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runDistill-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runDistill-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-runEval-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-runEval-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-promote-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-promote-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-sft-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-sft-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-lora-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-lora-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-distill-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-distill-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-run-eval-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-run-eval-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-promote-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-promote-v1']}]
 
 
 def upgrade() -> None:

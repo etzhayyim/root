@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.twinScene",
+  "id": "app.etzhayyim.apps.maps.twinScene",
   "defs": {
     "main": {
       "type": "procedure",

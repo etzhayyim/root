@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpAshiba.reportDefect",
+  "id": "app.etzhayyim.apps.jpAshiba.reportDefect",
   "defs": {
     "main": {
       "type": "procedure",

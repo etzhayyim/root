@@ -507,7 +507,7 @@ def task_aismarine_density_verify() -> dict[str, Any]:
 
 
 # ──────────────────────────────────────────────────────────────────────
-# Bbox query — read path for ai.gftd.apps.maps.aismarine.queryVesselsBbox
+# Bbox query — read path for app.etzhayyim.apps.maps.aismarine.queryVesselsBbox
 # ──────────────────────────────────────────────────────────────────────
 
 def task_aismarine_query_bbox(

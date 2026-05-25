@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coastalSlr.declareCoastalAdaptation",
+  "id": "app.etzhayyim.apps.coastalSlr.declareCoastalAdaptation",
   "defs": {
     "main": {
       "type": "procedure",

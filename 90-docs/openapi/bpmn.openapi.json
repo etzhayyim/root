@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.bpmn.analyzeProcess": {
+    "/xrpc/app.etzhayyim.bpmn.analyzeProcess": {
       "get": {
-        "summary": "Optimize-free process mining over BPMN/Zeebe OCEL audit events. Reads vertex_repo_commit rows where collection=ai.gftd.bpmn.audit, returns deterministic KPIs and optional LLM diagnosis.",
-        "operationId": "ai.gftd.bpmn.analyzeProcess",
+        "summary": "Optimize-free process mining over BPMN/Zeebe OCEL audit events. Reads vertex_repo_commit rows where collection=app.etzhayyim.bpmn.audit, returns deterministic KPIs and optional LLM diagnosis.",
+        "operationId": "app.etzhayyim.bpmn.analyzeProcess",
         "parameters": [
           {
             "name": "processId",
@@ -146,10 +146,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.cancelInstance": {
+    "/xrpc/app.etzhayyim.bpmn.cancelInstance": {
       "post": {
         "summary": "DESTRUCTIVE. Cancel a running instance.",
-        "operationId": "ai.gftd.bpmn.cancelInstance",
+        "operationId": "app.etzhayyim.bpmn.cancelInstance",
         "requestBody": {
           "required": true,
           "content": {
@@ -202,10 +202,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.compileBpmn": {
+    "/xrpc/app.etzhayyim.bpmn.compileBpmn": {
       "get": {
         "summary": "Compile BPMN 2.0 XML to ActorManifest pipeline without deployment (validation only).",
-        "operationId": "ai.gftd.bpmn.compileBpmn",
+        "operationId": "app.etzhayyim.bpmn.compileBpmn",
         "parameters": [
           {
             "name": "did",
@@ -304,10 +304,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.compileJsonToXml": {
+    "/xrpc/app.etzhayyim.bpmn.compileJsonToXml": {
       "post": {
         "summary": "Compile BPMN JSON subset (9 step types) to BPMN 2.0 XML. Deterministic.",
-        "operationId": "ai.gftd.bpmn.compileJsonToXml",
+        "operationId": "app.etzhayyim.bpmn.compileJsonToXml",
         "requestBody": {
           "required": true,
           "content": {
@@ -352,10 +352,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.deployProcess": {
+    "/xrpc/app.etzhayyim.bpmn.deployProcess": {
       "post": {
         "summary": "Deploy a BPMN process (JSON subset or XML). Stores XML to B2 + metadata to D1 + graph projection.",
-        "operationId": "ai.gftd.bpmn.deployProcess",
+        "operationId": "app.etzhayyim.bpmn.deployProcess",
         "requestBody": {
           "required": true,
           "content": {
@@ -419,10 +419,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.executePipeline": {
+    "/xrpc/app.etzhayyim.bpmn.executePipeline": {
       "post": {
         "summary": "Execute a T1/T2 actor pipeline by DID and pipeline index.",
-        "operationId": "ai.gftd.bpmn.executePipeline",
+        "operationId": "app.etzhayyim.bpmn.executePipeline",
         "requestBody": {
           "required": true,
           "content": {
@@ -485,10 +485,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.getActivityLog": {
+    "/xrpc/app.etzhayyim.bpmn.getActivityLog": {
       "get": {
         "summary": "OCEL-style activity event log for a process instance.",
-        "operationId": "ai.gftd.bpmn.getActivityLog",
+        "operationId": "app.etzhayyim.bpmn.getActivityLog",
         "parameters": [
           {
             "name": "instanceId",
@@ -536,10 +536,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.getInstanceState": {
+    "/xrpc/app.etzhayyim.bpmn.getInstanceState": {
       "get": {
         "summary": "Get full instance state (variables + current token + recent events).",
-        "operationId": "ai.gftd.bpmn.getInstanceState",
+        "operationId": "app.etzhayyim.bpmn.getInstanceState",
         "parameters": [
           {
             "name": "instanceId",
@@ -577,10 +577,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.listInstances": {
+    "/xrpc/app.etzhayyim.bpmn.listInstances": {
       "get": {
         "summary": "List process instances, optionally filtered by processId and state.",
-        "operationId": "ai.gftd.bpmn.listInstances",
+        "operationId": "app.etzhayyim.bpmn.listInstances",
         "parameters": [
           {
             "name": "processId",
@@ -643,10 +643,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.listProcesses": {
+    "/xrpc/app.etzhayyim.bpmn.listProcesses": {
       "get": {
         "summary": "List deployed processes.",
-        "operationId": "ai.gftd.bpmn.listProcesses",
+        "operationId": "app.etzhayyim.bpmn.listProcesses",
         "parameters": [
           {
             "name": "limit",
@@ -695,10 +695,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.signalInstance": {
+    "/xrpc/app.etzhayyim.bpmn.signalInstance": {
       "post": {
         "summary": "Signal a waiting message event on an instance, optionally with payload.",
-        "operationId": "ai.gftd.bpmn.signalInstance",
+        "operationId": "app.etzhayyim.bpmn.signalInstance",
         "requestBody": {
           "required": true,
           "content": {
@@ -759,10 +759,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.startInstance": {
+    "/xrpc/app.etzhayyim.bpmn.startInstance": {
       "post": {
         "summary": "Start a process instance with inputs. Correlation key is optional and enables signalInstance routing.",
-        "operationId": "ai.gftd.bpmn.startInstance",
+        "operationId": "app.etzhayyim.bpmn.startInstance",
         "requestBody": {
           "required": true,
           "content": {
@@ -819,10 +819,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.bpmn.validateXml": {
+    "/xrpc/app.etzhayyim.bpmn.validateXml": {
       "post": {
         "summary": "Validate BPMN 2.0 XML (XSD + Schematron). Phase 1: cheap well-formedness; Phase 2: true XSD.",
-        "operationId": "ai.gftd.bpmn.validateXml",
+        "operationId": "app.etzhayyim.bpmn.validateXml",
         "requestBody": {
           "required": true,
           "content": {

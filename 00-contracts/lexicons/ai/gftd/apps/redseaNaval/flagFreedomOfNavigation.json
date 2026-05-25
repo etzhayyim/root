@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.redseaNaval.flagFreedomOfNavigation",
+  "id": "app.etzhayyim.apps.redseaNaval.flagFreedomOfNavigation",
   "defs": {
     "main": {
       "type": "procedure",

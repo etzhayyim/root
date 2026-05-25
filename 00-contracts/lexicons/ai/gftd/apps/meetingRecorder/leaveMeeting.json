@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.meetingRecorder.leaveMeeting",
+  "id": "app.etzhayyim.apps.meetingRecorder.leaveMeeting",
   "defs": {
     "main": {
       "type": "procedure",

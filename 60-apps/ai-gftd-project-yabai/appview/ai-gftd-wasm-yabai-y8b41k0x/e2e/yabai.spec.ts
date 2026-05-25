@@ -25,7 +25,7 @@ test.describe('yabai.etzhayyim.com — Health', () => {
 });
 
 test.describe('yabai.etzhayyim.com — Card API', () => {
-  const hdr = { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e' };
+  const hdr = { 'Content-Type': 'application/json', 'X-etzhayyim-USER-ID': 'e2e' };
 
   test('card.home returns list with 5 items', async ({ request }) => {
     const r = await request.post(`${SVC}/card.home`, { headers: hdr, data: {} });

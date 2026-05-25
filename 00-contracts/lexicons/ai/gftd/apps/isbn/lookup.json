@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isbn.lookup",
+  "id": "app.etzhayyim.apps.isbn.lookup",
   "defs": {
     "main": {
       "type": "query",

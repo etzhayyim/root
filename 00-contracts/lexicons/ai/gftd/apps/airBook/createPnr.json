@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airBook.createPnr",
+  "id": "app.etzhayyim.apps.airBook.createPnr",
   "defs": {
     "main": {
       "type": "procedure",

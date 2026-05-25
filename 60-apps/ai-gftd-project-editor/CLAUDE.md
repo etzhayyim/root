@@ -13,9 +13,9 @@
 ```
 Browser (CodeMirror 6 + Sandpack iframe preview)
   │
-  │ XRPC /xrpc/ai.gftd.apps.editor.*
+  │ XRPC /xrpc/app.etzhayyim.apps.editor.*
   ▼
-editor Worker (createWorkerExport + @gftd/magatama-host-sdk)
+editor Worker (createWorkerExport + @etzhayyim/magatama-host-sdk)
   ├─ createProject  → ComAtprotoRepoCreateRecord(collection: "project")
   ├─ listProjects   → G("EditorProject").Match({ownerDid}).Return(...)
   ├─ writeFile      → uploadBlob (SHA-256 content-addressed → R2)
@@ -28,7 +28,7 @@ editor Worker (createWorkerExport + @gftd/magatama-host-sdk)
 ## Design E 3-Tier Write
 
 - **Tier 1 Social**: project create / file commit は PDS commit pipeline の derive rule で自動 `app.bsky.feed.post` 化 (Write-Only Derived)
-- **Tier 2 Domain**: `ai.gftd.apps.editor.project` / `ai.gftd.apps.editor.file` records
+- **Tier 2 Domain**: `app.etzhayyim.apps.editor.project` / `app.etzhayyim.apps.editor.file` records
 - **Tier 3 State**: editor preferences (theme, keymap, recent files) → `Preferences()`
 
 ## Storage

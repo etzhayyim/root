@@ -44,7 +44,7 @@ func runDeploy(args []string) error {
 	}
 
 	// Read gftd.json for app metadata
-	cfg, err := readGFTDJSON(compDir)
+	cfg, err := readetzhayyimJSON(compDir)
 	if err != nil {
 		return fmt.Errorf("gftd.json required: %w", err)
 	}
@@ -95,8 +95,8 @@ func (g *gftdJSON) AppID() string {
 	return g.Nanoid
 }
 
-// readGFTDJSON reads and parses gftd.json from the given directory.
-func readGFTDJSON(dir string) (*gftdJSON, error) {
+// readetzhayyimJSON reads and parses gftd.json from the given directory.
+func readetzhayyimJSON(dir string) (*gftdJSON, error) {
 	path := filepath.Join(dir, "gftd.json")
 	data, err := os.ReadFile(path)
 	if err != nil {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.repository.log",
+  "id": "app.etzhayyim.repository.log",
   "defs": {
     "main": {
       "type": "query",
@@ -51,7 +51,7 @@
           "properties": {
             "commits": {
               "type": "array",
-              "items": { "type": "ref", "ref": "ai.gftd.repository.getCommit#main" }
+              "items": { "type": "ref", "ref": "app.etzhayyim.repository.getCommit#main" }
             },
             "cursor": { "type": "string" }
           }

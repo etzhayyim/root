@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.copyright.chat",
+  "id": "app.etzhayyim.apps.copyright.chat",
   "defs": {
     "main": {
       "type": "procedure",

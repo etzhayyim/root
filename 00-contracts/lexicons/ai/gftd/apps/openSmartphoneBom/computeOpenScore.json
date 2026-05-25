@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneBom.computeOpenScore",
+  "id": "app.etzhayyim.apps.openSmartphoneBom.computeOpenScore",
   "defs": {
     "main": {
       "type": "procedure",

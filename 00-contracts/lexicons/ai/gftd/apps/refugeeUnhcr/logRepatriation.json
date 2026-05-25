@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.refugeeUnhcr.logRepatriation",
+  "id": "app.etzhayyim.apps.refugeeUnhcr.logRepatriation",
   "defs": {
     "main": {
       "type": "procedure",

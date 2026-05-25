@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.simulationCreate",
+  "id": "app.etzhayyim.apps.maps.simulationCreate",
   "defs": {
     "main": {
       "type": "procedure",

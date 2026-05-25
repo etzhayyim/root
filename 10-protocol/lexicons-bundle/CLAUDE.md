@@ -1,6 +1,6 @@
-# @gftd/lexicons-bundle
+# @etzhayyim/lexicons-bundle
 
-Runtime `@atproto/lexicon` `Lexicons` instance built from `00-contracts/lexicons` (SSoT). Used by `@gftd/wproto` so XRPC client+server calls validate against our schemas natively — extension fields (`performerType`, `viewerFollowing`, `nanoid`, etc.) pass because they're declared in the lexicon, not because validation is bypassed.
+Runtime `@atproto/lexicon` `Lexicons` instance built from `00-contracts/lexicons` (SSoT). Used by `@etzhayyim/wproto` so XRPC client+server calls validate against our schemas natively — extension fields (`performerType`, `viewerFollowing`, `nanoid`, etc.) pass because they're declared in the lexicon, not because validation is bypassed.
 
 ## Files
 
@@ -11,7 +11,7 @@ Runtime `@atproto/lexicon` `Lexicons` instance built from `00-contracts/lexicons
 ## Regenerate
 
 ```bash
-pnpm --filter @gftd/lexicons-bundle build
+pnpm --filter @etzhayyim/lexicons-bundle build
 # or directly:
 node 10-protocol/lexicons-bundle/scripts/build-bundle.mjs
 ```

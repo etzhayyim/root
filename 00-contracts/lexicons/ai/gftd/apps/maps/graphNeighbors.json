@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.graphNeighbors",
+  "id": "app.etzhayyim.apps.maps.graphNeighbors",
   "defs": {
     "main": {
       "type": "procedure",

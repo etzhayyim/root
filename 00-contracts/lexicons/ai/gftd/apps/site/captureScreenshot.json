@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.captureScreenshot",
+  "id": "app.etzhayyim.apps.site.captureScreenshot",
   "defs": {
     "main": {
       "type": "procedure",

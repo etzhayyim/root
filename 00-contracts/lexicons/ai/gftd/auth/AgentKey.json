@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.auth.AgentKey",
+  "id": "app.etzhayyim.auth.AgentKey",
   "defs": {
     "main": {
       "type": "record",

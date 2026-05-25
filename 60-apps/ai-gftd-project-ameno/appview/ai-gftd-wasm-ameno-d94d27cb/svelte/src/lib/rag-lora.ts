@@ -1,5 +1,5 @@
 /**
- * Re-export from @gftd/ameno package.
+ * Re-export from @etzhayyim/ameno package.
  * @see packages/llm/inference/ameno/src/rag-lora.ts
  */
 export {
@@ -11,4 +11,4 @@ export {
   type RagResult,
   type AdapterCandidate,
   type RagLoraContext,
-} from "@gftd/ameno/rag-lora";
+} from "@etzhayyim/ameno/rag-lora";

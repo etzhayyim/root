@@ -10,16 +10,16 @@
         "id": "sys.worker", "name": "open-network Worker",
         "platform": "Cloudflare Workers", "entrypoint": "worker/src/app.ts",
         "interfaces": [
-          { "id": "if.xrpc.defineSite",         "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openNetwork.defineSite" },
-          { "id": "if.xrpc.defineLink",         "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openNetwork.defineLink" },
-          { "id": "if.xrpc.getSite",            "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openNetwork.getSite" },
-          { "id": "if.xrpc.listLinks",          "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openNetwork.listLinks" },
-          { "id": "if.xrpc.recordUtilization",  "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openNetwork.recordUtilization" },
-          { "id": "if.xrpc.getLinkUtilization", "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openNetwork.getLinkUtilization" },
-          { "id": "if.xrpc.reportIncident",     "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openNetwork.reportIncident" },
-          { "id": "if.xrpc.listIncidents",      "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openNetwork.listIncidents" },
-          { "id": "if.xrpc.requestChange",      "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openNetwork.requestChange" },
-          { "id": "if.xrpc.listChanges",        "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openNetwork.listChanges" }
+          { "id": "if.xrpc.defineSite",         "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openNetwork.defineSite" },
+          { "id": "if.xrpc.defineLink",         "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openNetwork.defineLink" },
+          { "id": "if.xrpc.getSite",            "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openNetwork.getSite" },
+          { "id": "if.xrpc.listLinks",          "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openNetwork.listLinks" },
+          { "id": "if.xrpc.recordUtilization",  "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openNetwork.recordUtilization" },
+          { "id": "if.xrpc.getLinkUtilization", "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openNetwork.getLinkUtilization" },
+          { "id": "if.xrpc.reportIncident",     "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openNetwork.reportIncident" },
+          { "id": "if.xrpc.listIncidents",      "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openNetwork.listIncidents" },
+          { "id": "if.xrpc.requestChange",      "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openNetwork.requestChange" },
+          { "id": "if.xrpc.listChanges",        "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openNetwork.listChanges" }
         ]
       },
       { "id": "sys.d1", "name": "Cloudflare D1 (SQLite)", "platform": "D1",

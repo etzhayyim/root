@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.batchIngestRir",
+  "id": "app.etzhayyim.apps.ipaddress.batchIngestRir",
   "defs": {
     "main": {
       "type": "procedure",

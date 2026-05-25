@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.malaccaIncident.flagPiracyEscort",
+  "id": "app.etzhayyim.apps.malaccaIncident.flagPiracyEscort",
   "defs": {
     "main": {
       "type": "procedure",

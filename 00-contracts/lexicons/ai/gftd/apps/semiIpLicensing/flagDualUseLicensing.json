@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.semiIpLicensing.flagDualUseLicensing",
+  "id": "app.etzhayyim.apps.semiIpLicensing.flagDualUseLicensing",
   "defs": {
     "main": {
       "type": "procedure",

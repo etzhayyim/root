@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.methaneTracker.flagMitigationAction",
+  "id": "app.etzhayyim.apps.methaneTracker.flagMitigationAction",
   "defs": {
     "main": {
       "type": "procedure",

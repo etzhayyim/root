@@ -26,8 +26,8 @@ import psycopg2
 
 
 OWNER_DID = "did:web:ago-state.etzhayyim.com"
-BUCKET = os.environ.get("GFTD_B2_BUCKET", "ai-gftd-nats")
-ENDPOINT = os.environ.get("GFTD_B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
+BUCKET = os.environ.get("etzhayyim_B2_BUCKET", "ai-gftd-nats")
+ENDPOINT = os.environ.get("etzhayyim_B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
 PREFIX = "official-sources/ago/governo"
 
 SOURCES = [
@@ -195,10 +195,10 @@ def upsert_rows(conn: Any, source: dict[str, str], assets: dict[str, Any]) -> No
     title = page_title(raw_html)
     content_hash = sha256_bytes(assets["html_bytes"])
 
-    page_id = vertex_id("ai.gftd.apps.site.page", rkey)
-    wet_id = vertex_id("ai.gftd.apps.site.wetChunk", rkey)
-    wat_id = vertex_id("ai.gftd.apps.site.wat", rkey)
-    screenshot_id = vertex_id("ai.gftd.apps.site.screenshot", rkey)
+    page_id = vertex_id("app.etzhayyim.apps.site.page", rkey)
+    wet_id = vertex_id("app.etzhayyim.apps.site.wetChunk", rkey)
+    wat_id = vertex_id("app.etzhayyim.apps.site.wat", rkey)
+    screenshot_id = vertex_id("app.etzhayyim.apps.site.screenshot", rkey)
 
     props = json.dumps(
         {
@@ -331,7 +331,7 @@ def upsert_rows(conn: Any, source: dict[str, str], assets: dict[str, Any]) -> No
                    props = %s
              WHERE vertex_id = %s
             """,
-            (crawled_at, props, vertex_id("ai.gftd.gov.source", rkey)),
+            (crawled_at, props, vertex_id("app.etzhayyim.gov.source", rkey)),
         )
 
 
@@ -354,8 +354,8 @@ def upsert_rows_with_retry(conn: Any, source: dict[str, str], assets: dict[str, 
 
 def main() -> None:
     rw_url = os.environ.get("RW_URL") or os.environ.get("DATABASE_URL") or keychain("gftd.rw", "ROOT_URL")
-    key_id = os.environ.get("GFTD_B2_KEY_ID") or keychain("gftd.b2", "APPLICATION_KEY_ID")
-    app_key = os.environ.get("GFTD_B2_APP_KEY") or keychain("gftd.b2", "APPLICATION_KEY")
+    key_id = os.environ.get("etzhayyim_B2_KEY_ID") or keychain("gftd.b2", "APPLICATION_KEY_ID")
+    app_key = os.environ.get("etzhayyim_B2_APP_KEY") or keychain("gftd.b2", "APPLICATION_KEY")
     client = boto3.client(
         "s3",
         endpoint_url=ENDPOINT,

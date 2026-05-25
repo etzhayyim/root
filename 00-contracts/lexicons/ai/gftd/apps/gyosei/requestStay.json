@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gyosei.requestStay",
+  "id": "app.etzhayyim.apps.gyosei.requestStay",
   "defs": {
     "main": {
       "type": "procedure",

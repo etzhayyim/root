@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govUkr.listOrgs",
+  "id": "app.etzhayyim.govUkr.listOrgs",
   "defs": {
     "main": {
       "type": "query",

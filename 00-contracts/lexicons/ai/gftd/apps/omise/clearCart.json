@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.clearCart",
+  "id": "app.etzhayyim.apps.omise.clearCart",
   "defs": {
     "main": {
       "type": "procedure",

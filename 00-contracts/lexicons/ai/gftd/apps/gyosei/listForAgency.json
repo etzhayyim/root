@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.gyosei.listForAgency",
+  "id": "app.etzhayyim.apps.gyosei.listForAgency",
   "defs": {
     "main": {
       "type": "query",

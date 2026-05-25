@@ -1,4 +1,4 @@
-# `ai.gftd.legalEntity.*` — Legal entity open registry (LEI / corporate number cross-ref)
+# `app.etzhayyim.legalEntity.*` — Legal entity open registry (LEI / corporate number cross-ref)
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group A).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `ai.gftd.legalEntity.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `app.etzhayyim.legalEntity.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

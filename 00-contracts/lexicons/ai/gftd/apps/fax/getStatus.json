@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fax.getStatus",
+  "id": "app.etzhayyim.apps.fax.getStatus",
   "defs": {
     "main": {
       "type": "query",

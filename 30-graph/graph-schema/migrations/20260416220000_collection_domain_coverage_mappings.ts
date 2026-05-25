@@ -56,275 +56,275 @@ import { Kysely, sql } from 'kysely';
 export async function up(db: Kysely<unknown>): Promise<void> {
   // Transport: Bus
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('bus_stop', 'bus', 'ai.gftd.apps.bus.busStop', 5000000, 'bus stops (global)', 'transport')`.execute(db);
+    VALUES ('bus_stop', 'bus', 'app.etzhayyim.apps.bus.busStop', 5000000, 'bus stops (global)', 'transport')`.execute(db);
 
   // Culture/Religion
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('shukyo_shisetsu', 'religious', 'ai.gftd.apps.religious.place', 5000000, 'religious institutions', 'culture')`.execute(db);
+    VALUES ('shukyo_shisetsu', 'religious', 'app.etzhayyim.apps.religious.place', 5000000, 'religious institutions', 'culture')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('religious', 'religious', 'ai.gftd.apps.religious.order', 4300, 'religious legal systems', 'governance')`.execute(db);
+    VALUES ('religious', 'religious', 'app.etzhayyim.apps.religious.order', 4300, 'religious legal systems', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('religious', 'religious', 'ai.gftd.apps.religious.system', 4300, 'religious legal systems', 'governance')`.execute(db);
+    VALUES ('religious', 'religious', 'app.etzhayyim.apps.religious.system', 4300, 'religious legal systems', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('shukyo_shisetsu', 'religious', 'ai.gftd.apps.religious.denomination', 5000000, 'religious institutions', 'culture')`.execute(db);
+    VALUES ('shukyo_shisetsu', 'religious', 'app.etzhayyim.apps.religious.denomination', 5000000, 'religious institutions', 'culture')`.execute(db);
 
   // Space/Astronomy: Tentai
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('tentai_asteroid', 'tentai', 'ai.gftd.apps.tentai.asteroid', 1300000, 'asteroids', 'space')`.execute(db);
+    VALUES ('tentai_asteroid', 'tentai', 'app.etzhayyim.apps.tentai.asteroid', 1300000, 'asteroids', 'space')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('tentai_galaxy', 'tentai', 'ai.gftd.apps.tentai.galaxy', 2000000, 'galaxies', 'space')`.execute(db);
+    VALUES ('tentai_galaxy', 'tentai', 'app.etzhayyim.apps.tentai.galaxy', 2000000, 'galaxies', 'space')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('tentai_exoplanet', 'tentai', 'ai.gftd.apps.tentai.exoplanet', 5700, 'exoplanets', 'space')`.execute(db);
+    VALUES ('tentai_exoplanet', 'tentai', 'app.etzhayyim.apps.tentai.exoplanet', 5700, 'exoplanets', 'space')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('tentai_comet', 'tentai', 'ai.gftd.apps.tentai.comet', 4000, 'comets', 'space')`.execute(db);
+    VALUES ('tentai_comet', 'tentai', 'app.etzhayyim.apps.tentai.comet', 4000, 'comets', 'space')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('tentai_star', 'tentai', 'ai.gftd.apps.tentai.star', 1800000000, 'catalogued stars', 'space')`.execute(db);
+    VALUES ('tentai_star', 'tentai', 'app.etzhayyim.apps.tentai.star', 1800000000, 'catalogued stars', 'space')`.execute(db);
 
   // Content: Games, Anime, Manga, Drama
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('media_gamers', 'media-gamers', 'ai.gftd.apps.media_gamers.title', 900000, 'game titles', 'content')`.execute(db);
+    VALUES ('media_gamers', 'media-gamers', 'app.etzhayyim.apps.media_gamers.title', 900000, 'game titles', 'content')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('media_anime', 'media-anime', 'ai.gftd.apps.media_anime.title', 25000, 'anime titles', 'content')`.execute(db);
+    VALUES ('media_anime', 'media-anime', 'app.etzhayyim.apps.media_anime.title', 25000, 'anime titles', 'content')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('manga', 'manga', 'ai.gftd.apps.manga.title', 150000, 'manga titles', 'content')`.execute(db);
+    VALUES ('manga', 'manga', 'app.etzhayyim.apps.manga.title', 150000, 'manga titles', 'content')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('drama', 'drama', 'ai.gftd.apps.drama.title', 100000, 'TV drama titles', 'content')`.execute(db);
+    VALUES ('drama', 'drama', 'app.etzhayyim.apps.drama.title', 100000, 'TV drama titles', 'content')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('drama', 'drama', 'ai.gftd.apps.drama.show', 100000, 'TV drama titles', 'content')`.execute(db);
+    VALUES ('drama', 'drama', 'app.etzhayyim.apps.drama.show', 100000, 'TV drama titles', 'content')`.execute(db);
 
   // Fiction: Characters
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('character_anime', 'character', 'ai.gftd.apps.character.anime', 500000, 'anime characters', 'fiction')`.execute(db);
+    VALUES ('character_anime', 'character', 'app.etzhayyim.apps.character.anime', 500000, 'anime characters', 'fiction')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('character_manga', 'character', 'ai.gftd.apps.character.manga', 2000000, 'manga characters', 'fiction')`.execute(db);
+    VALUES ('character_manga', 'character', 'app.etzhayyim.apps.character.manga', 2000000, 'manga characters', 'fiction')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('character_tv', 'character', 'ai.gftd.apps.character.tv', 3000000, 'TV characters', 'fiction')`.execute(db);
+    VALUES ('character_tv', 'character', 'app.etzhayyim.apps.character.tv', 3000000, 'TV characters', 'fiction')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('character_game', 'character', 'ai.gftd.apps.character.game', 9000000, 'game characters', 'fiction')`.execute(db);
+    VALUES ('character_game', 'character', 'app.etzhayyim.apps.character.game', 9000000, 'game characters', 'fiction')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('character_book', 'character', 'ai.gftd.apps.character.book', 500000000, 'book characters', 'fiction')`.execute(db);
+    VALUES ('character_book', 'character', 'app.etzhayyim.apps.character.book', 500000000, 'book characters', 'fiction')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('character', 'character', 'ai.gftd.apps.character.animated', 500000000, 'fictional characters', 'fiction')`.execute(db);
+    VALUES ('character', 'character', 'app.etzhayyim.apps.character.animated', 500000000, 'fictional characters', 'fiction')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('character', 'character', 'ai.gftd.apps.character.mythology', 500000000, 'fictional characters', 'fiction')`.execute(db);
+    VALUES ('character', 'character', 'app.etzhayyim.apps.character.mythology', 500000000, 'fictional characters', 'fiction')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('character', 'character', 'ai.gftd.apps.character.comic', 500000000, 'fictional characters', 'fiction')`.execute(db);
+    VALUES ('character', 'character', 'app.etzhayyim.apps.character.comic', 500000000, 'fictional characters', 'fiction')`.execute(db);
 
   // Education
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('gakko', 'gakko', 'ai.gftd.apps.gakko.gakko', 1000000, 'schools & universities', 'education')`.execute(db);
+    VALUES ('gakko', 'gakko', 'app.etzhayyim.apps.gakko.gakko', 1000000, 'schools & universities', 'education')`.execute(db);
 
   // Healthcare
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('rinshou_shiken', 'iryo', 'ai.gftd.apps.iryo.rinshou', 500000, 'clinical trials', 'healthcare')`.execute(db);
+    VALUES ('rinshou_shiken', 'iryo', 'app.etzhayyim.apps.iryo.rinshou', 500000, 'clinical trials', 'healthcare')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('iryo_shisetsu', 'iryo', 'ai.gftd.apps.iryo.shisetsu', 1000000, 'hospitals & clinics', 'healthcare')`.execute(db);
+    VALUES ('iryo_shisetsu', 'iryo', 'app.etzhayyim.apps.iryo.shisetsu', 1000000, 'hospitals & clinics', 'healthcare')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('icd_shikkan', 'iryo', 'ai.gftd.apps.iryo.shikkan', 70000, 'ICD-11 disease codes', 'healthcare')`.execute(db);
+    VALUES ('icd_shikkan', 'iryo', 'app.etzhayyim.apps.iryo.shikkan', 70000, 'ICD-11 disease codes', 'healthcare')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('icd10', 'icd10.etzhayyim.com', 'ai.gftd.apps.icd10.disease', 90168, 'ICD-10-CM disease codes', 'healthcare')`.execute(db);
+    VALUES ('icd10', 'icd10.etzhayyim.com', 'app.etzhayyim.apps.icd10.disease', 90168, 'ICD-10-CM disease codes', 'healthcare')`.execute(db);
 
   // Food
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('food', 'food', 'ai.gftd.apps.food.food', 400000, 'food products', 'food')`.execute(db);
+    VALUES ('food', 'food', 'app.etzhayyim.apps.food.food', 400000, 'food products', 'food')`.execute(db);
 
   // Transport: Roads and tunnels
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('tunnel', 'douro', 'ai.gftd.apps.douro.tunnel', 100000, 'road & rail tunnels', 'transport')`.execute(db);
+    VALUES ('tunnel', 'douro', 'app.etzhayyim.apps.douro.tunnel', 100000, 'road & rail tunnels', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('kyouryou', 'douro', 'ai.gftd.apps.douro.bridge', 10000000, 'bridges (global)', 'transport')`.execute(db);
+    VALUES ('kyouryou', 'douro', 'app.etzhayyim.apps.douro.bridge', 10000000, 'bridges (global)', 'transport')`.execute(db);
 
   // Governance
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('gov', 'gov', 'ai.gftd.apps.gov.entity', 500000, 'government agencies', 'governance')`.execute(db);
+    VALUES ('gov', 'gov', 'app.etzhayyim.apps.gov.entity', 500000, 'government agencies', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('gov', 'gov', 'ai.gftd.apps.gov.agency', 500000, 'government agencies', 'governance')`.execute(db);
+    VALUES ('gov', 'gov', 'app.etzhayyim.apps.gov.agency', 500000, 'government agencies', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('gov', 'gov', 'ai.gftd.apps.gov.ministry', 500000, 'government agencies', 'governance')`.execute(db);
+    VALUES ('gov', 'gov', 'app.etzhayyim.apps.gov.ministry', 500000, 'government agencies', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('sanctions', 'sanctions', 'ai.gftd.apps.sanctions.entity', 50000, 'sanctioned entities', 'governance')`.execute(db);
+    VALUES ('sanctions', 'sanctions', 'app.etzhayyim.apps.sanctions.entity', 50000, 'sanctioned entities', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('treaty', 'treaty', 'ai.gftd.apps.treaty.treaty', 560, 'multilateral treaties', 'governance')`.execute(db);
+    VALUES ('treaty', 'treaty', 'app.etzhayyim.apps.treaty.treaty', 560, 'multilateral treaties', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('communities', 'communities', 'ai.gftd.apps.communities.ngo', 10000, 'intl organizations', 'governance')`.execute(db);
+    VALUES ('communities', 'communities', 'app.etzhayyim.apps.communities.ngo', 10000, 'intl organizations', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('communities', 'communities', 'ai.gftd.apps.communities.organization', 10000, 'intl organizations', 'governance')`.execute(db);
+    VALUES ('communities', 'communities', 'app.etzhayyim.apps.communities.organization', 10000, 'intl organizations', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('senkyo', 'senkyo', 'ai.gftd.apps.senkyo.election', 1000, 'elections/yr', 'governance')`.execute(db);
+    VALUES ('senkyo', 'senkyo', 'app.etzhayyim.apps.senkyo.election', 1000, 'elections/yr', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('ethics', 'ethics', 'ai.gftd.apps.ethics.code', 12000, 'professional ethics codes', 'governance')`.execute(db);
+    VALUES ('ethics', 'ethics', 'app.etzhayyim.apps.ethics.code', 12000, 'professional ethics codes', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('customary', 'customary', 'ai.gftd.apps.customary.system', 1500, 'customary law systems', 'governance')`.execute(db);
+    VALUES ('customary', 'customary', 'app.etzhayyim.apps.customary.system', 1500, 'customary law systems', 'governance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('tradition', 'tradition', 'ai.gftd.apps.tradition.tradition', 50000, 'cultural traditions', 'culture')`.execute(db);
+    VALUES ('tradition', 'tradition', 'app.etzhayyim.apps.tradition.tradition', 50000, 'cultural traditions', 'culture')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('tradition', 'tradition', 'ai.gftd.apps.tradition.custom', 50000, 'cultural traditions', 'culture')`.execute(db);
+    VALUES ('tradition', 'tradition', 'app.etzhayyim.apps.tradition.custom', 50000, 'cultural traditions', 'culture')`.execute(db);
 
   // Transport: Railway
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('railway', 'railway', 'ai.gftd.apps.railway.station', 1370000, 'railway stations (global)', 'transport')`.execute(db);
+    VALUES ('railway', 'railway', 'app.etzhayyim.apps.railway.station', 1370000, 'railway stations (global)', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('railway_route', 'railway', 'ai.gftd.apps.railway.line', 500000, 'railway routes/lines', 'transport')`.execute(db);
+    VALUES ('railway_route', 'railway', 'app.etzhayyim.apps.railway.line', 500000, 'railway routes/lines', 'transport')`.execute(db);
 
   // Waste
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('recycle_shisetsu', 'recycle', 'ai.gftd.apps.recycle.shisetsu', 500000, 'recycling facilities', 'waste')`.execute(db);
+    VALUES ('recycle_shisetsu', 'recycle', 'app.etzhayyim.apps.recycle.shisetsu', 500000, 'recycling facilities', 'waste')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('recycle_shisetsu', 'recycle', 'ai.gftd.apps.recycle.recyclingFacility', 500000, 'recycling facilities', 'waste')`.execute(db);
+    VALUES ('recycle_shisetsu', 'recycle', 'app.etzhayyim.apps.recycle.recyclingFacility', 500000, 'recycling facilities', 'waste')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('umetatchi', 'haikibutsu', 'ai.gftd.apps.haikibutsu.site', 500000, 'landfill sites', 'waste')`.execute(db);
+    VALUES ('umetatchi', 'haikibutsu', 'app.etzhayyim.apps.haikibutsu.site', 500000, 'landfill sites', 'waste')`.execute(db);
 
   // Pharma / Healthcare drugs
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('pharma', 'pharma', 'ai.gftd.apps.pharma.pharma', 350000, 'pharmaceutical products', 'pharma')`.execute(db);
+    VALUES ('pharma', 'pharma', 'app.etzhayyim.apps.pharma.pharma', 350000, 'pharmaceutical products', 'pharma')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('fda_ndc', 'fda', 'ai.gftd.apps.fda.ndc', 131664, 'FDA drug products', 'pharma')`.execute(db);
+    VALUES ('fda_ndc', 'fda', 'app.etzhayyim.apps.fda.ndc', 131664, 'FDA drug products', 'pharma')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('ndc', 'ndc', 'ai.gftd.apps.ndc.drug', 350000, 'NDC drug codes', 'pharma')`.execute(db);
+    VALUES ('ndc', 'ndc', 'app.etzhayyim.apps.ndc.drug', 350000, 'NDC drug codes', 'pharma')`.execute(db);
 
   // Energy and environment
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('water', 'water', 'ai.gftd.apps.water.water', 300000, 'water utilities', 'energy')`.execute(db);
+    VALUES ('water', 'water', 'app.etzhayyim.apps.water.water', 300000, 'water utilities', 'energy')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('denki', 'denki', 'ai.gftd.apps.denki.denki', 60000, 'power plants', 'energy')`.execute(db);
+    VALUES ('denki', 'denki', 'app.etzhayyim.apps.denki.denki', 60000, 'power plants', 'energy')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('gas', 'gas', 'ai.gftd.apps.gas.gas', 25000, 'gas facilities', 'energy')`.execute(db);
+    VALUES ('gas', 'gas', 'app.etzhayyim.apps.gas.gas', 25000, 'gas facilities', 'energy')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('kasen', 'shizen', 'ai.gftd.apps.shizen.river', 250000, 'rivers & water bodies', 'environment')`.execute(db);
+    VALUES ('kasen', 'shizen', 'app.etzhayyim.apps.shizen.river', 250000, 'rivers & water bodies', 'environment')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('kasen', 'shizen', 'ai.gftd.apps.shizen.lake', 250000, 'rivers & water bodies', 'environment')`.execute(db);
+    VALUES ('kasen', 'shizen', 'app.etzhayyim.apps.shizen.lake', 250000, 'rivers & water bodies', 'environment')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('kasen', 'shizen', 'ai.gftd.apps.shizen.canal', 250000, 'rivers & water bodies', 'environment')`.execute(db);
+    VALUES ('kasen', 'shizen', 'app.etzhayyim.apps.shizen.canal', 250000, 'rivers & water bodies', 'environment')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('kasen', 'shizen', 'ai.gftd.apps.shizen.stream', 250000, 'rivers & water bodies', 'environment')`.execute(db);
+    VALUES ('kasen', 'shizen', 'app.etzhayyim.apps.shizen.stream', 250000, 'rivers & water bodies', 'environment')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('kasen', 'shizen', 'ai.gftd.apps.shizen.spring', 250000, 'rivers & water bodies', 'environment')`.execute(db);
+    VALUES ('kasen', 'shizen', 'app.etzhayyim.apps.shizen.spring', 250000, 'rivers & water bodies', 'environment')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('hogoku', 'shizen', 'ai.gftd.apps.shizen.protectedArea', 250000, 'protected areas', 'environment')`.execute(db);
+    VALUES ('hogoku', 'shizen', 'app.etzhayyim.apps.shizen.protectedArea', 250000, 'protected areas', 'environment')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('kishou', 'shizen', 'ai.gftd.apps.shizen.weatherStation', 100000, 'weather stations', 'environment')`.execute(db);
+    VALUES ('kishou', 'shizen', 'app.etzhayyim.apps.shizen.weatherStation', 100000, 'weather stations', 'environment')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('seitaikei', 'shizen', 'ai.gftd.apps.shizen.ecoregion', 800, 'ecoregions', 'environment')`.execute(db);
+    VALUES ('seitaikei', 'shizen', 'app.etzhayyim.apps.shizen.ecoregion', 800, 'ecoregions', 'environment')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('mine', 'mine', 'ai.gftd.apps.mine.mine', 35000, 'active mines', 'manufacturing')`.execute(db);
+    VALUES ('mine', 'mine', 'app.etzhayyim.apps.mine.mine', 35000, 'active mines', 'manufacturing')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('mine', 'mine', 'ai.gftd.apps.mine.site', 35000, 'active mines', 'manufacturing')`.execute(db);
+    VALUES ('mine', 'mine', 'app.etzhayyim.apps.mine.site', 35000, 'active mines', 'manufacturing')`.execute(db);
 
   // Manufacturing: Handotai, Kuruma
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('handotai', 'handotai', 'ai.gftd.apps.handotai.device', 100000, 'semiconductor products', 'manufacturing')`.execute(db);
+    VALUES ('handotai', 'handotai', 'app.etzhayyim.apps.handotai.device', 100000, 'semiconductor products', 'manufacturing')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('kuruma', 'kuruma', 'ai.gftd.apps.kuruma.model', 80000, 'car models', 'transport')`.execute(db);
+    VALUES ('kuruma', 'kuruma', 'app.etzhayyim.apps.kuruma.model', 80000, 'car models', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('kuruma', 'kuruma', 'ai.gftd.apps.kuruma.vehicle', 80000, 'car models', 'transport')`.execute(db);
+    VALUES ('kuruma', 'kuruma', 'app.etzhayyim.apps.kuruma.vehicle', 80000, 'car models', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('car_dealer', 'kuruma', 'ai.gftd.apps.carDealer.carDealer', 500000, 'car dealerships', 'transport')`.execute(db);
+    VALUES ('car_dealer', 'kuruma', 'app.etzhayyim.apps.carDealer.carDealer', 500000, 'car dealerships', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('car_maker', 'kuruma', 'ai.gftd.apps.car_maker.maker', 5000, 'automotive OEMs', 'transport')`.execute(db);
+    VALUES ('car_maker', 'kuruma', 'app.etzhayyim.apps.car_maker.maker', 5000, 'automotive OEMs', 'transport')`.execute(db);
 
   // Transport: EV, Gas stations, Aircraft, Vessels, LOCODE
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('ev_charger', 'ev', 'ai.gftd.apps.ev.evCharger', 5000000, 'EV charging stations', 'transport')`.execute(db);
+    VALUES ('ev_charger', 'ev', 'app.etzhayyim.apps.ev.evCharger', 5000000, 'EV charging stations', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('gas_station', 'gas-station', 'ai.gftd.apps.gasStation.gasStation', 500000, 'gas/fuel stations', 'transport')`.execute(db);
+    VALUES ('gas_station', 'gas-station', 'app.etzhayyim.apps.gasStation.gasStation', 500000, 'gas/fuel stations', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('aircraft', 'aircraft', 'ai.gftd.apps.aircraft.aircraft', 450000, 'registered aircraft', 'transport')`.execute(db);
+    VALUES ('aircraft', 'aircraft', 'app.etzhayyim.apps.aircraft.aircraft', 450000, 'registered aircraft', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('vessel', 'vessel', 'ai.gftd.apps.vessel.ship', 105000, 'merchant vessels', 'transport')`.execute(db);
+    VALUES ('vessel', 'vessel', 'app.etzhayyim.apps.vessel.ship', 105000, 'merchant vessels', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('locode', 'locode.etzhayyim.com', 'ai.gftd.apps.locode.location', 116067, 'UN LOCODE locations', 'transport')`.execute(db);
+    VALUES ('locode', 'locode.etzhayyim.com', 'app.etzhayyim.apps.locode.location', 116067, 'UN LOCODE locations', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('locode', 'unece', 'ai.gftd.apps.locode.location', 116067, 'UN LOCODE locations', 'transport')`.execute(db);
+    VALUES ('locode', 'unece', 'app.etzhayyim.apps.locode.location', 116067, 'UN LOCODE locations', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('locode', 'port', 'ai.gftd.apps.port.port', 116067, 'UN LOCODE locations', 'transport')`.execute(db);
+    VALUES ('locode', 'port', 'app.etzhayyim.apps.port.port', 116067, 'UN LOCODE locations', 'transport')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('satellite', 'satellite', 'ai.gftd.apps.satellite.satellite', 10000, 'active satellites', 'space')`.execute(db);
+    VALUES ('satellite', 'satellite', 'app.etzhayyim.apps.satellite.satellite', 10000, 'active satellites', 'space')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('uchu_debris', 'uchu', 'ai.gftd.apps.uchu.debris', 30000, 'orbital debris', 'space')`.execute(db);
+    VALUES ('uchu_debris', 'uchu', 'app.etzhayyim.apps.uchu.debris', 30000, 'orbital debris', 'space')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('uchu_mission', 'uchu', 'ai.gftd.apps.uchu.satellite', 200, 'space launches/yr', 'space')`.execute(db);
+    VALUES ('uchu_mission', 'uchu', 'app.etzhayyim.apps.uchu.satellite', 200, 'space launches/yr', 'space')`.execute(db);
 
   // Telecom
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('telecom', 'telecom', 'ai.gftd.apps.telecom.cable', 4000, 'telecom operators', 'telecom')`.execute(db);
+    VALUES ('telecom', 'telecom', 'app.etzhayyim.apps.telecom.cable', 4000, 'telecom operators', 'telecom')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('telecom', 'telecom', 'ai.gftd.apps.telecom.company', 4000, 'telecom operators', 'telecom')`.execute(db);
+    VALUES ('telecom', 'telecom', 'app.etzhayyim.apps.telecom.company', 4000, 'telecom operators', 'telecom')`.execute(db);
 
   // Finance / Banking
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('bank', 'bank', 'ai.gftd.apps.bank.bank', 25000, 'banks (global)', 'finance')`.execute(db);
+    VALUES ('bank', 'bank', 'app.etzhayyim.apps.bank.bank', 25000, 'banks (global)', 'finance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('insurance', 'insurance', 'ai.gftd.apps.insurance.insurance', 12000, 'insurance companies', 'finance')`.execute(db);
+    VALUES ('insurance', 'insurance', 'app.etzhayyim.apps.insurance.insurance', 12000, 'insurance companies', 'finance')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('securities', 'securities', 'ai.gftd.apps.securities.exchange', 3000, 'stock exchanges', 'finance')`.execute(db);
+    VALUES ('securities', 'securities', 'app.etzhayyim.apps.securities.exchange', 3000, 'stock exchanges', 'finance')`.execute(db);
 
   // Culture
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('toshokan', 'toshokan', 'ai.gftd.apps.toshokan.toshokan', 400000, 'libraries', 'culture')`.execute(db);
+    VALUES ('toshokan', 'toshokan', 'app.etzhayyim.apps.toshokan.toshokan', 400000, 'libraries', 'culture')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('hakubutsukan', 'hakubutsukan', 'ai.gftd.apps.hakubutsukan.hakubutsukan', 100000, 'museums', 'culture')`.execute(db);
+    VALUES ('hakubutsukan', 'hakubutsukan', 'app.etzhayyim.apps.hakubutsukan.hakubutsukan', 100000, 'museums', 'culture')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('hakubutsukan', 'hakubutsukan', 'ai.gftd.apps.hakubutsukan.museum', 100000, 'museums', 'culture')`.execute(db);
+    VALUES ('hakubutsukan', 'hakubutsukan', 'app.etzhayyim.apps.hakubutsukan.museum', 100000, 'museums', 'culture')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('festival_global', 'festival', 'ai.gftd.apps.festival.festival', 5000000, 'festivals (global)', 'culture')`.execute(db);
+    VALUES ('festival_global', 'festival', 'app.etzhayyim.apps.festival.festival', 5000000, 'festivals (global)', 'culture')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('sports_club', 'sports', 'ai.gftd.apps.sports.sportsClub', 5000000, 'sports clubs', 'culture')`.execute(db);
+    VALUES ('sports_club', 'sports', 'app.etzhayyim.apps.sports.sportsClub', 5000000, 'sports clubs', 'culture')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('sports_shiai', 'sports', 'ai.gftd.apps.sports.match', 10000000, 'sports matches/yr', 'culture')`.execute(db);
+    VALUES ('sports_shiai', 'sports', 'app.etzhayyim.apps.sports.match', 10000000, 'sports matches/yr', 'culture')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('dojo', 'dojo', 'ai.gftd.apps.dojo.dojo', 10000, 'readiness kata drills', 'culture')`.execute(db);
+    VALUES ('dojo', 'dojo', 'app.etzhayyim.apps.dojo.dojo', 10000, 'readiness kata drills', 'culture')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('casino', 'casino', 'ai.gftd.apps.casino.casino', 6500, 'casinos (global)', 'culture')`.execute(db);
+    VALUES ('casino', 'casino', 'app.etzhayyim.apps.casino.casino', 6500, 'casinos (global)', 'culture')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('pachinko', 'pachinko', 'ai.gftd.apps.pachinko.hall', 7500, 'pachinko stores (JP)', 'culture')`.execute(db);
+    VALUES ('pachinko', 'pachinko', 'app.etzhayyim.apps.pachinko.hall', 7500, 'pachinko stores (JP)', 'culture')`.execute(db);
 
   // Disaster
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('saigai', 'saigai', 'ai.gftd.apps.saigai.disaster', 1000, 'natural disasters/yr', 'governance')`.execute(db);
+    VALUES ('saigai', 'saigai', 'app.etzhayyim.apps.saigai.disaster', 1000, 'natural disasters/yr', 'governance')`.execute(db);
 
   // Data center
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('data_center', 'dc', 'ai.gftd.apps.dc.dc', 10000, 'data centers', 'software')`.execute(db);
+    VALUES ('data_center', 'dc', 'app.etzhayyim.apps.dc.dc', 10000, 'data centers', 'software')`.execute(db);
 
   // Industry standards
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('industry_standard', 'industry-standard', 'ai.gftd.apps.industry_standard.standard', 45000, 'industry standards', 'governance')`.execute(db);
+    VALUES ('industry_standard', 'industry-standard', 'app.etzhayyim.apps.industry_standard.standard', 45000, 'industry standards', 'governance')`.execute(db);
 
   // Water utilities (JP)
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('suido', 'suido', 'ai.gftd.apps.suido.utility', 1400, 'water utilities (JP)', 'energy')`.execute(db);
+    VALUES ('suido', 'suido', 'app.etzhayyim.apps.suido.utility', 1400, 'water utilities (JP)', 'energy')`.execute(db);
 
   // Blockchain
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('blockchain', 'blockchain', 'ai.gftd.apps.blockchain.chain', 1000, 'active chains', 'blockchain')`.execute(db);
+    VALUES ('blockchain', 'blockchain', 'app.etzhayyim.apps.blockchain.chain', 1000, 'active chains', 'blockchain')`.execute(db);
 
   // Intellectual Property: Copyright
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('chizai', 'chizai', 'ai.gftd.apps.chizai.chosakuken', 200000000, 'creative works/yr', 'ip')`.execute(db);
+    VALUES ('chizai', 'chizai', 'app.etzhayyim.apps.chizai.chosakuken', 200000000, 'creative works/yr', 'ip')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('chizai', 'chizai', 'ai.gftd.apps.chizai.shohyo', 200000000, 'creative works/yr', 'ip')`.execute(db);
+    VALUES ('chizai', 'chizai', 'app.etzhayyim.apps.chizai.shohyo', 200000000, 'creative works/yr', 'ip')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('patent', 'patent', 'ai.gftd.apps.patent.patent', 100000000, 'patent filings/yr', 'ip')`.execute(db);
+    VALUES ('patent', 'patent', 'app.etzhayyim.apps.patent.patent', 100000000, 'patent filings/yr', 'ip')`.execute(db);
 
   // Legal entities
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('legal_entity', 'legal-entity', 'ai.gftd.apps.legalEntity.legalEntity', 400000000, 'legal entities worldwide', 'economy')`.execute(db);
+    VALUES ('legal_entity', 'legal-entity', 'app.etzhayyim.apps.legalEntity.legalEntity', 400000000, 'legal entities worldwide', 'economy')`.execute(db);
 
   // Talent / Occupation
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('talent_cohort_stat', 'talent', 'ai.gftd.apps.talent.talentCohort', 600000000, 'talent cohort statistics', 'talent')`.execute(db);
+    VALUES ('talent_cohort_stat', 'talent', 'app.etzhayyim.apps.talent.talentCohort', 600000000, 'talent cohort statistics', 'talent')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('skill_taxonomy', 'talent', 'ai.gftd.apps.recruit.skillTaxonomy', 50000, 'skill taxonomy codes', 'talent')`.execute(db);
+    VALUES ('skill_taxonomy', 'talent', 'app.etzhayyim.apps.recruit.skillTaxonomy', 50000, 'skill taxonomy codes', 'talent')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('occupation_code', 'talent', 'ai.gftd.apps.recruit.occupationTaxonomy', 5172, 'occupation codes', 'talent')`.execute(db);
+    VALUES ('occupation_code', 'talent', 'app.etzhayyim.apps.recruit.occupationTaxonomy', 5172, 'occupation codes', 'talent')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('job_posting', 'talent', 'ai.gftd.apps.recruit.jobPosting', 300000000, 'job postings', 'talent')`.execute(db);
+    VALUES ('job_posting', 'talent', 'app.etzhayyim.apps.recruit.jobPosting', 300000000, 'job postings', 'talent')`.execute(db);
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('occupation_code', 'shigotoba', 'ai.gftd.apps.shigotoba.occupation', 5172, 'occupation codes', 'talent')`.execute(db);
+    VALUES ('occupation_code', 'shigotoba', 'app.etzhayyim.apps.shigotoba.occupation', 5172, 'occupation codes', 'talent')`.execute(db);
 
   // Hospitality
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('accommodation', 'hospitality', 'ai.gftd.apps.hospitality.accommodation', 700000, 'accommodation listings', 'tourism')`.execute(db);
+    VALUES ('accommodation', 'hospitality', 'app.etzhayyim.apps.hospitality.accommodation', 700000, 'accommodation listings', 'tourism')`.execute(db);
 
   // Sovereign states and geopolitics
   await sql`INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
@@ -334,113 +334,113 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 export async function down(db: Kysely<unknown>): Promise<void> {
   // Remove all entries added in this migration
   const collections = [
-    'ai.gftd.apps.bus.busStop',
-    'ai.gftd.apps.religious.place',
-    'ai.gftd.apps.religious.order',
-    'ai.gftd.apps.religious.system',
-    'ai.gftd.apps.religious.denomination',
-    'ai.gftd.apps.tentai.asteroid',
-    'ai.gftd.apps.tentai.galaxy',
-    'ai.gftd.apps.tentai.exoplanet',
-    'ai.gftd.apps.tentai.comet',
-    'ai.gftd.apps.tentai.star',
-    'ai.gftd.apps.media_gamers.title',
-    'ai.gftd.apps.media_anime.title',
-    'ai.gftd.apps.manga.title',
-    'ai.gftd.apps.drama.title',
-    'ai.gftd.apps.drama.show',
-    'ai.gftd.apps.character.anime',
-    'ai.gftd.apps.character.manga',
-    'ai.gftd.apps.character.tv',
-    'ai.gftd.apps.character.game',
-    'ai.gftd.apps.character.book',
-    'ai.gftd.apps.character.animated',
-    'ai.gftd.apps.character.mythology',
-    'ai.gftd.apps.character.comic',
-    'ai.gftd.apps.gakko.gakko',
-    'ai.gftd.apps.iryo.rinshou',
-    'ai.gftd.apps.iryo.shisetsu',
-    'ai.gftd.apps.iryo.shikkan',
-    'ai.gftd.apps.icd10.disease',
-    'ai.gftd.apps.food.food',
-    'ai.gftd.apps.douro.tunnel',
-    'ai.gftd.apps.douro.bridge',
-    'ai.gftd.apps.gov.entity',
-    'ai.gftd.apps.gov.agency',
-    'ai.gftd.apps.gov.ministry',
-    'ai.gftd.apps.sanctions.entity',
-    'ai.gftd.apps.treaty.treaty',
-    'ai.gftd.apps.communities.ngo',
-    'ai.gftd.apps.communities.organization',
-    'ai.gftd.apps.senkyo.election',
-    'ai.gftd.apps.ethics.code',
-    'ai.gftd.apps.customary.system',
-    'ai.gftd.apps.tradition.tradition',
-    'ai.gftd.apps.tradition.custom',
-    'ai.gftd.apps.railway.station',
-    'ai.gftd.apps.railway.line',
-    'ai.gftd.apps.recycle.shisetsu',
-    'ai.gftd.apps.recycle.recyclingFacility',
-    'ai.gftd.apps.haikibutsu.site',
-    'ai.gftd.apps.pharma.pharma',
-    'ai.gftd.apps.fda.ndc',
-    'ai.gftd.apps.ndc.drug',
-    'ai.gftd.apps.water.water',
-    'ai.gftd.apps.denki.denki',
-    'ai.gftd.apps.gas.gas',
-    'ai.gftd.apps.shizen.river',
-    'ai.gftd.apps.shizen.lake',
-    'ai.gftd.apps.shizen.canal',
-    'ai.gftd.apps.shizen.stream',
-    'ai.gftd.apps.shizen.spring',
-    'ai.gftd.apps.shizen.protectedArea',
-    'ai.gftd.apps.shizen.weatherStation',
-    'ai.gftd.apps.shizen.ecoregion',
-    'ai.gftd.apps.mine.mine',
-    'ai.gftd.apps.mine.site',
-    'ai.gftd.apps.handotai.device',
-    'ai.gftd.apps.kuruma.model',
-    'ai.gftd.apps.kuruma.vehicle',
-    'ai.gftd.apps.carDealer.carDealer',
-    'ai.gftd.apps.car_maker.maker',
-    'ai.gftd.apps.ev.evCharger',
-    'ai.gftd.apps.gasStation.gasStation',
-    'ai.gftd.apps.aircraft.aircraft',
-    'ai.gftd.apps.vessel.ship',
-    'ai.gftd.apps.locode.location',
-    'ai.gftd.apps.port.port',
-    'ai.gftd.apps.satellite.satellite',
-    'ai.gftd.apps.uchu.debris',
-    'ai.gftd.apps.uchu.satellite',
-    'ai.gftd.apps.telecom.cable',
-    'ai.gftd.apps.telecom.company',
-    'ai.gftd.apps.bank.bank',
-    'ai.gftd.apps.insurance.insurance',
-    'ai.gftd.apps.securities.exchange',
-    'ai.gftd.apps.toshokan.toshokan',
-    'ai.gftd.apps.hakubutsukan.hakubutsukan',
-    'ai.gftd.apps.hakubutsukan.museum',
-    'ai.gftd.apps.festival.festival',
-    'ai.gftd.apps.sports.sportsClub',
-    'ai.gftd.apps.sports.match',
-    'ai.gftd.apps.dojo.dojo',
-    'ai.gftd.apps.casino.casino',
-    'ai.gftd.apps.pachinko.hall',
-    'ai.gftd.apps.saigai.disaster',
-    'ai.gftd.apps.dc.dc',
-    'ai.gftd.apps.industry_standard.standard',
-    'ai.gftd.apps.suido.utility',
-    'ai.gftd.apps.blockchain.chain',
-    'ai.gftd.apps.chizai.chosakuken',
-    'ai.gftd.apps.chizai.shohyo',
-    'ai.gftd.apps.patent.patent',
-    'ai.gftd.apps.legalEntity.legalEntity',
-    'ai.gftd.apps.talent.talentCohort',
-    'ai.gftd.apps.recruit.skillTaxonomy',
-    'ai.gftd.apps.recruit.occupationTaxonomy',
-    'ai.gftd.apps.recruit.jobPosting',
-    'ai.gftd.apps.shigotoba.occupation',
-    'ai.gftd.apps.hospitality.accommodation',
+    'app.etzhayyim.apps.bus.busStop',
+    'app.etzhayyim.apps.religious.place',
+    'app.etzhayyim.apps.religious.order',
+    'app.etzhayyim.apps.religious.system',
+    'app.etzhayyim.apps.religious.denomination',
+    'app.etzhayyim.apps.tentai.asteroid',
+    'app.etzhayyim.apps.tentai.galaxy',
+    'app.etzhayyim.apps.tentai.exoplanet',
+    'app.etzhayyim.apps.tentai.comet',
+    'app.etzhayyim.apps.tentai.star',
+    'app.etzhayyim.apps.media_gamers.title',
+    'app.etzhayyim.apps.media_anime.title',
+    'app.etzhayyim.apps.manga.title',
+    'app.etzhayyim.apps.drama.title',
+    'app.etzhayyim.apps.drama.show',
+    'app.etzhayyim.apps.character.anime',
+    'app.etzhayyim.apps.character.manga',
+    'app.etzhayyim.apps.character.tv',
+    'app.etzhayyim.apps.character.game',
+    'app.etzhayyim.apps.character.book',
+    'app.etzhayyim.apps.character.animated',
+    'app.etzhayyim.apps.character.mythology',
+    'app.etzhayyim.apps.character.comic',
+    'app.etzhayyim.apps.gakko.gakko',
+    'app.etzhayyim.apps.iryo.rinshou',
+    'app.etzhayyim.apps.iryo.shisetsu',
+    'app.etzhayyim.apps.iryo.shikkan',
+    'app.etzhayyim.apps.icd10.disease',
+    'app.etzhayyim.apps.food.food',
+    'app.etzhayyim.apps.douro.tunnel',
+    'app.etzhayyim.apps.douro.bridge',
+    'app.etzhayyim.apps.gov.entity',
+    'app.etzhayyim.apps.gov.agency',
+    'app.etzhayyim.apps.gov.ministry',
+    'app.etzhayyim.apps.sanctions.entity',
+    'app.etzhayyim.apps.treaty.treaty',
+    'app.etzhayyim.apps.communities.ngo',
+    'app.etzhayyim.apps.communities.organization',
+    'app.etzhayyim.apps.senkyo.election',
+    'app.etzhayyim.apps.ethics.code',
+    'app.etzhayyim.apps.customary.system',
+    'app.etzhayyim.apps.tradition.tradition',
+    'app.etzhayyim.apps.tradition.custom',
+    'app.etzhayyim.apps.railway.station',
+    'app.etzhayyim.apps.railway.line',
+    'app.etzhayyim.apps.recycle.shisetsu',
+    'app.etzhayyim.apps.recycle.recyclingFacility',
+    'app.etzhayyim.apps.haikibutsu.site',
+    'app.etzhayyim.apps.pharma.pharma',
+    'app.etzhayyim.apps.fda.ndc',
+    'app.etzhayyim.apps.ndc.drug',
+    'app.etzhayyim.apps.water.water',
+    'app.etzhayyim.apps.denki.denki',
+    'app.etzhayyim.apps.gas.gas',
+    'app.etzhayyim.apps.shizen.river',
+    'app.etzhayyim.apps.shizen.lake',
+    'app.etzhayyim.apps.shizen.canal',
+    'app.etzhayyim.apps.shizen.stream',
+    'app.etzhayyim.apps.shizen.spring',
+    'app.etzhayyim.apps.shizen.protectedArea',
+    'app.etzhayyim.apps.shizen.weatherStation',
+    'app.etzhayyim.apps.shizen.ecoregion',
+    'app.etzhayyim.apps.mine.mine',
+    'app.etzhayyim.apps.mine.site',
+    'app.etzhayyim.apps.handotai.device',
+    'app.etzhayyim.apps.kuruma.model',
+    'app.etzhayyim.apps.kuruma.vehicle',
+    'app.etzhayyim.apps.carDealer.carDealer',
+    'app.etzhayyim.apps.car_maker.maker',
+    'app.etzhayyim.apps.ev.evCharger',
+    'app.etzhayyim.apps.gasStation.gasStation',
+    'app.etzhayyim.apps.aircraft.aircraft',
+    'app.etzhayyim.apps.vessel.ship',
+    'app.etzhayyim.apps.locode.location',
+    'app.etzhayyim.apps.port.port',
+    'app.etzhayyim.apps.satellite.satellite',
+    'app.etzhayyim.apps.uchu.debris',
+    'app.etzhayyim.apps.uchu.satellite',
+    'app.etzhayyim.apps.telecom.cable',
+    'app.etzhayyim.apps.telecom.company',
+    'app.etzhayyim.apps.bank.bank',
+    'app.etzhayyim.apps.insurance.insurance',
+    'app.etzhayyim.apps.securities.exchange',
+    'app.etzhayyim.apps.toshokan.toshokan',
+    'app.etzhayyim.apps.hakubutsukan.hakubutsukan',
+    'app.etzhayyim.apps.hakubutsukan.museum',
+    'app.etzhayyim.apps.festival.festival',
+    'app.etzhayyim.apps.sports.sportsClub',
+    'app.etzhayyim.apps.sports.match',
+    'app.etzhayyim.apps.dojo.dojo',
+    'app.etzhayyim.apps.casino.casino',
+    'app.etzhayyim.apps.pachinko.hall',
+    'app.etzhayyim.apps.saigai.disaster',
+    'app.etzhayyim.apps.dc.dc',
+    'app.etzhayyim.apps.industry_standard.standard',
+    'app.etzhayyim.apps.suido.utility',
+    'app.etzhayyim.apps.blockchain.chain',
+    'app.etzhayyim.apps.chizai.chosakuken',
+    'app.etzhayyim.apps.chizai.shohyo',
+    'app.etzhayyim.apps.patent.patent',
+    'app.etzhayyim.apps.legalEntity.legalEntity',
+    'app.etzhayyim.apps.talent.talentCohort',
+    'app.etzhayyim.apps.recruit.skillTaxonomy',
+    'app.etzhayyim.apps.recruit.occupationTaxonomy',
+    'app.etzhayyim.apps.recruit.jobPosting',
+    'app.etzhayyim.apps.shigotoba.occupation',
+    'app.etzhayyim.apps.hospitality.accommodation',
     'govOrg',
   ];
   for (const collection of collections) {

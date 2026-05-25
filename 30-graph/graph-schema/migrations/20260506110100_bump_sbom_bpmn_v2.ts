@@ -22,9 +22,9 @@ const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf
 
 const sourcePath = "00-contracts/bpmn/ai/gftd/sbom/registerArtifact.bpmn";
 const processVertexId =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sbom-register-artifact-v1";
 const bindingVertexId =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sbom-registerArtifact-v1";
 const updatedAt = "2026-05-06T11:01:00Z";
 
 export async function up(db: Kysely<unknown>): Promise<void> {

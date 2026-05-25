@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.peatWetland.flagDegradation",
+  "id": "app.etzhayyim.apps.peatWetland.flagDegradation",
   "defs": {
     "main": {
       "type": "procedure",

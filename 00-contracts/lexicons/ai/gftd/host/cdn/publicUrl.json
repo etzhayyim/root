@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.cdn.publicUrl",
+  "id": "app.etzhayyim.host.cdn.publicUrl",
   "defs": {
     "main": {
       "type": "query",

@@ -72,7 +72,7 @@ file. No private key on the Worker.
 
 ### C-2 — Per-agent ES256 → device-generated keypair
 
-Today: `ai.gftd.auth.createAgentSession` generates a P-256 keypair
+Today: `app.etzhayyim.auth.createAgentSession` generates a P-256 keypair
 inside the auth Worker, persists the private half to `KEYS_DB` (KEK-
 wrapped), and returns both halves to the agent's container at
 `gftd deploy` time.
@@ -80,7 +80,7 @@ wrapped), and returns both halves to the agent's container at
 After Stage C: the agent's runtime (the operator's own device or the
 community-operated pod) generates the keypair locally via WebCrypto
 `crypto.subtle.generateKey({name:'ECDSA', namedCurve:'P-256'})`,
-exports the public half, and POSTs `ai.gftd.auth.registerAgentKey`
+exports the public half, and POSTs `app.etzhayyim.auth.registerAgentKey`
 with the public key + an attestation (WebAuthn proof of possession
 or DPoP-style nonce sign). The auth Worker stores the public key in
 the `vertex_gftd_key_signing` projection — never the private key.

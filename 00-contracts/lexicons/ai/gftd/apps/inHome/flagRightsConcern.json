@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.inHome.flagRightsConcern",
+  "id": "app.etzhayyim.apps.inHome.flagRightsConcern",
   "defs": {
     "main": {
       "type": "procedure",

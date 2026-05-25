@@ -1,12 +1,12 @@
 // TODO(ADR-2605111200 Phase 2, migration guide: 90-docs/2605111400-phase2-app-actor-dispatcher-migration-guide.md):
 // 6 createKyselyDb callsites below throw WorkerDBProhibitedError at runtime.
-// Replace each with `sdk.pds.xrpc("ai.gftd.apps.yorishiroEnaiyo.<method>", ...)`:
-//   - getDb().selectFrom(tableForLabel(label))            → ai.gftd.apps.yorishiroEnaiyo.listJobs
-//   - insertInto("vertex_yorishiroEnaiyo_draftNaiyo")     → ai.gftd.apps.yorishiroEnaiyo.putDraftNaiyo
-//   - insertInto("vertex_yorishiroEnaiyo_docxBlob")       → ai.gftd.apps.yorishiroEnaiyo.putDocxBlob
-//   - insertInto("vertex_yorishiroEnaiyo_submitJob")      → ai.gftd.apps.yorishiroEnaiyo.putSubmitJob
-//   - insertInto("vertex_yorishiroEnaiyo_batchJob")       → ai.gftd.apps.yorishiroEnaiyo.putBatchJob
-//   - insertInto("vertex_yorishiroEnaiyo_receipt")        → ai.gftd.apps.yorishiroEnaiyo.putReceipt
+// Replace each with `sdk.pds.xrpc("app.etzhayyim.apps.yorishiroEnaiyo.<method>", ...)`:
+//   - getDb().selectFrom(tableForLabel(label))            → app.etzhayyim.apps.yorishiroEnaiyo.listJobs
+//   - insertInto("vertex_yorishiroEnaiyo_draftNaiyo")     → app.etzhayyim.apps.yorishiroEnaiyo.putDraftNaiyo
+//   - insertInto("vertex_yorishiroEnaiyo_docxBlob")       → app.etzhayyim.apps.yorishiroEnaiyo.putDocxBlob
+//   - insertInto("vertex_yorishiroEnaiyo_submitJob")      → app.etzhayyim.apps.yorishiroEnaiyo.putSubmitJob
+//   - insertInto("vertex_yorishiroEnaiyo_batchJob")       → app.etzhayyim.apps.yorishiroEnaiyo.putBatchJob
+//   - insertInto("vertex_yorishiroEnaiyo_receipt")        → app.etzhayyim.apps.yorishiroEnaiyo.putReceipt
 // Each NSID needs a lexicon JSON in 00-contracts/lexicons/ai/gftd/apps/yorishiroEnaiyo/
 // + a server-side handler + a vertex_bpmn_lexicon_binding row.
 // Reference migration: ai-gftd-wasm-yorishiro-squarespace-sqddf3sp/src/app.ts (2026-05-11).
@@ -22,7 +22,7 @@ import {
   type HostSDK,
   nsid,
   parseLexiconInput,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 
 // ---------------------------------------------------------------------------
 // Yorishiro — 日本郵便 電子内容証明 (e-naiyo) adapter
@@ -53,12 +53,12 @@ type AnyRow = Record<string, unknown>;
 let db: KyselyDb | null = null;
 
 const NSID = {
-  draftNaiyo: "ai.gftd.apps.yorishiroEnaiyo.draftNaiyo",
-  docxBlob: "ai.gftd.apps.yorishiroEnaiyo.docxBlob",
-  batchJob: "ai.gftd.apps.yorishiroEnaiyo.batchJob",
-  submitJob: "ai.gftd.apps.yorishiroEnaiyo.submitJob",
-  receipt: "ai.gftd.apps.yorishiroEnaiyo.receipt",
-  tracking: "ai.gftd.apps.yorishiroEnaiyo.tracking",
+  draftNaiyo: "app.etzhayyim.apps.yorishiroEnaiyo.draftNaiyo",
+  docxBlob: "app.etzhayyim.apps.yorishiroEnaiyo.docxBlob",
+  batchJob: "app.etzhayyim.apps.yorishiroEnaiyo.batchJob",
+  submitJob: "app.etzhayyim.apps.yorishiroEnaiyo.submitJob",
+  receipt: "app.etzhayyim.apps.yorishiroEnaiyo.receipt",
+  tracking: "app.etzhayyim.apps.yorishiroEnaiyo.tracking",
 } as const;
 
 const PROVIDER_DID = "did:web:yorishiro.etzhayyim.com";
@@ -193,7 +193,7 @@ function validateBody(text: string, template: TemplateType): string | null {
 // ---------------------------------------------------------------------------
 
 async function cmdCreateDraft(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroEnaiyo.createDraft", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroEnaiyo.createDraft", payload);
   const template: TemplateType = req.templateType ?? "a4PortraitHorizontal";
   if (!(template in TEMPLATE_LIMITS)) {
     return { error: "templateType must be 'a4PortraitHorizontal' or 'a4LandscapeVertical'" };
@@ -212,7 +212,7 @@ async function cmdCreateDraft(_sdk: HostSDK, payload: Uint8Array): Promise<unkno
   await getDb()
     .insertInto("vertex_yorishiroEnaiyo_draftNaiyo" as any)
     .values({
-      vertex_id: `at://${ownerDid}/ai.gftd.apps.yorishiroEnaiyo.draftNaiyo/${draftId}`,
+      vertex_id: `at://${ownerDid}/app.etzhayyim.apps.yorishiroEnaiyo.draftNaiyo/${draftId}`,
       draft_id: draftId,
       template_type: template,
       payment_method: req.paymentMethod,
@@ -231,7 +231,7 @@ async function cmdCreateDraft(_sdk: HostSDK, payload: Uint8Array): Promise<unkno
 }
 
 async function cmdListDrafts(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroEnaiyo.listDrafts", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroEnaiyo.listDrafts", payload);
   const offset = req.offset ?? 0;
   const limit = Math.min(req.limit ?? 50, 100);
   const rows = (await q("YorishiroEnaiyoDraftNaiyo", (row) => !req.status || row.status === req.status))
@@ -248,7 +248,7 @@ async function cmdListDrafts(_sdk: HostSDK, payload: Uint8Array): Promise<unknow
 }
 
 async function cmdGetDraft(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroEnaiyo.getDraft", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroEnaiyo.getDraft", payload);
   if (!req.draftId) return { error: "draftId is required" };
   const rows = await q("YorishiroEnaiyoDraftNaiyo", (row) => String(row.draftId ?? "") === req.draftId);
   if (rows.length === 0) return { error: "not found" };
@@ -260,7 +260,7 @@ async function cmdGetDraft(_sdk: HostSDK, payload: Uint8Array): Promise<unknown>
 // ---------------------------------------------------------------------------
 
 async function cmdRenderDocx(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroEnaiyo.renderDocx", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroEnaiyo.renderDocx", payload);
   if (!req.draftId) return { error: "draftId is required" };
   const jobId = genID("docxRender");
   sdk.pds.dispatch({
@@ -275,7 +275,7 @@ async function cmdRenderDocx(sdk: HostSDK, payload: Uint8Array): Promise<unknown
   await getDb()
     .insertInto("vertex_yorishiroEnaiyo_docxBlob" as any)
     .values({
-      vertex_id: `at://${ownerDid}/ai.gftd.apps.yorishiroEnaiyo.docxBlob/${jobId}`,
+      vertex_id: `at://${ownerDid}/app.etzhayyim.apps.yorishiroEnaiyo.docxBlob/${jobId}`,
       job_id: jobId,
       draft_id: req.draftId,
       blob_key: "",
@@ -296,7 +296,7 @@ async function cmdRenderDocx(sdk: HostSDK, payload: Uint8Array): Promise<unknown
 // ---------------------------------------------------------------------------
 
 async function cmdSubmitNaiyo(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroEnaiyo.submitNaiyo", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroEnaiyo.submitNaiyo", payload);
   if (!req.draftId) return { error: "draftId is required" };
   if (!req.confirm) return { error: "confirm=true is required (submission is billable and legally binding)" };
 
@@ -320,7 +320,7 @@ async function cmdSubmitNaiyo(sdk: HostSDK, payload: Uint8Array): Promise<unknow
   await getDb()
     .insertInto("vertex_yorishiroEnaiyo_submitJob" as any)
     .values({
-      vertex_id: `at://${ownerDid}/ai.gftd.apps.yorishiroEnaiyo.submitJob/${jobId}`,
+      vertex_id: `at://${ownerDid}/app.etzhayyim.apps.yorishiroEnaiyo.submitJob/${jobId}`,
       job_id: jobId,
       draft_id: req.draftId,
       mode: "single",
@@ -342,7 +342,7 @@ async function cmdSubmitNaiyo(sdk: HostSDK, payload: Uint8Array): Promise<unknow
 }
 
 async function cmdSubmitBatch(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroEnaiyo.submitBatch", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroEnaiyo.submitBatch", payload);
   const draftIds = req.draftIds ?? [];
   if (draftIds.length === 0 && !req.csvBlobKey) {
     return { error: "draftIds[] or csvBlobKey is required (差込差出し: CSV + template)" };
@@ -371,7 +371,7 @@ async function cmdSubmitBatch(sdk: HostSDK, payload: Uint8Array): Promise<unknow
   await getDb()
     .insertInto("vertex_yorishiroEnaiyo_batchJob" as any)
     .values({
-      vertex_id: `at://${ownerDid}/ai.gftd.apps.yorishiroEnaiyo.batchJob/${batchId}`,
+      vertex_id: `at://${ownerDid}/app.etzhayyim.apps.yorishiroEnaiyo.batchJob/${batchId}`,
       batch_id: batchId,
       draft_ids: JSON.stringify(draftIds),
       csv_blob_key: req.csvBlobKey ?? "",
@@ -400,7 +400,7 @@ async function cmdSubmitBatch(sdk: HostSDK, payload: Uint8Array): Promise<unknow
 // ---------------------------------------------------------------------------
 
 async function cmdRecordReceipt(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroEnaiyo.recordReceipt", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroEnaiyo.recordReceipt", payload);
   if (!req.jobId || !req.draftId || !req.receiptNumber) {
     return { error: "jobId, draftId, receiptNumber are required" };
   }
@@ -409,7 +409,7 @@ async function cmdRecordReceipt(_sdk: HostSDK, payload: Uint8Array): Promise<unk
   await getDb()
     .insertInto("vertex_yorishiroEnaiyo_receipt" as any)
     .values({
-      vertex_id: `at://${ownerDid}/ai.gftd.apps.yorishiroEnaiyo.receipt/${receiptId}`,
+      vertex_id: `at://${ownerDid}/app.etzhayyim.apps.yorishiroEnaiyo.receipt/${receiptId}`,
       receipt_id: receiptId,
       job_id: req.jobId,
       draft_id: req.draftId,
@@ -428,7 +428,7 @@ async function cmdRecordReceipt(_sdk: HostSDK, payload: Uint8Array): Promise<unk
 }
 
 async function cmdGetStatus(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.yorishiroEnaiyo.getStatus", payload);
+  const req = parseLexiconInput("app.etzhayyim.apps.yorishiroEnaiyo.getStatus", payload);
   if (!req.draftId && !req.jobId) return { error: "draftId or jobId is required" };
   const jobs = await q("YorishiroEnaiyoSubmitJob", (row) =>
     (!req.jobId || String(row.jobId ?? "") === req.jobId) &&
@@ -458,44 +458,44 @@ async function cmdGetStatus(_sdk: HostSDK, payload: Uint8Array): Promise<unknown
 
 function registerYorishiroEnaiyoApp(sdk: HostSDK): void {
   sdk.app
-    .command(nsid("ai.gftd.apps.yorishiroEnaiyo.createDraft"),
+    .command(nsid("app.etzhayyim.apps.yorishiroEnaiyo.createDraft"),
       (_ctx, body) => cmdCreateDraft(sdk, body),
       asAgentTool("Create an e-naiyo draft (sender/recipient/body). Validates 26 lines × 20 chars."),
       withCapabilityTags("enaiyo", "draft", "japanpost"),
     )
-    .command(nsid("ai.gftd.apps.yorishiroEnaiyo.listDrafts"),
+    .command(nsid("app.etzhayyim.apps.yorishiroEnaiyo.listDrafts"),
       (_ctx, body) => cmdListDrafts(sdk, body),
       asAgentTool("List e-naiyo drafts with pagination."),
       withCapabilityTags("enaiyo", "query"),
     )
-    .command(nsid("ai.gftd.apps.yorishiroEnaiyo.getDraft"),
+    .command(nsid("app.etzhayyim.apps.yorishiroEnaiyo.getDraft"),
       (_ctx, body) => cmdGetDraft(sdk, body),
       asAgentTool("Get an e-naiyo draft by draftId."),
       withCapabilityTags("enaiyo", "query"),
     )
-    .command(nsid("ai.gftd.apps.yorishiroEnaiyo.renderDocx"),
+    .command(nsid("app.etzhayyim.apps.yorishiroEnaiyo.renderDocx"),
       (_ctx, body) => cmdRenderDocx(sdk, body),
       asAgentTool("Render a draft to a .docx using the official JP Post e-naiyo template (portrait-horizontal or landscape-vertical)."),
       withCapabilityTags("enaiyo", "docx", "render"),
     )
-    .command(nsid("ai.gftd.apps.yorishiroEnaiyo.submitNaiyo"),
+    .command(nsid("app.etzhayyim.apps.yorishiroEnaiyo.submitNaiyo"),
       (_ctx, body) => cmdSubmitNaiyo(sdk, body),
       asAgentTool("Submit a single e-naiyo draft to post.japanpost.jp via yorishiro-provider (requires confirm=true). Billable + legally binding."),
       withCapabilityTags("enaiyo", "submit", "browser-automation"),
       withOCELEvent("governance.audit"),
     )
-    .command(nsid("ai.gftd.apps.yorishiroEnaiyo.submitBatch"),
+    .command(nsid("app.etzhayyim.apps.yorishiroEnaiyo.submitBatch"),
       (_ctx, body) => cmdSubmitBatch(sdk, body),
       asAgentTool("Submit a batch of e-naiyo drafts (差込差出し mode). Accepts draftIds[] or CSV + template blobKeys. Requires confirm=true."),
       withCapabilityTags("enaiyo", "submit", "batch", "browser-automation"),
       withOCELEvent("governance.audit"),
     )
-    .command(nsid("ai.gftd.apps.yorishiroEnaiyo.recordReceipt"),
+    .command(nsid("app.etzhayyim.apps.yorishiroEnaiyo.recordReceipt"),
       (_ctx, body) => cmdRecordReceipt(sdk, body),
       asAgentTool("Record a receipt (callback from yorishiro-provider after submission)."),
       withCapabilityTags("enaiyo", "receipt"),
     )
-    .command(nsid("ai.gftd.apps.yorishiroEnaiyo.getStatus"),
+    .command(nsid("app.etzhayyim.apps.yorishiroEnaiyo.getStatus"),
       (_ctx, body) => cmdGetStatus(sdk, body),
       asAgentTool("Get submission status + receipt number for a draft or job."),
       withCapabilityTags("enaiyo", "query", "tracking"),

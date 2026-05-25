@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isic.listAgents",
+  "id": "app.etzhayyim.apps.isic.listAgents",
   "defs": {
     "main": {
       "type": "query",

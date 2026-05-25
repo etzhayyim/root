@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.biosecurity.issueQuarantineOrder",
+  "id": "app.etzhayyim.apps.biosecurity.issueQuarantineOrder",
   "defs": {
     "main": {
       "type": "procedure",

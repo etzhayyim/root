@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.m365.sendMail",
+  "id": "app.etzhayyim.host.m365.sendMail",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Send an email via Graph POST /users/{fromUpn}/sendMail. Requires Azure app-only Mail.Send. This host capability is unconditional — policy routing (internal direct / external draft_only) is enforced by the caller (e.g. ai.gftd.apps.microsoft.sendMail). For Teams channel posting, pass the channel email address as a recipient (channel_email_via_mail_send pattern).",
+      "description": "Send an email via Graph POST /users/{fromUpn}/sendMail. Requires Azure app-only Mail.Send. This host capability is unconditional — policy routing (internal direct / external draft_only) is enforced by the caller (e.g. app.etzhayyim.apps.microsoft.sendMail). For Teams channel posting, pass the channel email address as a recipient (channel_email_via_mail_send pattern).",
       "x-hostImportsMethod": "m365SendMail",
       "input": {
         "encoding": "application/json",

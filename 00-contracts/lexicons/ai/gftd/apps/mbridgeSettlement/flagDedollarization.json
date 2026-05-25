@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mbridgeSettlement.flagDedollarization",
+  "id": "app.etzhayyim.apps.mbridgeSettlement.flagDedollarization",
   "defs": {
     "main": {
       "type": "procedure",

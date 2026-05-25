@@ -50,7 +50,7 @@ GTFS-RT (the **real-time** path) stays in vendor (`etzhayyim-root`):
 
 - `bulk-ingest/workers/gtfs_rt_dumper.py` continues to write `vertex_maps_vehicle_position` / `vertex_maps_trip_update` / `vertex_maps_service_alert` to RisingWave via Hyperdrive direct INSERT (ADR-0036 path).
 - The streaming MVs `mv_maps_recent_vehicle_position` / `mv_maps_recent_trip_update` / `mv_maps_active_alerts` (window-pruned DISTINCT ON keyed by stop/trip/alert) stay in vendor.
-- The XRPC handler `cmdRealtimeDelaysAtStop` (`ai.gftd.apps.maps.realtimeDelaysAtStop`) stays in vendor and continues to be served from `maps.etzhayyim.com`.
+- The XRPC handler `cmdRealtimeDelaysAtStop` (`app.etzhayyim.apps.maps.realtimeDelaysAtStop`) stays in vendor and continues to be served from `maps.etzhayyim.com`.
 
 GTFS-RT is the **only** maps subsystem that does not migrate to etzhayyim. Everything else (static GTFS-JP, OSM, Wikidata, ferry, openflights, gsplat preview, satellite, post EXIF, Mapraly, Murakumo Vision) follows ADR-2605202300 to the etzhayyim substrate.
 
@@ -61,7 +61,7 @@ GTFS-RT is the **only** maps subsystem that does not migrate to etzhayyim. Every
 ```
 GET maps.etzhayyim.com/xrpc/app.etzhayyim.maps.realtimeDelaysAtStop?stopId=…
    ↓ pass-through
-GET maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.realtimeDelaysAtStop?stopId=…
+GET maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.realtimeDelaysAtStop?stopId=…
    ↓
 RisingWave (vendor)
 ```

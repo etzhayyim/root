@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.digitalEuroBrics.flagSovereigntyConcern",
+  "id": "app.etzhayyim.apps.digitalEuroBrics.flagSovereigntyConcern",
   "defs": {
     "main": {
       "type": "procedure",

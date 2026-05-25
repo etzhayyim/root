@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.23;
 
-/// @title GftdAgentRegistry
+/// @title etzhayyimAgentRegistry
 /// @notice ERC-8004-compatible agent identity, validation, and reputation
-///         registry for GFTD runtimes.
+///         registry for etzhayyim runtimes.
 ///
 /// This is a compact private-chain implementation shaped for ERC-8004
 /// discovery. Runtime execution stays in k8s/Zeebe/Python; IPFS stores the
 /// public registration document pointed to by `agentURI`.
-contract GftdAgentRegistry {
+contract etzhayyimAgentRegistry {
     struct Agent {
         uint256 tokenId;
         bytes32 rootDidHash;
@@ -117,11 +117,11 @@ contract GftdAgentRegistry {
     }
 
     function name() external pure returns (string memory) {
-        return "GFTD Agent Identity";
+        return "etzhayyim Agent Identity";
     }
 
     function symbol() external pure returns (string memory) {
-        return "GFTDAGENT";
+        return "etzhayyimAGENT";
     }
 
     function supportsInterface(bytes4 interfaceId) external pure returns (bool) {

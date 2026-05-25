@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oilMidstream.getAsset",
+  "id": "app.etzhayyim.apps.oilMidstream.getAsset",
   "defs": {
     "main": {
       "type": "query",

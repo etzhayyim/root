@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.disasterResponse.recordAppeal",
+  "id": "app.etzhayyim.apps.disasterResponse.recordAppeal",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kakaku.ingestOfferFromUrl",
+  "id": "app.etzhayyim.apps.kakaku.ingestOfferFromUrl",
   "defs": {
     "main": {
       "type": "procedure",

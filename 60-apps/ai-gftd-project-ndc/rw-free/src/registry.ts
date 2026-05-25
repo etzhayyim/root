@@ -27,7 +27,7 @@ import {
   type RegisterDrugOutput,
 } from "./types.js";
 
-const DRUG_COLLECTION = "ai.gftd.ndc.drug";
+const DRUG_COLLECTION = "app.etzhayyim.ndc.drug";
 
 export async function registerDrug(
   e: Etzhayyim,

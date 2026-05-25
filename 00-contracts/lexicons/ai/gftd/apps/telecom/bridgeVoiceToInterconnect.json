@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.bridgeVoiceToInterconnect",
+  "id": "app.etzhayyim.apps.telecom.bridgeVoiceToInterconnect",
   "defs": {
     "main": {
       "type": "procedure",

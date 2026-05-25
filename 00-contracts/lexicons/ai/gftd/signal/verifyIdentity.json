@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.signal.verifyIdentity",
+  "id": "app.etzhayyim.signal.verifyIdentity",
   "defs": {
     "main": {
       "type": "procedure",

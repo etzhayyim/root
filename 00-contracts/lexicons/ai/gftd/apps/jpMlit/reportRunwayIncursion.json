@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMlit.reportRunwayIncursion",
+  "id": "app.etzhayyim.apps.jpMlit.reportRunwayIncursion",
   "defs": {
     "main": {
       "type": "procedure",

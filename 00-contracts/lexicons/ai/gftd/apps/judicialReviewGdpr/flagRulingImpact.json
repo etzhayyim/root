@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.judicialReviewGdpr.flagRulingImpact",
+  "id": "app.etzhayyim.apps.judicialReviewGdpr.flagRulingImpact",
   "defs": {
     "main": {
       "type": "procedure",

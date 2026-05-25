@@ -1,5 +1,5 @@
-import { createKyselyDb, createWorkerExport, nsid, type HostSDK } from "@gftd/magatama-host-sdk";
-import type { Database } from "@gftd/graph-schema";
+import { createKyselyDb, createWorkerExport, nsid, type HostSDK } from "@etzhayyim/magatama-host-sdk";
+import type { Database } from "@etzhayyim/graph-schema";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden): migrate to AT MST + IPFS + Base L2 anchor
 import { Kysely } from "kysely";
 
@@ -137,11 +137,11 @@ async function loadWorldCoverage(sdk: HostSDK) {
 }
 
 export default createWorkerExport((sdk) => {
-  sdk.app.query(nsid("ai.gftd.apps.coverage.getWorldCoverage"), async (_ctx, _body) => {
+  sdk.app.query(nsid("app.etzhayyim.apps.coverage.getWorldCoverage"), async (_ctx, _body) => {
     return await loadWorldCoverage(sdk);
   });
 
-  sdk.app.query(nsid("ai.gftd.apps.coverage.listLatentEntities"), async (_ctx, body) => {
+  sdk.app.query(nsid("app.etzhayyim.apps.coverage.listLatentEntities"), async (_ctx, body) => {
     const args = body as Record<string, unknown>;
     const limit = Math.min(Number(args.limit ?? 50), 200);
     const offset = Number(args.offset ?? 0);
@@ -177,7 +177,7 @@ export default createWorkerExport((sdk) => {
     return { entities: rows, total: Number(countRow?.cnt ?? 0), offset, limit };
   });
 
-  sdk.app.query(nsid("ai.gftd.apps.coverage.getEntityEvidence"), async (_ctx, body) => {
+  sdk.app.query(nsid("app.etzhayyim.apps.coverage.getEntityEvidence"), async (_ctx, body) => {
     const args = body as Record<string, unknown>;
     const entityVid = String(args.entityVid ?? "");
     if (!entityVid) return { error: "entityVid required" };
@@ -206,7 +206,7 @@ export default createWorkerExport((sdk) => {
     return { entity: entity ?? null, evidence: evidenceRows };
   });
 
-  sdk.app.query(nsid("ai.gftd.apps.coverage.getViewpointStats"), async (_ctx, _body) => {
+  sdk.app.query(nsid("app.etzhayyim.apps.coverage.getViewpointStats"), async (_ctx, _body) => {
     const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as unknown as Kysely<Database>;
     const viewpoints = await (db as any)
       .selectFrom("vertex_lda_viewpoint")

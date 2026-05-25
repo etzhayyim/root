@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSales.logActivity",
+  "id": "app.etzhayyim.apps.openSales.logActivity",
   "defs": {
     "main": {
       "type": "procedure",

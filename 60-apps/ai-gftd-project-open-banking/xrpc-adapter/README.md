@@ -4,11 +4,11 @@ CF Worker that exposes the 5 rw-free commands as XRPC endpoints.
 
 ## Endpoints
 
-- `POST /xrpc/ai.gftd.apps.openBanking.createAccount` — open account
-- `GET /xrpc/ai.gftd.apps.openBanking.getAccount?accountId=...` — account + balance
-- `GET /xrpc/ai.gftd.apps.openBanking.listAccounts?ownerDid=...` — paginated accounts
-- `POST /xrpc/ai.gftd.apps.openBanking.transfer` — atomic double-entry transfer
-- `GET /xrpc/ai.gftd.apps.openBanking.listTransactions?accountId=...` — ledger with running balance
+- `POST /xrpc/app.etzhayyim.apps.openBanking.createAccount` — open account
+- `GET /xrpc/app.etzhayyim.apps.openBanking.getAccount?accountId=...` — account + balance
+- `GET /xrpc/app.etzhayyim.apps.openBanking.listAccounts?ownerDid=...` — paginated accounts
+- `POST /xrpc/app.etzhayyim.apps.openBanking.transfer` — atomic double-entry transfer
+- `GET /xrpc/app.etzhayyim.apps.openBanking.listTransactions?accountId=...` — ledger with running balance
 
 ## Setup
 
@@ -27,7 +27,7 @@ npm run dev
 ## Example: Create Account
 
 ```bash
-curl -X POST http://localhost:8787/xrpc/ai.gftd.apps.openBanking.createAccount \
+curl -X POST http://localhost:8787/xrpc/app.etzhayyim.apps.openBanking.createAccount \
   -H "Content-Type: application/json" \
   -d '{
     "accountId": "alice-checking",
@@ -42,7 +42,7 @@ curl -X POST http://localhost:8787/xrpc/ai.gftd.apps.openBanking.createAccount \
 ## Example: Transfer
 
 ```bash
-curl -X POST http://localhost:8787/xrpc/ai.gftd.apps.openBanking.transfer \
+curl -X POST http://localhost:8787/xrpc/app.etzhayyim.apps.openBanking.transfer \
   -H "Content-Type: application/json" \
   -d '{
     "transferId": "tx-001",

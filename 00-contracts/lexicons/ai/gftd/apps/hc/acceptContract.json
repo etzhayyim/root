@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hc.acceptContract",
+  "id": "app.etzhayyim.apps.hc.acceptContract",
   "defs": {
     "main": {
       "type": "procedure",

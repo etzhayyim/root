@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.anime.createEpisode",
+  "id": "app.etzhayyim.anime.createEpisode",
   "defs": {
     "main": {
       "type": "procedure",

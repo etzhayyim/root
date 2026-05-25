@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tradeFinanceFactoring.recordRepayment",
+  "id": "app.etzhayyim.apps.tradeFinanceFactoring.recordRepayment",
   "defs": {
     "main": {
       "type": "procedure",

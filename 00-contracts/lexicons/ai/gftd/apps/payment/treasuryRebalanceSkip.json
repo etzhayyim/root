@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.payment.treasury-rebalance-skip",
+  "id": "app.etzhayyim.apps.payment.treasury-rebalance-skip",
   "defs": {
     "main": {
       "type": "record",

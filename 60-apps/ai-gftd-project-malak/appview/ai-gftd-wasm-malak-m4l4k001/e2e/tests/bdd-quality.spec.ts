@@ -11,7 +11,7 @@ import { test, expect } from '@playwright/test';
 
 const BASE = process.env.MALAK_BASE_URL ?? 'https://malak.etzhayyim.com';
 const SVC = `${BASE}/xrpc/gftd.malak.v1.MalakService`;
-const HDR = { 'Content-Type': 'application/json', 'X-GFTD-USER-ID': 'e2e-bdd' };
+const HDR = { 'Content-Type': 'application/json', 'X-etzhayyim-USER-ID': 'e2e-bdd' };
 
 // --- Scenario: Register and track a new threat actor ---
 

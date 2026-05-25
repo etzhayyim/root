@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.setProfile",
+  "id": "app.etzhayyim.convo.setProfile",
   "defs": {
     "main": {
       "type": "procedure",

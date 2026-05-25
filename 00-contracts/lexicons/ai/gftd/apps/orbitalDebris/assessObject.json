@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.orbitalDebris.assessObject",
+  "id": "app.etzhayyim.apps.orbitalDebris.assessObject",
   "defs": {
     "main": {
       "type": "procedure",

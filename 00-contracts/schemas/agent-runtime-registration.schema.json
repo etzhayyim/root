@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://etzhayyim.com/schemas/agent-runtime-registration/v1.json",
-  "title": "GFTD ERC-8004 Agent Runtime Registration",
+  "title": "etzhayyim ERC-8004 Agent Runtime Registration",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema", "erc8004", "identity", "runtime", "mcp", "registries"],

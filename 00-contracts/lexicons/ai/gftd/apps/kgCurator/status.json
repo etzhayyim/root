@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kgCurator.status",
+  "id": "app.etzhayyim.apps.kgCurator.status",
   "defs": {
     "main": {
       "type": "query",

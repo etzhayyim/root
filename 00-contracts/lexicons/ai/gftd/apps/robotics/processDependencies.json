@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.robotics.process.dependencies",
+  "id": "app.etzhayyim.apps.robotics.process.dependencies",
   "defs": {
     "main": {
       "type": "query",

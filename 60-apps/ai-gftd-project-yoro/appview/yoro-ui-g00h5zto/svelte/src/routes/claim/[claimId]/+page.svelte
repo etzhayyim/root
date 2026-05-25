@@ -2,11 +2,11 @@
   /claim/[claimId] — staked-claim viewer + challenge action.
 
   ADR-2604261717 worker pipeline. Calls
-  `https://authz.etzhayyim.com/xrpc/ai.gftd.claim.getStakedAttestation?claimId=...`
+  `https://authz.etzhayyim.com/xrpc/app.etzhayyim.claim.getStakedAttestation?claimId=...`
   to read the on-chain Claim + (optional) Challenge struct from
   ClaimStakeEscrow. When state=pending and the window is open, surfaces
   a counter-bond + rebuttal form that POSTs to
-  `ai.gftd.claim.challengeStakedAttestation`.
+  `app.etzhayyim.claim.challengeStakedAttestation`.
 
   Discovery + action path for non-claimant users (anyone with the claimId
   can audit + challenge). The staker themselves receive the claimId in
@@ -112,7 +112,7 @@
 		loading = true;
 		loadError = '';
 		try {
-			const url = `${AUTHZ_BASE}/xrpc/ai.gftd.claim.getStakedAttestation?claimId=${encodeURIComponent(claimId)}`;
+			const url = `${AUTHZ_BASE}/xrpc/app.etzhayyim.claim.getStakedAttestation?claimId=${encodeURIComponent(claimId)}`;
 			const resp = await fetch(url);
 			if (resp.status === 404) {
 				loadError = 'No claim with this id (it may not exist on-chain yet).';
@@ -145,7 +145,7 @@
 		try {
 			const token = await getSessionToken();
 			if (!token) throw new Error('Sign in to file a challenge.');
-			const resp = await fetch(`${AUTHZ_BASE}/xrpc/ai.gftd.claim.challengeStakedAttestation`, {
+			const resp = await fetch(`${AUTHZ_BASE}/xrpc/app.etzhayyim.claim.challengeStakedAttestation`, {
 				method: 'POST',
 				headers: { 'authorization': `Bearer ${token}`, 'content-type': 'application/json' },
 				body: JSON.stringify({

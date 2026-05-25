@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.recordPage",
+  "id": "app.etzhayyim.apps.site.recordPage",
   "defs": {
     "main": {
       "type": "procedure",

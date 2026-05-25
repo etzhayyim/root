@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.m365.createDraft",
+  "id": "app.etzhayyim.host.m365.createDraft",
   "defs": {
     "main": {
       "type": "procedure",

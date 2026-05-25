@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.entityRelation",
+  "id": "app.etzhayyim.legalEntity.entityRelation",
   "description": "Relationship edge between legal entities with explicit statement provenance and optional commercial metadata.",
   "defs": {
     "main": {

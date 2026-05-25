@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.digitalAccessibility.recordConformance",
+  "id": "app.etzhayyim.apps.digitalAccessibility.recordConformance",
   "defs": {
     "main": {
       "type": "procedure",

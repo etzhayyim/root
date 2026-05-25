@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govJpn.getBpmnProcess",
+  "id": "app.etzhayyim.govJpn.getBpmnProcess",
   "defs": {
     "main": {
       "type": "query",

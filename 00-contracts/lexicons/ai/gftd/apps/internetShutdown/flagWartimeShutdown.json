@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.internetShutdown.flagWartimeShutdown",
+  "id": "app.etzhayyim.apps.internetShutdown.flagWartimeShutdown",
   "defs": {
     "main": {
       "type": "procedure",

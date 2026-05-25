@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kogu.item",
+  "id": "app.etzhayyim.apps.kogu.item",
   "description": "工具・測定器・設備の個体登録。ISO 9001 §7.1.5 校正要求対象品は calibrationRequired=true。toolId は社内管理番号。",
   "defs": {
     "main": {

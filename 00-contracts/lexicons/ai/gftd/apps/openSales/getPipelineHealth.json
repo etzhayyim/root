@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSales.getPipelineHealth",
+  "id": "app.etzhayyim.apps.openSales.getPipelineHealth",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.news.liveAudioSource",
+  "id": "app.etzhayyim.apps.news.liveAudioSource",
   "defs": {
     "main": {
       "type": "record",

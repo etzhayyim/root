@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hc.getContract",
+  "id": "app.etzhayyim.apps.hc.getContract",
   "defs": {
     "main": {
       "type": "query",

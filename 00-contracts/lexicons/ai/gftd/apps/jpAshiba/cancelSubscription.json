@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpAshiba.cancelSubscription",
+  "id": "app.etzhayyim.apps.jpAshiba.cancelSubscription",
   "defs": {
     "main": {
       "type": "procedure",

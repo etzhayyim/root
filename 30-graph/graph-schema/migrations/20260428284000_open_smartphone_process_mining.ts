@@ -77,7 +77,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       (value_json::jsonb ->> 'objectRefs')                       AS object_refs_json,
       value_json                                                 AS payload_json
     FROM vertex_repo_commit
-    WHERE collection = 'ai.gftd.bpmn.audit'
+    WHERE collection = 'app.etzhayyim.bpmn.audit'
       AND (
         (value_json::jsonb ->> 'action') LIKE 'openSmartphone%'
         OR (value_json::jsonb ->> 'action') LIKE 'open-smartphone%'

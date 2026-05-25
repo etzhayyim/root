@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.legalEntity.entityTradeRelationship",
+  "id": "app.etzhayyim.legalEntity.entityTradeRelationship",
   "description": "Commercial relationship between legal entities such as supplier, customer, distributor, or partner. Endpoints may be identified by graph vertex ID, LEI, source/sourceRecordId, or fallback name/country hints.",
   "defs": {
     "main": {

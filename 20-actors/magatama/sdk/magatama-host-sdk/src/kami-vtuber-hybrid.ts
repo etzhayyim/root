@@ -23,7 +23,7 @@
  *   8. KAMI hybrid render: PBR pass (body VRM) + Splat pass (face 3DGS)
  *
  * Usage in app.ts:
- *   import { buildHybridVTuberScene } from "@gftd/magatama-host-sdk/kami-vtuber-hybrid";
+ *   import { buildHybridVTuberScene } from "@etzhayyim/magatama-host-sdk/kami-vtuber-hybrid";
  *   const scene = buildHybridVTuberScene({
  *     faceSplatKey: "avatar-face.splat",
  *     faceRegionMapKey: "avatar-face-regions.json",
@@ -300,7 +300,7 @@ export function buildHybridVTuberScene(config: HybridVTuberConfig): Record<strin
   });
 
   return {
-    "@context": "https://gftd.co.jp/ns/kami/scene",
+    "@context": "https://etzhayyim.com/ns/kami/scene",
     "@type": "IslandScene",
     name: config.name ?? "Hybrid VTuber",
     genre: "social",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.sense.structure.detect",
+  "id": "app.etzhayyim.apps.sense.structure.detect",
   "defs": {
     "main": {
       "type": "procedure",

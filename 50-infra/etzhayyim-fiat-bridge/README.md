@@ -35,7 +35,7 @@ The **etzhayyim side** of the fiat → on-chain bridge. The vendor (etzhayyim) k
   - `requestFiatBridgeRefund.json` (procedure)
   - `fiatBridgeReceipt.json` (record)
   - `fiatBridgeRefundReceipt.json` (record)
-- **Vendor-side callback** lexicon for refund hook (`ai.gftd.authz.fiatBridgeRefundCallback`) — lands in vendor repo via cross-repo PR.
+- **Vendor-side callback** lexicon for refund hook (`app.etzhayyim.authz.fiatBridgeRefundCallback`) — lands in vendor repo via cross-repo PR.
 - **Reserve solvency monitor**: cron that pages Council when `reserveBalanceMicros` drops below the 30-day burn minimum.
 - **Base Sepolia deploy + smoke**: same pattern as etzhayyim-authz / etzhayyim-k2.
 - **Operator key custody**: the XRPC service's signing key for `creditFromFiat` lives in CF Secrets; Council rotates per security policy.

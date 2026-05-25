@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aiWatermark.flagEvasion",
+  "id": "app.etzhayyim.apps.aiWatermark.flagEvasion",
   "defs": {
     "main": {
       "type": "procedure",

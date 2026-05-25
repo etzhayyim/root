@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.birthRegistration.flagRegistrationGap",
+  "id": "app.etzhayyim.apps.birthRegistration.flagRegistrationGap",
   "defs": {
     "main": {
       "type": "procedure",

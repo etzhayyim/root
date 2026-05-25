@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.credentialPortability.recordCrossBorderRecognition",
+  "id": "app.etzhayyim.apps.credentialPortability.recordCrossBorderRecognition",
   "defs": {
     "main": {
       "type": "procedure",

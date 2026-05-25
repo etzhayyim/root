@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.antimicrobialStewardship.reportPrescriptionMetric",
+  "id": "app.etzhayyim.apps.antimicrobialStewardship.reportPrescriptionMetric",
   "defs": {
     "main": {
       "type": "procedure",

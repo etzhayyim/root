@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.commodityTrade.recordTrade",
+  "id": "app.etzhayyim.apps.commodityTrade.recordTrade",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 """yukkuri `generateVisual` graph — 背景 + 挿絵 生成.
 
-NSID: ai.gftd.apps.yukkuri.generateVisual
+NSID: app.etzhayyim.apps.yukkuri.generateVisual
 
 Actor: did:web:yukkuri.etzhayyim.com:actor:illustrator
 

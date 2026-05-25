@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.agent.slashEvent",
+  "id": "app.etzhayyim.agent.slashEvent",
   "defs": {
     "main": {
       "type": "record",

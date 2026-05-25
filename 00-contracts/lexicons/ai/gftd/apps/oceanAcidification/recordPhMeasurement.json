@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oceanAcidification.recordPhMeasurement",
+  "id": "app.etzhayyim.apps.oceanAcidification.recordPhMeasurement",
   "defs": {
     "main": {
       "type": "procedure",

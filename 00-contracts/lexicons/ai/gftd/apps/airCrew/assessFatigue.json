@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airCrew.assessFatigue",
+  "id": "app.etzhayyim.apps.airCrew.assessFatigue",
   "defs": {
     "main": {
       "type": "procedure",

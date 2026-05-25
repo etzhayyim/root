@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.registerInfraSegment",
+  "id": "app.etzhayyim.apps.maps.registerInfraSegment",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aiWorkerLabor.recordDisplacementStudy",
+  "id": "app.etzhayyim.apps.aiWorkerLabor.recordDisplacementStudy",
   "defs": {
     "main": {
       "type": "procedure",

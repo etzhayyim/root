@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pensionsDc.recordFundMetric",
+  "id": "app.etzhayyim.apps.pensionsDc.recordFundMetric",
   "defs": {
     "main": {
       "type": "procedure",

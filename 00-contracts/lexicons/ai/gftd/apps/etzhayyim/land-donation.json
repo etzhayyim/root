@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.land-donation",
+  "id": "app.etzhayyim.apps.etzhayyim.land-donation",
   "defs": {
     "main": {
       "type": "record",

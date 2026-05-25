@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openBanking.transfer",
+  "id": "app.etzhayyim.apps.openBanking.transfer",
   "defs": {
     "main": {
       "type": "procedure",

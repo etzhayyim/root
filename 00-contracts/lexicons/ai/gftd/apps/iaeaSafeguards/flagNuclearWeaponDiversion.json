@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iaeaSafeguards.flagNuclearWeaponDiversion",
+  "id": "app.etzhayyim.apps.iaeaSafeguards.flagNuclearWeaponDiversion",
   "defs": {
     "main": {
       "type": "procedure",

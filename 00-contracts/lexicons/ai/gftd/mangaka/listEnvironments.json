@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.mangaka.listEnvironments",
+  "id": "app.etzhayyim.mangaka.listEnvironments",
   "defs": {
     "main": {
       "type": "query",

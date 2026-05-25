@@ -14,11 +14,11 @@ lg/
 │   ├── audit.py                             # fire-and-forget BPMN generic.audit.emit
 │   ├── checkpointer.py                      # _RwAsyncPostgresSaver (RW ON CONFLICT 回避)
 │   └── graphs/
-│       ├── health.py                        # ai.gftd.apps.webmk.health
-│       ├── create_proposal.py               # ai.gftd.apps.webmk.createProposal
-│       ├── deliver_proposal.py              # ai.gftd.apps.webmk.deliverProposal
-│       ├── get_proposal.py                  # ai.gftd.apps.webmk.getProposal
-│       └── list_proposals.py               # ai.gftd.apps.webmk.listProposals
+│       ├── health.py                        # app.etzhayyim.apps.webmk.health
+│       ├── create_proposal.py               # app.etzhayyim.apps.webmk.createProposal
+│       ├── deliver_proposal.py              # app.etzhayyim.apps.webmk.deliverProposal
+│       ├── get_proposal.py                  # app.etzhayyim.apps.webmk.getProposal
+│       └── list_proposals.py               # app.etzhayyim.apps.webmk.listProposals
 └── tests/
     └── test_smoke.py                        # smoke tests
 ```
@@ -27,11 +27,11 @@ lg/
 
 | NSID | assistant_id | graph file | status |
 |---|---|---|---|
-| `ai.gftd.apps.webmk.health` | `health` | health.py | ✅ |
-| `ai.gftd.apps.webmk.createProposal` | `create_proposal` | create_proposal.py | ✅ |
-| `ai.gftd.apps.webmk.deliverProposal` | `deliver_proposal` | deliver_proposal.py | ✅ |
-| `ai.gftd.apps.webmk.getProposal` | `get_proposal` | get_proposal.py | ✅ |
-| `ai.gftd.apps.webmk.listProposals` | `list_proposals` | list_proposals.py | ✅ |
+| `app.etzhayyim.apps.webmk.health` | `health` | health.py | ✅ |
+| `app.etzhayyim.apps.webmk.createProposal` | `create_proposal` | create_proposal.py | ✅ |
+| `app.etzhayyim.apps.webmk.deliverProposal` | `deliver_proposal` | deliver_proposal.py | ✅ |
+| `app.etzhayyim.apps.webmk.getProposal` | `get_proposal` | get_proposal.py | ✅ |
+| `app.etzhayyim.apps.webmk.listProposals` | `list_proposals` | list_proposals.py | ✅ |
 
 ## Proposal Lifecycle
 

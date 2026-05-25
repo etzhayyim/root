@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.qualityInspection.getInspections",
+  "id": "app.etzhayyim.apps.tsukuru.qualityInspection.getInspections",
   "defs": {
     "main": {
       "type": "query",

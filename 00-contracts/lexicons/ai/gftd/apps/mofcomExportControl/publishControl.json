@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mofcomExportControl.publishControl",
+  "id": "app.etzhayyim.apps.mofcomExportControl.publishControl",
   "defs": {
     "main": {
       "type": "procedure",

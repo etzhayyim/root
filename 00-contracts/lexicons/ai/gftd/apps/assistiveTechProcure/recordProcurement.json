@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.assistiveTechProcure.recordProcurement",
+  "id": "app.etzhayyim.apps.assistiveTechProcure.recordProcurement",
   "defs": {
     "main": {
       "type": "procedure",

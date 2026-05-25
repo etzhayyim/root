@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openUnispsc.importSegmentCatalog",
+  "id": "app.etzhayyim.apps.openUnispsc.importSegmentCatalog",
   "defs": {
     "main": {
       "type": "procedure",

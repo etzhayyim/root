@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yorishiro.flyio.deleteOrg",
+  "id": "app.etzhayyim.yorishiro.flyio.deleteOrg",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.amnesty.listRestructurings",
+  "id": "app.etzhayyim.apps.etzhayyim.amnesty.listRestructurings",
   "defs": {
     "main": {
       "type": "query",

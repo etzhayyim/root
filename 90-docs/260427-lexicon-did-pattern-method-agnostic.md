@@ -74,7 +74,7 @@ find 00-contracts/lexicons -name "*.json" -exec python3 -c "import json,sys; jso
 
 1. このドキュメントの commit 後、新規 lexicon は `format: "did"` のみ
 2. 旧 strict pattern を含む既存 lexicon は本 PR で全削除済み
-3. handler 側の DID validation は `parseDid()` / `isLegacyDidGftd()` / `extractDidMethod()` に統合
+3. handler 側の DID validation は `parseDid()` / `isLegacyDidetzhayyim()` / `extractDidMethod()` に統合
 4. `lawfirm.createMatter` 等の depth=2 invariant は handler 内 `firmDid.split(":").length === 4` で gate
 
 ## References

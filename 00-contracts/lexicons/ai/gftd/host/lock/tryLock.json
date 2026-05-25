@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.lock.tryLock",
+  "id": "app.etzhayyim.host.lock.tryLock",
   "defs": {
     "main": {
       "type": "procedure",

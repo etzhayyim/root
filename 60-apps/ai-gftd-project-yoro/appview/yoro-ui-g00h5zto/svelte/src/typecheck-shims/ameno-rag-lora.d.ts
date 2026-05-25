@@ -1,4 +1,4 @@
-declare module '@gftd/ameno/rag-lora' {
+declare module '@etzhayyim/ameno/rag-lora' {
   export type RagLoraContext = any;
   export type RagResult = any;
 

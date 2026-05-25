@@ -269,7 +269,7 @@
 				// 1. Try loading scene from PDS (baminiku stream data)
 				let sceneLoaded = false;
 				try {
-					const data = await atQuery<{ scene_json?: string }>('ai.gftd.convo.subscribeStream', {
+					const data = await atQuery<{ scene_json?: string }>('app.etzhayyim.convo.subscribeStream', {
 						'agent_id': nanoid ?? agentName,
 						did,
 					}).catch((_err) => null);

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hatsubai.trcCheck",
+  "id": "app.etzhayyim.apps.hatsubai.trcCheck",
   "defs": {
     "main": {
       "type": "record",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.supplierExchange.validatePackage",
+  "id": "app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage",
   "defs": {
     "main": {
       "type": "query",

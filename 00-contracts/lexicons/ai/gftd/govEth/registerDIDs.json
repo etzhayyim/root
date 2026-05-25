@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govEth.registerDIDs",
+  "id": "app.etzhayyim.govEth.registerDIDs",
   "defs": {
     "main": {
       "type": "procedure",

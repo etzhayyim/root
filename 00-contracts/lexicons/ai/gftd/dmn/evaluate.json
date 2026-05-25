@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.dmn.evaluate",
+  "id": "app.etzhayyim.dmn.evaluate",
   "defs": {
     "main": {
       "type": "procedure",

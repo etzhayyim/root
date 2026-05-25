@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ossVuln.recordSbomMatch",
+  "id": "app.etzhayyim.apps.ossVuln.recordSbomMatch",
   "defs": {
     "main": {
       "type": "procedure",

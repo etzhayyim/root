@@ -216,7 +216,7 @@ WIT doc comment から自動導出される検証ルール例:
 | **Schema/属性は lowerCamelCase** | XRPC method は camelCase。WIT field は kebab-case (WIT 仕様制約) → host-sdk が camelCase JSON に変換 | ✅ |
 | **Record は単数名詞** | `post`, `like`, `follow`, `profile` | ✅ |
 | **Query/Procedure は動詞+名詞** | `post`, `like`, `repost` (NSID method kebab) → XRPC `createRecord` | ✅ |
-| **NSID 階層グルーピング** | `app.bsky.feed.*`, `ai.gftd.apps.{app}.*`, `ai.gftd.convo.*` | ✅ |
+| **NSID 階層グルーピング** | `app.bsky.feed.*`, `app.etzhayyim.apps.{app}.*`, `app.etzhayyim.convo.*` | ✅ |
 | **Record 参照は DID (handle 不可)** | `at-did` type alias、`subject: string` (DID) | ✅ |
 | **大バイナリは blob 参照** | `blob-ref` record (FormData+multipart) | ✅ |
 | **Pagination は `limit` + `cursor`** | XRPC 428 methods で cursor-based | ✅ |

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coworkGraph.teamsChannelList",
+  "id": "app.etzhayyim.apps.coworkGraph.teamsChannelList",
   "defs": {
     "main": {
       "type": "query",

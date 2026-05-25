@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.registerEvCharger",
+  "id": "app.etzhayyim.apps.maps.registerEvCharger",
   "defs": {
     "main": {
       "type": "procedure",

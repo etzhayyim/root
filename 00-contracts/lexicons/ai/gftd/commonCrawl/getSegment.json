@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.commonCrawl.getSegment",
+  "id": "app.etzhayyim.commonCrawl.getSegment",
   "defs": {
     "main": {
       "type": "query",

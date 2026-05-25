@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.agent.resourceUsage",
+  "id": "app.etzhayyim.agent.resourceUsage",
   "defs": {
     "main": {
       "type": "record",

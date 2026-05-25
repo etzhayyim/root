@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.narou.listNovels",
+  "id": "app.etzhayyim.narou.listNovels",
   "defs": {
     "main": {
       "type": "query",

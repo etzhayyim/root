@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.actor.authActorManagement",
-  "description": "Actor management permissions. Superset — includes official app.bsky.actor profile/preferences RPCs plus GFTD actor lifecycle, tool grants, and BPMN/DMN operations.",
+  "id": "app.etzhayyim.actor.authActorManagement",
+  "description": "Actor management permissions. Superset — includes official app.bsky.actor profile/preferences RPCs plus etzhayyim actor lifecycle, tool grants, and BPMN/DMN operations.",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -9,9 +9,9 @@
       "title:lang": {
         "ja": "Actor管理"
       },
-      "detail": "Create, update, and manage actors. Includes official profile and preferences management, plus GFTD-specific actor lifecycle, tool grants, pipeline execution, and BPMN/DMN operations.",
+      "detail": "Create, update, and manage actors. Includes official profile and preferences management, plus etzhayyim-specific actor lifecycle, tool grants, pipeline execution, and BPMN/DMN operations.",
       "detail:lang": {
-        "ja": "Actorの作成・更新・管理。公式プロフィール/プリファレンス管理に加え、GFTDのActorライフサイクル、ツール付与、パイプライン実行、BPMN/DMN操作を含む"
+        "ja": "Actorの作成・更新・管理。公式プロフィール/プリファレンス管理に加え、etzhayyimのActorライフサイクル、ツール付与、パイプライン実行、BPMN/DMN操作を含む"
       },
       "permissions": [
         {
@@ -40,33 +40,33 @@
         {
           "type": "permission",
           "resource": "repo",
-          "description": "GFTD actor record collections",
-          "collection": ["ai.gftd.actor.*"],
+          "description": "etzhayyim actor record collections",
+          "collection": ["app.etzhayyim.actor.*"],
           "action": ["create", "update", "delete"]
         },
         {
           "type": "permission",
           "resource": "rpc",
-          "description": "GFTD actor extension RPCs",
+          "description": "etzhayyim actor extension RPCs",
           "lxm": [
-            "ai.gftd.actor.get",
-            "ai.gftd.actor.list",
-            "ai.gftd.actor.listTools",
-            "ai.gftd.actor.create",
-            "ai.gftd.actor.update",
-            "ai.gftd.actor.delete",
-            "ai.gftd.actor.setStatus",
-            "ai.gftd.actor.heartbeatBatch",
-            "ai.gftd.actor.grantTool",
-            "ai.gftd.actor.revokeTool",
-            "ai.gftd.actor.executePipeline",
-            "ai.gftd.actor.registerManifest",
-            "ai.gftd.actor.getManifest",
-            "ai.gftd.actor.validateManifest",
-            "ai.gftd.actor.compileBpmn",
-            "ai.gftd.actor.deployProcess",
-            "ai.gftd.dmn.evaluate",
-            "ai.gftd.form.submit"
+            "app.etzhayyim.actor.get",
+            "app.etzhayyim.actor.list",
+            "app.etzhayyim.actor.listTools",
+            "app.etzhayyim.actor.create",
+            "app.etzhayyim.actor.update",
+            "app.etzhayyim.actor.delete",
+            "app.etzhayyim.actor.setStatus",
+            "app.etzhayyim.actor.heartbeatBatch",
+            "app.etzhayyim.actor.grantTool",
+            "app.etzhayyim.actor.revokeTool",
+            "app.etzhayyim.actor.executePipeline",
+            "app.etzhayyim.actor.registerManifest",
+            "app.etzhayyim.actor.getManifest",
+            "app.etzhayyim.actor.validateManifest",
+            "app.etzhayyim.actor.compileBpmn",
+            "app.etzhayyim.actor.deployProcess",
+            "app.etzhayyim.dmn.evaluate",
+            "app.etzhayyim.form.submit"
           ]
         }
       ]

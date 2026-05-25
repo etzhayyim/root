@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.surplusRouter.listSurplusLots",
+  "id": "app.etzhayyim.apps.surplusRouter.listSurplusLots",
   "defs": {
     "main": {
       "type": "query",

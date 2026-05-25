@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.identity.submitOp",
+  "id": "app.etzhayyim.identity.submitOp",
   "description": "ADR-0029 — submit a did:gftd op (create | update | deactivate). For 'create', the server verifies CID(op) matches the last segment of did. The op is persisted to vertex_gftd_op_log and the identity row is upserted into vertex_gftd_identity.",
   "defs": {
     "main": {

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openOssekai.listArbitrageOpportunities",
+  "id": "app.etzhayyim.apps.openOssekai.listArbitrageOpportunities",
   "defs": {
     "main": {
       "type": "query",

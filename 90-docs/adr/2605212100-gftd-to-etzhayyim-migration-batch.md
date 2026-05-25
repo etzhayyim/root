@@ -40,7 +40,7 @@ Every DEPRECATED.md file cites this ADR (`ADR-2605212100-gftd-to-etzhayyim-migra
 The DEPRECATED.md authors were correct to skip the violating subtrees, but the deferral was never written down — leading the post-audit reader (the user) to perceive the religious-corp's gov / admin coverage as ~0% when in fact:
 
 - `ai-gftd-project-cofog` (1229 files, 203 actor-bundles covering UN COFOG × country) is **fully migrated**.
-- `ai-gftd-project-gov` (gov.gftd.ai public-services hub, 8 COFOG-aligned path-based DID sub-agents) had its `appview/gov-mcp-component/` (12 files) **deferred** due to Kysely/HyperDrive use.
+- `ai-gftd-project-gov` (gov.etzhayyim.com public-services hub, 8 COFOG-aligned path-based DID sub-agents) had its `appview/gov-mcp-component/` (12 files) **deferred** due to Kysely/HyperDrive use.
 - `ai-gftd-project-lawfirm-admin` (11 files) and `ai-gftd-project-legal-entity` (13 files) follow the same pattern.
 
 # Decision
@@ -49,11 +49,11 @@ The DEPRECATED.md authors were correct to skip the violating subtrees, but the d
    - Apps moved fully: `ai-gftd-project-cofog` / `ai-gftd-project-government-body` / `ai-gftd-project-lawfirm` / `ai-gftd-project-lawyer`.
    - Apps moved with substrate-violating subtrees deferred: `ai-gftd-project-gov` / `ai-gftd-project-lawfirm-admin` / `ai-gftd-project-legal-entity`.
    - Apps added directly on etzhayyim side (no archive equivalent): `ai-gftd-project-legal-aid` / `ai-gftd-project-legal-corpus` / `ai-gftd-project-open-jpn-gov`.
-   - Apps kept active on the gftd side (not migration targets): `50-infra/cloudflare/workers/gov-fetch-proxy` (serves `*.gftd.ai` traffic; the religious-corp routing-around stance forbids etzhayyim depending on gftd-side proxies).
+   - Apps kept active on the gftd side (not migration targets): `50-infra/cloudflare/workers/gov-fetch-proxy` (serves `*.etzhayyim.com` traffic; the religious-corp routing-around stance forbids etzhayyim depending on gftd-side proxies).
 
 2. **Deferred-subtree handling (2026-05-24 blind-copy wave)**:
    - The 36 files (12+11+13) previously deferred have been **blind-copied** to the etzhayyim side per user direction "blind copy して、後から修正".
-   - Each restored app carries a `SUBSTRATE-PORT-PENDING.md` documenting the exact Kysely / HyperDrive call sites and the substrate-port checklist (Kysely → MST PUT via `@etzhayyim/sdk`, `did:web:*.gftd.ai` → `did:web:etzhayyim.com:*`, Lexicon `ai.gftd.apps.*` → `app.etzhayyim.*`, package `@gftd/magatama-*` → `@etzhayyim/magatama-*`).
+   - Each restored app carries a `SUBSTRATE-PORT-PENDING.md` documenting the exact Kysely / HyperDrive call sites and the substrate-port checklist (Kysely → MST PUT via `@etzhayyim/sdk`, `did:web:*.etzhayyim.com` → `did:web:etzhayyim.com:*`, Lexicon `app.etzhayyim.apps.*` → `app.etzhayyim.*`, package `@etzhayyim/magatama-*` → `@etzhayyim/magatama-*`).
    - The substrate-port wave will execute as part of the ADR-2605214000 §3 atomic identifier cutover, gated on legal-registration completion of the etzhayyim → 宗教法人 transition.
 
 3. **Authoritative audit record**: `60-apps/MIGRATION-NOTES-GOV-2026-05-24.md` is the single source of truth for the migration-gap matrix and per-app file counts as of 2026-05-24.

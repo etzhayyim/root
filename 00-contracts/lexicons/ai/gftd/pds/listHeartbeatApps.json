@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.pds.listHeartbeatApps",
+  "id": "app.etzhayyim.pds.listHeartbeatApps",
   "defs": {
     "main": {
       "type": "query",

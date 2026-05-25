@@ -86,7 +86,7 @@ dependencies = [
   # (ChatAnthropic LangGraph node). Top-level import so must be in main deps.
   "langchain-anthropic>=0.3.0",
   # LangChain OpenAI — used by pregel.graph classify_intent node (ChatOpenAI
-  # pointed at GFTD_LLM_URL OpenAI-compatible endpoint).
+  # pointed at etzhayyim_LLM_URL OpenAI-compatible endpoint).
   "langchain-openai>=0.3.0",
   "openpyxl>=3.1.5",
   "python-docx>=1.2.0",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.panamaDrought.recordLakeLevel",
+  "id": "app.etzhayyim.apps.panamaDrought.recordLakeLevel",
   "defs": {
     "main": {
       "type": "procedure",

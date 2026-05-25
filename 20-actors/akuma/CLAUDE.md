@@ -13,10 +13,10 @@ ADR-2605151400 が SSoT。
 | **External surface** | magatama MCP facade only (ADR-2605091400 cytoplasmic demotion) |
 | **Persistence** | `vertex_akuma_scope`, `vertex_akuma_probe`, `vertex_akuma_finding`, `vertex_akuma_audit` (append-only; no soft delete) |
 | **Vault** | finding raw payloads ciphertext-stored in `vault.etzhayyim.com` (zero-knowledge invariant) |
-| **Operating entity** | etzhayyim (Gftd Japan = vendor only) |
+| **Operating entity** | etzhayyim (etzhayyim Japan = vendor only) |
 | **Domain** | `akuma.etzhayyim.com` / `ak0m4r3d.etzhayyim.com` |
 
-## XRPC surface (`ai.gftd.apps.akuma.*`)
+## XRPC surface (`app.etzhayyim.apps.akuma.*`)
 
 | NSID | Type | Purpose |
 |---|---|---|
@@ -85,7 +85,7 @@ until the human-driven steps below are executed:
 
 1. **Authority key**: `70-tools/scripts/akuma/provision-authority-key.sh` (writes
    Ed25519 keypair to macOS Keychain `gftd.akuma`; mirror to 1Password
-   `Gftd Japan株式会社`); publish `AUTHORITY_SIGNING_KEY_PUBLIC` at
+   `etzhayyim Japan株式会社`); publish `AUTHORITY_SIGNING_KEY_PUBLIC` at
    `https://akuma.etzhayyim.com/.well-known/did.json` `verificationMethod`.
 2. **K8s apply**: `rw-health-gate.sh` then `kubectl apply -k 50-infra/k8s/akuma-langserver/`.
    Implement `pymagatama.akuma.scope_egress_reconciler` per pseudo-code in

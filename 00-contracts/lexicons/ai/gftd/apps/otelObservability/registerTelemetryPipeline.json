@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.otelObservability.registerTelemetryPipeline",
+  "id": "app.etzhayyim.apps.otelObservability.registerTelemetryPipeline",
   "defs": {
     "main": {
       "type": "procedure",

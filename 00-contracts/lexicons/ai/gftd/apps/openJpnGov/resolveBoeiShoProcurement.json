@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openJpnGov.resolveBoeiShoProcurement",
+  "id": "app.etzhayyim.apps.openJpnGov.resolveBoeiShoProcurement",
   "defs": {
     "main": {
       "type": "procedure",

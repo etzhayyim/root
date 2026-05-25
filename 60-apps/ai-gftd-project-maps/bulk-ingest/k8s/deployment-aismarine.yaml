@@ -5,8 +5,8 @@
 # batches positions (5s OR 500 msg) and flushes them through the K8s-internal
 # bpmn-dispatcher ClusterIP (ADR-2604282300 §Addendum 2026-04-30) to:
 #
-#   ai.gftd.apps.maps.aismarine.position.batchInsert
-#   ai.gftd.apps.maps.aismarine.master.upsert
+#   app.etzhayyim.apps.maps.aismarine.position.batchInsert
+#   app.etzhayyim.apps.maps.aismarine.master.upsert
 #
 # Gate: pod CrashLoopBackOff's unless both
 #   AIS_STREAM_API_KEY        (Keychain `etzhayyim.comsstream/API_KEY`)

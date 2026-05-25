@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kobo.budAgent",
+  "id": "app.etzhayyim.apps.kobo.budAgent",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ransomwatch.getStats",
+  "id": "app.etzhayyim.apps.ransomwatch.getStats",
   "defs": {
     "main": {
       "type": "query",

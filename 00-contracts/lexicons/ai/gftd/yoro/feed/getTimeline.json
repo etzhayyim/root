@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yoro.feed.getTimeline",
+  "id": "app.etzhayyim.yoro.feed.getTimeline",
   "defs": {
     "main": {
       "type": "query",
@@ -37,7 +37,7 @@
       "properties": {
         "uri": { "type": "string", "format": "at-uri" },
         "cid": { "type": "string" },
-        "author": { "type": "ref", "ref": "ai.gftd.yoro.getProfile#defs/profileViewDetailed" },
+        "author": { "type": "ref", "ref": "app.etzhayyim.yoro.getProfile#defs/profileViewDetailed" },
         "record": { "type": "unknown" },
         "indexedAt": { "type": "string", "format": "datetime" },
         "likeCount": { "type": "integer" },

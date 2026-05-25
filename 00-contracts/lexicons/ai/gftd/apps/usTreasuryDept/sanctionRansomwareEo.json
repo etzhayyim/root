@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.usTreasuryDept.sanctionRansomwareEo",
+  "id": "app.etzhayyim.apps.usTreasuryDept.sanctionRansomwareEo",
   "defs": {
     "main": {
       "type": "procedure",

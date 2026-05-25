@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oshinobi.publishPost",
+  "id": "app.etzhayyim.apps.oshinobi.publishPost",
   "defs": {
     "main": {
       "type": "procedure",

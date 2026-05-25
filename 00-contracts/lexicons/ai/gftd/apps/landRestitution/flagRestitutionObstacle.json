@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.landRestitution.flagRestitutionObstacle",
+  "id": "app.etzhayyim.apps.landRestitution.flagRestitutionObstacle",
   "defs": {
     "main": {
       "type": "procedure",

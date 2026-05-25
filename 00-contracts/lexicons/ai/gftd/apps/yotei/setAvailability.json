@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yotei.setAvailability",
+  "id": "app.etzhayyim.apps.yotei.setAvailability",
   "defs": {
     "main": {
       "type": "procedure",

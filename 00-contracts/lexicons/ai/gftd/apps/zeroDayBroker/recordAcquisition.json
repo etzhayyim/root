@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.zeroDayBroker.recordAcquisition",
+  "id": "app.etzhayyim.apps.zeroDayBroker.recordAcquisition",
   "defs": {
     "main": {
       "type": "procedure",

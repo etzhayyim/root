@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.core.configGet",
+  "id": "app.etzhayyim.host.core.configGet",
   "defs": {
     "main": {
       "type": "query",

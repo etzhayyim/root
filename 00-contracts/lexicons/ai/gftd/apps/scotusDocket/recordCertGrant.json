@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.scotusDocket.recordCertGrant",
+  "id": "app.etzhayyim.apps.scotusDocket.recordCertGrant",
   "defs": {
     "main": {
       "type": "procedure",

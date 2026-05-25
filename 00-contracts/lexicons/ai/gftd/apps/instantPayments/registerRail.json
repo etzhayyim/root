@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.instantPayments.registerRail",
+  "id": "app.etzhayyim.apps.instantPayments.registerRail",
   "defs": {
     "main": {
       "type": "procedure",

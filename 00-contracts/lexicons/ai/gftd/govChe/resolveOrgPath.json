@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.govChe.resolveOrgPath",
+  "id": "app.etzhayyim.govChe.resolveOrgPath",
   "defs": {
     "main": {
       "type": "query",

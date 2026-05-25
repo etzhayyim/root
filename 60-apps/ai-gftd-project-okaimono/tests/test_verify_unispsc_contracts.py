@@ -73,9 +73,9 @@ class VerifyUnispscContractsTest(unittest.TestCase):
             "triggers": {
                 "subscribeRepos": {
                     "collections": [
-                        "ai.gftd.apps.okaimono.catalogItem",
-                        "ai.gftd.apps.okaimono.order",
-                        "ai.gftd.apps.unispsc.commodity",
+                        "app.etzhayyim.apps.okaimono.catalogItem",
+                        "app.etzhayyim.apps.okaimono.order",
+                        "app.etzhayyim.apps.unispsc.commodity",
                     ],
                 },
             },
@@ -85,8 +85,8 @@ class VerifyUnispscContractsTest(unittest.TestCase):
             "catalog-search-unispsc",
             "import-unispsc-segment",
             "procurement-find-offers-unispsc",
-            "ai.gftd.apps.openUnispsc.syncCatalogItem",
-            "ai.gftd.apps.openUnispsc.planCatalogPurchase",
+            "app.etzhayyim.apps.openUnispsc.syncCatalogItem",
+            "app.etzhayyim.apps.openUnispsc.planCatalogPurchase",
         ])
         for relative in [
             "appview/okaimono-shopping-mcp-component/README.md",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.generateBackground",
+  "id": "app.etzhayyim.apps.animeka.generateBackground",
   "defs": {
     "main": {
       "type": "procedure",

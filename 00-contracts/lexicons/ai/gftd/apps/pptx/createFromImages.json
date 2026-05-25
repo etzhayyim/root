@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pptx.createFromImages",
+  "id": "app.etzhayyim.apps.pptx.createFromImages",
   "defs": {
     "main": {
       "type": "procedure",

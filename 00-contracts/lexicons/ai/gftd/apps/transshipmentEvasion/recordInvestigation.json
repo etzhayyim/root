@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.transshipmentEvasion.recordInvestigation",
+  "id": "app.etzhayyim.apps.transshipmentEvasion.recordInvestigation",
   "defs": {
     "main": {
       "type": "procedure",

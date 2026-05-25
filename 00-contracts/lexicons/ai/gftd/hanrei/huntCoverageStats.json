@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.hanrei.huntCoverageStats",
+  "id": "app.etzhayyim.hanrei.huntCoverageStats",
   "defs": {
     "main": {
       "type": "procedure",

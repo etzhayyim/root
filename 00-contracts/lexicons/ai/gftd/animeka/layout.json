@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.animeka.layout",
+  "id": "app.etzhayyim.animeka.layout",
   "defs": {
     "main": {
       "type": "record",

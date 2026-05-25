@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.complianceMonitor.recordMonitorReport",
+  "id": "app.etzhayyim.apps.complianceMonitor.recordMonitorReport",
   "defs": {
     "main": {
       "type": "procedure",

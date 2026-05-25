@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cbdc.recordInteropTrial",
+  "id": "app.etzhayyim.apps.cbdc.recordInteropTrial",
   "defs": {
     "main": {
       "type": "procedure",

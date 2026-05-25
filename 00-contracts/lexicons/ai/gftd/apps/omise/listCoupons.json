@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.omise.listCoupons",
+  "id": "app.etzhayyim.apps.omise.listCoupons",
   "defs": {
     "main": {
       "type": "query",

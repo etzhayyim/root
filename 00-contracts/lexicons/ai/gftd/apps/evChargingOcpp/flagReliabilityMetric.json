@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.evChargingOcpp.flagReliabilityMetric",
+  "id": "app.etzhayyim.apps.evChargingOcpp.flagReliabilityMetric",
   "defs": {
     "main": {
       "type": "procedure",

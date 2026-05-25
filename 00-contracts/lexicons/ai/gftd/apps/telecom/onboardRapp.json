@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.onboardRapp",
+  "id": "app.etzhayyim.apps.telecom.onboardRapp",
   "defs": {
     "main": {
       "type": "procedure",

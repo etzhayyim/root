@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.opensaas.salesforce.createLead",
+  "id": "app.etzhayyim.apps.opensaas.salesforce.createLead",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Create a Lead record. Raw email/phone/full name are NOT accepted here — callers must hash email/phone client-side and stash the raw PII in the tenant's Tier 3 Preferences (ai.gftd.apps.opensaas.salesforce.contactPrivate) using the returned leadDid as the key.",
+      "description": "Create a Lead record. Raw email/phone/full name are NOT accepted here — callers must hash email/phone client-side and stash the raw PII in the tenant's Tier 3 Preferences (app.etzhayyim.apps.opensaas.salesforce.contactPrivate) using the returned leadDid as the key.",
       "input": {
         "encoding": "application/json",
         "schema": {

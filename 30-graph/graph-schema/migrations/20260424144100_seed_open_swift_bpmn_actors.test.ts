@@ -28,8 +28,8 @@ describe("Seed open-swift BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openSwift.registerInstitution"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openSwift.sendCustomerCreditTransfer"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSwift.registerInstitution"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer"');
   });
 
   it("uses open-swift-specific actor_id + owner_did", () => {

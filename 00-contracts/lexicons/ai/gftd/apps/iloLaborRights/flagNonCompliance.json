@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.iloLaborRights.flagNonCompliance",
+  "id": "app.etzhayyim.apps.iloLaborRights.flagNonCompliance",
   "defs": {
     "main": {
       "type": "procedure",

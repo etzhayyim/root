@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.commodityFlowAggregate.flagDivergence",
+  "id": "app.etzhayyim.apps.commodityFlowAggregate.flagDivergence",
   "defs": {
     "main": {
       "type": "procedure",

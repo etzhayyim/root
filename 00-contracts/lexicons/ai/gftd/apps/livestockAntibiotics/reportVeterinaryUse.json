@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.livestockAntibiotics.reportVeterinaryUse",
+  "id": "app.etzhayyim.apps.livestockAntibiotics.reportVeterinaryUse",
   "defs": {
     "main": {
       "type": "procedure",

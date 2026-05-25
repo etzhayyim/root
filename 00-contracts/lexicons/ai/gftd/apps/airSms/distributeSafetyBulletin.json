@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airSms.distributeSafetyBulletin",
+  "id": "app.etzhayyim.apps.airSms.distributeSafetyBulletin",
   "defs": {
     "main": {
       "type": "procedure",

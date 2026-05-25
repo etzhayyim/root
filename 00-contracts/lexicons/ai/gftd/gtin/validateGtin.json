@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.gtin.validateGtin",
+  "id": "app.etzhayyim.gtin.validateGtin",
   "defs": {
     "main": {
       "type": "procedure",

@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-register-hazard-area-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-register-hazard-area-v1',
                  'did:web:dm1nactz.etzhayyim.com',
                  'demining_register_hazard_area',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/demining"><bpmn:process '
                  'id="demining_register_hazard_area" name="demining registerHazardArea" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.demining.registerHazardArea", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.demining.registerHazardArea", "version": 1, "resultTimeoutMs": '
                  '120000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -52,7 +52,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-register-hazard-area-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-register-hazard-area-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,9 +67,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-registerHazardArea-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-registerHazardArea-v1',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'ai.gftd.apps.demining.registerHazardArea',
+                 'app.etzhayyim.apps.demining.registerHazardArea',
                  'demining_register_hazard_area',
                  120000,
                  'vertex_atrecord_demining_public,vertex_atrecord_demining_tier3_field,vertex_atrecord_demining_tier3_audit',
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-registerHazardArea-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-registerHazardArea-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-list-hazard-areas-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-list-hazard-areas-v1',
                  'did:web:dm1nactz.etzhayyim.com',
                  'demining_list_hazard_areas',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -104,7 +104,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/demining"><bpmn:process '
                  'id="demining_list_hazard_areas" name="demining listHazardAreas" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.demining.listHazardAreas", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.demining.listHazardAreas", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -119,7 +119,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-list-hazard-areas-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-list-hazard-areas-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,9 +134,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-listHazardAreas-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-listHazardAreas-v1',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'ai.gftd.apps.demining.listHazardAreas',
+                 'app.etzhayyim.apps.demining.listHazardAreas',
                  'demining_list_hazard_areas',
                  30000,
                  '',
@@ -145,7 +145,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-listHazardAreas-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-listHazardAreas-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-detection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-detection-v1',
                  'did:web:dm1nactz.etzhayyim.com',
                  'demining_record_detection',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -171,7 +171,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/demining"><bpmn:process '
                  'id="demining_record_detection" name="demining recordDetection" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.demining.recordDetection", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.demining.recordDetection", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -186,7 +186,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-detection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-detection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -201,9 +201,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordDetection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordDetection-v1',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'ai.gftd.apps.demining.recordDetection',
+                 'app.etzhayyim.apps.demining.recordDetection',
                  'demining_record_detection',
                  120000,
                  'vertex_atrecord_demining_public,vertex_atrecord_demining_tier3_field,vertex_atrecord_demining_tier3_audit',
@@ -212,7 +212,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordDetection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordDetection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -228,7 +228,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-clearance-task-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-clearance-task-v1',
                  'did:web:dm1nactz.etzhayyim.com',
                  'demining_record_clearance_task',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -238,7 +238,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/demining"><bpmn:process '
                  'id="demining_record_clearance_task" name="demining recordClearanceTask" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.demining.recordClearanceTask", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.demining.recordClearanceTask", "version": 1, "resultTimeoutMs": '
                  '120000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -253,7 +253,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-clearance-task-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-clearance-task-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -268,9 +268,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordClearanceTask-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordClearanceTask-v1',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'ai.gftd.apps.demining.recordClearanceTask',
+                 'app.etzhayyim.apps.demining.recordClearanceTask',
                  'demining_record_clearance_task',
                  120000,
                  'vertex_atrecord_demining_public,vertex_atrecord_demining_tier3_field,vertex_atrecord_demining_tier3_audit',
@@ -279,7 +279,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordClearanceTask-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordClearanceTask-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -295,7 +295,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-release-area-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-release-area-v1',
                  'did:web:dm1nactz.etzhayyim.com',
                  'demining_release_area',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/demining"><bpmn:process '
                  'id="demining_release_area" name="demining releaseArea" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.demining.releaseArea", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.demining.releaseArea", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -320,7 +320,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-release-area-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-release-area-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -335,9 +335,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-releaseArea-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-releaseArea-v1',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'ai.gftd.apps.demining.releaseArea',
+                 'app.etzhayyim.apps.demining.releaseArea',
                  'demining_release_area',
                  120000,
                  'vertex_atrecord_demining_public,vertex_atrecord_demining_tier3_field,vertex_atrecord_demining_tier3_audit',
@@ -346,7 +346,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-releaseArea-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-releaseArea-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -362,7 +362,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-eore-session-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-eore-session-v1',
                  'did:web:dm1nactz.etzhayyim.com',
                  'demining_record_eore_session',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -372,7 +372,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/demining"><bpmn:process '
                  'id="demining_record_eore_session" name="demining recordEoreSession" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.demining.recordEoreSession", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.demining.recordEoreSession", "version": 1, "resultTimeoutMs": '
                  '120000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -387,7 +387,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-eore-session-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-eore-session-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -402,9 +402,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordEoreSession-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordEoreSession-v1',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'ai.gftd.apps.demining.recordEoreSession',
+                 'app.etzhayyim.apps.demining.recordEoreSession',
                  'demining_record_eore_session',
                  120000,
                  'vertex_atrecord_demining_public',
@@ -413,7 +413,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordEoreSession-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordEoreSession-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -429,7 +429,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-victim-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-victim-v1',
                  'did:web:dm1nactz.etzhayyim.com',
                  'demining_record_victim',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -439,7 +439,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/demining"><bpmn:process '
                  'id="demining_record_victim" name="demining recordVictim" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.demining.recordVictim", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.demining.recordVictim", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -454,7 +454,7 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-victim-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-victim-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -469,9 +469,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordVictim-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordVictim-v1',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'ai.gftd.apps.demining.recordVictim',
+                 'app.etzhayyim.apps.demining.recordVictim',
                  'demining_record_victim',
                  120000,
                  'vertex_atrecord_demining_public,vertex_atrecord_demining_tier3_field,vertex_atrecord_demining_tier3_audit',
@@ -480,36 +480,36 @@ UP = [{'sql': '\n'
                  'did:web:dm1nactz.etzhayyim.com',
                  'sys.bpmn.seed.demining',
                  'did:web:dm1nactz.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordVictim-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordVictim-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-registerHazardArea-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-registerHazardArea-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-register-hazard-area-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-register-hazard-area-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-listHazardAreas-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-listHazardAreas-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-list-hazard-areas-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-list-hazard-areas-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordDetection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordDetection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-detection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-detection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordClearanceTask-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordClearanceTask-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-clearance-task-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-clearance-task-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-releaseArea-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-releaseArea-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-release-area-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-release-area-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordEoreSession-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordEoreSession-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-eore-session-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-eore-session-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/demining-recordVictim-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/demining-recordVictim-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/demining-record-victim-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/demining-record-victim-v1']}]
 
 
 def upgrade() -> None:

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openJpnGov.registerKokusanWeaponsExport",
+  "id": "app.etzhayyim.apps.openJpnGov.registerKokusanWeaponsExport",
   "defs": {
     "main": {
       "type": "procedure",

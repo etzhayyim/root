@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.provisionNtnCell",
+  "id": "app.etzhayyim.apps.telecom.provisionNtnCell",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.tools.loadCharacterProfile",
+  "id": "app.etzhayyim.apps.mangaka.tools.loadCharacterProfile",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "P16 step 1 of ai.gftd.apps.mangaka.composeCharacterVrm. Reads the kind='character' vertex_mangaka row by rkey, fetches its reference-image blob from B2, base64-encodes it, and returns the merged ghost-hacker profile (gh:appearance / gh:background) alongside the image. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_load_character_profile.",
+      "description": "P16 step 1 of app.etzhayyim.apps.mangaka.composeCharacterVrm. Reads the kind='character' vertex_mangaka row by rkey, fetches its reference-image blob from B2, base64-encodes it, and returns the merged ghost-hacker profile (gh:appearance / gh:background) alongside the image. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_load_character_profile.",
       "input": {
         "encoding": "application/json",
         "schema": {

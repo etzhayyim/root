@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cbamEmbedded.flagLeakage",
+  "id": "app.etzhayyim.apps.cbamEmbedded.flagLeakage",
   "defs": {
     "main": {
       "type": "procedure",

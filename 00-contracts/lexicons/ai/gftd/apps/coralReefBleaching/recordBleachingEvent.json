@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coralReefBleaching.recordBleachingEvent",
+  "id": "app.etzhayyim.apps.coralReefBleaching.recordBleachingEvent",
   "defs": {
     "main": {
       "type": "procedure",

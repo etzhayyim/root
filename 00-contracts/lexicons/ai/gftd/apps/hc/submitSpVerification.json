@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.hc.submitSpVerification",
+  "id": "app.etzhayyim.apps.hc.submitSpVerification",
   "defs": {
     "main": {
       "type": "procedure",

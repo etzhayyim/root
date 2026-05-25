@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openCofog.recordConcordance",
+  "id": "app.etzhayyim.apps.openCofog.recordConcordance",
   "defs": {
     "main": {
       "type": "procedure",

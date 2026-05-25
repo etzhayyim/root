@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.otakiage.agentChat",
+  "id": "app.etzhayyim.apps.otakiage.agentChat",
   "defs": {
     "main": {
       "type": "procedure",

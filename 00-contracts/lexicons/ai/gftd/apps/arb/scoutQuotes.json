@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.arb.scoutQuotes",
+  "id": "app.etzhayyim.apps.arb.scoutQuotes",
   "defs": {
     "main": {
       "type": "procedure",

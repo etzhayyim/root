@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cnMofa.respondTaiwanIntervention",
+  "id": "app.etzhayyim.apps.cnMofa.respondTaiwanIntervention",
   "defs": {
     "main": {
       "type": "procedure",

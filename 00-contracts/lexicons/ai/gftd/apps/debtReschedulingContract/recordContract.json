@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.debtReschedulingContract.recordContract",
+  "id": "app.etzhayyim.apps.debtReschedulingContract.recordContract",
   "defs": {
     "main": {
       "type": "procedure",

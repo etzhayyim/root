@@ -317,7 +317,7 @@ def verify_ed25519_signature(canonical: bytes, signature: bytes, public_key: byt
 def _keychain_cell_key(cell_id: str) -> Optional[bytes]:
     """Load a cell's Ed25519 private key from the macOS Keychain.
 
-    Resolution: ``security find-generic-password -s ai.gftd.yatachain
+    Resolution: ``security find-generic-password -s app.etzhayyim.yatachain
     -a {cell_id} -w`` returns hex-encoded 32-byte seed. Returns None
     when the keychain entry is absent or ``security`` is not on PATH
     (non-mac runtimes).
@@ -331,7 +331,7 @@ def _keychain_cell_key(cell_id: str) -> Optional[bytes]:
         out = subprocess.check_output(
             [
                 "security", "find-generic-password",
-                "-s", "ai.gftd.yatachain",
+                "-s", "app.etzhayyim.yatachain",
                 "-a", cell_id,
                 "-w",
             ],
@@ -370,7 +370,7 @@ def make_cell_signer(cell_id: str) -> tuple[CellSigner, str]:
     ``source`` is one of:
 
       - ``"keychain"``      — macOS Keychain entry under
-                              ``service=ai.gftd.yatachain, account={cell_id}``
+                              ``service=app.etzhayyim.yatachain, account={cell_id}``
       - ``"env"``           — ``CELL_PRIVATE_KEY_{cell_id}`` env var
       - ``"deterministic"`` — fallback for dev / unit-tests. Prominent
                               warning is logged at the cell-runner level

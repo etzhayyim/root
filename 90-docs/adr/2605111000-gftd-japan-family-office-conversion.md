@@ -1,6 +1,6 @@
 ---
 id: adr-2605111000-gftd-japan-family-office-conversion
-title: Gftd Japan株式会社 シングルファミリープライベートオフィス化
+title: etzhayyim Japan株式会社 シングルファミリープライベートオフィス化
 status: proposed
 doc_type: adr
 topic: corporate-governance
@@ -10,7 +10,7 @@ authoritative_for:
   - corporate-action-gj-ca-2026-001
   - family-office-registration
 ---
-# ADR-2605111000: Gftd Japan株式会社 シングルファミリープライベートオフィス化
+# ADR-2605111000: etzhayyim Japan株式会社 シングルファミリープライベートオフィス化
 
 **Date**: 2026-05-11  
 **Status**: draft → (approved pending 株主総会決議) → filed → registered  
@@ -21,7 +21,7 @@ authoritative_for:
 
 ## Context
 
-Gftd Japan株式会社 (法人番号 9007-2846, did:web:gftd.co.jp) の定款第２条（目的）は
+etzhayyim Japan株式会社 (法人番号 9007-2846, did:web:etzhayyim.com) の定款第２条（目的）は
 創業時に策定された23項目（介護・障害福祉・IT受託・職業紹介等）のままであり、
 現在の実態（河崎家の資産管理・投資・承継）と乖離している。
 
@@ -140,7 +140,7 @@ business_purpose_registered = false  # 登記完了後 true へ
 ### 対外文書
 
 - 会社概要（JP/EN）: `04-taisho-documents.md` 参照
-- gftd.co.jp/about: 更新要
+- etzhayyim.com/about: 更新要
 - LinkedIn company page: 更新要
 
 ## Related

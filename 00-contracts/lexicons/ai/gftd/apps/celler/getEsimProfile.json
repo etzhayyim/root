@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.celler.getEsimProfile",
+  "id": "app.etzhayyim.apps.celler.getEsimProfile",
   "defs": {
     "main": {
       "type": "query",

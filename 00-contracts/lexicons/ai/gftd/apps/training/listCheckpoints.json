@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.training.listCheckpoints",
+  "id": "app.etzhayyim.apps.training.listCheckpoints",
   "defs": {
     "main": {
       "type": "query",

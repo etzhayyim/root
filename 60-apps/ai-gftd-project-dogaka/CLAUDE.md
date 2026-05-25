@@ -34,44 +34,44 @@
 | `did:web:dogaka.etzhayyim.com:actor:dop` | Cinematography / lighting AI |
 | `did:web:dogaka.etzhayyim.com:actor:soundDesigner` | Audio AI |
 
-8 pipeline actor DIDs + 3 creative actor DIDs are registered at boot via `ensureActorDids(sdk)`. Stage records (`ai.gftd.apps.cine.*`) carry `producerDid` = the actor that ran that stage.
+8 pipeline actor DIDs + 3 creative actor DIDs are registered at boot via `ensureActorDids(sdk)`. Stage records (`app.etzhayyim.apps.cine.*`) carry `producerDid` = the actor that ran that stage.
 
 ## Design E 3-Tier Write
 
 | Tier | 用途 | 関数 | Collection NSID |
 |---|---|---|---|
 | **1 Social** | 作品/ショット公開、PV、最終納品告知 | `AppBskyFeedPost(did, text, {embed.video.mediaCid})` | `app.bsky.feed.post` |
-| **2 Domain** | project / sequence / shot / pipeline stage records | XRPC → bpmn-dispatcher → LangServer pod (ADR-2605111200) | `ai.gftd.apps.dogaka.*` + `ai.gftd.apps.cine.*` |
+| **2 Domain** | project / sequence / shot / pipeline stage records | XRPC → bpmn-dispatcher → LangServer pod (ADR-2605111200) | `app.etzhayyim.apps.dogaka.*` + `app.etzhayyim.apps.cine.*` |
 | **3 State** | viewer 設定 / pen prefs / queue priorities / PII | `Preferences()` | server-side |
 
 PII (スタッフ本名 / 連絡先 / 契約金額) と人事評価コメントは Tier 3。撮影現場 NDA データは `signal:v1:` field encrypt。
 
 ## Domain Record Types (Tier 2, camelCase)
 
-App-local (`ai.gftd.apps.dogaka.*`):
+App-local (`app.etzhayyim.apps.dogaka.*`):
 
 | Kind | NSID | 内容 |
 |---|---|---|
-| `project` | `ai.gftd.apps.dogaka.project` | 作品 (title, genre, targetRuntime, coverCid) |
-| `sequence` | `ai.gftd.apps.dogaka.sequence` | シーケンス (projectRef, sequenceNum, title) |
-| `shot` | `ai.gftd.apps.dogaka.shot` | ショット (sequenceRef, shotNum, durationMs, lensMm, framing) |
-| `asset` | `ai.gftd.apps.dogaka.asset` | character / set / prop / lookdev (usdCid, kind) |
-| `cameraPath` | `ai.gftd.apps.dogaka.cameraPath` | カメラパス (shotRef, usdCid, frameStart, frameEnd) |
-| `take` | `ai.gftd.apps.dogaka.take` | shot のレンダリング試行 (shotRef, pipelineRunId, takeNum) |
-| `chatMessage` | `ai.gftd.apps.dogaka.chatMessage` | プロジェクト内 LLM 対話 |
+| `project` | `app.etzhayyim.apps.dogaka.project` | 作品 (title, genre, targetRuntime, coverCid) |
+| `sequence` | `app.etzhayyim.apps.dogaka.sequence` | シーケンス (projectRef, sequenceNum, title) |
+| `shot` | `app.etzhayyim.apps.dogaka.shot` | ショット (sequenceRef, shotNum, durationMs, lensMm, framing) |
+| `asset` | `app.etzhayyim.apps.dogaka.asset` | character / set / prop / lookdev (usdCid, kind) |
+| `cameraPath` | `app.etzhayyim.apps.dogaka.cameraPath` | カメラパス (shotRef, usdCid, frameStart, frameEnd) |
+| `take` | `app.etzhayyim.apps.dogaka.take` | shot のレンダリング試行 (shotRef, pipelineRunId, takeNum) |
+| `chatMessage` | `app.etzhayyim.apps.dogaka.chatMessage` | プロジェクト内 LLM 対話 |
 
-Shared pipeline ledger (`ai.gftd.apps.cine.*`) — see `00-contracts/lexicons/ai/gftd/apps/cine/`:
+Shared pipeline ledger (`app.etzhayyim.apps.cine.*`) — see `00-contracts/lexicons/ai/gftd/apps/cine/`:
 
 | Stage | NSID | 役割 |
 |---|---|---|
-| 1 World Model | `ai.gftd.apps.cine.worldModel` | Prompt + style + ref → latent world |
-| 2 USD Scene | `ai.gftd.apps.cine.usdScene` | Pixar USD (usda + usdc) — canonical scene |
-| 3 Neural Geometry | `ai.gftd.apps.cine.neuralGeom` | 3DGS / NeRF / SDF / mesh / hybrid |
-| 4 Temporal Field | `ai.gftd.apps.cine.temporalField` | 4D Gaussian / dynamic NeRF / neural flow |
-| 5 Neural Render | `ai.gftd.apps.cine.neuralRender` | Multi-AOV EXR rasterization |
-| 6 Diffusion Pass | `ai.gftd.apps.cine.diffusionPass` | img2img / video-diffusion refine |
-| 7 EXR Sequence | `ai.gftd.apps.cine.exrSeq` | Composited multi-channel EXR |
-| 8 Encode | `ai.gftd.apps.cine.encode` | Final mp4 / mov / mkv |
+| 1 World Model | `app.etzhayyim.apps.cine.worldModel` | Prompt + style + ref → latent world |
+| 2 USD Scene | `app.etzhayyim.apps.cine.usdScene` | Pixar USD (usda + usdc) — canonical scene |
+| 3 Neural Geometry | `app.etzhayyim.apps.cine.neuralGeom` | 3DGS / NeRF / SDF / mesh / hybrid |
+| 4 Temporal Field | `app.etzhayyim.apps.cine.temporalField` | 4D Gaussian / dynamic NeRF / neural flow |
+| 5 Neural Render | `app.etzhayyim.apps.cine.neuralRender` | Multi-AOV EXR rasterization |
+| 6 Diffusion Pass | `app.etzhayyim.apps.cine.diffusionPass` | img2img / video-diffusion refine |
+| 7 EXR Sequence | `app.etzhayyim.apps.cine.exrSeq` | Composited multi-channel EXR |
+| 8 Encode | `app.etzhayyim.apps.cine.encode` | Final mp4 / mov / mkv |
 
 Stage records use a shared `pipelineRunId` (TID) to group the 8 artifacts of one take. `subjectKind = "dogaka.shot"` and `subjectRef = strongRef(shot)`.
 
@@ -79,7 +79,7 @@ Stage records use a shared `pipelineRunId` (TID) to group the 8 artifacts of one
 
 ```
 Browser (KAMI viewport)
-  → XRPC POST /xrpc/ai.gftd.apps.dogaka.renderShot {shotId, lookdev, takeOpts}
+  → XRPC POST /xrpc/app.etzhayyim.apps.dogaka.renderShot {shotId, lookdev, takeOpts}
     → dogaka edge worker (src/app.ts) — proxy only (ADR-2605111200)
       → dispatcher.etzhayyim.com → bpmn-dispatcher → AgentGateway MCP
         → K8s LangServer pod (kami-cine pipeline)
@@ -99,7 +99,7 @@ Heavy compute (geom reconstruction, diffusion) is **pod-side only** — CF Worke
 
 ## Reactive Pipeline (subscribeRepos)
 
-`magatama.jsonld` `triggers.subscribeRepos.collections` lists both the app-local atoms and the shared `ai.gftd.apps.cine.*` stages so the dogaka worker can observe upstream stage completion and forward-fire the next stage's job.
+`magatama.jsonld` `triggers.subscribeRepos.collections` lists both the app-local atoms and the shared `app.etzhayyim.apps.cine.*` stages so the dogaka worker can observe upstream stage completion and forward-fire the next stage's job.
 
 ## Read Path (KAMI viewport)
 

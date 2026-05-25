@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.insuranceGuarantee.flagInsolvency",
+  "id": "app.etzhayyim.apps.insuranceGuarantee.flagInsolvency",
   "defs": {
     "main": {
       "type": "procedure",

@@ -15,7 +15,7 @@
 	const {
 		signInUrl,
 		signUpUrl,
-		title = 'GFTD',
+		title = 'etzhayyim',
 		tagline = 'AI Agent Platform — Register and manage your AI agents',
 		actions,
 		class: className = '',

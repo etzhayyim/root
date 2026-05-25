@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.lawsAutonomousWeapons.flagSystemDeployment",
+  "id": "app.etzhayyim.apps.lawsAutonomousWeapons.flagSystemDeployment",
   "defs": {
     "main": {
       "type": "procedure",

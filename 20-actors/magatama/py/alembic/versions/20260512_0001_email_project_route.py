@@ -136,7 +136,7 @@ INSERT INTO vertex_bpmn_lexicon_binding
 SELECT
     'bpmn-bind-outlook-triage',
     'did:web:pregel.etzhayyim.com',
-    'ai.gftd.apps.pregel.outlookTriage',
+    'app.etzhayyim.apps.pregel.outlookTriage',
     'outlook_triage',
     'active',
     NOW()::VARCHAR,
@@ -158,7 +158,7 @@ INSERT INTO vertex_bpmn_lexicon_binding
 SELECT
     'bpmn-bind-outlook-email-route',
     'did:web:pregel.etzhayyim.com',
-    'ai.gftd.apps.pregel.outlookEmailRoute',
+    'app.etzhayyim.apps.pregel.outlookEmailRoute',
     'outlook_triage',
     'active',
     NOW()::VARCHAR,

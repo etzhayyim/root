@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.repository.getBlob",
+  "id": "app.etzhayyim.repository.getBlob",
   "defs": {
     "main": {
       "type": "query",

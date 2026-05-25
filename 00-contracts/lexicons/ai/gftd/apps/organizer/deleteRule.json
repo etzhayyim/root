@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.organizer.deleteRule",
+  "id": "app.etzhayyim.apps.organizer.deleteRule",
   "defs": {
     "main": {
       "type": "procedure",

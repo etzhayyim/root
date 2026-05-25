@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.soxBounty.flagAwardDispute",
+  "id": "app.etzhayyim.apps.soxBounty.flagAwardDispute",
   "defs": {
     "main": {
       "type": "procedure",

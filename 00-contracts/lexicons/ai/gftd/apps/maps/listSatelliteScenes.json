@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.listSatelliteScenes",
+  "id": "app.etzhayyim.apps.maps.listSatelliteScenes",
   "defs": {
     "main": {
       "type": "query",

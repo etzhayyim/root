@@ -13,7 +13,7 @@
         "bpmnProcessKey": "searchLaw",
         "source": "bpmn/search-law.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openJpnGov.searchLaws" },
+          { "xrpc": "app.etzhayyim.apps.openJpnGov.searchLaws" },
           { "form": "openJpnGov.searchLaw.v1" },
           { "dmn":  "openJpnGov.lawTypeClassification" }
         ]
@@ -25,8 +25,8 @@
         "bpmnProcessKey": "resolveMinistry",
         "source": "bpmn/resolve-ministry.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openJpnGov.getMinistry" },
-          { "xrpc": "ai.gftd.apps.openJpnGov.listAgencies" },
+          { "xrpc": "app.etzhayyim.apps.openJpnGov.getMinistry" },
+          { "xrpc": "app.etzhayyim.apps.openJpnGov.listAgencies" },
           { "form": "openJpnGov.resolveMinistry.v1" }
         ]
       },
@@ -34,13 +34,13 @@
         "id": "act.listRoster",
         "name": "List Roster",
         "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openJpnGov.listMinistries" }]
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openJpnGov.listMinistries" }]
       },
       {
         "id": "act.getLawFullText",
         "name": "Get Law Fulltext",
         "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openJpnGov.getLaw" }]
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openJpnGov.getLaw" }]
       }
     ]
   },

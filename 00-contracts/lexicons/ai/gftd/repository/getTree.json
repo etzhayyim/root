@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.repository.getTree",
+  "id": "app.etzhayyim.repository.getTree",
   "defs": {
     "main": {
       "type": "query",
@@ -27,7 +27,7 @@
             "treeHash": { "type": "string" },
             "entries": {
               "type": "array",
-              "items": { "type": "ref", "ref": "ai.gftd.repository.createTree#treeEntry" }
+              "items": { "type": "ref", "ref": "app.etzhayyim.repository.createTree#treeEntry" }
             },
             "truncated": {
               "type": "boolean",

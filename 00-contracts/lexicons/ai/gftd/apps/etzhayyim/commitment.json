@@ -1,11 +1,11 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.etzhayyim.commitment",
+  "id": "app.etzhayyim.apps.etzhayyim.commitment",
   "defs": {
     "main": {
       "type": "record",
       "key": "tid",
-      "description": "etzhayyim 信者 level advancement record. Per ADR-2605172600 § 'Levels'. Recorded on the member's PDS at the moment they call EtzhayyimMembership.advance(level, evidenceHash, memo). Levels 2..7; level 1 (Oath) is recorded as ai.gftd.apps.etzhayyim.oath instead.",
+      "description": "etzhayyim 信者 level advancement record. Per ADR-2605172600 § 'Levels'. Recorded on the member's PDS at the moment they call EtzhayyimMembership.advance(level, evidenceHash, memo). Levels 2..7; level 1 (Oath) is recorded as app.etzhayyim.apps.etzhayyim.oath instead.",
       "record": {
         "type": "object",
         "required": [

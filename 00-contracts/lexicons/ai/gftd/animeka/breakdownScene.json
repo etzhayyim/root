@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.animeka.breakdownScene",
+  "id": "app.etzhayyim.animeka.breakdownScene",
   "defs": {
     "main": {
       "type": "procedure",

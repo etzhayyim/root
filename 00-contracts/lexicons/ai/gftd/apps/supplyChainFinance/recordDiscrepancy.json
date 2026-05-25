@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.supplyChainFinance.recordDiscrepancy",
+  "id": "app.etzhayyim.apps.supplyChainFinance.recordDiscrepancy",
   "defs": {
     "main": {
       "type": "procedure",

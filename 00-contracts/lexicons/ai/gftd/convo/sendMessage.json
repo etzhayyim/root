@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.sendMessage",
+  "id": "app.etzhayyim.convo.sendMessage",
   "description": "Send message with payload. Superset of chat.bsky.convo.sendMessage — adds payload, kind, contentType for rich messaging.",
   "defs": {
     "main": {
@@ -30,15 +30,15 @@
             },
             "payload": {
               "type": "string",
-              "description": "GFTD extension: arbitrary payload (JSON-stringified)"
+              "description": "etzhayyim extension: arbitrary payload (JSON-stringified)"
             },
             "kind": {
               "type": "string",
-              "description": "GFTD extension: message kind"
+              "description": "etzhayyim extension: message kind"
             },
             "contentType": {
               "type": "string",
-              "description": "GFTD extension: MIME content type"
+              "description": "etzhayyim extension: MIME content type"
             }
           },
           "required": ["convoId"]

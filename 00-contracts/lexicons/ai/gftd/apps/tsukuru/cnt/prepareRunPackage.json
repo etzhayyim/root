@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.tsukuru.cnt.prepareRunPackage",
+  "id": "app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage",
   "defs": {
     "main": {
       "type": "query",

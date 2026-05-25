@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.debtReschedulingContract.flagSecrecyClause",
+  "id": "app.etzhayyim.apps.debtReschedulingContract.flagSecrecyClause",
   "defs": {
     "main": {
       "type": "procedure",

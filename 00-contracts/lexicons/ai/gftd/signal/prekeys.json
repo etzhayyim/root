@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.signal.prekeys",
+  "id": "app.etzhayyim.signal.prekeys",
   "defs": {
     "main": {
       "type": "record",

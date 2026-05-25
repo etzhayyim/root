@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openSmartphoneSoc.registerChipDesign",
+  "id": "app.etzhayyim.apps.openSmartphoneSoc.registerChipDesign",
   "defs": {
     "main": {
       "type": "procedure",

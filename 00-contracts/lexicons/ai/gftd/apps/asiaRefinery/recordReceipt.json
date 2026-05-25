@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.asiaRefinery.recordReceipt",
+  "id": "app.etzhayyim.apps.asiaRefinery.recordReceipt",
   "defs": {
     "main": {
       "type": "procedure",

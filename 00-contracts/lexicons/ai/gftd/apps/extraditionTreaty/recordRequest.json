@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.extraditionTreaty.recordRequest",
+  "id": "app.etzhayyim.apps.extraditionTreaty.recordRequest",
   "defs": {
     "main": {
       "type": "procedure",

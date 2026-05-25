@@ -81,12 +81,12 @@ def test_bpmn_compile_minimal_process():
 def test_bpmn_compile_service_task():
     doc = {"id": "p2", "name": "P2", "flow": [
         {"id": "s1", "type": "startEvent", "next": "task1"},
-        {"id": "task1", "type": "serviceTask", "nsid": "ai.gftd.test.foo", "resultAs": "result", "next": "e1"},
+        {"id": "task1", "type": "serviceTask", "nsid": "app.etzhayyim.test.foo", "resultAs": "result", "next": "e1"},
         {"id": "e1", "type": "endEvent"},
     ]}
     xml = BM._compile_json_to_xml(doc)
     assert "serviceTask" in xml
-    assert "ai.gftd.test.foo" in xml
+    assert "app.etzhayyim.test.foo" in xml
 
 
 def test_bpmn_compile_exclusive_gateway():
@@ -385,9 +385,9 @@ def test_ingest_dump_returns_json_string():
 
 
 def test_ingest_require_str_present():
-    params = {"collection": "ai.gftd.apps.news.article"}
+    params = {"collection": "app.etzhayyim.apps.news.article"}
     result = IN._require_str(params, "collection")
-    assert result == "ai.gftd.apps.news.article"
+    assert result == "app.etzhayyim.apps.news.article"
 
 
 def test_ingest_require_str_missing():

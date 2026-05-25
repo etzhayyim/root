@@ -18,7 +18,7 @@ function usage() {
 Defaults:
   --dry-run                  No writes unless --apply is set.
   ETH_PRIVATE_CHAIN_ID       ${DEFAULT_CHAIN_ID}
-  GFTD_ROOT_IDENTITY_REGISTRY_ADDR ${DEFAULT_REGISTRY_ADDR}
+  etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR ${DEFAULT_REGISTRY_ADDR}
 `);
 }
 
@@ -257,13 +257,13 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const databaseUrl = process.env.DATABASE_URL || process.env.RW_URL;
   const rpcUrl = process.env.ETH_PRIVATE_RPC_URL;
-  const registryAddr = (process.env.GFTD_ROOT_IDENTITY_REGISTRY_ADDR ?? DEFAULT_REGISTRY_ADDR).toLowerCase();
+  const registryAddr = (process.env.etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR ?? DEFAULT_REGISTRY_ADDR).toLowerCase();
   const chainId = Number(process.env.ETH_PRIVATE_CHAIN_ID ?? DEFAULT_CHAIN_ID);
 
   if (!databaseUrl) throw new Error("DATABASE_URL or RW_URL is required");
   if (!rpcUrl) throw new Error("ETH_PRIVATE_RPC_URL is required");
   if (!/^0x[0-9a-fA-F]{40}$/.test(registryAddr)) {
-    throw new Error(`invalid GFTD_ROOT_IDENTITY_REGISTRY_ADDR: ${registryAddr}`);
+    throw new Error(`invalid etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR: ${registryAddr}`);
   }
 
   const pool = new Pool({ connectionString: databaseUrl, max: 2 });

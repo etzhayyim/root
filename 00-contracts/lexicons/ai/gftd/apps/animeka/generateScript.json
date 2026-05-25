@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.animeka.generateScript",
+  "id": "app.etzhayyim.apps.animeka.generateScript",
   "defs": {
     "main": {
       "type": "procedure",

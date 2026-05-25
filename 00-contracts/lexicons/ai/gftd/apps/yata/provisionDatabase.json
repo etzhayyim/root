@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yata.provisionDatabase",
+  "id": "app.etzhayyim.apps.yata.provisionDatabase",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.migrantWorkerWelfare.recordWelfareFund",
+  "id": "app.etzhayyim.apps.migrantWorkerWelfare.recordWelfareFund",
   "defs": {
     "main": {
       "type": "procedure",

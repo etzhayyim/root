@@ -97,11 +97,11 @@ Duolingo 式の段階的 wellness training。society6 Well-Becoming 5 軸に対�
 
 ### Collections
 
-- `ai.gftd.apps.dojo.step_attempt` — step 挑戦記録
-- `ai.gftd.apps.dojo.step_completed_event` — society6 連携イベント
-- `ai.gftd.apps.dojo.track_progress` — track 進捗
-- `ai.gftd.apps.dojo.review_item` — spaced repetition queue
-- `ai.gftd.apps.dojo.daily_goal` — daily XP goal config
+- `app.etzhayyim.apps.dojo.step_attempt` — step 挑戦記録
+- `app.etzhayyim.apps.dojo.step_completed_event` — society6 連携イベント
+- `app.etzhayyim.apps.dojo.track_progress` — track 進捗
+- `app.etzhayyim.apps.dojo.review_item` — spaced repetition queue
+- `app.etzhayyim.apps.dojo.daily_goal` — daily XP goal config
 
 ### Commands
 

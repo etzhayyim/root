@@ -24,7 +24,7 @@
     try {
       const params: Record<string, unknown> = { limit: 500 };
       if (episodeId && episodeId !== 'latest') params.episodeId = episodeId;
-      const resp = await atQuery<{ items: Cut[] }>('ai.gftd.animeka.listCuts', params);
+      const resp = await atQuery<{ items: Cut[] }>('app.etzhayyim.animeka.listCuts', params);
       cuts = resp.items ?? [];
     } catch {
       cuts = [];

@@ -124,7 +124,7 @@ interface AnyKyselyDb {
 async function getDb(env: PlanQuotaEnv): Promise<AnyKyselyDb | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     return sdk.createKyselyDb(env.HYPERDRIVE as never) as unknown as AnyKyselyDb;
   } catch {
     return null;
@@ -165,7 +165,7 @@ async function fetchDailyApiCount(env: PlanQuotaEnv, orgDid: string): Promise<nu
 
   let sqlTag: ((strings: TemplateStringsArray, ...values: unknown[]) => unknown) | null = null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     sqlTag = (sdk as unknown as { sql?: typeof sqlTag }).sql ?? null;
   } catch {
     return 0;

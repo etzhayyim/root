@@ -183,7 +183,7 @@ religious-corp として force を保有することは、宗教史上の通常�
 
 | 条件 | 内容 | 実装 |
 |---|---|---|
-| **完全 on-chain 監視** | すべての force 関連 activity (調達 / 訓練 / 配備 / 行使 / 評価) を on-chain log として永続記録 | `ai.gftd.apps.etzhayyim.force-log` Lexicon (future ADR) + MST → IPFS → L2 anchor |
+| **完全 on-chain 監視** | すべての force 関連 activity (調達 / 訓練 / 配備 / 行使 / 評価) を on-chain log として永続記録 | `app.etzhayyim.apps.etzhayyim.force-log` Lexicon (future ADR) + MST → IPFS → L2 anchor |
 | **Open-source 公開** | 兵器設計 / 戦術 / 訓練 method / 意思決定基準を public domain (Apache 2.0 + Charter Rider) で公開 | 機密保持 / 専有戦術の禁止 (constitutional invariant) |
 | **1 SBT = 1 vote 承認** | あらゆる force 行使は事前または事後 (緊急時) に Adherent vote で承認・追認される | `Governance.sol` の force-proposal 経路 (future ADR) |
 

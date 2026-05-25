@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps3d.processTile",
+  "id": "app.etzhayyim.apps.maps3d.processTile",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Entry point for the maps3d photogrammetry pipeline. Triggers a single H3 tile through Mapillary fetch → image curation (LangGraph) → COLMAP CPU dense reconstruction → mesh simplification → Murakumo Vision annotation → actor disambiguation → LanceDB spatial ingest. BPMN-as-actor — invoked via `POST http://dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.maps3d.processTile` or auto-fired by timer-start R/PT15M against the maps3d tile queue (MST-backed). Real work runs in Murakumo cell handlers on the etzhayyim fleet per ADR-2605214000. Backed by `00-contracts/bpmn/ai/gftd/maps3d/processTile.bpmn` v1, `vertex_id = at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/maps3d-process-tile-v1`. PORT-adapted per ADR-2605214000 §2.",
+      "description": "Entry point for the maps3d photogrammetry pipeline. Triggers a single H3 tile through Mapillary fetch → image curation (LangGraph) → COLMAP CPU dense reconstruction → mesh simplification → Murakumo Vision annotation → actor disambiguation → LanceDB spatial ingest. BPMN-as-actor — invoked via `POST http://dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.apps.maps3d.processTile` or auto-fired by timer-start R/PT15M against the maps3d tile queue (MST-backed). Real work runs in Murakumo cell handlers on the etzhayyim fleet per ADR-2605214000. Backed by `00-contracts/bpmn/ai/gftd/maps3d/processTile.bpmn` v1, `vertex_id = at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps3d-process-tile-v1`. PORT-adapted per ADR-2605214000 §2.",
       "input": {
         "encoding": "application/json",
         "schema": {

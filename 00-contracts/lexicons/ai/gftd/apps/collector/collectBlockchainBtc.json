@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.collector.collectBlockchainBtc",
+  "id": "app.etzhayyim.apps.collector.collectBlockchainBtc",
   "defs": {
     "main": {
       "type": "procedure",

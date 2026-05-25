@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.maps.sensorQuery",
+  "id": "app.etzhayyim.apps.maps.sensorQuery",
   "defs": {
     "main": {
       "type": "procedure",

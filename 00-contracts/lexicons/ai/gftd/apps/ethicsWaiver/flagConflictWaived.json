@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ethicsWaiver.flagConflictWaived",
+  "id": "app.etzhayyim.apps.ethicsWaiver.flagConflictWaived",
   "defs": {
     "main": {
       "type": "procedure",

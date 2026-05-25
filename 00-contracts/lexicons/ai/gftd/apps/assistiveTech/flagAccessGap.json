@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.assistiveTech.flagAccessGap",
+  "id": "app.etzhayyim.apps.assistiveTech.flagAccessGap",
   "defs": {
     "main": {
       "type": "procedure",

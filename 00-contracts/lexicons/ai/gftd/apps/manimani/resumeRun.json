@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.manimani.resumeRun",
+  "id": "app.etzhayyim.apps.manimani.resumeRun",
   "defs": {
     "main": {
       "type": "procedure",

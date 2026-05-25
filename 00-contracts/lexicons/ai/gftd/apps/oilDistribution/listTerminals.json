@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oilDistribution.listTerminals",
+  "id": "app.etzhayyim.apps.oilDistribution.listTerminals",
   "defs": {
     "main": {
       "type": "query",

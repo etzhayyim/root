@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.oauth.getAuthorizationServer",
+  "id": "app.etzhayyim.oauth.getAuthorizationServer",
   "defs": {
     "main": {
       "type": "query",

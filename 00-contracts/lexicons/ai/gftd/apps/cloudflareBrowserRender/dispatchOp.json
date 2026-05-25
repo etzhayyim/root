@@ -1,10 +1,10 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cloudflareBrowserRender.dispatchOp",
+  "id": "app.etzhayyim.apps.cloudflareBrowserRender.dispatchOp",
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Dispatch a Playwright-compatible op (goto/fill/click/scrape/...) to a DO-held session. Arg shape mirrors the corresponding ai.gftd.apps.playwright method.",
+      "description": "Dispatch a Playwright-compatible op (goto/fill/click/scrape/...) to a DO-held session. Arg shape mirrors the corresponding app.etzhayyim.apps.playwright method.",
       "input": {
         "encoding": "application/json",
         "schema": {

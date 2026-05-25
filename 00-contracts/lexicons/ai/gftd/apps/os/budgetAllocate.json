@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.os.budgetAllocate",
+  "id": "app.etzhayyim.apps.os.budgetAllocate",
   "defs": {
     "main": {
       "type": "procedure",

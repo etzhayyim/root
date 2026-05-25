@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.spaceTraffic.catalogObject",
+  "id": "app.etzhayyim.apps.spaceTraffic.catalogObject",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.spywareExport.flagSpywareTrade",
+  "id": "app.etzhayyim.apps.spywareExport.flagSpywareTrade",
   "defs": {
     "main": {
       "type": "procedure",

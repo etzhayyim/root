@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.yorishiro.flyio.getJobStatus",
+  "id": "app.etzhayyim.yorishiro.flyio.getJobStatus",
   "defs": {
     "main": {
       "type": "query",

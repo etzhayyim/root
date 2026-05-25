@@ -30,15 +30,15 @@ from gftd.auth import (
 
 class TestResolvePds:
     def test_returns_default_when_no_env(self, monkeypatch):
-        monkeypatch.delenv("GFTD_PDS_URL", raising=False)
+        monkeypatch.delenv("etzhayyim_PDS_URL", raising=False)
         assert resolve_pds() == "https://atproto.etzhayyim.com"
 
     def test_returns_env_when_set(self, monkeypatch):
-        monkeypatch.setenv("GFTD_PDS_URL", "https://pds.example.com")
+        monkeypatch.setenv("etzhayyim_PDS_URL", "https://pds.example.com")
         assert resolve_pds() == "https://pds.example.com"
 
     def test_strips_trailing_slash(self, monkeypatch):
-        monkeypatch.setenv("GFTD_PDS_URL", "https://pds.example.com/")
+        monkeypatch.setenv("etzhayyim_PDS_URL", "https://pds.example.com/")
         assert resolve_pds() == "https://pds.example.com"
 
 
@@ -46,12 +46,12 @@ class TestResolvePds:
 
 class TestResolveToken:
     def test_env_wins_over_keychain(self, monkeypatch):
-        monkeypatch.setenv("GFTD_TOKEN", "env-token-abc")
+        monkeypatch.setenv("etzhayyim_TOKEN", "env-token-abc")
         token = resolve_token()
         assert token == "env-token-abc"
 
     def test_returns_none_when_no_sources(self, monkeypatch):
-        monkeypatch.delenv("GFTD_TOKEN", raising=False)
+        monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
             patch("gftd.auth._read_keychain", return_value=None),
             patch("gftd.auth._load_auth_file", return_value={}),
@@ -60,7 +60,7 @@ class TestResolveToken:
         assert token is None
 
     def test_keychain_used_when_no_env(self, monkeypatch):
-        monkeypatch.delenv("GFTD_TOKEN", raising=False)
+        monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
             patch("gftd.auth._read_keychain", return_value="keychain-token"),
             patch("gftd.auth._load_auth_file", return_value={}),
@@ -69,7 +69,7 @@ class TestResolveToken:
         assert token == "keychain-token"
 
     def test_auth_file_api_key_used_when_no_env_or_keychain(self, monkeypatch):
-        monkeypatch.delenv("GFTD_TOKEN", raising=False)
+        monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
             patch("gftd.auth._read_keychain", return_value=None),
             patch("gftd.auth._load_auth_file", return_value={"api_key": "file-api-key"}),
@@ -78,7 +78,7 @@ class TestResolveToken:
         assert token == "file-api-key"
 
     def test_auth_file_id_token_fallback(self, monkeypatch):
-        monkeypatch.delenv("GFTD_TOKEN", raising=False)
+        monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
             patch("gftd.auth._read_keychain", return_value=None),
             patch("gftd.auth._load_auth_file", return_value={"id_token": "id-tok-xyz"}),
@@ -87,7 +87,7 @@ class TestResolveToken:
         assert token == "id-tok-xyz"
 
     def test_auth_file_access_token_fallback(self, monkeypatch):
-        monkeypatch.delenv("GFTD_TOKEN", raising=False)
+        monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
             patch("gftd.auth._read_keychain", return_value=None),
             patch("gftd.auth._load_auth_file", return_value={"access_token": "acc-tok-789"}),
@@ -96,7 +96,7 @@ class TestResolveToken:
         assert token == "acc-tok-789"
 
     def test_api_key_wins_over_id_token(self, monkeypatch):
-        monkeypatch.delenv("GFTD_TOKEN", raising=False)
+        monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
             patch("gftd.auth._read_keychain", return_value=None),
             patch("gftd.auth._load_auth_file", return_value={
@@ -139,8 +139,8 @@ class TestResolveActiveDid:
 
 class TestAuthHeaders:
     def test_no_token_no_did_returns_empty(self, monkeypatch):
-        monkeypatch.delenv("GFTD_TOKEN", raising=False)
-        monkeypatch.delenv("GFTD_ORG_ID", raising=False)
+        monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
+        monkeypatch.delenv("etzhayyim_ORG_ID", raising=False)
         with (
             patch("gftd.auth._read_keychain", return_value=None),
             patch("gftd.auth._load_auth_file", return_value={}),
@@ -149,14 +149,14 @@ class TestAuthHeaders:
         assert headers == {}
 
     def test_token_sets_authorization_header(self, monkeypatch):
-        monkeypatch.setenv("GFTD_TOKEN", "tok-xyz")
+        monkeypatch.setenv("etzhayyim_TOKEN", "tok-xyz")
         with patch("gftd.auth._load_auth_file", return_value={}):
             headers = auth_headers()
         assert headers["Authorization"] == "Bearer tok-xyz"
 
     def test_did_sets_x_active_did_header(self, monkeypatch):
-        monkeypatch.delenv("GFTD_TOKEN", raising=False)
-        monkeypatch.delenv("GFTD_ORG_ID", raising=False)
+        monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
+        monkeypatch.delenv("etzhayyim_ORG_ID", raising=False)
         with (
             patch("gftd.auth._read_keychain", return_value=None),
             patch("gftd.auth._load_auth_file", return_value={"active_did": "did:plc:abc"}),
@@ -165,23 +165,23 @@ class TestAuthHeaders:
         assert headers["X-Active-DID"] == "did:plc:abc"
 
     def test_org_env_sets_x_gftd_org_id_header(self, monkeypatch):
-        monkeypatch.setenv("GFTD_ORG_ID", "org-123")
-        monkeypatch.delenv("GFTD_TOKEN", raising=False)
+        monkeypatch.setenv("etzhayyim_ORG_ID", "org-123")
+        monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
             patch("gftd.auth._read_keychain", return_value=None),
             patch("gftd.auth._load_auth_file", return_value={}),
         ):
             headers = auth_headers()
-        assert headers["X-Gftd-Org-Id"] == "org-123"
+        assert headers["X-etzhayyim-Org-Id"] == "org-123"
 
     def test_all_headers_present_when_all_sources_set(self, monkeypatch):
-        monkeypatch.setenv("GFTD_TOKEN", "tok-full")
-        monkeypatch.setenv("GFTD_ORG_ID", "org-full")
+        monkeypatch.setenv("etzhayyim_TOKEN", "tok-full")
+        monkeypatch.setenv("etzhayyim_ORG_ID", "org-full")
         with patch("gftd.auth._load_auth_file", return_value={"active_did": "did:plc:full"}):
             headers = auth_headers()
         assert "Authorization" in headers
         assert "X-Active-DID" in headers
-        assert "X-Gftd-Org-Id" in headers
+        assert "X-etzhayyim-Org-Id" in headers
 
 
 # ─── mint_scoped_jwt ──────────────────────────────────────────────────────────
@@ -192,91 +192,91 @@ class TestMintScopedJwt:
             _scoped_jwt_cache.clear()
 
     def test_returns_empty_for_empty_token(self, monkeypatch):
-        monkeypatch.delenv("GFTD_SCOPED_AUTH", raising=False)
+        monkeypatch.delenv("etzhayyim_SCOPED_AUTH", raising=False)
         assert mint_scoped_jwt("", "com.atproto.server.describeServer") == ""
 
     def test_returns_empty_for_empty_nsid(self, monkeypatch):
-        monkeypatch.delenv("GFTD_SCOPED_AUTH", raising=False)
+        monkeypatch.delenv("etzhayyim_SCOPED_AUTH", raising=False)
         assert mint_scoped_jwt("sometoken", "") == ""
 
     def test_bootstrap_guard_skips_service_auth_nsid(self, monkeypatch):
-        monkeypatch.delenv("GFTD_SCOPED_AUTH", raising=False)
+        monkeypatch.delenv("etzhayyim_SCOPED_AUTH", raising=False)
         result = mint_scoped_jwt("sometoken", "com.atproto.server.getServiceAuth")
         assert result == ""
 
     def test_disabled_by_env_off(self, monkeypatch):
-        monkeypatch.setenv("GFTD_SCOPED_AUTH", "off")
-        result = mint_scoped_jwt("mytoken", "ai.gftd.apps.billing.listInvoices")
+        monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "off")
+        result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
     def test_disabled_by_env_zero(self, monkeypatch):
-        monkeypatch.setenv("GFTD_SCOPED_AUTH", "0")
-        result = mint_scoped_jwt("mytoken", "ai.gftd.apps.billing.listInvoices")
+        monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "0")
+        result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
     def test_disabled_by_env_false(self, monkeypatch):
-        monkeypatch.setenv("GFTD_SCOPED_AUTH", "false")
-        result = mint_scoped_jwt("mytoken", "ai.gftd.apps.billing.listInvoices")
+        monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "false")
+        result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
     def test_network_failure_returns_empty(self, monkeypatch):
         self._clear_cache()
-        monkeypatch.delenv("GFTD_SCOPED_AUTH", raising=False)
-        monkeypatch.setenv("GFTD_PDS_URL", "https://atproto.etzhayyim.com")
+        monkeypatch.delenv("etzhayyim_SCOPED_AUTH", raising=False)
+        monkeypatch.setenv("etzhayyim_PDS_URL", "https://atproto.etzhayyim.com")
 
         import httpx
         with patch("httpx.post", side_effect=httpx.ConnectError("refused")):
-            result = mint_scoped_jwt("mytoken", "ai.gftd.apps.billing.listInvoices")
+            result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
     def test_http_error_returns_empty(self, monkeypatch):
         self._clear_cache()
-        monkeypatch.delenv("GFTD_SCOPED_AUTH", raising=False)
-        monkeypatch.setenv("GFTD_PDS_URL", "https://atproto.etzhayyim.com")
+        monkeypatch.delenv("etzhayyim_SCOPED_AUTH", raising=False)
+        monkeypatch.setenv("etzhayyim_PDS_URL", "https://atproto.etzhayyim.com")
 
         mock_resp = MagicMock()
         mock_resp.status_code = 401
         with patch("httpx.post", return_value=mock_resp):
-            result = mint_scoped_jwt("mytoken", "ai.gftd.apps.billing.listInvoices")
+            result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
     def test_successful_mint_returns_token(self, monkeypatch):
         self._clear_cache()
-        monkeypatch.delenv("GFTD_SCOPED_AUTH", raising=False)
-        monkeypatch.setenv("GFTD_PDS_URL", "https://atproto.etzhayyim.com")
+        monkeypatch.delenv("etzhayyim_SCOPED_AUTH", raising=False)
+        monkeypatch.setenv("etzhayyim_PDS_URL", "https://atproto.etzhayyim.com")
 
         mock_resp = MagicMock()
         mock_resp.status_code = 200
         mock_resp.json.return_value = {"token": "scoped-jwt-xyz"}
         with patch("httpx.post", return_value=mock_resp):
-            result = mint_scoped_jwt("mytoken", "ai.gftd.apps.billing.listInvoices")
+            result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
         assert result == "scoped-jwt-xyz"
 
     def test_cache_hit_skips_http(self, monkeypatch):
         self._clear_cache()
-        monkeypatch.delenv("GFTD_SCOPED_AUTH", raising=False)
-        monkeypatch.setenv("GFTD_PDS_URL", "https://atproto.etzhayyim.com")
+        monkeypatch.delenv("etzhayyim_SCOPED_AUTH", raising=False)
+        monkeypatch.setenv("etzhayyim_PDS_URL", "https://atproto.etzhayyim.com")
 
         mock_resp = MagicMock()
         mock_resp.status_code = 200
         mock_resp.json.return_value = {"token": "scoped-jwt-cached"}
 
         with patch("httpx.post", return_value=mock_resp) as mock_post:
-            r1 = mint_scoped_jwt("mytoken", "ai.gftd.apps.billing.listInvoices")
-            r2 = mint_scoped_jwt("mytoken", "ai.gftd.apps.billing.listInvoices")
+            r1 = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
+            r2 = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
         assert r1 == r2 == "scoped-jwt-cached"
         assert mock_post.call_count == 1
 
     def test_empty_token_in_response_returns_empty(self, monkeypatch):
         self._clear_cache()
-        monkeypatch.delenv("GFTD_SCOPED_AUTH", raising=False)
-        monkeypatch.setenv("GFTD_PDS_URL", "https://atproto.etzhayyim.com")
+        monkeypatch.delenv("etzhayyim_SCOPED_AUTH", raising=False)
+        monkeypatch.setenv("etzhayyim_PDS_URL", "https://atproto.etzhayyim.com")
 
         mock_resp = MagicMock()
         mock_resp.status_code = 200
         mock_resp.json.return_value = {"token": ""}
         with patch("httpx.post", return_value=mock_resp):
-            result = mint_scoped_jwt("mytoken", "ai.gftd.apps.billing.listInvoices")
+            result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
 
@@ -284,27 +284,27 @@ class TestMintScopedJwt:
 
 class TestScopedAuthHeaders:
     def test_falls_back_to_base_token_when_mint_fails(self, monkeypatch):
-        monkeypatch.setenv("GFTD_TOKEN", "base-tok")
-        monkeypatch.setenv("GFTD_SCOPED_AUTH", "off")
+        monkeypatch.setenv("etzhayyim_TOKEN", "base-tok")
+        monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "off")
         with patch("gftd.auth._load_auth_file", return_value={}):
-            headers = scoped_auth_headers("ai.gftd.apps.billing.listInvoices")
+            headers = scoped_auth_headers("app.etzhayyim.apps.billing.listInvoices")
         assert headers["Authorization"] == "Bearer base-tok"
 
     def test_upgrades_to_scoped_token_when_available(self, monkeypatch):
-        monkeypatch.setenv("GFTD_TOKEN", "base-tok")
-        monkeypatch.delenv("GFTD_SCOPED_AUTH", raising=False)
+        monkeypatch.setenv("etzhayyim_TOKEN", "base-tok")
+        monkeypatch.delenv("etzhayyim_SCOPED_AUTH", raising=False)
         with (
             patch("gftd.auth._load_auth_file", return_value={}),
             patch("gftd.auth.mint_scoped_jwt", return_value="scoped-tok"),
         ):
-            headers = scoped_auth_headers("ai.gftd.apps.billing.listInvoices")
+            headers = scoped_auth_headers("app.etzhayyim.apps.billing.listInvoices")
         assert headers["Authorization"] == "Bearer scoped-tok"
 
     def test_preserves_did_and_org_headers(self, monkeypatch):
-        monkeypatch.setenv("GFTD_TOKEN", "base-tok")
-        monkeypatch.setenv("GFTD_ORG_ID", "org-x")
-        monkeypatch.setenv("GFTD_SCOPED_AUTH", "off")
+        monkeypatch.setenv("etzhayyim_TOKEN", "base-tok")
+        monkeypatch.setenv("etzhayyim_ORG_ID", "org-x")
+        monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "off")
         with patch("gftd.auth._load_auth_file", return_value={"active_did": "did:plc:abc"}):
-            headers = scoped_auth_headers("ai.gftd.apps.billing.listInvoices")
+            headers = scoped_auth_headers("app.etzhayyim.apps.billing.listInvoices")
         assert "X-Active-DID" in headers
-        assert "X-Gftd-Org-Id" in headers
+        assert "X-etzhayyim-Org-Id" in headers

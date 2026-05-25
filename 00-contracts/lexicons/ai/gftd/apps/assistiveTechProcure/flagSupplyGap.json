@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.assistiveTechProcure.flagSupplyGap",
+  "id": "app.etzhayyim.apps.assistiveTechProcure.flagSupplyGap",
   "defs": {
     "main": {
       "type": "procedure",

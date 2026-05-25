@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.robotics.ems.company.profile",
+  "id": "app.etzhayyim.apps.robotics.ems.company.profile",
   "defs": {
     "main": {
       "type": "procedure",

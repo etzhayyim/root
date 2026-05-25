@@ -65,9 +65,9 @@ _log = logging.getLogger(__name__)
 
 
 # ── Config (resolveModelId pattern — no hardcoded model names) ───────────────
-_LLM_URL   = os.getenv("GFTD_LLM_URL", "https://gemma.etzhayyim.com/v1")
-_LLM_MODEL = os.getenv("GFTD_LLM_MODEL", "gemma-4-E2B-it")
-_LLM_KEY   = os.getenv("GFTD_LLM_API_KEY", "")
+_LLM_URL   = os.getenv("etzhayyim_LLM_URL", "https://gemma.etzhayyim.com/v1")
+_LLM_MODEL = os.getenv("etzhayyim_LLM_MODEL", "gemma-4-E2B-it")
+_LLM_KEY   = os.getenv("etzhayyim_LLM_API_KEY", "")
 
 _DB_URL = os.getenv(
     "DATABASE_URL",
@@ -385,7 +385,7 @@ async def seed_frontier(state: KenkyushaState) -> dict[str, Any]:
     else:
         frontier_id = _hash(title + discipline)
     frontier_did = f"{ACTOR_KENKYUSHA}:frontier:{frontier_id}"
-    vid = f"at://{frontier_did}/ai.gftd.apps.kenkyusha.frontier/{frontier_id}"
+    vid = f"at://{frontier_did}/app.etzhayyim.apps.kenkyusha.frontier/{frontier_id}"
     now = _utc_now_str()
 
     try:
@@ -516,7 +516,7 @@ async def generation(state: KenkyushaState) -> dict[str, Any]:
         try:
             for h in items:
                 hid = _hash(frontier_id + h["statement"] + str(super_step))
-                vid = f"at://{ACTOR_KENKYUSHA}/ai.gftd.apps.kenkyusha.hypothesis/{hid}"
+                vid = f"at://{ACTOR_KENKYUSHA}/app.etzhayyim.apps.kenkyusha.hypothesis/{hid}"
                 await conn.execute(
                     """
                     INSERT INTO graphar.vertex_kenkyusha_hypothesis
@@ -786,7 +786,7 @@ async def evolution(state: KenkyushaState) -> dict[str, Any]:
         super_step = 2
         frontier_id = state.get("frontier_id", "")
         hid = _hash(frontier_id + child["statement"] + str(super_step))
-        vid = f"at://{ACTOR_KENKYUSHA}/ai.gftd.apps.kenkyusha.hypothesis/{hid}"
+        vid = f"at://{ACTOR_KENKYUSHA}/app.etzhayyim.apps.kenkyusha.hypothesis/{hid}"
         parent_id = top2[0]["id"]
         now = _utc_now_str()
         try:
@@ -1067,7 +1067,7 @@ contradicts, or is neutral toward the hypothesis. Output a JSON array of
                     rel = max(0, min(1000, int(item.get("relevance", 500))))
                     claim = str(item.get("claim", ""))[:480]
                     eid = _hash(h["id"] + r["source_did"] + etype)
-                    evid_vid = f"at://{ACTOR_KENKYUSHA}/ai.gftd.apps.kenkyusha.evidence/{eid}"
+                    evid_vid = f"at://{ACTOR_KENKYUSHA}/app.etzhayyim.apps.kenkyusha.evidence/{eid}"
                     await conn.execute(
                         """
                         INSERT INTO graphar.vertex_kenkyusha_evidence
@@ -1356,7 +1356,7 @@ async def disagreement_split(state: KenkyushaState) -> dict[str, Any]:
                 reason = sub["reason"]
                 fid    = _hash(parent_id + title + reason)
                 fdid   = f"{ACTOR_KENKYUSHA}:frontier:{fid}"
-                vid    = f"at://{fdid}/ai.gftd.apps.kenkyusha.frontier/{fid}"
+                vid    = f"at://{fdid}/app.etzhayyim.apps.kenkyusha.frontier/{fid}"
                 child_depth = current_depth + 1
 
                 await conn.execute(
@@ -1802,7 +1802,7 @@ async def arxiv_submit(state: KenkyushaState) -> dict[str, Any]:
     tex, abstract = _build_arxiv_tex(state, winner, evidence)
     frontier_id   = state.get("frontier_id", "")
     submission_id = _hash(frontier_id + "submission" + winner.get("id", ""))
-    vid = f"at://{ACTOR_KENKYUSHA}/ai.gftd.apps.kenkyusha.submission/{submission_id}"
+    vid = f"at://{ACTOR_KENKYUSHA}/app.etzhayyim.apps.kenkyusha.submission/{submission_id}"
     now = _utc_now_str()
     evidence_csv = ",".join(e.get("id", "") for e in evidence if e.get("id"))
 

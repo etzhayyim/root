@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.jpMeti.recordAction",
+  "id": "app.etzhayyim.apps.jpMeti.recordAction",
   "defs": {
     "main": {
       "type": "procedure",

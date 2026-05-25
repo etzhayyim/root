@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.lawsAutonomousWeapons.recordDeclaration",
+  "id": "app.etzhayyim.apps.lawsAutonomousWeapons.recordDeclaration",
   "defs": {
     "main": {
       "type": "procedure",

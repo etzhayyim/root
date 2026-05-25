@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.bulkIngestGutenberg",
+  "id": "app.etzhayyim.apps.site.bulkIngestGutenberg",
   "defs": {
     "main": {
       "type": "procedure",

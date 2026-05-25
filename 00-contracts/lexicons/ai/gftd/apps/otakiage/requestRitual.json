@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.otakiage.requestRitual",
+  "id": "app.etzhayyim.apps.otakiage.requestRitual",
   "defs": {
     "main": {
       "type": "procedure",

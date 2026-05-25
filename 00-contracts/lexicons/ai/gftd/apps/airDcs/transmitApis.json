@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airDcs.transmitApis",
+  "id": "app.etzhayyim.apps.airDcs.transmitApis",
   "defs": {
     "main": {
       "type": "procedure",

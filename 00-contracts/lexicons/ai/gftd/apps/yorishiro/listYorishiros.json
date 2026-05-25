@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yorishiro.listYorishiros",
+  "id": "app.etzhayyim.apps.yorishiro.listYorishiros",
   "defs": {
     "main": {
       "type": "query",

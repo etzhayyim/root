@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.host.m365.enumerateUsers",
+  "id": "app.etzhayyim.host.m365.enumerateUsers",
   "defs": {
     "main": {
       "type": "query",
@@ -10,7 +10,7 @@
         "type": "params",
         "properties": {
           "token": { "type": "string", "description": "App-only Graph access token" },
-          "upnDomainSuffix": { "type": "string", "description": "Filter: endsWith(userPrincipalName, suffix), e.g. '@gftd.co.jp'" },
+          "upnDomainSuffix": { "type": "string", "description": "Filter: endsWith(userPrincipalName, suffix), e.g. '@etzhayyim.com'" },
           "top": { "type": "integer", "default": 999, "minimum": 1, "maximum": 999 }
         },
         "required": ["token"]

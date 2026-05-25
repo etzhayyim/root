@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.member",
+  "id": "app.etzhayyim.convo.member",
   "description": "Conversation member record. Extends chat.bsky.convo member concept with roles.",
   "defs": {
     "main": {
@@ -22,7 +22,7 @@
           },
           "role": {
             "type": "string",
-            "description": "GFTD extension: member role in conversation",
+            "description": "etzhayyim extension: member role in conversation",
             "knownValues": ["owner", "admin", "member", "guest"]
           }
         },

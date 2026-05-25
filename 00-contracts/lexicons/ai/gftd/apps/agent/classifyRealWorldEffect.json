@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.agent.classifyRealWorldEffect",
+  "id": "app.etzhayyim.apps.agent.classifyRealWorldEffect",
   "defs": {
     "main": {
       "type": "procedure",

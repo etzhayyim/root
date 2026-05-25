@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.fatfTravelRule.flagComplianceBreach",
+  "id": "app.etzhayyim.apps.fatfTravelRule.flagComplianceBreach",
   "defs": {
     "main": {
       "type": "procedure",

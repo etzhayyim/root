@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.convo.message",
+  "id": "app.etzhayyim.convo.message",
   "description": "Extended message record. Superset of chat.bsky.convo.defs#messageView — adds kind, contentType, encryption support.",
   "defs": {
     "main": {
@@ -36,15 +36,15 @@
           },
           "kind": {
             "type": "string",
-            "description": "GFTD extension: message kind (text, system, agent, etc.)"
+            "description": "etzhayyim extension: message kind (text, system, agent, etc.)"
           },
           "contentType": {
             "type": "string",
-            "description": "GFTD extension: MIME content type for rich payloads"
+            "description": "etzhayyim extension: MIME content type for rich payloads"
           },
           "encrypted": {
             "type": "boolean",
-            "description": "GFTD extension: whether this message is E2E encrypted via ai.gftd.signal"
+            "description": "etzhayyim extension: whether this message is E2E encrypted via app.etzhayyim.signal"
           }
         },
         "required": [

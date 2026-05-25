@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.submitScore",
+  "id": "app.etzhayyim.apps.kami.submitScore",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,16 +1,16 @@
-"""Generic-primitive worker for ai.gftd.tools.time.* (ADR-2605082000 Phase D).
+"""Generic-primitive worker for app.etzhayyim.tools.time.* (ADR-2605082000 Phase D).
 
 Stateless wall-clock readout. Replaces per-actor inline ``time.time()`` /
 ``datetime.now(tz=...)`` py_primitive nodes.
 
 Surface:
 
-  ai.gftd.tools.time.now({"format": "iso"|"epoch_s"|"epoch_ms",
+  app.etzhayyim.tools.time.now({"format": "iso"|"epoch_s"|"epoch_ms",
                           "tz": "UTC"|"Asia/Tokyo"|...})
     → {"now": <str|int|float>}
 
 The dispatcher convention does not apply here — namespace is
-``ai.gftd.tools.time``, wired via ``register_overrides`` in mcp_dispatch.
+``app.etzhayyim.tools.time``, wired via ``register_overrides`` in mcp_dispatch.
 """
 
 from __future__ import annotations

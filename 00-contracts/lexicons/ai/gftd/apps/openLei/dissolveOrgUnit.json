@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.openLei.dissolveOrgUnit",
+  "id": "app.etzhayyim.apps.openLei.dissolveOrgUnit",
   "defs": {
     "main": {
       "type": "procedure",

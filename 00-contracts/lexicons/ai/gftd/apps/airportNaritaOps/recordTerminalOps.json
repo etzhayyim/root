@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.airportNaritaOps.recordTerminalOps",
+  "id": "app.etzhayyim.apps.airportNaritaOps.recordTerminalOps",
   "defs": {
     "main": {
       "type": "procedure",

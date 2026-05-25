@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.eda.exportGerber",
+  "id": "app.etzhayyim.apps.kami.eda.exportGerber",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.rl.aifUpdateBeliefs",
+  "id": "app.etzhayyim.apps.rl.aifUpdateBeliefs",
   "defs": {
     "main": {
       "type": "procedure",

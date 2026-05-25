@@ -55,7 +55,7 @@ This Land Trust does NOT deny state land registries. It operates in **parallel**
 Each steward annually:
 
 - Verifies land boundary (in-person inspection)
-- Records biodiversity census (`ai.gftd.apps.etzhayyim.land-biodiversity`)
+- Records biodiversity census (`app.etzhayyim.apps.etzhayyim.land-biodiversity`)
 - Provides reasonable access to etzhayyim adherents for religious gathering / meditation
 - Ensures no commercial extraction (mining / clear-cut / large-scale monoculture)
 - Continues national obligations (property tax)
@@ -92,7 +92,7 @@ ipfs cat $DEED_CID
 # 4. Verify AT Record
 curl -s https://pds.etzhayyim.com/xrpc/com.atproto.repo.getRecord \
   -G --data-urlencode "repo=$STEWARD_DID" \
-  --data-urlencode "collection=ai.gftd.apps.etzhayyim.land-donation" \
+  --data-urlencode "collection=app.etzhayyim.apps.etzhayyim.land-donation" \
   --data-urlencode "rkey=$RKEY"
 ```
 

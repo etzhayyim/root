@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.yadoya.cancelReservation",
+  "id": "app.etzhayyim.apps.yadoya.cancelReservation",
   "defs": {
     "main": {
       "type": "procedure",

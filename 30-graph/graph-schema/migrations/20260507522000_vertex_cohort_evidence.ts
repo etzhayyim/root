@@ -50,7 +50,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       actor_did,
       org_did
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.cohort.evidence'
+    WHERE collection = 'app.etzhayyim.cohort.evidence'
       AND evidence_hash IS NOT NULL
   `.execute(db);
 
@@ -101,7 +101,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
       SUM(CASE WHEN posterior > 0.95 AND judge_agreement THEN 1 ELSE 0 END)::BIGINT AS fission_ready_count,
       MAX(observed_at) AS last_evidence_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.cohort.evidence'
+    WHERE collection = 'app.etzhayyim.cohort.evidence'
     GROUP BY cohort_did
   `.execute(db);
 
@@ -115,7 +115,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
            ELSE COUNT(*) / COUNT(DISTINCT signal_kind)
       END::BIGINT AS k_proxy
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.cohort.evidence'
+    WHERE collection = 'app.etzhayyim.cohort.evidence'
     GROUP BY cohort_did
   `.execute(db);
 }

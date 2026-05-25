@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.research.listAdrs",
+  "id": "app.etzhayyim.research.listAdrs",
   "defs": {
     "main": {
       "type": "query",

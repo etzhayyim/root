@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.importRefusal.recordRefusal",
+  "id": "app.etzhayyim.apps.importRefusal.recordRefusal",
   "defs": {
     "main": {
       "type": "procedure",

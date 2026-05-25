@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.evSupplyChain.registerBatteryCell",
+  "id": "app.etzhayyim.apps.evSupplyChain.registerBatteryCell",
   "defs": {
     "main": {
       "type": "procedure",

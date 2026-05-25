@@ -1,7 +1,7 @@
 {
   "$type": "lexicon",
   "lexicon": 1,
-  "id": "ai.gftd.apps.site.searchSemantic",
+  "id": "app.etzhayyim.apps.site.searchSemantic",
   "defs": {
     "main": {
       "type": "query",

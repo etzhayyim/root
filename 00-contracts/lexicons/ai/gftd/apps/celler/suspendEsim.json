@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.celler.suspendEsim",
+  "id": "app.etzhayyim.apps.celler.suspendEsim",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.pipelineChat",
+  "id": "app.etzhayyim.apps.mangaka.pipelineChat",
   "defs": {
     "main": {
       "type": "procedure",

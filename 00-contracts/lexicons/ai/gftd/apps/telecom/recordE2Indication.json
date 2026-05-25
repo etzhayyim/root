@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.recordE2Indication",
+  "id": "app.etzhayyim.apps.telecom.recordE2Indication",
   "defs": {
     "main": {
       "type": "procedure",

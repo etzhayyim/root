@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.kami.cad.addFeature",
+  "id": "app.etzhayyim.apps.kami.cad.addFeature",
   "defs": {
     "main": {
       "type": "procedure",

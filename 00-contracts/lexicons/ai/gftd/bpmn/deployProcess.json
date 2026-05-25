@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.bpmn.deployProcess",
+  "id": "app.etzhayyim.bpmn.deployProcess",
   "defs": {
     "main": {
       "type": "procedure",

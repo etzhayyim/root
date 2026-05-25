@@ -1,4 +1,4 @@
-# `ai.gftd.gyotaku.*` — 魚拓 — fish-impression art record
+# `app.etzhayyim.gyotaku.*` — 魚拓 — fish-impression art record
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group C).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `ai.gftd.gyotaku.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `app.etzhayyim.gyotaku.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

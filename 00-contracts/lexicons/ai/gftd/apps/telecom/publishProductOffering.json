@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.telecom.publishProductOffering",
+  "id": "app.etzhayyim.apps.telecom.publishProductOffering",
   "defs": {
     "main": {
       "type": "procedure",

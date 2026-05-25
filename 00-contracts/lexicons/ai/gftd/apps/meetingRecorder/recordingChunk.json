@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.meetingRecorder.recordingChunk",
+  "id": "app.etzhayyim.apps.meetingRecorder.recordingChunk",
   "defs": {
     "main": {
       "type": "record",

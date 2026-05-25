@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.artemisLunar.recordMissionActivity",
+  "id": "app.etzhayyim.apps.artemisLunar.recordMissionActivity",
   "defs": {
     "main": {
       "type": "procedure",

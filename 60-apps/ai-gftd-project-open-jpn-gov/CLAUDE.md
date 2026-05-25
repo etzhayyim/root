@@ -6,7 +6,7 @@
 
 - **Roster**: 1府11省 + 3庁 (デジタル/復興/こども家庭) + 独立機関 (人事院/会計検査院) + 主要外局・委員会 ≈ 35 entries embedded as TS (`worker/src/roster.ts`).
 - **Law proxy**: live fetch of e-Gov 法令API v2 (`laws.e-gov.go.jp/api/2`) with 1h CF edge cache.
-- **5 XRPC methods** under `ai.gftd.apps.openJpnGov.*`:
+- **5 XRPC methods** under `app.etzhayyim.apps.openJpnGov.*`:
   - `listMinistries` / `getMinistry` / `listAgencies` — roster queries
   - `searchLaws` / `getLaw` — e-Gov passthrough
 

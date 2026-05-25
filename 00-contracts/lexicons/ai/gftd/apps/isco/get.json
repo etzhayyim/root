@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.isco.get",
+  "id": "app.etzhayyim.apps.isco.get",
   "defs": {
     "main": {
       "type": "query",

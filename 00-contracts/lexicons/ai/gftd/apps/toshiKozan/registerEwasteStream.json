@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.toshiKozan.registerEwasteStream",
+  "id": "app.etzhayyim.apps.toshiKozan.registerEwasteStream",
   "defs": {
     "main": {
       "type": "procedure",

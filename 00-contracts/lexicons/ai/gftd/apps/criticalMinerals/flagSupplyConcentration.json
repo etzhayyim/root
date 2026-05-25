@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.criticalMinerals.flagSupplyConcentration",
+  "id": "app.etzhayyim.apps.criticalMinerals.flagSupplyConcentration",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.oecdDacTransparency.recordReport",
+  "id": "app.etzhayyim.apps.oecdDacTransparency.recordReport",
   "defs": {
     "main": {
       "type": "procedure",

@@ -123,11 +123,11 @@ did:web:hakkou.etzhayyim.com
 ### NSID プレフィックス
 
 ```
-ai.gftd.apps.kabi.*     — mycelium operations
-ai.gftd.apps.kobo.*     — yeast agent operations
-ai.gftd.apps.kinoko.*   — consensus / fruiting body
-ai.gftd.houshi.*   — spore operations
-ai.gftd.hakkou.*   — fermentation operations
+app.etzhayyim.apps.kabi.*     — mycelium operations
+app.etzhayyim.apps.kobo.*     — yeast agent operations
+app.etzhayyim.apps.kinoko.*   — consensus / fruiting body
+app.etzhayyim.houshi.*   — spore operations
+app.etzhayyim.hakkou.*   — fermentation operations
 ```
 
 ### Graph Table 命名
@@ -393,7 +393,7 @@ hakkou.etzhayyim.com  → Layer 10 Actor Worker (fermentation pipeline)
 ```
 
 全 Worker は `did:web:{name}.etzhayyim.com` として PDS に登録。
-NSID prefix `ai.gftd.apps.{kabi|kobo|kinoko|houshi|hakkou}.*`
+NSID prefix `app.etzhayyim.apps.{kabi|kobo|kinoko|houshi|hakkou}.*`
 
 ---
 

@@ -46,13 +46,13 @@ ADR-2605011500 が design SSoT。本 runbook は実行順とゲート条件の�
 ```bash
 # RisingWave + Hyperdrive (already provisioned)
 export DATABASE_URL='postgres://root@45.32.79.245:4566/dev?sslmode=disable'
-export GFTD_DATABASE_URL="$DATABASE_URL"
-export GFTD_TOKEN='sk_live_...'
+export etzhayyim_DATABASE_URL="$DATABASE_URL"
+export etzhayyim_TOKEN='sk_live_...'
 
 # aisstream.io API key (free tier; sign up at https://aisstream.io)
 # Once obtained, register to macOS Keychain (Root-Only Rule):
 security add-generic-password -s etzhayyim.comsstream -a API_KEY -w '<api-key>' -U
-# Mirror to 1Password 'Gftd Japan株式会社' vault, title: etzhayyim.comsstream/API_KEY
+# Mirror to 1Password 'etzhayyim Japan株式会社' vault, title: etzhayyim.comsstream/API_KEY
 ```
 
 ### Required cluster context
@@ -258,7 +258,7 @@ psql "$DATABASE_URL" -c \
 
 ```bash
 # Singapore Strait — busiest waterway globally.
-curl -s 'https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.aismarine.queryVesselsBbox?bbox=103.6&bbox=1.0&bbox=104.2&bbox=1.5&limit=100' \
+curl -s 'https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.aismarine.queryVesselsBbox?bbox=103.6&bbox=1.0&bbox=104.2&bbox=1.5&limit=100' \
   | jq '.total, .features | length'
 # Expected: total > 50 within 10 min of consumer start.
 ```
@@ -269,7 +269,7 @@ curl -s 'https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.aismarine.queryVessel
 # Pick any MMSI from S2.
 MMSI=$(psql "$DATABASE_URL" -tAc \
   "SELECT mmsi FROM mv_vessel_latest_position ORDER BY ts_ms DESC LIMIT 1")
-curl -s "https://maps.etzhayyim.com/xrpc/ai.gftd.apps.maps.aismarine.getVesselDetail?mmsi=$MMSI" \
+curl -s "https://maps.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.aismarine.getVesselDetail?mmsi=$MMSI" \
   | jq '.vessel.mmsi, (.recentTrack | length)'
 # Expected: same MMSI + > 0 track points
 ```

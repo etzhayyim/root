@@ -204,7 +204,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.omikuji.drawFortune")
+    @worker.task(task_type="app.etzhayyim.apps.omikuji.drawFortune")
     async def task_draw_fortune(**kwargs):
         return await asyncio.to_thread(
             _draw_fortune_sync,
@@ -213,7 +213,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.omikuji.listFortunes")
+    @worker.task(task_type="app.etzhayyim.apps.omikuji.listFortunes")
     async def task_list_fortunes(**kwargs):
         return await asyncio.to_thread(
             _list_fortunes_sync,
@@ -223,7 +223,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.omikuji.getFortune")
+    @worker.task(task_type="app.etzhayyim.apps.omikuji.getFortune")
     async def task_get_fortune(**kwargs):
         return await asyncio.to_thread(
             _get_fortune_sync,
@@ -231,7 +231,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.omikuji.resetFortune")
+    @worker.task(task_type="app.etzhayyim.apps.omikuji.resetFortune")
     async def task_reset_fortune(**kwargs):
         return await asyncio.to_thread(
             _reset_fortune_sync,
@@ -239,7 +239,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.omikuji.createShrine")
+    @worker.task(task_type="app.etzhayyim.apps.omikuji.createShrine")
     async def task_create_shrine(**kwargs):
         return await asyncio.to_thread(
             _create_shrine_sync,
@@ -249,7 +249,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.omikuji.updateShrine")
+    @worker.task(task_type="app.etzhayyim.apps.omikuji.updateShrine")
     async def task_update_shrine(**kwargs):
         return await asyncio.to_thread(
             _update_shrine_sync,
@@ -259,7 +259,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.omikuji.listShrines")
+    @worker.task(task_type="app.etzhayyim.apps.omikuji.listShrines")
     async def task_list_shrines(**kwargs):
         return await asyncio.to_thread(
             _list_shrines_sync,
@@ -268,7 +268,7 @@ async def run_worker():
             kwargs.get("actor", _ACTOR)
         )
 
-    @worker.task(task_type="ai.gftd.apps.omikuji.getShrine")
+    @worker.task(task_type="app.etzhayyim.apps.omikuji.getShrine")
     async def task_get_shrine(**kwargs):
         return await asyncio.to_thread(
             _get_shrine_sync,

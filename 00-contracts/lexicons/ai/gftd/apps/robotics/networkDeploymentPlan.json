@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.robotics.network.deployment.plan",
+  "id": "app.etzhayyim.apps.robotics.network.deployment.plan",
   "defs": {
     "main": {
       "type": "procedure",

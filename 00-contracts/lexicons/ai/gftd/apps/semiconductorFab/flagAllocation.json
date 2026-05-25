@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.semiconductorFab.flagAllocation",
+  "id": "app.etzhayyim.apps.semiconductorFab.flagAllocation",
   "defs": {
     "main": {
       "type": "procedure",

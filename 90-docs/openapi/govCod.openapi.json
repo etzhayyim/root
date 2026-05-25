@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govCod.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govCod.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Democratic Republic of the Congo government.",
-        "operationId": "ai.gftd.govCod.followSiteDeps",
+        "operationId": "app.etzhayyim.govCod.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCod.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govCod.heartbeatTick": {
       "post": {
         "summary": "Run the Democratic Republic of the Congo government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govCod.heartbeatTick",
+        "operationId": "app.etzhayyim.govCod.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCod.listOrgs": {
+    "/xrpc/app.etzhayyim.govCod.listOrgs": {
       "get": {
         "summary": "List Democratic Republic of the Congo government organization graph records.",
-        "operationId": "ai.gftd.govCod.listOrgs",
+        "operationId": "app.etzhayyim.govCod.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCod.registerDIDs": {
+    "/xrpc/app.etzhayyim.govCod.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Democratic Republic of the Congo government organizations.",
-        "operationId": "ai.gftd.govCod.registerDIDs",
+        "operationId": "app.etzhayyim.govCod.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCod.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govCod.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Democratic Republic of the Congo government organization path to its graph record.",
-        "operationId": "ai.gftd.govCod.resolveOrgPath",
+        "operationId": "app.etzhayyim.govCod.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCod.seedOrgs": {
+    "/xrpc/app.etzhayyim.govCod.seedOrgs": {
       "post": {
         "summary": "Seed initial Democratic Republic of the Congo government organization records into the graph.",
-        "operationId": "ai.gftd.govCod.seedOrgs",
+        "operationId": "app.etzhayyim.govCod.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCod.shinka": {
+    "/xrpc/app.etzhayyim.govCod.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Democratic Republic of the Congo government organization update.",
-        "operationId": "ai.gftd.govCod.shinka",
+        "operationId": "app.etzhayyim.govCod.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govCod.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govCod.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Democratic Republic of the Congo government organization changes to graph.",
-        "operationId": "ai.gftd.govCod.syncWetUpdates",
+        "operationId": "app.etzhayyim.govCod.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

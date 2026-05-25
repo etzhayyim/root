@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.cryptoAssetFreeze.createIncident",
+  "id": "app.etzhayyim.apps.cryptoAssetFreeze.createIncident",
   "defs": {
     "main": {
       "type": "procedure",

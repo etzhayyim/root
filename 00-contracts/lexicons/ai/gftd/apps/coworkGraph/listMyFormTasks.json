@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.coworkGraph.listMyFormTasks",
+  "id": "app.etzhayyim.apps.coworkGraph.listMyFormTasks",
   "defs": {
     "main": {
       "type": "query",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.mangaka.applyTone",
+  "id": "app.etzhayyim.apps.mangaka.applyTone",
   "defs": {
     "main": {
       "type": "procedure",

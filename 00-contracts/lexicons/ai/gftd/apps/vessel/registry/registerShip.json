@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.vessel.registry.registerShip",
+  "id": "app.etzhayyim.apps.vessel.registry.registerShip",
   "defs": {
     "main": {
       "type": "procedure",

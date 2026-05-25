@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.malaccaIncident.reportNavigational",
+  "id": "app.etzhayyim.apps.malaccaIncident.reportNavigational",
   "defs": {
     "main": {
       "type": "procedure",

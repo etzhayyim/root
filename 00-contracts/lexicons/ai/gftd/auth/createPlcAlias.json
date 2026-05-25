@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.auth.createPlcAlias",
+  "id": "app.etzhayyim.auth.createPlcAlias",
   "defs": {
     "main": {
       "type": "procedure",

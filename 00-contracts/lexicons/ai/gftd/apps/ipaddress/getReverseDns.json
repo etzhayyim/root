@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ipaddress.getReverseDns",
+  "id": "app.etzhayyim.apps.ipaddress.getReverseDns",
   "defs": {
     "main": {
       "type": "query",

@@ -54,7 +54,7 @@ write requires one of:
 
 - Local `ipfs` CLI in `PATH`.
 - `MYNUMBER_IPFS_API`, for example `https://ipfs.etzhayyim.com/api/v0`, plus optional
-  `MYNUMBER_IPFS_HMAC` when the proxy requires `X-Gftd-Ipfs-Auth`.
+  `MYNUMBER_IPFS_HMAC` when the proxy requires `X-etzhayyim-Ipfs-Auth`.
 
 Example:
 

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.organizer.addToCollection",
+  "id": "app.etzhayyim.apps.organizer.addToCollection",
   "defs": {
     "main": {
       "type": "procedure",

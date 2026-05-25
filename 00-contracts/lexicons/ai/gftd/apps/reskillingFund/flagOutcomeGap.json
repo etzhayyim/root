@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.reskillingFund.flagOutcomeGap",
+  "id": "app.etzhayyim.apps.reskillingFund.flagOutcomeGap",
   "defs": {
     "main": {
       "type": "procedure",

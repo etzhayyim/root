@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.aiSupplyChain.traceCompute",
+  "id": "app.etzhayyim.apps.aiSupplyChain.traceCompute",
   "defs": {
     "main": {
       "type": "procedure",

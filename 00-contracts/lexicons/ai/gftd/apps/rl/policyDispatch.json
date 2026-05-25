@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.rl.policyDispatch",
+  "id": "app.etzhayyim.apps.rl.policyDispatch",
   "defs": {
     "main": {
       "type": "procedure",

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.pptx.reorderSlides",
+  "id": "app.etzhayyim.apps.pptx.reorderSlides",
   "defs": {
     "main": {
       "type": "procedure",

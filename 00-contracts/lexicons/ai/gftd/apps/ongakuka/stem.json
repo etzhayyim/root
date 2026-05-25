@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.ongakuka.stem",
+  "id": "app.etzhayyim.apps.ongakuka.stem",
   "description": "Per-stem audio (vocal / drums / bass / other / instrumental). Child of a track.",
   "defs": {
     "main": {
@@ -10,7 +10,7 @@
         "type": "object",
         "required": ["trackUri", "kind", "blobKey", "mimeType"],
         "properties": {
-          "trackUri": { "type": "string", "description": "at://... of parent ai.gftd.apps.ongakuka.track" },
+          "trackUri": { "type": "string", "description": "at://... of parent app.etzhayyim.apps.ongakuka.track" },
           "kind": {
             "type": "string",
             "enum": ["vocal", "chorus", "drums", "bass", "guitar", "keys", "synth", "strings", "fx", "other", "instrumental", "fullmix"]

@@ -164,7 +164,7 @@ Current Stripe invoke calls become:
   per ADR-2605172300 platform.dns pattern)
 - Build + deploy `@etzhayyim/tsukuru` Worker on etzhayyim CF account
 - Smoke: `curl https://tsukuru.etzhayyim.com/health` = 200
-- Lexicon NSID rename: `ai.gftd.apps.tsukuru.*` → `ai.etzhayyim.apps.tsukuru.*`
+- Lexicon NSID rename: `app.etzhayyim.apps.tsukuru.*` → `ai.etzhayyim.apps.tsukuru.*`
   (lexicon files already exist in etzhayyim under `ai/gftd/apps/tsukuru/`
   per Phase 3 wave 5; rename collection NSIDs at this Phase 3 step)
 
@@ -203,7 +203,7 @@ proven:
   legacy wrap-up
 - Vendor RisingWave `vertex_tsukuru_*` tables: keep as historical
   read-only mirror for 1 year (compliance / audit reference)
-- Lexicon dual-schema retire (vendor NSID `ai.gftd.apps.tsukuru.*`
+- Lexicon dual-schema retire (vendor NSID `app.etzhayyim.apps.tsukuru.*`
   removal)
 
 # Consequences

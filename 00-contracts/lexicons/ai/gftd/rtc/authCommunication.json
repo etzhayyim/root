@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.rtc.authCommunication",
-  "description": "Real-time communication permissions. GFTD-only (no official AT Protocol equivalent). Includes notification push registration from app.bsky for cross-layer push support.",
+  "id": "app.etzhayyim.rtc.authCommunication",
+  "description": "Real-time communication permissions. etzhayyim-only (no official AT Protocol equivalent). Includes notification push registration from app.bsky for cross-layer push support.",
   "defs": {
     "main": {
       "type": "permission-set",
@@ -26,30 +26,30 @@
         {
           "type": "permission",
           "resource": "repo",
-          "description": "GFTD RTC record collections",
-          "collection": ["ai.gftd.rtc.*"],
+          "description": "etzhayyim RTC record collections",
+          "collection": ["app.etzhayyim.rtc.*"],
           "action": ["create", "update", "delete"]
         },
         {
           "type": "permission",
           "resource": "rpc",
-          "description": "GFTD RTC extension RPCs",
+          "description": "etzhayyim RTC extension RPCs",
           "lxm": [
-            "ai.gftd.rtc.getVAPIDPublicKey",
-            "ai.gftd.rtc.sendCallOffer",
-            "ai.gftd.rtc.sendCallAnswer",
-            "ai.gftd.rtc.sendCallICE",
-            "ai.gftd.rtc.hangupCall",
-            "ai.gftd.rtc.subscribePush",
-            "ai.gftd.rtc.unsubscribePush",
-            "ai.gftd.rtc.shareScreen",
-            "ai.gftd.rtc.scheduleMeeting",
-            "ai.gftd.rtc.joinMeeting",
-            "ai.gftd.rtc.admitParticipant",
-            "ai.gftd.rtc.createBreakout",
-            "ai.gftd.rtc.startRecording",
-            "ai.gftd.rtc.raiseHand",
-            "ai.gftd.rtc.openHuddle"
+            "app.etzhayyim.rtc.getVAPIDPublicKey",
+            "app.etzhayyim.rtc.sendCallOffer",
+            "app.etzhayyim.rtc.sendCallAnswer",
+            "app.etzhayyim.rtc.sendCallICE",
+            "app.etzhayyim.rtc.hangupCall",
+            "app.etzhayyim.rtc.subscribePush",
+            "app.etzhayyim.rtc.unsubscribePush",
+            "app.etzhayyim.rtc.shareScreen",
+            "app.etzhayyim.rtc.scheduleMeeting",
+            "app.etzhayyim.rtc.joinMeeting",
+            "app.etzhayyim.rtc.admitParticipant",
+            "app.etzhayyim.rtc.createBreakout",
+            "app.etzhayyim.rtc.startRecording",
+            "app.etzhayyim.rtc.raiseHand",
+            "app.etzhayyim.rtc.openHuddle"
           ]
         }
       ]

@@ -26,7 +26,7 @@ UP = [{'sql': '\n'
                  '  Pulls stale domains from vertex_dns_observation, re-queries RDAP + DoH,\n'
                  '  and writes updated rows.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.ingest.start (timer-triggered)\n'
+                 '  NSID: app.etzhayyim.apps.ingest.start (timer-triggered)\n'
                  '  Task: netintel.dns.delta\n'
                  '  Cadence: R/PT1M (every 1 minute)\n'
                  '-->\n'
@@ -41,7 +41,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.ingest.netintelDnsDelta", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.ingest.netintelDnsDelta", "version": 1, '
                  '"resultTimeoutMs": 3600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -132,7 +132,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  4636,
                  '00-contracts/bpmn/ai/gftd/ingest/netintelDnsDelta.bpmn',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-dns-delta-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml"            = $1,\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.ingest.netintelIpEnrichDelta", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.ingest.netintelIpEnrichDelta", "version": 1, '
                  '"resultTimeoutMs": 3600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -252,7 +252,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  4587,
                  '00-contracts/bpmn/ai/gftd/ingest/ipEnrichDelta.bpmn',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml"            = $1,\n'
@@ -281,7 +281,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.ingest.netintelWhoisDelta", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.ingest.netintelWhoisDelta", "version": 1, '
                  '"resultTimeoutMs": 3600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -372,7 +372,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  4588,
                  '00-contracts/bpmn/ai/gftd/ingest/whoisDelta.bpmn',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-whois-delta-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml"            = $1,\n'
@@ -403,7 +403,7 @@ UP = [{'sql': '\n'
                  'delta" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.ingest.netintelScanBannerDelta", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.ingest.netintelScanBannerDelta", "version": 1, '
                  '"resultTimeoutMs": 7200000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -494,7 +494,7 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  4718,
                  '00-contracts/bpmn/ai/gftd/ingest/scanBannerDelta.bpmn',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml"            = $1,\n'
@@ -526,7 +526,7 @@ UP = [{'sql': '\n'
                  'delta" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.ingest.netintelFingerprintDelta", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.ingest.netintelFingerprintDelta", "version": 1, '
                  '"resultTimeoutMs": 7200000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -617,38 +617,38 @@ UP = [{'sql': '\n'
                  '</bpmn:definitions>\n',
                  4790,
                  '00-contracts/bpmn/ai/gftd/ingest/fingerprintDelta.bpmn',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-fingerprint-delta-v1']}]
 
 DOWN = [{'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET version = 1\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-dns-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-dns-delta-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET version = 1\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-ip-enrich-delta-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET version = 1\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-whois-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-whois-delta-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET version = 1\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-scan-banner-delta-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET version = 1\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/netintel-fingerprint-delta-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-fingerprint-delta-v1']}]
 
 
 def upgrade() -> None:

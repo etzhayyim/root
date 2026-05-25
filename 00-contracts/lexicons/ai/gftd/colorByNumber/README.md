@@ -1,4 +1,4 @@
-# `ai.gftd.colorByNumber.*` — Color-by-number — open paint-by-number puzzle spec
+# `app.etzhayyim.colorByNumber.*` — Color-by-number — open paint-by-number puzzle spec
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group C).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `ai.gftd.colorByNumber.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `app.etzhayyim.colorByNumber.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

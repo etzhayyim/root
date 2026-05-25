@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-resolve-entity-v1',
                  'did:web:intel.etzhayyim.com',
                  'intel_resolve_entity',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -96,7 +96,7 @@ UP = [{'sql': '\n'
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-resolve-entity-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -110,7 +110,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-list-dependency-candidates-v1',
                  'did:web:intel.etzhayyim.com',
                  'intel_list_dependency_candidates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -150,7 +150,7 @@ UP = [{'sql': '\n'
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-list-dependency-candidates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -164,7 +164,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-infer-dependencies-v1',
                  'did:web:intel.etzhayyim.com',
                  'intel_infer_dependencies',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -306,7 +306,7 @@ UP = [{'sql': '\n'
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-infer-dependencies-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -320,7 +320,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-explain-dependency-v1',
                  'did:web:intel.etzhayyim.com',
                  'intel_explain_dependency',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -360,7 +360,7 @@ UP = [{'sql': '\n'
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-explain-dependency-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -374,7 +374,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-get-counterparty-graph-v1',
                  'did:web:intel.etzhayyim.com',
                  'intel_get_counterparty_graph',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -414,7 +414,7 @@ UP = [{'sql': '\n'
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-get-counterparty-graph-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -428,7 +428,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-get-building-ownership-graph-v1',
                  'did:web:intel.etzhayyim.com',
                  'intel_get_building_ownership_graph',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -468,7 +468,7 @@ UP = [{'sql': '\n'
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-get-building-ownership-graph-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -482,16 +482,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-resolveEntity-v1',
                  'did:web:intel.etzhayyim.com',
-                 'ai.gftd.apps.intel.resolveEntity',
+                 'app.etzhayyim.apps.intel.resolveEntity',
                  'intel_resolve_entity',
                  60000,
                  '2026-04-28T14:00:00Z',
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-resolveEntity-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -505,16 +505,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-listDependencyCandidates-v1',
                  'did:web:intel.etzhayyim.com',
-                 'ai.gftd.apps.intel.listDependencyCandidates',
+                 'app.etzhayyim.apps.intel.listDependencyCandidates',
                  'intel_list_dependency_candidates',
                  30000,
                  '2026-04-28T14:00:00Z',
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-listDependencyCandidates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -528,16 +528,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-inferDependencies-v1',
                  'did:web:intel.etzhayyim.com',
-                 'ai.gftd.apps.intel.inferDependencies',
+                 'app.etzhayyim.apps.intel.inferDependencies',
                  'intel_infer_dependencies',
                  60000,
                  '2026-04-28T14:00:00Z',
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-inferDependencies-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -551,16 +551,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-explainDependency-v1',
                  'did:web:intel.etzhayyim.com',
-                 'ai.gftd.apps.intel.explainDependency',
+                 'app.etzhayyim.apps.intel.explainDependency',
                  'intel_explain_dependency',
                  60000,
                  '2026-04-28T14:00:00Z',
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-explainDependency-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -574,16 +574,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-getCounterpartyGraph-v1',
                  'did:web:intel.etzhayyim.com',
-                 'ai.gftd.apps.intel.getCounterpartyGraph',
+                 'app.etzhayyim.apps.intel.getCounterpartyGraph',
                  'intel_get_counterparty_graph',
                  60000,
                  '2026-04-28T14:00:00Z',
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-getCounterpartyGraph-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -597,41 +597,41 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1',
                  'did:web:intel.etzhayyim.com',
-                 'ai.gftd.apps.intel.getBuildingOwnershipGraph',
+                 'app.etzhayyim.apps.intel.getBuildingOwnershipGraph',
                  'intel_get_building_ownership_graph',
                  60000,
                  '2026-04-28T14:00:00Z',
                  'did:web:intel.etzhayyim.com',
                  'did:web:intel.etzhayyim.com',
                  'sys.bpmn.seed.intel',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-resolveEntity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-resolveEntity-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-listDependencyCandidates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-listDependencyCandidates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-inferDependencies-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-inferDependencies-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-explainDependency-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-explainDependency-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getCounterpartyGraph-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-getCounterpartyGraph-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/intel-getBuildingOwnershipGraph-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-resolve-entity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-resolve-entity-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-list-dependency-candidates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-list-dependency-candidates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-infer-dependencies-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-infer-dependencies-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-explain-dependency-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-explain-dependency-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-counterparty-graph-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-get-counterparty-graph-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/intel-get-building-ownership-graph-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/intel-get-building-ownership-graph-v1']}]
 
 
 def upgrade() -> None:

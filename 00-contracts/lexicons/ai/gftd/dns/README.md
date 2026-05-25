@@ -1,4 +1,4 @@
-# `ai.gftd.dns.*` — DNS — open zone / record lookup spec
+# `app.etzhayyim.dns.*` — DNS — open zone / record lookup spec
 
 Tranche F Phase 2 wave 2 scaffolding placeholder (group A).
 
@@ -10,7 +10,7 @@ Phase 3 will populate this directory with actual lexicon JSON files. Stub create
 
 ## NSIDs (planned)
 
-To be defined. Naming convention: `ai.gftd.dns.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
+To be defined. Naming convention: `app.etzhayyim.dns.<methodOrRecord>` (camelCase per CLAUDE.md Identifier rule).
 
 ## Lexicon contract rules
 

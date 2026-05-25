@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.datacenterEnergy.registerFacility",
+  "id": "app.etzhayyim.apps.datacenterEnergy.registerFacility",
   "defs": {
     "main": {
       "type": "procedure",

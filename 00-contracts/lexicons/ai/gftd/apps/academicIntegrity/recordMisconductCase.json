@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "ai.gftd.apps.academicIntegrity.recordMisconductCase",
+  "id": "app.etzhayyim.apps.academicIntegrity.recordMisconductCase",
   "defs": {
     "main": {
       "type": "procedure",

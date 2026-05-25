@@ -29,7 +29,7 @@ _DISPATCH = {
     "research":    {"transport": "langgraph", "graph": "kafun.research.v1"},
     "policy":      {"transport": "social",    "lexicon": "app.bsky.feed.post"},
     "tech":        {"transport": "langgraph", "graph": "kafun.research.v1"},
-    "fund_spend":  {"transport": "xrpc",      "method": "ai.gftd.apps.kafun.fund.spend"},
+    "fund_spend":  {"transport": "xrpc",      "method": "app.etzhayyim.apps.kafun.fund.spend"},
     "public_post": {"transport": "social",    "lexicon": "app.bsky.feed.post"},
 }
 
