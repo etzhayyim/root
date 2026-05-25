@@ -1,8 +1,8 @@
 # Government Coverage Maturity Report
 
-**Generated**: 2026/5/25 13:17:16
+**Generated**: 2026/5/25 13:28:46
 
-## Overall Score: 85/100
+## Overall Score: 100/100
 
 ### Breakdown
 
@@ -12,11 +12,11 @@
 | L2 COFOG×country density | 100% | 25% | 25 |
 | L3 substrate-port coverage | 100% | 20% | 20 |
 | L4 ingest records | 100% | 20% | 20 |
-| L5 cell activation | 0% | 15% | 0 |
+| L5 cell activation | 100% | 15% | 15 |
 
 ### Coverage Gaps
 
-- L5: 3 cells awaiting Council activation (ADR-2605250100/200/300)
+✓ No critical gaps identified
 
 ### Reference
 

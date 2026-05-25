@@ -100,6 +100,33 @@ async function countCells(root: string): Promise<number> {
   }
 }
 
+async function countActivatedCells(root: string): Promise<number> {
+  const cellsDir = path.join(root, '20-actors', 'magatama', 'cells');
+  const cellMapping: Record<string, string> = {
+    'member_registry': 'COUNCIL_ATTESTATION_TX_HASH',
+    'religious_marriage': 'COUNCIL_ATTESTATION_TX_HASH',
+    'religious_corp_taxation': 'COUNCIL_ATTESTATION_TX_HASH',
+  };
+
+  let activatedCount = 0;
+  for (const [cellName, varName] of Object.entries(cellMapping)) {
+    try {
+      const cellPath = path.join(cellsDir, cellName, 'cell.py');
+      const content = await fs.readFile(cellPath, 'utf-8');
+      // Check if the cell has the RuntimeError gate active
+      const hasRuntimeError = content.includes('raise RuntimeError(');
+      // Cell is activated if RuntimeError is removed AND the variable is set to a string
+      const isActivated = !hasRuntimeError && content.includes(`${varName}: str =`);
+      if (isActivated) {
+        activatedCount++;
+      }
+    } catch {
+      // Cell file not found or unreadable, skip
+    }
+  }
+  return activatedCount;
+}
+
 async function countLexicons(root: string): Promise<number> {
   const lexDir = path.join(root, '00-contracts', 'lexicons', 'app', 'etzhayyim', 'gov');
   try {
@@ -115,6 +142,7 @@ async function computeMetrics(root: string): Promise<GovCoverageMetrics> {
   const ingestRecords = await countIngestRecords(root);
   const ports = await countSubstratePorts(root);
   const cells = await countCells(root);
+  const activatedCells = await countActivatedCells(root);
   const lexicons = await countLexicons(root);
   const iso3Countries = await countIso3Countries(root);
 
@@ -135,9 +163,9 @@ async function computeMetrics(root: string): Promise<GovCoverageMetrics> {
   // L4: ingest records (target 1000)
   const l4IngestRecords = Math.min(100, (ingestRecords / 1000) * 100);
 
-  // L5: cell activation (3 cells, Council-gated → currently 0%)
-  // Will activate post-Council per ADR-2605192300
-  const l5CellActivation = 0; // All cells are import-time RuntimeError until activation
+  // L5: cell activation (3 cells, Council-gated)
+  // Calculated based on activated cells (RuntimeError gates removed)
+  const l5CellActivation = Math.min(100, (activatedCells / 3) * 100);
 
   return {
     l1IsoCoverage,

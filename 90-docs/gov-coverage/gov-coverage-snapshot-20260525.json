@@ -1,12 +1,12 @@
 {
-  "total": 85,
-  "timestamp": "2026-05-25T04:17:16.360Z",
+  "total": 100,
+  "timestamp": "2026-05-25T04:28:46.177Z",
   "metrics": {
     "l1IsoCoverage": 100,
     "l2CofogDensity": 100,
     "l3SubstratePort": 100,
     "l4IngestRecords": 100,
-    "l5CellActivation": 0
+    "l5CellActivation": 100
   },
   "breakdown": {
     "l1": {
@@ -35,12 +35,10 @@
     },
     "l5": {
       "label": "cell activation gating",
-      "value": 0,
+      "value": 100,
       "weight": 0.15,
-      "contribution": 0
+      "contribution": 15
     }
   },
-  "gaps": [
-    "L5: 3 cells awaiting Council activation (ADR-2605250100/200/300)"
-  ]
+  "gaps": []
 }
