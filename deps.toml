@@ -5123,6 +5123,30 @@ sibling_modules = [
   "20-actors/suki (Wave 2 manufacturer)",
   "70-tools/e7m-sim (substrate; R0 path-only)",
   "70-tools/isaac-lab-task-port (task DSL header port; runtime separated)",
+  "70-tools/e7m-sim-preflight (stack-validation harness; R0 evidence companion)",
+]
+
+# ─── e7m-sim preflight stack-validation harness (ADR-2605261600 R0 scoring evidence skeleton) ──
+
+[[modules]]
+path = "70-tools/e7m-sim-preflight"
+kind = "robotics-simulation-substrate-preflight-evidence"
+version = "0.0.1-r0-preflight-evidence"
+status = "r0-preflight-evidence-companion-to-adr-2605261600"
+description = "Stack-validation harness for the e7m-sim charter (ADR-2605261600). Self-contained, Murakumo-independent, runs on a developer Apple Silicon Mac. Produces concrete pass/fail evidence (PNG / USD / PLY / stdout) for each binding library in the charter: MuJoCo 3.8.1 + mujoco-mjx 3.8.1 (JAX 0.10.1 CPU) + Mitsuba 3.8.0 (scalar_rgb + llvm_ad_rgb PRB autodiff via Homebrew libLLVM-22) + OpenUSD 26.5 (usd-core). 6 verify scripts (verify_determinism / verify_mjx / verify_mitsuba / verify_mitsuba_diff / verify_usd / verify_lidar) + 1 interactive viewer (view.py via mjpython) + 2 MJCF variants (cylinder wheels for C++ MuJoCo / capsule wheels for MJX collision-pair limitation) + 7 committed artifacts under out/. **Authoritative for ADR-2605261600 §R0 'scoring evidence skeleton' deliverable** (companion file `90-docs/baien/sim-substrate-scoring-260526.md`). **Explicitly distinct from `70-tools/e7m-sim/`** which is R0 = zero-code per charter; this harness lives at a sibling path because it is NOT operational sim (no Murakumo placement, no simulationRunAttestation emission, no G5 ≥0.75 Isaac Sim ground-truth measurement, no witness quorum, no Charter Rider §2 asset scan). Findings propagated into R1 ADR drafting requirements: (1) libLLVM build-time dep, (2) MJX capsule-only collision constraint, (3) JAX CPU loses to C++ MuJoCo by 10×, (4) PRB autodiff supports BSDF not emitter-pose, (5) mj_ray proxy validates geometry pipeline only (R2 needs CARLA lidar), (6) USD references compose cleanly for fleet ≤30. Vendor-rejection chain audit: zero NVIDIA Omniverse / Isaac Sim / Isaac Lab / OptiX / RTX / Replicator / DriveSim / Omniverse Cloud / Nucleus imports. Decommission point: when ADR-2605252630 (or equivalent R1 sim ADR) lands and populates 70-tools/e7m-sim/ with operational substrate."
+adr = ["2605261600", "2605252615", "2605215000", "2605191524", "2605242630"]
+sibling_modules = [
+  "70-tools/e7m-sim (operational substrate; R0 = empty)",
+  "70-tools/isaac-lab-task-port (task DSL header port; future)",
+  "90-docs/baien/sim-substrate-scoring-260526.md (scoring evidence narrative)",
+]
+evidence_artifacts = [
+  "out/kusawake.usda (2.9 KB ASCII USD scene; 11 prims)",
+  "out/kusawake.usdc (2.3 KB binary USD; 78% of ASCII)",
+  "out/kusawake_fleet.usda (982 B; 4-instance reference-based composition; 33 prims)",
+  "out/kusawake_render.png (Mitsuba 3 scalar_rgb forward render, 640×480)",
+  "out/diff_target.png + out/diff_final.png (Mitsuba 3 PRB BSDF autodiff, loss 0.00258 → 0.00059 over 8 iter)",
+  "out/kusawake_lidar.ply (5760-ray mj_ray sweep; 2520 hits; ASCII PLY 84 KB)",
 ]
 
 # ─── Cookie-free apex + yoro deploy unblock + SPA hydration triage (ADR-2605252800) ──
@@ -5170,3 +5194,175 @@ process_notes = [
   "yoro-ui src/worker.ts overwrite by adapter-cloudflare was a side-effect of fallback:'spa' + wrangler.jsonc main field, not an intentional decision — the resulting upgrade is net-positive (surfaces +server.ts routes that the previous stub silently dropped) but deserves explicit awareness on every future build",
 ]
 
+# ─── Mac mini M4 16GB Gemma 4 26B-A4B MoE NVMe disk inference (ADR-2605253000) ──
+
+[[adrs]]
+id = "2605253000"
+title = "Mac mini M4 16GB で Gemma 4 26B-A4B MoE を NVMe disk inference で動作確認"
+status = "accepted"
+status_note = "Empirically verified that gemma-4-26B-A4B-it-UD-Q3_K_M.gguf (12 GB on disk, Unsloth Dynamic Q3_K_M) runs at 8.4 tok/s generation on Mac mini M4 base 16GB via llama.cpp b9290 with `-ngl 0 -c 2048 -fa 1 -ctk q8_0 -ctv q8_0 -t 4 -no-cnv -st --simple-io < /dev/null`. MoE × mmap synergy validated: only 8/128 experts + shared touched per token → working set ~15% of dense → mmap page cache hit rate enables disk paging at usable throughput. Peak RSS 8.5 GB (12 GB model only ~70% resident), 2.3M page faults, 0 swaps when idle-wait avoided. Failed paths recorded: (1) Metal full offload `-ngl 99` → res=-3 (12.7 GB working set exceeded), (2) Metal partial `-ngl 4..16` → same OOM (gemma4 MoE expert tensors not Metal/CPU splittable), (3) `--no-conversation` alone insufficient → gemma4 chat template forces interactive mode, 3-flag set `-no-cnv -st --simple-io < /dev/null` mandatory. Constitutional: ADR-2605215000 Murakumo-only compliant (no commercial GPU rental), ADR-2605241900 baien edge-target untouched (fleet-side path only, iPhone/Android/WASM-32 trunk still ≤4B BitNet 1.58). TB5 SSD speedup prediction: 1.5-1.85× → 12.5-15.5 tok/s (current 92% disk-bound; M4 compute ceiling ~105 tok/s assuming 4 P-core × 200 GFLOPS FP16; TB5 enclosures real-world 6.0-6.4 GB/s vs internal 3.1 GB/s = ~2× raw bandwidth)."
+path = "90-docs/adr/2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference.md"
+
+[experiments."gemma4-26b-a4b-mac-mini-m4-disk-inference-260525"]
+closed_at = "2026-05-25T20:30 JST"
+adr = "2605253000"
+status_row = "n/a"  # not yet a CLAUDE.md row; merge into next status update if needed
+host = "Mac mini M4 base (16GB unified memory, 10-GPU-core)"
+model = "gemma-4-26B-A4B-it-UD-Q3_K_M.gguf (12.73 GB on disk, Unsloth Dynamic)"
+download_source = "huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF"
+runtime = "llama.cpp b9290 + ggml 0.12.0 (Homebrew)"
+working_invocation = "llama-cli -m <model> -ngl 0 -c 2048 -fa 1 -ctk q8_0 -ctv q8_0 -t 4 -no-cnv -st --simple-io < /dev/null -p <prompt>"
+measured_generation_tok_s = 8.4
+measured_prompt_eval_tok_s = 3.5
+measured_first_token_latency_sec = 80  # cold-start mmap full expert page-fault
+measured_wall_time_sec = 113  # 50 prompt + ~150 gen
+measured_peak_rss_gb = 8.5
+measured_peak_memory_footprint_gb = 7.2
+measured_page_faults = 2300000
+measured_swaps = 0
+metal_recommended_max_working_set_mb = 12713.12
+failed_paths = [
+  "Metal full offload (-ngl 99): res=-3, exceeds 12.7 GB Metal working set",
+  "Metal partial offload (-ngl 4,8,12,16): res=-3, gemma4 MoE expert tensors not splittable",
+  "--no-conversation alone: gemma4 chat template forces interactive mode, dropped to `>` prompt, 57 min idle wait, 2.5 GB swap accumulated, 942k swapouts",
+]
+mandatory_flag_set = "-no-cnv -st --simple-io < /dev/null (all three required, gemma4 chat template aggressive)"
+tb5_ssd_speedup_prediction = "1.5-1.85× → 12.5-15.5 tok/s generation"
+tb5_ssd_speedup_basis = "Current 119 ms/token breakdown: ~9.5 ms compute (3.8B active × 2 FMA / 800 GFLOPS) + ~110 ms disk read (92% disk-bound). TB5 SSD real-world 6.0-6.4 GB/s vs internal 3.1 GB/s ≈ 2× raw bandwidth → disk time halves to ~55 ms → total ~64.5 ms/token → ~15.5 tok/s upper bound. Lower bound 12.5 tok/s accounts for 4K random read IOPS bottleneck (Apple internal SSD ~700k IOPS comparable to TB5 enclosures 600-900k)."
+recommended_tb5_candidates = [
+  "OWC Envoy Ultra (TB5, claims 6 GB/s sustained, thermal-managed)",
+  "Acasis TBU401E enclosure + WD SN850X 2TB (modular, ~6 GB/s)",
+]
+constitutional_compliance = [
+  "ADR-2605215000 Murakumo-only inference: Mac mini M4 already fleet node, no commercial GPU rental",
+  "ADR-2605241900 baien edge-target untouched: fleet-side path only, iPhone/Android/WASM-32 trunk still ≤4B BitNet 1.58",
+  "ADR-2605215000 §2 no commercial GPU rental: NVMe + internal mmap only",
+]
+followup_required = [
+  "TB5 SSD A/B benchmark (separate ADR; hardware purchase decision)",
+  "fleet.toml entry for gemma-4-26B-A4B-it on Mac mini M4 nodes (currently only EVO-X2 judah serves it)",
+  "Speculative decoding investigation: draft=gemma3:4b (EVO-X2 LAN) / target=gemma-4-26B-A4B (Mac mini M4 local)",
+  "Context extension >2048: peak RSS approaches 16 GB ceiling at ctx 4096, swap thrashing risk",
+]
+durable_artifacts = [
+  "90-docs/adr/2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference.md",
+  "~/Models/gemma-4-26B-A4B/gemma-4-26B-A4B-it-UD-Q3_K_M.gguf (12.73 GB; local-only, not committed)",
+]
+upstream_references = [
+  "Apple LLM in a Flash (ICLR 2026)",
+  "ml-explore/mlx Issue #3393 (gemma4 MoE bug on base M4 10-core GPU; rationale for llama.cpp backend choice)",
+  "Modelfit: Qwen3.5-35B-A3B UD-IQ3_XXS @ 17.3 tok/s on Mac mini M4 16GB (peer reference for MoE disk inference feasibility)",
+]
+
+
+
+# ─── NVIDIA Omniverse stack API-compat layer (ADR-2605261800, R1.0 path reservation) ──
+
+[[adrs]]
+id = "2605261800"
+title = "NVIDIA Omniverse stack API-compat layer on KAMI + WebGPU + WASM (e7m-sim R1 sub-charter)"
+status = "proposed"
+status_note = "Sub-charter under ADR-2605261600 (e7m-sim R0) expanding R1 scope with 9-component API-compat layer. Canonical implementations use Japanese names (amenominaka / e7m-sim / e7m-shugyo / hikari-rt / kami-rtx / utsushimi / wadachi-sim / murakumo-render / yatachain-nucleus); nv-compat facade in 20-actors/etzhayyim-sdk/src/nv-compat/ + 20-actors/magatama/py/src/pymagatama/nv_compat/ mirrors public Omniverse / Isaac Sim / Isaac Lab / OptiX / RTX / Replicator / DriveSim / Omniverse Cloud / Nucleus API surface (per Google v. Oracle 2021 API fair use). Physics backend = Genesis (Apache-2.0, Genesis-Embodied-AI/Genesis) covering 5 solvers (rigid/MPM/SPH/FEM/PBD) via Taichi → wgpu. Mitsuba 3 = upstream PR only, 90-day hold then re-evaluate. Sub-phase plan R1.0..R1.9 (R1.0 = 10 crate path reservation + deps.toml registration; this commit). G5 quality gate >=0.75 vs Isaac Sim measured per sub-phase."
+path = "90-docs/adr/2605261800-nvidia-omniverse-stack-api-compat.md"
+
+[[modules]]
+path = "40-engine/kami-engine/kami-rt"
+adr = "ADR-2605261800"
+kind = "webgpu-rt-primitive"
+status = "r1.0-path-reservation"
+description = "hikari-rt (光) — WebGPU hardware ray tracing primitive. R1.2 deliverable = PSNR >=35dB vs Mitsuba 3 CUDA reference. OptiX API-compat target."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-pbrt"
+adr = "ADR-2605261800"
+kind = "differentiable-renderer-bind"
+status = "r1.0-path-reservation"
+description = "kami-rtx — Mitsuba 3 WebGPU backend bind (upstream PR only, no fork per §D3). RTX Renderer API-compat target. R1.2 deliverable."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-usd"
+adr = "ADR-2605261800"
+kind = "usd-bind"
+status = "r1.0-path-reservation"
+description = "OpenUSD WASM (tinyusdz) + Hydra render delegate -> KAMI scene graph. omni.usd API-compat target."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-genesis"
+adr = "ADR-2605261800"
+kind = "physics-backend-bind"
+status = "r1.0-path-reservation"
+description = "Genesis (Apache-2.0) physics backend bind — 5 solvers (rigid/MPM/SPH/FEM/PBD) via Taichi -> wgpu. isaacsim.core.api articulation API-compat target. R1.1 deliverable = Cartpole reward curve +/-10% vs Isaac Sim baseline (1000 episodes)."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-articulated"
+adr = "ADR-2605261800"
+kind = "robot-loader"
+status = "r1.0-path-reservation"
+description = "URDF / MJCF / USD physics loader -> kami-genesis articulation. isaacsim.core.prims.Articulation API-compat target."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-sensor-sim"
+adr = "ADR-2605261800"
+kind = "sensor-synth"
+status = "r1.0-path-reservation"
+description = "Camera / lidar / IMU / contact sensor synth on WebGPU compute. isaacsim.sensors API-compat target. R1.6 deliverable for wadachi-sim DriveSim parity."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-replicator"
+adr = "ADR-2605261800"
+kind = "synthetic-data-pipeline"
+status = "r1.0-path-reservation"
+description = "utsushimi (写身) — synthetic data generation + domain randomization. omni.replicator.core API-compat target. R1.3 gate: same-script -> same output schema (JSON diff = 0)."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-app-amenominaka"
+adr = "ADR-2605261800"
+kind = "app-shell"
+status = "r1.0-path-reservation"
+description = "amenominaka (天之御中) — Omniverse Kit-equivalent app shell + extension.toml loader. R1.4 gate: omni.usd / omni.kit.app / omni.replicator.core / omni.kit.viewport / omni.timeline working."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-shugyo"
+adr = "ADR-2605261800"
+kind = "rl-training-framework"
+status = "r1.0-path-reservation"
+description = "e7m-shugyo (修行) — Isaac Lab-equivalent RL training framework. isaaclab.envs.ManagerBasedRLEnv API-compat target. Task DSL source = 70-tools/isaac-lab-task-port/ (sole NVIDIA stack carve-out per ADR-2605261600). R1.5 gate: Franka pick-and-place success rate >= Isaac Lab baseline x 0.8."
+
+[[modules]]
+path = "20-actors/etzhayyim-sdk/src/nv-compat"
+adr = "ADR-2605261800"
+kind = "nv-compat-facade-ts"
+status = "r1.0-path-reservation"
+description = "TypeScript drop-in NVIDIA Omniverse stack public-API compat facade for @etzhayyim/sdk. Trademark notice: NVIDIA®, Omniverse®, Isaac®, OptiX®, RTX®, Nucleus®, DriveSim® are trademarks of NVIDIA Corporation; this project is not affiliated with or endorsed by NVIDIA. Per Google v. Oracle 2021. Mirrors public documented API surface only (N7 limit)."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/nv_compat"
+adr = "ADR-2605261800"
+kind = "nv-compat-facade-py"
+status = "r1.0-path-reservation"
+description = "Python drop-in NVIDIA Omniverse stack public-API compat facade for pymagatama. Trademark notice: NVIDIA®, Omniverse®, Isaac®, OptiX®, RTX®, Nucleus®, DriveSim® are trademarks of NVIDIA Corporation; this project is not affiliated with or endorsed by NVIDIA. Per Google v. Oracle 2021. Mirrors public documented API surface only (N7 limit)."
+
+# ─── ADR-2605261800 §D10.4 contingent fallback crates (amendment 2026-05-26) ──
+# Activated ONLY on Council Lv6+ >=3 attestation after upstream WASM+WebGPU viability gate failure.
+# §D11 also adds PhysX as 10th nv-compat target (mirrored over kami-genesis OR kami-physics-solvers fallback).
+
+[[modules]]
+path = "40-engine/kami-engine/kami-physics-solvers"
+adr = "ADR-2605261800"
+kind = "physics-solver-fallback"
+status = "contingent-fallback-pending-viability-gate"
+description = "From-scratch 5-solver physics engine (rigid Featherstone+XPBD / MPM / SPH / FEM / PBD) in WGSL compute. Contingent fallback per §D10.4 if Genesis WebGPU backend fails R1.1 (rigid) or R1.8 (MPM/SPH/FEM/PBD) viability gate. Activation gate: Council Lv6+ >=3 attestation. nv-compat targets: isaacsim.core.api articulation + PhysX (PxScene / PxRigidDynamic / PxArticulationReducedCoordinate / PxJoint / PxShape). Activation commits religious-corp to multi-year robotics R&D (5-10x effort of upstream bind per §D10.5)."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-rtx-native"
+adr = "ADR-2605261800"
+kind = "path-tracer-fallback"
+status = "contingent-fallback-pending-viability-gate"
+description = "From-scratch WGSL path tracer + differentiable rendering on kami-rt (ray-query + LBVH). Contingent fallback per §D10.4 if Mitsuba 3 wgpu upstream PR fails R1.2 viability gate (Cornell box 30 fps Chrome 121+, PSNR >=35dB). Activation: Council Lv6+ >=3 attestation. nv-compat targets: OptiX + RTX Renderer."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-usd-native"
+adr = "ADR-2605261800"
+kind = "usd-parser-fallback"
+status = "contingent-fallback-pending-viability-gate"
+description = "From-scratch Rust USD parser (.usda / .usdc / .usdz) + composition engine. Contingent fallback per §D10.4 if tinyusdz WASM fails R1.1 viability gate (iPhone 12+ 10MB USD parse <=2s). Activation: Council Lv6+ >=3 attestation. nv-compat targets: omni.usd + pxr.Usd / pxr.UsdGeom / pxr.UsdShade / pxr.UsdPhysics / pxr.UsdLux."
