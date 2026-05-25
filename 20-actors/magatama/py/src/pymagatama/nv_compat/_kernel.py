@@ -209,3 +209,91 @@ def cartpole_cfg_from_urdf(sys: ArticulatedSystem, gravity: float, dt: float) ->
         force_mag=max(slider.effort, 1.0),
         dt=dt,
     )
+
+
+# ---------- Double pendulum (2-link revolute serial chain) ---------------------
+
+@dataclass
+class DoublePendulumConfig:
+    m1: float = 1.0
+    m2: float = 1.0
+    l1: float = 1.0
+    l2: float = 1.0
+    gravity: float = 9.81
+    effort_limit: float = 50.0
+    dt: float = 1.0 / 240.0
+
+
+@dataclass
+class DoublePendulumState:
+    q1: float = 0.0
+    q2: float = 0.0
+    q1_dot: float = 0.0
+    q2_dot: float = 0.0
+
+
+def double_pendulum_step(s: DoublePendulumState, tau: tuple[float, float], cfg: DoublePendulumConfig) -> None:
+    """Semi-implicit Euler step. Mirrors kami_genesis::double_pendulum bit-for-bit."""
+    t1 = max(-cfg.effort_limit, min(cfg.effort_limit, tau[0]))
+    t2 = max(-cfg.effort_limit, min(cfg.effort_limit, tau[1]))
+    lc1 = cfg.l1 * 0.5
+    lc2 = cfg.l2 * 0.5
+    i1 = cfg.m1 * cfg.l1 * cfg.l1 / 12.0
+    i2 = cfg.m2 * cfg.l2 * cfg.l2 / 12.0
+    s2 = math.sin(s.q2)
+    c2 = math.cos(s.q2)
+    s1 = math.sin(s.q1)
+    s12 = math.sin(s.q1 + s.q2)
+    m11 = (
+        cfg.m1 * lc1 * lc1
+        + cfg.m2 * (cfg.l1 * cfg.l1 + lc2 * lc2 + 2.0 * cfg.l1 * lc2 * c2)
+        + i1
+        + i2
+    )
+    m12 = cfg.m2 * (lc2 * lc2 + cfg.l1 * lc2 * c2) + i2
+    m22 = cfg.m2 * lc2 * lc2 + i2
+    h = -cfg.m2 * cfg.l1 * lc2 * s2
+    c_1 = h * s.q2_dot * (2.0 * s.q1_dot + s.q2_dot)
+    c_2 = -h * s.q1_dot * s.q1_dot
+    g1 = (cfg.m1 * lc1 + cfg.m2 * cfg.l1) * cfg.gravity * s1 + cfg.m2 * lc2 * cfg.gravity * s12
+    g2 = cfg.m2 * lc2 * cfg.gravity * s12
+    b1 = t1 - c_1 - g1
+    b2 = t2 - c_2 - g2
+    det = m11 * m22 - m12 * m12
+    q1_acc = (m22 * b1 - m12 * b2) / det
+    q2_acc = (-m12 * b1 + m11 * b2) / det
+    s.q1_dot += cfg.dt * q1_acc
+    s.q1 += cfg.dt * s.q1_dot
+    s.q2_dot += cfg.dt * q2_acc
+    s.q2 += cfg.dt * s.q2_dot
+
+
+def detect_double_pendulum_topology(sys: ArticulatedSystem) -> bool:
+    """True if `sys` is a 2-revolute serial chain rooted at `world`."""
+    revolutes = [j for j in sys.joints if j.kind == "revolute"]
+    no_prismatic = not any(j.kind == "prismatic" for j in sys.joints)
+    return (
+        len(revolutes) == 2
+        and no_prismatic
+        and revolutes[0].parent == "world"
+        and revolutes[1].parent == revolutes[0].child
+    )
+
+
+def double_pendulum_cfg_from_urdf(sys: ArticulatedSystem, gravity: float, dt: float) -> DoublePendulumConfig:
+    if not detect_double_pendulum_topology(sys):
+        raise ValueError(f"system `{sys.name}` is not a double pendulum topology")
+    revolutes = [j for j in sys.joints if j.kind == "revolute"]
+    link1 = next(l for l in sys.links if l.name == revolutes[0].child)
+    link2 = next(l for l in sys.links if l.name == revolutes[1].child)
+    l1 = max(abs(revolutes[1].origin.xyz[2]), 1e-3)
+    l2 = abs(link2.inertia.com.xyz[2]) * 2.0
+    return DoublePendulumConfig(
+        m1=link1.inertia.mass,
+        m2=link2.inertia.mass,
+        l1=l1,
+        l2=l2 if l2 > 1e-3 else l1,
+        gravity=gravity,
+        effort_limit=max(revolutes[0].effort, revolutes[1].effort, 1.0),
+        dt=dt,
+    )

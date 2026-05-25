@@ -13,9 +13,14 @@ from ..._kernel import (
     ArticulatedSystem,
     CartpoleConfig,
     CartpoleState,
+    DoublePendulumConfig,
+    DoublePendulumState,
     cartpole_cfg_from_urdf,
     cartpole_step,
     detect_cartpole_topology,
+    detect_double_pendulum_topology,
+    double_pendulum_cfg_from_urdf,
+    double_pendulum_step,
     parse_urdf,
 )
 
@@ -64,7 +69,13 @@ class _SceneShim:
 
 
 class Articulation:
-    """Mirror of isaacsim.core.prims.Articulation. R1.1 only supports Cartpole topology."""
+    """Mirror of isaacsim.core.prims.Articulation.
+
+    Supported topologies (R1.1):
+      - Cartpole (1 prismatic + 1 revolute, 2 DoF)
+      - Double pendulum (2 revolute serial chain, 2 DoF)
+    Featherstone for general n-link arrives at R1.5.
+    """
 
     def __init__(self, prim_path: str, name: str, urdf_text: Optional[str] = None,
                  system: Optional[ArticulatedSystem] = None):
@@ -72,59 +83,96 @@ class Articulation:
             raise ValueError("provide one of urdf_text or system")
         if system is None:
             system = parse_urdf(urdf_text)  # type: ignore[arg-type]
-        if not detect_cartpole_topology(system):
+        if detect_cartpole_topology(system):
+            self._kind = "cartpole"
+        elif detect_double_pendulum_topology(system):
+            self._kind = "double_pendulum"
+        else:
             raise NotImplementedError(
-                f"R1.1 Articulation supports Cartpole topology only; got `{system.name}`. "
-                f"Featherstone arrives at R1.5 (kami-articulated + kami-genesis)."
+                f"R1.1 Articulation supports Cartpole + double pendulum; got `{system.name}`. "
+                f"Featherstone for n-link arrives at R1.5."
             )
         self.prim_path = prim_path
         self.name = name
         self.system = system
-        self._state = CartpoleState()
-        self._cfg: Optional[CartpoleConfig] = None
+        self._cp_state: CartpoleState = CartpoleState()
+        self._dp_state: DoublePendulumState = DoublePendulumState()
+        self._cp_cfg: Optional[CartpoleConfig] = None
+        self._dp_cfg: Optional[DoublePendulumConfig] = None
         self._applied_force = 0.0
+        self._applied_torques = (0.0, 0.0)
         self._world: Optional[World] = None
 
     def _bind_to_world(self, world: World) -> None:
         self._world = world
-        self._cfg = cartpole_cfg_from_urdf(
-            self.system, gravity=world.gravity, dt=world.physics_dt
-        )
+        if self._kind == "cartpole":
+            self._cp_cfg = cartpole_cfg_from_urdf(
+                self.system, gravity=world.gravity, dt=world.physics_dt
+            )
+        else:
+            self._dp_cfg = double_pendulum_cfg_from_urdf(
+                self.system, gravity=world.gravity, dt=world.physics_dt
+            )
 
     def _step(self) -> None:
-        if self._cfg is None:
-            raise RuntimeError("articulation not bound to world")
-        cartpole_step(self._state, self._applied_force, self._cfg)
-        self._applied_force = 0.0
+        if self._kind == "cartpole":
+            if self._cp_cfg is None:
+                raise RuntimeError("articulation not bound to world")
+            cartpole_step(self._cp_state, self._applied_force, self._cp_cfg)
+            self._applied_force = 0.0
+        else:
+            if self._dp_cfg is None:
+                raise RuntimeError("articulation not bound to world")
+            double_pendulum_step(self._dp_state, self._applied_torques, self._dp_cfg)
+            self._applied_torques = (0.0, 0.0)
 
     def _reset_state(self) -> None:
-        self._state = CartpoleState()
-        self._applied_force = 0.0
+        if self._kind == "cartpole":
+            self._cp_state = CartpoleState()
+            self._applied_force = 0.0
+        else:
+            self._dp_state = DoublePendulumState()
+            self._applied_torques = (0.0, 0.0)
 
     # ---- Public Isaac Sim-style accessors ----
 
     def get_joint_positions(self) -> list[float]:
-        # [slider_pos, revolute_pos]
-        return [self._state.x, self._state.theta]
+        if self._kind == "cartpole":
+            return [self._cp_state.x, self._cp_state.theta]
+        return [self._dp_state.q1, self._dp_state.q2]
 
     def get_joint_velocities(self) -> list[float]:
-        return [self._state.x_dot, self._state.theta_dot]
+        if self._kind == "cartpole":
+            return [self._cp_state.x_dot, self._cp_state.theta_dot]
+        return [self._dp_state.q1_dot, self._dp_state.q2_dot]
 
     def set_joint_positions(self, positions: list[float]) -> None:
         if len(positions) != 2:
-            raise ValueError("Cartpole expects 2 joint positions")
-        self._state.x, self._state.theta = positions[0], positions[1]
+            raise ValueError("expects 2 joint positions")
+        if self._kind == "cartpole":
+            self._cp_state.x, self._cp_state.theta = positions[0], positions[1]
+        else:
+            self._dp_state.q1, self._dp_state.q2 = positions[0], positions[1]
 
     def set_joint_velocities(self, velocities: list[float]) -> None:
         if len(velocities) != 2:
-            raise ValueError("Cartpole expects 2 joint velocities")
-        self._state.x_dot, self._state.theta_dot = velocities[0], velocities[1]
+            raise ValueError("expects 2 joint velocities")
+        if self._kind == "cartpole":
+            self._cp_state.x_dot, self._cp_state.theta_dot = velocities[0], velocities[1]
+        else:
+            self._dp_state.q1_dot, self._dp_state.q2_dot = velocities[0], velocities[1]
 
     def apply_action(self, action: dict) -> None:
         """isaacsim.core.api.ArticulationAction surface."""
         eff = action.get("joint_efforts") or action.get("efforts") or []
-        if len(eff) >= 1:
-            self._applied_force = float(eff[0])
+        if self._kind == "cartpole":
+            if len(eff) >= 1:
+                self._applied_force = float(eff[0])
+        else:
+            if len(eff) >= 2:
+                self._applied_torques = (float(eff[0]), float(eff[1]))
+            elif len(eff) == 1:
+                self._applied_torques = (float(eff[0]), 0.0)
 
 
 @dataclass
