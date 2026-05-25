@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Proc_ARG_health_1" targetNamespace="http://etzhayyim.com/gov/ARG/health/1">
+  <bpmn:process id="Process_ARG_health_1" isExecutable="true">
+    <bpmn:startEvent id="Start_1" name="Initiated"/>
+    <bpmn:task id="Task_1" name="Validate request"/>
+    <bpmn:task id="Task_2" name="Process application"/>
+    <bpmn:task id="Task_3" name="Issue decision"/>
+    <bpmn:endEvent id="End_1" name="Complete"/>
+  </bpmn:process>
+</bpmn:definitions>

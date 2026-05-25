@@ -51,6 +51,17 @@ async function countBpmnFiles(root: string): Promise<number> {
   }
 }
 
+async function countIso3Countries(root: string): Promise<number> {
+  const bpmnDir = path.join(root, '00-contracts', 'bpmn', 'ai', 'gftd');
+  try {
+    const entries = await fs.readdir(bpmnDir, { withFileTypes: true });
+    const countryDirs = entries.filter(e => e.isDirectory() && e.name.startsWith('gov'));
+    return countryDirs.length;
+  } catch {
+    return 0;
+  }
+}
+
 async function countIngestRecords(root: string): Promise<number> {
   const scriptsDir = path.join(root, '70-tools', 'scripts', 'gov');
   try {
@@ -105,10 +116,10 @@ async function computeMetrics(root: string): Promise<GovCoverageMetrics> {
   const ports = await countSubstratePorts(root);
   const cells = await countCells(root);
   const lexicons = await countLexicons(root);
+  const iso3Countries = await countIso3Countries(root);
 
   // L1: ISO-3 coverage (target: 196 countries)
-  // Baseline 140→196 per CLAUDE.md, assume ~90% = 176/196
-  const l1IsoCoverage = Math.min(100, (176 / 196) * 100);
+  const l1IsoCoverage = Math.min(100, (iso3Countries / 196) * 100);
 
   // L2: COFOG×country density
   // +448 BPMN files, estimate ~60% coverage if 196 countries × ~4 major COFOG categories
