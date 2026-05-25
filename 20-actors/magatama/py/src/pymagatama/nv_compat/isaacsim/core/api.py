@@ -174,6 +174,72 @@ class Articulation:
             elif len(eff) == 1:
                 self._applied_torques = (float(eff[0]), 0.0)
 
+    def get_jacobians(self, link_name: str):
+        """Mirror of isaacsim.core.api.Articulation.get_jacobians().
+
+        Returns the 6×n geometric Jacobian for the named link in world frame
+        as a `dict` with keys `linear_x`, `linear_y`, `linear_z`, `angular_x`,
+        `angular_y`, `angular_z`, each a list of length n (DOF count).
+        Returns None if `link_name` is not present in this articulation.
+        """
+        import math
+        if self._kind == "cartpole":
+            theta = self._cp_state.theta
+            if link_name == "world":
+                return _zeros_jacobian(2)
+            if link_name == "cart":
+                j = _zeros_jacobian(2)
+                j["linear_x"] = [1.0, 0.0]
+                return j
+            if link_name == "pole_link":
+                lc = 0.25
+                st = math.sin(theta)
+                ct = math.cos(theta)
+                j = _zeros_jacobian(2)
+                j["linear_x"] = [1.0, lc * ct]
+                j["linear_z"] = [0.0, -lc * st]
+                j["angular_y"] = [0.0, 1.0]
+                return j
+            return None
+        # double pendulum
+        q1, q2 = self._dp_state.q1, self._dp_state.q2
+        if link_name == "world":
+            return _zeros_jacobian(2)
+        if link_name == "link1":
+            cfg = self._dp_cfg
+            lc1 = cfg.l1 * 0.5
+            s1 = math.sin(q1)
+            c1 = math.cos(q1)
+            j = _zeros_jacobian(2)
+            j["linear_x"] = [lc1 * c1, 0.0]
+            j["linear_z"] = [lc1 * s1, 0.0]
+            j["angular_y"] = [1.0, 0.0]
+            return j
+        if link_name == "link2":
+            cfg = self._dp_cfg
+            lc2 = cfg.l2 * 0.5
+            s1 = math.sin(q1)
+            c1 = math.cos(q1)
+            s12 = math.sin(q1 + q2)
+            c12 = math.cos(q1 + q2)
+            j = _zeros_jacobian(2)
+            j["linear_x"] = [cfg.l1 * c1 + lc2 * c12, lc2 * c12]
+            j["linear_z"] = [cfg.l1 * s1 + lc2 * s12, lc2 * s12]
+            j["angular_y"] = [1.0, 1.0]
+            return j
+        return None
+
+
+def _zeros_jacobian(n: int) -> dict:
+    return {
+        "linear_x": [0.0] * n,
+        "linear_y": [0.0] * n,
+        "linear_z": [0.0] * n,
+        "angular_x": [0.0] * n,
+        "angular_y": [0.0] * n,
+        "angular_z": [0.0] * n,
+    }
+
 
 @dataclass
 class RigidPrim:
