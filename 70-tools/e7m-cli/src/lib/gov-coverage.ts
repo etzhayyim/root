@@ -121,9 +121,12 @@ async function computeMetrics(root: string): Promise<GovCoverageMetrics> {
   // L1: ISO-3 coverage (target: 196 countries)
   const l1IsoCoverage = Math.min(100, (iso3Countries / 196) * 100);
 
-  // L2: COFOG×country density
-  // +448 BPMN files, estimate ~60% coverage if 196 countries × ~4 major COFOG categories
-  const bpmnTarget = 196 * 4;
+  // L2: COFOG×country density (multi-layer: national + subnational + third-sector)
+  // National baseline: 196 countries × 4 COFOG = 784 files
+  // Subnational expansion: ~70 subnational divisions × 4 COFOG × 2 = +560 files
+  // Third-sector expansion: ~35 NGO entities × 4 COFOG = +140 files
+  // Total capacity: 784 + 560 + 140 = 1,484 files (represents comprehensive gov + civil society coverage)
+  const bpmnTarget = 1484; // Multi-layer COFOG coverage capacity
   const l2CofogDensity = Math.min(100, (bpmnCount / bpmnTarget) * 100);
 
   // L3: substrate-ports (3 target, each worth 33%)
