@@ -3,8 +3,9 @@
 Sub-namespaces:
   - envs (ManagerBasedRLEnv + CartpoleEnvCfg)
   - utils (utils.dr per-env DomainRandomizationCfg)
+  - terrains (procedural height-field generators for legged locomotion)
 """
 
-from . import utils
+from . import terrains, utils
 
-__all__ = ["utils"]
+__all__ = ["terrains", "utils"]
