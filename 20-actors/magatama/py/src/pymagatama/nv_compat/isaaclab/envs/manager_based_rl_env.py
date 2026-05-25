@@ -59,7 +59,13 @@ class CartpoleEnvCfg:
 
 
 class ManagerBasedRLEnv:
-    """Mirror of isaaclab.envs.ManagerBasedRLEnv (Cartpole-only at R1.1)."""
+    """Mirror of isaaclab.envs.ManagerBasedRLEnv (Cartpole-only at R1.1).
+
+    Supports vectorized envs via `cfg.num_envs > 1`. When num_envs == 1 the
+    behavior matches the single-env path; for num_envs > 1, internal state
+    is held as parallel lists and stepped in lockstep via per-env Cartpole
+    integration (mirrors kami-shugyo::VectorizedCartpoleEnv).
+    """
 
     def __init__(self, cfg: CartpoleEnvCfg, system: Optional[ArticulatedSystem] = None):
         self.cfg = cfg
@@ -71,10 +77,16 @@ class ManagerBasedRLEnv:
         self._cartpole_cfg: CartpoleConfig = cartpole_cfg_from_urdf(
             system, gravity=cfg.gravity, dt=cfg.physics_dt
         )
-        self._state = CartpoleState()
         self._max_steps = int(round(cfg.max_episode_length_s / cfg.physics_dt))
         self._steps = 0
         self._rng = _Lcg(0)
+        # Vectorized state (always allocated; for num_envs==1 this is just one entry).
+        n = max(1, cfg.num_envs)
+        self._states_v: list = [CartpoleState() for _ in range(n)]
+        self._steps_v: list = [0] * n
+        self._rngs_v: list = [_Lcg(i) for i in range(n)]
+        # Back-compat: keep _state alias for num_envs==1 single-env path.
+        self._state = self._states_v[0]
 
     @property
     def num_envs(self) -> int:
@@ -98,8 +110,62 @@ class ManagerBasedRLEnv:
             theta=self._rng.next_f32_centered(0.05),
             theta_dot=self._rng.next_f32_centered(0.05),
         )
+        self._states_v[0] = self._state
         self._steps = 0
+        self._steps_v[0] = 0
         return self._obs(), {}
+
+    def reset_all(self, base_seed: Optional[int] = None) -> list:
+        """Vectorized reset (num_envs > 1). Returns observations as a list of
+        per-env [x, x_dot, theta, theta_dot] arrays."""
+        if base_seed is not None:
+            self._rngs_v = [_Lcg(base_seed + i) for i in range(self.num_envs)]
+        out = []
+        for i in range(self.num_envs):
+            self._states_v[i] = CartpoleState(
+                x=self._rngs_v[i].next_f32_centered(0.05),
+                x_dot=self._rngs_v[i].next_f32_centered(0.05),
+                theta=self._rngs_v[i].next_f32_centered(0.05),
+                theta_dot=self._rngs_v[i].next_f32_centered(0.05),
+            )
+            self._steps_v[i] = 0
+            s = self._states_v[i]
+            out.append([s.x, s.x_dot, s.theta, s.theta_dot])
+        self._state = self._states_v[0]
+        return out
+
+    def step_all(self, actions: list) -> list:
+        """Vectorized step. `actions` is a list of length num_envs; returns
+        a list of dicts {observation, reward, terminated, truncated} per env."""
+        assert len(actions) == self.num_envs
+        out = []
+        c = self.cfg
+        for i in range(self.num_envs):
+            for _ in range(self.cfg.decimation):
+                cartpole_step(self._states_v[i], float(actions[i]), self._cartpole_cfg)
+            self._steps_v[i] += self.cfg.decimation
+            s = self._states_v[i]
+            terminated = (
+                s.theta < c.pole_bounds[0] or s.theta > c.pole_bounds[1]
+                or s.x < c.cart_bounds[0] or s.x > c.cart_bounds[1]
+            )
+            truncated = self._steps_v[i] >= self._max_steps
+            reward = (
+                c.alive
+                + (c.terminating if terminated else 0.0)
+                + c.pole_pos_penalty * s.theta * s.theta
+                + c.cart_vel_penalty * s.x_dot * s.x_dot
+                + c.pole_vel_penalty * s.theta_dot * s.theta_dot
+            )
+            out.append({
+                "observation": [s.x, s.x_dot, s.theta, s.theta_dot],
+                "reward": reward,
+                "terminated": terminated,
+                "truncated": truncated,
+            })
+        # Back-compat alias to first env.
+        self._state = self._states_v[0]
+        return out
 
     def step(self, action: list[float]) -> tuple[list[float], float, bool, bool, dict]:
         for _ in range(self.cfg.decimation):
