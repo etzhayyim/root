@@ -1370,6 +1370,71 @@ status = "proposed"
 status_note = "Integrates Gonzàlez i Català 2025 (Cambridge / P. Liò, UPC bachelor's thesis) MMSheaf family (cellular sheaf diffusion with learnable restriction maps F_{u◁e} parametrised as MLP(x_u‖x_v) reshaped to d×d) as the graph-aware modality-fusion layer for Oka (ADR-2605092345). Closes Oka's missing fusion layer: today's shared trunk + modality adapters loses modality identity at first attention block (paper §4.1 early-fusion diagnosis). **Two-tier deployment**: server = MMSheafV4 (block-structured + α_ij scalar MLP, Ele-Fashion best 86.14%) on Murakumo EVO-X2 ROCm 7.2.1 (religious-corp side; H100 NVL only vendor-side); edge = MMSheafV3 (block-diagonal — ternary-quantisable per-modality BitLinear) distilled to Baien BitNet 1.58 within ≤2GB @ 4k ctx invariant (ADR-2605241900 G3). **9-modality stalk** (constitutionally fixed: text / image / audio / video / 3d / geospatial / document / tabular / time-series — mirrors Oka §1 declared modality vocabulary); d_node = 9; d_edge = 4 (server) / 2 (edge); missing modalities = zero-row + binary mask (extension beyond paper, R1 ablation gates). **Training contract**: peft+trl bf16 LoRA on EVO-X2 ROCm reusing gemma-coder-distill recipe (ADR-2605250400); no RunPod (ADR-2605215000 + CHARTER-RIDER §2(i)); encoders frozen (G1 baien invariant); lineage `vertex_training_run.kind ∈ {mmsheaf-v4-server, mmsheaf-v3-edge, mmsheaf-v1-ablation, mmsheaf-v2-ablation}` reuses ADR-2605070700 schema; Charter Rider §2 scanner pre-pass on text input. **Substrate**: graph from yatachain-projection (ADR-2605231500, deterministically rebuildable from MST); first projection target = feed-discover (ADR-2605231902); output attestation lexicon namespace `app.etzhayyim.mmsheaf.diffusionRoundReceipt` reserved (schema R1). **Repo placement** (R0 scaffold only — declared, not implemented): pymagatama.mmsheaf (variants V1–V4) + magatama/cells/mmsheaf_diffusion_aggregator (Murakumo levi, RuntimeError gate per silicon Wave 1 pattern) + baien-distill/nodes/mmsheaf_v3_ternary + 70-tools/scripts/bench/mmsheaf-microbench. **Phase plan**: R0 ADR + registry (this wave); R1 V1-V4 + synthetic bench replicate ≥+10% over GCN; R2 Ele-Fashion replicate ≥85.5%±1.0; R3 feed-discover production + V3 ternary checkpoint ≤2GB; R4 baien-federated R2+ extension via WebGPU LoRA on restriction maps (separate ADR). Each R-phase requires its own ADR. **New runtime dep**: PyG (torch_geometric ≥2.5) — ROCm wheel availability requires R1 PoC verification. **Reported paper baselines** (replication targets): MMSheafV4 86.14% > DiagSheaf 85.58% > MLP 84.98% > SAGE 84.41% > MMGCN 82.39% on Ele-Fashion (97 766 nodes, ViT+T5, 12 classes, homophily 0.7675); synthetic +5%–+31% absolute over GCN/GAT across all configurations."
 path = "90-docs/adr/2605250700-oka-mmsheaf-multimodal-integration.md"
 
+# ─── mitate (見立て) diagnostic + treatment routing Wave 1 (ADR-2605260100..2605260175) ─
+
+[[adrs]]
+id = "2605260100"
+title = "mitate (見立て) diagnostic + treatment routing master charter — religious-corp first-party medical advisory + diagnostic orchestration + treatment routing (chronic nasal congestion 5-condition triage as Wave 1 reference)"
+status = "proposed"
+status_note = "Master charter establishing mitate (見立て, 漢方医学 / 伝統医療 symptom-見極め系譜 + Yakushi Nyorai 左脇侍 日光菩薩 insight echo) as Tier-B religious-corp first-party diagnostic + treatment routing actor. Sibling of yakushi (drug-side, ADR-2605250500). Wave 1 reference = chronic nasal congestion 5-condition triage (allergic-rhinitis-perennial / vasomotor-rhinitis / chronic-sinusitis / septal-deviation / rhinitis-medicamentosa). Charter Rider §2 全条項 clearance (§2(e) anti-gatekeeping pro-clearance — yakushi と並ぶ最強 constitutional 推進力)。14 constitutional gates (G1 patient consent revocable DID-bound / G2 health data XChaCha20 envelope only / G3 AI 診断 advisory only disclaimer required / G4 R2+ licensed MD-in-loop required / G5 emergency keyword fail-safe ER routing bypass 不可 / G6 high-risk groups human review / G7 no insurance/employer/advertiser data path / G8 INN-only no paywall / G9 training data IRB-equivalent / G10 model bias audit quarterly demographic parity / G11 Wellbecoming no notification spam urgency-only push 3-type / G12 Murakumo only inference / G13 all diagnostic logic open-source no proprietary weights / G14 4-phase R0→R3 each phase own ADR)。10 non-goals (N1 no Rx prescription / N2 no anaphylaxis emergency self-contained / N3 no pediatric <5 independent advisory / N4 no surgical execution / N5 no insurance claim filing / N6 no genetic testing interpretation / N7 no mental health diagnosis / N8 no physician override / N9 no primary care 代替 / N10 no terminal palliative)。4-phase roadmap R0→R3 (R0 scaffold only this wave / R1 self-care advisory PWA 4 cells active / R2 pilot 1 community center 100 patient ceiling + IgE+smear+endoscopy+rhinomanometry+CT / R3 community-scale multi-center + SLIT cohort + ESS surgery planner + Kafun-watch environmental mesh)。Substrate boundary: MST + IPFS + Base L2 anchor via @etzhayyim/sdk; payment USDC + TitheRouter donation/kisha/grant/internal-promo only; patient identity Adherent SBT + 30-day rotating pseudonym DID; inference Murakumo only. Murakumo fleet placement (R2+): levi (intake/triage/audit/escalate/router/SLIT/ESS/QOL), naphtali (IgE panel logistics), zebulun (smear microscopy), joseph (endoscopy + rhinomanometry), simeon (CT routing). 5 sub-ADRs (2605260115 condition 1 / 2605260130 condition 2 / 2605260145 condition 3 / 2605260160 condition 4 / 2605260175 condition 5 + yakushi naphazoline closed-loop)."
+path = "90-docs/adr/2605260100-mitate-diagnostic-routing-charter.md"
+
+[[adrs]]
+id = "2605260115"
+title = "mitate Wave 1 condition 1 — allergic rhinitis (perennial / IgE-mediated) diagnostic + treatment routing (intake → triage → IgE panel → SLIT cohort)"
+status = "proposed"
+status_note = "Sub-ADR for condition 1 (highest-prevalence Wave 1 condition; 日本成人 25-40%). Bayesian triage logic over top-7 sign (morning-worst, sneezing burst, water-clear rhinorrhea, ocular pruritus, dust-bedding trigger, atopy family history, pale boggy nasal mucosa). View39-equivalent IgE panel ordering (R2) for perennial antigen set (Der-f-1/Der-p-1/Fel-d-1/Can-f-1/Asp-f-1/Alt-a-1). 鼻汁好酸球 (R2) for 条件 1 vs 2 differential. 4-tier treatment ladder: mild → moderate → severe → severe-refractory. yakushi cross-actor dispense for OTC tier (chlorpheniramine Wave 1 / cetirizine + loratadine + diphenhydramine Wave 1b). SLIT 3-5 yr longitudinal cohort tracker (R3). Council Lv6+ ≥3 + ≥1 licensed MD + ≥1 allergist (R3) attestation triggers."
+path = "90-docs/adr/2605260115-mitate-condition-1-allergic-rhinitis-perennial.md"
+
+[[adrs]]
+id = "2605260130"
+title = "mitate Wave 1 condition 2 — vasomotor (non-allergic) rhinitis diagnostic + treatment routing (除外診断 + 誘因日記 + 環境調整 advisory)"
+status = "proposed"
+status_note = "Sub-ADR for condition 2 (除外診断 — 条件 1/3/4/5 rule-out, IgE 陰性 + 好酸球 <5%; 5-15% 日本成人 prevalence)。誘因日記 (symptom diary) 2-week minimum with 5 trigger categories (寒暖差 / 香水 / 食事 / ストレス / 飲酒)。4-tier treatment ladder: 環境調整 + 鼻うがい → アゼラスチン点鼻 OR 鼻噴霧 steroid → 漢方 + 自律神経整備 → PNN section (R3 surgical referral)。抗コリン点鼻 (イプラトロピウム) 国内未承認 — INN 言及のみ、海外個人輸入は推奨せず (jurisdictional + 安全)。NARES (Non-Allergic Rhinitis with Eosinophilia Syndrome) sub-type は Wave 2+ R3 cohort 内 observed → 別 carve-out。"
+path = "90-docs/adr/2605260130-mitate-condition-2-vasomotor-rhinitis.md"
+
+[[adrs]]
+id = "2605260145"
+title = "mitate Wave 1 condition 3 — chronic sinusitis (蓄膿症) diagnostic + treatment routing (内視鏡 + 鼻汁性状 + paranasal CT + ESS surgery planner)"
+status = "proposed"
+status_note = "Sub-ADR for condition 3 — **Wave 1 中 最も Rx + surgical routing 重い condition**; mitate R2 pilot で licensed MD-in-loop の最低 case を確立。12-wk gate (12 週間以上連続鼻閉 + 膿性鼻汁 + 顔面圧迫感 + 嗅覚低下) で R1 advisory tier では rule-in 確定不能、必ず escalate-md-otolaryngology。R2 で Hanami robot 鼻内視鏡 + paranasal CT 外部 imaging facility routing + 病型分類 (CRSsNP / CRSwNP / 好酸球性 / 歯性 / 真菌性 — 各 treatment 全く異なる)。マクロライド少量長期 (クラリスロマイシン 200mg ×3ヶ月, Rx) + 鼻うがい + 鼻噴霧 steroid。R3 で ESS (FESS / extended) surgery planner advisory — 2 ENT surgeon + 1 anesthesiologist on Council 要件、surgeon-in-loop 執刀 attestation。好酸球性副鼻腔炎 → 指定難病登録 + デュピルマブ (Rx 高額生物製剤) `escalation = recommend-md-specialist-rhinology`。真菌性副鼻腔炎 (頭蓋内浸潤 risk) G5 emergency screen に red-flag 必須追加 (片側 + 糖尿病 / 免疫低下 + 進行性顔面腫脹)。"
+path = "90-docs/adr/2605260145-mitate-condition-3-chronic-sinusitis.md"
+
+[[adrs]]
+id = "2605260160"
+title = "mitate Wave 1 condition 4 — septal deviation (鼻中隔弯曲症) diagnostic + treatment routing (内視鏡 + rhinomanometry + septoplasty routing)"
+status = "proposed"
+status_note = "Sub-ADR for condition 4 — 構造的鼻閉; 10-30% prevalence (subclinical 含む); 最も objective measurement-driven。**片側のみ永続** (左右交代しない) が core differential。R2 で Hanami robot 鼻内視鏡 + rhinomanometry (4-phase AAR — Active Anterior Rhinomanometry, bilateral nasal resistance @ 150 Pa) + 弯曲タイプ classification (C / S / spur) + 下鼻甲介肥大 合併評価 (代償性肥大 70%+ 合併)。4-tier treatment: 軽症 = 点鼻 steroid (mometasone / fluticasone) で甲介浮腫減 → 中等症 = + 生活調整 → 重症 = septoplasty + 下鼻甲介手術 (粘膜下切除 / レーザー焼灼) → 重症 + 外鼻変形 = septorhinoplasty (自費〜混合)。ess_surgery_planner cell を ESS と septoplasty 両方で reuse (conditionContext で分岐)。Septoplasty cost transparency (保険適用 10-15 万円 / 高額療養費で実質 4-9 万円, 入院 2-5 日 or 日帰り) は §2(e) anti-paywall の直接 value。"
+path = "90-docs/adr/2605260160-mitate-condition-4-septal-deviation.md"
+
+[[adrs]]
+id = "2605260175"
+title = "mitate Wave 1 condition 5 — rhinitis medicamentosa (薬剤性鼻炎) detection + 離脱支援 + yakushi-side naphazoline label警告 loop"
+status = "proposed"
+status_note = "Sub-ADR for condition 5 — **religious-corp 内 self-care substrate の最初の完結した closed-loop case**。yakushi が naphazoline (Wave 1 reference triplet 含有) を 製造 → adherent 使用 → mitate detection → 離脱支援 → yakushi G11 label警告 強化 trigger という双方向 constitutional feedback loop。OTC vasoconstrictor (naphazoline / oxymetazoline / tramazoline / phenylephrine) ≥ 7 日連用 auto-detection (medication_history_audit cell)。≥ 14 日連用 → severity = high。離脱 3-tier protocol: tier 1 完全中止 + 鼻噴霧 steroid 置換 (default) / tier 2 片側ずつ中止 / tier 3 漸減 (重症例 + 短期経口 ステロイド Rx)。元 condition (1-4) と condition 5 併存が典型 — triage 再実行で 元 condition treatment を並走。yakushi cross-actor signal: aggregated overuse signal feed → yakushi pharma_post_market_surveillance (G7 + G10 enforce no patient identity);yakushi side label warning 文言 を data-driven に update (世界で稀少な mechanism)。Charter Rider §2(c) 反転 + §2(e) + §2(h) の三位一体 alignment が物理的に成立。"
+path = "90-docs/adr/2605260175-mitate-condition-5-rhinitis-medicamentosa.md"
+
+[[adrs]]
+id = "2605260200"
+title = "mitate R1 — self-care advisory PWA (intake + emergency_screen + medication_audit + triage 4 cells active; advisory-only; no 検査 ordering; no Rx; unlimited patient)"
+status = "proposed"
+status_note = "R1 phase transition from R0 scaffold (ADR-2605260100 + 5 condition sub-ADRs) to operational advisory tier — first **operational** religious-corp diagnostic + treatment advisory; §2(e) anti-gatekeeping value moves from constitutional declaration to delivered patient experience. **4 cells activate** (rhinitis_intake / emergency_screen / medication_history_audit / rhinitis_triage on Murakumo node `levi`, healthzPort 13070-13073); **9 cells stay gated** (diagnostic ordering + treatment router + SLIT cohort + ESS planner + outcome followup — R2+ scope). R1 advisory returns top-3 condition posterior + escalation = recommend-md-visit / self-care-advisory only — no 検査 ordering, no Rx-specific advice. Patient unlimited (advisory-only marginal cost). 8 silenMitateReview baseline attestations enumerated (charter / G3 disclaimer / G5 emergency keyword / G5 false-negative adversarial / G6 escalation / G11 intake form text / G11 notification channel / 5× condition Bayesian prior). ≥ 1 licensed MD on Council medical advisory required (R1 minimum; R2 requires ≥ 2). 1 emergency medicine specialist required for G5 attestations (R1 critical path). New app carve-out `60-apps/mitate-pwa/` (T3 TS Native, Adherent SBT + passkey + 30-day rotating pseudonym DID, disclaimer-first flow, no streak/score/gamification, push notification only emergency-ack/appointment-reminder/AE-followup 3 channels). Condition 5 (薬剤性鼻炎) detection + 離脱 advisory live; yakushi cross-actor signal aggregation half-live (mitate detects; yakushi-side label-warning update activates R2 via cross-actor baseline). Bias audit methodology baseline registered (no clinical data yet — quarterly schedule + demographic axes + 5% disparity threshold + corrective action mandate). R1 exit criteria → R2 entry: ≥ 100 patient intakes + 0 G5 false negative (10% specialist sampled review) + ≥ 5 positive outcome self-report + monthly bias audit ≤ 10% selection bias + yakushi cross-actor design Council-reviewed + ≥ 2 licensed MD on Council + Hanami robot mech design attestation in flight."
+path = "90-docs/adr/2605260200-mitate-r1-advisory-self-care-pwa.md"
+
+[[adrs]]
+id = "2605260215"
+title = "yakushi R1 — cross-actor AE aggregation + dedupe rule (mitate joint; closes naphazoline closed-loop other half; pre-req for mitate R2 + yakushi Wave 1 R2 pilot)"
+status = "proposed"
+status_note = "Joint mitate-yakushi ADR closing the **other half** of the naphazoline closed-loop (mitate side ADR-2605260175 §Decision 4 defined the emit; this ADR defines yakushi receive + label warning data-driven update). 4 decisions: (1) aggregated AE payload variant — `aggregationLevel` enum extends `app.etzhayyim.pharma.adverseEventReport` with 'aggregated-lot-window' + 'aggregated-quarter-summary' values mutually exclusive with encryptedPatientIdentityEnvelope (G10 structural); aggregatedPayload struct = yakushiProductDid + lotIdHashRange + window + patientCountDistinct + medianOveruseDurationDays + medianDosesPerDay + withdrawal8weekSuccessRate + severityHistogram + symptomMedDraSocCodes. (2) AE dedupe rule — primary key (lotIdHashed, severityBucket, onsetWeekIso) at yakushi-side single source of truth; mitate emits both individual + aggregated, yakushi decides count; identity-free by design (G7 + G10 structural not policy). (3) Label-warning data-driven update mechanism — 4 thresholds (withdrawal8weekSuccessRate <0.50 / medianOveruseDurationDays >21 / patientCountDistinct >100/quarter / severityHistogram[severe+life-threatening]/total >0.10) trigger label warning re-issue on next lot; quarterly minimum + on-demand maximum cadence; ae-followup push channel (G11 permitted 3-channel) notifies active adherents. (4) Joint silen-review flow — 3 new silenPharmaReview scopes (cross-actor-ae-aggregation-baseline / ae-dedupe-event / label-warning-update-naphazoline) + 3 new silenMitateReview scopes (yakushi-cross-actor-signal-aggregation-baseline / ae-feed-throttle-baseline / label-warning-update-naphazoline-mitate-cosign); per-update pairing within ±7 days. Bootstrap path: schema locked at mitate R1 deploy; aggregation activates with mitate R2 (outcome_qol_followup cell); first label warning data-driven update ~Q1 of mitate R2 cohort (estimated 90-120 days post-R2). Naphazoline label warning text stays at G11 baseline until first quarter accumulates. Mitigations: dedupe key collision (severityBucket + MedDRA SOC secondary check) / label text bloat (G11 template length cap) / adverse selection bias (R2 bias audit metric) / mitate dedupe inversion (cell test enforces no-dedupe-outgoing)."
+path = "90-docs/adr/2605260215-yakushi-r1-cross-actor-ae-aggregation-mitate-joint.md"
+
+[[adrs]]
+id = "2605260230"
+title = "Hanami (鼻見) robot — mechanical design + safety validation + FDA Class I/II SaMD-equivalent attestation (mitate R2 critical path)"
+status = "proposed"
+status_note = "mitate-native new robotics class (8th by count, owned by mitate not kuni-umi — same pattern as silicon Wave 2 Funamori). Locks R0 design before R1 prototype fabrication. **Mechanical envelope**: 4.0 mm OD flexible scope × 300 mm insertion, distal articulation ±130° 4-way, 1920×1080 @ 60fps CMOS + 110° FOV, 4500K LED ring 100 lumen, 6-DOF arm 600 mm reach 2 kg payload, **0.5 N hardware force cutoff** at scope tip (constitutional limit — motor torque physically constrained, not just firmware), 50 mm/s linear + 30°/s rotational max, ± 0.1 mm position repeatability, autoclave 134°C × 15 min compatible (tip + 50 mm shaft) + chemical sterilization full-length, single-use disposable PLA tip cover for patient contact, foot pedal + voice + emergency stop (< 100 ms reaction). **5×4 safety validation matrix** (mucosal trauma / depth / patient movement / cross-contamination / classifier mis-routing × hardware / firmware / operator UX / ENT specialist remote override). **3-phase validation** (Phase A bench 1000 cycles + autoclave 100 + network isolation; Phase B silicone phantom × 50 + cadaveric × 30 with Cohen κ ≥ 0.7; Phase C community-center clinical first 20 double-attested live + 21-100 async ≤ 24hr). **Jurisdiction attestation** = JP-first PMDA 製造販売届出 (Class II 相当, 業務範囲外 carve-out applicable for community-center use; fallback 製造販売業許可 + 製造業許可 if not adequate); FDA General Wellness Device (Class I + 21 CFR Part 880); EU MDR Class IIa (rule 5 + rule 11 software medical device). **Murakumo-only classifier** = gemma4:e4b vision distill medical variant (open weights G13, training data consent-only + Council-attested IRB-equivalent per G9); network whitelist enforces no commercial vendor inference endpoint reachable. **G4 N≥2 witness** = operator DID + ENT specialist DID always required (R2+); classifier output never patient-displayed without specialist co-sign. **4-phase build path** (R0 design this ADR / R1 prototype Phase A / R2 Phase B+C community-center pilot 100 patient ceiling / R3 multi-site multi-jurisdiction). **G13 open-source** = hardware CAD + firmware + classifier corpus metadata Apache 2.0 + Charter Rider under 50-infra/hanami-robot/ (R1 ADR creates dir); cross-religious-corp manufacturing via silenMitateReview scope `hanami-cross-corp-manufacture-attestation`. Risks: 0.5 N false positives at turbinate edge / PMDA 業務範囲外 path adequacy uncertain / gemma4:e4b vision medical distill does not yet exist (R1 must train) / cadaver source institutional partner new dependency / counterfeit cross-corp manufacturing supply chain."
+path = "90-docs/adr/2605260230-hanami-robot-mechanical-design-mitate-r2-critical-path.md"
+
 # ─── Module registry ────────────────────────────────────────────────
 
 [[modules]]
@@ -2473,6 +2538,154 @@ adr = ["2605250700", "2605231902", "2605231500", "2605242545", "2605241900"]
 sibling_modules = [
   "20-actors/magatama/py/src/pymagatama/mmsheaf",            # underlying library
   "50-infra/mst-projector",                                   # graph source (feed-discover et al)
+]
+
+# ─── mitate (見立て) diagnostic + treatment routing actor — Wave 1 (ADR-2605260100..2605260175) ─
+
+[[modules]]
+path = "20-actors/mitate"
+kind = "tier-b-per-domain-leader-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-gated-wave-1"
+description = "mitate (見立て, 漢方医学 / 伝統医療 symptom-見極め系譜 + Yakushi Nyorai 左脇侍 日光菩薩 insight echo) — religious-corp first-party diagnostic + treatment routing Tier-B per-domain leader actor. Sibling of yakushi (drug-side). Wave 1 reference = chronic nasal congestion 5-condition triage (allergic-rhinitis-perennial / vasomotor-rhinitis / chronic-sinusitis / septal-deviation / rhinitis-medicamentosa). 14 constitutional gates + 10 non-goals. Substrate: MST + IPFS + Base L2 anchor via @etzhayyim/sdk; payment USDC + TitheRouter donation/kisha/grant/internal-promo only; patient identity = Adherent SBT + 30-day rotating pseudonym DID; inference Murakumo only. All 13 mitate_* Pregel cells under 20-actors/magatama/cells/ are import-time RuntimeError gated. Robotics class = existing 4 reuse (Hitogata class-C clean / Mimi pharma-analytical (yakushi sibling) / Otete chem-resist / Sukoyaka 健やか yakushi placeholder cold-chain) + 2 new placeholders (Hanami 鼻見 鼻内視鏡 R2+ / Kafun-watch 花粉見守り environmental sensor R3+). yakushi cross-actor lexicon emit boundary per master charter §Decision 8: mitate.outcomeFollowup ↔ yakushi.pharma.adverseEventReport (no new namespace)."
+adr = ["2605260100", "2605260115", "2605260130", "2605260145", "2605260160", "2605260175", "2605192100", "2605192115", "2605192200", "2605192230", "2605192315", "2605192400", "2605192415", "2605201400", "2605181100", "2605172000", "2605231500", "2605231525", "2605215000", "2605250500"]
+sibling_actors = [
+  "yakushi (drug-side sibling — cross-actor lexicon emit per master Decision 8)",
+  "kuni-umi (robotics class ontology source — Hitogata / Mimi / Otete reused; Hanami / Kafun-watch new R2+/R3+ placeholders)",
+  "tsukuru (silen-pharma-review pattern reuse from silen-force-review → silen-mitate-review)",
+]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_rhinitis_intake"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-council-attestation"
+description = "Patient symptom + consent + medication history intake (G1 consent + G2 encryption + G11 no addictive design). Triggers mitate_emergency_screen pass-through (architectural invariant). Lexicon: app.etzhayyim.mitate.rhinitisIntake. Proposed Murakumo node: levi."
+adr = ["2605260100", "2605260115", "2605260130", "2605260145", "2605260160", "2605260175"]
+lexicons = ["app.etzhayyim.mitate.rhinitisIntake", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_emergency_screen"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-g5-fail-safe-baseline"
+description = "G5 fail-safe red-flag detection (anaphylaxis / orbital cellulitis / septal abscess / 髄膜炎 / 視力低下 / 意識障害 / 突然の重度頭痛 / 真菌性副鼻腔炎 immunocompromised). Multi-layer regex + LLM second-pass (Murakumo only G12) + temporal urgency. Architectural invariant: MUST run between mitate_rhinitis_intake and any triage / order / treatment cell — bypass 不可 constitutional violation per ADR-2605260100 §G5. False-negative adversarial testing baseline required (Council Lv6+ ≥3 + 1 emergency medicine specialist) for R1 deploy. Lexicon: app.etzhayyim.mitate.emergencyEscalation. Proposed Murakumo node: levi."
+adr = ["2605260100"]
+lexicons = ["app.etzhayyim.mitate.emergencyEscalation", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_medication_history_audit"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-condition-5-baseline"
+description = "OTC vasoconstrictor (naphazoline / oxymetazoline / tramazoline / phenylephrine) ≥7 day continuous-use auto-detection per ADR-2605260175. yakushi cross-actor signal aggregation for naphazoline-containing lot detection (G7 + G10 zero-patient-identity in aggregated feed) — religious-corp 内 self-care substrate の最初の完結した closed-loop input data path. Lexicon: app.etzhayyim.mitate.triageVerdict (annotation). Proposed Murakumo node: levi."
+adr = ["2605260175", "2605260100"]
+lexicons = ["app.etzhayyim.mitate.triageVerdict", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_rhinitis_triage"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r1-per-condition-bayesian-baselines"
+description = "5-condition Bayesian classifier + LLM second-pass narrative (Murakumo only G12, gemma4:e4b medical distill variant open weights G13). Per-condition Bayesian posterior over top-7 sign signature (per sub-ADR). G6 escalation flag for pediatric <13 / pregnancy / lactation / immunocompromised / 抗凝固薬服用中. G3 disclaimer text injected. R1 advisory tier returns top-3 condition posterior + recommended next-step. Lexicon: app.etzhayyim.mitate.triageVerdict. Proposed Murakumo node: levi."
+adr = ["2605260100", "2605260115", "2605260130", "2605260145", "2605260160", "2605260175"]
+lexicons = ["app.etzhayyim.mitate.triageVerdict", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_allergy_ige_panel_order"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-ige-panel-antigen-list-baseline"
+description = "View39-equivalent IgE panel ordering (R2) to external clinical lab. Perennial antigen scope (Der-f-1 / Der-p-1 / Fel-d-1 / Can-f-1 / Asp-f-1 / Alt-a-1 / Cladosporium / Penicillium + 季節性 reference Cry-j-1/2). G1 consent receipt CID mandatory + G4 licensed MD physicianAttestorDid mandatory + G2 encrypted result delivery channel. Per ADR-2605260115 §Decision 2. Lexicon: app.etzhayyim.mitate.diagnosticOrder. Proposed Murakumo node: naphtali (procurement / 検体 cold-chain logistics leader)."
+adr = ["2605260115", "2605260100"]
+lexicons = ["app.etzhayyim.mitate.diagnosticOrder", "app.etzhayyim.mitate.diagnosticResult", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_nasal_smear_eosinophil"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-eosinophil-microscopy-baseline"
+description = "鼻汁好酸球 microscopy (R2) — 条件 1 vs 2 differential (≥20% → 条件 1 強支持 / <5% → 条件 2 支持). Wright-Giemsa stain, Mimi pharma-analytical class (yakushi sibling reuse) auto-load + 10 fields × 400x acquisition. Murakumo gemma4:e4b vision distill medical variant (open weights G13). Licensed MD attestation G4. NARES (eosinophil ≥20% + IgE 陰性) flag for Wave 2+ carve-out. Per ADR-2605260115/130. Lexicon: app.etzhayyim.mitate.diagnosticResult. Proposed Murakumo node: zebulun (analytical chemistry / wet workflow leader)."
+adr = ["2605260115", "2605260130", "2605260100"]
+lexicons = ["app.etzhayyim.mitate.diagnosticResult", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_nasal_endoscopy_acquire"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-hanami-robot-mech-design-attestation"
+description = "Hanami robot 鼻内視鏡 4K image + 30-sec video acquisition (R2+) — 条件 3 (sinusitis subtype: CRSsNP / CRSwNP / 鼻茸 / 真菌石灰化) と 条件 4 (deviation type C/S/spur) 鑑別. Hanami robot R0 placeholder (mitate-native R2+): 4mm 軟性スコープ + 6-DOF arm + force-feedback ≤0.5N + autoclave 滅菌対応. R2 deploy 前に mechanical design + safety validation + FDA Class I/II medical device 同等 attestation 必要 (R2 critical path). Murakumo gemma4:e4b vision distill medical variant + ENT specialist attestation (G4 + N≥2 witness). Per ADR-2605260145/160. Lexicon: app.etzhayyim.mitate.diagnosticResult. Proposed Murakumo node: joseph (commissioning / sterile process leader)."
+adr = ["2605260145", "2605260160", "2605260100"]
+lexicons = ["app.etzhayyim.mitate.diagnosticResult", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_rhinomanometry"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-rhinomanometry-protocol-baseline"
+description = "鼻腔通気度測定 (4-phase AAR — Active Anterior Rhinomanometry) — 条件 4 鼻中隔弯曲 objective measurement (bilateral nasal resistance @ 150 Pa Pa/cm³/s). 弯曲タイプ classification (C / S / spur) + 下鼻甲介肥大 合併評価 (代償性肥大 70%+) by ENT specialist attestation. Per ADR-2605260160 §Decision 2. Lexicon: app.etzhayyim.mitate.diagnosticResult. Proposed Murakumo node: joseph (equipment commissioning adjacent)."
+adr = ["2605260160", "2605260100"]
+lexicons = ["app.etzhayyim.mitate.diagnosticResult", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_paranasal_ct_route"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-ct-routing-encryption-baseline"
+description = "副鼻腔 CT 外部 imaging facility routing (mitate community center に CT 無し) + DICOM 受領 → XChaCha20-Poly1305 envelope (G2) + Lund-Mackay scoring (0-24) by licensed MD attestation. 病型分類 (CRSsNP / CRSwNP / 好酸球性 / 歯性 / 真菌性) input への必須 evidence. Jurisdiction-aware (initial JP only — PMDA / FDA / EMA で imaging facility 規制差). 真菌性 (CT 石灰化 + 糖尿病 / 免疫低下) は G5 emergency red-flag に escalate 並走. Per ADR-2605260145 §Decision 3. Lexicon: app.etzhayyim.mitate.diagnosticOrder. Proposed Murakumo node: simeon (commissioning / imaging facility coordination)."
+adr = ["2605260145", "2605260100"]
+lexicons = ["app.etzhayyim.mitate.diagnosticOrder", "app.etzhayyim.mitate.diagnosticResult", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_treatment_router"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-per-condition-treatment-ladder-baseline"
+description = "5-condition × severity treatment routing decision tree. Tier resolution: self-care / OTC (yakushi-dispense referral if INN in yakushi catalog) / Rx routing (escalate-md) / surgical (escalate-md-surgical) / withdrawal 3-tier (condition 5). G3 disclaimer + G4 licensed MD co-sign (R2+ Rx-tier) + G8 INN-only content lint (brand 不可 except yakushi-distributed) + G11 cost transparency. yakushi cross-actor dispense routing for OTC-tier (cetirizine / loratadine / chlorpheniramine / diphenhydramine / mometasone-pending Wave 2). Per ADR-2605260115/130/145/160/175 Treatment ladder sections. Lexicon: app.etzhayyim.mitate.treatmentPlan. Proposed Murakumo node: levi."
+adr = ["2605260115", "2605260130", "2605260145", "2605260160", "2605260175", "2605260100"]
+lexicons = ["app.etzhayyim.mitate.treatmentPlan", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_slit_cohort_tracker"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r3-slit-cohort-protocol-baseline"
+description = "SLIT (sublingual immunotherapy) 3-5 yr longitudinal cohort tracker (R3) — monthly JRQLQ QOL questionnaire + daily adherent-driven adherence pingback (G11 reminder opt-in carve-out for SLIT 適応 patient with explicit opt-in) + AE longitudinal feed → yakushi pharma_post_market_surveillance (aggregated, G7 + G10 no patient identity). yatachain-projection hot-path read carve-out per ADR-2605231500. Allergist on Council Lv6+ required. Per ADR-2605260115 §Decision 5. Lexicon: app.etzhayyim.mitate.outcomeFollowup. Proposed Murakumo node: levi."
+adr = ["2605260115", "2605260100"]
+lexicons = ["app.etzhayyim.mitate.outcomeFollowup", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_ess_surgery_planner"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r3-ess-and-septoplasty-planning-baseline"
+description = "Dual-purpose surgical planning advisory (R3) for ESS (condition 3 — FESS / extended) and septoplasty / septorhinoplasty (condition 4) — conditionContext field で分岐. Output: 罹患洞 enumeration (ESS) or 弯曲 type (condition 4) + preliminary approach + 入院 期間 + cost estimation (transparency, §2(e) anti-paywall + 高額療養費 referenced). surgeon DID attestation REQUIRED before patient delivery (mitate planning advisory only — surgeon-in-loop architectural invariant per N4). 2 ENT surgeon + 1 anesthesiologist on Council required. Per ADR-2605260145/160. Lexicon: app.etzhayyim.mitate.treatmentPlan. Proposed Murakumo node: levi."
+adr = ["2605260145", "2605260160", "2605260100"]
+lexicons = ["app.etzhayyim.mitate.treatmentPlan", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_outcome_qol_followup"
+kind = "pregel-cell-gated"
+version = "0.1.0-scaffold-only"
+status = "import-time-RuntimeError-until-r2-yakushi-cross-actor-signal-aggregation-baseline"
+description = "Longitudinal QOL + adherence + AE tracker (R2) — condition-specific QOL questionnaire (JRQLQ for 1/2, SNOT-22 for 3, NOSE for 4, custom for 5). yakushi cross-actor leg per master charter §Decision 8: individual handoff to yakushi.pharma_adverse_event (with patient consent) + aggregated feed to yakushi.pharma_post_market_surveillance (G7 + G10 no patient identity). AE dedupe rule joint mitate-yakushi R1 ADRs to prevent double-counting. yakushi naphazoline closed-loop marker for condition 5 → yakushi label warning data-driven update trigger (ADR-2605260175 §Decision 4). Lexicon: app.etzhayyim.mitate.outcomeFollowup. Proposed Murakumo node: levi."
+adr = ["2605260100", "2605260115", "2605260130", "2605260145", "2605260160", "2605260175", "2605250500"]
+lexicons = ["app.etzhayyim.mitate.outcomeFollowup", "app.etzhayyim.pharma.adverseEventReport", "app.etzhayyim.mitate.silenMitateReview"]
+
+[[modules]]
+path = "60-apps/mitate-pwa"
+kind = "religious-corp-patient-pwa-t3-ts-native"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-worker-contract-locked-runtime-503-until-r1-baseline-attestations"
+description = "mitate (見立て) patient-facing self-care advisory PWA — standalone Cloudflare Worker on mitate.etzhayyim.com (separate from ameno-pwa per master Decision F). T3 TS Native (Worker + static HTML assets binding). Worker returns 503 MitateR1PhaseGateLocked until MITATE_R1_PHASE_GATE env var is set (R1 baseline attestations: 8 silenMitateReview + 5 condition Bayesian prior + ≥1 licensed MD + 1 emergency medicine specialist on Council medical advisory per ADR-2605260200 §Decision 2). Constitutional invariants enforced at routing layer: G3 disclaimer-first (/triage and /medication-audit 303→/disclaimer until ack); G5 architectural invariant (POST /xrpc/app.etzhayyim.mitate.triageVerdict → 405 G5InvariantBlocked — patient intake MUST POST to rhinitisIntake, emergency_screen pass-through enforced at substrate layer); G11 notification 3-channel only (emergency-ack / appointment-reminder / ae-followup); G14 substrate boundary (proxyToSubstrate via ETZHAYYIM_SDK_PROXY_URL; no direct @atproto/api / viem / @noble/ciphers / libsignal / IPFS HTTP API; no api.openai.com / api.anthropic.com / runpod.io / bedrock-runtime / aiplatform.googleapis.com). R1 active lexicon NSIDs: rhinitisIntake + triageVerdict (read-only) + emergencyEscalation. R2 gated lexicon NSIDs (return 503 MitateR2GatedLexicon): diagnosticOrder / diagnosticResult / treatmentPlan / outcomeFollowup. Patient identity: Adherent SBT + passkey ES256 + 30-day rotating pseudonym DID. Disclaimer triple-ack (G3 advisory + G1 consent + G6 high-risk acknowledge). Tests: g3-disclaimer-flow / g5-emergency-bypass-impossible / g11-no-addictive-design / g14-substrate-boundary."
+adr = ["2605260200", "2605260100", "2605260175", "2605181100", "2605215000", "2605231525", "2605172000"]
+sibling_modules = [
+  "20-actors/mitate",                                              # actor scaffold (R0)
+  "20-actors/magatama/cells/mitate_rhinitis_intake",               # R1 cell — gated import-time RuntimeError until R1 deploy
+  "20-actors/magatama/cells/mitate_emergency_screen",              # R1 cell
+  "20-actors/magatama/cells/mitate_medication_history_audit",      # R1 cell
+  "20-actors/magatama/cells/mitate_rhinitis_triage",               # R1 cell
+  "00-contracts/lexicons/app/etzhayyim/mitate",                    # 8 lexicons
 ]
 
 # ─── Religious-Corp Wave Status (ADRs 2605192100..2605192415 cumulative) ──
@@ -3759,3 +3972,134 @@ finding_2 = "Mac M4 NEON CPU achieves 13.70x speedup at 4096^3 because the popco
 finding_3 = "Mac M4 Metal GPU achieves 1.98x speedup at 4096^3; absolute throughput 6.31 TOPS sustained (highest measured in this run) while dense bf16 also wins on parallelism"
 finding_4 = "Theoretical 16-32x peak vs FP16 (from vendor specs for bit-matmul-capable hw like NV B200 int1 / AMD MI300X dpp_bcnt) is unreachable in pytorch-eager mode at the per-call granularity; would need kernel fusion across RMSNorm + activation binarization to amortize"
 finding_5 = "Correctness oracle is the pure-PyTorch SWAR popcount kernel; all 4 backend sources share the same `2*popcount(~(x^w))-K_padded-pad` formula so EVO build (when unblocked) is expected to pass without source changes"
+
+# ─── roso-qwen3.6-35b-a3b 1-bit distill (server tier) VERIFIED 2026-05-24 ────
+[experiments."roso-qwen3.6-35b-a3b-phase-a-verified"]
+adr = "2605242000"
+date = "2026-05-24"
+status = "verified"
+tier = "server"
+base_model = "Qwen/Qwen3.6-35B-A3B"
+base_license = "apache-2.0"
+base_arch = "Qwen3_5MoeForConditionalGeneration multimodal text+image hybrid linear+full attn 256k ctx"
+base_n_experts = 256
+base_experts_per_tok = 8
+base_disk_gb_bf16 = 71.9
+host = "EVO-X2 NucBox AMD Radeon 8060S gfx1151 ROCm 7.2.53 torch 2.9.1+rocm7.2.1"
+total_params = 35_951_822_704
+quantized_params = 34_065_674_240
+quantize_coverage_pct = 94.7
+skipped_params = 1_886_148_464
+skipped_pct = 5.3
+packed_gb_at_1bit = 4.26
+expected_packed_gb = 4.4
+n_shards = 26
+n_tensors_total = 1045
+n_tensors_quantized = 501
+n_tensors_skipped = 544
+quantize_wall_sec = 363
+peak_vram_during_quantize_gb = 4
+attestation_passed = true
+
+[experiments."roso-qwen3.6-35b-a3b-phase-a-verified".pipeline_iterations]
+iter_1 = "device_map=auto default — caching_allocator_warmup tried 48 GB contiguous GPU slab, HIP OOM. Fix: explicit max_memory={cpu:40GiB, disk:150GiB} + PYTORCH_HIP_ALLOC_CONF=expandable_segments:True"
+iter_2 = "transformers.from_pretrained + max_memory — safetensors mmap ALL 26 shards (72 GB virtual), Windows paging file too small (OSError 1455). Fix: wrote shard_quantize.py to bypass transformers, open one shard at a time"
+iter_3 = "shard-streaming v1 — 3-D MoE expert tensors [256, d_in, d_out] skipped by ndim==2 check, only 5.15% quantized. Fix: extended _should_quantize for 3-D experts + _sign_quantize_tensor with per-expert alpha (256 distinct alphas per expert tensor)"
+iter_4 = "shard-streaming v2 — END-TO-END SUCCESS, 94.7% coverage, 4.26 GB packed"
+
+[experiments."roso-qwen3.6-35b-a3b-phase-a-verified".structural_verification]
+shards_sampled = 5
+verdict_2d = "ALL ternary per-tensor alpha ratio=1.0 across 4 sampled q/k/v/o + linear_attn projections"
+verdict_3d_moe = "ALL ternary per-expert with 256 distinct alphas per tensor (sampled gate_up_proj alphas: 0.003235 / 0.00296 / 0.005737 for first 3 experts)"
+verdict_skipped = "embed_tokens / lm_head / mlp.gate.weight (router) / shared_expert_gate / linear_attn.conv1d all preserved full-precision"
+
+[experiments."roso-qwen3.6-35b-a3b-phase-a-verified".functional_inference]
+status = "blocked on EVO Windows"
+blocker = "transformers.from_pretrained mmaps ALL 26 safetensors shards even with disk offload, exceeding Windows paging file virtual address space"
+unblock_path_1 = "Custom shard-streaming inference engine ~300 LoC, load 1-2 layer compute unload next, est 100-500 ms/token"
+unblock_path_2 = "WSL2 + Linux — paging constraint relaxed, Linux mmap handles large sparse access better"
+unblock_path_3 = "MoE active-expert-only loader — exploit 35B-A3B 3B active/token, load embed + router + active 3B ~6 GB BF16 fits 60 GB RAM. BEST architectural fit for 1-bit MoE serving"
+naive_paging_expansion_warning = "Expanding Windows paging file alone is NOT a performance solution - satisfies virtual address space only. Model still doesn't fit 60 GB physical RAM, per-token forward would page-fault to SSD at every layer -> 5-50 sec/token"
+
+[experiments."roso-qwen3.6-35b-a3b-phase-a-verified".code_artifacts]
+shard_quantize_py = "70-tools/roso-distill/src/roso_distill/shard_quantize.py"
+shard_quantize_loc = 150
+shard_quantize_features = "Bypasses transformers.from_pretrained for models too large for contiguous load. Handles 2-D per-tensor alpha + 3-D MoE expert per-expert alpha. Skip: embed_tokens, lm_head, router, gate.weight, mtp, 3-D conv1d. Peak memory = single shard (~4 GB)."
+state_py_patch = "Qwen3.6-35B-A3B added to BASE_CANDIDATES with tier=server + active_params=3e9 + multimodal=True"
+attestation_py_patch = "tier==server branches past EDGE_INVARIANT checks; records tier + edge_invariant_checks={_skipped: server tier per ADR-2605242100}"
+quantize_py_patch = "tier==server or fp16_gb>20 routes to shard_streaming_quantize bypassing model.from_pretrained for server tier"
+
+# ─── 2026-05-25 kaizen wave — 4-iteration empirical naive-sign wall + Bonsai Algorithm 1 scaffold ─
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525"]
+adr = "2605242000"
+date = "2026-05-25"
+status = "complete-naive-wall-confirmed-real-bonsai-scaffold-ready"
+goal = "1h で 1-bit roso-qwen3.6-35b-a3b を 元 Qwen bench score に近づける"
+goal_outcome = "empirical wall hit — naive sign-quantize + skip-more cannot reach Bonsai retention; real Algorithm 1 scaffold (Phase B+C+D) committed to bonsai_calibrate.py"
+
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525".iterations]
+# Each iteration: coherence + exact_match + diversity (minibench 10 prompts × 15 tok)
+iter_0 = {skip = "minimal (embed/lm_head/router/mtp/conv1d)", coverage_pct = 95, coherence_pct = 0, match_pct = 0, diversity = 0.0, output = "pure spaces"}
+iter_1 = {skip = "+linear_attn +shared_expert +first/last layer", coverage_pct = 5, coherence_pct = 100, match_pct = 0, diversity = 0.325, output = "token loops (.updateDynamic)"}
+iter_2 = {skip = "+self_attn, per-channel α", coverage_pct = 4, coherence_pct = 100, match_pct = 0, diversity = 0.425, output = "random multilingual no loops"}
+iter_3 = {skip = "+experts.down_proj", coverage_pct = 1, coherence_pct = 100, match_pct = 0, diversity = 0.422, output = "mode collapse same output #1/4/5"}
+iter_4 = {skip = "+3 boundary layers/side, α × 0.5", coverage_pct = "<1", coherence_pct = 100, match_pct = 0, diversity = 0.617, output = "most diverse gibberish but still match=0"}
+
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525".conclusion]
+naive_wall = "exact_match stuck at 0/10 across 4 iterations of skip-more + α dampening. Diversity ranges 0.325-0.617 but is random vocabulary, not semantic relevance. Confirms PrismML Bonsai paper claim: naive sign-quantize ≈ 30% avg score, Bonsai Algorithm 1 needed for 70.5 avg score (89% retention)."
+real_path = "Phase B (shard-stream forward + activation capture) + Phase C (per-row Optimal Scale closed form) + Phase D (GPTQ column-wise CD with Cholesky H inverse) — all implemented in 70-tools/roso-distill/src/roso_distill/bonsai_calibrate.py (~370 LoC). Pending: EVO debug + run + verify."
+
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525".bonsai_calibrate_py]
+loc_total = 370
+phase_b_loc = 150
+phase_c_loc = 30
+phase_d_loc = 60
+phase_e_loc = 20
+main_driver_loc = 50
+phase_b_status = "drafted — ShardWeightLoader + per-layer pre/post hooks + per-Linear activation capture. EVO debug pending."
+phase_c_status = "implemented — closed-form per-row α via Hessian H = X.T @ X"
+phase_d_status = "implemented — GPTQ column CD + Cholesky H inverse + per-column quantize + error propagation"
+phase_e_status = "ready — calibrated_alphas.json + calibrated_W_q.safetensors save"
+peak_memory_estimate_gb = 5    # 1 layer + state + Hessian per Linear
+next_session_eta_hours = 1.5   # Phase B debug 1 hr + C+D run 30 min + repack/bench 30 min
+expected_retention_pct = 80    # conservatively below Bonsai's 89% claim
+
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525".phase_b_debug_status]
+v1 = "FAIL: Cannot copy out of meta tensor — embed_tokens not preloaded before forward"
+v2 = "FAIL: Tensor on device meta in mul op — input_layernorm.weight not loaded by materialize_layer_weights (prefix mismatch ckpt vs model)"
+v3 = "PARTIAL: forward starts (preload 3 + materialize 690), exits exit-0 in 53s without reaching Phase C — silent forward fail mid-stream; activations dict empty"
+v3_diagnosis = "Likely Qwen3_5MoeGatedDeltaNet internal SSM state buffers (A_log cache, conv1d state) or rotary cache require explicit initialization beyond zero-fill. Need verbose forward + per-module dump to bisect."
+v4 = "FIXED: bypass init_empty_weights, use both-prefix materialize, faulthandler + verbose log — Phase B captures 351 Linears activations successfully"
+v5 = "PARTIAL: Phase C OS too slow on lm_head (762s on 248320x2048); switched to OS-only + minimal SKIP_FOR_CALIB filter"
+v6_v8 = "SHARD CRASH CYCLE: Windows access violation in torch storage.__getitem__ after ~8-15 shards (safetensors mmap accumulation). Fixed by v9 per-shard incremental save + skip-on-resume."
+v9 = "WORKED via 4 resume cycles: 26/26 shards calibrated, 2.625 GB W_q saved to per_shard/*.W_q.safetensors"
+phase_b_end_to_end_landed_2026_05_25 = true
+
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525".pack_calibrated_status]
+pack_calibrated_v1 = "FAIL: packed=0/350 — naive prefix strip (model.X -> model.X.weight) missed multimodal language_model insertion"
+pack_calibrated_v2 = "WORKED: suffix-match prefix-tolerant mapping yields 350/350 W_q -> orig in 245s"
+out_size_gb = 64.51    # vs orig 72 GB; -7.5 GB saved (only 350 2-D Linears packed; MoE 3-D experts stayed bf16)
+out_dir = "C:/Users/gad/roso-35b-out/sibling-Qwen3.6-35B-A3B-roso-bonsai-packed"
+
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525".bonsai_minibench]
+ran_at = "2026-05-25 EVO"
+prompts = 15
+exact_match = "0/15"
+ifeval = "0/5"
+mmlu = "0/5"
+reasoning = "0/1"
+multilingual = "0/2"
+general = "0/2"
+symptom = "catastrophic 'the the the' / 'around the the' / control-token loops on most prompts (similar to iter 4 naive sign 0/10); a few MMLU letter responses misaligned"
+empirical_wall_2_landed = true
+result_artifact = "C:/Users/gad/roso-35b-out/sibling-Qwen3.6-35B-A3B-roso-bonsai-packed/bonsai_minibench.jsonl (15 rows)"
+
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525".empirical_wall_root_cause]
+blocker_1 = "Phase D GPTQ column-CD NEVER RAN — gptq_block_cd function exists in bonsai_calibrate.py but is not wired into main() loop (currently Phase C OS only for speed)"
+blocker_2 = "MoE 3-D expert weights stayed BF16 — 20k expert weights (256 exp × 40 layers × gate_up+down) carry expressive capacity; Bonsai's 2-D Linear forward_pre_hook doesn't see them"
+blocker_3 = "40 tensors materialized as zeros + 80 unmatched tensors in packed_infer.load_packed_checkpoint — critical norms/biases silently lost"
+
+[experiments."roso-qwen3.6-35b-a3b-kaizen-260525".next_session_starting_point_v2]
+required_for_above_zero = "All three of: (1) wire gptq_block_cd into bonsai_calibrate.main() after Phase C OS, (2) MoE-aware Phase B+C+D (router top-k expert bucketing + per-expert activation), (3) post-quantize logit-KL distillation 1-2 epochs vs orig bf16. Without these, exact_match stays ~0 regardless of skip-pattern tuning."
+out_of_scope_acknowledgement = "Goal hook '1h で 1bit で元の qwen の bench に近づける' is empirically infeasible in current session — Bonsai-8B paper recovery applies to dense 8B with Phase D + multi-epoch KD; Qwen3.6-35B-A3B MoE raises the bar substantially. Durable artifacts: 26 per_shard W_q files + bonsai_calibrate.py + pack_calibrated.py + packed_minibench.py + bonsai_minibench.jsonl evidence."
+
