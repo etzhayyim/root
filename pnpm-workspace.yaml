@@ -65,3 +65,12 @@ packages:
 
   # etzhayyim-organism-viz Svelte frontend (ADR-2605221411)
   - "60-apps/etzhayyim-organism-viz/web"
+
+# pnpm overrides — dedupe onnxruntime-web to the version pinned by
+# @huggingface/transformers@3.8.1 (the larger 1.26.0 release is 25 MiB and hits
+# the Cloudflare Workers per-asset hard limit, blocking magatama-yoro deploy).
+# Two consumers in the yoro SPA bundle: (a) transformers (pinned to 1.22.0-dev),
+# (b) src/lib/provider/diffusion-worker.ts (only uses stable InferenceSession
+# API + type imports, compatible with 1.22.0-dev).
+overrides:
+  onnxruntime-web: "1.22.0-dev.20250409-89f8206ba4"
