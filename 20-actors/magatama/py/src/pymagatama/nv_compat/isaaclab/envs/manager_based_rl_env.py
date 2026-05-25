@@ -85,6 +85,8 @@ class ManagerBasedRLEnv:
         self._states_v: list = [CartpoleState() for _ in range(n)]
         self._steps_v: list = [0] * n
         self._rngs_v: list = [_Lcg(i) for i in range(n)]
+        # Per-env physics configs (sim2real DR). None = shared cfg path.
+        self._per_env_cfgs: Optional[list] = None
         # Back-compat: keep _state alias for num_envs==1 single-env path.
         self._state = self._states_v[0]
 
@@ -134,15 +136,44 @@ class ManagerBasedRLEnv:
         self._state = self._states_v[0]
         return out
 
+    def set_per_env_cfgs(self, cfgs: list) -> None:
+        """Install per-env physics configs (sim2real domain randomisation).
+
+        `cfgs` must be a list of length num_envs, each element a CartpoleConfig
+        (duck-typed: needs `cart_mass`, `pole_mass`, `pole_half_length`,
+        `gravity`, `force_mag`, `dt`). When installed, step_all() dispatches
+        each env against its own cfg. Mirrors
+        kami_shugyo::VectorizedCartpoleEnv::set_per_env_configs.
+        """
+        assert len(cfgs) == self.num_envs
+        self._per_env_cfgs = list(cfgs)
+
+    def clear_per_env_cfgs(self) -> None:
+        """Drop per-env DR; subsequent step_all() reverts to shared cfg."""
+        self._per_env_cfgs = None
+
+    def per_env_cfgs(self):
+        """Access the installed per-env cfgs (or None)."""
+        return self._per_env_cfgs
+
     def step_all(self, actions: list) -> list:
         """Vectorized step. `actions` is a list of length num_envs; returns
-        a list of dicts {observation, reward, terminated, truncated} per env."""
+        a list of dicts {observation, reward, terminated, truncated} per env.
+
+        Per-env physics configs (sim2real DR) honoured when installed via
+        set_per_env_cfgs(); otherwise shared `_cartpole_cfg` applies to all.
+        """
         assert len(actions) == self.num_envs
         out = []
         c = self.cfg
         for i in range(self.num_envs):
+            cfg_i = (
+                self._per_env_cfgs[i]
+                if self._per_env_cfgs is not None
+                else self._cartpole_cfg
+            )
             for _ in range(self.cfg.decimation):
-                cartpole_step(self._states_v[i], float(actions[i]), self._cartpole_cfg)
+                cartpole_step(self._states_v[i], float(actions[i]), cfg_i)
             self._steps_v[i] += self.cfg.decimation
             s = self._states_v[i]
             terminated = (
