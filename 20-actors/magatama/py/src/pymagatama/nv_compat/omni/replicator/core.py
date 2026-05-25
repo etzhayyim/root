@@ -376,8 +376,203 @@ class _BasicWriter:
         return path
 
 
+class _CocoWriter:
+    """Writes the COCO object-detection JSON format.
+
+    Mirrors `omni.replicator.core.writers.CocoWriter` (Omniverse Replicator
+    1.x docs). Produces a single `annotations.json` aggregating all frames
+    plus per-frame placeholder `rgb_{frame:04d}.json` (real PNG when kami-
+    render WGSL lands).
+
+    Annotation schema (COCO 2017 format):
+      images[]      = [{id, file_name, width, height}, ...]
+      annotations[] = [{id, image_id, category_id, bbox: [x,y,w,h],
+                        area: float, iscrowd: 0}, ...]
+      categories[]  = [{id, name, supercategory}, ...]
+    """
+
+    def __init__(self):
+        self._cfg = {}
+        self._output_dir: Optional[Path] = None
+        self._cameras: list = []
+        self._images: list = []
+        self._annotations: list = []
+        self._categories: dict = {}  # name -> id
+        self._next_ann_id = 0
+        self._next_cat_id = 0
+        self._width = 640
+        self._height = 480
+
+    def initialize(self, output_dir: str, rgb: bool = True,
+                   bounding_box_2d_tight: bool = True,
+                   semantic_segmentation: bool = False,
+                   image_width: int = 640, image_height: int = 480):
+        self._output_dir = Path(output_dir)
+        self._output_dir.mkdir(parents=True, exist_ok=True)
+        self._cfg = {
+            "rgb": rgb,
+            "bbox2d_tight": bounding_box_2d_tight,
+            "semantic": semantic_segmentation,
+        }
+        self._width = image_width
+        self._height = image_height
+
+    def attach(self, cameras: list):
+        self._cameras = list(cameras)
+
+    def _category_id(self, name: str, supercategory: str = "object") -> int:
+        if name not in self._categories:
+            self._categories[name] = self._next_cat_id
+            self._next_cat_id += 1
+        return self._categories[name]
+
+    def write_frame(self, frame_index: int, sample: dict) -> Path:
+        """Add this frame's image + annotations to the in-memory COCO struct."""
+        if self._output_dir is None:
+            raise RuntimeError("CocoWriter.initialize() first")
+        # Image entry
+        file_name = f"rgb_{frame_index:04d}.png"
+        self._images.append({
+            "id": frame_index,
+            "file_name": file_name,
+            "width": self._width,
+            "height": self._height,
+        })
+        # Placeholder per-frame JSON (real PNG with kami-render at R1.4)
+        path = self._output_dir / f"rgb_{frame_index:04d}.json"
+        path.write_text(json.dumps({"frame": frame_index, "sample": sample}, indent=2))
+
+        # Annotations from sample primitives with semantics.
+        for prim in sample.get("primitives", []):
+            sem_list = prim.get("semantics") or []
+            if not sem_list:
+                continue
+            # Replicator semantics format: [("class", "cube"), ("color", "red"), ...]
+            class_name = None
+            for tup in sem_list:
+                if isinstance(tup, (list, tuple)) and len(tup) == 2 and tup[0] == "class":
+                    class_name = tup[1]
+                    break
+            if class_name is None:
+                continue
+            cat_id = self._category_id(class_name)
+            # Placeholder bbox: full image (real bbox from camera projection of prim).
+            bbox = [0, 0, self._width, self._height]
+            self._annotations.append({
+                "id": self._next_ann_id,
+                "image_id": frame_index,
+                "category_id": cat_id,
+                "bbox": bbox,
+                "area": float(bbox[2] * bbox[3]),
+                "iscrowd": 0,
+            })
+            self._next_ann_id += 1
+        return path
+
+    def finalize(self) -> Path:
+        """Emit the aggregate annotations.json file."""
+        if self._output_dir is None:
+            raise RuntimeError("CocoWriter.initialize() first")
+        ann_path = self._output_dir / "annotations.json"
+        categories = [
+            {"id": cid, "name": name, "supercategory": "object"}
+            for name, cid in sorted(self._categories.items(), key=lambda x: x[1])
+        ]
+        ann_path.write_text(json.dumps({
+            "info": {"description": "kami-replicator (nv_compat) COCO output",
+                     "version": "1.0", "year": 2026},
+            "images": self._images,
+            "annotations": self._annotations,
+            "categories": categories,
+        }, indent=2))
+        return ann_path
+
+
+class _KittiWriter:
+    """Writes Kitti label .txt format (per-frame, one line per object).
+
+    Mirrors `omni.replicator.core.writers.KittiWriter` (Omniverse Replicator
+    1.x docs). One file per frame: `{frame:06d}.txt`.
+
+    Per-line schema (Kitti 3D object detection):
+      type  truncated  occluded  alpha  bbox_left bbox_top bbox_right bbox_bottom
+      dim_h dim_w dim_l  loc_x loc_y loc_z  rotation_y
+    """
+
+    def __init__(self):
+        self._cfg = {}
+        self._output_dir: Optional[Path] = None
+        self._cameras: list = []
+
+    def initialize(self, output_dir: str, rgb: bool = True,
+                   bounding_box_3d: bool = True,
+                   semantic_segmentation: bool = False,
+                   image_width: int = 1242, image_height: int = 375):
+        self._output_dir = Path(output_dir)
+        # Kitti convention: image_2/, label_2/ subdirs
+        (self._output_dir / "image_2").mkdir(parents=True, exist_ok=True)
+        (self._output_dir / "label_2").mkdir(parents=True, exist_ok=True)
+        self._cfg = {
+            "rgb": rgb,
+            "bbox3d": bounding_box_3d,
+            "semantic": semantic_segmentation,
+        }
+        self._width = image_width
+        self._height = image_height
+
+    def attach(self, cameras: list):
+        self._cameras = list(cameras)
+
+    def _format_line(self, prim: dict) -> Optional[str]:
+        sem_list = prim.get("semantics") or []
+        class_name = None
+        for tup in sem_list:
+            if isinstance(tup, (list, tuple)) and len(tup) == 2 and tup[0] == "class":
+                class_name = tup[1]
+                break
+        if class_name is None:
+            return None
+        # Default 3D bbox values; real values come from camera + scene at R1.4.
+        truncated, occluded, alpha = 0.0, 0, 0.0
+        bbox = [0.0, 0.0, float(self._width), float(self._height)]
+        dim_h, dim_w, dim_l = 1.0, 1.0, 1.0
+        # If primitive carries explicit position/rotation, use it for loc/rot.
+        position = prim.get("position", [0.0, 0.0, 10.0])
+        loc_x, loc_y, loc_z = float(position[0]), float(position[1]), float(position[2])
+        rotation_y = float(prim.get("rotation_y", 0.0))
+        return (
+            f"{class_name} {truncated:.2f} {occluded} {alpha:.2f} "
+            f"{bbox[0]:.2f} {bbox[1]:.2f} {bbox[2]:.2f} {bbox[3]:.2f} "
+            f"{dim_h:.2f} {dim_w:.2f} {dim_l:.2f} "
+            f"{loc_x:.2f} {loc_y:.2f} {loc_z:.2f} {rotation_y:.2f}"
+        )
+
+    def write_frame(self, frame_index: int, sample: dict) -> Path:
+        if self._output_dir is None:
+            raise RuntimeError("KittiWriter.initialize() first")
+        label_path = self._output_dir / "label_2" / f"{frame_index:06d}.txt"
+        lines = []
+        for prim in sample.get("primitives", []):
+            line = self._format_line(prim)
+            if line is not None:
+                lines.append(line)
+        label_path.write_text("\n".join(lines) + ("\n" if lines else ""))
+        # Placeholder image (real PNG at R1.4).
+        img_path = self._output_dir / "image_2" / f"{frame_index:06d}.json"
+        img_path.write_text(json.dumps({"frame": frame_index, "placeholder": True}))
+        return label_path
+
+    def finalize(self) -> None:
+        """Kitti has no aggregate file; per-frame is canonical."""
+        pass
+
+
 class _WriterRegistry:
-    _writers: dict = {"BasicWriter": _BasicWriter}
+    _writers: dict = {
+        "BasicWriter": _BasicWriter,
+        "CocoWriter": _CocoWriter,
+        "KittiWriter": _KittiWriter,
+    }
 
     @classmethod
     def get(cls, name: str):
