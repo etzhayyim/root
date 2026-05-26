@@ -5592,6 +5592,121 @@ status = "r2.0-deliverable"
 description = "Operator runbook for first RunPod B200 train session post amendment effective. Steps: pre-flight checks (Charter Rider scan dataset CIDs, attestation publish dryRun verify) → provisioning (RunPod web UI or API) → train invocation (configs/r2-iter01.yaml) → checkpoint fetch (rsync from rental) → IPFS pin on mac-260317 → fleet eval → commit_gate → cost log emit → instance terminate. Covers both success path + failure recovery (cost budget overrun → hard-kill / engineering failure → abort + cost log emit with commitDecision=aborted-engineering-failure)."
 
 
+# ─── Public-data ingestion for the artificial-organism ecosystem via IPFS-pinned DataLad subdatasets (ADR-2605262400) ──
+
+[[adrs]]
+id = "2605262400"
+title = "Public-data ingestion for the artificial-organism ecosystem via IPFS-pinned DataLad subdatasets (OSM / RIR / GeoLite2 / BGP / DNS / Web-graph) — passive-only perception sensors + cold-path training corpus, Tier-A/Tier-C ladder with G13 fleet-internal NC carve-out"
+status = "proposed"
+status_note = "Single SoT for how pymagatama.organism actors consume large public-domain corpora (OSM Planet, RIR delegated stats, MaxMind GeoLite2, RIPE-RIS / Routeviews BGP MRT dumps, IANA root zone, Rapid7 Sonar FDNS, OpenINTEL, CAIDA AS-rank, Common Crawl URL index, CZDS per-TLD opt-in zones) without violating substrate boundary. Two-path split: (A) PERCEPTION = hot-path heartbeat sensors resolve latest datasetPin CID → bounded in-memory hot_sample(n) → InboxBuffer push (tier flag) → joucho 情緒 → cadence flag; (B) TRAINING = cold-path corpus-recipe.toml → assemble-public-corpus.py → multi-source IPFS-CID resolve + Charter §2 + PII re-scan + NDJSON shard write → IPFS-pinned corpus subdataset → baien-moemoekyun-train SFT / baien-distill on Murakumo fleet → R1.5-style eval-gated commit_node. License ladder: Tier A (OSM ODbL / GeoNames CC-BY / Wikidata CC0 / RIR public / IANA public / GeoLite2 CC-BY-SA / RIPE-RIS / Routeviews) publishable; Tier C (Rapid7 Sonar / OpenINTEL / CAIDA / Common Crawl / CZDS = CC-BY-NC) admitted under G13 fleet-internal carve-out — `-nc-` infix mandatory + judah LiteLLM + SBT-gate only (same pattern as ADR-2605262100 R1.4). DatasetSensor Protocol in pymagatama.organism.sensors.* with W1 implementations osm_region_sensor / rir_delegated_sensor / geolite2_sensor / ris_routing_sensor / iana_root_sensor; tier='C' Observations carry internal_only=True flag that PostSink drops on external paths. 3 new KaizenObserver rules R7 (stale-sensor-pin) / R8 (charter-fail-rate >5% / 24h) / R9 (tier-c-leak backstop = critical = halts cell + Council Lv6+ escalation). PII filter (pii_filter.py) precedes Charter Rider §2 scan; redacts emails / E.164 / postal addresses / WHOIS registrant blocks in place on the redacted view (annex bytes preserved). PASSIVE-ONLY discipline per user decision 2026-05-26: organisms MUST NOT perform live DNS resolution / port probes / traceroute / WHOIS / RDAP / DoH against third parties (CHARTER-RIDER §2(c) covert-ops avoidance); only pre-published public archives. Inference UNCHANGED Murakumo-only per ADR-2605215000; train-rental amendment ADR-2605262200 independent. 14 gates G1..G14 (Charter scan + PII filter + replicationMin:2 + tier-C drop + `-nc-` infix + SBT-gate + Murakumo-only + no-active-probe lint + hot_sample determinism + recipe-in-git + ≤5% FP / 24h + cadence-respect + datasetPin mandatory + manifest append). 12 non-goals N1..N12 (N1 NOT live DNS/IP/BGP probing / N2 NOT WHOIS query engine / N3 NOT port-scan / N4 NOT route-hijack detector / N5 NOT NetFlow collector / N6 NOT tor harvester / N7 NOT alt resolver / N8 NOT new substrate engine / N9 NOT Tier-D vendor feeds / N10 NOT commercial GPU rental / N11 NOT cross-religious-corp federation / N12 NOT maps_sentinel_murakumo M1 replacement). 4-wave delivery: W0 = this ADR (proposed-status + deps.toml + README + CLAUDE.md row) / W1 = Tier-A foundations (RIR / GeoLite2 / IANA + 3 sensors + PII first cut + R7-9 Kaizen rules; 2-3 days) / W2 = Routing (RIPE-RIS / Routeviews + 2 sensors; 2-3 days) / W3 = Tier-C NC carve-out (Rapid7 / OpenINTEL / CAIDA + G13 enforcement + R9 leak-test harness; 3-4 days) / W4 = CZDS per-TLD + Common Crawl CDX (per-TLD individual Council attestation)."
+path = "90-docs/adr/2605262400-public-data-organism-ipfs-ingestion.md"
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/rir_delegated.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w1-deliverable"
+description = "Fetcher for 5 RIR delegated stats archives (APNIC / ARIN / RIPE / AFRINIC / LACNIC). Daily-cadence; public-domain de facto; Tier A. Output: NDJSON shards of (prefix, cc, allocated_at, holder_opaque_id) rows. Plugs into `e7m-dataset pull rir --rir <apnic|arin|ripe|afrinic|lacnic>` and `e7m-dataset add` chain."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/maxmind_geolite.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w1-deliverable"
+description = "Fetcher for MaxMind GeoLite2 City / Country / ASN MMDB. Monthly-cadence; CC-BY-SA 4.0; Tier A (SA-derivative — propagates to corpus license tagging). Output: MMDB files preserved as annex objects; sensor reads via maxminddb-rust or maxminddb-python."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/iana_root.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w1-deliverable"
+description = "Fetcher for IANA root zone snapshot. Daily-cadence; public-domain; Tier A. Output: zone-file text + NDJSON parse of (tld, ns, ds, expires) tuples."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/ripe_ris.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w2-deliverable"
+description = "Fetcher for RIPE NCC RIS MRT dumps (8-hourly per collector rrc00..rrc26). Open under RIPE TOU; Tier A. Output: raw MRT preserved as annex; sensor reads via `mrtparse` / `bgpdump`."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/routeviews.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w2-deliverable"
+description = "Fetcher for University of Oregon Routeviews MRT archives. Open under UO TOU; Tier A. Sibling to ripe_ris.py."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/rapid7_sonar.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w3-deliverable-tier-c-g13"
+description = "Fetcher for Rapid7 Open Data Sonar FDNS archives (research-use accept-terms required). Tier C — admitted under G13 fleet-internal carve-out. Requires acceptance flag at `~/.etzhayyim/source-acceptance/rapid7-open-data.toml` before fetch will run. PII filter pii_sensitive=true default (some TXT records contain user emails)."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/openintel.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w3-deliverable-tier-c-g13"
+description = "Fetcher for OpenINTEL DNS active-measurement Parquet archives (Tranco 1M default; per-TLD optional). CC-BY-NC 4.0; Tier C; G13 fleet-internal. PII filter pii_sensitive=true default."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/caida.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w3-deliverable-tier-c-g13"
+description = "Fetcher for CAIDA AS-rank / prefix2as / AS-relationship datasets. CC-BY-NC; Tier C; G13 fleet-internal. PII filter pii_sensitive=false."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/czds.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w4-deliverable-per-tld-opt-in"
+description = "Fetcher for ICANN CZDS per-TLD zone files. Per-TLD agreement (Tier C or D depending on TLD). Per-TLD Council attestation required before any TLD is enabled. Acceptance flag at `~/.etzhayyim/source-acceptance/czds-<tld>.toml` AND a Council attestation Lexicon record both required."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/commoncrawl_cdx.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w4-deliverable-tier-c-g13"
+description = "Fetcher for Common Crawl URL index (CDX). Tier C; G13 fleet-internal. PII filter pii_sensitive=true (CDX records can contain user-bearing URLs)."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/base.py"
+adr = "ADR-2605262400"
+kind = "sensor-protocol"
+status = "w1-deliverable"
+description = "DatasetSensor Protocol + Observation + DatasetPin types + PiiFilterPolicy enum. Sensor implementations under same package: osm_region_sensor.py / rir_delegated_sensor.py / geolite2_sensor.py / ris_routing_sensor.py / iana_root_sensor.py. UnispscOrganism.__init__ accepts sensors=[]; tick() polls each sensor at its refresh_cadence_sec and pushes Observations into InboxBuffer with tier flag + internal_only flag for tier='C'."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/pii_filter.py"
+adr = "ADR-2605262400"
+kind = "pii-redaction"
+status = "w1-deliverable"
+description = "PII redaction module that precedes the Charter Rider §2 scan. Wave-1 scope: email addresses (RFC-5321 grammar) / E.164 phone numbers / postal addresses with country code (heuristic, conservative over-redaction) / WHOIS registrant blocks (registrant: / tech-c: / admin-c: lines). Redacts in place; original bytes preserved in annex. STRICT policy default."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/scripts/assemble-public-corpus.py"
+adr = "ADR-2605262400"
+kind = "corpus-assembler"
+status = "w1-deliverable"
+description = "Cold-path corpus assembler. Input: corpus-recipe.toml (per target artifact, declares sources with subdataset + datasetPin_at + shard_glob + tier + weight). Resolves every datasetPin → IPFS CID map, applies Charter Rider §2 + PII re-scan, computes max tier across sources, enforces `-nc-` infix if any source.tier == 'C', emits NDJSON shards into training/corpora/<name>/, DataLad save + annex copy + publish-ipfs + datasetPin emit. Output corpus is itself an IPFS-pinned subdataset and is what baien-distill / baien-moemoekyun-train consumes."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/recipes/"
+adr = "ADR-2605262400"
+kind = "corpus-recipes"
+status = "w1-deliverable"
+description = "Committed corpus-recipe.toml files. Each recipe IS the audit trail for which dataset CIDs went into which trained artifact. W1 recipes: tier-a-netreg-foundations.toml; W2 recipes: tier-a-routing.toml; W3 recipes: tier-c-dns-graph-nc.toml (must carry `-nc-` infix in target_artifact); W4 recipes: per-TLD CZDS + Common Crawl with explicit Council attestation cross-ref."
+
+[[modules]]
+path = "70-tools/scripts/lint/sensor-no-active-probe.mjs"
+adr = "ADR-2605262400"
+kind = "lefthook-lint"
+status = "w1-deliverable"
+description = "Lint hook (G8 enforcement). Scans pymagatama.organism.sensors.* for forbidden imports/calls: socket / dnspython / aiodns / requests-cache against arbitrary external hosts / paramiko / nmap / scapy. Allow-list only the religious-corp DID infrastructure hosts (etzhayyim.com, pds.etzhayyim.com, dataset-pinner.etzhayyim.com, 127.0.0.1, 192.168.1.70 LAN). Fail-closed on violation."
+
+
 # ─── kotoba storage substrate unification R0 (ADR-2605262130) ──
 
 [[adrs]]
