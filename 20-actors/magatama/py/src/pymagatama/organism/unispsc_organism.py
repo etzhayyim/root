@@ -27,7 +27,10 @@ from pymagatama.organism.inbox import (
     FollowerReward,
     InboxBuffer,
 )
-from pymagatama.organism.joucho import JouchoScores
+from pymagatama.organism.joucho import (
+    JouchoScores,
+    apply_sensor_delta,
+)
 from pymagatama.organism.sensors.base import DatasetSensor, SensorObservation
 
 
@@ -239,14 +242,34 @@ class UnispscOrganism:
         a follow-up wave).
         """
         self.tick_count += 1
+        tick_obs: list[SensorObservation] = []
         if self.sensors:
-            self.poll_sensors(now_ms)
+            tick_obs = self.poll_sensors(now_ms)
+        # Per ADR-2605262400 §4.3 Wave-2: wrap the caller's joucho
+        # provider with a sensor-aware augmenter so the just-gathered
+        # observations bias mood incrementally.
+        tier_a_count = sum(1 for o in tick_obs if o.tier == "A")
+        tier_c_count = sum(1 for o in tick_obs if o.tier == "C")
+        leak_count = 0  # TierGate integration is wave-3 of §4.3
+        base_provider = self.joucho_provider
+
+        def _augmented_joucho(did: str) -> JouchoScores:
+            base = base_provider(did) if base_provider else JouchoScores()
+            if tier_a_count == 0 and tier_c_count == 0 and leak_count == 0:
+                return base
+            return apply_sensor_delta(
+                base,
+                tier_a_obs_count=tier_a_count,
+                tier_c_obs_count=tier_c_count,
+                leak_attempts=leak_count,
+            )
+
         cadence = resolve_heartbeat_cadence(
             self.actor_did,
             self.cadence_state,
             self.inbox,
             now_ms=now_ms,
-            joucho_provider=self.joucho_provider,
+            joucho_provider=_augmented_joucho if self.sensors else self.joucho_provider,
             follower_score_provider=self.follower_score_provider,
         )
 
