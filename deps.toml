@@ -6967,6 +6967,20 @@ status = "proposed-pending-council-ratification"
 status_note = "NaS molten-salt (300-350°C, open-formula β″-Al₂O₃ ceramic electrolyte) ≤500 kWh/facility ≤2.5 MWh aggregate R3. NGK Insulators commercial NAS modules ABSOLUTELY PROHIBITED (effective monopoly + closed IP). Mandatory thermal-runaway containment + Class D fire-suppression + ≥4500-cycle attestation. Niche-fit 6-24 hr discharge multi-day-bridging."
 path = "90-docs/adr/2605265700-sodium-sulfur-battery-d-gate-evaluation-r0.md"
 
+[[adrs]]
+id = "2605265800"
+title = "High-temperature heat pump (HTHP, ≤200°C delivery) — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Natural-refrigerant HTHP (CO₂ R-744 ≤90°C / NH₃ R-717 ≤110°C via 2605263700 / steam R-718 MVR ≤200°C) ≤500 kW/facility ≤2.5 MW aggregate R3 conditional permit; 3-5× efficiency multiplier vs direct electric resistive for industrial process heat. HFC refrigerants (R-134a / R-32 / R-410A / R-22) ABSOLUTELY PROHIBITED on D3 GWP grounds. HFO refrigerants (1234yf / 1233zd, GWP <10) DEFERRED R4+ pending TFA atmospheric stability. Heat-source pairing matrix: DAC regen / CPV cooling / biomethane CHP / geothermal flash. Cross-actor heat-network 2605265000 integration. Steam-MVR variant decarbonizes industrial process steam ≤200°C."
+path = "90-docs/adr/2605265800-high-temperature-heat-pump-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605265900"
+title = "Synthetic natural gas (SNG / Sabatier methanation) — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Sabatier (CO₂ + 4H₂ → CH₄ + 2H₂O over Ni/γ-Al₂O₃ public-domain since 1902) from green H₂ (2605263600) + DAC CO₂ (2605264600) — COMBINED biomethane+SNG aggregate cap ≤200 Nm³/day R3 (no scale creep beyond existing CH₄ ceiling). SNG from commercial CO₂ (industrial flue / NH₃ byproduct) ABSOLUTELY PROHIBITED (D1+D3+§2(d)). Pathway selection Council Lv6+ ≥3 quarterly: biomethane primary (waste streams) / Sabatier when exhausted OR dispatchable OR surplus H₂+DAC. Exothermic ΔH = -165 kJ/mol ~10 MJ/kg-CH₄ heat byproduct closes DAC↔Sabatier outer loop + feeds district network 2605265000 + biomethane digester thermophilic + HTHP 2605265800. Water byproduct ~2.25 kg-H₂O/kg-CH₄ → mizuho process water OR electrolyzer feedstock (closes green-H₂ water loop). Ni catalyst open-formula MANDATORY — Johnson Matthey HiFUEL R110 PROHIBITED."
+path = "90-docs/adr/2605265900-sng-methanation-sabatier-d-gate-evaluation-r0.md"
+
 
 
 # ─── baien ameno WGSL BitLinear numeric test R1a (ADR-2605263400) ──
