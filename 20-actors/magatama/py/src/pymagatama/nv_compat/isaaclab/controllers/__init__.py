@@ -7,17 +7,25 @@ joint-space deltas (or torques) for downstream `JointPositionAction` /
 
 R1.x scope:
   - DifferentialIKController — Jacobian-based IK (damped least squares /
-    pseudoinverse) for arm reaching tasks. The canonical Isaac Lab API for
-    manipulators; pairs with iter 40's JointPositionAction.
+    pseudoinverse) for arm reaching tasks. Pairs with JointPositionAction.
+  - OperationalSpaceController — task-space torque control via Cartesian
+    impedance + Jacobian transpose + null-space projection. Pairs with
+    JointEffortAction directly.
 
 Future R1.x adds:
-  - OperationalSpaceController (OSC) — task-space torque control
-  - ImpedanceController         — Cartesian stiffness/damping
+  - ImpedanceController — Cartesian stiffness/damping with mass matrix
 """
 
 from .differential_ik import (
     DifferentialIKController,
     DifferentialIKControllerCfg,
 )
+from .operational_space import (
+    OperationalSpaceController,
+    OperationalSpaceControllerCfg,
+)
 
-__all__ = ["DifferentialIKController", "DifferentialIKControllerCfg"]
+__all__ = [
+    "DifferentialIKController", "DifferentialIKControllerCfg",
+    "OperationalSpaceController", "OperationalSpaceControllerCfg",
+]
