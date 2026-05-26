@@ -122,12 +122,15 @@ payment_rule_adr = "2605172100"
 identity_substrate = ["did:web:etzhayyim.com", "did:plc", "WebAuthn passkey", "Coinbase Smart Wallet"]
 auth_substrate = ["DID-bound signature", "WebAuthn", "passkey"]
 sdk_seam = "@etzhayyim/sdk (20-actors/etzhayyim-sdk/) — only seam allowed to import substrate clients"
-holochain_iso = "yatachain"   # ADR-2605231400 — canonical name for the Holochain-isomorphic composition of the substrate primitives above
-holochain_iso_spec = "10-protocol/yatachain/SPEC.md"
-holochain_iso_adr = "2605231400"
-holochain_iso_projection_adr = "2605231500"          # derived read-path rules (when RW / Lance / Iroh / index are permitted)
-holochain_iso_engine_exploration_adr = "2605232300"  # EXPLORATORY only — engine selection (Hummock fork / RW fork / GraphAr+MV no-fork) deferred pending Council multisig post 2026-06-19
-holochain_iso_engine_decision = "deferred"
+substrate_engine = "kotoba"               # ADR-2605262130 — canonical storage substrate engine (40-engine/kotoba; 17 crates Apache-2.0)
+substrate_engine_adr = "2605262130"
+substrate_engine_path = "40-engine/kotoba"
+holochain_iso = "yatachain"               # SUPERSEDED by ADR-2605262130; retained as historical name; 10-protocol/yatachain/SPEC.md has deprecation banner (Phase 0.5)
+holochain_iso_spec = "10-protocol/yatachain/SPEC.md"  # DEPRECATED 2026-05-26; retained one R-cycle then archived
+holochain_iso_adr = "2605231400"          # SUPERSEDED by 2605262130
+holochain_iso_projection_adr = "2605231500"          # SUPERSEDED by 2605262130 (no projection layer; kotoba-kqe arrangements serve hot-path reads directly)
+holochain_iso_engine_exploration_adr = "2605232300"  # SUPERSEDED by 2605262130 (engine chosen = kotoba)
+holochain_iso_engine_decision = "kotoba"  # closed by ADR-2605262130
 
 # ── No-Server-Key posture (ADR-2605231525, Council ratify pending) ──
 # etzhayyim-operated infrastructure holds zero signing capability.
@@ -152,7 +155,7 @@ server_key_forbidden_env = [
 ]
 server_key_allowed_surfaces = [
   "com.atproto.sync.subscribeRepos (read-only firehose)",
-  "yatachain-projection L0 indexer (regenerable from MST + IPFS + Base L2 anchor)",
+  "kotoba-kqe arrangement indexer (EAVT/AEVT/AVET/VAET; regenerable from MST + IPFS + Base L2 anchor; per ADR-2605262130 — supersedes yatachain-projection L0 indexer carve-out)",
   "Public DID Document serving (document itself signed off-line by Council Safe + committed to repo)",
   "Lexicon publication (00-contracts/lexicons/**/*.json as static assets)",
   "Contract verification via read-only Base L2 RPC",
@@ -1148,8 +1151,9 @@ path = "90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md"
 
 [[adrs]]
 id = "2605232300"
-title = "yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork)"
-status = "proposed"
+title = "yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262130)"
+status = "superseded"
+superseded_by = "2605262130"
 authoritative = false
 status_note = "EXPLORATORY ONLY — NOT ADOPTED. Captures numerical comparison of 4 options for the yatachain projection engine layer: (A) Hummock fork as yata-slate (150-230K new LOC, 44-67 person-months, completion risk 50%, strategic independence ★★★), (B) RisingWave full fork as yata-wave (57-99K new LOC, 20-29 person-months, completion risk 85%, strategic independence ★), (D) RW upstream + Apache GraphAr + MV with no fork — 'yatabase' configuration (30-50K new LOC, 20-32 person-months, completion risk 90-95%, strategic independence ★★, 7-axis weighted score 8.4/10 = numerically dominant). (C) SlateDB fork rejected early — pure KV LSM lacks Pregel epoch semantics required for LangGraph super-step / Hummock barrier isomorphism. (E) Lance dropped per user direction. Bulk graph frameworks surveyed and triaged: Apache Giraph ✗ dormant, Spark GraphX ✗ deprecated, Spark GraphFrames △ overkill, Apache HAMA ✗ Attic, NVIDIA cuGraph ✗ CUDA-only (Mac Silicon incompatible), GraphScope △ Stage-2 candidate via GraphAr external connection, timely-dataflow △ research, Materialize ✗ BSL incompatible with Charter Rider. 5 strategic findings recorded: (1) Hummock epoch = LangGraph Pregel super-step internal isomorphism, (2) Mac Silicon unified memory forces CPU/GPU per-node co-location not either/or, (3) data sovereignty achievable without engine fork via GraphAr/Parquet open format, (4) GraphAr append-only chunk semantics integrate with MST immutability, (5) options compose evolutionary D→D+plugin→D+B-partial→A across 2026-2029+. 7 open questions deferred (GraphAr religious-corp extension upstream contribution, witness quorum + GraphAr chunk hash unification, Arrow Flight UDF server topology for 18,345 agents, GraphQL Subscription / barrier alignment, MLX production stability benchmark, Lance re-introduction conditions, Solidity Base L2 event → RW source connector). Decision deferred pending: Council 5-of-7 multisig (post-2026-06-19), GraphAr Apache Incubator graduation outlook, Mac Silicon MLX production benchmark, religious-corp constitutional weight on engine ownership vs format ownership. Future decision ADR will reference this as input."
 path = "90-docs/adr/2605232300-yatachain-engine-options-exploration.md"
@@ -1165,8 +1169,9 @@ related = ["2605231300", "2605232500"]
 
 [[adrs]]
 id = "2605232400"
-title = "yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure"
-status = "active"
+title = "yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure (SUPERSEDED by 2605262130 for substrate; SDK API surface preserved bit-identically)"
+status = "superseded"
+superseded_by = "2605262130"
 status_note = "Closes the last two substrate-boundary gaps that survived the 2026-05-23 yatachain wave. (1) Adds a cross-language Tier D blob upload primitive — `Etzhayyim.uploadBlob({data, mediaType?})` in `@etzhayyim/sdk` (TS, wraps the existing `pinBlob` against Kubo `/api/v0/add?pin=true&cid-version=1`) and `Etzhayyim.upload_blob(data, media_type=?)` in `pymagatama.substrate` (Python, httpx multipart) — with a bit-identical `{cid,sizeBytes,mediaType}` receipt shape and 7 vitest + 6 pytest covering empty-payload / missing-apiUrl rejection / NDJSON last-line parsing / 5xx surfacing / mediaType default + Blob.type derivation / trailing-slash normalisation. (2) Wires the primitive through `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_train_dumper.py` via a new `_blob_upload` / `_blob_download` dispatch behind `USE_PYMAGATAMA_SUBSTRATE_BLOB=1` — train side pins PLY (and GLB on the bake path) through `pymagatama.substrate.upload_blob` and writes `ipfs://{cid}` URIs into `vertex_maps_gsplat_{asset,mesh}.b2_key` instead of B2 keys; bake side branches on the `ipfs://` scheme via Kubo `/api/v0/cat`; the legacy B2 path stays bit-for-bit identical when the flag is off so blue/green cutover is non-disruptive. Boot guard relaxed: `B2_*` becomes optional when the flag is set, replaced by `ETZ_IPFS_API_URL` requirement. (3) Completes the yoro `@atproto/api` → `@etzhayyim/sdk/atproto` facade migration — 6 callsites rewritten (lib/atproto-agent.ts, lib/superapp/messaging-client.ts, lib/translate/client.ts, lib/mcp/client.ts, lib/actor/ActorEmbed.svelte, routes/moderation/blocked-accounts/+page.svelte); `@etzhayyim/sdk` added as a workspace dependency on `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/package.json`; `pnpm check:ts` clean. SDK test count: 111 → 118 (+7 vitest), pymagatama.substrate 18 → 24 (+6 pytest). Tier A + Tier B + Tier D are now end-to-end SDK-mediated; Tier C / projection remains the ADR-2605222330 carve-out until the projection-sweep ADR ships. Backfill of existing B2 blobs into IPFS pins and the browser-side gsplat loader URL swap remain follow-ups in maps MIGRATION-TODO Phase 2."
 path = "90-docs/adr/2605232400-yatachain-tier-d-blob-substrate-closure.md"
 depends_on = ["2605172000", "2605231400", "2605231500", "2605241500"]
@@ -2541,9 +2546,10 @@ adr = ["2605192415", "2605192100", "2605192115", "2605192130", "2605192200", "26
 path = "10-protocol/yatachain"
 kind = "protocol-spec"
 version = "0.0.0"
-status = "spec-scaffold"
-description = "yatachain — canonical name for the Holochain-isomorphic composition of substrate primitives mandated by ADR-2605172000. 7-layer mapping: yatachain-agent (DID+passkey+SBT) / yatachain-chain (PDS MST) / yatachain-dht (IPFS+L2 anchor) / yatachain-membrane (Lexicon+Rego+LangGraph) / yatachain-witnesses (Pregel cells, quorum ≥3-of-5) / yatachain-cap (atproto JWT+WebAuthn) / yatachain-cells (Pregel cells per ADR-2605192415). Spec-only directory — implementations live in 50-infra/, 20-actors/, 00-contracts/ per the existing layer trees. Naming: single-token lowercase 'yatachain'; hyphenated 'yata-chain' prohibited to avoid shadow of yata-* Cargo workspace crate convention in 50-infra/yata/. Distinct from yata (LanceDB graph engine) and yatabase (commercial BaaS) despite shared 八- family prefix. Projection engine selection is OPEN — see ADR-2605232300 (exploratory comparison of Hummock-fork / RW-fork / GraphAr+MV no-fork options); engine decision deferred pending Council 5-of-7 multisig post 2026-06-19."
-adr = ["2605231400", "2605172000", "2605181100", "2605192100", "2605192415", "2605232300"]
+status = "deprecated-superseded-by-2605262130"
+superseded_by = "2605262130"
+description = "DEPRECATED 2026-05-26 — Superseded by ADR-2605262130 (Kotoba as Canonical Storage Substrate). Originally named the Holochain-isomorphic composition of substrate primitives mandated by ADR-2605172000. The composition spec was a placeholder; kotoba (40-engine/kotoba/, 17 crates Apache-2.0) is the concrete first-party engine that ships the actual primitives natively, eliminating the composition spec as a separate artifact and eliminating the projection layer entirely (kotoba-kqe arrangements EAVT/AEVT/AVET/VAET serve hot-path reads directly over content-addressed blocks). Retained as historical reference for one R-cycle (~30 days) per ADR-2605262130 Phase 0.5; SPEC.md carries a deprecation banner; will be archived after the R-cycle. No new code references this spec."
+adr = ["2605262130", "2605231400", "2605172000", "2605181100", "2605192100", "2605192415", "2605232300"]
 
 [[modules]]
 path = "90-docs/baien/datasets"
@@ -5537,3 +5543,81 @@ kind = "model-registry"
 status = "r1.5-deliverable"
 description = "moemoekyun adapter / merged checkpoint registry (sibling of distilled-models.jsonl per ADR-2605231300 §3). Separate from distilled-models.jsonl because moemoekyun has G12 SBT-gated inference policy + G13 distribution boundary."
 
+# ─── kotoba storage substrate unification R0 (ADR-2605262130) ──
+
+[[adrs]]
+id = "2605262130"
+title = "Kotoba as Canonical Storage Substrate — supersedes yatachain composition + projection layers; no RisingWave"
+status = "proposed"
+supersedes = ["2605231400", "2605231500", "2605232300", "2605232400", "2605101000"]
+status_note = "Engine-layer charter that names **kotoba** (17-crate first-party Apache-2.0 Rust workspace at github.com/etzhayyim/kotoba) as the canonical religious-corp storage substrate engine. Imported as `git subrepo` at `40-engine/kotoba/` (upstream commit `128a89d0e`). yatachain composition (ADR-2605231400), yatachain-projection rules (ADR-2605231500), RW-free invariant (ADR-2605172000), payments on-chain (ADR-2605172100), on-chain land / SBT / Council / Public Fund / Force Authorization / Tithe ledger (ADRs 2605192245 / 192300 / 192315 / 192145 / 192130), and `app.etzhayyim.encrypted.*` wire format (ADR-2605181100 + 181200) ALL unchanged. **8 constitutional carve-outs D1..D8**: D1 Apache 2.0 + Charter Rider v2.0 applied to all 17 crates (Phase 1 deliverable) / D2 `kotoba-llm` local-inference (`metal` / `infer_gpu` / `train_gpu` / `gemma` / `kvcache` / `lora` / `weight` / direct candle linkage) constitutionally DISABLED in religious-corp callable paths; `kotoba-llm` permitted only as **routing facade** to Murakumo gateway (LiteLLM 127.0.0.1:4000 / EVO-X2 LAN 192.168.1.70 per-node Ollama gemma3:4b) per ADR-2605215000 + Charter Rider §2(i) / D3 `kotoba-server` holds NO platform private key per ADR-2605231525 (read-only RPC + IPFS pin + static asset serve only; `// no-server-key: read-only` line marker required) / D4 `kotoba-store` `TieredBlockStore` S3 backend NOT primary write store for land registry / SBT roster / Council attestation / Public Fund accounting / Tithe ledger / Force Authorization records (on-chain stays on-chain) / D5 substrate boundary preserved: kotoba lives BEHIND `@etzhayyim/sdk` shim, never imported directly from `60-apps/*` (substrate-boundary linter Phase 5) / D6 `kotoba-crypto` + `kotoba-signal` re-implement `app.etzhayyim.encrypted.*` envelope **bit-identical** to ADR-2605181100 wire format (Phase 5 test vector suite gate) / D7 yatachain composition unchanged / D8 witness quorum + attestation unchanged. **Mapping table (14 rows)** = every current storage primitive → one kotoba crate + migration phase + constitutional cross-ref. **Phased rollout R0..R7**: Phase 0 = this ADR + subrepo import (zero code change under `40-engine/kotoba/`). Phase 1 = `kotoba-store` + `kotoba-core` + Charter Rider applied + SDK block_store shim shadow mode 30 day ≥99.9% byte-equality vs ipfs-pinner. Phase 2 = `kotoba-kqe` 4-index arrangement (EAVT / AEVT / AVET / VAET) + `kotoba-graph` Commit DAG; **tonbo retire window 30 day**; second L1 projection (non-feed-discover) migrated. Phase 3 = `kotoba-kse` (Journal / Topic / Shelf / Vault) replaces NATS bridges + `kotoba-net` libp2p QUIC/Noise/GossipSub/Bitswap + `kotoba-dht` Source Chain / Warrant / Neighborhood / Availability Proof. Phase 4 = `kotoba-store-web` IndexedDB browser block store (baien edge-target invariant ADR-2605241900 ≤200 MB heap budget carve-out). Phase 5 = `kotoba-auth` (CACAO + DID Document) + `kotoba-crypto` (AEAD + HKDF + key wrap) + `kotoba-signal` (X3DH + Double Ratchet + MLS) + `kotoba-ingest` (Gmail OAuth2 + E2E encrypt → QuadStore) with bit-identical wire-format gate D6 on full ADR-2605181100 test vector suite. Phase 6 = `kotoba-server` XRPC / MCP + `kotoba-runtime` WASM Component Model host + `kotoba-guest` WIT bindings (read-only deploys + `// no-server-key: read-only` marker required). Phase 7 (deferred) = `kotoba-llm` as Murakumo routing facade only (NO local inference; Charter Rider §2(i) reconfirmation). Each phase gated by Council Lv6+ ≥3 per-phase attestation + `e7m verify` 9 invariants green + ≥99.9% byte-equality vs current impl on 30 day shadow comparison. **Existing impls stay live ≥1 R-cycle (~30 days) as cold backup; no `50-infra/*` deletion in this ADR** (`50-infra/ipfs-pinner/` + `50-infra/mst-projector/` + `50-infra/nats-jetstream-kv-resp/` + `50-infra/nats-jetstream-objectstore-s3/` + `50-infra/nats-tiered-storage/` + `50-infra/lancedb-wasm/` + `50-infra/tonbo/` + `50-infra/etzhayyim-xrpc-proxy/` all REMAIN in tree). **7 non-goals N1..N7**: N1 enabling `kotoba-llm` local-inference in religious-corp paths NEVER (vendor `etzhayyim.com` SaaS keeps its own GPU pool behind consent-capability boundary per ADR-2605215000; Charter Rider §2(i) Council Lv6+ supermajority + 30-day public objection to amend) / N2 platform-held private key in `kotoba-server` NEVER (ADR-2605231525; `// no-server-key: read-only` line-marker exemption only) / N3 S3 backend as primary write store for on-chain records NEVER (land / SBT / Council / Public Fund / Force / Tithe records stay on geth-private + Base L2 + IPFS + LANDS.md / MEMBERS.md per ADRs 192245 / 192300 / 192315 / 192145 / 192130) / N4 direct `kotoba-*` import from `60-apps/*` NEVER (via `@etzhayyim/sdk` shim only per ADR-2605172000) / N5 forking kotoba NEVER (`git subrepo` + upstream-PR only; if upstream rejects, escalate to ADR amendment; this protects against engine divergence from upstream commit DAG) / N6 modifying `app.etzhayyim.encrypted.*` Lexicon wire format NEVER (kotoba is the implementation; protocol is constitutional per ADR-2605181100 + 181200; Phase 5 bit-identical test vector suite is structural enforcement) / N7 promoting `kotoba-llm` WebGPU training to religious-corp role without Council Lv6+ attestation NEVER (federated training rounds already gated by ADR-2605242600). **Charter Rider §2(a)-(i) gate checklist**: §2(a) weapons N/A / §2(b) speculative finance N/A / §2(c) anti-surveillance PASS contingent Phase 5 + Phase 6 compile-time telemetry-disable audit (kotoba-ingest Gmail polling + kotoba-server XRPC default no-telemetry) / §2(d) fossil N/A / §2(e) anti-gatekeeping PRO-CLEARANCE (reduces 7-component lock-in to 1 unified workspace) / §2(f) multi-generational harm 30-yr reproducibility PASS (Cargo.lock committed; steward succession ADR-2605192345 inherits future-decedent steward) / §2(g) anti-individualist N/A / §2(h) Wellbecoming PASS (`kotoba-runtime` WASM Component Model sandbox isolation honors §1.13) / §2(i) commercial GPU rental GATED (kotoba-llm local-inference DISABLED in religious-corp; Council Lv6+ supermajority required to amend; this ADR does NOT amend). **Vendor-rejection chain note**: kotoba does NOT extend the vendor-rejection chain — it is a unification of existing first-party paths under Apache-2.0; no new vendor is rejected and no existing rejection is weakened. Subrepo upstream: https://github.com/etzhayyim/kotoba"
+path = "90-docs/adr/2605262130-kotoba-storage-substrate-unification.md"
+
+[[modules]]
+path = "40-engine/kotoba"
+kind = "rust-workspace-storage-substrate-engine"
+version = "0.1.0-r0-subrepo-import-only"
+status = "R0-subrepo-imported-no-modifications-charter-rider-application-deferred-to-phase-1"
+description = "kotoba — religious-corp canonical storage substrate engine. First-party Rust workspace at github.com/etzhayyim/kotoba, Apache-2.0, 17 crates (kotoba-core / kotoba-kse / kotoba-kqe / kotoba-dht / kotoba-net / kotoba-auth / kotoba-graph / kotoba-vm / kotoba-llm / kotoba-runtime / kotoba-store / kotoba-store-web / kotoba-crypto / kotoba-signal / kotoba-ingest / kotoba-server / kotoba-guest). Imported as `git subrepo` at `40-engine/kotoba/` (upstream commit `128a89d0e`); `.gitrepo` metadata file recorded by git-subrepo and committed. R0 deliverable per ADR-2605262130 = subrepo import only; **no code modification, no Charter Rider application, no `cargo check`, no feature flag set under `40-engine/kotoba/`** (those are Phase 1+ deliverables). Implements yatachain composition (ADR-2605231400) and yatachain-projection rules (ADR-2605231500). Subsumes 7+ disjoint storage components: `50-infra/ipfs-pinner/` (Phase 1) / `50-infra/mst-projector/` (Phase 2) / `50-infra/nats-jetstream-kv-resp/` + `50-infra/nats-jetstream-objectstore-s3/` + `50-infra/nats-tiered-storage/` (Phase 3) / `50-infra/lancedb-wasm/` (Phase 4) / `50-infra/tonbo/` (Phase 2 retire window) / `50-infra/etzhayyim-xrpc-proxy/` (Phase 6) / `app.etzhayyim.encrypted.*` libsignal wrappers (Phase 5 bit-identical wire-format gate). **Constitutional carve-outs D1..D8** (per ADR-2605262130 §Decision): D1 Apache 2.0 + Charter Rider v2.0 applied to all 17 crates (Phase 1) / D2 `kotoba-llm` local-inference DISABLED in religious-corp (ADR-2605215000 + Charter Rider §2(i); routing facade to Murakumo gateway only) / D3 `kotoba-server` holds NO platform private key (ADR-2605231525; `// no-server-key: read-only` marker required) / D4 `kotoba-store` S3 backend NOT primary write store for on-chain records (land / SBT / Council / Public Fund / Force / Tithe stay on-chain) / D5 substrate boundary: kotoba lives behind `@etzhayyim/sdk` shim; never imported directly from `60-apps/*` (ADR-2605172000) / D6 `kotoba-crypto` + `kotoba-signal` bit-identical to ADR-2605181100 wire format (Phase 5 test vector suite gate) / D7 yatachain composition unchanged / D8 witness quorum + attestation unchanged. **Existing `50-infra/*` impls stay live ≥1 R-cycle (~30 days) as cold backup; no deletion authorized by this ADR**. Phased rollout R0..R7 each gated by Council Lv6+ ≥3 + `e7m verify` 9 invariants + ≥99.9% byte-equality 30-day shadow."
+adr = ["2605262130", "2605231400", "2605231500", "2605172000", "2605172100", "2605215000", "2605181100", "2605181200", "2605192200", "2605192245", "2605192300", "2605192315", "2605192145", "2605192130", "2605192415", "2605231525", "2605231902", "2605241500", "2605241900", "2605242600"]
+upstream = "https://github.com/etzhayyim/kotoba"
+upstream_commit = "128a89d0e"
+subrepo_metadata_file = "40-engine/kotoba/.gitrepo"
+crates = [
+  "kotoba-core (CIDv1 blake3 + KAIS 8-bit frame + Prolly Tree)",
+  "kotoba-kse (Journal / Topic / Shelf / Vault — Knowledge Store Engine)",
+  "kotoba-kqe (Datalog engine + Arrangement EAVT/AEVT/AVET/VAET + Delta + MV)",
+  "kotoba-dht (Source Chain / Warrant / Neighborhood / Availability Proof)",
+  "kotoba-net (libp2p QUIC / Noise / GossipSub / Bitswap)",
+  "kotoba-auth (CACAO chain verification + DID Document + ETH SIWE + delegation)",
+  "kotoba-graph (Quad API + SPARQL→Datalog + Commit DAG + atproto firehose / JetStream)",
+  "kotoba-vm (Invoke/Result ChainEntry + CALL_FOREIGN + Pregel + Distributed + WasmPregel)",
+  "kotoba-llm (FP8 weight + LoRA Delta + KV-cache + inference + WebGPU train) — local-inference DISABLED in religious-corp (D2)",
+  "kotoba-runtime (WASM Component Model host: WasmExecutor + UdfExecutor + WIT)",
+  "kotoba-store (BlockStore: Memory / Sled / S3; BudgetedBlockStore LRU; TieredBlockStore hot/cold) — S3 NOT for on-chain records (D4)",
+  "kotoba-store-web (Browser IndexedDB block store wasm32) — baien edge-target ≤200 MB heap (ADR-2605241900)",
+  "kotoba-crypto (AEAD AES-256-GCM + HKDF + key wrap) — bit-identical to ADR-2605181100 (D6)",
+  "kotoba-signal (Signal Protocol: X3DH + Double Ratchet + MLS) — bit-identical to ADR-2605181100 (D6)",
+  "kotoba-ingest (Gmail OAuth2 poll + E2E encrypt → QuadStore)",
+  "kotoba-server (XRPC / MCP endpoints) — no server-key per ADR-2605231525 (D3)",
+  "kotoba-guest (WASM guest SDK + WIT bindings for kotoba nodes)",
+]
+constitutional_invariants_immutable_r0_r7 = [
+  "D1 Apache 2.0 + Charter Rider v2.0 applied to all 17 crates (Phase 1)",
+  "D2 kotoba-llm local-inference DISABLED in religious-corp callable paths (ADR-2605215000 + Charter Rider §2(i))",
+  "D3 kotoba-server holds NO platform private key (ADR-2605231525)",
+  "D4 kotoba-store S3 backend NOT primary write store for on-chain records (land / SBT / Council / Public Fund / Force / Tithe)",
+  "D5 substrate boundary: kotoba behind @etzhayyim/sdk; never imported from 60-apps/* (ADR-2605172000)",
+  "D6 kotoba-crypto + kotoba-signal bit-identical to ADR-2605181100 envelope (Phase 5 test vector gate)",
+  "D7 yatachain composition unchanged (ADR-2605231400)",
+  "D8 witness quorum + attestation unchanged (ADR-2605231902 first L1 projection precedent)",
+]
+non_goals_immutable_r0_r7 = [
+  "N1 enabling kotoba-llm local-inference in religious-corp paths NEVER (Charter Rider §2(i))",
+  "N2 platform-held private key in kotoba-server NEVER (ADR-2605231525)",
+  "N3 S3 backend as primary write store for on-chain records NEVER",
+  "N4 direct kotoba-* import from 60-apps/* NEVER (via @etzhayyim/sdk shim only)",
+  "N5 forking kotoba NEVER (subrepo + upstream-PR only)",
+  "N6 modifying app.etzhayyim.encrypted.* wire format NEVER (kotoba is impl; protocol is constitutional)",
+  "N7 promoting kotoba-llm WebGPU training to religious-corp role without Council Lv6+ attestation NEVER (ADR-2605242600)",
+]
+phased_rollout_r0_r7 = [
+  "Phase 0 (THIS ADR) = subrepo import + adr/README.md row + CLAUDE.md Status row 62 + Layout entry + deps.toml entries; zero code change under 40-engine/kotoba/",
+  "Phase 1 = kotoba-store + kotoba-core + Charter Rider applied + SDK block_store shim shadow mode 30d ≥99.9% byte-equality vs ipfs-pinner",
+  "Phase 2 = kotoba-kqe 4-index arrangement + kotoba-graph Commit DAG + second L1 projection; tonbo retire window 30d",
+  "Phase 3 = kotoba-kse replaces NATS bridges + kotoba-net libp2p + kotoba-dht",
+  "Phase 4 = kotoba-store-web browser IndexedDB (baien edge-target ≤200 MB heap)",
+  "Phase 5 = kotoba-auth + kotoba-crypto + kotoba-signal + kotoba-ingest with bit-identical wire-format gate D6",
+  "Phase 6 = kotoba-server XRPC/MCP + kotoba-runtime WASM Component Model + kotoba-guest (read-only deploys)",
+  "Phase 7 (deferred) = kotoba-llm as Murakumo routing facade only (NO local inference)",
+]
+existing_cold_backups_no_deletion_authorized_by_this_adr = [
+  "50-infra/ipfs-pinner/ (Phase 1 cold backup)",
+  "50-infra/mst-projector/ (Phase 2 cold backup)",
+  "50-infra/nats-jetstream-kv-resp/ (Phase 3 cold backup)",
+  "50-infra/nats-jetstream-objectstore-s3/ (Phase 3 cold backup)",
+  "50-infra/nats-tiered-storage/ (Phase 3 cold backup)",
+  "50-infra/lancedb-wasm/ (Phase 4 cold backup)",
+  "50-infra/tonbo/ (Phase 2 retire window)",
+  "50-infra/etzhayyim-xrpc-proxy/ (Phase 6 cold backup)",
+]
