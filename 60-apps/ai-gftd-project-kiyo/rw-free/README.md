@@ -2,7 +2,7 @@
 
 Phase E Option B reference implementation of kiyo (紀要 / research archive) on the etzhayyim substrate.
 
-Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md) and [ADR-2604300000](../../../90-docs/adr/2604300000-kiyo-research-archive.md), kiyo migrates from vendor's `createKyselyDb` pattern (RW direct write) to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
+Per [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md) and the [kiyo design spec](../CLAUDE.md), kiyo migrates from vendor's `createKyselyDb` pattern (RW direct write) to **Option B** — PDS XRPC writes via `@etzhayyim/sdk e.write()`.
 
 Coverage: **12 of 12 (100%)** kiyo canonical XRPC commands ported. Plus 1 helper (`listReviews`).
 
@@ -26,7 +26,7 @@ did:web:kiyo.etzhayyim.com:endorsement:{paperId}-{endorser-slug}  — Endorsemen
 did:web:kiyo.etzhayyim.com:citation:{src}-{dst}       — Citation edge (future)
 ```
 
-## paperId convention (ADR-2604300000)
+## paperId convention
 
 ```
 kiyo:{YYYY}:{TID}
@@ -95,7 +95,7 @@ Option C (IPFS-only) hybrid: blob → IPFS, metadata → PDS (this PR).
 
 ## Related
 
-- [ADR-2604300000](../../../90-docs/adr/2604300000-kiyo-research-archive.md) — kiyo design
+- [kiyo design spec](../CLAUDE.md) — actor architecture (XRPC + LangServer + RisingWave UDF + LangGraph)
 - [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md) — Phase E write-target options
 - [sbom rw-free](../../ai-gftd-project-sbom/rw-free/) — sibling Option B reference (17/N)
 - [hanrei rw-free](../../ai-gftd-project-hanrei/rw-free/) — Option B reference (31/31 ✓)

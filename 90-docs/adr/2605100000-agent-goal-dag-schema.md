@@ -17,7 +17,7 @@ superseded_by: []
 
 **Status**: accepted (2026-05-10)
 **Scope**: cross-app, generic
-**Supersedes**: none. Complements `vertex_projector_flow_*` (ADR-2604210000) which models *runtime flow execution*; this ADR models *world-state dependency*.
+**Supersedes**: none. Complements `vertex_projector_flow_*` which models *runtime flow execution*; this ADR models *world-state dependency*.
 
 ## Context
 

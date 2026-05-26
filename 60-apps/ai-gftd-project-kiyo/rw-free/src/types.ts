@@ -2,7 +2,7 @@
  * kiyo rw-free — record types.
  *
  * Per ADR-2605203000 Option B (PDS XRPC). kiyo = 紀要 = research archive.
- * Per ADR-2604300000 kiyo: paper_id = `kiyo:{YYYY}:{TID}`.
+ * Per kiyo CLAUDE.md: paper_id = `kiyo:{YYYY}:{TID}`.
  *
  * Identity hierarchy (per kiyo CLAUDE.md):
  *   did:web:kiyo.etzhayyim.com                            — controller
