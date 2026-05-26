@@ -1,0 +1,84 @@
+name: audit-health
+
+# Run the monorepo audit aggregator (`70-tools/scripts/audit/all.sh`) on
+# every PR + push to main + manual dispatch. Surfaces dependabot defunct
+# entries, SDK exports/dist mismatches, stale subrepo URLs, and escape-
+# symlinks inside subrepos.
+#
+# Strict mode is OFF by default — the current baseline (iter-32 of /loop,
+# 2026-05-26) has 25 findings that are documented as deferred-to-upstream
+# (ADR-2605211845 + ADR-2605262130). The workflow reports the count in
+# the job summary so reviewers can compare against baseline; it does not
+# fail PRs on those known findings.
+#
+# When the documented findings are resolved (kotoba upstream symlink
+# coordination + per-app .gitrepo decision), the strict-mode flag can be
+# enabled here to gate future drift.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/dependabot.yml'
+      - '.github/workflows/audit-health.yml'
+      - '70-tools/scripts/audit/**'
+      - '40-engine/kami-engine/kami-engine-sdk/package.json'
+      - '**/.gitrepo'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/dependabot.yml'
+      - '.github/workflows/audit-health.yml'
+      - '70-tools/scripts/audit/**'
+      - '40-engine/kami-engine/kami-engine-sdk/package.json'
+      - '**/.gitrepo'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: monorepo-health
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run audit aggregator (non-strict)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # `subrepo-upstream-health.sh` calls `gh repo view` — needs
+          # GH_TOKEN to avoid rate-limiting on the GitHub API. The
+          # default github.token has read access to public repos.
+          bash 70-tools/scripts/audit/all.sh | tee /tmp/audit.log
+
+          # Extract the rollup total and surface it in the GitHub
+          # job summary so reviewers see the count at a glance.
+          total=$(grep -oE "total findings across all audits: [0-9]+" /tmp/audit.log \
+                  | grep -oE "[0-9]+" | tail -1)
+          {
+            echo "## Audit findings: ${total:-?}"
+            echo ""
+            echo "Baseline as of iter-32 of /loop (2026-05-26): **25 findings**"
+            echo "  - 0 dependabot defunct"
+            echo "  - 0 SDK exports/dist mismatches"
+            echo "  - 7 stale subrepo URLs (ADR-2605211845)"
+            echo "  - 18 kotoba escape-symlinks (ADR-2605262130)"
+            echo ""
+            if [ "${total:-0}" -gt 25 ]; then
+              echo "⚠️ Total findings **above baseline** — new drift introduced. Investigate above."
+            elif [ "${total:-0}" -lt 25 ]; then
+              echo "✅ Total findings **below baseline** — drift was resolved. Update baseline in this workflow's docs + audit/README.md."
+            else
+              echo "✓ Total findings match baseline. No new drift."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
