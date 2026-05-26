@@ -82,6 +82,13 @@ from .terminations import (
 )
 from .events import (
     EventTerm,
+    apply_external_force_torque,
+    push_by_setting_velocity,
+    randomize_actuator_gains,
+    randomize_com,
+    randomize_friction,
+    randomize_initial_root_pose,
+    randomize_mass,
     randomize_rigid_body_mass,
     reset_joints_by_offset,
     reset_joints_to_default,
@@ -148,6 +155,10 @@ __all__ = [
     # Event functions
     "reset_joints_by_offset", "reset_joints_to_default",
     "randomize_rigid_body_mass",
+    # Domain-randomization event extensions (iter 62)
+    "push_by_setting_velocity", "randomize_actuator_gains",
+    "apply_external_force_torque", "randomize_friction", "randomize_com",
+    "randomize_mass", "randomize_initial_root_pose",
     # Command generators
     "CommandCfgBase", "CommandGeneratorBase",
     "NullCommand",
