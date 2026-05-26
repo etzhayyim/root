@@ -2,30 +2,31 @@
 
 ## Identity
 
-**image2vrm.etzhayyim.com** / **img2vrm1.etzhayyim.com** — VRM Character Maker with dual-engine rendering.
+**image2vrm.etzhayyim.com** / **img2vrm1.etzhayyim.com** — VRM Character Maker on the KAMI Engine wgpu pipeline.
 
 ## Architecture
 
 ```
-┌─────────────────────┐ ┌──────────────────────┐ ┌─────────────┐
-│ KAMI Engine (wgpu)   │ │ Three.js + VRM       │ │ Side Panel  │
-│ WebGPU PBR/MToon     │ │ @pixiv/three-vrm     │ │ Expression  │
-│ run_embed_vrm()      │ │ MToon shader         │ │ Pose        │
-│ Morph: set_vrm_morph │ │ expressionManager    │ │ Parts       │
-│ Camera: interactive  │ │ humanoid bone ctrl   │ │ Presets     │
-│ orbit/zoom/touch     │ │ OrbitControls        │ │             │
-└─────────────────────┘ └──────────────────────┘ └─────────────┘
-         ↑                        ↑                     │
-         └────── VRM (10MB) from R2 ─────────────────────┘
-                murakumo.etzhayyim.com/api/r2/avatar/base/body_v1.vrm
+┌─────────────────────┐ ┌─────────────┐
+│ KAMI Engine (wgpu)   │ │ Side Panel  │
+│ WebGPU PBR/MToon     │ │ Expression  │
+│ run_embed_vrm()      │ │ Pose        │
+│ Morph: set_vrm_morph │ │ Parts       │
+│ Camera: interactive  │ │ Presets     │
+│ orbit/zoom/touch     │ │             │
+└─────────────────────┘ └─────────────┘
+         ↑                     │
+         └─ VRM (10MB) from R2 ┘
+            murakumo.etzhayyim.com/api/r2/avatar/base/body_v1.vrm
 ```
 
-## Dual Engine Rendering
+## Rendering pipeline
 
-| Pane | Engine | Shader | Features |
-|---|---|---|---|
-| **Left** | KAMI Engine (Rust WASM, wgpu WebGPU) | MToon (mtoon.wgsl) + PBR (pbr.wgsl) | Morph targets (CPU blend), interactive orbit camera, material auto-detect |
-| **Right** | Three.js + @pixiv/three-vrm (WebGL) | MToon (VRM standard) | Expression manager, humanoid bone control, spring bone physics, auto-blink |
+| Engine | Shader | Features |
+|---|---|---|
+| **KAMI Engine** (Rust WASM, wgpu WebGPU) | MToon (mtoon.wgsl) + PBR (pbr.wgsl) | Morph targets (CPU blend), interactive orbit camera, material auto-detect, humanoid bone control via `setVrmBoneRotation`, spring bone simulator, node constraint solver (Rotation / Aim / Roll), auto-blink (rendered Rust-side in the WASM RAF loop) |
+
+The earlier dual-engine plan (a parallel three.js + `@pixiv/three-vrm` right pane) was retired on **2026-05-26** when the `@etzhayyim/kami-engine-sdk` removed all three.js code paths (ADR-2605264300, parent ADR-0031 from 2026-04-18 — "kami-engine VRM three.js-free topology"). The KAMI Engine wgpu path is now the sole renderer for VRM avatars across the religious-corp SDK + every consumer app.
 
 ## KAMI Engine SDK (wgpu)
 
