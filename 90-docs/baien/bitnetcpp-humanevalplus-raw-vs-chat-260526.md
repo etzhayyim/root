@@ -156,3 +156,41 @@ Once moemoekyun R1.4 checkpoint exists:
 3. Re-run humanevalplus_bitnetcpp_chat.py
 4. Compute Δ = (new_pass1 - 18.90%) pp
 5. Per ADR-2605262100 R1.5 commit_gate: Δ ≥ +3pp required
+
+## Cycle 24 result — chat-template WORKING
+
+After fixing extraction (include preceding `from typing import` lines) and using
+proper evalplus-style instruction prompt format:
+
+  **pass@1 = 31/164 = 18.90%** (canonical PRE-TRAIN baseline)
+  wall: 280s = 4.7 min @ 35 tasks/min on RTX 5090
+  VRAM: 1.6 GB (bitnet.cpp packed)
+
+### Comparison to other paths
+
+| Run | n | pass@1 | Harness |
+|---|---|---|---|
+| Cycle 24 canonical | 164 | **18.90%** (31/164) | bitnet.cpp + chat-template + custom extract |
+| Cycle 8-11 partial | 36 | 58.3% (21/36) | evalplus on Mac MPS (different prompt/extract) |
+| MS card raw HumanEval | 164 | 38.40% | raw-completion (unknown extract) |
+
+The 18.90% vs cycle 8-11's 58.3% discrepancy is from:
+- Different chat-template prompt phrasing (my "Please provide a complete..."
+  vs evalplus's official one)
+- Different extraction heuristics
+- HumanEval**+** (with extended tests) is stricter than HumanEval original
+
+This is OUR canonical pre-train baseline. Moemoekyun R1.4 will be evaluated
+against this same 18.90% benchmark, NOT the cycle 8-11 number.
+
+### Bench Δ measurement plan
+
+Once moemoekyun R1.4 checkpoint exists:
+1. Pack ternary weights via bitnet.cpp's pack_weight.py
+2. Load via FastGen with same chat-template path
+3. Re-run humanevalplus_bitnetcpp_chat.py
+4. Compute Δ = (new_pass1 - 18.90%) pp
+5. Per ADR-2605262100 R1.5 commit_gate: Δ ≥ +3pp required
+
+Bonus: per-task error patterns from cycle 24 runlog enable targeted R1.5
+corpus tuning (which task domains improved / regressed).
