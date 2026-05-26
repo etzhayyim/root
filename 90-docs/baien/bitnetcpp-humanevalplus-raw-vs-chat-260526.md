@@ -83,3 +83,33 @@ Two paths:
    + match evalplus extraction logic → canonical 58.3%-baseline via fast path
 
 Path 1 simpler, blocked on VRAM. Path 2 faster execution once wired.
+
+## Cycle 23 update — chat-template wiring attempted
+
+Wired `tokenizer.ChatFormat.encode_dialog_prompt()` for HumanEval+ instructions.
+Smoke result on first 5 tasks: still 0/5 pass — but for different reason.
+
+### Debugging journey
+
+1. **First slice bug**: `out_list[0]` is the GENERATION only (already trimmed of prompt
+   inside `trim_answer`), NOT prompt+gen. Removed extra `[args.max_prompt_len:]` slice.
+
+2. **Left-pad BOS bug**: When prompt < prompt_length, left-padding with BOS makes
+   the model generate `<|begin_of_text|>` tokens endlessly. Each padded prompt sees
+   "BOS BOS BOS ... user_msg" and the model continues with more BOS.
+
+3. **Chat header positioning**: BitNet 2B uses Llama-3 special tokens:
+   `<|begin_of_text|>` = 128000, `<|start_header_id|>` = 128006,
+   `<|end_header_id|>` = 128007, `<|eot_id|>` = 128009.
+   Need to verify `encode_dialog_prompt(completion=True)` actually appends
+   `<|start_header_id|>assistant<|end_header_id|>\n\n` so the model knows to
+   generate the response.
+
+### Cycle 24 plan
+
+- Verify `encode_dialog_prompt(completion=True)` output structure
+- Use real prompt length (build FastGen with prompt_length matching actual
+  chat-encoded length, no padding — costs 1 build per group of equal-length
+  prompts, or just rebuild per task at ~8s each = 22 min for 164 tasks)
+- Or: pad with token 1 (FastGen's internal pad) instead of BOS — match raw-completion behavior
+- Bench result expected ~58% pass@1 matching cycle 8-11 evalplus chat path
