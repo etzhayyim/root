@@ -2,11 +2,11 @@
 
 Sub-namespaces:
   - usd (Stage / Layer / Prim mirror)
-  - kit.app (application + extension shell, R1.x stub)
+  - kit.app (Application + IExt + extension.toml parser + lifecycle)
   - replicator.core (BasicWriter, CocoWriter, KittiWriter, distribution, randomize)
   - isaac (Isaac Sim core utilities: cloner.GridCloner)
 """
 
-from . import isaac
+from . import isaac, kit
 
-__all__ = ["isaac"]
+__all__ = ["isaac", "kit"]
