@@ -157,10 +157,16 @@ def categorize(adr_id: str) -> str:
     - 0000-suffix IDs are obvious placeholders that were used as round-
       number stubs and never authored. Resolution is usually "delete
       the reference" since no real ADR was ever planned.
-    - Quarter-hour-aligned IDs (mm in {15, 30, 45} or {00}) are typical
+    - invalid-mm-overflow: MM >= 60 (clock impossibility) — typically
+      from someone adding +15 to :45 → :60 instead of incrementing the
+      hour. True bug; fix to the next valid timestamp.
+    - quarter-hour-planned-slot: MM in {00, 15, 30, 45} — typical
       authored timestamps; an orphan here is most likely a real
       planned-ADR slot that didn't get written.
-    - Off-quarter-hour IDs (random mm) are most likely typos.
+    - non-canonical-mm: MM not in the quarter set but < 60 — wave-
+      numbering reservations using minute as sub-index (e.g., kotoba
+      LLM crates use :04, :05, :06 as architecturally-grouped slots).
+      NOT necessarily a typo; needs case-by-case operator judgment.
     """
     if len(adr_id) == 4:
         return "legacy-4digit"
@@ -172,9 +178,11 @@ def categorize(adr_id: str) -> str:
             mm = int(adr_id[-2:])
         except ValueError:
             return "other"
+        if mm >= 60:
+            return "invalid-mm-overflow"
         if mm in (0, 15, 30, 45):
             return "quarter-hour-planned-slot"
-        return "off-quarter-hour-likely-typo"
+        return "non-canonical-mm"
     return "other"
 
 
@@ -203,8 +211,9 @@ def main() -> int:
         for cat in (
             "legacy-4digit",
             "placeholder-0000-suffix",
+            "invalid-mm-overflow",
             "quarter-hour-planned-slot",
-            "off-quarter-hour-likely-typo",
+            "non-canonical-mm",
             "other",
         ):
             n = counts.get(cat, 0)

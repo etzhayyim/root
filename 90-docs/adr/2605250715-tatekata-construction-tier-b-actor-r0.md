@@ -153,7 +153,7 @@ app.etzhayyim.tatekata.{
 - ADR-2605242000: wadachi autonomous mobility R0 (R0 scaffold + gates pattern precedent)
 - ADR-2605250730: tatekata Wave R1 (placeholder, reserved)
 - ADR-2605250745: tatekata Wave R2 (placeholder, reserved)
-- ADR-2605250760: tatekata Wave R3 (placeholder, reserved)
+- ADR-2605250800: tatekata Wave R3 (placeholder, reserved)
 
 ---
 

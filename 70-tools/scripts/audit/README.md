@@ -85,16 +85,19 @@ python3 70-tools/scripts/audit/adr-cross-ref-health.py
 python3 70-tools/scripts/audit/adr-cross-ref-health.py --strict
 ```
 
-**Baseline (iter-41, 2026-05-27): 123 orphaned references** across the monorepo, bucketed by category:
+**Baseline (iter-44, 2026-05-27): 120 orphaned references** across the monorepo, bucketed by category:
 
 | Category | Count | Resolution |
 |---|---|---|
 | `legacy-4digit` | 74 | Pre-ADR-2604231349-timestamp-policy IDs. Rename to successor / delete |
-| `placeholder-0000-suffix` | 3 | Obvious round-number stubs never authored. Delete |
+| `placeholder-0000-suffix` | 0 | (Closed iter-42/43; was 3 at iter-40 start) |
+| `invalid-mm-overflow` | 2 | HH:MM where MM ≥ 60 (clock impossibility). Real bugs; fix to next valid timestamp |
 | `quarter-hour-planned-slot` | 38 | Planned-but-unauthored ADRs. Author or downgrade citation to parent wave |
-| `off-quarter-hour-likely-typo` | 8 | Random-minute IDs near a real ADR. Fix to nearest |
+| `non-canonical-mm` | 6 | MM not in {00,15,30,45} but valid — wave-numbering reservations (e.g., kotoba uses :04/:05/:06 as sub-index). Per-case judgment |
 
-(Down from 127 in iter-40 after adding the range-expression filter — `ADR-XXX..YYY` is shorthand for a wave, not individual cites — and the forward-ref marker filter — `(R1)` / `(planned)` / `(scaffold)` etc. are deliberate reservations, not bugs.)
+Progression: iter-40 = 127 (no filter) → iter-41 = 123 (range + forward-ref filters added) → iter-42 = 121 (kiyo + record-log cites) → iter-43 = 120 (placeholder category zeroed via substrate-boundary hook fix) → iter-44 = 120 (categorization refinement, no net orphan change — `off-quarter-hour-likely-typo` split into `invalid-mm-overflow` + `non-canonical-mm` for honest signal).
+
+The iter-41 `off-quarter-hour-likely-typo` label was misleading: only 2 of 8 were actual bugs (MM ≥ 60); the other 6 were intentional wave-numbering using minute as architectural sub-index, not typos.
 
 Operators run on demand:
 
