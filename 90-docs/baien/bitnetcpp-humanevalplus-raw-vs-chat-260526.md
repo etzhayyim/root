@@ -113,3 +113,46 @@ Smoke result on first 5 tasks: still 0/5 pass — but for different reason.
   prompts, or just rebuild per task at ~8s each = 22 min for 164 tasks)
 - Or: pad with token 1 (FastGen's internal pad) instead of BOS — match raw-completion behavior
 - Bench result expected ~58% pass@1 matching cycle 8-11 evalplus chat path
+
+## Cycle 24 result — chat-template WORKING
+
+After fixing extraction (include preceding `from typing import` lines) and using
+evalplus-style instruction prompt format:
+
+  **pass@1 = 31/164 = 18.90%** (canonical PRE-TRAIN baseline)
+  wall: 280s = 4.7 min @ 35 tasks/min on RTX 5090
+  VRAM: 1.6 GB (bitnet.cpp packed)
+
+### Comparison to other paths
+
+| Run | n | pass@1 | Harness |
+|---|---|---|---|
+| Cycle 24 canonical | 164 | **18.90%** (31/164) | bitnet.cpp + chat-template + custom extract |
+| Cycle 8-11 partial | 36 | 58.3% (21/36) | evalplus on Mac MPS (different prompt/extract) |
+| MS card raw HumanEval | 164 | 38.40% | raw-completion (unknown extract) |
+
+The 18.90% vs cycle 8-11's 58.3% discrepancy is from:
+- Different chat-template prompt phrasing (mine vs evalplus's official one)
+- Different extraction heuristics
+- HumanEval**+** (with extended tests) is stricter than HumanEval original
+
+This is OUR canonical pre-train baseline. Moemoekyun R1.4 will be evaluated
+against 18.90% on this same harness path.
+
+### Cycle 24 fixes that unlocked working chat-template path
+
+1. `out_list[0]` is generation only (no prompt) — removed extra slice
+2. NO front-padding (FastGen internally right-pads with token 1)
+3. Evalplus-style instruction: "Please provide a complete Python implementation
+   for the following function:\n\n```python\n{prompt}```\n\nComplete the
+   function by appending the implementation below the signature..."
+4. extract_code includes `from typing import` lines preceding `def`
+
+### Bench Δ measurement plan
+
+Once moemoekyun R1.4 checkpoint exists:
+1. Pack ternary weights via bitnet.cpp pack_weight.py
+2. Load via FastGen with same chat-template path
+3. Re-run humanevalplus_bitnetcpp_chat.py
+4. Compute Δ = (new_pass1 - 18.90%) pp
+5. Per ADR-2605262100 R1.5 commit_gate: Δ ≥ +3pp required

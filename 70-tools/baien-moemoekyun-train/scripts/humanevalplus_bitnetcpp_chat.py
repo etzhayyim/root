@@ -34,44 +34,62 @@ import torch
 
 
 def make_instruction(prompt: str) -> str:
-    """Wrap HumanEval+ prompt in instruction-style for chat-template completion."""
+    """Wrap HumanEval+ prompt in instruction-style for chat-template completion.
+
+    Format matches evalplus convention: include the function signature + docstring
+    as code in the user message, asking the model to provide the complete
+    implementation.
+    """
     return (
-        "Complete the following Python function. "
-        "Write only the function body (no docstring, no explanation, just the implementation):\n\n"
-        f"```python\n{prompt}\n```"
+        f"Please provide a complete Python implementation for the following function:\n\n"
+        f"```python\n{prompt}```\n\n"
+        f"Complete the function by appending the implementation below the signature. "
+        f"Output only the complete function code in a ```python code block, no explanations."
     )
 
 
 def extract_code(gen_text: str, prompt: str) -> str:
-    """Extract function body from chat-template generation."""
-    # Strip code fences
+    """Extract function body from chat-template generation.
+
+    Strategy:
+      1. Strip outermost ```python fences (take content of first complete block)
+      2. If the function signature appears in gen, take the complete redefinition
+         INCLUDING any imports/from statements that precede it
+      3. Otherwise treat gen as raw function body and append to original prompt
+      4. Always ensure the original prompt's imports stay accessible (prepend
+         original prompt prefix if gen is missing them)
+    """
+    # Strip code fences — take content of first ```python ... ``` block
     if "```" in gen_text:
         m = re.search(r"```(?:python|py)?\s*\n?(.*?)(?:\n```|```|$)", gen_text, re.DOTALL)
         if m:
             gen_text = m.group(1)
-    # If response includes the original signature, take everything after it
-    # Otherwise treat as a body that needs to be appended to prompt
     lines = gen_text.splitlines()
-    # Try to find the original function signature in response
     func_name_m = re.search(r"def\s+(\w+)\s*\(", prompt)
     if func_name_m:
         func_name = func_name_m.group(1)
+        # Find position of the function def
+        def_idx = None
         for i, ln in enumerate(lines):
             if re.search(rf"def\s+{re.escape(func_name)}\s*\(", ln):
-                # Found signature in response; take everything from here on
-                # (this is the model's complete redefinition)
-                cut = []
-                in_body = True
-                for j in range(i, len(lines)):
-                    ln2 = lines[j]
-                    if j > i and ln2 and not ln2.startswith((" ", "\t", "#")) and (
-                        ln2.lstrip().startswith("def ") or ln2.lstrip().startswith("class ")
-                        or ln2.lstrip().startswith("if __name__")
-                    ):
-                        break
-                    cut.append(ln2)
-                return "\n".join(cut)
-    # No signature in response: treat as raw body to append after prompt
+                def_idx = i
+                break
+        if def_idx is not None:
+            # Cut where next top-level non-indented def/class appears AFTER our def
+            end_idx = len(lines)
+            for j in range(def_idx + 1, len(lines)):
+                ln2 = lines[j]
+                if ln2 and not ln2.startswith((" ", "\t", "#")) and (
+                    ln2.lstrip().startswith("def ") or ln2.lstrip().startswith("class ")
+                    or ln2.lstrip().startswith("if __name__")
+                ):
+                    end_idx = j
+                    break
+            # Take everything from start to end_idx — INCLUDES preceding imports
+            extracted = "\n".join(lines[:end_idx])
+            # Always prepend original prompt's imports too (in case gen missed them)
+            return prompt.split("def ")[0] + extracted
+    # No signature in response: append gen as body to prompt
     return prompt + gen_text
 
 
@@ -128,21 +146,20 @@ def main():
         task_id = row.get("task_id", f"HumanEval+/{idx}")
 
         instruction = make_instruction(prompt_raw)
-        # Encode with chat template (user → assistant)
+        # Encode with chat template — BitNet uses simple "User: <msg> <|eot_id|> Assistant: "
+        # format (NOT Llama-3 <|start_header_id|>...). completion=True appends "Assistant: ".
         ids = cf.encode_dialog_prompt(
             dialog=[{"role": "user", "content": instruction}],
             completion=True,
         )
         if len(ids) > args.max_prompt_len:
-            # Truncate but PRESERVE the assistant-header end marker (last few tokens)
-            tail = ids[-8:]
-            ids = ids[: args.max_prompt_len - 8] + tail
-        # LEFT-pad with PAD/BOS at front instead of right-pad. Llama-3 attention
-        # works on suffix-anchored prompts; left-padding pushes the real content
-        # to the right (so completion picks up immediately after the assistant header).
+            # Truncate from start, preserve "<|eot_id|> Assistant: " tail (last 4 tokens)
+            tail = ids[-4:]
+            ids = ids[: args.max_prompt_len - 4] + tail
+        # NO front-padding — FastGen internally right-pads with token 1 to prompt_length,
+        # and trim_answer uses real prompt_len. The prompt_length on FastGen is the MAX
+        # prompt length; padding shorter prompts is FastGen's job, not ours.
         n_real = len(ids)
-        if n_real < args.max_prompt_len:
-            ids = [g.tokenizer.bos_id] * (args.max_prompt_len - n_real) + ids
 
         t_gen = time.perf_counter()
         try:
