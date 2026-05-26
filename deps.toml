@@ -5703,8 +5703,149 @@ description = "Committed corpus-recipe.toml files. Each recipe IS the audit trai
 path = "70-tools/scripts/lint/sensor-no-active-probe.mjs"
 adr = "ADR-2605262400"
 kind = "lefthook-lint"
-status = "w1-deliverable"
-description = "Lint hook (G8 enforcement). Scans pymagatama.organism.sensors.* for forbidden imports/calls: socket / dnspython / aiodns / requests-cache against arbitrary external hosts / paramiko / nmap / scapy. Allow-list only the religious-corp DID infrastructure hosts (etzhayyim.com, pds.etzhayyim.com, dataset-pinner.etzhayyim.com, 127.0.0.1, 192.168.1.70 LAN). Fail-closed on violation."
+status = "w1-landed"
+description = "Lint hook (G8 enforcement). Scans pymagatama.organism.sensors.* for forbidden imports/calls: socket / dnspython / aiodns / requests-cache against arbitrary external hosts / paramiko / nmap / scapy. Allow-list only the religious-corp DID infrastructure hosts (etzhayyim.com, pds.etzhayyim.com, dataset-pinner.etzhayyim.com, 127.0.0.1, 192.168.1.70 LAN). Fail-closed on violation. Landed 2026-05-26."
+
+# ─── W2 deliverables (landed 2026-05-26 commit 817a73b19) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/ripe_ris.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w2-landed"
+description = "RIPE NCC RIS BGP MRT bview RIB fetcher (rrc00..rrc26, 8-hourly per collector; gzipped). Open under RIPE TOU; Tier A. Wave-2 lands the RIB-only path (UPDATE stream deferred)."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/routeviews.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w2-landed"
+description = "University of Oregon Routeviews BGP MRT rib RIB fetcher (route-views2 + per-IXP collectors, 2-hourly; bzip2). Open under UO TOU; Tier A. Sibling of ripe_ris.py."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/ris_routing_sensor.py"
+adr = "ADR-2605262400"
+kind = "dataset-sensor"
+status = "w2-landed"
+description = "DatasetSensor over routing/ris-mrt/* + routing/routeviews/* subdatasets. Decodes MRT RIB via mrtparse (lazy import, replaced by synthetic record iterator in tests). Handles both .gz and .bz2. Emits (prefix, peerIndex, originAsn, asPath) payloads. G9 deterministic hot_sample via pin.revision-seeded reservoir sampling."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/iana_root_sensor.py"
+adr = "ADR-2605262400"
+kind = "dataset-sensor"
+status = "w2-landed"
+description = "DatasetSensor over the netreg/iana-root subdataset. Reads per-TLD NDJSON sidecar emitted by iana_root.py fetcher. Emits (tld, ns, ds, glue) payloads. G9 deterministic hot_sample."
+
+# ─── W3 deliverables — Tier-C NC carve-out (landed 2026-05-26 commit ee90cc0cd) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/_acceptance.py"
+adr = "ADR-2605262400"
+kind = "acceptance-flag-gate"
+status = "w3-landed"
+description = "Per-source operator acceptance-flag gate. Reads ~/.etzhayyim/source-acceptance/<source>.toml (overridable via ETZ_SOURCE_ACCEPTANCE_DIR env). Fail-closed on missing / malformed / missing accepted_at. Required by every Tier-C fetcher (rapid7_sonar, openintel, caida, czds, commoncrawl_cdx)."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/rapid7_sonar.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w3-landed"
+description = "Rapid7 Open Data Sonar FDNS archive fetcher. Tier C, license=rapid7-research-use, pii_sensitive=True default. Acceptance flag rapid7-open-data.toml required. G13 fleet-internal-only enforcement at downstream sink layer."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/openintel.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w3-landed"
+description = "OpenINTEL DNS active-measurement Parquet fetcher. Tier C, license=CC-BY-NC-4.0, pii_sensitive=True default. Acceptance flag openintel.toml required. G13 fleet-internal-only."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/caida.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w3-landed"
+description = "CAIDA AS-rank / prefix2as / AS-relationship fetcher. Tier C, license=CC-BY-NC-4.0, pii_sensitive=False default (pure graph data). Acceptance flag caida.toml required. G13 fleet-internal-only."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/rapid7_sonar_sensor.py"
+adr = "ADR-2605262400"
+kind = "dataset-sensor-tier-c"
+status = "w3-landed"
+description = "Tier-C DatasetSensor over Sonar NDJSON shards. PII filter applied to `value` + `name` columns by default. tier='C' attaches internal_only=True via make_observation helper (G4)."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/openintel_sensor.py"
+adr = "ADR-2605262400"
+kind = "dataset-sensor-tier-c"
+status = "w3-landed"
+description = "Tier-C DatasetSensor over OpenINTEL Parquet (pyarrow lazy import, test seam for synthetic row iterator). PII filter over response_rdata + response_rname + soa_rname columns."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/caida_sensor.py"
+adr = "ADR-2605262400"
+kind = "dataset-sensor-tier-c"
+status = "w3-landed"
+description = "Tier-C DatasetSensor over CAIDA dumps. Three line-oriented parsers (as-relationship `|`-delimited, prefix2as TSV, as-rank TSV). PII filter on asName for defense-in-depth."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/tier_gate.py"
+adr = "ADR-2605262400"
+kind = "g4-r9-enforcement-middleware"
+status = "w3-landed"
+description = "TierGate middleware — wraps a SensorObservation sink with SinkClassification {EXTERNAL_FACING, INTERNAL_ONLY, OBSERVABILITY}. tier-C internal_only=True observations routed to an EXTERNAL_FACING sink are dropped AND recorded as LeakAttempt events. pop_leaks() pumps the events into the KaizenObserver Observation so R9 TierCLeakBackstopRule fires critical proposals. The constitutional G4 enforcement seam."
+
+# ─── W4 deliverables (landed 2026-05-26 commits 0ce26715d + 7d8f97a7f) ──
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/substrate/tldCouncilAttestation.json"
+adr = "ADR-2605262400"
+kind = "lexicon-schema"
+status = "w4-landed"
+description = "app.etzhayyim.substrate.tldCouncilAttestation Lexicon. Per-TLD Council Lv6+ ≥4/7 attestation record gating CZDS zone-file ingestion. Status enum: approved / revoked / pending-review. Tier enum: C / D. expiresAt support for time-bounded approvals."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/czds.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w4-landed"
+description = "ICANN CZDS per-TLD zone-file fetcher. THREE gates: (1) operator acceptance flag czds-<tld>.toml, (2) Council attestation record via CzdsTldAttestationResolver Protocol, (3) Bearer token. All three fail-closed independently. Tier inherited from attestation record (C or D)."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/commoncrawl_cdx.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w4-landed"
+description = "Common Crawl URL index (CDX) fetcher. Tier C; license=commoncrawl-research-use; pii_sensitive=True (URLs embed query strings, session tokens, email-shaped artifacts). Acceptance flag commoncrawl.toml required."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/czds_sensor.py"
+adr = "ADR-2605262400"
+kind = "dataset-sensor-tier-c"
+status = "w4-landed"
+description = "DatasetSensor over dns/czds-<tld>/ subdatasets. BIND zone-file line parser. PII filter on TXT + SOA value fields (operator contact strings). tier inherited from per-TLD attestation; internal_only auto via make_observation."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/commoncrawl_cdx_sensor.py"
+adr = "ADR-2605262400"
+kind = "dataset-sensor-tier-c"
+status = "w4-landed"
+description = "DatasetSensor over web/commoncrawl-cdx/ subdatasets. Handles canonical CDX-J form (SURT + timestamp + JSON) and pure-JSON-per-line variant. Supports .gz and uncompressed shards. PII filter targets the `url` field."
+
+# ─── Assembler full-streaming path (landed 2026-05-26 commit 40b6ea82e) ──
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/scripts/assemble-public-corpus.py"
+adr = "ADR-2605262400"
+kind = "corpus-assembler-full-path"
+status = "w3-landed-augments-w1-deliverable"
+description = "Cold-path corpus assembler — full streaming path (no longer dry-run-only). Resolves source subdatasets under annex-root → walks shards → per-row PII filter (auto-detect string fields) + sampled Charter Rider §2 scan (every 100th NDJSON row, 3-violation fail-closed abort) → emits typed NDJSON corpus shards with {v, source, license, tier, internal_only, pinRevision, payload} + manifest.json. tier=='C' source ⇒ internal_only=True automatic at emit time (G4). G5 dash-tokenized `-nc-` infix gate hardened. Module-loading direct-loads charter_rider + pii_filter from file paths to bypass pymagatama __init__ pydantic-core chain."
+
+[[modules]]
+path = "70-tools/e7m-dataset/tests/test_corpus_assembler.py"
+adr = "ADR-2605262400"
+kind = "assembler-test-suite"
+status = "w3-landed"
+description = "6-test pytest suite covering the assembler full-streaming path: weights-sum sanity, G5 dash-tokenized fail-closed, Tier-A IANA root e2e (3 NDJSON rows in / 3 typed rows out, internal_only=False, per-row source/license/tier tags), Tier-C Rapid7 e2e (alice@example.com redacted, internal_only=True), seed block verbatim copy, Charter scan wiring."
 
 
 # ─── Robotics-sim world-data ingestion + kami-usd pipeline (ADR-2605262500) ──
@@ -5792,6 +5933,20 @@ adr = "ADR-2605262500"
 kind = "sim-test-suite"
 status = "w1-shipped"
 description = "First e7m-sim test suite — 9 tests covering: build_plan on real wadachi Shibuya scene / placeholder CID determinism / scene-without-world rejection / G4 tier-C `-nc-` infix passes + missing-infix aborts + suffix-only passes / G6 emit_usd_stub byte-determinism / manifest shape contract / scene.schema.json sanity. Runs offline; assemble script loaded via importlib (hyphen in filename)."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/vision_pii_filter.py"
+adr = "ADR-2605262500"
+kind = "pii-redaction-vision"
+status = "w3-shipped-interface-w3.1-models-pending"
+description = "Vision PII filter (ADR-2605262500 §5 / G2). Pluggable backend interface (centerface-onnx / yolov8-face-onnx / retinaface-onnx for W3.1 real models; stub-allow for tests). Fail-closed by default — operator opts in via ETZ_VISION_PII_BACKEND + (for stub) ETZ_VISION_PII_ALLOW_STUB=1. Real blur via Pillow GaussianBlur σ≥15px faces / σ≥20px plates. Child-presence detection triggers FULL-FRAME REJECTION (no partial blur attempted; fail-closed per §5). Lives at e7m_dataset.vision_pii_filter (not pymagatama.organism.sensors.pii_filter_vision per original deps.toml entry) so that fetchers/mapillary.py imports cleanly without dragging pymagatama's langchain → pydantic env-fragile chain; future pymagatama wrapper can re-export. W3.1 = real ONNX models + env-path config (ETZ_VISION_PII_FACE_MODEL / ETZ_VISION_PII_PLATE_MODEL)."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/mapillary.py"
+adr = "ADR-2605262500"
+kind = "dataset-fetcher-tier-c-g13-g2"
+status = "w3-shipped"
+description = "Mapillary Graph API v4 street-imagery fetcher (Tier C, CC-BY-SA 4.0; G13 fleet-internal carve-out). VisionPiiFilter REQUIRED at call time — fetcher raises VisionPiiBackendUnavailable if vision_pii_filter arg is None (G2 enforcement at fetcher boundary). Per-image flow: GET /images bbox query → list image_id+thumb_url → per image download → vision_pii_filter.redact() → frame_rejected (child) routes to rejected/<id>.json; safe frame writes redacted to images/<id>.jpg + original to annex/<id>.jpg (Council-attestation-gated unlock per §5) + detection record to detections/<id>.json. Revision = sha256 of sorted image_id list. Output license=CC-BY-SA-4.0, tier=C, g13_nc_infix_required_in_artifacts=true. Max images per fetch capped at 5000 (operator default 100). Token via MAPILLARY_TOKEN or ETZ_MAPILLARY_TOKEN env."
 
 
 # ─── kotoba storage substrate unification R0 (ADR-2605262130) ──
