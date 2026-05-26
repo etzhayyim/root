@@ -68,6 +68,45 @@ class QueueSample:
 
 
 @dataclass
+class SensorHealth:
+    """One DatasetSensor's health snapshot.
+
+    Per ADR-2605262400 §5 — fed into rules R7 (stale-sensor-pin) and
+    R8 (charter-fail-rate). Populated by the corpus assembler / sensor
+    runtime; the KaizenObserver reads it as input.
+    """
+
+    name: str  # subdataset name, e.g. "netreg/rir-delegated/apnic"
+    tier: str  # Tier letter — "A" / "B" / "C" / "D"
+    license: str
+    refresh_cadence_sec: int
+    latest_pin_created_at_ms: int = 0
+    last_polled_at_ms: int = 0
+    last_charter_fp_count: int = 0
+    last_charter_total_count: int = 0
+    assigned_node_count: int = 0
+    note: str = ""
+
+
+@dataclass
+class LeakAttempt:
+    """One tier-C leak event observed by a PostSink wrapper.
+
+    Per ADR-2605262400 §5 R9 — critical backstop. A leak attempt is
+    when a SensorObservation tagged ``internal_only=True`` reached a
+    PostSink that is not on the internal-allow list. R9 fires
+    unconditionally on the first attempt (no dedup window).
+    """
+
+    sensor: str
+    tier: str
+    sink_kind: str  # "logger" / "ndjson-queue" / "social-post" / etc.
+    actor_did: str
+    ts_ms: int
+    detail: str = ""
+
+
+@dataclass
 class Observation:
     """All inputs to the rule engine for one observer tick."""
 
@@ -76,6 +115,9 @@ class Observation:
     queues: list[QueueSample] = field(default_factory=list)
     # Per-shard rolling history. observer maintains; rules may read.
     history: dict[int, list[float]] = field(default_factory=dict)
+    # Per ADR-2605262400 §5 — dataset sensor inputs to R7 / R8 / R9.
+    sensors: list[SensorHealth] = field(default_factory=list)
+    leak_attempts: list[LeakAttempt] = field(default_factory=list)
 
 
 # ── Output ────────────────────────────────────────────────────────────
@@ -507,6 +549,203 @@ class FleetUnreachableRule:
         return out
 
 
+# ── Dataset-sensor rules (R7 / R8 / R9 per ADR-2605262400 §5) ────────
+
+
+@register_rule
+class StaleSensorPinRule:
+    """R7 — sensor's latest datasetPin is older than 4× its refresh cadence."""
+
+    rule_id = "stale-sensor-pin"
+
+    def __call__(self, obs: Observation) -> list[KaizenProposal]:
+        out: list[KaizenProposal] = []
+        for s in obs.sensors:
+            if s.refresh_cadence_sec <= 0 or s.latest_pin_created_at_ms <= 0:
+                continue
+            age_ms = obs.ts - s.latest_pin_created_at_ms
+            threshold_ms = s.refresh_cadence_sec * 1000 * 4
+            if age_ms <= threshold_ms:
+                continue
+            age_h = age_ms / 3_600_000
+            out.append(
+                KaizenProposal(
+                    rule_id=self.rule_id,
+                    category="content",
+                    severity="warn",
+                    actor_scope=f"sensor:{s.name}",
+                    summary=(
+                        f"sensor '{s.name}' pin age = {age_h:.1f}h "
+                        f"(threshold = {s.refresh_cadence_sec * 4 / 3600:.0f}h)"
+                    ),
+                    detail=(
+                        f"DatasetSensor '{s.name}' (tier {s.tier}, license "
+                        f"{s.license}) has not received a fresh "
+                        f"app.etzhayyim.substrate.datasetPin record in "
+                        f"{age_h:.1f}h. Upstream cadence is "
+                        f"{s.refresh_cadence_sec}s. Per ADR-2605262400 G12, "
+                        f"refresh MUST NOT undercut upstream cadence — but "
+                        f"stale-by-4x is the floor."
+                    ),
+                    evidence={
+                        "sensor": s.name,
+                        "tier": s.tier,
+                        "ageMs": age_ms,
+                        "thresholdMs": threshold_ms,
+                        "refreshCadenceSec": s.refresh_cadence_sec,
+                    },
+                    suggested_action=SuggestedAction(
+                        kind="infra-change",
+                        description=(
+                            f"Operator: re-run `e7m-dataset pull <source>` "
+                            f"for '{s.name}' and `e7m-dataset publish-ipfs` "
+                            f"+ datasetPin emit."
+                        ),
+                        test_plan=[
+                            f"e7m-dataset verify {s.name}",
+                            "Check assigned_node_count >= 2 (replicationMin G3)",
+                        ],
+                    ),
+                    pr_agent_hint=PrAgentHint(
+                        branch_prefix=f"kaizen/stale-pin-{s.name.replace('/', '-')}-",
+                        labels=["kaizen", "content", "dataset-pin"],
+                    ),
+                )
+            )
+        return out
+
+
+@register_rule
+class CharterFalsePositiveRateRule:
+    """R8 — Charter Rider §2 scanner false-positive rate > 5% / 24h."""
+
+    rule_id = "charter-fail-rate"
+
+    def __call__(self, obs: Observation) -> list[KaizenProposal]:
+        out: list[KaizenProposal] = []
+        for s in obs.sensors:
+            if s.last_charter_total_count < 100:
+                continue
+            rate = s.last_charter_fp_count / s.last_charter_total_count
+            if rate <= 0.05:
+                continue
+            severity = "warn" if rate <= 0.20 else "critical"
+            out.append(
+                KaizenProposal(
+                    rule_id=self.rule_id,
+                    category="governance",
+                    severity=severity,
+                    actor_scope=f"sensor:{s.name}",
+                    summary=(
+                        f"sensor '{s.name}' Charter §2 FP rate = "
+                        f"{rate * 100:.1f}% (cap = 5%)"
+                    ),
+                    detail=(
+                        f"Out of {s.last_charter_total_count} Charter Rider §2 "
+                        f"scan invocations against sensor '{s.name}' in the "
+                        f"last 24h, {s.last_charter_fp_count} were demoted by "
+                        f"allow-context (rate {rate * 100:.1f}%). Per "
+                        f"ADR-2605262400 G11, this triggers a scanner-spec "
+                        f"review."
+                    ),
+                    evidence={
+                        "sensor": s.name,
+                        "fpCount": s.last_charter_fp_count,
+                        "totalCount": s.last_charter_total_count,
+                        "rate": round(rate, 4),
+                    },
+                    suggested_action=SuggestedAction(
+                        kind="code-change",
+                        description=(
+                            "Inspect charter_rider._RULES allow_context "
+                            "patterns for this sensor's vocabulary. Council "
+                            "Lv6+ ratifies threshold revisions."
+                        ),
+                        target_files=[
+                            "20-actors/magatama/py/src/pymagatama/organism/"
+                            "sensors/charter_rider.py",
+                        ],
+                        test_plan=[
+                            "pytest 70-tools/e7m-dataset/tests/test_charter.py",
+                            "Re-run scanner over a fixed sample and confirm "
+                            "FP rate drops below 5%",
+                        ],
+                    ),
+                    pr_agent_hint=PrAgentHint(
+                        branch_prefix=f"kaizen/charter-fp-{s.name.replace('/', '-')}-",
+                        labels=["kaizen", "governance", "charter-rider"],
+                    ),
+                )
+            )
+        return out
+
+
+@register_rule
+class TierCLeakBackstopRule:
+    """R9 — CRITICAL constitutional backstop for G13 NC-leak prevention.
+
+    Any tier-C SensorObservation reaching a non-allow-listed PostSink
+    is a Council-grade incident. Severity = critical, no dedup window
+    (every leak attempt is emitted), suggested_action = halt the
+    organism cell and escalate.
+    """
+
+    rule_id = "tier-c-leak"
+
+    def __call__(self, obs: Observation) -> list[KaizenProposal]:
+        out: list[KaizenProposal] = []
+        for la in obs.leak_attempts:
+            if la.tier != "C":
+                continue
+            out.append(
+                KaizenProposal(
+                    rule_id=self.rule_id,
+                    category="governance",
+                    severity="critical",
+                    actor_scope=f"actor:{la.actor_did}",
+                    summary=(
+                        f"tier-C leak attempt: sensor '{la.sensor}' → "
+                        f"sink '{la.sink_kind}' (actor {la.actor_did})"
+                    ),
+                    detail=(
+                        f"A tier-C SensorObservation with internal_only=True "
+                        f"reached PostSink '{la.sink_kind}' on actor "
+                        f"{la.actor_did}. Per ADR-2605262400 §5 R9 + G4, "
+                        f"this is a constitutional backstop incident. "
+                        f"Detail: {la.detail}"
+                    ),
+                    evidence={
+                        "sensor": la.sensor,
+                        "tier": la.tier,
+                        "sinkKind": la.sink_kind,
+                        "actorDid": la.actor_did,
+                        "tsMs": la.ts_ms,
+                    },
+                    suggested_action=SuggestedAction(
+                        kind="infra-change",
+                        description=(
+                            "Halt the offending organism cell. Audit the "
+                            "PostSink wiring on its host. Council Lv6+ "
+                            "reviews the incident."
+                        ),
+                        target_files=[
+                            "20-actors/magatama/py/src/pymagatama/organism/post_sink.py",
+                        ],
+                        test_plan=[
+                            "Re-run R9 leak-test harness",
+                            "Audit `PostSink.send()` callsites for tier-C drop",
+                        ],
+                    ),
+                    pr_agent_hint=PrAgentHint(
+                        branch_prefix=f"kaizen/tier-c-leak-{la.actor_did.split(':')[-1]}-",
+                        labels=["kaizen", "governance", "constitutional", "critical"],
+                        reviewers=["human", "council-lv6+"],
+                    ),
+                )
+            )
+        return out
+
+
 # ── Probe helpers ─────────────────────────────────────────────────────
 
 
@@ -741,11 +980,13 @@ class KaizenObserver:
 
 
 __all__ = [
+    "CharterFalsePositiveRateRule",
     "ErrorRateRule",
     "FleetUnreachableRule",
     "KaizenObserver",
     "KaizenProposal",
     "KaizenRule",
+    "LeakAttempt",
     "LruSaturationRule",
     "MoodConcentrationRule",
     "Observation",
@@ -754,9 +995,12 @@ __all__ = [
     "PrAgentHint",
     "QueueSample",
     "RULE_REGISTRY",
+    "SensorHealth",
     "ShardHealthz",
+    "StaleSensorPinRule",
     "SuggestedAction",
     "SweepLatencyP95Rule",
+    "TierCLeakBackstopRule",
     "probe_shard_healthz",
     "register_rule",
     "sample_queue",
