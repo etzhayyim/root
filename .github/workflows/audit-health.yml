@@ -21,11 +21,25 @@ on:
   push:
     branches: [main]
     paths:
+      # Audit infrastructure itself.
       - '.github/dependabot.yml'
       - '.github/workflows/audit-health.yml'
       - '70-tools/scripts/audit/**'
+      # SDK distribution surface (audited by sdk-exports-dist).
       - '40-engine/kami-engine/kami-engine-sdk/package.json'
+      # Subrepo URLs (audited by subrepo-upstream-health +
+      # subrepo-symlink-health).
       - '**/.gitrepo'
+      # Actor manifests + lexicon JSON files (audited by
+      # manifest-lexicon-drift; iter-53 canary regression-guards
+      # the just-closed category — needs to fire on these paths
+      # to actually catch drift introduction).
+      - '20-actors/**/manifest.jsonld'
+      - '00-contracts/lexicons/**/*.json'
+      # ADR files (audited by adr-cross-ref-health). Any new ADR or
+      # rename can change the orphan set and the standalone audit's
+      # baseline of 118 (iter-45) is operator-tracked.
+      - '90-docs/adr/**/*.md'
   pull_request:
     branches: [main]
     paths:
@@ -34,6 +48,9 @@ on:
       - '70-tools/scripts/audit/**'
       - '40-engine/kami-engine/kami-engine-sdk/package.json'
       - '**/.gitrepo'
+      - '20-actors/**/manifest.jsonld'
+      - '00-contracts/lexicons/**/*.json'
+      - '90-docs/adr/**/*.md'
   workflow_dispatch:
 
 permissions:
