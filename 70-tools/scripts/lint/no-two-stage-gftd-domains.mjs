@@ -36,7 +36,23 @@ const EXCLUDE_GLOBS = [
 
 const HOST_RE = /(?:did:web:|https?:\/\/|["'`\s(])([a-z0-9][a-z0-9-]*(?:\.[a-z0-9][a-z0-9-]*)+\.gftd\.ai)(?=[/:*"'`\s),}]|$)/gi;
 
-function listFiles() {
+// ── file list resolution ─────────────────────────────────────────────────
+//
+// When invoked by lefthook (`run: node …no-two-stage-gftd-domains.mjs
+// {staged_files}`), process.argv[2..] holds the list of staged files
+// matching lefthook's `glob:` filter — exactly the right scope for a
+// pre-commit lint that "blocks new introduction" of the forbidden host
+// pattern (per ADR-2605212340).
+//
+// When invoked with `--all` (manual full-scan), fall back to the rg-based
+// monorepo walk. The full-scan path is preserved for occasional auditing
+// even though pre-commit is the primary use case.
+//
+// Before this change the script *ignored* {staged_files} and always
+// performed the rg walk — turning a 1-file commit into a ~6s scan over
+// 60-apps + 20-actors + 50-infra + 70-tools.
+
+function listFilesAll() {
   const args = ["--files", "--hidden", "--glob", INCLUDE_GLOB];
   for (const glob of EXCLUDE_GLOBS) args.push("--glob", glob);
   args.push(...SEARCH_ROOTS);
@@ -46,6 +62,37 @@ function listFiles() {
     throw new Error(`rg --files failed (code=${result.status}): ${result.stderr?.trim() ?? ""}`);
   }
   return result.stdout.trim().split("\n").filter(Boolean);
+}
+
+function listFilesFromArgs(args) {
+  // Filter to files that (a) exist on disk (renames / deletions are passed
+  // but their old paths no longer resolve) and (b) match the include glob
+  // by extension. The extension check is a cheap proxy for INCLUDE_GLOB.
+  const includeExt = new Set(
+    INCLUDE_GLOB
+      .replace(/^.*\{/, "")
+      .replace(/\}.*$/, "")
+      .split(",")
+      .map((e) => `.${e}`),
+  );
+  return args.filter((f) => {
+    if (!fs.existsSync(f)) return false;
+    if (!fs.statSync(f).isFile()) return false;
+    const dot = f.lastIndexOf(".");
+    if (dot < 0) return false;
+    return includeExt.has(f.slice(dot));
+  });
+}
+
+function listFiles() {
+  // CLI arg shape:
+  //   node script.mjs                → scan staged files (none → no-op)
+  //   node script.mjs --all          → scan full monorepo via rg
+  //   node script.mjs <file> <file>…  → scan exactly those files
+  const cliArgs = process.argv.slice(2).filter((a) => a !== "--json");
+  if (cliArgs.includes("--all")) return listFilesAll();
+  if (cliArgs.length === 0) return [];
+  return listFilesFromArgs(cliArgs);
 }
 
 function lineNumberAt(text, index) {
