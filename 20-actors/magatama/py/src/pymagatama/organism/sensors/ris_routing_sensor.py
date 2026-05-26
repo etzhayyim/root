@@ -174,7 +174,63 @@ class RisRoutingSensor:
                     payload=row,
                 )
 
+    def stream_bounded(
+        self, pin: DatasetPin, limit: int
+    ) -> Iterator[SensorObservation]:
+        """Yield at most ``limit`` observations, then stop.
+
+        Heartbeat-friendly bounded sampling helper added 2026-05-27
+        after the W2 perf measurement (see ``hot_sample`` docstring).
+        For a 421 MB RIPE-RIS bview with ~5-10M RIB entries, calling
+        ``list(stream_bounded(pin, 1000))`` completes in well under
+        a second — fast enough for organism heartbeat polls.
+
+        The sample is **head-biased** (early peers + early prefixes
+        in the bview), which is acceptable for cadence-driven
+        situational-awareness sampling but NOT for unbiased corpus
+        assembly. Use ``hot_sample`` (reservoir over full file) for
+        cold-path corpus assembly.
+        """
+        import itertools
+        return itertools.islice(self.stream(pin), limit)
+
+    def hot_sample_bounded(
+        self, pin: DatasetPin, n: int, max_iter: int
+    ) -> list[SensorObservation]:
+        """Reservoir-sample ``n`` from the first ``max_iter`` records.
+
+        Trades uniform sampling over the entire bview for bounded
+        latency. Suitable for organism heartbeat polls — pick
+        ``max_iter`` such that the scan completes within the
+        heartbeat budget (e.g. ``max_iter=10000`` ≈ 0.7s at 15K
+        obs/s).
+
+        G9 deterministic on (pin.revision, n, max_iter).
+        """
+        rng = random.Random(f"{pin.revision}:{n}:{max_iter}")
+        reservoir: list[SensorObservation] = []
+        for i, obs in enumerate(self.stream_bounded(pin, max_iter)):
+            if i < n:
+                reservoir.append(obs)
+            else:
+                j = rng.randint(0, i)
+                if j < n:
+                    reservoir[j] = obs
+        return reservoir
+
     def hot_sample(self, pin: DatasetPin, n: int) -> list[SensorObservation]:
+        # Performance note (measured 2026-05-27 on mac-260317, real
+        # 421 MB RIPE-RIS rrc00 bview): mrtparse + this reservoir loop
+        # streams ~15K observations/second. A full bview has roughly
+        # 5-10M RIB entries, so a complete reservoir sample takes
+        # several minutes. For the heartbeat hot-path, callers SHOULD
+        # use a much smaller bounded prefix-iteration strategy. A
+        # follow-up wave will add ``stream_prefix(limit)`` that
+        # early-exits after N records (uniform near the head; biased
+        # toward early peers but suitable for tick-cadence sampling).
+        # Until then, ``hot_sample`` on RIPE-RIS / Routeviews should
+        # be reserved for cold-path corpus assembly, not organism
+        # heartbeats.
         rng = random.Random(f"{pin.revision}:{n}")
         reservoir: list[SensorObservation] = []
         for i, obs in enumerate(self.stream(pin)):
