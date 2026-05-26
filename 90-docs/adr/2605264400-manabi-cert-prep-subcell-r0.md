@@ -237,6 +237,35 @@ R0 = scaffold only; R1 adds live LLM via judah gateway (deferred to Wave 2 commi
 3. **Reproduce a curated subset of "publicly leaked" past questions** — rejected: §2(h) IP infringement; no fair-use defense for systematic reproduction; reputational risk for the charter as a whole.
 4. **Partner with ISACA / (ISC)² for official content** — rejected: G17 — external credential body partnership constitutionally prohibited; would entangle religious-corp infrastructure with for-profit credentialing economics.
 
+## Notes
+
+### Landing path — WIP catch-all sweep precedent
+
+W0+W1 deliverables of this ADR were landed via commit
+`67d2d5a0e chore(wip): concurrent session WIP catch-all — energy D-gate ADR wave + 4 Tier-B actor R0 scaffolds + manabi cert-prep + sim scenes + sensor fetchers`
+rather than a dedicated `feat(manabi-cert-prep)` commit.
+
+Root cause: a parallel session's lefthook pre-commit hook (`e7m-verify`) was
+holding the index when my working tree finished writing; the next concurrent
+session's commit swept my staged tree along with its own unrelated work into
+one WIP catch-all commit. This is the same pattern documented in
+ADR-2605264300 §1 Notes (which canonically named the SDK three.js cutover
+content for an analogous WIP sweep).
+
+**Functional outcome correct, commit-message hygiene impacted.** The bytes
+attributed to the sweep — under `60-apps/manabi-cert-prep/` (app skeleton +
+calm UI + 4 anti-addiction tests) + `20-actors/manabi/cells/cert_prep/`
+(4 cell stubs) + `00-contracts/lexicons/app/etzhayyim/manabi/` (3 new lex) +
+this ADR + deps.toml + CLAUDE.md row 75 + adr/README.md row + manabi
+manifest update — exactly match the W0+W1 scope declared in §Design above.
+
+`git log -- 60-apps/manabi-cert-prep/` correctly attributes all files to
+that commit. This §Notes is the canonical reference for the actual content
+intent.
+
+R1+ commits should land via normal `feat(manabi-cert-prep)` scopes once the
+concurrent-session race window passes.
+
 ## References
 
 - ADR-2605261045 (manabi master — invariants extended here)
@@ -248,3 +277,4 @@ R0 = scaffold only; R1 adds live LLM via judah gateway (deferred to Wave 2 commi
 - ADR-2605262800 (legal corpus — NIST/ISO/COBIT/IHL/privacy law substrate)
 - ADR-2605215000 (Murakumo-only inference — LLM routing constraint)
 - ADR-2605260100 (mitate self-care PWA — sibling app pattern)
+- ADR-2605264300 §1 Notes (parallel-session WIP sweep precedent for SDK three.js cutover)
