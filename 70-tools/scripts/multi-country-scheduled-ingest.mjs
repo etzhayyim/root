@@ -1,5 +1,40 @@
 #!/usr/bin/env node
 /**
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║  SUPERSEDED — DO NOT RUN ON THE RELIGIOUS-CORP SUBSTRATE              ║
+ * ║                                                                       ║
+ * ║  Status: pre-religious-corp commercial-fund era artifact (live BRREG  ║
+ * ║          / per-country API paging at cron-tick time — VIOLATES        ║
+ * ║          ADR-2605262400 §7 passive-only invariant).                   ║
+ * ║                                                                       ║
+ * ║  Superseded by:                                                        ║
+ * ║    - ADR-2605263800 — per-country corp-registry fetchers (W2          ║
+ * ║      deliverables: ca_sedar.py / au_asic.py / de_unternehmensregister ║
+ * ║      .py / fr_rncs_infogreffe.py)                                     ║
+ * ║    - ADR-2605263900 — per-country open-government-data fetchers       ║
+ * ║      (W1+W2: us_data_gov.py / uk_data_gov_uk.py / jp_data_go_jp.py /  ║
+ * ║      eu_data_europa_eu.py / fr_data_gouv_fr.py / de_govdata_de.py)    ║
+ * ║                                                                       ║
+ * ║  Why superseded (religious-corp substrate-fit):                       ║
+ * ║    - Passive-only discipline per ADR-2605262400 §7: organisms MUST    ║
+ * ║      NOT perform live per-country API paging at organism-tick time;   ║
+ * ║      only pre-published bulk archives. The legacy /tmp/...-state.json ║
+ * ║      offset-tracking pattern is a live-paging anti-pattern.           ║
+ * ║    - Per-source acceptance flag gate (~/.etzhayyim/source-acceptance/ ║
+ * ║      <source>.toml) supersedes the implicit cron-driven scheduling    ║
+ * ║      (operators explicitly accept upstream ToS once, then the         ║
+ * ║      e7m-dataset CLI handles cadence-respect)                         ║
+ * ║    - State now lives in `app.etzhayyim.substrate.datasetPin` PDS      ║
+ * ║      records + IPFS revision-content-hash (NOT /tmp/*.json)           ║
+ * ║                                                                       ║
+ * ║  Operator action:                                                     ║
+ * ║    - Replace cron-driven multi-country paging with `e7m-dataset pull  ║
+ * ║      <source>` per the W1/W2 fetcher table in ADR-2605263800 §2 +     ║
+ * ║      ADR-2605263900 §2.                                               ║
+ * ║                                                                       ║
+ * ║  Removal scheduled: ADR-2605263800 W4 + ADR-2605263900 W4 deliverable.║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ *
  * Scheduled (resumable) wrapper for multi-country-direct-ingest.
  *
  * Tracks per-source page offset in /tmp/multi-country-ingest-state.json so

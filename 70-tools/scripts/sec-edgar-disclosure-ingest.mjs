@@ -1,5 +1,38 @@
 #!/usr/bin/env node
 /**
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║  SUPERSEDED — DO NOT RUN ON THE RELIGIOUS-CORP SUBSTRATE              ║
+ * ║                                                                       ║
+ * ║  Status: pre-religious-corp commercial-fund era artifact (RisingWave  ║
+ * ║          + vertex_* graph schema, neither of which is part of the     ║
+ * ║          current substrate per ADR-2605262130 + ADR-2605172000).      ║
+ * ║                                                                       ║
+ * ║  Superseded by: ADR-2605263800 (Global corporate-disclosure ingestion ║
+ * ║                 via IPFS-pinned DataLad subdatasets) — W1 fetcher:    ║
+ * ║                 70-tools/e7m-dataset/src/e7m_dataset/fetchers/        ║
+ * ║                 sec_edgar.py                                          ║
+ * ║                                                                       ║
+ * ║  Why superseded (religious-corp substrate-fit):                       ║
+ * ║    - DataLad subdataset + IPFS-pin storage (NOT RisingWave)           ║
+ * ║    - app.etzhayyim.corp.{registryAttestation,disclosureAttestation,   ║
+ * ║      filingEvent} Lexicon records (NOT vertex_* PG tables)            ║
+ * ║    - Passive-only invariant per ADR-2605262400 §7 (no full live API   ║
+ * ║      enumeration; uses SEC quarterly-index bulk archive only)         ║
+ * ║    - CorpRegistrySensor / CorpDisclosureSensor / CorpFilingEventSensor║
+ * ║      Protocols (pymagatama.organism.sensors.corp.*) consume the       ║
+ * ║      pinned subdataset, not direct API output                         ║
+ * ║    - Charter Rider §2(e)+§2(c) vendor-commercial-terminal deny-list   ║
+ * ║      enforced at recipe lint (Bloomberg Terminal / Refinitiv / FactSet║
+ * ║      / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro PROHIBITED)   ║
+ * ║                                                                       ║
+ * ║  Operator action:                                                     ║
+ * ║    - For new ingestion: use `e7m-dataset pull sec-edgar` (W1)         ║
+ * ║    - For legacy data already in RW: read ADR-2605263800 §7 W4 plan    ║
+ * ║                                                                       ║
+ * ║  Removal scheduled: ADR-2605263800 W4 deliverable (after sensor       ║
+ * ║                     parity is verified at W3).                        ║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ *
  * SEC EDGAR disclosure ingest -> vertex_company_filing / vertex_company_fact.
  *
  * Purpose:

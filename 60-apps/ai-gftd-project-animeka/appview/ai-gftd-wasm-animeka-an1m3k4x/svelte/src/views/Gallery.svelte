@@ -15,6 +15,7 @@
   let cuts: Cut[] = $state([]);
   let loading = $state(true);
   let selected: Cut | null = $state(null);
+  let mode: 'cuts' | 'tensor' = $state('cuts');
 
   type RawCut = {
     rkey?: string;
@@ -65,10 +66,28 @@
   <header>
     <h1>Generated Cuts</h1>
     <span class="count">{cuts.length} cuts</span>
+    <div class="tabs">
+      <button class:active={mode === 'cuts'} onclick={() => mode = 'cuts'}>🖼 Cuts</button>
+      <button class:active={mode === 'tensor'} onclick={() => mode = 'tensor'} title="v9 USD cut tensor network — ADR-2605222000">⌬ Tensor Network</button>
+    </div>
     <button onclick={load}>↻ Refresh</button>
   </header>
 
-  {#if loading}
+  {#if mode === 'tensor'}
+    <div class="tensor-wrap">
+      <iframe
+        src="/tensor-pipeline.html"
+        title="animeka v9 USD cut tensor pipeline"
+        loading="lazy"
+      ></iframe>
+      <p class="muted tensor-note">
+        animeka v9 — USD scene → camera keyframe (TU/PAN/TB/TILT/ZOOM) →
+        ControlNet × 3 → keyframe render → inbetween interpolation →
+        composite cut. 16-node AnimekaUSDScene pack
+        (<a href="https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605222000-animeka-usd-cinematic-pipeline.md" target="_blank" rel="noopener">ADR-2605222000</a>).
+      </p>
+    </div>
+  {:else if loading}
     <p class="muted">Loading…</p>
   {:else if cuts.length === 0}
     <p class="muted">No generated cuts yet. The autopilot runs every 15 min.</p>
@@ -117,6 +136,16 @@
   .count { color: #6a6e7a; font-size: 13px; }
   button { background: #1a1d26; border: 1px solid #2a2e3a; color: #e6e8ee; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; }
   button:hover { border-color: #5ab0ff; }
+  .tabs { display: flex; gap: 6px; margin-left: 8px; }
+  .tabs button.active { border-color: #5ab0ff; color: #fff; background: #1d2430; }
+
+  .tensor-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .tensor-wrap iframe {
+    width: 100%; height: calc(100vh - 200px); min-height: 540px;
+    border: 1px solid #22252d; border-radius: 8px; background: #14161b;
+  }
+  .tensor-note { font-size: 11px; line-height: 1.5; margin: 0; }
+  .tensor-note a { color: #5ab0ff; }
 
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
   .card { background: #151823; border: 1px solid #22252d; border-radius: 8px; overflow: hidden; cursor: pointer; }
