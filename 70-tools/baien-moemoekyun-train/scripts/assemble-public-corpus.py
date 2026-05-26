@@ -517,7 +517,11 @@ def assemble(
 
         with out_shard.open("w", encoding="utf-8") as out_fh:
             for shard in shards:
-                if shard.suffix.lower() == ".ndjson":
+                # NDJSON-like: one JSON object per line.
+                # `.geojsonl` / `.geojsonseq` are also NDJSON-shaped
+                # (RFC 8142 may RS-prefix records but json.loads
+                # tolerates that). `.jsonl` is the colloquial form.
+                if shard.suffix.lower() in (".ndjson", ".jsonl", ".geojsonl", ".geojsonseq"):
                     for i, payload in enumerate(_iter_ndjson_rows(shard)):
                         # PII filter on every row (autodetect string fields).
                         redacted, stats = redact_payload(payload)
