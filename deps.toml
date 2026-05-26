@@ -2777,6 +2777,35 @@ sibling_modules = [
   "00-contracts/lexicons/app/etzhayyim/mitate",                    # 8 lexicons
 ]
 
+# ─── manabi cert_prep sub-cell (ADR-2605264400) ─────────────────────────────
+
+[[modules]]
+path = "20-actors/manabi/cells/cert_prep"
+kind = "religious-corp-actor-subcell-py-r0-scaffold"
+version = "0.0.1-r0-scaffold-only"
+status = "R0-scaffold-import-time-runtime-error-until-r1-council-ratify"
+description = "manabi.cert_prep sub-cell scaffold (4 Python cells, all import-time RuntimeError). domain_review (CBK concept reading) / practice_question (baien-moemoekyun synthetic question generation) / self_assessment (self-paced demonstration; G10 untimed default) / personal_material (Tier-C internal_only user-imported material, R2+). Activates on Council Lv6+ ≥3 ratify of ADR-2605264400 + judah LiteLLM gateway operational with baien-server-moemoekyun-* + encrypted envelope (ADR-2605181100) production-deployed."
+adr = ["2605264400", "2605261045", "2605261000", "2605181100", "2605215000", "2605262400", "2605262800", "2605192200"]
+sibling_modules = [
+  "60-apps/manabi-cert-prep",
+  "00-contracts/lexicons/app/etzhayyim/manabi",
+  "20-actors/manabi",
+]
+
+[[modules]]
+path = "60-apps/manabi-cert-prep"
+kind = "religious-corp-adherent-pwa-t3-ts-native"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-static-ui-only-no-llm-yet-w0-w1-of-adr-2605264400"
+description = "manabi cert_prep adherent-facing knowledge-domain study PWA — standalone Cloudflare Worker on manabi-cert-prep.etzhayyim.com (sibling of mitate-pwa pattern). T3 TS Native (Worker + static HTML assets binding). W0/W1 scope = static UI only (entry / domain selector / CISA + CISSP CBK concept readers / history view via localStorage) — NO LLM call yet; LLM wiring deferred to R1 via judah LiteLLM gateway per ADR-2605215000. Constitutional invariants enforced at HTML/JS layer: G3 anti-addiction (no streak / no badge / no leaderboard / no XP / no progress-bar-as-reward; structural test g3-no-addiction-ux-tokens.test.ts greps forbidden tokens out of public/); G7 anti-credentialism (no pass-rate display anywhere); G15 no pass-rate KPI (no fields exist); G16 no official past-question reproduction (concept content sourced from NIST SP / ISO conceptual references / COBIT framework descriptions — already ingested via ADR-2605262800 legal corpus); G14 substrate boundary deferred to R1 (W1 has no LLM / no XRPC calls). Tests: g3-no-addiction-ux-tokens / g15-no-pass-rate-kpi / g16-no-official-question-source / w1-no-llm-call-yet."
+adr = ["2605264400", "2605261045", "2605181100", "2605215000", "2605262400", "2605262800", "2605192200", "2605260100"]
+sibling_modules = [
+  "20-actors/manabi",
+  "20-actors/manabi/cells/cert_prep",
+  "00-contracts/lexicons/app/etzhayyim/manabi",
+  "60-apps/mitate-pwa",
+]
+
 # ─── Labor Liberation Transition Mechanism (ADR-2605261000 master + 4 actor R0) ────
 # Per ADR-2605261000: 7-stage Liberation Ladder L0..L6. Each stage gated on
 # actor maturity + Public Fund reserve + adherent ceiling + Council attestation.
@@ -2809,6 +2838,15 @@ title = "manabi (学び) — Education Tier-B Actor R0 Scaffold"
 status = "proposed"
 status_note = "Master charter establishing manabi (学び, continuative noun of 学ぶ; etymologically 真似ぶ to imitate/emulate; multi-gen lifelong-learning echo) as Tier-B religious-corp first-party education actor. R0 scope = open-curriculum literacy + numeracy + civics/charter + vocational + lifelong inquiry. Excludes formal accreditation, degree issuance, examination-as-gatekeeper, behavioral conditioning, for-profit textbook publishing, proprietary LMS, surveillance edtech, family/cultural-transmission replacement, advertising, political-party content. **ANTI-CREDENTIALISM INVARIANT G7**: no degrees/transcripts/GPA; only skillAttestation (subject-specific replayable demonstration) used by L5+ adherent productive contribution. **ANTI-ADDICTION UX G3**: no streaks/rewards/FOMO/leaderboards/badges-as-status; calm-state-default UX. **MINOR PRIVACY G6**: under-18 sessions emit aggregate-only attestations (sessionDuration, moduleId, completionFraction); per-learner detail structurally rejected via learnerAgeBucket discriminator; 30-day rotating pseudonym DID for minors. 14 gates including G4 Council Lv6+ ≥3 charter alignment per module (multi-gen + anti-individualism + Wellbecoming + non-eschatology) + G14 comparative religion mandated (etzhayyim itself never taught as exclusive truth). 10 non-goals N1..N10. 4-phase R0→R3 (R0 scaffold / R1 IPFS curriculum ≤100 learners advisory-only / R2 live tutors + vocational ≤25,000 + L4 eligibility / R3 Yutori telepresence ≤100,000 + L5 eligibility). 5 Pregel cells on levi (smallest fleet footprint — content distribution + tutor coordination, low compute). 4 lexicons (curriculumAttestation + learningSessionAttestation + charterUnderstandingAttestation + silenEducationReview). civics_charter cell output = charterUnderstandingAttestation = Adherent SBT informed-consent baseline per ADR-2605261000 §2.1. Parent ADR = 2605261000 (Liberation Ladder L4 + L5 gates)."
 path = "90-docs/adr/2605261045-manabi-education-tier-b-actor-r0.md"
+
+# ─── manabi cert_prep sub-cell R0 (ADR-2605264400) ───────────────────────────
+
+[[adrs]]
+id = "2605264400"
+title = "manabi cert_prep — IT audit / infosec knowledge-domain study sub-cell (CISA / CISSP) R0"
+status = "proposed"
+status_note = "Sub-charter under manabi master (ADR-2605261045). Adds sixth Pregel cell `cert_prep` alongside literacy / numeracy / civics_charter / vocational / lifelong_inquiry. Knowledge-domain study substrate ONLY for CISA CBK 5 domains + CISSP CBK 8 domains; manabi never issues these credentials (preserves G7 anti-credentialism invariant — credentials remain external to ISACA / (ISC)²). **3 additional gates layered on top of manabi G1..G14**: G15 no pass-rate KPI (silenEducationReview cert_prep section schema-rejects pass-rate fields; only sessionCount + domainCoverageBreadth) / G16 no official past-question reproduction (questionSource closed enum at PDS write — only `synthetic-baien-generated` or `user-imported-personal-only`; `official-isaca-reproduced` / `official-isc2-reproduced` / `commercial-test-bank-reproduced` are NOT valid members) / G17 no external credential body partnership (ISACA / (ISC)² / CompTIA / EC-Council / SANS / Offensive Security — §2(b) ad-free + §2(e) anti-gatekeeping + §1.12 routing-around-state-aligned-bodies). **3 additional non-goals N11..N13**: pass guarantee / formal partnership / cert completion as employment gate within religious-corp roles (adherent competence judged by domainMasteryAttestation subject-specific demonstration, never external credential possession). **Question-source pathway** (G16 detail): (1) synthetic-baien-generated via baien-server-moemoekyun-* on Murakumo fleet (judah LiteLLM gateway per ADR-2605215000), grounded in public CBK outline structure + NIST SP / ISO 27001/27002 conceptual references / COBIT framework descriptions / GDPR+APPI+CCPA + Geneva Convention IHL (all already ingested via ADR-2605262800 legal corpus); deterministic sha256 questionSeed (regenerable; question text bodies NOT persisted). (2) user-imported-personal-only — adherent uploads personally-purchased material (ISACA Review Manual / Wiley / Sybex), client-side XChaCha20-Poly1305 encrypted (ADR-2605181100), `internalOnly:true` (Tier-C pattern from ADR-2605262400), single-recipient ownerDid, never projected to public MST, never LLM training, hard delete on owner request. **LLM-assistance contract** (system-prompt-level): no praise / no pass-rate prediction / no official past-question reproduction even if user paraphrases / cite NIST/ISO/COBIT source / acknowledge uncertainty / Socratic ≥50% (cert_prep targets above master G13 ≥30%). **Data flow**: passkey → manabi-cert-prep PWA → @etzhayyim/sdk consent capability → judah → baien (Murakumo) → synthetic question; sessions persist as XChaCha20 envelope wrapping app.etzhayyim.manabi.certPrepSession, recipientDids:[owner] only. **3 lexicons**: certPrepSession (G15 negative-space + G16 closed enum + G6 inherited via learnerAgeBucket) / personalMaterialImport (internalOnly const true + ownerDid single-recipient + licenseAcknowledgment) / domainMasteryAttestation (credentialClaimedAttested const false; L5 Vocation pathway gating uses this, never external credential). **4 cell stubs** (import-time RuntimeError R0): domain_review / practice_question / self_assessment / personal_material. **PWA**: 60-apps/manabi-cert-prep/ (CF Worker + static, sibling pattern of mitate-pwa). 4-phase R0→R3 (R0 this commit / R1 post-Council ratify wires judah + baien + encrypted-envelope persistence ≤50 adherents / R2 post-R1 30-day public objection enables personal_material + self_assessment ≤500 / R3 integrated with L5 Vocation pathway = charters_compliance reviewer steward + toritate audit steward + Murakumo operator steward recognized vocational tracks gated on domainMasteryAttestation, never external credential)."
+path = "90-docs/adr/2605264400-manabi-cert-prep-subcell-r0.md"
 
 [[adrs]]
 id = "2605261100"
@@ -5948,6 +5986,20 @@ kind = "dataset-fetcher-tier-c-g13-g2"
 status = "w3-shipped"
 description = "Mapillary Graph API v4 street-imagery fetcher (Tier C, CC-BY-SA 4.0; G13 fleet-internal carve-out). VisionPiiFilter REQUIRED at call time — fetcher raises VisionPiiBackendUnavailable if vision_pii_filter arg is None (G2 enforcement at fetcher boundary). Per-image flow: GET /images bbox query → list image_id+thumb_url → per image download → vision_pii_filter.redact() → frame_rejected (child) routes to rejected/<id>.json; safe frame writes redacted to images/<id>.jpg + original to annex/<id>.jpg (Council-attestation-gated unlock per §5) + detection record to detections/<id>.json. Revision = sha256 of sorted image_id list. Output license=CC-BY-SA-4.0, tier=C, g13_nc_infix_required_in_artifacts=true. Max images per fetch capped at 5000 (operator default 100). Token via MAPILLARY_TOKEN or ETZ_MAPILLARY_TOKEN env."
 
+[[modules]]
+path = "70-tools/e7m-sim/scripts/eval_sim_metrics.py"
+adr = "ADR-2605262500"
+kind = "sim-quality-gate-eval-harness"
+status = "w2-shipped"
+description = "G11 / G5 sim quality gate eval harness (ADR-2605262500 §9 + ADR-2605261600 G5). Standalone Python module + CLI computing PSNR / SSIM (Wang et al. 2004 whole-frame, no scikit-image dep) / Chamfer (scipy.spatial.cKDTree bidirectional NN) / Voxel IoU (numpy hash-set), with per-metric thresholds (PSNR≥25dB / SSIM≥0.85 / Chamfer≤0.05m / IoU≥0.75 at 0.10m voxel) + composite weighted-average gate (≥0.75). Reference-CSV reader for one-time-use Isaac Sim trial-machine metrics per ADR-2605261600 G5 (only metrics CSV crosses boundary; no Isaac Sim binaries reach religious-corp infra). Honest scoring per ADR-2605261600 §G10: any single-metric failure aborts combined gate even if composite is above threshold. 23 tests under 70-tools/e7m-sim/tests/test_eval_sim_metrics.py."
+
+[[modules]]
+path = "70-tools/e7m-sim/scenes/suki-r1-tokachi-2km-pasture/"
+adr = "ADR-2605262500"
+kind = "scene-directory-cross-actor"
+status = "w4-shipped-first-cross-actor"
+description = "First W4 cross-actor scene — Hokkaido Tokachi 2km×2km pasture for suki R1 (farm tractor, ADR-2605261500). Tier-A only (SRTM n42e143 + Sentinel-2 T54TXN + Overture farm tracks). Exercises the assembler against a non-urban bbox to validate generalization beyond Shibuya urban density. Tests in test_assemble_usd_scene.py: end-to-end build_plan + emit_scene + USDA verification, plus wadachi-vs-suki USDA-diff cross-check."
+
 
 # ─── kotoba storage substrate unification R0 (ADR-2605262130) ──
 
@@ -6353,6 +6405,124 @@ sibling_modules = [
 ]
 
 
+# ─── musubi (結) covenant ceremony substrate R0 (ADR-2605263400) ──
+
+[[adrs]]
+id = "2605263400"
+title = "musubi (結) — non-profit religious-corp covenant ceremony substrate Tier-B actor R0 charter"
+status = "proposed"
+status_note = "Sixth-priority gap-closure actor (gap audit row 6 = 冠婚葬祭). TIGHT PAIR of chigiri (chigiri attests on-chain via covenantAttestation; musubi performs ceremony). chigiri.covenant_ceremony cell explicitly path-reserved musubi at R2; this ADR realizes that pair. 任意団体 internal ceremony performance substrate at did:web:musubi.etzhayyim.com (20-actors/musubi/). Etymology: 結 = tie/knot/bind/connect; Shinto 産霊 generative-creative force tying threads of life. 6 ceremony categories: marriage (Charter §1.12 routing-around; NOT state-recognized) / naming (Adherent SBT issuance ritual; chigiri.member_onboarding pair) / funeral 葬送 (chigiri.inheritance + future shidemori memorial pair) / vocation vow (L5 vocation-flow steward commitment) / rededication (post-voluntary-withdrawal OR post-excommunication cure return) / seasonal communal (新年/祈年/収穫/鎮魂/安息 + Wellbecoming festival cycles). **Constitutional octet**: (1) NO clergy class G3+N2 (Reformed 万人祭司 invariant per Charter §1.7; officiantAttestation.officiantClass enum DELIBERATELY excludes clergy/ordained/priest/bishop/minister-with-ecclesiastical-authority; valid const = community-witnessed-competent) / (2) NO mandatory ritual attendance G4+N3 (free conscience; member opt-in; non-participation NEVER grounds for consequences) / (3) Per-ceremony consent G5 default-deny / (4) NO commercial wedding/funeral industry software G6+N6 (Aisle Planner/Honeybook/The Knot/WeddingWire/Zola/SRS Computing/Aldor/Wilbert/Frazer Consultants PROHIBITED per Charter Rider §2(e)+§2(c) — vendor closed query-tracking on member life-events) / (5) NO bride price/dowry coercion G7+N7 (anti-coercive ceremony economy; gifts permitted, coercive transfer prohibited) / (6) NO video without per-party consent G8 / (7) NO sacrament-as-transubstantiation G9+N4 (Sola Scriptura + Reformed memorial view; cross-doctrinal Wellbecoming priority N12) / (8) Cross-actor chigiri.covenantAttestation emit MANDATORY G11 (marriage/naming/funeral/vocation-vow/rededication; NOT seasonal_communal — communal not per-individual). Multi-gen invariant G10 (Charter §1.7). G12 vocation-flow L5 officiants (cross-actor enforcement). G13 Murakumo-only inference. 6 cells (marriage_ceremony / naming_ceremony / funeral_ceremony / vocation_vow_ceremony / rededication_ceremony / seasonal_communal_ceremony). 5 Lexicons: ceremonyPerformanceAttestation (G11+G7+G8+G10 structural; chigiriCovenantAttestationCid REQUIRED for non-seasonal + bridePriceOrDowryAttested const false + videoRecordingPerPartyConsent REQUIRED if video) + officiantAttestation (G3 STRUCTURAL: officiantClass const 'community-witnessed-competent' + G12 STRUCTURAL: lLevel const L5 + employmentRelation const vocation-flow + witnessingOfficiantAttestations minLength 3) + communityWitnessAttestation (G10 multi-gen cohort mix) + seasonalCeremonyCalendar (G4 openToCommunity const true) + silenMusubiReview (G3 clergyClassOfficiantPenetrationPct=0 const + G6 commercialWeddingFuneralSoftwarePenetrationPct=0 const + G7 bridePriceOrDowryEventsCount=0 const + G12 officiantVocationFlowCompliantRatioPctIntegerHundredths=10000 const). 13 gates G1..G13 + 12 non-goals N1..N12 + 4-phase R0..R3."
+path = "90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/musubi"
+kind = "tier-b-non-profit-covenant-ceremony-performance-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-path-reserved"
+description = "musubi (結 — tie/knot/bind/connect; Shinto 産霊 generative force) actor scaffold. Manifest + README + CLAUDE.md only at R0. 6 Pregel cells path-reserved under 20-actors/magatama/cells/musubi_*/ (cell modules created at R1 post-Council ratification + ≥3 officiant baseline attestations + community-witness registry initialized + chigiri R1 active (cross-actor covenantAttestation cross-emit dependency); all import-time RuntimeError until activated). 5 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/musubi/. **TIGHT PAIR** with chigiri: chigiri.covenant_ceremony cell path-reserved musubi at R2; this actor realizes that pair. Constitutional octet enforced (G3 no clergy class Reformed 万人祭司 / G4 no mandatory attendance / G5 per-ceremony consent / G6 no commercial wedding-funeral software / G7 no bride price-dowry / G8 no video without consent / G9 no transubstantiation + cross-doctrinal Wellbecoming priority / G11 chigiri.covenantAttestation cross-emit MANDATORY). Multi-gen invariant G10 + G12 vocation-flow L5 + G13 Murakumo-only."
+adr = ["2605263400", "2605263200", "2605263100", "2605263000", "2605262900", "2605262700", "2605262130", "2605261030", "2605261000", "2605250200", "2605215000", "2605192300", "2605192245", "2605192200", "2605192145", "2605192100", "2605181100"]
+sibling_actors = [
+  "chigiri (TIGHT PAIR — chigiri.covenant_ceremony cell explicit cross-actor at R2; covenantAttestation cross-emit MANDATORY G11)",
+  "iyashi (healing-rite ceremonial closure post-chronic-care)",
+  "hagukumi (multi-gen ceremony participation)",
+  "shidemori (future; funeral → memorial NFT)",
+  "kokoro (future; post-funeral grief / mental-health surge)",
+  "toritate (Public Fund ceremony venue grant if applicable)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/app/etzhayyim/musubi",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/musubi"
+form = "任意団体 internal covenant ceremony performance substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格)"
+tight_pair_with = "chigiri (chigiri.covenant_ceremony cell)"
+no_clergy_class_reformed_invariant = true
+no_mandatory_ritual_attendance = true
+no_commercial_wedding_funeral_software = true
+no_bride_price_dowry = true
+no_video_without_consent = true
+no_transubstantiation_cross_doctrinal_wellbecoming = true
+chigiri_covenant_attestation_emit_mandatory = true
+multi_gen_invariant = true
+no_payroll_for_officiants = true
+murakumo_only_inference = true
+phase_gate = "R1 activation requires Bootstrap Council Seat 2-5 RFP closure (2026-06-19) + Council Lv6+ ≥3 ratify of ADR-2605263400 + ≥3 officiant baseline attestations on file (community-witnessed-competence, NOT clergy ordination per G3) + community-witness registry initialized + chigiri R1 active (covenantAttestation cross-emit dependency) + ≥1 ceremony-experienced advisor on Council"
+charter_rider_risk = "MEDIUM (high-temptation domain for vendor wedding-industry software during pilot; G6 const-field structural enforcement is the constitutional discipline)"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/musubi"
+kind = "musubi-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-5-lexicon-skeleton-schemas-+-README"
+description = "5 Lexicon JSONs for musubi actor per ADR-2605263400. All Lexicons use $ref pattern for nested types (cohortRatioEntry / seasonalCeremonyEntry / cohortMix / cohortAverage). Integer units (pct × 10000 hundredths; count integers). Const-field structural enforcement throughout: officiantClass=community-witnessed-competent (G3) + lLevel=L5 (G12) + employmentRelation=vocation-flow (G12) + bridePriceOrDowryAttested=false (G7) + openToCommunity=true (G4) + clergyClassOfficiantPenetrationPct=0 (G3 silenMusubi) + commercialWeddingFuneralSoftwarePenetrationPct=0 (G6) + bridePriceOrDowryEventsCount=0 (G7) + officiantVocationFlowCompliantRatioPctIntegerHundredths=10000 (G12). G3 STRUCTURAL anti-clergy: officiantAttestation.officiantClass enum DELIBERATELY excludes clergy/ordained/priest/bishop/minister-with-ecclesiastical-authority (Reformed 万人祭司 invariant per Charter §1.7)."
+adr = ["2605263400", "2605262700", "2605192200", "2605192100", "2605261000", "2605262130"]
+sibling_modules = [
+  "20-actors/musubi",
+  "00-contracts/lexicons/app/etzhayyim/chigiri",
+  "00-contracts/lexicons/app/etzhayyim/iyashi",
+  "00-contracts/lexicons/app/etzhayyim/hagukumi",
+  "00-contracts/lexicons/app/etzhayyim/liberation",
+]
+
+
+# ─── wakai (和会) mutual aid substrate R0 (ADR-2605263500) ──
+
+[[adrs]]
+id = "2605263500"
+title = "wakai (和会) — non-profit religious-corp mutual aid substrate Tier-B actor R0 charter"
+status = "proposed"
+status_note = "Seventh-priority gap-closure actor (gap audit row 7 = 共済 / mutual aid). NOT insurance (no premium-as-contract / no actuarial pricing / no claim adjudication / no policy denial / no underwriting). Member-to-member solidarity pooling per Charter §1.7 反個人主義 + 多世代 + harmony invariant. 任意団体 internal mutual aid substrate at did:web:wakai.etzhayyim.com (20-actors/wakai/). Etymology: 和会 = harmony/reconciliation gathering; classical 互助会. Risk-sharing scope: health-event / disability / death-of-breadwinner / unemployment / disaster. Public Fund (toritate) is backstop when community pool insufficient. **Constitutional septad**: (1) NOT insurance G3+N1 / (2) NO commercial insurance software G4+N8 (Guidewire/Duck Creek/Insurity/Sapiens/Majesco/SAP Insurance/Oracle Insurance/Lemonade-as-vendor/Hippo-as-vendor PROHIBITED per Charter Rider §2(e)+§2(c) — vendor closed query-tracking on member health/disability/employment posture) / (3) NO commercial re-insurance G5+N6 (Munich Re/Swiss Re/SCOR/Hannover Re/Berkshire Hathaway Re PROHIBITED; risk stays in community + Public Fund backstop) / (4) NO investment return promise G6+N2 (Charter Rider §2(b) speculative finance prohibition; pool in USDC on Base L2 stable-asset only; NO DeFi yield farming; NO token speculation; investmentReturnPromised const false) / (5) NO discrimination on pre-existing condition G7 (no underwriting; noPreExistingConditionExclusion const true) / (6) Contribution voluntary + ability-scaled G8 (Charter §1.7 反個人主義; no minimum) / (7) Distribution by community discernment G9 (Council Lv6+ ≥3 + ≥3 community attestation chain; NOT claim adjudication). G10 Public Fund backstop via Council Lv6+ ≥4/7. G11 NO payroll for administrators (vocation-flow L5). G12 Murakumo-only inference. Cells: mutual_aid_pool_contribution / mutual_aid_distribution / emergency_pool_activation (kazaori-paired; kazaori path-reserved wakai at R0) / health_event_support (iyashi+hagukumi+yakushi triad) / public_fund_backstop_request (toritate-paired) / pool_state_reporting. 5 Lexicons under app.etzhayyim.wakai.*: mutualAidContributionAttestation (G6+G8 structural) + mutualAidDistributionAttestation (G9+G7+G3 STRUCTURAL: communityDiscernmentAttestations minLength 3 + claimAdjudicated const false + noPreExistingConditionExclusion const true) + mutualAidPoolStateReport (G6 STRUCTURAL: poolAssetClass const usdc-stable-only + defiYieldFarmingActiveCount const 0 + tokenSpeculationActiveCount const 0) + publicFundBackstopRequest (G10 STRUCTURAL: councilAttestations minLength 4) + silenWakaiReview (G3/G4/G5/G6/G7/G9/G11 const-field structural enforcement: commercialInsuranceSoftwarePenetrationPct=0 const + commercialReInsurancePenetrationPct=0 const + claimDenialEventsCount=0 const + preExistingConditionExclusionEventsCount=0 const + administratorVocationFlowCompliantRatioPctIntegerHundredths=10000 const). 12 gates G1..G12 + 12 non-goals N1..N12 + 4-phase R0..R3."
+path = "90-docs/adr/2605263500-wakai-mutual-aid-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/wakai"
+kind = "tier-b-non-profit-mutual-aid-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-path-reserved"
+description = "wakai (和会 — harmony/reconciliation gathering; classical 互助会 mutual aid society) actor scaffold. Manifest + README + CLAUDE.md only at R0. 6 Pregel cells path-reserved under 20-actors/magatama/cells/wakai_*/ (cell modules created at R1 post-Council ratification + initial pool seed (Council Lv6+ ≥4/7 Public Fund seed grant) + ≥3 community discernment witness candidates + chigiri R1 active + toritate R1 active; all import-time RuntimeError until activated). 5 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/wakai/. **NOT insurance invariant** (G3+N1): no premium-as-contract / no actuarial pricing / no claim adjudication / no policy denial / no underwriting. Member-to-member solidarity only. Constitutional septad enforced (G3 not insurance / G4 no commercial insurance software / G5 no re-insurance / G6 no investment return Charter Rider §2(b) / G7 no pre-existing condition discrimination / G8 voluntary ability-scaled / G9 community discernment NOT claim adjudication). Public Fund backstop (G10) is the only escalation; risk stays in community. kazaori (ADR-2605263200) path-reserved wakai cross-actor at R0; this actor realizes that path-reserve."
+adr = ["2605263500", "2605263200", "2605263000", "2605262900", "2605262700", "2605262130", "2605261000", "2605215000", "2605192300", "2605192200", "2605192145", "2605192130", "2605192100", "2605181100"]
+sibling_actors = [
+  "kazaori (emergency pool activation; kazaori path-reserved wakai cross-actor at ADR-2605263200)",
+  "iyashi (health event support; chronic care continuity + acute event)",
+  "hagukumi (daily-living gap funding; multi-gen support)",
+  "yakushi (medication supply gap funding)",
+  "toritate (mutual aid pool transparency + Public Fund backstop accounting)",
+  "chigiri (membership verification + procedural attestation + stewardLaborAttestation read for administrator L5)",
+  "Public Fund Safe (backstop disbursement source)",
+  "TitheRouter (aggregate solidarity-capacity read)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/app/etzhayyim/wakai",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/wakai"
+form = "任意団体 internal mutual aid substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格; NOT a state-licensed insurance entity)"
+not_insurance_invariant = true
+no_commercial_insurance_software = true
+no_commercial_re_insurance = true
+no_investment_return_promise_speculative_finance_prohibition = true
+no_pre_existing_condition_discrimination = true
+voluntary_ability_scaled_contribution = true
+community_discernment_distribution_not_claim_adjudication = true
+public_fund_backstop_only_escalation = true
+no_payroll_for_administrators = true
+murakumo_only_inference = true
+phase_gate = "R1 activation requires Bootstrap Council Seat 2-5 RFP closure (2026-06-19) + Council Lv6+ ≥3 ratify of ADR-2605263500 + initial pool seed (Council Lv6+ ≥4/7 Public Fund seed grant) + ≥3 community discernment witness candidates on file + chigiri R1 active (Adherent SBT verification + stewardLaborAttestation) + toritate R1 active (Public Fund backstop accounting coordination)"
+charter_rider_risk = "HIGH for §2(b) speculative finance drift (mutual aid pool could drift toward DeFi yield / token speculation if discipline weakens); G6 const-field structural enforcement (poolAssetClass=usdc-stable-only + defiYieldFarmingActiveCount=0 + tokenSpeculationActiveCount=0) is the constitutional discipline; silenWakaiReview quarterly audit"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/wakai"
+kind = "wakai-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-5-lexicon-skeleton-schemas-+-README"
+description = "5 Lexicon JSONs for wakai actor per ADR-2605263500. All Lexicons use $ref pattern for nested types (distributionByCategory). Integer units throughout (USD millicents; pct × 10000 hundredths). **Aggressive const-field structural enforcement** across G3/G4/G5/G6/G7/G9/G11: investmentReturnPromised=false (G6) + claimAdjudicated=false (G3) + noPreExistingConditionExclusion=true (G7) + poolAssetClass=usdc-stable-only (G6) + defiYieldFarmingActiveCount=0 (G6) + tokenSpeculationActiveCount=0 (G6) + commercialInsuranceSoftwarePenetrationPct=0 (G4) + commercialReInsurancePenetrationPct=0 (G5) + claimDenialEventsCount=0 (G3) + preExistingConditionExclusionEventsCount=0 (G7) + administratorVocationFlowCompliantRatioPctIntegerHundredths=10000 (G11). G9 STRUCTURAL: mutualAidDistributionAttestation.communityDiscernmentAttestations minLength 3 + councilAttestations minLength 3 (community discernment NOT claim adjudication). G10 STRUCTURAL: publicFundBackstopRequest.councilAttestations minLength 4 (Council Lv6+ ≥4/7 per ADR-2605192145)."
+adr = ["2605263500", "2605192200", "2605192145", "2605192130", "2605261000", "2605262130"]
+sibling_modules = [
+  "20-actors/wakai",
+  "00-contracts/lexicons/app/etzhayyim/toritate",
+  "00-contracts/lexicons/app/etzhayyim/kazaori",
+  "00-contracts/lexicons/app/etzhayyim/chigiri",
+]
+
+
 # ─── baien ameno per-kernel inference R0 (ADR-2605263300) ──
 
 [[adrs]]
@@ -6462,3 +6632,90 @@ title = "Baien ameno ONNX graph layer-replacement R1b — transformers.js MatMul
 status = "proposed-scoping-only"
 status_note = "R1b of the R-roadmap pinned by ADR-2605263300 §10. First R-step that produces user-observable behaviour change — closes the silent ADR-2605241900 §G1 violation that has been open since baien-bitnet-2b landed in ameno on 2026-05-09 (current load-time bf16 expansion pushes ~3.4 GB peak on iPhone 12, exceeding the ≤2 GB @ 4 k ctx ceiling). 5 harness candidates evaluated: (A) offline ONNX rewrite + forked HF model — rejected ops burden / (B) in-browser ONNX rewrite — CHOSEN for encode/prefill / (C) ORT-Web custom op WASM EP only — rejected loses webgpu-bitlinear / (D) full transformers.js forward override — CHOSEN for decode-step (where throughput win lives) / (E) patch ORT-Web itself — rejected non-public API. R1b = (B)+(D) hybrid. R1b deliverables across 8-commit chain over multiple cycles ~1500-2000 LoC: (1) onnx-proto-min.ts ~400 LoC protobuf encoder/decoder for ModelProto/GraphProto/NodeProto/TensorProto; (2) bitnet-graph-patcher.ts replaces matching *.{q,k,v,o,gate,up,down}_proj.weight MatMul nodes ONLY (NOT attention QK^T runtime matmuls); (3) bitnet-custom-op.ts registers etzhayyim.ai::BitLinear via ORT-Web env.experimental.customOps; (4) BitNetForwardOverride decode bypass; (5) inference.ts useBitLinearBridge flag-gating on MODELS[baien-bitnet-2b]; (6) microbench against 15-prompt verifiable set (4 backends × 3 device classes = 12 cells); (7) iPhone 12 + Pixel 6 real-device run-log emits; (8) G1 close attestation. Failure ladder: dispatch throws → fall back to WGSL_BITNET_PACKED_DEQUANT fp16 dense dequant + telemetry → second failure = catastrophic abort. 4 new gates R1b-G1..G4 (replaced-count expectation / shape validation / telemetry on fallback / microbench manifest device-class + adapter + commit SHA). Inherited G1 (closes via microbench) / G4 (every backend vs scalar reference) / G9 (upgraded — fallback OK but MUST emit telemetry) / G14 (NO LONGER APPLIES — R1b is behaviour-change step, flag-gated per model). Out of scope: R1c v128 SIMD / R2 encoder kernels / R3 WebNN NPU / R4 q8 KV-cache / real-device matrix bench (R1b ships harness only) / baien-server-XL (edge-only)."
 path = "90-docs/adr/2605263700-baien-ameno-onnx-graph-layer-replacement-r1b.md"
+
+
+# ─── ossekai (御節介) information-arbitrage + Wellbecoming-nudge artificial-organism substrate R0 (ADR-2605264000) ──
+
+[[adrs]]
+id = "2605264000"
+title = "ossekai (御節介) — non-profit religious-corp information-arbitrage elimination + Wellbecoming-nudge artificial-organism actor R0 charter (AT Protocol social-post + feed + @mention first-touch)"
+status = "proposed"
+status_note = "Sixth-priority gap-closure actor (gap audit row 6 = 情報非対称 / information arbitrage). Artificial-organism Tier-B actor at did:web:ossekai.etzhayyim.com (20-actors/ossekai/) whose dual mandate is (a) AGGREGATE PUBLICATION of societal information asymmetries (public-good intel surface) and (b) OSSEKAI-MODE NUDGE — caring proactive notification to opted-in Adherent SBT members (encrypted private digest per ADR-2605181100) + Council-gated single-touch @mention to non-member companies/individuals on AT Protocol — all delivered via AT Protocol native primitives (NO email / SMTP / commercial CRM at R0-R2). First-touch channel = AT Proto `app.bsky.feed.post` (existing membrane per ADR-2605231902 preserved unchanged) + custom feed generator `feed.ossekai.wellbecoming` + `@mention` to AT Proto handles. Etymology: 御節介 = caring proactive intervention (cultural knife-edge between compassionate-helpfulness and unwelcome-meddling; constitutional discipline structurally pins on caring side). **Constitutional novelty G4 aggregate-first** — anonymized public-feed channel is the DEFAULT mode; targeted dispatch is the SECONDARY mode; silenOssekaiReview.anonAggregateSharePctIntegerHundredths minimum 5000 (≥50.00%) STRUCTURAL schema constraint; the default order MUST NOT be inverted at runtime. Inverts the industry-default (HubSpot / Mailchimp / Salesforce individual-first model) — structural enforcement of Charter §2(c) covert-ops avoidance + Charter §1.4 anti-individualism in information-delivery domain. **AT Proto first-touch resolves seven distinct constitutional tensions** that arise with email-based outreach: (1) vendor CRM data-sovereignty → N/A AT Proto open-spec; (2) signed sender DKIM/SPF/DMARC brittleness → built-in DID-bound + cryptographic signature; (3) 1-click unsubscribe friction RFC 8058 → built-in via app.bsky.graph.block + mute; (4) spam-classifier evasion risk → mooted (Bluesky clients render mute/block transparently); (5) per-jurisdiction email law (GDPR Article 7 / CCPA / CAN-SPAM / APPI 第18条 / LGPD) → largely resolved (AT Proto activity is voluntary publication); (6) dark patterns (urgency / shame / engagement-hacking) → discoverable (every post public + replayable + auditable); (7) auditability of unsent drafts → cleaner (G15 rejection BEFORE composition; no 'unsent draft' record). **Constitutional discipline 15-gate**: G1 Charter Rider §2(a)-(h) scan on every input AND output / G2 yatachain attestation lineage / G3 PASSIVE-ONLY collection (no live DNS/probe/traceroute/WHOIS/RDAP/DoH/handle-enumeration; pre-published archives + voluntary AT Proto activity only per ADR-2605262400) / G4 aggregate-first publication (≥50% aggregate-public-feed by volume quarterly) / G5 NO commercial intel/CRM/marketing software (Salesforce/HubSpot/Marketo/Mailchimp/SendGrid commercial/Constant Contact/Pardot/ZoomInfo/Apollo/Clay/Lemlist/Outreach/SalesLoft/Gong/Chorus/6sense/Cognism/LeadIQ/Drift PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty) / G6 NO dark patterns (AT Proto native mute/block/quote-block honored at projection layer G15) / G7 rate limit hard-coded (non-member ≤1/90d/handle; member ≤1 digest/week + ≤1 ad-hoc/month default) / G8 encrypted envelope MANDATORY for member digest per ADR-2605181100 / G9 signed sender DID transparent (did:web:ossekai.etzhayyim.com + cryptographic signature) / G10 Wellbecoming-positive framing only (Charter §1.13; framing-audit attestation in every advisory) / G11 anti-individualism (Charter §1.4; community + multi-gen context preferred) / G12 Murakumo-only inference per ADR-2605215000 / G13 Council Lv6+ ≥3 attestation for non-member @mention campaign (≥4 if campaignSize>50) / G14 silenOssekaiReview quarterly audit / G15 AT Proto native mute/block honored at projection layer (mention_dispatcher rejects dispatch BEFORE composing post; the post never enters MST). **8 cells** under 20-actors/magatama/cells/ossekai_*/ (R0 path-reserved, import-time RuntimeError; issachar Murakumo node): arbitrage_observer (continuous heartbeat; sensor consume) + intel_analyzer (joucho-cadence; framing audit) + aggregate_publisher (hourly; AT Proto feed-post DEFAULT) + member_digest (weekly; encrypted envelope) + mention_dispatcher (event; Council attestation gated) + consent_registry (continuous; AT Proto block/mute ingest) + kaizen_observer (quarterly; KaizenObserverCell pattern per ADR-2605240200) + emergency_advisory (event; kazaori cross-actor). **9 Lexicons** under app.etzhayyim.ossekai.*: arbitrageGapReport (G3 STRUCTURAL passive-only attested + G1 Charter Rider scan pass const true) + wellbecomingAdvisory (G10 framingAuditPass const true + G11 audienceShareDistribution required + crossActorCitation for UPL/medical/financial/pharma/diagnostic/emergency boundary) + feedPostAttestation (G9 senderDidConst const did:web:ossekai.etzhayyim.com + G15 muteBlockCheckPass const true) + memberDigestSubscription (per-category granularity; cadence default weekly) + memberDigestRecord (G8 STRUCTURAL encryptedPayloadCid REQUIRED) + mentionDispatchAttestation (G13 STRUCTURAL attestingCouncilDids minLength 3; ≥4 enforced at consumer if campaignSize>50; G7 rateLimitWindowAttested const true) + externalMentionConsent (G6 per-category granularity + ≤365-day expiry default + revocable any time) + unsubscribeRecord (G15 STRUCTURAL effectiveImmediatelyAttested const true; ingests AT Proto app.bsky.graph.block + app.bsky.graph.mute) + silenOssekaiReview (G4 anonAggregateSharePctIntegerHundredths minimum 5000 + G5 commercialIntelCrmSoftwarePenetrationPct const 0 + G10 framingAuditWellbecomingPreservationCompliant const true + G14 councilAttestations minLength 3 + G15 reEngagementAfterOptOutCount const 0 — critical: any nonzero count triggers chigiri.disputeMediation + immediate cell halt). **12 non-goals N1..N12**: N1 NOT email-based outreach at R0-R2 (AT Proto first-touch only; email-bridge to AT Proto DM for opted-in members is R3+ Council Lv7+ unanimity; non-member email contact permanently prohibited at this charter level) + N2 NOT surveillance/OSINT-for-hire/private-detective service + N3 NOT marketing automation/growth-hacking/viral-loop engineering + N4 NOT corporate intelligence-for-hire/competitive intel/industrial espionage + N5 NOT social pressure/public shaming/vigilante coordination + N6 NOT lobbying/political campaign mailing + N7 NOT commercial outreach/upsell/affiliate + N8 NOT credit-score/financial-blacklist/debt-collection + N9 NOT match-making/dating + N10 NOT recruitment/headhunting/employment-targeting + N11 NOT children-targeted (manabi G3 anti-dependency parallel) + N12 NOT chigiri/legal-threat proxy/Transparent-Force proxy/excommunication-procedure proxy. **4-phase R0..R3**: R0 this commit / R1 post-Council ratify + e7m-dataset Tier-A foundations + legal-foundations-r1 recipe + chigiri R1 active (UPL boundary) + iyashi R1 active (medical boundary) + custom feed generator feed.ossekai.wellbecoming live; ≤100 advisories/week / R2 +30-day public objection + first silenOssekaiReview + ≥1 cross-actor advisory cycle; +member_digest ≤500 opt-in members + mention_dispatcher Council Lv6+ ≥3 gate live ≤50 non-member handles/quarter + consent_registry AT Proto block/mute ingest live / R3 Council Lv7+ unanimity + multi-juris consent compliance (JP 個人情報保護法 第27条 + GDPR Article 7 + APPI 第18条 + CCPA opt-out + Brazil LGPD + CAN-SPAM honest-sender all attested by chigiri R3+) + ≥4 consecutive silenOssekaiReview G14-compliant cycles; +kaizen_observer 6 new rules R12..R17 + emergency_advisory kazaori cross-actor; ≤5000 opt-in members + ≤200 non-member handles/quarter cumulative."
+path = "90-docs/adr/2605264000-ossekai-information-arbitrage-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/ossekai"
+kind = "tier-b-non-profit-information-arbitrage-elimination-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-path-reserved"
+description = "ossekai (御節介 — caring proactive intervention; Japanese cultural knife-edge concept) actor scaffold. Manifest + README + CLAUDE.md only at R0. 8 Pregel cells path-reserved under 20-actors/magatama/cells/ossekai_*/ (cell modules created at R1 post-Council ratification + e7m-dataset Tier-A foundations available + legal-foundations-r1 recipe ratified + chigiri R1 active for UPL boundary + iyashi R1 active for medical-advice boundary + custom feed generator feed.ossekai.wellbecoming PDS extension shipped at 50-infra/etzhayyim-did-web/; all import-time RuntimeError until activated). 9 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/ossekai/. **AT Protocol first-touch invariant** — NO email / SMTP / commercial CRM at R0-R2 (N1); first-touch channel = app.bsky.feed.post (existing membrane per ADR-2605231902 preserved unchanged) + custom feed generator + @mention. **Aggregate-first publication invariant G4** — anonymized public-feed channel is the DEFAULT mode (≥50% of output volume quarterly); targeted dispatch is the SECONDARY mode; silenOssekaiReview.anonAggregateSharePctIntegerHundredths minimum 5000 STRUCTURAL. **G15 mute/block at projection layer** — mention_dispatcher rejects dispatch BEFORE composing post; the post never enters MST. **G5 NO commercial intel/CRM/marketing software** — Salesforce/HubSpot/Marketo/Mailchimp/SendGrid commercial/Constant Contact/Pardot/ZoomInfo/Apollo/Clay/Lemlist/Outreach/SalesLoft/Gong/Chorus/6sense/Cognism/LeadIQ/Drift PROHIBITED per Charter Rider §2(e)+§2(c). **G13 Council Lv6+ ≥3 attestation for non-member @mention campaign** (≥4 if campaignSize>50). **G3 PASSIVE-ONLY collection** per ADR-2605262400 — no live probing of third parties; pre-published public archives + voluntary AT Proto activity only. **G10 Wellbecoming-positive framing only** + **G11 anti-individualism** + **G12 Murakumo-only inference**."
+adr = ["2605264000", "2605263200", "2605263000", "2605262900", "2605262800", "2605262700", "2605262400", "2605262130", "2605262100", "2605261000", "2605240200", "2605232345", "2605231902", "2605215000", "2605192300", "2605192200", "2605192100", "2605181200", "2605181100"]
+sibling_actors = [
+  "e7m-dataset (sensor data source per ADR-2605262400 — Tier-A foundations RIR/GeoLite2/IANA/RIS/Routeviews/Rapid7-Sonar/OpenINTEL/CAIDA/CZDS/CommonCrawl-CDX)",
+  "legal-corpus (regulatory/statutory/case-law intel source per ADR-2605262800 — legal-foundations-r1 recipe at R1; full corpus at R2)",
+  "toritate (financial transparency intel SOURCE — toritate publishes; ossekai reads + curates; ossekai MUST NOT modify ledger)",
+  "chigiri (UPL boundary — ossekai MUST NOT render legal advice; legal-themed advisories cite chigiri.ipLicenseClaim for licensed-counsel routing; cross-actor consultation on multi-juris consent compliance at R3)",
+  "iyashi (medical-advice boundary — health-themed advisories cite iyashi cross-actor for clinical procedural routing)",
+  "mitate (diagnostic boundary — symptom-themed advisories; emergency-keyword pattern existing)",
+  "yakushi (pharmaceutical-advice boundary)",
+  "kazaori (emergency-advisory cross-actor — emergency_advisory cell receives kazaori.emergencyDeclarationAttestation → expedited Wellbecoming-positive emergency advisory; NO fear-amplification per G10)",
+  "baien-moemoekyun (Murakumo inference via judah LiteLLM → gemma4:e4b at R1; baien-moemoekyun MoE at R3+ when shipped)",
+  "kotoba (storage substrate; kotoba-kqe arrangements)",
+  "feed-discover (AT Proto app.bsky.feed.post membrane producer side; ADR-2605231902 preserved unchanged)",
+  "wakai (future; mutual-aid pooling → member_digest cell extension at R3+)",
+  "kokoro (future; post-emergency mental health surge → emergency_advisory cell extension at R3+)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/app/etzhayyim/ossekai",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/ossekai"
+form = "任意団体 internal artificial-organism information-arbitrage substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格)"
+at_proto_first_touch_invariant = true
+no_email_at_r0_r2 = true
+aggregate_first_publication_invariant = true
+no_commercial_intel_crm_marketing_software = true
+no_surveillance_passive_only_collection = true
+no_dark_patterns = true
+rate_limit_hard_coded = true
+encrypted_envelope_mandatory_for_member_digest = true
+signed_sender_did_transparent = true
+wellbecoming_positive_framing_only = true
+anti_individualism = true
+council_lv6_plus_3_attestation_for_non_member_mention_required = true
+mute_block_honored_at_projection_layer = true
+murakumo_only_inference = true
+charter_rider_risk = "MEDIUM-HIGH (information-delivery domain where surveillance + commercial CRM adoption is industry default; G3+G4+G5+G6+G15 const-field structural enforcement is the constitutional discipline; G4 aggregate-first inverts the industry default which makes this a high-discipline actor; G15 mute/block at projection layer is cleaner than email-based unsubscribe but requires AT Proto firehose subscribe infrastructure)"
+phase_gate = "R1 activation requires Bootstrap Council Seat 2-5 RFP closure (2026-06-19) + Council Lv6+ ≥3 ratify of ADR-2605264000 + e7m-dataset Tier-A foundations available (ADR-2605262400 W1 LANDED 2026-05-26 ✓) + legal-foundations-r1 recipe ratified (ADR-2605262800 W1 anchor sources) + chigiri R1 active (cross-actor UPL boundary) + iyashi R1 active (cross-actor medical-advice boundary) + 50-infra/etzhayyim-did-web/ PDS extension for custom feed generator feed.ossekai.wellbecoming + Charter Rider scan integration validation (Murakumo G12 inference of framing-audit Lexicon wellbecomingAdvisory.framingAuditCid confirmed working)"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/ossekai"
+kind = "ossekai-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-9-lexicon-skeleton-schemas-+-README"
+description = "9 Lexicon JSONs for ossekai actor per ADR-2605264000. Const-field structural enforcement throughout: arbitrageGapReport.charterRiderScanPass=true const (G1) + passiveOnlyAttested=true const (G3) + wellbecomingAdvisory.framingAuditPass=true const (G10) + feedPostAttestation.senderDidConst=did:web:ossekai.etzhayyim.com const (G9) + feedPostAttestation.muteBlockCheckPass=true const (G15) + memberDigestRecord.encryptedPayloadCid REQUIRED (G8) + mentionDispatchAttestation.attestingCouncilDids minLength 3 (G13; consumer enforces ≥4 if campaignSize>50) + mentionDispatchAttestation.rateLimitWindowAttested=true const (G7) + unsubscribeRecord.effectiveImmediatelyAttested=true const (G15) + silenOssekaiReview.reEngagementAfterOptOutCount=0 const (G15 CRITICAL: any nonzero triggers chigiri.disputeMediation + immediate cell halt) + silenOssekaiReview.commercialIntelCrmSoftwarePenetrationPct=0 const (G5) + silenOssekaiReview.framingAuditWellbecomingPreservationCompliant=true const (G10) + silenOssekaiReview.anonAggregateSharePctIntegerHundredths minimum 5000 (G4 STRUCTURAL aggregate-first invariant ≥50.00% of output volume by quarter)."
+adr = ["2605264000", "2605262400", "2605262800", "2605262700", "2605263000", "2605240200", "2605231902", "2605215000", "2605192300", "2605192200", "2605181100"]
+sibling_modules = [
+  "20-actors/ossekai",
+  "00-contracts/lexicons/app/etzhayyim/chigiri",
+  "00-contracts/lexicons/app/etzhayyim/iyashi",
+  "00-contracts/lexicons/app/etzhayyim/kazaori",
+  "00-contracts/lexicons/app/etzhayyim/toritate",
+]
+
+# ─── Global corporate-disclosure ingestion (SEC EDGAR / EDINET / Companies House / GLEIF LEI / OpenCorporates / regional registries) via IPFS-pinned DataLad subdatasets (ADR-2605263800) ──
+
+[[adrs]]
+id = "2605263800"
+title = "Global corporate-disclosure ingestion (SEC EDGAR / EDINET / Companies House / GLEIF LEI / OpenCorporates / regional registries) via IPFS-pinned DataLad subdatasets — extends ADR-2605262400; powers ossekai / toritate / chigiri / baien-distill financial-literacy specialist"
+status = "proposed"
+status_note = "R0 scaffold + 5 fetcher path-reserves (sec_edgar / jp_edinet / uk_companies_house / gleif_lei / ca_sedar) + 5 sensor families path-reserved (corp_registry_sensor / corp_disclosure_sensor / lei_sensor / corp_ownership_sensor / corp_filing_event_sensor) + 4 corpus recipes path-reserved (corp-financial-disclosure-foundations-r1 / corp-ownership-graph-r1 / corp-material-event-stream-r1 / corp-officer-network-r1) + bucket taxonomy under 90-docs/baien/datasets/corp/{registries,disclosures,lei,ownership,filing-events}/. Tier-A dominates (US public-domain / GLEIF CC0 / UK OGL v3.0 / JP 金融庁 open / data.gov.au CC-BY); Tier-B for OpenCorporates open-data fork CC-BY-SA `-tierB-` infix; Tier-C EMPTY (Bloomberg Terminal / S&P CapIQ / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c)). Per-jurisdiction publication-redaction policy honors upstream publication rules; GDPR DSARs route through chigiri.data_privacy to upstream publisher (never unilateral religious-corp removal). Passive-only inherits ADR-2605262400 §7 (no live registry scraping; bulk archives only; per-source acceptance flag mandatory). 12 gates G1..G12 + 12 non-goals N1..N12. 4-wave delivery W0..W4. Supersedes ADR-2604291500 + ADR-2605150000 (pre-religious-corp commercial-fund era, RW-bound, pre-Charter-Rider, pre-passive-only)."
+path = "90-docs/adr/2605263800-public-data-corporate-disclosure-ipfs-ingestion.md"
+
+# ─── Global open-government-data ingestion (open-data portals / parliament / budget / procurement / statistics) via IPFS-pinned DataLad subdatasets (ADR-2605263900) ──
+
+[[adrs]]
+id = "2605263900"
+title = "Global open-government-data ingestion (open-data portals / parliament / budget / procurement / statistics) via IPFS-pinned DataLad subdatasets — sibling of ADR-2605262400 + ADR-2605262800 + ADR-2605263800; powers ossekai / toritate / chigiri / manabi civic-literacy curriculum / baien-distill civic-reasoning specialist"
+status = "proposed"
+status_note = "R0 scaffold + 5 sensor families path-reserved (gov_open_data_sensor / gov_parliament_sensor / gov_budget_sensor / gov_procurement_sensor / gov_statistics_sensor) + 5 corpus recipes path-reserved (gov-civic-literacy-foundations-r1 / gov-budget-transparency-r1 / gov-procurement-transparency-r1 / gov-parliament-procedural-r1 / gov-statistics-foundations-r1) + bucket taxonomy under 90-docs/baien/datasets/gov/{open-data,parliament,budget,procurement,statistics}/. Tier-A dominates across ~20+ sources (US data.gov + Congress.gov + USAspending + SAM.gov all public-domain / UK data.gov.uk + Hansard + Contracts Finder OGL v3.0 / EU data.europa.eu + OEIL + FTS + TED EU re-use Decision 2011/833 / FR data.gouv.fr + Assemblée Étalab v2.0 / JP data.go.jp + e-Stat + 国会会議録 + 政府調達 CC-BY 4.0 政府標準利用規約 / DE govdata.de + Bundestag Datenlizenz Deutschland Zero / Eurostat free re-use / OECD ToU / World Bank CC-BY 4.0 / IMF SDMX open-data / UN free use); Tier-C EMPTY (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c)). CN data carries state_aligned_flag=True per §2(g) (parallel to ADR-2605262800 CN NPC handling) — ingested as authoritative source of record but non-substitution doctrine + downstream consumers MUST display flag in published output. Per-jurisdiction publication-redaction policy pass-through default (parliament transcripts + procurement awards + budget recipients are public by design); GDPR DSARs route through chigiri.data_privacy to upstream publisher. Passive-only inherits ADR-2605262400 §7. 12 gates G1..G12 + 12 non-goals N1..N12. 4-wave delivery W0..W4. Largest gov ingestion of any religious-corp ADR (~200-300 GB per fleet node post-W4)."
+path = "90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md"
