@@ -133,40 +133,29 @@ updates:
     directory: "/50-infra/etzhayyim-did-web"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/50-infra/etzhayyim-membership-contract/lib/forge-std"
-    schedule:
-      interval: "weekly"
+  # 7 Foundry-vendored-lib subpath entries removed iter-23 of /loop
+  # (2026-05-26). They referenced paths that don't exist on disk:
+  #   - etzhayyim-membership-contract/lib/forge-std (not vendored here)
+  #   - etzhayyim-paymaster/lib/account-abstraction/contracts (submodule
+  #     subpath; dependabot can't scan submodule subpaths)
+  #   - etzhayyim-paymaster/lib/forge-std (not vendored at this path —
+  #     forge-std lives under etzhayyim-{authz,chain-contracts,k2,...}/
+  #     and the l2-anchor-contract/yobel-contract/fiat-bridge paths)
+  #   - etzhayyim-paymaster/lib/openzeppelin-contracts/{contracts,
+  #     lib/forge-std, lib/forge-std/lib/ds-test, scripts/solhint-custom}
+  #     — all submodule subpaths
+  # The top-level submodule entries (`lib/account-abstraction` and
+  # `lib/openzeppelin-contracts`) themselves are kept above — dependabot
+  # CAN scan submodule roots, just not sub-paths inside them.
+  # Same hygiene as the ADR-2605265200 retirement (iter-18 commit
+  # 18967431a): when a directory disappears, dependabot's entry is dead
+  # weight and should be removed so weekly runs stop silently failing.
   - package-ecosystem: "npm"
     directory: "/50-infra/etzhayyim-paymaster/lib/account-abstraction"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/50-infra/etzhayyim-paymaster/lib/account-abstraction/contracts"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/50-infra/etzhayyim-paymaster/lib/forge-std"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
     directory: "/50-infra/etzhayyim-paymaster/lib/openzeppelin-contracts"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/50-infra/etzhayyim-paymaster/lib/openzeppelin-contracts/contracts"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/50-infra/etzhayyim-paymaster/lib/openzeppelin-contracts/lib/forge-std"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/50-infra/etzhayyim-paymaster/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/50-infra/etzhayyim-paymaster/lib/openzeppelin-contracts/scripts/solhint-custom"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
