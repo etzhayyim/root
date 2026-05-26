@@ -330,6 +330,77 @@ weight        = 1.0
     assert persisted["description"] == desc
 
 
+def test_output_metadata_surfaces_in_dry_run_and_manifest(assembler, tmp_path):
+    """The [output_metadata] TOML table was previously loaded into
+    Recipe.output_metadata but never surfaced. Verify it now propagates
+    to dry_run_summary and the assembly manifest."""
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    subdir = annex / "netreg" / "iana-root" / "iana-snap-260526"
+    subdir.mkdir(parents=True, exist_ok=True)
+    (subdir / "root.zone.ndjson").write_text(
+        json.dumps({"tld": "aaa", "ns": [], "ds": [], "glue": []}) + "\n",
+        encoding="utf-8",
+    )
+
+    recipe_body = """
+target_artifact = "baien-server-iana-om-v1"
+output_subdataset = "iana-om-v1"
+max_tier_cap = "A"
+
+[output_metadata]
+description = "Foundational netreg corpus — RIR + IANA root"
+license_summary = "Apache-2.0 + Charter Rider v2.0"
+intended_use = "baien-moemoekyun-train SFT grounding"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+shard_glob    = "root.zone.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 1.0
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    # Recipe carries the dict.
+    assert recipe.output_metadata["license_summary"] == "Apache-2.0 + Charter Rider v2.0"
+
+    # Dry-run surfaces it.
+    summary = assembler.dry_run_summary(recipe)
+    assert summary["outputMetadata"]["description"].startswith("Foundational")
+    assert summary["outputMetadata"]["intended_use"] == "baien-moemoekyun-train SFT grounding"
+
+    # Assembly manifest surfaces it.
+    manifest = assembler.assemble(recipe, annex_root=annex, out_dir=out_dir)
+    assert manifest["outputMetadata"]["license_summary"] == "Apache-2.0 + Charter Rider v2.0"
+
+
+def test_output_metadata_defaults_to_empty_dict(assembler, tmp_path):
+    """Recipe without [output_metadata] ⇒ empty dict (not None)."""
+    recipe_body = """
+target_artifact = "baien-server-x-v1"
+output_subdataset = "x"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://x"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 1.0
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    assert recipe.output_metadata == {}
+
+    summary = assembler.dry_run_summary(recipe)
+    assert summary["outputMetadata"] == {}
+
+
 def test_assemble_charter_violation_aborts(assembler, tmp_path):
     """Plant a hot Charter §2 trigger every Nth row → assembler aborts."""
     annex = tmp_path / "annex"
