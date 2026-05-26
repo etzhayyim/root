@@ -171,6 +171,38 @@ lexicon NSID has a corresponding JSON file. If a future PR
 introduces new manifest-lexicon drift, this test fails fast
 (prior to the aggregator's report-only output).
 
+### `validate-lexicons.py` (pre-existing, standalone full-tree mode)
+
+The religious-corp Lexicon-spec validator at `70-tools/scripts/validate-lexicons.py` is the source of truth for `lexicon: 1` AT-Protocol-Lexicon-spec + religious-corp invariants (no float types, integer-with-implied-units per ADR-2605190900, refs over inline objects, etc.).
+
+The lefthook hook `validate-religious-corp-lexicons` runs it in staged-files mode (one commit's worth of touched JSON). For a full-tree health check across all `00-contracts/lexicons/app/etzhayyim/`:
+
+```bash
+python3 70-tools/scripts/validate-lexicons.py \
+  --root 00-contracts/lexicons/app/etzhayyim/ \
+  --exit-on-error
+```
+
+**Standalone full-tree baseline (iter-59, 2026-05-27): 3,198 errors across 6,292 lexicons:**
+
+| Error class | Count | Location concentration |
+|---|---|---|
+| `type='number'` (float type forbidden) | 2,473 | `gftd/` legacy 1,687; newer actor dirs ~786 |
+| `inline type='object'` (use `ref` instead) | 547 | spread across actor lexicons |
+| `invalid format` | 168 | various |
+| `other` | 8 | various |
+| `lexicon != 1` (spec version) | 2 | pre-spec-v1 holdouts |
+
+This audit is **deliberately NOT folded into `all.sh`** today because:
+- It would add a 3,198-finding cliff to the 25-finding aggregator baseline.
+- The `gftd/` subdirectory (1,687 errors / 53% of the total) is legacy cutover residue — fixing requires either bulk rename of the namespace or accepting that legacy lexicons keep their pre-spec syntax.
+- Each non-gftd violation requires per-file judgment (some `number` types are deliberate where decimal precision is needed; the religious-corp spec was tightened post-authoring).
+
+Operators run it on demand. The lefthook hook in staged-files mode continues to enforce the spec on NEW lexicons (verified across iters 48-58 where 30 newly-authored lexicons all pass validation).
+
+Authored-and-clean lexicon directories (iters 48-58):
+`wadachi/` / `gov/` (the 3 newly-authored ones — 5 pre-existing files in this dir use the older spec) / `infra/` / `supply/` / `kuniUmi/` / `yobel/`. Combined: 30 lexicons / 0 errors.
+
 ### `repo-record-allowlist.mjs` (pre-existing)
 
 XRPC repo-record allowlist guard. See the script's docstring for usage. Unrelated to the `/loop` iter-18..29 audit scripts above.
