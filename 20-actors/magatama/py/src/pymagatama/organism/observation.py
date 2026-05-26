@@ -28,7 +28,7 @@ class TextObservation(BaseObservation):
         res = normalize_input(v)
         if res.suspicious:
             # L1 is strict and raises an error, as per existing logic.
-            raise ValueError(f"L1 adversarial input detected: {res.transforms}")
+            raise ValueError(f"L1 adversarial input detected — Suspicious adversarial input: {res.transforms}")
         return res.normalized
 
     @model_validator(mode='after')
@@ -42,7 +42,7 @@ class TextObservation(BaseObservation):
 
         if l2_res.suspicious:
             if l2_res.severity == "high":
-                raise ValueError(f"L2 adversarial input detected (high severity): {l2_res.reason}")
+                raise ValueError(f"L2 adversarial input detected high severity: {l2_res.reason}")
 
             if l2_res.severity in ("low", "medium"):
                 self._suspicious_l2 = True

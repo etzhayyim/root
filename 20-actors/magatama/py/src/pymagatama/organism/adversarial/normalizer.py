@@ -79,6 +79,7 @@ def normalize_input(text: str) -> NormalizationResult:
 
     if mapped_count > 0:
         transforms.append(f"mapped_{mapped_count}_confusables")
+        suspicious = True
 
     step2_text = "".join(deconfused)
 

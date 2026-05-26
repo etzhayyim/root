@@ -18,7 +18,7 @@ class SemanticScanResult:
 # L2 Semantic Threat Patterns
 # (a) Prompt injection
 PROMPT_INJECTION_PATTERNS = {
-    "ignore_instructions": re.compile(r"ignore\s+(?:previous|prior|above)\s+(?:instructions?|prompts?)", re.IGNORECASE),
+    "ignore_instructions": re.compile(r"ignore\s+(?:(?:previous|prior|above)\s+)?(?:instructions?|prompts?)", re.IGNORECASE),
     "disregard_above": re.compile(r"disregard\s+(?:above|prior|the)?", re.IGNORECASE),
     "system_command": re.compile(r"^\s*system\s*:", re.IGNORECASE),
     "user_end_tag": re.compile(r"<\s*/\s*user\s*>", re.IGNORECASE),
@@ -81,15 +81,14 @@ def scan_semantic(text: str, actor_did: str | None = None) -> SemanticScanResult
                 flagged_patterns.append(f"forged_attribution:{found_did}")
                 found_severities.add("high")
 
-    # (d) Charter §2 keywords
+    # (d) Charter §2 keywords — always flag (low severity, low confidence)
+    # Per H R0 §3 invariant: any Charter §2 keyword mention is worth flagging
+    # for human review, regardless of negation context (negation may be
+    # adversarial reframing).
     for name, pattern in CHARTER_VIOLATION_KEYWORDS.items():
         if pattern.search(text):
-            # Check for negation (e.g., "not a weapon")
-            # This is a very basic heuristic.
-            sentence_window = text[max(0, pattern.search(text).start() - 30):pattern.search(text).end() + 30]
-            if not re.search(r"\b(not|non|anti|no)\b", sentence_window, re.IGNORECASE):
-                 flagged_patterns.append(f"charter_violation:{name}")
-                 found_severities.add("low")
+            flagged_patterns.append(f"charter_violation:{name}")
+            found_severities.add("low")
 
 
     if not found_severities:
