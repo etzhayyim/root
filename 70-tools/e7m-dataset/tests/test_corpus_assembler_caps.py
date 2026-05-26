@@ -230,3 +230,154 @@ def test_cap_skips_charter_scan_on_excluded_rows(assembler, tmp_path):
     # Row 0 is sampled (i % 100 == 0 hits at i=0); row 100 would be next
     # sample but we capped at 5 so it never runs.
     assert src["rowsScannedForCharter"] == 1
+
+
+# ── Byte cap (max_bytes_per_source CLI flag) ────────────────────────────
+
+
+def test_no_byte_cap_unbounded(assembler, tmp_path):
+    """Default 0 ⇒ no byte cap. bytesEmitted is still tracked + reported."""
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    _stage_iana_ndjson(annex, 10)
+
+    recipe_path = _write_recipe(tmp_path, _RECIPE_BASE)
+    recipe = assembler.load_recipe(recipe_path)
+    manifest = assembler.assemble(recipe, annex_root=annex, out_dir=out_dir)
+
+    src = manifest["sources"][0]
+    assert src["effectiveByteCap"] == 0
+    assert src["byteCapHit"] is False
+    # Bytes were still tracked.
+    assert src["bytesEmitted"] > 0
+    # Output file size matches reported bytesEmitted (since we count bytes
+    # exactly at emit time including the trailing newline).
+    out_shard_size = Path(src["outShard"]).stat().st_size
+    assert src["bytesEmitted"] == out_shard_size
+
+
+def test_max_bytes_per_source_caps_emission(assembler, tmp_path):
+    """Byte cap fires AFTER the row that crossed the threshold is
+    emitted (matches the row cap's head-biased semantics)."""
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    _stage_iana_ndjson(annex, 1000)
+
+    recipe_path = _write_recipe(tmp_path, _RECIPE_BASE)
+    recipe = assembler.load_recipe(recipe_path)
+    # Cap at 500 bytes — each emitted row is ~140 bytes so we expect
+    # ~4 rows.
+    manifest = assembler.assemble(
+        recipe, annex_root=annex, out_dir=out_dir, max_bytes_per_source=500,
+    )
+
+    src = manifest["sources"][0]
+    assert src["effectiveByteCap"] == 500
+    assert src["byteCapHit"] is True
+    assert src["bytesEmitted"] >= 500  # crossed the threshold
+    # Output file size matches reported bytes — no off-by-one.
+    out_shard_size = Path(src["outShard"]).stat().st_size
+    assert src["bytesEmitted"] == out_shard_size
+
+
+def test_per_source_max_bytes_overrides_cli(assembler, tmp_path):
+    """Recipe ``max_bytes`` field wins over CLI flag for that source."""
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    _stage_iana_ndjson(annex, 1000)
+
+    recipe_body = _RECIPE_BASE + "max_bytes     = 200\n"
+    recipe_path = _write_recipe(tmp_path, recipe_body)
+    recipe = assembler.load_recipe(recipe_path)
+    manifest = assembler.assemble(
+        recipe, annex_root=annex, out_dir=out_dir, max_bytes_per_source=99_999,
+    )
+
+    src = manifest["sources"][0]
+    # Per-source wins.
+    assert src["effectiveByteCap"] == 200
+    assert src["byteCapHit"] is True
+    assert src["bytesEmitted"] >= 200
+    # We should have emitted few rows since cap is tight.
+    assert src["rowsEmitted"] < 1000
+
+
+def test_byte_cap_above_file_size_is_no_op(assembler, tmp_path):
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    _stage_iana_ndjson(annex, 5)
+
+    recipe_path = _write_recipe(tmp_path, _RECIPE_BASE)
+    recipe = assembler.load_recipe(recipe_path)
+    manifest = assembler.assemble(
+        recipe,
+        annex_root=annex,
+        out_dir=out_dir,
+        max_bytes_per_source=10_000_000,
+    )
+
+    src = manifest["sources"][0]
+    assert src["rowsEmitted"] == 5
+    assert src["effectiveByteCap"] == 10_000_000
+    assert src["byteCapHit"] is False
+
+
+def test_load_recipe_parses_max_bytes_field(assembler, tmp_path):
+    recipe_body = _RECIPE_BASE + "max_bytes     = 4096\n"
+    recipe_path = _write_recipe(tmp_path, recipe_body)
+    recipe = assembler.load_recipe(recipe_path)
+    assert recipe.sources[0].max_bytes == 4096
+
+
+def test_load_recipe_max_bytes_defaults_to_zero(assembler, tmp_path):
+    recipe_path = _write_recipe(tmp_path, _RECIPE_BASE)
+    recipe = assembler.load_recipe(recipe_path)
+    assert recipe.sources[0].max_bytes == 0
+
+
+# ── Cap interaction (row + byte; whichever fires first wins) ────────────
+
+
+def test_row_cap_fires_first(assembler, tmp_path):
+    """Tight row cap + loose byte cap ⇒ row cap fires first."""
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    _stage_iana_ndjson(annex, 1000)
+
+    recipe_path = _write_recipe(tmp_path, _RECIPE_BASE)
+    recipe = assembler.load_recipe(recipe_path)
+    manifest = assembler.assemble(
+        recipe,
+        annex_root=annex,
+        out_dir=out_dir,
+        max_rows_per_source=3,
+        max_bytes_per_source=1_000_000,
+    )
+
+    src = manifest["sources"][0]
+    assert src["rowsEmitted"] == 3
+    assert src["capHit"] is True       # row cap hit
+    assert src["byteCapHit"] is False  # byte cap NOT hit
+
+
+def test_byte_cap_fires_first(assembler, tmp_path):
+    """Loose row cap + tight byte cap ⇒ byte cap fires first."""
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    _stage_iana_ndjson(annex, 1000)
+
+    recipe_path = _write_recipe(tmp_path, _RECIPE_BASE)
+    recipe = assembler.load_recipe(recipe_path)
+    manifest = assembler.assemble(
+        recipe,
+        annex_root=annex,
+        out_dir=out_dir,
+        max_rows_per_source=10_000,
+        max_bytes_per_source=300,
+    )
+
+    src = manifest["sources"][0]
+    assert src["capHit"] is False     # row cap NOT hit (rowsEmitted < 10K)
+    assert src["byteCapHit"] is True  # byte cap hit
+    assert src["bytesEmitted"] >= 300
+    assert src["rowsEmitted"] < 10_000
