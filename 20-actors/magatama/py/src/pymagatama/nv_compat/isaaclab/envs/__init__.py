@@ -28,6 +28,12 @@ from .observation_buffers import (
     RewardScaling,
     RunningMeanStd,
 )
+from .replay_buffer import (
+    NStepReplayBuffer,
+    PrioritizedReplayBuffer,
+    ReplayBuffer,
+    Transition,
+)
 from .direct_rl_env import DirectRLEnv, DirectRLEnvCfg, SimCfg
 from .manager_based_rl_env import CartpoleEnvCfg, ManagerBasedRLEnv
 from .task_registry import (
@@ -63,4 +69,6 @@ __all__ = [
     "flatten_obs", "infer_action_dim", "infer_observation_shape", "space_shape",
     # observation buffers
     "ObservationHistoryBuffer", "RunningMeanStd", "RewardScaling",
+    # replay buffers
+    "Transition", "ReplayBuffer", "PrioritizedReplayBuffer", "NStepReplayBuffer",
 ]
