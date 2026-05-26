@@ -11,7 +11,7 @@ bash 70-tools/scripts/audit/all.sh            # report
 bash 70-tools/scripts/audit/all.sh --strict   # exit 1 if any finding (CI integration)
 ```
 
-Current baseline (as of iter-37 of /loop, 2026-05-27): **39 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 14 sibling-convention-drift outliers (added iter-37 — 4 missing `description` + 10 missing `license`; per-package operator decision whether to fill in or leave intentionally bare).
+Current baseline (as of iter-38 of /loop, 2026-05-27): **29 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 4 sibling-convention-drift outliers (4 missing `description`; the 10 missing-`license` outliers were filled in with `"license": "Apache-2.0"` in iter-38 — religious-corp default per ADR-2605192200 + Charter Rider).
 
 The "documented + deferred" findings will fail `--strict` mode until the upstream coordination work lands. That's by design — `--strict` is the operator's gate for "I want to publish or PR-merge and don't want to accidentally take on debt." Mode without `--strict` is for "give me the current health snapshot."
 

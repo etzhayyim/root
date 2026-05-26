@@ -1,6 +1,7 @@
 {
   "name": "@etzhayyim/manga-rw-free",
   "version": "0.0.1",
+  "license": "Apache-2.0",
   "description": "manga rw-free reference implementation",
   "type": "module",
   "exports": {

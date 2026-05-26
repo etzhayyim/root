@@ -1,6 +1,7 @@
 {
   "name": "@etzhayyim/playwright-daemon",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "description": "Local Playwright daemon — long-polls app.etzhayyim.apps.playwright actor for pending actions, executes via Playwright, resolves valueRef via macOS Keychain / 1Password / env / literal. Credentials never leave the Mac.",
   "type": "module",
   "bin": { "playwright-daemon": "dist/index.js" },
