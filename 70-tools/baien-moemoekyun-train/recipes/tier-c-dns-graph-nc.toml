@@ -1,0 +1,102 @@
+# Wave-3 corpus recipe — Tier-C DNS + AS-graph (G13 fleet-internal, -nc-).
+#
+# Per ADR-2605262400 §4 + W3. Sources are CC-BY-NC; the derived artifact
+# MUST carry the `-nc-` infix and serve ONLY through judah LiteLLM with
+# SBT-gate (G6 in §9). The assembler fail-closes on a missing `-nc-`
+# infix when computed_max_tier == "C".
+#
+# Realize:
+#
+#   python 70-tools/baien-moemoekyun-train/scripts/assemble-public-corpus.py \
+#       --recipe 70-tools/baien-moemoekyun-train/recipes/tier-c-dns-graph-nc.toml
+#
+# Acceptance flags (mandatory before fetch — ADR-2605262400 W3):
+#   ~/.etzhayyim/source-acceptance/rapid7-open-data.toml
+#   ~/.etzhayyim/source-acceptance/openintel.toml
+#   ~/.etzhayyim/source-acceptance/caida.toml
+
+target_artifact = "baien-server-dns-graph-nc-v1"
+output_subdataset = "training/corpora/dns-graph-nc-v1/"
+
+max_tier_cap = "C"
+
+[output_metadata]
+description = """
+Tier-C DNS + AS-graph carve-out corpus: Rapid7 Sonar FDNS shards +
+OpenINTEL Tranco-1M Parquet shards + CAIDA AS-rank / AS-relationship
+dumps. Apache 2.0 + Charter Compliance Rider v2.0 — G13 fleet-internal
+only. Inference flows through judah LiteLLM + SBT-gate only. Attribution
+preserved per upstream TOS: Rapid7 Open Data, OpenINTEL, CAIDA.
+"""
+
+# Rapid7 Sonar — 2 monthly shards.
+
+[[source]]
+subdataset    = "dns/rapid7-sonar-fdns"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RAPID7_2604"
+shard_glob    = "*.json.gz"
+tier          = "C"
+license       = "rapid7-research-use"
+weight        = 0.15
+
+[[source]]
+subdataset    = "dns/rapid7-sonar-fdns"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RAPID7_2605"
+shard_glob    = "*.json.gz"
+tier          = "C"
+license       = "rapid7-research-use"
+weight        = 0.15
+
+# OpenINTEL — 7 daily Tranco-1M shards for one week.
+
+[[source]]
+subdataset    = "dns/openintel-tranco1m"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_OI_WEEK"
+shard_glob    = "*.parquet"
+tier          = "C"
+license       = "CC-BY-NC-4.0"
+weight        = 0.20
+
+# CAIDA — AS-relationship + AS-rank monthly snapshots.
+
+[[source]]
+subdataset    = "routing/caida-as-rank"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_CAIDA_RANK"
+shard_glob    = "*.txt.bz2"
+tier          = "C"
+license       = "CC-BY-NC-4.0"
+weight        = 0.10
+
+[[source]]
+subdataset    = "routing/caida-as-relationship"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_CAIDA_REL"
+shard_glob    = "*.txt.bz2"
+tier          = "C"
+license       = "CC-BY-NC-4.0"
+weight        = 0.10
+
+# Tier-A anchors (so the model has Tier-A reference structure
+# alongside the Tier-C bulk).
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_IANA_ROOT"
+shard_glob    = "root.zone.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 0.05
+
+[[source]]
+subdataset    = "netreg/rir-delegated/apnic"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_APNIC"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain-defacto"
+weight        = 0.05
+
+# Seed block.
+
+[seed_block]
+weight = 0.20
+seed_path = "70-tools/baien-moemoekyun-train/recipes/seed-blocks/dns-graph-nc-v1.jsonl"
+description = "Synthetic canonical Q/A over DNS structure + AS-graph semantics. Authored in-tree, CC0."

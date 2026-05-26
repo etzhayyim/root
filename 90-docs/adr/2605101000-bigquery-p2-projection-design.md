@@ -1,10 +1,10 @@
 ---
 id: adr-2605101000-bigquery-p2-projection-design
-title: BigQuery Public Data P2 Projection Design
-status: proposed
+title: BigQuery Public Data P2 Projection Design (SUPERSEDED by 2605262130)
+status: superseded
 doc_type: adr
 topic: bigquery-public-data-p2-projection
-authoritative: true
+authoritative: false
 last_verified: 2026-05-10
 authoritative_for:
   - bigquery-public-data-p2-projection-pattern
@@ -15,6 +15,9 @@ related:
   - adr-2605070700-rw-native-model-training-weight-lineage
   - adr-2605092345-runpod-l40s-fp8-multimodal-model-design
   - 90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md
+supersedes: []
+superseded_by:
+  - 2605262130-kotoba-storage-substrate-unification
 ---
 
 # Goal

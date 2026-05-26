@@ -1,0 +1,45 @@
+# baien-moemoekyun R2 iter-01 — first commercial GPU rental run on B200 SXM
+# Authority: ADR-2605262300 (architecture), ADR-2605262200 (charter amendment)
+# Status: gated on amendment effective (~2026-07-19)
+# Consume via: 70-tools/baien-moemoekyun-train/scripts/rental-orchestrator.py --config configs/r2-iter01.yaml
+
+train_adr_ref: "ADR-2605262300"
+
+# Vendor + hardware (per ADR-2605262300 §1)
+vendor: "runpod-community"
+gpu_model: "nvidia-b200-sxm"
+gpu_count: 1
+expected_wall_minutes: 25                # integer (per Lexicon AT Protocol restriction)
+expected_usd_cost_millicents: 300000     # = $3.00 × 100000 millicents; 25 min × $7/h ≈ $2.92
+
+# Dataset corpus (R2 ≈ R1.4 × 10 in size; same Tier A + C composition)
+# CIDs from 90-docs/baien/datasets.jsonl (registered via e7m-dataset add)
+dataset_cids_train:
+  - "bafkreid4bhlfaaezicecfm6s4rxpjdfff5v3bgfi4gcdwwzfyjt5juauu4"  # Magicoder-OSS-Instruct-75K (MIT, full)
+  - "bafkreif5x7cfj45hcjqsqx4tykgpox52a5pcrkwa3akzl4olcbtl7mlqa4"  # reasoning-distill-opus-4-7-max-sft (Apache 2.0)
+  # R2 additions (W2/W3/W4/W5 pending — fill in after W2-W4 lands per ADR-2605262100 §3.0.W):
+  # - "<W2 commitpack subset CID>"
+  # - "<W4 CodeAlpaca-20k CID>"
+  # - "<W5 LangGraph internal harvest CID>"
+
+dataset_cids_eval:
+  # Eval corpora — registered separately (R2.0 deliverable: add evalplus/humanevalplus, bench/langgraph-coding)
+  - "<langgraph-coding CID — R2.0 deliverable>"
+  - "<HumanEval+ CID — R2.0 deliverable>"
+
+# Model identity (per ADR-2605242100 naming + ADR-2605261900 architecture)
+model_tier: "baien-server"
+model_artifact_name: "baien-server-moemoekyun-r2-iter01"
+
+# Precision (per ADR-2605262300 §2)
+# R2 baseline = bf16 (engineering 0)
+# R3 enhancement = fp8-mixed (TransformerEngine, 1-2 week engineering)
+# R4 enhancement = sparse-fp4 (Blackwell-only, 3-4 week engineering)
+precision_mode: "bf16"
+
+# Train script (on rented instance after upload)
+train_script_path: "/workspace/baien-moemoekyun-train/src/baien_moemoekyun/train.py"
+train_config_yaml: "70-tools/baien-moemoekyun-train/configs/r2-iter01-hparams.yaml"
+
+# Attestation
+attesting_did: "did:web:mac-260317.etzhayyim.com"

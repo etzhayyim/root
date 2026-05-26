@@ -33,6 +33,7 @@ Each cell = 1 Pregel graph. Cells communicate via lexicon records on MST (`app.e
 | Mimi | metrology | crop health, soil sampling | `kuni-umi.mimi.firmware` (open-source) |
 | Sora | drone | aerial survey, spot treatment | `kuni-umi.sora.firmware` (open-source) |
 | Tsumugi (R2+) | greenhouse / vertical-farm | precision tending | deferred mech-design ADR (parallel to hanami precedent ADR-2605260230) |
+| Kusawake (R1+) | 4WD/4WS electric autonomous wheeled platform ≤300 kg | weed control / livestock herd / perimeter scouting | open Apache 2.0 + Charter Rider; ARM64/RISC-V SoC; mfg = suki Wave 2 (ADR-2605261500); sim = e7m-sim (ADR-2605261600); swagbot methodology reference; SAE J3016 Level 3 ceiling per ADR-2605252615 |
 
 **CRITICAL**: All firmware open-source (Apache 2.0 + Charter Rider) per G1. No proprietary control loops.
 
@@ -87,6 +88,7 @@ python -c "from mitsuho.cells.aquaculture import AquacultureCell; assert Aquacul
 python -c "from mitsuho.cells.alt_protein_fermentation import AltProteinFermentationCell; assert AltProteinFermentationCell"
 python -c "from mitsuho.cells.harvest_robotics import HarvestRoboticsCell; assert HarvestRoboticsCell"
 python -c "from mitsuho.cells.food_preservation import FoodPreservationCell; assert FoodPreservationCell"
+python -c "from mitsuho.cells.autonomous_mobile import AutonomousMobileCell; assert AutonomousMobileCell"
 ```
 
 All imports pass; `.solve()` raises RuntimeError.

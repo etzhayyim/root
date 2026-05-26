@@ -122,12 +122,15 @@ payment_rule_adr = "2605172100"
 identity_substrate = ["did:web:etzhayyim.com", "did:plc", "WebAuthn passkey", "Coinbase Smart Wallet"]
 auth_substrate = ["DID-bound signature", "WebAuthn", "passkey"]
 sdk_seam = "@etzhayyim/sdk (20-actors/etzhayyim-sdk/) — only seam allowed to import substrate clients"
-holochain_iso = "yatachain"   # ADR-2605231400 — canonical name for the Holochain-isomorphic composition of the substrate primitives above
-holochain_iso_spec = "10-protocol/yatachain/SPEC.md"
-holochain_iso_adr = "2605231400"
-holochain_iso_projection_adr = "2605231500"          # derived read-path rules (when RW / Lance / Iroh / index are permitted)
-holochain_iso_engine_exploration_adr = "2605232300"  # EXPLORATORY only — engine selection (Hummock fork / RW fork / GraphAr+MV no-fork) deferred pending Council multisig post 2026-06-19
-holochain_iso_engine_decision = "deferred"
+substrate_engine = "kotoba"               # ADR-2605262130 — canonical storage substrate engine (40-engine/kotoba; 17 crates Apache-2.0)
+substrate_engine_adr = "2605262130"
+substrate_engine_path = "40-engine/kotoba"
+holochain_iso = "yatachain"               # SUPERSEDED by ADR-2605262130; retained as historical name; 10-protocol/yatachain/SPEC.md has deprecation banner (Phase 0.5)
+holochain_iso_spec = "10-protocol/yatachain/SPEC.md"  # DEPRECATED 2026-05-26; retained one R-cycle then archived
+holochain_iso_adr = "2605231400"          # SUPERSEDED by 2605262130
+holochain_iso_projection_adr = "2605231500"          # SUPERSEDED by 2605262130 (no projection layer; kotoba-kqe arrangements serve hot-path reads directly)
+holochain_iso_engine_exploration_adr = "2605232300"  # SUPERSEDED by 2605262130 (engine chosen = kotoba)
+holochain_iso_engine_decision = "kotoba"  # closed by ADR-2605262130
 
 # ── No-Server-Key posture (ADR-2605231525, Council ratify pending) ──
 # etzhayyim-operated infrastructure holds zero signing capability.
@@ -152,7 +155,7 @@ server_key_forbidden_env = [
 ]
 server_key_allowed_surfaces = [
   "com.atproto.sync.subscribeRepos (read-only firehose)",
-  "yatachain-projection L0 indexer (regenerable from MST + IPFS + Base L2 anchor)",
+  "kotoba-kqe arrangement indexer (EAVT/AEVT/AVET/VAET; regenerable from MST + IPFS + Base L2 anchor; per ADR-2605262130 — supersedes yatachain-projection L0 indexer carve-out)",
   "Public DID Document serving (document itself signed off-line by Council Safe + committed to repo)",
   "Lexicon publication (00-contracts/lexicons/**/*.json as static assets)",
   "Contract verification via read-only Base L2 RPC",
@@ -1148,8 +1151,9 @@ path = "90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md"
 
 [[adrs]]
 id = "2605232300"
-title = "yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork)"
-status = "proposed"
+title = "yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262130)"
+status = "superseded"
+superseded_by = "2605262130"
 authoritative = false
 status_note = "EXPLORATORY ONLY — NOT ADOPTED. Captures numerical comparison of 4 options for the yatachain projection engine layer: (A) Hummock fork as yata-slate (150-230K new LOC, 44-67 person-months, completion risk 50%, strategic independence ★★★), (B) RisingWave full fork as yata-wave (57-99K new LOC, 20-29 person-months, completion risk 85%, strategic independence ★), (D) RW upstream + Apache GraphAr + MV with no fork — 'yatabase' configuration (30-50K new LOC, 20-32 person-months, completion risk 90-95%, strategic independence ★★, 7-axis weighted score 8.4/10 = numerically dominant). (C) SlateDB fork rejected early — pure KV LSM lacks Pregel epoch semantics required for LangGraph super-step / Hummock barrier isomorphism. (E) Lance dropped per user direction. Bulk graph frameworks surveyed and triaged: Apache Giraph ✗ dormant, Spark GraphX ✗ deprecated, Spark GraphFrames △ overkill, Apache HAMA ✗ Attic, NVIDIA cuGraph ✗ CUDA-only (Mac Silicon incompatible), GraphScope △ Stage-2 candidate via GraphAr external connection, timely-dataflow △ research, Materialize ✗ BSL incompatible with Charter Rider. 5 strategic findings recorded: (1) Hummock epoch = LangGraph Pregel super-step internal isomorphism, (2) Mac Silicon unified memory forces CPU/GPU per-node co-location not either/or, (3) data sovereignty achievable without engine fork via GraphAr/Parquet open format, (4) GraphAr append-only chunk semantics integrate with MST immutability, (5) options compose evolutionary D→D+plugin→D+B-partial→A across 2026-2029+. 7 open questions deferred (GraphAr religious-corp extension upstream contribution, witness quorum + GraphAr chunk hash unification, Arrow Flight UDF server topology for 18,345 agents, GraphQL Subscription / barrier alignment, MLX production stability benchmark, Lance re-introduction conditions, Solidity Base L2 event → RW source connector). Decision deferred pending: Council 5-of-7 multisig (post-2026-06-19), GraphAr Apache Incubator graduation outlook, Mac Silicon MLX production benchmark, religious-corp constitutional weight on engine ownership vs format ownership. Future decision ADR will reference this as input."
 path = "90-docs/adr/2605232300-yatachain-engine-options-exploration.md"
@@ -1165,8 +1169,9 @@ related = ["2605231300", "2605232500"]
 
 [[adrs]]
 id = "2605232400"
-title = "yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure"
-status = "active"
+title = "yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure (SUPERSEDED by 2605262130 for substrate; SDK API surface preserved bit-identically)"
+status = "superseded"
+superseded_by = "2605262130"
 status_note = "Closes the last two substrate-boundary gaps that survived the 2026-05-23 yatachain wave. (1) Adds a cross-language Tier D blob upload primitive — `Etzhayyim.uploadBlob({data, mediaType?})` in `@etzhayyim/sdk` (TS, wraps the existing `pinBlob` against Kubo `/api/v0/add?pin=true&cid-version=1`) and `Etzhayyim.upload_blob(data, media_type=?)` in `pymagatama.substrate` (Python, httpx multipart) — with a bit-identical `{cid,sizeBytes,mediaType}` receipt shape and 7 vitest + 6 pytest covering empty-payload / missing-apiUrl rejection / NDJSON last-line parsing / 5xx surfacing / mediaType default + Blob.type derivation / trailing-slash normalisation. (2) Wires the primitive through `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_train_dumper.py` via a new `_blob_upload` / `_blob_download` dispatch behind `USE_PYMAGATAMA_SUBSTRATE_BLOB=1` — train side pins PLY (and GLB on the bake path) through `pymagatama.substrate.upload_blob` and writes `ipfs://{cid}` URIs into `vertex_maps_gsplat_{asset,mesh}.b2_key` instead of B2 keys; bake side branches on the `ipfs://` scheme via Kubo `/api/v0/cat`; the legacy B2 path stays bit-for-bit identical when the flag is off so blue/green cutover is non-disruptive. Boot guard relaxed: `B2_*` becomes optional when the flag is set, replaced by `ETZ_IPFS_API_URL` requirement. (3) Completes the yoro `@atproto/api` → `@etzhayyim/sdk/atproto` facade migration — 6 callsites rewritten (lib/atproto-agent.ts, lib/superapp/messaging-client.ts, lib/translate/client.ts, lib/mcp/client.ts, lib/actor/ActorEmbed.svelte, routes/moderation/blocked-accounts/+page.svelte); `@etzhayyim/sdk` added as a workspace dependency on `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/package.json`; `pnpm check:ts` clean. SDK test count: 111 → 118 (+7 vitest), pymagatama.substrate 18 → 24 (+6 pytest). Tier A + Tier B + Tier D are now end-to-end SDK-mediated; Tier C / projection remains the ADR-2605222330 carve-out until the projection-sweep ADR ships. Backfill of existing B2 blobs into IPFS pins and the browser-side gsplat loader URL swap remain follow-ups in maps MIGRATION-TODO Phase 2."
 path = "90-docs/adr/2605232400-yatachain-tier-d-blob-substrate-closure.md"
 depends_on = ["2605172000", "2605231400", "2605231500", "2605241500"]
@@ -2541,9 +2546,10 @@ adr = ["2605192415", "2605192100", "2605192115", "2605192130", "2605192200", "26
 path = "10-protocol/yatachain"
 kind = "protocol-spec"
 version = "0.0.0"
-status = "spec-scaffold"
-description = "yatachain — canonical name for the Holochain-isomorphic composition of substrate primitives mandated by ADR-2605172000. 7-layer mapping: yatachain-agent (DID+passkey+SBT) / yatachain-chain (PDS MST) / yatachain-dht (IPFS+L2 anchor) / yatachain-membrane (Lexicon+Rego+LangGraph) / yatachain-witnesses (Pregel cells, quorum ≥3-of-5) / yatachain-cap (atproto JWT+WebAuthn) / yatachain-cells (Pregel cells per ADR-2605192415). Spec-only directory — implementations live in 50-infra/, 20-actors/, 00-contracts/ per the existing layer trees. Naming: single-token lowercase 'yatachain'; hyphenated 'yata-chain' prohibited to avoid shadow of yata-* Cargo workspace crate convention in 50-infra/yata/. Distinct from yata (LanceDB graph engine) and yatabase (commercial BaaS) despite shared 八- family prefix. Projection engine selection is OPEN — see ADR-2605232300 (exploratory comparison of Hummock-fork / RW-fork / GraphAr+MV no-fork options); engine decision deferred pending Council 5-of-7 multisig post 2026-06-19."
-adr = ["2605231400", "2605172000", "2605181100", "2605192100", "2605192415", "2605232300"]
+status = "deprecated-superseded-by-2605262130"
+superseded_by = "2605262130"
+description = "DEPRECATED 2026-05-26 — Superseded by ADR-2605262130 (Kotoba as Canonical Storage Substrate). Originally named the Holochain-isomorphic composition of substrate primitives mandated by ADR-2605172000. The composition spec was a placeholder; kotoba (40-engine/kotoba/, 17 crates Apache-2.0) is the concrete first-party engine that ships the actual primitives natively, eliminating the composition spec as a separate artifact and eliminating the projection layer entirely (kotoba-kqe arrangements EAVT/AEVT/AVET/VAET serve hot-path reads directly over content-addressed blocks). Retained as historical reference for one R-cycle (~30 days) per ADR-2605262130 Phase 0.5; SPEC.md carries a deprecation banner; will be archived after the R-cycle. No new code references this spec."
+adr = ["2605262130", "2605231400", "2605172000", "2605181100", "2605192100", "2605192415", "2605232300"]
 
 [[modules]]
 path = "90-docs/baien/datasets"
@@ -5123,6 +5129,30 @@ sibling_modules = [
   "20-actors/suki (Wave 2 manufacturer)",
   "70-tools/e7m-sim (substrate; R0 path-only)",
   "70-tools/isaac-lab-task-port (task DSL header port; runtime separated)",
+  "70-tools/e7m-sim-preflight (stack-validation harness; R0 evidence companion)",
+]
+
+# ─── e7m-sim preflight stack-validation harness (ADR-2605261600 R0 scoring evidence skeleton) ──
+
+[[modules]]
+path = "70-tools/e7m-sim-preflight"
+kind = "robotics-simulation-substrate-preflight-evidence"
+version = "0.0.1-r0-preflight-evidence"
+status = "r0-preflight-evidence-companion-to-adr-2605261600"
+description = "Stack-validation harness for the e7m-sim charter (ADR-2605261600). Self-contained, Murakumo-independent, runs on a developer Apple Silicon Mac. Produces concrete pass/fail evidence (PNG / USD / PLY / stdout) for each binding library in the charter: MuJoCo 3.8.1 + mujoco-mjx 3.8.1 (JAX 0.10.1 CPU) + Mitsuba 3.8.0 (scalar_rgb + llvm_ad_rgb PRB autodiff via Homebrew libLLVM-22) + OpenUSD 26.5 (usd-core). 6 verify scripts (verify_determinism / verify_mjx / verify_mitsuba / verify_mitsuba_diff / verify_usd / verify_lidar) + 1 interactive viewer (view.py via mjpython) + 2 MJCF variants (cylinder wheels for C++ MuJoCo / capsule wheels for MJX collision-pair limitation) + 7 committed artifacts under out/. **Authoritative for ADR-2605261600 §R0 'scoring evidence skeleton' deliverable** (companion file `90-docs/baien/sim-substrate-scoring-260526.md`). **Explicitly distinct from `70-tools/e7m-sim/`** which is R0 = zero-code per charter; this harness lives at a sibling path because it is NOT operational sim (no Murakumo placement, no simulationRunAttestation emission, no G5 ≥0.75 Isaac Sim ground-truth measurement, no witness quorum, no Charter Rider §2 asset scan). Findings propagated into R1 ADR drafting requirements: (1) libLLVM build-time dep, (2) MJX capsule-only collision constraint, (3) JAX CPU loses to C++ MuJoCo by 10×, (4) PRB autodiff supports BSDF not emitter-pose, (5) mj_ray proxy validates geometry pipeline only (R2 needs CARLA lidar), (6) USD references compose cleanly for fleet ≤30. Vendor-rejection chain audit: zero NVIDIA Omniverse / Isaac Sim / Isaac Lab / OptiX / RTX / Replicator / DriveSim / Omniverse Cloud / Nucleus imports. Decommission point: when ADR-2605252630 (or equivalent R1 sim ADR) lands and populates 70-tools/e7m-sim/ with operational substrate."
+adr = ["2605261600", "2605252615", "2605215000", "2605191524", "2605242630"]
+sibling_modules = [
+  "70-tools/e7m-sim (operational substrate; R0 = empty)",
+  "70-tools/isaac-lab-task-port (task DSL header port; future)",
+  "90-docs/baien/sim-substrate-scoring-260526.md (scoring evidence narrative)",
+]
+evidence_artifacts = [
+  "out/kusawake.usda (2.9 KB ASCII USD scene; 11 prims)",
+  "out/kusawake.usdc (2.3 KB binary USD; 78% of ASCII)",
+  "out/kusawake_fleet.usda (982 B; 4-instance reference-based composition; 33 prims)",
+  "out/kusawake_render.png (Mitsuba 3 scalar_rgb forward render, 640×480)",
+  "out/diff_target.png + out/diff_final.png (Mitsuba 3 PRB BSDF autodiff, loss 0.00258 → 0.00059 over 8 iter)",
+  "out/kusawake_lidar.ply (5760-ray mj_ray sweep; 2520 hits; ASCII PLY 84 KB)",
 ]
 
 # ─── Cookie-free apex + yoro deploy unblock + SPA hydration triage (ADR-2605252800) ──
@@ -5170,3 +5200,876 @@ process_notes = [
   "yoro-ui src/worker.ts overwrite by adapter-cloudflare was a side-effect of fallback:'spa' + wrangler.jsonc main field, not an intentional decision — the resulting upgrade is net-positive (surfaces +server.ts routes that the previous stub silently dropped) but deserves explicit awareness on every future build",
 ]
 
+# ─── Mac mini M4 16GB Gemma 4 26B-A4B MoE NVMe disk inference (ADR-2605253000) ──
+
+[[adrs]]
+id = "2605253000"
+title = "Mac mini M4 16GB で Gemma 4 26B-A4B MoE を NVMe disk inference で動作確認"
+status = "accepted"
+status_note = "Empirically verified that gemma-4-26B-A4B-it-UD-Q3_K_M.gguf (12 GB on disk, Unsloth Dynamic Q3_K_M) runs at 8.4 tok/s generation on Mac mini M4 base 16GB via llama.cpp b9290 with `-ngl 0 -c 2048 -fa 1 -ctk q8_0 -ctv q8_0 -t 4 -no-cnv -st --simple-io < /dev/null`. MoE × mmap synergy validated: only 8/128 experts + shared touched per token → working set ~15% of dense → mmap page cache hit rate enables disk paging at usable throughput. Peak RSS 8.5 GB (12 GB model only ~70% resident), 2.3M page faults, 0 swaps when idle-wait avoided. Failed paths recorded: (1) Metal full offload `-ngl 99` → res=-3 (12.7 GB working set exceeded), (2) Metal partial `-ngl 4..16` → same OOM (gemma4 MoE expert tensors not Metal/CPU splittable), (3) `--no-conversation` alone insufficient → gemma4 chat template forces interactive mode, 3-flag set `-no-cnv -st --simple-io < /dev/null` mandatory. Constitutional: ADR-2605215000 Murakumo-only compliant (no commercial GPU rental), ADR-2605241900 baien edge-target untouched (fleet-side path only, iPhone/Android/WASM-32 trunk still ≤4B BitNet 1.58). TB5 SSD speedup prediction: 1.5-1.85× → 12.5-15.5 tok/s (current 92% disk-bound; M4 compute ceiling ~105 tok/s assuming 4 P-core × 200 GFLOPS FP16; TB5 enclosures real-world 6.0-6.4 GB/s vs internal 3.1 GB/s = ~2× raw bandwidth)."
+path = "90-docs/adr/2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference.md"
+
+[experiments."gemma4-26b-a4b-mac-mini-m4-disk-inference-260525"]
+closed_at = "2026-05-25T20:30 JST"
+adr = "2605253000"
+status_row = "n/a"  # not yet a CLAUDE.md row; merge into next status update if needed
+host = "Mac mini M4 base (16GB unified memory, 10-GPU-core)"
+model = "gemma-4-26B-A4B-it-UD-Q3_K_M.gguf (12.73 GB on disk, Unsloth Dynamic)"
+download_source = "huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF"
+runtime = "llama.cpp b9290 + ggml 0.12.0 (Homebrew)"
+working_invocation = "llama-cli -m <model> -ngl 0 -c 2048 -fa 1 -ctk q8_0 -ctv q8_0 -t 4 -no-cnv -st --simple-io < /dev/null -p <prompt>"
+measured_generation_tok_s = 8.4
+measured_prompt_eval_tok_s = 3.5
+measured_first_token_latency_sec = 80  # cold-start mmap full expert page-fault
+measured_wall_time_sec = 113  # 50 prompt + ~150 gen
+measured_peak_rss_gb = 8.5
+measured_peak_memory_footprint_gb = 7.2
+measured_page_faults = 2300000
+measured_swaps = 0
+metal_recommended_max_working_set_mb = 12713.12
+failed_paths = [
+  "Metal full offload (-ngl 99): res=-3, exceeds 12.7 GB Metal working set",
+  "Metal partial offload (-ngl 4,8,12,16): res=-3, gemma4 MoE expert tensors not splittable",
+  "--no-conversation alone: gemma4 chat template forces interactive mode, dropped to `>` prompt, 57 min idle wait, 2.5 GB swap accumulated, 942k swapouts",
+]
+mandatory_flag_set = "-no-cnv -st --simple-io < /dev/null (all three required, gemma4 chat template aggressive)"
+tb5_ssd_speedup_prediction = "1.5-1.85× → 12.5-15.5 tok/s generation"
+tb5_ssd_speedup_basis = "Current 119 ms/token breakdown: ~9.5 ms compute (3.8B active × 2 FMA / 800 GFLOPS) + ~110 ms disk read (92% disk-bound). TB5 SSD real-world 6.0-6.4 GB/s vs internal 3.1 GB/s ≈ 2× raw bandwidth → disk time halves to ~55 ms → total ~64.5 ms/token → ~15.5 tok/s upper bound. Lower bound 12.5 tok/s accounts for 4K random read IOPS bottleneck (Apple internal SSD ~700k IOPS comparable to TB5 enclosures 600-900k)."
+tb5_ssd_speedup_prediction_post_empirical_correction_260525_2130 = "OVERESTIMATED. Empirical A/B (internal AP0256Z 2.30 GB/s vs SanDisk USB 3.2 Gen 2 0.836 GB/s, 2.75× raw bandwidth gap) showed generation tok/s 7.7 vs 7.9 = only +3% delta. MoE × mmap hot working set (active 9/128 experts × ~100 MB held in page cache) makes steady-state generation STORAGE-INDEPENDENT. Disk bandwidth only matters for cold-load first-token (~80 sec wall). Revised TB5 prediction: steady-state generation +3-5% (= 8.0-8.8 tok/s, NOT 12.5-15.5), cold-load -50% (~80 sec → ~40 sec). TB5 investment justified ONLY for interactive chat UX (many short turns) not batch throughput. See ADR-2605253015 and 70-tools/nvme-disk-inference/results/baseline-260525.md for full A/B data."
+tb5_correction_authority = "ADR-2605253015 (this correction lands as part of nvme-disk-inference substrate project R0 wave)"
+recommended_tb5_candidates = [
+  "OWC Envoy Ultra (TB5, claims 6 GB/s sustained, thermal-managed)",
+  "Acasis TBU401E enclosure + WD SN850X 2TB (modular, ~6 GB/s)",
+]
+constitutional_compliance = [
+  "ADR-2605215000 Murakumo-only inference: Mac mini M4 already fleet node, no commercial GPU rental",
+  "ADR-2605241900 baien edge-target untouched: fleet-side path only, iPhone/Android/WASM-32 trunk still ≤4B BitNet 1.58",
+  "ADR-2605215000 §2 no commercial GPU rental: NVMe + internal mmap only",
+]
+followup_required = [
+  "TB5 SSD A/B benchmark (separate ADR; hardware purchase decision)",
+  "fleet.toml entry for gemma-4-26B-A4B-it on Mac mini M4 nodes (currently only EVO-X2 judah serves it)",
+  "Speculative decoding investigation: draft=gemma3:4b (EVO-X2 LAN) / target=gemma-4-26B-A4B (Mac mini M4 local)",
+  "Context extension >2048: peak RSS approaches 16 GB ceiling at ctx 4096, swap thrashing risk",
+]
+durable_artifacts = [
+  "90-docs/adr/2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference.md",
+  "~/Models/gemma-4-26B-A4B/gemma-4-26B-A4B-it-UD-Q3_K_M.gguf (12.73 GB; local-only, not committed)",
+]
+upstream_references = [
+  "Apple LLM in a Flash (ICLR 2026)",
+  "ml-explore/mlx Issue #3393 (gemma4 MoE bug on base M4 10-core GPU; rationale for llama.cpp backend choice)",
+  "Modelfit: Qwen3.5-35B-A3B UD-IQ3_XXS @ 17.3 tok/s on Mac mini M4 16GB (peer reference for MoE disk inference feasibility)",
+]
+
+
+
+# ─── NVIDIA Omniverse stack API-compat layer (ADR-2605261800, R1.0 path reservation) ──
+
+[[adrs]]
+id = "2605261800"
+title = "NVIDIA Omniverse stack API-compat layer on KAMI + WebGPU + WASM (e7m-sim R1 sub-charter)"
+status = "proposed"
+status_note = "Sub-charter under ADR-2605261600 (e7m-sim R0) expanding R1 scope with 9-component API-compat layer. Canonical implementations use Japanese names (amenominaka / e7m-sim / e7m-shugyo / hikari-rt / kami-rtx / utsushimi / wadachi-sim / murakumo-render / yatachain-nucleus); nv-compat facade in 20-actors/etzhayyim-sdk/src/nv-compat/ + 20-actors/magatama/py/src/pymagatama/nv_compat/ mirrors public Omniverse / Isaac Sim / Isaac Lab / OptiX / RTX / Replicator / DriveSim / Omniverse Cloud / Nucleus API surface (per Google v. Oracle 2021 API fair use). Physics backend = Genesis (Apache-2.0, Genesis-Embodied-AI/Genesis) covering 5 solvers (rigid/MPM/SPH/FEM/PBD) via Taichi → wgpu. Mitsuba 3 = upstream PR only, 90-day hold then re-evaluate. Sub-phase plan R1.0..R1.9 (R1.0 = 10 crate path reservation + deps.toml registration; this commit). G5 quality gate >=0.75 vs Isaac Sim measured per sub-phase."
+path = "90-docs/adr/2605261800-nvidia-omniverse-stack-api-compat.md"
+
+[[modules]]
+path = "40-engine/kami-engine/kami-rt"
+adr = "ADR-2605261800"
+kind = "webgpu-rt-primitive"
+status = "r1.0-path-reservation"
+description = "hikari-rt (光) — WebGPU hardware ray tracing primitive. R1.2 deliverable = PSNR >=35dB vs Mitsuba 3 CUDA reference. OptiX API-compat target."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-pbrt"
+adr = "ADR-2605261800"
+kind = "differentiable-renderer-bind"
+status = "r1.0-path-reservation"
+description = "kami-rtx — Mitsuba 3 WebGPU backend bind (upstream PR only, no fork per §D3). RTX Renderer API-compat target. R1.2 deliverable."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-usd"
+adr = "ADR-2605261800"
+kind = "usd-bind"
+status = "r1.0-path-reservation"
+description = "OpenUSD WASM (tinyusdz) + Hydra render delegate -> KAMI scene graph. omni.usd API-compat target."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-genesis"
+adr = "ADR-2605261800"
+kind = "physics-backend-bind"
+status = "r1.0-path-reservation"
+description = "Genesis (Apache-2.0) physics backend bind — 5 solvers (rigid/MPM/SPH/FEM/PBD) via Taichi -> wgpu. isaacsim.core.api articulation API-compat target. R1.1 deliverable = Cartpole reward curve +/-10% vs Isaac Sim baseline (1000 episodes)."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-articulated"
+adr = "ADR-2605261800"
+kind = "robot-loader"
+status = "r1.0-path-reservation"
+description = "URDF / MJCF / USD physics loader -> kami-genesis articulation. isaacsim.core.prims.Articulation API-compat target."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-sensor-sim"
+adr = "ADR-2605261800"
+kind = "sensor-synth"
+status = "r1.0-path-reservation"
+description = "Camera / lidar / IMU / contact sensor synth on WebGPU compute. isaacsim.sensors API-compat target. R1.6 deliverable for wadachi-sim DriveSim parity."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-replicator"
+adr = "ADR-2605261800"
+kind = "synthetic-data-pipeline"
+status = "r1.0-path-reservation"
+description = "utsushimi (写身) — synthetic data generation + domain randomization. omni.replicator.core API-compat target. R1.3 gate: same-script -> same output schema (JSON diff = 0)."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-app-amenominaka"
+adr = "ADR-2605261800"
+kind = "app-shell"
+status = "r1.0-path-reservation"
+description = "amenominaka (天之御中) — Omniverse Kit-equivalent app shell + extension.toml loader. R1.4 gate: omni.usd / omni.kit.app / omni.replicator.core / omni.kit.viewport / omni.timeline working."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-shugyo"
+adr = "ADR-2605261800"
+kind = "rl-training-framework"
+status = "r1.0-path-reservation"
+description = "e7m-shugyo (修行) — Isaac Lab-equivalent RL training framework. isaaclab.envs.ManagerBasedRLEnv API-compat target. Task DSL source = 70-tools/isaac-lab-task-port/ (sole NVIDIA stack carve-out per ADR-2605261600). R1.5 gate: Franka pick-and-place success rate >= Isaac Lab baseline x 0.8."
+
+[[modules]]
+path = "20-actors/etzhayyim-sdk/src/nv-compat"
+adr = "ADR-2605261800"
+kind = "nv-compat-facade-ts"
+status = "r1.0-path-reservation"
+description = "TypeScript drop-in NVIDIA Omniverse stack public-API compat facade for @etzhayyim/sdk. Trademark notice: NVIDIA®, Omniverse®, Isaac®, OptiX®, RTX®, Nucleus®, DriveSim® are trademarks of NVIDIA Corporation; this project is not affiliated with or endorsed by NVIDIA. Per Google v. Oracle 2021. Mirrors public documented API surface only (N7 limit)."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/nv_compat"
+adr = "ADR-2605261800"
+kind = "nv-compat-facade-py"
+status = "r1.0-path-reservation"
+description = "Python drop-in NVIDIA Omniverse stack public-API compat facade for pymagatama. Trademark notice: NVIDIA®, Omniverse®, Isaac®, OptiX®, RTX®, Nucleus®, DriveSim® are trademarks of NVIDIA Corporation; this project is not affiliated with or endorsed by NVIDIA. Per Google v. Oracle 2021. Mirrors public documented API surface only (N7 limit)."
+
+# ─── ADR-2605261800 §D10.4 contingent fallback crates (amendment 2026-05-26) ──
+# Activated ONLY on Council Lv6+ >=3 attestation after upstream WASM+WebGPU viability gate failure.
+# §D11 also adds PhysX as 10th nv-compat target (mirrored over kami-genesis OR kami-physics-solvers fallback).
+
+[[modules]]
+path = "40-engine/kami-engine/kami-physics-solvers"
+adr = "ADR-2605261800"
+kind = "physics-solver-fallback"
+status = "contingent-fallback-pending-viability-gate"
+description = "From-scratch 5-solver physics engine (rigid Featherstone+XPBD / MPM / SPH / FEM / PBD) in WGSL compute. Contingent fallback per §D10.4 if Genesis WebGPU backend fails R1.1 (rigid) or R1.8 (MPM/SPH/FEM/PBD) viability gate. Activation gate: Council Lv6+ >=3 attestation. nv-compat targets: isaacsim.core.api articulation + PhysX (PxScene / PxRigidDynamic / PxArticulationReducedCoordinate / PxJoint / PxShape). Activation commits religious-corp to multi-year robotics R&D (5-10x effort of upstream bind per §D10.5)."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-rtx-native"
+adr = "ADR-2605261800"
+kind = "path-tracer-fallback"
+status = "contingent-fallback-pending-viability-gate"
+description = "From-scratch WGSL path tracer + differentiable rendering on kami-rt (ray-query + LBVH). Contingent fallback per §D10.4 if Mitsuba 3 wgpu upstream PR fails R1.2 viability gate (Cornell box 30 fps Chrome 121+, PSNR >=35dB). Activation: Council Lv6+ >=3 attestation. nv-compat targets: OptiX + RTX Renderer."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-usd-native"
+adr = "ADR-2605261800"
+kind = "usd-parser-fallback"
+status = "contingent-fallback-pending-viability-gate"
+description = "From-scratch Rust USD parser (.usda / .usdc / .usdz) + composition engine. Contingent fallback per §D10.4 if tinyusdz WASM fails R1.1 viability gate (iPhone 12+ 10MB USD parse <=2s). Activation: Council Lv6+ >=3 attestation. nv-compat targets: omni.usd + pxr.Usd / pxr.UsdGeom / pxr.UsdShade / pxr.UsdPhysics / pxr.UsdLux."
+
+
+# ─── nvme-disk-inference substrate project (ADR-2605253015) ──
+
+[[adrs]]
+id = "2605253015"
+title = "nvme-disk-inference project — Murakumo fleet disk-paged MoE inference substrate"
+status = "proposed"
+status_note = "Scaffolds 70-tools/nvme-disk-inference/ as religious-corp first-party project for MoE × mmap disk inference on Murakumo fleet. Triggered by 2026-05-25 21:30 JST empirical A/B finding: SanDisk USB 3.2 Gen 2 (raw 0.836 GB/s) vs internal AP0256Z NVMe (raw 2.30 GB/s) on Gemma 4 26B-A4B MoE shows generation tok/s 7.9 vs 7.7 = +3% delta despite 2.75× raw bandwidth gap. Steady-state generation is storage-INDEPENDENT because MoE × mmap hot working set (active 9/128 experts × ~100 MB held in 8-10 GB page cache) saturates at ~1.4 GB/s = within both tiers. Disk bandwidth only matters for cold-load first-token latency (~80 sec wall). This finding CORRECTS ADR-2605253000 §5 TB5 SSD speedup prediction (was 1.5-1.85× = 12.5-15.5 tok/s; revised to +3-5% = 8.0-8.8 tok/s steady-state, -50% = ~40 sec cold-load). Project R0 lands: README.md (project authoritative doc) + scripts/cache-flush.sh (14 GB junk write+read, user-space no-sudo) + scripts/bench-storage-tier.sh (A/B protocol per tier: flush → cold llama-cli → capture wall/RSS/page faults/swaps/tok/s to results/) + bench/llama-cli-flags.txt (reference invocation + 3-flag set rationale) + results/baseline-260525.md (initial A/B writeup) + results/{internal,sandisk}-cold-260525-2130.txt (raw bench outputs). R-phase roadmap R0→R5 (R0 scaffold / R1 TB4 enclosure A/B / R2 TB5 + M4 Pro / R3 speculative decoding / R4 Murakumo cell-runner integration / R5 dense model substrate). Constitutional: ADR-2605215000 Murakumo-only + ADR-2605241900 baien edge-target preserved + ADR-2605172000 RW-free boundary unchanged."
+path = "90-docs/adr/2605253015-nvme-disk-inference-substrate-project.md"
+
+[experiments."nvme-disk-inference-storage-tier-ab-260525"]
+opened_at = "2026-05-25T21:30 JST"
+adr = "2605253015"
+parent_adr = "2605253000"
+status = "R0 scaffold landed, R1 TB4 enclosure A/B pending hardware procurement"
+project_path = "70-tools/nvme-disk-inference"
+finding_summary = "Steady-state generation throughput is STORAGE-INDEPENDENT for MoE × mmap disk inference on Mac mini M4 16GB. SanDisk USB 3.2 Gen 2 (0.836 GB/s raw) achieves 7.9 tok/s vs internal AP0256Z NVMe (2.30 GB/s raw) at 7.7 tok/s = +3% delta despite 2.75× raw bandwidth gap. Wall time +7% (cold-load only)."
+measured_internal_ap0256z = { raw_read_gb_s = 2.30, gen_tok_s = 7.7, prompt_tok_s = 3.2, wall_sec = 119.0, peak_rss_gb = 10.30, page_faults = 2348015, swaps = 0 }
+measured_sandisk_usb32_gen2 = { raw_read_gb_s = 0.836, gen_tok_s = 7.9, prompt_tok_s = 3.1, wall_sec = 127.7, peak_rss_gb = 9.99, page_faults = 2327311, swaps = 0 }
+sandisk_device_id = "USB 0x781:0x55BB SanDisk Extreme Portable SSD (UsbLinkSpeed 10 Gbps, USB 3.2 Gen 2)"
+mechanism = "MoE 9/128 active experts × ~100 MB held in 8-10 GB macOS page cache; per-token disk read only on expert turnover (~6.25%) = ~85-170 MB/token = ~0.7-1.3 GB/s effective demand at 7.9 tok/s = within both tiers"
+mechanism_deep_5_layer_analysis = """
+ROOT CAUSE — why ADR-2605253000 §5 prediction overestimated by 15×:
+
+Predicted: per-token = compute (9.5 ms) + disk read (110 ms), disk = active_params (1.5 GB) / disk_bandwidth
+Reality:   per-token disk demand = 1-13 MB, not 1.5 GB
+
+Layer 1 — MoE expert sparsity (known but insufficient): 9/128 = 7% active → 105 MB/token UPPER BOUND
+Layer 2 — Router routing stability (BLIND SPOT): adjacent tokens have STRONG router correlation; only 0.5-1 expert changes per token (not all 8) → marginal new = 6-13 MB/token. Was the largest miss in the prediction.
+Layer 3 — macOS unified memory page cache LRU: 16 GB RAM × ~60% = ~10 GB cache budget; hot expert set (20-30 experts = 3-5 GB) stays resident; cache hit rate ~80-90% after warm-up → marginal disk demand = 1-2 MB/token
+Layer 4 — Compute UNDERESTIMATED: predicted 9.5 ms FMA only; actual ~50-75 ms (Q3_K_M→FP16 dequant 20-30 + matmul 10 + attention KV q8_0 r/w 15-20 + softmax+LN 5-10 + sampling 2-5). Of total 127 ms, disk pure contribution = only ~25-40 ms.
+Layer 5 — Kernel async I/O + readahead: llama.cpp MAP_PRIVATE + sequential → kernel prefetches during compute; effective disk impact = max(0, disk_time - compute_time) ≈ ~0.
+
+CORRECTED per-token disk demand:
+  1.5 GB naive
+  × 0.07 sparsity     = 105 MB
+  × 0.12 stability    = 13 MB
+  × 0.15 cache hit    = 2 MB
+  overlap w/ compute  → effective 0-2 MB
+@ 7.9 tok/s × 13 MB worst-case steady = 103 MB/s actual disk demand
+= 12% of SanDisk USB 3.2 Gen 2 (836 MB/s) capacity
+= 4% of internal NVMe (2300 MB/s) capacity
+→ both tiers have huge headroom; bandwidth NOT the bottleneck
+
+REAL bottleneck: compute (50-75 ms/token) — storage-tier-independent.
+"""
+mechanism_evidence_from_measurements = """
+Measurement       Internal NVMe    SanDisk USB 3.2   Delta   Interpretation
+Page faults       2,348,015        2,327,311          -1%    Identical cache miss pattern
+Peak RSS          10.30 GB         9.99 GB            -3%    Both saturate ~10 GB cache budget
+Peak mem fp       7.20 GB          7.20 GB             0%    IDENTICAL working set size
+Wall (200 tok)    119.0 sec        127.7 sec          +7%    Cold-load 80 sec disk-bound portion only
+Gen tok/s         7.7              7.9                +3%    Run-to-run noise (statistical tie)
+Prompt tok/s      3.2              3.1                -3%    Run-to-run noise
+"""
+applicability_scope = """
+APPLIES to:
+  - MoE active ratio ≤10% (Gemma 4 26B-A4B, Qwen3.5-A3B, Mixtral 8x7B, GPT-OSS 20B/120B)
+  - Single-session inference (not parallel streams)
+  - Context ≤4K (KV cache must not evict experts from page cache)
+  - Mac mini M4 16GB unified memory class
+
+DOES NOT apply to:
+  - MoE active ratio 20-50% (DeepSeek-V2 21B/236B): sparsity effect halved
+  - Dense models (Llama 3.1 70B, Qwen2.5 72B): all params touched per token, no cache benefit
+  - Long-context (ctx ≥16K): KV cache eviction destroys expert cache
+  - Multi-stream concurrent inference: cache contention destroys hit rate
+  → Dense model substrate validation deferred to R5
+"""
+implication = "TB5/TB4 NVMe upgrade for inference throughput is UNJUSTIFIED for MoE workload on M4 16GB. Only cold-load latency benefits (~80 sec → ~40 sec). For interactive chat UX consider warm-up daemon instead of storage upgrade. Existing USB 3.2 Gen 2 SanDisk Extreme sufficient for batch throughput."
+storage_tier_selection_policy = [
+  "Interactive chat (first-token-latency critical) → TB5/TB4 NVMe (or warm-up daemon)",
+  "Batch generation (throughput only) → internal NVMe OR USB 3.2 Gen 2 (equivalent)",
+  "Capacity warehouse (multi-GGUF) → cheap USB SSD (SanDisk Extreme class)",
+  "24/7 fleet member (wear protection) → internal NVMe + USB SSD swap offload",
+]
+anti_pattern = "Buying TB5 NVMe purely to speed up Gemma 4 26B-A4B inference throughput on Mac mini M4 16GB → empirically +3-5% benefit only. Verify with bench-storage-tier.sh before purchase."
+followup_required = [
+  "R1: TB4 NVMe single + ×2 別ポート並列 A/B (hardware purchase: Acasis TBU405 / Yottamaster TR1-C4 + WD SN850X 2TB)",
+  "R2: TB5 NVMe single (requires Mac mini M4 Pro upgrade)",
+  "R3: Speculative decoding (draft=gemma3:4b@EVO-X2 / target=gemma-4-26B-A4B@Mac mini)",
+  "R4: Murakumo cell-runner fleet.toml disk-inference node tag + auto-routing",
+  "R5: Dense model (Llama 3.1 70B etc.) disk inference feasibility (working set大、別 carve-out)",
+  "Inline correction of ADR-2605253000 §5 TB5 prediction (separate commit after this ADR accepted)",
+]
+durable_artifacts = [
+  "90-docs/adr/2605253015-nvme-disk-inference-substrate-project.md",
+  "70-tools/nvme-disk-inference/README.md (project authoritative doc)",
+  "70-tools/nvme-disk-inference/scripts/cache-flush.sh (14 GB junk evict, user-space)",
+  "70-tools/nvme-disk-inference/scripts/bench-storage-tier.sh (A/B protocol)",
+  "70-tools/nvme-disk-inference/bench/llama-cli-flags.txt (reference invocation + 3-flag rationale)",
+  "70-tools/nvme-disk-inference/results/baseline-260525.md (A/B finding writeup)",
+  "70-tools/nvme-disk-inference/results/internal-cold-260525-2130.txt (raw)",
+  "70-tools/nvme-disk-inference/results/sandisk-cold-260525-2130.txt (raw)",
+]
+process_notes = [
+  "Same-session 1-hour-gap correction precedent: ADR-2605253000 §5 prediction (TB5 1.5-1.85×) was empirically falsified within 1 hour of its acceptance via A/B SanDisk test. Future 'prediction' ADRs should declare an empirical validation gate before being treated as actionable. Documented in ADR-2605253015 Consequences/Negative.",
+]
+
+
+# ─── baien-moemoekyun MoE charter (ADR-2605261900, R0 path reservation, server tier) ──
+
+[[adrs]]
+id = "2605261900"
+title = "baien-moemoekyun — 2B BitNet 1.58 shared backbone + MoE residual experts (server-tier carve-out, R0 charter)"
+status = "proposed"
+status_note = "R0 charter for baien-moemoekyun: a server-tier (ADR-2605242100) MoE-augmented baien variant on microsoft/bitnet-b1.58-2B-4T-bf16. Architecture = backbone (frozen) + shared dense FFN (existing BitNet FFN, always active) + MoE residual branch (E=128 small experts of dense_FFN/32 size, top-k=2, applied to last 25% of layers) with output gate alpha init = 0.0 ± 1e-3 (G5; guarantees step-0 behavior identical to base BitNet). 3-phase training: R1 freeze-train (router + experts only) → R2 partial unfreeze (shared FFN + layernorm low-LR) → R3 joint low-LR. 12 constitutional gates G1..G12 (Charter Rider scan / Murakumo-only / -server- infix mandatory / edge artifacts MUST NOT carry moemoekyun MoE / alpha=0 init / aux-loss MANDATORY / no dense-FFN-copy init / backbone-frozen verify / BF16-deploy-only / honest scoring / distill-loop compat / SBT-gated endpoint). 10 non-goals N1..N10 (NOT edge / NOT frontier / NOT BitNet-packed-training / NOT from-scratch-MoE-pretrain / NOT LoRA-only / NOT baien-edge replacement / NOT >16B trunk / NOT >64k context / NOT commercial GPU rental / NOT Charter Rider bypass). R0 deliverables = this ADR + deps.toml registration + 70-tools/baien-moemoekyun-train/ path reserved (no code) + CLAUDE.md Status row + README index. R1+ each independent ADR. Project / charter / directory name = baien-moemoekyun (user decision 2026-05-26); shipped model id MUST use baien-server-moemoekyun-* infix (release blocker per ADR-2605242100 §Naming)."
+path = "90-docs/adr/2605261900-baien-moemoekyun-moe-charter.md"
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train"
+adr = "ADR-2605261900"
+kind = "training-scaffold"
+status = "r0-path-reservation"
+description = "baien-moemoekyun training scaffolding. R0 = path reserved, no code. R1 deliverable = minimum model class + router + expert + train loop, 100-sample x 10-step smoke on EVO-X2, parameter-group inspection (G8) + alpha=0 verify (G5) + aux-loss enabled (G6). R2 deliverable = first real training run (1B tokens) + LiteLLM endpoint with SBT gate (G12). R3 deliverable = first published baien-server-moemoekyun-v1 + Council Lv6+ ratification."
+
+
+# ─── baien-moemoekyun R1 — Phase 0 freeze-train coding-emphasis SFT (ADR-2605262100) ──
+
+[[adrs]]
+id = "2605262100"
+title = "baien-moemoekyun R1 — Phase 0 freeze-train (router + experts + alpha) coding-emphasis SFT on EVO-X2 Windows ROCm (R1.0..R1.5)"
+status = "proposed"
+status_note = "R1 sub-charter of ADR-2605261900 (baien-moemoekyun R0). Phase 0 freeze-train only — backbone fully frozen, trainable = MoE residual branch (router + 128 experts/layer x 7 layers + per-layer alpha = ~1.1B params). Reuses gemma-coder-distill EVO-X2 Windows ROCm 7.2.1 + peft+trl stack (ADR-2605250400) verbatim; trl SFTTrainer + custom BaienMoEResidual module surgery (NOT peft adapter — peft is LoRA-class adapter-shaped, MoE residual is independent computation path). Sub-phase ladder R1.0..R1.5: R1.0 ROCm probe BitNet + MoE forward / R1.1 BaienMoEResidual + BitNetFFNWithMoE impl + alpha=0 step-0 verify (G5) / R1.2 aux-loss (G6) + frozen grad-norm verify (G8) / R1.3 100-sample x 10-step smoke (pipeline ✓) / R1.4 Magicoder-OSS-Instruct + commitpack + reasoning + langgraph-internal harvest + CodeAlpaca 計5,000 ex x 1 epoch / R1.5 langgraph-coding bench + HumanEval+ delta gate (>=+3pp langgraph AND >=0 humaneval+ → commit_to_registry; else abort + R2 ADR エスカレーション). Dataset 3-tier: Tier A Apache/MIT/BSD (Magicoder MIT / commitpack Apache / reasoning-distill-opus Apache / repo-internal LangGraph harvest Apache; commit & 配布 OK), Tier B CC-BY (R1 では使用しない, R2 ADR で評価), Tier C non-commercial (CodeAlpaca-20k / SWE-Gym / WizardCoder-evol NC / Gemma TOS synthetic; train 用途のみ artifact 非公開 G13). New gates G13 (NC-trained artifact MUST NOT be published to HuggingFace public; Murakumo fleet 内部 inference only) + G14 (R1.4 dataset registry: huggingface_id+license+sha256+row_count+sampling_seed manifest mandatory) + G15 (EVO-X2 Windows ROCm 7.2.1 reproducibility: torch.version+rocm.version+gpu_name+gpu_count+env_hash embedded in bench JSON). Memory budget on EVO-X2 unified 128GB ROCm 7.2.1 / gfx1151 = ~25 GB total (frozen backbone 4GB + MoE bf16 2.2GB + Adam state 8.8GB + grad 4.4GB + activations 3GB + misc 3GB); gemma-coder iter-01 concurrent train requires time-multiplexing (no space-multiplex on single iGPU)."
+path = "90-docs/adr/2605262100-baien-moemoekyun-r1-phase0-coding-train.md"
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/scripts/probe_rocm_moe.py"
+adr = "ADR-2605262100"
+kind = "rocm-probe"
+status = "r1.0-deliverable"
+description = "R1.0 deliverable: BitNet 2B load on EVO-X2 ROCm 7.2.1 + 1 MoE layer surgery + 1 forward step + memory profile. Acceptance: forward output finite + no OOM + total RAM <=30 GB."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/src/baien_moemoekyun"
+adr = "ADR-2605262100"
+kind = "training-package"
+status = "r1.1-deliverable"
+description = "R1.1+ deliverable: model.py + moe.py + attach.py implementing BaienMoEResidual + BitNetFFNWithMoE (module surgery). R1.1 acceptance: pytest test_alpha_init.py 7/7 layer alpha in [-1e-3, +1e-3], pytest test_step0_match.py random input forward output ||delta||_2 / ||y_base||_2 < 0.01 vs base BitNet."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/configs/r1.4-iter01.yaml"
+adr = "ADR-2605262100"
+kind = "train-config"
+status = "r1.4-deliverable"
+description = "R1.4 deliverable: corpus mix (Magicoder 60% / commitpack 20% / reasoning-distill 10% / repo-internal 5% / CodeAlpaca 5% = 5000 ex), hparams (LR router 1e-4 / experts 2e-4 / alpha 5e-5 / aux 0.01 / AdamW beta1 0.9 beta2 0.95 wd 0.1 / cosine warmup 100 / batch 1 / grad_accum 4 / seq 2048 / bf16 / gradient_checkpointing). Acceptance: wall <=3h on EVO-X2 + final loss < initial loss x 0.85 + aux loss mean < 0.05 (utilization 良好)."
+
+[[modules]]
+path = "90-docs/baien/moemoekyun-r1.4-corpus-manifest.jsonl"
+adr = "ADR-2605262100"
+kind = "dataset-manifest"
+status = "r1.4-deliverable"
+description = "G14 mandatory: per-dataset manifest with huggingface_id + license + sha256 + row_count + sampling_seed. Must be committed before R1.5 commit_node gate fires."
+
+[[modules]]
+path = "90-docs/baien/moemoekyun-r1.4-eval.jsonl"
+adr = "ADR-2605262100"
+kind = "eval-result"
+status = "r1.5-deliverable"
+description = "R1.5 deliverable: langgraph-coding bench (50 prompt exec-graded) + HumanEval+ (164 prompt exec-graded) pre-train baseline + post-train. commit_node gate = delta langgraph >= +3pp AND delta humaneval+ >= 0 (regression abort必須)."
+
+[[modules]]
+path = "90-docs/baien/moemoekyun-models.jsonl"
+adr = "ADR-2605262100"
+kind = "model-registry"
+status = "r1.5-deliverable"
+description = "moemoekyun adapter / merged checkpoint registry (sibling of distilled-models.jsonl per ADR-2605231300 §3). Separate from distilled-models.jsonl because moemoekyun has G12 SBT-gated inference policy + G13 distribution boundary."
+
+
+# ─── CHARTER-RIDER §2(i) train carve-out amendment for baien-server-* / baien-XL-* (ADR-2605262200) ──
+
+[[adrs]]
+id = "2605262200"
+title = "CHARTER-RIDER §2(i) amendment — train-only commercial GPU rental carve-out for baien-server-* / baien-XL-* (inference invariant unchanged)"
+status = "proposed-pending-council-ratification"
+status_note = "CONSTITUTIONAL AMENDMENT proposal for CHARTER-RIDER.md §2(i). Adds §2(i)(2) train carve-out: commercial GPU rental MAY be used for training/fine-tuning/distillation/RL/federated aggregation of baien-server-* / baien-XL-* artifacts only, subject to (1) inference of resulting artifacts still flows exclusively through Murakumo fleet per §2(i)(1) UNCHANGED; (2) per-rental yatachain attestation MANDATORY pre-flight (app.etzhayyim.train.rentalAttestation Lexicon — vendor + GPU model+count + expected wall + expected USD cost + target dataset CIDs + Charter Rider §2(a)-(h) scan PASS + attesting DID); (3) per-rental post-flight cost log MANDATORY within 24h (app.etzhayyim.train.rentalCostLog Lexicon — actual wall + actual USD + output checkpoint CID + IPFS pin verify CID); (4) vendor scope = reputable commercial (RunPod/Lambda/CoreWeave/Vast.ai equivalents), §2(a)-(h) Non-Aligned Entity criteria applies to vendor; (5) burst-only — continuous rental >7 days requires Council Lv6+ ≥4/7 per-incident approval; (6) other actor scope explicitly NOT included (yakushi/wadachi/silicon/sim/manufacturing/baien-edge/all baien-no-infix remain Murakumo-only per §2(i)(1)); (7) Charter Rider §2(a)-(h) substantive constraints apply identically to rental-train artifacts. Procedural path: P0 today proposed + ADR commit / P1 2026-05-26→2026-06-19 Bootstrap Council Seats 2-5 RFP / P2 2026-06-19+ Council Lv6+ ratification vote ≥4/7 seats / P3 P2+30-day public objection / P4 earliest 2026-07-19 effective + CHARTER-RIDER.md text rewrite. Founder Lv7+ emergency authorization explicitly NOT taken (institutional integrity over R&D urgency, R1.4 grade EVO-X2 unblocked). Interim: ADR-2605262300 (R2+ RunPod B200 architecture) status proposed-gated-on-this-amendment; R1.4 EVO-X2 single continues per ADR-2605262100 無風."
+path = "90-docs/adr/2605262200-charter-rider-2i-baien-train-rental-carveout.md"
+
+
+# ─── baien-moemoekyun R2+ RunPod B200 train architecture (ADR-2605262300, gated on 2605262200) ──
+
+[[adrs]]
+id = "2605262300"
+title = "baien-moemoekyun R2+ train architecture on commercial GPU rental (B200 SXM sparse FP4/FP8/BF16 precision ladder; inference path UNCHANGED Murakumo-only)"
+status = "proposed-gated-on-2605262200-ratification"
+status_note = "Sibling of ADR-2605262200 (charter amendment). Specifies R2/R3/R4 train architecture on commercial GPU rental. Hardware = B200 SXM primary (Blackwell, ~4500 TFLOPS BF16 / ~9000 FP8 / ~18000 sparse FP4 peak; HBM3e 192GB), H100 SXM fallback (~1979 BF16 / ~3958 FP8 peak; HBM3 80GB). Precision ladder R2 BF16 baseline (engineering 0, R4 wall ~3.6h $25 on B200) → R3 FP8 mixed-precision via TransformerEngine (MoE experts only, BitNet backbone BF16 unchanged; engineering 1-2 weeks; R4 wall ~1.8h $13) → R4 sparse FP4 with 2:4 structured sparsity + TransformerEngine FP4 (Blackwell-only; engineering 3-4 weeks; R4 wall ~50min $6). Checkpoint pipeline: rented GPU → HuggingFace Hub (Tier A/B Apache/MIT) OR direct rsync to mac-260317 (Tier C G13) → ipfs add via mac-260317 → publish-ipfs CID → Murakumo fleet pull → llama.cpp/Ollama serve → judah LiteLLM gateway route to SBT-gated clients (ADR-2605231525). Per-rental Lexicons app.etzhayyim.train.rentalAttestation (pre-flight) + rentalCostLog (post-flight). Cost/wall budget caps: single session ≤24h ≤$200, monthly aggregate ≤100h ≤$1000, continuous >7 days = Council Lv6+ per-incident. Runbook deliverable 70-tools/baien-moemoekyun-train/scripts/rental-orchestrator.py. Inference architecture UNCHANGED (Mac mini fleet + EVO-X2 + judah LiteLLM per ADR-2605215000 §2(i)(1))."
+path = "90-docs/adr/2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture.md"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/train/rentalAttestation.json"
+adr = "ADR-2605262300"
+kind = "lexicon-schema"
+status = "r2.0-deliverable"
+description = "Pre-flight attestation Lexicon for commercial GPU rental train run under CHARTER-RIDER §2(i)(2). Fields: vendor + gpuModel + gpuCount + expectedWallMinutes + expectedUsdCost + datasetCidsTrain + datasetCidsEval + modelTier + modelArtifactName + precisionMode + charterRiderScanPass + charterRiderScanRunCid + attestingDid + trainAdrRef. Records emitted to PDS before rental instance start, mandatory per §2(i)(2)(2)."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/train/rentalCostLog.json"
+adr = "ADR-2605262300"
+kind = "lexicon-schema"
+status = "r2.0-deliverable"
+description = "Post-flight cost+outcome log Lexicon for commercial GPU rental train run. Fields: rentalAttestationUri + actualWallMinutes + actualUsdCost + outputCheckpointCid + ipfsPinVerifyCid + evalMetrics (langgraphCodingPass1 / humanevalplusPass1 / mbppPlusPass1) + commitDecision + registryEntry + attestingDid. Records emitted within 24h of rental termination, mandatory per §2(i)(2)(3)."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/scripts/rental-orchestrator.py"
+adr = "ADR-2605262300"
+kind = "rental-orchestrator"
+status = "r2.0-deliverable"
+description = "Rental train orchestrator: charter-rider scan → rentalAttestation publish → vendor.start_instance → run train script → fetch checkpoint → e7m-dataset add (IPFS pin) → e7m-dataset verify → fleet eval (Mac mini split-role) → commit_gate → rentalCostLog publish. Wrapper invokes vendor-specific provisioning (RunPod/Lambda/CoreWeave) via vendor SDK or REST API."
+
+[[modules]]
+path = "90-docs/runbooks/baien-moemoekyun-runpod-bringup.md"
+adr = "ADR-2605262300"
+kind = "operator-runbook"
+status = "r2.0-deliverable"
+description = "Operator runbook for first RunPod B200 train session post amendment effective. Steps: pre-flight checks (Charter Rider scan dataset CIDs, attestation publish dryRun verify) → provisioning (RunPod web UI or API) → train invocation (configs/r2-iter01.yaml) → checkpoint fetch (rsync from rental) → IPFS pin on mac-260317 → fleet eval → commit_gate → cost log emit → instance terminate. Covers both success path + failure recovery (cost budget overrun → hard-kill / engineering failure → abort + cost log emit with commitDecision=aborted-engineering-failure)."
+
+
+# ─── Public-data ingestion for the artificial-organism ecosystem via IPFS-pinned DataLad subdatasets (ADR-2605262400) ──
+
+[[adrs]]
+id = "2605262400"
+title = "Public-data ingestion for the artificial-organism ecosystem via IPFS-pinned DataLad subdatasets (OSM / RIR / GeoLite2 / BGP / DNS / Web-graph) — passive-only perception sensors + cold-path training corpus, Tier-A/Tier-C ladder with G13 fleet-internal NC carve-out"
+status = "proposed"
+status_note = "Single SoT for how pymagatama.organism actors consume large public-domain corpora (OSM Planet, RIR delegated stats, MaxMind GeoLite2, RIPE-RIS / Routeviews BGP MRT dumps, IANA root zone, Rapid7 Sonar FDNS, OpenINTEL, CAIDA AS-rank, Common Crawl URL index, CZDS per-TLD opt-in zones) without violating substrate boundary. Two-path split: (A) PERCEPTION = hot-path heartbeat sensors resolve latest datasetPin CID → bounded in-memory hot_sample(n) → InboxBuffer push (tier flag) → joucho 情緒 → cadence flag; (B) TRAINING = cold-path corpus-recipe.toml → assemble-public-corpus.py → multi-source IPFS-CID resolve + Charter §2 + PII re-scan + NDJSON shard write → IPFS-pinned corpus subdataset → baien-moemoekyun-train SFT / baien-distill on Murakumo fleet → R1.5-style eval-gated commit_node. License ladder: Tier A (OSM ODbL / GeoNames CC-BY / Wikidata CC0 / RIR public / IANA public / GeoLite2 CC-BY-SA / RIPE-RIS / Routeviews) publishable; Tier C (Rapid7 Sonar / OpenINTEL / CAIDA / Common Crawl / CZDS = CC-BY-NC) admitted under G13 fleet-internal carve-out — `-nc-` infix mandatory + judah LiteLLM + SBT-gate only (same pattern as ADR-2605262100 R1.4). DatasetSensor Protocol in pymagatama.organism.sensors.* with W1 implementations osm_region_sensor / rir_delegated_sensor / geolite2_sensor / ris_routing_sensor / iana_root_sensor; tier='C' Observations carry internal_only=True flag that PostSink drops on external paths. 3 new KaizenObserver rules R7 (stale-sensor-pin) / R8 (charter-fail-rate >5% / 24h) / R9 (tier-c-leak backstop = critical = halts cell + Council Lv6+ escalation). PII filter (pii_filter.py) precedes Charter Rider §2 scan; redacts emails / E.164 / postal addresses / WHOIS registrant blocks in place on the redacted view (annex bytes preserved). PASSIVE-ONLY discipline per user decision 2026-05-26: organisms MUST NOT perform live DNS resolution / port probes / traceroute / WHOIS / RDAP / DoH against third parties (CHARTER-RIDER §2(c) covert-ops avoidance); only pre-published public archives. Inference UNCHANGED Murakumo-only per ADR-2605215000; train-rental amendment ADR-2605262200 independent. 14 gates G1..G14 (Charter scan + PII filter + replicationMin:2 + tier-C drop + `-nc-` infix + SBT-gate + Murakumo-only + no-active-probe lint + hot_sample determinism + recipe-in-git + ≤5% FP / 24h + cadence-respect + datasetPin mandatory + manifest append). 12 non-goals N1..N12 (N1 NOT live DNS/IP/BGP probing / N2 NOT WHOIS query engine / N3 NOT port-scan / N4 NOT route-hijack detector / N5 NOT NetFlow collector / N6 NOT tor harvester / N7 NOT alt resolver / N8 NOT new substrate engine / N9 NOT Tier-D vendor feeds / N10 NOT commercial GPU rental / N11 NOT cross-religious-corp federation / N12 NOT maps_sentinel_murakumo M1 replacement). 4-wave delivery: W0 = this ADR (proposed-status + deps.toml + README + CLAUDE.md row) / W1 = Tier-A foundations (RIR / GeoLite2 / IANA + 3 sensors + PII first cut + R7-9 Kaizen rules; 2-3 days) / W2 = Routing (RIPE-RIS / Routeviews + 2 sensors; 2-3 days) / W3 = Tier-C NC carve-out (Rapid7 / OpenINTEL / CAIDA + G13 enforcement + R9 leak-test harness; 3-4 days) / W4 = CZDS per-TLD + Common Crawl CDX (per-TLD individual Council attestation)."
+path = "90-docs/adr/2605262400-public-data-organism-ipfs-ingestion.md"
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/rir_delegated.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w1-deliverable"
+description = "Fetcher for 5 RIR delegated stats archives (APNIC / ARIN / RIPE / AFRINIC / LACNIC). Daily-cadence; public-domain de facto; Tier A. Output: NDJSON shards of (prefix, cc, allocated_at, holder_opaque_id) rows. Plugs into `e7m-dataset pull rir --rir <apnic|arin|ripe|afrinic|lacnic>` and `e7m-dataset add` chain."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/maxmind_geolite.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w1-deliverable"
+description = "Fetcher for MaxMind GeoLite2 City / Country / ASN MMDB. Monthly-cadence; CC-BY-SA 4.0; Tier A (SA-derivative — propagates to corpus license tagging). Output: MMDB files preserved as annex objects; sensor reads via maxminddb-rust or maxminddb-python."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/iana_root.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w1-deliverable"
+description = "Fetcher for IANA root zone snapshot. Daily-cadence; public-domain; Tier A. Output: zone-file text + NDJSON parse of (tld, ns, ds, expires) tuples."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/ripe_ris.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w2-deliverable"
+description = "Fetcher for RIPE NCC RIS MRT dumps (8-hourly per collector rrc00..rrc26). Open under RIPE TOU; Tier A. Output: raw MRT preserved as annex; sensor reads via `mrtparse` / `bgpdump`."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/routeviews.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w2-deliverable"
+description = "Fetcher for University of Oregon Routeviews MRT archives. Open under UO TOU; Tier A. Sibling to ripe_ris.py."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/rapid7_sonar.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w3-deliverable-tier-c-g13"
+description = "Fetcher for Rapid7 Open Data Sonar FDNS archives (research-use accept-terms required). Tier C — admitted under G13 fleet-internal carve-out. Requires acceptance flag at `~/.etzhayyim/source-acceptance/rapid7-open-data.toml` before fetch will run. PII filter pii_sensitive=true default (some TXT records contain user emails)."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/openintel.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w3-deliverable-tier-c-g13"
+description = "Fetcher for OpenINTEL DNS active-measurement Parquet archives (Tranco 1M default; per-TLD optional). CC-BY-NC 4.0; Tier C; G13 fleet-internal. PII filter pii_sensitive=true default."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/caida.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w3-deliverable-tier-c-g13"
+description = "Fetcher for CAIDA AS-rank / prefix2as / AS-relationship datasets. CC-BY-NC; Tier C; G13 fleet-internal. PII filter pii_sensitive=false."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/czds.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w4-deliverable-per-tld-opt-in"
+description = "Fetcher for ICANN CZDS per-TLD zone files. Per-TLD agreement (Tier C or D depending on TLD). Per-TLD Council attestation required before any TLD is enabled. Acceptance flag at `~/.etzhayyim/source-acceptance/czds-<tld>.toml` AND a Council attestation Lexicon record both required."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/commoncrawl_cdx.py"
+adr = "ADR-2605262400"
+kind = "dataset-fetcher"
+status = "w4-deliverable-tier-c-g13"
+description = "Fetcher for Common Crawl URL index (CDX). Tier C; G13 fleet-internal. PII filter pii_sensitive=true (CDX records can contain user-bearing URLs)."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/base.py"
+adr = "ADR-2605262400"
+kind = "sensor-protocol"
+status = "w1-deliverable"
+description = "DatasetSensor Protocol + Observation + DatasetPin types + PiiFilterPolicy enum. Sensor implementations under same package: osm_region_sensor.py / rir_delegated_sensor.py / geolite2_sensor.py / ris_routing_sensor.py / iana_root_sensor.py. UnispscOrganism.__init__ accepts sensors=[]; tick() polls each sensor at its refresh_cadence_sec and pushes Observations into InboxBuffer with tier flag + internal_only flag for tier='C'."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/pii_filter.py"
+adr = "ADR-2605262400"
+kind = "pii-redaction"
+status = "w1-deliverable"
+description = "PII redaction module that precedes the Charter Rider §2 scan. Wave-1 scope: email addresses (RFC-5321 grammar) / E.164 phone numbers / postal addresses with country code (heuristic, conservative over-redaction) / WHOIS registrant blocks (registrant: / tech-c: / admin-c: lines). Redacts in place; original bytes preserved in annex. STRICT policy default."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/scripts/assemble-public-corpus.py"
+adr = "ADR-2605262400"
+kind = "corpus-assembler"
+status = "w1-deliverable"
+description = "Cold-path corpus assembler. Input: corpus-recipe.toml (per target artifact, declares sources with subdataset + datasetPin_at + shard_glob + tier + weight). Resolves every datasetPin → IPFS CID map, applies Charter Rider §2 + PII re-scan, computes max tier across sources, enforces `-nc-` infix if any source.tier == 'C', emits NDJSON shards into training/corpora/<name>/, DataLad save + annex copy + publish-ipfs + datasetPin emit. Output corpus is itself an IPFS-pinned subdataset and is what baien-distill / baien-moemoekyun-train consumes."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/recipes/"
+adr = "ADR-2605262400"
+kind = "corpus-recipes"
+status = "w1-deliverable"
+description = "Committed corpus-recipe.toml files. Each recipe IS the audit trail for which dataset CIDs went into which trained artifact. W1 recipes: tier-a-netreg-foundations.toml; W2 recipes: tier-a-routing.toml; W3 recipes: tier-c-dns-graph-nc.toml (must carry `-nc-` infix in target_artifact); W4 recipes: per-TLD CZDS + Common Crawl with explicit Council attestation cross-ref."
+
+[[modules]]
+path = "70-tools/scripts/lint/sensor-no-active-probe.mjs"
+adr = "ADR-2605262400"
+kind = "lefthook-lint"
+status = "w1-deliverable"
+description = "Lint hook (G8 enforcement). Scans pymagatama.organism.sensors.* for forbidden imports/calls: socket / dnspython / aiodns / requests-cache against arbitrary external hosts / paramiko / nmap / scapy. Allow-list only the religious-corp DID infrastructure hosts (etzhayyim.com, pds.etzhayyim.com, dataset-pinner.etzhayyim.com, 127.0.0.1, 192.168.1.70 LAN). Fail-closed on violation."
+
+
+# ─── Robotics-sim world-data ingestion + kami-usd pipeline (ADR-2605262500) ──
+
+[[adrs]]
+id = "2605262500"
+title = "Robotics-sim world-data ingestion + kami-usd conversion pipeline — sibling of ADR-2605262400 on the geospatial-3D axis"
+status = "proposed"
+status_note = "Single SoT for how every R1+ outdoor sim consumer (wadachi / suki / watatsumi / sarutahiko / futawa / tatekata / hodoki / makura / igata-outdoor / tsutae) loads world geospatial data into kami-engine USD scenes. Two-path: (A) SIM SCENE ASSEMBLY = 70-tools/e7m-sim/scenes/<name>/scene.yaml (world: section) → assemble-usd-scene.py → tinyusdz (kami-usd) → e7m-sim load via kami-rt + kami-genesis (NVIDIA PhysX N1..N9 NEVER per ADR-2605261800 §2(b)); (B) BAIEN TRAIN CORPUS reuses ADR-2605262400 §4 cold path verbatim. Tier-A (Sentinel-2 Copernicus / SRTM / 3DEP / OSM ODbL / Overture CDLA-Permissive / MS-Buildings ODbL / OpenUSD Apache-2.0) publishable. Tier-C (Mapillary CC-BY-SA / Objaverse-XL NC) under G13 fleet-internal carve-out per user 2026-05-26 内部利用前提 (`-nc-` infix + judah LiteLLM + SBT-gate). Mapillary face/plate/child blur preprocessing MANDATORY at fetch time, Murakumo only. 12 gates G1..G12 / 10 non-goals N1..N10 / 4-wave W0..W4. **W1 SHIPPED 2026-05-26** (7 fetchers landed + scene.schema.json + first wadachi Shibuya scene + W1 stub assembler with real Charter Rider integration via e7m_dataset.charter.scan_sample + 45/45 tests pass incl. G6 determinism + G4 `-nc-` enforce). First testbed = wadachi R1 Tokyo 23-ku Shibuya 1km×1km. Watatsumi bathymetry deferred."
+path = "90-docs/adr/2605262500-robotics-world-data-ingestion-and-usd-pipeline.md"
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/sentinel2.py"
+adr = "ADR-2605262500"
+kind = "dataset-fetcher"
+status = "w1-shipped"
+description = "Sentinel-2 L2A COG fetcher via AWS Earth Search STAC v1 (Tier A, Copernicus-free-attribution). Tile id (MGRS) or explicit STAC item id; cloud_cover_max filter; default RGB bands B432. Ports ADR-2605215100 maps_sentinel_murakumo M1 T0 prototype."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/srtm.py"
+adr = "ADR-2605262500"
+kind = "dataset-fetcher"
+status = "w1-shipped"
+description = "SRTM 1-arc 30m DEM fetcher via OpenTopography GlobalDEM API (Tier A, public-domain NASA). Tile id parser (n35e139 → 1°×1° bbox); optional ETZ_OPENTOPO_API_KEY env for larger quotas."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/overture.py"
+adr = "ADR-2605262500"
+kind = "dataset-fetcher"
+status = "w1-shipped"
+description = "Overture Maps Foundation Parquet shard fetcher via S3 anonymous public bucket (Tier A, CDLA-Permissive-2.0). Theme/type validator covers transportation/buildings/places/addresses/base. First-shard-only at W1; multi-shard + DuckDB-spatial bbox filter deferred to W2."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/ms_buildings.py"
+adr = "ADR-2605262500"
+kind = "dataset-fetcher"
+status = "w1-shipped"
+description = "Microsoft Global Building Footprints fetcher (Tier A, ODbL-1.0). CSV index parser + country/quadkey selector + per-quadkey GeoJSONL.gz stream. Building polygon fallback when Overture buildings theme is sparse for a region."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/usgs_3dep.py"
+adr = "ADR-2605262500"
+kind = "dataset-fetcher"
+status = "w1-shipped"
+description = "USGS 3DEP 1m DEM fetcher (Tier A, public-domain USGS; US only). Anonymous S3 bucket prd-tnm. Higher resolution than SRTM for US scenes; non-US falls back to SRTM 30m."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/openusd_samples.py"
+adr = "ADR-2605262500"
+kind = "dataset-fetcher"
+status = "w1-shipped"
+description = "Pixar OpenUSD sample-scene fetcher (Tier A, Apache-2.0). Allowlist of canonical Pixar/AOUSD-hosted scenes (kitchen-set / shading-attic / instancing-shootout); sha256 revision; explicit_url escape for operator-on-license repos. Reference material for kami-usd round-tripping + kami-pbrt shading regression."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/hf_3d_nc.py"
+adr = "ADR-2605262500"
+kind = "dataset-fetcher-tier-c-g13"
+status = "w3-shipped"
+description = "HuggingFace 3D NC-subset fetcher (Tier C, CC-BY-NC-mixed; G13 fleet-internal carve-out). Thin wrapper around hf.py with: (1) KNOWN_NC_REPOS allowlist enforcement, (2) include-glob locked to 3D-asset extensions (.glb/.gltf/.obj/.fbx/.ply/.stl/.usd/.usdc/.usdz/.usda), (3) hf-3d-nc- prefix on staging dirname for visual tier flag, (4) tier=C + g13_nc_infix_required_in_artifacts=True forced in source dict regardless of HF cardData. Operator escape via explicit_owner/explicit_repo + explicit_nc_acknowledged=True."
+
+[[modules]]
+path = "70-tools/e7m-sim/scenes/_schema/scene.schema.json"
+adr = "ADR-2605262500"
+kind = "scene-yaml-schema"
+status = "w1-shipped"
+description = "JSON Schema (Draft 2020-12) for 70-tools/e7m-sim/scenes/<name>/scene.yaml. Validates existing cartpole/kusawake convention (per ADR-2605261800 R1.1) + the new `world:` section added by ADR-2605262500 §3 for outdoor robotics sim. Permissive on un-canonicalized sections."
+
+[[modules]]
+path = "70-tools/e7m-sim/scenes/wadachi-r1-shibuya-1km/"
+adr = "ADR-2605262500"
+kind = "scene-directory"
+status = "w1-shipped"
+description = "First wadachi R1 outdoor sim scene — Tokyo 23-ku Shibuya 1km×1km. Tier-A only at W1 (SRTM 30m terrain + Sentinel-2 B432 RGB raster_overlay + Overture roads+buildings). W3 sibling scene `-nc-` variant adds Tier-C Objaverse-XL passenger-car props."
+
+[[modules]]
+path = "70-tools/e7m-sim/scripts/assemble-usd-scene.py"
+adr = "ADR-2605262500"
+kind = "sim-scene-assembler"
+status = "w1-shipped-stub"
+description = "Hot-path sim scene assembler (W1 stub + real Charter Rider integration). Loads scene.yaml + schema-validates + tier-ceiling check + G4 `-nc-` infix enforcement + datasetPin→CID resolve (W1 stub via sha256-derived placeholder; W2 real PDS lookup) + Charter Rider §2 scan on scene-recipe text via e7m_dataset.charter.scan_sample (defensive fallback to stub when e7m-dataset not on PYTHONPATH or pymagatama transitive import fails) + per-layer USD dispatch plan (terrain/raster_overlay/vector_roads/vector_buildings/object_3d_instances → kami-usd:* handlers; W2 wires tinyusdz real emit). G6 determinism verified (same scene.yaml → byte-identical manifest JSON)."
+
+[[modules]]
+path = "70-tools/e7m-sim/tests/test_assemble_usd_scene.py"
+adr = "ADR-2605262500"
+kind = "sim-test-suite"
+status = "w1-shipped"
+description = "First e7m-sim test suite — 9 tests covering: build_plan on real wadachi Shibuya scene / placeholder CID determinism / scene-without-world rejection / G4 tier-C `-nc-` infix passes + missing-infix aborts + suffix-only passes / G6 emit_usd_stub byte-determinism / manifest shape contract / scene.schema.json sanity. Runs offline; assemble script loaded via importlib (hyphen in filename)."
+
+
+# ─── kotoba storage substrate unification R0 (ADR-2605262130) ──
+
+[[adrs]]
+id = "2605262130"
+title = "Kotoba as Canonical Storage Substrate — supersedes yatachain composition + projection layers; no RisingWave"
+status = "proposed"
+supersedes = ["2605231400", "2605231500", "2605232300", "2605232400", "2605101000"]
+status_note = "Engine-layer charter that names **kotoba** (17-crate first-party Apache-2.0 Rust workspace at github.com/etzhayyim/kotoba) as the canonical religious-corp storage substrate engine. Imported as `git subrepo` at `40-engine/kotoba/` (upstream commit `128a89d0e`). yatachain composition (ADR-2605231400), yatachain-projection rules (ADR-2605231500), RW-free invariant (ADR-2605172000), payments on-chain (ADR-2605172100), on-chain land / SBT / Council / Public Fund / Force Authorization / Tithe ledger (ADRs 2605192245 / 192300 / 192315 / 192145 / 192130), and `app.etzhayyim.encrypted.*` wire format (ADR-2605181100 + 181200) ALL unchanged. **8 constitutional carve-outs D1..D8**: D1 Apache 2.0 + Charter Rider v2.0 applied to all 17 crates (Phase 1 deliverable) / D2 `kotoba-llm` local-inference (`metal` / `infer_gpu` / `train_gpu` / `gemma` / `kvcache` / `lora` / `weight` / direct candle linkage) constitutionally DISABLED in religious-corp callable paths; `kotoba-llm` permitted only as **routing facade** to Murakumo gateway (LiteLLM 127.0.0.1:4000 / EVO-X2 LAN 192.168.1.70 per-node Ollama gemma3:4b) per ADR-2605215000 + Charter Rider §2(i) / D3 `kotoba-server` holds NO platform private key per ADR-2605231525 (read-only RPC + IPFS pin + static asset serve only; `// no-server-key: read-only` line marker required) / D4 `kotoba-store` `TieredBlockStore` S3 backend NOT primary write store for land registry / SBT roster / Council attestation / Public Fund accounting / Tithe ledger / Force Authorization records (on-chain stays on-chain) / D5 substrate boundary preserved: kotoba lives BEHIND `@etzhayyim/sdk` shim, never imported directly from `60-apps/*` (substrate-boundary linter Phase 5) / D6 `kotoba-crypto` + `kotoba-signal` re-implement `app.etzhayyim.encrypted.*` envelope **bit-identical** to ADR-2605181100 wire format (Phase 5 test vector suite gate) / D7 yatachain composition unchanged / D8 witness quorum + attestation unchanged. **Mapping table (14 rows)** = every current storage primitive → one kotoba crate + migration phase + constitutional cross-ref. **Phased rollout R0..R7**: Phase 0 = this ADR + subrepo import (zero code change under `40-engine/kotoba/`). Phase 1 = `kotoba-store` + `kotoba-core` + Charter Rider applied + SDK block_store shim shadow mode 30 day ≥99.9% byte-equality vs ipfs-pinner. Phase 2 = `kotoba-kqe` 4-index arrangement (EAVT / AEVT / AVET / VAET) + `kotoba-graph` Commit DAG; **tonbo retire window 30 day**; second L1 projection (non-feed-discover) migrated. Phase 3 = `kotoba-kse` (Journal / Topic / Shelf / Vault) replaces NATS bridges + `kotoba-net` libp2p QUIC/Noise/GossipSub/Bitswap + `kotoba-dht` Source Chain / Warrant / Neighborhood / Availability Proof. Phase 4 = `kotoba-store-web` IndexedDB browser block store (baien edge-target invariant ADR-2605241900 ≤200 MB heap budget carve-out). Phase 5 = `kotoba-auth` (CACAO + DID Document) + `kotoba-crypto` (AEAD + HKDF + key wrap) + `kotoba-signal` (X3DH + Double Ratchet + MLS) + `kotoba-ingest` (Gmail OAuth2 + E2E encrypt → QuadStore) with bit-identical wire-format gate D6 on full ADR-2605181100 test vector suite. Phase 6 = `kotoba-server` XRPC / MCP + `kotoba-runtime` WASM Component Model host + `kotoba-guest` WIT bindings (read-only deploys + `// no-server-key: read-only` marker required). Phase 7 (deferred) = `kotoba-llm` as Murakumo routing facade only (NO local inference; Charter Rider §2(i) reconfirmation). Each phase gated by Council Lv6+ ≥3 per-phase attestation + `e7m verify` 9 invariants green + ≥99.9% byte-equality vs current impl on 30 day shadow comparison. **Existing impls stay live ≥1 R-cycle (~30 days) as cold backup; no `50-infra/*` deletion in this ADR** (`50-infra/ipfs-pinner/` + `50-infra/mst-projector/` + `50-infra/nats-jetstream-kv-resp/` + `50-infra/nats-jetstream-objectstore-s3/` + `50-infra/nats-tiered-storage/` + `50-infra/lancedb-wasm/` + `50-infra/tonbo/` + `50-infra/etzhayyim-xrpc-proxy/` all REMAIN in tree). **7 non-goals N1..N7**: N1 enabling `kotoba-llm` local-inference in religious-corp paths NEVER (vendor `etzhayyim.com` SaaS keeps its own GPU pool behind consent-capability boundary per ADR-2605215000; Charter Rider §2(i) Council Lv6+ supermajority + 30-day public objection to amend) / N2 platform-held private key in `kotoba-server` NEVER (ADR-2605231525; `// no-server-key: read-only` line-marker exemption only) / N3 S3 backend as primary write store for on-chain records NEVER (land / SBT / Council / Public Fund / Force / Tithe records stay on geth-private + Base L2 + IPFS + LANDS.md / MEMBERS.md per ADRs 192245 / 192300 / 192315 / 192145 / 192130) / N4 direct `kotoba-*` import from `60-apps/*` NEVER (via `@etzhayyim/sdk` shim only per ADR-2605172000) / N5 forking kotoba NEVER (`git subrepo` + upstream-PR only; if upstream rejects, escalate to ADR amendment; this protects against engine divergence from upstream commit DAG) / N6 modifying `app.etzhayyim.encrypted.*` Lexicon wire format NEVER (kotoba is the implementation; protocol is constitutional per ADR-2605181100 + 181200; Phase 5 bit-identical test vector suite is structural enforcement) / N7 promoting `kotoba-llm` WebGPU training to religious-corp role without Council Lv6+ attestation NEVER (federated training rounds already gated by ADR-2605242600). **Charter Rider §2(a)-(i) gate checklist**: §2(a) weapons N/A / §2(b) speculative finance N/A / §2(c) anti-surveillance PASS contingent Phase 5 + Phase 6 compile-time telemetry-disable audit (kotoba-ingest Gmail polling + kotoba-server XRPC default no-telemetry) / §2(d) fossil N/A / §2(e) anti-gatekeeping PRO-CLEARANCE (reduces 7-component lock-in to 1 unified workspace) / §2(f) multi-generational harm 30-yr reproducibility PASS (Cargo.lock committed; steward succession ADR-2605192345 inherits future-decedent steward) / §2(g) anti-individualist N/A / §2(h) Wellbecoming PASS (`kotoba-runtime` WASM Component Model sandbox isolation honors §1.13) / §2(i) commercial GPU rental GATED (kotoba-llm local-inference DISABLED in religious-corp; Council Lv6+ supermajority required to amend; this ADR does NOT amend). **Vendor-rejection chain note**: kotoba does NOT extend the vendor-rejection chain — it is a unification of existing first-party paths under Apache-2.0; no new vendor is rejected and no existing rejection is weakened. Subrepo upstream: https://github.com/etzhayyim/kotoba"
+path = "90-docs/adr/2605262130-kotoba-storage-substrate-unification.md"
+
+[[modules]]
+path = "40-engine/kotoba"
+kind = "rust-workspace-storage-substrate-engine"
+version = "0.1.0-r0-subrepo-import-only"
+status = "R0-subrepo-imported-no-modifications-charter-rider-application-deferred-to-phase-1"
+description = "kotoba — religious-corp canonical storage substrate engine. First-party Rust workspace at github.com/etzhayyim/kotoba, Apache-2.0, 17 crates (kotoba-core / kotoba-kse / kotoba-kqe / kotoba-dht / kotoba-net / kotoba-auth / kotoba-graph / kotoba-vm / kotoba-llm / kotoba-runtime / kotoba-store / kotoba-store-web / kotoba-crypto / kotoba-signal / kotoba-ingest / kotoba-server / kotoba-guest). Imported as `git subrepo` at `40-engine/kotoba/` (upstream commit `128a89d0e`); `.gitrepo` metadata file recorded by git-subrepo and committed. R0 deliverable per ADR-2605262130 = subrepo import only; **no code modification, no Charter Rider application, no `cargo check`, no feature flag set under `40-engine/kotoba/`** (those are Phase 1+ deliverables). Implements yatachain composition (ADR-2605231400) and yatachain-projection rules (ADR-2605231500). Subsumes 7+ disjoint storage components: `50-infra/ipfs-pinner/` (Phase 1) / `50-infra/mst-projector/` (Phase 2) / `50-infra/nats-jetstream-kv-resp/` + `50-infra/nats-jetstream-objectstore-s3/` + `50-infra/nats-tiered-storage/` (Phase 3) / `50-infra/lancedb-wasm/` (Phase 4) / `50-infra/tonbo/` (Phase 2 retire window) / `50-infra/etzhayyim-xrpc-proxy/` (Phase 6) / `app.etzhayyim.encrypted.*` libsignal wrappers (Phase 5 bit-identical wire-format gate). **Constitutional carve-outs D1..D8** (per ADR-2605262130 §Decision): D1 Apache 2.0 + Charter Rider v2.0 applied to all 17 crates (Phase 1) / D2 `kotoba-llm` local-inference DISABLED in religious-corp (ADR-2605215000 + Charter Rider §2(i); routing facade to Murakumo gateway only) / D3 `kotoba-server` holds NO platform private key (ADR-2605231525; `// no-server-key: read-only` marker required) / D4 `kotoba-store` S3 backend NOT primary write store for on-chain records (land / SBT / Council / Public Fund / Force / Tithe stay on-chain) / D5 substrate boundary: kotoba lives behind `@etzhayyim/sdk` shim; never imported directly from `60-apps/*` (ADR-2605172000) / D6 `kotoba-crypto` + `kotoba-signal` bit-identical to ADR-2605181100 wire format (Phase 5 test vector suite gate) / D7 yatachain composition unchanged / D8 witness quorum + attestation unchanged. **Existing `50-infra/*` impls stay live ≥1 R-cycle (~30 days) as cold backup; no deletion authorized by this ADR**. Phased rollout R0..R7 each gated by Council Lv6+ ≥3 + `e7m verify` 9 invariants + ≥99.9% byte-equality 30-day shadow."
+adr = ["2605262130", "2605231400", "2605231500", "2605172000", "2605172100", "2605215000", "2605181100", "2605181200", "2605192200", "2605192245", "2605192300", "2605192315", "2605192145", "2605192130", "2605192415", "2605231525", "2605231902", "2605241500", "2605241900", "2605242600"]
+upstream = "https://github.com/etzhayyim/kotoba"
+upstream_commit = "128a89d0e"
+subrepo_metadata_file = "40-engine/kotoba/.gitrepo"
+crates = [
+  "kotoba-core (CIDv1 blake3 + KAIS 8-bit frame + Prolly Tree)",
+  "kotoba-kse (Journal / Topic / Shelf / Vault — Knowledge Store Engine)",
+  "kotoba-kqe (Datalog engine + Arrangement EAVT/AEVT/AVET/VAET + Delta + MV)",
+  "kotoba-dht (Source Chain / Warrant / Neighborhood / Availability Proof)",
+  "kotoba-net (libp2p QUIC / Noise / GossipSub / Bitswap)",
+  "kotoba-auth (CACAO chain verification + DID Document + ETH SIWE + delegation)",
+  "kotoba-graph (Quad API + SPARQL→Datalog + Commit DAG + atproto firehose / JetStream)",
+  "kotoba-vm (Invoke/Result ChainEntry + CALL_FOREIGN + Pregel + Distributed + WasmPregel)",
+  "kotoba-llm (FP8 weight + LoRA Delta + KV-cache + inference + WebGPU train) — local-inference DISABLED in religious-corp (D2)",
+  "kotoba-runtime (WASM Component Model host: WasmExecutor + UdfExecutor + WIT)",
+  "kotoba-store (BlockStore: Memory / Sled / S3; BudgetedBlockStore LRU; TieredBlockStore hot/cold) — S3 NOT for on-chain records (D4)",
+  "kotoba-store-web (Browser IndexedDB block store wasm32) — baien edge-target ≤200 MB heap (ADR-2605241900)",
+  "kotoba-crypto (AEAD AES-256-GCM + HKDF + key wrap) — bit-identical to ADR-2605181100 (D6)",
+  "kotoba-signal (Signal Protocol: X3DH + Double Ratchet + MLS) — bit-identical to ADR-2605181100 (D6)",
+  "kotoba-ingest (Gmail OAuth2 poll + E2E encrypt → QuadStore)",
+  "kotoba-server (XRPC / MCP endpoints) — no server-key per ADR-2605231525 (D3)",
+  "kotoba-guest (WASM guest SDK + WIT bindings for kotoba nodes)",
+]
+constitutional_invariants_immutable_r0_r7 = [
+  "D1 Apache 2.0 + Charter Rider v2.0 applied to all 17 crates (Phase 1)",
+  "D2 kotoba-llm local-inference DISABLED in religious-corp callable paths (ADR-2605215000 + Charter Rider §2(i))",
+  "D3 kotoba-server holds NO platform private key (ADR-2605231525)",
+  "D4 kotoba-store S3 backend NOT primary write store for on-chain records (land / SBT / Council / Public Fund / Force / Tithe)",
+  "D5 substrate boundary: kotoba behind @etzhayyim/sdk; never imported from 60-apps/* (ADR-2605172000)",
+  "D6 kotoba-crypto + kotoba-signal bit-identical to ADR-2605181100 envelope (Phase 5 test vector gate)",
+  "D7 yatachain composition unchanged (ADR-2605231400)",
+  "D8 witness quorum + attestation unchanged (ADR-2605231902 first L1 projection precedent)",
+]
+non_goals_immutable_r0_r7 = [
+  "N1 enabling kotoba-llm local-inference in religious-corp paths NEVER (Charter Rider §2(i))",
+  "N2 platform-held private key in kotoba-server NEVER (ADR-2605231525)",
+  "N3 S3 backend as primary write store for on-chain records NEVER",
+  "N4 direct kotoba-* import from 60-apps/* NEVER (via @etzhayyim/sdk shim only)",
+  "N5 forking kotoba NEVER (subrepo + upstream-PR only)",
+  "N6 modifying app.etzhayyim.encrypted.* wire format NEVER (kotoba is impl; protocol is constitutional)",
+  "N7 promoting kotoba-llm WebGPU training to religious-corp role without Council Lv6+ attestation NEVER (ADR-2605242600)",
+]
+phased_rollout_r0_r7 = [
+  "Phase 0 (THIS ADR) = subrepo import + adr/README.md row + CLAUDE.md Status row 62 + Layout entry + deps.toml entries; zero code change under 40-engine/kotoba/",
+  "Phase 1 = kotoba-store + kotoba-core + Charter Rider applied + SDK block_store shim shadow mode 30d ≥99.9% byte-equality vs ipfs-pinner",
+  "Phase 2 = kotoba-kqe 4-index arrangement + kotoba-graph Commit DAG + second L1 projection; tonbo retire window 30d",
+  "Phase 3 = kotoba-kse replaces NATS bridges + kotoba-net libp2p + kotoba-dht",
+  "Phase 4 = kotoba-store-web browser IndexedDB (baien edge-target ≤200 MB heap)",
+  "Phase 5 = kotoba-auth + kotoba-crypto + kotoba-signal + kotoba-ingest with bit-identical wire-format gate D6",
+  "Phase 6 = kotoba-server XRPC/MCP + kotoba-runtime WASM Component Model + kotoba-guest (read-only deploys)",
+  "Phase 7 (deferred) = kotoba-llm as Murakumo routing facade only (NO local inference)",
+]
+existing_cold_backups_no_deletion_authorized_by_this_adr = [
+  "50-infra/ipfs-pinner/ (Phase 1 cold backup)",
+  "50-infra/mst-projector/ (Phase 2 cold backup)",
+  "50-infra/nats-jetstream-kv-resp/ (Phase 3 cold backup)",
+  "50-infra/nats-jetstream-objectstore-s3/ (Phase 3 cold backup)",
+  "50-infra/nats-tiered-storage/ (Phase 3 cold backup)",
+  "50-infra/lancedb-wasm/ (Phase 4 cold backup)",
+  "50-infra/tonbo/ (Phase 2 retire window)",
+  "50-infra/etzhayyim-xrpc-proxy/ (Phase 6 cold backup)",
+]
+
+
+# ─── chigiri (契) legal procedure substrate R0 (ADR-2605262700) ────
+
+[[adrs]]
+id = "2605262700"
+title = "chigiri (契) — non-profit religious-corp legal procedure substrate Tier-B actor R0 charter"
+status = "proposed"
+status_note = "First-class religious-corp legal procedure actor at did:web:chigiri.etzhayyim.com (20-actors/chigiri/). Procedural template + on-chain attestation + routing substrate; NOT a commercial law firm; NOT an unauthorized practice of law (UPL constitutionally prohibited per G14 — chigiri does NOT render legal advice; human counsel contracted via Public Fund per ADR-2605192145 Council Lv6+). Form = 任意団体 internal procedure substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock, N2 invariant). 7-section scope: internal procedures (Charter Rider attestation / Council Lv6/Lv7 vote / Adherent SBT lifecycle / cooperative mediation) + excommunication 破門 (Council Lv6+ ≥4/7 + 30-day cure, G12 structural) + external legal interfaces (employment law / multi-juris tax-receipt / IP defense / trademark / vendor Rider scrutiny / GDPR/CCPA/APPI/LGPD) + Charter §1.12 state-function routing-around (marriage / naming / funeral / inheritance / ID alternatives via covenant attestation + SBT-link) + defensive force / Just War legal (Reformed Just War 9-checkpoint + IHL compliance + Transparent Force authorization procedural front-end ADR-2605192315; G7 structurally rejects offensive force) + Eros/Gore content moderation (Charter §1.13) + steward labor flow (L0..L6 Liberation Ladder ADR-2605261000; G13 structurally enforces volunteer ≠ employee — `employee` is NOT a valid employmentRelation enum value). 12 Pregel cells under 20-actors/magatama/cells/chigiri_*/ (R0 path-reserved): charters_attestation / council_procedure / member_onboarding / member_offboarding / covenant_ceremony / inheritance / dispute_mediation / ip_licensing / tax_receipt / employment_compliance / data_privacy / transparent_force_authorization. 9 Lexicons under app.etzhayyim.chigiri.*: covenantAttestation / excommunicationProcedure / withdrawalAttestation / inheritanceChain / disputeMediation / ipLicenseClaim / taxReceipt / stewardLaborAttestation / forceAuthorizationRecord. 14 immutable gates G1..G14 + 12 non-goals N1..N12 + 4-phase R0→R3 (R0 this commit / R1 post-Bootstrap-Council 2026-06-19+ ratify, 3 core cells / R2 post-R1 + 30-day public objection, +5 cells + multi-juris tax / R3 post-R2 + Council Lv7+ unanimity, all 12 cells + IHL + DSAR + musubi/shidemori). Replaces legacy lawfirm.etzhayyim.com reference in 20-actors/hanrei/CLAUDE.md (religious-corp native, no gftd lineage). Cross-actor data: hanrei (case-law) + bunken (literature) read-only. Data substrate = sibling ADR-2605262800."
+path = "90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/chigiri"
+kind = "tier-b-non-profit-legal-procedure-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-path-reserved"
+description = "chigiri (契) actor scaffold. Manifest + README + CLAUDE.md only at R0. 12 Pregel cells path-reserved under 20-actors/magatama/cells/chigiri_*/ (cell modules created at R1 post-Bootstrap-Council ratification, all import-time RuntimeError until activated). 9 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/chigiri/. Constitutional discipline triad: (1) UPL prohibition per G14 (lint hook 70-tools/scripts/lint/no-chigiri-legal-advice.mjs at W1 scans for advice-issuing language) / (2) NO state-granted legal personality per N2 (Preamble §0.4 Lv7+ unanimity lock) / (3) Murakumo-only inference per G11 (ADR-2605215000). G7 posture enum {defensive, deterrent} only — offensive force attestation impossible at schema layer. G12 excommunication = Council Lv6+ ≥4/7 + 30-day cure (curePeriodEndsAt > cureWindowStartsAt + 30d structural). G13 stewardLaborAttestation.employmentRelation enum DELIBERATELY excludes 'employee' (constructive-employment drift prevention at schema layer)."
+adr = ["2605262700", "2605262800", "2605192100", "2605192115", "2605192130", "2605192145", "2605192200", "2605192245", "2605192300", "2605192315", "2605215000", "2605231525", "2605261000", "2605262130", "2605262400"]
+sibling_actors = [
+  "hanrei (case-law data source — read-only, 20-actors/hanrei/)",
+  "bunken (literature data source — read-only, 20-actors/bunken/)",
+  "musubi (covenant ceremony, future)",
+  "shidemori (memorial / cemetery, future)",
+  "mitate (medical attestation interop)",
+  "yakushi (pharmaceutical regulatory)",
+  "hagukumi (caregiver attestation cross-link)",
+  "manabi (anti-credentialism legal framework)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/app/etzhayyim/chigiri",
+  "70-tools/baien-moemoekyun-train/recipes/legal",
+  "20-actors/magatama/py/src/pymagatama/organism/sensors/legal",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/chigiri"
+form = "任意団体 internal procedure substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格)"
+upl_prohibition_constitutional = true
+phase_gate = "R1 activation requires Bootstrap Council Seat 2-5 RFP closure (2026-06-19) + Council Lv6+ ≥3 ratify of ADR-2605262700 + lint hook deployment + Charter Rider scanner FP rate ≤5% over 7-day trial"
+charter_rider_risk = "MEDIUM (legal-text ingestion + procedural enforcement; cross-checked against §2(a)-(h) per G1 + §2(e) anti-gatekeeping in upstream commercial-vendor prohibition); MITIGATED via G14 UPL prohibition + G8 open-source templates + G11 Murakumo-only + G12/G13 structural enforcement"
+
+
+# ─── Global legal-corpus ingestion R0 (ADR-2605262800) ────────────
+
+[[adrs]]
+id = "2605262800"
+title = "Global legal-corpus ingestion (statutes / case law / treaties / procedures / templates) via IPFS-pinned DataLad subdatasets — extends ADR-2605262400; powers chigiri / hanrei / manabi / baien-distill"
+status = "proposed"
+status_note = "Adds the `law/` bucket family to the artificial-organism dataset substrate. Sibling of ADR-2605262400 (geo / netreg / routing / dns / web buckets). 5 sensor families register under pymagatama.organism.sensors.legal.*: LegalStatuteSensor / LegalCaseSensor (with judicial_party_redactor) / LegalTreatySensor / LegalProcedureSensor / LegalTemplateSensor. W1 anchor sensors (5): us_usc_sensor + us_cfr_sensor + jp_egov_sensor + eu_eurlex_sensor + uk_legislation_sensor. Tier-A dominates (most law is public-domain / OGL v3.0 / Étalab / CC0 / CC-BY / ICRC public / EU free-reuse / JP e-Gov CC-BY 4.0). Tier-B = CanLII / AustLII / Indian Kanoon (`-tierB-` infix per G5). NO Tier-C in W1. Westlaw / LexisNexis / Bloomberg Law / Wolters Kluwer CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) covert-ops vendor concern (vendor closed query-tracking exposes member legal posture). Sources covered (~30): US (USC / CFR / Federal Register / FRCP-FRCrP-FRE / CAP Harvard CC0 / CourtListener / RECAP-PACER) / UK (legislation.gov.uk / Find Case Law TNA / GOV.UK procedures) / EU (EUR-Lex statutes+CJEU) / JP (e-Gov 法令 / 裁判所 判例 / 官報 / 国税庁 通達) / Council of Europe (ECHR HUDOC) / UN (Treaty Collection / UNCITRAL / WIPO / Hague Conference / ILO 180+) / ICRC (Geneva Conventions + APs) / DE (BGBl) / FR (Légifrance Étalab) / IT (Normattiva) / KR (KLIC) / CA (CanLII Tier-B) / AU (AustLII Tier-B) / IN (India Code + Indian Kanoon Tier-B) / BR (Senate + STJ) / CN (NPC, §2(g) state-aligned flag) / ICJ + ICC public / OECD / NIST SP800 / CoE handbooks / Apache 2.0 + CC license corpora. Judicial-party redaction policy (per-jurisdiction): pass-through where parties named in upstream publication / pass-through-pseudonymized where upstream pseudonymized (DE/FR/JP/CN) / honor upstream anonymization (ECHR) / reject if non-anonymized (JP 家庭裁判所 / 少年裁判所). chigiri does NOT re-identify or de-anonymize. 5 training corpus recipes under 70-tools/baien-moemoekyun-train/recipes/legal/: legal-foundations-r1 + chigiri-procedural-r1 + ihl-defensive-r1 + manabi-legal-literacy-r1 + tax-receipt-multi-juris-r1 (all Tier-A, publishable). 2 new Kaizen rules R10 (statute-staleness) + R11 (case-law jurisdiction-drift). 14 gates G1..G14 + 12 non-goals N1..N12. 5-wave delivery W0..W4 (W0=this ADR; W1=5 anchor sources; W2=case law + procedures; W3=treaties + templates; W4=regional + Tier-B + CN §2(g)). Post-W4 ~120 GB per fleet node."
+path = "90-docs/adr/2605262800-public-data-legal-corpus-ipfs-ingestion.md"
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/legal"
+kind = "legal-corpus-sensor-family"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-base-protocols-+-judicial-party-redactor-+-us-usc-sensor-anchor-only"
+description = "Legal-corpus sensors per ADR-2605262800. 5 Protocol classes (LegalStatuteSensor / LegalCaseSensor / LegalTreatySensor / LegalProcedureSensor / LegalTemplateSensor) extending the DatasetSensor Protocol from ADR-2605262400 §3. 5 Observation dataclasses. judicial_party_redactor with per-jurisdiction policy table (PASS_THROUGH for US/UK/IN/BR/CA/AU/ICJ/ICC; PASS_THROUGH_PSEUDONYMIZED for DE/FR/JP/CN/IT/KR; HONOR_UPSTREAM_ANONYMIZATION for ECHR; REJECT_IF_NON_ANONYMIZED for JP 家庭裁判所 / 少年裁判所). us_usc_sensor scaffold (R0 anchor) — actual NDJSON parsing TODO at W1 ratification. R0 status: Protocol + Observation + redactor structures only; no fetcher impl, no actual subdataset pin resolution beyond the scaffold class structure."
+adr = ["2605262800", "2605262400", "2605262700", "2605262130", "2605262100", "2605241500", "2605215000", "2605221411", "2605232345", "2605240200"]
+sibling_modules = [
+  "20-actors/magatama/py/src/pymagatama/organism/sensors",
+  "20-actors/magatama/py/src/pymagatama/organism/sensors/charter_rider.py",
+  "20-actors/magatama/py/src/pymagatama/organism/sensors/pii_filter.py",
+  "70-tools/baien-moemoekyun-train/recipes/legal",
+  "20-actors/chigiri",
+]
+upstream_sources_count = 30
+upstream_sources_prohibited = [
+  "westlaw (Charter Rider §2(e) + §2(c))",
+  "lexisnexis (Charter Rider §2(e) + §2(c))",
+  "bloomberg-law (Charter Rider §2(e) + §2(c))",
+  "wolters-kluwer (Charter Rider §2(e) + §2(c))",
+]
+charter_rider_risk = "LOW for ingestion (most sources are public-domain / open-government-license; Tier-B isolated by infix; Tier-C absent from W1); MEDIUM for downstream consumers (chigiri G14 UPL must be enforced strictly to avoid corpus → advice drift); HIGH if a future ADR opens Tier-C commentary path (would require Council Lv6+ + G13 `-nc-` infix + SBT-gate ladder per ADR-2605262100 precedent)"
+phase_gate = "W1 ships 5 anchor sources (US USC + US CFR + UK legislation + EU EUR-Lex + JP e-Gov) + corresponding 5 sensors + legal-foundations-r1 recipe + judicial_party_redactor first cut + R10 + R11 Kaizen rules; per-source acceptance flag file in ~/.etzhayyim/source-acceptance/ for ToU-bearing sources (CAP, CourtListener)"
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/recipes/legal"
+kind = "legal-corpus-training-recipes"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-5-recipes-+-README-all-placeholder-CIDs"
+description = "Legal-corpus training recipes per ADR-2605262800 §4. 5 TOMLs: legal-foundations-r1 (general legal-reasoning baseline; USC + UK legislation + e-Gov + EUR-Lex + CAP) + chigiri-procedural-r1 (chigiri-specific procedural reasoning) + ihl-defensive-r1 (IHL + Just War for transparent_force_authorization) + manabi-legal-literacy-r1 (public-rights education curriculum) + tax-receipt-multi-juris-r1 (jurisdictional tax-receipt routing knowledge). All recipes Tier-A only at W1; recipes that include any Tier-B source carry `-tierB-` infix per G5 of ADR-2605262800. CIDs are PLACEHOLDER_* until W1 fetchers run and emit datasetPin records. Recipes follow ADR-2605262400 §4 corpus-recipe.toml schema with sources frozen, license-tier propagated, Charter Rider §2 + PII filter + judicial-party-redactor scan at assembly time. Inference of resulting artifacts UNCHANGED Murakumo-only per ADR-2605215000."
+adr = ["2605262800", "2605262400", "2605262700", "2605262100", "2605262200", "2605262300", "2605231300", "2605215000", "2605241500"]
+sibling_modules = [
+  "70-tools/baien-moemoekyun-train/recipes/tier-a-netreg-foundations.toml",
+  "20-actors/chigiri",
+  "20-actors/magatama/py/src/pymagatama/organism/sensors/legal",
+]
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/chigiri"
+kind = "chigiri-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-9-lexicon-skeleton-schemas-+-README"
+description = "9 Lexicon JSONs for chigiri actor per ADR-2605262700: covenantAttestation (ceremonyType enum: sbt-issuance / marriage / naming / baptism-equivalent / funeral / vocation-vow / rededication / covenant-restoration) + excommunicationProcedure (G12 structural: curePeriodEndsAt > cureWindowStartsAt + 30d) + withdrawalAttestation (7-day cooling period; member rescindable) + inheritanceChain (Council ≥3 + Land Registry inalienability cross-check) + disputeMediation (G10 structural: currentRound ≤3 + mediationOutcomes ≥1 before escalateToArbitration) + ipLicenseClaim (Apache 2.0 + Rider §3 three-tier remedy ladder; L2/L3/external-counsel-engagement = Council Lv6+ ≥4) + taxReceipt (multi-juris status enum; honest framing: JP donors get NO deduction; N4 NOT tax-avoidance scheme) + stewardLaborAttestation (G13 structural: employmentRelation enum {none, volunteer, subsistence-flow, vocation-flow} excludes 'employee') + forceAuthorizationRecord (G7 structural: posture enum {defensive, deterrent} only; 9-checkpoint Just War checklist; IHL compliance; 1 SBT = 1 vote chain CID). R0 = schema skeleton (field set enumerated); R1 = additionalProperties=false + required-field enforcement; R2 = Council attestation review per cell activation."
+adr = ["2605262700", "2605262800", "2605192100", "2605192200", "2605192315", "2605261000"]
+sibling_modules = [
+  "20-actors/chigiri",
+  "00-contracts/lexicons/app/etzhayyim/liberation",
+  "00-contracts/lexicons/app/etzhayyim/governance",
+  "00-contracts/lexicons/app/etzhayyim/train",
+]
+
+
+# ─── toritate (執帳) accounting + audit substrate R0 (ADR-2605262900) ──
+
+[[adrs]]
+id = "2605262900"
+title = "toritate (執帳) — non-profit religious-corp accounting + audit substrate Tier-B actor R0 charter"
+status = "proposed"
+status_note = "Second-priority gap-closure actor (sibling of chigiri ADR-2605262700; gap audit row 2 = 会計+監査). 任意団体 internal accounting + audit substrate at did:web:toritate.etzhayyim.com (20-actors/toritate/). Aggregates on-chain TitheRouter + Public Fund Safe + Council Safe + Land Registry transactions into transparent reports. 100% on-chain transparency invariant (G3); NO off-chain primary ledger; NO commercial accounting software (G8: QuickBooks / Xero / FreeAgent / Wave / FreshBooks / Sage / Zoho Books PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty). NO tax-advice rendering (G5; UPL-equivalent — external opinion via Public Fund Safe Council Lv6+, same discipline as chigiri G14). NO payroll (G12; volunteer ≠ employee per Liberation Ladder G13). 6 cells under 20-actors/magatama/cells/toritate_*/ (R0 path-reserved): tithe_accounting / public_fund_accounting / council_compensation / steward_subsistence_accounting / transaction_ledger / annual_audit_report. 5 Lexicons under app.etzhayyim.toritate.*: financialAttestation / ledgerEntry (G12 structural: category enum DELIBERATELY excludes payroll/wage/salary/bonus/commission) / annualReport (G6 structural: ≥3 Council Lv6+ attestations) / auditObservation (severity enum + Council escalation routing) / externalAuditorEngagement (G5 boundary: toritate prepares data, NOT opinion). 12 immutable gates G1..G12 + 12 non-goals N1..N12 + 4-phase R0→R3 (R0 this commit / R1 post-Bootstrap-Council, 3 core cells + monthly summary reports / R2 post-R1 + 30-day public objection, +3 cells + first annual transparency report CY 2026 / R3 post-R2 + Council Lv7+ unanimity + ≥1 annual audit, external auditor engagement framework battle-tested). Cross-actor boundary with chigiri (tax_receipt 2-way; stewardLaborAttestation read; ipLicenseClaim disbursement record). Read-only on financial chain (G11) — TitheRouter + Public Fund Safe + Council Safe own all approval logic."
+path = "90-docs/adr/2605262900-toritate-accounting-audit-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/toritate"
+kind = "tier-b-non-profit-accounting-audit-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-path-reserved"
+description = "toritate (執帳 — Heian-era 律令制 bookkeeping ledger term) actor scaffold. Manifest + README + CLAUDE.md only at R0. 6 Pregel cells path-reserved under 20-actors/magatama/cells/toritate_*/ (cell modules created at R1 post-Bootstrap-Council ratification, all import-time RuntimeError until activated). 5 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/toritate/. Constitutional discipline tetrad: (1) 100% on-chain transparency per G3 + G4 (USDC + Base L2 + TitheRouter + Public Fund Safe + Council Safe = canonical SoT; off-chain primary ledger PROHIBITED) / (2) UPL-equivalent per G5 (no tax advice / no accounting opinion; external opinion via Public Fund Safe Council Lv6+) / (3) NO commercial accounting software per G8 (QuickBooks / Xero / FreeAgent / Wave / FreshBooks / Sage / Zoho Books PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty) / (4) NO payroll per G12 (volunteer ≠ employee per Liberation Ladder L0..L6 ADR-2605261000 + ADR-2605262700 G13; ledgerEntry.category enum DELIBERATELY excludes payroll/wage/salary/bonus/commission)."
+adr = ["2605262900", "2605262700", "2605262800", "2605192100", "2605192115", "2605192130", "2605192145", "2605192200", "2605192245", "2605192300", "2605215000", "2605172100", "2605261000", "2605262130"]
+sibling_actors = [
+  "chigiri (legal procedure substrate; tax_receipt 2-way boundary; stewardLaborAttestation read; ipLicenseClaim disbursement)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/app/etzhayyim/toritate",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/toritate"
+form = "任意団体 internal accounting + audit substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格)"
+on_chain_primary_ledger_invariant = true
+upl_equivalent_no_accounting_opinion = true
+no_commercial_accounting_software = true
+no_payroll = true
+phase_gate = "R1 activation requires Bootstrap Council Seat 2-5 RFP closure (2026-06-19) + Council Lv6+ ≥3 ratify of ADR-2605262900 + Base L2 RPC node available on Murakumo fleet + chigiri R1 also active (cross-actor stewardLaborAttestation dependency)"
+charter_rider_risk = "LOW (on-chain read-only aggregation; no novel attack surface beyond existing on-chain primitives; G8 commercial-software prohibition mitigates §2(e) + §2(c) vendor risk constitutionally)"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/toritate"
+kind = "toritate-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-5-lexicon-skeleton-schemas-+-README"
+description = "5 Lexicon JSONs for toritate actor per ADR-2605262900: financialAttestation (per-period summary; G10 publishedDonorPii enum excludes verbatim-donor-names) + ledgerEntry (G12 structural: category enum excludes payroll/wage/salary/bonus/commission) + annualReport (G6 structural: ≥3 Council Lv6+ attestations; G9 IPFS pin replicationMin: 2) + auditObservation (severity enum {info, warning, critical}; critical = halt cell + chigiri.disputeMediation escalation) + externalAuditorEngagement (G5 UPL-equivalent boundary: Public Fund Safe contract CID + Council Lv6+ ≥4 attestations + estimatedBudgetUsdMillicents; opinionDocumentCid is external auditor's, NOT modified by toritate). R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement; R2 = Council attestation review per cell activation."
+adr = ["2605262900", "2605262700", "2605192100", "2605192130", "2605192145", "2605192200", "2605192300", "2605261000"]
+sibling_modules = [
+  "20-actors/toritate",
+  "00-contracts/lexicons/app/etzhayyim/chigiri",
+  "00-contracts/lexicons/app/etzhayyim/liberation",
+  "00-contracts/lexicons/app/etzhayyim/governance",
+]
+
+
+# ─── iyashi (癒) clinical care provider R0 (ADR-2605263000) ────────
+
+[[adrs]]
+id = "2605263000"
+title = "iyashi (癒) — non-profit religious-corp clinical care provider substrate Tier-B actor R0 charter"
+status = "proposed"
+status_note = "Third-priority gap-closure actor (gap audit row 3 = 医療 clinic provider). Completes the L4 Care Tier triad with yakushi (pharma mfg) + mitate (diagnosis) + hagukumi (daily-living). 任意団体 internal clinical care provider substrate at did:web:iyashi.etzhayyim.com (20-actors/iyashi/). Scope = community-clinic-model primary care + chronic followup + vaccination + acute first-line + maternity/pediatric clinical + provider lifecycle + facility standards. **Constitutional pentad**: (1) Encrypted PHI envelope MANDATORY (G2 per ADR-2605181100; clinicalEncounterAttestation + chronicCareContinuityRecord MUST carry encryptedPayloadCid; plaintext content fields rejected at schema layer R1 additionalProperties=false) / (2) No commercial EHR G11 (Epic / Cerner / Athena / Allscripts / NextGen / eClinicalWorks / Greenway / Practice Fusion PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) covert-ops vendor concern — vendor closed query-tracking exposes patient + provider posture) / (3) No insurance billing G13 (Public Fund grant + sliding-scale donation only; state insurance integration OUT OF SCOPE — requires 宗教法人法 登記 which is constitutionally excluded per Preamble §0.4) / (4) No payroll for providers G14 (vocation-flow L5 stewards per Liberation Ladder L0..L6; cross-actor enforcement with chigiri.stewardLaborAttestation + toritate.ledgerEntry.category enum exclusion of payroll/wage/salary/bonus/commission) / (5) Murakumo-only inference G12 (vendor clinical-AI Microsoft Nuance DAX / Abridge / Suki AI / Augmedix PROHIBITED). 6 Pregel cells under 20-actors/magatama/cells/iyashi_*/ (R0 path-reserved, import-time RuntimeError per G2 privacy invariant): primary_care_encounter / chronic_care_followup (hagukumi pair) / vaccination_administration / acute_first_line (mitate emergency keyword pair) / provider_lifecycle / clinic_facility. 6 Lexicons under app.etzhayyim.iyashi.*: clinicalEncounterAttestation (G2 structural) + providerAttestation (G5 + G14 structural; lLevel=L5 const + employmentRelation=vocation-flow const) + chronicCareContinuityRecord (G2 structural) + vaccinationAttestation (adverse-event-flag mandatory) + clinicFacilityAttestation (G11 attestation: commercialEhrNoneInstalled=true const) + silenIyashiReview (quarterly Council Wellbecoming + multi-gen ratio). 14 immutable gates G1..G14 + 12 non-goals N1..N12 + 4-phase R0→R3 (R0 this commit / R1 post-Council + ≥1 licensed-MD on Council medical advisory + ADR-2605181100 production-deployed, 2 core cells + ≤20 patients single clinic / R2 post-R1 + 30-day public + 5 site attestations, +4 cells + ≤200 patients 5 clinics, L4 → L5 advancement eligibility / R3 post-R2 + Council Lv7+ unanimity + multi-jurisdictional, all 6 cells + 50 clinics ≤25,000 patient capacity, REQUIRED for L4 → L5 advancement). Cross-actor: mitate (diagnosis) / hagukumi (daily-living) / yakushi (medication) / toritate (funding) / chigiri (consent + procedural) / manabi (CME) / kokoro (future mental health) / shidemori (future end-of-life)."
+path = "90-docs/adr/2605263000-iyashi-clinical-care-provider-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/iyashi"
+kind = "tier-b-non-profit-clinical-care-provider-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-path-reserved-runtime-error-per-G2-privacy-invariant"
+description = "iyashi (癒 — 癒し / 癒える = healing) actor scaffold. Manifest + README + CLAUDE.md only at R0. 6 Pregel cells path-reserved under 20-actors/magatama/cells/iyashi_*/ (cell modules created at R1 post-Bootstrap-Council + ≥1 licensed-MD ratification; all import-time RuntimeError per G2 privacy invariant — prevents accidental plaintext PHI data flow). 6 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/iyashi/. Constitutional pentad: (1) Encrypted PHI envelope MANDATORY G2 / (2) No commercial EHR G11 (Epic / Cerner / Athena / Allscripts / NextGen / eClinicalWorks / Greenway / Practice Fusion PROHIBITED per Charter Rider §2(e)+§2(c)) / (3) No insurance billing G13 (Public Fund grant + sliding-scale donation) / (4) No payroll for providers G14 (vocation-flow L5 stewards) / (5) Murakumo-only inference G12. Completes L4 Care Tier triad with yakushi + mitate + hagukumi."
+adr = ["2605263000", "2605262900", "2605262700", "2605262130", "2605261030", "2605261000", "2605260100", "2605250500", "2605215000", "2605192300", "2605192200", "2605192145", "2605192100", "2605181200", "2605181100"]
+sibling_actors = [
+  "yakushi (L4 Care Tier; pharmaceutical manufacturing; Sukoyaka cold-chain medication delivery)",
+  "mitate (L4 Care Tier; diagnostic routing; G5 emergency keyword shared)",
+  "hagukumi (L4 Care Tier; daily-living care; chronic continuity pair)",
+  "chigiri (consent + stewardLaborAttestation L5 vocation-flow classification)",
+  "toritate (Public Fund grant + donation accounting)",
+  "manabi (provider continuing-medical-education)",
+  "kokoro (future; mental health cross-link)",
+  "shidemori (future; end-of-life clinical attestation handoff)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/app/etzhayyim/iyashi",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/iyashi"
+form = "任意団体 internal clinical care provider substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格)"
+liberation_ladder_gate = "L4"
+encrypted_phi_envelope_mandatory = true
+no_commercial_ehr = true
+no_insurance_billing = true
+no_payroll_for_providers = true
+murakumo_only_inference = true
+phase_gate = "R1 activation requires Bootstrap Council Seat 2-5 RFP closure (2026-06-19) + Council Lv6+ ≥3 ratify of ADR-2605263000 + ≥1 licensed-MD on Council medical advisory + ADR-2605181100 encrypted-record framework production-deployed + chigiri R1 active (stewardLaborAttestation read dependency)"
+charter_rider_risk = "MEDIUM (clinical PHI handling; G2 structural envelope mandate + G11 commercial EHR prohibition mitigates §2(e)+§2(c) exposure constitutionally; cross-actor with hagukumi R0 same privacy discipline)"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/iyashi"
+kind = "iyashi-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-6-lexicon-skeleton-schemas-+-README"
+description = "6 Lexicon JSONs for iyashi actor per ADR-2605263000: clinicalEncounterAttestation (G2 STRUCTURAL: encryptedPayloadCid REQUIRED; plaintext rejected) + providerAttestation (G5 + G14 STRUCTURAL: medicalLicenseCiteCid + Council ≥3 + lLevel=L5 const + employmentRelation=vocation-flow const) + chronicCareContinuityRecord (G2 STRUCTURAL: encryptedPayloadCid REQUIRED; cross-link with hagukumi.continuitySessionAttestation + mitate specialist consult + yakushi medication supply CID chains) + vaccinationAttestation (adverse-event-flag mandatory per administration; yakushi production batch cross-link when applicable) + clinicFacilityAttestation (G11 ATTESTATION: commercialEhrNoneInstalled=true const; ≥3 Council Lv6+ annual audit; building + equipment + sterile-zone + accessibility + emergency-preparedness) + silenIyashiReview (G11 STRUCTURAL: commercialEhrPenetrationPct=0 const; quarterly Council Wellbecoming + multi-gen ratio + adverse event surveillance). R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement + encryptedPayloadCid mandatory."
+adr = ["2605263000", "2605181100", "2605181200", "2605192200", "2605215000", "2605261000", "2605261030"]
+sibling_modules = [
+  "20-actors/iyashi",
+  "00-contracts/lexicons/app/etzhayyim/hagukumi",
+  "00-contracts/lexicons/app/etzhayyim/chigiri",
+  "00-contracts/lexicons/app/etzhayyim/toritate",
+  "00-contracts/lexicons/app/etzhayyim/liberation",
+]

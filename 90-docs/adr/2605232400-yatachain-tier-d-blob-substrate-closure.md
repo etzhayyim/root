@@ -1,7 +1,7 @@
 ---
 id: adr-2605232400-yatachain-tier-d-blob-substrate-closure
-title: "ADR-2605232400: yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure"
-status: active
+title: "ADR-2605232400: yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure (SUPERSEDED by 2605262130 for substrate; SDK API surface preserved bit-identically)"
+status: superseded
 doc_type: adr
 topic: yatachain-tier-d-blob
 authoritative: true
@@ -22,7 +22,8 @@ related:
   - 2605171800-mst-projector-stage-pipeline
   - 2605231525-no-server-key-religious-corp-architecture
 supersedes: []
-superseded_by: []
+superseded_by:
+  - 2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605232400: yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure

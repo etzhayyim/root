@@ -43,7 +43,8 @@
     "Otete (kuni-umi inherited; precision tool arm)",
     "Mimi (kuni-umi inherited; metrology)",
     "Sora (kuni-umi inherited; drone)",
-    "Tsumugi (R2+; greenhouse / vertical-farm; separate mech-design ADR)"
+    "Tsumugi (R2+; greenhouse / vertical-farm; separate mech-design ADR)",
+    "Kusawake (R1+; 4WD/4WS electric autonomous wheeled platform ≤300 kg, SAE J3016 Level 3 ceiling; weed-control / livestock-herd / scouting; mfg = suki Wave 2 per ADR-2605261500; sim = e7m-sim per ADR-2605261600; swagbot methodology reference; ADR-2605252615)"
   ],
   "cells": [
     {
@@ -75,6 +76,13 @@
       "module": "mitsuho.cells.food_preservation",
       "murakumoNode": "simeon",
       "phase": "shelf-stable + cold-store"
+    },
+    {
+      "name": "autonomous_mobile",
+      "module": "mitsuho.cells.autonomous_mobile",
+      "murakumoNode": "zebulun",
+      "phase": "Kusawake fleet coordination (weed / herd / scout)",
+      "adr": "etzhayyim:adr:2605252615"
     }
   ],
   "lexiconNamespaces": [

@@ -1,7 +1,7 @@
 ---
 id: adr-2605231500-yatachain-projection
-title: "ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries"
-status: proposed
+title: "ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries (SUPERSEDED by 2605262130)"
+status: superseded
 doc_type: adr
 topic: yatachain-projection
 authoritative: true
@@ -20,7 +20,8 @@ related:
   - 2605222330-etzhayyim-com-substrate-violation-transition-window
   - 2605111200-cf-worker-db-prohibition
 supersedes: []
-superseded_by: []
+superseded_by:
+  - 2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries

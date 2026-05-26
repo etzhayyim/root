@@ -32,11 +32,16 @@ from pymagatama.organism.joucho import (
     mood_to_cadence,
 )
 from pymagatama.organism.kaizen import (
+    CharterFalsePositiveRateRule,
     KaizenObserver,
     KaizenProposal,
     KaizenRule,
+    LeakAttempt,
     Observation,
     RULE_REGISTRY,
+    SensorHealth,
+    StaleSensorPinRule,
+    TierCLeakBackstopRule,
     register_rule,
 )
 from pymagatama.organism.post_sink import (
@@ -53,6 +58,7 @@ from pymagatama.organism.unispsc_organism import (
 
 __all__ = [
     "CadenceState",
+    "CharterFalsePositiveRateRule",
     "ContentSource",
     "FollowerReward",
     "FollowerSnapshot",
@@ -64,6 +70,7 @@ __all__ = [
     "KaizenObserver",
     "KaizenProposal",
     "KaizenRule",
+    "LeakAttempt",
     "LoggerPostSink",
     "Mood",
     "NdjsonQueuePostSink",
@@ -72,6 +79,9 @@ __all__ = [
     "OrganismTickResult",
     "PostSink",
     "RULE_REGISTRY",
+    "SensorHealth",
+    "StaleSensorPinRule",
+    "TierCLeakBackstopRule",
     "UnispscOrganism",
     "apply_stress_scaling",
     "determine_mood",

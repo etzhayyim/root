@@ -16,6 +16,7 @@ node_modules/
 dist/
 build/
 out/
+!70-tools/e7m-sim-preflight/out/
 .turbo/
 .next/
 .svelte-kit/
@@ -113,6 +114,7 @@ foundry.lock
 
 # Claude Code agent worktrees (full repo copies for parallel agents — never commit)
 .claude/worktrees/
+.claude/scheduled_tasks.lock
 
 # torch.utils.cpp_extension build dirs (kernel shootout, ADR-2605242000)
 **/_build_cpu/
