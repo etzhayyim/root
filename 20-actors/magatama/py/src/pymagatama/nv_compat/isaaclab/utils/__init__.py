@@ -1,10 +1,10 @@
 """isaaclab.utils — small utility surfaces shared across isaaclab.*.
 
-R1.x scope: dr (domain randomisation primitives). Future R1.x adds more
-isaaclab utility namespaces (math helpers, dict utils, terrain generators,
-asset managers) as their robotics demand surfaces.
+R1.x scope:
+  - dr   — domain randomisation primitives (sim2real config)
+  - math — quaternion + Euler + axis-angle + slerp + frame transform helpers
 """
 
-from . import dr
+from . import dr, math
 
-__all__ = ["dr"]
+__all__ = ["dr", "math"]
