@@ -15,6 +15,9 @@ Sub-namespaces:
              pseudoinverse; pairs with envs.mdp.JointPositionAction)
   - assets  (AssetBase / RigidObject / Articulation — declarative asset
              wrappers; bridge sim.spawners ↔ env physics + cfg-driven reset)
+  - actuators (ImplicitActuator / IdealPDActuator / DCMotor / ActuatorNetMLP
+              — actuator dynamics between action terms + articulation; PD,
+              speed-torque saturation, residual-MLP correction hook)
   - utils  (utils.dr per-env DomainRandomizationCfg; utils.math quaternion +
             Euler + frame-transform helpers)
   - terrains (procedural height-field generators for legged locomotion)
@@ -22,11 +25,11 @@ Sub-namespaces:
 """
 
 from . import (
-    algos, assets, controllers, managers, markers, scene, sensors, sim,
-    terrains, utils,
+    actuators, algos, assets, controllers, managers, markers, scene, sensors,
+    sim, terrains, utils,
 )
 
 __all__ = [
-    "algos", "assets", "controllers", "managers", "markers", "scene",
-    "sensors", "sim", "terrains", "utils",
+    "actuators", "algos", "assets", "controllers", "managers", "markers",
+    "scene", "sensors", "sim", "terrains", "utils",
 ]
