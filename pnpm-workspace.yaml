@@ -66,6 +66,14 @@ packages:
   # etzhayyim-organism-viz Svelte frontend (ADR-2605221411)
   - "60-apps/etzhayyim-organism-viz/web"
 
+  # @etzhayyim/kami-engine-sdk canonical (Phase 1 of ADR-2605265200).
+  # The legacy duplicate at `20-actors/kami-engine-sdk/` is being
+  # retired (see DEPRECATED.md there + the ADR). Registering the
+  # canonical path here makes `workspace:*` references in consumer
+  # apps resolve deterministically to the subrepo copy instead of
+  # auto-discovering one of the two same-named package.json files.
+  - "40-engine/kami-engine/kami-engine-sdk"
+
 # pnpm overrides — dedupe onnxruntime-web to the version pinned by
 # @huggingface/transformers@3.8.1 (the larger 1.26.0 release is 25 MiB and hits
 # the Cloudflare Workers per-asset hard limit, blocking magatama-yoro deploy).
