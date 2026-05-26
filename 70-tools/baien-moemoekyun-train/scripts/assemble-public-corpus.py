@@ -71,6 +71,7 @@ class SourceSpec:
     license: str
     weight: float
     sa_propagates: bool = False
+    max_rows: int = 0  # 0 = no cap (full file); per-source override
 
 
 @dataclass
@@ -144,6 +145,7 @@ def load_recipe(path: Path) -> Recipe:
             license=s["license"],
             weight=float(s["weight"]),
             sa_propagates=bool(s.get("sa_propagates", False)),
+            max_rows=int(s.get("max_rows", 0)),
         )
         for s in sources_raw
     ]
@@ -218,6 +220,17 @@ def main(argv: list[str] | None = None) -> int:
         help="Validate recipe + emit summary, do NOT resolve pins or "
              "stream shards.",
     )
+    p.add_argument(
+        "--max-rows-per-source",
+        type=int,
+        default=0,
+        help="Cap row emission per source at N rows (head-biased; uses "
+             "itertools.islice-style early exit). 0 (default) = no cap "
+             "= full file iteration. Useful for partial corpora from "
+             "huge sources (e.g. RIPE-RIS bview NDJSON sidecars with "
+             "5-10M rows). Per-source override available via the recipe's "
+             "[[source]] `max_rows` field (takes precedence over this flag).",
+    )
     args = p.parse_args(argv)
 
     recipe = load_recipe(args.recipe)
@@ -254,7 +267,12 @@ def main(argv: list[str] | None = None) -> int:
 
     out_dir = _resolve_out_dir(recipe, args.out_dir)
     try:
-        result = assemble(recipe, annex_root=annex_root, out_dir=out_dir)
+        result = assemble(
+            recipe,
+            annex_root=annex_root,
+            out_dir=out_dir,
+            max_rows_per_source=args.max_rows_per_source,
+        )
     except CorpusAssemblyError as exc:
         print(f"Assembly aborted: {exc}", file=sys.stderr)
         return 6
@@ -486,8 +504,16 @@ def assemble(
     *,
     annex_root: Path,
     out_dir: Path,
+    max_rows_per_source: int = 0,
 ) -> dict[str, Any]:
-    """Run the full assembly path. Returns a manifest dict."""
+    """Run the full assembly path. Returns a manifest dict.
+
+    ``max_rows_per_source`` (default 0 = no cap) caps row emission
+    per source. Per-source override available via
+    ``SourceSpec.max_rows`` (recipe field ``max_rows``) which takes
+    precedence over the global cap. Useful for partial corpora from
+    huge sources (e.g. RIPE-RIS bview NDJSON sidecars).
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
 
     charter_scan = _try_import_charter_scanner()
@@ -515,14 +541,29 @@ def assemble(
             s.suffix == ".ndjson" or s.name.endswith(".ndjson") for s in shards
         )
 
+        # Effective row cap for this source: per-source override > CLI
+        # flag > 0 (unbounded). 0 means "no cap".
+        effective_cap = src.max_rows if src.max_rows > 0 else max_rows_per_source
+
         with out_shard.open("w", encoding="utf-8") as out_fh:
             for shard in shards:
+                # Per-source row cap shortcut at the outer shard loop too.
+                if effective_cap > 0 and rows_emitted >= effective_cap:
+                    break
                 # NDJSON-like: one JSON object per line.
                 # `.geojsonl` / `.geojsonseq` are also NDJSON-shaped
                 # (RFC 8142 may RS-prefix records but json.loads
                 # tolerates that). `.jsonl` is the colloquial form.
                 if shard.suffix.lower() in (".ndjson", ".jsonl", ".geojsonl", ".geojsonseq"):
                     for i, payload in enumerate(_iter_ndjson_rows(shard)):
+                        # Per-source row cap: stop emitting once we hit
+                        # the cap, but continue iterating the rest of
+                        # the shards' loop so we still hit the
+                        # break-out condition below. The break is here
+                        # (before any other work) so capped rows incur
+                        # zero PII/Charter overhead.
+                        if effective_cap > 0 and rows_emitted >= effective_cap:
+                            break
                         # PII filter on every row (autodetect string fields).
                         redacted, stats = redact_payload(payload)
                         pii_redactions += stats.total
@@ -589,6 +630,8 @@ def assemble(
             "rowsEmitted": rows_emitted,
             "rowsScannedForCharter": rows_scanned_for_charter,
             "piiRedactions": pii_redactions,
+            "effectiveRowCap": effective_cap,
+            "capHit": effective_cap > 0 and rows_emitted >= effective_cap,
             "outShard": str(out_shard),
         })
 
