@@ -82,6 +82,47 @@ If all consumers resolve to 40-engine cleanly, Phase 3 unblocks.
 - e7m verify passes after the delete (no constitutional invariants depend on the duplicate)
 - `pnpm install --frozen-lockfile` succeeds at the repo root with the workspace listing updated
 
+### Phase 2 verification log (partial, 2026-05-26 iter-10 of /loop)
+
+Pre-flight check of workspace install behavior immediately after Phase
+1 landed in commit `491ff8ee6`:
+
+  command: `pnpm install --lockfile-only --no-frozen-lockfile`
+  duration: 7.9s
+  exit:     0 (success; only "missing peer" warnings on pre-existing
+            packages, none related to kami-engine-sdk)
+
+Observations against the pre-existing lockfile (HEAD):
+
+  ✓ `40-engine/kami-engine/kami-engine-sdk` registered as an importer
+    (new section starting around line 399 of the dry-run lockfile);
+    devDependencies resolve cleanly (svelte 5.55.9, vitest 4.1.7,
+    svelte-check 4.4.8, jsdom 29.1.1, @sveltejs/package 2.5.7).
+  ✓ `20-actors/kami-engine-sdk` does NOT appear as an importer —
+    correctly excluded from the workspace (the duplicate's `name`
+    collision is now structurally contained at the lockfile layer).
+  ⚠ Five consumer apps that declare `@etzhayyim/kami-engine-sdk":
+    "workspace:*"` are not themselves listed in `pnpm-workspace.yaml`
+    (image2vrm / image2metahuman / baminiku-bm1n1ku8 / mangaka /
+    magatama-host-sdk). Their `workspace:*` declarations are therefore
+    not actively evaluated during root install — they would only
+    resolve under their own `pnpm install --ignore-workspace`, where
+    `link:`-style explicit paths (cyber-drill's pattern) would also
+    work. None of these apps currently build past scaffold stub state,
+    so this is a latent observation rather than a blocker.
+  ⚠ The dry-run also surfaced unrelated lockfile drift (~510 lines of
+    jsdom 25.0.1 → 29.1.1 transitive bumps + storybook addon-docs
+    9.1.20 resolution shifts) introduced by parallel-session changes
+    over the past few iterations. Not committed in this verification
+    run — that's a separate routine lockfile-update commit that
+    parallel session can land at its convenience.
+
+Phase 2 outcome: **the structural condition is contained.** The
+duplicate-name hazard from §Context is no longer reachable at the
+workspace install layer. Phase 3 (deletion) is unblocked from a
+correctness standpoint and remains gated only on parallel-session
+quiet (per "Why not delete immediately" §1).
+
 ### Why not delete immediately
 
 Three reasons to phase rather than delete in-iteration:
