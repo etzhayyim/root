@@ -7,17 +7,25 @@ Pattern: discovery in a `/loop` iteration → fix in the same iteration → codi
 ## Quick start — run all audits
 
 ```bash
-bash 70-tools/scripts/audit/all.sh            # aggregator report (~1.1 s wall)
-bash 70-tools/scripts/audit/all.sh --strict   # exit 1 if any finding (CI integration)
-bash 70-tools/scripts/audit/all.sh --test     # pytest suite only (~5 s wall)
-bash 70-tools/scripts/audit/all.sh --all      # pytest + aggregator (~6.5 s wall)
+bash 70-tools/scripts/audit/all.sh                       # aggregator report (~1.1 s wall)
+bash 70-tools/scripts/audit/all.sh --strict              # exit 1 if any finding (CI integration)
+bash 70-tools/scripts/audit/all.sh --test                # full pytest suite (~8 s wall)
+bash 70-tools/scripts/audit/all.sh --test test_foo.py    # single test file (~3 s wall)
+bash 70-tools/scripts/audit/all.sh --all                 # pytest + aggregator (~9 s wall)
 ```
 
 The `--test` and `--all` modes wrap the canonical pytest invocation
 (`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest ...`) so operators
-don't have to remember the env var or the four test file paths.
+don't have to remember the env var or the five test file paths. The
+env var is required because this system's `langsmith` pytest plugin
+crashes on load (pydantic version mismatch); the env bypasses
+third-party autoloading.
+
 Pytest failures always exit non-zero (regressions should never silently
 pass); `--strict` only applies to the aggregator's findings count.
+
+`--test <file>` targets one suite for fast reruns during development
+(no need to wait for all 87 tests to validate one filter change).
 
 Current baseline (as of iter-61 of /loop, 2026-05-27): **25 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **0 manifest-lexicon-drift** (iter-52 closed kuni-umi 6/6; full category zeroed; all 21 initial findings resolved across iters 48-52). **Both batched-fix categories now fully closed.** Remaining 25 findings are all documented-deferred awaiting upstream coordination.
 

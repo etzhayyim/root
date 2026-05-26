@@ -21,8 +21,15 @@
 # Usage:
 #   bash 70-tools/scripts/audit/all.sh             # report (~1.1 s wall)
 #   bash 70-tools/scripts/audit/all.sh --strict    # exit 1 if any finding
-#   bash 70-tools/scripts/audit/all.sh --test      # run pytest suite instead
+#   bash 70-tools/scripts/audit/all.sh --test      # run full pytest suite
+#   bash 70-tools/scripts/audit/all.sh --test <file>  # run one test file
 #   bash 70-tools/scripts/audit/all.sh --all       # pytest + aggregator
+#
+# Why --test is a wrapper: pytest crashes on this dev box's langsmith
+# plugin (pydantic version mismatch); the wrapper sets
+# PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 so operators don't have to remember
+# the env var. A specific test file can be passed after --test for
+# targeted reruns (e.g. `bash all.sh --test test_e7m_verify_perf.py`).
 #
 # Requires: python3 + bash + `gh` CLI (for subrepo-upstream-health.sh).
 # Returns: rollup count via stdout. Exit code 0 unless --strict and any
@@ -33,13 +40,35 @@ set -euo pipefail
 STRICT=0
 TEST=0
 RUN_AGGREGATOR=1
-for arg in "$@"; do
+TEST_FILE=""
+
+# Two-pass arg parsing: --test may take an optional positional file.
+i=0
+ARGS=("$@")
+while [ "$i" -lt "${#ARGS[@]}" ]; do
+  arg="${ARGS[$i]}"
   case "$arg" in
     --strict) STRICT=1 ;;
-    --test)   TEST=1; RUN_AGGREGATOR=0 ;;
+    --test)
+      TEST=1
+      RUN_AGGREGATOR=0
+      # Peek at next arg; if it's a test_*.py filename (not a flag),
+      # consume it as the targeted file.
+      next_i=$((i + 1))
+      if [ "$next_i" -lt "${#ARGS[@]}" ]; then
+        next_arg="${ARGS[$next_i]}"
+        case "$next_arg" in
+          test_*.py)
+            TEST_FILE="$next_arg"
+            i=$next_i
+            ;;
+        esac
+      fi
+      ;;
     --all)    TEST=1; RUN_AGGREGATOR=1 ;;
     *) echo "unknown arg: $arg" >&2; exit 2 ;;
   esac
+  i=$((i + 1))
 done
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -51,16 +80,29 @@ cd "$REPO_ROOT"
 # should never silently pass).
 if [ "$TEST" -eq 1 ]; then
   echo
-  echo "── pytest suite (5 files / 74 tests) ──"
-  if ! PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest \
-       70-tools/scripts/audit/test_adr_cross_ref_health.py \
-       70-tools/scripts/audit/test_manifest_lexicon_drift.py \
-       70-tools/scripts/audit/test_subrepo_scripts.py \
-       70-tools/scripts/audit/test_simple_audits.py \
-       70-tools/scripts/audit/test_e7m_verify_perf.py \
-       2>&1; then
-    echo "pytest suite FAILED — see output above" >&2
-    exit 1
+  if [ -n "$TEST_FILE" ]; then
+    target="70-tools/scripts/audit/$TEST_FILE"
+    if [ ! -f "$target" ]; then
+      echo "target test file not found: $target" >&2
+      exit 2
+    fi
+    echo "── pytest (single file: $TEST_FILE) ──"
+    if ! PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest "$target" 2>&1; then
+      echo "pytest FAILED — see output above" >&2
+      exit 1
+    fi
+  else
+    echo "── pytest suite (5 files / 74 tests) ──"
+    if ! PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest \
+         70-tools/scripts/audit/test_adr_cross_ref_health.py \
+         70-tools/scripts/audit/test_manifest_lexicon_drift.py \
+         70-tools/scripts/audit/test_subrepo_scripts.py \
+         70-tools/scripts/audit/test_simple_audits.py \
+         70-tools/scripts/audit/test_e7m_verify_perf.py \
+         2>&1; then
+      echo "pytest suite FAILED — see output above" >&2
+      exit 1
+    fi
   fi
 fi
 
