@@ -23,13 +23,13 @@ PROMPT_INJECTION_PATTERNS = {
     "system_command": re.compile(r"^\s*system\s*:", re.IGNORECASE),
     "user_end_tag": re.compile(r"<\s*/\s*user\s*>", re.IGNORECASE),
     "you_are_now": re.compile(r"you\s+are\s+now", re.IGNORECASE),
-    "new_persona": re.compile(r"act\s+as\s+if", re.IGNORECASE),
+    "new_persona": re.compile(r"act\s+as\s+(?:if\s+)?[A-Za-z]+", re.IGNORECASE),
     "reveal_secrets": re.compile(r"reveal\s+(your\s+)?(?:secrets|prompt|instructions)", re.IGNORECASE),
 }
 
 # (b) Hidden markers
 HIDDEN_MARKER_PATTERNS = {
-    "admin_override": re.compile(r"\[\s*(?:ADMIN|OVERRIDE|ROOT|SUDO|DEBUG)[\s_]*\]", re.IGNORECASE),
+    "admin_override": re.compile(r"\[\s*(?:(?:ADMIN|OVERRIDE|ROOT|SUDO|DEBUG)[\s_]*)+\]", re.IGNORECASE),
 }
 
 # (c) Forged attribution
