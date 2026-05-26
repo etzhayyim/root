@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/etzhayyim/kotoba.git
+	branch = main
+	commit = 128a89d0e4c4fd4a1efa136d1f79fc2019b22aee
+	parent = cf55cde768506b952f289e25e9cddade4a8b1cb0
+	method = merge
+	cmdver = 0.4.9
