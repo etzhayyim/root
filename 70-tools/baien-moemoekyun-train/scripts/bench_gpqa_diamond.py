@@ -85,12 +85,29 @@ def main():
     print(f"[load] model loaded in {time.perf_counter() - t0:.1f}s")
 
     from datasets import load_dataset
-    if args.gpqa_config.startswith("mmlu"):
-        # MMLU stand-in (ungated) when GPQA HF auth unavailable
-        subject = args.gpqa_config.split(":", 1)[1] if ":" in args.gpqa_config else "all"
-        print(f"\n[data] loading cais/mmlu {subject} (ungated fallback for GPQA-diamond)")
+    if args.gpqa_config.startswith("mmlu-redux:"):
+        # MMLU-Redux 2.0 (ungated, curated, matches user's bench table directly)
+        subject = args.gpqa_config.split(":", 1)[1]
+        print(f"\n[data] loading edinburgh-dawg/mmlu-redux-2.0 {subject}")
+        ds = load_dataset("edinburgh-dawg/mmlu-redux-2.0", subject, split="test")
+        normalized = []
+        for r in ds:
+            # MMLU-Redux 2.0 uses 'correct_answer' field (index) in addition to 'answer'
+            ans_idx = r["answer"]
+            normalized.append({
+                "Question": r["question"],
+                "Correct Answer": r["choices"][ans_idx],
+                "Incorrect Answer 1": r["choices"][(ans_idx+1)%4],
+                "Incorrect Answer 2": r["choices"][(ans_idx+2)%4],
+                "Incorrect Answer 3": r["choices"][(ans_idx+3)%4],
+            })
+        ds = normalized
+        print(f"[data] total questions: {len(ds)}")
+    elif args.gpqa_config.startswith("mmlu:"):
+        # Original MMLU (ungated) — broader coverage but noisier than MMLU-Redux
+        subject = args.gpqa_config.split(":", 1)[1]
+        print(f"\n[data] loading cais/mmlu {subject}")
         ds = load_dataset("cais/mmlu", subject, split="test")
-        # Normalize MMLU schema to GPQA-compatible
         normalized = []
         for r in ds:
             normalized.append({
