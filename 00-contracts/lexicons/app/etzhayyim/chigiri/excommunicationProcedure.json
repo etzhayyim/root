@@ -59,12 +59,8 @@
           "cureAttempts": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "attemptAt": {"type": "string", "format": "datetime"},
-                "remediationCid": {"type": "string"},
-                "councilReviewCids": {"type": "array", "items": {"type": "string"}}
-              }
+              "type": "ref",
+              "ref": "#cureAttempt"
             },
             "description": "Member-initiated cure attempts during the 30-day window. May be empty if member chose not to cure."
           },
@@ -97,6 +93,14 @@
             "description": "DID of Council seat emitting this procedure record."
           }
         }
+      }
+    },
+    "cureAttempt": {
+      "type": "object",
+      "properties": {
+        "attemptAt": {"type": "string", "format": "datetime"},
+        "remediationCid": {"type": "string"},
+        "councilReviewCids": {"type": "array", "items": {"type": "string"}}
       }
     }
   }
