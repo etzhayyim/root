@@ -13,6 +13,8 @@ Sub-namespaces:
              pre-built SPHERE / CUBOID / COORDINATE_FRAME / ARROW_* cfgs)
   - controllers (DifferentialIKController — Jacobian-based IK with DLS /
              pseudoinverse; pairs with envs.mdp.JointPositionAction)
+  - assets  (AssetBase / RigidObject / Articulation — declarative asset
+             wrappers; bridge sim.spawners ↔ env physics + cfg-driven reset)
   - utils  (utils.dr per-env DomainRandomizationCfg; utils.math quaternion +
             Euler + frame-transform helpers)
   - terrains (procedural height-field generators for legged locomotion)
@@ -20,10 +22,11 @@ Sub-namespaces:
 """
 
 from . import (
-    algos, controllers, managers, markers, scene, sensors, sim, terrains, utils,
+    algos, assets, controllers, managers, markers, scene, sensors, sim,
+    terrains, utils,
 )
 
 __all__ = [
-    "algos", "controllers", "managers", "markers", "scene", "sensors", "sim",
-    "terrains", "utils",
+    "algos", "assets", "controllers", "managers", "markers", "scene",
+    "sensors", "sim", "terrains", "utils",
 ]
