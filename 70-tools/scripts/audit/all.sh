@@ -59,6 +59,7 @@ run "dependabot-defunct" python3 70-tools/scripts/audit/dependabot-defunct.py
 run "sdk-exports-dist" python3 70-tools/scripts/audit/sdk-exports-dist.py
 run "subrepo-upstream-health" bash 70-tools/scripts/audit/subrepo-upstream-health.sh
 run "subrepo-symlink-health" bash 70-tools/scripts/audit/subrepo-symlink-health.sh
+run "sibling-convention-drift" python3 70-tools/scripts/audit/sibling-convention-drift.py
 
 echo
 echo "═══════════════════════════════════════"

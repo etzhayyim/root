@@ -68,15 +68,16 @@ jobs:
           {
             echo "## Audit findings: ${total:-?}"
             echo ""
-            echo "Baseline as of iter-32 of /loop (2026-05-26): **25 findings**"
+            echo "Baseline as of iter-37 of /loop (2026-05-27): **39 findings**"
             echo "  - 0 dependabot defunct"
             echo "  - 0 SDK exports/dist mismatches"
             echo "  - 7 stale subrepo URLs (ADR-2605211845)"
             echo "  - 18 kotoba escape-symlinks (ADR-2605262130)"
+            echo "  - 14 sibling-convention-drift outliers (iter-37 — 4 missing description + 10 missing license)"
             echo ""
-            if [ "${total:-0}" -gt 25 ]; then
+            if [ "${total:-0}" -gt 39 ]; then
               echo "⚠️ Total findings **above baseline** — new drift introduced. Investigate above."
-            elif [ "${total:-0}" -lt 25 ]; then
+            elif [ "${total:-0}" -lt 39 ]; then
               echo "✅ Total findings **below baseline** — drift was resolved. Update baseline in this workflow's docs + audit/README.md."
             else
               echo "✓ Total findings match baseline. No new drift."
