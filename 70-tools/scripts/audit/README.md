@@ -158,9 +158,9 @@ Discovery: iter-40 of /loop (2026-05-27); filter improvements + categorization i
 
 ## Testing
 
-Four audit scripts have pytest suites that lock in their structural
-invariants so future refactors don't silently break filter/regex/
-path-mapping logic or undo perf optimizations:
+Five audit + tool pytest suites lock in their structural invariants
+so future refactors don't silently break filter/regex/path-mapping
+logic or undo perf optimizations:
 
 | Suite | Tests | Locks in |
 |---|---|---|
@@ -168,17 +168,18 @@ path-mapping logic or undo perf optimizations:
 | `test_manifest_lexicon_drift.py` | 13 | NSID regex + NSID-to-path mapping + post-closure-zero-drift canary |
 | `test_subrepo_scripts.py` | 16 | Stale-URL + escape-symlink counts + iter-57 perf budgets + structural canaries (git ls-files / xargs -P / no `find .`) |
 | `test_simple_audits.py` | 17 | dependabot-defunct + sdk-exports-dist + sibling-convention-drift smoke + aggregator format contract |
+| `test_e7m_verify_perf.py` | 7 | e7m verify 9-invariant correctness + iter-56 perf budget (5 s) + structural canaries (ThreadPoolExecutor + git-grep) |
 
-All four run via the same pytest invocation:
+All five run via the same pytest invocation:
 
 ```bash
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
   python3 -m pytest 70-tools/scripts/audit/ -v
 ```
 
-Combined: **67 tests, ~5 s total** (subrepo tests run real subprocess invocations against gh + git; correctness tests <0.1 s combined).
+Combined: **74 tests, ~8 s total** (subrepo + e7m tests run real subprocess invocations; correctness tests <0.1 s combined).
 
-Every aggregator script (6/6) + the standalone adr-cross-ref-health is now test-covered.
+Every aggregator script (6/6) + the standalone adr-cross-ref-health + the e7m verify pre-commit hook are now test-covered.
 
 The `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` env is required because
 this system's `langsmith` pytest plugin auto-loads but has a

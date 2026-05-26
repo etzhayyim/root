@@ -51,12 +51,13 @@ cd "$REPO_ROOT"
 # should never silently pass).
 if [ "$TEST" -eq 1 ]; then
   echo
-  echo "── pytest suite (4 files / 67 tests) ──"
+  echo "── pytest suite (5 files / 74 tests) ──"
   if ! PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest \
        70-tools/scripts/audit/test_adr_cross_ref_health.py \
        70-tools/scripts/audit/test_manifest_lexicon_drift.py \
        70-tools/scripts/audit/test_subrepo_scripts.py \
        70-tools/scripts/audit/test_simple_audits.py \
+       70-tools/scripts/audit/test_e7m_verify_perf.py \
        2>&1; then
     echo "pytest suite FAILED — see output above" >&2
     exit 1

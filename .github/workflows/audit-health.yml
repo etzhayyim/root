@@ -87,6 +87,7 @@ jobs:
             70-tools/scripts/audit/test_manifest_lexicon_drift.py \
             70-tools/scripts/audit/test_subrepo_scripts.py \
             70-tools/scripts/audit/test_simple_audits.py \
+            70-tools/scripts/audit/test_e7m_verify_perf.py \
             -v
 
       - name: Run audit aggregator (non-strict)
