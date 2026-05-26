@@ -1,11 +1,21 @@
 import { OrganismPostDrainer } from './index';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
+
+const mockWrite = vi.fn();
+
+vi.mock('@etzhayyim/sdk', () => ({
+  Etzhayyim: vi.fn().mockImplementation(() => ({
+    write: mockWrite,
+  })),
+}));
 
 describe('OrganismPostDrainer', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('should parse and process a valid app.bsky.feed.post line', async () => {
     const drainer = new OrganismPostDrainer('dummy.ndjson', 'https://dummy.pds');
-
-    // Spy on console.log to verify behavior without mocking the sdk yet
-    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
     const validPost = JSON.stringify({
       v: 1,
@@ -19,17 +29,17 @@ describe('OrganismPostDrainer', () => {
 
     await drainer.processLine(validPost);
 
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('[Drainer] Dispatching post for did:web:etzhayyim.com:actor:c10101500')
-    );
-
-    logSpy.mockRestore();
+    expect(mockWrite).toHaveBeenCalledWith({
+      collection: "app.bsky.feed.post",
+      record: {
+        text: "Test post",
+        createdAt: "2026-05-24T01:23:45Z"
+      }
+    });
   });
 
-  it('should parse and process a valid app.etzhayyim.apps.etzhayyim.message line', async () => {
+  it('should parse and process a valid app.etzhayyim.organism.message line', async () => {
     const drainer = new OrganismPostDrainer('dummy.ndjson', 'https://dummy.pds');
-
-    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
     const validMessage = JSON.stringify({
       v: 1,
@@ -37,22 +47,26 @@ describe('OrganismPostDrainer', () => {
       actorDid: "did:web:etzhayyim.com:actor:c10101500",
       recipientDid: "did:web:etzhayyim.com:actor:c10101501",
       encryptedPayload: "base64encodedencrypteddata",
-      lexicon: "app.etzhayyim.apps.etzhayyim.message",
+      lexicon: "app.etzhayyim.organism.message",
       createdAt: "2026-05-26T01:23:45Z"
     });
 
     await drainer.processLine(validMessage);
 
-    expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('[Drainer] Dispatching message from did:web:etzhayyim.com:actor:c10101500 to did:web:etzhayyim.com:actor:c10101501')
-    );
-
-    logSpy.mockRestore();
+    expect(mockWrite).toHaveBeenCalledWith({
+      collection: "app.etzhayyim.organism.message",
+      record: {
+        recipientDid: "did:web:etzhayyim.com:actor:c10101501",
+        senderDid: "did:web:etzhayyim.com:actor:c10101500",
+        encryptedPayload: "base64encodedencrypteddata",
+        createdAt: "2026-05-26T01:23:45Z"
+      }
+    });
   });
 
   it('should handle invalid JSON gracefully', async () => {
     const drainer = new OrganismPostDrainer('dummy.ndjson', 'https://dummy.pds');
-    const errSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     await drainer.processLine('invalid json {');
 

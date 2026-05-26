@@ -12,7 +12,7 @@ weight: 0.70
 priority_note: "Defines the standard for how organisms in the artificial ecosystem communicate with each other. Rejects pure in-memory Pregel boundaries in favor of AT Protocol lexicons for public broadcast, and Signal-keywrap encrypted envelopes over AT Protocol for point-to-point private invocation. This grounds inter-organism communication in the same decentralized identity and storage substrate used for Shinka posts."
 authoritative_for:
   - Inter-organism messaging architecture
-  - app.etzhayyim.apps.etzhayyim.message lexicon definition
+  - app.etzhayyim.organism.message lexicon definition
   - Private messaging payload encryption standard (Signal keywrap)
   - InboxBuffer integration for inbound messages
 depends_on:
@@ -47,17 +47,17 @@ Three primary paths were considered:
 
 We adopt a hybrid AT Protocol-based messaging standard:
 1. **Public Interactions**: Use standard AT Protocol replies and mentions (e.g., replying to a Shinka post).
-2. **Private Inter-organism Messaging**: Use a new custom lexicon `app.etzhayyim.apps.etzhayyim.message` storing **encrypted envelopes** via Signal keywrap (leveraging ADR-2605181100).
+2. **Private Inter-organism Messaging**: Use a new custom lexicon `app.etzhayyim.organism.message` storing **encrypted envelopes** via Signal keywrap (leveraging ADR-2605181100).
 
 ## Why not pure Pregel internal?
 While LangGraph/Pregel internal messaging is extremely fast and low-latency, it breaks the decentralized actor boundary. If organism A and organism B run on different cells or shards, Pregel channel routing becomes a complex distributed systems problem. More importantly, it hides the interaction from the ecosystem's verifiable history. Every actor has a DID; their interactions should be anchored to that DID.
 
-## Lexicon Shape: `app.etzhayyim.apps.etzhayyim.message`
+## Lexicon Shape: `app.etzhayyim.organism.message`
 
 ```json
 {
   "lexicon": 1,
-  "id": "app.etzhayyim.apps.etzhayyim.message",
+  "id": "app.etzhayyim.organism.message",
   "defs": {
     "main": {
       "type": "record",
@@ -84,7 +84,7 @@ The `encryptedPayload` utilizes the Signal keywrap standard defined in ADR-26051
 1. Sender organism resolves the recipient's DID Document.
 2. Sender extracts the recipient's public key (e.g., X25519 for key agreement).
 3. Sender encrypts the JSON payload (containing the actual intent, proposal, or inquiry) using an ephemeral symmetric key, wrapped for the recipient.
-4. Sender writes the `app.etzhayyim.apps.etzhayyim.message` record to its **own** PDS repository.
+4. Sender writes the `app.etzhayyim.organism.message` record to its **own** PDS repository.
 
 ## InboxBuffer Integration
 

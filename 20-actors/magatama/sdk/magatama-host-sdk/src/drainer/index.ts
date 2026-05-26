@@ -43,7 +43,7 @@ export class OrganismPostDrainer {
 
     if (record.lexicon === "app.bsky.feed.post") {
       await this.dispatchPost(record);
-    } else if (record.lexicon === "app.etzhayyim.apps.etzhayyim.message") {
+    } else if (record.lexicon === "app.etzhayyim.organism.message") {
       await this.dispatchMessage(record);
     } else {
       console.warn(`Unknown lexicon: ${record.lexicon}`);
@@ -52,25 +52,28 @@ export class OrganismPostDrainer {
 
   private async dispatchPost(record: NDJSONRecord): Promise<void> {
     console.log(`[Drainer] Dispatching post for ${record.actorDid} to ${this.pdsUrl}`);
-    // Minimal integration hook for @etzhayyim/sdk
-    // sdk.pds.dispatch({
-    //   type: "app.bsky.feed.post",
-    //   actorDid: record.actorDid,
-    //   text: record.text,
-    //   createdAt: record.createdAt,
-    // });
+    const sdk = new Etzhayyim({ did: record.actorDid, pdsUrl: this.pdsUrl });
+    await sdk.write({
+      collection: "app.bsky.feed.post",
+      record: {
+        text: record.text,
+        createdAt: record.createdAt,
+      }
+    });
   }
 
   private async dispatchMessage(record: NDJSONRecord): Promise<void> {
     console.log(`[Drainer] Dispatching message from ${record.actorDid} to ${record.recipientDid}`);
-    // Future: Signal keywrap encryption and envelope creation (ADR-2605266000)
-    // sdk.pds.dispatch({
-    //   type: "app.etzhayyim.apps.etzhayyim.message",
-    //   recipientDid: record.recipientDid,
-    //   senderDid: record.actorDid,
-    //   encryptedPayload: record.encryptedPayload,
-    //   createdAt: record.createdAt,
-    // });
+    const sdk = new Etzhayyim({ did: record.actorDid, pdsUrl: this.pdsUrl });
+    await sdk.write({
+      collection: "app.etzhayyim.organism.message",
+      record: {
+        recipientDid: record.recipientDid,
+        senderDid: record.actorDid,
+        encryptedPayload: record.encryptedPayload,
+        createdAt: record.createdAt,
+      }
+    });
   }
 
   public async start(): Promise<void> {

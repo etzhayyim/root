@@ -40,7 +40,7 @@ Wave 3 requires the implementation of the `drainer` sidecar. The drainer is a Ty
 2. **K8s Manifest Update:** Uncomment the `drainer` container spec in `shard-0`, `shard-1`, and `shard-2` DaemonSets, activating the Wave 3 deployment footprint.
 3. **Dispatch Logic:**
    - Lines with `lexicon="app.bsky.feed.post"` will be dispatched as standard Shinka posts.
-   - Lines with `lexicon="app.etzhayyim.apps.etzhayyim.message"` will be recognized as inter-organism messages. The drainer will parse the message intent and, in a future phase, perform Signal keywrap encryption before PDS dispatch (per ADR-2605266000). The minimal implementation will log this capability.
+   - Lines with `lexicon="app.etzhayyim.organism.message"` will be recognized as inter-organism messages. The drainer will parse the message intent and, in a future phase, perform Signal keywrap encryption before PDS dispatch (per ADR-2605266000). The minimal implementation will log this capability.
 
 # Consequences
 

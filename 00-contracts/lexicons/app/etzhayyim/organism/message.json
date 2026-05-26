@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "app.etzhayyim.apps.etzhayyim.message",
+  "id": "app.etzhayyim.organism.message",
   "defs": {
     "main": {
       "type": "record",
