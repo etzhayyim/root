@@ -49,35 +49,46 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 cd "$REPO_ROOT"
 
-# Find all subrepo roots (dirs with `.gitrepo`).
-SUBREPOS=$(find . -name ".gitrepo" -not -path "*/node_modules/*" -not -path "*/.claude/*" 2>/dev/null | sed 's|/.gitrepo$||')
+# Discovery via `git ls-files` instead of `find` — reads the git
+# index directly (~25 ms for the whole repo) vs `find` walking the
+# worktree (~2.5 s + per-subrepo recursion ~14 s total). git ls-files
+# also honours .gitignore so we don't need explicit excludes.
+#
+# Step 1: subrepo roots = dirs containing a tracked `.gitrepo`.
+# Step 2: symlinks tracked by git = entries with mode 120000 in
+# `git ls-files -s` output (mode | sha | stage | path).
+
+SUBREPOS=$(git ls-files | grep '\.gitrepo$' | grep -v "/node_modules/\|/.claude/" | sed 's|/.gitrepo$||' | sed 's|^|./|')
+
+# One-shot scan of all symlinks in the repo (much faster than
+# per-subrepo `find -type l` loops).
+ALL_SYMLINKS=$(git ls-files -s | awk '$1 == "120000" { print $4 }')
 
 escape_count=0
 for subrepo in $SUBREPOS; do
-  # All symlinks within this subrepo
-  while IFS= read -r symlink; do
+  # Filter to symlinks within this subrepo's path prefix.
+  # Strip leading ./ from $subrepo to match git ls-files paths.
+  prefix="${subrepo#./}/"
+  for symlink in $ALL_SYMLINKS; do
+    [[ "$symlink" != "$prefix"* ]] && continue
     target=$(readlink "$symlink" 2>/dev/null || true)
     [ -z "$target" ] && continue
-    # If the target is an absolute path, it's outside the subrepo by definition.
-    # If it's a relative path starting with `../`, count how many `../`s and
-    # compare to the symlink's depth within the subrepo. If `../` count >= depth,
-    # the target escapes the subrepo.
+    # Absolute target = always escape.
     if [[ "$target" == /* ]]; then
-      echo "ABSOLUTE: $subrepo: $symlink -> $target"
+      echo "ABSOLUTE: $subrepo: ./$symlink -> $target"
       escape_count=$((escape_count + 1))
       continue
     fi
-    # Count consecutive leading "../" segments
+    # Count consecutive leading "../" segments.
     dotdots=$(echo "$target" | grep -oE '^(\.\./)+' | grep -oE '\.\./' | wc -l | tr -d ' ')
-    # Symlink's depth within the subrepo (number of segments after subrepo root)
-    relative=${symlink#"$subrepo/"}
+    # Symlink's depth within the subrepo.
+    relative="${symlink#"$prefix"}"
     depth=$(echo "$relative" | tr -cd '/' | wc -c | tr -d ' ')
-    # If dotdots > depth, the target escapes the subrepo
     if [ "$dotdots" -gt "$depth" ]; then
-      echo "ESCAPE: $subrepo: $symlink -> $target  (target leaves subrepo)"
+      echo "ESCAPE: $subrepo: ./$symlink -> $target  (target leaves subrepo)"
       escape_count=$((escape_count + 1))
     fi
-  done < <(find "$subrepo" -type l -not -path "*/node_modules/*" -not -path "*/.git/*" 2>/dev/null)
+  done
 done
 
 echo "escape-symlinks in subrepos: $escape_count"
