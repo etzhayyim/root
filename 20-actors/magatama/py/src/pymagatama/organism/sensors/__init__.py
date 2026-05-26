@@ -28,6 +28,8 @@ from pymagatama.organism.sensors.base import (
     now_ms,
 )
 from pymagatama.organism.sensors.caida_sensor import CaidaSensor
+from pymagatama.organism.sensors.commoncrawl_cdx_sensor import CommonCrawlCdxSensor
+from pymagatama.organism.sensors.czds_sensor import CzdsSensor
 from pymagatama.organism.sensors.geolite2_sensor import Geolite2Sensor
 from pymagatama.organism.sensors.iana_root_sensor import IanaRootSensor
 from pymagatama.organism.sensors.openintel_sensor import OpenIntelSensor
@@ -47,6 +49,8 @@ from pymagatama.organism.sensors.tier_gate import SinkClassification, TierGate
 
 __all__ = [
     "CaidaSensor",
+    "CommonCrawlCdxSensor",
+    "CzdsSensor",
     "DatasetPin",
     "DatasetSensor",
     "Geolite2Sensor",
