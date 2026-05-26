@@ -31,6 +31,14 @@ on:
       - 'pnpm-workspace.yaml'
       - 'pnpm-lock.yaml'
       - '.github/workflows/kami-engine-sdk.yml'
+  # Manual trigger from the GitHub Actions UI. Useful for:
+  #   - auditing a stale branch that pre-dates the workflow's existence
+  #   - re-running after a known-good lockfile / workspace fix in a
+  #     situation where the path filter wouldn't normally trigger
+  #   - debugging — re-running with debug logging enabled
+  # No inputs required; the workflow runs against the branch from which
+  # it was dispatched.
+  workflow_dispatch: {}
 
 permissions:
   contents: read
