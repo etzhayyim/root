@@ -22,3 +22,13 @@ e7m-dataset = "e7m_dataset.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+# Disable the langsmith pytest plugin at autoload time. langsmith
+# imports pydantic at module-load, and on machines with the system
+# Python 3.14 pydantic-core/pydantic versions out of sync this
+# crashes pytest collection before any test code runs. Disabling
+# its plugin (we don't use langsmith in tests here) sidesteps the
+# whole problem without touching the env. Alternative for ad-hoc
+# invocations: PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest ...
+addopts = "-p no:langsmith_plugin"
