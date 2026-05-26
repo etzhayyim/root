@@ -1,6 +1,6 @@
 ---
-id: adr-2605262100-kotoba-storage-substrate-unification
-title: "ADR-2605262100: Kotoba as Canonical Storage Substrate — supersedes yatachain composition + projection layers; no RisingWave"
+id: adr-2605262130-kotoba-storage-substrate-unification
+title: "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes yatachain composition + projection layers; no RisingWave"
 status: proposed
 doc_type: adr
 topic: storage-substrate
@@ -40,7 +40,7 @@ supersedes:
 superseded_by: []
 ---
 
-# ADR-2605262100: Kotoba as Canonical Storage Substrate
+# ADR-2605262130: Kotoba as Canonical Storage Substrate
 
 **Status**: proposed
 **Date**: 2026-05-26

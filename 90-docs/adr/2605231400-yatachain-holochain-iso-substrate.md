@@ -1,6 +1,6 @@
 ---
 id: adr-2605231400-yatachain-holochain-iso-substrate
-title: "ADR-2605231400: yatachain — Holochain-isomorphic substrate over LangGraph + IPFS + atproto (SUPERSEDED by 2605262100)"
+title: "ADR-2605231400: yatachain — Holochain-isomorphic substrate over LangGraph + IPFS + atproto (SUPERSEDED by 2605262130)"
 status: superseded
 doc_type: adr
 topic: yatachain-substrate
@@ -24,7 +24,7 @@ related:
   - 2605222330-etzhayyim-com-substrate-violation-transition-window
 supersedes: []
 superseded_by:
-  - 2605262100-kotoba-storage-substrate-unification
+  - 2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605231400: yatachain — Holochain-isomorphic substrate over LangGraph + IPFS + atproto

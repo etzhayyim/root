@@ -1,4 +1,4 @@
-> **DEPRECATED 2026-05-26** — Superseded by ADR-2605262100 (Kotoba as
+> **DEPRECATED 2026-05-26** — Superseded by ADR-2605262130 (Kotoba as
 > Canonical Storage Substrate). Retained as historical reference for one
 > R-cycle, then archived. No new code references this spec.
 

@@ -1,6 +1,6 @@
 ---
 id: adr-2605101000-bigquery-p2-projection-design
-title: BigQuery Public Data P2 Projection Design (SUPERSEDED by 2605262100)
+title: BigQuery Public Data P2 Projection Design (SUPERSEDED by 2605262130)
 status: superseded
 doc_type: adr
 topic: bigquery-public-data-p2-projection
@@ -17,7 +17,7 @@ related:
   - 90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md
 supersedes: []
 superseded_by:
-  - 2605262100-kotoba-storage-substrate-unification
+  - 2605262130-kotoba-storage-substrate-unification
 ---
 
 # Goal

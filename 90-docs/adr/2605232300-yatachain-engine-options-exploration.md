@@ -1,6 +1,6 @@
 ---
 id: adr-2605232300-yatachain-engine-options-exploration
-title: "ADR-2605232300: yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262100)"
+title: "ADR-2605232300: yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262130)"
 status: superseded
 doc_type: adr
 topic: yatachain-engine
@@ -24,7 +24,7 @@ related:
   - 2605171300-magatama-unispsc-langgraph-agents
 supersedes: []
 superseded_by:
-  - 2605262100-kotoba-storage-substrate-unification
+  - 2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605232300: yatachain — engine architecture options exploration
