@@ -5543,6 +5543,55 @@ kind = "model-registry"
 status = "r1.5-deliverable"
 description = "moemoekyun adapter / merged checkpoint registry (sibling of distilled-models.jsonl per ADR-2605231300 §3). Separate from distilled-models.jsonl because moemoekyun has G12 SBT-gated inference policy + G13 distribution boundary."
 
+
+# ─── CHARTER-RIDER §2(i) train carve-out amendment for baien-server-* / baien-XL-* (ADR-2605262200) ──
+
+[[adrs]]
+id = "2605262200"
+title = "CHARTER-RIDER §2(i) amendment — train-only commercial GPU rental carve-out for baien-server-* / baien-XL-* (inference invariant unchanged)"
+status = "proposed-pending-council-ratification"
+status_note = "CONSTITUTIONAL AMENDMENT proposal for CHARTER-RIDER.md §2(i). Adds §2(i)(2) train carve-out: commercial GPU rental MAY be used for training/fine-tuning/distillation/RL/federated aggregation of baien-server-* / baien-XL-* artifacts only, subject to (1) inference of resulting artifacts still flows exclusively through Murakumo fleet per §2(i)(1) UNCHANGED; (2) per-rental yatachain attestation MANDATORY pre-flight (app.etzhayyim.train.rentalAttestation Lexicon — vendor + GPU model+count + expected wall + expected USD cost + target dataset CIDs + Charter Rider §2(a)-(h) scan PASS + attesting DID); (3) per-rental post-flight cost log MANDATORY within 24h (app.etzhayyim.train.rentalCostLog Lexicon — actual wall + actual USD + output checkpoint CID + IPFS pin verify CID); (4) vendor scope = reputable commercial (RunPod/Lambda/CoreWeave/Vast.ai equivalents), §2(a)-(h) Non-Aligned Entity criteria applies to vendor; (5) burst-only — continuous rental >7 days requires Council Lv6+ ≥4/7 per-incident approval; (6) other actor scope explicitly NOT included (yakushi/wadachi/silicon/sim/manufacturing/baien-edge/all baien-no-infix remain Murakumo-only per §2(i)(1)); (7) Charter Rider §2(a)-(h) substantive constraints apply identically to rental-train artifacts. Procedural path: P0 today proposed + ADR commit / P1 2026-05-26→2026-06-19 Bootstrap Council Seats 2-5 RFP / P2 2026-06-19+ Council Lv6+ ratification vote ≥4/7 seats / P3 P2+30-day public objection / P4 earliest 2026-07-19 effective + CHARTER-RIDER.md text rewrite. Founder Lv7+ emergency authorization explicitly NOT taken (institutional integrity over R&D urgency, R1.4 grade EVO-X2 unblocked). Interim: ADR-2605262300 (R2+ RunPod B200 architecture) status proposed-gated-on-this-amendment; R1.4 EVO-X2 single continues per ADR-2605262100 無風."
+path = "90-docs/adr/2605262200-charter-rider-2i-baien-train-rental-carveout.md"
+
+
+# ─── baien-moemoekyun R2+ RunPod B200 train architecture (ADR-2605262300, gated on 2605262200) ──
+
+[[adrs]]
+id = "2605262300"
+title = "baien-moemoekyun R2+ train architecture on commercial GPU rental (B200 SXM sparse FP4/FP8/BF16 precision ladder; inference path UNCHANGED Murakumo-only)"
+status = "proposed-gated-on-2605262200-ratification"
+status_note = "Sibling of ADR-2605262200 (charter amendment). Specifies R2/R3/R4 train architecture on commercial GPU rental. Hardware = B200 SXM primary (Blackwell, ~4500 TFLOPS BF16 / ~9000 FP8 / ~18000 sparse FP4 peak; HBM3e 192GB), H100 SXM fallback (~1979 BF16 / ~3958 FP8 peak; HBM3 80GB). Precision ladder R2 BF16 baseline (engineering 0, R4 wall ~3.6h $25 on B200) → R3 FP8 mixed-precision via TransformerEngine (MoE experts only, BitNet backbone BF16 unchanged; engineering 1-2 weeks; R4 wall ~1.8h $13) → R4 sparse FP4 with 2:4 structured sparsity + TransformerEngine FP4 (Blackwell-only; engineering 3-4 weeks; R4 wall ~50min $6). Checkpoint pipeline: rented GPU → HuggingFace Hub (Tier A/B Apache/MIT) OR direct rsync to mac-260317 (Tier C G13) → ipfs add via mac-260317 → publish-ipfs CID → Murakumo fleet pull → llama.cpp/Ollama serve → judah LiteLLM gateway route to SBT-gated clients (ADR-2605231525). Per-rental Lexicons app.etzhayyim.train.rentalAttestation (pre-flight) + rentalCostLog (post-flight). Cost/wall budget caps: single session ≤24h ≤$200, monthly aggregate ≤100h ≤$1000, continuous >7 days = Council Lv6+ per-incident. Runbook deliverable 70-tools/baien-moemoekyun-train/scripts/rental-orchestrator.py. Inference architecture UNCHANGED (Mac mini fleet + EVO-X2 + judah LiteLLM per ADR-2605215000 §2(i)(1))."
+path = "90-docs/adr/2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture.md"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/train/rentalAttestation.json"
+adr = "ADR-2605262300"
+kind = "lexicon-schema"
+status = "r2.0-deliverable"
+description = "Pre-flight attestation Lexicon for commercial GPU rental train run under CHARTER-RIDER §2(i)(2). Fields: vendor + gpuModel + gpuCount + expectedWallMinutes + expectedUsdCost + datasetCidsTrain + datasetCidsEval + modelTier + modelArtifactName + precisionMode + charterRiderScanPass + charterRiderScanRunCid + attestingDid + trainAdrRef. Records emitted to PDS before rental instance start, mandatory per §2(i)(2)(2)."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/train/rentalCostLog.json"
+adr = "ADR-2605262300"
+kind = "lexicon-schema"
+status = "r2.0-deliverable"
+description = "Post-flight cost+outcome log Lexicon for commercial GPU rental train run. Fields: rentalAttestationUri + actualWallMinutes + actualUsdCost + outputCheckpointCid + ipfsPinVerifyCid + evalMetrics (langgraphCodingPass1 / humanevalplusPass1 / mbppPlusPass1) + commitDecision + registryEntry + attestingDid. Records emitted within 24h of rental termination, mandatory per §2(i)(2)(3)."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/scripts/rental-orchestrator.py"
+adr = "ADR-2605262300"
+kind = "rental-orchestrator"
+status = "r2.0-deliverable"
+description = "Rental train orchestrator: charter-rider scan → rentalAttestation publish → vendor.start_instance → run train script → fetch checkpoint → e7m-dataset add (IPFS pin) → e7m-dataset verify → fleet eval (Mac mini split-role) → commit_gate → rentalCostLog publish. Wrapper invokes vendor-specific provisioning (RunPod/Lambda/CoreWeave) via vendor SDK or REST API."
+
+[[modules]]
+path = "90-docs/runbooks/baien-moemoekyun-runpod-bringup.md"
+adr = "ADR-2605262300"
+kind = "operator-runbook"
+status = "r2.0-deliverable"
+description = "Operator runbook for first RunPod B200 train session post amendment effective. Steps: pre-flight checks (Charter Rider scan dataset CIDs, attestation publish dryRun verify) → provisioning (RunPod web UI or API) → train invocation (configs/r2-iter01.yaml) → checkpoint fetch (rsync from rental) → IPFS pin on mac-260317 → fleet eval → commit_gate → cost log emit → instance terminate. Covers both success path + failure recovery (cost budget overrun → hard-kill / engineering failure → abort + cost log emit with commitDecision=aborted-engineering-failure)."
+
+
 # ─── kotoba storage substrate unification R0 (ADR-2605262130) ──
 
 [[adrs]]

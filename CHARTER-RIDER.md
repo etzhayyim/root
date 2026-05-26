@@ -109,6 +109,13 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        cognitive sovereignty of those populations.
 
    (i) COMMERCIAL GPU RENTAL FOR RELIGIOUS-CORP INFERENCE (added in v2.0).
+
+       AMENDMENT PENDING (proposed 2026-05-26 per ADR-2605262200; Council Lv6+
+       supermajority + 30-day public objection period required; earliest
+       effective ~2026-07-19): a train-only carve-out for baien-server-* /
+       baien-XL-* artifacts (NOT inference, NOT other actors). Until effective,
+       the original text below remains binding for all train + inference.
+
        etzhayyim inference workloads for religious-corp callable paths (LLM,
        vision, audio, video, training, fine-tuning, embedding, SAR analysis)
        MUST execute exclusively on the Murakumo distributed fleet as defined in
