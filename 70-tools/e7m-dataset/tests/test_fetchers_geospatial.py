@@ -15,12 +15,20 @@ import pytest
 
 from e7m_dataset.fetchers import (
     hf_3d_nc,
+    mapillary,
     ms_buildings,
     openusd_samples,
     overture,
     sentinel2,
     srtm,
     usgs_3dep,
+)
+from e7m_dataset.vision_pii_filter import (
+    DetectionBox,
+    StubBackendConfig,
+    StubVisionPiiBackend,
+    VisionPiiBackendUnavailable,
+    VisionPiiFilter,
 )
 
 
@@ -459,6 +467,129 @@ def test_openusd_fetch_streams_archive_and_computes_sha256(tmp_path):
     assert result.source["license"] == "Apache-2.0"
     assert result.source["slug"] == "kitchen-set"
     assert result.source["explicit_url"] is False
+
+
+# ─── Mapillary (Tier-C, G13 / G2 vision PII filter required) ────────
+
+
+def _tiny_jpeg() -> bytes:
+    """Make a small 32x24 RGB JPEG for mapillary fetch smoke."""
+    from PIL import Image
+    import io as _io
+    img = Image.new("RGB", (32, 24), color=(60, 80, 100))
+    buf = _io.BytesIO()
+    img.save(buf, format="JPEG")
+    return buf.getvalue()
+
+
+def test_mapillary_refuses_without_vision_pii_filter(tmp_path):
+    """G2 enforcement at the fetcher boundary."""
+    with pytest.raises(VisionPiiBackendUnavailable, match="vision_pii_filter"):
+        mapillary.fetch(
+            tmp_path,
+            mapillary.MapillaryFetchOpts(
+                bbox=(139.69, 35.65, 139.71, 35.67),
+                token="fake-token-for-test",
+                vision_pii_filter=None,
+            ),
+        )
+
+
+def test_mapillary_fetch_with_stub_pii_redacts_and_pins_originals(tmp_path):
+    """End-to-end smoke: stub PII filter + 2 fake images → 1 redacted + 1 rejected."""
+    img_bytes = _tiny_jpeg()
+    list_resp = {
+        "data": [
+            {"id": "img_001_safe", "captured_at": 1700000000, "thumb_2048_url": "https://example.invalid/img1.jpg"},
+            {"id": "img_002_child", "captured_at": 1700000100, "thumb_2048_url": "https://example.invalid/img2.jpg"},
+        ]
+    }
+
+    def handler(req: httpx.Request) -> httpx.Response:
+        url = str(req.url)
+        if "graph.mapillary.com/images" in url:
+            return httpx.Response(200, json=list_resp)
+        if url.endswith(".jpg"):
+            return httpx.Response(200, content=img_bytes)
+        return httpx.Response(404)
+
+    # Stub backend will report a child face for img_002_child by mutating
+    # config mid-fetch via a side-effect helper.
+    class _SwitchingBackend:
+        name = "stub-allow"
+
+        def __init__(self):
+            self._call_idx = 0
+
+        def detect_faces(self, b):
+            return [DetectionBox(x=4, y=4, w=8, h=8, score=0.9, label="face")]
+
+        def detect_plates(self, b):
+            return []
+
+        def estimate_child_face_count(self, b, faces):
+            self._call_idx += 1
+            # The 1st detected image is adult; the 2nd has a child.
+            return 1 if self._call_idx == 2 else 0
+
+    vpf = VisionPiiFilter(backend=_SwitchingBackend(), allow_stub=True)
+
+    with httpx.Client(transport=httpx.MockTransport(handler)) as client:
+        result = mapillary.fetch(
+            tmp_path,
+            mapillary.MapillaryFetchOpts(
+                bbox=(139.69, 35.65, 139.71, 35.67),
+                token="fake-token-for-test",
+                vision_pii_filter=vpf,
+                client=client,
+            ),
+        )
+
+    assert result.name.startswith("mapillary:")
+    assert result.source["license"] == "CC-BY-SA-4.0"
+    assert result.source["tier"] == "C"
+    assert result.source["g13_nc_infix_required_in_artifacts"] is True
+    assert result.source["n_fetched"] == 1
+    assert result.source["n_rejected_for_child"] == 1
+    # The redacted view exists for the safe image, NOT for the rejected one.
+    redacted_imgs = sorted(p.name for p in (result.staging_path / "images").iterdir())
+    assert redacted_imgs == ["img_001_safe.jpg"]
+    # Both originals are preserved in annex (Council-attestation-gated unlock per §5).
+    annex_imgs = sorted(p.name for p in (result.staging_path / "annex").iterdir())
+    assert annex_imgs == ["img_001_safe.jpg", "img_002_child.jpg"]
+    # Detection records for both; rejection record only for the child case.
+    det_records = sorted(p.name for p in (result.staging_path / "detections").iterdir())
+    assert det_records == ["img_001_safe.json", "img_002_child.json"]
+    rej_records = sorted(p.name for p in (result.staging_path / "rejected").iterdir())
+    assert rej_records == ["img_002_child.json"]
+
+
+def test_mapillary_bbox_slug_stable():
+    s1 = mapillary._bbox_slug((139.69, 35.65, 139.71, 35.67))
+    s2 = mapillary._bbox_slug((139.69, 35.65, 139.71, 35.67))
+    assert s1 == s2
+    assert "139" in s1 and "35" in s1
+
+
+def test_mapillary_max_images_capped():
+    assert mapillary._cap_image_count(50) == 50
+    assert mapillary._cap_image_count(mapillary.ABSOLUTE_MAX_IMAGES + 9999) == mapillary.ABSOLUTE_MAX_IMAGES
+    with pytest.raises(ValueError):
+        mapillary._cap_image_count(0)
+
+
+def test_mapillary_requires_token(tmp_path, monkeypatch):
+    monkeypatch.delenv("MAPILLARY_TOKEN", raising=False)
+    monkeypatch.delenv("ETZ_MAPILLARY_TOKEN", raising=False)
+    vpf = VisionPiiFilter(backend=StubVisionPiiBackend(), allow_stub=True)
+    with pytest.raises(ValueError, match="Mapillary token required"):
+        mapillary.fetch(
+            tmp_path,
+            mapillary.MapillaryFetchOpts(
+                bbox=(0, 0, 1, 1),
+                vision_pii_filter=vpf,
+            ),
+        )
 
 
 def test_usgs_3dep_fetch_streams_tif(tmp_path):

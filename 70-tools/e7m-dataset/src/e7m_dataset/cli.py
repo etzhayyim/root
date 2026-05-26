@@ -15,6 +15,7 @@ from .fetchers import FetchResult
 from .fetchers import geonames as geonames_fetcher
 from .fetchers import hf as hf_fetcher
 from .fetchers import hf_3d_nc as hf_3d_nc_fetcher
+from .fetchers import mapillary as mapillary_fetcher
 from .fetchers import ms_buildings as ms_buildings_fetcher
 from .fetchers import openusd_samples as openusd_samples_fetcher
 from .fetchers import osm as osm_fetcher
@@ -242,6 +243,30 @@ def _cmd_pull_ms_buildings(args: argparse.Namespace) -> int:
         ms_buildings_fetcher.MsBuildingsFetchOpts(
             country=args.country,
             quadkey=args.quadkey,
+        ),
+    )
+    _print_fetch_result(result)
+    return 0
+
+
+def _cmd_pull_mapillary(args: argparse.Namespace) -> int:
+    from .vision_pii_filter import VisionPiiFilter
+    p = paths.resolve()
+    p.staging.mkdir(parents=True, exist_ok=True)
+    # Build PII filter from env (operator MUST configure ETZ_VISION_PII_BACKEND).
+    vpf = VisionPiiFilter(allow_stub=args.allow_stub_pii_for_dryrun)
+    bbox = tuple(args.bbox)
+    if len(bbox) != 4:
+        print("mapillary: --bbox requires 4 floats (west south east north)", file=sys.stderr)
+        return 2
+    result = mapillary_fetcher.fetch(
+        p.staging,
+        mapillary_fetcher.MapillaryFetchOpts(
+            bbox=bbox,
+            token=args.token,
+            capture_date_range=args.capture_date_range,
+            vision_pii_filter=vpf,
+            max_images=args.max_images,
         ),
     )
     _print_fetch_result(result)
@@ -595,6 +620,14 @@ def main(argv: list[str] | None = None) -> int:
     sub_pull_msb.add_argument("--country", help="MS Location slug (e.g. 'Japan'). One of --country / --quadkey required.")
     sub_pull_msb.add_argument("--quadkey", help="Explicit quadkey (overrides --country)")
     sub_pull_msb.set_defaults(func=_cmd_pull_ms_buildings)
+
+    sub_pull_map = pull_sub.add_parser("mapillary", help="Fetch a Mapillary street-imagery bbox slice (Tier C / G13; vision PII filter MANDATORY per ADR-2605262500 §5)")
+    sub_pull_map.add_argument("--bbox", type=float, nargs=4, metavar=("WEST", "SOUTH", "EAST", "NORTH"), required=True)
+    sub_pull_map.add_argument("--token", help="Mapillary token (or set MAPILLARY_TOKEN env)")
+    sub_pull_map.add_argument("--capture-date-range", help='Capture date filter (e.g. "2023-04-01")')
+    sub_pull_map.add_argument("--max-images", type=int, default=mapillary_fetcher.DEFAULT_MAX_IMAGES)
+    sub_pull_map.add_argument("--allow-stub-pii-for-dryrun", action="store_true", help="Use stub PII backend (tests / dry-runs only; requires ETZ_VISION_PII_ALLOW_STUB=1)")
+    sub_pull_map.set_defaults(func=_cmd_pull_mapillary)
 
     sub_pull_nc = pull_sub.add_parser("hf-3d-nc", help="Fetch a NC-licensed 3D-asset bundle from HF Hub (Tier C / G13 fleet-internal; ADR-2605262500 §2)")
     sub_pull_nc.add_argument("--slug", help=f"NC repo slug. Known: {sorted(hf_3d_nc_fetcher.KNOWN_NC_REPOS)}")

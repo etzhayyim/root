@@ -136,6 +136,26 @@ def main():
                 pad_token_id=tokenizer.eos_token_id or 0,
             )
         gen = tokenizer.decode(out[0][ids["input_ids"].shape[1]:], skip_special_tokens=True)
+        # Strip markdown code fences if BitNet generated them (instruction-tuned style):
+        #   "```python\n<code>\n```" → "<code>"
+        #   trailing "```" anywhere → cut
+        if "```" in gen:
+            # Extract code between first ```python (or ```) and next ```
+            import re
+            m = re.search(r"```(?:python|py)?\s*\n?(.*?)(?:\n```|```|$)", gen, re.DOTALL)
+            if m:
+                gen = m.group(1)
+            else:
+                gen = gen.split("```")[0]
+        # Cut at next top-level def/class (avoid spurious extra definitions)
+        cut_lines = []
+        for ln in gen.splitlines():
+            if cut_lines and ln and not ln.startswith((" ", "\t", "#")) and (
+                ln.lstrip().startswith("def ") or ln.lstrip().startswith("class ")
+            ):
+                break
+            cut_lines.append(ln)
+        gen = "\n".join(cut_lines)
         code = prompt + gen  # full executable
 
         # Exec test
