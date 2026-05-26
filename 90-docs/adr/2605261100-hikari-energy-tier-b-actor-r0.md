@@ -16,8 +16,18 @@ related:
   - 2605192245-etzhayyim-global-land-sovereignty.md
   - 2605201400-kuni-umi-tier-b-planetary-infrastructure.md
   - 2605242500-baien-iwakura-ternary-asic.md
+  - 2605263500-energy-substrate-dependency-vs-substance-reframing.md
 supersedes: []
 superseded_by: []
+superseded_by_partial:
+  - adr: 2605263500-energy-substrate-dependency-vs-substance-reframing
+    scope:
+      - "§G4 (no nuclear at any tier ever) — re-framed onto D1+D2+D4 grounds; fission/RTG/weapons-grade ban preserved; fusion newly permitted under §2.3 conditions of 2605263400"
+      - "§G5 (no fossil fuel at any tier ever) — re-framed onto D1+D3 grounds + Charter Rider §2(d); commercial fossil extraction ban preserved; microbial hydrocarbon biosynthesis (closed-loop atmospheric CO₂) newly permitted under §2.2 conditions of 2605263400"
+      - "§N1 + §N2 — re-stated under §2.4 of 2605263400 on independent grounds"
+    status: proposed-pending-council-ratification
+    effective_earliest: 2026-07-19
+    note: "Rest of hikari R0 charter (G1-G3, G6-G14, N3-N10, cells, lexicons, roadmap) PRESERVED unchanged."
 depends_on:
   - ADR-2605261000 (Liberation Ladder — defines hikari as L2 gate)
   - ADR-2605192100 (Mission Charter)

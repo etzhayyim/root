@@ -9190,8 +9190,8 @@
         "choice-card reveal UX contract (narration-gated, fade-in + scale pop)",
         "selection deadline policy (30s post-narration, inaction auto-fire)",
         "cyber-drill scenario authoring contract (IncidentNode.effects)",
-        "@etzhayyim/kami-engine-sdk/webvr public surface for incident drills",
-        "@etzhayyim/kami-engine-sdk/spark scene-attachable splat layer API"
+        "@etzhayyim/kami-engine-sdk/webvr headless engine public surface for incident drills (three.js renderer vendorized into 60-apps/ai-gftd-project-cyber-drill/svelte/src/lib/three-renderer/ on 2026-05-26)",
+        "cyber-drill / vendor / $lib/three-renderer — scene-attachable splat layer + per-node effect registry (formerly @etzhayyim/kami-engine-sdk/spark; vendorized 2026-05-26 to enforce 独自レンダラ禁止 in religious-corp SDK)"
       ],
       "related": [
         "adr-2605082000-langgraph-graph-definition-as-data",

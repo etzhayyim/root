@@ -15,6 +15,7 @@ from .fetchers import FetchResult
 from .fetchers import geonames as geonames_fetcher
 from .fetchers import hf as hf_fetcher
 from .fetchers import hf_3d_nc as hf_3d_nc_fetcher
+from .fetchers import mapillary as mapillary_fetcher
 from .fetchers import ms_buildings as ms_buildings_fetcher
 from .fetchers import openusd_samples as openusd_samples_fetcher
 from .fetchers import osm as osm_fetcher
@@ -248,6 +249,30 @@ def _cmd_pull_ms_buildings(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_pull_mapillary(args: argparse.Namespace) -> int:
+    from .vision_pii_filter import VisionPiiFilter
+    p = paths.resolve()
+    p.staging.mkdir(parents=True, exist_ok=True)
+    # Build PII filter from env (operator MUST configure ETZ_VISION_PII_BACKEND).
+    vpf = VisionPiiFilter(allow_stub=args.allow_stub_pii_for_dryrun)
+    bbox = tuple(args.bbox)
+    if len(bbox) != 4:
+        print("mapillary: --bbox requires 4 floats (west south east north)", file=sys.stderr)
+        return 2
+    result = mapillary_fetcher.fetch(
+        p.staging,
+        mapillary_fetcher.MapillaryFetchOpts(
+            bbox=bbox,
+            token=args.token,
+            capture_date_range=args.capture_date_range,
+            vision_pii_filter=vpf,
+            max_images=args.max_images,
+        ),
+    )
+    _print_fetch_result(result)
+    return 0
+
+
 def _cmd_pull_hf_3d_nc(args: argparse.Namespace) -> int:
     p = paths.resolve()
     p.staging.mkdir(parents=True, exist_ok=True)
@@ -470,6 +495,69 @@ def _cmd_add(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_assemble_corpus(args: argparse.Namespace) -> int:
+    """Delegate to the standalone assembler script.
+
+    Per ADR-2605262400 §4. The implementation lives at
+    `70-tools/baien-moemoekyun-train/scripts/assemble-public-corpus.py`
+    (a single file so operators can also call it directly without the
+    e7m-dataset CLI). This verb is the canonical operator entry point.
+
+    Resolution order for the assembler script:
+      1. ETZ_ASSEMBLE_SCRIPT env var (operator override).
+      2. Repo-root walk-up looking for the standard path.
+      3. Fail with a clear "couldn't locate" error.
+    """
+    import importlib.util
+    import os
+    import sys as _sys
+
+    override = os.environ.get("ETZ_ASSEMBLE_SCRIPT")
+    candidates: list[Path] = []
+    if override:
+        candidates.append(Path(override))
+    here = Path.cwd().resolve()
+    for parent in [here, *here.parents]:
+        candidates.append(
+            parent
+            / "70-tools" / "baien-moemoekyun-train"
+            / "scripts" / "assemble-public-corpus.py"
+        )
+    asm_path: Path | None = None
+    for c in candidates:
+        if c.is_file():
+            asm_path = c
+            break
+
+    if asm_path is None:
+        print(
+            "e7m-dataset: couldn't locate assemble-public-corpus.py. "
+            "Set ETZ_ASSEMBLE_SCRIPT or run from inside the etzhayyim-root tree.",
+            file=sys.stderr,
+        )
+        return 2
+
+    spec = importlib.util.spec_from_file_location(
+        "_e7m_dataset_assembler", asm_path
+    )
+    if spec is None or spec.loader is None:
+        print(f"e7m-dataset: could not build module spec for {asm_path}", file=sys.stderr)
+        return 2
+    mod = importlib.util.module_from_spec(spec)
+    _sys.modules[spec.name] = mod
+    spec.loader.exec_module(mod)
+
+    # Replay the assembler's CLI argv contract.
+    argv: list[str] = ["--recipe", str(args.recipe)]
+    if args.annex_root is not None:
+        argv += ["--annex-root", str(args.annex_root)]
+    if args.out_dir is not None:
+        argv += ["--out-dir", str(args.out_dir)]
+    if args.dry_run:
+        argv.append("--dry-run")
+    return mod.main(argv)
+
+
 def _cmd_verify(args: argparse.Namespace) -> int:
     p = paths.resolve()
     remote_root = p.subdataset_annex_dir(args.subdataset)
@@ -596,6 +684,14 @@ def main(argv: list[str] | None = None) -> int:
     sub_pull_msb.add_argument("--quadkey", help="Explicit quadkey (overrides --country)")
     sub_pull_msb.set_defaults(func=_cmd_pull_ms_buildings)
 
+    sub_pull_map = pull_sub.add_parser("mapillary", help="Fetch a Mapillary street-imagery bbox slice (Tier C / G13; vision PII filter MANDATORY per ADR-2605262500 §5)")
+    sub_pull_map.add_argument("--bbox", type=float, nargs=4, metavar=("WEST", "SOUTH", "EAST", "NORTH"), required=True)
+    sub_pull_map.add_argument("--token", help="Mapillary token (or set MAPILLARY_TOKEN env)")
+    sub_pull_map.add_argument("--capture-date-range", help='Capture date filter (e.g. "2023-04-01")')
+    sub_pull_map.add_argument("--max-images", type=int, default=mapillary_fetcher.DEFAULT_MAX_IMAGES)
+    sub_pull_map.add_argument("--allow-stub-pii-for-dryrun", action="store_true", help="Use stub PII backend (tests / dry-runs only; requires ETZ_VISION_PII_ALLOW_STUB=1)")
+    sub_pull_map.set_defaults(func=_cmd_pull_mapillary)
+
     sub_pull_nc = pull_sub.add_parser("hf-3d-nc", help="Fetch a NC-licensed 3D-asset bundle from HF Hub (Tier C / G13 fleet-internal; ADR-2605262500 §2)")
     sub_pull_nc.add_argument("--slug", help=f"NC repo slug. Known: {sorted(hf_3d_nc_fetcher.KNOWN_NC_REPOS)}")
     sub_pull_nc.add_argument("--explicit-owner", help="Operator-supplied HF owner (requires --explicit-nc-acknowledged)")
@@ -649,6 +745,31 @@ def main(argv: list[str] | None = None) -> int:
     sub_verify.add_argument("--max-entries", type=int, default=0, help="Cap entries to check (0 = all)")
     sub_verify.add_argument("--verbose", action="store_true", help="Include per-entry detail in the output")
     sub_verify.set_defaults(func=_cmd_verify)
+
+    # ── assemble-corpus — cold-path corpus assembler (ADR-2605262400 §4) ──
+    sub_asm = sub.add_parser(
+        "assemble-corpus",
+        help="Stream source subdatasets through Charter §2 + PII filter and emit typed NDJSON corpus shards per recipe (ADR-2605262400 §4)",
+    )
+    sub_asm.add_argument("--recipe", required=True, type=Path, help="Path to a corpus-recipe.toml file")
+    sub_asm.add_argument(
+        "--annex-root",
+        type=Path,
+        default=None,
+        help="Annex-store root holding the source subdatasets (default: ${ETZ_DATASET_ROOT}/annex-store)",
+    )
+    sub_asm.add_argument(
+        "--out-dir",
+        type=Path,
+        default=None,
+        help="Override output staging dir (default: ${ETZ_DATASET_ROOT}/datasets-staging/<output_subdataset>)",
+    )
+    sub_asm.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Validate recipe + emit summary, do NOT resolve pins or stream shards",
+    )
+    sub_asm.set_defaults(func=_cmd_assemble_corpus)
 
     args = parser.parse_args(argv)
     return args.func(args)

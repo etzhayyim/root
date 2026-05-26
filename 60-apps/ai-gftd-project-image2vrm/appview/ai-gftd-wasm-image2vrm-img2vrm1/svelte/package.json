@@ -9,9 +9,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@etzhayyim/kami-engine-sdk": "workspace:*",
-    "@pixiv/three-vrm": "^3.5.1",
-    "three": "^0.170.0"
+    "@etzhayyim/kami-engine-sdk": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.10",

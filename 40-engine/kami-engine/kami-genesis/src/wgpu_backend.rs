@@ -349,6 +349,143 @@ impl WgpuBackend {
         readback_buf.unmap();
         Ok(())
     }
+
+    /// N steps on the GPU with persistent state — uploads + readback once,
+    /// dispatches N kernels in the same submission with implicit barriers
+    /// between passes. Mirrors `step_vectorized` semantics applied N times
+    /// with the SAME action vector across all steps.
+    ///
+    /// Per ADR-2605261800 R1.2 spec: collapses per-step round-trip overhead
+    /// (1.7 ms/dispatch baseline measured in `cartpole_gpu_overhead_profile.rs`)
+    /// into single-submit / single-readback. Theoretical speedup ≈ N×.
+    pub fn step_n(
+        &self,
+        states: &mut [CartpoleState],
+        actions: &[f32],
+        cfg: &CartpoleConfig,
+        n_steps: usize,
+    ) -> Result<(), String> {
+        pollster::block_on(self.step_n_async(states, actions, cfg, n_steps))
+    }
+
+    async fn step_n_async(
+        &self,
+        states: &mut [CartpoleState],
+        actions: &[f32],
+        cfg: &CartpoleConfig,
+        n_steps: usize,
+    ) -> Result<(), String> {
+        if states.len() != actions.len() {
+            return Err(format!(
+                "states.len() ({}) != actions.len() ({})",
+                states.len(),
+                actions.len()
+            ));
+        }
+        let n = states.len() as u32;
+        if n == 0 || n_steps == 0 {
+            return Ok(());
+        }
+
+        let gpu_states: Vec<GpuState> = states.iter().map(Into::into).collect();
+        let states_bytes = bytemuck::cast_slice(&gpu_states);
+        let actions_bytes = bytemuck::cast_slice(actions);
+        let gpu_cfg = GpuCfg {
+            cart_mass: cfg.cart_mass,
+            pole_mass: cfg.pole_mass,
+            pole_half_length: cfg.pole_half_length,
+            gravity: cfg.gravity,
+            force_mag: cfg.force_mag,
+            dt: cfg.dt,
+            num_envs: n,
+            _pad: 0,
+        };
+
+        let states_buf = self.device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("kami-genesis-step-n-states"),
+            contents: states_bytes,
+            usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
+        });
+        let actions_buf = self.device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("kami-genesis-step-n-actions"),
+            contents: actions_bytes,
+            usage: wgpu::BufferUsages::STORAGE,
+        });
+        let cfg_buf = self.device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("kami-genesis-step-n-cfg"),
+            contents: bytemuck::bytes_of(&gpu_cfg),
+            usage: wgpu::BufferUsages::UNIFORM,
+        });
+        let readback_buf = self.device.create_buffer(&wgpu::BufferDescriptor {
+            label: Some("kami-genesis-step-n-readback"),
+            size: states_bytes.len() as u64,
+            usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
+            mapped_at_creation: false,
+        });
+
+        let bind_group = self.device.create_bind_group(&wgpu::BindGroupDescriptor {
+            label: Some("kami-genesis-step-n-bg"),
+            layout: &self.cartpole_bgl,
+            entries: &[
+                wgpu::BindGroupEntry {
+                    binding: 0,
+                    resource: states_buf.as_entire_binding(),
+                },
+                wgpu::BindGroupEntry {
+                    binding: 1,
+                    resource: actions_buf.as_entire_binding(),
+                },
+                wgpu::BindGroupEntry {
+                    binding: 2,
+                    resource: cfg_buf.as_entire_binding(),
+                },
+            ],
+        });
+
+        let mut encoder = self
+            .device
+            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                label: Some("kami-genesis-step-n-encoder"),
+            });
+        let workgroup_count = n.div_ceil(64);
+
+        // N back-to-back compute passes in the same encoder. Each pass's
+        // `cpass` Drop ends the pass which inserts a storage-buffer barrier,
+        // so the next pass sees the previous step's writes (read-modify-write
+        // on `states` storage buffer is the read-after-write dep).
+        for step_idx in 0..n_steps {
+            let mut cpass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
+                label: Some("kami-genesis-step-n-pass"),
+                timestamp_writes: None,
+            });
+            cpass.set_pipeline(&self.cartpole_pipeline);
+            cpass.set_bind_group(0, &bind_group, &[]);
+            cpass.dispatch_workgroups(workgroup_count, 1, 1);
+            drop(cpass);
+            let _ = step_idx; // step_idx is just for label/clarity; loop body is uniform
+        }
+        encoder.copy_buffer_to_buffer(&states_buf, 0, &readback_buf, 0, states_bytes.len() as u64);
+        self.queue.submit(Some(encoder.finish()));
+
+        let slice = readback_buf.slice(..);
+        let (tx, rx) = futures_channel();
+        slice.map_async(wgpu::MapMode::Read, move |result| {
+            let _ = tx.send(result);
+        });
+        let _ = self.device.poll(wgpu::Maintain::Wait);
+        rx.recv()
+            .map_err(|e| format!("map_async receive failed: {e}"))?
+            .map_err(|e| format!("map_async failed: {e}"))?;
+
+        let mapped = slice.get_mapped_range();
+        let result: &[GpuState] = bytemuck::cast_slice(&mapped);
+        for (i, s) in result.iter().enumerate() {
+            states[i] = (*s).into();
+        }
+        drop(mapped);
+        readback_buf.unmap();
+        Ok(())
+    }
 }
 
 /// Tiny single-shot channel for `map_async` callback. Avoids pulling in
@@ -451,6 +588,128 @@ impl WgpuBackend {
             cpass.set_pipeline(&self.dp_pipeline);
             cpass.set_bind_group(0, &bind_group, &[]);
             cpass.dispatch_workgroups(n.div_ceil(64), 1, 1);
+        }
+        encoder.copy_buffer_to_buffer(&states_buf, 0, &readback_buf, 0, states_bytes.len() as u64);
+        self.queue.submit(Some(encoder.finish()));
+
+        let slice = readback_buf.slice(..);
+        let (tx, rx) = futures_channel();
+        slice.map_async(wgpu::MapMode::Read, move |result| {
+            let _ = tx.send(result);
+        });
+        let _ = self.device.poll(wgpu::Maintain::Wait);
+        rx.recv()
+            .map_err(|e| format!("map_async receive failed: {e}"))?
+            .map_err(|e| format!("map_async failed: {e}"))?;
+
+        let mapped = slice.get_mapped_range();
+        let result: &[GpuDpState] = bytemuck::cast_slice(&mapped);
+        for (i, s) in result.iter().enumerate() {
+            states[i] = (*s).into();
+        }
+        drop(mapped);
+        readback_buf.unmap();
+        Ok(())
+    }
+
+    /// N steps on the GPU for `num_envs` double-pendulum envs with persistent
+    /// state — uploads + readback once, dispatches N kernels in one submission.
+    /// Mirror of `WgpuBackend::step_n` for the DP topology per ADR-2605261800 R1.2.
+    /// Same fixed torque vector applied across all N steps.
+    pub fn step_double_pendulum_n(
+        &self,
+        states: &mut [DoublePendulumState],
+        torques: &[[f32; 2]],
+        cfg: &DoublePendulumConfig,
+        n_steps: usize,
+    ) -> Result<(), String> {
+        pollster::block_on(self.step_double_pendulum_n_async(states, torques, cfg, n_steps))
+    }
+
+    async fn step_double_pendulum_n_async(
+        &self,
+        states: &mut [DoublePendulumState],
+        torques: &[[f32; 2]],
+        cfg: &DoublePendulumConfig,
+        n_steps: usize,
+    ) -> Result<(), String> {
+        if states.len() != torques.len() {
+            return Err(format!(
+                "states.len() ({}) != torques.len() ({})",
+                states.len(),
+                torques.len()
+            ));
+        }
+        let n = states.len() as u32;
+        if n == 0 || n_steps == 0 {
+            return Ok(());
+        }
+
+        let gpu_states: Vec<GpuDpState> = states.iter().map(Into::into).collect();
+        let gpu_torques: Vec<GpuDpTorque> = torques
+            .iter()
+            .map(|t| GpuDpTorque { t1: t[0], t2: t[1], _pad0: 0.0, _pad1: 0.0 })
+            .collect();
+        let states_bytes = bytemuck::cast_slice(&gpu_states);
+        let torques_bytes = bytemuck::cast_slice(&gpu_torques);
+        let gpu_cfg = GpuDpCfg {
+            m1: cfg.m1,
+            m2: cfg.m2,
+            l1: cfg.l1,
+            l2: cfg.l2,
+            gravity: cfg.gravity,
+            effort_limit: cfg.effort_limit,
+            dt: cfg.dt,
+            num_envs: n,
+        };
+
+        let states_buf = self.device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("dp-step-n-states"),
+            contents: states_bytes,
+            usage: wgpu::BufferUsages::STORAGE | wgpu::BufferUsages::COPY_SRC,
+        });
+        let torques_buf = self.device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("dp-step-n-torques"),
+            contents: torques_bytes,
+            usage: wgpu::BufferUsages::STORAGE,
+        });
+        let cfg_buf = self.device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("dp-step-n-cfg"),
+            contents: bytemuck::bytes_of(&gpu_cfg),
+            usage: wgpu::BufferUsages::UNIFORM,
+        });
+        let readback_buf = self.device.create_buffer(&wgpu::BufferDescriptor {
+            label: Some("dp-step-n-readback"),
+            size: states_bytes.len() as u64,
+            usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
+            mapped_at_creation: false,
+        });
+
+        let bind_group = self.device.create_bind_group(&wgpu::BindGroupDescriptor {
+            label: Some("dp-step-n-bg"),
+            layout: &self.dp_bgl,
+            entries: &[
+                wgpu::BindGroupEntry { binding: 0, resource: states_buf.as_entire_binding() },
+                wgpu::BindGroupEntry { binding: 1, resource: torques_buf.as_entire_binding() },
+                wgpu::BindGroupEntry { binding: 2, resource: cfg_buf.as_entire_binding() },
+            ],
+        });
+
+        let mut encoder = self
+            .device
+            .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                label: Some("dp-step-n-encoder"),
+            });
+        let workgroup_count = n.div_ceil(64);
+        for _ in 0..n_steps {
+            let mut cpass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
+                label: Some("dp-step-n-pass"),
+                timestamp_writes: None,
+            });
+            cpass.set_pipeline(&self.dp_pipeline);
+            cpass.set_bind_group(0, &bind_group, &[]);
+            cpass.dispatch_workgroups(workgroup_count, 1, 1);
+            drop(cpass);
         }
         encoder.copy_buffer_to_buffer(&states_buf, 0, &readback_buf, 0, states_bytes.len() as u64);
         self.queue.submit(Some(encoder.finish()));

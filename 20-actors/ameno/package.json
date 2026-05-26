@@ -18,6 +18,14 @@
       "types": "./src/inference/webnn.ts",
       "import": "./src/inference/webnn.ts"
     },
+    "./inference/kernels": {
+      "types": "./src/inference/kernels/index.ts",
+      "import": "./src/inference/kernels/index.ts"
+    },
+    "./inference/bitnet-bridge": {
+      "types": "./src/inference/bitnet-bridge.ts",
+      "import": "./src/inference/bitnet-bridge.ts"
+    },
     "./lora-runtime": {
       "types": "./src/lora-runtime.ts",
       "import": "./src/lora-runtime.ts"
@@ -32,7 +40,8 @@
     "README.md"
   ],
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/**/*.test.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^3.8.1"

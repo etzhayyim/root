@@ -27,7 +27,11 @@
     "Public Fund Safe on-chain contract (disbursement read)",
     "Council Safe on-chain contract (operational expense read)",
     "Land Registry on-chain contract (acquisition read)",
-    "chigiri.stewardLaborAttestation (L0..L6 classification read)"
+    "chigiri.stewardLaborAttestation (L0..L6 classification read)",
+    "app.etzhayyim.corp.leiReference (ADR-2605263800; READ-ONLY GLEIF LEI canonical for recipient-vendor identity resolution before disbursement; anti-related-party check on Public Fund Safe + Council Safe outflow against corporate-donor + officer-network records)",
+    "app.etzhayyim.corp.ownershipEdge (ADR-2605263800; READ-ONLY UBO + parent-subsidiary edge traversal for anti-related-party check; flags if disbursement-recipient + donor-recipient share UBO within configurable threshold)",
+    "app.etzhayyim.gov.dataset.budgetRecord (ADR-2605263900; READ-ONLY per-jurisdiction gov budget recipient cross-reference; flags vendor receiving simultaneous religious-corp Public Fund disbursement AND state appropriation in same fiscal cycle)",
+    "app.etzhayyim.gov.dataset.procurementRecord (ADR-2605263900; READ-ONLY per-jurisdiction gov procurement awardee cross-reference; uses awardeeLei + recipientLei cross-link to corp.leiReference for entity identity)"
   ],
   "form": "任意団体 internal accounting + audit substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)",
   "constitutionalDiscipline": {

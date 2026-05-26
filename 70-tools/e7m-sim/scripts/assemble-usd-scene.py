@@ -153,22 +153,39 @@ def _max_tier(items: Iterable[dict[str, Any]]) -> str:
 
 
 def _resolve_datasetpin(at_uri: str) -> str:
-    """Resolve `at://...` → IPFS CID.
+    """Resolve `at://...datasetPin/<rkey>` → IPFS CID.
 
-    W1 STUB: returns a deterministic placeholder derived from the URI
-    so dry-run output is stable + the assembler shape is testable.
+    W2 integration: tries `e7m_dataset.pds.resolve_datasetpin` first
+    against the religious-corp PDS. Falls back to a deterministic
+    sha256 placeholder on any of:
 
-    W2 wires this to the religious-corp PDS via e7m-dataset's PDS
-    helper (`e7m_dataset.pds.resolve_datasetpin`) plus a Kubo HTTP API
-    pin verification per ADR-2605241500 §D7 + replicationMin:2 (G3).
-    """
+      - placeholder URIs (containing `<...>` markers — W0/W1 scenes)
+      - e7m-dataset module not on PYTHONPATH (e7m-sim standalone)
+      - any transitive import / network / parse failure (defensive)
+
+    The fallback path is stable byte-for-byte (G6) so dry-run outputs
+    remain reproducible without a live PDS connection. Set
+    `ETZ_E7M_SIM_STRICT_PDS=1` to fail-closed instead of falling back
+    when the URI looks real and the PDS lookup errors out."""
+    import os
     if "<" in at_uri and ">" in at_uri:
-        # placeholder marker like '<rkey-placeholder>' — return a stable stub
         digest = hashlib.sha256(at_uri.encode("utf-8")).hexdigest()[:46]
         return f"bafyplaceholder{digest}"
-    # Real `at://` — W2 wires the real PDS lookup here.
-    digest = hashlib.sha256(at_uri.encode("utf-8")).hexdigest()[:46]
-    return f"bafyresolved{digest}"
+
+    try:
+        from e7m_dataset import pds as _pds   # type: ignore
+        record = _pds.resolve_datasetpin(at_uri)
+        cid = record.get("cid")
+        if isinstance(cid, str) and cid:
+            return cid
+        raise RuntimeError(f"resolved record missing cid: {record!r}")
+    except Exception as exc:    # noqa: BLE001
+        if os.environ.get("ETZ_E7M_SIM_STRICT_PDS") == "1":
+            raise RuntimeError(
+                f"PDS resolve failed under strict mode: {exc!r}"
+            ) from exc
+        digest = hashlib.sha256(at_uri.encode("utf-8")).hexdigest()[:46]
+        return f"bafyresolved{digest}"
 
 
 def _try_import_charter() -> Any:
@@ -375,14 +392,19 @@ def build_plan(scene_path: Path, schema_path: Optional[Path] = None) -> Assembly
 def emit_usd_stub(plan: AssemblyPlan, out_path: Path) -> dict[str, Any]:
     """W1 STUB: emit a manifest JSON describing what kami-usd WOULD do.
 
-    W2 replaces this with real tinyusdz invocation (kami-usd):
-      - terrain → UsdGeom.Mesh from DEM triangulation
-      - raster_overlay → UsdShade.Material texture binding
-      - vector_buildings → UsdGeom.Mesh per polygon (extruded)
-      - vector_roads → UsdGeom.Mesh per linestring (ribbon)
-      - object_3d_instances → UsdGeom.PointInstancer
+    Kept for backward-compat with W1 callers. W2 callers should use
+    `emit_scene()` which writes both this manifest AND a real `.usda`
+    file via the inline text emitter in §5 below.
     """
-    manifest = {
+    manifest = _build_manifest(plan)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    return manifest
+
+
+def _build_manifest(plan: AssemblyPlan) -> dict[str, Any]:
+    """The manifest JSON content (shared between W1 stub + W2 emit_scene)."""
+    return {
         "scene_name": plan.scene_name,
         "adr": plan.adr,
         "max_tier": plan.max_tier,
@@ -414,8 +436,599 @@ def emit_usd_stub(plan: AssemblyPlan, out_path: Path) -> dict[str, Any]:
         "emitter_status": "stub-w1-manifest-only",
         "emitter_target": "tinyusdz via kami-usd (W2 deliverable per ADR-2605262500 §4)",
     }
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+
+# ─── §5 W2 USDA text emitter ────────────────────────────────────────
+#
+# USDA = USD ASCII representation, stable spec at
+# https://openusd.org/docs/USD-Glossary.html#USDGlossary-USDA-File
+#
+# W2.0 (this cycle): structural USDA — every layer/prop becomes a real
+# UsdGeom.Mesh / UsdShade.Material / UsdGeom.PointInstancer prim, with
+# deterministic placeholder geometry derived from the bbox + CID. This
+# means the emitted .usda is loadable by any USD reader (Pixar OpenUSD,
+# tinyusdz, kami-usd) and renders something visible; the geometry is
+# not the actual SRTM mesh / Sentinel raster yet — that ingest lands
+# at W2.1 alongside the real datasetPin → IPFS CID resolution.
+
+USDA_HEADER = """#usda 1.0
+(
+    defaultPrim = "World"
+    metersPerUnit = 1
+    upAxis = "Z"
+    doc = "Emitted by assemble-usd-scene.py (ADR-2605262500 §4 W2)"
+)
+
+"""
+
+
+def _bbox_local_corners(plan: AssemblyPlan) -> tuple[float, float, float, float]:
+    """Project the world bbox into a scene-local meter-grid.
+
+    For W2.0 we assume EPSG:4326 (lon/lat) and approximate 1 deg ≈
+    111_000 m at the bbox centroid. This gives a small-but-real
+    rectangle whose corners are meaningful for sim physics. Full
+    projection (EPSG:3857 etc.) lands at W2.1 with pyproj.
+    """
+    w, s, e, n = plan.bbox
+    cy = (s + n) / 2.0
+    import math
+    lat_m = 111_320.0
+    lon_m = 111_320.0 * math.cos(math.radians(cy))
+    width = max(1.0, (e - w) * lon_m)
+    height = max(1.0, (n - s) * lat_m)
+    # Center the bbox on the scene origin.
+    return (-width / 2.0, -height / 2.0, width / 2.0, height / 2.0)
+
+
+def _synth_elevation(cid: str, ix: int, iy: int, nx: int, ny: int) -> float:
+    """Deterministic synthetic elevation field for W2.1.
+
+    Until rasterio + real SRTM .tif ingest lands (W2.2), this synthetic
+    field stands in for actual elevation per vertex. CID-seeded so two
+    layers from different SRTM tiles produce different terrain shapes.
+    Returns elevation in meters; range roughly [-2, +2] m around the
+    bbox plane. Real SRTM ranges much higher but the W2.1 emitter
+    shape is the durable contract — rasterio integration is a one-line
+    swap on the elevation source.
+    """
+    import math as _math
+    seed = int(hashlib.sha256(cid.encode()).hexdigest()[:8], 16) / 0xffffffff
+    u = ix / max(nx - 1, 1)
+    v = iy / max(ny - 1, 1)
+    return 2.0 * _math.sin(2 * _math.pi * (u + seed)) * _math.cos(2 * _math.pi * (v + seed * 0.5))
+
+
+def _emit_terrain_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
+    """W2.1 triangulated grid Mesh covering the bbox.
+
+    Grid resolution is driven by the scene YAML's `mesh.target_edge_m`
+    attribute on the layer (defaults to 50m if not specified). For
+    each (nx+1) × (ny+1) vertex we sample a synthetic elevation field
+    seeded from the layer's resolved CID (W2.2 swaps this for rasterio
+    SRTM `.tif` sampling on the real CID-resolved tile)."""
+    x0, y0, x1, y1 = _bbox_local_corners(plan)
+    target_edge = 50.0
+    mesh_cfg = layer.extra.get("mesh") if isinstance(layer.extra.get("mesh"), dict) else {}
+    if mesh_cfg and isinstance(mesh_cfg.get("target_edge_m"), (int, float)):
+        target_edge = float(mesh_cfg["target_edge_m"])
+    # Cap grid resolution so very wide bboxes don't explode prim size.
+    nx = max(2, min(60, int((x1 - x0) / target_edge) + 1))
+    ny = max(2, min(60, int((y1 - y0) / target_edge) + 1))
+
+    pts: list[str] = []
+    for iy in range(ny):
+        for ix in range(nx):
+            px = x0 + (x1 - x0) * ix / (nx - 1)
+            py = y0 + (y1 - y0) * iy / (ny - 1)
+            pz = _synth_elevation(layer.resolved_cid, ix, iy, nx, ny)
+            pts.append(f"({px:.3f}, {py:.3f}, {pz:.3f})")
+    pts_str = "[" + ", ".join(pts) + "]"
+
+    # Quad faces in row-major order. Each (ix, iy) quad uses 4 verts.
+    fvi: list[int] = []
+    fvc: list[int] = []
+    for iy in range(ny - 1):
+        for ix in range(nx - 1):
+            a = iy * nx + ix
+            b = a + 1
+            c = a + nx + 1
+            d = a + nx
+            fvi += [a, b, c, d]
+            fvc.append(4)
+    fvi_str = "[" + ", ".join(str(i) for i in fvi) + "]"
+    fvc_str = "[" + ", ".join(str(i) for i in fvc) + "]"
+
+    return f"""    def Mesh "{prim_name}"
+    {{
+        token kami_layer_kind = "terrain"
+        string kami_source_subdataset = "{layer.source_subdataset}"
+        string kami_resolved_cid = "{layer.resolved_cid}"
+        string kami_tier = "{layer.tier}"
+        int kami_grid_nx = {nx}
+        int kami_grid_ny = {ny}
+        float kami_target_edge_m = {target_edge}
+        string kami_elevation_source = "synth-cid-seeded-w2.1"
+        point3f[] points = {pts_str}
+        int[] faceVertexCounts = {fvc_str}
+        int[] faceVertexIndices = {fvi_str}
+        token subdivisionScheme = "none"
+    }}
+"""
+
+
+def _emit_raster_overlay_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
+    """UsdShade.Material declaration referencing the resolved CID."""
+    return f"""    def Material "{prim_name}"
+    {{
+        token kami_layer_kind = "raster_overlay"
+        string kami_source_subdataset = "{layer.source_subdataset}"
+        string kami_resolved_cid = "{layer.resolved_cid}"
+        string kami_tier = "{layer.tier}"
+        token outputs:surface.connect = </World/{prim_name}/PreviewSurface.outputs:surface>
+
+        def Shader "PreviewSurface"
+        {{
+            uniform token info:id = "UsdPreviewSurface"
+            token outputs:surface
+        }}
+    }}
+"""
+
+
+def _synth_road_segments(
+    cid: str,
+    bbox: tuple[float, float, float, float],
+    *,
+    max_count: int = 12,
+) -> list[list[tuple[float, float]]]:
+    """Generate CID-seeded deterministic road polylines for W2.1.
+
+    Returns a list of polylines, each a sequence of (x, y) waypoints
+    forming a multi-segment road. Roads have 3-7 waypoints each, drawn
+    deterministically from CID-seeded LCG state. All waypoints stay
+    inside bbox (clamped). W2.2 swaps this for pyarrow ingest of the
+    Overture transportation Parquet — same return shape, same downstream
+    emit logic.
+    """
+    x0, y0, x1, y1 = bbox
+    bw, bh = (x1 - x0), (y1 - y0)
+    rng = int(hashlib.sha256(("road:" + cid).encode()).hexdigest()[:16], 16)
+
+    def _u() -> float:
+        nonlocal rng
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        return (rng >> 8) / float(0x7fffff)
+
+    # CID-seeded count: at least 3, at most max_count.
+    n_roads = 3 + int(_u() * (max_count - 2))
+    polylines: list[list[tuple[float, float]]] = []
+    for _ in range(n_roads):
+        n_waypoints = 3 + int(_u() * 4)   # 3-6 waypoints per road
+        # Start near a bbox edge for a more road-like character.
+        side = int(_u() * 4)
+        if side == 0:
+            sx, sy = x0 + bw * 0.05, y0 + bh * _u()
+        elif side == 1:
+            sx, sy = x1 - bw * 0.05, y0 + bh * _u()
+        elif side == 2:
+            sx, sy = x0 + bw * _u(), y0 + bh * 0.05
+        else:
+            sx, sy = x0 + bw * _u(), y1 - bh * 0.05
+        waypoints: list[tuple[float, float]] = [(sx, sy)]
+        cx, cy = sx, sy
+        for _ in range(n_waypoints - 1):
+            dx = (_u() - 0.5) * bw * 0.25
+            dy = (_u() - 0.5) * bh * 0.25
+            cx = max(x0, min(x1, cx + dx))
+            cy = max(y0, min(y1, cy + dy))
+            waypoints.append((cx, cy))
+        polylines.append(waypoints)
+    return polylines
+
+
+def _emit_vector_roads_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
+    """W2.1 multi-segment ribbon mesh per CID-seeded synthetic polyline.
+
+    Emits a parent Scope containing one Mesh per polyline. Each Mesh's
+    geometry is the lane ribbon (lane_width-wide strip following the
+    polyline). W2.2 swaps `_synth_road_segments` for pyarrow Overture
+    Parquet LineString ingest in one place; the per-polyline ribbon
+    emit logic below stays unchanged."""
+    x0, y0, x1, y1 = _bbox_local_corners(plan)
+    ribbon_cfg = layer.extra.get("ribbon") if isinstance(layer.extra.get("ribbon"), dict) else {}
+    lane_count = int(ribbon_cfg.get("default_lane_count", 2))
+    lane_width = float(ribbon_cfg.get("default_lane_width_m", 3.5))
+    z_offset = float(ribbon_cfg.get("z_offset_m", 0.05))
+    material_token = str(layer.extra.get("material", "kami-pbrt:Asphalt"))
+    half_total = max(0.5, lane_count * lane_width / 2.0)
+
+    polylines = _synth_road_segments(layer.resolved_cid, (x0, y0, x1, y1))
+
+    import math as _math
+    child_meshes: list[str] = []
+    for idx, line in enumerate(polylines):
+        # Build the ribbon: for each consecutive pair of waypoints, produce
+        # a quad with width = half_total on each side perpendicular to seg dir.
+        verts: list[tuple[float, float, float]] = []
+        fvi: list[int] = []
+        fvc: list[int] = []
+        if len(line) < 2:
+            continue
+        for i in range(len(line) - 1):
+            (ax, ay) = line[i]
+            (bx, by) = line[i + 1]
+            dx, dy = bx - ax, by - ay
+            seg_len = max(_math.hypot(dx, dy), 1e-6)
+            # left-normal (perpendicular, unit length)
+            nx = -dy / seg_len
+            ny = dx / seg_len
+            # 4 corners of the segment quad
+            v0 = (ax + nx * half_total, ay + ny * half_total, z_offset)
+            v1 = (bx + nx * half_total, by + ny * half_total, z_offset)
+            v2 = (bx - nx * half_total, by - ny * half_total, z_offset)
+            v3 = (ax - nx * half_total, ay - ny * half_total, z_offset)
+            base = len(verts)
+            verts.extend([v0, v1, v2, v3])
+            fvi += [base, base + 1, base + 2, base + 3]
+            fvc.append(4)
+        pts_str = "[" + ", ".join(f"({v[0]:.3f}, {v[1]:.3f}, {v[2]:.3f})" for v in verts) + "]"
+        fvi_str = "[" + ", ".join(str(i) for i in fvi) + "]"
+        fvc_str = "[" + ", ".join(str(i) for i in fvc) + "]"
+        child_meshes.append(
+            f"""        def Mesh "R{idx:03d}"
+        {{
+            int kami_waypoint_count = {len(line)}
+            int kami_segment_count = {len(line) - 1}
+            point3f[] points = {pts_str}
+            int[] faceVertexCounts = {fvc_str}
+            int[] faceVertexIndices = {fvi_str}
+            token subdivisionScheme = "none"
+        }}
+"""
+        )
+
+    return f"""    def Scope "{prim_name}"
+    {{
+        token kami_layer_kind = "vector_roads"
+        string kami_source_subdataset = "{layer.source_subdataset}"
+        string kami_resolved_cid = "{layer.resolved_cid}"
+        string kami_tier = "{layer.tier}"
+        int kami_road_count = {len(polylines)}
+        int kami_lane_count = {lane_count}
+        float kami_lane_width_m = {lane_width}
+        token kami_material = "{material_token}"
+        string kami_polyline_source = "synth-cid-seeded-w2.1"
+
+{''.join(child_meshes)}    }}
+"""
+
+
+def _try_pyarrow():
+    try:
+        import pyarrow.parquet as pq   # type: ignore
+        return pq
+    except ImportError:
+        return None
+
+
+def _wgs84_to_local(
+    lon: float, lat: float, plan_bbox: tuple[float, float, float, float],
+) -> tuple[float, float]:
+    """Convert WGS84 lon/lat → scene-local meter grid (matching _bbox_local_corners).
+
+    Uses the same cos(lat-centroid) approximation as `_bbox_local_corners`
+    so building/road geometry in real WGS84 Parquet rows lands in the
+    same coordinate frame as the synth fallback. W2.3 swaps this for
+    proper pyproj projection when pyproj is installed.
+    """
+    import math as _math
+    w, s, e, n = plan_bbox
+    cy = (s + n) / 2.0
+    lat_m = 111_320.0
+    lon_m = 111_320.0 * _math.cos(_math.radians(cy))
+    cx = (w + e) / 2.0
+    x = (lon - cx) * lon_m
+    y = (lat - cy) * lat_m
+    return x, y
+
+
+def _load_overture_buildings_parquet(
+    parquet_path: Path,
+    plan_bbox: tuple[float, float, float, float],
+    *,
+    default_height_m: float,
+    max_count: int = 20,
+) -> Optional[list[tuple[list[tuple[float, float]], float]]]:
+    """W2.2: load building footprints from an Overture buildings Parquet.
+
+    Returns the same shape as `_synth_building_polygons` so the emitter
+    needs no changes. Uses the row's `bbox` struct column (Overture
+    canonical: `{xmin, xmax, ymin, ymax}` in WGS84) to produce an
+    axis-aligned rectangle per row — sufficient for W2.2 sim density.
+    Full WKB Polygon parsing (curved + non-rectangular footprints) is
+    W2.3. Returns None when pyarrow is unavailable so the caller falls
+    back to synth.
+
+    The Parquet must contain at least a `bbox` column (struct of 4
+    floats) and SHOULD contain `height` (float64). Rows whose bbox
+    falls entirely outside `plan_bbox` are skipped. Results are
+    deterministic w.r.t. row order in the Parquet (G6).
+    """
+    pq = _try_pyarrow()
+    if pq is None:
+        return None
+    if not parquet_path.exists():
+        return None
+
+    table = pq.read_table(parquet_path, columns=["bbox", "height"])
+    n = table.num_rows
+    bbox_col = table.column("bbox").to_pylist()
+    height_col = (
+        table.column("height").to_pylist() if "height" in table.column_names
+        else [None] * n
+    )
+
+    w, s, e, north = plan_bbox
+    out: list[tuple[list[tuple[float, float]], float]] = []
+    for i in range(n):
+        b = bbox_col[i]
+        if not isinstance(b, dict):
+            continue
+        # Overture canonical keys; tolerate alternate naming.
+        xmin = b.get("xmin", b.get("minx"))
+        xmax = b.get("xmax", b.get("maxx"))
+        ymin = b.get("ymin", b.get("miny"))
+        ymax = b.get("ymax", b.get("maxy"))
+        if None in (xmin, xmax, ymin, ymax):
+            continue
+        # Skip rows entirely outside the plan bbox.
+        if xmax < w or xmin > e or ymax < s or ymin > north:
+            continue
+        # Clip to plan bbox.
+        cx0 = max(xmin, w)
+        cx1 = min(xmax, e)
+        cy0 = max(ymin, s)
+        cy1 = min(ymax, north)
+        if cx1 <= cx0 or cy1 <= cy0:
+            continue
+        lx0, ly0 = _wgs84_to_local(cx0, cy0, plan_bbox)
+        lx1, ly1 = _wgs84_to_local(cx1, cy1, plan_bbox)
+        poly = [(lx0, ly0), (lx1, ly0), (lx1, ly1), (lx0, ly1)]
+        h_val = height_col[i] if height_col[i] is not None else default_height_m
+        out.append((poly, float(h_val)))
+        if len(out) >= max_count:
+            break
+    return out
+
+
+def _synth_building_polygons(
+    cid: str,
+    bbox: tuple[float, float, float, float],
+    *,
+    default_height_m: float,
+    max_count: int = 20,
+) -> list[tuple[list[tuple[float, float]], float]]:
+    """Generate CID-seeded deterministic building polygons for W2.1.
+
+    Returns a list of (polygon_xy, height_m) tuples. polygon_xy is a
+    closed footprint (Nx2 list of (x, y) corners; rectangles for W2.1).
+    W2.2 swaps this for pyarrow ingest of the resolved CID's Overture
+    Parquet shard — same return shape, same downstream emit logic.
+    """
+    x0, y0, x1, y1 = bbox
+    bw, bh = (x1 - x0), (y1 - y0)
+    seed = int(hashlib.sha256(cid.encode()).hexdigest()[:16], 16)
+
+    # CID-seeded count: at least 3, at most max_count.
+    rng = seed
+    rng = (rng * 1103515245 + 12345) & 0x7fffffff
+    n = 3 + (rng >> 8) % (max_count - 2)
+
+    polygons: list[tuple[list[tuple[float, float]], float]] = []
+    for _ in range(n):
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        u = (rng >> 8) / float(0x7fffff)
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        v = (rng >> 8) / float(0x7fffff)
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        w_frac = 0.02 + 0.05 * ((rng >> 8) / float(0x7fffff))   # 2-7% of bbox
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        h_frac = 0.02 + 0.05 * ((rng >> 8) / float(0x7fffff))
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        height = default_height_m * (0.5 + ((rng >> 8) / float(0x7fffff)))
+
+        hw = bw * w_frac / 2.0
+        hh = bh * h_frac / 2.0
+        # Clamp center so the whole polygon stays inside bbox.
+        cx = x0 + hw + u * max(bw - 2 * hw, 0.0)
+        cy = y0 + hh + v * max(bh - 2 * hh, 0.0)
+        poly = [
+            (cx - hw, cy - hh),
+            (cx + hw, cy - hh),
+            (cx + hw, cy + hh),
+            (cx - hw, cy + hh),
+        ]
+        polygons.append((poly, height))
+    return polygons
+
+
+def _emit_vector_buildings_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
+    """W2.1 extruded mesh per CID-seeded synthetic polygon.
+
+    Builds a child Scope under the layer prim, each child being one
+    extruded Mesh per polygon. W2.2 wires real Overture Parquet via
+    pyarrow + DuckDB-spatial bbox filter (already available — see
+    `e7m_dataset.fetchers.overture` for the upstream side); the
+    `_synth_building_polygons` swap point is the only line that
+    changes between W2.1 and W2.2.
+    """
+    x0, y0, x1, y1 = _bbox_local_corners(plan)
+    extrude_cfg = layer.extra.get("extrude") if isinstance(layer.extra.get("extrude"), dict) else {}
+    default_h = float(extrude_cfg.get("default_height_m", 8.0))
+    material_token = str(extrude_cfg.get("material", "kami-pbrt:Concrete_Grey"))
+
+    # W2.2: try real Overture Parquet first (operator points to staged file
+    # via `extra.local_parquet_path`); else fall back to CID-seeded synth.
+    polygons: Optional[list[tuple[list[tuple[float, float]], float]]] = None
+    polygon_source = "synth-cid-seeded-w2.1"
+    parquet_path_str = layer.extra.get("local_parquet_path")
+    if isinstance(parquet_path_str, str) and parquet_path_str:
+        polygons = _load_overture_buildings_parquet(
+            Path(parquet_path_str),
+            plan.bbox if isinstance(plan.bbox, tuple)
+            else tuple(plan.bbox),       # type: ignore[arg-type]
+            default_height_m=default_h,
+        )
+        if polygons:
+            polygon_source = f"overture-parquet-w2.2:{parquet_path_str}"
+    if polygons is None:
+        polygons = _synth_building_polygons(
+            layer.resolved_cid, (x0, y0, x1, y1), default_height_m=default_h
+        )
+
+    child_meshes: list[str] = []
+    for idx, (poly, h) in enumerate(polygons):
+        # Build the 8-vertex extruded box (4 base + 4 top).
+        base_pts = [(px, py, 0.0) for (px, py) in poly]
+        top_pts = [(px, py, h) for (px, py) in poly]
+        all_pts = base_pts + top_pts
+        pts_str = "[" + ", ".join(f"({p[0]:.3f}, {p[1]:.3f}, {p[2]:.3f})" for p in all_pts) + "]"
+        n = len(poly)
+        # 1 base quad, 1 top quad, n side quads.
+        fvi: list[int] = []
+        fvc: list[int] = []
+        # base (winding facing down)
+        fvi += list(range(n - 1, -1, -1))
+        fvc.append(n)
+        # top (winding facing up)
+        fvi += list(range(n, 2 * n))
+        fvc.append(n)
+        # sides
+        for i in range(n):
+            j = (i + 1) % n
+            fvi += [i, j, j + n, i + n]
+            fvc.append(4)
+        fvi_str = "[" + ", ".join(str(i) for i in fvi) + "]"
+        fvc_str = "[" + ", ".join(str(i) for i in fvc) + "]"
+        child_meshes.append(
+            f"""        def Mesh "B{idx:03d}"
+        {{
+            float kami_height_m = {h:.3f}
+            int kami_polygon_vertex_count = {n}
+            point3f[] points = {pts_str}
+            int[] faceVertexCounts = {fvc_str}
+            int[] faceVertexIndices = {fvi_str}
+            token subdivisionScheme = "none"
+        }}
+"""
+        )
+
+    return f"""    def Scope "{prim_name}"
+    {{
+        token kami_layer_kind = "vector_buildings"
+        string kami_source_subdataset = "{layer.source_subdataset}"
+        string kami_resolved_cid = "{layer.resolved_cid}"
+        string kami_tier = "{layer.tier}"
+        int kami_building_count = {len(polygons)}
+        token kami_material = "{material_token}"
+        string kami_polygon_source = "{polygon_source}"
+
+{''.join(child_meshes)}    }}
+"""
+
+
+def _emit_object_3d_instances_usda(prop: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
+    """UsdGeom.PointInstancer with deterministic placements derived from CID hash."""
+    count = int(prop.extra.get("count", 0))
+    x0, y0, x1, y1 = _bbox_local_corners(plan)
+    # Deterministic offsets: hash the resolved CID, expand to count positions
+    rng_seed = int(hashlib.sha256(prop.resolved_cid.encode()).hexdigest()[:8], 16)
+    positions: list[str] = []
+    for i in range(count):
+        # Tiny PRNG (LCG) seeded from CID — stable across runs.
+        rng_seed = (rng_seed * 1103515245 + 12345) & 0x7fffffff
+        u = (rng_seed >> 8) / float(0x7fffff)
+        rng_seed = (rng_seed * 1103515245 + 12345) & 0x7fffffff
+        v = (rng_seed >> 8) / float(0x7fffff)
+        px = x0 + u * (x1 - x0)
+        py = y0 + v * (y1 - y0)
+        positions.append(f"({px:.3f}, {py:.3f}, 0.5)")
+    pos_str = "[" + ", ".join(positions) + "]" if positions else "[]"
+    return f"""    def PointInstancer "{prim_name}"
+    {{
+        token kami_prop_kind = "object_3d_instances"
+        string kami_source_subdataset = "{prop.source_subdataset}"
+        string kami_resolved_cid = "{prop.resolved_cid}"
+        string kami_tier = "{prop.tier}"
+        int kami_count = {count}
+        string kami_placement_strategy = "{prop.extra.get("placement_strategy", "uniform_seed")}"
+        point3f[] positions = {pos_str}
+    }}
+"""
+
+
+_LAYER_USDA_DISPATCH = {
+    "terrain": _emit_terrain_usda,
+    "raster_overlay": _emit_raster_overlay_usda,
+    "vector_roads": _emit_vector_roads_usda,
+    "vector_buildings": _emit_vector_buildings_usda,
+}
+_PROP_USDA_DISPATCH = {
+    "object_3d_instances": _emit_object_3d_instances_usda,
+}
+
+
+def build_usda(plan: AssemblyPlan) -> str:
+    """Compose the full USDA text. Deterministic given a fixed plan (G6)."""
+    parts: list[str] = [USDA_HEADER]
+    parts.append('def Xform "World"\n{\n')
+    parts.append(f'    string kami_scene_name = "{plan.scene_name}"\n')
+    parts.append(f'    string kami_adr = "{plan.adr}"\n')
+    parts.append(f'    string kami_max_tier = "{plan.max_tier}"\n')
+    parts.append(f'    string kami_crs = "{plan.crs}"\n\n')
+    for layer in plan.layers:
+        prim_name = f"Layer{layer.index}_{layer.kind}"
+        emit = _LAYER_USDA_DISPATCH.get(layer.kind)
+        if emit is None:
+            # Unknown layer kind: emit a generic Xform marker.
+            parts.append(
+                f'    def Xform "{prim_name}"\n    {{\n'
+                f'        token kami_layer_kind = "{layer.kind}"\n'
+                f'        string kami_resolved_cid = "{layer.resolved_cid}"\n'
+                f'    }}\n'
+            )
+        else:
+            parts.append(emit(layer, plan, prim_name))
+    for prop in plan.props:
+        prim_name = f"Prop{prop.index}_{prop.kind}"
+        emit = _PROP_USDA_DISPATCH.get(prop.kind)
+        if emit is None:
+            parts.append(
+                f'    def Xform "{prim_name}"\n    {{\n'
+                f'        token kami_prop_kind = "{prop.kind}"\n'
+                f'        string kami_resolved_cid = "{prop.resolved_cid}"\n'
+                f'    }}\n'
+            )
+        else:
+            parts.append(emit(prop, plan, prim_name))
+    parts.append("}\n")
+    return "".join(parts)
+
+
+def emit_scene(plan: AssemblyPlan, out_dir: Path) -> dict[str, Any]:
+    """W2 emitter — writes both `scene.usda` and `manifest.json`.
+
+    Returns the manifest dict (same shape as W1 emit_usd_stub).
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    usda_text = build_usda(plan)
+    (out_dir / "scene.usda").write_text(usda_text, encoding="utf-8")
+    manifest = _build_manifest(plan)
+    manifest["emitter_status"] = "w2-real-usda-text"
+    manifest["emitter_target"] = "USDA 1.0 text spec (loadable by Pixar OpenUSD / tinyusdz / kami-usd)"
+    manifest["scene_usda_sha256"] = hashlib.sha256(usda_text.encode("utf-8")).hexdigest()
+    (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     return manifest
 
 
@@ -439,6 +1052,11 @@ def main(argv: Optional[list[str]] = None) -> int:
         "--dry-run",
         action="store_true",
         help="Build plan + print summary; do not write output.",
+    )
+    parser.add_argument(
+        "--manifest-only",
+        action="store_true",
+        help="Emit only the W1 stub manifest JSON (no scene.usda). Default writes both.",
     )
     parser.add_argument(
         "--schema",
@@ -479,10 +1097,20 @@ def main(argv: Optional[list[str]] = None) -> int:
         print("\n[dry-run] no output written.")
         return 0
 
-    out_path = args.out or (args.scene_yaml.parent / "assembled-manifest.json")
-    manifest = emit_usd_stub(plan, out_path)
-    print(f"\n[ok] manifest written to {out_path} "
-          f"({len(manifest['layers'])} layers, {len(manifest['props'])} props)")
+    # W2 default: write both scene.usda + manifest.json into an out_dir.
+    # Legacy --manifest-only flag preserves the W1 single-JSON behavior.
+    if args.manifest_only:
+        out_path = args.out or (args.scene_yaml.parent / "assembled-manifest.json")
+        manifest = emit_usd_stub(plan, out_path)
+        print(f"\n[ok] manifest written to {out_path} "
+              f"({len(manifest['layers'])} layers, {len(manifest['props'])} props)")
+        return 0
+
+    out_dir = args.out or args.scene_yaml.parent
+    manifest = emit_scene(plan, out_dir)
+    print(f"\n[ok] scene.usda + manifest.json written to {out_dir}/ "
+          f"({len(manifest['layers'])} layers, {len(manifest['props'])} props, "
+          f"usda_sha256={manifest['scene_usda_sha256'][:12]}…)")
     return 0
 
 

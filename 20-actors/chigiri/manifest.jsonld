@@ -23,7 +23,11 @@
   "parentActor": null,
   "crossActorData": [
     "did:web:hanrei.etzhayyim.com",
-    "did:web:bunken.etzhayyim.com"
+    "did:web:bunken.etzhayyim.com",
+    "app.etzhayyim.gov.dataset.parliamentRecord (ADR-2605263900; READ-ONLY publicly-recorded parliament procedure citations for Charter §1.12 state-function-routing-around evidence base; covenant_ceremony + inheritance + withdrawal cells cite publicly-recorded state procedure as substitution context — never as internal dependency per N2; CN-sourced records carry stateAlignedFlag=true which chigiri MUST display in any derived document)",
+    "app.etzhayyim.gov.dataset.openDatasetAttestation (ADR-2605263900; READ-ONLY per-jurisdiction open-data portal catalog — supports multi-jurisdictional template selection for tax_receipt + data_privacy + ip_licensing cells when state-published reference data is the most current source; UPL boundary preserved — chigiri renders procedure templates, NOT legal advice on those datasets per G14)",
+    "app.etzhayyim.corp.registryAttestation (ADR-2605263800; READ-ONLY per-jurisdiction legal-entity registry for entity-identity verification before vendor-contract Rider scrutiny + ipLicenseClaim recipient validation; LEI cross-link via app.etzhayyim.corp.leiReference for cross-jurisdictional resolution)",
+    "app.etzhayyim.corp.leiReference (ADR-2605263800; READ-ONLY GLEIF LEI canonical for cross-jurisdiction entity-identity verification in ip_licensing + employment_compliance cells; CC0 1.0 license; Vendor commercial-terminal imports — Bloomberg Terminal / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro — CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c))"
   ],
   "crossActorProcedure": [
     "did:web:musubi.etzhayyim.com (future — covenant ceremony)",

@@ -38,31 +38,30 @@ import torch
 
 
 def exec_task_in_subprocess(code: str, test_code: str, timeout_sec: int = 10) -> tuple[bool, str]:
-    """Exec generated code + test in a subprocess. Returns (passed, err_msg)."""
-    # Use multiprocessing.Process for isolation + timeout
-    def _runner(code, test, conn):
-        try:
-            full = code + "\n" + test
-            ns = {}
-            exec(full, ns)
-            conn.send(("pass", ""))
-        except Exception as e:
-            conn.send(("fail", f"{type(e).__name__}: {str(e)[:200]}"))
-        except SystemExit as e:
-            conn.send(("fail", f"SystemExit: {e}"))
+    """Exec generated code + test in a subprocess (python -c) with timeout.
 
-    parent_conn, child_conn = multiprocessing.Pipe()
-    p = multiprocessing.Process(target=_runner, args=(code, test_code, child_conn))
-    p.start()
-    p.join(timeout_sec)
-    if p.is_alive():
-        p.terminate()
-        p.join()
+    Avoids multiprocessing pickling issues + provides proper isolation.
+    NOT a docker sandbox — generated code runs as current user. For smoke only.
+    """
+    import subprocess, tempfile
+    full = code + "\n\n" + test_code
+    with tempfile.NamedTemporaryFile(suffix=".py", mode="w", delete=False) as f:
+        f.write(full)
+        path = f.name
+    try:
+        r = subprocess.run(
+            ["python3", path],
+            capture_output=True, text=True, timeout=timeout_sec,
+        )
+        if r.returncode == 0:
+            return True, ""
+        return False, (r.stderr or r.stdout)[:200]
+    except subprocess.TimeoutExpired:
         return False, "timeout"
-    if parent_conn.poll():
-        status, msg = parent_conn.recv()
-        return status == "pass", msg
-    return False, "no-output"
+    except Exception as e:
+        return False, f"{type(e).__name__}: {str(e)[:200]}"
+    finally:
+        os.unlink(path)
 
 
 def extract_python_code(generated: str, signature: str) -> str:
@@ -137,6 +136,26 @@ def main():
                 pad_token_id=tokenizer.eos_token_id or 0,
             )
         gen = tokenizer.decode(out[0][ids["input_ids"].shape[1]:], skip_special_tokens=True)
+        # Strip markdown code fences if BitNet generated them (instruction-tuned style):
+        #   "```python\n<code>\n```" → "<code>"
+        #   trailing "```" anywhere → cut
+        if "```" in gen:
+            # Extract code between first ```python (or ```) and next ```
+            import re
+            m = re.search(r"```(?:python|py)?\s*\n?(.*?)(?:\n```|```|$)", gen, re.DOTALL)
+            if m:
+                gen = m.group(1)
+            else:
+                gen = gen.split("```")[0]
+        # Cut at next top-level def/class (avoid spurious extra definitions)
+        cut_lines = []
+        for ln in gen.splitlines():
+            if cut_lines and ln and not ln.startswith((" ", "\t", "#")) and (
+                ln.lstrip().startswith("def ") or ln.lstrip().startswith("class ")
+            ):
+                break
+            cut_lines.append(ln)
+        gen = "\n".join(cut_lines)
         code = prompt + gen  # full executable
 
         # Exec test

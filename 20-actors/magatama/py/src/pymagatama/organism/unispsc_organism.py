@@ -28,6 +28,14 @@ from pymagatama.organism.inbox import (
     InboxBuffer,
 )
 from pymagatama.organism.joucho import JouchoScores
+from pymagatama.organism.sensors.base import DatasetSensor, SensorObservation
+
+
+# Bounded ring for sensor observations between organism ticks. Keeps
+# memory predictable on long-running organisms — the sensor's
+# `hot_sample(n)` yields a small slice each tick, but if a downstream
+# consumer is slow to drain we don't want unbounded growth.
+_MAX_SENSOR_OBSERVATIONS = 256
 
 logger = logging.getLogger("pymagatama.organism")
 
@@ -119,6 +127,8 @@ class UnispscOrganism:
         post_sink: PostSink | None = None,
         joucho_provider: JouchoProvider | None = None,
         follower_score_provider: FollowerScoreProvider | None = None,
+        sensors: tuple[DatasetSensor, ...] = (),
+        sensor_sample_size: int = 8,
     ) -> None:
         self.code = code
         self.title = title or f"c{code}"
@@ -131,6 +141,19 @@ class UnispscOrganism:
         self.inbox = InboxBuffer()
         self.cadence_state = CadenceState()
         self.tick_count = 0
+        # Per ADR-2605262400 §4.3 — dataset sensor wiring.
+        # ``sensors`` is a tuple of DatasetSensor instances. Each tick the
+        # organism polls those whose `refresh_cadence_sec` has elapsed
+        # since their last poll, asks them for `hot_sample(n=
+        # sensor_sample_size)`, and stores the observations in a bounded
+        # ring. The cadence wiring (joucho mood reflecting sensor
+        # observations) is incremental — Wave-1 just exposes the
+        # observations; deeper integration into joucho 情緒 lands in a
+        # follow-up wave.
+        self.sensors: tuple[DatasetSensor, ...] = tuple(sensors)
+        self.sensor_sample_size = sensor_sample_size
+        self.sensor_observations: list[SensorObservation] = []
+        self.sensor_last_poll_ms: dict[str, int] = {}
 
     @classmethod
     def for_code(
@@ -143,6 +166,8 @@ class UnispscOrganism:
         post_sink: PostSink | None = None,
         joucho_provider: JouchoProvider | None = None,
         follower_score_provider: FollowerScoreProvider | None = None,
+        sensors: tuple[DatasetSensor, ...] = (),
+        sensor_sample_size: int = 8,
     ) -> "UnispscOrganism":
         """Lazy-import the underlying ``c{code}`` LangGraph and wrap it."""
         module_name = f"{_AGENTS_PKG}.c{code}"
@@ -161,7 +186,45 @@ class UnispscOrganism:
             post_sink=post_sink,
             joucho_provider=joucho_provider,
             follower_score_provider=follower_score_provider,
+            sensors=sensors,
+            sensor_sample_size=sensor_sample_size,
         )
+
+    def poll_sensors(self, now_ms: int) -> list[SensorObservation]:
+        """Poll due sensors and append observations to the ring.
+
+        A sensor is "due" when at least ``refresh_cadence_sec`` has
+        elapsed since the organism's last poll of it. The first tick
+        always polls every sensor (last_poll_ms unset).
+
+        Returns the list of observations gathered this call (also
+        appended to ``self.sensor_observations`` up to the ring cap).
+        """
+        gathered: list[SensorObservation] = []
+        for s in self.sensors:
+            last = self.sensor_last_poll_ms.get(s.name, 0)
+            if last > 0:
+                age_ms = now_ms - last
+                if age_ms < s.refresh_cadence_sec * 1000:
+                    continue
+            try:
+                pin = s.latest_pin()
+                obs = s.hot_sample(pin, self.sensor_sample_size)
+            except Exception as exc:  # noqa: BLE001 — sensors stay best-effort
+                logger.warning(
+                    "organism c%s sensor '%s' poll failed: %s",
+                    self.code, s.name, exc,
+                )
+                continue
+            gathered.extend(obs)
+            self.sensor_last_poll_ms[s.name] = now_ms
+        if gathered:
+            self.sensor_observations.extend(gathered)
+            # Bound the ring.
+            excess = len(self.sensor_observations) - _MAX_SENSOR_OBSERVATIONS
+            if excess > 0:
+                del self.sensor_observations[:excess]
+        return gathered
 
     def tick(self, *, now_ms: int) -> OrganismTickResult:
         """Run one heartbeat. Returns what was done.
@@ -169,8 +232,15 @@ class UnispscOrganism:
         Synchronous so unit tests can drive ticks deterministically.
         Cell-runner wraps this in ``asyncio.to_thread`` if the heartbeat
         period is short enough to need cooperative scheduling.
+
+        Per ADR-2605262400 §4.3 — sensors are polled first so the
+        observations are visible to the cadence resolver in subsequent
+        ticks (Wave-1 wiring just gathers; deeper joucho integration is
+        a follow-up wave).
         """
         self.tick_count += 1
+        if self.sensors:
+            self.poll_sensors(now_ms)
         cadence = resolve_heartbeat_cadence(
             self.actor_did,
             self.cadence_state,

@@ -470,7 +470,7 @@
           "id": "verifyCap",
           "fn": "graph.query",
           "args": {
-            "sql": "MATCH (c:ConsentCapability {capabilityUri: $input.consentCapabilityUri}) WHERE c.granterDid = $input.patientDid AND c.granteeDid = 'did:web:iryo.gftd.ai' AND c.purpose = 'insurance-billing' AND c.status = 'active' AND c.expiresAt > $now RETURN c.capabilityUri AS capUri, c.scope AS scope LIMIT 1"
+            "sql": "MATCH (c:ConsentCapability {capabilityUri: $input.consentCapabilityUri}) WHERE c.granterDid = $input.patientDid AND c.granteeDid = 'did:web:iryo.etzhayyim.com' AND c.purpose = 'insurance-billing' AND c.status = 'active' AND c.expiresAt > $now RETURN c.capabilityUri AS capUri, c.scope AS scope LIMIT 1"
           }
         },
         {
@@ -478,7 +478,7 @@
           "fn": "agent.invoke",
           "depends_on": ["verifyCap"],
           "args": {
-            "targetDid": "did:web:iryo.gftd.ai",
+            "targetDid": "did:web:iryo.etzhayyim.com",
             "method": "ingestKaruteEncounterForBilling",
             "args": {
               "patientDid": "$input.patientDid",
