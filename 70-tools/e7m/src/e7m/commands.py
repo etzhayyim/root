@@ -528,8 +528,51 @@ def _is_first_party_source(f: Path) -> bool:
     return True
 
 
+def _first_party_source_files(
+    repo: Path, scan_roots: list[str], extensions: tuple[str, ...]
+) -> list[Path]:
+    """Enumerate first-party source files under `scan_roots` with one of
+    `extensions` (lowercase, dotted). Uses `git ls-files` for speed — see
+    `_no_server_key_candidates` for the rationale + fallback shape.
+
+    Honours `_is_first_party_source` filtering (legacy `ai-gftd-project-*`
+    paths + minified artifacts excluded). Files outside the git index
+    (build caches, node_modules) are never enumerated.
+    """
+    # Build pathspecs like '60-apps/**/*.html' for git ls-files.
+    pathspecs: list[str] = []
+    for root in scan_roots:
+        for ext in extensions:
+            pathspecs.append(f"{root}/**/*{ext}")
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(repo), "ls-files", "-z", "--", *pathspecs],
+            capture_output=True, check=True, timeout=30,
+        )
+        rel = [p for p in out.stdout.decode("utf-8", errors="ignore").split("\0") if p]
+        cand = [repo / r for r in rel]
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        # Fallback: original pathlib rglob path.
+        cand = []
+        for root in scan_roots:
+            rp = repo / root
+            if not rp.is_dir():
+                continue
+            for f in rp.rglob("*"):
+                if f.suffix.lower() in extensions:
+                    cand.append(f)
+    return [f for f in cand if _is_first_party_source(f)]
+
+
 def _check_no_advertising(repo: Path) -> tuple[bool, list[str]]:
-    """§1.13 — third-party advertising prohibited (in first-party source)."""
+    """§1.13 — third-party advertising prohibited (in first-party source).
+
+    Implementation: `git grep -lE` does the needle-matching in C against
+    the git index (~10x faster than pythonic `for f in ...; f.read_text;
+    needle in text`) — and honours `.gitignore` so `node_modules/` /
+    build caches are never scanned. The fallback path uses
+    `_first_party_source_files` for non-git environments.
+    """
     needles = [
         ("googletagmanager.com", "GTM"),
         ("g.doubleclick.net",    "DoubleClick"),
@@ -539,17 +582,39 @@ def _check_no_advertising(repo: Path) -> tuple[bool, list[str]]:
         ("static.ads-twitter",   "Twitter Pixel"),
         ("script.hotjar.com",    "Hotjar"),
     ]
-    hits: list[str] = []
     scan_roots = ["60-apps", "10-protocol", "20-actors", "50-infra"]
-    for root in scan_roots:
-        rp = repo / root
-        if not rp.is_dir():
-            continue
-        for f in rp.rglob("*"):
-            if f.suffix.lower() not in (".html", ".js", ".ts", ".tsx", ".jsx", ".svelte", ".py", ".rs"):
+    extensions = (".html", ".js", ".ts", ".tsx", ".jsx", ".svelte", ".py", ".rs")
+    # Construct git pathspecs: one per (root, extension) pair.
+    pathspecs = [f"{root}/**/*{ext}" for root in scan_roots for ext in extensions]
+    # Fixed-string alternation via -F + -e (one -e per needle).
+    grep_args = ["git", "-C", str(repo), "grep", "-l", "-F"]
+    for needle, _label in needles:
+        grep_args += ["-e", needle]
+    grep_args += ["--", *pathspecs]
+    hits: list[str] = []
+    try:
+        out = subprocess.run(grep_args, capture_output=True, timeout=30)
+        # git grep returns 1 = no matches; 0 = matches found; treat both
+        # as success, other returncodes as fallback trigger.
+        if out.returncode not in (0, 1):
+            raise subprocess.SubprocessError(f"git grep exit {out.returncode}")
+        matched_files = [
+            repo / p for p in out.stdout.decode("utf-8", errors="ignore").split("\n") if p
+        ]
+        # Re-apply legacy `ai-gftd-project-*` exclusion via _is_first_party_source.
+        matched_files = [f for f in matched_files if _is_first_party_source(f)]
+        # Identify which specific needles matched, for the hit listing.
+        for f in matched_files:
+            try:
+                text = f.read_text(encoding="utf-8", errors="ignore")
+            except OSError:
                 continue
-            if not _is_first_party_source(f):
-                continue
+            for needle, label in needles:
+                if needle in text:
+                    hits.append(f"  {label} in {f.relative_to(repo)}")
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        # Fallback: pythonic read + match against the candidate set.
+        for f in _first_party_source_files(repo, scan_roots, extensions):
             try:
                 text = f.read_text(encoding="utf-8", errors="ignore")
             except OSError:
@@ -708,24 +773,33 @@ def _check_substrate_boundary(repo: Path) -> tuple[bool, list[str]]:
         ("paypal.com/sdk",       "PayPal"),
         ("@kysely/kysely",       "Kysely (centralized DB ORM)"),
     ]
-    hits: list[str] = []
     scan_roots = ["60-apps", "10-protocol", "20-actors"]
-    for root in scan_roots:
-        rp = repo / root
-        if not rp.is_dir():
+    pathspecs = [f"{r}/**/package.json" for r in scan_roots]
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(repo), "ls-files", "-z", "--", *pathspecs],
+            capture_output=True, check=True, timeout=30,
+        )
+        files = [repo / p for p in out.stdout.decode("utf-8", errors="ignore").split("\0") if p]
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        files = []
+        for root in scan_roots:
+            rp = repo / root
+            if not rp.is_dir():
+                continue
+            for f in rp.rglob("package.json"):
+                if "node_modules" in f.parts or ".venv" in f.parts:
+                    continue
+                files.append(f)
+    hits: list[str] = []
+    for f in files:
+        try:
+            text = f.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
             continue
-        for f in rp.rglob("*.json"):
-            if "node_modules" in f.parts or ".venv" in f.parts:
-                continue
-            if f.name != "package.json":
-                continue
-            try:
-                text = f.read_text(encoding="utf-8", errors="ignore")
-            except OSError:
-                continue
-            for needle, label in prohibited:
-                if needle in text:
-                    hits.append(f"  {label} in {f.relative_to(repo)}")
+        for needle, label in prohibited:
+            if needle in text:
+                hits.append(f"  {label} in {f.relative_to(repo)}")
     if hits:
         return False, ["substrate boundary violation in package.json dependencies:"] + hits[:10]
     return True, ["scanned package.json files — no prohibited fiat/DB processors"]
