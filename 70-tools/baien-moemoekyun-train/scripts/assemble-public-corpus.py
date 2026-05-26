@@ -308,17 +308,35 @@ def _find_pymagatama_src() -> Path | None:
 
 
 def _try_import_charter_scanner():
-    """Lazy-import the Charter Rider scanner.
+    """Resolve the Charter Rider scanner.
 
-    Loads directly from the file path to avoid triggering
-    ``pymagatama/__init__.py`` (which can fail on a broken pydantic-core
-    pinning). The Charter scanner has zero pymagatama-internal deps.
+    Uses the canonical ``e7m_dataset.charter._load_scanner`` (which
+    itself does the spec_from_file_location direct-load fallback).
+    Falls back to the bespoke direct-loader only if e7m_dataset is not
+    importable.
     """
+    try:
+        from e7m_dataset.charter import _load_scanner  # type: ignore
+        mod = _load_scanner()
+        if mod is None:
+            raise CorpusAssemblyError(
+                "Charter Rider scanner could not be loaded via "
+                "e7m_dataset.charter._load_scanner. Install pymagatama "
+                "or set ETZ_PYMAGATAMA_SRC."
+            )
+        return mod.scan
+    except ImportError:
+        pass
+
+    # Legacy fallback — preserved so the standalone script keeps
+    # working from any checkout that pre-dates the e7m_dataset.charter
+    # canonical wrapper.
     src = _find_pymagatama_src()
     if src is None:
         raise CorpusAssemblyError(
             "Could not locate pymagatama source. Set ETZ_PYMAGATAMA_SRC "
-            "or run from inside the etzhayyim-root tree."
+            "or run from inside the etzhayyim-root tree, or install "
+            "e7m_dataset (which exposes the canonical wrapper)."
         )
     mod = _direct_load(
         "_corpus_assembler_charter_rider",
@@ -328,16 +346,30 @@ def _try_import_charter_scanner():
 
 
 def _try_import_pii_filter():
-    """Lazy-import the PII filter — same direct-load strategy."""
+    """Resolve the PII redactor.
+
+    Uses the canonical ``e7m_dataset.pii`` wrapper (which itself does
+    the spec_from_file_location direct-load fallback). Falls back to
+    the bespoke direct-loader only if e7m_dataset is not importable
+    (e.g. when this script is run from a checkout with the wrapper
+    module missing).
+    """
+    try:
+        from e7m_dataset.pii import redact_payload  # type: ignore
+        return redact_payload
+    except ImportError:
+        pass
+
+    # Legacy fallback path — preserved so the standalone script keeps
+    # working from any checkout that pre-dates the e7m_dataset.pii
+    # canonical wrapper. Same direct-load semantics as the wrapper.
     src = _find_pymagatama_src()
     if src is None:
         raise CorpusAssemblyError(
             "Could not locate pymagatama source. Set ETZ_PYMAGATAMA_SRC "
-            "or run from inside the etzhayyim-root tree."
+            "or run from inside the etzhayyim-root tree, or install "
+            "e7m_dataset (which exposes the canonical wrapper)."
         )
-    # The PII filter imports `from .base import PiiFilterPolicy`. To
-    # satisfy that, preload base.py under the same shadow-module name
-    # and patch the relative-import resolution.
     base_mod = _direct_load(
         "_corpus_assembler_pymagatama_base",
         src / "pymagatama/organism/sensors/base.py",
