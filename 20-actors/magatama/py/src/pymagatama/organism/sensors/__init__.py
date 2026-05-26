@@ -24,8 +24,10 @@ from pymagatama.organism.sensors.base import (
     SensorObservation,
     StaticPinResolver,
     Tier,
+    hot_sample_bounded,
     make_observation,
     now_ms,
+    stream_bounded,
 )
 from pymagatama.organism.sensors.caida_sensor import CaidaSensor
 from pymagatama.organism.sensors.commoncrawl_cdx_sensor import CommonCrawlCdxSensor
@@ -68,6 +70,8 @@ __all__ = [
     "StaticPinResolver",
     "Tier",
     "TierGate",
+    "hot_sample_bounded",
+    "stream_bounded",
     "make_observation",
     "now_ms",
     "redact_emails",

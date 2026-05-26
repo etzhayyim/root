@@ -179,44 +179,33 @@ class RisRoutingSensor:
     ) -> Iterator[SensorObservation]:
         """Yield at most ``limit`` observations, then stop.
 
-        Heartbeat-friendly bounded sampling helper added 2026-05-27
-        after the W2 perf measurement (see ``hot_sample`` docstring).
-        For a 421 MB RIPE-RIS bview with ~5-10M RIB entries, calling
-        ``list(stream_bounded(pin, 1000))`` completes in well under
-        a second — fast enough for organism heartbeat polls.
-
-        The sample is **head-biased** (early peers + early prefixes
-        in the bview), which is acceptable for cadence-driven
-        situational-awareness sampling but NOT for unbiased corpus
-        assembly. Use ``hot_sample`` (reservoir over full file) for
-        cold-path corpus assembly.
+        Forward to the generic ``base.stream_bounded`` helper. Kept as
+        a thin wrapper for API compatibility — callers who already
+        depend on ``sensor.stream_bounded(...)`` continue to work.
+        New code should prefer the free function
+        ``pymagatama.organism.sensors.base.stream_bounded(sensor,
+        pin, limit)`` which works uniformly across all sensors.
         """
-        import itertools
-        return itertools.islice(self.stream(pin), limit)
+        from .base import stream_bounded as _gen_stream_bounded
+        return _gen_stream_bounded(self, pin, limit)
 
     def hot_sample_bounded(
         self, pin: DatasetPin, n: int, max_iter: int
     ) -> list[SensorObservation]:
         """Reservoir-sample ``n`` from the first ``max_iter`` records.
 
-        Trades uniform sampling over the entire bview for bounded
-        latency. Suitable for organism heartbeat polls — pick
-        ``max_iter`` such that the scan completes within the
-        heartbeat budget (e.g. ``max_iter=10000`` ≈ 0.7s at 15K
-        obs/s).
+        Forward to the generic ``base.hot_sample_bounded`` helper.
 
-        G9 deterministic on (pin.revision, n, max_iter).
+        NOTE: G9 seed key differs from the original per-class
+        implementation — the generic helper includes
+        ``sensor.name`` in the seed so two different sensors with
+        the same revision+n+max_iter still produce independent
+        samples. Tests that pinned exact reservoir outputs against
+        the old key need a one-time refresh; the determinism
+        property itself is preserved.
         """
-        rng = random.Random(f"{pin.revision}:{n}:{max_iter}")
-        reservoir: list[SensorObservation] = []
-        for i, obs in enumerate(self.stream_bounded(pin, max_iter)):
-            if i < n:
-                reservoir.append(obs)
-            else:
-                j = rng.randint(0, i)
-                if j < n:
-                    reservoir[j] = obs
-        return reservoir
+        from .base import hot_sample_bounded as _gen_hot_sample_bounded
+        return _gen_hot_sample_bounded(self, pin, n, max_iter)
 
     def hot_sample(self, pin: DatasetPin, n: int) -> list[SensorObservation]:
         # Performance note (measured 2026-05-27 on mac-260317, real
