@@ -247,10 +247,12 @@ Six 60-apps still declare `three` deps in `package.json` despite no actual `src/
 | ai-gftd-project-baminiku/.../ykb48d7a/svelte-liver | **REMOVED 5d2ba4b2d** | none | CLAUDE.md cites ADR-0031 | DONE |
 | ai-gftd-project-image2vrm/appview/.../svelte | **REMOVED 0384841bd (iter-12)** | none | CLAUDE.md rewritten KAMI-only same commit | DONE |
 | ai-gftd-project-image2metahuman/appview/.../svelte | **REMOVED 0384841bd (iter-12)** | none | no CLAUDE.md (deps cleanup only; consistent with SDK three-free) | DONE |
-| ai-gftd-project-sos/appview/.../svelte | declared | none | no CLAUDE.md | DEFERRED — needs design intent |
-| ai-gftd-project-global/appview/.../svelte | declared | none | no CLAUDE.md | DEFERRED — needs design intent |
+| ai-gftd-project-sos/appview/.../svelte | declared (`@threlte/core` + `@threlte/extras` + `three`) | (scaffold stub) | `PROJECT.jsonld` documents "Threlte-driven" systems-thinking viewer; CLAUDE.md added iter-17 `afe4e32f4`+ | KEEP — Threlte vendor design intent (sibling of cad) |
+| ai-gftd-project-global/appview/.../svelte | declared (`@threlte/core` + `@threlte/extras` + `@threlte/flex` + `three` + `d3-force-3d`) | (scaffold stub) | `PROJECT.jsonld` documents "Svelte Threlte (Three.js)" 3D viz; CLAUDE.md added iter-17 | KEEP — Threlte + d3 force-directed vendor design intent |
 
-The two DEFERRED entries remaining (sos / global) are NOT blocked by this ADR; they're waiting on per-app design decisions about whether the apps will be revived (decide and document architecture) or retired (then the dead deps can be cleaned as part of the retirement). Both apps have no CLAUDE.md and no current src usage, so the design intent has to come from outside the repo.
+Iter-17 finding: the original "no design intent" assessment for sos and global was wrong — both have explicit Threlte design intent documented in `PROJECT.jsonld` (just not in CLAUDE.md until iter-17 added the breadcrumbs). The `@threlte/core` + `@threlte/extras` deps are intentional configuration for the documented R1+ implementation work, NOT dead deps. Same pattern as `60-apps/ai-gftd-project-cad/` (per its CLAUDE.md "3D viewer 標準は Threlte"). Three.js inside Threlte-using apps is acceptable because Threlte is a separate Svelte 3D library; these apps do NOT depend on `@etzhayyim/kami-engine-sdk` (no SDK in `package.json`), so the SDK's three-free invariant doesn't reach them.
+
+All §2 entries are now resolved: 4 DONE (baminiku ykb48d7a viewer + liver, image2vrm, image2metahuman) + 5 KEEP (cyber-drill vendor carve-out, itonami, deai, cad Threlte, sos Threlte iter-17, global Threlte iter-17). No DEFERRED entries remain.
 
 ## CI regression-test addendum (2026-05-26 iter-13 of /loop)
 
