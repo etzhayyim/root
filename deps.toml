@@ -5088,3 +5088,81 @@ adr = ["2605261600"]
 sibling_modules = [
   "70-tools/e7m-sim (consumer of ported task definitions)",
 ]
+
+# ─── kotoba storage substrate unification R0 (ADR-2605262100) ──
+
+[[adrs]]
+id = "2605262100"
+title = "kotoba Storage Substrate Unification — single content-addressed Datalog + Pregel + Signal + WASM engine subsuming ipfs-pinner / nats-jetstream-{kv-resp, objectstore-s3} / mst-projector / lancedb-wasm / tonbo / etzhayyim-xrpc-proxy / libsignal wrappers"
+status = "proposed"
+status_note = "Engine-layer charter that names **kotoba** (17-crate first-party Apache-2.0 Rust workspace at github.com/etzhayyim/kotoba) as the canonical religious-corp storage substrate engine. Imported as `git subrepo` at `40-engine/kotoba/` (upstream commit `128a89d0e`). yatachain composition (ADR-2605231400), yatachain-projection rules (ADR-2605231500), RW-free invariant (ADR-2605172000), payments on-chain (ADR-2605172100), on-chain land / SBT / Council / Public Fund / Force Authorization / Tithe ledger (ADRs 2605192245 / 192300 / 192315 / 192145 / 192130), and `app.etzhayyim.encrypted.*` wire format (ADR-2605181100 + 181200) ALL unchanged. **8 constitutional carve-outs D1..D8**: D1 Apache 2.0 + Charter Rider v2.0 applied to all 17 crates (Phase 1 deliverable) / D2 `kotoba-llm` local-inference (`metal` / `infer_gpu` / `train_gpu` / `gemma` / `kvcache` / `lora` / `weight` / direct candle linkage) constitutionally DISABLED in religious-corp callable paths; `kotoba-llm` permitted only as **routing facade** to Murakumo gateway (LiteLLM 127.0.0.1:4000 / EVO-X2 LAN 192.168.1.70 per-node Ollama gemma3:4b) per ADR-2605215000 + Charter Rider §2(i) / D3 `kotoba-server` holds NO platform private key per ADR-2605231525 (read-only RPC + IPFS pin + static asset serve only; `// no-server-key: read-only` line marker required) / D4 `kotoba-store` `TieredBlockStore` S3 backend NOT primary write store for land registry / SBT roster / Council attestation / Public Fund accounting / Tithe ledger / Force Authorization records (on-chain stays on-chain) / D5 substrate boundary preserved: kotoba lives BEHIND `@etzhayyim/sdk` shim, never imported directly from `60-apps/*` (substrate-boundary linter Phase 5) / D6 `kotoba-crypto` + `kotoba-signal` re-implement `app.etzhayyim.encrypted.*` envelope **bit-identical** to ADR-2605181100 wire format (Phase 5 test vector suite gate) / D7 yatachain composition unchanged / D8 witness quorum + attestation unchanged. **Mapping table (14 rows)** = every current storage primitive → one kotoba crate + migration phase + constitutional cross-ref. **Phased rollout R0..R7**: Phase 0 = this ADR + subrepo import (zero code change under `40-engine/kotoba/`). Phase 1 = `kotoba-store` + `kotoba-core` + Charter Rider applied + SDK block_store shim shadow mode 30 day ≥99.9% byte-equality vs ipfs-pinner. Phase 2 = `kotoba-kqe` 4-index arrangement (EAVT / AEVT / AVET / VAET) + `kotoba-graph` Commit DAG; **tonbo retire window 30 day**; second L1 projection (non-feed-discover) migrated. Phase 3 = `kotoba-kse` (Journal / Topic / Shelf / Vault) replaces NATS bridges + `kotoba-net` libp2p QUIC/Noise/GossipSub/Bitswap + `kotoba-dht` Source Chain / Warrant / Neighborhood / Availability Proof. Phase 4 = `kotoba-store-web` IndexedDB browser block store (baien edge-target invariant ADR-2605241900 ≤200 MB heap budget carve-out). Phase 5 = `kotoba-auth` (CACAO + DID Document) + `kotoba-crypto` (AEAD + HKDF + key wrap) + `kotoba-signal` (X3DH + Double Ratchet + MLS) + `kotoba-ingest` (Gmail OAuth2 + E2E encrypt → QuadStore) with bit-identical wire-format gate D6 on full ADR-2605181100 test vector suite. Phase 6 = `kotoba-server` XRPC / MCP + `kotoba-runtime` WASM Component Model host + `kotoba-guest` WIT bindings (read-only deploys + `// no-server-key: read-only` marker required). Phase 7 (deferred) = `kotoba-llm` as Murakumo routing facade only (NO local inference; Charter Rider §2(i) reconfirmation). Each phase gated by Council Lv6+ ≥3 per-phase attestation + `e7m verify` 9 invariants green + ≥99.9% byte-equality vs current impl on 30 day shadow comparison. **Existing impls stay live ≥1 R-cycle (~30 days) as cold backup; no `50-infra/*` deletion in this ADR** (`50-infra/ipfs-pinner/` + `50-infra/mst-projector/` + `50-infra/nats-jetstream-kv-resp/` + `50-infra/nats-jetstream-objectstore-s3/` + `50-infra/nats-tiered-storage/` + `50-infra/lancedb-wasm/` + `50-infra/tonbo/` + `50-infra/etzhayyim-xrpc-proxy/` all REMAIN in tree). **7 non-goals N1..N7**: N1 enabling `kotoba-llm` local-inference in religious-corp paths NEVER (vendor `etzhayyim.com` SaaS keeps its own GPU pool behind consent-capability boundary per ADR-2605215000; Charter Rider §2(i) Council Lv6+ supermajority + 30-day public objection to amend) / N2 platform-held private key in `kotoba-server` NEVER (ADR-2605231525; `// no-server-key: read-only` line-marker exemption only) / N3 S3 backend as primary write store for on-chain records NEVER (land / SBT / Council / Public Fund / Force / Tithe records stay on geth-private + Base L2 + IPFS + LANDS.md / MEMBERS.md per ADRs 192245 / 192300 / 192315 / 192145 / 192130) / N4 direct `kotoba-*` import from `60-apps/*` NEVER (via `@etzhayyim/sdk` shim only per ADR-2605172000) / N5 forking kotoba NEVER (`git subrepo` + upstream-PR only; if upstream rejects, escalate to ADR amendment; this protects against engine divergence from upstream commit DAG) / N6 modifying `app.etzhayyim.encrypted.*` Lexicon wire format NEVER (kotoba is the implementation; protocol is constitutional per ADR-2605181100 + 181200; Phase 5 bit-identical test vector suite is structural enforcement) / N7 promoting `kotoba-llm` WebGPU training to religious-corp role without Council Lv6+ attestation NEVER (federated training rounds already gated by ADR-2605242600). **Charter Rider §2(a)-(i) gate checklist**: §2(a) weapons N/A / §2(b) speculative finance N/A / §2(c) anti-surveillance PASS contingent Phase 5 + Phase 6 compile-time telemetry-disable audit (kotoba-ingest Gmail polling + kotoba-server XRPC default no-telemetry) / §2(d) fossil N/A / §2(e) anti-gatekeeping PRO-CLEARANCE (reduces 7-component lock-in to 1 unified workspace) / §2(f) multi-generational harm 30-yr reproducibility PASS (Cargo.lock committed; steward succession ADR-2605192345 inherits future-decedent steward) / §2(g) anti-individualist N/A / §2(h) Wellbecoming PASS (`kotoba-runtime` WASM Component Model sandbox isolation honors §1.13) / §2(i) commercial GPU rental GATED (kotoba-llm local-inference DISABLED in religious-corp; Council Lv6+ supermajority required to amend; this ADR does NOT amend). **Vendor-rejection chain note**: kotoba does NOT extend the vendor-rejection chain — it is a unification of existing first-party paths under Apache-2.0; no new vendor is rejected and no existing rejection is weakened. Subrepo upstream: https://github.com/etzhayyim/kotoba"
+path = "90-docs/adr/2605262100-kotoba-storage-substrate-unification.md"
+
+[[modules]]
+path = "40-engine/kotoba"
+kind = "rust-workspace-storage-substrate-engine"
+version = "0.1.0-r0-subrepo-import-only"
+status = "R0-subrepo-imported-no-modifications-charter-rider-application-deferred-to-phase-1"
+description = "kotoba — religious-corp canonical storage substrate engine. First-party Rust workspace at github.com/etzhayyim/kotoba, Apache-2.0, 17 crates (kotoba-core / kotoba-kse / kotoba-kqe / kotoba-dht / kotoba-net / kotoba-auth / kotoba-graph / kotoba-vm / kotoba-llm / kotoba-runtime / kotoba-store / kotoba-store-web / kotoba-crypto / kotoba-signal / kotoba-ingest / kotoba-server / kotoba-guest). Imported as `git subrepo` at `40-engine/kotoba/` (upstream commit `128a89d0e`); `.gitrepo` metadata file recorded by git-subrepo and committed. R0 deliverable per ADR-2605262100 = subrepo import only; **no code modification, no Charter Rider application, no `cargo check`, no feature flag set under `40-engine/kotoba/`** (those are Phase 1+ deliverables). Implements yatachain composition (ADR-2605231400) and yatachain-projection rules (ADR-2605231500). Subsumes 7+ disjoint storage components: `50-infra/ipfs-pinner/` (Phase 1) / `50-infra/mst-projector/` (Phase 2) / `50-infra/nats-jetstream-kv-resp/` + `50-infra/nats-jetstream-objectstore-s3/` + `50-infra/nats-tiered-storage/` (Phase 3) / `50-infra/lancedb-wasm/` (Phase 4) / `50-infra/tonbo/` (Phase 2 retire window) / `50-infra/etzhayyim-xrpc-proxy/` (Phase 6) / `app.etzhayyim.encrypted.*` libsignal wrappers (Phase 5 bit-identical wire-format gate). **Constitutional carve-outs D1..D8** (per ADR-2605262100 §Decision): D1 Apache 2.0 + Charter Rider v2.0 applied to all 17 crates (Phase 1) / D2 `kotoba-llm` local-inference DISABLED in religious-corp (ADR-2605215000 + Charter Rider §2(i); routing facade to Murakumo gateway only) / D3 `kotoba-server` holds NO platform private key (ADR-2605231525; `// no-server-key: read-only` marker required) / D4 `kotoba-store` S3 backend NOT primary write store for on-chain records (land / SBT / Council / Public Fund / Force / Tithe stay on-chain) / D5 substrate boundary: kotoba lives behind `@etzhayyim/sdk` shim; never imported directly from `60-apps/*` (ADR-2605172000) / D6 `kotoba-crypto` + `kotoba-signal` bit-identical to ADR-2605181100 wire format (Phase 5 test vector suite gate) / D7 yatachain composition unchanged / D8 witness quorum + attestation unchanged. **Existing `50-infra/*` impls stay live ≥1 R-cycle (~30 days) as cold backup; no deletion authorized by this ADR**. Phased rollout R0..R7 each gated by Council Lv6+ ≥3 + `e7m verify` 9 invariants + ≥99.9% byte-equality 30-day shadow."
+adr = ["2605262100", "2605231400", "2605231500", "2605172000", "2605172100", "2605215000", "2605181100", "2605181200", "2605192200", "2605192245", "2605192300", "2605192315", "2605192145", "2605192130", "2605192415", "2605231525", "2605231902", "2605241500", "2605241900", "2605242600"]
+upstream = "https://github.com/etzhayyim/kotoba"
+upstream_commit = "128a89d0e"
+subrepo_metadata_file = "40-engine/kotoba/.gitrepo"
+crates = [
+  "kotoba-core (CIDv1 blake3 + KAIS 8-bit frame + Prolly Tree)",
+  "kotoba-kse (Journal / Topic / Shelf / Vault — Knowledge Store Engine)",
+  "kotoba-kqe (Datalog engine + Arrangement EAVT/AEVT/AVET/VAET + Delta + MV)",
+  "kotoba-dht (Source Chain / Warrant / Neighborhood / Availability Proof)",
+  "kotoba-net (libp2p QUIC / Noise / GossipSub / Bitswap)",
+  "kotoba-auth (CACAO chain verification + DID Document + ETH SIWE + delegation)",
+  "kotoba-graph (Quad API + SPARQL→Datalog + Commit DAG + atproto firehose / JetStream)",
+  "kotoba-vm (Invoke/Result ChainEntry + CALL_FOREIGN + Pregel + Distributed + WasmPregel)",
+  "kotoba-llm (FP8 weight + LoRA Delta + KV-cache + inference + WebGPU train) — local-inference DISABLED in religious-corp (D2)",
+  "kotoba-runtime (WASM Component Model host: WasmExecutor + UdfExecutor + WIT)",
+  "kotoba-store (BlockStore: Memory / Sled / S3; BudgetedBlockStore LRU; TieredBlockStore hot/cold) — S3 NOT for on-chain records (D4)",
+  "kotoba-store-web (Browser IndexedDB block store wasm32) — baien edge-target ≤200 MB heap (ADR-2605241900)",
+  "kotoba-crypto (AEAD AES-256-GCM + HKDF + key wrap) — bit-identical to ADR-2605181100 (D6)",
+  "kotoba-signal (Signal Protocol: X3DH + Double Ratchet + MLS) — bit-identical to ADR-2605181100 (D6)",
+  "kotoba-ingest (Gmail OAuth2 poll + E2E encrypt → QuadStore)",
+  "kotoba-server (XRPC / MCP endpoints) — no server-key per ADR-2605231525 (D3)",
+  "kotoba-guest (WASM guest SDK + WIT bindings for kotoba nodes)",
+]
+constitutional_invariants_immutable_r0_r7 = [
+  "D1 Apache 2.0 + Charter Rider v2.0 applied to all 17 crates (Phase 1)",
+  "D2 kotoba-llm local-inference DISABLED in religious-corp callable paths (ADR-2605215000 + Charter Rider §2(i))",
+  "D3 kotoba-server holds NO platform private key (ADR-2605231525)",
+  "D4 kotoba-store S3 backend NOT primary write store for on-chain records (land / SBT / Council / Public Fund / Force / Tithe)",
+  "D5 substrate boundary: kotoba behind @etzhayyim/sdk; never imported from 60-apps/* (ADR-2605172000)",
+  "D6 kotoba-crypto + kotoba-signal bit-identical to ADR-2605181100 envelope (Phase 5 test vector gate)",
+  "D7 yatachain composition unchanged (ADR-2605231400)",
+  "D8 witness quorum + attestation unchanged (ADR-2605231902 first L1 projection precedent)",
+]
+non_goals_immutable_r0_r7 = [
+  "N1 enabling kotoba-llm local-inference in religious-corp paths NEVER (Charter Rider §2(i))",
+  "N2 platform-held private key in kotoba-server NEVER (ADR-2605231525)",
+  "N3 S3 backend as primary write store for on-chain records NEVER",
+  "N4 direct kotoba-* import from 60-apps/* NEVER (via @etzhayyim/sdk shim only)",
+  "N5 forking kotoba NEVER (subrepo + upstream-PR only)",
+  "N6 modifying app.etzhayyim.encrypted.* wire format NEVER (kotoba is impl; protocol is constitutional)",
+  "N7 promoting kotoba-llm WebGPU training to religious-corp role without Council Lv6+ attestation NEVER (ADR-2605242600)",
+]
+phased_rollout_r0_r7 = [
+  "Phase 0 (THIS ADR) = subrepo import + adr/README.md row + CLAUDE.md Status row 62 + Layout entry + deps.toml entries; zero code change under 40-engine/kotoba/",
+  "Phase 1 = kotoba-store + kotoba-core + Charter Rider applied + SDK block_store shim shadow mode 30d ≥99.9% byte-equality vs ipfs-pinner",
+  "Phase 2 = kotoba-kqe 4-index arrangement + kotoba-graph Commit DAG + second L1 projection; tonbo retire window 30d",
+  "Phase 3 = kotoba-kse replaces NATS bridges + kotoba-net libp2p + kotoba-dht",
+  "Phase 4 = kotoba-store-web browser IndexedDB (baien edge-target ≤200 MB heap)",
+  "Phase 5 = kotoba-auth + kotoba-crypto + kotoba-signal + kotoba-ingest with bit-identical wire-format gate D6",
+  "Phase 6 = kotoba-server XRPC/MCP + kotoba-runtime WASM Component Model + kotoba-guest (read-only deploys)",
+  "Phase 7 (deferred) = kotoba-llm as Murakumo routing facade only (NO local inference)",
+]
+existing_cold_backups_no_deletion_authorized_by_this_adr = [
+  "50-infra/ipfs-pinner/ (Phase 1 cold backup)",
+  "50-infra/mst-projector/ (Phase 2 cold backup)",
+  "50-infra/nats-jetstream-kv-resp/ (Phase 3 cold backup)",
+  "50-infra/nats-jetstream-objectstore-s3/ (Phase 3 cold backup)",
+  "50-infra/nats-tiered-storage/ (Phase 3 cold backup)",
+  "50-infra/lancedb-wasm/ (Phase 4 cold backup)",
+  "50-infra/tonbo/ (Phase 2 retire window)",
+  "50-infra/etzhayyim-xrpc-proxy/ (Phase 6 cold backup)",
+]
