@@ -90,11 +90,19 @@ from .observations import (
     ObsGroup,
     ObsTerm,
     base_ang_vel,
+    base_ang_vel_b,
     base_lin_vel,
+    base_lin_vel_b,
+    base_lin_vel_w,
+    base_pos_z,
     generated_commands,
+    height_scan,
     joint_pos_rel,
+    joint_pos_rel_default,
     joint_vel_rel,
     last_action,
+    last_action_clipped,
+    projected_gravity,
 )
 from .rewards import (
     RewGroup,
@@ -125,6 +133,10 @@ __all__ = [
     "joint_pos_rel", "joint_vel_rel",
     "base_lin_vel", "base_ang_vel",
     "last_action", "generated_commands",
+    # Locomotion observation extensions (iter 61)
+    "base_pos_z", "base_lin_vel_w", "base_lin_vel_b", "base_ang_vel_b",
+    "projected_gravity", "joint_pos_rel_default", "last_action_clipped",
+    "height_scan",
     # Reward functions
     "is_alive", "is_terminated",
     "joint_pos_l2", "joint_vel_l2",
