@@ -152,6 +152,56 @@ export class KvCache {
   }
 
   /**
+   * Write one layer's K + V at a specific (layer, position) WITHOUT
+   * touching `currentLength`. Used by the layer-by-layer forward path,
+   * which computes K/V one layer at a time. Caller is responsible for
+   * calling `setCurrentLength(p+1)` once all 30 layers have written
+   * to position `p`.
+   *
+   * `k` and `v` MUST each be exactly `kvDim` fp32 values (one layer
+   * worth). Throws on size or index mismatch.
+   */
+  setKVAt(layer: number, position: number, k: Float32Array, v: Float32Array): void {
+    const { numLayers, kvDim, maxPos } = this.shape;
+    if (layer < 0 || layer >= numLayers) {
+      throw new Error(
+        `KvCache.setKVAt: layer=${String(layer)} out of [0, ${String(numLayers)})`,
+      );
+    }
+    if (position < 0 || position >= maxPos) {
+      throw new Error(
+        `KvCache.setKVAt: position=${String(position)} out of [0, ${String(maxPos)})`,
+      );
+    }
+    if (k.length !== kvDim || v.length !== kvDim) {
+      throw new Error(
+        `KvCache.setKVAt: expected k.length=v.length=${String(kvDim)}, got k=${String(k.length)} v=${String(v.length)}`,
+      );
+    }
+    const perLayer = 2 * maxPos * kvDim;
+    const kBase = layer * perLayer + K_INDEX * maxPos * kvDim + position * kvDim;
+    const vBase = layer * perLayer + V_INDEX * maxPos * kvDim + position * kvDim;
+    for (let i = 0; i < kvDim; i++) {
+      this.buf[kBase + i] = f32ToF16Bits(k[i]!);
+      this.buf[vBase + i] = f32ToF16Bits(v[i]!);
+    }
+  }
+
+  /**
+   * Set the sequence length explicitly. Used by the layer-by-layer
+   * forward path after all `setKVAt(layer, p, ...)` calls for the
+   * new position `p` have completed. `n` MUST be in `[0, maxPos]`.
+   */
+  setCurrentLength(n: number): void {
+    if (n < 0 || n > this.shape.maxPos) {
+      throw new Error(
+        `KvCache.setCurrentLength: n=${String(n)} out of [0, ${String(this.shape.maxPos)}]`,
+      );
+    }
+    this.length = n;
+  }
+
+  /**
    * Return a fp32 view of `[layer][kind][0..currentLength × kvDim]`.
    *
    * Allocates a fresh Float32Array on each call. For the hot attention
