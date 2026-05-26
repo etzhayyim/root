@@ -13,7 +13,7 @@
       "phase": 1,
       "leaderNode": "naphtali",
       "module": "site_survey.cell",
-      "lexicon": "ai.gftd.apps.etzhayyim.kuniUmi.defineDeploymentSite",
+      "lexicon": "app.etzhayyim.kuniUmi.defineDeploymentSite",
       "trigger": { "kind": "mst-listener" },
       "healthzPort": 13017
     },
@@ -22,7 +22,7 @@
       "phase": 2,
       "leaderNode": "zebulun",
       "module": "deployment_planning.cell",
-      "lexicon": "ai.gftd.apps.etzhayyim.kuniUmi.submitSiteSurvey",
+      "lexicon": "app.etzhayyim.kuniUmi.submitSiteSurvey",
       "trigger": { "kind": "mst-listener" },
       "healthzPort": 13018
     },
@@ -31,7 +31,7 @@
       "phase": 3,
       "leaderNode": "joseph",
       "module": "construction_orchestration.cell",
-      "lexicon": "ai.gftd.apps.etzhayyim.kuniUmi.proposeDeploymentPlan",
+      "lexicon": "app.etzhayyim.kuniUmi.proposeDeploymentPlan",
       "trigger": { "kind": "mst-listener" },
       "healthzPort": 13019
     },
@@ -40,7 +40,7 @@
       "phase": 4,
       "leaderNode": "simeon",
       "module": "commissioning.cell",
-      "lexicon": "ai.gftd.apps.etzhayyim.kuniUmi.recordConstructionProgress",
+      "lexicon": "app.etzhayyim.kuniUmi.recordConstructionProgress",
       "trigger": { "kind": "mst-listener" },
       "healthzPort": 13020
     },
@@ -49,7 +49,7 @@
       "phase": 5,
       "leaderNode": "levi",
       "module": "audit_witness.cell",
-      "lexicon": "ai.gftd.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
+      "lexicon": "app.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
       "trigger": { "kind": "mst-listener" },
       "healthzPort": 13021
     },
@@ -58,18 +58,18 @@
       "phase": 6,
       "leaderNode": "dan",
       "module": "decommission.cell",
-      "lexicon": "ai.gftd.apps.etzhayyim.kuniUmi.commissionDeployment",
+      "lexicon": "app.etzhayyim.kuniUmi.commissionDeployment",
       "trigger": { "kind": "cron", "expr": "0 0 1 * *" },
       "healthzPort": 13022
     }
   ],
   "lexicons": [
-    "ai.gftd.apps.etzhayyim.kuniUmi.defineDeploymentSite",
-    "ai.gftd.apps.etzhayyim.kuniUmi.submitSiteSurvey",
-    "ai.gftd.apps.etzhayyim.kuniUmi.proposeDeploymentPlan",
-    "ai.gftd.apps.etzhayyim.kuniUmi.recordConstructionProgress",
-    "ai.gftd.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
-    "ai.gftd.apps.etzhayyim.kuniUmi.commissionDeployment"
+    "app.etzhayyim.kuniUmi.defineDeploymentSite",
+    "app.etzhayyim.kuniUmi.submitSiteSurvey",
+    "app.etzhayyim.kuniUmi.proposeDeploymentPlan",
+    "app.etzhayyim.kuniUmi.recordConstructionProgress",
+    "app.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
+    "app.etzhayyim.kuniUmi.commissionDeployment"
   ],
   "bpmn": "bpmn/kuni-umi-deployment-workflow.bpmn",
   "dmn": [

@@ -11,7 +11,7 @@ bash 70-tools/scripts/audit/all.sh            # report
 bash 70-tools/scripts/audit/all.sh --strict   # exit 1 if any finding (CI integration)
 ```
 
-Current baseline (as of iter-51 of /loop, 2026-05-27): **31 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **6 manifest-lexicon-drift** (was 11 in iter-50; iter-51 authored the 5 yoro-supply lexicons; 1 actor / 6 lexicons remain — kuni-umi).
+Current baseline (as of iter-52 of /loop, 2026-05-27): **25 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **0 manifest-lexicon-drift** (iter-52 closed kuni-umi 6/6; full category zeroed; all 21 initial findings resolved across iters 48-52). **Both batched-fix categories now fully closed.** Remaining 25 findings are all documented-deferred awaiting upstream coordination.
 
 The "documented + deferred" findings will fail `--strict` mode until the upstream coordination work lands. That's by design — `--strict` is the operator's gate for "I want to publish or PR-merge and don't want to accidentally take on debt." Mode without `--strict` is for "give me the current health snapshot."
 
@@ -86,13 +86,13 @@ python3 70-tools/scripts/audit/manifest-lexicon-drift.py --strict
 ```
 
 **Initial baseline (iter-47): 21 missing lexicons across 5 actors.**
-**Progression**: iter-48 closed wadachi (3/3); iter-49 closed gov-municipality (3/3); iter-50 closed infra-utility-connect (4/4); iter-51 closed yoro-supply (5/5). Current: **6 missing across 1 actor**:
+**Progression**: iter-48 closed wadachi (3/3); iter-49 closed gov-municipality (3/3); iter-50 closed infra-utility-connect (4/4); iter-51 closed yoro-supply (5/5); iter-52 closed kuni-umi (6/6) + migrated legacy NSID prefix `ai.gftd.apps.etzhayyim.kuniUmi.*` → `app.etzhayyim.kuniUmi.*`. **Current: 0 missing — category FULLY CLOSED.**
 
 | Actor | Missing | Status |
 |---|---|---|
 | gov-municipality | 0 | ✅ closed iter-49 |
 | infra-utility-connect | 0 | ✅ closed iter-50 |
-| kuni-umi | 6 | open (legacy `ai.gftd.apps.etzhayyim.kuniUmi.*` prefix) |
+| kuni-umi | 0 | ✅ closed iter-52 (+ NSID migration to canonical prefix) |
 | wadachi | 0 | ✅ closed iter-48 |
 | yoro-supply | 0 | ✅ closed iter-51 |
 
