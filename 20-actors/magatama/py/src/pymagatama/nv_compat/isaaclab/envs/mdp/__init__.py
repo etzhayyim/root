@@ -68,6 +68,18 @@ from .curriculums import (
     terrain_levels_vy,
     update_distance_accumulator,
 )
+from .terminations import (
+    all_of,
+    any_of,
+    bad_orientation,
+    base_contact,
+    illegal_contact,
+    joint_pos_out_of_limit,
+    joint_vel_out_of_limit,
+    negate,
+    root_height_below_minimum,
+    time_out,
+)
 from .events import (
     EventTerm,
     randomize_rigid_body_mass,
@@ -125,4 +137,9 @@ __all__ = [
     "CurriculumTerm", "CurriculumManager",
     "terrain_levels_vy", "modify_reward_weight", "modify_action_scale",
     "update_distance_accumulator", "reset_distance_accumulator",
+    # Termination functions (compose with iter 22 TerminationTerm)
+    "time_out", "bad_orientation", "root_height_below_minimum",
+    "joint_pos_out_of_limit", "joint_vel_out_of_limit",
+    "illegal_contact", "base_contact",
+    "any_of", "all_of", "negate",
 ]
