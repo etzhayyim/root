@@ -1198,6 +1198,347 @@ def test_w2_2_emit_scene_writes_sidecars_and_records_in_manifest(assemble_mod, t
     assert recs[0]["sidecar"] == "textures/Layer1_raster_overlay.png"
 
 
+# ─── W2.3 Charter rescan deepening (Parquet text-column extraction) ─
+
+
+def test_charter_extract_parquet_text_sidecar_basic(assemble_mod, tmp_path):
+    """`_extract_parquet_text_to_tempfile` writes per-column rows for string cols."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    table = pa.table({
+        "class": pa.array(["building", "warehouse", "residential"], type=pa.string()),
+        "height": pa.array([10.0, 20.0, 8.0], type=pa.float64()),
+        "name": pa.array(["A", "B", None], type=pa.string()),
+    })
+    parquet = tmp_path / "buildings.parquet"
+    pq.write_table(table, parquet)
+    out = tmp_path / "out"
+    out.mkdir()
+    sidecar = assemble_mod._extract_parquet_text_to_tempfile(parquet, out)
+    assert sidecar is not None
+    text = sidecar.read_text(encoding="utf-8")
+    assert "class: building" in text
+    assert "class: warehouse" in text
+    assert "name: A" in text
+    # height (float64) not included; None value skipped.
+    assert "height" not in text
+    assert "name: None" not in text
+
+
+def test_charter_extract_returns_none_when_no_string_columns(assemble_mod, tmp_path):
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    table = pa.table({
+        "x": pa.array([1.0, 2.0], type=pa.float64()),
+        "y": pa.array([3, 4], type=pa.int64()),
+    })
+    parquet = tmp_path / "no-strings.parquet"
+    pq.write_table(table, parquet)
+    sidecar = assemble_mod._extract_parquet_text_to_tempfile(parquet, tmp_path)
+    assert sidecar is None
+
+
+def test_charter_collect_scan_targets_includes_parquet_sidecars(assemble_mod, tmp_path):
+    """`_collect_charter_scan_targets` adds Parquet text sidecars to scan list."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    parquet = tmp_path / "data.parquet"
+    pq.write_table(
+        pa.table({"name": pa.array(["safe-building"], type=pa.string())}),
+        parquet,
+    )
+    scene = tmp_path / "scene.yaml"
+    scene.write_text("test scene")
+    out = tmp_path / "out"
+    out.mkdir()
+
+    # Build a fake LayerPlan referencing the parquet.
+    layer = assemble_mod.LayerPlan(
+        index=0, kind="vector_buildings",
+        source_subdataset="x", datasetPin_at="at://x/<rkey>",
+        tier="A", resolved_cid="bafy0", dispatch_handler="kami-usd:test",
+        extra={"local_parquet_path": str(parquet)},
+    )
+    paths, sidecars = assemble_mod._collect_charter_scan_targets(
+        scene, [layer], [], out,
+    )
+    # scene.yaml + 1 sidecar
+    assert len(paths) == 2
+    assert paths[0] == scene
+    assert len(sidecars) == 1
+    assert sidecars[0].name == "charter-rescan-data.parquet.txt"
+    assert sidecars[0].read_text().startswith("name: safe-building")
+
+
+def test_charter_collect_skips_layers_without_parquet(assemble_mod, tmp_path):
+    scene = tmp_path / "scene.yaml"
+    scene.write_text("x")
+    out = tmp_path / "out"
+    out.mkdir()
+    layer = assemble_mod.LayerPlan(
+        index=0, kind="terrain",
+        source_subdataset="x", datasetPin_at="at://x/<rkey>",
+        tier="A", resolved_cid="bafy0", dispatch_handler="kami-usd:terrain",
+        extra={"local_geotiff_path": "/tmp/no-parquet.tif"},  # image, not Parquet
+    )
+    paths, sidecars = assemble_mod._collect_charter_scan_targets(
+        scene, [layer], [], out,
+    )
+    # Only scene.yaml; image path NOT scanned (vision-PII layer's job).
+    assert paths == [scene]
+    assert sidecars == []
+
+
+# ─── W2.3 Charter rescan E2E — prohibited content catches ──────────
+
+
+class _FakeCharterModule:
+    """Stand-in for `e7m_dataset.charter` that the assemble script can import.
+
+    Replaces the real wrapper around `pymagatama.organism.sensors.charter_rider`
+    with a controllable function. Used by tests to verify the assemble
+    plumbing actually wires Parquet sidecars into scan_sample and that a
+    `passed=False` verdict propagates as a RuntimeError.
+    """
+
+    def __init__(self, *, passed: bool, violations: list[dict] | None = None) -> None:
+        self.passed = passed
+        self.violations = violations or []
+        self.calls: list[dict] = []   # records each scan_sample invocation
+
+    def scan_sample(self, paths, *, kind, sample_rows=200):
+        # Record what the caller passed so tests can assert on the call shape.
+        path_strs = [str(p) for p in paths]
+        text_samples: list[str] = []
+        for p in paths:
+            try:
+                text_samples.append(_read_text(p))
+            except Exception:
+                text_samples.append("")
+        self.calls.append({
+            "paths": path_strs,
+            "kind": kind,
+            "sample_rows": sample_rows,
+            "texts": text_samples,
+        })
+        return {
+            "passed": self.passed,
+            "at": "2026-05-27T00:00:00Z",
+            "sampled": len(paths),
+            "violations": self.violations,
+            "note": "test-fake-scanner",
+        }
+
+
+def _read_text(p):
+    from pathlib import Path as _Path
+    return _Path(p).read_text(encoding="utf-8", errors="replace")
+
+
+def test_charter_rescan_e2e_passes_when_parquet_clean(
+    assemble_mod, monkeypatch, tmp_path,
+):
+    """Full integration: scene.yaml + safe Parquet → fake scanner passes →
+    no RuntimeError; manifest records Parquet sidecar count."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    parquet = tmp_path / "safe.parquet"
+    pq.write_table(
+        pa.table({
+            "class": pa.array(["building", "warehouse"], type=pa.string()),
+            "name": pa.array(["A", "B"], type=pa.string()),
+        }),
+        parquet,
+    )
+    scene_dir = tmp_path / "clean-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: vector_buildings\n"
+        "      source_subdataset: geo/overture/buildings/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_parquet_path: {parquet}\n",
+        encoding="utf-8",
+    )
+
+    fake = _FakeCharterModule(passed=True)
+    monkeypatch.setattr(assemble_mod, "_try_import_charter", lambda: fake)
+
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    assert plan.charter_attestations["scan_status"] == "passed-recipe-scan"
+    assert plan.charter_attestations["scope"] == "scene-recipe-yaml+parquet-text"
+    assert plan.charter_attestations["parquet_sidecar_count"] == 1
+    assert plan.charter_attestations["scan_target_count"] == 2   # scene.yaml + 1 sidecar
+
+    # The fake recorded one call; the Parquet text must be in the scanned content.
+    assert len(fake.calls) == 1
+    all_text = "\n".join(fake.calls[0]["texts"])
+    assert "class: building" in all_text
+    assert "name: A" in all_text
+
+
+def test_charter_rescan_e2e_aborts_when_parquet_has_prohibited_content(
+    assemble_mod, monkeypatch, tmp_path,
+):
+    """End-to-end §2 violation catch: Parquet row with prohibited keyword →
+    fake scanner returns passed=False → build_plan raises RuntimeError.
+
+    This proves the cycle 29 deepening actually closes the §2 catch loop —
+    Parquet text content (not just scene.yaml) flows through scan_sample
+    and a fail verdict propagates as an abort."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    parquet = tmp_path / "bad.parquet"
+    pq.write_table(
+        pa.table({
+            "class": pa.array(["assault_rifle_carrier_truck"], type=pa.string()),
+            "name": pa.array(["mil-vehicle-001"], type=pa.string()),
+        }),
+        parquet,
+    )
+    scene_dir = tmp_path / "bad-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: vector_buildings\n"
+        "      source_subdataset: geo/overture/buildings/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_parquet_path: {parquet}\n",
+        encoding="utf-8",
+    )
+
+    fake = _FakeCharterModule(
+        passed=False,
+        violations=[{
+            "category": "2a",
+            "label": "WEAPONS_AND_MILITARY",
+            "match": "assault_rifle_carrier_truck",
+        }],
+    )
+    monkeypatch.setattr(assemble_mod, "_try_import_charter", lambda: fake)
+
+    with pytest.raises(RuntimeError, match="Charter Rider §2 scan FAILED"):
+        assemble_mod.build_plan(scene_dir / "scene.yaml")
+
+    # The fake was actually called with the Parquet sidecar content.
+    assert len(fake.calls) == 1
+    all_text = "\n".join(fake.calls[0]["texts"])
+    assert "assault_rifle_carrier_truck" in all_text
+
+
+def test_charter_rescan_e2e_no_parquet_only_scene_yaml(
+    assemble_mod, monkeypatch, tmp_path,
+):
+    """When no layer has local_parquet_path, only scene.yaml is in scan list."""
+    scene_dir = tmp_path / "no-parquet-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n",
+        encoding="utf-8",
+    )
+    fake = _FakeCharterModule(passed=True)
+    monkeypatch.setattr(assemble_mod, "_try_import_charter", lambda: fake)
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    assert plan.charter_attestations["parquet_sidecar_count"] == 0
+    assert plan.charter_attestations["scan_target_count"] == 1   # scene.yaml only
+    assert len(fake.calls) == 1
+    assert len(fake.calls[0]["paths"]) == 1
+
+
+def test_charter_rescan_e2e_temp_sidecars_cleaned_up(
+    assemble_mod, monkeypatch, tmp_path,
+):
+    """After successful build_plan, the temp sidecar directory should be removed."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    parquet = tmp_path / "data.parquet"
+    pq.write_table(
+        pa.table({"name": pa.array(["safe-row"], type=pa.string())}),
+        parquet,
+    )
+    scene_dir = tmp_path / "cleanup-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/x\n"
+        "      datasetPin_at: at://x/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: vector_buildings\n"
+        "      source_subdataset: geo/overture/x\n"
+        "      datasetPin_at: at://x/<rkey>\n"
+        "      tier: A\n"
+        f"      local_parquet_path: {parquet}\n",
+        encoding="utf-8",
+    )
+    fake = _FakeCharterModule(passed=True)
+    monkeypatch.setattr(assemble_mod, "_try_import_charter", lambda: fake)
+
+    import tempfile as _tempfile
+    import glob
+    # Snapshot the system temp dir before + after.
+    before = set(glob.glob(str(_tempfile.gettempdir()) + "/e7m-charter-rescan-*"))
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    after = set(glob.glob(str(_tempfile.gettempdir()) + "/e7m-charter-rescan-*"))
+    # No new temp dirs left behind.
+    assert after - before == set()
+
+
+def test_charter_collect_skips_missing_parquet(assemble_mod, tmp_path):
+    """Non-existent local_parquet_path is silently skipped (no scan target)."""
+    scene = tmp_path / "scene.yaml"
+    scene.write_text("x")
+    out = tmp_path / "out"
+    out.mkdir()
+    layer = assemble_mod.LayerPlan(
+        index=0, kind="vector_buildings",
+        source_subdataset="x", datasetPin_at="at://x/<rkey>",
+        tier="A", resolved_cid="bafy0", dispatch_handler="kami-usd:test",
+        extra={"local_parquet_path": "/tmp/does-not-exist.parquet"},
+    )
+    paths, sidecars = assemble_mod._collect_charter_scan_targets(
+        scene, [layer], [], out,
+    )
+    assert paths == [scene]
+    assert sidecars == []
+
+
 def test_makura_indoor_carveout_has_no_scene_yaml():
     """ADR-2605262500 W4 explicit carve-out: makura is indoor-only,
     no outdoor scene.yaml is produced; only a README documents why."""

@@ -287,6 +287,31 @@ pre-commit:
       stage_fixed: false
 
 
+    deps-toml-paths:
+      # When deps.toml is staged, run the book-keeping path verifier
+      # (70-tools/scripts/lint/verify_deps_toml_paths.py — ADR-2605262500
+      # cycle 27). Catches orphaned [[adrs]] + [[modules]] entries from
+      # renames / refactors before they hit history. ~0.05s overhead.
+      glob: "deps.toml"
+      run: |
+        python3 70-tools/scripts/lint/verify_deps_toml_paths.py \
+          --filter ADR-2605262500 \
+          > /tmp/deps-toml-audit.$$.txt 2>&1
+        rc=$?
+        if [ $rc -ne 0 ]; then
+          echo "✘ deps.toml path audit failed for ADR-2605262500 scope:"
+          cat /tmp/deps-toml-audit.$$.txt
+          rm -f /tmp/deps-toml-audit.$$.txt
+          echo ""
+          echo "  Either restore the missing file(s), or remove the orphan"
+          echo "  entries from deps.toml. Run unfiltered audit for full picture:"
+          echo "    python3 70-tools/scripts/lint/verify_deps_toml_paths.py"
+          exit 1
+        fi
+        rm -f /tmp/deps-toml-audit.$$.txt
+      stage_fixed: false
+
+
 # ─────────────────────────────────────────────────────────────────────────
 # pre-push — heavier regression checks that don't fit in the per-commit
 # budget. Mirror of .github/workflows/kami-engine-sdk.yml so contributors

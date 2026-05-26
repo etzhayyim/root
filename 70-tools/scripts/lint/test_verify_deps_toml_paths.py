@@ -1,0 +1,195 @@
+"""Tests for verify_deps_toml_paths.py."""
+
+from __future__ import annotations
+
+import importlib.util
+import sys
+from pathlib import Path
+
+import pytest
+
+
+_SCRIPT = Path(__file__).resolve().parent / "verify_deps_toml_paths.py"
+
+
+@pytest.fixture(scope="module")
+def verifier():
+    spec = importlib.util.spec_from_file_location("verify_deps_toml_paths", _SCRIPT)
+    assert spec is not None and spec.loader is not None
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules["verify_deps_toml_paths"] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _write_deps_toml(path: Path, body: str) -> None:
+    path.write_text(body, encoding="utf-8")
+
+
+def test_all_paths_valid(verifier, tmp_path):
+    """Every [[adrs]] + [[modules]] path exists → empty missing list."""
+    (tmp_path / "real-adr.md").write_text("# adr")
+    (tmp_path / "real-module.py").write_text("# code")
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[adrs]]
+id = "test-1"
+path = "real-adr.md"
+
+[[modules]]
+path = "real-module.py"
+adr = "ADR-test-1"
+""")
+    results = verifier.check_paths(deps, tmp_path)
+    assert len(results) == 2
+    assert all(r.exists for r in results)
+
+
+def test_missing_paths_reported(verifier, tmp_path):
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[adrs]]
+id = "test-missing"
+path = "does-not-exist.md"
+
+[[modules]]
+path = "also-missing.py"
+adr = "ADR-test-missing"
+""")
+    results = verifier.check_paths(deps, tmp_path)
+    assert len(results) == 2
+    assert all(not r.exists for r in results)
+    # Section labels preserved.
+    sections = {r.section for r in results}
+    assert sections == {"adrs", "modules"}
+
+
+def test_mixed_valid_and_missing(verifier, tmp_path):
+    (tmp_path / "exists.py").write_text("x")
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "exists.py"
+adr = "ADR-1"
+
+[[modules]]
+path = "ghost.py"
+adr = "ADR-2"
+""")
+    results = verifier.check_paths(deps, tmp_path)
+    assert len(results) == 2
+    ok = [r for r in results if r.exists]
+    missing = [r for r in results if not r.exists]
+    assert len(ok) == 1
+    assert ok[0].path == "exists.py"
+    assert len(missing) == 1
+    assert missing[0].path == "ghost.py"
+
+
+def test_filter_by_token(verifier, tmp_path):
+    """--filter limits the audit scope to entries matching the token."""
+    (tmp_path / "keep.py").write_text("x")
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "keep.py"
+adr = "ADR-2605262500"
+
+[[modules]]
+path = "different.py"
+adr = "ADR-2605262400"
+""")
+    results = verifier.check_paths(deps, tmp_path, filter_token="2605262500")
+    assert len(results) == 1
+    assert results[0].path == "keep.py"
+
+
+def test_directory_path_accepted(verifier, tmp_path):
+    """Directory paths (e.g., scenes/foo/) resolve when the dir exists."""
+    (tmp_path / "scenes").mkdir()
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "scenes/"
+adr = "ADR-x"
+""")
+    results = verifier.check_paths(deps, tmp_path)
+    assert len(results) == 1
+    assert results[0].exists
+
+
+def test_main_cli_exit_0_when_all_resolve(verifier, tmp_path, capsys):
+    """The CLI main() returns 0 when all paths resolve."""
+    (tmp_path / "ok.py").write_text("x")
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "ok.py"
+adr = "ADR-x"
+""")
+    rc = verifier.main([
+        "--deps-toml", str(deps),
+        "--repo-root", str(tmp_path),
+    ])
+    assert rc == 0
+
+
+def test_main_cli_exit_1_when_missing(verifier, tmp_path):
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "missing.py"
+adr = "ADR-x"
+""")
+    rc = verifier.main([
+        "--deps-toml", str(deps),
+        "--repo-root", str(tmp_path),
+    ])
+    assert rc == 1
+
+
+def test_main_json_output(verifier, tmp_path, capsys):
+    (tmp_path / "real.py").write_text("x")
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "real.py"
+adr = "ADR-x"
+
+[[modules]]
+path = "fake.py"
+adr = "ADR-x"
+""")
+    rc = verifier.main([
+        "--deps-toml", str(deps),
+        "--repo-root", str(tmp_path),
+        "--json",
+    ])
+    assert rc == 1
+    captured = capsys.readouterr()
+    import json
+    payload = json.loads(captured.out)
+    assert payload["total"] == 2
+    assert payload["ok"] == 1
+    assert payload["missing_count"] == 1
+    assert payload["missing"][0]["path"] == "fake.py"
+
+
+def test_main_cli_parse_error(verifier, tmp_path):
+    """Malformed deps.toml → exit 2."""
+    deps = tmp_path / "deps.toml"
+    deps.write_text("this is [[ not [[ valid toml")
+    rc = verifier.main([
+        "--deps-toml", str(deps),
+        "--repo-root", str(tmp_path),
+    ])
+    assert rc == 2
+
+
+def test_main_cli_missing_deps_toml(verifier, tmp_path):
+    """deps.toml missing → exit 2."""
+    rc = verifier.main([
+        "--deps-toml", str(tmp_path / "does-not-exist.toml"),
+        "--repo-root", str(tmp_path),
+    ])
+    assert rc == 2

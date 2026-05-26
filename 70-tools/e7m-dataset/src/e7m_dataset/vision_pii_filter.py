@@ -401,6 +401,307 @@ class OnnxFaceBackend:
         return child_count
 
 
+class Yolov8FaceOnnxBackend(OnnxFaceBackend):
+    """W3.1.2 — yolov8-face ONNX backend (Ultralytics canonical output).
+
+    yolov8-face ONNX models produce one of two canonical output layouts:
+      (a) `(1, N, 6+)` — N detections, each row = [cx, cy, w, h, conf, class, ...kpt]
+      (b) `(1, 6+, N)` — transposed; same data, channels-first layout
+
+    This subclass detects both layouts, converts cxcywh → top-left xywh,
+    applies the score threshold + NMS, and scales boxes from input-space
+    (typically 640×640) to original-image coordinates. Letterbox
+    preprocessing (aspect-ratio-preserving resize + pad) is a W3.1.3
+    refinement — the W3.1.2 PoC uses simple resize.
+    """
+
+    name = "yolov8-face-onnx"
+
+    def __init__(
+        self,
+        *args,
+        nms_iou_threshold: float = 0.45,
+        input_size: tuple[int, int] = (640, 640),
+        **kwargs,
+    ) -> None:
+        kwargs.setdefault("input_size", input_size)
+        super().__init__(*args, **kwargs)
+        self.nms_iou_threshold = nms_iou_threshold
+
+    def detect_faces(self, image_bytes: bytes) -> list[DetectionBox]:
+        import numpy as np
+        inp, orig_h, orig_w = self._decode_image(image_bytes)
+        ort_inputs = {self._face_session.get_inputs()[0].name: inp}
+        outputs = self._face_session.run(None, ort_inputs)
+        if not outputs:
+            return []
+        out = outputs[0]
+        if out.ndim != 3 or out.shape[0] != 1:
+            return []
+
+        # Detect layout: (1, N, C) vs (1, C, N).
+        # yolov8 channel counts are typically in a known range (5-20 incl.
+        # cx,cy,w,h,conf + optional class + optional 5x3 keypoints).
+        d1, d2 = out.shape[1], out.shape[2]
+        YOLOV8_CHANNEL_HINT = {5, 6, 7, 8, 9, 10, 15, 16, 17, 18, 20}
+        if d2 in YOLOV8_CHANNEL_HINT:
+            rows = out[0]                     # already (N, C)
+        elif d1 in YOLOV8_CHANNEL_HINT:
+            rows = out[0].T                   # (C, N) → transpose to (N, C)
+        else:
+            # Ambiguous: fall back to "smaller-is-channel" heuristic.
+            rows = out[0].T if d1 <= d2 else out[0]
+        if rows.shape[1] < 5:
+            return []
+
+        w_in, h_in = self.input_size
+        sx = orig_w / float(w_in)
+        sy = orig_h / float(h_in)
+        boxes: list[DetectionBox] = []
+        for row in rows:
+            score = float(row[4])
+            if score < self.score_threshold:
+                continue
+            cx = float(row[0])
+            cy = float(row[1])
+            bw = float(row[2])
+            bh = float(row[3])
+            x = int(round((cx - bw / 2.0) * sx))
+            y = int(round((cy - bh / 2.0) * sy))
+            w = int(round(bw * sx))
+            h = int(round(bh * sy))
+            boxes.append(DetectionBox(
+                x=x, y=y, w=w, h=h, score=score, label="face"
+            ))
+        return _nms(boxes, iou_threshold=self.nms_iou_threshold)
+
+
+class RetinaFaceOnnxBackend(OnnxFaceBackend):
+    """W3.1.3 — RetinaFace ONNX backend (post-processed Nx{15,16} output).
+
+    RetinaFace's raw output is a multi-pyramid (loc, conf, landmark)
+    tuple requiring anchor-based decode at 3 feature levels. Most
+    deployment-ready exports (e.g., insightface, retinaface-pytorch)
+    ship a POST-PROCESSED ONNX that emits Nx{15} rows after anchor
+    decode + NMS internally:
+
+      row layout (15-column): [x, y, w, h, lkpt0_x, lkpt0_y, lkpt1_x,
+                               lkpt1_y, lkpt2_x, lkpt2_y, lkpt3_x,
+                               lkpt3_y, lkpt4_x, lkpt4_y, score]
+
+    Some exporters add a class index → Nx{16}: same first 14 + score
+    + class. The 5 landmarks (right_eye, left_eye, nose, right_mouth,
+    left_mouth) are stored after the bbox.
+
+    This subclass extracts bbox from dims [0:4] and score from dim 14
+    (NOT dim 4 like CenterFace/yolov8). The decoder also handles the
+    `(1, N, C)` vs `(1, C, N)` layout heuristic via the channel-count
+    hint set extended to include {14, 15, 16}.
+
+    Raw-output RetinaFace (multi-pyramid anchor decode) is W3.1.3.1 —
+    out of scope for this PoC. Operators with raw-output models should
+    use post-processing first.
+    """
+
+    name = "retinaface-onnx"
+
+    def __init__(
+        self,
+        *args,
+        nms_iou_threshold: float = 0.40,
+        input_size: tuple[int, int] = (640, 640),
+        **kwargs,
+    ) -> None:
+        kwargs.setdefault("input_size", input_size)
+        super().__init__(*args, **kwargs)
+        self.nms_iou_threshold = nms_iou_threshold
+
+    def detect_faces(self, image_bytes: bytes) -> list[DetectionBox]:
+        import numpy as np
+        inp, orig_h, orig_w = self._decode_image(image_bytes)
+        ort_inputs = {self._face_session.get_inputs()[0].name: inp}
+        outputs = self._face_session.run(None, ort_inputs)
+        if not outputs:
+            return []
+        out = outputs[0]
+        if out.ndim != 3 or out.shape[0] != 1:
+            return []
+
+        # Layout: prefer (1, N, C) where C in {15, 16}; transpose if needed.
+        d1, d2 = out.shape[1], out.shape[2]
+        RETINAFACE_CHANNELS = {15, 16}
+        if d2 in RETINAFACE_CHANNELS:
+            rows = out[0]                      # (N, C)
+        elif d1 in RETINAFACE_CHANNELS:
+            rows = out[0].T                    # transpose to (N, C)
+        else:
+            # Not a recognised RetinaFace layout — fall back to generic decode.
+            return super().detect_faces(image_bytes)
+
+        if rows.shape[1] < 15:
+            return []
+
+        w_in, h_in = self.input_size
+        sx = orig_w / float(w_in)
+        sy = orig_h / float(h_in)
+        boxes: list[DetectionBox] = []
+        for row in rows:
+            # Score is at index 14 (after bbox + 10 landmark floats).
+            score = float(row[14])
+            if score < self.score_threshold:
+                continue
+            # bbox in input space. RetinaFace exports are typically xywh
+            # (top-left + width/height); some emit xyxy. We assume xywh
+            # (more common) and check for sane positive w/h.
+            x_in = float(row[0])
+            y_in = float(row[1])
+            w_in_box = float(row[2])
+            h_in_box = float(row[3])
+            if w_in_box <= 0 or h_in_box <= 0:
+                # xyxy convention: treat (x2, y2) as bottom-right.
+                w_in_box = float(row[2]) - x_in
+                h_in_box = float(row[3]) - y_in
+                if w_in_box <= 0 or h_in_box <= 0:
+                    continue
+            x = int(round(x_in * sx))
+            y = int(round(y_in * sy))
+            w = int(round(w_in_box * sx))
+            h = int(round(h_in_box * sy))
+            boxes.append(DetectionBox(
+                x=x, y=y, w=w, h=h, score=score, label="face"
+            ))
+        return _nms(boxes, iou_threshold=self.nms_iou_threshold)
+
+
+class CenterFaceOnnxBackend(OnnxFaceBackend):
+    """W3.1.1 — CenterFace-specific ONNX backend.
+
+    CenterFace ONNX outputs FOUR tensors (canonical layout):
+      - outputs[0]  heatmap  shape (1, 1, H/4, W/4)   center-confidence map
+      - outputs[1]  scale    shape (1, 2, H/4, W/4)   log scale for w,h
+      - outputs[2]  offset   shape (1, 2, H/4, W/4)   sub-pixel offset for cx,cy
+      - outputs[3]  landmark shape (1, 10, H/4, W/4)  optional 5-landmark
+
+    The generic `OnnxFaceBackend.detect_faces` doesn't understand this
+    shape — it expects Nx{5,6,7} bbox rows. This subclass implements
+    the canonical CenterFace decode algorithm (heatmap peaks → scale +
+    offset reconstruction → original-image-space boxes → NMS).
+    """
+
+    name = "centerface-onnx"
+
+    def __init__(self, *args, nms_iou_threshold: float = 0.4, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.nms_iou_threshold = nms_iou_threshold
+
+    def detect_faces(self, image_bytes: bytes) -> list[DetectionBox]:
+        import numpy as np
+        inp, orig_h, orig_w = self._decode_image(image_bytes)
+        ort_inputs = {self._face_session.get_inputs()[0].name: inp}
+        outputs = self._face_session.run(None, ort_inputs)
+        if len(outputs) < 3:
+            return []
+        heatmap = outputs[0]
+        scale = outputs[1]
+        offset = outputs[2]
+        # Sanity-check shapes (1, 1|2, h, w).
+        if heatmap.ndim != 4 or scale.ndim != 4 or offset.ndim != 4:
+            return []
+        if heatmap.shape[1] != 1 or scale.shape[1] != 2 or offset.shape[1] != 2:
+            return []
+
+        boxes = _centerface_decode_heatmap(
+            heatmap, scale, offset,
+            score_threshold=self.score_threshold,
+            input_size=self.input_size,
+            orig_h=orig_h, orig_w=orig_w,
+        )
+        boxes = _nms(boxes, iou_threshold=self.nms_iou_threshold)
+        return boxes
+
+
+def _centerface_decode_heatmap(
+    heatmap, scale, offset,
+    *,
+    score_threshold: float,
+    input_size: tuple[int, int],
+    orig_h: int,
+    orig_w: int,
+) -> list[DetectionBox]:
+    """CenterFace decode algorithm. Pure function for testability.
+
+    heatmap : (1, 1, Hf, Wf) — center confidence
+    scale   : (1, 2, Hf, Wf) — log scale; scale[0,0] is log_h, scale[0,1] is log_w
+    offset  : (1, 2, Hf, Wf) — sub-pixel offset; offset[0,0] for cy, [0,1] for cx
+    """
+    import numpy as np
+    h = heatmap[0, 0]
+    s = scale[0]
+    o = offset[0]
+    Hf, Wf = h.shape
+
+    # Local-max suppression via 3×3 sliding window: keep peaks ≥ all neighbors.
+    pad = np.pad(h, 1, mode="constant", constant_values=0.0)
+    is_peak = np.ones_like(h, dtype=bool)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            if dy == 0 and dx == 0:
+                continue
+            is_peak &= (h >= pad[1 + dy : 1 + dy + Hf, 1 + dx : 1 + dx + Wf])
+    is_peak &= (h >= score_threshold)
+    peak_ys, peak_xs = np.where(is_peak)
+
+    w_in, h_in = input_size
+    stride_x = w_in / Wf
+    stride_y = h_in / Hf
+    sx = orig_w / float(w_in)
+    sy = orig_h / float(h_in)
+
+    out: list[DetectionBox] = []
+    for py, px in zip(peak_ys.tolist(), peak_xs.tolist()):
+        score = float(h[py, px])
+        # CenterFace convention: scale[0]=log_h, scale[1]=log_w
+        bh = float(np.exp(s[0, py, px])) * 4.0
+        bw = float(np.exp(s[1, py, px])) * 4.0
+        cy_real = (py + float(o[0, py, px])) * stride_y
+        cx_real = (px + float(o[1, py, px])) * stride_x
+        x = int(round((cx_real - bw / 2) * sx))
+        y = int(round((cy_real - bh / 2) * sy))
+        w = int(round(bw * sx))
+        h_box = int(round(bh * sy))
+        out.append(DetectionBox(x=x, y=y, w=w, h=h_box, score=score, label="face"))
+    return out
+
+
+def _iou(a: DetectionBox, b: DetectionBox) -> float:
+    """Axis-aligned bbox IoU."""
+    ax1, ay1 = a.x, a.y
+    ax2, ay2 = a.x + a.w, a.y + a.h
+    bx1, by1 = b.x, b.y
+    bx2, by2 = b.x + b.w, b.y + b.h
+    ix1 = max(ax1, bx1)
+    iy1 = max(ay1, by1)
+    ix2 = min(ax2, bx2)
+    iy2 = min(ay2, by2)
+    iw = max(0, ix2 - ix1)
+    ih = max(0, iy2 - iy1)
+    inter = iw * ih
+    area_a = max(0, ax2 - ax1) * max(0, ay2 - ay1)
+    area_b = max(0, bx2 - bx1) * max(0, by2 - by1)
+    union = area_a + area_b - inter
+    return inter / union if union > 0 else 0.0
+
+
+def _nms(boxes: list[DetectionBox], *, iou_threshold: float) -> list[DetectionBox]:
+    """Non-max suppression — highest-score wins each cluster."""
+    sorted_boxes = sorted(boxes, key=lambda b: -b.score)
+    kept: list[DetectionBox] = []
+    for box in sorted_boxes:
+        if all(_iou(box, k) < iou_threshold for k in kept):
+            kept.append(box)
+    return kept
+
+
 class StubVisionPiiBackend:
     """Test/dry-run backend.  Gate: `ETZ_VISION_PII_ALLOW_STUB=1`
     (verified by `VisionPiiFilter.__init__` — NOT here, so tests can
@@ -537,12 +838,42 @@ def _resolve_backend_from_env(*, allow_stub: bool) -> VisionPiiBackend:
             )
         return StubVisionPiiBackend()
 
-    if spec in {"centerface-onnx", "yolov8-face-onnx", "retinaface-onnx"}:
-        # W3.1: real ONNX backend. Operator MUST set ETZ_VISION_PII_FACE_MODEL
-        # (and optionally PLATE_MODEL / AGE_MODEL). The spec value selects
-        # the decode convention (the W3.1 PoC ships the CenterFace decoder;
-        # yolov8-face / retinaface are subclasses W3.1.1+).
-        return OnnxFaceBackend.from_env()
+    if spec == "centerface-onnx":
+        # W3.1.1: CenterFace-specific decoder (heatmap + scale + offset → NMS bboxes).
+        face = os.environ.get("ETZ_VISION_PII_FACE_MODEL")
+        if not face:
+            raise VisionPiiBackendUnavailable(
+                "ETZ_VISION_PII_FACE_MODEL not set"
+            )
+        return CenterFaceOnnxBackend(
+            model_path=face,
+            plate_model_path=os.environ.get("ETZ_VISION_PII_PLATE_MODEL"),
+            age_model_path=os.environ.get("ETZ_VISION_PII_AGE_MODEL"),
+        )
+    if spec == "yolov8-face-onnx":
+        # W3.1.2: yolov8-face Ultralytics canonical (1, N, 6+) or (1, 6+, N) decoder.
+        face = os.environ.get("ETZ_VISION_PII_FACE_MODEL")
+        if not face:
+            raise VisionPiiBackendUnavailable(
+                "ETZ_VISION_PII_FACE_MODEL not set"
+            )
+        return Yolov8FaceOnnxBackend(
+            model_path=face,
+            plate_model_path=os.environ.get("ETZ_VISION_PII_PLATE_MODEL"),
+            age_model_path=os.environ.get("ETZ_VISION_PII_AGE_MODEL"),
+        )
+    if spec == "retinaface-onnx":
+        # W3.1.3: RetinaFace Nx{15,16} post-processed output decoder.
+        face = os.environ.get("ETZ_VISION_PII_FACE_MODEL")
+        if not face:
+            raise VisionPiiBackendUnavailable(
+                "ETZ_VISION_PII_FACE_MODEL not set"
+            )
+        return RetinaFaceOnnxBackend(
+            model_path=face,
+            plate_model_path=os.environ.get("ETZ_VISION_PII_PLATE_MODEL"),
+            age_model_path=os.environ.get("ETZ_VISION_PII_AGE_MODEL"),
+        )
 
     if not spec:
         raise VisionPiiBackendUnavailable(
@@ -604,6 +935,7 @@ def _blur_boxes(
 
 
 __all__ = [
+    "CenterFaceOnnxBackend",
     "CharterEnforcementError",
     "DEFAULT_FACE_BLUR_SIGMA",
     "DEFAULT_PLATE_BLUR_SIGMA",
@@ -611,9 +943,11 @@ __all__ = [
     "FrameDetections",
     "OnnxFaceBackend",
     "RedactionResult",
+    "RetinaFaceOnnxBackend",
     "StubBackendConfig",
     "StubVisionPiiBackend",
     "VisionPiiBackend",
     "VisionPiiBackendUnavailable",
     "VisionPiiFilter",
+    "Yolov8FaceOnnxBackend",
 ]

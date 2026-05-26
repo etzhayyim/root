@@ -1,7 +1,7 @@
 import io
-import struct
+import struc
 import wave
-import pytest
+import pytes
 from pydantic import TypeAdapter
 from PIL import Image
 
@@ -16,8 +16,8 @@ from pymagatama.organism.observation import (
     audio_joucho_delta,
     numeric_joucho_delta,
     timeseries_joucho_delta,
-    JouchoDelta,
 )
+from pymagatama.organism.joucho_types import JouchoDelta
 
 # 1. 5 modality 全て の discriminator serialization roundtrip
 def test_discriminator_serialization_roundtrip():
@@ -102,7 +102,7 @@ def test_timeseries_feature_extractor():
     assert delta.yokkyu > 0
     assert delta.kakushin < 0
 
-# 3. internal_only=True flag が PostSink (mock) で drop さ れる test
+# 3. internal_only=True flag が PostSink (mock) で drop さ れる tes
 class MockPostSink:
     def __init__(self):
         self.posted = []

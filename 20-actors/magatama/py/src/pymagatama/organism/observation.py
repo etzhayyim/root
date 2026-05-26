@@ -4,20 +4,12 @@ import io
 import math
 import struct
 import wave
-from dataclasses import dataclass
-from pathlib import Path
 from typing import Annotated, Any, Literal, Union
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
-
-
-class BaseObservation(BaseModel):
-    model_config = ConfigDict(extra="allow")
-
-    actorDid: str
-    createdAt: int
-    tier: Literal["A", "B", "C"]
-    internal_only: bool = False
+from pydantic import Field, field_validator
+from .embodiment import TelemetryObservation
+from .base import BaseObservation
+from .joucho_types import JouchoDelta
 
 
 class TextObservation(BaseObservation):
@@ -70,18 +62,10 @@ Observation = Annotated[
         AudioObservation,
         NumericObservation,
         TimeseriesObservation,
+        TelemetryObservation,
     ],
     Field(discriminator="kind"),
 ]
-
-
-@dataclass
-class JouchoDelta:
-    kankaku: int = 0
-    kanjou: int = 0
-    yokkyu: int = 0
-    kakushin: int = 0
-    seimei: int = 0
 
 
 def image_joucho_delta(obs: ImageObservation) -> JouchoDelta:
@@ -109,11 +93,9 @@ def image_joucho_delta(obs: ImageObservation) -> JouchoDelta:
             p = count / total_pixels
             entropy -= p * math.log2(p)
 
-    # High saturation -> kanjou, seimei
     kanjou_delta = int((s_mean / 255.0) * 10)
     seimei_delta = int((s_mean / 255.0) * 5)
 
-    # High hue entropy -> kankaku
     kankaku_delta = int(entropy)
 
     return JouchoDelta(kankaku=kankaku_delta, kanjou=kanjou_delta, seimei=seimei_delta)
@@ -130,7 +112,6 @@ def audio_joucho_delta(obs: AudioObservation) -> JouchoDelta:
                 fmt = f"<{len(frames) // width}{'h' if width == 2 else 'B'}"
                 samples = struct.unpack(fmt, frames)
         except wave.Error:
-            # Fallback to raw 16-bit PCM
             frames = obs.audio
             fmt = f"<{len(frames) // 2}h"
             samples = struct.unpack(fmt, frames[: len(frames) // 2 * 2])
@@ -148,18 +129,14 @@ def audio_joucho_delta(obs: AudioObservation) -> JouchoDelta:
     normalized_rms = rms / (32768.0 if width == 2 else 256.0)
 
     kankaku_delta = int(normalized_rms * 20)
-    yokkyu_delta = int(normalized_rms * 10) # loud sounds increase drive
+    yokkyu_delta = int(normalized_rms * 10)
 
     return JouchoDelta(kankaku=kankaku_delta, yokkyu=yokkyu_delta)
 
 
 def numeric_joucho_delta(obs: NumericObservation, baseline: float) -> JouchoDelta:
     drift = obs.value - baseline
-    # Quantile-drift signed delta
-    # Large drift reduces certainty (kakushin)
     kakushin_delta = -int(abs(drift) * 5)
-
-    # Large drift increases alertness/drive (yokkyu)
     yokkyu_delta = int(abs(drift) * 2)
 
     return JouchoDelta(kakushin=kakushin_delta, yokkyu=yokkyu_delta)
@@ -169,11 +146,9 @@ def timeseries_joucho_delta(obs: TimeseriesObservation) -> JouchoDelta:
     if len(obs.values) < 2:
         return JouchoDelta()
 
-    # Simple trend slope
     slope = obs.values[-1] - obs.values[0]
 
     yokkyu_delta = int(slope * 2)
     kakushin_delta = -int(abs(slope))
 
     return JouchoDelta(yokkyu=yokkyu_delta, kakushin=kakushin_delta)
-

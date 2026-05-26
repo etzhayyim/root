@@ -67,11 +67,21 @@ from .base import (
     ParliamentRecordKind,
     ProcurementRecordKind,
 )
+from .eu_eurostat_sensor import EuEurostatSensor
+from .eu_ted_sensor import EuTedSensor
+from .jp_data_go_jp_sensor import JpDataGoJpSensor
+from .jp_kokkai_kaigiroku_sensor import JpKokkaiKaigirokuSensor
+from .uk_data_gov_uk_sensor import UkDataGovUkSensor
 from .uk_hansard_sensor import UkHansardSensor
+from .us_congress_gov_sensor import UsCongressGovSensor
+from .us_data_gov_sensor import UsDataGovSensor
+from .us_usaspending_sensor import UsUsaspendingSensor
 from .worldbank_open_data_sensor import WorldBankOpenDataSensor
 
 __all__ = [
     "BudgetRecordKind",
+    "EuEurostatSensor",
+    "EuTedSensor",
     "GovBudgetObservation",
     "GovBudgetSensor",
     "GovFacet",
@@ -83,8 +93,14 @@ __all__ = [
     "GovProcurementSensor",
     "GovStatisticsObservation",
     "GovStatisticsSensor",
+    "JpDataGoJpSensor",
+    "JpKokkaiKaigirokuSensor",
     "ParliamentRecordKind",
     "ProcurementRecordKind",
+    "UkDataGovUkSensor",
     "UkHansardSensor",
+    "UsCongressGovSensor",
+    "UsDataGovSensor",
+    "UsUsaspendingSensor",
     "WorldBankOpenDataSensor",
 ]

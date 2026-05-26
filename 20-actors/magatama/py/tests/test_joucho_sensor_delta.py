@@ -19,7 +19,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-import pytest
+import pytes
 
 from pymagatama.organism.joucho import (
     JouchoScores,
@@ -31,7 +31,7 @@ from pymagatama.organism.joucho import (
 @dataclass
 class _StubJouchoDelta:
     """Duck-typed JouchoDelta — same 5-int attributes as
-    pymagatama.organism.observation.JouchoDelta, no pydantic dep."""
+    pymagatama.organism.joucho_types.JouchoDelta, no pydantic dep."""
     kankaku: int = 0
     kanjou: int = 0
     yokkyu: int = 0

@@ -213,6 +213,82 @@ def _try_import_charter() -> Any:
         return None
 
 
+def _extract_parquet_text_to_tempfile(
+    parquet_path: Path,
+    out_dir: Path,
+    *,
+    max_rows: int = 200,
+    max_columns: int = 8,
+) -> Optional[Path]:
+    """Extract string-typed columns from a Parquet into a sidecar .txt for Charter scan.
+
+    The Charter Rider scanner skips files containing null bytes (Parquet
+    is binary), so we materialise the text content (which is what §2
+    rules actually care about — weapons / surveillance / etc. would
+    appear as English/JP keywords in `name` / `class` / `subclass`
+    columns of Overture-shape tables).
+
+    Returns the sidecar path, or None if pyarrow is unavailable / the
+    Parquet has no string columns. The caller is responsible for
+    deleting the sidecar after scan_sample completes.
+    """
+    pq = _try_pyarrow()
+    if pq is None:
+        return None
+    try:
+        import pyarrow as pa   # type: ignore
+        table = pq.read_table(parquet_path)
+    except Exception:   # noqa: BLE001
+        return None
+
+    text_columns: list[str] = []
+    for i, field in enumerate(table.schema):
+        if i >= max_columns:
+            break
+        if pa.types.is_string(field.type) or pa.types.is_large_string(field.type):
+            text_columns.append(field.name)
+    if not text_columns:
+        return None
+
+    sidecar = out_dir / f"charter-rescan-{parquet_path.name}.txt"
+    n = min(table.num_rows, max_rows)
+    with sidecar.open("w", encoding="utf-8") as f:
+        for col_name in text_columns:
+            col = table.column(col_name).to_pylist()[:n]
+            for value in col:
+                if value:
+                    f.write(f"{col_name}: {value}\n")
+    return sidecar
+
+
+def _collect_charter_scan_targets(
+    scene_yaml_path: Path,
+    layers: list[LayerPlan],
+    props: list[LayerPlan],
+    temp_dir: Path,
+) -> tuple[list[Path], list[Path]]:
+    """Returns (paths_to_scan, sidecars_to_cleanup).
+
+    paths_to_scan = [scene_yaml] + 1 text-sidecar per layer/prop that
+    references a local_parquet_path. local_geotiff_path is NOT scanned
+    here (binary image content; vision-PII scan is the proper sibling
+    layer per ADR-2605262500 §5)."""
+    paths: list[Path] = [scene_yaml_path]
+    sidecars: list[Path] = []
+    for item in list(layers) + list(props):
+        parquet_path_str = item.extra.get("local_parquet_path")
+        if not isinstance(parquet_path_str, str) or not parquet_path_str:
+            continue
+        parquet_path = Path(parquet_path_str)
+        if not parquet_path.exists():
+            continue
+        sidecar = _extract_parquet_text_to_tempfile(parquet_path, temp_dir)
+        if sidecar is not None:
+            paths.append(sidecar)
+            sidecars.append(sidecar)
+    return paths, sidecars
+
+
 def _charter_rider_rescan(
     scene_yaml_path: Path,
     plan_items: list[LayerPlan],
@@ -245,32 +321,41 @@ def _charter_rider_rescan(
             ],
         }
 
-    # Real scan over the scene.yaml file. The wrapper handles the
-    # `pymagatama.organism.sensors.charter_rider` resolution + the
-    # `ETZ_DATASET_CHARTER_STRICT` env. If a violation is found, the
-    # scanner returns passed=False; we propagate fail-closed.
-    #
-    # Defensive: scan_sample lazily imports pymagatama which may
-    # transitively pull broken deps (langchain → pydantic env
-    # mismatch). We catch any exception and fall back to stub unless
-    # strict mode is on.
-    import os
+    # W2.3 deepening: also scan any locally-referenced Parquet text content.
+    # The scanner skips binary files, so we extract string columns into
+    # text sidecars first (see _extract_parquet_text_to_tempfile). Image
+    # raster_overlay paths are NOT scanned here — vision PII filter is
+    # the sibling layer per ADR-2605262500 §5.
+    import os, tempfile, shutil
+    temp_dir = Path(tempfile.mkdtemp(prefix="e7m-charter-rescan-"))
+    layers_for_scan = [p for p in plan_items if p.kind != "object_3d_instances"]
+    props_for_scan = [p for p in plan_items if p.kind == "object_3d_instances"]
+    scan_targets, sidecars = _collect_charter_scan_targets(
+        scene_yaml_path, layers_for_scan, props_for_scan, temp_dir,
+    )
+
+    # Real scan. Defensive: scan_sample lazily imports pymagatama which may
+    # transitively pull broken deps (langchain → pydantic env mismatch).
     try:
         result: dict[str, Any] = charter_mod.scan_sample(
-            [scene_yaml_path], kind="sim-scene-recipe", sample_rows=500
+            scan_targets, kind="sim-scene-recipe", sample_rows=500
         )
     except Exception as exc:   # noqa: BLE001
+        shutil.rmtree(temp_dir, ignore_errors=True)
         if os.environ.get("ETZ_E7M_SIM_STRICT_CHARTER") == "1":
             raise
         return {
             "scan_status": "stub-scan-call-failed",
-            "scope": "scene-recipe-yaml",
+            "scope": "scene-recipe-yaml+parquet-text",
             "note": f"charter scan call failed (transitive import?): {exc!r}",
             "layers_scanned": [
                 {"index": p.index, "kind": p.kind, "verdict": "stub-scan-call-failed"}
                 for p in plan_items
             ],
         }
+
+    # Always clean up text sidecars before returning.
+    shutil.rmtree(temp_dir, ignore_errors=True)
 
     if not result.get("passed", False):
         raise RuntimeError(
@@ -279,7 +364,9 @@ def _charter_rider_rescan(
         )
     return {
         "scan_status": "passed-recipe-scan",
-        "scope": "scene-recipe-yaml",
+        "scope": "scene-recipe-yaml+parquet-text",
+        "scan_target_count": len(scan_targets),
+        "parquet_sidecar_count": len(sidecars),
         "scanner_result": result,
         "layers_scanned": [
             {"index": p.index, "kind": p.kind, "verdict": "recipe-scan-passed"}

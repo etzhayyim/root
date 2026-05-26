@@ -6001,6 +6001,34 @@ status = "w2-shipped"
 description = "End-to-end proof-of-life test: synthesizes 4 real assets (16-bit SRTM-style DEM TIFF + Sentinel-2 RGB PNG + Overture buildings WKB-Polygon hexagon Parquet w/ height=22.5 + Overture roads 2-row WKB-LineString Parquet), writes scene.yaml referencing all 4 via local_geotiff_path / local_parquet_path, runs full assemble, verifies all real-asset source tokens present + sidecar PNG copied + manifest texture_sidecars record + G6 byte-determinism across 2 emit cycles. Plus partial-real test (terrain real / others synth) for graceful degradation. 2 tests; offline; full pipeline verified."
 
 [[modules]]
+path = "70-tools/scripts/lint/verify_deps_toml_paths.py"
+adr = "ADR-2605262500"
+kind = "book-keeping-lint"
+status = "shipped"
+description = "stdlib-only deps.toml book-keeping lint — walks every [[adrs]] + [[modules]] entry, checks each `path` resolves to an existing file/dir under repo root, reports drifts (orphaned entries from renames/refactors). Exit code 0=clean, 1=missing, 2=parse/usage error. Supports --filter token (limit scope to e.g. ADR-2605262500), --json output (CI-parseable). First run on 2026-05-27 surfaced 492/507 entries resolve (15 drifts from non-current ADRs; ADR-2605262500's 26 entries all clean). Designed for lefthook pre-commit + nightly CI."
+
+[[modules]]
+path = "70-tools/scripts/lint/test_verify_deps_toml_paths.py"
+adr = "ADR-2605262500"
+kind = "test-suite"
+status = "shipped"
+description = "10 tests for verify_deps_toml_paths.py: all-paths-valid / missing-reported / mixed-valid-and-missing / filter-by-token / directory-paths-accepted / main-CLI-exit-0 / main-CLI-exit-1 / JSON-output / parse-error / missing-deps-toml. All synthetic deps.toml fixtures; offline."
+
+[[modules]]
+path = "lefthook.yml"
+adr = "ADR-2605262500"
+kind = "lefthook-pre-commit-hook"
+status = "shipped"
+description = "lefthook.yml `deps-toml-paths` pre-commit hook (cycle 28) — fires when deps.toml is staged; runs verify_deps_toml_paths.py with `--filter ADR-2605262500` scope; ~0.05s overhead per commit. Catches orphaned book-keeping entries from renames/refactors before they reach git history. Operator can run the unfiltered audit manually for full repo picture. lefthook.yml is shared with many other ADRs; this [[modules]] block records the integration without claiming sole authorship of the file."
+
+[[modules]]
+path = ".github/workflows/deps-toml-paths.yml"
+adr = "ADR-2605262500"
+kind = "github-actions-workflow"
+status = "shipped"
+description = "GitHub Actions workflow (cycle 30) — runs the deps.toml book-keeping verifier on push/PR/nightly schedule/manual dispatch. **Strict-scoped step** (--filter ADR-2605262500) is a HARD PR gate (29/29 currently clean; any drift in this ADR's scope fails the PR). **Full-repo step** runs unfiltered + emits a JSON-driven job summary tracking against the 2026-05-27 baseline of 15 known drifts (3 tatekata reserved + 12 cross-ADR orphans). Above-baseline → ⚠️ warning in summary (non-blocking until orphan owners coordinate cleanup PRs). Below-baseline → ✅ baseline-update prompt. Nightly cron at 03:17 UTC (12:17 JST off-peak); off-minute :17 to avoid bandwidth saturation. 10 verifier unit tests also run as strict gate."
+
+[[modules]]
 path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/mapillary.py"
 adr = "ADR-2605262500"
 kind = "dataset-fetcher-tier-c-g13-g2"
@@ -7482,3 +7510,84 @@ adr = "ADR-2605263900"
 kind = "dataset-sensor-impl"
 status = "w1-impl-landed-parity-complete"
 description = "UsDataGovSensor concrete W1 implementation (gov W1-impl #6 / overall #10 — W1 SENSOR PARITY 10/10 COMPLETE). Reads US data.gov CKAN catalog per-package NDJSON from gov/open-data/usa/data-gov/<rev>/*.ndjson and yields GovOpenDataObservation with jurisdiction='USA'. Tier-A public-domain (17 USC 105 US federal government works); per-row license_tag pass-through enables sub-licensed datasets (e.g., 'cc-by' agency-specific licenses) to carry their license through observation chain. G7 schema discipline: rows missing required fields (datasetId / title / license / payloadCid) skipped without halting stream. organization_filter constructor param restricts to per-agency consumers (e.g., 'noaa-gov' / 'epa-gov' / 'fda-hhs' / 'census-gov'); license_filter restricts to selected license set. Publisher + publishedAtUtc pass-through per ADR-2605263900 §5 (data.gov publishes federal-agency identity by design; no private PII at catalog layer). GDPR-class DSARs route through chigiri.data_privacy to upstream GSA / individual federal agency. state_aligned_flag=False (USA NOT §2(g)-flagged; W4 CN data portal sensors will flip this). First GovOpenDataSensor concrete impl; sibling UkDataGovUkSensor + JpDataGoJpSensor W1-deferred (path-reserved stub only). G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly. Passive-only invariant — NEVER hits catalog.data.gov CKAN live API. Vendor commercial gov-intel terminal imports (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro) CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with real NOAA CDO + EPA AirData + FDA Drug Approvals + Census ACS + 1 CC-BY sub-licensed dataset + 2 G7-skip rows; organization_filter='epa-gov' + license_filter=('us-pd',) restrictions verified. ═══ W1 sensor parity 10/10 ACHIEVED ═══"
+
+
+# ─── W1 sensor pytest harness (covers ADR-2605263800 + ADR-2605263900 W1-impl-landed 10/10) ──
+
+[[modules]]
+path = "20-actors/magatama/py/tests/sensors/conftest.py"
+adr = ["ADR-2605263800", "ADR-2605263900"]
+kind = "pytest-fixture-conftest"
+status = "w1-test-harness-landed"
+description = "Pytest conftest for sensors tests — isolated module loader. Bypasses pymagatama.__init__ langchain/pydantic chain (which may be broken in env per known pydantic-core/pydantic version mismatch issue) via importlib spec_from_file_location + stubbed parent namespace packages. Exposes 3 session fixtures (base_module, corp_base_module, gov_base_module) + 2 per-test fixtures (load_sensor: dotted-suffix sensor loader; make_pin: StaticPinResolver + DatasetPin builder bound to a subdataset name + temp annex root). Enables test suite to run against W1 sensor source code without requiring a working pymagatama top-level import."
+
+[[modules]]
+path = "20-actors/magatama/py/tests/sensors/test_w1_corp_gov_sensors.py"
+adr = ["ADR-2605263800", "ADR-2605263900"]
+kind = "pytest-w1-harness"
+status = "w1-test-harness-landed"
+description = "Pytest harness validating all 10 W1-impl-landed corp/+gov/ sensors. 11 tests total: 10 per-sensor round-trip (GleifLei / SecEdgar / UkCompaniesHouse / JpEdinet / WorldBank / UkHansard / Eurostat / UsCongress / JpKokkai / UsDataGov) each writes a tmp annex shard with real-data fixtures (Apple / Sony / NOAA / Speaker Hoyle / 額賀議長 etc.) + verifies G7 skip + G7 determinism + invariant fields (Tier-A / license_tag / internal_only=False / state_aligned_flag passing) + sensor-specific filter params (form_class_filter / regional_prefix_filter / chamber_filter / record_kind_filter / organization_filter / license_filter / dataflow_prefix_filter); 1 cross-cutting lint test asserts NO sensor source file imports vendor commercial terminal hostnames or SDK package names per Charter Rider §2(e)+§2(c) deny-list (Bloomberg Terminal / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro / GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro). Smoke-verified 2026-05-27 with 11/11 PASS via manual importlib runner (bypasses pytest infra which requires unbroken pydantic env)."
+
+
+# ─── Concrete W1 sensor implementation #11 + #12 (ADR-2605263900 — GovOpenDataSensor portal facet completion) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/gov/uk_data_gov_uk_sensor.py"
+adr = "ADR-2605263900"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "UkDataGovUkSensor concrete W1 implementation (gov W1-impl #7 / overall #11). Reads UK data.gov.uk CKAN catalog per-package NDJSON from gov/open-data/gbr/data-gov-uk/<rev>/*.ndjson and yields GovOpenDataObservation with jurisdiction='GBR'. ~70K UK central + local government dataset entries; default license=OGL-v3.0 (Open Government Licence Crown copyright open). Per-row license_tag pass-through enables sub-licensed (e.g., cc-by) datasets to carry their license through observation chain. organisation_filter constructor param uses British English spelling. G7 schema discipline: rows missing required fields (datasetId / title / license / payloadCid) skipped. Second sibling of UsDataGovSensor + JpDataGoJpSensor (all three yield GovOpenDataObservation; jurisdiction field disambiguating). Per-jurisdiction publication-rule honoring per ADR-2605263900 §5; GDPR DSARs route through chigiri.data_privacy to upstream Cabinet Office / individual UK central+local government body. state_aligned_flag=False (GBR NOT §2(g)-flagged). G7 determinism: hot_sample reservoir-samples reproducibly. Passive-only invariant — NEVER hits data.gov.uk CKAN live API. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Pytest-harness-covered 2026-05-27 (test_uk_data_gov_uk_sensor_round_trip: ONS GDP + MoJ Court Stats + 1 CC-BY sub-licensed dataset + 1 G7-skip; organisation_filter='moj-gov-uk' restriction verified)."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/gov/jp_data_go_jp_sensor.py"
+adr = "ADR-2605263900"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "JpDataGoJpSensor concrete W1 implementation (gov W1-impl #8 / overall #12 — completes GovOpenDataSensor 3-sibling triad USA/GBR/JPN). Reads JP data.go.jp CKAN catalog + e-Stat statsList per-package NDJSON from gov/open-data/jpn/data-go-jp/<rev>/*.ndjson and yields GovOpenDataObservation with jurisdiction='JPN'. ~30K data.go.jp packages + ~600 e-Stat surveys; default license=CC-BY-4.0 (政府標準利用規約 2.0). Combined-NDJSON case supported (data.go.jp + e-Stat in single view; sensor treats uniformly through GovOpenDataObservation shape; downstream consumers may inspect 'source' field in payload). 省庁 / 自治体 publisher names pass-through (総務省 / 厚生労働省 / 東京都 etc.) per §5; 個人情報保護法 + 行政手続オンライン化法 DSARs route through chigiri.data_privacy to upstream 各省庁 / e-Stat NSTAC; religious-corp NEVER performs unilateral removal. organization_filter constructor param restricts to per-省庁 consumers. G7 schema discipline + G7 determinism. state_aligned_flag=False (JPN NOT §2(g)-flagged). Third sibling of UsDataGovSensor + UkDataGovUkSensor. Passive-only invariant — NEVER hits data.go.jp CKAN / e-Stat live API. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Pytest-harness-covered 2026-05-27 (test_jp_data_go_jp_sensor_round_trip: 総務省 人口統計 + 総務省統計局 国勢調査 e-Stat + 1 G7-skip; organization_filter='soumu-go-jp' restriction verified)."
+
+
+# ─── Concrete W1 sensor implementation #13 + #14 (ADR-2605263900 — gov 5 facet completion: Budget + Procurement) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/gov/us_usaspending_sensor.py"
+adr = "ADR-2605263900"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "UsUsaspendingSensor concrete W1 implementation (gov W1-impl #9 / overall #13 — first GovBudgetSensor concrete; completes 4/5 of GovFacet coverage). Reads USAspending.gov per-record NDJSON from gov/budget/usa/usaspending-gov/<rev>/*.ndjson and yields GovBudgetObservation with jurisdiction='USA' covering DATA Act award + recipient + sub-award records. Tier-A public-domain (17 USC 105). recordKind enum: appropriation / obligation / outlay / subaward; G7 schema discipline: rows with unknown recordKind value OR missing required fields (recordId / programName / amountLocal / currencyIso4217 / fiscalYear / payloadCid) skipped without halt. recipient_lei cross-link to corp.leiReference (ADR-2605263800 LeiSensor) preserved on observation; powers toritate (ADR-2605262900) anti-related-party check against Public Fund Safe + Council Safe disbursements in same fiscal cycle. record_kind_filter + fiscal_year_filter constructor params restrict yielded stream. Per-jurisdiction publication-rule honoring per §5 (USAspending publishes named recipients per DATA Act transparency-regime reason). state_aligned_flag=False (USA NOT §2(g)-flagged). G7 determinism: hot_sample reservoir-samples reproducibly. Passive-only invariant — NEVER hits USAspending.gov live API. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Pytest-harness-covered 2026-05-27 (test_us_usaspending_sensor_round_trip: Medicare Part A outlay w/ Mayo Clinic LEI + NSF Stanford grant no-LEI + DARPA MIT subaward FY 2024 + 2 G7-skip rows; fiscal_year_filter=2025 + record_kind_filter=('outlay',) restrictions verified)."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/gov/eu_ted_sensor.py"
+adr = "ADR-2605263900"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed-facet-complete"
+description = "EuTedSensor concrete W1 implementation (gov W1-impl #10 / overall #14 — first GovProcurementSensor concrete; ═══ gov 5 facet COMPLETE: Statistics (WorldBank+Eurostat) + Parliament (Hansard+Congress+Kokkai) + OpenData (3 portals) + Budget (USAspending) + Procurement (EU TED) ═══). Reads EU TED (Tenders Electronic Daily) eForms per-notice NDJSON from gov/procurement/eu/ted/<rev>/*.ndjson and yields GovProcurementObservation with jurisdiction='EU' (~700K notices/year across EU+EEA contracting authorities). Tier-A EU re-use Decision 2011/833/EU. Internal _NOTICE_TYPE_MAP table maps 15 TED eForms native notice-type strings (Contract notice / Prior information notice / Periodic indicative notice / Qualification system notice / Concession notice / Voluntary ex ante transparency notice / Design contest notice / Contract award notice / Award notice / Concession award notice / Modification notice / Modification of a contract / Cancellation notice / Corrigendum) to canonical ProcurementRecordKind enum (tender-notice / award / modification / cancellation); explicit row.recordKind takes precedence. awardee_lei cross-link to corp.leiReference preserved; powers toritate vendor anti-related-party check. record_kind_filter + min_amount_local constructor params restrict yielded stream (e.g., only large awards >=€1M). G7 schema discipline: rows missing required fields OR with unmappable nativeKind+no explicit recordKind → skip without halt. state_aligned_flag=False (EU NOT §2(g)-flagged). Passive-only invariant — NEVER hits ted.europa.eu live API. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Pytest-harness-covered 2026-05-27 (test_eu_ted_sensor_round_trip: DE-Bayern Highway tender + FR Atos €12.5M IT award w/ LEI + IT Comune di Milano €50K small award + DE Corrigendum cancellation + 2 G7-skip rows; min_amount_local=€1M restriction verified)."
+
+
+# ─── W1 RELEASE NOTES snapshot (ADR-2605263800 + ADR-2605263900 cumulative through 22 iterations) ──
+
+[[modules]]
+path = "90-docs/baien/corp-gov-w1-snapshot-260527.md"
+adr = ["ADR-2605263800", "ADR-2605263900"]
+kind = "release-snapshot"
+status = "w1-snapshot-landed"
+description = "Consolidated W1 RELEASE NOTES / Council brief for ADR-2605263800 (corporate disclosure) + ADR-2605263900 (open government) — cumulative through 22 iterations of recurring /loop eaeee13b (2026-05-26 → 2026-05-27). Documents: 14 concrete sensor implementations (corp 4 + gov 10) + 12 W0 fetcher path-reserved stubs + 10 Lexicons + 4 corpus recipes + 4 acceptance templates + cross-actor wiring (ossekai + chigiri + toritate) + 4 legacy script supersession markers + 15/15 pytest harness PASS + gov 5 facet (Statistics + Parliament + OpenData + Budget + Procurement) coverage matrix + R1 activation Council ratification checklist (9 G gates) + recommended fetcher W1-impl landing order + 13-vendor commercial-terminal deny-list triple-layered enforcement summary (ADR §2 + recipe scan + pytest lint + Charter Rider §2(e)+§2(c) constitutional ground). Authoritative-for: operator/Council-readable summary of corp+gov ingestion substrate W1 status; supersedes ad-hoc end-of-iteration summaries."
+
+
+# ─── Concrete W1 fetcher impl #1 (ADR-2605263800 — gleif_lei concrete, supersedes earlier w1-deliverable-stub) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/gleif_lei.py"
+adr = "ADR-2605263800"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete"
+description = "GLEIF LEI L1 Concatenated File fetcher — first concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub earlier registered as 'w1-deliverable-stub'). Tier-A CC0 1.0 (GLEIF public-domain dedication). Two operator paths: (1) Network mode — httpx GET against goldencopy.gleif.org concatenated-file URL with User-Agent identification + 900s timeout; (2) Local-source mode (local_source=Path) — skip HTTPS, read operator-staged file (canonical test path + air-gapped fleet path for content-filtering-proxy environments). Automatic ZIP container detection (PK signature byte-check) + first .json extraction. JSON parse handles 3 input shapes: flat list-of-records / LEIData.LEIRecords nested / records-wrapper / single-record envelope (operator-staged subsets). Output: <name>-<capture_ts>/ staging dir w/ extracted payload .json + lei-l1.ndjson sidecar (sensor-consumable shape per GleifLeiSensor docstring: lei + legalName + jurisdictionIso3 + registrationStatus + parentLei + ultimateParentLei). GLEIF Entity.LegalJurisdiction passed through as upstream alpha-2 (sensor maxLength:3 accommodates both alpha-2 + alpha-3). G7 schema discipline: rows with lei field != 20 chars skipped without halting stream. W1 uses stdlib json.loads() in-memory (adequate for fixtures + operator-sampled subsets ≤100MB); W2 switches to ijson streaming for production-scale ~2GB Golden Copy. fetch_l2=False at W1 (L2 RR/RepEx join deferred to W2). Passive-only invariant boundary: this fetcher is OPERATOR-triggered (NOT organism-tick) per ADR-2605262400 §7; the sensor that consumes it (GleifLeiSensor) is the passive side. Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 4 scenarios: TEST 1 list-flat shape (Apple+Sony+TOOSHORT-skip) / TEST 2 LEIData.LEIRecords nested (Apple Europe+HSBC w/ parentLei) / TEST 3 ZIP-container extract (Microsoft, real Golden Copy filename pattern) / TEST 4 end-to-end fetcher→GleifLeiSensor integration (fetcher output consumed by sensor via StaticPinResolver). 4/4 PASS."
+
+
+# ─── Concrete W1 fetcher impl #2 (ADR-2605263900 — worldbank_open_data concrete, supersedes earlier w1-deliverable-stub) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/worldbank_open_data.py"
+adr = "ADR-2605263900"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete"
+description = "World Bank Open Data API fetcher — second concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub). Tier-A CC-BY 4.0 (WB Open Data Terms of Use). Two operator paths matching gleif_lei.py pattern: (1) Network mode — httpx GET per (indicator × country × paginated-page); indicators MUST be non-empty (passive-only discipline: no implicit full-catalog fetch); paginates via WB header.pages field. (2) Local-source mode — read operator-staged JSON OR NDJSON; auto-detects format via json.loads vs newline-iter. Handles 3 input shapes: (a) native WB 2-element response [header, [observation_dicts]] (detected by header keys page/pages/per_page/total); (b) flat list of observation dicts (operator-staged from sampled WB queries); (c) pre-normalized NDJSON pass-through (operator-flattened sensor-shape rows preserved as-is). _normalize_wb_observation maps WB schema (indicator.id + indicator.value + countryiso3code OR country.id + date + value + unit) → sensor's expected (indicatorCode, indicatorTitle, dimensions=[[country, ISO3], [year, date]], value, valueUnit, observationPeriod, payloadCid). max_observations cap supports memory-bounded operator runs. Network-mode incremental sha256 hashing avoids re-reading the NDJSON file. Output: <name>-<capture_ts>/worldbank-open-data.ndjson (sensor-consumable). G7 schema discipline: rows lacking required fields dropped at fetcher boundary. Passive-only invariant boundary per ADR-2605262400 §7 (operator-triggered, not organism-tick). Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 5 scenarios: TEST 1 native 2-elem (USA + JPN GDP + XX ISO-2 fallback) / TEST 2 NDJSON pre-normalized passthrough (DE + FR pop preserved with payloadCid) / TEST 3 max_observations=2 cap / TEST 4 network-mode empty-indicators ValueError guard / TEST 5 end-to-end fetcher → WorldBankOpenDataSensor 3-obs integration (USA GDP value preserved + CC-BY-4.0 license_tag). 5/5 PASS."
