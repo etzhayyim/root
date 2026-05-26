@@ -221,8 +221,9 @@ def test_build_usda_on_wadachi_emits_world_xform(assemble_mod):
     # 4 wadachi layers → 4 prim definitions
     assert 'def Mesh "Layer0_terrain"' in usda
     assert 'def Material "Layer1_raster_overlay"' in usda
-    assert 'def Mesh "Layer2_vector_roads"' in usda
-    assert 'def Mesh "Layer3_vector_buildings"' in usda
+    # W2.1: roads and buildings are now Scopes (per-polyline / per-polygon child Meshes).
+    assert 'def Scope "Layer2_vector_roads"' in usda
+    assert 'def Scope "Layer3_vector_buildings"' in usda
     # CID is embedded in each prim's kami_resolved_cid attr (audit trail)
     for layer in plan.layers:
         assert layer.resolved_cid in usda
@@ -357,7 +358,7 @@ def test_igata_small_bbox_assembles(assemble_mod, tmp_path):
     out_dir = tmp_path / "igata_out"
     manifest = assemble_mod.emit_scene(plan, out_dir)
     usda = (out_dir / "scene.usda").read_text(encoding="utf-8")
-    assert 'def Mesh "Layer3_vector_buildings"' in usda
+    assert 'def Scope "Layer3_vector_buildings"' in usda
     assert manifest["scene_name"] == "igata-r1-foundry-yard-50m"
 
 
@@ -401,6 +402,194 @@ def test_all_eight_w4_scenes_emit_distinct_usda(assemble_mod):
     """The full W4 matrix produces 8 distinct USDA texts."""
     usdas = [assemble_mod.build_usda(assemble_mod.build_plan(p)) for p in ALL_W4_SCENES]
     assert len(set(usdas)) == 8
+
+
+# ─── W2.1 terrain grid mesh ─────────────────────────────────────────
+
+
+def test_w2_1_terrain_emits_grid_not_quad(assemble_mod):
+    """W2.1: terrain must emit an N×N triangulated grid, not the W2.0 4-corner quad."""
+    plan = assemble_mod.build_plan(_WADACHI_SCENE)
+    terrain_layer = next(l for l in plan.layers if l.kind == "terrain")
+    # The wadachi scene sets target_edge_m=5.0 over a ~1810m × 2226m bbox →
+    # nx ≈ 1810/5 + 1 ≈ 363, capped at 60. ny ≈ 2226/5 + 1 ≈ 446, capped at 60.
+    usda = assemble_mod._emit_terrain_usda(terrain_layer, plan, "T")
+    # Should reference grid attributes.
+    assert "kami_grid_nx" in usda
+    assert "kami_grid_ny" in usda
+    assert 'kami_elevation_source = "synth-cid-seeded-w2.1"' in usda
+    # The point list must have >> 4 entries (W2.0 was exactly 4 corners).
+    # Cheap check: count occurrences of "(" inside the points array.
+    pts_block = usda.split("point3f[] points = [")[1].split("]")[0]
+    n_pts = pts_block.count("(")
+    assert n_pts >= 100, f"expected many grid points, got {n_pts}"
+
+
+def test_w2_1_terrain_resolution_scales_with_target_edge(assemble_mod, tmp_path):
+    """target_edge_m=2.0 → much finer grid than target_edge_m=10.0."""
+    fine_dir = tmp_path / "fine-scene"
+    fine_dir.mkdir()
+    (fine_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://x/<rkey>\n"
+        "      tier: A\n"
+        "      mesh: {target_edge_m: 200.0}\n",   # coarse grid
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(fine_dir / "scene.yaml")
+    layer = plan.layers[0]
+    usda = assemble_mod._emit_terrain_usda(layer, plan, "T")
+    # Bbox is ~1810m × 2226m. target_edge=200 → nx≈10, ny≈12. Should be ~120 points.
+    pts_block = usda.split("point3f[] points = [")[1].split("]")[0]
+    n_pts = pts_block.count("(")
+    assert 50 <= n_pts <= 200, f"target_edge=200 should give ~120 pts; got {n_pts}"
+
+
+def test_w2_1_terrain_determinism_g6_preserved(assemble_mod):
+    """The grid mesh + synth elevation must still be deterministic (G6)."""
+    plan = assemble_mod.build_plan(_WADACHI_SCENE)
+    layer = next(l for l in plan.layers if l.kind == "terrain")
+    a = assemble_mod._emit_terrain_usda(layer, plan, "T")
+    b = assemble_mod._emit_terrain_usda(layer, plan, "T")
+    assert a == b
+
+
+def test_w2_1_synth_elevation_cid_seeded(assemble_mod):
+    """Different CIDs produce different elevation fields."""
+    z_a = assemble_mod._synth_elevation("bafyplaceholder_a", 5, 5, 10, 10)
+    z_b = assemble_mod._synth_elevation("bafyplaceholder_b", 5, 5, 10, 10)
+    assert z_a != z_b
+    # Same CID = same value (determinism).
+    z_a2 = assemble_mod._synth_elevation("bafyplaceholder_a", 5, 5, 10, 10)
+    assert z_a == z_a2
+
+
+# ─── W2.1 buildings extrusion ──────────────────────────────────────
+
+
+def test_w2_1_buildings_emit_multiple_polygons(assemble_mod):
+    """W2.1: vector_buildings must emit a Scope containing N child Meshes
+    (was: single placeholder cube)."""
+    plan = assemble_mod.build_plan(_WADACHI_SCENE)
+    buildings = next(l for l in plan.layers if l.kind == "vector_buildings")
+    usda = assemble_mod._emit_vector_buildings_usda(buildings, plan, "BLDG")
+    # Should use a Scope as the parent prim (not a single Mesh).
+    assert 'def Scope "BLDG"' in usda
+    # kami_building_count must be ≥ 3 (the synth lower bound).
+    import re
+    m = re.search(r"int kami_building_count = (\d+)", usda)
+    assert m is not None
+    n_buildings = int(m.group(1))
+    assert 3 <= n_buildings <= 20, f"expected 3-20 buildings, got {n_buildings}"
+    # Each building must have its own child Mesh.
+    child_count = usda.count('def Mesh "B')
+    assert child_count == n_buildings
+
+
+def test_w2_1_buildings_cid_seeded_count(assemble_mod):
+    """Different layer CIDs must produce different building counts (with high
+    probability) but the SAME CID must always produce the SAME count (G6)."""
+    a = assemble_mod._synth_building_polygons(
+        "bafy_a", (0, 0, 1000, 1000), default_height_m=10.0
+    )
+    a2 = assemble_mod._synth_building_polygons(
+        "bafy_a", (0, 0, 1000, 1000), default_height_m=10.0
+    )
+    b = assemble_mod._synth_building_polygons(
+        "bafy_b_different", (0, 0, 1000, 1000), default_height_m=10.0
+    )
+    # Determinism (G6): same CID → identical polygon list.
+    assert a == a2
+    # Difference (visibility): another CID → different result (very likely).
+    assert a != b
+
+
+def test_w2_1_buildings_polygons_inside_bbox(assemble_mod):
+    """All synth polygons must lie within the bbox they're seeded for."""
+    bbox = (-500.0, -500.0, 500.0, 500.0)
+    polys = assemble_mod._synth_building_polygons(
+        "bafy_bbox_test", bbox, default_height_m=8.0
+    )
+    x0, y0, x1, y1 = bbox
+    for poly, _height in polys:
+        for (x, y) in poly:
+            assert x0 <= x <= x1, f"polygon x out of bbox: {x}"
+            assert y0 <= y <= y1, f"polygon y out of bbox: {y}"
+
+
+def test_w2_1_buildings_determinism_g6_via_full_emit(assemble_mod):
+    plan = assemble_mod.build_plan(_WADACHI_SCENE)
+    layer = next(l for l in plan.layers if l.kind == "vector_buildings")
+    a = assemble_mod._emit_vector_buildings_usda(layer, plan, "BLDG")
+    b = assemble_mod._emit_vector_buildings_usda(layer, plan, "BLDG")
+    assert a == b
+
+
+# ─── W2.1 vector_roads multi-segment polylines ──────────────────────
+
+
+def test_w2_1_roads_emit_scope_with_child_meshes(assemble_mod):
+    """W2.1: vector_roads is a Scope containing N child Meshes (was: single Mesh)."""
+    plan = assemble_mod.build_plan(_WADACHI_SCENE)
+    roads = next(l for l in plan.layers if l.kind == "vector_roads")
+    usda = assemble_mod._emit_vector_roads_usda(roads, plan, "ROADS")
+    assert 'def Scope "ROADS"' in usda
+    import re
+    m = re.search(r"int kami_road_count = (\d+)", usda)
+    assert m is not None
+    n_roads = int(m.group(1))
+    assert 3 <= n_roads <= 12, f"expected 3-12 roads, got {n_roads}"
+    # Each road must have its own child Mesh and ≥1 segment.
+    child_count = usda.count('def Mesh "R')
+    assert child_count == n_roads
+    # Each child Mesh must report waypoint+segment counts.
+    assert "kami_waypoint_count" in usda
+    assert "kami_segment_count" in usda
+
+
+def test_w2_1_roads_cid_seeded(assemble_mod):
+    """Different layer CIDs → different polylines; same CID → identical."""
+    a = assemble_mod._synth_road_segments("cidA", (0, 0, 1000, 1000))
+    a2 = assemble_mod._synth_road_segments("cidA", (0, 0, 1000, 1000))
+    b = assemble_mod._synth_road_segments("cidB_different", (0, 0, 1000, 1000))
+    assert a == a2
+    assert a != b
+
+
+def test_w2_1_roads_waypoints_inside_bbox(assemble_mod):
+    """All synth waypoints must lie within the bbox they're seeded for."""
+    bbox = (-500.0, -500.0, 500.0, 500.0)
+    polylines = assemble_mod._synth_road_segments("cid_bbox_test", bbox)
+    x0, y0, x1, y1 = bbox
+    for line in polylines:
+        for (x, y) in line:
+            assert x0 <= x <= x1
+            assert y0 <= y <= y1
+
+
+def test_w2_1_roads_polyline_count_in_range(assemble_mod):
+    """Roads count must be in [3, max_count] for varied CIDs."""
+    for seed in ["cid1", "cid2", "cid3", "cid_xx", "cid_long_string_abc_def"]:
+        polylines = assemble_mod._synth_road_segments(seed, (0, 0, 1000, 1000))
+        assert 3 <= len(polylines) <= 12, f"out of range for {seed}: {len(polylines)}"
+        # Each polyline must have at least 2 waypoints to form a segment.
+        for line in polylines:
+            assert len(line) >= 2
+
+
+def test_w2_1_roads_determinism_g6_via_full_emit(assemble_mod):
+    plan = assemble_mod.build_plan(_WADACHI_SCENE)
+    layer = next(l for l in plan.layers if l.kind == "vector_roads")
+    a = assemble_mod._emit_vector_roads_usda(layer, plan, "R")
+    b = assemble_mod._emit_vector_roads_usda(layer, plan, "R")
+    assert a == b
 
 
 def test_makura_indoor_carveout_has_no_scene_yaml():

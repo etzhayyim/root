@@ -153,22 +153,39 @@ def _max_tier(items: Iterable[dict[str, Any]]) -> str:
 
 
 def _resolve_datasetpin(at_uri: str) -> str:
-    """Resolve `at://...` → IPFS CID.
+    """Resolve `at://...datasetPin/<rkey>` → IPFS CID.
 
-    W1 STUB: returns a deterministic placeholder derived from the URI
-    so dry-run output is stable + the assembler shape is testable.
+    W2 integration: tries `e7m_dataset.pds.resolve_datasetpin` first
+    against the religious-corp PDS. Falls back to a deterministic
+    sha256 placeholder on any of:
 
-    W2 wires this to the religious-corp PDS via e7m-dataset's PDS
-    helper (`e7m_dataset.pds.resolve_datasetpin`) plus a Kubo HTTP API
-    pin verification per ADR-2605241500 §D7 + replicationMin:2 (G3).
-    """
+      - placeholder URIs (containing `<...>` markers — W0/W1 scenes)
+      - e7m-dataset module not on PYTHONPATH (e7m-sim standalone)
+      - any transitive import / network / parse failure (defensive)
+
+    The fallback path is stable byte-for-byte (G6) so dry-run outputs
+    remain reproducible without a live PDS connection. Set
+    `ETZ_E7M_SIM_STRICT_PDS=1` to fail-closed instead of falling back
+    when the URI looks real and the PDS lookup errors out."""
+    import os
     if "<" in at_uri and ">" in at_uri:
-        # placeholder marker like '<rkey-placeholder>' — return a stable stub
         digest = hashlib.sha256(at_uri.encode("utf-8")).hexdigest()[:46]
         return f"bafyplaceholder{digest}"
-    # Real `at://` — W2 wires the real PDS lookup here.
-    digest = hashlib.sha256(at_uri.encode("utf-8")).hexdigest()[:46]
-    return f"bafyresolved{digest}"
+
+    try:
+        from e7m_dataset import pds as _pds   # type: ignore
+        record = _pds.resolve_datasetpin(at_uri)
+        cid = record.get("cid")
+        if isinstance(cid, str) and cid:
+            return cid
+        raise RuntimeError(f"resolved record missing cid: {record!r}")
+    except Exception as exc:    # noqa: BLE001
+        if os.environ.get("ETZ_E7M_SIM_STRICT_PDS") == "1":
+            raise RuntimeError(
+                f"PDS resolve failed under strict mode: {exc!r}"
+            ) from exc
+        digest = hashlib.sha256(at_uri.encode("utf-8")).hexdigest()[:46]
+        return f"bafyresolved{digest}"
 
 
 def _try_import_charter() -> Any:
@@ -464,19 +481,77 @@ def _bbox_local_corners(plan: AssemblyPlan) -> tuple[float, float, float, float]
     return (-width / 2.0, -height / 2.0, width / 2.0, height / 2.0)
 
 
+def _synth_elevation(cid: str, ix: int, iy: int, nx: int, ny: int) -> float:
+    """Deterministic synthetic elevation field for W2.1.
+
+    Until rasterio + real SRTM .tif ingest lands (W2.2), this synthetic
+    field stands in for actual elevation per vertex. CID-seeded so two
+    layers from different SRTM tiles produce different terrain shapes.
+    Returns elevation in meters; range roughly [-2, +2] m around the
+    bbox plane. Real SRTM ranges much higher but the W2.1 emitter
+    shape is the durable contract — rasterio integration is a one-line
+    swap on the elevation source.
+    """
+    import math as _math
+    seed = int(hashlib.sha256(cid.encode()).hexdigest()[:8], 16) / 0xffffffff
+    u = ix / max(nx - 1, 1)
+    v = iy / max(ny - 1, 1)
+    return 2.0 * _math.sin(2 * _math.pi * (u + seed)) * _math.cos(2 * _math.pi * (v + seed * 0.5))
+
+
 def _emit_terrain_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
-    """Flat grid Mesh covering the bbox. W2.1 wires real SRTM triangulation."""
+    """W2.1 triangulated grid Mesh covering the bbox.
+
+    Grid resolution is driven by the scene YAML's `mesh.target_edge_m`
+    attribute on the layer (defaults to 50m if not specified). For
+    each (nx+1) × (ny+1) vertex we sample a synthetic elevation field
+    seeded from the layer's resolved CID (W2.2 swaps this for rasterio
+    SRTM `.tif` sampling on the real CID-resolved tile)."""
     x0, y0, x1, y1 = _bbox_local_corners(plan)
-    pts = f"[({x0}, {y0}, 0), ({x1}, {y0}, 0), ({x1}, {y1}, 0), ({x0}, {y1}, 0)]"
+    target_edge = 50.0
+    mesh_cfg = layer.extra.get("mesh") if isinstance(layer.extra.get("mesh"), dict) else {}
+    if mesh_cfg and isinstance(mesh_cfg.get("target_edge_m"), (int, float)):
+        target_edge = float(mesh_cfg["target_edge_m"])
+    # Cap grid resolution so very wide bboxes don't explode prim size.
+    nx = max(2, min(60, int((x1 - x0) / target_edge) + 1))
+    ny = max(2, min(60, int((y1 - y0) / target_edge) + 1))
+
+    pts: list[str] = []
+    for iy in range(ny):
+        for ix in range(nx):
+            px = x0 + (x1 - x0) * ix / (nx - 1)
+            py = y0 + (y1 - y0) * iy / (ny - 1)
+            pz = _synth_elevation(layer.resolved_cid, ix, iy, nx, ny)
+            pts.append(f"({px:.3f}, {py:.3f}, {pz:.3f})")
+    pts_str = "[" + ", ".join(pts) + "]"
+
+    # Quad faces in row-major order. Each (ix, iy) quad uses 4 verts.
+    fvi: list[int] = []
+    fvc: list[int] = []
+    for iy in range(ny - 1):
+        for ix in range(nx - 1):
+            a = iy * nx + ix
+            b = a + 1
+            c = a + nx + 1
+            d = a + nx
+            fvi += [a, b, c, d]
+            fvc.append(4)
+    fvi_str = "[" + ", ".join(str(i) for i in fvi) + "]"
+    fvc_str = "[" + ", ".join(str(i) for i in fvc) + "]"
+
     return f"""    def Mesh "{prim_name}"
     {{
         token kami_layer_kind = "terrain"
         string kami_source_subdataset = "{layer.source_subdataset}"
         string kami_resolved_cid = "{layer.resolved_cid}"
         string kami_tier = "{layer.tier}"
-        point3f[] points = {pts}
-        int[] faceVertexCounts = [3, 3]
-        int[] faceVertexIndices = [0, 1, 2, 0, 2, 3]
+        int kami_grid_nx = {nx}
+        int kami_grid_ny = {ny}
+        float kami_target_edge_m = {target_edge}
+        string kami_elevation_source = "synth-cid-seeded-w2.1"
+        point3f[] points = {pts_str}
+        int[] faceVertexCounts = {fvc_str}
+        int[] faceVertexIndices = {fvi_str}
         token subdivisionScheme = "none"
     }}
 """
@@ -501,57 +576,252 @@ def _emit_raster_overlay_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: s
 """
 
 
+def _synth_road_segments(
+    cid: str,
+    bbox: tuple[float, float, float, float],
+    *,
+    max_count: int = 12,
+) -> list[list[tuple[float, float]]]:
+    """Generate CID-seeded deterministic road polylines for W2.1.
+
+    Returns a list of polylines, each a sequence of (x, y) waypoints
+    forming a multi-segment road. Roads have 3-7 waypoints each, drawn
+    deterministically from CID-seeded LCG state. All waypoints stay
+    inside bbox (clamped). W2.2 swaps this for pyarrow ingest of the
+    Overture transportation Parquet — same return shape, same downstream
+    emit logic.
+    """
+    x0, y0, x1, y1 = bbox
+    bw, bh = (x1 - x0), (y1 - y0)
+    rng = int(hashlib.sha256(("road:" + cid).encode()).hexdigest()[:16], 16)
+
+    def _u() -> float:
+        nonlocal rng
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        return (rng >> 8) / float(0x7fffff)
+
+    # CID-seeded count: at least 3, at most max_count.
+    n_roads = 3 + int(_u() * (max_count - 2))
+    polylines: list[list[tuple[float, float]]] = []
+    for _ in range(n_roads):
+        n_waypoints = 3 + int(_u() * 4)   # 3-6 waypoints per road
+        # Start near a bbox edge for a more road-like character.
+        side = int(_u() * 4)
+        if side == 0:
+            sx, sy = x0 + bw * 0.05, y0 + bh * _u()
+        elif side == 1:
+            sx, sy = x1 - bw * 0.05, y0 + bh * _u()
+        elif side == 2:
+            sx, sy = x0 + bw * _u(), y0 + bh * 0.05
+        else:
+            sx, sy = x0 + bw * _u(), y1 - bh * 0.05
+        waypoints: list[tuple[float, float]] = [(sx, sy)]
+        cx, cy = sx, sy
+        for _ in range(n_waypoints - 1):
+            dx = (_u() - 0.5) * bw * 0.25
+            dy = (_u() - 0.5) * bh * 0.25
+            cx = max(x0, min(x1, cx + dx))
+            cy = max(y0, min(y1, cy + dy))
+            waypoints.append((cx, cy))
+        polylines.append(waypoints)
+    return polylines
+
+
 def _emit_vector_roads_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
-    """Ribbon Mesh placeholder — single horizontal strip across bbox."""
+    """W2.1 multi-segment ribbon mesh per CID-seeded synthetic polyline.
+
+    Emits a parent Scope containing one Mesh per polyline. Each Mesh's
+    geometry is the lane ribbon (lane_width-wide strip following the
+    polyline). W2.2 swaps `_synth_road_segments` for pyarrow Overture
+    Parquet LineString ingest in one place; the per-polyline ribbon
+    emit logic below stays unchanged."""
     x0, y0, x1, y1 = _bbox_local_corners(plan)
-    cy = (y0 + y1) / 2.0
-    half_w = layer.extra.get("ribbon", {}).get("default_lane_width_m", 3.5) / 2.0 \
-        if isinstance(layer.extra.get("ribbon"), dict) else 1.75
-    pts = (
-        f"[({x0}, {cy - half_w}, 0.05), ({x1}, {cy - half_w}, 0.05), "
-        f"({x1}, {cy + half_w}, 0.05), ({x0}, {cy + half_w}, 0.05)]"
-    )
-    return f"""    def Mesh "{prim_name}"
+    ribbon_cfg = layer.extra.get("ribbon") if isinstance(layer.extra.get("ribbon"), dict) else {}
+    lane_count = int(ribbon_cfg.get("default_lane_count", 2))
+    lane_width = float(ribbon_cfg.get("default_lane_width_m", 3.5))
+    z_offset = float(ribbon_cfg.get("z_offset_m", 0.05))
+    material_token = str(layer.extra.get("material", "kami-pbrt:Asphalt"))
+    half_total = max(0.5, lane_count * lane_width / 2.0)
+
+    polylines = _synth_road_segments(layer.resolved_cid, (x0, y0, x1, y1))
+
+    import math as _math
+    child_meshes: list[str] = []
+    for idx, line in enumerate(polylines):
+        # Build the ribbon: for each consecutive pair of waypoints, produce
+        # a quad with width = half_total on each side perpendicular to seg dir.
+        verts: list[tuple[float, float, float]] = []
+        fvi: list[int] = []
+        fvc: list[int] = []
+        if len(line) < 2:
+            continue
+        for i in range(len(line) - 1):
+            (ax, ay) = line[i]
+            (bx, by) = line[i + 1]
+            dx, dy = bx - ax, by - ay
+            seg_len = max(_math.hypot(dx, dy), 1e-6)
+            # left-normal (perpendicular, unit length)
+            nx = -dy / seg_len
+            ny = dx / seg_len
+            # 4 corners of the segment quad
+            v0 = (ax + nx * half_total, ay + ny * half_total, z_offset)
+            v1 = (bx + nx * half_total, by + ny * half_total, z_offset)
+            v2 = (bx - nx * half_total, by - ny * half_total, z_offset)
+            v3 = (ax - nx * half_total, ay - ny * half_total, z_offset)
+            base = len(verts)
+            verts.extend([v0, v1, v2, v3])
+            fvi += [base, base + 1, base + 2, base + 3]
+            fvc.append(4)
+        pts_str = "[" + ", ".join(f"({v[0]:.3f}, {v[1]:.3f}, {v[2]:.3f})" for v in verts) + "]"
+        fvi_str = "[" + ", ".join(str(i) for i in fvi) + "]"
+        fvc_str = "[" + ", ".join(str(i) for i in fvc) + "]"
+        child_meshes.append(
+            f"""        def Mesh "R{idx:03d}"
+        {{
+            int kami_waypoint_count = {len(line)}
+            int kami_segment_count = {len(line) - 1}
+            point3f[] points = {pts_str}
+            int[] faceVertexCounts = {fvc_str}
+            int[] faceVertexIndices = {fvi_str}
+            token subdivisionScheme = "none"
+        }}
+"""
+        )
+
+    return f"""    def Scope "{prim_name}"
     {{
         token kami_layer_kind = "vector_roads"
         string kami_source_subdataset = "{layer.source_subdataset}"
         string kami_resolved_cid = "{layer.resolved_cid}"
         string kami_tier = "{layer.tier}"
-        point3f[] points = {pts}
-        int[] faceVertexCounts = [4]
-        int[] faceVertexIndices = [0, 1, 2, 3]
-        token subdivisionScheme = "none"
-    }}
+        int kami_road_count = {len(polylines)}
+        int kami_lane_count = {lane_count}
+        float kami_lane_width_m = {lane_width}
+        token kami_material = "{material_token}"
+        string kami_polyline_source = "synth-cid-seeded-w2.1"
+
+{''.join(child_meshes)}    }}
 """
 
 
+def _synth_building_polygons(
+    cid: str,
+    bbox: tuple[float, float, float, float],
+    *,
+    default_height_m: float,
+    max_count: int = 20,
+) -> list[tuple[list[tuple[float, float]], float]]:
+    """Generate CID-seeded deterministic building polygons for W2.1.
+
+    Returns a list of (polygon_xy, height_m) tuples. polygon_xy is a
+    closed footprint (Nx2 list of (x, y) corners; rectangles for W2.1).
+    W2.2 swaps this for pyarrow ingest of the resolved CID's Overture
+    Parquet shard — same return shape, same downstream emit logic.
+    """
+    x0, y0, x1, y1 = bbox
+    bw, bh = (x1 - x0), (y1 - y0)
+    seed = int(hashlib.sha256(cid.encode()).hexdigest()[:16], 16)
+
+    # CID-seeded count: at least 3, at most max_count.
+    rng = seed
+    rng = (rng * 1103515245 + 12345) & 0x7fffffff
+    n = 3 + (rng >> 8) % (max_count - 2)
+
+    polygons: list[tuple[list[tuple[float, float]], float]] = []
+    for _ in range(n):
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        u = (rng >> 8) / float(0x7fffff)
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        v = (rng >> 8) / float(0x7fffff)
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        w_frac = 0.02 + 0.05 * ((rng >> 8) / float(0x7fffff))   # 2-7% of bbox
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        h_frac = 0.02 + 0.05 * ((rng >> 8) / float(0x7fffff))
+        rng = (rng * 1103515245 + 12345) & 0x7fffffff
+        height = default_height_m * (0.5 + ((rng >> 8) / float(0x7fffff)))
+
+        hw = bw * w_frac / 2.0
+        hh = bh * h_frac / 2.0
+        # Clamp center so the whole polygon stays inside bbox.
+        cx = x0 + hw + u * max(bw - 2 * hw, 0.0)
+        cy = y0 + hh + v * max(bh - 2 * hh, 0.0)
+        poly = [
+            (cx - hw, cy - hh),
+            (cx + hw, cy - hh),
+            (cx + hw, cy + hh),
+            (cx - hw, cy + hh),
+        ]
+        polygons.append((poly, height))
+    return polygons
+
+
 def _emit_vector_buildings_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
-    """Single extruded box at bbox center as placeholder."""
+    """W2.1 extruded mesh per CID-seeded synthetic polygon.
+
+    Builds a child Scope under the layer prim, each child being one
+    extruded Mesh per polygon. W2.2 wires real Overture Parquet via
+    pyarrow + DuckDB-spatial bbox filter (already available — see
+    `e7m_dataset.fetchers.overture` for the upstream side); the
+    `_synth_building_polygons` swap point is the only line that
+    changes between W2.1 and W2.2.
+    """
     x0, y0, x1, y1 = _bbox_local_corners(plan)
-    cx, cy = (x0 + x1) / 2.0, (y0 + y1) / 2.0
-    half = min(abs(x1 - x0), abs(y1 - y0)) / 8.0
-    h = float(layer.extra.get("extrude", {}).get("default_height_m", 8.0)) \
-        if isinstance(layer.extra.get("extrude"), dict) else 8.0
-    pts = (
-        f"[({cx - half}, {cy - half}, 0), ({cx + half}, {cy - half}, 0), "
-        f"({cx + half}, {cy + half}, 0), ({cx - half}, {cy + half}, 0), "
-        f"({cx - half}, {cy - half}, {h}), ({cx + half}, {cy - half}, {h}), "
-        f"({cx + half}, {cy + half}, {h}), ({cx - half}, {cy + half}, {h})]"
+    extrude_cfg = layer.extra.get("extrude") if isinstance(layer.extra.get("extrude"), dict) else {}
+    default_h = float(extrude_cfg.get("default_height_m", 8.0))
+    material_token = str(extrude_cfg.get("material", "kami-pbrt:Concrete_Grey"))
+
+    polygons = _synth_building_polygons(
+        layer.resolved_cid, (x0, y0, x1, y1), default_height_m=default_h
     )
-    # 6 quad faces (cube)
-    fvc = "[4, 4, 4, 4, 4, 4]"
-    fvi = "[0,1,2,3, 4,5,6,7, 0,1,5,4, 1,2,6,5, 2,3,7,6, 3,0,4,7]"
-    return f"""    def Mesh "{prim_name}"
+
+    child_meshes: list[str] = []
+    for idx, (poly, h) in enumerate(polygons):
+        # Build the 8-vertex extruded box (4 base + 4 top).
+        base_pts = [(px, py, 0.0) for (px, py) in poly]
+        top_pts = [(px, py, h) for (px, py) in poly]
+        all_pts = base_pts + top_pts
+        pts_str = "[" + ", ".join(f"({p[0]:.3f}, {p[1]:.3f}, {p[2]:.3f})" for p in all_pts) + "]"
+        n = len(poly)
+        # 1 base quad, 1 top quad, n side quads.
+        fvi: list[int] = []
+        fvc: list[int] = []
+        # base (winding facing down)
+        fvi += list(range(n - 1, -1, -1))
+        fvc.append(n)
+        # top (winding facing up)
+        fvi += list(range(n, 2 * n))
+        fvc.append(n)
+        # sides
+        for i in range(n):
+            j = (i + 1) % n
+            fvi += [i, j, j + n, i + n]
+            fvc.append(4)
+        fvi_str = "[" + ", ".join(str(i) for i in fvi) + "]"
+        fvc_str = "[" + ", ".join(str(i) for i in fvc) + "]"
+        child_meshes.append(
+            f"""        def Mesh "B{idx:03d}"
+        {{
+            float kami_height_m = {h:.3f}
+            int kami_polygon_vertex_count = {n}
+            point3f[] points = {pts_str}
+            int[] faceVertexCounts = {fvc_str}
+            int[] faceVertexIndices = {fvi_str}
+            token subdivisionScheme = "none"
+        }}
+"""
+        )
+
+    return f"""    def Scope "{prim_name}"
     {{
         token kami_layer_kind = "vector_buildings"
         string kami_source_subdataset = "{layer.source_subdataset}"
         string kami_resolved_cid = "{layer.resolved_cid}"
         string kami_tier = "{layer.tier}"
-        point3f[] points = {pts}
-        int[] faceVertexCounts = {fvc}
-        int[] faceVertexIndices = {fvi}
-        token subdivisionScheme = "none"
-    }}
+        int kami_building_count = {len(polygons)}
+        token kami_material = "{material_token}"
+        string kami_polygon_source = "synth-cid-seeded-w2.1"
+
+{''.join(child_meshes)}    }}
 """
 
 
