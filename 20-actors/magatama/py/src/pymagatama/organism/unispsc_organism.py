@@ -19,6 +19,7 @@ from typing import Any, Callable, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from pymagatama.organism.messaging import OrganismMessageReceiver
+    from pathlib import Path
 
 from pymagatama.organism.cadence import (
     CadenceState,
@@ -140,6 +141,7 @@ class UnispscOrganism:
         sensors: tuple[DatasetSensor, ...] = (),
         sensor_sample_size: int = 8,
         messaging_receiver: "OrganismMessageReceiver | None" = None,
+        lifecycle_event_queue_path: "Path | None" = None,
     ) -> None:
         self.code = code
         self.title = title or f"c{code}"
@@ -153,7 +155,17 @@ class UnispscOrganism:
         self.last_message_fetch_time: "datetime | None" = None
         self.inbox = InboxBuffer()
         self.cadence_state = CadenceState()
-        self.lifecycle = OrganismLifecycle()
+
+        publisher = None
+        if lifecycle_event_queue_path:
+            from pymagatama.organism.lifecycle_publisher import NdjsonLifecyclePublisher
+
+            publisher = NdjsonLifecyclePublisher(
+                queue_path=lifecycle_event_queue_path,
+                actor_did=self.actor_did,
+            )
+        self.lifecycle = OrganismLifecycle(event_publisher=publisher)
+
         self.tick_count = 0
         # Per ADR-2605262400 §4.3 — dataset sensor wiring.
         # ``sensors`` is a tuple of DatasetSensor instances. Each tick the
@@ -191,6 +203,7 @@ class UnispscOrganism:
         sensors: tuple[DatasetSensor, ...] = (),
         sensor_sample_size: int = 8,
         messaging_receiver: "OrganismMessageReceiver | None" = None,
+        lifecycle_event_queue_path: "Path | None" = None,
     ) -> "UnispscOrganism":
         """Lazy-import the underlying ``c{code}`` LangGraph and wrap it."""
         module_name = f"{_AGENTS_PKG}.c{code}"
@@ -212,6 +225,7 @@ class UnispscOrganism:
             sensors=sensors,
             sensor_sample_size=sensor_sample_size,
             messaging_receiver=messaging_receiver,
+            lifecycle_event_queue_path=lifecycle_event_queue_path,
         )
 
     def poll_sensors(self, now_ms: int) -> list[SensorObservation]:

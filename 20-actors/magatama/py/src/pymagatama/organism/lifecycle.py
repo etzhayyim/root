@@ -1,7 +1,7 @@
 import time
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional, Union
+from typing import Callable, Optional, Union
 
 class OrganismState(Enum):
     INACTIVE = "inactive"
@@ -95,17 +95,22 @@ def lifecycle_event_to_lexicon(event: LifecycleEvent) -> dict:
     raise ValueError(f"Unknown event: {event}")
 
 class OrganismLifecycle:
-    def __init__(self) -> None:
+    def __init__(self, event_publisher: Optional[Callable[[dict], None]] = None) -> None:
         self.state = OrganismState.INACTIVE
         # List of (event, from_state, to_state, attestation_cid, timestamp)
         self.transition_history: list[tuple[LifecycleEvent, OrganismState, OrganismState, Optional[str], int]] = []
         self.parent_did: Optional[str] = None
+        self.event_publisher = event_publisher
 
     def _record_transition(self, event: LifecycleEvent, to_state: OrganismState, attestation_cid: Optional[str]) -> None:
         from_state = self.state
         now = int(time.time())
         self.transition_history.append((event, from_state, to_state, attestation_cid, now))
         self.state = to_state
+
+        if self.event_publisher:
+            lexicon_event = lifecycle_event_to_lexicon(event)
+            self.event_publisher(lexicon_event)
 
     def handle_birth(self, actor_did: str, council_attestation_cid: Optional[str] = None) -> None:
         if self.state != OrganismState.INACTIVE:
