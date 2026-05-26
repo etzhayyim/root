@@ -50,6 +50,22 @@ simd = ["wide"]
 # microsoft/BitNet:src/ggml-bitnet-lut.cpp). Stub in R0; full impl R1c.
 lut = []
 
+# ADR-2605263400 R1a — wgpu Rust integration test for the BitLinear
+# WGSL kernel. Dev-only. Hosted via `[dev-dependencies]`; the
+# integration test gracefully skips when no GPU adapter is available
+# so cargo test passes on CI without a GPU.
+[dev-dependencies]
+# wgpu 24 default features include backends auto-selected per host
+# (Metal on macOS, Vulkan on Linux, DX12 on Windows, WebGPU in browser).
+# Explicit feature override caused "feature `vulkan` not found" — letting
+# wgpu pick its own default-features is the lowest-friction path.
+wgpu = "24"
+pollster = "0.4"
+bytemuck = { version = "1", features = ["derive"] }
+# wgpu's `map_async` is callback-based; the canonical async wrapper for
+# tests is a futures_intrusive oneshot channel. ~30 LoC of crate, no_std.
+futures-intrusive = "0.5"
+
 [profile.release]
 opt-level = 3
 lto = "fat"
