@@ -59,15 +59,30 @@ def main() -> int:
     repo = Path(__file__).resolve().parents[3]
     strict = "--strict" in sys.argv
 
-    # Walk all package.json files (skip vendored/build trees).
+    # Discover package.json files via `git ls-files` (~25 ms) instead
+    # of pathlib.rglob (~9 s including walking node_modules + dist +
+    # build trees that we'd then explicitly skip). git honours
+    # .gitignore for free, so the per-path filter list shrinks too.
+    # Same perf pattern applied to e7m verify (iter-5/6/7) and the
+    # subrepo audits (iter-57).
+    import subprocess
+    try:
+        ls_out = subprocess.check_output(
+            ["git", "-C", str(repo), "ls-files", "*package.json"],
+            text=True,
+            timeout=10,
+        )
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired, FileNotFoundError):
+        # Fallback to rglob if git isn't available (rare; pre-clone).
+        ls_out = "\n".join(
+            str(p.relative_to(repo)) for p in repo.rglob("package.json")
+        )
+
     pkgs: list[tuple[Path, dict]] = []
-    for pkg_path in repo.rglob("package.json"):
-        parts = set(pkg_path.parts)
-        if any(p in parts for p in (
-            "node_modules", "dist", "build", ".svelte-kit", "target",
-            ".venv", ".claude", ".pnpm-store",
-        )):
+    for rel in ls_out.splitlines():
+        if not rel:
             continue
+        pkg_path = repo / rel
         try:
             pkg = json.loads(pkg_path.read_text())
         except Exception:

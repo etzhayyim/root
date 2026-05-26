@@ -137,7 +137,7 @@ Discovery: iter-40 of /loop (2026-05-27); filter improvements + categorization i
 
 ## Testing
 
-Three audit scripts have pytest suites that lock in their structural
+Four audit scripts have pytest suites that lock in their structural
 invariants so future refactors don't silently break filter/regex/
 path-mapping logic or undo perf optimizations:
 
@@ -146,15 +146,18 @@ path-mapping logic or undo perf optimizations:
 | `test_adr_cross_ref_health.py` | 21 | 5 categories + 3 filters (range / forward-ref / historical-orphan) |
 | `test_manifest_lexicon_drift.py` | 13 | NSID regex + NSID-to-path mapping + post-closure-zero-drift canary |
 | `test_subrepo_scripts.py` | 16 | Stale-URL + escape-symlink counts + iter-57 perf budgets + structural canaries (git ls-files / xargs -P / no `find .`) |
+| `test_simple_audits.py` | 17 | dependabot-defunct + sdk-exports-dist + sibling-convention-drift smoke + aggregator format contract |
 
-All three run via the same pytest invocation:
+All four run via the same pytest invocation:
 
 ```bash
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
   python3 -m pytest 70-tools/scripts/audit/ -v
 ```
 
-Combined: **50 tests, ~4 s total** (most time is the subprocess invocations in the subrepo perf tests; correctness tests are <0.1 s combined).
+Combined: **67 tests, ~5 s total** (subrepo tests run real subprocess invocations against gh + git; correctness tests <0.1 s combined).
+
+Every aggregator script (6/6) + the standalone adr-cross-ref-health is now test-covered.
 
 The `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` env is required because
 this system's `langsmith` pytest plugin auto-loads but has a
