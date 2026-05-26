@@ -22,6 +22,7 @@ from pymagatama.organism.cadence import (
     HeartbeatCadence,
     resolve_heartbeat_cadence,
 )
+from pymagatama.organism.lifecycle import OrganismLifecycle, OrganismState
 from pymagatama.organism.inbox import (
     FollowerCurrentScore,
     FollowerReward,
@@ -62,6 +63,7 @@ class OrganismTickResult:
     classifications: list[dict[str, Any]] = field(default_factory=list)
     posts: list[str] = field(default_factory=list)
     rewards: list[FollowerReward] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 def _default_classify_input_factory(commit: object) -> dict[str, Any]:
@@ -144,6 +146,7 @@ class UnispscOrganism:
         self.follower_score_provider = follower_score_provider
         self.inbox = InboxBuffer()
         self.cadence_state = CadenceState()
+        self.lifecycle = OrganismLifecycle()
         self.tick_count = 0
         # Per ADR-2605262400 §4.3 — dataset sensor wiring.
         # ``sensors`` is a tuple of DatasetSensor instances. Each tick the
@@ -250,6 +253,25 @@ class UnispscOrganism:
         ticks (Wave-1 wiring just gathers; deeper joucho integration is
         a follow-up wave).
         """
+        if self.lifecycle.state not in (OrganismState.ACTIVE, OrganismState.CLONED):
+            from pymagatama.organism.cadence import HeartbeatCadence, ContentSource
+            from pymagatama.organism.joucho import JouchoScores
+            dummy_cadence = HeartbeatCadence(
+                should_post=False,
+                should_analyze=False,
+                should_drill=False,
+                should_validate=False,
+                should_engage=False,
+                should_repair=False,
+                follower_rewards=[],
+                content_source=ContentSource(kind="none"),
+                joucho=JouchoScores(),
+                mood="neutral",
+                post_cooldown_ms=0,
+                reason=f"skipped (state={self.lifecycle.state.value})",
+            )
+            return OrganismTickResult(cadence=dummy_cadence)
+
         self.tick_count += 1
         tick_obs: list[SensorObservation] = []
         if self.sensors:
@@ -365,11 +387,16 @@ class UnispscOrganism:
         if cadence.follower_rewards:
             self.cadence_state.last_reward_at = now_ms
 
+        metadata: dict[str, Any] = {}
+        if self.lifecycle.state == OrganismState.CLONED and self.lifecycle.parent_did:
+            metadata["parent_did"] = self.lifecycle.parent_did
+
         return OrganismTickResult(
             cadence=cadence,
             classifications=classifications,
             posts=posts,
             rewards=list(cadence.follower_rewards),
+            metadata=metadata,
         )
 
     def _dispatch_post(self, text: str, cadence: Any) -> None:
