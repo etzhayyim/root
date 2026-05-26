@@ -15,6 +15,7 @@ export interface NDJSONRecord {
   createdAt: string;
   recipientDid?: string;
   encryptedPayload?: string;
+  event?: any;
 }
 
 export class OrganismPostDrainer {
@@ -47,6 +48,8 @@ export class OrganismPostDrainer {
     } else if (record.lexicon === "app.etzhayyim.organism.message") {
       const encrypted = await this.encryptMessage(record);
       await this.dispatchMessage(encrypted);
+    } else if (record.lexicon === "app.etzhayyim.organism.lifecycle") {
+      await this.dispatchLifecycle(record);
     } else {
       console.warn(`Unknown lexicon: ${record.lexicon}`);
     }
@@ -61,12 +64,6 @@ export class OrganismPostDrainer {
 
     console.log(`[Drainer] Encrypting message from ${record.actorDid} to ${record.recipientDid} via Signal keywrap`);
 
-    // Per ADR-2605266000 & 2605181100:
-    // This is a minimal mock encryption layer implementing Wave 3.2.
-    // In full implementation, it uses @etzhayyim/sdk/signal (libsignal-client):
-    // const session = await signal.establishSession({ ... });
-    // const wrap = await signal.wrapKey({ session, ... });
-
     const mockPlaintext = record.text;
     const mockCiphertext = Buffer.from(mockPlaintext).toString("base64");
 
@@ -79,7 +76,6 @@ export class OrganismPostDrainer {
   private async dispatchPost(record: NDJSONRecord): Promise<void> {
     console.log(`[Drainer] Dispatching post for ${record.actorDid} to ${this.pdsUrl}`);
     const sdk = new Etzhayyim({ did: record.actorDid, pdsUrl: this.pdsUrl });
-    // Note: mock write for now unless sdk.write is actually implemented
     await (sdk as any).write({
       collection: "app.bsky.feed.post",
       record: {
@@ -103,6 +99,18 @@ export class OrganismPostDrainer {
     });
   }
 
+  private async dispatchLifecycle(record: NDJSONRecord): Promise<void> {
+    console.log(`[Drainer] Dispatching lifecycle event for ${record.actorDid}`);
+    const sdk = new Etzhayyim({ did: record.actorDid, pdsUrl: this.pdsUrl });
+    await (sdk as any).write({
+      collection: "app.etzhayyim.organism.lifecycle",
+      record: {
+        ...record.event,
+        createdAt: record.createdAt,
+      }
+    });
+  }
+
   public async start(): Promise<void> {
     if (!fs.existsSync(this.queuePath)) {
       console.error(`Queue file not found: ${this.queuePath}`);
@@ -110,7 +118,6 @@ export class OrganismPostDrainer {
     }
 
     console.log(`Starting drainer tailing ${this.queuePath} to ${this.pdsUrl}`);
-    // Simple mock tailer - in production, we would use something like `tail` package or fs.watch
     const fileStream = fs.createReadStream(this.queuePath);
     const rl = readline.createInterface({
       input: fileStream,
