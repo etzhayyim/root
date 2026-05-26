@@ -32,6 +32,7 @@ from pymagatama.organism.joucho import (
     apply_sensor_delta,
 )
 from pymagatama.organism.sensors.base import DatasetSensor, SensorObservation
+from pymagatama.organism.sensors.tier_gate import TierGate
 
 
 # Bounded ring for sensor observations between organism ticks. Keeps
@@ -157,6 +158,14 @@ class UnispscOrganism:
         self.sensor_sample_size = sensor_sample_size
         self.sensor_observations: list[SensorObservation] = []
         self.sensor_last_poll_ms: dict[str, int] = {}
+        # Per ADR-2605262400 §4.3 Wave-3 — TierGate is auto-wired with
+        # the organism's actor_did so external callers can wrap their
+        # own SensorObservation sinks with ``organism.tier_gate.guard(
+        # classification, sink_kind=..., wrapped=...)`` and the leak
+        # backstop event count flows into the joucho stress delta.
+        # Without external wiring, ``pop_leaks()`` returns an empty
+        # list and the joucho path is no-op.
+        self.tier_gate = TierGate(actor_did=self.actor_did)
 
     @classmethod
     def for_code(
@@ -250,7 +259,18 @@ class UnispscOrganism:
         # observations bias mood incrementally.
         tier_a_count = sum(1 for o in tick_obs if o.tier == "A")
         tier_c_count = sum(1 for o in tick_obs if o.tier == "C")
-        leak_count = 0  # TierGate integration is wave-3 of §4.3
+        # §4.3 Wave-3 — drain LeakAttempts accumulated by the organism's
+        # TierGate since the previous tick. External callers wrap their
+        # observation sinks with `organism.tier_gate.guard(...)`; tier-C
+        # observations routed to an EXTERNAL_FACING sink are dropped
+        # there and counted here so the stress delta rises.
+        leaks_this_tick = self.tier_gate.pop_leaks()
+        leak_count = sum(1 for la in leaks_this_tick if la.tier == "C")
+        if leak_count > 0:
+            logger.warning(
+                "organism c%s observed %d tier-C leak attempt(s) this tick — R9 backstop pre-firing",
+                self.code, leak_count,
+            )
         base_provider = self.joucho_provider
 
         def _augmented_joucho(did: str) -> JouchoScores:
@@ -269,7 +289,15 @@ class UnispscOrganism:
             self.cadence_state,
             self.inbox,
             now_ms=now_ms,
-            joucho_provider=_augmented_joucho if self.sensors else self.joucho_provider,
+            # Use the augmented provider when sensors are configured OR
+            # when leak attempts were recorded this tick — leaks can
+            # come from an externally-instantiated TierGate even on an
+            # organism that has no sensors of its own.
+            joucho_provider=(
+                _augmented_joucho
+                if (self.sensors or leak_count > 0)
+                else self.joucho_provider
+            ),
             follower_score_provider=self.follower_score_provider,
         )
 
