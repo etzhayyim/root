@@ -6523,6 +6523,66 @@ sibling_modules = [
 ]
 
 
+# ─── kataribe (語部) press + publishing + translation substrate R0 (ADR-2605263600) ──
+
+[[adrs]]
+id = "2605263600"
+title = "kataribe (語部) — non-profit religious-corp press + publishing + translation substrate Tier-B actor R0 charter"
+status = "proposed"
+status_note = "Eighth-priority gap-closure actor (gap audit row 8 = 報道+出版+翻訳). Religious-corp internal journalism + doctrine commentary publishing + multilingual translation + community historical chronicle + whistleblower channel. 任意団体 internal substrate at did:web:kataribe.etzhayyim.com (20-actors/kataribe/). Etymology: 古代日本 語部 (kataribe) = oral historian/storyteller/chronicler class; pre-literate-era keepers of imperial chronicles + clan genealogy + ritual recitation; 古事記 preface credits 稗田阿礼 as kataribe. Cultural lineage: 万人祭司 (every member is a kataribe in principle) + Sola Scriptura (scripture-access-through-translation) + Charter §1.7 多世代 + §1.15 non-eschatological. **Constitutional octet**: (1) NO ad-supported revenue G3+N2 (Charter §1.13 anti-addictive + §1.15 non-eschatological; ad-supported creates engagement-optimization incentive incompatible) / (2) NO clickbait / apocalyptic / engagement-optimized framing G4+N3 (Charter §1.15 non-eschatological invariant; toneAttestation enum DELIBERATELY excludes apocalyptic/clickbait/engagement-optimized; nonEschatologicalAttested const true structural) / (3) NO commercial publishing platform G5+N4 (Substack / Medium / News Corp / The Atlantic / NYTimes-as-vendor / WordPress-Pro / Ghost-Pro / Mailchimp / ConvertKit / Beehiiv PROHIBITED per Charter Rider §2(e)+§2(c) — vendor closed query-tracking on reader+writer posture) / (4) NO single-doctrinal monopoly G6+N5 (cross-doctrinal Wellbecoming priority per musubi G9+N12; doctrinalMonopolyAttested const false; ≥2 cross-doctrinal reviewers minLength on commentary) / (5) Translation prioritization community-need-based G7+N6 (NOT commercial-market-driven language priority; member-population + Wellbecoming need governs; communityNeedBasedAttested const true) / (6) NO surveillance investigative journalism G8+N7 (Charter §2(c) covert-ops avoidance extends to journalism; surveillanceInvestigativeJournalismAttested const false on whistleblowerReport) / (7) Whistleblower channel encrypted G10 (ADR-2605181100 envelope MANDATORY; chigiri.ipLicenseClaim cross-link; encryptedPayloadCid REQUIRED) / (8) Murakumo-only translation G12 (DeepL Pro / Google Translate API / Grammarly / Anthropic-direct-translation PROHIBITED; translationProvider const 'murakumo-only'; commercialAiTranslationToolUsed const false). G9 all publications Apache 2.0 + Charter Rider (licenseAttested const apache-2.0-with-charter-rider-v2.0). G11 NO payroll for kataribe (vocation-flow L5). G13 NO mandatory subscription paywall (all open access). 6 cells (community_chronicle / doctrine_commentary musubi-pair / translation / external_press_relations / whistleblower_channel chigiri-pair / annual_history_compendium). 5 Lexicons: communityChronicleAttestation (G4+G9 structural; toneAttestation enum + nonEschatologicalAttested const + licenseAttested const) + doctrineCommentaryPublishing (G6+G9 structural; doctrinalMonopolyAttested const false + crossDoctrinalReviewerAttestations minLength 2 + transubstantiationDoctrineImposed const false) + translationAttestation (G7+G12 structural; translationProvider const murakumo-only + commercialAiTranslationToolUsed const false + communityNeedBasedAttested const true) + whistleblowerReport (G10 STRUCTURAL: encryptedPayloadCid REQUIRED + surveillanceInvestigativeJournalismAttested const false + chigiriIpLicenseClaimCrossEmitCid required) + silenKataribeReview (G3/G4/G5/G6/G7/G8/G11/G12/G13 const-field structural enforcement: adSupportedRevenueUsdMillicents=0 + apocalypticFramingEventsCount=0 + commercialPublishingPlatformPenetrationPct=0 + singleDoctrinalMonopolyEventsCount=0 + commercialMarketDrivenTranslationPriorityEventsCount=0 + surveillanceInvestigativeJournalismEventsCount=0 + mandatoryPaywallEventsCount=0 + commercialAiTranslationToolUsageCount=0 + kataribeVocationFlowCompliantRatioPctIntegerHundredths=10000 + publicationsApacheRiderLicensedPct=10000). 13 gates G1..G13 + 12 non-goals N1..N12 + 4-phase R0..R3."
+path = "90-docs/adr/2605263600-kataribe-press-publishing-translation-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/kataribe"
+kind = "tier-b-non-profit-press-publishing-translation-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-path-reserved"
+description = "kataribe (語部 — classical Japan oral historian / storyteller / chronicler class) actor scaffold. Manifest + README + CLAUDE.md only at R0. 6 Pregel cells path-reserved under 20-actors/magatama/cells/kataribe_*/ (cell modules created at R1 post-Council ratification + ≥3 community chronicler baseline attestations (community-witnessed-competence, NOT clergy ordination per musubi G3 pattern shared) + cross-doctrinal advisor on Council infrastructure advisory + chigiri R1 active + toritate R1 active; all import-time RuntimeError until activated). 5 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/kataribe/. **Cultural lineage** = 古代日本 語部 (oral historian); 古事記 preface credits 稗田阿礼 as kataribe whose recitation 太安万侶 transcribed. **Modern semantic**: religious-corp internal journalism + doctrine commentary + multilingual translation + community chronicle + whistleblower channel. **Constitutional octet enforced**: G3 no ad-supported revenue (Charter §1.13+§1.15) / G4 no clickbait apocalyptic (§1.15 non-eschatological; toneAttestation enum + nonEschatologicalAttested const true) / G5 no commercial publishing platform (Substack/Medium/News Corp/Mailchimp/Ghost-Pro/Beehiiv PROHIBITED per Charter Rider §2(e)+§2(c)) / G6 no single-doctrinal monopoly (cross-doctrinal Wellbecoming) / G7 community-need-based translation / G8 no surveillance investigative journalism (Charter §2(c)) / G10 whistleblower channel encrypted (chigiri.ipLicenseClaim cross-actor) / G12 Murakumo-only translation (DeepL Pro/Google Translate API/Grammarly/Anthropic-direct PROHIBITED)."
+adr = ["2605263600", "2605263500", "2605263400", "2605263200", "2605263000", "2605262900", "2605262700", "2605262130", "2605261000", "2605215000", "2605192300", "2605192200", "2605192145", "2605192100", "2605181200", "2605181100"]
+sibling_actors = [
+  "chigiri.ipLicenseClaim (whistleblower channel for Charter Rider violation; G10 encrypted cross-actor)",
+  "musubi (cross-doctrinal Wellbecoming pattern shared; G6 + musubi G9+N12)",
+  "toritate (publication accounting if Public Fund grant)",
+  "kazaori (post-emergency community chronicle cross-link)",
+  "manabi (future; translated curriculum cross-link)",
+  "iyashi (clinical-grade publication review when medical content)",
+  "chigiri.stewardLaborAttestation (read; kataribe L5 vocation-flow classification)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/app/etzhayyim/kataribe",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/kataribe"
+form = "任意団体 internal press + publishing + translation substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格; NOT a state-licensed press entity)"
+cultural_lineage = "古代日本 語部 class (oral historian); 古事記 preface 稗田阿礼; 万人祭司 (every member is a kataribe in principle); Sola Scriptura"
+no_ad_supported_revenue = true
+no_clickbait_apocalyptic_framing = true
+no_commercial_publishing_platform = true
+no_single_doctrinal_monopoly = true
+translation_community_need_based = true
+no_surveillance_investigative_journalism = true
+whistleblower_channel_encrypted_mandatory = true
+no_payroll_for_kataribe = true
+murakumo_only_translation = true
+no_mandatory_paywall = true
+phase_gate = "R1 activation requires Bootstrap Council Seat 2-5 RFP closure (2026-06-19) + Council Lv6+ ≥3 ratify of ADR-2605263600 + ≥3 community chronicler baseline attestations on file (community-witnessed-competence; NOT clergy ordination per musubi G3 pattern shared) + cross-doctrinal advisor on Council infrastructure advisory + chigiri R1 active (whistleblower channel cross-actor dependency) + toritate R1 active (Public Fund grant accounting)"
+charter_rider_risk = "HIGH for §1.13 anti-addictive UX + §1.15 non-eschatological drift (publication domain has highest engagement-optimization temptation); G3+G4 const-field structural enforcement is the constitutional discipline; HIGH for §2(e) commercial publishing platform drift (Substack/Medium adoption temptation); G5 PROHIBITION is structural; HIGH for §2(c) vendor exposure on member translation content; G12 Murakumo-only is structural"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/kataribe"
+kind = "kataribe-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-5-lexicon-skeleton-schemas-+-README"
+description = "5 Lexicon JSONs for kataribe actor per ADR-2605263600. **Most aggressive const-field structural enforcement to date** across 9 gates: nonEschatologicalAttested=true (G4) + licenseAttested=apache-2.0-with-charter-rider-v2.0 (G9) + doctrinalMonopolyAttested=false (G6) + transubstantiationDoctrineImposed=false (musubi G9 cross-ref) + translationProvider=murakumo-only (G12) + commercialAiTranslationToolUsed=false (G12) + communityNeedBasedAttested=true (G7) + surveillanceInvestigativeJournalismAttested=false (G8) + sensationalizedFramingAttested=false (G4) + silenKataribeReview consts (adSupportedRevenueUsdMillicents=0 G3 / apocalypticFramingEventsCount=0 G4 / commercialPublishingPlatformPenetrationPct=0 G5 / singleDoctrinalMonopolyEventsCount=0 G6 / commercialMarketDrivenTranslationPriorityEventsCount=0 G7 / surveillanceInvestigativeJournalismEventsCount=0 G8 / mandatoryPaywallEventsCount=0 G13 / commercialAiTranslationToolUsageCount=0 G12 / kataribeVocationFlowCompliantRatioPctIntegerHundredths=10000 G11 / publicationsApacheRiderLicensedPct=10000 G9). toneAttestation enum DELIBERATELY excludes apocalyptic/clickbait/engagement-optimized/sensationalized/crisis-amplifying (G4 structural). crossDoctrinalReviewerAttestations minLength 2 on doctrineCommentaryPublishing (G6 structural). encryptedPayloadCid REQUIRED on whistleblowerReport (G10 structural)."
+adr = ["2605263600", "2605181100", "2605181200", "2605192200", "2605215000", "2605261000", "2605262130", "2605263400", "2605263200"]
+sibling_modules = [
+  "20-actors/kataribe",
+  "00-contracts/lexicons/app/etzhayyim/chigiri",
+  "00-contracts/lexicons/app/etzhayyim/musubi",
+  "00-contracts/lexicons/app/etzhayyim/toritate",
+  "00-contracts/lexicons/app/etzhayyim/kazaori",
+]
+
+
 # ─── baien ameno per-kernel inference R0 (ADR-2605263300) ──
 
 [[adrs]]

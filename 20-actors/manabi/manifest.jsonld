@@ -73,13 +73,22 @@
       "module": "manabi.cells.lifelong_inquiry",
       "murakumoNode": "levi",
       "phase": "open-ended questioning"
+    },
+    {
+      "name": "cert_prep",
+      "module": "manabi.cells.cert_prep",
+      "murakumoNode": "levi",
+      "phase": "IT audit / infosec CBK knowledge domain (CISA D1-D5 / CISSP D1-D8) — sub-cell per ADR-2605264400; manabi never issues credentials (G7 + N12); G15 no pass-rate KPI; G16 no official past-question reproduction; G17 no credential body partnership"
     }
   ],
   "lexiconNamespaces": [
     "app.etzhayyim.manabi.curriculumAttestation",
     "app.etzhayyim.manabi.learningSessionAttestation",
     "app.etzhayyim.manabi.charterUnderstandingAttestation",
-    "app.etzhayyim.manabi.silenEducationReview"
+    "app.etzhayyim.manabi.silenEducationReview",
+    "app.etzhayyim.manabi.certPrepSession",
+    "app.etzhayyim.manabi.personalMaterialImport",
+    "app.etzhayyim.manabi.domainMasteryAttestation"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605261045. Council Lv6+ supermajority + new ADR to amend.",

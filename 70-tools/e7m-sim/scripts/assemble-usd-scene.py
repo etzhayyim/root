@@ -375,14 +375,19 @@ def build_plan(scene_path: Path, schema_path: Optional[Path] = None) -> Assembly
 def emit_usd_stub(plan: AssemblyPlan, out_path: Path) -> dict[str, Any]:
     """W1 STUB: emit a manifest JSON describing what kami-usd WOULD do.
 
-    W2 replaces this with real tinyusdz invocation (kami-usd):
-      - terrain → UsdGeom.Mesh from DEM triangulation
-      - raster_overlay → UsdShade.Material texture binding
-      - vector_buildings → UsdGeom.Mesh per polygon (extruded)
-      - vector_roads → UsdGeom.Mesh per linestring (ribbon)
-      - object_3d_instances → UsdGeom.PointInstancer
+    Kept for backward-compat with W1 callers. W2 callers should use
+    `emit_scene()` which writes both this manifest AND a real `.usda`
+    file via the inline text emitter in §5 below.
     """
-    manifest = {
+    manifest = _build_manifest(plan)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    return manifest
+
+
+def _build_manifest(plan: AssemblyPlan) -> dict[str, Any]:
+    """The manifest JSON content (shared between W1 stub + W2 emit_scene)."""
+    return {
         "scene_name": plan.scene_name,
         "adr": plan.adr,
         "max_tier": plan.max_tier,
@@ -414,8 +419,233 @@ def emit_usd_stub(plan: AssemblyPlan, out_path: Path) -> dict[str, Any]:
         "emitter_status": "stub-w1-manifest-only",
         "emitter_target": "tinyusdz via kami-usd (W2 deliverable per ADR-2605262500 §4)",
     }
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+
+# ─── §5 W2 USDA text emitter ────────────────────────────────────────
+#
+# USDA = USD ASCII representation, stable spec at
+# https://openusd.org/docs/USD-Glossary.html#USDGlossary-USDA-File
+#
+# W2.0 (this cycle): structural USDA — every layer/prop becomes a real
+# UsdGeom.Mesh / UsdShade.Material / UsdGeom.PointInstancer prim, with
+# deterministic placeholder geometry derived from the bbox + CID. This
+# means the emitted .usda is loadable by any USD reader (Pixar OpenUSD,
+# tinyusdz, kami-usd) and renders something visible; the geometry is
+# not the actual SRTM mesh / Sentinel raster yet — that ingest lands
+# at W2.1 alongside the real datasetPin → IPFS CID resolution.
+
+USDA_HEADER = """#usda 1.0
+(
+    defaultPrim = "World"
+    metersPerUnit = 1
+    upAxis = "Z"
+    doc = "Emitted by assemble-usd-scene.py (ADR-2605262500 §4 W2)"
+)
+
+"""
+
+
+def _bbox_local_corners(plan: AssemblyPlan) -> tuple[float, float, float, float]:
+    """Project the world bbox into a scene-local meter-grid.
+
+    For W2.0 we assume EPSG:4326 (lon/lat) and approximate 1 deg ≈
+    111_000 m at the bbox centroid. This gives a small-but-real
+    rectangle whose corners are meaningful for sim physics. Full
+    projection (EPSG:3857 etc.) lands at W2.1 with pyproj.
+    """
+    w, s, e, n = plan.bbox
+    cy = (s + n) / 2.0
+    import math
+    lat_m = 111_320.0
+    lon_m = 111_320.0 * math.cos(math.radians(cy))
+    width = max(1.0, (e - w) * lon_m)
+    height = max(1.0, (n - s) * lat_m)
+    # Center the bbox on the scene origin.
+    return (-width / 2.0, -height / 2.0, width / 2.0, height / 2.0)
+
+
+def _emit_terrain_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
+    """Flat grid Mesh covering the bbox. W2.1 wires real SRTM triangulation."""
+    x0, y0, x1, y1 = _bbox_local_corners(plan)
+    pts = f"[({x0}, {y0}, 0), ({x1}, {y0}, 0), ({x1}, {y1}, 0), ({x0}, {y1}, 0)]"
+    return f"""    def Mesh "{prim_name}"
+    {{
+        token kami_layer_kind = "terrain"
+        string kami_source_subdataset = "{layer.source_subdataset}"
+        string kami_resolved_cid = "{layer.resolved_cid}"
+        string kami_tier = "{layer.tier}"
+        point3f[] points = {pts}
+        int[] faceVertexCounts = [3, 3]
+        int[] faceVertexIndices = [0, 1, 2, 0, 2, 3]
+        token subdivisionScheme = "none"
+    }}
+"""
+
+
+def _emit_raster_overlay_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
+    """UsdShade.Material declaration referencing the resolved CID."""
+    return f"""    def Material "{prim_name}"
+    {{
+        token kami_layer_kind = "raster_overlay"
+        string kami_source_subdataset = "{layer.source_subdataset}"
+        string kami_resolved_cid = "{layer.resolved_cid}"
+        string kami_tier = "{layer.tier}"
+        token outputs:surface.connect = </World/{prim_name}/PreviewSurface.outputs:surface>
+
+        def Shader "PreviewSurface"
+        {{
+            uniform token info:id = "UsdPreviewSurface"
+            token outputs:surface
+        }}
+    }}
+"""
+
+
+def _emit_vector_roads_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
+    """Ribbon Mesh placeholder — single horizontal strip across bbox."""
+    x0, y0, x1, y1 = _bbox_local_corners(plan)
+    cy = (y0 + y1) / 2.0
+    half_w = layer.extra.get("ribbon", {}).get("default_lane_width_m", 3.5) / 2.0 \
+        if isinstance(layer.extra.get("ribbon"), dict) else 1.75
+    pts = (
+        f"[({x0}, {cy - half_w}, 0.05), ({x1}, {cy - half_w}, 0.05), "
+        f"({x1}, {cy + half_w}, 0.05), ({x0}, {cy + half_w}, 0.05)]"
+    )
+    return f"""    def Mesh "{prim_name}"
+    {{
+        token kami_layer_kind = "vector_roads"
+        string kami_source_subdataset = "{layer.source_subdataset}"
+        string kami_resolved_cid = "{layer.resolved_cid}"
+        string kami_tier = "{layer.tier}"
+        point3f[] points = {pts}
+        int[] faceVertexCounts = [4]
+        int[] faceVertexIndices = [0, 1, 2, 3]
+        token subdivisionScheme = "none"
+    }}
+"""
+
+
+def _emit_vector_buildings_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
+    """Single extruded box at bbox center as placeholder."""
+    x0, y0, x1, y1 = _bbox_local_corners(plan)
+    cx, cy = (x0 + x1) / 2.0, (y0 + y1) / 2.0
+    half = min(abs(x1 - x0), abs(y1 - y0)) / 8.0
+    h = float(layer.extra.get("extrude", {}).get("default_height_m", 8.0)) \
+        if isinstance(layer.extra.get("extrude"), dict) else 8.0
+    pts = (
+        f"[({cx - half}, {cy - half}, 0), ({cx + half}, {cy - half}, 0), "
+        f"({cx + half}, {cy + half}, 0), ({cx - half}, {cy + half}, 0), "
+        f"({cx - half}, {cy - half}, {h}), ({cx + half}, {cy - half}, {h}), "
+        f"({cx + half}, {cy + half}, {h}), ({cx - half}, {cy + half}, {h})]"
+    )
+    # 6 quad faces (cube)
+    fvc = "[4, 4, 4, 4, 4, 4]"
+    fvi = "[0,1,2,3, 4,5,6,7, 0,1,5,4, 1,2,6,5, 2,3,7,6, 3,0,4,7]"
+    return f"""    def Mesh "{prim_name}"
+    {{
+        token kami_layer_kind = "vector_buildings"
+        string kami_source_subdataset = "{layer.source_subdataset}"
+        string kami_resolved_cid = "{layer.resolved_cid}"
+        string kami_tier = "{layer.tier}"
+        point3f[] points = {pts}
+        int[] faceVertexCounts = {fvc}
+        int[] faceVertexIndices = {fvi}
+        token subdivisionScheme = "none"
+    }}
+"""
+
+
+def _emit_object_3d_instances_usda(prop: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
+    """UsdGeom.PointInstancer with deterministic placements derived from CID hash."""
+    count = int(prop.extra.get("count", 0))
+    x0, y0, x1, y1 = _bbox_local_corners(plan)
+    # Deterministic offsets: hash the resolved CID, expand to count positions
+    rng_seed = int(hashlib.sha256(prop.resolved_cid.encode()).hexdigest()[:8], 16)
+    positions: list[str] = []
+    for i in range(count):
+        # Tiny PRNG (LCG) seeded from CID — stable across runs.
+        rng_seed = (rng_seed * 1103515245 + 12345) & 0x7fffffff
+        u = (rng_seed >> 8) / float(0x7fffff)
+        rng_seed = (rng_seed * 1103515245 + 12345) & 0x7fffffff
+        v = (rng_seed >> 8) / float(0x7fffff)
+        px = x0 + u * (x1 - x0)
+        py = y0 + v * (y1 - y0)
+        positions.append(f"({px:.3f}, {py:.3f}, 0.5)")
+    pos_str = "[" + ", ".join(positions) + "]" if positions else "[]"
+    return f"""    def PointInstancer "{prim_name}"
+    {{
+        token kami_prop_kind = "object_3d_instances"
+        string kami_source_subdataset = "{prop.source_subdataset}"
+        string kami_resolved_cid = "{prop.resolved_cid}"
+        string kami_tier = "{prop.tier}"
+        int kami_count = {count}
+        string kami_placement_strategy = "{prop.extra.get("placement_strategy", "uniform_seed")}"
+        point3f[] positions = {pos_str}
+    }}
+"""
+
+
+_LAYER_USDA_DISPATCH = {
+    "terrain": _emit_terrain_usda,
+    "raster_overlay": _emit_raster_overlay_usda,
+    "vector_roads": _emit_vector_roads_usda,
+    "vector_buildings": _emit_vector_buildings_usda,
+}
+_PROP_USDA_DISPATCH = {
+    "object_3d_instances": _emit_object_3d_instances_usda,
+}
+
+
+def build_usda(plan: AssemblyPlan) -> str:
+    """Compose the full USDA text. Deterministic given a fixed plan (G6)."""
+    parts: list[str] = [USDA_HEADER]
+    parts.append('def Xform "World"\n{\n')
+    parts.append(f'    string kami_scene_name = "{plan.scene_name}"\n')
+    parts.append(f'    string kami_adr = "{plan.adr}"\n')
+    parts.append(f'    string kami_max_tier = "{plan.max_tier}"\n')
+    parts.append(f'    string kami_crs = "{plan.crs}"\n\n')
+    for layer in plan.layers:
+        prim_name = f"Layer{layer.index}_{layer.kind}"
+        emit = _LAYER_USDA_DISPATCH.get(layer.kind)
+        if emit is None:
+            # Unknown layer kind: emit a generic Xform marker.
+            parts.append(
+                f'    def Xform "{prim_name}"\n    {{\n'
+                f'        token kami_layer_kind = "{layer.kind}"\n'
+                f'        string kami_resolved_cid = "{layer.resolved_cid}"\n'
+                f'    }}\n'
+            )
+        else:
+            parts.append(emit(layer, plan, prim_name))
+    for prop in plan.props:
+        prim_name = f"Prop{prop.index}_{prop.kind}"
+        emit = _PROP_USDA_DISPATCH.get(prop.kind)
+        if emit is None:
+            parts.append(
+                f'    def Xform "{prim_name}"\n    {{\n'
+                f'        token kami_prop_kind = "{prop.kind}"\n'
+                f'        string kami_resolved_cid = "{prop.resolved_cid}"\n'
+                f'    }}\n'
+            )
+        else:
+            parts.append(emit(prop, plan, prim_name))
+    parts.append("}\n")
+    return "".join(parts)
+
+
+def emit_scene(plan: AssemblyPlan, out_dir: Path) -> dict[str, Any]:
+    """W2 emitter — writes both `scene.usda` and `manifest.json`.
+
+    Returns the manifest dict (same shape as W1 emit_usd_stub).
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    usda_text = build_usda(plan)
+    (out_dir / "scene.usda").write_text(usda_text, encoding="utf-8")
+    manifest = _build_manifest(plan)
+    manifest["emitter_status"] = "w2-real-usda-text"
+    manifest["emitter_target"] = "USDA 1.0 text spec (loadable by Pixar OpenUSD / tinyusdz / kami-usd)"
+    manifest["scene_usda_sha256"] = hashlib.sha256(usda_text.encode("utf-8")).hexdigest()
+    (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     return manifest
 
 
@@ -439,6 +669,11 @@ def main(argv: Optional[list[str]] = None) -> int:
         "--dry-run",
         action="store_true",
         help="Build plan + print summary; do not write output.",
+    )
+    parser.add_argument(
+        "--manifest-only",
+        action="store_true",
+        help="Emit only the W1 stub manifest JSON (no scene.usda). Default writes both.",
     )
     parser.add_argument(
         "--schema",
@@ -479,10 +714,20 @@ def main(argv: Optional[list[str]] = None) -> int:
         print("\n[dry-run] no output written.")
         return 0
 
-    out_path = args.out or (args.scene_yaml.parent / "assembled-manifest.json")
-    manifest = emit_usd_stub(plan, out_path)
-    print(f"\n[ok] manifest written to {out_path} "
-          f"({len(manifest['layers'])} layers, {len(manifest['props'])} props)")
+    # W2 default: write both scene.usda + manifest.json into an out_dir.
+    # Legacy --manifest-only flag preserves the W1 single-JSON behavior.
+    if args.manifest_only:
+        out_path = args.out or (args.scene_yaml.parent / "assembled-manifest.json")
+        manifest = emit_usd_stub(plan, out_path)
+        print(f"\n[ok] manifest written to {out_path} "
+              f"({len(manifest['layers'])} layers, {len(manifest['props'])} props)")
+        return 0
+
+    out_dir = args.out or args.scene_yaml.parent
+    manifest = emit_scene(plan, out_dir)
+    print(f"\n[ok] scene.usda + manifest.json written to {out_dir}/ "
+          f"({len(manifest['layers'])} layers, {len(manifest['props'])} props, "
+          f"usda_sha256={manifest['scene_usda_sha256'][:12]}…)")
     return 0
 
 
