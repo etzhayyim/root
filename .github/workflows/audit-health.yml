@@ -67,6 +67,7 @@ jobs:
         run: |
           python3 -m pytest \
             70-tools/scripts/audit/test_adr_cross_ref_health.py \
+            70-tools/scripts/audit/test_manifest_lexicon_drift.py \
             -v
 
       - name: Run audit aggregator (non-strict)

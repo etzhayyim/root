@@ -137,13 +137,20 @@ Discovery: iter-40 of /loop (2026-05-27); filter improvements + categorization i
 
 ## Testing
 
-`adr-cross-ref-health.py` has a pytest suite at
-`test_adr_cross_ref_health.py` (21 tests) that locks in the
-structural invariants of the 5 categories + 3 filters. Run with:
+Two audit scripts have pytest suites that lock in their structural
+invariants so future refactors don't silently break filter/regex/
+path-mapping logic:
+
+| Suite | Tests | Locks in |
+|---|---|---|
+| `test_adr_cross_ref_health.py` | 21 | 5 categories + 3 filters (range / forward-ref / historical-orphan) |
+| `test_manifest_lexicon_drift.py` | 13 | NSID regex + NSID-to-path mapping + post-closure-zero-drift canary |
+
+Both run via the same pytest invocation:
 
 ```bash
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
-  python3 -m pytest 70-tools/scripts/audit/test_adr_cross_ref_health.py -v
+  python3 -m pytest 70-tools/scripts/audit/ -v
 ```
 
 The `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` env is required because
@@ -154,8 +161,15 @@ tests run cleanly. Existing tests under `70-tools/scripts/lint/`
 and `70-tools/scripts/open-ot/` have the same requirement.
 
 The tests are pure — no live filesystem dependency for category /
-filter tests; only the end-to-end smoke tests touch the disk. Tests
-should always pass in <1s.
+filter / mapping tests; only the end-to-end smoke tests touch the
+disk. Combined suite runs in <0.1s.
+
+The `test_post_closure_zero_drift` canary in
+`test_manifest_lexicon_drift.py` is a regression guard: it walks
+all `20-actors/*/manifest.jsonld` files and asserts every declared
+lexicon NSID has a corresponding JSON file. If a future PR
+introduces new manifest-lexicon drift, this test fails fast
+(prior to the aggregator's report-only output).
 
 ### `repo-record-allowlist.mjs` (pre-existing)
 
