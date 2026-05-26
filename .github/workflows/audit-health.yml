@@ -52,6 +52,21 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install pytest (for audit script tests)
+        run: pip install pytest
+
+      - name: Run audit script tests (strict — fail on regression)
+        env:
+          # Bypass langsmith plugin auto-load (pydantic version mismatch
+          # in the dev box has historically broken pytest collection).
+          # The CI image is clean of langsmith, but the env is safe to
+          # set unconditionally so local + CI invocations match.
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: |
+          python3 -m pytest \
+            70-tools/scripts/audit/test_adr_cross_ref_health.py \
+            -v
+
       - name: Run audit aggregator (non-strict)
         env:
           GH_TOKEN: ${{ github.token }}

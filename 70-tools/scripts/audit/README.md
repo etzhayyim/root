@@ -111,6 +111,28 @@ When the 123 are triaged down to a stable floor, this audit can be folded into `
 
 Discovery: iter-40 of /loop (2026-05-27); filter improvements + categorization in iter-41.
 
+## Testing
+
+`adr-cross-ref-health.py` has a pytest suite at
+`test_adr_cross_ref_health.py` (21 tests) that locks in the
+structural invariants of the 5 categories + 3 filters. Run with:
+
+```bash
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+  python3 -m pytest 70-tools/scripts/audit/test_adr_cross_ref_health.py -v
+```
+
+The `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` env is required because
+this system's `langsmith` pytest plugin auto-loads but has a
+pydantic version mismatch that crashes pytest collection. The
+opt-out env bypasses third-party autoloading and lets the local
+tests run cleanly. Existing tests under `70-tools/scripts/lint/`
+and `70-tools/scripts/open-ot/` have the same requirement.
+
+The tests are pure — no live filesystem dependency for category /
+filter tests; only the end-to-end smoke tests touch the disk. Tests
+should always pass in <1s.
+
 ### `repo-record-allowlist.mjs` (pre-existing)
 
 XRPC repo-record allowlist guard. See the script's docstring for usage. Unrelated to the `/loop` iter-18..29 audit scripts above.
