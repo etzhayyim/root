@@ -23,7 +23,29 @@ NOT inside the religious-corp inference / organism heartbeat path
 ## End-to-end smoke (Liechtenstein, ~3 MB)
 
 The smallest practical region. Reproduces every step from fetch to
-sensor stream.
+sensor stream. Verified 2026-05-26 on `mac-260317`:
+
+| Stage | Wall | Output |
+|---|---:|---|
+| `e7m-dataset pull osm --region europe/liechtenstein` | ~3s | 3,371,178 byte `.osm.pbf`, md5 `012143442d952cb622db84ea61f994e3` |
+| `osmium export -f geojsonseq` | 0.4s | 31 MB `.geojsonl` (RFC 8142 RS-prefixed) |
+| `OsmRegionSensor.stream()` (full file) | 0.63s | **86,129 typed observations** at ~152K features/s |
+| `hot_sample(5)` deterministic across 2 calls | <1ms | G9 ✓ |
+
+Feature breakdown (first 5K sampled from full stream):
+
+| OSM key | Count |
+|---|---:|
+| `natural` | 3,309 (mountain peaks dominate — Liechtenstein is alpine) |
+| `highway` | 750 |
+| `amenity` | 195 |
+| `place` | 40 |
+| `railway` | 29 |
+
+Bounding box of all 86,129 observed features: `lat [46.98, 47.52]`,
+`lon [9.45, 9.67]` — consistent with Liechtenstein's geographic
+extent (the slight overshoot beyond the strict country box is
+boundary features extending into neighboring AT / CH).
 
 ### 1. Fetch the PBF
 
