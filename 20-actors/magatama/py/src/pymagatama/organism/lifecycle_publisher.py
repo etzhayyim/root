@@ -28,8 +28,7 @@ class NdjsonLifecyclePublisher:
         # Atomic append
         try:
             with self.queue_path.open("a", encoding="utf-8") as f:
-                f.write(json.dumps(record, ensure_ascii=False) + "
-")
+                f.write(json.dumps(record, ensure_ascii=False) + "\n")
         except Exception:
             # In a real scenario, we might want more robust error handling,
             # like logging or a dead-letter queue.
