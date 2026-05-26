@@ -285,3 +285,72 @@ pre-commit:
         fi
         rm -f /tmp/e7m-verify.$$.json
       stage_fixed: false
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# pre-push — heavier regression checks that don't fit in the per-commit
+# budget. Mirror of .github/workflows/kami-engine-sdk.yml so contributors
+# catch SDK / cyber-drill build regressions BEFORE pushing, saving a
+# round-trip to GitHub Actions.
+#
+# Each command uses `glob:` so the check only fires when its target
+# paths are in the push range. Unrelated pushes pass through with zero
+# additional wall-clock.
+# ─────────────────────────────────────────────────────────────────────────
+pre-push:
+  parallel: false  # SDK build must finish before cyber-drill build reads its dist/
+
+  commands:
+    kami-engine-sdk-build:
+      # `svelte-package -i src/lib` produces dist/ that downstream apps
+      # consume via `link:` or `workspace:*`. ~1.6s on M1.
+      glob: "40-engine/kami-engine/kami-engine-sdk/**"
+      run: |
+        cd 40-engine/kami-engine/kami-engine-sdk
+        if ! npm run build > /tmp/sdk-build.$$.log 2>&1; then
+          echo "✘ SDK build failed"
+          tail -20 /tmp/sdk-build.$$.log
+          rm -f /tmp/sdk-build.$$.log
+          exit 1
+        fi
+        rm -f /tmp/sdk-build.$$.log
+
+    kami-engine-sdk-vitest:
+      # 82-passing-tests gate. Tolerates the pre-existing langgraph
+      # optional-peer-dep file failure (ADR-2605264300 §1 + b638c27e0)
+      # by gating on PASSED count, not exit code.
+      glob: "40-engine/kami-engine/kami-engine-sdk/**"
+      run: |
+        cd 40-engine/kami-engine/kami-engine-sdk
+        npm test > /tmp/sdk-test.$$.log 2>&1 || true
+        PASSED=$(grep -oE "Tests +[0-9]+ passed" /tmp/sdk-test.$$.log | grep -oE "[0-9]+" | head -1)
+        if [ "${PASSED:-0}" -lt 82 ]; then
+          echo "✘ SDK vitest passed count regressed below 82 (got ${PASSED:-0})"
+          tail -30 /tmp/sdk-test.$$.log
+          rm -f /tmp/sdk-test.$$.log
+          exit 1
+        fi
+        echo "  vitest: ${PASSED}/82+ passing"
+        rm -f /tmp/sdk-test.$$.log
+
+    cyber-drill-build:
+      # vite SSR + SvelteKit static adapter prerender. Exercises the
+      # langchain externalize config from b638c27e0 — Rollup must NOT
+      # try to resolve @langchain/langgraph from the SDK's filesystem
+      # path during the SSR build. ~2.3s on M1.
+      glob: "60-apps/ai-gftd-project-cyber-drill/**"
+      run: |
+        # Make sure SDK dist/ is current; if the user only changed
+        # cyber-drill files, the SDK build above didn't fire.
+        if [ ! -d 40-engine/kami-engine/kami-engine-sdk/dist/webvr ]; then
+          echo "  pre-building SDK dist/ (was stale)…"
+          (cd 40-engine/kami-engine/kami-engine-sdk && npm run build > /dev/null 2>&1)
+        fi
+        cd 60-apps/ai-gftd-project-cyber-drill/svelte
+        if ! pnpm run build > /tmp/cyber-build.$$.log 2>&1; then
+          echo "✘ cyber-drill prod build failed"
+          tail -20 /tmp/cyber-build.$$.log
+          rm -f /tmp/cyber-build.$$.log
+          exit 1
+        fi
+        rm -f /tmp/cyber-build.$$.log
