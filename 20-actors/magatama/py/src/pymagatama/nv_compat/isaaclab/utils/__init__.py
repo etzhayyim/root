@@ -10,8 +10,10 @@ R1.x scope:
   - io     — save/load helpers (yaml / pickle / json + auto-dispatch by
              extension); minimal YAML emitter+parser for the
              dict/list/scalar subset Isaac Lab actually uses
+  - timer  — perf timing (Timer class + TimerError + module-level named
+             timer registry + time_function decorator + format_seconds)
 """
 
-from . import dict, dr, io, math, string
+from . import dict, dr, io, math, string, timer
 
-__all__ = ["dict", "dr", "io", "math", "string"]
+__all__ = ["dict", "dr", "io", "math", "string", "timer"]
