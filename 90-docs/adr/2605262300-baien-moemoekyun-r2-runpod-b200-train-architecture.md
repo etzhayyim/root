@@ -61,6 +61,28 @@ User 選好 (2026-05-26): "B200 Blackwell sparse" — B200 SXM 主、H100 SXM fa
 | NVLink intra-node | 1.8 TB/s | 8-GPU node で expert-parallel が高速 |
 | RunPod 2026 pricing (estimate) | community $5-7/h, secure $7-9/h | availability 限定的、確保困難な場合 H100 SXM fallback |
 
+### §1.1b Secondary: NVIDIA RTX 5090 (consumer Blackwell, added 2026-05-26)
+
+| Spec | Value | Note |
+|---|---|---|
+| BF16 Tensor Core peak | ~165 TFLOPS (per GPU) | ~37× less than B200 |
+| FP8 Tensor Core peak | ~330 TFLOPS | TransformerEngine compatible |
+| FP4 sparse peak | ~1,318 TFLOPS | dense 659 / sparse 2:4 1,318 |
+| GDDR7 | 32 GB | tight but fits moemoekyun (1.1B trainable + 2.4B frozen + Adam ≈ 25 GB) |
+| NVLink | NONE (consumer card) | multi-GPU train inefficient |
+| RunPod 2026 pricing | community $0.69-1.99/h | very cheap per-hour |
+
+**Use cases on RTX 5090**:
+- Dev iteration (smaller experiments, quick turnaround, low $)
+- **Hparam sweep parallelism** (10× 5090 = ~$10/h, 10 parallel R2 runs in 7h vs 1× B200 in 15 min — same total $)
+- Bench / eval runs (Phase 2-3 of moemoekyun-bench-plan-260526.md)
+- Single-GPU experiments (no NVLink penalty)
+
+**NOT use cases**:
+- Main R2/R3/R4 runs (B200 wins on cost + wall)
+- Multi-GPU train (no NVLink = stall on all-reduce)
+- E=256 全 30 層 (8.2B trainable Adam fp32 = 65 GB > 32 GB 5090 capacity)
+
 ### §1.2 Fallback: NVIDIA H100 SXM
 
 | Spec | Value | Note |
@@ -78,6 +100,29 @@ User 選好 (2026-05-26): "B200 Blackwell sparse" — B200 SXM 主、H100 SXM fa
 |---|---|---|---|
 | B200 | 2,800 TFLOPS | 5,500 TFLOPS | ~10,000 TFLOPS |
 | H100 | 1,200 TFLOPS | 2,400 TFLOPS | (sparse FP4 unsupported) |
+| **RTX 5090** | **~100 TFLOPS** | **~200 TFLOPS** | **~800 TFLOPS** |
+
+### §1.4 Cost/wall matrix (R2/R3/R4 × hardware)
+
+R2 (2.46 EFLOPs):
+
+| GPU | wall | cost |
+|---|---|---|
+| B200 BF16 | 15 min | $1.75 |
+| RTX 5090 BF16 | 6.8h | $4.70 |
+| H100 SXM BF16 | 34 min | $2.30 |
+
+R4 (36.9 EFLOPs):
+
+| GPU | wall | cost |
+|---|---|---|
+| B200 BF16 | 3.6h | $25 |
+| RTX 5090 BF16 | 102h | $70 |
+| H100 SXM BF16 | 8.5h | $34 |
+
+→ **B200 primary** (cost + wall both winner). **RTX 5090 secondary**
+(hparam sweep parallelism / cheap dev iter). **H100 fallback** if B200
+unavailable.
 
 ## §2 Precision ladder (engineering 段階)
 
