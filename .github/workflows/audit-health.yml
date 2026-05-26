@@ -82,12 +82,17 @@ jobs:
           # set unconditionally so local + CI invocations match.
           PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
         run: |
+          # Note: test_all_sh.py is the end-to-end aggregator test,
+          # which itself invokes `bash all.sh`. We run it LAST so the
+          # other suites are validated first (faster failure signal on
+          # individual-script regressions).
           python3 -m pytest \
             70-tools/scripts/audit/test_adr_cross_ref_health.py \
             70-tools/scripts/audit/test_manifest_lexicon_drift.py \
             70-tools/scripts/audit/test_subrepo_scripts.py \
             70-tools/scripts/audit/test_simple_audits.py \
             70-tools/scripts/audit/test_e7m_verify_perf.py \
+            70-tools/scripts/audit/test_all_sh.py \
             -v
 
       - name: Run audit aggregator (non-strict)
