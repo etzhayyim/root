@@ -18,6 +18,9 @@ Sub-namespaces:
   - actuators (ImplicitActuator / IdealPDActuator / DCMotor / ActuatorNetMLP
               — actuator dynamics between action terms + articulation; PD,
               speed-torque saturation, residual-MLP correction hook)
+  - app    (AppLauncher CLI entry point — argparse integration +
+            SimulationApp handle; standard --task/--num_envs/--seed
+            /--device/--headless/--video/--enable_cameras/--livestream args)
   - utils  (utils.dr per-env DomainRandomizationCfg; utils.math quaternion +
             Euler + frame-transform helpers)
   - terrains (procedural height-field generators for legged locomotion)
@@ -25,11 +28,11 @@ Sub-namespaces:
 """
 
 from . import (
-    actuators, algos, assets, controllers, managers, markers, scene, sensors,
-    sim, terrains, utils,
+    actuators, algos, app, assets, controllers, managers, markers, scene,
+    sensors, sim, terrains, utils,
 )
 
 __all__ = [
-    "actuators", "algos", "assets", "controllers", "managers", "markers",
-    "scene", "sensors", "sim", "terrains", "utils",
+    "actuators", "algos", "app", "assets", "controllers", "managers",
+    "markers", "scene", "sensors", "sim", "terrains", "utils",
 ]
