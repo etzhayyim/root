@@ -28,6 +28,7 @@ from pymagatama.organism.sensors.base import (
     now_ms,
 )
 from pymagatama.organism.sensors.geolite2_sensor import Geolite2Sensor
+from pymagatama.organism.sensors.iana_root_sensor import IanaRootSensor
 from pymagatama.organism.sensors.pii_filter import (
     RedactionStats,
     redact_emails,
@@ -37,15 +38,18 @@ from pymagatama.organism.sensors.pii_filter import (
     redact_text,
     redact_whois_values,
 )
+from pymagatama.organism.sensors.ris_routing_sensor import RisRoutingSensor
 from pymagatama.organism.sensors.rir_delegated_sensor import RirDelegatedSensor
 
 __all__ = [
     "DatasetPin",
     "DatasetSensor",
     "Geolite2Sensor",
+    "IanaRootSensor",
     "PiiFilterPolicy",
     "RedactionStats",
     "RirDelegatedSensor",
+    "RisRoutingSensor",
     "SensorObservation",
     "StaticPinResolver",
     "Tier",
