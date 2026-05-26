@@ -1,0 +1,22 @@
+# Generic Tier-A acceptance template (audit trail; OPTIONAL).
+#
+# Per ADR-2605262400 W3. Tier-A sources (public-domain / open-government
+# / CC0 / CC-BY) do NOT require an operator-acceptance record at fetch
+# time, but the operator MAY drop this file under
+# `~/.etzhayyim/source-acceptance/<source>.toml` to record a clean
+# audit lineage.
+#
+# To install:
+#   cp _generic-tierA-optional.toml.example \
+#      ~/.etzhayyim/source-acceptance/<source-id>.toml
+#
+# Then edit the fields below. The fetcher's _acceptance.require_acceptance()
+# function will return a populated Acceptance dataclass; if you do NOT
+# install the file, Tier-A fetchers proceed without it.
+
+[acceptance]
+source           = "<source-id, e.g. sec-edgar / jp-edinet / uk-companies-house>"
+accepted_at      = "2026-05-26T00:00:00Z"
+accepted_by_did  = "did:web:etzhayyim.com:actor:dataset-operator"
+upstream_tos_url = "<URL to upstream open-data terms or license page>"
+notes            = "Tier-A optional acceptance for audit lineage."

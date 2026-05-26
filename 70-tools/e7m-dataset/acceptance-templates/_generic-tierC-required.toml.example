@@ -1,0 +1,29 @@
+# Generic Tier-C acceptance template (MANDATORY; fail-closed).
+#
+# Per ADR-2605262400 W3 + ADR-2605262100 G13 carve-out. Tier-C sources
+# (research-use NC: Rapid7 Open Data Sonar / OpenINTEL / CAIDA /
+# CZDS per-TLD / Common Crawl URL index) require the operator to
+# accept upstream research-use terms AND the G13 fleet-internal
+# carve-out: derivative artifacts MUST carry `-nc-` infix + are served
+# only via judah LiteLLM internal endpoint + are SBT-gated. NEVER
+# published to HuggingFace public or any external endpoint.
+#
+# To install:
+#   cp _generic-tierC-required.toml.example \
+#      ~/.etzhayyim/source-acceptance/<source-id>.toml
+#
+# Then edit the fields below. The fetcher will read this via
+# _acceptance.require_acceptance() — missing / malformed = fail closed.
+
+[acceptance]
+source                     = "<source-id, e.g. rapid7-open-data / openintel / caida>"
+accepted_at                = "2026-05-26T00:00:00Z"
+accepted_by_did            = "did:web:etzhayyim.com:actor:dataset-operator"
+upstream_tos_url           = "<URL to upstream research-use terms>"
+notes                      = "Tier-C accepted; -nc- derivative infix + G13 fleet-internal carve-out attested."
+nc_infix_attested          = true
+g13_fleet_internal_only    = true
+judah_litellm_endpoint_only = true
+sbt_gated_consumer_only    = true
+external_publication_prohibited = true
+derivative_artifact_pattern = "baien-server-<corpus>-nc-r<n>"
