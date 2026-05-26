@@ -5,13 +5,13 @@ name: audit-health
 # entries, SDK exports/dist mismatches, stale subrepo URLs, and escape-
 # symlinks inside subrepos.
 #
-# Strict mode is OFF by default — the current baseline (iter-49 of /loop,
-# 2026-05-27) has 40 findings: 25 documented-deferred (ADR-2605211845 +
-# ADR-2605262130) plus 15 manifest-lexicon-drift (3 actors × 15 lexicons;
+# Strict mode is OFF by default — the current baseline (iter-50 of /loop,
+# 2026-05-27) has 36 findings: 25 documented-deferred (ADR-2605211845 +
+# ADR-2605262130) plus 11 manifest-lexicon-drift (2 actors × 11 lexicons;
 # was 21 across 5 in iter-47 — iter-48 closed wadachi, iter-49 closed
-# gov-municipality). The workflow reports the count in the job summary
-# so reviewers can compare against baseline; it does not fail PRs on
-# those known findings.
+# gov-municipality, iter-50 closed infra-utility-connect). The workflow
+# reports the count in the job summary so reviewers can compare against
+# baseline; it does not fail PRs on those known findings.
 #
 # When the documented findings are resolved (kotoba upstream symlink
 # coordination + per-app .gitrepo decision), the strict-mode flag can be
@@ -85,20 +85,19 @@ jobs:
           {
             echo "## Audit findings: ${total:-?}"
             echo ""
-            echo "Baseline as of iter-49 of /loop (2026-05-27): **40 findings**"
+            echo "Baseline as of iter-50 of /loop (2026-05-27): **36 findings**"
             echo "  - 0 dependabot defunct"
             echo "  - 0 SDK exports/dist mismatches"
             echo "  - 7 stale subrepo URLs (ADR-2605211845)"
             echo "  - 18 kotoba escape-symlinks (ADR-2605262130)"
             echo "  - 0 sibling-convention-drift outliers"
-            echo "  - 15 manifest-lexicon-drift (iter-49; 3 actors / 15 lexicons; wadachi + gov-municipality closed)"
+            echo "  - 11 manifest-lexicon-drift (iter-50; 2 actors / 11 lexicons; wadachi + gov-municipality + infra-utility-connect closed)"
             echo ""
-            if [ "${total:-0}" -gt 40 ]; then
+            if [ "${total:-0}" -gt 36 ]; then
               echo "⚠️ Total findings **above baseline** — new drift introduced. Investigate above."
-            elif [ "${total:-0}" -lt 40 ]; then
+            elif [ "${total:-0}" -lt 36 ]; then
               echo "✅ Total findings **below baseline** — drift was resolved. Update baseline in this workflow's docs + audit/README.md."
             else
               echo "✓ Total findings match baseline. No new drift."
             fi
           } >> "$GITHUB_STEP_SUMMARY"
-
