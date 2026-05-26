@@ -129,6 +129,18 @@ pre-commit:
       run: node 70-tools/scripts/lint/paywall-warn.mjs {staged_files}
       stage_fixed: false
 
+    sensor-no-active-probe:
+      # Enforce ADR-2605262400 §7 + G8 (passive-only invariant). Scans
+      # staged DatasetSensor sources under
+      # `20-actors/magatama/py/src/pymagatama/organism/sensors/` for
+      # forbidden network imports (socket / dnspython / aiodns / scapy /
+      # nmap / paramiko) and for URL string literals targeting hosts
+      # outside the religious-corp DID infrastructure allow-list.
+      # Sensors MUST consume pre-captured public archives only.
+      glob: "20-actors/magatama/py/src/pymagatama/organism/sensors/*.py"
+      run: node 70-tools/scripts/lint/sensor-no-active-probe.mjs {staged_files}
+      stage_fixed: false
+
     charter-rider-notice:
       # Enforce ADR-2605192200 v2.0 §3 + §4. Every Apache-2.0 first-party
       # package MUST have NOTICE (referencing the Rider) + CHARTER-RIDER.md
