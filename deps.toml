@@ -5976,8 +5976,29 @@ description = "First e7m-sim test suite — 9 tests covering: build_plan on real
 path = "70-tools/e7m-dataset/src/e7m_dataset/vision_pii_filter.py"
 adr = "ADR-2605262500"
 kind = "pii-redaction-vision"
-status = "w3-shipped-interface-w3.1-models-pending"
-description = "Vision PII filter (ADR-2605262500 §5 / G2). Pluggable backend interface (centerface-onnx / yolov8-face-onnx / retinaface-onnx for W3.1 real models; stub-allow for tests). Fail-closed by default — operator opts in via ETZ_VISION_PII_BACKEND + (for stub) ETZ_VISION_PII_ALLOW_STUB=1. Real blur via Pillow GaussianBlur σ≥15px faces / σ≥20px plates. Child-presence detection triggers FULL-FRAME REJECTION (no partial blur attempted; fail-closed per §5). Lives at e7m_dataset.vision_pii_filter (not pymagatama.organism.sensors.pii_filter_vision per original deps.toml entry) so that fetchers/mapillary.py imports cleanly without dragging pymagatama's langchain → pydantic env-fragile chain; future pymagatama wrapper can re-export. W3.1 = real ONNX models + env-path config (ETZ_VISION_PII_FACE_MODEL / ETZ_VISION_PII_PLATE_MODEL)."
+status = "w3.1.1-shipped"
+description = "Vision PII filter (ADR-2605262500 §5 / G2). Pluggable backend interface: (a) StubVisionPiiBackend gated by ETZ_VISION_PII_ALLOW_STUB=1 for tests; (b) OnnxFaceBackend generic for Nx{5,6,7}-row bbox output (yolov8-face / retinaface compatible); (c) CenterFaceOnnxBackend subclass with canonical CenterFace decode (heatmap + scale + offset → peak detection w/ 3×3 local-max suppression → exp(scale)*4 box reconstruction → score threshold → NMS dedup at IoU ≥ 0.4). Fail-closed by default — operator opts in via ETZ_VISION_PII_BACKEND={centerface-onnx,yolov8-face-onnx,retinaface-onnx,stub-allow}. Model paths via env: ETZ_VISION_PII_FACE_MODEL (required) / PLATE_MODEL (optional, []-return when unset) / AGE_MODEL (optional, 0-return when unset). Real blur via Pillow GaussianBlur σ≥15px faces / σ≥20px plates. Child-presence detection triggers FULL-FRAME REJECTION (no partial blur attempted; fail-closed per §5). Lives at e7m_dataset.vision_pii_filter so fetchers/mapillary.py imports cleanly without dragging pymagatama's langchain → pydantic env-fragile chain. W3.1.1 shipped 2026-05-26 (CenterFace decode algorithm test-verified)."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/pds.py"
+adr = "ADR-2605262500"
+kind = "pds-emit-and-resolve"
+status = "w2-shipped"
+description = "AT Protocol PDS interaction surface — extends existing emit() / build_record() (for app.etzhayyim.substrate.datasetPin record creation) with parse_at_uri() + resolve_datasetpin() for read-side (W2 shipped 2026-05-26). resolve_datasetpin() does anonymous GET com.atproto.repo.getRecord — datasetPin records are public-readable so no auth needed (Charter Rider §2(c) anti-surveillance compatible: read traffic leaks only public CID identifiers, not member identity). parse_at_uri rejects malformed AT URIs and wrong-collection mismatches. Used by assemble-usd-scene._resolve_datasetpin which tries real PDS resolution first, falls back to sha256 stub on import failure / network error / strict mode opt-in via ETZ_E7M_SIM_STRICT_PDS=1."
+
+[[modules]]
+path = "70-tools/e7m-dataset/tests/test_pds_resolve.py"
+adr = "ADR-2605262500"
+kind = "test-suite"
+status = "w2-shipped"
+description = "8 tests for pds.parse_at_uri + resolve_datasetpin: canonical at-uri / handle-style / 4 bad-shape rejections / happy-path com.atproto.repo.getRecord mock / 404 RecordNotFound rejection / record-without-cid rejection / wrong-collection fail-before-HTTP / 500 upstream propagation. All offline via httpx.MockTransport."
+
+[[modules]]
+path = "70-tools/e7m-sim/tests/test_e2e_real_assets.py"
+adr = "ADR-2605262500"
+kind = "e2e-smoke"
+status = "w2-shipped"
+description = "End-to-end proof-of-life test: synthesizes 4 real assets (16-bit SRTM-style DEM TIFF + Sentinel-2 RGB PNG + Overture buildings WKB-Polygon hexagon Parquet w/ height=22.5 + Overture roads 2-row WKB-LineString Parquet), writes scene.yaml referencing all 4 via local_geotiff_path / local_parquet_path, runs full assemble, verifies all real-asset source tokens present + sidecar PNG copied + manifest texture_sidecars record + G6 byte-determinism across 2 emit cycles. Plus partial-real test (terrain real / others synth) for graceful degradation. 2 tests; offline; full pipeline verified."
 
 [[modules]]
 path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/mapillary.py"
@@ -6055,6 +6076,46 @@ adr = "ADR-2605262500"
 kind = "sim-quality-gate-eval-harness-w2.1"
 status = "w2-shipped-3-mode-cli"
 description = "Updated entry for eval_sim_metrics.py — now includes 3-mode CLI (file I/O via --candidate-image/--reference-image/--candidate-pc/--reference-pc / reference CSV via --reference-csv / scalar via --psnr-db/--ssim/--chamfer-m/--iou). File I/O mode reads Pillow-supported images + numpy .npy point clouds and computes metrics directly. Voxel size configurable via --voxel-size. Backward-compatible with W2.0 scalar mode."
+
+
+# ─── ADR-2605262400 closure follow-ups landed 2026-05-27 ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/base.py"
+adr = "ADR-2605262400"
+kind = "sensor-base-protocol+bounded-helpers"
+status = "w1-landed-w2-bounded-augmented-260527"
+description = "DatasetSensor Protocol + StaticPinResolver + make_observation + 2026-05-27 follow-up: generic `stream_bounded(sensor, pin, limit)` (itertools.islice, head-biased) and `hot_sample_bounded(sensor, pin, n, max_iter)` (reservoir sample over first max_iter; seed = (revision, n, max_iter, sensor.name)) free functions usable on any DatasetSensor without per-class specialization. Closes the perf gap measured on real 421 MB RIPE-RIS rrc00 bview (full reservoir would take ~5min at 15K obs/s; bounded variant 0.07s for n=10 max_iter=5000)."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/recipes/tier-a-geo-and-netreg-mixed.toml"
+adr = "ADR-2605262400"
+kind = "corpus-recipe-mixed-bucket"
+status = "shipped-260527"
+description = "First cross-bucket corpus recipe combining geo/osm/europe-liechtenstein (ODbL-1.0 sa_propagates=true) + netreg/iana-root + 5 RIR delegated stats. computedMaxTier=A. Real run produced 848,091 typed rows in 15s into /Volumes/260317/etzhayyim/datasets-staging/geo-netreg-mixed-foundations-v1 with computed license=ODbL-1.0 propagating share-alike per Charter Rider §3 (ADR-2605192200). Subdataset training/corpora/geo-netreg-mixed-foundations-v1 pinned with map CID bafkreifubspmgmyg7thmkqqi2rrlcv56hhab33a4o2bej3cr5xpalr4r7e."
+
+[[modules]]
+path = "90-docs/runbooks/osm-region-to-osm-region-sensor.md"
+adr = "ADR-2605262400"
+kind = "operator-runbook"
+status = "shipped-260527"
+description = "184-line operator runbook for OSM PBF (Geofabrik) → osmium export → GeoJSON-NDJSON sidecar → OsmRegionSensor. 7-step E2E walkthrough including real Liechtenstein anchor metrics (3.4 MB .pbf / 31 MB .geojsonl / 86,129 features / 152K features/s sensor stream / IPFS map CID bafkreibddfo6zxmhsycfzjnq3rjil7wvdfca6gf6z4bnjbdoptocbge4ii). License notes (ODbL-1.0 SA propagation), the WHY-osmium-runs-outside-organism-heartbeat invariant (ADR-2605262400 §7 + G8 lint), troubleshooting (osmium OOM / missing sidecar / coarse centroid)."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/recipes/seed-blocks/"
+adr = "ADR-2605262400"
+kind = "corpus-recipe-seed-blocks-dir"
+status = "path-reserved-no-content-yet"
+description = "Seed-block JSONL files for the corpus recipes' [seed_block] sections. Files declared but not committed: netreg-foundations-v1.jsonl / dns-graph-nc-v1.jsonl / routing-foundations-v1.jsonl / geo-netreg-mixed-v1.jsonl. Assembler silently no-ops when seed_path doesn't exist (per-recipe optional). Operators populate these with synthetic canonical Q/A pairs over the substrate's vocabulary."
+
+# ─── ADR-2605270100 closure amendment (2026-05-27) ──
+
+[[adrs]]
+id = "2605270100"
+title = "ADR-2605262400 closure amendment — W0..W4 + §4.3 W1..W3 LANDED; substrate real-data closed-loop; generic bounded sampling helpers added; parallel-agent race pattern documented"
+status = "proposed"
+status_note = "Closure amendment to ADR-2605262400. Documents the substrate landing across 12+ cron windows on 2026-05-26 / 2026-05-27 JST: all 10 fetchers + 11 sensors + assembler + Lexicon + 3 KaizenObserver rules + G8 lint + acceptance flag gate + 6 CLI verbs LANDED; 7 of 11 source buckets verified end-to-end on real public-internet data (760,525 RIR records + 1,437 IANA TLDs + 86,129 OSM Liechtenstein features + 421 MB RIPE-RIS bview decoded at 15K obs/s); §4.3 perception path Waves 1+2+3 wired into UnispscOrganism (poll_sensors + sensor_observations 256-cap ring + apply_sensor_delta joucho 5-axis integration + TierGate auto-wire + leak_attempts → stress); 9 ADR-2605262400-bound DataLad subdatasets pinned + verified on local Kubo (6 netreg + 1 OSM + 2 corpus); 44 datasets.jsonl manifest rows; 2 second-generation IPFS corpus map CIDs ready for downstream consumers; generic stream_bounded + hot_sample_bounded helpers in sensors/base.py give any DatasetSensor heartbeat-friendly bounded sampling without per-class specialization; 3 deferred items (dataset-pinner Worker deploy / 2-node replication / Tier-C acceptance flag onboarding) explicitly out-of-scope. Does NOT change any ADR-2605262400 invariant; clarifies completion state."
+path = "90-docs/adr/2605270100-public-data-organism-ipfs-ingestion-closure.md"
 
 
 # ─── kotoba storage substrate unification R0 (ADR-2605262130) ──
@@ -7371,3 +7432,53 @@ adr = "ADR-2605263900"
 kind = "dataset-sensor-impl"
 status = "w1-impl-landed"
 description = "UkHansardSensor concrete W1 implementation (gov W1-impl #2 / overall #5). Reads UK Hansard per-record NDJSON from gov/parliament/gbr/hansard/<rev>/*.ndjson and yields GovParliamentObservation per parliamentary record (debate / committee / bill / vote / member-statement / petition / question). Tier-A OGL v3.0 (Open Parliament Licence mirrors Open Government Licence). Internal _RECORD_KIND_MAP table maps 12 Hansard native record-type strings (Debate, Oral Question, Written Question, Written Statement, Personal Statement, Petition, Committee, Committee Stage, Division, Vote, Bill, Bill Reading) to canonical ParliamentRecordKind enum; explicit row.recordKind takes precedence over native mapping. G7 schema discipline: rows missing required fields (recordId/sessionDateUtc/payloadCid/house) OR with unknown house value OR with unmappable nativeKind+no explicit recordKind → skip without halting stream. house_filter constructor param restricts to Commons OR Lords only; record_kind_filter restricts to selected canonical kinds (e.g., (debate, vote) for division-tracking consumers). Speaker name + role pass-through per ADR-2605263900 §5 (Hansard is the public record of parliamentary speech; GDPR DSARs route through chigiri.data_privacy to upstream Parliament publisher; religious-corp NEVER performs unilateral removal). state_aligned_flag=False (UK is NOT §2(g)-flagged). G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly. Passive-only invariant — NEVER hits Hansard live API. Vendor commercial gov-intel terminal imports (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro) CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-26 with Commons debate (Speaker Hoyle) + Lords debate (Baroness Smith) + Oral Question (PM Starmer) + Division (vote) + Bill Reading + 3 G7-skip rows (unknown-kind + missing-cid + bad-house); house_filter=\"Lords\" + record_kind_filter=(debate,vote) restrictions verified."
+
+
+# ─── Concrete W1 sensor implementation #6 (ADR-2605263800 — JP EDINET) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/corp/jp_edinet_sensor.py"
+adr = "ADR-2605263800"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "JpEdinetSensor concrete W1 implementation (corp W1-impl #4 / overall #6). Reads JP 金融庁 EDINET per-filing NDJSON from corp/disclosures/jpn/<rev>/*.ndjson and yields CorpDisclosureObservation per EDINET filing (有価証券報告書 / 四半期報告書 / 半期報告書 / 臨時報告書 / 大量保有報告書 / 大量保有変更 / 有価証券届出書). Tier-A 金融庁 open-data utilization terms (~CC-BY 4.0 practically). Internal _FORM_CLASS_MAP table maps 7 EDINET 3-digit native codes (030/120/140/150/160/350/360) to canonical FormClass enum; rows with unknown codes AND no explicit formClass field skipped per G7 schema discipline. Explicit formClass in row takes precedence (forward-compat). form_class_filter restricts yielded stream. Malformed LEI (entityLei != 20 chars) nullifies entity_lei observation field without dropping row. Per-jurisdiction publication-redaction policy: EDINET pass-through (upstream publishes 役員 + 大量保有提出者 + 株主 lists); 個人情報保護法 / 金融商品取引法 pre-disclosure redaction applied by fetcher at PII filter step if applicable; GDPR-class DSARs route through chigiri.data_privacy to upstream publisher (NEVER unilateral religious-corp removal). G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly. Passive-only invariant — NEVER hits EDINET v2 documents live API. Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-26 with real Sony 有報 (E01777) + Toyota 四半期 (E02144) + SoftBank 臨時 (E03182) + 大量保有 350/360 + 半期 150 (legacy) + 2 G7-skip rows; form_class_filter restriction verified."
+
+
+# ─── Concrete W1 sensor implementation #7 (ADR-2605263900 — Eurostat) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/gov/eu_eurostat_sensor.py"
+adr = "ADR-2605263900"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "EuEurostatSensor concrete W1 implementation (gov W1-impl #3 / overall #7). Reads Eurostat SDMX per-observation NDJSON from gov/statistics/eurostat/<rev>/*.ndjson and yields GovStatisticsObservation per (dataflow, dimensions, period) tuple with source='eurostat'. Tier-A Eurostat free re-use per Decision 2011/833/EU. SDMX-style dimensions coercion shared contract with WorldBankOpenDataSensor: list-of-2-lists OR dict → tuple of (code, value) pairs; malformed shapes → empty tuple → G7 skip. dataflow_prefix_filter constructor param restricts to per-prefix subset (e.g., 'nama_' for national-accounts indicators only, 'demo_' for demography, 'prc_' for prices). G7 schema discipline: rows missing indicatorCode/Title/dimensions/observationPeriod are skipped without halting stream. G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly. state_aligned_flag default False (Eurostat itself NOT §2(g)-flagged; per-row reporter override permitted for forward-compat). missing-value semantic: value=None when upstream marks missing. Passive-only invariant — NEVER hits Eurostat SDMX live API. Vendor commercial gov-intel terminal imports (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro) CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-26 with real Eurostat dataflows: nama_10_gdp DE+FR 2024 (list-of-2-lists dims) + demo_pjan EU27 2025 (dict-shape dims coercion) + prc_hicp_manr IT 2026-04 missing-value + une_rt_m ES + 2 G7-skip rows; nama_ prefix filter restriction verified."
+
+
+# ─── Concrete W1 sensor implementation #8 (ADR-2605263900 — US Congress.gov) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/gov/us_congress_gov_sensor.py"
+adr = "ADR-2605263900"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "UsCongressGovSensor concrete W1 implementation (gov W1-impl #4 / overall #8). Reads Congress.gov + govinfo.gov bulk per-record NDJSON from gov/parliament/usa/congress-gov/<rev>/*.ndjson and yields GovParliamentObservation per record across BILLS / BILLSTATUS / CREC / FR collections. Tier-A public-domain (17 USC 105 US federal government works). Internal _RECORD_KIND_MAP table maps 26 Congress.gov native record-type strings (House Bill / Senate Bill / Joint Resolution / House Floor Debate / Senate Floor Debate / Committee Report / Committee Hearing / Roll Call Vote / Recorded Vote / Floor Statement / Extension of Remarks / Petition / Memorial / etc.) to canonical ParliamentRecordKind enum; explicit row.recordKind takes precedence. G7 schema discipline: rows missing required fields (recordId/sessionDateUtc/payloadCid/chamber) OR with unknown chamber value (NOT in {House, Senate}) OR with unmappable nativeKind+no explicit recordKind → skip without halting stream. chamber_filter constructor param restricts to House OR Senate only; record_kind_filter restricts to selected canonical kinds (e.g., (bill, vote) for legislative-action consumers). Speaker name + role pass-through per ADR-2605263900 §5 (Congress.gov is public record of federal legislative speech; GDPR-class DSARs route through chigiri.data_privacy to upstream Library of Congress / govinfo.gov publisher; religious-corp NEVER performs unilateral removal). state_aligned_flag=False (USA is NOT §2(g)-flagged; W4 CN sources will flip this). Sibling of UkHansardSensor (both yield GovParliamentObservation with `legislature` field disambiguating). G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly. Passive-only invariant — NEVER hits api.congress.gov live API. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with HR1234 House Bill + Senate bill (Schumer) + House Floor Debate (Jeffries) + Roll Call vote + Committee Report + Extension of Remarks (Rep. Jane Doe) + 3 G7-skip rows (unknown-kind + missing-chamber + bad-chamber-value); chamber_filter=Senate + record_kind_filter=(bill,vote) restrictions verified."
+
+
+# ─── Concrete W1 sensor implementation #9 (ADR-2605263900 — JP 国会会議録) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/gov/jp_kokkai_kaigiroku_sensor.py"
+adr = "ADR-2605263900"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "JpKokkaiKaigirokuSensor concrete W1 implementation (gov W1-impl #5 / overall #9). Reads JP 国会会議録 (Diet meeting records) per-record NDJSON from gov/parliament/jpn/kokkai-kaigiroku/<rev>/*.ndjson and yields GovParliamentObservation with legislature='jp-kokkai'. Tier-A 国会図書館 publishes under 著作権法 §13 公の著作物 free-use. Internal _RECORD_KIND_MAP table maps 25 Diet native record-type strings (本会議/予算委員会/委員会/連合審査会/公聴会/参考人質疑/質疑/質問/代表質問/口頭質問/書面質問/答弁/施政方針演説/所信表明/法律案/予算案/条約承認案/決議案/採決/起立採決/記名投票/投票/請願/陳情) to canonical ParliamentRecordKind enum; explicit row.recordKind takes precedence. G7 schema discipline: rows missing required fields (recordId/sessionDateUtc/payloadCid/house) OR with unknown house value (NOT in {衆議院, 参議院}) OR with unmappable nativeKind+no explicit recordKind → skip without halting stream. house_filter constructor param restricts to 衆議院 OR 参議院 only; record_kind_filter restricts to selected canonical kinds. Speaker name + role pass-through per ADR-2605263900 §5 (国会会議録 is public record of parliamentary speech; 個人情報保護法+国会会議録法 DSARs route through chigiri.data_privacy to upstream 国会図書館 publisher; religious-corp NEVER performs unilateral removal). state_aligned_flag=False (JP NOT §2(g)-flagged). Third sibling of UkHansardSensor + UsCongressGovSensor (all three yield GovParliamentObservation, legislature field disambiguating). G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly. Passive-only invariant — NEVER hits kokkai.ndl.go.jp live API. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 額賀議長 衆議院 本会議 + 石破総理 参議院 予算委員会 + 法律案 + 野田議員 代表質問 + 起立採決 + 請願 + 3 G7-skip rows; 衆議院 house_filter + (bill,vote) record_kind_filter restrictions verified."
+
+
+# ─── Concrete W1 sensor implementation #10 (ADR-2605263900 — US data.gov / W1 parity completion) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/gov/us_data_gov_sensor.py"
+adr = "ADR-2605263900"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed-parity-complete"
+description = "UsDataGovSensor concrete W1 implementation (gov W1-impl #6 / overall #10 — W1 SENSOR PARITY 10/10 COMPLETE). Reads US data.gov CKAN catalog per-package NDJSON from gov/open-data/usa/data-gov/<rev>/*.ndjson and yields GovOpenDataObservation with jurisdiction='USA'. Tier-A public-domain (17 USC 105 US federal government works); per-row license_tag pass-through enables sub-licensed datasets (e.g., 'cc-by' agency-specific licenses) to carry their license through observation chain. G7 schema discipline: rows missing required fields (datasetId / title / license / payloadCid) skipped without halting stream. organization_filter constructor param restricts to per-agency consumers (e.g., 'noaa-gov' / 'epa-gov' / 'fda-hhs' / 'census-gov'); license_filter restricts to selected license set. Publisher + publishedAtUtc pass-through per ADR-2605263900 §5 (data.gov publishes federal-agency identity by design; no private PII at catalog layer). GDPR-class DSARs route through chigiri.data_privacy to upstream GSA / individual federal agency. state_aligned_flag=False (USA NOT §2(g)-flagged; W4 CN data portal sensors will flip this). First GovOpenDataSensor concrete impl; sibling UkDataGovUkSensor + JpDataGoJpSensor W1-deferred (path-reserved stub only). G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly. Passive-only invariant — NEVER hits catalog.data.gov CKAN live API. Vendor commercial gov-intel terminal imports (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro) CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with real NOAA CDO + EPA AirData + FDA Drug Approvals + Census ACS + 1 CC-BY sub-licensed dataset + 2 G7-skip rows; organization_filter='epa-gov' + license_filter=('us-pd',) restrictions verified. ═══ W1 sensor parity 10/10 ACHIEVED ═══"
