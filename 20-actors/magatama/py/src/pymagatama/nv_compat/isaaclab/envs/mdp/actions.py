@@ -46,6 +46,13 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
+from ...controllers import (
+    DifferentialIKController,
+    DifferentialIKControllerCfg,
+    OperationalSpaceController,
+    OperationalSpaceControllerCfg,
+)
+
 
 # ────────────────────────────────────────────────────────────────────────────
 # ActionTerm base
@@ -305,6 +312,325 @@ class JointVelocityAction(ActionTerm):
             raise RuntimeError(
                 "JointVelocityAction: env has no _applied_force / _applied_torques buffer"
             )
+
+
+# ────────────────────────────────────────────────────────────────────────────
+# DifferentialInverseKinematicsAction (task-space pose → joint position target)
+# ────────────────────────────────────────────────────────────────────────────
+
+
+@dataclass
+class DifferentialInverseKinematicsActionCfg(ActionTermCfgBase):
+    """Task-space inverse-kinematics action term cfg.
+
+    Wraps `DifferentialIKController` (iter 41) — converts a task-space pose
+    command (action vector) into joint-position deltas via damped least
+    squares IK, then routes the resulting joint targets through a PD loop
+    onto the env effort buffer.
+
+    Action layout depends on `controller_cfg.command_type` ×
+    `controller_cfg.use_relative_mode`:
+      - `"pose"`     + abs: 7-vec (px, py, pz, qx, qy, qz, qw)
+      - `"pose"`     + rel: 6-vec (dx, dy, dz, rx, ry, rz) axis-angle delta
+      - `"position"` + abs/rel: 3-vec position only
+
+    `body_name` is the EE link tracked by the env's Jacobian provider.
+    `p_gain` / `d_gain` parametrise the PD loop that converts the
+    IK-emitted joint targets into effort commands (same convention as
+    `JointPositionActionCfg`).
+    """
+    body_name: str = "ee_link"
+    controller_cfg: Optional[DifferentialIKControllerCfg] = None
+    scale: float = 1.0
+    offset: float = 0.0
+    p_gain: float = 100.0
+    d_gain: float = 10.0
+
+
+class DifferentialInverseKinematicsAction(ActionTerm):
+    """Compose `DifferentialIKController` behind the Isaac Lab ActionTerm
+    interface.
+
+    Pipeline:
+      1. `process_actions(raw)` — scale+offset the raw task-space command,
+         store as the IK controller's pending target.
+      2. `apply_actions(env)` — read env Jacobian + EE pose + joint state,
+         run IK to produce joint position targets, then PD into effort.
+
+    Env contract (read):
+      - `env.get_jacobian(body_name)` → 6×n list of lists
+      - `env.get_ee_pose(body_name)`  → (pos_3, quat_4_xyzw) tuple
+      - `env.get_joint_positions()`  → list[n_joints]
+      - `env.get_joint_velocities()` → list[n_joints]
+    Env contract (write):
+      - same effort dispatch as `JointEffortAction` / `JointPositionAction`
+        (`_applied_torques` / `_applied_force` / `_actions[0]` fallback).
+    """
+
+    cfg: DifferentialInverseKinematicsActionCfg
+
+    def __init__(self, cfg: DifferentialInverseKinematicsActionCfg):
+        # Build controller first so we can read its own action_dim.
+        controller_cfg = cfg.controller_cfg or DifferentialIKControllerCfg()
+        controller = DifferentialIKController(controller_cfg, num_envs=1)
+        inferred = controller.action_dim  # 7 / 6 / 3 per cfg
+        if cfg.action_dim is not None and cfg.action_dim != inferred:
+            raise ValueError(
+                f"DifferentialInverseKinematicsActionCfg: action_dim={cfg.action_dim} "
+                f"contradicts controller action_dim={inferred}"
+            )
+        cfg.action_dim = inferred
+        super().__init__(cfg)
+        self._controller_cfg = controller_cfg
+        self._ik = controller
+
+    @property
+    def controller(self) -> DifferentialIKController:
+        return self._ik
+
+    def reset(self) -> None:
+        super().reset()
+        self._ik.reset()
+
+    def apply_actions(self, env: Any) -> None:
+        cfg: DifferentialInverseKinematicsActionCfg = self.cfg  # type: ignore[assignment]
+        # 1. Read env state.
+        if not hasattr(env, "get_jacobian"):
+            raise RuntimeError(
+                "DifferentialInverseKinematicsAction: env must expose get_jacobian(body_name)"
+            )
+        if not hasattr(env, "get_ee_pose"):
+            raise RuntimeError(
+                "DifferentialInverseKinematicsAction: env must expose get_ee_pose(body_name)"
+            )
+        if not (hasattr(env, "get_joint_positions") and hasattr(env, "get_joint_velocities")):
+            raise RuntimeError(
+                "DifferentialInverseKinematicsAction: env must expose get_joint_positions + get_joint_velocities"
+            )
+        jacobian = env.get_jacobian(cfg.body_name)
+        ee_pos, ee_quat = env.get_ee_pose(cfg.body_name)
+        q_full = env.get_joint_positions()
+        dq_full = env.get_joint_velocities()
+        # Slice down to the joints this action controls.
+        q_arm = [q_full[j] if j < len(q_full) else 0.0 for j in cfg.joint_names]
+        dq_arm = [dq_full[j] if j < len(dq_full) else 0.0 for j in cfg.joint_names]
+        # 2. Push processed command into the IK controller.
+        self._ik.set_command(
+            list(self.processed_actions), ee_pos=list(ee_pos), ee_quat=list(ee_quat),
+        )
+        # 3. Compute joint-space DELTA (not absolute target).
+        joint_delta = self._ik.compute(
+            ee_pos=list(ee_pos), ee_quat=list(ee_quat), jacobian=jacobian,
+        )
+        # 4. Joint target = q_arm + delta; PD into effort.
+        torques_to_apply: List[tuple] = []
+        for slot, joint in enumerate(cfg.joint_names):
+            target = q_arm[slot] + joint_delta[slot]
+            qj = q_full[joint] if joint < len(q_full) else 0.0
+            dqj = dq_full[joint] if joint < len(dq_full) else 0.0
+            tau = cfg.p_gain * (target - qj) - cfg.d_gain * dqj
+            torques_to_apply.append((joint, tau))
+        _write_effort(env, torques_to_apply, single_dof_force_ok=False)
+
+
+# ────────────────────────────────────────────────────────────────────────────
+# OperationalSpaceControllerAction (task-space torque control)
+# ────────────────────────────────────────────────────────────────────────────
+
+
+@dataclass
+class OperationalSpaceControllerActionCfg(ActionTermCfgBase):
+    """Operational-space-control action term cfg.
+
+    Wraps `OperationalSpaceController` (iter 63) — converts a task-space
+    command (pose / wrench / variable impedance) directly into joint
+    torques via Cartesian impedance + Jacobian transpose + (optional)
+    null-space projection. Writes the resulting joint torques directly
+    onto the env effort buffer — NO additional PD layer (the impedance
+    loop IS the controller).
+
+    Action layout matches `controller.action_dim` (varies with
+    `target_types` and `impedance_mode`).
+
+    `body_name` selects the EE link for the env's Jacobian/EE-pose
+    providers. `nullspace_joint_targets` is optional (used only when
+    `controller_cfg.nullspace_control != "none"`); if absent, the action
+    falls back to the current joint positions (i.e. "stay where you are").
+
+    `gravity_compensation_enabled` is mirrored from the controller cfg
+    for convenience — when True, the env must expose `get_gravity_torque
+    (body_name)` returning a per-joint gravity-torque vector.
+    """
+    body_name: str = "ee_link"
+    controller_cfg: Optional[OperationalSpaceControllerCfg] = None
+    nullspace_joint_targets: Optional[List[float]] = None
+    scale: float = 1.0
+    offset: float = 0.0
+
+
+class OperationalSpaceControllerAction(ActionTerm):
+    """Compose `OperationalSpaceController` behind the Isaac Lab ActionTerm
+    interface. Action vector size matches `controller.action_dim`.
+
+    Env contract (read):
+      - `env.get_jacobian(body_name)` → 6×n list of lists
+      - `env.get_ee_pose(body_name)`  → (pos_3, quat_4_xyzw)
+      - `env.get_ee_velocity(body_name)` → (lin_vel_3, ang_vel_3)
+      - `env.get_joint_positions()`  → list[n_joints]
+      - `env.get_joint_velocities()` → list[n_joints]
+      - (optional) `env.get_gravity_torque(body_name)` → list[n_joints]
+        when `controller_cfg.gravity_compensation=True`.
+    Env contract (write):
+      - same effort dispatch as `JointEffortAction`.
+    """
+
+    cfg: OperationalSpaceControllerActionCfg
+
+    def __init__(self, cfg: OperationalSpaceControllerActionCfg):
+        controller_cfg = cfg.controller_cfg or OperationalSpaceControllerCfg()
+        # Construct controller first to get action_dim.
+        controller = OperationalSpaceController(
+            controller_cfg, num_dof=len(cfg.joint_names),
+        )
+        inferred = controller.action_dim
+        if cfg.action_dim is not None and cfg.action_dim != inferred:
+            raise ValueError(
+                f"OperationalSpaceControllerActionCfg: action_dim={cfg.action_dim} "
+                f"contradicts controller action_dim={inferred}"
+            )
+        cfg.action_dim = inferred
+        super().__init__(cfg)
+        self._controller_cfg = controller_cfg
+        self._osc = controller
+
+    @property
+    def controller(self) -> OperationalSpaceController:
+        return self._osc
+
+    def reset(self) -> None:
+        super().reset()
+        # OSC has no persistent step-state to clear beyond per-env target,
+        # which is overwritten on every set_command.
+
+    def apply_actions(self, env: Any) -> None:
+        cfg: OperationalSpaceControllerActionCfg = self.cfg  # type: ignore[assignment]
+        if not hasattr(env, "get_jacobian"):
+            raise RuntimeError(
+                "OperationalSpaceControllerAction: env must expose get_jacobian(body_name)"
+            )
+        if not hasattr(env, "get_ee_pose"):
+            raise RuntimeError(
+                "OperationalSpaceControllerAction: env must expose get_ee_pose(body_name)"
+            )
+        if not hasattr(env, "get_ee_velocity"):
+            raise RuntimeError(
+                "OperationalSpaceControllerAction: env must expose get_ee_velocity(body_name)"
+            )
+        if not (hasattr(env, "get_joint_positions") and hasattr(env, "get_joint_velocities")):
+            raise RuntimeError(
+                "OperationalSpaceControllerAction: env must expose get_joint_positions + get_joint_velocities"
+            )
+        jacobian = env.get_jacobian(cfg.body_name)
+        ee_pos, ee_quat = env.get_ee_pose(cfg.body_name)
+        ee_lin_vel, ee_ang_vel = env.get_ee_velocity(cfg.body_name)
+        q_full = env.get_joint_positions()
+        dq_full = env.get_joint_velocities()
+        q_arm = [q_full[j] if j < len(q_full) else 0.0 for j in cfg.joint_names]
+        dq_arm = [dq_full[j] if j < len(dq_full) else 0.0 for j in cfg.joint_names]
+
+        # Pass action through to OSC. For pose_rel target_type the controller
+        # needs the current EE pose; pass it through unconditionally (OSC
+        # ignores when not in pose_rel mode).
+        self._osc.set_command(
+            list(self.processed_actions),
+            ee_pos=list(ee_pos), ee_quat=list(ee_quat),
+        )
+
+        # Gravity compensation source.
+        gravity_torque: Optional[List[float]] = None
+        if getattr(self._controller_cfg, "gravity_compensation", False):
+            if hasattr(env, "get_gravity_torque"):
+                gravity_torque = list(env.get_gravity_torque(cfg.body_name))
+            else:
+                raise RuntimeError(
+                    "OperationalSpaceControllerAction: gravity_compensation=True requires env.get_gravity_torque"
+                )
+
+        # Null-space target source.
+        nullspace_target_pos: Optional[List[float]] = None
+        if getattr(self._controller_cfg, "nullspace_control", "none") != "none":
+            nullspace_target_pos = (
+                list(cfg.nullspace_joint_targets)
+                if cfg.nullspace_joint_targets is not None
+                else list(q_arm)  # "stay where you are"
+            )
+
+        # Compute joint torques.
+        compute_kwargs: Dict[str, Any] = dict(
+            ee_pos=list(ee_pos), ee_quat=list(ee_quat),
+            ee_lin_vel=list(ee_lin_vel), ee_ang_vel=list(ee_ang_vel),
+            jacobian=jacobian,
+            joint_pos=q_arm, joint_vel=dq_arm,
+        )
+        if nullspace_target_pos is not None:
+            compute_kwargs["nullspace_target_pos"] = nullspace_target_pos
+        if gravity_torque is not None:
+            compute_kwargs["gravity_torque"] = gravity_torque
+        joint_torques = self._osc.compute(**compute_kwargs)
+
+        # Write directly to env effort buffer (no PD layer — OSC IS the loop).
+        torques_to_apply: List[tuple] = [
+            (joint, joint_torques[slot]) for slot, joint in enumerate(cfg.joint_names)
+        ]
+        _write_effort(env, torques_to_apply, single_dof_force_ok=False)
+
+
+# ────────────────────────────────────────────────────────────────────────────
+# Shared effort-buffer write helper
+# ────────────────────────────────────────────────────────────────────────────
+
+
+def _write_effort(env: Any, torques_to_apply: List[tuple],
+                   single_dof_force_ok: bool = True) -> None:
+    """Write per-joint torques onto whichever effort buffer the env exposes.
+
+    Mirrors the dispatch chain already used by `JointEffortAction` /
+    `JointPositionAction` / `JointVelocityAction`:
+      1. `env._applied_torques` (multi-DoF revolute)
+      2. `env._applied_force` (single-DoF prismatic; only when only joint=0
+         and `single_dof_force_ok=True`)
+      3. `env._actions[0]` (DirectRLEnv per-env buffer)
+    """
+    if hasattr(env, "_applied_torques"):
+        torques = list(env._applied_torques)
+        max_idx = max((j for j, _ in torques_to_apply), default=0)
+        while len(torques) < max_idx + 1:
+            torques.append(0.0)
+        for j, t in torques_to_apply:
+            torques[j] = t
+        env._applied_torques = (
+            tuple(torques) if isinstance(env._applied_torques, tuple) else torques
+        )
+        return
+    if (
+        single_dof_force_ok
+        and hasattr(env, "_applied_force")
+        and len(torques_to_apply) == 1
+        and torques_to_apply[0][0] == 0
+    ):
+        env._applied_force = float(torques_to_apply[0][1])
+        return
+    if hasattr(env, "_actions") and env._actions:
+        actions_per_env = env._actions[0]
+        max_idx = max((j for j, _ in torques_to_apply), default=0)
+        while len(actions_per_env) < max_idx + 1:
+            actions_per_env.append(0.0)
+        for j, t in torques_to_apply:
+            actions_per_env[j] = t
+        return
+    raise RuntimeError(
+        "_write_effort: env has no _applied_torques / _applied_force / _actions buffer"
+    )
 
 
 # ────────────────────────────────────────────────────────────────────────────

@@ -41,12 +41,16 @@ from .actions import (
     ActionManager,
     ActionTerm,
     ActionTermCfgBase,
+    DifferentialInverseKinematicsAction,
+    DifferentialInverseKinematicsActionCfg,
     JointEffortAction,
     JointEffortActionCfg,
     JointPositionAction,
     JointPositionActionCfg,
     JointVelocityAction,
     JointVelocityActionCfg,
+    OperationalSpaceControllerAction,
+    OperationalSpaceControllerActionCfg,
 )
 from .commands import (
     CommandCfgBase,
@@ -169,6 +173,9 @@ __all__ = [
     "JointEffortAction", "JointEffortActionCfg",
     "JointPositionAction", "JointPositionActionCfg",
     "JointVelocityAction", "JointVelocityActionCfg",
+    # Task-space action wrappers (iter 64 — compose iter 41 + iter 63 controllers)
+    "DifferentialInverseKinematicsAction", "DifferentialInverseKinematicsActionCfg",
+    "OperationalSpaceControllerAction", "OperationalSpaceControllerActionCfg",
     # Curriculum manager + standard fns
     "CurriculumTerm", "CurriculumManager",
     "terrain_levels_vy", "modify_reward_weight", "modify_action_scale",
