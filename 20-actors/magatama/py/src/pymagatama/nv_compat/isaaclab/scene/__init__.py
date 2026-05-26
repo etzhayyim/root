@@ -23,6 +23,11 @@ Standard usage:
     scene.update(world)  # refresh sensor data each step
 """
 
-from .interactive_scene import InteractiveScene, InteractiveSceneCfg, SensorMount
+from .interactive_scene import (
+    InteractiveScene,
+    InteractiveSceneCfg,
+    LinkState,
+    SensorMount,
+)
 
-__all__ = ["InteractiveScene", "InteractiveSceneCfg", "SensorMount"]
+__all__ = ["InteractiveScene", "InteractiveSceneCfg", "LinkState", "SensorMount"]
