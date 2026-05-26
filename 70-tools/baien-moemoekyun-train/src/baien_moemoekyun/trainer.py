@@ -87,6 +87,64 @@ class BaienMoEMoekyunTrainer:
     """
 
 
+def apply_mxfp4_quantize(
+    model: nn.Module,
+    moe_wrappers: dict[str, BitNetFFNWithMoE],
+    *,
+    block_size: int = 32,
+    weight_dtype: Any = None,
+    activation_dtype: Any = None,
+) -> dict[str, Any]:
+    """Quantize MoE router + expert FFN nn.Linear modules to MXFP4 (OCP MX).
+
+    Per ADR-2605263100 §1.1.A: trainable MoE params (router + experts) use
+    MXFP4 weight + MXFP8 activation (OCP MX 32-element block scaling).
+    NOT NVFP4 — vendor-neutral OCP standard per Charter Rider §2(e).
+
+    Backbone (frozen bf16) and α gate (fp32 scalar) are NOT quantized.
+
+    Returns dict {target_module_qualname: quantized_module} for audit.
+    """
+    import torch
+    from torchao.prototype.mx_formats import MXDynamicActivationMXWeightConfig
+    from torchao.quantization import quantize_
+
+    if weight_dtype is None:
+        weight_dtype = torch.float4_e2m1fn_x2  # MXFP4 (OCP MX e2m1)
+    if activation_dtype is None:
+        activation_dtype = torch.float8_e4m3fn  # MXFP8
+
+    config = MXDynamicActivationMXWeightConfig(
+        block_size=block_size,
+        activation_dtype=activation_dtype,
+        weight_dtype=weight_dtype,
+    )
+
+    quantized: dict[str, Any] = {}
+
+    def _filter_router_and_experts(module: nn.Module, fqn: str) -> bool:
+        if not isinstance(module, nn.Linear):
+            return False
+        for wrapper_fqn in moe_wrappers:
+            if fqn.startswith(wrapper_fqn + ".moe_branch.router"):
+                return True
+            if fqn.startswith(wrapper_fqn + ".moe_branch.experts."):
+                return True
+        return False
+
+    quantize_(model, config, filter_fn=_filter_router_and_experts)
+
+    for fqn, mod in model.named_modules():
+        if _filter_router_and_experts(mod, fqn):
+            quantized[fqn] = mod
+
+    logger.info(
+        "MXFP4 quantized %d modules (block_size=%d, weight=%s, activation=%s)",
+        len(quantized), block_size, weight_dtype, activation_dtype,
+    )
+    return quantized
+
+
 def make_trainer(
     model: nn.Module,
     tokenizer: Any,
@@ -100,11 +158,33 @@ def make_trainer(
     aux_loss_weight: float = 0.01,
     optimizer_betas: tuple[float, float] = (0.9, 0.95),
     optimizer_weight_decay: float = 0.1,
+    precision: str = "bf16",
 ):
     """Construct a BaienMoEMoekyunTrainer (SFTTrainer subclass) with per-group LR + aux_loss.
 
+    `precision`:
+      - "bf16": default; router + experts trained in bf16 (matches ADR-2605262100 §2 R1.4 EVO path)
+      - "mxfp4": router + expert nn.Linear quantized to MXFP4 (OCP MX) weight + MXFP8 activation
+        via torchao.prototype.mx_formats.MXDynamicActivationMXWeightConfig (block_size=32).
+        Per ADR-2605263100 §1.1.A — Founder Lv7+ train carve-out on 5090.
+        NOT NVFP4 — vendor-neutral OCP MX standard per Charter Rider §2(e).
+      - "mxfp8": fallback if MXFP4 dtype unavailable on hardware; activation+weight both MXFP8.
+
     Returns the trainer instance. Caller invokes `.train()` and `.save_model()`.
     """
+    # Validation gates BEFORE any heavyweight import (so config errors surface fast)
+    if precision not in ("bf16", "mxfp4", "mxfp8"):
+        raise ValueError(
+            f"precision={precision!r} not in {{bf16, mxfp4, mxfp8}}. "
+            "Per ADR-2605263100 §1.1.A: NVFP4 not permitted (vendor lock-in)."
+        )
+    # G6 MANDATORY: aux_loss_weight ∈ [0.001, 0.1]
+    if not (0.001 <= aux_loss_weight <= 0.1):
+        raise ValueError(
+            f"aux_loss_weight={aux_loss_weight} outside [0.001, 0.1] range "
+            "per ADR-2605261900 §5 G6 + ADR-2605262100 §4."
+        )
+
     try:
         from trl import SFTTrainer
     except ImportError as e:
@@ -113,12 +193,31 @@ def make_trainer(
             f"Original error: {e}"
         )
 
-    # G6 MANDATORY: aux_loss_weight ∈ [0.001, 0.1]
-    if not (0.001 <= aux_loss_weight <= 0.1):
-        raise ValueError(
-            f"aux_loss_weight={aux_loss_weight} outside [0.001, 0.1] range "
-            "per ADR-2605261900 §5 G6 + ADR-2605262100 §4."
+    if precision == "mxfp4":
+        import torch as _torch
+        try:
+            apply_mxfp4_quantize(
+                model, moe_wrappers,
+                block_size=32,
+                weight_dtype=_torch.float4_e2m1fn_x2,
+                activation_dtype=_torch.float8_e4m3fn,
+            )
+        except (ImportError, AttributeError) as e:
+            raise RuntimeError(
+                "MXFP4 quantize requires torchao>=0.7 with MX format support + "
+                "torch>=2.5 with torch.float4_e2m1fn_x2 dtype. "
+                "Fall back to precision='mxfp8' if HW lacks FP4 Tensor Core (pre-Blackwell). "
+                f"Original error: {e}"
+            )
+    elif precision == "mxfp8":
+        import torch as _torch
+        apply_mxfp4_quantize(
+            model, moe_wrappers,
+            block_size=32,
+            weight_dtype=_torch.float8_e4m3fn,
+            activation_dtype=_torch.float8_e4m3fn,
         )
+    # precision == "bf16": no-op, model already in bf16 per attach.py
 
     class _BaienTrainer(SFTTrainer):
         def __init__(self, *args, **kwargs):
