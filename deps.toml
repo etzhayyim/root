@@ -6288,3 +6288,56 @@ sibling_modules = [
   "00-contracts/lexicons/app/etzhayyim/iyashi",
   "00-contracts/lexicons/app/etzhayyim/hagukumi",
 ]
+
+
+# ─── baien ameno per-kernel inference R0 (ADR-2605263200) ──
+
+[[adrs]]
+id = "2605263200"
+title = "Baien ameno per-kernel inference R0 — WGSL BitLinear + WASM SIMD ternary (bitnet.cpp API mirror)"
+status = "proposed"
+status_note = "Closes the kernel-level gap left open by ADR-2605092350 §4 (browser runtime kernel table) and ADR-2605190824 (3-kernel axis: webgpu / wasm-ternary / mediapipe-gpu). Until this lands, baien-bitnet-2b in ameno runs as bf16-as-fp16 through transformers.js ORT-Web default EP — the ternary structure is wasted at edge. R0 = ADR + path-reserved Rust crate (40-engine/baien-wasm-ternary/) + ameno WGSL kernel sources (BitLinear forward + i2_s → f16 dequant) + bitnet-bridge.ts (WASM module loader + typed wrapper) + dispatcher (probeBitnetBackend ladder: webgpu-bitlinear → wasm-ternary-simd → wasm-ternary-scalar → fp16-fallback). 14 gates G1..G14 + 12 non-goals N1..N12. R1a = isolated WGSL kernel numeric test (±1 ULP fp16 vs scalar reference). R1b = transformers.js layer-replacement bridge (end-to-end token generation). R1c = v128 SIMD inner loop + wasm-bindgen pointer marshalling + LUT-expanded matmul. R2 = modality encoder kernels (SigLIP / Whisper-tiny / YAMNet). bitnet.cpp public API mirrored at the kernel-task level ONLY (ggml_bitnet_init / ggml_bitnet_can_mul_mat / ggml_bitnet_mul_mat_task_compute / ggml_bitnet_transform_tensor / ggml_bitnet_get_type_traits + GGML_TYPE_I2_S=40 + i2_s 2-bit-signed layout 4-weights-per-byte little-endian); llama-wrapper layer NOT mirrored (ameno owns load+tokenize via transformers.js). Clean-room Rust re-impl, NOT a vendored fork (per CLAUDE.md `Do not add Charter Rider to 3rd-party vendored code` rule). API names used under Google v. Oracle 2021 fair use, same posture as kami-engine nv-compat layer per ADR-2605261800 §D11. Edge invariant per ADR-2605241900: ≤4B trunk, ≤2GB @4k ctx, ≤2.5GB @16k ctx, WASM-32 + iPhone 12+ + Android 4GB; current path's bf16-expansion at load time pushes ~3.4GB peak on iPhone 12 = silent G1 violation that R1c closes. Murakumo-only inference (ADR-2605215000) unaffected — this is edge browser inference, not server."
+path = "90-docs/adr/2605263200-baien-ameno-per-kernel-inference-r0.md"
+
+[[modules]]
+path = "40-engine/baien-wasm-ternary"
+kind = "baien-edge-inference-wasm-rust-crate-bitnet-cpp-api-mirror"
+version = "0.1.0-r0"
+status = "R0-scaffold-scalar-reference-matmul-+-wasm-bindgen-capability-exports-only"
+description = "Rust crate at 40-engine/baien-wasm-ternary/ — clean-room Rust re-impl of the kernel-task layer of microsoft/BitNet (bitnet.cpp), targeted at wasm32-unknown-unknown. Public-surface mirror table: ggml_bitnet_init / ggml_bitnet_can_mul_mat / ggml_bitnet_mul_mat_task_compute / ggml_bitnet_transform_tensor / ggml_bitnet_get_type_traits + GGML_TYPE_I2_S=40 + q8_0 block (1 × f16 scale + 32 × i8). R0 = scalar reference matmul (forward only) + scalar reference dequant + sign-threshold-based bf16→i2_s transform + unit tests pass (i2s pack/unpack roundtrip / q8 absmean roundtrip within scale / one-block one-row matmul against alternating ±1 weights / can_mul_mat canonical triple). wasm-bindgen exports: version() / has_simd() / has_lut() / ggml_bitnet_init() / ggml_bitnet_can_mul_mat(). Matmul wasm-bindgen pointer marshalling DEFERRED to R1c (ggmlBitnetMulMatTaskCompute on the TS bridge throws R1c marker). Features: default = ['wasm-export'] (wasm-bindgen ON, SIMD OFF); 'simd' adds v128 inner loop via wide crate; 'lut' adds LUT-expanded matmul. License Apache-2.0 + Charter Rider v2.0 via NOTICE. Legal posture: API names under Google v. Oracle 2021 fair use, same as kami-engine nv-compat layer."
+adr = ["2605263200", "2605261800", "2605252100", "2605242630", "2605241900", "2605215000", "2605192200", "2605190824", "2605092350"]
+sibling_modules = [
+  "20-actors/ameno",
+  "20-actors/ameno/src/inference/kernels",
+  "20-actors/ameno/src/inference/bitnet-bridge.ts",
+]
+api_mirror_target = "microsoft/BitNet (bitnet.cpp) kernel-task layer ONLY (NOT llama-wrapper layer)"
+clean_room = true
+not_vendored = true
+fair_use_posture = "Google v. Oracle America 593 U.S. ___ (2021) — same posture as ADR-2605261800 §D11"
+edge_invariant_compliance = "ADR-2605241900: ≤4B trunk, ≤2GB @4k ctx, ≤2.5GB @16k ctx, WASM-32 + iPhone 12+ + Android 4GB"
+murakumo_only_unaffected = "Edge browser inference; server-tier baien stays on Murakumo per ADR-2605215000"
+no_commercial_gpu_rental = true
+charter_rider = "v2.0 via 40-engine/baien-wasm-ternary/NOTICE"
+
+[[modules]]
+path = "20-actors/ameno/src/inference/kernels"
+kind = "ameno-baien-per-kernel-inference-wgsl-+-dispatch"
+version = "0.1.0-r0"
+status = "R0-WGSL-shader-strings-+-dispatcher-throws-R1-markers-+-probe-no-throw"
+description = "ameno per-kernel inference path per ADR-2605263200. Files: bitlinear-forward.ts (WGSL_BITLINEAR_FORWARD shader string for ternary × q8 → f16 matmul; bindings = W_packed array<u32> + X_q8 array<i32> + W_scale array<f16> + X_scale array<f16> + Y array<f16> + Params uniform; workgroup 16×16; requires shader-f16 adapter feature; dispatchBitLinearForward throws R1a marker) + bitnet-packed-dequant.ts (WGSL_BITNET_PACKED_DEQUANT shader for i2_s → f16 dense tile; debug-only fallback + correctness oracle; dispatchPackedDequant throws R1a) + dispatch.ts (BitnetBackend enum + probeBitnetBackend ladder: webgpu-bitlinear → wasm-ternary-simd → wasm-ternary-scalar → fp16-fallback; probe MUST NOT throw per G10; WASM SIMD detection via WebAssembly.validate of minimal v128.const module) + index.ts (barrel). i2_s layout constants I2S_WEIGHTS_PER_BYTE=4 / I2S_BITS_PER_WEIGHT=2 / I2S_WEIGHTS_PER_U32=16 MUST match 40-engine/baien-wasm-ternary/src/i2s.rs byte-for-byte per gate G3 (drift = revert). Zero behaviour change in R0 (gate G14) — module is additive, unused by default; existing inference.ts dispatch unchanged."
+adr = ["2605263200", "2605252100", "2605242630", "2605241900", "2605190824", "2605092350"]
+sibling_modules = [
+  "20-actors/ameno",
+  "20-actors/ameno/src/inference/bitnet-bridge.ts",
+  "40-engine/baien-wasm-ternary",
+]
+wgsl_kernels = [
+  "WGSL_BITLINEAR_FORWARD (BitLinear matmul: ternary weight × q8 activation → f16; requires shader-f16)",
+  "WGSL_BITNET_PACKED_DEQUANT (i2_s → f16 dequant; debug + correctness oracle)",
+]
+backend_ladder = "webgpu-bitlinear → wasm-ternary-simd → wasm-ternary-scalar → fp16-fallback"
+i2s_layout_drift_invariant = "Constants in bitlinear-forward.ts MUST match 40-engine/baien-wasm-ternary/src/i2s.rs byte-for-byte (gate G3)"
+zero_behaviour_change_r0 = "Gate G14 — additive only, fp16-fallback remains active path until R1b"
+charter_rider = "applied at package level via 20-actors/ameno/CHARTER-RIDER.md"
+
