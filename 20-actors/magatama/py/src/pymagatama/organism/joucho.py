@@ -156,6 +156,7 @@ def apply_sensor_delta(
     tier_a_obs_count: int = 0,
     tier_c_obs_count: int = 0,
     leak_attempts: int = 0,
+    multi_modal_deltas: list["JouchoDelta"] | None = None,
 ) -> JouchoScores:
     """Map a tick's sensor activity into a small joucho delta.
 
@@ -175,6 +176,8 @@ def apply_sensor_delta(
         is more sensitive, the organism is "more careful").
       - **leak attempts** (R9 backstop pre-fires) raise ``stress``
         sharply (+10 each, capped). Even 1 leak is alarming.
+      - **multi_modal_deltas** (R1 multi-modal): single observation
+        deltas are capped at ±30 to prevent extreme emotion shifts.
 
     All deltas are clamped to [0, 100] per axis.
     """
@@ -182,17 +185,33 @@ def apply_sensor_delta(
     focus_delta = sat // 4  # 0..5
     focus_delta += min(10, tier_c_obs_count) // 5  # 0..2 from tier-C
     calm_delta = sat // 8  # 0..2
+    joy_delta = 0
+    gratitude_delta = 0
 
     stress_delta = min(40, leak_attempts * 10)  # +10/leak, cap 40
+
+    if multi_modal_deltas:
+        cap = 30
+        for md in multi_modal_deltas:
+            # kanjou -> joy
+            joy_delta += max(-cap, min(cap, md.kanjou))
+            # kakushin -> calm
+            calm_delta += max(-cap, min(cap, md.kakushin))
+            # yokkyu -> stress
+            stress_delta += max(-cap, min(cap, md.yokkyu))
+            # seimei -> gratitude
+            gratitude_delta += max(-cap, min(cap, md.seimei))
+            # kankaku -> focus
+            focus_delta += max(-cap, min(cap, md.kankaku))
 
     def _clamp(v: int) -> int:
         return max(0, min(100, v))
 
     return JouchoScores(
-        joy=_clamp(scores.joy),
+        joy=_clamp(scores.joy + joy_delta),
         calm=_clamp(scores.calm + calm_delta),
         stress=_clamp(scores.stress + stress_delta),
-        gratitude=_clamp(scores.gratitude),
+        gratitude=_clamp(scores.gratitude + gratitude_delta),
         focus=_clamp(scores.focus + focus_delta),
     )
 

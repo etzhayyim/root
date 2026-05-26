@@ -254,11 +254,36 @@ class UnispscOrganism:
         tick_obs: list[SensorObservation] = []
         if self.sensors:
             tick_obs = self.poll_sensors(now_ms)
+
+        inbox_obs = list(self.inbox.observations)
+        self.inbox.observations.clear()
+
         # Per ADR-2605262400 §4.3 Wave-2: wrap the caller's joucho
         # provider with a sensor-aware augmenter so the just-gathered
         # observations bias mood incrementally.
-        tier_a_count = sum(1 for o in tick_obs if o.tier == "A")
-        tier_c_count = sum(1 for o in tick_obs if o.tier == "C")
+        tier_a_count = sum(1 for o in tick_obs if o.tier == "A") + sum(1 for o in inbox_obs if getattr(o, "tier", None) == "A")
+        tier_c_count = sum(1 for o in tick_obs if o.tier == "C") + sum(1 for o in inbox_obs if getattr(o, "tier", None) == "C")
+
+        from pymagatama.organism.observation import (
+            JouchoDelta,
+            image_joucho_delta,
+            audio_joucho_delta,
+            numeric_joucho_delta,
+            timeseries_joucho_delta,
+        )
+
+        mm_deltas: list[JouchoDelta] = []
+        for obs in inbox_obs:
+            if getattr(obs, "kind", None) == "image":
+                mm_deltas.append(image_joucho_delta(obs))
+            elif getattr(obs, "kind", None) == "audio":
+                mm_deltas.append(audio_joucho_delta(obs))
+            elif getattr(obs, "kind", None) == "numeric":
+                baseline = float(getattr(obs, "context", {}).get("baseline", 0.0)) if getattr(obs, "context", None) else 0.0
+                mm_deltas.append(numeric_joucho_delta(obs, baseline))
+            elif getattr(obs, "kind", None) == "timeseries":
+                mm_deltas.append(timeseries_joucho_delta(obs))
+
         # §4.3 Wave-3 — drain LeakAttempts accumulated by the organism's
         # TierGate since the previous tick. External callers wrap their
         # observation sinks with `organism.tier_gate.guard(...)`; tier-C
@@ -275,13 +300,14 @@ class UnispscOrganism:
 
         def _augmented_joucho(did: str) -> JouchoScores:
             base = base_provider(did) if base_provider else JouchoScores()
-            if tier_a_count == 0 and tier_c_count == 0 and leak_count == 0:
+            if tier_a_count == 0 and tier_c_count == 0 and leak_count == 0 and not mm_deltas:
                 return base
             return apply_sensor_delta(
                 base,
                 tier_a_obs_count=tier_a_count,
                 tier_c_obs_count=tier_c_count,
                 leak_attempts=leak_count,
+                multi_modal_deltas=mm_deltas,
             )
 
         cadence = resolve_heartbeat_cadence(
@@ -295,7 +321,7 @@ class UnispscOrganism:
             # organism that has no sensors of its own.
             joucho_provider=(
                 _augmented_joucho
-                if (self.sensors or leak_count > 0)
+                if (self.sensors or leak_count > 0 or inbox_obs)
                 else self.joucho_provider
             ),
             follower_score_provider=self.follower_score_provider,

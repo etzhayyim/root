@@ -16,6 +16,7 @@ RewardType = Literal["like", "love"]
 
 _MAX_COMMITS = 100
 _MAX_REACTIONS = 50
+_MAX_OBSERVATIONS = 100
 
 
 @dataclass
@@ -68,9 +69,32 @@ class InboxBuffer:
 
     inbound_commits: list[InboundCommit] = field(default_factory=list)
     reactions: list[InboundReaction] = field(default_factory=list)
+    observations: list["Observation"] = field(default_factory=list)
     prev_joucho: "object | None" = None  # JouchoScores at last tick (avoid cyclic import)
     follower_snapshots: dict[str, FollowerSnapshot] = field(default_factory=dict)
     profile_incomplete: bool = False
+
+    def push(self, observation: 'str | "Observation"') -> None:
+        import time
+
+        if isinstance(observation, str):
+            from pymagatama.organism.observation import TextObservation
+            obs = TextObservation(
+                actorDid="",
+                createdAt=int(time.time() * 1000),
+                tier="A",
+                text=observation,
+            )
+        else:
+            obs = observation
+
+        # tier == "C" -> bind internal_only=True flag
+        if obs.tier == "C":
+            obs.internal_only = True
+
+        self.observations.append(obs)
+        if len(self.observations) > _MAX_OBSERVATIONS:
+            del self.observations[: len(self.observations) - _MAX_OBSERVATIONS]
 
     def add_commit(self, commit: InboundCommit) -> None:
         self.inbound_commits.append(commit)
