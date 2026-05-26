@@ -598,6 +598,92 @@ description = "Synthetic Q/A — CC0"
     assert "**Weight**: 0.50" in md
 
 
+def test_warnings_missing_seed_block(assembler, tmp_path):
+    """Recipe.warnings() reports a non-fatal advisory when seed_path
+    doesn't resolve on disk. Distinct from validate() errors (which
+    block assembly)."""
+    recipe_body = """
+target_artifact = "baien-server-w-v1"
+output_subdataset = "w/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 0.5
+
+[seed_block]
+weight = 0.5
+seed_path = "/tmp/this-file-does-not-exist.jsonl"
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+
+    # No errors — recipe is structurally valid.
+    assert recipe.validate() == []
+
+    # But warnings flag the missing seed block.
+    warns = recipe.warnings()
+    assert any("seed_block declares weight=0.50" in w for w in warns)
+    assert any("ZERO seed rows" in w for w in warns)
+
+
+def test_warnings_placeholder_pins(assembler, tmp_path):
+    """Recipe.warnings() reports placeholder pins as non-fatal at
+    dry-run time. The hard-fail check is still in main() — operator
+    can see this BEFORE actual assembly attempts."""
+    recipe_body = """
+target_artifact = "baien-server-w-v1"
+output_subdataset = "w/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_IANA"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 1.0
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    warns = recipe.warnings()
+    assert any("placeholder datasetPin" in w for w in warns)
+    assert any("netreg/iana-root" in w for w in warns)
+
+
+def test_warnings_clean_recipe_returns_empty_list(assembler, tmp_path):
+    """A recipe with no missing files and no placeholder pins ⇒ no warnings."""
+    seed_src = tmp_path / "seed.jsonl"
+    seed_src.write_text('{"q": "x", "a": "y"}\n', encoding="utf-8")
+    recipe_body = f"""
+target_artifact = "baien-server-w-v1"
+output_subdataset = "w/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 0.5
+
+[seed_block]
+weight = 0.5
+seed_path = "{seed_src}"
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    assert recipe.warnings() == []
+
+
 def test_seed_block_exists_flag_in_dry_run_and_manifest(assembler, tmp_path):
     """Recipes declaring a [seed_block] whose `seed_path` doesn't
     resolve on disk would previously SILENTLY emit zero seed rows

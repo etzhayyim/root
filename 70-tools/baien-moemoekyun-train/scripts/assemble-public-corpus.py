@@ -135,6 +135,42 @@ class Recipe:
             )
         return errors
 
+    def warnings(self) -> list[str]:
+        """Non-fatal advisories. Returned alongside `validate()` errors
+        but DON'T block assembly. Mirrors the pattern of compiler
+        warnings: things the operator probably wants to know about
+        but that aren't constitutional violations.
+        """
+        warns: list[str] = []
+        # Missing seed-block file — declared weight, but the file won't
+        # contribute. Pairs with the dry-run / manifest / markdown
+        # honesty fix in commit e333b097a.
+        if (
+            self.seed_block is not None
+            and not self.seed_block.seed_path.exists()
+        ):
+            warns.append(
+                f"seed_block declares weight={self.seed_block.weight:.2f} "
+                f"but seed_path '{self.seed_block.seed_path}' doesn't exist "
+                f"on disk; assembly will silently emit ZERO seed rows for "
+                f"this block. Author the file or remove [seed_block]."
+            )
+        # Placeholder pins detected at parse time. Distinct from the
+        # hard-fail-at-assembly check in main() — surfacing here lets
+        # `--dry-run` and `--summary` show the operator the gap before
+        # they start any real work.
+        placeholders = [
+            s.subdataset for s in self.sources
+            if "PLACEHOLDER_" in s.dataset_pin_at
+        ]
+        if placeholders:
+            warns.append(
+                f"{len(placeholders)} source(s) carry placeholder "
+                f"datasetPin AT-URIs (will block actual assembly): "
+                f"{', '.join(placeholders)}"
+            )
+        return warns
+
 
 def load_recipe(path: Path) -> Recipe:
     raw = tomllib.loads(path.read_text(encoding="utf-8"))
@@ -384,6 +420,11 @@ def main(argv: list[str] | None = None) -> int:
         for e in errors:
             print(f"  - {e}", file=sys.stderr)
         return 2
+
+    # Non-fatal advisories. Surfaced to stderr so they're visible at
+    # dry-run + summary time AND when piping stdout to a file.
+    for w in recipe.warnings():
+        print(f"WARN: {w}", file=sys.stderr)
 
     if args.summary:
         print(summary_markdown(recipe), end="")
