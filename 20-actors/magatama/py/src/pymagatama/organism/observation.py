@@ -6,25 +6,52 @@ import struct
 import wave
 from typing import Annotated, Any, Literal, Union
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 from .embodiment import TelemetryObservation
 from .base import BaseObservation
 from .joucho_types import JouchoDelta
+from pymagatama.organism.adversarial.normalizer import normalize_input
+from pymagatama.organism.adversarial.semantic import scan_semantic
 
 
 class TextObservation(BaseObservation):
     kind: Literal["text"] = "text"
     text: str
-    _suspicious: bool = False
+    _suspicious_l1: bool = False
+    _suspicious_l2: bool = False
+    _l2_scan_result: dict[str, Any] | None = None
 
     @field_validator("text")
     @classmethod
-    def normalize_and_check(cls, v: str) -> str:
-        from pymagatama.organism.adversarial.normalizer import normalize_input
+    def normalize_and_check_l1(cls, v: str) -> str:
+        """L1 validation: normalization and basic suspicious checks."""
         res = normalize_input(v)
         if res.suspicious:
-            raise ValueError("Suspicious adversarial input detected in text observation")
+            # L1 is strict and raises an error, as per existing logic.
+            raise ValueError(f"L1 adversarial input detected: {res.transforms}")
         return res.normalized
+
+    @model_validator(mode='after')
+    def check_l2_semantic(self) -> 'TextObservation':
+        """L2 validation: semantic adversarial scan."""
+        if not self.text:
+            return self
+
+        actor_did = self.actorDid
+        l2_res = scan_semantic(self.text, actor_did=actor_did)
+
+        if l2_res.suspicious:
+            if l2_res.severity == "high":
+                raise ValueError(f"L2 adversarial input detected (high severity): {l2_res.reason}")
+
+            if l2_res.severity in ("low", "medium"):
+                self._suspicious_l2 = True
+                self._l2_scan_result = {
+                    "severity": l2_res.severity,
+                    "patterns": l2_res.flagged_patterns,
+                }
+
+        return self
 
 
 class ImageObservation(BaseObservation):
