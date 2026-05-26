@@ -102,3 +102,20 @@ export type {
   Document,
   DocumentTheme,
 } from './document/index.js';
+
+// Pixar-class scene graph + render bundle (ADR-2605231600).
+// Use the narrower `@etzhayyim/kami-engine-sdk/{scene-graph,usd,materialx,
+// osl,ocio,exr,oiio,vdb,render-job,kami-cine}` entry points for tree-shaking;
+// the root re-exports the most common surface only.
+export {
+  buildSceneGraph,
+  SCENE_DEFAULTS, SHOT_FRAMING, TONE_ATMOSPHERE,
+} from './scene-graph/index.js';
+export type {
+  Actor, Atmosphere, Camera, Lighting, SceneGraphSpec, ShotCat, ToneTag,
+} from './scene-graph/index.js';
+export { emitUsda, NARRATIVE_KEYS } from './usd/index.js';
+export { emitMaterialX, MANGA_PRESET_DOCUMENT } from './materialx/index.js';
+export { buildRenderBundle, DEFAULT_AOV_SET } from './render-job/index.js';
+export type { RenderBundle, RenderDelegate, RenderJobManifest } from './render-job/index.js';
+export { KamiCineClient } from './kami-cine/index.js';

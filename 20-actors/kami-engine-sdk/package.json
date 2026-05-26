@@ -19,7 +19,18 @@
     "three",
     "manga",
     "genko",
-    "manufacturing"
+    "manufacturing",
+    "openusd",
+    "materialx",
+    "osl",
+    "openexr",
+    "ocio",
+    "openvdb",
+    "openimageio",
+    "renderman",
+    "pixar",
+    "hydra",
+    "scene-graph"
   ],
   "exports": {
     ".": {
@@ -66,6 +77,46 @@
     "./manufacturing": {
       "types": "./dist/manufacturing/index.d.ts",
       "default": "./dist/manufacturing/index.js"
+    },
+    "./scene-graph": {
+      "types": "./dist/scene-graph/index.d.ts",
+      "default": "./dist/scene-graph/index.js"
+    },
+    "./usd": {
+      "types": "./dist/usd/index.d.ts",
+      "default": "./dist/usd/index.js"
+    },
+    "./materialx": {
+      "types": "./dist/materialx/index.d.ts",
+      "default": "./dist/materialx/index.js"
+    },
+    "./osl": {
+      "types": "./dist/osl/index.d.ts",
+      "default": "./dist/osl/index.js"
+    },
+    "./ocio": {
+      "types": "./dist/ocio/index.d.ts",
+      "default": "./dist/ocio/index.js"
+    },
+    "./exr": {
+      "types": "./dist/exr/index.d.ts",
+      "default": "./dist/exr/index.js"
+    },
+    "./oiio": {
+      "types": "./dist/oiio/index.d.ts",
+      "default": "./dist/oiio/index.js"
+    },
+    "./vdb": {
+      "types": "./dist/vdb/index.d.ts",
+      "default": "./dist/vdb/index.js"
+    },
+    "./render-job": {
+      "types": "./dist/render-job/index.d.ts",
+      "default": "./dist/render-job/index.js"
+    },
+    "./kami-cine": {
+      "types": "./dist/kami-cine/index.d.ts",
+      "default": "./dist/kami-cine/index.js"
     }
   },
   "files": [
@@ -78,13 +129,17 @@
     "test:watch": "vitest"
   },
   "peerDependencies": {
-    "svelte": "^5.0.0",
     "@pixiv/three-vrm": ">=3.0.0",
+    "svelte": "^5.0.0",
     "three": ">=0.160.0"
   },
   "peerDependenciesMeta": {
-    "@pixiv/three-vrm": { "optional": true },
-    "three": { "optional": true }
+    "@pixiv/three-vrm": {
+      "optional": true
+    },
+    "three": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.7",
@@ -94,6 +149,7 @@
     "svelte": "^5.55.3",
     "svelte-check": "^4.4.6",
     "typescript": "^5.9.3",
+    "vite": "^8.0.14",
     "vitest": "^4.1.4"
   }
 }
