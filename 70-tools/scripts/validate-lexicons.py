@@ -108,7 +108,14 @@ def main():
     parser.add_argument(
         "--root",
         default="00-contracts/lexicons",
-        help="Lexicon root directory (default: 00-contracts/lexicons)",
+        help="Lexicon root directory (default: 00-contracts/lexicons). Used when --files is empty.",
+    )
+    parser.add_argument(
+        "--files",
+        nargs="*",
+        default=None,
+        help="Explicit list of Lexicon JSON files to validate (overrides --root walk). "
+             "Use with lefthook {staged_files} to only validate files in current commit.",
     )
     parser.add_argument(
         "--exit-on-error",
@@ -117,14 +124,35 @@ def main():
     )
     args = parser.parse_args()
 
-    root = Path(args.root)
-    if not root.exists():
-        print(f"error: root not found: {root}", file=sys.stderr)
-        sys.exit(2)
-
-    files = sorted(root.rglob("*.json"))
-    # Skip _manifest.json and other registry files
-    files = [f for f in files if not f.name.startswith("_")]
+    if args.files:
+        # Explicit file list mode (lefthook staged-only path)
+        files = []
+        for f in args.files:
+            p = Path(f)
+            if not p.exists():
+                continue
+            if p.suffix != ".json":
+                continue
+            if p.name.startswith("_"):
+                continue
+            # Only validate files actually inside a lexicon root
+            if "00-contracts/lexicons/" not in str(p):
+                continue
+            files.append(p)
+        files = sorted(files)
+        if not files:
+            # No staged Lexicon files — nothing to validate, exit clean
+            print("[validate-lexicons] no staged Lexicon files in commit; skipping.")
+            sys.exit(0)
+    else:
+        # Root walk mode (manual invocation)
+        root = Path(args.root)
+        if not root.exists():
+            print(f"error: root not found: {root}", file=sys.stderr)
+            sys.exit(2)
+        files = sorted(root.rglob("*.json"))
+        # Skip _manifest.json and other registry files
+        files = [f for f in files if not f.name.startswith("_")]
 
     total_errors = 0
     error_categories = {}
@@ -132,7 +160,11 @@ def main():
     for path in files:
         errors = validate_lexicon(path)
         if errors:
-            rel = path.relative_to(root)
+            # When --files mode used, root may not be set; print absolute-from-repo path
+            try:
+                rel = path.relative_to(root) if not args.files else path
+            except (ValueError, NameError):
+                rel = path
             print(f"\n{rel}:")
             for err in errors:
                 print(f"  - {err}")

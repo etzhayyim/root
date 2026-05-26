@@ -51,8 +51,8 @@ class RentalConfig:
     vendor: str  # "runpod-community" etc.
     gpu_model: str  # "nvidia-b200-sxm" etc.
     gpu_count: int  # 1..8
-    expected_wall_minutes: float
-    expected_usd_cost: float
+    expected_wall_minutes: int                # integer per Lexicon AT Protocol restriction
+    expected_usd_cost_millicents: int         # = USD × 100000 (integer per Lexicon)
     dataset_cids_train: list[str]
     dataset_cids_eval: list[str]
     model_tier: str  # "baien-server" or "baien-XL"
@@ -65,11 +65,13 @@ class RentalConfig:
 
 @dataclass
 class EvalMetrics:
-    langgraph_coding_pass1: float = 0.0
-    humanevalplus_pass1: float = 0.0
-    mbpp_plus_pass1: float = 0.0
-    delta_langgraph_coding_pp: float = 0.0
-    delta_humanevalplus_pp: float = 0.0
+    """Scores are stored as PERMILLE (parts per thousand, integer 0..1000) per
+    AT Protocol Lexicon restriction (no float types). Divide by 10 for percentage."""
+    langgraph_coding_pass1_permille: int = 0
+    humanevalplus_pass1_permille: int = 0
+    mbpp_plus_pass1_permille: int = 0
+    delta_langgraph_coding_permille: int = 0    # signed, can be negative
+    delta_humanevalplus_permille: int = 0
 
 
 @dataclass
@@ -81,8 +83,8 @@ class RentalAttestation:
     vendor: str
     gpuModel: str
     gpuCount: int
-    expectedWallMinutes: float
-    expectedUsdCost: float
+    expectedWallMinutes: int
+    expectedUsdCostMillicents: int            # = USD × 100000 per Lexicon
     datasetCidsTrain: list[str]
     datasetCidsEval: list[str]
     modelTier: str
@@ -91,8 +93,8 @@ class RentalAttestation:
     charterRiderScanPass: bool
     charterRiderScanRunCid: str
     attestingDid: str
-    monthlyRentalCumulativeWallMinutes: Optional[float] = None
-    monthlyRentalCumulativeUsdCost: Optional[float] = None
+    monthlyRentalCumulativeWallMinutes: Optional[int] = None
+    monthlyRentalCumulativeUsdCostMillicents: Optional[int] = None
 
 
 @dataclass
@@ -101,8 +103,8 @@ class RentalCostLog:
 
     createdAt: str
     rentalAttestationUri: str
-    actualWallMinutes: float
-    actualUsdCost: float
+    actualWallMinutes: int
+    actualUsdCostMillicents: int              # = USD × 100000 per Lexicon
     outputCheckpointCid: str
     ipfsPinVerifyCid: str
     evalMetrics: EvalMetrics
@@ -258,16 +260,18 @@ def run_fleet_eval(checkpoint_cid: str, dataset_cids_eval: list[str]) -> EvalMet
 
 def commit_gate(baseline_metrics: EvalMetrics, post_train_metrics: EvalMetrics) -> str:
     """commit_node decision per ADR-2605262100 §5.4."""
-    delta_lg = post_train_metrics.langgraph_coding_pass1 - baseline_metrics.langgraph_coding_pass1
-    delta_he = post_train_metrics.humanevalplus_pass1 - baseline_metrics.humanevalplus_pass1
-    post_train_metrics.delta_langgraph_coding_pp = delta_lg * 100
-    post_train_metrics.delta_humanevalplus_pp = delta_he * 100
+    # Permille units (per Lexicon AT Protocol integer-only restriction):
+    # +30 permille = +3pp threshold per ADR-2605262100 §5.4
+    delta_lg = post_train_metrics.langgraph_coding_pass1_permille - baseline_metrics.langgraph_coding_pass1_permille
+    delta_he = post_train_metrics.humanevalplus_pass1_permille - baseline_metrics.humanevalplus_pass1_permille
+    post_train_metrics.delta_langgraph_coding_permille = delta_lg
+    post_train_metrics.delta_humanevalplus_permille = delta_he
 
     if delta_he < 0:
         return "aborted-regression"  # G10 honest scoring: regression on HumanEval+ → mandatory abort
-    if delta_lg >= 0.03:
+    if delta_lg >= 30:               # +30 permille = +3 percentage points
         return "committed-to-registry"
-    return "aborted-delta-insufficient"  # <+3pp on langgraph-coding
+    return "aborted-delta-insufficient"
 
 
 # ─── Main orchestrator ────────────────────────────────────────────────────
@@ -291,8 +295,8 @@ def run_rental_train(config: RentalConfig, *, dry_run: bool = True) -> RentalCos
     # ─── Phase 0: Pre-flight ──────────────────────────────────────────────
     if config.expected_wall_minutes > 1440:
         raise ValueError(f"Single session wall {config.expected_wall_minutes}min exceeds 24h cap per §2(i)(2)(5)")
-    if config.expected_usd_cost > 200:
-        raise ValueError(f"Single session cost ${config.expected_usd_cost} exceeds $200 cap per ADR-2605262300 §6")
+    if config.expected_usd_cost_millicents > 20_000_000:  # $200 = 20M millicents
+        raise ValueError(f"Single session cost ${config.expected_usd_cost_millicents/100000:.2f} exceeds $200 cap per ADR-2605262300 §6")
     if config.model_tier not in ("baien-server", "baien-XL"):
         raise ValueError(
             f"Tier '{config.model_tier}' not in scope of §2(i)(2)(6). "
@@ -313,7 +317,7 @@ def run_rental_train(config: RentalConfig, *, dry_run: bool = True) -> RentalCos
         gpuModel=config.gpu_model,
         gpuCount=config.gpu_count,
         expectedWallMinutes=config.expected_wall_minutes,
-        expectedUsdCost=config.expected_usd_cost,
+        expectedUsdCostMillicents=config.expected_usd_cost_millicents,
         datasetCidsTrain=config.dataset_cids_train,
         datasetCidsEval=config.dataset_cids_eval,
         modelTier=config.model_tier,
@@ -336,8 +340,8 @@ def run_rental_train(config: RentalConfig, *, dry_run: bool = True) -> RentalCos
         cost_log = RentalCostLog(
             createdAt=datetime.now(timezone.utc).isoformat(),
             rentalAttestationUri=attestation_uri,
-            actualWallMinutes=0.0,
-            actualUsdCost=0.0,
+            actualWallMinutes=0,
+            actualUsdCostMillicents=0,
             outputCheckpointCid="dry-run-no-checkpoint",
             ipfsPinVerifyCid="dry-run-no-verify",
             evalMetrics=EvalMetrics(),
@@ -390,8 +394,8 @@ def run_rental_train(config: RentalConfig, *, dry_run: bool = True) -> RentalCos
     cost_log = RentalCostLog(
         createdAt=datetime.now(timezone.utc).isoformat(),
         rentalAttestationUri=attestation_uri,
-        actualWallMinutes=actual_wall,
-        actualUsdCost=actual_cost,
+        actualWallMinutes=int(round(actual_wall)),
+        actualUsdCostMillicents=int(round(actual_cost * 100000)),
         outputCheckpointCid=checkpoint_cid,
         ipfsPinVerifyCid=verify_cid,
         evalMetrics=post_metrics,

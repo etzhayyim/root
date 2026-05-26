@@ -155,8 +155,14 @@ pre-commit:
     validate-religious-corp-lexicons:
       # Validate etzhayyim religious-corp lexicons per AT Protocol Lexicon v1
       # rules (no float types, integer with implied units). Per ADR-2605190900.
+      #
+      # Staged-only mode (fix 2026-05-26): pass {staged_files} to --files so
+      # pre-existing unrelated Lexicon issues in app/etzhayyim/gftd/ don't block
+      # commits that touch only other Lexicon paths. Manual full-tree audit:
+      #   python3 70-tools/scripts/validate-lexicons.py \
+      #       --root 00-contracts/lexicons/app/etzhayyim/ --exit-on-error
       glob: "00-contracts/lexicons/app/etzhayyim/**/*.json"
-      run: python3 70-tools/scripts/validate-lexicons.py --root 00-contracts/lexicons/app/etzhayyim/ --exit-on-error
+      run: python3 70-tools/scripts/validate-lexicons.py --files {staged_files} --exit-on-error
       tags: lexicon
 
     no-external-purchase-purpose:

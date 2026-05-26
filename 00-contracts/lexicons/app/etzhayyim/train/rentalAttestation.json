@@ -66,14 +66,14 @@
             "description": "Number of GPUs in the rental session. >8 requires Council Lv6+ ≥4/7 per-incident approval (per §2(i)(2)(5))."
           },
           "expectedWallMinutes": {
-            "type": "number",
+            "type": "integer",
             "minimum": 0,
-            "description": "Estimated wall time (minutes). Single session ≤24h = ≤1440 per §2(i)(2)(5)."
+            "description": "Estimated wall time IN MINUTES (integer). Single session ≤24h = ≤1440 per §2(i)(2)(5)."
           },
-          "expectedUsdCost": {
-            "type": "number",
+          "expectedUsdCostMillicents": {
+            "type": "integer",
             "minimum": 0,
-            "description": "Estimated USD cost. Single session ≤$200 per ADR-2605262300 §6."
+            "description": "Estimated cost IN MILLICENTS (= USD × 100000, integer). Single session ≤$200 = ≤20000000 per ADR-2605262300 §6."
           },
           "datasetCidsTrain": {
             "type": "array",
@@ -116,12 +116,12 @@
             "description": "DID of person/Council seat attesting, e.g., did:web:jun.etzhayyim.com or did:web:mac-260317.etzhayyim.com."
           },
           "monthlyRentalCumulativeWallMinutes": {
-            "type": "number",
-            "description": "Running cumulative wall this calendar month across all rental sessions. Soft cap 6000 (= 100h) per ADR-2605262300 §6; warning emit if exceeded."
+            "type": "integer",
+            "description": "Running cumulative wall IN MINUTES this calendar month across all rental sessions. Soft cap 6000 (= 100h) per ADR-2605262300 §6."
           },
-          "monthlyRentalCumulativeUsdCost": {
-            "type": "number",
-            "description": "Running cumulative USD this calendar month. Soft cap $1000 per ADR-2605262300 §6."
+          "monthlyRentalCumulativeUsdCostMillicents": {
+            "type": "integer",
+            "description": "Running cumulative cost IN MILLICENTS this calendar month. Soft cap 100000000 (= $1000) per ADR-2605262300 §6."
           }
         }
       }

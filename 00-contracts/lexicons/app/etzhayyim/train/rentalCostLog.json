@@ -30,14 +30,14 @@
             "description": "AT URI of preceding app.etzhayyim.train.rentalAttestation record, e.g., at://did:web:mac-260317.etzhayyim.com/app.etzhayyim.train.rentalAttestation/3kt6f5..."
           },
           "actualWallMinutes": {
-            "type": "number",
+            "type": "integer",
             "minimum": 0,
-            "description": "Actual wall time of rental session. Delta from expectedWallMinutes >50% triggers post-mortem note in this record."
+            "description": "Actual wall time IN MINUTES (integer). Delta from expectedWallMinutes >50% triggers post-mortem note in this record."
           },
-          "actualUsdCost": {
-            "type": "number",
+          "actualUsdCostMillicents": {
+            "type": "integer",
             "minimum": 0,
-            "description": "Actual billed USD cost from vendor. Delta from expectedUsdCost >50% triggers post-mortem note."
+            "description": "Actual billed cost IN MILLICENTS (= USD × 100000, integer). Delta from expectedUsdCostMillicents >50% triggers post-mortem note."
           },
           "outputCheckpointCid": {
             "type": "string",
@@ -45,37 +45,37 @@
           },
           "ipfsPinVerifyCid": {
             "type": "string",
-            "description": "Verification round-trip CID — output of e7m-dataset verify <subdataset>. Confirms bytes are retrievable from Kubo daemon on mac-260317 (per ADR-2605241500 §"add / publish-ipfs default to dry-run for the PDS step" — manual verify required)."
+            "description": "Verification round-trip CID — output of e7m-dataset verify <subdataset>. Confirms bytes are retrievable from Kubo daemon on mac-260317 (per ADR-2605241500 §'add / publish-ipfs default to dry-run for the PDS step' — manual verify required)."
           },
           "evalMetrics": {
             "type": "object",
-            "description": "Eval metrics computed on the merged checkpoint via fleet split-role (ADR-2605262100 §5).",
+            "description": "Eval metrics computed on the merged checkpoint via fleet split-role (ADR-2605262100 §5). All scores stored as PERMILLE (parts per thousand, integer 0..1000); divide by 10 for percentage.",
             "properties": {
-              "langgraphCodingPass1": {
-                "type": "number",
+              "langgraphCodingPass1Permille": {
+                "type": "integer",
                 "minimum": 0,
-                "maximum": 1,
-                "description": "Primary eval — 70-tools/scripts/bench/langgraph-coding 50-prompt exec-graded pass@1."
+                "maximum": 1000,
+                "description": "Primary eval — 70-tools/scripts/bench/langgraph-coding 50-prompt exec-graded pass@1, IN PERMILLE (0..1000; divide by 10 for %)."
               },
-              "humanevalplusPass1": {
-                "type": "number",
+              "humanevalplusPass1Permille": {
+                "type": "integer",
                 "minimum": 0,
-                "maximum": 1,
-                "description": "Secondary eval — evalplus/humanevalplus 164-prompt pass@1. Regression sanity (Δ ≥ 0 required)."
+                "maximum": 1000,
+                "description": "Secondary eval — evalplus/humanevalplus 164-prompt pass@1 IN PERMILLE. Regression sanity (Δ ≥ 0 required)."
               },
-              "mbppPlusPass1": {
-                "type": "number",
+              "mbppPlusPass1Permille": {
+                "type": "integer",
                 "minimum": 0,
-                "maximum": 1,
-                "description": "R2 deferred eval — MBPP+ 974-prompt pass@1."
+                "maximum": 1000,
+                "description": "R2 deferred eval — MBPP+ 974-prompt pass@1 IN PERMILLE."
               },
-              "deltaLanggraphCodingPp": {
-                "type": "number",
-                "description": "Δ (pp) vs pre-train baseline langgraph-coding pass@1. Commit gate threshold = +3pp per ADR-2605262100 §5.4 (extended to R2+ via ADR-2605262300)."
+              "deltaLanggraphCodingPermille": {
+                "type": "integer",
+                "description": "Δ vs pre-train baseline langgraph-coding pass@1 IN PERMILLE (can be negative; +30 = +3pp). Commit gate threshold = +30 per ADR-2605262100 §5.4."
               },
-              "deltaHumanevalplusPp": {
-                "type": "number",
-                "description": "Δ (pp) vs pre-train baseline HumanEval+ pass@1. Regression sanity: Δ ≥ 0 required."
+              "deltaHumanevalplusPermille": {
+                "type": "integer",
+                "description": "Δ vs pre-train baseline HumanEval+ pass@1 IN PERMILLE. Regression sanity: Δ ≥ 0 required."
               }
             }
           },

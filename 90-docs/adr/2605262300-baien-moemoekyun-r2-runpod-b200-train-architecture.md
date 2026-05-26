@@ -264,8 +264,8 @@ R2 immediate execution は BF16 で開始、FP8 engineering を並行進行、R3
           "vendor": {"type": "string", "knownValues": ["runpod-community", "runpod-secure", "lambda-labs", "coreweave", "vast-ai"]},
           "gpuModel": {"type": "string", "knownValues": ["nvidia-b200-sxm", "nvidia-h100-sxm", "nvidia-h200-sxm", "nvidia-b300-sxm", "nvidia-rubin-hgx"]},
           "gpuCount": {"type": "integer", "minimum": 1, "maximum": 8},
-          "expectedWallMinutes": {"type": "number"},
-          "expectedUsdCost": {"type": "number"},
+          "expectedWallMinutes": {"type": "integer", "description": "minutes (integer per AT Protocol)"},
+          "expectedUsdCostMillicents": {"type": "integer", "description": "USD × 100000 (integer per AT Protocol)"},
           "datasetCidsTrain": {"type": "array", "items": {"type": "string"}, "description": "IPFS CIDs of train corpus from datasets.jsonl"},
           "datasetCidsEval": {"type": "array", "items": {"type": "string"}},
           "modelTier": {"type": "string", "knownValues": ["baien-server", "baien-XL"]},
@@ -302,16 +302,16 @@ R2 immediate execution は BF16 で開始、FP8 engineering を並行進行、R3
         "properties": {
           "createdAt": {"type": "string", "format": "datetime"},
           "rentalAttestationUri": {"type": "string", "description": "AT URI of preceding rentalAttestation record"},
-          "actualWallMinutes": {"type": "number"},
-          "actualUsdCost": {"type": "number"},
+          "actualWallMinutes": {"type": "integer", "description": "minutes"},
+          "actualUsdCostMillicents": {"type": "integer", "description": "USD × 100000"},
           "outputCheckpointCid": {"type": "string", "description": "IPFS CID of merged checkpoint (HF dir or .safetensors)"},
           "ipfsPinVerifyCid": {"type": "string", "description": "Verification round-trip CID (e7m-dataset verify output)"},
           "evalMetrics": {
             "type": "object",
             "properties": {
-              "langgraphCodingPass1": {"type": "number"},
-              "humanevalplusPass1": {"type": "number"},
-              "mbppPlusPass1": {"type": "number"}
+              "langgraphCodingPass1Permille": {"type": "integer", "minimum": 0, "maximum": 1000, "description": "permille (× 1000 for integer-only Lexicon; +30 = +3pp commit gate)"},
+              "humanevalplusPass1Permille": {"type": "integer", "minimum": 0, "maximum": 1000},
+              "mbppPlusPass1Permille": {"type": "integer", "minimum": 0, "maximum": 1000}
             }
           },
           "commitDecision": {"type": "string", "knownValues": ["committed-to-registry", "aborted-delta-insufficient", "aborted-regression", "aborted-engineering-failure"]},

@@ -9,8 +9,8 @@ train_adr_ref: "ADR-2605262300"
 vendor: "runpod-community"
 gpu_model: "nvidia-b200-sxm"
 gpu_count: 1
-expected_wall_minutes: 25.0   # R2 BF16 baseline estimate (50K ex × 2ep ≈ 2.46 EFLOPs at 2800 TFLOPS sustained)
-expected_usd_cost: 3.0        # 25 min × $7/h ≈ $2.92, rounded up
+expected_wall_minutes: 25                # integer (per Lexicon AT Protocol restriction)
+expected_usd_cost_millicents: 300000     # = $3.00 × 100000 millicents; 25 min × $7/h ≈ $2.92
 
 # Dataset corpus (R2 ≈ R1.4 × 10 in size; same Tier A + C composition)
 # CIDs from 90-docs/baien/datasets.jsonl (registered via e7m-dataset add)
