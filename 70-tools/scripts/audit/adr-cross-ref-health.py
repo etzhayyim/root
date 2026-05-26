@@ -65,6 +65,25 @@ FORWARD_REF_MARKER_RE = re.compile(
 )
 FORWARD_REF_CONTEXT_CHARS = 80
 
+# Self-documenting historical orphans: the citing line explicitly
+# acknowledges that the ADR was drafted-but-not-retained / merged
+# inline elsewhere. These are forensic notes, not broken refs.
+#
+# Examples (all from ADR-2605211653 mst-projector case):
+#   "(gate (c) standalone ADR-XXX was drafted but not retained)"
+#   "earlier-drafted standalone ADR-XXX"
+#   "originally-drafted ADR-XXX"
+#   "standalone ADR-XXX was drafted"
+#
+# We require BOTH "drafted" AND one of {not retained, originally,
+# standalone, inline, merged} to appear in the same line as the ID,
+# to avoid matching unrelated "draft" mentions.
+HISTORICAL_ORPHAN_RE = re.compile(
+    r"\bdrafted\b.*\b(?:not retained|originally|standalone|inline|merged)\b"
+    r"|\b(?:not retained|originally|standalone|inline|merged)\b.*\bdrafted\b",
+    re.IGNORECASE,
+)
+
 
 def find_existing_adr_ids() -> set[str]:
     """Set of ADR IDs that have an actual file under 90-docs/adr/."""
@@ -130,6 +149,13 @@ def find_referenced_ids() -> dict[str, list[str]]:
             lambda m: f"ADR-{m.group(1)} ADR-{m.group(2)}",
             content,
         )
+
+        # Historical-orphan filter: if the line contains explicit
+        # acknowledgment that the ADR was drafted-but-not-retained
+        # (forensic notes from session post-mortems / migration logs),
+        # skip the entire line — the citation is self-documenting.
+        if HISTORICAL_ORPHAN_RE.search(cleaned_content):
+            continue
 
         for m in ADR_REF_RE.finditer(cleaned_content):
             adr_id = m.group(1)

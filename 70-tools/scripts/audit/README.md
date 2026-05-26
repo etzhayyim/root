@@ -85,19 +85,19 @@ python3 70-tools/scripts/audit/adr-cross-ref-health.py
 python3 70-tools/scripts/audit/adr-cross-ref-health.py --strict
 ```
 
-**Baseline (iter-44, 2026-05-27): 120 orphaned references** across the monorepo, bucketed by category:
+**Baseline (iter-45, 2026-05-27): 118 orphaned references** across the monorepo, bucketed by category:
 
 | Category | Count | Resolution |
 |---|---|---|
 | `legacy-4digit` | 74 | Pre-ADR-2604231349-timestamp-policy IDs. Rename to successor / delete |
 | `placeholder-0000-suffix` | 0 | (Closed iter-42/43; was 3 at iter-40 start) |
-| `invalid-mm-overflow` | 2 | HH:MM where MM ≥ 60 (clock impossibility). Real bugs; fix to next valid timestamp |
-| `quarter-hour-planned-slot` | 38 | Planned-but-unauthored ADRs. Author or downgrade citation to parent wave |
-| `non-canonical-mm` | 6 | MM not in {00,15,30,45} but valid — wave-numbering reservations (e.g., kotoba uses :04/:05/:06 as sub-index). Per-case judgment |
+| `invalid-mm-overflow` | 0 | (Closed iter-44; was 2 — :60 clock-impossibility bugs) |
+| `quarter-hour-planned-slot` | 39 | Planned-but-unauthored ADRs. Author or downgrade citation to parent wave |
+| `non-canonical-mm` | 5 | MM not in {00,15,30,45} but valid — wave-numbering reservations (e.g., kotoba uses :04/:05/:06 as sub-index). Per-case judgment |
 
-Progression: iter-40 = 127 (no filter) → iter-41 = 123 (range + forward-ref filters added) → iter-42 = 121 (kiyo + record-log cites) → iter-43 = 120 (placeholder category zeroed via substrate-boundary hook fix) → iter-44 = 120 (categorization refinement, no net orphan change — `off-quarter-hour-likely-typo` split into `invalid-mm-overflow` + `non-canonical-mm` for honest signal).
+Progression: iter-40 = 127 → iter-41 = 123 → iter-42 = 121 → iter-43 = 120 → iter-44 = 119 → iter-45 = 118 (historical-orphan filter added — citations containing both "drafted" AND one of {"not retained", "originally", "standalone", "inline", "merged"} are self-documenting forensic notes, not bugs).
 
-The iter-41 `off-quarter-hour-likely-typo` label was misleading: only 2 of 8 were actual bugs (MM ≥ 60); the other 6 were intentional wave-numbering using minute as architectural sub-index, not typos.
+The historical-orphan filter was specifically motivated by the ADR-2605211653 case (mst-projector standalone ADR drafted during tranche-f cutover then merged inline into ADR-2605211757; all 5 citations are session post-mortem notes explicitly describing the merge).
 
 Operators run on demand:
 
