@@ -11,7 +11,7 @@ bash 70-tools/scripts/audit/all.sh            # report
 bash 70-tools/scripts/audit/all.sh --strict   # exit 1 if any finding (CI integration)
 ```
 
-Current baseline (as of iter-47 of /loop, 2026-05-27): **46 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **21 manifest-lexicon-drift** (newly surfaced iter-47; 5 actors declare 21 lexicons in their manifest.jsonld but the corresponding JSON files don't exist under `00-contracts/lexicons/` — same operator-gated triage pattern as the ADR cross-ref orphans).
+Current baseline (as of iter-48 of /loop, 2026-05-27): **43 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **18 manifest-lexicon-drift** (was 21 in iter-47; iter-48 authored the 3 wadachi lexicons closing wadachi's contract surface fully; 4 actors / 18 lexicons remain).
 
 The "documented + deferred" findings will fail `--strict` mode until the upstream coordination work lands. That's by design — `--strict` is the operator's gate for "I want to publish or PR-merge and don't want to accidentally take on debt." Mode without `--strict` is for "give me the current health snapshot."
 
@@ -85,15 +85,16 @@ python3 70-tools/scripts/audit/manifest-lexicon-drift.py
 python3 70-tools/scripts/audit/manifest-lexicon-drift.py --strict
 ```
 
-**Initial baseline (iter-47, 2026-05-27): 21 missing lexicons across 5 actors:**
+**Initial baseline (iter-47): 21 missing lexicons across 5 actors.**
+**iter-48 closed wadachi (3/3 lexicons authored).** Current (iter-48): **18 missing across 4 actors**:
 
-| Actor | Missing |
-|---|---|
-| gov-municipality | 3 |
-| infra-utility-connect | 4 |
-| kuni-umi | 6 |
-| wadachi | 3 |
-| yoro-supply | 5 |
+| Actor | Missing | Status |
+|---|---|---|
+| gov-municipality | 3 | open |
+| infra-utility-connect | 4 | open |
+| kuni-umi | 6 | open |
+| wadachi | 0 | ✅ closed iter-48 |
+| yoro-supply | 5 | open |
 
 Per-actor resolution is operator-judgment-per-case: either (a) author the lexicon JSON files (real implementation work) or (b) drop the manifest declaration (acknowledge the planning didn't reach implementation). Same operator-gated pattern as the documented kotoba escape-symlinks + stale subrepo URLs.
 
