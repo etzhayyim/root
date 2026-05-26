@@ -29,6 +29,10 @@ Standard mdp.* functions:
               JointVelocityAction (action vector composition + dispatch
               onto env effort buffers; PD/P controllers for position/velocity
               target modes)
+  - curriculums: CurriculumManager + terrain_levels_vy / modify_reward_weight
+                 / modify_action_scale (gradual task-difficulty progression
+                 for quadruped locomotion tasks; composes with iter 44
+                 TerrainImporter.update_env_origins)
 
 stdlib-only.
 """
@@ -54,6 +58,15 @@ from .commands import (
     UniformVelocityCommand,
     UniformVelocityCommandCfg,
     UniformVelocityRanges,
+)
+from .curriculums import (
+    CurriculumManager,
+    CurriculumTerm,
+    modify_action_scale,
+    modify_reward_weight,
+    reset_distance_accumulator,
+    terrain_levels_vy,
+    update_distance_accumulator,
 )
 from .events import (
     EventTerm,
@@ -108,4 +121,8 @@ __all__ = [
     "JointEffortAction", "JointEffortActionCfg",
     "JointPositionAction", "JointPositionActionCfg",
     "JointVelocityAction", "JointVelocityActionCfg",
+    # Curriculum manager + standard fns
+    "CurriculumTerm", "CurriculumManager",
+    "terrain_levels_vy", "modify_reward_weight", "modify_action_scale",
+    "update_distance_accumulator", "reset_distance_accumulator",
 ]
