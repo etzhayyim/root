@@ -85,21 +85,28 @@ python3 70-tools/scripts/audit/adr-cross-ref-health.py
 python3 70-tools/scripts/audit/adr-cross-ref-health.py --strict
 ```
 
-**Initial baseline (iter-40, 2026-05-27): 127 orphaned references** across the monorepo — too many for blind batch-fix (each one needs operator triage between three resolution paths):
+**Baseline (iter-41, 2026-05-27): 123 orphaned references** across the monorepo, bucketed by category:
 
-1. **Typo / mis-paste** → rename to the nearest valid ID
-2. **Planned ADR** → actually write the missing ADR file
-3. **Legit-removable stub** → delete the reference
+| Category | Count | Resolution |
+|---|---|---|
+| `legacy-4digit` | 74 | Pre-ADR-2604231349-timestamp-policy IDs. Rename to successor / delete |
+| `placeholder-0000-suffix` | 3 | Obvious round-number stubs never authored. Delete |
+| `quarter-hour-planned-slot` | 38 | Planned-but-unauthored ADRs. Author or downgrade citation to parent wave |
+| `off-quarter-hour-likely-typo` | 8 | Random-minute IDs near a real ADR. Fix to nearest |
 
-Because the resolution is operator-judgment-per-case, this audit is **deliberately NOT included in `all.sh`** today — it would add a 127-finding cliff to the aggregator total and force a global decision when what we want is per-citation review. Operators run it on demand:
+(Down from 127 in iter-40 after adding the range-expression filter — `ADR-XXX..YYY` is shorthand for a wave, not individual cites — and the forward-ref marker filter — `(R1)` / `(planned)` / `(scaffold)` etc. are deliberate reservations, not bugs.)
+
+Operators run on demand:
 
 ```bash
 python3 70-tools/scripts/audit/adr-cross-ref-health.py | less
 ```
 
-When the 127 are triaged down to a stable floor, this audit can be folded into `all.sh` like the others. Until then it lives as a standalone operator tool.
+Each orphan needs operator judgment between three resolution paths (typo-fix / write-the-ADR / delete-the-cite). Because the resolution is per-case, this audit is **deliberately NOT included in `all.sh`** today — folding it in would add a 123-finding cliff to the aggregator total and force a global decision when what's needed is per-citation review.
 
-Discovery: iter-40 of /loop (2026-05-27). The 472 ADR files on disk are referenced 563 times across tracked content; 127 of those references (~23%) don't resolve to a file. Round-number suffixes (3 IDs ending in `0000`) are obvious placeholders never authored; the other 124 are either typos near a real ADR ID or planned-but-deferred work.
+When the 123 are triaged down to a stable floor, this audit can be folded into `all.sh` like the others. Until then it lives as a standalone operator tool.
+
+Discovery: iter-40 of /loop (2026-05-27); filter improvements + categorization in iter-41.
 
 ### `repo-record-allowlist.mjs` (pre-existing)
 

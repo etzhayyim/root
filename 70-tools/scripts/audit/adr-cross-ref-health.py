@@ -48,6 +48,23 @@ ADR_FILENAME_RE = re.compile(r"^(\d{4}|\d{10,12})-")
 # Excludes overly-long digit runs that are clearly something else.
 ADR_REF_RE = re.compile(r"\bADR-(\d{4}|\d{10,12})\b")
 
+# A range expression like `ADR-2605242700..2605242915` is shorthand for
+# the wave of ADRs across that timestamp window. Intermediate IDs aren't
+# individually cited and aren't bugs.
+ADR_RANGE_RE = re.compile(
+    r"\bADR-(\d{4}|\d{10,12})\.\.(\d{4}|\d{10,12})\b"
+)
+
+# Forward-ref / planned-slot markers in the immediate citation context.
+# `ADR-2605242015 (R1)` or `(planned)` / `(future)` / `(R0 scaffold)` etc.
+# We require the marker to come within ~80 chars after the ID so we don't
+# falsely match a different parenthetical further down the line.
+FORWARD_REF_MARKER_RE = re.compile(
+    r"\((?:R[0-9](?:\b[^)]*)?|planned|future|reserved|scaffold|R[0-9]\s+scaffold|TBD|tbd)\)",
+    re.IGNORECASE,
+)
+FORWARD_REF_CONTEXT_CHARS = 80
+
 
 def find_existing_adr_ids() -> set[str]:
     """Set of ADR IDs that have an actual file under 90-docs/adr/."""
@@ -104,12 +121,61 @@ def find_referenced_ids() -> dict[str, list[str]]:
             continue
         if file_path == "90-docs/adr/template.md":
             continue
-        for m in ADR_REF_RE.finditer(content):
+
+        # Skip range-expression IDs entirely. `ADR-2605242700..2605242915`
+        # is shorthand for a wave; the only "cited" IDs are the two
+        # endpoints, not the intermediate timestamps. Strip range
+        # expressions from the line before per-ID extraction.
+        cleaned_content = ADR_RANGE_RE.sub(
+            lambda m: f"ADR-{m.group(1)} ADR-{m.group(2)}",
+            content,
+        )
+
+        for m in ADR_REF_RE.finditer(cleaned_content):
             adr_id = m.group(1)
+            # Forward-ref filter: if the citation context immediately
+            # after the ID contains `(R1)` / `(planned)` / `(future)` /
+            # `(reserved)` / `(scaffold)` / `(TBD)`, this is a deliberate
+            # forward-reference to a reserved slot, not a broken ref.
+            ctx_start = m.end()
+            ctx = cleaned_content[ctx_start : ctx_start + FORWARD_REF_CONTEXT_CHARS]
+            if FORWARD_REF_MARKER_RE.search(ctx):
+                continue
             # Cap citations per ID to keep the report scannable.
             if len(citations[adr_id]) < 5:
                 citations[adr_id].append(f"{file_path}:{lineno}")
     return citations
+
+
+def categorize(adr_id: str) -> str:
+    """Bucket an orphan ID for triage prioritization.
+
+    The categories help operators decide which orphans to tackle first:
+    - 4-digit legacy IDs are from the old ADR convention before
+      ADR-2604231349 (timestamp-numbering-policy). Resolution is usually
+      "delete the reference" or "rename to successor ADR".
+    - 0000-suffix IDs are obvious placeholders that were used as round-
+      number stubs and never authored. Resolution is usually "delete
+      the reference" since no real ADR was ever planned.
+    - Quarter-hour-aligned IDs (mm in {15, 30, 45} or {00}) are typical
+      authored timestamps; an orphan here is most likely a real
+      planned-ADR slot that didn't get written.
+    - Off-quarter-hour IDs (random mm) are most likely typos.
+    """
+    if len(adr_id) == 4:
+        return "legacy-4digit"
+    if adr_id.endswith("0000"):
+        return "placeholder-0000-suffix"
+    if len(adr_id) == 10:
+        # last 4 chars are HHMM
+        try:
+            mm = int(adr_id[-2:])
+        except ValueError:
+            return "other"
+        if mm in (0, 15, 30, 45):
+            return "quarter-hour-planned-slot"
+        return "off-quarter-hour-likely-typo"
+    return "other"
 
 
 def main() -> int:
@@ -128,10 +194,28 @@ def main() -> int:
     print(f"Orphaned references (cited but no file): {len(orphans)}")
 
     if orphans:
+        # Category counts for fast triage scan.
+        counts: dict[str, int] = defaultdict(int)
+        for adr_id in orphans:
+            counts[categorize(adr_id)] += 1
+        print()
+        print("by category:")
+        for cat in (
+            "legacy-4digit",
+            "placeholder-0000-suffix",
+            "quarter-hour-planned-slot",
+            "off-quarter-hour-likely-typo",
+            "other",
+        ):
+            n = counts.get(cat, 0)
+            if n:
+                print(f"  {cat:<32} {n:>4}")
+
         print()
         # sort: longest-format IDs (newer convention) first, then by ID
         for adr_id in sorted(orphans.keys(), key=lambda x: (-len(x), x)):
-            print(f"ADR-{adr_id}")
+            cat = categorize(adr_id)
+            print(f"ADR-{adr_id}  [{cat}]")
             for cite in orphans[adr_id]:
                 print(f"  {cite}")
 
