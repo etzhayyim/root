@@ -11,7 +11,7 @@ bash 70-tools/scripts/audit/all.sh            # report
 bash 70-tools/scripts/audit/all.sh --strict   # exit 1 if any finding (CI integration)
 ```
 
-Current baseline (as of iter-48 of /loop, 2026-05-27): **43 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **18 manifest-lexicon-drift** (was 21 in iter-47; iter-48 authored the 3 wadachi lexicons closing wadachi's contract surface fully; 4 actors / 18 lexicons remain).
+Current baseline (as of iter-49 of /loop, 2026-05-27): **40 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **15 manifest-lexicon-drift** (was 18 in iter-48; iter-49 authored the 3 gov-municipality lexicons; 3 actors / 15 lexicons remain).
 
 The "documented + deferred" findings will fail `--strict` mode until the upstream coordination work lands. That's by design — `--strict` is the operator's gate for "I want to publish or PR-merge and don't want to accidentally take on debt." Mode without `--strict` is for "give me the current health snapshot."
 
@@ -86,11 +86,11 @@ python3 70-tools/scripts/audit/manifest-lexicon-drift.py --strict
 ```
 
 **Initial baseline (iter-47): 21 missing lexicons across 5 actors.**
-**iter-48 closed wadachi (3/3 lexicons authored).** Current (iter-48): **18 missing across 4 actors**:
+**Progression**: iter-48 closed wadachi (3/3); iter-49 closed gov-municipality (3/3). Current: **15 missing across 3 actors**:
 
 | Actor | Missing | Status |
 |---|---|---|
-| gov-municipality | 3 | open |
+| gov-municipality | 0 | ✅ closed iter-49 |
 | infra-utility-connect | 4 | open |
 | kuni-umi | 6 | open |
 | wadachi | 0 | ✅ closed iter-48 |
