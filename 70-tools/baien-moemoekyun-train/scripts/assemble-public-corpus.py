@@ -91,6 +91,7 @@ class Recipe:
     sources: list[SourceSpec]
     seed_block: SeedBlock | None = None
     recipe_path: Path | None = None
+    description: str = ""  # operator-facing context (free-form)
 
     @property
     def computed_max_tier(self) -> str:
@@ -167,6 +168,7 @@ def load_recipe(path: Path) -> Recipe:
         sources=sources,
         seed_block=seed_block,
         recipe_path=path,
+        description=str(raw.get("description", "")),
     )
 
 
@@ -182,6 +184,7 @@ def dry_run_summary(recipe: Recipe) -> dict[str, Any]:
         "recipePath": str(recipe.recipe_path) if recipe.recipe_path else None,
         "targetArtifact": recipe.target_artifact,
         "outputSubdataset": recipe.output_subdataset,
+        "description": recipe.description,
         "maxTierCap": recipe.max_tier_cap,
         "computedMaxTier": recipe.computed_max_tier,
         "sourceCount": len(recipe.sources),
@@ -700,6 +703,7 @@ def assemble(
         "v": SCHEMA_VERSION,
         "targetArtifact": recipe.target_artifact,
         "outputSubdataset": recipe.output_subdataset,
+        "description": recipe.description,
         "computedMaxTier": recipe.computed_max_tier,
         "maxTierCap": recipe.max_tier_cap,
         "startedAt": started_at,

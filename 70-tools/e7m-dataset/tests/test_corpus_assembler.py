@@ -262,6 +262,74 @@ description = "test seed"
     assert seed_dst.read_text() == seed_src.read_text()
 
 
+def test_recipe_description_default_empty(assembler, tmp_path):
+    """No description in TOML ⇒ Recipe.description == "" (no None)."""
+    recipe_body = """
+target_artifact = "baien-server-x-v1"
+output_subdataset = "x"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://x"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 1.0
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    assert recipe.description == ""
+
+
+def test_recipe_description_round_trip(assembler, tmp_path):
+    """TOML `description = ...` lands on Recipe.description verbatim
+    and surfaces in dry_run_summary + assembly manifest."""
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    subdir = annex / "netreg" / "iana-root" / "iana-snap-260526"
+    subdir.mkdir(parents=True, exist_ok=True)
+    (subdir / "root.zone.ndjson").write_text(
+        json.dumps({"tld": "aaa", "ns": [], "ds": [], "glue": []}) + "\n",
+        encoding="utf-8",
+    )
+
+    desc = (
+        "Foundational netreg corpus — RIR + IANA root; used to ground "
+        "baien knowledge of internet number resource topology."
+    )
+    recipe_body = f"""
+target_artifact = "baien-server-iana-desc-v1"
+output_subdataset = "iana-desc-v1"
+max_tier_cap = "A"
+description = "{desc}"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+shard_glob    = "root.zone.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 1.0
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    assert recipe.description == desc
+
+    summary = assembler.dry_run_summary(recipe)
+    assert summary["description"] == desc
+
+    manifest = assembler.assemble(recipe, annex_root=annex, out_dir=out_dir)
+    assert manifest["description"] == desc
+    # Persisted to disk.
+    persisted = json.loads(
+        (out_dir / "manifest.json").read_text(encoding="utf-8")
+    )
+    assert persisted["description"] == desc
+
+
 def test_assemble_charter_violation_aborts(assembler, tmp_path):
     """Plant a hot Charter §2 trigger every Nth row → assembler aborts."""
     annex = tmp_path / "annex"
