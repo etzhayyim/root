@@ -2,6 +2,7 @@
   "name": "@etzhayyim/auth",
   "version": "0.1.0",
   "license": "Apache-2.0",
+  "description": "Svelte 5 Passkey + AT Protocol JWT auth client for *.etzhayyim.com apps (authn.etzhayyim.com integration)",
   "type": "module",
   "exports": {
     ".": {
