@@ -96,6 +96,23 @@ class InboxBuffer:
         if len(self.observations) > _MAX_OBSERVATIONS:
             del self.observations[: len(self.observations) - _MAX_OBSERVATIONS]
 
+    def flush_to_warm(self, memory: "MemoryPersistence") -> list[str]:
+        """Flush old observations to warm storage if capacity exceeds 75%.
+        Keeps the newest 25% in the hot buffer to maintain context.
+        """
+        threshold = int(_MAX_OBSERVATIONS * 0.75)
+        keep_count = int(_MAX_OBSERVATIONS * 0.25)
+
+        if len(self.observations) > threshold:
+            flush_count = len(self.observations) - keep_count
+            to_flush = self.observations[:flush_count]
+
+            cids = memory.warm_flush(to_flush)
+
+            self.observations = self.observations[flush_count:]
+            return cids
+        return []
+
     def add_commit(self, commit: InboundCommit) -> None:
         self.inbound_commits.append(commit)
         if len(self.inbound_commits) > _MAX_COMMITS:
