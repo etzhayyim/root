@@ -12,8 +12,15 @@ R1.x scope:
              dict/list/scalar subset Isaac Lab actually uses
   - timer  — perf timing (Timer class + TimerError + module-level named
              timer registry + time_function decorator + format_seconds)
+  - configclass — cfg dataclass decorator (mutable-default auto-wrap +
+                  to_dict / from_dict / replace / copy injections)
 """
 
+from . import configclass as configclass_mod
 from . import dict, dr, io, math, string, timer
+from .configclass import configclass, is_configclass
 
-__all__ = ["dict", "dr", "io", "math", "string", "timer"]
+__all__ = [
+    "dict", "dr", "io", "math", "string", "timer",
+    "configclass", "is_configclass",
+]
