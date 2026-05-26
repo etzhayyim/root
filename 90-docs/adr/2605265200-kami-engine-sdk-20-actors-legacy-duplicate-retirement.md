@@ -25,7 +25,7 @@ superseded_by: []
 
 # ADR-2605265200: kami-engine-sdk 20-actors legacy duplicate retirement
 
-**Status**: active
+**Status**: **3/3 phases complete** (Phase 1 = `491ff8ee6`, Phase 2 verification = `243470dc8`, Phase 3 deletion = `2d199cca9`)
 **Date**: 2026-05-26
 **Deciders**: Jun Kawasaki
 **Scope**: `20-actors/kami-engine-sdk/` (legacy duplicate, retirement target), `40-engine/kami-engine/kami-engine-sdk/` (canonical, preserved), `pnpm-workspace.yaml`, `CLAUDE.md` Repo Layout section
@@ -188,5 +188,60 @@ Inverse direction. Put the canonical SDK source under `20-actors/kami-engine-sdk
 - ADR-2605264300 — kami-engine-sdk three.js-free cutover (parent commit chain that exposed the duplicate friction)
 - ADR-2605152100 — org-split cutover (Phase A bulk rename; the original gftd→etzhayyim migration that left both SDK copies in different states)
 - `40-engine/kami-engine/kami-engine-sdk/.gitrepo` — canonical subrepo metadata
-- `20-actors/kami-engine-sdk/` — retirement target (Phase 3 git rm)
+- `20-actors/kami-engine-sdk/` — retirement target (Phase 3 git rm — **completed iter-11 `2d199cca9`**)
 - `pnpm-workspace.yaml` — Phase 1 registration target
+
+## Phase 3 outcome log (2026-05-26 iter-11 of /loop)
+
+Phase 3 executed faster than the original ~7-day R-cycle estimate
+because Phase 2 verification finished cleanly in iter-10 (no
+blockers from the workspace install dry-run), and parallel-session
+race timing permitted an atomic 80-file commit in iter-11.
+
+Commit: `2d199cca9` — `chore(kami-engine-sdk): Phase 3 — git rm -r
+20-actors/kami-engine-sdk/ (ADR-2605265200)`
+Files: 80 changed / +5 insertions / -12,216 deletions
+Race: avoided (pre-commit hook chain completed in race window;
+no `--no-verify` bypass needed)
+
+Post-deletion smoke verification (M1 mac mini, immediately after
+commit):
+
+  check                                          result
+  e7m verify (9/9 constitutional invariants)     ✓ 1.59s wall-clock
+  SDK `npm run build` (svelte-package -i src/lib) ✓
+  SDK `vitest run` (8 test files)                ✓ 82/82 passing
+                                                  tests (1 pre-existing
+                                                  langgraph optional-
+                                                  peer-dep file fails to
+                                                  load; tracked in ADR-
+                                                  2605264300 §1 +
+                                                  b638c27e0)
+
+The §Context "dangerous structural condition" is now fully resolved
+at all layers (lockfile, filesystem, workspace registration). The
+only `name: "@etzhayyim/kami-engine-sdk"` declaring `package.json`
+in the monorepo lives at `40-engine/kami-engine/kami-engine-sdk/`
+(the canonical subrepo).
+
+## CI regression-test addendum (2026-05-26 iter-13 of /loop)
+
+After this ADR's 3-phase deprecation landed, iter-13 added a
+dedicated GitHub Actions workflow that exercises the SDK build +
+vitest + cyber-drill prod build chain on every relevant PR + push
+to main. The workflow is `.github/workflows/kami-engine-sdk.yml`
+(commit `b96e6e193`). It protects this ADR's outcome by failing
+fast if a future commit:
+
+  - regresses `svelte-package -i src/lib` (SDK dist/ build)
+  - drops below 82 passing vitest tests
+  - breaks the cyber-drill SvelteKit static adapter prerender build
+    (especially the `build.rollupOptions.external` langchain config
+    from `b638c27e0` and the SDK `link:` resolution to the
+    canonical 40-engine path)
+
+The workflow's path filter triggers only on changes under
+`40-engine/kami-engine/kami-engine-sdk/**`,
+`60-apps/ai-gftd-project-cyber-drill/**`, `pnpm-workspace.yaml`,
+`pnpm-lock.yaml`, or the workflow file itself — CI cost is minimal
+for unrelated commits.

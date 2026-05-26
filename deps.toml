@@ -6832,6 +6832,141 @@ status = "proposed-pending-council-ratification"
 status_note = "CONSTITUTIONAL AMENDMENT. Decomposes the conflated G4 (no nuclear) + G5 (no fossil) absolute bans of ADR-2605261100 into 5 independent constitutional gates D1..D5: D1 Dependency (§1.6 中間排除 — no commercial-extractive / state-licensed fuel-cycle / third-party fuel-supply dependency), D2 Multi-gen waste hazard bound (≤100 yr hazard half-life default; intermediate-level case-by-case Council Lv7+; high-level >1,000 yr categorically excluded; atmospheric CO₂ excluded unless D3 satisfied), D3 Closed-loop carbon (net atmospheric CO₂ Δ ≤ 0 annual; combustion carbon MUST originate from atmospheric CO₂ within prior 10 yr — geological fossil categorically fails), D4 Proliferation hygiene (no weapons-grade fissile material; dual-use LEU/Li-6/tritium capped with Council Lv6+ ≥3 attestation), D5 Open-hardware (Apache 2.0 + Charter Rider for all firmware + strain genomes + plasma diagnostics). RE-EVALUATION: §2.1 PERMITTED unchanged (solar PV / small wind / geothermal micro / LFP+Na-ion / thermal storage / microgrid). §2.2 NEWLY PERMITTED — microbial hydrocarbon biosynthesis (cyanobacteria / engineered photosynthetic organisms fixing atmospheric CO₂ → alkanes; carbonSourceAttestation + atmospheric-only feedstock + open-genome OpenMTA + BSL-1/2 + double kill-switch + religious-corp-internal use + ≤10 t/yr cap through R3 + annual silenHydrocarbonReview net-zero mass-balance). §2.3 NEWLY PERMITTED CONDITIONAL — nuclear fusion (preference: aneutronic p-B¹¹ / D-He³ > D-D > D-T; D-T requires Council Lv6+ ≥4/7 per-program + tritium ≤10 kg aggregate + Li-6 ≤100 kg + LANDS jurisdictional risk attestation; low-activation structural materials V-Cr-Ti / ODS-FeCrAl / SiC-SiC mandatory keeping activation half-life ≤100 yr; plasma-control AI Murakumo-only extending ADR-2605215000; ≤1 MW thermal R&D cap through R4). §2.4 RE-AFFIRMED PROHIBITED on independent grounds (commercial petroleum/coal/gas = D1+D3+§2(d) triple-independent; nuclear fission PWR/BWR/SMR/Gen-IV = D1+D2+D4 triple-independent; RTG = D2+D1 double; weapons-grade fissile material = D4+§1.12 double). PARTIAL SUPERSESSION of ADR-2605261100 §G4+§G5+§N1+§N2 (rest of hikari R0 preserved) and ADR-2605202000 SMR/水素/核融合 deferral section (hydrogen still deferred to own ADR; fusion now has conditional permit; SMR + RTG categorically banned). 7 new Lexicons app.etzhayyim.hikari.{carbonSourceAttestation / hydrocarbonBatchRecord / silenHydrocarbonReview / fusionFacilityAttestation / fusionInventoryRecord / silenFusionReview / energyGateD1..D5Attestation}. Cross-actor: mitsuho BSL+adjacency consultation per §2.2.5; transport actors (wadachi/sarutahiko/futawa/suki) UNCHANGED electric-battery roadmap (microbial hydrocarbon §2.2.7 stationary-only). Procedural: P0 today drafted / P1 2026-05-20→2026-06-19 Bootstrap Council Seats 2-5 RFP / P2 Council Lv7+ unanimity vote (same threshold as bans being amended; no governance lock relaxation) / P3 30-day public objection / P4 effective ≥2026-07-19 absent objection. Founder Lv7+ emergency authorization explicitly NOT taken (institutional integrity over R&D urgency; no R&D blockage exists since hikari R0-R3 carries L2 ceiling). User decision 2026-05-26: ban based on dependency, not on substance per se — re-frames legacy G4/G5 conflation."
 path = "90-docs/adr/2605263500-energy-substrate-dependency-vs-substance-reframing.md"
 
+# ─── Energy D1..D5 sub-ADR cascade (children of 2605263500; iter 1-14, 18 sub-ADRs) ──
+
+[[adrs]]
+id = "2605263600"
+title = "Hydrogen economy — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Green H₂ (electrolysis from hikari surplus) ≤500 kg/day R3. Grey/Blue/Black/Pink categorically prohibited on D1+D2+D3+§2(d) multi-independent grounds. Turquoise + white deferred. Downstream feedstock for methanol/NH₃/SAF."
+path = "90-docs/adr/2605263600-hydrogen-economy-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605263700"
+title = "Green ammonia — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Haber-Bosch from green H₂ + atmospheric N₂ ≤200 kg/day R3. NH₄NO₃ ABSOLUTELY PROHIBITED on D4 + §1.12 (ANFO weaponization precedent). Cross-actor mitsuho fertilizer-N tertiary fallback."
+path = "90-docs/adr/2605263700-green-ammonia-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605263800"
+title = "Biomethane (anaerobic digestion) — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "AD biomethane from religious-corp internal waste ≤200 Nm³/day R3. Commercial landfill gas + municipal sewage CHP + dedicated energy crops prohibited. Closes 2605263600 §3 turquoise H₂ deferral. Digestate → mitsuho compost."
+path = "90-docs/adr/2605263800-biomethane-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605264100"
+title = "Marine renewables (tidal/wave/OTEC/salinity-gradient/lagoon/large-array) — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Tidal-stream ≤500 kW + wave ≤100 kW + OTEC R&D + salinity R&D conditional. Tidal-lagoon-barrage + large-array offshore wind ABSOLUTELY PROHIBITED. NdFeB prohibited per G8. Funamori marine actor scope."
+path = "90-docs/adr/2605264100-marine-renewable-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605264200"
+title = "Mechanical energy storage (pumped-hydro-micro/CAES/flywheel/gravity-block) — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Pumped-hydro-micro ≤500 kW (mizuho waqf water-rights) + flywheel ≤100 kW + gravity-block ≤500 kW + CAES-surface ≤100 kW R&D. CAES-underground ABSOLUTELY PROHIBITED (D1 geological + D2 multi-gen leak)."
+path = "90-docs/adr/2605264200-mechanical-energy-storage-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605264300"
+title = "CSP + solar process heat — D1..D5 evaluation R0 (closes original 6-gap list at 6/6)"
+status = "proposed-pending-council-ratification"
+status_note = "Parabolic-trough + Stirling-dish CSP ≤500 kW thermal + solar process heat ≤200°C direct-use conditional permits. CSP tower DEFERRED. Cross-actor heat-network architecture defines mitsuho/hagukumi/iyashi/yakushi/tatekata/igata/biomethane heat mesh."
+path = "90-docs/adr/2605264300-csp-solar-thermal-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605264500"
+title = "Geothermal deep + EGS — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Medium-depth (500-3000 m, ≤2 MW/well) + EGS R&D (Council Lv7+ unanimity per hydraulic stimulation + ≥M3.0 induced-seismicity tripwire = site abandonment) conditional. Ultra-deep + supercritical DEFERRED. NORM screening MANDATORY."
+path = "90-docs/adr/2605264500-geothermal-deep-egs-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605264600"
+title = "Direct air capture (DAC) — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Solid-amine ≤1 t/day + L-DAC ≤500 kg/day + mineralization ≤10 t/day conditional. Geological CCS (D1+D2 multi-gen) + voluntary carbon-credit-market sale (Charter §2(b) financialization + hikari N8) ABSOLUTELY PROHIBITED. Closed-loop synfuel feedstock."
+path = "90-docs/adr/2605264600-direct-air-capture-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605264700"
+title = "Methanol + DME synfuel — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "MeOH via Cu/ZnO/Al₂O₃ from green H₂ + DAC CO₂ ≤500 kg/day + DME ≤200 kg/day R3. Fossil-syngas + biomethane-syngas PROHIBITED. Stoichiometry chain-of-custody MANDATORY. Cross-actor wadachi/sarutahiko/suki R3+ ICE backup."
+path = "90-docs/adr/2605264700-methanol-dme-synfuel-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605264800"
+title = "Algal biofuel — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Photoautotrophic microalgae ≤10 t-DW/yr + FAME via methanol + HVO drop-in diesel/jet via green H₂. Heterotrophic sugar-fed algae PROHIBITED through R3 (N4) unless religious-corp non-food cellulosic (2605265300). Cross-actor mitsuho protein co-product fish-feed substitute."
+path = "90-docs/adr/2605264800-algal-biofuel-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605264900"
+title = "V2G + demand-response coordination — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "V2G ≤25 kW/vehicle + ≤500 kW aggregate R3 into religious-corp microgrid only. DR coordination aggregate-only ≥1-hour buckets (NO per-appliance/individual telemetry per hikari N7). Commercial-grid V2G + commercial-DR programs ABSOLUTELY PROHIBITED."
+path = "90-docs/adr/2605264900-v2g-demand-response-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605265000"
+title = "District heating + cooling networks — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "4GDH/5GDH/5DHC ≤2 MW/network + ≤5 networks R3. Commercial district-energy-utility (Veolia/E.ON/Vattenfall/Fortum/Engie) ABSOLUTELY PROHIBITED. Per-consumer metering aggregate ≥1-hour buckets only (N7). Cost-recovery billing only."
+path = "90-docs/adr/2605265000-district-heating-cooling-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605265100"
+title = "Fusion fuel sourcing (D/T/Li-6/He-3/B-11) — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "D (seawater) + B-11 (terrestrial mining) ✓. T constrained (Li-6 enrichment Council Lv7+ unanimity per program). He-3 EFFECTIVELY UNAVAILABLE (no D1-compliant source; D-He³ deferred indefinitely). Commercial CANDU T + US DoE Savannah River He-3 PROHIBITED. Confirms p-B¹¹ as only fully self-sourceable fusion fuel."
+path = "90-docs/adr/2605265100-fusion-fuel-sourcing-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605265200"
+title = "Sustainable aviation fuel (SAF) — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "HEFA-SPK (Annex A2/A7 via algal-HVO) + e-Jet-FT (Annex A1 via green H₂ + DAC CO₂) ≤500 kg/yr R3. Religious-corp aviation = mission-essential only. Leisure/charter aviation ABSOLUTELY PROHIBITED. ATJ-SPK corn-ethanol PROHIBITED (N4). Commercial SAF off-take + CORSIA credits PROHIBITED."
+path = "90-docs/adr/2605265200-saf-sustainable-aviation-fuel-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605265300"
+title = "Cellulosic ethanol (non-food agricultural waste) — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Cellulosic ethanol from mitsuho residue + hodoki/tatekata cellulosic + future bamboo ≤200 t/yr R3. ≤30% crop-residue extraction. Open-publication enzymes only (Trichoderma reesei + Aspergillus niger fungal; Codexis/Novozymes/DuPont/DSM proprietary PROHIBITED). Closes 2605265200 §4 + 2605264800 §4 deferrals."
+path = "90-docs/adr/2605265300-cellulosic-ethanol-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605265400"
+title = "e-Fuels Fischer-Tropsch full product slate — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "FT non-jet product slate (diesel + naphtha + wax + lubricant) ≤500 kg/yr R3. Cross-actor circular: diesel → wadachi/sarutahiko backup; naphtha → algal-extraction; wax → mitsuho orchard; lubricant → kuni-umi/tatekata/igata. ASF α-tuning Council-mediated quarterly. Completes synfuel matrix."
+path = "90-docs/adr/2605265400-e-fuels-fischer-tropsch-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605265500"
+title = "Concentrated PV (CPV) with III-V multijunction — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "Si-CPV (≤100× concentration leveraging hikari R0 Si baseline) ≤200 kW/facility R3 conditional. III-V multijunction PROHIBITED through R3 (MOCVD epitaxy = 3 vendors globally; D1+D5 fail). DNI ≥1800 kWh/m²/yr site qualification. Heat-recovery cogeneration cross-actor with ADR-2605265000 district network."
+path = "90-docs/adr/2605265500-concentrated-pv-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605265600"
+title = "Salinity-gradient PRO/RED open-design membrane — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "PRO + RED with open-publication or religious-corp-developed membranes ≤50 kW/site ≤1 site R3. Toray/Hydranautics/GE/Statkraft proprietary ABSOLUTELY PROHIBITED. PFAS chemistries (Nafion-class) PROHIBITED per Charter §2(c). Power-density ≥1 W/m² gate. Closes 2605264100 §4 membrane-IP gap."
+path = "90-docs/adr/2605265600-salinity-gradient-pro-red-open-membrane-d-gate-evaluation-r0.md"
+
+[[adrs]]
+id = "2605265700"
+title = "Sodium-sulfur (NaS) molten-salt battery — D1..D5 evaluation R0"
+status = "proposed-pending-council-ratification"
+status_note = "NaS molten-salt (300-350°C, open-formula β″-Al₂O₃ ceramic electrolyte) ≤500 kWh/facility ≤2.5 MWh aggregate R3. NGK Insulators commercial NAS modules ABSOLUTELY PROHIBITED (effective monopoly + closed IP). Mandatory thermal-runaway containment + Class D fire-suppression + ≥4500-cycle attestation. Niche-fit 6-24 hr discharge multi-day-bridging."
+path = "90-docs/adr/2605265700-sodium-sulfur-battery-d-gate-evaluation-r0.md"
+
 
 
 # ─── baien ameno WGSL BitLinear numeric test R1a (ADR-2605263400) ──
@@ -7142,3 +7277,33 @@ adr = "ADR-2605262400"
 kind = "acceptance-template-namespace"
 status = "w0-landed"
 description = "Per-source acceptance flag templates + workflow README. 4 templates landed: _generic-tierA-optional / _generic-tierB-required / _generic-tierC-required / opencorporates-opendata. Workflow: cp <template> ~/.etzhayyim/source-acceptance/<source>.toml + fill accepted_at + accepted_by_did. Tier-A optional (audit trail); Tier-B required; Tier-C mandatory fail-closed; Tier-D (Bloomberg Terminal/Refinitiv/FactSet/Moody's Orbis/D&B/Pitchbook/Crunchbase Pro/GovWin IQ/Bloomberg Government/Politico Pro/E&E News Pro/FiscalNote/CQ Roll Call Pro/Westlaw/LexisNexis/Bloomberg Law/Wolters Kluwer) CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c) — no template available."
+
+# ─── SDK three-free cutover + 20-actors duplicate retirement + CI (iter-1..13 of /loop, 2026-05-26) ──
+
+[[adrs]]
+id = "2605264300"
+title = "kami-engine-sdk three.js-free cutover (spark / webvr / VRM type / dead-deps)"
+status = "active"
+path = "90-docs/adr/2605264300-kami-engine-sdk-three-free-cutover.md"
+status_note = "Consolidates the 3-commit SDK-wide three.js retirement (`b04c54eb5` + `ea0fd3ab8` + `5d2ba4b2d`) into one canonical record. Extends ADR-0031's VRM-only cutover to the **full SDK surface**: deletes `src/lib/spark/` (sparkjs.dev demos) + `src/lib/webvr/{webvr-scene,node-effects}.ts` (three-vrm renderer); removes `ThreeVrmHandle` interface + `DualEngineState.three` + 2-arg `updateEngines(kami, three)` + `(state.three as any)?.vrm` dead reads; strips `declare module 'three'` from `ambient.d.ts`; drops `three` + `@pixiv/three-vrm` peerDeps + `./spark` export. Canonical 3DGS = `kami-pipelines::GsplatAdapter` (Rust+wgpu). Canonical VRM = `KamiWasmExports.runEmbedVrm`. Headless `createIncidentVrEngine` (renderer-pluggable via `onScene`). Vendor carve-out: cyber-drill vendorizes three at `$lib/three-renderer/` per ADR-2605172400. Downstream cleanup landed: baminiku ykb48d7a (`5d2ba4b2d`) + image2vrm + image2metahuman (`0384841bd` iter-12). sos + global remain deferred (no design intent documented). §1 Notes documents a parallel-session race that produced a misleading commit-message; this ADR is the canonical reference for the actual content of `b04c54eb5`."
+
+[[adrs]]
+id = "2605265200"
+title = "kami-engine-sdk 20-actors legacy duplicate retirement (3-phase, all phases complete)"
+status = "active"
+path = "90-docs/adr/2605265200-kami-engine-sdk-20-actors-legacy-duplicate-retirement.md"
+status_note = "Eliminated the dangerous structural condition of two `package.json` files declaring `name: \"@etzhayyim/kami-engine-sdk\"` (canonical 40-engine subrepo + stale 20-actors duplicate). 3-phase deprecation completed same-day: Phase 1 (`491ff8ee6` iter-9) DEPRECATED.md + canonical workspace registration. Phase 2 (`243470dc8` iter-10) verification log — `pnpm install --lockfile-only` resolves canonical only, 20-actors NOT in lockfile. Phase 3 (`2d199cca9` iter-11) `git rm -r 20-actors/kami-engine-sdk/` — 80 files / +5 / -12,216 lines / e7m verify 9/9 ✓ / SDK build ✓ / SDK vitest 82 ✓. 4 alternatives considered + rejected (delete-immediately for race risk / symlink for subrepo circularity / re-export shim for same-name persistence / reverse direction for engine-family fit). Retirement was monorepo-internal — 20-actors copy was never published to npm."
+
+[[modules]]
+path = ".github/workflows/kami-engine-sdk.yml"
+adr = "ADR-2605264300"
+kind = "ci-workflow"
+status = "iter-13-landed"
+description = "Path-triggered GitHub Actions workflow that regression-tests the SDK build + vitest + cyber-drill prod build chain. Triggers on changes under `40-engine/kami-engine/kami-engine-sdk/**`, `60-apps/ai-gftd-project-cyber-drill/**`, `pnpm-workspace.yaml`, `pnpm-lock.yaml`, or itself. Three steps in one job (avoids inter-job artifact transfer): SDK `svelte-package -i src/lib` build + SDK vitest (≥82 passing tests gate; pre-existing langgraph optional-peer-dep file failure tolerated) + cyber-drill `pnpm install --ignore-workspace && pnpm run build` (vite SSR + SvelteKit static adapter prerender; exercises `build.rollupOptions.external` langchain config from `b638c27e0`). Local pre-flight wall-clock: SDK build 1.65s + vitest 1.20s + cyber-drill build 2.31s. Protects ADR-2605264300 + ADR-2605265200 outcomes from future regressions."
+
+[[modules]]
+path = "60-apps/ai-gftd-project-cyber-drill/svelte/src/lib/three-renderer"
+adr = "ADR-2605264300"
+kind = "vendor-renderer"
+status = "iter-1-vendorized"
+description = "Vendor-private three.js scene surface (cyber-drill carve-out per ADR-2605172400). 12 files originally lived at `@etzhayyim/kami-engine-sdk/src/lib/{spark,webvr}/`; renamed into cyber-drill on 2026-05-26 (commit `b04c54eb5` aka the `feat(nv_compat): isaaclab.utils.math` race-renamed commit per ADR-2605264300 §1 Notes). Rewired to consume the headless SDK engine via `@etzhayyim/kami-engine-sdk/webvr`. Includes barrel `index.ts` + WebXR `ambient.d.ts` (moved from SDK). Religious-corp SDK no longer ships three.js code; cyber-drill is the only vendor app currently carrying it."

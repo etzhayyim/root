@@ -245,12 +245,25 @@ Six 60-apps still declare `three` deps in `package.json` despite no actual `src/
 | ai-gftd-project-cad/appview/.../svelte | declared | (scaffold stub) | CLAUDE.md pins `Threlte` | KEEP — vendor design intent |
 | ai-gftd-project-baminiku/.../ykb48d7a/svelte-viewer | **REMOVED 5d2ba4b2d** | none | CLAUDE.md cites ADR-0031 | DONE |
 | ai-gftd-project-baminiku/.../ykb48d7a/svelte-liver | **REMOVED 5d2ba4b2d** | none | CLAUDE.md cites ADR-0031 | DONE |
-| ai-gftd-project-image2vrm/appview/.../svelte | declared | (scaffold stub) | CLAUDE.md documents dual-engine right-pane Three.js | DEFERRED — needs design decision |
-| ai-gftd-project-image2metahuman/appview/.../svelte | declared | (scaffold stub) | CLAUDE.md same pattern as image2vrm | DEFERRED — needs design decision |
+| ai-gftd-project-image2vrm/appview/.../svelte | **REMOVED 0384841bd (iter-12)** | none | CLAUDE.md rewritten KAMI-only same commit | DONE |
+| ai-gftd-project-image2metahuman/appview/.../svelte | **REMOVED 0384841bd (iter-12)** | none | no CLAUDE.md (deps cleanup only; consistent with SDK three-free) | DONE |
 | ai-gftd-project-sos/appview/.../svelte | declared | none | no CLAUDE.md | DEFERRED — needs design intent |
 | ai-gftd-project-global/appview/.../svelte | declared | none | no CLAUDE.md | DEFERRED — needs design intent |
 
-The DEFERRED entries are NOT blocked by this ADR; they're waiting on per-app design decisions about whether the dual-engine plan stays or goes (and if it goes, the CLAUDE.md needs to be rewritten in the same change as the `package.json` cleanup, so doc + code stay consistent).
+The two DEFERRED entries remaining (sos / global) are NOT blocked by this ADR; they're waiting on per-app design decisions about whether the apps will be revived (decide and document architecture) or retired (then the dead deps can be cleaned as part of the retirement). Both apps have no CLAUDE.md and no current src usage, so the design intent has to come from outside the repo.
+
+## CI regression-test addendum (2026-05-26 iter-13 of /loop)
+
+After the §2 deferred items for image2vrm / image2metahuman closed in
+iter-12 (`0384841bd`), iter-13 added `.github/workflows/kami-engine-sdk.yml`
+(commit `b96e6e193`) — a path-triggered GitHub Actions workflow that
+regression-tests the SDK build + vitest + cyber-drill prod build chain
+on every relevant PR + push to main. The workflow protects the
+canonical artifacts of this ADR (SDK svelte-package dist + 82-test
+suite + cyber-drill `link:` resolution + langchain externalize config
+from `b638c27e0`) from future regressions. See ADR-2605265200's CI
+regression-test addendum for the same workflow's role in protecting
+the duplicate-retirement outcome.
 
 ## References
 
