@@ -377,6 +377,114 @@ weight        = 1.0
     assert manifest["outputMetadata"]["license_summary"] == "Apache-2.0 + Charter Rider v2.0"
 
 
+def test_source_description_default_empty(assembler, tmp_path):
+    recipe_body = """
+target_artifact = "baien-server-x-v1"
+output_subdataset = "x"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://x"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 1.0
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    assert recipe.sources[0].description == ""
+
+
+def test_source_description_surfaces_in_dry_run_and_manifest(assembler, tmp_path):
+    """Per-source `description` TOML field round-trips through dry-run
+    preview (new `sources` array) and assembly manifest (per-source
+    entry under `manifest["sources"]`)."""
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    subdir = annex / "netreg" / "iana-root" / "iana-snap-260526"
+    subdir.mkdir(parents=True, exist_ok=True)
+    (subdir / "root.zone.ndjson").write_text(
+        json.dumps({"tld": "aaa", "ns": [], "ds": [], "glue": []}) + "\n",
+        encoding="utf-8",
+    )
+
+    iana_desc = (
+        "IANA root zone — TLD ⇒ delegated NS authoritative for top of DNS"
+    )
+    recipe_body = f"""
+target_artifact = "baien-server-iana-sd-v1"
+output_subdataset = "iana-sd-v1"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+shard_glob    = "root.zone.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 1.0
+description   = "{iana_desc}"
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    assert recipe.sources[0].description == iana_desc
+
+    # Dry-run preview now carries a `sources` array (additive).
+    summary = assembler.dry_run_summary(recipe)
+    assert "sources" in summary
+    assert len(summary["sources"]) == 1
+    src_preview = summary["sources"][0]
+    assert src_preview["subdataset"] == "netreg/iana-root"
+    assert src_preview["description"] == iana_desc
+
+    # Assembly manifest per-source entry also carries description.
+    manifest = assembler.assemble(recipe, annex_root=annex, out_dir=out_dir)
+    assert manifest["sources"][0]["description"] == iana_desc
+
+
+def test_dry_run_sources_preserves_legacy_fields(assembler, tmp_path):
+    """The new `sources` preview in dry_run_summary preserves all the
+    existing per-source fields (subdataset, tier, license, weight) so
+    the addition is purely additive."""
+    recipe_body = """
+target_artifact = "baien-server-x-v1"
+output_subdataset = "x"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://x"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 0.4
+
+[[source]]
+subdataset    = "netreg/rir-delegated/apnic"
+datasetPin_at = "at://y"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain-defacto"
+weight        = 0.6
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    summary = assembler.dry_run_summary(recipe)
+    assert summary["sourceCount"] == 2
+    assert len(summary["sources"]) == 2
+    # Ordering preserved.
+    assert summary["sources"][0]["subdataset"] == "netreg/iana-root"
+    assert summary["sources"][1]["subdataset"] == "netreg/rir-delegated/apnic"
+    # All legacy fields present.
+    for s in summary["sources"]:
+        for k in ("subdataset", "tier", "license", "weight", "description"):
+            assert k in s
+
+
 def test_output_metadata_defaults_to_empty_dict(assembler, tmp_path):
     """Recipe without [output_metadata] ⇒ empty dict (not None)."""
     recipe_body = """

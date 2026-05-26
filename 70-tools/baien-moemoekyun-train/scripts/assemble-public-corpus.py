@@ -73,6 +73,7 @@ class SourceSpec:
     sa_propagates: bool = False
     max_rows: int = 0  # 0 = no cap (full file); per-source override
     max_bytes: int = 0  # 0 = no cap (full file); per-source override
+    description: str = ""  # per-source operator-facing context (free-form)
 
 
 @dataclass
@@ -149,6 +150,7 @@ def load_recipe(path: Path) -> Recipe:
             sa_propagates=bool(s.get("sa_propagates", False)),
             max_rows=int(s.get("max_rows", 0)),
             max_bytes=int(s.get("max_bytes", 0)),
+            description=str(s.get("description", "")),
         )
         for s in sources_raw
     ]
@@ -180,6 +182,19 @@ def dry_run_summary(recipe: Recipe) -> dict[str, Any]:
     placeholders = [
         s.subdataset for s in recipe.sources if _is_placeholder(s.dataset_pin_at)
     ]
+    # Lightweight per-source preview (operator-facing). Helpful when the
+    # operator is browsing recipes via `--dry-run` and wants to see what
+    # each source actually contributes without opening the TOML.
+    sources_preview = [
+        {
+            "subdataset": s.subdataset,
+            "tier": s.tier,
+            "license": s.license,
+            "weight": s.weight,
+            "description": s.description,
+        }
+        for s in recipe.sources
+    ]
     return {
         "recipePath": str(recipe.recipe_path) if recipe.recipe_path else None,
         "targetArtifact": recipe.target_artifact,
@@ -189,6 +204,7 @@ def dry_run_summary(recipe: Recipe) -> dict[str, Any]:
         "maxTierCap": recipe.max_tier_cap,
         "computedMaxTier": recipe.computed_max_tier,
         "sourceCount": len(recipe.sources),
+        "sources": sources_preview,
         "placeholderPins": placeholders,
         "seedBlock": (
             {
@@ -669,6 +685,7 @@ def assemble(
 
         per_source.append({
             "subdataset": src.subdataset,
+            "description": src.description,
             "tier": src.tier,
             "license": src.license,
             "weight": src.weight,
