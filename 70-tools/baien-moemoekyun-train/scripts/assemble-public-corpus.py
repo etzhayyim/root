@@ -210,6 +210,12 @@ def dry_run_summary(recipe: Recipe) -> dict[str, Any]:
             {
                 "weight": recipe.seed_block.weight,
                 "seedPath": str(recipe.seed_block.seed_path),
+                # Honestly report whether the file is actually present
+                # on disk. Operators have been bitten by recipes that
+                # claim weight=0.50 seed but silently emit zero seed
+                # rows because the seed_path doesn't resolve (the
+                # assembler does an .exists() check before copying).
+                "exists": recipe.seed_block.seed_path.exists(),
             }
             if recipe.seed_block
             else None
@@ -280,13 +286,25 @@ def summary_markdown(recipe: Recipe) -> str:
         lines.append("")
 
     if recipe.seed_block is not None:
-        lines.append("## Seed block")
+        exists = recipe.seed_block.seed_path.exists()
+        header = "## Seed block" if exists else "## Seed block — ⚠ MISSING"
+        lines.append(header)
         lines.append("")
+        if not exists:
+            lines.append(
+                f"> The seed_path does not exist on disk. The assembler "
+                f"silently skips missing seed blocks, so a recipe declaring "
+                f"`weight = {recipe.seed_block.weight:.2f}` seed will in fact "
+                f"emit ZERO seed rows. Author the file or remove `[seed_block]` "
+                f"to keep the corpus honest about its composition."
+            )
+            lines.append("")
         if recipe.seed_block.description:
             lines.append(recipe.seed_block.description)
             lines.append("")
         lines.append(f"- **Weight**: {recipe.seed_block.weight:.2f}")
         lines.append(f"- **Path**: `{recipe.seed_block.seed_path}`")
+        lines.append(f"- **Exists on disk**: {'yes' if exists else 'NO'}")
         lines.append("")
 
     return "\n".join(lines).rstrip() + "\n"
@@ -826,6 +844,10 @@ def assemble(
             "weight": recipe.seed_block.weight if recipe.seed_block else None,
             "emittedRows": seed_emitted,
             "path": seed_path_out,
+            "sourcePathExisted": (
+                recipe.seed_block.seed_path.exists()
+                if recipe.seed_block else False
+            ),
         } if recipe.seed_block else None,
         "outDir": str(out_dir),
     }

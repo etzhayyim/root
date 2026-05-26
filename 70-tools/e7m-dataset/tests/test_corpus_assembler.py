@@ -598,6 +598,111 @@ description = "Synthetic Q/A — CC0"
     assert "**Weight**: 0.50" in md
 
 
+def test_seed_block_exists_flag_in_dry_run_and_manifest(assembler, tmp_path):
+    """Recipes declaring a [seed_block] whose `seed_path` doesn't
+    resolve on disk would previously SILENTLY emit zero seed rows
+    while presenting in dry-run / manifest output as if the block
+    were active. Now the assembler honestly reports the file's
+    existence on both surfaces."""
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    subdir = annex / "netreg" / "iana-root" / "iana-snap-260526"
+    subdir.mkdir(parents=True, exist_ok=True)
+    (subdir / "root.zone.ndjson").write_text(
+        json.dumps({"tld": "aaa", "ns": [], "ds": [], "glue": []}) + "\n",
+        encoding="utf-8",
+    )
+
+    # Missing seed block — file referenced but never authored.
+    recipe_body = """
+target_artifact = "baien-server-iana-missing-seed-v1"
+output_subdataset = "iana-x/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+shard_glob    = "root.zone.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 0.5
+
+[seed_block]
+weight = 0.5
+seed_path = "/tmp/nonexistent-seed-block-file.jsonl"
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+
+    # Dry-run surfaces "exists": False.
+    summary = assembler.dry_run_summary(recipe)
+    assert summary["seedBlock"] is not None
+    assert summary["seedBlock"]["exists"] is False
+
+    # Manifest surfaces "sourcePathExisted": False + emittedRows = 0.
+    manifest = assembler.assemble(recipe, annex_root=annex, out_dir=out_dir)
+    assert manifest["seedBlock"]["sourcePathExisted"] is False
+    assert manifest["seedBlock"]["emittedRows"] == 0
+
+    # Markdown summary surfaces a visible warning.
+    md = assembler.summary_markdown(recipe)
+    assert "## Seed block — ⚠ MISSING" in md
+    assert "ZERO seed rows" in md
+    assert "Exists on disk**: NO" in md
+
+
+def test_seed_block_exists_flag_when_file_present(assembler, tmp_path):
+    """Sanity check: present seed file → exists=True, no warning."""
+    annex = tmp_path / "annex"
+    out_dir = tmp_path / "out"
+    subdir = annex / "netreg" / "iana-root" / "iana-snap-260526"
+    subdir.mkdir(parents=True, exist_ok=True)
+    (subdir / "root.zone.ndjson").write_text(
+        json.dumps({"tld": "aaa", "ns": [], "ds": [], "glue": []}) + "\n",
+        encoding="utf-8",
+    )
+
+    seed_src = tmp_path / "seed.jsonl"
+    seed_src.write_text(
+        '{"q": "what is APNIC?", "a": "the asia-pacific RIR"}\n',
+        encoding="utf-8",
+    )
+
+    recipe_body = f"""
+target_artifact = "baien-server-iana-with-seed-v1"
+output_subdataset = "iana-x/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+shard_glob    = "root.zone.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 0.5
+
+[seed_block]
+weight = 0.5
+seed_path = "{seed_src}"
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+
+    summary = assembler.dry_run_summary(recipe)
+    assert summary["seedBlock"]["exists"] is True
+
+    manifest = assembler.assemble(recipe, annex_root=annex, out_dir=out_dir)
+    assert manifest["seedBlock"]["sourcePathExisted"] is True
+    assert manifest["seedBlock"]["emittedRows"] == 1
+
+    md = assembler.summary_markdown(recipe)
+    # The MISSING marker should NOT appear.
+    assert "MISSING" not in md
+    assert "Exists on disk**: yes" in md
+
+
 def test_summary_markdown_sa_propagates(assembler, tmp_path):
     """SA-propagates flag shows up in source's bullet list."""
     recipe_body = """
