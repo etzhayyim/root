@@ -704,6 +704,104 @@ def _emit_vector_roads_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str
 """
 
 
+def _try_pyarrow():
+    try:
+        import pyarrow.parquet as pq   # type: ignore
+        return pq
+    except ImportError:
+        return None
+
+
+def _wgs84_to_local(
+    lon: float, lat: float, plan_bbox: tuple[float, float, float, float],
+) -> tuple[float, float]:
+    """Convert WGS84 lon/lat → scene-local meter grid (matching _bbox_local_corners).
+
+    Uses the same cos(lat-centroid) approximation as `_bbox_local_corners`
+    so building/road geometry in real WGS84 Parquet rows lands in the
+    same coordinate frame as the synth fallback. W2.3 swaps this for
+    proper pyproj projection when pyproj is installed.
+    """
+    import math as _math
+    w, s, e, n = plan_bbox
+    cy = (s + n) / 2.0
+    lat_m = 111_320.0
+    lon_m = 111_320.0 * _math.cos(_math.radians(cy))
+    cx = (w + e) / 2.0
+    x = (lon - cx) * lon_m
+    y = (lat - cy) * lat_m
+    return x, y
+
+
+def _load_overture_buildings_parquet(
+    parquet_path: Path,
+    plan_bbox: tuple[float, float, float, float],
+    *,
+    default_height_m: float,
+    max_count: int = 20,
+) -> Optional[list[tuple[list[tuple[float, float]], float]]]:
+    """W2.2: load building footprints from an Overture buildings Parquet.
+
+    Returns the same shape as `_synth_building_polygons` so the emitter
+    needs no changes. Uses the row's `bbox` struct column (Overture
+    canonical: `{xmin, xmax, ymin, ymax}` in WGS84) to produce an
+    axis-aligned rectangle per row — sufficient for W2.2 sim density.
+    Full WKB Polygon parsing (curved + non-rectangular footprints) is
+    W2.3. Returns None when pyarrow is unavailable so the caller falls
+    back to synth.
+
+    The Parquet must contain at least a `bbox` column (struct of 4
+    floats) and SHOULD contain `height` (float64). Rows whose bbox
+    falls entirely outside `plan_bbox` are skipped. Results are
+    deterministic w.r.t. row order in the Parquet (G6).
+    """
+    pq = _try_pyarrow()
+    if pq is None:
+        return None
+    if not parquet_path.exists():
+        return None
+
+    table = pq.read_table(parquet_path, columns=["bbox", "height"])
+    n = table.num_rows
+    bbox_col = table.column("bbox").to_pylist()
+    height_col = (
+        table.column("height").to_pylist() if "height" in table.column_names
+        else [None] * n
+    )
+
+    w, s, e, north = plan_bbox
+    out: list[tuple[list[tuple[float, float]], float]] = []
+    for i in range(n):
+        b = bbox_col[i]
+        if not isinstance(b, dict):
+            continue
+        # Overture canonical keys; tolerate alternate naming.
+        xmin = b.get("xmin", b.get("minx"))
+        xmax = b.get("xmax", b.get("maxx"))
+        ymin = b.get("ymin", b.get("miny"))
+        ymax = b.get("ymax", b.get("maxy"))
+        if None in (xmin, xmax, ymin, ymax):
+            continue
+        # Skip rows entirely outside the plan bbox.
+        if xmax < w or xmin > e or ymax < s or ymin > north:
+            continue
+        # Clip to plan bbox.
+        cx0 = max(xmin, w)
+        cx1 = min(xmax, e)
+        cy0 = max(ymin, s)
+        cy1 = min(ymax, north)
+        if cx1 <= cx0 or cy1 <= cy0:
+            continue
+        lx0, ly0 = _wgs84_to_local(cx0, cy0, plan_bbox)
+        lx1, ly1 = _wgs84_to_local(cx1, cy1, plan_bbox)
+        poly = [(lx0, ly0), (lx1, ly0), (lx1, ly1), (lx0, ly1)]
+        h_val = height_col[i] if height_col[i] is not None else default_height_m
+        out.append((poly, float(h_val)))
+        if len(out) >= max_count:
+            break
+    return out
+
+
 def _synth_building_polygons(
     cid: str,
     bbox: tuple[float, float, float, float],
@@ -770,9 +868,24 @@ def _emit_vector_buildings_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name:
     default_h = float(extrude_cfg.get("default_height_m", 8.0))
     material_token = str(extrude_cfg.get("material", "kami-pbrt:Concrete_Grey"))
 
-    polygons = _synth_building_polygons(
-        layer.resolved_cid, (x0, y0, x1, y1), default_height_m=default_h
-    )
+    # W2.2: try real Overture Parquet first (operator points to staged file
+    # via `extra.local_parquet_path`); else fall back to CID-seeded synth.
+    polygons: Optional[list[tuple[list[tuple[float, float]], float]]] = None
+    polygon_source = "synth-cid-seeded-w2.1"
+    parquet_path_str = layer.extra.get("local_parquet_path")
+    if isinstance(parquet_path_str, str) and parquet_path_str:
+        polygons = _load_overture_buildings_parquet(
+            Path(parquet_path_str),
+            plan.bbox if isinstance(plan.bbox, tuple)
+            else tuple(plan.bbox),       # type: ignore[arg-type]
+            default_height_m=default_h,
+        )
+        if polygons:
+            polygon_source = f"overture-parquet-w2.2:{parquet_path_str}"
+    if polygons is None:
+        polygons = _synth_building_polygons(
+            layer.resolved_cid, (x0, y0, x1, y1), default_height_m=default_h
+        )
 
     child_meshes: list[str] = []
     for idx, (poly, h) in enumerate(polygons):
@@ -819,7 +932,7 @@ def _emit_vector_buildings_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name:
         string kami_tier = "{layer.tier}"
         int kami_building_count = {len(polygons)}
         token kami_material = "{material_token}"
-        string kami_polygon_source = "synth-cid-seeded-w2.1"
+        string kami_polygon_source = "{polygon_source}"
 
 {''.join(child_meshes)}    }}
 """

@@ -532,6 +532,126 @@ def test_w2_1_buildings_determinism_g6_via_full_emit(assemble_mod):
     assert a == b
 
 
+# ─── W2.2 Overture Parquet ingest (pyarrow) ──────────────────────────
+
+
+def _make_overture_buildings_parquet(path, rows):
+    """Write a tiny Overture-shaped buildings Parquet via pyarrow.
+
+    `rows` = list of dicts with bbox + height. Schema mirrors Overture's
+    canonical buildings columns (subset).
+    """
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    bbox_struct = pa.struct([
+        ("xmin", pa.float64()), ("xmax", pa.float64()),
+        ("ymin", pa.float64()), ("ymax", pa.float64()),
+    ])
+    table = pa.table({
+        "bbox": pa.array([r["bbox"] for r in rows], type=bbox_struct),
+        "height": pa.array([r.get("height") for r in rows], type=pa.float64()),
+    })
+    pq.write_table(table, path)
+
+
+def test_w2_2_load_overture_buildings_basic(assemble_mod, tmp_path):
+    """Operator-staged Parquet → axis-aligned rectangle per row."""
+    parquet = tmp_path / "buildings.parquet"
+    _make_overture_buildings_parquet(parquet, [
+        {"bbox": {"xmin": 139.695, "xmax": 139.696, "ymin": 35.655, "ymax": 35.656}, "height": 25.0},
+        {"bbox": {"xmin": 139.700, "xmax": 139.701, "ymin": 35.660, "ymax": 35.661}, "height": 12.0},
+        {"bbox": {"xmin": 139.705, "xmax": 139.706, "ymin": 35.665, "ymax": 35.666}, "height": 8.0},
+    ])
+    plan_bbox = (139.69, 35.65, 139.71, 35.67)
+    polygons = assemble_mod._load_overture_buildings_parquet(
+        parquet, plan_bbox, default_height_m=8.0
+    )
+    assert polygons is not None
+    assert len(polygons) == 3
+    # Each polygon must be a 4-corner closed rect.
+    for poly, h in polygons:
+        assert len(poly) == 4
+        assert isinstance(h, float)
+    # Heights round-tripped.
+    heights = sorted(h for _poly, h in polygons)
+    assert heights == [8.0, 12.0, 25.0]
+
+
+def test_w2_2_load_overture_skips_rows_outside_bbox(assemble_mod, tmp_path):
+    parquet = tmp_path / "buildings.parquet"
+    _make_overture_buildings_parquet(parquet, [
+        {"bbox": {"xmin": 0.0, "xmax": 1.0, "ymin": 0.0, "ymax": 1.0}, "height": 5.0},   # far away
+        {"bbox": {"xmin": 139.700, "xmax": 139.701, "ymin": 35.660, "ymax": 35.661}, "height": 12.0},
+        {"bbox": {"xmin": 200.0, "xmax": 201.0, "ymin": 35.0, "ymax": 36.0}, "height": 3.0},   # also far
+    ])
+    plan_bbox = (139.69, 35.65, 139.71, 35.67)
+    polygons = assemble_mod._load_overture_buildings_parquet(
+        parquet, plan_bbox, default_height_m=8.0
+    )
+    assert polygons is not None
+    assert len(polygons) == 1
+    assert polygons[0][1] == 12.0
+
+
+def test_w2_2_load_overture_missing_file_returns_none(assemble_mod, tmp_path):
+    polygons = assemble_mod._load_overture_buildings_parquet(
+        tmp_path / "does-not-exist.parquet", (0, 0, 1, 1), default_height_m=8.0
+    )
+    assert polygons is None
+
+
+def test_w2_2_load_overture_default_height_when_null(assemble_mod, tmp_path):
+    parquet = tmp_path / "buildings.parquet"
+    _make_overture_buildings_parquet(parquet, [
+        {"bbox": {"xmin": 139.700, "xmax": 139.701, "ymin": 35.660, "ymax": 35.661}, "height": None},
+    ])
+    polygons = assemble_mod._load_overture_buildings_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67), default_height_m=15.0
+    )
+    assert polygons is not None
+    assert polygons[0][1] == 15.0   # fell back to default
+
+
+def test_w2_2_emit_uses_parquet_when_layer_points_to_it(assemble_mod, tmp_path):
+    """When the layer extra carries `local_parquet_path`, emit uses real polygons."""
+    parquet = tmp_path / "real-buildings.parquet"
+    _make_overture_buildings_parquet(parquet, [
+        {"bbox": {"xmin": 139.700, "xmax": 139.701, "ymin": 35.660, "ymax": 35.661}, "height": 18.0},
+        {"bbox": {"xmin": 139.702, "xmax": 139.703, "ymin": 35.662, "ymax": 35.663}, "height": 22.0},
+    ])
+    # Build a scene yaml that references the parquet path under buildings layer extra.
+    scene_dir = tmp_path / "wadachi-r1-with-real-parquet"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: vector_buildings\n"
+        "      source_subdataset: geo/overture/buildings/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_parquet_path: {parquet}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    buildings = next(l for l in plan.layers if l.kind == "vector_buildings")
+    usda = assemble_mod._emit_vector_buildings_usda(buildings, plan, "BLDG")
+    # Must have exactly 2 buildings (matches the 2 Parquet rows).
+    assert usda.count('def Mesh "B') == 2
+    # Polygon source must indicate Parquet ingest, not synth.
+    assert "overture-parquet-w2.2" in usda
+    # The 18m and 22m heights should appear.
+    assert "kami_height_m = 18.000" in usda
+    assert "kami_height_m = 22.000" in usda
+
+
 # ─── W2.1 vector_roads multi-segment polylines ──────────────────────
 
 
