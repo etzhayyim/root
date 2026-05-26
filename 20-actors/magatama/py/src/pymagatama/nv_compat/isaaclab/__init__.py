@@ -6,8 +6,9 @@ Sub-namespaces:
               TerminationManager — runtime layer over envs.mdp terms)
   - utils (utils.dr per-env DomainRandomizationCfg)
   - terrains (procedural height-field generators for legged locomotion)
+  - algos (CEM trainer; PPO / SAC arrive at R1.x when full ML stack lands)
 """
 
-from . import managers, terrains, utils
+from . import algos, managers, terrains, utils
 
-__all__ = ["managers", "terrains", "utils"]
+__all__ = ["algos", "managers", "terrains", "utils"]
