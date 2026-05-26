@@ -94,13 +94,18 @@ class Recipe:
                         f"source '{s.subdataset}' tier {s.tier} exceeds cap "
                         f"{self.max_tier_cap}"
                     )
-        # NC infix gate (G5).
-        if self.computed_max_tier == "C" and "-nc-" not in self.target_artifact:
-            errors.append(
-                f"target_artifact '{self.target_artifact}' must contain "
-                f"'-nc-' infix because at least one source is Tier C "
-                f"(G5 in ADR-2605262400 §9)"
-            )
+        # NC infix gate (G5). Require `nc` to appear as its own dash-
+        # delimited token — substring match alone would pass things like
+        # "no-nc-infix" or "non-conformist".
+        if self.computed_max_tier == "C":
+            tokens = self.target_artifact.split("-")
+            if "nc" not in tokens:
+                errors.append(
+                    f"target_artifact '{self.target_artifact}' must contain "
+                    f"a standalone '-nc-' infix (dash-delimited token 'nc') "
+                    f"because at least one source is Tier C "
+                    f"(G5 in ADR-2605262400 §9)"
+                )
         total_weight = sum(s.weight for s in self.sources)
         if self.seed_block is not None:
             total_weight += self.seed_block.weight
