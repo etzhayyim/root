@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from .proposal_to_pr_draft import kaizen_proposal_to_pr_draf
+from .proposal_to_pr_draft import kaizen_proposal_to_pr_draft
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

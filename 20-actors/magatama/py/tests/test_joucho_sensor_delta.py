@@ -19,7 +19,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-import pytes
+import pytest
 
 from pymagatama.organism.joucho import (
     JouchoScores,

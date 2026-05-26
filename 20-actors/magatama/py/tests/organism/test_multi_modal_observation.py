@@ -1,7 +1,7 @@
 import io
-import struc
+import struct
 import wave
-import pytes
+import pytest
 from pydantic import TypeAdapter
 from PIL import Image
 

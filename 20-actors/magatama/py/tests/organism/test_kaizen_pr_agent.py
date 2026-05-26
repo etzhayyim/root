@@ -4,10 +4,10 @@ import subprocess
 from pathlib import Path
 from unittest.mock import MagicMock, patch, call
 
-import pytes
+import pytest
 
 from pymagatama.organism.kaizen.pr_agent import KaizenPrAgent, KaizenPrAgentAuthError, HUMAN_IN_LOOP_BOILERPLATE
-from pymagatama.organism.kaizen.proposal_to_pr_draft import kaizen_proposal_to_pr_draf
+from pymagatama.organism.kaizen.proposal_to_pr_draft import kaizen_proposal_to_pr_draft
 
 
 FAKE_PROPOSAL = {
