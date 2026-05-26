@@ -14,8 +14,24 @@ substrate-native robots (Cartpole, DoublePendulum, PlanarChain) and grows
 as more URDFs land.
 """
 
+from .anymal_c import AnymalC
 from .cartpole import Cartpole
 from .double_pendulum import DoublePendulum
+from .franka_panda import FrankaPanda
 from .planar_chain import PlanarChain
+from .urdf_builder import (
+    build_branched_urdf,
+    build_serial_chain_urdf,
+    count_joints,
+    joint_names,
+)
 
-__all__ = ["Cartpole", "DoublePendulum", "PlanarChain"]
+__all__ = [
+    # Original substrate-native robots
+    "Cartpole", "DoublePendulum", "PlanarChain",
+    # Canonical Isaac Lab benchmarks (iter 67)
+    "FrankaPanda", "AnymalC",
+    # URDF construction helpers
+    "build_serial_chain_urdf", "build_branched_urdf",
+    "count_joints", "joint_names",
+]
