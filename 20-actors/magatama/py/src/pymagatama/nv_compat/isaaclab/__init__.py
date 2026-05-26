@@ -7,11 +7,14 @@ Sub-namespaces:
   - scene (InteractiveScene — terrain + assets + sensors + cloner composition)
   - sensors (RayCaster pattern-based ray bundle — heightfield scan for
              legged locomotion, obstacle bar for nav)
-  - utils (utils.dr per-env DomainRandomizationCfg)
+  - sim   (SimulationContext singleton lifecycle wrapper — step/reset/pause
+           /stop, physics + render callback registries, instance() lookup)
+  - utils (utils.dr per-env DomainRandomizationCfg; utils.math quaternion +
+           Euler + frame-transform helpers)
   - terrains (procedural height-field generators for legged locomotion)
   - algos (CEM + PPO trainers; SAC arrives at R1.x with off-policy buffer)
 """
 
-from . import algos, managers, scene, sensors, terrains, utils
+from . import algos, managers, scene, sensors, sim, terrains, utils
 
-__all__ = ["algos", "managers", "scene", "sensors", "terrains", "utils"]
+__all__ = ["algos", "managers", "scene", "sensors", "sim", "terrains", "utils"]
