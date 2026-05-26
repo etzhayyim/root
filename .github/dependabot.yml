@@ -104,10 +104,11 @@ updates:
     directory: "/20-actors/etzhayyim-sdk"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/20-actors/kami-engine-sdk"
-    schedule:
-      interval: "weekly"
+  # `/20-actors/kami-engine-sdk` directory entry removed per ADR-2605265200
+  # Phase 3 (commit 2d199cca9, 2026-05-26 iter-11). Canonical SDK lives at
+  # `40-engine/kami-engine/kami-engine-sdk` (git subrepo of
+  # github.com/gftdcojp/kami-engine-sdk); dependabot updates for the subrepo
+  # flow through the upstream repo's own dependabot config, not here.
   - package-ecosystem: "npm"
     directory: "/20-actors/magatama/mcp/unispsc-isic-mcp"
     schedule:

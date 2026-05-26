@@ -19,16 +19,34 @@ related:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605265200-kami-engine-sdk-20-actors-legacy-duplicate-retirement
 depends_on: []
 supersedes: []
-superseded_by: []
+superseded_by:
+  - adr-2605265200-kami-engine-sdk-20-actors-legacy-duplicate-retirement
 ---
 
 # ADR-2605211845: gftd org cleanup completion + kami-engine-sdk standalone publication
 
-**Status**: accepted
+**Status**: **partially superseded** by ADR-2605265200 (the "monorepo subdir `20-actors/kami-engine-sdk/` is SoT" portion of this ADR was reversed on 2026-05-26 — canonical is now `40-engine/kami-engine/kami-engine-sdk/`, the 20-actors duplicate was deleted in Phase 3 commit `2d199cca9`)
 **Date**: 2026-05-21
 **Deciders**: Jun Kawasaki
+
+> ⚠️ **Partial supersession note (added 2026-05-26 iter-18 of /loop):**
+>
+> The "**monorepo subdir `20-actors/kami-engine-sdk/` is SoT**" decision
+> in §"kami-engine-sdk standalone publication" below is **superseded by
+> ADR-2605265200**. The canonical SDK location is now
+> `40-engine/kami-engine/kami-engine-sdk/` (git subrepo of
+> `github.com/gftdcojp/kami-engine-sdk`). The `20-actors/kami-engine-sdk/`
+> directory was retired in a 3-phase deprecation completed 2026-05-26:
+> Phase 1 `491ff8ee6` (deprecation marker + workspace registration),
+> Phase 2 `243470dc8` (verification log), Phase 3 `2d199cca9` (atomic
+> 80-file `git rm -r`).
+>
+> The rest of this ADR (gftd org cleanup completion, MOVED-tag deletions,
+> public-global reconciliation, the standalone-mirror policy concept)
+> remains historically accurate and is NOT superseded.
 
 # Context
 
