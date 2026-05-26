@@ -33,6 +33,7 @@ from pymagatama.organism.sensors.czds_sensor import CzdsSensor
 from pymagatama.organism.sensors.geolite2_sensor import Geolite2Sensor
 from pymagatama.organism.sensors.iana_root_sensor import IanaRootSensor
 from pymagatama.organism.sensors.openintel_sensor import OpenIntelSensor
+from pymagatama.organism.sensors.osm_region_sensor import OsmRegionSensor
 from pymagatama.organism.sensors.pii_filter import (
     RedactionStats,
     redact_emails,
@@ -56,6 +57,7 @@ __all__ = [
     "Geolite2Sensor",
     "IanaRootSensor",
     "OpenIntelSensor",
+    "OsmRegionSensor",
     "PiiFilterPolicy",
     "Rapid7SonarSensor",
     "RedactionStats",
