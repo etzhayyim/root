@@ -612,6 +612,129 @@ def test_w2_2_load_overture_default_height_when_null(assemble_mod, tmp_path):
     assert polygons[0][1] == 15.0   # fell back to default
 
 
+# ─── W2.2 cont. — WKB LineString roads ──────────────────────────────
+
+
+def _wkb_linestring_le(points: list[tuple[float, float]]) -> bytes:
+    """Encode (x, y) waypoints as a little-endian WKB LineString."""
+    import struct
+    out = bytearray()
+    out.append(1)                                          # little-endian
+    out += struct.pack("<I", 2)                            # geometry type = LineString
+    out += struct.pack("<I", len(points))                  # num points
+    for x, y in points:
+        out += struct.pack("<dd", x, y)
+    return bytes(out)
+
+
+def _wkb_point_le(x: float, y: float) -> bytes:
+    """Encode a WKB Point — used to test the 'skip non-LineString' path."""
+    import struct
+    return bytes([1]) + struct.pack("<I", 1) + struct.pack("<dd", x, y)
+
+
+def _make_overture_roads_parquet(path, rows: list[bytes]):
+    """Write a tiny Overture-shaped transportation Parquet with WKB geometry."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    table = pa.table({"geometry": pa.array(rows, type=pa.binary())})
+    pq.write_table(table, path)
+
+
+def test_w2_2_parse_wkb_linestring_basic(assemble_mod):
+    """Encode 3 waypoints → decode round-trip."""
+    pts = [(139.700, 35.660), (139.701, 35.661), (139.702, 35.660)]
+    wkb = _wkb_linestring_le(pts)
+    decoded = assemble_mod._parse_wkb_linestring(wkb)
+    assert decoded == pts
+
+
+def test_w2_2_parse_wkb_rejects_point(assemble_mod):
+    """A WKB Point (geometry type 1) must be skipped."""
+    decoded = assemble_mod._parse_wkb_linestring(_wkb_point_le(0.0, 0.0))
+    assert decoded is None
+
+
+def test_w2_2_parse_wkb_rejects_short_input(assemble_mod):
+    assert assemble_mod._parse_wkb_linestring(b"") is None
+    assert assemble_mod._parse_wkb_linestring(b"\x01\x02") is None
+
+
+def test_w2_2_load_overture_roads_basic(assemble_mod, tmp_path):
+    parquet = tmp_path / "roads.parquet"
+    _make_overture_roads_parquet(parquet, [
+        _wkb_linestring_le([(139.700, 35.660), (139.701, 35.661)]),
+        _wkb_linestring_le([(139.702, 35.662), (139.703, 35.663), (139.704, 35.664)]),
+        _wkb_point_le(139.705, 35.665),     # skipped (not LineString)
+    ])
+    polylines = assemble_mod._load_overture_roads_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67)
+    )
+    assert polylines is not None
+    assert len(polylines) == 2
+    # The 3-waypoint road must survive intact.
+    assert len(polylines[0]) == 2
+    assert len(polylines[1]) == 3
+
+
+def test_w2_2_load_overture_roads_skips_outside_bbox(assemble_mod, tmp_path):
+    parquet = tmp_path / "roads.parquet"
+    _make_overture_roads_parquet(parquet, [
+        _wkb_linestring_le([(0.0, 0.0), (1.0, 1.0)]),                       # far away
+        _wkb_linestring_le([(139.700, 35.660), (139.701, 35.661)]),         # inside
+        _wkb_linestring_le([(200.0, 35.0), (201.0, 36.0)]),                 # far away
+    ])
+    polylines = assemble_mod._load_overture_roads_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67)
+    )
+    assert polylines is not None
+    assert len(polylines) == 1
+
+
+def test_w2_2_load_overture_roads_missing_file_returns_none(assemble_mod, tmp_path):
+    polylines = assemble_mod._load_overture_roads_parquet(
+        tmp_path / "missing.parquet", (0, 0, 1, 1)
+    )
+    assert polylines is None
+
+
+def test_w2_2_emit_roads_uses_parquet_when_layer_points_to_it(assemble_mod, tmp_path):
+    parquet = tmp_path / "real-roads.parquet"
+    _make_overture_roads_parquet(parquet, [
+        _wkb_linestring_le([(139.700, 35.660), (139.701, 35.661), (139.702, 35.660)]),
+        _wkb_linestring_le([(139.703, 35.663), (139.704, 35.664)]),
+    ])
+    scene_dir = tmp_path / "wadachi-r1-with-real-roads"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: vector_roads\n"
+        "      source_subdataset: geo/overture/transportation/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_parquet_path: {parquet}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    roads = next(l for l in plan.layers if l.kind == "vector_roads")
+    usda = assemble_mod._emit_vector_roads_usda(roads, plan, "R")
+    # 2 polylines in Parquet → 2 child Meshes.
+    assert usda.count('def Mesh "R') == 2
+    assert "overture-parquet-w2.2" in usda
+    # Waypoint counts: 3-point line + 2-point line.
+    assert "kami_waypoint_count = 3" in usda
+    assert "kami_waypoint_count = 2" in usda
+
+
 def test_w2_2_emit_uses_parquet_when_layer_points_to_it(assemble_mod, tmp_path):
     """When the layer extra carries `local_parquet_path`, emit uses real polygons."""
     parquet = tmp_path / "real-buildings.parquet"

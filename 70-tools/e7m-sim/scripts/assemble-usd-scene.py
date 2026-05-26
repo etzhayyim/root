@@ -576,6 +576,98 @@ def _emit_raster_overlay_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: s
 """
 
 
+def _parse_wkb_linestring(data: bytes) -> Optional[list[tuple[float, float]]]:
+    """Minimal WKB decoder for LineString (geometry type = 2).
+
+    Returns the list of (x, y) WGS84 lon/lat coords, or None if the
+    geometry is not a LineString. Supports both byte orders. Z/M
+    coordinates (LineStringZ=1002, LineStringM=2002, LineStringZM=3002)
+    are decoded as (x, y) only; trailing Z/M are skipped per dimension.
+    W2.3 may extend to MultiLineString (geometry type 5).
+    """
+    import struct
+    if len(data) < 9:
+        return None
+    byte_order = data[0]   # 0=big-endian, 1=little-endian
+    if byte_order not in (0, 1):
+        return None
+    endian = "<" if byte_order == 1 else ">"
+    geom_type = struct.unpack_from(endian + "I", data, 1)[0]
+
+    # Geometry type modulo 1000 = base type; 1000+ = Z, 2000+ = M, 3000+ = ZM.
+    base_type = geom_type % 1000
+    has_z = (geom_type // 1000) % 2 == 1
+    has_m = (geom_type // 1000) // 2 == 1
+    coord_dim = 2 + (1 if has_z else 0) + (1 if has_m else 0)
+
+    if base_type != 2:   # not LineString
+        return None
+    n = struct.unpack_from(endian + "I", data, 5)[0]
+    body_offset = 9
+    stride = 8 * coord_dim
+    if len(data) < body_offset + n * stride:
+        return None
+    points: list[tuple[float, float]] = []
+    for i in range(n):
+        off = body_offset + i * stride
+        x, y = struct.unpack_from(endian + "dd", data, off)
+        points.append((x, y))
+    return points
+
+
+def _load_overture_roads_parquet(
+    parquet_path: Path,
+    plan_bbox: tuple[float, float, float, float],
+    *,
+    max_count: int = 12,
+) -> Optional[list[list[tuple[float, float]]]]:
+    """W2.2 cont.: load road polylines from an Overture transportation Parquet.
+
+    Returns polylines in the same shape as `_synth_road_segments` so
+    the emitter needs no changes. Uses the row's `geometry` column
+    (WKB bytes) — only LineString geometries are decoded; other types
+    are skipped (W2.3 extends to MultiLineString). Polylines whose
+    bbox falls entirely outside `plan_bbox` are skipped; remaining
+    waypoints are converted to scene-local meters via `_wgs84_to_local`
+    and clipped to plan_bbox. Returns None when pyarrow is unavailable
+    or the file is missing.
+    """
+    pq = _try_pyarrow()
+    if pq is None:
+        return None
+    if not parquet_path.exists():
+        return None
+
+    table = pq.read_table(parquet_path, columns=["geometry"])
+    geom_col = table.column("geometry").to_pylist()
+    w, s, e, north = plan_bbox
+
+    polylines_local: list[list[tuple[float, float]]] = []
+    for i, raw in enumerate(geom_col):
+        if not isinstance(raw, (bytes, bytearray)):
+            continue
+        waypoints = _parse_wkb_linestring(bytes(raw))
+        if waypoints is None or len(waypoints) < 2:
+            continue
+        # Skip lines entirely outside plan bbox.
+        xs = [p[0] for p in waypoints]
+        ys = [p[1] for p in waypoints]
+        if max(xs) < w or min(xs) > e or max(ys) < s or min(ys) > north:
+            continue
+        # Convert lon/lat → scene-local meters; clip each waypoint to bbox first.
+        local_waypoints: list[tuple[float, float]] = []
+        for (lon, lat) in waypoints:
+            cl_lon = max(w, min(e, lon))
+            cl_lat = max(s, min(north, lat))
+            x_local, y_local = _wgs84_to_local(cl_lon, cl_lat, plan_bbox)
+            local_waypoints.append((x_local, y_local))
+        if len(local_waypoints) >= 2:
+            polylines_local.append(local_waypoints)
+        if len(polylines_local) >= max_count:
+            break
+    return polylines_local
+
+
 def _synth_road_segments(
     cid: str,
     bbox: tuple[float, float, float, float],
@@ -643,7 +735,20 @@ def _emit_vector_roads_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str
     material_token = str(layer.extra.get("material", "kami-pbrt:Asphalt"))
     half_total = max(0.5, lane_count * lane_width / 2.0)
 
-    polylines = _synth_road_segments(layer.resolved_cid, (x0, y0, x1, y1))
+    # W2.2 cont.: try real Overture transportation Parquet first; else synth.
+    polylines: Optional[list[list[tuple[float, float]]]] = None
+    polyline_source = "synth-cid-seeded-w2.1"
+    parquet_path_str = layer.extra.get("local_parquet_path")
+    if isinstance(parquet_path_str, str) and parquet_path_str:
+        polylines = _load_overture_roads_parquet(
+            Path(parquet_path_str),
+            plan.bbox if isinstance(plan.bbox, tuple)
+            else tuple(plan.bbox),       # type: ignore[arg-type]
+        )
+        if polylines:
+            polyline_source = f"overture-parquet-w2.2:{parquet_path_str}"
+    if polylines is None or not polylines:
+        polylines = _synth_road_segments(layer.resolved_cid, (x0, y0, x1, y1))
 
     import math as _math
     child_meshes: list[str] = []
@@ -698,7 +803,7 @@ def _emit_vector_roads_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str
         int kami_lane_count = {lane_count}
         float kami_lane_width_m = {lane_width}
         token kami_material = "{material_token}"
-        string kami_polyline_source = "synth-cid-seeded-w2.1"
+        string kami_polyline_source = "{polyline_source}"
 
 {''.join(child_meshes)}    }}
 """

@@ -27,12 +27,14 @@
     "Public Fund Safe on-chain contract (disbursement read)",
     "Council Safe on-chain contract (operational expense read)",
     "Land Registry on-chain contract (acquisition read)",
-    "chigiri.stewardLaborAttestation (L0..L6 classification read)",
-    "app.etzhayyim.corp.leiReference (ADR-2605263800; READ-ONLY GLEIF LEI canonical for recipient-vendor identity resolution before disbursement; anti-related-party check on Public Fund Safe + Council Safe outflow against corporate-donor + officer-network records)",
-    "app.etzhayyim.corp.ownershipEdge (ADR-2605263800; READ-ONLY UBO + parent-subsidiary edge traversal for anti-related-party check; flags if disbursement-recipient + donor-recipient share UBO within configurable threshold)",
-    "app.etzhayyim.gov.dataset.budgetRecord (ADR-2605263900; READ-ONLY per-jurisdiction gov budget recipient cross-reference; flags vendor receiving simultaneous religious-corp Public Fund disbursement AND state appropriation in same fiscal cycle)",
-    "app.etzhayyim.gov.dataset.procurementRecord (ADR-2605263900; READ-ONLY per-jurisdiction gov procurement awardee cross-reference; uses awardeeLei + recipientLei cross-link to corp.leiReference for entity identity)"
+    "chigiri.stewardLaborAttestation (L0..L6 classification read)"
   ],
+  "lexiconReadAccess": {
+    "app.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for recipient-vendor identity resolution before disbursement. Anti-related-party check on Public Fund Safe + Council Safe outflow against corporate-donor + officer-network records. CC0 1.0 license.",
+    "app.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY UBO + parent-subsidiary + control-relationship + officer edge traversal for anti-related-party check. Flags if disbursement-recipient + donor-recipient share UBO within configurable threshold. Tier-A GLEIF L2 (CC0) + Tier-B OpenCorporates open-data (`-tierB-` infix; SA propagates).",
+    "app.etzhayyim.gov.dataset.budgetRecord": "ADR-2605263900; READ-ONLY per-jurisdiction gov budget recipient cross-reference (USAspending / EU FTS / UK Treasury / JP 予算書). Flags vendor receiving simultaneous religious-corp Public Fund disbursement AND state appropriation in same fiscal cycle.",
+    "app.etzhayyim.gov.dataset.procurementRecord": "ADR-2605263900; READ-ONLY per-jurisdiction gov procurement awardee cross-reference (EU TED / US SAM.gov / JP 政府調達 / UK Contracts Finder). Uses awardeeLei + recipientLei cross-link to corp.leiReference for entity identity."
+  },
   "form": "任意団体 internal accounting + audit substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)",
   "constitutionalDiscipline": {
     "onChainPrimaryLedger": "G3 + G4 — 100% on-chain transparency; USDC + Base L2 + TitheRouter + Public Fund Safe + Council Safe are canonical SoT; off-chain primary ledger PROHIBITED; fiat reporting (if any) is derived projection only",
