@@ -1,5 +1,5 @@
 ---
-id: adr-2605263200-baien-ameno-per-kernel-inference-r0
+id: adr-2605263300-baien-ameno-per-kernel-inference-r0
 title: "Baien ameno per-kernel inference R0 — WGSL BitLinear + WASM SIMD ternary (bitnet.cpp API mirror)"
 status: proposed
 doc_type: adr
@@ -35,7 +35,7 @@ supersedes: []
 superseded_by: []
 ---
 
-# ADR-2605263200: Baien ameno per-kernel inference R0 — WGSL BitLinear + WASM SIMD ternary (bitnet.cpp API mirror)
+# ADR-2605263300: Baien ameno per-kernel inference R0 — WGSL BitLinear + WASM SIMD ternary (bitnet.cpp API mirror)
 
 **Status**: proposed
 **Date**: 2026-05-26

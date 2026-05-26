@@ -1,6 +1,6 @@
 /**
  * @etzhayyim/ameno/inference/kernels/dispatch — Backend selection
- * ladder for baien BitLinear inference (ADR-2605263200 §6).
+ * ladder for baien BitLinear inference (ADR-2605263300 §6).
  *
  *   1. WebGPU adapter present + `shader-f16` feature + workgroup-size
  *      ≥ 256 + shader compile succeeds → `webgpu-bitlinear`

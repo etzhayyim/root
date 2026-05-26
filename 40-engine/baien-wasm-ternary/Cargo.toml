@@ -4,11 +4,11 @@ version = "0.1.0-r0"
 edition = "2021"
 authors = ["Jun Kawasaki <jun@etzhayyim.com>"]
 license = "Apache-2.0"
-description = "BitNet b1.58 ternary i2_s kernel for wasm32 — bitnet.cpp API mirror (ADR-2605263200)"
+description = "BitNet b1.58 ternary i2_s kernel for wasm32 — bitnet.cpp API mirror (ADR-2605263300)"
 repository = "https://github.com/etzhayyim/root"
 readme = "README.md"
 
-# Per ADR-2605263200 G7: clean-room Rust re-impl of microsoft/BitNet
+# Per ADR-2605263300 G7: clean-room Rust re-impl of microsoft/BitNet
 # (bitnet.cpp) public API surface. NOT a vendored fork — the upstream
 # under that name is MIT, but we have copied zero source. The matching
 # function names + tensor type tags + i2_s data layout are used under
@@ -36,7 +36,7 @@ half = "2"
 
 [features]
 # Default feature set: wasm-bindgen exports ON, SIMD inner loop OFF
-# (scalar reference per ADR-2605263200 R0).
+# (scalar reference per ADR-2605263300 R0).
 default = ["wasm-export"]
 
 # wasm-bindgen exports for browser use. Off by default when building

@@ -1,6 +1,6 @@
 /**
  * @etzhayyim/ameno/inference/kernels — Barrel for the BitLinear
- * per-kernel inference path (ADR-2605263200).
+ * per-kernel inference path (ADR-2605263300).
  *
  * Public surface:
  *   - WGSL_BITLINEAR_FORWARD / WGSL_BITNET_PACKED_DEQUANT — shader sources

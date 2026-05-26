@@ -7,7 +7,7 @@
 //! layout) so the Rust impl is drop-in replaceable with an
 //! Emscripten-built upstream WASM port.
 //!
-//! Authoritative ADR: `90-docs/adr/2605263200-baien-ameno-per-kernel-inference-r0.md`.
+//! Authoritative ADR: `90-docs/adr/2605263300-baien-ameno-per-kernel-inference-r0.md`.
 //!
 //! ## Layout
 //!
@@ -20,7 +20,7 @@
 //! | [`simd`] | optional `wide` / `std::simd` wrappers (R1c) |
 //! | [`api`] | bitnet.cpp public API mirror (free functions) |
 //!
-//! ## Gates (ADR-2605263200 §8)
+//! ## Gates (ADR-2605263300 §8)
 //!
 //! - **G2**: API mirror is kernel-task level only. Function names,
 //!   tensor type tags, and layout constants match upstream byte-for-byte.

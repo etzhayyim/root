@@ -1,6 +1,6 @@
 /**
  * @etzhayyim/ameno/inference/kernels/bitnet-packed-dequant — WGSL
- * i2_s → f16 dequant shader (ADR-2605263200 §5).
+ * i2_s → f16 dequant shader (ADR-2605263300 §5).
  *
  * Standalone shader that takes a tile of i2_s packed weights + the
  * per-row scale and writes a contiguous f16 weight tile. Used as:

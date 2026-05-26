@@ -1,7 +1,7 @@
 /**
  * @etzhayyim/ameno/inference/bitnet-bridge — WASM module loader +
  * typed wrapper for the `baien-wasm-ternary` Rust crate
- * (ADR-2605263200 §1 L2b).
+ * (ADR-2605263300 §1 L2b).
  *
  * The Rust crate at `40-engine/baien-wasm-ternary/` mirrors the
  * bitnet.cpp public API surface at the **kernel-task level** (NOT the

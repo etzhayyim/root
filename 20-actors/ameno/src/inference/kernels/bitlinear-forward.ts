@@ -1,6 +1,6 @@
 /**
  * @etzhayyim/ameno/inference/kernels/bitlinear-forward — WGSL BitLinear
- * forward kernel (ADR-2605263200 §5).
+ * forward kernel (ADR-2605263300 §5).
  *
  * BitLinear forward computes
  *

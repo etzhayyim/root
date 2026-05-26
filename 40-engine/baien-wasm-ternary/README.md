@@ -4,7 +4,7 @@ BitNet 1.58 ternary i2_s kernel for `wasm32` — a clean-room Rust
 re-implementation of the **kernel-task layer** of [`microsoft/BitNet`](https://github.com/microsoft/BitNet)
 (`bitnet.cpp`).
 
-**Authoritative ADR**: [`90-docs/adr/2605263200-baien-ameno-per-kernel-inference-r0.md`](../../90-docs/adr/2605263200-baien-ameno-per-kernel-inference-r0.md)
+**Authoritative ADR**: [`90-docs/adr/2605263300-baien-ameno-per-kernel-inference-r0.md`](../../90-docs/adr/2605263300-baien-ameno-per-kernel-inference-r0.md)
 
 **Consumed by**: [`@etzhayyim/ameno`](../../20-actors/ameno) browser
 inference (`inference/bitnet-bridge.ts`).
@@ -66,9 +66,9 @@ bit  7 6 5 4 3 2 1 0
 See [`src/i2s.rs`](src/i2s.rs) constants. **The same layout is
 mirrored in the WGSL shader** at
 [`20-actors/ameno/src/inference/kernels/bitlinear-forward.ts`](../../20-actors/ameno/src/inference/kernels/bitlinear-forward.ts);
-gate G3 (ADR-2605263200 §8) requires the two to never drift.
+gate G3 (ADR-2605263300 §8) requires the two to never drift.
 
-## R-roadmap (per ADR-2605263200 §10)
+## R-roadmap (per ADR-2605263300 §10)
 
 | R | What |
 |---|---|

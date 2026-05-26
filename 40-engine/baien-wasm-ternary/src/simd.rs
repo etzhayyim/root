@@ -16,7 +16,7 @@ pub fn popcount_i2s_partial_sum_stub() {
     // Placeholder: R1c lands the real popcount kernel.
     unimplemented!(
         "popcount_i2s_partial_sum: R1c — wide::i8x16 popcount fast path \
-         (see ADR-2605263200 §10 R-roadmap row R1c)"
+         (see ADR-2605263300 §10 R-roadmap row R1c)"
     );
 }
 
