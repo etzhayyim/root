@@ -10,6 +10,8 @@
 #   - sdk-exports-dist.py          (iter-26 of /loop)
 #   - subrepo-upstream-health.sh   (iter-28 + iter-29 of /loop)
 #   - subrepo-symlink-health.sh    (iter-24 + iter-31 of /loop)
+#   - sibling-convention-drift.py  (iter-37 of /loop)
+#   - manifest-lexicon-drift.py    (iter-47 of /loop)
 #
 # History:
 #   - iter-30 of /loop: codified the first 3 audit scripts
@@ -60,6 +62,7 @@ run "sdk-exports-dist" python3 70-tools/scripts/audit/sdk-exports-dist.py
 run "subrepo-upstream-health" bash 70-tools/scripts/audit/subrepo-upstream-health.sh
 run "subrepo-symlink-health" bash 70-tools/scripts/audit/subrepo-symlink-health.sh
 run "sibling-convention-drift" python3 70-tools/scripts/audit/sibling-convention-drift.py
+run "manifest-lexicon-drift" python3 70-tools/scripts/audit/manifest-lexicon-drift.py
 
 echo
 echo "═══════════════════════════════════════"

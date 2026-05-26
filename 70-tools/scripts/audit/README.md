@@ -11,7 +11,7 @@ bash 70-tools/scripts/audit/all.sh            # report
 bash 70-tools/scripts/audit/all.sh --strict   # exit 1 if any finding (CI integration)
 ```
 
-Current baseline (as of iter-39 of /loop, 2026-05-27): **25 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + **0 sibling-convention-drift outliers** (iter-38 filled in 10 missing-`license` with `"license": "Apache-2.0"` per religious-corp default ADR-2605192200; iter-39 filled in 4 missing-`description` with package-specific content via Edit tool — bpmn-sdk-dmn / bpmn-sdk-form / svelte/auth / svelte/design-system).
+Current baseline (as of iter-47 of /loop, 2026-05-27): **46 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **21 manifest-lexicon-drift** (newly surfaced iter-47; 5 actors declare 21 lexicons in their manifest.jsonld but the corresponding JSON files don't exist under `00-contracts/lexicons/` — same operator-gated triage pattern as the ADR cross-ref orphans).
 
 The "documented + deferred" findings will fail `--strict` mode until the upstream coordination work lands. That's by design — `--strict` is the operator's gate for "I want to publish or PR-merge and don't want to accidentally take on debt." Mode without `--strict` is for "give me the current health snapshot."
 
@@ -75,6 +75,29 @@ python3 70-tools/scripts/audit/sibling-convention-drift.py --strict
 ```
 
 Discovery: iter-36 (SDK was missing `publishConfig` while every sibling `@etzhayyim/*` package had a standard 2-field block `{access: public, registry: npm.pkg.github.com}`; fixed in commit `488021b6e`). iter-37 codified the audit pattern + surfaced 14 more outliers (4 missing `description` + 10 missing `license`) for per-package operator decision.
+
+### `manifest-lexicon-drift.py`
+
+Find lexicons declared in actor `manifest.jsonld` files (under `20-actors/<actor>/`) that don't have a corresponding JSON file in `00-contracts/lexicons/`. Distinguished from the pre-existing `nsid-lexicon-exists.mjs` lefthook lint: that linter scans static code patterns (`atProcedure("nsid")` / `atQuery("nsid")` / `.api.call("nsid")`). Manifest declarations are a separate surface — the actor's planning artifact lists which lexicons it intends to ship; if those lexicons never got authored, the contract surface is incomplete.
+
+```bash
+python3 70-tools/scripts/audit/manifest-lexicon-drift.py
+python3 70-tools/scripts/audit/manifest-lexicon-drift.py --strict
+```
+
+**Initial baseline (iter-47, 2026-05-27): 21 missing lexicons across 5 actors:**
+
+| Actor | Missing |
+|---|---|
+| gov-municipality | 3 |
+| infra-utility-connect | 4 |
+| kuni-umi | 6 |
+| wadachi | 3 |
+| yoro-supply | 5 |
+
+Per-actor resolution is operator-judgment-per-case: either (a) author the lexicon JSON files (real implementation work) or (b) drop the manifest declaration (acknowledge the planning didn't reach implementation). Same operator-gated pattern as the documented kotoba escape-symlinks + stale subrepo URLs.
+
+Discovery: iter-47 of /loop (2026-05-27).
 
 ### `adr-cross-ref-health.py`
 
