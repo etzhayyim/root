@@ -136,6 +136,10 @@ def find_referenced_ids() -> dict[str, list[str]]:
         # skip lines that are themselves part of the audit / template
         if file_path == "70-tools/scripts/audit/adr-cross-ref-health.py":
             continue
+        # Test file uses synthetic ADR IDs (ADR-2605000000 etc.) as
+        # fixture inputs for filter tests — those aren't real citations.
+        if file_path == "70-tools/scripts/audit/test_adr_cross_ref_health.py":
+            continue
         if file_path == "90-docs/adr/_template-stall-rotation.md":
             continue
         if file_path == "90-docs/adr/template.md":
