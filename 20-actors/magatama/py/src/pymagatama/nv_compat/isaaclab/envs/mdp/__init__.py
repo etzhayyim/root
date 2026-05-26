@@ -101,11 +101,20 @@ from .rewards import (
     RewTerm,
     action_l2,
     action_rate_l2,
+    alive_bonus,
+    ang_vel_xy_l2,
+    dof_pos_limits,
+    dof_torques_l2,
+    feet_air_time,
+    flat_orientation_l2,
     is_alive,
     is_terminated,
     joint_pos_l2,
     joint_torques_l2,
     joint_vel_l2,
+    lin_vel_z_l2,
+    track_ang_vel_z_exp,
+    track_lin_vel_xy_exp,
 )
 
 __all__ = [
@@ -120,6 +129,10 @@ __all__ = [
     "is_alive", "is_terminated",
     "joint_pos_l2", "joint_vel_l2",
     "action_l2", "action_rate_l2", "joint_torques_l2",
+    # Locomotion reward extensions (iter 60)
+    "track_lin_vel_xy_exp", "track_ang_vel_z_exp",
+    "flat_orientation_l2", "lin_vel_z_l2", "ang_vel_xy_l2",
+    "feet_air_time", "dof_pos_limits", "dof_torques_l2", "alive_bonus",
     # Event functions
     "reset_joints_by_offset", "reset_joints_to_default",
     "randomize_rigid_body_mass",
