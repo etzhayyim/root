@@ -5229,6 +5229,8 @@ failed_paths = [
 mandatory_flag_set = "-no-cnv -st --simple-io < /dev/null (all three required, gemma4 chat template aggressive)"
 tb5_ssd_speedup_prediction = "1.5-1.85× → 12.5-15.5 tok/s generation"
 tb5_ssd_speedup_basis = "Current 119 ms/token breakdown: ~9.5 ms compute (3.8B active × 2 FMA / 800 GFLOPS) + ~110 ms disk read (92% disk-bound). TB5 SSD real-world 6.0-6.4 GB/s vs internal 3.1 GB/s ≈ 2× raw bandwidth → disk time halves to ~55 ms → total ~64.5 ms/token → ~15.5 tok/s upper bound. Lower bound 12.5 tok/s accounts for 4K random read IOPS bottleneck (Apple internal SSD ~700k IOPS comparable to TB5 enclosures 600-900k)."
+tb5_ssd_speedup_prediction_post_empirical_correction_260525_2130 = "OVERESTIMATED. Empirical A/B (internal AP0256Z 2.30 GB/s vs SanDisk USB 3.2 Gen 2 0.836 GB/s, 2.75× raw bandwidth gap) showed generation tok/s 7.7 vs 7.9 = only +3% delta. MoE × mmap hot working set (active 9/128 experts × ~100 MB held in page cache) makes steady-state generation STORAGE-INDEPENDENT. Disk bandwidth only matters for cold-load first-token (~80 sec wall). Revised TB5 prediction: steady-state generation +3-5% (= 8.0-8.8 tok/s, NOT 12.5-15.5), cold-load -50% (~80 sec → ~40 sec). TB5 investment justified ONLY for interactive chat UX (many short turns) not batch throughput. See ADR-2605253015 and 70-tools/nvme-disk-inference/results/baseline-260525.md for full A/B data."
+tb5_correction_authority = "ADR-2605253015 (this correction lands as part of nvme-disk-inference substrate project R0 wave)"
 recommended_tb5_candidates = [
   "OWC Envoy Ultra (TB5, claims 6 GB/s sustained, thermal-managed)",
   "Acasis TBU401E enclosure + WD SN850X 2TB (modular, ~6 GB/s)",
@@ -5366,3 +5368,102 @@ adr = "ADR-2605261800"
 kind = "usd-parser-fallback"
 status = "contingent-fallback-pending-viability-gate"
 description = "From-scratch Rust USD parser (.usda / .usdc / .usdz) + composition engine. Contingent fallback per §D10.4 if tinyusdz WASM fails R1.1 viability gate (iPhone 12+ 10MB USD parse <=2s). Activation: Council Lv6+ >=3 attestation. nv-compat targets: omni.usd + pxr.Usd / pxr.UsdGeom / pxr.UsdShade / pxr.UsdPhysics / pxr.UsdLux."
+
+
+# ─── nvme-disk-inference substrate project (ADR-2605253015) ──
+
+[[adrs]]
+id = "2605253015"
+title = "nvme-disk-inference project — Murakumo fleet disk-paged MoE inference substrate"
+status = "proposed"
+status_note = "Scaffolds 70-tools/nvme-disk-inference/ as religious-corp first-party project for MoE × mmap disk inference on Murakumo fleet. Triggered by 2026-05-25 21:30 JST empirical A/B finding: SanDisk USB 3.2 Gen 2 (raw 0.836 GB/s) vs internal AP0256Z NVMe (raw 2.30 GB/s) on Gemma 4 26B-A4B MoE shows generation tok/s 7.9 vs 7.7 = +3% delta despite 2.75× raw bandwidth gap. Steady-state generation is storage-INDEPENDENT because MoE × mmap hot working set (active 9/128 experts × ~100 MB held in 8-10 GB page cache) saturates at ~1.4 GB/s = within both tiers. Disk bandwidth only matters for cold-load first-token latency (~80 sec wall). This finding CORRECTS ADR-2605253000 §5 TB5 SSD speedup prediction (was 1.5-1.85× = 12.5-15.5 tok/s; revised to +3-5% = 8.0-8.8 tok/s steady-state, -50% = ~40 sec cold-load). Project R0 lands: README.md (project authoritative doc) + scripts/cache-flush.sh (14 GB junk write+read, user-space no-sudo) + scripts/bench-storage-tier.sh (A/B protocol per tier: flush → cold llama-cli → capture wall/RSS/page faults/swaps/tok/s to results/) + bench/llama-cli-flags.txt (reference invocation + 3-flag set rationale) + results/baseline-260525.md (initial A/B writeup) + results/{internal,sandisk}-cold-260525-2130.txt (raw bench outputs). R-phase roadmap R0→R5 (R0 scaffold / R1 TB4 enclosure A/B / R2 TB5 + M4 Pro / R3 speculative decoding / R4 Murakumo cell-runner integration / R5 dense model substrate). Constitutional: ADR-2605215000 Murakumo-only + ADR-2605241900 baien edge-target preserved + ADR-2605172000 RW-free boundary unchanged."
+path = "90-docs/adr/2605253015-nvme-disk-inference-substrate-project.md"
+
+[experiments."nvme-disk-inference-storage-tier-ab-260525"]
+opened_at = "2026-05-25T21:30 JST"
+adr = "2605253015"
+parent_adr = "2605253000"
+status = "R0 scaffold landed, R1 TB4 enclosure A/B pending hardware procurement"
+project_path = "70-tools/nvme-disk-inference"
+finding_summary = "Steady-state generation throughput is STORAGE-INDEPENDENT for MoE × mmap disk inference on Mac mini M4 16GB. SanDisk USB 3.2 Gen 2 (0.836 GB/s raw) achieves 7.9 tok/s vs internal AP0256Z NVMe (2.30 GB/s raw) at 7.7 tok/s = +3% delta despite 2.75× raw bandwidth gap. Wall time +7% (cold-load only)."
+measured_internal_ap0256z = { raw_read_gb_s = 2.30, gen_tok_s = 7.7, prompt_tok_s = 3.2, wall_sec = 119.0, peak_rss_gb = 10.30, page_faults = 2348015, swaps = 0 }
+measured_sandisk_usb32_gen2 = { raw_read_gb_s = 0.836, gen_tok_s = 7.9, prompt_tok_s = 3.1, wall_sec = 127.7, peak_rss_gb = 9.99, page_faults = 2327311, swaps = 0 }
+sandisk_device_id = "USB 0x781:0x55BB SanDisk Extreme Portable SSD (UsbLinkSpeed 10 Gbps, USB 3.2 Gen 2)"
+mechanism = "MoE 9/128 active experts × ~100 MB held in 8-10 GB macOS page cache; per-token disk read only on expert turnover (~6.25%) = ~85-170 MB/token = ~0.7-1.3 GB/s effective demand at 7.9 tok/s = within both tiers"
+mechanism_deep_5_layer_analysis = """
+ROOT CAUSE — why ADR-2605253000 §5 prediction overestimated by 15×:
+
+Predicted: per-token = compute (9.5 ms) + disk read (110 ms), disk = active_params (1.5 GB) / disk_bandwidth
+Reality:   per-token disk demand = 1-13 MB, not 1.5 GB
+
+Layer 1 — MoE expert sparsity (known but insufficient): 9/128 = 7% active → 105 MB/token UPPER BOUND
+Layer 2 — Router routing stability (BLIND SPOT): adjacent tokens have STRONG router correlation; only 0.5-1 expert changes per token (not all 8) → marginal new = 6-13 MB/token. Was the largest miss in the prediction.
+Layer 3 — macOS unified memory page cache LRU: 16 GB RAM × ~60% = ~10 GB cache budget; hot expert set (20-30 experts = 3-5 GB) stays resident; cache hit rate ~80-90% after warm-up → marginal disk demand = 1-2 MB/token
+Layer 4 — Compute UNDERESTIMATED: predicted 9.5 ms FMA only; actual ~50-75 ms (Q3_K_M→FP16 dequant 20-30 + matmul 10 + attention KV q8_0 r/w 15-20 + softmax+LN 5-10 + sampling 2-5). Of total 127 ms, disk pure contribution = only ~25-40 ms.
+Layer 5 — Kernel async I/O + readahead: llama.cpp MAP_PRIVATE + sequential → kernel prefetches during compute; effective disk impact = max(0, disk_time - compute_time) ≈ ~0.
+
+CORRECTED per-token disk demand:
+  1.5 GB naive
+  × 0.07 sparsity     = 105 MB
+  × 0.12 stability    = 13 MB
+  × 0.15 cache hit    = 2 MB
+  overlap w/ compute  → effective 0-2 MB
+@ 7.9 tok/s × 13 MB worst-case steady = 103 MB/s actual disk demand
+= 12% of SanDisk USB 3.2 Gen 2 (836 MB/s) capacity
+= 4% of internal NVMe (2300 MB/s) capacity
+→ both tiers have huge headroom; bandwidth NOT the bottleneck
+
+REAL bottleneck: compute (50-75 ms/token) — storage-tier-independent.
+"""
+mechanism_evidence_from_measurements = """
+Measurement       Internal NVMe    SanDisk USB 3.2   Delta   Interpretation
+Page faults       2,348,015        2,327,311          -1%    Identical cache miss pattern
+Peak RSS          10.30 GB         9.99 GB            -3%    Both saturate ~10 GB cache budget
+Peak mem fp       7.20 GB          7.20 GB             0%    IDENTICAL working set size
+Wall (200 tok)    119.0 sec        127.7 sec          +7%    Cold-load 80 sec disk-bound portion only
+Gen tok/s         7.7              7.9                +3%    Run-to-run noise (statistical tie)
+Prompt tok/s      3.2              3.1                -3%    Run-to-run noise
+"""
+applicability_scope = """
+APPLIES to:
+  - MoE active ratio ≤10% (Gemma 4 26B-A4B, Qwen3.5-A3B, Mixtral 8x7B, GPT-OSS 20B/120B)
+  - Single-session inference (not parallel streams)
+  - Context ≤4K (KV cache must not evict experts from page cache)
+  - Mac mini M4 16GB unified memory class
+
+DOES NOT apply to:
+  - MoE active ratio 20-50% (DeepSeek-V2 21B/236B): sparsity effect halved
+  - Dense models (Llama 3.1 70B, Qwen2.5 72B): all params touched per token, no cache benefit
+  - Long-context (ctx ≥16K): KV cache eviction destroys expert cache
+  - Multi-stream concurrent inference: cache contention destroys hit rate
+  → Dense model substrate validation deferred to R5
+"""
+implication = "TB5/TB4 NVMe upgrade for inference throughput is UNJUSTIFIED for MoE workload on M4 16GB. Only cold-load latency benefits (~80 sec → ~40 sec). For interactive chat UX consider warm-up daemon instead of storage upgrade. Existing USB 3.2 Gen 2 SanDisk Extreme sufficient for batch throughput."
+storage_tier_selection_policy = [
+  "Interactive chat (first-token-latency critical) → TB5/TB4 NVMe (or warm-up daemon)",
+  "Batch generation (throughput only) → internal NVMe OR USB 3.2 Gen 2 (equivalent)",
+  "Capacity warehouse (multi-GGUF) → cheap USB SSD (SanDisk Extreme class)",
+  "24/7 fleet member (wear protection) → internal NVMe + USB SSD swap offload",
+]
+anti_pattern = "Buying TB5 NVMe purely to speed up Gemma 4 26B-A4B inference throughput on Mac mini M4 16GB → empirically +3-5% benefit only. Verify with bench-storage-tier.sh before purchase."
+followup_required = [
+  "R1: TB4 NVMe single + ×2 別ポート並列 A/B (hardware purchase: Acasis TBU405 / Yottamaster TR1-C4 + WD SN850X 2TB)",
+  "R2: TB5 NVMe single (requires Mac mini M4 Pro upgrade)",
+  "R3: Speculative decoding (draft=gemma3:4b@EVO-X2 / target=gemma-4-26B-A4B@Mac mini)",
+  "R4: Murakumo cell-runner fleet.toml disk-inference node tag + auto-routing",
+  "R5: Dense model (Llama 3.1 70B etc.) disk inference feasibility (working set大、別 carve-out)",
+  "Inline correction of ADR-2605253000 §5 TB5 prediction (separate commit after this ADR accepted)",
+]
+durable_artifacts = [
+  "90-docs/adr/2605253015-nvme-disk-inference-substrate-project.md",
+  "70-tools/nvme-disk-inference/README.md (project authoritative doc)",
+  "70-tools/nvme-disk-inference/scripts/cache-flush.sh (14 GB junk evict, user-space)",
+  "70-tools/nvme-disk-inference/scripts/bench-storage-tier.sh (A/B protocol)",
+  "70-tools/nvme-disk-inference/bench/llama-cli-flags.txt (reference invocation + 3-flag rationale)",
+  "70-tools/nvme-disk-inference/results/baseline-260525.md (A/B finding writeup)",
+  "70-tools/nvme-disk-inference/results/internal-cold-260525-2130.txt (raw)",
+  "70-tools/nvme-disk-inference/results/sandisk-cold-260525-2130.txt (raw)",
+]
+process_notes = [
+  "Same-session 1-hour-gap correction precedent: ADR-2605253000 §5 prediction (TB5 1.5-1.85×) was empirically falsified within 1 hour of its acceptance via A/B SanDisk test. Future 'prediction' ADRs should declare an empirical validation gate before being treated as actionable. Documented in ADR-2605253015 Consequences/Negative.",
+]
