@@ -5467,3 +5467,73 @@ durable_artifacts = [
 process_notes = [
   "Same-session 1-hour-gap correction precedent: ADR-2605253000 §5 prediction (TB5 1.5-1.85×) was empirically falsified within 1 hour of its acceptance via A/B SanDisk test. Future 'prediction' ADRs should declare an empirical validation gate before being treated as actionable. Documented in ADR-2605253015 Consequences/Negative.",
 ]
+
+
+# ─── baien-moemoekyun MoE charter (ADR-2605261900, R0 path reservation, server tier) ──
+
+[[adrs]]
+id = "2605261900"
+title = "baien-moemoekyun — 2B BitNet 1.58 shared backbone + MoE residual experts (server-tier carve-out, R0 charter)"
+status = "proposed"
+status_note = "R0 charter for baien-moemoekyun: a server-tier (ADR-2605242100) MoE-augmented baien variant on microsoft/bitnet-b1.58-2B-4T-bf16. Architecture = backbone (frozen) + shared dense FFN (existing BitNet FFN, always active) + MoE residual branch (E=128 small experts of dense_FFN/32 size, top-k=2, applied to last 25% of layers) with output gate alpha init = 0.0 ± 1e-3 (G5; guarantees step-0 behavior identical to base BitNet). 3-phase training: R1 freeze-train (router + experts only) → R2 partial unfreeze (shared FFN + layernorm low-LR) → R3 joint low-LR. 12 constitutional gates G1..G12 (Charter Rider scan / Murakumo-only / -server- infix mandatory / edge artifacts MUST NOT carry moemoekyun MoE / alpha=0 init / aux-loss MANDATORY / no dense-FFN-copy init / backbone-frozen verify / BF16-deploy-only / honest scoring / distill-loop compat / SBT-gated endpoint). 10 non-goals N1..N10 (NOT edge / NOT frontier / NOT BitNet-packed-training / NOT from-scratch-MoE-pretrain / NOT LoRA-only / NOT baien-edge replacement / NOT >16B trunk / NOT >64k context / NOT commercial GPU rental / NOT Charter Rider bypass). R0 deliverables = this ADR + deps.toml registration + 70-tools/baien-moemoekyun-train/ path reserved (no code) + CLAUDE.md Status row + README index. R1+ each independent ADR. Project / charter / directory name = baien-moemoekyun (user decision 2026-05-26); shipped model id MUST use baien-server-moemoekyun-* infix (release blocker per ADR-2605242100 §Naming)."
+path = "90-docs/adr/2605261900-baien-moemoekyun-moe-charter.md"
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train"
+adr = "ADR-2605261900"
+kind = "training-scaffold"
+status = "r0-path-reservation"
+description = "baien-moemoekyun training scaffolding. R0 = path reserved, no code. R1 deliverable = minimum model class + router + expert + train loop, 100-sample x 10-step smoke on EVO-X2, parameter-group inspection (G8) + alpha=0 verify (G5) + aux-loss enabled (G6). R2 deliverable = first real training run (1B tokens) + LiteLLM endpoint with SBT gate (G12). R3 deliverable = first published baien-server-moemoekyun-v1 + Council Lv6+ ratification."
+
+
+# ─── baien-moemoekyun R1 — Phase 0 freeze-train coding-emphasis SFT (ADR-2605262100) ──
+
+[[adrs]]
+id = "2605262100"
+title = "baien-moemoekyun R1 — Phase 0 freeze-train (router + experts + alpha) coding-emphasis SFT on EVO-X2 Windows ROCm (R1.0..R1.5)"
+status = "proposed"
+status_note = "R1 sub-charter of ADR-2605261900 (baien-moemoekyun R0). Phase 0 freeze-train only — backbone fully frozen, trainable = MoE residual branch (router + 128 experts/layer x 7 layers + per-layer alpha = ~1.1B params). Reuses gemma-coder-distill EVO-X2 Windows ROCm 7.2.1 + peft+trl stack (ADR-2605250400) verbatim; trl SFTTrainer + custom BaienMoEResidual module surgery (NOT peft adapter — peft is LoRA-class adapter-shaped, MoE residual is independent computation path). Sub-phase ladder R1.0..R1.5: R1.0 ROCm probe BitNet + MoE forward / R1.1 BaienMoEResidual + BitNetFFNWithMoE impl + alpha=0 step-0 verify (G5) / R1.2 aux-loss (G6) + frozen grad-norm verify (G8) / R1.3 100-sample x 10-step smoke (pipeline ✓) / R1.4 Magicoder-OSS-Instruct + commitpack + reasoning + langgraph-internal harvest + CodeAlpaca 計5,000 ex x 1 epoch / R1.5 langgraph-coding bench + HumanEval+ delta gate (>=+3pp langgraph AND >=0 humaneval+ → commit_to_registry; else abort + R2 ADR エスカレーション). Dataset 3-tier: Tier A Apache/MIT/BSD (Magicoder MIT / commitpack Apache / reasoning-distill-opus Apache / repo-internal LangGraph harvest Apache; commit & 配布 OK), Tier B CC-BY (R1 では使用しない, R2 ADR で評価), Tier C non-commercial (CodeAlpaca-20k / SWE-Gym / WizardCoder-evol NC / Gemma TOS synthetic; train 用途のみ artifact 非公開 G13). New gates G13 (NC-trained artifact MUST NOT be published to HuggingFace public; Murakumo fleet 内部 inference only) + G14 (R1.4 dataset registry: huggingface_id+license+sha256+row_count+sampling_seed manifest mandatory) + G15 (EVO-X2 Windows ROCm 7.2.1 reproducibility: torch.version+rocm.version+gpu_name+gpu_count+env_hash embedded in bench JSON). Memory budget on EVO-X2 unified 128GB ROCm 7.2.1 / gfx1151 = ~25 GB total (frozen backbone 4GB + MoE bf16 2.2GB + Adam state 8.8GB + grad 4.4GB + activations 3GB + misc 3GB); gemma-coder iter-01 concurrent train requires time-multiplexing (no space-multiplex on single iGPU)."
+path = "90-docs/adr/2605262100-baien-moemoekyun-r1-phase0-coding-train.md"
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/scripts/probe_rocm_moe.py"
+adr = "ADR-2605262100"
+kind = "rocm-probe"
+status = "r1.0-deliverable"
+description = "R1.0 deliverable: BitNet 2B load on EVO-X2 ROCm 7.2.1 + 1 MoE layer surgery + 1 forward step + memory profile. Acceptance: forward output finite + no OOM + total RAM <=30 GB."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/src/baien_moemoekyun"
+adr = "ADR-2605262100"
+kind = "training-package"
+status = "r1.1-deliverable"
+description = "R1.1+ deliverable: model.py + moe.py + attach.py implementing BaienMoEResidual + BitNetFFNWithMoE (module surgery). R1.1 acceptance: pytest test_alpha_init.py 7/7 layer alpha in [-1e-3, +1e-3], pytest test_step0_match.py random input forward output ||delta||_2 / ||y_base||_2 < 0.01 vs base BitNet."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/configs/r1.4-iter01.yaml"
+adr = "ADR-2605262100"
+kind = "train-config"
+status = "r1.4-deliverable"
+description = "R1.4 deliverable: corpus mix (Magicoder 60% / commitpack 20% / reasoning-distill 10% / repo-internal 5% / CodeAlpaca 5% = 5000 ex), hparams (LR router 1e-4 / experts 2e-4 / alpha 5e-5 / aux 0.01 / AdamW beta1 0.9 beta2 0.95 wd 0.1 / cosine warmup 100 / batch 1 / grad_accum 4 / seq 2048 / bf16 / gradient_checkpointing). Acceptance: wall <=3h on EVO-X2 + final loss < initial loss x 0.85 + aux loss mean < 0.05 (utilization 良好)."
+
+[[modules]]
+path = "90-docs/baien/moemoekyun-r1.4-corpus-manifest.jsonl"
+adr = "ADR-2605262100"
+kind = "dataset-manifest"
+status = "r1.4-deliverable"
+description = "G14 mandatory: per-dataset manifest with huggingface_id + license + sha256 + row_count + sampling_seed. Must be committed before R1.5 commit_node gate fires."
+
+[[modules]]
+path = "90-docs/baien/moemoekyun-r1.4-eval.jsonl"
+adr = "ADR-2605262100"
+kind = "eval-result"
+status = "r1.5-deliverable"
+description = "R1.5 deliverable: langgraph-coding bench (50 prompt exec-graded) + HumanEval+ (164 prompt exec-graded) pre-train baseline + post-train. commit_node gate = delta langgraph >= +3pp AND delta humaneval+ >= 0 (regression abort必須)."
+
+[[modules]]
+path = "90-docs/baien/moemoekyun-models.jsonl"
+adr = "ADR-2605262100"
+kind = "model-registry"
+status = "r1.5-deliverable"
+description = "moemoekyun adapter / merged checkpoint registry (sibling of distilled-models.jsonl per ADR-2605231300 §3). Separate from distilled-models.jsonl because moemoekyun has G12 SBT-gated inference policy + G13 distribution boundary."
+
