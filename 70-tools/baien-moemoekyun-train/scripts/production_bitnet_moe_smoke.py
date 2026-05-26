@@ -196,17 +196,30 @@ def main():
     per_source_count = {}
     log_every = max(1, args.n_steps // 20)
 
-    # Lower aux_loss weight (0.001 instead of 0.01) — pretrained backbone is sensitive
-    AUX_W = 0.001
+    # Lower aux_loss weight (0.0005) + skip NaN steps + warmup
+    AUX_W = 0.0005
     GRAD_CLIP = 1.0
+    n_nan_skipped = 0
     for step in range(args.n_steps):
         opt.zero_grad()
         ids, labels, sources = get_batch()
         out = model(ids, labels=labels)
-        aux = collect_aux_losses(moe_wrappers).to(out.loss.device)
+        # Cast aux to fp32 then back — prevents bf16 overflow on switching loss
+        aux = collect_aux_losses(moe_wrappers).to(out.loss.device).float().to(out.loss.dtype)
+        # Skip if lm_loss is NaN/inf (don't propagate broken gradients)
+        if torch.isnan(out.loss) or torch.isinf(out.loss):
+            n_nan_skipped += 1
+            opt.zero_grad()
+            lv = float("nan")
+            losses.append(lv)
+            for src in sources:
+                per_source_loss[src] = per_source_loss.get(src, 0.0)
+                per_source_count[src] = per_source_count.get(src, 0) + 1
+            if (step + 1) % log_every == 0 or step == 0:
+                print(f"  step {step+1:4d}/{args.n_steps}  lm=NaN-SKIPPED  aux={float(aux):.4f}")
+            continue
         loss_total = out.loss + AUX_W * aux
         loss_total.backward()
-        # Clip gradients to prevent NaN
         torch.nn.utils.clip_grad_norm_(
             [p for p in model.parameters() if p.requires_grad], GRAD_CLIP
         )
@@ -218,7 +231,7 @@ def main():
             per_source_loss[src] = per_source_loss.get(src, 0.0) + lv
             per_source_count[src] = per_source_count.get(src, 0) + 1
         if (step + 1) % log_every == 0 or step == 0:
-            print(f"  step {step+1:4d}/{args.n_steps}  lm={lv:.4f}  aux={av:.4f}")
+            print(f"  step {step+1:4d}/{args.n_steps}  lm={lv:.4f}  aux={av:.4f}  nan_skipped={n_nan_skipped}")
 
     ev_e.record()
     torch.cuda.synchronize()
