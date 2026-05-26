@@ -23,6 +23,8 @@ target_artifact = "baien-server-geo-netreg-mixed-foundations-v1"
 output_subdataset = "training/corpora/geo-netreg-mixed-foundations-v1/"
 max_tier_cap = "A"
 
+description = "Mixed-bucket exemplar corpus — Liechtenstein OSM (small testbed region) + IANA root + all 5 RIRs delegated stats. ODbL-1.0 inherited from OSM (share-alike); canonical 'small enough to assemble on mac-260317 in seconds, mixed enough to exercise both geo + netreg buckets' reference."
+
 [output_metadata]
 description = """
 First mixed-bucket corpus: Tier-A geo (Liechtenstein OSM as the
@@ -45,6 +47,7 @@ tier          = "A"
 license       = "ODbL-1.0"
 sa_propagates = true
 weight        = 0.10
+description   = "OSM Liechtenstein — ~86K GeoJSON features (buildings, roads, POIs) as the canonical small-region geo testbed; ODbL-1.0 SA propagates"
 
 # Net-registry bucket — IANA root + APNIC + ARIN + RIPE + AFRINIC + LACNIC.
 [[source]]
@@ -54,6 +57,7 @@ shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
 weight        = 0.05
+description   = "IANA root zone snapshot 2026-05-26 — 1437 TLDs ⇒ authoritative NS delegations"
 
 [[source]]
 subdataset    = "netreg/rir-delegated-apnic"
@@ -62,6 +66,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.15
+description   = "APNIC delegated stats 2026-05-26 — Asia-Pacific IPv4/IPv6/ASN allocations"
 
 [[source]]
 subdataset    = "netreg/rir-delegated-arin"
@@ -70,6 +75,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.18
+description   = "ARIN delegated stats 2026-05-26 — North America IPv4/IPv6/ASN allocations"
 
 [[source]]
 subdataset    = "netreg/rir-delegated-ripe"
@@ -78,6 +84,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.22
+description   = "RIPE delegated stats 2026-05-26 — Europe / Middle East IPv4/IPv6/ASN allocations"
 
 [[source]]
 subdataset    = "netreg/rir-delegated-afrinic"
@@ -86,6 +93,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.08
+description   = "AFRINIC delegated stats 2026-05-26 — Africa IPv4/IPv6/ASN allocations"
 
 [[source]]
 subdataset    = "netreg/rir-delegated-lacnic"
@@ -94,6 +102,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.12
+description   = "LACNIC delegated stats 2026-05-26 — Latin America / Caribbean IPv4/IPv6/ASN allocations"
 
 # Seed block — synthetic canonical Q/A spanning both buckets.
 [seed_block]

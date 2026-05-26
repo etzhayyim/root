@@ -20,6 +20,8 @@ output_subdataset = "training/corpora/netreg-foundations-v1/"
 
 max_tier_cap = "A"
 
+description = "Foundational net-registry corpus — RIR delegated stats (5 RIRs) + IANA root zone + MaxMind GeoLite2 country lookup. Tier-A publishable; grounds baien knowledge of IP/ASN allocation + DNS top-of-hierarchy + IP→country geolocation."
+
 [output_metadata]
 description = """
 Tier-A net-registry foundations corpus: RIR IPv4/v6/ASN allocation roster
@@ -35,6 +37,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.10
+description   = "APNIC daily delegated stats — Asia-Pacific IPv4/IPv6/ASN allocation roster"
 
 [[source]]
 subdataset    = "netreg/rir-delegated/arin"
@@ -43,6 +46,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.10
+description   = "ARIN daily delegated stats — North America IPv4/IPv6/ASN allocation roster"
 
 [[source]]
 subdataset    = "netreg/rir-delegated/ripe"
@@ -51,6 +55,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.10
+description   = "RIPE daily delegated stats — Europe/Middle East IPv4/IPv6/ASN allocation roster"
 
 [[source]]
 subdataset    = "netreg/rir-delegated/afrinic"
@@ -59,6 +64,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.05
+description   = "AFRINIC daily delegated stats — Africa IPv4/IPv6/ASN allocation roster"
 
 [[source]]
 subdataset    = "netreg/rir-delegated/lacnic"
@@ -67,6 +73,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.05
+description   = "LACNIC daily delegated stats — Latin America/Caribbean IPv4/IPv6/ASN allocation roster"
 
 [[source]]
 subdataset    = "netreg/iana-root"
@@ -75,6 +82,7 @@ shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
 weight        = 0.05
+description   = "IANA root zone — TLD ⇒ authoritative NS delegation at the top of DNS"
 
 [[source]]
 subdataset    = "netreg/geolite2/geolite2-country"
@@ -84,6 +92,7 @@ tier          = "A"
 license       = "CC-BY-SA-4.0"
 sa_propagates = true
 weight        = 0.05
+description   = "MaxMind GeoLite2 country lookup — IP block ⇒ country ISO 3166-1 mapping; SA-propagates"
 
 [seed_block]
 weight = 0.50
