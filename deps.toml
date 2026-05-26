@@ -6073,3 +6073,63 @@ sibling_modules = [
   "00-contracts/lexicons/app/etzhayyim/toritate",
   "00-contracts/lexicons/app/etzhayyim/liberation",
 ]
+
+
+# ─── mizuho (水穂) water + sanitation substrate R0 (ADR-2605263100) ──
+
+[[adrs]]
+id = "2605263100"
+title = "mizuho (水穂) — non-profit religious-corp water + sanitation substrate Tier-B actor R0 charter"
+status = "proposed"
+status_note = "Fourth-priority gap-closure actor (gap audit row 4 = 水 / water + sanitation). Upstream infrastructure prerequisite for mitsuho (agricultural irrigation) + hagukumi (daily-living water) + iyashi (clinical-grade) + yakushi (WFI feed). Community-scale only at R0-R3 (per-source service population ≤2,500 R2, ≤25,000 cumulative R3). 任意団体 internal infrastructure substrate at did:web:mizuho.etzhayyim.com (20-actors/mizuho/). NAMING-COLLISION NOTE: 水穂 (mizuho) is romanization-homophone with existing mitsuho 瑞穂 food/agriculture (ADR-2605261015); filesystem paths + DIDs disambiguate; user explicitly proposed `mizuho (水穂)` in gap audit row 4. **Constitutional septad**: (1) Community-scale only G3+N1 / (2) NO commercial water utility software G4 (Veolia/Suez/American Water/Aquarion/Évian/Nestlé Pure Life/Beck Water/Trojan UV PROHIBITED per Charter Rider §2(e)+§2(c)) / (3) NO bottled water vendor G5+N3 (single-use plastic PROHIBITED per Charter §1.13 Wellbecoming) / (4) NO mandatory fluoridation G6 (per-member consent; anti-paternalism) / (5) Greywater recycling MANDATORY new construction G10 (Wellbecoming closed-loop; cross-actor iyashi.clinicFacilityAttestation cross-check) / (6) Water-source rights waqf-equivalent inalienability G11 (per ADR-2605192245 Land Registry doctrine extended to water rights; water-rights trading PROHIBITED) / (7) NO payroll for operators G12 (vocation-flow L5 stewards). Cells: potable_water_supply / wastewater_treatment / stormwater_management / greywater_recycling / irrigation_supply (mitsuho-pair) / clinical_grade_water_supply (iyashi+hagukumi+yakushi triad-pair). Lexicons: waterQualityAttestation ($ref parameter results) / wastewaterDischargeAttestation (G9 jurisdictional permit) / waterSupplySourceRegistry (G11 STRUCTURAL: landRegistryCid REQUIRED + waqfInalienabilityAttested const true) / waterContaminationIncident (severity enum; critical = halt + cross-actor notification + chigiri.disputeMediation escalation) / silenMizuhoReview (G4/G5/G6/G11/G12 const-field structural enforcement). 12 gates G1..G12 + 12 non-goals N1..N12 + 4-phase R0..R3."
+path = "90-docs/adr/2605263100-mizuho-water-sanitation-tier-b-actor-r0.md"
+
+[[modules]]
+path = "20-actors/mizuho"
+kind = "tier-b-non-profit-water-sanitation-infrastructure-substrate-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-path-reserved"
+description = "mizuho (水穂 — 水 water + 穂 ear-of-rice/spike) actor scaffold. Manifest + README + CLAUDE.md only at R0. 6 Pregel cells path-reserved under 20-actors/magatama/cells/mizuho_*/ (cell modules created at R1 post-Council ratification + ≥1 licensed-water-engineer on Council infrastructure advisory + Land Registry water-source-rights baseline + per-source baseline quality test; all import-time RuntimeError until activated). 5 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/mizuho/. Constitutional septad enforced (G3+N1 community-scale / G4 no commercial water utility software / G5+N3 no bottled water vendor / G6 no mandatory fluoridation / G10 greywater recycling MANDATORY new construction / G11 water-source waqf-equivalent inalienability / G12 no payroll for operators). NAMING-COLLISION NOTE: romanization-homophone with mitsuho (瑞穂; food/agriculture); filesystem + DID disambiguate; user explicitly proposed mizuho (水穂) verbatim in gap audit row 4. Upstream infrastructure prerequisite for mitsuho / hagukumi / iyashi / yakushi L4 Care Tier."
+adr = ["2605263100", "2605263000", "2605262900", "2605262700", "2605262130", "2605261100", "2605261030", "2605261015", "2605261000", "2605215000", "2605192300", "2605192245", "2605192200", "2605192145", "2605192100", "2605181100"]
+sibling_actors = [
+  "mitsuho (food/agriculture; cross-actor irrigation supply; ROMANIZATION-HOMOPHONE)",
+  "hagukumi (daily-living water consumer)",
+  "iyashi (clinical-grade water consumer + G10 greywater-mandatory cross-enforcement)",
+  "yakushi (WFI feed pre-treatment supply)",
+  "tatekata (future; MEP plumbing standards + G10 greywater-mandatory new construction)",
+  "hodoki (greywater material recovery integration)",
+  "hikari (treatment-plant edge solar + battery)",
+  "chigiri (stewardLaborAttestation operator L5 + ip license water-rights legal framework)",
+  "toritate (Public Fund grant + donation accounting)",
+  "kazaori (future; disaster relief water; G5 single-use container time-bounded carve-out coordination)",
+]
+sibling_modules = [
+  "00-contracts/lexicons/app/etzhayyim/mizuho",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/mizuho"
+form = "任意団体 internal water + sanitation substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格)"
+scale_invariant = "Community-scale only at R0-R3 (per-source service population ≤2,500 R2, ≤25,000 cumulative R3)"
+no_commercial_water_utility_software = true
+no_bottled_water_vendor = true
+no_mandatory_fluoridation = true
+greywater_recycling_mandatory_new_construction = true
+water_source_waqf_inalienability = true
+no_payroll_for_operators = true
+murakumo_only_inference = true
+naming_collision_homophone_with = "mitsuho (瑞穂; food/agriculture, ADR-2605261015)"
+phase_gate = "R1 activation requires Bootstrap Council Seat 2-5 RFP closure (2026-06-19) + Council Lv6+ ≥3 ratify of ADR-2605263100 + ≥1 licensed-water-engineer on Council infrastructure advisory + Land Registry water-source-rights baseline (≥1 well/spring source registered with waqf inalienability attested) + per-source baseline water-quality test on file + chigiri R1 active (stewardLaborAttestation read dependency for operator L5 classification)"
+charter_rider_risk = "LOW for ingestion (infrastructure attestation; no novel data attack surface); MEDIUM-HIGH for downstream consumers if commercial water utility software ever surfaces — G4 PROHIBITION is the structural mitigation"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/mizuho"
+kind = "mizuho-lexicon-namespace"
+version = "0.1.0-r0-schema-skeletons"
+status = "R0-5-lexicon-skeleton-schemas-+-README"
+description = "5 Lexicon JSONs for mizuho actor per ADR-2605263100: waterQualityAttestation (WHO Drinking Water Guidelines parameter results via $ref pattern; G8 lastQualityTestUtc enforces cadence) + wastewaterDischargeAttestation (G9 jurisdictionalPermitCid REQUIRED; sludge cycling cross-link to mitsuho via $ref dischargeParameter) + waterSupplySourceRegistry (G11 STRUCTURAL: landRegistryCid REQUIRED + waqfInalienabilityAttested const true; sourceType enum well/spring/captured-rainwater/etc.) + waterContaminationIncident (severity enum; critical = halt source cell + cross-actor notification iyashi/hagukumi/mitsuho/yakushi + chigiri.disputeMediation escalation; crossActorNotification via $ref) + silenMizuhoReview (G4 commercialUtilitySoftwarePenetrationPct=0 const + G5 bottledWaterUnitsDistributed=0 const + G6 fluoridationAdditionAttested=false const + G11 sourceWaqfInalienabilityAttestedRatioPctIntegerHundredths=10000 const + G12 operatorVocationFlowCompliantRatioPctIntegerHundredths=10000 const; quarterly Council Wellbecoming + closed-loop ratio + multi-gen consumption review). All Lexicons use $ref pattern for nested object types. Integer units throughout (liters / cm² / microgramsPerLiter × hundredths)."
+adr = ["2605263100", "2605192200", "2605192245", "2605261000", "2605262130"]
+sibling_modules = [
+  "20-actors/mizuho",
+  "00-contracts/lexicons/app/etzhayyim/mitsuho",
+  "00-contracts/lexicons/app/etzhayyim/iyashi",
+  "00-contracts/lexicons/app/etzhayyim/hagukumi",
+]
