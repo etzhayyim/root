@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Annotated, Any, Literal, Union
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class BaseObservation(BaseModel):
@@ -23,6 +23,16 @@ class BaseObservation(BaseModel):
 class TextObservation(BaseObservation):
     kind: Literal["text"] = "text"
     text: str
+    _suspicious: bool = False
+
+    @field_validator("text")
+    @classmethod
+    def normalize_and_check(cls, v: str) -> str:
+        from pymagatama.organism.adversarial.normalizer import normalize_input
+        res = normalize_input(v)
+        if res.suspicious:
+            raise ValueError("Suspicious adversarial input detected in text observation")
+        return res.normalized
 
 
 class ImageObservation(BaseObservation):
