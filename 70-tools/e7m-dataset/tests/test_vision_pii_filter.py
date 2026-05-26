@@ -20,6 +20,7 @@ import pytest
 
 from e7m_dataset.vision_pii_filter import (
     DetectionBox,
+    OnnxFaceBackend,
     StubBackendConfig,
     StubVisionPiiBackend,
     VisionPiiBackendUnavailable,
@@ -69,10 +70,12 @@ def test_unknown_backend_rejects(monkeypatch):
         VisionPiiFilter()
 
 
-def test_real_backend_w3_1_deferred(monkeypatch):
-    """W3.0 ships interface only — real ONNX backends are W3.1."""
+def test_real_backend_w3_1_now_shipped(monkeypatch):
+    """W3.1 shipped: real ONNX path is wired. Without ETZ_VISION_PII_FACE_MODEL
+    set, init fails-closed with a clear "model env not set" message."""
     monkeypatch.setenv("ETZ_VISION_PII_BACKEND", "centerface-onnx")
-    with pytest.raises(VisionPiiBackendUnavailable, match="W3.1 deliverable"):
+    monkeypatch.delenv("ETZ_VISION_PII_FACE_MODEL", raising=False)
+    with pytest.raises(VisionPiiBackendUnavailable, match="ETZ_VISION_PII_FACE_MODEL"):
         VisionPiiFilter()
 
 
@@ -150,6 +153,58 @@ def test_child_presence_triggers_frame_rejection():
     assert result.redacted_bytes is None
     assert result.rejection_reason is not None
     assert "child face detected" in result.rejection_reason
+
+
+# ─── W3.1 OnnxFaceBackend (operator-supplied model paths) ───────────
+
+
+def test_w3_1_onnx_backend_fails_when_model_missing(tmp_path):
+    """Init with nonexistent model path → VisionPiiBackendUnavailable."""
+    with pytest.raises(VisionPiiBackendUnavailable, match="face model not found"):
+        OnnxFaceBackend(model_path=str(tmp_path / "no-such-model.onnx"))
+
+
+def test_w3_1_from_env_fails_without_face_model(monkeypatch):
+    monkeypatch.delenv("ETZ_VISION_PII_FACE_MODEL", raising=False)
+    with pytest.raises(VisionPiiBackendUnavailable, match="not set"):
+        OnnxFaceBackend.from_env()
+
+
+def test_w3_1_from_env_fails_when_path_doesnt_exist(monkeypatch, tmp_path):
+    monkeypatch.setenv("ETZ_VISION_PII_FACE_MODEL", str(tmp_path / "missing.onnx"))
+    with pytest.raises(VisionPiiBackendUnavailable, match="face model not found"):
+        OnnxFaceBackend.from_env()
+
+
+def test_w3_1_from_env_fails_when_plate_model_missing(monkeypatch, tmp_path):
+    """Face path exists (fake file ok at this gate) but plate path missing → fail-closed."""
+    fake_face = tmp_path / "fake-face.onnx"
+    fake_face.write_bytes(b"FAKE")
+    monkeypatch.setenv("ETZ_VISION_PII_FACE_MODEL", str(fake_face))
+    monkeypatch.setenv("ETZ_VISION_PII_PLATE_MODEL", str(tmp_path / "missing-plate.onnx"))
+    # Init will fail trying to load fake face first (ONNX session creation fails).
+    # If face load somehow succeeded, plate-missing would still raise. Either
+    # way → VisionPiiBackendUnavailable.
+    with pytest.raises(VisionPiiBackendUnavailable):
+        OnnxFaceBackend.from_env()
+
+
+def test_w3_1_resolve_backend_env_routes_to_onnx_when_centerface_selected(monkeypatch):
+    """ETZ_VISION_PII_BACKEND=centerface-onnx → must try to instantiate
+    OnnxFaceBackend; no face model path → fail-closed."""
+    monkeypatch.setenv("ETZ_VISION_PII_BACKEND", "centerface-onnx")
+    monkeypatch.delenv("ETZ_VISION_PII_FACE_MODEL", raising=False)
+    with pytest.raises(VisionPiiBackendUnavailable, match="ETZ_VISION_PII_FACE_MODEL"):
+        VisionPiiFilter()
+
+
+def test_w3_1_corrupt_onnx_model_fails_closed(monkeypatch, tmp_path):
+    """A non-ONNX file at the path → onnxruntime InferenceSession will reject
+    it, the backend constructor must catch + raise VisionPiiBackendUnavailable."""
+    bad = tmp_path / "not-actually-onnx.onnx"
+    bad.write_bytes(b"this is not a valid ONNX model")
+    with pytest.raises(VisionPiiBackendUnavailable, match="failed to load face"):
+        OnnxFaceBackend(model_path=str(bad))
 
 
 def test_out_of_bounds_boxes_are_clipped():

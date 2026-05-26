@@ -67,6 +67,8 @@ from .base import (
     ParliamentRecordKind,
     ProcurementRecordKind,
 )
+from .uk_hansard_sensor import UkHansardSensor
+from .worldbank_open_data_sensor import WorldBankOpenDataSensor
 
 __all__ = [
     "BudgetRecordKind",
@@ -83,4 +85,6 @@ __all__ = [
     "GovStatisticsSensor",
     "ParliamentRecordKind",
     "ProcurementRecordKind",
+    "UkHansardSensor",
+    "WorldBankOpenDataSensor",
 ]

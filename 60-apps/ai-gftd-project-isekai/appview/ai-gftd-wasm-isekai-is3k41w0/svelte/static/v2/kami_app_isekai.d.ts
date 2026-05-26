@@ -2,6 +2,26 @@
 /* eslint-disable */
 
 /**
+ * nv-compat banner; useful for HUD strings and audit trails.
+ */
+export function isekaiOmniverseBanner(): string;
+
+/**
+ * JS-callable: return the bundled default USDA so the JS side can
+ * display / edit / re-submit it.
+ */
+export function isekaiOmniverseDefaultUsda(): string;
+
+/**
+ * Run the ISEKAI omniverse entry.
+ *
+ * `canvas_id`  — WebGPU canvas DOM id.
+ * `usda_src`   — USDA stage text. Pass empty string to use
+ *                `DEFAULT_ISEKAI_USDA`.
+ */
+export function runIsekaiOmniverse(canvas_id: string, usda_src: string): Promise<void>;
+
+/**
  * Entry point exported to JS.
  *
  * ```js
@@ -29,17 +49,21 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
+    readonly isekaiOmniverseBanner: () => [number, number];
+    readonly isekaiOmniverseDefaultUsda: () => [number, number];
+    readonly runIsekaiOmniverse: (a: number, b: number, c: number, d: number) => any;
     readonly run_isekai_v2: (a: number, b: number) => any;
     readonly run_isekai_v2_scene: (a: number, b: number, c: number) => any;
+    readonly wasm_bindgen__closure__destroy__h5c1f4f983c7f8bff: (a: number, b: number) => void;
     readonly wasm_bindgen__closure__destroy__h2999ab7c8b76f609: (a: number, b: number) => void;
-    readonly wasm_bindgen__closure__destroy__h4100316d4464f38b: (a: number, b: number) => void;
-    readonly wasm_bindgen__closure__destroy__h2d51862d9d8acb10: (a: number, b: number) => void;
+    readonly wasm_bindgen__closure__destroy__h08fe6a5ea70822a3: (a: number, b: number) => void;
     readonly wasm_bindgen__convert__closures_____invoke__h7fab2cc70c6a6a11: (a: number, b: number, c: any) => [number, number];
     readonly wasm_bindgen__convert__closures_____invoke__h5db5e8dc2faf8fdd: (a: number, b: number, c: any, d: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h67d2d77a4c3b48e0: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h67d2d77a4c3b48e0_3: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h67d2d77a4c3b48e0_4: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen__convert__closures_____invoke__h74397136654de27e: (a: number, b: number) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h3a6f88c67b5f8bee: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h3a6f88c67b5f8bee_1: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h3a6f88c67b5f8bee_2: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__h3a6f88c67b5f8bee_3: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen__convert__closures_____invoke__hc14154cec841365b: (a: number, b: number) => void;
     readonly __wbindgen_malloc: (a: number, b: number) => number;
     readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
     readonly __wbindgen_exn_store: (a: number) => void;

@@ -735,6 +735,158 @@ def test_w2_2_emit_roads_uses_parquet_when_layer_points_to_it(assemble_mod, tmp_
     assert "kami_waypoint_count = 2" in usda
 
 
+# ─── W2.3 WKB Polygon + MultiLineString ─────────────────────────────
+
+
+def _wkb_polygon_le(rings: list[list[tuple[float, float]]]) -> bytes:
+    """Encode a WKB Polygon with one or more rings (outer + holes)."""
+    import struct
+    out = bytearray()
+    out.append(1)                          # little-endian
+    out += struct.pack("<I", 3)            # Polygon
+    out += struct.pack("<I", len(rings))
+    for ring in rings:
+        out += struct.pack("<I", len(ring))
+        for x, y in ring:
+            out += struct.pack("<dd", x, y)
+    return bytes(out)
+
+
+def _wkb_multilinestring_le(linestrings: list[list[tuple[float, float]]]) -> bytes:
+    """Encode a WKB MultiLineString (embeds full sub-LineString records)."""
+    import struct
+    out = bytearray()
+    out.append(1)
+    out += struct.pack("<I", 5)            # MultiLineString
+    out += struct.pack("<I", len(linestrings))
+    for line in linestrings:
+        out += _wkb_linestring_le(line)
+    return bytes(out)
+
+
+def test_w2_3_parse_wkb_polygon_outer_ring(assemble_mod):
+    """3-vertex closed polygon (with explicit closing duplicate) → 3 unique pts."""
+    ring = [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)]
+    wkb = _wkb_polygon_le([ring])
+    decoded = assemble_mod._parse_wkb_polygon_outer_ring(wkb)
+    assert decoded == [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0)]
+
+
+def test_w2_3_parse_wkb_polygon_drops_inner_rings(assemble_mod):
+    outer = [(0.0, 0.0), (10.0, 0.0), (10.0, 10.0), (0.0, 10.0), (0.0, 0.0)]
+    hole = [(2.0, 2.0), (3.0, 2.0), (3.0, 3.0), (2.0, 3.0), (2.0, 2.0)]
+    wkb = _wkb_polygon_le([outer, hole])
+    decoded = assemble_mod._parse_wkb_polygon_outer_ring(wkb)
+    # Only outer ring, hole discarded.
+    assert len(decoded) == 4
+    assert (0.0, 0.0) in decoded
+
+
+def test_w2_3_parse_wkb_polygon_rejects_linestring(assemble_mod):
+    """A WKB LineString must not be accepted by the polygon decoder."""
+    wkb = _wkb_linestring_le([(0.0, 0.0), (1.0, 1.0)])
+    assert assemble_mod._parse_wkb_polygon_outer_ring(wkb) is None
+
+
+def test_w2_3_parse_wkb_polygon_rejects_degenerate(assemble_mod):
+    """Polygon with < 3 unique points → None."""
+    ring = [(0.0, 0.0), (1.0, 0.0), (0.0, 0.0)]   # 2 unique after closing dedup
+    wkb = _wkb_polygon_le([ring])
+    assert assemble_mod._parse_wkb_polygon_outer_ring(wkb) is None
+
+
+def test_w2_3_parse_wkb_multilinestring(assemble_mod):
+    """3-segment MultiLineString → 3 polylines preserved."""
+    lines = [
+        [(0.0, 0.0), (1.0, 1.0)],
+        [(2.0, 2.0), (3.0, 3.0), (4.0, 4.0)],
+        [(5.0, 5.0), (6.0, 6.0)],
+    ]
+    wkb = _wkb_multilinestring_le(lines)
+    decoded = assemble_mod._parse_wkb_multilinestring(wkb)
+    assert decoded == lines
+
+
+def test_w2_3_parse_wkb_multilinestring_rejects_linestring(assemble_mod):
+    wkb = _wkb_linestring_le([(0.0, 0.0), (1.0, 1.0)])
+    assert assemble_mod._parse_wkb_multilinestring(wkb) is None
+
+
+# ─── W2.3 Parquet ingest paths ──────────────────────────────────────
+
+
+def test_w2_3_buildings_polygon_takes_precedence_over_bbox(assemble_mod, tmp_path):
+    """When `geometry` column has a real WKB Polygon, the emitted polygon
+    has the polygon's actual corner count, not 4 (the bbox fallback)."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    # Hexagon (6 corners) at known location.
+    hex_ring = [
+        (139.700, 35.660), (139.7005, 35.6603), (139.7005, 35.6607),
+        (139.700, 35.661), (139.6995, 35.6607), (139.6995, 35.6603),
+        (139.700, 35.660),
+    ]
+    bbox_struct = pa.struct([
+        ("xmin", pa.float64()), ("xmax", pa.float64()),
+        ("ymin", pa.float64()), ("ymax", pa.float64()),
+    ])
+    table = pa.table({
+        "bbox": pa.array(
+            [{"xmin": 139.6995, "xmax": 139.7005, "ymin": 35.660, "ymax": 35.661}],
+            type=bbox_struct,
+        ),
+        "height": pa.array([15.0], type=pa.float64()),
+        "geometry": pa.array([_wkb_polygon_le([hex_ring])], type=pa.binary()),
+    })
+    parquet = tmp_path / "buildings-with-geom.parquet"
+    pq.write_table(table, parquet)
+    polygons = assemble_mod._load_overture_buildings_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67), default_height_m=8.0
+    )
+    assert polygons is not None
+    assert len(polygons) == 1
+    poly, h = polygons[0]
+    # Hexagon outer ring → 6 corners (vs 4 for bbox fallback).
+    assert len(poly) == 6
+    assert h == 15.0
+
+
+def test_w2_3_roads_multilinestring(assemble_mod, tmp_path):
+    """A MultiLineString row expands into N polylines."""
+    multi = _wkb_multilinestring_le([
+        [(139.700, 35.660), (139.701, 35.661)],
+        [(139.702, 35.662), (139.703, 35.663), (139.704, 35.664)],
+    ])
+    parquet = tmp_path / "roads-multi.parquet"
+    _make_overture_roads_parquet(parquet, [multi])
+    polylines = assemble_mod._load_overture_roads_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67)
+    )
+    assert polylines is not None
+    assert len(polylines) == 2
+    assert len(polylines[0]) == 2
+    assert len(polylines[1]) == 3
+
+
+def test_w2_3_roads_mixed_linestring_and_multilinestring(assemble_mod, tmp_path):
+    """Mixed Parquet (LineString + MultiLineString) — both contribute polylines."""
+    parquet = tmp_path / "roads-mixed.parquet"
+    _make_overture_roads_parquet(parquet, [
+        _wkb_linestring_le([(139.700, 35.660), (139.701, 35.661)]),
+        _wkb_multilinestring_le([
+            [(139.702, 35.662), (139.703, 35.663)],
+            [(139.704, 35.664), (139.705, 35.665)],
+        ]),
+        _wkb_point_le(139.706, 35.666),    # unknown type — silently skipped
+    ])
+    polylines = assemble_mod._load_overture_roads_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67)
+    )
+    assert polylines is not None
+    # 1 single + 2 multi-sub = 3 polylines (Point skipped).
+    assert len(polylines) == 3
+
+
 def test_w2_2_emit_uses_parquet_when_layer_points_to_it(assemble_mod, tmp_path):
     """When the layer extra carries `local_parquet_path`, emit uses real polygons."""
     parquet = tmp_path / "real-buildings.parquet"
@@ -833,6 +985,217 @@ def test_w2_1_roads_determinism_g6_via_full_emit(assemble_mod):
     a = assemble_mod._emit_vector_roads_usda(layer, plan, "R")
     b = assemble_mod._emit_vector_roads_usda(layer, plan, "R")
     assert a == b
+
+
+# ─── W2.2 raster_overlay (Pillow GeoTIFF / PNG sidecar) ─────────────
+
+
+def _make_test_image(path: Path, *, size: tuple[int, int] = (32, 24)) -> None:
+    from PIL import Image
+    import numpy as _np
+    rng = _np.random.RandomState(99)
+    arr = rng.randint(0, 256, size=(size[1], size[0], 3), dtype=_np.uint8)
+    Image.fromarray(arr).save(path, format="PNG")
+
+
+# ─── W2.2 terrain real elevation ingest ─────────────────────────────
+
+
+def test_w2_2_load_elevation_image_round_trips(assemble_mod, tmp_path):
+    """16-bit grayscale TIFF → numpy array sampled at target grid size."""
+    import numpy as np
+    from PIL import Image
+    # Make a 32x32 grayscale gradient (uint16) — pretend elevation in meters.
+    arr = np.zeros((32, 32), dtype=np.uint16)
+    for y in range(32):
+        for x in range(32):
+            arr[y, x] = x * 100 + y * 50    # 0..3200+1550 range
+    src = tmp_path / "dem.tif"
+    Image.fromarray(arr, mode="I;16").save(src)
+
+    out = assemble_mod._load_elevation_image(src, 8, 8)
+    assert out is not None
+    assert out.shape == (8, 8)
+    # Corner values: (0,0) → arr[0,0] = 0; (7,7) → arr[31,31] = 31*100+31*50 = 4650
+    assert out[0, 0] == 0.0
+    assert out[7, 7] == pytest.approx(4650.0)
+
+
+def test_w2_2_load_elevation_missing_file_returns_none(assemble_mod, tmp_path):
+    out = assemble_mod._load_elevation_image(tmp_path / "no-such.tif", 4, 4)
+    assert out is None
+
+
+def test_w2_2_load_elevation_handles_rgb_via_mean(assemble_mod, tmp_path):
+    """RGB image → grayscale mean across channels."""
+    import numpy as np
+    from PIL import Image
+    arr = np.full((16, 16, 3), [60, 120, 180], dtype=np.uint8)
+    src = tmp_path / "rgb.png"
+    Image.fromarray(arr).save(src)
+    out = assemble_mod._load_elevation_image(src, 4, 4)
+    assert out is not None
+    # All pixels = mean(60, 120, 180) = 120
+    assert (out == 120.0).all()
+
+
+def test_w2_2_terrain_emit_uses_real_elevation_when_path_set(assemble_mod, tmp_path):
+    """`local_geotiff_path` on terrain layer → elevation comes from raster."""
+    import numpy as np
+    from PIL import Image
+    # 8x8 single-band uint16, all elevation = 500m.
+    arr = np.full((8, 8), 500, dtype=np.uint16)
+    dem = tmp_path / "dem.tif"
+    Image.fromarray(arr, mode="I;16").save(dem)
+
+    scene_dir = tmp_path / "real-dem-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "      mesh: {target_edge_m: 200.0}\n"   # ~10×12 grid
+        f"      local_geotiff_path: {dem}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    layer = plan.layers[0]
+    usda = assemble_mod._emit_terrain_usda(layer, plan, "T")
+    # Source token must reflect real ingest.
+    assert "pillow-elevation-w2.2" in usda
+    assert "synth-cid-seeded" not in usda
+    # All elevation values should be exactly 500 (mass-uniform DEM).
+    assert ", 500.000)" in usda
+
+
+def test_w2_2_terrain_falls_back_to_synth_when_path_missing(assemble_mod, tmp_path):
+    scene_dir = tmp_path / "missing-dem-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_geotiff_path: {tmp_path / 'no-such-dem.tif'}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    usda = assemble_mod._emit_terrain_usda(plan.layers[0], plan, "T")
+    # Falls back to synth-cid-seeded (file doesn't exist).
+    assert "synth-cid-seeded-w2.1" in usda
+
+
+def test_w2_2_raster_overlay_stub_when_no_path(assemble_mod):
+    """No `local_geotiff_path` → emit W2.0 stub Material (no texture binding)."""
+    plan = assemble_mod.build_plan(_WADACHI_SCENE)
+    layer = next(l for l in plan.layers if l.kind == "raster_overlay")
+    usda = assemble_mod._emit_raster_overlay_usda(layer, plan, "M")
+    assert 'def Material "M"' in usda
+    assert "stub-w2.0-no-binding" in usda
+    # No texture shader nodes in stub mode.
+    assert "UsdUVTexture" not in usda
+
+
+def test_w2_2_raster_overlay_real_texture_when_path_set(assemble_mod, tmp_path):
+    """`local_geotiff_path` set → emit Material with UsdUVTexture binding."""
+    scene_dir = tmp_path / "wadachi-with-overlay"
+    scene_dir.mkdir()
+    raster = tmp_path / "shibuya-rgb.png"
+    _make_test_image(raster)
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: raster_overlay\n"
+        "      source_subdataset: geo/sentinel2/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_geotiff_path: {raster}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    layer = next(l for l in plan.layers if l.kind == "raster_overlay")
+    usda = assemble_mod._emit_raster_overlay_usda(layer, plan, "M")
+    assert "UsdUVTexture" in usda
+    assert "UsdPrimvarReader_float2" in usda
+    assert "@./textures/M.png@" in usda
+    assert "pillow-sidecar-w2.2" in usda
+
+
+def test_w2_2_write_raster_sidecar_creates_png(assemble_mod, tmp_path):
+    """`_write_raster_sidecar` reads source + writes PNG sidecar."""
+    src = tmp_path / "src.png"
+    out_dir = tmp_path / "scene_out"
+    _make_test_image(src)
+    sidecar = assemble_mod._write_raster_sidecar(src, out_dir, "Layer1_raster_overlay")
+    assert sidecar is not None
+    assert sidecar.exists()
+    assert sidecar.name == "Layer1_raster_overlay.png"
+    assert sidecar.parent.name == "textures"
+
+
+def test_w2_2_write_raster_sidecar_returns_none_when_src_missing(assemble_mod, tmp_path):
+    sidecar = assemble_mod._write_raster_sidecar(
+        tmp_path / "no-such-file.tif", tmp_path / "out", "M"
+    )
+    assert sidecar is None
+
+
+def test_w2_2_emit_scene_writes_sidecars_and_records_in_manifest(assemble_mod, tmp_path):
+    raster = tmp_path / "raster.png"
+    _make_test_image(raster)
+    scene_dir = tmp_path / "test-scene-with-overlay"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/x\n"
+        "      datasetPin_at: at://x/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: raster_overlay\n"
+        "      source_subdataset: geo/sentinel2/x\n"
+        "      datasetPin_at: at://x/<rkey>\n"
+        "      tier: A\n"
+        f"      local_geotiff_path: {raster}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    out_dir = tmp_path / "scene_out"
+    manifest = assemble_mod.emit_scene(plan, out_dir)
+    # The sidecar file must exist in the scene output dir.
+    sidecar = out_dir / "textures" / "Layer1_raster_overlay.png"
+    assert sidecar.exists()
+    # The manifest records the sidecar copy operation.
+    assert "texture_sidecars" in manifest
+    recs = manifest["texture_sidecars"]
+    assert len(recs) == 1
+    assert recs[0]["prim_name"] == "Layer1_raster_overlay"
+    assert recs[0]["sidecar"] == "textures/Layer1_raster_overlay.png"
 
 
 def test_makura_indoor_carveout_has_no_scene_yaml():

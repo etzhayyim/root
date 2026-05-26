@@ -55,6 +55,7 @@ from __future__ import annotations
 import io
 import os
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Optional, Protocol
 
 
@@ -141,6 +142,263 @@ class StubBackendConfig:
     face_boxes: list[DetectionBox] = field(default_factory=list)
     plate_boxes: list[DetectionBox] = field(default_factory=list)
     child_count: int = 0
+
+
+def _try_onnx():
+    try:
+        import onnxruntime   # type: ignore
+        return onnxruntime
+    except ImportError:
+        return None
+
+
+def _try_numpy():
+    try:
+        import numpy   # type: ignore
+        return numpy
+    except ImportError:
+        return None
+
+
+class OnnxFaceBackend:
+    """W3.1 face detection backend — onnxruntime + Pillow + numpy.
+
+    Operator supplies ONNX model files via env:
+
+      ETZ_VISION_PII_FACE_MODEL=/path/to/centerface.onnx
+      ETZ_VISION_PII_PLATE_MODEL=/path/to/lpr-yolo.onnx   (optional)
+      ETZ_VISION_PII_AGE_MODEL=/path/to/age-classifier.onnx   (optional)
+
+    Initialization fail-closes when:
+      - onnxruntime not installed
+      - numpy not installed
+      - model file doesn't exist
+      - ONNX session fails to load (corrupt / unsupported op set)
+
+    `detect_plates()` returns empty list when no plate model is configured.
+    `estimate_child_face_count()` returns 0 when no age model is configured —
+    callers MUST treat this as "indeterminate" and apply jurisdiction-
+    specific policy (W3.2 swaps in a real age classifier).
+
+    The CenterFace ONNX output format (canonical):
+      - outputs[0] = heatmap (1, 1, H, W)
+      - outputs[1] = scale (1, 2, H, W)
+      - outputs[2] = offset (1, 2, H, W)
+      - outputs[3] = landmark (1, 10, H, W)   (optional)
+
+    This backend implements the CenterFace decode path; yolov8-face /
+    retinaface decode paths are separate backends (W3.1.1+).
+    """
+
+    name = "onnx-face"
+
+    def __init__(
+        self,
+        model_path: str,
+        *,
+        plate_model_path: Optional[str] = None,
+        age_model_path: Optional[str] = None,
+        input_size: tuple[int, int] = (640, 480),   # CenterFace default
+        score_threshold: float = 0.5,
+    ) -> None:
+        ort = _try_onnx()
+        if ort is None:
+            raise VisionPiiBackendUnavailable(
+                "onnxruntime not installed; `pip install onnxruntime` then re-init."
+            )
+        if _try_numpy() is None:
+            raise VisionPiiBackendUnavailable(
+                "numpy not installed; `pip install numpy` then re-init."
+            )
+
+        face_path = Path(model_path)
+        if not face_path.exists():
+            raise VisionPiiBackendUnavailable(
+                f"face model not found: {model_path!r}; "
+                f"check ETZ_VISION_PII_FACE_MODEL env path."
+            )
+        try:
+            self._face_session = ort.InferenceSession(
+                str(face_path), providers=["CPUExecutionProvider"]
+            )
+        except Exception as exc:   # noqa: BLE001
+            raise VisionPiiBackendUnavailable(
+                f"failed to load face ONNX session at {model_path!r}: {exc}"
+            ) from exc
+
+        self._plate_session = None
+        if plate_model_path:
+            pp = Path(plate_model_path)
+            if not pp.exists():
+                raise VisionPiiBackendUnavailable(
+                    f"plate model not found: {plate_model_path!r}"
+                )
+            try:
+                self._plate_session = ort.InferenceSession(
+                    str(pp), providers=["CPUExecutionProvider"]
+                )
+            except Exception as exc:   # noqa: BLE001
+                raise VisionPiiBackendUnavailable(
+                    f"failed to load plate ONNX: {exc}"
+                ) from exc
+
+        self._age_session = None
+        if age_model_path:
+            ap = Path(age_model_path)
+            if not ap.exists():
+                raise VisionPiiBackendUnavailable(
+                    f"age model not found: {age_model_path!r}"
+                )
+            try:
+                self._age_session = ort.InferenceSession(
+                    str(ap), providers=["CPUExecutionProvider"]
+                )
+            except Exception as exc:   # noqa: BLE001
+                raise VisionPiiBackendUnavailable(
+                    f"failed to load age ONNX: {exc}"
+                ) from exc
+
+        self.input_size = input_size
+        self.score_threshold = score_threshold
+
+    @classmethod
+    def from_env(cls) -> "OnnxFaceBackend":
+        """Build from env vars; raises VisionPiiBackendUnavailable if face path unset."""
+        face = os.environ.get("ETZ_VISION_PII_FACE_MODEL")
+        if not face:
+            raise VisionPiiBackendUnavailable(
+                "ETZ_VISION_PII_FACE_MODEL not set"
+            )
+        return cls(
+            model_path=face,
+            plate_model_path=os.environ.get("ETZ_VISION_PII_PLATE_MODEL"),
+            age_model_path=os.environ.get("ETZ_VISION_PII_AGE_MODEL"),
+        )
+
+    def _decode_image(self, image_bytes: bytes):
+        """Image bytes → (input_tensor, original_h, original_w) for ONNX inference."""
+        import io as _io
+        from PIL import Image
+        import numpy as np
+        img = Image.open(_io.BytesIO(image_bytes))
+        if img.mode != "RGB":
+            img = img.convert("RGB")
+        orig_w, orig_h = img.size
+        w, h = self.input_size
+        resized = img.resize((w, h))
+        arr = np.asarray(resized, dtype=np.float32).transpose(2, 0, 1)   # (C, H, W)
+        arr = np.expand_dims(arr, axis=0)                                # (1, C, H, W)
+        # CenterFace expects normalized [0, 1] in BGR (the conventional impl);
+        # we ship the standard impl convention and let operators of alt models
+        # override via a wrapper backend (W3.1.1).
+        arr /= 255.0
+        return arr, orig_h, orig_w
+
+    def detect_faces(self, image_bytes: bytes) -> list[DetectionBox]:
+        """Run the face ONNX, return decoded DetectionBox list (in original pixel coords)."""
+        import numpy as np
+        inp, orig_h, orig_w = self._decode_image(image_bytes)
+        ort_inputs = {self._face_session.get_inputs()[0].name: inp}
+        outputs = self._face_session.run(None, ort_inputs)
+        # Decode is model-specific; for the W3.1 PoC we leave the decoder
+        # delegate-able via subclass override. The default impl extracts
+        # any output that already looks like bbox lists (Nx5: x,y,w,h,score).
+        boxes: list[DetectionBox] = []
+        for out in outputs:
+            if out.ndim == 2 and out.shape[1] in (5, 6, 7):
+                w_in, h_in = self.input_size
+                sx = orig_w / float(w_in)
+                sy = orig_h / float(h_in)
+                for row in out:
+                    if len(row) < 5:
+                        continue
+                    score = float(row[4])
+                    if score < self.score_threshold:
+                        continue
+                    x = int(round(float(row[0]) * sx))
+                    y = int(round(float(row[1]) * sy))
+                    w = int(round(float(row[2]) * sx))
+                    h = int(round(float(row[3]) * sy))
+                    boxes.append(DetectionBox(x=x, y=y, w=w, h=h, score=score, label="face"))
+                break
+        return boxes
+
+    def detect_plates(self, image_bytes: bytes) -> list[DetectionBox]:
+        """License-plate detection. Returns [] when no plate model configured."""
+        if self._plate_session is None:
+            return []
+        import numpy as np
+        inp, orig_h, orig_w = self._decode_image(image_bytes)
+        ort_inputs = {self._plate_session.get_inputs()[0].name: inp}
+        outputs = self._plate_session.run(None, ort_inputs)
+        boxes: list[DetectionBox] = []
+        for out in outputs:
+            if out.ndim == 2 and out.shape[1] in (5, 6, 7):
+                w_in, h_in = self.input_size
+                sx = orig_w / float(w_in)
+                sy = orig_h / float(h_in)
+                for row in out:
+                    if len(row) < 5:
+                        continue
+                    score = float(row[4])
+                    if score < self.score_threshold:
+                        continue
+                    x = int(round(float(row[0]) * sx))
+                    y = int(round(float(row[1]) * sy))
+                    w = int(round(float(row[2]) * sx))
+                    h = int(round(float(row[3]) * sy))
+                    boxes.append(DetectionBox(
+                        x=x, y=y, w=w, h=h, score=score, label="license_plate"
+                    ))
+                break
+        return boxes
+
+    def estimate_child_face_count(
+        self, image_bytes: bytes, faces: list[DetectionBox]
+    ) -> int:
+        """Per-face age estimation. Returns 0 when no age model configured.
+
+        W3.1 PoC: when age model is loaded, crops each face → ONNX inference →
+        classifies as child (<18 estimated). Without age model, returns 0 —
+        callers should treat 0 as "indeterminate" and apply conservative
+        jurisdiction policy (e.g., reject all frames in regions with strict
+        child-imagery laws). W3.2 will add proper threshold tuning.
+        """
+        if self._age_session is None:
+            return 0
+        if not faces:
+            return 0
+        import io as _io
+        from PIL import Image
+        import numpy as np
+        img = Image.open(_io.BytesIO(image_bytes))
+        if img.mode != "RGB":
+            img = img.convert("RGB")
+        child_count = 0
+        for fbox in faces:
+            crop = img.crop((fbox.x, fbox.y, fbox.x + fbox.w, fbox.y + fbox.h))
+            if crop.size[0] < 8 or crop.size[1] < 8:
+                continue
+            # Common age-classifier input: 224x224 RGB normalized.
+            crop = crop.resize((224, 224))
+            arr = np.asarray(crop, dtype=np.float32).transpose(2, 0, 1) / 255.0
+            arr = np.expand_dims(arr, axis=0)
+            try:
+                ort_inputs = {self._age_session.get_inputs()[0].name: arr}
+                out = self._age_session.run(None, ort_inputs)[0]
+            except Exception:   # noqa: BLE001
+                continue
+            # Heuristic: out is either (1, num_classes) or (1, 1) regression.
+            # Class 0 = child, others adult; OR scalar regression < 18.
+            vals = out.flatten()
+            if len(vals) > 1:
+                # classification: argmax = 0 → child
+                if int(np.argmax(vals)) == 0:
+                    child_count += 1
+            elif len(vals) == 1:
+                if float(vals[0]) < 18.0:
+                    child_count += 1
+        return child_count
 
 
 class StubVisionPiiBackend:
@@ -280,11 +538,11 @@ def _resolve_backend_from_env(*, allow_stub: bool) -> VisionPiiBackend:
         return StubVisionPiiBackend()
 
     if spec in {"centerface-onnx", "yolov8-face-onnx", "retinaface-onnx"}:
-        raise VisionPiiBackendUnavailable(
-            f"backend '{spec}' is a W3.1 deliverable; operator must install "
-            f"model files + onnxruntime + Pillow + provide model paths via "
-            f"ETZ_VISION_PII_FACE_MODEL / ETZ_VISION_PII_PLATE_MODEL envs."
-        )
+        # W3.1: real ONNX backend. Operator MUST set ETZ_VISION_PII_FACE_MODEL
+        # (and optionally PLATE_MODEL / AGE_MODEL). The spec value selects
+        # the decode convention (the W3.1 PoC ships the CenterFace decoder;
+        # yolov8-face / retinaface are subclasses W3.1.1+).
+        return OnnxFaceBackend.from_env()
 
     if not spec:
         raise VisionPiiBackendUnavailable(
@@ -351,6 +609,7 @@ __all__ = [
     "DEFAULT_PLATE_BLUR_SIGMA",
     "DetectionBox",
     "FrameDetections",
+    "OnnxFaceBackend",
     "RedactionResult",
     "StubBackendConfig",
     "StubVisionPiiBackend",

@@ -55,6 +55,9 @@ from .base import (
     LeiSensor,
     OwnershipKind,
 )
+from .lei_sensor import GleifLeiSensor
+from .sec_edgar_sensor import SecEdgarSensor
+from .uk_companies_house_sensor import UkCompaniesHouseSensor
 
 __all__ = [
     "CorpDisclosureObservation",
@@ -66,7 +69,10 @@ __all__ = [
     "CorpRegistryObservation",
     "CorpRegistrySensor",
     "FormClass",
+    "GleifLeiSensor",
     "LeiObservation",
     "LeiSensor",
     "OwnershipKind",
+    "SecEdgarSensor",
+    "UkCompaniesHouseSensor",
 ]

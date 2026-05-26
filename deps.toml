@@ -7321,3 +7321,53 @@ adr = "ADR-2605264300"
 kind = "vendor-renderer"
 status = "iter-1-vendorized"
 description = "Vendor-private three.js scene surface (cyber-drill carve-out per ADR-2605172400). 12 files originally lived at `@etzhayyim/kami-engine-sdk/src/lib/{spark,webvr}/`; renamed into cyber-drill on 2026-05-26 (commit `b04c54eb5` aka the `feat(nv_compat): isaaclab.utils.math` race-renamed commit per ADR-2605264300 §1 Notes). Rewired to consume the headless SDK engine via `@etzhayyim/kami-engine-sdk/webvr`. Includes barrel `index.ts` + WebXR `ambient.d.ts` (moved from SDK). Religious-corp SDK no longer ships three.js code; cyber-drill is the only vendor app currently carrying it."
+
+
+# ─── Concrete W1 sensor implementation (ADR-2605263800 — first W1-impl-landed) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/corp/lei_sensor.py"
+adr = "ADR-2605263800"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "GleifLeiSensor concrete W1 implementation (first corp sensor to ship beyond Protocol). Reads GLEIF L1 NDJSON view from corp/lei/gleif/lei-l1/<rev>/*.ndjson and yields LeiObservation per row. Tier-A CC0 1.0. G7 schema discipline: malformed LEI (≠20 chars) is skipped without halting stream. G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly per (pin.revision, n) seed. Passive-only invariant — NEVER hits a per-LEI live API endpoint; only reads pre-fetched IPFS-pinned subdataset. Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-26 with 4 jurisdictions (USA/USA/JPN/GBR) + 1 malformed-skip. Downstream: other corp sensors (registry/disclosure/ownership/filing-event) resolve their entity_lei field against this sensor's pin."
+
+
+# ─── Concrete W1 sensor implementation (ADR-2605263900 — first gov W1-impl-landed) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/gov/worldbank_open_data_sensor.py"
+adr = "ADR-2605263900"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "WorldBankOpenDataSensor concrete W1 implementation (first gov sensor to ship beyond Protocol; sibling to corp/lei_sensor.py GleifLeiSensor). Reads World Bank Open Data per-indicator NDJSON from gov/statistics/worldbank-open-data/<rev>/*.ndjson and yields GovStatisticsObservation per (indicator, economy, period) tuple. Tier-A CC-BY 4.0. SDMX-style dimensions coercion (list-of-2-lists OR dict → tuple of (code, value) pairs). G7 schema discipline: rows missing indicatorCode/Title/dimensions/observationPeriod are skipped without halt. G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly per seed. state_aligned_flag pass-through from row (§2(g) parallel to ADR-2605262800; downstream ossekai+manabi MUST display in derived publication). missing-value semantics: value=None when upstream marks missing. Passive-only invariant — no per-indicator live API hits. Vendor commercial gov-intel terminal imports (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro) CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-26 with USA/CHN/JPN GDP + CN §2(g) flag + missing-value SP.POP.TOTL + dict-shape coercion + 1 orphan-skip."
+
+
+# ─── Concrete W1 sensor implementation #3 (ADR-2605263800 — SEC EDGAR) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/corp/sec_edgar_sensor.py"
+adr = "ADR-2605263800"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "SecEdgarSensor concrete W1 implementation (corp W1-impl #2 / overall #3). Reads SEC EDGAR per-filing NDJSON from corp/disclosures/usa/<rev>/*.ndjson and yields CorpDisclosureObservation per filing. Tier-A public-domain (17 CFR 200 / 17 USC 105). Internal _FORM_CLASS_MAP table maps 16 native SEC form codes (10-K, 10-Q, 8-K, Form 4, 13F-HR, S-1, etc.) to canonical FormClass enum; rows with unknown native codes AND no explicit `formClass` field are skipped per G7 schema discipline (rather than yielding observations that fail downstream enum). Explicit `formClass` in row takes precedence over native mapping (forward-compat). `form_class_filter` constructor parameter restricts the yielded stream to selected canonical form classes. Malformed LEI (entityLei field != 20 chars) nullifies the entity_lei observation field without dropping the row. Per-jurisdiction publication-redaction policy: SEC pass-through (upstream publishes named officers + insiders + ≥10% holders + directors); piiRedacted defaults False, flips True only if defense-in-depth PII filter modified the view at fetch time. G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly. Passive-only invariant — NEVER hits SEC EDGAR live API. Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-26 with real Apple 10-K + MSFT 10-Q + JPM 8-K + Apple Form 4 + 13F-HR malformed-LEI + 2 G7-skip rows; form_class_filter restriction verified."
+
+
+# ─── Concrete W1 sensor implementation #4 (ADR-2605263800 — UK Companies House) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/corp/uk_companies_house_sensor.py"
+adr = "ADR-2605263800"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "UkCompaniesHouseSensor concrete W1 implementation (corp W1-impl #3 / overall #4). Reads UK Companies House Free Company Data Product (FCD) per-company NDJSON from corp/registries/gbr/companies-house/<rev>/*.ndjson and yields CorpRegistryObservation per UK CRN (~5M companies). Tier-A OGL v3.0 (Crown copyright open license). G7 schema discipline: CRN structural validation via regex (8-digit OR 2-letter-prefix+6-digit; matches E&W / SC Scotland / NI Northern Ireland / OC English-Welsh LLP / SO Scottish LLP); malformed rows skipped without halt. Lowercase CRN input upper-cased before validation (defense-in-depth normalization). Malformed LEI (entityLei != 20 chars) → entity_lei=None on observation; row still yielded. regional_prefix_filter constructor parameter restricts to per-region subset (e.g., 'SC' for Scotland-only consumer). G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly. Per-jurisdiction publication-redaction policy: Companies House pass-through (upstream publishes named officers + PSCs); GDPR DSARs route through chigiri.data_privacy to upstream publisher. Passive-only invariant — NEVER hits Companies House REST/streaming live APIs. Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-26 with real Apple Europe / HSBC Holdings / NatWest / Diageo / 1 NI example + 1 OC LLP + lowercase-upcase + malformed-LEI + 2 G7-skip; SC + OC regional filters verified."
+
+
+# ─── Concrete W1 sensor implementation #5 (ADR-2605263900 — UK Hansard) ──
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/sensors/gov/uk_hansard_sensor.py"
+adr = "ADR-2605263900"
+kind = "dataset-sensor-impl"
+status = "w1-impl-landed"
+description = "UkHansardSensor concrete W1 implementation (gov W1-impl #2 / overall #5). Reads UK Hansard per-record NDJSON from gov/parliament/gbr/hansard/<rev>/*.ndjson and yields GovParliamentObservation per parliamentary record (debate / committee / bill / vote / member-statement / petition / question). Tier-A OGL v3.0 (Open Parliament Licence mirrors Open Government Licence). Internal _RECORD_KIND_MAP table maps 12 Hansard native record-type strings (Debate, Oral Question, Written Question, Written Statement, Personal Statement, Petition, Committee, Committee Stage, Division, Vote, Bill, Bill Reading) to canonical ParliamentRecordKind enum; explicit row.recordKind takes precedence over native mapping. G7 schema discipline: rows missing required fields (recordId/sessionDateUtc/payloadCid/house) OR with unknown house value OR with unmappable nativeKind+no explicit recordKind → skip without halting stream. house_filter constructor param restricts to Commons OR Lords only; record_kind_filter restricts to selected canonical kinds (e.g., (debate, vote) for division-tracking consumers). Speaker name + role pass-through per ADR-2605263900 §5 (Hansard is the public record of parliamentary speech; GDPR DSARs route through chigiri.data_privacy to upstream Parliament publisher; religious-corp NEVER performs unilateral removal). state_aligned_flag=False (UK is NOT §2(g)-flagged). G7 determinism: hot_sample(pin.revision, n) reservoir-samples reproducibly. Passive-only invariant — NEVER hits Hansard live API. Vendor commercial gov-intel terminal imports (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro) CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-26 with Commons debate (Speaker Hoyle) + Lords debate (Baroness Smith) + Oral Question (PM Starmer) + Division (vote) + Bill Reading + 3 G7-skip rows (unknown-kind + missing-cid + bad-house); house_filter=\"Lords\" + record_kind_filter=(debate,vote) restrictions verified."

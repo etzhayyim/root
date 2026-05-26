@@ -481,6 +481,69 @@ def _bbox_local_corners(plan: AssemblyPlan) -> tuple[float, float, float, float]
     return (-width / 2.0, -height / 2.0, width / 2.0, height / 2.0)
 
 
+def _load_elevation_image(
+    image_path: Path, nx: int, ny: int,
+) -> Optional["np.ndarray"]:  # type: ignore[name-defined]
+    """W2.2 terrain: read single-channel elevation raster via Pillow → (ny, nx) array.
+
+    Handles SRTM-style 16-bit grayscale TIFF (Pillow `I;16` mode),
+    floating-point grayscale (`F`), 8-bit grayscale (`L`), and RGB
+    (converted to mean grayscale). Nearest-neighbor downsamples to the
+    target grid size — W2.4 with rasterio will swap this for proper
+    bilinear via `rasterio.sample` + the SRTM tile's GeoTransform.
+
+    Returns None when:
+      - Pillow / numpy unavailable
+      - file doesn't exist
+      - decode fails
+    """
+    if not image_path.exists():
+        return None
+    try:
+        from PIL import Image       # type: ignore
+        import numpy as np          # type: ignore
+    except ImportError:
+        return None
+    try:
+        img = Image.open(image_path)
+        if img.mode in {"I;16", "I", "F", "L"}:
+            arr = np.asarray(img, dtype=np.float32)
+        elif img.mode == "RGB":
+            arr = np.asarray(img, dtype=np.float32).mean(axis=2)
+        else:
+            arr = np.asarray(img.convert("L"), dtype=np.float32)
+    except Exception:   # noqa: BLE001 — decode failures fall back to synth
+        return None
+    if arr.ndim != 2:
+        return None
+    H, W = arr.shape
+
+    # W2.3: scipy.ndimage.map_coordinates → bilinear interpolation when
+    # available; falls back to nearest-neighbor otherwise.
+    try:
+        from scipy.ndimage import map_coordinates   # type: ignore
+        # Build a (2, ny*nx) coord array — map_coordinates expects (row, col).
+        u = np.linspace(0, W - 1, nx, dtype=np.float64)
+        v = np.linspace(0, H - 1, ny, dtype=np.float64)
+        cols, rows = np.meshgrid(u, v)
+        coords = np.stack([rows.ravel(), cols.ravel()])
+        sampled = map_coordinates(arr, coords, order=1, mode="nearest")
+        return sampled.reshape(ny, nx).astype(np.float32)
+    except ImportError:
+        pass
+
+    # Nearest-neighbor fallback (W2.2).
+    out = np.zeros((ny, nx), dtype=np.float32)
+    for iy in range(ny):
+        for ix in range(nx):
+            u_s = ix / max(nx - 1, 1)
+            v_s = iy / max(ny - 1, 1)
+            sx = min(int(u_s * (W - 1)), W - 1)
+            sy = min(int(v_s * (H - 1)), H - 1)
+            out[iy, ix] = arr[sy, sx]
+    return out
+
+
 def _synth_elevation(cid: str, ix: int, iy: int, nx: int, ny: int) -> float:
     """Deterministic synthetic elevation field for W2.1.
 
@@ -516,12 +579,24 @@ def _emit_terrain_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> 
     nx = max(2, min(60, int((x1 - x0) / target_edge) + 1))
     ny = max(2, min(60, int((y1 - y0) / target_edge) + 1))
 
+    # W2.2 cont.: try real elevation raster first; else synth.
+    elevation_grid = None
+    elevation_source = "synth-cid-seeded-w2.1"
+    geotiff_path = layer.extra.get("local_geotiff_path") or layer.extra.get("local_image_path")
+    if isinstance(geotiff_path, str) and geotiff_path:
+        elevation_grid = _load_elevation_image(Path(geotiff_path), nx, ny)
+        if elevation_grid is not None:
+            elevation_source = f"pillow-elevation-w2.2:{geotiff_path}"
+
     pts: list[str] = []
     for iy in range(ny):
         for ix in range(nx):
             px = x0 + (x1 - x0) * ix / (nx - 1)
             py = y0 + (y1 - y0) * iy / (ny - 1)
-            pz = _synth_elevation(layer.resolved_cid, ix, iy, nx, ny)
+            if elevation_grid is not None:
+                pz = float(elevation_grid[iy, ix])
+            else:
+                pz = _synth_elevation(layer.resolved_cid, ix, iy, nx, ny)
             pts.append(f"({px:.3f}, {py:.3f}, {pz:.3f})")
     pts_str = "[" + ", ".join(pts) + "]"
 
@@ -548,7 +623,7 @@ def _emit_terrain_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> 
         int kami_grid_nx = {nx}
         int kami_grid_ny = {ny}
         float kami_target_edge_m = {target_edge}
-        string kami_elevation_source = "synth-cid-seeded-w2.1"
+        string kami_elevation_source = "{elevation_source}"
         point3f[] points = {pts_str}
         int[] faceVertexCounts = {fvc_str}
         int[] faceVertexIndices = {fvi_str}
@@ -558,13 +633,65 @@ def _emit_terrain_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> 
 
 
 def _emit_raster_overlay_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> str:
-    """UsdShade.Material declaration referencing the resolved CID."""
+    """UsdShade.Material with optional UsdUVTexture binding (W2.2).
+
+    When the layer's `extra.local_geotiff_path` (or `extra.local_image_path`)
+    points to a real raster file, the emitter wires a UsdUVTexture shader
+    that references `./textures/<prim_name>.png` (the sidecar written by
+    `emit_scene`). Otherwise emits the W2.0-style stub Material.
+
+    Pillow handles the GeoTIFF→PNG sidecar conversion in `emit_scene`;
+    the USDA produced here is identical regardless of whether the
+    sidecar exists at emit time — the USD reader will fail to resolve
+    the asset path only at load time.
+    """
+    geotiff_path = (
+        layer.extra.get("local_geotiff_path")
+        or layer.extra.get("local_image_path")
+    )
+    if isinstance(geotiff_path, str) and geotiff_path:
+        rel_asset = f"./textures/{prim_name}.png"
+        texture_source = f"pillow-sidecar-w2.2:{geotiff_path}"
+        return f"""    def Material "{prim_name}"
+    {{
+        token kami_layer_kind = "raster_overlay"
+        string kami_source_subdataset = "{layer.source_subdataset}"
+        string kami_resolved_cid = "{layer.resolved_cid}"
+        string kami_tier = "{layer.tier}"
+        string kami_texture_source = "{texture_source}"
+        token outputs:surface.connect = </World/{prim_name}/PreviewSurface.outputs:surface>
+
+        def Shader "PreviewSurface"
+        {{
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor.connect = </World/{prim_name}/DiffuseTexture.outputs:rgb>
+            token outputs:surface
+        }}
+
+        def Shader "DiffuseTexture"
+        {{
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @{rel_asset}@
+            float2 inputs:st.connect = </World/{prim_name}/STReader.outputs:result>
+            float3 outputs:rgb
+        }}
+
+        def Shader "STReader"
+        {{
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname = "st"
+            float2 outputs:result
+        }}
+    }}
+"""
+    # Fallback: W2.0 stub Material (no texture binding).
     return f"""    def Material "{prim_name}"
     {{
         token kami_layer_kind = "raster_overlay"
         string kami_source_subdataset = "{layer.source_subdataset}"
         string kami_resolved_cid = "{layer.resolved_cid}"
         string kami_tier = "{layer.tier}"
+        string kami_texture_source = "stub-w2.0-no-binding"
         token outputs:surface.connect = </World/{prim_name}/PreviewSurface.outputs:surface>
 
         def Shader "PreviewSurface"
@@ -574,6 +701,53 @@ def _emit_raster_overlay_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: s
         }}
     }}
 """
+
+
+def _write_raster_sidecar(
+    image_path: Path, out_dir: Path, prim_name: str,
+) -> Optional[Path]:
+    """W2.2 helper: read raster via Pillow → write PNG sidecar under out_dir/textures/.
+
+    Returns the written sidecar path (Path) or None when Pillow isn't
+    available or the input doesn't exist. The PNG sidecar is what the
+    USDA Material's UsdUVTexture references (USD readers handle PNG
+    universally; GeoTIFF support is uneven).
+    """
+    if not image_path.exists():
+        return None
+    try:
+        from PIL import Image   # type: ignore
+    except ImportError:
+        return None
+    textures_dir = out_dir / "textures"
+    textures_dir.mkdir(parents=True, exist_ok=True)
+    sidecar = textures_dir / f"{prim_name}.png"
+    img = Image.open(image_path)
+    if img.mode == "RGBA":
+        img = img.convert("RGB")
+    elif img.mode not in {"RGB", "L"}:
+        img = img.convert("RGB")
+    img.save(sidecar, format="PNG")
+    return sidecar
+
+
+def _wkb_header(data: bytes) -> Optional[tuple[str, int, bool, bool]]:
+    """Decode the 5-byte WKB header → (endian_str, base_type, has_z, has_m).
+
+    Returns None on invalid input. base_type strips Z/M/ZM modifiers.
+    """
+    import struct
+    if len(data) < 5:
+        return None
+    bo = data[0]
+    if bo not in (0, 1):
+        return None
+    endian = "<" if bo == 1 else ">"
+    gt = struct.unpack_from(endian + "I", data, 1)[0]
+    base = gt % 1000
+    has_z = (gt // 1000) % 2 == 1
+    has_m = (gt // 1000) // 2 == 1
+    return endian, base, has_z, has_m
 
 
 def _parse_wkb_linestring(data: bytes) -> Optional[list[tuple[float, float]]]:
@@ -586,21 +760,14 @@ def _parse_wkb_linestring(data: bytes) -> Optional[list[tuple[float, float]]]:
     W2.3 may extend to MultiLineString (geometry type 5).
     """
     import struct
-    if len(data) < 9:
+    hdr = _wkb_header(data)
+    if hdr is None:
         return None
-    byte_order = data[0]   # 0=big-endian, 1=little-endian
-    if byte_order not in (0, 1):
+    endian, base, has_z, has_m = hdr
+    if base != 2:   # not LineString
         return None
-    endian = "<" if byte_order == 1 else ">"
-    geom_type = struct.unpack_from(endian + "I", data, 1)[0]
-
-    # Geometry type modulo 1000 = base type; 1000+ = Z, 2000+ = M, 3000+ = ZM.
-    base_type = geom_type % 1000
-    has_z = (geom_type // 1000) % 2 == 1
-    has_m = (geom_type // 1000) // 2 == 1
     coord_dim = 2 + (1 if has_z else 0) + (1 if has_m else 0)
-
-    if base_type != 2:   # not LineString
+    if len(data) < 9:
         return None
     n = struct.unpack_from(endian + "I", data, 5)[0]
     body_offset = 9
@@ -613,6 +780,87 @@ def _parse_wkb_linestring(data: bytes) -> Optional[list[tuple[float, float]]]:
         x, y = struct.unpack_from(endian + "dd", data, off)
         points.append((x, y))
     return points
+
+
+def _parse_wkb_polygon_outer_ring(
+    data: bytes,
+) -> Optional[list[tuple[float, float]]]:
+    """W2.3 WKB Polygon decoder — returns the OUTER ring only.
+
+    Inner rings (holes) are intentionally dropped for sim — holes
+    don't contribute meaningfully to vehicle dynamics or visual
+    fidelity at W2.x quality bars. Closed-ring convention: WKB
+    polygons typically repeat the first point as the last; we drop
+    that duplicate so the returned list is unique points.
+    """
+    import struct
+    hdr = _wkb_header(data)
+    if hdr is None:
+        return None
+    endian, base, has_z, has_m = hdr
+    if base != 3:   # not Polygon
+        return None
+    coord_dim = 2 + (1 if has_z else 0) + (1 if has_m else 0)
+    if len(data) < 9:
+        return None
+    num_rings = struct.unpack_from(endian + "I", data, 5)[0]
+    if num_rings < 1:
+        return None
+    off = 9
+    # Outer ring header: numPoints (uint32) + numPoints * stride coord bytes.
+    n_pts = struct.unpack_from(endian + "I", data, off)[0]
+    off += 4
+    stride = 8 * coord_dim
+    if len(data) < off + n_pts * stride:
+        return None
+    pts: list[tuple[float, float]] = []
+    for i in range(n_pts):
+        x, y = struct.unpack_from(endian + "dd", data, off + i * stride)
+        pts.append((x, y))
+    # Drop closing duplicate point if present.
+    if len(pts) >= 2 and pts[0] == pts[-1]:
+        pts = pts[:-1]
+    return pts if len(pts) >= 3 else None
+
+
+def _parse_wkb_multilinestring(
+    data: bytes,
+) -> Optional[list[list[tuple[float, float]]]]:
+    """W2.3 WKB MultiLineString decoder.
+
+    A MultiLineString embeds N full WKB LineString records (each with
+    its own byte-order byte + geometry-type uint32). Returns the list
+    of polylines or None on bad input. Single-LineString inputs are
+    NOT supported via this entry point — caller routes to
+    `_parse_wkb_linestring` instead.
+    """
+    import struct
+    hdr = _wkb_header(data)
+    if hdr is None:
+        return None
+    endian, base, _has_z, _has_m = hdr
+    if base != 5:   # not MultiLineString
+        return None
+    if len(data) < 9:
+        return None
+    n_ls = struct.unpack_from(endian + "I", data, 5)[0]
+    off = 9
+    result: list[list[tuple[float, float]]] = []
+    for _ in range(n_ls):
+        # Each sub-LineString is itself a full WKB record; parse from offset.
+        sub = _parse_wkb_linestring(data[off:])
+        if sub is None or len(sub) < 2:
+            return None
+        result.append(sub)
+        # Advance offset by the size of this sub-LineString.
+        sub_hdr = _wkb_header(data[off:])
+        if sub_hdr is None:
+            return None
+        sub_endian, _base, sub_z, sub_m = sub_hdr
+        sub_coord_dim = 2 + (1 if sub_z else 0) + (1 if sub_m else 0)
+        sub_n = struct.unpack_from(sub_endian + "I", data, off + 5)[0]
+        off += 9 + sub_n * 8 * sub_coord_dim
+    return result if result else None
 
 
 def _load_overture_roads_parquet(
@@ -643,28 +891,40 @@ def _load_overture_roads_parquet(
     w, s, e, north = plan_bbox
 
     polylines_local: list[list[tuple[float, float]]] = []
-    for i, raw in enumerate(geom_col):
-        if not isinstance(raw, (bytes, bytearray)):
-            continue
-        waypoints = _parse_wkb_linestring(bytes(raw))
-        if waypoints is None or len(waypoints) < 2:
-            continue
-        # Skip lines entirely outside plan bbox.
+    def _emit_waypoints(waypoints: list[tuple[float, float]]) -> None:
         xs = [p[0] for p in waypoints]
         ys = [p[1] for p in waypoints]
         if max(xs) < w or min(xs) > e or max(ys) < s or min(ys) > north:
-            continue
-        # Convert lon/lat → scene-local meters; clip each waypoint to bbox first.
+            return
         local_waypoints: list[tuple[float, float]] = []
         for (lon, lat) in waypoints:
             cl_lon = max(w, min(e, lon))
             cl_lat = max(s, min(north, lat))
-            x_local, y_local = _wgs84_to_local(cl_lon, cl_lat, plan_bbox)
-            local_waypoints.append((x_local, y_local))
+            lx, ly = _wgs84_to_local(cl_lon, cl_lat, plan_bbox)
+            local_waypoints.append((lx, ly))
         if len(local_waypoints) >= 2:
             polylines_local.append(local_waypoints)
-        if len(polylines_local) >= max_count:
-            break
+
+    for i, raw in enumerate(geom_col):
+        if not isinstance(raw, (bytes, bytearray)):
+            continue
+        # W2.3: route by geometry type.
+        single = _parse_wkb_linestring(bytes(raw))
+        if single is not None and len(single) >= 2:
+            _emit_waypoints(single)
+            if len(polylines_local) >= max_count:
+                break
+            continue
+        multi = _parse_wkb_multilinestring(bytes(raw))
+        if multi is not None:
+            for sub in multi:
+                _emit_waypoints(sub)
+                if len(polylines_local) >= max_count:
+                    break
+            if len(polylines_local) >= max_count:
+                break
+            continue
+        # Unknown WKB geometry type — skip silently (W2.4 may add Polygon).
     return polylines_local
 
 
@@ -866,17 +1126,48 @@ def _load_overture_buildings_parquet(
     if not parquet_path.exists():
         return None
 
-    table = pq.read_table(parquet_path, columns=["bbox", "height"])
-    n = table.num_rows
-    bbox_col = table.column("bbox").to_pylist()
+    # Read whatever columns are present (some Overture release variants
+    # ship only `bbox`, others also `geometry`+`height`).
+    full_table = pq.read_table(parquet_path)
+    n = full_table.num_rows
+    cols = full_table.column_names
+    bbox_col = full_table.column("bbox").to_pylist() if "bbox" in cols else [None] * n
     height_col = (
-        table.column("height").to_pylist() if "height" in table.column_names
+        full_table.column("height").to_pylist() if "height" in cols
+        else [None] * n
+    )
+    geom_col = (
+        full_table.column("geometry").to_pylist() if "geometry" in cols
         else [None] * n
     )
 
     w, s, e, north = plan_bbox
     out: list[tuple[list[tuple[float, float]], float]] = []
     for i in range(n):
+        # W2.3: prefer WKB Polygon outer ring (real footprint) when present.
+        raw_geom = geom_col[i]
+        if isinstance(raw_geom, (bytes, bytearray)):
+            outer = _parse_wkb_polygon_outer_ring(bytes(raw_geom))
+            if outer is not None:
+                # Clip ring to plan bbox.
+                xs = [p[0] for p in outer]
+                ys = [p[1] for p in outer]
+                if max(xs) < w or min(xs) > e or max(ys) < s or min(ys) > north:
+                    continue
+                # Convert to scene-local meters; skip rows w/ degenerate clip.
+                local_outer: list[tuple[float, float]] = []
+                for (lon, lat) in outer:
+                    cl_lon = max(w, min(e, lon))
+                    cl_lat = max(s, min(north, lat))
+                    lx, ly = _wgs84_to_local(cl_lon, cl_lat, plan_bbox)
+                    local_outer.append((lx, ly))
+                if len(local_outer) >= 3:
+                    h_val = height_col[i] if height_col[i] is not None else default_height_m
+                    out.append((local_outer, float(h_val)))
+                    if len(out) >= max_count:
+                        break
+                    continue
+        # Fallback: axis-aligned bbox rectangle.
         b = bbox_col[i]
         if not isinstance(b, dict):
             continue
@@ -1122,17 +1413,42 @@ def build_usda(plan: AssemblyPlan) -> str:
 
 
 def emit_scene(plan: AssemblyPlan, out_dir: Path) -> dict[str, Any]:
-    """W2 emitter — writes both `scene.usda` and `manifest.json`.
+    """W2 emitter — writes scene.usda + manifest.json + texture sidecars.
 
-    Returns the manifest dict (same shape as W1 emit_usd_stub).
+    For each raster_overlay layer with `extra.local_geotiff_path`, the
+    image is read via Pillow and a PNG sidecar is written to
+    `out_dir/textures/Layer<i>_raster_overlay.png`. The USDA Material
+    references the sidecar via a relative asset path, so the scene
+    output directory is self-contained — operator can `tar czf` it
+    and ship to another fleet node.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    sidecar_records: list[dict[str, str]] = []
+    for layer in plan.layers:
+        if layer.kind != "raster_overlay":
+            continue
+        src = layer.extra.get("local_geotiff_path") or layer.extra.get("local_image_path")
+        if not isinstance(src, str) or not src:
+            continue
+        prim_name = f"Layer{layer.index}_{layer.kind}"
+        sidecar = _write_raster_sidecar(Path(src), out_dir, prim_name)
+        if sidecar is not None:
+            sidecar_records.append({
+                "layer_index": layer.index,
+                "prim_name": prim_name,
+                "source": src,
+                "sidecar": str(sidecar.relative_to(out_dir)),
+            })
+
     usda_text = build_usda(plan)
     (out_dir / "scene.usda").write_text(usda_text, encoding="utf-8")
     manifest = _build_manifest(plan)
     manifest["emitter_status"] = "w2-real-usda-text"
     manifest["emitter_target"] = "USDA 1.0 text spec (loadable by Pixar OpenUSD / tinyusdz / kami-usd)"
     manifest["scene_usda_sha256"] = hashlib.sha256(usda_text.encode("utf-8")).hexdigest()
+    if sidecar_records:
+        manifest["texture_sidecars"] = sidecar_records
     (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     return manifest
 
