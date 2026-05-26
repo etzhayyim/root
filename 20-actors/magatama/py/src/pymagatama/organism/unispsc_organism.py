@@ -14,7 +14,11 @@ from __future__ import annotations
 import importlib
 import logging
 from dataclasses import dataclass, field
-from typing import Any, Callable
+from datetime import datetime, timezone
+from typing import Any, Callable, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pymagatama.organism.messaging import OrganismMessageReceiver
 
 from pymagatama.organism.cadence import (
     CadenceState,
@@ -135,6 +139,7 @@ class UnispscOrganism:
         follower_score_provider: FollowerScoreProvider | None = None,
         sensors: tuple[DatasetSensor, ...] = (),
         sensor_sample_size: int = 8,
+        messaging_receiver: "OrganismMessageReceiver | None" = None,
     ) -> None:
         self.code = code
         self.title = title or f"c{code}"
@@ -144,6 +149,8 @@ class UnispscOrganism:
         self.post_sink = post_sink
         self.joucho_provider = joucho_provider
         self.follower_score_provider = follower_score_provider
+        self.messaging_receiver = messaging_receiver
+        self.last_message_fetch_time: "datetime | None" = None
         self.inbox = InboxBuffer()
         self.cadence_state = CadenceState()
         self.lifecycle = OrganismLifecycle()
@@ -183,6 +190,7 @@ class UnispscOrganism:
         follower_score_provider: FollowerScoreProvider | None = None,
         sensors: tuple[DatasetSensor, ...] = (),
         sensor_sample_size: int = 8,
+        messaging_receiver: "OrganismMessageReceiver | None" = None,
     ) -> "UnispscOrganism":
         """Lazy-import the underlying ``c{code}`` LangGraph and wrap it."""
         module_name = f"{_AGENTS_PKG}.c{code}"
@@ -203,6 +211,7 @@ class UnispscOrganism:
             follower_score_provider=follower_score_provider,
             sensors=sensors,
             sensor_sample_size=sensor_sample_size,
+            messaging_receiver=messaging_receiver,
         )
 
     def poll_sensors(self, now_ms: int) -> list[SensorObservation]:
@@ -255,7 +264,6 @@ class UnispscOrganism:
         """
         if self.lifecycle.state not in (OrganismState.ACTIVE, OrganismState.CLONED):
             from pymagatama.organism.cadence import HeartbeatCadence, ContentSource
-            from pymagatama.organism.joucho import JouchoScores
             dummy_cadence = HeartbeatCadence(
                 should_post=False,
                 should_analyze=False,
@@ -276,6 +284,17 @@ class UnispscOrganism:
         tick_obs: list[SensorObservation] = []
         if self.sensors:
             tick_obs = self.poll_sensors(now_ms)
+
+        if self.messaging_receiver is not None:
+            # fetch messages since last fetch, or from epoch if never fetched
+            since = self.last_message_fetch_time or datetime.fromtimestamp(0, tz=timezone.utc)
+            fetch_time = datetime.now(timezone.utc)
+            try:
+                for msg in self.messaging_receiver.receive_for(self.actor_did, since):
+                    self.inbox.ingest_message(msg)
+                self.last_message_fetch_time = fetch_time
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("c%s message receive failed: %s", self.code, exc)
 
         inbox_obs = list(self.inbox.observations)
         self.inbox.observations.clear()

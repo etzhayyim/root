@@ -96,6 +96,23 @@ class InboxBuffer:
         if len(self.observations) > _MAX_OBSERVATIONS:
             del self.observations[: len(self.observations) - _MAX_OBSERVATIONS]
 
+    def ingest_message(self, message: "OrganismMessage") -> None:
+        """Convert an OrganismMessage into a TextObservation and push it to the buffer."""
+        import time
+        from pymagatama.organism.observation import TextObservation
+
+        obs = TextObservation(
+            actorDid=message.actor_did,
+            createdAt=int(time.time() * 1000),
+            tier="A",
+            text=message.text,
+        )
+        if message.thread_id is not None:
+            # We use BaseModel's extra="allow" to attach arbitrary fields like metadata
+            obs.metadata = {"thread_id": message.thread_id}
+
+        self.push(obs)
+
     def flush_to_warm(self, memory: "MemoryPersistence") -> list[str]:
         """Flush old observations to warm storage if capacity exceeds 75%.
         Keeps the newest 25% in the hot buffer to maintain context.
