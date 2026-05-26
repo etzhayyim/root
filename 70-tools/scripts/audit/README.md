@@ -76,6 +76,31 @@ python3 70-tools/scripts/audit/sibling-convention-drift.py --strict
 
 Discovery: iter-36 (SDK was missing `publishConfig` while every sibling `@etzhayyim/*` package had a standard 2-field block `{access: public, registry: npm.pkg.github.com}`; fixed in commit `488021b6e`). iter-37 codified the audit pattern + surfaced 14 more outliers (4 missing `description` + 10 missing `license`) for per-package operator decision.
 
+### `adr-cross-ref-health.py`
+
+Find `ADR-NNNN` references in any tracked file that don't resolve to an actual ADR file under `90-docs/adr/`. Catches typos, mis-pastes, and planned-but-never-written ADRs.
+
+```bash
+python3 70-tools/scripts/audit/adr-cross-ref-health.py
+python3 70-tools/scripts/audit/adr-cross-ref-health.py --strict
+```
+
+**Initial baseline (iter-40, 2026-05-27): 127 orphaned references** across the monorepo — too many for blind batch-fix (each one needs operator triage between three resolution paths):
+
+1. **Typo / mis-paste** → rename to the nearest valid ID
+2. **Planned ADR** → actually write the missing ADR file
+3. **Legit-removable stub** → delete the reference
+
+Because the resolution is operator-judgment-per-case, this audit is **deliberately NOT included in `all.sh`** today — it would add a 127-finding cliff to the aggregator total and force a global decision when what we want is per-citation review. Operators run it on demand:
+
+```bash
+python3 70-tools/scripts/audit/adr-cross-ref-health.py | less
+```
+
+When the 127 are triaged down to a stable floor, this audit can be folded into `all.sh` like the others. Until then it lives as a standalone operator tool.
+
+Discovery: iter-40 of /loop (2026-05-27). The 472 ADR files on disk are referenced 563 times across tracked content; 127 of those references (~23%) don't resolve to a file. Round-number suffixes (3 IDs ending in `0000`) are obvious placeholders never authored; the other 124 are either typos near a real ADR ID or planned-but-deferred work.
+
 ### `repo-record-allowlist.mjs` (pre-existing)
 
 XRPC repo-record allowlist guard. See the script's docstring for usage. Unrelated to the `/loop` iter-18..29 audit scripts above.
