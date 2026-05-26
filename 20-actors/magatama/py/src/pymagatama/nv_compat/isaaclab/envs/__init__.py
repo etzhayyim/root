@@ -23,6 +23,11 @@ from .common import (
     spec_to_dict,
 )
 from .direct_marl_env import DirectMARLEnv, DirectMARLEnvCfg
+from .observation_buffers import (
+    ObservationHistoryBuffer,
+    RewardScaling,
+    RunningMeanStd,
+)
 from .direct_rl_env import DirectRLEnv, DirectRLEnvCfg, SimCfg
 from .manager_based_rl_env import CartpoleEnvCfg, ManagerBasedRLEnv
 from .task_registry import (
@@ -56,4 +61,6 @@ __all__ = [
     "DictSpaceCfg", "TupleSpaceCfg",
     "spec_to_dict", "dict_to_spec",
     "flatten_obs", "infer_action_dim", "infer_observation_shape", "space_shape",
+    # observation buffers
+    "ObservationHistoryBuffer", "RunningMeanStd", "RewardScaling",
 ]
