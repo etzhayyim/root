@@ -4,6 +4,17 @@ Reusable audit scripts that surface specific classes of latent / silent / drift-
 
 Pattern: discovery in a `/loop` iteration → fix in the same iteration → codify the audit script here for future maintenance. See the cited iteration history in each script's docstring for the original discovery context.
 
+## Quick start — run all audits
+
+```bash
+bash 70-tools/scripts/audit/all.sh            # report
+bash 70-tools/scripts/audit/all.sh --strict   # exit 1 if any finding (CI integration)
+```
+
+Current baseline (as of iter-32 of /loop, 2026-05-26): **25 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination).
+
+The "documented + deferred" findings will fail `--strict` mode until the upstream coordination work lands. That's by design — `--strict` is the operator's gate for "I want to publish or PR-merge and don't want to accidentally take on debt." Mode without `--strict` is for "give me the current health snapshot."
+
 ## Scripts
 
 ### `dependabot-defunct.py`
