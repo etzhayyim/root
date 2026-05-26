@@ -217,6 +217,81 @@ def dry_run_summary(recipe: Recipe) -> dict[str, Any]:
     }
 
 
+def summary_markdown(recipe: Recipe) -> str:
+    """Render the recipe as an operator-facing markdown summary.
+
+    Consumes the operator-readability fields (top-level description +
+    output_metadata + per-source description) added in commits
+    2fbe6b4ad / 3d90961b5 / 503856f7b. Useful as `--summary` CLI
+    output or as a sidecar `.md` per recipe.
+    """
+    lines: list[str] = []
+    lines.append(f"# Recipe — {recipe.target_artifact}")
+    lines.append("")
+    if recipe.description:
+        lines.append(recipe.description)
+        lines.append("")
+
+    lines.append(f"- **Output subdataset**: `{recipe.output_subdataset}`")
+    lines.append(f"- **Max tier cap**: {recipe.max_tier_cap}")
+    lines.append(f"- **Computed max tier**: {recipe.computed_max_tier}")
+    lines.append(f"- **Source count**: {len(recipe.sources)}")
+    if recipe.recipe_path:
+        lines.append(f"- **Recipe path**: `{recipe.recipe_path}`")
+
+    if recipe.output_metadata:
+        lines.append("")
+        lines.append("## Output metadata")
+        lines.append("")
+        for k, v in recipe.output_metadata.items():
+            # Multi-line strings (e.g. existing `description = """..."""`)
+            # render as blockquotes; everything else as inline `key: value`.
+            v_str = str(v).strip()
+            if "\n" in v_str:
+                lines.append(f"**{k}**:")
+                lines.append("")
+                for line in v_str.split("\n"):
+                    lines.append(f"> {line}")
+                lines.append("")
+            else:
+                lines.append(f"- **{k}**: {v_str}")
+
+    lines.append("")
+    lines.append("## Sources")
+    lines.append("")
+    for i, s in enumerate(recipe.sources, 1):
+        lines.append(
+            f"### {i}. `{s.subdataset}` "
+            f"(Tier {s.tier}, weight {s.weight:.2f})"
+        )
+        lines.append("")
+        if s.description:
+            lines.append(s.description)
+            lines.append("")
+        lines.append(f"- **License**: {s.license}")
+        lines.append(f"- **Dataset pin**: `{s.dataset_pin_at}`")
+        lines.append(f"- **Shard glob**: `{s.shard_glob}`")
+        if s.sa_propagates:
+            lines.append("- **SA propagates**: yes")
+        if s.max_rows > 0:
+            lines.append(f"- **Per-source row cap**: {s.max_rows:,}")
+        if s.max_bytes > 0:
+            lines.append(f"- **Per-source byte cap**: {s.max_bytes:,}")
+        lines.append("")
+
+    if recipe.seed_block is not None:
+        lines.append("## Seed block")
+        lines.append("")
+        if recipe.seed_block.description:
+            lines.append(recipe.seed_block.description)
+            lines.append("")
+        lines.append(f"- **Weight**: {recipe.seed_block.weight:.2f}")
+        lines.append(f"- **Path**: `{recipe.seed_block.seed_path}`")
+        lines.append("")
+
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
         description="Assemble a public-data training corpus per ADR-2605262400."
@@ -239,8 +314,16 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument(
         "--dry-run",
         action="store_true",
-        help="Validate recipe + emit summary, do NOT resolve pins or "
-             "stream shards.",
+        help="Validate recipe + emit JSON summary, do NOT resolve pins "
+             "or stream shards.",
+    )
+    p.add_argument(
+        "--summary",
+        action="store_true",
+        help="Print an operator-facing markdown summary of the recipe "
+             "to stdout, then exit. Consumes the top-level description, "
+             "output_metadata, and per-source description fields. "
+             "Mutually exclusive with --dry-run.",
     )
     p.add_argument(
         "--max-rows-per-source",
@@ -269,6 +352,13 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = p.parse_args(argv)
 
+    if args.summary and args.dry_run:
+        print(
+            "--summary and --dry-run are mutually exclusive; pick one.",
+            file=sys.stderr,
+        )
+        return 2
+
     recipe = load_recipe(args.recipe)
     errors = recipe.validate()
     if errors:
@@ -276,6 +366,10 @@ def main(argv: list[str] | None = None) -> int:
         for e in errors:
             print(f"  - {e}", file=sys.stderr)
         return 2
+
+    if args.summary:
+        print(summary_markdown(recipe), end="")
+        return 0
 
     summary = dry_run_summary(recipe)
     print(json.dumps(summary, indent=2, ensure_ascii=False))

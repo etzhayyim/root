@@ -509,6 +509,118 @@ weight        = 1.0
     assert summary["outputMetadata"] == {}
 
 
+def test_summary_markdown_minimal_recipe(assembler, tmp_path):
+    """Bare recipe (no description, no output_metadata, no seed) ⇒
+    markdown still renders cleanly with all required sections."""
+    recipe_body = """
+target_artifact = "baien-server-x-v1"
+output_subdataset = "x/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 1.0
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    md = assembler.summary_markdown(recipe)
+    assert md.startswith("# Recipe — baien-server-x-v1\n")
+    assert md.endswith("\n")
+    assert "## Sources" in md
+    assert "### 1. `netreg/iana-root`" in md
+    assert "(Tier A, weight 1.00)" in md
+    assert "**License**: public-domain" in md
+    # No empty Output metadata section when there's no metadata.
+    assert "## Output metadata" not in md
+    # No empty Seed block section when there's no seed.
+    assert "## Seed block" not in md
+
+
+def test_summary_markdown_full_recipe(assembler, tmp_path):
+    """Full recipe (description, output_metadata, per-source description,
+    caps, seed block) ⇒ all surfaces present in markdown."""
+    recipe_body = """
+target_artifact = "baien-server-iana-md-v1"
+output_subdataset = "iana-md-v1/"
+max_tier_cap = "A"
+description = "An IANA-only corpus for the markdown summary test"
+
+[output_metadata]
+license_summary = "Apache-2.0 + Charter Rider"
+multi_line_field = '''
+line one
+line two
+line three
+'''
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+shard_glob    = "root.zone.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 0.5
+description   = "IANA root delegation"
+max_rows      = 1000
+max_bytes     = 524288
+
+[seed_block]
+weight = 0.5
+seed_path = "/tmp/seed.jsonl"
+description = "Synthetic Q/A — CC0"
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    md = assembler.summary_markdown(recipe)
+    # Top-level description.
+    assert "An IANA-only corpus for the markdown summary test" in md
+    # output_metadata rendered.
+    assert "## Output metadata" in md
+    assert "**license_summary**: Apache-2.0 + Charter Rider" in md
+    # Multi-line metadata as blockquote.
+    assert "**multi_line_field**:" in md
+    assert "> line one" in md
+    assert "> line three" in md
+    # Per-source description.
+    assert "IANA root delegation" in md
+    # Per-source caps formatted with thousands separators.
+    assert "**Per-source row cap**: 1,000" in md
+    assert "**Per-source byte cap**: 524,288" in md
+    # Seed block.
+    assert "## Seed block" in md
+    assert "Synthetic Q/A — CC0" in md
+    assert "**Weight**: 0.50" in md
+
+
+def test_summary_markdown_sa_propagates(assembler, tmp_path):
+    """SA-propagates flag shows up in source's bullet list."""
+    recipe_body = """
+target_artifact = "baien-server-sa-v1"
+output_subdataset = "sa/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "geo/osm/li"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+shard_glob    = "*.geojsonl"
+tier          = "A"
+license       = "ODbL-1.0"
+sa_propagates = true
+weight        = 1.0
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    md = assembler.summary_markdown(recipe)
+    assert "**SA propagates**: yes" in md
+
+
 def test_assemble_charter_violation_aborts(assembler, tmp_path):
     """Plant a hot Charter §2 trigger every Nth row → assembler aborts."""
     annex = tmp_path / "annex"
