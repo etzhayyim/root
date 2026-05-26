@@ -240,6 +240,33 @@ const NODE_F = {
   DOMAIN: 7, // string
 } as const;
 
+/** TensorProto field numbers (only the ones we read/write). */
+const TENSOR_F = {
+  DIMS: 1, // repeated int64 (varint)
+  DATA_TYPE: 2, // int32 (varint)
+  NAME: 8, // string
+  RAW_DATA: 9, // bytes
+} as const;
+
+/**
+ * ONNX TensorProto.DataType enum values. Subset we need for BitNet:
+ * - FLOAT (1)   = fp32
+ * - INT8 (3)    = i8 (used for i2_s packed bytes — the i2_s 2-bit
+ *                 packing fits inside int8 storage)
+ * - INT64 (7)   = used for the dims field (always int64)
+ * - FLOAT16 (10) = fp16
+ * - BFLOAT16 (16) = bf16 (BitNet weights ship in this format)
+ */
+export const DataType = {
+  FLOAT: 1,
+  INT8: 3,
+  INT64: 7,
+  FLOAT16: 10,
+  BFLOAT16: 16,
+} as const;
+
+export type DataTypeValue = (typeof DataType)[keyof typeof DataType];
+
 /** GraphProto field numbers. */
 const GRAPH_F = {
   NODE: 1, // repeated NodeProto
@@ -371,6 +398,119 @@ export class GraphProtoView {
     if (!entries || entries.length === 0 || !entries[0]) return "";
     return readString(entries[0]);
   }
+
+  /** Read all initializer TensorProtos (field 5). */
+  get initializers(): TensorProtoView[] {
+    const entries = this.fieldMap.get(GRAPH_F.INITIALIZER) ?? [];
+    return entries.map((e) => new TensorProtoView(decodeMessage(e.bytes)));
+  }
+
+  /** Look up an initializer by name. Returns `null` if not found. */
+  findInitializer(name: string): TensorProtoView | null {
+    for (const t of this.initializers) {
+      if (t.name === name) return t;
+    }
+    return null;
+  }
+
+  /**
+   * Append a new initializer to the GraphProto. The argument is the
+   * fully-built TensorProto bytes (caller is responsible for the
+   * encoding; use `encodeTensorProto()` below).
+   */
+  addInitializerBytes(tensorBytes: Uint8Array): void {
+    const existing = this.fieldMap.get(GRAPH_F.INITIALIZER) ?? [];
+    existing.push({ wireType: WireType.LEN, bytes: tensorBytes });
+    this.fieldMap.set(GRAPH_F.INITIALIZER, existing);
+  }
+}
+
+/**
+ * TensorProtoView — read-only access to the fields we need for
+ * BitNet weight processing (dims, data_type, name, raw_data).
+ * Mutation is via re-encoding through `encodeTensorProto()` rather
+ * than in-place updates, since initializers are typically rewritten
+ * wholesale (the weight transform pass produces new tensors with
+ * different dtype + dims + raw_data).
+ */
+export class TensorProtoView {
+  public readonly fieldMap: FieldMap;
+
+  constructor(fieldMap: FieldMap) {
+    this.fieldMap = fieldMap;
+  }
+
+  /** Read `name` (field 8). */
+  get name(): string {
+    const entries = this.fieldMap.get(TENSOR_F.NAME);
+    if (!entries || entries.length === 0 || !entries[0]) return "";
+    return readString(entries[0]);
+  }
+
+  /** Read `data_type` (field 2). */
+  get dataType(): number {
+    const entries = this.fieldMap.get(TENSOR_F.DATA_TYPE);
+    if (!entries || entries.length === 0 || !entries[0]) return 0;
+    const [v] = readVarint(entries[0].bytes, 0);
+    return v;
+  }
+
+  /**
+   * Read `dims` (field 1) — list of int64 values. We read as
+   * `number` since BitNet tensor dimensions fit well within 32 bits.
+   */
+  get dims(): number[] {
+    const entries = this.fieldMap.get(TENSOR_F.DIMS) ?? [];
+    return entries.map((e) => {
+      const [v] = readVarint(e.bytes, 0);
+      return v;
+    });
+  }
+
+  /**
+   * Read `raw_data` (field 9) — the binary payload. For BFLOAT16
+   * tensors this is a little-endian sequence of uint16 values (each
+   * uint16 represents the high 16 bits of an fp32, with the low
+   * 16 bits zero-filled at decode time).
+   */
+  get rawData(): Uint8Array {
+    const entries = this.fieldMap.get(TENSOR_F.RAW_DATA);
+    if (!entries || entries.length === 0 || !entries[0]) {
+      return new Uint8Array(0);
+    }
+    return entries[0].bytes;
+  }
+}
+
+/** Build a TensorProto's bytes from a typed input. */
+export interface NewTensorProto {
+  readonly name: string;
+  readonly dataType: DataTypeValue;
+  readonly dims: readonly number[];
+  /** Raw bytes (caller-encoded; e.g. uint16 little-endian for f16). */
+  readonly rawData: Uint8Array;
+}
+
+export function encodeTensorProto(t: NewTensorProto): Uint8Array {
+  const map: FieldMap = new Map();
+  map.set(
+    TENSOR_F.DIMS,
+    t.dims.map((d) => ({
+      wireType: WireType.VARINT,
+      bytes: encodeVarint(d),
+    })),
+  );
+  map.set(TENSOR_F.DATA_TYPE, [
+    { wireType: WireType.VARINT, bytes: encodeVarint(t.dataType) },
+  ]);
+  map.set(TENSOR_F.NAME, [makeStringEntry(t.name)]);
+  // raw_data is BYTES wireType = LEN. Even when empty, we encode it.
+  if (t.rawData.length > 0) {
+    map.set(TENSOR_F.RAW_DATA, [
+      { wireType: WireType.LEN, bytes: t.rawData },
+    ]);
+  }
+  return encodeMessage(map);
 }
 
 /** Pair of (domain, version) for an opset import. */
