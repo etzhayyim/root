@@ -24,7 +24,7 @@
 
 ### Why 1Password can't be the token source
 1Password stores **passwords**, not OAuth2 refresh tokens. Mixed-domain
-accounts (`jun@gftd.group`, `root@junkawasaki.com`, `root@jk.luxury`, …)
+accounts (`jun@etzhayyim.com`, `root@junkawasaki.com`, `root@jk.luxury`, …)
 cannot share a Service Account + Domain-Wide Delegation (DWD only works
 inside a single Workspace tenant). Therefore:
 
@@ -36,7 +36,7 @@ inside a single Workspace tenant). Therefore:
 - Refresh tokens stored with **KEK envelope encryption** in each app's
   D1 `vertex_*_oauth_token` table (same ADR-0010 Stage 1 pattern the
   gmail worker uses). Future: migrate to `vault.etzhayyim.com`
-  (`ai.gftd.vault.*`) per CLAUDE.md Vault Zero-Knowledge Invariant.
+  (`app.etzhayyim.vault.*`) per CLAUDE.md Vault Zero-Knowledge Invariant.
 
 ### Consent scopes (unified per account)
 
@@ -172,7 +172,7 @@ done
 
 # 4. Per-account OAuth
 #    For each account from 70-tools/scripts/google-accounts-from-1p.sh:
-#    open https://gmail.etzhayyim.com/xrpc/ai.gftd.apps.gmail.connectAccount?email=...
+#    open https://gmail.etzhayyim.com/xrpc/app.etzhayyim.apps.gmail.connectAccount?email=...
 #    → redirects to Google consent → sets tokens in every app's D1 table.
 ```
 
@@ -180,10 +180,10 @@ done
 
 ```
 1. Operator runs: ./70-tools/scripts/google-accounts-from-1p.sh
-     → prints JSON: [{ "email": "jun@gftd.group", "label": "…" }, …]
+     → prints JSON: [{ "email": "jun@etzhayyim.com", "label": "…" }, …]
 2. For each email:
      a. Open https://gmail.etzhayyim.com in browser signed in as gftd user.
-     b. Call ai.gftd.apps.gmail.connectAccount { email }
+     b. Call app.etzhayyim.apps.gmail.connectAccount { email }
      c. Google consent screen → grants all 12 scopes.
      d. /oauth/callback stores refresh_token in vertex_gmail_oauth_token.
      e. Repeat for calendar/drive/contacts/tasks/docs/sheets/slides/meet
@@ -208,7 +208,7 @@ identical shape.
 ## Known gaps / Phase 1+
 
 - **Vault migration**: refresh tokens currently in per-app D1 KEK
-  envelope. Move to `vault.etzhayyim.com` (`ai.gftd.vault.putItem` with
+  envelope. Move to `vault.etzhayyim.com` (`app.etzhayyim.vault.putItem` with
   `kind=google_refresh_token`) when the vault app stabilises. CLAUDE.md
   "Vault Zero-Knowledge Invariant".
 - **Pub/Sub (Gmail)**: current gmail app uses cron `history.list`.
@@ -249,5 +249,5 @@ identical shape.
 - [ ] Drive worker initial `gftd deploy` / `wrangler deploy` (currently `drive.etzhayyim.com` returns `UnknownActor`)
 - [ ] `pnpm db:gen` + `pnpm db:drift` clean (regenerate `database.ts` now that 41 new tables exist)
 - [ ] All 9 apps deploy clean (`gftd deploy` per dir)
-- [ ] First account OAuth round-trip verified end-to-end (in progress — `jun@gftd.group` Gmail consent pending)
+- [ ] First account OAuth round-trip verified end-to-end (in progress — `jun@etzhayyim.com` Gmail consent pending)
 - [ ] Per-service `syncFromGoogle()` body implemented (currently TODO stub for non-calendar/non-gmail)

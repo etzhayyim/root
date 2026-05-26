@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govBgd.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govBgd.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Bangladesh government.",
-        "operationId": "ai.gftd.govBgd.followSiteDeps",
+        "operationId": "app.etzhayyim.govBgd.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgd.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govBgd.heartbeatTick": {
       "post": {
         "summary": "Run the Bangladesh government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govBgd.heartbeatTick",
+        "operationId": "app.etzhayyim.govBgd.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgd.listOrgs": {
+    "/xrpc/app.etzhayyim.govBgd.listOrgs": {
       "get": {
         "summary": "List Bangladesh government organization graph records.",
-        "operationId": "ai.gftd.govBgd.listOrgs",
+        "operationId": "app.etzhayyim.govBgd.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgd.registerDIDs": {
+    "/xrpc/app.etzhayyim.govBgd.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Bangladesh government organizations.",
-        "operationId": "ai.gftd.govBgd.registerDIDs",
+        "operationId": "app.etzhayyim.govBgd.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgd.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govBgd.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Bangladesh government organization path to its graph record.",
-        "operationId": "ai.gftd.govBgd.resolveOrgPath",
+        "operationId": "app.etzhayyim.govBgd.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgd.seedOrgs": {
+    "/xrpc/app.etzhayyim.govBgd.seedOrgs": {
       "post": {
         "summary": "Seed initial Bangladesh government organization records into the graph.",
-        "operationId": "ai.gftd.govBgd.seedOrgs",
+        "operationId": "app.etzhayyim.govBgd.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgd.shinka": {
+    "/xrpc/app.etzhayyim.govBgd.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Bangladesh government organization update.",
-        "operationId": "ai.gftd.govBgd.shinka",
+        "operationId": "app.etzhayyim.govBgd.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBgd.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govBgd.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Bangladesh government organization changes to graph.",
-        "operationId": "ai.gftd.govBgd.syncWetUpdates",
+        "operationId": "app.etzhayyim.govBgd.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

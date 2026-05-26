@@ -22,30 +22,30 @@ const project = "telecom";
 
 const seeds: Seed[] = [
   { proc: "registerSatellite", bpmnProcessId: "telecom_register_satellite",
-    nsid: "ai.gftd.apps.telecom.registerSatellite", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerSatellite", resultTimeoutMs: 30000 },
   { proc: "registerEarthStation", bpmnProcessId: "telecom_register_earth_station",
-    nsid: "ai.gftd.apps.telecom.registerEarthStation", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerEarthStation", resultTimeoutMs: 30000 },
   { proc: "provisionNtnCell", bpmnProcessId: "telecom_provision_ntn_cell",
-    nsid: "ai.gftd.apps.telecom.provisionNtnCell", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.provisionNtnCell", resultTimeoutMs: 30000 },
   { proc: "recordEphemeris", bpmnProcessId: "telecom_record_ephemeris",
-    nsid: "ai.gftd.apps.telecom.recordEphemeris", resultTimeoutMs: 15000 },
+    nsid: "app.etzhayyim.apps.telecom.recordEphemeris", resultTimeoutMs: 15000 },
   { proc: "recordNtnHandover", bpmnProcessId: "telecom_record_ntn_handover",
-    nsid: "ai.gftd.apps.telecom.recordNtnHandover", resultTimeoutMs: 15000 },
+    nsid: "app.etzhayyim.apps.telecom.recordNtnHandover", resultTimeoutMs: 15000 },
   { proc: "provisionInterSatelliteLink", bpmnProcessId: "telecom_provision_inter_satellite_link",
-    nsid: "ai.gftd.apps.telecom.provisionInterSatelliteLink", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.provisionInterSatelliteLink", resultTimeoutMs: 30000 },
   { proc: "recordEarthStationContact", bpmnProcessId: "telecom_record_earth_station_contact",
-    nsid: "ai.gftd.apps.telecom.recordEarthStationContact", resultTimeoutMs: 15000 },
+    nsid: "app.etzhayyim.apps.telecom.recordEarthStationContact", resultTimeoutMs: 15000 },
   { proc: "registerNtnRoamingPartner", bpmnProcessId: "telecom_register_ntn_roaming_partner",
-    nsid: "ai.gftd.apps.telecom.registerNtnRoamingPartner", resultTimeoutMs: 30000 },
+    nsid: "app.etzhayyim.apps.telecom.registerNtnRoamingPartner", resultTimeoutMs: 30000 },
 ];
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

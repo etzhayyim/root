@@ -3,7 +3,7 @@
   "formKey": "openNetwork.defineLink.v1",
   "name": "Define Link",
   "version": 1,
-  "lexiconRef": "ai.gftd.apps.openNetwork.defineLink",
+  "lexiconRef": "app.etzhayyim.apps.openNetwork.defineLink",
   "components": [
     { "key": "siteAdid", "label": "Site A DID", "type": "textfield",
       "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },

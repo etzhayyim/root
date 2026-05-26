@@ -1,0 +1,81 @@
+# yatachain-projection manifest for ai-gftd-project-auth
+#
+# Per ADR-2605231500 — the D1 tables under AUTH_DB / KEYS_DB held by the
+# auth Worker are a derived read-path projection of canonical state held
+# elsewhere. They are NOT the system of record.
+#
+# Canonical state lives on:
+#   - app.etzhayyim.encrypted.record envelopes (innerType =
+#     app.etzhayyim.auth.credential) in the auth tenant PDS (MST).
+#     XChaCha20-Poly1305 + Signal-wrapped per-recipient keys.
+#     Per ADR-2605181100.
+#   - DID Documents (did:web:authn.etzhayyim.com:user:*) — published by
+#     the Worker itself; rebuildable from PDS commit history.
+#   - Base L2 anchor (MST root commitments) — finality.
+#
+# This manifest exempts the auth Worker's D1 access from the substrate-
+# boundary lint rule. The exemption is conditional on the rebuild
+# runbook below remaining executable.
+
+[projection]
+name = "auth-worker-d1"
+level = "L0-projection"
+rebuild_runbook = "MIGRATION-TODO.md#rebuild-from-mst"
+adr = "2605231500"
+yatachain_companion_adr = "2605231400"
+related_migration = "MIGRATION-TODO.md"
+owner = "auth Worker maintainers"
+last_reviewed = "2026-05-23"
+
+# Canonical source the projection is rebuildable from. Every D1 row
+# MUST be re-derivable from the encrypted MST records below (plus
+# tombstone envelopes for revocation).
+source_collections = [
+  "app.etzhayyim.encrypted.record",      # carrier envelope
+  "app.etzhayyim.encrypted.keyWrap",     # Signal per-recipient key wrap
+  "app.etzhayyim.encrypted.signalIdentity",  # sender Signal identity advertisement
+  "app.etzhayyim.encrypted.tombstone",   # explicit revocation
+  "app.etzhayyim.auth.credential",             # inner-type plaintext shape (see 00-contracts)
+]
+
+projection_tables = [
+  "vertex_gftd_auth_account",        # actor/account control record
+  "vertex_gftd_auth_credential",     # WebAuthn passkey cache
+  "vertex_gftd_auth_invite",         # pending org invite tokens (HMAC)
+  "vertex_gftd_auth_otp",            # email OTP codes (short-lived)
+  "edge_gftd_auth_linked",           # OAuth / email linked methods
+  "vertex_gftd_key_signing",         # KEK envelope encrypted signing key
+  "vertex_gftd_key_revoked_session", # session invalidation
+  "vertex_gftd_key_otp",             # SMS OTP cache
+]
+
+storage_substrates = [
+  { kind = "cloudflare-d1",       binding = "AUTH_DB", note = "control plane (vertex_gftd_auth_*, edge_gftd_auth_*); rebuildable from MST envelopes" },
+  { kind = "cloudflare-d1",       binding = "KEYS_DB", note = "key plane (vertex_gftd_key_*); rebuildable from KEK envelope + MST" },
+  { kind = "cloudflare-workers-kv", binding = "YATABASE_AUTH_CACHE", note = "hot-path API-key resolution cache (24h TTL); rebuildable from credential envelopes" },
+]
+
+# Empty D1 + KV. The rebuild runbook subscribes to com.atproto.sync.subscribeRepos
+# for the auth tenant PDS, decrypts each app.etzhayyim.encrypted.record envelope
+# whose innerType is app.etzhayyim.auth.credential, projects the plaintext into the
+# D1 row shape (vertex_gftd_auth_credential / linked / invite / otp), and
+# replays tombstone envelopes as soft-deletes.
+rebuild_estimated_minutes = 30
+rebuild_estimated_minutes_note = "dominated by passkey credential count × wrap-unwrap latency"
+
+[[non_determinism]]
+field = "vertex_gftd_auth_*.row_id"
+reason = "D1 ROWID assigned at INSERT time; logical row matches but physical ID differs across replays"
+
+[[non_determinism]]
+field = "vertex_gftd_auth_*.created_at_db"
+reason = "D1 server timestamp at INSERT, not in source envelope"
+
+[promotion_to_l1]
+required = [
+  "worker/src-ts/substrate-mst-credential.ts wired into passkeyVerifyRegister + linkEmailVerify + linkOAuthStart so every credential write hits MST first, D1 second",
+  "Rebuild runbook implemented as a one-shot worker command (e.g. `wrangler dev rebuild-projection`)",
+  "Drift detector: periodic D1 ↔ MST envelope re-derive + alert on divergence",
+  "Tombstone propagation verified end-to-end (revoke → MST tombstone → D1 soft-delete)",
+]
+target_quarter = "Q3 2026 (after MIGRATION-TODO Stage 2 cutover)"

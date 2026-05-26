@@ -1,5 +1,5 @@
 """
-ai.gftd.agent.sbom.register — LangGraph SBOM registration agent.
+app.etzhayyim.agent.sbom.register — LangGraph SBOM registration agent.
 
 Three-node StateGraph wrapping the Phase B + Phase C primitives so the
 caller gets a single agentic entry point with retry, transient error

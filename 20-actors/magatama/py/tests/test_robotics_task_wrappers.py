@@ -8,6 +8,7 @@ with asyncio.run() and default (empty) arguments.
 from __future__ import annotations
 
 import asyncio
+import inspect
 import sys
 from pathlib import Path
 
@@ -21,6 +22,8 @@ from pymagatama.primitives import robotics as R  # noqa: E402
 # ─── helpers ─────────────────────────────────────────────────────────────────
 
 def _run(coro):
+    if not inspect.isawaitable(coro):
+        return coro
     return asyncio.run(coro)
 
 

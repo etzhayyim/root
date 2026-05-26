@@ -19,7 +19,7 @@
     "APP_DEPLOY_SHA": "654e59298ed",
     "APP_DESCRIPTION": "OFAC/EU/UN/JP-MOF sanctions list screening — entity matching, fuzzy name resolution, real-time list updates, compliance reporting",
     "APP_DISPLAY_NAME": "Sanctions Screener",
-    "APP_EMBED_URL": "https://sn4c8t1x.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://sn4c8t1x.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "sn4c8t1x",
     "APP_PERFORMER_TYPE": "service",
@@ -28,7 +28,7 @@
     "APP_UI_TYPE": "appview",
     "APP_VERSION": "0.1.0",
     "INTERFACES_REQUIRES": "[\"gftd:collection/collection@1.0.0\"]",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -40,12 +40,12 @@
   ],
   "routes": [
     {
-      "pattern": "sn4c8t1x.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "sn4c8t1x.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "sanctions.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "sanctions.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

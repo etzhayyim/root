@@ -19,7 +19,7 @@ This commit lands the etzhayyim-side scaffold mirror (CLAUDE.md + OWNERS + PROJE
 
 ## Substrate (etzhayyim — RW-free per ADR-2605172000)
 
-| Concern | Vendor (gftd.co.jp) | etzhayyim (this repo) |
+| Concern | Vendor (etzhayyim.com) | etzhayyim (this repo) |
 |---|---|---|
 | Write path | `createKyselyDb` → RisingWave `vertex_ads_*` | PDS XRPC `com.atproto.repo.createRecord` against `ai.etzhayyim.apps.publicMalak.*` (Phase 2 rewrite) |
 | Read path | Hyperdrive + Kysely | `mst-projector` (Phase 3 indexed views) |
@@ -32,7 +32,7 @@ This commit lands the etzhayyim-side scaffold mirror (CLAUDE.md + OWNERS + PROJE
 - procedures: `crawlAds`, `analyzeAd`, `analyzeRecentAds`, `clusterRecentAds`, `processScraperQueue`
 - queries: `getAdvertiser`, `getAnalysis`, `getCampaignCluster`, `getCreative`, `listAds`, `listAnalyses`, `listCampaignClusters`, `listScraperRuns`, `listSnapshots`
 
-All surface the ad-library scraper graph (Meta / Facebook / Instagram / WhatsApp, Google Ads Transparency, LinkedIn, TikTok, X, LINE, Telegram). NSID prefix is `ai.gftd.apps.publicMalak.*` mirroring the vendor scope; an etzhayyim-namespaced alias (`ai.etzhayyim.apps.publicMalak.*`) may be added in Phase 2 if substrate divergence requires it.
+All surface the ad-library scraper graph (Meta / Facebook / Instagram / WhatsApp, Google Ads Transparency, LinkedIn, TikTok, X, LINE, Telegram). NSID prefix is `app.etzhayyim.apps.publicMalak.*` mirroring the vendor scope; an etzhayyim-namespaced alias (`ai.etzhayyim.apps.publicMalak.*`) may be added in Phase 2 if substrate divergence requires it.
 
 ## Ad crawl execution
 

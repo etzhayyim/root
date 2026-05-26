@@ -12,7 +12,7 @@ up the ingest pipeline (cron → IPFS-pinned snapshot → MST publish).
 ## Scope
 
 - Daily mirror of OFAC SDN, UN Consolidated, EU Restrictive
-- Fuzzy name search lexicon (`ai.gftd.sanctions.searchByName`)
+- Fuzzy name search lexicon (`app.etzhayyim.sanctions.searchByName`)
 - Per-source snapshot versioning anchored to Base L2 (so an entry's presence-at-time-T is verifiable)
 
 ## Out of scope (stays vendor)

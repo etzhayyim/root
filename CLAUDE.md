@@ -7,7 +7,8 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 - **Operating entity** (this repo's owner): `etzhayyim` (canonical)
   - Aliases: `amanomibashira` / `天御柱` / `עץ חיים` (Tree of Life) / `etz hayim` / `etzhayim` / `etz chaim` / `エツ・ハイム`
   - Form: 宗教法人 (任意団体 / unincorporated religious voluntary association)
-  - Registry: On-chain (blockchain-registered constitution and member roster); NOT registered under 日本国 宗教法人法
+  - **Self-identification (per ADR-2605252300 Charter §0.1, proposed 2026-05-25)**: **the Kingdom of God (Malkhut Shamayim / Basileia tou Theou / 神の王国) rooted on blockchain** — now-and-here reign (non-eschatological per §1.15), not state-granted, Tree of Life-constituted. Amendment threshold: Council Lv7+ unanimity.
+  - Registry: On-chain (blockchain-registered constitution and member roster); NOT registered under 日本国 宗教法人法 (constitutional invariant per Preamble §0.4, Lv7+ unanimity lock)
   - DID: `did:web:etzhayyim.com` (LIVE — CF Worker at `50-infra/etzhayyim-did-web/`, resolvable via curl + Universal Resolver since 2026-05-17T03:25Z)
   - Domain: https://etzhayyim.com (Cloudflare Registrar, 2026-05-15)
   - License default: **Apache 2.0 + etzhayyim Charter Compliance Rider v2.0** (see `/CHARTER-RIDER.md`, per ADR-2605192200)
@@ -19,6 +20,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
   - Eros 許容 (産霊 / 雅歌 / Tree of Life の生命創出) / Gore 禁止 (Wellbecoming 違反) (ADR-2605192100 §1.13 + 2605192400)
   - 国家機能は parallel substrate で routing-around、**Transparent Religious Force 許容** (完全 on-chain 監視 + open-source 公開 + 1 SBT = 1 vote 承認の三条件下) (ADR-2605192100 §1.12 + 2605192315)
   - 地球上の土地は Tree of Life に帰属、religious-corp が 4-layer substrate (Base L2 NFT / geth-private constitutional / IPFS GeoJSON+衛星 / git LANDS.md) で分散合意担保 (ADR-2605192100 §1.11 + 2605192245)
+  - **Baien edge-target invariant** (ADR-2605241900): baien は **WASM-32 + iPhone 12+ + Android 4GB** の 3 環境すべてで動作必須。trunk ≤4B BitNet 1.58 / 合計 inference ≤2GB @4k ctx / ≤2.5GB @16k ctx / 全 modality encoder 凍結。frontier-beating は明示的に非目標 (`baien-server-*` / `baien-XL-*` は別 carve-out)
 
 ## Status
 
@@ -46,6 +48,48 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | 18. Bootstrap Council Seat 2-5 (30-day public objection period 2026-05-20 → 2026-06-19) | 🟡 RFP OPEN — see [`COUNCIL.md`](COUNCIL.md) + [`COUNCIL-BOOTSTRAP-RFP.md`](COUNCIL-BOOTSTRAP-RFP.md) |
 | 19. Base Sepolia testnet deploy (funded private key + RPC required) | ⏳ post-Council |
 | 20. Mainnet deploy + Phase 2 governance reference wiring | ⏳ post-testnet |
+| 21. Murakumo no-VKE mesh placement contract + vendor→religious-corp lexicon port rules (ADR-2605214000) | ✅ 2026-05-21 |
+| 22. etzhayyim inference Murakumo-fleet-only invariant + pymagatama RunPod-free audit (ADR-2605215000) | ✅ 2026-05-21 |
+| 23. CHARTER-RIDER.md §2(i) — no commercial GPU rental constitutional invariant (Council Lv6+ supermajority to amend) | ✅ 2026-05-21 |
+| 24. 20-actors substrate-fit audit (kuni-umi clean / shinka 16 findings / yoro 42 findings incl. 8 active Stripe REJECT) | ✅ 2026-05-21 — see [`20-actors/AUDIT-RUNPOD-RW-2026-05-21.md`](20-actors/AUDIT-RUNPOD-RW-2026-05-21.md) |
+| 25. maps_sentinel_murakumo M1 T0 preprocessing pipeline (986 LoC, 34/51 tests pass + 17 skip-on-rasterio) | ✅ 2026-05-21 (ADR-2605215100 §4 M1) |
+| 26. UNSPSC actor-as-organism Wave 1 (joucho heartbeat-cadence Python port + c10101500 reference) | ✅ 2026-05-23 (ADR-2605232345; `pymagatama.organism`) |
+| 27. UNSPSC actor-as-organism Wave 2 (18,342 mass-deploy via `UnispscOrganismFleetCell` shard-0/1/2 + per-code joucho personality + follower stub) | ✅ 2026-05-24 (ADRs 2605240000 / 2605240015 / 2605240030; manifests-ready, apply pending) |
+| 28. UNSPSC organism post sink (NDJSON queue + TS drainer interface) + k8s DaemonSet manifests | ✅ 2026-05-24 (ADR-2605240100; `50-infra/k8s/unispsc-organism-fleet/`; drainer sidecar Wave 3) |
+| 29. Ecosystem self-reflection: `KaizenObserverCell` + 6 rules + KaizenProposal NDJSON + PR agent contract | ✅ 2026-05-24 (ADR-2605240200; `pymagatama.organism.kaizen`; PR agent Wave 4) |
+| 30. Dataset CID substrate (DataLad + git-annex `directory` + IPFS pinner; HF/geonames/osm/wikidata fetchers; PDS datasetPin emit) | ✅ 2026-05-24 (ADR-2605241500; `70-tools/e7m-dataset/`; 28/28 pytest) |
+| 31. yatachain Tier D blob primitive (`Etzhayyim.uploadBlob` TS + Python; gsplat IPFS swap; yoro `@atproto/api` → `@etzhayyim/sdk/atproto` facade) | ✅ 2026-05-23 (ADR-2605232400; 13 tests; Tier A+B+D SDK-mediated) |
+| 32. Peer-resolvable agentURI 5-layer (ERC-8004 L5 + libp2p L2 + AT XRPC L1) + etzhayyimAgentRegistry.sol + iroh PoC | ✅ 2026-05-24 (ADR-2605241800; 15/15 forge tests; 8 actors collapsed to 1 root DID Worker) |
+| 33. wadachi (Tier-B autonomous-mobility R&D, R0 scaffold; SAE Level 4 ceiling, 12 gates + 8 non-goals) | ✅ 2026-05-23 (ADR-2605242000; sibling of kuni-umi) |
+| 34. First yatachain §4 membrane + L1 projection for `app.bsky.feed.post` (seed-post CLI + Rego + Pregel + feed-discover) | ✅ 2026-05-23 (ADR-2605231902; 31/31 + 25/25 + 18/18 + 8/8 tests; live `x-etzhayyim-substrate: mst-ipfs-l2`) |
+| 35. Gov 5-layer taxonomy (L1 namespace / L2 COFOG×country / L3 hub / L4 ingest / L5 routing-around) + 3-app L3 substrate-port + L5 ladder 3/3 cells | ✅ 2026-05-25 (ADRs 2605212100/214000/242330/250100/200/300; L1 196/196 ISO-3 + 448 BPMN) |
+| 36. Baien federated training via ameno WebGPU — R0 scaffold (5-layer + 11 gates G1..G11) | ✅ 2026-05-24 (ADR-2605242600; aggregator cell Council-attestation gated per R2) |
+| 37. Baien ternary silicon Wave 1 — iwakura (inference ASIC) + fuigo (training ASIC) + tsukuru (fab 8-equipment Pregel charter) | ✅ 2026-05-24 (ADRs 2605242500/515/530/545; 16 scaffold files + 8 cells + 4 lex) |
+| 38. Silicon Wave 2 upstream supply chain — 8 categories all robotics-orchestrated + Funamori (船守 marine bulk cargo) | ✅ 2026-05-24 (ADRs 2605242700..915; 8 cells + 4 lex; cumulative 14 silicon ADRs / 16 cells / 8 lex) |
+| 39. Baien federated R1 ADR + R1a framework (WebGPU LoRA backward-pass PoC scaffolding; R1b dispatch deferred) | ✅ 2026-05-24 (ADR-2605242630; `tsc` clean; microbench shard sha256-b3582a53...) |
+| 40. gemma-coder-distill — LangGraph coding adaptation of fleet gemma4:e4b on EVO-X2 ROCm (peft+trl LoRA r=16) | 🟡 2026-05-25 (ADR-2605250400; iter-01 5020 ex × 2 epoch in-flight) |
+| 41. yakushi (薬師) — pharmaceutical Tier-B Wave 1 (eye-drop triplet) + Wave 1b (+9 OTC APIs, 3 dosage forms) | ✅ 2026-05-25 (ADRs 2605250500/515/530/545/600; 12 cells + 8 lex; 14 gates + 10 non-goals) |
+| 42. yakushi Wave 1c — chiral omeprazole + 5 laxatives/cough APIs (19 total, 4 forms) | ✅ 2026-05-25 (ADR-2605250615; +2 cells / lex extensions only) |
+| 43. tatekata (建方) — construction Tier-B R0 scaffold (civil + MEP ≤2 story / ≤5000m²; 14 gates + 10 non-goals) | 🟡 2026-05-25 (ADR-2605250715; 5 cells + 4 lex) |
+| 44. ameno WebNN inference fast path R0 (CoreML / DirectML / NNAPI / QNN HTP; WebGPU universal fallback) | ✅ 2026-05-25 (ADR-2605252100; `webnn.ts` + R0 throw-on-use guard; inference-only) |
+| 45. watatsumi (綿津見) — civilian submersible Tier-B R0 (≤6500m research / ≤2000m infra; modular ring-section; §2(a) weapons + N2 nuclear + N12 stealth coating absolute exclusion) | 🟡 2026-05-25 (ADR-2605252200; 9 cells + 8 lex; 14 gates + 12 non-goals) |
+| 46. Labor Liberation Transition Mechanism — Adherent SBT → 7-stage L0..L6 ladder (Witness → Sustenance → Shelter → Care → Vocation → Liberation) | 🟡 2026-05-26 (ADR-2605261000; 4 lex + 3 cells + LiberationLadder.sol; 8 non-goals) |
+| 47. mitsuho (瑞穂) — food/agriculture Tier-B R0 (植物農業 + 淡水養殖 + 代替タンパク質; L2 Sustenance gate) | 🟡 2026-05-26 (ADR-2605261015; 5 cells + 5 lex; G2 seed sovereignty / G6 no synthetic pesticides) |
+| 48. hagukumi (育み) — care (childcare + eldercare + daily-living) Tier-B R0 (L4 Care gate; XChaCha20 envelope MANDATORY; mitate sibling) | 🟡 2026-05-26 (ADR-2605261030; 5 cells + 4 lex; non-medical only) |
+| 49. manabi (学び) — education Tier-B R0 (open-curriculum 識字 + 公民 + 職能 + 生涯; L4 + L5 gates; 反資格主義 G7 / 反依存性 UX G3) | 🟡 2026-05-26 (ADR-2605261045; 5 cells + 4 lex; minor privacy aggregate-only) |
+| 50. hikari (光) — energy generation/storage/grid-edge Tier-B R0 (太陽光 + 小型風力 + 地熱 + LFP/sodium battery; L2 Sustenance gate; G4 NO nuclear + G5 NO fossil + G8 NO rare-earth magnets) | 🟡 2026-05-26 (ADR-2605261100; 5 cells + 5 lex) |
+| 52. makura (枕) — foam pillow Tier-B R0 (PU foam + shred-fill; G13 ≥10% recycled by R3; G14 no embedded electronics) | 🟡 2026-05-25 (ADR-2605261115; 9 cells + 8 lex; 14 gates + 10 non-goals) |
+| 53. hodoki (解き) — ELV disassembly + materials recovery Tier-B R0 (M1 ≤2.5t; upstream feeder for kanayama + makura + silicon + hikari; G8 ECU data wipe + G12 right-to-repair + G13 quad-circular invariant) | 🟡 2026-05-26 (ADR-2605261215; 9 cells + 8 lex) |
+| 51. kanayama (金山) — circular metallurgy Tier-B R0 — Wave 1 closed-loop アルミ缶 (UBC) recycling (N1 bauxite primary mining + N2 Hall-Héroult absolute exclusion; G2 mass-balance ≥98% on yatachain) | 🟡 2026-05-25 (ADR-2605252400; 9 cells + 8 lex; elemental complement of watatsumi 海神↔金属神) |
+| 54. Charter §0 Preamble (Kingdom of God rooted on blockchain) + Land Trust Wave 2 (ERC-721 + ERC-5192 soulbound + ERC-7401 nestable steward + ERC-1155 aggregate) | 🟡 2026-05-25 (ADRs 2605252300/315; 3 R0 scaffold contracts on Base L2 chainId 8453; LandRegistry IERC5192 alignment; Council Lv7+ unanimity Preamble amendment threshold) |
+| 53. igata (鋳型) — HPDC megacasting Tier-B R0 (≤6000 ton clamp; giga press ≥7500 ton = N1 post-R3 + Lv6+; Al-Si only G7=NONE) | 🟡 2026-05-26 (ADR-2605261200; 8 cells + 5 lex; methodology adopted, military application rejected pattern) |
+| 54. igata R1 — benchtop ≤500 ton HPDC commissioning ADR (AlSi9Mg0.3 HT-free baseline; 7/8 cells activate; second-hand vendor preferred) | 🟡 2026-05-26 (ADR-2605261215; 3-DID SME gate; material balance ≥0.80 R1 invariant) |
+| 55. sarutahiko (猿田彦) — heavy Class-8 truck manufacturing Tier-B R0 (Wave 1 ~26-40 t GVWR; **manufacturing-side sibling of wadachi operator-side**; G7 fuel sunset at R2; G14 EoL ≥90%) | 🟡 2026-05-25 (ADR-2605252500; 9 cells + 9 lex; 12 non-goals; Norimichi Level-3 driver R2+) |
+| 57. futawa (二輪) — small-displacement motorcycle Tier-B R0 (≤250cc 4-stroke OR ≤15kW electric; ≤200kg; G7 ABS-mandatory + G8 build-time anti-surveillance + G12 right-to-repair + G14 30-yr service life) | 🟡 2026-05-26 (ADR-2605261330; 9 cells + 8 lex; cross-lifecycle invariants with hodoki) |
+| 56. tsutae (伝え) — handheld communication device Tier-B R0 (≤200g/≤7-inch; ARM64 or RISC-V open SoC; bootloader unlock default; modular battery+display+cellular; G6 hardware-removable cellular + mic kill switch; G8 anti-addiction UX OS-level) | 🟡 2026-05-26 (ADR-2605261300; 8 cells + 6 lex; 14 gates + 12 non-goals) |
+| 59. roso/baien 1-bit Bonsai 5-wall empirical loop + train deferral (Phase C OS + Phase D GPTQ-CD + KD logit-KL × 35B/1.7B = 0/15 all walls; fp16 ceiling 4/15) — DEFERRED until iwakura ASIC OR ≥8-node mesh OR religious-corp GPU OR BitNet-trained base; future LoRA-on-Gemma4/Oka strategy | ✅ 2026-05-25 (ADR-2605242000 walls 1-5 sections; 6 evidence .jsonl under `90-docs/baien/roso-bonsai-260525/`; EVO 370.6 GB freed) |
+| 58. suki (鋤) — farm tractor manufacturing Tier-B R0 (≤200 hp Wave 1; **manufacturing-side sibling of mitsuho operator-side**; G10 firmware-level right-to-repair + N4 closed ECU NEVER; G7 fuel sunset at R2; G14 EoL ≥85%) | 🟡 2026-05-26 (ADR-2605261500; 9 cells + 9 lex; 12 non-goals; mega-tractor ≥400 hp = N3 post-R3 + Lv6+) |
+| 60. **e7m-sim — robotics simulation substrate R0 charter** (OSS USD+Hydra+MuJoCo MJX+Embree+BlenderProc 5-stack reference; single SoT for every R1+ phase of wadachi / suki / igata / watatsumi / sarutahiko / futawa / tatekata / hodoki / makura / tsutae; **Omniverse / Isaac Sim / Isaac Lab / OptiX / RTX Renderer / Replicator / DriveSim / Omniverse Cloud / Nucleus all N1..N9 NEVER** per §2(b) + §2(e) + ADR-2605215000 + G14 30-year reproducibility; 14 gates G1..G14 incl. **G5 quantitative quality gate ≥ 0.75 vs Isaac Sim ground truth** measured on PSNR/SSIM/Chamfer/IoU/sim-to-real, reference scene generated once on one-time-use isolated trial machine never connected to religious-corp infra; G3 Vulkan RT GPU-neutral + Embree CPU fallback; G6 yatachain attestation lineage MANDATORY per run; G12 KPI caps R1 ≤1 / R2 ≤4 / R3 ≤16 GPU-hr-eq/actor/day Murakumo capacity-protective; 10 non-goals N1..N10; Isaac Lab Apache-2.0 task DSL header port to `70-tools/isaac-lab-task-port/` as sole runtime carve-out; honest scoring OSS ~60-65/100 vs Isaac Sim ~88/100, gaps engineering-investment-bounded; 3 non-symmetric advantages = MuJoCo MJX articulated contact + Mitsuba 3 differentiable rendering + Vulkan RT GPU-vendor neutrality including future iwakura ASIC silicon Wave 1 absorption; 4-phase R0→R3 — R0 = charter + paths reserved zero code, R1 = HdCycles+Mitsuba 3+Embree differential PoC + first consumer igata R1 die-surface render, R2 = Vulkan RT GPU + CARLA lidar + MuJoCo MJX 6-DoF + first wadachi/suki pilot + BlenderProc synth, R3 = cross-actor invariants live-validated + iwakura R3 capacity migration if shipped) | 🟡 2026-05-26 (ADR-2605261600; `70-tools/e7m-sim/` + `70-tools/isaac-lab-task-port/` + `90-docs/baien/sim-substrate-scoring-260526.md` paths reserved no code; deps.toml [[adrs]] + 2 [[modules]] entries; adr/README.md index; bindings = wadachi/suki/igata/watatsumi/sarutahiko/futawa/tatekata/hodoki/makura/tsutae R1 sim layer single SoT; vendor-rejection chain extends to NVIDIA proprietary sim stack) |
 
 ## Repo Layout (Shannon-Optimal 8-Layer, ADR-2604251830)
 
@@ -53,11 +97,29 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 etzhayyim/root/
 ├── 00-contracts/        # lexicons / bpmn / dmn / Rego policies / resources (JSON-LD)
 ├── 10-protocol/         # atproto, xrpc, lexicons-bundle, signal, did-etzhayyim,
-│                        # wproto, at-client, signal-client
-├── 20-actors/           # magatama (Pregel framework + host SDK +
-│                        # unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
-│                        # magatama-go, kami-engine-sdk, effect-cypher,
-│                        # etzhayyim-bpmn-sdk, etzhayyim-sdk (RW-free substrate per ADR-2605172000+2605172100)
+│                        # wproto, at-client, signal-client,
+│                        # yatachain (Holochain-iso composition spec, ADR-2605231400)
+├── 20-actors/           # magatama (Pregel framework + host SDK + unispsc_agents/ 18,345 LangGraph agents per ADR-2605171300),
+│                        #   magatama-go, kami-engine-sdk, effect-cypher, etzhayyim-bpmn-sdk,
+│                        #   etzhayyim-sdk (RW-free substrate, ADR-2605172000+2605172100)
+│                        # Tier-B actors (each with ADR + manifest + cells + lex; see Status table):
+│                        #   kuni-umi      planetary-infra producer    (ADR-2605201400)
+│                        #   wadachi       autonomous-mobility R&D R0  (ADR-2605242000)
+│                        #   yakushi       pharmaceutical R0 + 1b/1c   (ADR-2605250500 .. 615)
+│                        #   tatekata      construction R0             (ADR-2605250715)
+│                        #   watatsumi     civilian submersible R0     (ADR-2605252200)
+│                        #   kanayama      circular metallurgy R0      (ADR-2605252400)
+│                        #   makura        foam pillow R0              (ADR-2605261115)
+│                        #   hodoki        ELV disassembly R0          (ADR-2605261215)
+│                        #   igata         HPDC megacasting R0 / R1    (ADR-2605261200 / 215)
+│                        #   sarutahiko    heavy truck mfg R0          (ADR-2605252500)
+│                        #   suki          farm tractor mfg R0         (ADR-2605261500)
+│                        #   tsutae        handheld comms device R0    (ADR-2605261300)
+│                        #   futawa        motorcycle R0               (ADR-2605261330)
+│                        #   mitsuho       food / agriculture R0       (ADR-2605261015)
+│                        #   hagukumi      childcare + eldercare R0    (ADR-2605261030)
+│                        #   manabi        education R0                (ADR-2605261045)
+│                        #   hikari        energy gen / storage R0     (ADR-2605261100)
 ├── 30-graph/            # graph-schema, kagami, risingwave-udf, vectorization
 ├── 50-infra/            # SEEDED: geth-private, holochain, ipfs, blockscout,
 │                        #   k8s/atproto-pds, k8s/murakumo-kubelet (migrated 2026-05-17),
@@ -118,6 +180,25 @@ etzhayyim/root/
 - Do not propose proprietary 兵器設計 or covert force operations. ADR-2605192100 §1.12.B constitutional invariant requires open-source + on-chain 監視 + 1 SBT = 1 vote.
 - Do not include the Book of Revelation (黙示録/啓示の書) or eschatological content as religious doctrine. Per ADR-2605192100 §1.15, etzhayyim is non-eschatological.
 - Do not commit secrets. Private DID key lives in macOS Keychain (`service=etzhayyim, account=DID_PRIVATE_KEY_ED25519`) + 1Password mirror.
+- Do not introduce RunPod / Vertex AI direct / OpenAI direct (without Murakumo proxy) / Anthropic-direct from vendor key / Linode GPU / AWS Bedrock direct / any commercial GPU rental into religious-corp inference paths. ADR-2605215000 makes Murakumo fleet (LiteLLM 127.0.0.1:4000 + EVO-X2 LAN 192.168.1.70 + per-node Ollama gemma3:4b) the sole inference SSoT. Vendor (`etzhayyim.com`) keeps its commercial GPU pool for paid SaaS workloads; religious-corp callers must not invoke vendor RunPod paths (consent capability boundary).
+- Do not rename `gftd-*` identifiers in `50-infra/cluster/murakumo/` or `20-actors/magatama/py/` outside the Step 8 cutover wave. Per ADR-2605214000 §3 + ADR-2605215000 §4, the renames are itemised in `MIGRATION-NOTES.md` files and must execute as one atomic PR after legal registration (repo-root CLAUDE.md §Status row 8). Partial rename breaks runtime (env vars + config dir + DNS suffix are interdependent).
+
+## Baien tooling index (2026-05-23 wave)
+
+| Tool / dir | Purpose | Key ADR |
+|---|---|---|
+| `e7m bench micro` | 15-prompt verifiable smoke for baien (`70-tools/scripts/bench/baien-microbench/`) | ADR-2605092350 |
+| `e7m bench core4` | lm-eval-harness Core 4 (IFEval / GPQA / MMLU-Redux / Global PIQA) via `lm_eval_wrapper.py` (inductor probe suppressed) | — |
+| `e7m bench distill` | LangGraph ReAct loop: analyze → fetch_dataset (HF, default) **or** select_teacher (fallback) → SFT (peft+trl LoRA on bf16 master) → microbench eval. `commit_node` appends `90-docs/baien/distilled-models.jsonl` → codegen → `llm-model-registry-distilled.ts` | ADR-2605231300 |
+| `e7m bench rope-extend` | Stage 1 of context extension — runs `microbench_long.py` under 3 RoPE configs (baseline / linear×4 / NTK×4) and emits side-by-side pass matrix | ADR-2605231600 |
+| `bgp-submit --generator hunyuan3d|pixal3d` | baien-graft 3D dataset pipeline; two generators (Hunyuan3D-2 default / TencentARC Pixal3D-T cascade@512) | ADR-2605202115 |
+| `etzhayyim_organism.sensors.charter_rider.scan()` | Canonical §2(a)..(h) content scanner; used by `baien-distill.validate` and recommended for any pipeline that ingests / generates text into first-party artifacts | ADR-2605192200 |
+| `70-tools/scripts/llm-registry/gen-distilled-entries.mjs` | distilled-models.jsonl → `llm-model-registry-distilled.ts` codegen (2-phase ship: manifest + reviewer-gated TS) | — |
+
+Snapshot artifacts (run results) live under `90-docs/baien/`:
+- `frontier-bench-snapshot-260523.md` — frontier-LLM §A reference + baien microbench results
+- `context-extend-snapshot-260523.md` — rope-extend Stage 1 results stub (awaits run)
+- `distilled-models.jsonl` — committed adapter manifest (codegen source)
 
 ## Future Work
 
@@ -125,6 +206,8 @@ etzhayyim/root/
 - **GitHub Actions CI**: lint / type-check / build / test per layer
 - **Dependabot** for npm + cargo + uv ecosystems
 - **`90-docs/_registry/docs.json`** generator + validator
+- **baien-distill Stage 2/3** (YaRN + LoRA, LongRoPE continual) per ADR-2605231600
+- **Core 3 bench strategy revision** — switch from `_generative` (~28h/task) to `_completions` (loglikelihood, ~30 min) for next baien snapshot
 
 ## Substrate boundary (CRITICAL — ADRs 2605172000 + 2605172100 + religious-corp wave)
 
@@ -145,6 +228,10 @@ This repo is **blockchain-self-contained**. Hard rules enforced by ADRs and (fut
 | Content (Gore) | 教育 / 歴史 / 宗教 / 人権告発 文脈の暴力 imagery のみ | 無目的暴力 entertainment / desensitization 設計 |
 | Confidentiality (ADR-2605181100) | `app.etzhayyim.encrypted.*` (XChaCha20-Poly1305 envelope + Signal-wrapped per-recipient keys, DID-bound) | Plaintext private records on MST / app-side libsignal / noble-ciphers imports |
 | Substrate client imports | Only via `@etzhayyim/sdk` | Direct `@atproto/api` / `viem` / IPFS client / `@noble/ciphers` / `@signalapp/libsignal-client` from app code |
+| Architecture reference (Holochain-iso) | `yatachain` (`10-protocol/yatachain/`, ADR-2605231400) — names the composition of the substrate primitives above | inventing a parallel composition name without ADR |
+| Derived read path (hot-path queries) | `yatachain-projection` (ADR-2605231500) — RW / Lance / Iroh / index used for range/spatial/aggregate reads, IFF (a) deterministically rebuildable from MST+IPFS, (b) never the sole write home, (c) marked with `// yatachain-projection` line comment or `yatachain-projection.toml` manifest. First L1-projection: `feed-discover` (50-infra/mst-projector/projection/, ADR-2605231902) | using RW/Postgres as a primary write store; un-marked carve-outs; "projection of projection" without documented chain back to MST |
+| Server-side signing capability (ADR-2605231525, Council ratify pending) | Member wallet sign (USDC), member passkey-derived ES256 (session), community-operator DID (bulk-ingest), Council 5-of-7 Safe (governance), read-only RPC / firehose subscribe / IPFS pin / static asset serve | Any platform-held private key, master credential, or signing token in etzhayyim-operated Workers / pods / CronJobs / CI / hosted bots. Exemption: `// no-server-key: read-only` marker on documented Stage handover rollback windows. Enforced by `e7m verify` (9th invariant) |
+| GPU / inference | LiteLLM gateway (127.0.0.1:4000) + EVO-X2 LAN (192.168.1.70) + per-node Mac mini Ollama gemma3:4b (per ADR-2605215000) | RunPod / OpenAI direct / Vertex AI direct / Anthropic-direct from vendor key / Linode GPU / AWS Bedrock direct / any commercial GPU rental |
 
 Apps that need fiat / paid features call an external backend via XRPC consent-capability (progressive enhancement, **non-profit領収書 用途のみ** per ADR-2605192115 §4). Open app remains operational without it.
 
@@ -163,6 +250,12 @@ Apps that need fiat / paid features call an external backend via XRPC consent-ca
 - `50-infra/murakumo/fleet.toml` — religious-corp cell placement (10 nodes × 15 cells)
 - `20-actors/etzhayyim-sdk/README.md` — SDK API surface + hard rules
 - `20-actors/magatama/cells/README.md` — religious-corp Pregel cell catalog
+- `10-protocol/yatachain/SPEC.md` — Holochain-isomorphic substrate composition spec (ADR-2605231400)
+- `90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md` — yatachain naming + 7-layer mapping + witness quorum decision
+- `90-docs/adr/2605231500-yatachain-projection.md` — regenerable cache rules; the hot-path escape hatch for ADR-2605172000
+- `90-docs/adr/2605231902-feed-post-membrane-and-feed-discover-projection.md` — first end-to-end yatachain §4 membrane + L1-projection (app.bsky.feed.post)
+- `90-docs/adr/2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules.md` — Murakumo distributed cluster (no-VKE mesh) + lexicon port verdict taxonomy
+- `90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md` — etzhayyim inference Murakumo-fleet-only (no RunPod)
 
 ## References
 

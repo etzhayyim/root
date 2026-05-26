@@ -36,7 +36,7 @@ function makePending(rootCid: string): SubstratePending {
   return {
     pending: {
       row: {
-        cell_did: "ai.gftd.apps.threads.post",
+        cell_did: "app.etzhayyim.apps.threads.post",
         thread_id: rootCid,
         checkpoint_ns: "",
         checkpoint_id: rootCid,
@@ -57,7 +57,7 @@ function makePending(rootCid: string): SubstratePending {
       ipfsCidBytes: new TextEncoder().encode(rootCid),
       batchSize: 3,
     },
-    shardKey: "ai.gftd.apps.threads.post",
+    shardKey: "app.etzhayyim.apps.threads.post",
     ipfsPinUri: `at://did:web:pinner.etzhayyim.com/app.etzhayyim.substrate.ipfsPin/3p`,
   };
 }
@@ -116,7 +116,7 @@ describe("runTickSubstrate", () => {
     // Receipt body carries shardKey + chainId + ipfsPinUri linkage.
     const firstCommit = (deps.commitL2Anchor as ReturnType<typeof vi.fn>).mock
       .calls[0][0];
-    expect(firstCommit.shardKey).toBe("ai.gftd.apps.threads.post");
+    expect(firstCommit.shardKey).toBe("app.etzhayyim.apps.threads.post");
     expect(firstCommit.chainId).toBe(84532);
     expect(firstCommit.ipfsPinUri).toBe(pendingRows[0].ipfsPinUri);
     expect(firstCommit.contract).toBe(CFG.contract);

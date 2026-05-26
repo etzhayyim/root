@@ -13,8 +13,8 @@
  * Usage:
  * ```ts
  * const mock = new MockEtzhayyim({ did: "did:web:example.com" });
- * await mock.write({ collection: "ai.gftd.apps.example.record", record: {...}, rkey: "key-1" });
- * const result = await mock.read({ collection: "ai.gftd.apps.example.record", rkey: "key-1" });
+ * await mock.write({ collection: "app.etzhayyim.apps.example.record", record: {...}, rkey: "key-1" });
+ * const result = await mock.read({ collection: "app.etzhayyim.apps.example.record", rkey: "key-1" });
  * ```
  */
 

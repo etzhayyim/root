@@ -92,7 +92,7 @@
 		loading = true;
 		error = '';
 		try {
-			const result = await authApiKeyProcedure<{ keys?: ApiKey[] }>('ai.gftd.auth.listApiKeys', {});
+			const result = await authApiKeyProcedure<{ keys?: ApiKey[] }>('app.etzhayyim.auth.listApiKeys', {});
 			keys = (result as any)?.keys ?? [];
 		} catch (e) {
 			const message = e instanceof Error ? e.message : 'Failed to load API keys';
@@ -112,7 +112,7 @@
 		error = '';
 		try {
 			const scopes = Array.from(selectedScopes).join(',');
-			const result = await authApiKeyProcedure<{ key?: string }>('ai.gftd.auth.createApiKey', {
+			const result = await authApiKeyProcedure<{ key?: string }>('app.etzhayyim.auth.createApiKey', {
 				name: newKeyName.trim(),
 				scopes,
 				test: newKeyTest,
@@ -135,7 +135,7 @@
 		revoking = keyId;
 		error = '';
 		try {
-			await authApiKeyProcedure('ai.gftd.auth.revokeApiKey', { keyId });
+			await authApiKeyProcedure('app.etzhayyim.auth.revokeApiKey', { keyId });
 			keys = keys.filter((k) => k.id !== keyId);
 		} catch (e) {
 			error = e instanceof Error ? e.message : 'Failed to revoke key';
@@ -219,9 +219,9 @@
 					</div>
 					<div class="mt-3 rounded-lg bg-gv2-bg-hover/40 p-3">
 						<p class="mb-1 text-[12px] font-medium text-gv2-text-muted">Usage (CLI / SDK / LLM Agent):</p>
-						<code class="block text-[12px] text-gv2-text-primary">export GFTD_TOKEN={createdKey}</code>
+						<code class="block text-[12px] text-gv2-text-primary">export etzhayyim_TOKEN={createdKey}</code>
 						<code class="mt-1 block text-[12px] text-gv2-text-primary">curl -H "Authorization: Bearer {createdKey}" \</code>
-						<code class="block pl-4 text-[12px] text-gv2-text-primary">atproto.etzhayyim.com/xrpc/ai.gftd.kagami.sql</code>
+						<code class="block pl-4 text-[12px] text-gv2-text-primary">atproto.etzhayyim.com/xrpc/app.etzhayyim.kagami.sql</code>
 					</div>
 					<button
 						type="button"
@@ -388,13 +388,13 @@
 					</div>
 					<div class="rounded-xl bg-gv2-bg-hover/40 p-3">
 						<p class="mb-1 text-[12px] font-medium text-gv2-text-primary">XRPC Direct:</p>
-						<code class="block text-[12px]">POST atproto.etzhayyim.com/xrpc/ai.gftd.kagami.sql</code>
+						<code class="block text-[12px]">POST atproto.etzhayyim.com/xrpc/app.etzhayyim.kagami.sql</code>
 						<code class="block text-[12px]">Authorization: Bearer sk_live_...</code>
 						<code class="mt-1 block text-[12px]">{"{"}"statement":"SELECT did FROM vertex_did ORDER BY _seq DESC LIMIT 10"{"}"}</code>
 					</div>
 					<div class="rounded-xl bg-gv2-bg-hover/40 p-3">
 						<p class="mb-1 text-[12px] font-medium text-gv2-text-primary">Claude Code / Anthropic SDK:</p>
-						<code class="block text-[12px]">export GFTD_TOKEN=sk_live_...</code>
+						<code class="block text-[12px]">export etzhayyim_TOKEN=sk_live_...</code>
 						<code class="block text-[12px]">gftd seed --app sovereign</code>
 						<code class="block text-[12px]">gftd actors shinka --model gemma4</code>
 					</div>

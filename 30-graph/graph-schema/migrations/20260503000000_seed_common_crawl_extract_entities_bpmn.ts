@@ -6,7 +6,7 @@ import { sql } from "kysely";
 
 // Registers common_crawl_extract_entities BPMN actor (ADR-0056):
 //   - R/PT1H timer-start: autonomous entity extraction from vertex_page rows
-//   - none-start:         manual trigger via ai.gftd.apps.commonCrawl.extractEntities XRPC
+//   - none-start:         manual trigger via app.etzhayyim.apps.commonCrawl.extractEntities XRPC
 //
 // Task types handled by pymagatama:0.3.29 common_crawl.py:
 //   commonCrawl.entities.extract — URL-regex fast-path + OpenRouter LLM fallback
@@ -24,13 +24,13 @@ const ownerDid = "did:web:bpmn.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.common-crawl";
 
 const BPMN_PROCESS_ID = "common_crawl_extract_entities";
-const NSID = "ai.gftd.apps.commonCrawl.extractEntities";
+const NSID = "app.etzhayyim.apps.commonCrawl.extractEntities";
 const BPMN_FILE = "00-contracts/bpmn/ai/gftd/common-crawl/extractEntities.bpmn";
 
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/common-crawl-extract-entities-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/common-crawl-extract-entities-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/common-crawl-extractEntities-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/common-crawl-extractEntities-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(path.resolve(repoRoot, BPMN_FILE), "utf8");

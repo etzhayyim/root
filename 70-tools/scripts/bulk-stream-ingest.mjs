@@ -31,7 +31,7 @@ const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/3
 
 const RW_CONN = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
-const COLLECTION = "ai.gftd.apps.legalEntity.legalEntity";
+const COLLECTION = "app.etzhayyim.apps.legalEntity.legalEntity";
 
 // ── CLI args ─────────────────────────────────────────────────────────────────
 
@@ -946,7 +946,7 @@ except:
     await new Promise((resolve, reject) => {
       const dl = spawn("python3", ["-c", `
 import urllib.request, sys
-req = urllib.request.Request("${UO_ZIP_URL}", headers={"User-Agent":"GFTDBot/1.0 (jun@gftd.group)"})
+req = urllib.request.Request("${UO_ZIP_URL}", headers={"User-Agent":"etzhayyimBot/1.0 (jun@etzhayyim.com)"})
 with urllib.request.urlopen(req, timeout=600) as r, open("${ZIP_PATH}", "wb") as f:
     total = 0
     while True:
@@ -1203,7 +1203,7 @@ import urllib.request, http.cookiejar, sys
 # Step 1: GET page to establish session cookie
 cj = http.cookiejar.CookieJar()
 opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
-opener.addheaders = [('User-Agent', 'Mozilla/5.0 (compatible; GFTDBot/1.0)')]
+opener.addheaders = [('User-Agent', 'Mozilla/5.0 (compatible; etzhayyimBot/1.0)')]
 req = urllib.request.Request("${NTA_PAGE_URL}")
 with opener.open(req, timeout=30) as r:
     html = r.read().decode('utf-8', errors='replace')
@@ -1441,7 +1441,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 start_from = int(sys.argv[1]) if len(sys.argv) > 1 else 0
 BASE = "https://orgbook.gov.bc.ca/api/v4/search/topic"
-HEADERS = {"Accept": "application/json", "User-Agent": "GFTDBot/1.0 (jun@gftd.group)"}
+HEADERS = {"Accept": "application/json", "User-Agent": "etzhayyimBot/1.0 (jun@etzhayyim.com)"}
 PAGE_SZ = 200
 WORKERS = 10
 CHUNK = 50  # pages per dispatch chunk
@@ -2490,7 +2490,7 @@ except:
     await new Promise((resolve, reject) => {
       const dl = spawn("python3", ["-c", `
 import urllib.request, sys
-req = urllib.request.Request("${ZIP_URL}", headers={"User-Agent":"GFTDBot/1.0"})
+req = urllib.request.Request("${ZIP_URL}", headers={"User-Agent":"etzhayyimBot/1.0"})
 with urllib.request.urlopen(req, timeout=600) as r, open("${ZIP_PATH}", "wb") as f:
     total = 0
     while True:
@@ -2766,7 +2766,7 @@ async function* streamSecEdgarBulk(skipRows) {
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
       const resp = await fetch(url, {
-        headers: { "User-Agent": "GFTDBot/1.0 jun@gftd.group", "Accept": "application/json" },
+        headers: { "User-Agent": "etzhayyimBot/1.0 jun@etzhayyim.com", "Accept": "application/json" },
         signal: AbortSignal.timeout(30_000),
       });
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -3688,7 +3688,7 @@ function makeGleifFullGen(countryCode) {
 
 async function* streamWikidataBizBulk(skipRows) {
   const ENDPOINT = "https://query.wikidata.org/sparql";
-  const UA = "GFTDBot/1.0 (jun@gftd.group; global legal entity coverage)";
+  const UA = "etzhayyimBot/1.0 (jun@etzhayyim.com; global legal entity coverage)";
   // [QID, ISO2] pairs — 200+ countries, prioritized by coverage gap
   const COUNTRIES = [
     ["Q30","US"],["Q145","GB"],["Q183","DE"],["Q142","FR"],["Q38","IT"],["Q29","ES"],
@@ -8261,7 +8261,7 @@ start_ehraid = int(sys.argv[1]) if len(sys.argv) > 1 else 1
 if start_ehraid < 1:
     start_ehraid = 1
 BASE = "https://www.zefix.admin.ch/ZefixREST/api/v1/firm/"
-HEADERS = {"User-Agent": "GFTDBot/1.0 (jun@gftd.group)"}
+HEADERS = {"User-Agent": "etzhayyimBot/1.0 (jun@etzhayyim.com)"}
 MAX_EHRAID = 1_700_000
 WORKERS = 20   # concurrent HTTP workers
 CHUNK = 200    # eheraids per dispatch chunk
@@ -8349,7 +8349,7 @@ skip = int(sys.argv[1]) if len(sys.argv) > 1 else 0
 row_num = 0
 seen = set()
 BASE = "https://www.datos.gov.co/resource/jbjy-vk9h.json"
-HEADERS = {"User-Agent": "GFTDBot/1.0 (jun@gftd.group)", "Accept": "application/json"}
+HEADERS = {"User-Agent": "etzhayyimBot/1.0 (jun@etzhayyim.com)", "Accept": "application/json"}
 PAGE = 5000
 
 offset = 0
@@ -9252,7 +9252,7 @@ WORKERS = 8      # concurrent HTTP workers per keyword chunk
 CHUNK_SIZE = 10  # pages per dispatch chunk
 
 BASE = "https://api.usaspending.gov/api/v2/recipient/"
-HEADERS = {"Content-Type": "application/json", "User-Agent": "GFTDBot/1.0 (jun@gftd.group; research)"}
+HEADERS = {"Content-Type": "application/json", "User-Agent": "etzhayyimBot/1.0 (jun@etzhayyim.com; research)"}
 
 # Decode position from skip
 start_kw_idx = skip // (MULT * PAGE_SIZE)
@@ -9387,7 +9387,7 @@ async function* streamKohesioEuBulk(skipRows) {
     let data;
     try {
       const res = await fetch(url, {
-        headers: { "Accept": "application/json", "User-Agent": "GFTDBot/1.0 (jun@gftd.group; research)" },
+        headers: { "Accept": "application/json", "User-Agent": "etzhayyimBot/1.0 (jun@etzhayyim.com; research)" },
         signal: AbortSignal.timeout(30_000),
       });
       if (!res.ok) { console.warn(`[kohesio_eu] HTTP ${res.status} at page=${page}`); await new Promise(r => setTimeout(r, 3000)); page++; continue; }
@@ -9452,7 +9452,7 @@ async function* streamFdicUsBulk(skipRows) {
     let data;
     try {
       const res = await fetch(url, {
-        headers: { "Accept": "application/json", "User-Agent": "GFTDBot/1.0 (jun@gftd.group; research)" },
+        headers: { "Accept": "application/json", "User-Agent": "etzhayyimBot/1.0 (jun@etzhayyim.com; research)" },
         signal: AbortSignal.timeout(30_000),
       });
       if (!res.ok) { console.warn(`[fdic_us] HTTP ${res.status} at offset=${offset}`); await new Promise(r => setTimeout(r, 3000)); continue; }
@@ -9579,7 +9579,7 @@ async function* streamEpaTriBulk(skipRows) {
     let data;
     try {
       const res = await fetch(url, {
-        headers: { "Accept": "application/json", "User-Agent": "GFTDBot/1.0 (jun@gftd.group; research)" },
+        headers: { "Accept": "application/json", "User-Agent": "etzhayyimBot/1.0 (jun@etzhayyim.com; research)" },
         signal: AbortSignal.timeout(90_000),
       });
       if (!res.ok) { console.warn(`[epa_tri_usa] HTTP ${res.status} at offset=${offset}`); await new Promise(r => setTimeout(r, 3000)); continue; }

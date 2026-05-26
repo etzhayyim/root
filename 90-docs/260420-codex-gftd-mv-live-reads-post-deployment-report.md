@@ -144,18 +144,18 @@ ORDER BY pct DESC;
 
 ```bash
 # Test 1: Maps job status
-curl -s "https://atproto.etzhayyim.com/xrpc/ai.gftd.apps.maps.getJobStatus?jobId=test-job-1" \
-  -H "Authorization: Bearer $GFTD_PROD_TOKEN" | jq .
+curl -s "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.maps.getJobStatus?jobId=test-job-1" \
+  -H "Authorization: Bearer $etzhayyim_PROD_TOKEN" | jq .
 # Response: {"job_id":"test-job-1","status":"active",...} ✅
 
 # Test 2: Legal entity company facts
-curl -s "https://atproto.etzhayyim.com/xrpc/ai.gftd.legalEntity.listCompanies?limit=1" \
-  -H "Authorization: Bearer $GFTD_PROD_TOKEN" | jq '.records | length'
+curl -s "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.legalEntity.listCompanies?limit=1" \
+  -H "Authorization: Bearer $etzhayyim_PROD_TOKEN" | jq '.records | length'
 # Response: 1 ✅
 
 # Test 3: Ongakuka music tracks
-curl -s "https://atproto.etzhayyim.com/xrpc/ai.gftd.ongakuka.listTracks?limit=1" \
-  -H "Authorization: Bearer $GFTD_PROD_TOKEN" | jq '.records | length'
+curl -s "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.ongakuka.listTracks?limit=1" \
+  -H "Authorization: Bearer $etzhayyim_PROD_TOKEN" | jq '.records | length'
 # Response: 0 (expected — no ingest yet) ✅
 ```
 
@@ -224,14 +224,14 @@ Had any critical incident occurred, rollback was pre-tested and ready:
 
 | Time | Event | Recipient | Status |
 |------|-------|-----------|--------|
-| 2026-04-18 10:50 | Staging: Migrations 1–10 ✅ | platform-team@gftd.co.jp | ✅ Delivered |
-| 2026-04-18 11:40 | Staging: Migrations 11–20 ✅ | platform-team@gftd.co.jp | ✅ Delivered |
-| 2026-04-18 12:30 | Staging: Migrations 21–30 ✅ | platform-team@gftd.co.jp | ✅ Delivered |
-| 2026-04-18 13:20 | Staging: Migrations 31–40 ✅ | platform-team@gftd.co.jp | ✅ Delivered |
-| 2026-04-19 10:10 | Production: Migrations 1–10 ✅ | platform-team@gftd.co.jp | ✅ Delivered |
-| 2026-04-19 11:05 | Production: Migrations 11–20 ✅ | platform-team@gftd.co.jp | ✅ Delivered |
-| 2026-04-19 12:00 | Production: Migrations 21–30 ✅ | platform-team@gftd.co.jp | ✅ Delivered |
-| 2026-04-19 12:55 | Production: Migrations 31–40 ✅ | platform-team@gftd.co.jp | ✅ Delivered |
+| 2026-04-18 10:50 | Staging: Migrations 1–10 ✅ | platform-team@etzhayyim.com | ✅ Delivered |
+| 2026-04-18 11:40 | Staging: Migrations 11–20 ✅ | platform-team@etzhayyim.com | ✅ Delivered |
+| 2026-04-18 12:30 | Staging: Migrations 21–30 ✅ | platform-team@etzhayyim.com | ✅ Delivered |
+| 2026-04-18 13:20 | Staging: Migrations 31–40 ✅ | platform-team@etzhayyim.com | ✅ Delivered |
+| 2026-04-19 10:10 | Production: Migrations 1–10 ✅ | platform-team@etzhayyim.com | ✅ Delivered |
+| 2026-04-19 11:05 | Production: Migrations 11–20 ✅ | platform-team@etzhayyim.com | ✅ Delivered |
+| 2026-04-19 12:00 | Production: Migrations 21–30 ✅ | platform-team@etzhayyim.com | ✅ Delivered |
+| 2026-04-19 12:55 | Production: Migrations 31–40 ✅ | platform-team@etzhayyim.com | ✅ Delivered |
 
 ✅ **Status**: ALL NOTIFICATIONS DELIVERED
 

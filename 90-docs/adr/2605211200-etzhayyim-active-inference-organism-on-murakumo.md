@@ -102,7 +102,7 @@ Applied to the organism as it stands today, the verdict is:
 |------|---------------|---------------------|
 | Liability | Organism makes autonomous decisions; failure damage absorbed by agent + DAO | ✅ clean |
 | Custody | belief state + observation + dispatch ledger sit in operator-controlled RisingWave | ❌ HIT — operator can be compelled to produce |
-| Settlement | LLM synthesis billed to RunPod / Anthropic on Gftd Japan invoice | ❌ HIT — fiat fiduciary |
+| Settlement | LLM synthesis billed to RunPod / Anthropic on etzhayyim Japan invoice | ❌ HIT — fiat fiduciary |
 
 Two axes hit → without intervention the organism stays vendor.
 
@@ -115,7 +115,7 @@ the LLM inference SSoT to a single RunPod 6000 Ada pod served at
 `murakumo-system/llama-vulkan-fleet`) retained only:
 
 - `murakumo_cron_tick` / `murakumo_fleet_health_check`
-- `ai.gftd.murakumo.trainExperts` WebGPU training jobs
+- `app.etzhayyim.murakumo.trainExperts` WebGPU training jobs
 - L8 somatic inference role declared by ADR-2605080600
 
 This leaves substantial idle CPU / unified memory / MLX capacity on already-
@@ -135,7 +135,7 @@ homeostasis + LLM synthesis nodes that participate in the organism's own
 deliberation loop) is operated by **etzhayyim** (运营法人; aliases
 etzhayyim / 天御柱 / עץ חיים — see deps.toml `[platform.operating_entity]`).
 
-Gftd Japan株式会社 remains the vendor for any heavy / regulated / fiat-billed
+etzhayyim Japan株式会社 remains the vendor for any heavy / regulated / fiat-billed
 side-channels (currently: RunPod heavy synthesis as optional vendor capability,
 Stripe-billed customer-facing services, GDPR-controllership-bearing record
 keeping).
@@ -156,7 +156,7 @@ axis of the 3-axis test **structurally** clean, not merely contractually clean.
 Ownership transfer mechanics (vendor → etzhayyim) are an accounting / tax
 matter handled separately under the religious-corp 登記 cutover. Until that
 transfer formally completes, the fleet operates **as if** etzhayyim-owned under
-a no-fee bare-metal lease from Gftd Japan, documented in the religious-corp
+a no-fee bare-metal lease from etzhayyim Japan, documented in the religious-corp
 asset register. This avoids blocking the organism migration on registration
 calendars while preserving the eventual ownership target.
 
@@ -190,17 +190,17 @@ re-targeted onto the etzhayyim substrate trio:
 
 | Today (vendor RW) | Tomorrow (etzhayyim substrate) |
 |-------------------|--------------------------------|
-| `vertex_agent_observation` row | AT record `ai.gftd.agent.observation` (or namespaced under `ai.etzhayyim.agent.observation` post-rename); 1 record per observation; PII fields `signal:v1:{ciphertext}` |
-| `vertex_agent_belief_state` row | AT record `ai.gftd.agent.beliefState`; large posterior tensor → IPFS CID embedded in record |
-| `vertex_agent_prior_preference` row | AT record `ai.gftd.agent.priorPreference`; immutable preference prefixes (`mokuteki.`, `constitutional.`, `integrity.hard_floor.`) carried verbatim |
-| `vertex_agent_active_inference_tick` row | AT record `ai.gftd.agent.activeInferenceTick`; EFE breakdown + mokuteki gate result |
-| `vertex_agent_action_proposal` row | AT record `ai.gftd.agent.actionProposal`; safety_state + target_surface; large attached evidence → IPFS CID |
-| `vertex_agent_realworld_effect` row | AT record `ai.gftd.agent.realworldEffect`; channel + effect_class; settlement receipt (if any) → Base L2 tx hash |
-| `vertex_agent_homeostasis_snapshot` row | AT record `ai.gftd.agent.homeostasisSnapshot`; viability_state |
-| `vertex_agent_dispatch_ledger` row | AT record `ai.gftd.agent.dispatchLedger`; for high-risk effect classes (`financial_commitment`, `legal_commercial`, `physical_dispatch`, `emergency_or_safety`) the receipt **also** publishes a Base L2 commit (irreversible receipt; satisfies ADR-2605172100 settlement axis) |
-| `vertex_agent_delegated_authority_policy` row | AT record `ai.gftd.agent.delegatedAuthorityPolicy`; on-chain delegation root on Base L2 for fiduciary-bearing scopes |
-| `vertex_agent_counterparty_model` row | AT record `ai.gftd.agent.counterpartyModel`; learned counterparty parameters; private model body → IPFS CID + `signal:v1` wrap |
-| `vertex_agent_protected_asset` row | AT record `ai.gftd.agent.protectedAsset` |
+| `vertex_agent_observation` row | AT record `app.etzhayyim.agent.observation` (or namespaced under `ai.etzhayyim.agent.observation` post-rename); 1 record per observation; PII fields `signal:v1:{ciphertext}` |
+| `vertex_agent_belief_state` row | AT record `app.etzhayyim.agent.beliefState`; large posterior tensor → IPFS CID embedded in record |
+| `vertex_agent_prior_preference` row | AT record `app.etzhayyim.agent.priorPreference`; immutable preference prefixes (`mokuteki.`, `constitutional.`, `integrity.hard_floor.`) carried verbatim |
+| `vertex_agent_active_inference_tick` row | AT record `app.etzhayyim.agent.activeInferenceTick`; EFE breakdown + mokuteki gate result |
+| `vertex_agent_action_proposal` row | AT record `app.etzhayyim.agent.actionProposal`; safety_state + target_surface; large attached evidence → IPFS CID |
+| `vertex_agent_realworld_effect` row | AT record `app.etzhayyim.agent.realworldEffect`; channel + effect_class; settlement receipt (if any) → Base L2 tx hash |
+| `vertex_agent_homeostasis_snapshot` row | AT record `app.etzhayyim.agent.homeostasisSnapshot`; viability_state |
+| `vertex_agent_dispatch_ledger` row | AT record `app.etzhayyim.agent.dispatchLedger`; for high-risk effect classes (`financial_commitment`, `legal_commercial`, `physical_dispatch`, `emergency_or_safety`) the receipt **also** publishes a Base L2 commit (irreversible receipt; satisfies ADR-2605172100 settlement axis) |
+| `vertex_agent_delegated_authority_policy` row | AT record `app.etzhayyim.agent.delegatedAuthorityPolicy`; on-chain delegation root on Base L2 for fiduciary-bearing scopes |
+| `vertex_agent_counterparty_model` row | AT record `app.etzhayyim.agent.counterpartyModel`; learned counterparty parameters; private model body → IPFS CID + `signal:v1` wrap |
+| `vertex_agent_protected_asset` row | AT record `app.etzhayyim.agent.protectedAsset` |
 
 Local SQLite mirrors the hot subset (last N ticks, current belief, active
 priors); AT records are the **canonical** source. Materialized views over AT
@@ -230,7 +230,7 @@ on etzhayyim hardware).
 e4b / >7B class) served via `all-llm.etzhayyim.com` → RunPod 6000 Ada (ADR-2605010000).
 This stays vendor because:
 
-- RunPod rental + Anthropic API key are billed to Gftd Japan (Settlement axis HIT)
+- RunPod rental + Anthropic API key are billed to etzhayyim Japan (Settlement axis HIT)
 - API key custody is vendor
 
 The organism reaches this path only when (a) Path 1 model fails a quality
@@ -246,7 +246,7 @@ organism is operationally Settlement-clean even when Path 2 fires.
 
 ## D4. Naming + NSID strategy
 
-To minimize churn, the **NSID stays `ai.gftd.agent.*`** under the existing
+To minimize churn, the **NSID stays `app.etzhayyim.agent.*`** under the existing
 Lexicon registry (vendor-published lexicons remain valid) for the first wave.
 A second-wave rename to `ai.etzhayyim.agent.*` aligns with the broader
 etzhayyim/root NSID re-namespacing (Tranche F follow-up, scheduled with the
@@ -323,7 +323,7 @@ saikin-cycle / koke-cycle CronJobs complete successfully on murakumo.
    ADR-2605172400 Wave 2.
 4. Drop `vertex_agent_*` tables after a 30-day archive grace period; archive
    parquet snapshot to Iceberg S3 for legal retention.
-5. NSID rename `ai.gftd.agent.*` → `ai.etzhayyim.agent.*` per Tranche F
+5. NSID rename `app.etzhayyim.agent.*` → `ai.etzhayyim.agent.*` per Tranche F
    second-wave cutover.
 
 Verification: vendor monorepo `grep -r "from pymagatama.primitives.active_inference"`

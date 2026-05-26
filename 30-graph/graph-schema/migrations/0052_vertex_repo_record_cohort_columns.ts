@@ -3,7 +3,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Migration 0052: cohort evidence promoted columns on vertex_repo_record.
  *
- * ADR-0026 Phase B: `ai.gftd.cohort.evidence` records land in
+ * ADR-0026 Phase B: `app.etzhayyim.cohort.evidence` records land in
  * `vertex_repo_record` via PDS commit pipeline. These 7 scalar columns
  * (promoted per graph-schema CLAUDE.md §Schema Design) back the 2 MVs
  * created in migration 0034 (`mv_cohort_identity_posterior`,

@@ -44,12 +44,12 @@ async def run_worker():
 
     # ── createTitle ──────────────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.createTitle")
+    @worker.task(task_type="app.etzhayyim.apps.manga.createTitle")
     async def task_create_title(**kwargs):
         title_id = str(uuid.uuid4())
         series_id = str(uuid.uuid4())
         now = _now_iso()
-        collection = "ai.gftd.apps.manga.title"
+        collection = "app.etzhayyim.apps.manga.title"
         vertex_id = _vid(collection, title_id)
 
         db = await get_db()
@@ -85,7 +85,7 @@ async def run_worker():
 
     # ── createChapter ─────────────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.createChapter")
+    @worker.task(task_type="app.etzhayyim.apps.manga.createChapter")
     async def task_create_chapter(**kwargs):
         title_id = kwargs.get("title_id", "")
         if not title_id:
@@ -93,7 +93,7 @@ async def run_worker():
 
         chapter_id = str(uuid.uuid4())
         now = _now_iso()
-        collection = "ai.gftd.apps.manga.chapter"
+        collection = "app.etzhayyim.apps.manga.chapter"
         vertex_id = _vid(collection, chapter_id)
 
         db = await get_db()
@@ -126,7 +126,7 @@ async def run_worker():
 
     # ── publishChapter ────────────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.publishChapter")
+    @worker.task(task_type="app.etzhayyim.apps.manga.publishChapter")
     async def task_publish_chapter(**kwargs):
         chapter_id = kwargs.get("chapter_id", "")
         if not chapter_id:
@@ -148,7 +148,7 @@ async def run_worker():
 
     # ── updateChapterStatus ───────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.updateChapterStatus")
+    @worker.task(task_type="app.etzhayyim.apps.manga.updateChapterStatus")
     async def task_update_chapter_status(**kwargs):
         chapter_id = kwargs.get("chapter_id", "")
         status = kwargs.get("status", "")
@@ -193,7 +193,7 @@ async def run_worker():
 
     # ── recordReadingProgress ─────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.recordReadingProgress")
+    @worker.task(task_type="app.etzhayyim.apps.manga.recordReadingProgress")
     async def task_record_reading_progress(**kwargs):
         user_id = kwargs.get("user_id", "")
         title_id = kwargs.get("title_id", "")
@@ -204,7 +204,7 @@ async def run_worker():
         progress_id = f"prog_{user_id}_{title_id}"
         now = _now_iso()
         last_page = int(kwargs.get("last_page", 0))
-        collection = "ai.gftd.apps.manga.readingProgress"
+        collection = "app.etzhayyim.apps.manga.readingProgress"
 
         db = await get_db()
         try:
@@ -242,7 +242,7 @@ async def run_worker():
 
     # ── submitFromNarou ───────────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.submitFromNarou")
+    @worker.task(task_type="app.etzhayyim.apps.manga.submitFromNarou")
     async def task_submit_from_narou(**kwargs):
         narou_title_id = kwargs.get("narou_title_id", "")
         if not narou_title_id:
@@ -251,7 +251,7 @@ async def run_worker():
         title_id = str(uuid.uuid4())
         series_id = f"series_{narou_title_id}"
         now = _now_iso()
-        collection_title = "ai.gftd.apps.manga.title"
+        collection_title = "app.etzhayyim.apps.manga.title"
 
         db = await get_db()
         try:
@@ -282,7 +282,7 @@ async def run_worker():
             narou_chapter_id = kwargs.get("narou_chapter_id", "")
             if narou_chapter_id:
                 chapter_id = str(uuid.uuid4())
-                collection_chapter = "ai.gftd.apps.manga.chapter"
+                collection_chapter = "app.etzhayyim.apps.manga.chapter"
                 await db.execute(
                     """INSERT INTO vertex_manga_chapter
                        (vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -311,7 +311,7 @@ async def run_worker():
 
     # ── addTag ────────────────────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.addTag")
+    @worker.task(task_type="app.etzhayyim.apps.manga.addTag")
     async def task_add_tag(**kwargs):
         title_id = kwargs.get("title_id", "")
         tag = kwargs.get("tag", "").lower().strip()
@@ -337,7 +337,7 @@ async def run_worker():
 
     # ── getTitle ──────────────────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.getTitle")
+    @worker.task(task_type="app.etzhayyim.apps.manga.getTitle")
     async def task_get_title(**kwargs):
         id_ = kwargs.get("id", "")
         if not id_:
@@ -362,7 +362,7 @@ async def run_worker():
 
     # ── listTitles ────────────────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.listTitles")
+    @worker.task(task_type="app.etzhayyim.apps.manga.listTitles")
     async def task_list_titles(**kwargs):
         limit = min(int(kwargs.get("limit", 50)), 100)
         offset = int(kwargs.get("offset", 0))
@@ -413,7 +413,7 @@ async def run_worker():
 
     # ── getChapter ────────────────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.getChapter")
+    @worker.task(task_type="app.etzhayyim.apps.manga.getChapter")
     async def task_get_chapter(**kwargs):
         id_ = kwargs.get("id", "")
         if not id_:
@@ -433,7 +433,7 @@ async def run_worker():
 
     # ── listChapters ──────────────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.listChapters")
+    @worker.task(task_type="app.etzhayyim.apps.manga.listChapters")
     async def task_list_chapters(**kwargs):
         title_id = kwargs.get("title_id", "")
         if not title_id:
@@ -479,7 +479,7 @@ async def run_worker():
 
     # ── searchTitles ──────────────────────────────────────────────────────────
 
-    @worker.task(task_type="ai.gftd.apps.manga.searchTitles")
+    @worker.task(task_type="app.etzhayyim.apps.manga.searchTitles")
     async def task_search_titles(**kwargs):
         q = kwargs.get("q", "").lower()
         if not q:

@@ -21,11 +21,11 @@ UP = [{'sql': '\n'
          "        $4, 'active', NULL, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-create-site-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-create-site-v1',
                  'webya_create_site',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  webya.etzhayyim.com — createSite workflow (XRPC ai.gftd.apps.webya.createSite).\n'
+                 '  webya.etzhayyim.com — createSite workflow (XRPC app.etzhayyim.apps.webya.createSite).\n'
                  '\n'
                  "  routing_target = 'langgraph'\n"
                  "  assistant_id   = 'webya_create_site'\n"
@@ -54,7 +54,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.webya.createSite", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.webya.createSite", "version": 1, '
                  '"resultTimeoutMs": 300000, "routing_target": "langgraph" }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -128,11 +128,11 @@ UP = [{'sql': '\n'
          "        $4, 'active', NULL, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-revise-site-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-revise-site-v1',
                  'webya_revise_site',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  webya.etzhayyim.com — reviseSite workflow (XRPC ai.gftd.apps.webya.reviseSite).\n'
+                 '  webya.etzhayyim.com — reviseSite workflow (XRPC app.etzhayyim.apps.webya.reviseSite).\n'
                  '\n'
                  "  routing_target = 'langgraph'\n"
                  "  assistant_id   = 'webya_revise_site'\n"
@@ -155,7 +155,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.webya.reviseSite", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.webya.reviseSite", "version": 1, '
                  '"resultTimeoutMs": 180000, "routing_target": "langgraph" }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -217,7 +217,7 @@ UP = [{'sql': '\n'
          "        $4, 'active', NULL, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-domain-ssl-monitor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-domain-ssl-monitor-v1',
                  'webya_domain_ssl_monitor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -301,7 +301,7 @@ UP = [{'sql': '\n'
          "        $4, 'active', NULL, $5\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-seo-audit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-seo-audit-v1',
                  'webya_seo_audit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -387,8 +387,8 @@ UP = [{'sql': '\n'
          "        $5, $6, 'active', $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webya-createSite-v1',
-                 'ai.gftd.apps.webya.createSite',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webya-createSite-v1',
+                 'app.etzhayyim.apps.webya.createSite',
                  'webya_create_site',
                  'did:web:webya.etzhayyim.com',
                  300000,
@@ -403,8 +403,8 @@ UP = [{'sql': '\n'
          "        $5, $6, 'active', $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webya-reviseSite-v1',
-                 'ai.gftd.apps.webya.reviseSite',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webya-reviseSite-v1',
+                 'app.etzhayyim.apps.webya.reviseSite',
                  'webya_revise_site',
                  'did:web:webya.etzhayyim.com',
                  180000,
@@ -413,17 +413,17 @@ UP = [{'sql': '\n'
  {'sql': 'FLUSH', 'parameters': []}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webya-createSite-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webya-createSite-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/webya-reviseSite-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webya-reviseSite-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-create-site-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-create-site-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-revise-site-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-revise-site-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-domain-ssl-monitor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-domain-ssl-monitor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webya-seo-audit-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webya-seo-audit-v1']}]
 
 
 def upgrade() -> None:

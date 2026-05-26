@@ -23,3 +23,5 @@ graph.set_entry_point("purity")
 graph.add_edge("purity", "compliance")
 graph.add_edge("compliance", "finalize")
 graph.add_edge("finalize", END)
+
+graph = graph.compile()

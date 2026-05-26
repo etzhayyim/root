@@ -28,8 +28,8 @@ describe("Seed open-cofog BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openCofog.recordExpenditure"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openCofog.recordConcordance"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openCofog.recordExpenditure"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openCofog.recordConcordance"');
   });
 
   it("uses open-cofog-specific actor_id + owner_did", () => {

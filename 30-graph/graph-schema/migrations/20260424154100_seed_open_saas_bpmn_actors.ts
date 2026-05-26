@@ -16,19 +16,19 @@ const ownerDid = "did:web:open-saas.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-saas";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-saas-register-product-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-saas-register-product-v1",
     bpmnProcessId: "open_saas_register_product",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-saas/registerProduct.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-saas-map-to-unspsc-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-saas-map-to-unspsc-v1",
     bpmnProcessId: "open_saas_map_to_unspsc",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-saas/mapToUnspsc.bpmn", ownerDid },
 ];
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-saas-registerProduct-v1",
-    nsid: "ai.gftd.apps.openSaas.registerProduct", bpmnProcessId: "open_saas_register_product",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-saas-registerProduct-v1",
+    nsid: "app.etzhayyim.apps.openSaas.registerProduct", bpmnProcessId: "open_saas_register_product",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-saas-mapToUnspsc-v1",
-    nsid: "ai.gftd.apps.openSaas.mapToUnspsc", bpmnProcessId: "open_saas_map_to_unspsc",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-saas-mapToUnspsc-v1",
+    nsid: "app.etzhayyim.apps.openSaas.mapToUnspsc", bpmnProcessId: "open_saas_map_to_unspsc",
     ownerDid, resultTimeoutMs: 15000 },
 ];
 

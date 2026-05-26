@@ -452,9 +452,9 @@ async def task_batch_insert_pages(charSlug: str = "", script: dict | None = None
         LOG.warning("RW_URL not set — skipping DB write (vertex_mangaka)")
         # Still return synthetic IDs so downstream tasks have something
         ts = int(time.time())
-        work_vertex_id = f"at://did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.work/{charSlug}-{ts}"
+        work_vertex_id = f"at://did:web:mangaka.etzhayyim.com/app.etzhayyim.apps.mangaka.work/{charSlug}-{ts}"
         page_vertex_ids = [
-            f"at://did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.page/{charSlug}-{ts}-p{i+1:02d}"
+            f"at://did:web:mangaka.etzhayyim.com/app.etzhayyim.apps.mangaka.page/{charSlug}-{ts}-p{i+1:02d}"
             for i in range(len(pageBlobKeys))
         ]
         return {"workVertexId": work_vertex_id, "pageVertexIds": page_vertex_ids,
@@ -474,7 +474,7 @@ async def task_batch_insert_pages(charSlug: str = "", script: dict | None = None
 
     conn = await asyncpg.connect(RW_URL)
     try:
-        work_vertex_id = f"at://did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.work/{charSlug}-{ts}"
+        work_vertex_id = f"at://did:web:mangaka.etzhayyim.com/app.etzhayyim.apps.mangaka.work/{charSlug}-{ts}"
         await conn.execute(
             """INSERT INTO vertex_mangaka (vertex_id, owner_did, repo, did, collection, rkey,
                 kind, title, description, stage, sensitivity_ord, page_id, panel_id, work_id, chapter_id)
@@ -482,14 +482,14 @@ async def task_batch_insert_pages(charSlug: str = "", script: dict | None = None
                ON CONFLICT (vertex_id) DO NOTHING""",
             work_vertex_id, "did:web:mangaka.etzhayyim.com",
             f"did:web:mangaka.etzhayyim.com:work:{charSlug}",
-            "ai.gftd.apps.mangaka.work", f"{charSlug}-{ts}",
+            "app.etzhayyim.apps.mangaka.work", f"{charSlug}-{ts}",
             "work", title, setting, "published", 10, f"{charSlug}-{ts}",
         )
         page_vertex_ids: list[str] = []
         pages = script.get("pages", [])
         for i, (page_def, blob, size) in enumerate(zip(pages, pageBlobKeys, pageSizes or [])):
             pg_num = i + 1
-            page_vertex_id = f"at://did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.page/{charSlug}-{ts}-p{pg_num:02d}"
+            page_vertex_id = f"at://did:web:mangaka.etzhayyim.com/app.etzhayyim.apps.mangaka.page/{charSlug}-{ts}-p{pg_num:02d}"
             await conn.execute(
                 """INSERT INTO vertex_mangaka (vertex_id, owner_did, repo, did, collection, rkey,
                     kind, title, description, stage, sensitivity_ord, page_id, work_id, chapter_id)
@@ -497,7 +497,7 @@ async def task_batch_insert_pages(charSlug: str = "", script: dict | None = None
                    ON CONFLICT (vertex_id) DO NOTHING""",
                 page_vertex_id, "did:web:mangaka.etzhayyim.com",
                 f"did:web:mangaka.etzhayyim.com:page:{charSlug}-{pg_num:02d}",
-                "ai.gftd.apps.mangaka.page", f"{charSlug}-{ts}-p{pg_num:02d}",
+                "app.etzhayyim.apps.mangaka.page", f"{charSlug}-{ts}-p{pg_num:02d}",
                 "page", f"Page {pg_num}", page_def.get("act", ""), "published", 10,
                 f"{charSlug}-{ts}-p{pg_num:02d}", f"{charSlug}-{ts}",
             )
@@ -530,10 +530,10 @@ async def task_post_publish(workUri: str = "", charName: str = "", charSlug: str
     if not workUri or not pageBlobKeys:
         return {"error": "workUri + pageBlobKeys required", "status": "error"}
 
-    # work URI looks like: at://did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.work/{rkey}
+    # work URI looks like: at://did:web:mangaka.etzhayyim.com/app.etzhayyim.apps.mangaka.work/{rkey}
     work_rkey = workUri.rsplit("/", 1)[-1]
     slug_flat = charSlug.replace("-", "")
-    link_text = f"mangaka.etzhayyim.com/at/did:web:mangaka.etzhayyim.com/ai.gftd.apps.mangaka.work/{work_rkey}"
+    link_text = f"mangaka.etzhayyim.com/at/did:web:mangaka.etzhayyim.com/app.etzhayyim.apps.mangaka.work/{work_rkey}"
     text = (f"📕 {charName} 編 ({genre}) — 20 ページ完結\n\n"
             f"設定: {setting}\nコマ数: {panelCount}\n\n"
             f"#manga #{genre} #shinshi #{slug_flat} {link_text}")

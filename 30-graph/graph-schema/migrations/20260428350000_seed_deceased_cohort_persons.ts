@@ -332,7 +332,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   for (const c of cohorts) {
     const rkey = `deceased-${c.era}-${c.icdCluster}`;
-    const vertex_id = `${REPO}/ai.gftd.apps.naturalPerson.cohortPerson/${rkey}`;
+    const vertex_id = `${REPO}/app.etzhayyim.apps.naturalPerson.cohortPerson/${rkey}`;
     const cohort_did = `${NP_DID}:deceased:${c.era}:${c.icdCluster}`;
     // DJB2 approximation using era+icd as hash input (deterministic rkey)
     const cohort_hash = Buffer.from(`${c.era}|${c.icdCluster}|deceased`).toString('hex').slice(0, 16);
@@ -362,8 +362,8 @@ export async function up(db: Kysely<any>): Promise<void> {
 
     // ── edge_cohort_derived: population cohort → deceased cohort person ──
     const popRkey = eraToPopCohortRkey[c.era];
-    const popVid = `${REPO}/ai.gftd.apps.naturalPerson.populationCohort/${popRkey}`;
-    const edgeId = `${REPO}/ai.gftd.apps.naturalPerson.cohortDerived/derv-${c.era}-${c.icdCluster}`;
+    const popVid = `${REPO}/app.etzhayyim.apps.naturalPerson.populationCohort/${popRkey}`;
+    const edgeId = `${REPO}/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-${c.era}-${c.icdCluster}`;
     const eraEndDateApprox = c.eraEndYear > 0
       ? `${c.eraEndYear}-12-31`
       : '0001-01-01';
@@ -381,7 +381,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     `.execute(db);
 
     // ── vertex_cohort_actor: ADR-0026 cohort actor registry ─────────────
-    const actorVid = `${REPO}/ai.gftd.apps.naturalPerson.cohortActor/${rkey}`;
+    const actorVid = `${REPO}/app.etzhayyim.apps.naturalPerson.cohortActor/${rkey}`;
     await sql`
       INSERT INTO vertex_cohort_actor (
         vertex_id, cohort_did, handle,

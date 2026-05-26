@@ -107,7 +107,7 @@ def test_unknown_assistant_404(client):
 
 
 def test_unknown_xrpc_404(client):
-    r = client.post("/xrpc/ai.gftd.legalEntity.unknownMethod", json={})
+    r = client.post("/xrpc/app.etzhayyim.legalEntity.unknownMethod", json={})
     assert r.status_code == 404
 
 

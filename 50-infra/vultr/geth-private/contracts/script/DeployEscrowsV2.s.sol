@@ -74,7 +74,7 @@ contract DeployEscrowsV2 is Script {
         console.log("Next steps:");
         console.log("1. Update ADDRESSES.md with new addresses above");
         console.log("2. Update authz Worker secrets:");
-        console.log("   GFTD_CLAIM_STAKE_ESCROW_ADDR =", address(claimEscrow));
-        console.log("   GFTD_MURAKUMO_ESCROW_ADDR    =", address(murakumoEscrow));
+        console.log("   etzhayyim_CLAIM_STAKE_ESCROW_ADDR =", address(claimEscrow));
+        console.log("   etzhayyim_MURAKUMO_ESCROW_ADDR    =", address(murakumoEscrow));
     }
 }

@@ -12,8 +12,8 @@ import { sql } from "kysely";
  *
  *  Process / NSID                                Trigger
  *  -----------------------------------------------------------------
- *  training_list_snapshots   ai.gftd.apps.training.listSnapshots
- *  training_coverage         ai.gftd.apps.training.coverage
+ *  training_list_snapshots   app.etzhayyim.apps.training.listSnapshots
+ *  training_coverage         app.etzhayyim.apps.training.coverage
  */
 
 type P = { vertexId: string; bpmnProcessId: string; sourcePath: string; ownerDid: string };
@@ -28,20 +28,20 @@ const ownerDid = "did:web:training.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.training.visibility";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-list-snapshots-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-list-snapshots-v1",
     bpmnProcessId: "training_list_snapshots",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/listSnapshots.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/training-coverage-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-coverage-v1",
     bpmnProcessId: "training_coverage",
     sourcePath: "00-contracts/bpmn/ai/gftd/training/coverage.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-listSnapshots-v1",
-    nsid: "ai.gftd.apps.training.listSnapshots",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-listSnapshots-v1",
+    nsid: "app.etzhayyim.apps.training.listSnapshots",
     bpmnProcessId: "training_list_snapshots", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/training-coverage-v1",
-    nsid: "ai.gftd.apps.training.coverage",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-coverage-v1",
+    nsid: "app.etzhayyim.apps.training.coverage",
     bpmnProcessId: "training_coverage", ownerDid, resultTimeoutMs: 15_000 },
 ];
 

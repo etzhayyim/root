@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govChn.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govChn.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for China government.",
-        "operationId": "ai.gftd.govChn.followSiteDeps",
+        "operationId": "app.etzhayyim.govChn.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChn.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govChn.heartbeatTick": {
       "post": {
         "summary": "Run the China government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govChn.heartbeatTick",
+        "operationId": "app.etzhayyim.govChn.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChn.listOrgs": {
+    "/xrpc/app.etzhayyim.govChn.listOrgs": {
       "get": {
         "summary": "List China government organization graph records.",
-        "operationId": "ai.gftd.govChn.listOrgs",
+        "operationId": "app.etzhayyim.govChn.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChn.registerDIDs": {
+    "/xrpc/app.etzhayyim.govChn.registerDIDs": {
       "post": {
         "summary": "Register DIDs for China government organizations.",
-        "operationId": "ai.gftd.govChn.registerDIDs",
+        "operationId": "app.etzhayyim.govChn.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChn.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govChn.resolveOrgPath": {
       "get": {
         "summary": "Resolve a China government organization path to its graph record.",
-        "operationId": "ai.gftd.govChn.resolveOrgPath",
+        "operationId": "app.etzhayyim.govChn.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChn.seedOrgs": {
+    "/xrpc/app.etzhayyim.govChn.seedOrgs": {
       "post": {
         "summary": "Seed initial China government organization records into the graph.",
-        "operationId": "ai.gftd.govChn.seedOrgs",
+        "operationId": "app.etzhayyim.govChn.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChn.shinka": {
+    "/xrpc/app.etzhayyim.govChn.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible China government organization update.",
-        "operationId": "ai.gftd.govChn.shinka",
+        "operationId": "app.etzhayyim.govChn.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govChn.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govChn.syncWetUpdates": {
       "post": {
         "summary": "Sync recent China government organization changes to graph.",
-        "operationId": "ai.gftd.govChn.syncWetUpdates",
+        "operationId": "app.etzhayyim.govChn.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

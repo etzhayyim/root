@@ -299,7 +299,7 @@ def test_plan_real_world_dispatch_allows_email_with_capability_policy_and_hash()
 
     assert plan["dispatchAllowed"] is True
     assert plan["taskType"] == "mailer.sendEmail"
-    assert plan["nsid"] == "ai.gftd.apps.mailer.sendEmail"
+    assert plan["nsid"] == "app.etzhayyim.apps.mailer.sendEmail"
     assert plan["channelPayload"] == {
         "from": "kami-agent@etzhayyim.com",
         "fromAddress": "kami-agent@etzhayyim.com",

@@ -22,3 +22,5 @@ graph.add_node('approve', approve_procurement)
 graph.add_edge('validate', 'approve')
 graph.add_edge('approve', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

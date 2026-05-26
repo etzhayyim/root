@@ -2,7 +2,7 @@
 
 ## Goal
 - `vertex_other` / `mv_vertex_other_count` 依存を段階的に 0 にし、各 app を typed table + Kysely schema へ移行する。
-- `@gftd/magatama-host-sdk` の `legacy-vertex-other` surface を最終的に削除する。
+- `@etzhayyim/magatama-host-sdk` の `legacy-vertex-other` surface を最終的に削除する。
 
 ## Current Snapshot (2026-04-23)
 - `pnpm -s lint:no-vertex-other`: pass (literal table name 直接参照は 0)

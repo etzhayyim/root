@@ -53,7 +53,7 @@ Evidence:
 - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:66)
   - session is serialized into `sessionStorage`
 - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts:91)
-  - both JWTs are copied into `@gftd/wproto`
+  - both JWTs are copied into `@etzhayyim/wproto`
 - [`60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html:8)
   - `#auth=` transfer is copied into `sessionStorage` before URL cleanup
 

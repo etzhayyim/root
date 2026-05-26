@@ -110,7 +110,7 @@
       priceNote: '施設・病院向け',
       features: ['ロボット複数台一括管理', 'EHR / カルテ連携 API', '入居者別 Well-Being ダッシュボード', 'スタッフ向けロボット操作研修', 'SLA 99.9% / 専任 CSM', '補助金申請支援'],
       cta: '無料相談を申し込む',
-      ctaHref: 'mailto:kaigo@gftd.co.jp',
+      ctaHref: 'mailto:kaigo@etzhayyim.com',
       highlight: false,
     },
   ];
@@ -145,7 +145,7 @@
   <div class="bg-[#f9f9f9] border-b border-[#e6e6e6]">
     <div class="max-w-6xl mx-auto px-4 h-8 flex items-center justify-between text-[11px] text-[#616161]">
       <span>Giemon Kaigo — 在宅介護ロボットプラットフォーム</span>
-      <span>お問い合わせ: <a href="mailto:kaigo@gftd.co.jp" class="text-[#0017c1]">kaigo@gftd.co.jp</a></span>
+      <span>お問い合わせ: <a href="mailto:kaigo@etzhayyim.com" class="text-[#0017c1]">kaigo@etzhayyim.com</a></span>
     </div>
   </div>
   <!-- メインナビ -->
@@ -571,7 +571,7 @@
       <p class="text-[#949494] text-xs leading-relaxed">
         ロボットが支える在宅介護プラットフォーム。<br />
         住宅改修・介護保険ナビ・Well-Becoming AI。<br />
-        開発元: Gftd Japan株式会社 / amanomibashira
+        開発元: etzhayyim Japan株式会社 / amanomibashira
       </p>
       <p class="mt-3 text-[10px] text-[#616161]">
         Powered by <a href="https://giemon.etzhayyim.com" class="text-[#6ea0f7]">Giemon ロボット</a>
@@ -580,7 +580,7 @@
     <div>
       <p class="text-white font-semibold text-sm mb-3">サービス</p>
       <ul class="space-y-1.5 text-xs">
-        {#each [['ロボット紹介','#robots'],['住宅改修支援','#housing'],['介護保険ナビ','#insurance'],['ケアサークル','#circle'],['料金プラン','#pricing'],['導入事例','/cases'],['施設向け相談','mailto:kaigo@gftd.co.jp']] as [l,h]}
+        {#each [['ロボット紹介','#robots'],['住宅改修支援','#housing'],['介護保険ナビ','#insurance'],['ケアサークル','#circle'],['料金プラン','#pricing'],['導入事例','/cases'],['施設向け相談','mailto:kaigo@etzhayyim.com']] as [l,h]}
           <li><a href={h} class="text-[#949494] hover:text-white no-underline hover:underline">{l}</a></li>
         {/each}
       </ul>
@@ -590,7 +590,7 @@
       <ul class="space-y-1.5 text-xs">
         <li><a href="https://giemon.etzhayyim.com" target="_blank" rel="noopener" class="text-[#949494] hover:text-white no-underline hover:underline">Giemon 公式サイト</a></li>
         <li><a href="https://github.com/etzhayyim/otete" target="_blank" rel="noopener" class="text-[#949494] hover:text-white no-underline hover:underline">GitHub (オープンソース)</a></li>
-        <li><a href="mailto:kaigo@gftd.co.jp" class="text-[#949494] hover:text-white no-underline hover:underline">お問い合わせ</a></li>
+        <li><a href="mailto:kaigo@etzhayyim.com" class="text-[#949494] hover:text-white no-underline hover:underline">お問い合わせ</a></li>
         <li><a href="/privacy" class="text-[#949494] hover:text-white no-underline hover:underline">プライバシーポリシー</a></li>
         <li><a href="/terms" class="text-[#949494] hover:text-white no-underline hover:underline">利用規約</a></li>
       </ul>

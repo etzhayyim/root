@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govDza.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govDza.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Algeria government.",
-        "operationId": "ai.gftd.govDza.followSiteDeps",
+        "operationId": "app.etzhayyim.govDza.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDza.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govDza.heartbeatTick": {
       "post": {
         "summary": "Run the Algeria government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govDza.heartbeatTick",
+        "operationId": "app.etzhayyim.govDza.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDza.listOrgs": {
+    "/xrpc/app.etzhayyim.govDza.listOrgs": {
       "get": {
         "summary": "List Algeria government organization graph records.",
-        "operationId": "ai.gftd.govDza.listOrgs",
+        "operationId": "app.etzhayyim.govDza.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDza.registerDIDs": {
+    "/xrpc/app.etzhayyim.govDza.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Algeria government organizations.",
-        "operationId": "ai.gftd.govDza.registerDIDs",
+        "operationId": "app.etzhayyim.govDza.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDza.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govDza.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Algeria government organization path to its graph record.",
-        "operationId": "ai.gftd.govDza.resolveOrgPath",
+        "operationId": "app.etzhayyim.govDza.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDza.seedOrgs": {
+    "/xrpc/app.etzhayyim.govDza.seedOrgs": {
       "post": {
         "summary": "Seed initial Algeria government organization records into the graph.",
-        "operationId": "ai.gftd.govDza.seedOrgs",
+        "operationId": "app.etzhayyim.govDza.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDza.shinka": {
+    "/xrpc/app.etzhayyim.govDza.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Algeria government organization update.",
-        "operationId": "ai.gftd.govDza.shinka",
+        "operationId": "app.etzhayyim.govDza.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govDza.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govDza.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Algeria government organization changes to graph.",
-        "operationId": "ai.gftd.govDza.syncWetUpdates",
+        "operationId": "app.etzhayyim.govDza.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

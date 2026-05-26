@@ -25,15 +25,15 @@ function fail(msg) { console.log(`  ✗ ${msg}`); failures += 1; }
 function header(msg) { console.log(`\n── ${msg} ──`); }
 
 // ─── Expected pipeline ────────────────────────────────────────────────
-// bpmnNsid = sync-bpmn-actors.py convention (ai.gftd.apps.{ns}.{camelCase(filename)})
+// bpmnNsid = sync-bpmn-actors.py convention (app.etzhayyim.apps.{ns}.{camelCase(filename)})
 // xrpcNsid = lexicon `id` (Worker-served procedure). One BPMN may call a
 // different XRPC NSID from its own process id — e.g. runPendingCoverageJobs
 // orchestrates the runCoverageJob XRPC in a multi-instance loop. The two
 // NSIDs are deliberately distinct in that case.
 const EXPECTED = [
-  { kind: "advance",  bpmnNsid: "ai.gftd.apps.maps.advanceCoverage",        xrpcNsid: "ai.gftd.apps.maps.advanceCoverage",      bpmnFile: "advanceCoverage.bpmn",        lexFile: "advanceCoverage.json",       timer: "R/PT1M"  },
-  { kind: "refresh",  bpmnNsid: "ai.gftd.apps.maps.refreshCoverageStats",   bpmnFile: "refreshCoverageStats.bpmn",                                                     xrpcNsid: "ai.gftd.apps.maps.refreshCoverageStats", lexFile: "refreshCoverageStats.json",  timer: "R/PT5M" },
-  { kind: "run",      bpmnNsid: "ai.gftd.apps.maps.runPendingCoverageJobs", xrpcNsid: "ai.gftd.apps.maps.runCoverageJob",       bpmnFile: "runPendingCoverageJobs.bpmn", lexFile: "runCoverageJob.json",        timer: "R/PT3M"  },
+  { kind: "advance",  bpmnNsid: "app.etzhayyim.apps.maps.advanceCoverage",        xrpcNsid: "app.etzhayyim.apps.maps.advanceCoverage",      bpmnFile: "advanceCoverage.bpmn",        lexFile: "advanceCoverage.json",       timer: "R/PT1M"  },
+  { kind: "refresh",  bpmnNsid: "app.etzhayyim.apps.maps.refreshCoverageStats",   bpmnFile: "refreshCoverageStats.bpmn",                                                     xrpcNsid: "app.etzhayyim.apps.maps.refreshCoverageStats", lexFile: "refreshCoverageStats.json",  timer: "R/PT5M" },
+  { kind: "run",      bpmnNsid: "app.etzhayyim.apps.maps.runPendingCoverageJobs", xrpcNsid: "app.etzhayyim.apps.maps.runCoverageJob",       bpmnFile: "runPendingCoverageJobs.bpmn", lexFile: "runCoverageJob.json",        timer: "R/PT3M"  },
 ];
 
 const EXPECTED_MIGRATIONS = [

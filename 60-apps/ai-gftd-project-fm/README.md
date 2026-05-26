@@ -10,12 +10,12 @@ Investment fund domain baseline for `fund.etzhayyim.com`.
   - `government_fund`
   - `investor_fund`
 - Seeded collections:
-  - `ai.gftd.apps.fund.fund`
-  - `ai.gftd.apps.fund.manager`
-  - `ai.gftd.apps.fund.investor`
-  - `ai.gftd.apps.fund.investee`
-  - `ai.gftd.apps.fund.metric`
-  - `ai.gftd.apps.fund.commitment`
+  - `app.etzhayyim.apps.fund.fund`
+  - `app.etzhayyim.apps.fund.manager`
+  - `app.etzhayyim.apps.fund.investor`
+  - `app.etzhayyim.apps.fund.investee`
+  - `app.etzhayyim.apps.fund.metric`
+  - `app.etzhayyim.apps.fund.commitment`
 
 ## Why this exists
 
@@ -34,7 +34,7 @@ gftd seed --app fund
 Direct PDS seed script:
 
 ```bash
-export GFTD_TOKEN="$(gftd authn token)"
+export etzhayyim_TOKEN="$(gftd authn token)"
 npx tsx 60-apps/ai-gftd-project-fm/seed.ts
 ```
 

@@ -4,7 +4,7 @@ pragma solidity 0.8.23;
 import {CoinbaseSmartWallet} from "smart-wallet/CoinbaseSmartWallet.sol";
 import {CoinbaseSmartWalletFactory} from "smart-wallet/CoinbaseSmartWalletFactory.sol";
 
-/// @title GftdActorRegistry
+/// @title etzhayyimActorRegistry
 ///
 /// @notice Thin index/router over the canonical CoinbaseSmartWalletFactory.
 ///         Adds two things on top of the audited factory:
@@ -26,7 +26,7 @@ import {CoinbaseSmartWalletFactory} from "smart-wallet/CoinbaseSmartWalletFactor
 ///         address, 64-byte P-256 pubkey, etc.). Adding additional owners
 ///         after activation is done directly on the smart account via
 ///         MultiOwnable — this registry only handles the initial bind.
-contract GftdActorRegistry {
+contract etzhayyimActorRegistry {
     /// @notice Coinbase Smart Wallet factory used for actual proxy deploys.
     CoinbaseSmartWalletFactory public immutable factory;
 

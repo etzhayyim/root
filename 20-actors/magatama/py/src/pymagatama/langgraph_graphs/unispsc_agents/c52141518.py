@@ -19,3 +19,5 @@ graph = StateGraph(BreadMachineState)
 graph.add_node('validate', validate_specs)
 graph.add_edge('process', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

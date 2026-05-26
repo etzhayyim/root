@@ -38,8 +38,8 @@ type ShinkaSnapshot = {
 };
 
 const SHINKA_COLLECTIONS = [
-  'ai.gftd.apps.rareEarth.shinkaEvolution',
-  'ai.gftd.apps.rareEarth.shinkaKnowledge'
+  'app.etzhayyim.apps.rareEarth.shinkaEvolution',
+  'app.etzhayyim.apps.rareEarth.shinkaKnowledge'
 ] as const;
 
 const SHINKA_SUBDIDS = [
@@ -247,7 +247,7 @@ export default {
       });
     }
 
-    if (url.pathname === '/xrpc/ai.gftd.apps.rareEarth.coverage.get') {
+    if (url.pathname === '/xrpc/app.etzhayyim.apps.rareEarth.coverage.get') {
       return json({
         nodeCount: coverageData.metrics.actorCount,
         latestSeq: 0,
@@ -256,19 +256,19 @@ export default {
       });
     }
 
-    if (url.pathname === '/xrpc/ai.gftd.apps.rareEarth.coverage.listActors') {
+    if (url.pathname === '/xrpc/app.etzhayyim.apps.rareEarth.coverage.listActors') {
       return json({
         actors: filteredActors(url)
       });
     }
 
-    if (url.pathname === '/xrpc/ai.gftd.apps.rareEarth.coverage.listFlows') {
+    if (url.pathname === '/xrpc/app.etzhayyim.apps.rareEarth.coverage.listFlows') {
       return json({
         flows: filteredFlows(url)
       });
     }
 
-    if (url.pathname === '/xrpc/ai.gftd.apps.rareEarth.shinka.getState') {
+    if (url.pathname === '/xrpc/app.etzhayyim.apps.rareEarth.shinka.getState') {
       return json({
         collections: SHINKA_COLLECTIONS,
         subDids: SHINKA_SUBDIDS,

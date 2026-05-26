@@ -1,21 +1,21 @@
-// Package lexicons defines AT Protocol Lexicon record types for the GFTD SpinApp platform.
-// Namespace: ai.gftd.*
+// Package lexicons defines AT Protocol Lexicon record types for the etzhayyim SpinApp platform.
+// Namespace: app.etzhayyim.*
 package lexicons
 
 import "time"
 
 // Lexicon collection IDs
 const (
-	LexiconChannel          = "ai.gftd.conversation.channel"
-	LexiconMessage          = "ai.gftd.conversation.message"
-	LexiconMembership       = "ai.gftd.conversation.membership"
-	LexiconAppService       = "ai.gftd.app.service"
-	LexiconBotUser          = "ai.gftd.app.botUser"
-	LexiconPreKeyBundle     = "ai.gftd.signal.preKeyBundle"
-	LexiconDeviceState      = "ai.gftd.signal.deviceState"
-	LexiconCommand          = "ai.gftd.command"
-	LexiconCommandResult    = "ai.gftd.command.result"
-	LexiconShinshiImagePost = "ai.gftd.shinshi.imagePost"
+	LexiconChannel          = "app.etzhayyim.conversation.channel"
+	LexiconMessage          = "app.etzhayyim.conversation.message"
+	LexiconMembership       = "app.etzhayyim.conversation.membership"
+	LexiconAppService       = "app.etzhayyim.app.service"
+	LexiconBotUser          = "app.etzhayyim.app.botUser"
+	LexiconPreKeyBundle     = "app.etzhayyim.signal.preKeyBundle"
+	LexiconDeviceState      = "app.etzhayyim.signal.deviceState"
+	LexiconCommand          = "app.etzhayyim.command"
+	LexiconCommandResult    = "app.etzhayyim.command.result"
+	LexiconShinshiImagePost = "app.etzhayyim.shinshi.imagePost"
 )
 
 // ShinshiImagePost is the AT Lexicon record for a shinshi image post.
@@ -186,10 +186,10 @@ type OneTimePreKeyRecord struct {
 }
 
 // Command is the AT Lexicon record for a SpinApp command event.
-// Replaces Matrix org.gftd.command.* event. rkey = commandId.
+// Replaces Matrix org.etzhayyim.command.* event. rkey = commandId.
 type Command struct {
 	Type          string    `json:"$type"`
-	LexiconID     string    `json:"lexiconId"`     // e.g. "ai.gftd.command.updateProfile"
+	LexiconID     string    `json:"lexiconId"`     // e.g. "app.etzhayyim.command.updateProfile"
 	CommandID     string    `json:"commandId"`
 	AggregateID   string    `json:"aggregateId"`
 	CausationID   string    `json:"causationId,omitempty"`

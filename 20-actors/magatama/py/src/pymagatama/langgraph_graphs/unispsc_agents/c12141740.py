@@ -24,3 +24,5 @@ graph.add_node("safety", perform_safety_scan)
 graph.add_edge("validate", "safety")
 graph.add_edge("safety", END)
 graph.set_entry_point("validate")
+
+graph = graph.compile()

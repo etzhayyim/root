@@ -20,7 +20,7 @@ const ANCHORER_REPO = "did:web:anchorer.etzhayyim.com";
 
 const PIN_A: IpfsPinRecord = {
   uri: `at://${PINNER_REPO}/app.etzhayyim.substrate.ipfsPin/3a`,
-  shardKey: "ai.gftd.apps.threads.post",
+  shardKey: "app.etzhayyim.apps.threads.post",
   rootCid: ROOT_CID,
   carCid: ROOT_CID,
   byteSize: 4096,

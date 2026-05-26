@@ -1,6 +1,6 @@
 """recap `download` graph -- validate, download, upload, and record media.
 
-NSID: ai.gftd.apps.recap.download
+NSID: app.etzhayyim.apps.recap.download
 """
 from __future__ import annotations
 
@@ -149,7 +149,7 @@ async def _node_write_record(state: _DownloadState) -> dict[str, Any]:
         import psycopg
 
         rkey = f"dl-{secrets.token_hex(4)}"
-        vertex_id = f"at://{_REPO}/ai.gftd.apps.recap.download/{rkey}"
+        vertex_id = f"at://{_REPO}/app.etzhayyim.apps.recap.download/{rkey}"
         actor_did = state.get("actor_did") or _OWNER
         org_did = state.get("org_did") or _DEFAULT_ORG_DID
         conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)

@@ -101,7 +101,7 @@ def test_vertex_id_contains_offer_id() -> None:
 
 def test_vertex_id_format() -> None:
     result = FO._vertex_id("stub", "offer-001")
-    assert result == f"at://{FO.FLIGHT_OFFER_DID}/ai.gftd.apps.flightOffer.offer/stub-offer-001"
+    assert result == f"at://{FO.FLIGHT_OFFER_DID}/app.etzhayyim.apps.flightOffer.offer/stub-offer-001"
 
 
 # ─── _watch_vertex_id ────────────────────────────────────────────────────────

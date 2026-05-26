@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govKhm.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govKhm.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Cambodia government.",
-        "operationId": "ai.gftd.govKhm.followSiteDeps",
+        "operationId": "app.etzhayyim.govKhm.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKhm.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govKhm.heartbeatTick": {
       "post": {
         "summary": "Run the Cambodia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govKhm.heartbeatTick",
+        "operationId": "app.etzhayyim.govKhm.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKhm.listOrgs": {
+    "/xrpc/app.etzhayyim.govKhm.listOrgs": {
       "get": {
         "summary": "List Cambodia government organization graph records.",
-        "operationId": "ai.gftd.govKhm.listOrgs",
+        "operationId": "app.etzhayyim.govKhm.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKhm.registerDIDs": {
+    "/xrpc/app.etzhayyim.govKhm.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Cambodia government organizations.",
-        "operationId": "ai.gftd.govKhm.registerDIDs",
+        "operationId": "app.etzhayyim.govKhm.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKhm.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govKhm.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Cambodia government organization path to its graph record.",
-        "operationId": "ai.gftd.govKhm.resolveOrgPath",
+        "operationId": "app.etzhayyim.govKhm.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKhm.seedOrgs": {
+    "/xrpc/app.etzhayyim.govKhm.seedOrgs": {
       "post": {
         "summary": "Seed initial Cambodia government organization records into the graph.",
-        "operationId": "ai.gftd.govKhm.seedOrgs",
+        "operationId": "app.etzhayyim.govKhm.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKhm.shinka": {
+    "/xrpc/app.etzhayyim.govKhm.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Cambodia government organization update.",
-        "operationId": "ai.gftd.govKhm.shinka",
+        "operationId": "app.etzhayyim.govKhm.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govKhm.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govKhm.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Cambodia government organization changes to graph.",
-        "operationId": "ai.gftd.govKhm.syncWetUpdates",
+        "operationId": "app.etzhayyim.govKhm.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

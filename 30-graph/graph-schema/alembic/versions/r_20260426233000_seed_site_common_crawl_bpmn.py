@@ -22,7 +22,7 @@ UP = [{'sql': '\n'
          '           $6, 1, $7, $8, $9\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -200,7 +200,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.ingest.siteCommonCrawlDelta.completed&quot;" '
+                 'source="=&quot;app.etzhayyim.ingest.siteCommonCrawlDelta.completed&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;processId&quot;: '
                  '&quot;ingest_site_common_crawl_delta&quot;, &quot;runId&quot;: runId, '
@@ -226,29 +226,29 @@ UP = [{'sql': '\n'
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.site-common-crawl',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '      result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id, actor_id\n'
          '    )\n'
-         "    SELECT $1, $2, 'ai.gftd.apps.ingest.start',\n"
+         "    SELECT $1, $2, 'app.etzhayyim.apps.ingest.start',\n"
          "           'ingest_site_common_crawl_delta', 1, CAST(0 AS integer), 'active',\n"
          '           $3, 1, $4, $5, $6\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $7)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  '2026-04-26T23:30:00Z',
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.site-common-crawl',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-site-common-crawl-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ingest-site-common-crawl-delta-v1']}]
 
 
 def upgrade() -> None:

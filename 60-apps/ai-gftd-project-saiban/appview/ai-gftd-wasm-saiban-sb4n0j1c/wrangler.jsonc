@@ -9,14 +9,14 @@
   "vars": {
     "APP_ACTOR_HANDLE": "saiban",
     "APP_CAPABILITIES": "[\"court-registry\",\"judge-registry\",\"jiken-management\",\"trial-events\",\"jurisdiction-mapping\"]",
-    "APP_DESCRIPTION": "Judicial intelligence — 33 court-level DIDs (JP 8 + USA 5 + UK 6 + DE 8 + FR 6), judge profiles, jiken (case) DID management (11 types), trial event tracking (7 types), jurisdiction mapping. Bridges lawfirm.gftd.ai and hanrei.gftd.ai.",
+    "APP_DESCRIPTION": "Judicial intelligence — 33 court-level DIDs (JP 8 + USA 5 + UK 6 + DE 8 + FR 6), judge profiles, jiken (case) DID management (11 types), trial event tracking (7 types), jurisdiction mapping. Bridges lawfirm.etzhayyim.com and hanrei.etzhayyim.com.",
     "APP_DISPLAY_NAME": "裁判 Intelligence",
-    "APP_EMBED_URL": "https://sb4n0j1c.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://sb4n0j1c.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "sb4n0j1c",
     "APP_PERFORMER_TYPE": "",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -28,8 +28,8 @@
   ],
   "routes": [
     {
-      "pattern": "sb4n0j1c.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "sb4n0j1c.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

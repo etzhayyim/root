@@ -6,7 +6,7 @@ Task types:
   lawfirm.tenant.suspend     Pause tenant (pilot ended, 90-day retention)
   lawfirm.tenant.promote     Sandbox → saas-prod transition
 
-Backs ai.gftd.apps.lawfirm.tenantBootstrap lexicon
+Backs app.etzhayyim.apps.lawfirm.tenantBootstrap lexicon
 (00-contracts/lexicons/ai/gftd/apps/lawfirm/tenantBootstrap.json).
 
 Schema target: vertex_lawfirm_tenant + vertex_lawfirm_tenant_event +
@@ -95,7 +95,7 @@ async def task_lawfirm_tenant_bootstrap(
 
     # Idempotency check: existing (slug, tier) pair
     tenant_id = f"{tier.replace('saas-', '')}-{slug}" if tier == "sandbox" else f"prod-{slug}"
-    vertex_id = f"at://did:web:lawfirm.etzhayyim.com/ai.gftd.apps.lawfirm.tenant/{tenant_id}"
+    vertex_id = f"at://did:web:lawfirm.etzhayyim.com/app.etzhayyim.apps.lawfirm.tenant/{tenant_id}"
     existing = _query(
         "SELECT vertex_id, status, tier FROM vertex_lawfirm_tenant WHERE slug = :slug AND tier = :tier",
         {"slug": slug, "tier": tier},
@@ -154,7 +154,7 @@ async def task_lawfirm_tenant_bootstrap(
         return {"ok": False, "error": "PersistFailed"}
 
     # Audit event
-    event_vid = f"at://did:web:lawfirm.etzhayyim.com/ai.gftd.apps.lawfirm.tenantEvent/{tenant_id}-provisioned-{now}"
+    event_vid = f"at://did:web:lawfirm.etzhayyim.com/app.etzhayyim.apps.lawfirm.tenantEvent/{tenant_id}-provisioned-{now}"
     _execute(
         "INSERT INTO vertex_lawfirm_tenant_event "
         "(vertex_id, tenant_id, event_kind, from_status, to_status, "
@@ -171,7 +171,7 @@ async def task_lawfirm_tenant_bootstrap(
 
     # tenant ↔ lead edge (sandbox tier only)
     if tier == "sandbox" and pilot_lead_id:
-        lead_vid = f"at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.lawfirm.lead/{pilot_lead_id}"
+        lead_vid = f"at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.lead/{pilot_lead_id}"
         edge_id = f"edge:tenant:{tenant_id}:for-lead:{pilot_lead_id}"
         _execute(
             "INSERT INTO edge_lawfirm_tenant_lead "
@@ -239,7 +239,7 @@ async def task_lawfirm_tenant_suspend(
             "WHERE vertex_id = :vid",
             {"now": now, "vid": row["vertex_id"]},
         ):
-            event_vid = f"at://did:web:lawfirm.etzhayyim.com/ai.gftd.apps.lawfirm.tenantEvent/{row['tenant_id']}-suspended-{now}"
+            event_vid = f"at://did:web:lawfirm.etzhayyim.com/app.etzhayyim.apps.lawfirm.tenantEvent/{row['tenant_id']}-suspended-{now}"
             _execute(
                 "INSERT INTO vertex_lawfirm_tenant_event "
                 "(vertex_id, tenant_id, event_kind, from_status, to_status, "
@@ -301,7 +301,7 @@ async def task_lawfirm_tenant_promote(
 
     # Audit promotion
     now = _now_iso()
-    event_vid = f"at://did:web:lawfirm.etzhayyim.com/ai.gftd.apps.lawfirm.tenantEvent/{src['tenant_id']}-promoted-{now}"
+    event_vid = f"at://did:web:lawfirm.etzhayyim.com/app.etzhayyim.apps.lawfirm.tenantEvent/{src['tenant_id']}-promoted-{now}"
     _execute(
         "INSERT INTO vertex_lawfirm_tenant_event "
         "(vertex_id, tenant_id, event_kind, from_status, to_status, "

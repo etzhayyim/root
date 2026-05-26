@@ -12,7 +12,7 @@ import { sql } from "kysely";
  * existing did:gftd / did:web / did:plc primary keys in one migration.
  *
  * `scripts/migrate-rw-erc725-root.mjs` backfills only facade DIDs that are
- * already linked in `GftdRootIdentityRegistry`.
+ * already linked in `etzhayyimRootIdentityRegistry`.
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`

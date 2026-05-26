@@ -15,7 +15,7 @@ depends_on = None
 UP = [{'sql': '\n'
          '    CREATE FUNCTION mangaka_storyboard_from_prompt(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'ai.gftd.apps.mangaka.storyboardFromPrompt'\n"
+         "      AS 'app.etzhayyim.apps.mangaka.storyboardFromPrompt'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []}]

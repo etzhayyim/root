@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-04-23
 authoritative_for:
   - did:web:*.etzhayyim.com の DID Doc `service[]` 宣言規約
-  - `GftdActor` service type + fragment id 命名
+  - `etzhayyimActor` service type + fragment id 命名
   - 他 AT Protocol client からの actor discovery 経路
 related:
   - adr-2604231800-atproto-permission-spec-integration
@@ -35,7 +35,7 @@ superseded_by: []
 ```
 
 つまり **PDS への委譲宣言のみ**。実際には各 `*.etzhayyim.com` Worker が自分自身の
-NSID 向け XRPC (`/xrpc/ai.gftd.apps.<app>.*`) を serve しているにも関わらず、
+NSID 向け XRPC (`/xrpc/app.etzhayyim.apps.<app>.*`) を serve しているにも関わらず、
 DID Doc を読んだ client はその事実を知る方法がない。現状 discovery は:
 
 - DNS 経由 (`<handle>.etzhayyim.com` に直接リクエスト) — 内部ツール / `gftd xrpc` のみ
@@ -66,7 +66,7 @@ DID Doc でその事実を宣言していない。結果:
 - **外部 AT Protocol client (`@atproto/api`, Bluesky App, 3rd party) が actor 発見不可** —
   DNS を引いて各 actor hostname を直打ちする fallback しかなく、spec 準拠の client は reach できない
 - **federation 時の interop 不完全** — 他 PDS / 他 AppView が `did:web:mangaka.etzhayyim.com` を
-  resolve しても、custom NSID `ai.gftd.mangaka.*` の endpoint が発見できない
+  resolve しても、custom NSID `app.etzhayyim.mangaka.*` の endpoint が発見できない
 - **`Atproto-Proxy` header flow が未利用** — 既に PDS 側の pipethrough 実装はあるが
   DID Doc 側の service 宣言がないため形式不整合
 - **ADR-2604231800 (permission spec) との相補性が欠落** — permission-set 側では
@@ -85,7 +85,7 @@ DID Doc に明示される** べきである (既に前会話でユーザーと�
 ```json
 {
   "id": "#gftd_actor",
-  "type": "GftdActor",
+  "type": "etzhayyimActor",
   "serviceEndpoint": "https://<self-hostname>"
 }
 ```
@@ -94,7 +94,7 @@ DID Doc に明示される** べきである (既に前会話でユーザーと�
 
 | 要素 | 値 | 根拠 |
 |---|---|---|
-| **service type** | `GftdActor` | PascalCase (spec convention: `BskyChatService`, `AtprotoPersonalDataServer`, `BskyAppView`)。簡潔で namespace と一致 |
+| **service type** | `etzhayyimActor` | PascalCase (spec convention: `BskyChatService`, `AtprotoPersonalDataServer`, `BskyAppView`)。簡潔で namespace と一致 |
 | **fragment id** | `#gftd_actor` | snake_case underscore (spec convention: `#bsky_chat`, `#atproto_pds`)。`Atproto-Proxy` header の参照 key |
 | **serviceEndpoint** | `https://<own-host>` (scheme + host only, no path) | spec convention。`/xrpc/*` / `/mcp` は type から暗黙 |
 
@@ -110,7 +110,7 @@ Root actor 例:
   "service": [
     { "id": "#atprotoPds", "type": "AtprotoPersonalDataServer",
       "serviceEndpoint": "https://atproto.etzhayyim.com" },
-    { "id": "#gftd_actor", "type": "GftdActor",
+    { "id": "#gftd_actor", "type": "etzhayyimActor",
       "serviceEndpoint": "https://mangaka.etzhayyim.com" }
   ]
 }
@@ -126,7 +126,7 @@ Path-form sub-actor (ADR-0019 / ADR-0029 準拠):
   "service": [
     { "id": "#atprotoPds", "type": "AtprotoPersonalDataServer",
       "serviceEndpoint": "https://atproto.etzhayyim.com" },
-    { "id": "#gftd_actor", "type": "GftdActor",
+    { "id": "#gftd_actor", "type": "etzhayyimActor",
       "serviceEndpoint": "https://mangaka.etzhayyim.com" }
   ]
 }
@@ -137,9 +137,9 @@ sub-actor は独立 Worker を持たないため parent の NSID dispatcher が�
 
 ## Client routing semantics
 
-1. **DNS direct (既存路、継続)**: client が `https://mangaka.etzhayyim.com/xrpc/ai.gftd.mangaka.foo` を直接叩く
+1. **DNS direct (既存路、継続)**: client が `https://mangaka.etzhayyim.com/xrpc/app.etzhayyim.mangaka.foo` を直接叩く
 2. **PDS pipethrough (既存路、継続)**: client が PDS に `Atproto-Proxy: did:web:mangaka.etzhayyim.com#gftd_actor` header 付きで送信 → PDS が DID Doc resolve → service endpoint 発見 → routing-gateway 経由で forward
-3. **DID Doc discovery (新規)**: client が `did:web:mangaka.etzhayyim.com` を直接 resolve → `service[].type=GftdActor` を発見 → その `serviceEndpoint` に XRPC 直送。外部 AT client が spec-native に gftd actor へ到達できる最小経路
+3. **DID Doc discovery (新規)**: client が `did:web:mangaka.etzhayyim.com` を直接 resolve → `service[].type=etzhayyimActor` を発見 → その `serviceEndpoint` に XRPC 直送。外部 AT client が spec-native に gftd actor へ到達できる最小経路
 
 # Implementation Plan
 
@@ -159,7 +159,7 @@ service: [
     ...(appVersion ? { version: appVersion } : {}),
   },
   {
-    id: `${appDID}#gftd_actor`, type: "GftdActor",
+    id: `${appDID}#gftd_actor`, type: "etzhayyimActor",
     serviceEndpoint: `https://${hostname}`,
   },
 ],
@@ -170,7 +170,7 @@ service: [
 ## I2. `50-infra/cloudflare/workers/atproto/src/app.ts` (canonical fallback)
 
 `app.get("/.well-known/did.json", ...)` (line 667-719) を拡張。`isPds` の場合は
-`GftdActor` entry は不要 (PDS 自身は gftd actor ではない)。per-actor 用 DID Doc を
+`etzhayyimActor` entry は不要 (PDS 自身は gftd actor ではない)。per-actor 用 DID Doc を
 atproto Worker が serve するケース (DNS 直打ち failback) では entry を足す:
 
 ```ts
@@ -180,7 +180,7 @@ service: [
   ...(isPds
     ? [{ id: "#atprotoLabeler", type: "AtprotoLabeler",
          serviceEndpoint: "https://atproto.etzhayyim.com" }]
-    : [{ id: "#gftd_actor", type: "GftdActor",
+    : [{ id: "#gftd_actor", type: "etzhayyimActor",
          serviceEndpoint: `https://${hostname}` }]),
 ],
 ```
@@ -188,7 +188,7 @@ service: [
 ## I3. `50-infra/cloudflare/workers/atproto/src/repo/keystore.ts` (DID Doc persist)
 
 `keystore.ts:142` で keystore が DID Doc を graph に persist している。同じ
-pattern で `GftdActor` entry を含める。key rotation 時の DID Doc 再生成でも
+pattern で `etzhayyimActor` entry を含める。key rotation 時の DID Doc 再生成でも
 保持される。
 
 ## I4. `50-infra/cloudflare/workers/atproto/src/handlers/plc/index.ts` (did:plc migration)
@@ -201,9 +201,9 @@ ADR-0014 Phase 5 の did:plc migration 時に発行される DID Doc にも同�
 以下を新規テストとして追加:
 
 - `host-web-router.test.ts`: `GET /.well-known/did.json` の response に
-  `service[].type === "GftdActor"` が含まれること、`serviceEndpoint` が request host と一致
-- `app.ts` integration test: per-actor hostname への DID Doc request で `GftdActor` entry 出現
-- atproto Worker = PDS の場合は `GftdActor` を含まないこと (`isPds === true` branch の否定)
+  `service[].type === "etzhayyimActor"` が含まれること、`serviceEndpoint` が request host と一致
+- `app.ts` integration test: per-actor hostname への DID Doc request で `etzhayyimActor` entry 出現
+- atproto Worker = PDS の場合は `etzhayyimActor` を含まないこと (`isPds === true` branch の否定)
 
 ## I6. Smoke (post-deploy)
 
@@ -213,12 +213,12 @@ curl -s https://mangaka.etzhayyim.com/.well-known/did.json | jq '.service'
 # [
 #   { "id": "did:web:mangaka.etzhayyim.com#atproto-pds", "type": "AtprotoPersonalDataServer",
 #     "serviceEndpoint": "https://atproto.etzhayyim.com" },
-#   { "id": "did:web:mangaka.etzhayyim.com#gftd_actor", "type": "GftdActor",
+#   { "id": "did:web:mangaka.etzhayyim.com#gftd_actor", "type": "etzhayyimActor",
 #     "serviceEndpoint": "https://mangaka.etzhayyim.com" }
 # ]
 
 curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type'
-# 期待: "AtprotoPersonalDataServer", "AtprotoLabeler" のみ (GftdActor なし)
+# 期待: "AtprotoPersonalDataServer", "AtprotoLabeler" のみ (etzhayyimActor なし)
 ```
 
 # Consequences
@@ -243,7 +243,7 @@ curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type
 - **DID Doc サイズ微増**: `service[]` に 1 entry 追加 (~100 bytes)。90+ actor 分
   キャッシュで考えても誤差レベル
 - **service type 命名の先取り**: 将来 atproto spec が公式に gftd 的 custom service
-  type を標準化した場合、`GftdActor` は独自名のまま。ただし DID Doc の `service[]`
+  type を標準化した場合、`etzhayyimActor` は独自名のまま。ただし DID Doc の `service[]`
   は multiple entry 可なので、将来標準 type が出たら追加すれば済む
 - **Path-form DID の `serviceEndpoint` 解釈**: sub-actor が parent host を指すという
   convention が spec で明示されていないため、ADR として明文化する必要がある (本 ADR
@@ -254,7 +254,7 @@ curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type
 - **既存 routing-gateway との関係**: routing-gateway は今も有効。DID Doc discovery
   は **並存する代替経路**。どちらを選ぶかは client 側の好み
 - **MCP endpoint 宣言**: 現状 MCP 経路は `.well-known/mcp.json` (PDS level) で
-  十分 discover できるので、本 ADR では MCP 用の service entry (e.g. `GftdActorMcp`) は
+  十分 discover できるので、本 ADR では MCP 用の service entry (e.g. `etzhayyimActorMcp`) は
   追加しない。必要になった時に別 ADR で追加
 
 # Alternatives Considered
@@ -271,10 +271,10 @@ curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type
 - pros: federation 友好
 - cons: atproto spec で予約される可能性がある汎用名を独自に先取りすると、
   将来公式定義が出た時に conflict する。Bluesky が `BskyChatService` と
-  prefix 付きで naming しているのと同じ理由で、組織 prefix (`Gftd`) を付けるのが
+  prefix 付きで naming しているのと同じ理由で、組織 prefix (`etzhayyim`) を付けるのが
   安全。**却下**
 
-## A3. 複数 service type を宣言 (`GftdActorXrpc`, `GftdActorMcp`, `GftdActorWeb` 等)
+## A3. 複数 service type を宣言 (`etzhayyimActorXrpc`, `etzhayyimActorMcp`, `etzhayyimActorWeb` 等)
 
 - pros: endpoint ごとに type を分離
 - cons: 今のところ **1 actor = 1 hostname = 1 Worker** で XRPC / MCP / Web UI が
@@ -298,7 +298,7 @@ curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type
 - **Phase 2 (monitoring, 1 week)**: DID Doc を fetch してくる client の User-Agent
   を `atproto-worker` Logpush で観測。外部 AT client (Bluesky App, `@atproto/api`
   SDK, 3rd party) が増えるかを確認
-- **Phase 3 (将来)**: 必要に応じて `GftdActorMcp`, `GftdActorWeb` 等の追加 service
+- **Phase 3 (将来)**: 必要に応じて `etzhayyimActorMcp`, `etzhayyimActorWeb` 等の追加 service
   type を別 ADR で議論
 
 全 phase は既存 Worker の additive deploy。DNS / route / schema 変更なし。
@@ -338,4 +338,4 @@ curl -s https://atproto.etzhayyim.com/.well-known/did.json | jq '.service[].type
 
 - `chat.bsky.convo.*` = Bluesky DM service。`did:web:api.bsky.chat` が `BskyChatService` type
   を宣言、client が `Atproto-Proxy: did:web:api.bsky.chat#bsky_chat` で pipethrough。
-  **本 ADR はこのパターンを GFTD actor に適用するもの**
+  **本 ADR はこのパターンを etzhayyim actor に適用するもの**

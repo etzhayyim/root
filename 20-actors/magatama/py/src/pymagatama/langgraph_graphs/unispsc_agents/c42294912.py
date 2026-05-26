@@ -20,3 +20,5 @@ graph.add_node('compliance', check_compliance)
 graph.add_edge('compliance', 'validate')
 graph.add_edge('validate', END)
 graph.set_entry_point('compliance')
+
+graph = graph.compile()

@@ -2,7 +2,7 @@
 
 判例・官報・法令 intelligence platform (hanrei.etzhayyim.com)。
 
-TS Native App — WASM 不使用、`@gftd/magatama-host-sdk` + esbuild。
+TS Native App — WASM 不使用、`@etzhayyim/magatama-host-sdk` + esbuild。
 
 ## Sources (1次ソース)
 

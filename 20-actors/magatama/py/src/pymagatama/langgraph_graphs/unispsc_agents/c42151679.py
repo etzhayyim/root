@@ -26,3 +26,5 @@ graph.set_entry_point("validate")
 graph.add_edge("validate", "certify")
 graph.add_edge("certify", "approve")
 graph.add_edge("approve", END)
+
+graph = graph.compile()

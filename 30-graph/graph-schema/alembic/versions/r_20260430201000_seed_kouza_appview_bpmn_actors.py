@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-register-connection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-register-connection-v1',
                  'did:web:kouza.etzhayyim.com',
                  'kouza_register_connection',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kouza"><bpmn:process '
                  'id="kouza_register_connection" name="kouza registerConnection" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kouza.registerConnection", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.kouza.registerConnection", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -52,7 +52,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-register-connection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-register-connection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,9 +67,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-registerConnection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-registerConnection-v1',
                  'did:web:kouza.etzhayyim.com',
-                 'ai.gftd.apps.kouza.registerConnection',
+                 'app.etzhayyim.apps.kouza.registerConnection',
                  'kouza_register_connection',
                  120000,
                  'vertex_atrecord_kouza_institution_connection',
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-registerConnection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-registerConnection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-sync-connection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-sync-connection-v1',
                  'did:web:kouza.etzhayyim.com',
                  'kouza_sync_connection',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -104,7 +104,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kouza"><bpmn:process '
                  'id="kouza_sync_connection" name="kouza syncConnection" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kouza.syncConnection", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.kouza.syncConnection", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -119,7 +119,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-sync-connection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-sync-connection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,9 +134,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-syncConnection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-syncConnection-v1',
                  'did:web:kouza.etzhayyim.com',
-                 'ai.gftd.apps.kouza.syncConnection',
+                 'app.etzhayyim.apps.kouza.syncConnection',
                  'kouza_sync_connection',
                  120000,
                  'vertex_atrecord_kouza_sync_run,vertex_atrecord_kouza_institution_connection',
@@ -145,7 +145,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-syncConnection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-syncConnection-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-create-financial-account-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-create-financial-account-v1',
                  'did:web:kouza.etzhayyim.com',
                  'kouza_create_financial_account',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -171,7 +171,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kouza"><bpmn:process '
                  'id="kouza_create_financial_account" name="kouza createFinancialAccount" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kouza.createFinancialAccount", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.kouza.createFinancialAccount", "version": 1, "resultTimeoutMs": '
                  '120000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -186,7 +186,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-create-financial-account-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-create-financial-account-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -201,9 +201,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-createFinancialAccount-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-createFinancialAccount-v1',
                  'did:web:kouza.etzhayyim.com',
-                 'ai.gftd.apps.kouza.createFinancialAccount',
+                 'app.etzhayyim.apps.kouza.createFinancialAccount',
                  'kouza_create_financial_account',
                  120000,
                  'vertex_atrecord_kouza_financial_account',
@@ -212,7 +212,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-createFinancialAccount-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-createFinancialAccount-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -228,7 +228,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-import-statement-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-import-statement-v1',
                  'did:web:kouza.etzhayyim.com',
                  'kouza_import_statement',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -238,7 +238,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kouza"><bpmn:process '
                  'id="kouza_import_statement" name="kouza importStatement" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kouza.importStatement", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.kouza.importStatement", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -253,7 +253,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-import-statement-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-import-statement-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -268,9 +268,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-importStatement-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-importStatement-v1',
                  'did:web:kouza.etzhayyim.com',
-                 'ai.gftd.apps.kouza.importStatement',
+                 'app.etzhayyim.apps.kouza.importStatement',
                  'kouza_import_statement',
                  120000,
                  'vertex_atrecord_kouza_external_transaction,vertex_atrecord_kouza_sync_run,vertex_atrecord_kouza_institution_connection,vertex_atrecord_kaikei_bank_transaction',
@@ -279,7 +279,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-importStatement-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-importStatement-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -295,7 +295,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-import-statement-csv-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-import-statement-csv-v1',
                  'did:web:kouza.etzhayyim.com',
                  'kouza_import_statement_csv',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kouza"><bpmn:process '
                  'id="kouza_import_statement_csv" name="kouza importStatementCsv" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kouza.importStatementCsv", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.kouza.importStatementCsv", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -320,7 +320,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-import-statement-csv-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-import-statement-csv-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -335,9 +335,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-importStatementCsv-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-importStatementCsv-v1',
                  'did:web:kouza.etzhayyim.com',
-                 'ai.gftd.apps.kouza.importStatementCsv',
+                 'app.etzhayyim.apps.kouza.importStatementCsv',
                  'kouza_import_statement_csv',
                  120000,
                  'vertex_atrecord_kouza_external_transaction,vertex_atrecord_kouza_sync_run,vertex_atrecord_kouza_institution_connection,vertex_atrecord_kaikei_bank_transaction',
@@ -346,7 +346,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-importStatementCsv-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-importStatementCsv-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -362,7 +362,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-attach-document-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-attach-document-v1',
                  'did:web:kouza.etzhayyim.com',
                  'kouza_attach_document',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -372,7 +372,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kouza"><bpmn:process '
                  'id="kouza_attach_document" name="kouza attachDocument" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kouza.attachDocument", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.kouza.attachDocument", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -387,7 +387,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-attach-document-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-attach-document-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -402,9 +402,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-attachDocument-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-attachDocument-v1',
                  'did:web:kouza.etzhayyim.com',
-                 'ai.gftd.apps.kouza.attachDocument',
+                 'app.etzhayyim.apps.kouza.attachDocument',
                  'kouza_attach_document',
                  120000,
                  'vertex_atrecord_kouza_account_document',
@@ -413,7 +413,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-attachDocument-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-attachDocument-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -429,7 +429,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-map-kaikei-account-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-map-kaikei-account-v1',
                  'did:web:kouza.etzhayyim.com',
                  'kouza_map_kaikei_account',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -439,7 +439,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kouza"><bpmn:process '
                  'id="kouza_map_kaikei_account" name="kouza mapKaikeiAccount" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kouza.mapKaikeiAccount", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.kouza.mapKaikeiAccount", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -454,7 +454,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-map-kaikei-account-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-map-kaikei-account-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -469,9 +469,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-mapKaikeiAccount-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-mapKaikeiAccount-v1',
                  'did:web:kouza.etzhayyim.com',
-                 'ai.gftd.apps.kouza.mapKaikeiAccount',
+                 'app.etzhayyim.apps.kouza.mapKaikeiAccount',
                  'kouza_map_kaikei_account',
                  30000,
                  'vertex_atrecord_kouza_financial_account',
@@ -480,7 +480,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-mapKaikeiAccount-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-mapKaikeiAccount-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -496,7 +496,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-list-accounts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-list-accounts-v1',
                  'did:web:kouza.etzhayyim.com',
                  'kouza_list_accounts',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -506,7 +506,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kouza"><bpmn:process '
                  'id="kouza_list_accounts" name="kouza listAccounts" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kouza.listAccounts", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.kouza.listAccounts", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -521,7 +521,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-list-accounts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-list-accounts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -536,9 +536,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-listAccounts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-listAccounts-v1',
                  'did:web:kouza.etzhayyim.com',
-                 'ai.gftd.apps.kouza.listAccounts',
+                 'app.etzhayyim.apps.kouza.listAccounts',
                  'kouza_list_accounts',
                  30000,
                  '',
@@ -547,7 +547,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-listAccounts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-listAccounts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -563,7 +563,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-list-transactions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-list-transactions-v1',
                  'did:web:kouza.etzhayyim.com',
                  'kouza_list_transactions',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -573,7 +573,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/kouza"><bpmn:process '
                  'id="kouza_list_transactions" name="kouza listTransactions" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.kouza.listTransactions", "version": 1, "resultTimeoutMs": 30000 '
+                 '"app.etzhayyim.apps.kouza.listTransactions", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -588,7 +588,7 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-list-transactions-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-list-transactions-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -603,9 +603,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-listTransactions-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-listTransactions-v1',
                  'did:web:kouza.etzhayyim.com',
-                 'ai.gftd.apps.kouza.listTransactions',
+                 'app.etzhayyim.apps.kouza.listTransactions',
                  'kouza_list_transactions',
                  30000,
                  '',
@@ -614,44 +614,44 @@ UP = [{'sql': '\n'
                  'did:web:kouza.etzhayyim.com',
                  'sys.bpmn.seed.kouza-appview',
                  'did:web:kouza.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-listTransactions-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-listTransactions-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-registerConnection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-registerConnection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-register-connection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-register-connection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-syncConnection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-syncConnection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-sync-connection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-sync-connection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-createFinancialAccount-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-createFinancialAccount-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-create-financial-account-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-create-financial-account-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-importStatement-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-importStatement-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-import-statement-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-import-statement-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-importStatementCsv-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-importStatementCsv-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-import-statement-csv-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-import-statement-csv-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-attachDocument-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-attachDocument-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-attach-document-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-attach-document-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-mapKaikeiAccount-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-mapKaikeiAccount-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-map-kaikei-account-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-map-kaikei-account-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-listAccounts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-listAccounts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-list-accounts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-list-accounts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kouza-listTransactions-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-listTransactions-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kouza-list-transactions-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-list-transactions-v1']}]
 
 
 def upgrade() -> None:

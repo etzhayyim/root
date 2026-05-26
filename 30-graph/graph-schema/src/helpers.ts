@@ -8,9 +8,9 @@ const VERTEX_TABLE_MAP: Record<string, string> = {
   'Actor': 'vertex_actor',
   'ActorConvoPrompt': 'vertex_actor_convo_prompt',
   'ApiKey': 'vertex_api_key',
-  'GftdIdentity': 'vertex_gftd_identity',
-  'GftdOrg': 'vertex_gftd_org',
-  'GftdOpLog': 'vertex_gftd_op_log',
+  'etzhayyimIdentity': 'vertex_gftd_identity',
+  'etzhayyimOrg': 'vertex_gftd_org',
+  'etzhayyimOpLog': 'vertex_gftd_op_log',
   'Profile': 'vertex_profile',
   'Message': 'vertex_message',
   'App': 'vertex_app',
@@ -193,7 +193,7 @@ const VERTEX_TABLE_MAP: Record<string, string> = {
   'KyberDept': 'vertex_kyber_dept',
   'OfficeDocument': 'vertex_office_document',
   'OfficeChunk': 'vertex_office_chunk',
-  // mailer relay (ai.gftd.apps.mailer.*): CF Email Routing inbound + Resend outbound
+  // mailer relay (app.etzhayyim.apps.mailer.*): CF Email Routing inbound + Resend outbound
   'MailerInboundEmail': 'vertex_mailer_inbound_email',
   'MailerEmailBinding': 'vertex_mailer_email_binding',
   'MailerInboundEmailStatus': 'vertex_mailer_inbound_email_status',

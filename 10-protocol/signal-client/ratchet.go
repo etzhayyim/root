@@ -14,7 +14,7 @@ import (
 
 const (
 	maxSkip        = 100  // maximum number of skipped message keys to store
-	ratchetInfoStr = "GFTD Signal Ratchet v1"
+	ratchetInfoStr = "etzhayyim Signal Ratchet v1"
 )
 
 // Session is a Double Ratchet session for 1:1 encrypted messaging.

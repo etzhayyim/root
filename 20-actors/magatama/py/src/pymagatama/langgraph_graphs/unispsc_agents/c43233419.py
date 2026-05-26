@@ -20,3 +20,5 @@ graph = StateGraph(MultimediaState)
 graph.add_node('validate', validate_codecs)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

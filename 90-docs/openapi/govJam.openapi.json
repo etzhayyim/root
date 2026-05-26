@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govJam.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govJam.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Jamaica government.",
-        "operationId": "ai.gftd.govJam.followSiteDeps",
+        "operationId": "app.etzhayyim.govJam.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJam.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govJam.heartbeatTick": {
       "post": {
         "summary": "Run the Jamaica government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govJam.heartbeatTick",
+        "operationId": "app.etzhayyim.govJam.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJam.listOrgs": {
+    "/xrpc/app.etzhayyim.govJam.listOrgs": {
       "get": {
         "summary": "List Jamaica government organization graph records.",
-        "operationId": "ai.gftd.govJam.listOrgs",
+        "operationId": "app.etzhayyim.govJam.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJam.registerDIDs": {
+    "/xrpc/app.etzhayyim.govJam.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Jamaica government organizations.",
-        "operationId": "ai.gftd.govJam.registerDIDs",
+        "operationId": "app.etzhayyim.govJam.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJam.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govJam.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Jamaica government organization path to its graph record.",
-        "operationId": "ai.gftd.govJam.resolveOrgPath",
+        "operationId": "app.etzhayyim.govJam.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJam.seedOrgs": {
+    "/xrpc/app.etzhayyim.govJam.seedOrgs": {
       "post": {
         "summary": "Seed initial Jamaica government organization records into the graph.",
-        "operationId": "ai.gftd.govJam.seedOrgs",
+        "operationId": "app.etzhayyim.govJam.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJam.shinka": {
+    "/xrpc/app.etzhayyim.govJam.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Jamaica government organization update.",
-        "operationId": "ai.gftd.govJam.shinka",
+        "operationId": "app.etzhayyim.govJam.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govJam.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govJam.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Jamaica government organization changes to graph.",
-        "operationId": "ai.gftd.govJam.syncWetUpdates",
+        "operationId": "app.etzhayyim.govJam.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

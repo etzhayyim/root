@@ -17,9 +17,9 @@
     "APP_CAPABILITIES": "[\"domain-query\",\"analytics\"]",
     "APP_DESCRIPTION": "World coverage monitor backed by RisingWave live materialized views",
     "APP_DISPLAY_NAME": "Coverage",
-    "APP_EMBED_URL": "https://c0v3r4g3.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://c0v3r4g3.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
     "APP_NANOID": "c0v3r4g3",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"
@@ -34,12 +34,12 @@
   ],
   "routes": [
     {
-      "pattern": "c0v3r4g3.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "c0v3r4g3.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "coverage.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "coverage.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

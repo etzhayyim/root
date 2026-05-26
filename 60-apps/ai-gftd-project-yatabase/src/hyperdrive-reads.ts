@@ -95,7 +95,7 @@ export interface CoverageResult {
 async function getDb(env: HyperdriveReadEnv): Promise<AnyKyselyDb | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     return sdk.createKyselyDb(env.HYPERDRIVE as never) as unknown as AnyKyselyDb;
   } catch (e) {
     console.warn("[yatabase][hyperdrive] db init failed:", e);

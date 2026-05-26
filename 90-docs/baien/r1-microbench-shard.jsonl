@@ -1,0 +1,16 @@
+{"id":"arith-001","category":"arithmetic","prompt":"What is 17 + 28?","expected":"45","grader":{"kind":"exact-match"}}
+{"id":"arith-002","category":"arithmetic","prompt":"Compute 144 / 12.","expected":"12","grader":{"kind":"exact-match"}}
+{"id":"arith-003","category":"arithmetic","prompt":"What is 9 * 7?","expected":"63","grader":{"kind":"exact-match"}}
+{"id":"arith-004","category":"arithmetic","prompt":"Subtract 256 from 1000.","expected":"744","grader":{"kind":"exact-match"}}
+{"id":"fact-001","category":"factual","prompt":"What is the capital of France?","expected":"Paris","grader":{"kind":"exact-match"}}
+{"id":"fact-002","category":"factual","prompt":"In which year did the Apollo 11 crew first land on the Moon?","expected":"1969","grader":{"kind":"exact-match"}}
+{"id":"fact-003","category":"factual","prompt":"What chemical element has the symbol Au?","expected":"Gold","grader":{"kind":"exact-match"}}
+{"id":"fact-004","category":"factual","prompt":"How many continents are there on Earth?","expected":"7","grader":{"kind":"exact-match"}}
+{"id":"inst-001","category":"instruction","prompt":"Reply with a single greeting word.","expected":"^(hi|hello|hey|greetings|good (morning|afternoon|evening))$","grader":{"kind":"regex"}}
+{"id":"inst-002","category":"instruction","prompt":"Output a JSON object with a key 'status' set to the string 'ok'.","expected":"\\{\\s*\"status\"\\s*:\\s*\"ok\"\\s*\\}","grader":{"kind":"regex"}}
+{"id":"inst-003","category":"instruction","prompt":"List three primary colors separated by commas.","expected":"^(red|green|blue|yellow)(\\s*,\\s*(red|green|blue|yellow)){2}$","grader":{"kind":"regex"}}
+{"id":"inst-004","category":"instruction","prompt":"Respond with only the word DONE in uppercase.","expected":"^DONE$","grader":{"kind":"regex"}}
+{"id":"multi-en","category":"multilingual","prompt":"Translate 'The book is on the table' into English plainly.","expected":"the book is on the table","grader":{"kind":"token-set"}}
+{"id":"multi-ja","category":"multilingual","prompt":"次の文を日本語で書いてください: The cat sleeps.","expected":"猫 が 眠る","grader":{"kind":"token-set"}}
+{"id":"multi-es","category":"multilingual","prompt":"Traduce al español: water is life.","expected":"el agua es vida","grader":{"kind":"token-set"}}
+{"id":"multi-hi","category":"multilingual","prompt":"हिंदी में अनुवाद करें: peace is light.","expected":"शांति प्रकाश है","grader":{"kind":"token-set"}}

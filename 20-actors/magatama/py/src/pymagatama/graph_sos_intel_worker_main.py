@@ -2,12 +2,12 @@
 Zeebe worker for the graph-sos-intel actor (ADR-2605071700).
 
 Subscribes to 6 BPMN job types:
-  ai.gftd.apps.graphSosIntel.inventoryCatalog  – R/PT15M: snapshot RisingWave topology
-  ai.gftd.apps.graphSosIntel.writeSnapshot     – persist snapshot + relation rows
-  ai.gftd.apps.graphSosIntel.detectFindings    – compare snapshots, emit findings
-  ai.gftd.apps.graphSosIntel.queryLatestSnapshot – fetch latest snapshot for briefing
-  ai.gftd.apps.graphSosIntel.generateBriefing  – LLM-driven briefing text
-  ai.gftd.apps.graphSosIntel.writeFinding      – persist finding row
+  app.etzhayyim.apps.graphSosIntel.inventoryCatalog  – R/PT15M: snapshot RisingWave topology
+  app.etzhayyim.apps.graphSosIntel.writeSnapshot     – persist snapshot + relation rows
+  app.etzhayyim.apps.graphSosIntel.detectFindings    – compare snapshots, emit findings
+  app.etzhayyim.apps.graphSosIntel.queryLatestSnapshot – fetch latest snapshot for briefing
+  app.etzhayyim.apps.graphSosIntel.generateBriefing  – LLM-driven briefing text
+  app.etzhayyim.apps.graphSosIntel.writeFinding      – persist finding row
 
 Run:
   python -m pymagatama.graph_sos_intel_worker_main
@@ -123,7 +123,7 @@ async def task_write_snapshot(
 ) -> dict[str, Any]:
     """Persist snapshot + relation/index inventory rows."""
     snapshot_id = _gen_id("snap")
-    vertex_id = f"at://{ACTOR_DID}/ai.gftd.apps.graphSosIntel.snapshot/{snapshot_id}"
+    vertex_id = f"at://{ACTOR_DID}/app.etzhayyim.apps.graphSosIntel.snapshot/{snapshot_id}"
     created_at = _now()
 
     def _write() -> None:
@@ -155,7 +155,7 @@ async def task_write_snapshot(
             with sync_cursor() as cur:
                 for rel in relations[:500]:
                     rel_vid = (
-                        f"at://{ACTOR_DID}/ai.gftd.apps.graphSosIntel.relation"
+                        f"at://{ACTOR_DID}/app.etzhayyim.apps.graphSosIntel.relation"
                         f"/{snapshot_id}:{rel['name']}"
                     )
                     cur.execute(
@@ -179,7 +179,7 @@ async def task_write_snapshot(
             with sync_cursor() as cur:
                 for idx in indexes[:500]:
                     idx_vid = (
-                        f"at://{ACTOR_DID}/ai.gftd.apps.graphSosIntel.index"
+                        f"at://{ACTOR_DID}/app.etzhayyim.apps.graphSosIntel.index"
                         f"/{snapshot_id}:{idx['name']}"
                     )
                     cur.execute(
@@ -255,7 +255,7 @@ async def task_detect_findings(
             with sync_cursor() as cur:
                 for f in findings:
                     fid = f["finding_id"]
-                    vid = f"at://{ACTOR_DID}/ai.gftd.apps.graphSosIntel.finding/{fid}"
+                    vid = f"at://{ACTOR_DID}/app.etzhayyim.apps.graphSosIntel.finding/{fid}"
                     cur.execute(
                         """
                         INSERT INTO vertex_graph_sos_intel_finding
@@ -384,7 +384,7 @@ async def task_write_finding(
         return {"written": False, "reason": "empty briefing"}
 
     fid = _gen_id("fnd")
-    vid = f"at://{ACTOR_DID}/ai.gftd.apps.graphSosIntel.finding/{fid}"
+    vid = f"at://{ACTOR_DID}/app.etzhayyim.apps.graphSosIntel.finding/{fid}"
     created_at = _now()
 
     def _write() -> None:
@@ -425,12 +425,12 @@ async def run_worker() -> None:
     timeout_ms = int(os.environ.get("GRAPH_SOS_INTEL_TASK_TIMEOUT_MS", "120000"))
 
     registrations = {
-        "ai.gftd.apps.graphSosIntel.inventoryCatalog": task_inventory_catalog,
-        "ai.gftd.apps.graphSosIntel.writeSnapshot": task_write_snapshot,
-        "ai.gftd.apps.graphSosIntel.detectFindings": task_detect_findings,
-        "ai.gftd.apps.graphSosIntel.queryLatestSnapshot": task_query_latest_snapshot,
-        "ai.gftd.apps.graphSosIntel.generateBriefing": task_generate_briefing,
-        "ai.gftd.apps.graphSosIntel.writeFinding": task_write_finding,
+        "app.etzhayyim.apps.graphSosIntel.inventoryCatalog": task_inventory_catalog,
+        "app.etzhayyim.apps.graphSosIntel.writeSnapshot": task_write_snapshot,
+        "app.etzhayyim.apps.graphSosIntel.detectFindings": task_detect_findings,
+        "app.etzhayyim.apps.graphSosIntel.queryLatestSnapshot": task_query_latest_snapshot,
+        "app.etzhayyim.apps.graphSosIntel.generateBriefing": task_generate_briefing,
+        "app.etzhayyim.apps.graphSosIntel.writeFinding": task_write_finding,
     }
     for task_type, fn in registrations.items():
         worker.task(task_type=task_type, single_value=False, timeout_ms=timeout_ms)(fn)

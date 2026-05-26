@@ -53,16 +53,16 @@ to a full L3 dispatcher actor that:
   Core only.
 - Subscribes to the existing NATS firehose (`pds.repo.commit.app_bsky_feed_post`,
   ADR-2605091700) over an SSE stream surfaced as
-  `ai.gftd.apps.ameno.subscribeBriefs`, then auto-responds per brief
+  `app.etzhayyim.apps.ameno.subscribeBriefs`, then auto-responds per brief
   with local inference → `saveResult`.
 - Encrypts private outputs client-side with WebCrypto AES-GCM under the
   `signal:v1:{ciphertext}` field convention; the server never sees the
   plaintext.
 - Credits each `saveResult` to the actor's Tier 2 wallet via
   `vertex_credits_af_event` (write) and surfaces the running balance via
-  `mv_ameno_credits_balance` + `ai.gftd.apps.ameno.listMyCredits` (read).
+  `mv_ameno_credits_balance` + `app.etzhayyim.apps.ameno.listMyCredits` (read).
 
-## Lexicon surface (XRPC, all `ai.gftd.apps.ameno.*`)
+## Lexicon surface (XRPC, all `app.etzhayyim.apps.ameno.*`)
 
 | NSID | Type | Persist target | Owner |
 |---|---|---|---|

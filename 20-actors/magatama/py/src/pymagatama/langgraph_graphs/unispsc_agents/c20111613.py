@@ -9,13 +9,13 @@ class MotorProcurementState(TypedDict):
 def validate_specs(state: MotorProcurementState) -> MotorProcurementState:
     specs = state.get('motor_specs', {})
     logs = state.get('validation_logs', [])
-    
+
     # Validate torque and IP rating against industrial standards
     if specs.get('holding_torque_nm', 0) < 0.5:
         logs.append('Insufficient torque for industrial application.')
     if specs.get('ip_rating', 0) < 65:
         logs.append('IP rating below required industrial standard.')
-        
+
     return {'validation_logs': logs, 'is_compliant': len(logs) == 0}
 
 def compile_procurement_workflow():

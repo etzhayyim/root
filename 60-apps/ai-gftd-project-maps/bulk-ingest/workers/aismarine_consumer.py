@@ -8,7 +8,7 @@ psycopg2 — same pattern as gtfs_jp_dumper / openflights_dumper /
 noaa_ais_dumper (no bpmn-dispatcher hop).
 
 The earlier dispatcher-routed design hit `404 no active binding` because
-`ai.gftd.apps.maps.aismarine.position.batchInsert` is a LangServer tool,
+`app.etzhayyim.apps.maps.aismarine.position.batchInsert` is a LangServer tool,
 not a BPMN process — bpmn-dispatcher only routes the latter. Direct
 psycopg2 INSERT is shorter, has no HMAC dance, and matches every other
 maps-bulk-ingest pod. ADR-2605011500 §Addendum 2026-05-05.
@@ -37,7 +37,21 @@ import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Lock, Thread
 
-import psycopg2
+# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# the substrate seam below; direct psycopg2 imports are no longer
+# permitted in this worker. The seam still supports a transitional RW
+# mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.
+from _etzhayyim_substrate import open_substrate_writer
+
+# TODO(ADR-2605172000 / Stage 2): the writes below still hit
+# RisingWave directly via psycopg2 patterns specific to this
+# worker. Replace them with `open_substrate_writer().upsert_table(
+# '<table>', rows, conflict_key=...)` per the substrate seam
+# contract in `_etzhayyim_substrate.py`. The legacy import has
+# been re-added below as a guarded fallback so the worker still
+# functions while ETZHAYYIM_SUBSTRATE_MODE=rw; remove it once the
+# call sites are migrated.
+import psycopg2  # noqa: E402 — pending substrate refactor (Stage 2)
 
 logging.basicConfig(
     level=logging.INFO,

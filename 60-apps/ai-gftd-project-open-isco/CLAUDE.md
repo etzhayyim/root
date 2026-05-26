@@ -56,9 +56,9 @@ Code level is derived from code length:
 ## UDF Helpers
 
 ```text
-ai.gftd.apps.openIsco.codeLevel
-ai.gftd.apps.openIsco.verificationForConfidence
-ai.gftd.apps.openIsco.classificationVertexId
+app.etzhayyim.apps.openIsco.codeLevel
+app.etzhayyim.apps.openIsco.verificationForConfidence
+app.etzhayyim.apps.openIsco.classificationVertexId
 ```
 
 ## Data Model

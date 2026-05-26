@@ -7,7 +7,7 @@ import { sql } from "kysely";
 // Seed vertex_bpmn_process_def for HuggingFace Hub dataset catalog scan BPMN.
 // F5 watcher deploys to Zeebe within 30s of INSERT (ADR-0056).
 // Also seeds:
-//   - vertex_bpmn_lexicon_binding for ai.gftd.apps.hf.datasetScan
+//   - vertex_bpmn_lexicon_binding for app.etzhayyim.apps.hf.datasetScan
 //   - 2 starter vertex_hfhub_filter rows (NLP-ja + text-classification)
 
 const __filename = fileURLToPath(import.meta.url);
@@ -19,9 +19,9 @@ const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const INGEST_DID = "did:web:ingest.etzhayyim.com";
 
 const PROCESS_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/hf-dataset-scan-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/hf-dataset-scan-v1";
 const BINDING_VID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.lexiconBinding/hf-dataset-scan-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/hf-dataset-scan-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── BPMN process def ───────────────────────────────────────────────────────
@@ -52,7 +52,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT
       ${BINDING_VID}, ${OWNER_DID}, 'hf_dataset_scan',
-      'ai.gftd.apps.hf.datasetScan',
+      'app.etzhayyim.apps.hf.datasetScan',
       ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.hf'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${BINDING_VID}

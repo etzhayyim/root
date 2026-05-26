@@ -17,7 +17,7 @@ describe("Seed agent policy adaptation BPMN migration", () => {
   it("seeds the policy adaptation process and binding", () => {
     expect(migrationSource).toContain("agent-policy-adaptation-v1");
     expect(migrationSource).toContain("'agent_policy_adaptation'");
-    expect(migrationSource).toContain("'ai.gftd.apps.agent.adaptPolicy'");
+    expect(migrationSource).toContain("'app.etzhayyim.apps.agent.adaptPolicy'");
     expect(migrationSource).toContain(
       "'vertex_agent_policy_adaptation_proposal,vertex_agent_prior_preference'",
     );

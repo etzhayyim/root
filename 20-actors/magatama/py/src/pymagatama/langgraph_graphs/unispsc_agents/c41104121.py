@@ -27,3 +27,5 @@ graph.add_edge('sterile_check', 'media_check')
 graph.add_edge('media_check', 'finalizer')
 graph.add_edge('finalizer', END)
 graph.set_entry_point('sterile_check')
+
+graph = graph.compile()

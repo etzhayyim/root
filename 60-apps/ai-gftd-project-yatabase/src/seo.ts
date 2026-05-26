@@ -10,7 +10,7 @@ const PUBLIC_ROUTES = ["/", "/docs", "/status", "/team", "/studio", "/dashboard"
 export function robotsResponse(): Response {
   const lines = [
     `# yatabase.etzhayyim.com robots.txt`,
-    `# Operator: etz hayim · Vendor: Gftd Japan株式会社 (T9007028460042)`,
+    `# Operator: etz hayim · Vendor: etzhayyim Japan株式会社 (T9007028460042)`,
     ``,
     `User-agent: *`,
     `Allow: /`,
@@ -72,7 +72,7 @@ export function securityTxtResponse(): Response {
   const expires = new Date(Date.now() + 365 * 86400 * 1000).toISOString();
   const lines = [
     `# yatabase.etzhayyim.com security.txt — RFC 9116`,
-    `# Operator: etz hayim · Vendor: Gftd Japan株式会社 (T9007028460042)`,
+    `# Operator: etz hayim · Vendor: etzhayyim Japan株式会社 (T9007028460042)`,
     ``,
     `Contact: mailto:security@etzhayyim.com`,
     `Expires: ${expires}`,

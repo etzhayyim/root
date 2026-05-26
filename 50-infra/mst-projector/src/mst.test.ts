@@ -25,7 +25,7 @@ import {
 } from "./mst.js";
 import type { FirehoseEvent } from "./firehose.js";
 
-const SHARD = "ai.gftd.apps.threads.post";
+const SHARD = "app.etzhayyim.apps.threads.post";
 const DID_A = "did:web:alice.etzhayyim.com";
 const DID_B = "did:web:bob.etzhayyim.com";
 
@@ -161,8 +161,8 @@ test("flushShardToCar produces CAR readable with same root", async () => {
 });
 
 test("flushShardToCar returns null for unknown shard", async () => {
-  resetShard("ai.gftd.apps.nonexistent.foo");
-  const flushed = await flushShardToCar("ai.gftd.apps.nonexistent.foo");
+  resetShard("app.etzhayyim.apps.nonexistent.foo");
+  const flushed = await flushShardToCar("app.etzhayyim.apps.nonexistent.foo");
   assert.equal(flushed, null);
 });
 

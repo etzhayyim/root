@@ -34,7 +34,7 @@
       status: 'active',
       role: 'coCounsel',
       openedAt: '2026-03-01T00:00:00Z',
-      clientName: 'Gftd Japan K.K.',
+      clientName: 'etzhayyim Japan K.K.',
       counterpartyName: 'Kagoshima University',
     },
     {
@@ -45,7 +45,7 @@
       status: 'filed',
       role: 'lead',
       openedAt: '2026-04-15T00:00:00Z',
-      clientName: 'Gftd Japan K.K.',
+      clientName: 'etzhayyim Japan K.K.',
     },
     {
       matterId: 'matter-003',
@@ -63,7 +63,7 @@
     loading = true;
     error = '';
     try {
-      const url = new URL('/xrpc/ai.gftd.apps.lawyer.listAssignedMatters', window.location.origin);
+      const url = new URL('/xrpc/app.etzhayyim.apps.lawyer.listAssignedMatters', window.location.origin);
       url.searchParams.set('lawyerDid', LAWYER_DID);
       url.searchParams.set('firmDid', FIRM_DID);
       if (filterStatus !== 'all') url.searchParams.set('status', filterStatus);
@@ -107,7 +107,7 @@
   }
 </script>
 
-<svelte:head><title>Matters — Gftd Lawyer</title></svelte:head>
+<svelte:head><title>Matters — etzhayyim Lawyer</title></svelte:head>
 
 <div class="page">
   <header class="page-header">

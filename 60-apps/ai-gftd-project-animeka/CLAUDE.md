@@ -46,7 +46,7 @@ Project Actor Composition (1 project = 1 convoId + N member DIDs, `60-apps/CLAUD
 | Tier | 用途 | 関数 | Collection NSID |
 |---|---|---|---|
 | **1 Social** | 作品/話/PV 告知, 納品アナウンス | `AppBskyFeedPost(did, text, {embed})` | `app.bsky.feed.post` |
-| **2 Domain** | work/episode/cut/layer/retake 等 | `ComAtprotoRepoCreateRecord(kind, payload)` | `ai.gftd.animeka.*` |
+| **2 Domain** | work/episode/cut/layer/retake 等 | `ComAtprotoRepoCreateRecord(kind, payload)` | `app.etzhayyim.animeka.*` |
 | **3 State** | viewer 設定・ペンプリセット・通知 | `Preferences()` | server-side |
 
 PII (スタッフ本名/連絡先), retake の人物評価コメントは Tier 3。retake が人事評価に及ぶ場合は `signal:v1:` field encrypt。
@@ -55,25 +55,25 @@ PII (スタッフ本名/連絡先), retake の人物評価コメントは Tier 3
 
 | Kind | NSID | 内容 |
 |---|---|---|
-| `work` | `ai.gftd.animeka.work` | シリーズ (title, genre, episodeCount, coverCid) |
-| `episode` | `ai.gftd.animeka.episode` | 話 (workRef, episodeNum, titleJP, duration, fps) |
-| `script` | `ai.gftd.animeka.script` | 脚本 (episodeRef, sceneCount, bodyCid) |
-| `scene` | `ai.gftd.animeka.scene` | シーン (episodeRef, sceneNum, location, timeOfDay) |
-| `cut` | `ai.gftd.animeka.cut` | カット (sceneRef, cutNum, durationFrames, fps, camera) |
-| `storyboard` | `ai.gftd.animeka.storyboard` | 絵コンテ (cutRef, thumbCid, dialogue, action, cameraNote) |
-| `layout` | `ai.gftd.animeka.layout` | レイアウト (cutRef, layoutCid, charPositions[], bgRef) |
-| `keyframe` | `ai.gftd.animeka.keyframe` | 原画 (cutRef, frameNum, imageCid) |
-| `inbetween` | `ai.gftd.animeka.inbetween` | 動画 (cutRef, frameNum, imageCid, prevKey, nextKey) |
-| `colorModel` | `ai.gftd.animeka.colorModel` | キャラ色指定 (characterRef, palette[], materialMap) |
-| `colorTrace` | `ai.gftd.animeka.colorTrace` | 仕上げ (frameRef, colorLayersCid) |
-| `background` | `ai.gftd.animeka.background` | 背景 (layoutRef, bgCid, lightingMood) |
-| `composite` | `ai.gftd.animeka.composite` | 撮影 (cutRef, outputCid, fxStack[], cameraMove) |
-| `soundCue` | `ai.gftd.animeka.soundCue` | 音響 (cutRef, trackType, assetCid, inFrame, outFrame) |
-| `retake` | `ai.gftd.animeka.retake` | リテイク (targetUri, timecode, comment, status) |
-| `character` | `ai.gftd.animeka.character` | キャラ設定 (name, refSheetCid, colorModelRef) |
-| `asset` | `ai.gftd.animeka.asset` | 汎用素材 (effect, ref sheet, LUT) |
-| `project` | `ai.gftd.animeka.project` | project index (B2 index + graph) |
-| `chatMessage` | `ai.gftd.animeka.chatMessage` | project 内 LLM 対話 |
+| `work` | `app.etzhayyim.animeka.work` | シリーズ (title, genre, episodeCount, coverCid) |
+| `episode` | `app.etzhayyim.animeka.episode` | 話 (workRef, episodeNum, titleJP, duration, fps) |
+| `script` | `app.etzhayyim.animeka.script` | 脚本 (episodeRef, sceneCount, bodyCid) |
+| `scene` | `app.etzhayyim.animeka.scene` | シーン (episodeRef, sceneNum, location, timeOfDay) |
+| `cut` | `app.etzhayyim.animeka.cut` | カット (sceneRef, cutNum, durationFrames, fps, camera) |
+| `storyboard` | `app.etzhayyim.animeka.storyboard` | 絵コンテ (cutRef, thumbCid, dialogue, action, cameraNote) |
+| `layout` | `app.etzhayyim.animeka.layout` | レイアウト (cutRef, layoutCid, charPositions[], bgRef) |
+| `keyframe` | `app.etzhayyim.animeka.keyframe` | 原画 (cutRef, frameNum, imageCid) |
+| `inbetween` | `app.etzhayyim.animeka.inbetween` | 動画 (cutRef, frameNum, imageCid, prevKey, nextKey) |
+| `colorModel` | `app.etzhayyim.animeka.colorModel` | キャラ色指定 (characterRef, palette[], materialMap) |
+| `colorTrace` | `app.etzhayyim.animeka.colorTrace` | 仕上げ (frameRef, colorLayersCid) |
+| `background` | `app.etzhayyim.animeka.background` | 背景 (layoutRef, bgCid, lightingMood) |
+| `composite` | `app.etzhayyim.animeka.composite` | 撮影 (cutRef, outputCid, fxStack[], cameraMove) |
+| `soundCue` | `app.etzhayyim.animeka.soundCue` | 音響 (cutRef, trackType, assetCid, inFrame, outFrame) |
+| `retake` | `app.etzhayyim.animeka.retake` | リテイク (targetUri, timecode, comment, status) |
+| `character` | `app.etzhayyim.animeka.character` | キャラ設定 (name, refSheetCid, colorModelRef) |
+| `asset` | `app.etzhayyim.animeka.asset` | 汎用素材 (effect, ref sheet, LUT) |
+| `project` | `app.etzhayyim.animeka.project` | project index (B2 index + graph) |
+| `chatMessage` | `app.etzhayyim.animeka.chatMessage` | project 内 LLM 対話 |
 
 ## Reactive Pipeline (ComAtprotoSyncSubscribeRepos) `[DESIGN]`
 
@@ -94,7 +94,7 @@ Write-Only Derived Architecture (handler は write のみ、social / cross-actor
 | `cut` status=approved | soundCue slot 生成 | soundDesigner actor invoke |
 | `episode` publish | PV 告知 social post | AppBskyFeedPost |
 
-全 actor invoke は `ai.gftd.signal` lxm-scoped auth gate 経由。
+全 actor invoke は `app.etzhayyim.signal` lxm-scoped auth gate 経由。
 
 ## KAMI Engine Integration `[SCAFFOLDED]`
 
@@ -153,15 +153,15 @@ cp kami-app-animeka-timeline/pkg/* $APP/svelte/static/timeline-v1/
 ## AT URI Deep-Link
 
 ```
-https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.cut/cut-ep01-003
-  ↔ at://an1m3k4x.etzhayyim.com/ai.gftd.animeka.cut/cut-ep01-003
+https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/app.etzhayyim.animeka.cut/cut-ep01-003
+  ↔ at://an1m3k4x.etzhayyim.com/app.etzhayyim.animeka.cut/cut-ep01-003
 ```
 
 | Collection | Deep-link 例 |
 |---|---|
-| episode | `animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.episode/ep-s01e01` |
-| cut | `animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.cut/cut-ep01-003` |
-| retake | `animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.retake/rt-ep01-003-a#t=120f` |
+| episode | `animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/app.etzhayyim.animeka.episode/ep-s01e01` |
+| cut | `animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/app.etzhayyim.animeka.cut/cut-ep01-003` |
+| retake | `animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/app.etzhayyim.animeka.retake/rt-ep01-003-a#t=120f` |
 
 retake comment は `#t={frame}f` fragment で frame pin。
 
@@ -204,7 +204,7 @@ animeka uses the **撮影 (compositor) ↔ kami-cine pipeline** bridge. Genga / 
 | Compositing (撮影) | neuralRender + diffusionPass + exrSeq | 1 → 7 |
 | Final delivery (納品) | encode (ProRes for master, h265 for streaming) | 1 → 8 |
 
-The shared `ai.gftd.apps.cine.*` records carry `subjectKind = "animeka.cut"` or `"animeka.episode"` + `subjectRef` strongRef. Each cut take = one `pipelineRunId`. The `actor:compositor` DID owns stages 5-8 records; the `actor:keyAnimator` / `actor:inbetweener` DIDs own stages 1-4. Subscribe to `ai.gftd.apps.cine.encode` to auto-emit episode-delivery announcements.
+The shared `app.etzhayyim.apps.cine.*` records carry `subjectKind = "animeka.cut"` or `"animeka.episode"` + `subjectRef` strongRef. Each cut take = one `pipelineRunId`. The `actor:compositor` DID owns stages 5-8 records; the `actor:keyAnimator` / `actor:inbetweener` DIDs own stages 1-4. Subscribe to `app.etzhayyim.apps.cine.encode` to auto-emit episode-delivery announcements.
 
 ## Differences from mangaka (設計上の "anime らしさ")
 

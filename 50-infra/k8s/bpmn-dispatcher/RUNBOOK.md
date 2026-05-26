@@ -60,7 +60,7 @@ kubectl --context gftd-lax -n mitama-udf delete deployment cloudflared-bpmn-disp
 kubectl --context gftd-lax -n mitama-udf delete deployment bpmn-dispatcher
 
 # 3. Remove gftd DNS records
-# dispatcher.gftd.ai / mcp.gftd.ai — manual delete via CF dashboard or
+# dispatcher.etzhayyim.com / mcp.etzhayyim.com — manual delete via CF dashboard or
 # terraform plan/apply if gftd-side DNS is in `50-infra/prod/`.
 ```
 
@@ -69,7 +69,7 @@ kubectl --context gftd-lax -n mitama-udf delete deployment bpmn-dispatcher
 If etzhayyim deploy is broken and gftd hasn't been torn down yet:
 
 ```bash
-# Revert DNS — both *.etzhayyim.com and *.gftd.ai records can point at
+# Revert DNS — both *.etzhayyim.com and *.etzhayyim.com records can point at
 # the same backend during the cutover window. Operators may keep gftd
 # tunnel HEALTHY until etzhayyim is verified.
 ```

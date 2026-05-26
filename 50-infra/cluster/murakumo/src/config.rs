@@ -34,7 +34,7 @@ impl Default for NodeConfig {
 pub fn config_dir() -> PathBuf {
     dirs::home_dir()
         .unwrap_or_else(|| PathBuf::from("."))
-        .join(".gftd")
+        .join(".etzhayyim")
 }
 
 pub fn config_path() -> PathBuf {
@@ -53,12 +53,12 @@ pub fn load_config() -> NodeConfig {
             }
             if let Some((key, val)) = line.split_once('=') {
                 match key {
-                    "GFTD_NODE_ID" => cfg.node_id = val.to_string(),
-                    "GFTD_WORKER_ID" => cfg.worker_id = val.to_string(),
-                    "GFTD_MURAKUMO" => cfg.endpoint = val.to_string(),
-                    "GFTD_GPU_TIER" => cfg.gpu_tier = val.to_string(),
-                    "GFTD_GPU_VRAM_MB" => cfg.gpu_vram_mb = val.to_string(),
-                    "GFTD_PROVIDER_MODE" => cfg.mode = val.to_string(),
+                    "ETZHAYYIM_NODE_ID" => cfg.node_id = val.to_string(),
+                    "ETZHAYYIM_WORKER_ID" => cfg.worker_id = val.to_string(),
+                    "ETZHAYYIM_MURAKUMO" => cfg.endpoint = val.to_string(),
+                    "ETZHAYYIM_GPU_TIER" => cfg.gpu_tier = val.to_string(),
+                    "ETZHAYYIM_GPU_VRAM_MB" => cfg.gpu_vram_mb = val.to_string(),
+                    "ETZHAYYIM_PROVIDER_MODE" => cfg.mode = val.to_string(),
                     _ => {}
                 }
             }
@@ -66,15 +66,15 @@ pub fn load_config() -> NodeConfig {
     }
 
     // Override with env vars
-    if let Ok(v) = std::env::var("GFTD_NODE_ID") { cfg.node_id = v; }
-    if let Ok(v) = std::env::var("GFTD_WORKER_ID") { cfg.worker_id = v; }
-    if let Ok(v) = std::env::var("GFTD_MURAKUMO") { cfg.endpoint = v; }
-    if let Ok(v) = std::env::var("GFTD_NODE_ROLE") { cfg.role = v; }
-    if let Ok(v) = std::env::var("GFTD_GPU_TIER") { cfg.gpu_tier = v; }
-    if let Ok(v) = std::env::var("GFTD_GPU_VRAM_MB") { cfg.gpu_vram_mb = v; }
-    if let Ok(v) = std::env::var("GFTD_PROVIDER_MODE") { cfg.mode = v; }
-    if let Ok(v) = std::env::var("GFTD_NATS_URL") { cfg.nats_url = v; }
-    if let Ok(v) = std::env::var("GFTD_QUIC_GATEWAY_ADDR") { cfg.quic_gateway_addr = v; }
+    if let Ok(v) = std::env::var("ETZHAYYIM_NODE_ID") { cfg.node_id = v; }
+    if let Ok(v) = std::env::var("ETZHAYYIM_WORKER_ID") { cfg.worker_id = v; }
+    if let Ok(v) = std::env::var("ETZHAYYIM_MURAKUMO") { cfg.endpoint = v; }
+    if let Ok(v) = std::env::var("ETZHAYYIM_NODE_ROLE") { cfg.role = v; }
+    if let Ok(v) = std::env::var("ETZHAYYIM_GPU_TIER") { cfg.gpu_tier = v; }
+    if let Ok(v) = std::env::var("ETZHAYYIM_GPU_VRAM_MB") { cfg.gpu_vram_mb = v; }
+    if let Ok(v) = std::env::var("ETZHAYYIM_PROVIDER_MODE") { cfg.mode = v; }
+    if let Ok(v) = std::env::var("ETZHAYYIM_NATS_URL") { cfg.nats_url = v; }
+    if let Ok(v) = std::env::var("ETZHAYYIM_QUIC_GATEWAY_ADDR") { cfg.quic_gateway_addr = v; }
 
     cfg
 }
@@ -84,7 +84,7 @@ impl NodeConfig {
         let dir = config_dir();
         fs::create_dir_all(&dir)?;
         let content = format!(
-            "GFTD_NODE_ID={}\nGFTD_WORKER_ID={}\nGFTD_MURAKUMO={}\nGFTD_GPU_TIER={}\nGFTD_GPU_VRAM_MB={}\nGFTD_PROVIDER_MODE={}\n",
+            "ETZHAYYIM_NODE_ID={}\nETZHAYYIM_WORKER_ID={}\nETZHAYYIM_MURAKUMO={}\nETZHAYYIM_GPU_TIER={}\nETZHAYYIM_GPU_VRAM_MB={}\nETZHAYYIM_PROVIDER_MODE={}\n",
             self.node_id, self.worker_id, self.endpoint, self.gpu_tier, self.gpu_vram_mb, self.mode,
         );
         fs::write(config_path(), content)
@@ -92,8 +92,8 @@ impl NodeConfig {
 
     pub fn update_field(&mut self, key: &str, val: &str) {
         match key {
-            "GFTD_NODE_ID" => self.node_id = val.to_string(),
-            "GFTD_WORKER_ID" => self.worker_id = val.to_string(),
+            "ETZHAYYIM_NODE_ID" => self.node_id = val.to_string(),
+            "ETZHAYYIM_WORKER_ID" => self.worker_id = val.to_string(),
             _ => {}
         }
         let _ = self.save();
@@ -116,7 +116,7 @@ pub fn hf_cache_dir() -> PathBuf {
 }
 
 pub fn bin_install_path() -> &'static str {
-    "/usr/local/bin/gftd-murakumo"
+    "/usr/local/bin/etzhayyim-murakumo"
 }
 
 pub fn model_id_to_cache_dir(id: &str) -> String {

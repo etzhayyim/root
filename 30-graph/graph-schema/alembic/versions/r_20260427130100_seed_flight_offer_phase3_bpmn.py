@@ -22,7 +22,7 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-add-watch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-add-watch-v1',
                  'did:web:flight-offer.etzhayyim.com',
                  'flight_offer_add_watch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -99,7 +99,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-add-watch-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-add-watch-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -112,16 +112,16 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$10)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-add-watch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/flight-offer-add-watch-v1',
                  'did:web:flight-offer.etzhayyim.com',
-                 'ai.gftd.apps.flightOffer.addWatch',
+                 'app.etzhayyim.apps.flightOffer.addWatch',
                  'flight_offer_add_watch',
                  15000,
                  '2026-04-27T13:01:00Z',
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-add-watch-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/flight-offer-add-watch-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -132,7 +132,7 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-poll-watchlist-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1',
                  'did:web:flight-offer.etzhayyim.com',
                  'flight_offer_poll_watchlist',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -150,9 +150,9 @@ UP = [{'sql': '\n'
                  '  Within this poll, the alert row is written to vertex_flight_offer_alert\n'
                  '  (downstream consumers can subscribe).\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.flightOffer.pollWatchlist\n'
+                 '  NSID: app.etzhayyim.apps.flightOffer.pollWatchlist\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-poll-watchlist-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -166,7 +166,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.flightOffer.pollWatchlist", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.flightOffer.pollWatchlist", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -242,7 +242,7 @@ UP = [{'sql': '\n'
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -255,25 +255,25 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = '
          '$10)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-poll-watchlist-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/flight-offer-poll-watchlist-v1',
                  'did:web:flight-offer.etzhayyim.com',
-                 'ai.gftd.apps.flightOffer.pollWatchlist',
+                 'app.etzhayyim.apps.flightOffer.pollWatchlist',
                  'flight_offer_poll_watchlist',
                  300000,
                  '2026-04-27T13:01:00Z',
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-poll-watchlist-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/flight-offer-poll-watchlist-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-add-watch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/flight-offer-add-watch-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-add-watch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-add-watch-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/flight-offer-poll-watchlist-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/flight-offer-poll-watchlist-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1']}]
 
 
 def upgrade() -> None:

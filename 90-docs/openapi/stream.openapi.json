@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.stream.closeStream": {
+    "/xrpc/app.etzhayyim.stream.closeStream": {
       "post": {
-        "summary": "ai.gftd.stream.closeStream",
-        "operationId": "ai.gftd.stream.closeStream",
+        "summary": "app.etzhayyim.stream.closeStream",
+        "operationId": "app.etzhayyim.stream.closeStream",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.stream.openStream": {
+    "/xrpc/app.etzhayyim.stream.openStream": {
       "post": {
-        "summary": "ai.gftd.stream.openStream",
-        "operationId": "ai.gftd.stream.openStream",
+        "summary": "app.etzhayyim.stream.openStream",
+        "operationId": "app.etzhayyim.stream.openStream",
         "requestBody": {
           "required": true,
           "content": {
@@ -104,10 +104,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.stream.readFrames": {
+    "/xrpc/app.etzhayyim.stream.readFrames": {
       "get": {
-        "summary": "ai.gftd.stream.readFrames",
-        "operationId": "ai.gftd.stream.readFrames",
+        "summary": "app.etzhayyim.stream.readFrames",
+        "operationId": "app.etzhayyim.stream.readFrames",
         "parameters": [
           {
             "name": "streamId",
@@ -154,10 +154,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.stream.subscribe": {
+    "/xrpc/app.etzhayyim.stream.subscribe": {
       "post": {
-        "summary": "ai.gftd.stream.subscribe",
-        "operationId": "ai.gftd.stream.subscribe",
+        "summary": "app.etzhayyim.stream.subscribe",
+        "operationId": "app.etzhayyim.stream.subscribe",
         "requestBody": {
           "required": true,
           "content": {

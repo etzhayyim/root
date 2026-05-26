@@ -2,7 +2,7 @@
 
 # ai-gftd-project-os — KAMI + Magatama OS
 
-GFTD OS はユーザーのデスクトップ上で動作する **Web4 ローカルインターフェース**。
+etzhayyim OS はユーザーのデスクトップ上で動作する **Web4 ローカルインターフェース**。
 KAMI Engine (wgpu compositor) + Magatama host-sdk (TS Native) の 2 層で構成。
 
 ## Architecture
@@ -89,13 +89,13 @@ KAMI Engine (wgpu compositor) + Magatama host-sdk (TS Native) の 2 層で構成
 
 | Export | NSID | Description |
 |---|---|---|
-| `agent-runtime` | `ai.gftd.apps.os.agent*` | Agent spawn/stop/pause/resume/migrate |
-| `consent` | `ai.gftd.apps.os.consent*` | Human-in-the-loop approval queue |
-| `directory` | `ai.gftd.apps.os.directory*` | Agent discovery by capability tags |
-| `budget` | `ai.gftd.apps.os.budget*` | GCC token allocation and balance |
-| `audit` | `ai.gftd.apps.os.audit*` | Agent behavior audit trail |
-| `sync` | `ai.gftd.apps.os.sync*` | Local-cloud state synchronization |
-| `window-manager` | `ai.gftd.apps.os.window*` | KAMI compositor window bridge |
+| `agent-runtime` | `app.etzhayyim.apps.os.agent*` | Agent spawn/stop/pause/resume/migrate |
+| `consent` | `app.etzhayyim.apps.os.consent*` | Human-in-the-loop approval queue |
+| `directory` | `app.etzhayyim.apps.os.directory*` | Agent discovery by capability tags |
+| `budget` | `app.etzhayyim.apps.os.budget*` | GCC token allocation and balance |
+| `audit` | `app.etzhayyim.apps.os.audit*` | Agent behavior audit trail |
+| `sync` | `app.etzhayyim.apps.os.sync*` | Local-cloud state synchronization |
+| `window-manager` | `app.etzhayyim.apps.os.window*` | KAMI compositor window bridge |
 
 Imports `gftd:automaton@0.1.0` (survival, policy, memory, soul, replication) from `provider/automaton/`.
 
@@ -105,9 +105,9 @@ Imports `gftd:automaton@0.1.0` (survival, policy, memory, soul, replication) fro
 |---|---|---|
 | `FocusManager` | `kami-input` (Rust) | `input_router.rs` delegates focus routing |
 | `ToastStack` | `kami-ui-gpu` (Rust) | `notification.rs` delegates toast rendering |
-| `createConsentHelper` | `@gftd/magatama-host-sdk` (TS) | `src/app.ts` consent commands |
-| `createAgentLifecycle` | `@gftd/magatama-host-sdk` (TS) | `src/app.ts` agent commands |
-| `createAuditHelper` | `@gftd/magatama-host-sdk` (TS) | `src/app.ts` audit trail |
+| `createConsentHelper` | `@etzhayyim/magatama-host-sdk` (TS) | `src/app.ts` consent commands |
+| `createAgentLifecycle` | `@etzhayyim/magatama-host-sdk` (TS) | `src/app.ts` agent commands |
+| `createAuditHelper` | `@etzhayyim/magatama-host-sdk` (TS) | `src/app.ts` audit trail |
 
 ## Graph Labels (kagami)
 

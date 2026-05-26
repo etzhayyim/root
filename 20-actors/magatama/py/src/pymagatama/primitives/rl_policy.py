@@ -101,7 +101,7 @@ def _resolve_dispatch_nsid(actor_did: str, action_nsid: str) -> str | None:
     bpmn_process_id contains the action_nsid slug.  Falls back to the
     actor's first available binding, or None if no binding exists.
     """
-    if "." in action_nsid and action_nsid.startswith("ai.gftd."):
+    if "." in action_nsid and action_nsid.startswith("app.etzhayyim."):
         return action_nsid
     try:
         with sync_cursor() as cur:

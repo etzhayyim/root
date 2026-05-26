@@ -274,10 +274,10 @@ def coverage_actors(workspace_dir: str | None, json_out: bool, missing_only: boo
 @click.option("--workspace-dir", default=None)
 @click.option("--json", "json_out", is_flag=True, default=False)
 @click.option("--dry-run", is_flag=True, default=False)
-@click.option("--model", default=os.environ.get("GFTD_SHINKA_MODEL", "gemma3:4b"), show_default=True)
+@click.option("--model", default=os.environ.get("etzhayyim_SHINKA_MODEL", "gemma3:4b"), show_default=True)
 @click.option("--murakumo/--no-murakumo", default=True,
               help="Use Murakumo (default). --no-murakumo uses Ollama.")
-@click.option("--murakumo-url", default=os.environ.get("GFTD_MURAKUMO", _DEFAULT_MURAKUMO), show_default=True)
+@click.option("--murakumo-url", default=os.environ.get("etzhayyim_MURAKUMO", _DEFAULT_MURAKUMO), show_default=True)
 @click.option("--ollama", "ollama_base", default=os.environ.get("OLLAMA_BASE", _DEFAULT_OLLAMA), show_default=True)
 @click.option("--limit", default=20, type=int, show_default=True,
               help="Max actors to heal")

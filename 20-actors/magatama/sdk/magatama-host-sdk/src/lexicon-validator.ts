@@ -7,7 +7,7 @@
 // validator so app handlers can replace manual `decodeJson(body, { foo: "", bar: 0 })`
 // shape declarations with a single typed call:
 //
-//   const input = parseLexiconInput<"ai.gftd.apps.foo.bar">(nsid("ai.gftd.apps.foo.bar"), body);
+//   const input = parseLexiconInput<"app.etzhayyim.apps.foo.bar">(nsid("app.etzhayyim.apps.foo.bar"), body);
 //
 // The returned object is statically typed as LexiconInput<N> and runtime-checked to
 // have all required properties with the correct primitive types. Unknown NSIDs throw

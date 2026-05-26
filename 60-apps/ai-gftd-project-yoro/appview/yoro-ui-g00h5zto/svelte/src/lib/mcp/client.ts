@@ -55,13 +55,13 @@ export class McpClient {
 		const headers: Record<string, string> = {};
 		const orgId = await this.getOrgId();
 		if (orgId) {
-			headers['X-GFTD-ORG-ID'] = orgId;
+			headers['X-etzhayyim-ORG-ID'] = orgId;
 		} else if (this.requireOrgContext) {
 			throw new Error('missing org context (orgId)');
 		}
 		const userId = await this.getUserId();
 		if (userId) {
-			headers['X-GFTD-USER-ID'] = userId;
+			headers['X-etzhayyim-USER-ID'] = userId;
 		}
 		return headers;
 	}
@@ -95,7 +95,7 @@ export class McpClient {
 		method: string,
 		body: Record<string, unknown> = {}
 	): Promise<T> {
-		const res = await agent.api.call('ai.gftd.apps.yoro.' + method, body, undefined, { headers });
+		const res = await agent.api.call('app.etzhayyim.apps.yoro.' + method, body, undefined, { headers });
 		return res.data as T;
 	}
 

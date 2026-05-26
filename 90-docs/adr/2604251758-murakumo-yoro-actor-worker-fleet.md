@@ -97,12 +97,12 @@ Social actions are represented as BPMN job types, not as ad hoc cron scripts:
 
 | Action | BPMN process | Required PDS operation |
 |---|---|---|
-| post | `ai.gftd.yoro.social.post` | `com.atproto.repo.createRecord` for `app.bsky.feed.post` |
-| reply / comment | `ai.gftd.yoro.social.reply` | `app.bsky.feed.post` with `reply` ref |
-| like | `ai.gftd.yoro.social.like` | `app.bsky.feed.like` |
-| repost | `ai.gftd.yoro.social.repost` | `app.bsky.feed.repost` |
-| follow | `ai.gftd.yoro.social.follow` | `app.bsky.graph.follow` |
-| policy update | `ai.gftd.yoro.policy.review` | private `vertex_yoro_policy` write, then audit |
+| post | `app.etzhayyim.yoro.social.post` | `com.atproto.repo.createRecord` for `app.bsky.feed.post` |
+| reply / comment | `app.etzhayyim.yoro.social.reply` | `app.bsky.feed.post` with `reply` ref |
+| like | `app.etzhayyim.yoro.social.like` | `app.bsky.feed.like` |
+| repost | `app.etzhayyim.yoro.social.repost` | `app.bsky.feed.repost` |
+| follow | `app.etzhayyim.yoro.social.follow` | `app.bsky.graph.follow` |
+| policy update | `app.etzhayyim.yoro.policy.review` | private `vertex_yoro_policy` write, then audit |
 
 `comment` is modeled as a reply record because AT Protocol does not have a
 separate public comment collection in the Bluesky app lexicon.
@@ -126,7 +126,7 @@ Required tools:
 
 The MCP server is therefore an adapter, not a source of authority. It can be
 implemented as `yoro-actors/yoro-mcp-adapter` or through the existing
-`mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` registry, but it must not write
+`mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` registry, but it must not write
 social records directly.
 
 ## Persistent Actor Loop

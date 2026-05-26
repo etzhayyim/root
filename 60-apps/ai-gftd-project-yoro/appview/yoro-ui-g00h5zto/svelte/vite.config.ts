@@ -97,6 +97,33 @@ type VitestTestConfig = {
 
 type ExtendedUserConfig = ViteUserConfig & { test?: VitestTestConfig };
 
+// @mlc-ai/web-llm@0.2.83 inlines loglevel, which writes `window.document.cookie`
+// as a localStorage fallback when persisting log level. That path is dead code
+// in our usage (Web Worker has no `document`; main thread always has working
+// localStorage), but the static no-cookie lint scanner (CHARTER §2(c) +
+// ADR-2605172000) does not analyze reachability. Strip the two cookie writes
+// at module-load time so the emitted SPA chunks satisfy the cookie-free
+// invariant. Reads are preserved (lint allows them).
+function stripWebLlmCookieWritesPlugin(): Plugin {
+	return {
+		name: 'gftd-strip-web-llm-cookie-writes',
+		enforce: 'pre',
+		transform(code, id) {
+			if (!id.includes('@mlc-ai/web-llm')) return null;
+			if (!code.includes('document.cookie')) return null;
+			// Rewrite the lvalue only (lookahead matches `=` but does not
+			// consume it). Reads (`var c = window.document.cookie;`) are
+			// untouched. The RHS expression is preserved but assigned to a
+			// throwaway object property, so no cookie is ever written.
+			const transformed = code.replace(
+				/window\.document\.cookie(?=\s*=[^=])/g,
+				'({}).cookie /* no-cookie: stripped per CHARTER §2(c) */',
+			);
+			return transformed === code ? null : { code: transformed, map: null };
+		},
+	};
+}
+
 // In dev mode, bpmn-js / dmn-js / @bpmn-io/* are not installed.
 // Provide empty stubs so Vite's import-analysis doesn't error and block app init.
 function bpmnStubPlugin(): Plugin {
@@ -120,6 +147,7 @@ const config: ExtendedUserConfig = {
 		hmr: { overlay: false },
 	},
 	plugins: [
+		stripWebLlmCookieWritesPlugin(),
 		bpmnStubPlugin(),
 		nsidLexiconExistsPlugin(),
 		sveltekit(),
@@ -135,6 +163,7 @@ const config: ExtendedUserConfig = {
 	},
 	worker: {
 		format: 'es',
+		plugins: () => [stripWebLlmCookieWritesPlugin()],
 	},
 	build: {
 		outDir: 'build',

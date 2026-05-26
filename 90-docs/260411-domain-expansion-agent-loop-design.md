@@ -39,8 +39,8 @@ PDS cron (*/5 min) → expandDomainCoverage()
   │   WAT: data.commoncrawl.org/{filename} (Range: bytes=offset-end)
   │
   ├─ Phase 3: MCP Fallback (site.etzhayyim.com → gyotaku.etzhayyim.com)
-  │   Layer 2: POST /xrpc/ai.gftd.apps.site.crawlPage → WET/WAT
-  │   Layer 3: POST /xrpc/ai.gftd.apps.gyotaku.searchSnapshots → archive
+  │   Layer 2: POST /xrpc/app.etzhayyim.apps.site.crawlPage → WET/WAT
+  │   Layer 3: POST /xrpc/app.etzhayyim.apps.gyotaku.searchSnapshots → archive
   │
   ├─ Phase 4: Murakumo LLM Classification (on-prem, ¥0)
   │   Input: CC/site/gyotaku context
@@ -54,8 +54,8 @@ PDS cron (*/5 min) → expandDomainCoverage()
   │   comAtprotoRepoCreateRecord → app.bsky.feed.post
   │
   └─ Phase 7: Governance + Knowledge Graph
-      knowledge_edges → ai.gftd.actor.knowledgeEdge × 3-5
-      capabilities → ai.gftd.actor.app.capabilitiesJson
+      knowledge_edges → app.etzhayyim.actor.knowledgeEdge × 3-5
+      capabilities → app.etzhayyim.actor.app.capabilitiesJson
 ```
 
 ## Data Sources (priority order)
@@ -63,8 +63,8 @@ PDS cron (*/5 min) → expandDomainCoverage()
 | Layer | Source | API | Fallback |
 |---|---|---|---|
 | 1 | Common Crawl S3 | `data.commoncrawl.org` CDX + WAT range | Layer 2 |
-| 2 | site.etzhayyim.com | `ai.gftd.apps.site.crawlPage` XRPC | Layer 3 |
-| 3 | gyotaku.etzhayyim.com | `ai.gftd.apps.gyotaku.searchSnapshots` XRPC | static desc |
+| 2 | site.etzhayyim.com | `app.etzhayyim.apps.site.crawlPage` XRPC | Layer 3 |
+| 3 | gyotaku.etzhayyim.com | `app.etzhayyim.apps.gyotaku.searchSnapshots` XRPC | static desc |
 
 ## Verified Results (2026-04-11)
 
@@ -117,19 +117,19 @@ PDS cron (*/5 min) → expandDomainCoverage()
 | PDS `pds-cache.ts` | `cyWithDiag()` error-preserving queries | deployed |
 | PDS `pds-agent-infer.ts` | STARTS WITH → exact match (transpiler-safe) | deployed |
 | PDS `pds-helpers.ts` | Authority column promotion (kind/authority_kind/tier/jurisdiction) | deployed |
-| PDS `pds-handlers-gftd.ts` | `ai.gftd.graph.query` legacy alias | deployed |
+| PDS `pds-handlers-gftd.ts` | `app.etzhayyim.graph.query` legacy alias | deployed |
 | PDS `pds-dispatch.ts` | Stale legacy NSID cleanup | deployed |
 | gftd `seed.go` | applyWrites → registerApp canonical path | committed |
 | gftd `domain_coverage.go` | vertex_authority_* + vertex_did batch UNION ALL | committed |
 | gftd `world_coverage.go` | `_alive` column removal (P10v2) | committed |
-| gftd `graph_client.go` | Canonical graph SQL NSID `ai.gftd.graph.cypher` | committed |
+| gftd `graph_client.go` | Canonical graph SQL NSID `app.etzhayyim.graph.cypher` | committed |
 | gftd `seed_domains.go` | Enriched columns (kind/authority_kind/tier) | committed |
 
 ## Key Design Decisions
 
 1. **No seed dependency** — gap detection from CC bulk ingest, not static lists
 2. **CC public S3** — `data.commoncrawl.org` CDX + WAT range (not Linode S3)
-3. **Projector pattern** — READ → LLM → WRITE per tick (same as `ai.gftd.projector`)
+3. **Projector pattern** — READ → LLM → WRITE per tick (same as `app.etzhayyim.projector`)
 4. **Murakumo only** — on-prem LLM, zero cost
 5. **Social post per domain** — LLM generates announcement (Design E Tier 1)
 6. **30s CPU budget** — 1 domain/tick fits CF Worker limits

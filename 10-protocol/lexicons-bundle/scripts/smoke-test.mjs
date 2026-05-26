@@ -40,9 +40,9 @@ try {
   console.error("[err] getAuthorFeed uqpel6i6:", e.message ?? e);
 }
 
-// 5. ai.gftd.apps.yoro.health (no DB)
+// 5. app.etzhayyim.apps.yoro.health (no DB)
 try {
-  const res = await client.call("ai.gftd.apps.yoro.health", {});
+  const res = await client.call("app.etzhayyim.apps.yoro.health", {});
   console.log("[ok] yoro.health →", JSON.stringify(res.data));
 } catch (e) {
   console.error("[err] yoro.health:", e.message ?? e);

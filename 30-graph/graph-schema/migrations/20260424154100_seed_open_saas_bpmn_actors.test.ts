@@ -28,8 +28,8 @@ describe("Seed open-saas BPMN actors migration", () => {
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openSaas.registerProduct"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.openSaas.mapToUnspsc"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSaas.registerProduct"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSaas.mapToUnspsc"');
   });
 
   it("uses open-saas-specific actor_id + owner_did", () => {

@@ -44,7 +44,7 @@ class _State(TypedDict, total=False):
 
 
 def _vid(coll: str, rkey: str) -> str:
-    return f"at://{_APP_DID}/ai.gftd.mangaka.{coll}/{rkey}"
+    return f"at://{_APP_DID}/app.etzhayyim.mangaka.{coll}/{rkey}"
 
 
 # Step 1: load all mangaka vertices we need

@@ -73,8 +73,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     FROM vertex_repo_record AS repo_record
     WHERE repo_record.collection IN (
       'actorManifest',
-      'ai.gftd.gov.actorManifest',
-      'ai.gftd.apps.states.actorManifest'
+      'app.etzhayyim.gov.actorManifest',
+      'app.etzhayyim.apps.states.actorManifest'
     )
       AND NOT EXISTS (
         SELECT 1

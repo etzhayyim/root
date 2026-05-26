@@ -1,4 +1,5 @@
 ---
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 # lg-gov — LangGraph Server for Gov/State Fractal Pregel Graph.
 #
 # ADR refs:
@@ -74,15 +75,15 @@ spec:
                   name: lg-gov-secrets
                   key: DISPATCHER_INTERNAL_SECRET
             # LLM routing
-            - name: GFTD_LLM_URL
+            - name: etzhayyim_LLM_URL
               value: "https://gemma.etzhayyim.com/v1"
-            - name: GFTD_LLM_MODEL
+            - name: etzhayyim_LLM_MODEL
               value: "gemma-4-E2B-it"
-            - name: GFTD_LLM_API_KEY
+            - name: etzhayyim_LLM_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: lg-gov-secrets
-                  key: GFTD_LLM_API_KEY
+                  key: etzhayyim_LLM_API_KEY
                   optional: true
             - name: MURAKUMO_BASE_URL
               value: "https://murakumo.etzhayyim.com"

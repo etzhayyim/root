@@ -64,8 +64,8 @@ RW_DATABASE = "dev"
 RW_PASSWORD = ""
 
 REPO_DID    = "did:plc:gftd-collector"
-PATENT_COL  = "ai.gftd.apps.patent.patent"
-DNS_COL     = "ai.gftd.apps.dns.observation"
+PATENT_COL  = "app.etzhayyim.apps.patent.patent"
+DNS_COL     = "app.etzhayyim.apps.dns.observation"
 
 TIMEOUT_SECS   = 50 * 60   # 50-min hard deadline; 10-min margin for next cron
 PATENT_STEP    = 1_000

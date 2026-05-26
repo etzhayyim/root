@@ -112,7 +112,7 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
             kind = plan["kind"]
             rkey = plan["rkey"]
             parent = plan.get("parent") or (work_rkey if kind == "chatSession" else None)
-            vid = f"at://{_APP_DID}/ai.gftd.mangaka.{kind}/{rkey}"
+            vid = f"at://{_APP_DID}/app.etzhayyim.mangaka.{kind}/{rkey}"
             await cur.execute("DELETE FROM vertex_mangaka WHERE vertex_id = %s", (vid,))
             await cur.execute(
                 """INSERT INTO vertex_mangaka (vertex_id, created_date, sensitivity_ord, owner_did,
@@ -120,7 +120,7 @@ async def _step_write_back(state: _State) -> dict[str, Any]:
                     kind, status, created_at, props, parent_rkey, page_number, actor_did, org_did
                 ) VALUES (%s, %s, 0, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'saved', %s, %s, %s, %s, %s, %s)""",
                 (vid, now_date, _APP_DID, rkey, _APP_DID, _APP_DID,
-                 f"ai.gftd.mangaka.{kind}", kind, plan.get("title"), plan.get("name"), plan.get("name"),
+                 f"app.etzhayyim.mangaka.{kind}", kind, plan.get("title"), plan.get("name"), plan.get("name"),
                  kind, now_iso, json.dumps(plan.get("props") or {}, ensure_ascii=False),
                  parent, plan.get("page_number"), _APP_DID, _DEFAULT_ORG_DID))
             if kind == "chatSession": sess_count += 1

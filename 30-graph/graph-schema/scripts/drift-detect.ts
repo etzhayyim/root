@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Schema drift detector for @gftd/graph-schema.
+ * Schema drift detector for @etzhayyim/graph-schema.
  *
  * Compares live RisingWave `information_schema` against the hand-managed
  * `src/database.ts` SSoT and reports:

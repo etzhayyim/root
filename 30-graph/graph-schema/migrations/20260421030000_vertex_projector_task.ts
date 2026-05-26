@@ -5,10 +5,10 @@ import { sql } from "kysely";
 // tier: B
 
 /**
- * vertex_projector_task — dedicated table for ai.gftd.projector.addConvoTask
+ * vertex_projector_task — dedicated table for app.etzhayyim.projector.addConvoTask
  * / completeConvoTask / listConvoTasks (ADR-0036 Phase 2).
  *
- * Previously the handler wrote an ai.gftd.projectorTask AT record that
+ * Previously the handler wrote an app.etzhayyim.projectorTask AT record that
  * had no graph-worker consumer, so task CRUD was silently no-op. The
  * read path (listConvoTasks) queried vertex_project_props — the same
  * table used for projects — which would cross-contaminate projects and

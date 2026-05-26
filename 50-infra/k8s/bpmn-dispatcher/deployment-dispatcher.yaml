@@ -1,3 +1,4 @@
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 # F4 — generic XRPC dispatcher for BPMN-as-actor.
 #
 # HTTP server that owns the entire T1/T2 actor surface: turns
@@ -29,7 +30,7 @@ metadata:
   labels:
     app.kubernetes.io/name: bpmn-dispatcher
     app.kubernetes.io/component: bpmn-actor-frontend
-    gftd.ai/adr: "0049"
+    etzhayyim.com/adr: "0049"
 spec:
   replicas: 1
   selector:
@@ -39,7 +40,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: bpmn-dispatcher
-        gftd.ai/adr: "0049"
+        etzhayyim.com/adr: "0049"
     spec:
       imagePullSecrets:
         - name: ghcr-pull

@@ -8,7 +8,7 @@
 //   /storage/v1/bucket                        — list buckets
 //   /storage/v1/object/public/{bucket}/{key}  — public ACL (P3.2 stub)
 //   /sparql                                   — SPARQL 1.1 SELECT/CONSTRUCT/ASK
-//   /xrpc/ai.gftd.apps.{yata,billing}.*       — XRPC pass-through
+//   /xrpc/app.etzhayyim.apps.{yata,billing}.*       — XRPC pass-through
 //
 // Auth: Bearer sk_live_yata_* / ES256 JWT → PDS service binding
 // `/_internal/resolve-auth` returns { did, orgDid, activeDid, productScope }.
@@ -50,7 +50,7 @@ import { describeTenantSchema } from "./schema-describe";
 import { handleSignup } from "./auth-signup";
 import { emitMeter, getUsageLast24h } from "./metering";
 import { getQuotaStatus, quotaExceededResponse, PLAN_RULES } from "./plan-quota";
-import { handleUpgrade, handleStripeWebhook, handlePortal } from "./billing-stripe";
+import { handleUpgrade, handleStripeWebhook, handlePortal } from "./billing";
 import { handleDonate } from "./donate";
 import { handleUsdcWebhook } from "./webhook-usdc";
 import { handleInvoice, listInvoiceMonths } from "./invoice";
@@ -77,7 +77,7 @@ type Env = {
   PDS_SERVICE?: { fetch(req: Request): Promise<Response> };
   AUTHN_SERVICE?: { fetch(req: Request): Promise<Response> };
   HYPERDRIVE?: unknown;
-  GFTD_METERING_DISABLED?: string;
+  etzhayyim_METERING_DISABLED?: string;
   YATA_AGENT_ADMIN_KEY?: string;   // gate for POST /_agents/*/run
   RESEND_API_KEY?: string;
   EMAIL_FROM?: string;
@@ -216,7 +216,7 @@ app.get("/_app/meta", (c) =>
       "/mcp",
       "/.well-known/agent.json",
       "/.well-known/mcp.json",
-      "/xrpc/ai.gftd.apps.yata.*",
+      "/xrpc/app.etzhayyim.apps.yata.*",
     ],
     backend: c.env.BPMN_DISPATCHER_URL,
   }),
@@ -336,7 +336,7 @@ async function resolveAuthContext(req: Request, env: Env): Promise<AuthContext |
     }
 
     const dispatcherBase = env.LG_YATABASE_URL || "https://dispatcher.etzhayyim.com";
-    const url = `${dispatcherBase.replace(/\/+$/, "")}/xrpc/ai.gftd.apps.yata.authResolveApiKey`;
+    const url = `${dispatcherBase.replace(/\/+$/, "")}/xrpc/app.etzhayyim.apps.yata.authResolveApiKey`;
     try {
       const keyHash = await sha256Hex(rawKey);
       const bodyStr = JSON.stringify({ key_hash: keyHash });
@@ -449,7 +449,9 @@ app.use("*", async (c, next) => {
   if (c.req.path === "/dashboard") return next();
   // /auth/v1/signup is public — it MINTS the API key, so it can't require one.
   if (c.req.path === "/auth/v1/signup") return next();
-  // Stripe webhook is signature-verified inline; no Bearer auth.
+  // Legacy /webhook/stripe is permanently disabled (returns 410) but
+  // must remain reachable without Bearer auth so historical callers
+  // see the Charter Rider §2 response instead of a 401.
   if (c.req.path === "/webhook/stripe") return next();
   // USDC donation webhook is attestation-verified inline; no Bearer auth.
   if (c.req.path === "/webhook/usdc") return next();
@@ -582,7 +584,8 @@ function surfaceForPath(p: string): string {
   return "other";
 }
 
-// ── P8: plan upgrade (stub or Stripe-backed) ──
+// ── P8: plan-change endpoint (Charter Rider §2: free-downgrade only;
+//        paid tiers require POST /api/donate USDC flow) ──
 app.post("/auth/v1/upgrade", async (c) => {
   const auth = c.get("auth");
   if (!auth) return c.json({ error: "Unauthorized" }, 401);
@@ -605,7 +608,7 @@ app.post("/webhook/usdc", async (c) => {
   return handleUsdcWebhook(c.req.raw, c.env as Record<string, unknown>);
 });
 
-// ── P71: Stripe Customer Portal (self-serve billing management) ──
+// ── P71 (legacy): /auth/v1/portal — Charter Rider §2 disabled; returns 410 ──
 app.post("/auth/v1/portal", async (c) => {
   const auth = c.get("auth");
   if (!auth) return c.json({ error: "Unauthorized" }, 401);
@@ -620,7 +623,6 @@ app.get("/auth/v1/whoami", async (c) => {
   let attachedEmail: string | null = null;
   let attachedEmailVerified = false;
   let plan: string = "free";
-  let stripeCustomerId: string | null = null;
   if (env.YATABASE_AUTH_CACHE) {
     try {
       const emailRaw = await env.YATABASE_AUTH_CACHE.get(`attach_email:v1:${auth.orgDid}`);
@@ -634,9 +636,8 @@ app.get("/auth/v1/whoami", async (c) => {
       const planRaw = await env.YATABASE_AUTH_CACHE.get(`plan:v1:${auth.orgDid}`);
       if (planRaw) {
         try {
-          const p = JSON.parse(planRaw) as { plan?: string; stripeCustomerId?: string };
+          const p = JSON.parse(planRaw) as { plan?: string };
           plan = p?.plan ?? "free";
-          stripeCustomerId = (p?.stripeCustomerId ?? "") || null;
         } catch { /* ignore */ }
       }
     } catch { /* ignore */ }
@@ -648,8 +649,12 @@ app.get("/auth/v1/whoami", async (c) => {
     plan,
     attachedEmail,
     attachedEmailVerified,
-    stripeCustomerId,
-    canOpenPortal: !!stripeCustomerId,
+    // Charter Rider §2: Stripe portal is permanently disabled; the
+    // donation flow at /api/donate replaces it. These fields are kept
+    // in the response shape for SDK backward-compat but always indicate
+    // "no Stripe customer / portal unavailable".
+    stripeCustomerId: null,
+    canOpenPortal: false,
   }, 200);
 });
 
@@ -918,7 +923,8 @@ app.post("/auth/v1/redeem", async (c) => {
   }, 200);
 });
 
-// ── P8: Stripe webhook (signature-verified, no auth middleware) ──
+// ── P8 (legacy): /webhook/stripe — permanently disabled per Charter Rider §2.
+// Handler returns 410 Gone. New donation receipts arrive via /webhook/usdc.
 app.post("/webhook/stripe", async (c) => handleStripeWebhook(c.env, c.req.raw));
 
 // ── P50: manual usage-alert batch trigger (admin-gated) ──
@@ -1388,7 +1394,7 @@ app.post("/sparql", async (c) => {
 
   const result = await dispatchYataXrpc(
     c.env,
-    "ai.gftd.apps.yata.runSparql",
+    "app.etzhayyim.apps.yata.runSparql",
     body as Record<string, unknown>,
     {
       orgDid: auth.orgDid,
@@ -2035,7 +2041,7 @@ app.post("/_agents/:name/run", async (c) => {
 
 app.all("/xrpc/:nsid", async (c) => {
   const nsid = c.req.param("nsid");
-  if (!nsid.startsWith("ai.gftd.apps.yata.") && !nsid.startsWith("ai.gftd.apps.billing.")) {
+  if (!nsid.startsWith("app.etzhayyim.apps.yata.") && !nsid.startsWith("app.etzhayyim.apps.billing.")) {
     return c.json(
       { error: "NotFound", message: `nsid ${nsid} is not handled by yatabase.etzhayyim.com; use atproto.etzhayyim.com` },
       404,

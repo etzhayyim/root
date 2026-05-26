@@ -187,7 +187,7 @@ def test_persist_hume_executes_insert_with_full_payload(monkeypatch):
     assert scores[0]["name"] == "anxiety"
     # raw_json is the distillation envelope
     raw = json.loads(insert_params[16])
-    assert raw["schema"] == "ai.gftd.mangaka.humeObservation.v1"
+    assert raw["schema"] == "app.etzhayyim.mangaka.humeObservation.v1"
     assert raw["input"]["imageFeatures"]["b_weight"] == 0.58
     assert raw["labels"]["targetFamily"] == "fear"
     assert raw["labels"]["targetMood"] == "ominous tension"

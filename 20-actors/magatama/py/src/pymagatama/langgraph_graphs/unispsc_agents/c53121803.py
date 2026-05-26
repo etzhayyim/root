@@ -20,3 +20,5 @@ graph.add_node('approval_step', approval_step)
 graph.add_edge('validate_material', 'approval_step')
 graph.add_edge('approval_step', END)
 graph.set_entry_point('validate_material')
+
+graph = graph.compile()

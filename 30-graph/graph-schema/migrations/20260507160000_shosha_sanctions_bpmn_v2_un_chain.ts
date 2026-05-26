@@ -26,7 +26,7 @@ const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf
 
 const seeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1",
     bpmnProcessId: "shosha_refresh_sanctions_list",
     sourcePath: "00-contracts/bpmn/ai/gftd/shosha/refreshSanctionsList.bpmn",
   },

@@ -24,3 +24,5 @@ graph.add_edge('validate', route_by_validation)
 graph.add_edge('process', END)
 graph.set_entry_point('validate')
 # Note: compile not called as it requires defined state schema and nodes structure established here.
+
+graph = graph.compile()

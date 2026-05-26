@@ -97,8 +97,8 @@ body:
     id: at-record-uri
     attributes:
       label: AT Record URI (optional but strongly preferred)
-      description: "AT URI of your ai.gftd.apps.etzhayyim.council-candidate-application record. If you do not have a PDS yet, ok to skip — we will help."
-      placeholder: "at://did:plc:.../ai.gftd.apps.etzhayyim.council-candidate-application/..."
+      description: "AT URI of your app.etzhayyim.apps.etzhayyim.council-candidate-application record. If you do not have a PDS yet, ok to skip — we will help."
+      placeholder: "at://did:plc:.../app.etzhayyim.apps.etzhayyim.council-candidate-application/..."
   - type: checkboxes
     id: time-commitment
     attributes:

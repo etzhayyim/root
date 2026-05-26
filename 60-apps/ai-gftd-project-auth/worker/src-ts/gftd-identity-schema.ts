@@ -15,7 +15,36 @@
  * Design doc: 90-docs/260416-did-schema-dodaf-org-agent-shannon-design.md
  */
 
-// CHARTER-VIOLATION §substrate (centralized DB forbidden): migrate to AT MST + IPFS + Base L2 anchor
+// CHARTER-VIOLATION §substrate (ADR-2605172000).
+//
+// This file currently describes two tables that violate the substrate
+// boundary in `/CLAUDE.md`:
+//
+//   1. `vertex_gftd_auth_*` / `vertex_gftd_key_*` — D1 (Cloudflare's
+//      edge SQLite) tables used as auth-credential storage. D1 is
+//      centralized-DB-class storage even though it lives at the edge.
+//      Migration target: store credential blobs in the MST under a
+//      Signal-wrapped, DID-bound encrypted envelope
+//      (`app.etzhayyim.encrypted.auth.credential`) per ADR-2605181100,
+//      with a Workers KV index for fast lookup. The Kysely *types*
+//      themselves are harmless — they describe an off-chain auth-only
+//      cache that will eventually be regeneratable from the encrypted
+//      MST records.
+//
+//   2. `vertex_gftd_identity` / `edge_gftd_*` — RisingWave governance
+//      tables. Migration target: lexicons under
+//      `app.etzhayyim.apps.identity.*` (already partly registered) with the
+//      authoritative writes against MST and a yatachain-projection
+//      (`ADR-2605231500`) RisingWave cache that is rebuildable from
+//      MST + IPFS.
+//
+// The `kysely` type-only import below is retained as a transitional
+// dependency: D1 auth tables remain in service until the encrypted
+// MST envelopes ship. Removing the import would break the type-checker
+// without changing behaviour. See `_etzhayyim_substrate.py` in the
+// maps bulk-ingest workers for an example of the seam pattern that the
+// auth worker should adopt at runtime.
+// yatachain-projection: D1 type-only kysely import — compiles away; runtime still goes through @etzhayyim/sdk seam (ADR-2605231500)
 import type { ColumnType, Generated, Insertable, Selectable, Updateable } from "kysely";
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -26,7 +55,7 @@ import type { ColumnType, Generated, Insertable, Selectable, Updateable } from "
 // Auth control record for each did:gftd. No governance data.
 // vertex_id = did:gftd:{hash}
 
-export interface VertexGftdAuthAccountTable {
+export interface VertexetzhayyimAuthAccountTable {
   vertex_id: string;                // did:gftd:{hash}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // = vertex_id (self)
@@ -43,14 +72,14 @@ export interface VertexGftdAuthAccountTable {
   updated_at: string;
 }
 
-export type VertexGftdAuthAccount = Selectable<VertexGftdAuthAccountTable>;
-export type NewVertexGftdAuthAccount = Insertable<VertexGftdAuthAccountTable>;
+export type VertexetzhayyimAuthAccount = Selectable<VertexetzhayyimAuthAccountTable>;
+export type NewVertexetzhayyimAuthAccount = Insertable<VertexetzhayyimAuthAccountTable>;
 
 // ── vertex_gftd_auth_credential ─────────────────────────────────────────
 // WebAuthn passkey credential. Replaces legacy passkey_credentials.
 // vertex_id = credential_id (base64url)
 
-export interface VertexGftdAuthCredentialTable {
+export interface VertexetzhayyimAuthCredentialTable {
   vertex_id: string;                // credential_id (base64url)
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // did:gftd:{hash} of the account
@@ -63,13 +92,13 @@ export interface VertexGftdAuthCredentialTable {
   updated_at: string;
 }
 
-export type VertexGftdAuthCredential = Selectable<VertexGftdAuthCredentialTable>;
+export type VertexetzhayyimAuthCredential = Selectable<VertexetzhayyimAuthCredentialTable>;
 
 // ── vertex_gftd_auth_invite ─────────────────────────────────────────────
 // Pending org invitation. HMAC token (security-sensitive).
 // vertex_id = invite:{id}
 
-export interface VertexGftdAuthInviteTable {
+export interface VertexetzhayyimAuthInviteTable {
   vertex_id: string;                // invite:{auto_id}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // org_did
@@ -87,13 +116,13 @@ export interface VertexGftdAuthInviteTable {
   updated_at: string;
 }
 
-export type VertexGftdAuthInvite = Selectable<VertexGftdAuthInviteTable>;
+export type VertexetzhayyimAuthInvite = Selectable<VertexetzhayyimAuthInviteTable>;
 
 // ── vertex_gftd_auth_otp ────────────────────────────────────────────────
 // Email OTP code (10min expiry). Replaces legacy email_link_codes.
 // vertex_id = otp:{account_did}:{email}
 
-export interface VertexGftdAuthOtpTable {
+export interface VertexetzhayyimAuthOtpTable {
   vertex_id: string;                // otp:{account_did}:{email}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // account_did
@@ -105,13 +134,13 @@ export interface VertexGftdAuthOtpTable {
   created_at: string;
 }
 
-export type VertexGftdAuthOtp = Selectable<VertexGftdAuthOtpTable>;
+export type VertexetzhayyimAuthOtp = Selectable<VertexetzhayyimAuthOtpTable>;
 
 // ── edge_gftd_auth_linked ───────────────────────────────────────────────
 // Linked auth method (OAuth/email). Replaces legacy linked_auth_methods.
 // edge_id = {account_did}:auth:{provider}:{provider_subject}
 
-export interface EdgeGftdAuthLinkedTable {
+export interface EdgeetzhayyimAuthLinkedTable {
   edge_id: string;                  // {account_did}:auth:{provider}:{provider_subject_hash}
   src_vid: string;                  // account did:gftd
   dst_vid: string;                  // provider:{provider_subject}
@@ -127,7 +156,7 @@ export interface EdgeGftdAuthLinkedTable {
   updated_at: string;
 }
 
-export type EdgeGftdAuthLinked = Selectable<EdgeGftdAuthLinkedTable>;
+export type EdgeetzhayyimAuthLinked = Selectable<EdgeetzhayyimAuthLinkedTable>;
 
 // ═══════════════════════════════════════════════════════════════════════════
 // D1 KEYS_DB — key custody (GraphAr schema)
@@ -137,7 +166,7 @@ export type EdgeGftdAuthLinked = Selectable<EdgeGftdAuthLinkedTable>;
 // P-256 signing key custody. Replaces legacy did_keys.
 // vertex_id = did:gftd:{hash}
 
-export interface VertexGftdKeySigningTable {
+export interface VertexetzhayyimKeySigningTable {
   vertex_id: string;                // did:gftd:{hash}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // = vertex_id
@@ -154,13 +183,13 @@ export interface VertexGftdKeySigningTable {
   created_at: string;
 }
 
-export type VertexGftdKeySigning = Selectable<VertexGftdKeySigningTable>;
+export type VertexetzhayyimKeySigning = Selectable<VertexetzhayyimKeySigningTable>;
 
 // ── vertex_gftd_key_revoked_session ─────────────────────────────────────
 // JTI revocation record. Replaces legacy revoked_sessions.
 // vertex_id = jti:{uuid}
 
-export interface VertexGftdKeyRevokedSessionTable {
+export interface VertexetzhayyimKeyRevokedSessionTable {
   vertex_id: string;                // jti:{uuid}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;         // did of session owner
@@ -170,13 +199,13 @@ export interface VertexGftdKeyRevokedSessionTable {
   revoked_at: string;
 }
 
-export type VertexGftdKeyRevokedSession = Selectable<VertexGftdKeyRevokedSessionTable>;
+export type VertexetzhayyimKeyRevokedSession = Selectable<VertexetzhayyimKeyRevokedSessionTable>;
 
 // ── vertex_gftd_key_otp ─────────────────────────────────────────────────
 // SMS OTP code. Replaces legacy otp_codes.
 // vertex_id = sms:{phone}
 
-export interface VertexGftdKeyOtpTable {
+export interface VertexetzhayyimKeyOtpTable {
   vertex_id: string;                // sms:{phone_digits}
   sensitivity_ord: ColumnType<number, number | undefined, number>;
   owner_did: string | null;
@@ -187,24 +216,24 @@ export interface VertexGftdKeyOtpTable {
   created_at: string;
 }
 
-export type VertexGftdKeyOtp = Selectable<VertexGftdKeyOtpTable>;
+export type VertexetzhayyimKeyOtp = Selectable<VertexetzhayyimKeyOtpTable>;
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Database interfaces (Kysely)
 // ═══════════════════════════════════════════════════════════════════════════
 
 /** AUTH_DB (D1) — auth control plane, GraphAr convention. */
-export interface GftdAuthDatabase {
-  vertex_gftd_auth_account: VertexGftdAuthAccountTable;
-  vertex_gftd_auth_credential: VertexGftdAuthCredentialTable;
-  vertex_gftd_auth_invite: VertexGftdAuthInviteTable;
-  vertex_gftd_auth_otp: VertexGftdAuthOtpTable;
-  edge_gftd_auth_linked: EdgeGftdAuthLinkedTable;
+export interface etzhayyimAuthDatabase {
+  vertex_gftd_auth_account: VertexetzhayyimAuthAccountTable;
+  vertex_gftd_auth_credential: VertexetzhayyimAuthCredentialTable;
+  vertex_gftd_auth_invite: VertexetzhayyimAuthInviteTable;
+  vertex_gftd_auth_otp: VertexetzhayyimAuthOtpTable;
+  edge_gftd_auth_linked: EdgeetzhayyimAuthLinkedTable;
 }
 
 /** KEYS_DB (D1) — key custody, GraphAr convention. */
-export interface GftdKeysDatabase {
-  vertex_gftd_key_signing: VertexGftdKeySigningTable;
-  vertex_gftd_key_revoked_session: VertexGftdKeyRevokedSessionTable;
-  vertex_gftd_key_otp: VertexGftdKeyOtpTable;
+export interface etzhayyimKeysDatabase {
+  vertex_gftd_key_signing: VertexetzhayyimKeySigningTable;
+  vertex_gftd_key_revoked_session: VertexetzhayyimKeyRevokedSessionTable;
+  vertex_gftd_key_otp: VertexetzhayyimKeyOtpTable;
 }

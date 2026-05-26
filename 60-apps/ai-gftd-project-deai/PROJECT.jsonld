@@ -1,0 +1,25 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "gftd": "https://gftd.ai/ns#",
+    "atproto": "https://atproto.com/ns#"
+  },
+  "@type": "SoftwareApplication",
+  "@id": "https://deai.gftd.ai",
+  "name": "deai",
+  "alternateName": "deai — Spirit Match",
+  "description": "Spirit-in-Physics based dating/matching app. Measures Spirit Type (Hero/Sage/Lover/Caregiver) via Word Association + Hume AI emotion analysis. Matches users by thermodynamic information compatibility and emotional tensegrity resonance.",
+  "applicationCategory": "SocialNetworkingApplication",
+  "operatingSystem": "iOS, Android, Web",
+  "url": "https://deai.gftd.ai",
+  "gftd:nanoid": "cgxi8oem",
+  "gftd:did": "did:web:deai.gftd.ai",
+  "gftd:operatingEntity": "etzhayyim",
+  "gftd:runtime": "TS Native Worker + SvelteKit SPA + Capacitor",
+  "gftd:spiritTypesSupported": ["Hero", "Sage", "Lover", "Caregiver"],
+  "gftd:researchBasis": "Spirit in Physics: Spirit as a Thermodynamic Information Quantity (Kawasaki et al., 2026)",
+  "gftd:humeIntegration": true,
+  "gftd:vaultZeroKnowledge": true,
+  "gftd:cohortDID": true,
+  "gftd:piiTier": 3
+}

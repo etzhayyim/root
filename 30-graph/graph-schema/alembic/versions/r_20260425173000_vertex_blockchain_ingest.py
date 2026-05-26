@@ -85,7 +85,7 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1',
                  'did:web:blockchain.etzhayyim.com',
                  'blockchain_bitcoin_head_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -183,28 +183,28 @@ UP = [{'sql': '\n'
                  'did:web:blockchain.etzhayyim.com',
                  'did:web:blockchain.etzhayyim.com',
                  'sys.bpmn.seed.blockchain-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '        result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id,\n'
          '        actor_id, write_table_allowlist\n'
          '      )\n'
-         "      SELECT $1, $2, 'ai.gftd.apps.ingest.start',\n"
+         "      SELECT $1, $2, 'app.etzhayyim.apps.ingest.start',\n"
          "             $3, 1, CAST(0 AS integer), 'active',\n"
          '             $4, 1, $5, $6, $7,\n'
          '             '
          "'vertex_blockchain_block,vertex_blockchain_tx,vertex_ingest_cursor,vertex_ingest_run,vertex_ingest_artifact'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'blockchain_bitcoin_head_delta',
                  '2026-04-25T17:30:00Z',
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.blockchain-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -215,7 +215,7 @@ UP = [{'sql': '\n'
          '             $7, 1, $8, $9, $10\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1',
                  'did:web:blockchain.etzhayyim.com',
                  'blockchain_ethereum_head_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -313,37 +313,37 @@ UP = [{'sql': '\n'
                  'did:web:blockchain.etzhayyim.com',
                  'did:web:blockchain.etzhayyim.com',
                  'sys.bpmn.seed.blockchain-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '        result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id,\n'
          '        actor_id, write_table_allowlist\n'
          '      )\n'
-         "      SELECT $1, $2, 'ai.gftd.apps.ingest.start',\n"
+         "      SELECT $1, $2, 'app.etzhayyim.apps.ingest.start',\n"
          "             $3, 1, CAST(0 AS integer), 'active',\n"
          '             $4, 1, $5, $6, $7,\n'
          '             '
          "'vertex_blockchain_block,vertex_blockchain_tx,vertex_ingest_cursor,vertex_ingest_run,vertex_ingest_artifact'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8)\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1',
                  'did:web:ingest.etzhayyim.com',
                  'blockchain_ethereum_head_delta',
                  '2026-04-25T17:30:00Z',
                  'did:web:ingest.etzhayyim.com',
                  'did:web:ingest.etzhayyim.com',
                  'sys.bpmn.seed.blockchain-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_blockchain_tx', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_blockchain_block', 'parameters': []}]
 

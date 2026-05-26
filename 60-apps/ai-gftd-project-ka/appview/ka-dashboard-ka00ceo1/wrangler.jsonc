@@ -10,17 +10,17 @@
     "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"ka-dashboard\",\"strategy-graph\",\"revenue-forecast\",\"risk-assessment\",\"action-triage\"]",
     "APP_DESCRIPTION": "会社経営ダッシュボード — Strategy Graph × Reverse Topological Sort × KPI Traffic Light",
     "APP_DISPLAY_NAME": "KA 経営",
-    "APP_EMBED_URL": "https://ka00ceo1.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://ka00ceo1.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "ka00ceo1",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "routes": [
     {
-      "pattern": "ka00ceo1.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "ka00ceo1.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

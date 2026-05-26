@@ -147,7 +147,7 @@ jacob と judah 両方が死亡しても、B (CF Worker) が生存し、quorum �
 - `app.bsky.feed.post` レート > 20/h → **flood** (abuse/replay loop)
 - 直近 N 投稿の Jaccard 類似度 > 0.9 で連続 → **repetition loop**
 - outbound URL ドメイン分布の Shannon entropy が前週比 -50% → **concentration anomaly** (乗っ取られて 1 URL 連投)
-- `ai.gftd.convo.message` の sender claim と AT commit の signing key mismatch → **impersonation**
+- `app.etzhayyim.convo.message` の sender claim と AT commit の signing key mismatch → **impersonation**
 - PII tier 3 が AT Repo に書かれる (ADR-0018 違反) → **PII leak** (critical, 即 escalate)
 
 **判定できないこと**: heartbeat / recipe 停止 (→ L)、prompt 改竄 (→ K)。
@@ -174,7 +174,7 @@ RisingWave P10v2 GraphAr convention (1 row per record, promoted columns, VARCHAR
 -- Migration: 30-graph/graph-schema/migrations/20260422000000_vertex_yoro_monitor_tables.ts
 
 CREATE TABLE vertex_yoro_monitor_attestation (
-  vertex_id        VARCHAR PRIMARY KEY,   -- at://did:web:yoro-<axis>.etzhayyim.com/ai.gftd.yoro-<axis>.attestation/<rkey>
+  vertex_id        VARCHAR PRIMARY KEY,   -- at://did:web:yoro-<axis>.etzhayyim.com/app.etzhayyim.yoro-<axis>.attestation/<rkey>
   _seq             BIGINT,
   created_date     DATE,
   sensitivity_ord  BIGINT,
@@ -197,7 +197,7 @@ CREATE TABLE vertex_yoro_monitor_attestation (
 );
 
 CREATE TABLE vertex_yoro_monitor_vote (
-  vertex_id        VARCHAR PRIMARY KEY,   -- at://did:web:yoro.etzhayyim.com/ai.gftd.yoro_gov.vote/<rkey>
+  vertex_id        VARCHAR PRIMARY KEY,   -- at://did:web:yoro.etzhayyim.com/app.etzhayyim.yoro_gov.vote/<rkey>
   _seq             BIGINT,
   created_date     DATE,
   sensitivity_ord  BIGINT,
@@ -259,7 +259,7 @@ CREATE TABLE vertex_yoro_monitor_vote (
 |---|---|
 | `resolveHeartbeatCadence` | actor-manifest に `cadence_ms` 固定 (L=5min, K=15min, B=10min) |
 | `shouldDrill/Validate/Analyze/Engage` | 自己監視 flag (次節) |
-| `shinkaEvolution` / `shinkaKnowledge` | 各 monitor の独立 collection `ai.gftd.yoro-<axis>.shinkaEvolution` |
+| `shinkaEvolution` / `shinkaKnowledge` | 各 monitor の独立 collection `app.etzhayyim.yoro-<axis>.shinkaEvolution` |
 | `convoSystemPrompt` / `description` / `capabilities` | actor-manifest に記載。axis ごとに異なるプロンプト |
 
 **Self-drill (monitor が自分自身を drill)**: 各 monitor は週 1 回、自分の過去 attestation を sampling し、**故意に yoro-status='ok' を 'stale' にでっち上げた合成データ**を投入して 2-of-3 が成立しないことを確認する (false positive regression test)。
@@ -326,7 +326,7 @@ yoro_watchdog_shinka:
 - **Bootstrap 期**: 監視 actor が自身の `shinkaEvolution` / `shinkaKnowledge` をまだ持たない初動 14 日間は、`standardStatus: "bootstrapping"` を許可 (per-did-kyumei-shinka-autonomy rule の transitional allowance に準拠)。
 - **CF Worker の cold start**: Monitor-B は CF Worker cold start で 1101 応答することがある。ADR-0041 と同じく retry が回復すれば attestation = 'ok'。systematic 1101 (全 retry 失敗) は 'stale' 判定。
 - **goose wrapper の cadence override**: joucho mood による cadence 変動 (ADR-0034) は L monitor の `cadence_ms` judgment に `override_reason` として渡される。3x 超過判定はその override 後の期待値と比較する。
-- **Self-pause**: yoro 本人が自己判断で `ai.gftd.yoro.shinkaEvolution` に `status='self-paused'` を書くのは許容。Resume (再度 'active' に戻す write) は quorum 必須。
+- **Self-pause**: yoro 本人が自己判断で `app.etzhayyim.yoro.shinkaEvolution` に `status='self-paused'` を書くのは許容。Resume (再度 'active' に戻す write) は quorum 必須。
 - **Human override**: oncall 運用者は `gftd monitor vote force-pass --ticket <JIRA>` で quorum を強制通過できる (全行為は audit 対象)。
 
 # Implementation Phases
@@ -370,7 +370,7 @@ gftd apps kyumei-koji -nanoid <monitor-nanoid> -repo-did did:web:yoro-<axis>.etz
   -dir ./20-actors -json
 
 # Cross-attestation freshness (no monitor silent > 3× cadence)
-# Direct Hyperdrive read (ai.gftd.kagami.graph.query は 2026-04 に archive 済。
+# Direct Hyperdrive read (app.etzhayyim.kagami.graph.query は 2026-04 に archive 済。
 # CF Worker 外からの検証は macOS Keychain 経由の psql)
 RW=$(security find-generic-password -s gftd.rw -a ROOT_URL -w)
 psql "$RW" -c "SELECT monitor_did, axis, max(observed_at) FROM vertex_yoro_monitor_attestation \
@@ -414,7 +414,7 @@ Proposed 状態の段階で、前提条件と ADR 内の主張を実測で verif
 
 プローブで判明した訂正点:
 
-1. **`ai.gftd.kagami.graph.query` は archived** (`Gone` 410 レスポンス、"Use Kysely directly via createKyselyDb(env.HYPERDRIVE)")。ADR 内で CF Worker 外部からの cross-attestation 検証コマンドとして引用していたが、**CF Worker 内 Hyperdrive 直接 + CLI は Keychain `gftd.rw ROOT_URL` 経由 psql** に差し替えた (§Verification 実行例を修正済)。Monitor-B 自体は元から Hyperdrive 直接 (ADR-0036) で書込・読込するため、**設計本体には影響なし**。
+1. **`app.etzhayyim.kagami.graph.query` は archived** (`Gone` 410 レスポンス、"Use Kysely directly via createKyselyDb(env.HYPERDRIVE)")。ADR 内で CF Worker 外部からの cross-attestation 検証コマンドとして引用していたが、**CF Worker 内 Hyperdrive 直接 + CLI は Keychain `gftd.rw ROOT_URL` 経由 psql** に差し替えた (§Verification 実行例を修正済)。Monitor-B 自体は元から Hyperdrive 直接 (ADR-0036) で書込・読込するため、**設計本体には影響なし**。
 2. **RisingWave :4566 への直接 psql は ad-hoc 時 connection closed あり**。Hyperdrive binding 経由 (CF Worker / Cloudflared LAN 内) は安定。Monitor 実装では直接 psql 経路に依存しない (CLI 検証のみ使用)。
 
 ### 未検証 (実装後に必要)

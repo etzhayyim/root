@@ -42,7 +42,7 @@ Contract-Bounded Component Architecture (DM2 Agreement + WIT Component Model) �
 
 ### CRITICAL: ActorRegistry Graph-Native Pattern (2026-04-02)
 
-**ハードコード OrgDef[] の heartbeat 全件走査は禁止。** `ActorRegistry` (`@gftd/magatama-host-sdk`) で graph-seeded + delta-aware に管理。
+**ハードコード OrgDef[] の heartbeat 全件走査は禁止。** `ActorRegistry` (`@etzhayyim/magatama-host-sdk`) で graph-seeded + delta-aware に管理。
 
 | Phase | Heartbeat 動作 | CPU 負荷 |
 |---|---|---|

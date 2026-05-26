@@ -69,9 +69,9 @@ to a Pregel runtime:
 
 | Chain | Module | NSID | Pregel super-steps |
 |---|---|---|---|
-| `exportSurveillanceEvidence` | `pymagatama/malak/langgraph/export_surveillance_evidence.py` | `ai.gftd.apps.malak.exportSurveillanceEvidence` | 4 (Send fan-out to render_doc × 4) |
-| `agencyOutreachFullFlow` | `pymagatama/malak/langgraph/agency_outreach_full_flow.py` | `ai.gftd.apps.malak.agencyOutreachFullFlow` (composite) | 6 (sequential + 5 conditional abort branches) |
-| `draftAgencyBriefing` | `pymagatama/malak/langgraph/briefing.py` | `ai.gftd.apps.malak.draftAgencyBriefing` | 8 (graph-native entity extraction + RW row staging) |
+| `exportSurveillanceEvidence` | `pymagatama/malak/langgraph/export_surveillance_evidence.py` | `app.etzhayyim.apps.malak.exportSurveillanceEvidence` | 4 (Send fan-out to render_doc × 4) |
+| `agencyOutreachFullFlow` | `pymagatama/malak/langgraph/agency_outreach_full_flow.py` | `app.etzhayyim.apps.malak.agencyOutreachFullFlow` (composite) | 6 (sequential + 5 conditional abort branches) |
+| `draftAgencyBriefing` | `pymagatama/malak/langgraph/briefing.py` | `app.etzhayyim.apps.malak.draftAgencyBriefing` | 8 (graph-native entity extraction + RW row staging) |
 
 ## 2. Pregel parallel fan-out via Send
 

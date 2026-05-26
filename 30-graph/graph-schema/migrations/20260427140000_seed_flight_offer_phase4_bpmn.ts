@@ -22,21 +22,21 @@ interface Entry {
 const entries: Entry[] = [
   {
     bpmnProcessId: "flight_offer_remove_watch",
-    nsid: "ai.gftd.apps.flightOffer.removeWatch",
+    nsid: "app.etzhayyim.apps.flightOffer.removeWatch",
     sourcePath: "00-contracts/bpmn/ai/gftd/flight-offer/removeWatch.bpmn",
     resultTimeoutMs: 15000,
     slug: "flight-offer-remove-watch-v1",
   },
   {
     bpmnProcessId: "flight_offer_list_watch",
-    nsid: "ai.gftd.apps.flightOffer.listWatch",
+    nsid: "app.etzhayyim.apps.flightOffer.listWatch",
     sourcePath: "00-contracts/bpmn/ai/gftd/flight-offer/listWatch.bpmn",
     resultTimeoutMs: 15000,
     slug: "flight-offer-list-watch-v1",
   },
   {
     bpmnProcessId: "flight_offer_get_cheapest",
-    nsid: "ai.gftd.apps.flightOffer.getCheapest",
+    nsid: "app.etzhayyim.apps.flightOffer.getCheapest",
     sourcePath: "00-contracts/bpmn/ai/gftd/flight-offer/getCheapest.bpmn",
     resultTimeoutMs: 10000,
     slug: "flight-offer-get-cheapest-v1",
@@ -44,10 +44,10 @@ const entries: Entry[] = [
 ];
 
 function processVertexId(slug: string): string {
-  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${slug}`;
+  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${slug}`;
 }
 function bindingVertexId(slug: string): string {
-  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${slug}`;
+  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${slug}`;
 }
 
 export async function up(db: Kysely<unknown>): Promise<void> {

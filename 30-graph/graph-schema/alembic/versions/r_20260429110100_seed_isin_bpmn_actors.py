@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isin-collect-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isin-collect-v1',
                  'did:web:isin.etzhayyim.com',
                  'isin_collect',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -44,9 +44,9 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Cadence: R/PT6H. One BPMN instance every 6 hours.\n'
                  '\n'
-                 '  NSID: ai.gftd.apps.isin.isinCollect\n'
+                 '  NSID: app.etzhayyim.apps.isin.isinCollect\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isin-collect-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isin-collect-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -59,7 +59,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="isin_collect" name="isin collect" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "ai.gftd.apps.isin.isinCollect", "version": 1, '
+                 '      { "nsid": "app.etzhayyim.apps.isin.isinCollect", "version": 1, '
                  '"resultTimeoutMs": 600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -119,7 +119,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;ai.gftd.apps.isin.isinCollect&quot;" '
+                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.isin.isinCollect&quot;" '
                  'target="event_type"/>\n'
                  '          <zeebe:input source="=&quot;did:web:isin.etzhayyim.com&quot;"          '
                  'target="actor_did"/>\n'
@@ -139,7 +139,7 @@ UP = [{'sql': '\n'
                  'did:web:isin.etzhayyim.com',
                  'did:web:isin.etzhayyim.com',
                  'sys.bpmn.seed.isin',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isin-collect-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isin-collect-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -153,21 +153,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isin-collect-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isin-collect-v1',
                  'did:web:isin.etzhayyim.com',
-                 'ai.gftd.apps.isin.isinCollect',
+                 'app.etzhayyim.apps.isin.isinCollect',
                  'isin_collect',
                  600000,
                  '2026-04-29T11:01:00Z',
                  'did:web:isin.etzhayyim.com',
                  'did:web:isin.etzhayyim.com',
                  'sys.bpmn.seed.isin',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isin-collect-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isin-collect-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isin-collect-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isin-collect-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isin-collect-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isin-collect-v1']}]
 
 
 def upgrade() -> None:

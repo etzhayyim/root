@@ -15,9 +15,41 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+import sqlite3
+from contextlib import contextmanager
 from pymagatama.ingest.core import now_iso, today, upsert_cursor
 
+
+
+
+@contextmanager
+def sync_cursor():
+    db_dir = os.environ.get("ORGANISM_SQLITE_DIR", "/var/lib/etzhayyim/organism")
+    os.makedirs(db_dir, exist_ok=True)
+    db_path = os.path.join(db_dir, "ingest_blockchain.db")
+    with sqlite3.connect(db_path) as conn:
+        conn.execute('PRAGMA journal_mode=WAL;')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_ingest_cursor (
+            vertex_id TEXT PRIMARY KEY,
+            cursor_value TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_blockchain_actor (
+            vertex_id TEXT PRIMARY KEY, _seq INTEGER, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
+            rkey TEXT, repo TEXT, label TEXT, did TEXT, chain TEXT, address TEXT, name TEXT, balance INTEGER,
+            total_received INTEGER, total_sent INTEGER, tx_count INTEGER, unconfirmed_tx_count INTEGER,
+            risk_score REAL, source TEXT, observed_at TEXT, props TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_blockchain_block (
+            vertex_id TEXT PRIMARY KEY, _seq INTEGER, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
+            chain TEXT, source_id TEXT, height INTEGER, block_hash TEXT, parent_hash TEXT, block_time TEXT,
+            tx_count INTEGER, raw_sha256 TEXT, raw_json TEXT, canonical_status TEXT, ingested_at TEXT, run_id TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_blockchain_tx (
+            vertex_id TEXT PRIMARY KEY, _seq INTEGER, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
+            chain TEXT, source_id TEXT, block_hash TEXT, block_height INTEGER, tx_hash TEXT, tx_index INTEGER,
+            from_addr TEXT, to_addr TEXT, value_wei TEXT, raw_sha256 TEXT, raw_json TEXT, canonical_status TEXT, ingested_at TEXT, run_id TEXT
+        )''')
+        yield conn.cursor()
 
 OWNER_DID = "did:web:blockchain.etzhayyim.com"
 _BLOCK_TABLES_AVAILABLE: bool | None = None
@@ -80,10 +112,10 @@ def _ethereum_rpc(method: str, params: list[Any] | None = None) -> Any:
 
 
 def _get_cursor_height(source_id: str) -> int | None:
-    vid = f"at://did:web:ingest.etzhayyim.com/ai.gftd.apps.ingest.cursor/blockchain-{source_id}-head"
+    vid = f"at://did:web:ingest.etzhayyim.com/app.etzhayyim.apps.ingest.cursor/blockchain-{source_id}-head"
     try:
         with sync_cursor() as cur:
-            cur.execute("SELECT cursor_value FROM vertex_ingest_cursor WHERE vertex_id = %s", (vid,))
+            cur.execute("SELECT cursor_value FROM vertex_ingest_cursor WHERE vertex_id = ?", (vid,))
             row = cur.fetchone()
         if not row or row[0] is None:
             return None
@@ -100,8 +132,7 @@ def _block_tables_available() -> bool:
         with sync_cursor() as cur:
             cur.execute(
                 """
-                SELECT COUNT(*) FROM information_schema.tables
-                WHERE table_name IN ('vertex_blockchain_block', 'vertex_blockchain_tx')
+                SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name IN ('vertex_blockchain_block', 'vertex_blockchain_tx')
                 """
             )
             row = cur.fetchone()
@@ -134,17 +165,16 @@ def _insert_actor_landing(row: dict[str, Any], *, kind: str) -> int:
     with sync_cursor() as cur:
         cur.execute(
             """
-            INSERT INTO vertex_blockchain_actor (
+            INSERT OR IGNORE INTO vertex_blockchain_actor (
               vertex_id, _seq, created_date, sensitivity_ord, owner_did,
               rkey, repo, label, did, chain, address, name, balance,
               total_received, total_sent, tx_count, unconfirmed_tx_count,
               risk_score, source, observed_at, props
             )
-            SELECT %s, CAST(NULL AS BIGINT), CAST(%s AS DATE), CAST(0 AS BIGINT), %s,
-                   %s, %s, %s, %s, %s, %s, %s, CAST(0 AS BIGINT),
-                   CAST(0 AS BIGINT), CAST(0 AS BIGINT), CAST(%s AS BIGINT), CAST(0 AS BIGINT),
-                   CAST(0 AS DOUBLE PRECISION), %s, %s, %s
-            WHERE NOT EXISTS (SELECT 1 FROM vertex_blockchain_actor WHERE vertex_id = %s)
+            VALUES (?, NULL, ?, 0, ?,
+                   ?, ?, ?, ?, ?, ?, ?, 0,
+                   0, 0, ?, 0,
+                   0.0, ?, ?, ?)
             """,
             (
                 row["vertex_id"],
@@ -161,7 +191,6 @@ def _insert_actor_landing(row: dict[str, Any], *, kind: str) -> int:
                 row.get("source_id", ""),
                 now_iso(),
                 props,
-                row["vertex_id"],
             ),
         )
         return int(cur.rowcount or 0)
@@ -176,17 +205,16 @@ def _insert_block(row: dict[str, Any]) -> int:
     with sync_cursor() as cur:
         cur.execute(
             """
-            INSERT INTO vertex_blockchain_block (
+            INSERT OR IGNORE INTO vertex_blockchain_block (
               vertex_id, _seq, created_date, sensitivity_ord, owner_did,
               chain, source_id, height, block_hash, parent_hash, block_time,
               tx_count, raw_sha256, raw_json, canonical_status, ingested_at,
               run_id
             )
-            SELECT %s, CAST(NULL AS BIGINT), CAST(%s AS DATE), CAST(0 AS BIGINT), %s,
-                   %s, %s, CAST(%s AS BIGINT), %s, %s, %s,
-                   CAST(%s AS BIGINT), %s, %s, %s, %s,
-                   %s
-            WHERE NOT EXISTS (SELECT 1 FROM vertex_blockchain_block WHERE vertex_id = %s)
+            VALUES (?, NULL, ?, 0, ?,
+                   ?, ?, ?, ?, ?, ?,
+                   ?, ?, ?, ?, ?,
+                   ?)
             """,
             (
                 row["vertex_id"],
@@ -204,7 +232,6 @@ def _insert_block(row: dict[str, Any]) -> int:
                 "canonical",
                 now,
                 row.get("run_id", ""),
-                row["vertex_id"],
             ),
         )
         return int(cur.rowcount or 0)
@@ -219,17 +246,16 @@ def _insert_tx(row: dict[str, Any]) -> int:
     with sync_cursor() as cur:
         cur.execute(
             """
-            INSERT INTO vertex_blockchain_tx (
+            INSERT OR IGNORE INTO vertex_blockchain_tx (
               vertex_id, _seq, created_date, sensitivity_ord, owner_did,
               chain, source_id, block_hash, block_height, tx_hash, tx_index,
               from_addr, to_addr, value_wei, raw_sha256, raw_json,
               canonical_status, ingested_at, run_id
             )
-            SELECT %s, CAST(NULL AS BIGINT), CAST(%s AS DATE), CAST(0 AS BIGINT), %s,
-                   %s, %s, %s, CAST(%s AS BIGINT), %s, CAST(%s AS BIGINT),
-                   %s, %s, %s, %s, %s,
-                   %s, %s, %s
-            WHERE NOT EXISTS (SELECT 1 FROM vertex_blockchain_tx WHERE vertex_id = %s)
+            VALUES (?, NULL, ?, 0, ?,
+                   ?, ?, ?, ?, ?, ?,
+                   ?, ?, ?, ?, ?,
+                   ?, ?, ?)
             """,
             (
                 row["vertex_id"],
@@ -249,7 +275,6 @@ def _insert_tx(row: dict[str, Any]) -> int:
                 "canonical",
                 now,
                 row.get("run_id", ""),
-                row["vertex_id"],
             ),
         )
         return int(cur.rowcount or 0)

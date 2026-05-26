@@ -1,7 +1,7 @@
 // langserver-xrpc-handler.ts — Hono routes that expose a UNSPSC or ISIC
 // langserver as XRPC. Per ADR-2605180900 Phase 7.
 //
-// The handler mounts under `/xrpc/ai.gftd.apps.{taxonomy}.{action}` and
+// The handler mounts under `/xrpc/app.etzhayyim.apps.{taxonomy}.{action}` and
 // delegates each route to the per-taxonomy actor wrapper (Phase 6). The
 // AppView Worker hosts this handler at a public domain
 // (unispsc.etzhayyim.com / isic.etzhayyim.com); the langserver itself
@@ -79,12 +79,12 @@ export function createLangserverXrpcHandler(
       service: `appview-open-${taxonomy}`,
       taxonomy,
       lexicons: [
-        `ai.gftd.apps.${taxonomy}.classify`,
-        `ai.gftd.apps.${taxonomy}.invokeAgent`,
-        `ai.gftd.apps.${taxonomy}.listAgents`,
-        `ai.gftd.apps.${taxonomy}.health`,
+        `app.etzhayyim.apps.${taxonomy}.classify`,
+        `app.etzhayyim.apps.${taxonomy}.invokeAgent`,
+        `app.etzhayyim.apps.${taxonomy}.listAgents`,
+        `app.etzhayyim.apps.${taxonomy}.health`,
         ...(taxonomy === "isic"
-          ? [`ai.gftd.apps.isic.hierarchicalClassify`]
+          ? [`app.etzhayyim.apps.isic.hierarchicalClassify`]
           : []),
       ],
     }),
@@ -103,7 +103,7 @@ export function createLangserverXrpcHandler(
 
   // ── Lexicon-shaped XRPC endpoints ─────────────────────────────────────────
 
-  const nsid = (action: string) => `/xrpc/ai.gftd.apps.${taxonomy}.${action}`;
+  const nsid = (action: string) => `/xrpc/app.etzhayyim.apps.${taxonomy}.${action}`;
 
   // classify (procedure)
   app.post(nsid("classify"), async (c) => {

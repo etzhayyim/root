@@ -25,11 +25,11 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-post-chat-v2',
                  'did:web:live.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  ai.gftd.apps.live.postChat — append an actor utterance to a live room.\n'
+                 '  app.etzhayyim.apps.live.postChat — append an actor utterance to a live room.\n'
                  '\n'
                  '  Three-task flow:\n'
                  '    1. generic.db.insert  → vertex_live_chat (Tier 2 Domain write)\n'
@@ -62,7 +62,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_live_chat&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id: &quot;at://&quot; + string(actorDid) + '
-                 '&quot;/ai.gftd.apps.live.chat/&quot; + string(now()) + &quot;-&quot; + '
+                 '&quot;/app.etzhayyim.apps.live.chat/&quot; + string(now()) + &quot;-&quot; + '
                  'string(actorDid),\n'
                  '              room_slug: roomSlug,\n'
                  '              actor_handle: handle,\n'
@@ -156,7 +156,7 @@ UP = [{'sql': '\n'
                  'did:web:live.etzhayyim.com',
                  'did:web:live.etzhayyim.com',
                  'sys.bpmn.seed.live.v2',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-post-chat-v2']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_process_def\n'
          "    SET status = 'superseded'\n"
@@ -171,7 +171,7 @@ UP = [{'sql': '\n'
          '        result_timeout_ms = CAST(15000 AS integer)\n'
          '    WHERE vertex_id = $1\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-postChat-v1']}]
 
 DOWN = [{'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
@@ -179,7 +179,7 @@ DOWN = [{'sql': '\n'
          '        result_timeout_ms = CAST(5000 AS integer)\n'
          '    WHERE vertex_id = $1\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/apps-live-postChat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/apps-live-postChat-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_process_def\n'
          "    SET status = 'active'\n"
@@ -188,7 +188,7 @@ DOWN = [{'sql': '\n'
          '  ',
   'parameters': []},
  {'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/apps-live-post-chat-v2']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/apps-live-post-chat-v2']}]
 
 
 def upgrade() -> None:

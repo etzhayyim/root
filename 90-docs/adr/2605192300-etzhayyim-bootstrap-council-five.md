@@ -55,7 +55,7 @@ Bootstrap Council 5 名は、以下 5 軸の expertise を broadly カバーす�
 5 名の選定は **founder 提案 + 30 日 public objection period** によって確定する:
 
 1. Founder (Seat 1, Jun Kawasaki) が Seat 2-5 候補を public に提案
-2. 30 日間 `ai.gftd.apps.etzhayyim.council-objection` AT Record で構成員 (Adherent SBT holder) が異議を提出可能
+2. 30 日間 `app.etzhayyim.apps.etzhayyim.council-objection` AT Record で構成員 (Adherent SBT holder) が異議を提出可能
 3. 異議が 3 名以上の SBT holder から提出された seat について founder は別候補を再提案
 4. 全 seat が 30 日異議無しを通過した時点で `BootstrapCouncilRegistry.bootstrap(addresses[])` を call
 
@@ -65,13 +65,13 @@ Bootstrap Council 5 名は、以下 5 軸の expertise を broadly カバーす�
 
 | Seat | 氏名 | DID | Smart Wallet | 確定 |
 |---|---|---|---|---|
-| 1 (Founder) | Jun Kawasaki | did:web:jun.gftd.group (or did:plc:TBD) | 0xTBD (founder Smart Wallet) | ✅ confirmed |
+| 1 (Founder) | Jun Kawasaki | did:web:jun.etzhayyim.com (or did:plc:TBD) | 0xTBD (founder Smart Wallet) | ✅ confirmed |
 | 2 (Substrate) | _placeholder_ | TBD | TBD | 🟡 public RFP open |
 | 3 (Legal / Ethics) | _placeholder_ | TBD | TBD | 🟡 public RFP open |
 | 4 (Economics) | _placeholder_ | TBD | TBD | 🟡 public RFP open |
 | 5 (Stewardship) | _placeholder_ | TBD | TBD | 🟡 public RFP open |
 
-候補は `ai.gftd.apps.etzhayyim.council-candidate-application` で self-nomination 可。
+候補は `app.etzhayyim.apps.etzhayyim.council-candidate-application` で self-nomination 可。
 
 ## 3. Council 拡張権限 (Phase 1)
 

@@ -42,7 +42,7 @@ def _minimal_cfg() -> dict:
             "handle": "myapp",
         },
         "triggers": {
-            "subscribeRepos": {"collections": ["ai.gftd.apps.myapp.item"]}
+            "subscribeRepos": {"collections": ["app.etzhayyim.apps.myapp.item"]}
         },
     }
 

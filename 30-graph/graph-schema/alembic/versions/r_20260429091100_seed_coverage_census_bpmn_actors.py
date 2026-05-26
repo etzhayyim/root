@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferCensusStats-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferCensusStats-v1',
                  'did:web:coverage.etzhayyim.com',
                  'coverage_infer_census_stats_v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -36,7 +36,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Trigger:\n'
                  '    timer-start R/P7D (every 7 days) AND XRPC '
-                 '(ai.gftd.apps.coverage.inferCensusStats).\n'
+                 '(app.etzhayyim.apps.coverage.inferCensusStats).\n'
                  '\n'
                  '  Pipeline:\n'
                  '    1. generic.db.select  — read registered census sources '
@@ -51,8 +51,8 @@ UP = [{'sql': '\n'
                  '    6. generic.audit.emit — OCEL event (statsRefreshed, countries, sources)\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-infer-census-stats-v1\n'
-                 '  NSID:      ai.gftd.apps.coverage.inferCensusStats\n'
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-infer-census-stats-v1\n'
+                 '  NSID:      app.etzhayyim.apps.coverage.inferCensusStats\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -259,7 +259,7 @@ UP = [{'sql': '\n'
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferCensusStats-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferCensusStats-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -273,21 +273,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferCensusStats-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferCensusStats-v1',
                  'did:web:coverage.etzhayyim.com',
-                 'ai.gftd.apps.coverage.inferCensusStats',
+                 'app.etzhayyim.apps.coverage.inferCensusStats',
                  'coverage_infer_census_stats_v1',
                  600000,
                  '2026-04-29T09:07:00Z',
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferCensusStats-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferCensusStats-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/coverage-inferCensusStats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-inferCensusStats-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/coverage-inferCensusStats-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-inferCensusStats-v1']}]
 
 
 def upgrade() -> None:

@@ -20,3 +20,5 @@ graph = StateGraph(TrawlerState)
 graph.add_node('validate', validate_vessel)
 graph.add_edge('validate', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

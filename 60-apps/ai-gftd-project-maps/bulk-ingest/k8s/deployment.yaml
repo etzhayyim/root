@@ -1,3 +1,4 @@
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 # maps-bulk-ingest-wikidata — resident worker pod
 #
 # Long-running daemon that holds open TCP listener on :8080. POST /trigger
@@ -21,11 +22,11 @@ metadata:
   namespace: maps-bulk-ingest
 type: Opaque
 stringData:
-  # Source these from gftd vault before apply:
+  # Source these from gftd vault before apply — values below are EXAMPLE placeholder:
   #   gftd vault get maps-bulk-ingest DATABASE_URL B2_ACCESS_KEY_ID B2_SECRET_ACCESS_KEY
-  DATABASE_URL: "postgres://root:CHANGEME@45.32.79.245:4566/dev"
-  B2_ACCESS_KEY_ID: "CHANGEME"
-  B2_SECRET_ACCESS_KEY: "CHANGEME"
+  DATABASE_URL: "postgres://root:CHANGEME@45.32.79.245:4566/dev"  # EXAMPLE placeholder
+  B2_ACCESS_KEY_ID: "CHANGEME"  # EXAMPLE placeholder
+  B2_SECRET_ACCESS_KEY: "CHANGEME"  # EXAMPLE placeholder
 ---
 apiVersion: apps/v1
 kind: Deployment

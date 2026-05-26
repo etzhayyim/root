@@ -227,18 +227,18 @@
 </svelte:head>
 
 <!-- Nav -->
-<nav class="fixed inset-x-0 top-0 z-50 border-b border-gftd-border bg-gftd-bg/80 backdrop-blur-md">
+<nav class="fixed inset-x-0 top-0 z-50 border-b border-etzhayyim-border bg-etzhayyim-bg/80 backdrop-blur-md">
 	<div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
 		<a href="/" class="flex items-center gap-2">
-			<span class="text-xl font-bold tracking-tight text-gftd-text">yatabase</span>
-			<span class="rounded-full bg-gftd-accent/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gftd-accent">beta</span>
+			<span class="text-xl font-bold tracking-tight text-etzhayyim-text">yatabase</span>
+			<span class="rounded-full bg-etzhayyim-accent/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-etzhayyim-accent">beta</span>
 		</a>
 		<div class="flex items-center gap-4">
-			<a href="#features" class="hidden text-sm text-gftd-secondary transition-colors hover:text-gftd-text sm:block">Features</a>
-			<a href="#compare"  class="hidden text-sm text-gftd-secondary transition-colors hover:text-gftd-text sm:block">Compare</a>
-			<a href="#pricing"  class="hidden text-sm text-gftd-secondary transition-colors hover:text-gftd-text sm:block">Pricing</a>
+			<a href="#features" class="hidden text-sm text-etzhayyim-secondary transition-colors hover:text-etzhayyim-text sm:block">Features</a>
+			<a href="#compare"  class="hidden text-sm text-etzhayyim-secondary transition-colors hover:text-etzhayyim-text sm:block">Compare</a>
+			<a href="#pricing"  class="hidden text-sm text-etzhayyim-secondary transition-colors hover:text-etzhayyim-text sm:block">Pricing</a>
 			<a href="/studio"
-				class="rounded-lg bg-gftd-accent px-4 py-1.5 text-sm font-medium text-white shadow-sm transition-opacity hover:opacity-90"
+				class="rounded-lg bg-etzhayyim-accent px-4 py-1.5 text-sm font-medium text-white shadow-sm transition-opacity hover:opacity-90"
 			>Open Studio →</a>
 		</div>
 	</div>
@@ -248,20 +248,20 @@
 <section class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-20 text-center">
 	<div class="pointer-events-none absolute inset-0 opacity-[0.03]"
 		style="background-image: linear-gradient(var(--gv2-border) 1px, transparent 1px), linear-gradient(90deg, var(--gv2-border) 1px, transparent 1px); background-size: 48px 48px;"></div>
-	<div class="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-gftd-accent/5 blur-3xl"></div>
+	<div class="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-etzhayyim-accent/5 blur-3xl"></div>
 
 	<div class="relative z-10 max-w-3xl">
-		<div class="mb-6 inline-flex items-center gap-2 rounded-full border border-gftd-border bg-gftd-card px-4 py-1.5 text-sm text-gftd-secondary">
+		<div class="mb-6 inline-flex items-center gap-2 rounded-full border border-etzhayyim-border bg-gftd-card px-4 py-1.5 text-sm text-etzhayyim-secondary">
 			<span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
 			Graph DB BaaS · Cypher · SPARQL · SQL · MCP · OWL
 		</div>
 
-		<h1 class="text-5xl font-bold leading-[1.1] tracking-tight text-gftd-text sm:text-6xl">
+		<h1 class="text-5xl font-bold leading-[1.1] tracking-tight text-etzhayyim-text sm:text-6xl">
 			The only graph DB<br />
-			<span class="text-gftd-accent">your AI agents can query.</span>
+			<span class="text-etzhayyim-accent">your AI agents can query.</span>
 		</h1>
 
-		<p class="mx-auto mt-6 max-w-xl text-lg text-gftd-secondary">
+		<p class="mx-auto mt-6 max-w-xl text-lg text-etzhayyim-secondary">
 			Cypher + SPARQL + SQL in one managed database. Native MCP endpoint.
 			OWL reasoning. CPU-time billing — no I/O fan-out shocks.
 			¥4,980/mo. 70% cheaper than Neptune.
@@ -269,16 +269,16 @@
 
 		<div class="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
 			<a href="/studio"
-				class="rounded-xl bg-gftd-accent px-8 py-3 text-base font-semibold text-white shadow-lg shadow-gftd-accent/20 transition-opacity hover:opacity-90"
+				class="rounded-xl bg-etzhayyim-accent px-8 py-3 text-base font-semibold text-white shadow-lg shadow-etzhayyim-accent/20 transition-opacity hover:opacity-90"
 			>Get started free</a>
 			<a href="#compare"
-				class="rounded-xl border border-gftd-border bg-gftd-card px-8 py-3 text-base font-medium text-gftd-text transition-colors hover:border-gftd-accent/40"
+				class="rounded-xl border border-etzhayyim-border bg-gftd-card px-8 py-3 text-base font-medium text-etzhayyim-text transition-colors hover:border-etzhayyim-accent/40"
 			>Compare pricing →</a>
 		</div>
 
 		<div class="mt-12 flex flex-wrap justify-center gap-2">
 			{#each ['Cypher / GQL', 'SPARQL 1.1', 'PostgreSQL wire', 'MCP JSON-RPC', 'OWL EL/RL/QL/DL', 'BWA $0 egress', 'AT Protocol auth'] as p}
-				<span class="rounded-md border border-gftd-border bg-gftd-card px-3 py-1 text-xs text-gftd-muted">{p}</span>
+				<span class="rounded-md border border-etzhayyim-border bg-gftd-card px-3 py-1 text-xs text-etzhayyim-muted">{p}</span>
 			{/each}
 		</div>
 	</div>
@@ -288,22 +288,22 @@
 <section id="features" class="px-6 py-24">
 	<div class="mx-auto max-w-6xl">
 		<div class="mb-16 text-center">
-			<h2 class="text-3xl font-bold tracking-tight text-gftd-text">Three structural moats. One database.</h2>
-			<p class="mt-3 text-gftd-secondary">Multi-language queries, native MCP, and BWA-free egress — advantages competitors cannot structurally replicate.</p>
+			<h2 class="text-3xl font-bold tracking-tight text-etzhayyim-text">Three structural moats. One database.</h2>
+			<p class="mt-3 text-etzhayyim-secondary">Multi-language queries, native MCP, and BWA-free egress — advantages competitors cannot structurally replicate.</p>
 		</div>
 		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 			{#each features as f}
-				<div class="group relative rounded-2xl border border-gftd-border bg-gftd-card p-6 transition-colors hover:border-gftd-accent/30">
+				<div class="group relative rounded-2xl border border-etzhayyim-border bg-gftd-card p-6 transition-colors hover:border-etzhayyim-accent/30">
 					{#if f.badge === 'Moat'}
-						<span class="absolute top-4 right-4 rounded-md bg-gftd-accent/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gftd-accent">Moat</span>
+						<span class="absolute top-4 right-4 rounded-md bg-etzhayyim-accent/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-etzhayyim-accent">Moat</span>
 					{:else if f.badge === 'Unique'}
 						<span class="absolute top-4 right-4 rounded-md bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">Unique</span>
 					{/if}
-					<div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-gftd-accent/10 text-gftd-accent">
+					<div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-etzhayyim-accent/10 text-etzhayyim-accent">
 						{@html f.icon}
 					</div>
-					<h3 class="mb-2 font-semibold text-gftd-text">{f.title}</h3>
-					<p class="text-sm leading-relaxed text-gftd-secondary">{f.desc}</p>
+					<h3 class="mb-2 font-semibold text-etzhayyim-text">{f.title}</h3>
+					<p class="text-sm leading-relaxed text-etzhayyim-secondary">{f.desc}</p>
 				</div>
 			{/each}
 		</div>
@@ -311,23 +311,23 @@
 </section>
 
 <!-- Protocol strip -->
-<section class="border-y border-gftd-border bg-gftd-card px-6 py-20">
+<section class="border-y border-etzhayyim-border bg-gftd-card px-6 py-20">
 	<div class="mx-auto max-w-6xl">
 		<div class="grid gap-12 lg:grid-cols-2 lg:items-center">
 			<div>
-				<h2 class="text-3xl font-bold tracking-tight text-gftd-text">One graph, five wire protocols</h2>
-				<p class="mt-4 text-gftd-secondary">
+				<h2 class="text-3xl font-bold tracking-tight text-etzhayyim-text">One graph, five wire protocols</h2>
+				<p class="mt-4 text-etzhayyim-secondary">
 					Your data scientists use SPARQL. Your app uses Cypher.
 					Your BI tool uses psql. Your AI agent uses MCP.
 					No sync jobs. No replicas. One credential.
 				</p>
-				<div class="mt-6 rounded-xl border border-gftd-border bg-gftd-bg p-4 font-mono text-xs text-gftd-secondary">
-					<div class="text-gftd-muted mb-2"># same graph, different query languages</div>
-					<div><span class="text-gftd-accent">MATCH</span> (p:Person)-[:KNOWS]-&gt;(f) <span class="text-gftd-accent">RETURN</span> f.name</div>
+				<div class="mt-6 rounded-xl border border-etzhayyim-border bg-etzhayyim-bg p-4 font-mono text-xs text-etzhayyim-secondary">
+					<div class="text-etzhayyim-muted mb-2"># same graph, different query languages</div>
+					<div><span class="text-etzhayyim-accent">MATCH</span> (p:Person)-[:KNOWS]-&gt;(f) <span class="text-etzhayyim-accent">RETURN</span> f.name</div>
 					<div class="mt-1"><span class="text-emerald-400">SELECT</span> ?f <span class="text-emerald-400">WHERE</span> &#123; :p :knows ?f &#125;</div>
 					<div class="mt-1"><span class="text-blue-400">SELECT</span> * <span class="text-blue-400">FROM</span> vertex_person <span class="text-blue-400">LIMIT</span> 10</div>
 				</div>
-				<a href="/studio" class="mt-8 inline-block rounded-lg border border-gftd-accent/40 px-6 py-2.5 text-sm font-medium text-gftd-accent transition-colors hover:bg-gftd-accent/5">Open Studio →</a>
+				<a href="/studio" class="mt-8 inline-block rounded-lg border border-etzhayyim-accent/40 px-6 py-2.5 text-sm font-medium text-etzhayyim-accent transition-colors hover:bg-etzhayyim-accent/5">Open Studio →</a>
 			</div>
 			<div class="space-y-2">
 				{#each [
@@ -337,12 +337,12 @@
 					{ badge: 'AT Proto', name: 'XRPC', desc: 'AT Protocol native wire' },
 					{ badge: 'AI', name: 'MCP JSON-RPC', desc: 'Model Context Protocol' },
 				] as p}
-					<div class="flex items-center justify-between rounded-xl border border-gftd-border bg-gftd-bg px-5 py-3">
+					<div class="flex items-center justify-between rounded-xl border border-etzhayyim-border bg-etzhayyim-bg px-5 py-3">
 						<div class="flex items-center gap-3">
-							<span class="rounded-md bg-gftd-accent/10 px-2 py-0.5 text-[11px] font-semibold text-gftd-accent">{p.badge}</span>
-							<span class="font-medium text-gftd-text">{p.name}</span>
+							<span class="rounded-md bg-etzhayyim-accent/10 px-2 py-0.5 text-[11px] font-semibold text-etzhayyim-accent">{p.badge}</span>
+							<span class="font-medium text-etzhayyim-text">{p.name}</span>
 						</div>
-						<span class="text-sm text-gftd-muted">{p.desc}</span>
+						<span class="text-sm text-etzhayyim-muted">{p.desc}</span>
 					</div>
 				{/each}
 			</div>
@@ -354,30 +354,30 @@
 <section id="compare" class="px-6 py-24">
 	<div class="mx-auto max-w-6xl">
 		<div class="mb-12 text-center">
-			<h2 class="text-3xl font-bold tracking-tight text-gftd-text">How we compare</h2>
-			<p class="mt-3 text-gftd-secondary">Graph DB BaaS pricing as of May 2026. Sources: vendor pricing pages.</p>
+			<h2 class="text-3xl font-bold tracking-tight text-etzhayyim-text">How we compare</h2>
+			<p class="mt-3 text-etzhayyim-secondary">Graph DB BaaS pricing as of May 2026. Sources: vendor pricing pages.</p>
 		</div>
 		<div class="overflow-x-auto">
 			<table class="w-full min-w-[680px] border-collapse text-sm">
 				<thead>
-					<tr class="border-b border-gftd-border">
-						<th class="pb-4 text-left font-medium text-gftd-muted w-44"></th>
+					<tr class="border-b border-etzhayyim-border">
+						<th class="pb-4 text-left font-medium text-etzhayyim-muted w-44"></th>
 						<th class="pb-4 text-center">
-							<span class="inline-block rounded-lg bg-gftd-accent/10 px-3 py-1 text-sm font-bold text-gftd-accent">yatabase</span>
+							<span class="inline-block rounded-lg bg-etzhayyim-accent/10 px-3 py-1 text-sm font-bold text-etzhayyim-accent">yatabase</span>
 						</th>
-						<th class="pb-4 text-center text-sm font-medium text-gftd-secondary">Neo4j Aura</th>
-						<th class="pb-4 text-center text-sm font-medium text-gftd-secondary">Amazon Neptune</th>
-						<th class="pb-4 text-center text-sm font-medium text-gftd-secondary">TigerGraph</th>
+						<th class="pb-4 text-center text-sm font-medium text-etzhayyim-secondary">Neo4j Aura</th>
+						<th class="pb-4 text-center text-sm font-medium text-etzhayyim-secondary">Amazon Neptune</th>
+						<th class="pb-4 text-center text-sm font-medium text-etzhayyim-secondary">TigerGraph</th>
 					</tr>
 				</thead>
 				<tbody>
 					{#each competitors as row, i}
-						<tr class="border-b border-gftd-border/50 {i % 2 === 0 ? '' : 'bg-gftd-card/30'}">
-							<td class="py-3.5 pr-4 font-medium text-gftd-secondary">{row.feature}</td>
+						<tr class="border-b border-etzhayyim-border/50 {i % 2 === 0 ? '' : 'bg-gftd-card/30'}">
+							<td class="py-3.5 pr-4 font-medium text-etzhayyim-secondary">{row.feature}</td>
 							{#each [row.yatabase, row.neo4j, row.neptune, row.tigergraph] as cell, ci}
 								<td class="py-3.5 text-center">
-									<span class="{ci === 0 && isYes(cell) ? 'font-semibold text-emerald-400' : ci === 0 ? 'font-semibold text-gftd-text' : isYes(cell) ? 'text-gftd-secondary' : isNo(cell) ? 'text-gftd-muted/60' : 'text-gftd-secondary'}">{cell.val}</span>
-									{#if cell.sub}<div class="text-[11px] text-gftd-muted mt-0.5 leading-tight">{cell.sub}</div>{/if}
+									<span class="{ci === 0 && isYes(cell) ? 'font-semibold text-emerald-400' : ci === 0 ? 'font-semibold text-etzhayyim-text' : isYes(cell) ? 'text-etzhayyim-secondary' : isNo(cell) ? 'text-etzhayyim-muted/60' : 'text-etzhayyim-secondary'}">{cell.val}</span>
+									{#if cell.sub}<div class="text-[11px] text-etzhayyim-muted mt-0.5 leading-tight">{cell.sub}</div>{/if}
 								</td>
 							{/each}
 						</tr>
@@ -385,43 +385,43 @@
 				</tbody>
 			</table>
 		</div>
-		<p class="mt-5 text-center text-xs text-gftd-muted">
+		<p class="mt-5 text-center text-xs text-etzhayyim-muted">
 			Neptune: db.t3.medium ($53/mo) + $0.10/GB storage + $0.20/M I/O + $0.09/GB egress. TigerGraph: 16 GB minimum. Prices excl. taxes.
 		</p>
 	</div>
 </section>
 
 <!-- Pricing -->
-<section id="pricing" class="border-t border-gftd-border bg-gftd-card px-6 py-24">
+<section id="pricing" class="border-t border-etzhayyim-border bg-gftd-card px-6 py-24">
 	<div class="mx-auto max-w-6xl">
 		<div class="mb-16 text-center">
-			<h2 class="text-3xl font-bold tracking-tight text-gftd-text">Simple, predictable pricing</h2>
-			<p class="mt-3 text-gftd-secondary">CPU-time billing. No I/O charges. No egress fees. No query-count surprises.</p>
+			<h2 class="text-3xl font-bold tracking-tight text-etzhayyim-text">Simple, predictable pricing</h2>
+			<p class="mt-3 text-etzhayyim-secondary">CPU-time billing. No I/O charges. No egress fees. No query-count surprises.</p>
 		</div>
 
 		<!-- Plan cards — scroll horizontally on mobile -->
 		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
 			{#each plans as plan}
 				<div class="relative flex flex-col rounded-2xl border p-6
-					{plan.highlight ? 'border-gftd-accent bg-gftd-accent/5' : 'border-gftd-border bg-gftd-bg'}">
+					{plan.highlight ? 'border-etzhayyim-accent bg-etzhayyim-accent/5' : 'border-etzhayyim-border bg-etzhayyim-bg'}">
 					{#if plan.highlight}
 						<div class="absolute -top-3 left-1/2 -translate-x-1/2">
-							<span class="rounded-full bg-gftd-accent px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">Most popular</span>
+							<span class="rounded-full bg-etzhayyim-accent px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">Most popular</span>
 						</div>
 					{/if}
 					<div class="mb-5">
-						<h3 class="text-xs font-semibold uppercase tracking-wider text-gftd-secondary">{plan.name}</h3>
+						<h3 class="text-xs font-semibold uppercase tracking-wider text-etzhayyim-secondary">{plan.name}</h3>
 						<div class="mt-1.5 flex items-baseline gap-1">
-							<span class="text-2xl font-bold text-gftd-text">{plan.priceJpy}</span>
-							{#if plan.period}<span class="text-xs text-gftd-muted">{plan.period}</span>{/if}
+							<span class="text-2xl font-bold text-etzhayyim-text">{plan.priceJpy}</span>
+							{#if plan.period}<span class="text-xs text-etzhayyim-muted">{plan.period}</span>{/if}
 						</div>
 						{#if plan.priceUsd}
-							<p class="mt-0.5 text-xs text-gftd-muted">{plan.priceUsd}</p>
+							<p class="mt-0.5 text-xs text-etzhayyim-muted">{plan.priceUsd}</p>
 						{/if}
 					</div>
 					<ul class="mb-6 flex-1 space-y-2">
 						{#each plan.features as feat}
-							<li class="flex items-start gap-2 text-xs text-gftd-secondary">
+							<li class="flex items-start gap-2 text-xs text-etzhayyim-secondary">
 								<svg class="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
 								</svg>
@@ -431,7 +431,7 @@
 					</ul>
 					<a href="/studio"
 						class="block w-full rounded-xl py-2 text-center text-xs font-semibold transition-opacity
-						{plan.highlight ? 'bg-gftd-accent text-white hover:opacity-90' : 'border border-gftd-border text-gftd-text hover:border-gftd-accent/40'}"
+						{plan.highlight ? 'bg-etzhayyim-accent text-white hover:opacity-90' : 'border border-etzhayyim-border text-etzhayyim-text hover:border-etzhayyim-accent/40'}"
 					>{plan.cta}</a>
 				</div>
 			{/each}
@@ -439,11 +439,11 @@
 
 		<!-- Overage rates -->
 		<div class="mt-14">
-			<h3 class="mb-5 text-center text-sm font-semibold uppercase tracking-wider text-gftd-secondary">Overage rates</h3>
+			<h3 class="mb-5 text-center text-sm font-semibold uppercase tracking-wider text-etzhayyim-secondary">Overage rates</h3>
 			<div class="mx-auto max-w-2xl overflow-x-auto">
 				<table class="w-full text-sm border-collapse">
 					<thead>
-						<tr class="border-b border-gftd-border text-xs text-gftd-muted">
+						<tr class="border-b border-etzhayyim-border text-xs text-etzhayyim-muted">
 							<th class="pb-2 text-left font-medium">Axis</th>
 							<th class="pb-2 text-left font-medium">Unit</th>
 							<th class="pb-2 text-right font-medium">List price</th>
@@ -452,11 +452,11 @@
 					</thead>
 					<tbody>
 						{#each overages as o}
-							<tr class="border-b border-gftd-border/40">
-								<td class="py-2.5 text-gftd-text font-medium">{o.axis}</td>
-								<td class="py-2.5 text-gftd-secondary text-xs">{o.unit}</td>
-								<td class="py-2.5 text-right font-semibold {o.price === '¥0' ? 'text-emerald-400' : 'text-gftd-text'}">{o.price}</td>
-								<td class="py-2.5 pl-6 text-right text-xs text-gftd-muted">{o.note}</td>
+							<tr class="border-b border-etzhayyim-border/40">
+								<td class="py-2.5 text-etzhayyim-text font-medium">{o.axis}</td>
+								<td class="py-2.5 text-etzhayyim-secondary text-xs">{o.unit}</td>
+								<td class="py-2.5 text-right font-semibold {o.price === '¥0' ? 'text-emerald-400' : 'text-etzhayyim-text'}">{o.price}</td>
+								<td class="py-2.5 pl-6 text-right text-xs text-etzhayyim-muted">{o.note}</td>
 							</tr>
 						{/each}
 					</tbody>
@@ -467,27 +467,27 @@
 </section>
 
 <!-- CTA -->
-<section class="border-t border-gftd-border px-6 py-24 text-center">
+<section class="border-t border-etzhayyim-border px-6 py-24 text-center">
 	<div class="mx-auto max-w-2xl">
-		<h2 class="text-3xl font-bold tracking-tight text-gftd-text">Ready to query your graph?</h2>
-		<p class="mt-4 text-gftd-secondary">
+		<h2 class="text-3xl font-bold tracking-tight text-etzhayyim-text">Ready to query your graph?</h2>
+		<p class="mt-4 text-etzhayyim-secondary">
 			Open Studio, create a tenant, and run your first Cypher query in minutes.
 			No credit card required on the free plan.
 		</p>
 		<a href="/studio"
-			class="mt-8 inline-block rounded-xl bg-gftd-accent px-10 py-3 text-base font-semibold text-white shadow-lg shadow-gftd-accent/20 transition-opacity hover:opacity-90"
+			class="mt-8 inline-block rounded-xl bg-etzhayyim-accent px-10 py-3 text-base font-semibold text-white shadow-lg shadow-etzhayyim-accent/20 transition-opacity hover:opacity-90"
 		>Open Studio →</a>
 	</div>
 </section>
 
 <!-- Footer -->
-<footer class="border-t border-gftd-border px-6 py-8">
+<footer class="border-t border-etzhayyim-border px-6 py-8">
 	<div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
-		<span class="text-sm font-semibold text-gftd-text">yatabase</span>
-		<span class="text-xs text-gftd-muted">© 2026 Gftd Japan株式会社 · <a href="https://yatabase.etzhayyim.com/.well-known/mcp.json" class="hover:text-gftd-text transition-colors">MCP discovery</a></span>
+		<span class="text-sm font-semibold text-etzhayyim-text">yatabase</span>
+		<span class="text-xs text-etzhayyim-muted">© 2026 etzhayyim Japan株式会社 · <a href="https://yatabase.etzhayyim.com/.well-known/mcp.json" class="hover:text-etzhayyim-text transition-colors">MCP discovery</a></span>
 		<div class="flex gap-4">
-			<a href="/studio" class="text-xs text-gftd-muted hover:text-gftd-text transition-colors">Studio</a>
-			<a href="https://mcp.etzhayyim.com/mcp" class="text-xs text-gftd-muted hover:text-gftd-text transition-colors">MCP</a>
+			<a href="/studio" class="text-xs text-etzhayyim-muted hover:text-etzhayyim-text transition-colors">Studio</a>
+			<a href="https://mcp.etzhayyim.com/mcp" class="text-xs text-etzhayyim-muted hover:text-etzhayyim-text transition-colors">MCP</a>
 		</div>
 	</div>
 </footer>

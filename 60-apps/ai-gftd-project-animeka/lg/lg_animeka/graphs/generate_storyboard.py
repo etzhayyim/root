@@ -1,6 +1,6 @@
 """animeka `generateStoryboard` graph — LLM prompt + ComfyUI 512×512 storyboard sketch.
 
-NSID: ai.gftd.animeka.generateStoryboard
+NSID: app.etzhayyim.animeka.generateStoryboard
 
 Takes a cut_id, generates a visual prompt via LLM, renders a monochrome
 storyboard sketch via ComfyUI, uploads to PDS, and inserts a storyboard
@@ -56,7 +56,7 @@ async def _node_fetch_cut(state: _State) -> dict[str, Any]:
         try:
             cur = conn.cursor()
             await cur.execute(
-                "SELECT camera_note FROM vertex_animeka WHERE collection='ai.gftd.animeka.cut' AND rkey=%s LIMIT 1",
+                "SELECT camera_note FROM vertex_animeka WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1",
                 [rkey],
             )
             row = await cur.fetchone()
@@ -134,7 +134,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     from datetime import datetime, timezone
     cut_id = state.get("cut_id") or ""
     rkey = f"sb-{secrets.token_hex(4)}"
-    vertex_id = f"at://{_REPO}/ai.gftd.animeka.storyboard/{rkey}"
+    vertex_id = f"at://{_REPO}/app.etzhayyim.animeka.storyboard/{rkey}"
     try:
         import psycopg
         conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
@@ -143,7 +143,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
                 """INSERT INTO vertex_animeka
                    (vertex_id, repo, rkey, collection, kind, owner_did,
                     cut_id, thumb_cid, camera_note, status, created_at)
-                   VALUES (%s, %s, %s, 'ai.gftd.animeka.storyboard', 'storyboard',
+                   VALUES (%s, %s, %s, 'app.etzhayyim.animeka.storyboard', 'storyboard',
                            %s, %s, %s, %s, 'draft', %s)""",
                 [vertex_id, _REPO, rkey, _DEFAULT_APP_DID,
                  cut_id, state.get("blob_cid"), state.get("visual_prompt"),

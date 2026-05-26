@@ -64,7 +64,7 @@ Subject: Field map: your Salesforce objects → open-salesforce lexicons
 > This one's for you, not your VP. Our interactive field map — paste your Salesforce object-field list client-side, get back a dry-run `map.jsonl` ready for `gftd opensaas migrate`: `<pillar-4 URL>`.
 >
 > Two things it'll surface in under 5 minutes:
-> - which custom objects port cleanly (extend `ai.gftd.apps.opensaas.salesforce.*`),
+> - which custom objects port cleanly (extend `app.etzhayyim.apps.opensaas.salesforce.*`),
 > - which Flow / Apex doesn't, and what the `derive` rule replacement looks like.
 >
 > If the map shows >10% drop, I'll tell you it's not a fit this year.
@@ -103,7 +103,7 @@ Addressed to CISO / DPO first, not VP Sales. Opener is the posture packet link; 
 
 ## Write-backs into the CRM
 
-Every outbound message is logged as an `ai.gftd.apps.opensaas.salesforce.activity` record with:
+Every outbound message is logged as an `app.etzhayyim.apps.opensaas.salesforce.activity` record with:
 - `kind=email` or `call`,
 - `direction=outbound`,
 - `source=manual-ui` (since it's pre-lead),

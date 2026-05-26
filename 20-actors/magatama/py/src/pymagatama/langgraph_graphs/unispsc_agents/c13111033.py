@@ -9,7 +9,7 @@ class ProcurementState(TypedDict):
 
 def verify_sds(state: ProcurementState) -> dict:
     # Simulate SDS verification logic
-    verified = True 
+    verified = True
     return {"sds_verified": verified, "log": ["SDS verified against global safety standards"]}
 
 def safety_validation(state: ProcurementState) -> dict:

@@ -24,10 +24,10 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/gftd',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/gftd',
                  'gftd',
-                 'GFTD',
-                 'GFTD portal',
+                 'etzhayyim',
+                 'etzhayyim portal',
                  '🌐',
                  'Orgs',
                  'https://etzhayyim.com',
@@ -37,7 +37,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -50,7 +50,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/kiyome',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/kiyome',
                  'kiyome',
                  'Kiyome',
                  'SMS phishing analysis & threat intelligence',
@@ -63,7 +63,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -76,7 +76,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/harai',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/harai',
                  'harai',
                  'Harai',
                  'Smishing enforcement & takedown coordinator',
@@ -89,7 +89,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -102,7 +102,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/news',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/news',
                  'news',
                  'News',
                  'AI-driven news portal',
@@ -115,7 +115,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -128,7 +128,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/search',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/search',
                  'search',
                  'Search',
                  'Unified search and discovery',
@@ -141,7 +141,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -154,7 +154,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/6ir',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/6ir',
                  '6ir',
                  '6IR',
                  '6IR analytics',
@@ -167,7 +167,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -180,7 +180,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/maps',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/maps',
                  'maps',
                  'Maps',
                  'Spatial maps and geolocation',
@@ -193,7 +193,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -206,7 +206,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/kareyanagi',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/kareyanagi',
                  'kareyanagi',
                  'Kareyanagi',
                  'Mold eradication platform with IoT sensors and maps integration',
@@ -219,7 +219,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -232,7 +232,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/drive',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/drive',
                  'drive',
                  'Drive',
                  'Cloud storage',
@@ -245,7 +245,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -258,7 +258,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/organizer',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/organizer',
                  'organizer',
                  'Organizer',
                  'Upload anything — AI auto-classifies, tags, and organizes',
@@ -271,7 +271,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -284,7 +284,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/sheets',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/sheets',
                  'sheets',
                  'Sheets',
                  'Spreadsheets',
@@ -297,7 +297,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -310,7 +310,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/docs',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/docs',
                  'docs',
                  'Docs',
                  'Documentation',
@@ -323,7 +323,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -336,7 +336,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/mailer',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/mailer',
                  'mailer',
                  'Mailer',
                  'Email client',
@@ -349,7 +349,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -362,7 +362,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/gmail',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/gmail',
                  'gmail',
                  'Gmail',
                  'Gmail sync + AI triage + contact DID messenger bridge',
@@ -375,7 +375,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -388,7 +388,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/outlook',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/outlook',
                  'outlook',
                  'Outlook',
                  'Outlook sync + calendar + contact DID bridge',
@@ -401,7 +401,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -414,7 +414,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/oshikatsu',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/oshikatsu',
                  'oshikatsu',
                  'Oshikatsu',
                  'Career support',
@@ -427,7 +427,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -440,7 +440,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/oshinobi',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/oshinobi',
                  'oshinobi',
                  'Oshinobi',
                  'Creator subscription platform (tiers, tips, posts)',
@@ -453,7 +453,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -466,7 +466,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/calendar',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/calendar',
                  'calendar',
                  'Calendar',
                  'Calendar',
@@ -479,7 +479,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -492,7 +492,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/forms',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/forms',
                  'forms',
                  'Forms',
                  'Forms builder',
@@ -505,7 +505,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -518,7 +518,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/threads',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/threads',
                  'threads',
                  'Matrix',
                  'Matrix messaging',
@@ -531,7 +531,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -544,7 +544,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/hub',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/hub',
                  'hub',
                  'Hub',
                  'Git-compatible project hub',
@@ -557,7 +557,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -570,7 +570,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/translate',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/translate',
                  'translate',
                  'Translate',
                  'Translation service',
@@ -583,7 +583,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -596,7 +596,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/images',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/images',
                  'images',
                  'Images',
                  'Image processing',
@@ -609,7 +609,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -622,7 +622,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/videos',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/videos',
                  'videos',
                  'Videos',
                  'Video platform',
@@ -635,7 +635,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -648,7 +648,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/videos-legacy',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/videos-legacy',
                  'videos-legacy',
                  'Videos2',
                  'Video platform',
@@ -661,7 +661,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -674,7 +674,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/music',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/music',
                  'music',
                  'Music',
                  'Music streaming',
@@ -687,7 +687,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -700,7 +700,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/manga',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/manga',
                  'manga',
                  'Manga',
                  'Manga reader',
@@ -713,7 +713,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -726,7 +726,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/anime',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/anime',
                  'anime',
                  'Anime',
                  'Anime platform',
@@ -739,7 +739,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -752,7 +752,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/games',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/games',
                  'games',
                  'Games',
                  'Games',
@@ -765,7 +765,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -778,7 +778,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/narou',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/narou',
                  'narou',
                  'Narou',
                  'Novel platform',
@@ -791,7 +791,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -804,7 +804,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/cards',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/cards',
                  'cards',
                  'Cards',
                  'Stripe Issuing cards',
@@ -817,7 +817,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -830,7 +830,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/tenki',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/tenki',
                  'tenki',
                  'Tenki',
                  'Weather',
@@ -843,7 +843,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -856,7 +856,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/yadoya',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/yadoya',
                  'yadoya',
                  'Yadoya',
                  'Lodging and stays',
@@ -869,7 +869,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -882,7 +882,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/fleamarket',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/fleamarket',
                  'fleamarket',
                  'FleaMarket',
                  'Marketplace',
@@ -895,7 +895,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -908,7 +908,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/okaimono',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/okaimono',
                  'okaimono',
                  'Shopping',
                  'Shopping',
@@ -921,7 +921,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -934,7 +934,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/briefing',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/briefing',
                  'briefing',
                  'Briefing',
                  'Content briefing',
@@ -947,7 +947,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -960,7 +960,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/tsukuru',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/tsukuru',
                  'tsukuru',
                  'Tsukuru',
                  'Factory-direct ordering platform',
@@ -973,7 +973,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -986,7 +986,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/cowork',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/cowork',
                  'cowork',
                  'Cowork',
                  'Co-working',
@@ -999,7 +999,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1012,7 +1012,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/shigotoba',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/shigotoba',
                  'shigotoba',
                  'Shigotoba',
                  'Job board',
@@ -1025,7 +1025,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1038,7 +1038,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/scheduler',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/scheduler',
                  'scheduler',
                  'Scheduler',
                  'Scheduler and automation',
@@ -1051,7 +1051,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1064,7 +1064,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/web4',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/web4',
                  'web4',
                  'Web4',
                  'Web4 / GCC token',
@@ -1077,7 +1077,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1090,7 +1090,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/society6',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/society6',
                  'society6',
                  'Society6',
                  'COFOG access and Society6 policy portal',
@@ -1103,7 +1103,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1116,7 +1116,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/lawfirm',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/lawfirm',
                  'lawfirm',
                  'Law Firm',
                  'Law firm client portal',
@@ -1129,7 +1129,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1142,7 +1142,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/lawyer',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/lawyer',
                  'lawyer',
                  'Lawyer',
                  'Lawyer workspace',
@@ -1155,7 +1155,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1168,7 +1168,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/ekyc',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/ekyc',
                  'ekyc',
                  'eKYC',
                  'Identity verification',
@@ -1181,7 +1181,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1194,7 +1194,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/shomeisyashin',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/shomeisyashin',
                  'shomeisyashin',
                  'ID Photo',
                  'AI証明写真メーカー',
@@ -1207,7 +1207,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1220,7 +1220,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/global',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/global',
                  'global',
                  'Global',
                  'Global services',
@@ -1233,7 +1233,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1246,7 +1246,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/worlds',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/worlds',
                  'worlds',
                  'Worlds',
                  'Virtual worlds',
@@ -1259,7 +1259,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1272,7 +1272,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/pachinko',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/pachinko',
                  'pachinko',
                  'Pachinko',
                  'Pachinko simulation',
@@ -1285,7 +1285,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1298,7 +1298,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/casino',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/casino',
                  'casino',
                  'Casino',
                  'World casino directory',
@@ -1311,7 +1311,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1324,7 +1324,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/oshiete',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/oshiete',
                  'oshiete',
                  'Oshiete',
                  'Q&A platform',
@@ -1337,7 +1337,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1350,7 +1350,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/webpage',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/webpage',
                  'webpage',
                  'Webpage',
                  'Web page crawl and text extraction',
@@ -1363,7 +1363,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1376,7 +1376,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/marketer',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/marketer',
                  'marketer',
                  'Marketer',
                  'Marketing tools',
@@ -1389,7 +1389,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1402,7 +1402,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/omikuji',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/omikuji',
                  'omikuji',
                  'Omikuji',
                  'Fortune telling',
@@ -1415,7 +1415,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1428,7 +1428,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/aima',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/aima',
                  'aima',
                  'AIMA',
                  'AI models',
@@ -1441,7 +1441,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1454,7 +1454,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/robot',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/robot',
                  'robot',
                  'Robot',
                  'Robot automation',
@@ -1467,7 +1467,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1480,7 +1480,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/wire',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/wire',
                  'wire',
                  'Wire',
                  'Messaging',
@@ -1493,7 +1493,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1506,7 +1506,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/lawfirm-admin',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/lawfirm-admin',
                  'lawfirm-admin',
                  'LF Admin',
                  'Law firm admin',
@@ -1519,7 +1519,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1532,7 +1532,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/performers',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/performers',
                  'performers',
                  'Performers',
                  'Platform dashboard',
@@ -1545,7 +1545,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1558,7 +1558,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/analytics',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/analytics',
                  'analytics',
                  'Analytics',
                  'Analytics dashboard',
@@ -1571,7 +1571,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1584,7 +1584,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/ops',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/ops',
                  'ops',
                  'Ops',
                  'Project operations',
@@ -1597,7 +1597,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1610,7 +1610,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/sre',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/sre',
                  'sre',
                  'SRE',
                  'Site reliability',
@@ -1623,7 +1623,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1636,7 +1636,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/os',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/os',
                  'os',
                  'OS',
                  'Operating system UI',
@@ -1649,7 +1649,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1662,7 +1662,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/po',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/po',
                  'po',
                  'PO',
                  'Projection operator',
@@ -1675,7 +1675,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1688,7 +1688,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/gov',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/gov',
                  'gov',
                  'Gov',
                  'Governance',
@@ -1701,7 +1701,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1714,7 +1714,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/resources',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/resources',
                  'resources',
                  'Resources',
                  'JSON-LD/RDF resources',
@@ -1727,7 +1727,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1740,7 +1740,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/completer',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/completer',
                  'completer',
                  'Completer',
                  'Code completion',
@@ -1753,7 +1753,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1766,7 +1766,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/har',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/har',
                  'har',
                  'HAR',
                  'HAR viewer',
@@ -1779,7 +1779,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1792,7 +1792,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/provider-pod',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/provider-pod',
                  'provider-pod',
                  'Provider',
                  'Provider pod marketplace',
@@ -1805,7 +1805,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1818,7 +1818,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/ge',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/ge',
                  'ge',
                  'GE',
                  'General education',
@@ -1831,7 +1831,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1844,7 +1844,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/lo',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/lo',
                  'lo',
                  'LO',
                  'Learning objects',
@@ -1857,7 +1857,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1870,7 +1870,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/tia',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/tia',
                  'tia',
                  'TIA',
                  'TIA assistant',
@@ -1883,7 +1883,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1896,7 +1896,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/wvme',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/wvme',
                  'wvme',
                  'WVME',
                  'WVME platform',
@@ -1909,7 +1909,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']},
  {'sql': '\n'
          '        INSERT INTO "vertex_app" (\n'
@@ -1922,7 +1922,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/ai.gftd.apps.yoro.appRegistry/tasklist',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/app.etzhayyim.apps.yoro.appRegistry/tasklist',
                  'tasklist',
                  'TaskList',
                  'Task approval',
@@ -1935,7 +1935,7 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
                  'public',
                  0,
                  'did:web:yoro.etzhayyim.com',
-                 'ai.gftd.apps.yoro.appRegistry',
+                 'app.etzhayyim.apps.yoro.appRegistry',
                  'did:web:yoro.etzhayyim.com']}]
 
 DOWN = []

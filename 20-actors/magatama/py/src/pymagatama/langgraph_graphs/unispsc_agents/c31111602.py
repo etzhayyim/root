@@ -25,4 +25,4 @@ graph.add_edge('validate', 'export_check')
 graph.add_edge('export_check', 'inspection')
 graph.add_edge('inspection', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

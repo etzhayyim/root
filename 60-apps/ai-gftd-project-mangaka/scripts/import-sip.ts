@@ -20,8 +20,8 @@
  *   SIP_SOURCE_DIR   default: /Users/junkawasaki/github/260208-spirit-in-physics
  *   MANGAKA_BASE     default: https://mangaka.etzhayyim.com/xrpc
  *   PDS_BASE         default: https://atproto.etzhayyim.com/xrpc
- *   GFTD_TOKEN       Service Auth JWT or sk_live_* API key (ADR-0022).
- *                    Mint via: gftd agent-token --lxm ai.gftd.mangaka.addChapter
+ *   etzhayyim_TOKEN       Service Auth JWT or sk_live_* API key (ADR-0022).
+ *                    Mint via: gftd agent-token --lxm app.etzhayyim.mangaka.addChapter
  *
  * Flags:
  *   --stage=<name>   characters|work|chapters|pages|all (default: all)
@@ -32,15 +32,15 @@
 const SOURCE_DIR    = Deno.env.get("SIP_SOURCE_DIR") ?? "/Users/junkawasaki/github/260208-spirit-in-physics";
 const MANGAKA_BASE  = Deno.env.get("MANGAKA_BASE")   ?? "https://mangaka.etzhayyim.com/xrpc";
 const PDS_BASE      = Deno.env.get("PDS_BASE")       ?? "https://atproto.etzhayyim.com/xrpc";
-const TOKEN         = Deno.env.get("GFTD_TOKEN")     ?? "";
+const TOKEN         = Deno.env.get("etzhayyim_TOKEN")     ?? "";
 const DRY_RUN       = Deno.args.includes("--dry-run");
 const STAGE         = (Deno.args.find((a) => a.startsWith("--stage=")) ?? "--stage=all").split("=")[1];
 const LIMIT         = parseInt((Deno.args.find((a) => a.startsWith("--limit=")) ?? "--limit=0").split("=")[1], 10) || 0;
 const ONLY          = (Deno.args.find((a) => a.startsWith("--only=")) ?? "--only=").split("=")[1];  // e.g. "vol01-loneliness/chapter02"
 
 const WORK_RKEY     = "spirit-in-physics";
-const WORK_AT_URI   = `at://mng4k4x1.etzhayyim.com/ai.gftd.mangaka.work/${WORK_RKEY}`;
-const READER_BASE   = "https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.chapter";
+const WORK_AT_URI   = `at://mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.work/${WORK_RKEY}`;
+const READER_BASE   = "https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.chapter";
 
 /** Canonical display names for all 42 character slugs observed in source. Drives derive-rule facet#mention. */
 const VOLUME_META: Record<string, { label: string; themeJP: string; tag: string; volNumber: number }> = {
@@ -147,7 +147,7 @@ async function stageCharacters(): Promise<void> {
   let ok = 0, fail = 0;
   for (const c of characters) {
     try {
-      await xrpc("mangaka", "ai.gftd.mangaka.createCharacter", {
+      await xrpc("mangaka", "app.etzhayyim.mangaka.createCharacter", {
         slug: c.slug,
         name: c.displayName,
         description: c.description,
@@ -184,7 +184,7 @@ async function stageWork(): Promise<void> {
   const title = (projectMeta["dct:title"] as string) ?? "Spirit in Physics";
   const description = (projectMeta["dct:description"] as string) ?? "";
 
-  await xrpc("mangaka", "ai.gftd.mangaka.createWork", {
+  await xrpc("mangaka", "app.etzhayyim.mangaka.createWork", {
     id: WORK_RKEY,
     title,
     genre: "graphic-novel-sf",
@@ -273,7 +273,7 @@ async function stageChapters(): Promise<void> {
   for (const ch of chapters) {
     const rkey = `sip-${ch.volumeId}-ch${String(ch.chapterNum).padStart(2, "0")}`;
     try {
-      await xrpc("mangaka", "ai.gftd.mangaka.addChapter", {
+      await xrpc("mangaka", "app.etzhayyim.mangaka.addChapter", {
         id: rkey,
         workId: WORK_AT_URI,
         chapterNum: ch.chapterNum,
@@ -403,7 +403,7 @@ async function stagePages(): Promise<void> {
       // (passing a custom id triggers a cmdAddPage code path that hangs the
       // Worker; isolated curl without id completes in <500ms).
       const payload: Record<string, unknown> = {
-        chapterId: `at://mng4k4x1.etzhayyim.com/ai.gftd.mangaka.chapter/${chapterRkey}`,
+        chapterId: `at://mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.chapter/${chapterRkey}`,
         pageNum: pg.pageNum,
         altText: pg.altText.slice(0, 500),
         panels: pg.panels,
@@ -417,7 +417,7 @@ async function stagePages(): Promise<void> {
       } else {
         withoutImage++;
       }
-      await xrpc("mangaka", "ai.gftd.mangaka.addPage", payload);
+      await xrpc("mangaka", "app.etzhayyim.mangaka.addPage", payload);
       ok++;
       const imgTag = compositedImageCid ? `img=${compositedImageCid.slice(0, 10)}…` : "img=—";
       console.log(`  ✓ p${pg.pageNum} ch${pg.chapterNum} ${chapterDir} — ${pg.panels.length} panels, ${pg.charactersAppearing.length} chars, ${imgTag}`);

@@ -21,7 +21,8 @@ import xml.etree.ElementTree as ET
 from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+import sqlite3
+from contextlib import contextmanager
 from pymagatama.ingest.core import (
     IngestArtifact,
     IngestRun,
@@ -30,6 +31,35 @@ from pymagatama.ingest.core import (
     upsert_cursor,
     upsert_run,
 )
+
+
+
+@contextmanager
+def sync_cursor():
+    db_dir = os.environ.get("ORGANISM_SQLITE_DIR", "/var/lib/etzhayyim/organism")
+    os.makedirs(db_dir, exist_ok=True)
+    db_path = os.path.join(db_dir, "ingest_houbun.db")
+    with sqlite3.connect(db_path) as conn:
+        conn.execute('PRAGMA journal_mode=WAL;')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_houbun_statute (
+            vertex_id TEXT PRIMARY KEY, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
+            rkey TEXT, repo TEXT, jurisdiction TEXT, statute_id TEXT, title TEXT, title_native TEXT,
+            statute_type TEXT, enacted_date TEXT, effective_date TEXT, repealed_date TEXT, source TEXT,
+            source_url TEXT, license TEXT, language TEXT, article_count INTEGER, last_verified TEXT,
+            created_at TEXT, org_id TEXT, user_id TEXT, actor_id TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_houbun_article (
+            vertex_id TEXT PRIMARY KEY, created_date TEXT, sensitivity_ord INTEGER, owner_did TEXT,
+            rkey TEXT, repo TEXT, statute_ref TEXT, article_no TEXT, section TEXT, title TEXT,
+            text TEXT, language TEXT, article_did TEXT, blake3_hash TEXT, amended_at TEXT,
+            source_url TEXT, created_at TEXT, org_id TEXT, user_id TEXT, actor_id TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS edge_houbun_statute_article (
+            edge_id TEXT PRIMARY KEY, src_vid TEXT, dst_vid TEXT, created_date TEXT,
+            sensitivity_ord INTEGER, owner_did TEXT, article_no TEXT, order_key INTEGER,
+            created_at TEXT, org_id TEXT, user_id TEXT, actor_id TEXT
+        )''')
+        yield conn.cursor()
 
 ACTOR_DID = "did:web:houbun.etzhayyim.com"
 JPN_PATH_DID = f"{ACTOR_DID}:jpn:e-gov"
@@ -256,12 +286,11 @@ def _extract_law_payload(raw: dict[str, Any], law_id: str, *, max_articles: int)
 def _insert_ignore(cur: Any, table: str, id_col: str, values: dict[str, Any]) -> int:
     clean = {k: v for k, v in values.items() if v is not None}
     cols = list(clean)
-    placeholders = ", ".join(["%s"] * len(cols))
+    placeholders = ", ".join(["?"] * len(cols))
     cur.execute(
-        f"INSERT INTO {table} ({', '.join(cols)}) "
-        f"SELECT {placeholders} "
-        f"WHERE NOT EXISTS (SELECT 1 FROM {table} WHERE {id_col} = %s)",
-        (*[clean[c] for c in cols], clean[id_col]),
+        f"INSERT OR IGNORE INTO {table} ({', '.join(cols)}) "
+        f"VALUES ({placeholders})",
+        (*[clean[c] for c in cols],),
     )
     return int(cur.rowcount or 0)
 
@@ -356,7 +385,7 @@ def _parse_ecfr_xml(
 def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
     law_id = str(payload["law_id"])
     current = now_iso()
-    statute_vid = f"at://{USA_CFR_PATH_DID}/ai.gftd.apps.houbun.statute/{law_id}"
+    statute_vid = f"at://{USA_CFR_PATH_DID}/app.etzhayyim.apps.houbun.statute/{law_id}"
     articles: list[dict[str, Any]] = list(payload.get("articles") or [])
     source_url = str(payload.get("source_url") or f"https://www.ecfr.gov/current/{law_id}")
     article_inserted = 0
@@ -396,11 +425,11 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
         cur.execute(
             """
             UPDATE vertex_houbun_statute
-               SET title = %s,
-                   title_native = %s,
-                   article_count = %s,
-                   last_verified = %s
-             WHERE vertex_id = %s
+               SET title = ?,
+                   title_native = ?,
+                   article_count = ?,
+                   last_verified = ?
+             WHERE vertex_id = ?
             """,
             (payload.get("title") or law_id, payload.get("title") or law_id, len(articles), current, statute_vid),
         )
@@ -408,7 +437,7 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
             article_no = str(article.get("article_no") or f"art-{idx + 1}")
             h = _hash("usa", law_id, article_no, payload.get("effective_date") or "")
             article_did = f"{ACTOR_DID}:article:{h}"
-            article_vid = f"at://{article_did}/ai.gftd.apps.houbun.article/{h}"
+            article_vid = f"at://{article_did}/app.etzhayyim.apps.houbun.article/{h}"
             inserted = _insert_ignore(
                 cur,
                 "vertex_houbun_article",
@@ -469,7 +498,7 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
 def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
     law_id = str(payload["law_id"])
     current = now_iso()
-    statute_vid = f"at://{JPN_PATH_DID}/ai.gftd.apps.houbun.statute/{law_id}"
+    statute_vid = f"at://{JPN_PATH_DID}/app.etzhayyim.apps.houbun.statute/{law_id}"
     articles: list[dict[str, Any]] = list(payload.get("articles") or [])
     source_url = str(payload.get("source_url") or f"https://laws.e-gov.go.jp/law/{law_id}")
     article_inserted = 0
@@ -509,11 +538,11 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
         cur.execute(
             """
             UPDATE vertex_houbun_statute
-               SET title = %s,
-                   title_native = %s,
-                   article_count = %s,
-                   last_verified = %s
-             WHERE vertex_id = %s
+               SET title = ?,
+                   title_native = ?,
+                   article_count = ?,
+                   last_verified = ?
+             WHERE vertex_id = ?
             """,
             (payload.get("title") or law_id, payload.get("title") or law_id, len(articles), current, statute_vid),
         )
@@ -521,7 +550,7 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
             article_no = str(article.get("article_no") or f"art-{idx + 1}")
             h = _hash("jpn", law_id, article_no, payload.get("effective_date") or "")
             article_did = f"{ACTOR_DID}:article:{h}"
-            article_vid = f"at://{article_did}/ai.gftd.apps.houbun.article/{h}"
+            article_vid = f"at://{article_did}/app.etzhayyim.apps.houbun.article/{h}"
             inserted = _insert_ignore(
                 cur,
                 "vertex_houbun_article",
@@ -581,11 +610,11 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
 
 def _verify_visibility(law_id: str, statute_vertex_id: str, article_count: int) -> dict[str, int | bool]:
     if not statute_vertex_id and law_id:
-        statute_vertex_id = f"at://{JPN_PATH_DID}/ai.gftd.apps.houbun.statute/{law_id}"
+        statute_vertex_id = f"at://{JPN_PATH_DID}/app.etzhayyim.apps.houbun.statute/{law_id}"
     with sync_cursor() as cur:
-        cur.execute("SELECT count(*) FROM vertex_houbun_statute WHERE vertex_id = %s", (statute_vertex_id,))
+        cur.execute("SELECT count(*) FROM vertex_houbun_statute WHERE vertex_id = ?", (statute_vertex_id,))
         statute_count = int((cur.fetchone() or [0])[0] or 0)
-        cur.execute("SELECT count(*) FROM vertex_houbun_article WHERE statute_ref = %s", (statute_vertex_id,))
+        cur.execute("SELECT count(*) FROM vertex_houbun_article WHERE statute_ref = ?", (statute_vertex_id,))
         visible_articles = int((cur.fetchone() or [0])[0] or 0)
     expected_articles = max(0, int(article_count or 0))
     verified = statute_count == 1 and visible_articles >= expected_articles
@@ -753,7 +782,7 @@ async def task_houbun_verify_visibility(
             path_did = CHN_NPC_PATH_DID
         else:
             path_did = JPN_PATH_DID
-        statuteVertexId = f"at://{path_did}/ai.gftd.apps.houbun.statute/{lawId}"
+        statuteVertexId = f"at://{path_did}/app.etzhayyim.apps.houbun.statute/{lawId}"
     visibility = await asyncio.to_thread(_verify_visibility, lawId, statuteVertexId, articleCount)
     verified = bool(visibility["verified"])
     return {
@@ -1029,7 +1058,7 @@ def _parse_npc_fdb_html(
 def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
     law_id = str(payload["law_id"])
     current = now_iso()
-    statute_vid = f"at://{CHN_NPC_PATH_DID}/ai.gftd.apps.houbun.statute/{law_id}"
+    statute_vid = f"at://{CHN_NPC_PATH_DID}/app.etzhayyim.apps.houbun.statute/{law_id}"
     articles: list[dict[str, Any]] = list(payload.get("articles") or [])
     source_url = str(payload.get("source_url") or f"{NPC_FDB_BASE}/flfg/detail?id={law_id}")
     article_inserted = 0
@@ -1069,11 +1098,11 @@ def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
         cur.execute(
             """
             UPDATE vertex_houbun_statute
-               SET title = %s,
-                   title_native = %s,
-                   article_count = %s,
-                   last_verified = %s
-             WHERE vertex_id = %s
+               SET title = ?,
+                   title_native = ?,
+                   article_count = ?,
+                   last_verified = ?
+             WHERE vertex_id = ?
             """,
             (payload.get("title") or law_id, payload.get("title") or law_id, len(articles), current, statute_vid),
         )
@@ -1081,7 +1110,7 @@ def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
             article_no = str(article.get("article_no") or f"art-{idx + 1}")
             h = _hash("chn", law_id, article_no, payload.get("effective_date") or "")
             article_did = f"{ACTOR_DID}:article:{h}"
-            article_vid = f"at://{article_did}/ai.gftd.apps.houbun.article/{h}"
+            article_vid = f"at://{article_did}/app.etzhayyim.apps.houbun.article/{h}"
             inserted = _insert_ignore(
                 cur,
                 "vertex_houbun_article",

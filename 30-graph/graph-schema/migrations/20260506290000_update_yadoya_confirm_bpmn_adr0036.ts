@@ -20,7 +20,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 const repoRoot   = path.resolve(__dirname, "..", "..", "..");
 
-const PROC_VID   = "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/yadoya-confirm-reservation-v1";
+const PROC_VID   = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-confirm-reservation-v1";
 const OWNER_DID  = "did:web:yadoya.etzhayyim.com";
 const ACTOR_TAG  = "sys.bpmn.seed.yadoya-confirm";
 const REL_PATH   = "00-contracts/bpmn/ai/gftd/yadoya/confirmReservation.bpmn";

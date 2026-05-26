@@ -2,17 +2,17 @@
 narou_worker_main.py — Narou Web Novel Platform LangServer worker.
 
 Handles 11 BPMN task types for narou.etzhayyim.com:
-  ai.gftd.apps.narou.createNovel
-  ai.gftd.apps.narou.createChapter
-  ai.gftd.apps.narou.generateChapter
-  ai.gftd.apps.narou.publishChapter
-  ai.gftd.apps.narou.createCharacter
-  ai.gftd.apps.narou.createWorldSetting
-  ai.gftd.apps.narou.getNovel
-  ai.gftd.apps.narou.listNovels
-  ai.gftd.apps.narou.getChapter
-  ai.gftd.apps.narou.listChapters
-  ai.gftd.apps.narou.searchNovels
+  app.etzhayyim.apps.narou.createNovel
+  app.etzhayyim.apps.narou.createChapter
+  app.etzhayyim.apps.narou.generateChapter
+  app.etzhayyim.apps.narou.publishChapter
+  app.etzhayyim.apps.narou.createCharacter
+  app.etzhayyim.apps.narou.createWorldSetting
+  app.etzhayyim.apps.narou.getNovel
+  app.etzhayyim.apps.narou.listNovels
+  app.etzhayyim.apps.narou.getChapter
+  app.etzhayyim.apps.narou.listChapters
+  app.etzhayyim.apps.narou.searchNovels
 
 Tables (RisingWave via asyncpg):
   vertex_narou_novel:         vertex_id, _seq, created_date, sensitivity_ord, owner_did,
@@ -237,7 +237,7 @@ def _task_narou_create_novel_sync(variables: dict, actor: str) -> dict:
                genre, tags, user_id, org_id, actor_id, created_at, updated_at)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """,
-            (_vid("ai.gftd.apps.narou.novel", rkey),
+            (_vid("app.etzhayyim.apps.narou.novel", rkey),
             int(datetime.now(timezone.utc).timestamp() * 1000),
             _today(),
             0,
@@ -245,7 +245,7 @@ def _task_narou_create_novel_sync(variables: dict, actor: str) -> dict:
             rkey,
             ACTOR_DID,
             ACTOR_DID,
-            "ai.gftd.apps.narou.novel",
+            "app.etzhayyim.apps.narou.novel",
             "draft",
             novel_id,
             title,
@@ -289,7 +289,7 @@ def _task_narou_create_chapter_sync(variables: dict, actor: str) -> dict:
                org_id, actor_id, created_at, updated_at)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """,
-            (_vid("ai.gftd.apps.narou.chapter", rkey),
+            (_vid("app.etzhayyim.apps.narou.chapter", rkey),
             int(datetime.now(timezone.utc).timestamp() * 1000),
             _today(),
             0,
@@ -297,7 +297,7 @@ def _task_narou_create_chapter_sync(variables: dict, actor: str) -> dict:
             rkey,
             ACTOR_DID,
             ACTOR_DID,
-            "ai.gftd.apps.narou.chapter",
+            "app.etzhayyim.apps.narou.chapter",
             "draft",
             chapter_id,
             novel_id,
@@ -405,7 +405,7 @@ def _task_narou_create_character_sync(variables: dict, actor: str) -> dict:
                role, description, user_id, org_id, actor_id, created_at, updated_at)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """,
-            (_vid("ai.gftd.apps.narou.character", rkey),
+            (_vid("app.etzhayyim.apps.narou.character", rkey),
             int(datetime.now(timezone.utc).timestamp() * 1000),
             _today(),
             0,
@@ -413,7 +413,7 @@ def _task_narou_create_character_sync(variables: dict, actor: str) -> dict:
             rkey,
             ACTOR_DID,
             ACTOR_DID,
-            "ai.gftd.apps.narou.character",
+            "app.etzhayyim.apps.narou.character",
             "active",
             char_id,
             novel_id,
@@ -455,7 +455,7 @@ def _task_narou_create_world_setting_sync(variables: dict, actor: str) -> dict:
                description, user_id, org_id, actor_id, created_at, updated_at)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """,
-            (_vid("ai.gftd.apps.narou.worldSetting", rkey),
+            (_vid("app.etzhayyim.apps.narou.worldSetting", rkey),
             int(datetime.now(timezone.utc).timestamp() * 1000),
             _today(),
             0,
@@ -463,7 +463,7 @@ def _task_narou_create_world_setting_sync(variables: dict, actor: str) -> dict:
             rkey,
             ACTOR_DID,
             ACTOR_DID,
-            "ai.gftd.apps.narou.worldSetting",
+            "app.etzhayyim.apps.narou.worldSetting",
             "active",
             world_id,
             novel_id,
@@ -643,57 +643,57 @@ def register_narou_tasks(worker):
 
     _w: LangServerWorker = worker
 
-    @_w.task(task_type="ai.gftd.apps.narou.createNovel", timeout_ms=30_000, max_jobs_to_activate=5)
+    @_w.task(task_type="app.etzhayyim.apps.narou.createNovel", timeout_ms=30_000, max_jobs_to_activate=5)
     async def _create_novel(job: Job):
         result = await asyncio.to_thread(_task_narou_create_novel_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)
 
-    @_w.task(task_type="ai.gftd.apps.narou.createChapter", timeout_ms=30_000, max_jobs_to_activate=5)
+    @_w.task(task_type="app.etzhayyim.apps.narou.createChapter", timeout_ms=30_000, max_jobs_to_activate=5)
     async def _create_chapter(job: Job):
         result = await asyncio.to_thread(_task_narou_create_chapter_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)
 
-    @_w.task(task_type="ai.gftd.apps.narou.generateChapter", timeout_ms=60_000, max_jobs_to_activate=3)
+    @_w.task(task_type="app.etzhayyim.apps.narou.generateChapter", timeout_ms=60_000, max_jobs_to_activate=3)
     async def _generate_chapter(job: Job):
         result = await asyncio.to_thread(_task_narou_generate_chapter_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)
 
-    @_w.task(task_type="ai.gftd.apps.narou.publishChapter", timeout_ms=30_000, max_jobs_to_activate=5)
+    @_w.task(task_type="app.etzhayyim.apps.narou.publishChapter", timeout_ms=30_000, max_jobs_to_activate=5)
     async def _publish_chapter(job: Job):
         result = await asyncio.to_thread(_task_narou_publish_chapter_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)
 
-    @_w.task(task_type="ai.gftd.apps.narou.createCharacter", timeout_ms=30_000, max_jobs_to_activate=5)
+    @_w.task(task_type="app.etzhayyim.apps.narou.createCharacter", timeout_ms=30_000, max_jobs_to_activate=5)
     async def _create_character(job: Job):
         result = await asyncio.to_thread(_task_narou_create_character_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)
 
-    @_w.task(task_type="ai.gftd.apps.narou.createWorldSetting", timeout_ms=30_000, max_jobs_to_activate=5)
+    @_w.task(task_type="app.etzhayyim.apps.narou.createWorldSetting", timeout_ms=30_000, max_jobs_to_activate=5)
     async def _create_world_setting(job: Job):
         result = await asyncio.to_thread(_task_narou_create_world_setting_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)
 
-    @_w.task(task_type="ai.gftd.apps.narou.getNovel", timeout_ms=30_000, max_jobs_to_activate=5)
+    @_w.task(task_type="app.etzhayyim.apps.narou.getNovel", timeout_ms=30_000, max_jobs_to_activate=5)
     async def _get_novel(job: Job):
         result = await asyncio.to_thread(_task_narou_get_novel_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)
 
-    @_w.task(task_type="ai.gftd.apps.narou.listNovels", timeout_ms=30_000, max_jobs_to_activate=5)
+    @_w.task(task_type="app.etzhayyim.apps.narou.listNovels", timeout_ms=30_000, max_jobs_to_activate=5)
     async def _list_novels(job: Job):
         result = await asyncio.to_thread(_task_narou_list_novels_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)
 
-    @_w.task(task_type="ai.gftd.apps.narou.getChapter", timeout_ms=30_000, max_jobs_to_activate=5)
+    @_w.task(task_type="app.etzhayyim.apps.narou.getChapter", timeout_ms=30_000, max_jobs_to_activate=5)
     async def _get_chapter(job: Job):
         result = await asyncio.to_thread(_task_narou_get_chapter_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)
 
-    @_w.task(task_type="ai.gftd.apps.narou.listChapters", timeout_ms=30_000, max_jobs_to_activate=5)
+    @_w.task(task_type="app.etzhayyim.apps.narou.listChapters", timeout_ms=30_000, max_jobs_to_activate=5)
     async def _list_chapters(job: Job):
         result = await asyncio.to_thread(_task_narou_list_chapters_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)
 
-    @_w.task(task_type="ai.gftd.apps.narou.searchNovels", timeout_ms=30_000, max_jobs_to_activate=5)
+    @_w.task(task_type="app.etzhayyim.apps.narou.searchNovels", timeout_ms=30_000, max_jobs_to_activate=5)
     async def _search_novels(job: Job):
         result = await asyncio.to_thread(_task_narou_search_novels_sync, dict(job.variables), _ACTOR)
         await job.set_success_status(variables=result)

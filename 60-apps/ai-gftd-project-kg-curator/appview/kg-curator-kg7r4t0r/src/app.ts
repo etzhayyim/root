@@ -12,7 +12,7 @@ interface ExportedHandler<E> {
 }
 
 const APP = "kgCurator";
-const NSID_PREFIX = "ai.gftd.apps.kgCurator.";
+const NSID_PREFIX = "app.etzhayyim.apps.kgCurator.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

@@ -73,7 +73,7 @@ def _insert_fingerprint(host: str, port: int, fp: dict, run_id: str) -> bool:
     ts = now_iso()
     proto = "tls" if port == _HTTPS_PORT else "tcp"
     vertex_id = (
-        f"at://did:web:ingest.etzhayyim.com/ai.gftd.apps.collector.scanResult"
+        f"at://did:web:ingest.etzhayyim.com/app.etzhayyim.apps.collector.scanResult"
         f"/{host}:{port}:fp"
     )
     sql = (

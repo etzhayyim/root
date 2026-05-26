@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govSen.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govSen.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Senegal government.",
-        "operationId": "ai.gftd.govSen.followSiteDeps",
+        "operationId": "app.etzhayyim.govSen.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSen.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govSen.heartbeatTick": {
       "post": {
         "summary": "Run the Senegal government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govSen.heartbeatTick",
+        "operationId": "app.etzhayyim.govSen.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSen.listOrgs": {
+    "/xrpc/app.etzhayyim.govSen.listOrgs": {
       "get": {
         "summary": "List Senegal government organization graph records.",
-        "operationId": "ai.gftd.govSen.listOrgs",
+        "operationId": "app.etzhayyim.govSen.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSen.registerDIDs": {
+    "/xrpc/app.etzhayyim.govSen.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Senegal government organizations.",
-        "operationId": "ai.gftd.govSen.registerDIDs",
+        "operationId": "app.etzhayyim.govSen.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSen.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govSen.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Senegal government organization path to its graph record.",
-        "operationId": "ai.gftd.govSen.resolveOrgPath",
+        "operationId": "app.etzhayyim.govSen.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSen.seedOrgs": {
+    "/xrpc/app.etzhayyim.govSen.seedOrgs": {
       "post": {
         "summary": "Seed initial Senegal government organization records into the graph.",
-        "operationId": "ai.gftd.govSen.seedOrgs",
+        "operationId": "app.etzhayyim.govSen.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSen.shinka": {
+    "/xrpc/app.etzhayyim.govSen.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Senegal government organization update.",
-        "operationId": "ai.gftd.govSen.shinka",
+        "operationId": "app.etzhayyim.govSen.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govSen.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govSen.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Senegal government organization changes to graph.",
-        "operationId": "ai.gftd.govSen.syncWetUpdates",
+        "operationId": "app.etzhayyim.govSen.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

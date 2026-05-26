@@ -28,3 +28,5 @@ graph.set_entry_point("validate_material")
 graph.add_edge("validate_material", "validate_geometry")
 graph.add_edge("validate_geometry", "finalize")
 graph.add_edge("finalize", END)
+
+graph = graph.compile()

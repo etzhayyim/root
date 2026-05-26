@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govAnd.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govAnd.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Andorra government.",
-        "operationId": "ai.gftd.govAnd.followSiteDeps",
+        "operationId": "app.etzhayyim.govAnd.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAnd.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govAnd.heartbeatTick": {
       "post": {
         "summary": "Run the Andorra government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govAnd.heartbeatTick",
+        "operationId": "app.etzhayyim.govAnd.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAnd.listOrgs": {
+    "/xrpc/app.etzhayyim.govAnd.listOrgs": {
       "get": {
         "summary": "List Andorra government organization graph records.",
-        "operationId": "ai.gftd.govAnd.listOrgs",
+        "operationId": "app.etzhayyim.govAnd.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAnd.registerDIDs": {
+    "/xrpc/app.etzhayyim.govAnd.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Andorra government organizations.",
-        "operationId": "ai.gftd.govAnd.registerDIDs",
+        "operationId": "app.etzhayyim.govAnd.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAnd.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govAnd.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Andorra government organization path to its graph record.",
-        "operationId": "ai.gftd.govAnd.resolveOrgPath",
+        "operationId": "app.etzhayyim.govAnd.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAnd.seedOrgs": {
+    "/xrpc/app.etzhayyim.govAnd.seedOrgs": {
       "post": {
         "summary": "Seed initial Andorra government organization records into the graph.",
-        "operationId": "ai.gftd.govAnd.seedOrgs",
+        "operationId": "app.etzhayyim.govAnd.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAnd.shinka": {
+    "/xrpc/app.etzhayyim.govAnd.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Andorra government organization update.",
-        "operationId": "ai.gftd.govAnd.shinka",
+        "operationId": "app.etzhayyim.govAnd.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govAnd.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govAnd.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Andorra government organization changes to graph.",
-        "operationId": "ai.gftd.govAnd.syncWetUpdates",
+        "operationId": "app.etzhayyim.govAnd.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

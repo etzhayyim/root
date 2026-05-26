@@ -1,19 +1,19 @@
-# GFTD OS — Web4 Local Interface Architecture
+# etzhayyim OS — Web4 Local Interface Architecture
 
 ## Overview
 
-GFTD OS is the **local interface** to the Web4 agent-populated internet.
+etzhayyim OS is the **local interface** to the Web4 agent-populated internet.
 It runs on the user's desktop (Tauri + App) and serves as the human's
 gateway to manage, observe, and govern AI agents operating across local
 and cloud environments.
 
 **Web4 thesis**: The majority of internet participants will be AI agents
-acting on behalf of humans or autonomously. GFTD OS ensures the human
+acting on behalf of humans or autonomously. etzhayyim OS ensures the human
 retains oversight, trust control, and economic governance over their agents.
 
-## Web4 6-Layer → GFTD OS Mapping
+## Web4 6-Layer → etzhayyim OS Mapping
 
-| Web4 Layer | GFTD OS Implementation | WIT Interfaces |
+| Web4 Layer | etzhayyim OS Implementation | WIT Interfaces |
 |---|---|---|
 | **Environmental** | Tauri desktop (OS access, filesystem, notifications, GPU) | `wasi:filesystem`, Tauri commands |
 | **Infrastructure** | App (local WASM runtime) + NATS (local mesh) | `wasi:http`, `wasi:keyvalue`, `wasi:config` |
@@ -26,7 +26,7 @@ retains oversight, trust control, and economic governance over their agents.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        GFTD OS Desktop                          │
+│                        etzhayyim OS Desktop                          │
 │                     (Tauri + App)                          │
 │                                                                  │
 │  ┌──────────────┐    ┌──────────────────────────────────────┐   │

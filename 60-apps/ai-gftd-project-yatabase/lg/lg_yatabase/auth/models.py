@@ -6,7 +6,7 @@ from pydantic import BaseModel, EmailStr, Field
 
 
 class SignupInput(BaseModel):
-    """Body of POST /xrpc/ai.gftd.apps.yata.signup — anonymous."""
+    """Body of POST /xrpc/app.etzhayyim.apps.yata.signup — anonymous."""
 
     email: str | None = Field(default=None, max_length=320)
     name: str | None = Field(default=None, max_length=128)

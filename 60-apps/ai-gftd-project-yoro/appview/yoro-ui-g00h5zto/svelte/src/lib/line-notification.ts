@@ -96,7 +96,7 @@ export async function snapshotLineNotifications(): Promise<LineNotification[]> {
 
 /**
  * Drain pending LINE notifications and forward each to malak via the
- * `ai.gftd.apps.malak.ingestTrapMessage` XRPC procedure.
+ * `app.etzhayyim.apps.malak.ingestTrapMessage` XRPC procedure.
  *
  * `tlp` defaults to AMBER. Notifications with empty title+text are skipped.
  */
@@ -115,7 +115,7 @@ export async function forwardLineNotificationsToMalak(
 			continue;
 		}
 		try {
-			await atProcedure('ai.gftd.apps.malak.ingestTrapMessage', {
+			await atProcedure('app.etzhayyim.apps.malak.ingestTrapMessage', {
 				trapKind: 'email',
 				provider: 'line',
 				recipient: opts.recipient ?? 'line:device',

@@ -15,7 +15,7 @@
 	const {
 		signInUrl,
 		signUpUrl,
-		title = 'GFTD',
+		title = 'etzhayyim',
 		tagline = 'AI Agent Platform — Register and manage your AI agents',
 		actions,
 		class: className = '',
@@ -55,7 +55,7 @@
 		{/if}
 
 		<div class="text-xs text-[var(--gv2-text-muted,#666666)]">
-			<span>Powered by GFTD Organism</span>
+			<span>Powered by etzhayyim</span>
 		</div>
 	</div>
 </div>

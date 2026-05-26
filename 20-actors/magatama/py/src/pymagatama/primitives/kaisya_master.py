@@ -51,15 +51,15 @@ OWNER_DID  = "did:web:bpmn.etzhayyim.com"
 ORG_DID    = "did:web:kaisya.etzhayyim.com"
 
 # ADR-2605010000: RunPod 6000 Ada is LLM SSoT. Murakumo removed from LLM path.
-# llm.call_tier() routes via _GFTD_LLM_URL → murakumo/RunPod per env config.
+# llm.call_tier() routes via _etzhayyim_LLM_URL → murakumo/RunPod per env config.
 
 # Threshold below which we flag a decision as requiring human gate
 OMEGA_ALERT_THRESHOLD: float = float(os.environ.get("KAISYA_OMEGA_ALERT", "0.5"))
 ETA_MIN_THRESHOLD: float      = float(os.environ.get("KAISYA_ETA_MIN", "0.6"))
 
-# P8: Teams floor alert — ADR-2604282300: ai.gftd.* must NOT call CF Worker directly.
+# P8: Teams floor alert — ADR-2604282300: app.etzhayyim.* must NOT call CF Worker directly.
 # Routes through bpmn-dispatcher ClusterIP; fails gracefully until BPMN binding for
-# ai.gftd.apps.microsoft.sendMail is seeded (see deps.toml [[migrations]] kaisya-microsoft-bpmn-binding).
+# app.etzhayyim.apps.microsoft.sendMail is seeded (see deps.toml [[migrations]] kaisya-microsoft-bpmn-binding).
 MICROSOFT_XRPC_URL: str = os.environ.get(
     "MICROSOFT_XRPC_URL",
     os.environ.get(
@@ -68,7 +68,7 @@ MICROSOFT_XRPC_URL: str = os.environ.get(
     ),
 )
 MICROSOFT_API_KEY: str  = os.environ.get("SS_MICROSOFT_API_KEY", "")
-KAISYA_ALERT_TO: str    = os.environ.get("KAISYA_ALERT_TO", "j.kawasaki@gftd.co.jp")
+KAISYA_ALERT_TO: str    = os.environ.get("KAISYA_ALERT_TO", "j.kawasaki@etzhayyim.com")
 
 # ── Helpers ───────────────────────────────────────────────────────────
 
@@ -78,7 +78,7 @@ def _now_iso() -> str:
 
 def _vertex_id(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{OWNER_DID}/ai.gftd.apps.kaisya.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{OWNER_DID}/app.etzhayyim.apps.kaisya.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 def _clamp01(v: float) -> float:
     return max(0.0, min(1.0, v))
@@ -118,7 +118,7 @@ async def _send_floor_alert(omega: float, floor_violated: bool, synthesis_text: 
             headers["authorization"] = f"Bearer {MICROSOFT_API_KEY}"
         async with httpx.AsyncClient(timeout=30.0) as client:
             resp = await client.post(
-                f"{MICROSOFT_XRPC_URL}/xrpc/ai.gftd.apps.microsoft.sendMail",
+                f"{MICROSOFT_XRPC_URL}/xrpc/app.etzhayyim.apps.microsoft.sendMail",
                 json={
                     "to": [KAISYA_ALERT_TO],
                     "subject": f"[Kaisya Alert] Ω={omega:.3f} — {reason}",

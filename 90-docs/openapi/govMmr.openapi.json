@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govMmr.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govMmr.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Myanmar government.",
-        "operationId": "ai.gftd.govMmr.followSiteDeps",
+        "operationId": "app.etzhayyim.govMmr.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMmr.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govMmr.heartbeatTick": {
       "post": {
         "summary": "Run the Myanmar government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govMmr.heartbeatTick",
+        "operationId": "app.etzhayyim.govMmr.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMmr.listOrgs": {
+    "/xrpc/app.etzhayyim.govMmr.listOrgs": {
       "get": {
         "summary": "List Myanmar government organization graph records.",
-        "operationId": "ai.gftd.govMmr.listOrgs",
+        "operationId": "app.etzhayyim.govMmr.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMmr.registerDIDs": {
+    "/xrpc/app.etzhayyim.govMmr.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Myanmar government organizations.",
-        "operationId": "ai.gftd.govMmr.registerDIDs",
+        "operationId": "app.etzhayyim.govMmr.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMmr.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govMmr.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Myanmar government organization path to its graph record.",
-        "operationId": "ai.gftd.govMmr.resolveOrgPath",
+        "operationId": "app.etzhayyim.govMmr.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMmr.seedOrgs": {
+    "/xrpc/app.etzhayyim.govMmr.seedOrgs": {
       "post": {
         "summary": "Seed initial Myanmar government organization records into the graph.",
-        "operationId": "ai.gftd.govMmr.seedOrgs",
+        "operationId": "app.etzhayyim.govMmr.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMmr.shinka": {
+    "/xrpc/app.etzhayyim.govMmr.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Myanmar government organization update.",
-        "operationId": "ai.gftd.govMmr.shinka",
+        "operationId": "app.etzhayyim.govMmr.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMmr.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govMmr.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Myanmar government organization changes to graph.",
-        "operationId": "ai.gftd.govMmr.syncWetUpdates",
+        "operationId": "app.etzhayyim.govMmr.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -21,3 +21,5 @@ graph.add_node('dimensions', check_dimensions)
 graph.add_edge('validate', 'dimensions')
 graph.add_edge('dimensions', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

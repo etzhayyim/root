@@ -58,7 +58,7 @@ media_gamers.translation {
 | **Search fallback** | primary `name` LIKE → 0件なら translation `name` LIKE |
 | **URL** | `/{lang}/game/{slug}` (例: `/en/game/elden-ring`, `/ja/game/elden-ring`) |
 | **SEO** | `<link rel="alternate" hreflang="en">` + `hreflang="ja"` + `hreflang="x-default"` |
-| **i18n.etzhayyim.com 連携** | Follow → ComAtprotoSyncSubscribeRepos で `ai.gftd.i18n.translation_completed` 受信 → translation record 自動作成 |
+| **i18n.etzhayyim.com 連携** | Follow → ComAtprotoSyncSubscribeRepos で `app.etzhayyim.i18n.translation_completed` 受信 → translation record 自動作成 |
 
 ### Translation API
 
@@ -79,24 +79,24 @@ media_gamers.translation {
 
 ## W Protocol Lexicon (CRITICAL)
 
-**全 AT Record は `ai.gftd.apps.media_gamers.*` namespace。** WIT = `gftd:media-gamers@1.0.0` (`wit/media-gamers/package.wit`)。
+**全 AT Record は `app.etzhayyim.apps.media_gamers.*` namespace。** WIT = `gftd:media-gamers@1.0.0` (`wit/media-gamers/package.wit`)。
 
 | Kind | AT Collection NSID | 説明 |
 |---|---|---|
-| `media_gamers.game_title` | `ai.gftd.apps.media_gamers.game_title` | ゲーム作品 (primary lang) |
-| `media_gamers.game_profile` | `ai.gftd.apps.media_gamers.game_profile` | 作品 DID profile |
-| `media_gamers.developer_studio` | `ai.gftd.apps.media_gamers.developer_studio` | 開発会社 |
-| `media_gamers.publisher_company` | `ai.gftd.apps.media_gamers.publisher_company` | パブリッシャー |
-| `media_gamers.game_character` | `ai.gftd.apps.media_gamers.game_character` | キャラクター |
-| `media_gamers.game_platform` | `ai.gftd.apps.media_gamers.game_platform` | プラットフォーム |
-| `media_gamers.guide` | `ai.gftd.apps.media_gamers.guide` | 攻略記事 (primary lang) |
-| `media_gamers.review` | `ai.gftd.apps.media_gamers.review` | レビュー |
-| `media_gamers.franchise_group` | `ai.gftd.apps.media_gamers.franchise_group` | フランチャイズ |
-| `media_gamers.game_event` | `ai.gftd.apps.media_gamers.game_event` | イベント |
-| `media_gamers.translation` | `ai.gftd.apps.media_gamers.translation` | **翻訳 Record (Pattern C)** |
-| `media_gamers.record.gameItem` | `ai.gftd.apps.media_gamers.record.gameItem` | **in-game item (道具 / 素材 / 調理器具 etc.)** |
-| `media_gamers.record.itemRecipe` | `ai.gftd.apps.media_gamers.record.itemRecipe` | **crafting / cooking recipe (input items → output item)** |
-| `media_gamers.knowledge.publishGameItem` | `ai.gftd.apps.media_gamers.knowledge.publishGameItem` | **item + optional recipe 登録 procedure** |
+| `media_gamers.game_title` | `app.etzhayyim.apps.media_gamers.game_title` | ゲーム作品 (primary lang) |
+| `media_gamers.game_profile` | `app.etzhayyim.apps.media_gamers.game_profile` | 作品 DID profile |
+| `media_gamers.developer_studio` | `app.etzhayyim.apps.media_gamers.developer_studio` | 開発会社 |
+| `media_gamers.publisher_company` | `app.etzhayyim.apps.media_gamers.publisher_company` | パブリッシャー |
+| `media_gamers.game_character` | `app.etzhayyim.apps.media_gamers.game_character` | キャラクター |
+| `media_gamers.game_platform` | `app.etzhayyim.apps.media_gamers.game_platform` | プラットフォーム |
+| `media_gamers.guide` | `app.etzhayyim.apps.media_gamers.guide` | 攻略記事 (primary lang) |
+| `media_gamers.review` | `app.etzhayyim.apps.media_gamers.review` | レビュー |
+| `media_gamers.franchise_group` | `app.etzhayyim.apps.media_gamers.franchise_group` | フランチャイズ |
+| `media_gamers.game_event` | `app.etzhayyim.apps.media_gamers.game_event` | イベント |
+| `media_gamers.translation` | `app.etzhayyim.apps.media_gamers.translation` | **翻訳 Record (Pattern C)** |
+| `media_gamers.record.gameItem` | `app.etzhayyim.apps.media_gamers.record.gameItem` | **in-game item (道具 / 素材 / 調理器具 etc.)** |
+| `media_gamers.record.itemRecipe` | `app.etzhayyim.apps.media_gamers.record.itemRecipe` | **crafting / cooking recipe (input items → output item)** |
+| `media_gamers.knowledge.publishGameItem` | `app.etzhayyim.apps.media_gamers.knowledge.publishGameItem` | **item + optional recipe 登録 procedure** |
 
 ## SQL Graph Schema
 
@@ -273,7 +273,7 @@ LLM 翻訳 → back-translation → COMET score check
 評価方法:
 1. 各モデルに同一プロンプト (ボス攻略記事) を投入
 2. qwen2.5-coder-32b がクロス評価 (judge)
-3. 結果は `ai.gftd.apps.media_gamers.model_evaluation` record に永続化
+3. 結果は `app.etzhayyim.apps.media_gamers.model_evaluation` record に永続化
 
 **評価軸:**
 
@@ -366,9 +366,9 @@ PyTorch + transformers で NLLB-200-distilled-1.3B をローカル検証:
 
 | Collection | Action |
 |---|---|
-| `ai.gftd.apps.media_gamers.guide` | quality evaluation → translate if score >= 70 |
-| `ai.gftd.apps.media_gamers.translation` | social announce |
-| `ai.gftd.apps.media_gamers.game_title` | event recording |
+| `app.etzhayyim.apps.media_gamers.guide` | quality evaluation → translate if score >= 70 |
+| `app.etzhayyim.apps.media_gamers.translation` | social announce |
+| `app.etzhayyim.apps.media_gamers.game_title` | event recording |
 
 ### Shinka (Layer 3) — joucho 情緒 cadence-driven
 
@@ -408,7 +408,7 @@ gftd deploy       # account-level Worker
 ## API Endpoints
 
 - App: `https://a7m8oocs.etzhayyim.com`
-- XRPC: `https://a7m8oocs.etzhayyim.com/xrpc/ai.gftd.apps.media_gamers.{command}`
+- XRPC: `https://a7m8oocs.etzhayyim.com/xrpc/app.etzhayyim.apps.media_gamers.{command}`
 - Route: `https://media-gamers.etzhayyim.com`
 - Health: `https://a7m8oocs.etzhayyim.com/health`
 - Heartbeat: `POST https://a7m8oocs.etzhayyim.com/_heartbeat`

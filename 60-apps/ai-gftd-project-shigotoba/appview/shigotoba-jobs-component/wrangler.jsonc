@@ -16,9 +16,9 @@
     "APP_CAPABILITIES": "[\"domain-query\",\"data-management\"]",
     "APP_DESCRIPTION": "Shigotoba Jobs Component — AI Agent",
     "APP_DISPLAY_NAME": "Shigotoba Jobs Component",
-    "APP_EMBED_URL": "https://a80c21a0.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://a80c21a0.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
     "APP_NANOID": "a80c21a0",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"
@@ -33,8 +33,8 @@
   ],
   "routes": [
     {
-      "pattern": "a80c21a0.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "a80c21a0.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

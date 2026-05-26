@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-water-define-main-v1',
                  'did:web:open-water.etzhayyim.com:network',
                  'open_water_define_main',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -187,7 +187,7 @@ UP = [{'sql': '\n'
                  'did:web:open-water.etzhayyim.com:network',
                  'did:web:open-water.etzhayyim.com:network',
                  'sys.bpmn.seed.open-water',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-water-define-main-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -222,7 +222,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-water-report-leak-v1',
                  'did:web:open-water.etzhayyim.com:network',
                  'open_water_report_leak',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -401,7 +401,7 @@ UP = [{'sql': '\n'
                  'did:web:open-water.etzhayyim.com:network',
                  'did:web:open-water.etzhayyim.com:network',
                  'sys.bpmn.seed.open-water',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-water-report-leak-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -434,16 +434,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-water-defineMain-v1',
                  'did:web:open-water.etzhayyim.com:network',
-                 'ai.gftd.apps.openWater.defineMain',
+                 'app.etzhayyim.apps.openWater.defineMain',
                  'open_water_define_main',
                  15000,
                  '2026-04-24T12:10:00Z',
                  'did:web:open-water.etzhayyim.com:network',
                  'did:web:open-water.etzhayyim.com:network',
                  'sys.bpmn.seed.open-water',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-water-defineMain-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -476,25 +476,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-water-reportLeak-v1',
                  'did:web:open-water.etzhayyim.com:network',
-                 'ai.gftd.apps.openWater.reportLeak',
+                 'app.etzhayyim.apps.openWater.reportLeak',
                  'open_water_report_leak',
                  30000,
                  '2026-04-24T12:10:00Z',
                  'did:web:open-water.etzhayyim.com:network',
                  'did:web:open-water.etzhayyim.com:network',
                  'sys.bpmn.seed.open-water',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-water-reportLeak-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-defineMain-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-water-defineMain-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-water-reportLeak-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-water-reportLeak-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-define-main-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-water-define-main-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-water-report-leak-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-water-report-leak-v1']}]
 
 
 def upgrade() -> None:

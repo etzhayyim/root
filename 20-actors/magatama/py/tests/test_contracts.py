@@ -198,7 +198,7 @@ def test_mintOrganizationDid_projects_row(stub_pool: _StubPool):
     # Pre-load legal_entity row for the fetchrow query (first line as key).
     stub_pool.rows["SELECT vertex_id, country, lei, national_id, name, legal_name, entity_type, isic,"] = [
         {
-            "vertex_id": "at://did:web:legal-entity.etzhayyim.com/ai.gftd.apps.legalEntity.legalEntity/r1",
+            "vertex_id": "at://did:web:legal-entity.etzhayyim.com/app.etzhayyim.apps.legalEntity.legalEntity/r1",
             "country": "jpn",
             "lei": "LEI-ABC",
             "national_id": "1234567890123",
@@ -219,7 +219,7 @@ def test_mintOrganizationDid_projects_row(stub_pool: _StubPool):
     # Simulate "row inserted" by the INSERT ... RETURNING.
     stub_pool.insert_returns.append("at://did:web:social-contract.etzhayyim.com:entity:jpn:xxx/...")
 
-    body = json.dumps({"legalEntityVertexId": "at://did:web:legal-entity.etzhayyim.com/ai.gftd.apps.legalEntity.legalEntity/r1"})
+    body = json.dumps({"legalEntityVertexId": "at://did:web:legal-entity.etzhayyim.com/app.etzhayyim.apps.legalEntity.legalEntity/r1"})
     out = json.loads(asyncio.run(C.mint_organization_did.__wrapped__(body)))  # type: ignore[attr-defined]
     assert out["ok"] is True
     assert out["did"].startswith("did:web:social-contract.etzhayyim.com:entity:jpn:")
@@ -318,7 +318,7 @@ def test_resolveOrganization_by_did(stub_pool: _StubPool):
     did = "did:web:social-contract.etzhayyim.com:entity:jpn:abcdef012345"
     stub_pool.rows["SELECT vertex_id, did, legal_entity_ref, country, lei, national_id, name,"] = [
         {
-            "vertex_id": f"at://{did}/ai.gftd.apps.contracts.organization/abcdef012345",
+            "vertex_id": f"at://{did}/app.etzhayyim.apps.contracts.organization/abcdef012345",
             "did": did,
             "legal_entity_ref": "at://le/src",
             "country": "jpn",

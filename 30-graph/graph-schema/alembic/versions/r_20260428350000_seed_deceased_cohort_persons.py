@@ -34,7 +34,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-prehistoric-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-prehistoric-infectious_disease',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-prehistoric-infectious_disease',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -63,9 +63,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-prehistoric-infectious_disease',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-prehistoric-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-prehistoric-infectious_disease',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-prehistoric-infectious_disease',
                  'did:web:natural-person.etzhayyim.com',
                  '0001-01-01']},
  {'sql': '\n'
@@ -88,12 +88,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-prehistoric-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-prehistoric-infectious_disease',
                  'did:web:natural-person.etzhayyim.com:deceased:prehistoric:infectious_disease',
                  'prehistoric.infectious_disease',
                  '707265686973746f',
                  875,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -120,7 +120,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-prehistoric-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-prehistoric-trauma_injury',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-prehistoric-trauma_injury',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -149,9 +149,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-prehistoric-trauma_injury',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-prehistoric-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-prehistoric-trauma_injury',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-prehistoric-trauma_injury',
                  'did:web:natural-person.etzhayyim.com',
                  '0001-01-01']},
  {'sql': '\n'
@@ -174,12 +174,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-prehistoric-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-prehistoric-trauma_injury',
                  'did:web:natural-person.etzhayyim.com:deceased:prehistoric:trauma_injury',
                  'prehistoric.trauma_injury',
                  '707265686973746f',
                  750,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -206,7 +206,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-prehistoric-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-prehistoric-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-prehistoric-nutritional_deficiency',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -235,9 +235,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-prehistoric-nutritional_deficiency',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-prehistoric-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-prehistoric-nutritional_deficiency',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-prehistoric-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com',
                  '0001-01-01']},
  {'sql': '\n'
@@ -260,12 +260,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-prehistoric-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-prehistoric-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com:deceased:prehistoric:nutritional_deficiency',
                  'prehistoric.nutritional_deficiency',
                  '707265686973746f',
                  500,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -292,7 +292,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-prehistoric-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-prehistoric-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-prehistoric-maternal_perinatal',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -321,9 +321,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-prehistoric-maternal_perinatal',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-prehistoric-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-prehistoric-maternal_perinatal',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-prehistoric-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com',
                  '0001-01-01']},
  {'sql': '\n'
@@ -346,12 +346,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-prehistoric-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-prehistoric-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com:deceased:prehistoric:maternal_perinatal',
                  'prehistoric.maternal_perinatal',
                  '707265686973746f',
                  250,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -378,7 +378,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-prehistoric-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-prehistoric-cardiovascular',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-prehistoric-cardiovascular',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -407,9 +407,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-prehistoric-cardiovascular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-prehistoric-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-prehistoric-cardiovascular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-prehistoric-cardiovascular',
                  'did:web:natural-person.etzhayyim.com',
                  '0001-01-01']},
  {'sql': '\n'
@@ -432,12 +432,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-prehistoric-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-prehistoric-cardiovascular',
                  'did:web:natural-person.etzhayyim.com:deceased:prehistoric:cardiovascular',
                  'prehistoric.cardiovascular',
                  '707265686973746f',
                  125,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -464,7 +464,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-ancient-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-ancient-infectious_disease',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-ancient-infectious_disease',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -493,9 +493,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-ancient-infectious_disease',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-ancient-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-ancient-infectious_disease',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-ancient-infectious_disease',
                  'did:web:natural-person.etzhayyim.com',
                  '500-12-31']},
  {'sql': '\n'
@@ -518,12 +518,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-ancient-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-ancient-infectious_disease',
                  'did:web:natural-person.etzhayyim.com:deceased:ancient:infectious_disease',
                  'ancient.infectious_disease',
                  '616e6369656e747c',
                  3200,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -550,7 +550,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-ancient-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-ancient-trauma_injury',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-ancient-trauma_injury',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -579,9 +579,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-ancient-trauma_injury',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-ancient-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-ancient-trauma_injury',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-ancient-trauma_injury',
                  'did:web:natural-person.etzhayyim.com',
                  '500-12-31']},
  {'sql': '\n'
@@ -604,12 +604,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-ancient-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-ancient-trauma_injury',
                  'did:web:natural-person.etzhayyim.com:deceased:ancient:trauma_injury',
                  'ancient.trauma_injury',
                  '616e6369656e747c',
                  1600,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -636,7 +636,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-ancient-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-ancient-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-ancient-nutritional_deficiency',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -665,9 +665,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-ancient-nutritional_deficiency',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-ancient-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-ancient-nutritional_deficiency',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-ancient-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com',
                  '500-12-31']},
  {'sql': '\n'
@@ -690,12 +690,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-ancient-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-ancient-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com:deceased:ancient:nutritional_deficiency',
                  'ancient.nutritional_deficiency',
                  '616e6369656e747c',
                  1600,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -722,7 +722,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-ancient-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-ancient-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-ancient-maternal_perinatal',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -751,9 +751,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-ancient-maternal_perinatal',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-ancient-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-ancient-maternal_perinatal',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-ancient-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com',
                  '500-12-31']},
  {'sql': '\n'
@@ -776,12 +776,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-ancient-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-ancient-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com:deceased:ancient:maternal_perinatal',
                  'ancient.maternal_perinatal',
                  '616e6369656e747c',
                  800,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -808,7 +808,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-ancient-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-ancient-cardiovascular',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-ancient-cardiovascular',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -837,9 +837,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-ancient-cardiovascular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-ancient-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-ancient-cardiovascular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-ancient-cardiovascular',
                  'did:web:natural-person.etzhayyim.com',
                  '500-12-31']},
  {'sql': '\n'
@@ -862,12 +862,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-ancient-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-ancient-cardiovascular',
                  'did:web:natural-person.etzhayyim.com:deceased:ancient:cardiovascular',
                  'ancient.cardiovascular',
                  '616e6369656e747c',
                  800,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -894,7 +894,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-medieval-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-medieval-infectious_disease',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-medieval-infectious_disease',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -923,9 +923,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-medieval-infectious_disease',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-medieval-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-medieval-infectious_disease',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-medieval-infectious_disease',
                  'did:web:natural-person.etzhayyim.com',
                  '1500-12-31']},
  {'sql': '\n'
@@ -948,12 +948,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-medieval-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-medieval-infectious_disease',
                  'did:web:natural-person.etzhayyim.com:deceased:medieval:infectious_disease',
                  'medieval.infectious_disease',
                  '6d6564696576616c',
                  2700,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -980,7 +980,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-medieval-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-medieval-trauma_injury',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-medieval-trauma_injury',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1009,9 +1009,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-medieval-trauma_injury',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-medieval-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-medieval-trauma_injury',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-medieval-trauma_injury',
                  'did:web:natural-person.etzhayyim.com',
                  '1500-12-31']},
  {'sql': '\n'
@@ -1034,12 +1034,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-medieval-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-medieval-trauma_injury',
                  'did:web:natural-person.etzhayyim.com:deceased:medieval:trauma_injury',
                  'medieval.trauma_injury',
                  '6d6564696576616c',
                  1200,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1066,7 +1066,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-medieval-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-medieval-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-medieval-nutritional_deficiency',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1095,9 +1095,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-medieval-nutritional_deficiency',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-medieval-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-medieval-nutritional_deficiency',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-medieval-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com',
                  '1500-12-31']},
  {'sql': '\n'
@@ -1120,12 +1120,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-medieval-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-medieval-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com:deceased:medieval:nutritional_deficiency',
                  'medieval.nutritional_deficiency',
                  '6d6564696576616c',
                  1200,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1152,7 +1152,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-medieval-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-medieval-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-medieval-maternal_perinatal',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1181,9 +1181,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-medieval-maternal_perinatal',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-medieval-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-medieval-maternal_perinatal',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-medieval-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com',
                  '1500-12-31']},
  {'sql': '\n'
@@ -1206,12 +1206,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-medieval-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-medieval-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com:deceased:medieval:maternal_perinatal',
                  'medieval.maternal_perinatal',
                  '6d6564696576616c',
                  600,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1238,7 +1238,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-medieval-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-medieval-cardiovascular',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-medieval-cardiovascular',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1267,9 +1267,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-medieval-cardiovascular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-medieval-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-medieval-cardiovascular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-medieval-cardiovascular',
                  'did:web:natural-person.etzhayyim.com',
                  '1500-12-31']},
  {'sql': '\n'
@@ -1292,12 +1292,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-medieval-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-medieval-cardiovascular',
                  'did:web:natural-person.etzhayyim.com:deceased:medieval:cardiovascular',
                  'medieval.cardiovascular',
                  '6d6564696576616c',
                  300,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1324,7 +1324,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-industrial-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-industrial-infectious_disease',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-industrial-infectious_disease',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1354,9 +1354,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-industrial-infectious_disease',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-industrial-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-industrial-infectious_disease',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-industrial-infectious_disease',
                  'did:web:natural-person.etzhayyim.com',
                  '1900-12-31']},
  {'sql': '\n'
@@ -1379,12 +1379,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-industrial-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-industrial-infectious_disease',
                  'did:web:natural-person.etzhayyim.com:deceased:industrial:infectious_disease',
                  'industrial.infectious_disease',
                  '696e647573747269',
                  4200,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1411,7 +1411,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-industrial-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-industrial-cardiovascular',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-industrial-cardiovascular',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1441,9 +1441,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-industrial-cardiovascular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-industrial-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-industrial-cardiovascular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-industrial-cardiovascular',
                  'did:web:natural-person.etzhayyim.com',
                  '1900-12-31']},
  {'sql': '\n'
@@ -1466,12 +1466,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-industrial-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-industrial-cardiovascular',
                  'did:web:natural-person.etzhayyim.com:deceased:industrial:cardiovascular',
                  'industrial.cardiovascular',
                  '696e647573747269',
                  2400,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1498,7 +1498,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-industrial-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-industrial-trauma_injury',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-industrial-trauma_injury',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1527,9 +1527,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-industrial-trauma_injury',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-industrial-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-industrial-trauma_injury',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-industrial-trauma_injury',
                  'did:web:natural-person.etzhayyim.com',
                  '1900-12-31']},
  {'sql': '\n'
@@ -1552,12 +1552,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-industrial-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-industrial-trauma_injury',
                  'did:web:natural-person.etzhayyim.com:deceased:industrial:trauma_injury',
                  'industrial.trauma_injury',
                  '696e647573747269',
                  1800,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1584,7 +1584,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-industrial-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-industrial-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-industrial-nutritional_deficiency',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1613,9 +1613,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-industrial-nutritional_deficiency',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-industrial-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-industrial-nutritional_deficiency',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-industrial-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com',
                  '1900-12-31']},
  {'sql': '\n'
@@ -1638,12 +1638,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-industrial-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-industrial-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com:deceased:industrial:nutritional_deficiency',
                  'industrial.nutritional_deficiency',
                  '696e647573747269',
                  1800,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1670,7 +1670,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-industrial-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-industrial-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-industrial-maternal_perinatal',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1700,9 +1700,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-industrial-maternal_perinatal',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-industrial-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-industrial-maternal_perinatal',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-industrial-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com',
                  '1900-12-31']},
  {'sql': '\n'
@@ -1725,12 +1725,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-industrial-maternal_perinatal',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-industrial-maternal_perinatal',
                  'did:web:natural-person.etzhayyim.com:deceased:industrial:maternal_perinatal',
                  'industrial.maternal_perinatal',
                  '696e647573747269',
                  1800,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_modern-001-1500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_modern-001-1500',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1757,7 +1757,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-modern-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-modern-cardiovascular',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-modern-cardiovascular',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1787,9 +1787,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-modern-cardiovascular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-modern-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-modern-cardiovascular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-modern-cardiovascular',
                  'did:web:natural-person.etzhayyim.com',
                  '2025-12-31']},
  {'sql': '\n'
@@ -1812,12 +1812,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-modern-cardiovascular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-modern-cardiovascular',
                  'did:web:natural-person.etzhayyim.com:deceased:modern:cardiovascular',
                  'modern.cardiovascular',
                  '6d6f6465726e7c63',
                  1750,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1844,7 +1844,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-modern-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-modern-infectious_disease',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-modern-infectious_disease',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1873,9 +1873,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-modern-infectious_disease',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-modern-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-modern-infectious_disease',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-modern-infectious_disease',
                  'did:web:natural-person.etzhayyim.com',
                  '2025-12-31']},
  {'sql': '\n'
@@ -1898,12 +1898,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-modern-infectious_disease',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-modern-infectious_disease',
                  'did:web:natural-person.etzhayyim.com:deceased:modern:infectious_disease',
                  'modern.infectious_disease',
                  '6d6f6465726e7c69',
                  1000,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -1930,7 +1930,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-modern-neoplasms',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-modern-neoplasms',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-modern-neoplasms',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -1959,9 +1959,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-modern-neoplasms',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-modern-neoplasms',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-modern-neoplasms',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-modern-neoplasms',
                  'did:web:natural-person.etzhayyim.com',
                  '2025-12-31']},
  {'sql': '\n'
@@ -1984,12 +1984,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-modern-neoplasms',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-modern-neoplasms',
                  'did:web:natural-person.etzhayyim.com:deceased:modern:neoplasms',
                  'modern.neoplasms',
                  '6d6f6465726e7c6e',
                  750,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -2016,7 +2016,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-modern-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-modern-trauma_injury',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-modern-trauma_injury',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -2045,9 +2045,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-modern-trauma_injury',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-modern-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-modern-trauma_injury',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-modern-trauma_injury',
                  'did:web:natural-person.etzhayyim.com',
                  '2025-12-31']},
  {'sql': '\n'
@@ -2070,12 +2070,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-modern-trauma_injury',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-modern-trauma_injury',
                  'did:web:natural-person.etzhayyim.com:deceased:modern:trauma_injury',
                  'modern.trauma_injury',
                  '6d6f6465726e7c74',
                  750,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -2102,7 +2102,7 @@ UP = [{'sql': '\n'
          '        $16, $17, $18\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-modern-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-modern-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com',
                  'deceased-modern-nutritional_deficiency',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -2131,9 +2131,9 @@ UP = [{'sql': '\n'
          '        0.85, $5\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortDerived/derv-modern-nutritional_deficiency',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortPerson/deceased-modern-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortDerived/derv-modern-nutritional_deficiency',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortPerson/deceased-modern-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com',
                  '2025-12-31']},
  {'sql': '\n'
@@ -2156,12 +2156,12 @@ UP = [{'sql': '\n'
          '        $9, $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortActor/deceased-modern-nutritional_deficiency',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortActor/deceased-modern-nutritional_deficiency',
                  'did:web:natural-person.etzhayyim.com:deceased:modern:nutritional_deficiency',
                  'modern.nutritional_deficiency',
                  '6d6f6465726e7c6e',
                  750,
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_early-001-1900',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_early-001-1900',
                  '2026-04-28T00:00:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',

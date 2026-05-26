@@ -132,22 +132,22 @@ def test_gc_convention_candidates_non_nsid():
 
 
 def test_gc_convention_candidates_regular_entity():
-    result = GC._convention_candidates("ai.gftd.apps.hr.employee")
+    result = GC._convention_candidates("app.etzhayyim.apps.hr.employee")
     assert "vertex_hr_employee" in result
 
 
 def test_gc_convention_candidates_edge_entity():
-    result = GC._convention_candidates("ai.gftd.apps.graph.edgeFollows")
+    result = GC._convention_candidates("app.etzhayyim.apps.graph.edgeFollows")
     assert any("edge_" in r for r in result)
 
 
 def test_gc_convention_candidates_maps_vertex():
-    result = GC._convention_candidates("ai.gftd.apps.maps.building")
+    result = GC._convention_candidates("app.etzhayyim.apps.maps.building")
     assert "vertex_spatial" in result
 
 
 def test_gc_convention_candidates_maps_control_plane_excluded():
-    result = GC._convention_candidates("ai.gftd.apps.maps.mapsSource")
+    result = GC._convention_candidates("app.etzhayyim.apps.maps.mapsSource")
     assert "vertex_spatial" not in result
 
 
@@ -198,8 +198,8 @@ def test_mb3_now_iso_contains_t():
 # ─── maps_building_3d — _stable_rkey ─────────────────────────────────────────
 
 def test_mb3_stable_rkey_is_deterministic():
-    a = MB3._stable_rkey("at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.building/001")
-    b = MB3._stable_rkey("at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.building/001")
+    a = MB3._stable_rkey("at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.building/001")
+    b = MB3._stable_rkey("at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.building/001")
     assert a == b
 
 

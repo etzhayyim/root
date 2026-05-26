@@ -22,3 +22,5 @@ graph = StateGraph(StainerState)
 graph.add_node('validate', validate_tech_specs)
 graph.add_edge('validate', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

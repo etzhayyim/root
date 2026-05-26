@@ -11,7 +11,7 @@ interface Env {
 }
 
 const APP = "contentengine";
-const NSID_PREFIX = "ai.gftd.apps.contentengine.";
+const NSID_PREFIX = "app.etzhayyim.apps.contentengine.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

@@ -33,7 +33,7 @@ for (const rel of manifestPaths) {
         changed = true;
       }
       if (step?.id !== 'coverageSnapshot' || step?.fn !== 'graph.write') continue;
-      const collection = `ai.gftd.apps.${String(manifest.name || '').toLowerCase().replace(/[^a-z0-9]/g, '') || String(manifest.nanoid || '')}.coverageSnapshot`;
+      const collection = `app.etzhayyim.apps.${String(manifest.name || '').toLowerCase().replace(/[^a-z0-9]/g, '') || String(manifest.nanoid || '')}.coverageSnapshot`;
       step.args = {
         template: "MERGE (c:ActorCoverageSnapshot {actorDid: $did, bucket: $bucket, actorName: $actorName, nanoid: $nanoid, nodeCount: $nodeCount, latestTs: $latestTs, repo: $did, collection: $collection, status: 'active'})",
         params: {

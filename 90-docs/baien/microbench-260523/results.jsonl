@@ -1,0 +1,1 @@
+{"ts": "2026-05-23T03:36:05+00:00", "model": "microsoft/bitnet-b1.58-2B-4T-bf16", "id": "ifeval_5caps", "category": "IFEval", "ok": false, "reason": "want 5 lines, got 1", "elapsed_sec": 30.77, "response": "Berlin, Brussels, Copenhagen, Dublin, Edinburgh"}

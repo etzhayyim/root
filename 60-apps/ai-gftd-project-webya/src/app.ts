@@ -4,7 +4,7 @@
 // (domain.provision, domain.checkAllPending, seo.auditAllSites, query helpers).
 // Page serving at edge via Hyperdrive SELECT on vertex_webya_page.html_content.
 
-import { createKyselyDb } from "@gftd/magatama-host-sdk";
+import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
 
 interface SecretBinding { get(): Promise<string>; }
 interface HyperdriveBinding { connectionString: string; }
@@ -16,7 +16,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "ai.gftd.apps.webya.";
+const NSID_PREFIX = "app.etzhayyim.apps.webya.";
 const ACTOR_DID = "did:web:webya.etzhayyim.com";
 const WEBYA_HOST = "webya.etzhayyim.com";
 

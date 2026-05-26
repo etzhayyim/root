@@ -86,7 +86,7 @@ def emit_contribution_usage(
     tid = _generate_tid()
     vertex_id = (
         f"at://did:web:contribution.etzhayyim.com"
-        f"/ai.gftd.apps.contribution.usage/{tid}"
+        f"/app.etzhayyim.apps.contribution.usage/{tid}"
     )
     used_at = _utc_now_iso()
     try:
@@ -276,7 +276,7 @@ def register_source_task(
     tid = _generate_tid()
     vertex_id = (
         f"at://did:web:contribution.etzhayyim.com"
-        f"/ai.gftd.apps.contribution.source/{tid}"
+        f"/app.etzhayyim.apps.contribution.source/{tid}"
     )
     created_at = _utc_now_iso()
     try:

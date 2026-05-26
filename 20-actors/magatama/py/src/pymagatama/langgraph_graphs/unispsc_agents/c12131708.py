@@ -10,7 +10,7 @@ class ReagentState(TypedDict):
 
 def validate_reagent(state: ReagentState):
     # Simulated validation logic for chemical reagents
-    is_pure = True 
+    is_pure = True
     return {"purity_check_passed": is_pure, "log": ["Purity validation completed"]}
 
 def check_safety(state: ReagentState):

@@ -156,15 +156,15 @@ try {
     q(`SELECT nsid, bpmn_process_id, status, sensitivity_ord
          FROM vertex_bpmn_lexicon_binding
         WHERE nsid IN (
-          'ai.gftd.apps.naturalPerson.generateCohortBatch',
-          'ai.gftd.apps.coverage.inferCensusStats',
-          'ai.gftd.apps.coverage.inferLdaSignals',
-          'ai.gftd.apps.coverage.inferLdaTopics',
-          'ai.gftd.apps.coverage.inferLdaEntities',
-          'ai.gftd.apps.coverage.inferFission',
-          'ai.gftd.apps.naturalPerson.reconcileVisibility',
-          'ai.gftd.apps.naturalPerson.seedLatentEntities',
-          'ai.gftd.apps.naturalPerson.materializeAllLatentEntities'
+          'app.etzhayyim.apps.naturalPerson.generateCohortBatch',
+          'app.etzhayyim.apps.coverage.inferCensusStats',
+          'app.etzhayyim.apps.coverage.inferLdaSignals',
+          'app.etzhayyim.apps.coverage.inferLdaTopics',
+          'app.etzhayyim.apps.coverage.inferLdaEntities',
+          'app.etzhayyim.apps.coverage.inferFission',
+          'app.etzhayyim.apps.naturalPerson.reconcileVisibility',
+          'app.etzhayyim.apps.naturalPerson.seedLatentEntities',
+          'app.etzhayyim.apps.naturalPerson.materializeAllLatentEntities'
         )
         ORDER BY nsid`),
     q(`SELECT COUNT(*)::bigint AS count

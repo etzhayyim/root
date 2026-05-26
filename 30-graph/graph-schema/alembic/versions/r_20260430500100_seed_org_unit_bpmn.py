@@ -18,7 +18,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6,\n'
          "             'active', $7, 100, $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-register-org-unit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-register-org-unit-v1',
                  'did:web:open-lei.etzhayyim.com',
                  'open_lei_register_org_unit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -113,7 +113,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-register-org-unit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-register-org-unit-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms, '
          'write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id, actor_id, '
@@ -121,9 +121,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      SELECT $1, $2, $3, $4, 1, 30000, $5,\n'
          "             'active', $6, 100, $7, $8, $9, $10, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-register-org-unit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-register-org-unit-v1',
                  'did:web:open-lei.etzhayyim.com',
-                 'ai.gftd.apps.openLei.registerOrgUnit',
+                 'app.etzhayyim.apps.openLei.registerOrgUnit',
                  'open_lei_register_org_unit',
                  'vertex_org_unit,edge_org_unit_parent',
                  '2026-04-30T12:00:00+09:00',
@@ -131,14 +131,14 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-register-org-unit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-register-org-unit-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size, source_path, '
          'status, created_at, sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did)\n'
          '      SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6,\n'
          "             'active', $7, 100, $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-dissolve-org-unit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-dissolve-org-unit-v1',
                  'did:web:open-lei.etzhayyim.com',
                  'open_lei_dissolve_org_unit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -224,7 +224,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-dissolve-org-unit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-dissolve-org-unit-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms, '
          'write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id, actor_id, '
@@ -232,9 +232,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      SELECT $1, $2, $3, $4, 1, 30000, $5,\n'
          "             'active', $6, 100, $7, $8, $9, $10, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-dissolve-org-unit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-dissolve-org-unit-v1',
                  'did:web:open-lei.etzhayyim.com',
-                 'ai.gftd.apps.openLei.dissolveOrgUnit',
+                 'app.etzhayyim.apps.openLei.dissolveOrgUnit',
                  'open_lei_dissolve_org_unit',
                  'vertex_org_unit',
                  '2026-04-30T12:00:00+09:00',
@@ -242,14 +242,14 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-dissolve-org-unit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-dissolve-org-unit-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size, source_path, '
          'status, created_at, sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did)\n'
          '      SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6,\n'
          "             'active', $7, 100, $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-move-org-unit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-move-org-unit-v1',
                  'did:web:open-lei.etzhayyim.com',
                  'open_lei_move_org_unit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -334,7 +334,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-move-org-unit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-move-org-unit-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms, '
          'write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id, actor_id, '
@@ -342,9 +342,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      SELECT $1, $2, $3, $4, 1, 30000, $5,\n'
          "             'active', $6, 100, $7, $8, $9, $10, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-move-org-unit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-move-org-unit-v1',
                  'did:web:open-lei.etzhayyim.com',
-                 'ai.gftd.apps.openLei.moveOrgUnit',
+                 'app.etzhayyim.apps.openLei.moveOrgUnit',
                  'open_lei_move_org_unit',
                  'vertex_org_unit,edge_org_unit_parent',
                  '2026-04-30T12:00:00+09:00',
@@ -352,14 +352,14 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-move-org-unit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-move-org-unit-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size, source_path, '
          'status, created_at, sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did)\n'
          '      SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6,\n'
          "             'active', $7, 100, $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-add-org-member-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-add-org-member-v1',
                  'did:web:open-lei.etzhayyim.com',
                  'open_lei_add_org_member',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -442,7 +442,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-add-org-member-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-add-org-member-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms, '
          'write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id, actor_id, '
@@ -450,9 +450,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      SELECT $1, $2, $3, $4, 1, 30000, $5,\n'
          "             'active', $6, 100, $7, $8, $9, $10, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-add-org-member-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-add-org-member-v1',
                  'did:web:open-lei.etzhayyim.com',
-                 'ai.gftd.apps.openLei.addOrgMember',
+                 'app.etzhayyim.apps.openLei.addOrgMember',
                  'open_lei_add_org_member',
                  'edge_org_unit_member',
                  '2026-04-30T12:00:00+09:00',
@@ -460,14 +460,14 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-add-org-member-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-add-org-member-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size, source_path, '
          'status, created_at, sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did)\n'
          '      SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6,\n'
          "             'active', $7, 100, $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-remove-org-member-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-remove-org-member-v1',
                  'did:web:open-lei.etzhayyim.com',
                  'open_lei_remove_org_member',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -547,7 +547,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-remove-org-member-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-remove-org-member-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms, '
          'write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id, actor_id, '
@@ -555,9 +555,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      SELECT $1, $2, $3, $4, 1, 30000, $5,\n'
          "             'active', $6, 100, $7, $8, $9, $10, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-remove-org-member-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-remove-org-member-v1',
                  'did:web:open-lei.etzhayyim.com',
-                 'ai.gftd.apps.openLei.removeOrgMember',
+                 'app.etzhayyim.apps.openLei.removeOrgMember',
                  'open_lei_remove_org_member',
                  'edge_org_unit_member',
                  '2026-04-30T12:00:00+09:00',
@@ -565,14 +565,14 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-remove-org-member-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-remove-org-member-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size, source_path, '
          'status, created_at, sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did)\n'
          '      SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6,\n'
          "             'active', $7, 100, $8, $9, $10, $11, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-query-org-subtree-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-query-org-subtree-v1',
                  'did:web:open-lei.etzhayyim.com',
                  'open_lei_query_org_subtree',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -622,7 +622,7 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-query-org-subtree-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-query-org-subtree-v1']},
  {'sql': 'INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms, '
          'write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id, actor_id, '
@@ -630,9 +630,9 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
          '      SELECT $1, $2, $3, $4, 1, 30000, $5,\n'
          "             'active', $6, 100, $7, $8, $9, $10, 'anon'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-query-org-subtree-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-query-org-subtree-v1',
                  'did:web:open-lei.etzhayyim.com',
-                 'ai.gftd.apps.openLei.queryOrgSubtree',
+                 'app.etzhayyim.apps.openLei.queryOrgSubtree',
                  'open_lei_query_org_subtree',
                  '',
                  '2026-04-30T12:00:00+09:00',
@@ -640,32 +640,32 @@ UP = [{'sql': 'INSERT INTO vertex_bpmn_process_def\n'
                  'did:web:open-lei.etzhayyim.com',
                  'sys.bpmn.seed.open-lei',
                  'did:web:open-lei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-query-org-subtree-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-query-org-subtree-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-register-org-unit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-register-org-unit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-register-org-unit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-register-org-unit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-dissolve-org-unit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-dissolve-org-unit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-dissolve-org-unit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-dissolve-org-unit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-move-org-unit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-move-org-unit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-move-org-unit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-move-org-unit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-add-org-member-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-add-org-member-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-add-org-member-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-add-org-member-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-remove-org-member-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-remove-org-member-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-remove-org-member-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-remove-org-member-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-query-org-subtree-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-query-org-subtree-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-query-org-subtree-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-query-org-subtree-v1']}]
 
 
 def upgrade() -> None:

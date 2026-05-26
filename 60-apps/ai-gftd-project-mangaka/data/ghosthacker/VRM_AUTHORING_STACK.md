@@ -150,7 +150,7 @@ batch authoring is a single `foreach` loop. Drop-in driver:
 
 ```bash
 # scripts/author-ghosthacker-vrms.ts  (P16 follow-up)
-MANGAKA_API_KEY=$(op read 'op://Gftd Japan株式会社/lg-mangaka/api-key') \
+MANGAKA_API_KEY=$(op read 'op://etzhayyim Japan株式会社/lg-mangaka/api-key') \
 deno run -A scripts/author-ghosthacker-vrms.ts --concurrency 1
 ```
 

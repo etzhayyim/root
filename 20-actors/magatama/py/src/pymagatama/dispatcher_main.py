@@ -69,7 +69,7 @@ BINDING_TTL_SEC = int(os.environ.get("BINDING_TTL_SEC", "30"))
 AUTH_MODE = os.environ.get("DISPATCHER_AUTH_MODE", "strict").lower()
 INTERNAL_SECRET = os.environ.get("DISPATCHER_INTERNAL_SECRET", "")
 INTERNAL_TRUST_HEADER = "x-internal-trust"
-PUBLIC_MALAK_PREFIX = "ai.gftd.apps.publicMalak."
+PUBLIC_MALAK_PREFIX = "app.etzhayyim.apps.publicMalak."
 
 # Yatabase pod proxy (ADR-2605111200 Option A, P59 2026-05-11).
 # Cloudflared on this VKE cannot reach the lg-yatabase pod network namespace
@@ -85,7 +85,7 @@ LG_YATABASE_PROXY_PREFIXES = (
     # Everything under the yatabase product surface is owned by the pod.
     # Specific NSIDs land on dedicated handlers; unknown ones get a clean
     # 404 from FastAPI instead of crashing here.
-    "ai.gftd.apps.yata.",
+    "app.etzhayyim.apps.yata.",
 )
 
 # lg-animeka pod proxy (P3c 2026-05-12, same pattern as lg-yatabase).
@@ -94,7 +94,7 @@ LG_ANIMEKA_INTERNAL_URL = os.environ.get(
     "http://lg-animeka.mitama-udf.svc.cluster.local:8000",
 )
 LG_ANIMEKA_PROXY_PREFIXES = (
-    "ai.gftd.apps.animeka.",
+    "app.etzhayyim.apps.animeka.",
 )
 
 # lg-recap pod proxy (2026-05-12, same pattern as lg-animeka).
@@ -103,7 +103,7 @@ LG_RECAP_INTERNAL_URL = os.environ.get(
     "http://lg-recap.mitama-udf.svc.cluster.local:8000",
 )
 LG_RECAP_PROXY_PREFIXES = (
-    "ai.gftd.apps.recap.",
+    "app.etzhayyim.apps.recap.",
 )
 
 # Mangaka document persistence proxy (ghosthacker import, 2026-05-12).
@@ -119,11 +119,11 @@ LG_MANGAKA_INTERNAL_URL = os.environ.get(
     "http://lg-mangaka.mitama-udf.svc.cluster.local:8000",
 )
 LG_MANGAKA_PROXY_NSIDS = frozenset({
-    "ai.gftd.apps.mangaka.saveDocument",
-    "ai.gftd.apps.mangaka.loadDocument",
-    "ai.gftd.apps.mangaka.listDocuments",
-    "ai.gftd.apps.mangaka.debugCanvasState",
-    "ai.gftd.apps.mangaka.detectFaces",
+    "app.etzhayyim.apps.mangaka.saveDocument",
+    "app.etzhayyim.apps.mangaka.loadDocument",
+    "app.etzhayyim.apps.mangaka.listDocuments",
+    "app.etzhayyim.apps.mangaka.debugCanvasState",
+    "app.etzhayyim.apps.mangaka.detectFaces",
 })
 
 # lg-shinshi pod proxy (2026-05-13, Zeebe→LangGraph migration Phase A).
@@ -131,70 +131,70 @@ LG_SHINSHI_INTERNAL_URL = os.environ.get(
     "LG_SHINSHI_INTERNAL_URL",
     "http://lg-shinshi.mitama-udf.svc.cluster.local:8000",
 )
-LG_SHINSHI_PROXY_PREFIXES = ("ai.gftd.apps.shinshi.",)
+LG_SHINSHI_PROXY_PREFIXES = ("app.etzhayyim.apps.shinshi.",)
 
 # lg-narou pod proxy (2026-05-13, Zeebe→LangGraph migration Phase A).
 LG_NAROU_INTERNAL_URL = os.environ.get(
     "LG_NAROU_INTERNAL_URL",
     "http://lg-narou.mitama-udf.svc.cluster.local:8000",
 )
-LG_NAROU_PROXY_PREFIXES = ("ai.gftd.apps.narou.",)
+LG_NAROU_PROXY_PREFIXES = ("app.etzhayyim.apps.narou.",)
 
 # lg-dougaka pod proxy (2026-05-13, Zeebe→LangGraph migration Phase A).
 LG_DOUGAKA_INTERNAL_URL = os.environ.get(
     "LG_DOUGAKA_INTERNAL_URL",
     "http://lg-dougaka.mitama-udf.svc.cluster.local:8000",
 )
-LG_DOUGAKA_PROXY_PREFIXES = ("ai.gftd.apps.dougaka.",)
+LG_DOUGAKA_PROXY_PREFIXES = ("app.etzhayyim.apps.dougaka.",)
 
 # lg-x pod proxy (2026-05-13, Zeebe→LangGraph migration Phase A).
 LG_X_INTERNAL_URL = os.environ.get(
     "LG_X_INTERNAL_URL",
     "http://lg-x.mitama-udf.svc.cluster.local:8000",
 )
-LG_X_PROXY_PREFIXES = ("ai.gftd.apps.x.",)
+LG_X_PROXY_PREFIXES = ("app.etzhayyim.apps.x.",)
 
 # lg-yukkuri pod proxy (2026-05-13, Zeebe→LangGraph migration Phase A).
 LG_YUKKURI_INTERNAL_URL = os.environ.get(
     "LG_YUKKURI_INTERNAL_URL",
     "http://lg-yukkuri.mitama-udf.svc.cluster.local:8000",
 )
-LG_YUKKURI_PROXY_PREFIXES = ("ai.gftd.apps.yukkuri.",)
+LG_YUKKURI_PROXY_PREFIXES = ("app.etzhayyim.apps.yukkuri.",)
 
 # lg-open-jpn-mynumber pod proxy (2026-05-13, Zeebe→LangGraph migration Phase B).
 LG_OPEN_JPN_MYNUMBER_INTERNAL_URL = os.environ.get(
     "LG_OPEN_JPN_MYNUMBER_INTERNAL_URL",
     "http://lg-open-jpn-mynumber.mitama-udf.svc.cluster.local:8000",
 )
-LG_OPEN_JPN_MYNUMBER_PROXY_PREFIXES = ("ai.gftd.apps.openJpnMynumber.",)
+LG_OPEN_JPN_MYNUMBER_PROXY_PREFIXES = ("app.etzhayyim.apps.openJpnMynumber.",)
 
 # lg-curpus2skill pod proxy (2026-05-13, Zeebe→LangGraph migration Phase B).
 LG_CURPUS2SKILL_INTERNAL_URL = os.environ.get(
     "LG_CURPUS2SKILL_INTERNAL_URL",
     "http://lg-curpus2skill.mitama-udf.svc.cluster.local:8000",
 )
-LG_CURPUS2SKILL_PROXY_PREFIXES = ("ai.gftd.apps.curpus2skill.",)
+LG_CURPUS2SKILL_PROXY_PREFIXES = ("app.etzhayyim.apps.curpus2skill.",)
 
 # lg-pd-color pod proxy (2026-05-13, Zeebe→LangGraph migration Phase B).
 LG_PD_COLOR_INTERNAL_URL = os.environ.get(
     "LG_PD_COLOR_INTERNAL_URL",
     "http://lg-pd-color.mitama-udf.svc.cluster.local:8000",
 )
-LG_PD_COLOR_PROXY_PREFIXES = ("ai.gftd.apps.pdColor.",)
+LG_PD_COLOR_PROXY_PREFIXES = ("app.etzhayyim.apps.pdColor.",)
 
 # lg-karma pod proxy (2026-05-13, Zeebe→LangGraph migration Phase C).
 LG_KARMA_INTERNAL_URL = os.environ.get(
     "LG_KARMA_INTERNAL_URL",
     "http://lg-karma.mitama-udf.svc.cluster.local:8000",
 )
-LG_KARMA_PROXY_PREFIXES = ("ai.gftd.apps.karma.",)
+LG_KARMA_PROXY_PREFIXES = ("app.etzhayyim.apps.karma.",)
 
 # lg-legal-entity pod proxy (2026-05-13, Zeebe→LangGraph migration Phase D).
 LG_LEGAL_ENTITY_INTERNAL_URL = os.environ.get(
     "LG_LEGAL_ENTITY_INTERNAL_URL",
     "http://lg-legal-entity.mitama-udf.svc.cluster.local:8000",
 )
-LG_LEGAL_ENTITY_PROXY_PREFIXES = ("ai.gftd.apps.legalEntity.",)
+LG_LEGAL_ENTITY_PROXY_PREFIXES = ("app.etzhayyim.apps.legalEntity.",)
 
 # lg-organism pod proxy (2026-05-13, Zeebe→LangGraph migration Phase E).
 LG_ORGANISM_INTERNAL_URL = os.environ.get(
@@ -202,13 +202,13 @@ LG_ORGANISM_INTERNAL_URL = os.environ.get(
     "http://lg-organism.mitama-udf.svc.cluster.local:8000",
 )
 LG_ORGANISM_PROXY_PREFIXES = (
-    "ai.gftd.apps.hakkou.",
-    "ai.gftd.apps.kabi.",
-    "ai.gftd.apps.ki.",
-    "ai.gftd.apps.kinoko.",
-    "ai.gftd.apps.kobo.",
-    "ai.gftd.apps.koke.",
-    "ai.gftd.apps.saikin.",
+    "app.etzhayyim.apps.hakkou.",
+    "app.etzhayyim.apps.kabi.",
+    "app.etzhayyim.apps.ki.",
+    "app.etzhayyim.apps.kinoko.",
+    "app.etzhayyim.apps.kobo.",
+    "app.etzhayyim.apps.koke.",
+    "app.etzhayyim.apps.saikin.",
 )
 
 # maps read facade (World Monitor parity P0, 2026-05-14).
@@ -220,14 +220,14 @@ MAPS_LANGSERVER_INTERNAL_URL = os.environ.get(
     "http://zeebe-worker-api.mitama-udf.svc.cluster.local:8081",
 )
 MAPS_LANGSERVER_PROXY_NSIDS = frozenset({
-    "ai.gftd.apps.maps.getDashboard",
-    "ai.gftd.apps.maps.getLatestBrief",
-    "ai.gftd.apps.maps.getRiskSnapshot",
-    "ai.gftd.apps.maps.getWorldMonitorDashboard",
-    "ai.gftd.apps.maps.listIntelAlerts",
-    "ai.gftd.apps.maps.listIntelEvents",
-    "ai.gftd.apps.maps.listLiveAircraft",
-    "ai.gftd.apps.maps.listLiveSatellites",
+    "app.etzhayyim.apps.maps.getDashboard",
+    "app.etzhayyim.apps.maps.getLatestBrief",
+    "app.etzhayyim.apps.maps.getRiskSnapshot",
+    "app.etzhayyim.apps.maps.getWorldMonitorDashboard",
+    "app.etzhayyim.apps.maps.listIntelAlerts",
+    "app.etzhayyim.apps.maps.listIntelEvents",
+    "app.etzhayyim.apps.maps.listLiveAircraft",
+    "app.etzhayyim.apps.maps.listLiveSatellites",
 })
 MAPS_LANGSERVER_PROXY_NSIDS_LOWER = frozenset(nsid.lower() for nsid in MAPS_LANGSERVER_PROXY_NSIDS)
 MAPS_LANGSERVER_PROXY_SUFFIXES = frozenset(nsid.rsplit(".", 1)[-1].lower() for nsid in MAPS_LANGSERVER_PROXY_NSIDS)
@@ -242,10 +242,10 @@ AMENO_LANGSERVER_INTERNAL_URL = os.environ.get(
     "http://ameno-langserver.mitama-udf.svc.cluster.local:8081",
 )
 AMENO_LANGSERVER_PROXY_NSIDS = frozenset({
-    "ai.gftd.apps.ameno.saveResult",
-    "ai.gftd.apps.ameno.listHistory",
-    "ai.gftd.apps.ameno.listActorAdapters",
-    "ai.gftd.apps.ameno.listMyCredits",
+    "app.etzhayyim.apps.ameno.saveResult",
+    "app.etzhayyim.apps.ameno.listHistory",
+    "app.etzhayyim.apps.ameno.listActorAdapters",
+    "app.etzhayyim.apps.ameno.listMyCredits",
 })
 AMENO_LANGSERVER_PROXY_NSIDS_LOWER = frozenset(nsid.lower() for nsid in AMENO_LANGSERVER_PROXY_NSIDS)
 
@@ -256,10 +256,10 @@ MALAK_LANGSERVER_INTERNAL_URL = os.environ.get(
     "MALAK_LANGSERVER_INTERNAL_URL",
 )
 MALAK_LANGSERVER_PROXY_NSIDS = frozenset({
-    "ai.gftd.apps.malak.bitnestExitPursuit",
-    "ai.gftd.apps.malak.exportSurveillanceEvidence",
-    "ai.gftd.apps.malak.agencyOutreachFullFlow",
-    "ai.gftd.apps.malak.draftAgencyBriefing",
+    "app.etzhayyim.apps.malak.bitnestExitPursuit",
+    "app.etzhayyim.apps.malak.exportSurveillanceEvidence",
+    "app.etzhayyim.apps.malak.agencyOutreachFullFlow",
+    "app.etzhayyim.apps.malak.draftAgencyBriefing",
 })
 MALAK_LANGSERVER_PROXY_NSIDS_LOWER = frozenset(nsid.lower() for nsid in MALAK_LANGSERVER_PROXY_NSIDS)
 
@@ -1234,7 +1234,7 @@ async def _dispatch_mailer_direct(nsid: str, body: dict[str, Any]) -> web.Respon
     synchronous read surfaces (/api/stats, /api/emails), so keep this small
     direct bridge until mailer has a first-class LangGraph facade.
     """
-    if not nsid.startswith("ai.gftd.apps.mailer."):
+    if not nsid.startswith("app.etzhayyim.apps.mailer."):
         return None
 
     op = nsid.rsplit(".", 1)[-1]
@@ -1563,7 +1563,7 @@ async def _proxy_to_lg_pod_sse(
 ) -> web.StreamResponse:
     """Stream-pass SSE response from an lg-* pod without buffering.
 
-    Used for ai.gftd.apps.ameno.subscribeBriefs (NATS firehose → browser).
+    Used for app.etzhayyim.apps.ameno.subscribeBriefs (NATS firehose → browser).
     Connection lifetime is bounded by the pod (idleTimeoutSec / maxEvents);
     we just relay chunks until the upstream closes.
     """
@@ -1623,7 +1623,7 @@ async def _proxy_to_lg_pod(
     target = f"{internal_url.rstrip('/')}/xrpc/{nsid}"
     method = request.method
     cache_key = ""
-    if pod_name == "maps-langserver" and nsid == "ai.gftd.apps.maps.getWorldMonitorDashboard" and method == "POST":
+    if pod_name == "maps-langserver" and nsid == "app.etzhayyim.apps.maps.getWorldMonitorDashboard" and method == "POST":
         cache_key = nsid
         cached = _MAPS_DASHBOARD_CACHE.get(cache_key)
         if cached and (time.monotonic() - float(cached["stored_at"])) <= MAPS_DASHBOARD_CACHE_TTL_SEC:
@@ -1725,7 +1725,7 @@ async def mcp_route(request: web.Request) -> web.Response:
     if isinstance(params, dict):
         tool_name = str(params.get("name") or "")
 
-    if method == "tools/call" and not tool_name.startswith("ai.gftd.apps.shinshi."):
+    if method == "tools/call" and not tool_name.startswith("app.etzhayyim.apps.shinshi."):
         return web.json_response(
             {
                 "jsonrpc": "2.0",
@@ -1965,14 +1965,14 @@ async def dispatch(request: web.Request) -> web.Response:
     if nsid in AMENO_LANGSERVER_PROXY_NSIDS or nsid.lower() in AMENO_LANGSERVER_PROXY_NSIDS_LOWER:
         return await _proxy_to_lg_pod(request, nsid, body, AMENO_LANGSERVER_INTERNAL_URL, "ameno-langserver", timeout=15)
 
-    if nsid == "ai.gftd.apps.ameno.subscribeBriefs":
+    if nsid == "app.etzhayyim.apps.ameno.subscribeBriefs":
         return await _proxy_to_lg_pod_sse(request, nsid, AMENO_LANGSERVER_INTERNAL_URL, "ameno-langserver")
 
     if nsid in MALAK_LANGSERVER_PROXY_NSIDS or nsid.lower() in MALAK_LANGSERVER_PROXY_NSIDS_LOWER:
         return await _proxy_to_lg_pod(request, nsid, body, MALAK_LANGSERVER_INTERNAL_URL, "malak-langserver", timeout=120)
 
     binding = await lookup_binding(nsid)
-    if nsid.startswith("ai.gftd.apps.maps.") and nsid.rsplit(".", 1)[-1].lower() in MAPS_LANGSERVER_PROXY_SUFFIXES:
+    if nsid.startswith("app.etzhayyim.apps.maps.") and nsid.rsplit(".", 1)[-1].lower() in MAPS_LANGSERVER_PROXY_SUFFIXES:
         return await _proxy_to_lg_pod(request, nsid, body, MAPS_LANGSERVER_INTERNAL_URL, "maps-langserver", timeout=45)
     if not binding:
         return web.json_response(
@@ -2107,11 +2107,11 @@ async def make_app() -> web.Application:
     app.router.add_get("/health", health)
     app.router.add_get("/bindings", list_bindings)
     # MCP envelope route (ADR-2605082000 §2.6 + ADR-0087). Must be registered
-    # BEFORE the wildcard so /xrpc/ai.gftd.mcp.message hits the dedicated
+    # BEFORE the wildcard so /xrpc/app.etzhayyim.mcp.message hits the dedicated
     # handler instead of the BPMN-binding lookup.
     from pymagatama.mcp_dispatch import aiohttp_route as _mcp_route, build_default_handlers
     app["mcp_handlers"] = build_default_handlers()
-    app.router.add_post("/xrpc/ai.gftd.mcp.message", _mcp_route)
+    app.router.add_post("/xrpc/app.etzhayyim.mcp.message", _mcp_route)
     app.router.add_post("/mcp", mcp_route)
     app.router.add_post("/xrpc/{nsid}", dispatch)
     app.router.add_get("/xrpc/{nsid}", dispatch)

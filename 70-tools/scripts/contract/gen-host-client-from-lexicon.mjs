@@ -3,7 +3,7 @@
 /**
  * gen-host-client-from-lexicon.mjs — Lexicon JSON → host-client.ts
  *
- * Sister script to gen-service-from-lexicon.mjs. Scans ai.gftd.host.* lexicons
+ * Sister script to gen-service-from-lexicon.mjs. Scans app.etzhayyim.host.* lexicons
  * and emits a typed in-process host capability client for magatama-host-sdk.
  *
  * F-Plan (Lexicon SSoT) Phase 1: replaces WIT-defined host imports with Lexicon-defined
@@ -27,12 +27,12 @@ const OUT_FILE = path.join(OUT_DIR, "host-client.ts");
 const args = process.argv.slice(2);
 const isDryRun = args.includes("--dry-run");
 
-// ai.gftd.host.secrets.get → secretsGet
-// ai.gftd.host.sql.query → sqlQuery
-// ai.gftd.host.llm.converse → llmConverse
+// app.etzhayyim.host.secrets.get → secretsGet
+// app.etzhayyim.host.sql.query → sqlQuery
+// app.etzhayyim.host.llm.converse → llmConverse
 function nsidToCamelMethod(nsid) {
   const parts = nsid.split(".");
-  // strip ai.gftd.host prefix → [domain, action, ...]
+  // strip app.etzhayyim.host prefix → [domain, action, ...]
   const tail = parts.slice(3);
   if (tail.length === 0) return parts[parts.length - 1];
   return tail

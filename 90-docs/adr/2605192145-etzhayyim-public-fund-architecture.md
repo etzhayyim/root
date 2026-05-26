@@ -14,7 +14,7 @@ authoritative_for:
   - Public Fund Safe address のガバナンス境界
   - `PublicFundGovernance.sol` contract spec
   - grant 評議 Pregel cell (`PublicFundGrantCell`) の入出力
-  - grant 配布 Lexicon (`ai.gftd.apps.public-fund.*`)
+  - grant 配布 Lexicon (`app.etzhayyim.apps.public-fund.*`)
   - 60-apps/ai-gftd-project-public-fund/ の architecture
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
@@ -82,7 +82,7 @@ contract PublicFundGovernance {
         address[] recipients;       // 0xSplits 受領者 (1 or N)
         uint256[] amounts;          // 各 recipient への USDC base units
         bytes32 missionAxisHash;    // どの mission 句に整合的か (§1.1-§1.7)
-        bytes32 evidenceCid;        // 提案書 IPFS CID (ai.gftd.apps.public-fund.proposal record)
+        bytes32 evidenceCid;        // 提案書 IPFS CID (app.etzhayyim.apps.public-fund.proposal record)
         uint64 proposedAt;
         uint64 votingDeadline;
         uint64 timelockEnd;
@@ -127,7 +127,7 @@ contract PublicFundGovernance {
 - 提案者 (`proposer`) は **誰でもよい** (構成員に限らない)。任意の第三者が grant 提案できる。
 - 投票権は **1 SBT = 1 vote** (ADR-2605172300 §8)。 quorum 20% / 過半数 で可決。
 - `missionAxisHash` は keccak256 of `"mission.basic_income"` / `"mission.robotics_universal"` 等。**Charter Compliance Rider (ADR-2605192200) の禁止業態に該当する提案は提案時点で revert** する。
-- `evidenceCid` は提案書 (Markdown / PDF) の IPFS CID。`ai.gftd.apps.public-fund.proposal` AT Record に full text + signature が記録される。
+- `evidenceCid` は提案書 (Markdown / PDF) の IPFS CID。`app.etzhayyim.apps.public-fund.proposal` AT Record に full text + signature が記録される。
 - timelock 48h は ADR-2605172300 §8 の 72h より短い。理由: grant は constitutional 変更ではなく **特定 project への助成** であり、緊急性 (例: 治療費 grant) を考慮。
 - `cancel()` は Council (Lv6 multisig) が緊急時に呼べる。Rider 違反が事後発覚した場合の救済策。
 
@@ -136,13 +136,13 @@ contract PublicFundGovernance {
 magatama Pregel framework (ADR-2605171800) 上で動作する評議補助 cell。**人間の評議者を置換するのではなく補助する** 位置付け。
 
 ```
-input:  ai.gftd.apps.public-fund.proposal record (新規)
+input:  app.etzhayyim.apps.public-fund.proposal record (新規)
         + Charter Compliance Rider (ADR-2605192200) の禁止業態 list
         + Mission Charter §1.1-§1.7 の構造化 description
         + 提案者の過去 attestation history (MST)
         + 類似過去 grant の outcome (executed grants の milestone 達成度)
 
-output: ai.gftd.apps.public-fund.evaluation record
+output: app.etzhayyim.apps.public-fund.evaluation record
         - mission_axis_match: §1.1-§1.7 のどれに最も整合的か
         - rider_compliance: PASS / FAIL / NEEDS_HUMAN
         - amount_reasonableness: 0.0 - 1.0
@@ -165,7 +165,7 @@ START
   → assess_amount            (LLM — Treasury balance / similar grant 中央値からの偏差)
   → synthesize_recommendation (LLM — 上記を統合)
   → sign_evaluation          (cell key で署名)
-  → emit_to_mst              (ai.gftd.apps.public-fund.evaluation record)
+  → emit_to_mst              (app.etzhayyim.apps.public-fund.evaluation record)
 END
 ```
 
@@ -212,9 +212,9 @@ milestone (`milestoneCids[]`) ごとに分割実行:
               ...
 ```
 
-各 milestone は recipient が `ai.gftd.apps.public-fund.milestone-evidence` record を MST に書き、Council Lv6+ が attestation すると次の disbursement が unlock される。
+各 milestone は recipient が `app.etzhayyim.apps.public-fund.milestone-evidence` record を MST に書き、Council Lv6+ が attestation すると次の disbursement が unlock される。
 
-## 5. Lexicon `ai.gftd.apps.public-fund.*`
+## 5. Lexicon `app.etzhayyim.apps.public-fund.*`
 
 | Lexicon | 用途 | 必須 fields |
 |---|---|---|

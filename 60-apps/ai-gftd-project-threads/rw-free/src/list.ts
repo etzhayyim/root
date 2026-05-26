@@ -12,7 +12,7 @@
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { ThreadsPost } from "./types.js";
 
-const COLLECTION = "ai.gftd.apps.threads.post";
+const COLLECTION = "app.etzhayyim.apps.threads.post";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_READER_DID ?? "did:web:etzhayyim.com",

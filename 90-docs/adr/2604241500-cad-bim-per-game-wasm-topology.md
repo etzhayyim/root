@@ -94,8 +94,8 @@ Off-path:  cad-job.etzhayyim.com / bim-job.etzhayyim.com (CF Container, standard
 | Primary handle | `cad.etzhayyim.com` | `bim.etzhayyim.com` |
 | Primary DID | `did:web:cad.etzhayyim.com` → `did:plc:cad` (Phase 5) | `did:web:bim.etzhayyim.com` → `did:plc:bim` |
 | Nanoid | `cd4dview` (既存) | `b1m3d1tr` (新規) |
-| Runtime | `worker` (TS Native + `@gftd/magatama-host-sdk`) | `worker` |
-| Lexicon root | `ai.gftd.apps.cad.*` | `ai.gftd.apps.bim.*` |
+| Runtime | `worker` (TS Native + `@etzhayyim/magatama-host-sdk`) | `worker` |
+| Lexicon root | `app.etzhayyim.apps.cad.*` | `app.etzhayyim.apps.bim.*` |
 | Persistence | Hyperdrive direct (ADR-0036) on `vertex_cad_*` | Hyperdrive direct on `vertex_bim_*` |
 | Blob storage (ADR-0048) | B2 (Backblaze B2) SHA-256 content-addressed (`ai-gftd-cad/cad/{blobs,meshes,exports}/{sha}`) | B2 同上 (`ai-gftd-bim/bim/{blobs,meshes,exports}/{sha}`) |
 | Social derive | revision publish / comment resolve → `app.bsky.feed.post` | 同左 (annotation resolve, revision publish) |
@@ -104,21 +104,21 @@ Off-path:  cad-job.etzhayyim.com / bim-job.etzhayyim.com (CF Container, standard
 
 | NSID | type |
 |---|---|
-| `ai.gftd.apps.cad.importCadFile` | procedure |
-| `ai.gftd.apps.cad.getRevisionScene` | query |
-| `ai.gftd.apps.cad.addAnchoredComment` | procedure |
-| `ai.gftd.apps.cad.listComments` | query |
-| `ai.gftd.apps.cad.requestExport` | procedure |
+| `app.etzhayyim.apps.cad.importCadFile` | procedure |
+| `app.etzhayyim.apps.cad.getRevisionScene` | query |
+| `app.etzhayyim.apps.cad.addAnchoredComment` | procedure |
+| `app.etzhayyim.apps.cad.listComments` | query |
+| `app.etzhayyim.apps.cad.requestExport` | procedure |
 
 ## Phase 1 BIM lexicons (SSoT: `00-contracts/lexicons/ai/gftd/bim/`)
 
 | NSID | type |
 |---|---|
-| `ai.gftd.apps.bim.importIfc` | procedure |
-| `ai.gftd.apps.bim.getStoreyScene` | query |
-| `ai.gftd.apps.bim.listSpaces` | query |
-| `ai.gftd.apps.bim.annotateElement` | procedure |
-| `ai.gftd.apps.bim.requestExport` | procedure |
+| `app.etzhayyim.apps.bim.importIfc` | procedure |
+| `app.etzhayyim.apps.bim.getStoreyScene` | query |
+| `app.etzhayyim.apps.bim.listSpaces` | query |
+| `app.etzhayyim.apps.bim.annotateElement` | procedure |
+| `app.etzhayyim.apps.bim.requestExport` | procedure |
 
 ## Workspace 追加
 
@@ -157,7 +157,7 @@ Off-path:  cad-job.etzhayyim.com / bim-job.etzhayyim.com (CF Container, standard
 ## 禁止事項
 
 - `kami-web::run_with_*` に cad / bim エントリを追加してはならない
-- `ai.gftd.apps.{cad,bim}.*` domain collection を `sdk.pds.createRecord`
+- `app.etzhayyim.apps.{cad,bim}.*` domain collection を `sdk.pds.createRecord`
   で書いてはならない (ADR-0036、Hyperdrive 直接)
 - IFC STEP や STEP203 の raw text を AT Record (federable) に埋めては
   ならない (`blobKey` 参照のみ)

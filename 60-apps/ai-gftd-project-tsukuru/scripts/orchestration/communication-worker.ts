@@ -52,12 +52,12 @@ async function writeProjectorRecord(customerDid: string, status: string, convoId
     name: "Tsukuru Order Progress",
     convoId: convoId,
     status: status,
-    $type: "ai.gftd.projector#main"
+    $type: "app.etzhayyim.projector#main"
   };
 
   const rkey = `order-${Date.now()}`;
   await mstClient.appendToMst({
-    collection: "ai.gftd.projector",
+    collection: "app.etzhayyim.projector",
     rkey: rkey,
     record: record
   });

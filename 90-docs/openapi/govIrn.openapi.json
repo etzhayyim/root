@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govIrn.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govIrn.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Iran government.",
-        "operationId": "ai.gftd.govIrn.followSiteDeps",
+        "operationId": "app.etzhayyim.govIrn.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIrn.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govIrn.heartbeatTick": {
       "post": {
         "summary": "Run the Iran government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govIrn.heartbeatTick",
+        "operationId": "app.etzhayyim.govIrn.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIrn.listOrgs": {
+    "/xrpc/app.etzhayyim.govIrn.listOrgs": {
       "get": {
         "summary": "List Iran government organization graph records.",
-        "operationId": "ai.gftd.govIrn.listOrgs",
+        "operationId": "app.etzhayyim.govIrn.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIrn.registerDIDs": {
+    "/xrpc/app.etzhayyim.govIrn.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Iran government organizations.",
-        "operationId": "ai.gftd.govIrn.registerDIDs",
+        "operationId": "app.etzhayyim.govIrn.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIrn.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govIrn.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Iran government organization path to its graph record.",
-        "operationId": "ai.gftd.govIrn.resolveOrgPath",
+        "operationId": "app.etzhayyim.govIrn.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIrn.seedOrgs": {
+    "/xrpc/app.etzhayyim.govIrn.seedOrgs": {
       "post": {
         "summary": "Seed initial Iran government organization records into the graph.",
-        "operationId": "ai.gftd.govIrn.seedOrgs",
+        "operationId": "app.etzhayyim.govIrn.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIrn.shinka": {
+    "/xrpc/app.etzhayyim.govIrn.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Iran government organization update.",
-        "operationId": "ai.gftd.govIrn.shinka",
+        "operationId": "app.etzhayyim.govIrn.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIrn.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govIrn.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Iran government organization changes to graph.",
-        "operationId": "ai.gftd.govIrn.syncWetUpdates",
+        "operationId": "app.etzhayyim.govIrn.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

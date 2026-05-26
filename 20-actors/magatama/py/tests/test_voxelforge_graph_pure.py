@@ -14,7 +14,7 @@ running RisingWave. Verifies:
      ``{assistant_id, input}`` and direct ``{kind,...}`` shapes.
 
 All side-effecting calls (B2 PUT, RW INSERT) are short-circuited by
-``GFTD_VOXELFORGE_DRY_RUN=1``.
+``etzhayyim_VOXELFORGE_DRY_RUN=1``.
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ import time
 import pytest
 
 
-os.environ["GFTD_VOXELFORGE_DRY_RUN"] = "1"
+os.environ["etzhayyim_VOXELFORGE_DRY_RUN"] = "1"
 
 
 def _fake_glb(label: str = b"glb") -> bytes:
@@ -109,7 +109,7 @@ def _make_initial_state(input_payload: dict):
         input=gi,
         actor_did="did:web:voxelforge.etzhayyim.com",
         org_did="did:erc725:gftd:260425:test",
-        design_vertex_id="at://did:web:voxelforge.etzhayyim.com/ai.gftd.apps.voxelforge.design/test",
+        design_vertex_id="at://did:web:voxelforge.etzhayyim.com/app.etzhayyim.apps.voxelforge.design/test",
         run_id="test-run-id",
         started_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     )
@@ -139,7 +139,7 @@ def test_cad_path_completes_with_artifacts(patched_converters):
     assert "manifest_json" in formats, formats
     # All artifacts pinned to the same design + run.
     assert {a["design_vertex_id"] for a in arts} == {
-        "at://did:web:voxelforge.etzhayyim.com/ai.gftd.apps.voxelforge.design/test"
+        "at://did:web:voxelforge.etzhayyim.com/app.etzhayyim.apps.voxelforge.design/test"
     }
     assert {a["run_vertex_id"] for a in arts} == {"test-run-id"}
 

@@ -87,29 +87,72 @@ export const auth = {
 	whoami(apiKey: string) {
 		return request<WhoamiResp>('/auth/v1/whoami', { apiKey });
 	},
-	upgrade(apiKey: string, plan: string, successUrl?: string, cancelUrl?: string) {
-		return request<{ ok?: boolean; checkoutUrl?: string; message?: string }>('/auth/v1/upgrade', {
-			apiKey,
-			body: {
-				plan,
-				successUrl: successUrl ?? `${window.location.origin}/studio/billing?upgraded=1`,
-				cancelUrl: cancelUrl ?? window.location.href,
+	// Charter Rider §2 (ADR-2605192115): paid upgrades return 403 from this
+	// endpoint. Use `donate.submit()` below to drive USDC plan transitions.
+	// Free-tier downgrade still flows through here.
+	downgradeToFree(apiKey: string) {
+		return request<{ ok?: boolean; plan?: string; mode?: string; message?: string }>(
+			'/auth/v1/upgrade',
+			{
+				apiKey,
+				body: { plan: 'free' },
 			},
-		});
-	},
-	// CHARTER RIDER §2: Stripe portal disabled. Stripe integration removed.
-	stripePortal(apiKey: string) {
-		// Returns error response; Stripe payment is prohibited
-		return request<{ error: string; code?: string }>('/auth/v1/portal', {
-			apiKey,
-			method: 'POST',
-			body: {},
-		});
+		);
 	},
 	attachEmail(apiKey: string, email: string) {
 		return request<{ ok: boolean; message?: string }>('/auth/v1/attach-email', {
 			apiKey,
 			body: { email },
+		});
+	},
+};
+
+// ─── USDC donation (Charter Rider §2 replacement for Stripe portal/upgrade) ─
+
+export type DonationPurpose =
+	| 'donation'
+	| 'kisha'
+	| 'grant'
+	| 'tithe'
+	| 'escrow-refund'
+	| 'internal-purchase'
+	| 'internal-subscription'
+	| 'internal-promo';
+
+export interface DonateRequest {
+	/** Recipient address on Base L2. */
+	to: string;
+	/** Amount in human-readable USDC ("50.00") or base units. */
+	amountUsdc: string | number;
+	/** Purpose category per ADR-2605192115. */
+	purpose: DonationPurpose;
+	/** Optional memo (≤280 chars). */
+	memo?: string;
+	/** Optional AT URI being funded. */
+	forUri?: string;
+}
+
+export interface DonateResponse {
+	ok?: boolean;
+	error?: string;
+	code?: string;
+	txHash?: string;
+	paymentReceipt?: {
+		txHash: string;
+		blockNumber: number;
+		recordUri: string;
+		from?: string;
+		to?: string;
+		amount?: string;
+	};
+	message?: string;
+}
+
+export const donate = {
+	submit(apiKey: string, body: DonateRequest) {
+		return request<DonateResponse>('/api/donate', {
+			apiKey,
+			body,
 		});
 	},
 };

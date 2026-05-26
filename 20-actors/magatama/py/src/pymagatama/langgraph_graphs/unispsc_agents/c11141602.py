@@ -10,7 +10,7 @@ class CatalystState(TypedDict):
 
 def validate_purity(state: CatalystState):
     # Simulate high-precision validation logic for catalyst purity
-    is_pure = True 
+    is_pure = True
     return {"purity_check": is_pure, "validation_logs": ["Purity validation passed."]}
 
 def check_compliance(state: CatalystState):
@@ -24,4 +24,4 @@ graph.add_node("compliance", check_compliance)
 graph.add_edge("validate", "compliance")
 graph.add_edge("compliance", END)
 graph.set_entry_point("validate")
-compiled_graph = graph.compile()
+graph = graph.compile()

@@ -23,7 +23,7 @@ UP = [{'sql': '\n'
          '           1, $8, $9, $10\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sbom-register-artifact-v1',
                  'did:web:sbom.etzhayyim.com',
                  'sbom_register_artifact',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_Persist" name="register SBOM artifact + '
                  'components">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.sbom.registerArtifact"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.sbom.registerArtifact"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      <bpmn:incoming>Flow_Persist</bpmn:incoming>\n'
                  '      <bpmn:outgoing>Flow_VulnMatch</bpmn:outgoing>\n'
@@ -61,7 +61,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '    <bpmn:serviceTask id="Task_VulnMatch" name="run vuln-match (purl × CVE)">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.ai.gftd.apps.sbom.runVulnMatch"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.sbom.runVulnMatch"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      <bpmn:incoming>Flow_VulnMatch</bpmn:incoming>\n'
                  '      <bpmn:outgoing>Flow_Audit</bpmn:outgoing>\n'
@@ -97,7 +97,7 @@ UP = [{'sql': '\n'
                  'did:web:sbom.etzhayyim.com',
                  'did:web:sbom.etzhayyim.com',
                  'sys.bpmn.seed.sbom-register-artifact',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sbom-register-artifact-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -109,21 +109,21 @@ UP = [{'sql': '\n'
          '           1, $7, $8, $9\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sbom-registerArtifact-v1',
                  'did:web:sbom.etzhayyim.com',
-                 'ai.gftd.apps.sbom.registerArtifact',
+                 'app.etzhayyim.apps.sbom.registerArtifact',
                  'sbom_register_artifact',
                  300000,
                  '2026-05-06T10:01:00Z',
                  'did:web:sbom.etzhayyim.com',
                  'did:web:sbom.etzhayyim.com',
                  'sys.bpmn.seed.sbom-register-artifact',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sbom-registerArtifact-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sbom-registerArtifact-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sbom-registerArtifact-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sbom-register-artifact-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sbom-register-artifact-v1']}]
 
 
 def upgrade() -> None:

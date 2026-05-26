@@ -422,4 +422,4 @@ export const VOTE_CHOICE = {
 
 // ─── Lexicon NSID for the oath AT Record (ADR-2605172600) ───────────
 
-export const OATH_RECORD_NSID = "ai.gftd.apps.etzhayyim.oath" as const;
+export const OATH_RECORD_NSID = "app.etzhayyim.apps.etzhayyim.oath" as const;

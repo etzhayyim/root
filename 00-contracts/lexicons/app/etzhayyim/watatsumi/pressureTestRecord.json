@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.watatsumi.pressureTestRecord",
+  "description": "Pressure test record (L5b). 1.25× design-depth water-pressure test with continuous Hibiki AE monitoring. G12 KPI cap (designDepthM ≤ 6500 civilian). Per ADR-2605252200 L5b.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "craftId": {"type": "string"},
+          "designDepthM": {"type": "integer", "maximum": 6500},
+          "testDepthEquivalentM": {"type": "integer"},
+          "testPressureBar": {"type": "number"},
+          "hibikiAEStream": {"type": "array", "items": {"type": "unknown"}},
+          "holdDurationMinutes": {"type": "integer", "minimum": 60},
+          "leakRateMlPerMin": {"type": "number", "maximum": 1.0},
+          "overallAccept": {"type": "boolean"},
+          "g12KpiCheck": {
+            "type": "object",
+            "properties": {
+              "maxCivilianDepthM": {"type": "integer", "const": 6500},
+              "accept": {"type": "boolean"}
+            },
+            "required": ["maxCivilianDepthM", "accept"]
+          },
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["craftId", "designDepthM", "testPressureBar", "overallAccept", "g12KpiCheck"]
+      }
+    }
+  }
+}

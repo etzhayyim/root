@@ -29,7 +29,7 @@ os.environ.setdefault("LG_CRON_ENABLED", "false")
 
 _LG_DIR = Path(__file__).resolve().parents[1]
 
-_HEALTH_NSID = "ai.gftd.apps.openJpnMynumber.health"
+_HEALTH_NSID = "app.etzhayyim.apps.openJpnMynumber.health"
 
 
 def test_server_module_imports():
@@ -97,5 +97,5 @@ def test_unknown_assistant_404(client):
 
 
 def test_unknown_nsid_xrpc_404(client):
-    r = client.post("/xrpc/ai.gftd.apps.openJpnMynumber.unknownMethod", json={})
+    r = client.post("/xrpc/app.etzhayyim.apps.openJpnMynumber.unknownMethod", json={})
     assert r.status_code == 404

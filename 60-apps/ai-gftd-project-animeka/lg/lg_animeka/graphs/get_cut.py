@@ -1,6 +1,6 @@
 """animeka `getCut` graph — fetch cut + full layer tree.
 
-NSID: ai.gftd.animeka.getCut
+NSID: app.etzhayyim.animeka.getCut
 """
 import logging
 import os
@@ -18,27 +18,27 @@ _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _DEFAULT_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.etzhayyim.com")
 
 _CHILD_COLLECTIONS = [
-    "ai.gftd.animeka.storyboard",
-    "ai.gftd.animeka.layout",
-    "ai.gftd.animeka.keyframe",
-    "ai.gftd.animeka.inbetween",
-    "ai.gftd.animeka.colorTrace",
-    "ai.gftd.animeka.background",
-    "ai.gftd.animeka.composite",
-    "ai.gftd.animeka.soundCue",
-    "ai.gftd.animeka.retake",
+    "app.etzhayyim.animeka.storyboard",
+    "app.etzhayyim.animeka.layout",
+    "app.etzhayyim.animeka.keyframe",
+    "app.etzhayyim.animeka.inbetween",
+    "app.etzhayyim.animeka.colorTrace",
+    "app.etzhayyim.animeka.background",
+    "app.etzhayyim.animeka.composite",
+    "app.etzhayyim.animeka.soundCue",
+    "app.etzhayyim.animeka.retake",
 ]
 
 _COLL_TO_KEY = {
-    "ai.gftd.animeka.storyboard":  "storyboards",
-    "ai.gftd.animeka.layout":      "layouts",
-    "ai.gftd.animeka.keyframe":    "keyframes",
-    "ai.gftd.animeka.inbetween":   "inbetweens",
-    "ai.gftd.animeka.colorTrace":  "colorTraces",
-    "ai.gftd.animeka.background":  "backgrounds",
-    "ai.gftd.animeka.composite":   "composites",
-    "ai.gftd.animeka.soundCue":    "soundCues",
-    "ai.gftd.animeka.retake":      "retakes",
+    "app.etzhayyim.animeka.storyboard":  "storyboards",
+    "app.etzhayyim.animeka.layout":      "layouts",
+    "app.etzhayyim.animeka.keyframe":    "keyframes",
+    "app.etzhayyim.animeka.inbetween":   "inbetweens",
+    "app.etzhayyim.animeka.colorTrace":  "colorTraces",
+    "app.etzhayyim.animeka.background":  "backgrounds",
+    "app.etzhayyim.animeka.composite":   "composites",
+    "app.etzhayyim.animeka.soundCue":    "soundCues",
+    "app.etzhayyim.animeka.retake":      "retakes",
 }
 
 
@@ -87,7 +87,7 @@ async def _node_query(state: _GetCutState) -> dict[str, Any]:
                        stage_status, assignees, priority, status,
                        episode_id, scene_id, created_at
                 FROM vertex_animeka
-                WHERE collection = 'ai.gftd.animeka.cut'
+                WHERE collection = 'app.etzhayyim.animeka.cut'
                   AND rkey = %s
                 LIMIT 1
                 """,

@@ -218,14 +218,14 @@ appraiser: appraisal 完了 → derive:social
 
 | Collection | 蓄積タイミング |
 |---|---|
-| `ai.gftd.apps.toshiKozan.receipt` | 廃棄物受領時 |
-| `ai.gftd.apps.toshiKozan.imageScan` | 画像解析完了時 |
-| `ai.gftd.apps.toshiKozan.classification` | 分類完了時 |
-| `ai.gftd.apps.toshiKozan.batch` | バッチ完了時 |
-| `ai.gftd.apps.toshiKozan.appraisal` | 鑑定完了時 |
-| `ai.gftd.apps.toshiKozan.hcTask` | HC タスク状態変更時 |
-| `ai.gftd.apps.toshiKozan.armCommand` | アーム指令完了時 |
-| `ai.gftd.apps.collector.pickup` | collector 上流からの pickup 到着時 |
+| `app.etzhayyim.apps.toshiKozan.receipt` | 廃棄物受領時 |
+| `app.etzhayyim.apps.toshiKozan.imageScan` | 画像解析完了時 |
+| `app.etzhayyim.apps.toshiKozan.classification` | 分類完了時 |
+| `app.etzhayyim.apps.toshiKozan.batch` | バッチ完了時 |
+| `app.etzhayyim.apps.toshiKozan.appraisal` | 鑑定完了時 |
+| `app.etzhayyim.apps.toshiKozan.hcTask` | HC タスク状態変更時 |
+| `app.etzhayyim.apps.toshiKozan.armCommand` | アーム指令完了時 |
+| `app.etzhayyim.apps.collector.pickup` | collector 上流からの pickup 到着時 |
 
 ### Mood-Driven 行動パターン
 
@@ -252,47 +252,47 @@ appraiser: appraisal 完了 → derive:social
 
 | Trigger | Action | Template |
 |---|---|---|
-| `ai.gftd.apps.toshiKozan.appraisal` | `derive:social` | `[都市鉱山] 回収バッチ完了 — {{grade}} grade {{materialName}} {{weightKg}}kg 回収 (市場価値 ¥{{economicValueJpy}}, CO2削減 {{co2SavedKg}}kg)` |
-| `ai.gftd.apps.toshiKozan.receipt` (>100kg) | `derive:social` | `[都市鉱山] 大口受入: {{wasteCategory}} {{weightKg}}kg を {{depotName}} で受領` |
-| `ai.gftd.apps.toshiKozan.hcTask` (pending) | `derive:invoke` | `hc.etzhayyim.com` に HC タスク自動生成 |
+| `app.etzhayyim.apps.toshiKozan.appraisal` | `derive:social` | `[都市鉱山] 回収バッチ完了 — {{grade}} grade {{materialName}} {{weightKg}}kg 回収 (市場価値 ¥{{economicValueJpy}}, CO2削減 {{co2SavedKg}}kg)` |
+| `app.etzhayyim.apps.toshiKozan.receipt` (>100kg) | `derive:social` | `[都市鉱山] 大口受入: {{wasteCategory}} {{weightKg}}kg を {{depotName}} で受領` |
+| `app.etzhayyim.apps.toshiKozan.hcTask` (pending) | `derive:invoke` | `hc.etzhayyim.com` に HC タスク自動生成 |
 
 ## Commands (XRPC)
 
 | NSID | Actor | 説明 |
 |---|---|---|
-| `ai.gftd.apps.toshiKozan.guideDropoff` | guide | 最寄り回収拠点を案内 (maps 連携) |
-| `ai.gftd.apps.toshiKozan.guideSafety` | guide | 安全取扱い手順を案内 (LLM 生成) |
-| `ai.gftd.apps.toshiKozan.registerDepot` | collector | 回収拠点マスタ登録 |
-| `ai.gftd.apps.toshiKozan.schedulePickup` | collector | 出張回収スケジュール |
-| `ai.gftd.apps.toshiKozan.issueReceipt` | receiver | 受領証発行 (yabai 盗品スクリーニング付) |
-| `ai.gftd.apps.toshiKozan.scanItem` | eye | 画像認識・素材推定 (Murakumo inference) |
-| `ai.gftd.apps.toshiKozan.classifyMaterial` | classifier | 素材分類・グレード判定 |
-| `ai.gftd.apps.toshiKozan.createDisassemblyPlan` | disassembler | 分解計画作成 (LLM BOM 分析) |
-| `ai.gftd.apps.toshiKozan.dispatchStep` | disassembler | 工程ステップ振分け (auto/human) |
-| `ai.gftd.apps.toshiKozan.executeArmCommand` | arm | ロボットアーム指令 (高承認レベル) |
-| `ai.gftd.apps.toshiKozan.delegateToHc` | hcDelegate | hc.etzhayyim.com に人間タスク委任 |
-| `ai.gftd.apps.toshiKozan.appraiseBatch` | appraiser | 素材価値鑑定 (kakaku 市場価格連動) |
-| `ai.gftd.apps.toshiKozan.announceCampaign` | announcer | キャンペーン告知投稿 |
-| `ai.gftd.apps.toshiKozan.registerMaterial` | controller | 素材マスタ登録 |
-| `ai.gftd.apps.toshiKozan.registerWaste` | controller | 廃棄物カテゴリマスタ登録 |
+| `app.etzhayyim.apps.toshiKozan.guideDropoff` | guide | 最寄り回収拠点を案内 (maps 連携) |
+| `app.etzhayyim.apps.toshiKozan.guideSafety` | guide | 安全取扱い手順を案内 (LLM 生成) |
+| `app.etzhayyim.apps.toshiKozan.registerDepot` | collector | 回収拠点マスタ登録 |
+| `app.etzhayyim.apps.toshiKozan.schedulePickup` | collector | 出張回収スケジュール |
+| `app.etzhayyim.apps.toshiKozan.issueReceipt` | receiver | 受領証発行 (yabai 盗品スクリーニング付) |
+| `app.etzhayyim.apps.toshiKozan.scanItem` | eye | 画像認識・素材推定 (Murakumo inference) |
+| `app.etzhayyim.apps.toshiKozan.classifyMaterial` | classifier | 素材分類・グレード判定 |
+| `app.etzhayyim.apps.toshiKozan.createDisassemblyPlan` | disassembler | 分解計画作成 (LLM BOM 分析) |
+| `app.etzhayyim.apps.toshiKozan.dispatchStep` | disassembler | 工程ステップ振分け (auto/human) |
+| `app.etzhayyim.apps.toshiKozan.executeArmCommand` | arm | ロボットアーム指令 (高承認レベル) |
+| `app.etzhayyim.apps.toshiKozan.delegateToHc` | hcDelegate | hc.etzhayyim.com に人間タスク委任 |
+| `app.etzhayyim.apps.toshiKozan.appraiseBatch` | appraiser | 素材価値鑑定 (kakaku 市場価格連動) |
+| `app.etzhayyim.apps.toshiKozan.announceCampaign` | announcer | キャンペーン告知投稿 |
+| `app.etzhayyim.apps.toshiKozan.registerMaterial` | controller | 素材マスタ登録 |
+| `app.etzhayyim.apps.toshiKozan.registerWaste` | controller | 廃棄物カテゴリマスタ登録 |
 
 ## Record Kinds (AT Lexicon NSID)
 
 | Kind | Collection NSID | 説明 |
 |---|---|---|
-| depot | `ai.gftd.apps.toshiKozan.depot` | 回収拠点 |
-| pickup | `ai.gftd.apps.toshiKozan.pickup` | ピックアップ予約 |
-| receipt | `ai.gftd.apps.toshiKozan.receipt` | 受領記録 |
-| imageScan | `ai.gftd.apps.toshiKozan.imageScan` | 画像解析結果 |
-| classification | `ai.gftd.apps.toshiKozan.classification` | 分類結果 |
-| disassemblyPlan | `ai.gftd.apps.toshiKozan.disassemblyPlan` | 分解計画 |
-| disassemblyStep | `ai.gftd.apps.toshiKozan.disassemblyStep` | 分解工程ステップ |
-| armCommand | `ai.gftd.apps.toshiKozan.armCommand` | ロボットアーム指令 |
-| hcTask | `ai.gftd.apps.toshiKozan.hcTask` | HC 委任タスク |
-| batch | `ai.gftd.apps.toshiKozan.batch` | 回収バッチ |
-| appraisal | `ai.gftd.apps.toshiKozan.appraisal` | 鑑定結果 |
-| material | `ai.gftd.apps.toshiKozan.material` | 素材マスタ |
-| waste | `ai.gftd.apps.toshiKozan.waste` | 廃棄物カテゴリマスタ |
+| depot | `app.etzhayyim.apps.toshiKozan.depot` | 回収拠点 |
+| pickup | `app.etzhayyim.apps.toshiKozan.pickup` | ピックアップ予約 |
+| receipt | `app.etzhayyim.apps.toshiKozan.receipt` | 受領記録 |
+| imageScan | `app.etzhayyim.apps.toshiKozan.imageScan` | 画像解析結果 |
+| classification | `app.etzhayyim.apps.toshiKozan.classification` | 分類結果 |
+| disassemblyPlan | `app.etzhayyim.apps.toshiKozan.disassemblyPlan` | 分解計画 |
+| disassemblyStep | `app.etzhayyim.apps.toshiKozan.disassemblyStep` | 分解工程ステップ |
+| armCommand | `app.etzhayyim.apps.toshiKozan.armCommand` | ロボットアーム指令 |
+| hcTask | `app.etzhayyim.apps.toshiKozan.hcTask` | HC 委任タスク |
+| batch | `app.etzhayyim.apps.toshiKozan.batch` | 回収バッチ |
+| appraisal | `app.etzhayyim.apps.toshiKozan.appraisal` | 鑑定結果 |
+| material | `app.etzhayyim.apps.toshiKozan.material` | 素材マスタ |
+| waste | `app.etzhayyim.apps.toshiKozan.waste` | 廃棄物カテゴリマスタ |
 
 ## Compliance
 

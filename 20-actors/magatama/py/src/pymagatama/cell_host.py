@@ -38,6 +38,7 @@ import argparse
 import importlib.util
 import json
 import logging
+import os
 import signal
 import sys
 import threading
@@ -55,7 +56,11 @@ from pymagatama.cell_runtime import (
 
 logger = logging.getLogger("magatama-cell-host")
 
-REPO_ROOT = Path(__file__).resolve().parents[5]
+# Same env override as cell_runner_main.py — ETZ_REPO redirects path
+# resolution from `__file__.parents[5]` (installed-package layout) to a
+# mounted repo root (orbstack hostPath, future ConfigMap). Per ADR-2605232100.
+_ENV_REPO = os.environ.get("ETZ_REPO")
+REPO_ROOT = Path(_ENV_REPO) if _ENV_REPO else Path(__file__).resolve().parents[5]
 MAGATAMA_CELLS_DIR = REPO_ROOT / "20-actors" / "magatama" / "cells"
 KUNI_UMI_CELLS_DIR = REPO_ROOT / "20-actors" / "kuni-umi" / "cells"
 
@@ -332,14 +337,52 @@ def main(argv: list[str] | None = None) -> int:
         except Exception:
             logger.exception("on_startup raised")
 
-    # Build the graph (legacy cells may use ad-hoc signature → adapter)
+    # Build the graph. Three call signatures are tolerated (per
+    # ADR-2605202200 + ADR-2605232100):
+    #   (a) New contract:    build_graph(deps)
+    #   (b) Legacy 1-arg:    build_graph(checkpointer)
+    #   (c) Legacy multi-arg: build_graph(checkpointer, *port_objects)
+    # The multi-arg cells (charter / land / treasury / etc.) accept None
+    # for missing ports — cells degrade gracefully when substrate ports
+    # are not yet wired into CellDeps.
     try:
-        # New-contract signature
         graph = cell_module.build_graph(deps)
     except TypeError:
-        # Legacy cells: build_graph(checkpointer, *deps). Phase A adapter.
-        logger.info("[%s] using legacy build_graph(checkpointer, ...) adapter", args.cell)
-        graph = cell_module.build_graph(deps.checkpointer)  # type: ignore[misc]
+        try:
+            logger.info("[%s] using legacy build_graph(checkpointer, ...) adapter", args.cell)
+            graph = cell_module.build_graph(deps.checkpointer)  # type: ignore[misc]
+        except TypeError as e:
+            # Multi-arg legacy. Inspect the cell's signature and best-effort
+            # populate from CellDeps fields. Any unknown parameter stays None.
+            import inspect
+
+            sig = inspect.signature(cell_module.build_graph)
+            kwargs: dict[str, Any] = {}
+            for param_name in sig.parameters:
+                if param_name == "checkpointer":
+                    kwargs[param_name] = deps.checkpointer
+                elif param_name in ("llm_client", "llm_primary"):
+                    kwargs[param_name] = getattr(deps, "llm_primary", None)
+                elif param_name in ("llm_fallback", "llm_local"):
+                    kwargs[param_name] = getattr(deps, "llm_fallback_local", None)
+                elif param_name in ("base_port", "base_l2_port"):
+                    kwargs[param_name] = getattr(deps, "base_l2_port", None)
+                elif param_name in ("geth_port", "geth_private_port"):
+                    kwargs[param_name] = getattr(deps, "geth_private_port", None)
+                elif param_name == "pds_port":
+                    kwargs[param_name] = getattr(deps, "pds_client", None)
+                elif param_name == "sdk":
+                    kwargs[param_name] = getattr(deps, "sdk", None)
+                else:
+                    # Unknown port (council_dispatcher / charter_registry_port /
+                    # treasury_port / etc.) — cell-side default kwarg handles this.
+                    kwargs[param_name] = None
+            logger.info(
+                "[%s] using legacy multi-arg build_graph adapter: %s",
+                args.cell,
+                {k: ("set" if v is not None else "None") for k, v in kwargs.items()},
+            )
+            graph = cell_module.build_graph(**kwargs)
 
     # Shutdown coordination
     shutdown_event = threading.Event()

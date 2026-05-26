@@ -98,7 +98,7 @@ const TOOL_CREATE_RECORD: AgentTool = {
     parameters: {
       type: "object",
       properties: {
-        collection: { type: "string", description: "NSID collection (e.g. ai.gftd.apps.myapp.entry)" },
+        collection: { type: "string", description: "NSID collection (e.g. app.etzhayyim.apps.myapp.entry)" },
         record: { type: "object", description: "Record data object" },
       },
       required: ["collection", "record"],

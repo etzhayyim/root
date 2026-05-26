@@ -30,7 +30,7 @@ import { Kysely, sql } from 'kysely';
  * to ISIC sections (authoritative UNSD / Census correspondence).
  *
  * RisingWave state after apply:
- *   - vertex_repo_record @ 'ai.gftd.apps.cpc.commodity_item_v3': 4,594 rows
+ *   - vertex_repo_record @ 'app.etzhayyim.apps.cpc.commodity_item_v3': 4,594 rows
  *   - view_cpc3_product: new
  *   - edge_classified_as system='cpc3': 4,390 edges (CPC21 → CPC3)
  *   - edge_classified_as system='naics_isic4': 25 edges (NAICS sector → ISIC section)
@@ -53,7 +53,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.cpc.commodity_item_v3'
+    WHERE collection = 'app.etzhayyim.apps.cpc.commodity_item_v3'
   `.execute(db);
 
   // ── dim_world_domain ──────────────────────────────────────────────────
@@ -77,7 +77,7 @@ export async function down(db: Kysely<any>): Promise<void> {
   await sql`DELETE FROM edge_classified_as WHERE system = 'naics_isic4'`.execute(db);
   await sql`DROP VIEW IF EXISTS view_cpc3_product`.execute(db);
   await sql`
-    DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.cpc.commodity_item_v3'
+    DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.cpc.commodity_item_v3'
   `.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain = 'cpc3'`.execute(db);
 }

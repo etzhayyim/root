@@ -58,8 +58,8 @@ def test_unwireddb_executemany_raises_not_implemented() -> None:
 # ─── context.Context ─────────────────────────────────────────────────────────
 
 def test_context_stores_nsid() -> None:
-    ctx = Context("ai.gftd.apps.test.doThing")
-    assert ctx.nsid == "ai.gftd.apps.test.doThing"
+    ctx = Context("app.etzhayyim.apps.test.doThing")
+    assert ctx.nsid == "app.etzhayyim.apps.test.doThing"
 
 
 def test_context_db_is_unwireddb_instance() -> None:
@@ -69,19 +69,19 @@ def test_context_db_is_unwireddb_instance() -> None:
 
 def test_context_logger_returns_logger() -> None:
     import logging
-    ctx = Context("ai.gftd.apps.mymod.action")
+    ctx = Context("app.etzhayyim.apps.mymod.action")
     logger = ctx.logger()
     assert isinstance(logger, logging.Logger)
 
 
 def test_context_logger_name_contains_nsid() -> None:
-    ctx = Context("ai.gftd.apps.mymod.myAction")
-    assert "ai.gftd.apps.mymod.myAction" in ctx.logger().name
+    ctx = Context("app.etzhayyim.apps.mymod.myAction")
+    assert "app.etzhayyim.apps.mymod.myAction" in ctx.logger().name
 
 
 def test_context_two_instances_have_different_loggers() -> None:
-    ctx_a = Context("ai.gftd.apps.x.a")
-    ctx_b = Context("ai.gftd.apps.x.b")
+    ctx_a = Context("app.etzhayyim.apps.x.a")
+    ctx_b = Context("app.etzhayyim.apps.x.b")
     assert ctx_a.logger().name != ctx_b.logger().name
 
 

@@ -48,7 +48,7 @@ fi
 # 2. 1Password — preferred (root user). The Japanese vault name
 # breaks `op://` reference syntax, so we resolve by item ID.
 # Item id `yi7hc5wozgfhbaneb3ny46w6ua` = `gftd.rw/ROOT_URL` in
-# vault `Gftd Japan株式会社`.
+# vault `etzhayyim Japan株式会社`.
 if command -v op >/dev/null 2>&1 && op whoami >/dev/null 2>&1; then
     if url=$(op item get yi7hc5wozgfhbaneb3ny46w6ua --fields label=credential 2>/dev/null) \
        && [[ -n "$url" ]]; then

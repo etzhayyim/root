@@ -63,7 +63,7 @@ const defaultManifestPath = path.resolve(
   repoRoot,
   '60-apps/ai-gftd-project-states/data/jp_fiscal/sources.json',
 );
-const userAgent = 'gftd-jp-fiscal-budget-book/0.1 (+https://gftd.co.jp)';
+const userAgent = 'gftd-jp-fiscal-budget-book/0.1 (+https://etzhayyim.com)';
 
 function parseArgs(argv: string[]): { apply: boolean; manifestPath: string; sourceId?: string } {
   let apply = false;
@@ -234,7 +234,7 @@ async function main(): Promise<void> {
   const { apply, manifestPath, sourceId } = parseArgs(process.argv.slice(2));
   const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8')) as SourceManifest;
   let sources = manifest.sources.filter((source) =>
-    source.collection === 'ai.gftd.apps.jpFiscal.budgetBook'
+    source.collection === 'app.etzhayyim.apps.jpFiscal.budgetBook'
     && source.access_kind === 'pdf'
   );
   if (sourceId) sources = sources.filter((source) => source.source_id === sourceId);

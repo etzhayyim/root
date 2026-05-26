@@ -28,4 +28,4 @@ graph.add_edge('validate_quality', 'check_cold_chain')
 graph.add_edge('check_cold_chain', 'verify_compliance')
 graph.add_edge('verify_compliance', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

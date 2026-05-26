@@ -2,7 +2,7 @@
 
 Validates the routing layer added in `lg_mangaka.server`:
 
-  • `ai.gftd.mangaka.tools.*` NSIDs land on the corresponding
+  • `app.etzhayyim.mangaka.tools.*` NSIDs land on the corresponding
     `lg_mangaka.tools.tool_*` function with camelCase → snake_case kwargs.
   • Sync tools (e.g. tool_place_scene) are wrapped via `asyncio.to_thread`
     so the dispatcher stays uniformly awaitable.
@@ -44,18 +44,18 @@ def test_routing_table_covers_all_topology_tools():
     ingestion helper. The set is asserted exactly so any silent drop /
     dup surfaces here before Phase C activation."""
     assert set(srv._TOOL_NSID_TO_HANDLER.keys()) == {
-        "ai.gftd.mangaka.tools.loadPanelPlan",
-        "ai.gftd.mangaka.tools.resolveAssets",
-        "ai.gftd.mangaka.tools.placeScene",
-        "ai.gftd.mangaka.tools.simulateCharacter",
-        "ai.gftd.mangaka.tools.renderKeyframes",
-        "ai.gftd.mangaka.tools.persistScene3d",
+        "app.etzhayyim.mangaka.tools.loadPanelPlan",
+        "app.etzhayyim.mangaka.tools.resolveAssets",
+        "app.etzhayyim.mangaka.tools.placeScene",
+        "app.etzhayyim.mangaka.tools.simulateCharacter",
+        "app.etzhayyim.mangaka.tools.renderKeyframes",
+        "app.etzhayyim.mangaka.tools.persistScene3d",
         # P10.2 — cinematography output validator
-        "ai.gftd.mangaka.tools.validateCameraPlan",
+        "app.etzhayyim.mangaka.tools.validateCameraPlan",
         # P10.2b — critique aggregator (Hume overlay + best-of-N)
-        "ai.gftd.mangaka.tools.aggregateCritique",
+        "app.etzhayyim.mangaka.tools.aggregateCritique",
         # P13 — VRM ingestion (B2 upload + character vertex patch)
-        "ai.gftd.mangaka.tools.attachCharacterVrm",
+        "app.etzhayyim.mangaka.tools.attachCharacterVrm",
     }
 
 
@@ -63,14 +63,14 @@ def test_routing_table_points_at_tools_module():
     # Each handler must be the corresponding `tools.tool_*` function so the
     # MCP contract (lexicon SSoT) and the runtime body (tools.py SSoT) stay
     # in lockstep.
-    assert srv._TOOL_NSID_TO_HANDLER["ai.gftd.mangaka.tools.loadPanelPlan"] is tools_mod.tool_load_panel_plan
-    assert srv._TOOL_NSID_TO_HANDLER["ai.gftd.mangaka.tools.resolveAssets"] is tools_mod.tool_resolve_assets
-    assert srv._TOOL_NSID_TO_HANDLER["ai.gftd.mangaka.tools.placeScene"] is tools_mod.tool_place_scene
-    assert srv._TOOL_NSID_TO_HANDLER["ai.gftd.mangaka.tools.simulateCharacter"] is tools_mod.tool_simulate_character
-    assert srv._TOOL_NSID_TO_HANDLER["ai.gftd.mangaka.tools.renderKeyframes"] is tools_mod.tool_render_keyframes
-    assert srv._TOOL_NSID_TO_HANDLER["ai.gftd.mangaka.tools.persistScene3d"] is tools_mod.tool_persist_scene_3d
-    assert srv._TOOL_NSID_TO_HANDLER["ai.gftd.mangaka.tools.validateCameraPlan"] is tools_mod.tool_validate_camera_plan
-    assert srv._TOOL_NSID_TO_HANDLER["ai.gftd.mangaka.tools.aggregateCritique"] is tools_mod.tool_aggregate_critique
+    assert srv._TOOL_NSID_TO_HANDLER["app.etzhayyim.mangaka.tools.loadPanelPlan"] is tools_mod.tool_load_panel_plan
+    assert srv._TOOL_NSID_TO_HANDLER["app.etzhayyim.mangaka.tools.resolveAssets"] is tools_mod.tool_resolve_assets
+    assert srv._TOOL_NSID_TO_HANDLER["app.etzhayyim.mangaka.tools.placeScene"] is tools_mod.tool_place_scene
+    assert srv._TOOL_NSID_TO_HANDLER["app.etzhayyim.mangaka.tools.simulateCharacter"] is tools_mod.tool_simulate_character
+    assert srv._TOOL_NSID_TO_HANDLER["app.etzhayyim.mangaka.tools.renderKeyframes"] is tools_mod.tool_render_keyframes
+    assert srv._TOOL_NSID_TO_HANDLER["app.etzhayyim.mangaka.tools.persistScene3d"] is tools_mod.tool_persist_scene_3d
+    assert srv._TOOL_NSID_TO_HANDLER["app.etzhayyim.mangaka.tools.validateCameraPlan"] is tools_mod.tool_validate_camera_plan
+    assert srv._TOOL_NSID_TO_HANDLER["app.etzhayyim.mangaka.tools.aggregateCritique"] is tools_mod.tool_aggregate_critique
 
 
 # ── _camel_to_snake ───────────────────────────────────────────────────────
@@ -95,10 +95,10 @@ def test_dispatch_sync_tool_place_scene():
         "assetRefs": {"characters": {}, "environment": None, "props": {}},
         "posePlan": {},
     }
-    out = _run(srv._dispatch_mcp_tool("ai.gftd.mangaka.tools.placeScene", body))
+    out = _run(srv._dispatch_mcp_tool("app.etzhayyim.mangaka.tools.placeScene", body))
     assert "sceneDag" in out
     assert out["sceneDag"]["panel"]["rkey"] == "p-1"
-    assert out["tool"] == "ai.gftd.mangaka.tools.placeScene"
+    assert out["tool"] == "app.etzhayyim.mangaka.tools.placeScene"
     assert isinstance(out["latencyMs"], int)
 
 
@@ -108,16 +108,16 @@ def test_dispatch_sync_tool_place_scene():
 def test_dispatch_async_tool_simulate_character():
     """tool_simulate_character is async; dispatcher awaits it directly."""
     body = {"charRkey": "ch-honoka", "ticks": 12}
-    out = _run(srv._dispatch_mcp_tool("ai.gftd.mangaka.tools.simulateCharacter", body))
+    out = _run(srv._dispatch_mcp_tool("app.etzhayyim.mangaka.tools.simulateCharacter", body))
     assert "simResult" in out
     assert out["simResult"]["ch-honoka"]["settled"] is True
     assert out["simResult"]["ch-honoka"]["ticks"] == 12
-    assert out["tool"] == "ai.gftd.mangaka.tools.simulateCharacter"
+    assert out["tool"] == "app.etzhayyim.mangaka.tools.simulateCharacter"
 
 
 def test_dispatch_simulate_character_empty_charRkey():
     body = {"charRkey": ""}
-    out = _run(srv._dispatch_mcp_tool("ai.gftd.mangaka.tools.simulateCharacter", body))
+    out = _run(srv._dispatch_mcp_tool("app.etzhayyim.mangaka.tools.simulateCharacter", body))
     assert out["simResult"] == {}
 
 
@@ -128,10 +128,10 @@ def test_dispatch_unknown_kwarg_returns_400_envelope(monkeypatch):
     """Extra fields in the body surface as TypeError; dispatcher wraps them
     as a structured error instead of raising 500."""
     body = {"panelPlan": {}, "assetRefs": {}, "posePlan": {}, "extraField": 1}
-    out = _run(srv._dispatch_mcp_tool("ai.gftd.mangaka.tools.placeScene", body))
+    out = _run(srv._dispatch_mcp_tool("app.etzhayyim.mangaka.tools.placeScene", body))
     assert "error" in out
     assert "MCP tool input mismatch" in out["error"]
-    assert out["tool"] == "ai.gftd.mangaka.tools.placeScene"
+    assert out["tool"] == "app.etzhayyim.mangaka.tools.placeScene"
 
 
 def test_dispatch_handler_exception_returns_error_envelope(monkeypatch):
@@ -143,13 +143,13 @@ def test_dispatch_handler_exception_returns_error_envelope(monkeypatch):
 
     monkeypatch.setitem(
         srv._TOOL_NSID_TO_HANDLER,
-        "ai.gftd.mangaka.tools.loadPanelPlan",
+        "app.etzhayyim.mangaka.tools.loadPanelPlan",
         boom,
     )
-    out = _run(srv._dispatch_mcp_tool("ai.gftd.mangaka.tools.loadPanelPlan", {"panelRkey": "p-x"}))
+    out = _run(srv._dispatch_mcp_tool("app.etzhayyim.mangaka.tools.loadPanelPlan", {"panelRkey": "p-x"}))
     assert out["error"].startswith("mcp tool RuntimeError")
     assert "upstream pod" in out["errorDetail"]
-    assert out["tool"] == "ai.gftd.mangaka.tools.loadPanelPlan"
+    assert out["tool"] == "app.etzhayyim.mangaka.tools.loadPanelPlan"
 
 
 # ── error path returned by tools.py itself (not exception) ────────────────
@@ -160,13 +160,13 @@ def test_dispatch_load_panel_plan_returns_tool_error_when_unconfigured(monkeypat
     The dispatcher passes that through unchanged + decorates with tool/latency."""
     monkeypatch.setattr(tools_mod, "_DEFAULT_RW_URL", "")
     out = _run(srv._dispatch_mcp_tool(
-        "ai.gftd.mangaka.tools.loadPanelPlan",
+        "app.etzhayyim.mangaka.tools.loadPanelPlan",
         {"panelRkey": "p-1"},
     ))
     # Either the tool's own error envelope OR an exception envelope; both
     # carry tool/latencyMs and a stringy error.
     assert "error" in out
-    assert out["tool"] == "ai.gftd.mangaka.tools.loadPanelPlan"
+    assert out["tool"] == "app.etzhayyim.mangaka.tools.loadPanelPlan"
     assert isinstance(out["latencyMs"], int)
 
 

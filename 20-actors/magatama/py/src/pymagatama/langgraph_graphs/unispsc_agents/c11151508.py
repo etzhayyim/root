@@ -23,3 +23,5 @@ graph.add_edge('validate', 'compliance')
 graph.add_edge('compliance', END)
 
 # The graph instance 'graph' is now compiled and ready for execution with state input
+
+graph = graph.compile()

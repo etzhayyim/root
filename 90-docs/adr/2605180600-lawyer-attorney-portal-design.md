@@ -11,7 +11,7 @@ authoritative_for:
   - lawfirm↔lawyer connection protocol (externalCounselGrant flow)
   - ISCO-2611 document approval gate design
   - LangGraph attorney workspace graph definitions
-  - ai.gftd.apps.lawyer.* lexicon namespace ownership
+  - app.etzhayyim.apps.lawyer.* lexicon namespace ownership
 related:
   - adr-0016-legal-cluster-topology
   - adr-0018-pii-tier3-cohort-first
@@ -32,26 +32,26 @@ superseded_by: []
 - Submit AI-assisted document drafts that pass the ISCO-2611 lawyer-review compliance gate before finalization
 - Prepare for upcoming hearings
 
-The existing CLAUDE.md stated "独自 `ai.gftd.apps.lawyer.*` は作らない" as an early MVP constraint. This ADR supersedes that constraint: as the attorney portal matures into a standalone appview at `lawyer.etzhayyim.com`, a dedicated lexicon namespace is required to model attorney-specific operations that have no natural home in the client-facing `ai.gftd.apps.lawfirm.*` namespace.
+The existing CLAUDE.md stated "独自 `app.etzhayyim.apps.lawyer.*` は作らない" as an early MVP constraint. This ADR supersedes that constraint: as the attorney portal matures into a standalone appview at `lawyer.etzhayyim.com`, a dedicated lexicon namespace is required to model attorney-specific operations that have no natural home in the client-facing `app.etzhayyim.apps.lawfirm.*` namespace.
 
 # Decision
 
 ## 1. Lexicon Namespace
 
-Create `ai.gftd.apps.lawyer.*` as the authoritative namespace for attorney-facing operations. The `ai.gftd.apps.lawfirm.*` namespace remains the SSoT for shared matter/grant/hearing/time-entry records. Lawyer lexicons are read/write facades that operate on those shared records, scoped by `firmDid=did:web:lawyer.etzhayyim.com`.
+Create `app.etzhayyim.apps.lawyer.*` as the authoritative namespace for attorney-facing operations. The `app.etzhayyim.apps.lawfirm.*` namespace remains the SSoT for shared matter/grant/hearing/time-entry records. Lawyer lexicons are read/write facades that operate on those shared records, scoped by `firmDid=did:web:lawyer.etzhayyim.com`.
 
 ### 6 XRPC Commands
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.apps.lawyer.getDashboard` | query | Snapshot: active matters + pending grants + upcoming hearings + unbilled minutes |
-| `ai.gftd.apps.lawyer.listAssignedMatters` | query | Matters where lawyerDid is `lead_advocate_did` OR in `co_counsel_dids` |
-| `ai.gftd.apps.lawyer.listPendingGrants` | query | `externalCounselGrant` records with `status=invited` targeting this lawyerDid |
-| `ai.gftd.apps.lawyer.acceptGrant` | procedure | Flip grant `status=accepted`, open matter workspace access |
-| `ai.gftd.apps.lawyer.logWorkNote` | procedure | Write encrypted work note + optional billable time to matter |
-| `ai.gftd.apps.lawyer.submitDocumentDraft` | procedure | Trigger AI draft generation → ISCO-2611 approval gate → store in `vertex_lawyer_document_draft` |
+| `app.etzhayyim.apps.lawyer.getDashboard` | query | Snapshot: active matters + pending grants + upcoming hearings + unbilled minutes |
+| `app.etzhayyim.apps.lawyer.listAssignedMatters` | query | Matters where lawyerDid is `lead_advocate_did` OR in `co_counsel_dids` |
+| `app.etzhayyim.apps.lawyer.listPendingGrants` | query | `externalCounselGrant` records with `status=invited` targeting this lawyerDid |
+| `app.etzhayyim.apps.lawyer.acceptGrant` | procedure | Flip grant `status=accepted`, open matter workspace access |
+| `app.etzhayyim.apps.lawyer.logWorkNote` | procedure | Write encrypted work note + optional billable time to matter |
+| `app.etzhayyim.apps.lawyer.submitDocumentDraft` | procedure | Trigger AI draft generation → ISCO-2611 approval gate → store in `vertex_lawyer_document_draft` |
 
-Time entries flow back through the shared lexicon: `ai.gftd.apps.lawfirm.recordTimeEntry` with `firmDid=did:web:lawyer.etzhayyim.com`.
+Time entries flow back through the shared lexicon: `app.etzhayyim.apps.lawfirm.recordTimeEntry` with `firmDid=did:web:lawyer.etzhayyim.com`.
 
 ## 2. lawfirm → lawyer Connection Protocol
 
@@ -60,13 +60,13 @@ lawfirm.createCase (India / external-counsel marker detected)
   → auto-mint externalCounselGrant (granteeDid=k.bakshi, status=invited)
   → lawyer subscribeRepos trigger fires on grant collection
   → lawyer portal shows grant in /grants view
-  → attorney calls ai.gftd.apps.lawyer.acceptGrant
+  → attorney calls app.etzhayyim.apps.lawyer.acceptGrant
   → grant status=accepted, acceptedAt=now()
   → attorney can now call listAssignedMatters, logWorkNote, submitDocumentDraft
-  → time entries loop back via ai.gftd.apps.lawfirm.recordTimeEntry (firmDid=did:web:lawyer.etzhayyim.com)
+  → time entries loop back via app.etzhayyim.apps.lawfirm.recordTimeEntry (firmDid=did:web:lawyer.etzhayyim.com)
 ```
 
-The grant record (`ai.gftd.apps.lawfirm.externalCounselGrant`) is the canonical authority object. Its `capabilities[]` array (`read`, `comment`, `uploadDocument`, `propose`, `sign`, `scheduleHearing`) governs what the attorney may do in the matter workspace.
+The grant record (`app.etzhayyim.apps.lawfirm.externalCounselGrant`) is the canonical authority object. Its `capabilities[]` array (`read`, `comment`, `uploadDocument`, `propose`, `sign`, `scheduleHearing`) governs what the attorney may do in the matter workspace.
 
 Auto-routing: when `lawfirm.createCase` detects an India jurisdiction marker (`jurisdiction="IND"` or intake language classifier `lang=hi|bn|ta|te|mr`), the dispatcher mints the grant automatically without manual invite. This is the ADR-0036 India intake auto-route pattern extended to the lawyer portal.
 
@@ -122,7 +122,7 @@ LangGraph checkpointer: PostgreSQL (RisingWave 4566) via `AsyncPostgresSaver`. T
 | `/grants` | Grants | `listPendingGrants` — accept / decline cards |
 | `/drafts` | Drafts | `submitDocumentDraft` form + draft status tracker |
 
-All routes are protected by AT Protocol session JWT. The Svelte app calls `/xrpc/ai.gftd.apps.lawyer.*` against the lawyer Worker BFF at `lawyer.etzhayyim.com`.
+All routes are protected by AT Protocol session JWT. The Svelte app calls `/xrpc/app.etzhayyim.apps.lawyer.*` against the lawyer Worker BFF at `lawyer.etzhayyim.com`.
 
 ## 6. Data Tables (RisingWave)
 
@@ -220,7 +220,7 @@ Attorney notes and generated document content are Tier 3 PII (attorney-client pr
 - `approveDocumentDraft` / `rejectDocumentDraft` lexicons (reviewer-side procedures)
 - Hearing prep assistant graph (`lawyer_hearing_prep`) — case law retrieval via hanrei.etzhayyim.com
 - Multi-firm support (k.bakshi handling grants from multiple lawfirm tenants)
-- E-signature integration via `ai.gftd.apps.lawfirm.eSignRequest` (shared lexicon)
+- E-signature integration via `app.etzhayyim.apps.lawfirm.eSignRequest` (shared lexicon)
 
 # References
 

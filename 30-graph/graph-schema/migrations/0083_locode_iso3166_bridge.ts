@@ -17,8 +17,8 @@ import { Kysely, sql } from 'kysely';
  * LOCODE rkey format = 5-char: first 2 chars = ISO 3166-1 alpha-2 country code.
  * ISO 3166-1 has an iso2_code field (alpha-2) stored in value_json.
  * 115,687 LOCODE locations successfully mapped to their ISO 3166-1 country node.
- * LOCODE collection: ai.gftd.apps.locode.location (116,067 rows)
- * ISO 3166-1 collection: ai.gftd.apps.iso3166.country (296 rows)
+ * LOCODE collection: app.etzhayyim.apps.locode.location (116,067 rows)
+ * ISO 3166-1 collection: app.etzhayyim.apps.iso3166.country (296 rows)
  * Unmatched: ~380 rows (edge-case territories with non-standard 2-char codes).
  *
  * ## Full concordance inventory (32 systems, 272,243 total edges excl. openalex/ipc):
@@ -45,8 +45,8 @@ export async function up(db: Kysely<any>): Promise<void> {
   await sql`DELETE FROM edge_classified_as WHERE system = 'locode_iso3166'`.execute(db);
   // NB: re-generated via:
   //   JOIN SUBSTRING(locode.rkey, 1, 2) = iso3166.value_json->>'iso2_code'
-  //   WHERE locode.collection = 'ai.gftd.apps.locode.location'
-  //     AND iso3166.collection = 'ai.gftd.apps.iso3166.country'
+  //   WHERE locode.collection = 'app.etzhayyim.apps.locode.location'
+  //     AND iso3166.collection = 'app.etzhayyim.apps.iso3166.country'
   // python3 /tmp/build_locode_iso3166.py
 }
 

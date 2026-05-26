@@ -9,18 +9,18 @@
  * Usage:
  *   npx tsx scripts/ingest-domain-data.ts [--domain hanrei] [--limit 1000] [--dry-run]
  */
-import { MURAKUMO_DEFAULT_MODEL } from "@gftd/llm-models";
+import { MURAKUMO_DEFAULT_MODEL } from "@etzhayyim/llm-models";
 const PDS_URL = "https://atproto.etzhayyim.com";
 
-// ADR-0023 P4: GFTD_TOKEN (sk_live_*) Bearer replaces spoofable
+// ADR-0023 P4: etzhayyim_TOKEN (sk_live_*) Bearer replaces spoofable
 // x-magatama-verified header. Required for write operations.
-const GFTD_TOKEN = process.env.GFTD_TOKEN;
-if (!GFTD_TOKEN) {
-  throw new Error("GFTD_TOKEN env var required — run `export GFTD_TOKEN=$(gftd auth token)` first");
+const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
+if (!etzhayyim_TOKEN) {
+  throw new Error("etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(gftd auth token)` first");
 }
 const AUTH_HEADERS: Record<string, string> = {
   "Content-Type": "application/json",
-  "Authorization": `Bearer ${GFTD_TOKEN}`,
+  "Authorization": `Bearer ${etzhayyim_TOKEN}`,
   "x-gftd-org-id": "anon",
 };
 const MURAKUMO_URL = "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions";
@@ -222,7 +222,7 @@ function parseDemaeRestaurants(data: string, limit: number): Record<string, unkn
 const DOMAINS: Record<string, DomainConfig> = {
   hanrei: {
     nanoid: "h4nr31jp",
-    collectionPrefix: "ai.gftd.apps.hanrei",
+    collectionPrefix: "app.etzhayyim.apps.hanrei",
     sources: [
       { type: "seed", path: "domains/hanrei/seed.json", kind: "court", parse: parseSeedJson },
       { type: "rawJson", path: "hanrei/egov/lawlist1Constitution20260328234616.json", kind: "egovLaw", parse: parseEgovLawsXml, enrich: true },
@@ -236,7 +236,7 @@ const DOMAINS: Record<string, DomainConfig> = {
   },
   dns: {
     nanoid: "scndu0rf",
-    collectionPrefix: "ai.gftd.apps.dns",
+    collectionPrefix: "app.etzhayyim.apps.dns",
     sources: [
       { type: "seed", path: "domains/dns/seed.json", kind: "tld", parse: parseSeedJson },
       { type: "rawCsv", path: "dns/top-1m.csv", kind: "domain", parse: parseCsv },
@@ -244,84 +244,84 @@ const DOMAINS: Record<string, DomainConfig> = {
   },
   legalEntity: {
     nanoid: "le01corp0",
-    collectionPrefix: "ai.gftd.apps.legalEntity",
+    collectionPrefix: "app.etzhayyim.apps.legalEntity",
     sources: [
       { type: "seed", path: "domains/legalEntity/seed.json", kind: "jurisdiction", parse: parseSeedJson },
     ],
   },
   gtin: {
     nanoid: "gt1n4k7m",
-    collectionPrefix: "ai.gftd.apps.gtin",
+    collectionPrefix: "app.etzhayyim.apps.gtin",
     sources: [
       { type: "seed", path: "domains/gtin/seed.json", kind: "prefixRange", parse: parseSeedJson },
     ],
   },
   isbn: {
     nanoid: "bn7k2m4x",
-    collectionPrefix: "ai.gftd.apps.isbn",
+    collectionPrefix: "app.etzhayyim.apps.isbn",
     sources: [
       { type: "seed", path: "domains/isbn/seed.json", kind: "isbnGroup", parse: parseSeedJson },
     ],
   },
   pachinko: {
     nanoid: "k3rn5la4",
-    collectionPrefix: "ai.gftd.apps.pachinko",
+    collectionPrefix: "app.etzhayyim.apps.pachinko",
     sources: [
       { type: "seed", path: "domains/pachinko/seed.json", kind: "prefectureStore", parse: parseSeedJson },
     ],
   },
   autorace: {
     nanoid: "zcv937fk",
-    collectionPrefix: "ai.gftd.apps.autorace",
+    collectionPrefix: "app.etzhayyim.apps.autorace",
     sources: [
       { type: "seed", path: "domains/autorace/seed.json", kind: "venue", parse: parseSeedJson },
     ],
   },
   keirin: {
     nanoid: "zub804qz",
-    collectionPrefix: "ai.gftd.apps.keirin",
+    collectionPrefix: "app.etzhayyim.apps.keirin",
     sources: [
       { type: "seed", path: "domains/keirin/seed.json", kind: "velodrome", parse: parseSeedJson },
     ],
   },
   kyotei: {
     nanoid: "qv8yed1k",
-    collectionPrefix: "ai.gftd.apps.kyotei",
+    collectionPrefix: "app.etzhayyim.apps.kyotei",
     sources: [
       { type: "seed", path: "domains/kyotei/seed.json", kind: "boatRaceVenue", parse: parseSeedJson },
     ],
   },
   isin: {
     nanoid: "is1n8k2x",
-    collectionPrefix: "ai.gftd.apps.isin",
+    collectionPrefix: "app.etzhayyim.apps.isin",
     sources: [
       { type: "seed", path: "domains/isin/seed.json", kind: "nna", parse: parseSeedJson },
     ],
   },
   maps: {
     nanoid: "v1m9k2q8",
-    collectionPrefix: "ai.gftd.apps.maps",
+    collectionPrefix: "app.etzhayyim.apps.maps",
     sources: [
       { type: "seed", path: "domains/maps/seed.json", kind: "country", parse: parseSeedJson },
     ],
   },
   ndc: {
     nanoid: "nd7c3k9m",
-    collectionPrefix: "ai.gftd.apps.ndc",
+    collectionPrefix: "app.etzhayyim.apps.ndc",
     sources: [
       { type: "seed", path: "domains/ndc/seed.json", kind: "atcLevel1", parse: parseSeedJson },
     ],
   },
   anima: {
     nanoid: "czj1f6yv",
-    collectionPrefix: "ai.gftd.apps.anima",
+    collectionPrefix: "app.etzhayyim.apps.anima",
     sources: [
       { type: "seed", path: "domains/anima/seed.json", kind: "kingdom", parse: parseSeedJson },
     ],
   },
   blockchain: {
     nanoid: "blkchn01",
-    collectionPrefix: "ai.gftd.apps.blockchain",
+    collectionPrefix: "app.etzhayyim.apps.blockchain",
     sources: [
       { type: "seed", path: "domains/blockchain/seed.json", kind: "chain", parse: parseSeedJson },
       { type: "rawJson", path: "blockchain/coingeckoCoinList.json", kind: "coin", parse: parseBlockchain },
@@ -329,42 +329,42 @@ const DOMAINS: Record<string, DomainConfig> = {
   },
   treaty: {
     nanoid: "tr3aty01",
-    collectionPrefix: "ai.gftd.apps.treaty",
+    collectionPrefix: "app.etzhayyim.apps.treaty",
     sources: [
       { type: "seed", path: "domains/treaty/seed.json", kind: "chapter", parse: parseTreatyItems },
     ],
   },
   chotatsu: {
     nanoid: "ch0t4ts1",
-    collectionPrefix: "ai.gftd.apps.chotatsu",
+    collectionPrefix: "app.etzhayyim.apps.chotatsu",
     sources: [
       { type: "seed", path: "domains/chotatsu/seed.json", kind: "procurementNotice", parse: parseSeedJson },
     ],
   },
   cas: {
     nanoid: "cs4r7n2k",
-    collectionPrefix: "ai.gftd.apps.cas",
+    collectionPrefix: "app.etzhayyim.apps.cas",
     sources: [
       { type: "seed", path: "domains/cas/seed.json", kind: "substance", parse: parseSeedJson },
     ],
   },
   isco: {
     nanoid: "wfc8k3n1",
-    collectionPrefix: "ai.gftd.apps.isco",
+    collectionPrefix: "app.etzhayyim.apps.isco",
     sources: [
       { type: "seed", path: "domains/isco/seed.json", kind: "majorGroup", parse: parseSeedJson },
     ],
   },
   isic: {
     nanoid: "1s1c5c0a",
-    collectionPrefix: "ai.gftd.apps.isic",
+    collectionPrefix: "app.etzhayyim.apps.isic",
     sources: [
       { type: "seed", path: "domains/isic/seed.json", kind: "section", parse: parseSeedJson },
     ],
   },
   sovereign: {
     nanoid: "", // No app yet, write as graph entity
-    collectionPrefix: "ai.gftd.apps.sovereign",
+    collectionPrefix: "app.etzhayyim.apps.sovereign",
     sources: [
       { type: "seed", path: "domains/sovereign/seed.json", kind: "state", parse: parseSeedJson },
     ],
@@ -621,7 +621,7 @@ async function ingestGraphResults(dryRun: boolean, limit: number): Promise<numbe
       const batch = lines.slice(i, i + CONCURRENCY);
       await Promise.all(batch.map(async (stmt) => {
         try {
-          const resp = await fetch(`${PDS_URL}/xrpc/ai.gftd.kagami.sql`, {
+          const resp = await fetch(`${PDS_URL}/xrpc/app.etzhayyim.kagami.sql`, {
             method: "POST",
             headers: AUTH_HEADERS,
             body: JSON.stringify({ sql: stmt, appId: "" }),
@@ -651,7 +651,7 @@ async function ingestGraphResults(dryRun: boolean, limit: number): Promise<numbe
         const entity = JSON.parse(line);
         await writeRecordToPDS(
           `did:web:graph.etzhayyim.com`,
-          "ai.gftd.apps.graph.entity",
+          "app.etzhayyim.apps.graph.entity",
           { ...entity, orgId: "anon", userId: "anon", actorId: "graph", createdAt: new Date().toISOString() },
         );
         total++;

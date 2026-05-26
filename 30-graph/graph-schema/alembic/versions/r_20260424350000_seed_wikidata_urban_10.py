@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-subwayStation:Station',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-subwayStation:Station',
                  'did:web:maps.etzhayyim.com:registry:wikidata:subwayStation',
                  'Station',
                  20000,
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-seaport:Port',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-seaport:Port',
                  'did:web:maps.etzhayyim.com:registry:wikidata:seaport',
                  'Port',
                  2000,
@@ -53,7 +53,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-borough:AdminArea',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-borough:AdminArea',
                  'did:web:maps.etzhayyim.com:registry:wikidata:borough',
                  'AdminArea',
                  15000,
@@ -69,7 +69,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-hamletWd:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-hamletWd:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:hamletWd',
                  'Spot',
                  200000,
@@ -85,7 +85,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-neighborhood:AdminArea',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-neighborhood:AdminArea',
                  'did:web:maps.etzhayyim.com:registry:wikidata:neighborhood',
                  'AdminArea',
                  100000,
@@ -101,7 +101,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-publicSquare:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-publicSquare:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:publicSquare',
                  'Spot',
                  30000,
@@ -117,7 +117,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-skiResort:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-skiResort:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:skiResort',
                  'Spot',
                  5000,
@@ -133,7 +133,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-cityPark:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-cityPark:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:cityPark',
                  'Spot',
                  50000,
@@ -149,7 +149,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-shoppingCenter:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-shoppingCenter:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:shoppingCenter',
                  'Spot',
                  30000,
@@ -165,7 +165,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.coverageTarget/registry-wikidata-policeStationWd:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-policeStationWd:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:policeStationWd',
                  'Spot',
                  20000,

@@ -40,8 +40,8 @@
     end.setDate(end.getDate() + 6);
 
     const [availRes, eventRes] = await Promise.all([
-      xrpc<{ availability: AvailSlot[] }>('ai.gftd.apps.yotei.getAvailability', { calendarId }),
-      xrpc<{ events: EventItem[] }>('ai.gftd.apps.yotei.listEvents', { calendarId, dateFrom: fmtDate(start), dateTo: fmtDate(end) }),
+      xrpc<{ availability: AvailSlot[] }>('app.etzhayyim.apps.yotei.getAvailability', { calendarId }),
+      xrpc<{ events: EventItem[] }>('app.etzhayyim.apps.yotei.listEvents', { calendarId, dateFrom: fmtDate(start), dateTo: fmtDate(end) }),
     ]);
     availability = availRes.availability ?? [];
     events = eventRes.events ?? [];

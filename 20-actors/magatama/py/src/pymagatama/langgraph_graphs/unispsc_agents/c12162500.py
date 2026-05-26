@@ -10,7 +10,7 @@ class ChemicalState(TypedDict):
 
 def validate_purity(state: ChemicalState):
     # Simulate high-purity validation logic
-    is_pure = True 
+    is_pure = True
     return {"purity_check": is_pure}
 
 def check_safety(state: ChemicalState):

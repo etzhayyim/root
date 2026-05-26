@@ -99,7 +99,7 @@ religious-corp の力学的 routing-around (§1.12 §1.11) は **物理層** で
 
 Each phase cell is a LangGraph `StateGraph` with `MstCheckpointSaver` (ADR-2605191559) → MST → IPFS pin (ADR-2605191608) → Base L2 anchor (ADR-2605191625). One super-step = one phase tick = one IEC 61499 event when bridging into `open-ot`.
 
-## 2. Lexicon namespace `ai.gftd.apps.etzhayyim.kuniUmi.*`
+## 2. Lexicon namespace `app.etzhayyim.apps.etzhayyim.kuniUmi.*`
 
 Six lexicons authored in `00-contracts/lexicons/ai/gftd/apps/etzhayyim/kuniUmi/`:
 

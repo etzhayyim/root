@@ -147,11 +147,11 @@ async function getCollectionRow(table: string, build?: (query: any) => any): Pro
 
 /** Configuration for autoCrud() — auto-registers standard CRUD + utility commands. */
 export interface AutoCrudConfig {
-  /** App domain name (e.g. "oshi", "news"). Used for NSID: ai.gftd.apps.{domain}.* */
+  /** App domain name (e.g. "oshi", "news"). Used for NSID: app.etzhayyim.apps.{domain}.* */
   domain: string;
   /** Primary SQL node label (e.g. "Creator", "NewsArticle"). */
   label: string;
-  /** Collection name for AT records (defaults to ai.gftd.apps.{domain}.{camelLabel}). */
+  /** Collection name for AT records (defaults to app.etzhayyim.apps.{domain}.{camelLabel}). */
   collection?: string;
   /** Typed read table for autoCrud queries. Defaults to vertex_{domain}_{label}. */
   readTable?: string;
@@ -320,7 +320,7 @@ export class App {
   //
   // Apps that use template-literal NSIDs or short non-AT-Protocol NSIDs need to either
   // (a) create the corresponding lexicon JSON and regenerate gen-lexicon-nsid-types.mjs,
-  // or (b) migrate to a known NSID pattern ai.gftd.apps.{app}.{method}.
+  // or (b) migrate to a known NSID pattern app.etzhayyim.apps.{app}.{method}.
   command<Name extends string>(name: StrictCommandNSID<Name>, handler: CommandHandler, ...opts: CommandOption[]): App {
     const entry = createCommandEntry(name as string, handler);
     registerCommand({
@@ -646,7 +646,7 @@ You MUST inspect data before posting and then call post.`;
 Step 1: Inspect your current records using the app's available read paths.
 Step 2: Call web_fetch to gather domain knowledge. Fetch a relevant source URL for "${domain}" (e.g. a Wikipedia page, industry report, or news source).
 Step 3: Call create_record to persist your findings as a kyumei result:
-  collection: "ai.gftd.apps.${domain}.kyumeiResult"
+  collection: "app.etzhayyim.apps.${domain}.kyumeiResult"
   record: { topic: "<what you investigated>", source: "<URL>", summary: "<key findings>", gaps: "<what's still missing>", createdAt: "<ISO timestamp>" }
 Step 4: Call post to announce your findings to followers.
 
@@ -773,7 +773,7 @@ You MUST inspect data, then call the repair tools.`,
     if (existing) return { ok: true, detail: existing };
 
     const domain = this._autoCrudConfig?.domain ?? "";
-    if (domain && commit.collection.startsWith(`ai.gftd.apps.${domain}.`)) {
+    if (domain && commit.collection.startsWith(`app.etzhayyim.apps.${domain}.`)) {
       return { ok: true, detail: `processed ${commit.collection}` };
     }
     if (commit.collection === "app.bsky.feed.like") {
@@ -885,7 +885,7 @@ You MUST inspect data, then call the repair tools.`,
   // ── AT Protocol repo commit handling ─────────────────────────────
 
   comAtprotoSyncSubscribeRepos(commit: ComAtprotoSyncSubscribeReposCommit): string | null {
-    if (commit.collection === "ai.gftd.convo.message" && commit.action === "create") {
+    if (commit.collection === "app.etzhayyim.convo.message" && commit.action === "create") {
       return this.dispatchConversationCommit(commit);
     }
 

@@ -48,7 +48,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       max_iterations, score_threshold,
       note, created_at
     ) VALUES (
-      'at://did:web:gameka.etzhayyim.com/ai.gftd.apps.gameka.studioConfig/global',
+      'at://did:web:gameka.etzhayyim.com/app.etzhayyim.apps.gameka.studioConfig/global',
       'did:web:gameka.etzhayyim.com', 'global', 'did:web:gameka.etzhayyim.com',
       'global', false,
       3, 0.8,

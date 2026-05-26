@@ -7,13 +7,13 @@ import {
   nowISO,
   str,
   nsid,
-} from "@gftd/magatama-host-sdk";
-import type { Database } from "@gftd/graph-schema";
+} from "@etzhayyim/magatama-host-sdk";
+import type { Database } from "@etzhayyim/graph-schema";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { Kysely } from "kysely";
 
 /**
- * ai.gftd.repository — ADR-0039 Repository-in-Graph.
+ * app.etzhayyim.repository — ADR-0039 Repository-in-Graph.
  *
  * Git object model (blob / tree / commit / ref) over Actor DID. Repository ≡
  * Actor DID (vertex_actor is reused; no vertex_repository entity). Blob / tree
@@ -144,7 +144,7 @@ async function sha256Hex(bytes: Uint8Array): Promise<string> {
 // Cross-owner dedup remains possible via the content-addressed `hash`
 // column (not vertex_id) at query time.
 function vertexId(owner: string, kind: "blob" | "tree" | "commit" | "ref", key: string): string {
-  return `at://${owner}/ai.gftd.repository.${kind}/${key}`;
+  return `at://${owner}/app.etzhayyim.repository.${kind}/${key}`;
 }
 
 function baseVertex(owner: string): Record<string, unknown> {
@@ -397,7 +397,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
 
   // ─── createBlob ───────────────────────────────────────────────────
   sdk.app.command(
-    nsid("ai.gftd.repository.createBlob"),
+    nsid("app.etzhayyim.repository.createBlob"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const ownerDid = str(params?.ownerDid ?? "");
@@ -469,7 +469,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
 
   // ─── getBlob ─────────────────────────────────────────────────────
   sdk.app.query(
-    nsid("ai.gftd.repository.getBlob"),
+    nsid("app.etzhayyim.repository.getBlob"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const hash = str(params?.hash ?? "");
@@ -531,7 +531,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
 
   // ─── createTree ──────────────────────────────────────────────────
   sdk.app.command(
-    nsid("ai.gftd.repository.createTree"),
+    nsid("app.etzhayyim.repository.createTree"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const ownerDid = str(params?.ownerDid ?? "");
@@ -591,7 +591,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
 
   // ─── getTree ─────────────────────────────────────────────────────
   sdk.app.query(
-    nsid("ai.gftd.repository.getTree"),
+    nsid("app.etzhayyim.repository.getTree"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const treeHash = str(params?.treeHash ?? "");
@@ -628,7 +628,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
 
   // ─── createCommit (Phase B: full ES256 verify via did.json) ──────
   sdk.app.command(
-    nsid("ai.gftd.repository.createCommit"),
+    nsid("app.etzhayyim.repository.createCommit"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const treeHash = str(params?.treeHash ?? "");
@@ -822,7 +822,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
 
   // ─── getCommit (Phase B: server-side signatureValid check) ───────
   sdk.app.query(
-    nsid("ai.gftd.repository.getCommit"),
+    nsid("app.etzhayyim.repository.getCommit"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const commitHash = str(params?.commitHash ?? "");
@@ -883,10 +883,10 @@ const worker = createWorkerExport((sdk: HostSDK) => {
   // Ref id convention: `${ownerDid}|${refName}` (uniqueness per DID×name).
   // vertex_id follows the at:// convention for consistency with other vertices.
   const refVertexId = (owner: string, name: string): string =>
-    `at://${owner}/ai.gftd.repository.ref/${encodeURIComponent(name)}`;
+    `at://${owner}/app.etzhayyim.repository.ref/${encodeURIComponent(name)}`;
 
   sdk.app.command(
-    nsid("ai.gftd.repository.createRef"),
+    nsid("app.etzhayyim.repository.createRef"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const ownerDid = str(params?.ownerDid ?? "");
@@ -992,7 +992,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
   // updateRef: sole mutable write in ADR-0039. CAS on expectedCurrent, ancestry
   // classification (fastForward / rolledBack / forcePushed), firehose stub.
   sdk.app.command(
-    nsid("ai.gftd.repository.updateRef"),
+    nsid("app.etzhayyim.repository.updateRef"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const ownerDid = str(params?.ownerDid ?? "");
@@ -1154,7 +1154,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
         .execute()
         .catch(() => {});
 
-      // ADR-0036: ai.gftd.repository.refUpdate is a domain collection — PDS dispatch
+      // ADR-0036: app.etzhayyim.repository.refUpdate is a domain collection — PDS dispatch
       // removed. Ref state is fully persisted in edge_repository_ref_points above.
       // Firehose broadcast for this collection should be derived via a graph-worker
       // derive rule, not inline PDS dispatch (ADR-0036 §domain write).
@@ -1174,7 +1174,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
   );
 
   sdk.app.query(
-    nsid("ai.gftd.repository.listRefs"),
+    nsid("app.etzhayyim.repository.listRefs"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const ownerDid = params?.ownerDid ? str(params.ownerDid) : null;
@@ -1330,7 +1330,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
   };
 
   sdk.app.query(
-    nsid("ai.gftd.repository.log"),
+    nsid("app.etzhayyim.repository.log"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const ownerDid = params?.ownerDid ? str(params.ownerDid) : null;
@@ -1396,7 +1396,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
 
   // diff: file-level tree diff (MVP — no unified hunks yet; Phase C).
   sdk.app.query(
-    nsid("ai.gftd.repository.diff"),
+    nsid("app.etzhayyim.repository.diff"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const baseCommit = str(params?.baseCommit ?? "");
@@ -1511,7 +1511,7 @@ const worker = createWorkerExport((sdk: HostSDK) => {
   // Complexity: O(D × M × N) where D = depth walked, M = current blob lines,
   // N = parent blob lines. MAX_DEPTH cap prevents runaway.
   sdk.app.query(
-    nsid("ai.gftd.repository.blame"),
+    nsid("app.etzhayyim.repository.blame"),
     async (_ctx, _p: any) => {
       const params = decodeParams(_p);
       const ownerDid = params?.ownerDid ? str(params.ownerDid) : null;

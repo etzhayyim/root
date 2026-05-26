@@ -22,7 +22,7 @@
 import { encodeCanonicalCbor, type CborValue } from "./cbor";
 import { createCidV1, type CIDv1, cidv1ToString } from "./cid";
 
-export const DID_GFTD_PREFIX = "did:gftd:";
+export const DID_etzhayyim_PREFIX = "did:gftd:";
 export const MAX_PATH_DEPTH = 6;
 
 export interface VerificationMethodInput {
@@ -62,9 +62,9 @@ export interface GenesisResult {
   op: Record<string, CborValue>;
 }
 
-export function isValidDidGftd(did: string): boolean {
-  if (!did.startsWith(DID_GFTD_PREFIX)) return false;
-  const tail = did.slice(DID_GFTD_PREFIX.length);
+export function isValidDidetzhayyim(did: string): boolean {
+  if (!did.startsWith(DID_etzhayyim_PREFIX)) return false;
+  const tail = did.slice(DID_etzhayyim_PREFIX.length);
   if (tail.length === 0) return false;
   const segs = tail.split(":");
   if (segs.length === 0 || segs.length > MAX_PATH_DEPTH + 1) return false;
@@ -75,8 +75,8 @@ export function isValidDidGftd(did: string): boolean {
 }
 
 export function didDepth(did: string): number {
-  if (!did.startsWith(DID_GFTD_PREFIX)) throw new Error(`not a did:gftd: ${did}`);
-  return did.slice(DID_GFTD_PREFIX.length).split(":").length - 1;
+  if (!did.startsWith(DID_etzhayyim_PREFIX)) throw new Error(`not a did:gftd: ${did}`);
+  return did.slice(DID_etzhayyim_PREFIX.length).split(":").length - 1;
 }
 
 export function didParent(did: string): string | null {
@@ -87,10 +87,10 @@ export function didParent(did: string): string | null {
 }
 
 export function didRoot(did: string): string {
-  if (!did.startsWith(DID_GFTD_PREFIX)) throw new Error(`not a did:gftd: ${did}`);
-  const tail = did.slice(DID_GFTD_PREFIX.length);
+  if (!did.startsWith(DID_etzhayyim_PREFIX)) throw new Error(`not a did:gftd: ${did}`);
+  const tail = did.slice(DID_etzhayyim_PREFIX.length);
   const rootSeg = tail.split(":")[0];
-  return DID_GFTD_PREFIX + rootSeg;
+  return DID_etzhayyim_PREFIX + rootSeg;
 }
 
 function buildCanonicalOp(input: GenesisInput): Record<string, CborValue> {
@@ -114,7 +114,7 @@ function buildCanonicalOp(input: GenesisInput): Record<string, CborValue> {
 
 export async function createGenesis(input: GenesisInput): Promise<GenesisResult> {
   if (input.type === "child") {
-    if (!isValidDidGftd(input.parent)) throw new Error(`invalid parent did:gftd: ${input.parent}`);
+    if (!isValidDidetzhayyim(input.parent)) throw new Error(`invalid parent did:gftd: ${input.parent}`);
     if (didDepth(input.parent) >= MAX_PATH_DEPTH) {
       throw new Error(`MAX_PATH_DEPTH exceeded (${MAX_PATH_DEPTH})`);
     }
@@ -128,7 +128,7 @@ export async function createGenesis(input: GenesisInput): Promise<GenesisResult>
   const cidString = cidv1ToString(cid);
 
   const did = input.type === "root"
-    ? DID_GFTD_PREFIX + cidString
+    ? DID_etzhayyim_PREFIX + cidString
     : (input as ChildGenesisInput).parent + ":" + cidString;
 
   const depth = input.type === "root" ? 0 : didDepth((input as ChildGenesisInput).parent) + 1;
@@ -146,7 +146,7 @@ export async function createGenesis(input: GenesisInput): Promise<GenesisResult>
 }
 
 export async function verifyGenesis(did: string, op: Record<string, CborValue>): Promise<boolean> {
-  if (!isValidDidGftd(did)) return false;
+  if (!isValidDidetzhayyim(did)) return false;
   const cidString = did.split(":").pop()!;
   const cborBytes = encodeCanonicalCbor(op);
   const cid = await createCidV1(cborBytes, { codec: "raw", multihash: "sha2-256", multibase: "b" });

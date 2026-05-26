@@ -26,4 +26,4 @@ graph.add_edge("integrate", END)
 graph.set_entry_point("validate")
 
 # Compile the graph
-app = graph.compile()
+graph = graph.compile()

@@ -16,12 +16,12 @@
     "APP_CAPABILITIES": "[\"command-serve\",\"domain-query\",\"campaign-management\",\"backer-relations\",\"payment-escrow\"]",
     "APP_DESCRIPTION": "AI Agent-Driven Crowdfunding Platform — OEM D2C product pre-sales, market validation, funding [AI Agent — unofficial, not affiliated with the real organization]",
     "APP_DISPLAY_NAME": "Crowdfunding",
-    "APP_EMBED_URL": "https://cf0und1n.gftd.ai/embed",
+    "APP_EMBED_URL": "https://cf0und1n.etzhayyim.com/embed",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "cf0und1n",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -33,8 +33,8 @@
   ],
   "routes": [
     {
-      "pattern": "cf0und1n.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "cf0und1n.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

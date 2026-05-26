@@ -1,4 +1,4 @@
-# GFTD Auth Platform — T4 Topology (auth + authz split, η=0.91)
+# etzhayyim Auth Platform — T4 Topology (auth + authz split, η=0.91)
 
 DID-native 自前認証基盤。TS infra Workers (2)。AI Agent-First + DID-native + AT Protocol faithful。
 
@@ -20,22 +20,22 @@ DID-native 自前認証基盤。TS infra Workers (2)。AI Agent-First + DID-nati
 - `/users/:id/did.json` — user DID document (did:web:authn.etzhayyim.com:user:*)
 
 **XRPC NSIDs**:
-- `ai.gftd.auth.*` — auth Worker (passkey, session, DID, service auth)
-- `ai.gftd.authz.*` — authz Worker (linked methods, actor score, org) **canonical**
-- `ai.gftd.auth.link*` on auth Worker → 307 → `accounts.etzhayyim.com/xrpc/ai.gftd.authz.*`
+- `app.etzhayyim.auth.*` — auth Worker (passkey, session, DID, service auth)
+- `app.etzhayyim.authz.*` — authz Worker (linked methods, actor score, org) **canonical**
+- `app.etzhayyim.auth.link*` on auth Worker → 307 → `accounts.etzhayyim.com/xrpc/app.etzhayyim.authz.*`
 
-### Org Management XRPC (ai.gftd.authz.org*)
+### Org Management XRPC (app.etzhayyim.authz.org*)
 
 | NSID | Method | 説明 |
 |---|---|---|
-| `ai.gftd.authz.orgCreate` | POST `{ name, domain?, orgType? }` | org 作成 (caller の accountDid = orgDid) |
-| `ai.gftd.authz.orgInfo` | GET `?orgDid=` | org 情報取得 |
-| `ai.gftd.authz.orgList` | GET | caller が所属する org 一覧 |
-| `ai.gftd.authz.orgMembers` | GET `?orgDid=` | org メンバー一覧 (メンバーのみ) |
-| `ai.gftd.authz.orgInvite` | POST `{ orgDid?, email, role? }` | メンバー招待 (HMAC token 発行) |
-| `ai.gftd.authz.orgInviteAccept` | POST `{ token }` | 招待を承認 (caller が新メンバーになる) |
-| `ai.gftd.authz.orgMemberRemove` | POST `{ orgDid?, memberDid }` | メンバー除外 (owner/admin のみ) |
-| `ai.gftd.authz.orgLeave` | POST `{ orgDid }` | org を退会 |
+| `app.etzhayyim.authz.orgCreate` | POST `{ name, domain?, orgType? }` | org 作成 (caller の accountDid = orgDid) |
+| `app.etzhayyim.authz.orgInfo` | GET `?orgDid=` | org 情報取得 |
+| `app.etzhayyim.authz.orgList` | GET | caller が所属する org 一覧 |
+| `app.etzhayyim.authz.orgMembers` | GET `?orgDid=` | org メンバー一覧 (メンバーのみ) |
+| `app.etzhayyim.authz.orgInvite` | POST `{ orgDid?, email, role? }` | メンバー招待 (HMAC token 発行) |
+| `app.etzhayyim.authz.orgInviteAccept` | POST `{ token }` | 招待を承認 (caller が新メンバーになる) |
+| `app.etzhayyim.authz.orgMemberRemove` | POST `{ orgDid?, memberDid }` | メンバー除外 (owner/admin のみ) |
+| `app.etzhayyim.authz.orgLeave` | POST `{ orgDid }` | org を退会 |
 
 **D1 Tables (GraphAr)**:
 - `vertex_gftd_auth_org` — org metadata (name, domain, org_type, settings)
@@ -283,19 +283,19 @@ gftd deploy        # or: wrangler deploy
 │  ├─ /xrpc/com.atproto.identity.resolveDid               │
 │  ├─ /xrpc/com.atproto.identity.createDid                │
 │  ├─ /xrpc/com.atproto.server.getServiceAuth             │
-│  ├─ /xrpc/ai.gftd.auth.passkeyBeginRegister             │
-│  ├─ /xrpc/ai.gftd.auth.passkeyVerifyRegister            │
-│  ├─ /xrpc/ai.gftd.auth.passkeyBeginAuth                 │
-│  ├─ /xrpc/ai.gftd.auth.passkeyVerifyAuth                │
-│  ├─ /xrpc/ai.gftd.auth.linkEmailBegin                   │
-│  ├─ /xrpc/ai.gftd.auth.linkEmailVerify                  │
-│  ├─ /xrpc/ai.gftd.auth.linkOAuthStart                   │
-│  ├─ /xrpc/ai.gftd.auth.unlinkMethod                     │
-│  ├─ /xrpc/ai.gftd.auth.smsOtpSend                       │
-│  ├─ /xrpc/ai.gftd.auth.smsOtpVerify                     │
-│  ├─ /xrpc/ai.gftd.auth.esimProvision                    │
-│  ├─ /xrpc/ai.gftd.auth.verifyDpop                       │
-│  ├─ /xrpc/ai.gftd.auth.createGuestAccount               │
+│  ├─ /xrpc/app.etzhayyim.auth.passkeyBeginRegister             │
+│  ├─ /xrpc/app.etzhayyim.auth.passkeyVerifyRegister            │
+│  ├─ /xrpc/app.etzhayyim.auth.passkeyBeginAuth                 │
+│  ├─ /xrpc/app.etzhayyim.auth.passkeyVerifyAuth                │
+│  ├─ /xrpc/app.etzhayyim.auth.linkEmailBegin                   │
+│  ├─ /xrpc/app.etzhayyim.auth.linkEmailVerify                  │
+│  ├─ /xrpc/app.etzhayyim.auth.linkOAuthStart                   │
+│  ├─ /xrpc/app.etzhayyim.auth.unlinkMethod                     │
+│  ├─ /xrpc/app.etzhayyim.auth.smsOtpSend                       │
+│  ├─ /xrpc/app.etzhayyim.auth.smsOtpVerify                     │
+│  ├─ /xrpc/app.etzhayyim.auth.esimProvision                    │
+│  ├─ /xrpc/app.etzhayyim.auth.verifyDpop                       │
+│  ├─ /xrpc/app.etzhayyim.auth.createGuestAccount               │
 │  ├─ GET  /.well-known/jwks.json (ES256 public key)      │
 │  ├─ GET  /oauth/authorize  (CLI PKCE flow)              │
 │  ├─ GET  /oauth/link/google/callback                    │
@@ -307,7 +307,7 @@ gftd deploy        # or: wrangler deploy
 └─────────────────────────────────────────────────────────┘
 ```
 
-**NSID 移行**: Rust 時代の `ai.gftd.auth.{resolveDid,createDid}` は廃止。`com.atproto.identity.{resolveDid,createDid}` に統一 (AT Protocol 準拠)。caller はゼロだったため alias 不要。
+**NSID 移行**: Rust 時代の `app.etzhayyim.auth.{resolveDid,createDid}` は廃止。`com.atproto.identity.{resolveDid,createDid}` に統一 (AT Protocol 準拠)。caller はゼロだったため alias 不要。
 
 ## RPC Interface (TypeScript)
 
@@ -336,22 +336,22 @@ export default {
     if (method === "POST" && pathname === "/xrpc/com.atproto.server.getServiceAuth") return handleSignServiceAuth(request, env);
 
     // WebAuthn / Passkey
-    if (method === "POST" && pathname === "/xrpc/ai.gftd.auth.passkeyBeginRegister") return handlePasskeyBeginRegister(request);
-    if (method === "POST" && pathname === "/xrpc/ai.gftd.auth.passkeyVerifyRegister") return handlePasskeyVerifyRegister(request, env);
-    if (method === "POST" && pathname === "/xrpc/ai.gftd.auth.passkeyBeginAuth") return handlePasskeyBeginAuth();
-    if (method === "POST" && pathname === "/xrpc/ai.gftd.auth.passkeyVerifyAuth") return handlePasskeyVerifyAuth(request, env);
+    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.passkeyBeginRegister") return handlePasskeyBeginRegister(request);
+    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.passkeyVerifyRegister") return handlePasskeyVerifyRegister(request, env);
+    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.passkeyBeginAuth") return handlePasskeyBeginAuth();
+    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.passkeyVerifyAuth") return handlePasskeyVerifyAuth(request, env);
 
     // Telecom tier (SMS OTP / eSIM / Stripe)
-    if (method === "POST" && pathname === "/xrpc/ai.gftd.auth.smsOtpSend") return handleSmsOtpSend(request, env);
-    if (method === "POST" && pathname === "/xrpc/ai.gftd.auth.smsOtpVerify") return handleSmsOtpVerify(request, env);
-    if (method === "POST" && pathname === "/xrpc/ai.gftd.auth.esimProvision") return handleEsimProvision(request, env);
-    if (method === "POST" && pathname === "/xrpc/ai.gftd.auth.createSetupIntent") return handleCreateSetupIntent(request, env);
+    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.smsOtpSend") return handleSmsOtpSend(request, env);
+    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.smsOtpVerify") return handleSmsOtpVerify(request, env);
+    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.esimProvision") return handleEsimProvision(request, env);
+    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.createSetupIntent") return handleCreateSetupIntent(request, env);
 
     // DPoP
-    if (method === "POST" && pathname === "/xrpc/ai.gftd.auth.verifyDpop") return handleVerifyDpop(request);
+    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.verifyDpop") return handleVerifyDpop(request);
 
     // Guest account (Passkey)
-    if (method === "POST" && pathname === "/xrpc/ai.gftd.auth.createGuestAccount") return handleCreateGuestAccount(request, env);
+    if (method === "POST" && pathname === "/xrpc/app.etzhayyim.auth.createGuestAccount") return handleCreateGuestAccount(request, env);
 
     // JWKS
     if (method === "GET" && pathname === "/.well-known/jwks.json") return handleJwks(env);
@@ -446,7 +446,7 @@ Agent (performerType=service/system) 用の DID credential flow。T1 (server-ass
 - `did.ts` — `createAgentSession()`: Agent DID 生成 + P-256 ES256 keypair (WebCrypto) + AT Protocol session 一括発行
 - `did.ts` — `rotateAgentKey()`: 新 keypair 生成 + 旧 key revocation timestamp 返却
 - `did.ts` — `activeKeyInfo()`: AgentKeyInfo builder
-- 3 XRPC routes: `/xrpc/ai.gftd.auth.createAgentSession`, `/xrpc/ai.gftd.auth.rotateAgentKey`, `/xrpc/ai.gftd.auth.listAgentKeys`
+- 3 XRPC routes: `/xrpc/app.etzhayyim.auth.createAgentSession`, `/xrpc/app.etzhayyim.auth.rotateAgentKey`, `/xrpc/app.etzhayyim.auth.listAgentKeys`
 
 **PDS 変更**:
 - `registerApp` (`com.atproto.admin.registerApp`): `gftd deploy` 時に AUTH_SERVICE → agent session 作成 → `:DIDDocument` + `:AgentKey` yata graph MERGE + edges (`HAS_KEY`, `HAS_DID`)。response に `agent_did`, `agent_key_id`, `agent_session` を含む
@@ -482,7 +482,7 @@ Agent request (ES256 Service Auth JWT)
 
 **auth Worker 実装**:
 - `passkey.ts` — WebAuthn registration (attestation verification) + authentication (assertion verification)。P-256 ECDSA (WebCrypto subtle) + CBOR parsing (custom minimal decoder)。RP ID = `etzhayyim.com`
-- 4 XRPC routes: `/xrpc/ai.gftd.auth.passkeyBeginRegister`, `/xrpc/ai.gftd.auth.passkeyVerifyRegister`, `/xrpc/ai.gftd.auth.passkeyBeginAuth`, `/xrpc/ai.gftd.auth.passkeyVerifyAuth`
+- 4 XRPC routes: `/xrpc/app.etzhayyim.auth.passkeyBeginRegister`, `/xrpc/app.etzhayyim.auth.passkeyVerifyRegister`, `/xrpc/app.etzhayyim.auth.passkeyBeginAuth`, `/xrpc/app.etzhayyim.auth.passkeyVerifyAuth`
 - `GET /.well-known/jwks.json` — ES256 公開鍵 JWKS endpoint (Cache-Control: 1h, CORS: *)
 - Clerk bridge コード **削除** — RS256 JWKS 検証ロジック除去
 - `authenticate()` から Clerk JWT layer 除去 — Layer 1 (service binding) → Layer 2 (AT session HS256) → public
@@ -583,7 +583,7 @@ AT Protocol 完全準拠 + federation 対応。
 
 ## CRITICAL: ERC725 Root Identity = Platform Primary Identity (ADR-0074, 2026-04-26)
 
-**`did:erc725:gftd:260425:{identityContract}` が GFTD platform の primary identity。** 認証 (AuthN) + 認可 (AuthZ) + governance は ERC725 root を正とし、Coinbase Smart Wallet は execution account として root から参照する。
+**`did:erc725:gftd:260425:{identityContract}` が etzhayyim platform の primary identity。** 認証 (AuthN) + 認可 (AuthZ) + governance は ERC725 root を正とし、Coinbase Smart Wallet は execution account として root から参照する。
 
 - **JWT.iss = did:erc725:gftd:260425:{identityContract}** — migration 完了後の platform 内 XRPC call
 - **did:gftd = legacy/internal compatibility** — 既存 account と path-form sub-DID の migration 期間のみ primary issuer として受理
@@ -594,7 +594,7 @@ AT Protocol 完全準拠 + federation 対応。
 - **GraphAr schema**: D1 auth control (vertex_gftd_auth_*) と RisingWave governance (vertex_gftd_identity) が同一 GraphAr 命名規則
 - **Design doc**: `90-docs/260416-did-schema-dodaf-org-agent-shannon-design.md`
 - **Root topology (CRITICAL, ADR-0074)**: `90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md` — ERC725 root + Coinbase Smart Wallet execution + `did:pkh` wallet alias + `did:plc`/`did:web` AT facade。SIWE は link ceremony、CACAO は portable delegated capability。
-- **Legacy method spec (ADR-0029)**: `90-docs/adr/0029-did-gftd-method-specification.md` — W3C DID Core 1.0 + DID Resolution v0.3 準拠。CIDv1 (`b` base32 + `raw` codec + sha2-256 multihash) + DAG-CBOR canonical genesis op + path-form sub-DID (max depth 6)。独自 top-level field なし。Reference impl: `10-protocol/did-gftd/`。Resolver: `did.etzhayyim.com` (`10-protocol/did-gftd/resolver/`)。Op submit: PDS XRPC `ai.gftd.identity.submitOp` (create/update/deactivate)。`did.ts` 既存 hex-truncated 形式は legacy として grandfather (auto-migration 経路は `gftd identity migrate-paths` で提供予定)
+- **Legacy method spec (ADR-0029)**: `90-docs/adr/0029-did-gftd-method-specification.md` — W3C DID Core 1.0 + DID Resolution v0.3 準拠。CIDv1 (`b` base32 + `raw` codec + sha2-256 multihash) + DAG-CBOR canonical genesis op + path-form sub-DID (max depth 6)。独自 top-level field なし。Reference impl: `10-protocol/did-gftd/`。Resolver: `did.etzhayyim.com` (`10-protocol/did-gftd/resolver/`)。Op submit: PDS XRPC `app.etzhayyim.identity.submitOp` (create/update/deactivate)。`did.ts` 既存 hex-truncated 形式は legacy として grandfather (auto-migration 経路は `gftd identity migrate-paths` で提供予定)
 
 ### D1 Tables (GraphAr schema, auth control plane)
 

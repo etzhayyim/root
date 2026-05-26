@@ -12,7 +12,7 @@ This runbook is the operator-side checklist that previously drove flipping
 it to `"completed"`.
 
 **Outcome**: yoro becomes the first on-chain registered agent on
-`GftdAgentRegistry` (chainId 260425), `vertex_agent_publication` gets a
+`etzhayyimAgentRegistry` (chainId 260425), `vertex_agent_publication` gets a
 real `tokenId`, and `geth-private.agent_runtime_publication.chain_submit_status`
 moves to `"completed"`.
 
@@ -114,7 +114,7 @@ cast call 0xbfe74a0D3BBB3D77bCd16fDe2C64741eF4472F8E \
 # → 1   (token id)
 
 # 4b. RisingWave projection (chain event sync runs every minute)
-pnpm --filter @gftd/graph-schema sync:agent-runtime-events -- --apply --flush
+pnpm --filter @etzhayyim/graph-schema sync:agent-runtime-events -- --apply --flush
 
 # 4c. count
 cd 30-graph/graph-schema
@@ -147,7 +147,7 @@ Commit with `refs ADR-2604262100`.
 bridge described in ADR-2604262100. Until step 5 runs, every
 `vertex_agent_publication` row from RisingWave is a **dry-run** record —
 useful for schema validation but not federable. Closing this loop
-unlocks: (a) external agents querying `GftdAgentRegistry.agentByRootDidHash`
+unlocks: (a) external agents querying `etzhayyimAgentRegistry.agentByRootDidHash`
 for trust-anchored `agentURI`, (b) `ActorRuntimeRegistry` execution
 receipts referencing a real `tokenId`, (c) the platform's first
 end-to-end "ERC-725 root → ERC-8004 agent → IPFS runtime → on-chain

@@ -28,7 +28,7 @@
 
   onMount(async () => {
     try {
-      dashboard = await xrpc('ai.gftd.apps.lawyer.getDashboard', {
+      dashboard = await xrpc('app.etzhayyim.apps.lawyer.getDashboard', {
         lawyerDid: LAWYER_DID,
         firmDid: FIRM_DID,
       });
@@ -66,7 +66,7 @@
   }
 </script>
 
-<svelte:head><title>Dashboard — Gftd Lawyer</title></svelte:head>
+<svelte:head><title>Dashboard — etzhayyim Lawyer</title></svelte:head>
 
 <div class="page">
   <header class="page-header">

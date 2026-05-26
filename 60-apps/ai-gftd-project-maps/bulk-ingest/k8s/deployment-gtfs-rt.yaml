@@ -1,3 +1,4 @@
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 # maps-bulk-ingest-gtfs-rt — long-running RT pod (Phase 3, gated).
 #
 # This Deployment is GATED: the worker process raises and the pod

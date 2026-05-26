@@ -19,4 +19,4 @@ graph.add_node('validate', validate_solvent_weld)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
 
-compiled = graph.compile()
+graph = graph.compile()

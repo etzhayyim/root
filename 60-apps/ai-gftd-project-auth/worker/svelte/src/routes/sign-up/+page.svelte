@@ -23,10 +23,13 @@
 	let otpCode = $state('');
 	let otpSent = $state(false);
 
-	let stripePk = $state('');
-	let stripe: any = null;
-	let cardElement: any = null;
-	let setupIntentSecret = $state('');
+	// Charter Rider §2 (ADR-2605192115): Telecom-tier provisioning is now
+	// gated on a USDC donation (purpose='internal-subscription') instead
+	// of Stripe Checkout. The Worker no longer issues SetupIntents.
+	let donateAmount = $state('19.80'); // ≈ ¥2,980 at 1 USD = ¥150 ref rate; final amount set by treasury policy
+	let donateTreasury = $state('0x0000000000000000000000000000000000000000');
+	let donateTxHash = $state('');
+	let donateSubmitting = $state(false);
 
 	const API = typeof window !== 'undefined' ? location.origin : '';
 
@@ -49,8 +52,10 @@
 
 	onMount(async () => {
 		try {
-			const cfg = await fetch(`${API}/xrpc/ai.gftd.auth.getConfig`).then((r) => r.json());
-			stripePk = cfg.stripe_pk || '';
+			const cfg = await fetch(`${API}/xrpc/app.etzhayyim.auth.getConfig`).then((r) => r.json());
+			// Charter Rider §2: stripe_pk is intentionally empty.
+			// Treasury address comes from a (future) auth.getDonationConfig surface.
+			donateTreasury = (cfg.donate_treasury_base_l2 as string) || donateTreasury;
 		} catch { /* optional */ }
 	});
 
@@ -82,7 +87,7 @@
 		status = ''; statusKind = '';
 		if (selectedPlan === 'free') { await completeAuth(authDid, authHandle); return; }
 		if (selectedPlan === 'verified') { step = 'phone'; mascot?.speak('Verify your phone for full access!'); }
-		else if (selectedPlan === 'telecom') { step = 'telecom'; mascot?.speak('Set up your eSIM!'); initStripe(); }
+		else if (selectedPlan === 'telecom') { step = 'telecom'; mascot?.speak('Make a USDC donation to activate your eSIM!'); }
 	}
 
 	async function doPhoneVerify() {
@@ -107,48 +112,57 @@
 		finally { loading = false; }
 	}
 
-	function initStripe() {
-		if (!stripePk || stripe) return;
-		const s = document.createElement('script');
-		s.src = 'https://js.stripe.com/v3/';
-		s.onload = () => {
-			const stripeTheme = $theme === 'dark' ? 'night' : 'stripe';
-			stripe = (window as any).Stripe(stripePk);
-			const elements = stripe.elements({ appearance: { theme: stripeTheme, variables: { colorPrimary: '#6366f1', borderRadius: '8px' } } });
-			cardElement = elements.create('card', { style: { base: { fontSize: '15px', color: isDark ? '#e5e5e5' : '#333', '::placeholder': { color: '#999' } } } });
-			cardElement.mount('#stripe-card');
-			fetch(`${API}/xrpc/ai.gftd.auth.createSetupIntent`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' })
-				.then((r) => r.json()).then((d: any) => { setupIntentSecret = d.client_secret || ''; }).catch((error) => {
-					console.warn('[silent-fail] sign-up/+page.svelte: createSetupIntent prefetch failed', error);
-				});
-		};
-		document.head.appendChild(s);
-	}
-
-	async function submitCard() {
-		loading = true; status = 'Registering card...'; statusKind = '';
+	// Charter Rider §2 (ADR-2605192115): replaces the Stripe.js card flow.
+	// User submits a USDC donation (internal-subscription purpose) on
+	// Base L2; eSIM provisioning runs once the donation tx is confirmed.
+	async function submitDonation() {
+		donateSubmitting = true;
+		status = 'Submitting USDC donation...';
+		statusKind = '';
+		donateTxHash = '';
 		try {
-			if (!setupIntentSecret) {
-				const si = await fetch(`${API}/xrpc/ai.gftd.auth.createSetupIntent`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }).then((r) => r.json());
-				if (si.error) throw new Error(si.message || si.error);
-				setupIntentSecret = si.client_secret;
+			if (!donateTreasury || !/^0x[a-fA-F0-9]{40}$/.test(donateTreasury)) {
+				throw new Error('Treasury address not configured. Contact support.');
 			}
-			const result = await stripe.confirmCardSetup(setupIntentSecret, { payment_method: { card: cardElement } });
-			if (result.error) throw new Error(result.error.message);
-			status = 'Card registered! Provisioning eSIM...'; statusKind = 'success';
-			const esim = await fetch(`${API}/xrpc/ai.gftd.auth.esimProvision`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }).then((r) => r.json()).catch((error) => {
+			if (!/^\d+(\.\d{1,6})?$/.test(donateAmount)) {
+				throw new Error('Enter a valid USDC amount (e.g. 19.80).');
+			}
+			const r = await fetch(`${API}/api/donate`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					to: donateTreasury,
+					amountUsdc: donateAmount,
+					purpose: 'internal-subscription',
+					memo: `auth Telecom membership: ${authDid}`,
+				}),
+			}).then((res) => res.json());
+			if (r.error) throw new Error(r.message || r.error);
+			donateTxHash = r.txHash ?? r.paymentReceipt?.txHash ?? '';
+			status = 'Donation confirmed! Provisioning eSIM...';
+			statusKind = 'success';
+			const esim = await fetch(`${API}/xrpc/app.etzhayyim.auth.esimProvision`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: '{}',
+			}).then((res) => res.json()).catch((error) => {
 				console.warn('[silent-fail] sign-up/+page.svelte: esimProvision failed', error);
 				return {};
 			});
 			if (esim.qr_code_url || esim.activation_url) mascot?.speak('Scan QR to install eSIM!');
 			else mascot?.speak('Membership Telecom activated!');
 			setTimeout(() => completeAuth(authDid, authHandle), 2000);
-		} catch (e: any) { status = e?.message || 'Payment failed'; statusKind = 'error'; loading = false; }
+		} catch (e: any) {
+			status = e?.message || 'Donation failed';
+			statusKind = 'error';
+		} finally {
+			donateSubmitting = false;
+		}
 	}
 </script>
 
 <svelte:head>
-	<title>Create Account — GFTD</title>
+	<title>Create Account — etzhayyim</title>
 </svelte:head>
 
 <ParticleCanvas />
@@ -161,7 +175,7 @@
 			? 'bg-[rgba(26,26,26,0.95)] border-[#2a2a2a] shadow-[0_30px_90px_rgba(0,0,0,0.45)]'
 			: 'bg-[rgba(255,255,255,0.92)] border-[#e0e0e0] shadow-[0_20px_60px_rgba(0,0,0,0.1)]'}">
 
-		<h1 class="text-2xl font-bold mb-1 tracking-tight {isDark ? 'text-white' : 'text-gray-900'}">GFTD</h1>
+		<h1 class="text-2xl font-bold mb-1 tracking-tight {isDark ? 'text-white' : 'text-gray-900'}">etzhayyim</h1>
 		<p class="text-[13px] mb-5 {isDark ? 'text-[#888]' : 'text-gray-500'}">Create Account</p>
 
 		{#if step === 'signup'}
@@ -233,14 +247,30 @@
 
 		{#if step === 'telecom'}
 			<div class="text-left">
-				<p class="text-[14px] font-semibold mb-1 {isDark ? 'text-white' : 'text-gray-900'}">Payment &amp; eSIM</p>
-				<p class="text-[11px] mb-3.5 {isDark ? 'text-[#666]' : 'text-gray-500'}">Register a credit card for your Membership Telecom plan (¥2,980/mo).</p>
+				<p class="text-[14px] font-semibold mb-1 {isDark ? 'text-white' : 'text-gray-900'}">USDC donation &amp; eSIM</p>
+				<p class="text-[11px] mb-3.5 {isDark ? 'text-[#666]' : 'text-gray-500'}">
+					Membership Telecom is funded by a USDC donation on Base L2
+					(purpose=<code>internal-subscription</code>) per
+					<a class="underline" href="https://github.com/etzhayyim/root/blob/main/CHARTER-RIDER.md" target="_blank" rel="noreferrer">Charter Rider §2</a>.
+				</p>
 			</div>
-			<div id="stripe-card" class="border rounded-[10px] p-3.5 mb-3 {isDark ? 'border-[#333] bg-[rgba(17,17,17,0.8)]' : 'border-gray-200 bg-white'}"></div>
-			<button onclick={submitCard} disabled={loading}
-				class="w-full py-3.5 border-none rounded-xl text-[15px] font-semibold cursor-pointer bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white disabled:bg-[#ccc] disabled:text-[#888] disabled:cursor-not-allowed">
-				Register Card &amp; Get eSIM
+			<label class="text-[12px] {isDark ? 'text-[#888]' : 'text-gray-500'}">
+				Amount (USDC)
+				<input bind:value={donateAmount} type="text" inputmode="decimal"
+					class="mt-1 w-full border rounded-[10px] px-3.5 py-3 text-[15px] outline-none {isDark ? 'bg-[rgba(17,17,17,0.8)] border-[#333] text-[#e5e5e5] focus:border-[#6366f1]' : 'bg-white border-gray-200 text-gray-800 focus:border-[#6366f1]'}" />
+			</label>
+			<label class="text-[12px] {isDark ? 'text-[#888]' : 'text-gray-500'} mt-3 block">
+				Treasury address (Base L2)
+				<input bind:value={donateTreasury} type="text"
+					class="mt-1 w-full border rounded-[10px] px-3.5 py-3 text-[13px] font-mono outline-none {isDark ? 'bg-[rgba(17,17,17,0.8)] border-[#333] text-[#e5e5e5] focus:border-[#6366f1]' : 'bg-white border-gray-200 text-gray-800 focus:border-[#6366f1]'}" />
+			</label>
+			<button onclick={submitDonation} disabled={donateSubmitting}
+				class="w-full mt-3 py-3.5 border-none rounded-xl text-[15px] font-semibold cursor-pointer bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white disabled:bg-[#ccc] disabled:text-[#888] disabled:cursor-not-allowed">
+				{donateSubmitting ? 'Submitting…' : 'Submit USDC Donation &amp; Get eSIM'}
 			</button>
+			{#if donateTxHash}
+				<p class="text-[11px] mt-2 {isDark ? 'text-[#666]' : 'text-gray-500'}">Tx: <code class="font-mono">{donateTxHash}</code></p>
+			{/if}
 		{/if}
 
 		<div class="flex items-center gap-3 my-4 text-xs {isDark ? 'text-[#444]' : 'text-gray-300'}">

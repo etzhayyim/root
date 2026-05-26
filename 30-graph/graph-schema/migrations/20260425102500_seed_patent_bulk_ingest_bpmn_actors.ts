@@ -22,26 +22,26 @@ const ownerDid = "did:web:patent.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.patent-bulk-ingest";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-ingest-uspto-weekly-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/patent-ingest-uspto-weekly-v1",
     bpmnProcessId: "patent_ingest_uspto_weekly",
     sourcePath: "00-contracts/bpmn/ai/gftd/patent/ingestUsptoWeekly.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-ingest-epo-citation-fill-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/patent-ingest-epo-citation-fill-v1",
     bpmnProcessId: "patent_ingest_epo_citation_fill",
     sourcePath: "00-contracts/bpmn/ai/gftd/patent/ingestEpoCitationFill.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/patent-blob-convert-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/patent-blob-convert-v1",
     bpmnProcessId: "patent_blob_convert",
     sourcePath: "00-contracts/bpmn/ai/gftd/patent/patentBlobConvert.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-ingestUsptoWeekly-v1",
-    nsid: "ai.gftd.apps.patent.ingestUsptoWeekly",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/patent-ingestUsptoWeekly-v1",
+    nsid: "app.etzhayyim.apps.patent.ingestUsptoWeekly",
     bpmnProcessId: "patent_ingest_uspto_weekly", ownerDid, resultTimeoutMs: 600000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-ingestEpoCitationFill-v1",
-    nsid: "ai.gftd.apps.patent.ingestEpoCitationFill",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/patent-ingestEpoCitationFill-v1",
+    nsid: "app.etzhayyim.apps.patent.ingestEpoCitationFill",
     bpmnProcessId: "patent_ingest_epo_citation_fill", ownerDid, resultTimeoutMs: 300000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/patent-blobConvert-v1",
-    nsid: "ai.gftd.apps.patent.blobConvert",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/patent-blobConvert-v1",
+    nsid: "app.etzhayyim.apps.patent.blobConvert",
     bpmnProcessId: "patent_blob_convert", ownerDid, resultTimeoutMs: 300000 },
 ];
 

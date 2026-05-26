@@ -70,7 +70,7 @@ for (const abs of files) {
       const hitRuntime =
         specPosix.startsWith("packages/runtime") ||
         specPosix.includes("/packages/runtime/") ||
-        specPosix.includes("@gftd/magatama-host-sdk") ||
+        specPosix.includes("@etzhayyim/magatama-host-sdk") ||
         (resolvedRel && isUnder(resolvedRel, "packages/runtime"));
       const hitInfra =
         specPosix.startsWith("infra/") ||

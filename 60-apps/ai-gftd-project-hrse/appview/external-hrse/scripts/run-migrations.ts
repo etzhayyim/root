@@ -5,6 +5,7 @@
 import { readdir, readFile, access } from "node:fs/promises";
 import { join } from "node:path";
 import { constants } from "node:fs";
+// CHARTER-VIOLATION §substrate (ADR-2605172000) — operational script; migrate to MST PDS write path before Council ratifies ETZHAYYIM_SUBSTRATE_MODE=mst.
 import postgres from "postgres";
 
 const MIGRATIONS_DIR = join(

@@ -30,14 +30,14 @@ const procs = ["health", "describe", "wave", "echo", "createJournalEntry", "crea
 const seeds: Seed[] = procs.map((proc) => ({
   proc,
   bpmnProcessId: `business_manager_${snake(proc)}`,
-  nsid: `ai.gftd.apps.businessManager.${proc}`,
+  nsid: `app.etzhayyim.apps.businessManager.${proc}`,
   resultTimeoutMs: 30000,
   writeTableAllowlist: writeProcs.has(proc) ? writeAllowlist : "",
 }));
 
 const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/business-manager/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/business-manager-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/business-manager-${slug(s.proc)}-v1`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-manager-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/business-manager-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

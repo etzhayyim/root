@@ -30,7 +30,7 @@ export interface SchemaDescribeResult {
 async function getKyselyForRaw(env: { HYPERDRIVE?: unknown }) {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     return sdk.createKyselyDb(env.HYPERDRIVE as never);
   } catch (e) {
     console.warn("[yatabase][schema-describe] db init failed:", e);
@@ -65,7 +65,7 @@ export async function describeTenantSchema(
   // Worker host SDK exposes `sql` from kysely.
   let sqlTag: ((strings: TemplateStringsArray, ...values: unknown[]) => unknown) | null = null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     sqlTag = (sdk as unknown as { sql?: typeof sqlTag }).sql ?? null;
   } catch {
     /* fall through */

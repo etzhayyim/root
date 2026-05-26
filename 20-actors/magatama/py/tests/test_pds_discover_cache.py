@@ -74,7 +74,7 @@ def test_task_writes_discover_cache_tick(monkeypatch):
     assert out["rowCount"] == 42
     row = factory.cursors[0].params[0]
     assert row["repo"] == "did:web:atproto.etzhayyim.com"
-    assert row["collection"] == "ai.gftd.apps.pds.discoverCacheWarm"
+    assert row["collection"] == "app.etzhayyim.apps.pds.discoverCacheWarm"
     value = json.loads(row["value_json"])
     assert value["cacheWritten"] is True
     assert factory.cursors[0].sqls[-1] == "FLUSH"

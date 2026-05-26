@@ -14,7 +14,41 @@ import time
 import unicodedata
 from typing import Any
 
-from pymagatama.db_sync import sync_cursor
+import sqlite3
+from contextlib import contextmanager
+import os
+
+
+
+@contextmanager
+def sync_cursor():
+    db_dir = os.environ.get("ORGANISM_SQLITE_DIR", "/var/lib/etzhayyim/organism")
+    os.makedirs(db_dir, exist_ok=True)
+    db_path = os.path.join(db_dir, "ingest_curpus2skill.db")
+    with sqlite3.connect(db_path) as conn:
+        conn.execute('PRAGMA journal_mode=WAL;')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_skill (
+            vertex_id TEXT PRIMARY KEY, label TEXT, name TEXT, alt_labels TEXT, source_license TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_legal_corpus_document (
+            vertex_id TEXT PRIMARY KEY, title TEXT, body_text TEXT, topic_tags_csv TEXT, owner_did TEXT, source_id TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_houbun_article (
+            vertex_id TEXT PRIMARY KEY, title TEXT, text TEXT, article_no TEXT, owner_did TEXT, source_url TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_domain_knowledge_chunk (
+            vertex_id TEXT PRIMARY KEY, document_vid TEXT, chunk_text TEXT, keywords TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_domain_knowledge_document (
+            vertex_id TEXT PRIMARY KEY, title TEXT, owner_did TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS vertex_corpus_skill_extraction_run (
+            vertex_id TEXT PRIMARY KEY, sensitivity_ord INTEGER, owner_did TEXT, rkey TEXT, repo TEXT, label TEXT, source_table TEXT, source_actor_did TEXT, extractor_version TEXT, model_id TEXT, params_json TEXT, corpus_limit INTEGER, skill_limit INTEGER, min_score REAL, matched_documents INTEGER, emitted_edges INTEGER, status TEXT, started_at TEXT, finished_at TEXT
+        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS edge_corpus_skill_evidence (
+            edge_id TEXT PRIMARY KEY, corpus_vertex_id TEXT, corpus_table TEXT, skill_id TEXT, extraction_run_id TEXT, source_actor_did TEXT, match_kind TEXT, score REAL, evidence_text TEXT, evidence_start INTEGER, evidence_end INTEGER, source TEXT, source_license TEXT, ingested_at TEXT, props TEXT
+        )''')
+        yield conn.cursor()
 
 VERSION = "curpus2skill-langserver-v0.1.0"
 
@@ -200,18 +234,13 @@ def insert_run(run: dict[str, Any]) -> None:
     with sync_cursor() as cur:
         cur.execute(
             """
-            INSERT INTO vertex_corpus_skill_extraction_run (
+            INSERT OR IGNORE INTO vertex_corpus_skill_extraction_run (
               vertex_id, sensitivity_ord, owner_did, rkey, repo, label,
               source_table, source_actor_did, extractor_version, model_id,
               params_json, corpus_limit, skill_limit, min_score,
               matched_documents, emitted_edges, status, started_at, finished_at
             )
-            SELECT %s,%s::BIGINT,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s::BIGINT,
-                   %s::BIGINT,%s::DOUBLE PRECISION,%s::BIGINT,%s::BIGINT,
-                   %s,%s,%s
-            WHERE NOT EXISTS (
-              SELECT 1 FROM vertex_corpus_skill_extraction_run WHERE vertex_id = %s
-            )
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """,
             (
                 run["vertex_id"], 1, "did:web:recruit.etzhayyim.com", run["rkey"],
@@ -220,7 +249,7 @@ def insert_run(run: dict[str, Any]) -> None:
                 json.dumps(run["params"], ensure_ascii=False), run["corpus_limit"],
                 run["skill_limit"], run["min_score"], run["matched_documents"],
                 run["emitted_edges"], run["status"], run["started_at"],
-                run["finished_at"], run["vertex_id"],
+                run["finished_at"],
             ),
         )
 
@@ -233,17 +262,13 @@ def insert_edge(run_id: str, edge: dict[str, Any]) -> None:
     with sync_cursor() as cur:
         cur.execute(
             """
-            INSERT INTO edge_corpus_skill_evidence (
+            INSERT OR IGNORE INTO edge_corpus_skill_evidence (
               edge_id, corpus_vertex_id, corpus_table, skill_id,
               extraction_run_id, source_actor_did, match_kind, score,
               evidence_text, evidence_start, evidence_end, source,
               source_license, ingested_at, props
             )
-            SELECT %s,%s,%s,%s,%s,%s,%s,%s::DOUBLE PRECISION,%s,
-                   %s::BIGINT,%s::BIGINT,%s,%s,%s,%s
-            WHERE NOT EXISTS (
-              SELECT 1 FROM edge_corpus_skill_evidence WHERE edge_id = %s
-            )
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """,
             (
                 edge_id, edge["corpus_vertex_id"], edge["corpus_table"],
@@ -252,7 +277,6 @@ def insert_edge(run_id: str, edge: dict[str, Any]) -> None:
                 edge["evidence_start"], edge["evidence_end"], "curpus2skill",
                 edge.get("source_license"), edge["ingested_at"],
                 json.dumps({"skillName": edge.get("skill_name")}, ensure_ascii=False),
-                edge_id,
             ),
         )
 

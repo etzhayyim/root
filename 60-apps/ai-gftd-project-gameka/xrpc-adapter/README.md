@@ -4,19 +4,19 @@ CF Worker that exposes the 13 rw-free commands as XRPC endpoints.
 
 ## Endpoints
 
-- `GET /xrpc/ai.gftd.gameka.getGameSpec?gameId=...` — spec + metadata
-- `GET /xrpc/ai.gftd.gameka.listGameSpecs?limit=...` — paginated specs
-- `GET /xrpc/ai.gftd.gameka.getBuildArtifact?artifactId=...` — artifact
-- `GET /xrpc/ai.gftd.gameka.listBuildArtifacts?limit=...` — artifacts
-- `GET /xrpc/ai.gftd.gameka.getGameQa?qaId=...` — QA record
-- `GET /xrpc/ai.gftd.gameka.listGameQas?limit=...` — QA logs
-- `GET /xrpc/ai.gftd.gameka.getGameTitle?titleId=...` — title
-- `GET /xrpc/ai.gftd.gameka.listGameTitles?limit=...` — titles
-- `POST /xrpc/ai.gftd.gameka.generateGame` — generate game
-- `POST /xrpc/ai.gftd.gameka.proposeGame` — propose game
-- `POST /xrpc/ai.gftd.gameka.playtestGame` — playtest
-- `POST /xrpc/ai.gftd.gameka.publishGame` — publish
-- `POST /xrpc/ai.gftd.gameka.tickStudio` — trend tick
+- `GET /xrpc/app.etzhayyim.gameka.getGameSpec?gameId=...` — spec + metadata
+- `GET /xrpc/app.etzhayyim.gameka.listGameSpecs?limit=...` — paginated specs
+- `GET /xrpc/app.etzhayyim.gameka.getBuildArtifact?artifactId=...` — artifact
+- `GET /xrpc/app.etzhayyim.gameka.listBuildArtifacts?limit=...` — artifacts
+- `GET /xrpc/app.etzhayyim.gameka.getGameQa?qaId=...` — QA record
+- `GET /xrpc/app.etzhayyim.gameka.listGameQas?limit=...` — QA logs
+- `GET /xrpc/app.etzhayyim.gameka.getGameTitle?titleId=...` — title
+- `GET /xrpc/app.etzhayyim.gameka.listGameTitles?limit=...` — titles
+- `POST /xrpc/app.etzhayyim.gameka.generateGame` — generate game
+- `POST /xrpc/app.etzhayyim.gameka.proposeGame` — propose game
+- `POST /xrpc/app.etzhayyim.gameka.playtestGame` — playtest
+- `POST /xrpc/app.etzhayyim.gameka.publishGame` — publish
+- `POST /xrpc/app.etzhayyim.gameka.tickStudio` — trend tick
 
 ## Setup
 

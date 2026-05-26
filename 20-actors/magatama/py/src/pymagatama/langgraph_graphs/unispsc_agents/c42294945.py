@@ -18,3 +18,5 @@ graph.add_node('compliance', verify_medical_compliance)
 graph.add_edge('validate', 'compliance')
 graph.add_edge('compliance', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

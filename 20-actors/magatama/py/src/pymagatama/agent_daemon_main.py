@@ -55,13 +55,13 @@ CADENCE_MULTIPLIER_BY_STATE = {
     "halted": 12.0,
 }
 LOCAL_HEALTH_LAUNCHD_LABELS = (
-    "ai.gftd.agent-daemon",
-    "ai.gftd.agent-zeebe-worker",
-    "ai.gftd.zeebe-port-forward",
+    "app.etzhayyim.agent-daemon",
+    "app.etzhayyim.agent-zeebe-worker",
+    "app.etzhayyim.zeebe-port-forward",
 )
 LOCAL_HEALTH_LOG_PATHS = (
-    "/tmp/ai.gftd.agent-daemon.err.log",
-    "/tmp/ai.gftd.agent-zeebe-worker.err.log",
+    "/tmp/app.etzhayyim.agent-daemon.err.log",
+    "/tmp/app.etzhayyim.agent-zeebe-worker.err.log",
 )
 
 
@@ -932,7 +932,7 @@ def record_knowledge_graph_evolution_direct(
         "knowledgeGraphFitness": knowledge_graph_fitness,
         "minimaxInformationContext": minimax_information_context,
     }
-    vertex_id = "at://" + agent_did + "/ai.gftd.apps.standard.shinkaEvolution/kg-" + stable_hash(
+    vertex_id = "at://" + agent_did + "/app.etzhayyim.apps.standard.shinkaEvolution/kg-" + stable_hash(
         {"agentDid": agent_did, "tickId": tick_id, "props": props}
     )[:24]
     row = {
@@ -941,7 +941,7 @@ def record_knowledge_graph_evolution_direct(
         "rkey": "kg-fitness-" + stable_hash({"agentDid": agent_did, "tickId": tick_id})[:16],
         "repo": agent_did,
         "did": agent_did,
-        "collection": "ai.gftd.apps.standard.shinkaEvolution",
+        "collection": "app.etzhayyim.apps.standard.shinkaEvolution",
         "actorDid": agent_did,
         "actorName": agent_did.split(":")[-1].split(".")[0] if ":" in agent_did else agent_did,
         "nanoid": stable_hash({"agentDid": agent_did, "tickId": tick_id})[:16],
@@ -1402,7 +1402,7 @@ def build_autonomous_heartbeat_effect_proposals(
         return []
     subject_prefix = os.environ.get(
         "AGENT_AUTONOMOUS_HEARTBEAT_SUBJECT_PREFIX",
-        "GFTD autonomous organism heartbeat",
+        "etzhayyim autonomous organism heartbeat",
     ).strip()
     cooldown_sec = int(_float_env("AGENT_AUTONOMOUS_HEARTBEAT_COOLDOWN_SEC", 21600))
     if autonomous_heartbeat_recently_sent_direct(
@@ -1879,7 +1879,7 @@ def execute_local_self_repair(
     viability: dict[str, Any],
     *,
     enabled: bool = True,
-    current_label: str = "ai.gftd.agent-daemon",
+    current_label: str = "app.etzhayyim.agent-daemon",
 ) -> dict[str, Any]:
     if not enabled:
         return {"enabled": False, "attempted": [], "skipped": []}

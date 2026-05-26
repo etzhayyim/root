@@ -9,7 +9,7 @@ import { sql } from "kysely";
  *
  * Seeds 3 BPMN process definitions + 3 NSID bindings so the
  * bpmn-dispatcher F5 watcher ships them to Zeebe and the per-actor
- * XRPC endpoints (`POST dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.yabai.*`)
+ * XRPC endpoints (`POST dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.apps.yabai.*`)
  * go live within ~30 s of apply.
  *
  * 3 pivots driven by `70-tools/scripts/yabai/expand-coverage.mjs`:
@@ -61,19 +61,19 @@ const pivots: Array<{
   bindingSlug: string;
   resultTimeoutMs: number;
 }> = [
-  { slug: "yabai-crtsh-fuzzy-search-v1",    bpmnProcessId: "yabai_crtsh_fuzzy_search",    file: "crtshFuzzySearch.bpmn",    nsid: "ai.gftd.apps.yabai.crtshFuzzySearch",    bindingSlug: "yabai-crtshFuzzySearch-v1",    resultTimeoutMs: 20000 },
-  { slug: "yabai-reverse-ip-lookup-v1",     bpmnProcessId: "yabai_reverse_ip_lookup",     file: "reverseIpLookup.bpmn",     nsid: "ai.gftd.apps.yabai.reverseIpLookup",     bindingSlug: "yabai-reverseIpLookup-v1",     resultTimeoutMs: 20000 },
-  { slug: "yabai-enrich-legal-entity-v1",   bpmnProcessId: "yabai_enrich_legal_entity",   file: "enrichLegalEntity.bpmn",   nsid: "ai.gftd.apps.yabai.enrichLegalEntity",   bindingSlug: "yabai-enrichLegalEntity-v1",   resultTimeoutMs: 30000 },
+  { slug: "yabai-crtsh-fuzzy-search-v1",    bpmnProcessId: "yabai_crtsh_fuzzy_search",    file: "crtshFuzzySearch.bpmn",    nsid: "app.etzhayyim.apps.yabai.crtshFuzzySearch",    bindingSlug: "yabai-crtshFuzzySearch-v1",    resultTimeoutMs: 20000 },
+  { slug: "yabai-reverse-ip-lookup-v1",     bpmnProcessId: "yabai_reverse_ip_lookup",     file: "reverseIpLookup.bpmn",     nsid: "app.etzhayyim.apps.yabai.reverseIpLookup",     bindingSlug: "yabai-reverseIpLookup-v1",     resultTimeoutMs: 20000 },
+  { slug: "yabai-enrich-legal-entity-v1",   bpmnProcessId: "yabai_enrich_legal_entity",   file: "enrichLegalEntity.bpmn",   nsid: "app.etzhayyim.apps.yabai.enrichLegalEntity",   bindingSlug: "yabai-enrichLegalEntity-v1",   resultTimeoutMs: 30000 },
 ];
 
 const processSeeds: ProcessSeed[] = pivots.map((p) => ({
-  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${p.slug}`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${p.slug}`,
   bpmnProcessId: p.bpmnProcessId,
   sourcePath: `00-contracts/bpmn/ai/gftd/yabai/${p.file}`,
 }));
 
 const bindingSeeds: BindingSeed[] = pivots.map((p) => ({
-  vertexId: `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${p.bindingSlug}`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${p.bindingSlug}`,
   nsid: p.nsid,
   bpmnProcessId: p.bpmnProcessId,
   resultTimeoutMs: p.resultTimeoutMs,

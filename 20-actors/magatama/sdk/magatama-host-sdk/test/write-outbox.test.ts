@@ -9,7 +9,7 @@ import {
 } from "../src/write-outbox.js";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import type { Kysely } from "kysely";
-import type { Database } from "@gftd/graph-schema";
+import type { Database } from "@etzhayyim/graph-schema";
 
 function makeEntry(overrides: Partial<OutboxEntry> = {}): OutboxEntry {
   return {

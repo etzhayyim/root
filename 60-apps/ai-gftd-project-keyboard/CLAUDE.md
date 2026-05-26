@@ -121,20 +121,20 @@ Derive rules: `magatama.jsonld` `"derive"` section。設計: `90-docs/260407-wri
 
 ## Domain WIT (Lexicon)
 
-**AT Lexicon namespace**: `ai.gftd.apps.keyboard.*`
+**AT Lexicon namespace**: `app.etzhayyim.apps.keyboard.*`
 
 | WIT interface | Lexicon prefix | Record kinds |
 |---|---|---|
-| `product` | `ai.gftd.apps.keyboard.product` | SKU definition, BOM |
-| `configuration` | `ai.gftd.apps.keyboard.configuration` | CTO options, user config |
-| `firmware` | `ai.gftd.apps.keyboard.firmware` | firmware version, keymap |
-| `ergonomics` | `ai.gftd.apps.keyboard.ergonomicProfile` | user ergonomic measurements |
+| `product` | `app.etzhayyim.apps.keyboard.product` | SKU definition, BOM |
+| `configuration` | `app.etzhayyim.apps.keyboard.configuration` | CTO options, user config |
+| `firmware` | `app.etzhayyim.apps.keyboard.firmware` | firmware version, keymap |
+| `ergonomics` | `app.etzhayyim.apps.keyboard.ergonomicProfile` | user ergonomic measurements |
 
 ## Sales Channel
 
 **okaimono.etzhayyim.com 経由 D2C 専売。** OEM 製造品として `fulfillment_mode: "cto"` (Configure-to-Order) で catalog 登録。
 
-- okaimono catalog に `ai.gftd.apps.okaimono.catalogItem` として登録
+- okaimono catalog に `app.etzhayyim.apps.okaimono.catalogItem` として登録
 - `manufacturer_did`: OEM factory DID
 - `factory_did`: 深圳 keyboard factory DID
 - UNSPSC: `43211706` (Computer keyboards)

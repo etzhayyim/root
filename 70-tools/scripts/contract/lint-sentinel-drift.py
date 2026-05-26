@@ -106,9 +106,9 @@ def _parse_primitive_task_types() -> list[str]:
 
 
 def _nsid_to_lexicon_path(nsid: str) -> Path:
-    """ai.gftd.apps.maps.fooBar → lexicons/ai/gftd/apps/maps/fooBar.json"""
+    """app.etzhayyim.apps.maps.fooBar → lexicons/ai/gftd/apps/maps/fooBar.json"""
     parts = nsid.split(".")
-    # NSIDs follow ai.gftd.apps.<appName>.<methodName>
+    # NSIDs follow app.etzhayyim.apps.<appName>.<methodName>
     method = parts[-1]
     return LEXICON_DIR / f"{method}.json"
 

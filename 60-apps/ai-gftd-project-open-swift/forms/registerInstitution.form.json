@@ -3,7 +3,7 @@
   "formKey": "openSwift.registerInstitution.v1",
   "name": "Register Institution",
   "version": 1,
-  "lexiconRef": "ai.gftd.apps.openSwift.registerInstitution",
+  "lexiconRef": "app.etzhayyim.apps.openSwift.registerInstitution",
   "components": [
     { "key": "bic", "label": "BIC (ISO 9362)", "type": "textfield",
       "validate": { "required": true, "pattern": "^[A-Z0-9]{8}([A-Z0-9]{3})?$" } },

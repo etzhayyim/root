@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-doi.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-doi";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-doi-register-doi-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-doi-register-doi-v1",
     bpmnProcessId: "open_doi_register_doi",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-doi/registerDoi.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-doi-record-citation-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-doi-record-citation-v1",
     bpmnProcessId: "open_doi_record_citation",
     sourcePath: "00-contracts/bpmn/ai/gftd/open-doi/recordCitation.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-doi-registerDoi-v1",
-    nsid: "ai.gftd.apps.openDoi.registerDoi", bpmnProcessId: "open_doi_register_doi",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-doi-registerDoi-v1",
+    nsid: "app.etzhayyim.apps.openDoi.registerDoi", bpmnProcessId: "open_doi_register_doi",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-doi-recordCitation-v1",
-    nsid: "ai.gftd.apps.openDoi.recordCitation", bpmnProcessId: "open_doi_record_citation",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-doi-recordCitation-v1",
+    nsid: "app.etzhayyim.apps.openDoi.recordCitation", bpmnProcessId: "open_doi_record_citation",
     ownerDid, resultTimeoutMs: 15000 },
 ];
 

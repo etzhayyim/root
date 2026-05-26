@@ -62,9 +62,9 @@ async function authHeaders(): Promise<Record<string, string>> {
 	const token = await getSessionToken();
 	if (token) h.Authorization = `Bearer ${token}`;
 	const user = get(clerkUser);
-	if (user?.id) h['X-GFTD-USER-ID'] = user.id;
+	if (user?.id) h['X-etzhayyim-USER-ID'] = user.id;
 	const org = get(currentOrg);
-	if (org?.id) h['X-GFTD-ORG-ID'] = org.id;
+	if (org?.id) h['X-etzhayyim-ORG-ID'] = org.id;
 	return h;
 }
 

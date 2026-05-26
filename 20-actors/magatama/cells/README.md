@@ -32,6 +32,24 @@ These cells are **Tier B (Per-Domain)** in the 3-layer actor hierarchy:
 | `council_level_advancement/` | Membership | weekly cron | levi | EtzhayyimMembership |
 | [`council_deliberation/`](council_deliberation/) (generic, **Tier C**) | Council | escalation from other cells | levi (orchestrator) | ChartersComplianceRegistry, ForceAuthorization, others |
 
+## L5 routing-around cells (2026-05-25 wave, scaffold-only)
+
+Per [ADR-2605242330](../../../90-docs/adr/2605242330-gov-procedure-pregel-mcp-coverage.md) §3.5 and the L5 ladder ADRs below, three cells operationalize the religious-corp's *parallel substrate* for state functions within the religious boundary (per [ADR-2605192100](../../../90-docs/adr/2605192100-etzhayyim-mission-charter.md) §1.12). All three ship as **Council-attestation-gated scaffolds**: their `cell.py` raises `RuntimeError` at import time until Council ratifies activation. They are listed here for review and Council-bootstrap preparation — they are NOT live.
+
+| Cell | State function substituted | Gate count | Open Council questions | ADR |
+|---|---|---|---|---|
+| [`member_registry/`](member_registry/) | 住民登録 (resident registration) | 1 (attestation tx) | 0 | [ADR-2605250100](../../../90-docs/adr/2605250100-l5-routing-around-member-registry-cell.md) |
+| [`religious_marriage/`](religious_marriage/) | 婚姻届 (marriage certificate) | 2 (attestation + constitutional resolution) | 3 (gender / polygamy / cross-religion) | [ADR-2605250200](../../../90-docs/adr/2605250200-l5-religious-marriage-cell.md) |
+| [`religious_corp_taxation/`](religious_corp_taxation/) | 法人税申告 (corporate tax filing) — INTERNAL substrate only, not a state-tax discharge | 3 (+ legal counsel opinion CID) | 4 (legal-status / cross-jurisdiction / Council-veto / personal-tax-advisory) | [ADR-2605250300](../../../90-docs/adr/2605250300-l5-religious-corp-taxation-cell.md) |
+
+### L5 constitutional invariants
+
+- L5 cells operate ONLY within the religious boundary. Records they emit have no state-recognised legal force.
+- Each new L5 cell requires its own ADR + Council attestation. No L5 cell ships activated.
+- L5 cells substitute for adherents ONLY. Non-adherents are not in scope.
+- Charter Rider §2(a)-(h) prohibitions apply to L5 substrate (commercial activity ban is universal).
+- The 4-th state function (出生 / 死亡 / 戸籍) is NOT on the L5 roadmap — those need a separate ADR resolving "non-consenting minor adherent" and "SBT revocation on death" semantics first.
+
 ## Per-cell structure
 
 Each cell directory contains:

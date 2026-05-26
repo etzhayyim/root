@@ -78,7 +78,7 @@ script/
 - Proposer track record
 - Similar past grant outcomes
 
-Output: `ai.gftd.apps.public-fund.evaluation` record displayed in voting UI as advisory.
+Output: `app.etzhayyim.apps.public-fund.evaluation` record displayed in voting UI as advisory.
 
 ## Lexicons
 

@@ -3,7 +3,7 @@ pragma solidity 0.8.23;
 
 import {CoinbaseSmartWallet} from "smart-wallet/CoinbaseSmartWallet.sol";
 
-/// @title GftdActorAccount
+/// @title etzhayyimActorAccount
 ///
 /// @notice Coinbase Smart Wallet (ERC-4337-compatible smart account) with the
 ///         EntryPoint address overridable at impl deploy time. The vendored
@@ -20,7 +20,7 @@ import {CoinbaseSmartWallet} from "smart-wallet/CoinbaseSmartWallet.sol";
 ///         CoinbaseSmartWallet untouched. This is the *only* gftd-side
 ///         change to the smart-wallet stack — keeping the surface area
 ///         identical to the audited Coinbase code.
-contract GftdActorAccount is CoinbaseSmartWallet {
+contract etzhayyimActorAccount is CoinbaseSmartWallet {
     address private immutable _ENTRY_POINT;
 
     constructor(address entryPoint_) {

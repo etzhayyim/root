@@ -7,29 +7,29 @@
   "content": {
     "activities": [
       { "id": "act.defineAirport", "name": "Define Airport", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openAirplane.defineAirport" }] },
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openAirplane.defineAirport" }] },
       { "id": "act.registerAircraft", "name": "Register Aircraft", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openAirplane.registerAircraft" }] },
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openAirplane.registerAircraft" }] },
       { "id": "act.scheduleFlight", "name": "Schedule Flight", "type": "bpmn",
         "bpmnProcessKey": "scheduleFlight", "source": "bpmn/schedule-flight.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openAirplane.scheduleFlight" },
+          { "xrpc": "app.etzhayyim.apps.openAirplane.scheduleFlight" },
           { "form": "openAirplane.scheduleFlight.v1" }
         ] },
       { "id": "act.recordFlightStatus", "name": "Record OOOI / Status", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "ai.gftd.apps.openAirplane.recordFlightStatus" }] },
+        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openAirplane.recordFlightStatus" }] },
       { "id": "act.reportIncident", "name": "Report Incident", "type": "bpmn",
         "bpmnProcessKey": "reportAviationIncident", "source": "bpmn/report-incident.bpmn",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openAirplane.reportIncident" },
+          { "xrpc": "app.etzhayyim.apps.openAirplane.reportIncident" },
           { "form": "openAirplane.reportIncident.v1" },
           { "dmn":  "openAirplane.incidentSeverity" }
         ] },
       { "id": "act.queryNetwork", "name": "Query Airports / Flights / Incidents", "type": "xrpc",
         "realisedBy": [
-          { "xrpc": "ai.gftd.apps.openAirplane.listAirports" },
-          { "xrpc": "ai.gftd.apps.openAirplane.listFlights" },
-          { "xrpc": "ai.gftd.apps.openAirplane.listIncidents" }
+          { "xrpc": "app.etzhayyim.apps.openAirplane.listAirports" },
+          { "xrpc": "app.etzhayyim.apps.openAirplane.listFlights" },
+          { "xrpc": "app.etzhayyim.apps.openAirplane.listIncidents" }
         ] }
     ]
   },

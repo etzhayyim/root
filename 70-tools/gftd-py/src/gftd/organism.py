@@ -31,7 +31,7 @@ def organism(ctx: click.Context, pds: str | None, json_out: bool) -> None:
         return
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.organism.getStatus",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.organism.getStatus",
                          headers=_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -51,7 +51,7 @@ def organism_status(pds: str | None, json_out: bool) -> None:
     """Get organism status."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.organism.getStatus",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.organism.getStatus",
                          headers=_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -73,7 +73,7 @@ def organism_list(pds: str | None, json_out: bool) -> None:
     """List all organism actors."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.organism.listActors",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.organism.listActors",
                          headers=_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()

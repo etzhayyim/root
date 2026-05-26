@@ -9,7 +9,7 @@
 | **nanoid** | `h4nr31jp` |
 | **domain** | `hanrei.etzhayyim.com` |
 | **AT bot DID** | `did:web:hanrei.etzhayyim.com` |
-| **Runtime** | **TS Native** (`src/app.ts` + `@gftd/magatama-host-sdk` → esbuild bundle) |
+| **Runtime** | **TS Native** (`src/app.ts` + `@etzhayyim/magatama-host-sdk` → esbuild bundle) |
 | **Data store** | **W Protocol Event Stream** — Write: `sdk.pds.dispatch({ type: "com.atproto.repo.createRecord", ... })`, Read: `createKyselyDb(env.HYPERDRIVE).selectFrom(...)` |
 | **UI mode** | `appview` (Protocol Canvas card, zero frontend) |
 
@@ -55,12 +55,12 @@ Social posts: `writeBuffer.push({ type: "app.bsky.feed.post", payload: { text, o
 
 | Collection | SQL Label |
 |---|---|
-| `ai.gftd.hanrei.case_record` | `CaseRecord` |
-| `ai.gftd.hanrei.collection_job` | `CollectionJob` |
-| `ai.gftd.hanrei.jurisdiction` | `Jurisdiction` |
-| `ai.gftd.hanrei.digest` | `Digest` |
-| `ai.gftd.hanrei.egov_law` | `EgovLaw` |
-| `ai.gftd.hanrei.caseParty` | `CaseParty` |
+| `app.etzhayyim.hanrei.case_record` | `CaseRecord` |
+| `app.etzhayyim.hanrei.collection_job` | `CollectionJob` |
+| `app.etzhayyim.hanrei.jurisdiction` | `Jurisdiction` |
+| `app.etzhayyim.hanrei.digest` | `Digest` |
+| `app.etzhayyim.hanrei.egov_law` | `EgovLaw` |
+| `app.etzhayyim.hanrei.caseParty` | `CaseParty` |
 
 ## Commands (XRPC)
 

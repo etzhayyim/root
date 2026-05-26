@@ -42,9 +42,9 @@ air / undersea / ground / cyber の横断ミッションを LangGraph Pregel fan
 
 | Method | NSID | 機能 |
 |---|---|---|
-| createMission | `ai.gftd.apps.defMission.createMission` | ミッション作成 (classification ≥ 2 必須) |
-| updateMissionStatus | `ai.gftd.apps.defMission.updateMissionStatus` | 状態遷移 |
-| listMissions | `ai.gftd.apps.defMission.listMissions` | ミッション一覧 (clearance-gated) |
+| createMission | `app.etzhayyim.apps.defMission.createMission` | ミッション作成 (classification ≥ 2 必須) |
+| updateMissionStatus | `app.etzhayyim.apps.defMission.updateMissionStatus` | 状態遷移 |
+| listMissions | `app.etzhayyim.apps.defMission.listMissions` | ミッション一覧 (clearance-gated) |
 
 ### ミッション状態機械
 

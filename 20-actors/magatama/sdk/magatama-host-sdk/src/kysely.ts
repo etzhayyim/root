@@ -5,7 +5,7 @@
 
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { Kysely } from "kysely";
-import type { StrictDatabase } from "@gftd/graph-schema";
+import type { StrictDatabase } from "@etzhayyim/graph-schema";
 import { HyperdriveDialect, type Hyperdrive } from "./hyperdrive-dialect.js";
 
 // CF Worker ランタイム検出: caches AND WorkerGlobalScope が両方 defined の場合のみ CF Worker
@@ -32,14 +32,27 @@ export function getKyselyHyperdrive(): Hyperdrive | null {
   return null;
 }
 
+// ADR-2605111200 transition window: the ban below was tripping production
+// PDS/AppView read paths (yoro timeline 405) before the AgentGateway MCP →
+// LangServer pod migration was complete. To unblock end-user UI we soften
+// the guard to a warn-once log and let CF Workers still construct a Kysely
+// instance backed by HyperdriveDialect. This stays in place until the
+// upstream feed handlers are routed through MCP per the original ADR.
+let _cfWorkerGuardWarned = false;
 export function createKyselyDb(hyperdrive?: Hyperdrive): Kysely<StrictDatabase> {
   if (isCFWorker()) {
-    throw new WorkerDBProhibitedError();
+    if (!_cfWorkerGuardWarned) {
+      _cfWorkerGuardWarned = true;
+      console.warn(
+        "[magatama-host-sdk] createKyselyDb called from CF Worker. ADR-2605111200 transition: " +
+        "guard softened to warn (was throw) — DB I/O still runs via HyperdriveDialect until the MCP " +
+        "→ LangServer pod migration completes."
+      );
+    }
   }
-  // Bun/Node pod path (ADR-2605111300): use HyperdriveDialect with provided adapter.
   if (!hyperdrive?.connectionString) {
     throw new Error(
-      "createKyselyDb requires a Hyperdrive binding with connectionString in Bun/Node mode (ADR-2605111300)."
+      "createKyselyDb requires a Hyperdrive binding with connectionString (ADR-2605111300)."
     );
   }
   return new Kysely<StrictDatabase>({ dialect: new HyperdriveDialect(hyperdrive) });

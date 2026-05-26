@@ -21,4 +21,4 @@ graph.set_entry_point('compatibility')
 graph.add_edge('compatibility', 'compliance')
 graph.add_edge('compliance', END)
 
-app = graph.compile()
+graph = graph.compile()

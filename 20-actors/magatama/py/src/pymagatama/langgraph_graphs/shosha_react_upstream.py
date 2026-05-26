@@ -63,7 +63,7 @@ def emit_audit(state: ShoshaReactUpstreamState) -> dict:
                 (
                     str(uuid.uuid4()),
                     "did:web:shosha.etzhayyim.com",
-                    "ai.gftd.apps.shosha.reactToUpstream",
+                    "app.etzhayyim.apps.shosha.reactToUpstream",
                     f"lg-{int(_time.time() * 1000)}",
                     "create",
                     int(_time.time() * 1000),

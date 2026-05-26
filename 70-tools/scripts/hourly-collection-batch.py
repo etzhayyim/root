@@ -52,8 +52,8 @@ RW_DB       = "dev"
 RW_PASSWORD = ""
 
 REPO_DID    = "did:plc:gftd-collector"
-PATENT_COL  = "ai.gftd.apps.patent.patent"
-DNS_COL     = "ai.gftd.apps.dns.observation"
+PATENT_COL  = "app.etzhayyim.apps.patent.patent"
+DNS_COL     = "app.etzhayyim.apps.dns.observation"
 
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 DOH_URL         = "https://cloudflare-dns.com/dns-query"

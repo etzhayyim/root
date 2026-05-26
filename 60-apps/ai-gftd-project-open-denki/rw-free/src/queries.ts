@@ -27,9 +27,9 @@ import {
   type VoltageLevel,
 } from "./types.js";
 
-const FEEDER_COLLECTION = "ai.gftd.apps.openDenki.feeder";
-const FAULT_COLLECTION = "ai.gftd.apps.openDenki.fault";
-const READING_COLLECTION = "ai.gftd.apps.openDenki.meterReading";
+const FEEDER_COLLECTION = "app.etzhayyim.apps.openDenki.feeder";
+const FAULT_COLLECTION = "app.etzhayyim.apps.openDenki.fault";
+const READING_COLLECTION = "app.etzhayyim.apps.openDenki.meterReading";
 
 const SEVERITY_ORDER: Record<FaultSeverity, number> = {
   minor: 0,

@@ -1,6 +1,6 @@
 // Smoke: bi.join Stage 2 + bi.attest's optional AT Record write hit a
 // real (in-memory fake) PDS. Verifies the SDK actually produces the
-// canonical `ai.gftd.apps.etzhayyim.oath` and
+// canonical `app.etzhayyim.apps.etzhayyim.oath` and
 // `com.etzhayyim.event.prayer` records with the expected fields.
 //
 // Anvil dependencies are the same as integration-full.mjs (forge
@@ -87,7 +87,7 @@ log("  oathRecordUri:   ", joinResult.oathRecordUri);
 log("  fullyEnrolled:   ", joinResult.fullyEnrolled, "(still false — no officerRelayer wired)");
 
 if (!joinResult.oathRecordUri) fail("oath record URI missing");
-if (!joinResult.oathRecordUri.startsWith(`at://${did}/ai.gftd.apps.etzhayyim.oath/`)) {
+if (!joinResult.oathRecordUri.startsWith(`at://${did}/app.etzhayyim.apps.etzhayyim.oath/`)) {
   fail("oath record URI shape wrong", joinResult.oathRecordUri);
 }
 
@@ -95,7 +95,7 @@ if (!joinResult.oathRecordUri.startsWith(`at://${did}/ai.gftd.apps.etzhayyim.oat
 const oathRec = pds.records.get(joinResult.oathRecordUri);
 if (!oathRec) fail("oath record not stored on fake PDS");
 log("  oath record value keys:", Object.keys(oathRec.value).sort());
-if (oathRec.value.$type !== "ai.gftd.apps.etzhayyim.oath") fail("$type mismatch", oathRec.value);
+if (oathRec.value.$type !== "app.etzhayyim.apps.etzhayyim.oath") fail("$type mismatch", oathRec.value);
 if (oathRec.value.oathHash !== oathHash) fail("oath hash mismatch");
 if (oathRec.value.membershipTxHash !== joinResult.membershipTxHash) fail("tx hash not threaded into record");
 if (!oathRec.value.oathText.includes("Tree of Life")) fail("canonical oath text missing");

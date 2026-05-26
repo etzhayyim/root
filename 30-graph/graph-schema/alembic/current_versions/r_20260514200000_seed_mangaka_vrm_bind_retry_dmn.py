@@ -2,7 +2,7 @@
 
 P16-e of ADR-2605141200. Registers the DMN decision referenced by
 `compose_character_vrm.topology.yaml` conditional_edges:
-  condition_ref: dmn:ai.gftd.policies.mangaka.vrmBindRetry@1.0.0
+  condition_ref: dmn:app.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0
 
 Routing logic (FIRST):
   valid=true            -> accept (attach_vrm)

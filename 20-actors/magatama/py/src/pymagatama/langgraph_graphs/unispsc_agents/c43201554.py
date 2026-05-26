@@ -24,4 +24,4 @@ graph.set_entry_point('validate')
 graph.add_edge('validate', 'deploy')
 graph.add_edge('deploy', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

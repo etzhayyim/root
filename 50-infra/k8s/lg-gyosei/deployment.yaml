@@ -1,4 +1,5 @@
 ---
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 # lg-gyosei — LangGraph Server for Gyosei Administrative Procedure Execution.
 apiVersion: v1
 kind: ServiceAccount
@@ -60,9 +61,9 @@ spec:
                 secretKeyRef:
                   name: lg-gyosei-secrets
                   key: RW_URL
-            - name: GFTD_LLM_URL
+            - name: etzhayyim_LLM_URL
               value: "https://gemma.etzhayyim.com/v1"
-            - name: GFTD_LLM_MODEL
+            - name: etzhayyim_LLM_MODEL
               value: "gemma-4-E2B-it"
           ports:
             - name: http

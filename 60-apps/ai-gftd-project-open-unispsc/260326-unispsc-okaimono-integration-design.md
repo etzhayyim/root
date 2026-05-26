@@ -47,7 +47,7 @@ invoke seg-43 register-commodities-bulk {commodities: [...]}
 
 ```
 ComAtprotoSyncSubscribeRepos
-  → collection == "ai.gftd.apps.unispsc.commodity"
+  → collection == "app.etzhayyim.apps.unispsc.commodity"
   → handleUpstreamUnispscCommodity(commit)
     → G("unispsc_commodities").Where(Eq{"rkey": rkey}).Query()
     → ComAtprotoRepoCreateRecord("okaimono_catalog_item", {
@@ -97,7 +97,7 @@ Customer → order-create {items: [{product_id: "unispsc-43211501", qty: 1}]}
 
 ### okaimono side
 1. Follow all 51 UNSPSC segment nanoids
-2. Subscribe to `ai.gftd.apps.unispsc.commodity` collection
+2. Subscribe to `app.etzhayyim.apps.unispsc.commodity` collection
 3. Add `handleUpstreamUnispscCommodity()` reactive handler
 4. Add `import-unispsc-segment` command (bulk import)
 5. Add `unispsc_code` field to catalog_item schema

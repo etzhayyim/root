@@ -378,7 +378,7 @@ async def task_create_sponsor_slot(
     try:
         async with httpx.AsyncClient(timeout=20) as client:
             r = await client.post(
-                f"{ADS_XRPC_URL}/xrpc/ai.gftd.apps.ads.createCampaign",
+                f"{ADS_XRPC_URL}/xrpc/app.etzhayyim.apps.ads.createCampaign",
                 json={
                     "campaignName": f"Content: {topic[:80]}",
                     "targetAudience": cohort_name,

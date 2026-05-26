@@ -31,7 +31,11 @@ from io import BytesIO
 from threading import Lock, Thread
 
 import boto3
-import psycopg2
+# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# the substrate seam below; direct psycopg2 imports are no longer
+# permitted in this worker. The seam still supports a transitional RW
+# mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.
+from _etzhayyim_substrate import open_substrate_writer
 import pyarrow as pa
 import pyarrow.parquet as pq
 
@@ -54,6 +58,19 @@ DUMP_URL = os.environ.get(
 PORT = int(os.environ.get("PORT", "8080"))
 SHARD_ROWS = int(os.environ.get("SHARD_ROWS", "10000"))
 FLUSH_INTERVAL_SEC = float(os.environ.get("FLUSH_INTERVAL_SEC", "60"))
+
+# yatachain-projection: legacy psycopg2 → vertex_spatial INSERT below is the
+# RW-projection write path. Set USE_PYMAGATAMA_SUBSTRATE=1 to enable the
+# parallel pymagatama.substrate writer (PDS createRecord into
+# app.etzhayyim.maps.feature, per yatachain Phase 1 Tier A migration in
+# 60-apps/ai-gftd-project-maps/MIGRATION-TODO.md). When both paths are on,
+# substrate write is the source of truth; RW INSERT is treated as a
+# projection seed.
+USE_PYMAGATAMA_SUBSTRATE = os.environ.get("USE_PYMAGATAMA_SUBSTRATE", "0") == "1"
+SUBSTRATE_DID = os.environ.get("SUBSTRATE_DID", "did:web:maps.etzhayyim.com")
+SUBSTRATE_COLLECTION = "app.etzhayyim.maps.feature"
+SUBSTRATE_H3_RES = int(os.environ.get("SUBSTRATE_H3_RES", "8"))  # ≈ neighborhood
+SUBSTRATE_BATCH = int(os.environ.get("SUBSTRATE_BATCH", "100"))
 _flush_pool = concurrent.futures.ThreadPoolExecutor(max_workers=2)
 
 _state = {
@@ -136,12 +153,12 @@ def _row(fields: list[str]) -> dict | None:
         return None
     label = _classify_geonames(fcl, fcode)
     return {
-        "vertex_id": f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.spot/geonames-{gid}",
+        "vertex_id": f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.spot/geonames-{gid}",
         "rkey": f"geonames-{gid}",
         "repo": "did:web:maps.etzhayyim.com",
         "label": label,
         "did": "did:web:maps.etzhayyim.com",
-        "collection": "ai.gftd.apps.maps.spot",
+        "collection": "app.etzhayyim.apps.maps.spot",
         "name": name,
         "lat": lat,
         "lng": lon,
@@ -185,29 +202,118 @@ def _flush_shard(rows: list[dict], dump_id: str, shard_idx: int) -> str:
     return key
 
 
-def _insert_rows_into_rw(rows: list[dict], batch_size: int = 1000) -> int:
+def _geonames_row_to_feature(row: dict) -> tuple[str, dict]:
+    """Convert a geonames row (vertex_spatial-shape dict) into an
+    `app.etzhayyim.maps.feature` record + rkey. Pure function.
+
+    Per yatachain Phase 1 Tier A — bulk-ingest pods write feature records
+    to PDS via pymagatama.substrate.
+    """
+    lng = float(row["lng"])
+    lat = float(row["lat"])
+    geom = {"type": "Point", "coordinates": [lng, lat]}
+    props = {
+        "category": row.get("category"),
+        "description": row.get("description"),
+        "country": row.get("country"),
+    }
+    record = {
+        "label": row["label"],
+        "geometryGeoJson": json.dumps(geom, separators=(",", ":")),
+        "h3Cell": _h3_cell(lat, lng, SUBSTRATE_H3_RES),
+        "h3Resolution": SUBSTRATE_H3_RES,
+        "bboxWestE7": int(round(lng * 1e7)),
+        "bboxSouthE7": int(round(lat * 1e7)),
+        "bboxEastE7": int(round(lng * 1e7)),
+        "bboxNorthE7": int(round(lat * 1e7)),
+        "name": row["name"],
+        "properties": json.dumps(props, separators=(",", ":"), default=str),
+        "sourceDid": row.get("source_did") or "did:web:maps.etzhayyim.com:registry:geonames:bulk",
+        "createdAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+    }
+    return row["rkey"], record
+
+
+def _h3_cell(lat: float, lng: float, resolution: int) -> str:
+    """Compute the H3 cell hex string. Lazy import — h3 is in pymagatama
+    deps but not required for the legacy psycopg2 path."""
+    try:
+        import h3 as h3lib  # type: ignore[import-not-found]
+    except ImportError:
+        return f"unknown-res{resolution}"
+    try:
+        # h3-py 4.x prefers `latlng_to_cell`; 3.x has `geo_to_h3`.
+        if hasattr(h3lib, "latlng_to_cell"):
+            return h3lib.latlng_to_cell(lat, lng, resolution)  # type: ignore[attr-defined]
+        return h3lib.geo_to_h3(lat, lng, resolution)  # type: ignore[attr-defined]
+    except Exception:
+        return f"unknown-res{resolution}"
+
+
+async def _write_features_via_substrate(rows: list[dict], batch_size: int = SUBSTRATE_BATCH) -> int:
+    """Async path: write geonames rows as `app.etzhayyim.maps.feature` records
+    via pymagatama.substrate.Etzhayyim.write."""
+    if not rows:
+        return 0
+    try:
+        from pymagatama.substrate import Etzhayyim, WriteOpts
+    except ImportError:
+        log.error(
+            "USE_PYMAGATAMA_SUBSTRATE=1 but pymagatama.substrate not importable. "
+            "Ensure the bulk-ingest image bundles 20-actors/magatama/py."
+        )
+        return 0
+
+    total = 0
+    async with Etzhayyim(did=SUBSTRATE_DID) as e:
+        for i in range(0, len(rows), batch_size):
+            chunk = rows[i : i + batch_size]
+            for row in chunk:
+                try:
+                    rkey, record = _geonames_row_to_feature(row)
+                    await e.write(WriteOpts(
+                        collection=SUBSTRATE_COLLECTION,
+                        record=record,
+                        rkey=rkey,
+                    ))
+                    total += 1
+                except Exception as caught:
+                    log.warning("[substrate] geoname %s failed: %s", row.get("rkey"), caught)
+    return total
+
+
+def _insert_rows_dispatch(rows: list[dict]) -> int:
+    """Pick the write path based on USE_PYMAGATAMA_SUBSTRATE. See module
+    header `yatachain-projection` comment for the migration plan."""
+    if USE_PYMAGATAMA_SUBSTRATE:
+        import asyncio
+        return asyncio.run(_write_features_via_substrate(rows))
+    return _insert_rows_into_substrate(rows)
+
+
+def _insert_rows_into_substrate(rows: list[dict], batch_size: int = 1000) -> int:
+    """Upsert ingested rows via the etzhayyim substrate seam.
+
+    Per ADR-2605172000 the writer dispatches on
+    ``ETZHAYYIM_SUBSTRATE_MODE``: ``mst`` (PDS → MST + IPFS + Base L2
+    anchor, post-migration) or ``rw`` (psycopg2 → vertex_spatial,
+    transitional). Idempotent upsert keyed on ``vertex_id``.
+    """
     if not rows:
         return 0
     total = 0
-    conn = psycopg2.connect(DATABASE_URL)
-    conn.autocommit = False
-    try:
-        cur = conn.cursor()
-        cols = list(rows[0].keys())
+    with open_substrate_writer() as writer:
         for i in range(0, len(rows), batch_size):
             chunk = rows[i : i + batch_size]
-            placeholders = ", ".join("(" + ", ".join(["%s"] * len(cols)) + ")" for _ in chunk)
-            sql = f"INSERT INTO vertex_spatial ({', '.join(cols)}) VALUES {placeholders}"
-            params = [r[c] for r in chunk for c in cols]
             try:
-                cur.execute(sql, params)
-                conn.commit()
-                total += len(chunk)
+                total += writer.upsert_vertex_spatial(chunk)
             except Exception as e:
-                conn.rollback()
-                log.warning("batch insert failed (chunk %d-%d): %s", i, i + len(chunk), e)
-    finally:
-        conn.close()
+                log.warning(
+                    "substrate upsert failed (chunk %d-%d): %s",
+                    i,
+                    i + len(chunk),
+                    e,
+                )
     return total
 
 
@@ -251,7 +357,7 @@ def _run_dump():
             )
             if should_flush:
                 fut_b2 = _flush_pool.submit(_flush_shard, list(shard_rows), dump_id, shard_idx)
-                inserted = _insert_rows_into_rw(shard_rows)
+                inserted = _insert_rows_dispatch(shard_rows)
                 fut_b2.result()
                 rw_total += inserted
                 log.info("shard %d: r2=%d rw=%d cum=%d", shard_idx, len(shard_rows), inserted, rw_total)
@@ -262,7 +368,7 @@ def _run_dump():
                     _state["rows_written"] = rw_total
         if shard_rows:
             fut_b2 = _flush_pool.submit(_flush_shard, list(shard_rows), dump_id, shard_idx)
-            inserted = _insert_rows_into_rw(shard_rows)
+            inserted = _insert_rows_dispatch(shard_rows)
             fut_b2.result()
             rw_total += inserted
             log.info("final shard %d: r2=%d rw=%d cum=%d", shard_idx, len(shard_rows), inserted, rw_total)

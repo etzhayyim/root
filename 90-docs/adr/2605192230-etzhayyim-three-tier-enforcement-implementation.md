@@ -16,7 +16,7 @@ authoritative_for:
   - `KishaStream.sol` amendment — accrue() の multiplier 読み替え
   - `PublicFundGovernance.sol` amendment — propose() recipient gate
   - `TitheRouter.sol` amendment — recipient gate
-  - Council attestation flow Lexicon (`ai.gftd.apps.etzhayyim.charter-attestation-*`)
+  - Council attestation flow Lexicon (`app.etzhayyim.apps.etzhayyim.charter-attestation-*`)
   - 修復 (Rehabilitation / Teshuvah) flow Lexicon
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
@@ -43,7 +43,7 @@ ADR-2605192200 §9 で「三層 enforcement (L1 license / L2 便益拒否 / L3 �
 - 単一の `ChartersComplianceRegistry.sol` を **Council attestation の唯一の source of truth** として設置
 - 既存 contract (`Phenotype.sol` / `KishaStream.sol` / `PublicFundGovernance.sol` / `TitheRouter.sol`) が ChartersComplianceRegistry を参照して effective behavior を変更
 - Council Lv6+ 3 名以上の multisig 署名で attestation が確定
-- 修復 (rehabilitation) path = `ai.gftd.apps.etzhayyim.charter-rehabilitation` AT Record + Council 再評議
+- 修復 (rehabilitation) path = `app.etzhayyim.apps.etzhayyim.charter-rehabilitation` AT Record + Council 再評議
 
 religious 一貫性: 「使わせない・便益を受け取れない・評価も低い」(user 要求) を 仏教 sangha 追放 / cherem / takfir と等価の **dignified religious doctrinal enforcement** として実装する。
 
@@ -232,7 +232,7 @@ contract TitheRouter {
 
 Non-Aligned address からの donation 流入も拒否する (= religious purification: tithe 受領も resign する)。
 
-## 5. Lexicon: ai.gftd.apps.etzhayyim.charter-*
+## 5. Lexicon: app.etzhayyim.apps.etzhayyim.charter-*
 
 新規 Lexicon 5 本を `00-contracts/lexicons/ai/gftd/apps/etzhayyim/` に追加:
 
@@ -251,7 +251,7 @@ Non-Aligned address からの donation 流入も拒否する (= religious purifi
 ```
 [第三者]                                  [etzhayyim substrate]
    │
-   │  ai.gftd.apps.etzhayyim.charter-attestation-request
+   │  app.etzhayyim.apps.etzhayyim.charter-attestation-request
    ├─────────────────────────────────►   PDS (任意の SBT holder の PDS)
    │  subject: 0xACME...
    │  allegedViolation: "rider.section_2g"
@@ -278,7 +278,7 @@ Non-Aligned address からの donation 流入も拒否する (= religious purifi
    │                                     effectiveAt = block.timestamp
    │                                     appealDeadline = effectiveAt + 30d
    │                                       │
-   │  ai.gftd.apps.etzhayyim.charter-appeal
+   │  app.etzhayyim.apps.etzhayyim.charter-appeal
    ├─────────────────────────────────►   (対象 entity からの反論、30d 以内)
    │                                       │
    │                                       ▼
@@ -321,7 +321,7 @@ function rehabilitate(
 }
 ```
 
-`ai.gftd.apps.etzhayyim.charter-rehabilitation` record の必須 fields:
+`app.etzhayyim.apps.etzhayyim.charter-rehabilitation` record の必須 fields:
 
 - `originalAttestationUri` — 対象の non-alignment 認定 record
 - `teshuvahNarrative` — doctrinal retraction + 具体的 remediation の自己宣言 (text + PDF on IPFS)

@@ -19,8 +19,8 @@ interface ExportedHandler<E> {
   fetch(req: Request, env: E): Promise<Response>;
 }
 
-const NSID_PREFIX_APP = "ai.gftd.apps.dogaka.";
-const NSID_PREFIX_CINE = "ai.gftd.apps.cine.";
+const NSID_PREFIX_APP = "app.etzhayyim.apps.dogaka.";
+const NSID_PREFIX_CINE = "app.etzhayyim.apps.cine.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -34,14 +34,14 @@ export default {
         execution: "edge-proxy+agentgateway-mcp+langserver",
         pipeline: "gftd:kami-cine@1.0.0",
         stages: [
-          "ai.gftd.apps.cine.worldModel",
-          "ai.gftd.apps.cine.usdScene",
-          "ai.gftd.apps.cine.neuralGeom",
-          "ai.gftd.apps.cine.temporalField",
-          "ai.gftd.apps.cine.neuralRender",
-          "ai.gftd.apps.cine.diffusionPass",
-          "ai.gftd.apps.cine.exrSeq",
-          "ai.gftd.apps.cine.encode",
+          "app.etzhayyim.apps.cine.worldModel",
+          "app.etzhayyim.apps.cine.usdScene",
+          "app.etzhayyim.apps.cine.neuralGeom",
+          "app.etzhayyim.apps.cine.temporalField",
+          "app.etzhayyim.apps.cine.neuralRender",
+          "app.etzhayyim.apps.cine.diffusionPass",
+          "app.etzhayyim.apps.cine.exrSeq",
+          "app.etzhayyim.apps.cine.encode",
         ],
       });
     }

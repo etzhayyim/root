@@ -33,12 +33,12 @@ describe("XrpcClient", () => {
   // ── Generic CRUD ──
 
   it("createRecord sends POST to com.atproto.repo.createRecord", async () => {
-    await client.createRecord("ai.gftd.apps.test.article", { title: "Hello" });
+    await client.createRecord("app.etzhayyim.apps.test.article", { title: "Hello" });
     expect(calls).toHaveLength(1);
     expect(calls[0].url).toContain("/xrpc/com.atproto.repo.createRecord");
     const body = JSON.parse(calls[0].init?.body as string);
     expect(body.repo).toBe("did:web:test.etzhayyim.com");
-    expect(body.collection).toBe("ai.gftd.apps.test.article");
+    expect(body.collection).toBe("app.etzhayyim.apps.test.article");
     expect(body.record).toEqual({ title: "Hello" });
   });
 
@@ -49,7 +49,7 @@ describe("XrpcClient", () => {
   });
 
   it("getRecord sends POST to com.atproto.repo.getRecord", async () => {
-    await client.getRecord("ai.gftd.apps.test.article", "rkey1");
+    await client.getRecord("app.etzhayyim.apps.test.article", "rkey1");
     expect(calls[0].url).toContain("/xrpc/com.atproto.repo.getRecord");
   });
 
@@ -70,9 +70,9 @@ describe("XrpcClient", () => {
   it("listRecords sends POST to com.atproto.repo.listRecords", async () => {
     const mock = createMockFetcher({ records: [], cursor: undefined });
     const c = new XrpcClient({ pdsRpc: mock.fetcher, repo: "did:web:test" });
-    await c.listRecords("ai.gftd.apps.test.article", { limit: 25 });
+    await c.listRecords("app.etzhayyim.apps.test.article", { limit: 25 });
     const body = JSON.parse(mock.calls[0].init?.body as string);
-    expect(body.collection).toBe("ai.gftd.apps.test.article");
+    expect(body.collection).toBe("app.etzhayyim.apps.test.article");
     expect(body.limit).toBe(25);
   });
 
@@ -85,12 +85,12 @@ describe("XrpcClient", () => {
   });
 
   it("deleteRecord sends POST to com.atproto.repo.deleteRecord", async () => {
-    await client.deleteRecord("ai.gftd.apps.test.article", "rkey1");
+    await client.deleteRecord("app.etzhayyim.apps.test.article", "rkey1");
     expect(calls[0].url).toContain("/xrpc/com.atproto.repo.deleteRecord");
   });
 
   it("putRecord sends POST to com.atproto.repo.putRecord", async () => {
-    await client.putRecord("ai.gftd.apps.test.article", "rkey1", { title: "Updated" });
+    await client.putRecord("app.etzhayyim.apps.test.article", "rkey1", { title: "Updated" });
     const body = JSON.parse(calls[0].init?.body as string);
     expect(body.rkey).toBe("rkey1");
     expect(body.record).toEqual({ title: "Updated" });
@@ -101,13 +101,13 @@ describe("XrpcClient", () => {
   it("domain().create builds correct collection", async () => {
     await client.domain("handotai").create("article", { title: "Test" });
     const body = JSON.parse(calls[0].init?.body as string);
-    expect(body.collection).toBe("ai.gftd.apps.handotai.article");
+    expect(body.collection).toBe("app.etzhayyim.apps.handotai.article");
   });
 
   it("domain().get builds correct collection", async () => {
     await client.domain("handotai").get("article", "r1");
     const body = JSON.parse(calls[0].init?.body as string);
-    expect(body.collection).toBe("ai.gftd.apps.handotai.article");
+    expect(body.collection).toBe("app.etzhayyim.apps.handotai.article");
     expect(body.rkey).toBe("r1");
   });
 
@@ -116,24 +116,24 @@ describe("XrpcClient", () => {
     const c = new XrpcClient({ pdsRpc: mock.fetcher, repo: "did:web:test" });
     await c.domain("handotai").list("article");
     const body = JSON.parse(mock.calls[0].init?.body as string);
-    expect(body.collection).toBe("ai.gftd.apps.handotai.article");
+    expect(body.collection).toBe("app.etzhayyim.apps.handotai.article");
   });
 
   it("domain().delete builds correct collection", async () => {
     await client.domain("handotai").delete("article", "r1");
     const body = JSON.parse(calls[0].init?.body as string);
-    expect(body.collection).toBe("ai.gftd.apps.handotai.article");
+    expect(body.collection).toBe("app.etzhayyim.apps.handotai.article");
   });
 
   it("domain().put builds correct collection", async () => {
     await client.domain("handotai").put("article", "r1", { title: "Updated" });
     const body = JSON.parse(calls[0].init?.body as string);
-    expect(body.collection).toBe("ai.gftd.apps.handotai.article");
+    expect(body.collection).toBe("app.etzhayyim.apps.handotai.article");
   });
 
-  it("domain().call sends XRPC to ai.gftd.apps.{app}.{method}", async () => {
+  it("domain().call sends XRPC to app.etzhayyim.apps.{app}.{method}", async () => {
     await client.domain("handotai").call("generateArticle", { topic: "AI" });
-    expect(calls[0].url).toContain("/xrpc/ai.gftd.apps.handotai.generateArticle");
+    expect(calls[0].url).toContain("/xrpc/app.etzhayyim.apps.handotai.generateArticle");
   });
 
   // ── Social shortcuts ──
@@ -244,8 +244,8 @@ describe("XrpcClient", () => {
     c.dispatch({ type: "agent-register-tools", payload: [{ id: "tool-1" }] });
     await c.drainPendingWrites();
     const urls = mock.calls.map((call) => call.url);
-    expect(urls.some((u) => u.includes("/xrpc/ai.gftd.identity.register"))).toBe(false);
-    expect(urls.some((u) => u.includes("/xrpc/ai.gftd.capability.declare"))).toBe(false);
-    expect(urls.some((u) => u.includes("/xrpc/ai.gftd.agent.registerTools"))).toBe(false);
+    expect(urls.some((u) => u.includes("/xrpc/app.etzhayyim.identity.register"))).toBe(false);
+    expect(urls.some((u) => u.includes("/xrpc/app.etzhayyim.capability.declare"))).toBe(false);
+    expect(urls.some((u) => u.includes("/xrpc/app.etzhayyim.agent.registerTools"))).toBe(false);
   });
 });

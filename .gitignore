@@ -87,8 +87,33 @@ _working/
 tmp/
 .tmp/
 
+# Daemon output — running etzhayyim-organism CNS daemon writes cycle
+# observations here continuously. Per ADR-2605221411, observations are
+# ephemeral runtime state, not source.
+_observations/
+
+# Agent scratch — root-level codegen / patch scripts produced by background
+# agents during exploratory work. Promote to a real location if kept.
+/active_patch.py
+/apply_patches.py
+/codegen.py
+/codegen_substrate.py
+
 # Foundry transient lockfile (held during `forge` invocations; persists if forge crashes)
 foundry.lock
 
 # npm auth (NEVER commit — GH Packages token)
 .npmrc
+
+# dataset substrate (ADR-2605241500): staging is machine-local.
+# DataLad / git-annex objects live OUTSIDE the worktree
+# (annex.objectdir → /Volumes/<vol>/etzhayyim/annex-store/), so no in-tree
+# git-annex ignore patterns are needed.
+**/datasets-staging/
+
+# Claude Code agent worktrees (full repo copies for parallel agents — never commit)
+.claude/worktrees/
+
+# torch.utils.cpp_extension build dirs (kernel shootout, ADR-2605242000)
+**/_build_cpu/
+

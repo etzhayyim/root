@@ -1,7 +1,7 @@
 /**
  * Kyber Inbox worker — aggregates Outlook/OneDrive/Gmail signals into kyber ERP dept streams.
  *
- * Subscribes: ai.gftd.apps.kyber.inbox.{emailSignal,calendarSignal,documentSignal}
+ * Subscribes: app.etzhayyim.apps.kyber.inbox.{emailSignal,calendarSignal,documentSignal}
  * Writes: vertex_email_message / vertex_calendar_event / vertex_office_document + edge_kyber_routed
  *
  * This is a Phase-0 reactive ingestion shell. On each PDS commit in any inbox
@@ -12,8 +12,8 @@
 import {
   createKyselyDb,
   createWorkerExport,
-} from '@gftd/magatama-host-sdk';
-import type { Database } from '@gftd/graph-schema';
+} from '@etzhayyim/magatama-host-sdk';
+import type { Database } from '@etzhayyim/graph-schema';
 
 interface Env {
   HYPERDRIVE: Hyperdrive;
@@ -170,9 +170,9 @@ async function onDocumentSignal(db: ReturnType<typeof createKyselyDb<Database>>,
 }
 
 const ROUTES: Record<string, (db: ReturnType<typeof createKyselyDb<Database>>, c: Commit) => Promise<void>> = {
-  'ai.gftd.apps.kyber.inbox.emailSignal':    onEmailSignal,
-  'ai.gftd.apps.kyber.inbox.calendarSignal': onCalendarSignal,
-  'ai.gftd.apps.kyber.inbox.documentSignal': onDocumentSignal,
+  'app.etzhayyim.apps.kyber.inbox.emailSignal':    onEmailSignal,
+  'app.etzhayyim.apps.kyber.inbox.calendarSignal': onCalendarSignal,
+  'app.etzhayyim.apps.kyber.inbox.documentSignal': onDocumentSignal,
 };
 
 export default createWorkerExport<Env>({

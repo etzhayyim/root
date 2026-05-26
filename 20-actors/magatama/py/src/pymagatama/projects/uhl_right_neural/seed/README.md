@@ -51,7 +51,7 @@ Schema and public policy are authoritatively defined in:
 
 1. Open a GitHub issue describing the change (new institution, capability update, count
    refresh).
-2. Verifier (currently `jun@gftd.group`) reviews against the source policy above.
+2. Verifier (currently `jun@etzhayyim.com`) reviews against the source policy above.
 3. Update the YAML file. Bump `last_verified_at`. If only verifying without content
    change, still bump the date.
 4. PR with a single-line title `[uhl-seed] <institution-id>: <change>`.

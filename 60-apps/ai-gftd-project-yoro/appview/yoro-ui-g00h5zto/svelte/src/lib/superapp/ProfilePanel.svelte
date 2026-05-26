@@ -336,7 +336,7 @@
 		esimLoading = true;
 		esimError = '';
 		try {
-			const result = await atProcedure<{ rows?: Record<string, unknown>[] }>('ai.gftd.apps.celler.getEsimProfile', {});
+			const result = await atProcedure<{ rows?: Record<string, unknown>[] }>('app.etzhayyim.apps.celler.getEsimProfile', {});
 			if (result?.rows?.[0]) {
 				const row = result.rows[0];
 				esimProfile = {
@@ -366,7 +366,7 @@
 		esimError = '';
 		try {
 			const userDid = await resolveViewerDid();
-			const result = await atProcedure<Record<string, unknown>>('ai.gftd.apps.celler.provisionEsim', {
+			const result = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.celler.provisionEsim', {
 				did: userDid,
 				dataPlan: 'starter',
 			});
@@ -398,7 +398,7 @@
 	async function activateEsim() {
 		if (!esimProfile?.iccid) return;
 		try {
-			await atProcedure('ai.gftd.apps.celler.activateEsim', { iccid: esimProfile.iccid });
+			await atProcedure('app.etzhayyim.apps.celler.activateEsim', { iccid: esimProfile.iccid });
 			esimProfile = { ...esimProfile, status: 'enabled' };
 		} catch (e) {
 			console.warn('activateEsim failed', e);
@@ -408,7 +408,7 @@
 	async function suspendEsim() {
 		if (!esimProfile?.iccid) return;
 		try {
-			await atProcedure('ai.gftd.apps.celler.suspendEsim', { iccid: esimProfile.iccid });
+			await atProcedure('app.etzhayyim.apps.celler.suspendEsim', { iccid: esimProfile.iccid });
 			esimProfile = { ...esimProfile, status: 'disabled' };
 		} catch (e) {
 			console.warn('suspendEsim failed', e);
@@ -421,7 +421,7 @@
 		cardsError = '';
 		try {
 			const userDid = await resolveViewerDid();
-			const result = await atProcedure<{ items?: IssuedCard[] }>('ai.gftd.apps.stripe.listCards', { userId: userDid });
+			const result = await atProcedure<{ items?: IssuedCard[] }>('app.etzhayyim.apps.stripe.listCards', { userId: userDid });
 			if (result?.items && result.items.length > 0) {
 				cardsList = result.items.map((raw: any) => ({
 					id: String(raw.id ?? ''),
@@ -469,7 +469,7 @@
 			cardsError = 'カードホルダー作成に必要なメールアドレスが見つかりません';
 			return false;
 		}
-		const created = await atProcedure<Record<string, unknown>>('ai.gftd.apps.stripe.createCardholder', {
+		const created = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.stripe.createCardholder', {
 			userId: userDid,
 			name,
 			email,
@@ -486,7 +486,7 @@
 		cardsError = '';
 		try {
 			const userDid = await resolveViewerDid();
-			let result = await atProcedure<Record<string, unknown>>('ai.gftd.apps.stripe.issueCard', {
+			let result = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.stripe.issueCard', {
 				userId: userDid,
 				cardType: 'virtual',
 				currency: 'jpy',
@@ -494,7 +494,7 @@
 			if (toStripeErrorCode(result?.error) === 'nocardholder') {
 				const ready = await ensureStripeCardholder(userDid);
 				if (ready) {
-					result = await atProcedure<Record<string, unknown>>('ai.gftd.apps.stripe.issueCard', {
+					result = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.stripe.issueCard', {
 						userId: userDid,
 						cardType: 'virtual',
 						currency: 'jpy',
@@ -530,10 +530,10 @@
 		try {
 				const userDid = await resolveViewerDid();
 				if (card.status === 'active') {
-					await atProcedure('ai.gftd.apps.stripe.freezeCard', { userId: userDid, cardId: card.id });
+					await atProcedure('app.etzhayyim.apps.stripe.freezeCard', { userId: userDid, cardId: card.id });
 					cardsList = cardsList.map(c => c.id === card.id ? { ...c, status: 'inactive' } : c);
 				} else if (card.status === 'inactive') {
-					await atProcedure('ai.gftd.apps.stripe.unfreezeCard', { userId: userDid, cardId: card.id });
+					await atProcedure('app.etzhayyim.apps.stripe.unfreezeCard', { userId: userDid, cardId: card.id });
 					cardsList = cardsList.map(c => c.id === card.id ? { ...c, status: 'active' } : c);
 				}
 		} catch (e) {
@@ -560,7 +560,7 @@
 		cardChargingId = card.id;
 		cardsError = '';
 		try {
-			const result = await atProcedure<Record<string, unknown>>('ai.gftd.apps.stripe.assignCardCredits', {
+			const result = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.stripe.assignCardCredits', {
 				userId: userDid,
 				cardId: card.id,
 				amount,
@@ -979,7 +979,7 @@
 								{esimProvisioning ? '発行中...' : 'eSIM を発行する'}
 							</button>
 
-							<p class="text-[11px] text-gv2-text-muted/60">Celler by GFTD / Telnyx Wireless</p>
+							<p class="text-[11px] text-gv2-text-muted/60">Celler by etzhayyim / Telnyx Wireless</p>
 						</div>
 					{/if}
 				</div>
@@ -1107,14 +1107,14 @@
 			<!-- Default guest sign-in CTA -->
 			<div class="flex flex-col items-center gap-4 px-6 py-12">
 				<div class="flex h-16 w-16 items-center justify-center rounded-full bg-gftd-hover">
-					<svg class="h-8 w-8 text-gftd-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+					<svg class="h-8 w-8 text-etzhayyim-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 						<circle cx="12" cy="8" r="4" />
 						<path d="M20 21a8 8 0 1 0-16 0" />
 					</svg>
 				</div>
 				<div class="flex flex-col items-center gap-2">
-					<h2 class="text-[18px] font-bold text-gftd-text">Sign in</h2>
-					<p class="text-center text-[13px] text-gftd-secondary">Sign in to access your profile and feed.</p>
+					<h2 class="text-[18px] font-bold text-etzhayyim-text">Sign in</h2>
+					<p class="text-center text-[13px] text-etzhayyim-secondary">Sign in to access your profile and feed.</p>
 				</div>
 				<Button
 					variant="solid-fill"

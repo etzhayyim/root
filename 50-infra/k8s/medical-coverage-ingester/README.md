@@ -4,7 +4,7 @@ Kubernetes CronJob for draining healthcare coverage gaps through RisingWave.
 
 The ingester writes canonical records into `vertex_repo_record`; coverage is
 read from `mv_world_collection_coverage_live`. It keeps cursors as normal
-`ai.gftd.apps.iryo.coverageCursor` records in `vertex_repo_record`, so repeated
+`app.etzhayyim.apps.iryo.coverageCursor` records in `vertex_repo_record`, so repeated
 runs continue until each target coverage row reaches `coverage_rate >= 1.0`.
 Before the first write, the CronJob runs an RW health gate equivalent to
 `70-tools/scripts/ingest/rw-health-gate.sh`: `rw_recovery_info`, two compute
@@ -24,11 +24,11 @@ deterministic scoring/enrichment near the data.
 
 Default targets:
 
-- `pubmed`: PubMed E-utilities -> `ai.gftd.apps.iryo.pubmedPaper`
-- `clinical_trials`: ClinicalTrials.gov v2 -> `ai.gftd.apps.iryo.rinshou`
-- `dsm`: public category-level DSM taxonomy metadata only -> `ai.gftd.apps.iryo.dsmCategory`
+- `pubmed`: PubMed E-utilities -> `app.etzhayyim.apps.iryo.pubmedPaper`
+- `clinical_trials`: ClinicalTrials.gov v2 -> `app.etzhayyim.apps.iryo.rinshou`
+- `dsm`: public category-level DSM taxonomy metadata only -> `app.etzhayyim.apps.iryo.dsmCategory`
 - `facilities_csv`: hardcoded CMS Provider of Services sources first, optional
-  `FACILITY_CSV_URL` override for CSV/JSONL -> `ai.gftd.apps.iryo.shisetsu`
+  `FACILITY_CSV_URL` override for CSV/JSONL -> `app.etzhayyim.apps.iryo.shisetsu`
 
 Deploy:
 
@@ -79,7 +79,7 @@ source drains to B2 in roughly 11-12 hours at the default 5-minute cadence.
 
 `medical-facility-b2-replayer` is the B2 -> RisingWave canonical writer. It
 runs with `FACILITY_REPLAY_FROM_B2=true`, reads the raw JSONL.gz archive, writes
-`ai.gftd.apps.iryo.shisetsu` records, and tracks replay progress in:
+`app.etzhayyim.apps.iryo.shisetsu` records, and tracks replay progress in:
 
 - `medical-sources/iryo-shisetsu/_cursors/facilities_replay.json`
 

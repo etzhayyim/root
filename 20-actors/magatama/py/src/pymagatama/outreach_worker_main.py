@@ -11,8 +11,8 @@ LangServer job types:
   outreach.correlate_reply      — Correlate gmail/m365Ingest reply to active sequence (30s)
   outreach.create_sponsor_slot  — XRPC to ads.etzhayyim.com createCampaign (30s)
 
-Reply detection: subscribeRepos fires on ai.gftd.apps.gmail.message and
-ai.gftd.apps.m365Ingest.email; the dispatcher routes to outreach.correlate_reply.
+Reply detection: subscribeRepos fires on app.etzhayyim.apps.gmail.message and
+app.etzhayyim.apps.m365Ingest.email; the dispatcher routes to outreach.correlate_reply.
 
 PII: prospect email/title/company = Tier 3 (sensitivity_ord=3, ADR-0018).
 Never log PII. Cohort-first default.
@@ -462,7 +462,7 @@ async def task_create_sponsor_slot(
     try:
         async with httpx.AsyncClient(timeout=20) as client:
             r = await client.post(
-                f"{ADS_XRPC_URL}/xrpc/ai.gftd.apps.ads.createCampaign",
+                f"{ADS_XRPC_URL}/xrpc/app.etzhayyim.apps.ads.createCampaign",
                 json={
                     "campaignName": f"Outreach: {name}",
                     "targetAudience": goal,

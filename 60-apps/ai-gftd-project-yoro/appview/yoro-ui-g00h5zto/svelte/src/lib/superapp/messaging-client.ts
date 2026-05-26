@@ -61,11 +61,11 @@ export function getMessagingClient(nanoid: string): MessagingClient {
 
 	client = {
 		async command<T = Record<string, unknown>>(method: string, body: Record<string, unknown> = {}): Promise<T> {
-			const nsid = `ai.gftd.actor.messaging.${method.charAt(0).toLowerCase()}${method.slice(1)}`;
+			const nsid = `app.etzhayyim.actor.messaging.${method.charAt(0).toLowerCase()}${method.slice(1)}`;
 			return messagingXrpc<T>(nanoid, nsid, body);
 		},
 		async query<T = Record<string, unknown>>(method: string, body: Record<string, unknown> = {}): Promise<T> {
-			const nsid = `ai.gftd.actor.messaging.${method.charAt(0).toLowerCase()}${method.slice(1)}`;
+			const nsid = `app.etzhayyim.actor.messaging.${method.charAt(0).toLowerCase()}${method.slice(1)}`;
 			return messagingXrpc<T>(nanoid, nsid, body);
 		},
 	};

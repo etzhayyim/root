@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govMar.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govMar.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Morocco government.",
-        "operationId": "ai.gftd.govMar.followSiteDeps",
+        "operationId": "app.etzhayyim.govMar.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMar.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govMar.heartbeatTick": {
       "post": {
         "summary": "Run the Morocco government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govMar.heartbeatTick",
+        "operationId": "app.etzhayyim.govMar.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMar.listOrgs": {
+    "/xrpc/app.etzhayyim.govMar.listOrgs": {
       "get": {
         "summary": "List Morocco government organization graph records.",
-        "operationId": "ai.gftd.govMar.listOrgs",
+        "operationId": "app.etzhayyim.govMar.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMar.registerDIDs": {
+    "/xrpc/app.etzhayyim.govMar.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Morocco government organizations.",
-        "operationId": "ai.gftd.govMar.registerDIDs",
+        "operationId": "app.etzhayyim.govMar.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMar.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govMar.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Morocco government organization path to its graph record.",
-        "operationId": "ai.gftd.govMar.resolveOrgPath",
+        "operationId": "app.etzhayyim.govMar.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMar.seedOrgs": {
+    "/xrpc/app.etzhayyim.govMar.seedOrgs": {
       "post": {
         "summary": "Seed initial Morocco government organization records into the graph.",
-        "operationId": "ai.gftd.govMar.seedOrgs",
+        "operationId": "app.etzhayyim.govMar.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMar.shinka": {
+    "/xrpc/app.etzhayyim.govMar.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Morocco government organization update.",
-        "operationId": "ai.gftd.govMar.shinka",
+        "operationId": "app.etzhayyim.govMar.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMar.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govMar.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Morocco government organization changes to graph.",
-        "operationId": "ai.gftd.govMar.syncWetUpdates",
+        "operationId": "app.etzhayyim.govMar.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

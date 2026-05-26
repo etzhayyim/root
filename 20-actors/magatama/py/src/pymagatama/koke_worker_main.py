@@ -30,13 +30,13 @@ import json
 import logging
 import os
 import signal
+import sqlite3
 import time
 from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
-
-from pymagatama.db_sync import fetch_all, fetch_one, sync_cursor
+from pymagatama.primitives.active_inference_substrate import select_belief_store, KokeFixationRecord, HakkouFermentRecord, KokeFlowRecord, SaikinSignalRecord
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("koke_worker")
@@ -68,22 +68,27 @@ async def task_scan_raw_signals(**_: Any) -> dict[str, Any]:
     """Scan vertex_koke_fixation for signals that need (re-)fixation."""
 
     def _run() -> dict[str, Any]:
-        rows = fetch_all(
-            f"""
-            SELECT vertex_id, input_kind, raw_ref, signal_hash
-            FROM vertex_koke_fixation
-            WHERE status = 'pending'
-            ORDER BY created_at ASC
-            LIMIT {int(SCAN_BATCH_SIZE)}
-            """,
-            (),
-        )
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                rows = conn.execute(
+                    f"""
+                    SELECT vertex_id, input_kind, raw_ref, signal_hash
+                    FROM vertex_koke_fixation
+                    WHERE status = 'pending'
+                    ORDER BY created_at ASC
+                    LIMIT {int(SCAN_BATCH_SIZE)}
+                    """
+                ).fetchall()
+            except sqlite3.OperationalError:
+                rows = []
         signals = [
             {
-                "vertexId": r[0],
-                "inputKind": r[1] or "text",
-                "rawRef": r[2] or "",
-                "signalHash": r[3] or "",
+                "vertexId": r["vertex_id"],
+                "inputKind": r["input_kind"] or "text",
+                "rawRef": r["raw_ref"] or "",
+                "signalHash": r["signal_hash"] or "",
             }
             for r in (rows or [])
         ]
@@ -129,11 +134,12 @@ async def task_fix_signal(
 
     def _run() -> dict[str, Any]:
         nonlocal fixation_vid
+        store = select_belief_store()
         if fixation_vid:
             # Update existing pending fixation to 'fixed'
-            with sync_cursor() as cur:
-                cur.execute(
-                    "UPDATE vertex_koke_fixation SET status = 'fixed', fixed_at = %s, signal_hash = %s, updated_at = %s WHERE vertex_id = %s",
+            with store._conn() as conn:
+                conn.execute(
+                    "UPDATE vertex_koke_fixation SET status = 'fixed', fixed_at = ?, signal_hash = ?, updated_at = ? WHERE vertex_id = ?",
                     (now, signal_hash, now, fixation_vid),
                 )
             fid = fixation_vid.split("/")[-1]
@@ -148,24 +154,30 @@ async def task_fix_signal(
         else:
             # Create new fixation
             fid = _uid("kox")
-            vid = f"at://{KOKE_DID}/ai.gftd.apps.koke.fixation/{fid}"
-            with sync_cursor() as cur:
-                cur.execute(
-                    """
-                    INSERT INTO vertex_koke_fixation
-                      (vertex_id, record_id, owner_did, label, status, stream_id,
-                       agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                       input_kind, raw_ref, signal_hash, classification, confidence,
-                       fixed_at, released_at)
-                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                    """,
-                    (
-                        vid, _uid("rec"), KOKE_DID, "koke_fixation", "fixed", "",
-                        agentDid or KOKE_DID, json.dumps({}),
-                        now, now, 0,
-                        input_kind, raw_ref, signal_hash, None, None, now, None,
-                    ),
-                )
+            vid = f"at://{KOKE_DID}/app.etzhayyim.apps.koke.fixation/{fid}"
+
+            rec = KokeFixationRecord(
+                vertex_id=vid,
+                record_id=_uid("rec"),
+                owner_did=KOKE_DID,
+                label="koke_fixation",
+                status="fixed",
+                stream_id="",
+                agent_did=agentDid or KOKE_DID,
+                value_json=json.dumps({}),
+                created_at=now,
+                updated_at=now,
+                sensitivity_ord=0,
+                input_kind=input_kind,
+                raw_ref=raw_ref,
+                signal_hash=signal_hash,
+                classification=None,
+                confidence=0.0,
+                fixed_at=now,
+                released_at=None
+            )
+            store.put_vertex_koke_fixation(rec)
+
             return {
                 "fixationId": fid,
                 "vertexId": vid,
@@ -223,9 +235,10 @@ async def task_classify_fixation(
         now = _now()
 
         def _update() -> None:
-            with sync_cursor() as cur:
-                cur.execute(
-                    "UPDATE vertex_koke_fixation SET classification = %s, confidence = %s, updated_at = %s WHERE vertex_id LIKE %s",
+            store = select_belief_store()
+            with store._conn() as conn:
+                conn.execute(
+                    "UPDATE vertex_koke_fixation SET classification = ?, confidence = ?, updated_at = ? WHERE vertex_id LIKE ?",
                     (classification, confidence, now, f"%{fixationId}%"),
                 )
 
@@ -260,57 +273,72 @@ async def task_handoff_to_hakkou(
 
     # create hakkou ferment record
     ferment_id = _uid("fmnt")
-    ferment_vid = f"at://{HAKKOU_DID}/ai.gftd.apps.hakkou.ferment/{ferment_id}"
+    ferment_vid = f"at://{HAKKOU_DID}/app.etzhayyim.apps.hakkou.ferment/{ferment_id}"
     edge_id = _uid("kflo")
     now = _now()
 
     # resolve fixation vertex_id
     def _run() -> dict[str, Any]:
-        fixation = fetch_one(
-            "SELECT vertex_id FROM vertex_koke_fixation WHERE vertex_id LIKE %s AND status = 'fixed' LIMIT 1",
-            (f"%{fixationId}%",),
-        )
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                fixation = conn.execute(
+                    "SELECT vertex_id FROM vertex_koke_fixation WHERE vertex_id LIKE ? AND status = 'fixed' LIMIT 1",
+                    (f"%{fixationId}%",)
+                ).fetchone()
+            except sqlite3.OperationalError:
+                fixation = None
+
         if not fixation:
             return {"error": f"fixation not found or not in fixed state: {fixationId}"}
 
-        fixation_vid = fixation[0]
+        fixation_vid = fixation["vertex_id"]
 
-        with sync_cursor() as cur:
-            # create hakkou ferment
-            cur.execute(
-                """
-                INSERT INTO vertex_hakkou_ferment
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   input_kind, input_ref, output_vertex_id, output_kind,
-                   ethanol_hash, co2_audit_ref)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    ferment_vid, _uid("rec"), HAKKOU_DID, "hakkou_ferment", "pending", "",
-                    KOKE_DID, json.dumps({"source": "koke", "classification": classification}),
-                    now, now, 0,
-                    inputKind, rawRef or fixationId, None, None, None, None,
-                ),
-            )
-            # create koke flow edge
-            cur.execute(
-                """
-                INSERT INTO edge_koke_flow
-                  (edge_id, src_vid, dst_vid, relation_kind, value_json,
-                   created_at, updated_at, owner_did, sensitivity_ord,
-                   fixation_id, ferment_id, handoff_kind, handed_off_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    edge_id, fixation_vid, ferment_vid, "koke_flow", json.dumps({}),
-                    now, now, KOKE_DID, 0,
-                    fixationId, ferment_id, classification, now,
-                ),
-            )
+        # create hakkou ferment
+        ferment_rec = HakkouFermentRecord(
+            vertex_id=ferment_vid,
+            record_id=_uid("rec"),
+            owner_did=HAKKOU_DID,
+            label="hakkou_ferment",
+            status="pending",
+            stream_id="",
+            agent_did=KOKE_DID,
+            value_json=json.dumps({"source": "koke", "classification": classification}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            input_kind=inputKind,
+            input_ref=rawRef or fixationId,
+            output_vertex_id=None,
+            output_kind=None,
+            ethanol_hash=None,
+            co2_audit_ref=None
+        )
+        store.put_vertex_hakkou_ferment(ferment_rec)
+
+        # create koke flow edge
+        flow_rec = KokeFlowRecord(
+            edge_id=edge_id,
+            src_vid=fixation_vid,
+            dst_vid=ferment_vid,
+            relation_kind="koke_flow",
+            value_json=json.dumps({}),
+            created_at=now,
+            updated_at=now,
+            owner_did=KOKE_DID,
+            sensitivity_ord=0,
+            fixation_id=fixationId,
+            ferment_id=ferment_id,
+            handoff_kind=classification,
+            handed_off_at=now
+        )
+        store.put_edge_koke_flow(flow_rec)
+
+        with store._conn() as conn:
             # mark fixation as handed off
-            cur.execute(
-                "UPDATE vertex_koke_fixation SET status = 'handedOff', updated_at = %s WHERE vertex_id = %s",
+            conn.execute(
+                "UPDATE vertex_koke_fixation SET status = 'handedOff', updated_at = ? WHERE vertex_id = ?",
                 (now, fixation_vid),
             )
         return {
@@ -345,58 +373,71 @@ async def task_handoff_to_saikin(
         return {"error": "fixationId required"}
 
     signal_id = _uid("s41k")
-    signal_vid = f"at://{SAIKIN_DID}/ai.gftd.apps.saikin.signal/{signal_id}"
+    signal_vid = f"at://{SAIKIN_DID}/app.etzhayyim.apps.saikin.signal/{signal_id}"
     edge_id = _uid("kflo")
     now = _now()
 
     def _run() -> dict[str, Any]:
-        fixation = fetch_one(
-            """
-            SELECT vertex_id, input_kind, raw_ref, signal_hash
-            FROM vertex_koke_fixation
-            WHERE vertex_id LIKE %s
-            LIMIT 1
-            """,
-            (f"%{fixationId}%",),
-        )
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                fixation = conn.execute(
+                    """
+                    SELECT vertex_id, input_kind, raw_ref, signal_hash
+                    FROM vertex_koke_fixation
+                    WHERE vertex_id LIKE ?
+                    LIMIT 1
+                    """,
+                    (f"%{fixationId}%",)
+                ).fetchone()
+            except sqlite3.OperationalError:
+                fixation = None
+
         if not fixation:
             return {"error": f"fixation not found: {fixationId}"}
 
-        fixation_vid, fix_input_kind, fix_raw_ref, fix_signal_hash = fixation
+        fixation_vid = fixation["vertex_id"]
+        fix_input_kind = fixation["input_kind"]
+        fix_raw_ref = fixation["raw_ref"]
+        fix_signal_hash = fixation["signal_hash"]
 
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_saikin_signal
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   input_kind, raw_ref, signal_hash, probe_source)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    signal_vid, _uid("rec"), SAIKIN_DID, "saikin_signal", "unprocessed", "",
-                    KOKE_DID, json.dumps({"source": "koke", "classification": classification}),
-                    now, now, 0,
-                    fix_input_kind or inputKind,
-                    fix_raw_ref or rawRef,
-                    fix_signal_hash or "",
-                    "koke",
-                ),
-            )
-            cur.execute(
-                """
-                INSERT INTO edge_koke_flow
-                  (edge_id, src_vid, dst_vid, relation_kind, value_json,
-                   created_at, updated_at, owner_did, sensitivity_ord,
-                   fixation_id, ferment_id, handoff_kind, handed_off_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    edge_id, fixation_vid, signal_vid, "koke_flow", json.dumps({}),
-                    now, now, KOKE_DID, 0,
-                    fixationId, signal_id, "saikin", now,
-                ),
-            )
+        signal_rec = SaikinSignalRecord(
+            vertex_id=signal_vid,
+            record_id=_uid("rec"),
+            owner_did=SAIKIN_DID,
+            label="saikin_signal",
+            status="unprocessed",
+            stream_id="",
+            agent_did=KOKE_DID,
+            value_json=json.dumps({"source": "koke", "classification": classification}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            input_kind=fix_input_kind or inputKind,
+            raw_ref=fix_raw_ref or rawRef,
+            signal_hash=fix_signal_hash or "",
+            probe_source="koke"
+        )
+        store.put_vertex_saikin_signal(signal_rec)
+
+        flow_rec = KokeFlowRecord(
+            edge_id=edge_id,
+            src_vid=fixation_vid,
+            dst_vid=signal_vid,
+            relation_kind="koke_flow",
+            value_json=json.dumps({}),
+            created_at=now,
+            updated_at=now,
+            owner_did=KOKE_DID,
+            sensitivity_ord=0,
+            fixation_id=fixationId,
+            ferment_id=signal_id,
+            handoff_kind="saikin",
+            handed_off_at=now
+        )
+        store.put_edge_koke_flow(flow_rec)
+
         return {
             "saikinSignalId": signal_id,
             "saikinSignalVertexId": signal_vid,

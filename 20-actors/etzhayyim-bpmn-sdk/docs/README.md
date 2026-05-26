@@ -1,6 +1,6 @@
-# @gftd/bpmn-sdk Documentation
+# @etzhayyim/bpmn-sdk Documentation
 
-This directory contains the GitHub Pages documentation for the @gftd/bpmn-sdk project.
+This directory contains the GitHub Pages documentation for the @etzhayyim/bpmn-sdk project.
 
 ## 📁 Directory Structure
 

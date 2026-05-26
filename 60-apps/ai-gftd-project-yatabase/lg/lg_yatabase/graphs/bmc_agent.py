@@ -12,7 +12,7 @@ Notification channel priority:
 
 Env vars:
   TEAMS_BMC_WEBHOOK_URL  — Teams incoming webhook URL (optional)
-  GFTD_LLM_URL / GFTD_LLM_API_KEY — for LLM-augmented assessment (optional)
+  etzhayyim_LLM_URL / etzhayyim_LLM_API_KEY — for LLM-augmented assessment (optional)
   BMC_H1_SUBMITTED       — "true" when Cursor MCP registry PR submitted
   BMC_H2_VERIFIED        — "true" when LP 7-day metrics verified
   BMC_H3_DECIDED         — "true" when /storage page decision made
@@ -205,7 +205,7 @@ async def notify(state: BmcAgentState) -> BmcAgentState:
                 "bmc-daily-report",
                 f"yatabase BMC Daily {run_date}",
                 summary,
-                "jun@gftd.group",
+                "jun@etzhayyim.com",
                 "queued-no-recipient",
                 datetime.now(timezone.utc),
             )

@@ -5,7 +5,7 @@ Rust implementation of the SPEC §9 build → sign → pin pipeline:
 ```
 cargo build --target wasm32-wasi   →   wamrc --enable-aot   →
 builder-sign sign cell.aot         →   blake3 CID + Ed25519 signature   →
-XRPC ai.gftd.apps.openOt.pinModule →   atproto record links cell DID → CID + sig
+XRPC app.etzhayyim.apps.openOt.pinModule →   atproto record links cell DID → CID + sig
 ```
 
 Replaces the `scripts/builder-sign.sh` stub referenced in `cells/CLAUDE.md` (removed 2026-05-20). Per Gate C report §2.5.

@@ -12,7 +12,7 @@ from typing import Any
 
 from pymagatama.db_sync import sync_cursor
 
-NS = "ai.gftd.apps.kouza"
+NS = "app.etzhayyim.apps.kouza"
 ACTOR = "did:web:kouza.etzhayyim.com"
 READ_SCOPES = {"accounts.read", "transactions.read", "documents.read", "balances.read"}
 
@@ -208,7 +208,7 @@ def _derive_kaikei(owner: str, account_did: str, row: dict[str, Any], external_d
         return None
     bank_txn_id = _str(row.get("externalTxnId")) or _hash(row)
     rkey = f"kouza-{_hash({'financialAccountDid': account_did, 'bankTxnId': bank_txn_id})}"
-    did = _record_did(owner, "ai.gftd.apps.kaikei.bankTransaction", rkey)
+    did = _record_did(owner, "app.etzhayyim.apps.kaikei.bankTransaction", rkey)
     _execute(
         """INSERT INTO vertex_atrecord_kaikei_bank_transaction
         (vertex_id, _seq, owner_did, bank_did, bank_txn_id, posted_at, amount, counterparty_name, reconcile_status, created_at)

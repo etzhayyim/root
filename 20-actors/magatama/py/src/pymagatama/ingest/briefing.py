@@ -32,7 +32,7 @@ def _str(value: Any, default: str = "") -> str:
 
 
 def _record(kind: str, record: dict[str, Any]) -> dict[str, Any]:
-    return {"collection": f"ai.gftd.apps.briefing.{kind}", "record": record}
+    return {"collection": f"app.etzhayyim.apps.briefing.{kind}", "record": record}
 
 
 def _post(text: str) -> dict[str, str]:

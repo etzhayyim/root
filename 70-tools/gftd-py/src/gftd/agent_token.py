@@ -14,7 +14,7 @@ from .auth import auth_headers, resolve_pds
 @click.command("agent-token")
 @click.option("--lxm", required=True, help="Lexicon method NSID to scope the token to.")
 @click.option("--aud", default=None, help="Audience DID (default: inferred from PDS).")
-@click.option("--pds", "pds_url", default=None, help="PDS base URL (overrides GFTD_PDS_URL).")
+@click.option("--pds", "pds_url", default=None, help="PDS base URL (overrides etzhayyim_PDS_URL).")
 @click.option("--ttl", default=60, show_default=True, help="Token lifetime in seconds.")
 @click.option("--sub", "sub_did", default=None, help="Subject DID override.")
 @click.option("-v", "--verbose", is_flag=True)

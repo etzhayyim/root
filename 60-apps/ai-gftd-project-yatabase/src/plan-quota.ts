@@ -98,12 +98,17 @@ export function inferPlan(orgDid: string): PlanTier {
 
 /**
  * Resolve the effective plan tier for an org. P8: prefers a persisted
- * `vertex_org_plan` row (set by Stripe webhook or stub upgrade); falls
- * back to `inferPlan(orgDid)` when no persisted plan exists.
+ * `vertex_org_plan` row (set by the USDC webhook on donation confirm or
+ * by the free-tier downgrade path); falls back to `inferPlan(orgDid)`
+ * when no persisted plan exists.
+ *
+ * Charter Rider §2 (ADR-2605192115): the legacy `billing-stripe` module
+ * was renamed to `billing` as part of the Stripe→USDC cutover. This
+ * function unconditionally targets the new module.
  */
 export async function resolvePlan(env: PlanQuotaEnv, orgDid: string): Promise<PlanTier> {
   try {
-    const sdk = await import("./billing-stripe");
+    const sdk = await import("./billing");
     const persisted = await sdk.getPersistedPlan(env, orgDid);
     if (persisted) return persisted;
   } catch {
@@ -119,7 +124,7 @@ interface AnyKyselyDb {
 async function getDb(env: PlanQuotaEnv): Promise<AnyKyselyDb | null> {
   if (!env.HYPERDRIVE) return null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     return sdk.createKyselyDb(env.HYPERDRIVE as never) as unknown as AnyKyselyDb;
   } catch {
     return null;
@@ -160,7 +165,7 @@ async function fetchDailyApiCount(env: PlanQuotaEnv, orgDid: string): Promise<nu
 
   let sqlTag: ((strings: TemplateStringsArray, ...values: unknown[]) => unknown) | null = null;
   try {
-    const sdk = await import("@gftd/magatama-host-sdk");
+    const sdk = await import("@etzhayyim/magatama-host-sdk");
     sqlTag = (sdk as unknown as { sql?: typeof sqlTag }).sql ?? null;
   } catch {
     return 0;

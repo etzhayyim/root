@@ -78,17 +78,17 @@ def test_graph_compiles(module_path: str):
 # ── NSID map completeness test ───────────────────────────────────────────
 
 EXPECTED_NSIDS = {
-    "ai.gftd.apps.jukyu.health",
-    "ai.gftd.apps.jukyu.queryBalance",
-    "ai.gftd.apps.jukyu.querySupplyChain",
-    "ai.gftd.apps.jukyu.rankCompanyExposure",
-    "ai.gftd.apps.jukyu.explainNode",
-    "ai.gftd.apps.jukyu.runStressPropagation",
-    "ai.gftd.apps.jukyu.upsertSignal",
-    "ai.gftd.apps.jukyu.exportBrief",
-    "ai.gftd.apps.jukyu.notifyCompany",
-    "ai.gftd.apps.jukyu.normalizeDomainAdapter",
-    "ai.gftd.apps.jukyu.extractShocks",
+    "app.etzhayyim.apps.jukyu.health",
+    "app.etzhayyim.apps.jukyu.queryBalance",
+    "app.etzhayyim.apps.jukyu.querySupplyChain",
+    "app.etzhayyim.apps.jukyu.rankCompanyExposure",
+    "app.etzhayyim.apps.jukyu.explainNode",
+    "app.etzhayyim.apps.jukyu.runStressPropagation",
+    "app.etzhayyim.apps.jukyu.upsertSignal",
+    "app.etzhayyim.apps.jukyu.exportBrief",
+    "app.etzhayyim.apps.jukyu.notifyCompany",
+    "app.etzhayyim.apps.jukyu.normalizeDomainAdapter",
+    "app.etzhayyim.apps.jukyu.extractShocks",
 }
 
 

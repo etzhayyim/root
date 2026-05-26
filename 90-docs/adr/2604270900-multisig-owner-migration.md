@@ -35,9 +35,9 @@ currently resolves to a single EOA — the platform sealer
 |---|---|
 | `GCCStablecoin`              | owner, masterMinter, pauser, blacklister |
 | `DeployRegistry`             | owner |
-| `GftdActorRegistry`          | owner |
-| `GftdRootIdentityRegistry`   | owner |
-| `GftdAgentRegistry`          | owner |
+| `etzhayyimActorRegistry`          | owner |
+| `etzhayyimRootIdentityRegistry`   | owner |
+| `etzhayyimAgentRegistry`          | owner |
 | `ActorRuntimeRegistry`       | owner |
 | `MurakumoRegistry`           | owner |
 | `MurakumoEscrow`             | owner, oracle, treasury |
@@ -92,9 +92,9 @@ Three keys, threshold 2. The keys are not specified in this ADR — the
 operator picks the three principals after this ADR is accepted.
 Recommended composition:
 
-- **K1**: platform operator (`jun@gftd.group`). macOS Keychain
+- **K1**: platform operator (`jun@etzhayyim.com`). macOS Keychain
   + iCloud sync + gftd Vault L3.
-- **K2**: a co-owner (Gftd Japan board member or co-founder). Same
+- **K2**: a co-owner (etzhayyim Japan board member or co-founder). Same
   custody pattern, separate physical device.
 - **K3**: cold-storage hardware wallet (Ledger / Trezor) held in a
   bank safe-deposit box. Threshold 2 means K3 is only used when K1 or

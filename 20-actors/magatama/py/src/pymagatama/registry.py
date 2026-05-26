@@ -58,7 +58,7 @@ def udf(
     Register a Python callable as a mitama UDF handler.
 
     Args:
-        nsid: AT Lexicon NSID (e.g. "ai.gftd.apps.yabai.classify").
+        nsid: AT Lexicon NSID (e.g. "app.etzhayyim.apps.yabai.classify").
               Must match a lexicon JSON in 00-contracts/lexicons/.
         io_threads: concurrent IO thread count (ADR-0044 default 100).
         capability_tags: forwarded to the MCP tool facade (ADR-0042).

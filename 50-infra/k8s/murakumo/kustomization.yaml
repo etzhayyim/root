@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: etzhayyim-cells
+resources:
+  - namespace.yaml
+  - cells/charter-attestation-request-cell
+  - cells/charter-attestation-finalization-cell
+  - cells/charter-rehabilitation-cell
+  - cells/site-survey-cell
+  - cells/land-stewardship-monitoring-cell
+  - cells/commissioning-cell
+  - cells/land-donation-processing-cell
+  - cells/land-dispute-resolution-cell
+  - cells/steward-succession-cell
+  - cells/eligibility-cell
+  - cells/treasury-rebalance-cell
+  - cells/public-fund-grant-cell
+  - cells/tithe-routing-cell
+  - cells/deployment-planning-cell
+  - cells/adherent-attestation-cell
+  - cells/council-level-advancement-cell
+  - cells/council-deliberation-cell
+  - cells/audit-witness-cell
+  - cells/kaizen-observer-cell
+  - cells/force-authorization-cell
+  - cells/force-log-monitoring-cell
+  - cells/ethics-content-classifier-cell

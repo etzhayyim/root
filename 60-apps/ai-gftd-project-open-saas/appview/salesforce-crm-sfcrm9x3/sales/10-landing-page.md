@@ -9,7 +9,7 @@
 **Subhead**: open-salesforce is a CRM on AT / W Protocol. Tenant = DID. PII split between a Tier-1 federation-ready record and a Tier-3 residency-pinned vault. Seat = agent. Flat price, no per-seat, no Einstein GPT line item.
 
 **Primary CTA (×3, side by side)**:
-- **See a real record** → `/at/democo.opensaas.etzhayyim.com/ai.gftd.apps.opensaas.salesforce.opportunity/opp-demo-q3`
+- **See a real record** → `/at/democo.opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.opportunity/opp-demo-q3`
 - **Download posture packet (APPI + GDPR, PDF 14pp)** → `/docs/posture-appi-gdpr.pdf`
 - **Run the TCO calculator** → `/pricing/calculator`
 
@@ -20,7 +20,7 @@
 ### Claim A: Convert a lead atomically, auto-log the activity
 One click writes `account` + `contact` + `opportunity` + updated `lead` + derived `activity(kind=conversion)` in a single commit pipeline pass. Zero app-layer orchestration. No Flow, no Apex.
 
-- **Proof link**: live record `/at/democo.opensaas.etzhayyim.com/ai.gftd.apps.opensaas.salesforce.activity/act-demo-conv-001`
+- **Proof link**: live record `/at/democo.opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.activity/act-demo-conv-001`
 - **Micro-copy**: "Paste that URI into any AT Protocol client. The CRM isn't the only thing that can read it."
 
 ### Claim B: Your CRM data is where you say it is, and you can prove it
@@ -73,7 +73,7 @@ Tight, honest inventory. No "we're better at everything" bravado.
 ## Section 5 — FAQ (written in the voice of the buyer, not the vendor)
 
 - **"Can I host this myself?"** Yes. `gftd deploy` to your Cloudflare account; point your own RisingWave cluster; keep your DID on your own DNS. We can still operate it for you if the Order Form says so.
-- **"What happens if GFTD the company disappears?"** Your tenant DID, your records, your Worker, your vault keys are all yours. The Community SKU is the permanent fallback; the lexicons are CC-BY-4.0, the code is AGPL-3.0 with a permissive commercial grant for operators.
+- **"What happens if etzhayyim the company disappears?"** Your tenant DID, your records, your Worker, your vault keys are all yours. The Community SKU is the permanent fallback; the lexicons are CC-BY-4.0, the code is AGPL-3.0 with a permissive commercial grant for operators.
 - **"Can we move back to Salesforce if it doesn't work?"** Yes. Export every record in AT Protocol JSON + Iceberg Parquet on 30 days' notice. No egress fee.
 - **"Do you support our SSO?"** SAML + OIDC on the tenant's Auth Worker; WebAuthn passkey is the seat-level primary. No password fallback.
 - **"Can we use a different LLM?"** Any HTTP-invocable LLM fleet can be bound via one `ConfigPut`; OpenAI / Anthropic / Azure / your GPU cluster all fit.
@@ -90,7 +90,7 @@ Tight, honest inventory. No "we're better at everything" bravado.
 
 ## Analytics + lead capture
 
-- Every form on the page → `POST /xrpc/ai.gftd.apps.opensaas.salesforce.createLead` with `source=web-form` and `campaignId=<section-id>`.
+- Every form on the page → `POST /xrpc/app.etzhayyim.apps.opensaas.salesforce.createLead` with `source=web-form` and `campaignId=<section-id>`.
 - Calculator CTA emits a synthetic lead with `scoreBand` derived from calculator inputs; RevOps sees the scoreBand distribution in `listPipeline` without seeing the raw PII (it's hashed before the XRPC).
 - Posture-packet download gated by email, hashed before persistence, raw email goes to Tier-3 vault directly (dogfood).
 

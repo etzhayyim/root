@@ -10,27 +10,27 @@
         "id": "cap.gridDesign",
         "name": "Grid design",
         "children": [
-          { "id": "cap.substationDefine", "name": "Define substation", "realisedBy": "ai.gftd.apps.openPower.defineSubstation" },
-          { "id": "cap.feederDefine",     "name": "Define feeder",     "realisedBy": "ai.gftd.apps.openPower.defineFeeder" },
-          { "id": "cap.nodeQuery",        "name": "Query node",        "realisedBy": "ai.gftd.apps.openPower.getNode" },
-          { "id": "cap.feederList",       "name": "List feeders",      "realisedBy": "ai.gftd.apps.openPower.listFeeders" }
+          { "id": "cap.substationDefine", "name": "Define substation", "realisedBy": "app.etzhayyim.apps.openPower.defineSubstation" },
+          { "id": "cap.feederDefine",     "name": "Define feeder",     "realisedBy": "app.etzhayyim.apps.openPower.defineFeeder" },
+          { "id": "cap.nodeQuery",        "name": "Query node",        "realisedBy": "app.etzhayyim.apps.openPower.getNode" },
+          { "id": "cap.feederList",       "name": "List feeders",      "realisedBy": "app.etzhayyim.apps.openPower.listFeeders" }
         ]
       },
       {
         "id": "cap.metering",
         "name": "Metering",
         "children": [
-          { "id": "cap.readingIngest", "name": "Ingest reading", "realisedBy": "ai.gftd.apps.openPower.recordReading" },
-          { "id": "cap.loadProfile",   "name": "Load profile",   "realisedBy": "ai.gftd.apps.openPower.getLoadProfile" }
+          { "id": "cap.readingIngest", "name": "Ingest reading", "realisedBy": "app.etzhayyim.apps.openPower.recordReading" },
+          { "id": "cap.loadProfile",   "name": "Load profile",   "realisedBy": "app.etzhayyim.apps.openPower.getLoadProfile" }
         ]
       },
       {
         "id": "cap.reliability",
         "name": "Reliability / outages",
         "children": [
-          { "id": "cap.outageReport", "name": "Report outage", "realisedBy": "ai.gftd.apps.openPower.reportOutage" },
+          { "id": "cap.outageReport", "name": "Report outage", "realisedBy": "app.etzhayyim.apps.openPower.reportOutage" },
           { "id": "cap.outageClass",  "name": "Class decisioning", "realisedBy": "openPower.outageClass (DMN)" },
-          { "id": "cap.outageList",   "name": "List outages",  "realisedBy": "ai.gftd.apps.openPower.listOutages" }
+          { "id": "cap.outageList",   "name": "List outages",  "realisedBy": "app.etzhayyim.apps.openPower.listOutages" }
         ]
       }
     ]

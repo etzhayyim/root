@@ -150,7 +150,7 @@ async function bulkInsertTargets() {
         descriptor_json, last_verified_at, created_at, org_id, user_id, actor_id
       )
       SELECT
-        CONCAT('at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.formLanguageVariant/ind-', m.municipality_code, '-major-', REPLACE(l.locale, '-', '-')),
+        CONCAT('at://did:web:gov.etzhayyim.com/app.etzhayyim.apps.gov.formLanguageVariant/ind-', m.municipality_code, '-major-', REPLACE(l.locale, '-', '-')),
         20260427004000 + ROW_NUMBER() OVER (ORDER BY m.prefecture, m.city, l.ordinal),
         DATE '2026-04-27',
         1,

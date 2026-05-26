@@ -31,14 +31,14 @@ const writeTableAllowlist = [
 const seeds: Seed[] = procs.map((proc) => ({
   proc,
   bpmnProcessId: `kenkyusha_${snake(proc)}`,
-  nsid: `ai.gftd.apps.kenkyusha.${proc}`,
+  nsid: `app.etzhayyim.apps.kenkyusha.${proc}`,
   resultTimeoutMs: 30000,
   writeTableAllowlist: writeProcs.has(proc) ? writeTableAllowlist : "",
 }));
 
 const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/kenkyusha/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/kenkyusha-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/kenkyusha-${slug(s.proc)}-v1`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

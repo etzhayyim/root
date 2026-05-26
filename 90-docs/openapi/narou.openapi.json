@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.narou.createChapter": {
+    "/xrpc/app.etzhayyim.narou.createChapter": {
       "post": {
         "summary": "Create a chapter draft under a novel",
-        "operationId": "ai.gftd.narou.createChapter",
+        "operationId": "app.etzhayyim.narou.createChapter",
         "requestBody": {
           "required": true,
           "content": {
@@ -72,10 +72,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.narou.createCharacter": {
+    "/xrpc/app.etzhayyim.narou.createCharacter": {
       "post": {
         "summary": "Define a character for a novel",
-        "operationId": "ai.gftd.narou.createCharacter",
+        "operationId": "app.etzhayyim.narou.createCharacter",
         "requestBody": {
           "required": true,
           "content": {
@@ -135,10 +135,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.narou.createNovel": {
+    "/xrpc/app.etzhayyim.narou.createNovel": {
       "post": {
         "summary": "Create a new novel work",
-        "operationId": "ai.gftd.narou.createNovel",
+        "operationId": "app.etzhayyim.narou.createNovel",
         "requestBody": {
           "required": true,
           "content": {
@@ -197,10 +197,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.narou.createWorldSetting": {
+    "/xrpc/app.etzhayyim.narou.createWorldSetting": {
       "post": {
         "summary": "Define world building settings for a novel",
-        "operationId": "ai.gftd.narou.createWorldSetting",
+        "operationId": "app.etzhayyim.narou.createWorldSetting",
         "requestBody": {
           "required": true,
           "content": {
@@ -257,10 +257,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.narou.generateChapter": {
+    "/xrpc/app.etzhayyim.narou.generateChapter": {
       "post": {
         "summary": "AI-generate chapter text for an existing chapter draft",
-        "operationId": "ai.gftd.narou.generateChapter",
+        "operationId": "app.etzhayyim.narou.generateChapter",
         "requestBody": {
           "required": true,
           "content": {
@@ -314,10 +314,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.narou.getChapter": {
+    "/xrpc/app.etzhayyim.narou.getChapter": {
       "get": {
         "summary": "Get a chapter by ID",
-        "operationId": "ai.gftd.narou.getChapter",
+        "operationId": "app.etzhayyim.narou.getChapter",
         "parameters": [
           {
             "name": "id",
@@ -353,10 +353,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.narou.getNovel": {
+    "/xrpc/app.etzhayyim.narou.getNovel": {
       "get": {
         "summary": "Get a novel by ID",
-        "operationId": "ai.gftd.narou.getNovel",
+        "operationId": "app.etzhayyim.narou.getNovel",
         "parameters": [
           {
             "name": "id",
@@ -392,10 +392,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.narou.listChapters": {
+    "/xrpc/app.etzhayyim.narou.listChapters": {
       "get": {
         "summary": "List chapters for a novel",
-        "operationId": "ai.gftd.narou.listChapters",
+        "operationId": "app.etzhayyim.narou.listChapters",
         "parameters": [
           {
             "name": "novel_id",
@@ -470,10 +470,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.narou.listNovels": {
+    "/xrpc/app.etzhayyim.narou.listNovels": {
       "get": {
         "summary": "List novel works with optional filters",
-        "operationId": "ai.gftd.narou.listNovels",
+        "operationId": "app.etzhayyim.narou.listNovels",
         "parameters": [
           {
             "name": "genre",
@@ -556,10 +556,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.narou.publishChapter": {
+    "/xrpc/app.etzhayyim.narou.publishChapter": {
       "post": {
         "summary": "Publish a chapter and dispatch to downstream platforms (manga, syosetsu)",
-        "operationId": "ai.gftd.narou.publishChapter",
+        "operationId": "app.etzhayyim.narou.publishChapter",
         "requestBody": {
           "required": true,
           "content": {
@@ -610,10 +610,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.narou.searchNovels": {
+    "/xrpc/app.etzhayyim.narou.searchNovels": {
       "get": {
         "summary": "Search novel works by keyword or tag",
-        "operationId": "ai.gftd.narou.searchNovels",
+        "operationId": "app.etzhayyim.narou.searchNovels",
         "parameters": [
           {
             "name": "q",

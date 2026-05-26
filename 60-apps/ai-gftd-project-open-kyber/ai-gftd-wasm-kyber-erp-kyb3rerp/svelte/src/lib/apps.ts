@@ -34,7 +34,7 @@ export const apps: AppMeta[] = [
     id: 'projector',
     label: 'Projector',
     short: 'PR',
-    description: 'Project convos · tasks · reflections (ai.gftd.projector.*)',
+    description: 'Project convos · tasks · reflections (app.etzhayyim.projector.*)',
     accent: 'from-fuchsia-500 to-pink-500'
   },
   {

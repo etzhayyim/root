@@ -175,6 +175,45 @@ jobs:
         working-directory: ${{ env.OPEN_OT }}/cells
         run: cargo test --workspace --release
 
+  # Codegen SSoT gate: cell manifests ↔ orchestrator/_generated must stay in sync.
+  codegen-check:
+    name: codegen --check (cell manifests ↔ _generated/*.py)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run codegen-cell-types.py --check
+        run: python3 70-tools/scripts/open-ot/codegen-cell-types.py --check
+
+  # Orchestrator pytest — exercises every loop module + the _generated modules.
+  orchestrator-tests:
+    name: orchestrator pytest (uv)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install uv
+        run: pip install uv
+      - name: Build wasm cells the orchestrator depends on
+        working-directory: ${{ env.OPEN_OT }}/cells
+        run: |
+          cargo build --release --no-default-features --target wasm32-unknown-unknown \
+            -p pid-limited -p droop-p-f -p anti-islanding-rocof -p pid-stack-100 \
+            -p vv-curve -p ltc-tap-fsm -p mppt-perturb-observe \
+            -p black-start-seq -p soc-kalman
+      - name: uv sync + pytest
+        working-directory: ${{ env.OPEN_OT }}/orchestrator
+        run: |
+          uv sync
+          uv run pytest -v
+
   # Gate C §2.3 — kani symbolic verification on tick + init paths
   kani:
     name: kani symbolic verification (${{ matrix.cell }})

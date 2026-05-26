@@ -37,7 +37,11 @@ from typing import Iterator
 from urllib.request import Request, urlopen
 
 import boto3
-import psycopg2
+# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# the substrate seam below; direct psycopg2 imports are no longer
+# permitted in this worker. The seam still supports a transitional RW
+# mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.
+from _etzhayyim_substrate import open_substrate_writer
 import pyarrow as pa
 import pyarrow.parquet as pq
 
@@ -186,12 +190,12 @@ def _load_page_titles(lang: str, wanted: set[int]) -> dict[int, str]:
 
 def _row(lang: str, page_id: int, title: str, lat: float, lon: float) -> dict:
     return {
-        "vertex_id": f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.spot/wp-{lang}-{page_id}",
+        "vertex_id": f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.spot/wp-{lang}-{page_id}",
         "rkey": f"wp-{lang}-{page_id}",
         "repo": "did:web:maps.etzhayyim.com",
         "label": "Spot",
         "did": "did:web:maps.etzhayyim.com",
-        "collection": "ai.gftd.apps.maps.spot",
+        "collection": "app.etzhayyim.apps.maps.spot",
         "name": title[:200],
         "lat": lat,
         "lng": lon,
@@ -216,29 +220,29 @@ def _flush(rows: list[dict], dump_id: str, lang: str, idx: int) -> str:
     return key
 
 
-def _insert_rows_into_rw(rows: list[dict], batch_size: int = 1000) -> int:
+def _insert_rows_into_substrate(rows: list[dict], batch_size: int = 1000) -> int:
+    """Upsert ingested rows via the etzhayyim substrate seam.
+
+    Per ADR-2605172000 the writer dispatches on
+    ``ETZHAYYIM_SUBSTRATE_MODE``: ``mst`` (PDS → MST + IPFS + Base L2
+    anchor, post-migration) or ``rw`` (psycopg2 → vertex_spatial,
+    transitional). Idempotent upsert keyed on ``vertex_id``.
+    """
     if not rows:
         return 0
     total = 0
-    conn = psycopg2.connect(DATABASE_URL)
-    conn.autocommit = False
-    try:
-        cur = conn.cursor()
-        cols = list(rows[0].keys())
+    with open_substrate_writer() as writer:
         for i in range(0, len(rows), batch_size):
             chunk = rows[i : i + batch_size]
-            placeholders = ", ".join("(" + ", ".join(["%s"] * len(cols)) + ")" for _ in chunk)
-            sql = f"INSERT INTO vertex_spatial ({', '.join(cols)}) VALUES {placeholders}"
-            params = [r[c] for r in chunk for c in cols]
             try:
-                cur.execute(sql, params)
-                conn.commit()
-                total += len(chunk)
+                total += writer.upsert_vertex_spatial(chunk)
             except Exception as e:
-                conn.rollback()
-                log.warning("batch insert failed (chunk %d-%d): %s", i, i + len(chunk), e)
-    finally:
-        conn.close()
+                log.warning(
+                    "substrate upsert failed (chunk %d-%d): %s",
+                    i,
+                    i + len(chunk),
+                    e,
+                )
     return total
 
 
@@ -288,7 +292,7 @@ def _run_dump():
                     )
                     if should_flush:
                         fut_b2 = _flush_pool.submit(_flush, list(shard_rows), dump_id, lang, shard_idx)
-                        ins = _insert_rows_into_rw(shard_rows)
+                        ins = _insert_rows_into_substrate(shard_rows)
                         fut_b2.result()
                         rw_total += ins
                         lang_rw += ins
@@ -300,7 +304,7 @@ def _run_dump():
                             _state["rows_written"] = rw_total
                 if shard_rows:
                     fut_b2 = _flush_pool.submit(_flush, list(shard_rows), dump_id, lang, shard_idx)
-                    ins = _insert_rows_into_rw(shard_rows)
+                    ins = _insert_rows_into_substrate(shard_rows)
                     fut_b2.result()
                     rw_total += ins
                     lang_rw += ins

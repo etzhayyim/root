@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govMlt.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govMlt.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Malta government.",
-        "operationId": "ai.gftd.govMlt.followSiteDeps",
+        "operationId": "app.etzhayyim.govMlt.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMlt.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govMlt.heartbeatTick": {
       "post": {
         "summary": "Run the Malta government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govMlt.heartbeatTick",
+        "operationId": "app.etzhayyim.govMlt.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMlt.listOrgs": {
+    "/xrpc/app.etzhayyim.govMlt.listOrgs": {
       "get": {
         "summary": "List Malta government organization graph records.",
-        "operationId": "ai.gftd.govMlt.listOrgs",
+        "operationId": "app.etzhayyim.govMlt.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMlt.registerDIDs": {
+    "/xrpc/app.etzhayyim.govMlt.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Malta government organizations.",
-        "operationId": "ai.gftd.govMlt.registerDIDs",
+        "operationId": "app.etzhayyim.govMlt.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMlt.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govMlt.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Malta government organization path to its graph record.",
-        "operationId": "ai.gftd.govMlt.resolveOrgPath",
+        "operationId": "app.etzhayyim.govMlt.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMlt.seedOrgs": {
+    "/xrpc/app.etzhayyim.govMlt.seedOrgs": {
       "post": {
         "summary": "Seed initial Malta government organization records into the graph.",
-        "operationId": "ai.gftd.govMlt.seedOrgs",
+        "operationId": "app.etzhayyim.govMlt.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMlt.shinka": {
+    "/xrpc/app.etzhayyim.govMlt.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Malta government organization update.",
-        "operationId": "ai.gftd.govMlt.shinka",
+        "operationId": "app.etzhayyim.govMlt.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govMlt.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govMlt.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Malta government organization changes to graph.",
-        "operationId": "ai.gftd.govMlt.syncWetUpdates",
+        "operationId": "app.etzhayyim.govMlt.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -3,7 +3,7 @@
   "formKey": "openAirplane.scheduleFlight.v1",
   "name": "Schedule Flight",
   "version": 1,
-  "lexiconRef": "ai.gftd.apps.openAirplane.scheduleFlight",
+  "lexiconRef": "app.etzhayyim.apps.openAirplane.scheduleFlight",
   "components": [
     { "key": "operatorDid", "label": "Operator DID", "type": "textfield",
       "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },

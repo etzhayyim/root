@@ -40,7 +40,7 @@ ADR-2604231811 で定めた 15-Layer Taxonomy でも Layer 1 (PDS) と Layer 2 (
 
 ```
 Browser / @atproto/api
-   ↓ XRPC (app.bsky.* / com.atproto.* / ai.gftd.*)
+   ↓ XRPC (app.bsky.* / com.atproto.* / app.etzhayyim.*)
 atproto.etzhayyim.com  ← PDS + Entryway (OAuth AS)
    │ (内部 service binding, 無効化中)
    └─ APPVIEW_SERVICE → yoro AppView Worker
@@ -176,9 +176,9 @@ Browser
    │
    ├─ com.atproto.* write → atproto.etzhayyim.com (PDS)
    ├─ OAuth flow         → atproto.etzhayyim.com (Entryway)
-   ├─ ai.gftd.vault.*    → atproto.etzhayyim.com → VAULT_SERVICE
-   ├─ ai.gftd.signal.*   → atproto.etzhayyim.com → signal.etzhayyim.com
-   └─ ai.gftd.convo.*    → atproto.etzhayyim.com (Chat service)
+   ├─ app.etzhayyim.vault.*    → atproto.etzhayyim.com → VAULT_SERVICE
+   ├─ app.etzhayyim.signal.*   → atproto.etzhayyim.com → signal.etzhayyim.com
+   └─ app.etzhayyim.convo.*    → atproto.etzhayyim.com (Chat service)
 
 yoro.etzhayyim.com (Svelte SPA only, no /xrpc/* route)
 ```
@@ -233,7 +233,7 @@ Phase 3 (yoro AppView 剥離) の順。Phase 間は互換性を保つ。
 | A3 | PDS `pipethroughAppView` を service binding → public HTTP fetch に変更 | `50-infra/cloudflare/workers/atproto/src/dispatch.ts:331-363` | **CRITICAL** |
 | A4 | `wrangler.jsonc` の `APPVIEW_SERVICE` binding 削除、secret / env に `APPVIEW_URL=https://bsky.etzhayyim.com` を追加 | `50-infra/cloudflare/workers/atproto/wrangler.jsonc` | CRITICAL |
 | A5 | DID Document serve に `#bsky_appview` service 追加 | `60-apps/ai-gftd-project-auth/worker/src-ts/did.ts` + `50-infra/cloudflare/workers/atproto/src/handlers/pds/` | MEDIUM |
-| A6 | `@gftd/wproto` AtpAgent config に default AppView resolution を追加 (optional, DID doc 経由) | `10-protocol/wproto/src/client.ts` | LOW |
+| A6 | `@etzhayyim/wproto` AtpAgent config に default AppView resolution を追加 (optional, DID doc 経由) | `10-protocol/wproto/src/client.ts` | LOW |
 
 ## A1. `ai-gftd-appview` Worker 新規作成 (CRITICAL)
 
@@ -361,7 +361,7 @@ service: [
 - 既存 user DID doc は regenerate (lazy、次回 create/update 時)
 - `atproto.etzhayyim.com/.well-known/did.json` も service 追加
 
-## A6. `@gftd/wproto` AtpAgent default resolution (LOW, optional)
+## A6. `@etzhayyim/wproto` AtpAgent default resolution (LOW, optional)
 
 ```ts
 import { AtpAgent } from '@atproto/api';
@@ -415,7 +415,7 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
 
 ## Phase 5 (A6, follow-up ADR)
 
-`@gftd/wproto` client が DID doc から AppView endpoint を resolve して直接
+`@etzhayyim/wproto` client が DID doc から AppView endpoint を resolve して直接
 叩く flow を追加。PDS pipethrough は fallback に降格。本 ADR の scope 外。
 
 # Consequences
@@ -451,7 +451,7 @@ registry entry 追加、`deps.toml [[conventions]]` に Layer 2 AppView の正 h
 
 - RisingWave graph DB は共有したまま (PDS write → MV → AppView read)。
   schema / migration 責務は graph 側で一元管理
-- ai.gftd.*/chat.bsky.convo.* / ai.gftd.vault.* / ai.gftd.signal.* 等の
+- app.etzhayyim.*/chat.bsky.convo.* / app.etzhayyim.vault.* / app.etzhayyim.signal.* 等の
   non-bsky namespace は **atproto.etzhayyim.com に残す** (Layer 1 PDS + Layer 7 Chat
   + Layer 11 Key Directory + Layer 12 Secret Vault の pipethrough target)。
   本 ADR は `app.bsky.*` のみ AppView に分離

@@ -180,6 +180,25 @@ Phase 2 chair sample (`sample-001-chair`):
 - baien graft 自体の H100 学習 (Phase 3c) は本 ADR の supervision spec 確定後に着手
 - Hunyuan3D paint model 採用判断は別 ADR (texture pipeline) で扱う
 
+## Amendment 2026-05-23 — Pixal3D dual-generator support
+
+`70-tools/baien-graft-pipeline/src/baien_graft_pipeline/generators/` に
+`pixal3d.py` を追加し、`bgp-submit --generator pixal3d` で TencentARC
+Pixal3D-T cascade pipeline を呼び出せるようにした (空 Phase 4 候補)。
+
+| 項目 | Hunyuan3D-2 (primary) | Pixal3D-T (new) |
+|---|---|---|
+| Source | local ComfyUI (kijai wrapper) | https://huggingface.co/spaces/TencentARC/Pixal3D (Gradio) |
+| Checkpoint | `hunyuan3d-dit-v2-0-fp16` + `hunyuan3d-vae-v2-0-fp16` | `TencentARC/Pixal3D-T` + DINOv3 ViT-L/16 backbone + MoGe-2 ViT-L (depth/camera) |
+| Wall (EVO-X2 ROCm) | 66 s | ~120 s (cascade@512, 49,152 tokens, 8 frames) |
+| Per-sample outputs | 1× glb | 1× glb + shape SLAT (.npz) + tex SLAT (.npz) + 48 renders (8 frames × {normal, clay, base_color, shaded_forest, shaded_sunset, shaded_courtyard}) |
+| baien-MX 利用 | 4-view要 (Mac moderngl で別途生成) | 4-view を 8 frames から slice → moderngl skip 可能 |
+| License | tencent-hunyuan-community (要 NOTICE) | per `TencentARC/Pixal3D-T` model card — first-party 再配布前に要 review (Rider §2) |
+
+Pixal3D が primary に昇格するかは、Phase 3b の 100-sample 品質比較
+(Florence-2 caption の主物体一致率 + Wellbecoming-aligned 4-view 等価
+性) を経てから判断する。当面は **dual-generator 並走**。
+
 # Alternatives Considered
 
 ## A. Status quo — 2D-only image-text snapshot

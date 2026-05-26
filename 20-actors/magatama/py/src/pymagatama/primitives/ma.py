@@ -50,19 +50,19 @@ def _as_float(value: Any, default: float = 0.0) -> float:
 
 
 def _deal_vid(deal_id: str) -> str:
-    return f"at://{MA_DID}/ai.gftd.apps.ma.deal/{_slug(deal_id)}"
+    return f"at://{MA_DID}/app.etzhayyim.apps.ma.deal/{_slug(deal_id)}"
 
 
 def _candidate_vid(candidate_id: str) -> str:
-    return f"at://{MA_DID}/ai.gftd.apps.ma.candidate/{_slug(candidate_id)}"
+    return f"at://{MA_DID}/app.etzhayyim.apps.ma.candidate/{_slug(candidate_id)}"
 
 
 def _valuation_vid(valuation_id: str) -> str:
-    return f"at://{MA_DID}/ai.gftd.apps.ma.valuation/{_slug(valuation_id)}"
+    return f"at://{MA_DID}/app.etzhayyim.apps.ma.valuation/{_slug(valuation_id)}"
 
 
 def _match_vid(match_id: str) -> str:
-    return f"at://{MA_DID}/ai.gftd.apps.ma.match/{_slug(match_id)}"
+    return f"at://{MA_DID}/app.etzhayyim.apps.ma.match/{_slug(match_id)}"
 
 
 def _edge_id(kind: str, src: str, dst: str) -> str:
@@ -277,8 +277,8 @@ def task_ma_outreach_compose_draft(
             "provider": "mailer.etzhayyim.com",
             "outboundProvider": "resend",
             "inboundProvider": "cloudflare-email-routing",
-            "sendNsid": "ai.gftd.apps.mailer.sendEmail",
-            "inboundCollection": "ai.gftd.apps.mailer.inboundEmail",
+            "sendNsid": "app.etzhayyim.apps.mailer.sendEmail",
+            "inboundCollection": "app.etzhayyim.apps.mailer.inboundEmail",
             "sendPolicy": "draft_only",
             "recipientRole": "buyer_candidate",
             "recipientEmail": recipient_email,
@@ -349,7 +349,7 @@ def task_ma_outreach_prepare_mailer_send(
         "ok": True,
         "status": "mailer-send-ready",
         "sendReady": True,
-        "sendNsid": "ai.gftd.apps.mailer.sendEmail",
+        "sendNsid": "app.etzhayyim.apps.mailer.sendEmail",
         "mailerSendPayload": payload,
         "approval": {
             "status": "approved",
@@ -362,7 +362,7 @@ def task_ma_outreach_prepare_mailer_send(
 def task_ma_outreach_send_approved(
     mailerSendPayload: dict[str, Any] | None = None,
     sendReady: bool = False,
-    sendNsid: str = "ai.gftd.apps.mailer.sendEmail",
+    sendNsid: str = "app.etzhayyim.apps.mailer.sendEmail",
     mailerUrl: str = "https://mailer.etzhayyim.com",
     mailerBearer: str = "",
     dryRun: bool = True,

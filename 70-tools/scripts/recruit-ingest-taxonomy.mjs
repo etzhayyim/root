@@ -3,7 +3,7 @@
  * Recruit — Occupation taxonomy ingest (ISCO-08 / ESCO / O*NET).
  *
  * Compliance-safe: writes only public-CC-licensed taxonomy data to PDS
- * (recruit.etzhayyim.com DID scope) as `ai.gftd.apps.recruit.occupation` records.
+ * (recruit.etzhayyim.com DID scope) as `app.etzhayyim.apps.recruit.occupation` records.
  * Each record carries `sourceLicense` for lineage audit.
  *
  * Sources (verified 2026-04-14):
@@ -30,7 +30,7 @@ import { writeFile } from "node:fs/promises";
 
 const PDS_URL = "https://atproto.etzhayyim.com";
 const COLLECTOR_DID = "did:web:recruit.etzhayyim.com";
-const COLLECTION = "ai.gftd.apps.recruit.occupation";
+const COLLECTION = "app.etzhayyim.apps.recruit.occupation";
 const PROGRESS_FILE = "/tmp/recruit-taxonomy-progress.json";
 const RW_CONN = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 

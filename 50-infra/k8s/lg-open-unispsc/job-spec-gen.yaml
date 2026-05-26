@@ -1,4 +1,5 @@
 ---
+# no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 # Batch generation Job for openUnispsc dynamic LangGraph processing logic.
 # Processes pending 150,000 commodities via Gemini 3.1 Flash Lite.
 apiVersion: batch/v1
@@ -52,7 +53,7 @@ spec:
                   key: RW_URL
             - name: RW_SYNC_POOL
               value: "1"
-            
+
             # Gemini API Key (Required for HTTP API fallback inside K8s)
             - name: GEMINI_API_KEY
               valueFrom:
@@ -60,7 +61,7 @@ spec:
                   name: gemini-api-secrets
                   key: GEMINI_API_KEY
                   optional: true
-          
+
           resources:
             requests:
               cpu: 200m

@@ -38,7 +38,7 @@ All code-only deliverables from Phase E through Phase I are merged to `main`. Th
                            │
    mst-projector (in-memory ⇄ LanceDB+DuckDB+HF embedding)
                            │
-                           ↓ ai.gftd.projector.* records
+                           ↓ app.etzhayyim.projector.* records
                            │
    clients read indexed views via standard e.read()
 ```
@@ -68,7 +68,7 @@ All code-only deliverables from Phase E through Phase I are merged to `main`. Th
 
 **Firehose subscriber** — `PollingFirehose` (test substrate); production swaps WebSocket `com.atproto.sync.subscribeRepos`.
 
-**Materializer** — writes outputs back as `ai.gftd.projector.aggregate` / `textSearch` records.
+**Materializer** — writes outputs back as `app.etzhayyim.projector.aggregate` / `textSearch` records.
 
 ### Phase H — Cross-actor integration (PR #220)
 

@@ -40,6 +40,55 @@ per-worker SQLite ports land in `20-actors/magatama/py/src/pymagatama/`. When
 the checklist reads `42 / 42`, the rest of the runbooks (Wave A-D DNS
 cutover → Phase 5 git rm → Phase 6 archive markers) unblock in order.
 
+## Runtime + operator surface (2026-05-22)
+
+The README's "artificial organism ecosystem" framing (below) now has a
+running runtime layer per [ADR-2605221411](90-docs/adr/2605221411-etzhayyim-artificial-organism-ecosystem.md):
+
+| Layer | Surface | Talks to | Mutates? |
+|---|---|---|---|
+| CNS daemon | `etzhayyim-organism` Pod (daily tick) | reads `/repo`, writes `_observations/` | only `_observations/`, never commits |
+| Visualization | `etzhayyim-organism-viz` Pod + Svelte sumi-e topology | reads `/repo`, serves dashboard at `:8081` | no writes |
+| **Human operator** | **`e7m` CLI** | local `/api/*` + `kubectl` | only via explicit subcommand (`e7m prune approve`) |
+| **Other agents** | **`e7m-mcp` MCP server** | same `/api/*`, no kubectl | **read-only** by design (no approve tool) |
+| Constitutional check | `e7m verify` | scans the 8 hard invariants from ADR-2605192100 §1 | none |
+
+### Quick start
+
+```bash
+# in another terminal: port-forward the viz pod
+kubectl --context orbstack -n etzhayyim-organism port-forward svc/etzhayyim-organism-viz 8081:8081
+
+# install + use e7m
+cd 70-tools/e7m && uv venv .venv && source .venv/bin/activate && uv pip install -e .
+
+e7m ping                                  # is the organism online?
+e7m status                                # aliveness 5-tuple ⟨M·D·C·P·G⟩
+e7m chat ecosystem/etzhayyim 自己紹介して  # speak with a life
+e7m chat axis/wellbecoming "つながりは?"
+e7m chat fruit/lands "次は?"
+e7m members                               # 信者 roster
+e7m lands                                 # 護持地 registry
+e7m verify                                # scan 8 constitutional invariants
+e7m prune                                 # bonsai pruning candidates
+e7m prune approve <cell|app> --dry-run    # operator-only mutation
+e7m viz open                              # browser to dashboard
+e7m --json <any-subcommand>               # machine-readable mode
+```
+
+### For other AI agents (MCP)
+
+`.claude/mcp.json` already registers `etzhayyim` as a project-level MCP server.
+Other Claude Code sessions in this directory auto-discover 14 read-only tools
+(`etzhayyim_status`, `etzhayyim_state`, `etzhayyim_entities`, `etzhayyim_chat`,
+`etzhayyim_prune_candidates`, `etzhayyim_prune_show`, `etzhayyim_pod_status`,
+`etzhayyim_pod_logs`, `etzhayyim_tick`, `etzhayyim_viz_url`, `etzhayyim_members`,
+`etzhayyim_lands`, `etzhayyim_verify`, `etzhayyim_ping`).
+
+**`prune_approve` is intentionally NOT exposed via MCP** — only the operator
+may decide on a cut, through the local CLI with their git credentials
+(per ADR-2605192100 §1.3 decision attribution).
+
 ## Layout (Shannon-Optimal 8-Layer Architecture)
 
 ```

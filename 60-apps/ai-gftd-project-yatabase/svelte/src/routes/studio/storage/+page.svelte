@@ -119,8 +119,8 @@
 
 <div class="mx-auto w-full max-w-6xl space-y-6 px-6 py-10">
 	<div>
-		<h1 class="text-2xl font-semibold text-gftd-text">Storage</h1>
-		<p class="mt-1 text-sm text-gftd-secondary">
+		<h1 class="text-2xl font-semibold text-etzhayyim-text">Storage</h1>
+		<p class="mt-1 text-sm text-etzhayyim-secondary">
 			S3-compat object storage. R2-primary with KV fallback for small (&lt; 1 MiB) objects per
 			tenant.
 		</p>
@@ -136,9 +136,9 @@
 		<!-- Bucket list -->
 		<aside class="space-y-2">
 			<div class="flex items-center justify-between">
-				<h2 class="text-sm font-medium text-gftd-secondary">Buckets</h2>
+				<h2 class="text-sm font-medium text-etzhayyim-secondary">Buckets</h2>
 				<button
-					class="text-xs text-gftd-muted hover:text-gftd-text"
+					class="text-xs text-etzhayyim-muted hover:text-etzhayyim-text"
 					onclick={loadBuckets}
 					type="button">refresh</button
 				>
@@ -147,14 +147,14 @@
 				<Skeleton class="h-9 w-full" />
 				<Skeleton class="h-9 w-full" />
 			{:else if buckets.length === 0}
-				<p class="text-xs text-gftd-muted">No buckets yet — PUT to any path creates one.</p>
+				<p class="text-xs text-etzhayyim-muted">No buckets yet — PUT to any path creates one.</p>
 			{:else}
 				<ul class="space-y-1">
 					{#each buckets as b (b.name)}
 						<li>
 							<button
 								class={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm transition
-									${selected === b.name ? 'bg-gftd-accent/15 text-gftd-text' : 'text-gftd-secondary hover:bg-white/5'}`}
+									${selected === b.name ? 'bg-etzhayyim-accent/15 text-etzhayyim-text' : 'text-etzhayyim-secondary hover:bg-white/5'}`}
 								onclick={() => pickBucket(b.name)}
 								type="button"
 							>
@@ -174,7 +174,7 @@
 			{#if selected}
 				<div
 					class={`rounded-xl border-2 border-dashed bg-gftd-card/40 p-4 transition
-						${dragging ? 'border-gftd-accent bg-gftd-accent/10' : 'border-gftd-border'}`}
+						${dragging ? 'border-etzhayyim-accent bg-etzhayyim-accent/10' : 'border-etzhayyim-border'}`}
 					ondragover={(e) => {
 						e.preventDefault();
 						dragging = true;
@@ -194,13 +194,13 @@
 							/>
 						</div>
 						<label
-							class="cursor-pointer rounded-md border border-gftd-border bg-gftd-card px-4 py-2 text-sm text-gftd-text hover:bg-white/5"
+							class="cursor-pointer rounded-md border border-etzhayyim-border bg-gftd-card px-4 py-2 text-sm text-etzhayyim-text hover:bg-white/5"
 						>
 							Choose file
 							<input type="file" class="hidden" onchange={onFilePicked} />
 						</label>
 					</div>
-					<p class="mt-2 text-xs text-gftd-muted">
+					<p class="mt-2 text-xs text-etzhayyim-muted">
 						…or drag a file anywhere on this strip. PUTs to
 						<code class="font-mono">/storage/v1/object/{selected}/&lt;key&gt;</code>.
 					</p>
@@ -213,9 +213,9 @@
 					</NotificationBanner>
 				{/if}
 
-				<div class="rounded-xl border border-gftd-border bg-gftd-card">
+				<div class="rounded-xl border border-etzhayyim-border bg-gftd-card">
 					<div
-						class="flex items-center justify-between border-b border-gftd-border px-4 py-2 text-sm text-gftd-secondary"
+						class="flex items-center justify-between border-b border-etzhayyim-border px-4 py-2 text-sm text-etzhayyim-secondary"
 					>
 						<span>{objects.length} object(s) in <code class="font-mono">{selected}</code></span>
 					</div>
@@ -235,7 +235,7 @@
 					{:else}
 						<table class="w-full border-collapse text-sm">
 							<thead>
-								<tr class="border-b border-gftd-border bg-black/20 text-left text-gftd-muted">
+								<tr class="border-b border-etzhayyim-border bg-black/20 text-left text-etzhayyim-muted">
 									<th class="px-4 py-2 font-medium">Key</th>
 									<th class="px-4 py-2 font-medium">Size</th>
 									<th class="px-4 py-2 font-medium">Tier</th>
@@ -245,20 +245,20 @@
 							</thead>
 							<tbody>
 								{#each objects as o (o.name)}
-									<tr class="border-b border-gftd-border/60 last:border-0">
-										<td class="truncate px-4 py-2 font-mono text-xs text-gftd-text">{o.name}</td>
-										<td class="px-4 py-2 text-xs text-gftd-secondary">{humanSize(o.size)}</td>
+									<tr class="border-b border-etzhayyim-border/60 last:border-0">
+										<td class="truncate px-4 py-2 font-mono text-xs text-etzhayyim-text">{o.name}</td>
+										<td class="px-4 py-2 text-xs text-etzhayyim-secondary">{humanSize(o.size)}</td>
 										<td class="px-4 py-2 text-xs">
 											<Badge type={o.source === 'r2' ? 'primary' : 'tertiary'}>
 												{o.source ?? '—'}
 											</Badge>
 										</td>
-										<td class="px-4 py-2 text-xs text-gftd-muted">
+										<td class="px-4 py-2 text-xs text-etzhayyim-muted">
 											{o.updatedAt ? new Date(o.updatedAt).toLocaleString() : '—'}
 										</td>
 										<td class="px-4 py-2 text-right">
 											<button
-												class="px-2 text-xs text-gftd-accent hover:underline"
+												class="px-2 text-xs text-etzhayyim-accent hover:underline"
 												onclick={() => sign(o.name)}
 												type="button">sign</button
 											>

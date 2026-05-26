@@ -133,7 +133,7 @@ python test/home_pose.py   # 全軸ホームポジション確認
 - 授業カリキュラム例 (全12回 PDF ダウンロード)
 - 対応大会・学習目標 (NHK大学ロボコン準拠項目)
 - 導入校インタビュー (出荷後追加)
-- 見積もり依頼フォーム (Cloudflare Forms → sales@gftd.co.jp)
+- 見積もり依頼フォーム (Cloudflare Forms → sales@etzhayyim.com)
 
 ---
 

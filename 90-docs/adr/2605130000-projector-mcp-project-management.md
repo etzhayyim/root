@@ -61,7 +61,7 @@ Claude Agent (MCP client)
   │
   ├─ projector.create_project ────────────────────────────────────┐
   ├─ projector.update_status  ─── XRPC → bpmn-dispatcher ─────── LangGraph
-  ├─ projector.add_blocker    ─── ai.gftd.projector.*  ─────────  projector_lifecycle
+  ├─ projector.add_blocker    ─── app.etzhayyim.projector.*  ─────────  projector_lifecycle
   ├─ projector.resolve_blocker ──────────────────────────────────  (pregel pod)
   ├─ projector.get_status     ─── READ → mv_projector_project_status
   └─ projector.list_projects  ─── READ → mv_projector_project_status
@@ -209,7 +209,7 @@ planning → active → blocked → active (ループ可) → done
   "tool": "projector.create_project",
   "arguments": {
     "name": "lexicon-migration-2026-05",
-    "description": "ai.gftd.projector.* Lexicon の PDS bundle 再生成と deploy",
+    "description": "app.etzhayyim.projector.* Lexicon の PDS bundle 再生成と deploy",
     "targetDate": "2026-05-20"
   }
 }
@@ -274,7 +274,7 @@ planning → active → blocked → active (ループ可) → done
     "projectDid": "did:web:pregel.etzhayyim.com#proj-xxxx",
     "type": "external_dep",
     "severity": "high",
-    "description": "PDS deploy 権限承認待ち (j.kawasaki@gftd.co.jp に確認中)"
+    "description": "PDS deploy 権限承認待ち (j.kawasaki@etzhayyim.com に確認中)"
   }
 }
 ```

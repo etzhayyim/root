@@ -8,6 +8,7 @@ import { doctorCmd } from './commands/doctor.js';
 import { didCmd } from './commands/did.js';
 import { councilCmd } from './commands/council.js';
 import { charterCmd } from './commands/charter.js';
+import { govCmd } from './commands/gov.js';
 
 const program = new Command();
 
@@ -25,5 +26,6 @@ program.addCommand(doctorCmd);
 program.addCommand(didCmd);
 program.addCommand(councilCmd);
 program.addCommand(charterCmd);
+program.addCommand(govCmd);
 
 program.parseAsync(process.argv);

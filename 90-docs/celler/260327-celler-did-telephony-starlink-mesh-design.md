@@ -151,7 +151,7 @@ Route maintenance:
 | Video fallback | H.264 | adaptive | older devices |
 
 WebRTC signaling:
-- Internet available: `ai.gftd.rtc.*` XRPC via PDS
+- Internet available: `app.etzhayyim.rtc.*` XRPC via PDS
 - Local mesh (no internet): WiFi Direct data channel + CBOR-serialized W Protocol messages
 
 Encryption (2 layers):
@@ -288,23 +288,23 @@ Package: `gftd:celler@1.0.0`
 
 | interface | NSID prefix | operations |
 |---|---|---|
-| call | `ai.gftd.apps.celler.call` | initiate, answer, reject, hold, resume, end, get, list |
-| mesh | `ai.gftd.apps.celler.mesh` | register_device, discover_peers, report_link, get_topology, find_route, report_heartbeat |
-| gateway | `ai.gftd.apps.celler.gateway` | register, get, list, report_metrics |
-| phone_number | `ai.gftd.apps.celler.phone_number` | provision, release, bind_to_did, lookup_did_by_number, lookup_number_by_did |
-| sip_gateway | `ai.gftd.apps.celler.sip_gateway` | handle_inbound, initiate_outbound |
-| esim | `ai.gftd.apps.celler.esim` | provision, activate, suspend, resume, get_usage |
-| voice_ai | `ai.gftd.apps.celler.voice_ai` | transcribe_voicemail, classify_call, translate_stream |
+| call | `app.etzhayyim.apps.celler.call` | initiate, answer, reject, hold, resume, end, get, list |
+| mesh | `app.etzhayyim.apps.celler.mesh` | register_device, discover_peers, report_link, get_topology, find_route, report_heartbeat |
+| gateway | `app.etzhayyim.apps.celler.gateway` | register, get, list, report_metrics |
+| phone_number | `app.etzhayyim.apps.celler.phone_number` | provision, release, bind_to_did, lookup_did_by_number, lookup_number_by_did |
+| sip_gateway | `app.etzhayyim.apps.celler.sip_gateway` | handle_inbound, initiate_outbound |
+| esim | `app.etzhayyim.apps.celler.esim` | provision, activate, suspend, resume, get_usage |
+| voice_ai | `app.etzhayyim.apps.celler.voice_ai` | transcribe_voicemail, classify_call, translate_stream |
 
 ### 6.2 Existing NSID Reuse
 
 | NSID | purpose |
 |---|---|
-| `ai.gftd.rtc.sendCallOffer` | SDP offer |
-| `ai.gftd.rtc.sendCallAnswer` | SDP answer |
-| `ai.gftd.rtc.sendCallICE` | ICE candidates |
-| `ai.gftd.rtc.hangupCall` | Call termination |
-| `ai.gftd.signal.*` | Signal Protocol E2E |
+| `app.etzhayyim.rtc.sendCallOffer` | SDP offer |
+| `app.etzhayyim.rtc.sendCallAnswer` | SDP answer |
+| `app.etzhayyim.rtc.sendCallICE` | ICE candidates |
+| `app.etzhayyim.rtc.hangupCall` | Call termination |
+| `app.etzhayyim.signal.*` | Signal Protocol E2E |
 | `chat.bsky.convo.*` | Text messaging |
 
 ## 7. AI Agent Integration

@@ -9,31 +9,31 @@
       {
         "id": "cap.networkDesign", "name": "Network design",
         "children": [
-          { "id": "cap.reservoirDefine", "name": "Define reservoir", "realisedBy": "ai.gftd.apps.openWater.defineReservoir" },
-          { "id": "cap.mainDefine",      "name": "Define main",      "realisedBy": "ai.gftd.apps.openWater.defineMain" },
-          { "id": "cap.nodeQuery",       "name": "Query node",       "realisedBy": "ai.gftd.apps.openWater.getNode" },
-          { "id": "cap.mainList",        "name": "List mains",       "realisedBy": "ai.gftd.apps.openWater.listMains" }
+          { "id": "cap.reservoirDefine", "name": "Define reservoir", "realisedBy": "app.etzhayyim.apps.openWater.defineReservoir" },
+          { "id": "cap.mainDefine",      "name": "Define main",      "realisedBy": "app.etzhayyim.apps.openWater.defineMain" },
+          { "id": "cap.nodeQuery",       "name": "Query node",       "realisedBy": "app.etzhayyim.apps.openWater.getNode" },
+          { "id": "cap.mainList",        "name": "List mains",       "realisedBy": "app.etzhayyim.apps.openWater.listMains" }
         ]
       },
       {
         "id": "cap.metering", "name": "Metering",
         "children": [
-          { "id": "cap.readingIngest", "name": "Ingest reading", "realisedBy": "ai.gftd.apps.openWater.recordReading" }
+          { "id": "cap.readingIngest", "name": "Ingest reading", "realisedBy": "app.etzhayyim.apps.openWater.recordReading" }
         ]
       },
       {
         "id": "cap.integrity", "name": "Integrity / leaks",
         "children": [
-          { "id": "cap.leakReport",   "name": "Report leak",        "realisedBy": "ai.gftd.apps.openWater.reportLeak" },
+          { "id": "cap.leakReport",   "name": "Report leak",        "realisedBy": "app.etzhayyim.apps.openWater.reportLeak" },
           { "id": "cap.leakSeverity", "name": "Severity decisioning", "realisedBy": "openWater.leakSeverity (DMN)" },
-          { "id": "cap.leakList",     "name": "List leaks",         "realisedBy": "ai.gftd.apps.openWater.listLeaks" }
+          { "id": "cap.leakList",     "name": "List leaks",         "realisedBy": "app.etzhayyim.apps.openWater.listLeaks" }
         ]
       },
       {
         "id": "cap.quality", "name": "Drinking-water quality",
         "children": [
-          { "id": "cap.qualityRecord", "name": "Record sample", "realisedBy": "ai.gftd.apps.openWater.recordQualitySample" },
-          { "id": "cap.qualityList",   "name": "List samples",  "realisedBy": "ai.gftd.apps.openWater.listQualitySamples" }
+          { "id": "cap.qualityRecord", "name": "Record sample", "realisedBy": "app.etzhayyim.apps.openWater.recordQualitySample" },
+          { "id": "cap.qualityList",   "name": "List samples",  "realisedBy": "app.etzhayyim.apps.openWater.listQualitySamples" }
         ]
       }
     ]

@@ -79,7 +79,7 @@ Triggers (any one):
 - Legal subpoena / court order (extreme rare case; transparent on-chain).
 
 Procedure:
-1. **Document the trigger** in an etzhayyim audit AT Record (`ai.gftd.apps.etzhayyim.authzDeactivationRequest`).
+1. **Document the trigger** in an etzhayyim audit AT Record (`app.etzhayyim.apps.etzhayyim.authzDeactivationRequest`).
 2. **Propose `deactivateRoot(rootId)` in Safe**, 5-of-7 threshold.
 3. **Execute**.
 4. **Record** in the off-chain registry: actor's status = `deactivated`, with reason + timestamp + tx hash.

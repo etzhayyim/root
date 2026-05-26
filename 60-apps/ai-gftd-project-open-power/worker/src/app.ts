@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 Gftd Japan株式会社 / etzhayyim. All rights reserved.
+// Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 // ai-gftd-project-open-power — electric distribution operations + grid design
 //
-// 8 XRPC under ai.gftd.apps.openPower.*:
+// 8 XRPC under app.etzhayyim.apps.openPower.*:
 //   defineSubstation  (proc)   network design — substation node
 //   defineFeeder      (proc)   network design — feeder edge + downstream service points
 //   getNode           (query)  node detail + downstream feeders
@@ -373,14 +373,14 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "ai.gftd.apps.openPower.defineSubstation",
-            "ai.gftd.apps.openPower.defineFeeder",
-            "ai.gftd.apps.openPower.getNode",
-            "ai.gftd.apps.openPower.listFeeders",
-            "ai.gftd.apps.openPower.recordReading",
-            "ai.gftd.apps.openPower.reportOutage",
-            "ai.gftd.apps.openPower.listOutages",
-            "ai.gftd.apps.openPower.getLoadProfile",
+            "app.etzhayyim.apps.openPower.defineSubstation",
+            "app.etzhayyim.apps.openPower.defineFeeder",
+            "app.etzhayyim.apps.openPower.getNode",
+            "app.etzhayyim.apps.openPower.listFeeders",
+            "app.etzhayyim.apps.openPower.recordReading",
+            "app.etzhayyim.apps.openPower.reportOutage",
+            "app.etzhayyim.apps.openPower.listOutages",
+            "app.etzhayyim.apps.openPower.getLoadProfile",
           ],
           dodaf: Object.keys(DODAF_VIEWS), forms: Object.keys(FORMS),
           bpmn: ["defineFeeder", "reportOutage"], dmn: ["openPower.outageClass"],
@@ -406,20 +406,20 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "ai.gftd.apps.openPower.getNode":         return await getNode(env, url.searchParams);
-          case "ai.gftd.apps.openPower.listFeeders":     return await listFeeders(env, url.searchParams);
-          case "ai.gftd.apps.openPower.listOutages":     return await listOutages(env, url.searchParams);
-          case "ai.gftd.apps.openPower.getLoadProfile":  return await getLoadProfile(env, url.searchParams);
+          case "app.etzhayyim.apps.openPower.getNode":         return await getNode(env, url.searchParams);
+          case "app.etzhayyim.apps.openPower.listFeeders":     return await listFeeders(env, url.searchParams);
+          case "app.etzhayyim.apps.openPower.listOutages":     return await listOutages(env, url.searchParams);
+          case "app.etzhayyim.apps.openPower.getLoadProfile":  return await getLoadProfile(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "ai.gftd.apps.openPower.defineSubstation": return await defineSubstation(env, body);
-          case "ai.gftd.apps.openPower.defineFeeder":     return await defineFeeder(env, body);
-          case "ai.gftd.apps.openPower.recordReading":    return await recordReading(env, body);
-          case "ai.gftd.apps.openPower.reportOutage":     return await reportOutage(env, body);
+          case "app.etzhayyim.apps.openPower.defineSubstation": return await defineSubstation(env, body);
+          case "app.etzhayyim.apps.openPower.defineFeeder":     return await defineFeeder(env, body);
+          case "app.etzhayyim.apps.openPower.recordReading":    return await recordReading(env, body);
+          case "app.etzhayyim.apps.openPower.reportOutage":     return await reportOutage(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

@@ -116,7 +116,7 @@ export const processIrArb: fc.Arbitrary<ProcessIR> = fc.record({
 export const definitionsIrArb: fc.Arbitrary<DefinitionsIR> = fc.record({
   id: bpmnIdArb,
   name: fc.option(bpmnNameArb),
-  targetNamespace: fc.constant('http://www.gftd.co.jp/bpmn'),
+  targetNamespace: fc.constant('http://www.etzhayyim.com/bpmn'),
   processes: fc.array(processIrArb, { minLength: 1, maxLength: 5 }),
   collaborations: fc.option(fc.array(fc.record({
     id: bpmnIdArb,

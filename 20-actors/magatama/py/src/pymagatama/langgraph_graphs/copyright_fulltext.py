@@ -16,7 +16,7 @@ Steps:
   3. store_blobs     — INSERT into vertex_work_blob (status=done|failed)
   4. emit_audit      — vertex_repo_commit OCEL row
 
-Unpaywall API: https://api.unpaywall.org/v2/{doi}?email=jun@gftd.group
+Unpaywall API: https://api.unpaywall.org/v2/{doi}?email=jun@etzhayyim.com
   Response: best_oa_location.url_for_pdf / url_for_landing_page
   License:  best_oa_location.license  (cc-by, cc-by-sa, cc0, …)
 
@@ -34,7 +34,7 @@ from typing import Any, TypedDict
 
 import httpx
 
-_UNPAYWALL_URL = "https://api.unpaywall.org/v2/{doi}?email=jun%40gftd.group"
+_UNPAYWALL_URL = "https://api.unpaywall.org/v2/{doi}?email=jun%40etzhayyim.com"
 _COPYRIGHT_DID = "did:web:copyright.etzhayyim.com"
 _TIMEOUT = 30.0
 _OA_LICENSES = {
@@ -66,7 +66,7 @@ def _now_str() -> str:
 
 def _work_blob_vertex_id(doi: str) -> str:
     h = hashlib.sha256(doi.encode()).hexdigest()[:16]
-    return f"at://{_COPYRIGHT_DID}/ai.gftd.apps.copyright.workblob/blob-{h}"
+    return f"at://{_COPYRIGHT_DID}/app.etzhayyim.apps.copyright.workblob/blob-{h}"
 
 
 def _extract_text_from_pdf(pdf_bytes: bytes) -> str:
@@ -314,7 +314,7 @@ def emit_audit(state: CopyrightFulltextState) -> dict:
             {
                 "vid": str(uuid.uuid4()),
                 "repo": _COPYRIGHT_DID,
-                "col": "ai.gftd.apps.copyright.fulltext",
+                "col": "app.etzhayyim.apps.copyright.fulltext",
                 "rkey": f"lg-{ts_ms}",
                 "act": "create",
                 "ts": ts_ms,

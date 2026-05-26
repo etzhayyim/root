@@ -42,7 +42,7 @@ import { Kysely, sql } from 'kysely';
  * isolated — no edge_classified_as connections to any classification system.
  *
  * Fix: cross-product of all 3,057 GHO indicator URIs (from
- * vertex_repo_record WHERE collection = 'ai.gftd.apps.gho.indicator')
+ * vertex_repo_record WHERE collection = 'app.etzhayyim.apps.gho.indicator')
  * with all 15 distinct ISIC4 dst_vids from icd10_isic4 (healthcare sector
  * 86/87/88 codes). This creates a dense semantic bridge: every GHO health
  * indicator is relevant to the healthcare industry sector.

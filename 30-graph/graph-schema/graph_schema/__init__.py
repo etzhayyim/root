@@ -1,1 +1,1 @@
-"""Python DB tooling for @gftd/graph-schema."""
+"""Python DB tooling for @etzhayyim/graph-schema."""

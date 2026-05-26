@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/media-gamers-chart-fetch-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'media_gamers_chart_fetch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -117,7 +117,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers-chart',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/media-gamers-chart-fetch-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def\n'
          '      (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -131,7 +131,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/media-gamers-chart-analyze-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'media_gamers_chart_analyze',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -139,7 +139,7 @@ UP = [{'sql': '\n'
                  '  media-gamers.chartAnalyze\n'
                  '\n'
                  '  On-demand chart analysis triggered via XRPC\n'
-                 '  ai.gftd.apps.media_gamers.analyzeChart.\n'
+                 '  app.etzhayyim.apps.media_gamers.analyzeChart.\n'
                  '\n'
                  '  Useful for back-filling historical weeks or re-analyzing after new\n'
                  '  vertex_game_title data arrives.\n'
@@ -196,7 +196,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers-chart',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/media-gamers-chart-analyze-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -211,9 +211,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'ai.gftd.apps.media_gamers.analyzeChart',
+                 'app.etzhayyim.apps.media_gamers.analyzeChart',
                  'media_gamers_chart_analyze',
                  180000,
                  'active',
@@ -221,14 +221,14 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.media-gamers-chart',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-analyze-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/media-gamers-chart-analyze-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/media-gamers-chart-fetch-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/media-gamers-chart-fetch-v1']}]
 
 
 def upgrade() -> None:

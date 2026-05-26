@@ -16,20 +16,20 @@ const ownerDid = "did:web:jpn-invoice.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.jpn-invoice";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-invoice-register-issuer-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-invoice-register-issuer-v1",
     bpmnProcessId: "jpn_invoice_register_issuer",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-invoice/registerInvoiceIssuer.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/jpn-invoice-record-corporate-tax-filing-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-invoice-record-corporate-tax-filing-v1",
     bpmnProcessId: "jpn_invoice_record_corporate_tax_filing",
     sourcePath: "00-contracts/bpmn/ai/gftd/jpn-invoice/recordCorporateTaxFiling.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-invoice-registerInvoiceIssuer-v1",
-    nsid: "ai.gftd.apps.jpnInvoice.registerInvoiceIssuer", bpmnProcessId: "jpn_invoice_register_issuer",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-invoice-registerInvoiceIssuer-v1",
+    nsid: "app.etzhayyim.apps.jpnInvoice.registerInvoiceIssuer", bpmnProcessId: "jpn_invoice_register_issuer",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/jpn-invoice-recordCorporateTaxFiling-v1",
-    nsid: "ai.gftd.apps.jpnInvoice.recordCorporateTaxFiling", bpmnProcessId: "jpn_invoice_record_corporate_tax_filing",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-invoice-recordCorporateTaxFiling-v1",
+    nsid: "app.etzhayyim.apps.jpnInvoice.recordCorporateTaxFiling", bpmnProcessId: "jpn_invoice_record_corporate_tax_filing",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

@@ -19,3 +19,10 @@
 [submodule "50-infra/etzhayyim-fiat-bridge/contracts/lib/forge-std"]
 	path = 50-infra/etzhayyim-fiat-bridge/contracts/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "90-docs/baien/datasets"]
+	# DataLad superdataset (ADR-2605241500). Local-only; per-machine
+	# operators run `datalad clone` against an annex-bearing remote (TBD —
+	# Phase 2 will publish a public read-only sibling). The gitlink in
+	# the parent records the superdataset's HEAD commit for reproducibility.
+	path = 90-docs/baien/datasets
+	url = ./90-docs/baien/datasets

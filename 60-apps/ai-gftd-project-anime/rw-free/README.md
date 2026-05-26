@@ -34,7 +34,7 @@ Anime metadata is stored on PDS. No IPFS pointers. Phase 3 mst-projector may add
 | Vendor (`anime.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
-| `db.insertInto("vertex_anime_title").values({...}).execute()` | `e.write({ collection: "ai.gftd.anime.title", record, rkey })` |
+| `db.insertInto("vertex_anime_title").values({...}).execute()` | `e.write({ collection: "app.etzhayyim.anime.title", record, rkey })` |
 | `db.selectFrom("vertex_anime_title").where("title_id","=",id).execute()` | `e.read({ collection, rkey: \`title-${titleSlug(id)}\` })` |
 
 ## Usage

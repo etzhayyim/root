@@ -71,7 +71,7 @@ superseded_by: []
 # Context
 
 mangaka.etzhayyim.com produces three artefact families per the existing record
-schema (`ai.gftd.mangaka.{character,environment,panel,page,asset,...}`):
+schema (`app.etzhayyim.mangaka.{character,environment,panel,page,asset,...}`):
 
 - **2D images** at three scopes — character design sheet, environment
   establishing shot, single panel, whole page.
@@ -111,14 +111,14 @@ Naming convention: `mangaka_generate_{record_kind}[_{variant}]`.
 
 | Graph | Maps to | Pipeline |
 |---|---|---|
-| `mangaka_generate_character` | `ai.gftd.mangaka.character` | 1-pass SDXL, batch_size=N views |
+| `mangaka_generate_character` | `app.etzhayyim.mangaka.character` | 1-pass SDXL, batch_size=N views |
 | `mangaka_generate_character_3d` | character + 3D asset (TripoSR) | TripoSR mesh → SaveGLB |
 | `mangaka_generate_character_hy3d` | character + 3D asset (Hunyuan3D-2) | Hy3D textured PBR mesh → SaveGLB/USDZ |
-| `mangaka_generate_scene` | `ai.gftd.mangaka.environment` | 1-pass landscape establishing shot |
-| `mangaka_generate_panel` | `ai.gftd.mangaka.panel` | 2-pass composition + ink refine (denoise=0.45) |
+| `mangaka_generate_scene` | `app.etzhayyim.mangaka.environment` | 1-pass landscape establishing shot |
+| `mangaka_generate_panel` | `app.etzhayyim.mangaka.panel` | 2-pass composition + ink refine (denoise=0.45) |
 | `mangaka_generate_panel_stable` | panel + character ref | img2img 2-pass from encoded ref latent |
 | `mangaka_generate_panel_hq` | panel + character ref | IPAdapter FaceID v2 + ControlNet Union (canny) + empty latent — true identity preservation |
-| `mangaka_generate_page` | `ai.gftd.mangaka.page` | plan → render every panel → PIL composite |
+| `mangaka_generate_page` | `app.etzhayyim.mangaka.page` | plan → render every panel → PIL composite |
 | `cine_generate_scene` | kami-cine stages 1-4 | (legacy) USD / neural geom stubs + ComfyUI preview |
 | `cine_generate_panel` | kami-cine stages 5-6 | (legacy) panel render + diffusion refine |
 | `cine_generate_video` | N-frame batch | per-frame Send fan-out + ffmpeg encode |

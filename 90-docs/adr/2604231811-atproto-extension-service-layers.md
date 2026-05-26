@@ -88,11 +88,11 @@ repo 全体で正規語彙とし、`deps.toml [[conventions]]` と Worker 起票
 
 | # | Layer (正名) | 簡名 | 責務 | 登録要件 |
 |---|---|---|---|---|
-| 10 | **Actor Worker** (Agent-as-Service) | `actor-worker` | ヒューマン UI を持たない server-side actor。path-DID 保持 + `sdk.pds.createRecord` or Worker-direct Hyperdrive (ADR-0081) で書き込み。MCP capability を公開してよい (ADR-0087) | `ai.gftd.apps.<actor>.*` NSID 保持、`magatama.jsonld` 必須、domain collection のみ |
-| 11 | **Key Directory** (E2E Keystore) | `key-directory` | Signal/X3DH/MLS 系の prekey bundle + identity key publish + fetch | `ai.gftd.signal.*` 系 NSID、plaintext 鍵を server に持たない (published pubkey + wrapped のみ) |
-| 12 | **Secret Vault** (Zero-Knowledge Secret Manager) | `secret-vault` | encrypted secret storage。server は ciphertext + wrapped key のみ、plaintext は client/device key 経由でのみ復号 | `ai.gftd.vault.*` 系 NSID、Zero-Knowledge Invariant (CLAUDE.md root) 遵守 |
-| 13 | **Inference Fleet** | `inference-fleet` | LLM / vision / embedding inference の gateway + backing compute pool | `ai.gftd.apps.murakumo.*` / `ai.gftd.apps.ameno.*` 等、model id は `llm-model-registry.ts` SSoT |
-| 14 | **DID Directory** | `did-directory` | did method を自ホストで serve (did:plc / did:gftd / did:web sub-actor 等) | `ai.gftd.plc.*` / `ai.gftd.identity.*`、W3C DID Resolution v0.3 準拠 |
+| 10 | **Actor Worker** (Agent-as-Service) | `actor-worker` | ヒューマン UI を持たない server-side actor。path-DID 保持 + `sdk.pds.createRecord` or Worker-direct Hyperdrive (ADR-0081) で書き込み。MCP capability を公開してよい (ADR-0087) | `app.etzhayyim.apps.<actor>.*` NSID 保持、`magatama.jsonld` 必須、domain collection のみ |
+| 11 | **Key Directory** (E2E Keystore) | `key-directory` | Signal/X3DH/MLS 系の prekey bundle + identity key publish + fetch | `app.etzhayyim.signal.*` 系 NSID、plaintext 鍵を server に持たない (published pubkey + wrapped のみ) |
+| 12 | **Secret Vault** (Zero-Knowledge Secret Manager) | `secret-vault` | encrypted secret storage。server は ciphertext + wrapped key のみ、plaintext は client/device key 経由でのみ復号 | `app.etzhayyim.vault.*` 系 NSID、Zero-Knowledge Invariant (CLAUDE.md root) 遵守 |
+| 13 | **Inference Fleet** | `inference-fleet` | LLM / vision / embedding inference の gateway + backing compute pool | `app.etzhayyim.apps.murakumo.*` / `app.etzhayyim.apps.ameno.*` 等、model id は `llm-model-registry.ts` SSoT |
+| 14 | **DID Directory** | `did-directory` | did method を自ホストで serve (did:plc / did:gftd / did:web sub-actor 等) | `app.etzhayyim.plc.*` / `app.etzhayyim.identity.*`、W3C DID Resolution v0.3 準拠 |
 | 15 | **Process Orchestrator** | `process-orchestrator` | BPMN 2.0 / OCEL / cron / event 駆動の multi-step workflow dispatcher | Zeebe + BPMN definitions (ADR-0056)、`vertex_bpmn_process_def` 経由で宣言 |
 
 ### AuthN / AuthZ の扱い
@@ -160,7 +160,7 @@ Q8: BPMN / workflow dispatch か?
 |---|---|
 | layer | <layer 簡名> (e.g. actor-worker / key-directory / ...) |
 | at_standard | true / false |
-| nsid_prefix | ai.gftd.apps.<actor> / ai.gftd.signal / ... |
+| nsid_prefix | app.etzhayyim.apps.<actor> / app.etzhayyim.signal / ... |
 | did | did:web:<host> または did:plc:... |
 ```
 

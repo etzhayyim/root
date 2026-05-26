@@ -49,8 +49,8 @@ jun784@gmail.com の差分 Gmail 取り込み + `deps.toml [[projects]]` 151 件
   8. **yukkuri** (T5, signal=0) — new leaf
   9. **mold-allergy** (T5, signal=0) — new leaf
   10. **kaimono-review** (T5, signal=0) — new leaf
-- Corporate correspondence signal (reference): gftd.co.jp 247 / github 111 /
-  google 174 / stripe 172 / gftd.group 42 / anthropic 7 / etzhayyim.com 5 /
+- Corporate correspondence signal (reference): etzhayyim.com 247 / github 111 /
+  google 174 / stripe 172 / etzhayyim.com 42 / anthropic 7 / etzhayyim.com 5 /
   linode 3 / bluesky 2 / openai 0 / cloudflare 0。
 
 # Decision
@@ -292,11 +292,11 @@ AND (LOWER(subject/from_addr/to_addrs) LIKE '%<name>%')`。
 
 | Signal | Count | 意味 |
 |---|---:|---|
-| `@gftd.co.jp` | 247 | GFTD Japan 社員 (k.bakshi 等) とのやり取り |
+| `@etzhayyim.com` | 247 | etzhayyim Japan 社員 (k.bakshi 等) とのやり取り |
 | `@google.com` | 174 | Google (Workspace / OAuth / サポート) |
 | `@stripe.com` | 172 | Stripe billing / dev |
 | `@github.com` | 111 | GitHub PR/issue/notifications |
-| `@gftd.group` | 42 | legacy gftd.group domain |
+| `@etzhayyim.com` | 42 | legacy etzhayyim.com domain |
 | `anthropic / claude` | 7 | Claude API / Claude Code |
 | `@etzhayyim.com` | 5 | new etzhayyim.com domain |
 | `@linode / akamai` | 3 | Linode / Akamai infra |

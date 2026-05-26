@@ -30,13 +30,13 @@ const seeds: Seed[] = [
   {
     proc: "cancelReservation",
     bpmnProcessId: "yadoya_cancel_reservation",
-    nsid: "ai.gftd.apps.yadoya.cancelReservation",
+    nsid: "app.etzhayyim.apps.yadoya.cancelReservation",
     resultTimeoutMs: 30000,
   },
   {
     proc: "getReservation",
     bpmnProcessId: "yadoya_get_reservation",
-    nsid: "ai.gftd.apps.yadoya.getReservation",
+    nsid: "app.etzhayyim.apps.yadoya.getReservation",
     resultTimeoutMs: 15000,
   },
 ];
@@ -45,9 +45,9 @@ const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

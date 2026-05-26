@@ -51,12 +51,12 @@ import { join } from "node:path";
 const RW_CONN = process.env.RISINGWAVE_URL
   ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const COLLECTOR_DID = "did:web:bigquery.etzhayyim.com";
-const COLLECTION_PROFILE = "ai.gftd.apps.bigquery.publicDatasetProfile";
-const COLLECTION_PROFILES_TABLE = "ai.gftd.apps.bigquery.profilesTable";
-const COLLECTION_TABLE = "ai.gftd.apps.bigquery.publicDatasetTable";
-const COLLECTION_JOB = "ai.gftd.apps.bigquery.ingestJob";
-const COLLECTION_EXPORT = "ai.gftd.apps.bigquery.exportArtifact";
-const COLLECTION_RUN = "ai.gftd.apps.bigquery.profileRun";
+const COLLECTION_PROFILE = "app.etzhayyim.apps.bigquery.publicDatasetProfile";
+const COLLECTION_PROFILES_TABLE = "app.etzhayyim.apps.bigquery.profilesTable";
+const COLLECTION_TABLE = "app.etzhayyim.apps.bigquery.publicDatasetTable";
+const COLLECTION_JOB = "app.etzhayyim.apps.bigquery.ingestJob";
+const COLLECTION_EXPORT = "app.etzhayyim.apps.bigquery.exportArtifact";
+const COLLECTION_RUN = "app.etzhayyim.apps.bigquery.profileRun";
 const INGEST_FAMILY = "bigquery.public_dataset.profile";
 
 const BQ_API = "https://bigquery.googleapis.com/bigquery/v2";
@@ -312,7 +312,7 @@ async function upsertProfileRun() {
     created_at: runHeader.startedAt,
   });
   await rwInsert("vertex_ingest_run", {
-    vertex_id: vertexId("ai.gftd.apps.ingest.run", RUN_ID),
+    vertex_id: vertexId("app.etzhayyim.apps.ingest.run", RUN_ID),
     sensitivity_ord: 1,
     owner_did: COLLECTOR_DID,
     run_id: RUN_ID,
@@ -844,7 +844,7 @@ async function writeProfileRow({ provider, dataset, table, catalog, result, runI
     created_at: observedAt,
   });
   await rwInsert("vertex_ingest_artifact", {
-    vertex_id: vertexId("ai.gftd.apps.ingest.artifact", artifactId),
+    vertex_id: vertexId("app.etzhayyim.apps.ingest.artifact", artifactId),
     sensitivity_ord: 1,
     owner_did: COLLECTOR_DID,
     run_id: runId,

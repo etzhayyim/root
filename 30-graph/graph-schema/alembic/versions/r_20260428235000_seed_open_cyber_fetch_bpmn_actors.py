@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'open_cyber_vuln_fetch_nvd_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -83,7 +83,7 @@ UP = [{'sql': '\n'
                  'processId="open_cyber_vuln_cve"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;at://did:web:open-cyber-vuln.etzhayyim.com/ai.gftd.apps.cyberVuln.recordCveDisclosure/&quot; '
+                 'source="=&quot;at://did:web:open-cyber-vuln.etzhayyim.com/app.etzhayyim.apps.cyberVuln.recordCveDisclosure/&quot; '
                  '+ item.cve.id" target="vertexId"/>\n'
                  '          <zeebe:input source="=item.cve.id" target="cveId"/>\n'
                  '          <zeebe:input source="=if item.cve.configurations != null then '
@@ -139,7 +139,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber-fetch',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -147,7 +147,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'open_kev_catalog_fetch_kev_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -194,7 +194,7 @@ UP = [{'sql': '\n'
                  'processId="open_kev_catalog_record_entry"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;at://did:web:open-kev-catalog.etzhayyim.com/ai.gftd.apps.kevCatalog.recordEntry/&quot; '
+                 'source="=&quot;at://did:web:open-kev-catalog.etzhayyim.com/app.etzhayyim.apps.kevCatalog.recordEntry/&quot; '
                  '+ item.cveID" target="vertexId"/>\n'
                  '          <zeebe:input source="=item.cveID" target="entryId"/>\n'
                  '          <zeebe:input source="=item.cveID" target="cveId"/>\n'
@@ -240,7 +240,7 @@ UP = [{'sql': '\n'
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'did:web:open-kev-catalog.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber-fetch',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -248,7 +248,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'open_oss_vuln_fetch_ghsa_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -313,7 +313,7 @@ UP = [{'sql': '\n'
                  'processId="open_oss_vuln_register_advisory"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;at://did:web:open-oss-vuln.etzhayyim.com/ai.gftd.apps.ossVuln.registerAdvisory/&quot; '
+                 'source="=&quot;at://did:web:open-oss-vuln.etzhayyim.com/app.etzhayyim.apps.ossVuln.registerAdvisory/&quot; '
                  '+ item.ghsa_id" target="vertexId"/>\n'
                  '          <zeebe:input source="=item.ghsa_id" target="advisoryId"/>\n'
                  '          <zeebe:input source="=&quot;ghsa&quot;" target="scheme"/>\n'
@@ -372,7 +372,7 @@ UP = [{'sql': '\n'
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'did:web:open-oss-vuln.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber-fetch',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -380,7 +380,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'open_cyber_threat_fetch_mitre_attack_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -427,7 +427,7 @@ UP = [{'sql': '\n'
                  'processId="open_cyber_threat_actor"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;at://did:web:open-cyber-threat.etzhayyim.com/ai.gftd.apps.cyberThreat.recordThreatActor/&quot; '
+                 'source="=&quot;at://did:web:open-cyber-threat.etzhayyim.com/app.etzhayyim.apps.cyberThreat.recordThreatActor/&quot; '
                  '+ item.id" target="vertexId"/>\n'
                  '          <zeebe:input source="=item.id" target="actorIdCode"/>\n'
                  '          <zeebe:input source="=item.name" target="actorName"/>\n'
@@ -475,7 +475,7 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'did:web:open-cyber-threat.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber-fetch',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -483,7 +483,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'open_cyber_soc_fetch_cisa_alert_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -531,7 +531,7 @@ UP = [{'sql': '\n'
                  'processId="open_cyber_soc_alert"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;at://did:web:open-cyber-soc.etzhayyim.com/ai.gftd.apps.cyberSoc.recordSocAlert/&quot; '
+                 'source="=&quot;at://did:web:open-cyber-soc.etzhayyim.com/app.etzhayyim.apps.cyberSoc.recordSocAlert/&quot; '
                  '+ replace(item.link, &quot;https://www.cisa.gov/uscert/ncas/alerts/&quot;, '
                  '&quot;&quot;)" target="vertexId"/>\n'
                  '          <zeebe:input source="=item.link" target="alertId"/>\n'
@@ -577,18 +577,18 @@ UP = [{'sql': '\n'
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'did:web:open-cyber-soc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-cyber-fetch',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-vuln-fetchNvdDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-kev-catalog-fetchKevDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-oss-vuln-fetchGhsaDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-threat-fetchMitreAttackDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-cyber-soc-fetchCisaAlertDelta-v1']}]
 
 
 def upgrade() -> None:

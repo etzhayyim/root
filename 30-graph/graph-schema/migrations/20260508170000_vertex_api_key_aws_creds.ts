@@ -32,7 +32,7 @@ import { sql } from "kysely";
  *   1. Sensitivity: the row is sensitivity_ord=2 (NOT Tier-3 PII), but
  *      access is restricted to the owner_did + billing admin.
  *   2. Rotation: customers can revoke + re-issue by calling
- *      ai.gftd.auth.revokeApiKey + ai.gftd.auth.createApiKey.
+ *      app.etzhayyim.auth.revokeApiKey + app.etzhayyim.auth.createApiKey.
  *   3. KEK encryption: a follow-up phase will optionally KEK-encrypt
  *      this column with the platform signing-key custody (ADR-0010
  *      Stage 1) — schema slot reserved by name.

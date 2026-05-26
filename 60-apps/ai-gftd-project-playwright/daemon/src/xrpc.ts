@@ -24,10 +24,10 @@ export interface Action {
 
 export const xrpc = {
   async dequeue(daemonId: string): Promise<{ action: Action | null }> {
-    return call("ai.gftd.apps.playwright.dequeueAction", { daemonId });
+    return call("app.etzhayyim.apps.playwright.dequeueAction", { daemonId });
   },
   async report(actionId: string, outcome: "ok" | "failed", result?: unknown, error?: string): Promise<unknown> {
-    return call("ai.gftd.apps.playwright.reportActionResult", {
+    return call("app.etzhayyim.apps.playwright.reportActionResult", {
       actionId, outcome,
       result: result ?? null,
       error: error ?? "",

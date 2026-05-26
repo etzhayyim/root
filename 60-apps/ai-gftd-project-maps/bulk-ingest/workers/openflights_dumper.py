@@ -39,9 +39,14 @@ from io import BytesIO
 from threading import Lock, Thread
 
 import boto3
-import psycopg2
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# the substrate seam below; direct psycopg2 imports in this worker are
+# no longer permitted. The seam still supports a transitional RW mode
+# (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.
+from _etzhayyim_substrate import open_substrate_writer
 
 logging.basicConfig(
     level=logging.INFO,
@@ -122,29 +127,30 @@ def _flush_shard(rows: list[dict], dump_id: str, kind: str, shard_idx: int) -> s
     return key
 
 
-def _insert_rows_into_rw(rows: list[dict], batch_size: int = 1000) -> int:
+def _insert_rows_into_substrate(rows: list[dict], batch_size: int = 1000) -> int:
+    """Upsert ingested rows via the etzhayyim substrate seam.
+
+    Per ADR-2605172000 the writer dispatches on
+    ``ETZHAYYIM_SUBSTRATE_MODE``: ``mst`` (PDS → MST + IPFS + Base L2
+    anchor, post-migration) or ``rw`` (psycopg2 → vertex_spatial,
+    transitional). The function name retains its caller-visible
+    behaviour: idempotent upsert keyed on ``vertex_id``.
+    """
     if not rows:
         return 0
     total = 0
-    conn = psycopg2.connect(DATABASE_URL)
-    conn.autocommit = False
-    try:
-        cur = conn.cursor()
-        cols = list(rows[0].keys())
+    with open_substrate_writer() as writer:
         for i in range(0, len(rows), batch_size):
             chunk = rows[i : i + batch_size]
-            placeholders = ", ".join("(" + ", ".join(["%s"] * len(cols)) + ")" for _ in chunk)
-            sql = f"INSERT INTO vertex_spatial ({', '.join(cols)}) VALUES {placeholders}"
-            params = [r[c] for r in chunk for c in cols]
             try:
-                cur.execute(sql, params)
-                conn.commit()
-                total += len(chunk)
+                total += writer.upsert_vertex_spatial(chunk)
             except Exception as e:
-                conn.rollback()
-                log.warning("batch insert failed (chunk %d-%d): %s", i, i + len(chunk), e)
-    finally:
-        conn.close()
+                log.warning(
+                    "substrate upsert failed (chunk %d-%d): %s",
+                    i,
+                    i + len(chunk),
+                    e,
+                )
     return total
 
 
@@ -193,7 +199,7 @@ def _build_airport_rows(airports_rows: list[list[str]]) -> tuple[list[dict], dic
             "type": r[12] if len(r) > 12 else None,
         }
         rows.append({
-            "vertex_id": f"at://{repo_did}/ai.gftd.apps.maps.airport/{rkey}",
+            "vertex_id": f"at://{repo_did}/app.etzhayyim.apps.maps.airport/{rkey}",
             "rkey": rkey,
             "repo": repo_did,
             "label": "Airport",
@@ -260,7 +266,7 @@ def _build_airroute_rows(routes_rows: list[list[str]],
             "equipment": r[8],
         }
         rows.append({
-            "vertex_id": f"at://{repo_did}/ai.gftd.apps.maps.airRoute/{rkey}",
+            "vertex_id": f"at://{repo_did}/app.etzhayyim.apps.maps.airRoute/{rkey}",
             "rkey": rkey,
             "repo": repo_did,
             "label": "AirRoute",
@@ -341,7 +347,7 @@ def _run_dump():
             for i in range(0, len(rows), SHARD_ROWS):
                 chunk = rows[i : i + SHARD_ROWS]
                 _flush_shard(chunk, dump_id, kind, shard_idx)
-                written += _insert_rows_into_rw(chunk)
+                written += _insert_rows_into_substrate(chunk)
                 shard_idx += 1
                 with _lock:
                     _state["rows_written"] = written

@@ -140,7 +140,7 @@ def deps_actors(workspace_dir: str | None, json_out: bool) -> None:
 
 
 def _resolve_cf_token_deps() -> str:
-    for var in ("CLOUDFLARE_API_TOKEN", "CF_API_TOKEN", "GFTD_CLOUDFLARE_API_TOKEN"):
+    for var in ("CLOUDFLARE_API_TOKEN", "CF_API_TOKEN", "etzhayyim_CLOUDFLARE_API_TOKEN"):
         t = os.environ.get(var, "").strip()
         if t:
             return t

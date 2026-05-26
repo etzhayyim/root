@@ -17,7 +17,7 @@
  *   Stage 7: Quality Check   — qwen3.5-4b (VL) verification of generated avatar
  *
  * Usage in app.ts:
- *   import { submitAvatarGeneration, getAvatarStatus } from "@gftd/magatama-host-sdk/kami-avatar-pipeline";
+ *   import { submitAvatarGeneration, getAvatarStatus } from "@etzhayyim/magatama-host-sdk/kami-avatar-pipeline";
  *
  *   // Submit photo for avatar generation
  *   const jobId = await submitAvatarGeneration(sdk, {
@@ -467,7 +467,7 @@ export function buildSceneFromArtifacts(
       }
       // Return Design A scene structure
       return {
-        "@context": "https://gftd.co.jp/ns/kami/scene",
+        "@context": "https://etzhayyim.com/ns/kami/scene",
         "@type": "IslandScene",
         name: options?.name ?? "3DGS VTuber",
         avatarMode: "splat",
@@ -480,7 +480,7 @@ export function buildSceneFromArtifacts(
         throw new Error("Missing VRM artifacts for Design B scene");
       }
       return {
-        "@context": "https://gftd.co.jp/ns/kami/scene",
+        "@context": "https://etzhayyim.com/ns/kami/scene",
         "@type": "IslandScene",
         name: options?.name ?? "VRM VTuber",
         avatarMode: "vrm",
@@ -493,7 +493,7 @@ export function buildSceneFromArtifacts(
         throw new Error("Missing hybrid artifacts for Design C scene");
       }
       return {
-        "@context": "https://gftd.co.jp/ns/kami/scene",
+        "@context": "https://etzhayyim.com/ns/kami/scene",
         "@type": "IslandScene",
         name: options?.name ?? "Hybrid VTuber",
         avatarMode: "hybrid",

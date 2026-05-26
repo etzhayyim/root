@@ -20,7 +20,7 @@ async def run_worker():
     channel = create_langserver_channel(grpc_address=AGENTGATEWAY_MCP_URL)
     worker = LangServerWorker(channel)
 
-    @worker.task(task_type="ai.gftd.apps.wire.create.transfer")
+    @worker.task(task_type="app.etzhayyim.apps.wire.create.transfer")
     async def task_create_transfer(**kwargs):
         from_did = kwargs.get("fromDid", "")
         to_did = kwargs.get("toDid", "")
@@ -48,7 +48,7 @@ async def run_worker():
 
         return {"transferId": transfer_id, "status": "pending"}
 
-    @worker.task(task_type="ai.gftd.apps.wire.list.transfers")
+    @worker.task(task_type="app.etzhayyim.apps.wire.list.transfers")
     async def task_list_transfers(**kwargs):
         from_did = kwargs.get("fromDid", "")
         limit = int(kwargs.get("limit", 50))
@@ -68,7 +68,7 @@ async def run_worker():
 
         return {"transfers": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.wire.get.transfer")
+    @worker.task(task_type="app.etzhayyim.apps.wire.get.transfer")
     async def task_get_transfer(**kwargs):
         transfer_id = kwargs.get("transferId", "")
 
@@ -85,7 +85,7 @@ async def run_worker():
             return {"error": "not found"}
         return dict(row)
 
-    @worker.task(task_type="ai.gftd.apps.wire.confirm.transfer")
+    @worker.task(task_type="app.etzhayyim.apps.wire.confirm.transfer")
     async def task_confirm_transfer(**kwargs):
         transfer_id = kwargs.get("transferId", "")
         now = datetime.utcnow().isoformat()
@@ -101,7 +101,7 @@ async def run_worker():
 
         return {"transferId": transfer_id, "status": "confirmed", "confirmedAt": now}
 
-    @worker.task(task_type="ai.gftd.apps.wire.create.message")
+    @worker.task(task_type="app.etzhayyim.apps.wire.create.message")
     async def task_create_message(**kwargs):
         from_did = kwargs.get("fromDid", "")
         to_did = kwargs.get("toDid", "")
@@ -128,7 +128,7 @@ async def run_worker():
 
         return {"messageId": message_id, "status": "sent"}
 
-    @worker.task(task_type="ai.gftd.apps.wire.list.messages")
+    @worker.task(task_type="app.etzhayyim.apps.wire.list.messages")
     async def task_list_messages(**kwargs):
         from_did = kwargs.get("fromDid", "")
         limit = int(kwargs.get("limit", 50))
@@ -148,13 +148,13 @@ async def run_worker():
 
         return {"messages": [dict(r) for r in rows], "offset": offset, "limit": limit}
 
-    @worker.task(task_type="ai.gftd.apps.wire.get.balance")
+    @worker.task(task_type="app.etzhayyim.apps.wire.get.balance")
     async def task_get_balance(**kwargs):
         account_did = kwargs.get("accountDid", "")
 
         return {"accountDid": account_did, "balance": 0.0, "currency": "USD"}
 
-    @worker.task(task_type="ai.gftd.apps.wire.get.transferHistory")
+    @worker.task(task_type="app.etzhayyim.apps.wire.get.transferHistory")
     async def task_get_transfer_history(**kwargs):
         account_did = kwargs.get("accountDid", "")
         limit = int(kwargs.get("limit", 50))

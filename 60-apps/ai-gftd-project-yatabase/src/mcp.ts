@@ -64,7 +64,7 @@ const TOOLS: ToolDef[] = [
     name: "yata.graph.sparql",
     description:
       "Execute a SPARQL 1.1 SELECT/CONSTRUCT/ASK query against the caller's tenant graph. Translated via v_rdf_triple to RisingWave SQL.",
-    nsid: "ai.gftd.apps.yata.runSparql",
+    nsid: "app.etzhayyim.apps.yata.runSparql",
     inputSchema: {
       type: "object",
       required: ["query"],
@@ -81,7 +81,7 @@ const TOOLS: ToolDef[] = [
     name: "yata.graph.cypher",
     description:
       "Execute a READ-only openCypher query (MATCH/WITH/RETURN/WHERE/ORDER BY/LIMIT/SKIP/UNION). WRITE clauses are rejected in P4a.",
-    nsid: "ai.gftd.apps.yata.runCypher",
+    nsid: "app.etzhayyim.apps.yata.runCypher",
     inputSchema: {
       type: "object",
       required: ["statement"],
@@ -98,14 +98,14 @@ const TOOLS: ToolDef[] = [
   {
     name: "yata.storage.list_buckets",
     description: "List buckets owned by the caller's org.",
-    nsid: "ai.gftd.apps.yata.listBuckets",
+    nsid: "app.etzhayyim.apps.yata.listBuckets",
     inputSchema: { type: "object", properties: {} },
     authRequired: true,
   },
   {
     name: "yata.storage.list_objects",
     description: "List blob objects within a bucket. Pagination via cursor + limit.",
-    nsid: "ai.gftd.apps.yata.listObjects",
+    nsid: "app.etzhayyim.apps.yata.listObjects",
     inputSchema: {
       type: "object",
       required: ["bucket"],
@@ -121,7 +121,7 @@ const TOOLS: ToolDef[] = [
   {
     name: "yata.storage.head_object",
     description: "HEAD a blob (size / etag / content-type / last-modified).",
-    nsid: "ai.gftd.apps.yata.headObject",
+    nsid: "app.etzhayyim.apps.yata.headObject",
     inputSchema: {
       type: "object",
       required: ["bucket", "key"],
@@ -132,7 +132,7 @@ const TOOLS: ToolDef[] = [
   {
     name: "yata.storage.presign",
     description: "Mint a presigned URL for time-limited blob GET / PUT.",
-    nsid: "ai.gftd.apps.yata.presignUrl",
+    nsid: "app.etzhayyim.apps.yata.presignUrl",
     inputSchema: {
       type: "object",
       required: ["bucket", "key", "verb"],
@@ -148,7 +148,7 @@ const TOOLS: ToolDef[] = [
   {
     name: "yata.storage.delete_object",
     description: "Delete a blob from a bucket. Hard delete (no soft-delete in RW).",
-    nsid: "ai.gftd.apps.yata.deleteObject",
+    nsid: "app.etzhayyim.apps.yata.deleteObject",
     inputSchema: {
       type: "object",
       required: ["bucket", "key"],
@@ -159,7 +159,7 @@ const TOOLS: ToolDef[] = [
   {
     name: "yata.coverage.report",
     description: "Return tenant usage coverage for the active billing window.",
-    nsid: "ai.gftd.apps.yata.coverage",
+    nsid: "app.etzhayyim.apps.yata.coverage",
     inputSchema: { type: "object", properties: {} },
     authRequired: true,
   },
@@ -383,10 +383,10 @@ async function handleToolsCall(
   if (!tool) {
     return { error: { code: -32602, message: `tool not found: ${name}` } };
   }
-  // P64: KV-backed fallback for yata.graph.cypher → ai.gftd.apps.yata.runCypher.
+  // P64: KV-backed fallback for yata.graph.cypher → app.etzhayyim.apps.yata.runCypher.
   // Same engine the REST /cypher uses. Falls through to dispatcher when KV
   // can't serve (e.g. multi-pattern queries).
-  if (tool.nsid === "ai.gftd.apps.yata.runCypher") {
+  if (tool.nsid === "app.etzhayyim.apps.yata.runCypher") {
     const stmt = typeof args["query"] === "string" ? (args["query"] as string)
       : typeof args["statement"] === "string" ? (args["statement"] as string)
       : "";

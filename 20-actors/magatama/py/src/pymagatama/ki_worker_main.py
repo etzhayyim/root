@@ -30,13 +30,13 @@ import json
 import logging
 import os
 import signal
+import sqlite3
 import time
 from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
-
-from pymagatama.db_sync import fetch_all, fetch_one, sync_cursor
+from pymagatama.primitives.active_inference_substrate import select_belief_store, KiAbsorbRecord, KiArtifactRecord, KiRingRecord
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("ki_worker")
@@ -81,18 +81,23 @@ async def task_absorb(
     # ── scan mode: called by BPMN timer with no inputs ──
     if not sourceVertexId and not content:
         def _scan() -> dict[str, Any]:
-            row = fetch_one(
-                """
-                SELECT vertex_id FROM vertex_ki_absorb
-                WHERE synthesized_at IS NULL
-                ORDER BY created_at ASC
-                LIMIT 1
-                """,
-                (),
-            )
+            store = select_belief_store()
+            with store._conn() as conn:
+                conn.row_factory = sqlite3.Row
+                try:
+                    row = conn.execute(
+                        """
+                        SELECT vertex_id FROM vertex_ki_absorb
+                        WHERE synthesized_at IS NULL
+                        ORDER BY created_at ASC
+                        LIMIT 1
+                        """
+                    ).fetchone()
+                except sqlite3.OperationalError:
+                    row = None
             if not row:
                 return {"absorbId": "", "status": "empty"}
-            vid = row[0]
+            vid = row["vertex_id"]
             absorb_id = vid.split("/")[-1]
             return {"absorbId": absorb_id, "absorbVertexId": vid, "status": "absorbed"}
 
@@ -102,27 +107,31 @@ async def task_absorb(
 
     # ── create mode: called externally with source data ──
     absorb_id = _uid("xyl")
-    absorb_vid = f"at://{KI_DID}/ai.gftd.apps.ki.absorb/{absorb_id}"
+    absorb_vid = f"at://{KI_DID}/app.etzhayyim.apps.ki.absorb/{absorb_id}"
     content_hash = hashlib.sha256(content.encode()).hexdigest()[:32]
     now = _now()
 
     def _run() -> dict[str, Any]:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_ki_absorb
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   source_vertex_id, input_kind, content_hash, absorbed_at, synthesized_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    absorb_vid, _uid("rec"), KI_DID, "ki_absorb", "absorbed", "",
-                    agentDid or KI_DID, json.dumps({"content": content[:500]}),
-                    now, now, 0,
-                    sourceVertexId, inputKind, content_hash, now, None,
-                ),
-            )
+        store = select_belief_store()
+        rec = KiAbsorbRecord(
+            vertex_id=absorb_vid,
+            record_id=_uid("rec"),
+            owner_did=KI_DID,
+            label="ki_absorb",
+            status="absorbed",
+            stream_id="",
+            agent_did=agentDid or KI_DID,
+            value_json=json.dumps({"content": content[:500]}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            source_vertex_id=sourceVertexId,
+            input_kind=inputKind,
+            content_hash=content_hash,
+            absorbed_at=now,
+            synthesized_at=None
+        )
+        store.put_vertex_ki_absorb(rec)
         return {
             "absorbId": absorb_id,
             "absorbVertexId": absorb_vid,
@@ -155,14 +164,21 @@ async def task_synthesize(
         return {"error": "absorbId or content required"}
 
     if absorbId and not content:
-        row = await asyncio.to_thread(
-            fetch_one,
-            "SELECT value_json FROM vertex_ki_absorb WHERE vertex_id LIKE %s LIMIT 1",
-            (f"%{absorbId}%",),
-        )
+        def _get_content() -> tuple[Any, ...]:
+            store = select_belief_store()
+            with store._conn() as conn:
+                conn.row_factory = sqlite3.Row
+                try:
+                    return conn.execute(
+                        "SELECT value_json FROM vertex_ki_absorb WHERE vertex_id LIKE ? LIMIT 1",
+                        (f"%{absorbId}%",)
+                    ).fetchone()
+                except sqlite3.OperationalError:
+                    return None
+        row = await asyncio.to_thread(_get_content)
         if row:
             try:
-                val = json.loads(row[0] or "{}")
+                val = json.loads(row["value_json"] or "{}")
                 content = val.get("content", "")
             except (json.JSONDecodeError, TypeError):
                 pass
@@ -186,33 +202,37 @@ async def task_synthesize(
     refined = bool(graph_result.get("refined", False))
 
     artifact_id = _uid("art")
-    artifact_vid = f"at://{KI_DID}/ai.gftd.apps.ki.artifact/{artifact_id}"
+    artifact_vid = f"at://{KI_DID}/app.etzhayyim.apps.ki.artifact/{artifact_id}"
     artifact_hash = hashlib.sha256(synthesis.encode()).hexdigest()[:32]
     now = _now()
 
     def _write() -> None:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_ki_artifact
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   absorb_id, artifact_kind, synthesis, confidence,
-                   artifact_hash, bloomed_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    artifact_vid, _uid("rec"), KI_DID, "ki_artifact", "synthesized", "",
-                    KI_DID, json.dumps({"keyPoints": key_points, "refined": refined}),
-                    now, now, 0,
-                    absorbId, artifact_kind, synthesis, confidence,
-                    artifact_hash, None,
-                ),
-            )
-            if absorbId:
-                cur.execute(
-                    "UPDATE vertex_ki_absorb SET status = 'synthesized', synthesized_at = %s, updated_at = %s WHERE vertex_id LIKE %s",
-                    (now, now, f"%{absorbId}%"),
+        store = select_belief_store()
+        rec = KiArtifactRecord(
+            vertex_id=artifact_vid,
+            record_id=_uid("rec"),
+            owner_did=KI_DID,
+            label="ki_artifact",
+            status="synthesized",
+            stream_id="",
+            agent_did=KI_DID,
+            value_json=json.dumps({"keyPoints": key_points, "refined": refined}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            absorb_id=absorbId,
+            artifact_kind=artifact_kind,
+            synthesis=synthesis,
+            confidence=confidence,
+            artifact_hash=artifact_hash,
+            bloomed_at=None
+        )
+        store.put_vertex_ki_artifact(rec)
+        if absorbId:
+            with store._conn() as conn:
+                conn.execute(
+                    "UPDATE vertex_ki_absorb SET status = 'synthesized', synthesized_at = ?, updated_at = ? WHERE vertex_id LIKE ?",
+                    (now, now, f"%{absorbId}%")
                 )
 
     await asyncio.to_thread(_write)
@@ -252,14 +272,21 @@ async def task_bloom(
     now = _now()
 
     def _run() -> dict[str, Any]:
-        row = fetch_one(
-            "SELECT vertex_id, confidence FROM vertex_ki_artifact WHERE vertex_id LIKE %s AND status = 'synthesized' LIMIT 1",
-            (f"%{artifactId}%",),
-        )
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                row = conn.execute(
+                    "SELECT vertex_id, confidence FROM vertex_ki_artifact WHERE vertex_id LIKE ? AND status = 'synthesized' LIMIT 1",
+                    (f"%{artifactId}%",)
+                ).fetchone()
+            except sqlite3.OperationalError:
+                row = None
+
         if not row:
             return {"error": f"artifact not found or not synthesized: {artifactId}"}
 
-        vid, confidence = row[0], float(row[1] or 0)
+        vid, confidence = row["vertex_id"], float(row["confidence"] or 0)
         if confidence < CONFIDENCE_CUTOFF:
             return {
                 "bloomed": False,
@@ -267,10 +294,10 @@ async def task_bloom(
                 "reason": f"confidence {confidence:.2f} below cutoff {CONFIDENCE_CUTOFF}",
             }
 
-        with sync_cursor() as cur:
-            cur.execute(
-                "UPDATE vertex_ki_artifact SET status = 'bloomed', bloomed_at = %s, updated_at = %s WHERE vertex_id = %s",
-                (now, now, vid),
+        with store._conn() as conn:
+            conn.execute(
+                "UPDATE vertex_ki_artifact SET status = 'bloomed', bloomed_at = ?, updated_at = ? WHERE vertex_id = ?",
+                (now, now, vid)
             )
         return {
             "bloomed": True,
@@ -293,32 +320,39 @@ async def task_ring(
     """Create versioned knowledge checkpoint (growth ring / 年輪 analogy)."""
 
     ring_id = _uid("ring")
-    ring_vid = f"at://{KI_DID}/ai.gftd.apps.ki.ring/{ring_id}"
+    ring_vid = f"at://{KI_DID}/app.etzhayyim.apps.ki.ring/{ring_id}"
     now = _now()
 
     def _run() -> dict[str, Any]:
-        count_row = fetch_one(
-            "SELECT COUNT(*) FROM vertex_ki_artifact WHERE status = 'bloomed'",
-            (),
-        )
-        snapshot_count = int(count_row[0]) if count_row else 0
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                count_row = conn.execute(
+                    "SELECT COUNT(*) as count FROM vertex_ki_artifact WHERE status = 'bloomed'"
+                ).fetchone()
+            except sqlite3.OperationalError:
+                count_row = None
 
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_ki_ring
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   period, snapshot_count, ring_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    ring_vid, _uid("rec"), KI_DID, "ki_ring", "active", "",
-                    KI_DID, json.dumps({}),
-                    now, now, 0,
-                    period, snapshot_count, now,
-                ),
-            )
+        snapshot_count = int(count_row["count"]) if count_row else 0
+
+        rec = KiRingRecord(
+            vertex_id=ring_vid,
+            record_id=_uid("rec"),
+            owner_did=KI_DID,
+            label="ki_ring",
+            status="active",
+            stream_id="",
+            agent_did=KI_DID,
+            value_json=json.dumps({}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            period=period,
+            snapshot_count=snapshot_count,
+            ring_at=now
+        )
+        store.put_vertex_ki_ring(rec)
         return {
             "ringId": ring_id,
             "ringVertexId": ring_vid,

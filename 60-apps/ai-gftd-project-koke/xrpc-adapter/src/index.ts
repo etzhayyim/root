@@ -20,7 +20,7 @@ interface Env {
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "ai.gftd.koke";
+const NSID_BASE = "app.etzhayyim.koke";
 
 interface RouteConfig {
   method: "POST" | "GET";

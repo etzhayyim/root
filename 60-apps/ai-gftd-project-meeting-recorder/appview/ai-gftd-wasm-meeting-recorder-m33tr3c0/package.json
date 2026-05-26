@@ -9,7 +9,7 @@
     "types": "wrangler types"
   },
   "dependencies": {
-    "@gftd/magatama-host-sdk": "workspace:*",
+    "@etzhayyim/magatama-host-sdk": "workspace:*",
     "@atproto/crypto": "^0.4.5"
   },
   "devDependencies": {

@@ -55,7 +55,7 @@ export async function markSeen(
   const timestamp = Date.now();
   return {
     rkey: `seen-${timestamp}`,
-    uri: `at://yoro.etzhayyim.com/ai.gftd.yoro.activitySeen/seen-${timestamp}`,
+    uri: `at://yoro.etzhayyim.com/app.etzhayyim.yoro.activitySeen/seen-${timestamp}`,
     cid: "bafyref",
   };
 }

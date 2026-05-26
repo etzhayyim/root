@@ -58,17 +58,17 @@ def _make_organism_proxy(nsid: str) -> McpHandler:
 
 ```
 MCP client
-  → POST https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message
+  → POST https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message
   → CF Tunnel → bpmn-dispatcher Service (mitama-udf)
-  → mcp_dispatch._proxy(nsid=ai.gftd.apps.saikin.probeEnvironment)
-  → POST http://lg-organism.mitama-udf.svc.cluster.local:8000/xrpc/ai.gftd.apps.saikin.probeEnvironment
+  → mcp_dispatch._proxy(nsid=app.etzhayyim.apps.saikin.probeEnvironment)
+  → POST http://lg-organism.mitama-udf.svc.cluster.local:8000/xrpc/app.etzhayyim.apps.saikin.probeEnvironment
   → LangGraph node (lg-organism pod)
   → response.output unwrapped → MCP result
 ```
 
 `atproto.etzhayyim.com` remains the AT Protocol PDS / DID / OAuth surface only. Public
 MCP traffic must use `mcp.etzhayyim.com`; edge workers and SvelteKit BFF shims set
-`AGENTGATEWAY_MCP_ROUTER_URL=https://mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message`.
+`AGENTGATEWAY_MCP_ROUTER_URL=https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message`.
 The public hostname terminates at Cloudflare and is tunneled to the
 `bpmn-dispatcher` k8s Service, which then routes MCP tool calls to
 `mcp_dispatch.py` and pod-side LangServer/LangGraph runtimes (`lg-organism` for
@@ -110,14 +110,14 @@ kubectl delete configmap bpmn-dispatcher-patch -n mitama-udf
 kubectl exec -n mitama-udf bpmn-dispatcher-7d9b446bbf-zhpwv -- python3 -c "
 from pymagatama.mcp_dispatch import build_default_handlers
 h = build_default_handlers()
-proxies = [k for k in h if any(k.startswith(f'ai.gftd.apps.{a}.') for a in ['saikin', 'ki', 'koke'])]
+proxies = [k for k in h if any(k.startswith(f'app.etzhayyim.apps.{a}.') for a in ['saikin', 'ki', 'koke'])]
 print('Total:', len(h), 'Proxies:', len(proxies))
 "
 # → Total: 133 Proxies: 14
 
 # E2E call
-POST /xrpc/ai.gftd.mcp.message
-{"method":"tools/call","params":{"name":"ai.gftd.apps.saikin.probeEnvironment","arguments":{}}}
+POST /xrpc/app.etzhayyim.mcp.message
+{"method":"tools/call","params":{"name":"app.etzhayyim.apps.saikin.probeEnvironment","arguments":{}}}
 # → 200 {"result": {"signalCount": 0, "signals": [], "nextRoute": "no_signals"}}
 ```
 

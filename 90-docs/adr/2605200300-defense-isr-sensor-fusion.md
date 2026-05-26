@@ -40,9 +40,9 @@ Anduril Lattice センサー融合相当のトラックインジェスト・マ�
 
 | Method | NSID | 機能 |
 |---|---|---|
-| ingestTrack | `ai.gftd.apps.defIsr.ingestTrack` | センサートラック投入 (classification ≥ 2 必須) |
-| queryFusedPicture | `ai.gftd.apps.defIsr.queryFusedPicture` | 融合 COP クエリ |
-| listTracks | `ai.gftd.apps.defIsr.listTracks` | トラック一覧 (clearance-gated) |
+| ingestTrack | `app.etzhayyim.apps.defIsr.ingestTrack` | センサートラック投入 (classification ≥ 2 必須) |
+| queryFusedPicture | `app.etzhayyim.apps.defIsr.queryFusedPicture` | 融合 COP クエリ |
+| listTracks | `app.etzhayyim.apps.defIsr.listTracks` | トラック一覧 (clearance-gated) |
 
 ### トラックスキーマ (固定小数点)
 

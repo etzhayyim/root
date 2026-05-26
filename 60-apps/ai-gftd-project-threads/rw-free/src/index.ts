@@ -24,7 +24,7 @@ export { replyRefFromArgs } from "./create.js";
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { ThreadsPost } from "./types.js";
 
-const COLLECTION = "ai.gftd.apps.threads.post";
+const COLLECTION = "app.etzhayyim.apps.threads.post";
 
 function defaultClient() {
   return new Etzhayyim({

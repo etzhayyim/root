@@ -53,9 +53,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-early_paleolithic-secular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/early_paleolithic-001-100000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/secular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-early_paleolithic-secular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/early_paleolithic-001-100000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/secular',
                  'did:web:natural-person.etzhayyim.com',
                  1,
                  1,
@@ -75,9 +75,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-toba_bottleneck-secular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/toba_bottleneck-001-74000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/secular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-toba_bottleneck-secular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/toba_bottleneck-001-74000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/secular',
                  'did:web:natural-person.etzhayyim.com',
                  1,
                  1,
@@ -97,9 +97,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-upper_paleolithic-secular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/secular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-upper_paleolithic-secular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/upper_paleolithic-001-70000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/secular',
                  'did:web:natural-person.etzhayyim.com',
                  1,
                  1,
@@ -119,9 +119,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-neolithic-secular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/secular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-neolithic-secular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/secular',
                  'did:web:natural-person.etzhayyim.com',
                  0.9,
                  1,
@@ -141,9 +141,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-neolithic-dharma',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/neolithic-001-10000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/dharma',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-neolithic-dharma',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/neolithic-001-10000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/dharma',
                  'did:web:natural-person.etzhayyim.com',
                  0.05,
                  2,
@@ -163,9 +163,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-bronze_age-yhwh',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/bronze_age-001-3000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/yhwh',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-bronze_age-yhwh',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/bronze_age-001-3000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/yhwh',
                  'did:web:natural-person.etzhayyim.com',
                  0.05,
                  2,
@@ -185,9 +185,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-bronze_age-dharma',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/bronze_age-001-3000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/dharma',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-bronze_age-dharma',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/bronze_age-001-3000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/dharma',
                  'did:web:natural-person.etzhayyim.com',
                  0.15,
                  1,
@@ -207,9 +207,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-bronze_age-secular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/bronze_age-001-3000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/secular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-bronze_age-secular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/bronze_age-001-3000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/secular',
                  'did:web:natural-person.etzhayyim.com',
                  0.7,
                  3,
@@ -229,9 +229,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-iron_age-yhwh',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/iron_age-001-1200',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/yhwh',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-iron_age-yhwh',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/iron_age-001-1200',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/yhwh',
                  'did:web:natural-person.etzhayyim.com',
                  0.1,
                  2,
@@ -251,9 +251,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-iron_age-dharma',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/iron_age-001-1200',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/dharma',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-iron_age-dharma',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/iron_age-001-1200',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/dharma',
                  'did:web:natural-person.etzhayyim.com',
                  0.2,
                  1,
@@ -273,9 +273,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-iron_age-confucian',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/iron_age-001-1200',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/confucian',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-iron_age-confucian',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/iron_age-001-1200',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/confucian',
                  'did:web:natural-person.etzhayyim.com',
                  0.15,
                  3,
@@ -295,9 +295,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-classical-yhwh',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/classical-001-500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/yhwh',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-classical-yhwh',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/classical-001-500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/yhwh',
                  'did:web:natural-person.etzhayyim.com',
                  0.25,
                  1,
@@ -317,9 +317,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-classical-dharma',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/classical-001-500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/dharma',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-classical-dharma',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/classical-001-500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/dharma',
                  'did:web:natural-person.etzhayyim.com',
                  0.25,
                  2,
@@ -339,9 +339,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-classical-confucian',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/classical-001-500',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/confucian',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-classical-confucian',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/classical-001-500',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/confucian',
                  'did:web:natural-person.etzhayyim.com',
                  0.2,
                  3,
@@ -361,9 +361,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-medieval-yhwh',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/yhwh',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-medieval-yhwh',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/yhwh',
                  'did:web:natural-person.etzhayyim.com',
                  0.5,
                  1,
@@ -383,9 +383,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-medieval-dharma',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/dharma',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-medieval-dharma',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/dharma',
                  'did:web:natural-person.etzhayyim.com',
                  0.25,
                  2,
@@ -405,9 +405,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-medieval-confucian',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/medieval-001-1000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/confucian',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-medieval-confucian',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/medieval-001-1000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/confucian',
                  'did:web:natural-person.etzhayyim.com',
                  0.15,
                  3,
@@ -427,9 +427,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-modern_boom-yhwh',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_boom-001-1950',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/yhwh',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-modern_boom-yhwh',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_boom-001-1950',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/yhwh',
                  'did:web:natural-person.etzhayyim.com',
                  0.53,
                  1,
@@ -449,9 +449,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-modern_boom-dharma',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_boom-001-1950',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/dharma',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-modern_boom-dharma',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_boom-001-1950',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/dharma',
                  'did:web:natural-person.etzhayyim.com',
                  0.2,
                  2,
@@ -471,9 +471,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-modern_boom-secular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_boom-001-1950',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/secular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-modern_boom-secular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_boom-001-1950',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/secular',
                  'did:web:natural-person.etzhayyim.com',
                  0.15,
                  3,
@@ -493,9 +493,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-modern_boom-confucian',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_boom-001-1950',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/confucian',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-modern_boom-confucian',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_boom-001-1950',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/confucian',
                  'did:web:natural-person.etzhayyim.com',
                  0.08,
                  4,
@@ -515,9 +515,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-modern_boom-dialectical',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/modern_boom-001-1950',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/dialectical-materialism',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-modern_boom-dialectical',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/modern_boom-001-1950',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/dialectical-materialism',
                  'did:web:natural-person.etzhayyim.com',
                  0.35,
                  2,
@@ -537,9 +537,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-contemporary-yhwh',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/yhwh',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-contemporary-yhwh',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/yhwh',
                  'did:web:natural-person.etzhayyim.com',
                  0.53,
                  1,
@@ -559,9 +559,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-contemporary-dharma',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/dharma',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-contemporary-dharma',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/dharma',
                  'did:web:natural-person.etzhayyim.com',
                  0.22,
                  2,
@@ -581,9 +581,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-contemporary-secular',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/secular',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-contemporary-secular',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/secular',
                  'did:web:natural-person.etzhayyim.com',
                  0.16,
                  3,
@@ -603,9 +603,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-contemporary-dialectical',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/dialectical-materialism',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-contemporary-dialectical',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/dialectical-materialism',
                  'did:web:natural-person.etzhayyim.com',
                  0.1,
                  4,
@@ -625,9 +625,9 @@ UP = [{'sql': '\n'
          '        $7, $8, null, $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortBeliefSystem/bel-contemporary-confucian',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.beliefSystem/confucian',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-contemporary-confucian',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.beliefSystem/confucian',
                  'did:web:natural-person.etzhayyim.com',
                  0.07,
                  5,
@@ -672,7 +672,7 @@ UP = [{'sql': '\n'
          '        $14, $15, null, $16\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-002-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-002-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'contemporary-002-2000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -701,9 +701,9 @@ UP = [{'sql': '\n'
          '        $5, $6, null, $7\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/reg-contemporary-002',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-002-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/reg-contemporary-002',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-002-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -731,7 +731,7 @@ UP = [{'sql': '\n'
          '        $14, $15, null, $16\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-019-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-019-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'contemporary-019-2000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -760,9 +760,9 @@ UP = [{'sql': '\n'
          '        $5, $6, null, $7\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/reg-contemporary-019',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-019-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/reg-contemporary-019',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-019-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -790,7 +790,7 @@ UP = [{'sql': '\n'
          '        $14, $15, null, $16\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-142-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-142-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'contemporary-142-2000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -819,9 +819,9 @@ UP = [{'sql': '\n'
          '        $5, $6, null, $7\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/reg-contemporary-142',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-142-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/reg-contemporary-142',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-142-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -849,7 +849,7 @@ UP = [{'sql': '\n'
          '        $14, $15, null, $16\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-150-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-150-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'contemporary-150-2000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -878,9 +878,9 @@ UP = [{'sql': '\n'
          '        $5, $6, null, $7\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/reg-contemporary-150',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-150-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/reg-contemporary-150',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-150-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -908,7 +908,7 @@ UP = [{'sql': '\n'
          '        $14, $15, null, $16\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-009-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-009-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'contemporary-009-2000',
                  'at://did:web:natural-person.etzhayyim.com',
@@ -937,9 +937,9 @@ UP = [{'sql': '\n'
          '        $5, $6, null, $7\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/reg-contemporary-009',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',
-                 'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-009-2000',
+  'parameters': ['at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/reg-contemporary-009',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+                 'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-009-2000',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
@@ -952,9 +952,9 @@ UP = [{'sql': '\n'
          '      actor_did, org_did, at_did, created_at\n'
          '    ) VALUES (\n'
          '      '
-         "'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.cohortAncestorOf/pop-to-cohort-coordinator',\n"
+         "'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/pop-to-cohort-coordinator',\n"
          '      '
-         "'at://did:web:natural-person.etzhayyim.com/ai.gftd.apps.naturalPerson.populationCohort/contemporary-001-2000',\n"
+         "'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',\n"
          "      'did:web:natural-person.etzhayyim.com',\n"
          "      1, '2026-04-28', 0, 'did:web:natural-person.etzhayyim.com',\n"
          "      1, 0, 0.95, 'direct',\n"

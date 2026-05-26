@@ -223,13 +223,13 @@ def test_generic_xrpc_invoke_uses_did_web_actor(monkeypatch):
     monkeypatch.setattr(worker_main, "_http_post_json", _post)
     r = asyncio.run(task_generic_xrpc_invoke(
         actor="did:web:tsukuru.etzhayyim.com",
-        nsid="ai.gftd.apps.tsukuru.euv.designManufacturingFlow",
+        nsid="app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow",
         payload={"production_order_id": "po-1"},
         timeoutSec=5,
     ))
     assert r["status"] == 200
     assert r["result"] == {"ok": True}
-    assert calls[0][0] == "https://tsukuru.etzhayyim.com/xrpc/ai.gftd.apps.tsukuru.euv.designManufacturingFlow"
+    assert calls[0][0] == "https://tsukuru.etzhayyim.com/xrpc/app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow"
     assert calls[0][1]["actor"] == "did:web:tsukuru.etzhayyim.com"
     assert calls[0][1]["production_order_id"] == "po-1"
     assert calls[0][2]["x-magatama-verified"] == "true"

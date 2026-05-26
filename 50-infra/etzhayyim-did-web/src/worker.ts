@@ -1,4 +1,13 @@
 import didDoc from "../did.json";
+import {
+  UNISPSC_HANDLES,
+  UNISPSC_GENERATED_AT,
+  UNISPSC_TOTAL_COUNT,
+} from "./registry/unispsc-handles.gen";
+import {
+  INFRA_ACTOR_HANDLES,
+  getInfraActor,
+} from "./registry/infra-actors";
 
 /**
  * etzhayyim did:web Worker + apex reverse proxy
@@ -38,11 +47,173 @@ const UPSTREAM_HOST = "yoro.etzhayyim.com";
 // Service binding name — populated from wrangler.toml [[services]] block.
 interface Env {
   YORO: Fetcher;
+  // Substrate-side XRPC adapter (rw-free reference impl). Service binding
+  // to `yoro-xrpc-adapter` — bypasses the public HTTP hop and CF Bot
+  // Management. Per ADR-2605172000: reads MUST resolve through MST/IPFS/L2,
+  // never through the etzhayyim.com PDS+AppView+RisingWave chain.
+  YORO_XRPC?: Fetcher;
   // Phase α P1 (ADR-2605212030): chain config for per-actor DID resolution.
   // Set in wrangler.toml [vars] once EtzhayyimAuthz is deployed to Base Sepolia.
   AUTHZ_CONTRACT_ADDRESS?: string;
   BASE_RPC_URL?: string;
   CHAIN_ID?: string;
+  // Per-NSID-family XRPC upstream origins (populated from wrangler.toml [vars]).
+  // New actors are added here, NOT as new subdomains — this Worker is the
+  // single etzhayyim.com endpoint per ADR-2605212030 §D2.
+  XRPC_UNISPSC_UPSTREAM?: string;
+  // AT Protocol / Bluesky stack — apex etzhayyim.com/xrpc/* proxy targets
+  // for the yoro frontend (which currently embeds relative `/xrpc/...` paths).
+  XRPC_BSKY_UPSTREAM?: string;
+  XRPC_ATPROTO_UPSTREAM?: string;
+  XRPC_CHAT_UPSTREAM?: string;
+  XRPC_etzhayyim_UPSTREAM?: string;
+}
+
+// ─── Substrate NSID alias map ──────────────────────────────────────────
+//
+// Per ADR-2605172000, app.bsky.* read NSIDs MUST resolve through the
+// MST/IPFS/L2 substrate via `yoro-xrpc-adapter` (which exposes the
+// rw-free reference impl under the `app.etzhayyim.yoro.*` NSID family). The
+// yoro frontend still sends the standard `app.bsky.*` NSIDs unchanged;
+// this Worker rewrites them to the substrate-side equivalent before
+// dispatching through the service binding.
+//
+// Reads enumerated here SHORT-CIRCUIT the etzhayyim.com PDS proxy below.
+// Writes (createRecord, like, repost, follow, etc.) still flow through
+// the legacy path until the rw-free write path lands — they are not in
+// this map.
+const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
+  "app.bsky.feed.getTimeline":     "app.etzhayyim.yoro.feed.getTimeline",
+  "app.bsky.feed.getDiscoverFeed": "app.etzhayyim.yoro.feed.getDiscoverFeed",
+  "app.bsky.feed.getAuthorFeed":   "app.etzhayyim.yoro.feed.getAuthorFeed",
+  "app.bsky.feed.getPostThread":   "app.etzhayyim.yoro.feed.getPostThread",
+  "app.bsky.actor.getProfile":     "app.etzhayyim.yoro.actor.getProfile",
+  "app.bsky.actor.searchActors":   "app.etzhayyim.yoro.actor.searchActors",
+  "app.bsky.graph.getFollowers":   "app.etzhayyim.yoro.graph.getFollowers",
+  "app.bsky.graph.getFollows":     "app.etzhayyim.yoro.graph.getFollows",
+};
+
+// Identity-passthrough prefixes that route to YORO_XRPC unchanged. Used for
+// NSID families already in their canonical rw-free shape (no app.bsky.* →
+// app.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
+const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
+  "app.etzhayyim.apps.unispsc.",
+];
+
+// ─── XRPC routing ───────────────────────────────────────────────────────
+//
+// All `/xrpc/{NSID}` requests are routed by NSID *prefix* to the upstream
+// declared in env. Keeping this as a static map (rather than a generic
+// "look up the NSID owner" call) means the Worker stays a single fetch hop
+// and a misconfigured upstream is a deploy-time error, not a runtime one.
+
+interface NsidRoute {
+  prefix: string;
+  upstream: keyof Env; // must point to a string-valued Env field
+}
+
+const XRPC_ROUTES: NsidRoute[] = [
+  { prefix: "app.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
+  // AT Protocol / Bluesky read+write (PDS handles both write paths and
+  // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
+  // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
+  { prefix: "app.bsky.",             upstream: "XRPC_ATPROTO_UPSTREAM" },
+  { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
+  { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
+  // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
+  { prefix: "app.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
+];
+
+function findXrpcRoute(nsid: string): NsidRoute | null {
+  for (const r of XRPC_ROUTES) {
+    if (nsid.startsWith(r.prefix)) return r;
+  }
+  return null;
+}
+
+async function proxyXrpc(
+  request: Request,
+  upstream: string,
+  nsid: string,
+): Promise<Response> {
+  const incoming = new URL(request.url);
+  const target = new URL(upstream);
+  // Preserve the canonical XRPC path so the upstream sees the same NSID.
+  target.pathname = `/xrpc/${nsid}`;
+  target.search = incoming.search;
+
+  // GET → POST normalization: the upstream PDS / AppView dispatcher serves
+  // every NSID (query and procedure) as POST + JSON body. AT Protocol clients
+  // (yoro included) send queries as GET with URL params. Convert the request
+  // so the upstream sees a uniform POST shape; query params become the JSON
+  // body, preserving the search string in the URL for any handler that still
+  // inspects it.
+  const isReadMethod = request.method === "GET" || request.method === "HEAD";
+  let outboundMethod = request.method;
+  let outboundBody: BodyInit | undefined = request.body ?? undefined;
+  const fwd = new Headers(request.headers);
+  if (isReadMethod) {
+    const params: Record<string, unknown> = {};
+    for (const [k, v] of incoming.searchParams.entries()) {
+      const existing = params[k];
+      if (existing === undefined) {
+        params[k] = v;
+      } else if (Array.isArray(existing)) {
+        existing.push(v);
+      } else {
+        params[k] = [existing, v];
+      }
+    }
+    outboundMethod = "POST";
+    outboundBody = JSON.stringify(params);
+    fwd.set("content-type", "application/json");
+    // content-length will be set by fetch from the new body; remove any stale value.
+    fwd.delete("content-length");
+  }
+  stripIncomingCookies(fwd);
+  fwd.set("x-forwarded-host", "etzhayyim.com");
+  fwd.set("x-forwarded-proto", "https");
+  fwd.set("x-forwarded-method", request.method);
+  fwd.set("x-etzhayyim-nsid", nsid);
+
+  try {
+    const upstreamResp = await fetch(target.toString(), {
+      method: outboundMethod,
+      headers: fwd,
+      body:
+        outboundMethod === "GET" || outboundMethod === "HEAD"
+          ? undefined
+          : outboundBody,
+      redirect: "manual",
+    });
+    const respHeaders = new Headers(upstreamResp.headers);
+    for (const h of STRIPPED_RESPONSE_HEADERS) respHeaders.delete(h);
+    respHeaders.set("x-proxied-by", "etzhayyim-did-web");
+    respHeaders.set("x-proxied-upstream", upstream);
+    respHeaders.set("x-etzhayyim-no-cookie", "1");
+    applyApexSecurityHeaders(respHeaders, target.pathname);
+    return new Response(upstreamResp.body, {
+      status: upstreamResp.status,
+      statusText: upstreamResp.statusText,
+      headers: respHeaders,
+    });
+  } catch (err) {
+    return new Response(
+      JSON.stringify({
+        error: "UpstreamUnreachable",
+        message:
+          err instanceof Error ? err.message : "xrpc upstream fetch failed",
+        nsid,
+      }),
+      {
+        status: 502,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "x-proxied-by": "etzhayyim-did-web",
+        },
+      },
+    );
+  }
 }
 
 // ─── Per-actor DID Document ─────────────────────────────────────────────
@@ -52,10 +223,34 @@ interface Env {
 // `<handle>.etzhayyim.com` is also a valid DNS name).
 const HANDLE_REGEX = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
 
+// Namespaced handles MUST exist in a known registry. unispsc actors are
+// `c\d{6,12}` per the unispsc_agents/c{code}.py filename convention.
+// Other namespaces (e.g. ISIC, future taxonomies) get their own regex +
+// registry entry as they come online.
+const UNISPSC_HANDLE_SHAPE = /^c\d{6,12}$/;
+
+function isNamespacedHandle(handle: string): boolean {
+  return UNISPSC_HANDLE_SHAPE.test(handle);
+}
+
+function isKnownHandle(handle: string): boolean {
+  if (UNISPSC_HANDLE_SHAPE.test(handle)) return UNISPSC_HANDLES.has(handle);
+  // Infra-actor registry — collapses the 8 per-actor Workers (pinner /
+  // esign / audit / dataset-pinner / pds / anchorer / projector /
+  // karute) to a single path-based DID Doc surface. Per ADR-2605241800
+  // §Phase A.
+  if (INFRA_ACTOR_HANDLES.has(handle)) return true;
+  // Free-form handles (not yet in a registry) are permitted during Phase α
+  // so council seats / human members can resolve without a registry round-trip.
+  return true;
+}
+
 function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> {
   const pathBasedDid = `did:web:etzhayyim.com:actor:${handle}`;
   const subdomainDid = `did:web:${handle}.etzhayyim.com`;
   const alsoKnownAs: string[] = [subdomainDid];
+  const registered = isNamespacedHandle(handle);
+  const infraActor = getInfraActor(handle);
 
   // When chain integration lands, embed the did:erc725:base form by reading
   // EtzhayyimAuthz.resolveDwebHandle(keccak256("<handle>.etzhayyim.com")).
@@ -65,6 +260,26 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
       `did:erc725:base:${env.AUTHZ_CONTRACT_ADDRESS}#__rootId-pending-chain-lookup__`,
     );
   }
+
+  // Default service[] (Phase α P1 — chain lookup placeholder). Infra
+  // actors override this entirely with their declared service set
+  // (PDS endpoint, libp2p Multiaddr, HTTPS legacy fallback).
+  const defaultService: Record<string, unknown>[] = [
+    {
+      id: `${pathBasedDid}#etzhayyim-authz`,
+      type: "EtzhayyimAuthzResolver",
+      serviceEndpoint: env.AUTHZ_CONTRACT_ADDRESS
+        ? `https://authz.etzhayyim.com/xrpc/org.etzhayyim.authz.resolveRoot?dwebHandle=${encodeURIComponent(handle)}.etzhayyim.com`
+        : null,
+    },
+  ];
+  const service = infraActor
+    ? (infraActor.service as Record<string, unknown>[])
+    : defaultService;
+
+  const adrs = infraActor
+    ? ["2605212030", "2605241800", ...infraActor.adrs]
+    : ["2605212030", "2605171800"];
 
   return {
     "@context": [
@@ -77,18 +292,20 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
     // when chain integration lands. Phase α P1 scaffold returns an empty array
     // so the document validates against W3C DID Core minimal requirements.
     verificationMethod: [],
-    service: [
-      {
-        id: `${pathBasedDid}#etzhayyim-authz`,
-        type: "EtzhayyimAuthzResolver",
-        serviceEndpoint: env.AUTHZ_CONTRACT_ADDRESS
-          ? `https://authz.etzhayyim.com/xrpc/org.etzhayyim.authz.resolveRoot?dwebHandle=${encodeURIComponent(handle)}.etzhayyim.com`
-          : null,
-      },
-    ],
+    service,
     _meta: {
-      adr: "2605212030",
-      phase: "α P1 scaffold",
+      adr: adrs,
+      phase: infraActor ? "Phase A (infra-actor)" : "α P1 scaffold",
+      kind: infraActor ? "infra-actor" : registered ? "unispsc-actor" : "free-form",
+      description: infraActor?.description,
+      primaryLexicon: infraActor?.primaryLexicon,
+      registry: registered
+        ? {
+            lexicon: "app.etzhayyim.apps.unispsc",
+            generatedAt: UNISPSC_GENERATED_AT,
+            totalCount: UNISPSC_TOTAL_COUNT,
+          }
+        : null,
       note: env.AUTHZ_CONTRACT_ADDRESS
         ? "rootId placeholder in alsoKnownAs[1] is pending on-chain lookup wiring"
         : "AUTHZ_CONTRACT_ADDRESS not configured; alsoKnownAs[did:erc725:base] omitted",
@@ -96,16 +313,39 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
   };
 }
 
-// Headers we strip from the upstream response before sending to the client.
-// `set-cookie` is dropped because the cookie domain would be wrong
-// (yoro.etzhayyim.com), and we don't want cross-domain cookie shenanigans.
+// Headers we strip from the upstream response. `set-cookie` is dropped because
+// etzhayyim.com is a cookie-free zone by constitutional design — see
+// /CHARTER-RIDER.md §2(c) (no surveillance / trackers) + ADR-2605172000
+// (RW-free substrate, identity = DID + WebAuthn, not cookies).
 const STRIPPED_RESPONSE_HEADERS = new Set([
   "set-cookie",
-  "content-security-policy",      // upstream CSP may reference yoro.etzhayyim.com
+  "content-security-policy",
   "content-security-policy-report-only",
-  "strict-transport-security",    // we set our own
+  "strict-transport-security",
   "alt-svc",
 ]);
+
+// Outgoing-request headers to strip. `cookie` dropped so upstream never sees
+// browser cookies that leaked in from a sibling subdomain.
+const STRIPPED_REQUEST_HEADERS = ["cookie", "host"] as const;
+
+const PERMISSIONS_POLICY = "interest-cohort=(), browsing-topics=()";
+
+// `"cookies"` only — we don't wipe localStorage / OPFS / IndexedDB that the
+// yoro SPA depends on.
+const CLEAR_COOKIE_PATHS = new Set(["/", "/privacy"]);
+
+function applyApexSecurityHeaders(headers: Headers, pathname: string): void {
+  headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
+  headers.set("permissions-policy", PERMISSIONS_POLICY);
+  if (CLEAR_COOKIE_PATHS.has(pathname)) {
+    headers.set("clear-site-data", '"cookies"');
+  }
+}
+
+function stripIncomingCookies(headers: Headers): void {
+  for (const h of STRIPPED_REQUEST_HEADERS) headers.delete(h);
+}
 
 function buildUpstreamRequest(request: Request): Request {
   const upstreamUrl = new URL(request.url);
@@ -114,7 +354,7 @@ function buildUpstreamRequest(request: Request): Request {
   upstreamUrl.port = "";
 
   const fwdHeaders = new Headers(request.headers);
-  fwdHeaders.delete("host");
+  stripIncomingCookies(fwdHeaders);
   fwdHeaders.set("x-forwarded-host", "etzhayyim.com");
   fwdHeaders.set("x-forwarded-proto", "https");
 
@@ -126,20 +366,16 @@ function buildUpstreamRequest(request: Request): Request {
   });
 }
 
-function rewriteUpstreamResponse(upstream: Response): Response {
+function rewriteUpstreamResponse(upstream: Response, pathname: string): Response {
   const headers = new Headers(upstream.headers);
   for (const h of STRIPPED_RESPONSE_HEADERS) headers.delete(h);
 
-  // Our own HSTS — long max-age, includeSubDomains so did:web subdomain
-  // resolution stays HTTPS-only.
-  headers.set("strict-transport-security", "max-age=31536000; includeSubDomains");
+  applyApexSecurityHeaders(headers, pathname);
 
-  // Mark proxy hop so debugging is easier.
   headers.set("x-proxied-by", "etzhayyim-did-web");
   headers.set("x-proxied-upstream", UPSTREAM_HOST);
+  headers.set("x-etzhayyim-no-cookie", "1");
 
-  // If upstream returned a redirect with a yoro.etzhayyim.com Location, rewrite it
-  // to keep the user on etzhayyim.com.
   const loc = headers.get("location");
   if (loc) {
     try {
@@ -182,6 +418,8 @@ export default {
           "access-control-allow-origin": "*",
           "x-content-type-options": "nosniff",
           "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
         },
       });
     }
@@ -207,6 +445,23 @@ export default {
             { status: 400, headers: { "content-type": "application/json; charset=utf-8" } },
           );
         }
+        if (!isKnownHandle(handle)) {
+          return new Response(
+            JSON.stringify({
+              error: "HandleNotInRegistry",
+              message: `handle '${handle}' matches a namespaced registry shape but is not registered`,
+              registry: "app.etzhayyim.apps.unispsc",
+              registryTotalCount: UNISPSC_TOTAL_COUNT,
+            }),
+            {
+              status: 404,
+              headers: {
+                "content-type": "application/json; charset=utf-8",
+                "cache-control": "public, max-age=60, must-revalidate",
+              },
+            },
+          );
+        }
         const doc = buildPerActorDidDoc(handle, env);
         return new Response(JSON.stringify(doc, null, 2) + "\n", {
           status: 200,
@@ -218,19 +473,129 @@ export default {
             "access-control-allow-origin": "*",
             "x-content-type-options": "nosniff",
             "strict-transport-security": "max-age=31536000; includeSubDomains",
+            "permissions-policy": PERMISSIONS_POLICY,
+            "x-etzhayyim-no-cookie": "1",
           },
         });
       }
     }
 
     // ──────────────────────────────────────────────────────────────────
-    // 3) All other paths — reverse-proxy to the yoro Worker via service
+    // 3) XRPC routing — `/xrpc/{NSID}` proxied by NSID prefix to the
+    //    registered upstream (langserver pod, MCP gateway, etc.). One
+    //    Worker handles every actor; new actors are added by appending
+    //    to XRPC_ROUTES rather than spinning up a new subdomain.
+    //
+    //    Substrate short-circuit: if the NSID has a rw-free equivalent
+    //    (see SUBSTRATE_NSID_ALIASES) and the YORO_XRPC service binding
+    //    is configured, route to the adapter instead of the etzhayyim.com
+    //    upstream. Per ADR-2605172000, reads MUST resolve through MST.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      const m = url.pathname.match(/^\/xrpc\/([A-Za-z0-9._-]+)$/);
+      if (m) {
+        const nsid = m[1];
+
+        const aliasedNsid = SUBSTRATE_NSID_ALIASES[nsid];
+        const passthrough =
+          !aliasedNsid &&
+          SUBSTRATE_PASSTHROUGH_PREFIXES.some((p) => nsid.startsWith(p));
+        const substrateNsid = aliasedNsid ?? (passthrough ? nsid : undefined);
+        if (substrateNsid && env.YORO_XRPC) {
+          const substrateUrl = new URL(request.url);
+          substrateUrl.pathname = `/xrpc/${substrateNsid}`;
+          const fwd = new Headers(request.headers);
+          stripIncomingCookies(fwd);
+          fwd.set("x-forwarded-host", "etzhayyim.com");
+          fwd.set("x-forwarded-proto", "https");
+          fwd.set("x-etzhayyim-nsid", nsid);
+          fwd.set("x-etzhayyim-substrate-nsid", substrateNsid);
+          try {
+            const upstreamResp = await env.YORO_XRPC.fetch(
+              new Request(substrateUrl.toString(), {
+                method: request.method,
+                headers: fwd,
+                body:
+                  request.method === "GET" || request.method === "HEAD"
+                    ? undefined
+                    : request.body,
+                redirect: "manual",
+              }),
+            );
+            const respHeaders = new Headers(upstreamResp.headers);
+            for (const h of STRIPPED_RESPONSE_HEADERS) respHeaders.delete(h);
+            respHeaders.set("x-proxied-by", "etzhayyim-did-web");
+            respHeaders.set("x-proxied-upstream", "service:yoro-xrpc-adapter");
+            respHeaders.set("x-etzhayyim-substrate", "mst-ipfs-l2");
+            respHeaders.set("x-etzhayyim-no-cookie", "1");
+            applyApexSecurityHeaders(respHeaders, substrateUrl.pathname);
+            return new Response(upstreamResp.body, {
+              status: upstreamResp.status,
+              statusText: upstreamResp.statusText,
+              headers: respHeaders,
+            });
+          } catch (err) {
+            return new Response(
+              JSON.stringify({
+                error: "SubstrateUnreachable",
+                message:
+                  err instanceof Error
+                    ? err.message
+                    : "yoro-xrpc-adapter service binding fetch failed",
+                nsid,
+                substrateNsid,
+              }),
+              {
+                status: 502,
+                headers: {
+                  "content-type": "application/json; charset=utf-8",
+                  "x-proxied-by": "etzhayyim-did-web",
+                  "x-proxied-upstream": "service:yoro-xrpc-adapter",
+                },
+              },
+            );
+          }
+        }
+
+        const route = findXrpcRoute(nsid);
+        if (!route) {
+          return new Response(
+            JSON.stringify({
+              error: "MethodNotImplemented",
+              message: `no upstream registered for NSID '${nsid}'`,
+            }),
+            {
+              status: 501,
+              headers: { "content-type": "application/json; charset=utf-8" },
+            },
+          );
+        }
+        const upstream = env[route.upstream] as string | undefined;
+        if (!upstream) {
+          return new Response(
+            JSON.stringify({
+              error: "UpstreamNotConfigured",
+              message: `env.${String(route.upstream)} is empty`,
+              nsid,
+            }),
+            {
+              status: 503,
+              headers: { "content-type": "application/json; charset=utf-8" },
+            },
+          );
+        }
+        return proxyXrpc(request, upstream, nsid);
+      }
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // 4) All other paths — reverse-proxy to the yoro Worker via service
     // binding (env.YORO). This bypasses the CF edge/Bot Management block
     // that public-HTTP fetch hits inside the same zone.
     // ──────────────────────────────────────────────────────────────────
     try {
       const upstream = await env.YORO.fetch(buildUpstreamRequest(request));
-      return rewriteUpstreamResponse(upstream);
+      return rewriteUpstreamResponse(upstream, url.pathname);
     } catch (err) {
       return new Response(
         `Service binding fetch to magatama-yoro failed: ${err instanceof Error ? err.message : String(err)}`,
@@ -245,4 +610,4 @@ export default {
       );
     }
   },
-} satisfies ExportedHandler;
+} satisfies ExportedHandler<Env>;

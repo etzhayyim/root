@@ -1,5 +1,5 @@
 /**
- * @gftd/vectorization
+ * @etzhayyim/vectorization
  * Embedding/vector index orchestration interfaces.
  */
 

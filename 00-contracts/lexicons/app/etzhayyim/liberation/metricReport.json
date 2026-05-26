@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.liberation.metricReport",
+  "description": "Quarterly Liberation Metric aggregate report (no PII). Mission KPI for ADR-2605261000 §4. Published by ChartersComplianceRegistry.reportLiberationMetric(). Aggregation enforced structurally (cf. ADR-2605260215 yakushi cross-actor AE aggregation pattern).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reportingQuarter": {"type": "string", "description": "ISO quarter format e.g. 2027-Q1"},
+          "stage": {"type": "string", "knownValues": ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]},
+          "adherentsAtStage": {"type": "integer"},
+          "aggregateLaborHoursReduction": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "wageLaborMedianHrsWk": {"type": "number"},
+              "subsistenceLaborMedianHrsWk": {"type": "number"},
+              "totalReductionMedianHrsWk": {"type": "number"},
+              "targetReductionForStage": {"type": "number"},
+              "achievementRatio": {"type": "number", "description": "totalReduction / targetReduction; stage advances only at ≥0.8 × 2 consecutive quarters"}
+            },
+            "required": ["wageLaborMedianHrsWk", "subsistenceLaborMedianHrsWk", "totalReductionMedianHrsWk", "targetReductionForStage", "achievementRatio"]
+          },
+          "wellbecomingFailureRate": {"type": "number", "description": "Fraction of adherents currently on stage-hold for Wellbecoming attestation failure"},
+          "exitRate": {"type": "number", "description": "Voluntary stage-exit rate for the quarter"},
+          "publicFundReserveUsdc": {"type": "number", "description": "Current Public Fund USDC reserve vs §3 sizing target"},
+          "attestationCid": {"type": "string"},
+          "councilAttestation": {"type": "array", "items": {"type": "string"}, "minItems": 3, "description": "Council Lv6+ ≥3 sign-off"}
+        },
+        "required": ["reportingQuarter", "stage", "adherentsAtStage", "aggregateLaborHoursReduction", "publicFundReserveUsdc", "attestationCid", "councilAttestation"]
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 // DNS-only A record: lg-animeka.etzhayyim.com → 108.61.207.153 (nginx Ingress, mitama-udf).
 // CF Workers override the host header with the URL hostname, so we use the hostname directly.
 const LG_ANIMEKA_BASE = 'http://lg-animeka.etzhayyim.com';
-const NSID_PREFIX = 'ai.gftd.animeka.';
+const NSID_PREFIX = 'app.etzhayyim.animeka.';
 
 function noStore(body: unknown, init: ResponseInit = {}): Response {
 	const headers = new Headers(typeof init.headers === 'object' ? init.headers : {});

@@ -47,7 +47,7 @@ HS はこの repo において次の位置に置く。
 `ai-gftd-project-code-hs` は **1 app × multi-DID** を基本とする。
 
 - primary DID: `did:web:hs.etzhayyim.com`
-- NSID prefix: `ai.gftd.apps.hs.*`
+- NSID prefix: `app.etzhayyim.apps.hs.*`
 - performerType: `service`
 - execution tier: `T1`
 
@@ -175,12 +175,12 @@ write の主境界は以下とする。
 
 | Collection | NSID | Writer DID |
 |---|---|---|
-| taxonomy node | `ai.gftd.apps.hs.node` | primary DID |
-| concordance | `ai.gftd.apps.hs.concordance` | primary DID |
-| trade evidence | `ai.gftd.apps.hs.tradeEvidence` | heading/subheading DID |
-| policy overlay | `ai.gftd.apps.hs.policyOverlay` | country DID |
-| coverage report | `ai.gftd.apps.hs.coverageReport` | chapter/heading/subheading DID |
-| revision delta | `ai.gftd.apps.hs.revisionDelta` | revision DID |
+| taxonomy node | `app.etzhayyim.apps.hs.node` | primary DID |
+| concordance | `app.etzhayyim.apps.hs.concordance` | primary DID |
+| trade evidence | `app.etzhayyim.apps.hs.tradeEvidence` | heading/subheading DID |
+| policy overlay | `app.etzhayyim.apps.hs.policyOverlay` | country DID |
+| coverage report | `app.etzhayyim.apps.hs.coverageReport` | chapter/heading/subheading DID |
+| revision delta | `app.etzhayyim.apps.hs.revisionDelta` | revision DID |
 
 ## Query Surface
 
@@ -188,12 +188,12 @@ write の主境界は以下とする。
 
 | NSID | Purpose |
 |---|---|
-| `ai.gftd.apps.hs.getNode` | code から taxonomy node 取得 |
-| `ai.gftd.apps.hs.getChildren` | 子ノード一覧 |
-| `ai.gftd.apps.hs.resolveConcordance` | GTIN/CPC/ISIC から HS 推定 |
-| `ai.gftd.apps.hs.getCoverage` | coverage snapshot |
-| `ai.gftd.apps.hs.getPolicyOverlay` | 国別 tariff / restriction 概要 |
-| `ai.gftd.apps.hs.health` | actor health |
+| `app.etzhayyim.apps.hs.getNode` | code から taxonomy node 取得 |
+| `app.etzhayyim.apps.hs.getChildren` | 子ノード一覧 |
+| `app.etzhayyim.apps.hs.resolveConcordance` | GTIN/CPC/ISIC から HS 推定 |
+| `app.etzhayyim.apps.hs.getCoverage` | coverage snapshot |
+| `app.etzhayyim.apps.hs.getPolicyOverlay` | 国別 tariff / restriction 概要 |
+| `app.etzhayyim.apps.hs.health` | actor health |
 
 ## Revision Strategy
 

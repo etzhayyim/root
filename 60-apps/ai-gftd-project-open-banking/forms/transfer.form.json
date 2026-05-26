@@ -3,7 +3,7 @@
   "formKey": "openBanking.transfer.v1",
   "name": "Transfer Funds",
   "version": 1,
-  "lexiconRef": "ai.gftd.apps.openBanking.transfer",
+  "lexiconRef": "app.etzhayyim.apps.openBanking.transfer",
   "components": [
     {
       "key": "fromAccountDid",

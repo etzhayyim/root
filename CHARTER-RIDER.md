@@ -108,6 +108,24 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        to populations without provision for the wellbecoming-trajectory of
        cognitive sovereignty of those populations.
 
+   (i) COMMERCIAL GPU RENTAL FOR RELIGIOUS-CORP INFERENCE (added in v2.0).
+       etzhayyim inference workloads for religious-corp callable paths (LLM,
+       vision, audio, video, training, fine-tuning, embedding, SAR analysis)
+       MUST execute exclusively on the Murakumo distributed fleet as defined in
+       ADR-2605202345 and deployed per ADR-2605215000 (Mac mini cluster +
+       EVO-X2 LAN inference pod). Prohibited GPU backends: RunPod, Vertex AI
+       direct-to-vendor, OpenAI direct without Murakumo proxy gateway,
+       Anthropic SDK direct from vendor-billed key, AWS Bedrock direct,
+       Linode GPU, Google Colab paid compute, any commercial or rented GPU
+       inference service accessed without the Murakumo dispatch layer. The
+       vendor (etzhayyim.com) operates a separate commercial GPU pool for
+       paid SaaS workloads; religious-corp callers MUST NOT invoke vendor
+       RunPod or equivalent external GPU paths (consent-capability enforcement
+       operates at runtime to ensure adherence). This invariant cannot be
+       amended without Council Lv6+ supermajority (≥4 of 7 seats) plus
+       thirty (30) day public objection period (ref. ADR-2605172600 Council
+       governance).
+
 3. EFFECT OF VIOLATION
 
    Use of this work by a Non-Aligned Entity, or by any entity providing this
@@ -162,7 +180,7 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
 
    Disputes regarding whether an entity is a Non-Aligned Entity under Section 2
    shall be resolved by the etzhayyim Council (Lv6+ per ADR-2605172600) via an
-   on-chain attestation record (ai.gftd.apps.etzhayyim.charter-attestation).
+   on-chain attestation record (app.etzhayyim.apps.etzhayyim.charter-attestation).
    Such attestation creates a public determination but does not preclude
    parallel judicial proceedings under applicable law. Council attestations
    require quorum of three (3) Lv6+ members and are appealable by the

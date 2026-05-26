@@ -26,3 +26,5 @@ graph.add_edge('validate', 'integrity_check')
 graph.add_edge('integrity_check', END)
 graph.set_entry_point('validate')
 graph.set_entry_point('validate')
+
+graph = graph.compile()

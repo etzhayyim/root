@@ -1,5 +1,5 @@
 /**
- * Client for `ai.gftd.mangaka.composeScene3d` — calls the LangGraph
+ * Client for `app.etzhayyim.mangaka.composeScene3d` — calls the LangGraph
  * pod's `/xrpc/{nsid}` endpoint, fetches the chosen render's PNG from B2,
  * writes it to a local temp file so the existing `edit()` helper (which
  * takes file paths) can consume it.
@@ -63,7 +63,7 @@ export interface ComposeScene3dOutput {
 }
 
 /**
- * POST `/xrpc/ai.gftd.mangaka.composeScene3d` against the lg-mangaka
+ * POST `/xrpc/app.etzhayyim.mangaka.composeScene3d` against the lg-mangaka
  * pod. The pod's dispatcher routes the NSID through its `_TOOL_NSID_TO_HANDLER`
  * or its langgraph runs path, depending on what's wired up — the M3
  * client doesn't care which, only the response shape.
@@ -73,7 +73,7 @@ export interface ComposeScene3dOutput {
  *         back to the M2 path.
  */
 export async function composeScene3d(input: ComposeScene3dInput): Promise<ComposeScene3dOutput> {
-  const url = `${_podBase()}/xrpc/ai.gftd.mangaka.composeScene3d`;
+  const url = `${_podBase()}/xrpc/app.etzhayyim.mangaka.composeScene3d`;
   const headers: Record<string, string> = { "Content-Type": "application/json" };
   const apiKey = _apiKey();
   if (apiKey) headers["x-api-key"] = apiKey;

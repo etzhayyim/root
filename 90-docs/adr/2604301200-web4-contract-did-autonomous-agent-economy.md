@@ -352,8 +352,8 @@ Minimum rollout:
    `AGENT_RUNTIME_LEASE_ESCROW_ADDR`, `GCC_ADDR`, `ETH_RPC_URL`, and
    `PRIVATE_KEY`.
 5. Add atproto collections:
-   `ai.gftd.agent.economy.profile`, `ai.gftd.agent.runtimeLease`,
-   `ai.gftd.agent.incomeEvent`, `ai.gftd.agent.orgLineage`.
+   `app.etzhayyim.agent.economy.profile`, `app.etzhayyim.agent.runtimeLease`,
+   `app.etzhayyim.agent.incomeEvent`, `app.etzhayyim.agent.orgLineage`.
 6. Start with Pattern A/B only. Enable Pattern C after 30 days of clean
    receipts and a live slash/appeal path.
 

@@ -20,3 +20,5 @@ graph = StateGraph(BatteryCabinetState)
 graph.add_node('validate', validate_enclosure_specs)
 graph.add_edge('validate', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

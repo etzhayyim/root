@@ -89,15 +89,15 @@ else
       -d "$body" || echo ""
   }
 
-  R1=$(call_xrpc "ai.gftd.apps.warehouse.registerSku" \
+  R1=$(call_xrpc "app.etzhayyim.apps.warehouse.registerSku" \
     "{\"skuCode\":\"$SKU\",\"description\":\"smoke sku\",\"unitOfMeasure\":\"EA\",\"weightKg\":\"1.0\"}")
   if [[ "$R1" == *'"ok":true'* ]]; then pass "registerSku → ok"; else fail "registerSku → $R1"; fi
 
-  R2=$(call_xrpc "ai.gftd.apps.warehouse.putaway" \
+  R2=$(call_xrpc "app.etzhayyim.apps.warehouse.putaway" \
     "{\"skuCode\":\"$SKU\",\"quantity\":50}")
   if [[ "$R2" == *'"ok":true'* ]]; then pass "putaway → ok"; else fail "putaway → $R2"; fi
 
-  R3=$(call_xrpc "ai.gftd.apps.warehouse.pick" \
+  R3=$(call_xrpc "app.etzhayyim.apps.warehouse.pick" \
     "{\"orderId\":\"$ORDER_ID\",\"skuCode\":\"$SKU\",\"quantity\":5}")
   if [[ "$R3" == *'"ok":true'* ]]; then pass "pick → ok"; else fail "pick → $R3"; fi
 
@@ -105,7 +105,7 @@ else
 
   hdr "Step 3: yard-ops XRPC dispatch"
 
-  R4=$(call_xrpc "ai.gftd.apps.yardOps.checkInTrailer" \
+  R4=$(call_xrpc "app.etzhayyim.apps.yardOps.checkInTrailer" \
     "{\"trailerPlate\":\"$TRAILER_PLATE\",\"carrierDid\":\"did:web:smoke-carrier.etzhayyim.com\"}")
   if [[ "$R4" == *'"ok":true'* ]]; then pass "checkInTrailer → ok"; else fail "checkInTrailer → $R4"; fi
 
@@ -113,13 +113,13 @@ else
   if [[ -z "$TRAILER_VID" ]]; then
     warn "trailer vertexId missing — skipping assignDoor / completeDockJob"
   else
-    R5=$(call_xrpc "ai.gftd.apps.yardOps.assignDoor" \
+    R5=$(call_xrpc "app.etzhayyim.apps.yardOps.assignDoor" \
       "{\"trailerVertexId\":\"$TRAILER_VID\",\"direction\":\"inbound\",\"loadPlanRef\":\"$ORDER_ID\"}")
     if [[ "$R5" == *'"ok":true'* ]]; then pass "assignDoor → ok"; else fail "assignDoor → $R5"; fi
 
     JOB_VID=$(echo "$R5" | sed -n 's/.*"vertexId":"\([^"]*\)".*/\1/p')
     if [[ -n "$JOB_VID" ]]; then
-      R6=$(call_xrpc "ai.gftd.apps.yardOps.completeDockJob" \
+      R6=$(call_xrpc "app.etzhayyim.apps.yardOps.completeDockJob" \
         "{\"dockJobVertexId\":\"$JOB_VID\",\"actualDurationMin\":42}")
       if [[ "$R6" == *'"ok":true'* ]]; then pass "completeDockJob → ok"; else fail "completeDockJob → $R6"; fi
     fi

@@ -118,7 +118,7 @@ magatama Pregel cells に新規 cell 追加:
   README.md
 ```
 
-Adherent SBT holder が自身の寄付土地に対する agronomy advice を取得できる。advice は AT Record として永続化される (`ai.gftd.apps.etzhayyim.agronomy-advisory` Lexicon, future)。
+Adherent SBT holder が自身の寄付土地に対する agronomy advice を取得できる。advice は AT Record として永続化される (`app.etzhayyim.apps.etzhayyim.agronomy-advisory` Lexicon, future)。
 
 ## 残る 4 産業の future ADR
 

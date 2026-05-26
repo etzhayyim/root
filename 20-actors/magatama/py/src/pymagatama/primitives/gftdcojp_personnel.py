@@ -43,7 +43,7 @@ def _now_iso() -> str:
 
 def _vid(kind: str) -> str:
     stamp = _dt.datetime.now(tz=_dt.UTC).strftime("%Y%m%d%H%M%S")
-    return f"at://{_OWNER_DID}/ai.gftd.apps.etzhayyim.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
+    return f"at://{_OWNER_DID}/app.etzhayyim.apps.etzhayyim.{kind}/{stamp}-{uuid.uuid4().hex[:8]}"
 
 def _query(sql_str: str, params: dict | None = None) -> list[dict]:
     try:
@@ -186,7 +186,7 @@ async def task_etzhayyim_personnel_load_profile(
 # ── Task: minimaxScore (worst-case + Ω-axis evaluation) ────────────────────────
 
 _MINIMAX_SYSTEM = """You are the minimax scorer for etzhayyim.etzhayyim.com personnel
-decisions. Principal: etzhayyim. Vendor: Gftd Japan株式会社.
+decisions. Principal: etzhayyim. Vendor: etzhayyim Japan株式会社.
 
 Inputs: person profile bundle (skill/bio/career/profile) + candidate target
 (role/project/contract path) + decision_kind.

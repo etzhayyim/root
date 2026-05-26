@@ -27,7 +27,7 @@ Apply the canonical Salesforce → W Protocol mapping (deliver as `migration/map
 
 | Salesforce object / field | W Protocol lexicon / field | Tier |
 |---|---|---|
-| Account.Name | `ai.gftd.apps.opensaas.salesforce.account.name` | 1 |
+| Account.Name | `app.etzhayyim.apps.opensaas.salesforce.account.name` | 1 |
 | Account.Industry → ISIC rev4 lookup | `.industry` | 1 |
 | Account.AnnualRevenue → band | `.annualRevenueJpyBand` | 1 (exact → Tier 3) |
 | Contact.Email → `sha256(lower)` | `.emailHash` + raw to Tier 3 | 1/3 |
@@ -37,7 +37,7 @@ Apply the canonical Salesforce → W Protocol mapping (deliver as `migration/map
 | Opportunity.Amount (JPY) | `.amountJpy` + `.amountBand` | 1 |
 | Opportunity.CloseDate | `.closeDate` | 1 |
 | Case.Status / Priority / Origin | `.status` / `.priority` / `.origin` | 1 |
-| Task/Event/EmailMessage | `ai.gftd.apps.opensaas.salesforce.activity` with `source=import` | 1 |
+| Task/Event/EmailMessage | `app.etzhayyim.apps.opensaas.salesforce.activity` with `source=import` | 1 |
 | User (22 seats) | seat DID + WebAuthn passkey | identity |
 
 Rule: any field not in the map table is dropped, not guessed. Customer reviews the dropped-field list before proceeding (target: ≤ 3% drop).
@@ -46,7 +46,7 @@ Rule: any field not in the map table is dropped, not guessed. Customer reviews t
 - Run `gftd opensaas migrate sfdc --in sfdc_export.zip --map migration/map.jsonl --tenant did:web:acme.opensaas.etzhayyim.com --parallel 8`.
 - Ingest order (matters — foreign keys resolve in-order):
   1. Users → seat DIDs (WebAuthn enrollment email queued, passkeys set Monday).
-  2. Accounts (`createRecord` → `ai.gftd.apps.opensaas.salesforce.account`).
+  2. Accounts (`createRecord` → `app.etzhayyim.apps.opensaas.salesforce.account`).
   3. Contacts (hashed + Tier-3 stash in one vault write per contact).
   4. Leads.
   5. Opportunities (skip activities; they derive from later stage-change events).
@@ -68,9 +68,9 @@ Rule: any field not in the map table is dropped, not guessed. Customer reviews t
 - Diff report goes to customer; they sign off in writing before Sunday 18:00.
 
 ### Sunday 18:00–Monday 08:00 — integration wiring
-- SAP S/4 → open-salesforce: inbound webhook → `createRecord(ai.gftd.apps.opensaas.salesforce.opportunity)` on win, updates `account.type` to `customer-direct`.
+- SAP S/4 → open-salesforce: inbound webhook → `createRecord(app.etzhayyim.apps.opensaas.salesforce.opportunity)` on win, updates `account.type` to `customer-direct`.
 - HubSpot Marketing → `createLead` XRPC with `source=web-form` and pre-hashed email.
-- Outbound: subscribe a BI Worker to `ai.gftd.apps.opensaas.salesforce.*` commit stream → customer's BigQuery (they keep their existing dashboards).
+- Outbound: subscribe a BI Worker to `app.etzhayyim.apps.opensaas.salesforce.*` commit stream → customer's BigQuery (they keep their existing dashboards).
 
 ### Monday 08:00–09:00 — seat activation
 - Bulk-mail 22 enrollment links (from Tier-3 vault — *not* from the AT record). Each seat completes WebAuthn registration → passkey stored in their device Keychain / authenticator. Seat DID activates on first passkey auth.

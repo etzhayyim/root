@@ -2,8 +2,8 @@
 
 This is intentionally dispatcher-facing. It verifies the rollout contract:
 
-1. /bindings exposes ai.gftd.apps.shosha.agentLoop as routingTarget=langgraph.
-2. /xrpc/ai.gftd.apps.shosha.agentLoop returns a LangGraph async run handle.
+1. /bindings exposes app.etzhayyim.apps.shosha.agentLoop as routingTarget=langgraph.
+2. /xrpc/app.etzhayyim.apps.shosha.agentLoop returns a LangGraph async run handle.
 
 It does not require direct RisingWave access and does not assume the caller can
 reach the LangGraph Server service directly.
@@ -19,7 +19,7 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Any
 
-NSID = "ai.gftd.apps.shosha.agentLoop"
+NSID = "app.etzhayyim.apps.shosha.agentLoop"
 ASSISTANT_ID = "shosha_agent_loop"
 ACTOR_DID = "did:web:shosha.etzhayyim.com"
 USER_AGENT = "shosha-langgraph-smoke/1 (+https://shosha.etzhayyim.com)"

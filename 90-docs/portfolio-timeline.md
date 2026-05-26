@@ -20,7 +20,7 @@ related:
 
 **Framework**: DoDAF v2 / PV-2 Project Timeline viewpoint  
 **Operating entity**: etzhayyim (alias: etzhayyim / 天御柱 / עץ חיים)  
-**Vendor**: Gftd Japan株式会社  
+**Vendor**: etzhayyim Japan株式会社  
 **Baseline date**: 2026-05-20 (iter 160)
 
 ---

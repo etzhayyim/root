@@ -11,11 +11,11 @@
 </script>
 
 <div
-	class="mx-auto max-w-xl rounded-2xl border border-gftd-border bg-gftd-card p-8 shadow-xl"
+	class="mx-auto max-w-xl rounded-2xl border border-etzhayyim-border bg-gftd-card p-8 shadow-xl"
 >
-	<h1 class="text-2xl font-semibold text-gftd-text">Welcome to yatabase Studio</h1>
-	<p class="mt-2 text-sm text-gftd-secondary">
-		Paste the <code class="rounded bg-black/40 px-1 py-0.5 text-gftd-text"
+	<h1 class="text-2xl font-semibold text-etzhayyim-text">Welcome to yatabase Studio</h1>
+	<p class="mt-2 text-sm text-etzhayyim-secondary">
+		Paste the <code class="rounded bg-black/40 px-1 py-0.5 text-etzhayyim-text"
 			>sk_live_yata_*</code
 		> API key you got when you signed up. It stays in your browser (localStorage); we don't
 		send it anywhere except yatabase.etzhayyim.com itself.
@@ -52,7 +52,7 @@
 			</Button>
 			<a
 				href="https://yatabase.etzhayyim.com/docs"
-				class="text-sm text-gftd-accent underline underline-offset-4 hover:no-underline"
+				class="text-sm text-etzhayyim-accent underline underline-offset-4 hover:no-underline"
 				>Read the docs</a
 			>
 		</div>

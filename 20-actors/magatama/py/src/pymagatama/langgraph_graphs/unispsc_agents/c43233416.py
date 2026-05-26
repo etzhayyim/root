@@ -7,7 +7,7 @@ class CodecState(TypedDict):
 
 def validate_codec_compatibility(state: CodecState):
     # Simulate validation logic for codec stack requirements
-    return {'validation_results': {'is_compatible': True}} 
+    return {'validation_results': {'is_compatible': True}}
 
 def check_security_compliance(state: CodecState):
     # Simulate regulatory/license check

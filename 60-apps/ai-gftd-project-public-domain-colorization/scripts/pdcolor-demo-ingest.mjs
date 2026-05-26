@@ -111,7 +111,7 @@ async function addToIpfs(filePath, filename) {
     method: "POST",
     headers: {
       "Content-Type": `multipart/form-data; boundary=${boundary}`,
-      "X-Gftd-Ipfs-Auth": signature,
+      "X-etzhayyim-Ipfs-Auth": signature,
     },
     body,
   });

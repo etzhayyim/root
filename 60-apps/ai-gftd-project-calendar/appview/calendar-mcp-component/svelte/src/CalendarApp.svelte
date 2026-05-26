@@ -10,10 +10,10 @@
   let { xrpcBase = '', embed = false, onResult }: Props = $props();
 
   const nsid = {
-    listEvents: 'ai.gftd.apps.calendar.listEvents',
-    createEvent: 'ai.gftd.apps.calendar.createEvent',
-    updateEvent: 'ai.gftd.apps.calendar.updateEvent',
-    deleteEvent: 'ai.gftd.apps.calendar.deleteEvent'
+    listEvents: 'app.etzhayyim.apps.calendar.listEvents',
+    createEvent: 'app.etzhayyim.apps.calendar.createEvent',
+    updateEvent: 'app.etzhayyim.apps.calendar.updateEvent',
+    deleteEvent: 'app.etzhayyim.apps.calendar.deleteEvent'
   } as const;
 
   type View = 'day' | 'week' | 'month' | 'schedule';
@@ -158,7 +158,7 @@
 
 <div class="grid grid-cols-[240px_minmax(0,1fr)] gap-0 h-full min-h-[calc(100vh-160px)] -m-5">
   <!-- Sidebar: mini-cal + my calendars -->
-  <aside class="border-r border-gftd-border bg-gftd-sidebar p-3 flex flex-col gap-4 overflow-y-auto">
+  <aside class="border-r border-etzhayyim-border bg-gftd-sidebar p-3 flex flex-col gap-4 overflow-y-auto">
     <Button size="md" variant="solid-fill" onclick={() => openComposer()}>＋ Create</Button>
 
     <!-- Mini calendar -->
@@ -170,7 +170,7 @@
           <button type="button" class="w-6 h-6 rounded hover:bg-gftd-hover" onclick={() => shift(1)}>›</button>
         </div>
       </div>
-      <div class="grid grid-cols-7 text-center text-[10px] text-gftd-muted">
+      <div class="grid grid-cols-7 text-center text-[10px] text-etzhayyim-muted">
         {#each ['S', 'M', 'T', 'W', 'T', 'F', 'S'] as d}<span>{d}</span>{/each}
       </div>
       <div class="grid grid-cols-7 text-center text-[11px] mt-1">
@@ -178,8 +178,8 @@
           <button
             type="button"
             class="aspect-square grid place-items-center rounded-full hover:bg-gftd-hover"
-            class:text-gftd-muted={!c.inMonth}
-            class:bg-gftd-accent={c.key === todayKey}
+            class:text-etzhayyim-muted={!c.inMonth}
+            class:bg-etzhayyim-accent={c.key === todayKey}
             class:text-white={c.key === todayKey}
             class:font-semibold={c.key === todayKey}
             onclick={() => (cursor = new Date(c.d))}
@@ -190,18 +190,18 @@
 
     <!-- My calendars -->
     <div>
-      <p class="text-[11px] uppercase tracking-wider text-gftd-muted mb-2">My calendars</p>
+      <p class="text-[11px] uppercase tracking-wider text-etzhayyim-muted mb-2">My calendars</p>
       <ul class="text-sm space-y-1">
         {#each calendars as c}
           <li class="flex items-center gap-2">
             <span class={`inline-block w-3 h-3 rounded-sm ${c.color}`} class:opacity-30={!c.on}></span>
-            <span class:line-through={!c.on} class:text-gftd-muted={!c.on}>{c.label}</span>
+            <span class:line-through={!c.on} class:text-etzhayyim-muted={!c.on}>{c.label}</span>
           </li>
         {/each}
       </ul>
     </div>
 
-    <div class="mt-auto text-[11px] text-gftd-muted">
+    <div class="mt-auto text-[11px] text-etzhayyim-muted">
       <p>RFC 5545 RRULE · attendee DIDs · 3 visibility tiers</p>
       {#if xrpcBase}<p class="mt-1">via {xrpcBase}</p>{/if}
     </div>
@@ -209,19 +209,19 @@
 
   <!-- Main: top bar + grid -->
   <section class="flex flex-col min-w-0">
-    <header class="px-5 py-3 border-b border-gftd-border flex items-center gap-3 flex-wrap">
+    <header class="px-5 py-3 border-b border-etzhayyim-border flex items-center gap-3 flex-wrap">
       <Button size="xs" variant="outline" onclick={() => (cursor = new Date())}>Today</Button>
       <button type="button" class="w-8 h-8 rounded-full hover:bg-gftd-hover grid place-items-center" onclick={() => shift(-1)}>‹</button>
       <button type="button" class="w-8 h-8 rounded-full hover:bg-gftd-hover grid place-items-center" onclick={() => shift(1)}>›</button>
       <h2 class="text-lg font-semibold">{monthLabel}</h2>
       <div class="ml-auto flex items-center gap-2">
         <Badge value={loading ? 'syncing…' : 'live'} variant={loading ? 'warning' : 'success'} />
-        <div class="flex rounded-full border border-gftd-border p-0.5 text-xs">
+        <div class="flex rounded-full border border-etzhayyim-border p-0.5 text-xs">
           {#each (['day', 'week', 'month', 'schedule'] as View[]) as v}
             <button
               type="button"
               class="px-3 py-1 rounded-full"
-              class:bg-gftd-accent={view === v}
+              class:bg-etzhayyim-accent={view === v}
               class:text-white={view === v}
               class:font-semibold={view === v}
               onclick={() => (view = v)}
@@ -232,9 +232,9 @@
     </header>
 
     {#if view === 'month'}
-      <div class="grid grid-cols-7 border-b border-gftd-border text-[11px] uppercase tracking-wider text-gftd-muted">
+      <div class="grid grid-cols-7 border-b border-etzhayyim-border text-[11px] uppercase tracking-wider text-etzhayyim-muted">
         {#each weekdays as d}
-          <div class="px-3 py-2 border-r border-gftd-border last:border-r-0">{d}</div>
+          <div class="px-3 py-2 border-r border-etzhayyim-border last:border-r-0">{d}</div>
         {/each}
       </div>
       <div class="flex-1 grid grid-cols-7 grid-rows-6 overflow-auto">
@@ -242,17 +242,17 @@
           {@const dayEvents = eventsByDay.get(c.key) ?? []}
           <button
             type="button"
-            class="text-left border-r border-b border-gftd-border last:border-r-0 p-1.5 min-h-[100px] flex flex-col gap-1 hover:bg-gftd-hover"
+            class="text-left border-r border-b border-etzhayyim-border last:border-r-0 p-1.5 min-h-[100px] flex flex-col gap-1 hover:bg-gftd-hover"
             class:bg-gftd-input={!c.inMonth}
             onclick={() => openComposer(c.d)}
           >
             <div class="flex items-center justify-between text-xs">
               <span
                 class="inline-grid place-items-center w-6 h-6 rounded-full text-[11px]"
-                class:bg-gftd-accent={c.key === todayKey}
+                class:bg-etzhayyim-accent={c.key === todayKey}
                 class:text-white={c.key === todayKey}
                 class:font-semibold={c.key === todayKey}
-                class:text-gftd-muted={!c.inMonth}
+                class:text-etzhayyim-muted={!c.inMonth}
               >{c.d.getDate()}</span>
             </div>
             {#each dayEvents.slice(0, 3) as ev}
@@ -261,31 +261,31 @@
               </div>
             {/each}
             {#if dayEvents.length > 3}
-              <span class="text-[10px] text-gftd-muted">+{dayEvents.length - 3} more</span>
+              <span class="text-[10px] text-etzhayyim-muted">+{dayEvents.length - 3} more</span>
             {/if}
           </button>
         {/each}
       </div>
 
     {:else if view === 'week'}
-      <div class="grid grid-cols-[60px_repeat(7,minmax(0,1fr))] border-b border-gftd-border text-[11px] uppercase tracking-wider text-gftd-muted">
+      <div class="grid grid-cols-[60px_repeat(7,minmax(0,1fr))] border-b border-etzhayyim-border text-[11px] uppercase tracking-wider text-etzhayyim-muted">
         <div></div>
         {#each weekDays as d}
-          <div class="px-2 py-2 border-l border-gftd-border text-center">
+          <div class="px-2 py-2 border-l border-etzhayyim-border text-center">
             <div>{weekdays[d.getDay()]}</div>
-            <div class="text-2xl font-semibold text-gftd-text"
-              class:text-gftd-accent={d.toDateString() === today.toDateString()}>{d.getDate()}</div>
+            <div class="text-2xl font-semibold text-etzhayyim-text"
+              class:text-etzhayyim-accent={d.toDateString() === today.toDateString()}>{d.getDate()}</div>
           </div>
         {/each}
       </div>
       <div class="flex-1 overflow-auto">
         <div class="grid grid-cols-[60px_repeat(7,minmax(0,1fr))]">
           {#each hours as h}
-            <div class="border-b border-gftd-border/40 text-[10px] text-gftd-muted px-1 py-0.5 h-12">{h.toString().padStart(2,'0')}:00</div>
+            <div class="border-b border-etzhayyim-border/40 text-[10px] text-etzhayyim-muted px-1 py-0.5 h-12">{h.toString().padStart(2,'0')}:00</div>
             {#each weekDays as d}
               {@const evs = (eventsByDay.get(d.toISOString().slice(0,10)) ?? []).filter(e => !e.allDay && parseInt(e.start.split(':')[0],10) === h)}
               <button type="button"
-                class="border-l border-b border-gftd-border/40 h-12 hover:bg-gftd-hover relative text-left"
+                class="border-l border-b border-etzhayyim-border/40 h-12 hover:bg-gftd-hover relative text-left"
                 onclick={() => openComposer(d)}
               >
                 {#each evs as ev}
@@ -300,14 +300,14 @@
       </div>
 
     {:else if view === 'day'}
-      <div class="px-5 py-3 border-b border-gftd-border">
+      <div class="px-5 py-3 border-b border-etzhayyim-border">
         <p class="text-2xl font-semibold">{cursor.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
       </div>
       <div class="flex-1 overflow-auto">
         {#each hours as h}
           {@const evs = (eventsByDay.get(cursor.toISOString().slice(0,10)) ?? []).filter(e => !e.allDay && parseInt(e.start.split(':')[0],10) === h)}
-          <div class="grid grid-cols-[80px_minmax(0,1fr)] border-b border-gftd-border/40 min-h-[48px]">
-            <div class="text-xs text-gftd-muted px-2 py-1">{h.toString().padStart(2, '0')}:00</div>
+          <div class="grid grid-cols-[80px_minmax(0,1fr)] border-b border-etzhayyim-border/40 min-h-[48px]">
+            <div class="text-xs text-etzhayyim-muted px-2 py-1">{h.toString().padStart(2, '0')}:00</div>
             <button type="button" class="hover:bg-gftd-hover text-left p-1" onclick={() => openComposer(cursor)}>
               {#each evs as ev}
                 <div class={`rounded px-2 py-1 text-xs text-white ${ev.color}`}>{ev.start}–{ev.end} · {ev.title}</div>
@@ -320,11 +320,11 @@
     {:else}
       <!-- schedule view -->
       <div class="flex-1 overflow-auto p-5">
-        <ul class="divide-y divide-gftd-border">
+        <ul class="divide-y divide-etzhayyim-border">
           {#each [...eventsByDay.entries()].sort(([a],[b]) => a.localeCompare(b)) as [day, evs]}
             <li class="py-3 flex gap-4">
               <div class="w-24 flex-shrink-0">
-                <p class="text-xs text-gftd-muted">{new Date(day).toLocaleDateString('en-US', { weekday: 'short' })}</p>
+                <p class="text-xs text-etzhayyim-muted">{new Date(day).toLocaleDateString('en-US', { weekday: 'short' })}</p>
                 <p class="text-2xl font-semibold">{new Date(day).getDate()}</p>
               </div>
               <ul class="flex-1 space-y-1">
@@ -332,7 +332,7 @@
                   <li class="flex items-center gap-2">
                     <span class={`inline-block w-2 h-2 rounded-full ${ev.color}`}></span>
                     <span class="text-sm">{ev.allDay ? 'All day' : `${ev.start}–${ev.end}`}</span>
-                    <span class="text-sm text-gftd-secondary">{ev.title}</span>
+                    <span class="text-sm text-etzhayyim-secondary">{ev.title}</span>
                     <Badge value={ev.calendar} variant="default" />
                   </li>
                 {/each}
@@ -358,12 +358,12 @@
       role="dialog"
       aria-modal="true"
       tabindex="-1"
-      class="w-[480px] max-w-[calc(100vw-2rem)] rounded-xl bg-gftd-card border border-gftd-border shadow-2xl flex flex-col"
+      class="w-[480px] max-w-[calc(100vw-2rem)] rounded-xl bg-gftd-card border border-etzhayyim-border shadow-2xl flex flex-col"
       onclick={(e) => e.stopPropagation()}
     >
-      <header class="px-4 py-3 border-b border-gftd-border flex items-center justify-between">
+      <header class="px-4 py-3 border-b border-etzhayyim-border flex items-center justify-between">
         <span class="text-sm font-semibold">Create event</span>
-        <button type="button" class="text-gftd-muted" onclick={() => (composing = false)}>✕</button>
+        <button type="button" class="text-etzhayyim-muted" onclick={() => (composing = false)}>✕</button>
       </header>
       <div class="px-4 py-3 flex flex-col gap-3">
         <Input bind:value={newTitle} blockSize="md" placeholder="Add title" />
@@ -374,19 +374,19 @@
         </div>
         <Input bind:value={newRRule} blockSize="md" placeholder="RRULE (optional, e.g. FREQ=WEEKLY)" />
         <div class="flex gap-2">
-          <select bind:value={newCalendar} class="rounded border border-gftd-border bg-gftd-input px-2 py-1 text-sm flex-1">
+          <select bind:value={newCalendar} class="rounded border border-etzhayyim-border bg-gftd-input px-2 py-1 text-sm flex-1">
             {#each calendars.filter(c => c.on) as c}
               <option value={c.id}>{c.label}</option>
             {/each}
           </select>
         </div>
-        <span class="text-xs text-gftd-secondary">Attendee DIDs (one per line)</span>
+        <span class="text-xs text-etzhayyim-secondary">Attendee DIDs (one per line)</span>
         <Textarea bind:value={newAttendees} rows={3} />
       </div>
-      <footer class="px-4 py-3 border-t border-gftd-border flex items-center gap-2">
+      <footer class="px-4 py-3 border-t border-etzhayyim-border flex items-center gap-2">
         <Button size="sm" variant="solid-fill" onclick={submitEvent}>Save</Button>
         <Button size="sm" variant="text" onclick={() => (composing = false)}>Cancel</Button>
-        <span class="ml-auto text-[11px] text-gftd-muted">Signal E2E for confidential</span>
+        <span class="ml-auto text-[11px] text-etzhayyim-muted">Signal E2E for confidential</span>
       </footer>
     </div>
   </div>

@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-euv-lithography-manufacturing-flow-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-euv-lithography-manufacturing-flow-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'tsukuru_euv_lithography_manufacturing_flow',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -52,7 +52,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.tsukuru.euv.designManufacturingFlow&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ production_order_id: productionOrderId, '
                  'technology_node_nm: technologyNodeNm, wafer_diameter_mm: waferDiameterMm, '
@@ -77,7 +77,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.tsukuru.supplierExchange.normalizePackage&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ package_id: supplierPackageId, '
                  'production_order_id: productionOrderId, supplier_did: supplierDid, '
@@ -123,7 +123,7 @@ UP = [{'sql': '\n'
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'sys.bpmn.seed.tsukuru-euv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-euv-lithography-manufacturing-flow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-euv-lithography-manufacturing-flow-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -137,7 +137,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-normalize-supplier-exchange-package-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-normalize-supplier-exchange-package-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'tsukuru_normalize_supplier_exchange_package',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -164,7 +164,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.tsukuru.supplierExchange.normalizePackage&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ package_id: packageId, production_order_id: '
                  'productionOrderId, supplier_did: supplierDid, exchange_format: exchangeFormat, '
@@ -208,7 +208,7 @@ UP = [{'sql': '\n'
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'sys.bpmn.seed.tsukuru-euv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-normalize-supplier-exchange-package-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-normalize-supplier-exchange-package-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -222,7 +222,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-prepare-euv-order-package-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-prepare-euv-order-package-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'tsukuru_prepare_euv_order_package',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -249,7 +249,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.tsukuru.euv.prepareOrderPackage&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ flow_id: flowId, package_id: packageId, '
                  'production_order_id: productionOrderId, technology_node_nm: technologyNodeNm, '
@@ -296,7 +296,7 @@ UP = [{'sql': '\n'
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'sys.bpmn.seed.tsukuru-euv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-prepare-euv-order-package-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-prepare-euv-order-package-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -310,7 +310,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-get-euv-implementation-coverage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-get-euv-implementation-coverage-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'tsukuru_get_euv_implementation_coverage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -337,7 +337,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.tsukuru.euv.getImplementationCoverage&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={}" target="payload"/>\n'
                  '          <zeebe:output source="=result" target="coverageReport"/>\n'
@@ -378,7 +378,7 @@ UP = [{'sql': '\n'
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'sys.bpmn.seed.tsukuru-euv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-get-euv-implementation-coverage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-get-euv-implementation-coverage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -392,7 +392,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-validate-supplier-exchange-package-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-validate-supplier-exchange-package-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'tsukuru_validate_supplier_exchange_package',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -419,7 +419,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;ai.gftd.apps.tsukuru.supplierExchange.validatePackage&quot;" '
+                 'source="=&quot;app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ package_id: packageId, production_order_id: '
                  'productionOrderId, supplier_did: supplierDid, exchange_format: exchangeFormat, '
@@ -463,7 +463,7 @@ UP = [{'sql': '\n'
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'sys.bpmn.seed.tsukuru-euv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-validate-supplier-exchange-package-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-validate-supplier-exchange-package-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -477,16 +477,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-designManufacturingFlow-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-designManufacturingFlow-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
-                 'ai.gftd.apps.tsukuru.euv.designManufacturingFlow',
+                 'app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow',
                  'tsukuru_euv_lithography_manufacturing_flow',
                  30000,
                  '2026-04-27T01:15:00Z',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'sys.bpmn.seed.tsukuru-euv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-designManufacturingFlow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-designManufacturingFlow-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -500,16 +500,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-supplierExchange-normalizePackage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-supplierExchange-normalizePackage-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
-                 'ai.gftd.apps.tsukuru.supplierExchange.normalizePackage',
+                 'app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage',
                  'tsukuru_normalize_supplier_exchange_package',
                  30000,
                  '2026-04-27T01:15:00Z',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'sys.bpmn.seed.tsukuru-euv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-supplierExchange-normalizePackage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-supplierExchange-normalizePackage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -523,16 +523,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-prepareOrderPackage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-prepareOrderPackage-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
-                 'ai.gftd.apps.tsukuru.euv.prepareOrderPackage',
+                 'app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage',
                  'tsukuru_prepare_euv_order_package',
                  30000,
                  '2026-04-27T01:15:00Z',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'sys.bpmn.seed.tsukuru-euv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-prepareOrderPackage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-prepareOrderPackage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -546,16 +546,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-getImplementationCoverage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-getImplementationCoverage-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
-                 'ai.gftd.apps.tsukuru.euv.getImplementationCoverage',
+                 'app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage',
                  'tsukuru_get_euv_implementation_coverage',
                  30000,
                  '2026-04-27T01:15:00Z',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'sys.bpmn.seed.tsukuru-euv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-getImplementationCoverage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-getImplementationCoverage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -569,37 +569,37 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-supplierExchange-validatePackage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-supplierExchange-validatePackage-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
-                 'ai.gftd.apps.tsukuru.supplierExchange.validatePackage',
+                 'app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage',
                  'tsukuru_validate_supplier_exchange_package',
                  30000,
                  '2026-04-27T01:15:00Z',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
                  'sys.bpmn.seed.tsukuru-euv',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-supplierExchange-validatePackage-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-supplierExchange-validatePackage-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-designManufacturingFlow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-designManufacturingFlow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-supplierExchange-normalizePackage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-supplierExchange-normalizePackage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-prepareOrderPackage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-prepareOrderPackage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-euv-getImplementationCoverage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-getImplementationCoverage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-supplierExchange-validatePackage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-supplierExchange-validatePackage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-euv-lithography-manufacturing-flow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-euv-lithography-manufacturing-flow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-normalize-supplier-exchange-package-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-normalize-supplier-exchange-package-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-prepare-euv-order-package-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-prepare-euv-order-package-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-get-euv-implementation-coverage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-get-euv-implementation-coverage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-validate-supplier-exchange-package-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-validate-supplier-exchange-package-v1']}]
 
 
 def upgrade() -> None:

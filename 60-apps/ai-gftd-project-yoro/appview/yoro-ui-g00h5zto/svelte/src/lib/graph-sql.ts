@@ -1,11 +1,9 @@
-import {
-	DummyDriver,
-	Kysely,
-	PostgresAdapter,
-	PostgresQueryCompiler,
-	sql,
-// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
-} from 'kysely';
+// Kysely is used here only as a client-side SQL string builder with DummyDriver
+// (no DB connection in this file). Compiled SQL is sent to PDS via XRPC
+// app.etzhayyim.kagami.sql, which routes to a yatachain-projection (RisingWave)
+// behind the PDS substrate seam. See ADR-2605231500.
+// yatachain-projection: client-side SQL compiler (DummyDriver, no DB connection)
+import { DummyDriver, Kysely, PostgresAdapter, PostgresQueryCompiler, sql } from 'kysely';
 import { atProcedure } from '$lib/atproto-agent';
 
 type CompilableQuery = { compile(...args: any[]): { sql: string; parameters: readonly unknown[] } };
@@ -24,7 +22,7 @@ export const kyselyDb = new Kysely<any>({
 });
 
 export async function graphSql<T>(statement: string): Promise<T[]> {
-	const result = await atProcedure<{ rows?: T[] }>('ai.gftd.kagami.sql', { statement });
+	const result = await atProcedure<{ rows?: T[] }>('app.etzhayyim.kagami.sql', { statement });
 	return Array.isArray(result?.rows) ? result.rows : [];
 }
 

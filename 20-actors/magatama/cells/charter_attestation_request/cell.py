@@ -4,7 +4,7 @@ Charter Compliance attestation requests.
 
 Per ADR-2605192230 (Three-Tier Enforcement) + ADR-2605192200 (Charter Rider v2.0).
 
-Trigger: MST listener on `ai.gftd.apps.etzhayyim.charter-attestation-request`
+Trigger: MST listener on `app.etzhayyim.apps.etzhayyim.charter-attestation-request`
 Effect: LLM pre-analysis + dispatch to Council Lv6+ for deliberation
         → on quorum (≥3 signatures) → emit ChartersComplianceRegistry.attestNonAligned() tx
 
@@ -55,10 +55,24 @@ class CharterAttestationRequestState(TypedDict, total=False):
 
 def build_graph(
     checkpointer: BaseCheckpointSaver,
-    llm_client,  # Claude Sonnet 4.6 (primary) or Murakumo Gemma (fallback)
-    council_dispatcher,  # interface to Council Lv6+ notification
-    charter_registry_port,  # interface to ChartersComplianceRegistry contract
+    llm_client=None,  # Claude Sonnet 4.6 (primary) or Murakumo Gemma (fallback)
+    council_dispatcher=None,  # interface to Council Lv6+ notification
+    charter_registry_port=None,  # interface to ChartersComplianceRegistry contract
 ):
+    """Cell entrypoint.
+
+    Two call-sites are supported (per ADR-2605202200 + ADR-2605232100):
+      1. New contract: `cell_host.py` calls `build_graph(deps: CellDeps)` —
+         see the module-level `__call__` adapter below which unwraps deps
+         and re-invokes this function with the four positional kwargs.
+      2. Legacy direct call: tests + ad-hoc invocations pass the four args
+         explicitly. Defaults to None so the Pod can boot without all deps
+         wired (substrate ports / council interface not yet exported by
+         the production cell-host).
+
+    Missing deps degrade gracefully — nodes that need them log + return
+    state unchanged rather than crashing the runner subprocess.
+    """
     g = StateGraph(CharterAttestationRequestState)
 
     g.add_node("load_request", load_request)
@@ -128,7 +142,7 @@ def llm_analyze(state: CharterAttestationRequestState, llm_client) -> CharterAtt
 
 def dispatch_to_council(state: CharterAttestationRequestState, council_dispatcher) -> CharterAttestationRequestState:
     """Notify Council Lv6+ members for deliberation."""
-    # TODO: emit ai.gftd.apps.etzhayyim.charter-attestation-council-dispatch record
+    # TODO: emit app.etzhayyim.apps.etzhayyim.charter-attestation-council-dispatch record
     return state
 
 
@@ -149,6 +163,6 @@ def emit_onchain(state: CharterAttestationRequestState, charter_registry_port) -
 
 
 def emit_at_record(state: CharterAttestationRequestState) -> CharterAttestationRequestState:
-    """Emit ai.gftd.apps.etzhayyim.charter-attestation record to MST."""
+    """Emit app.etzhayyim.apps.etzhayyim.charter-attestation record to MST."""
     # TODO: write via @etzhayyim/sdk checkpointer sidecar
     return state

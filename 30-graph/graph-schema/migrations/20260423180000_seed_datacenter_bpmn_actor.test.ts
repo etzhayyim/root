@@ -20,11 +20,11 @@ describe("Seed Datacenter BPMN Actor Migration", () => {
 
   it("seeds the startOperation lexicon binding", () => {
     expect(migrationSource).toContain("datacenter-startOperation-v1");
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.datacenter.startOperation"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.datacenter.startOperation"');
     expect(migrationSource).toContain("resultTimeoutMs: 0");
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.datacenter.requestAccess"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.datacenter.reserveCapacity"');
-    expect(migrationSource).toContain('nsid: "ai.gftd.apps.datacenter.purgeAccessPii"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.datacenter.requestAccess"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.datacenter.reserveCapacity"');
+    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.datacenter.purgeAccessPii"');
   });
 
   it("uses datacenter-specific seed actor_id", () => {

@@ -64,7 +64,7 @@ cast call $MEMBERSHIP_CONTRACT \
 # 3. Verify the oath AT Record (carries the DID signature)
 curl -s https://pds.etzhayyim.com/xrpc/com.atproto.repo.getRecord \
   -G --data-urlencode "repo=$DID" \
-  --data-urlencode "collection=ai.gftd.apps.etzhayyim.oath" \
+  --data-urlencode "collection=app.etzhayyim.apps.etzhayyim.oath" \
   --data-urlencode "rkey=$RKEY"
 ```
 

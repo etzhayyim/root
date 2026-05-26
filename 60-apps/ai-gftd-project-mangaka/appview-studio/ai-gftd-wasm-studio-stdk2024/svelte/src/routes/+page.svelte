@@ -51,7 +51,7 @@
   const DEFAULT_INPUTS: Record<string, object> = {
     cine_generate_scene: {
       subject_kind: "mangaka.panel",
-      subject_ref: "at://did:web:mangaka.etzhayyim.com/ai.gftd.mangaka.panel/demo-001",
+      subject_ref: "at://did:web:mangaka.etzhayyim.com/app.etzhayyim.mangaka.panel/demo-001",
       prompt: "rooftop chase at dusk, neon reflections in puddles",
       style: "shonen-jump-inked",
       world_kind: "threeD",
@@ -84,7 +84,7 @@
       style: "shonen-jump-inked",
       dry_run: true,
     },
-    // ai.gftd.mangaka.character — design sheet (batch of N views)
+    // app.etzhayyim.mangaka.character — design sheet (batch of N views)
     mangaka_generate_character: {
       name: "yuki",
       description: "young female cyberpunk hacker, asymmetric haircut, leather jacket, glowing visor",
@@ -95,7 +95,7 @@
       steps: 22,
       cfg: 7.0,
     },
-    // ai.gftd.mangaka.environment — establishing-shot scene
+    // app.etzhayyim.mangaka.environment — establishing-shot scene
     mangaka_generate_scene: {
       name: "neon-alley",
       description: "narrow Tokyo back-alley, dense neon signs, wet pavement reflecting magenta and cyan light",
@@ -326,7 +326,7 @@
           mood: "dramatic", action: "pulls out a cyberdeck, sparks fly" },
       ],
     },
-    // ai.gftd.mangaka.panel — per-panel 2-pass (composition → inked refine)
+    // app.etzhayyim.mangaka.panel — per-panel 2-pass (composition → inked refine)
     mangaka_generate_panel: {
       panel_rkey: "p001",
       framing: "medium",       // wide|medium|closeup|low-angle|high-angle|ots

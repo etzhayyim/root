@@ -60,7 +60,7 @@ LKE sg-sin-2 — 現行スペックは deps.toml [root_rules.persistence_risingw
 models.py (SQLAlchemy)
   → generate_iceberg_via_rw.py → 128 Iceberg tables on S3
   → generate_rw_full.py → 119 RW tables + 14 MVs + 5 sinks
-  → generate_ts.py → TypeScript types (@gftd/graph-schema)
+  → generate_ts.py → TypeScript types (@etzhayyim/graph-schema)
 ```
 
 ## Benchmark Results (57K rows, Docker local)

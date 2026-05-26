@@ -110,31 +110,31 @@ async function main() {
   // 1. Characters
   const charProfiles = loadCharacterProfiles();
   console.log(`[1/5] enrichCharacters — ${Object.keys(charProfiles).length} profiles`);
-  const r1 = await xrpc("ai.gftd.mangaka.enrichCharacters", { profiles: charProfiles });
+  const r1 = await xrpc("app.etzhayyim.mangaka.enrichCharacters", { profiles: charProfiles });
   console.log(`     status=${r1.status} counts=${JSON.stringify(r1.counts)} latency=${r1.latencyMs}ms\n`);
 
   // 2. Organizations
   const orgProfiles = loadOrgProfiles();
   console.log(`[2/5] enrichOrganizations — ${Object.keys(orgProfiles).length} profiles`);
-  const r2 = await xrpc("ai.gftd.mangaka.enrichOrganizations", { profiles: orgProfiles });
+  const r2 = await xrpc("app.etzhayyim.mangaka.enrichOrganizations", { profiles: orgProfiles });
   console.log(`     status=${r2.status} counts=${JSON.stringify(r2.counts)} latency=${r2.latencyMs}ms\n`);
 
   // 3. Environments (creates new ones too)
   const envProfiles = loadEnvProfiles();
   console.log(`[3/5] enrichEnvironments — ${Object.keys(envProfiles).length} profiles`);
-  const r3 = await xrpc("ai.gftd.mangaka.enrichEnvironments", { profiles: envProfiles });
+  const r3 = await xrpc("app.etzhayyim.mangaka.enrichEnvironments", { profiles: envProfiles });
   console.log(`     status=${r3.status} counts=${JSON.stringify(r3.counts)} latency=${r3.latencyMs}ms\n`);
 
   // 4. Incidents
   const incidents = loadIncidents();
   console.log(`[4/5] deriveChapterIncidents — ${incidents.length} incident groups`);
-  const r4 = await xrpc("ai.gftd.mangaka.deriveChapterIncidents", { incidents, workRkey: "gh-work-ghost-hacker" });
+  const r4 = await xrpc("app.etzhayyim.mangaka.deriveChapterIncidents", { incidents, workRkey: "gh-work-ghost-hacker" });
   console.log(`     status=${r4.status} counts=${JSON.stringify(r4.counts)} latency=${r4.latencyMs}ms\n`);
 
   // 5. Chat history
   const sessions = loadChatSessions();
   console.log(`[5/5] importChatHistory — ${sessions.length} sessions`);
-  const r5 = await xrpc("ai.gftd.mangaka.importChatHistory", { sessions, workRkey: "gh-work-ghost-hacker" });
+  const r5 = await xrpc("app.etzhayyim.mangaka.importChatHistory", { sessions, workRkey: "gh-work-ghost-hacker" });
   console.log(`     status=${r5.status} counts=${JSON.stringify(r5.counts)} latency=${r5.latencyMs}ms\n`);
 
   console.log("=== Done ===");

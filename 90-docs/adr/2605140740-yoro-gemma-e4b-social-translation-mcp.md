@@ -21,7 +21,7 @@ superseded_by: []
 # Context
 
 YORO social posts need sibling `app.bsky.feed.post` translations linked by
-`ai.gftd.apps.media_gamers.record.translationLink` records, per
+`app.etzhayyim.apps.media_gamers.record.translationLink` records, per
 ADR-0077. The earlier translation-link topology defined the record shape and
 read path, but did not pin the live yoro worker, MCP exposure, Gemma model
 route, or scheduled language sweep.
@@ -43,7 +43,7 @@ social translation:
   (`47 */4 * * *`) with `MAX_TRANSLATIONS=2`.
 - The model route is the cluster-local Keiei LLM E4B backend:
   `http://keiei-llm-e4b.keiei-llm.svc.cluster.local:8080/v1/chat/completions`
-  with `GFTD_LLM_MODEL=gemma-4-E4B-it`.
+  with `etzhayyim_LLM_MODEL=gemma-4-E4B-it`.
 - The active image verified on 2026-05-14 is
   `ghcr.io/etzhayyim/pymagatama:yoro-translation-i18n5-653ce4e7159-20260514072956-amd64`.
 - Translation calls use an explicit language label in the prompt, deterministic
@@ -83,8 +83,8 @@ auth policy.
 MCP remains a facade. It does not directly write PDS records. Tool responses
 route callers to BPMN / LangServer execution:
 
-- `ai.gftd.yoro.translatePost -> yoro.social.translatePost`
-- `ai.gftd.yoro.translatePostBatch -> yoro.social.translatePostBatch`
+- `app.etzhayyim.yoro.translatePost -> yoro.social.translatePost`
+- `app.etzhayyim.yoro.translatePostBatch -> yoro.social.translatePostBatch`
 
 The translation worker writes translated sibling posts and
 `translationLink` records through the governed actor path.

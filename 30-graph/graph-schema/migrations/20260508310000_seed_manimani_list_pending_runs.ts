@@ -40,7 +40,7 @@ const langgraphUrl = "http://manimani-langgraph.mitama-udf.svc.cluster.local:800
 
 const seeds: LexiconSeed[] = [
   {
-    nsid: "ai.gftd.apps.manimani.listPendingRuns",
+    nsid: "app.etzhayyim.apps.manimani.listPendingRuns",
     bpmnProcessId: "manimani_list_pending_runs",
     sourcePath: "00-contracts/lexicons/ai/gftd/apps/manimani/listPendingRuns.json",
     bindingTimeoutMs: 5_000,
@@ -52,11 +52,11 @@ function readContract(relPath: string): string {
 }
 
 function mcpVertexId(nsid: string): string {
-  return `at://${ownerDid}/ai.gftd.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
+  return `at://${ownerDid}/app.etzhayyim.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
 }
 
 function bindingVertexId(nsid: string): string {
-  return `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${nsid}`;
+  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${nsid}`;
 }
 
 function stableStringify(value: unknown): string {

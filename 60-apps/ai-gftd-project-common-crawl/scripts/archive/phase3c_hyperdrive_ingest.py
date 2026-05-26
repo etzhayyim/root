@@ -37,7 +37,7 @@ Usage:
   CC_PARQUET_DIR   - ローカル Parquet ディレクトリ (default: /Volumes/251220/CC/2603/parquet-rs)
   S3_ACCESS_KEY    - Linode S3 access key
   S3_SECRET_KEY    - Linode S3 secret key
-  GRAPH_XRPC_URL   - graph Worker XRPC URL (default: https://graph.etzhayyim.com/xrpc/ai.gftd.kagami.sql)
+  GRAPH_XRPC_URL   - graph Worker XRPC URL (default: https://graph.etzhayyim.com/xrpc/app.etzhayyim.kagami.sql)
   XRPC_TIMEOUT     - SQL timeout per chunk in seconds (default: 600)
   CHUNK_SIZE       - batches per INSERT chunk (default: 100)
 """
@@ -70,7 +70,7 @@ S3_SECRET = os.environ.get("S3_SECRET_KEY", "Wv5b0cNdv7wNoZuiSmnJAxMwlye1MHEl1C6
 # Hyperdrive 経由の XRPC エンドポイント (graph Worker → Hyperdrive → RisingWave)
 GRAPH_XRPC_URL = os.environ.get(
     "GRAPH_XRPC_URL",
-    "https://graph.etzhayyim.com/xrpc/ai.gftd.kagami.sql",
+    "https://graph.etzhayyim.com/xrpc/app.etzhayyim.kagami.sql",
 )
 
 # タイムアウト: CF Worker の CPU 上限は 30s だが I/O wait は別カウント

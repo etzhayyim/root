@@ -4,8 +4,8 @@ ADR-0047 Phase B pilot — playwright actor on shared Python UDF pool.
 Ports the session-lifecycle subset of the TS implementation at
 `60-apps/ai-gftd-project-playwright/.../src/app.ts`:
 
-- `ai.gftd.apps.playwright.sessionOpen`
-- `ai.gftd.apps.playwright.sessionClose`
+- `app.etzhayyim.apps.playwright.sessionOpen`
+- `app.etzhayyim.apps.playwright.sessionClose`
 
 The op-forwarding commands (goto / fill / click / waitFor / scrape /
 snapshot / screenshot / evaluate / getUrl / responseBody /
@@ -50,7 +50,7 @@ def _new_id(prefix: str) -> str:
 
 
 @udf(
-    nsid="ai.gftd.apps.playwright.sessionOpen",
+    nsid="app.etzhayyim.apps.playwright.sessionOpen",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",
@@ -90,7 +90,7 @@ def session_open(params_json: str) -> str:
 
 
 @udf(
-    nsid="ai.gftd.apps.playwright.sessionClose",
+    nsid="app.etzhayyim.apps.playwright.sessionClose",
     io_threads=100,
     input_types=["VARCHAR"],
     result_type="VARCHAR",

@@ -7,7 +7,7 @@ import {
   nsid,
   withCapabilityTags,
   type HostSDK,
-} from "@gftd/magatama-host-sdk";
+} from "@etzhayyim/magatama-host-sdk";
 import { Client } from "pg";
 
 /** AT Protocol TID generator (base32 s32 charset, 13 chars). */
@@ -29,7 +29,7 @@ function generateLocalTid(): string {
 }
 
 const DEFAULT_TARGET_SEC = 120;
-const COMPOSE_NSID = "ai.gftd.apps.yukkuri.compose";
+const COMPOSE_NSID = "app.etzhayyim.apps.yukkuri.compose";
 
 const PRIMARY_PATH = "did:web:yukkuri.etzhayyim.com";
 const PATH_SCRIPTWRITER = "did:web:yukkuri.etzhayyim.com:actor:scriptwriter";
@@ -172,7 +172,7 @@ async function cmdCompose(sdk: HostSDK, env: Record<string, unknown>, body: Uint
 
   const videoRkey = generateLocalTid();
   const videoRepo = (sdk.pds as any).selfRepo as string || "did:web:y5kk5r1x.etzhayyim.com";
-  const videoUri = `at://${videoRepo}/ai.gftd.apps.yukkuri.video/${videoRkey}`;
+  const videoUri = `at://${videoRepo}/app.etzhayyim.apps.yukkuri.video/${videoRkey}`;
 
   // Ensure path DIDs are registered (fire-and-forget).
   void ensurePathDids(sdk);
@@ -220,7 +220,7 @@ async function cmdRegenerate(sdk: HostSDK, body: Uint8Array): Promise<string> {
   };
   const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as any;
   await db.insertInto("vertex_yukkuri_generation").values({
-    vertex_id: `at://${PATH_SCRIPTWRITER}/ai.gftd.apps.yukkuri.generation/${genRkey}`,
+    vertex_id: `at://${PATH_SCRIPTWRITER}/app.etzhayyim.apps.yukkuri.generation/${genRkey}`,
     sensitivity_ord: 2,
     owner_did: PATH_SCRIPTWRITER,
     target_uri: generationRecord.targetUri,
@@ -233,7 +233,7 @@ async function cmdRegenerate(sdk: HostSDK, body: Uint8Array): Promise<string> {
     actor_id: "y5kk5r1x",
   }).execute();
   return JSON.stringify({
-    generationUri: `at://yukkuri.etzhayyim.com/ai.gftd.apps.yukkuri.generation/${genRkey}`,
+    generationUri: `at://yukkuri.etzhayyim.com/app.etzhayyim.apps.yukkuri.generation/${genRkey}`,
     status: "queued",
     note: "Phase 0 stub — regeneration executed on next reactive tick",
   });
@@ -256,7 +256,7 @@ async function cmdRender(sdk: HostSDK, body: Uint8Array): Promise<string> {
   const renderRkey = genID("render");
   const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as any;
   await db.insertInto("vertex_yukkuri_generation").values({
-    vertex_id: `at://${PATH_RENDERER}/ai.gftd.apps.yukkuri.generation/${renderRkey}`,
+    vertex_id: `at://${PATH_RENDERER}/app.etzhayyim.apps.yukkuri.generation/${renderRkey}`,
     sensitivity_ord: 2,
     owner_did: PATH_RENDERER,
     target_uri: generationRecord.targetUri,
@@ -310,7 +310,7 @@ function videoUriToRkey(videoUri: string): string {
 
 function normalizeVideoUri(rkeyOrUri: string): string {
   const rkey = videoUriToRkey(rkeyOrUri);
-  return `at://yukkuri.etzhayyim.com/ai.gftd.apps.yukkuri.video/${rkey}`;
+  return `at://yukkuri.etzhayyim.com/app.etzhayyim.apps.yukkuri.video/${rkey}`;
 }
 
 async function pgQuery(env: Record<string, unknown>, sql: string, params: unknown[]): Promise<VideoRow[]> {
@@ -463,14 +463,14 @@ async function cmdGetVideo(_sdk: HostSDK, env: Record<string, unknown>, body: Ui
       scenes,
       lines,
       assets: assetRows.map((r) => ({
-        assetUri: `at://yukkuri.etzhayyim.com/ai.gftd.apps.yukkuri.asset/${r.vertex_id}`,
+        assetUri: `at://yukkuri.etzhayyim.com/app.etzhayyim.apps.yukkuri.asset/${r.vertex_id}`,
         kind: r.kind ?? "",
         blobKey: r.blob_key ?? "",
         mimeType: r.mime_type ?? "",
         actorDid: r.actor_did ?? "",
       })),
       lastGeneration: genRow ? {
-        generationUri: `at://yukkuri.etzhayyim.com/ai.gftd.apps.yukkuri.generation/${genRow.vertex_id}`,
+        generationUri: `at://yukkuri.etzhayyim.com/app.etzhayyim.apps.yukkuri.generation/${genRow.vertex_id}`,
         stage: genRow.stage ?? "",
         status: genRow.status ?? "",
         createdAt: genRow.created_at ?? "",
@@ -608,24 +608,24 @@ export default createWorkerExport((sdk) => {
 
   sdk.app
     .command(
-      nsid("ai.gftd.apps.yukkuri.compose"),
+      nsid("app.etzhayyim.apps.yukkuri.compose"),
       async (_ctx: unknown, body: Uint8Array) => cmdCompose(sdk, env, body),
       asAgentTool("Generate a yukkuri commentary video from a topic (Phase 0: script generation + pipeline enqueue)"),
       withCapabilityTags("write", "video", "dialogue", "generation"),
     )
     .command(
-      nsid("ai.gftd.apps.yukkuri.regenerate"),
+      nsid("app.etzhayyim.apps.yukkuri.regenerate"),
       async (_ctx: unknown, body: Uint8Array) => cmdRegenerate(sdk, body),
       asAgentTool("Regenerate a scene / line / asset within an existing yukkuri video project"),
       withCapabilityTags("write", "video", "regeneration"),
     )
     .command(
-      nsid("ai.gftd.apps.yukkuri.render"),
+      nsid("app.etzhayyim.apps.yukkuri.render"),
       async (_ctx: unknown, body: Uint8Array) => cmdRender(sdk, body),
       asAgentTool("Trigger final mp4/webm render for an assembled yukkuri video project"),
       withCapabilityTags("write", "video", "render"),
     )
-    .command(nsid("ai.gftd.apps.yukkuri.health"), async () => cmdHealth())
-    .query(nsid("ai.gftd.apps.yukkuri.listVideos"), async (_ctx: unknown, body: Uint8Array) => cmdListVideos(sdk, env, body))
-    .query(nsid("ai.gftd.apps.yukkuri.getVideo"), async (_ctx: unknown, body: Uint8Array) => cmdGetVideo(sdk, env, body));
+    .command(nsid("app.etzhayyim.apps.yukkuri.health"), async () => cmdHealth())
+    .query(nsid("app.etzhayyim.apps.yukkuri.listVideos"), async (_ctx: unknown, body: Uint8Array) => cmdListVideos(sdk, env, body))
+    .query(nsid("app.etzhayyim.apps.yukkuri.getVideo"), async (_ctx: unknown, body: Uint8Array) => cmdGetVideo(sdk, env, body));
 });

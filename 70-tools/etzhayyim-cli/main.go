@@ -25,6 +25,18 @@ func main() {
 		err = runDeploy(os.Args[2:])
 	case "plugin":
 		err = runPlugin(os.Args[2:])
+	case "bench":
+		err = runBench(os.Args[2:])
+	case "baien":
+		err = runBaien(os.Args[2:])
+	case "actor":
+		err = runActor(os.Args[2:])
+	case "agent-token":
+		err = runAgentToken(os.Args[2:])
+	case "capability":
+		err = runCapability(os.Args[2:])
+	case "kuni-umi":
+		err = runKuniUmi(os.Args[2:])
 	case "version", "--version", "-v":
 		fmt.Printf("gftd %s\n", version)
 	case "help", "--help", "-h":
@@ -49,6 +61,17 @@ COMMANDS:
   build-server       Build magatama-server binary + Docker image (zigbuild cross-compile)
   deploy             Cloudflare Container deploy from source dir (magatama.toml + gftd.json → wrangler deploy + smoke test)
   plugin        Manage build tools (wasm-tools, tinygo adapters)
+  bench         Dispatch baien benches (micro / core4 / distill / rope-extend / list) — see 'gftd bench help'
+  baien         Ad-hoc baien inference (prompt) — see 'gftd baien help'
+  actor         Declarative actor deploy from actor.toml (--only <stage>, --non-interactive) — see 'gftd actor help'
+                Per ADR-2605232000.
+  agent-token   Mint a scoped ephemeral JWT (Ed25519, default TTL 60s) for agent-led XRPC/deploy steps.
+                Per ADR-2605232000.
+  capability    Consent capability lifecycle (issue / verify / revoke / list) — see 'gftd capability help'.
+                Per ADR-2605231400 + ADR-2605232000.
+  kuni-umi      6-phase robotic-deployment flow (define-site / submit-survey / propose-plan /
+                record-progress / commission / audit-event) — see 'gftd kuni-umi help'.
+                Per ADR-2605201400.
   version       Print version
 
 Run 'gftd <command> --help' for command-specific flags.

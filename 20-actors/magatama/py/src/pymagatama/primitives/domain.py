@@ -329,13 +329,13 @@ async def task_domain_register_assist(**kwargs: Any) -> dict[str, Any]:
     # 3) Draft ledger row (always inserted; status reflects eligibility).
     advice_slug = elig.get("matchedAdviceSlug") or ""
     advice_vid = (
-        f"at://{_DOMAIN_ACTOR}/ai.gftd.apps.domain.eligibilityAdvice/{advice_slug}"
+        f"at://{_DOMAIN_ACTOR}/app.etzhayyim.apps.domain.eligibilityAdvice/{advice_slug}"
         if advice_slug else None
     )
 
     seed = f"reg|{domain_name}|{tld}|{registrant_did}|{int(time.time())}"
     reg_id = f"r-{_hash12(seed)}"
-    vertex_id = f"at://{_DOMAIN_ACTOR}/ai.gftd.apps.domain.registration/{reg_id}"
+    vertex_id = f"at://{_DOMAIN_ACTOR}/app.etzhayyim.apps.domain.registration/{reg_id}"
     status = "planning" if eligible else "blocked"
     notes = ("Draft created via registerAssist. "
              + (f"Eligibility blocked — see alternatives: {','.join(elig.get('alternatives') or [])}."

@@ -42,7 +42,7 @@ export interface SimulationState {
 
 const initialState: SimulationState = {
     phase: 'init',
-    aircraft_model: 'GFTD-Aero-777',
+    aircraft_model: 'etzhayyim-Aero-777',
     log: ['[SYSTEM] System Ready. Awaiting initialization.'],
     isProcessing: false
 };
@@ -59,7 +59,7 @@ function createSimulationStore() {
         reset: () => set(initialState),
         start: async () => {
             update(s => ({ ...s, isProcessing: true }));
-            log('[???] Initializing new aircraft project for model: GFTD-Aero-777');
+            log('[???] Initializing new aircraft project for model: etzhayyim-Aero-777');
             await delay(800);
             
             update(s => ({ 
@@ -74,10 +74,10 @@ function createSimulationStore() {
             const pid = get({subscribe}).project_id;
             log(`[${pid}] PHASE 1: ENGINE DESIGN (Kami CAD/CAE)`);
             await delay(1000);
-            log(`[${pid}]  -> Designed Engine: GFTD-NextGen-TF9000`);
+            log(`[${pid}]  -> Designed Engine: etzhayyim-NextGen-TF9000`);
             
             const design: EngineDesign = {
-                model_name: "GFTD-NextGen-TF9000",
+                model_name: "etzhayyim-NextGen-TF9000",
                 thrust_kn: 343.3,
                 weight_kg: 4218.5,
                 bypass_ratio: 11.5,

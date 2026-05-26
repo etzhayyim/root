@@ -35,11 +35,11 @@ async function loadActivity(): Promise<void> {
 
 	try {
 		const collections = [
-			'ai.gftd.apps.yoro.shinkaKnowledge',
-			'ai.gftd.apps.yoro.shinkaEvolution',
-			'ai.gftd.apps.yoro.kojiDiscovery',
-			'ai.gftd.apps.yoro.kyumeiValidation',
-			'ai.gftd.apps.yoro.hinshitsuAssessment',
+			'app.etzhayyim.apps.yoro.shinkaKnowledge',
+			'app.etzhayyim.apps.yoro.shinkaEvolution',
+			'app.etzhayyim.apps.yoro.kojiDiscovery',
+			'app.etzhayyim.apps.yoro.kyumeiValidation',
+			'app.etzhayyim.apps.yoro.hinshitsuAssessment',
 		];
 
 		const entries: ActivityEntry[] = [];

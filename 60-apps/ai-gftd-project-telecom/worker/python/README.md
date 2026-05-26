@@ -6,12 +6,12 @@ eTOM Customer + Service Provisioning core (ADR-0056 BPMN-as-actor, Wave: telecom
 
 | LangServer task type | NSID | BPMN |
 |---|---|---|
-| `telecom.subscriber.onboard` | `ai.gftd.apps.telecom.onboardSubscriber` | `etzhayyim-root/00-contracts/bpmn/ai/gftd/telecom/onboardSubscriber.bpmn` |
-| `telecom.sim.activate` | `ai.gftd.apps.telecom.activateSim` | `activateSim.bpmn` |
-| `telecom.service.provision` | `ai.gftd.apps.telecom.provisionService` | `provisionService.bpmn` |
-| `telecom.usage.record` | `ai.gftd.apps.telecom.recordUsage` | `recordUsage.bpmn` |
-| `telecom.billing.cycle` | `ai.gftd.apps.telecom.runBillingCycle` | `runBillingCycle.bpmn` |
-| `telecom.sla.escalate` | `ai.gftd.apps.telecom.escalateSlaBreach` | `escalateSlaBreach.bpmn` |
+| `telecom.subscriber.onboard` | `app.etzhayyim.apps.telecom.onboardSubscriber` | `etzhayyim-root/00-contracts/bpmn/ai/gftd/telecom/onboardSubscriber.bpmn` |
+| `telecom.sim.activate` | `app.etzhayyim.apps.telecom.activateSim` | `activateSim.bpmn` |
+| `telecom.service.provision` | `app.etzhayyim.apps.telecom.provisionService` | `provisionService.bpmn` |
+| `telecom.usage.record` | `app.etzhayyim.apps.telecom.recordUsage` | `recordUsage.bpmn` |
+| `telecom.billing.cycle` | `app.etzhayyim.apps.telecom.runBillingCycle` | `runBillingCycle.bpmn` |
+| `telecom.sla.escalate` | `app.etzhayyim.apps.telecom.escalateSlaBreach` | `escalateSlaBreach.bpmn` |
 
 ## Run
 

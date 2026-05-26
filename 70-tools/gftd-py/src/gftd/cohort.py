@@ -42,7 +42,7 @@ def cohort_list(pds: str | None, json_out: bool, limit: int) -> None:
     """List all cohorts."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.listCohorts",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.listCohorts",
                          params={"limit": limit}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -65,7 +65,7 @@ def cohort_get(cohort_id: str, pds: str | None, json_out: bool) -> None:
     """Get cohort details."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.getCohort",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.getCohort",
                          params={"id": cohort_id}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -85,7 +85,7 @@ def cohort_stats(pds: str | None, json_out: bool) -> None:
     """Cohort sharding statistics."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.getStats",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.getStats",
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -106,7 +106,7 @@ def cohort_create(name: str, pds: str | None, json_out: bool) -> None:
     """Create a new cohort."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.post(f"{pds_url}/xrpc/ai.gftd.cohort.createCohort",
+        resp = httpx.post(f"{pds_url}/xrpc/app.etzhayyim.cohort.createCohort",
                           json={"name": name}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -123,14 +123,14 @@ def cohort_create(name: str, pds: str | None, json_out: bool) -> None:
 @click.option("--pds", default=None)
 @click.option("--json", "json_out", is_flag=True, default=False)
 def cohort_seed(segment: str, pds: str | None, json_out: bool) -> None:
-    """POST ai.gftd.cohort.seed — generate cohort from segment (idempotent)."""
+    """POST app.etzhayyim.cohort.seed — generate cohort from segment (idempotent)."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     if segment.startswith("@"):
         body = json.loads(Path(segment[1:]).read_text())
     else:
         body = json.loads(segment)
     try:
-        resp = httpx.post(f"{pds_url}/xrpc/ai.gftd.cohort.seed",
+        resp = httpx.post(f"{pds_url}/xrpc/app.etzhayyim.cohort.seed",
                           json=body, headers=_auth_headers(), timeout=60)
         resp.raise_for_status()
         data = resp.json()
@@ -164,7 +164,7 @@ def cohort_gen(pcf_l1: str, role: str, industry: str, seniority: str,
         return
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.post(f"{pds_url}/xrpc/ai.gftd.cohort.seed",
+        resp = httpx.post(f"{pds_url}/xrpc/app.etzhayyim.cohort.seed",
                           json=segment, headers=_auth_headers(), timeout=60)
         resp.raise_for_status()
         data = resp.json()
@@ -182,13 +182,13 @@ def cohort_gen(pcf_l1: str, role: str, industry: str, seniority: str,
 @click.option("--dry-run", is_flag=True, default=False)
 @click.option("--json", "json_out", is_flag=True, default=False)
 def cohort_fission(did: str, pds: str | None, dry_run: bool, json_out: bool) -> None:
-    """POST ai.gftd.cohort.fission — Phase C fission (posterior≥0.95 gate)."""
+    """POST app.etzhayyim.cohort.fission — Phase C fission (posterior≥0.95 gate)."""
     if dry_run:
         click.echo(f"dry-run: would fission cohort {did}")
         return
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.post(f"{pds_url}/xrpc/ai.gftd.cohort.fission",
+        resp = httpx.post(f"{pds_url}/xrpc/app.etzhayyim.cohort.fission",
                           json={"did": did}, headers=_auth_headers(), timeout=60)
         resp.raise_for_status()
         data = resp.json()
@@ -212,7 +212,7 @@ def cohort_fission(did: str, pds: str | None, dry_run: bool, json_out: bool) -> 
 @click.option("--json", "json_out", is_flag=True, default=False)
 def cohort_evidence(cohort_did: str, min_posterior: float, judge: str,
                     limit: int, pds: str | None, json_out: bool) -> None:
-    """GET ai.gftd.cohort.listEvidence — list evidence records."""
+    """GET app.etzhayyim.cohort.listEvidence — list evidence records."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     params: dict = {"limit": limit}
     if cohort_did:
@@ -222,7 +222,7 @@ def cohort_evidence(cohort_did: str, min_posterior: float, judge: str,
     if judge:
         params["judge"] = judge
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.listEvidence",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.listEvidence",
                          params=params, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -243,7 +243,7 @@ def cohort_evidence(cohort_did: str, min_posterior: float, judge: str,
 @click.option("--pds", default=None)
 @click.option("--json", "json_out", is_flag=True, default=False)
 def cohort_emit(cohort_did: str, evidence_json: str, pds: str | None, json_out: bool) -> None:
-    """POST ai.gftd.cohort.emitEvidence — Phase B evidence emission."""
+    """POST app.etzhayyim.cohort.emitEvidence — Phase B evidence emission."""
     if evidence_json.startswith("@"):
         body = json.loads(Path(evidence_json[1:]).read_text())
     else:
@@ -251,7 +251,7 @@ def cohort_emit(cohort_did: str, evidence_json: str, pds: str | None, json_out: 
     body["cohort"] = cohort_did
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.post(f"{pds_url}/xrpc/ai.gftd.cohort.emitEvidence",
+        resp = httpx.post(f"{pds_url}/xrpc/app.etzhayyim.cohort.emitEvidence",
                           json=body, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -272,7 +272,7 @@ def cohort_lineage(did: str, depth: int, pds: str | None, json_out: bool) -> Non
     """Traverse derived_from chain upward."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.getLineage",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.getLineage",
                          params={"did": did, "depth": depth},
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
@@ -294,13 +294,13 @@ def cohort_lineage(did: str, depth: int, pds: str | None, json_out: bool) -> Non
 @click.option("--pds", default=None)
 @click.option("--json", "json_out", is_flag=True, default=False)
 def cohort_lineage_stats(pcf_l1: str, min_children: int, pds: str | None, json_out: bool) -> None:
-    """GET ai.gftd.cohort.lineageStats — mv_cohort_lineage_depth rank."""
+    """GET app.etzhayyim.cohort.lineageStats — mv_cohort_lineage_depth rank."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     params: dict = {"minChildren": min_children}
     if pcf_l1:
         params["pcfL1"] = pcf_l1
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.lineageStats",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.lineageStats",
                          params=params, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -322,13 +322,13 @@ def cohort_lineage_stats(pcf_l1: str, min_children: int, pds: str | None, json_o
 @click.option("--pds", default=None)
 @click.option("--json", "json_out", is_flag=True, default=False)
 def cohort_repair_edge(did: str, limit: int, dry_run: bool, pds: str | None, json_out: bool) -> None:
-    """POST ai.gftd.cohort.repairEdge — backfill edge_cohort_derived."""
+    """POST app.etzhayyim.cohort.repairEdge — backfill edge_cohort_derived."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     body: dict = {"limit": limit, "dryRun": dry_run}
     if did:
         body["did"] = did
     try:
-        resp = httpx.post(f"{pds_url}/xrpc/ai.gftd.cohort.repairEdge",
+        resp = httpx.post(f"{pds_url}/xrpc/app.etzhayyim.cohort.repairEdge",
                           json=body, headers=_auth_headers(), timeout=60)
         resp.raise_for_status()
         data = resp.json()
@@ -351,7 +351,7 @@ def cohort_forest(pcf_l1: str, rooted_did: str, pds: str | None) -> None:
     if pcf_l1:
         params["pcfL1"] = pcf_l1
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.listCohorts",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.listCohorts",
                          params=params, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -392,7 +392,7 @@ def cohort_dashboard(pds: str | None, json_out: bool) -> None:
     """Health check — total/cohort/fissioned/axis cardinalities."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.listCohorts",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.listCohorts",
                          params={"limit": 1000}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -437,7 +437,7 @@ def cohort_coverage(axes: str, pds: str | None, json_out: bool) -> None:
         axis_list = ["pcfL1", "role"]
     row_ax, col_ax = axis_list[0], axis_list[1]
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.listCohorts",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.listCohorts",
                          params={"limit": 1000}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -487,7 +487,7 @@ def cohort_gap(axes: str, min_count: int, pds: str | None, json_out: bool) -> No
         axis_list = ["pcfL1", "role"]
     row_ax, col_ax = axis_list[0], axis_list[1]
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.listCohorts",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.listCohorts",
                          params={"limit": 1000}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -530,7 +530,7 @@ def cohort_snapshot(axes: str, out_dir: str, pds: str | None, json_out: bool) ->
     """Save 4-axis cohort aggregate to data/cohort-coverage/<ts>.json."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/ai.gftd.cohort.listCohorts",
+        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.cohort.listCohorts",
                          params={"limit": 1000}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()

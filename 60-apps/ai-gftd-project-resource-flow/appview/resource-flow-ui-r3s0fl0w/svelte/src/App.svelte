@@ -65,7 +65,7 @@
     <h1 style="margin:0 0 6px;font-size:22px">resource-flow.etzhayyim.com</h1>
     <p style="margin:0;color:#9aa0aa;font-size:13px">
       ADR-0028 cluster · ADR-0074 root-keyed · ADR-0046 anomaly cron · pipethrough
-      <code>atproto.etzhayyim.com/xrpc/ai.gftd.apps.resourceFlow.*</code>
+      <code>atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.resourceFlow.*</code>
     </p>
   </header>
 

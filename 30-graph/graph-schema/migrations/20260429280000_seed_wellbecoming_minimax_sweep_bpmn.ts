@@ -18,7 +18,7 @@ const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const ACTOR_TAG = "sys.bpmn.seed.wellbecoming";
 
 const VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1";
+  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-minimax-sweep-v1";
 const BPMN_PROCESS_ID = "wellbecoming_minimax_sweep";
 const SOURCE_PATH =
   "00-contracts/bpmn/ai/gftd/wellbecoming/minimaxSweep.bpmn";

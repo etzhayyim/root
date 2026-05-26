@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="NGO_INT_UNODC" targetNamespace="http://etzhayyim.com/ngo/INT/UNODC/transport">
+  <bpmn:process id="Process_INT_UNODC_transport" isExecutable="true">
+    <bpmn:startEvent id="S" name="Grant/program request"/>
+    <bpmn:task id="T1" name="NGO internal review"/>
+    <bpmn:task id="T2" name="Beneficiary vetting"/>
+    <bpmn:task id="T3" name="Deliver service"/>
+    <bpmn:endEvent id="E" name="Impact report"/>
+  </bpmn:process>
+</bpmn:definitions>

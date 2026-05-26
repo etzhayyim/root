@@ -33,13 +33,13 @@ amended_by:
 
 # Context
 
-magatama actor の CF Worker (T3 TS Native, F-Plan 2026-04-13) は command を `sdk.app.command(nsid, handler, asAgentTool("..."), ...)` で宣言し、`CommandEntry.agentToolDesc` → `buildActorCardFromCommands()` → `ActorCard.tools[]` 経由で **PDS governance manifest に登録、`mcp.etzhayyim.com/xrpc/ai.gftd.mcp.message` の単一 MCP endpoint で全 actor 分を合成公開** している。
+magatama actor の CF Worker (T3 TS Native, F-Plan 2026-04-13) は command を `sdk.app.command(nsid, handler, asAgentTool("..."), ...)` で宣言し、`CommandEntry.agentToolDesc` → `buildActorCardFromCommands()` → `ActorCard.tools[]` 経由で **PDS governance manifest に登録、`mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` の単一 MCP endpoint で全 actor 分を合成公開** している。
 
 これには 3 つの問題がある:
 
 1. **scope が PDS 集約**: LangGraph / OpenAI Apps SDK / Claude Desktop 等の外部 LLM agent は actor 単位で tool scope を切りたい (例: lawfirm actor の tool だけを bind)。現状は全 actor tool を 1 endpoint で混ぜて公開しており、per-actor 切り出しは client 側 filter に頼る。
 2. **discovery 規格の不在**: AtProto XRPC 仕様は service discovery を定義していない (*"there is not yet a consistent way to enumerate which endpoints do or do not"* — atproto.com/specs/xrpc)。AT-native client は lexicon JSON をビルド時取り込みで解決するが、LLM agent は runtime discovery を必要とする。
-3. **2026 年事実上標準との乖離**: LLM agent tool exposure は **MCP (Model Context Protocol)** に収束した。Anthropic (origin) / OpenAI Apps SDK / LangGraph Server / Claude Code / Cursor が `/mcp` Streamable HTTP endpoint を採用。OpenAI Assistants API は 2026-08-26 終了、Responses API + MCP へ移行。repo も既に `ai.gftd.mcp.message` NSID と `mcp.etzhayyim.com/mcp` connector endpoint を持つが、per-actor Worker 側には MCP server 実体が無い。
+3. **2026 年事実上標準との乖離**: LLM agent tool exposure は **MCP (Model Context Protocol)** に収束した。Anthropic (origin) / OpenAI Apps SDK / LangGraph Server / Claude Code / Cursor が `/mcp` Streamable HTTP endpoint を採用。OpenAI Assistants API は 2026-08-26 終了、Responses API + MCP へ移行。repo も既に `app.etzhayyim.mcp.message` NSID と `mcp.etzhayyim.com/mcp` connector endpoint を持つが、per-actor Worker 側には MCP server 実体が無い。
 
 5 プロトコル比較:
 
@@ -91,7 +91,7 @@ Lexicon → Zod + MCP tool manifest を単一 codegen で出す:
                                               └─ MCP tool entries ({name, description, inputSchema})
 ```
 
-**NSID ↔ MCP tool name 規約**: MCP tool name = NSID そのまま (`ai.gftd.apps.lawfirm.createCase`)。一部 client が `.` を受け付けない場合は `_` 置換を client 側責務とする (server 側は SSoT 維持)。
+**NSID ↔ MCP tool name 規約**: MCP tool name = NSID そのまま (`app.etzhayyim.apps.lawfirm.createCase`)。一部 client が `.` を受け付けない場合は `_` 置換を client 側責務とする (server 側は SSoT 維持)。
 
 ## D4. `magatama.jsonld` flag
 
@@ -121,7 +121,7 @@ Lexicon → Zod + MCP tool manifest を単一 codegen で出す:
 |---|---|
 | **独自 `/tools` REST path** | どの標準にも含まれない独自命名。LLM agent ecosystem の既存 client 対応がゼロ。ADR-0005 の SSoT 増加に当たる |
 | **XRPC のみ (MCP facade 作らず)** | AtProto XRPC spec に service discovery が無い。LLM agent は runtime で tool 列挙できず、実質使えない |
-| **PDS 集約 `ai.gftd.mcp.message` を per-actor scope 拡張** | scope param で filter する設計は可能だが、(a) endpoint が actor 位置と乖離、(b) governance manifest が単一 PDS worker に集中する SPoF、(c) ADR-0036 の worker-direct 方針と逆行 |
+| **PDS 集約 `app.etzhayyim.mcp.message` を per-actor scope 拡張** | scope param で filter する設計は可能だが、(a) endpoint が actor 位置と乖離、(b) governance manifest が単一 PDS worker に集中する SPoF、(c) ADR-0036 の worker-direct 方針と逆行 |
 | **GPT Actions の `/.well-known/ai-plugin.json` のみ** | OpenAI custom GPTs 専用。Claude / LangGraph / Cursor は読めない |
 | **WIT + wasmtime (T3 Container) 経由** | T3 TS Native (DEFAULT) では WIT は design-time contract 扱いで runtime 未使用 (F-Plan 2026-04-13)。Container 化は 128MB 超過 actor 限定で、一般 actor に強制する妥当性なし |
 | **`hono/jwt` で ES256 bearer を検証** | 公式 docs が `secret: string` 例のみ。ES256 asymmetric の公開鍵 (JWK/PEM) 渡しが未文書化。既存 `ServiceAuth` (ADR-0022 SSoT) を流用した方が安全かつ重複ゼロ |

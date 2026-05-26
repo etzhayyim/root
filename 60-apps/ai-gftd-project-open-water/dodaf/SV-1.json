@@ -10,15 +10,15 @@
         "id": "sys.worker", "name": "open-water Worker",
         "platform": "Cloudflare Workers", "entrypoint": "worker/src/app.ts",
         "interfaces": [
-          { "id": "if.xrpc.defineReservoir",       "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openWater.defineReservoir" },
-          { "id": "if.xrpc.defineMain",            "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openWater.defineMain" },
-          { "id": "if.xrpc.getNode",               "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openWater.getNode" },
-          { "id": "if.xrpc.listMains",             "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openWater.listMains" },
-          { "id": "if.xrpc.recordReading",         "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openWater.recordReading" },
-          { "id": "if.xrpc.reportLeak",            "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openWater.reportLeak" },
-          { "id": "if.xrpc.listLeaks",             "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openWater.listLeaks" },
-          { "id": "if.xrpc.recordQualitySample",   "kind": "XRPC", "method": "POST", "nsid": "ai.gftd.apps.openWater.recordQualitySample" },
-          { "id": "if.xrpc.listQualitySamples",    "kind": "XRPC", "method": "GET",  "nsid": "ai.gftd.apps.openWater.listQualitySamples" }
+          { "id": "if.xrpc.defineReservoir",       "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openWater.defineReservoir" },
+          { "id": "if.xrpc.defineMain",            "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openWater.defineMain" },
+          { "id": "if.xrpc.getNode",               "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openWater.getNode" },
+          { "id": "if.xrpc.listMains",             "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openWater.listMains" },
+          { "id": "if.xrpc.recordReading",         "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openWater.recordReading" },
+          { "id": "if.xrpc.reportLeak",            "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openWater.reportLeak" },
+          { "id": "if.xrpc.listLeaks",             "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openWater.listLeaks" },
+          { "id": "if.xrpc.recordQualitySample",   "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openWater.recordQualitySample" },
+          { "id": "if.xrpc.listQualitySamples",    "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openWater.listQualitySamples" }
         ]
       },
       { "id": "sys.d1", "name": "Cloudflare D1 (SQLite)", "platform": "D1",

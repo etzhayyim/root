@@ -135,9 +135,9 @@ MST event record shape (per `@etzhayyim/sdk` MST subscription):
 
 ```python
 {
-    "uri": "at://did:web:.../ai.gftd.apps.etzhayyim.kuniUmi.defineDeploymentSite/3kxyz...",
+    "uri": "at://did:web:.../app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite/3kxyz...",
     "cid": "bafyrei...",
-    "collection": "ai.gftd.apps.etzhayyim.kuniUmi.defineDeploymentSite",
+    "collection": "app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite",
     "rkey": "3kxyz...",
     "value": { ... lexicon input shape ... },
     "indexedAt": "2026-05-20T14:30:00Z",
@@ -151,7 +151,7 @@ MST event record shape (per `@etzhayyim/sdk` MST subscription):
 
 `thread_id_from_event(event_record, nsid)` 規約:
 - **deterministic** (同じ event は同じ thread_id) — checkpointer idempotency 保証
-- default 実装: `f"{nsid}:{event_record['rkey']}"` (e.g., `"ai.gftd.apps.etzhayyim.kuniUmi.defineDeploymentSite:3kxyz..."`)
+- default 実装: `f"{nsid}:{event_record['rkey']}"` (e.g., `"app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite:3kxyz..."`)
 - cell が自前 override 可能 (e.g., 複数 NSID を 1 thread で merge する場合)
 
 `cell_runtime.py` に default 実装を提供し、cell は override only when needed:
@@ -215,7 +215,7 @@ Each cell subprocess exposes `GET /healthz` on `cell_config['healthz_port']` (fr
   "node": "naphtali",
   "uptime_seconds": 12345,
   "trigger": "mst-listener",
-  "listens_to": ["ai.gftd.apps.etzhayyim.charter-attestation-request"],
+  "listens_to": ["app.etzhayyim.apps.etzhayyim.charter-attestation-request"],
   "checkpointer": {"type": "mst", "ok": true, "last_write_seconds_ago": 7},
   "swarm_role": "leader",
   "witness_min": 2,

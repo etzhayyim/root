@@ -21,4 +21,4 @@ graph.add_node('process', lambda s: {'validation_report': 'Integrated into mainf
 graph.set_entry_point('validate')
 graph.add_conditional_edges('validate', route_by_validation, {'process': 'process', '__end__': END})
 graph.add_edge('process', END)
-compile = graph.compile()
+graph = graph.compile()

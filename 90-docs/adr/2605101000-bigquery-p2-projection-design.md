@@ -86,7 +86,7 @@ Every adapter is one of:
 |---|---|
 | `self_ingest` | BQ → narrow projection rows INSERTed directly into `vertex_<domain>_*` via Kysely (`createKyselyDb(env.HYPERDRIVE).insertInto(...)`). |
 | `bigquery_stage` | BQ → `EXPORT DATA OPTIONS(format='PARQUET', uri='gs://gftd-bq-stage/<run_id>/<dataset>/<table>/*.parquet')` → object-store → RW `CREATE EXTERNAL SOURCE` Hummock load → narrow vertex rows. |
-| `hybrid` | catalog + delta only. BQ join against an existing GFTD vertex (e.g. `vertex_legal_entity` for GLEIF reconciliation, `vertex_patent` for USPTO crosswalk) and write only the missing fields plus a provenance edge. |
+| `hybrid` | catalog + delta only. BQ join against an existing etzhayyim vertex (e.g. `vertex_legal_entity` for GLEIF reconciliation, `vertex_patent` for USPTO crosswalk) and write only the missing fields plus a provenance edge. |
 | `reject` | adapter does not exist; no P2 projection. |
 | `catalog_only` | adapter does not exist; the dataset stays metadata-only. |
 

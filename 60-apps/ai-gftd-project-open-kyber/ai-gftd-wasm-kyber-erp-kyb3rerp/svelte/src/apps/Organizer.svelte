@@ -7,15 +7,15 @@
   const BASE = 'https://organizer.etzhayyim.com';
 
   const nsid = {
-    listItems: 'ai.gftd.apps.organizer.listItems',
-    searchItems: 'ai.gftd.apps.organizer.searchItems',
-    getVaultStats: 'ai.gftd.apps.organizer.getVaultStats',
-    listCollections: 'ai.gftd.apps.organizer.listCollections',
-    createCollection: 'ai.gftd.apps.organizer.createCollection',
-    suggestRules: 'ai.gftd.apps.organizer.suggestRules',
-    analyzeSubscriptions: 'ai.gftd.apps.organizer.analyzeSubscriptions',
-    getRecommendations: 'ai.gftd.apps.organizer.getRecommendations',
-    requestCancellation: 'ai.gftd.apps.organizer.requestCancellation'
+    listItems: 'app.etzhayyim.apps.organizer.listItems',
+    searchItems: 'app.etzhayyim.apps.organizer.searchItems',
+    getVaultStats: 'app.etzhayyim.apps.organizer.getVaultStats',
+    listCollections: 'app.etzhayyim.apps.organizer.listCollections',
+    createCollection: 'app.etzhayyim.apps.organizer.createCollection',
+    suggestRules: 'app.etzhayyim.apps.organizer.suggestRules',
+    analyzeSubscriptions: 'app.etzhayyim.apps.organizer.analyzeSubscriptions',
+    getRecommendations: 'app.etzhayyim.apps.organizer.getRecommendations',
+    requestCancellation: 'app.etzhayyim.apps.organizer.requestCancellation'
   } as const;
 
   let query = $state('');
@@ -48,7 +48,7 @@
 <div class="flex flex-col gap-4">
   <div class="flex flex-wrap items-center gap-2">
     <Badge value="organizer.etzhayyim.com" variant="accent" />
-    <span class="text-xs text-gftd-muted">
+    <span class="text-xs text-etzhayyim-muted">
       Upload anything · Blake3 dedup · AI auto-classify · subscription recommender
     </span>
   </div>
@@ -56,7 +56,7 @@
   <div class="grid gap-4 md:grid-cols-2">
     <Card>
       <div class="p-4 flex flex-col gap-3">
-        <h3 class="text-sm font-semibold text-gftd-text">Vault</h3>
+        <h3 class="text-sm font-semibold text-etzhayyim-text">Vault</h3>
         <div class="flex flex-wrap gap-2">
           <Button size="sm" variant="solid-fill"
             onclick={() => run(nsid.getVaultStats)}>Stats</Button>
@@ -72,7 +72,7 @@
 
     <Card>
       <div class="p-4 flex flex-col gap-3">
-        <h3 class="text-sm font-semibold text-gftd-text">Search</h3>
+        <h3 class="text-sm font-semibold text-etzhayyim-text">Search</h3>
         <Input bind:value={query} blockSize="md" placeholder="invoice / receipt / contract …" />
         <div>
           <Button size="md" variant="solid-fill"
@@ -89,7 +89,7 @@
 
     <Card>
       <div class="p-4 flex flex-col gap-3">
-        <h3 class="text-sm font-semibold text-gftd-text">New Collection</h3>
+        <h3 class="text-sm font-semibold text-etzhayyim-text">New Collection</h3>
         <Input bind:value={collectionName} blockSize="md" placeholder="collection name" />
         <div>
           <Button size="md" variant="solid-fill"
@@ -100,7 +100,7 @@
 
     <Card>
       <div class="p-4 flex flex-col gap-3">
-        <h3 class="text-sm font-semibold text-gftd-text">Subscriptions</h3>
+        <h3 class="text-sm font-semibold text-etzhayyim-text">Subscriptions</h3>
         <div class="flex flex-wrap gap-2">
           <Button size="sm" variant="solid-fill"
             onclick={() => run(nsid.analyzeSubscriptions, {})}>Analyze</Button>
@@ -117,7 +117,7 @@
     </Card>
   </div>
 
-  <p class="text-[11px] text-gftd-muted">
+  <p class="text-[11px] text-etzhayyim-muted">
     Cross-origin XRPC to <code>organizer.etzhayyim.com</code>. If browser blocks CORS the call falls back to same-origin (kyber proxy not implemented).
   </p>
 </div>

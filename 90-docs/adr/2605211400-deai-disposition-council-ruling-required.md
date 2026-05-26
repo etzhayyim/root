@@ -72,13 +72,13 @@ etzhayyim takes over as operator-of-record. Project moves to etzhayyim/root per 
 
 ### Disposition B — SPLIT (lexicons → etz, runtime → vendor)
 
-Like dougaka SPLIT pattern (ADR-2605172400 C-group). Lexicons + spec land in etzhayyim as the open contract; PII handling stays vendor under Stripe/GDPR/IRB compliance regime. Magatama `operator` field corrected to `gftd.co.jp`. etzhayyim references deai lexicons in catalog but does not run the actor.
+Like dougaka SPLIT pattern (ADR-2605172400 C-group). Lexicons + spec land in etzhayyim as the open contract; PII handling stays vendor under Stripe/GDPR/IRB compliance regime. Magatama `operator` field corrected to `etzhayyim.com`. etzhayyim references deai lexicons in catalog but does not run the actor.
 
 **Implies**: lexicon copy to etzhayyim + vendor magatama operator field correction. No runtime move.
 
 ### Disposition C — Vendor confirmed (correct the magatama declaration)
 
-Treat the `operator: etzhayyim` declaration as a misconfiguration. Apply default 3-axis verdict (2 HIT → vendor). Correct vendor magatama to `operator: gftd.co.jp`. Add Tranche F per-actor classification entry locking deai to vendor.
+Treat the `operator: etzhayyim` declaration as a misconfiguration. Apply default 3-axis verdict (2 HIT → vendor). Correct vendor magatama to `operator: etzhayyim.com`. Add Tranche F per-actor classification entry locking deai to vendor.
 
 **Implies**: vendor magatama amendment + Tranche F entry. No etzhayyim-side artifact.
 
@@ -115,12 +115,12 @@ Per ADR-2605172400 Re-judgment triggers:
 
 - Vendor retains all PII handling + research-data forwarding
 - etzhayyim catalog gains 7 lexicons (open spec)
-- Magatama `operator` field corrected to `gftd.co.jp`
+- Magatama `operator` field corrected to `etzhayyim.com`
 - No runtime change
 
 ## If Disposition C (vendor confirmed)
 
-- Magatama `operator` field corrected to `gftd.co.jp`
+- Magatama `operator` field corrected to `etzhayyim.com`
 - Add to vendor `tranche-f-vendor-confirmed-actors-closure-*` next bulk closure
 - No etzhayyim-side artifact
 

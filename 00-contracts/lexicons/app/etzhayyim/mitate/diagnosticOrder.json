@@ -1,0 +1,113 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.mitate.diagnosticOrder",
+  "description": "Diagnostic test ordering (IgE panel / nasal smear / endoscopy / rhinomanometry / paranasal CT) to external clinical lab or community center equipment. G1 (consent receipt CID mandatory) + G4 (R2+ licensed MD physicianAttestorDid mandatory) + G2 (resultDeliveryChannel must be encrypted-mst-envelope) per ADR-2605260100. R2+ phase only. Per ADR-2605260115 §Decision 2 (IgE panel) + ADR-2605260145 §Decision 3 (CT routing) + ADR-2605260160 §Decision 2 (rhinomanometry).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "orderId",
+          "patientPseudonymDid",
+          "orderType",
+          "conditionContext",
+          "consentReceiptCid",
+          "physicianAttestorDid",
+          "resultDeliveryChannel",
+          "orderedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "orderId": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "patientPseudonymDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "orderType": {
+            "type": "string",
+            "knownValues": [
+              "ige-panel-39",
+              "ige-panel-perennial-only",
+              "nasal-smear-eosinophil",
+              "nasal-endoscopy-4k-video",
+              "rhinomanometry-aar",
+              "paranasal-ct",
+              "paranasal-mri",
+              "blood-cbc-eosinophil-count",
+              "nasal-culture-bacterial",
+              "nasal-culture-fungal"
+            ]
+          },
+          "conditionContext": {
+            "type": "string",
+            "knownValues": [
+              "allergic-rhinitis-perennial-rule-in",
+              "allergic-vs-vasomotor-rule-out",
+              "chronic-sinusitis-subtype-classification",
+              "chronic-sinusitis-eosinophilic-suspect",
+              "chronic-sinusitis-odontogenic-suspect",
+              "chronic-sinusitis-fungal-suspect-urgent",
+              "septal-deviation-objective-measurement",
+              "rhinitis-medicamentosa-baseline-recovery"
+            ]
+          },
+          "consentReceiptCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Mandatory (G1). Patient consent for this specific order (procedure-level consent, distinct from intake-level consent)."
+          },
+          "physicianAttestorDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Mandatory (G4). Licensed MD DID attesting clinical indication. Must be in LICENSED_MD_REGISTRY (Council-attested)."
+          },
+          "scopedAntigens": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 32
+            },
+            "description": "Only for orderType = 'ige-panel-*'. WHO IUIS allergen nomenclature (e.g. 'Der-f-1', 'Fel-d-1', 'Cry-j-1')."
+          },
+          "externalLabDid": {
+            "type": "string",
+            "format": "did",
+            "description": "For orderType requiring external facility (ige-panel, ct, mri, culture). Must be in EXTERNAL_LAB_DID_REGISTRY."
+          },
+          "internalEquipmentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "For orderType using mitate community center equipment (smear / endoscopy / rhinomanometry). Must be in equipment registry (Hanami / Mimi / rhinomanometer)."
+          },
+          "resultDeliveryChannel": {
+            "type": "string",
+            "knownValues": [
+              "encrypted-mst-envelope",
+              "encrypted-mst-envelope-dicom",
+              "encrypted-mst-envelope-image-and-video"
+            ],
+            "description": "G2 mandatory. Plaintext delivery channel is prohibited."
+          },
+          "urgency": {
+            "type": "string",
+            "knownValues": ["routine", "expedited", "urgent", "emergency"]
+          },
+          "orderedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

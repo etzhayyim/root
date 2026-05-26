@@ -86,7 +86,7 @@ dependencies = [
   # (ChatAnthropic LangGraph node). Top-level import so must be in main deps.
   "langchain-anthropic>=0.3.0",
   # LangChain OpenAI — used by pregel.graph classify_intent node (ChatOpenAI
-  # pointed at GFTD_LLM_URL OpenAI-compatible endpoint).
+  # pointed at etzhayyim_LLM_URL OpenAI-compatible endpoint).
   "langchain-openai>=0.3.0",
   "openpyxl>=3.1.5",
   "python-docx>=1.2.0",
@@ -101,6 +101,11 @@ dependencies = [
   # MstCheckpointSaver IPC envelope (ADR-2605171800). Tiny pure-msgpack;
   # framing + serde stay Python-side, MST/IPFS/L2 stay in @etzhayyim/sdk.
   "msgpack>=1.1.0",
+  # OpenPGP E2EE for cross-provider email encryption (RFC 4880 / RFC 3156 PGP/MIME).
+  # Used by pymagatama.primitives.pgp and pymagatama.gewp.
+  # Outbound PGP emails are sent as PGP/MIME via Resend SMTP relay (smtp.resend.com:587).
+  # pgpy is pure-Python; no GPG binary dependency.
+  "pgpy>=0.6.0",
 ]
 
 [project.optional-dependencies]

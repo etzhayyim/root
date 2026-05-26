@@ -29,7 +29,7 @@ def test_headers_include_internal_trust_when_present() -> None:
 def test_find_binding_returns_matching_nsid() -> None:
     payload = {
         "bindings": [
-            {"nsid": "ai.gftd.apps.other", "routingTarget": "zeebe"},
+            {"nsid": "app.etzhayyim.apps.other", "routingTarget": "zeebe"},
             {"nsid": smoke.NSID, "routingTarget": "langgraph"},
         ]
     }

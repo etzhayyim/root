@@ -367,7 +367,7 @@ async def node_store_campaign(state: NewsletterState) -> dict[str, Any]:
                 ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                 """,
                 (
-                    f"at://{NEWSLETTER_DID}/ai.gftd.apps.newsletter.campaign/{state['campaign_id']}",
+                    f"at://{NEWSLETTER_DID}/app.etzhayyim.apps.newsletter.campaign/{state['campaign_id']}",
                     state["campaign_id"],
                     NEWSLETTER_DID,
                     "newsletter_campaign",
@@ -552,8 +552,8 @@ async def task_send_via_resend(
                                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                                 (
                                     _uid("ens"),
-                                    f"at://{NEWSLETTER_DID}/ai.gftd.apps.newsletter.campaign/{campaignId}",
-                                    f"at://{NEWSLETTER_DID}/ai.gftd.apps.newsletter.subscriber/{sid}",
+                                    f"at://{NEWSLETTER_DID}/app.etzhayyim.apps.newsletter.campaign/{campaignId}",
+                                    f"at://{NEWSLETTER_DID}/app.etzhayyim.apps.newsletter.subscriber/{sid}",
                                     "sent_to",
                                     campaignId, sid, eid, _now(), _now(), NEWSLETTER_DID, 3,
                                 ),
@@ -587,11 +587,11 @@ async def task_create_sponsor_slot(
 ) -> dict[str, Any]:
     async with httpx.AsyncClient() as client:
         resp = await client.post(
-            f"{ADS_XRPC_URL}/xrpc/ai.gftd.apps.ads.createCampaign",
+            f"{ADS_XRPC_URL}/xrpc/app.etzhayyim.apps.ads.createCampaign",
             json={
                 "name": f"newsletter-{campaignId[:8]} sponsor",
                 "description": f"Sponsor slot for newsletter campaign: {campaignName}",
-                "advertiser": "GFTD Newsletter",
+                "advertiser": "etzhayyim Newsletter",
             },
             timeout=30,
         )

@@ -1,25 +1,99 @@
-from typing import TypedDict, Annotated, List
-from langgraph.graph import StateGraph, END
+# codemod:2605231400-unispsc-gemini-bespoke v1
+"""
+Unispsc actor agent c10101506 — Livestock (segment 10).
 
-class LivestockState(TypedDict):
-    animal_id: str
-    quarantine_passed: bool
-    health_certified: bool
-    steps: List[str]
+Bespoke graph logic for livestock management, covering intake, health
+verification, and movement recording.
+"""
 
-def validate_health_docs(state: LivestockState):
-    print(f'Validating health docs for {state['animal_id']}')
-    return {'health_certified': True, 'steps': state['steps'] + ['docs_verified']}
+from __future__ import annotations
 
-def perform_quarantine(state: LivestockState):
-    print(f'Performing quarantine for {state['animal_id']}')
-    return {'quarantine_passed': True, 'steps': state['steps'] + ['quarantine_complete']}
+from operator import add
+from typing import Annotated, Any, TypedDict
 
-def create_livestock_graph():
-    graph = StateGraph(LivestockState)
-    graph.add_node('verify_docs', validate_health_docs)
-    graph.add_node('quarantine', perform_quarantine)
-    graph.set_entry_point('verify_docs')
-    graph.add_edge('verify_docs', 'quarantine')
-    graph.add_edge('quarantine', END)
-    return graph.compile()
+from langgraph.graph import END, START, StateGraph
+
+UNISPSC_CODE = "10101506"
+UNISPSC_TITLE = "Livestock"
+UNISPSC_SEGMENT = "10"
+UNISPSC_DID = "did:web:etzhayyim.com:actor:c10101506"
+
+
+class State(TypedDict, total=False):
+    input: dict[str, Any]
+    log: Annotated[list[str], add]
+    result: dict[str, Any]
+    # Domain fields for Livestock
+    species: str
+    head_count: int
+    health_status: str
+    origin_farm: str
+    quarantine_verified: bool
+
+
+def intake_livestock(state: State) -> dict[str, Any]:
+    """Parse the input payload for animal species and head count."""
+    inp = state.get("input") or {}
+    species = inp.get("species", "unknown")
+    count = int(inp.get("count", 0))
+    farm = inp.get("farm_id", "unspecified_origin")
+
+    return {
+        "log": [f"{UNISPSC_CODE}:intake_livestock_species={species}_count={count}"],
+        "species": species,
+        "head_count": count,
+        "origin_farm": farm,
+    }
+
+
+def verify_health_compliance(state: State) -> dict[str, Any]:
+    """Evaluate health status and verify quarantine requirements."""
+    species = state.get("species")
+    count = state.get("head_count", 0)
+
+    # Simple logic: require species and positive count for clearance
+    is_valid = species not in (None, "unknown") and count > 0
+    status = "certified_healthy" if is_valid else "documentation_required"
+
+    return {
+        "log": [f"{UNISPSC_CODE}:verify_health_compliance_status={status}"],
+        "health_status": status,
+        "quarantine_verified": is_valid,
+    }
+
+
+def record_livestock_movement(state: State) -> dict[str, Any]:
+    """Finalize record for transport or asset management."""
+    cleared = state.get("quarantine_verified", False)
+
+    return {
+        "log": [f"{UNISPSC_CODE}:record_livestock_movement_cleared={cleared}"],
+        "result": {
+            "code": UNISPSC_CODE,
+            "title": UNISPSC_TITLE,
+            "segment": UNISPSC_SEGMENT,
+            "did": UNISPSC_DID,
+            "livestock_details": {
+                "species": state.get("species"),
+                "head_count": state.get("head_count"),
+                "origin": state.get("origin_farm"),
+                "health": state.get("health_status"),
+            },
+            "status": "AUTHORIZED" if cleared else "HOLD",
+            "ok": True,
+        },
+    }
+
+
+_g = StateGraph(State)
+
+_g.add_node("intake", intake_livestock)
+_g.add_node("verify", verify_health_compliance)
+_g.add_node("record", record_livestock_movement)
+
+_g.add_edge(START, "intake")
+_g.add_edge("intake", "verify")
+_g.add_edge("verify", "record")
+_g.add_edge("record", END)
+
+graph = _g.compile()

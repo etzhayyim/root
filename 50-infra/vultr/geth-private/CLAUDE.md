@@ -15,10 +15,10 @@ panel, and `[geth_private.chain.native_currency]` in `deps.toml`.
 
 Phase 2-A contracts deployed 2026-04-25 — see
 [`contracts/ADDRESSES.md`](contracts/ADDRESSES.md) for the canonical address
-table. Key picks: EntryPoint v0.6, GftdActorAccount (CoinbaseSmartWallet
-subclass), CoinbaseSmartWalletFactory, GftdActorRegistry, GCCStablecoin
+table. Key picks: EntryPoint v0.6, etzhayyimActorAccount (CoinbaseSmartWallet
+subclass), CoinbaseSmartWalletFactory, etzhayyimActorRegistry, GCCStablecoin
 (GCC), DeployRegistry. **ERC725 root registries deployed 2026-04-26**:
-GftdRootIdentityRegistry and GftdAgentRegistry, also listed in
+etzhayyimRootIdentityRegistry and etzhayyimAgentRegistry, also listed in
 `contracts/ADDRESSES.md`.
 
 | Field | Value |
@@ -139,7 +139,7 @@ kubectl -n geth-private exec -it geth-private-0 -- geth attach /data/geth.ipc
 
 - **authz Worker** (`60-apps/ai-gftd-project-auth/worker-authz/`) — chainId
   `ETH_PRIVATE_CHAIN_ID=260425`, RPC `ETH_PRIVATE_RPC_URL=https://geth.etzhayyim.com`.
-  `getActorAccount` XRPC reads `GftdActorRegistry.actorByDid` via eth_call.
+  `getActorAccount` XRPC reads `etzhayyimActorRegistry.actorByDid` via eth_call.
 - **gftd CLI** (removed 2026-05-20) — previously emitted
   `DeployRegistry.recordDeploy` per `gftd deploy` via `cast send` against
   `https://geth.etzhayyim.com`, signed with SEALER_PRIV from macOS Keychain. Until

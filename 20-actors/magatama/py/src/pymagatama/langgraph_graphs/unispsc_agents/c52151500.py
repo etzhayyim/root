@@ -20,4 +20,4 @@ graph.set_entry_point('validate_food_grade')
 graph.add_edge('validate_food_grade', 'perform_inspection')
 graph.add_edge('perform_inspection', END)
 
-app = graph.compile()
+graph = graph.compile()

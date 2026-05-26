@@ -17,3 +17,5 @@ graph = StateGraph(MedicalLightState)
 graph.add_node('validation', validate_specs)
 graph.add_edge('validation', END)
 graph.set_entry_point('validation')
+
+graph = graph.compile()

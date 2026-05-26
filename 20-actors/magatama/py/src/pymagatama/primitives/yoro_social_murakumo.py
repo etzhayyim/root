@@ -189,7 +189,7 @@ class RepoRecord:
 
 @dataclass
 class TranslationLinkRecord:
-    """Wire shape for ai.gftd.apps.etzhayyim.translationLink MST record.
+    """Wire shape for app.etzhayyim.apps.etzhayyim.translationLink MST record.
 
     New lexicon required — ADR-2605215300 §2.
     Must be authored in 00-contracts/lexicons/ai/gftd/apps/etzhayyim/translationLink.json
@@ -210,7 +210,7 @@ class TranslationLinkRecord:
 
 @dataclass
 class BpmnActivityEventRecord:
-    """Wire shape for ai.gftd.apps.etzhayyim.bpmnActivityEvent MST record.
+    """Wire shape for app.etzhayyim.apps.etzhayyim.bpmnActivityEvent MST record.
 
     New lexicon required — ADR-2605215300 §2.
     Must be authored in 00-contracts/lexicons/ai/gftd/apps/etzhayyim/bpmnActivityEvent.json
@@ -402,10 +402,10 @@ def build_translation_link_record(
     created_at: str = "",
     rkey: str = "",
 ) -> TranslationLinkRecord:
-    """Build an ai.gftd.apps.etzhayyim.translationLink wire shape.
+    """Build an app.etzhayyim.apps.etzhayyim.translationLink wire shape.
 
-    NSID changed from vendor ai.gftd.apps.media_gamers.record.translationLink
-    to ai.gftd.apps.etzhayyim.translationLink per ADR-2605215300 §2.
+    NSID changed from vendor app.etzhayyim.apps.media_gamers.record.translationLink
+    to app.etzhayyim.apps.etzhayyim.translationLink per ADR-2605215300 §2.
     """
     created_at = created_at or utc_now_iso()
     rkey = rkey or _rkey(f"translation-link-{target_lang}")
@@ -1116,7 +1116,7 @@ def insert_repo_records(
 
 
 def insert_translation_link_record(row: TranslationLinkRecord) -> dict[str, Any]:
-    """Dispatch ai.gftd.apps.etzhayyim.translationLink record via @etzhayyim/sdk.
+    """Dispatch app.etzhayyim.apps.etzhayyim.translationLink record via @etzhayyim/sdk.
     [M7 IMPLEMENTED]
 
     Sync shim wrapping async record_translation_link() via asyncio.run().
@@ -1161,7 +1161,7 @@ def insert_translation_link_record(row: TranslationLinkRecord) -> dict[str, Any]
 
 
 def emit_bpmn_activity_event(row: BpmnActivityEventRecord) -> None:
-    """Dispatch ai.gftd.apps.etzhayyim.bpmnActivityEvent record via @etzhayyim/sdk.
+    """Dispatch app.etzhayyim.apps.etzhayyim.bpmnActivityEvent record via @etzhayyim/sdk.
     [M7 IMPLEMENTED]
 
     Sync shim wrapping async record_bpmn_activity_event() via asyncio.run().

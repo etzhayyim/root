@@ -17,12 +17,12 @@
     "APP_CAPABILITIES": "[\"cad-synthesis\",\"zero-to-cad-inference\",\"step-file-generation\",\"tsukuru-supplier-exchange\",\"design-job-management\"]",
     "APP_DESCRIPTION": "AI Design Desk — multi-view image to parametric CAD (CadQuery/STEP) synthesis, integrated with tsukuru manufacturing supplier exchange",
     "APP_DISPLAY_NAME": "AI Design Desk",
-    "APP_EMBED_URL": "https://a1d3sk00.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://a1d3sk00.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "a1d3sk00",
     "APP_PERFORMER_TYPE": "system",
     "APP_UI_TYPE": "appview",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -34,12 +34,12 @@
   ],
   "routes": [
     {
-      "pattern": "a1d3sk00.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "a1d3sk00.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "aidesk.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "aidesk.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

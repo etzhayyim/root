@@ -1,5 +1,5 @@
 /**
- * @gftd/ameno/lora-runtime — LoRA adapter loader + WebGPU compute-shader merge.
+ * @etzhayyim/ameno/lora-runtime — LoRA adapter loader + WebGPU compute-shader merge.
  *
  * Scaffold v0.1.0. The full safetensors parser + WebGPU merge kernel land in
  * a follow-up; today the module exposes the public type surface and stubs

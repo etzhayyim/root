@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govGbr.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govGbr.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for United Kingdom government.",
-        "operationId": "ai.gftd.govGbr.followSiteDeps",
+        "operationId": "app.etzhayyim.govGbr.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGbr.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govGbr.heartbeatTick": {
       "post": {
         "summary": "Run the United Kingdom government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govGbr.heartbeatTick",
+        "operationId": "app.etzhayyim.govGbr.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGbr.listOrgs": {
+    "/xrpc/app.etzhayyim.govGbr.listOrgs": {
       "get": {
         "summary": "List United Kingdom government organization graph records.",
-        "operationId": "ai.gftd.govGbr.listOrgs",
+        "operationId": "app.etzhayyim.govGbr.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGbr.registerDIDs": {
+    "/xrpc/app.etzhayyim.govGbr.registerDIDs": {
       "post": {
         "summary": "Register DIDs for United Kingdom government organizations.",
-        "operationId": "ai.gftd.govGbr.registerDIDs",
+        "operationId": "app.etzhayyim.govGbr.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGbr.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govGbr.resolveOrgPath": {
       "get": {
         "summary": "Resolve a United Kingdom government organization path to its graph record.",
-        "operationId": "ai.gftd.govGbr.resolveOrgPath",
+        "operationId": "app.etzhayyim.govGbr.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGbr.seedOrgs": {
+    "/xrpc/app.etzhayyim.govGbr.seedOrgs": {
       "post": {
         "summary": "Seed initial United Kingdom government organization records into the graph.",
-        "operationId": "ai.gftd.govGbr.seedOrgs",
+        "operationId": "app.etzhayyim.govGbr.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGbr.shinka": {
+    "/xrpc/app.etzhayyim.govGbr.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible United Kingdom government organization update.",
-        "operationId": "ai.gftd.govGbr.shinka",
+        "operationId": "app.etzhayyim.govGbr.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govGbr.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govGbr.syncWetUpdates": {
       "post": {
         "summary": "Sync recent United Kingdom government organization changes to graph.",
-        "operationId": "ai.gftd.govGbr.syncWetUpdates",
+        "operationId": "app.etzhayyim.govGbr.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

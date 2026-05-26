@@ -48,13 +48,13 @@ describe("Datacenter Actor Manifest", () => {
     const procedures = manifest.triggers.xrpc.procedures;
     const queries = manifest.triggers.xrpc.queries;
 
-    expect(procedures).toContain("ai.gftd.apps.datacenter.startOperation");
-    expect(procedures).toContain("ai.gftd.apps.datacenter.requestAccess");
-    expect(procedures).toContain("ai.gftd.apps.datacenter.reserveCapacity");
-    expect(procedures).toContain("ai.gftd.apps.datacenter.purgeAccessPii");
-    expect(queries).toContain("ai.gftd.apps.datacenter.getOperation");
-    expect(queries).toContain("ai.gftd.apps.datacenter.getMyAccessRequest");
-    expect(queries).toContain("ai.gftd.apps.datacenter.listAccessForFacility");
+    expect(procedures).toContain("app.etzhayyim.apps.datacenter.startOperation");
+    expect(procedures).toContain("app.etzhayyim.apps.datacenter.requestAccess");
+    expect(procedures).toContain("app.etzhayyim.apps.datacenter.reserveCapacity");
+    expect(procedures).toContain("app.etzhayyim.apps.datacenter.purgeAccessPii");
+    expect(queries).toContain("app.etzhayyim.apps.datacenter.getOperation");
+    expect(queries).toContain("app.etzhayyim.apps.datacenter.getMyAccessRequest");
+    expect(queries).toContain("app.etzhayyim.apps.datacenter.listAccessForFacility");
   });
 
   it("defines sub-actors for routing, review, stabilization, access, and capacity", () => {

@@ -73,14 +73,14 @@ const seeds: Seed[] = [
 ].map((proc) => ({
   proc,
   bpmnProcessId: `isekai_${snake(proc)}`,
-  nsid: `ai.gftd.apps.isekai.${proc}`,
+  nsid: `app.etzhayyim.apps.isekai.${proc}`,
   resultTimeoutMs: 30000,
   writeTableAllowlist: writeProcs.has(proc) ? writeAllowlist : "",
 }));
 
 const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/isekai/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/isekai-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/isekai-${slug(s.proc)}-v1`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isekai-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isekai-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

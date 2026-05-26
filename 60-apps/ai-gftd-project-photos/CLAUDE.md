@@ -25,23 +25,23 @@
 | Tier | 用途 | 関数 | Collection NSID |
 |---|---|---|---|
 | **1 Social** | 写真公開投稿 | `AppBskyFeedPost(libraryDID, text, {embed})` | `app.bsky.feed.post` |
-| **2 Domain** | photo/album/tag/share_grant | `ComAtprotoRepoCreateRecord(kind, payload)` | `ai.gftd.apps.photos.*` |
+| **2 Domain** | photo/album/tag/share_grant | `ComAtprotoRepoCreateRecord(kind, payload)` | `app.etzhayyim.apps.photos.*` |
 | **3 State** | 表示設定 | `Preferences()` | server-side |
 
 ## Domain Record Types (Tier 2, camelCase) `[DESIGN]`
 
 | Kind | NSID | 内容 |
 |---|---|---|
-| `photo` | `ai.gftd.apps.photos.photo` | 写真メタデータ (blob_ref, EXIF, geo, dimensions) |
-| `album` | `ai.gftd.apps.photos.album` | アルバム定義 (title, visibility, album_did) |
-| `album_item` | `ai.gftd.apps.photos.album_item` | アルバム↔写真リレーション |
-| `tag` | `ai.gftd.apps.photos.tag` | タグ (manual/ai/ai_geo) |
-| `share_grant` | `ai.gftd.apps.photos.share_grant` | 共有権限 |
+| `photo` | `app.etzhayyim.apps.photos.photo` | 写真メタデータ (blob_ref, EXIF, geo, dimensions) |
+| `album` | `app.etzhayyim.apps.photos.album` | アルバム定義 (title, visibility, album_did) |
+| `album_item` | `app.etzhayyim.apps.photos.album_item` | アルバム↔写真リレーション |
+| `tag` | `app.etzhayyim.apps.photos.tag` | タグ (manual/ai/ai_geo) |
+| `share_grant` | `app.etzhayyim.apps.photos.share_grant` | 共有権限 |
 
 ## Reactive Pipeline (ComAtprotoSyncSubscribeRepos) `[DESIGN]`
 
-- `ai.gftd.apps.photos.photo` create → murakumo vision auto-tagging + geo-reverse
-- `ai.gftd.apps.photos.share_grant` create → social notification via AppBskyFeedPost
+- `app.etzhayyim.apps.photos.photo` create → murakumo vision auto-tagging + geo-reverse
+- `app.etzhayyim.apps.photos.share_grant` create → social notification via AppBskyFeedPost
 
 ## Sensitivity & Governance `[DESIGN]`
 

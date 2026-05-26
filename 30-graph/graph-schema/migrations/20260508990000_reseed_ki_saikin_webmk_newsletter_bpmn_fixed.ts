@@ -37,28 +37,28 @@ interface Entry {
 const ENTRIES: Entry[] = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
     processId: "ki_vascular_synthesis_cycle",
     bpmnPath: "00-contracts/bpmn/ai/gftd/ki/vascular-synthesis-cycle.bpmn",
     version: 2,
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
     processId: "saikin_horizontal_transfer_cycle",
     bpmnPath: "00-contracts/bpmn/ai/gftd/saikin/horizontal-transfer-cycle.bpmn",
     version: 2,
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/webmk-createProposal-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1",
     processId: "webmk_create_proposal",
     bpmnPath: "00-contracts/bpmn/ai/gftd/webmk/createProposal.bpmn",
     version: 2,
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/newsletter-weeklySend-v1",
+      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1",
     processId: "newsletter_weekly_send",
     bpmnPath: "00-contracts/bpmn/ai/gftd/newsletter/weeklySend.bpmn",
     version: 2,

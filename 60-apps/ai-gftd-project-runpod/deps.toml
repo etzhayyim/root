@@ -34,7 +34,7 @@ canonical_llm_gateway = true
 murakumo_route = false
 murakumo_pass_through = false
 magatama_llm8cf4ai_pass_through = false
-unsupported_xrpc = ["ai.gftd.apps.llm.answerWithKnowledge"]
+unsupported_xrpc = ["app.etzhayyim.apps.llm.answerWithKnowledge"]
 public_model_aliases = ["gemma4-runpod", "tier0-runpod", "gemma4:26b-a4b-it-q4_K_M"]
 adr = "90-docs/adr/2604292130-llm-gftd-ai-runpod-pass.md"
 

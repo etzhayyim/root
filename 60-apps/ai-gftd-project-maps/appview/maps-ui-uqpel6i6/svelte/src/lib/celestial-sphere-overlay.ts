@@ -2,7 +2,7 @@
  * Celestial sphere background overlay (NASA HYG + OpenNGC, 2026-05-06).
  *
  * Fetches naked-eye stars + deep-sky objects from
- * `ai.gftd.apps.maps.listCelestialObjects` and paints them on a fixed
+ * `app.etzhayyim.apps.maps.listCelestialObjects` and paints them on a fixed
  * absolutely-positioned <canvas> behind the KAMI map canvas. Each object
  * is positioned by inverse stereographic projection of its (RA, Dec).
  *
@@ -118,7 +118,7 @@ export function applyCelestialSphereOverlay(): CelestialOverlayHandle {
   const loadStars = async () => {
     try {
       // Stars first (mag-priority ordered), then deep-sky.
-      const url = '/xrpc/ai.gftd.apps.maps.listCelestialObjects?limit=8000';
+      const url = '/xrpc/app.etzhayyim.apps.maps.listCelestialObjects?limit=8000';
       const res = await fetch(url, { headers: { accept: 'application/json' } });
       if (!res.ok) return;
       const body = await res.json() as { objects?: CelestialObject[] };

@@ -15,13 +15,13 @@ PUBLIC_DID = "did:web:vessel.etzhayyim.com"
 NANOID = "v3ss3l01"
 
 LABEL_COLLECTION = {
-    "Ship": "ai.gftd.apps.vessel.ship",
-    "Shipowner": "ai.gftd.apps.vessel.shipowner",
-    "ShipRegistry": "ai.gftd.apps.vessel.shipRegistry",
-    "VesselPosition": "ai.gftd.apps.vessel.vesselPosition",
-    "Voyage": "ai.gftd.apps.vessel.voyage",
-    "PortCall": "ai.gftd.apps.vessel.portCall",
-    "OwnerLink": "ai.gftd.apps.vessel.ownerLink",
+    "Ship": "app.etzhayyim.apps.vessel.ship",
+    "Shipowner": "app.etzhayyim.apps.vessel.shipowner",
+    "ShipRegistry": "app.etzhayyim.apps.vessel.shipRegistry",
+    "VesselPosition": "app.etzhayyim.apps.vessel.vesselPosition",
+    "Voyage": "app.etzhayyim.apps.vessel.voyage",
+    "PortCall": "app.etzhayyim.apps.vessel.portCall",
+    "OwnerLink": "app.etzhayyim.apps.vessel.ownerLink",
 }
 
 LABEL_TABLE = {
@@ -135,7 +135,7 @@ def _insert(label: str, props: dict[str, Any], id_field: str | None = None) -> d
     props.setdefault("orgId", "anon")
     props.setdefault("userId", "anon")
     props.setdefault("actorId", OWNER_DID)
-    vertex_id = f"at://{OWNER_DID}/ai.gftd.apps.vessel.{label}/{rec_id}"
+    vertex_id = f"at://{OWNER_DID}/app.etzhayyim.apps.vessel.{label}/{rec_id}"
     columns = [
         "vertex_id", "_seq", "created_date", "sensitivity_ord", "owner_did", "rkey", "repo",
         "label", "did", "collection", "status", "props", "actor_did", "org_did",
@@ -173,10 +173,10 @@ def _insert(label: str, props: dict[str, Any], id_field: str | None = None) -> d
         tuple(values),
     )
     if label == "OwnerLink" and props.get("entityDid"):
-        ship_vid = f"at://{OWNER_DID}/ai.gftd.apps.vessel.Ship/{props.get('imoNumber')}"
+        ship_vid = f"at://{OWNER_DID}/app.etzhayyim.apps.vessel.Ship/{props.get('imoNumber')}"
         _insert_edge("edge_vessel_owner_link", rec_id, ship_vid, _s(props.get("entityDid")), "ENTITY_OWNS", props)
     elif label == "PortCall":
-        ship_vid = f"at://{OWNER_DID}/ai.gftd.apps.vessel.Ship/{props.get('imoNumber')}"
+        ship_vid = f"at://{OWNER_DID}/app.etzhayyim.apps.vessel.Ship/{props.get('imoNumber')}"
         _insert_edge("edge_vessel_port_call_endpoint", rec_id, ship_vid, vertex_id, "HAS_PORT_CALL", props)
     return {"ok": True, id_field or "id": rec_id}
 

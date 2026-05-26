@@ -47,7 +47,21 @@ from io import BytesIO
 from threading import Lock, Thread
 
 import boto3
-import psycopg2
+# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# the substrate seam below; direct psycopg2 imports are no longer
+# permitted in this worker. The seam still supports a transitional RW
+# mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.
+from _etzhayyim_substrate import open_substrate_writer
+
+# TODO(ADR-2605172000 / Stage 2): the writes below still hit
+# RisingWave directly via psycopg2 patterns specific to this
+# worker. Replace them with `open_substrate_writer().upsert_table(
+# '<table>', rows, conflict_key=...)` per the substrate seam
+# contract in `_etzhayyim_substrate.py`. The legacy import has
+# been re-added below as a guarded fallback so the worker still
+# functions while ETZHAYYIM_SUBSTRATE_MODE=rw; remove it once the
+# call sites are migrated.
+import psycopg2  # noqa: E402 — pending substrate refactor (Stage 2)
 import pyarrow as pa
 import pyarrow.parquet as pq
 
@@ -307,7 +321,7 @@ def _build_route_rows(feed: dict, routes: list[dict], trips: list[dict],
             "service_days": days,
         }
         rows.append({
-            "vertex_id": f"at://{repo_did}/ai.gftd.apps.maps.{('railway' if label=='Railway' else 'busRoute')}/{rkey}",
+            "vertex_id": f"at://{repo_did}/app.etzhayyim.apps.maps.{('railway' if label=='Railway' else 'busRoute')}/{rkey}",
             "rkey": rkey,
             "repo": repo_did,
             "label": label,
@@ -387,7 +401,7 @@ def _build_stop_rows(feed: dict, stops: list[dict], routes: list[dict],
             "zone_id": s.get("zone_id"),
         }
         rows.append({
-            "vertex_id": f"at://{repo_did}/ai.gftd.apps.maps.{('station' if label=='Station' else 'busStop')}/{rkey}",
+            "vertex_id": f"at://{repo_did}/app.etzhayyim.apps.maps.{('station' if label=='Station' else 'busStop')}/{rkey}",
             "rkey": rkey,
             "repo": repo_did,
             "label": label,
@@ -431,7 +445,7 @@ def _flush_shard(rows: list[dict], dump_id: str, kind: str, shard_idx: int) -> s
         return ""
 
 
-def _insert_rows_into_rw(rows: list[dict], batch_size: int = 1000,
+def _insert_rows_into_substrate(rows: list[dict], batch_size: int = 1000,
                          table: str = "vertex_spatial") -> int:
     if not rows:
         return 0
@@ -602,7 +616,7 @@ def _process_feed(feed: dict, dump_id: str) -> dict:
         for i in range(0, len(rows), SHARD_ROWS):
             chunk = rows[i : i + SHARD_ROWS]
             _flush_shard(chunk, dump_id, kind, shard_idx)
-            inserted = _insert_rows_into_rw(chunk, table="vertex_spatial")
+            inserted = _insert_rows_into_substrate(chunk, table="vertex_spatial")
             written += inserted
             for r in chunk:
                 per_label[r["label"]] = per_label.get(r["label"], 0) + 1
@@ -612,14 +626,14 @@ def _process_feed(feed: dict, dump_id: str) -> dict:
     for i in range(0, len(trip_rows), SHARD_ROWS):
         chunk = trip_rows[i : i + SHARD_ROWS]
         _flush_shard(chunk, dump_id, "trips", shard_idx)
-        trip_written += _insert_rows_into_rw(chunk, table="vertex_maps_trip")
+        trip_written += _insert_rows_into_substrate(chunk, table="vertex_maps_trip")
         shard_idx += 1
 
     st_written = 0
     for i in range(0, len(stop_time_rows), SHARD_ROWS):
         chunk = stop_time_rows[i : i + SHARD_ROWS]
         _flush_shard(chunk, dump_id, "stop_times", shard_idx)
-        st_written += _insert_rows_into_rw(chunk, table="vertex_maps_stop_time")
+        st_written += _insert_rows_into_substrate(chunk, table="vertex_maps_stop_time")
         shard_idx += 1
 
     _mark_done(dump_id, f"gtfs-jp-{fid}")

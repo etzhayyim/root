@@ -21,4 +21,4 @@ graph.set_entry_point('cad_validation')
 graph.add_edge('cad_validation', 'metallurgy_check')
 graph.add_edge('metallurgy_check', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

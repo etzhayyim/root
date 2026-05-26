@@ -52,10 +52,10 @@ import {
   type TreatyView,
 } from "./types.js";
 
-const STATUTE_COLLECTION = "ai.gftd.houbun.statute";
-const ARTICLE_COLLECTION = "ai.gftd.houbun.article";
-const TREATY_COLLECTION = "ai.gftd.houbun.treaty";
-const AMENDMENT_COLLECTION = "ai.gftd.houbun.amendmentEvent";
+const STATUTE_COLLECTION = "app.etzhayyim.houbun.statute";
+const ARTICLE_COLLECTION = "app.etzhayyim.houbun.article";
+const TREATY_COLLECTION = "app.etzhayyim.houbun.treaty";
+const AMENDMENT_COLLECTION = "app.etzhayyim.houbun.amendmentEvent";
 
 export async function registerStatute(
   e: Etzhayyim,

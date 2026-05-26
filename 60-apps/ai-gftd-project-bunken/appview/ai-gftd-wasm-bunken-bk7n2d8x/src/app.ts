@@ -10,15 +10,15 @@ const ACTOR = {
 };
 
 const NSIDS = new Set([
-  "ai.gftd.apps.bunken.collectFromCdx",
-  "ai.gftd.apps.bunken.fetchCdxBatch",
-  "ai.gftd.apps.bunken.enrichBatch",
-  "ai.gftd.apps.bunken.collectFromNdlApi",
-  "ai.gftd.apps.bunken.registerDids",
-  "ai.gftd.apps.bunken.linkSameAs",
-  "ai.gftd.apps.bunken.stats",
-  "ai.gftd.apps.bunken.search",
-  "ai.gftd.apps.bunken.getRecord",
+  "app.etzhayyim.apps.bunken.collectFromCdx",
+  "app.etzhayyim.apps.bunken.fetchCdxBatch",
+  "app.etzhayyim.apps.bunken.enrichBatch",
+  "app.etzhayyim.apps.bunken.collectFromNdlApi",
+  "app.etzhayyim.apps.bunken.registerDids",
+  "app.etzhayyim.apps.bunken.linkSameAs",
+  "app.etzhayyim.apps.bunken.stats",
+  "app.etzhayyim.apps.bunken.search",
+  "app.etzhayyim.apps.bunken.getRecord",
 ]);
 
 const corsHeaders = {

@@ -1,4 +1,4 @@
-import { GFTD_MM_768_SPACE_ID, vectorLiteral, type Modality } from "./embedding-768.js";
+import { etzhayyim_MM_768_SPACE_ID, vectorLiteral, type Modality } from "./embedding-768.js";
 import type { SqlStatement } from "./sql.js";
 
 export interface VectorSearchQuery {
@@ -15,7 +15,7 @@ export interface VectorSearchQuery {
 export function searchEmbedding768Sql(query: VectorSearchQuery): SqlStatement {
   const values: unknown[] = [vectorLiteral(query.vector)];
   const where: string[] = [`space_id = $2`];
-  values.push(query.spaceId ?? GFTD_MM_768_SPACE_ID);
+  values.push(query.spaceId ?? etzhayyim_MM_768_SPACE_ID);
 
   if (query.tenantId) {
     values.push(query.tenantId);

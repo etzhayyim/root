@@ -183,7 +183,7 @@ describe("yoro rw-free", () => {
       expect(result.rkey).toBeDefined();
       expect(result.rkey).toMatch(/^seen-\d+$/);
       expect(result.uri).toBeDefined();
-      expect(result.uri).toContain("ai.gftd.yoro.activitySeen");
+      expect(result.uri).toContain("app.etzhayyim.yoro.activitySeen");
       expect(result.cid).toBe("bafyref");
     });
   });

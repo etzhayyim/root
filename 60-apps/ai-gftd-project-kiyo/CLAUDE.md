@@ -6,7 +6,7 @@
 | **Tier** | T3 (専用 CF Worker) |
 | **DID** | `did:web:kiyo.etzhayyim.com` |
 | **nanoid** | `k1y04rc4` |
-| **NSID prefix** | `ai.gftd.kiyo.*` |
+| **NSID prefix** | `app.etzhayyim.kiyo.*` |
 | **paper_id** | `kiyo:{YYYY}:{TID}` (e.g. `kiyo:2026:lzxy1a`) |
 | **Storage** | `ipfs.etzhayyim.com` — CIDv1 content-addressed, URL = `https://ipfs.etzhayyim.com/ipfs/{cid}` |
 | **ADR** | `90-docs/adr/2604300000-kiyo-research-archive.md` |
@@ -39,7 +39,7 @@ etzhayyim-root/00-contracts/bpmn/ai/gftd/kiyo/     ← 5 BPMN files
 
 ```
 Client / LLM actor
-  → XRPC POST ai.gftd.kiyo.submitPaper
+  → XRPC POST app.etzhayyim.kiyo.submitPaper
     → CF Worker (L3 thin): validate schema + dispatchBpmn()
       → BPMN dispatcher HTTP → LangServer process instance
         → kiyo.validateAuthor  (LangServer, RisingWave SELECT)
@@ -48,7 +48,7 @@ Client / LLM actor
         → generic.pds.dispatch (AT post announcement)
 
 Client
-  → XRPC GET ai.gftd.kiyo.searchPapers?q=autopoiesis
+  → XRPC GET app.etzhayyim.kiyo.searchPapers?q=autopoiesis
     → CF Worker (L3): Kysely raw SQL
         SELECT ... list_cosine_similarity(embedding, kiyo_embed_query(%q)) ...
         FROM vertex_kiyo_paper
@@ -124,15 +124,15 @@ kubectl logs -n mitama-udf deploy/bpmn-dispatcher | grep 'deployed kind=bpmn.*ki
 
 ```bash
 # submit a paper
-gftd agent-token --lxm ai.gftd.kiyo.submitPaper | xargs -I{} \
-  curl -s -X POST https://kiyo.etzhayyim.com/xrpc/ai.gftd.kiyo.submitPaper \
+gftd agent-token --lxm app.etzhayyim.kiyo.submitPaper | xargs -I{} \
+  curl -s -X POST https://kiyo.etzhayyim.com/xrpc/app.etzhayyim.kiyo.submitPaper \
     -H "Authorization: Bearer {}" \
     -H "Content-Type: application/json" \
     -d '{"title":"Test","abstract":"Test abstract","subject":["cs.AI"],"authors":["did:web:kiyo.etzhayyim.com"],"fileBase64":"..."}'
 
 # get stats
-curl https://kiyo.etzhayyim.com/xrpc/ai.gftd.kiyo.getStats
+curl https://kiyo.etzhayyim.com/xrpc/app.etzhayyim.kiyo.getStats
 
 # search
-curl "https://kiyo.etzhayyim.com/xrpc/ai.gftd.kiyo.searchPapers?q=autopoiesis"
+curl "https://kiyo.etzhayyim.com/xrpc/app.etzhayyim.kiyo.searchPapers?q=autopoiesis"
 ```

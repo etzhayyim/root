@@ -1,24 +1,68 @@
-from typing import TypedDict, Annotated, List
-import operator
-from langgraph.graph import StateGraph, END
+# codemod:2605231300-unispsc-placeholder v1
+"""
+Unispsc actor agent c10131602 — Animal Procurement (segment 10).
 
-class AnimalProcurementState(TypedDict):
-    commodity_id: str
-    inspection_status: str
-    health_certs: Annotated[List[str], operator.add]
-    validation_log: Annotated[List[str], operator.add]
+Placeholder graph emitted by the 2026-05-23 corpus rebuild codemod. The
+upstream Gemini exec rebuild will overwrite this file with bespoke per-
+code logic; until then this 3-node compliance/process/emit pipeline
+ensures the agent is callable from UnispscAgentExecutorCell and exercises
+the MstCheckpointSaver substrate path.
 
-def validate_health_docs(state: AnimalProcurementState) -> AnimalProcurementState:
-    if not state.get('health_certs'):
-        return {**state, 'inspection_status': 'REJECTED', 'validation_log': ['Missing health certification']}
-    return {**state, 'inspection_status': 'VALIDATED', 'validation_log': ['Health docs verified']}
+This module is regenerated automatically — hand-edit at your own risk.
+"""
 
-def route_to_quarantine(state: AnimalProcurementState) -> str:
-    return 'quarantine_check' if state['inspection_status'] == 'VALIDATED' else END
+from __future__ import annotations
 
-builder = StateGraph(AnimalProcurementState)
-builder.add_node('health_check', validate_health_docs)
-builder.set_entry_point('health_check')
-builder.add_conditional_edges('health_check', route_to_quarantine, {'quarantine_check': END})
-builder.add_edge('health_check', END)
-graph = builder.compile()
+from operator import add
+from typing import Annotated, Any, TypedDict
+
+from langgraph.graph import END, START, StateGraph
+
+UNISPSC_CODE = "10131602"
+UNISPSC_TITLE = "Animal Procurement"
+UNISPSC_SEGMENT = "10"
+UNISPSC_DID = "did:web:etzhayyim.com:actor:c10131602"
+
+
+class State(TypedDict, total=False):
+    input: dict[str, Any]
+    compliance_check: bool
+    log: Annotated[list[str], add]
+    result: dict[str, Any]
+
+
+def receive(state: State) -> dict[str, Any]:
+    inp = state.get("input") or {}
+    return {
+        "log": [f"{UNISPSC_CODE}:receive"],
+        "compliance_check": bool(inp),
+    }
+
+
+def process(state: State) -> dict[str, Any]:
+    return {"log": [f"{UNISPSC_CODE}:process"]}
+
+
+def emit(state: State) -> dict[str, Any]:
+    return {
+        "log": [f"{UNISPSC_CODE}:emit"],
+        "result": {
+            "code": UNISPSC_CODE,
+            "title": UNISPSC_TITLE,
+            "segment": UNISPSC_SEGMENT,
+            "did": UNISPSC_DID,
+            "ok": True,
+        },
+    }
+
+
+_g = StateGraph(State)
+_g.add_node("receive", receive)
+_g.add_node("process", process)
+_g.add_node("emit", emit)
+_g.add_edge(START, "receive")
+_g.add_edge("receive", "process")
+_g.add_edge("process", "emit")
+_g.add_edge("emit", END)
+
+graph = _g.compile()

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govIsl.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govIsl.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Iceland government.",
-        "operationId": "ai.gftd.govIsl.followSiteDeps",
+        "operationId": "app.etzhayyim.govIsl.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIsl.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govIsl.heartbeatTick": {
       "post": {
         "summary": "Run the Iceland government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govIsl.heartbeatTick",
+        "operationId": "app.etzhayyim.govIsl.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIsl.listOrgs": {
+    "/xrpc/app.etzhayyim.govIsl.listOrgs": {
       "get": {
         "summary": "List Iceland government organization graph records.",
-        "operationId": "ai.gftd.govIsl.listOrgs",
+        "operationId": "app.etzhayyim.govIsl.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIsl.registerDIDs": {
+    "/xrpc/app.etzhayyim.govIsl.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Iceland government organizations.",
-        "operationId": "ai.gftd.govIsl.registerDIDs",
+        "operationId": "app.etzhayyim.govIsl.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIsl.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govIsl.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Iceland government organization path to its graph record.",
-        "operationId": "ai.gftd.govIsl.resolveOrgPath",
+        "operationId": "app.etzhayyim.govIsl.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIsl.seedOrgs": {
+    "/xrpc/app.etzhayyim.govIsl.seedOrgs": {
       "post": {
         "summary": "Seed initial Iceland government organization records into the graph.",
-        "operationId": "ai.gftd.govIsl.seedOrgs",
+        "operationId": "app.etzhayyim.govIsl.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIsl.shinka": {
+    "/xrpc/app.etzhayyim.govIsl.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Iceland government organization update.",
-        "operationId": "ai.gftd.govIsl.shinka",
+        "operationId": "app.etzhayyim.govIsl.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govIsl.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govIsl.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Iceland government organization changes to graph.",
-        "operationId": "ai.gftd.govIsl.syncWetUpdates",
+        "operationId": "app.etzhayyim.govIsl.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

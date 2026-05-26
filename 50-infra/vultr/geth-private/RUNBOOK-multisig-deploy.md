@@ -40,8 +40,8 @@ Per ADR-2604270900 §"Owner set", recommended 2-of-3:
 
 | Slot | Recommended principal | Custody |
 |---|---|---|
-| K1 | platform operator (`jun@gftd.group`) | macOS Keychain `gftd.private-chain` accounts `K1_*` + iCloud sync + gftd Vault L3 |
-| K2 | co-owner (Gftd Japan board / co-founder) | same pattern, separate physical device |
+| K1 | platform operator (`jun@etzhayyim.com`) | macOS Keychain `gftd.private-chain` accounts `K1_*` + iCloud sync + gftd Vault L3 |
+| K2 | co-owner (etzhayyim Japan board / co-founder) | same pattern, separate physical device |
 | K3 | cold-storage hardware wallet (Ledger / Trezor) | bank safe-deposit box |
 
 **Get the three EVM addresses** (don't broadcast yet — these are public,

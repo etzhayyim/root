@@ -63,11 +63,11 @@ async function queryWithRecoveryRetry(text, params = []) {
 }
 
 function entityId(cohortHash) {
-  return `at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.latentEntity/natural-person-cohort-${cohortHash}`;
+  return `at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.latentEntity/natural-person-cohort-${cohortHash}`;
 }
 
 function edgeId(prefix, cohortHash) {
-  return `at://did:web:coverage.etzhayyim.com/ai.gftd.apps.coverage.${prefix}/natural-person-cohort-${cohortHash}`;
+  return `at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.${prefix}/natural-person-cohort-${cohortHash}`;
 }
 
 function label(row) {

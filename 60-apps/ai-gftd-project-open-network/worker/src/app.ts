@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 Gftd Japan株式会社 / etzhayyim. All rights reserved.
+// Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
 // ai-gftd-project-open-network — telecom NMS operations + topology design
 //
-// 10 XRPC under ai.gftd.apps.openNetwork.*:
+// 10 XRPC under app.etzhayyim.apps.openNetwork.*:
 //   defineSite           (proc)   PoP / DC / cell tower / customer edge
 //   defineLink           (proc)   bidirectional link between two sites
 //   getSite              (query)  site detail + adjacent links
@@ -436,16 +436,16 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "ai.gftd.apps.openNetwork.defineSite",
-            "ai.gftd.apps.openNetwork.defineLink",
-            "ai.gftd.apps.openNetwork.getSite",
-            "ai.gftd.apps.openNetwork.listLinks",
-            "ai.gftd.apps.openNetwork.recordUtilization",
-            "ai.gftd.apps.openNetwork.getLinkUtilization",
-            "ai.gftd.apps.openNetwork.reportIncident",
-            "ai.gftd.apps.openNetwork.listIncidents",
-            "ai.gftd.apps.openNetwork.requestChange",
-            "ai.gftd.apps.openNetwork.listChanges",
+            "app.etzhayyim.apps.openNetwork.defineSite",
+            "app.etzhayyim.apps.openNetwork.defineLink",
+            "app.etzhayyim.apps.openNetwork.getSite",
+            "app.etzhayyim.apps.openNetwork.listLinks",
+            "app.etzhayyim.apps.openNetwork.recordUtilization",
+            "app.etzhayyim.apps.openNetwork.getLinkUtilization",
+            "app.etzhayyim.apps.openNetwork.reportIncident",
+            "app.etzhayyim.apps.openNetwork.listIncidents",
+            "app.etzhayyim.apps.openNetwork.requestChange",
+            "app.etzhayyim.apps.openNetwork.listChanges",
           ],
           dodaf: Object.keys(DODAF_VIEWS), forms: Object.keys(FORMS),
           bpmn: ["defineLink", "requestChange"],
@@ -472,22 +472,22 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "ai.gftd.apps.openNetwork.getSite":            return await getSite(env, url.searchParams);
-          case "ai.gftd.apps.openNetwork.listLinks":          return await listLinks(env, url.searchParams);
-          case "ai.gftd.apps.openNetwork.getLinkUtilization": return await getLinkUtilization(env, url.searchParams);
-          case "ai.gftd.apps.openNetwork.listIncidents":      return await listIncidents(env, url.searchParams);
-          case "ai.gftd.apps.openNetwork.listChanges":        return await listChanges(env, url.searchParams);
+          case "app.etzhayyim.apps.openNetwork.getSite":            return await getSite(env, url.searchParams);
+          case "app.etzhayyim.apps.openNetwork.listLinks":          return await listLinks(env, url.searchParams);
+          case "app.etzhayyim.apps.openNetwork.getLinkUtilization": return await getLinkUtilization(env, url.searchParams);
+          case "app.etzhayyim.apps.openNetwork.listIncidents":      return await listIncidents(env, url.searchParams);
+          case "app.etzhayyim.apps.openNetwork.listChanges":        return await listChanges(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "ai.gftd.apps.openNetwork.defineSite":         return await defineSite(env, body);
-          case "ai.gftd.apps.openNetwork.defineLink":         return await defineLink(env, body);
-          case "ai.gftd.apps.openNetwork.recordUtilization":  return await recordUtilization(env, body);
-          case "ai.gftd.apps.openNetwork.reportIncident":     return await reportIncident(env, body);
-          case "ai.gftd.apps.openNetwork.requestChange":      return await requestChange(env, body);
+          case "app.etzhayyim.apps.openNetwork.defineSite":         return await defineSite(env, body);
+          case "app.etzhayyim.apps.openNetwork.defineLink":         return await defineLink(env, body);
+          case "app.etzhayyim.apps.openNetwork.recordUtilization":  return await recordUtilization(env, body);
+          case "app.etzhayyim.apps.openNetwork.reportIncident":     return await reportIncident(env, body);
+          case "app.etzhayyim.apps.openNetwork.requestChange":      return await requestChange(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

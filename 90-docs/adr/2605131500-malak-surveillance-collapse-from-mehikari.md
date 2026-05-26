@@ -10,7 +10,7 @@ authoritative_for:
   - malak.etzhayyim.com surveillance capability cluster (15 NSID)
   - International LEA seed scope (INTERPOL 196 members)
   - cooperation_status filter (prohibited / restricted / standard / unverified)
-  - etzhayyim ↔ Gftd Japan operating-entity / vendor boundary for surveillance
+  - etzhayyim ↔ etzhayyim Japan operating-entity / vendor boundary for surveillance
 priority: 8.5
 axis: surveillance-capability
 weight: 0.85
@@ -38,7 +38,7 @@ notes: |
 Two days of design work (CXO-LEDGER #1-31) produced a JP-police-only
 surveillance vendor under the project name "mehikari" with:
 
-- 15 Lexicon NSIDs under `ai.gftd.apps.mehikari.*`
+- 15 Lexicon NSIDs under `app.etzhayyim.apps.mehikari.*`
 - Project directory `60-apps/ai-gftd-project-mehikari/`
 - LangGraph chain `langgraph_sales_outreach.py`
 - 47-prefecture seed in `60-apps/ai-gftd-project-states/data/gov/jpn/`
@@ -62,7 +62,7 @@ NSIDs are retained. Surveillance becomes a new capability cluster
 
 ## 1. NSID rename
 
-15 NSIDs collapsed into `ai.gftd.apps.malak.*` namespace with rebrand
+15 NSIDs collapsed into `app.etzhayyim.apps.malak.*` namespace with rebrand
 where the JP-only "mehikari" naming was generic:
 
 | Old | New | Notes |
@@ -115,15 +115,15 @@ Initial `prohibited`/`restricted` countries (per OFAC + EU sanctions + INTERPOL
 suspension records at time of seed): CHN MSS (prohibited), RUS MVD/FSB
 (prohibited), IRN, SYR, BLR, MMR, LBY, YEM, AFG, SSD, SDN, IRQ.
 
-## 4. etzhayyim ↔ Gftd Japan boundary preserved
+## 4. etzhayyim ↔ etzhayyim Japan boundary preserved
 
 The CLAUDE.md root rule survives the rename:
 
 - Operating entity = `etzhayyim`
-- Vendor (contractor) = `Gftd Japan株式会社`
+- Vendor (contractor) = `etzhayyim Japan株式会社`
 - Personal-data controller (APPI) = etzhayyim
 - Face-template custodian = etzhayyim CLO
-- Police agreement counterparty = etzhayyim (Gftd Japan disclosed
+- Police agreement counterparty = etzhayyim (etzhayyim Japan disclosed
   as sub-contractor)
 
 # Hard invariants (graph-layer enforcement)

@@ -1,10 +1,10 @@
 import { Hono } from "hono";
 import { decodeBase64Url, encodeBase64Url } from "./base64url";
 import {
-  agentDidPath, createDid, createGftdDid, defaultHumanSubActorPath, didToUrl, ownerHash,
+  agentDidPath, createDid, createetzhayyimDid, defaultHumanSubActorPath, didToUrl, ownerHash,
   PerformerType, toDidDocumentJsonld, uncompressedPubkeyB64UrlToMultibase, userDidPath,
-  createGftdChildDid, createGftdChildDidSemantic, didDepth, didParent, didParsesAsGftd,
-  didParsesAsGftdAny, isValidGftdSegmentValue, verifyDidChain,
+  createetzhayyimChildDid, createetzhayyimChildDidSemantic, didDepth, didParent, didParsesAsetzhayyim,
+  didParsesAsetzhayyimAny, isValidetzhayyimSegmentValue, verifyDidChain,
   type ChildDidInput, type MaterialKind, type SegmentKind, type SemanticChildDidResult,
 } from "./did";
 import { verifyDpopProof } from "./dpop";
@@ -700,7 +700,7 @@ async function handleAuthenticate(request: Request, env: Env): Promise<Response>
     return json({
       level: "internal",
       did: null,
-      'orgId': String(body.xGftdOrgId || "service"),
+      'orgId': String(body.xetzhayyimOrgId || "service"),
       clearance: "restricted",
       sub: null,
       'tokenScopes': [],
@@ -814,7 +814,7 @@ async function handleRevokeToken(request: Request, env: Env): Promise<Response> 
     // One row keyed on jti (unchanged) — carries the family `sid` too so the
     // RS check can match either column without a second INSERT.
     if (jti) {
-      const vertexId = `at://did:web:authn.etzhayyim.com/ai.gftd.auth.revokedSession/${jti}`;
+      const vertexId = `at://did:web:authn.etzhayyim.com/app.etzhayyim.auth.revokedSession/${jti}`;
       await env.KEYS_DB.prepare(
         "INSERT OR IGNORE INTO vertex_gftd_key_revoked_session (vertex_id, sensitivity_ord, owner_did, jti, did, revoked_at, sid) VALUES (?, 3, ?, ?, ?, ?, ?)",
       ).bind(vertexId, did, jti, did, revokedAt, sid || null).run();
@@ -823,7 +823,7 @@ async function handleRevokeToken(request: Request, env: Env): Promise<Response> 
     // caught on lookup even when the revoked_at request only carried one
     // jti. RFC 7009 §2.1 SHOULD cascade.
     if (sid) {
-      const sidVertexId = `at://did:web:authn.etzhayyim.com/ai.gftd.auth.revokedFamily/${sid}`;
+      const sidVertexId = `at://did:web:authn.etzhayyim.com/app.etzhayyim.auth.revokedFamily/${sid}`;
       await env.KEYS_DB.prepare(
         "INSERT OR IGNORE INTO vertex_gftd_key_revoked_session (vertex_id, sensitivity_ord, owner_did, jti, did, revoked_at, sid) VALUES (?, 3, ?, ?, ?, ?, ?)",
       ).bind(sidVertexId, did, jti || `family:${sid}`, did, revokedAt, sid).run();
@@ -880,7 +880,7 @@ async function handleRefreshSession(request: Request, env: Env): Promise<Respons
 }
 
 /**
- * POST /xrpc/ai.gftd.auth.switchActiveDid
+ * POST /xrpc/app.etzhayyim.auth.switchActiveDid
  * Body: { activeDid }
  * Re-issues the session JWT with a different activeDid (sub-actor persona).
  * The requested DID must equal the accountDid or start with "{accountDid}:".
@@ -1100,7 +1100,7 @@ async function mintBootstrapApiKey(env: Env, accountDid: string): Promise<string
 async function buildPdsApiKeyProxyHeaders(
   env: Env,
   accountDid: string,
-  lxm: "ai.gftd.auth.listApiKeys" | "ai.gftd.auth.revokeApiKey",
+  lxm: "app.etzhayyim.auth.listApiKeys" | "app.etzhayyim.auth.revokeApiKey",
 ): Promise<Record<string, string>> {
   const privateKeyB64 = getVar(env, "SS_SERVICE_AUTH_PRIVATE_KEY");
   const publicKeyB64 = getVar(env, "SS_AUTH_PUBLIC_KEY_B64");
@@ -1125,7 +1125,7 @@ async function buildPdsApiKeyProxyHeaders(
   return headers;
 }
 
-/** Handle ai.gftd.auth.createApiKey locally using KEYS_DB D1. */
+/** Handle app.etzhayyim.auth.createApiKey locally using KEYS_DB D1. */
 async function handleCreateApiKeyLocal(request: Request, env: Env): Promise<Response> {
   if (!env.KEYS_DB) return jsonErr(503, "ConfigError", "KEYS_DB is required");
   try {
@@ -1169,7 +1169,7 @@ async function handleInternalVerifyApiKey(request: Request, env: Env): Promise<R
 async function proxyApiKeyManagement(
   request: Request,
   env: Env,
-  nsid: "ai.gftd.auth.listApiKeys" | "ai.gftd.auth.revokeApiKey",
+  nsid: "app.etzhayyim.auth.listApiKeys" | "app.etzhayyim.auth.revokeApiKey",
 ): Promise<Response> {
   if (!env.PDS_SERVICE || typeof env.PDS_SERVICE.fetch !== "function") {
     return jsonErr(503, "ConfigError", "PDS_SERVICE is required");
@@ -1246,7 +1246,7 @@ async function handleLinkEmailVerify(request: Request, env: Env): Promise<Respon
       WHERE account_did = ? AND email = ?
     `).bind(session.accountDid, email).run();
     await upsertLinkedAuthMethod(env, session.accountDid, "email", email, email, true, { email, verifiedAt: nowIso() });
-    await syncAuthMethodToGftdIdentity(env, session.accountDid, "email", email, true);
+    await syncAuthMethodToetzhayyimIdentity(env, session.accountDid, "email", email, true);
     const methods = await listLinkedAuthMethods(env, session.accountDid);
     return json({
       ok: true,
@@ -1374,7 +1374,7 @@ async function handleOAuthLinkCallback(request: Request, env: Env, provider: "go
       verified,
       { email, profile },
     );
-    await syncAuthMethodToGftdIdentity(env, state.did, provider, email, verified);
+    await syncAuthMethodToetzhayyimIdentity(env, state.did, provider, email, verified);
     return html(renderLinkResultPage(true, provider));
   } catch (error) {
     return html(renderLinkResultPage(false, provider, error instanceof Error ? error.message : "link failed"));
@@ -1393,7 +1393,7 @@ async function queryIdentityGraphRow(env: Env, did: string): Promise<Record<stri
   if (!env.PDS_SERVICE) return null;
   try {
     const resp = await env.PDS_SERVICE.fetch(
-      `https://atproto.etzhayyim.com/xrpc/ai.gftd.graph.query?table=vertex_gftd_identity&did=${encodeURIComponent(did)}`,
+      `https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.query?table=vertex_gftd_identity&did=${encodeURIComponent(did)}`,
       { headers: { "x-magatama-verified": "true" } },
     );
     if (!resp.ok) return null;
@@ -1433,11 +1433,11 @@ async function findNearestKeyedAncestor(env: Env, did: string): Promise<{ did: s
   return null;
 }
 
-async function handleResolveGftdDid(request: Request, env: Env): Promise<Response> {
+async function handleResolveetzhayyimDid(request: Request, env: Env): Promise<Response> {
   const body = await parseJson<{ did: string }>(request);
   const did = body.did;
   if (!did?.startsWith("did:gftd:")) return jsonErr(400, "InvalidDID", "did must start with did:gftd:");
-  if (!didParsesAsGftd(did)) return jsonErr(400, "InvalidDID", "did:gftd syntax invalid (max depth 6, 24-hex segments)");
+  if (!didParsesAsetzhayyim(did)) return jsonErr(400, "InvalidDID", "did:gftd syntax invalid (max depth 6, 24-hex segments)");
   if (!env.KEYS_DB) return jsonErr(503, "ConfigError", "KEYS_DB required");
   await ensureKeysTables(env);
 
@@ -1595,7 +1595,7 @@ async function handleMintChildDid(request: Request, env: Env): Promise<Response>
     performerType?: PerformerType;
   }>(request);
 
-  if (!didParsesAsGftdAny(body.parentDid)) {
+  if (!didParsesAsetzhayyimAny(body.parentDid)) {
     return jsonErr(400, "InvalidParent", "parentDid must be a valid did:gftd (max depth 6, legacy hex or semantic form)");
   }
 
@@ -1604,7 +1604,7 @@ async function handleMintChildDid(request: Request, env: Env): Promise<Response>
     if (!["sub", "id", "lexicon", "role", "pubkey", "grant"].includes(body.segmentKind as string)) {
       return jsonErr(400, "InvalidMaterial", `unknown segmentKind '${body.segmentKind}'`);
     }
-    if (!isValidGftdSegmentValue(body.segmentValue as string)) {
+    if (!isValidetzhayyimSegmentValue(body.segmentValue as string)) {
       return jsonErr(400, "InvalidMaterial", `invalid segmentValue '${body.segmentValue}'`);
     }
   } else {
@@ -1647,14 +1647,14 @@ async function handleMintChildDid(request: Request, env: Env): Promise<Response>
   let child: MintResult;
   try {
     if (useSemantic) {
-      const semantic: SemanticChildDidResult = await createGftdChildDidSemantic({
+      const semantic: SemanticChildDidResult = await createetzhayyimChildDidSemantic({
         parentDid: body.parentDid,
         segmentKind: body.segmentKind as Exclude<SegmentKind, "root">,
         segmentValue: body.segmentValue as string,
       });
       child = semantic;
     } else {
-      const legacy = await createGftdChildDid({
+      const legacy = await createetzhayyimChildDid({
         parentDid: body.parentDid,
         kind: body.materialKind as Exclude<MaterialKind, "root">,
         roleName: body.material?.roleName,
@@ -1749,7 +1749,7 @@ async function handleMintChildDid(request: Request, env: Env): Promise<Response>
         created_at: now,
       }],
     };
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/ai.gftd.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -1773,7 +1773,7 @@ async function handleMintChildDid(request: Request, env: Env): Promise<Response>
 }
 
 /** Update D1 auth control (actor_score, auth summary) + graph (edge_gftd_authenticates) on linked auth method change. */
-async function syncAuthMethodToGftdIdentity(env: Env, accountDid: string, provider: string, email: string, verified: boolean): Promise<void> {
+async function syncAuthMethodToetzhayyimIdentity(env: Env, accountDid: string, provider: string, email: string, verified: boolean): Promise<void> {
   if (!accountDid.startsWith("did:gftd:")) return;
 
   // D1: update auth control plane (actor score + method summary, no PII)
@@ -1820,7 +1820,7 @@ async function syncAuthMethodToGftdIdentity(env: Env, accountDid: string, provid
         linked_at: now,
       }],
     };
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/ai.gftd.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -2032,7 +2032,7 @@ async function handleSmsOtpSend(request: Request, env: Env): Promise<Response> {
       {
         from: fromNumber,
         to: phone,
-        text: `GFTD verification code: ${code}. Expires in 5 minutes.`,
+        text: `etzhayyim verification code: ${code}. Expires in 5 minutes.`,
         'messagingProfileId': messagingProfile,
       },
       { Authorization: `Bearer ${telnyxKey}` },
@@ -2260,24 +2260,19 @@ async function resolveSecret(source: unknown): Promise<string> {
   return "";
 }
 
-// CHARTER RIDER §2 MIGRATION: Stripe payment helpers disabled.
-// External fiat subscription (Stripe) is prohibited per Charter Rider §2.
-// See ADR-2605192115.
-
-async function resolveStripeSecretKey(env: Env): Promise<string> {
-  // TODO(charter §2): Stripe removed. Use USDC donation flow via @etzhayyim/sdk.
-  return "";
-}
-
-async function resolveStripePublishableKey(env: Env): Promise<string> {
-  // TODO(charter §2): Stripe removed. Use USDC donation flow via @etzhayyim/sdk.
-  return "";
-}
-
-async function handleCreateSetupIntent(env: Env): Promise<Response> {
-  // CHARTER RIDER §2: External fiat payment (Stripe) is prohibited.
-  return jsonErr(403, "external-fiat-not-permitted", "Stripe payment setup is not permitted per Charter Rider §2. Use USDC donation flow instead.");
-}
+// CHARTER RIDER §2 (ADR-2605192115) — Stripe payment helpers removed.
+// External fiat subscription is prohibited. Telecom-tier provisioning
+// now requires a USDC donation on Base L2 with
+// purpose='internal-subscription' via @etzhayyim/sdk donate(); see the
+// donate flow on the yatabase Studio / yoro membership UI.
+//
+// The legacy XRPC surface app.etzhayyim.auth.createSetupIntent is permanently
+// removed below (route is unregistered, not stubbed). Clients still
+// calling it will receive the Worker's 404 fallback.
+//
+// `getConfig` no longer exposes a `stripePk`. Frontends must request
+// the USDC treasury address + Base L2 RPC URL via the new SDK config
+// endpoint when that lands.
 
 async function storeCredential(env: Env, credentialId: string, value: Record<string, unknown>): Promise<void> {
   if (!env.AUTH_DB) return;
@@ -2332,8 +2327,8 @@ async function createPasskeyAccount(env: Env): Promise<{
   activeDid: string;
   handle: string;
 }> {
-  const accountGftd = await createGftdDid("organization");
-  const activeGftd = await createGftdDid("person");
+  const accountetzhayyim = await createetzhayyimDid("organization");
+  const activeetzhayyim = await createetzhayyimDid("person");
   const accountPath = userDidPath();
   const handle = accountHandleFromPath(accountPath);
   const now = nowIso();
@@ -2346,8 +2341,8 @@ async function createPasskeyAccount(env: Env): Promise<{
 
     const stmts: D1PreparedStatement[] = [];
     for (const { gftdDid, privateKey, perfType, ownerDid } of [
-      { gftdDid: accountGftd.did, privateKey: accountGftd.privateKeyB64url, perfType: "organization" as const, ownerDid: accountGftd.did },
-      { gftdDid: activeGftd.did, privateKey: activeGftd.privateKeyB64url, perfType: "person" as const, ownerDid: accountGftd.did },
+      { gftdDid: accountetzhayyim.did, privateKey: accountetzhayyim.privateKeyB64url, perfType: "organization" as const, ownerDid: accountetzhayyim.did },
+      { gftdDid: activeetzhayyim.did, privateKey: activeetzhayyim.privateKeyB64url, perfType: "person" as const, ownerDid: accountetzhayyim.did },
     ]) {
       const envelope = await envelopeEncrypt(kek, new TextEncoder().encode(privateKey));
       stmts.push(env.KEYS_DB.prepare(
@@ -2355,7 +2350,7 @@ async function createPasskeyAccount(env: Env): Promise<{
          (vertex_id, sensitivity_ord, owner_did, did, encrypted_private_key, wrapped_data_key, iv, performer_type, public_key_multibase, created_at)
          VALUES (?, 3, ?, ?, ?, ?, ?, ?, ?, ?)`
       ).bind(gftdDid, ownerDid, gftdDid, envelope.ciphertext, envelope.wrappedDataKey, envelope.iv, perfType,
-        gftdDid === accountGftd.did ? accountGftd.publicKeyMultibase : activeGftd.publicKeyMultibase, now));
+        gftdDid === accountetzhayyim.did ? accountetzhayyim.publicKeyMultibase : activeetzhayyim.publicKeyMultibase, now));
     }
     await env.KEYS_DB.batch(stmts);
   }
@@ -2369,12 +2364,12 @@ async function createPasskeyAccount(env: Env): Promise<{
         `INSERT OR REPLACE INTO vertex_gftd_auth_account
          (vertex_id, sensitivity_ord, owner_did, did, handle, performer_type, controller_did, actor_score, auth_methods_summary, status, created_at, updated_at)
          VALUES (?, 3, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-      ).bind(accountGftd.did, accountGftd.did, accountGftd.did, handle, "organization", accountGftd.did, 25, authSummary, "active", now, now),
+      ).bind(accountetzhayyim.did, accountetzhayyim.did, accountetzhayyim.did, handle, "organization", accountetzhayyim.did, 25, authSummary, "active", now, now),
       env.AUTH_DB.prepare(
         `INSERT OR REPLACE INTO vertex_gftd_auth_account
          (vertex_id, sensitivity_ord, owner_did, did, handle, performer_type, controller_did, actor_score, auth_methods_summary, status, created_at, updated_at)
          VALUES (?, 3, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-      ).bind(activeGftd.did, accountGftd.did, activeGftd.did, handle, "person", accountGftd.did, 25, authSummary, "active", now, now),
+      ).bind(activeetzhayyim.did, accountetzhayyim.did, activeetzhayyim.did, handle, "person", accountetzhayyim.did, 25, authSummary, "active", now, now),
     ]);
   }
 
@@ -2385,19 +2380,19 @@ async function createPasskeyAccount(env: Env): Promise<{
       vertices: [
         {
           table: "vertex_gftd_identity",
-          vertex_id: accountGftd.did,
-          did: accountGftd.did,
+          vertex_id: accountetzhayyim.did,
+          did: accountetzhayyim.did,
           entity_type: "Organization",
           performer_type: "organization",
           handle,
-          controller_did: accountGftd.did,
+          controller_did: accountetzhayyim.did,
           actor_score: 25,
           rbac_roles: '["owner"]',
-          rbac_grants: '["ai.gftd.apps.*"]',
-          capability_scopes: '["ai.gftd.apps.*"]',
+          rbac_grants: '["app.etzhayyim.apps.*"]',
+          capability_scopes: '["app.etzhayyim.apps.*"]',
           consent_model: "gnap-vp",
           pii_tier: 3,
-          public_key_multibase: accountGftd.publicKeyMultibase,
+          public_key_multibase: accountetzhayyim.publicKeyMultibase,
           authentication_methods: JSON.stringify([{ id: "#passkey-1", type: "WebAuthnAuthenticator", primary: true, registeredAt: now }]),
           status: "active",
           created_at: now,
@@ -2405,19 +2400,19 @@ async function createPasskeyAccount(env: Env): Promise<{
         },
         {
           table: "vertex_gftd_identity",
-          vertex_id: activeGftd.did,
-          did: activeGftd.did,
+          vertex_id: activeetzhayyim.did,
+          did: activeetzhayyim.did,
           entity_type: "Person",
           performer_type: "person",
           handle,
-          controller_did: accountGftd.did,
+          controller_did: accountetzhayyim.did,
           actor_score: 25,
           rbac_roles: "[]",
           rbac_grants: "[]",
-          capability_scopes: '["ai.gftd.apps.*.query"]',
+          capability_scopes: '["app.etzhayyim.apps.*.query"]',
           consent_model: "gnap-vp",
           pii_tier: 1,
-          public_key_multibase: activeGftd.publicKeyMultibase,
+          public_key_multibase: activeetzhayyim.publicKeyMultibase,
           authentication_methods: JSON.stringify([{ id: "#passkey-1", type: "WebAuthnAuthenticator", primary: true, registeredAt: now }]),
           status: "active",
           created_at: now,
@@ -2427,17 +2422,17 @@ async function createPasskeyAccount(env: Env): Promise<{
       edges: [
         {
           table: "edge_gftd_controls",
-          edge_id: `${accountGftd.did}:controls:${activeGftd.did}`,
-          src_vid: accountGftd.did,
-          dst_vid: activeGftd.did,
+          edge_id: `${accountetzhayyim.did}:controls:${activeetzhayyim.did}`,
+          src_vid: accountetzhayyim.did,
+          dst_vid: activeetzhayyim.did,
           relationship: "controller",
           created_at: now,
         },
         {
           table: "edge_gftd_authenticates",
-          edge_id: `${accountGftd.did}:auth:passkey-1`,
-          src_vid: accountGftd.did,
-          dst_vid: `passkey:${accountGftd.did}`,
+          edge_id: `${accountetzhayyim.did}:auth:passkey-1`,
+          src_vid: accountetzhayyim.did,
+          dst_vid: `passkey:${accountetzhayyim.did}`,
           auth_type: "WebAuthnAuthenticator",
           provider: "passkey",
           verified: 1,
@@ -2447,7 +2442,7 @@ async function createPasskeyAccount(env: Env): Promise<{
       ],
     };
     // Fire-and-forget: graph write is async projection, not auth-critical
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/ai.gftd.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -2455,8 +2450,8 @@ async function createPasskeyAccount(env: Env): Promise<{
   }
 
   return {
-    accountDid: accountGftd.did,
-    activeDid: activeGftd.did,
+    accountDid: accountetzhayyim.did,
+    activeDid: activeetzhayyim.did,
     handle,
   };
 }
@@ -2621,7 +2616,7 @@ async function sessionAwareUiRoute(request: Request, env: Env): Promise<Response
   if (pathname === "/manage") {
     return Response.redirect("https://accounts.etzhayyim.com/manage", 302);
   }
-  if (pathname === "/xrpc/ai.gftd.auth.getSession" || pathname === "/xrpc/ai.gftd.authz.getSession") {
+  if (pathname === "/xrpc/app.etzhayyim.auth.getSession" || pathname === "/xrpc/app.etzhayyim.authz.getSession") {
     if (sessionValid && sessionAccount) {
       return json({
         ok: true,
@@ -2719,11 +2714,12 @@ app.get("/users/:id/did.json", async (c) => {
     },
   });
 });
-app.get("/xrpc/ai.gftd.auth.getConfig", async (c) =>
-  // CHARTER RIDER §2: stripePk removed. Stripe payment is prohibited.
+app.get("/xrpc/app.etzhayyim.auth.getConfig", async (c) =>
+  // Charter Rider §2 (ADR-2605192115): Stripe is permanently removed.
+  // `stripePk: ""` is kept in the response shape only for backward-compat
+  // with older Svelte builds that destructure it; new clients should ignore.
   json({
-    // stripePk: await resolveStripePublishableKey(c.env), // DISABLED per Charter Rider §2
-    stripePk: "", // Stripe is prohibited; use USDC donation flow
+    stripePk: "",
     countryCode: c.req.raw.headers.get("CF-IPCountry") || "JP",
   }),
 );
@@ -2735,8 +2731,8 @@ const sessionAwarePaths = [
   "/sign-up", "/sign-up/",
   "/manage", "/manage/",
   "/oauth", "/oauth/", "/oauth/authorize",
-  "/xrpc/ai.gftd.auth.getSession",
-  "/xrpc/ai.gftd.authz.getSession",
+  "/xrpc/app.etzhayyim.auth.getSession",
+  "/xrpc/app.etzhayyim.authz.getSession",
 ];
 for (const p of sessionAwarePaths) {
   app.get(p, async (c) => {
@@ -2750,10 +2746,10 @@ for (const p of sessionAwarePaths) {
 }
 
 // XRPC POST — delegate to existing handler functions (unchanged business logic).
-app.post("/xrpc/ai.gftd.auth.authenticate", (c) => handleAuthenticate(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.authenticate", (c) => handleAuthenticate(c.req.raw, c.env));
 app.post("/xrpc/com.atproto.server.createSession", (c) => handleCreateSession(c.req.raw, c.env));
 app.post("/xrpc/com.atproto.server.refreshSession", (c) => handleRefreshSession(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.switchActiveDid", (c) => handleSwitchActiveDid(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.switchActiveDid", (c) => handleSwitchActiveDid(c.req.raw, c.env));
 
 app.post("/xrpc/com.atproto.server.deleteSession", async (c) => {
   const request = c.req.raw;
@@ -2812,34 +2808,34 @@ app.get("/xrpc/com.atproto.server.getSession", async (c) => {
 app.post("/xrpc/com.atproto.identity.resolveDid", (c) => handleResolveDid(c.req.raw));
 app.post("/xrpc/com.atproto.identity.createDid", (c) => handleCreateDid(c.req.raw, c.env));
 app.post("/xrpc/com.atproto.server.getServiceAuth", (c) => handleGetServiceAuth(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.createAgentSession", (c) => handleCreateAgentSession(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.rotateAgentKey", (c) => handleRotateAgentKey(c.req.raw));
-app.post("/xrpc/ai.gftd.auth.listAgentKeys", async (c) =>
+app.post("/xrpc/app.etzhayyim.auth.createAgentSession", (c) => handleCreateAgentSession(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.rotateAgentKey", (c) => handleRotateAgentKey(c.req.raw));
+app.post("/xrpc/app.etzhayyim.auth.listAgentKeys", async (c) =>
   json({ did: (await parseJson<{ did: string }>(c.req.raw)).did, keys: [] }),
 );
-app.post("/xrpc/ai.gftd.auth.createApiKey", (c) => handleCreateApiKeyLocal(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.listApiKeys", (c) => proxyApiKeyManagement(c.req.raw, c.env, "ai.gftd.auth.listApiKeys"));
-app.post("/xrpc/ai.gftd.auth.revokeApiKey", (c) => proxyApiKeyManagement(c.req.raw, c.env, "ai.gftd.auth.revokeApiKey"));
+app.post("/xrpc/app.etzhayyim.auth.createApiKey", (c) => handleCreateApiKeyLocal(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.listApiKeys", (c) => proxyApiKeyManagement(c.req.raw, c.env, "app.etzhayyim.auth.listApiKeys"));
+app.post("/xrpc/app.etzhayyim.auth.revokeApiKey", (c) => proxyApiKeyManagement(c.req.raw, c.env, "app.etzhayyim.auth.revokeApiKey"));
 app.post("/internal/verify-api-key", (c) => handleInternalVerifyApiKey(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.passkeyBeginRegister", (c) => handlePasskeyBeginRegister(c.req.raw));
-app.post("/xrpc/ai.gftd.auth.passkeyVerifyRegister", (c) => handlePasskeyVerifyRegister(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.passkeyBeginAuth", () => handlePasskeyBeginAuth());
-app.post("/xrpc/ai.gftd.auth.passkeyVerifyAuth", (c) => handlePasskeyVerifyAuth(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.smsOtpSend", (c) => handleSmsOtpSend(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.smsOtpVerify", (c) => handleSmsOtpVerify(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.esimProvision", (c) => handleEsimProvision(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.verifyDpop", (c) => handleVerifyDpop(c.req.raw));
-app.post("/xrpc/ai.gftd.auth.createPlcAlias", (c) => handleCreatePlcAlias(c.req.raw));
-app.post("/xrpc/ai.gftd.auth.resolveExternalDid", (c) => handleResolveExternalDid(c.req.raw));
-app.post("/xrpc/ai.gftd.auth.resolveGftdDid", (c) => handleResolveGftdDid(c.req.raw, c.env));
-app.post("/xrpc/ai.gftd.auth.mintChildDid", (c) => handleMintChildDid(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.passkeyBeginRegister", (c) => handlePasskeyBeginRegister(c.req.raw));
+app.post("/xrpc/app.etzhayyim.auth.passkeyVerifyRegister", (c) => handlePasskeyVerifyRegister(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.passkeyBeginAuth", () => handlePasskeyBeginAuth());
+app.post("/xrpc/app.etzhayyim.auth.passkeyVerifyAuth", (c) => handlePasskeyVerifyAuth(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.smsOtpSend", (c) => handleSmsOtpSend(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.smsOtpVerify", (c) => handleSmsOtpVerify(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.esimProvision", (c) => handleEsimProvision(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.verifyDpop", (c) => handleVerifyDpop(c.req.raw));
+app.post("/xrpc/app.etzhayyim.auth.createPlcAlias", (c) => handleCreatePlcAlias(c.req.raw));
+app.post("/xrpc/app.etzhayyim.auth.resolveExternalDid", (c) => handleResolveExternalDid(c.req.raw));
+app.post("/xrpc/app.etzhayyim.auth.resolveetzhayyimDid", (c) => handleResolveetzhayyimDid(c.req.raw, c.env));
+app.post("/xrpc/app.etzhayyim.auth.mintChildDid", (c) => handleMintChildDid(c.req.raw, c.env));
 
-// Linked methods live on authz Worker — redirect legacy ai.gftd.auth.* paths to canonical ai.gftd.authz.*.
+// Linked methods live on authz Worker — redirect legacy app.etzhayyim.auth.* paths to canonical app.etzhayyim.authz.*.
 const authzRedirectMap: Record<string, string> = {
-  "/xrpc/ai.gftd.auth.linkEmailBegin":  "/xrpc/ai.gftd.authz.linkEmailBegin",
-  "/xrpc/ai.gftd.auth.linkEmailVerify": "/xrpc/ai.gftd.authz.linkEmailVerify",
-  "/xrpc/ai.gftd.auth.linkOAuthStart":  "/xrpc/ai.gftd.authz.linkOAuthStart",
-  "/xrpc/ai.gftd.auth.unlinkMethod":    "/xrpc/ai.gftd.authz.unlinkMethod",
+  "/xrpc/app.etzhayyim.auth.linkEmailBegin":  "/xrpc/app.etzhayyim.authz.linkEmailBegin",
+  "/xrpc/app.etzhayyim.auth.linkEmailVerify": "/xrpc/app.etzhayyim.authz.linkEmailVerify",
+  "/xrpc/app.etzhayyim.auth.linkOAuthStart":  "/xrpc/app.etzhayyim.authz.linkOAuthStart",
+  "/xrpc/app.etzhayyim.auth.unlinkMethod":    "/xrpc/app.etzhayyim.authz.unlinkMethod",
 };
 for (const [oldPath, newPath] of Object.entries(authzRedirectMap)) {
   app.post(oldPath, (c) => {
@@ -2869,9 +2865,9 @@ app.post("/rpc/check-revoked", (c) => handleCheckRevoked(c.req.raw, c.env));
 // branches on `valid` so it can leave anonymous traffic flowing.
 app.post("/rpc/verify-session", (c) => handleVerifySession(c.req.raw, c.env));
 app.post("/webhook/telnyx", (c) => handleTelnyxWebhook(c.req.raw));
-app.post("/xrpc/ai.gftd.auth.createGuestAccount", (c) => handleCreateGuestAccount(c.req.raw, c.env));
-// CHARTER RIDER §2: Stripe setup intent disabled. External fiat payment prohibited.
-// app.post("/xrpc/ai.gftd.auth.createSetupIntent", (c) => handleCreateSetupIntent(c.env));
+app.post("/xrpc/app.etzhayyim.auth.createGuestAccount", (c) => handleCreateGuestAccount(c.req.raw, c.env));
+// Charter Rider §2 (ADR-2605192115): app.etzhayyim.auth.createSetupIntent removed.
+// Replacement is the USDC donation flow (purpose='internal-subscription').
 
 // Fallback: static assets for unmatched GET (Svelte CSR build).
 app.get("*", async (c) => {

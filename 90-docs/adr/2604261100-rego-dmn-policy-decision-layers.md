@@ -62,12 +62,12 @@ Rego は repo 未導入。
 ## Rego — AuthZ SSoT
 
 - **Bundle 構造**: `00-contracts/policies/<package>/{policy.rego, data.json, test.rego}`
-- **Package 命名**: NSID を逆ドメイン化 — `ai.gftd.apps.<project>.<method>` →
+- **Package 命名**: NSID を逆ドメイン化 — `app.etzhayyim.apps.<project>.<method>` →
   `package gftd.apps.<project>.<method>`
 - **Input contract** (Worker → Rego):
   ```
   input = {
-    nsid:        "ai.gftd.apps.foo.bar",
+    nsid:        "app.etzhayyim.apps.foo.bar",
     actor:       { did: "did:gftd:...", handles: [...] },
     target:      { did?, collection?, rkey? },
     permission_sets: ["..."],         // Lexicon Permission-Set 由来
@@ -75,7 +75,7 @@ Rego は repo 未導入。
   }
   ```
 - **Output contract**: `{ allow: boolean, reason: string, deny_obligations: [...] }`
-- **評価点**: XRPC dispatch (`@gftd/xrpc` の入口), MCP adapter
+- **評価点**: XRPC dispatch (`@etzhayyim/xrpc` の入口), MCP adapter
   (`pds/src/mcp-adapter.ts`), `actor.invoke` 直前。**全評価点が単一 bundle**
   を参照する (Shannon η=1)。
 - **Distribution**: ビルド時に bundle (`*.tar.gz`) を生成し R2 配置 →

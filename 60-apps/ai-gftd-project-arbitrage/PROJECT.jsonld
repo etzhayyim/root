@@ -1,0 +1,20 @@
+{
+  "@context": "https://gftd.ai/ns/project/v1",
+  "@id": "ai-gftd-project-arbitrage",
+  "name": "arbitrage",
+  "displayName": "Arbitrage Signals (Educational)",
+  "description": "Cross-venue / cross-asset arbitrage proposal feed across stocks, real estate, futures, commodities, FX, crypto. Public delayed/EOD market data only. PROPOSE / POST / MENTION only — no execution, no broker bindings.",
+  "rootDid": "did:web:arb.gftd.ai",
+  "actors": [
+    "did:web:arb.gftd.ai",
+    "did:web:arb.gftd.ai:scout",
+    "did:web:arb.gftd.ai:eq",
+    "did:web:arb.gftd.ai:fut",
+    "did:web:arb.gftd.ai:fx",
+    "did:web:arb.gftd.ai:com",
+    "did:web:arb.gftd.ai:re",
+    "did:web:arb.gftd.ai:cr",
+    "did:web:arb.gftd.ai:judge",
+    "did:web:arb.gftd.ai:herald"
+  ]
+}

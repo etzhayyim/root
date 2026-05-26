@@ -88,7 +88,7 @@ contact:
 capabilities: [<Capability>]  # 1..N
 referral_paths: [<ReferralPathRef>]  # 0..N, foreign keys to ADR-2605181050 paths
 last_verified_at: <ISO-8601 date>
-verified_by: <person responsible (jun@gftd.group for now)>
+verified_by: <person responsible (jun@etzhayyim.com for now)>
 ```
 
 ### `Capability` (enum + procedure record)
@@ -125,7 +125,7 @@ path_id: <slug, defined in ADR-2605181050>
 2. **Public sources only**: `evidence_url` は学会誌・公式サイト・査読論文・規制機関 (FDA/PMDA/EMA) のみ。SNS・個人ブログ不可。
 3. **`last_verified_at` 必須**: 全レコード必須。staleness window = **180 日**。180 日超は `InstitutionMatcherActor` が "stale" フラグ付きで返す (除外はしない)。
 4. **法的 disclaimer**: レジストリは medical advice ではない。マッチ結果は必ず「主治医・倫理委・家族との人間判断に escalate」する旨を schema レベルで強制 (`output.requires_human_review: true` を Lexicon で固定)。
-5. **Update procedure**: 機関側からの更新要求は GitHub issue 経由。事務局 (jun@gftd.group) が verify → PR → merge → MST 反映の固定フロー。
+5. **Update procedure**: 機関側からの更新要求は GitHub issue 経由。事務局 (jun@etzhayyim.com) が verify → PR → merge → MST 反映の固定フロー。
 6. **License**: レジストリ全体は CC-BY-4.0 (本 repo Apache 2.0 とは別、データセット標準に合わせる)。
 
 ## 配置
@@ -162,7 +162,7 @@ path_id: <slug, defined in ADR-2605181050>
 
 ## 負の効果 / コスト
 
-- **手動 seed の運用負荷** — 自動更新は将来課題。当面は事務局 1 名 (jun@gftd.group) のスループット律速
+- **手動 seed の運用負荷** — 自動更新は将来課題。当面は事務局 1 名 (jun@etzhayyim.com) のスループット律速
 - **15 機関では sparse** — 国内に小児 CI 実施施設は 40+ あるが、CND 対応・遺伝学的検査対応で絞ると seed の 8 施設で実質網羅
 - **国際参照の現実性** — Manchester/Göttingen への referral は渡航・通訳・術後ケアまで含めると非常に高コスト。レジストリに載せても適用可能症例は少数
 

@@ -1,7 +1,7 @@
 /**
  * Sealer-sponsored EIP-155 legacy transaction builder for the gftd
- * private chain (chainId 260425). Used by `ai.gftd.authz.activateActorAccount`
- * to call `GftdActorRegistry.activate(...)` on behalf of the user without
+ * private chain (chainId 260425). Used by `app.etzhayyim.authz.activateActorAccount`
+ * to call `etzhayyimActorRegistry.activate(...)` on behalf of the user without
  * forcing them to hold gas.
  *
  * Crypto comes from `@noble/curves@2` (secp256k1 sign + recovery) and
@@ -209,7 +209,7 @@ import { selector } from "./eth-rpc";
 const ACTIVATE_SELECTOR = selector("activate(bytes32,bytes[])");
 
 /**
- * Encode the calldata for `GftdActorRegistry.activate(bytes32 didHash,
+ * Encode the calldata for `etzhayyimActorRegistry.activate(bytes32 didHash,
  * bytes[] owners)` with a single 64-byte owner (packed P-256 pubkey
  * X||Y, the format `MultiOwnable.addOwnerPublicKey` consumes inside the
  * Coinbase Smart Wallet).

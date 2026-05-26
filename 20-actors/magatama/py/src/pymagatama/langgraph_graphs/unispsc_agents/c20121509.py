@@ -22,4 +22,4 @@ graph.add_node('validate', validate_spec)
 graph.set_entry_point('validate')
 graph.add_conditional_edges('validate', route_compliance, {'compliant': END, 'non_compliant': END})
 
-compile_graph = graph.compile()
+graph = graph.compile()

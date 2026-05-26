@@ -31,7 +31,7 @@ from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
-from pymagatama.db_sync import fetch_one, sync_cursor
+from pymagatama.primitives.active_inference_substrate import select_belief_store, HakkouFermentRecord
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("hakkou_worker")
@@ -63,30 +63,30 @@ async def task_create_ferment_record(
     """Insert vertex_hakkou_ferment row in 'pending' state."""
 
     ferment_id = fermentVertexId.split("/")[-1] if fermentVertexId else _uid("hak")
-    ferment_vid = fermentVertexId or f"at://{HAKKOU_DID}/ai.gftd.apps.hakkou.ferment/{ferment_id}"
+    ferment_vid = fermentVertexId or f"at://{HAKKOU_DID}/app.etzhayyim.apps.hakkou.ferment/{ferment_id}"
     now = _now()
     input_hash = hashlib.sha256(inputRef.encode()).hexdigest()[:32] if inputRef else ""
 
     def _run() -> dict[str, Any]:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO vertex_hakkou_ferment
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   input_kind, input_ref, output_kind, input_hash,
-                   ethanol_hash, co2_audit_ref, output_vertex_id, fermented_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    ferment_vid, _uid("rec"), HAKKOU_DID, "hakkou_ferment", "pending", "",
-                    agentDid or HAKKOU_DID,
-                    json.dumps({"callerDid": callerDid, "inputRef": inputRef[:500]}),
-                    now, now, 0,
-                    inputKind, inputRef[:1000], outputKind, input_hash,
-                    None, None, None, None,
-                ),
-            )
+        store = select_belief_store()
+        rec = HakkouFermentRecord(
+            vertex_id=ferment_vid,
+            record_id=_uid("rec"),
+            owner_did=HAKKOU_DID,
+            label="hakkou_ferment",
+            status="pending",
+            stream_id="",
+            agent_did=agentDid or HAKKOU_DID,
+            value_json=json.dumps({"callerDid": callerDid, "inputRef": inputRef[:500]}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            input_kind=inputKind,
+            input_ref=inputRef[:1000],
+            output_kind=outputKind,
+            input_hash=input_hash,
+        )
+        store.put_vertex_hakkou_ferment(rec)
         return {
             "fermentVertexId": ferment_vid,
             "fermentId": ferment_id,
@@ -170,26 +170,35 @@ async def task_finalize_ferment(
     now = _now()
 
     def _run() -> dict[str, Any]:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                UPDATE vertex_hakkou_ferment
-                SET status = 'fermented',
-                    ethanol_hash = %s,
-                    co2_audit_ref = %s,
-                    output_vertex_id = %s,
-                    fermented_at = %s,
-                    updated_at = %s
-                WHERE vertex_id = %s
-                """,
-                (
-                    ethanolHash or "",
-                    co2AuditRef or "",
-                    outputVertexId or "",
-                    now, now,
-                    fermentVertexId,
-                ),
+        import sqlite3
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            row = conn.execute("SELECT * FROM vertex_hakkou_ferment WHERE vertex_id = ?", (fermentVertexId,)).fetchone()
+            if not row:
+                raise ValueError("Ferment record not found")
+
+            rec = HakkouFermentRecord(
+                vertex_id=row["vertex_id"],
+                record_id=row["record_id"],
+                owner_did=row["owner_did"],
+                label=row["label"],
+                status="fermented",
+                stream_id=row["stream_id"],
+                agent_did=row["agent_did"],
+                value_json=row["value_json"],
+                created_at=row["created_at"],
+                updated_at=now,
+                sensitivity_ord=row["sensitivity_ord"],
+                input_kind=row["input_kind"],
+                input_ref=row["input_ref"],
+                output_vertex_id=outputVertexId or "",
+                output_kind=row["output_kind"],
+                ethanol_hash=ethanolHash or "",
+                co2_audit_ref=co2AuditRef or "",
             )
+        store.put_vertex_hakkou_ferment(rec)
+
         return {
             "fermented": True,
             "fermentVertexId": fermentVertexId,

@@ -16,44 +16,44 @@ const seeds: Seed[] = [
   {
     file: "registerOrgUnit",
     processId: "open_lei_register_org_unit",
-    nsid: "ai.gftd.apps.openLei.registerOrgUnit",
+    nsid: "app.etzhayyim.apps.openLei.registerOrgUnit",
     writeTableAllowlist: "vertex_org_unit,edge_org_unit_parent",
   },
   {
     file: "dissolveOrgUnit",
     processId: "open_lei_dissolve_org_unit",
-    nsid: "ai.gftd.apps.openLei.dissolveOrgUnit",
+    nsid: "app.etzhayyim.apps.openLei.dissolveOrgUnit",
     writeTableAllowlist: "vertex_org_unit",
   },
   {
     file: "moveOrgUnit",
     processId: "open_lei_move_org_unit",
-    nsid: "ai.gftd.apps.openLei.moveOrgUnit",
+    nsid: "app.etzhayyim.apps.openLei.moveOrgUnit",
     writeTableAllowlist: "vertex_org_unit,edge_org_unit_parent",
   },
   {
     file: "addOrgMember",
     processId: "open_lei_add_org_member",
-    nsid: "ai.gftd.apps.openLei.addOrgMember",
+    nsid: "app.etzhayyim.apps.openLei.addOrgMember",
     writeTableAllowlist: "edge_org_unit_member",
   },
   {
     file: "removeOrgMember",
     processId: "open_lei_remove_org_member",
-    nsid: "ai.gftd.apps.openLei.removeOrgMember",
+    nsid: "app.etzhayyim.apps.openLei.removeOrgMember",
     writeTableAllowlist: "edge_org_unit_member",
   },
   {
     file: "queryOrgSubtree",
     processId: "open_lei_query_org_subtree",
-    nsid: "ai.gftd.apps.openLei.queryOrgSubtree",
+    nsid: "app.etzhayyim.apps.openLei.queryOrgSubtree",
     writeTableAllowlist: "",
   },
 ];
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/open-lei/${s.file}.bpmn`;
 const slug = (s: Seed) => s.file.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/open-lei-${slug(s)}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/open-lei-${slug(s)}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-lei-${slug(s)}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-lei-${slug(s)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

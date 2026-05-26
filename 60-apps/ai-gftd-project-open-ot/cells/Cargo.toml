@@ -18,7 +18,7 @@ version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
 repository = "https://github.com/etzhayyim/etzhayyim-root"
-authors = ["gftd.co.jp"]
+authors = ["etzhayyim.com"]
 
 [workspace.dependencies]
 heapless = { version = "0.8", default-features = false }

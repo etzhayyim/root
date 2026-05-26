@@ -29,7 +29,7 @@ from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
-from pymagatama.db_sync import fetch_one, sync_cursor
+from pymagatama.primitives.active_inference_substrate import select_belief_store, KabiAnastomosisRecord
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("kabi_worker")
@@ -65,35 +65,36 @@ async def task_anastomosis_probe(
         return {"probeResult": {"compatible": False, "reason": "missing DIDs"}}
 
     def _run() -> dict[str, Any]:
-        # Query eta values for both networks from graph
-        row_a = fetch_one(
-            "SELECT value_json FROM vertex_actor WHERE vertex_id LIKE %s LIMIT 1",
-            (f"%{networkADid.split(':')[-1]}%",),
-        )
-        row_b = fetch_one(
-            "SELECT value_json FROM vertex_actor WHERE vertex_id LIKE %s LIMIT 1",
-            (f"%{networkBDid.split(':')[-1]}%",),
-        )
-
+        import sqlite3
+        store = select_belief_store()
         eta_a = 0.5
         eta_b = 0.5
         prion_a: list = []
         prion_b: list = []
 
-        if row_a:
+        with store._conn() as conn:
             try:
-                val = json.loads(row_a[0] or "{}")
-                eta_a = float(val.get("eta", 0.5))
-                prion_a = val.get("prions", [])
-            except (json.JSONDecodeError, ValueError, TypeError):
+                row_a = conn.execute(
+                    "SELECT value_json FROM vertex_actor WHERE vertex_id LIKE ?",
+                    (f"%{networkADid.split(':')[-1]}%",)
+                ).fetchone()
+                if row_a:
+                    val = json.loads(row_a[0] or "{}")
+                    eta_a = float(val.get("eta", 0.5))
+                    prion_a = val.get("prions", [])
+            except sqlite3.OperationalError:
                 pass
 
-        if row_b:
             try:
-                val = json.loads(row_b[0] or "{}")
-                eta_b = float(val.get("eta", 0.5))
-                prion_b = val.get("prions", [])
-            except (json.JSONDecodeError, ValueError, TypeError):
+                row_b = conn.execute(
+                    "SELECT value_json FROM vertex_actor WHERE vertex_id LIKE ?",
+                    (f"%{networkBDid.split(':')[-1]}%",)
+                ).fetchone()
+                if row_b:
+                    val = json.loads(row_b[0] or "{}")
+                    eta_b = float(val.get("eta", 0.5))
+                    prion_b = val.get("prions", [])
+            except sqlite3.OperationalError:
                 pass
 
         eta_diff = abs(eta_a - eta_b)
@@ -106,27 +107,27 @@ async def task_anastomosis_probe(
         )
 
         if compatible and edgeId:
-            with sync_cursor() as cur:
-                cur.execute(
-                    """
-                    INSERT INTO edge_kabi_anastomosis
-                      (edge_id, src_vid, dst_vid, relation_kind, value_json,
-                       created_at, updated_at, owner_did, sensitivity_ord,
-                       network_a_did, network_b_did, eta_diff, prion_conflict,
-                       compatibility_score, fused_at)
-                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                    """,
-                    (
-                        edgeId or _uid("anast"),
-                        f"at://{KABI_DID}/ai.gftd.apps.kabi.network/{networkADid.split(':')[-1]}",
-                        f"at://{KABI_DID}/ai.gftd.apps.kabi.network/{networkBDid.split(':')[-1]}",
-                        "kabi_anastomosis",
-                        json.dumps({"callerDid": callerDid}),
-                        _now(), _now(), KABI_DID, 0,
-                        networkADid, networkBDid, eta_diff, prion_conflict,
-                        compatibility_score, _now(),
-                    ),
-                )
+            # We must pass the required parameters for the edge record.
+            # Edge_kabi_anastomosisRecord has base Edge fields + network_a_did, network_b_did, compatibility_score, result, reason
+            # wait, the generated code for Edge_kabi_anastomosisRecord uses snake_case, but I need to check its exact name:
+            # "Edge_kabi_anastomosisRecord".
+            rec = KabiAnastomosisRecord(
+                edge_id=edgeId,
+                src_vid=f"at://{KABI_DID}/app.etzhayyim.apps.kabi.network/{networkADid.split(':')[-1]}",
+                dst_vid=f"at://{KABI_DID}/app.etzhayyim.apps.kabi.network/{networkBDid.split(':')[-1]}",
+                relation_kind="kabi_anastomosis",
+                value_json=json.dumps({"callerDid": callerDid}),
+                created_at=_now(),
+                updated_at=_now(),
+                owner_did=KABI_DID,
+                sensitivity_ord=0,
+                network_a_did=networkADid,
+                network_b_did=networkBDid,
+                compatibility_score=compatibility_score,
+                result="compatible",
+                reason="compatible"
+            )
+            store.put_edge_kabi_anastomosis(rec)
 
         return {
             "probeResult": {

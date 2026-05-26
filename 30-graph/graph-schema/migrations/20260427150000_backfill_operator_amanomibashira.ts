@@ -1,5 +1,5 @@
 // tier: C
-// Backfill: vertex_actor.operator legacy "gftd.co.jp" / "gftd" → "etzhayyim".
+// Backfill: vertex_actor.operator legacy "etzhayyim.com" / "gftd" → "etzhayyim".
 //
 // Companion to the CLI-default rebrand (build.go / coverage_actors.go /
 // coverage_infer.go shipped 2026-04-27). After this migration, the live
@@ -10,7 +10,7 @@
 //   vertex_actor.operator distribution before backfill:
 //     <empty>      784,956 rows  ← left unchanged; healing populates per-actor
 //     'gftd'        20,820 rows  ← rewritten
-//     'gftd.co.jp'   2,307 rows  ← rewritten
+//     'etzhayyim.com'   2,307 rows  ← rewritten
 //   Total rewritten: 23,127 rows.
 //
 //   vertex_api_key.operator: 18 rows, all empty → nothing to backfill.
@@ -38,16 +38,16 @@
 //
 // Verify:
 //   psql ... -c "SELECT operator, COUNT(*) FROM vertex_actor GROUP BY operator ORDER BY 2 DESC;"
-//   Expect: 'etzhayyim' ≥ 23,127 ; 'gftd' and 'gftd.co.jp' rows absent.
+//   Expect: 'etzhayyim' ≥ 23,127 ; 'gftd' and 'etzhayyim.com' rows absent.
 import { Kysely, sql } from "kysely";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
-  await sql`UPDATE vertex_actor SET operator = 'etzhayyim' WHERE operator IN ('gftd.co.jp', 'gftd')`.execute(db);
+  await sql`UPDATE vertex_actor SET operator = 'etzhayyim' WHERE operator IN ('etzhayyim.com', 'gftd')`.execute(db);
   await sql`FLUSH`.execute(db);
 }
 
 export async function down(_db: Kysely<unknown>): Promise<void> {
   // Forward-only. The reverse mapping is ambiguous — etzhayyim rows after
   // this migration include rows that were already etzhayyim before it
-  // and rows that were 'gftd' or 'gftd.co.jp' before it.
+  // and rows that were 'gftd' or 'etzhayyim.com' before it.
 }

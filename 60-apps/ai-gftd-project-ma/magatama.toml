@@ -29,9 +29,9 @@ service = "https://atproto.etzhayyim.com"
 pds_did = "did:web:atproto.etzhayyim.com"
 actor_did = "did:web:ma.etzhayyim.com"
 collections = [
-  "ai.gftd.apps.ma.startDealWorkflow",
-  "ai.gftd.apps.fund.managerDiscovery",
-  "ai.gftd.apps.businessPerson.collectPublicRoles",
+  "app.etzhayyim.apps.ma.startDealWorkflow",
+  "app.etzhayyim.apps.fund.managerDiscovery",
+  "app.etzhayyim.apps.businessPerson.collectPublicRoles",
 ]
 
 [[public_agent_registration.protocol_profiles]]
@@ -64,21 +64,21 @@ sender_pattern = "{local}@etzhayyim.com"
 
 [[bpmn_processes]]
 process_id = "ma_start_deal_workflow"
-nsid = "ai.gftd.apps.ma.startDealWorkflow"
+nsid = "app.etzhayyim.apps.ma.startDealWorkflow"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/ma/startDealWorkflow.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/ma/startDealWorkflow.json"
 purpose = "Deal intake, target screening, valuation, buyer matching, outreach approval, closing handoff."
 
 [[bpmn_processes]]
 process_id = "fund_manager_discovery"
-nsid = "ai.gftd.apps.fund.managerDiscovery"
+nsid = "app.etzhayyim.apps.fund.managerDiscovery"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/fund/managerDiscovery.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/fund/managerDiscovery.json"
 purpose = "Durable fund manager and fund intelligence ingest for LP and buyer matching inputs."
 
 [[bpmn_processes]]
 process_id = "business_person_collect_public_roles"
-nsid = "ai.gftd.apps.businessPerson.collectPublicRoles"
+nsid = "app.etzhayyim.apps.businessPerson.collectPublicRoles"
 source = "../../etzhayyim-root/00-contracts/bpmn/ai/gftd/business-person/collectPublicRoles.bpmn"
 lexicon = "../../00-contracts/lexicons/ai/gftd/apps/businessPerson/collectPublicRoles.json"
 purpose = "Public-only business person role collection for MA research, matching, and approved outreach context."
@@ -86,7 +86,7 @@ purpose = "Public-only business person role collection for MA research, matching
 [ingest.fund_manager]
 status = "langserver-worker-present"
 owner_project = "ai-gftd-project-ma"
-contract_nsid = "ai.gftd.apps.fund.managerDiscovery"
+contract_nsid = "app.etzhayyim.apps.fund.managerDiscovery"
 process_id = "fund_manager_discovery"
 source_systems = ["sec-adv", "gleif"]
 task_types = [
@@ -119,7 +119,7 @@ write_gate = "rw.health.probe"
 status = "source-request-fetch-cursor-and-next-page-handoff-present"
 owner_project = "ai-gftd-project-business-person"
 seed = "../ai-gftd-project-business-person/seed.ts"
-contract_nsid = "ai.gftd.apps.businessPerson.collectPublicRoles"
+contract_nsid = "app.etzhayyim.apps.businessPerson.collectPublicRoles"
 process_id = "business_person_collect_public_roles"
 public_only = true
 source_systems = [
@@ -131,12 +131,12 @@ source_systems = [
   "corporate-hp",
 ]
 collections = [
-  "ai.gftd.apps.businessPerson.person",
-  "ai.gftd.apps.businessPerson.officerRole",
-  "ai.gftd.apps.businessPerson.boardMembership",
-  "ai.gftd.apps.businessPerson.affiliation",
-  "ai.gftd.apps.businessPerson.personnelChange",
-  "ai.gftd.apps.businessPerson.collectionJob",
+  "app.etzhayyim.apps.businessPerson.person",
+  "app.etzhayyim.apps.businessPerson.officerRole",
+  "app.etzhayyim.apps.businessPerson.boardMembership",
+  "app.etzhayyim.apps.businessPerson.affiliation",
+  "app.etzhayyim.apps.businessPerson.personnelChange",
+  "app.etzhayyim.apps.businessPerson.collectionJob",
 ]
 target_tables = ["vertex_business_person"]
 task_types = [
@@ -196,7 +196,7 @@ payload_targets = [
 advance_task_type = "businessPerson.advanceSourceCursor"
 handoff_task_type = "businessPerson.scheduleNextPage"
 cursor_variables = ["cursor", "pageSize", "pagesFetched", "maxPages", "nextSourceUrl", "hasNextPage"]
-handoff_collection = "ai.gftd.apps.businessPerson.collectionJob"
+handoff_collection = "app.etzhayyim.apps.businessPerson.collectionJob"
 handoff_mode = "pds-job-payload"
 durable_persistence_status = "planned"
 supported_next_page_sources = ["companies-house", "gbizinfo", "edinet"]
@@ -211,9 +211,9 @@ notes = [
 status = "langserver-worker-and-legal-entity-app-present"
 owner_project = "ai-gftd-project-legal-entity"
 contract_nsids = [
-  "ai.gftd.openLei.collectGleifGlobal",
-  "ai.gftd.openLei.registerLegalEntity",
-  "ai.gftd.openLei.recordOwnership",
+  "app.etzhayyim.openLei.collectGleifGlobal",
+  "app.etzhayyim.openLei.registerLegalEntity",
+  "app.etzhayyim.openLei.recordOwnership",
 ]
 task_types = [
   "openLei.gleif.manifest.plan",
@@ -233,8 +233,8 @@ identity_key = "lei"
 
 [mail]
 provider = "mailer.etzhayyim.com"
-send_nsid = "ai.gftd.apps.mailer.sendEmail"
-inbound_collection = "ai.gftd.apps.mailer.inboundEmail"
+send_nsid = "app.etzhayyim.apps.mailer.sendEmail"
+inbound_collection = "app.etzhayyim.apps.mailer.inboundEmail"
 outbound_provider = "resend"
 inbound_provider = "cloudflare-email-routing"
 sender_domain = "etzhayyim.com"

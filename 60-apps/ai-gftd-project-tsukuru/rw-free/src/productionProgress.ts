@@ -20,7 +20,7 @@ import type {
   ReportMilestoneOutput,
 } from "./types.js";
 
-const MILESTONE_COLLECTION = "ai.gftd.apps.tsukuru.productionProgress";
+const MILESTONE_COLLECTION = "app.etzhayyim.apps.tsukuru.productionProgress";
 
 export async function reportMilestone(
   e: Etzhayyim,

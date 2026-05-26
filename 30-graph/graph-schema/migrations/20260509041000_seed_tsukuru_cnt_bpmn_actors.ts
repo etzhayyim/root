@@ -25,32 +25,32 @@ const actorTag = "sys.bpmn.seed.tsukuru-cnt";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-cnt-fiber-manufacturing-flow-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-cnt-fiber-manufacturing-flow-v1",
     bpmnProcessId: "tsukuru_cnt_fiber_manufacturing_flow",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/cnt-fiber-manufacturing-flow.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-cnt-automation-plan-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-cnt-automation-plan-v1",
     bpmnProcessId: "tsukuru_cnt_automation_plan",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/cnt-automation-plan.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-prepare-cnt-order-package-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-prepare-cnt-order-package-v1",
     bpmnProcessId: "tsukuru_prepare_cnt_order_package",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/prepare-cnt-order-package.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-get-cnt-automation-coverage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-get-cnt-automation-coverage-v1",
     bpmnProcessId: "tsukuru_get_cnt_automation_coverage",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/get-cnt-automation-coverage.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-prepare-cnt-run-package-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-prepare-cnt-run-package-v1",
     bpmnProcessId: "tsukuru_prepare_cnt_run_package",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/prepare-cnt-run-package.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/tsukuru-validate-cnt-run-package-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/tsukuru-validate-cnt-run-package-v1",
     bpmnProcessId: "tsukuru_validate_cnt_run_package",
     sourcePath: "00-contracts/bpmn/ai/gftd/tsukuru/validate-cnt-run-package.bpmn",
   },
@@ -58,33 +58,33 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-cnt-designManufacturingFlow-v1",
-    nsid: "ai.gftd.apps.tsukuru.cnt.designManufacturingFlow",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-designManufacturingFlow-v1",
+    nsid: "app.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow",
     bpmnProcessId: "tsukuru_cnt_fiber_manufacturing_flow",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-cnt-planAutomation-v1",
-    nsid: "ai.gftd.apps.tsukuru.cnt.planAutomation",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-planAutomation-v1",
+    nsid: "app.etzhayyim.apps.tsukuru.cnt.planAutomation",
     bpmnProcessId: "tsukuru_cnt_automation_plan",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-cnt-prepareOrderPackage-v1",
-    nsid: "ai.gftd.apps.tsukuru.cnt.prepareOrderPackage",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-prepareOrderPackage-v1",
+    nsid: "app.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage",
     bpmnProcessId: "tsukuru_prepare_cnt_order_package",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-cnt-getAutomationCoverage-v1",
-    nsid: "ai.gftd.apps.tsukuru.cnt.getAutomationCoverage",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-getAutomationCoverage-v1",
+    nsid: "app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage",
     bpmnProcessId: "tsukuru_get_cnt_automation_coverage",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-cnt-prepareRunPackage-v1",
-    nsid: "ai.gftd.apps.tsukuru.cnt.prepareRunPackage",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-prepareRunPackage-v1",
+    nsid: "app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage",
     bpmnProcessId: "tsukuru_prepare_cnt_run_package",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/tsukuru-cnt-validateRunPackage-v1",
-    nsid: "ai.gftd.apps.tsukuru.cnt.validateRunPackage",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-cnt-validateRunPackage-v1",
+    nsid: "app.etzhayyim.apps.tsukuru.cnt.validateRunPackage",
     bpmnProcessId: "tsukuru_validate_cnt_run_package",
   },
 ];
@@ -136,7 +136,7 @@ async function createTsukuruRuntimeTables(db: Kysely<unknown>): Promise<void> {
 async function seedCntProcessCatalog(db: Kysely<unknown>): Promise<void> {
   const sourcePath = "00-contracts/catalogs/ai/gftd/tsukuru/cnt/process-catalog.v1.json";
   const catalogJson = readContract(sourcePath);
-  const vid = 'at://did:web:tsukuru.etzhayyim.com/ai.gftd.apps.tsukuru.cntProcessCatalog/tsukuru-cnt-process-catalog-v1';
+  const vid = 'at://did:web:tsukuru.etzhayyim.com/app.etzhayyim.apps.tsukuru.cntProcessCatalog/tsukuru-cnt-process-catalog-v1';
   // RW does not support ON CONFLICT; same-PK INSERT overwrites by spec.
   await sql`
     INSERT INTO vertex_tsukuru_cnt_process_catalog (

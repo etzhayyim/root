@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-daily-pulse-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sekkei-daily-pulse-v1',
                  'did:web:sekkei.etzhayyim.com',
                  'sekkei_daily_pulse',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -159,7 +159,7 @@ UP = [{'sql': '\n'
                  'did:web:sekkei.etzhayyim.com',
                  'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-daily-pulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sekkei-daily-pulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -173,12 +173,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-review-drawing-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sekkei-review-drawing-v1',
                  'did:web:sekkei.etzhayyim.com',
                  'sekkei_review_drawing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  reviewDrawing — XRPC ai.gftd.apps.sekkei.reviewDrawing で起動。\n'
+                 '  reviewDrawing — XRPC app.etzhayyim.apps.sekkei.reviewDrawing で起動。\n'
                  '  設計図の改訂を登録し、承認ゲートへ進める。\n'
                  '  承認者が decision=approved → drawing.status=approved + currentRevNo 更新。\n'
                  '  decision=rejected → revision.status=rejected + 差し戻し。\n'
@@ -391,7 +391,7 @@ UP = [{'sql': '\n'
                  'did:web:sekkei.etzhayyim.com',
                  'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-review-drawing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sekkei-review-drawing-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -405,12 +405,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-approve-revision-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sekkei-approve-revision-v1',
                  'did:web:sekkei.etzhayyim.com',
                  'sekkei_approve_revision',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  approveRevision — XRPC ai.gftd.apps.sekkei.approveRevision で起動。\n'
+                 '  approveRevision — XRPC app.etzhayyim.apps.sekkei.approveRevision で起動。\n'
                  '  承認済み図面を製造リリース (release レコード作成 + drawing.status=released)。\n'
                  '  obsoletesDrawingId が指定された場合、旧図番を obsolete に更新。\n'
                  '\n'
@@ -593,7 +593,7 @@ UP = [{'sql': '\n'
                  'did:web:sekkei.etzhayyim.com',
                  'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-approve-revision-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sekkei-approve-revision-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -607,16 +607,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-dailyPulse-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sekkei-dailyPulse-v1',
                  'did:web:sekkei.etzhayyim.com',
-                 'ai.gftd.apps.sekkei.dailyPulse',
+                 'app.etzhayyim.apps.sekkei.dailyPulse',
                  'sekkei_daily_pulse',
                  30000,
                  '2026-04-28T22:05:00Z',
                  'did:web:sekkei.etzhayyim.com',
                  'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-dailyPulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sekkei-dailyPulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -630,16 +630,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-reviewDrawing-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sekkei-reviewDrawing-v1',
                  'did:web:sekkei.etzhayyim.com',
-                 'ai.gftd.apps.sekkei.reviewDrawing',
+                 'app.etzhayyim.apps.sekkei.reviewDrawing',
                  'sekkei_review_drawing',
                  300000,
                  '2026-04-28T22:05:00Z',
                  'did:web:sekkei.etzhayyim.com',
                  'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-reviewDrawing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sekkei-reviewDrawing-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -653,29 +653,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-approveRevision-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sekkei-approveRevision-v1',
                  'did:web:sekkei.etzhayyim.com',
-                 'ai.gftd.apps.sekkei.approveRevision',
+                 'app.etzhayyim.apps.sekkei.approveRevision',
                  'sekkei_approve_revision',
                  60000,
                  '2026-04-28T22:05:00Z',
                  'did:web:sekkei.etzhayyim.com',
                  'did:web:sekkei.etzhayyim.com',
                  'sys.bpmn.seed.sekkei',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-approveRevision-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sekkei-approveRevision-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-dailyPulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sekkei-dailyPulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-reviewDrawing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sekkei-reviewDrawing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/sekkei-approveRevision-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sekkei-approveRevision-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-daily-pulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sekkei-daily-pulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-review-drawing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sekkei-review-drawing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/sekkei-approve-revision-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sekkei-approve-revision-v1']}]
 
 
 def upgrade() -> None:

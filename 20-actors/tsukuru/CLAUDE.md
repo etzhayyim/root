@@ -16,8 +16,8 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 
 ## Manufacturer Registry Rules
 
-- Active collection name: `ai.gftd.apps.tsukuru.manufacturer`.
-- Historical collection for migration/read-compat: `ai.gftd.apps.tsukuru-api.manufacturer`.
+- Active collection name: `app.etzhayyim.apps.tsukuru.manufacturer`.
+- Historical collection for migration/read-compat: `app.etzhayyim.apps.tsukuru-api.manufacturer`.
 - Registry scale assumption: 460+ manufacturer DIDs across 30+ countries.
 
 ## Write Buffer Rule
@@ -38,7 +38,7 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 
 **WIT**: `gftd:tsukuru-production-order@1.0.0` — production-order, production-progress, quality-inspection
 
-**Record kinds** (`ai.gftd.apps.tsukuru.*`): `production_order`, `production_progress`, `quality_inspection`
+**Record kinds** (`app.etzhayyim.apps.tsukuru.*`): `production_order`, `production_progress`, `quality_inspection`
 
 **Flow**: okaimono order (paid) → `create-production-order` → factory DID Invoke → progress updates → QC → ship
 
@@ -53,13 +53,13 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 **WIT surface**: `gftd:tsukuru-process-registry@1.0.0` + `gftd:tsukuru-production-order@1.0.0`
 
 **XRPC**:
-- `ai.gftd.apps.tsukuru.cnt.designManufacturingFlow`
-- `ai.gftd.apps.tsukuru.cnt.planAutomation`
-- `ai.gftd.apps.tsukuru.cnt.prepareOrderPackage`
-- `ai.gftd.apps.tsukuru.cnt.getAutomationCoverage`
-- `ai.gftd.apps.tsukuru.cnt.getProcessCatalog`
-- `ai.gftd.apps.tsukuru.cnt.prepareRunPackage`
-- `ai.gftd.apps.tsukuru.cnt.validateRunPackage`
+- `app.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow`
+- `app.etzhayyim.apps.tsukuru.cnt.planAutomation`
+- `app.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage`
+- `app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage`
+- `app.etzhayyim.apps.tsukuru.cnt.getProcessCatalog`
+- `app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage`
+- `app.etzhayyim.apps.tsukuru.cnt.validateRunPackage`
 
 **BPMN**:
 - `tsukuru_cnt_fiber_manufacturing_flow`

@@ -1,0 +1,74 @@
+{
+  "@context": {
+    "dodaf": "https://dodcio.defense.gov/dodaf20/",
+    "gftd": "https://gftd.ai/ontology/",
+    "schema": "https://schema.org/",
+    "isic": "https://unstats.un.org/unsd/classifications/Econ/ISIC/",
+    "isco": "https://www.ilo.org/public/english/bureau/stat/isco/isco08/"
+  },
+  "@type": "dodaf:Project",
+  "@id": "gftd:project/well-yakiniku",
+  "schema:name": "well-yakiniku",
+  "schema:description": "Camera-based Yakiniku Cooking Advisor — iPad tabletop vision AI for real-time doneness detection, cut-specific grilling guidance, condiment pairing, and printable meat cards with illustrations",
+  "gftd:domains": [
+    "yakiniku.gftd.ai"
+  ],
+  "gftd:nanoid": "yk1n1ku7",
+  "gftd:isicSection": "isic:I",
+  "gftd:isicClass": "isic:I/5610",
+  "gftd:iscoGroup": "isco:5120",
+  "gftd:relatedIsic": [
+    {
+      "@id": "isic:C/1812",
+      "schema:name": "Printing",
+      "schema:description": "Meat card printing — cut illustrations, grilling instructions, condiment pairings"
+    }
+  ],
+  "gftd:relatedIsco": [
+    {
+      "@id": "isco:7323",
+      "schema:name": "Print finishing and binding workers",
+      "schema:description": "Meat card layout, print finishing quality"
+    },
+    {
+      "@id": "isco:3432",
+      "schema:name": "Interior designers and decorators",
+      "schema:description": "Meat card illustration design, visual layout"
+    }
+  ],
+  "dodaf:capability": [
+    {
+      "@type": "dodaf:Capability",
+      "@id": "gftd:capability/yakiniku-vision",
+      "schema:name": "Vision Cooking Analysis",
+      "schema:description": "Real-time camera-based meat cut recognition and doneness detection using qwen3-vl-8b"
+    },
+    {
+      "@type": "dodaf:Capability",
+      "@id": "gftd:capability/yakiniku-recipe",
+      "schema:name": "Cut-Specific Grilling Guide",
+      "schema:description": "Per-cut timing, temperature, flip guidance adjusted for charcoal/gas/iron plate heat sources"
+    },
+    {
+      "@type": "dodaf:Capability",
+      "@id": "gftd:capability/yakiniku-condiment",
+      "schema:name": "Condiment Pairing",
+      "schema:description": "Optimal seasoning and condiment recommendations per cut and heat source"
+    },
+    {
+      "@type": "dodaf:Capability",
+      "@id": "gftd:capability/yakiniku-print",
+      "schema:name": "Meat Card Printing",
+      "schema:description": "Printable A6/A7 meat cards with cut illustrations, grilling instructions, and condiment pairings — ISCO-7323/ISIC-C/1812 integration"
+    }
+  ],
+  "dodaf:performer": [
+    {
+      "@type": "dodaf:Performer",
+      "@id": "gftd:performer/yakiniku-component",
+      "schema:name": "yakiniku-component",
+      "gftd:wasmComponent": "ai-gftd-wasm-yakiniku-yk1n1ku7",
+      "gftd:image": "ghcr.io/gftdcojp/yakiniku-component"
+    }
+  ]
+}

@@ -18,14 +18,14 @@ related:
 # ADR 2605101200 — AI CXO Roles as Resident Lang-Server (経営役員 keiei layer)
 
 Operating Entity: etzhayyim (sole principal)
-Vendor: Gftd Japan株式会社 (engineering capacity)
+Vendor: etzhayyim Japan株式会社 (engineering capacity)
 Author: etzhayyim Claude Agent on behalf of CEO 河崎
 
 ## 1. Decision
 
 Introduce a **C-suite AI agent layer** (`pymagatama.keiei`) that assigns persistent
 role-bearing AI agents to every executive function of the operating entity
-(`etzhayyim`) and its vendor org (`Gftd Japan`). The roles are served by a
+(`etzhayyim`) and its vendor org (`etzhayyim Japan`). The roles are served by a
 **resident JSON-RPC 2.0 server** modelled on the Language Server Protocol
 (LSP) wire shape, running as a long-lived Granian process — not as ephemeral
 function calls.
@@ -73,15 +73,15 @@ Decision Classes follow `00-contracts/dmn/` taxonomy (A=org-level / B=ops-level
 ## 4. Hard rules (encode in `keiei/roles.py`)
 
 1. **Operating-entity boundary** — every AI-CXO action's `principal` field is
-   `did:web:etz-hayim` regardless of which role acted. Vendor (Gftd Japan) is
+   `did:web:etz-hayim` regardless of which role acted. Vendor (etzhayyim Japan) is
    never the principal. SSoT: `deps.toml [platform.operating_entity]`.
 2. **Financial-action prohibition** — CFO AI **MUST NOT** initiate Stripe
    charges, wire transfers, payroll runs, or sign legal documents. It may
    only **prepare drafts** and **request human approval** via consent
    workflow (`createConsentHelper`). Per `[etzhayyim_agent.permissions]`
    `financial_action = false`.
-3. **External-mail gate** — All `gftd.co.jp` / `etzhayyim.com` / `gftd.works` /
-   `gftd.group` recipients = direct send. All other recipients = draft only,
+3. **External-mail gate** — All `etzhayyim.com` / `etzhayyim.com` / `gftd.works` /
+   `etzhayyim.com` recipients = direct send. All other recipients = draft only,
    require human approval before `sendDraft`. Per
    `[etzhayyim_agent.auth] email_send_external = "draft_only"`.
 4. **Class A escalation, no exceptions** — Any decision tagged Class A
@@ -126,22 +126,22 @@ via PDS pipethrough). Both speak identical JSON-RPC 2.0.
 {"jsonrpc":"2.0","id":1,"method":"initialize","params":{
   "clientInfo":{"name":"claude-code","version":"opus-4-7"},
   "principal":"did:web:etz-hayim",
-  "actingAs":"j.kawasaki@gftd.co.jp"
+  "actingAs":"j.kawasaki@etzhayyim.com"
 }}
 // ← response
 {"jsonrpc":"2.0","id":1,"result":{
   "serverInfo":{"name":"keiei-lsp","version":"0.1.0"},
   "serverCapabilities":{
     "roles":[
-      {"id":"ceo","mode":"shadow","humanSeat":"j.kawasaki@gftd.co.jp"},
-      {"id":"coo","mode":"shadow","humanSeat":"a.nakamura@gftd.co.jp"},
-      {"id":"clo","mode":"shadow","humanSeat":"k.bakshi@gftd.co.jp"},
-      {"id":"cto","mode":"primary","humanSeat":null,"escalateTo":"j.kawasaki@gftd.co.jp"},
+      {"id":"ceo","mode":"shadow","humanSeat":"j.kawasaki@etzhayyim.com"},
+      {"id":"coo","mode":"shadow","humanSeat":"a.nakamura@etzhayyim.com"},
+      {"id":"clo","mode":"shadow","humanSeat":"k.bakshi@etzhayyim.com"},
+      {"id":"cto","mode":"primary","humanSeat":null,"escalateTo":"j.kawasaki@etzhayyim.com"},
       {"id":"cfo","mode":"primary","humanSeat":null,"financialActionGated":true},
       {"id":"cmo","mode":"primary","humanSeat":null},
       {"id":"chro","mode":"primary","humanSeat":null,"payrollGated":true},
       {"id":"ciso","mode":"shadow","humanSeat":"n.takahashi@gftd.works"},
-      {"id":"cdo","mode":"shadow","humanSeat":"k.takahashi@gftd.co.jp"}
+      {"id":"cdo","mode":"shadow","humanSeat":"k.takahashi@etzhayyim.com"}
     ],
     "decisionClasses":["A","B","C","D"],
     "auditChannel":"_working/keiei/CXO-LEDGER.md"
@@ -171,9 +171,9 @@ definition (graph-definition-as-data per ADR 2605082000).
 ### 7a. Local dev (macOS) — launchd
 
 ```xml
-<!-- ~/Library/LaunchAgents/ai.gftd.keiei.plist -->
+<!-- ~/Library/LaunchAgents/app.etzhayyim.keiei.plist -->
 <plist version="1.0"><dict>
-  <key>Label</key><string>ai.gftd.keiei</string>
+  <key>Label</key><string>app.etzhayyim.keiei</string>
   <key>ProgramArguments</key><array>
     <string>/usr/bin/env</string>
     <string>uv</string><string>run</string>
@@ -189,7 +189,7 @@ definition (graph-definition-as-data per ADR 2605082000).
 </dict></plist>
 ```
 
-`launchctl load ~/Library/LaunchAgents/ai.gftd.keiei.plist` to start.
+`launchctl load ~/Library/LaunchAgents/app.etzhayyim.keiei.plist` to start.
 
 ### 7b. Production — k8s Deployment (granian L3 runtime per ADR 2605080600)
 
@@ -209,7 +209,7 @@ spec:
         env:
         - {name: KEIEI_PRINCIPAL_DID, value: "did:web:etz-hayim"}
         - {name: KEIEI_LEDGER_PATH, value: "/data/CXO-LEDGER.md"}
-        - {name: GFTD_LLM_URL, value: "https://murakumo.etzhayyim.com/v1/chat/completions"}
+        - {name: etzhayyim_LLM_URL, value: "https://murakumo.etzhayyim.com/v1/chat/completions"}
         ports: [{containerPort: 8443, name: lsp-wss}]
         volumeMounts: [{name: state, mountPath: /data}]
       volumes: [{name: state, persistentVolumeClaim: {claimName: keiei-state}}]
@@ -228,7 +228,7 @@ Single append-only file: `_working/keiei/CXO-LEDGER.md`. Format echoes
 ```
 
 Class A entries link to a CEO-approval record in PDS
-(`ai.gftd.governance.classA-approval`). Class B entries auto-disclose to
+(`app.etzhayyim.governance.classA-approval`). Class B entries auto-disclose to
 CEO inbox within 24h via `microsoft.etzhayyim.com sendMail` (internal direct).
 
 ## 9. Migration path
@@ -237,7 +237,7 @@ CEO inbox within 24h via `microsoft.etzhayyim.com sendMail` (internal direct).
 |---|---|---|
 | **Phase 0** (this ADR) | design + role registry + skeleton LSP server | **proposed** iter123 |
 | Phase 1 | implement `cto` role first (vacant seat, real demand from infra work) — graph + LSP method handlers + ledger emit | **shipped 2026-05-12** (graph/cto.py + LSP `_decide` wired to `dispatch_decide`; ledger seq 11+ rationale-tracked) |
-| Phase 2 | add `cfo` (gated) + `cmo` + `chro` for vacant-seat coverage + 24h auto-disclose mailer | **shipped 2026-05-14** — `graph/{cfo,cmo,chro}.py` lens routing + `pymagatama.keiei.mailer` + launchd plist `ai.gftd.keiei-mailer` (hourly tick) + `_working/keiei/CXO-MAILER-STATE.json` watermark. Hard rules force-gated by `roles.gate()` (cfo financial_action_gated, chro payroll_gated). 43 unit tests under `tests/test_keiei_phase2.py` |
+| Phase 2 | add `cfo` (gated) + `cmo` + `chro` for vacant-seat coverage + 24h auto-disclose mailer | **shipped 2026-05-14** — `graph/{cfo,cmo,chro}.py` lens routing + `pymagatama.keiei.mailer` + launchd plist `app.etzhayyim.keiei-mailer` (hourly tick) + `_working/keiei/CXO-MAILER-STATE.json` watermark. Hard rules force-gated by `roles.gate()` (cfo financial_action_gated, chro payroll_gated). 43 unit tests under `tests/test_keiei_phase2.py` |
 | Phase 3 | shadow roles (`ceo`/`coo`/`clo`/`ciso`/`cdo`) — chief-of-staff for existing humans | **shipped 2026-05-14** — `graph/{ceo,coo,clo,ciso,cdo}.py` fully expanded with shadow-mode lens routing (AI-CEO impersonation guardrail § ADR §10, COO Track A/B/C ownership map, CLO BCI Rule 36 + atproto OAuth wire-format + malak G2 + outreach placeholder discipline, CISO 8 malak hard invariants + vault zero-knowledge + threat-ledger pattern, CDO Bonsai cultivar metaphor + WCAG 2.2 AA + [data-lang] i18n + paid/owned channel split with AI-CMO). Class B gated to blocking human-confirm via `roles.gate()` shadow rule. 49 unit tests under `tests/test_keiei_phase3.py` (including mailer-excludes-shadow-Class-B regression). |
 | Phase 4 | residency hardening — k8s deploy, mTLS, multi-client, leader-election | **code shipped 2026-05-14 (operator apply pending)** — HTTP transport `pymagatama.keiei.http_server` (FastAPI + bearer auth + JSON-RPC pass-through, granian-served per ADR-2605080600); `pymagatama.keiei.leader.K8sLeaseLeader` acquires/renews `coordination.k8s.io/v1` Lease via stdlib HTTPS (no python-kubernetes dep); `LocalLeader` fallback preserves launchd path; `ledger_append` + `mailer.run_once` gated on `is_leader()`, followers surface `status="not-leader"` + `leaderIdentity` (HTTP 503 + `X-Keiei-Leader`). k8s manifests under `50-infra/k8s/keiei/` (Namespace, ServiceAccount + namespaced Role/RoleBinding scoped to `leases/keiei-writer`, Deployment 3-replica with downward-API identity + RWX PVC `/data/keiei`, Service ClusterIP, Ingress `keiei.etzhayyim.com` with `nginx.ingress.kubernetes.io/auth-tls-secret` mTLS + `proxy-next-upstream` on 503, PDB minAvailable=2, kustomization). Image source `60-apps/ai-gftd-project-keiei/lg/Dockerfile`. RUNBOOK at `50-infra/k8s/keiei/RUNBOOK.md`. Operator (y-nishino) remaining: RWX class verify, image build/push, secret provisioning (`keiei-lsp-secrets` + `keiei-gftd-ai-tls` + `keiei-mtls-ca`), per-client mTLS cert issuance, DNS, `kubectl apply -k`, RUNBOOK §3-§6 walk. 9 unit tests + 6 fastapi-gated tests in `tests/test_keiei_phase4.py` (combined 101 + 6 across all phases). |
 

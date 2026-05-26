@@ -267,7 +267,7 @@ _VEGETATION_RENDER_PROFILES: list[dict[str, Any]] = [
 # ──────────────────────────────────────────────────────────────────────
 
 def _vid(actor: str, collection: str, rkey: str) -> str:
-    return f"at://did:web:{actor}.etzhayyim.com/ai.gftd.apps.{actor}.{collection}/{rkey}"
+    return f"at://did:web:{actor}.etzhayyim.com/app.etzhayyim.apps.{actor}.{collection}/{rkey}"
 
 
 def _edge_id(*parts: str) -> str:
@@ -576,7 +576,7 @@ class _KGState(TypedDict):
 def _save_checkpoint(state: _KGState, node: str, latency_ms: int) -> None:
     """Append a checkpoint row to vertex_langgraph_state."""
     now = _NOW()
-    vid = f"at://did:web:science.etzhayyim.com/ai.gftd.apps.science.lgState/{state['run_id']}-{node}"
+    vid = f"at://did:web:science.etzhayyim.com/app.etzhayyim.apps.science.lgState/{state['run_id']}-{node}"
     with sync_cursor() as cur:
         cur.execute(
             """
@@ -1124,7 +1124,7 @@ def seed_pubchem_compounds(batch_size: int = 200) -> dict[str, Any]:
         for props in props_list:
             cid = str(props["CID"])
             formula = props.get("MolecularFormula", "")
-            vid = f"at://{owner}/ai.gftd.apps.science.compound/{cid}"
+            vid = f"at://{owner}/app.etzhayyim.apps.science.compound/{cid}"
 
             cur.execute("""
                 INSERT INTO vertex_compound (
@@ -1157,7 +1157,7 @@ def seed_pubchem_compounds(batch_size: int = 200) -> dict[str, Any]:
 
             for sym, cnt in parse_formula(formula):
                 eid = hashlib.sha256(f"{vid}::{sym}".encode()).hexdigest()[:24]
-                elem_did = f"at://{owner}/ai.gftd.apps.science.element/{sym}"
+                elem_did = f"at://{owner}/app.etzhayyim.apps.science.element/{sym}"
                 cur.execute("""
                     INSERT INTO edge_compound_element
                       (edge_id, compound_did, element_sym, element_did, atom_count, created_at)
@@ -1335,7 +1335,7 @@ def seed_uniprot_proteins(batch_size: int = 100, force_org_id: str | None = None
             acc = entry.get("primaryAccession", "")
             if not acc:
                 continue
-            vid = f"at://{owner}/ai.gftd.apps.science.protein/{acc}"
+            vid = f"at://{owner}/app.etzhayyim.apps.science.protein/{acc}"
             taxon_id = str(entry.get("organism", {}).get("taxonId", "") or "")
             org_name = entry.get("organism", {}).get("scientificName", "")
             gene_names = entry.get("genes", [{}])
@@ -1377,7 +1377,7 @@ def seed_uniprot_proteins(batch_size: int = 100, force_org_id: str | None = None
             for sym, role in [("C", "bulk"), ("H", "bulk"), ("N", "bulk"),
                                ("O", "bulk"), ("S", "bulk")]:
                 eid = hashlib.sha256(f"{vid}::{sym}".encode()).hexdigest()[:24]
-                elem_did = f"at://{owner}/ai.gftd.apps.science.element/{sym}"
+                elem_did = f"at://{owner}/app.etzhayyim.apps.science.element/{sym}"
                 cur.execute("""
                     INSERT INTO edge_protein_element
                       (edge_id, protein_did, element_sym, element_did, role, created_at)
@@ -1816,8 +1816,8 @@ def seed_kami_element_instances(
             world_z = -(lat - anchor_lat) * M_LAT
 
             rkey = hashlib.sha256(f"element-instance-{symbol}".encode()).hexdigest()[:16]
-            vertex_id = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.kamiModelInstance/{rkey}"
-            taxonomy_did = f"at://did:web:chemistry.etzhayyim.com/ai.gftd.apps.chemistry.element/{symbol}"
+            vertex_id = f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.kamiModelInstance/{rkey}"
+            taxonomy_did = f"at://did:web:chemistry.etzhayyim.com/app.etzhayyim.apps.chemistry.element/{symbol}"
 
             # Check existing
             cur.execute(
@@ -1894,7 +1894,7 @@ def seed_kami_vegetation_instances(
 
             slug = model_def_id.split("/")[-1]
             rkey = hashlib.sha256(f"veg-instance-{slug}".encode()).hexdigest()[:16]
-            vertex_id = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.kamiModelInstance/{rkey}"
+            vertex_id = f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.kamiModelInstance/{rkey}"
 
             if taxonomy_did:
                 cur.execute(

@@ -152,7 +152,7 @@ def constitutional_filter(state: FleetRebalanceState) -> FleetRebalanceState:
 def emit_migration_proposals(state: FleetRebalanceState) -> FleetRebalanceState:
     for migration in state["pending_migrations"]:
         sdk.mst.write(
-            nsid="ai.gftd.apps.etzhayyim.kuniUmi.fleetMigrationProposal",  # NEW lexicon
+            nsid="app.etzhayyim.apps.etzhayyim.kuniUmi.fleetMigrationProposal",  # NEW lexicon
             record=migration.to_record(),
         )
     return state

@@ -23,12 +23,12 @@
   ],
   "routes": [
     {
-      "pattern": "darkweb-proxy.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "darkweb-proxy.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "vars": {
     "APP_FRAMEWORK": "container-companion",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
   }
 }

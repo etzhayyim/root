@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govBel.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govBel.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Belgium government.",
-        "operationId": "ai.gftd.govBel.followSiteDeps",
+        "operationId": "app.etzhayyim.govBel.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBel.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govBel.heartbeatTick": {
       "post": {
         "summary": "Run the Belgium government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govBel.heartbeatTick",
+        "operationId": "app.etzhayyim.govBel.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBel.listOrgs": {
+    "/xrpc/app.etzhayyim.govBel.listOrgs": {
       "get": {
         "summary": "List Belgium government organization graph records.",
-        "operationId": "ai.gftd.govBel.listOrgs",
+        "operationId": "app.etzhayyim.govBel.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBel.registerDIDs": {
+    "/xrpc/app.etzhayyim.govBel.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Belgium government organizations.",
-        "operationId": "ai.gftd.govBel.registerDIDs",
+        "operationId": "app.etzhayyim.govBel.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBel.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govBel.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Belgium government organization path to its graph record.",
-        "operationId": "ai.gftd.govBel.resolveOrgPath",
+        "operationId": "app.etzhayyim.govBel.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBel.seedOrgs": {
+    "/xrpc/app.etzhayyim.govBel.seedOrgs": {
       "post": {
         "summary": "Seed initial Belgium government organization records into the graph.",
-        "operationId": "ai.gftd.govBel.seedOrgs",
+        "operationId": "app.etzhayyim.govBel.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBel.shinka": {
+    "/xrpc/app.etzhayyim.govBel.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Belgium government organization update.",
-        "operationId": "ai.gftd.govBel.shinka",
+        "operationId": "app.etzhayyim.govBel.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govBel.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govBel.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Belgium government organization changes to graph.",
-        "operationId": "ai.gftd.govBel.syncWetUpdates",
+        "operationId": "app.etzhayyim.govBel.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

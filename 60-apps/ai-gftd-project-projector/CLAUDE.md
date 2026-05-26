@@ -14,41 +14,41 @@ AI Project Manager — recursive project convo (projector.etzhayyim.com)。
 
 | Concept | Implementation |
 |---|---|
-| **Project** | `ai.gftd.projector.newProjectConvo` で作成。convoId = projectId。path-based DID 自動発行 |
+| **Project** | `app.etzhayyim.projector.newProjectConvo` で作成。convoId = projectId。path-based DID 自動発行 |
 | **PM Agent** | `did:web:ops.etzhayyim.com` が全 project の PM。slash commands + MCP tool calling |
 | **Recursive Nesting** | parentProjectUri で parent-child。max depth 10。kind: general/channel/thread/email-inbox |
 | **Auto Email** | 各 project に `{slug}@etzhayyim.com` メールアドレス自動生成。email-relay が inbound routing |
-| **Membership** | `ai.gftd.convo.membership` record。auto-enroll on first access |
-| **Tasks** | `ai.gftd.convo.projectTask` record。/task, /done slash commands |
+| **Membership** | `app.etzhayyim.convo.membership` record。auto-enroll on first access |
+| **Tasks** | `app.etzhayyim.convo.projectTask` record。/task, /done slash commands |
 
-### NSID (ai.gftd.projector.*)
+### NSID (app.etzhayyim.projector.*)
 
 | NSID | Type | Description |
 |---|---|---|
-| `ai.gftd.projector.newProjectConvo` | procedure | Project + DM convo 同時作成 (recursive nesting + email auto-gen) |
-| `ai.gftd.projector.getProjectConvo` | query | Project convo with context overlay + children |
-| `ai.gftd.projector.listProjectConvos` | query | Project convo list (parentUri filter for sub-projects) |
-| `ai.gftd.projector.listProjectTree` | query | Recursive tree traversal (BFS, flat list with depth) |
-| `ai.gftd.projector.updateProjectConvo` | procedure | Update metadata (name, description, status) |
-| `ai.gftd.projector.archiveProjectConvo` | procedure | Recursive archive (BFS all children) |
-| `ai.gftd.projector.sendProjectMessage` | procedure | Slash command routing + LLM + MCP tool calling |
-| `ai.gftd.projector.listConvoTasks` | query | Task list for project |
-| `ai.gftd.projector.addConvoTask` | procedure | Add task from convo |
-| `ai.gftd.projector.completeConvoTask` | procedure | Complete task |
-| `ai.gftd.projector.addConvoMember` | procedure | Add member to project |
-| `ai.gftd.projector.getConvoProjectStatus` | query | Project status + metrics + hierarchy |
-| `ai.gftd.projector.moveProject` | procedure | Re-parent project |
-| `ai.gftd.projector.loadProjectChat` | query | Load conversation + members via Hyperdrive-backed graph SQL path |
-| `ai.gftd.projector.resolveProjectEmail` | query | Email → convoId resolution (email-relay inbound) |
-| `ai.gftd.projector.listProjectNotifications` | query | Cross-project notifications (7d window) |
-| `ai.gftd.projector.getProjectUnreadCounts` | query | Unread count per project convoId |
-| `ai.gftd.projector.createProjectConvo` | procedure | Create project convo with peer DID (DM variant) |
-| `ai.gftd.projector.branchConvo` | procedure | Git-like conversation fork (virtual inheritance, no message copy) |
-| `ai.gftd.projector.listBranches` | query | List branches for a conversation |
-| `ai.gftd.projector.exploreThoughts` | procedure | Tree of Thoughts (Yao et al.) — branch-based thought expansion + self-eval |
-| `ai.gftd.projector.consistentAnswer` | procedure | Self-Consistency (Wang et al.) — N-path sampling + majority vote |
-| `ai.gftd.projector.addReflection` | procedure | Reflexion (Shinn et al.) — store episodic memory lesson |
-| `ai.gftd.projector.listReflections` | query | List reflexion episodic memory for a conversation |
+| `app.etzhayyim.projector.newProjectConvo` | procedure | Project + DM convo 同時作成 (recursive nesting + email auto-gen) |
+| `app.etzhayyim.projector.getProjectConvo` | query | Project convo with context overlay + children |
+| `app.etzhayyim.projector.listProjectConvos` | query | Project convo list (parentUri filter for sub-projects) |
+| `app.etzhayyim.projector.listProjectTree` | query | Recursive tree traversal (BFS, flat list with depth) |
+| `app.etzhayyim.projector.updateProjectConvo` | procedure | Update metadata (name, description, status) |
+| `app.etzhayyim.projector.archiveProjectConvo` | procedure | Recursive archive (BFS all children) |
+| `app.etzhayyim.projector.sendProjectMessage` | procedure | Slash command routing + LLM + MCP tool calling |
+| `app.etzhayyim.projector.listConvoTasks` | query | Task list for project |
+| `app.etzhayyim.projector.addConvoTask` | procedure | Add task from convo |
+| `app.etzhayyim.projector.completeConvoTask` | procedure | Complete task |
+| `app.etzhayyim.projector.addConvoMember` | procedure | Add member to project |
+| `app.etzhayyim.projector.getConvoProjectStatus` | query | Project status + metrics + hierarchy |
+| `app.etzhayyim.projector.moveProject` | procedure | Re-parent project |
+| `app.etzhayyim.projector.loadProjectChat` | query | Load conversation + members via Hyperdrive-backed graph SQL path |
+| `app.etzhayyim.projector.resolveProjectEmail` | query | Email → convoId resolution (email-relay inbound) |
+| `app.etzhayyim.projector.listProjectNotifications` | query | Cross-project notifications (7d window) |
+| `app.etzhayyim.projector.getProjectUnreadCounts` | query | Unread count per project convoId |
+| `app.etzhayyim.projector.createProjectConvo` | procedure | Create project convo with peer DID (DM variant) |
+| `app.etzhayyim.projector.branchConvo` | procedure | Git-like conversation fork (virtual inheritance, no message copy) |
+| `app.etzhayyim.projector.listBranches` | query | List branches for a conversation |
+| `app.etzhayyim.projector.exploreThoughts` | procedure | Tree of Thoughts (Yao et al.) — branch-based thought expansion + self-eval |
+| `app.etzhayyim.projector.consistentAnswer` | procedure | Self-Consistency (Wang et al.) — N-path sampling + majority vote |
+| `app.etzhayyim.projector.addReflection` | procedure | Reflexion (Shinn et al.) — store episodic memory lesson |
+| `app.etzhayyim.projector.listReflections` | query | List reflexion episodic memory for a conversation |
 
 ### Conversation Branching (git-like fork)
 
@@ -63,17 +63,17 @@ Branch B:    msg1 → msg2 → msg3 (inherited) → branchMsg1 (different direct
 
 | Concept | Implementation |
 |---|---|
-| **Branch creation** | `ai.gftd.projector.branchConvo` or `/branch [name]` slash command |
+| **Branch creation** | `app.etzhayyim.projector.branchConvo` or `/branch [name]` slash command |
 | **Virtual inheritance** | Branch convo stores `branchSourceConvoId` + `branchPointRkey`. No message duplication |
 | **Chat loading** | `loadProjectChat` detects branch → loads parent messages up to branch point (marked `inherited: true`) + branch's own messages |
-| **Branch listing** | `ai.gftd.projector.listBranches` returns all branches for a source convo |
+| **Branch listing** | `app.etzhayyim.projector.listBranches` returns all branches for a source convo |
 | **Member inheritance** | Branch inherits all members from source project at creation time |
 | **projectKind** | Branch convos have `projectKind: "branch"` |
 
 **Data model (ADR-0036 Phase 2, 2026-04-21):**
-- `vertex_convo.branch_source_convo_id` + `branch_point_rkey` + `status` + `display_name` + `created_date` — typed columns on the child convo row, populated by the `ai.gftd.convo.convo` PDS write. `listBranches` reads these directly.
-- `ai.gftd.projector` — project metadata with `branchSourceConvoId` + `branchPointRkey` fields (still PDS-written; pending project-metadata sweep)
-- ~~`ai.gftd.projector.branch`~~ — **RETIRED**. Write-only AT record (never read) dropped at all 3 call sites (`/branch` slash, `branchConvo` XRPC, `exploreThoughts` ToT). No replacement needed — branch metadata lives on the child convo's typed columns.
+- `vertex_convo.branch_source_convo_id` + `branch_point_rkey` + `status` + `display_name` + `created_date` — typed columns on the child convo row, populated by the `app.etzhayyim.convo.convo` PDS write. `listBranches` reads these directly.
+- `app.etzhayyim.projector` — project metadata with `branchSourceConvoId` + `branchPointRkey` fields (still PDS-written; pending project-metadata sweep)
+- ~~`app.etzhayyim.projector.branch`~~ — **RETIRED**. Write-only AT record (never read) dropped at all 3 call sites (`/branch` slash, `branchConvo` XRPC, `exploreThoughts` ToT). No replacement needed — branch metadata lives on the child convo's typed columns.
 
 ### Agentic BPMN (Camunda-aligned, 2026-04-21 Phase 3)
 
@@ -97,7 +97,7 @@ Projector flow runs (`vertex_projector_flow_run`) map onto **Camunda 8.9's agent
 - **The LLM's tool selection inside `agentLoop` does NOT use edges.** Tools are discovered by `flow_vertex_id` filter inside the loop; the LLM picks which to call based on its own reasoning.
 - `edge_kind ∈ {sequence, conditional, interrupt, fallback}`. `condition_expr` is evaluated against `flow_run.vars_json` only on conditional edges.
 
-**OCEL 2.0 event naming** (emitted to `ai.gftd.apqc.apqcEvent` via Kyber projector; the rkey goes into `vertex_projector_flow_step.ocel_event_id`):
+**OCEL 2.0 event naming** (emitted to `app.etzhayyim.apqc.apqcEvent` via Kyber projector; the rkey goes into `vertex_projector_flow_step.ocel_event_id`):
 
 | eventType | Emitted when |
 |---|---|
@@ -124,9 +124,9 @@ Projector flow runs (`vertex_projector_flow_run`) map onto **Camunda 8.9's agent
 | Framework | 論文 | Integration | Slash Command | NSID |
 |---|---|---|---|---|
 | **Chain-of-Thought** | Wei et al. 2022 | Always-on: system prompt に `<reasoning>` 構造化推論を注入。LLM 応答から CoT を抽出し response.reasoning に返却 | (自動) | — |
-| **Self-Consistency** | Wang et al. 2022 | N 個の推論パスを temperature=0.7 で並列サンプリング → majority vote で最も整合的な回答を選択 | `/consistent {question}` | `ai.gftd.projector.consistentAnswer` |
-| **Tree of Thoughts** | Yao et al. 2023 | Branch infra を活用し thought tree を展開。各 approach を branch として作成 → self-evaluation (score 0-10) → best path 推薦 | `/explore {question}` | `ai.gftd.projector.exploreThoughts` |
-| **Reflexion** | Shinn et al. 2023 | 失敗/次善の試行を episodic memory buffer として AT record 化。次回の system prompt に自動注入し同じ失敗を回避 | `/reflect {text}` | `ai.gftd.projector.addReflection` |
+| **Self-Consistency** | Wang et al. 2022 | N 個の推論パスを temperature=0.7 で並列サンプリング → majority vote で最も整合的な回答を選択 | `/consistent {question}` | `app.etzhayyim.projector.consistentAnswer` |
+| **Tree of Thoughts** | Yao et al. 2023 | Branch infra を活用し thought tree を展開。各 approach を branch として作成 → self-evaluation (score 0-10) → best path 推薦 | `/explore {question}` | `app.etzhayyim.projector.exploreThoughts` |
+| **Reflexion** | Shinn et al. 2023 | 失敗/次善の試行を episodic memory buffer として AT record 化。次回の system prompt に自動注入し同じ失敗を回避 | `/reflect {text}` | `app.etzhayyim.projector.addReflection` |
 
 **Data flow:**
 ```
@@ -172,19 +172,19 @@ User message → sendProjectMessage
 
 ```
 yoro /projects FAB tap
-  → ai.gftd.projector.newProjectConvo({name, members, parentProjectUri?, kind?})
+  → app.etzhayyim.projector.newProjectConvo({name, members, parentProjectUri?, kind?})
   → PDS handler:
-    1. Create convo record (ai.gftd.convo.convo, projectBound: true)
+    1. Create convo record (app.etzhayyim.convo.convo, projectBound: true)
     2. Register project DID (did:web:{host}:project_{convoId})
     3. Register profile (app.bsky.actor.profile)
-    4. Create project metadata (ai.gftd.projector.project)
+    4. Create project metadata (app.etzhayyim.projector.project)
   → response: {convoId, projectId, did, name, email, depth, kind}
   → yoro navigates to /projects/{projectId}
 ```
 
 ```
 User sends message in project chat
-  → ai.gftd.projector.sendProjectMessage({convoId, text})
+  → app.etzhayyim.projector.sendProjectMessage({convoId, text})
   → PDS handler:
     1. /image → Murakumo WAI-REAL fleet
     2. /think → qwq-32b deep reasoning
@@ -224,10 +224,10 @@ T1 MCP-Compose — handler logic は PDS (`pds-handlers-gftd.ts`) に co-located
 
 | BPMN | NSID | 役割 |
 |---|---|---|
-| `sendProjectMessage.bpmn` | `ai.gftd.apps.projector.sendProjectMessage` | Root router。XOR gateway で slash command を dispatch |
-| `agentLoop.bpmn` | `ai.gftd.apps.projector.agentLoop` | Default path (LangGraph ReAct + CoT + Reflexion + tool calling) |
-| `treeOfThoughts.bpmn` | `ai.gftd.apps.projector.treeOfThoughts` | `/explore` (ToT expand → evaluate → rank) |
-| `selfConsistency.bpmn` | `ai.gftd.apps.projector.selfConsistency` | `/consistent` (parallel sample + majority vote) |
+| `sendProjectMessage.bpmn` | `app.etzhayyim.apps.projector.sendProjectMessage` | Root router。XOR gateway で slash command を dispatch |
+| `agentLoop.bpmn` | `app.etzhayyim.apps.projector.agentLoop` | Default path (LangGraph ReAct + CoT + Reflexion + tool calling) |
+| `treeOfThoughts.bpmn` | `app.etzhayyim.apps.projector.treeOfThoughts` | `/explore` (ToT expand → evaluate → rank) |
+| `selfConsistency.bpmn` | `app.etzhayyim.apps.projector.selfConsistency` | `/consistent` (parallel sample + majority vote) |
 
 `/reflect` は `projector.reflexion.write` 単発 task で完結 (sub-process なし)。`/image` `/think` は Phase 3 で BPMN 化、Phase 1+2 では deferred shim を返して CF Worker direct path を維持。
 
@@ -272,7 +272,7 @@ LLM transport は `pymagatama.llm.call_tier` (Vultr Serverless + RunPod fallback
 |---|---|---|
 | **1** | ✅ scaffolded | BPMN 4 + LangServer primitives + migration + worker registration |
 | **2** | ✅ scaffolded | ToT + SC sub-processes |
-| **3** | ✅ flag-gated, default off | `PROJECTOR_USE_BPMN=1` で CF Worker `handleSendProjectMessage` が `dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.apps.projector.sendProjectMessage` に `waitUntil(fetch())` で委譲し 202 + convoId を返却。yoro Worker が `GET /sse/projects/:convoId` (90s budget) を提供、`/projects/[projectId]/+page.svelte` が `EventSource` で append。`PROJECTOR_PERSIST_VIA_PDS=1` で reply を `generic.pds.dispatch` 経由 federate (default は `vertex_projector_message` 直書き)。`projector.auth.mint` task type で BPMN flow が Service Auth JWT を取得可能 |
+| **3** | ✅ flag-gated, default off | `PROJECTOR_USE_BPMN=1` で CF Worker `handleSendProjectMessage` が `dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.apps.projector.sendProjectMessage` に `waitUntil(fetch())` で委譲し 202 + convoId を返却。yoro Worker が `GET /sse/projects/:convoId` (90s budget) を提供、`/projects/[projectId]/+page.svelte` が `EventSource` で append。`PROJECTOR_PERSIST_VIA_PDS=1` で reply を `generic.pds.dispatch` 経由 federate (default は `vertex_projector_message` 直書き)。`projector.auth.mint` task type で BPMN flow が Service Auth JWT を取得可能 |
 | **4** | pending | TS reasoning path (`pds-handlers-gftd.ts` 約 1500 LoC) 削除 — Phase 3 canary が clean に通った後 |
 | **5** | pending | DMN guardrail + per-tool RACI + 5% canary A/B + `/image` `/think` の専用 BPMN sub-process 化 |
 
@@ -301,7 +301,7 @@ LLM transport は `pymagatama.llm.call_tier` (Vultr Serverless + RunPod fallback
 
 ## Conventions
 
-- **NSID**: `ai.gftd.projector.*` (4 segment, WIT 完全修飾)
-- **Collection**: `ai.gftd.projector.project` (project metadata record)
-- **AT URI**: `at://{did}/ai.gftd.projector/{rkey}`
+- **NSID**: `app.etzhayyim.projector.*` (4 segment, WIT 完全修飾)
+- **Collection**: `app.etzhayyim.projector.project` (project metadata record)
+- **AT URI**: `at://{did}/app.etzhayyim.projector/{rkey}`
 - **camelCase**: All NSID methods are camelCase

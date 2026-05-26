@@ -1,6 +1,6 @@
 <!--
   /drive — File management integrated into yoro messenger.
-  AT Protocol CQRS: createRecord/listRecords/deleteRecord on ai.gftd.apps.yoro.driveItem.
+  AT Protocol CQRS: createRecord/listRecords/deleteRecord on app.etzhayyim.apps.yoro.driveItem.
 -->
 <script lang="ts">
 	import { onMount } from 'svelte';

@@ -1,7 +1,7 @@
 // llm.ts — Async LLM helpers via llm.etzhayyim.com (Ollama GPU pod, zero cost).
 // App Workers → llm.etzhayyim.com/v1/chat/completions (x-magatama-verified bypass credits gate)
 //           → LLM Worker → Ollama (172-236-133-64.ip.linodeusercontent.com, routing-gateway 非経由)
-// PDS gateway path: App Workers (with PDS_SERVICE) → atproto.etzhayyim.com/xrpc/ai.gftd.apps.llm.chatCompletions
+// PDS gateway path: App Workers (with PDS_SERVICE) → atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.llm.chatCompletions
 //                   → MURAKUMO_SERVICE binding → LLM Worker (zero extra hop, preferred when available)
 
 import { str } from "./helpers.js";
@@ -45,7 +45,7 @@ export interface LLMConverseResult {
  */
 const MURAKUMO_CHAT_URL = "https://llm.etzhayyim.com/v1/chat/completions";
 /** PDS XRPC endpoint that proxies to LLM Worker via MURAKUMO_SERVICE binding (preferred when PDS gateway available). */
-const PDS_MURAKUMO_XRPC_URL = "https://atproto.etzhayyim.com/xrpc/ai.gftd.apps.llm.chatCompletions";
+const PDS_MURAKUMO_XRPC_URL = "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.llm.chatCompletions";
 import { MURAKUMO_DEFAULT_MODEL } from "./llm-model-registry.js";
 
 // ── Internal fetch (set via setLLMFetch) ──
@@ -119,7 +119,7 @@ export async function agentConverseAsync(
     let resp: Response;
     if (useHayate) {
       // Hayate models → Murakumo (on-prem MLX fleet) via PDS service binding
-      resp = await _fetch("https://atproto.etzhayyim.com/xrpc/ai.gftd.agent.converse", {
+      resp = await _fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.agent.converse", {
         method: "POST", headers, body,
       });
     } else {

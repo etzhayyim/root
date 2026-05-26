@@ -1,8 +1,8 @@
-# GFTD OS Drive Sync - Design Document
+# etzhayyim OS Drive Sync - Design Document
 
 ## Overview
 
-GFTD OS への drive 統合機能。Google Drive/Dropbox 風のローカル-クラウド双方向同期を実現し、project-hub の git repository 単位でプロジェクト管理・共有を行う。
+etzhayyim OS への drive 統合機能。Google Drive/Dropbox 風のローカル-クラウド双方向同期を実現し、project-hub の git repository 単位でプロジェクト管理・共有を行う。
 
 ## DoDAF v2 Architecture
 
@@ -36,7 +36,7 @@ GFTD OS への drive 統合機能。Google Drive/Dropbox 風のローカル-ク�
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ GFTD OS (Tauri Desktop App)                                │
+│ etzhayyim OS (Tauri Desktop App)                                │
 │                                                              │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ os-drive-sync (Rust)                                 │  │
@@ -80,7 +80,7 @@ GFTD OS への drive 統合機能。Google Drive/Dropbox 風のローカル-ク�
   "org_id": "org_xyz",
   "user_id": "user_123",
   "git_repo_url": "https://github.com/org/repo.git",
-  "local_path": "/Users/user/GFTD/My Project",
+  "local_path": "/Users/user/etzhayyim/My Project",
   "remote_path": "/drive/org_xyz/user_123/proj_abc123",
   "created_at": 1676419200
 }
@@ -90,7 +90,7 @@ GFTD OS への drive 統合機能。Google Drive/Dropbox 風のローカル-ク�
 
 ```json
 {
-  "local_path": "/Users/user/GFTD/My Project/file.txt",
+  "local_path": "/Users/user/etzhayyim/My Project/file.txt",
   "remote_path": "/drive/org_xyz/user_123/proj_abc123/file.txt",
   "last_sync": 1676419200,
   "state": "synced" | "pending" | "conflict" | "error"

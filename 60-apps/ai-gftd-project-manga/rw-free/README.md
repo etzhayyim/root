@@ -30,9 +30,9 @@ did:web:manga.etzhayyim.com:reading:{progId}   — Reading progress
 
 | Collection | Tier | Rkey pattern |
 |---|---|---|
-| ai.gftd.manga.title | Title | title-{titleId-slug} |
-| ai.gftd.manga.chapter | Chapter | chapter-{chapterId-slug} |
-| ai.gftd.manga.reading | Reader | reading-{progressId-slug} |
+| app.etzhayyim.manga.title | Title | title-{titleId-slug} |
+| app.etzhayyim.manga.chapter | Chapter | chapter-{chapterId-slug} |
+| app.etzhayyim.manga.reading | Reader | reading-{progressId-slug} |
 
 ## Storage
 
@@ -53,7 +53,7 @@ Valid transitions enforced in `updateChapterStatus` and `publishChapter`.
 | Vendor (`manga.etzhayyim.com`) | etzhayyim (this PR) |
 |---|---|
 | `const db = createKyselyDb();` | `import type { Etzhayyim } from "@etzhayyim/sdk"` |
-| `db.insertInto("vertex_manga_title").values({...}).execute()` | `e.write({ collection: "ai.gftd.manga.title", record, rkey })` |
+| `db.insertInto("vertex_manga_title").values({...}).execute()` | `e.write({ collection: "app.etzhayyim.manga.title", record, rkey })` |
 | `db.selectFrom("vertex_manga_chapter").where("title_id","=",id).execute()` | `e.read({ collection, rkey: \`chapter-${chapterSlug(id)}\` })` |
 
 ## Usage

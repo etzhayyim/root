@@ -2,17 +2,17 @@
 //
 // Surfaces:
 //   /health, /_app/meta                          edge probe (no auth)
-//   /xrpc/ai.gftd.voxelforge.generate       procedure (Bearer auth)
-//   /xrpc/ai.gftd.voxelforge.getRun         query     (Bearer auth)
-//   /xrpc/ai.gftd.voxelforge.listArtifacts  query     (Bearer auth)
-//   /xrpc/ai.gftd.voxelforge.coverage       query     (Bearer auth)
+//   /xrpc/app.etzhayyim.voxelforge.generate       procedure (Bearer auth)
+//   /xrpc/app.etzhayyim.voxelforge.getRun         query     (Bearer auth)
+//   /xrpc/app.etzhayyim.voxelforge.listArtifacts  query     (Bearer auth)
+//   /xrpc/app.etzhayyim.voxelforge.coverage       query     (Bearer auth)
 //
 // Auth: Bearer sk_live_* / ES256 JWT → PDS service binding
 // `/_internal/resolve-auth` returns { did, orgDid, activeDid, productScope }.
 // Dispatch: forwards to bpmn-dispatcher with x-internal-trust HMAC.
 //
 // LangGraph backend: bpmn-dispatcher routes
-// `ai.gftd.voxelforge.*` to LangGraph Server `/runs` (per
+// `app.etzhayyim.voxelforge.*` to LangGraph Server `/runs` (per
 // ADR-2605080600 Phase 3). This Worker stays state-less.
 
 import { Hono } from "hono";
@@ -28,7 +28,7 @@ type Env = {
   PDS_SERVICE?: { fetch(req: Request): Promise<Response> };
   AUTHN_SERVICE?: { fetch(req: Request): Promise<Response> };
   HYPERDRIVE?: unknown;
-  GFTD_METERING_DISABLED?: string;
+  etzhayyim_METERING_DISABLED?: string;
 };
 
 interface AuthContext {
@@ -61,10 +61,10 @@ app.get("/_app/meta", (c) =>
     version: c.env.VOXELFORGE_VERSION ?? "0.0.0",
     layer: "L3-dispatcher",
     surfaces: [
-      "/xrpc/ai.gftd.voxelforge.generate",
-      "/xrpc/ai.gftd.voxelforge.getRun",
-      "/xrpc/ai.gftd.voxelforge.listArtifacts",
-      "/xrpc/ai.gftd.voxelforge.coverage",
+      "/xrpc/app.etzhayyim.voxelforge.generate",
+      "/xrpc/app.etzhayyim.voxelforge.getRun",
+      "/xrpc/app.etzhayyim.voxelforge.listArtifacts",
+      "/xrpc/app.etzhayyim.voxelforge.coverage",
     ],
     backend: c.env.BPMN_DISPATCHER_URL,
     formats: ["glb", "vox", "voxel_grid_json", "manifest_json"],
@@ -110,13 +110,13 @@ app.use("*", async (c, next) => {
   await next();
 });
 
-app.all("/xrpc/ai.gftd.voxelforge.:method", async (c) => {
+app.all("/xrpc/app.etzhayyim.voxelforge.:method", async (c) => {
   const method = c.req.param("method");
   const auth = c.var.auth;
   if (!auth) {
     return c.json({ error: "AuthRequired" }, 401);
   }
-  const nsid = `ai.gftd.voxelforge.${method}`;
+  const nsid = `app.etzhayyim.voxelforge.${method}`;
   let body: unknown = undefined;
   if (c.req.method !== "GET" && c.req.method !== "HEAD") {
     try {

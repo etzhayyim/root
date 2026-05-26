@@ -27,3 +27,5 @@ graph.add_edge('validate_purity', 'validate_cold_chain')
 graph.add_edge('validate_cold_chain', 'compliance')
 graph.add_edge('compliance', END)
 graph.set_entry_point('validate_purity')
+
+graph = graph.compile()

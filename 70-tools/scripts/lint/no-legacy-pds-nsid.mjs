@@ -4,12 +4,12 @@ import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const LEGACY_NSIDS = [
-  "ai.gftd.apps.pds.listHeartbeatApps",
-  "ai.gftd.apps.pds.registerSyncApp",
-  "ai.gftd.kagami.query",
-  "ai.gftd.kagami.command",
-  "ai.gftd.kagami.queryExec",
-  "ai.gftd.kagami.graphExec",
+  "app.etzhayyim.apps.pds.listHeartbeatApps",
+  "app.etzhayyim.apps.pds.registerSyncApp",
+  "app.etzhayyim.kagami.query",
+  "app.etzhayyim.kagami.command",
+  "app.etzhayyim.kagami.queryExec",
+  "app.etzhayyim.kagami.graphExec",
 ];
 
 const EXCLUDE_GLOBS = [

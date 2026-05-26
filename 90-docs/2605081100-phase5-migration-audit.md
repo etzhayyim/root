@@ -6,7 +6,7 @@ ADR-2605080600 Phase 5 — `Zeebe timer-start BPMN → K8s CronJob + LangGraph S
 
 | Category | Distinct BPMNs | Migration kind | Priority |
 |---|---|---|---|
-| **gov_heartbeat** (`gov_*_heartbeat_tick`) | 140 | Possibly dead — CF Worker `xrpc.ai.gftd.gov{Country}.heartbeatTick` handlers may no longer exist after ADR-0095 (3-layer identity, 2026-04-26 ERC725 simplification). **Audit before migrating.** If alive, single generic graph + 1 looping CronJob. | LOW |
+| **gov_heartbeat** (`gov_*_heartbeat_tick`) | 140 | Possibly dead — CF Worker `xrpc.app.etzhayyim.gov{Country}.heartbeatTick` handlers may no longer exist after ADR-0095 (3-layer identity, 2026-04-26 ERC725 simplification). **Audit before migrating.** If alive, single generic graph + 1 looping CronJob. | LOW |
 | **other** (heterogeneous: air_*, ads_*, agent_*, arms_*, copyright_*, etc.) | 87 | Per-actor case-by-case; requires reading each XML | MEDIUM |
 | **open_*** (open_smartphone, open_cyber, open_oss, etc.) | 22 | Per-NSID; primitives in `pymagatama.primitives.open_*` | MEDIUM |
 | **maps_*** | 22 | maps live-tracking (R/PT10S aircraft, R/PT5M track) — sub-minute cadence cannot map cleanly to K8s CronJob (1m floor). Need single long-running poller, not CronJob. | DEFER |

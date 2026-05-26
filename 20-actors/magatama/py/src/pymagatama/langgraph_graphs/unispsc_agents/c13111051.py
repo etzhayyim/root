@@ -10,7 +10,7 @@ class MaterialState(TypedDict):
 
 def validate_purity(state: MaterialState):
     # Simulated complex validation logic for high-purity metals
-    is_pure = True 
+    is_pure = True
     return {"purity_check": is_pure, "validation_logs": ["Purity validation passed."]}
 
 def check_safety_compliance(state: MaterialState):
@@ -25,4 +25,4 @@ graph.add_edge("validate", "safety")
 graph.add_edge("safety", END)
 graph.set_entry_point("validate")
 
-compiled_graph = graph.compile()
+graph = graph.compile()

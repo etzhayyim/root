@@ -18,3 +18,5 @@ graph = StateGraph(AirfieldState)
 graph.add_node('validate', validate_compliance)
 graph.add_edge('validate', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

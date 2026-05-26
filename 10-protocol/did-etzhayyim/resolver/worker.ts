@@ -8,7 +8,7 @@
  *   GET  /{did}                              → alias of above
  *   GET  /{did}/log                          → application/json (op log, newest first)
  *   GET  /{did}/path-context                 → application/json (platform extension: graph metadata)
- *   POST /                                   → 501 — submit ops via PDS XRPC ai.gftd.identity.submitOp
+ *   POST /                                   → 501 — submit ops via PDS XRPC app.etzhayyim.identity.submitOp
  *   GET  /health                             → "ok"
  *
  * Storage: HYPERDRIVE (RisingWave) + Kysely. Tables:
@@ -18,14 +18,14 @@
  */
 
 import {
-  isValidDidGftd,
+  isValidDidetzhayyim,
   didDepth,
   resolutionOk,
   resolutionErr,
   buildDidDocument,
-  type DidGftdDocument,
+  type DidetzhayyimDocument,
 } from "../src/index";
-import { createKyselyDb, sql } from "@gftd/magatama-host-sdk/kysely";
+import { createKyselyDb, sql } from "@etzhayyim/magatama-host-sdk/kysely";
 
 export interface Env {
   HYPERDRIVE: Hyperdrive;
@@ -46,7 +46,7 @@ interface IdentityRow {
   genesis_op_cid: string | null;
 }
 
-function rowToDoc(row: IdentityRow): DidGftdDocument {
+function rowToDoc(row: IdentityRow): DidetzhayyimDocument {
   const vms = row.public_key_multibase
     ? [{ id: "#key-1" as const, type: "Multikey" as const, publicKeyMultibase: row.public_key_multibase }]
     : [];
@@ -121,7 +121,7 @@ export default {
       if (!parsed) {
         return didDocResponse(resolutionErr("invalidDid", "DID not parseable from URL"), 400);
       }
-      if (!isValidDidGftd(parsed.did)) {
+      if (!isValidDidetzhayyim(parsed.did)) {
         return didDocResponse(resolutionErr("invalidDid", "did syntax invalid for did:gftd"), 400);
       }
       if (didDepth(parsed.did) > 6) {
@@ -178,7 +178,7 @@ export default {
 
     if (request.method === "POST" && url.pathname === "/") {
       return jsonResponse(
-        { error: "notImplemented", message: "submit ops via PDS XRPC ai.gftd.identity.submitOp" },
+        { error: "notImplemented", message: "submit ops via PDS XRPC app.etzhayyim.identity.submitOp" },
         501,
       );
     }

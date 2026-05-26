@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/ai.gftd.govHrv.followSiteDeps": {
+    "/xrpc/app.etzhayyim.govHrv.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Croatia government.",
-        "operationId": "ai.gftd.govHrv.followSiteDeps",
+        "operationId": "app.etzhayyim.govHrv.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHrv.heartbeatTick": {
+    "/xrpc/app.etzhayyim.govHrv.heartbeatTick": {
       "post": {
         "summary": "Run the Croatia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "ai.gftd.govHrv.heartbeatTick",
+        "operationId": "app.etzhayyim.govHrv.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHrv.listOrgs": {
+    "/xrpc/app.etzhayyim.govHrv.listOrgs": {
       "get": {
         "summary": "List Croatia government organization graph records.",
-        "operationId": "ai.gftd.govHrv.listOrgs",
+        "operationId": "app.etzhayyim.govHrv.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHrv.registerDIDs": {
+    "/xrpc/app.etzhayyim.govHrv.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Croatia government organizations.",
-        "operationId": "ai.gftd.govHrv.registerDIDs",
+        "operationId": "app.etzhayyim.govHrv.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHrv.resolveOrgPath": {
+    "/xrpc/app.etzhayyim.govHrv.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Croatia government organization path to its graph record.",
-        "operationId": "ai.gftd.govHrv.resolveOrgPath",
+        "operationId": "app.etzhayyim.govHrv.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHrv.seedOrgs": {
+    "/xrpc/app.etzhayyim.govHrv.seedOrgs": {
       "post": {
         "summary": "Seed initial Croatia government organization records into the graph.",
-        "operationId": "ai.gftd.govHrv.seedOrgs",
+        "operationId": "app.etzhayyim.govHrv.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHrv.shinka": {
+    "/xrpc/app.etzhayyim.govHrv.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Croatia government organization update.",
-        "operationId": "ai.gftd.govHrv.shinka",
+        "operationId": "app.etzhayyim.govHrv.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/ai.gftd.govHrv.syncWetUpdates": {
+    "/xrpc/app.etzhayyim.govHrv.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Croatia government organization changes to graph.",
-        "operationId": "ai.gftd.govHrv.syncWetUpdates",
+        "operationId": "app.etzhayyim.govHrv.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

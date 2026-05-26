@@ -36,7 +36,7 @@ shinka cron (*/5 min)
    ├── Missing prompt?    → agent.chat("Generate convo system prompt for: {displayName} - {description}")
    ├── Missing caps?      → agent.chat("List capabilities for: {displayName}") → parse JSON
    ├── Missing performer? → infer from project type (service/system)
-   └── Missing operator?  → default "gftd.co.jp"
+   └── Missing operator?  → default "etzhayyim.com"
   ↓
 4. Graph UPDATE (Stream Load or XRPC registerManifest)
   ↓

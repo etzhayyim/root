@@ -59,7 +59,21 @@ from threading import Lock, Thread
 from urllib.error import HTTPError, URLError
 
 import boto3
-import psycopg2
+# Per ADR-2605172000 (RW-free substrate), all maps writes route through
+# the substrate seam below; direct psycopg2 imports are no longer
+# permitted in this worker. The seam still supports a transitional RW
+# mode (psycopg2 under the hood) gated on ETZHAYYIM_SUBSTRATE_MODE.
+from _etzhayyim_substrate import open_substrate_writer
+
+# TODO(ADR-2605172000 / Stage 2): the writes below still hit
+# RisingWave directly via psycopg2 patterns specific to this
+# worker. Replace them with `open_substrate_writer().upsert_table(
+# '<table>', rows, conflict_key=...)` per the substrate seam
+# contract in `_etzhayyim_substrate.py`. The legacy import has
+# been re-added below as a guarded fallback so the worker still
+# functions while ETZHAYYIM_SUBSTRATE_MODE=rw; remove it once the
+# call sites are migrated.
+import psycopg2  # noqa: E402 — pending substrate refactor (Stage 2)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger("gsplat_train_dumper")
@@ -348,7 +362,7 @@ def _emit_job_state(
     later rate changes don't rewrite history."""
     now_iso = datetime.now(timezone.utc).isoformat()
     vertex_id = (
-        f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.gsplatJob/{job_id}-"
+        f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.gsplatJob/{job_id}-"
         f"{int(time.time() * 1000)}"
     )
     try:
@@ -607,7 +621,7 @@ def _insert_gsplat_row(
     train_job_id: str,
 ) -> None:
     """RW append-only INSERT (no ON CONFLICT, record-log semantics)."""
-    vertex_id = f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.gsplatAsset/{tile_h3}-{int(time.time())}"
+    vertex_id = f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.gsplatAsset/{tile_h3}-{int(time.time())}"
     now_iso = datetime.now(timezone.utc).isoformat()
     conn = psycopg2.connect(DATABASE_URL)
     conn.autocommit = False
@@ -728,7 +742,7 @@ def _run_bake(req: dict) -> None:
                         status="running", phase="rw-insert",
                         triangle_count=triangle_count)
         mesh_vertex_id = (
-            f"at://did:web:maps.etzhayyim.com/ai.gftd.apps.maps.gsplatMesh/"
+            f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.gsplatMesh/"
             f"{tile_h3}-{bake_job_id}"
         )
         _insert_mesh_row(

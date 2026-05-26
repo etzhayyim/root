@@ -72,12 +72,12 @@ ADR-2605081200).
 
 | Aspect | Value |
 |---|---|
-| Layer (ADR-2604231811) | Actor Worker (Layer 10 GFTD ext.) |
+| Layer (ADR-2604231811) | Actor Worker (Layer 10 etzhayyim ext.) |
 | Worker host | `bpmn.etzhayyim.com` (no dedicated CF Worker) |
 | Primary DID | `did:web:hatsubai.etzhayyim.com` |
 | Sub-DID per platform | `did:web:hatsubai.etzhayyim.com:platform:{nsw2,ps5,xbsx,steam}` |
 | Sub-DID per shipped title (P3) | `did:web:hatsubai.etzhayyim.com:title:{platform}-{slug}` |
-| NSID prefix | `ai.gftd.apps.hatsubai.*` |
+| NSID prefix | `app.etzhayyim.apps.hatsubai.*` |
 | Persistence (ADR-0036) | domain → Worker-direct Hyperdrive (Kysely); social → `sdk.pds.dispatch` |
 
 ## Graph shape (1 forward-only migration)

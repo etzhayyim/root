@@ -126,7 +126,7 @@ async def _node_load_history(state: OtakiageChatState) -> OtakiageChatState:
     is_new = not thread_id
     if is_new:
         thread_id = _new_thread_id(caller_did)
-    thread_uri = f"at://{caller_did}/ai.gftd.apps.otakiage.conversation/{thread_id}"
+    thread_uri = f"at://{caller_did}/app.etzhayyim.apps.otakiage.conversation/{thread_id}"
 
     history: list[dict[str, str]] = []
     if not is_new:
@@ -546,7 +546,7 @@ async def _node_persist_turn(state: OtakiageChatState) -> OtakiageChatState:
         turn_rkey = hashlib.sha256(
             f"{thread_id}|{turn_index}|{int(time.time_ns())}".encode("utf-8")
         ).hexdigest()[:24]
-        turn_uri = f"at://{caller_did}/ai.gftd.apps.otakiage.conversationTurn/{turn_rkey}"
+        turn_uri = f"at://{caller_did}/app.etzhayyim.apps.otakiage.conversationTurn/{turn_rkey}"
         cur.execute(
             """
             INSERT INTO vertex_otakiage_conversation_turn (

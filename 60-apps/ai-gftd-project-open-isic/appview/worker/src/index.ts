@@ -1,10 +1,10 @@
 // AppView Worker for the ISIC Rev. 4 langserver. ADR-2605180900 Phase 7.
 //
-// Mounts `/xrpc/ai.gftd.apps.isic.*` at isic.etzhayyim.com and proxies to
+// Mounts `/xrpc/app.etzhayyim.apps.isic.*` at isic.etzhayyim.com and proxies to
 // the in-cluster lg-open-isic langserver. The handler library lives in
-// @gftd/magatama-host-sdk/langserver-xrpc-handler.
+// @etzhayyim/magatama-host-sdk/langserver-xrpc-handler.
 
-import { createLangserverXrpcHandler } from "@gftd/magatama-host-sdk";
+import { createLangserverXrpcHandler } from "@etzhayyim/magatama-host-sdk";
 
 export interface Env {
   /** Public-or-private base URL of the ISIC langserver. */

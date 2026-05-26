@@ -19,3 +19,5 @@ graph = StateGraph(PrintingBlockState)
 graph.add_node('validate_specs', validate_block_specs)
 graph.set_entry_point('validate_specs')
 graph.add_edge('validate_specs', END)
+
+graph = graph.compile()

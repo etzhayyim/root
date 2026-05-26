@@ -38,7 +38,7 @@
     loading = true;
     try {
       const resp = await atQuery<{ items: Cut[]; total?: number }>(
-        'ai.gftd.animeka.listCuts',
+        'app.etzhayyim.animeka.listCuts',
         { limit: 200 },
       );
       cuts = resp.items ?? [];
@@ -75,7 +75,7 @@
         {@const dialogue = get('dialogue_summary', 'dialogueSummary') as string | undefined}
         {@const cutNum = get('cut_num', 'cutNum')}
         {@const sceneNum = get('scene_num', 'sceneNum')}
-        <button class="card" class:retake={c.priority === 'retake'} onclick={() => c.rkey && go(`/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.cut/${c.rkey}`)}>
+        <button class="card" class:retake={c.priority === 'retake'} onclick={() => c.rkey && go(`/at/an1m3k4x.etzhayyim.com/app.etzhayyim.animeka.cut/${c.rkey}`)}>
           {#if thumb}
             <div class="thumb" style:background={blobBg(thumb)}></div>
           {:else}

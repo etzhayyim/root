@@ -1,26 +1,85 @@
-from typing import TypedDict, Annotated, List
-from langgraph.graph import StateGraph, END
+# codemod:2605231400-unispsc-gemini-bespoke v1
+"""
+Unispsc actor agent c11101717 — Chemical (segment 11).
 
-class ChemicalState(TypedDict):
-    purity_level: float
-    safety_clearance: bool
-    logistics_status: str
-    validation_history: List[str]
+Bespoke LangGraph implementation for chemical material processing and safety
+validation, ensuring compliance with industrial standards and hazardous
+material handling protocols.
+"""
 
-def validate_purity(state: ChemicalState) -> ChemicalState:
-    if state['purity_level'] >= 0.99:
-        state['validation_history'].append('Purity validated at high grade.')
-        state['safety_clearance'] = True
-    else:
-        state['safety_clearance'] = False
-    return state
+from __future__ import annotations
 
-def route_logistics(state: ChemicalState) -> str:
-    return 'VALID' if state['safety_clearance'] else 'FAIL'
+from operator import add
+from typing import Annotated, Any, TypedDict
 
-graph = StateGraph(ChemicalState)
-graph.add_node('validate', validate_purity)
-graph.add_edge('validate', 'route_logistics')
-graph.add_conditional_edges('route_logistics', lambda s: 'VALID' if s['safety_clearance'] else 'FAIL', {'VALID': END, 'FAIL': END})
-graph.set_entry_point('validate')
-compiled_graph = graph.compile()
+from langgraph.graph import END, START, StateGraph
+
+UNISPSC_CODE = "11101717"
+UNISPSC_TITLE = "Chemical"
+UNISPSC_SEGMENT = "11"
+UNISPSC_DID = "did:web:etzhayyim.com:actor:c11101717"
+
+
+class State(TypedDict, total=False):
+    input: dict[str, Any]
+    log: Annotated[list[str], add]
+    result: dict[str, Any]
+    safety_data_verified: bool
+    purity_percentage: float
+    hazard_classification: str
+    stabilization_method: str
+
+
+def validate_safety_protocols(state: State) -> dict[str, Any]:
+    """Ensures MSDS documentation is present and safety protocols are met."""
+    inp = state.get("input") or {}
+    has_msds = inp.get("msds_available", False)
+    return {
+        "log": [f"{UNISPSC_CODE}:validate_safety_protocols"],
+        "safety_data_verified": has_msds,
+        "hazard_classification": inp.get("hazard_class", "unclassified"),
+    }
+
+
+def analyze_composition(state: State) -> dict[str, Any]:
+    """Performs compositional analysis to determine purity and stability."""
+    inp = state.get("input") or {}
+    purity = inp.get("measured_purity", 0.95)
+    return {
+        "log": [f"{UNISPSC_CODE}:analyze_composition"],
+        "purity_percentage": purity,
+        "stabilization_method": "inert_gas_blanket" if purity > 0.99 else "ambient",
+    }
+
+
+def certify_material(state: State) -> dict[str, Any]:
+    """Issues the final certification for the chemical agent."""
+    is_safe = state.get("safety_data_verified", False)
+    purity = state.get("purity_percentage", 0.0)
+
+    return {
+        "log": [f"{UNISPSC_CODE}:certify_material"],
+        "result": {
+            "code": UNISPSC_CODE,
+            "title": UNISPSC_TITLE,
+            "segment": UNISPSC_SEGMENT,
+            "did": UNISPSC_DID,
+            "certified": is_safe and purity >= 0.90,
+            "hazard_rating": state.get("hazard_classification"),
+            "stabilization": state.get("stabilization_method"),
+            "status": "ready_for_distribution" if is_safe else "quarantined",
+        },
+    }
+
+
+_g = StateGraph(State)
+_g.add_node("validate", validate_safety_protocols)
+_g.add_node("analyze", analyze_composition)
+_g.add_node("certify", certify_material)
+
+_g.add_edge(START, "validate")
+_g.add_edge("validate", "analyze")
+_g.add_edge("analyze", "certify")
+_g.add_edge("certify", END)
+
+graph = _g.compile()

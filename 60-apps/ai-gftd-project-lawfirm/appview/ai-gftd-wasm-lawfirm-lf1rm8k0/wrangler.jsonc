@@ -1,15 +1,16 @@
+// no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 {
   "name": "magatama-lf1rm8k0",
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat","nodejs_als"],
-  "alias": { "@gftd/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts", "pg": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js", "@gftd/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts", "@gftd/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts", "@gftd/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts", "@gftd/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts", "@gftd/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts", "@cloudflare/puppeteer": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/@cloudflare+puppeteer@0.0.14_bufferutil@4.1.0_utf-8-validate@5.0.10/node_modules/@cloudflare/puppeteer/lib/esm/puppeteer/puppeteer-cloudflare.js" },
+  "alias": { "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts", "pg": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/pg@8.20.0/node_modules/pg/lib/index.js", "@etzhayyim/xrpc/transport": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/transport.ts", "@etzhayyim/xrpc/auth": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/auth.ts", "@etzhayyim/xrpc/error": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/error.ts", "@etzhayyim/xrpc/nsid": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/nsid.ts", "@etzhayyim/xrpc/encode": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/10-protocol/xrpc/src/encode.ts", "@cloudflare/puppeteer": "/Users/junkawasaki/gftdcojp/ai-gftd-apps-gftdcojp/node_modules/.pnpm/@cloudflare+puppeteer@0.0.14_bufferutil@4.1.0_utf-8-validate@5.0.10/node_modules/@cloudflare/puppeteer/lib/esm/puppeteer/puppeteer-cloudflare.js" },
   "vars": {
     "APP_ACTOR_HANDLE": "lawfirm",
     "APP_CAPABILITIES": "[\"matter-management\",\"external-counsel-consent\",\"document-vault\",\"hearing-scheduling\",\"case-closure\",\"conflict-scan\",\"recursive-did-minting\",\"india-intake\",\"translate-hi\",\"triage-cohort\"]",
-    "APP_DESCRIPTION": "Law firm case management with ADR-0029 recursive did:gftd identity, external counsel consent grants, and ISCO-2611 lawyer review gate. 18 matter types across JP/IN/US jurisdictions. India intake accepts 22 Scheduled Languages (hi/bn/ta/te/mr/gu/kn/ml/pa/or/as/ur/sa/ne/sd/ks/kok/mai/mni/sat/doi/brx) + en. India cases auto-route to the configured peer firm (e.g. lawyer.gftd.ai / Kunal @ k.bakshi) via externalCounselGrant.",
-    "APP_DISPLAY_NAME": "GFTD Lawfirm",
-    "APP_EMBED_URL": "https://lf1rm8k0.gftd.ai/?embed=1",
+    "APP_DESCRIPTION": "Law firm case management with ADR-0029 recursive did:gftd identity, external counsel consent grants, and ISCO-2611 lawyer review gate. 18 matter types across JP/IN/US jurisdictions. India intake accepts 22 Scheduled Languages (hi/bn/ta/te/mr/gu/kn/ml/pa/or/as/ur/sa/ne/sd/ks/kok/mai/mni/sat/doi/brx) + en. India cases auto-route to the configured peer firm (e.g. lawyer.etzhayyim.com / Kunal @ k.bakshi) via externalCounselGrant.",
+    "APP_DISPLAY_NAME": "etzhayyim Lawfirm",
+    "APP_EMBED_URL": "https://lf1rm8k0.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "ts-native",
     "APP_NANOID": "lf1rm8k0",
     "APP_PERFORMER_TYPE": "service",
@@ -56,6 +57,6 @@
     { "type": "CompiledWasm", "globs": ["**/*.wasm"] }
   ],
   "routes": [
-    { "pattern": "lf1rm8k0.gftd.ai/*", "zone_name": "gftd.ai" }
+    { "pattern": "lf1rm8k0.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ]
 }

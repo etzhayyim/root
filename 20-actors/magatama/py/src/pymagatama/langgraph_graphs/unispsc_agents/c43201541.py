@@ -23,4 +23,4 @@ graph.set_entry_point('validate')
 graph.add_edge('validate', 'audit')
 graph.add_edge('audit', END)
 
-compiled_graph = graph.compile()
+graph = graph.compile()

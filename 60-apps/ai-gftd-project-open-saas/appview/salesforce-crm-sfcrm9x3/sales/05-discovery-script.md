@@ -37,7 +37,7 @@ Purpose: set the frame as a mutual disqualification, not a pitch. Gets a better 
 ## Technical reality (8 min)
 **Q6. Tell me about your Salesforce customisations — Apex, Flow, custom objects, AppExchange apps.**
 - We need to know the port/drop list before the POC, not during the weekend.
-- Calibration: "Acme Robotics had 3 custom objects, 7 Flow, 0 Apex — they ported the objects as `ai.gftd.apps.opensaas.salesforce.*` extensions; dropped the Flow in favour of our derive rule + scheduled command." Set expectation.
+- Calibration: "Acme Robotics had 3 custom objects, 7 Flow, 0 Apex — they ported the objects as `app.etzhayyim.apps.opensaas.salesforce.*` extensions; dropped the Flow in favour of our derive rule + scheduled command." Set expectation.
 
 **Q7. Who owns a Salesforce data export? Can they produce a 10%-slice in 3 business days?**
 - If the admin is a shared resource or an external partner-managed org, Day 3 of POC will slip. Surface it now.

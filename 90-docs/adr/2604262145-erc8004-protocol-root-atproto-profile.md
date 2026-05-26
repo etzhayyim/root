@@ -7,7 +7,7 @@ topic: erc8004-protocol-root
 authoritative: true
 last_verified: 2026-04-27
 authoritative_for:
-  - GFTD public protocol root after the Ethereum identity migration
+  - etzhayyim public protocol root after the Ethereum identity migration
   - Relationship between ERC725, ERC-8004, atproto, XRPC, MCP, A2A, k8s, and IPFS
   - How AT Protocol repo commits are represented inside ERC-8004 agent discovery
   - Naming rule that prevents every public interface from being classified as atproto
@@ -31,7 +31,7 @@ The previous platform language treated nearly every public surface as
 runtime workers, inference fleets, and public app views. That was acceptable
 while the PDS was the only public trust anchor.
 
-ADR-0074 and ADR-2604262100 changed the root. GFTD public authority is now
+ADR-0074 and ADR-2604262100 changed the root. etzhayyim public authority is now
 anchored in Ethereum identity:
 
 - ERC725 root identity contracts hold durable controller, policy, facade DID,
@@ -51,7 +51,7 @@ govern that write path.
 
 # Decision
 
-GFTD's public protocol root is **ERC725/ERC-8004**.
+etzhayyim's public protocol root is **ERC725/ERC-8004**.
 
 All other public interfaces are **protocol profiles** advertised by an
 ERC-8004 agent registration document and controlled by an ERC725 root identity.
@@ -159,7 +159,7 @@ AT Protocol is represented as a profile inside `protocols`:
   "collections": [
     "app.bsky.feed.post",
     "app.bsky.actor.profile",
-    "ai.gftd.yoro.*"
+    "app.etzhayyim.yoro.*"
   ],
   "blob": {
     "uploadBlobStore": "b2",
@@ -178,7 +178,7 @@ Rules:
 - The atproto DID is a facade DID linked from ERC725. It is not the root
   identity.
 - `vertex_repo_commit` and `vertex_repo_record` remain the operational commit
-  and record logs for GFTD's PDS.
+  and record logs for etzhayyim's PDS.
 - CAR/IPLD/CID values may be published through IPFS, but IPFS is not the
   authoritative AT Protocol repo host. The PDS is.
 
@@ -195,7 +195,7 @@ MCP is represented independently from atproto:
     "method": "oauth2-dpop",
     "issuer": "https://authn.etzhayyim.com",
     "resource": "https://yoro.etzhayyim.com/mcp",
-    "scopes": ["ai.gftd.agent.invoke"]
+    "scopes": ["app.etzhayyim.agent.invoke"]
   },
   "toolsCid": "ipfs://bafy..."
 }
@@ -301,7 +301,7 @@ the ERC725/ERC-8004 protocol root vocabulary.
 - IPFS CIDs are publication/evidence pointers, not controller authority.
 - Secrets never appear in ERC725Y values, ERC-8004 JSON, IPFS manifests, or
   redacted k8s public manifests.
-- Kubernetes `default` namespace remains prohibited for GFTD resources.
+- Kubernetes `default` namespace remains prohibited for etzhayyim resources.
 
 # Implementation Plan
 
@@ -350,6 +350,6 @@ or PDS repo write semantics.
 - AT Protocol repository specification: https://atproto.com/specs/repository
 - ADR-0074: Ethereum identity bridge via WebAuthn, SIWE/CACAO, and smart wallet
 - ADR-2604262100: ERC725/ERC-8004 public agent runtime registry
-- ADR-2604251220: GFTD PDS uses append-only record log, not AT Protocol MST CAR
+- ADR-2604251220: etzhayyim PDS uses append-only record log, not AT Protocol MST CAR
 - ADR-2604241121: Repo commit stays on PDS
 - ADR-2604261936: ipfs.etzhayyim.com self-hosted Kubo on Vultr VKE with B2

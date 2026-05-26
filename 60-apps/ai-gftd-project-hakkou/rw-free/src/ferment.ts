@@ -24,7 +24,7 @@ import {
   type UpdateFermentStatusOutput,
 } from "./types.js";
 
-const FERMENT_COLLECTION = "ai.gftd.hakkou.ferment";
+const FERMENT_COLLECTION = "app.etzhayyim.hakkou.ferment";
 
 export async function startFerment(
   e: Etzhayyim,

@@ -85,7 +85,7 @@ async def task_webya_domain_provision(**kwargs: Any) -> dict[str, Any]:
 
     now = _now()
     domain_id = f"dom-{hashlib.sha256(f'{site_id}:{domain}'.encode()).hexdigest()[:16]}"
-    vertex_id = f"at://{ACTOR_DID}/ai.gftd.apps.webya.domain/{domain_id}"
+    vertex_id = f"at://{ACTOR_DID}/app.etzhayyim.apps.webya.domain/{domain_id}"
 
     try:
         async with httpx.AsyncClient(timeout=30) as client:

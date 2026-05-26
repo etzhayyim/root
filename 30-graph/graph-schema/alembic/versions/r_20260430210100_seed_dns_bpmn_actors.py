@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-from-squarespace-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/dns-transfer-from-squarespace-v1',
                  'did:web:scndu0rf.etzhayyim.com',
                  'dns_transfer_from_squarespace',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/dns"><bpmn:process '
                  'id="dns_transfer_from_squarespace" name="dns transferFromSquarespace" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.dns.transferFromSquarespace", "version": 1, "resultTimeoutMs": '
+                 '"app.etzhayyim.apps.dns.transferFromSquarespace", "version": 1, "resultTimeoutMs": '
                  '120000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -52,7 +52,7 @@ UP = [{'sql': '\n'
                  'did:web:scndu0rf.etzhayyim.com',
                  'sys.bpmn.seed.dns',
                  'did:web:scndu0rf.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-from-squarespace-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/dns-transfer-from-squarespace-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,9 +67,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferFromSquarespace-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/dns-transferFromSquarespace-v1',
                  'did:web:scndu0rf.etzhayyim.com',
-                 'ai.gftd.apps.dns.transferFromSquarespace',
+                 'app.etzhayyim.apps.dns.transferFromSquarespace',
                  'dns_transfer_from_squarespace',
                  120000,
                  'vertex_atrecord_dns_transfer_request,vertex_actor,vertex_actor_manifest',
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
                  'did:web:scndu0rf.etzhayyim.com',
                  'sys.bpmn.seed.dns',
                  'did:web:scndu0rf.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferFromSquarespace-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/dns-transferFromSquarespace-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-outcome-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/dns-transfer-outcome-v1',
                  'did:web:scndu0rf.etzhayyim.com',
                  'dns_transfer_outcome',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -104,7 +104,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/dns"><bpmn:process '
                  'id="dns_transfer_outcome" name="dns transferOutcome" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"ai.gftd.apps.dns.transferOutcome", "version": 1, "resultTimeoutMs": 120000 '
+                 '"app.etzhayyim.apps.dns.transferOutcome", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -119,7 +119,7 @@ UP = [{'sql': '\n'
                  'did:web:scndu0rf.etzhayyim.com',
                  'sys.bpmn.seed.dns',
                  'did:web:scndu0rf.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-outcome-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/dns-transfer-outcome-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,9 +134,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferOutcome-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/dns-transferOutcome-v1',
                  'did:web:scndu0rf.etzhayyim.com',
-                 'ai.gftd.apps.dns.transferOutcome',
+                 'app.etzhayyim.apps.dns.transferOutcome',
                  'dns_transfer_outcome',
                  120000,
                  'vertex_atrecord_dns_transfer_outcome,vertex_atrecord_dns_ownership_transfer,vertex_actor,vertex_actor_manifest',
@@ -145,16 +145,16 @@ UP = [{'sql': '\n'
                  'did:web:scndu0rf.etzhayyim.com',
                  'sys.bpmn.seed.dns',
                  'did:web:scndu0rf.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferOutcome-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/dns-transferOutcome-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferFromSquarespace-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/dns-transferFromSquarespace-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-from-squarespace-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/dns-transfer-from-squarespace-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-transferOutcome-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/dns-transferOutcome-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-transfer-outcome-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/dns-transfer-outcome-v1']}]
 
 
 def upgrade() -> None:

@@ -49,7 +49,7 @@
       <span class="text-slate-400 text-sm">税込 / 3 台</span>
     </div>
     <p class="text-slate-500 text-xs mb-8">通常 3 台分 ¥296,340 → <span class="text-[#e85d04]">約 9% 割引</span></p>
-    <a href="mailto:sales@gftd.co.jp?subject=Giemon Otete Education 3-pack 見積もり依頼"
+    <a href="mailto:sales@etzhayyim.com?subject=Giemon Otete Education 3-pack 見積もり依頼"
       class="inline-block px-8 py-3 bg-[#e85d04] hover:bg-[#f48c06] text-white font-bold rounded-full transition-colors">
       見積もりを依頼する
     </a>
@@ -128,9 +128,9 @@
     見積書・仕様書・デモ機の手配など、ご要望に合わせて対応します。
     お気軽にお問い合わせください。
   </p>
-  <a href="mailto:sales@gftd.co.jp?subject=Giemon Otete Education 3-pack 見積もり依頼"
+  <a href="mailto:sales@etzhayyim.com?subject=Giemon Otete Education 3-pack 見積もり依頼"
     class="inline-block px-8 py-3 bg-[#e85d04] hover:bg-[#f48c06] text-white font-bold rounded-full transition-colors">
-    sales@gftd.co.jp にメールする
+    sales@etzhayyim.com にメールする
   </a>
 </section>
 

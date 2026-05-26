@@ -226,7 +226,7 @@ async def task_shosha_intel_ingest_prices(**kwargs: Any) -> dict[str, Any]:
             continue
         price, ts_ms = q
         vertex_id = (
-            f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.intel/"
+            f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.intel/"
             f"yahoo-{_slug(sym)}-{ts_ms}"
         )
         raw = json.dumps({"symbol": sym, "slug": slug, "price": price, "ts_ms": ts_ms})
@@ -252,7 +252,7 @@ async def task_shosha_intel_ingest_prices(**kwargs: Any) -> dict[str, Any]:
         for tgt, rate in (fx.get("rates") or {}).items():
             slug = f"{_FX_BASE.lower()}-{tgt.lower()}"
             vertex_id = (
-                f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.intel/"
+                f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.intel/"
                 f"frankfurter-{slug}-{fx_ts}"
             )
             raw = json.dumps({"base": _FX_BASE, "target": tgt, "rate": rate, "date": fx_date})
@@ -278,7 +278,7 @@ async def task_shosha_intel_ingest_freight(**kwargs: Any) -> dict[str, Any]:
     """
     now_iso = _now_iso()
     ts_ms = _now_ms()
-    vertex_id = f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.intel/freight-stub-{ts_ms}"
+    vertex_id = f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.intel/freight-stub-{ts_ms}"
     rows = [(
         vertex_id, _SHOSHA_ACTOR, 0, "stub", "freight-bdi-proxy", "freight",
         None, "index", ts_ms,
@@ -386,7 +386,7 @@ async def task_shosha_market_view_synth(**kwargs: Any) -> dict[str, Any]:
         rationale = (str(data.get("rationale") or "")[:1000])
 
         vertex_id = (
-            f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.marketView/"
+            f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.marketView/"
             f"{_slug(commodity)}-{today}"
         )
         inserts.append((
@@ -506,7 +506,7 @@ async def task_shosha_sanctions_refresh_ofac(**kwargs: Any) -> dict[str, Any]:
 
         source_ref = f"ofac:{ent_num}"
         vertex_id = (
-            f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.sanction/"
+            f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.sanction/"
             f"ofac-{ent_num}"
         )
         name_norm = _ofac_normalize(sdn_name)
@@ -617,7 +617,7 @@ async def task_shosha_sanctions_refresh_un(**kwargs: Any) -> dict[str, Any]:
 
             source_ref = f"un:{data_id}"
             vertex_id = (
-                f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.sanction/"
+                f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.sanction/"
                 f"un-{data_id}"
             )
             name_norm = _ofac_normalize(name)
@@ -814,7 +814,7 @@ def _ensure_counterparty(name: str, country: str | None,
     """Idempotently register a counterparty; return its vertex_id."""
     name_norm = _slug(name, max_len=120)
     vertex_id = (
-        f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.counterparty/{name_norm}"
+        f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.counterparty/{name_norm}"
     )
     rows = _rw_query(
         "SELECT vertex_id FROM vertex_shosha_counterparty "
@@ -912,7 +912,7 @@ async def task_shosha_trade_submit(**kwargs: Any) -> dict[str, Any]:
     if not trade_id:
         seed = f"{side}|{commodity}|{counterparty}|{quantity}|{price}|{currency}|{_now_ms()}"
         trade_id = f"sh-{_hash12(seed)}"
-    vertex_id = f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.trade/{trade_id}"
+    vertex_id = f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.trade/{trade_id}"
 
     cp_vid = _ensure_counterparty(
         counterparty, str(kwargs.get("country") or "") or None, comply_ok, comply_flags
@@ -1010,7 +1010,7 @@ async def task_shosha_exposure_recompute(**kwargs: Any) -> dict[str, Any]:
         unhedged = net_v - hedged
 
         vertex_id = (
-            f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.exposure/"
+            f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.exposure/"
             f"commodity-{_slug(commodity_s)}-{ts_ms}"
         )
         inserts.append((
@@ -1247,7 +1247,7 @@ async def task_shosha_trade_settle(**kwargs: Any) -> dict[str, Any]:
         seed = f"settle|{trade_id}|{value_date}|{settled_amount_usd:.2f}"
         settlement_id = f"st-{_hash12(seed)}"
     vertex_id = (
-        f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.settlement/{settlement_id}"
+        f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.settlement/{settlement_id}"
     )
 
     pnl_realized_at_settle = float(pnl_unrealized_existing or 0.0) + float(pnl_realized_existing or 0.0)
@@ -1367,7 +1367,7 @@ def _record_decision(
     seed = f"decision|{decision}|{trade_id}|{approver_did}|{_now_ms()}"
     approval_id = f"ap-{_hash12(seed)}"
     vertex_id = (
-        f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.approval/{approval_id}"
+        f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.approval/{approval_id}"
     )
     now_iso = _now_iso()
     _rw_execute(
@@ -1559,7 +1559,7 @@ async def task_shosha_hedge_propose(**kwargs: Any) -> dict[str, Any]:
 
     seed = f"{commodity}|{direction}|{notional:.2f}|{_now_ms()}"
     hedge_id = f"hd-{_hash12(seed)}"
-    vertex_id = f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.hedge/{hedge_id}"
+    vertex_id = f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.hedge/{hedge_id}"
     rationale = (
         f"Net {commodity} exposure ${net_usd:,.0f}; propose {direction} {instrument} "
         f"notional ${notional:,.0f} at hedge ratio {ratio:.0%}."
@@ -1643,7 +1643,7 @@ async def task_shosha_daily_report_compose(**kwargs: Any) -> dict[str, Any]:
 
 
 # ──────────────────────────────────────────────────────────────────────
-# Agent loop (XRPC ai.gftd.apps.shosha.agentLoop)
+# Agent loop (XRPC app.etzhayyim.apps.shosha.agentLoop)
 # ──────────────────────────────────────────────────────────────────────
 
 _AGENT_SYSTEM = (
@@ -1790,7 +1790,7 @@ def _cursor_upsert(consumer_id: str, upstream_did: str, cursor_value: int,
     consumer_id as the vertex_id slug for stable identity. cursor_value
     is the consumer's high-water-mark ts_ms (stored in last_seq column)."""
     vertex_id = (
-        f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.consumerCursor/"
+        f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.consumerCursor/"
         f"{_slug(consumer_id, max_len=120)}"
     )
     now_iso = _now_iso()
@@ -1889,7 +1889,7 @@ async def task_shosha_reactive_scan_upstream(**kwargs: Any) -> dict[str, Any]:
             seed = f"reaction|{upstream_did}|{ts_int}|{rkey}|{reaction_type}"
             reaction_id = f"rx-{_hash12(seed)}"
             vertex_id = (
-                f"at://{_SHOSHA_ACTOR}/ai.gftd.apps.shosha.reaction/{reaction_id}"
+                f"at://{_SHOSHA_ACTOR}/app.etzhayyim.apps.shosha.reaction/{reaction_id}"
             )
             _rw_execute(
                 _INSERT_REACTION,

@@ -89,7 +89,7 @@ def _conference_row(token: dict[str, Any], rec: dict[str, Any]) -> dict[str, Any
     start_time = _str((rec.get("startTime") or {}).get("value") or rec.get("startTime"))
     end_time = _str((rec.get("endTime") or {}).get("value") or rec.get("endTime"))
     return {
-        "vertex_id": f"at://{actor}/ai.gftd.apps.meet.conference/{conference_id}",
+        "vertex_id": f"at://{actor}/app.etzhayyim.apps.meet.conference/{conference_id}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,
@@ -125,7 +125,7 @@ def _participant_row(token: dict[str, Any], conference_id: str, p: dict[str, Any
     join_time = _str((p.get("earliestStartTime") or {}).get("value") or p.get("earliestStartTime"))
     leave_time = _str((p.get("latestEndTime") or {}).get("value") or p.get("latestEndTime"))
     return {
-        "vertex_id": f"at://{actor}/ai.gftd.apps.meet.participant/{conference_id}_{participant_id}",
+        "vertex_id": f"at://{actor}/app.etzhayyim.apps.meet.participant/{conference_id}_{participant_id}",
         "_seq": int(time.time() * 1000),
         "created_date": now[:10],
         "sensitivity_ord": 100,

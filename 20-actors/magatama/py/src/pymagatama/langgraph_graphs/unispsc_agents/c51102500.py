@@ -22,3 +22,5 @@ graph.add_node('process', process_procurement)
 graph.add_edge('validate', 'process')
 graph.add_edge('process', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

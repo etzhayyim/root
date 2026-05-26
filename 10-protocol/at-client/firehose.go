@@ -123,7 +123,7 @@ func (f *Firehose) Subscribe(ctx context.Context, cursor int64, handler func(*Fi
 }
 
 // SubscribeFiltered is like Subscribe but only calls handler for events
-// matching the given collections (e.g. "ai.gftd.conversation.message").
+// matching the given collections (e.g. "app.etzhayyim.conversation.message").
 func (f *Firehose) SubscribeFiltered(ctx context.Context, cursor int64, collections []string, handler func(*FirehoseEvent, *RepoOp) error) error {
 	colSet := make(map[string]struct{}, len(collections))
 	for _, c := range collections {

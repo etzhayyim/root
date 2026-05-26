@@ -18,3 +18,5 @@ graph = StateGraph(ClothingState)
 graph.add_node('validate', validate_material)
 graph.set_entry_point('validate')
 graph.add_edge('validate', END)
+
+graph = graph.compile()

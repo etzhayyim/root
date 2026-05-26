@@ -19,11 +19,11 @@
 
 | Collection | Initial | Final | Growth |
 |---|---|---|---|
-| `ai.gftd.apps.patent.patent` | 1,986 | 6,798+ | +4,812 (+242%) |
-| `ai.gftd.dns.observation` | 3,050 | 6,050+ | +3,000 (+98%) |
-| `ai.gftd.gtin.product` | 2,351 | 3,532+ | +1,181 (+50%) |
-| `ai.gftd.apps.maps.poi` | 13,197 | 13,197 | 0 (pre-collected) |
-| `ai.gftd.apps.chizai.legalEntity` | 15,835 | 15,835 | 0 (pre-collected) |
+| `app.etzhayyim.apps.patent.patent` | 1,986 | 6,798+ | +4,812 (+242%) |
+| `app.etzhayyim.dns.observation` | 3,050 | 6,050+ | +3,000 (+98%) |
+| `app.etzhayyim.gtin.product` | 2,351 | 3,532+ | +1,181 (+50%) |
+| `app.etzhayyim.apps.maps.poi` | 13,197 | 13,197 | 0 (pre-collected) |
+| `app.etzhayyim.apps.chizai.legalEntity` | 15,835 | 15,835 | 0 (pre-collected) |
 | **TOTAL** | 36,421 | 38,593+ | +2,194+ (6%) |
 
 ### Data Sources

@@ -93,34 +93,34 @@ def _make_health_graph():
 
 TASKS: dict[str, Any] = {
     # hakkou
-    "ai.gftd.hakkou.createFermentRecord": task_create_ferment_record,
-    "ai.gftd.hakkou.llmTransform":        task_llm_transform,
-    "ai.gftd.hakkou.finalizeFerment":     task_finalize_ferment,
+    "app.etzhayyim.hakkou.createFermentRecord": task_create_ferment_record,
+    "app.etzhayyim.hakkou.llmTransform":        task_llm_transform,
+    "app.etzhayyim.hakkou.finalizeFerment":     task_finalize_ferment,
     # kabi
-    "ai.gftd.apps.kabi.anastomosisProbe":      task_anastomosis_probe,
+    "app.etzhayyim.apps.kabi.anastomosisProbe":      task_anastomosis_probe,
     # ki
-    "ai.gftd.ki.absorb":                  task_absorb,
-    "ai.gftd.ki.synthesize":              task_synthesize,
-    "ai.gftd.ki.bloom":                   task_bloom,
-    "ai.gftd.ki.ring":                    task_ring,
+    "app.etzhayyim.ki.absorb":                  task_absorb,
+    "app.etzhayyim.ki.synthesize":              task_synthesize,
+    "app.etzhayyim.ki.bloom":                   task_bloom,
+    "app.etzhayyim.ki.ring":                    task_ring,
     # kinoko
-    "ai.gftd.apps.kinoko.checkFlowThreshold":  task_check_flow_threshold,
+    "app.etzhayyim.apps.kinoko.checkFlowThreshold":  task_check_flow_threshold,
     # kobo
-    "ai.gftd.apps.kobo.budAgent":              task_bud_agent,
-    "ai.gftd.apps.kobo.sporulate":             task_sporulate,
-    "ai.gftd.apps.kobo.germinate":             task_germinate,
+    "app.etzhayyim.apps.kobo.budAgent":              task_bud_agent,
+    "app.etzhayyim.apps.kobo.sporulate":             task_sporulate,
+    "app.etzhayyim.apps.kobo.germinate":             task_germinate,
     # koke
-    "ai.gftd.koke.scanRawSignals":        task_scan_raw_signals,
-    "ai.gftd.koke.fixSignal":             task_fix_signal,
-    "ai.gftd.koke.classifyFixation":      task_classify_fixation,
-    "ai.gftd.koke.handoffToHakkou":       task_handoff_to_hakkou,
-    "ai.gftd.koke.handoffToSaikin":       task_handoff_to_saikin,
+    "app.etzhayyim.koke.scanRawSignals":        task_scan_raw_signals,
+    "app.etzhayyim.koke.fixSignal":             task_fix_signal,
+    "app.etzhayyim.koke.classifyFixation":      task_classify_fixation,
+    "app.etzhayyim.koke.handoffToHakkou":       task_handoff_to_hakkou,
+    "app.etzhayyim.koke.handoffToSaikin":       task_handoff_to_saikin,
     # saikin
-    "ai.gftd.apps.saikin.probeEnvironment":    task_probe_environment,
-    "ai.gftd.apps.saikin.transferSignal":      task_transfer_signal,
-    "ai.gftd.apps.saikin.formColony":          task_form_colony,
-    "ai.gftd.apps.saikin.lyse":               task_lyse,
-    "ai.gftd.apps.saikin.handoffToKi":        task_handoff_to_ki,
+    "app.etzhayyim.apps.saikin.probeEnvironment":    task_probe_environment,
+    "app.etzhayyim.apps.saikin.transferSignal":      task_transfer_signal,
+    "app.etzhayyim.apps.saikin.formColony":          task_form_colony,
+    "app.etzhayyim.apps.saikin.lyse":               task_lyse,
+    "app.etzhayyim.apps.saikin.handoffToKi":        task_handoff_to_ki,
 }
 
 GRAPHS: dict[str, Any] = {"health": _make_health_graph()}
@@ -129,7 +129,7 @@ GRAPHS.update({
     for nsid, handler in TASKS.items()
 })
 
-_NSID_TO_ASSISTANT: dict[str, str] = {"ai.gftd.apps.organism.health": "health"}
+_NSID_TO_ASSISTANT: dict[str, str] = {"app.etzhayyim.apps.organism.health": "health"}
 for _nsid in TASKS:
     _NSID_TO_ASSISTANT[_nsid] = _nsid.rsplit(".", 1)[-1]
 

@@ -11,8 +11,8 @@ import { spawn } from "node:child_process";
 
 const PORT = Number(process.env.PORT ?? "8080");
 const INTERNAL_TRUST = process.env.INTERNAL_TRUST ?? "";
-const INGEST_NSID = "ai.gftd.apps.recruit.ingestJobPostings";
-const XRPC_PATH = "/xrpc/ai.gftd.apps.recruit.ingestJobPostings";
+const INGEST_NSID = "app.etzhayyim.apps.recruit.ingestJobPostings";
+const XRPC_PATH = "/xrpc/app.etzhayyim.apps.recruit.ingestJobPostings";
 const MAX_BODY_BYTES = 64 * 1024;
 
 let currentRun = null;

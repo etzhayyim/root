@@ -20,3 +20,5 @@ graph.add_node('logistics', arrange_cold_chain)
 graph.add_edge('validate', 'logistics')
 graph.add_edge('logistics', END)
 graph.set_entry_point('validate')
+
+graph = graph.compile()

@@ -32,13 +32,13 @@ Then('the response should contain a feed array', async ({ apiState }) => {
 });
 
 When('I call listPublicConvos on atproto.etzhayyim.com with limit {int}', async ({ apiState }, limit: number) => {
-	const { res, data } = await xrpcCall('ai.gftd.convo.listPublicConvos', { limit });
+	const { res, data } = await xrpcCall('app.etzhayyim.convo.listPublicConvos', { limit });
 	apiState.lastResponse = res;
 	apiState.lastBody = data;
 });
 
 When('I call SearchPosts on atproto.etzhayyim.com with query {string}', async ({ apiState }, q: string) => {
-	const { res, data } = await xrpcCall('ai.gftd.convo.search', { q, limit: 10 });
+	const { res, data } = await xrpcCall('app.etzhayyim.convo.search', { q, limit: 10 });
 	apiState.lastResponse = res;
 	apiState.lastBody = data;
 });
@@ -59,7 +59,7 @@ Then('the response should contain a did field', async ({ apiState }) => {
 // ─── Channel + Message via atproto.etzhayyim.com ──────────────────────────
 
 Given('I create a channel named {string} via atproto.etzhayyim.com', async ({ apiState }, name: string) => {
-	const { res, data } = await xrpcCall('ai.gftd.convo.createConvo', { name });
+	const { res, data } = await xrpcCall('app.etzhayyim.convo.createConvo', { name });
 	apiState.lastResponse = res;
 	apiState.lastBody = data;
 	if (data.convoId) apiState.createdConvoId = data.convoId as string;
@@ -67,7 +67,7 @@ Given('I create a channel named {string} via atproto.etzhayyim.com', async ({ ap
 });
 
 When('I send a message {string} to the created channel via atproto.etzhayyim.com', async ({ apiState }, body: string) => {
-	const { res, data } = await xrpcCall('ai.gftd.convo.send', {
+	const { res, data } = await xrpcCall('app.etzhayyim.convo.send', {
 		convoId: apiState.createdConvoId,
 		body,
 	});
@@ -81,7 +81,7 @@ When('I send a message {string} to the created channel via atproto.etzhayyim.com
 });
 
 When('I send a reply {string} to the root message via atproto.etzhayyim.com', async ({ apiState }, body: string) => {
-	const { res, data } = await xrpcCall('ai.gftd.convo.send', {
+	const { res, data } = await xrpcCall('app.etzhayyim.convo.send', {
 		convoId: apiState.createdConvoId,
 		body,
 		replyTo: apiState.rootMessageRkey,
@@ -93,7 +93,7 @@ When('I send a reply {string} to the root message via atproto.etzhayyim.com', as
 });
 
 When('I list envelopes in the created channel via atproto.etzhayyim.com', async ({ apiState }) => {
-	const { res, data } = await xrpcCall('ai.gftd.convo.listEnvelopes', {
+	const { res, data } = await xrpcCall('app.etzhayyim.convo.listEnvelopes', {
 		convoId: apiState.createdConvoId,
 		limit: 50,
 	});
@@ -102,7 +102,7 @@ When('I list envelopes in the created channel via atproto.etzhayyim.com', async 
 });
 
 When('I get the thread for the root message via atproto.etzhayyim.com', async ({ apiState }) => {
-	const { res, data } = await xrpcCall('ai.gftd.convo.getThread', {
+	const { res, data } = await xrpcCall('app.etzhayyim.convo.getThread', {
 		convoId: apiState.createdConvoId,
 		rootRkey: apiState.rootMessageRkey,
 	});
@@ -111,7 +111,7 @@ When('I get the thread for the root message via atproto.etzhayyim.com', async ({
 });
 
 When('I react with {string} to the last message via atproto.etzhayyim.com', async ({ apiState }, emoji: string) => {
-	const { res, data } = await xrpcCall('ai.gftd.convo.react', {
+	const { res, data } = await xrpcCall('app.etzhayyim.convo.react', {
 		convoId: apiState.createdConvoId,
 		rkey: apiState.lastMessageRkey,
 		emoji,

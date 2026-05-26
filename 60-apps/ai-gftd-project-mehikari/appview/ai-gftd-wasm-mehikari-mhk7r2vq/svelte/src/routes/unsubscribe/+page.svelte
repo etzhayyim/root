@@ -21,7 +21,7 @@
     }
     status = "submitting";
     try {
-      const res = await fetch("/xrpc/ai.gftd.apps.mehikari.unsubscribe", {
+      const res = await fetch("/xrpc/app.etzhayyim.apps.mehikari.unsubscribe", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ token, reason, userAgent: navigator.userAgent }),
@@ -29,7 +29,7 @@
       const json = await res.json();
       if (json.status === "unsubscribed" || json.status === "alreadyUnsubscribed") {
         status = "done";
-        message = "オプトアウトを承りました。今後 amanomibashira / Gftd Japan からの当該案件に関するメールはお送りしません。";
+        message = "オプトアウトを承りました。今後 amanomibashira / etzhayyim Japan からの当該案件に関するメールはお送りしません。";
       } else if (json.status === "tokenExpired") {
         status = "error";
         message = "オプトアウトリンクの有効期限が切れています。お手数ですが mehikari-info@etzhayyim.com までご一報ください。";

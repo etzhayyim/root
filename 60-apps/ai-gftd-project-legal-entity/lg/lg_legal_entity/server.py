@@ -8,7 +8,7 @@
 Build:
   docker buildx build --platform linux/amd64 \\
     --build-context py=../../../20-actors/magatama/py \\
-    -t ghcr.io/etzhayyim/lg-legal-entity:0.1.0-amd64 --push .
+    -t ghcr.io/gftdcojp/lg-legal-entity:0.1.0-amd64 --push .
 """
 
 from __future__ import annotations
@@ -86,18 +86,18 @@ def _make_health_graph():
 
 # ---------------------------------------------------------------------------
 # TASKS: NSID → handler
-# task type legalEntity.X.Y → ai.gftd.legalEntity.XY
+# task type legalEntity.X.Y → app.etzhayyim.legalEntity.XY
 # ---------------------------------------------------------------------------
 
 _REGISTRY_SUFFIXES = ["Jpn", "Gbr", "Fra", "Nor", "Dnk", "Fin", "Est", "Cze", "Nzl", "Che", "Nld", "Isr"]
 
 TASKS: dict[str, Any] = {
-    "ai.gftd.legalEntity.gleifFetchPages":         task_gleif_fetch_pages,
-    "ai.gftd.legalEntity.gleifRegisterDids":       task_gleif_register_dids,
-    "ai.gftd.legalEntity.edgarCollectUsa":         task_edgar_collect_usa,
-    "ai.gftd.legalEntity.edgarIngestSecDisclosure": task_edgar_ingest_sec_disclosure,
+    "app.etzhayyim.legalEntity.gleifFetchPages":         task_gleif_fetch_pages,
+    "app.etzhayyim.legalEntity.gleifRegisterDids":       task_gleif_register_dids,
+    "app.etzhayyim.legalEntity.edgarCollectUsa":         task_edgar_collect_usa,
+    "app.etzhayyim.legalEntity.edgarIngestSecDisclosure": task_edgar_ingest_sec_disclosure,
     **{
-        f"ai.gftd.legalEntity.registryCollect{s}": _make_registry_task(s)
+        f"app.etzhayyim.legalEntity.registryCollect{s}": _make_registry_task(s)
         for s in _REGISTRY_SUFFIXES
     },
 }
@@ -112,7 +112,7 @@ GRAPHS.update({
     for nsid, handler in TASKS.items()
 })
 
-_NSID_TO_ASSISTANT: dict[str, str] = {"ai.gftd.legalEntity.health": "health"}
+_NSID_TO_ASSISTANT: dict[str, str] = {"app.etzhayyim.legalEntity.health": "health"}
 for _nsid in TASKS:
     _NSID_TO_ASSISTANT[_nsid] = _nsid.rsplit(".", 1)[-1]
 

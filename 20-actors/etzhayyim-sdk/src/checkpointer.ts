@@ -20,7 +20,7 @@ import {
   readdir,
   unlink,
 } from "node:fs/promises";
-import {existsSync} from "node:fs";
+import {existsSync, readFileSync} from "node:fs";
 import {dirname, join} from "node:path";
 import {homedir} from "node:os";
 import {
@@ -631,21 +631,45 @@ function err(message: string): Response {
 
 // ─── CLI entrypoint ─────────────────────────────────────────────────
 
-export async function runFromEnv(): Promise<CheckpointerSidecar> {
-  const allowed = (process.env.ETZ_CHECKPOINTER_ALLOWED_DIDS ?? "")
-    .split(",")
+/**
+ * Resolve a DID-list env var that may either hold a comma-separated value
+ * or an `@/abs/path` reference to a file (also comma-separated). The
+ * `@filepath` form sidesteps the OS ARG_MAX (~1 MB on macOS) when we
+ * need both ALLOWED_DIDS and ENCRYPT_CELLS to cover all 18,342 DIDs
+ * simultaneously (~1.4 MB combined).
+ *
+ * The sentinel `*` resolves to the resolved-allowed set — only valid for
+ * ENCRYPT_CELLS, where it means "encrypt every allowed cell".
+ */
+function resolveDidList(
+  raw: string | undefined,
+  fallbackAllowed?: ReadonlySet<string>
+): string[] {
+  if (!raw) return [];
+  if (raw === "*" && fallbackAllowed) return [...fallbackAllowed];
+  let body: string;
+  if (raw.startsWith("@")) {
+    body = readFileSync(raw.slice(1), "utf8");
+  } else {
+    body = raw;
+  }
+  return body
+    .split(/[,\s]+/)
     .map((s) => s.trim())
     .filter(Boolean);
+}
+
+export async function runFromEnv(): Promise<CheckpointerSidecar> {
+  const allowed = resolveDidList(process.env.ETZ_CHECKPOINTER_ALLOWED_DIDS);
   if (allowed.length === 0) {
     throw new Error(
-      "ETZ_CHECKPOINTER_ALLOWED_DIDS must list at least one DID"
+      "ETZ_CHECKPOINTER_ALLOWED_DIDS must list at least one DID " +
+        "(comma-separated, @/abs/path, or *)"
     );
   }
+  const allowedSet = new Set(allowed);
   const encryptCells = new Set(
-    (process.env.ETZ_CHECKPOINTER_ENCRYPT_CELLS ?? "")
-      .split(",")
-      .map((s) => s.trim())
-      .filter(Boolean)
+    resolveDidList(process.env.ETZ_CHECKPOINTER_ENCRYPT_CELLS, allowedSet)
   );
   for (const did of encryptCells) {
     if (!allowed.includes(did)) {
@@ -658,7 +682,7 @@ export async function runFromEnv(): Promise<CheckpointerSidecar> {
   const sidecar = new CheckpointerSidecar({
     socketPath: process.env.ETZ_CHECKPOINTER_SOCKET,
     stateDir: process.env.ETZ_CHECKPOINTER_STATE_DIR,
-    allowedDids: new Set(allowed),
+    allowedDids: allowedSet,
     ipfsApiUrl: process.env.ETZ_IPFS_API_URL,
     anchorChainId: process.env.ETZ_ANCHOR_CHAIN_ID
       ? Number(process.env.ETZ_ANCHOR_CHAIN_ID)

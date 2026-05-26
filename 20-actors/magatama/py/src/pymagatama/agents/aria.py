@@ -1,8 +1,8 @@
 """
-ai.gftd.signal.aria — ARIA LangGraph agent (6-signal parallel ingest + minimax).
+app.etzhayyim.signal.aria — ARIA LangGraph agent (6-signal parallel ingest + minimax).
 
 Graph id: ``aria.signal.v1``.
-Task type: ``ai.gftd.agent.aria``.
+Task type: ``app.etzhayyim.agent.aria``.
 
 Six-signal parallel fetch → entropy computation → cross-signal mutual information
 → Von Neumann minimax action selection → reverse-topo ingestion replan → audit.
@@ -187,7 +187,7 @@ def _audit(state: AriaState) -> AriaState:
     """Insert one row into vertex_wellbecoming_event for OCEL trail."""
     ts_ms = int(time.time() * 1000)
     rkey = f"aria-{ts_ms}"
-    vertex_id = f"did:web:langgraph.etzhayyim.com:ai.gftd.signal.aria:{rkey}:create"
+    vertex_id = f"did:web:langgraph.etzhayyim.com:app.etzhayyim.signal.aria:{rkey}:create"
     created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     payload = {
         "area_integral": state.get("area_integral"),
@@ -252,7 +252,7 @@ async def task_aria_agent(
     threadId: str = "",
     budgetMs: int = 60_000,
 ) -> dict[str, Any]:
-    """Entry point for Zeebe task type ``ai.gftd.agent.aria``.
+    """Entry point for Zeebe task type ``app.etzhayyim.agent.aria``.
 
     The BPMN caller passes ``context`` (FEEL context → dict), optional
     ``threadId`` (instance key), and ``budgetMs`` (soft wall-clock cap).

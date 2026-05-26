@@ -130,7 +130,7 @@ def fetch(url: str) -> tuple[bytes, str]:
     req = urllib.request.Request(
         url,
         headers={
-            "user-agent": "gftd-open-jpn-mynumber-public-ingest/0.1 (+https://gftd.co.jp)",
+            "user-agent": "gftd-open-jpn-mynumber-public-ingest/0.1 (+https://etzhayyim.com)",
             "accept": "*/*",
         },
     )
@@ -242,7 +242,7 @@ def ipfs_add_http(path: Path) -> dict[str, Any] | None:
     headers = {"content-type": f"multipart/form-data; boundary={boundary}"}
     secret = os.environ.get("MYNUMBER_IPFS_HMAC")
     if secret:
-        headers["X-Gftd-Ipfs-Auth"] = hmac.new(secret.encode("utf-8"), body, hashlib.sha256).hexdigest()
+        headers["X-etzhayyim-Ipfs-Auth"] = hmac.new(secret.encode("utf-8"), body, hashlib.sha256).hexdigest()
     req = urllib.request.Request(
         f"{api}/add?pin=true&cid-version=1&raw-leaves=true",
         data=body,

@@ -16,21 +16,21 @@
     "APP_CAPABILITIES": "[\"bpmn-dispatch\",\"credit-ledger\",\"reward-management\"]",
     "APP_DESCRIPTION": "Credits Mcp — AI Agent",
     "APP_DISPLAY_NAME": "Credits Mcp",
-    "APP_EMBED_URL": "https://a5ce95af.gftd.ai/?embed=1",
+    "APP_EMBED_URL": "https://a5ce95af.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
     "APP_NANOID": "a5ce95af",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"
   },
   "routes": [
     {
-      "pattern": "a5ce95af.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "a5ce95af.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "credits.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "credits.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ]
 }

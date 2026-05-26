@@ -221,6 +221,360 @@ class StoreStats:
     counts: dict[str, int] = field(default_factory=dict)
 
 
+@dataclass
+class HakkouFermentRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    input_kind: str | None = None
+    input_ref: str | None = None
+    output_vertex_id: str | None = None
+    output_kind: str | None = None
+    ethanol_hash: str | None = None
+    co2_audit_ref: str | None = None
+    input_hash: str | None = None
+    fermented_at: str | None = None
+
+@dataclass
+class KoboAgentRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    parent_did: str | None = None
+    role: str | None = None
+    eta: float = 0.0
+    stress_score: float = 0.0
+
+@dataclass
+class KoboPrionRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    pattern_hash: str | None = None
+    heritable: bool = False
+    malignant_score: float = 0.0
+    content: str | None = None
+
+@dataclass
+class KoboBuddingRecord:
+    edge_id: str | None = None
+    src_vid: str | None = None
+    dst_vid: str | None = None
+    relation_kind: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    owner_did: str | None = None
+    sensitivity_ord: int = 1
+    parent_did: str | None = None
+    child_did: str | None = None
+    budded_at: str | None = None
+    prion_count: int = 0
+
+@dataclass
+class KabiHyphaRecord:
+    edge_id: str | None = None
+    src_vid: str | None = None
+    dst_vid: str | None = None
+    relation_kind: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    owner_did: str | None = None
+    sensitivity_ord: int = 1
+    src_agent_did: str | None = None
+    dst_agent_did: str | None = None
+    eta: float = 0.0
+    flow: float = 0.0
+    pruned_at: str | None = None
+
+@dataclass
+class KabiAnastomosisRecord:
+    edge_id: str | None = None
+    src_vid: str | None = None
+    dst_vid: str | None = None
+    relation_kind: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    owner_did: str | None = None
+    sensitivity_ord: int = 1
+    network_a_did: str | None = None
+    network_b_did: str | None = None
+    compatibility_score: float = 0.0
+    result: str | None = None
+    reason: str | None = None
+
+@dataclass
+class KabiNetworkRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    root_agent_did: str | None = None
+    hypha_count: int = 0
+    total_flow: float = 0.0
+
+@dataclass
+class KinokoBlockRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    prev_block_id: str | None = None
+    block_hash: str | None = None
+    total_flow: float = 0.0
+    participant_count: int = 0
+    eta_min_used: float = 0.0
+    block_status: str | None = None
+
+@dataclass
+class HoushiSporeRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    origin_agent_did: str | None = None
+    blob_cbor: str | None = None
+    revival_key_hint: str | None = None
+    quorum_n: int = 0
+    germinated_at: str | None = None
+
+@dataclass
+class HoushiCustodyRecord:
+    edge_id: str | None = None
+    src_vid: str | None = None
+    dst_vid: str | None = None
+    relation_kind: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    owner_did: str | None = None
+    sensitivity_ord: int = 1
+    custodian_did: str | None = None
+    custody_confirmed: bool = False
+
+@dataclass
+class KokeFixationRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    input_kind: str | None = None
+    raw_ref: str | None = None
+    signal_hash: str | None = None
+    classification: str | None = None
+    confidence: float = 0.0
+    fixed_at: str | None = None
+    released_at: str | None = None
+
+@dataclass
+class KokeFlowRecord:
+    edge_id: str | None = None
+    src_vid: str | None = None
+    dst_vid: str | None = None
+    relation_kind: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    owner_did: str | None = None
+    sensitivity_ord: int = 1
+    fixation_id: str | None = None
+    ferment_id: str | None = None
+    handoff_kind: str | None = None
+    handed_off_at: str | None = None
+
+@dataclass
+class SaikinSignalRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    input_kind: str | None = None
+    raw_ref: str | None = None
+    signal_hash: str | None = None
+    probe_source: str | None = None
+    transferred_at: str | None = None
+
+@dataclass
+class SaikinColonyRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    colony_label: str | None = None
+    member_count: int = 0
+    formed_at: str | None = None
+    lysed_at: str | None = None
+
+@dataclass
+class SaikinTransferRecord:
+    edge_id: str | None = None
+    src_vid: str | None = None
+    dst_vid: str | None = None
+    relation_kind: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    owner_did: str | None = None
+    sensitivity_ord: int = 1
+    signal_id: str | None = None
+    target_actor_did: str | None = None
+    transfer_kind: str | None = None
+    transferred_at: str | None = None
+
+@dataclass
+class SaikinMemberRecord:
+    edge_id: str | None = None
+    src_vid: str | None = None
+    dst_vid: str | None = None
+    relation_kind: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    owner_did: str | None = None
+    sensitivity_ord: int = 1
+    colony_id: str | None = None
+    signal_id: str | None = None
+    joined_at: str | None = None
+
+@dataclass
+class KiAbsorbRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    source_vertex_id: str | None = None
+    input_kind: str | None = None
+    content_hash: str | None = None
+    absorbed_at: str | None = None
+    synthesized_at: str | None = None
+
+@dataclass
+class KiArtifactRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    absorb_id: str | None = None
+    artifact_kind: str | None = None
+    synthesis: str | None = None
+    confidence: float = 0.0
+    artifact_hash: str | None = None
+    bloomed_at: str | None = None
+
+@dataclass
+class KiRingRecord:
+    vertex_id: str | None = None
+    record_id: str | None = None
+    owner_did: str | None = None
+    label: str | None = None
+    status: str | None = None
+    stream_id: str | None = None
+    agent_did: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    sensitivity_ord: int = 1
+    period: str | None = None
+    snapshot_count: int = 0
+    ring_at: str | None = None
+
+@dataclass
+class KiVascularRecord:
+    edge_id: str | None = None
+    src_vid: str | None = None
+    dst_vid: str | None = None
+    relation_kind: str | None = None
+    value_json: str | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
+    owner_did: str | None = None
+    sensitivity_ord: int = 1
+    flow_kind: str | None = None
+    flow_at: str | None = None
+
+
 _TABLE_TO_RECORD: dict[str, type] = {}
 
 
@@ -244,6 +598,27 @@ _register_table("vertex_agent_delegated_authority_policy")(DelegatedAuthorityPol
 _register_table("vertex_agent_policy_adaptation_proposal")(PolicyAdaptationProposalRecord)
 _register_table("vertex_agent_counterparty_model")(CounterpartyModelRecord)
 _register_table("vertex_agent_protected_asset")(ProtectedAssetRecord)
+_register_table("vertex_hakkou_ferment")(HakkouFermentRecord)
+_register_table("vertex_kobo_agent")(KoboAgentRecord)
+_register_table("vertex_kobo_prion")(KoboPrionRecord)
+_register_table("edge_kobo_budding")(KoboBuddingRecord)
+_register_table("edge_kabi_hypha")(KabiHyphaRecord)
+_register_table("edge_kabi_anastomosis")(KabiAnastomosisRecord)
+_register_table("vertex_kabi_network")(KabiNetworkRecord)
+_register_table("vertex_kinoko_block")(KinokoBlockRecord)
+_register_table("vertex_houshi_spore")(HoushiSporeRecord)
+_register_table("edge_houshi_custody")(HoushiCustodyRecord)
+_register_table("vertex_koke_fixation")(KokeFixationRecord)
+_register_table("edge_koke_flow")(KokeFlowRecord)
+_register_table("vertex_saikin_signal")(SaikinSignalRecord)
+_register_table("vertex_saikin_colony")(SaikinColonyRecord)
+_register_table("edge_saikin_transfer")(SaikinTransferRecord)
+_register_table("edge_saikin_member")(SaikinMemberRecord)
+_register_table("vertex_ki_absorb")(KiAbsorbRecord)
+_register_table("vertex_ki_artifact")(KiArtifactRecord)
+_register_table("vertex_ki_ring")(KiRingRecord)
+_register_table("edge_ki_vascular")(KiVascularRecord)
+
 
 
 _FLOAT_COL_TO_PERMILLE_FIELD: dict[str, str] = {
@@ -338,6 +713,27 @@ class BeliefStore(Protocol):
     def put_policy_adaptation_proposal(self, rec: PolicyAdaptationProposalRecord) -> str: ...
     def put_counterparty_model(self, rec: CounterpartyModelRecord) -> str: ...
     def put_protected_asset(self, rec: ProtectedAssetRecord) -> str: ...
+    def put_vertex_hakkou_ferment(self, rec: HakkouFermentRecord) -> str: ...
+    def put_vertex_kobo_agent(self, rec: KoboAgentRecord) -> str: ...
+    def put_vertex_kobo_prion(self, rec: KoboPrionRecord) -> str: ...
+    def put_edge_kobo_budding(self, rec: KoboBuddingRecord) -> str: ...
+    def put_edge_kabi_hypha(self, rec: KabiHyphaRecord) -> str: ...
+    def put_edge_kabi_anastomosis(self, rec: KabiAnastomosisRecord) -> str: ...
+    def put_vertex_kabi_network(self, rec: KabiNetworkRecord) -> str: ...
+    def put_vertex_kinoko_block(self, rec: KinokoBlockRecord) -> str: ...
+    def put_vertex_houshi_spore(self, rec: HoushiSporeRecord) -> str: ...
+    def put_edge_houshi_custody(self, rec: HoushiCustodyRecord) -> str: ...
+    def put_vertex_koke_fixation(self, rec: KokeFixationRecord) -> str: ...
+    def put_edge_koke_flow(self, rec: KokeFlowRecord) -> str: ...
+    def put_vertex_saikin_signal(self, rec: SaikinSignalRecord) -> str: ...
+    def put_vertex_saikin_colony(self, rec: SaikinColonyRecord) -> str: ...
+    def put_edge_saikin_transfer(self, rec: SaikinTransferRecord) -> str: ...
+    def put_edge_saikin_member(self, rec: SaikinMemberRecord) -> str: ...
+    def put_vertex_ki_absorb(self, rec: KiAbsorbRecord) -> str: ...
+    def put_vertex_ki_artifact(self, rec: KiArtifactRecord) -> str: ...
+    def put_vertex_ki_ring(self, rec: KiRingRecord) -> str: ...
+    def put_edge_ki_vascular(self, rec: KiVascularRecord) -> str: ...
+
 
     def list_observations(
         self,
@@ -483,6 +879,28 @@ class _PerActorRouter:
     def put_policy_adaptation_proposal(self, rec): return self._put_by_did("put_policy_adaptation_proposal", rec)
     def put_counterparty_model(self, rec): return self._put_by_did("put_counterparty_model", rec)
     def put_protected_asset(self, rec): return self._put_by_did("put_protected_asset", rec)
+    def put_vertex_hakkou_ferment(self, rec): return self._put_by_did('put_vertex_hakkou_ferment', rec)
+    def put_vertex_kobo_agent(self, rec): return self._put_by_did('put_vertex_kobo_agent', rec)
+    def put_vertex_kobo_prion(self, rec): return self._put_by_did('put_vertex_kobo_prion', rec)
+    def put_edge_kobo_budding(self, rec): return self._put_by_did('put_edge_kobo_budding', rec)
+    def put_edge_kabi_hypha(self, rec): return self._put_by_did('put_edge_kabi_hypha', rec)
+    def put_edge_kabi_anastomosis(self, rec): return self._put_by_did('put_edge_kabi_anastomosis', rec)
+    def put_vertex_kabi_network(self, rec): return self._put_by_did('put_vertex_kabi_network', rec)
+    def put_vertex_kinoko_block(self, rec): return self._put_by_did('put_vertex_kinoko_block', rec)
+    def put_vertex_houshi_spore(self, rec): return self._put_by_did('put_vertex_houshi_spore', rec)
+    def put_edge_houshi_custody(self, rec): return self._put_by_did('put_edge_houshi_custody', rec)
+    def put_vertex_koke_fixation(self, rec): return self._put_by_did('put_vertex_koke_fixation', rec)
+    def put_edge_koke_flow(self, rec): return self._put_by_did('put_edge_koke_flow', rec)
+    def put_vertex_saikin_signal(self, rec): return self._put_by_did('put_vertex_saikin_signal', rec)
+    def put_vertex_saikin_colony(self, rec): return self._put_by_did('put_vertex_saikin_colony', rec)
+    def put_edge_saikin_transfer(self, rec): return self._put_by_did('put_edge_saikin_transfer', rec)
+    def put_edge_saikin_member(self, rec): return self._put_by_did('put_edge_saikin_member', rec)
+    def put_vertex_ki_absorb(self, rec): return self._put_by_did('put_vertex_ki_absorb', rec)
+    def put_vertex_ki_artifact(self, rec): return self._put_by_did('put_vertex_ki_artifact', rec)
+    def put_vertex_ki_ring(self, rec): return self._put_by_did('put_vertex_ki_ring', rec)
+    def put_edge_ki_vascular(self, rec): return self._put_by_did('put_edge_ki_vascular', rec)
+
+
 
     def list_observations(self, agent_did, source_kinds=None, limit=12):
         return self._store_for(agent_did).list_observations(agent_did, source_kinds, limit)
@@ -534,4 +952,24 @@ __all__ = [
     "StoreStats",
     "select_belief_store",
     "row_to_record",
+    "HakkouFermentRecord",
+    "KoboAgentRecord",
+    "KoboPrionRecord",
+    "KoboBuddingRecord",
+    "KabiHyphaRecord",
+    "KabiAnastomosisRecord",
+    "KabiNetworkRecord",
+    "KinokoBlockRecord",
+    "HoushiSporeRecord",
+    "HoushiCustodyRecord",
+    "KokeFixationRecord",
+    "KokeFlowRecord",
+    "SaikinSignalRecord",
+    "SaikinColonyRecord",
+    "SaikinTransferRecord",
+    "SaikinMemberRecord",
+    "KiAbsorbRecord",
+    "KiArtifactRecord",
+    "KiRingRecord",
+    "KiVascularRecord"
 ]

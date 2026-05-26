@@ -106,7 +106,7 @@ Per ADR-2605192230, evolution advancement is gated by charter alignment. This co
 
 **Function**: `_check_charter_compliance(adherent_did)` in EvolutionValidationCell
 
-**Query target**: `ai.gftd.apps.etzhayyim.charter-compliance` MST records
+**Query target**: `app.etzhayyim.apps.etzhayyim.charter-compliance` MST records
 
 **Decision logic**:
 - If compliance `status="non-aligned"` → **reject advancement** with explicit reason citing ADR-2605192230 rehabilitation path (return `status="non-compliant"`)
@@ -141,7 +141,7 @@ All canonical constants wired into shinka_murakumo.py + mst.py:
 - Lv7 path in `evolution_validation_cell` enforces 30-day window: returns `status="pending"` within window, `status="valid"` past window with no objections, `status="invalid"` if any objection filed
 
 §5 Charter-rider Compliance Gate:
-- `_check_charter_compliance(adherent_did)` queries `ai.gftd.apps.etzhayyim.charter-compliance` MST records
+- `_check_charter_compliance(adherent_did)` queries `app.etzhayyim.apps.etzhayyim.charter-compliance` MST records
 - Non-aligned status → reject with explicit reason citing ADR-2605192230 rehabilitation path
 - Compliant / pending / unknown / query failure → allow advancement (presumption of innocence)
 

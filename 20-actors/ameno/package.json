@@ -1,14 +1,22 @@
 {
-  "name": "@gftd/ameno",
+  "name": "@etzhayyim/ameno",
   "version": "0.1.0",
   "description": "Browser WebGPU inference engine — transformers.js wrapper + LoRA runtime + RAG-LoRA pipeline. Single source for the ameno svelte appview.",
   "license": "Apache-2.0",
   "private": false,
   "type": "module",
   "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
     "./inference": {
       "types": "./src/inference.ts",
       "import": "./src/inference.ts"
+    },
+    "./inference/webnn": {
+      "types": "./src/inference/webnn.ts",
+      "import": "./src/inference/webnn.ts"
     },
     "./lora-runtime": {
       "types": "./src/lora-runtime.ts",

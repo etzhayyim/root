@@ -122,14 +122,14 @@ Factory → tsukuru production_order (status=delivered)
 
 ### Record Kinds (New)
 
-**okaimono domain** (`ai.gftd.apps.okaimono.*`):
+**okaimono domain** (`app.etzhayyim.apps.okaimono.*`):
 
 | Record | Purpose |
 |---|---|
 | `paymentCard` | Per-order virtual card link (card_id, stripe_card_id, production_order_id, amount, status) |
 | `paymentSettlement` | Settlement confirmation (actual_amount, excess_refund, settled_at) |
 
-**stripe domain** (`ai.gftd.apps.stripe.*`):
+**stripe domain** (`app.etzhayyim.apps.stripe.*`):
 既存の `issuedCard`, `authorization`, `cardCreditAllocation`, `cardCreditConsumption` をそのまま使用。追加 record 不要。
 
 ### WIT Changes

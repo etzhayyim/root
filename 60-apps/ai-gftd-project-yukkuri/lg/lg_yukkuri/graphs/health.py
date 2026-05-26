@@ -1,6 +1,6 @@
 """yukkuri `health` graph — RW probe + liveness.
 
-NSID: ai.gftd.apps.yukkuri.health
+NSID: app.etzhayyim.apps.yukkuri.health
 """
 
 from __future__ import annotations

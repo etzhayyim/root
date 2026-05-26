@@ -25,13 +25,13 @@ import json
 import logging
 import os
 import signal
+import sqlite3
 import time
 from datetime import datetime, timezone
 from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
-
-from pymagatama.db_sync import fetch_one, sync_cursor
+from pymagatama.primitives.active_inference_substrate import select_belief_store, KoboAgentRecord, KoboBuddingRecord, HoushiSporeRecord, HoushiCustodyRecord
 from pymagatama.local_agent_env import load_env_file, load_keychain_secret
 
 LOG = logging.getLogger("kobo_worker")
@@ -71,25 +71,23 @@ async def task_bud_agent(
     now = _now()
 
     def _run() -> dict[str, Any]:
-        with sync_cursor() as cur:
-            cur.execute(
-                """
-                INSERT INTO edge_kobo_budding
-                  (edge_id, src_vid, dst_vid, relation_kind, value_json,
-                   created_at, updated_at, owner_did, sensitivity_ord,
-                   parent_did, child_did, child_role, parent_eta, budded_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    edge_id,
-                    f"at://{KOBO_DID}/ai.gftd.apps.kobo.agent/{parentDid.split(':')[-1]}",
-                    childVertexId or f"at://{KOBO_DID}/ai.gftd.apps.kobo.agent/{childDid.split(':')[-1]}",
-                    "kobo_budding",
-                    json.dumps({"callerDid": callerDid, "childRole": childRole}),
-                    now, now, KOBO_DID, 0,
-                    parentDid, childDid, childRole or "clone", parentEta, now,
-                ),
-            )
+        store = select_belief_store()
+        rec = KoboBuddingRecord(
+            edge_id=edge_id,
+            src_vid=f"at://{KOBO_DID}/app.etzhayyim.apps.kobo.agent/{parentDid.split(':')[-1]}",
+            dst_vid=childVertexId or f"at://{KOBO_DID}/app.etzhayyim.apps.kobo.agent/{childDid.split(':')[-1]}",
+            relation_kind="kobo_budding",
+            value_json=json.dumps({"callerDid": callerDid, "childRole": childRole}),
+            created_at=now,
+            updated_at=now,
+            owner_did=KOBO_DID,
+            sensitivity_ord=0,
+            parent_did=parentDid,
+            child_did=childDid,
+            budded_at=now,
+            prion_count=0
+        )
+        store.put_edge_kobo_budding(rec)
         return {
             "buddingEdgeId": edge_id,
             "parentDid": parentDid,
@@ -121,37 +119,41 @@ async def task_sporulate(
         return {"error": "agentDid required"}
 
     spore_id = sporeVertexId.split("/")[-1] if sporeVertexId else _uid("spore")
-    spore_vid = sporeVertexId or f"at://{HOUSHI_DID}/ai.gftd.apps.houshi.spore/{spore_id}"
+    spore_vid = sporeVertexId or f"at://{HOUSHI_DID}/app.etzhayyim.apps.houshi.spore/{spore_id}"
     now = _now()
     spore_hash = hashlib.sha256((blobCbor or agentDid).encode()).hexdigest()[:32]
 
     def _run() -> dict[str, Any]:
-        with sync_cursor() as cur:
+        store = select_belief_store()
+        with store._conn() as conn:
             # Mark kobo agent as dormant
             if agentVertexId:
-                cur.execute(
-                    "UPDATE vertex_kobo_agent SET status = 'dormant', updated_at = %s WHERE vertex_id = %s",
+                conn.execute(
+                    "UPDATE vertex_kobo_agent SET status = 'dormant', updated_at = ? WHERE vertex_id = ?",
                     (now, agentVertexId),
                 )
-            # Insert spore record in houshi
-            cur.execute(
-                """
-                INSERT INTO vertex_houshi_spore
-                  (vertex_id, record_id, owner_did, label, status, stream_id,
-                   agent_did, value_json, created_at, updated_at, sensitivity_ord,
-                   origin_agent_did, origin_vertex_id, spore_hash, blob_cbor,
-                   revival_key_hint, quorum_n, custody_count, germinated_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
-                """,
-                (
-                    spore_vid, _uid("rec"), HOUSHI_DID, "houshi_spore", "dormant", "",
-                    KOBO_DID, json.dumps({"callerDid": callerDid}),
-                    now, now, 0,
-                    agentDid, agentVertexId or "",
-                    spore_hash, blobCbor[:1000] if blobCbor else "",
-                    revivalKeyHint or "", quorumN, 0, None,
-                ),
-            )
+
+        # Insert spore record in houshi
+        rec = HoushiSporeRecord(
+            vertex_id=spore_vid,
+            record_id=_uid("rec"),
+            owner_did=HOUSHI_DID,
+            label="houshi_spore",
+            status="dormant",
+            stream_id="",
+            agent_did=KOBO_DID,
+            value_json=json.dumps({"callerDid": callerDid}),
+            created_at=now,
+            updated_at=now,
+            sensitivity_ord=0,
+            origin_agent_did=agentDid,
+            blob_cbor=blobCbor[:1000] if blobCbor else "",
+            revival_key_hint=revivalKeyHint or "",
+            quorum_n=quorumN,
+            germinated_at=None
+        )
+        store.put_vertex_houshi_spore(rec)
+
         return {
             "sporeVertexId": spore_vid,
             "sporeId": spore_id,
@@ -186,33 +188,46 @@ async def task_germinate(
     now = _now()
 
     def _run() -> dict[str, Any]:
-        spore_row = fetch_one(
-            "SELECT vertex_id, custody_count, quorum_n, origin_agent_did FROM vertex_houshi_spore WHERE vertex_id = %s LIMIT 1",
-            (sporeVertexId,),
-        )
+        store = select_belief_store()
+        with store._conn() as conn:
+            conn.row_factory = sqlite3.Row
+            try:
+                spore_row = conn.execute(
+                    "SELECT vertex_id, quorum_n, origin_agent_did FROM vertex_houshi_spore WHERE vertex_id = ? LIMIT 1",
+                    (sporeVertexId,)
+                ).fetchone()
+
+                # We need custody_count but HoushiSporeRecord does not have it, let's join or just count edges
+                custody_row = conn.execute(
+                    "SELECT COUNT(*) as custody_count FROM edge_houshi_custody WHERE src_vid = ? AND custody_confirmed = 1",
+                    (sporeVertexId,)
+                ).fetchone()
+            except sqlite3.OperationalError:
+                spore_row = None
+                custody_row = None
+
         if not spore_row:
             return {"error": f"spore not found: {sporeVertexId}", "germinated": False, "confirmedCount": 0}
 
-        _vid, custody_count, db_quorum_n, origin_did = spore_row
+        _vid = spore_row["vertex_id"]
+        db_quorum_n = spore_row["quorum_n"]
+        origin_did = spore_row["origin_agent_did"]
+        custody_count = int(custody_row["custody_count"]) if custody_row else 0
+
         effective_quorum = int(db_quorum_n or quorumN)
-        confirmed_count = int(custody_count or 0) + 1
+        confirmed_count = custody_count + 1
 
-        with sync_cursor() as cur:
-            cur.execute(
-                "UPDATE vertex_houshi_spore SET custody_count = %s, updated_at = %s WHERE vertex_id = %s",
-                (confirmed_count, now, sporeVertexId),
-            )
-
+        with store._conn() as conn:
             if confirmed_count >= effective_quorum:
                 # Quorum reached — germinate
-                cur.execute(
-                    "UPDATE vertex_houshi_spore SET status = 'germinated', germinated_at = %s, updated_at = %s WHERE vertex_id = %s",
+                conn.execute(
+                    "UPDATE vertex_houshi_spore SET status = 'germinated', germinated_at = ?, updated_at = ? WHERE vertex_id = ?",
                     (now, now, sporeVertexId),
                 )
                 # Revive kobo agent
                 if newAgentVertexId:
-                    cur.execute(
-                        "UPDATE vertex_kobo_agent SET status = 'active', updated_at = %s WHERE vertex_id = %s",
+                    conn.execute(
+                        "UPDATE vertex_kobo_agent SET status = 'active', updated_at = ? WHERE vertex_id = ?",
                         (now, newAgentVertexId),
                     )
 

@@ -60,14 +60,14 @@ def test_app_from_jsonld_full():
         "performerType": "actor",
         "uiType": "wasm",
         "runtimeType": "ts-native",
-        "collections": ["ai.gftd.apps.billing.invoice"],
+        "collections": ["app.etzhayyim.apps.billing.invoice"],
         "witImports": ["clock"],
         "witExports": ["billing-api"],
     }
     app = _app_from_jsonld(data)
     assert app.nanoid == "abc123"
     assert app.did == "did:web:example.com"
-    assert app.collections == ["ai.gftd.apps.billing.invoice"]
+    assert app.collections == ["app.etzhayyim.apps.billing.invoice"]
     assert app.wit_imports == ["clock"]
     assert app.wit_exports == ["billing-api"]
 
@@ -144,7 +144,7 @@ def test_scan_single_actor(tmp_path):
         "did": "did:web:billing.etzhayyim.com",
         "name": "billing",
         "performerType": "actor",
-        "collections": ["ai.gftd.apps.billing.invoice"],
+        "collections": ["app.etzhayyim.apps.billing.invoice"],
     }))
     r = _scan_workspace(tmp_path)
     assert len(r.apps) == 1

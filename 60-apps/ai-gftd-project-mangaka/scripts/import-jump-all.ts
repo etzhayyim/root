@@ -2,7 +2,7 @@
 /**
  * Import ALL episodes from 260123-jump into mangaka.etzhayyim.com as Genko documents.
  * Each episode = 1 document (multi-page). Images uploaded to PDS blob.
- * AT URI: mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/{docId}
+ * AT URI: mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.document/{docId}
  */
 
 const JUMP_DIR = "/Users/junkawasaki/github/ghosthacker/260123-jump/resources";
@@ -352,14 +352,14 @@ async function main() {
   // Get/create project
   let convoId = "";
   try {
-    const projects = await xrpc("ai.gftd.mangaka.listProjects", { limit: 10 });
+    const projects = await xrpc("app.etzhayyim.mangaka.listProjects", { limit: 10 });
     const gh = (projects.items || []).find((p: any) => (p.name || "").includes("Ghost Hacker"));
     if (gh) convoId = gh.convoId || "";
   } catch (error) {
     console.warn("[silent-fail] import-jump-all.ts: listProjects failed", error);
   }
   if (!convoId) {
-    const np = await xrpc("ai.gftd.mangaka.createProject", { name: "Ghost Hacker: 260123-jump", description: "Cybersecurity manga series", projectType: "manga-series" });
+    const np = await xrpc("app.etzhayyim.mangaka.createProject", { name: "Ghost Hacker: 260123-jump", description: "Cybersecurity manga series", projectType: "manga-series" });
     convoId = np.convoId || "";
   }
   console.log(`Project convoId: ${convoId}\n`);
@@ -384,10 +384,10 @@ async function main() {
     console.log(`  ${doc.name}: ${pageCount} pages, ${imgsThisEp} images, ${(docJson.length / 1024).toFixed(0)}KB`);
 
     // 1) Save document (for SPA loadDocument compat)
-    const r = await xrpc("ai.gftd.mangaka.saveDocument", { docId, name: doc.name, document: docJson, convoId });
+    const r = await xrpc("app.etzhayyim.mangaka.saveDocument", { docId, name: doc.name, document: docJson, convoId });
     if (r.status === "saved") {
       created++;
-      const url = `https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/ai.gftd.mangaka.document/${docId}`;
+      const url = `https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.mangaka.document/${docId}`;
       results.push({ slug: epSlug, title: doc.name, docId, pages: pageCount, images: imgsThisEp, url });
       console.log(`  → ${url}`);
     } else {
@@ -398,7 +398,7 @@ async function main() {
     // 2) Normalize into vertex_mangaka (work/chapter/page/panel/character/environment/organization/generatedImage)
     const payload = buildNormalizedPayload(epSlug, catalogs);
     if (payload) {
-      const r2 = await xrpc("ai.gftd.mangaka.importGhosthacker", payload);
+      const r2 = await xrpc("app.etzhayyim.mangaka.importGhosthacker", payload);
       if (r2.status === "imported") {
         normalizedOK++;
         const counts = r2.insertedCounts || {};

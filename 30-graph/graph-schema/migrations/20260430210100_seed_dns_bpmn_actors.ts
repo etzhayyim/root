@@ -14,13 +14,13 @@ const createdAt = "2026-04-30T21:01:00+09:00";
 const actorId = "sys.bpmn.seed.dns";
 
 const seeds: Seed[] = [
-  { slug: "transfer-from-squarespace", op: "transferFromSquarespace", nsid: "ai.gftd.apps.dns.transferFromSquarespace", processId: "dns_transfer_from_squarespace", timeoutMs: 120000, writeTableAllowlist: "vertex_atrecord_dns_transfer_request,vertex_actor,vertex_actor_manifest" },
-  { slug: "transfer-outcome", op: "transferOutcome", nsid: "ai.gftd.apps.dns.transferOutcome", processId: "dns_transfer_outcome", timeoutMs: 120000, writeTableAllowlist: "vertex_atrecord_dns_transfer_outcome,vertex_atrecord_dns_ownership_transfer,vertex_actor,vertex_actor_manifest" },
+  { slug: "transfer-from-squarespace", op: "transferFromSquarespace", nsid: "app.etzhayyim.apps.dns.transferFromSquarespace", processId: "dns_transfer_from_squarespace", timeoutMs: 120000, writeTableAllowlist: "vertex_atrecord_dns_transfer_request,vertex_actor,vertex_actor_manifest" },
+  { slug: "transfer-outcome", op: "transferOutcome", nsid: "app.etzhayyim.apps.dns.transferOutcome", processId: "dns_transfer_outcome", timeoutMs: 120000, writeTableAllowlist: "vertex_atrecord_dns_transfer_outcome,vertex_atrecord_dns_ownership_transfer,vertex_actor,vertex_actor_manifest" },
 ];
 
 const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/dns/${s.op}.bpmn`;
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/dns-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/dns-${s.op}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/dns-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/dns-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

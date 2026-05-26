@@ -28,8 +28,8 @@ const procs = ["cleanupRuns", "pollWatchlist"] as const;
 
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (proc: string) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/flight-offer-${slug(proc)}-v1`;
-const nsid = (proc: string) => `ai.gftd.apps.flightOffer.${proc}`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-${slug(proc)}-v1`;
+const nsid = (proc: string) => `app.etzhayyim.apps.flightOffer.${proc}`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const proc of procs) {

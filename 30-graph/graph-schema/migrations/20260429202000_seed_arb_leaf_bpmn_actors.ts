@@ -25,7 +25,7 @@ const seeds: Seed[] = [
   {
     slug: "scout-quotes",
     processId: "arb_scout_quotes",
-    nsid: "ai.gftd.apps.arb.scoutQuotes",
+    nsid: "app.etzhayyim.apps.arb.scoutQuotes",
     sourcePath: "00-contracts/bpmn/ai/gftd/arb/scoutQuotes.bpmn",
     timeoutMs: 120000,
     writeTableAllowlist: "vertex_arb_quote",
@@ -33,7 +33,7 @@ const seeds: Seed[] = [
   {
     slug: "ingest-quote",
     processId: "arb_ingest_quote",
-    nsid: "ai.gftd.apps.arb.ingestQuote",
+    nsid: "app.etzhayyim.apps.arb.ingestQuote",
     sourcePath: "00-contracts/bpmn/ai/gftd/arb/ingestQuote.bpmn",
     timeoutMs: 30000,
     writeTableAllowlist: "vertex_arb_quote",
@@ -41,7 +41,7 @@ const seeds: Seed[] = [
   {
     slug: "detect-spread",
     processId: "arb_detect_spread",
-    nsid: "ai.gftd.apps.arb.detectSpread",
+    nsid: "app.etzhayyim.apps.arb.detectSpread",
     sourcePath: "00-contracts/bpmn/ai/gftd/arb/detectSpread.bpmn",
     timeoutMs: 30000,
     writeTableAllowlist: "",
@@ -49,7 +49,7 @@ const seeds: Seed[] = [
   {
     slug: "propose-trade",
     processId: "arb_propose_trade",
-    nsid: "ai.gftd.apps.arb.proposeTrade",
+    nsid: "app.etzhayyim.apps.arb.proposeTrade",
     sourcePath: "00-contracts/bpmn/ai/gftd/arb/proposeTrade.bpmn",
     timeoutMs: 30000,
     writeTableAllowlist: "vertex_arb_proposal,edge_arb_proposal_leg",
@@ -57,7 +57,7 @@ const seeds: Seed[] = [
   {
     slug: "score-proposal",
     processId: "arb_score_proposal",
-    nsid: "ai.gftd.apps.arb.scoreProposal",
+    nsid: "app.etzhayyim.apps.arb.scoreProposal",
     sourcePath: "00-contracts/bpmn/ai/gftd/arb/scoreProposal.bpmn",
     timeoutMs: 30000,
     writeTableAllowlist: "vertex_arb_score",
@@ -65,7 +65,7 @@ const seeds: Seed[] = [
   {
     slug: "publish-proposal",
     processId: "arb_publish_proposal",
-    nsid: "ai.gftd.apps.arb.publishProposal",
+    nsid: "app.etzhayyim.apps.arb.publishProposal",
     sourcePath: "00-contracts/bpmn/ai/gftd/arb/publishProposal.bpmn",
     timeoutMs: 120000,
     writeTableAllowlist: "vertex_arb_publication",
@@ -73,7 +73,7 @@ const seeds: Seed[] = [
   {
     slug: "list-proposals",
     processId: "arb_list_proposals",
-    nsid: "ai.gftd.apps.arb.listProposals",
+    nsid: "app.etzhayyim.apps.arb.listProposals",
     sourcePath: "00-contracts/bpmn/ai/gftd/arb/listProposals.bpmn",
     timeoutMs: 30000,
     writeTableAllowlist: "",
@@ -81,7 +81,7 @@ const seeds: Seed[] = [
   {
     slug: "get-proposal",
     processId: "arb_get_proposal",
-    nsid: "ai.gftd.apps.arb.getProposal",
+    nsid: "app.etzhayyim.apps.arb.getProposal",
     sourcePath: "00-contracts/bpmn/ai/gftd/arb/getProposal.bpmn",
     timeoutMs: 30000,
     writeTableAllowlist: "",
@@ -90,9 +90,9 @@ const seeds: Seed[] = [
 
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/${project}-${s.slug}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {
