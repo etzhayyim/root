@@ -567,13 +567,26 @@ def _check_charter_rider(repo: Path) -> tuple[bool, list[str]]:
     rider = repo / "CHARTER-RIDER.md"
     if not rider.exists():
         return False, ["CHARTER-RIDER.md missing at repo root"]
-    notices = list(repo.rglob("NOTICE"))
-    if len(notices) < 30:
+    # `repo.rglob("NOTICE")` walks the entire filesystem tree including
+    # node_modules / .venv / build caches — ~10s on this monorepo.
+    # `git ls-files NOTICE` reads the index instead: <100ms.
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(repo), "ls-files", "-z", "--", "NOTICE", "**/NOTICE"],
+            capture_output=True, check=True, timeout=30,
+        )
+        notice_count = sum(1 for p in out.stdout.decode("utf-8", errors="ignore").split("\0") if p)
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        notice_count = sum(
+            1 for f in repo.rglob("NOTICE")
+            if "node_modules" not in f.parts and ".venv" not in f.parts and ".git" not in f.parts
+        )
+    if notice_count < 30:
         return False, [
-            f"only {len(notices)} NOTICE files found",
+            f"only {notice_count} NOTICE files found",
             "ADR-2605192200 says ≥39 first-party Apache-2.0 packages should carry NOTICE + Rider",
         ]
-    return True, [f"CHARTER-RIDER.md present at root + {len(notices)} NOTICE files propagated"]
+    return True, [f"CHARTER-RIDER.md present at root + {notice_count} NOTICE files propagated"]
 
 
 def _check_non_eschatological(repo: Path) -> tuple[bool, list[str]]:
@@ -768,6 +781,54 @@ _NO_SERVER_KEY_SCAN_GLOBS = (
 _NO_SERVER_KEY_EXEMPTION_MARKER = "no-server-key: read-only"
 
 
+def _no_server_key_candidates(repo: Path) -> list[Path]:
+    """Enumerate the files that `_check_no_server_key` must scan.
+
+    Uses `git ls-files` first because it is **~100× faster** than
+    `pathlib.Path.glob("**/…")` on this repo — pathlib walks every
+    directory (including `node_modules/`, `target/`, `.svelte-kit/`,
+    `dist/`, build caches) before filtering, whereas `git ls-files`
+    reads the index and emits only tracked + staged files.
+
+    On the operator workstation as of 2026-05-26 the pathlib path took
+    ~116s; the git-index path takes <100ms. Pre-commit hook total drops
+    from ~127s to ~11s — recovers safe hook usage during parallel-
+    session monorepo work where `--no-verify` had become routine.
+
+    Falls back to `pathlib.glob` when `git ls-files` is unavailable
+    (bare tarball extract, non-git CI checkout); the slow path remains
+    correct, just expensive.
+    """
+    # Patterns mirror _NO_SERVER_KEY_SCAN_GLOBS but in the dialect git
+    # ls-files understands: it uses fnmatch-style globs and supports
+    # multiple positional pathspecs.
+    pathspecs = [
+        "*wrangler.jsonc", "*wrangler.toml", "*wrangler.json",
+        "**/k8s/**/*.yaml", "**/k8s/**/*.yml",
+        "*docker-compose*.yml", "*docker-compose*.yaml",
+        ".github/workflows/*.yml", ".github/workflows/*.yaml",
+        "**/.github/workflows/*.yml", "**/.github/workflows/*.yaml",
+    ]
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(repo), "ls-files", "-z", "--", *pathspecs],
+            capture_output=True, check=True, timeout=30,
+        )
+        rel = [p for p in out.stdout.decode("utf-8", errors="ignore").split("\0") if p]
+        return [repo / r for r in rel]
+    except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        # Fallback: original pathlib glob path. Slow on monorepos but
+        # works in non-git environments (bare tarball extract / CI).
+        out_files: list[Path] = []
+        for g in _NO_SERVER_KEY_SCAN_GLOBS:
+            for f in repo.glob(g):
+                parts = set(f.parts)
+                if "node_modules" in parts or ".venv" in parts or ".git" in parts:
+                    continue
+                out_files.append(f)
+        return out_files
+
+
 def _check_no_server_key(repo: Path) -> tuple[bool, list[str]]:
     """ADR-2605231525 — etzhayyim-operated infrastructure must not hold
     any of the 13 server-side signing / master-credential env vars.
@@ -780,25 +841,21 @@ def _check_no_server_key(repo: Path) -> tuple[bool, list[str]]:
     """
     hits: list[str] = []
     exemptions = 0
-    for glob in _NO_SERVER_KEY_SCAN_GLOBS:
-        for f in repo.glob(glob):
-            parts = set(f.parts)
-            if "node_modules" in parts or ".venv" in parts or ".git" in parts:
-                continue
-            try:
-                text = f.read_text(encoding="utf-8", errors="ignore")
-            except OSError:
-                continue
-            if _NO_SERVER_KEY_EXEMPTION_MARKER in text:
-                exemptions += 1
-                continue
-            for needle in _NO_SERVER_KEY_FORBIDDEN_ENV:
-                if needle in text:
-                    hits.append(f"  {needle} in {f.relative_to(repo)}")
-                    if len(hits) >= 20:
-                        break
-            if len(hits) >= 20:
-                break
+    scanned = 0
+    for f in _no_server_key_candidates(repo):
+        try:
+            text = f.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+        scanned += 1
+        if _NO_SERVER_KEY_EXEMPTION_MARKER in text:
+            exemptions += 1
+            continue
+        for needle in _NO_SERVER_KEY_FORBIDDEN_ENV:
+            if needle in text:
+                hits.append(f"  {needle} in {f.relative_to(repo)}")
+                if len(hits) >= 20:
+                    break
         if len(hits) >= 20:
             break
     if hits:
@@ -808,7 +865,7 @@ def _check_no_server_key(repo: Path) -> tuple[bool, list[str]]:
             f"  ({exemptions} file(s) exempted via 'no-server-key: read-only' marker)",
         ]
     return True, [
-        f"scanned {sum(1 for _ in (repo.glob(g) for g in _NO_SERVER_KEY_SCAN_GLOBS))} glob group(s); zero violations",
+        f"scanned {scanned} file(s) via git ls-files; zero violations",
         f"({exemptions} file(s) exempted via marker)",
     ]
 
