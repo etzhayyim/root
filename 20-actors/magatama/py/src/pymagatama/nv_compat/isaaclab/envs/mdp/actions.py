@@ -586,6 +586,211 @@ class OperationalSpaceControllerAction(ActionTerm):
 
 
 # ────────────────────────────────────────────────────────────────────────────
+# BinaryJointAction (gripper open/close via single scalar action)
+# ────────────────────────────────────────────────────────────────────────────
+
+
+@dataclass
+class BinaryJointPositionActionCfg(ActionTermCfgBase):
+    """Binary joint-position action — single scalar action drives a set
+    of joints between two pre-configured pose-vectors (typically the
+    "open" and "close" poses of a parallel-jaw gripper).
+
+    Action layout:
+      action_dim = 1
+      action ∈ ℝ; mapped via `threshold`:
+        action ≥ threshold → close_command (per-joint close pose)
+        action <  threshold → open_command  (per-joint open pose)
+
+    `open_command` / `close_command` must each be length `len(joint_names)`.
+    `p_gain` / `d_gain` parametrise the PD loop that converts the
+    selected pose into effort (mirrors JointPositionActionCfg).
+    """
+    open_command: List[float] = field(default_factory=list)
+    close_command: List[float] = field(default_factory=list)
+    threshold: float = 0.0
+    p_gain: float = 100.0
+    d_gain: float = 10.0
+
+
+class BinaryJointPositionAction(ActionTerm):
+    """Standard Isaac Lab gripper-style action term.
+
+    Maps a scalar action to per-joint position targets via thresholding,
+    then PDs into effort. Pairs naturally with iter 64
+    DifferentialInverseKinematicsAction (arm) for arm + gripper task
+    policies (`action = [pose_7..., gripper_1]`).
+
+    `process_actions(raw)` retains scale + offset (inherited base
+    behaviour) so policies that emit raw tanh in [-1, 1] can still
+    map to the threshold; default cfg.scale=1.0 / offset=0.0 is fine
+    for [-1, 1] policies with threshold=0.0.
+
+    Env contract: same effort dispatch as JointPositionAction.
+    """
+
+    cfg: BinaryJointPositionActionCfg
+
+    def __init__(self, cfg: BinaryJointPositionActionCfg):
+        # Force action_dim=1 — binary gripper is one scalar regardless
+        # of how many joints it drives.
+        if cfg.action_dim is not None and cfg.action_dim != 1:
+            raise ValueError(
+                f"BinaryJointPositionActionCfg.action_dim must be 1 or None; got {cfg.action_dim}"
+            )
+        cfg.action_dim = 1
+        super().__init__(cfg)
+        n = len(cfg.joint_names)
+        if len(cfg.open_command) != n:
+            raise ValueError(
+                f"BinaryJointPositionActionCfg.open_command length {len(cfg.open_command)} "
+                f"must match joint_names length {n}"
+            )
+        if len(cfg.close_command) != n:
+            raise ValueError(
+                f"BinaryJointPositionActionCfg.close_command length {len(cfg.close_command)} "
+                f"must match joint_names length {n}"
+            )
+        # Track which side was selected (False = open, True = close).
+        self._is_close: bool = False
+
+    @property
+    def is_close(self) -> bool:
+        return self._is_close
+
+    def reset(self) -> None:
+        super().reset()
+        self._is_close = False
+
+    def apply_actions(self, env: Any) -> None:
+        cfg: BinaryJointPositionActionCfg = self.cfg  # type: ignore[assignment]
+        if not (hasattr(env, "get_joint_positions") and hasattr(env, "get_joint_velocities")):
+            raise RuntimeError(
+                "BinaryJointPositionAction: env must expose get_joint_positions + get_joint_velocities"
+            )
+        # Single-scalar threshold dispatch.
+        self._is_close = self.processed_actions[0] >= cfg.threshold
+        target_pose = cfg.close_command if self._is_close else cfg.open_command
+        q = env.get_joint_positions()
+        dq = env.get_joint_velocities()
+        torques_to_apply: List[tuple] = []
+        for slot, joint in enumerate(cfg.joint_names):
+            target = target_pose[slot]
+            qj = q[joint] if joint < len(q) else 0.0
+            dqj = dq[joint] if joint < len(dq) else 0.0
+            tau = cfg.p_gain * (target - qj) - cfg.d_gain * dqj
+            torques_to_apply.append((joint, tau))
+        _write_effort(env, torques_to_apply, single_dof_force_ok=False)
+
+
+# ────────────────────────────────────────────────────────────────────────────
+# NonHolonomicAction (differential-drive mobile base — v_x + ω_z)
+# ────────────────────────────────────────────────────────────────────────────
+
+
+@dataclass
+class NonHolonomicActionCfg(ActionTermCfgBase):
+    """Differential-drive non-holonomic action term cfg.
+
+    Maps a 2-vector action (linear vel along chassis-x, angular vel
+    around chassis-z) to per-wheel angular velocity targets via the
+    standard differential-drive kinematics:
+        ω_left  = (v − (ω · L / 2)) / r
+        ω_right = (v + (ω · L / 2)) / r
+
+    `joint_names` MUST be exactly 2 — [left_wheel_idx, right_wheel_idx].
+    `wheel_radius` (r) and `wheel_separation` (L) in metres.
+    `scale` / `offset` apply element-wise to the [v, ω] action; default
+    scale=1.0 means the action elements are already in m/s and rad/s.
+
+    `p_gain` parametrises the P-control loop that converts the wheel
+    velocity targets into effort, mirroring JointVelocityActionCfg
+    (no D term since target is velocity).
+    """
+    wheel_radius: float = 0.0
+    wheel_separation: float = 0.0
+    p_gain: float = 10.0
+
+
+class NonHolonomicAction(ActionTerm):
+    """Differential-drive controller — standard mobile-base action term.
+
+    Action layout: [v_chassis_x (m/s), omega_chassis_z (rad/s)]
+    action_dim = 2.
+
+    Used together with iter 64 task-space actions for mobile
+    manipulation (e.g. Spot, Stretch, Toyota HSR): `action = [v, ω,
+    arm_pose_7..., gripper_1]` → ActionManager splits and dispatches.
+    """
+
+    cfg: NonHolonomicActionCfg
+
+    def __init__(self, cfg: NonHolonomicActionCfg):
+        if len(cfg.joint_names) != 2:
+            raise ValueError(
+                f"NonHolonomicActionCfg.joint_names must be [left_wheel, right_wheel] "
+                f"(length 2); got length {len(cfg.joint_names)}"
+            )
+        if cfg.wheel_radius <= 0:
+            raise ValueError(
+                f"NonHolonomicActionCfg.wheel_radius must be > 0; got {cfg.wheel_radius}"
+            )
+        if cfg.wheel_separation <= 0:
+            raise ValueError(
+                f"NonHolonomicActionCfg.wheel_separation must be > 0; got {cfg.wheel_separation}"
+            )
+        if cfg.action_dim is not None and cfg.action_dim != 2:
+            raise ValueError(
+                f"NonHolonomicActionCfg.action_dim must be 2 or None; got {cfg.action_dim}"
+            )
+        cfg.action_dim = 2
+        super().__init__(cfg)
+
+    def process_actions(self, raw: List[float]) -> None:
+        """Override to apply scale+offset element-wise (parent does
+        the same already; explicit here to be safe across overrides)."""
+        if len(raw) != 2:
+            raise ValueError(
+                f"NonHolonomicAction: expected 2 action elements (v_x, ω_z); got {len(raw)}"
+            )
+        self.raw_actions = list(raw)
+        s, o = self.cfg.scale, self.cfg.offset
+        self.processed_actions = [r * s + o for r in raw]
+
+    def apply_actions(self, env: Any) -> None:
+        cfg: NonHolonomicActionCfg = self.cfg  # type: ignore[assignment]
+        if not hasattr(env, "get_joint_velocities"):
+            raise RuntimeError(
+                "NonHolonomicAction: env must expose get_joint_velocities"
+            )
+        v_x = self.processed_actions[0]
+        omega_z = self.processed_actions[1]
+        # Differential-drive inverse kinematics:
+        # ω_wheel = (v ± ω·L/2) / r
+        half_L = cfg.wheel_separation / 2.0
+        omega_left = (v_x - omega_z * half_L) / cfg.wheel_radius
+        omega_right = (v_x + omega_z * half_L) / cfg.wheel_radius
+        # Store the wheel targets for telemetry / inspection.
+        self._wheel_velocity_target = (omega_left, omega_right)
+        # P-control onto effort (mirrors JointVelocityAction).
+        dq = env.get_joint_velocities()
+        left_joint, right_joint = cfg.joint_names
+        dq_left = dq[left_joint] if left_joint < len(dq) else 0.0
+        dq_right = dq[right_joint] if right_joint < len(dq) else 0.0
+        tau_left = cfg.p_gain * (omega_left - dq_left)
+        tau_right = cfg.p_gain * (omega_right - dq_right)
+        _write_effort(
+            env, [(left_joint, tau_left), (right_joint, tau_right)],
+            single_dof_force_ok=False,
+        )
+
+    @property
+    def wheel_velocity_target(self) -> tuple:
+        """Most recently computed (ω_left, ω_right) wheel velocity targets."""
+        return getattr(self, "_wheel_velocity_target", (0.0, 0.0))
+
+
+# ────────────────────────────────────────────────────────────────────────────
 # Shared effort-buffer write helper
 # ────────────────────────────────────────────────────────────────────────────
 

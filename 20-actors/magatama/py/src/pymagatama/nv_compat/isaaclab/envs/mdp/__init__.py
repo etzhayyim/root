@@ -41,6 +41,8 @@ from .actions import (
     ActionManager,
     ActionTerm,
     ActionTermCfgBase,
+    BinaryJointPositionAction,
+    BinaryJointPositionActionCfg,
     DifferentialInverseKinematicsAction,
     DifferentialInverseKinematicsActionCfg,
     JointEffortAction,
@@ -49,6 +51,8 @@ from .actions import (
     JointPositionActionCfg,
     JointVelocityAction,
     JointVelocityActionCfg,
+    NonHolonomicAction,
+    NonHolonomicActionCfg,
     OperationalSpaceControllerAction,
     OperationalSpaceControllerActionCfg,
 )
@@ -176,6 +180,9 @@ __all__ = [
     # Task-space action wrappers (iter 64 — compose iter 41 + iter 63 controllers)
     "DifferentialInverseKinematicsAction", "DifferentialInverseKinematicsActionCfg",
     "OperationalSpaceControllerAction", "OperationalSpaceControllerActionCfg",
+    # Gripper + mobile-base action wrappers (iter 65)
+    "BinaryJointPositionAction", "BinaryJointPositionActionCfg",
+    "NonHolonomicAction", "NonHolonomicActionCfg",
     # Curriculum manager + standard fns
     "CurriculumTerm", "CurriculumManager",
     "terrain_levels_vy", "modify_reward_weight", "modify_action_scale",
