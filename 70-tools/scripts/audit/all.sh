@@ -19,8 +19,10 @@
 #   - iter-32 of /loop: this aggregator
 #
 # Usage:
-#   bash 70-tools/scripts/audit/all.sh
-#   bash 70-tools/scripts/audit/all.sh --strict   # exit 1 if any finding
+#   bash 70-tools/scripts/audit/all.sh             # report (~1.1 s wall)
+#   bash 70-tools/scripts/audit/all.sh --strict    # exit 1 if any finding
+#   bash 70-tools/scripts/audit/all.sh --test      # run pytest suite instead
+#   bash 70-tools/scripts/audit/all.sh --all       # pytest + aggregator
 #
 # Requires: python3 + bash + `gh` CLI (for subrepo-upstream-health.sh).
 # Returns: rollup count via stdout. Exit code 0 unless --strict and any
@@ -29,9 +31,13 @@
 set -euo pipefail
 
 STRICT=0
+TEST=0
+RUN_AGGREGATOR=1
 for arg in "$@"; do
   case "$arg" in
     --strict) STRICT=1 ;;
+    --test)   TEST=1; RUN_AGGREGATOR=0 ;;
+    --all)    TEST=1; RUN_AGGREGATOR=1 ;;
     *) echo "unknown arg: $arg" >&2; exit 2 ;;
   esac
 done
@@ -39,6 +45,28 @@ done
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 cd "$REPO_ROOT"
+
+# --test or --all: run the pytest suite first. STRICT-mode behaviour
+# matters here — pytest failures always exit non-zero (regressions
+# should never silently pass).
+if [ "$TEST" -eq 1 ]; then
+  echo
+  echo "── pytest suite (4 files / 67 tests) ──"
+  if ! PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest \
+       70-tools/scripts/audit/test_adr_cross_ref_health.py \
+       70-tools/scripts/audit/test_manifest_lexicon_drift.py \
+       70-tools/scripts/audit/test_subrepo_scripts.py \
+       70-tools/scripts/audit/test_simple_audits.py \
+       2>&1; then
+    echo "pytest suite FAILED — see output above" >&2
+    exit 1
+  fi
+fi
+
+# --test alone returns now (no aggregator run).
+if [ "$RUN_AGGREGATOR" -eq 0 ]; then
+  exit 0
+fi
 
 total=0
 exit_code=0
