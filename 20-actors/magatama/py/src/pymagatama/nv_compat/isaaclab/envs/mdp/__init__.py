@@ -25,10 +25,25 @@ Standard mdp.* functions:
   - commands: CommandGeneratorBase + NullCommand + UniformVelocityCommand
               + UniformPose3DCommand (random per-env goal targets with
               resampling interval; integrates with mdp.generated_commands)
+  - actions:  ActionManager + JointEffortAction / JointPositionAction /
+              JointVelocityAction (action vector composition + dispatch
+              onto env effort buffers; PD/P controllers for position/velocity
+              target modes)
 
 stdlib-only.
 """
 
+from .actions import (
+    ActionManager,
+    ActionTerm,
+    ActionTermCfgBase,
+    JointEffortAction,
+    JointEffortActionCfg,
+    JointPositionAction,
+    JointPositionActionCfg,
+    JointVelocityAction,
+    JointVelocityActionCfg,
+)
 from .commands import (
     CommandCfgBase,
     CommandGeneratorBase,
@@ -88,4 +103,9 @@ __all__ = [
     "NullCommand",
     "UniformVelocityCommand", "UniformVelocityCommandCfg", "UniformVelocityRanges",
     "UniformPose3DCommand", "UniformPose3DCommandCfg", "UniformPose3DRanges",
+    # Action terms + manager
+    "ActionTerm", "ActionTermCfgBase", "ActionManager",
+    "JointEffortAction", "JointEffortActionCfg",
+    "JointPositionAction", "JointPositionActionCfg",
+    "JointVelocityAction", "JointVelocityActionCfg",
 ]
