@@ -6,7 +6,7 @@
 [subrepo]
 	remote = https://github.com/etzhayyim/kotoba.git
 	branch = main
-	commit = 128a89d0e4c4fd4a1efa136d1f79fc2019b22aee
+	commit = 6067b44d765b0ad869fa9be67d5ebceab8666f95
 	parent = cf55cde768506b952f289e25e9cddade4a8b1cb0
 	method = merge
 	cmdver = 0.4.9
