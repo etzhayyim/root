@@ -7,13 +7,26 @@ Pattern: discovery in a `/loop` iteration → fix in the same iteration → codi
 ## Quick start — run all audits
 
 ```bash
-bash 70-tools/scripts/audit/all.sh            # report
+bash 70-tools/scripts/audit/all.sh            # report (~1.1 s wall)
 bash 70-tools/scripts/audit/all.sh --strict   # exit 1 if any finding (CI integration)
 ```
 
-Current baseline (as of iter-52 of /loop, 2026-05-27): **25 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **0 manifest-lexicon-drift** (iter-52 closed kuni-umi 6/6; full category zeroed; all 21 initial findings resolved across iters 48-52). **Both batched-fix categories now fully closed.** Remaining 25 findings are all documented-deferred awaiting upstream coordination.
+Current baseline (as of iter-61 of /loop, 2026-05-27): **25 total findings** — 0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs (documented in ADR-2605211845 as gftd-org-cleanup leftovers, operator choice per file) + 18 kotoba escape-symlinks (documented in ADR-2605262130 as deferred to upstream coordination) + 0 sibling-convention-drift outliers + **0 manifest-lexicon-drift** (iter-52 closed kuni-umi 6/6; full category zeroed; all 21 initial findings resolved across iters 48-52). **Both batched-fix categories now fully closed.** Remaining 25 findings are all documented-deferred awaiting upstream coordination.
 
 The "documented + deferred" findings will fail `--strict` mode until the upstream coordination work lands. That's by design — `--strict` is the operator's gate for "I want to publish or PR-merge and don't want to accidentally take on debt." Mode without `--strict` is for "give me the current health snapshot."
+
+## Performance
+
+The aggregator's wall time was reduced from 47.5 s to ~1.1 s across iters 57 + 61 (43x cumulative). The pattern: replace filesystem walking (`find` / `pathlib.rglob`) with `git ls-files` reads of the git index, and parallelize subprocess-bound work (e.g. `gh repo view` calls via `xargs -P10`).
+
+| Iter | Tool | Anti-pattern → Fix | Speedup |
+|---|---|---|---|
+| 57 | `subrepo-upstream-health.sh` | `find . -name` → `git ls-files`; serial `gh` → `xargs -P10` | 35x (20.7s → 0.6s) |
+| 57 | `subrepo-symlink-health.sh` | nested `find -type l` → single `git ls-files -s` mode-120000 scan | 35x (16.9s → 0.5s) |
+| 61 | `sibling-convention-drift.py` | `repo.rglob("package.json")` → `git ls-files *package.json` | 45x (9.07s → 0.20s) |
+| **agg.** | `all.sh` total | (cumulative of above) | **43x (47.5s → 1.1s)** |
+
+The same pattern was applied to `e7m verify` across iters 5-7 + 56 (170x cumulative). All wins are regression-guarded by perf-budget and structural-canary tests in `test_subrepo_scripts.py`.
 
 ## Scripts
 
