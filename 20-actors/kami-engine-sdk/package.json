@@ -16,7 +16,7 @@
     "kami",
     "svelte",
     "vrm",
-    "three",
+    "wgpu",
     "manga",
     "genko",
     "manufacturing"
@@ -78,13 +78,7 @@
     "test:watch": "vitest"
   },
   "peerDependencies": {
-    "svelte": "^5.0.0",
-    "@pixiv/three-vrm": ">=3.0.0",
-    "three": ">=0.160.0"
-  },
-  "peerDependenciesMeta": {
-    "@pixiv/three-vrm": { "optional": true },
-    "three": { "optional": true }
+    "svelte": "^5.0.0"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.7",

@@ -10,7 +10,7 @@
  */
 
 import * as THREE from 'three';
-import type { NodeEffectKind, Severity } from './types.js';
+import type { NodeEffectKind, Severity } from '@etzhayyim/kami-engine-sdk/webvr';
 
 export interface NodeEffectInstance {
   group: THREE.Group;

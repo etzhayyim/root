@@ -15,8 +15,11 @@
  */
 
 import * as THREE from 'three';
-import type { LocationKind, NodeEffectKind } from './types.js';
-import type { SceneDescriptor } from './incident-pregel.js';
+import type {
+  LocationKind,
+  NodeEffectKind,
+  SceneDescriptor,
+} from '@etzhayyim/kami-engine-sdk/webvr';
 import {
   createSplatCloudLayer,
   makeLocationCloud,
@@ -507,7 +510,7 @@ export function mountIncidentScene(canvas: HTMLCanvasElement, opts: MountOpts): 
           o.position.y = restY - (1 - t) * 0.35;
         }
         o.scale.setScalar(sc);
-        o.traverse((node) => {
+        o.traverse((node: THREE.Object3D) => {
           const m = (node as THREE.Mesh).material as THREE.MeshBasicMaterial | undefined;
           if (m && (m as any).map !== undefined) {
             m.transparent = true;
@@ -520,7 +523,7 @@ export function mountIncidentScene(canvas: HTMLCanvasElement, opts: MountOpts): 
         for (const child of choiceGroup.children) {
           const o = child as THREE.Object3D;
           o.scale.setScalar(1);
-          o.traverse((node) => {
+          o.traverse((node: THREE.Object3D) => {
             const m = (node as THREE.Mesh).material as THREE.MeshBasicMaterial | undefined;
             if (m && (m as any).map !== undefined) m.opacity = 1;
           });
