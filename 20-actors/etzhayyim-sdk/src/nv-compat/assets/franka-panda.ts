@@ -17,7 +17,10 @@
 //
 // ADR-2605261800 §D6.
 
-import { buildSerialChainUrdf, type UrdfJointSpec } from "./urdf-builder.js";
+// (No imports from urdf-builder — buildFrankaUrdf hand-emits URDF text
+//  inline so it can embed real per-link inertials, bypassing the
+//  unit-mass placeholders that buildSerialChainUrdf would otherwise
+//  insert.)
 
 // Joint specs from public Franka FCI documentation.
 const PANDA_ARM_JOINTS: ReadonlyArray<{
@@ -67,42 +70,83 @@ const PANDA_ARM_ORIGINS: ReadonlyArray<{
   { xyz: [0.088, 0, 0], rpy: [HALF_PI, 0, 0] },     // joint7
 ];
 
+// Real Franka link inertial parameters per franka_description URDF
+// (Apache 2.0) — mass [kg], COM offset [m] in link frame, principal
+// inertia tensor [kg·m²] about COM. Off-diagonal ixy/ixz/iyz are small
+// for Franka links and approximated as 0 here (matches the published
+// franka_description values which round small off-diagonals).
+// Replaces iter 75's placeholder unit-mass + identity-inertia which
+// made gravity-comp / ABA forward sim produce unrealistic torques.
+const PANDA_ARM_INERTIALS: ReadonlyArray<{
+  mass: number;
+  com: [number, number, number];
+  ixx: number; iyy: number; izz: number;
+}> = [
+  { mass: 2.74, com: [0.003875, 0.002081, -0.04762],   ixx: 0.0180, iyy: 0.0184, izz: 0.0089 }, // link1
+  { mass: 2.74, com: [-0.003141, -0.02872, 0.003495],  ixx: 0.0184, iyy: 0.0089, izz: 0.0180 }, // link2
+  { mass: 2.38, com: [0.02785, 0.03094, -0.0961],      ixx: 0.0089, iyy: 0.0125, izz: 0.0049 }, // link3
+  { mass: 2.38, com: [-0.05317, 0.1046, 0.02711],      ixx: 0.0125, iyy: 0.0049, izz: 0.0089 }, // link4
+  { mass: 2.74, com: [-0.01121, 0.04123, -0.03825],    ixx: 0.0125, iyy: 0.0089, izz: 0.0049 }, // link5
+  { mass: 1.55, com: [0.065, -0.016, -0.020],           ixx: 0.0049, iyy: 0.0049, izz: 0.0017 }, // link6
+  { mass: 0.54, com: [0.010, 0.010, 0.045],             ixx: 0.0010, iyy: 0.0010, izz: 0.0010 }, // link7
+];
+
+// Per-finger placeholder inertia (Franka finger mass ~0.015 kg each).
+const FINGER_MASS = 0.015;
+
+function inertialBlock(
+  mass: number, com: readonly [number, number, number],
+  ixx: number, iyy: number, izz: number,
+): string {
+  return (
+    `<inertial>` +
+    `<origin xyz="${com[0]} ${com[1]} ${com[2]}" rpy="0 0 0"/>` +
+    `<mass value="${mass}"/>` +
+    `<inertia ixx="${ixx}" ixy="0" ixz="0" iyy="${iyy}" iyz="0" izz="${izz}"/>` +
+    `</inertial>`
+  );
+}
+
 function buildFrankaUrdf(): string {
-  const joints: UrdfJointSpec[] = [];
+  // Hand-build the URDF so we can embed real per-link inertials inline
+  // (bypassing buildSerialChainUrdf's unit-mass placeholder). Joint
+  // origins from PANDA_ARM_ORIGINS (iter 85); link inertials from
+  // PANDA_ARM_INERTIALS (iter 87).
+  const parts: string[] = [`<?xml version="1.0"?>`, `<robot name="panda">`];
+  // Base link (panda_link0) — fixed to world, mass 0.
+  parts.push(`<link name="panda_link0">${inertialBlock(0, [0, 0, 0], 0, 0, 0)}</link>`);
+  // Arm joints + child links with real inertials.
   for (let i = 0; i < PANDA_ARM_JOINTS.length; i++) {
     const j = PANDA_ARM_JOINTS[i];
     const origin = PANDA_ARM_ORIGINS[i];
-    joints.push({
-      name: j.name,
-      type: "revolute",
-      axis: [0, 0, 1],
-      lower: j.lower,
-      upper: j.upper,
-      velocity: j.velocity,
-      effort: j.effort,
-      originXyz: origin.xyz,
-      originRpy: origin.rpy,
-    });
+    const inert = PANDA_ARM_INERTIALS[i];
+    parts.push(
+      `<joint name="${j.name}" type="revolute">` +
+      `<origin xyz="${origin.xyz[0]} ${origin.xyz[1]} ${origin.xyz[2]}" rpy="${origin.rpy[0]} ${origin.rpy[1]} ${origin.rpy[2]}"/>` +
+      `<parent link="panda_link${i}"/>` +
+      `<child link="panda_link${i + 1}"/>` +
+      `<axis xyz="0 0 1"/>` +
+      `<limit lower="${j.lower}" upper="${j.upper}" velocity="${j.velocity}" effort="${j.effort}"/>` +
+      `</joint>`,
+    );
+    parts.push(`<link name="panda_link${i + 1}">${inertialBlock(inert.mass, inert.com, inert.ixx, inert.iyy, inert.izz)}</link>`);
   }
-  // Finger joints attach beyond panda_link7 with simplified offsets
-  // (the real Franka has a panda_hand intermediate; this kinematic
-  // chain skips it for simplicity — fingers move in panda_link7 frame
-  // along ±y).
+  // Finger joints + child links (panda_link8 / panda_link9).
   for (let i = 0; i < PANDA_FINGER_JOINTS.length; i++) {
     const j = PANDA_FINGER_JOINTS[i];
-    joints.push({
-      name: j.name,
-      type: "prismatic",
-      axis: i === 0 ? [0, 1, 0] : [0, -1, 0],
-      lower: j.lower,
-      upper: j.upper,
-      velocity: j.velocity,
-      effort: j.effort,
-      originXyz: [0, 0, 0.107],   // panda_hand offset along link7 z
-      originRpy: [0, 0, 0],
-    });
+    parts.push(
+      `<joint name="${j.name}" type="prismatic">` +
+      `<origin xyz="0 0 0.107" rpy="0 0 0"/>` +
+      `<parent link="panda_link7"/>` +
+      `<child link="panda_link${8 + i}"/>` +
+      `<axis xyz="${i === 0 ? '0 1 0' : '0 -1 0'}"/>` +
+      `<limit lower="${j.lower}" upper="${j.upper}" velocity="${j.velocity}" effort="${j.effort}"/>` +
+      `</joint>`,
+    );
+    parts.push(`<link name="panda_link${8 + i}">${inertialBlock(FINGER_MASS, [0, 0, 0], 1e-5, 1e-5, 1e-5)}</link>`);
   }
-  return buildSerialChainUrdf("panda", joints);
+  parts.push(`</robot>`);
+  return parts.join("");
 }
 
 /** Franka Panda 9-DoF asset. Pairs directly with iter 72 DiffIK (arm 7-DoF)
