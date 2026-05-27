@@ -11,13 +11,14 @@ name: deps-toml-paths
 #      introduced by THIS PR. → PR blocked.
 #
 #   2. **Full-repo (nightly + summary)** — checks every entry. Baseline
-#      as of 2026-05-27: 492/507 resolve (15 known drifts from
-#      tatekata reserved ADRs + ADR-2605180900 / 192415 / 250700 /
-#      261600 / 262100 / 262400 orphans). Reports count in job
-#      summary; non-blocking until those drifts are owner-resolved
-#      via cross-ADR cleanup PR.
+#      as of cycle 46-47 (ADR-2605271100 closure, 2026-05-27): 573/588
+#      resolve + 15 accepted-reserved (3 tatekata + 12 owner-asserted
+#      with (reserved) or (deferred-rename) markers) + 0 bare drift.
+#      Reports count in job summary; cycle 46 marker convention means
+#      any new bare missing path (no marker) fails CI.
 #
-# Both modes also run the 10 unit tests for the verifier itself.
+# Both modes also run the 17 unit tests for the verifier itself (cycle 46
+# expanded from 10 to 17 tests covering marker semantics).
 
 on:
   push:
@@ -61,7 +62,7 @@ jobs:
       - name: Install pytest
         run: pip install pytest
 
-      - name: Run verifier unit tests (strict — 10/10 must pass)
+      - name: Run verifier unit tests (strict — 17/17 must pass)
         env:
           PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
         run: |
@@ -92,27 +93,37 @@ jobs:
 
           ok=$(python3 -c "import json; print(json.load(open('/tmp/full-audit.json'))['ok'])")
           total=$(python3 -c "import json; print(json.load(open('/tmp/full-audit.json'))['total'])")
-          missing=$(python3 -c "import json; print(json.load(open('/tmp/full-audit.json'))['missing_count'])")
+          drift=$(python3 -c "import json; print(json.load(open('/tmp/full-audit.json'))['drift_count'])")
+          accepted=$(python3 -c "import json; print(json.load(open('/tmp/full-audit.json'))['accepted_missing_count'])")
+          stale=$(python3 -c "import json; print(json.load(open('/tmp/full-audit.json'))['stale_marker_count'])")
 
           {
             echo "## deps.toml path audit"
             echo ""
-            echo "**${ok} / ${total} entries resolve** (missing: ${missing})"
+            echo "**${ok} / ${total} entries resolve**"
             echo ""
-            echo "Baseline as of cycle-27 verifier landing (2026-05-27):"
-            echo "  - 492/507 resolve"
-            echo "  - 15 known drifts (3 tatekata reserved + 12 cross-ADR orphans)"
+            echo "- Accepted-reserved (owner-asserted, not drift): **${accepted}**"
+            echo "- Stale-marker (path exists, suffix should be dropped): **${stale}**"
+            echo "- Bare drift (real CI gate): **${drift}**"
             echo ""
-            if [ "$missing" -gt 15 ]; then
-              echo "⚠️ Drift count **above baseline (15)** — new orphan(s) introduced."
+            echo "Baseline as of ADR-2605271100 closure (2026-05-27 cycle 46-47):"
+            echo "  - 573/588 resolve"
+            echo "  - 15 accepted-reserved (3 tatekata + 12 owner-asserted markers)"
+            echo "  - 0 bare drift"
+            echo ""
+            if [ "$drift" -gt 0 ]; then
+              echo "⚠️ Bare drift count **above baseline (0)** — new orphan(s) introduced without a (reserved) marker."
               echo ""
-              echo "Missing entries:"
+              echo "Drift entries:"
               echo '```json'
-              python3 -c "import json; m = json.load(open('/tmp/full-audit.json'))['missing']; print(json.dumps(m, indent=2))"
+              python3 -c "import json; d = json.load(open('/tmp/full-audit.json'))['drift']; print(json.dumps(d, indent=2))"
               echo '```'
-            elif [ "$missing" -lt 15 ]; then
-              echo "✅ Drift count **below baseline** — drift was resolved. Update baseline."
+            elif [ "$stale" -gt 0 ]; then
+              echo "ℹ️ ${stale} stale marker(s) — operator should drop the suffix:"
+              echo '```json'
+              python3 -c "import json; s = json.load(open('/tmp/full-audit.json'))['stale_markers']; print(json.dumps(s, indent=2))"
+              echo '```'
             else
-              echo "✓ Drift count matches baseline. No new orphans."
+              echo "✓ Drift count matches baseline (0). No new orphans."
             fi
           } >> "$GITHUB_STEP_SUMMARY"
