@@ -6177,6 +6177,27 @@ status = "shipped"
 description = "Cycle 50 GitHub Actions workflow — validates docs.json + graph.jsonld against their schemas. **Cycle 51 mode: PR-GATE** (promoted from cycle 50's nightly-tracker baseline). Cycle 51 cleaned all 32 baseline .md front-matter violations across 20 .md files (8 empty-related cleanups + 4 missing-topic + 1 garbage last_verified + 3 authoritative_for type fixes + 2 missing-status). Baseline = 0; ANY new schema violation now fails CI on PR push. Nightly cron 03:35 UTC = 12:35 JST (off-minute :35 separates from docs-graph-jsonld :29 + docs-registry :23 + deps-toml :17 for runner spread)."
 
 [[modules]]
+path = "70-tools/scripts/docs/validate-magatama-manifests.py"
+adr = "ADR-2605271200"
+kind = "magatama-manifest-validator"
+status = "shipped"
+description = "Cycle 53 validator (160 lines) — validates every 60-apps/*/magatama.jsonld against 90-docs/_registry/schemas/magatama.schema.json. 5th axis of registry enforcement (parallel to axes 1-4 per ADR-2605271200 closure). Graceful jsonschema fallback (warns + exits 0) when package unavailable; --strict exits 2; --json mode emits machine-readable per-app error payload. Baseline as of cycle 53: 42/42 manifests clean (was 4/42 pre-cycle; cycle 53 fixed 5 schema enum narrowness bugs + 13 data bugs across 13 apps)."
+
+[[modules]]
+path = ".github/workflows/magatama-manifest-validation.yml"
+adr = "ADR-2605271200"
+kind = "github-actions-workflow"
+status = "shipped"
+description = "Cycle 53 GitHub Actions workflow — PR-gate validation of every 60-apps/*/magatama.jsonld against magatama.schema.json. 5th registry axis (axes 1-4 = deps-toml-paths / docs-registry-freshness / docs-graph-jsonld-freshness / registry-schema-validation). Baseline = 0 from day 1 (cycle 53 fixed all pre-existing violations before promotion). Nightly cron 03:41 UTC = 12:41 JST (off-minute :41 separates from registry-schema :35 / docs-graph-jsonld :29 / docs-registry :23 / deps-toml :17 — 6-min spread × 5 axes)."
+
+[[modules]]
+path = "90-docs/_registry/schemas/magatama.schema.json"
+adr = "ADR-2605271200"
+kind = "json-schema-magatama-manifest"
+status = "shipped"
+description = "Cycle 53 schema fix — 5 narrow-enum bugs corrected to match 42-app reality: uiType +3 values (yoro / static / calm-static / ameno / none); runtimeType +2 (logical / pymagatama-zeebe); profile.category enum removed (free-form string with description noting common values); profile.agentType +1 (advisory); profile.isBot const:true → boolean (PWAs are not bots). Schema is now permissive-accurate per cycle 50 pattern; enforced by validate-magatama-manifests.py + magatama-manifest-validation.yml workflow + lefthook hook."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"

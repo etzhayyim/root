@@ -365,6 +365,38 @@ pre-commit:
       stage_fixed: false
 
 
+    magatama-manifest-validation:
+      # When any 60-apps/*/magatama.jsonld or the canonical
+      # magatama.schema.json changes, validate every manifest
+      # (ADR-2605271200 cycle 53; 5th registry axis after axes 1-4).
+      # PR-gate from day 1 (baseline = 0 after cycle 53 fixed 5 schema
+      # enums + 13 data bugs across 13 apps).
+      glob:
+        - "60-apps/*/magatama.jsonld"
+        - "90-docs/_registry/schemas/magatama.schema.json"
+      run: |
+        python3 70-tools/scripts/docs/validate-magatama-manifests.py \
+          > /tmp/magatama-validation.$$.txt 2>&1
+        rc=$?
+        if [ $rc -eq 1 ]; then
+          echo "✘ magatama manifest validation failed:"
+          cat /tmp/magatama-validation.$$.txt
+          rm -f /tmp/magatama-validation.$$.txt
+          echo ""
+          echo "  Fix the failing magatama.jsonld OR magatama.schema.json."
+          echo "  Run locally:"
+          echo "    python3 70-tools/scripts/docs/validate-magatama-manifests.py"
+          exit 1
+        fi
+        if grep -q "jsonschema package not installed" /tmp/magatama-validation.$$.txt 2>/dev/null; then
+          echo "ℹ️ magatama-manifest-validation skipped — jsonschema not installed."
+          echo "  Install: python3 -m pip install --break-system-packages jsonschema"
+          echo "  (CI runs the check unconditionally; ok to commit.)"
+        fi
+        rm -f /tmp/magatama-validation.$$.txt
+      stage_fixed: false
+
+
     registry-schema-validation:
       # When any 90-docs/_registry/ artifact changes, run schema
       # validation (ADR-2605271100 cycle 50; promoted to PR-gate cycle 51

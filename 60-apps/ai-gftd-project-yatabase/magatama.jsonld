@@ -1,6 +1,7 @@
 {
-  "@context": "https://etzhayyim.com/ld/magatama/v1",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
   "name": "ai-gftd-project-yatabase",
+  "performerType": "system",
   "nanoid": "y4t4b4se",
   "displayName": "Yatabase",
   "description": "Real-time graph database with integrated Supabase-style object storage. PG-compatible reads, SPARQL/Cypher (Phase 2), S3-compatible /storage/v1/* (Supabase-shape REST) + /s3/* (AWS SigV4, Phase 2). yatabase.etzhayyim.com is a thin L3 dispatcher CF Worker (ADR-2604251830); all storage / sparql / provision operations route through bpmn-dispatcher to L7 LangServer pod-side LangServer handlers (ADR-2605080000 §D10).",
@@ -11,13 +12,17 @@
   "routes": [
     {
       "host": "yatabase.etzhayyim.com",
-      "paths": ["/"],
+      "paths": [
+        "/"
+      ],
       "tls": true
     }
   ],
   "layer": "edge-dispatcher",
   "atStandard": false,
-  "nsidPrefixes": ["ai.gftd.apps.yata"],
+  "nsidPrefixes": [
+    "ai.gftd.apps.yata"
+  ],
   "backendDependencies": {
     "atproto": "https://atproto.etzhayyim.com",
     "authn": "https://authn.etzhayyim.com",
