@@ -7816,3 +7816,29 @@ adr = "ADR-2605270735"
 kind = "ci-workflow"
 status = "production"
 description = "CI workflow for audit substrate. Iter-33 added; iter-54 extended path-triggers to cover both audit infrastructure AND files audits check (20-actors/**/manifest.jsonld + 00-contracts/lexicons/**/*.json + 90-docs/adr/**/*.md); iter-60 added perf-budget tests; iter-69 added test_gitmodules.py. 8 path-trigger patterns + strict pytest step + non-strict aggregator step."
+
+
+# ─── baien ameno R1b pivot — forward-override decode loop (ADR-2605263800) ──
+
+[[adrs]]
+id = "2605263800-baien-ameno-r1b-pivot"
+title = "Baien ameno R1b pivot — ORT-Web custom op dead end; switch to forward-override + weight-pack extraction"
+status = "accepted-14-of-15-commits-landed-pending-real-weight-microbench"
+status_note = "AMENDS ADR-2605263700 §1/§3 (the (B)+(D) hybrid harness was predicated on ORT-Web exposing JS-side env.experimental.customOps registration; bundled @huggingface/transformers@3.8.1 ORT-Web has ZERO references — confirmed dead end). Strategy pivots to (D)-only full forward override: bypass ORT-Web entirely for BitNet trunk; consume HF tokenizer JSON + HF generation_config + BitLinearWeightPack + new pure-TS attention/RoPE/KV-cache + transformers.js sampler. **Commits 4-14 of 15 landed** across cycles 3-16 (~3,100 LoC + 154/154 passing node:test): onnx-proto-min (#1, R1b commit 1) / bitnet-graph-patcher (#2; deprecated post-pivot but matchTrunkProjection predicate retained) / bitnet-weight-transformer (#3) / bitnet-weight-pack (#4; the pivot connective) / bitnet-config (#5) / bitnet-rope (#6) / bitnet-kv-cache (#7; + per-layer accessors at #10) / bitnet-rmsnorm + bitnet-silu (#8) / bitnet-math (#9) / bitnet-bitlinear-dispatch fp32-fallback (#10) / bitnet-attention with GQA + RoPE + KV cache (#11) / bitnet-ffn with SwiGLU (#12) / bitnet-transformer pre-norm block + 2 residuals (#13) / bitnet-runtime end-to-end decode loop (#14). **Remaining commit 15**: real-weight load from HF `microsoft/bitnet-b1.58-2B-4T-bf16-ONNX` (embedTokens + 30 layers' BitLinear packs + RMSNorm scales + lm_head pack via extractBitLinearWeightPack + parallel-walk of remaining initializers) + microbench against the 15-prompt verifiable set from ADR-2605092350 emitting NDJSON manifest to 90-docs/baien/wgpu-bitlinear-microbench-260X.jsonl + iPhone-12 G1 close attestation. **What this unlocks**: end-to-end pure-TS BitNet decode (tokenizer + sampler still via transformers.js facade). fp32-fallback dispatch path is correct but slow; R1c (v128 SIMD inner loop + LUT + wgpu/wasm pointer marshalling) remains scoped under ADR-2605263300 R-roadmap §10 row R1c."
+path = "90-docs/adr/2605263800-baien-ameno-r1b-pivot-forward-override.md"
+
+[[modules]]
+path = "20-actors/ameno/src/inference"
+kind = "ameno-baien-forward-override-runtime-modules"
+version = "0.1.0-r1b-14-of-15"
+status = "R1b-end-to-end-decode-loop-on-synthetic-weights-pure-TS-fp32-fallback"
+description = "14 R1b forward-override modules per ADR-2605263800 pivot. Pure-TS BitNet inference: onnx-proto-min.ts (protobuf wire codec) / bitnet-graph-patcher.ts (matchTrunkProjection predicate; orchestrator deprecated post-pivot) / bitnet-weight-transformer.ts (bf16 → i2_s + f16-scale) / bitnet-weight-pack.ts (extractor) / bitnet-config.ts (HF config + canonical 2B 4T constants) / bitnet-rope.ts (HF split-half RoPE) / bitnet-kv-cache.ts (fp16 cache + per-layer setKVAt + setCurrentLength) / bitnet-rmsnorm.ts + bitnet-silu.ts / bitnet-math.ts (softmax + argmax + dot + scalar matmul + add/scale) / bitnet-bitlinear-dispatch.ts (fp32-fallback BitLinear) / bitnet-attention.ts (multi-head + GQA + RoPE + KV cache + softmax + weighted V) / bitnet-ffn.ts (SwiGLU FFN) / bitnet-transformer.ts (pre-norm block: RMSNorm → attn → residual → RMSNorm → FFN → residual) / bitnet-runtime.ts (BitNetRuntime class: embed → 30 layers → final norm → lm_head [tied or separate] → argmax → next token). 154/154 node:test cases pass via `node --experimental-strip-types --test tests/*.smoke.test.ts`. End-to-end decode on synthetic tiny-config weights is deterministic + shape-correct. Memory budget verified at construction: BitNet 2B at 4k ctx ≈ 1.9 GB total (embedding 1.05 GB + BitLinear packs ~0.6 GB + KV cache 240 MB + scratch ~20 MB) — under ADR-2605241900 §G1 envelope (≤2 GB @4k)."
+adr = ["2605263800", "2605263700", "2605263400", "2605263300", "2605241900", "2605192200"]
+sibling_modules = [
+  "40-engine/baien-wasm-ternary",
+  "20-actors/ameno/src/inference/kernels",
+  "20-actors/ameno/src/inference/bitnet-bridge.ts",
+]
+remaining_work = "R1b commit 15 = real-weight load from HF microsoft/bitnet-b1.58-2B-4T-bf16-ONNX + microbench vs transformers.js fp16 baseline + iPhone-12 G1 close attestation"
+not_yet_real_dispatch = "fp32-fallback through scalar dequant + scalarMatmulF32; R1c lands wgpu/wasm dispatch through R0 kernels (WGSL_BITLINEAR_FORWARD + WASM SIMD)"
+charter_rider = "via @etzhayyim/ameno package NOTICE (inherited from ameno root)"

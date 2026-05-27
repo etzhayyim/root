@@ -1,11 +1,12 @@
 ---
 id: adr-2605263800-baien-ameno-r1b-pivot-forward-override
 title: "Baien ameno R1b pivot — ORT-Web custom op dead end; switch to forward-override + weight-pack extraction"
-status: proposed
+status: accepted
+status_note: "Accepted 2026-05-27 after session-close. Forward-override commit chain (cycles 3–16, 14 of 15 commits) landed: onnx-proto-min, bitnet-graph-patcher (deprecated post-pivot but `matchTrunkProjection` predicate retained), bitnet-weight-transformer, bitnet-weight-pack, bitnet-config, bitnet-rope, bitnet-kv-cache (+ per-layer accessors), bitnet-rmsnorm, bitnet-silu, bitnet-math, bitnet-bitlinear-dispatch (fp32-fallback), bitnet-attention (GQA + RoPE + KV cache), bitnet-ffn (SwiGLU), bitnet-transformer (pre-norm block + 2 residuals), bitnet-runtime (decode loop). 154/154 node:test cases pass. End-to-end BitNet decode runs in pure TS with fp32-fallback BitLinear; produces deterministic token sequences on synthetic tiny-config weights. **Remaining work — R1b commit 15**: real-weight load from HF `microsoft/bitnet-b1.58-2B-4T-bf16-ONNX` blob (embedding + 30 layers' BitLinear packs + RMSNorm scales + lm_head) + transformers.js fp16 baseline microbench against the 15-prompt verifiable set from ADR-2605092350 + iPhone-12 G1 close attestation. R1c (v128 SIMD inner loop + LUT-expanded matmul + wgpu/wasm pointer marshalling) remains scoped under ADR-2605263300 R-roadmap §10."
 doc_type: adr
 topic: baien-ameno-r1b-pivot
 authoritative: true
-last_verified: 2026-05-26
+last_verified: 2026-05-27
 priority: 5.0
 axis: architecture
 weight: 0.35
@@ -24,6 +25,17 @@ related:
   - 20-actors/ameno/src/inference/bitnet-graph-patcher.ts
   - 20-actors/ameno/src/inference/bitnet-weight-transformer.ts
   - 20-actors/ameno/src/inference/bitnet-weight-pack.ts
+  - 20-actors/ameno/src/inference/bitnet-config.ts
+  - 20-actors/ameno/src/inference/bitnet-rope.ts
+  - 20-actors/ameno/src/inference/bitnet-kv-cache.ts
+  - 20-actors/ameno/src/inference/bitnet-rmsnorm.ts
+  - 20-actors/ameno/src/inference/bitnet-silu.ts
+  - 20-actors/ameno/src/inference/bitnet-math.ts
+  - 20-actors/ameno/src/inference/bitnet-bitlinear-dispatch.ts
+  - 20-actors/ameno/src/inference/bitnet-attention.ts
+  - 20-actors/ameno/src/inference/bitnet-ffn.ts
+  - 20-actors/ameno/src/inference/bitnet-transformer.ts
+  - 20-actors/ameno/src/inference/bitnet-runtime.ts
 supersedes: []
 superseded_by: []
 ---
