@@ -7264,8 +7264,8 @@ sibling_modules = [
 [[adrs]]
 id = "2605263800"
 title = "Global corporate-disclosure ingestion (SEC EDGAR / EDINET / Companies House / GLEIF LEI / OpenCorporates / regional registries) via IPFS-pinned DataLad subdatasets — extends ADR-2605262400; powers ossekai / toritate / chigiri / baien-distill financial-literacy specialist"
-status = "proposed"
-status_note = "R0 scaffold + 5 fetcher path-reserves (sec_edgar / jp_edinet / uk_companies_house / gleif_lei / ca_sedar) + 5 sensor families path-reserved (corp_registry_sensor / corp_disclosure_sensor / lei_sensor / corp_ownership_sensor / corp_filing_event_sensor) + 4 corpus recipes path-reserved (corp-financial-disclosure-foundations-r1 / corp-ownership-graph-r1 / corp-material-event-stream-r1 / corp-officer-network-r1) + bucket taxonomy under 90-docs/baien/datasets/corp/{registries,disclosures,lei,ownership,filing-events}/. Tier-A dominates (US public-domain / GLEIF CC0 / UK OGL v3.0 / JP 金融庁 open / data.gov.au CC-BY); Tier-B for OpenCorporates open-data fork CC-BY-SA `-tierB-` infix; Tier-C EMPTY (Bloomberg Terminal / S&P CapIQ / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c)). Per-jurisdiction publication-redaction policy honors upstream publication rules; GDPR DSARs route through chigiri.data_privacy to upstream publisher (never unilateral religious-corp removal). Passive-only inherits ADR-2605262400 §7 (no live registry scraping; bulk archives only; per-source acceptance flag mandatory). 12 gates G1..G12 + 12 non-goals N1..N12. 4-wave delivery W0..W4. Supersedes ADR-2604291500 + ADR-2605150000 (pre-religious-corp commercial-fund era, RW-bound, pre-Charter-Rider, pre-passive-only)."
+status = "w1-impl-landed"
+status_note = "═══ W1 IMPL LANDED 2026-05-27 ═══ corp 4-fetcher concrete (gleif_lei + sec_edgar + uk_companies_house + jp_edinet) + 4-sensor concrete (GleifLeiSensor + SecEdgarSensor + UkCompaniesHouseSensor + JpEdinetSensor) + end-to-end fetcher→sensor integration verified per fetcher (4/4 corp pipelines green). Cross-cutting: 5 Lexicons (registryAttestation/disclosureAttestation/leiReference/ownershipEdge/filingEvent) + 2 corpus recipes (foundations-r1 + ownership-graph-tierB-r1) + acceptance template (opencorporates-opendata for W3 Tier-B) + cross-actor wiring (ossekai.crossActor + chigiri.lexiconReadAccess + toritate.lexiconReadAccess via DID-array linter-safe `lexiconReadAccess` object field) + 4 legacy script supersession markers (sec-edgar-disclosure-ingest.mjs + gleif-bulk-ingest.mjs + legal-entity-relationship-ingest.mjs + multi-country-scheduled-ingest.mjs + MIGRATION-NOTES.md) + RELEASE NOTES snapshot at 90-docs/baien/corp-gov-w1-snapshot-260527.md. Tier-A dominates (US public-domain / GLEIF CC0 / UK OGL v3.0 / JP 金融庁 open); Tier-B for OpenCorporates open-data fork CC-BY-SA `-tierB-` infix; Tier-C EMPTY (Bloomberg Terminal / S&P CapIQ / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c) — triple-layered enforcement: ADR §2 + recipe vendor_terminal_denylist + pytest cross-cutting import-line scan). All sensors passive-only per ADR-2605262400 §7; all fetchers operator-triggered boundary. 12 gates G1..G12 + 12 non-goals N1..N12. 4-wave delivery W0..W4 (W0+W1 LANDED; W2 = SEDAR+/ASIC/Unternehmensregister/INFOGREFFE per-jurisdiction registry fetchers + filing-event sensors + OpenCorporates W3 Tier-B). Supersedes ADR-2604291500 + ADR-2605150000. R1 activation gated on Bootstrap Council Seats 2-5 RFP closure 2026-06-19 + Council Lv6+ ≥3 ratify."
 path = "90-docs/adr/2605263800-public-data-corporate-disclosure-ipfs-ingestion.md"
 
 # ─── Global open-government-data ingestion (open-data portals / parliament / budget / procurement / statistics) via IPFS-pinned DataLad subdatasets (ADR-2605263900) ──
@@ -7273,8 +7273,8 @@ path = "90-docs/adr/2605263800-public-data-corporate-disclosure-ipfs-ingestion.m
 [[adrs]]
 id = "2605263900"
 title = "Global open-government-data ingestion (open-data portals / parliament / budget / procurement / statistics) via IPFS-pinned DataLad subdatasets — sibling of ADR-2605262400 + ADR-2605262800 + ADR-2605263800; powers ossekai / toritate / chigiri / manabi civic-literacy curriculum / baien-distill civic-reasoning specialist"
-status = "proposed"
-status_note = "R0 scaffold + 5 sensor families path-reserved (gov_open_data_sensor / gov_parliament_sensor / gov_budget_sensor / gov_procurement_sensor / gov_statistics_sensor) + 5 corpus recipes path-reserved (gov-civic-literacy-foundations-r1 / gov-budget-transparency-r1 / gov-procurement-transparency-r1 / gov-parliament-procedural-r1 / gov-statistics-foundations-r1) + bucket taxonomy under 90-docs/baien/datasets/gov/{open-data,parliament,budget,procurement,statistics}/. Tier-A dominates across ~20+ sources (US data.gov + Congress.gov + USAspending + SAM.gov all public-domain / UK data.gov.uk + Hansard + Contracts Finder OGL v3.0 / EU data.europa.eu + OEIL + FTS + TED EU re-use Decision 2011/833 / FR data.gouv.fr + Assemblée Étalab v2.0 / JP data.go.jp + e-Stat + 国会会議録 + 政府調達 CC-BY 4.0 政府標準利用規約 / DE govdata.de + Bundestag Datenlizenz Deutschland Zero / Eurostat free re-use / OECD ToU / World Bank CC-BY 4.0 / IMF SDMX open-data / UN free use); Tier-C EMPTY (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c)). CN data carries state_aligned_flag=True per §2(g) (parallel to ADR-2605262800 CN NPC handling) — ingested as authoritative source of record but non-substitution doctrine + downstream consumers MUST display flag in published output. Per-jurisdiction publication-redaction policy pass-through default (parliament transcripts + procurement awards + budget recipients are public by design); GDPR DSARs route through chigiri.data_privacy to upstream publisher. Passive-only inherits ADR-2605262400 §7. 12 gates G1..G12 + 12 non-goals N1..N12. 4-wave delivery W0..W4. Largest gov ingestion of any religious-corp ADR (~200-300 GB per fleet node post-W4)."
+status = "w1-impl-landed"
+status_note = "═══ W1 IMPL LANDED 2026-05-27 ═══ gov 8-fetcher concrete (worldbank_open_data + eu_eurostat + us_data_gov + uk_data_gov_uk + jp_data_go_jp + us_congress_gov + uk_hansard + jp_kokkai_kaigiroku — covers gov 5-facet COMPLETE: Statistics + OpenData triad + Parliament triad) + 10-sensor concrete (WorldBank + Eurostat + 3 CKAN portals + 3 Parliament + USAspending Budget + EU TED Procurement) + end-to-end fetcher→sensor integration verified per fetcher (8/8 gov pipelines green). Cross-cutting: 5 Lexicons (openDatasetAttestation/parliamentRecord/budgetRecord/procurementRecord/statisticsObservation; sub-namespace gov.dataset.* avoiding collision with existing gov.{agency,consult,municipality,official,procedure}) + 2 corpus recipes (civic-literacy-foundations-r1 + statistics-foundations-r1) + cross-actor wiring (ossekai.crossActor + chigiri.lexiconReadAccess + toritate.lexiconReadAccess) + RELEASE NOTES snapshot 90-docs/baien/corp-gov-w1-snapshot-260527.md. Pytest harness 15/15 PASS via importlib bypass runner (sensor-only; fetcher integration tested per-fetcher inline at smoke-test phase). Tier-A dominates 20+ sources; CN data carries state_aligned_flag=True per §2(g) parallel to ADR-2605262800 (downstream consumers MUST display flag); Tier-C EMPTY (GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c) — triple-layered enforcement). All sensors passive-only per ADR-2605262400 §7. 12 gates G1..G12 + 12 non-goals N1..N12. 4-wave delivery W0..W4 (W0+W1 LANDED; W2 = EU OEIL/DE Bundestag/FR Assemblée Parliament expansion + OECD.Stat/IMF SDMX/UN data Statistics expansion + EU FTS Budget + US SAM.gov/UK Contracts Finder/JP 政府調達 Procurement; W4 = CN data with §2(g) flag enforcement). R1 activation gated on Bootstrap Council Seats 2-5 RFP closure 2026-06-19 + Council Lv6+ ≥3 ratify."
 path = "90-docs/adr/2605263900-public-data-open-government-ipfs-ingestion.md"
 
 # ─── Global corporate-disclosure ingestion modules (ADR-2605263800 W1) ──────
@@ -7758,3 +7758,61 @@ adr = "ADR-2605263900"
 kind = "dataset-fetcher-concrete"
 status = "w1-impl-landed-concrete-fetcher-parity-complete"
 description = "JP 国会会議録検索 NDL API fetcher — TWELFTH concrete W1 fetcher impl (Parliament triad #3 of 3; ═══ W1 FETCHER 12/12 PARITY COMPLETE: corp 4 (gleif_lei + sec_edgar + uk_companies_house + jp_edinet) + gov 8 (worldbank + eurostat + 3 CKAN data portals + 3 Parliament triad) ═══). Tier-A 国会会議録 公の著作物 free-use under 著作権法 §13. W1 targets kokkai.ndl.go.jp/api/meeting endpoint with from/until/startRecord paging; no API key required (NDL public open API). nameOfMeeting passes through directly as nativeKind (sensor's _RECORD_KIND_MAP already covers 本会議/予算委員会/委員会/代表質問/法律案/採決 etc.). First speechRecord entry's speaker + speakerPosition extracted for meeting-level preview (W2 will add granularity='speech' for per-speech splitting). _coerce_meeting_date converts YYYY-MM-DD → ISO-8601 T00:00:00Z. House values restricted to {衆議院, 参議院} via _HOUSE_VALUES set check (G7 schema: bad house → skip). payloadCid prefers meetingURL → pdfURL → issueID. Two operator paths matching established pattern. 3-input shape dispatcher (NDL meetingRecord / flat list / NDJSON envelope). house + max_records constructor filters. from_date + until_date required in network mode (passive-only). Passive-only invariant boundary per ADR-2605262400 §7. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 4 scenarios: TEST 1 native NDL meeting (6 → 4: 衆議院 額賀議長 本会議 + 参議院 石破総理 予算委員会 + 衆議院 法律案 empty-speechRecord + 参議院 野田議員 代表質問; bad house 英国議会 + missing required G7-skip; nameOfMeeting → nativeKind pass-through + first-speaker extraction verified) / TEST 2 NDJSON pre-normalized passthrough (起立採決) / TEST 3 from+until_date ValueError guard / TEST 4 end-to-end → JpKokkaiKaigirokuSensor (本会議 → record_kind='debate' via sensor's _RECORD_KIND_MAP; speaker_name 額賀福志郎 + speaker_role 議長 preserved; ndl-public-record-free-use license_tag chain). 4/4 PASS. ═══ W1 FETCHER 12/12 PARITY ACHIEVED ═══"
+
+# ─── Audit substrate wave (iters 30-70 of /loop, 2026-05-26 → 2026-05-27, session-close ADR-2605270735) ──
+
+[[adrs]]
+id = "2605270735"
+title = "Audit substrate — design + perf + operator workflow"
+status = "accepted"
+path = "90-docs/adr/2605270735-audit-substrate-design-and-perf.md"
+status_note = "Session-close ADR consolidating iters 30-70 of /loop (2026-05-26 → 2026-05-27, 41 iterations). Captures the audit substrate at `70-tools/scripts/audit/` as institutional memory: 6 aggregator scripts in `all.sh` + 3 standalone scripts on operator-demand. Cumulative perf wins: `e7m verify` 121s → 0.7s (170x cumulative, iters 5-7 git ls-files + iter-56 ThreadPoolExecutor); `audit aggregator` 47.5s → 1.1s (43x cumulative, iter-57 git ls-files + xargs -P10 parallel gh + iter-61 rglob → git ls-files). Both perf wins regression-guarded by 7 pytest suites / 92 tests (test_adr_cross_ref_health 21 + test_manifest_lexicon_drift 13 + test_subrepo_scripts 16 + test_simple_audits 17 + test_e7m_verify_perf 7 + test_gitmodules 5 + test_all_sh 13). CI integration via .github/workflows/audit-health.yml with 8 path-trigger patterns covering both audit infrastructure AND the files audits check (iter-54 closed the canary-CI-dead gap). Drift closures: sibling-convention-drift 14→0 iter-39 (Apache-2.0 default per ADR-2605192200) + manifest-lexicon-drift 21→0 iter-52 across 5 actors (wadachi/gov-municipality/infra-utility-connect/yoro-supply/kuni-umi); iter-58 added yobel 4 lexicons for total 25 lexicons across 6 actors. Operator UX: 5 invocation modes via `all.sh` (default / --strict / --test / --test <file> / --all). Documented-deferred: 7 stale subrepos (ADR-2605211845) + 18 kotoba escape-symlinks (ADR-2605262130) + 113 ADR cross-ref orphans + 3,198 lexicon-spec violations. Bonus side-fixes: iter-43 substrate-boundary allowedPrefixes for 30-graph migration dirs + iter-65 .gitmodules ignore=dirty for baien/datasets DataLad subdataset (eliminated recurring 'Too many levels of symbolic links' warning that fired ~100+ times during iters 30-64). Documentation-only ADR (status: accepted); no policy or behavior change."
+
+[[modules]]
+path = "70-tools/scripts/audit/all.sh"
+adr = "ADR-2605270735"
+kind = "audit-aggregator"
+status = "production"
+description = "Audit aggregator with 5 invocation modes (default / --strict / --test / --test <file> / --all). Iter-32 codified; iter-57 + iter-61 perf optimizations brought wall time from 47.5s to 1.1s (43x). Iter-64 added --test/--all modes; iter-68 added --test <file> targeted reruns. Format contract: each script emits `: <int>$` line for tail-1 rollup. End-to-end tested by test_all_sh.py (iter-67)."
+
+[[modules]]
+path = "70-tools/scripts/audit/manifest-lexicon-drift.py"
+adr = "ADR-2605270735"
+kind = "audit-aggregator-script"
+status = "production"
+description = "Iter-47 added. Audits actor manifest.jsonld lexicons[] declarations against on-disk JSON files. Closed 21 findings across 5 actors via iter-48..52 lexicon authoring. Tested by test_manifest_lexicon_drift.py (13 tests) including post-closure-zero-drift CI canary."
+
+[[modules]]
+path = "70-tools/scripts/audit/adr-cross-ref-health.py"
+adr = "ADR-2605270735"
+kind = "audit-standalone-script"
+status = "production"
+description = "Iter-40 added. Standalone (not in all.sh aggregator) due to high-volume per-case-triage findings. 113 orphan ADR refs across 3 open categories (legacy-4digit 69 + quarter-hour-planned-slot 39 + non-canonical-mm 5). 3 structural filters (range-expression iter-41 + forward-ref-marker iter-41 + historical-orphan iter-45). 21 pytest tests in test_adr_cross_ref_health.py lock in categories + filters."
+
+[[modules]]
+path = "70-tools/scripts/audit/test_e7m_verify_perf.py"
+adr = "ADR-2605270735"
+kind = "audit-pytest-suite"
+status = "production"
+description = "Iter-66 added. 7 tests covering e7m verify correctness (9 invariants) + iter-56 perf budget (5s, actual 0.7s) + structural canaries (ThreadPoolExecutor + pool.map + git-grep). Locks in the 170x cumulative speedup (121s → 0.7s across iters 5-7 + 56)."
+
+[[modules]]
+path = "70-tools/scripts/audit/test_all_sh.py"
+adr = "ADR-2605270735"
+kind = "audit-pytest-suite"
+status = "production"
+description = "Iter-67 added. 13 end-to-end tests covering all.sh orchestration: default mode rollup = 25 baseline + --strict exit 1 + --test/--all modes + arg validation + perf budget. Module-scope fixtures memoize 4 distinct invocations (52s → 20s wall). Recursion-safe: --test mode invokes pytest with 5 files NOT including test_all_sh.py itself."
+
+[[modules]]
+path = "70-tools/scripts/audit/test_gitmodules.py"
+adr = "ADR-2605270735"
+kind = "audit-pytest-suite"
+status = "production"
+description = "Iter-69 added. 5 tests guarding iter-65 .gitmodules ignore=dirty fix for the baien/datasets DataLad subdataset. Both structural (config-line present) + behavioral (git status emits no symlink-loop warning) layers. Locks in the elimination of 100+ recurring 'Too many levels of symbolic links' warnings observed during iters 30-64."
+
+[[modules]]
+path = ".github/workflows/audit-health.yml"
+adr = "ADR-2605270735"
+kind = "ci-workflow"
+status = "production"
+description = "CI workflow for audit substrate. Iter-33 added; iter-54 extended path-triggers to cover both audit infrastructure AND files audits check (20-actors/**/manifest.jsonld + 00-contracts/lexicons/**/*.json + 90-docs/adr/**/*.md); iter-60 added perf-budget tests; iter-69 added test_gitmodules.py. 8 path-trigger patterns + strict pytest step + non-strict aggregator step."
