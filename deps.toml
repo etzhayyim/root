@@ -6204,6 +6204,13 @@ status = "shipped"
 description = "Cycle 70 (2026-05-27) retrospective of cycles 58-69 — Part 2 of registry matrix journey covering 5-axis → 8-axis expansion. Sibling pattern to cycle 58's Part 1 retrospective. Captures: cycle-by-cycle chronology (12 cycles) / 5 silent-bug-hunt discoveries / 7 reusable patterns (cycle 52's 5 + Pattern F detection-first / Pattern G defense-in-depth retrofit) / 1107 data fixes across 6 bug classes / 8-axis matrix final state with all 3-layer defenses / lessons learned (5 worked + 3 friction) / canonical post-cycle-70 audit baseline. Sibling doc: cycles-46-57-retrospective covers cycles 1-57; this doc covers cycles 58-69."
 
 [[modules]]
+path = "90-docs/baien/axis-9-saturation-survey-260527.md"
+adr = "ADR-2605271200"
+kind = "survey-doc"
+status = "shipped"
+description = "Cycle 72 (2026-05-27) survey doc — investigated 3 axis-9 candidates (JSON Schema $defs / pyproject.toml / Cargo workspace) to test whether Pattern F (detection-first) still produces value. Result: 0/0/1 findings → 99% efficiency drop vs cycles 59-66 average. Documents matrix coverage saturation signal: 8-axis matrix substantively covers repo's systematic drift surfaces; future axis additions would catch isolated single findings not systematic bug classes. 1 known-deferred Cargo orphan (hrse api/) captured for owner attention without building a 9th axis."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"

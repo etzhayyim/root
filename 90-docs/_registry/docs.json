@@ -17339,6 +17339,29 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/baien/axis-9-saturation-survey-260527.md",
+      "id": "doc-axis-9-saturation-survey-260527",
+      "title": "Cycle 72 axis-9 survey — matrix coverage saturation signal",
+      "status": "active",
+      "doc_type": "reference",
+      "topic": "axis-9-saturation-survey",
+      "authoritative": false,
+      "authoritative_for": [
+        "cycle 72 axis-9 candidate investigation findings",
+        "matrix coverage saturation signal (Pattern F diminishing returns)",
+        "1 known-deferred Cargo workspace orphan (hrse api/)"
+      ],
+      "related": [
+        "doc-registry-matrix-cycles-58-69-retrospective-260527",
+        "doc-registry-enforcement-matrix-runbook-260527"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-05-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/baien/browser-runtime-probe.md",
       "id": "doc-baien-browser-runtime-probe",
       "title": "Baien browser runtime probe — what blocks transformers.js + WebGPU today",
