@@ -6205,6 +6205,27 @@ status = "shipped"
 description = "Cycle 55 (2026-05-27) operator runbook for the 5-axis registry enforcement matrix. Parallel pattern to cycle 42's ADR-2605262500 runbook. Covers: quick start (1 command per axis) / each axis with verifier + sidecar + source-of-truth + exit codes / pre-commit hygiene (cycle 51 retry-dance avoidance) / 5 CI workflows with cron schedule / 23 lefthook hook inventory / 5 common failure-mode fix recipes / operator daily checklist (5 axes + 9 constitutional invariants) / axis-6 candidates. Action-oriented companion to closure ADRs 2605271100 + 2605271200; the ADRs explain WHY each axis exists, the runbook explains WHAT TO TYPE."
 
 [[modules]]
+path = "70-tools/scripts/docs/test_regen_graph_jsonld.py"
+adr = "ADR-2605271200"
+kind = "unit-test-suite"
+status = "shipped"
+description = "Cycle 56 (2026-05-27) — 8 unit tests for regen-graph-jsonld.py (cycle 49 generator). Covers: _doc_iri helper (doc: IRI prefixing), _project_entry minimal entry projection, relation field mapping (related/supersedes/supersededBy/amends/amendedBy with single→string and multi→list collapse), no-id defensive skip, doc_type→schema.org type mapping (adr→TechArticle / explanation→Article / unknown→TechArticle default), build_graph full-pipeline with temp docs.json (sorted by id), empty docs.json edge case, @context constant preservation. Closes test-coverage gap discovered cycle 56 — only verify_deps_toml_paths.py had tests previously."
+
+[[modules]]
+path = "70-tools/scripts/docs/test_validate_registry_schemas.py"
+adr = "ADR-2605271200"
+kind = "unit-test-suite"
+status = "shipped"
+description = "Cycle 56 — 6 unit tests for validate-registry-schemas.py (cycle 50 validator). Covers: script existence + executable shebang, clean import, main() signature, canonical path constants, live-repo regression guard (cycle 51 baseline 0/0 violations), --json output schema. Uses pytest skip when jsonschema package unavailable to keep tests environment-portable."
+
+[[modules]]
+path = "70-tools/scripts/docs/test_validate_magatama_manifests.py"
+adr = "ADR-2605271200"
+kind = "unit-test-suite"
+status = "shipped"
+description = "Cycle 56 — 7 unit tests (1 conditional-skip) for validate-magatama-manifests.py (cycle 53 validator). Covers: script existence + executable shebang, clean import, canonical glob + schema paths, no-traceback on default run, live cycle-53 baseline regression guard (42/42 manifests clean), --json output schema, --strict exit 2 when jsonschema missing (conditional skip when jsonschema installed)."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"
