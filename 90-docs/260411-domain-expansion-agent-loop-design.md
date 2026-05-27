@@ -9,7 +9,7 @@ authoritative_for:
   - domain-expansion
 last_verified: "2026-04-11"
 related:
-  - 260409-shinka-coverage-healing-design
+  - 260409-unified-access-control-shannon-design
   - 260324-source-graph-hybrid-design
 ---
 

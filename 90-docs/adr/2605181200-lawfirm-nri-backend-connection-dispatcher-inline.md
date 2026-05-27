@@ -16,7 +16,7 @@ authoritative_for:
 related:
   - adr-0036-lawfirm-india-intake-auto-route
   - adr-0018-pii-tier3-cohort-first
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2605180000-lawfirm-product-focus-bmc-lean
 supersedes: []
 superseded_by: []
@@ -24,13 +24,13 @@ superseded_by: []
 
 # ADR-2605181200: lawfirm NRI バックエンド接続 — dispatcher inline handler + frontend wiring
 
-**Status**: accepted  
-**Date**: 2026-05-18  
+**Status**: accepted
+**Date**: 2026-05-18
 **Deciders**: Jun Kawasaki
 
 ## Context
 
-lawfirm.etzhayyim.com の 4 NSID (`requestConsult`, `createCase`, `translateToLang`, `translateFromLang`) が  
+lawfirm.etzhayyim.com の 4 NSID (`requestConsult`, `createCase`, `translateToLang`, `translateFromLang`) が
 `bpmn-dispatcher` (`https://lf1rm8k0.etzhayyim.com/xrpc/...`) から 404 を返していた。
 
 根本原因: `vertex_bpmn_lexicon_binding` テーブルにこれらの NSID が未登録のため、
@@ -99,7 +99,7 @@ def _is_india_marker(lang="", state="", jurisdiction="") -> bool:
 | `task_lawfirm_translate_to_lang` | `pymagatama.llm.call_tier("fast", system, user, max_tokens=2048)` 経由で OpenRouter LLM に翻訳要求 |
 | `task_lawfirm_translate_from_lang` | source_lang 省略時は自動検出 prompt を付与して同 call_tier 経由 |
 
-`call_tier` シグネチャ: `call_tier(tier: str, system: str, user: str, *, max_tokens, ...)` → `dict{content: str}`。  
+`call_tier` シグネチャ: `call_tier(tier: str, system: str, user: str, *, max_tokens, ...)` → `dict{content: str}`。
 `OPENROUTER_API_KEY` は `lg-pregel-secrets` Secret から dispatcher pod へ inject (optional: True)。
 
 ### 3. mcp_dispatch.py 登録
@@ -125,7 +125,7 @@ def _is_india_marker(lang="", state="", jurisdiction="") -> bool:
       optional: true
 ```
 
-pymagatama image `ghcr.io/etzhayyim/pymagatama:16a1aeab4e6-20260518095952-amd64` を  
+pymagatama image `ghcr.io/etzhayyim/pymagatama:16a1aeab4e6-20260518095952-amd64` を
 `kubectl set image deployment/bpmn-dispatcher dispatcher=<image> -n mitama-udf` で更新。
 
 ### 5. NRI booking form frontend wiring
@@ -181,7 +181,7 @@ Fix: `%(name)s` style に統一、`actor_did`、`status='invited'` を明示。
 `LIMIT $1 OFFSET $2` として prepared statement に昇格 → RisingWave "Failed to prepare the statement"。
 また `sa_query()` が生タプルを返すのに全呼び出し元が `.get()` (dict アクセス) → `AttributeError`。
 
-Fix (1): LIMIT/OFFSET を Python f-string 整数リテラルに変更 (`[[conventions]] rw-psycopg3-no-param-limit` 準拠)。  
+Fix (1): LIMIT/OFFSET を Python f-string 整数リテラルに変更 (`[[conventions]] rw-psycopg3-no-param-limit` 準拠)。
 Fix (2): `_q()` を `sync_cursor` 直接使用に書き換え、`cursor.description` からカラム名を取得して dict を構築。
 
 Deployed: `ghcr.io/etzhayyim/pymagatama:9fe3e9181b0-20260519003849-amd64` (Helm rev 489)

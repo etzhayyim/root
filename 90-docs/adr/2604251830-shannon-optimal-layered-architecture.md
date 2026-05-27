@@ -14,7 +14,7 @@ authoritative_for:
 related:
   - adr-0036-shannon-cleanup-did-actor-topology
   - adr-0044-risingwave-udf-language-strategy
-  - adr-0046-triple-witness-monitoring
+  - adr-0046
   - adr-0048-risingwave-vultr-b2-primary
   - adr-0056-bpmn-as-actor
   - adr-2604240946-yoro-autonomous-actor-hybrid-loop

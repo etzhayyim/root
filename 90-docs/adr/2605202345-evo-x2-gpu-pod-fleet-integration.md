@@ -17,9 +17,9 @@ depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605202100-etzhayyim-magatama-cell-runner-launchd
 related:
-  - "2605191346"
-  - "2605182312"
-  - "2605192400"
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - 2605182312-local-bring-up-murakumo-gemma4
+  - adr-2605192400-etzhayyim-eros-gore-council-judging
 supersedes: []
 superseded_by: []
 ---

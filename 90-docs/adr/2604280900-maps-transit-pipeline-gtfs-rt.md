@@ -20,15 +20,15 @@ authoritative_for:
 related:
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0056-bpmn-as-actor
-  - adr-2604241342-risingwave-migration-failure-modes
+  - adr-2604241342-risingwave-out-of-band-migration-pattern
   - adr-0048-risingwave-vultr-b2-primary
 ---
 
 # ADR-2604280900 — Maps Transit Data Pipeline (GTFS-JP / OpenFlights / Ferry / GTFS-RT)
 
-**Status**: active  
-**Date**: 2026-04-28  
-**Authors**: Jun Kawasaki + Claude Code  
+**Status**: active
+**Date**: 2026-04-28
+**Authors**: Jun Kawasaki + Claude Code
 
 ## Context
 
@@ -163,7 +163,7 @@ Timer-start R/P7D auto-fires next run in 7 days. `bulkRefreshGtfsJp` R/PT24H fir
 | 5 | ODPT registration or no-auth RT index → scale `bulk-ingest-gtfs-rt --replicas=1` | Phase 3 live |
 | 6 | `gftd deploy` for `maps-ui-uqpel6i6` | XRPC handlers reachable |
 
-After (1)+(2)+(3)+(4)+(6): `nextDeparturesAtStop` is live for the 4 verified bus operators.  
+After (1)+(2)+(3)+(4)+(6): `nextDeparturesAtStop` is live for the 4 verified bus operators.
 After (5): `realtimeDelaysAtStop` returns RT delays for configured operators.
 
 ## Files

@@ -14,7 +14,7 @@ authoritative_for:
 related:
   - adr-0017-maritime-energy-cluster-topology
   - adr-0056-bpmn-as-actor
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-0095-simplified-3layer-identity-rw-vault
 supersedes: []
 superseded_by: []

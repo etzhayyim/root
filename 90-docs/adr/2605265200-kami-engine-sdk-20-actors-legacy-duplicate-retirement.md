@@ -17,7 +17,7 @@ authoritative_for:
 related:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605264300-kami-engine-sdk-three-free-cutover
-  - adr-2605152100-org-split-cutover
+  - adr-2605152100-auth-unified-topology
 depends_on: []
 supersedes: []
 superseded_by: []

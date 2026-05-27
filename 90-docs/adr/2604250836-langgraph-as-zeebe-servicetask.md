@@ -18,7 +18,7 @@ related:
   - adr-0049-python-udf-shared-pool-runtime
   - adr-0044-risingwave-udf-language-strategy
   - adr-0059-tool-runtime-selection-python-udf-default
-  - adr-0046-yoro-triple-witness-autonomy-monitoring
+  - adr-0046
   - adr-0092-every-vertex-as-actor
   - adr-2604231349-timestamp-numbering-policy
   - adr-2604231457-bpmn-security-posture-camunda-alignment

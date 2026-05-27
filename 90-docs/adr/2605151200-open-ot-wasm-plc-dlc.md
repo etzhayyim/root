@@ -26,7 +26,7 @@ depends_on:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
   - adr-2605091300-bonsai-cultivar-layer-above-myco-yeast
 related:
-  - adr-2604251700-wproto-wit-dead-path
+  - 2604251700-wproto-wit-dead-path
   - adr-2604261830-ethereum-anchored-wasm-bpmn-runtime
   - adr-2605142200-giemon-open-hardware-brand
 supersedes: []

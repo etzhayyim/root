@@ -22,8 +22,8 @@ depends_on:
   - adr-2604231349-timestamp-numbering-policy
   - adr-2605190900-kg-as-lexicon-ipld-oxigraph-appview
 related:
-  - "2605231525"
-  - "2605192200"
+  - adr-2605231525-no-server-key-religious-corp-architecture
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 supersedes: []
 superseded_by: []
 ---

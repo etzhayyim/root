@@ -11,8 +11,8 @@ authoritative_for:
   - WIT contract deprecation
   - AT Protocol client/library selection
 related:
-  - 2604231811-atproto-extension-service-layers
-  - 2604231821-atproto-oauth-wire-format-snake-case
+  - adr-2604231811-atproto-extension-service-layers
+  - adr-2604231821-atproto-oauth-wire-format-snake-case
   - 0049-python-udf-shared-pool-runtime
 supersedes: []
 superseded_by: []

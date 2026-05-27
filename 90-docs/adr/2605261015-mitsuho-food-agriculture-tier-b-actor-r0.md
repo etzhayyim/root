@@ -14,7 +14,7 @@ related:
   - adr-2605261000
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192245-etzhayyim-global-land-sovereignty
-  - 2605201400-kuni-umi-tier-b-planetary-infrastructure.md
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
 supersedes: []
 superseded_by: []
 depends_on:

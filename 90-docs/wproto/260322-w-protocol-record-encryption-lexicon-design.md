@@ -13,7 +13,7 @@ authoritative_for:
 related:
   - 260317-w-protocol-design
   - 260318-w-protocol-sender-trust-design
-  - 260321-consent-gated-data-sharing-design
+  - yoro-superapp-oembed-design
 supersedes: []
 superseded_by: []
 ---

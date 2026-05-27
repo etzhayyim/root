@@ -20,7 +20,7 @@ depends_on:
   - adr-2605262400-public-data-organism-ipfs-ingestion
   - adr-2605240200-unispsc-organism-kaizen-self-reflection
 related:
-  - adr-2605262500-robotics-sim-world-data-ingestion-and-vision-pii-filter
+  - adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline
   - adr-2605266200-kaizen-pr-agent-wave-4
   - adr-2605266400-organism-memory-persistence-r0
 supersedes: []

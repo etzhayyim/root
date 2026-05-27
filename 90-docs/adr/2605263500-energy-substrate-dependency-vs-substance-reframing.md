@@ -31,10 +31,10 @@ related:
   - CHARTER-RIDER.md §2(d) (new fossil fuel extraction ban — preserved as substantive constraint)
   - COUNCIL.md (Bootstrap Council roster + ratification ledger)
   - COUNCIL-BOOTSTRAP-RFP.md (Seat 2-5 RFP through 2026-06-19)
-  - 2605192100-etzhayyim-mission-charter.md §1.3 (mission: energy self-sufficiency)
-  - 2605192100-etzhayyim-mission-charter.md §1.6 (中間排除)
-  - 2605192100-etzhayyim-mission-charter.md §1.9 (多世代 priority)
-  - 2605192100-etzhayyim-mission-charter.md §1.12 (Transparent Religious Force — open-source / on-chain monitor)
+  - adr-2605192100-etzhayyim-mission-charter §1.3 (mission: energy self-sufficiency)
+  - adr-2605192100-etzhayyim-mission-charter §1.6 (中間排除)
+  - adr-2605192100-etzhayyim-mission-charter §1.9 (多世代 priority)
+  - adr-2605192100-etzhayyim-mission-charter §1.12 (Transparent Religious Force — open-source / on-chain monitor)
 supersedes: []
 superseded_by: []
 ---

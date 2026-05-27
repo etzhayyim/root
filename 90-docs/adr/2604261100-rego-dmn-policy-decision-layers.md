@@ -14,7 +14,7 @@ related:
   - adr-0023-auth-shannon-optimal-4-layer
   - adr-0056-bpmn-as-actor
   - adr-0036-worker-direct-hyperdrive-persistence
-  - adr-2604261110
+  - adr-2604261110-wproto-wreactive-wit-retirement
 supersedes: []
 superseded_by: []
 ---

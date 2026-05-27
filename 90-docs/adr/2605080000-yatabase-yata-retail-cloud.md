@@ -21,8 +21,8 @@ related:
   - adr-0056-bpmn-as-actor
   - adr-0087-magatama-mcp-tool-facade
   - adr-0095-simplified-3layer-identity-rw-vault
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2604282300
+  - adr-2605010000
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
 supersedes: []
 superseded_by: []

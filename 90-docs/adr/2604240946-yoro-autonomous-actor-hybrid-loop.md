@@ -16,7 +16,7 @@ authoritative_for:
 related:
   - adr-0038-actor-as-data-bpmn-dmn-form-mcp-faas
   - adr-0044-risingwave-udf-language-strategy
-  - adr-0046-yoro-triple-witness-autonomy-monitoring
+  - adr-0046
   - adr-0049-python-udf-shared-pool-runtime
   - adr-0056-bpmn-as-actor
   - adr-0081-worker-direct-hyperdrive-persistence

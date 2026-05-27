@@ -20,11 +20,11 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - 2604241342-risingwave-out-of-band-migration-pattern
-  - 2605171300-magatama-unispsc-langgraph-agents
+  - adr-2604241342-risingwave-out-of-band-migration-pattern
+  - 2605171300
 supersedes: []
 superseded_by:
-  - 2605262130-kotoba-storage-substrate-unification
+  - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605232300: yatachain — engine architecture options exploration

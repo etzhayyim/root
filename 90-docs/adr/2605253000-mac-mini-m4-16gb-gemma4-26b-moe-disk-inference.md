@@ -12,8 +12,8 @@ last_verified: 2026-05-25
 related:
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605241900-baien-edge-target-invariant
-  - adr-2605231300-e7m-bench-distill
-  - adr-2605250400-gemma-coder-distill
+  - adr-2605231300-baien-distill-react-loop
+  - adr-2605250400-gemma-coder-distill-rocm
 depends_on:
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 ---

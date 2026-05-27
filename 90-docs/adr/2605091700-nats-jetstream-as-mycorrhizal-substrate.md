@@ -22,8 +22,8 @@ related:
   - adr-2605091600-plasmid-graft-horizontal-tool-acquisition
   - adr-2605092200-continuous-metabolic-training
   - adr-2605092500-reasoning-as-sap-flow-walk
-  - adr-2605071200-myco-yeast-organism-jp-naming
-  - adr-2605072000-saikin-bacteria-horizontal-transfer-layer
+  - adr-2605071200-myco-yeast-artificial-organism-jp-naming
+  - adr-2605072000
   - adr-2605080000-distributed-cognitive-actor-system
   - adr-2605091300-bonsai-cultivar-layer-above-myco-yeast
 supersedes: []

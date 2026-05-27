@@ -17,8 +17,8 @@ authoritative_for:
   - "Vendor-private renderer carve-out boundary (60-apps vendor-only apps MAY carry three.js; religious-corp SDK MUST NOT)"
 related:
   - adr-0031-kami-vrm-three-free-topology
-  - adr-2605092800-gsplat-preview-bake-architecture
-  - adr-2605172400-vendor-importer-three-axis-split
+  - adr-2605092800-kami-gsplat-preview-bake-pipeline
+  - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod

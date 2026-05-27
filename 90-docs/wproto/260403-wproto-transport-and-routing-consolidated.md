@@ -15,7 +15,7 @@ related:
   - w-protocol-at-superset
 supersedes:
   - wrpc-stream-native
-  - 260324-wrpc-wit-binding-generation
+  - 260324-source-graph-hybrid-design
   - xrpc-cqrs-service-proxy
 superseded_by: []
 ---

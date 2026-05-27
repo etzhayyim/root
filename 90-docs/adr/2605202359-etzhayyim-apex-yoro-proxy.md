@@ -16,7 +16,7 @@ authoritative_for:
 depends_on:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
-  - "2605170900"
+  - adr-2605170900-etzhayyim-root-adr-canonical-home
 supersedes: []
 superseded_by: []
 ---

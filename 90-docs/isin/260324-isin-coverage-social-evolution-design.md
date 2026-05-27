@@ -9,8 +9,8 @@ authoritative_for:
   - isin-coverage-heartbeat
 last_verified: 2026-03-24
 related:
-  - 260323-authority-chain-compliance-design
-  - 260323-actor-visibility-governance-design
+  - 260323-yoro-human-credit-economy-design
+  - 260323-yoro-human-credit-economy-design
 ---
 
 # ISIN Coverage-Driven Social Evolution Design

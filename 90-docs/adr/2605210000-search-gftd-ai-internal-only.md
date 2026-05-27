@@ -16,7 +16,7 @@ authoritative_for:
   - search-gftd-ai-internal-only
 related:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
 supersedes: []
 superseded_by: []

@@ -17,7 +17,7 @@ related:
   - 90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md
 supersedes: []
 superseded_by:
-  - 2605262130-kotoba-storage-substrate-unification
+  - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
 # Goal

@@ -11,7 +11,7 @@ related:
   - adr-2605263900-public-data-open-government-ipfs-ingestion
   - adr-2605262400-public-data-organism-ipfs-ingestion
   - adr-2605262800-public-data-legal-corpus-ipfs-ingestion
-  - adr-2605263600-ossekai-information-arbitrage-tier-b-actor-r0
+  - adr-2605263600-hydrogen-economy-d-gate-evaluation-r0
   - adr-2605262900-toritate-accounting-audit-tier-b-actor-r0
   - adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0
 ---

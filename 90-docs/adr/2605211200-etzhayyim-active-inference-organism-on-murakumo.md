@@ -34,7 +34,7 @@ depends_on:
 related:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
-  - adr-2605151600-maps-langserver-direct-call
+  - adr-2605151600
   - adr-2605102200-operating-entity-etzhayyim-rename
 supersedes: []
 superseded_by: []

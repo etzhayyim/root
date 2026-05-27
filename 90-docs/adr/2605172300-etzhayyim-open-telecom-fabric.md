@@ -18,7 +18,7 @@ authoritative_for:
 depends_on:
   - adr-2605152100-etzhayyim-github-org-boundary
 related:
-  - adr-2604262145-erc725-facade-did
+  - adr-2604262145-erc8004-protocol-root-atproto-profile
   - adr-2604251830-shannon-optimal-layered-architecture
 supersedes: []
 superseded_by: []

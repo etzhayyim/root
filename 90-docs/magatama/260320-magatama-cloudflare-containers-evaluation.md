@@ -9,7 +9,7 @@ last_verified: 2026-03-20
 authoritative_for:
   - magatama runtime default vs container fallback
 related:
-  - 260320-magatama-runtime-dual-backend-design
+  - 260320-magatama-cloudflare-containers-evaluation
   - 260320-magatama-cloudflare-worker-rpc-optimization
 supersedes: []
 superseded_by: []

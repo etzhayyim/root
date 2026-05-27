@@ -26,7 +26,7 @@ depends_on:
   - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 2605222330-etzhayyim-com-substrate-violation-transition-window
+  - adr-2605222330-etzhayyim-com-substrate-violation-transition-window
 supersedes: []
 superseded_by: []
 ---

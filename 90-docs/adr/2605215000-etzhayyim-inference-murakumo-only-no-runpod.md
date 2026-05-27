@@ -20,9 +20,9 @@ depends_on:
   - adr-2605202345-evo-x2-gpu-pod-fleet-integration
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:
-  - "2605192415-etzhayyim-religious-corp-daemon-architecture.md"
-  - "2605202100-etzhayyim-magatama-cell-runner-launchd.md"
-  - "2605182312-local-bring-up-murakumo-gemma4.md"
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
+  - adr-2605202100-etzhayyim-magatama-cell-runner-launchd
+  - 2605182312-local-bring-up-murakumo-gemma4
 supersedes: []
 superseded_by: []
 ---

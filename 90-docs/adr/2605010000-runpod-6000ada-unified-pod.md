@@ -14,8 +14,8 @@ authoritative_for:
 related:
   - adr-2604282100  # LLM benchmark gemma4 default
   - adr-2604292130  # llm.etzhayyim.com runpod pass-through
-  - adr-2605080600  # resident LangGraph organism actors may use Murakumo as L8 somatic inference
-  - adr-2604231328  # animeka 12-stage pipeline
+  - adr-2605080600-langgraph-server-granian-l3-runtime  # resident LangGraph organism actors may use Murakumo as L8 somatic inference
+  - adr-2604231328-animeka-bpmn-l40s-pipeline  # animeka 12-stage pipeline
   - adr-2604281600  # shinshi melina pipeline
   - adr-2605211000  # supersedes this ADR for LLM text inference path
 supersedes: []

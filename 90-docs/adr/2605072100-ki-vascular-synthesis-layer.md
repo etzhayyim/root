@@ -10,7 +10,7 @@ authoritative_for:
   - ki ecosystem member design
   - vascular synthesis layer in myco-yeast artificial organism
 related:
-  - adr-2605071200
+  - adr-2605071200-myco-yeast-artificial-organism-jp-naming
   - adr-2605071900
   - adr-2605072000
 supersedes: []

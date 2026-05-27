@@ -20,11 +20,11 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - 2605171800-mst-projector-stage-pipeline
-  - 2605222330-etzhayyim-com-substrate-violation-transition-window
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - adr-2605222330-etzhayyim-com-substrate-violation-transition-window
 supersedes: []
 superseded_by:
-  - 2605262130-kotoba-storage-substrate-unification
+  - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605231400: yatachain — Holochain-isomorphic substrate over LangGraph + IPFS + atproto

@@ -14,7 +14,7 @@ authoritative_for:
 related:
   - adr-0094-risingwave-stable-three-node-topology
   - adr-0048-risingwave-vultr-b2-primary
-  - adr-2604231328-pattern-1-runpod-comfyui
+  - adr-2604231328-animeka-bpmn-l40s-pipeline
   - adr-2605101200-ai-cxo-roles-lsp-resident
   - adr-2605102100-keiei-llm-vultr-cpu-inference
 ---

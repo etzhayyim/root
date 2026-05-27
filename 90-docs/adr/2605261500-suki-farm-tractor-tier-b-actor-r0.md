@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-26T00:00:00Z
 related:
   - adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0
-  - 2605242000-wadachi-autonomous-mobility-rd-r0.md
+  - adr-2605242000-roso-pattern-frontier-distill
   - adr-2605261015
   - adr-2605252400-kanayama-circular-metallurgy-r0
   - adr-2605261115-igata-megacasting-tier-b-actor-r0

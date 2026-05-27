@@ -13,7 +13,7 @@ authoritative_for:
 related:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
-  - adr-2605211000-worker-xrpc-adapter-deploy-runbook
+  - adr-2605211000
 depends_on:
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
 supersedes: []

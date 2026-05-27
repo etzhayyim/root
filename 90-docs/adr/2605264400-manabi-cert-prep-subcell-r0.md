@@ -16,8 +16,8 @@ related:
   - adr-2605261000
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - 2605181100-encrypted-envelope-record.md
-  - 2605262400-public-data-ipfs-ingestion-artificial-organism.md
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605262400-public-data-organism-ipfs-ingestion
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 supersedes: []
 superseded_by: []

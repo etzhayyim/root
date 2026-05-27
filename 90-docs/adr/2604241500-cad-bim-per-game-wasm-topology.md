@@ -13,7 +13,7 @@ authoritative_for:
 related:
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0002-graph-storage-appview
-  - 260320-cad-magatamaapp-design
+  - 260320-magatama-cloudflare-containers-evaluation
 supersedes: []
 superseded_by: []
 ---

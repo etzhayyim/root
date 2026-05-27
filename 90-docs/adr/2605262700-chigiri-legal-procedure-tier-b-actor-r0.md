@@ -40,7 +40,7 @@ depends_on:
   - adr-2605262400-public-data-organism-ipfs-ingestion
   - adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0
 related:
-  - adr-2605250100-l5-member-registry-cell
+  - adr-2605250100-l5-routing-around-member-registry-cell
   - adr-2605250200-l5-religious-marriage-cell
   - adr-2605250300-l5-religious-corp-taxation-cell
   - adr-2605262800-public-data-legal-corpus-ipfs-ingestion

@@ -23,7 +23,7 @@ depends_on:
   - adr-0095-simplified-3layer-identity-rw-vault
   - adr-0056-bpmn-as-actor
 related:
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0018-pii-tier3-cohort-first
   - adr-0026-agent-only-reverse-identity-topology

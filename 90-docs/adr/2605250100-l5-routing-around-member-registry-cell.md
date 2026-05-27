@@ -19,9 +19,9 @@ depends_on:
   - adr-2605172600-etzhayyim-membership-ritual
   - adr-2605242330-gov-procedure-pregel-mcp-coverage
 related:
-  - 2605192115-tithe-router-public-fund
-  - 2605172000-rw-free-substrate
-  - 2605212100-gftd-to-etzhayyim-migration-batch
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605212100-gftd-to-etzhayyim-migration-batch
 supersedes: []
 superseded_by: []
 ---

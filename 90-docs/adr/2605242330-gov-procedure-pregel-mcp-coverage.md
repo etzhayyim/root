@@ -20,8 +20,8 @@ depends_on:
   - adr-2605212100-gftd-to-etzhayyim-migration-batch
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:
-  - 2605231902-feed-post-membrane-and-feed-discover-projection
-  - 2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231902-feed-post-membrane-and-feed-discover-projection
+  - adr-2605231400-yatachain-holochain-iso-substrate
 supersedes: []
 superseded_by: []
 ---

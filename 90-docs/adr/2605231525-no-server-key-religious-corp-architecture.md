@@ -24,8 +24,8 @@ depends_on:
   - adr-2605231400-yatachain-holochain-iso-substrate
   - adr-2605231500-yatachain-projection
 related:
-  - adr-2605192300-bootstrap-council
-  - adr-2605192315-transparent-religious-force
+  - adr-2605192300-etzhayyim-bootstrap-council-five
+  - adr-2605192315-etzhayyim-transparent-force-rd
 supersedes: []
 superseded_by: []
 ---

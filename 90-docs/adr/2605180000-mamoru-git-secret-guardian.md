@@ -15,7 +15,7 @@ priority: 8.5
 axis: mamoru-security
 weight: 0.85
 related:
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2605080600-langgraph-server-granian-l3-runtime
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
 supersedes: []

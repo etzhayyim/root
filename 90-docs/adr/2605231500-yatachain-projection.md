@@ -17,11 +17,11 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605231400-yatachain-holochain-iso-substrate
 related:
-  - 2605222330-etzhayyim-com-substrate-violation-transition-window
-  - 2605111200-cf-worker-db-prohibition
+  - adr-2605222330-etzhayyim-com-substrate-violation-transition-window
+  - adr-2605111200-cf-worker-edge-only-no-rw-connection
 supersedes: []
 superseded_by:
-  - 2605262130-kotoba-storage-substrate-unification
+  - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries

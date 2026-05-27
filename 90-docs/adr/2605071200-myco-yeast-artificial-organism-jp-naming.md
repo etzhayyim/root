@@ -31,7 +31,7 @@ depends_on:
 related:
   - adr-2605061300-real-world-effect-channel-boundary
   - adr-0026-agent-only-reverse-identity-topology
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
 supersedes: []
 superseded_by: []
 ---

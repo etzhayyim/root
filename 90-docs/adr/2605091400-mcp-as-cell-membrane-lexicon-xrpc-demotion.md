@@ -25,8 +25,8 @@ depends_on:
   - adr-2604231828-appview-domain-separation-bsky-gftd-ai
   - adr-2605131600-malak-orchestration-langgraph-pregel-langserve
 related:
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
-  - adr-2605091600-plasmid-graft-horizontal-acquisition
+  - adr-2604282300
+  - adr-2605091600-plasmid-graft-horizontal-tool-acquisition
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
 supersedes: []
 superseded_by: []

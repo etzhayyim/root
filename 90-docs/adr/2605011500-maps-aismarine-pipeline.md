@@ -21,8 +21,8 @@ related:
   - adr-0056-bpmn-as-actor
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-2604280900-maps-transit-pipeline-gtfs-rt
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
-  - adr-2604241342-risingwave-migration-failure-modes
+  - adr-2604282300
+  - adr-2604241342-risingwave-out-of-band-migration-pattern
 ---
 
 # ADR-2605011500 — Maps AIS Marine Vessel Tracking Pipeline

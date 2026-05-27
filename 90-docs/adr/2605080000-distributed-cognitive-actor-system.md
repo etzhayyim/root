@@ -30,9 +30,9 @@ depends_on:
   - adr-0044-risingwave-udf-language-strategy
 related:
   - adr-2605061200-agi-active-inference-artificial-organism-architecture
-  - adr-2605071900-koke-bryophyta-primary-fixation-layer
-  - adr-2605072100-ki-vascular-synthesis-layer
-  - adr-2605072000-saikin-bacteria-horizontal-transfer-layer
+  - adr-2605071900
+  - adr-2605072100
+  - adr-2605072000
 supersedes: []
 superseded_by: []
 amended_by:

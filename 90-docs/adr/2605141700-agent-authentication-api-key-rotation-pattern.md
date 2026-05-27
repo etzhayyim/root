@@ -15,8 +15,8 @@ authoritative_for:
 related:
   - 0022-auth-topology-consolidation
   - 0023-auth-shannon-optimal-4-layer
-  - 2604231821-atproto-oauth-wire-format-snake-case
-  - 2604240914-oauth-rs-binding-revocation-introspection
+  - adr-2604231821-atproto-oauth-wire-format-snake-case
+  - adr-2604240914-oauth-rs-binding-revocation-introspection
 supersedes: []
 superseded_by: []
 ---

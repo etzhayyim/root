@@ -22,21 +22,21 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192245-etzhayyim-global-land-sovereignty
 related:
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - 2605181200-mst-encrypted-metadata-leak-reduction
-  - 2605192300-etzhayyim-bootstrap-council-five
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture
-  - 2605231525-no-server-key-religious-corp-architecture
-  - 2605231902-feed-post-membrane-and-feed-discover-projection  # migration target (Phase 2.5), NOT superseded
-  - 2605241500-dataset-cid-substrate
-  - 2605241900-baien-edge-target-invariant
-  - 2605242600-baien-federated-training-r0
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - adr-2605181200-mst-encrypted-metadata-leak-reduction
+  - adr-2605192300-etzhayyim-bootstrap-council-five
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
+  - adr-2605231525-no-server-key-religious-corp-architecture
+  - adr-2605231902-feed-post-membrane-and-feed-discover-projection  # migration target (Phase 2.5), NOT superseded
+  - adr-2605241500-etzhayyim-dataset-cid-substrate
+  - adr-2605241900-baien-edge-target-invariant
+  - adr-2605242600-baien-federated-train-via-ameno-webgpu
 supersedes:
-  - 2605231400  # yatachain Holochain-iso composition spec (placeholder; kotoba is the engine)
-  - 2605231500  # yatachain-projection regenerable-cache rules (no projection layer needed)
-  - 2605232300  # yatachain engine-options exploration (speculative; engine chosen)
-  - 2605232400  # yatachain Tier D blob substrate closure (SDK API surface preserved; substrate moves to kotoba-store)
-  - 2605101000  # BigQuery P2 projection design (older / pre-kotoba projection design)
+  - adr-2605231400-yatachain-holochain-iso-substrate  # yatachain Holochain-iso composition spec (placeholder; kotoba is the engine)
+  - adr-2605231500-yatachain-projection  # yatachain-projection regenerable-cache rules (no projection layer needed)
+  - adr-2605232300-yatachain-engine-options-exploration  # yatachain engine-options exploration (speculative; engine chosen)
+  - adr-2605232400-baien-core3-bench-strategy-revision  # yatachain Tier D blob substrate closure (SDK API surface preserved; substrate moves to kotoba-store)
+  - adr-2605101000-baien-mx-multimodal-expansion-from-rw  # BigQuery P2 projection design (older / pre-kotoba projection design)
 superseded_by: []
 ---
 

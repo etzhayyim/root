@@ -16,7 +16,7 @@ related:
   - adr-0056-bpmn-as-actor
   - adr-2604250836-langgraph-as-zeebe-servicetask
   - adr-0036-worker-direct-hyperdrive-persistence
-  - adr-0046-yoro-triple-witness-autonomy-monitoring
+  - adr-0046
   - adr-0019-atproto-native-identifier-topology
   - adr-0023-auth-shannon-optimal-4-layer
   - adr-0029-did-gftd-method-specification

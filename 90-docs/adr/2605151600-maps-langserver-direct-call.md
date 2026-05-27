@@ -8,16 +8,16 @@ authoritative: true
 last_verified: "2026-05-15"
 supersedes: []
 related:
-  - adr-2605111200
-  - adr-2605111300
+  - adr-2605111200-cf-worker-edge-only-no-rw-connection
+  - adr-2605111300-pds-to-pod-bun-container
 ---
 
 # ADR-2605151600: maps CF Worker → LangServer Direct Call (amends ADR-2605111200)
 
-**Date**: 2026-05-15  
-**Status**: Accepted  
-**Amends**: ADR-2605111200 (CF Worker Edge-Only; No RW Connection)  
-**Supersedes**: Nothing  
+**Date**: 2026-05-15
+**Status**: Accepted
+**Amends**: ADR-2605111200 (CF Worker Edge-Only; No RW Connection)
+**Supersedes**: Nothing
 
 ## Context
 

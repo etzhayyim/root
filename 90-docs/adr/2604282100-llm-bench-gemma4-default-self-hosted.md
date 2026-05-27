@@ -11,7 +11,7 @@ authoritative_for:
   - RunPod inference compute layout
   - 70-tools/scripts/bench/llm-compare
 related:
-  - adr-2604240946
+  - adr-2604240946-yoro-autonomous-actor-hybrid-loop
   - adr-0050
 supersedes: []
 superseded_by: []

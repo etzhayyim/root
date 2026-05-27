@@ -12,7 +12,7 @@ authoritative_for:
   - Mapillary-derived reconstruction policy
 related:
   - maps-vision-satellite-pipeline
-  - 260409-kami-engineering-sdk-design
+  - 260409-unified-access-control-shannon-design
 supersedes: []
 superseded_by: []
 ---

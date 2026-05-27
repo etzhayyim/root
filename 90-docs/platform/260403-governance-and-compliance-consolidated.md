@@ -12,10 +12,10 @@ authoritative_for:
 related:
   - 260403-w-protocol-core-and-security-consolidated
 supersedes:
-  - 260321-consent-gated-data-sharing-design
-  - 260323-actor-visibility-governance-design
-  - 260323-authority-chain-compliance-design
-  - 260323-compliance-content-access-control-design
+  - yoro-superapp-oembed-design
+  - 260323-yoro-human-credit-economy-design
+  - 260323-yoro-human-credit-economy-design
+  - 260323-yoro-human-credit-economy-design
 superseded_by: []
 ---
 

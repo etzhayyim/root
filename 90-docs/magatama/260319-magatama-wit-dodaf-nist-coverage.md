@@ -9,8 +9,8 @@ last_verified: 2026-03-20
 authoritative_for:
   - magatama wit package coverage and compliance mapping
 related:
-  - 260320-magatama-runtime-dual-backend-design
-  - 260319-magatama-runtime-naming-map
+  - 260320-magatama-cloudflare-containers-evaluation
+  - 260319-w-protocol-component-composition-design
 supersedes: []
 superseded_by: []
 ---

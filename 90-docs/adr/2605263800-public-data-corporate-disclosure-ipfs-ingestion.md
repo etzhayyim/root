@@ -37,7 +37,7 @@ depends_on:
 related: []
 supersedes:
   - adr-2604291500-jp-corporate-financial-disclosure-ingest
-  - adr-2605150000-lg-isin-listed-company-ingest-langserver
+  - 2605150000
 superseded_by: []
 ---
 

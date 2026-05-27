@@ -14,7 +14,7 @@ authoritative_for:
 related:
   - adr-0074-ethereum-identity-bridge-cacao-webauthn
   - adr-2604261100-rego-dmn-policy-decision-layers
-  - adr-0046-yoro-triple-witness-autonomy-monitoring
+  - adr-0046
   - adr-0032-gmail-direct-ingest-yabai-classifier
   - adr-2604251220-record-log-not-mst
   - adr-0036-worker-direct-hyperdrive-persistence

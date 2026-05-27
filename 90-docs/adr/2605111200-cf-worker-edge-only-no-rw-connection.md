@@ -19,7 +19,7 @@ authoritative_for:
   - createKyselyDb-deprecation
 related:
   - adr-0002-persistence-risingwave-only
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2605080600-langgraph-server-granian-l3-runtime
   - adr-2605081200-spiffworkflow-bpmn-engine-replacement
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion

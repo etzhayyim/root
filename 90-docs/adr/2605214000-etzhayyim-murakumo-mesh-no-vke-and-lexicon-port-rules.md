@@ -20,12 +20,12 @@ depends_on:
   - 2605182312-local-bring-up-murakumo-gemma4
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
 related:
-  - 2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - 2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet
-  - 2605215200-etzhayyim-shinka-pregel-mst-rewrite
-  - 2605215300-etzhayyim-yoro-python-primitives-mst-rewrite-addendum
-  - 2605212100-gftd-to-etzhayyim-migration-batch
-  - 2605242330-gov-procedure-pregel-mcp-coverage
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
+  - adr-2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet
+  - adr-2605215200-shinka-pregel-mst
+  - adr-2605215300-yoro-python-primitives
+  - adr-2605212100-gftd-to-etzhayyim-migration-batch
+  - adr-2605242330-gov-procedure-pregel-mcp-coverage
 supersedes: []
 superseded_by: []
 ---

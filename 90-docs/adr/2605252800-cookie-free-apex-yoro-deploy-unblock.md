@@ -20,7 +20,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider  # Charter Compliance Rider v2.0 (§2(c) anti-surveillance)
   - adr-2605192100-etzhayyim-mission-charter  # Mission Charter
 related:
-  - 2605181100  # XChaCha20 envelope (touches localStorage-vs-cookie boundary)
+  - adr-2605181100-mst-encrypted-records-signal-keywrap  # XChaCha20 envelope (touches localStorage-vs-cookie boundary)
 supersedes: []
 superseded_by: []
 ---

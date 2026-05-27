@@ -10,23 +10,23 @@ authoritative_for:
   - hs-actor-path-did-model
 last_verified: 2026-04-15
 related:
-  - 260324-isin-coverage-social-evolution-design
-  - 260413-domain-coverage-kysely-mv-design
-  - 260414-global-legal-entity-data-sources-design
+  - 260324-isin-coverage-social-evolution
+  - f-plan-lexicon-as-contract
+  - doc-260414-risingwave-premium-32gb-scale-up
 ---
 
 # HS Code Domain Coverage Design
 
 ## Goal
 
-`ai-gftd-project-code-hs` を、Harmonized System (HS) code に基づく **国際貿易品目分類の基盤 project** として定義する。  
+`ai-gftd-project-code-hs` を、Harmonized System (HS) code に基づく **国際貿易品目分類の基盤 project** として定義する。
 この project は単なるコード辞書ではなく、以下 3 層を一体で扱う。
 
-1. **actor coverage**  
+1. **actor coverage**
    HS を使って何を判断・記録する actor が必要か
-2. **path DID coverage**  
+2. **path DID coverage**
    どの分類階層を DID 化して social / write / lineage の境界にするか
-3. **domain coverage**  
+3. **domain coverage**
    GTIN, CPC, ISIC, legal-entity, states, trade-flow をどう接続するか
 
 ## Positioning

@@ -10,7 +10,7 @@ authoritative_for:
   - 1Password vault layout for gftd.* operator credentials
   - keychain → 1Password mirror policy
 related:
-  - 2604231811-atproto-extension-service-layers
+  - adr-2604231811-atproto-extension-service-layers
 supersedes: []
 superseded_by: []
 ---

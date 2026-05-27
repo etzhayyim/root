@@ -14,7 +14,7 @@ related:
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0048-risingwave-vultr-b2-primary
   - adr-0056-bpmn-as-actor
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
 ---
 
 # aismarine bring-up runbook

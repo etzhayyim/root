@@ -28,8 +28,8 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - adr-2605242000-wadachi-autonomous-mobility-rd-r0
-  - adr-2605252500-sarutahiko-heavy-truck-mfg-r0
+  - adr-2605242000-roso-pattern-frontier-distill
+  - adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0
   - adr-2605261500-suki-farm-tractor-tier-b-actor-r0
   - adr-2605231400-yatachain-holochain-iso-substrate
 supersedes: []

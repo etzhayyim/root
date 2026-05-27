@@ -38,7 +38,7 @@ depends_on:
 related:
   - adr-2605081430-osm-ingest-rw-tuning-and-k8s-utilization
   - adr-2605200300-defense-isr-sensor-fusion
-  - adr-2605215100-maps-sentinel-murakumo-m1
+  - adr-2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet
   - adr-2605262200-charter-rider-2i-baien-train-rental-carveout
   - adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture
 supersedes: []

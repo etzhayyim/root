@@ -19,8 +19,8 @@ depends_on:
   - adr-2605202345-evo-x2-gpu-pod-fleet-integration
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 related:
-  - "2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md"
-  - "2605192245-etzhayyim-global-land-sovereignty.md"
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
+  - adr-2605192245-etzhayyim-global-land-sovereignty
 supersedes: []
 superseded_by: []
 ---

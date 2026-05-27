@@ -17,8 +17,8 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192300-etzhayyim-bootstrap-council-five
 related:
-  - 2605192245-etzhayyim-global-land-sovereignty
-  - 2605192115-tithe-router-public-fund
+  - adr-2605192245-etzhayyim-global-land-sovereignty
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
 supersedes: []
 superseded_by: []
 ---

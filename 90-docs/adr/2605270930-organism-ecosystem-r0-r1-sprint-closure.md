@@ -24,9 +24,9 @@ depends_on:
   - adr-2605266600-organism-embodiment-bridge-r0
   - adr-2605266700-organism-adversarial-robustness-r0
 related:
-  - 2605232345-unispsc-actor-as-organism
-  - 2605240200-kaizen-observer
-  - 2605262400-public-data-organism-ipfs-ingestion
+  - adr-2605232345-unispsc-actor-as-organism
+  - adr-2605240200-unispsc-organism-kaizen-self-reflection
+  - adr-2605262400-public-data-organism-ipfs-ingestion
 supersedes: []
 superseded_by: []
 ---

@@ -27,7 +27,7 @@ related:
   - adr-0062
   - adr-0088-comfyui-image-generation-gateway
   - adr-2604300135-hume-distillation-artifact-persistence
-  - adr-2604291630-yoro-guest-projector-browser-gemma-e2b
+  - adr-2604291630
   - adr-2604301200-web4-contract-did-autonomous-agent-economy
 supersedes: []
 superseded_by: []

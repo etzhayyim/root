@@ -20,7 +20,7 @@ depends_on:
   - adr-2605192145-etzhayyim-public-fund-architecture
   - adr-2605192300-etzhayyim-bootstrap-council-five
 related:
-  - 2605192245-etzhayyim-global-land-sovereignty
+  - adr-2605192245-etzhayyim-global-land-sovereignty
 supersedes: []
 superseded_by: []
 ---

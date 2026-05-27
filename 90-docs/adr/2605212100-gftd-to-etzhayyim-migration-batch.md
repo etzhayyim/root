@@ -17,10 +17,10 @@ depends_on:
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:
-  - 2605171900-yoro-migration-to-etzhayyim
-  - 2605172800-geth-private-migration-to-etzhayyim
-  - 2605202300-maps-etzhayyim-consumer-migration
-  - 2605215000-etzhayyim-inference-murakumo-only-no-runpod
+  - adr-2605171900-yoro-migration-to-etzhayyim
+  - adr-2605172800-geth-private-migration-to-etzhayyim
+  - adr-2605202300-maps-etzhayyim-consumer-migration
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 supersedes: []
 superseded_by: []
 ---

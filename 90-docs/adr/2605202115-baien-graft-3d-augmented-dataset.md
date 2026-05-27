@@ -19,11 +19,11 @@ depends_on:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
   - adr-2605202345-evo-x2-gpu-pod-fleet-integration
 related:
-  - "2605091300"
-  - "2605091600"
-  - "2604262359"
-  - "2605192100"
-  - "2605192200"
+  - adr-2605091300-bonsai-cultivar-layer-above-myco-yeast
+  - adr-2605091600-plasmid-graft-horizontal-tool-acquisition
+  - adr-2604262359-risingwave-multimodal-vector-search-topology
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 supersedes: []
 superseded_by: []
 ---

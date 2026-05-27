@@ -26,7 +26,7 @@ depends_on:
   - adr-2605172100-etzhayyim-payments-on-chain-only  # Payment rule (USDC + ERC-4337, no fiat)
   - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads  # Tithe + carve-out
 related:
-  - 2605221411  # Artificial organism ecosystem framing
+  - adr-2605221411-etzhayyim-artificial-organism-ecosystem  # Artificial organism ecosystem framing
   - 2605220810  # Stall rotation cycle 18
 supersedes: []
 superseded_by: []

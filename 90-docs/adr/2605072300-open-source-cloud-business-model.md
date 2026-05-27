@@ -13,7 +13,7 @@ authoritative_for:
   - OSS go-to-market strategy
 related:
   - adr-2605071200-myco-yeast-artificial-organism-jp-naming
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0018-pii-tier3-cohort-first
 supersedes: []

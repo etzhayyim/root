@@ -23,7 +23,7 @@ related:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
   - adr-2605151200-open-ot-wasm-plc-dlc
   - adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design
-  - adr-2605150600-ameno-browser-inference-platform
+  - ameno-browser-inference-platform
 supersedes: []
 superseded_by: []
 ---

@@ -39,13 +39,13 @@ related:
   - adr-2605262200-charter-rider-2i-baien-train-rental-carveout
   - adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture
   - adr-2605261500-suki-farm-tractor-tier-b-actor-r0
-  - adr-2605252200-watatsumi-civilian-submersible-tier-b-actor-r0
-  - adr-2605252500-sarutahiko-heavy-truck-tier-b-actor-r0
+  - adr-2605252200-watatsumi-civilian-submersible-r0
+  - adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0
   - adr-2605261330-futawa-motorcycle-tier-b-actor-r0
   - adr-2605250715-tatekata-construction-tier-b-actor-r0
   - adr-2605261215-hodoki-elv-disassembly-tier-b-actor-r0
   - adr-2605261115-makura-foam-pillow-tier-b-actor-r0
-  - adr-2605261200-igata-megacasting-tier-b-actor-r0
+  - adr-2605261115-igata-megacasting-tier-b-actor-r0
   - adr-2605261300-tsutae-handheld-communication-tier-b-actor-r0
 supersedes: []
 superseded_by: []

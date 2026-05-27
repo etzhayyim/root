@@ -33,7 +33,7 @@ depends_on:
   - adr-2605221411-etzhayyim-artificial-organism-ecosystem
   - adr-2605231230-etzhayyim-esign-actor-did-bound-mst-anchored
 related:
-  - 2605222330-etzhayyim-com-substrate-violation-transition-window
+  - adr-2605222330-etzhayyim-com-substrate-violation-transition-window
 supersedes: []
 superseded_by: []
 ---

@@ -16,9 +16,9 @@ related:
   - adr-2604261936-ipfs-self-hosted-vultr-b2
   - adr-0056-bpmn-as-actor
   - adr-0036-worker-direct-hyperdrive-persistence
-  - adr-2604292130-llm-gftd-ai-runpod-pass
-  - adr-2605010000-runpod-6000ada-unified-pod
-  - adr-2604282100-llm-bench-gemma4-default-self-hosted
+  - adr-2604292130
+  - adr-2605010000
+  - adr-2604282100
   - adr-0044-risingwave-udf-language-strategy
 supersedes: []
 superseded_by: []

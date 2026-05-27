@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-26
 related:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
-  - 2605242000-wadachi-autonomous-mobility-rd-r0.md
+  - adr-2605242000-roso-pattern-frontier-distill
   - 2605250715-tatekata-construction-tier-b-actor-r0.md
   - adr-2605252200-watatsumi-civilian-submersible-r0
   - adr-2605192100-etzhayyim-mission-charter

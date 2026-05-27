@@ -13,11 +13,11 @@ authoritative_for:
   - ameno-signal-v1-field-encryption
   - ameno-tier2-credit-event-contract
 related:
-  - 2604261936-ipfs-self-hosted-vultr-b2
-  - 2604291630-yoro-guest-projector-browser-gemma-e2b
-  - 2605091700-nats-jetstream-as-mycorrhizal-substrate
-  - 2605092350-baien-1bit-multimodal-edge-browser-cpu-design
-  - 2605111200-cf-worker-edge-only-no-rw-connection
+  - adr-2604261936-ipfs-self-hosted-vultr-b2
+  - adr-2604291630
+  - adr-2605091700-nats-jetstream-as-mycorrhizal-substrate
+  - adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design
+  - adr-2605111200-cf-worker-edge-only-no-rw-connection
   - 0018-pii-tier3-cohort-first
   - 0095-simplified-3layer-identity-rw-vault
 supersedes: []

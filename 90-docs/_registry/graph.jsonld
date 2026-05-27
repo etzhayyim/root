@@ -41,8 +41,8 @@
         "magatama wit package coverage and compliance mapping"
       ],
       "related": [
-        "doc:260320-magatama-runtime-dual-backend-design",
-        "doc:260319-magatama-runtime-naming-map"
+        "doc:260320-magatama-cloudflare-containers-evaluation",
+        "doc:260319-w-protocol-component-composition-design"
       ],
       "lastVerified": "2026-03-20"
     },
@@ -59,7 +59,7 @@
       "related": [
         "doc:260317-w-protocol-design",
         "doc:260317-w-protocol-wrpc-design",
-        "doc:260320-magatama-runtime-dual-backend-design"
+        "doc:260320-magatama-cloudflare-containers-evaluation"
       ],
       "lastVerified": "2026-03-20"
     },
@@ -74,7 +74,7 @@
         "magatama runtime default vs container fallback"
       ],
       "related": [
-        "doc:260320-magatama-runtime-dual-backend-design",
+        "doc:260320-magatama-cloudflare-containers-evaluation",
         "doc:260320-magatama-cloudflare-worker-rpc-optimization"
       ],
       "lastVerified": "2026-03-20"
@@ -91,7 +91,7 @@
       ],
       "related": [
         "doc:260320-magatama-cloudflare-containers-evaluation",
-        "doc:260320-magatama-runtime-dual-backend-design"
+        "doc:260320-magatama-cloudflare-containers-evaluation"
       ],
       "lastVerified": "2026-03-20"
     },
@@ -108,7 +108,7 @@
         "vault WIT interface design (magatama:secrets/vault)"
       ],
       "related": [
-        "doc:260321-consent-gated-data-sharing-design",
+        "doc:yoro-superapp-oembed-design",
         "doc:260317-yata-secure-cas-design",
         "doc:260315-atprotocol-signal-design",
         "doc:260319-magatama-wit-dodaf-nist-coverage"
@@ -130,7 +130,7 @@
       "related": [
         "doc:260317-w-protocol-design",
         "doc:260318-w-protocol-sender-trust-design",
-        "doc:260321-consent-gated-data-sharing-design"
+        "doc:yoro-superapp-oembed-design"
       ],
       "lastVerified": "2026-03-22"
     },
@@ -148,7 +148,7 @@
       ],
       "related": [
         "doc:yoro-superapp-oembed-design",
-        "doc:260320-murakumo-v2-cf-worker-design"
+        "doc:260320-magatama-cloudflare-containers-evaluation"
       ],
       "lastVerified": "2026-03-23"
     },
@@ -163,8 +163,8 @@
         "isin-coverage-heartbeat"
       ],
       "related": [
-        "doc:260323-authority-chain-compliance-design",
-        "doc:260323-actor-visibility-governance-design"
+        "doc:260323-yoro-human-credit-economy-design",
+        "doc:260323-yoro-human-credit-economy-design"
       ],
       "lastVerified": "2026-03-24"
     },
@@ -182,8 +182,8 @@
       ],
       "related": [
         "doc:260319-magatama-wit-dodaf-nist-coverage",
-        "doc:260324-news-wrpc-stream-reactive-design",
-        "doc:260323-authority-chain-compliance-design"
+        "doc:260324-source-graph-hybrid-design",
+        "doc:260323-yoro-human-credit-economy-design"
       ],
       "lastVerified": "2026-03-24"
     },
@@ -241,12 +241,12 @@
       ],
       "related": "doc:260403-wproto-transport-and-routing-consolidated",
       "supersedes": [
-        "doc:260324-did-path-lexicon-correspondence",
-        "doc:260324-performertype-did-generation-design",
-        "doc:260324-w-protocol-nsid-namespace-design",
-        "doc:260323-states-resource-flow-lexicon-design",
-        "doc:260323-states-multi-did-consolidation-design",
-        "doc:260323-isic-multi-did-consolidation-design",
+        "doc:260324-source-graph-hybrid-design",
+        "doc:260324-source-graph-hybrid-design",
+        "doc:260324-source-graph-hybrid-design",
+        "doc:260323-yoro-human-credit-economy-design",
+        "doc:260323-yoro-human-credit-economy-design",
+        "doc:260323-yoro-human-credit-economy-design",
         "doc:260326-did-follow-deps-governance-design"
       ],
       "lastVerified": "2026-04-03"
@@ -264,10 +264,10 @@
       ],
       "related": "doc:260403-w-protocol-core-and-security-consolidated",
       "supersedes": [
-        "doc:260321-consent-gated-data-sharing-design",
-        "doc:260323-actor-visibility-governance-design",
-        "doc:260323-authority-chain-compliance-design",
-        "doc:260323-compliance-content-access-control-design"
+        "doc:yoro-superapp-oembed-design",
+        "doc:260323-yoro-human-credit-economy-design",
+        "doc:260323-yoro-human-credit-economy-design",
+        "doc:260323-yoro-human-credit-economy-design"
       ],
       "lastVerified": "2026-04-03"
     },
@@ -284,8 +284,8 @@
       ],
       "related": "doc:260403-wproto-transport-and-routing-consolidated",
       "supersedes": [
-        "doc:260325-magatama-inference-rust-single-codebase-design",
-        "doc:260327-ts-native-wit-contract-design",
+        "doc:260325-claude-native-lifecycle-management",
+        "doc:ingredient-safety-scoring",
         "doc:260330-hayate-wasm-magatama-design",
         "doc:260330-hayate-artifact-schema-design"
       ],
@@ -400,7 +400,7 @@
       ],
       "supersedes": [
         "doc:wrpc-stream-native",
-        "doc:260324-wrpc-wit-binding-generation",
+        "doc:260324-source-graph-hybrid-design",
         "doc:xrpc-cqrs-service-proxy"
       ],
       "lastVerified": "2026-04-03"
@@ -455,9 +455,9 @@
         "hs-actor-path-did-model"
       ],
       "related": [
-        "doc:260324-isin-coverage-social-evolution-design",
-        "doc:260413-domain-coverage-kysely-mv-design",
-        "doc:260414-global-legal-entity-data-sources-design"
+        "doc:260324-isin-coverage-social-evolution",
+        "doc:f-plan-lexicon-as-contract",
+        "doc:doc-260414-risingwave-premium-32gb-scale-up"
       ],
       "lastVerified": "2026-04-15"
     },
@@ -508,8 +508,8 @@
         "AT Protocol client/library selection"
       ],
       "related": [
-        "doc:2604231811-atproto-extension-service-layers",
-        "doc:2604231821-atproto-oauth-wire-format-snake-case",
+        "doc:adr-2604231811-atproto-extension-service-layers",
+        "doc:adr-2604231821-atproto-oauth-wire-format-snake-case",
         "doc:0049-python-udf-shared-pool-runtime"
       ],
       "lastVerified": "2026-04-25"
@@ -565,7 +565,7 @@
         "1Password vault layout for gftd.* operator credentials",
         "keychain → 1Password mirror policy"
       ],
-      "related": "doc:2604231811-atproto-extension-service-layers",
+      "related": "doc:adr-2604231811-atproto-extension-service-layers",
       "lastVerified": "2026-04-29"
     },
     {
@@ -612,7 +612,7 @@
       ],
       "related": [
         "doc:2604251700-wproto-wit-dead-path",
-        "doc:2604261110-wproto-wreactive-wit-retirement"
+        "doc:adr-2604261110-wproto-wreactive-wit-retirement"
       ],
       "lastVerified": "2026-05-14"
     },
@@ -1434,7 +1434,7 @@
       "related": [
         "doc:adr-0038-actor-as-data-bpmn-dmn-form-mcp-faas",
         "doc:adr-0044-risingwave-udf-language-strategy",
-        "doc:adr-0046-yoro-triple-witness-autonomy-monitoring",
+        "doc:adr-0046",
         "doc:adr-0049-python-udf-shared-pool-runtime",
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-0081-worker-direct-hyperdrive-persistence",
@@ -1524,7 +1524,7 @@
       "related": [
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
         "doc:adr-0002-graph-storage-appview",
-        "doc:260320-cad-magatamaapp-design"
+        "doc:260320-magatama-cloudflare-containers-evaluation"
       ],
       "lastVerified": "2026-04-24"
     },
@@ -1569,7 +1569,7 @@
         "doc:adr-0049-python-udf-shared-pool-runtime",
         "doc:adr-0044-risingwave-udf-language-strategy",
         "doc:adr-0059-tool-runtime-selection-python-udf-default",
-        "doc:adr-0046-yoro-triple-witness-autonomy-monitoring",
+        "doc:adr-0046",
         "doc:adr-0092-every-vertex-as-actor",
         "doc:adr-2604231349-timestamp-numbering-policy",
         "doc:adr-2604231457-bpmn-security-posture-camunda-alignment",
@@ -1595,7 +1595,7 @@
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-2604250836-langgraph-as-zeebe-servicetask",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
-        "doc:adr-0046-yoro-triple-witness-autonomy-monitoring",
+        "doc:adr-0046",
         "doc:adr-0019-atproto-native-identifier-topology",
         "doc:adr-0023-auth-shannon-optimal-4-layer",
         "doc:adr-0029-did-gftd-method-specification",
@@ -1833,7 +1833,7 @@
       "related": [
         "doc:adr-0036-shannon-cleanup-did-actor-topology",
         "doc:adr-0044-risingwave-udf-language-strategy",
-        "doc:adr-0046-triple-witness-monitoring",
+        "doc:adr-0046",
         "doc:adr-0048-risingwave-vultr-b2-primary",
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-2604240946-yoro-autonomous-actor-hybrid-loop",
@@ -1924,7 +1924,7 @@
         "doc:adr-0023-auth-shannon-optimal-4-layer",
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
-        "doc:adr-2604261110"
+        "doc:adr-2604261110-wproto-wreactive-wit-retirement"
       ],
       "lastVerified": "2026-04-26"
     },
@@ -1983,7 +1983,7 @@
       "related": [
         "doc:adr-0074-ethereum-identity-bridge-cacao-webauthn",
         "doc:adr-2604261100-rego-dmn-policy-decision-layers",
-        "doc:adr-0046-yoro-triple-witness-autonomy-monitoring",
+        "doc:adr-0046",
         "doc:adr-0032-gmail-direct-ingest-yabai-classifier",
         "doc:adr-2604251220-record-log-not-mst",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
@@ -2368,7 +2368,7 @@
       "related": [
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-2604241342-risingwave-migration-failure-modes",
+        "doc:adr-2604241342-risingwave-out-of-band-migration-pattern",
         "doc:adr-0048-risingwave-vultr-b2-primary"
       ],
       "lastVerified": "2026-04-28"
@@ -2386,7 +2386,7 @@
       "related": [
         "doc:adr-0074-ethereum-identity-bridge-cacao-webauthn",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-2604261100-rego-authz-dmn-rego-sso"
+        "doc:adr-2604261100-rego-dmn-policy-decision-layers"
       ],
       "lastVerified": "2026-04-28"
     },
@@ -2494,7 +2494,7 @@
         "70-tools/scripts/bench/llm-compare"
       ],
       "related": [
-        "doc:adr-2604240946",
+        "doc:adr-2604240946-yoro-autonomous-actor-hybrid-loop",
         "doc:adr-0050"
       ],
       "lastVerified": "2026-04-28"
@@ -2693,7 +2693,7 @@
       ],
       "related": [
         "doc:adr-2604241038-yoro-pds-ideal-topology",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2604282300",
         "doc:adr-2604231828-appview-domain-separation-bsky-gftd-ai"
       ],
       "lastVerified": "2026-04-30"
@@ -2722,8 +2722,8 @@
       "related": [
         "doc:adr-2604282100",
         "doc:adr-2604292130",
-        "doc:adr-2605080600",
-        "doc:adr-2604231328",
+        "doc:adr-2605080600-langgraph-server-granian-l3-runtime",
+        "doc:adr-2604231328-animeka-bpmn-l40s-pipeline",
         "doc:adr-2604281600",
         "doc:adr-2605211000"
       ],
@@ -2763,7 +2763,7 @@
         "vacuum score metric"
       ],
       "related": [
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2604282300",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
         "doc:adr-0018-pii-tier3-cohort-first",
         "doc:adr-0026-agent-only-reverse-identity-topology"
@@ -2793,8 +2793,8 @@
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-2604251830-shannon-optimal-layered-architecture",
         "doc:adr-2604280900-maps-transit-pipeline-gtfs-rt",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
-        "doc:adr-2604241342-risingwave-migration-failure-modes"
+        "doc:adr-2604282300",
+        "doc:adr-2604241342-risingwave-out-of-band-migration-pattern"
       ],
       "lastVerified": "2026-05-01"
     },
@@ -2860,7 +2860,7 @@
         "doc:adr-0062",
         "doc:adr-0088-comfyui-image-generation-gateway",
         "doc:adr-2604300135-hume-distillation-artifact-persistence",
-        "doc:adr-2604291630-yoro-guest-projector-browser-gemma-e2b",
+        "doc:adr-2604291630",
         "doc:adr-2604301200-web4-contract-did-autonomous-agent-economy"
       ],
       "lastVerified": "2026-05-06"
@@ -2883,9 +2883,9 @@
         "doc:adr-2604261936-ipfs-self-hosted-vultr-b2",
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
-        "doc:adr-2604292130-llm-gftd-ai-runpod-pass",
-        "doc:adr-2605010000-runpod-6000ada-unified-pod",
-        "doc:adr-2604282100-llm-bench-gemma4-default-self-hosted",
+        "doc:adr-2604292130",
+        "doc:adr-2605010000",
+        "doc:adr-2604282100",
         "doc:adr-0044-risingwave-udf-language-strategy"
       ],
       "lastVerified": "2026-05-07"
@@ -2912,7 +2912,7 @@
       "related": [
         "doc:adr-2605061300-real-world-effect-channel-boundary",
         "doc:adr-0026-agent-only-reverse-identity-topology",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic"
+        "doc:adr-2604282300"
       ],
       "lastVerified": "2026-05-07"
     },
@@ -2950,7 +2950,7 @@
       "related": [
         "doc:adr-0017-maritime-energy-cluster-topology",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2604282300",
         "doc:adr-0095-simplified-3layer-identity-rw-vault"
       ],
       "lastVerified": "2026-05-07"
@@ -2966,7 +2966,7 @@
         "koke ecosystem member design",
         "primary fixation layer in myco-yeast artificial organism"
       ],
-      "related": "doc:adr-2605071200",
+      "related": "doc:adr-2605071200-myco-yeast-artificial-organism-jp-naming",
       "lastVerified": "2026-05-07"
     },
     {
@@ -2981,7 +2981,7 @@
         "horizontal signal transfer in myco-yeast artificial organism"
       ],
       "related": [
-        "doc:adr-2605071200",
+        "doc:adr-2605071200-myco-yeast-artificial-organism-jp-naming",
         "doc:adr-2605071900"
       ],
       "lastVerified": "2026-05-07"
@@ -2997,8 +2997,8 @@
         "LangGraph agent loop usage within L3 actor runtime"
       ],
       "related": [
-        "doc:adr-2605071200",
-        "doc:adr-2605072000-saikin-bacteria-horizontal-transfer-layer",
+        "doc:adr-2605071200-myco-yeast-artificial-organism-jp-naming",
+        "doc:adr-2605072000",
         "doc:adr-2605080600-langgraph-server-granian-l3-runtime"
       ],
       "amendedBy": [
@@ -3019,7 +3019,7 @@
         "vascular synthesis layer in myco-yeast artificial organism"
       ],
       "related": [
-        "doc:adr-2605071200",
+        "doc:adr-2605071200-myco-yeast-artificial-organism-jp-naming",
         "doc:adr-2605071900",
         "doc:adr-2605072000"
       ],
@@ -3040,7 +3040,7 @@
       ],
       "related": [
         "doc:adr-2605071200-myco-yeast-artificial-organism-jp-naming",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2604282300",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
         "doc:adr-0018-pii-tier3-cohort-first"
       ],
@@ -3067,9 +3067,9 @@
       ],
       "related": [
         "doc:adr-2605061200-agi-active-inference-artificial-organism-architecture",
-        "doc:adr-2605071900-koke-bryophyta-primary-fixation-layer",
-        "doc:adr-2605072100-ki-vascular-synthesis-layer",
-        "doc:adr-2605072000-saikin-bacteria-horizontal-transfer-layer"
+        "doc:adr-2605071900",
+        "doc:adr-2605072100",
+        "doc:adr-2605072000"
       ],
       "amendedBy": [
         "doc:adr-2605080200-pydantic-l6-validation-contract",
@@ -3102,8 +3102,8 @@
         "doc:adr-0056-bpmn-as-actor",
         "doc:adr-0087-magatama-mcp-tool-facade",
         "doc:adr-0095-simplified-3layer-identity-rw-vault",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
-        "doc:adr-2605010000-runpod-6000ada-unified-pod",
+        "doc:adr-2604282300",
+        "doc:adr-2605010000",
         "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
       ],
       "lastVerified": "2026-05-09"
@@ -3349,7 +3349,7 @@
         "lean 4 mechanical verification of axioms"
       ],
       "related": [
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2604282300",
         "doc:adr-0026-agent-only-reverse-identity-topology",
         "doc:adr-0095-simplified-3layer-identity-rw-vault"
       ],
@@ -3370,7 +3370,7 @@
         "覚者 DAO arbitration"
       ],
       "related": [
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2604282300",
         "doc:adr-0095-simplified-3layer-identity-rw-vault",
         "doc:adr-0074-ethereum-identity-bridge-cacao-webauthn"
       ],
@@ -3704,8 +3704,8 @@
         "Internal XRPC remains active for cytoplasmic (cohort-internal) wire"
       ],
       "related": [
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
-        "doc:adr-2605091600-plasmid-graft-horizontal-acquisition",
+        "doc:adr-2604282300",
+        "doc:adr-2605091600-plasmid-graft-horizontal-tool-acquisition",
         "doc:adr-2605111200-cf-worker-edge-only-no-rw-connection"
       ],
       "lastVerified": "2026-05-15"
@@ -3767,8 +3767,8 @@
         "doc:adr-2605091600-plasmid-graft-horizontal-tool-acquisition",
         "doc:adr-2605092200-continuous-metabolic-training",
         "doc:adr-2605092500-reasoning-as-sap-flow-walk",
-        "doc:adr-2605071200-myco-yeast-organism-jp-naming",
-        "doc:adr-2605072000-saikin-bacteria-horizontal-transfer-layer",
+        "doc:adr-2605071200-myco-yeast-artificial-organism-jp-naming",
+        "doc:adr-2605072000",
         "doc:adr-2605080000-distributed-cognitive-actor-system",
         "doc:adr-2605091300-bonsai-cultivar-layer-above-myco-yeast"
       ],
@@ -4048,7 +4048,7 @@
         "doc:90-docs/260409-kami-engineering-sdk-design.md",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
         "doc:adr-2604251830-shannon-optimal-layered-architecture",
-        "doc:adr-2605080700-rw-native-model-training-weight-lineage"
+        "doc:adr-2605080700-graph-schema-live-risingwave-baseline"
       ],
       "lastVerified": "2026-05-10"
     },
@@ -4119,7 +4119,7 @@
         "doc:adr-2605092345-runpod-l40s-fp8-multimodal-model-design",
         "doc:90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md"
       ],
-      "supersededBy": "doc:2605262130-kotoba-storage-substrate-unification",
+      "supersededBy": "doc:adr-2605262130-kotoba-storage-substrate-unification",
       "lastVerified": "2026-05-10"
     },
     {
@@ -4178,7 +4178,7 @@
       "related": [
         "doc:adr-2605101200-ai-cxo-roles-lsp-resident",
         "doc:adr-2604231828-appview-domain-separation-bsky-gftd-ai",
-        "doc:adr-2605010000-runpod-6000ada-unified-pod",
+        "doc:adr-2605010000",
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
         "doc:adr-2605141500-shinshi-review-generation-quality-loop"
       ],
@@ -4232,7 +4232,7 @@
       "related": [
         "doc:adr-0094-risingwave-stable-three-node-topology",
         "doc:adr-0048-risingwave-vultr-b2-primary",
-        "doc:adr-2604231328-pattern-1-runpod-comfyui",
+        "doc:adr-2604231328-animeka-bpmn-l40s-pipeline",
         "doc:adr-2605101200-ai-cxo-roles-lsp-resident",
         "doc:adr-2605102100-keiei-llm-vultr-cpu-inference"
       ],
@@ -4253,7 +4253,7 @@
       ],
       "related": [
         "doc:adr-2605110100-vultr-a40-third-2node-consolidation",
-        "doc:adr-2605010000-runpod-6000ada-unified-pod",
+        "doc:adr-2605010000",
         "doc:adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
         "doc:adr-2605092200-continuous-metabolic-training",
         "doc:adr-2605092300-fp8-train-inference-colocation",
@@ -4291,7 +4291,7 @@
       ],
       "related": [
         "doc:adr-0002-persistence-risingwave-only",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2604282300",
         "doc:adr-2605080600-langgraph-server-granian-l3-runtime",
         "doc:adr-2605081200-spiffworkflow-bpmn-engine-replacement",
         "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
@@ -4320,7 +4320,7 @@
         "doc:adr-0014-self-hosted-did-plc",
         "doc:adr-0094-risingwave-stable-three-node-topology",
         "doc:adr-2605080600-langgraph-server-granian-l3-runtime",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic"
+        "doc:adr-2604282300"
       ],
       "lastVerified": "2026-05-14"
     },
@@ -4362,7 +4362,7 @@
         "RisingWave bench result schema (vertex_bench_run / vertex_bench_result)"
       ],
       "related": [
-        "doc:adr-2605010000-runpod-6000ada-unified-pod",
+        "doc:adr-2605010000",
         "doc:adr-2605110227-gpu-cross-provider-pricing-research",
         "doc:adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
         "doc:adr-0018-pii-tier3-cohort-first"
@@ -4521,7 +4521,7 @@
         "decision: MTP rollout to murakumo Mac mini fleet"
       ],
       "related": [
-        "doc:adr-2605010000-runpod-6000ada-unified-pod",
+        "doc:adr-2605010000",
         "doc:adr-2605080000-distributed-cognitive-actor-system",
         "doc:adr-2605121700-murakumo-virtual-kubelet"
       ],
@@ -4708,8 +4708,8 @@
       "related": [
         "doc:0022-auth-topology-consolidation",
         "doc:0023-auth-shannon-optimal-4-layer",
-        "doc:2604231821-atproto-oauth-wire-format-snake-case",
-        "doc:2604240914-oauth-rs-binding-revocation-introspection"
+        "doc:adr-2604231821-atproto-oauth-wire-format-snake-case",
+        "doc:adr-2604240914-oauth-rs-binding-revocation-introspection"
       ],
       "lastVerified": "2026-05-14"
     },
@@ -4842,7 +4842,7 @@
         "safety classification (non-SIL only at MVP)"
       ],
       "related": [
-        "doc:adr-2604251700-wproto-wit-dead-path",
+        "doc:2604251700-wproto-wit-dead-path",
         "doc:adr-2604261830-ethereum-anchored-wasm-bpmn-runtime",
         "doc:adr-2605142200-giemon-open-hardware-brand"
       ],
@@ -4861,8 +4861,8 @@
         "helmfile-owned-raw-resource-adoption"
       ],
       "related": [
-        "doc:adr-2605142000",
-        "doc:adr-2605131900"
+        "doc:buildx-remote-build-only",
+        "doc:adr-2605131900-organism-mcp-xrpc-proxy-phase-h"
       ],
       "lastVerified": "2026-05-15"
     },
@@ -4911,8 +4911,8 @@
       "topic": "infra",
       "authoritative": true,
       "related": [
-        "doc:adr-2605111200",
-        "doc:adr-2605111300"
+        "doc:adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "doc:adr-2605111300-pds-to-pod-bun-container"
       ],
       "lastVerified": "2026-05-15"
     },
@@ -4978,7 +4978,7 @@
         "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
         "doc:adr-2605151200-open-ot-wasm-plc-dlc",
         "doc:adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
-        "doc:adr-2605150600-ameno-browser-inference-platform"
+        "doc:ameno-browser-inference-platform"
       ],
       "lastVerified": "2026-05-15"
     },
@@ -5184,7 +5184,7 @@
         "vendor bridge boundary for PSTN, SIP trunk, IMS, and carrier compliance"
       ],
       "related": [
-        "doc:adr-2604262145-erc725-facade-did",
+        "doc:adr-2604262145-erc8004-protocol-root-atproto-profile",
         "doc:adr-2604251830-shannon-optimal-layered-architecture"
       ],
       "lastVerified": "2026-05-17"
@@ -5202,9 +5202,9 @@
         "re-judgment of ADR-2605152100 borderline list (auth / agentgateway / bpmn / magatama / pregel / shinka / society6 / trust / vault / signal / kyber / yoro / sanctions / well-becoming / kami)"
       ],
       "related": [
-        "doc:adr-2605172200-open-email",
+        "doc:adr-2605172200-openmail-atproto-mst-smtp-bridge",
         "doc:adr-2605172300-etzhayyim-open-telecom-fabric",
-        "doc:adr-2605171900-yoro-appview-etzhayyim-migration"
+        "doc:adr-2605171900-yoro-migration-to-etzhayyim"
       ],
       "lastVerified": "2026-05-19"
     },
@@ -5326,7 +5326,7 @@
         "repository.publicized webhook handling"
       ],
       "related": [
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2604282300",
         "doc:adr-2605080600-langgraph-server-granian-l3-runtime",
         "doc:adr-2605111200-cf-worker-edge-only-no-rw-connection"
       ],
@@ -5476,7 +5476,7 @@
       "related": [
         "doc:adr-0036-lawfirm-india-intake-auto-route",
         "doc:adr-0018-pii-tier3-cohort-first",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2604282300",
         "doc:adr-2605180000-lawfirm-product-focus-bmc-lean"
       ],
       "lastVerified": "2026-05-19"
@@ -6333,11 +6333,11 @@
         "Role separation: evo-x2 (generation) / Mac M4 (render + caption)"
       ],
       "related": [
-        "doc:2605091300",
-        "doc:2605091600",
-        "doc:2604262359",
-        "doc:2605192100",
-        "doc:2605192200"
+        "doc:adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
+        "doc:adr-2605091600-plasmid-graft-horizontal-tool-acquisition",
+        "doc:adr-2604262359-risingwave-multimodal-vector-search-topology",
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "lastVerified": "2026-05-20"
     },
@@ -6407,9 +6407,9 @@
         "EthicsContentClassifierCell LLM fallback ルーティング"
       ],
       "related": [
-        "doc:2605191346",
-        "doc:2605182312",
-        "doc:2605192400"
+        "doc:2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "doc:2605182312-local-bring-up-murakumo-gemma4",
+        "doc:adr-2605192400-etzhayyim-eros-gore-council-judging"
       ],
       "lastVerified": "2026-05-20"
     },
@@ -6424,7 +6424,7 @@
         "etzhayyim.com apex (/) HTTP behavior",
         "did:web Worker と apex 配信の同居方針"
       ],
-      "related": "doc:2605170900",
+      "related": "doc:adr-2605170900-etzhayyim-root-adr-canonical-home",
       "lastVerified": "2026-05-20"
     },
     {
@@ -6522,7 +6522,7 @@
       ],
       "related": [
         "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic",
+        "doc:adr-2604282300",
         "doc:adr-2605111200-cf-worker-edge-only-no-rw-connection"
       ],
       "lastVerified": "2026-05-21"
@@ -6640,10 +6640,10 @@
       ],
       "related": [
         "doc:adr-2605010000",
-        "doc:adr-2605110100",
+        "doc:adr-2605110100-vultr-a40-third-2node-consolidation",
         "doc:adr-2605102100-keiei-llm-vultr-cpu-inference",
-        "doc:adr-2605080600",
-        "doc:adr-2605190100"
+        "doc:adr-2605080600-langgraph-server-granian-l3-runtime",
+        "doc:adr-2605190100-defense-cluster-topology"
       ],
       "supersedes": [
         "doc:adr-2605010000",
@@ -6668,7 +6668,7 @@
       "related": [
         "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
         "doc:adr-2605111200-cf-worker-edge-only-no-rw-connection",
-        "doc:adr-2605151600-maps-langserver-direct-call",
+        "doc:adr-2605151600",
         "doc:adr-2605102200-operating-entity-etzhayyim-rename"
       ],
       "lastVerified": "2026-05-21"
@@ -6707,7 +6707,7 @@
       "related": [
         "doc:adr-2605172000-etzhayyim-rw-free-substrate",
         "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
-        "doc:adr-2605211000-worker-xrpc-adapter-deploy-runbook"
+        "doc:adr-2605211000"
       ],
       "lastVerified": "2026-05-21"
     },
@@ -6926,10 +6926,10 @@
         "gftd-to-etzhayyim-60apps-batch"
       ],
       "related": [
-        "doc:2605171900-yoro-migration-to-etzhayyim",
-        "doc:2605172800-geth-private-migration-to-etzhayyim",
-        "doc:2605202300-maps-etzhayyim-consumer-migration",
-        "doc:2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+        "doc:adr-2605171900-yoro-migration-to-etzhayyim",
+        "doc:adr-2605172800-geth-private-migration-to-etzhayyim",
+        "doc:adr-2605202300-maps-etzhayyim-consumer-migration",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "lastVerified": "2026-05-24"
     },
@@ -7011,8 +7011,8 @@
         "cell-runner ↔ LSP query path"
       ],
       "related": [
-        "doc:2605191346",
-        "doc:2605171800"
+        "doc:2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "doc:adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
       ],
       "lastVerified": "2026-05-21"
     },
@@ -7122,12 +7122,12 @@
         "atomic-identifier-cutover-rules"
       ],
       "related": [
-        "doc:2605215000-etzhayyim-inference-murakumo-only-no-runpod",
-        "doc:2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet",
-        "doc:2605215200-etzhayyim-shinka-pregel-mst-rewrite",
-        "doc:2605215300-etzhayyim-yoro-python-primitives-mst-rewrite-addendum",
-        "doc:2605212100-gftd-to-etzhayyim-migration-batch",
-        "doc:2605242330-gov-procedure-pregel-mcp-coverage"
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "doc:adr-2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet",
+        "doc:adr-2605215200-shinka-pregel-mst",
+        "doc:adr-2605215300-yoro-python-primitives",
+        "doc:adr-2605212100-gftd-to-etzhayyim-migration-batch",
+        "doc:adr-2605242330-gov-procedure-pregel-mcp-coverage"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -7144,9 +7144,9 @@
         "pymagatama RunPod coupling audit and Step 8 cutover scope"
       ],
       "related": [
-        "doc:2605192415-etzhayyim-religious-corp-daemon-architecture.md",
-        "doc:2605202100-etzhayyim-magatama-cell-runner-launchd.md",
-        "doc:2605182312-local-bring-up-murakumo-gemma4.md"
+        "doc:adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "doc:adr-2605202100-etzhayyim-magatama-cell-runner-launchd",
+        "doc:2605182312-local-bring-up-murakumo-gemma4"
       ],
       "lastVerified": "2026-05-21"
     },
@@ -7163,8 +7163,8 @@
         "maps_sentinel_murakumo.py REIMPLEMENT successor implementation roadmap"
       ],
       "related": [
-        "doc:2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md",
-        "doc:2605192245-etzhayyim-global-land-sovereignty.md"
+        "doc:adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "doc:adr-2605192245-etzhayyim-global-land-sovereignty"
       ],
       "lastVerified": "2026-05-21"
     },
@@ -7293,7 +7293,7 @@
         "council-rfp-per-seat-discussions"
       ],
       "related": [
-        "doc:2605221411",
+        "doc:adr-2605221411-etzhayyim-artificial-organism-ecosystem",
         "doc:2605220810"
       ],
       "lastVerified": "2026-05-22"
@@ -7310,7 +7310,7 @@
         "ADR-2605111200 transition window",
         "Charter §2 substrate boundary current state"
       ],
-      "related": "doc:2605221411-etzhayyim-artificial-organism-ecosystem",
+      "related": "doc:adr-2605221411-etzhayyim-artificial-organism-ecosystem",
       "lastVerified": "2026-05-22"
     },
     {
@@ -7359,7 +7359,7 @@
         "religious-corp native document signing protocol (DID + WebAuthn + MST + IPFS + Base L2 anchor)",
         "separation between gftd lawfirm DocuSign passthrough and etzhayyim native esign"
       ],
-      "related": "doc:2605222330-etzhayyim-com-substrate-violation-transition-window",
+      "related": "doc:adr-2605222330-etzhayyim-com-substrate-violation-transition-window",
       "lastVerified": "2026-05-23"
     },
     {
@@ -7398,7 +7398,7 @@
         "karute ↔ iryo.etzhayyim.com billing bridge",
         "patient-initiated grant/revoke flow in karute UI"
       ],
-      "related": "doc:adr-2605192115-non-profit-only-payment-purpose",
+      "related": "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
       "lastVerified": "2026-05-23"
     },
     {
@@ -7414,10 +7414,10 @@
         "validation membrane + witness quorum spec"
       ],
       "related": [
-        "doc:2605171800-mst-projector-stage-pipeline",
-        "doc:2605222330-etzhayyim-com-substrate-violation-transition-window"
+        "doc:adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "doc:adr-2605222330-etzhayyim-com-substrate-violation-transition-window"
       ],
-      "supersededBy": "doc:2605262130-kotoba-storage-substrate-unification",
+      "supersededBy": "doc:adr-2605262130-kotoba-storage-substrate-unification",
       "lastVerified": "2026-05-23"
     },
     {
@@ -7457,7 +7457,7 @@
         "the canonical wiring matrix between UNSPSC LangGraph actors and religious-corp economic-body contracts",
         "agent-vs-human signer distinction (AAT for AI agents, Adherent SBT for humans)"
       ],
-      "related": "doc:2605222330-etzhayyim-com-substrate-violation-transition-window",
+      "related": "doc:adr-2605222330-etzhayyim-com-substrate-violation-transition-window",
       "lastVerified": "2026-05-23"
     },
     {
@@ -7473,10 +7473,10 @@
         "Bluesky AppView analog — PDS = state, projection = derivable cache"
       ],
       "related": [
-        "doc:2605222330-etzhayyim-com-substrate-violation-transition-window",
-        "doc:2605111200-cf-worker-db-prohibition"
+        "doc:adr-2605222330-etzhayyim-com-substrate-violation-transition-window",
+        "doc:adr-2605111200-cf-worker-edge-only-no-rw-connection"
       ],
-      "supersededBy": "doc:2605262130-kotoba-storage-substrate-unification",
+      "supersededBy": "doc:adr-2605262130-kotoba-storage-substrate-unification",
       "lastVerified": "2026-05-23"
     },
     {
@@ -7492,8 +7492,8 @@
         "charter-rider-section-1-6-middleman-elimination"
       ],
       "related": [
-        "doc:adr-2605192300-bootstrap-council",
-        "doc:adr-2605192315-transparent-religious-force"
+        "doc:adr-2605192300-etzhayyim-bootstrap-council-five",
+        "doc:adr-2605192315-etzhayyim-transparent-force-rd"
       ],
       "lastVerified": "2026-05-23"
     },
@@ -7580,8 +7580,8 @@
         "timeline incident 2026-05-23 RCA + remediation record"
       ],
       "related": [
-        "doc:2605222330",
-        "doc:2605211000"
+        "doc:adr-2605222330-etzhayyim-com-substrate-violation-transition-window",
+        "doc:adr-2605211000"
       ],
       "lastVerified": "2026-05-23"
     },
@@ -7601,8 +7601,8 @@
       ],
       "related": [
         "doc:adr-2605172000-etzhayyim-rw-free-substrate",
-        "doc:adr-2605191346-religious-corp-cells-ha-stateful",
-        "doc:adr-2605232100-religious-corp-cells-k3s-daemonset"
+        "doc:2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "doc:adr-2605232100-etzhayyim-organism-vertical-implementation"
       ],
       "lastVerified": "2026-05-23"
     },
@@ -7679,10 +7679,10 @@
       "topic": "yatachain-engine",
       "authoritative": false,
       "related": [
-        "doc:2604241342-risingwave-out-of-band-migration-pattern",
-        "doc:2605171300-magatama-unispsc-langgraph-agents"
+        "doc:adr-2604241342-risingwave-out-of-band-migration-pattern",
+        "doc:2605171300"
       ],
-      "supersededBy": "doc:2605262130-kotoba-storage-substrate-unification",
+      "supersededBy": "doc:adr-2605262130-kotoba-storage-substrate-unification",
       "lastVerified": "2026-05-23"
     },
     {
@@ -7735,10 +7735,10 @@
         "yoro substrate-facade migration (@atproto/api → @etzhayyim/sdk/atproto)"
       ],
       "related": [
-        "doc:2605171800-mst-projector-stage-pipeline",
-        "doc:2605231525-no-server-key-religious-corp-architecture"
+        "doc:adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "doc:adr-2605231525-no-server-key-religious-corp-architecture"
       ],
-      "supersededBy": "doc:2605262130-kotoba-storage-substrate-unification",
+      "supersededBy": "doc:adr-2605262130-kotoba-storage-substrate-unification",
       "lastVerified": "2026-05-23"
     },
     {
@@ -8048,8 +8048,8 @@
         "140-country-scale-out-plan"
       ],
       "related": [
-        "doc:2605231902-feed-post-membrane-and-feed-discover-projection",
-        "doc:2605231400-yatachain-holochain-iso-substrate"
+        "doc:adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "doc:adr-2605231400-yatachain-holochain-iso-substrate"
       ],
       "lastVerified": "2026-05-24"
     },
@@ -8225,9 +8225,9 @@
         "member-registry-cell-first-instance"
       ],
       "related": [
-        "doc:2605192115-tithe-router-public-fund",
-        "doc:2605172000-rw-free-substrate",
-        "doc:2605212100-gftd-to-etzhayyim-migration-batch"
+        "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605212100-gftd-to-etzhayyim-migration-batch"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8242,8 +8242,8 @@
         "l5-religious-marriage-cell"
       ],
       "related": [
-        "doc:2605192245-etzhayyim-global-land-sovereignty",
-        "doc:2605192115-tithe-router-public-fund"
+        "doc:adr-2605192245-etzhayyim-global-land-sovereignty",
+        "doc:adr-2605192115-etzhayyim-non-profit-donation-only-no-ads"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8257,7 +8257,7 @@
       "authoritativeFor": [
         "l5-religious-corp-taxation-cell"
       ],
-      "related": "doc:2605192245-etzhayyim-global-land-sovereignty",
+      "related": "doc:adr-2605192245-etzhayyim-global-land-sovereignty",
       "lastVerified": "2026-05-25"
     },
     {
@@ -8700,7 +8700,7 @@
         "svelte/public/* → static/ build mirror discipline",
         "documentation of yoro SPA hydration RangeError root cause (not fixed in this ADR)"
       ],
-      "related": "doc:2605181100",
+      "related": "doc:adr-2605181100-mst-encrypted-records-signal-keywrap",
       "lastVerified": "2026-05-25"
     },
     {
@@ -8717,8 +8717,8 @@
       "related": [
         "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "doc:adr-2605241900-baien-edge-target-invariant",
-        "doc:adr-2605231300-e7m-bench-distill",
-        "doc:adr-2605250400-gemma-coder-distill"
+        "doc:adr-2605231300-baien-distill-react-loop",
+        "doc:adr-2605250400-gemma-coder-distill-rocm"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8737,7 +8737,7 @@
         "doc:adr-2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference",
         "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "doc:adr-2605241900-baien-edge-target-invariant",
-        "doc:adr-2605231300-e7m-bench-distill"
+        "doc:adr-2605231300-baien-distill-react-loop"
       ],
       "lastVerified": "2026-05-25"
     },
@@ -8996,7 +8996,7 @@
         "doc:adr-2605261000",
         "doc:adr-2605192100-etzhayyim-mission-charter",
         "doc:adr-2605192245-etzhayyim-global-land-sovereignty",
-        "doc:2605201400-kuni-umi-tier-b-planetary-infrastructure.md"
+        "doc:adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet"
       ],
       "lastVerified": "2026-05-26"
     },
@@ -9056,8 +9056,8 @@
         "doc:adr-2605261000",
         "doc:adr-2605192100-etzhayyim-mission-charter",
         "doc:adr-2605192245-etzhayyim-global-land-sovereignty",
-        "doc:2605201400-kuni-umi-tier-b-planetary-infrastructure.md",
-        "doc:2605242500-baien-iwakura-ternary-asic.md",
+        "doc:adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "doc:adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
         "doc:adr-2605263500-energy-substrate-dependency-vs-substance-reframing"
       ],
       "lastVerified": "2026-05-26"
@@ -9071,7 +9071,7 @@
       "authoritative": true,
       "related": [
         "doc:adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
-        "doc:2605242000-wadachi-autonomous-mobility-rd-r0.md",
+        "doc:adr-2605242000-roso-pattern-frontier-distill",
         "doc:2605250715-tatekata-construction-tier-b-actor-r0.md",
         "doc:adr-2605252200-watatsumi-civilian-submersible-r0",
         "doc:adr-2605192100-etzhayyim-mission-charter",
@@ -9190,7 +9190,7 @@
       "authoritative": true,
       "related": [
         "doc:adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
-        "doc:2605242000-wadachi-autonomous-mobility-rd-r0.md",
+        "doc:adr-2605242000-roso-pattern-frontier-distill",
         "doc:adr-2605261015",
         "doc:adr-2605252400-kanayama-circular-metallurgy-r0",
         "doc:adr-2605261115-igata-megacasting-tier-b-actor-r0",
@@ -9207,20 +9207,20 @@
       "topic": "robotics/simulation/substrate",
       "authoritative": true,
       "related": [
-        "doc:2605242000-wadachi-autonomous-mobility-rd-r0.md",
-        "doc:2605250500-yakushi-pharmaceutical-rd-tier-b-actor-r0.md",
+        "doc:adr-2605242000-roso-pattern-frontier-distill",
+        "doc:adr-2605250500-yakushi-pharmaceutical-rd-charter",
         "doc:2605250715-tatekata-construction-tier-b-actor-r0.md",
         "doc:adr-2605252200-watatsumi-civilian-submersible-r0",
         "doc:adr-2605252400-kanayama-circular-metallurgy-r0",
         "doc:adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
         "doc:adr-2605261015",
-        "doc:2605261115-makura-foam-pillow-manufacturing-r0.md",
+        "doc:adr-2605261115-makura-foam-pillow-tier-b-actor-r0",
         "doc:adr-2605261115-igata-megacasting-tier-b-actor-r0",
         "doc:adr-2605261215-igata-r1-benchtop-commissioning",
-        "doc:2605261300-tsutae-handheld-communication-device-r0.md",
-        "doc:2605261330-futawa-small-motorcycle-manufacturing-r0.md",
+        "doc:adr-2605261300-tsutae-handheld-communication-tier-b-actor-r0",
+        "doc:adr-2605261330-futawa-motorcycle-tier-b-actor-r0",
         "doc:adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
-        "doc:2605242500-silicon-iwakura-inference-asic-r0.md",
+        "doc:adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
         "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "doc:adr-2605192100-etzhayyim-mission-charter",
         "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
@@ -9248,8 +9248,8 @@
         "20-actors/magatama/py/pymagatama/nv_compat"
       ],
       "related": [
-        "doc:adr-2605242000-wadachi-autonomous-mobility-rd-r0",
-        "doc:adr-2605252500-sarutahiko-heavy-truck-mfg-r0",
+        "doc:adr-2605242000-roso-pattern-frontier-distill",
+        "doc:adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
         "doc:adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
         "doc:adr-2605231400-yatachain-holochain-iso-substrate"
       ],
@@ -9313,22 +9313,22 @@
         "removal of RisingWave / Lance / Iroh as projection backends"
       ],
       "related": [
-        "doc:2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "doc:2605181200-mst-encrypted-metadata-leak-reduction",
-        "doc:2605192300-etzhayyim-bootstrap-council-five",
-        "doc:2605192415-etzhayyim-religious-corp-daemon-architecture",
-        "doc:2605231525-no-server-key-religious-corp-architecture",
-        "doc:2605231902-feed-post-membrane-and-feed-discover-projection",
-        "doc:2605241500-dataset-cid-substrate",
-        "doc:2605241900-baien-edge-target-invariant",
-        "doc:2605242600-baien-federated-training-r0"
+        "doc:adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "doc:adr-2605181200-mst-encrypted-metadata-leak-reduction",
+        "doc:adr-2605192300-etzhayyim-bootstrap-council-five",
+        "doc:adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "doc:adr-2605231525-no-server-key-religious-corp-architecture",
+        "doc:adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "doc:adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "doc:adr-2605241900-baien-edge-target-invariant",
+        "doc:adr-2605242600-baien-federated-train-via-ameno-webgpu"
       ],
       "supersedes": [
-        "doc:2605231400",
-        "doc:2605231500",
-        "doc:2605232300",
-        "doc:2605232400",
-        "doc:2605101000"
+        "doc:adr-2605231400-yatachain-holochain-iso-substrate",
+        "doc:adr-2605231500-yatachain-projection",
+        "doc:adr-2605232300-yatachain-engine-options-exploration",
+        "doc:adr-2605232400-baien-core3-bench-strategy-revision",
+        "doc:adr-2605101000-baien-mx-multimodal-expansion-from-rw"
       ],
       "lastVerified": "2026-05-26"
     },
@@ -9397,7 +9397,7 @@
       "related": [
         "doc:adr-2605081430-osm-ingest-rw-tuning-and-k8s-utilization",
         "doc:adr-2605200300-defense-isr-sensor-fusion",
-        "doc:adr-2605215100-maps-sentinel-murakumo-m1",
+        "doc:adr-2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet",
         "doc:adr-2605262200-charter-rider-2i-baien-train-rental-carveout",
         "doc:adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture"
       ],
@@ -9427,13 +9427,13 @@
         "doc:adr-2605262200-charter-rider-2i-baien-train-rental-carveout",
         "doc:adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture",
         "doc:adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
-        "doc:adr-2605252200-watatsumi-civilian-submersible-tier-b-actor-r0",
-        "doc:adr-2605252500-sarutahiko-heavy-truck-tier-b-actor-r0",
+        "doc:adr-2605252200-watatsumi-civilian-submersible-r0",
+        "doc:adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
         "doc:adr-2605261330-futawa-motorcycle-tier-b-actor-r0",
         "doc:adr-2605250715-tatekata-construction-tier-b-actor-r0",
         "doc:adr-2605261215-hodoki-elv-disassembly-tier-b-actor-r0",
         "doc:adr-2605261115-makura-foam-pillow-tier-b-actor-r0",
-        "doc:adr-2605261200-igata-megacasting-tier-b-actor-r0",
+        "doc:adr-2605261115-igata-megacasting-tier-b-actor-r0",
         "doc:adr-2605261300-tsutae-handheld-communication-tier-b-actor-r0"
       ],
       "lastVerified": "2026-05-26"
@@ -9457,7 +9457,7 @@
         "replacement of legacy `lawfirm.etzhayyim.com` reference with religious-corp native actor"
       ],
       "related": [
-        "doc:adr-2605250100-l5-member-registry-cell",
+        "doc:adr-2605250100-l5-routing-around-member-registry-cell",
         "doc:adr-2605250200-l5-religious-marriage-cell",
         "doc:adr-2605250300-l5-religious-corp-taxation-cell",
         "doc:adr-2605262800-public-data-legal-corpus-ipfs-ingestion"
@@ -9689,10 +9689,10 @@
         "doc:CHARTER-RIDER.md §2(d) (new fossil fuel extraction ban — preserved as substantive constraint)",
         "doc:COUNCIL.md (Bootstrap Council roster + ratification ledger)",
         "doc:COUNCIL-BOOTSTRAP-RFP.md (Seat 2-5 RFP through 2026-06-19)",
-        "doc:2605192100-etzhayyim-mission-charter.md §1.3 (mission: energy self-sufficiency)",
-        "doc:2605192100-etzhayyim-mission-charter.md §1.6 (中間排除)",
-        "doc:2605192100-etzhayyim-mission-charter.md §1.9 (多世代 priority)",
-        "doc:2605192100-etzhayyim-mission-charter.md §1.12 (Transparent Religious Force — open-source / on-chain monitor)"
+        "doc:adr-2605192100-etzhayyim-mission-charter §1.3 (mission: energy self-sufficiency)",
+        "doc:adr-2605192100-etzhayyim-mission-charter §1.6 (中間排除)",
+        "doc:adr-2605192100-etzhayyim-mission-charter §1.9 (多世代 priority)",
+        "doc:adr-2605192100-etzhayyim-mission-charter §1.12 (Transparent Religious Force — open-source / on-chain monitor)"
       ],
       "lastVerified": "2026-05-26"
     },
@@ -9885,7 +9885,7 @@
       ],
       "supersedes": [
         "doc:adr-2604291500-jp-corporate-financial-disclosure-ingest",
-        "doc:adr-2605150000-lg-isin-listed-company-ingest-langserver"
+        "doc:2605150000"
       ],
       "lastVerified": "2026-05-27"
     },
@@ -10010,8 +10010,8 @@
       ],
       "related": [
         "doc:adr-0031-kami-vrm-three-free-topology",
-        "doc:adr-2605092800-gsplat-preview-bake-architecture",
-        "doc:adr-2605172400-vendor-importer-three-axis-split",
+        "doc:adr-2605092800-kami-gsplat-preview-bake-pipeline",
+        "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "doc:adr-2605192100-etzhayyim-mission-charter",
         "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
@@ -10036,8 +10036,8 @@
         "doc:adr-2605261000",
         "doc:adr-2605192100-etzhayyim-mission-charter",
         "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider",
-        "doc:2605181100-encrypted-envelope-record.md",
-        "doc:2605262400-public-data-ipfs-ingestion-artificial-organism.md",
+        "doc:adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "doc:adr-2605262400-public-data-organism-ipfs-ingestion",
         "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "lastVerified": "2026-05-26"
@@ -10188,7 +10188,7 @@
       "related": [
         "doc:adr-2605170900-etzhayyim-root-adr-canonical-home",
         "doc:adr-2605264300-kami-engine-sdk-three-free-cutover",
-        "doc:adr-2605152100-org-split-cutover"
+        "doc:adr-2605152100-auth-unified-topology"
       ],
       "lastVerified": "2026-05-26"
     },
@@ -10428,7 +10428,7 @@
         "Council escalation protocol for critical anomalies"
       ],
       "related": [
-        "doc:adr-2605262500-robotics-sim-world-data-ingestion-and-vision-pii-filter",
+        "doc:adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
         "doc:adr-2605266200-kaizen-pr-agent-wave-4",
         "doc:adr-2605266400-organism-memory-persistence-r0"
       ],
@@ -10489,8 +10489,8 @@
         "audit-test-coverage-conventions"
       ],
       "related": [
-        "doc:2605231525",
-        "doc:2605192200"
+        "doc:adr-2605231525-no-server-key-religious-corp-architecture",
+        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "lastVerified": "2026-05-27"
     },
@@ -10507,9 +10507,9 @@
         "gemini exec agent process learnings"
       ],
       "related": [
-        "doc:2605232345-unispsc-actor-as-organism",
-        "doc:2605240200-kaizen-observer",
-        "doc:2605262400-public-data-organism-ipfs-ingestion"
+        "doc:adr-2605232345-unispsc-actor-as-organism",
+        "doc:adr-2605240200-unispsc-organism-kaizen-self-reflection",
+        "doc:adr-2605262400-public-data-organism-ipfs-ingestion"
       ],
       "lastVerified": "2026-05-27"
     },
@@ -10563,8 +10563,8 @@
         "IsekaiCanvas SDK component contract"
       ],
       "related": [
-        "doc:0031-kami-vrm-three-free-topology",
-        "doc:2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone"
+        "doc:adr-0031-kami-vrm-three-free-topology",
+        "doc:adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone"
       ],
       "lastVerified": "2026-05-27"
     },
@@ -10630,9 +10630,9 @@
       ],
       "related": [
         "doc:0018-pii-tier3-cohort-first",
-        "doc:2605091800-pruning-protocol",
-        "doc:2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
-        "doc:2605131500-malak-surveillance-collapse-from-mehikari"
+        "doc:adr-2605091800-pruning-protocol",
+        "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "doc:adr-2605131500-malak-surveillance-collapse-from-mehikari"
       ],
       "lastVerified": "2026-05-15"
     },
@@ -10651,11 +10651,11 @@
         "ameno-tier2-credit-event-contract"
       ],
       "related": [
-        "doc:2604261936-ipfs-self-hosted-vultr-b2",
-        "doc:2604291630-yoro-guest-projector-browser-gemma-e2b",
-        "doc:2605091700-nats-jetstream-as-mycorrhizal-substrate",
-        "doc:2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
-        "doc:2605111200-cf-worker-edge-only-no-rw-connection",
+        "doc:adr-2604261936-ipfs-self-hosted-vultr-b2",
+        "doc:adr-2604291630",
+        "doc:adr-2605091700-nats-jetstream-as-mycorrhizal-substrate",
+        "doc:adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "doc:adr-2605111200-cf-worker-edge-only-no-rw-connection",
         "doc:0018-pii-tier3-cohort-first",
         "doc:0095-simplified-3layer-identity-rw-vault"
       ],
@@ -11345,7 +11345,7 @@
         "doc:adr-2605263900-public-data-open-government-ipfs-ingestion",
         "doc:adr-2605262400-public-data-organism-ipfs-ingestion",
         "doc:adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
-        "doc:adr-2605263600-ossekai-information-arbitrage-tier-b-actor-r0",
+        "doc:adr-2605263600-hydrogen-economy-d-gate-evaluation-r0",
         "doc:adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
         "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0"
       ],
@@ -11553,7 +11553,7 @@
         "domain-expansion"
       ],
       "related": [
-        "doc:260409-shinka-coverage-healing-design",
+        "doc:260409-unified-access-control-shannon-design",
         "doc:260324-source-graph-hybrid-design"
       ],
       "lastVerified": "2026-04-11"
@@ -11666,7 +11666,7 @@
       "related": [
         "doc:adr-0018-pii-tier3-cohort-first",
         "doc:adr-0019-atproto-native-identifier-topology",
-        "doc:260407-kagami-p10v2-graphar-native-design"
+        "doc:kagami-p10v2-graphar-native-design"
       ],
       "lastVerified": "2026-04-16"
     },
@@ -11732,7 +11732,7 @@
       ],
       "related": [
         "doc:maps-vision-satellite-pipeline",
-        "doc:260409-kami-engineering-sdk-design"
+        "doc:260409-unified-access-control-shannon-design"
       ],
       "lastVerified": "2026-04-17"
     },
@@ -12101,7 +12101,7 @@
         "doc:adr-0036-worker-direct-hyperdrive-persistence",
         "doc:adr-0048-risingwave-vultr-b2-primary",
         "doc:adr-0056-bpmn-as-actor",
-        "doc:adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic"
+        "doc:adr-2604282300"
       ],
       "lastVerified": "2026-05-05"
     },

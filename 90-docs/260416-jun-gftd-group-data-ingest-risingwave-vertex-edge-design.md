@@ -13,7 +13,7 @@ authoritative_for:
 related:
   - adr-0018-pii-tier3-cohort-first
   - adr-0019-atproto-native-identifier-topology
-  - 260407-kagami-p10v2-graphar-native-design
+  - kagami-p10v2-graphar-native-design
 supersedes: []
 superseded_by: []
 ---

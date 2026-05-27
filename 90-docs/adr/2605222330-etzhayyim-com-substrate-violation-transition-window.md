@@ -22,7 +22,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - doc-2605211900-tranche-f-all-gates-closure-confirmation
 related:
-  - 2605221411-etzhayyim-artificial-organism-ecosystem
+  - adr-2605221411-etzhayyim-artificial-organism-ecosystem
 supersedes: []
 superseded_by: []
 ---

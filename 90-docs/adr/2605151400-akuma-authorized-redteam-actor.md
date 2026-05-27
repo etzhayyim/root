@@ -13,9 +13,9 @@ authoritative_for:
   - red-team-audit
 related:
   - 0018-pii-tier3-cohort-first
-  - 2605091800-pruning-protocol
-  - 2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
-  - 2605131500-malak-surveillance-collapse-from-mehikari
+  - adr-2605091800-pruning-protocol
+  - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
+  - adr-2605131500-malak-surveillance-collapse-from-mehikari
 supersedes: []
 superseded_by: []
 ---

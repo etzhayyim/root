@@ -17,7 +17,7 @@ related:
   - 90-docs/260409-kami-engineering-sdk-design.md
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-2604251830-shannon-optimal-layered-architecture
-  - adr-2605080700-rw-native-model-training-weight-lineage
+  - adr-2605080700-graph-schema-live-risingwave-baseline
 supersedes: []
 superseded_by: []
 ---

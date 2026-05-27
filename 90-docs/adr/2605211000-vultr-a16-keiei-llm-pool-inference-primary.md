@@ -12,10 +12,10 @@ authoritative_for:
   - Gemma 4 model deployment topology (E2B + E4B on single GPU pod)
 related:
   - adr-2605010000  # superseded for LLM inference path; ComfyUI / image generation path unchanged
-  - adr-2605110100  # GPU Operator A40 node pool design (extended to A16 SJC cluster)
+  - adr-2605110100-vultr-a40-third-2node-consolidation  # GPU Operator A40 node pool design (extended to A16 SJC cluster)
   - adr-2605102100-keiei-llm-vultr-cpu-inference  # keiei-llm CPU inference (superseded by this ADR)
-  - adr-2605080600  # resident LangGraph organism actors — L8 somatic inference
-  - adr-2605190100  # defense cluster topology
+  - adr-2605080600-langgraph-server-granian-l3-runtime  # resident LangGraph organism actors — L8 somatic inference
+  - adr-2605190100-defense-cluster-topology  # defense cluster topology
 supersedes:
   - adr-2605010000  # for LLM text inference only — RunPod ComfyUI image generation path stays as-is
   - adr-2605102100-keiei-llm-vultr-cpu-inference  # keiei-llm CPU-only deployment

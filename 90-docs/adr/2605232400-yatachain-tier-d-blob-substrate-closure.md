@@ -19,11 +19,11 @@ depends_on:
   - adr-2605231500-yatachain-projection
   - adr-2605241500-etzhayyim-dataset-cid-substrate
 related:
-  - 2605171800-mst-projector-stage-pipeline
-  - 2605231525-no-server-key-religious-corp-architecture
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - adr-2605231525-no-server-key-religious-corp-architecture
 supersedes: []
 superseded_by:
-  - 2605262130-kotoba-storage-substrate-unification
+  - adr-2605262130-kotoba-storage-substrate-unification
 ---
 
 # ADR-2605232400: yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure

@@ -16,7 +16,7 @@ authoritative_for:
 related:
   - adr-2605101200-ai-cxo-roles-lsp-resident
   - adr-2604231828-appview-domain-separation-bsky-gftd-ai
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-2605141500-shinshi-review-generation-quality-loop
 ---

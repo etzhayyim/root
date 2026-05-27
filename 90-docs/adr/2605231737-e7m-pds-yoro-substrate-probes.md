@@ -19,8 +19,8 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605211000
 related:
-  - 2605222330
-  - 2605211000
+  - adr-2605222330-etzhayyim-com-substrate-violation-transition-window
+  - adr-2605211000
 supersedes: []
 superseded_by: []
 ---

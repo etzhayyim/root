@@ -26,8 +26,8 @@ depends_on:
   - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 related:
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605191346-religious-corp-cells-ha-stateful
-  - adr-2605232100-religious-corp-cells-k3s-daemonset
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - adr-2605232100-etzhayyim-organism-vertical-implementation
 supersedes: []
 superseded_by: []
 ---

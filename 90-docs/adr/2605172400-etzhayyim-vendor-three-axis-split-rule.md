@@ -21,9 +21,9 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
-  - adr-2605172200-open-email
+  - adr-2605172200-openmail-atproto-mst-smtp-bridge
   - adr-2605172300-etzhayyim-open-telecom-fabric
-  - adr-2605171900-yoro-appview-etzhayyim-migration
+  - adr-2605171900-yoro-migration-to-etzhayyim
 supersedes: []
 superseded_by: []
 ---

@@ -12,7 +12,7 @@ authoritative_for:
   - okaimono WIT pruning
 related:
   - 2604251700-wproto-wit-dead-path
-  - 2604261110-wproto-wreactive-wit-retirement
+  - adr-2604261110-wproto-wreactive-wit-retirement
 supersedes: []
 superseded_by: []
 ---

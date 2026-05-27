@@ -22,8 +22,8 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605264300-kami-engine-sdk-three-free-cutover
 related:
-  - 0031-kami-vrm-three-free-topology
-  - 2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone
+  - adr-0031-kami-vrm-three-free-topology
+  - adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone
 supersedes: []
 superseded_by: []
 ---

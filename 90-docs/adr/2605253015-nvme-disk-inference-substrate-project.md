@@ -13,7 +13,7 @@ related:
   - adr-2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605241900-baien-edge-target-invariant
-  - adr-2605231300-e7m-bench-distill
+  - adr-2605231300-baien-distill-react-loop
 depends_on:
   - adr-2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod

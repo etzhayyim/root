@@ -11,13 +11,13 @@ authoritative_for:
 related:
   - adr-0074-ethereum-identity-bridge-cacao-webauthn
   - adr-0056-bpmn-as-actor
-  - adr-2604261100-rego-authz-dmn-rego-sso
+  - adr-2604261100-rego-dmn-policy-decision-layers
 ---
 
 # ADR-2604281400: OSS/データコントリビューター GCC ロイヤルティ自動再分配
 
-**Status**: proposed  
-**Date**: 2026-04-28  
+**Status**: proposed
+**Date**: 2026-04-28
 **Context**: ADR-0074 (ERC725 root identity), GCC Phase 2-A contracts, ADR-0056 (BPMN-as-actor)
 
 ---
@@ -141,9 +141,9 @@ contract ContributionRoyaltyRegistry is Ownable2Step {
 }
 ```
 
-**デプロイ先**: `contracts/src/ContributionRoyaltyRegistry.sol` + `script/DeployContributionRegistry.s.sol`  
-**オーナー**: Safe `0xc0C2…`  
-**オラクル**: sealer EOA (将来は dedicated BPMN bot key)  
+**デプロイ先**: `contracts/src/ContributionRoyaltyRegistry.sol` + `script/DeployContributionRegistry.s.sol`
+**オーナー**: Safe `0xc0C2…`
+**オラクル**: sealer EOA (将来は dedicated BPMN bot key)
 **初期 GCC 供給**: Safe から `gcc.transfer(registry, 10_000e18)` で 10,000 GCC をプールに入金
 
 ---
@@ -208,7 +208,7 @@ GROUP BY
     DATE_TRUNC('day', used_at::TIMESTAMP);
 ```
 
-**インデックス**: `source_hash` + `used_at` on `vertex_contribution_usage`  
+**インデックス**: `source_hash` + `used_at` on `vertex_contribution_usage`
 **フレッシュネス**: streaming MV (<100ms)
 
 ---

@@ -21,7 +21,7 @@ depends_on:
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - adr-2605172000-etzhayyim-rw-free-substrate
 related:
-  - adr-2605192115-non-profit-only-payment-purpose
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
 supersedes: []
 superseded_by: []
 ---
