@@ -6072,6 +6072,13 @@ status = "shipped"
 description = "Cycle 44 (2026-05-27) end-to-end smoke evidence for the cycle 42 operator runbook. 10/10 documented commands executed in dev shell with no operator-side model install / no Mapillary token; all produced expected output. USDA SHA `c76f6c7fb402` confirmed consistent between assemble_diagnose dry-run + assemble-usd-scene.py production (G6 determinism evidence). Documents what the smoke does NOT cover (operator-side env requiring real models / Mapillary token / network / rasterio) — those paths the runbook directs the operator to set up. Conclusion: runbook is production-ready as written; one troubleshooting entry added (cycle 44) for the assemble_diagnose stub-charter fallback."
 
 [[modules]]
+path = "90-docs/baien/adr-2605262500-pr-prep-260527.md"
+adr = "ADR-2605262500"
+kind = "pr-prep-doc"
+status = "shipped"
+description = "Cycle 45 (2026-05-27) PR readiness preflight. Three-part deliverable: (1) Branch scope strategy — 379-commit branch analysis with 3 concrete options (cherry-pick / bundle / squash-rebuild) and concrete git command sequences; Option C (squash-rebuild) recommended because cycle history already preserved in retrospective + smoke evidence docs. (2) Cross-ADR drift outreach checklist — full-repo verifier reports 15 MISSING (3 accepted (reserved) + 12 actual drift across 6 categories: ADR-2605180900 gftd-rename / ADR-2605192415 cell-fleet-dashboard / ADR-2605250700 mmsheaf / ADR-2605261600 isaac-lab-task-port / ADR-2605262100/262400 moemoekyun corpus paths); per-category suggested action (mark (reserved) / remove / add placeholder); reusable outreach message template; recommended cleanup wave as separate PR. (3) ADR-2605262500 reviewer-facing PR description draft — paste-ready markdown with Summary / 9 constitutional invariants enforced / Test plan / Operator runbook pointer / Non-goals / Dependencies / Documentation links; +sign-off checklist for operator-side before opening PR. doc_type: how-to."
+
+[[modules]]
 path = "70-tools/e7m-sim/tests/test_e2e_real_assets.py"
 adr = "ADR-2605262500"
 kind = "e2e-smoke"
