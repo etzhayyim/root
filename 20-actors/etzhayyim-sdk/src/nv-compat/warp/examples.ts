@@ -1432,3 +1432,169 @@ export function anymalFkInline(q: readonly number[]): [number, number, number][]
   }
   return feet;
 }
+
+// ── Generic serial-chain FK (env-parallel, arbitrary N ≤ 12) ─────────────
+//
+// Generalises iter 88's Franka-specific FK kernel to arbitrary
+// serial-chain revolute/prismatic arms. Joint origins, rpy, and axes
+// are runtime storage inputs (per-joint), so a single kernel handles
+// Franka (N=7), UR10 (N=6), KUKA iiwa (N=7), Kinova Gen3 (N=7),
+// Universal Robots UR5/UR16, etc.
+//
+// Max N=12 at compile time (covers all practical serial arms).
+//
+// Per-env input: q[N]
+// Robot-config storage: xyz[N×3] + rpy[N×3] + axis[N×3] = 9·N floats
+// Uniform: n (joint count)
+// Per-env output: ee_pos[3]
+//
+// Algorithm: same R_origin · R_axis(q) frame composition as iter 88,
+// but with axis as runtime input (so prismatic joints can be supported
+// by setting axis to the translation direction and using prismatic
+// joint formula — though current kernel only supports revolute via
+// rot_axis). For prismatic support, a per-joint "kind" flag could be
+// added later.
+
+const MAX_N_SERIAL_FK = 12;
+
+/** Bindings:
+ *    @group(0) @binding(0) q_in        (storage read, envs × N floats)
+ *    @group(0) @binding(1) joint_xyz   (storage read, N × 3 floats) — per-joint origin xyz
+ *    @group(0) @binding(2) joint_rpy   (storage read, N × 3 floats) — per-joint origin rpy
+ *    @group(0) @binding(3) joint_axis  (storage read, N × 3 floats) — per-joint axis (body frame)
+ *    @group(0) @binding(4) ee_out      (storage read_write, envs × 3 floats)
+ *    @group(0) @binding(5) n_uniform   (uniform vec4<u32>: x = N joint count)
+ */
+export const genericSerialFkKernel: WgpuKernel = wgpuKernel({
+  js: (
+    qIn: WpArray<number>,
+    jointXyz: WpArray<number>,
+    jointRpy: WpArray<number>,
+    jointAxis: WpArray<number>,
+    eeOut: WpArray<number>,
+    n: number,
+  ) => {
+    const env = tid();
+    const q: number[] = [];
+    for (let i = 0; i < n; i++) q.push(qIn.get(env * n + i));
+    const xyz: readonly [number, number, number][] = [];
+    const rpy: readonly [number, number, number][] = [];
+    const axis: readonly [number, number, number][] = [];
+    const xyzArr = xyz as [number, number, number][];
+    const rpyArr = rpy as [number, number, number][];
+    const axisArr = axis as [number, number, number][];
+    for (let i = 0; i < n; i++) {
+      xyzArr.push([jointXyz.get(i*3+0), jointXyz.get(i*3+1), jointXyz.get(i*3+2)]);
+      rpyArr.push([jointRpy.get(i*3+0), jointRpy.get(i*3+1), jointRpy.get(i*3+2)]);
+      axisArr.push([jointAxis.get(i*3+0), jointAxis.get(i*3+1), jointAxis.get(i*3+2)]);
+    }
+    const ee = genericSerialFkInline(q, xyz, rpy, axis);
+    eeOut.set(env * 3 + 0, ee[0]);
+    eeOut.set(env * 3 + 1, ee[1]);
+    eeOut.set(env * 3 + 2, ee[2]);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> q_in:       array<f32>;
+@group(0) @binding(1) var<storage, read_write> joint_xyz:  array<f32>;
+@group(0) @binding(2) var<storage, read_write> joint_rpy:  array<f32>;
+@group(0) @binding(3) var<storage, read_write> joint_axis: array<f32>;
+@group(0) @binding(4) var<storage, read_write> ee_out:     array<f32>;
+@group(0) @binding(5) var<uniform>             n_uniform:  vec4<u32>;
+
+fn rot_rpy(r: f32, p: f32, y: f32) -> mat3x3<f32> {
+  let cr = cos(r); let sr = sin(r);
+  let cp = cos(p); let sp = sin(p);
+  let cy = cos(y); let sy = sin(y);
+  return mat3x3<f32>(
+    vec3<f32>(cy*cp, sy*cp, -sp),
+    vec3<f32>(cy*sp*sr - sy*cr, sy*sp*sr + cy*cr, cp*sr),
+    vec3<f32>(cy*sp*cr + sy*sr, sy*sp*cr - cy*sr, cp*cr),
+  );
+}
+
+fn rot_axis(axis: vec3<f32>, angle: f32) -> mat3x3<f32> {
+  let c = cos(angle); let s = sin(angle);
+  let oc = 1.0 - c;
+  let ax = axis.x; let ay = axis.y; let az = axis.z;
+  return mat3x3<f32>(
+    vec3<f32>(c + ax*ax*oc,        ay*ax*oc + az*s,    az*ax*oc - ay*s),
+    vec3<f32>(ax*ay*oc - az*s,     c + ay*ay*oc,        az*ay*oc + ax*s),
+    vec3<f32>(ax*az*oc + ay*s,     ay*az*oc - ax*s,    c + az*az*oc),
+  );
+}
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let env = gid.x;
+  let n = n_uniform.x;
+  let n_envs = arrayLength(&ee_out) / 3u;
+  if (env >= n_envs) { return; }
+  let base = env * n;
+
+  var R_world = mat3x3<f32>(
+    vec3<f32>(1.0, 0.0, 0.0),
+    vec3<f32>(0.0, 1.0, 0.0),
+    vec3<f32>(0.0, 0.0, 1.0),
+  );
+  var p_world = vec3<f32>(0.0, 0.0, 0.0);
+
+  // Loop bounded at MAX_N=12; runtime n controls early exit.
+  for (var i = 0u; i < 12u; i = i + 1u) {
+    if (i >= n) { break; }
+    let xyz = vec3<f32>(joint_xyz[i*3u + 0u], joint_xyz[i*3u + 1u], joint_xyz[i*3u + 2u]);
+    let R_origin = rot_rpy(joint_rpy[i*3u + 0u], joint_rpy[i*3u + 1u], joint_rpy[i*3u + 2u]);
+    let axis = vec3<f32>(joint_axis[i*3u + 0u], joint_axis[i*3u + 1u], joint_axis[i*3u + 2u]);
+    let R_q = rot_axis(axis, q_in[base + i]);
+    let R_iInP = R_origin * R_q;
+    let rotated = R_world * xyz;
+    p_world = p_world + rotated;
+    R_world = R_world * R_iInP;
+  }
+  ee_out[env * 3u + 0u] = p_world.x;
+  ee_out[env * 3u + 1u] = p_world.y;
+  ee_out[env * 3u + 2u] = p_world.z;
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: false },
+    { binding: 2, kind: "storage", inputIndex: 2, writeback: false },
+    { binding: 3, kind: "storage", inputIndex: 3, writeback: false },
+    { binding: 4, kind: "storage", inputIndex: 4, writeback: true },
+    { binding: 5, kind: "uniform", inputIndex: 5 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference generic serial-chain FK in pure JS. */
+export function genericSerialFkInline(
+  q: readonly number[],
+  jointXyz: ReadonlyArray<readonly [number, number, number]>,
+  jointRpy: ReadonlyArray<readonly [number, number, number]>,
+  jointAxis: ReadonlyArray<readonly [number, number, number]>,
+): [number, number, number] {
+  let R_world: number[][] = [[1,0,0],[0,1,0],[0,0,1]];
+  let p_world: [number, number, number] = [0, 0, 0];
+  const n = q.length;
+  for (let i = 0; i < n; i++) {
+    const R_origin = _rotRpyFull(jointRpy[i]);
+    const R_q = _rotAxis(jointAxis[i], q[i]);
+    const R_iInP = _mat3MulSmall(R_origin, R_q);
+    const rotated = _matVec3Small(R_world, jointXyz[i]);
+    p_world = [p_world[0]+rotated[0], p_world[1]+rotated[1], p_world[2]+rotated[2]];
+    R_world = _mat3MulSmall(R_world, R_iInP);
+  }
+  return p_world;
+}
+
+function _rotRpyFull(rpy: readonly [number, number, number]): number[][] {
+  const [r, p, y] = rpy;
+  const cr = Math.cos(r), sr = Math.sin(r);
+  const cp = Math.cos(p), sp = Math.sin(p);
+  const cy = Math.cos(y), sy = Math.sin(y);
+  return [
+    [cy*cp, cy*sp*sr - sy*cr, cy*sp*cr + sy*sr],
+    [sy*cp, sy*sp*sr + cy*cr, sy*sp*cr - cy*sr],
+    [-sp,   cp*sr,             cp*cr],
+  ];
+}
