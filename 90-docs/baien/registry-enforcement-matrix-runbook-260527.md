@@ -33,25 +33,34 @@ exists; this runbook explains _what to type_.
 ## Quick start
 
 ```bash
-# Run all 5 axes in one shot:
-python3 70-tools/scripts/lint/verify_deps_toml_paths.py             # axis 1
-python3 70-tools/scripts/docs/regen-registry.py --check             # axis 2
-python3 70-tools/scripts/docs/regen-graph-jsonld.py --check         # axis 3
-python3 70-tools/scripts/docs/validate-registry-schemas.py          # axis 4
-python3 70-tools/scripts/docs/validate-magatama-manifests.py        # axis 5
+# Run all 8 axes in one shot:
+python3 70-tools/scripts/lint/verify_deps_toml_paths.py             # axis 1: deps.toml
+python3 70-tools/scripts/docs/regen-registry.py --check             # axis 2: docs.json
+python3 70-tools/scripts/docs/regen-graph-jsonld.py --check         # axis 3: graph.jsonld
+python3 70-tools/scripts/docs/validate-registry-schemas.py          # axis 4: schemas
+python3 70-tools/scripts/docs/validate-magatama-manifests.py        # axis 5: magatama
+python3 70-tools/scripts/docs/validate-relation-integrity.py        # axis 6: relations (tracker)
+python3 70-tools/scripts/docs/validate-id-filename-consistency.py   # axis 7: id↔filename (tracker)
+python3 70-tools/scripts/docs/validate-md-links.py                  # axis 8: md-links (tracker)
 ```
 
-Each axis exits 0 on clean. Baseline as of cycle 53:
+Each axis exits 0 on clean. **Cycle 70 canonical baseline** (2026-05-27):
 
 ```
-axis 1: 587/602 resolve / 15 accepted-reserved / 0 bare drift
-axis 2: in sync (658 entries)
-axis 3: in sync (658 nodes)
-axis 4: 0 docs + 0 graph schema errors
-axis 5: 42/42 magatama manifests valid
+axis 1 (deps.toml):  566/581 resolve / 15 accepted-reserved / 0 bare drift / 0 dupes
+axis 2 (docs.json):  in sync (661 entries)
+axis 3 (graph):      in sync (661 nodes)
+axis 4 (schemas):    0 docs + 0 graph schema errors
+axis 5 (magatama):   42/42 magatama manifests valid
+axis 6 (relation):   1011 known dangling/self/circular (tracker)
+axis 7 (id-fname):   53 known mismatches (tracker; rename-pending floor)
+axis 8 (md-links):   33 known broken in-repo links (tracker)
 ```
 
-## The 5 axes
+PR-gate axes (1-5) exit 1 on any drift. Tracker axes (6-8) exit 0
+by default; pass `--strict` to enforce.
+
+## The 8 axes
 
 ### Axis 1 — deps.toml book-keeping (cycle 27-30 + 46 markers)
 
@@ -193,6 +202,77 @@ python3 70-tools/scripts/docs/validate-magatama-manifests.py --json
 - Canonical `@context` must be `https://etzhayyim.com/ns/magatama/v1`
   (cycle 53 normalized 6 non-canonical variants)
 
+### Axis 6 — relation integrity (cycle 60 + cycle 64 depends_on)
+
+**Source-of-truth**: `90-docs/_registry/docs.json` (axis 2 output).
+**Validator**: `70-tools/scripts/docs/validate-relation-integrity.py`
+**Mode**: NIGHTLY TRACKER (baseline 1011 known issues).
+
+```bash
+# Default (tracker — exit 0 with summary):
+python3 70-tools/scripts/docs/validate-relation-integrity.py
+
+# Strict (exit 1 on any issue):
+python3 70-tools/scripts/docs/validate-relation-integrity.py --strict
+
+# JSON per-issue:
+python3 70-tools/scripts/docs/validate-relation-integrity.py --json
+```
+
+Checks 4 drift classes the schema validator does NOT catch:
+- Dangling targets (related/supersedes/superseded_by/amends/amended_by/depends_on → non-existent id)
+- Self-references (entry's relation field includes its own id)
+- Circular `related` pairs (A↔B mutual reference; often intentional siblings)
+- Skip-circular flag (`--no-circular`) for mutual-sibling tolerance
+
+Cycle 64 added `depends_on` coverage; the 6-field tracking baseline
+1011 includes all post-cycle-65 auto-fix residue.
+
+### Axis 7 — id↔filename consistency (cycle 61)
+
+**Source-of-truth**: `90-docs/_registry/docs.json` (axis 2 output) + `.md` filename.
+**Validator**: `70-tools/scripts/docs/validate-id-filename-consistency.py`
+**Mode**: NIGHTLY TRACKER (baseline 53; rename-pending floor).
+
+```bash
+python3 70-tools/scripts/docs/validate-id-filename-consistency.py
+python3 70-tools/scripts/docs/validate-id-filename-consistency.py --strict
+python3 70-tools/scripts/docs/validate-id-filename-consistency.py --json
+```
+
+Categorizes mismatches into 5 classes:
+- `uppercase-ADR-prefix` (cycle 61 cleaned 6; baseline 0)
+- `pre-cutover-rename` (gftdcojp/amanomibashira; CLAUDE.md invariant)
+- `short-id-missing-slug` (legacy 4-digit ADR scheme)
+- `engineering-policy-old-style` (cycle 62 cleaned 3; baseline 0)
+- `other-rename-related` (mostly amanomibashira/shinka pre-cutover)
+
+Permissive matching: timestamp-only IDs and slug-omitted IDs both
+accepted per CLAUDE.md ADR ID Convention.
+
+### Axis 8 — markdown body link integrity (cycle 67)
+
+**Source-of-truth**: `90-docs/**/*.md` markdown body (not frontmatter).
+**Validator**: `70-tools/scripts/docs/validate-md-links.py`
+**Mode**: NIGHTLY TRACKER (baseline 33 broken).
+
+```bash
+python3 70-tools/scripts/docs/validate-md-links.py
+python3 70-tools/scripts/docs/validate-md-links.py --strict
+python3 70-tools/scripts/docs/validate-md-links.py --json
+```
+
+Resolves 3 link styles, validates target existence:
+- Absolute path (`/Users/...`) → `Path(target).exists()`
+- Repo-root-relative (`/90-docs/...`) → `REPO/target.lstrip("/")`
+- File-relative (`./foo.md` / `../bar.md` / `foo.md`) → `(md.parent/target).resolve()`
+
+Skips URLs / anchors / scheme-prefixed targets.
+
+Cycle 66 auto-fixed 54 wrong-absolute-prefix (`/etzhayyim/` → `/github/`);
+cycle 67 auto-fixed 2 line-number-suffix; remaining 33 are mostly
+truly-broken or need manual judgment.
+
 ## Pre-commit hygiene
 
 Cycle 51 had a 3-retry commit dance due to pre-existing trailing
@@ -227,14 +307,17 @@ grep-based, not auto-fix. `🥊` glyph in lefthook output = hook FAILED.
 | `docs-graph-jsonld-freshness.yml` | 03:29 UTC | + graph.jsonld / generator / nightly |
 | `registry-schema-validation.yml` | 03:35 UTC | docs.json / graph.jsonld / schemas / validator / nightly |
 | `magatama-manifest-validation.yml` | 03:41 UTC | `60-apps/*/magatama.jsonld` / schema / validator / nightly |
+| `md-link-validation.yml` (cycle 68) | 03:47 UTC | `90-docs/**/*.md` / validator / workflow / nightly |
+| `relation-integrity-validation.yml` (cycle 69) | 03:53 UTC | `.md` / docs.json / validator / workflow / nightly |
+| `id-filename-consistency.yml` (cycle 69) | 03:59 UTC | `.md` / docs.json / validator / workflow / nightly |
 
-**Cron deconfliction**: :17 / :23 / :29 / :35 / :41 (6-min spread × 5
-axes). Off-minute avoids top-of-hour ISP bandwidth saturation peaks.
+**Cron deconfliction**: :17 / :23 / :29 / :35 / :41 / :47 / :53 / :59 (6-min
+spread × 8 axes). Off-minute avoids top-of-hour ISP bandwidth saturation peaks.
 
 ## Lefthook hooks
 
 ```yaml
-# All 5 axes have pre-commit hooks; install lefthook then:
+# All 8 axes have pre-commit hooks; install lefthook then:
 lefthook install
 ```
 
@@ -245,10 +328,13 @@ lefthook install
 | `docs-graph-jsonld-freshness` | `90-docs/**/*.md` + `docs.json` | full check; fails on drift |
 | `registry-schema-validation` | registry artifacts + schemas | full validate; fails on violation; warns if jsonschema absent |
 | `magatama-manifest-validation` | `60-apps/*/magatama.jsonld` + schema | full validate; fails on violation; warns if jsonschema absent |
+| `md-link-validation` (cycle 68) | `90-docs/**/*.md` | info-only tracker; `ETZ_MD_LINK_STRICT=1` opt-in for blocking |
+| `relation-integrity` (cycle 69) | `90-docs/**/*.md` + `docs.json` | info-only tracker; `ETZ_RELATION_STRICT=1` opt-in for blocking |
+| `id-filename-consistency` (cycle 69) | `90-docs/**/*.md` + `docs.json` | info-only tracker; `ETZ_ID_FILENAME_STRICT=1` opt-in for blocking |
 
 Plus `trailing-whitespace` / `end-of-file` / `secret-scan` /
 `charter-rider-notice` / `e7m-verify` (9 constitutional invariants) /
-+18 others. Total 23 pre-commit hooks.
++18 others. Total **26 pre-commit hooks** (was 23 at cycle 55).
 
 ## Common failure modes — fix recipes
 
@@ -312,18 +398,23 @@ unconditionally so PR will catch the issue.
 Before every `git push`:
 
 ```bash
-# 1. Run all 5 axes:
+# 1. Run 5 PR-gate axes (any failure blocks push):
 python3 70-tools/scripts/lint/verify_deps_toml_paths.py && \
 python3 70-tools/scripts/docs/regen-registry.py --check && \
 python3 70-tools/scripts/docs/regen-graph-jsonld.py --check && \
 python3 70-tools/scripts/docs/validate-registry-schemas.py && \
 python3 70-tools/scripts/docs/validate-magatama-manifests.py && \
-echo "✓ all 5 axes clean"
+echo "✓ all 5 PR-gate axes clean"
 
-# 2. Run constitutional invariants (e7m verify; 9 hard invariants):
+# 2. Run 3 tracker axes (informational; verify counts haven't grown):
+python3 70-tools/scripts/docs/validate-relation-integrity.py        # tracker (baseline 1011)
+python3 70-tools/scripts/docs/validate-id-filename-consistency.py   # tracker (baseline 53)
+python3 70-tools/scripts/docs/validate-md-links.py                  # tracker (baseline 33)
+
+# 3. Run constitutional invariants (e7m verify; 9 hard invariants):
 /Users/junkawasaki/github/etzhayyim-root/70-tools/e7m/.venv/bin/e7m verify
 
-# Both 5/5 and 9/9 → push safe.
+# All 5/5 PR-gate clean + 9/9 e7m green + 3 trackers ≤ baseline → push safe.
 ```
 
 ## Reference
@@ -337,15 +428,18 @@ echo "✓ all 5 axes clean"
 
 | Cycle | Script |
 |---|---|
-| 27-30 | `70-tools/scripts/lint/verify_deps_toml_paths.py` |
-| pre-existing (cycle 48 hookup) | `70-tools/scripts/docs/regen-registry.py` |
-| 49 | `70-tools/scripts/docs/regen-graph-jsonld.py` |
-| 50 | `70-tools/scripts/docs/validate-registry-schemas.py` |
-| 53 | `70-tools/scripts/docs/validate-magatama-manifests.py` |
+| 27-30 + 46 + 59 | `70-tools/scripts/lint/verify_deps_toml_paths.py` (axis 1) |
+| pre-existing (cycle 48 hookup) | `70-tools/scripts/docs/regen-registry.py` (axis 2) |
+| 49 | `70-tools/scripts/docs/regen-graph-jsonld.py` (axis 3) |
+| 50 | `70-tools/scripts/docs/validate-registry-schemas.py` (axis 4) |
+| 53 | `70-tools/scripts/docs/validate-magatama-manifests.py` (axis 5) |
+| 60 + 64 | `70-tools/scripts/docs/validate-relation-integrity.py` (axis 6) |
+| 61 | `70-tools/scripts/docs/validate-id-filename-consistency.py` (axis 7) |
+| 67 | `70-tools/scripts/docs/validate-md-links.py` (axis 8) |
 
 ### Schemas
 
-- `90-docs/_registry/schemas/docs.schema.json` (cycle 50 rewrite)
+- `90-docs/_registry/schemas/docs.schema.json` (cycle 50 rewrite; cycle 64 +depends_on)
 - `90-docs/_registry/schemas/graph.schema.json` (cycle 50 rewrite)
 - `90-docs/_registry/schemas/magatama.schema.json` (cycle 53 5-enum expansion)
 
@@ -366,7 +460,7 @@ echo "✓ all 5 axes clean"
 These are CONSTITUTIONAL, not registry; modifications require Council
 Lv6+ ≥3 ratification per ADR-2605192100.
 
-## Future work (axis-6 candidates)
+## Future work (axis-9 candidates)
 
 | Candidate | State |
 |---|---|
@@ -374,3 +468,14 @@ Lv6+ ≥3 ratification per ADR-2605192100.
 | `proof/` directory specialization | 2 proof files exist; status enum may need `verified` / `pending-replication` |
 | pyproject.toml schema | Many py modules; possible schema convention but no canonical schema yet |
 | Lexicon schema validation | `00-contracts/lexicons/` has schemas; existing `validate-religious-corp-lexicons` lefthook hook covers subset |
+| Cargo workspace member integrity | Rust workspace TOML; analogous to Python package init validation |
+| Schema $defs cross-ref | jsonschema `$ref` to undefined `$defs` is silent at schema-validation time |
+
+## Cycle 70 update note
+
+This runbook was originally written at cycle 55 for 5 axes. Cycle 70
+refreshed for the 8-axis matrix landed via cycles 60/61/67. Each
+addition followed the same operator entry-point pattern (validator
++ tracker mode for axes 6/7/8 since their baselines are non-zero).
+The 8 axes share a uniform 3-layer defense (validator + lefthook
++ CI workflow) after cycle 69's retrofit.
