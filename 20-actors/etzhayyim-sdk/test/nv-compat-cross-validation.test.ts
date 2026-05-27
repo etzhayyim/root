@@ -37,7 +37,10 @@ import {
   frankaGravCompInline,
   anymalFkKernel,
   anymalFkInline,
+  genericSerialFkKernel,
+  genericSerialFkInline,
 } from "../src/nv-compat/warp/examples.js";
+import { makeUr10 } from "../src/nv-compat/assets/ur10.js";
 import { makeFrankaPanda } from "../src/nv-compat/assets/franka-panda.js";
 import { makeAnymalC } from "../src/nv-compat/assets/anymal-c.js";
 import {
@@ -352,5 +355,94 @@ describe("nv-compat Franka reach kernel — convergence guarantee", () => {
       (target[2] - eeFinal[2]) ** 2
     );
     expect(errFinal).toBeLessThan(0.005);
+  });
+});
+
+describe("nv-compat genericSerialFkKernel — cross-vendor (UR10)", () => {
+  const ur = makeUr10();
+
+  it("UR10 asset wrapper has the expected 6-DoF shape", () => {
+    expect(ur.dofCount).toBe(6);
+    expect(ur.jointNames.length).toBe(6);
+    expect(ur.jointOriginXyz.length).toBe(6);
+    expect(ur.jointAxis.length).toBe(6);
+    expect(ur.flatXyz().length).toBe(18);
+    expect(ur.flatRpy().length).toBe(18);
+    expect(ur.flatAxis().length).toBe(18);
+  });
+
+  it("UR10 q=0 EE lies inside UR10 max-reach workspace (≤ 1.4 m)", () => {
+    const ee = genericSerialFkInline([0, 0, 0, 0, 0, 0],
+      ur.jointOriginXyz, ur.jointOriginRpy, ur.jointAxis);
+    const reach = Math.hypot(ee[0], ee[1], ee[2]);
+    expect(reach).toBeGreaterThan(0);
+    expect(reach).toBeLessThan(1.4);
+  });
+
+  it("UR10 home pose EE lies inside UR10 max-reach workspace", () => {
+    const eeH = genericSerialFkInline([...ur.defaultJointPositions],
+      ur.jointOriginXyz, ur.jointOriginRpy, ur.jointAxis);
+    const reach = Math.hypot(eeH[0], eeH[1], eeH[2]);
+    expect(reach).toBeLessThan(1.4);
+  });
+
+  it("100-env UR10 batch: WGSL genericSerialFkKernel matches inline byte-identically", () => {
+    const N_ENVS = 100;
+    const n = 6;
+    const qBuf: number[] = new Array(N_ENVS * n);
+    for (let env = 0; env < N_ENVS; env++) {
+      for (let j = 0; j < n; j++) qBuf[env*n + j] = 0.1 * env * Math.sin(j + 1);
+    }
+    const qIn = fromTypedArray<number>(qBuf);
+    const jx = fromTypedArray<number>(ur.flatXyz());
+    const jr = fromTypedArray<number>(ur.flatRpy());
+    const ja = fromTypedArray<number>(ur.flatAxis());
+    const ee = zeros<number>(N_ENVS * 3);
+    launch({ kernel: genericSerialFkKernel, dim: N_ENVS, inputs: [qIn, jx, jr, ja, ee, n] });
+
+    let maxDiff = 0;
+    for (let env = 0; env < N_ENVS; env++) {
+      const q = qBuf.slice(env*n, env*n + n);
+      const ref = genericSerialFkInline(q, ur.jointOriginXyz, ur.jointOriginRpy, ur.jointAxis);
+      for (let k = 0; k < 3; k++) {
+        maxDiff = Math.max(maxDiff, Math.abs(ee.get(env*3+k) - ref[k]));
+      }
+    }
+    expect(maxDiff).toBe(0);
+  });
+
+  it("q_1 base rotation around z preserves |EE| and z-component", () => {
+    const qA = [0, -1, 1, -0.5, 0.3, 0];
+    const qB = [Math.PI/3, -1, 1, -0.5, 0.3, 0];
+    const eeA = genericSerialFkInline(qA, ur.jointOriginXyz, ur.jointOriginRpy, ur.jointAxis);
+    const eeB = genericSerialFkInline(qB, ur.jointOriginXyz, ur.jointOriginRpy, ur.jointAxis);
+    const rA = Math.hypot(eeA[0], eeA[1], eeA[2]);
+    const rB = Math.hypot(eeB[0], eeB[1], eeB[2]);
+    expect(Math.abs(rA - rB)).toBeLessThan(1e-9);
+    expect(Math.abs(eeA[2] - eeB[2])).toBeLessThan(1e-9);
+  });
+});
+
+describe("nv-compat genericSerialFkKernel — Franka equivalence proof", () => {
+  it("genericSerialFk with Franka joint params matches Franka-specific inline FK", () => {
+    const HALF_PI = Math.PI / 2;
+    const FRANKA_XYZ: ReadonlyArray<readonly [number, number, number]> = [
+      [0, 0, 0.333], [0, 0, 0], [0, -0.316, 0],
+      [0.0825, 0, 0], [-0.0825, 0.384, 0], [0, 0, 0], [0.088, 0, 0],
+    ];
+    const FRANKA_RPY: ReadonlyArray<readonly [number, number, number]> = [
+      [0, 0, 0], [-HALF_PI, 0, 0], [HALF_PI, 0, 0],
+      [HALF_PI, 0, 0], [-HALF_PI, 0, 0], [HALF_PI, 0, 0], [HALF_PI, 0, 0],
+    ];
+    const FRANKA_AXIS: ReadonlyArray<readonly [number, number, number]> = [
+      [0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],
+    ];
+    const q = [0, -Math.PI/4, 0, -3*Math.PI/4, 0, Math.PI/2, Math.PI/4];
+
+    const eeGeneric = genericSerialFkInline(q, FRANKA_XYZ, FRANKA_RPY, FRANKA_AXIS);
+    const eeFranka = frankaFkInline(q);
+    for (let k = 0; k < 3; k++) {
+      expect(Math.abs(eeGeneric[k] - eeFranka[k])).toBeLessThan(1e-12);
+    }
   });
 });
