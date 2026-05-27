@@ -9,7 +9,7 @@ export * as dynamics from "./dynamics/index.js";
 export * as controllers from "./controllers/index.js";
 
 export const ADR = "ADR-2605261800";
-export const PHASE = "R1.2-controllers-ts-port";
+export const PHASE = "R1.3-osc-ts-port";
 
 export const NV_COMPAT_MAP: Readonly<Record<string, string>> = Object.freeze({
   "Omniverse Kit":     "amenominaka",

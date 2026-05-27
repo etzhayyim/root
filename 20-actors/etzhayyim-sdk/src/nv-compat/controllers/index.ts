@@ -25,3 +25,12 @@ export {
   spatialToIsaaclabJacobian,
   DifferentialIKController,
 } from "./differential-ik.js";
+
+export {
+  type OscTargetType,
+  type OscImpedanceMode,
+  type OscNullspaceControl,
+  type OperationalSpaceControllerCfg,
+  makeDefaultOscCfg,
+  OperationalSpaceController,
+} from "./operational-space.js";
