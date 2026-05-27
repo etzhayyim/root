@@ -38,6 +38,35 @@ in the single HTML file. The inlined cartpole kernel is byte-for-byte
 the canonical SDK version at
 `../src/nv-compat/warp/examples.ts` (`cartpoleStepKernel`, iter 79).
 
+## `franka-batch-webgpu-demo.html` (iter 91)
+
+N=64 Frankas reaching 64 different randomly-generated targets in
+parallel via the iter 90 `frankaReachKernel` WGSL kernel. One
+`wgpuLaunch` dispatch per frame steps all 64 envs simultaneously.
+
+**Open the file directly** — runs on any modern browser; falls back
+transparently to sequential JS when `navigator.gpu` is unavailable.
+
+**Controls:**
+
+- `R` — reset (generate new random target distribution)
+- `Space` — pause / resume
+- `C` — force JS fallback (useful for benchmarking GPU vs CPU)
+
+**What you'll see:**
+
+- 63 ghost Franka arms (faint green) plus foreground env-0 (full green)
+  in side view (yz plane).
+- 64 target crosses (orange, with env-0's highlighted).
+- Mode indicator: WebGPU (green) or JS fallback (orange).
+- Live stats: converged count (N within 5mm), best/mean/worst error.
+- Steps/sec: GPU mode typically 100x faster than JS for N=64.
+
+**WGSL kernel inlined** — byte-identical to the canonical
+`frankaReachKernel` at `../src/nv-compat/warp/examples.ts` (iter 90).
+
+ADR-2605261800 §D6 nv-compat namespace localization.
+
 ## `franka-reach-demo.html` (iter 86)
 
 Capstone 7-DoF Franka Emika Panda reaching demo. Real FCI joint
