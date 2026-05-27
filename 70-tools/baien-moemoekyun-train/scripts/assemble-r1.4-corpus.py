@@ -136,6 +136,64 @@ def extract_langgraph(record):
     return None
 
 
+def extract_glaive(record):
+    """glaive_function_calling_v2: {system, chat} with USER:/ASSISTANT: in chat."""
+    sys_prefix = record.get("system", "")
+    chat = record.get("chat", "")
+    if not chat:
+        return None
+    # Split first USER: ... ASSISTANT: ... turn
+    import re as _re
+    user_m = _re.search(r"USER:\s*(.+?)(?:\n\n|ASSISTANT:)", chat, _re.DOTALL)
+    asst_m = _re.search(r"ASSISTANT:\s*(.+?)(?:\n\n|USER:|$)", chat, _re.DOTALL)
+    if user_m and asst_m:
+        user_msg = user_m.group(1).strip()
+        asst_msg = asst_m.group(1).strip()
+        instruction = (sys_prefix + "\n\n" + user_msg) if sys_prefix else user_msg
+        return {"instruction": instruction, "response": asst_msg}
+    return None
+
+
+def extract_hermes_func(record):
+    """hermes_function_calling_v1: {conversations: [{from, value}], tools}."""
+    convs = record.get("conversations", [])
+    tools = record.get("tools", "")
+    if not convs:
+        return None
+    sys_msg = next((c["value"] for c in convs if c.get("from") == "system"), "")
+    user_msg = next((c["value"] for c in convs if c.get("from") == "human"), None)
+    asst_msg = next((c["value"] for c in convs if c.get("from") == "gpt"), None)
+    if not (user_msg and asst_msg):
+        return None
+    instruction = sys_msg + "\n\n" + user_msg if sys_msg else user_msg
+    if tools and tools not in instruction:
+        instruction = f"Tools available:\n{tools}\n\n{instruction}"
+    return {"instruction": instruction, "response": asst_msg}
+
+
+def extract_swe_bench(record):
+    """SWE-bench_Verified: {problem_statement, patch}."""
+    problem = record.get("problem_statement", "")
+    patch = record.get("patch", "")
+    if not (problem and patch):
+        return None
+    instruction = (
+        f"Repository: {record.get('repo', 'unknown')}\n"
+        f"Problem:\n{problem}\n\n"
+        f"Generate a unified diff patch that fixes this issue."
+    )
+    return {"instruction": instruction, "response": patch}
+
+
+def extract_magpie(record):
+    """magpie_reasoning_v2: {instruction, response} clean direct."""
+    instr = record.get("instruction")
+    resp = record.get("response")
+    if instr and resp:
+        return {"instruction": instr, "response": resp}
+    return None
+
+
 SOURCES = [
     {"name": "magicoder",           "weight": 0.25, "task": "magicoder_oss_instruct_75k",       "hf_id": "ise-uiuc/Magicoder-OSS-Instruct-75K","hf_split": "train", "extractor": extract_magicoder,        "tier": "A", "license": "MIT"},
     {"name": "commitpack",          "weight": 0.25, "task": "commitpackft",                     "hf_id": "bigcode/commitpackft",         "hf_split": "train", "hf_config": "python", "extractor": extract_commitpack,       "tier": "A", "license": "MIT"},
@@ -145,6 +203,29 @@ SOURCES = [
     {"name": "gsm8k",               "weight": 0.05, "task": "gsm8k",                             "hf_id": "openai/gsm8k",                 "hf_split": "train", "hf_config": "main", "extractor": extract_gsm8k,            "tier": "A", "license": "MIT"},
     {"name": "math_500",            "weight": 0.03, "task": "math_500",                          "hf_id": "HuggingFaceH4/MATH-500",       "hf_split": "test",  "extractor": extract_math500,          "tier": "A", "license": "MIT"},
 ]
+
+# R1.5 Phase 2 SOURCES_AGENTIC: extends NC-free + adds 4 tool-use/agentic sources.
+# Per reverse-topo plan (cycle 44): Layer N-3 corpus extension for agentic skills.
+# All sources Apache-2.0 / MIT — HF-publish safe.
+SOURCES_AGENTIC = [
+    # Existing code corpus reduced from NC-free baseline
+    {"name": "magicoder",           "weight": 0.18, "hf_id": "ise-uiuc/Magicoder-OSS-Instruct-75K","hf_split": "train", "extractor": extract_magicoder,        "tier": "A", "license": "MIT"},
+    {"name": "commitpack",          "weight": 0.18, "hf_id": "bigcode/commitpackft",         "hf_split": "train", "hf_config": "python", "extractor": extract_commitpack,       "tier": "A", "license": "MIT"},
+    {"name": "reasoning_distill",   "weight": 0.15, "hf_id": "lordx64/reasoning-distill-opus-4-7-max-sft","hf_split": "train", "extractor": extract_reasoning_distill,"tier": "A", "license": "distill-opus-attribution"},
+    {"name": "langgraph_internal",  "weight": 0.08, "task": "_local_langgraph",                 "extractor": extract_langgraph,        "tier": "A", "license": "Apache-2.0 + Charter Rider"},
+    # Math-aux retained
+    {"name": "gsm8k",               "weight": 0.05, "hf_id": "openai/gsm8k",                 "hf_split": "train", "hf_config": "main", "extractor": extract_gsm8k,            "tier": "A", "license": "MIT"},
+    {"name": "math_500",            "weight": 0.03, "hf_id": "HuggingFaceH4/MATH-500",       "hf_split": "test",  "extractor": extract_math500,          "tier": "A", "license": "MIT"},
+    # NEW agentic sources (Phase 1 pinned cycle 44)
+    {"name": "glaive_func_call",    "weight": 0.10, "hf_id": "glaiveai/glaive-function-calling-v2", "hf_split": "train", "extractor": extract_glaive,       "tier": "A", "license": "Apache-2.0"},
+    {"name": "hermes_func_call",    "weight": 0.07, "hf_id": "NousResearch/hermes-function-calling-v1", "hf_split": "train", "extractor": extract_hermes_func, "tier": "A", "license": "Apache-2.0"},
+    {"name": "swe_bench_train",     "weight": 0.06, "hf_id": "princeton-nlp/SWE-bench_Verified", "hf_split": "test",  "extractor": extract_swe_bench,    "tier": "A", "license": "MIT"},
+    {"name": "magpie_reasoning",    "weight": 0.10, "hf_id": "Magpie-Align/Magpie-Reasoning-V2-250K-CoT-Llama3", "hf_split": "train", "extractor": extract_magpie, "tier": "A", "license": "Apache-2.0"},
+]
+# Total: 18+18+15+8+5+3+10+7+6+10 = 100%
+# Agentic mix: 10+7+6+10 = 33% (tool-call + SWE + reasoning)
+# Code mix: 18+18 = 36% (down from 60% in R1.4)
+# Math mix: 5+3 = 8% (unchanged)
 
 # Path B (HF-publish-ready) NC-free SOURCES: CodeAlpaca 10% removed,
 # redistributed to magicoder +5% + commitpack +5%. All Tier-A non-NC.
@@ -309,8 +390,8 @@ def assemble(args):
                     continue
                 collected.append(pair)
         else:
-            task = src["task"]
-            if task in manifest:
+            task = src.get("task")
+            if task and task in manifest:
                 cid = manifest[task]["ipfs_dag_cid"]
                 log.info("  (audit CID: %s — substrate trail per ADR-2605241500)", cid)
             # Prefer HF for parquet-based datasets (annex SHA256E chunking blocks direct read)
@@ -370,7 +451,7 @@ def assemble(args):
         "actual_examples": len(all_pairs),
         "corpus_sha256": corpus_hash.hexdigest(),
         "sources": [
-            {"name": s["name"], "task": s["task"], "weight": s["weight"], "tier": s["tier"],
+            {"name": s["name"], "task": s.get("task", s.get("hf_id", s["name"])), "weight": s["weight"], "tier": s["tier"],
              "license": s["license"], "internal_only": s.get("internal_only", False)}
             for s in SOURCES
         ],
@@ -397,9 +478,15 @@ def main():
     p.add_argument("--nc-free", action="store_true",
                    help="Use SOURCES_NC_FREE (CodeAlpaca removed, weights redistributed). "
                         "Path B prerequisite for HF publish. Removes G13 internal_only propagation.")
+    p.add_argument("--agentic", action="store_true",
+                   help="Use SOURCES_AGENTIC for R1.5 — extends NC-free with 4 tool-use/agentic "
+                        "sources (glaive, hermes, SWE-bench, magpie). All Apache-2.0/MIT.")
     args = p.parse_args()
-    if args.nc_free:
-        global SOURCES
+    global SOURCES
+    if args.agentic:
+        SOURCES = SOURCES_AGENTIC
+        log.info("=== AGENTIC mode (R1.5): NC-free + 4 tool-use/agentic sources ===")
+    elif args.nc_free:
         SOURCES = SOURCES_NC_FREE
         log.info("=== NC-FREE mode: CodeAlpaca removed, weights redistributed ===")
     assemble(args)
