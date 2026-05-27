@@ -337,6 +337,34 @@ pre-commit:
       stage_fixed: false
 
 
+    docs-graph-jsonld-freshness:
+      # When docs.json changes (which happens via docs-registry-freshness
+      # hook above) or any 90-docs/**/*.md changes, verify
+      # 90-docs/_registry/graph.jsonld stays in sync
+      # (70-tools/scripts/docs/regen-graph-jsonld.py --check; ADR-2605271100
+      # cycle 49). Chain: .md → docs.json → graph.jsonld. Both sidecars
+      # regen idempotently from canonical .md source. ~0.2s overhead.
+      glob:
+        - "90-docs/**/*.md"
+        - "90-docs/_registry/docs.json"
+      run: |
+        python3 70-tools/scripts/docs/regen-graph-jsonld.py --check \
+          > /tmp/docs-graph-check.$$.txt 2>&1
+        rc=$?
+        if [ $rc -ne 0 ]; then
+          echo "✘ graph.jsonld drift detected:"
+          cat /tmp/docs-graph-check.$$.txt
+          rm -f /tmp/docs-graph-check.$$.txt
+          echo ""
+          echo "  Run the regenerator and stage the result:"
+          echo "    python3 70-tools/scripts/docs/regen-graph-jsonld.py"
+          echo "    git add 90-docs/_registry/graph.jsonld"
+          exit 1
+        fi
+        rm -f /tmp/docs-graph-check.$$.txt
+      stage_fixed: false
+
+
 # ─────────────────────────────────────────────────────────────────────────
 # pre-push — heavier regression checks that don't fit in the per-commit
 # budget. Mirror of .github/workflows/kami-engine-sdk.yml so contributors
