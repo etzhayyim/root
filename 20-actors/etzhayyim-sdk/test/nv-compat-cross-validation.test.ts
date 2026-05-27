@@ -53,6 +53,8 @@ import {
   l2NormSquaredInline,
   trackVelExpInline,
   combineWeightedRewards,
+  terminationsKernel,
+  terminationsInline,
 } from "../src/nv-compat/warp/examples.js";
 import { makeUr10 } from "../src/nv-compat/assets/ur10.js";
 import { makeFrankaPanda } from "../src/nv-compat/assets/franka-panda.js";
@@ -773,5 +775,80 @@ describe("nv-compat l2NormSquaredKernel — universal reward building block", ()
     for (const r of reward) { maxR = Math.max(maxR, r); minR = Math.min(minR, r); }
     expect(maxR).toBeLessThan(1.0);
     expect(minR).toBeGreaterThan(-1.0);
+  });
+});
+
+describe("nv-compat terminationsKernel — Isaac Lab TerminationManager", () => {
+  const lower = [-1, -1, -1];
+  const upper = [1, 1, 1];
+
+  it("clean state: no termination, no truncation", () => {
+    const r = terminationsInline([0, 0, 0], lower, upper, [0.5], [10], 3, 0.3, 500);
+    expect(r.terminated[0]).toBe(0);
+    expect(r.truncated[0]).toBe(0);
+  });
+
+  it("upper + lower joint-limit violation → terminated", () => {
+    const upperViolation = terminationsInline([0, 1.5, 0], lower, upper, [0.5], [10], 3, 0.3, 500);
+    expect(upperViolation.terminated[0]).toBe(1);
+    const lowerViolation = terminationsInline([-2, 0, 0], lower, upper, [0.5], [10], 3, 0.3, 500);
+    expect(lowerViolation.terminated[0]).toBe(1);
+  });
+
+  it("fall (base_z < min) → terminated; timeout → truncated (NOT terminated)", () => {
+    const fall = terminationsInline([0,0,0], lower, upper, [0.1], [10], 3, 0.3, 500);
+    expect(fall.terminated[0]).toBe(1);
+    expect(fall.truncated[0]).toBe(0);
+    const tout = terminationsInline([0,0,0], lower, upper, [0.5], [500], 3, 0.3, 500);
+    expect(tout.terminated[0]).toBe(0);
+    expect(tout.truncated[0]).toBe(1);
+  });
+
+  it("256-env WGSL = inline byte-identical (mixed joint-limit + fall + timeout)", () => {
+    const nEnvs = 256, n = 3;
+    const qBuf: number[] = new Array(nEnvs * n);
+    const baseZ: number[] = new Array(nEnvs);
+    const step: number[] = new Array(nEnvs);
+    for (let env = 0; env < nEnvs; env++) {
+      qBuf[env*n+0] = (env % 7 === 0) ? 1.5 : 0.5 * Math.sin(env);
+      qBuf[env*n+1] = 0.3;
+      qBuf[env*n+2] = -0.5;
+      baseZ[env] = (env % 13 === 0) ? 0.2 : 0.5;
+      step[env] = (env % 17 === 0) ? 600 : 50;
+    }
+    const qA = fromTypedArray<number>(qBuf);
+    const lA = fromTypedArray<number>(lower);
+    const uA = fromTypedArray<number>(upper);
+    const bzA = fromTypedArray<number>(baseZ);
+    const stA = fromTypedArray<number>(step);
+    const termA = zeros<number>(nEnvs);
+    const truncA = zeros<number>(nEnvs);
+    launch({ kernel: terminationsKernel, dim: nEnvs,
+      inputs: [qA, lA, uA, bzA, stA, termA, truncA, n, 0.3, 500] });
+
+    const ref = terminationsInline(qBuf, lower, upper, baseZ, step, n, 0.3, 500);
+    let termDiff = 0, truncDiff = 0;
+    for (let env = 0; env < nEnvs; env++) {
+      termDiff = Math.max(termDiff, Math.abs(termA.get(env) - ref.terminated[env]));
+      truncDiff = Math.max(truncDiff, Math.abs(truncA.get(env) - ref.truncated[env]));
+    }
+    expect(termDiff).toBe(0);
+    expect(truncDiff).toBe(0);
+  });
+
+  it("realistic Franka 3-env scenario: clean / joint-limit / timeout", () => {
+    const n = 7;
+    const fLower = [-2.8973, -1.7628, -2.8973, -3.0718, -2.8973, -0.0175, -2.8973];
+    const fUpper = [2.8973, 1.7628, 2.8973, -0.0698, 2.8973, 3.7525, 2.8973];
+    const q = [
+      0, -0.7854, 0, -2.356, 0, 1.571, 0.7854,
+      3.0, -0.7854, 0, -2.356, 0, 1.571, 0.7854,
+      0, -0.7854, 0, -2.356, 0, 1.571, 0.7854,
+    ];
+    const baseZ = [1, 1, 1];
+    const step = [100, 100, 1000];
+    const r = terminationsInline(q, fLower, fUpper, baseZ, step, n, 0.3, 500);
+    expect(r.terminated).toEqual([0, 1, 0]);
+    expect(r.truncated).toEqual([0, 0, 1]);
   });
 });

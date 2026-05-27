@@ -2055,3 +2055,118 @@ export function combineWeightedRewards(
   }
   return out;
 }
+
+// ── Episode terminations + truncations (env-parallel) ────────────────────
+//
+// Isaac Lab `TerminationManager` canonical pattern. Per-env booleans
+// (encoded as f32 0.0/1.0) for:
+//   terminated[env] = joint_limit_violation OR base_fall   (MDP termination)
+//   truncated[env]  = step_count >= max_steps              (MDP truncation)
+//
+// Done = terminated OR truncated → host triggers `reset_env(env)`.
+// One thread per env scans q[env*n..env*n+n] for limit violation +
+// checks base_z + step_count.
+
+const MAX_N_TERM = 32;
+
+export const terminationsKernel: WgpuKernel = wgpuKernel({
+  js: (
+    q: WpArray<number>,
+    qLower: WpArray<number>,
+    qUpper: WpArray<number>,
+    baseZ: WpArray<number>,
+    step: WpArray<number>,
+    terminated: WpArray<number>,
+    truncated: WpArray<number>,
+    n: number,
+    minBaseZ: number,
+    maxSteps: number,
+  ) => {
+    const env = tid();
+    let limitViolated = 0;
+    for (let i = 0; i < n; i++) {
+      const v = q.get(env * n + i);
+      if (v < qLower.get(i) || v > qUpper.get(i)) { limitViolated = 1; break; }
+    }
+    const fell = baseZ.get(env) < minBaseZ ? 1 : 0;
+    const timedOut = step.get(env) >= maxSteps ? 1 : 0;
+    terminated.set(env, (limitViolated || fell) ? 1 : 0);
+    truncated.set(env, timedOut);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> q:          array<f32>;
+@group(0) @binding(1) var<storage, read_write> q_lower:    array<f32>;
+@group(0) @binding(2) var<storage, read_write> q_upper:    array<f32>;
+@group(0) @binding(3) var<storage, read_write> base_z:     array<f32>;
+@group(0) @binding(4) var<storage, read_write> step:       array<f32>;
+@group(0) @binding(5) var<storage, read_write> terminated: array<f32>;
+@group(0) @binding(6) var<storage, read_write> truncated:  array<f32>;
+@group(0) @binding(7) var<uniform>             params:     vec4<f32>;
+//                                                          .x = n_joints (cast u32)
+//                                                          .y = min_base_z
+//                                                          .z = max_steps
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let env = gid.x;
+  let n_envs = arrayLength(&terminated);
+  if (env >= n_envs) { return; }
+  let n = u32(params.x);
+  let min_base_z = params.y;
+  let max_steps = params.z;
+
+  var limit_violated: u32 = 0u;
+  for (var i = 0u; i < 32u; i = i + 1u) {
+    if (i >= n) { break; }
+    let v = q[env * n + i];
+    if (v < q_lower[i] || v > q_upper[i]) {
+      limit_violated = 1u;
+      break;
+    }
+  }
+  let fell = select(0u, 1u, base_z[env] < min_base_z);
+  let timed_out = select(0u, 1u, step[env] >= max_steps);
+  terminated[env] = select(0.0, 1.0, (limit_violated | fell) != 0u);
+  truncated[env] = select(0.0, 1.0, timed_out != 0u);
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: false },
+    { binding: 2, kind: "storage", inputIndex: 2, writeback: false },
+    { binding: 3, kind: "storage", inputIndex: 3, writeback: false },
+    { binding: 4, kind: "storage", inputIndex: 4, writeback: false },
+    { binding: 5, kind: "storage", inputIndex: 5, writeback: true },
+    { binding: 6, kind: "storage", inputIndex: 6, writeback: true },
+    { binding: 7, kind: "uniform", inputIndex: 7 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference terminations + truncations per env. */
+export function terminationsInline(
+  q: readonly number[],
+  qLower: readonly number[],
+  qUpper: readonly number[],
+  baseZ: readonly number[],
+  step: readonly number[],
+  n: number,
+  minBaseZ: number,
+  maxSteps: number,
+): { terminated: number[]; truncated: number[] } {
+  const nEnvs = baseZ.length;
+  const terminated = new Array(nEnvs);
+  const truncated = new Array(nEnvs);
+  for (let env = 0; env < nEnvs; env++) {
+    let limitViolated = 0;
+    for (let i = 0; i < n; i++) {
+      const v = q[env * n + i];
+      if (v < qLower[i] || v > qUpper[i]) { limitViolated = 1; break; }
+    }
+    const fell = baseZ[env] < minBaseZ ? 1 : 0;
+    const timedOut = step[env] >= maxSteps ? 1 : 0;
+    terminated[env] = (limitViolated || fell) ? 1 : 0;
+    truncated[env] = timedOut;
+  }
+  return { terminated, truncated };
+}
