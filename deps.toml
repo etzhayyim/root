@@ -6311,6 +6311,16 @@ status_note = "Closure amendment to ADR-2605262500 across the 46-cycle /loop jou
 path = "90-docs/adr/2605271100-adr-2605262500-closure-and-verifier-marker-convention.md"
 
 
+# ─── ADR-2605271200 4-axis registry enforcement matrix closure (2026-05-27 cycle 52) ──
+
+[[adrs]]
+id = "2605271200"
+title = "Registry enforcement 4-axis matrix LANDED — cycles 48-51 closure (docs.json freshness + graph.jsonld freshness + JSON Schema validation + 32 baseline .md violations cleaned)"
+status = "proposed"
+status_note = "Closure amendment extending ADR-2605271100. Documents the 4-axis registry enforcement matrix built in cycles 48-51 (2026-05-27 JST): axis-1 deps.toml book-keeping (with (reserved)/(deferred-rename) markers per ADR-2605271100), axis-2 docs.json freshness (cycle 48), axis-3 graph.jsonld JSON-LD freshness (cycle 49), axis-4 JSON Schema validation (cycle 50 tracker → cycle 51 PR-gate). All 4 axes follow the 3-layer pattern (generator+lint / lefthook hook / GitHub Actions workflow) and are now PR-gates with baseline = 0 across the matrix. 5 reusable patterns extracted (3-layer enforcement / tracker→PR-gate promotion / marker convention / cron off-minute deconfliction / graceful optional-dep import). Axis-5 magatama-schema validation deferred — cycle 52 survey found 38 of 42 magatama.jsonld manifests fail validation across 7 error classes (mixed schema-bugs + data-bugs requiring 30-45 min cycle). Cron deconfliction: :17 / :23 / :29 / :35 (6-min spread × 4 axes)."
+path = "90-docs/adr/2605271200-registry-4-axis-enforcement-matrix.md"
+
+
 # ─── kotoba storage substrate unification R0 (ADR-2605262130) ──
 
 [[adrs]]

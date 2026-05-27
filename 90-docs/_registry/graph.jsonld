@@ -10614,6 +10614,23 @@
       "lastVerified": "2026-05-27"
     },
     {
+      "id": "doc:adr-2605271200-registry-4-axis-enforcement-matrix",
+      "type": "TechArticle",
+      "title": "ADR-2605271200: registry enforcement 4-axis matrix LANDED — cycles 48-51 closure (docs.json freshness + graph.jsonld freshness + JSON Schema validation + 32 baseline .md violations cleaned)",
+      "status": "proposed",
+      "topic": "registry-enforcement-matrix",
+      "authoritative": true,
+      "authoritativeFor": [
+        "registry enforcement 4-axis matrix as of cycles 48-51 (2026-05-27)",
+        "(reserved) / (deferred-rename) marker convention adoption (cycle 46)",
+        "4-axis cron deconfliction (:17 / :23 / :29 / :35 spread)",
+        "5 reusable patterns from cycles 27-51 journey",
+        "magatama-schema axis-5 deferred status + 38-violation survey"
+      ],
+      "related": "doc:adr-2605170900-etzhayyim-root-adr-canonical-home",
+      "lastVerified": "2026-05-27"
+    },
+    {
       "id": "doc:adr-2605272000-isekai-omniverse-r1-1-usd-physx-playable",
       "type": "TechArticle",
       "title": "ADR-2605272000: isekai.etzhayyim.com Omniverse / PhysX / OpenUSD R1.1 — playable via kami-engine-sdk + kami-usd USDA mini-parser + kami-genesis World",
