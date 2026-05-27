@@ -5977,7 +5977,7 @@ path = "70-tools/e7m-dataset/src/e7m_dataset/vision_pii_filter.py"
 adr = "ADR-2605262500"
 kind = "pii-redaction-vision"
 status = "w3.1.1-shipped"
-description = "Vision PII filter (ADR-2605262500 §5 / G2). Pluggable backend interface: (a) StubVisionPiiBackend gated by ETZ_VISION_PII_ALLOW_STUB=1 for tests; (b) OnnxFaceBackend generic for Nx{5,6,7}-row bbox output (yolov8-face / retinaface compatible); (c) CenterFaceOnnxBackend subclass with canonical CenterFace decode (heatmap + scale + offset → peak detection w/ 3×3 local-max suppression → exp(scale)*4 box reconstruction → score threshold → NMS dedup at IoU ≥ 0.4). Fail-closed by default — operator opts in via ETZ_VISION_PII_BACKEND={centerface-onnx,yolov8-face-onnx,retinaface-onnx,stub-allow}. Model paths via env: ETZ_VISION_PII_FACE_MODEL (required) / PLATE_MODEL (optional, []-return when unset) / AGE_MODEL (optional, 0-return when unset). Real blur via Pillow GaussianBlur σ≥15px faces / σ≥20px plates. Child-presence detection triggers FULL-FRAME REJECTION (no partial blur attempted; fail-closed per §5). Lives at e7m_dataset.vision_pii_filter so fetchers/mapillary.py imports cleanly without dragging pymagatama's langchain → pydantic env-fragile chain. W3.1.1 shipped 2026-05-26 (CenterFace decode algorithm test-verified)."
+description = "Vision PII filter (ADR-2605262500 §5 / G2). **5-backend matrix**: (a) StubVisionPiiBackend (ETZ_VISION_PII_ALLOW_STUB=1 for tests); (b) OnnxFaceBackend generic for Nx{5,6,7}-row bbox output (W3.1, cycle 20); (c) CenterFaceOnnxBackend subclass — canonical CenterFace decode (heatmap + scale + offset → 3×3 local-max → exp(scale)*4 → NMS at IoU≥0.4) (W3.1.1, cycle 21); (d) Yolov8FaceOnnxBackend subclass — Ultralytics (1, N, 6+) / (1, 6+, N) layout auto-detect via channel-count hint {5..20} + cxcywh→xywh + NMS (W3.1.2, cycle 26); (e) RetinaFaceOnnxBackend subclass — post-processed Nx{15,16} (5 bbox + 10 landmark + score) + xyxy fallback + NMS (W3.1.3, cycle 33). All 3 canonical face detector backends have FULL E2E test coverage: pure decoder (synthetic arrays) + ORT session round-trip (synthetic ONNX) + Pillow blur pixel-verified (checker-pattern → mid-gray) + G5 child-fail-closed (age classification + regression). Fail-closed by default — operator opts in via ETZ_VISION_PII_BACKEND={centerface-onnx,yolov8-face-onnx,retinaface-onnx,stub-allow}. Model paths via env: ETZ_VISION_PII_FACE_MODEL (required) / PLATE_MODEL (optional, []-return when unset) / AGE_MODEL (optional, 0-return when unset). Real blur via Pillow GaussianBlur σ≥15px faces / σ≥20px plates. Child-presence detection triggers FULL-FRAME REJECTION (no partial blur attempted; fail-closed per §5). Lives at e7m_dataset.vision_pii_filter so fetchers/mapillary.py imports cleanly without dragging pymagatama's langchain → pydantic env-fragile chain. W3.1/W3.1.1/W3.1.2/W3.1.3 all shipped + E2E test-locked 2026-05-26/27."
 
 [[modules]]
 path = "70-tools/e7m-dataset/src/e7m_dataset/pds.py"
@@ -5992,6 +5992,69 @@ adr = "ADR-2605262500"
 kind = "test-suite"
 status = "w2-shipped"
 description = "8 tests for pds.parse_at_uri + resolve_datasetpin: canonical at-uri / handle-style / 4 bad-shape rejections / happy-path com.atproto.repo.getRecord mock / 404 RecordNotFound rejection / record-without-cid rejection / wrong-collection fail-before-HTTP / 500 upstream propagation. All offline via httpx.MockTransport."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/vision_pii_diagnose.py"
+adr = "ADR-2605262500"
+kind = "operator-diagnostic-cli"
+status = "shipped"
+description = "Operator-side diagnostic CLI for the vision PII filter setup (cycle 37). 3 subcommands: `check` (required+recommended deps + ETZ_VISION_PII_* env + face model classification if set; exit 0=ready, 1=missing model, 2=missing dep), `classify <model.onnx>` (returns kind + backend name; --json for CI), `smoke <model.onnx>` (synth 640×480 RGB → detect_faces → reports detection count). Operators run `python3 -m e7m_dataset.vision_pii_diagnose check` BEFORE running Mapillary fetch to validate ONNX backend selection matches operator's installed model; saves debugging round-trips."
+
+[[modules]]
+path = "70-tools/e7m-dataset/tests/test_vision_pii_diagnose.py"
+adr = "ADR-2605262500"
+kind = "test-suite"
+status = "shipped"
+description = "10 tests for vision_pii_diagnose.py operator CLI: check reports deps OK / check JSON shape / check classifies model when env set / classify yolov8 human-readable / classify --json / classify missing model fails / classify corrupt model fails / smoke runs detect_faces / smoke --json / smoke missing model fails. All offline via synthetic ONNX fixtures."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/pds_diagnose.py"
+adr = "ADR-2605262500"
+kind = "operator-diagnostic-cli"
+status = "shipped"
+description = "Operator-side diagnostic CLI for PDS resolver setup (cycle 38, mirror of vision_pii_diagnose). 3 subcommands: `check` (httpx availability + ETZ_E7M_PDS_* env + HEAD reachability probe; --skip-network bypass; exit 0=ready, 1=unreachable, 2=missing dep), `parse <at-uri>` (parse_at_uri → repo+collection+rkey; warns if non-datasetPin collection; --json for CI), `resolve <at-uri>` (real resolve_datasetpin → CID + name + revision + size; --json output; --timeout configurable). Operators run `pds_diagnose check` BEFORE assemble-usd-scene with real at-uri references (not <rkey-placeholder>) to validate PDS reachability + at-uri shape correctness."
+
+[[modules]]
+path = "70-tools/e7m-dataset/tests/test_pds_diagnose.py"
+adr = "ADR-2605262500"
+kind = "test-suite"
+status = "shipped"
+description = "9 tests for pds_diagnose.py operator CLI: check --skip-network + --json / parse canonical at-uri + --json / parse malformed returns 2 / parse wrong-collection warns / resolve happy path (monkey-patched) / resolve --json / resolve PdsError returns 1. All offline."
+
+[[modules]]
+path = "70-tools/e7m-sim/scripts/assemble_diagnose.py"
+adr = "ADR-2605262500"
+kind = "operator-diagnostic-cli"
+status = "shipped"
+description = "Operator-side diagnostic CLI for assemble-usd-scene.py (cycle 39, 3rd diagnostic CLI). 3 subcommands: `check` (yaml + recommended jsonschema/pyarrow/Pillow/scipy/numpy + scene.schema.json existence + scenes/ dir count + registered scene list; exit 0=ready, 2=critical dep missing), `inspect <scene.yaml>` (build_plan → human or JSON; reports scene name, ADR, bbox, layers w/ dispatch handlers + resolved CIDs, props w/ counts, charter scan status; exit 1=invalid scene, 2=file missing), `dry-run <scene.yaml>` (build_plan + build_usda → usda_sha256 + byte count; writes NO files; exit 1=fail, 2=file missing). Operators run `inspect` to verify layer composition before staging real Parquet/GeoTIFF; `dry-run` to verify USDA emission would succeed before committing the assemble run. Completes the W2/W3 operator diagnostic CLI triad (vision_pii_diagnose + pds_diagnose + assemble_diagnose)."
+
+[[modules]]
+path = "70-tools/e7m-sim/tests/test_assemble_diagnose.py"
+adr = "ADR-2605262500"
+kind = "test-suite"
+status = "shipped"
+description = "9 tests for assemble_diagnose.py operator CLI: check reports deps+scenes / check --json / inspect wadachi human-readable / inspect --json with 4-layer detail / inspect missing scene returns 2 / inspect invalid (no-world) returns 1 / dry-run human / dry-run --json with sha256 prefix / dry-run writes no files (cwd + tmp dir snapshot equality). Uses real wadachi-r1-shibuya-1km scene fixture."
+
+[[modules]]
+path = "90-docs/baien/adr-2605262500-implementation-retrospective-260527.md"
+adr = "ADR-2605262500"
+kind = "retrospective-doc"
+status = "shipped"
+description = "39-cycle implementation retrospective for ADR-2605262500 (cycle 40, 2026-05-27). Non-authoritative chronology + pattern capture: wave-by-wave shipped items (W0-W4 + W2.0/2.1/2.2/2.3 + W3.0/3.1/3.1.1/3.1.2/3.1.3/3.1.4); 5 architectural patterns surfaced (subclass-per-canonical-format ONNX decoder / graceful 4-layer asset ingest fallback / 3-layer book-keeping drift enforcement / operator diagnostic CLI triad / synthetic ONNX test fixtures); test coverage matrix (12-cell 3-backends × 4-layers grid + Charter §2 defense-in-depth + determinism invariants); production-rollout operator workflow; deferred items (rasterio install / cross-ADR drift cleanup / PDS real-network smoke / GitHub Actions workflow smoke / W3.2 LPR subclass). Audit-friendly for future cross-ADR pattern reuse."
+
+[[modules]]
+path = "70-tools/scripts/diagnose/e7m_preflight.py"
+adr = "ADR-2605262500"
+kind = "operator-preflight-cli"
+status = "shipped"
+description = "Single-command operator pre-flight CLI (cycle 41) — aggregates 4 ADR-2605262500 diagnostic surfaces (vision_pii_diagnose + pds_diagnose + assemble_diagnose + verify_deps_toml_paths) into one PASS/FAIL summary. Each sub-check delegates as subprocess so per-tool diagnostics still work standalone for fine-grained debugging. Operator runs this BEFORE production fetch/assemble/eval. --json for CI; --skip-pds-network for offline; --filter <ADR> for cross-ADR scope. Exit 0=all pass, 1=any fail, 2=script failure. Extends the operator-diagnostic-CLI-triad pattern (cycle 40 retrospective §4)."
+
+[[modules]]
+path = "70-tools/scripts/diagnose/test_e7m_preflight.py"
+adr = "ADR-2605262500"
+kind = "test-suite"
+status = "shipped"
+description = "7 tests for e7m_preflight.py: run_preflight returns 4 results / pds check passes with --skip-network / assemble check passes (clean env) / verifier check passes for ADR-2605262500 filter / main CLI exit code matches pass status (without FACE_MODEL = 1) / JSON output shape contract / human output includes operator action items when failing."
 
 [[modules]]
 path = "70-tools/e7m-sim/tests/test_e2e_real_assets.py"
@@ -7591,3 +7654,100 @@ adr = "ADR-2605263900"
 kind = "dataset-fetcher-concrete"
 status = "w1-impl-landed-concrete"
 description = "World Bank Open Data API fetcher — second concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub). Tier-A CC-BY 4.0 (WB Open Data Terms of Use). Two operator paths matching gleif_lei.py pattern: (1) Network mode — httpx GET per (indicator × country × paginated-page); indicators MUST be non-empty (passive-only discipline: no implicit full-catalog fetch); paginates via WB header.pages field. (2) Local-source mode — read operator-staged JSON OR NDJSON; auto-detects format via json.loads vs newline-iter. Handles 3 input shapes: (a) native WB 2-element response [header, [observation_dicts]] (detected by header keys page/pages/per_page/total); (b) flat list of observation dicts (operator-staged from sampled WB queries); (c) pre-normalized NDJSON pass-through (operator-flattened sensor-shape rows preserved as-is). _normalize_wb_observation maps WB schema (indicator.id + indicator.value + countryiso3code OR country.id + date + value + unit) → sensor's expected (indicatorCode, indicatorTitle, dimensions=[[country, ISO3], [year, date]], value, valueUnit, observationPeriod, payloadCid). max_observations cap supports memory-bounded operator runs. Network-mode incremental sha256 hashing avoids re-reading the NDJSON file. Output: <name>-<capture_ts>/worldbank-open-data.ndjson (sensor-consumable). G7 schema discipline: rows lacking required fields dropped at fetcher boundary. Passive-only invariant boundary per ADR-2605262400 §7 (operator-triggered, not organism-tick). Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 5 scenarios: TEST 1 native 2-elem (USA + JPN GDP + XX ISO-2 fallback) / TEST 2 NDJSON pre-normalized passthrough (DE + FR pop preserved with payloadCid) / TEST 3 max_observations=2 cap / TEST 4 network-mode empty-indicators ValueError guard / TEST 5 end-to-end fetcher → WorldBankOpenDataSensor 3-obs integration (USA GDP value preserved + CC-BY-4.0 license_tag). 5/5 PASS."
+
+
+# ─── Concrete W1 fetcher impl #3 (ADR-2605263900 — eu_eurostat SDMX-JSON 2.0 decoder + sensor integration) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/eu_eurostat.py"
+adr = "ADR-2605263900"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete"
+description = "EU Eurostat SDMX-JSON 2.0 fetcher — third concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub). Tier-A EU re-use Decision 2011/833/EU. Two operator paths matching gleif_lei.py + worldbank_open_data.py pattern: (1) Network mode — httpx GET per dataflow against ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/<flow>/?format=JSON; dataflows MUST be non-empty (passive-only: no implicit full-catalog fetch). (2) Local-source mode — read operator-staged SDMX-JSON OR pre-normalized NDJSON. Handles 3 input shapes: (a) native SDMX-JSON 2.0 dict (detected via 'value'+'dimension'+'size' keys) → flat-index decoder unpacks row-major linearization back into per-dimension codes; (b) single pre-normalized dict envelope; (c) flat list of pre-normalized rows. _decode_flat_index implements the canonical row-major SDMX cube linearization (strides[i] = product of sizes[i+1..N]; per-dim idx[i] = (flat // strides[i]) mod sizes[i]). _UNIT_DIM_CANDIDATES = ('unit',) extracts the unit dimension into the row's valueUnit field (NOT dimensions tuple); _TIME_DIM_CANDIDATES = ('time', 'TIME_PERIOD') extracts time into observationPeriod + appends ('time', period) at end of dimensions tuple for sensor consistency. extension.datastructure.id provides indicatorCode (fallback to dataflow URL segment); dataset.label provides indicatorTitle. max_observations cap supports memory-bounded operator runs. Output: <name>-<capture_ts>/eurostat.ndjson (sensor-consumable). Passive-only invariant boundary per ADR-2605262400 §7. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 5 scenarios: TEST 1 native SDMX-JSON 2.0 demo_pjan 2-dim cube (geo×time; 5/6 cells populated, missing IT 2024) with verified decoder correctness against real Eurostat population numbers (DE 83.1M/83.44M, FR 67.9M/68.17M, IT 58.7M) / TEST 2 3-dim cube (geo×unit×time) with unit-dim → valueUnit extraction (NAMA_10_GDP CP_MEUR for DE+FR 2024; verified unit does NOT leak into dimensions tuple) / TEST 3 NDJSON pre-normalized passthrough (prc_hicp_manr IT 2026-04 missing-value preserved) / TEST 4 empty-dataflows ValueError guard / TEST 5 end-to-end fetcher → EuEurostatSensor 5-obs integration (DE 83.1M preserved + eurostat-free-reuse license_tag + source=eurostat). 5/5 PASS."
+
+
+# ─── Concrete W1 fetcher impl #4 (ADR-2605263800 — sec_edgar master.idx parse + sensor integration) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/sec_edgar.py"
+adr = "ADR-2605263800"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete"
+description = "SEC EDGAR full-index master.idx fetcher — fourth concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub; corp 2nd concrete fetcher). Tier-A public-domain (17 USC 105 / 17 CFR 200). W1 targets quarterly master.idx bulk archive (https://www.sec.gov/Archives/edgar/full-index/<YYYY>/<QTR>/master.idx) — single ~5-50MB pipe-delimited text file per quarter; covers every filing without per-CIK enumeration (operationally cheapest passive-only path). Two operator paths matching gleif/wb/eurostat pattern: (1) Network mode — httpx GET; year+quarter MUST both be set explicitly (passive-only: no implicit latest-quarter inference per ADR-2605262400 §7); SEC User-Agent guidance respected via DEFAULT_USER_AGENT with real contact email. (2) Local-source mode — read pre-staged master.idx OR pre-normalized NDJSON. Format auto-detect (leading '{' → NDJSON / else → master.idx pipe-parser). master.idx parser: skips ~11-line header until '---' dashed separator OR detects leading numeric CIK pipe-row as body start; pipe-split into (CIK, Company Name, Form Type, Date Filed, Filename); zero-pads CIK to 10 digits via _pad_cik; coerces Date Filed (YYYY-MM-DD) → ISO-8601 'T00:00:00Z'; uses Filename (EDGAR archive path) as payloadCid (W2 → actual IPFS CID after publish-ipfs). G7 schema discipline: rows with non-numeric CIK OR missing column OR malformed date → skip without halt. cik_allowlist + form_type_allowlist + max_records constructor filters. Output: <name>-<capture_ts>/raw-master.idx (forensic auditability) + sec-edgar.ndjson (sensor-consumable). Passive-only invariant boundary per ADR-2605262400 §7. Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). W2 will add per-CIK Submissions JSON + companyfacts XBRL paths. Smoke-tested 2026-05-27 with 6 scenarios: TEST 1 real EDGAR master.idx (Apple 10-K + MSFT 10-Q + JPM 8-K + Apple Form 4 + Vanguard 13F-HR + 1 BAD-CIK G7-skip; CIK zero-pad + date ISO-coerce verified) / TEST 2 cik_allowlist=Apple-only → 2 (10-K + Form 4) / TEST 3 form_type_allowlist=(10-K,10-Q) → 2 / TEST 4 NDJSON pre-normalized passthrough (JPM 8-K w/ payloadCid preserved) / TEST 5 network-mode year+quarter ValueError guard / TEST 6 end-to-end fetcher → SecEdgarSensor 5-obs integration (Apple 10-K → form_class='annual-report' + public-domain license_tag preserved). 6/6 PASS."
+
+
+# ─── Concrete W1 fetcher impl #5 (ADR-2605263900 — us_data_gov CKAN package_search + sensor integration) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/us_data_gov.py"
+adr = "ADR-2605263900"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete"
+description = "US data.gov CKAN catalog fetcher — fifth concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub; gov 3rd concrete fetcher; first CKAN portal of the triad). Tier-A public-domain (17 USC 105). Two operator paths matching gleif/wb/eurostat/sec pattern: (1) Network mode — httpx GET against catalog.data.gov/api/3/action/package_search with start+rows pagination; optional server-side organization_filter (Solr fq) + free-text q query; loops via result.count until exhausted. (2) Local-source mode — read operator-staged CKAN JSON OR pre-normalized NDJSON. _iter_observations_from_payload dispatcher handles 4 input shapes: (a) native CKAN package_search response {result:{results:[...]}}; (b) single-pkg envelope {result: pkg_dict}; (c) flat list of pkg dicts; (d) operator pre-normalized sensor-shape rows preserved as-is. _normalize_ckan_pkg maps CKAN (name + title + license_id + id + notes + organization.name + organization.title + metadata_created) → sensor row (datasetId + title + license + payloadCid + descriptionExcerpt + organization + publisher + publishedAtUtc). Per-row license_id preserved through chain (e.g., cc-by sub-licensed datasets retain their override). max_records cap for memory-bounded operator runs. G7 schema discipline: rows missing required fields (name/title/license_id/id) skipped without halt. Output: <name>-<capture_ts>/us-data-gov.ndjson (sensor-consumable). Passive-only invariant boundary per ADR-2605262400 §7. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 5 scenarios: TEST 1 native CKAN response (NOAA CDO + EPA AirData + CC-BY sub-licensed Some Agency + 1 G7-skip; per-row license override preserved) / TEST 2 flat list (FDA Drugs + Census ACS) / TEST 3 NDJSON pre-normalized passthrough (NOAA tide w/ payloadCid preserved) / TEST 4 max_records=2 cap / TEST 5 end-to-end fetcher → UsDataGovSensor 3-obs integration (NOAA us-pd + agency cc-by license_tag override both preserved through chain). 5/5 PASS."
+
+
+# ─── Concrete W1 fetcher impl #6 + #7 (ADR-2605263900 — CKAN portal triad complete: UK + JP) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/uk_data_gov_uk.py"
+adr = "ADR-2605263900"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete"
+description = "UK data.gov.uk CKAN catalog fetcher — sixth concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub; gov 4th concrete; CKAN portal triad #2 of 3). Tier-A OGL v3.0 (Crown copyright open license). Per-row license_id preserved (e.g., cc-by sub-licensed datasets). Same CKAN paging + 4-shape dispatcher pattern as us_data_gov.py. British English UX naming: constructor param organisation_filter (with 's') maps to CKAN core 'organization' Solr fq under the hood; output row uses British 'organisation' key (matching UkDataGovUkSensor expected shape). Smoke-tested 2026-05-27 with 3 scenarios: TEST 1 native CKAN ONS GDP + MoJ Court Stats + cc-by sub-licensed (British 'organisation' key + cc-by override preserved) / TEST 2 end-to-end → UkDataGovUkSensor 3-obs / TEST 3 sensor organisation_filter='moj-gov-uk' → 1 obs. 3/3 PASS."
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/jp_data_go_jp.py"
+adr = "ADR-2605263900"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete-portal-triad-complete"
+description = "JP data.go.jp CKAN catalog fetcher — seventh concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub; gov 5th concrete; ═══ CKAN portal triad COMPLETE: us_data_gov + uk_data_gov_uk + jp_data_go_jp ═══). Tier-A CC-BY 4.0 (政府標準利用規約 2.0). Same CKAN paging + 4-shape dispatcher pattern as us_data_gov.py + uk_data_gov_uk.py. JP-specific: publisher field preserves CKAN organization.title (省庁 + 自治体 Japanese names like 総務省 / 総務省統計局 / 東京都); organization field uses American 'organization' (CKAN core spelling). W1 scope = data.go.jp CKAN only; e-Stat (政府統計の総合窓口) integration deferred to W2 (requires per-DID free appId + different API shape api.e-stat.go.jp/rest/3.0/app/json/getStatsList); fetch_estat=True with no local_source raises NotImplementedError pointing operator to W2 plan + the workaround (pre-stage combined data.go.jp + e-Stat NDJSON via local_source). G7 schema discipline + max_records cap + passive-only invariant per ADR-2605262400 §7. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 3 scenarios: TEST 1 native CKAN (人口統計 総務省 + 国勢調査 総務省統計局; 省庁名 Japanese preserved) / TEST 2 end-to-end → JpDataGoJpSensor 2-obs / TEST 3 e-Stat W2 NotImplementedError guard. 3/3 PASS."
+
+
+# ─── Concrete W1 fetcher impl #8 (ADR-2605263800 — uk_companies_house FCD ZIP+CSV stream + sensor integration) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/uk_companies_house.py"
+adr = "ADR-2605263800"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete"
+description = "UK Companies House Free Company Data Product (FCD) fetcher — eighth concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub; corp 3rd concrete). Tier-A OGL v3.0 (Crown copyright open license). W1 targets monthly bulk ZIP (~5GB) containing single CSV (~25GB uncompressed) at http://download.companieshouse.gov.uk/BasicCompanyDataAsOneFile-<YYYY-MM-01>.zip; covers ~5M UK companies. Two operator paths matching gleif/wb/eurostat/sec/us-data-gov pattern: (1) Network mode — httpx GET with 600s timeout (~5GB download); snapshot filename MUST be set explicitly (passive-only: no implicit latest-month inference). (2) Local-source mode — extension-aware dispatch: .zip → extract first .csv inside / .csv → stream-parse / .ndjson → pre-normalized pass-through. ZIP detection via PK signature byte-check (same as gleif_lei.py); first .csv inside extracted to staging out_dir. CSV stream-parse via stdlib csv.DictReader (header-aware; no full-file in-memory load); CompanyNumber upper-cased and validated against UK CRN regex `^(?:\\d{8}|[A-Z]{2}\\d{6})$` (matches UkCompaniesHouseSensor regex). _coerce_uk_date converts DD/MM/YYYY → ISO-8601 T00:00:00Z; malformed dates yield registeredAt=None (row still kept since IncorporationDate is optional per sensor schema). G7 schema discipline: rows missing CompanyNumber/CompanyName OR with malformed CRN skipped without halt. crn_allowlist + company_status_allowlist + max_records constructor filters. Output: <name>-<capture_ts>/<original-csv-name>.csv (extracted) + uk-companies-house.ndjson (sensor-consumable). Daily-increment catch-up deferred to W2. Passive-only invariant boundary per ADR-2605262400 §7. Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 7 scenarios: TEST 1 raw FCD CSV (9 rows → 8 yielded: Apple Europe + HSBC + NatWest SC + Diageo + Belfast NI + Baker LLP OC + lowercase SC + bad-date kept w/ registeredAt=None; TOO SHORT skip) / TEST 2 ZIP extract (real filename pattern BasicCompanyDataAsOneFile-2026-05-01.csv) / TEST 3 crn_allowlist=(Apple, NatWest) → 2 / TEST 4 company_status_allowlist=(Liquidation,) → 1 (Belfast NI only) / TEST 5 NDJSON pre-normalized passthrough (Barclays Bank) / TEST 6 network-mode snapshot ValueError guard / TEST 7 end-to-end fetcher → UkCompaniesHouseSensor 8-obs integration (Apple Europe registered_at preserved + OGL-v3.0 license_tag chain). 7/7 PASS."
+
+
+# ─── Concrete W1 fetcher impl #9 (ADR-2605263800 — jp_edinet v2 documents API + JST→UTC + sensor integration; corp 4-fetcher COMPLETE) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/jp_edinet.py"
+adr = "ADR-2605263800"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete-corp-fetcher-complete"
+description = "JP 金融庁 EDINET v2 documents API fetcher — ninth concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub; corp 4th concrete; ═══ corp W1 fetcher quartet COMPLETE: gleif_lei + sec_edgar + uk_companies_house + jp_edinet ═══). Tier-A 金融庁 open-data utilization terms (~CC-BY 4.0 practically). W1 targets v2 documents.json endpoint (date-bounded paging; one GET per day in date range; requires Subscription-Key header from free per-DID EDINET registration). Two operator paths matching gleif/sec/uk-ch pattern: (1) Network mode — httpx GET per day; date_from + date_to + api_key all required (passive-only: no implicit full-archive scan per ADR-2605262400 §7); per-document XBRL download deferred to W2. (2) Local-source mode — read pre-staged documents.json OR pre-normalized NDJSON. _SUBMIT_DT_RE parses EDINET submitDateTime format YYYY-MM-DDTHH:MM:SS+09:00 (JST or per-tz); _coerce_jst_to_utc converts to ISO-8601 T..Z via stdlib datetime + timezone arithmetic (e.g., 2025-06-23T07:00:00+09:00 → 2025-06-22T22:00:00Z verified). 3 input shape handler: native documents.json {metadata, results:[...]} / flat list / pre-normalized NDJSON envelope. doc_type_filter + max_records constructor filters. payloadCid = docID at W1; W2 → actual IPFS CID after publish-ipfs. EDINET response does NOT carry LEI (entityLei always null per W1); operator-side enrichment via LeiSensor cross-ref deferred to W2. G7 schema discipline: rows missing required fields (edinetCode/docID/submitDateTime/docTypeCode) OR with malformed submitDateTime skipped without halt. Per-jurisdiction publication-redaction policy: EDINET pass-through per ADR-2605263800 §5 (個人情報保護法 + 金融商品取引法 upstream-applied); GDPR-class DSARs route through chigiri.data_privacy. Output: <name>-<capture_ts>/jp-edinet.ndjson (sensor-consumable). Passive-only invariant boundary per ADR-2605262400 §7. Vendor commercial-terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 7 scenarios: TEST 1 native documents.json (Sony 有報 E01777/120 + Toyota 四半期 E02144/140 + SoftBank 臨時 E03182/160 + 大量保有 E99999/350; JST→UTC conversion verified for 07:00 JST → 22:00 prev-day UTC + 15:30 JST → 06:30 UTC; 2 G7-skip rows for missing-docID + malformed-datetime) / TEST 2 doc_type_filter=(120,140) → Sony+Toyota / TEST 3 NDJSON pre-normalized passthrough (legacy 半期 S100LEGACY01) / TEST 4a date-range ValueError guard / TEST 4b api_key ValueError guard / TEST 5 end-to-end fetcher → JpEdinetSensor 4-obs integration (Sony 120→annual-report + Toyota 140→interim + SoftBank 160→material-event + 大量保有 350→institutional-holding; JST→UTC preserved through chain; fsa-open-data-utilization-terms license_tag chain). 7/7 PASS."
+
+
+# ─── Concrete W1 fetcher impl #10 (ADR-2605263900 — us_congress_gov v3 API + bill-type synthesis + sensor integration; Parliament triad #1) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/us_congress_gov.py"
+adr = "ADR-2605263900"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete"
+description = "US Congress.gov api.congress.gov v3 fetcher — tenth concrete W1 fetcher impl (supersedes the W0 NotImplementedError stub; Parliament triad #1 of 3). Tier-A public-domain (17 USC 105). W1 targets api.congress.gov v3 REST /v3/bill/<congress> endpoint with limit+offset pagination; X-Api-Key header required (free per-DID registration). W2 will add /v3/congressional-record + /v3/house-roll-call-vote + /v3/senate-roll-call-vote + /v3/committee-report endpoints + govinfo.gov bulkdata XML collections (BILLS/BILLSTATUS/CREC/FR). _BILL_TYPE_NATIVE table synthesizes sensor-compatible nativeKind from (chamber + bill type): House+HR → House Bill / Senate+S → Senate Bill / Either+HJRES/SJRES → Joint Resolution / Either+HCONRES/SCONRES → Concurrent Resolution / Either+HRES/SRES → Simple Resolution. recordId synthesized as BILLS-<congress><lower-type><number> (matches govinfo.gov bulkdata canonical IDs). payloadCid = api.congress.gov URL (W2 → actual IPFS CID after publish-ipfs). Two operator paths matching established pattern: (1) Network mode — paged GET; congress + api_key required (passive-only: no implicit latest-congress inference per ADR-2605262400 §7); optional fromDateTime + toDateTime query window. (2) Local-source mode — JSON OR NDJSON. 3-input shape dispatcher (api.congress.gov {bills:[]} / flat list / pre-normalized envelope). bill_type_allowlist + max_records constructor filters. G7 schema discipline: rows with unknown bill type OR missing/wrong chamber OR malformed date skipped without halt. Passive-only invariant boundary per ADR-2605262400 §7. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 7 scenarios: TEST 1 native v3 bill response (5 rows → 3 yielded: HR1234 + S5678 + HJRES17 with nativeKind synthesis verified [House+HR→House Bill, Senate+S→Senate Bill, House+HJRES→Joint Resolution]; UNKNOWN bill type + WrongHouse chamber G7-skipped) / TEST 2 bill_type_allowlist=(S,) → 1 Senate bill only / TEST 3 NDJSON pre-normalized passthrough (CREC debate w/ Hakeem Jeffries speaker info preserved) / TEST 4a congress ValueError guard / TEST 4b api_key ValueError guard / TEST 5 end-to-end fetcher → UsCongressGovSensor 3-obs integration (all 3 bills → record_kind='bill' via sensor's House Bill/Senate Bill/Joint Resolution → bill mapping; public-domain license_tag chain). 7/7 PASS."
+
+
+# ─── Concrete W1 fetcher impl #11 (ADR-2605263900 — uk_hansard search API + AttributedTo parser + sensor integration; Parliament triad #2) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/uk_hansard.py"
+adr = "ADR-2605263900"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete"
+description = "UK Parliament Hansard search API fetcher — eleventh concrete W1 fetcher impl (Parliament triad #2 of 3). Tier-A OGL v3.0 (Open Parliament Licence ≡ Open Government Licence). W1 targets hansard-api.parliament.uk/search/debates.json endpoint with take/skip paging; no API key required (public open API). _synthesize_native_kind heuristic maps DebateSection string to sensor's nativeKind enum: 'Oral Answers...' → 'Oral Question'; 'Petition...' → 'Petition'; 'Division...' → 'Division'; 'Written Statement' → 'Written Statement'; 'Committee...' → 'Committee'; 'Bill ... Reading/Stage' → 'Bill Reading'; default → 'Debate'. _parse_attributed_to parses 'Wes Streeting (Ilford North) (Lab)' style strings into (name, role) — name from prefix-before-paren, role from parenthetical content joined by ' / '. _coerce_sitting_date normalizes SittingDate (Hansard ships without TZ — treated as UTC date-stamp for cross-actor consistency; date-only inputs append T00:00:00Z). payloadCid = published Url field OR synthesized hansard.parliament.uk URL (W2 → IPFS CID after publish-ipfs). Two operator paths matching established pattern: (1) Network mode — paged GET; start_date + end_date required (passive-only). (2) Local-source mode — JSON OR NDJSON. 3-input shape dispatcher. G7 schema discipline + max_records cap. Passive-only invariant boundary per ADR-2605262400 §7. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 5 scenarios: TEST 1 native Hansard search (6 rows → 4 yielded: 'Oral Answers... Health' → Oral Question + AttributedTo 'Wes Streeting (Ilford North) (Lab)' → (Wes Streeting, 'Ilford North / Lab'); 'Petition: Council Tax' → Petition + Sir Lindsay Hoyle; 'Renters Rights Bill - Second Reading' → Bill Reading + Baroness Smith; 'Division' → Division; 2 G7-skip rows for bad house + missing required) / TEST 2 NDJSON pre-normalized passthrough / TEST 3 start/end_date ValueError guard / TEST 4 end-to-end → UkHansardSensor 4-obs (Oral Question → record_kind='question' via sensor's _RECORD_KIND_MAP; speaker_name 'Wes Streeting' preserved; OGL-v3.0 license_tag chain). 5/5 PASS."
+
+
+# ─── Concrete W1 fetcher impl #12 (ADR-2605263900 — jp_kokkai_kaigiroku NDL API + W1 PARITY COMPLETE) ──
+
+[[modules]]
+path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/jp_kokkai_kaigiroku.py"
+adr = "ADR-2605263900"
+kind = "dataset-fetcher-concrete"
+status = "w1-impl-landed-concrete-fetcher-parity-complete"
+description = "JP 国会会議録検索 NDL API fetcher — TWELFTH concrete W1 fetcher impl (Parliament triad #3 of 3; ═══ W1 FETCHER 12/12 PARITY COMPLETE: corp 4 (gleif_lei + sec_edgar + uk_companies_house + jp_edinet) + gov 8 (worldbank + eurostat + 3 CKAN data portals + 3 Parliament triad) ═══). Tier-A 国会会議録 公の著作物 free-use under 著作権法 §13. W1 targets kokkai.ndl.go.jp/api/meeting endpoint with from/until/startRecord paging; no API key required (NDL public open API). nameOfMeeting passes through directly as nativeKind (sensor's _RECORD_KIND_MAP already covers 本会議/予算委員会/委員会/代表質問/法律案/採決 etc.). First speechRecord entry's speaker + speakerPosition extracted for meeting-level preview (W2 will add granularity='speech' for per-speech splitting). _coerce_meeting_date converts YYYY-MM-DD → ISO-8601 T00:00:00Z. House values restricted to {衆議院, 参議院} via _HOUSE_VALUES set check (G7 schema: bad house → skip). payloadCid prefers meetingURL → pdfURL → issueID. Two operator paths matching established pattern. 3-input shape dispatcher (NDL meetingRecord / flat list / NDJSON envelope). house + max_records constructor filters. from_date + until_date required in network mode (passive-only). Passive-only invariant boundary per ADR-2605262400 §7. Vendor commercial gov-intel terminal imports CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c). Smoke-tested 2026-05-27 with 4 scenarios: TEST 1 native NDL meeting (6 → 4: 衆議院 額賀議長 本会議 + 参議院 石破総理 予算委員会 + 衆議院 法律案 empty-speechRecord + 参議院 野田議員 代表質問; bad house 英国議会 + missing required G7-skip; nameOfMeeting → nativeKind pass-through + first-speaker extraction verified) / TEST 2 NDJSON pre-normalized passthrough (起立採決) / TEST 3 from+until_date ValueError guard / TEST 4 end-to-end → JpKokkaiKaigirokuSensor (本会議 → record_kind='debate' via sensor's _RECORD_KIND_MAP; speaker_name 額賀福志郎 + speaker_role 議長 preserved; ndl-public-record-free-use license_tag chain). 4/4 PASS. ═══ W1 FETCHER 12/12 PARITY ACHIEVED ═══"

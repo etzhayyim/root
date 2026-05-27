@@ -29,6 +29,7 @@ from e7m_dataset.vision_pii_filter import (
     VisionPiiFilter,
     Yolov8FaceOnnxBackend,
     _centerface_decode_heatmap,
+    _classify_face_model_kind,
     _iou,
     _nms,
 )
@@ -1209,6 +1210,237 @@ def test_w3_1_3_retinaface_falls_back_to_generic_on_unknown_shape(tmp_path):
     # Generic accepts 5/6/7 — 12 is also unknown there. Should return [].
     # In our impl super().detect_faces does the (Nx{5,6,7}) check; 12 fails.
     assert boxes == []
+
+
+# ─── W3.1.3 RetinaFace full operator-pipeline blur + G5 E2E ─────────
+
+
+def _make_synthetic_retinaface_onnx_with_box(
+    path,
+    *,
+    box_xywh_input: tuple[int, int, int, int],
+    peak_score: float = 0.9,
+    input_size: tuple[int, int] = (640, 640),
+) -> None:
+    """Synthetic RetinaFace ONNX with single Nx15 detection at the given box.
+
+    RetinaFace post-processed convention: row[0:4] = xywh (input space);
+    row[4:14] = 5 landmarks (filler 0.0); row[14] = score.
+    """
+    bx, by, bw, bh = box_xywh_input
+    _make_synthetic_retinaface_onnx(
+        path,
+        detections=[(float(bx), float(by), float(bw), float(bh), float(peak_score))],
+        input_size=input_size,
+    )
+
+
+def test_w3_1_3_retinaface_blur_actually_applied_to_image_pixels(tmp_path):
+    """Full operator pipeline E2E for RetinaFace backend: ONNX →
+    RetinaFaceOnnxBackend → Pillow blur → verifiable pixel change.
+
+    Symmetric to cycle 24 (CenterFace) + cycle 32 (yolov8); exercises
+    RetinaFace's Nx15 row decode path."""
+    import io as _io
+    import numpy as np
+    from PIL import Image
+
+    face_box = (140, 90, 40, 60)
+    onnx_path = tmp_path / "retina-blur.onnx"
+    _make_synthetic_retinaface_onnx_with_box(
+        onnx_path, box_xywh_input=face_box, peak_score=0.9,
+        input_size=(640, 480),
+    )
+
+    img_bytes = _checkerboard_face_image(face_box, size=(640, 480))
+    backend = RetinaFaceOnnxBackend(
+        model_path=str(onnx_path), input_size=(640, 480),
+    )
+    filt = VisionPiiFilter(backend=backend, allow_stub=False)
+    result = filt.redact(img_bytes, mime_type="image/jpeg")
+
+    assert not result.frame_rejected
+    assert result.redacted_bytes is not None
+    assert result.redacted_bytes != img_bytes
+    assert len(result.detections.faces) == 1
+    face = result.detections.faces[0]
+    assert abs(face.x - 140) <= 4
+    assert abs(face.y - 90) <= 4
+    assert abs(face.w - 40) <= 4
+    assert abs(face.h - 60) <= 4
+
+    redacted_img = Image.open(_io.BytesIO(result.redacted_bytes))
+    rarr = np.asarray(redacted_img)
+    face_region = rarr[face.y + 5 : face.y + face.h - 5,
+                       face.x + 5 : face.x + face.w - 5]
+    assert 100 < float(face_region.mean()) < 156
+    non_face = rarr[0:50, 0:50]
+    assert 110 < float(non_face.mean()) < 146
+
+
+def test_w3_1_3_retinaface_child_classification_fail_closes_frame(tmp_path):
+    """G5 constitutional invariant via RetinaFace + age-classification ONNX."""
+    face_box = (140, 90, 40, 60)
+    face_onnx = tmp_path / "retina-face.onnx"
+    age_onnx = tmp_path / "age-classify.onnx"
+    _make_synthetic_retinaface_onnx_with_box(
+        face_onnx, box_xywh_input=face_box, peak_score=0.9,
+        input_size=(640, 480),
+    )
+    _make_synthetic_age_classification_onnx(
+        age_onnx, child_logit=5.0, adult_logit=0.0,
+    )
+    backend = RetinaFaceOnnxBackend(
+        model_path=str(face_onnx),
+        age_model_path=str(age_onnx),
+        input_size=(640, 480),
+    )
+    filt = VisionPiiFilter(backend=backend, allow_stub=False)
+    result = filt.redact(
+        _checkerboard_face_image(face_box, size=(640, 480)),
+        mime_type="image/jpeg",
+    )
+    assert result.frame_rejected is True
+    assert result.redacted_bytes is None
+    assert "child face detected" in (result.rejection_reason or "")
+    assert result.detections.child_face_count == 1
+
+
+def test_w3_1_3_retinaface_adult_does_not_reject(tmp_path):
+    """Inverse: adult classification → RetinaFace blur applies normally."""
+    face_box = (140, 90, 40, 60)
+    face_onnx = tmp_path / "retina-face.onnx"
+    age_onnx = tmp_path / "age-classify.onnx"
+    _make_synthetic_retinaface_onnx_with_box(
+        face_onnx, box_xywh_input=face_box, peak_score=0.9,
+        input_size=(640, 480),
+    )
+    _make_synthetic_age_classification_onnx(
+        age_onnx, child_logit=0.0, adult_logit=5.0,
+    )
+    backend = RetinaFaceOnnxBackend(
+        model_path=str(face_onnx),
+        age_model_path=str(age_onnx),
+        input_size=(640, 480),
+    )
+    filt = VisionPiiFilter(backend=backend, allow_stub=False)
+    result = filt.redact(
+        _checkerboard_face_image(face_box, size=(640, 480)),
+        mime_type="image/jpeg",
+    )
+    assert result.frame_rejected is False
+    assert result.redacted_bytes is not None
+    assert result.detections.child_face_count == 0
+
+
+# ─── W3.1.4 auto-detect backend kind ────────────────────────────────
+
+
+def test_w3_1_4_classify_centerface_model(tmp_path):
+    """Synthetic 3-output CenterFace-shape ONNX → 'centerface'."""
+    onnx_path = tmp_path / "cf.onnx"
+    _make_synthetic_centerface_onnx(onnx_path)
+    assert _classify_face_model_kind(str(onnx_path)) == "centerface"
+
+
+def test_w3_1_4_classify_yolov8_model(tmp_path):
+    """Synthetic 1-output Nx{5,6} yolov8-face ONNX → 'yolov8-face'."""
+    onnx_path = tmp_path / "y8.onnx"
+    _make_synthetic_yolov8_face_onnx(
+        onnx_path,
+        detections=[(320.0, 240.0, 40.0, 60.0, 0.9)],
+    )
+    assert _classify_face_model_kind(str(onnx_path)) == "yolov8-face"
+
+
+def test_w3_1_4_classify_retinaface_model(tmp_path):
+    """Synthetic 1-output Nx{15} RetinaFace ONNX → 'retinaface'."""
+    onnx_path = tmp_path / "rf.onnx"
+    _make_synthetic_retinaface_onnx(
+        onnx_path,
+        detections=[(140.0, 90.0, 40.0, 60.0, 0.9)],
+    )
+    assert _classify_face_model_kind(str(onnx_path)) == "retinaface"
+
+
+def test_w3_1_4_classify_retinaface_16col_model(tmp_path):
+    """16-column RetinaFace (with class) → 'retinaface' (15/16 takes precedence over yolov8 hint)."""
+    onnx_path = tmp_path / "rf16.onnx"
+    _make_synthetic_retinaface_onnx(
+        onnx_path,
+        detections=[(140.0, 90.0, 40.0, 60.0, 0.9)],
+        n_columns=16,
+    )
+    assert _classify_face_model_kind(str(onnx_path)) == "retinaface"
+
+
+def test_w3_1_4_classify_unknown_model_returns_generic(tmp_path):
+    """ONNX with no recognised face-detector signature → 'generic'."""
+    import numpy as np
+    import onnx
+    from onnx import helper, TensorProto, numpy_helper
+    # 12-column output — not yolov8 (no 5/6/7) and not RetinaFace (no 15/16).
+    arr = np.zeros((1, 1, 12), dtype=np.float32)
+    tensor = numpy_helper.from_array(arr.astype(np.float32), name="o")
+    node = helper.make_node("Constant", inputs=[], outputs=["output"], value=tensor)
+    graph = helper.make_graph(
+        nodes=[node],
+        name="Unknown",
+        inputs=[helper.make_tensor_value_info("input", TensorProto.FLOAT, [1, 3, 640, 640])],
+        outputs=[helper.make_tensor_value_info("output", TensorProto.FLOAT, [1, 1, 12])],
+    )
+    model = helper.make_model(graph, opset_imports=[helper.make_opsetid("", 17)])
+    model.ir_version = 9
+    onnx_path = tmp_path / "unknown.onnx"
+    onnx.save(model, str(onnx_path))
+    assert _classify_face_model_kind(str(onnx_path)) == "generic"
+
+
+def test_w3_1_4_auto_routes_to_centerface(monkeypatch, tmp_path):
+    """ETZ_VISION_PII_BACKEND=auto + CenterFace model → CenterFaceOnnxBackend."""
+    onnx_path = tmp_path / "cf.onnx"
+    _make_synthetic_centerface_onnx(onnx_path)
+    monkeypatch.setenv("ETZ_VISION_PII_BACKEND", "auto")
+    monkeypatch.setenv("ETZ_VISION_PII_FACE_MODEL", str(onnx_path))
+    filt = VisionPiiFilter()
+    assert isinstance(filt.backend, CenterFaceOnnxBackend)
+
+
+def test_w3_1_4_auto_routes_to_yolov8(monkeypatch, tmp_path):
+    onnx_path = tmp_path / "y8.onnx"
+    _make_synthetic_yolov8_face_onnx(
+        onnx_path, detections=[(320.0, 240.0, 40.0, 60.0, 0.9)],
+    )
+    monkeypatch.setenv("ETZ_VISION_PII_BACKEND", "auto")
+    monkeypatch.setenv("ETZ_VISION_PII_FACE_MODEL", str(onnx_path))
+    filt = VisionPiiFilter()
+    assert isinstance(filt.backend, Yolov8FaceOnnxBackend)
+
+
+def test_w3_1_4_auto_routes_to_retinaface(monkeypatch, tmp_path):
+    onnx_path = tmp_path / "rf.onnx"
+    _make_synthetic_retinaface_onnx(
+        onnx_path, detections=[(140.0, 90.0, 40.0, 60.0, 0.9)],
+    )
+    monkeypatch.setenv("ETZ_VISION_PII_BACKEND", "auto")
+    monkeypatch.setenv("ETZ_VISION_PII_FACE_MODEL", str(onnx_path))
+    filt = VisionPiiFilter()
+    assert isinstance(filt.backend, RetinaFaceOnnxBackend)
+
+
+def test_w3_1_4_auto_requires_face_model_env(monkeypatch):
+    """No ETZ_VISION_PII_FACE_MODEL set → fail-closed."""
+    monkeypatch.setenv("ETZ_VISION_PII_BACKEND", "auto")
+    monkeypatch.delenv("ETZ_VISION_PII_FACE_MODEL", raising=False)
+    with pytest.raises(VisionPiiBackendUnavailable, match="required for auto detection"):
+        VisionPiiFilter()
+
+
+def test_w3_1_4_classify_corrupt_onnx_fails_closed(tmp_path):
+    bad = tmp_path / "corrupt.onnx"
+    bad.write_bytes(b"not a real onnx model")
+    with pytest.raises(VisionPiiBackendUnavailable, match="failed to load face"):
+        _classify_face_model_kind(str(bad))
 
 
 def test_w3_1_3_retinaface_env_routing(monkeypatch, tmp_path):

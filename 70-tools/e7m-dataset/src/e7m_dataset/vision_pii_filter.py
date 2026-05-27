@@ -822,6 +822,68 @@ class VisionPiiFilter:
 # ─── env-driven backend resolution ──────────────────────────────────
 
 
+def _classify_face_model_kind(model_path: str) -> str:
+    """Inspect an ONNX face model and classify which subclass should decode it.
+
+    Returns one of:
+      - "centerface"   — 3 outputs with shapes (1,1,h,w) + (1,2,h,w) + (1,2,h,w)
+      - "yolov8-face"  — 1 output with 3 dims, one of which is in
+                          {5,6,7,8,9,10,15,16,17,18,20} channel-count hint
+                          (the smaller dim is the channel count)
+      - "retinaface"   — 1 output with 3 dims, one of which is in {15, 16}
+                          (overlaps yolov8 hint; RetinaFace is more
+                          specific so it takes precedence)
+      - "generic"      — none of the above; falls back to OnnxFaceBackend
+
+    Used by the `auto` env spec to route operator's model to the
+    correct subclass without requiring them to know which export
+    convention they have. Pure static inspection — does NOT run
+    inference on the model.
+    """
+    ort = _try_onnx()
+    if ort is None:
+        raise VisionPiiBackendUnavailable(
+            "onnxruntime not installed; `pip install onnxruntime` then re-init."
+        )
+    try:
+        session = ort.InferenceSession(
+            model_path, providers=["CPUExecutionProvider"]
+        )
+    except Exception as exc:   # noqa: BLE001
+        raise VisionPiiBackendUnavailable(
+            f"failed to load face ONNX session at {model_path!r}: {exc}"
+        ) from exc
+
+    outputs = session.get_outputs()
+
+    def _val(x):
+        # ONNX shapes can contain symbolic dim strings; coerce to int or None.
+        return x if isinstance(x, int) else None
+
+    # CenterFace heuristic: 3 outputs with the canonical channel layout.
+    if len(outputs) >= 3:
+        shapes = [list(o.shape) for o in outputs[:3]]
+        if (len(shapes[0]) == 4 and _val(shapes[0][1]) == 1
+            and len(shapes[1]) == 4 and _val(shapes[1][1]) == 2
+            and len(shapes[2]) == 4 and _val(shapes[2][1]) == 2):
+            return "centerface"
+
+    # Single-output decoders (yolov8 / retinaface): one tensor with 3 dims.
+    if len(outputs) == 1:
+        shape = list(outputs[0].shape)
+        if len(shape) == 3 and _val(shape[0]) == 1:
+            c1 = _val(shape[1])
+            c2 = _val(shape[2])
+            # RetinaFace's 15/16-column layout takes precedence.
+            if c1 in {15, 16} or c2 in {15, 16}:
+                return "retinaface"
+            YOLOV8_CHANNEL_HINT = {5, 6, 7, 8, 9, 10, 17, 18, 20}
+            if c1 in YOLOV8_CHANNEL_HINT or c2 in YOLOV8_CHANNEL_HINT:
+                return "yolov8-face"
+
+    return "generic"
+
+
 def _resolve_backend_from_env(*, allow_stub: bool) -> VisionPiiBackend:
     """Resolve the backend per ETZ_VISION_PII_BACKEND env var.
 
@@ -837,6 +899,33 @@ def _resolve_backend_from_env(*, allow_stub: bool) -> VisionPiiBackend:
                 "stub-allow backend requires ETZ_VISION_PII_ALLOW_STUB=1"
             )
         return StubVisionPiiBackend()
+
+    if spec == "auto":
+        # Auto-detect operator's model kind and route to the right subclass.
+        face = os.environ.get("ETZ_VISION_PII_FACE_MODEL")
+        if not face:
+            raise VisionPiiBackendUnavailable(
+                "ETZ_VISION_PII_FACE_MODEL not set (required for auto detection)"
+            )
+        kind = _classify_face_model_kind(face)
+        plate = os.environ.get("ETZ_VISION_PII_PLATE_MODEL")
+        age = os.environ.get("ETZ_VISION_PII_AGE_MODEL")
+        if kind == "centerface":
+            return CenterFaceOnnxBackend(
+                model_path=face, plate_model_path=plate, age_model_path=age,
+            )
+        if kind == "yolov8-face":
+            return Yolov8FaceOnnxBackend(
+                model_path=face, plate_model_path=plate, age_model_path=age,
+            )
+        if kind == "retinaface":
+            return RetinaFaceOnnxBackend(
+                model_path=face, plate_model_path=plate, age_model_path=age,
+            )
+        # generic fallback
+        return OnnxFaceBackend(
+            model_path=face, plate_model_path=plate, age_model_path=age,
+        )
 
     if spec == "centerface-onnx":
         # W3.1.1: CenterFace-specific decoder (heatmap + scale + offset → NMS bboxes).
