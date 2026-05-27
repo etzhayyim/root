@@ -8,9 +8,10 @@
 export * as dynamics from "./dynamics/index.js";
 export * as controllers from "./controllers/index.js";
 export * as actions from "./actions/index.js";
+export * as assets from "./assets/index.js";
 
 export const ADR = "ADR-2605261800";
-export const PHASE = "R1.4-actions-ts-port";
+export const PHASE = "R1.5-assets-ts-port";
 
 export const NV_COMPAT_MAP: Readonly<Record<string, string>> = Object.freeze({
   "Omniverse Kit":     "amenominaka",
