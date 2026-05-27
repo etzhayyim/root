@@ -6198,6 +6198,13 @@ status = "shipped"
 description = "Cycle 53 schema fix — 5 narrow-enum bugs corrected to match 42-app reality: uiType +3 values (yoro / static / calm-static / ameno / none); runtimeType +2 (logical / pymagatama-zeebe); profile.category enum removed (free-form string with description noting common values); profile.agentType +1 (advisory); profile.isBot const:true → boolean (PWAs are not bots). Schema is now permissive-accurate per cycle 50 pattern; enforced by validate-magatama-manifests.py + magatama-manifest-validation.yml workflow + lefthook hook."
 
 [[modules]]
+path = "90-docs/baien/registry-enforcement-matrix-runbook-260527.md"
+adr = "ADR-2605271200"
+kind = "operator-runbook"
+status = "shipped"
+description = "Cycle 55 (2026-05-27) operator runbook for the 5-axis registry enforcement matrix. Parallel pattern to cycle 42's ADR-2605262500 runbook. Covers: quick start (1 command per axis) / each axis with verifier + sidecar + source-of-truth + exit codes / pre-commit hygiene (cycle 51 retry-dance avoidance) / 5 CI workflows with cron schedule / 23 lefthook hook inventory / 5 common failure-mode fix recipes / operator daily checklist (5 axes + 9 constitutional invariants) / axis-6 candidates. Action-oriented companion to closure ADRs 2605271100 + 2605271200; the ADRs explain WHY each axis exists, the runbook explains WHAT TO TYPE."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"

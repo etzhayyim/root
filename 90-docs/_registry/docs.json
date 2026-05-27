@@ -14932,6 +14932,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/baien/registry-enforcement-matrix-runbook-260527.md",
+      "id": "doc-registry-enforcement-matrix-runbook-260527",
+      "title": "Registry enforcement 5-axis matrix — operator runbook (cycle 55)",
+      "status": "active",
+      "doc_type": "how-to",
+      "topic": "registry-enforcement-matrix-runbook",
+      "authoritative": true,
+      "authoritative_for": [
+        "operator-facing entry point for the 5-axis registry enforcement matrix",
+        "daily ops commands for each axis (manual run + check + regen)",
+        "troubleshooting guide for each axis failure mode",
+        "(reserved) / (deferred-rename) marker convention reference",
+        "pre-commit hygiene patterns (cycle 51 retry-dance avoidance)"
+      ],
+      "related": [
+        "adr-2605271100-adr-2605262500-closure-and-verifier-marker-convention",
+        "adr-2605271200-registry-4-axis-enforcement-matrix",
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-05-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/TRANCHE-F-INDEX.md",
       "id": "doc-tranche-f-index",
       "title": "Tranche F closure docs — operator navigation index",
