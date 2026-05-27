@@ -11574,6 +11574,27 @@
       "lastVerified": "2026-05-27"
     },
     {
+      "id": "doc:doc-registry-matrix-cycles-46-57-retrospective-260527",
+      "type": "TechArticle",
+      "title": "Registry enforcement matrix — cycles 46-57 retrospective (2026-05-27)",
+      "status": "active",
+      "topic": "registry-matrix-retrospective",
+      "authoritative": false,
+      "authoritativeFor": [
+        "cycle-by-cycle chronology of the registry enforcement matrix build",
+        "pattern reuse maturity timeline (cycles 27-57)",
+        "technical decision log + lessons learned",
+        "final substrate state snapshot"
+      ],
+      "related": [
+        "doc:adr-2605271100-adr-2605262500-closure-and-verifier-marker-convention",
+        "doc:adr-2605271200-registry-4-axis-enforcement-matrix",
+        "doc:doc-adr-2605262500-implementation-retrospective-260527",
+        "doc:doc-registry-enforcement-matrix-runbook-260527"
+      ],
+      "lastVerified": "2026-05-27"
+    },
+    {
       "id": "doc:doc-tranche-f-index",
       "type": "TechArticle",
       "title": "Tranche F closure docs — operator navigation index",

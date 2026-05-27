@@ -14958,6 +14958,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/baien/registry-matrix-cycles-46-57-retrospective-260527.md",
+      "id": "doc-registry-matrix-cycles-46-57-retrospective-260527",
+      "title": "Registry enforcement matrix — cycles 46-57 retrospective (2026-05-27)",
+      "status": "active",
+      "doc_type": "reference",
+      "topic": "registry-matrix-retrospective",
+      "authoritative": false,
+      "authoritative_for": [
+        "cycle-by-cycle chronology of the registry enforcement matrix build",
+        "pattern reuse maturity timeline (cycles 27-57)",
+        "technical decision log + lessons learned",
+        "final substrate state snapshot"
+      ],
+      "related": [
+        "adr-2605271100-adr-2605262500-closure-and-verifier-marker-convention",
+        "adr-2605271200-registry-4-axis-enforcement-matrix",
+        "doc-adr-2605262500-implementation-retrospective-260527",
+        "doc-registry-enforcement-matrix-runbook-260527"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-05-27",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/TRANCHE-F-INDEX.md",
       "id": "doc-tranche-f-index",
       "title": "Tranche F closure docs — operator navigation index",

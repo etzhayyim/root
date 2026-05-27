@@ -6233,6 +6233,13 @@ status = "shipped"
 description = "Cycle 57 — 10 unit tests for regen-registry.py (pre-existing docs registry generator hooked up by cycle 48 freshness enforcement). Covers: script existence, clean import, parse_frontmatter happy path (flat scalars + bool + quoted strings), parse_frontmatter YAML list-of-strings + empty list, parse_frontmatter rejects non-front-matter input + unterminated front-matter, parse_frontmatter `authoritative: false` bool, build_registry shape (version 2 + updated_at + entries), live-repo cycle-55 baseline regression guard (in sync 659+ entries), --json mode emits parseable JSON. Closes final test-coverage gap on cycle 48-53 generator/validator surface."
 
 [[modules]]
+path = "90-docs/baien/registry-matrix-cycles-46-57-retrospective-260527.md"
+adr = "ADR-2605271200"
+kind = "retrospective-doc"
+status = "shipped"
+description = "Cycle 58 (2026-05-27) retrospective of cycles 46-57 — the 12-cycle journey building the 5-axis registry enforcement matrix post-PR-287. Parallel pattern to cycle 40 ADR-2605262500 implementation retrospective. Captures: cycle-by-cycle headline table (12 rows) / Pattern A reuse maturity timeline (75 min → 13 min = 5.4× compression) / 6 key technical decisions ((reserved) markers / tracker→PR-gate promotion / cron deconfliction / graceful imports / pre-commit hygiene preemption / defense-in-depth ordering) / test coverage final state (48 tests across 5 scripts, all CI-gated) / 5-axis matrix final state / lessons learned (4 what worked + 4 friction) / future axis-6 candidates / total deliverables (2 ADRs + runbook + retrospective + 3 generators + 48 tests + 5 GHA workflows + 5 lefthook hooks + 3 schema rewrites + 38 data fixes + 15 path markers + 2 CLAUDE.md row updates). Sibling to cycle 40's adr-2605262500-implementation-retrospective covering cycles 1-39 of the parent ADR-2605262500 work."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"
