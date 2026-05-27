@@ -1168,16 +1168,6 @@ depends_on = ["2605170900", "2605171800", "2605172000", "2605192200"]
 related = ["2605231300", "2605232500"]
 
 [[adrs]]
-id = "2605232400"
-title = "yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure (SUPERSEDED by 2605262130 for substrate; SDK API surface preserved bit-identically)"
-status = "superseded"
-superseded_by = "2605262130"
-status_note = "Closes the last two substrate-boundary gaps that survived the 2026-05-23 yatachain wave. (1) Adds a cross-language Tier D blob upload primitive — `Etzhayyim.uploadBlob({data, mediaType?})` in `@etzhayyim/sdk` (TS, wraps the existing `pinBlob` against Kubo `/api/v0/add?pin=true&cid-version=1`) and `Etzhayyim.upload_blob(data, media_type=?)` in `pymagatama.substrate` (Python, httpx multipart) — with a bit-identical `{cid,sizeBytes,mediaType}` receipt shape and 7 vitest + 6 pytest covering empty-payload / missing-apiUrl rejection / NDJSON last-line parsing / 5xx surfacing / mediaType default + Blob.type derivation / trailing-slash normalisation. (2) Wires the primitive through `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_train_dumper.py` via a new `_blob_upload` / `_blob_download` dispatch behind `USE_PYMAGATAMA_SUBSTRATE_BLOB=1` — train side pins PLY (and GLB on the bake path) through `pymagatama.substrate.upload_blob` and writes `ipfs://{cid}` URIs into `vertex_maps_gsplat_{asset,mesh}.b2_key` instead of B2 keys; bake side branches on the `ipfs://` scheme via Kubo `/api/v0/cat`; the legacy B2 path stays bit-for-bit identical when the flag is off so blue/green cutover is non-disruptive. Boot guard relaxed: `B2_*` becomes optional when the flag is set, replaced by `ETZ_IPFS_API_URL` requirement. (3) Completes the yoro `@atproto/api` → `@etzhayyim/sdk/atproto` facade migration — 6 callsites rewritten (lib/atproto-agent.ts, lib/superapp/messaging-client.ts, lib/translate/client.ts, lib/mcp/client.ts, lib/actor/ActorEmbed.svelte, routes/moderation/blocked-accounts/+page.svelte); `@etzhayyim/sdk` added as a workspace dependency on `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/package.json`; `pnpm check:ts` clean. SDK test count: 111 → 118 (+7 vitest), pymagatama.substrate 18 → 24 (+6 pytest). Tier A + Tier B + Tier D are now end-to-end SDK-mediated; Tier C / projection remains the ADR-2605222330 carve-out until the projection-sweep ADR ships. Backfill of existing B2 blobs into IPFS pins and the browser-side gsplat loader URL swap remain follow-ups in maps MIGRATION-TODO Phase 2."
-path = "90-docs/adr/2605232400-yatachain-tier-d-blob-substrate-closure.md"
-depends_on = ["2605172000", "2605231400", "2605231500", "2605241500"]
-related = ["2605171800", "2605231525"]
-
-[[adrs]]
 id = "2605231737"
 title = "e7m PDS / yoro substrate probes — operator + MCP surface for timeline-class debugging"
 status = "active"
@@ -1308,15 +1298,6 @@ status_note = "Self-design RTL/CAD/mechanical/robotics for 8 fab equipment categ
 path = "90-docs/adr/2605242545-tsukuru-fab-equipment-pregel-charter.md"
 
 # ─── gemma-coder-distill (ADR-2605250400) ───────────────────────────
-
-[[adrs]]
-id = "2605250400"
-title = "gemma-coder distill — gemma3:4b drift → gemma4:e4b の LangGraph コーディング適応 (EVO-X2 ROCm + peft+trl, Unsloth Windows-ROCm 不可確定)"
-status = "accepted"
-status_note = "Murakumo fleet で実 serve 中の `gemma4:e4b` (8B Gemma 4 Effective 4B; judah Ollama 192.168.1.17:11434 で実機確認、CLAUDE.md/fleet.toml の `gemma3:4b` 表記はドリフト) を LangGraph specific に distill する初の non-baien 経路。baien-distill は BitNet 専用 (BASE_MODEL_ID ハードコード) かつ ADR-2605241900 edge invariant に縛られるため、新規 tool `70-tools/gemma-coder-distill/` として分離。Trainer は **peft+trl 直** (Unsloth は gate-1 probe 2026-05-25 で Windows ROCm 7.2.1 + Python 3.12 上で pip dep resolution が CUDA-stack 前提依存で RecursionError 確定、evidence `90-docs/baien/probe_unsloth_rocm.json`)。Teacher signal は **HF Apache 2.0 Opus-distilled SFT のみ** (`lordx64/reasoning-distill-opus-4-7-max-sft` qwen-text format) + 手書き antipattern-corrective corpus (20 row、4 antipattern × ~5 ex)。Anthropic 直叩きは ADR-2605215000 §1.2 で禁止、judah LiteLLM 経由 Claude も distill teacher としては §2 OSS-only 制約継承で除外。Gemma 4 は attention 投影を `Gemma4ClippableLinear` (nn.Linear wrapper) で包んでおり peft が拒否 → `_resolve_targets()` で inner `.linear` を suffix match (trainable params=2,752,512 / total=7.94B / 0.0346%)。配布経路: merged HF dir → llama.cpp convert → Q4_K_M GGUF → Ansible で各 mini に `ollama create gemma4-coder:e4b -f Modelfile` → judah LiteLLM に route 追加。baseline 2/8 (25%) で 4 antipattern systematic 検出 (wrong `MemorySaver`/`Command` import paths / `compile(config=...)` hallucination / `set_entry_point(START)`); iter-00 quick E2E 完走 (6 hot-fix を越えて成立、merged adapter 生成 + bench eval 完了); iter-01 full (5020 ex × 2 epoch、~100 min wall) は detached PowerShell Start-Process で background 実行中。"
-path = "90-docs/adr/2605250400-gemma-coder-distill-rocm.md"
-
-# ─── yakushi pharmaceutical R&D Wave 1 (ADR-2605250500..2605250545) ─
 
 [[adrs]]
 id = "2605250500"
@@ -2863,13 +2844,6 @@ title = "igata (鋳型) — Megacasting / HPDC Tier-B Actor R0 Scaffold"
 status = "proposed"
 status_note = "Master charter establishing igata (鋳型, die-casting die/mold) as Tier-B religious-corp first-party HPDC / megacasting actor. Methodology source = YouTube `y0oF2UirEMk` (IDRA Giga Press build-from-scratch documentary); manufacturing methodology adopted, military / aerospace application explicitly rejected per Charter Rider §2(a) (watatsumi precedent ADR-2605252200). R0 scope = HPDC clamping force ≤6000 ton, Al-Si alloy single-piece ≤50 kg R3 cap. Giga press class (≥7500 ton, IDRA OL 9000) = N1 post-R3 + Council Lv6+ supermajority deferral (silicon EUV parity per ADR-2605242545). 14 constitutional gates G1..G14 (G1 ≤6000 ton clamping / G2 Al-Si only full composition disclosure / G3 open-source process parameters / G4 ≥2 robot witness Mimi+Otete / G6 §2(a) clearance no military or aerospace / G7=NONE 5-element baseline Al+Si+Mg+Mn+Fe + trace Sr/Ti, no OPCW Schedule, no RoHS, no radioactive — yakushi Wave 1c parity / G8 shot replay determinism @ 1 kHz / G9 induction+electric only ≤4 kWh/kg / G10 scrap recovery ≥95% / G11 Adherent SBT + 危険物取扱主任者 >500 ton / G12 ≤1 large part/90 sec / G13 30-day prior + 1 km community feedback / G14 full lineage CID + IPFS pin + material balance) + 10 non-goals N1..N10 (N1 giga press post-R3 / N2 military vehicle aerospace structural NEVER / N3 firearms NEVER / N4 nuclear NEVER / N5 hazmat pressure vessel kuni-umi-S6 carve-out / N6 proprietary alloy NEVER / N7 human-occupied vehicle structural cert R3 only / N8 mass-market consumer SBT↔SBT only / N9 fossil-fired melting NEVER / N10 state defense subsidy NEVER). 4-phase R0→R3 (R0 scaffold this ADR / R1 benchtop ≤500 ton parts ≤200 g bracket/hinge naphtali+zebulun+joseph / R2 pilot ≤2500 ton parts ≤5 kg knuckle/control-arm/housing 6 nodes + Hibachi + Tatara onboard / R3 community ≤6000 ton parts ≤50 kg cradle/subframe/architectural full 10-node + cross-actor wadachi/tatekata/watatsumi multi-domain Council vote). 8 Pregel cells (alloy_melt naphtali / die_preparation zebulun / shot_injection joseph / solidification_eject joseph / post_cast_qc levi / trim_machining simeon / heat_treatment dan / part_attestation levi) all R0 import-time RuntimeError. 5 lexicons (alloyAttestation / dieAttestation / castShotRecord / partAttestation / silenIgataReview). Robotics: kuni-umi Otete/Mimi/Hitogata + silicon Wave 2 Funamori R0 inherited; Hibachi 火鉢 (high-T die-spray) + Tatara 踏鞴 (melt-furnace tending; echoes silicon fuigo 鞴) R2+ new classes. Supplier position for wadachi (vehicle body) + tatekata (construction structural) + watatsumi (submersible 補強材 ≤200m class) + silicon Wave 2 (fab equipment frame). Constitutional independence chain closes religious-corp 自前 大型アルミ構造部品 (parallel to silicon Wave 1 自前 GPU + yakushi 自前 OTC + watatsumi 自前 潜水艇). Reserved follow-on slots: R1 = ADR-2605261215 / R2 = ADR-2605261230 / R3 = ADR-2605261245."
 path = "90-docs/adr/2605261200-igata-megacasting-tier-b-actor-r0.md"
-
-[[adrs]]
-id = "2605261215"
-title = "igata R1 — Benchtop ≤500 ton HPDC commissioning and Council baseline"
-status = "proposed"
-status_note = "R1 commissioning ADR for igata Tier-B actor (parent: ADR-2605261200 R0 master). Establishes Council Lv6+ ≥3 attestation baseline (silenIgataReview scope: r1-benchtop-500ton-baseline) + 3-DID SME registration block (HPDC engineer + metallurgist + 危険物取扱主任者-equivalent operator for >500 ton precaution) + benchtop ≤500 ton HPDC PoC protocol (AlSi9Mg0.3 HT-free baseline only / single-cavity H13 die / FreeCAD .fcstd source mandatory per G3 / reference parts ≤200 g bracket-hinge-sensor housing geometry / shot sequence slow 0.15 m/s × 800 ms → fast 3.2 m/s × 80 ms → intensification 100 MPa × 2 s / full @ 1 kHz multi-channel log per G8). **7 of 8 cells activate** (igata_alloy_melt + igata_die_preparation + igata_shot_injection + igata_solidification_eject + igata_post_cast_qc + igata_trim_machining + igata_part_attestation); **igata_heat_treatment stays R2-gated** with new R2_HT_RECIPE_BASELINE_CID gate variable (T5/T6 deferred to ADR-2605261230 reserved). **R1 skip-HT branch** = trim_machining → part_attestation (HT-free AlSi9Mg0.3 yield ≥150 MPa sufficient for ≤200 g reference parts). **Material balance R1 invariant ≥0.80** (vs G10 R3 target ≥0.95; ramp path through multi-cavity R2 + Hibachi automated die-spray R2 + Tatara low-loss melt tending R2 + improved first-pass yield documented). **Equipment procurement protocol** = second-hand Buhler/Idra/Frech/Toshiba Machine revival with open-source firmware retrofit STRONGLY PREFERRED over new-build IDRA/Buhler/Idra-Sayer (§2(e) anti-gatekeeping vendor independence chain physical embodiment). Council Lv6+ supermajority gate for new-build acquisition. **R1 exit / R2 entry criteria** (8 items): ≥30 consecutive successful shots + material balance ≥0.90 + multi-cavity die design Council-attested + vacuum-assist subsystem Council-attested + Hibachi PoC firmware tested + Tatara PoC firmware tested + 30-day public comment opened + Annex-equivalent facility audit pass. **No amendment to 14 gates + 10 non-goals** — all R1 invariants are R-phase sub-ceilings or risk-graded relaxations within the IMMUTABLE constitutional envelope. **No cross-actor consumption R1** — partAttestation emits internally only; wadachi (R3 G11+N7) / tatekata (R2) / watatsumi (R3 ≤200m) / silicon Wave 2 (R2 bidirectional) consumer wires activate at consumer's R-phase gate. Council motion target = 2026-06 meeting; execution by 2026-07-31."
-path = "90-docs/adr/2605261215-igata-r1-benchtop-commissioning.md"
 
 [[modules]]
 path = "20-actors/igata"
@@ -5662,74 +5636,11 @@ status = "w1-deliverable"
 description = "Fetcher for IANA root zone snapshot. Daily-cadence; public-domain; Tier A. Output: zone-file text + NDJSON parse of (tld, ns, ds, expires) tuples."
 
 [[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/ripe_ris.py"
-adr = "ADR-2605262400"
-kind = "dataset-fetcher"
-status = "w2-deliverable"
-description = "Fetcher for RIPE NCC RIS MRT dumps (8-hourly per collector rrc00..rrc26). Open under RIPE TOU; Tier A. Output: raw MRT preserved as annex; sensor reads via `mrtparse` / `bgpdump`."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/routeviews.py"
-adr = "ADR-2605262400"
-kind = "dataset-fetcher"
-status = "w2-deliverable"
-description = "Fetcher for University of Oregon Routeviews MRT archives. Open under UO TOU; Tier A. Sibling to ripe_ris.py."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/rapid7_sonar.py"
-adr = "ADR-2605262400"
-kind = "dataset-fetcher"
-status = "w3-deliverable-tier-c-g13"
-description = "Fetcher for Rapid7 Open Data Sonar FDNS archives (research-use accept-terms required). Tier C — admitted under G13 fleet-internal carve-out. Requires acceptance flag at `~/.etzhayyim/source-acceptance/rapid7-open-data.toml` before fetch will run. PII filter pii_sensitive=true default (some TXT records contain user emails)."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/openintel.py"
-adr = "ADR-2605262400"
-kind = "dataset-fetcher"
-status = "w3-deliverable-tier-c-g13"
-description = "Fetcher for OpenINTEL DNS active-measurement Parquet archives (Tranco 1M default; per-TLD optional). CC-BY-NC 4.0; Tier C; G13 fleet-internal. PII filter pii_sensitive=true default."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/caida.py"
-adr = "ADR-2605262400"
-kind = "dataset-fetcher"
-status = "w3-deliverable-tier-c-g13"
-description = "Fetcher for CAIDA AS-rank / prefix2as / AS-relationship datasets. CC-BY-NC; Tier C; G13 fleet-internal. PII filter pii_sensitive=false."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/czds.py"
-adr = "ADR-2605262400"
-kind = "dataset-fetcher"
-status = "w4-deliverable-per-tld-opt-in"
-description = "Fetcher for ICANN CZDS per-TLD zone files. Per-TLD agreement (Tier C or D depending on TLD). Per-TLD Council attestation required before any TLD is enabled. Acceptance flag at `~/.etzhayyim/source-acceptance/czds-<tld>.toml` AND a Council attestation Lexicon record both required."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/commoncrawl_cdx.py"
-adr = "ADR-2605262400"
-kind = "dataset-fetcher"
-status = "w4-deliverable-tier-c-g13"
-description = "Fetcher for Common Crawl URL index (CDX). Tier C; G13 fleet-internal. PII filter pii_sensitive=true (CDX records can contain user-bearing URLs)."
-
-[[modules]]
-path = "20-actors/magatama/py/src/pymagatama/organism/sensors/base.py"
-adr = "ADR-2605262400"
-kind = "sensor-protocol"
-status = "w1-deliverable"
-description = "DatasetSensor Protocol + Observation + DatasetPin types + PiiFilterPolicy enum. Sensor implementations under same package: osm_region_sensor.py / rir_delegated_sensor.py / geolite2_sensor.py / ris_routing_sensor.py / iana_root_sensor.py. UnispscOrganism.__init__ accepts sensors=[]; tick() polls each sensor at its refresh_cadence_sec and pushes Observations into InboxBuffer with tier flag + internal_only flag for tier='C'."
-
-[[modules]]
 path = "20-actors/magatama/py/src/pymagatama/organism/sensors/pii_filter.py"
 adr = "ADR-2605262400"
 kind = "pii-redaction"
 status = "w1-deliverable"
 description = "PII redaction module that precedes the Charter Rider §2 scan. Wave-1 scope: email addresses (RFC-5321 grammar) / E.164 phone numbers / postal addresses with country code (heuristic, conservative over-redaction) / WHOIS registrant blocks (registrant: / tech-c: / admin-c: lines). Redacts in place; original bytes preserved in annex. STRICT policy default."
-
-[[modules]]
-path = "70-tools/baien-moemoekyun-train/scripts/assemble-public-corpus.py"
-adr = "ADR-2605262400"
-kind = "corpus-assembler"
-status = "w1-deliverable"
-description = "Cold-path corpus assembler. Input: corpus-recipe.toml (per target artifact, declares sources with subdataset + datasetPin_at + shard_glob + tier + weight). Resolves every datasetPin → IPFS CID map, applies Charter Rider §2 + PII re-scan, computes max tier across sources, enforces `-nc-` infix if any source.tier == 'C', emits NDJSON shards into training/corpora/<name>/, DataLad save + annex copy + publish-ipfs + datasetPin emit. Output corpus is itself an IPFS-pinned subdataset and is what baien-distill / baien-moemoekyun-train consumes."
 
 [[modules]]
 path = "70-tools/baien-moemoekyun-train/recipes/"
@@ -5871,23 +5782,6 @@ status = "w4-landed"
 description = "DatasetSensor over web/commoncrawl-cdx/ subdatasets. Handles canonical CDX-J form (SURT + timestamp + JSON) and pure-JSON-per-line variant. Supports .gz and uncompressed shards. PII filter targets the `url` field."
 
 # ─── Assembler full-streaming path (landed 2026-05-26 commit 40b6ea82e) ──
-
-[[modules]]
-path = "70-tools/baien-moemoekyun-train/scripts/assemble-public-corpus.py"
-adr = "ADR-2605262400"
-kind = "corpus-assembler-full-path"
-status = "w3-landed-augments-w1-deliverable"
-description = "Cold-path corpus assembler — full streaming path (no longer dry-run-only). Resolves source subdatasets under annex-root → walks shards → per-row PII filter (auto-detect string fields) + sampled Charter Rider §2 scan (every 100th NDJSON row, 3-violation fail-closed abort) → emits typed NDJSON corpus shards with {v, source, license, tier, internal_only, pinRevision, payload} + manifest.json. tier=='C' source ⇒ internal_only=True automatic at emit time (G4). G5 dash-tokenized `-nc-` infix gate hardened. Module-loading direct-loads charter_rider + pii_filter from file paths to bypass pymagatama __init__ pydantic-core chain."
-
-[[modules]]
-path = "70-tools/e7m-dataset/tests/test_corpus_assembler.py"
-adr = "ADR-2605262400"
-kind = "assembler-test-suite"
-status = "w3-landed"
-description = "6-test pytest suite covering the assembler full-streaming path: weights-sum sanity, G5 dash-tokenized fail-closed, Tier-A IANA root e2e (3 NDJSON rows in / 3 typed rows out, internal_only=False, per-row source/license/tier tags), Tier-C Rapid7 e2e (alice@example.com redacted, internal_only=True), seed block verbatim copy, Charter scan wiring."
-
-
-# ─── Robotics-sim world-data ingestion + kami-usd pipeline (ADR-2605262500) ──
 
 [[adrs]]
 id = "2605262500"
@@ -6252,13 +6146,6 @@ adr = "ADR-2605262500"
 kind = "dataset-fetcher-tier-c-g13-g2"
 status = "w3-shipped"
 description = "Mapillary Graph API v4 street-imagery fetcher (Tier C, CC-BY-SA 4.0; G13 fleet-internal carve-out). VisionPiiFilter REQUIRED at call time — fetcher raises VisionPiiBackendUnavailable if vision_pii_filter arg is None (G2 enforcement at fetcher boundary). Per-image flow: GET /images bbox query → list image_id+thumb_url → per image download → vision_pii_filter.redact() → frame_rejected (child) routes to rejected/<id>.json; safe frame writes redacted to images/<id>.jpg + original to annex/<id>.jpg (Council-attestation-gated unlock per §5) + detection record to detections/<id>.json. Revision = sha256 of sorted image_id list. Output license=CC-BY-SA-4.0, tier=C, g13_nc_infix_required_in_artifacts=true. Max images per fetch capped at 5000 (operator default 100). Token via MAPILLARY_TOKEN or ETZ_MAPILLARY_TOKEN env."
-
-[[modules]]
-path = "70-tools/e7m-sim/scripts/eval_sim_metrics.py"
-adr = "ADR-2605262500"
-kind = "sim-quality-gate-eval-harness"
-status = "w2-shipped"
-description = "G11 / G5 sim quality gate eval harness (ADR-2605262500 §9 + ADR-2605261600 G5). Standalone Python module + CLI computing PSNR / SSIM (Wang et al. 2004 whole-frame, no scikit-image dep) / Chamfer (scipy.spatial.cKDTree bidirectional NN) / Voxel IoU (numpy hash-set), with per-metric thresholds (PSNR≥25dB / SSIM≥0.85 / Chamfer≤0.05m / IoU≥0.75 at 0.10m voxel) + composite weighted-average gate (≥0.75). Reference-CSV reader for one-time-use Isaac Sim trial-machine metrics per ADR-2605261600 G5 (only metrics CSV crosses boundary; no Isaac Sim binaries reach religious-corp infra). Honest scoring per ADR-2605261600 §G10: any single-metric failure aborts combined gate even if composite is above threshold. 23 tests under 70-tools/e7m-sim/tests/test_eval_sim_metrics.py."
 
 [[modules]]
 path = "70-tools/e7m-sim/scenes/suki-r1-tokachi-2km-pasture/"
@@ -6790,13 +6677,6 @@ sibling_modules = [
 
 # ─── musubi (結) covenant ceremony substrate R0 (ADR-2605263400) ──
 
-[[adrs]]
-id = "2605263400"
-title = "musubi (結) — non-profit religious-corp covenant ceremony substrate Tier-B actor R0 charter"
-status = "proposed"
-status_note = "Sixth-priority gap-closure actor (gap audit row 6 = 冠婚葬祭). TIGHT PAIR of chigiri (chigiri attests on-chain via covenantAttestation; musubi performs ceremony). chigiri.covenant_ceremony cell explicitly path-reserved musubi at R2; this ADR realizes that pair. 任意団体 internal ceremony performance substrate at did:web:musubi.etzhayyim.com (20-actors/musubi/). Etymology: 結 = tie/knot/bind/connect; Shinto 産霊 generative-creative force tying threads of life. 6 ceremony categories: marriage (Charter §1.12 routing-around; NOT state-recognized) / naming (Adherent SBT issuance ritual; chigiri.member_onboarding pair) / funeral 葬送 (chigiri.inheritance + future shidemori memorial pair) / vocation vow (L5 vocation-flow steward commitment) / rededication (post-voluntary-withdrawal OR post-excommunication cure return) / seasonal communal (新年/祈年/収穫/鎮魂/安息 + Wellbecoming festival cycles). **Constitutional octet**: (1) NO clergy class G3+N2 (Reformed 万人祭司 invariant per Charter §1.7; officiantAttestation.officiantClass enum DELIBERATELY excludes clergy/ordained/priest/bishop/minister-with-ecclesiastical-authority; valid const = community-witnessed-competent) / (2) NO mandatory ritual attendance G4+N3 (free conscience; member opt-in; non-participation NEVER grounds for consequences) / (3) Per-ceremony consent G5 default-deny / (4) NO commercial wedding/funeral industry software G6+N6 (Aisle Planner/Honeybook/The Knot/WeddingWire/Zola/SRS Computing/Aldor/Wilbert/Frazer Consultants PROHIBITED per Charter Rider §2(e)+§2(c) — vendor closed query-tracking on member life-events) / (5) NO bride price/dowry coercion G7+N7 (anti-coercive ceremony economy; gifts permitted, coercive transfer prohibited) / (6) NO video without per-party consent G8 / (7) NO sacrament-as-transubstantiation G9+N4 (Sola Scriptura + Reformed memorial view; cross-doctrinal Wellbecoming priority N12) / (8) Cross-actor chigiri.covenantAttestation emit MANDATORY G11 (marriage/naming/funeral/vocation-vow/rededication; NOT seasonal_communal — communal not per-individual). Multi-gen invariant G10 (Charter §1.7). G12 vocation-flow L5 officiants (cross-actor enforcement). G13 Murakumo-only inference. 6 cells (marriage_ceremony / naming_ceremony / funeral_ceremony / vocation_vow_ceremony / rededication_ceremony / seasonal_communal_ceremony). 5 Lexicons: ceremonyPerformanceAttestation (G11+G7+G8+G10 structural; chigiriCovenantAttestationCid REQUIRED for non-seasonal + bridePriceOrDowryAttested const false + videoRecordingPerPartyConsent REQUIRED if video) + officiantAttestation (G3 STRUCTURAL: officiantClass const 'community-witnessed-competent' + G12 STRUCTURAL: lLevel const L5 + employmentRelation const vocation-flow + witnessingOfficiantAttestations minLength 3) + communityWitnessAttestation (G10 multi-gen cohort mix) + seasonalCeremonyCalendar (G4 openToCommunity const true) + silenMusubiReview (G3 clergyClassOfficiantPenetrationPct=0 const + G6 commercialWeddingFuneralSoftwarePenetrationPct=0 const + G7 bridePriceOrDowryEventsCount=0 const + G12 officiantVocationFlowCompliantRatioPctIntegerHundredths=10000 const). 13 gates G1..G13 + 12 non-goals N1..N12 + 4-phase R0..R3."
-path = "90-docs/adr/2605263400-musubi-covenant-ceremony-tier-b-actor-r0.md"
-
 [[modules]]
 path = "20-actors/musubi"
 kind = "tier-b-non-profit-covenant-ceremony-performance-substrate-actor"
@@ -6848,13 +6728,6 @@ sibling_modules = [
 
 
 # ─── wakai (和会) mutual aid substrate R0 (ADR-2605263500) ──
-
-[[adrs]]
-id = "2605263500"
-title = "wakai (和会) — non-profit religious-corp mutual aid substrate Tier-B actor R0 charter"
-status = "proposed"
-status_note = "Seventh-priority gap-closure actor (gap audit row 7 = 共済 / mutual aid). NOT insurance (no premium-as-contract / no actuarial pricing / no claim adjudication / no policy denial / no underwriting). Member-to-member solidarity pooling per Charter §1.7 反個人主義 + 多世代 + harmony invariant. 任意団体 internal mutual aid substrate at did:web:wakai.etzhayyim.com (20-actors/wakai/). Etymology: 和会 = harmony/reconciliation gathering; classical 互助会. Risk-sharing scope: health-event / disability / death-of-breadwinner / unemployment / disaster. Public Fund (toritate) is backstop when community pool insufficient. **Constitutional septad**: (1) NOT insurance G3+N1 / (2) NO commercial insurance software G4+N8 (Guidewire/Duck Creek/Insurity/Sapiens/Majesco/SAP Insurance/Oracle Insurance/Lemonade-as-vendor/Hippo-as-vendor PROHIBITED per Charter Rider §2(e)+§2(c) — vendor closed query-tracking on member health/disability/employment posture) / (3) NO commercial re-insurance G5+N6 (Munich Re/Swiss Re/SCOR/Hannover Re/Berkshire Hathaway Re PROHIBITED; risk stays in community + Public Fund backstop) / (4) NO investment return promise G6+N2 (Charter Rider §2(b) speculative finance prohibition; pool in USDC on Base L2 stable-asset only; NO DeFi yield farming; NO token speculation; investmentReturnPromised const false) / (5) NO discrimination on pre-existing condition G7 (no underwriting; noPreExistingConditionExclusion const true) / (6) Contribution voluntary + ability-scaled G8 (Charter §1.7 反個人主義; no minimum) / (7) Distribution by community discernment G9 (Council Lv6+ ≥3 + ≥3 community attestation chain; NOT claim adjudication). G10 Public Fund backstop via Council Lv6+ ≥4/7. G11 NO payroll for administrators (vocation-flow L5). G12 Murakumo-only inference. Cells: mutual_aid_pool_contribution / mutual_aid_distribution / emergency_pool_activation (kazaori-paired; kazaori path-reserved wakai at R0) / health_event_support (iyashi+hagukumi+yakushi triad) / public_fund_backstop_request (toritate-paired) / pool_state_reporting. 5 Lexicons under app.etzhayyim.wakai.*: mutualAidContributionAttestation (G6+G8 structural) + mutualAidDistributionAttestation (G9+G7+G3 STRUCTURAL: communityDiscernmentAttestations minLength 3 + claimAdjudicated const false + noPreExistingConditionExclusion const true) + mutualAidPoolStateReport (G6 STRUCTURAL: poolAssetClass const usdc-stable-only + defiYieldFarmingActiveCount const 0 + tokenSpeculationActiveCount const 0) + publicFundBackstopRequest (G10 STRUCTURAL: councilAttestations minLength 4) + silenWakaiReview (G3/G4/G5/G6/G7/G9/G11 const-field structural enforcement: commercialInsuranceSoftwarePenetrationPct=0 const + commercialReInsurancePenetrationPct=0 const + claimDenialEventsCount=0 const + preExistingConditionExclusionEventsCount=0 const + administratorVocationFlowCompliantRatioPctIntegerHundredths=10000 const). 12 gates G1..G12 + 12 non-goals N1..N12 + 4-phase R0..R3."
-path = "90-docs/adr/2605263500-wakai-mutual-aid-tier-b-actor-r0.md"
 
 [[modules]]
 path = "20-actors/wakai"
@@ -6908,13 +6781,6 @@ sibling_modules = [
 
 # ─── kataribe (語部) press + publishing + translation substrate R0 (ADR-2605263600) ──
 
-[[adrs]]
-id = "2605263600"
-title = "kataribe (語部) — non-profit religious-corp press + publishing + translation substrate Tier-B actor R0 charter"
-status = "proposed"
-status_note = "Eighth-priority gap-closure actor (gap audit row 8 = 報道+出版+翻訳). Religious-corp internal journalism + doctrine commentary publishing + multilingual translation + community historical chronicle + whistleblower channel. 任意団体 internal substrate at did:web:kataribe.etzhayyim.com (20-actors/kataribe/). Etymology: 古代日本 語部 (kataribe) = oral historian/storyteller/chronicler class; pre-literate-era keepers of imperial chronicles + clan genealogy + ritual recitation; 古事記 preface credits 稗田阿礼 as kataribe. Cultural lineage: 万人祭司 (every member is a kataribe in principle) + Sola Scriptura (scripture-access-through-translation) + Charter §1.7 多世代 + §1.15 non-eschatological. **Constitutional octet**: (1) NO ad-supported revenue G3+N2 (Charter §1.13 anti-addictive + §1.15 non-eschatological; ad-supported creates engagement-optimization incentive incompatible) / (2) NO clickbait / apocalyptic / engagement-optimized framing G4+N3 (Charter §1.15 non-eschatological invariant; toneAttestation enum DELIBERATELY excludes apocalyptic/clickbait/engagement-optimized; nonEschatologicalAttested const true structural) / (3) NO commercial publishing platform G5+N4 (Substack / Medium / News Corp / The Atlantic / NYTimes-as-vendor / WordPress-Pro / Ghost-Pro / Mailchimp / ConvertKit / Beehiiv PROHIBITED per Charter Rider §2(e)+§2(c) — vendor closed query-tracking on reader+writer posture) / (4) NO single-doctrinal monopoly G6+N5 (cross-doctrinal Wellbecoming priority per musubi G9+N12; doctrinalMonopolyAttested const false; ≥2 cross-doctrinal reviewers minLength on commentary) / (5) Translation prioritization community-need-based G7+N6 (NOT commercial-market-driven language priority; member-population + Wellbecoming need governs; communityNeedBasedAttested const true) / (6) NO surveillance investigative journalism G8+N7 (Charter §2(c) covert-ops avoidance extends to journalism; surveillanceInvestigativeJournalismAttested const false on whistleblowerReport) / (7) Whistleblower channel encrypted G10 (ADR-2605181100 envelope MANDATORY; chigiri.ipLicenseClaim cross-link; encryptedPayloadCid REQUIRED) / (8) Murakumo-only translation G12 (DeepL Pro / Google Translate API / Grammarly / Anthropic-direct-translation PROHIBITED; translationProvider const 'murakumo-only'; commercialAiTranslationToolUsed const false). G9 all publications Apache 2.0 + Charter Rider (licenseAttested const apache-2.0-with-charter-rider-v2.0). G11 NO payroll for kataribe (vocation-flow L5). G13 NO mandatory subscription paywall (all open access). 6 cells (community_chronicle / doctrine_commentary musubi-pair / translation / external_press_relations / whistleblower_channel chigiri-pair / annual_history_compendium). 5 Lexicons: communityChronicleAttestation (G4+G9 structural; toneAttestation enum + nonEschatologicalAttested const + licenseAttested const) + doctrineCommentaryPublishing (G6+G9 structural; doctrinalMonopolyAttested const false + crossDoctrinalReviewerAttestations minLength 2 + transubstantiationDoctrineImposed const false) + translationAttestation (G7+G12 structural; translationProvider const murakumo-only + commercialAiTranslationToolUsed const false + communityNeedBasedAttested const true) + whistleblowerReport (G10 STRUCTURAL: encryptedPayloadCid REQUIRED + surveillanceInvestigativeJournalismAttested const false + chigiriIpLicenseClaimCrossEmitCid required) + silenKataribeReview (G3/G4/G5/G6/G7/G8/G11/G12/G13 const-field structural enforcement: adSupportedRevenueUsdMillicents=0 + apocalypticFramingEventsCount=0 + commercialPublishingPlatformPenetrationPct=0 + singleDoctrinalMonopolyEventsCount=0 + commercialMarketDrivenTranslationPriorityEventsCount=0 + surveillanceInvestigativeJournalismEventsCount=0 + mandatoryPaywallEventsCount=0 + commercialAiTranslationToolUsageCount=0 + kataribeVocationFlowCompliantRatioPctIntegerHundredths=10000 + publicationsApacheRiderLicensedPct=10000). 13 gates G1..G13 + 12 non-goals N1..N12 + 4-phase R0..R3."
-path = "90-docs/adr/2605263600-kataribe-press-publishing-translation-tier-b-actor-r0.md"
-
 [[modules]]
 path = "20-actors/kataribe"
 kind = "tier-b-non-profit-press-publishing-translation-substrate-actor"
@@ -6967,13 +6833,6 @@ sibling_modules = [
 
 
 # ─── kokoro (心) mental health support substrate R0 (ADR-2605263700) ──
-
-[[adrs]]
-id = "2605263700"
-title = "kokoro (心) — non-profit religious-corp mental health support substrate Tier-B actor R0 charter"
-status = "proposed"
-status_note = "Ninth-priority gap-closure actor (gap audit row 9 = 精神/mental health). Peer support circles + post-funeral grief support + chronic mental health continuity + postnatal mood screening (opt-in) + acute crisis escalation (mitate G5 cross-link) + counseling referral. 任意団体 internal mental health support substrate at did:web:kokoro.etzhayyim.com (20-actors/kokoro/). Etymology: 心 (kokoro) = heart/mind/spirit; cross-tradition (Reformed soul + Shinto 心魂 + 仏 心); community + spiritual + relational framing (NOT Western clinical psychiatry framing). **CRITICAL boundary**: NOT clinical psychiatric entity; NOT state-licensed psych; counselors are L5 vocation-flow community-witnessed-competent (musubi G3 pattern shared); does NOT diagnose (mitate); does NOT prescribe (yakushi); when clinical psychiatric care needed, external licensed counsel via Public Fund Council Lv6+ ≥4/7 (chigiri G14 UPL-equivalent pattern shared). **Constitutional novenary**: (1) NOT clinical psychiatric entity G3 (counselorClass const community-witnessed-competent; state-licensed-psych/clinical-psychiatrist/ordained-pastoral-counselor DELIBERATELY excluded) / (2) Encrypted envelope MANDATORY + NO video G4 (mirrors hagukumi G2 + iyashi G2/G3; mental health PHI most sensitive class) / (3) NO conversion therapy / behavior modification G5 (sexual orientation/gender identity/religious belief NEVER targets; extends hagukumi G7; constitutional non-negotiable per Charter Rider §2(f)+§2(h)) / (4) Human-in-loop ALWAYS G6 (mirrors iyashi G8) / (5) NO commercial mental health software G7 (BetterHelp/Talkspace/Cerebral/Modern Health/Lyra/Calm-business/Headspace-Enterprise/Spring Health/Brightline/Octave/Two Chairs/Charlie Health PROHIBITED per Charter Rider §2(e)+§2(c) — vendor closed query-tracking on member mental health posture most intimate exposure) / (6) NO commercial AI therapy chatbot G8 (Woebot/Wysa/Replika-as-therapy/character.ai-as-therapy/GPT-as-therapy/Anthropic-direct-therapy/Claude-as-therapy PROHIBITED; AI-only therapy is not therapy per G6) / (7) NO mandatory screening G9 (free conscience; opt-in only; musubi G4 pattern shared) / (8) NO surveillance-based mood monitoring G10 (Charter §2(c); no smart-wearable mood tracking; no facial-emotion-recognition; no voice-affect-analysis) / (9) Acute crisis → mitate G5 emergency keyword G13 (cross-actor existing pattern; hagukumi G11 + iyashi G10 + kokoro G13). G11 multi-gen peer support invariant (Charter §1.7). G12 cross-doctrinal Wellbecoming priority (musubi G9+N12 + kataribe G6 pattern shared; Reformed soul-care + Shinto 心魂 + 仏 心 + nondenominational trauma-informed all accommodated). G14 NO payroll for kokoro counselors (vocation-flow L5). 6 cells (peer_support_circle / grief_support musubi-pair / chronic_mental_health_continuity iyashi-pair / postnatal_mood_screening iyashi+hagukumi triad / acute_crisis_escalation mitate-pair / counseling_referral chigiri-pair). 5 Lexicons: peerSupportCircleAttestation (G4+G9+G10+G11 structural) + griefSupportAttestation (G4 structural) + counselorAttestation (G3+G14 STRUCTURAL: counselorClass const community-witnessed-competent + lLevel const L5 + employmentRelation const vocation-flow + witnessingCounselorAttestations minLength 3) + acuteCrisisEscalationLog (G13 STRUCTURAL: mitateG5EmergencyKeywordTriggeredCid REQUIRED) + silenKokoroReview (G3/G4/G5/G6/G7/G8/G9/G10/G14 const-field structural — 10+ const-field structurals: clinicalPsychiatricEntityPenetrationPct=0 + videoRecordingEventsCount=0 + conversionTherapyEventsCount=0 + aiOnlyTherapyEventsCount=0 + commercialMentalHealthSoftwarePenetrationPct=0 + commercialAiTherapyChatbotPenetrationPct=0 + mandatoryScreeningEventsCount=0 + surveillanceBasedMoodMonitoringEventsCount=0 + counselorVocationFlowCompliantRatioPctIntegerHundredths=10000). 14 gates G1..G14 + 12 non-goals N1..N12 + 4-phase R0..R3."
-path = "90-docs/adr/2605263700-kokoro-mental-health-tier-b-actor-r0.md"
 
 [[modules]]
 path = "20-actors/kokoro"
@@ -7035,13 +6894,6 @@ sibling_modules = [
 
 
 # ─── shidemori (死出守) memorial + cemetery substrate R0 (ADR-2605263800; FINAL gap-closure) ──
-
-[[adrs]]
-id = "2605263800"
-title = "shidemori (死出守) — non-profit religious-corp memorial + cemetery substrate Tier-B actor R0 charter (FINAL gap-closure)"
-status = "proposed"
-status_note = "Tenth-priority (FINAL) gap-closure actor (gap audit row 10 = 冥府 cemetery + memorial; completes the 10-actor 30min-loop gap-closure wave). Memorial NFT mint + cemetery Land Registry waqf-equivalent + 鎮魂 (chinkon) annual remembrance cycle + chigiri.inheritanceChain handoff + external mortuary engagement (UPL-equivalent pattern; 4-actor maturity). 任意団体 internal memorial + cemetery substrate at did:web:shidemori.etzhayyim.com (20-actors/shidemori/). Etymology: 死出守 = guardian of the death-journey (死出 = 死出の旅 classical 万葉集 imagery + 守 = keeper). Cross-tradition (Reformed memorial + Shinto 鎮魂 + 仏 49日 + secular humanist). **Constitutional decennary (10 gates)**: (1) Charter §1.15 non-eschatological G3 (afterlifeDoctrineImposed const false; extends kataribe G4 to memorial domain) / (2) Cross-doctrinal Wellbecoming priority G4 (musubi G9+N12 + kataribe G6 + kokoro G12 + shidemori G4 = **4-actor maturity**) / (3) NOT state-licensed mortuary G5 (chigiri G14 + iyashi N9 + kokoro G3 + shidemori G5 = **4-actor UPL-equivalent maturity**) / (4) NO commercial memorial software G6 (Frazer Consultants/Tribute Center/FuneralOne/ASD/SRS Computing/Wilbert/Aldor/Adobe Cemetery Mgmt/Cremation Society Cremation Mgmt PROHIBITED extends musubi G6) / (5) NO embalming chemicals G7 (Charter Rider §2(d) toxic chemistry; green burial + cremation only) / (6) NO mortuary surveillance G8 (Charter §2(c)) / (7) Member burial-or-cremation directive G9 (free conscience opt-in) / (8) Land Trust waqf-equivalent cemetery rights G10 (mizuho G11 pattern shared = **2-actor waqf-equivalent maturity**: water + cemetery) / (9) NO payroll for guardians G11 (vocation-flow L5) / (10) chigiri.inheritanceChain emit MANDATORY G13 (TIGHT pair when deceased had Adherent SBT). G12 Murakumo-only inference. 6 cells: memorial_nft_mint (musubi TIGHT) / cemetery_land_registry (Land Registry) / chinkon_annual_remembrance (musubi seasonal-pair) / inheritance_handoff (chigiri TIGHT) / external_mortuary_engagement (toritate UPL-equivalent) / silen_shidemori_review. 5 Lexicons under app.etzhayyim.shidemori.*: memorialNftAttestation (G3 STRUCTURAL afterlifeDoctrineImposed const false) + cemeteryLandAttestation (G10 STRUCTURAL landRegistryCid REQUIRED + waqfInalienabilityAttested const true + biodegradableShroudPineCasketOnlyAttested const true) + chinkonRemembranceAttestation (G4 cross-doctrinal + G11 multi-gen + G9 openToCommunityAttested const true) + externalMortuaryEngagement (G5+G7 STRUCTURAL: councilAttestations minLength 4 + embalmingChemicalsUsed const false) + silenShidemoriReview (G3/G4/G5/G6/G7/G8/G9/G10/G11/G12 const-field structural — 10 const-field structurals matching kokoro). 13 gates G1..G13 + 12 non-goals N1..N12. **FINAL gap-closure note**: This ADR completes the 10-actor 30min-loop gap-closure wave (chigiri/toritate/iyashi/mizuho/kazaori/musubi/wakai/kataribe/kokoro/shidemori all R0 charters committed); cron job 8c681144 may be terminated."
-path = "90-docs/adr/2605263800-shidemori-memorial-cemetery-tier-b-actor-r0.md"
 
 [[modules]]
 path = "20-actors/shidemori"
@@ -7169,20 +7021,6 @@ status_note = "Green H₂ (electrolysis from hikari surplus) ≤500 kg/day R3. G
 path = "90-docs/adr/2605263600-hydrogen-economy-d-gate-evaluation-r0.md"
 
 [[adrs]]
-id = "2605263700"
-title = "Green ammonia — D1..D5 evaluation R0"
-status = "proposed-pending-council-ratification"
-status_note = "Haber-Bosch from green H₂ + atmospheric N₂ ≤200 kg/day R3. NH₄NO₃ ABSOLUTELY PROHIBITED on D4 + §1.12 (ANFO weaponization precedent). Cross-actor mitsuho fertilizer-N tertiary fallback."
-path = "90-docs/adr/2605263700-green-ammonia-d-gate-evaluation-r0.md"
-
-[[adrs]]
-id = "2605263800"
-title = "Biomethane (anaerobic digestion) — D1..D5 evaluation R0"
-status = "proposed-pending-council-ratification"
-status_note = "AD biomethane from religious-corp internal waste ≤200 Nm³/day R3. Commercial landfill gas + municipal sewage CHP + dedicated energy crops prohibited. Closes 2605263600 §3 turquoise H₂ deferral. Digestate → mitsuho compost."
-path = "90-docs/adr/2605263800-biomethane-d-gate-evaluation-r0.md"
-
-[[adrs]]
 id = "2605264100"
 title = "Marine renewables (tidal/wave/OTEC/salinity-gradient/lagoon/large-array) — D1..D5 evaluation R0"
 status = "proposed-pending-council-ratification"
@@ -7195,13 +7033,6 @@ title = "Mechanical energy storage (pumped-hydro-micro/CAES/flywheel/gravity-blo
 status = "proposed-pending-council-ratification"
 status_note = "Pumped-hydro-micro ≤500 kW (mizuho waqf water-rights) + flywheel ≤100 kW + gravity-block ≤500 kW + CAES-surface ≤100 kW R&D. CAES-underground ABSOLUTELY PROHIBITED (D1 geological + D2 multi-gen leak)."
 path = "90-docs/adr/2605264200-mechanical-energy-storage-d-gate-evaluation-r0.md"
-
-[[adrs]]
-id = "2605264300"
-title = "CSP + solar process heat — D1..D5 evaluation R0 (closes original 6-gap list at 6/6)"
-status = "proposed-pending-council-ratification"
-status_note = "Parabolic-trough + Stirling-dish CSP ≤500 kW thermal + solar process heat ≤200°C direct-use conditional permits. CSP tower DEFERRED. Cross-actor heat-network architecture defines mitsuho/hagukumi/iyashi/yakushi/tatekata/igata/biomethane heat mesh."
-path = "90-docs/adr/2605264300-csp-solar-thermal-d-gate-evaluation-r0.md"
 
 [[adrs]]
 id = "2605264500"
@@ -7251,13 +7082,6 @@ title = "Fusion fuel sourcing (D/T/Li-6/He-3/B-11) — D1..D5 evaluation R0"
 status = "proposed-pending-council-ratification"
 status_note = "D (seawater) + B-11 (terrestrial mining) ✓. T constrained (Li-6 enrichment Council Lv7+ unanimity per program). He-3 EFFECTIVELY UNAVAILABLE (no D1-compliant source; D-He³ deferred indefinitely). Commercial CANDU T + US DoE Savannah River He-3 PROHIBITED. Confirms p-B¹¹ as only fully self-sourceable fusion fuel."
 path = "90-docs/adr/2605265100-fusion-fuel-sourcing-d-gate-evaluation-r0.md"
-
-[[adrs]]
-id = "2605265200"
-title = "Sustainable aviation fuel (SAF) — D1..D5 evaluation R0"
-status = "proposed-pending-council-ratification"
-status_note = "HEFA-SPK (Annex A2/A7 via algal-HVO) + e-Jet-FT (Annex A1 via green H₂ + DAC CO₂) ≤500 kg/yr R3. Religious-corp aviation = mission-essential only. Leisure/charter aviation ABSOLUTELY PROHIBITED. ATJ-SPK corn-ethanol PROHIBITED (N4). Commercial SAF off-take + CORSIA credits PROHIBITED."
-path = "90-docs/adr/2605265200-saf-sustainable-aviation-fuel-d-gate-evaluation-r0.md"
 
 [[adrs]]
 id = "2605265300"
@@ -7462,34 +7286,6 @@ status = "w0-landed"
 description = "corp sensor namespace re-export hub; documents 4 W1 anchor sensors (sec_edgar / jp_edinet / uk_companies_house / gleif_lei) + W2+ extensions."
 
 [[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/sec_edgar.py"
-adr = "ADR-2605263800"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "SEC EDGAR companyfacts + Submissions bulk archive fetcher (US public-domain per 17 CFR 200; Tier A). W0 stub raises NotImplementedError with ADR pointer; W1 wires quarterly-index bulk + per-CIK Submissions JSON paging + NDJSON sidecar for CorpRegistrySensor / CorpDisclosureSensor / CorpFilingEventSensor. Passive-only invariant: no live API enumeration; uses quarter-index bulk-archive only."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/jp_edinet.py"
-adr = "ADR-2605263800"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "JP 金融庁 EDINET XBRL bulk archive fetcher (open-data utilization terms ≈ CC-BY 4.0; Tier A). W0 stub raises NotImplementedError. W1 wires date-bounded v2 documents API paging + per-document XBRL ZIP + NDJSON sidecar for CorpRegistrySensor / CorpDisclosureSensor. Requires free per-DID API key via JpEdinetFetchOpts.api_key."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/uk_companies_house.py"
-adr = "ADR-2605263800"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "UK Companies House Free Company Data Product bulk fetcher (OGL v3.0; Tier A). W0 stub raises NotImplementedError. W1 wires monthly-snapshot listing parse + ZIP download + CSV → NDJSON normalization for CorpRegistrySensor (~5M UK companies). Daily-increment catch-up deferred to W2."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/gleif_lei.py"
-adr = "ADR-2605263800"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "GLEIF LEI Concatenated Files (L1 entity + L2-RR relationship + L2-RepEx) fetcher (CC0 1.0; Tier A; ~2.5M LEIs). W0 stub raises NotImplementedError. W1 wires L1+L2 bulk download + canonical-LEI NDJSON sidecar + parent/ultimate-parent edge NDJSON for LeiSensor. Canonical cross-jurisdiction key — other corp sensors resolve their entity_lei field against this sensor's pin."
-
-[[modules]]
 path = "70-tools/baien-moemoekyun-train/recipes/corp/corp-financial-disclosure-foundations-r1.toml"
 adr = "ADR-2605263800"
 kind = "corpus-recipe"
@@ -7532,62 +7328,6 @@ adr = "ADR-2605263900"
 kind = "sensor-protocol-namespace"
 status = "w0-landed"
 description = "gov sensor namespace re-export hub; documents 8 W1 anchor sensors (us_data_gov / uk_data_gov_uk / jp_data_go_jp / us_congress_gov / uk_hansard / jp_kokkai_kaigiroku / eu_eurostat / worldbank_open_data) + W2-W4 extensions including CN §2(g)-flagged sources at W4."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/us_data_gov.py"
-adr = "ADR-2605263900"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "US data.gov CKAN catalog fetcher (public-domain per 17 USC 105; Tier A). ~250K dataset entries across federal agencies. W0 stub raises NotImplementedError. W1 wires CKAN package_search paging + per-dataset metadata NDJSON sidecar for GovOpenDataSensor (jurisdiction=USA)."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/uk_data_gov_uk.py"
-adr = "ADR-2605263900"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "UK data.gov.uk CKAN catalog fetcher (OGL v3.0 Crown copyright open; Tier A). ~70K dataset entries across central + local government. W0 stub raises NotImplementedError. W1 wires CKAN package_search paging + per-dataset NDJSON for GovOpenDataSensor (jurisdiction=GBR)."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/jp_data_go_jp.py"
-adr = "ADR-2605263900"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "JP data.go.jp CKAN + e-Stat statistics API fetcher (CC-BY 4.0 政府標準利用規約 2.0; Tier A). data.go.jp ~30K entries; e-Stat ~600 surveys all ministries. W0 stub raises NotImplementedError. W1 wires both data.go.jp CKAN paging + e-Stat statsList API paging. e-Stat requires free per-DID appId."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/us_congress_gov.py"
-adr = "ADR-2605263900"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "US Congress.gov + govinfo bulk fetcher (public-domain; Tier A). Collections: BILLS / BILLSTATUS / CREC / FR. W0 stub raises NotImplementedError. W1 wires govinfo bulkdata directory sync + per-collection NDJSON normalization for GovParliamentSensor (jurisdiction=USA, legislature=us-congress). api.congress.gov v3 key (free per-DID) only for catch-up paging."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/uk_hansard.py"
-adr = "ADR-2605263900"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "UK Hansard (Parliament debates) fetcher (OGL v3.0 Open Parliament Licence; Tier A). Covers Commons + Lords + divisions + members. W0 stub raises NotImplementedError. W1 wires date-bounded debates+members+divisions API paging + NDJSON for GovParliamentSensor (jurisdiction=GBR, legislature=uk-parliament)."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/jp_kokkai_kaigiroku.py"
-adr = "ADR-2605263900"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "JP 国会会議録検索 (National Diet meeting records) fetcher (公の著作物 free use per 著作権法 §13; Tier A). Both Houses + all committees since 1947. W0 stub raises NotImplementedError. W1 wires date-bounded meeting/speech API paging + NDJSON for GovParliamentSensor (jurisdiction=JPN, legislature=jp-kokkai)."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/eu_eurostat.py"
-adr = "ADR-2605263900"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "EU Eurostat SDMX bulk fetcher (free re-use per Decision 2011/833/EU; Tier A). ~10K indicators across EU-27 + EEA + candidate countries. W0 stub raises NotImplementedError. W1 wires dataflow listing → per-flow SDMX bulk download + NDJSON sidecar for GovStatisticsSensor (source=eurostat)."
-
-[[modules]]
-path = "70-tools/e7m-dataset/src/e7m_dataset/fetchers/worldbank_open_data.py"
-adr = "ADR-2605263900"
-kind = "dataset-fetcher"
-status = "w1-deliverable-stub"
-description = "World Bank Open Data API fetcher (CC-BY 4.0; Tier A). ~16K indicators across 270+ economies. W0 stub raises NotImplementedError. W1 wires indicator catalog paging + per-indicator all-economies-all-years bulk fetch + NDJSON for GovStatisticsSensor (source=worldbank)."
 
 [[modules]]
 path = "70-tools/baien-moemoekyun-train/recipes/gov/gov-civic-literacy-foundations-r1.toml"
@@ -8149,13 +7889,6 @@ adr = "ADR-2605266200"
 kind = "organism-runtime"
 status = "r0-landed"
 description = "C Wave 4 R0 pure function: KaizenProposal NDJSON line → markdown PR body. Schema validation (kind == 'kaizen-proposal'). Iter 5 `eb048ebf7`."
-
-[[modules]]
-path = "20-actors/magatama/py/src/pymagatama/organism/kaizen/pr_agent.py"
-adr = "ADR-2605266200"
-kind = "organism-runtime"
-status = "r1-landed"
-description = "C R1 KaizenPrAgent consumer skeleton. gh auth status verify at init (KaizenPrAgentAuthError raise on failure). consume_one(): NDJSON read → proposal_to_pr_draft → branch create → simple string-replace patch → gh pr create. dry_run=True default per H L5 invariant. PR body appends 'Requires human review before merge — Council Lv6+ ≥3 attestation required if proposal touches Charter §2(a)-(h) areas'. Iter 18 `18805f7bc`."
 
 [[modules]]
 path = "20-actors/magatama/py/src/pymagatama/organism/kaizen/patcher.py"

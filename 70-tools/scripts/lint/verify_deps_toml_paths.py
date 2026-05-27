@@ -117,6 +117,41 @@ def _iter_entries(data: dict[str, Any]) -> Iterator[tuple[str, dict[str, Any]]]:
                 yield section, entry
 
 
+def find_duplicates(deps_toml: Path) -> dict[str, list[tuple[str, str]]]:
+    """Return composite-key duplicates as (kind, key) → list of label tuples.
+
+    Catches stale entries that were never deleted when a path was
+    re-registered (e.g. "w1-deliverable-stub" → "w1-impl-landed-concrete"
+    where the older entry should have been removed).
+
+    Cycle 59 addition: prior to this, the verifier only checked that
+    each entry's path resolved; if the same path was registered twice,
+    both passed. Cycle 59 discovered 25 module path dupes + 12 ADR id
+    dupes; cycle 59 cleanup removed 37 stale blocks.
+    """
+    with deps_toml.open("rb") as f:
+        data = tomllib.load(f)
+    seen: dict[tuple[str, str], list[tuple[str, str]]] = {}
+    # Module path duplicates
+    for entry in data.get("modules", []) or []:
+        path = str(entry.get("path") or "")
+        if not path:
+            continue
+        clean, _ = _strip_reserved_marker(path)
+        adr = str(entry.get("adr") or "")
+        key = ("modules", clean)
+        seen.setdefault(key, []).append((path, adr))
+    # ADR id duplicates
+    for entry in data.get("adrs", []) or []:
+        aid = str(entry.get("id") or "")
+        if not aid:
+            continue
+        title = str(entry.get("title") or "")[:80]
+        key = ("adrs", aid)
+        seen.setdefault(key, []).append((aid, title))
+    return {f"{k[0]}:{k[1]}": v for k, v in seen.items() if len(v) > 1}
+
+
 def check_paths(
     deps_toml: Path,
     repo_root: Path,
@@ -209,6 +244,12 @@ def main(argv: Optional[list[str]] = None) -> int:
     n_total = len(results)
     n_ok = sum(1 for r in results if r.exists and r.reserved_marker is None)
 
+    # Duplicate detection (cycle 59) — only runs in unfiltered mode
+    # because filtering can legitimately hide a duplicate's twin.
+    duplicates = (
+        find_duplicates(deps_toml) if args.filter_token is None else {}
+    )
+
     if args.json:
         print(json.dumps({
             "total": n_total,
@@ -219,6 +260,8 @@ def main(argv: Optional[list[str]] = None) -> int:
             "accepted_missing": [asdict(a) for a in accepted_missing],
             "stale_marker_count": len(stale_markers),
             "stale_markers": [asdict(s) for s in stale_markers],
+            "duplicate_count": len(duplicates),
+            "duplicates": duplicates,
             "filter": args.filter_token,
         }, indent=2))
     else:
@@ -250,12 +293,16 @@ def main(argv: Optional[list[str]] = None) -> int:
             for d in drift:
                 tag = d.adr or d.id or "—"
                 print(f"  [{d.section}] {d.path}  ({tag})")
-        if not drift and not stale_markers:
+        if duplicates:
+            print(f"DUPLICATES ({len(duplicates)}) — same key registered multiple times:")
+            for k, occurrences in duplicates.items():
+                print(f"  {k}: {len(occurrences)} entries")
+        if not drift and not stale_markers and not duplicates:
             print("No drift. Clean.")
 
-    # Exit 1 only on real drift; stale markers + accepted-reserved are
-    # warnings (not drift, but operator should clean up stale markers).
-    return 1 if drift else 0
+    # Exit 1 only on real drift OR duplicates; stale markers +
+    # accepted-reserved are warnings.
+    return 1 if (drift or duplicates) else 0
 
 
 if __name__ == "__main__":

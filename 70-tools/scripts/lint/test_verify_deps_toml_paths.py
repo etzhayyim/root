@@ -304,6 +304,89 @@ adr = "ADR-x"
     assert rc == 1
 
 
+def test_find_duplicates_detects_module_path_dupes(verifier, tmp_path):
+    """find_duplicates returns 2+ entries when same path registered twice."""
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "shared.py"
+adr = "ADR-1"
+status = "stale"
+
+[[modules]]
+path = "shared.py"
+adr = "ADR-1"
+status = "current"
+
+[[modules]]
+path = "unique.py"
+adr = "ADR-2"
+""")
+    dups = verifier.find_duplicates(deps)
+    assert "modules:shared.py" in dups
+    assert len(dups["modules:shared.py"]) == 2
+    # The unique one is NOT in duplicates
+    assert "modules:unique.py" not in dups
+
+
+def test_find_duplicates_detects_adr_id_dupes(verifier, tmp_path):
+    """ADR id duplicates are detected separately from module paths."""
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[adrs]]
+id = "2605270000"
+title = "First entry"
+path = "first.md"
+
+[[adrs]]
+id = "2605270000"
+title = "Second entry (dupe)"
+path = "second.md"
+""")
+    dups = verifier.find_duplicates(deps)
+    assert "adrs:2605270000" in dups
+    assert len(dups["adrs:2605270000"]) == 2
+
+
+def test_find_duplicates_strips_reserved_marker(verifier, tmp_path):
+    """Same path with/without (reserved) marker counts as duplicate."""
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "future.py (reserved)"
+adr = "ADR-1"
+
+[[modules]]
+path = "future.py"
+adr = "ADR-1"
+""")
+    dups = verifier.find_duplicates(deps)
+    assert "modules:future.py" in dups
+    assert len(dups["modules:future.py"]) == 2
+
+
+def test_main_exits_1_on_duplicates(verifier, tmp_path):
+    """Duplicates trigger exit 1 (real drift)."""
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "dup.py"
+adr = "ADR-1"
+
+[[modules]]
+path = "dup.py"
+adr = "ADR-1"
+""")
+    # Ensure the file exists so non-dup tests don't false-positive
+    (tmp_path / "dup.py").write_text("x")
+    rc = verifier.main([
+        "--deps-toml", str(deps),
+        "--repo-root", str(tmp_path),
+    ])
+    # Duplicates fail even when paths resolve
+    assert rc == 1
+
+
 def test_json_output_separates_categories(verifier, tmp_path, capsys):
     """JSON payload exposes drift / accepted_missing / stale_markers separately."""
     (tmp_path / "real-stale.md").write_text("x")
