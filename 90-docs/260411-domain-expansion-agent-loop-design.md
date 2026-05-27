@@ -5,7 +5,8 @@ status: active
 doc_type: adr
 topic: autonomous-growth
 authoritative: true
-authoritative_for: domain-expansion
+authoritative_for:
+  - domain-expansion
 last_verified: "2026-04-11"
 related:
   - 260409-shinka-coverage-healing-design

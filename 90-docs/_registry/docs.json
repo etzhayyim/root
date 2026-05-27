@@ -787,6 +787,7 @@
       "title": "lg-isin — Resident LangServer for Global Listed-Company Data Ingest",
       "status": "accepted",
       "doc_type": "adr",
+      "topic": "lg-isin-listed-company-ingest-langserver",
       "authoritative": false,
       "authoritative_for": [],
       "related": [],
@@ -817,6 +818,7 @@
       "title": "Itonami Lifecycle Dashboard and Pregel UI Alignment",
       "status": "accepted",
       "doc_type": "adr",
+      "topic": "itonami-lifecycle-dashboard-pregel-ui",
       "authoritative": false,
       "authoritative_for": [],
       "related": [],
@@ -831,6 +833,7 @@
       "title": "Open-UNSPSC Generative Agent Fleet using OpenRouter and Local Fallback",
       "status": "accepted",
       "doc_type": "adr",
+      "topic": "open-unispsc-generative-agent-fleet",
       "authoritative": false,
       "authoritative_for": [],
       "related": [],
@@ -4930,6 +4933,7 @@
       "title": "Pokopia Research Agent Loop Provenance",
       "status": "active",
       "doc_type": "adr",
+      "topic": "pokopia-research-agent-loop-provenance",
       "authoritative": false,
       "authoritative_for": [],
       "related": [],
@@ -6632,7 +6636,7 @@
         "adr-0024-auth-accounts-worker-topology"
       ],
       "amended_by": [],
-      "last_verified": "2026-05-15 (Phase 3 callsite migration done)",
+      "last_verified": "2026-05-15",
       "superseded_by": [],
       "amends": []
     },
@@ -6725,10 +6729,7 @@
         "etzhayyim/root as canonical home for open religious-corp ADRs",
         "ID convention for etzhayyim/root ADRs"
       ],
-      "related": [
-        "",
-        ""
-      ],
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-17",
@@ -6773,14 +6774,7 @@
         "L2 anchor target (Base) and batching semantics",
         "IPFS pinning responsibility split"
       ],
-      "related": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-      ],
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-17",
@@ -6800,11 +6794,7 @@
         "yoro.etzhayyim.com as user-facing surface",
         "migration policy for hybrid open-concept / legacy-deployed surfaces"
       ],
-      "related": [
-        "",
-        "",
-        ""
-      ],
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-18",
@@ -6825,12 +6815,7 @@
         "SDK pattern: PDS write + IPFS pin + L2 batch anchor as one operation",
         "per-app-pattern migration guide off RisingWave"
       ],
-      "related": [
-        "",
-        "",
-        "",
-        ""
-      ],
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-17",
@@ -6876,10 +6861,7 @@
         "gas sponsorship: etzhayyim-operated paymaster contract (funded by anchor-batch fee skim)",
         "payment record convention: every settled tx → AT Record (NSID app.etzhayyim.apps.payment.*) for verifiability + audit"
       ],
-      "related": [
-        "",
-        ""
-      ],
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-17",
@@ -6902,10 +6884,7 @@
         "handle/MX equivalence (atproto handle resolution as MX substitute)",
         "reply / thread continuity across openmail ⇄ SMTP"
       ],
-      "related": [
-        "",
-        ""
-      ],
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-17",
@@ -7002,9 +6981,7 @@
         "oath text + signing semantics",
         "relationship to did:web + did:plc identity layer"
       ],
-      "related": [
-        ""
-      ],
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-17",
@@ -7046,9 +7023,7 @@
         "sealer governance migration plan (single-sealer → etzhayyim multisig)",
         "12-month redirect grace window for the legacy private-chain RPC host"
       ],
-      "related": [
-        ""
-      ],
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-17",
@@ -14250,7 +14225,11 @@
       "doc_type": "explanation",
       "topic": "domain-coverage",
       "authoritative": true,
-      "authoritative_for": "[\"kuruma-graph-depth\", \"media-anime-graph-depth\", \"media-gamers-graph-depth\"]",
+      "authoritative_for": [
+        "kuruma-graph-depth",
+        "media-anime-graph-depth",
+        "media-gamers-graph-depth"
+      ],
       "related": [
         "30-graph/graph-schema/migrations/0025_world_coverage_live_mv.ts",
         "30-graph/graph-schema/migrations/0045_vertex_kuruma_depth.ts",
@@ -14983,7 +14962,9 @@
       "doc_type": "adr",
       "topic": "autonomous-growth",
       "authoritative": true,
-      "authoritative_for": "domain-expansion",
+      "authoritative_for": [
+        "domain-expansion"
+      ],
       "related": [
         "260409-shinka-coverage-healing-design",
         "260324-source-graph-hybrid-design"
@@ -15545,6 +15526,7 @@
       "path": "90-docs/proof/murakumo-hegemon-agent-loop-running-20260508.md",
       "id": "murakumo-hegemon-agent-loop-running-20260508",
       "title": "Murakumo Hegemon Agent Loop Running",
+      "status": "active",
       "doc_type": "proof",
       "topic": "karma-organism-ecosystem",
       "last_verified": "2026-05-08",
@@ -15560,6 +15542,7 @@
       "path": "90-docs/proof/murakumo-hegemon-lifecycle-tick-20260508.md",
       "id": "murakumo-hegemon-lifecycle-tick-20260508",
       "title": "Murakumo Hegemon Artificial-Organism Lifecycle Tick",
+      "status": "active",
       "doc_type": "proof",
       "topic": "karma-organism-ecosystem",
       "last_verified": "2026-05-08",
@@ -15604,7 +15587,11 @@
       "doc_type": "reference",
       "topic": "portfolio-management",
       "authoritative": true,
-      "authoritative_for": "dodaf-pv2, project-timeline, phase-gates",
+      "authoritative_for": [
+        "dodaf-pv2",
+        "project-timeline",
+        "phase-gates"
+      ],
       "related": [
         "90-docs/adr/2605180000-lawfirm-product-focus-bmc-lean.md",
         "90-docs/adr/2605190000-yatabase-bmc-lean.md",

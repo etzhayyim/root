@@ -367,19 +367,17 @@ pre-commit:
 
     registry-schema-validation:
       # When any 90-docs/_registry/ artifact changes, run schema
-      # validation (ADR-2605271100 cycle 50; 4th registry axis after
-      # docs-registry-freshness + docs-graph-jsonld-freshness + deps-toml-paths).
-      # Validates docs.json against docs.schema.json AND graph.jsonld
-      # against graph.schema.json.
+      # validation (ADR-2605271100 cycle 50; promoted to PR-gate cycle 51
+      # after all 32 baseline violations were cleaned). 4th registry axis
+      # after docs-registry-freshness + docs-graph-jsonld-freshness +
+      # deps-toml-paths.
       #
-      # **Cycle 50 mode: WARN-ONLY** because 32 known baseline violations
-      # exist in 5-6 .md front-matter sources (4 missing-topic + 1 garbage
-      # last_verified + 27 empty-related-string entries). Operator can
-      # enable strict mode by exporting ETZ_REGISTRY_SCHEMA_STRICT=1.
-      # Will become unconditional after baseline reaches 0.
+      # **Cycle 51 mode: STRICT by default** (baseline = 0). Hook fails
+      # commit if schema validation reports any violation.
       #
-      # Requires `jsonschema` Python package; if not installed, hook
-      # gracefully skips (operator non-blocking).
+      # If `jsonschema` is not installed, hook prints install instructions
+      # and warns (does NOT fail) — operator-friendly graceful fallback.
+      # CI installs jsonschema via pip and runs strict mode unconditionally.
       glob:
         - "90-docs/_registry/docs.json"
         - "90-docs/_registry/graph.jsonld"
@@ -389,21 +387,22 @@ pre-commit:
         python3 70-tools/scripts/docs/validate-registry-schemas.py \
           > /tmp/registry-validation.$$.txt 2>&1
         rc=$?
-        if [ $rc -ne 0 ] && [ "${ETZ_REGISTRY_SCHEMA_STRICT:-0}" = "1" ]; then
-          echo "✘ registry schema validation failed (strict mode):"
+        # rc=0 → valid; rc=1 → violation; rc=2 → graceful skip (jsonschema missing).
+        # Operator-friendly: graceful skip is not a commit-blocker locally.
+        if [ $rc -eq 1 ]; then
+          echo "✘ registry schema validation failed:"
           cat /tmp/registry-validation.$$.txt
           rm -f /tmp/registry-validation.$$.txt
+          echo ""
+          echo "  Fix the .md front-matter to match docs.schema.json /"
+          echo "  graph.schema.json, then re-stage and retry. CI runs the"
+          echo "  same check unconditionally."
           exit 1
         fi
-        # Non-strict default: only complain if error count grows above baseline.
-        # (Baseline tracking is the CI workflow's responsibility — this hook
-        # just warns operator about schema issues.)
-        if [ $rc -ne 0 ]; then
-          echo "ℹ️ registry schema validation reported issue(s):"
-          cat /tmp/registry-validation.$$.txt
-          echo ""
-          echo "  (warn-only; commit allowed. Set ETZ_REGISTRY_SCHEMA_STRICT=1"
-          echo "   to make this hook blocking once baseline reaches 0.)"
+        if grep -q "jsonschema package not installed" /tmp/registry-validation.$$.txt 2>/dev/null; then
+          echo "ℹ️ registry-schema-validation skipped — jsonschema not installed locally."
+          echo "  Install: python3 -m pip install --break-system-packages jsonschema"
+          echo "  (CI will run the check unconditionally; ok to commit.)"
         fi
         rm -f /tmp/registry-validation.$$.txt
       stage_fixed: false

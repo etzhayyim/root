@@ -7,12 +7,11 @@ name: registry-schema-validation
 # Parallel pattern to cycles 27-30 deps-toml-paths.yml + cycle 48
 # docs-registry-freshness.yml + cycle 49 docs-graph-jsonld-freshness.yml.
 #
-# **Initial cycle 50 mode: NIGHTLY TRACKER (not PR-gate)** — same pattern
-# as the cycle-30 deps-toml-paths full-repo step. Reports current
-# validation error count in GitHub Actions step summary. Will be
-# promoted to PR-gate after the known-violations baseline (32 errors
-# as of cycle 50 — see step summary breakdown) is cleaned up in
-# follow-on .md front-matter fix cycles.
+# **Cycle 51 mode: PR-GATE** (promoted from cycle 50's nightly-tracker
+# baseline). Cycle 51 cleaned all 32 baseline .md front-matter
+# violations (4 missing topic + 1 garbage last_verified + 27 empty
+# related strings + others). Baseline = 0; ANY new schema violation
+# fails CI.
 #
 # Source chain (all 4 layers):
 #   .md → docs.json → graph.jsonld
@@ -70,16 +69,15 @@ jobs:
       - name: Install jsonschema
         run: pip install jsonschema
 
-      - name: Validate registry artifacts (strict — fail on jsonschema unavailable)
+      - name: Validate registry artifacts (PR-gate — fail on any violation)
         id: validate
         run: |
           python3 70-tools/scripts/docs/validate-registry-schemas.py \
             --strict --json > /tmp/validation.json
           rc=$?
-          cp /tmp/validation.json /tmp/validation-public.json
           echo "rc=$rc" >> "$GITHUB_OUTPUT"
           cat /tmp/validation.json
-        continue-on-error: true
+          exit $rc
 
       - name: Step summary
         if: always()
@@ -95,31 +93,26 @@ jobs:
               echo "- **graph.jsonld errors**: ${graph_errors}"
               echo "- **Total**: ${total}"
               echo ""
-              echo "Baseline as of ADR-2605271100 closure cycle 50 (2026-05-27):"
-              echo "  - 31 docs.json errors (4 missing topic + 27 related-empty-strings + 0 last_verified after cycle 50 schema fix)"
-              echo "  - 1 graph.jsonld error (1 free-form annotation in lastVerified)"
-              echo "  - Total: 32 known violations in 5-6 .md front-matter sources"
+              echo "Baseline as of ADR-2605271100 closure cycle 51 (2026-05-27):"
+              echo "  - 0 docs.json errors (all 31 baseline violations cleaned in cycle 51)"
+              echo "  - 0 graph.jsonld errors (1 garbage-lastVerified cleaned)"
+              echo "  - **PR-GATE mode**: any new violation fails CI"
               echo ""
-              if [ "$total" -gt 32 ]; then
-                echo "⚠️ Total errors **above baseline (32)** — new violation(s) introduced."
+              if [ "$total" -gt 0 ]; then
+                echo "⚠️ **${total} schema violation(s)** — PR is blocked."
                 echo ""
                 echo "Schema errors detail:"
                 echo '```json'
                 cat /tmp/validation.json
                 echo '```'
-              elif [ "$total" -lt 32 ]; then
-                echo "✅ Total errors **below baseline (32)** — some violations were cleaned up. Update baseline."
+                echo ""
+                echo "Fix: edit the .md front-matter to match docs.schema.json /"
+                echo "graph.schema.json. Run locally:"
+                echo "  python3 70-tools/scripts/docs/validate-registry-schemas.py"
               else
-                echo "✓ Total errors match baseline (32). No new violations."
+                echo "✓ All registry artifacts are schema-valid."
               fi
-              echo ""
-              echo "**Cycle 50 mode**: NIGHTLY TRACKER — does not block PRs."
-              echo "Will be promoted to PR-gate when baseline reaches 0."
             } >> "$GITHUB_STEP_SUMMARY"
           else
             echo "Validation skipped (no JSON output produced)" >> "$GITHUB_STEP_SUMMARY"
           fi
-
-      # Non-blocking: cycle 50 ships as tracker. Future cycle will
-      # add `if: steps.validate.outputs.rc != '0'\n  run: exit 1` once
-      # baseline = 0.

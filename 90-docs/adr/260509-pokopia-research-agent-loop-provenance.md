@@ -3,6 +3,7 @@ id: adr-260509-pokopia-research-agent-loop-provenance
 title: Pokopia Research Agent Loop Provenance
 status: active
 doc_type: adr
+topic: pokopia-research-agent-loop-provenance
 date: 2026-05-09
 implemented_date: 2026-05-16
 ---

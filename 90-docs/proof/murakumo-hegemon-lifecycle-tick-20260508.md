@@ -1,6 +1,7 @@
 ---
 id: murakumo-hegemon-lifecycle-tick-20260508
 title: "Murakumo Hegemon Artificial-Organism Lifecycle Tick"
+status: active
 doc_type: proof
 topic: karma-organism-ecosystem
 last_verified: 2026-05-08

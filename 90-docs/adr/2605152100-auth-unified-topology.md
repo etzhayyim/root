@@ -5,7 +5,7 @@ status: active
 doc_type: adr
 topic: auth-topology
 authoritative: true
-last_verified: 2026-05-15 (Phase 3 callsite migration done)
+last_verified: 2026-05-15
 authoritative_for:
   - auth canonical domain (auth.etzhayyim.com)
   - worker split (auth = AuthN, authz = AuthZ)

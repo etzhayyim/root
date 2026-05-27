@@ -6,7 +6,10 @@ doc_type: reference
 topic: portfolio-management
 authoritative: true
 last_verified: 2026-05-20
-authoritative_for: dodaf-pv2, project-timeline, phase-gates
+authoritative_for:
+  - dodaf-pv2
+  - project-timeline
+  - phase-gates
 related:
   - 90-docs/adr/2605180000-lawfirm-product-focus-bmc-lean.md
   - 90-docs/adr/2605190000-yatabase-bmc-lean.md
@@ -18,9 +21,9 @@ related:
 
 # DoDAF PV-2 — Project Timeline & Portfolio Roadmap
 
-**Framework**: DoDAF v2 / PV-2 Project Timeline viewpoint  
-**Operating entity**: etzhayyim (alias: etzhayyim / 天御柱 / עץ חיים)  
-**Vendor**: etzhayyim Japan株式会社  
+**Framework**: DoDAF v2 / PV-2 Project Timeline viewpoint
+**Operating entity**: etzhayyim (alias: etzhayyim / 天御柱 / עץ חיים)
+**Vendor**: etzhayyim Japan株式会社
 **Baseline date**: 2026-05-20 (iter 160)
 
 ---
@@ -138,7 +141,7 @@ SSoT: `deps.toml [etzhayyim_agent.product_portfolio]` + `90-docs/adr/2605180000-
 2026-Q3     RunPod 6000 Ada unlock (pending Vultr GPU)
             T0 defense cluster production
 
-2026-Q4     T1 Sovereign (Sakura) 
+2026-Q4     T1 Sovereign (Sakura)
             yatabase launch
 
 2027-Q1     T2 Air-Gap bare-metal
@@ -192,8 +195,8 @@ Per ADR-2605200200 (RECOVER):
 | Monthly (1st 02:00 UTC) | `--dry-run` | CronJob `rw-dr-drill-monthly` | snapshot readable + exit 0 |
 | Quarterly (manual) | `--full` | IC (etzhayyim) | catalog table count ≥ baseline (1211) |
 
-Script: `50-infra/vultr/risingwave/dr-restore-drill.sh`  
-Log: `90-docs/irp/dr-drill-log.md`  
+Script: `50-infra/vultr/risingwave/dr-restore-drill.sh`
+Log: `90-docs/irp/dr-drill-log.md`
 Baseline: 2026-04-15, Snapshot ID=3, tables=1211 (Linode full drill)
 
 ---

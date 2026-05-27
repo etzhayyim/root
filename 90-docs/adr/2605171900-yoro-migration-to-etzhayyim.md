@@ -18,9 +18,6 @@ authoritative_for:
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
 related:
-  - 
-  - 
-  - 
 supersedes: []
 superseded_by: []
 ---
