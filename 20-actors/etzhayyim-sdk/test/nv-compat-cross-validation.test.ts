@@ -41,6 +41,8 @@ import {
   genericSerialFkInline,
   pdJointControllerKernel,
   pdJointControllerInline,
+  actionScaleClampKernel,
+  actionScaleClampInline,
 } from "../src/nv-compat/warp/examples.js";
 import { makeUr10 } from "../src/nv-compat/assets/ur10.js";
 import { makeFrankaPanda } from "../src/nv-compat/assets/franka-panda.js";
@@ -507,5 +509,67 @@ describe("nv-compat pdJointControllerKernel — env×joint parallel PD", () => {
       q += qd * dt;
     }
     expect(q).toBeCloseTo(1.0, 1);
+  });
+});
+
+describe("nv-compat actionScaleClampKernel — Isaac Lab ActionManager pipeline", () => {
+  it("identity (scale=1, offset=0, wide limits) = passthrough", () => {
+    const n = 4;
+    const a = [-0.5, 0.0, 0.3, 0.8];
+    const out = actionScaleClampInline(a,
+      [1, 1, 1, 1], [0, 0, 0, 0],
+      [-1e9, -1e9, -1e9, -1e9], [1e9, 1e9, 1e9, 1e9], n);
+    for (let i = 0; i < n; i++) expect(out[i]).toBe(a[i]);
+  });
+
+  it("upper + lower clamping fires correctly", () => {
+    const n = 2;
+    const out = actionScaleClampInline([-1, 1, -2, 5],
+      [10, 10], [0, 0], [-3, -3], [3, 3], 2);
+    expect(out).toEqual([-3, 3, -3, 3]);
+  });
+
+  it("256-env × 12-joint WGSL byte-identity vs inline", () => {
+    const nEnvs = 256, n = 12;
+    const a: number[] = new Array(nEnvs * n);
+    for (let i = 0; i < nEnvs * n; i++) a[i] = Math.sin(i * 0.13) * 1.5;
+    const scale = new Array(n).fill(0).map((_, j) => 0.5 + j * 0.1);
+    const offset = new Array(n).fill(0).map((_, j) => j * 0.05);
+    const lower = new Array(n).fill(0).map((_, j) => -1 - j * 0.05);
+    const upper = new Array(n).fill(0).map((_, j) => 1 + j * 0.05);
+
+    const aIn = fromTypedArray<number>(a);
+    const sIn = fromTypedArray<number>(scale);
+    const oIn = fromTypedArray<number>(offset);
+    const lIn = fromTypedArray<number>(lower);
+    const uIn = fromTypedArray<number>(upper);
+    const out = zeros<number>(nEnvs * n);
+    launch({ kernel: actionScaleClampKernel, dim: nEnvs * n,
+      inputs: [aIn, sIn, oIn, lIn, uIn, out, n] });
+
+    const ref = actionScaleClampInline(a, scale, offset, lower, upper, n);
+    let maxDiff = 0;
+    for (let i = 0; i < nEnvs * n; i++) {
+      maxDiff = Math.max(maxDiff, Math.abs(out.get(i) - ref[i]));
+    }
+    expect(maxDiff).toBe(0);
+  });
+
+  it("end-to-end action → clamp → PD pipeline produces bounded τ", () => {
+    const n = 6;
+    const policyOut = [-0.8, 0.5, 0.0, 1.2, -0.3, 0.9];
+    const scale = new Array(n).fill(Math.PI / 2);
+    const offset = new Array(n).fill(0);
+    const lower = new Array(n).fill(-Math.PI / 2);
+    const upper = new Array(n).fill(Math.PI / 2);
+    const qTarget = actionScaleClampInline(policyOut, scale, offset, lower, upper, n);
+    expect(Math.abs(qTarget[3] - Math.PI / 2)).toBeLessThan(1e-12);
+
+    const tau = pdJointControllerInline(
+      new Array(n).fill(0), new Array(n).fill(0),
+      qTarget, new Array(n).fill(50), new Array(n).fill(5), n);
+    let maxTau = 0;
+    for (const t of tau) maxTau = Math.max(maxTau, Math.abs(t));
+    expect(maxTau).toBeLessThanOrEqual(50 * Math.PI / 2 + 1e-9);
   });
 });

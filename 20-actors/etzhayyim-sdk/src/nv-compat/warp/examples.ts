@@ -1679,3 +1679,84 @@ export function pdJointControllerInline(
   }
   return out;
 }
+
+// ── Action scale + clamp (env×joint parallel) ────────────────────────────
+//
+// Isaac Lab's `ActionManager` canonical pipeline:
+//
+//     q_target[i] = clamp(
+//         action_scale[j] · action[i] + action_offset[j],
+//         q_lower[j], q_upper[j])
+//
+// Sits between the policy net (action ∈ [-1, 1]^N typically tanh-squashed)
+// and the PD controller (iter 100). Per-joint scale/offset/limits are
+// shared across envs (storage), so 1024-env × 12-joint dispatch needs
+// only 48 floats of joint config.
+
+export const actionScaleClampKernel: WgpuKernel = wgpuKernel({
+  js: (
+    action: WpArray<number>,
+    actionScale: WpArray<number>,
+    actionOffset: WpArray<number>,
+    qLower: WpArray<number>,
+    qUpper: WpArray<number>,
+    qTargetOut: WpArray<number>,
+    n: number,
+  ) => {
+    const idx = tid();
+    const j = idx % n;
+    const raw = actionScale.get(j) * action.get(idx) + actionOffset.get(j);
+    const lo = qLower.get(j);
+    const hi = qUpper.get(j);
+    const clamped = raw < lo ? lo : raw > hi ? hi : raw;
+    qTargetOut.set(idx, clamped);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> action:       array<f32>;
+@group(0) @binding(1) var<storage, read_write> action_scale: array<f32>;
+@group(0) @binding(2) var<storage, read_write> action_offset:array<f32>;
+@group(0) @binding(3) var<storage, read_write> q_lower:      array<f32>;
+@group(0) @binding(4) var<storage, read_write> q_upper:      array<f32>;
+@group(0) @binding(5) var<storage, read_write> q_target_out: array<f32>;
+@group(0) @binding(6) var<uniform>             n_uniform:    vec4<u32>;
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let idx = gid.x;
+  let total = arrayLength(&q_target_out);
+  if (idx >= total) { return; }
+  let n = n_uniform.x;
+  let j = idx % n;
+  let raw = action_scale[j] * action[idx] + action_offset[j];
+  q_target_out[idx] = clamp(raw, q_lower[j], q_upper[j]);
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: false },
+    { binding: 2, kind: "storage", inputIndex: 2, writeback: false },
+    { binding: 3, kind: "storage", inputIndex: 3, writeback: false },
+    { binding: 4, kind: "storage", inputIndex: 4, writeback: false },
+    { binding: 5, kind: "storage", inputIndex: 5, writeback: true },
+    { binding: 6, kind: "uniform", inputIndex: 6 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference action scale + clamp in pure JS. */
+export function actionScaleClampInline(
+  action: readonly number[],
+  actionScale: readonly number[],
+  actionOffset: readonly number[],
+  qLower: readonly number[],
+  qUpper: readonly number[],
+  n: number,
+): number[] {
+  const out = new Array(action.length);
+  for (let i = 0; i < action.length; i++) {
+    const j = i % n;
+    const raw = actionScale[j] * action[i] + actionOffset[j];
+    out[i] = raw < qLower[j] ? qLower[j] : raw > qUpper[j] ? qUpper[j] : raw;
+  }
+  return out;
+}
