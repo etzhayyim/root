@@ -45,6 +45,10 @@ import {
   actionScaleClampInline,
   effortLimitKernel,
   effortLimitInline,
+  observationNormalizeKernel,
+  observationNormalizeInline,
+  gaussianMarsaglia,
+  mulberry32,
 } from "../src/nv-compat/warp/examples.js";
 import { makeUr10 } from "../src/nv-compat/assets/ur10.js";
 import { makeFrankaPanda } from "../src/nv-compat/assets/franka-panda.js";
@@ -623,5 +627,77 @@ describe("nv-compat effortLimitKernel — actuator saturation", () => {
     const frankaEff = [87, 87, 87, 87, 12, 12, 12];
     effortLimitInline(tau, frankaEff, n);
     for (let j = 0; j < n; j++) expect(tau[j]).toBe(frankaEff[j]);
+  });
+});
+
+describe("nv-compat observationNormalizeKernel — Isaac Lab ObservationManager", () => {
+  it("identity (mean=0, std=1, noise=0) = passthrough", () => {
+    const obs = [-1.5, 0.3, 0.7, 2.1];
+    const orig = [...obs];
+    observationNormalizeInline(obs,
+      [0,0,0,0], [1,1,1,1], [0,0,0,0],
+      [-1e9,-1e9,-1e9,-1e9], [1e9,1e9,1e9,1e9], 4);
+    expect(obs).toEqual(orig);
+  });
+
+  it("normalize: (obs - mean) / std", () => {
+    const obs = [4, 6];
+    observationNormalizeInline(obs, [0, 0], [2, 3], [0, 0],
+      [-100,-100], [100,100], 2);
+    expect(obs).toEqual([2, 2]);
+  });
+
+  it("std-floor 1e-8 prevents NaN/Inf for zero-std features", () => {
+    const obs = [1e-10];
+    observationNormalizeInline(obs, [0], [0], [0], [-1e9], [1e9], 1);
+    expect(Number.isFinite(obs[0])).toBe(true);
+    expect(obs[0]).toBeCloseTo(0.01, 12);
+  });
+
+  it("256-env × 16-feature WGSL byte-identity with Marsaglia Gaussian noise", () => {
+    const nEnvs = 256, n = 16;
+    const obsOrig: number[] = new Array(nEnvs * n);
+    for (let i = 0; i < nEnvs * n; i++) obsOrig[i] = Math.sin(i * 0.13) * 5;
+    const mean = new Array(n).fill(0).map((_, j) => j * 0.1);
+    const std = new Array(n).fill(0).map((_, j) => 1 + j * 0.05);
+    const rng = mulberry32(42);
+    const noise = gaussianMarsaglia(rng, nEnvs * n).map(v => v * 0.05);
+    const clo = new Array(n).fill(-3);
+    const chi = new Array(n).fill(3);
+
+    const obsA = fromTypedArray<number>([...obsOrig]);
+    const meanA = fromTypedArray<number>(mean);
+    const stdA = fromTypedArray<number>(std);
+    const noiseA = fromTypedArray<number>(noise);
+    const cloA = fromTypedArray<number>(clo);
+    const chiA = fromTypedArray<number>(chi);
+    launch({ kernel: observationNormalizeKernel, dim: nEnvs * n,
+      inputs: [obsA, meanA, stdA, noiseA, cloA, chiA, n] });
+
+    const obsRef = [...obsOrig];
+    observationNormalizeInline(obsRef, mean, std, noise, clo, chi, n);
+
+    let maxDiff = 0;
+    for (let i = 0; i < nEnvs * n; i++) {
+      maxDiff = Math.max(maxDiff, Math.abs(obsA.get(i) - obsRef[i]));
+    }
+    expect(maxDiff).toBe(0);
+  });
+
+  it("realistic Franka pos+vel obs: home-pose centered, vel passthrough", () => {
+    const n = 14;
+    const obs = [
+      0.0, -0.7854, 0.0, -2.356, 0.0, 1.571, 0.7854,
+      0.1, 0.2, -0.1, 0.05, -0.2, 0.15, 0.0,
+    ];
+    const mean = [0, -0.7854, 0, -2.356, 0, 1.571, 0.7854, 0, 0, 0, 0, 0, 0, 0];
+    const std = new Array(14).fill(1);
+    const noise = new Array(14).fill(0);
+    const clo = new Array(14).fill(-10);
+    const chi = new Array(14).fill(10);
+    observationNormalizeInline(obs, mean, std, noise, clo, chi, n);
+    for (let j = 0; j < 7; j++) expect(Math.abs(obs[j])).toBeLessThan(1e-12);
+    expect(obs[7]).toBe(0.1);
+    expect(obs[8]).toBe(0.2);
   });
 });

@@ -1821,3 +1821,119 @@ export function effortLimitInline(
     else if (tau[i] > lim) tau[i] = lim;
   }
 }
+
+// ── Observation normalize + noise + clamp (env×feature parallel) ─────────
+//
+// Isaac Lab's ObservationManager canonical pipeline:
+//
+//     obs[i] = clamp(
+//         (raw[i] − mean[j]) / std[j] + noise[i],
+//         clamp_low[j], clamp_high[j])
+//
+// Host pre-generates `noise[i]` (Gaussian or any; WGSL has no portable
+// RNG), so the kernel itself is deterministic — the test path can pass
+// zeros to verify the normalize+clamp path independently.
+//
+// Per-feature mean/std/clamp shared across envs (storage); per-(env,
+// feature) noise. Mirror of actionScaleClampKernel but on the obs side.
+
+export const observationNormalizeKernel: WgpuKernel = wgpuKernel({
+  js: (
+    obs: WpArray<number>,
+    mean: WpArray<number>,
+    std: WpArray<number>,
+    noise: WpArray<number>,
+    clampLow: WpArray<number>,
+    clampHigh: WpArray<number>,
+    n: number,
+  ) => {
+    const idx = tid();
+    const j = idx % n;
+    const sigma = Math.max(std.get(j), 1e-8);
+    const normalized = (obs.get(idx) - mean.get(j)) / sigma + noise.get(idx);
+    const lo = clampLow.get(j);
+    const hi = clampHigh.get(j);
+    obs.set(idx, normalized < lo ? lo : normalized > hi ? hi : normalized);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> obs:        array<f32>;
+@group(0) @binding(1) var<storage, read_write> mean:       array<f32>;
+@group(0) @binding(2) var<storage, read_write> std:        array<f32>;
+@group(0) @binding(3) var<storage, read_write> noise:      array<f32>;
+@group(0) @binding(4) var<storage, read_write> clamp_low:  array<f32>;
+@group(0) @binding(5) var<storage, read_write> clamp_high: array<f32>;
+@group(0) @binding(6) var<uniform>             n_uniform:  vec4<u32>;
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let idx = gid.x;
+  let total = arrayLength(&obs);
+  if (idx >= total) { return; }
+  let n = n_uniform.x;
+  let j = idx % n;
+  let sigma = max(std[j], 1e-8);
+  let normalized = (obs[idx] - mean[j]) / sigma + noise[idx];
+  obs[idx] = clamp(normalized, clamp_low[j], clamp_high[j]);
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: true },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: false },
+    { binding: 2, kind: "storage", inputIndex: 2, writeback: false },
+    { binding: 3, kind: "storage", inputIndex: 3, writeback: false },
+    { binding: 4, kind: "storage", inputIndex: 4, writeback: false },
+    { binding: 5, kind: "storage", inputIndex: 5, writeback: false },
+    { binding: 6, kind: "uniform", inputIndex: 6 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference observation normalize + noise + clamp (in-place mutation of obs). */
+export function observationNormalizeInline(
+  obs: number[],
+  mean: readonly number[],
+  std: readonly number[],
+  noise: readonly number[],
+  clampLow: readonly number[],
+  clampHigh: readonly number[],
+  n: number,
+): void {
+  for (let i = 0; i < obs.length; i++) {
+    const j = i % n;
+    const sigma = Math.max(std[j], 1e-8);
+    const v = (obs[i] - mean[j]) / sigma + noise[i];
+    obs[i] = v < clampLow[j] ? clampLow[j] : v > clampHigh[j] ? clampHigh[j] : v;
+  }
+}
+
+/** Host-side Marsaglia polar Gaussian sampler.
+ *  Deterministic given a uniform RNG (e.g. mulberry32) so the obs noise
+ *  path can be tested byte-for-byte across runs.
+ */
+export function gaussianMarsaglia(rng: () => number, count: number): number[] {
+  const out: number[] = [];
+  while (out.length < count) {
+    let u: number, v: number, s: number;
+    do {
+      u = 2 * rng() - 1;
+      v = 2 * rng() - 1;
+      s = u * u + v * v;
+    } while (s >= 1 || s === 0);
+    const f = Math.sqrt(-2 * Math.log(s) / s);
+    out.push(u * f);
+    if (out.length < count) out.push(v * f);
+  }
+  return out;
+}
+
+/** mulberry32 deterministic PRNG (good enough for test reproducibility). */
+export function mulberry32(seed: number): () => number {
+  let s = seed >>> 0;
+  return () => {
+    s = (s + 0x6d2b79f5) >>> 0;
+    let t = s;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
