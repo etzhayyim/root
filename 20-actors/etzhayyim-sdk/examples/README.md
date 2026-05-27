@@ -38,6 +38,47 @@ in the single HTML file. The inlined cartpole kernel is byte-for-byte
 the canonical SDK version at
 `../src/nv-compat/warp/examples.ts` (`cartpoleStepKernel`, iter 79).
 
+## `franka-reach-demo.html` (iter 86)
+
+Capstone 7-DoF Franka Emika Panda reaching demo. Real FCI joint
+origins (per iter 85); click on canvas to set a 3D target; arm
+reaches via DLS IK each frame.
+
+**Open the file directly** — zero build step, no WebGPU required.
+
+**Controls:**
+
+- **Click front view (xz)** — set x and z target (y stays current)
+- **Click side view (yz)** — set y and z target (x stays current)
+- `R` — reset to home pose + default target
+- `H` — go home (q = [0, -π/4, 0, -3π/4, 0, π/2, π/4])
+- `Space` — pause / resume
+
+**What you'll see:**
+
+- Two synchronized canvas views (front xz plane + side yz plane).
+- Green 7-link Franka arm anchored at origin (base shown as bar).
+- Orange target crosshair + circle (set by clicking either view).
+- Live stats: EE x/y/z, |error|, target x/y/z, step count.
+- All 7 joint angles q₁..q₇ shown in real-time bar.
+- Workspace circle (~0.855m radius — Franka public spec).
+
+**Math (all inlined):**
+
+- Joint origins from iter 85 (real Franka FCI per public franka_description URDF)
+- Forward kinematics: recursive joint frame composition with RPY rotations
+- Geometric Jacobian (linear-only, 3×7) at the EE
+- Damped least squares IK: Δq = Jᵀ (J Jᵀ + λ²I)⁻¹ · err, λ=0.05
+- Per-frame: 1 IK step at α=0.3 gain; typically converges to sub-mm
+  error in ~30-50 frames for reachable targets.
+
+Convergence note: targets outside the 0.855m workspace, or in
+unreachable orientations, will stall the arm at the workspace
+boundary rather than diverge — DLS damping handles singular
+configurations gracefully.
+
+ADR-2605261800 §D6 nv-compat namespace localization.
+
 ## `pendulum-energy-demo.html` (iter 83)
 
 Pendulum swinging via the iter 78 `pendulumStepKernel` JS impl, with
