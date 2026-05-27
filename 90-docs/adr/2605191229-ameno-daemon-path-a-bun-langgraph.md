@@ -11,7 +11,7 @@ depends_on:
   - 2605191000-ameno-browser-pregel-reflection.md
   - 2605191129-ameno-browser-tool-use-react.md
 related:
-  - 2605182312-local-bring-up-murakumo-gemma4.md
+V05182312-local-bring-up-murakumo-gemma4
 ---
 
 # ADR 2605191229: Ameno headless daemon (Path A) — Bun/Node + Hono + LangGraph + Ollama

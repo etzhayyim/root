@@ -585,8 +585,7 @@
       "topic": "pds-write-path",
       "authoritative": false,
       "related": [
-        "90-docs/adr/0041-pds-commit-content-addressed-pk.md",
-        "90-docs/260421-pds-throughput-tuning.md"
+        "90-docs/adr/0041-pds-commit-content-addressed-pk.md"
       ],
       "last_verified": "2026-04-21",
       "authoritative_for": [],
@@ -725,9 +724,9 @@
       "topic": "infra-cost",
       "authoritative": true,
       "related": [
-        "90-docs/adr/2605010000-runpod-6000ada-unified-pod.md",
+        "adr-2605010000",
         "90-docs/adr/0048-risingwave-vultr-b2-primary.md",
-        "90-docs/adr/2604292130-llm-gftd-ai-runpod-pass.md",
+        "adr-2604292130",
         "50-infra/vultr/cloudflared/blockscout-tunnel.yaml"
       ],
       "last_verified": "2026-05-07",
@@ -867,8 +866,7 @@
       "topic": "ameno-browser-inference",
       "authoritative": true,
       "related": [
-        "2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md",
-        "2605182312-local-bring-up-murakumo-gemma4.md"
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
       ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
@@ -886,7 +884,7 @@
       "topic": "ameno-browser-agent-loop",
       "authoritative": true,
       "related": [
-        "2605172000-etzhayyim-rw-free-substrate.md"
+        "adr-2605172000-etzhayyim-rw-free-substrate"
       ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
@@ -903,9 +901,7 @@
       "doc_type": "adr",
       "topic": "ameno-active-inference",
       "authoritative": true,
-      "related": [
-        "2605190824-ameno-mediapipe-llm-browser-runtime.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -921,9 +917,7 @@
       "doc_type": "adr",
       "topic": "ameno-active-inference",
       "authoritative": true,
-      "related": [
-        "2605191000-ameno-browser-pregel-reflection.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -940,7 +934,7 @@
       "topic": "ameno-tool-use",
       "authoritative": true,
       "related": [
-        "2605172000-etzhayyim-rw-free-substrate.md"
+        "adr-2605172000-etzhayyim-rw-free-substrate"
       ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
@@ -957,10 +951,7 @@
       "doc_type": "adr",
       "topic": "ameno-organism-daemon",
       "authoritative": true,
-      "related": [
-        "2605171300-open-unispsc-generative-agent-fleet.md",
-        "2605172000-etzhayyim-rw-free-substrate.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -977,7 +968,7 @@
       "topic": "ameno-memory-vault",
       "authoritative": true,
       "related": [
-        "2605172000-etzhayyim-rw-free-substrate.md"
+        "adr-2605172000-etzhayyim-rw-free-substrate"
       ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
@@ -994,9 +985,7 @@
       "doc_type": "adr",
       "topic": "ameno-headless-daemon",
       "authoritative": true,
-      "related": [
-        "2605182312-local-bring-up-murakumo-gemma4.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1012,12 +1001,7 @@
       "doc_type": "adr",
       "topic": "ameno-headless-daemon",
       "authoritative": true,
-      "related": [
-        "2605191000-ameno-browser-pregel-reflection.md",
-        "2605191113-ameno-active-inference-lexical-surprise.md",
-        "2605191129-ameno-browser-tool-use-react.md",
-        "2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1033,10 +1017,7 @@
       "doc_type": "adr",
       "topic": "etzhayyim-decentralized-control-plane",
       "authoritative": true,
-      "related": [
-        "2605191229-ameno-daemon-path-a-bun-langgraph.md",
-        "2605191257-ameno-daemon-path-b-pymagatama-python.md"
-      ],
+      "related": [],
       "supersedes": [
         "(strengthens, does not delete) 2605172800-geth-private-migration-to-etzhayyim §Option C"
       ],
@@ -1054,10 +1035,7 @@
       "doc_type": "adr",
       "topic": "ameno-viewer-mode",
       "authoritative": true,
-      "related": [
-        "2605190824-ameno-mediapipe-llm-browser-runtime.md",
-        "2605191346-etzhayyim-vultr-free-murakumo-control-plane.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1090,8 +1068,8 @@
       "topic": "ameno-substrate-persistence",
       "authoritative": true,
       "related": [
-        "2605181100-mst-encrypted-records-signal-keywrap.md",
-        "2605172000-etzhayyim-rw-free-substrate.md"
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605172000-etzhayyim-rw-free-substrate"
       ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
@@ -1108,9 +1086,7 @@
       "doc_type": "adr",
       "topic": "ameno-swarm",
       "authoritative": true,
-      "related": [
-        "2605191135-ameno-tier2-daemon-residency.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1142,9 +1118,7 @@
       "doc_type": "adr",
       "topic": "ameno-substrate-pipeline",
       "authoritative": true,
-      "related": [
-        "2605191559-ameno-mst-checkpointer-stage-2-activation.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1161,7 +1135,7 @@
       "topic": "ameno-swarm",
       "authoritative": true,
       "related": [
-        "2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md"
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
       ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
@@ -1178,10 +1152,7 @@
       "doc_type": "adr",
       "topic": "ameno-auth",
       "authoritative": true,
-      "related": [
-        "2605191407-ameno-browser-viewer-mode.md",
-        "2605191346-etzhayyim-vultr-free-murakumo-control-plane.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1197,10 +1168,7 @@
       "doc_type": "adr",
       "topic": "ameno-state-unification",
       "authoritative": true,
-      "related": [
-        "2605191135-ameno-tier2-daemon-residency.md",
-        "2605191559-ameno-mst-checkpointer-stage-2-activation.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1217,8 +1185,7 @@
       "topic": "substrate-governance",
       "authoritative": true,
       "related": [
-        "2605173100-gitguardian-incident-response.md",
-        "2605191346-etzhayyim-vultr-free-murakumo-control-plane.md"
+        "adr-2605173100-gitguardian-incident-response"
       ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
@@ -1235,9 +1202,7 @@
       "doc_type": "adr",
       "topic": "ameno-auth",
       "authoritative": true,
-      "related": [
-        "2605191135-ameno-tier2-daemon-residency.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1399,10 +1364,7 @@
         "religious-corp cell substrate (was launchd-only; now k3s on Mac mini fleet per ADR-2605232100)",
         "K8s/k3s/GPU-pod reintroduction policy (was \"禁止 再導入禁止\"; now approved within etzhayyim/* scope)"
       ],
-      "related": [
-        "2605171300-open-unispsc-generative-agent-fleet.md",
-        "2605182312-local-bring-up-murakumo-gemma4.md"
-      ],
+      "related": [],
       "supersedes": [
         "60-apps/ai-gftd-project-murakumo/CLAUDE.md §Hard Constraints (2026-05-11): the K8s/WireGuard/Aeron/UCX/RDMA/Ray/Nomad 禁止 line is lifted for etzhayyim/* religious-corp cells; the RunPod LLM SSoT decision is left intact",
         "ADR-0034 (Goose agent runtime — yoro-as-actor topology, 2026-04-20, murakumo-scoped): Goose role + recipes + crontab entries on judah are retired in favor of LangGraph cells served from langserver under yatachain substrate"
@@ -1425,10 +1387,7 @@
         "fleet.toml `control_plane` field SoT",
         "lg-open-unispsc substrate decontamination scope"
       ],
-      "related": [
-        "2605182312-local-bring-up-murakumo-gemma4.md",
-        "2605171300-open-unispsc-generative-agent-fleet.md"
-      ],
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-23",
@@ -1448,10 +1407,7 @@
         "`_prior_consensus` wire-level contract (wrapper → cell)",
         "cell-side opt-in shortcut pattern (reference impl c10101500)"
       ],
-      "related": [
-        "2605171300-open-unispsc-generative-agent-fleet.md",
-        "2605192100-etzhayyim-mission-charter.md"
-      ],
+      "related": [],
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-05-23",
@@ -1730,7 +1686,7 @@
         "90-docs/adr/0023-auth-shannon-optimal-4-layer.md",
         "90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
         "90-docs/260413-agent-loop-unification-path-analysis.md",
-        "90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md"
+        "adr-2604261000-mcp-registry-via-kysely-schema"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -2522,7 +2478,7 @@
         "blockchain-b2-cold-storage-boundary"
       ],
       "related": [
-        "90-docs/260425-blockchain-node-vultr-b2-zeebe-ingest-design.md",
+        "blockchain-node-vultr-b2-zeebe-ingest-design-260425",
         "90-docs/adr/0048-risingwave-vultr-b2-primary.md",
         "90-docs/adr/0094-risingwave-stable-three-node-topology.md"
       ],
@@ -2650,7 +2606,7 @@
       ],
       "related": [
         "90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md",
-        "90-docs/adr/2604271200-ma-fund-person-lei-ingest-integration.md",
+        "adr-2604271200",
         "60-apps/ai-gftd-project-ma/magatama.toml",
         "90-docs/adr/0094-risingwave-stable-three-node-topology.md",
         "30-graph/graph-schema/migrations/20260416134500_fund_graph_spine_and_coverage.ts"
@@ -2974,7 +2930,7 @@
       "related": [
         "60-apps/ai-gftd-project-ma/magatama.toml",
         "90-docs/260427-fund-ma-actor-activation-runbook.md",
-        "90-docs/adr/2604261200-fund-intel-zeebe-ingest.md",
+        "adr-2604261200",
         "30-graph/graph-schema/migrations/20260427040000_seed_fund_ma_bpmn_actors.ts",
         "30-graph/graph-schema/migrations/20260424161100_seed_open_lei_bpmn_actors.ts"
       ],
@@ -3077,7 +3033,7 @@
         "60-apps/ai-gftd-project-patent/worker/python/patent_expiry_worker.py",
         "70-tools/config/bpmn-coverage-manifest.json",
         "30-graph/graph-schema/migrations/20260427075000_open_patent_expired_pharma_bpmn_worker.ts",
-        "90-docs/adr/2604251024-patent-bulk-ingest-and-blob-cid.md",
+        "adr-2604251024-patent-bulk-ingest-and-blob-cid",
         "90-docs/adr/0056-bpmn-as-actor.md"
       ],
       "supersedes": [],
@@ -4350,8 +4306,8 @@
         "zeebe-replacement-runbook"
       ],
       "related": [
-        "90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md",
-        "90-docs/adr/2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic.md",
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2604282300",
         "90-docs/adr/0056-bpmn-as-actor.md",
         "90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
         "90-docs/adr/0094-risingwave-stable-three-node-topology.md",
@@ -5248,8 +5204,8 @@
         "90-docs/dt/260324-dt-secure-file-transfer-design.md",
         "10-protocol/signal/src/signal.ts",
         "30-graph/deps.toml",
-        "90-docs/260424-oauth-strict-mode-cutover-runbook.md",
-        "90-docs/adr/2604262100-erc725-erc8004-k8s-ipfs-agent-runtime.md",
+        "doc-260424-oauth-strict-mode-cutover",
+        "adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime",
         "50-infra/vultr/geth-private/contracts/ADDRESSES.md"
       ],
       "supersedes": [],
@@ -5274,7 +5230,7 @@
         "per-tile spend cap + per-job cost telemetry"
       ],
       "related": [
-        "90-docs/platform/260416-maps-kami-street-asset-pipeline-design.md",
+        "maps-kami-street-asset-pipeline",
         "90-docs/260409-kami-engineering-sdk-design.md",
         "adr-0036-worker-direct-hyperdrive-persistence",
         "adr-2604251830-shannon-optimal-layered-architecture",
@@ -5316,8 +5272,8 @@
         "kafun-bokumetsu-pipeline"
       ],
       "related": [
-        "90-docs/adr/2605100000-agent-goal-dag-schema.md",
-        "90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md"
+        "adr-2605100000-agent-goal-dag-schema",
+        "adr-2605080600-langgraph-server-granian-l3-runtime"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -5343,7 +5299,7 @@
         "30-graph/graph-schema/migrations/20260427001000_vector_embedding_project_tables.ts",
         "30-graph/graph-schema/migrations/20260502120000_v_training_text.ts",
         "30-graph/graph-schema/migrations/20260508230000_vertex_3d_blob_catalog.ts",
-        "90-docs/baien/multimodal-reasoning-roadmap.md"
+        "doc-baien-multimodal-reasoning-roadmap"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -5471,7 +5427,7 @@
         "Pod naming → manifest → API state SSoT chain"
       ],
       "related": [
-        "50-infra/runpod/ansible/README.md",
+        "wellbecoming-karma-lean-proofs",
         "60-apps/ai-gftd-project-comfyui/ansible/"
       ],
       "supersedes": [],
@@ -5861,10 +5817,10 @@
         "LangGraph-assisted LEI human review queue"
       ],
       "related": [
-        "90-docs/adr/2604281830-open-sales-crm-actor.md",
-        "90-docs/adr/2605102000-hubspot-crm-ingest.md",
-        "90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md",
-        "90-docs/adr/2605080400-alembic-scope-contract.md"
+        "adr-2604281830-open-sales-crm-actor",
+        "hubspot-crm-ingest",
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605080400-alembic-scope-contract"
       ],
       "last_verified": "2026-05-13",
       "supersedes": [],
@@ -6457,8 +6413,8 @@
         "90-docs/adr/0010-per-did-signing-key-custody.md",
         "90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md",
         "90-docs/adr/0095-simplified-3layer-identity-rw-vault.md",
-        "90-docs/adr/2604240914-oauth-rs-binding-revocation-introspection.md",
-        "90-docs/adr/2605141700-agent-authentication-api-key-rotation-pattern.md"
+        "adr-2604240914-oauth-rs-binding-revocation-introspection",
+        "adr-2605141700-agent-authentication-api-key-rotation-pattern"
       ],
       "supersedes": [
         "adr-0022-auth-topology-consolidation",
@@ -6512,7 +6468,7 @@
         "package.json required devDependencies for Tailwind"
       ],
       "related": [
-        "90-docs/adr/2605152100-auth-unified-topology.md",
+        "adr-2605152100-auth-unified-topology",
         "40-engine/svelte/design-system/"
       ],
       "last_verified": "2026-05-15",
@@ -6739,8 +6695,8 @@
         "private-vs-public split: PII / roster on geth-private; settlement, NAV, anchors on Base L2"
       ],
       "related": [
-        "2605172700-membership-layering-shinto-adherent.md",
-        "2605172600-etzhayyim-membership-ritual.md"
+        "adr-2605172700-membership-layering-shinto-adherent",
+        "adr-2605172600-etzhayyim-membership-ritual"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7003,7 +6959,7 @@
         "ISIC Rev. 4 fleet generation pattern (Haiku Batch API, ast.parse validation)"
       ],
       "related": [
-        "2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md"
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7027,9 +6983,9 @@
         "ethical guardrails (informed consent default, human review default, RW-free PII handling)"
       ],
       "related": [
-        "2605181040-uhl-medical-institution-registry.md",
-        "2605181050-uhl-overseas-referral-paths.md",
-        "2605181060-otarmeni-access-path.md"
+        "adr-2605181040-uhl-medical-institution-registry",
+        "adr-2605181050-uhl-overseas-referral-paths",
+        "adr-2605181060-otarmeni-access-path"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7051,7 +7007,7 @@
         "last_verified_at staleness window (180 days)"
       ],
       "related": [
-        "2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp.md"
+        "adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7073,7 +7029,7 @@
         "patient/family burden disclosure requirements"
       ],
       "related": [
-        "2605181060-otarmeni-access-path.md"
+        "adr-2605181060-otarmeni-access-path"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7095,7 +7051,7 @@
         "unilateral case exclusion default + exception escalation"
       ],
       "related": [
-        "2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp.md"
+        "adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7193,10 +7149,10 @@
         "bpmn-engine-infra-ownership"
       ],
       "related": [
-        "90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md",
-        "90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion.md",
-        "90-docs/adr/2605081200-spiffworkflow-bpmn-engine-replacement.md",
-        "90-docs/adr/2605082200-pyzeebe-handler-thin-dispatcher-contract.md"
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605081200-spiffworkflow-bpmn-engine-replacement",
+        "adr-2605082200-pyzeebe-handler-thin-dispatcher-contract"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7325,7 +7281,7 @@
       ],
       "related": [
         "90-docs/adr/0048-risingwave-vultr-b2-primary.md",
-        "90-docs/adr/2605181400-bpmn-extract-to-etzhayyim-root.md",
+        "adr-2605181400-bpmn-extract-to-etzhayyim-root",
         "_working/etzhayyim-revenue/DECISION-LOG.md",
         "_working/etzhayyim-revenue/stream-a-activation-runbook.md"
       ],
@@ -7395,10 +7351,10 @@
         "religious-corp としての public 説明文 (etzhayyim.com / README / DID document の `purpose` フィールド)"
       ],
       "related": [
-        "2605192115-etzhayyim-non-profit-donation-only-no-ads.md",
-        "2605192130-etzhayyim-tithe-redistribution.md",
-        "2605192145-etzhayyim-public-fund-architecture.md",
-        "2605192200-etzhayyim-ip-free-release-charter-rider.md"
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7422,8 +7378,8 @@
         "広告関連 npm package / DOM API / 外部 SDK の禁止リスト"
       ],
       "related": [
-        "2605192130-etzhayyim-tithe-redistribution.md",
-        "2605192145-etzhayyim-public-fund-architecture.md"
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7447,7 +7403,7 @@
         "tithe Lexicon (`app.etzhayyim.apps.payment.tithe`) spec"
       ],
       "related": [
-        "2605192145-etzhayyim-public-fund-architecture.md"
+        "adr-2605192145-etzhayyim-public-fund-architecture"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7495,8 +7451,8 @@
         "三層 enforcement (license / 便益 / Phenotype 評価) の religious 統合"
       ],
       "related": [
-        "2605192115-etzhayyim-non-profit-donation-only-no-ads.md",
-        "2605192145-etzhayyim-public-fund-architecture.md"
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192145-etzhayyim-public-fund-architecture"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7592,7 +7548,7 @@
         "日本法上の制約 → 許容される具体的 force form の境界"
       ],
       "related": [
-        "2605192245-etzhayyim-global-land-sovereignty.md"
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8015,9 +7971,9 @@
       "related": [
         "90-docs/adr/0016-legal-cluster-topology.md",
         "90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md",
-        "90-docs/adr/2605152100-etzhayyim-github-org-boundary.md",
+        "adr-2605152100-etzhayyim-github-org-boundary",
         "90-docs/adr/2605172000-etzhayyim-open-telecom-fabric.md",
-        "90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "60-apps/ai-gftd-project-bankruptcy/CLAUDE.md"
       ],
       "supersedes": [],
@@ -8071,7 +8027,7 @@
         "cross-actor fallback to bankruptcy.etzhayyim.com (vendor side, mandatory legal)"
       ],
       "related": [
-        "vendor:90-docs/adr/2605201700-yobel-jubilee-shmita-debt-release-actor.md",
+        "adr-2605201700-yobel-jubilee-shmita-debt-release-actor",
         "vendor:60-apps/ai-gftd-project-bankruptcy/CLAUDE.md",
         "vendor:90-docs/adr/0016-legal-cluster-topology.md",
         "vendor:90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md"
@@ -8130,7 +8086,7 @@
         "cross-actor delegation: amnesty rejects natural-person debtors → defers to yobel"
       ],
       "related": [
-        "90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md"
+        "adr-2605201800-etzhayyim-yobel-debt-release-actor"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8153,8 +8109,8 @@
         "SMR / 核融合 / 水素 経済 を future ADR にする delineation"
       ],
       "related": [
-        "2605192245-etzhayyim-global-land-sovereignty.md",
-        "2605263500-energy-substrate-dependency-vs-substance-reframing.md"
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8177,9 +8133,9 @@
         "残る 4 候補産業 (logistics / construction / care / manufacturing) を future ADR にする delineation"
       ],
       "related": [
-        "2605192200-etzhayyim-ip-free-release-charter-rider.md",
-        "2605202000-etzhayyim-energy-substrate.md",
-        "2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md"
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605202000-etzhayyim-energy-substrate",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8202,7 +8158,7 @@
         "v0/v1 並存期間中の SDK switching"
       ],
       "related": [
-        "2605192230-etzhayyim-three-tier-enforcement-implementation.md"
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8719,8 +8675,8 @@
         "SurplusLot のライフサイクル (registered → matched → redistributed | recycled | dispose)"
       ],
       "related": [
-        "2605192115-etzhayyim-non-profit-donation-only-no-ads.md",
-        "2605202015-etzhayyim-robotics-first-industry-agriculture.md"
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605202015-etzhayyim-robotics-first-industry-agriculture"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -9171,9 +9127,9 @@
         "PR"
       ],
       "related": [
-        "90-docs/adr/2605211900-etzhayyim-yorishiro-external-actor-bridge.md",
-        "90-docs/adr/2605212100-stripe-removed-from-religious-corp-canonical.md",
-        "90-docs/runbooks/2605212130-yorishiro-cell-runner-deploy.md",
+        "adr-2605211900-etzhayyim-yorishiro-external-actor-bridge",
+        "adr-2605212100-stripe-removed-from-religious-corp-canonical",
+        "runbook-2605212130-yorishiro-cell-runner-deploy",
         "50-infra/cluster/murakumo/cell-runner/cells.toml"
       ],
       "supersedes": [],
@@ -9349,10 +9305,10 @@
         "charter compliance gate in evolution path"
       ],
       "related": [
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605215400-etzhayyim-shinka-evolution-witness-min.md",
-        "2605192230-etzhayyim-three-tier-enforcement-implementation.md",
-        "2605192415-etzhayyim-religious-corp-daemon-architecture.md"
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605215400-evolution-witness-min",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -9374,9 +9330,9 @@
         "vendor-only carve-out for _fetch_diet_speech_rows"
       ],
       "related": [
-        "2605171900-yoro-migration-to-etzhayyim.md",
-        "2605172000-etzhayyim-rw-free-substrate.md",
-        "2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md"
+        "adr-2605171900-yoro-migration-to-etzhayyim",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -9399,10 +9355,10 @@
         "Charter Compliance Gate canonical implementation"
       ],
       "related": [
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192230-etzhayyim-three-tier-enforcement-implementation.md",
-        "2605215200-etzhayyim-shinka-pregel-mst-rewrite.md",
-        "2605192300-etzhayyim-bootstrap-council-five.md"
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605215200-shinka-pregel-mst",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -9458,9 +9414,9 @@
         ".claude/mcp.json wiring so foreign agents touch etzhayyim only via e7m"
       ],
       "related": [
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192245-etzhayyim-global-land-sovereignty.md",
-        "2605192300-etzhayyim-bootstrap-council-five.md"
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -9603,7 +9559,7 @@
         "70-tools/baien-distill/",
         "70-tools/scripts/bench/baien-microbench/microbench.py",
         "70-tools/etzhayyim-cli/bench.go",
-        "90-docs/baien/frontier-bench-snapshot-260523.md"
+        "doc-260523-frontier-bench-snapshot"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -9798,7 +9754,7 @@
         "social-posting-integration"
       ],
       "related": [
-        "90-docs/adr/2604271830-patent-expired-pharma-seiyaku-handoff.md",
+        "adr-2604271830-patent-expired-pharma-seiyaku-handoff",
         "20-actors/magatama/mcp/open-seiyaku-mcp"
       ],
       "supersedes": [],
@@ -10019,8 +9975,8 @@
         "one-organism-per-cell fleet placement convention"
       ],
       "related": [
-        "2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md",
-        "2605231400-yatachain-holochain-iso-substrate.md"
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605231400-yatachain-holochain-iso-substrate"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -10042,7 +9998,7 @@
         "snapshot doc back-fill policy"
       ],
       "related": [
-        "90-docs/baien/frontier-bench-snapshot-260523.md",
+        "doc-260523-frontier-bench-snapshot",
         "90-docs/baien/lm-eval-260523/",
         "70-tools/etzhayyim-cli/bench.go"
       ],
@@ -10118,7 +10074,7 @@
         "replacement of UnispscOrganismC10101500Cell single-organism cell"
       ],
       "related": [
-        "2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp.md"
+        "adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp"
       ],
       "supersedes": [
         "cells.UnispscOrganismC10101500Cell"
@@ -10162,7 +10118,7 @@
         "file/env-driven seed for local-dev and tests"
       ],
       "related": [
-        "2605240015-unispsc-organism-joucho-personality.md"
+        "adr-2605240015-unispsc-organism-joucho-personality"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -10184,8 +10140,8 @@
         "drainer interface (TS-side @etzhayyim/sdk consumer)"
       ],
       "related": [
-        "2605240015-unispsc-organism-joucho-personality.md",
-        "2605240030-unispsc-organism-followers.md"
+        "adr-2605240015-unispsc-organism-joucho-personality",
+        "adr-2605240030-unispsc-organism-followers"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -10208,8 +10164,8 @@
         "rule registry for built-in observations"
       ],
       "related": [
-        "2605240015-unispsc-organism-joucho-personality.md",
-        "2605240030-unispsc-organism-followers.md"
+        "adr-2605240015-unispsc-organism-joucho-personality",
+        "adr-2605240030-unispsc-organism-followers"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -10385,7 +10341,7 @@
       ],
       "related": [
         "70-tools/baien-mx-train/",
-        "90-docs/runbooks/bitnet-cpp-evo-x2-build.md"
+        "runbook-bitnet-cpp-evo-x2-build"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -10455,7 +10411,7 @@
         "Lexicon namespace reservation (`app.etzhayyim.wadachi.*`, registration deferred)"
       ],
       "related": [
-        "20-actors/kuni-umi/README.md",
+        "wellbecoming-karma-lean-proofs",
         "60-apps/ai-gftd-project-open-robo/CLAUDE.md"
       ],
       "supersedes": [],
@@ -10499,9 +10455,9 @@
         "operator gates against publishing smoke-tier adapters to distilled-models.jsonl"
       ],
       "related": [
-        "90-docs/baien/move1-phaseA-260524.md",
-        "90-docs/baien/distill-iter00-260524.md",
-        "90-docs/baien/context-extend-snapshot-260523.md"
+        "doc-260524-move1-phaseA-snapshot",
+        "doc-260524-distill-iter00-snapshot",
+        "doc-260523-baien-context-extend-snapshot"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11055,11 +11011,11 @@
         "lexicon namespace reservation (`app.etzhayyim.watatsumi.*`, 8 record types)"
       ],
       "related": [
-        "20-actors/watatsumi/README.md",
-        "20-actors/kuni-umi/README.md",
-        "20-actors/wadachi/README.md",
-        "20-actors/tatekata/README.md",
-        "20-actors/yakushi/README.md"
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11084,7 +11040,7 @@
         "amendment threshold: Council Lv7+ unanimity (NOT the Lv6+ supermajority that governs other constitutional constants)"
       ],
       "related": [
-        "90-docs/adr/2605252315-etzhayyim-land-trust-wave-2-multi-erc-alignment.md",
+        "adr-2605252315-etzhayyim-land-trust-wave-2-multi-erc-alignment",
         "CHARTER-RIDER.md",
         "LANDS.md",
         "MEMBERS.md",
@@ -11115,9 +11071,9 @@
       ],
       "related": [
         "50-infra/etzhayyim-chain-contracts/src/LandRegistry.sol",
-        "50-infra/etzhayyim-land-registry/README.md",
+        "wellbecoming-karma-lean-proofs",
         "LANDS.md",
-        "90-docs/adr/2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain.md"
+        "adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11171,10 +11127,10 @@
         "lexicon namespace reservation (`app.etzhayyim.kanayama.*`, 8 record types)"
       ],
       "related": [
-        "20-actors/kanayama/README.md",
-        "20-actors/watatsumi/README.md",
-        "20-actors/tatekata/README.md",
-        "20-actors/yakushi/README.md"
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11203,10 +11159,10 @@
         "manufacturing-side counterpart positioning to wadachi (operator-side autonomous mobility)"
       ],
       "related": [
-        "20-actors/sarutahiko/README.md",
-        "20-actors/wadachi/README.md",
-        "20-actors/watatsumi/README.md",
-        "20-actors/kanayama/README.md"
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11234,9 +11190,9 @@
         "lexicon namespace reservation (`app.etzhayyim.yamabiko.*`, 9 record types)"
       ],
       "related": [
-        "20-actors/yamabiko/README.md",
-        "20-actors/sarutahiko/README.md",
-        "20-actors/wadachi/README.md"
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11613,17 +11569,17 @@
         "actor maturity gate sequencing for mission delivery"
       ],
       "related": [
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192115-etzhayyim-non-profit-donation-only-no-ads.md",
-        "2605192130-etzhayyim-tithe-redistribution.md",
-        "2605192145-etzhayyim-public-fund-architecture.md",
-        "2605172300-etzhayyim-bi-asset-substrate.md",
-        "2605172600-etzhayyim-membership-ritual.md",
-        "2605172700-membership-layering-shinto-adherent.md",
-        "2605261015-mitsuho-food-agriculture-tier-b-actor-r0.md",
-        "2605261030-hagukumi-care-tier-b-actor-r0.md",
-        "2605261045-manabi-education-tier-b-actor-r0.md",
-        "2605261100-hikari-energy-tier-b-actor-r0.md"
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605172600-etzhayyim-membership-ritual",
+        "adr-2605172700-membership-layering-shinto-adherent",
+        "adr-2605261015",
+        "adr-2605261030",
+        "adr-2605261045",
+        "adr-2605261100"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11645,9 +11601,9 @@
         "L2 Sustenance Tier food-supply substrate"
       ],
       "related": [
-        "2605261000-labor-liberation-transition-mechanism.md",
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192245-etzhayyim-global-land-sovereignty.md",
+        "adr-2605261000",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
         "2605201400-kuni-umi-tier-b-planetary-infrastructure.md"
       ],
       "supersedes": [],
@@ -11670,10 +11626,10 @@
         "L4 Care Tier care-delivery substrate"
       ],
       "related": [
-        "2605261000-labor-liberation-transition-mechanism.md",
-        "2605260100-mitate-diagnostic-routing-charter.md",
-        "2605250500-yakushi-pharmaceutical-rd-charter.md",
-        "2605181100-mst-encrypted-records-signal-keywrap.md"
+        "adr-2605261000",
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11695,10 +11651,10 @@
         "L4 + L5 education-delivery substrate"
       ],
       "related": [
-        "2605261000-labor-liberation-transition-mechanism.md",
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192200-etzhayyim-ip-free-release-charter-rider.md",
-        "2605260100-mitate-diagnostic-routing-charter.md"
+        "adr-2605261000",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605260100-mitate-diagnostic-routing-charter"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11720,12 +11676,12 @@
         "L2 Sustenance Tier energy-supply substrate"
       ],
       "related": [
-        "2605261000-labor-liberation-transition-mechanism.md",
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192245-etzhayyim-global-land-sovereignty.md",
+        "adr-2605261000",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
         "2605201400-kuni-umi-tier-b-planetary-infrastructure.md",
         "2605242500-baien-iwakura-ternary-asic.md",
-        "2605263500-energy-substrate-dependency-vs-substance-reframing.md"
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11742,12 +11698,12 @@
       "topic": "igata-actor-r0",
       "authoritative": true,
       "related": [
-        "2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
         "2605242000-wadachi-autonomous-mobility-rd-r0.md",
         "2605250715-tatekata-construction-tier-b-actor-r0.md",
-        "2605252200-watatsumi-civilian-submersible-r0.md",
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192200-etzhayyim-ip-free-release-charter-rider.md"
+        "adr-2605252200-watatsumi-civilian-submersible-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "last_verified": "2026-05-26",
       "authoritative_for": [],
@@ -11774,11 +11730,11 @@
         "lexicon namespace reservation (`app.etzhayyim.makura.*`, 8 record types)"
       ],
       "related": [
-        "20-actors/makura/README.md",
-        "20-actors/kuni-umi/README.md",
-        "20-actors/tatekata/README.md",
-        "20-actors/yakushi/README.md",
-        "20-actors/watatsumi/README.md"
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11805,10 +11761,10 @@
         "constitutional firsts: G8 mandatory ECU/infotainment data wipe (§2(c) anti-surveillance applied to vehicles) + G12 right-to-repair parts catalog invariant"
       ],
       "related": [
-        "20-actors/hodoki/README.md",
-        "20-actors/kanayama/README.md",
-        "20-actors/makura/README.md",
-        "20-actors/wadachi/README.md"
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11841,13 +11797,13 @@
       "topic": "tsutae/smartphone/handheld",
       "authoritative": true,
       "related": [
-        "2605242500-baien-ternary-silicon-and-tsukuru-fab-charter.md",
-        "2605242515-iwakura-ternary-inference-asic.md",
-        "2605252200-watatsumi-civilian-submersible-r0.md",
-        "2605261115-makura-foam-pillow-tier-b-actor-r0.md",
-        "2605261200-igata-megacasting-tier-b-actor-r0.md",
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192200-etzhayyim-ip-free-release-charter-rider.md"
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605242515-iwakura-ternary-inference-asic",
+        "adr-2605252200-watatsumi-civilian-submersible-r0",
+        "adr-2605261115-makura-foam-pillow-tier-b-actor-r0",
+        "adr-2605261115-igata-megacasting-tier-b-actor-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "last_verified": "2026-05-26T00:00:00Z",
       "authoritative_for": [],
@@ -11875,10 +11831,10 @@
         "constitutional firsts: G7 ABS-mandatory ≥125cc + G8 build-time anti-surveillance (no GPS/connected-app/telematics) + G12 right-to-repair forward-publishing at manufacture + G14 30-year service life"
       ],
       "related": [
-        "20-actors/futawa/README.md",
-        "20-actors/wadachi/README.md",
-        "20-actors/hodoki/README.md",
-        "20-actors/kanayama/README.md"
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs",
+        "wellbecoming-karma-lean-proofs"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11895,13 +11851,13 @@
       "topic": "suki/farm-tractor/manufacturing",
       "authoritative": true,
       "related": [
-        "2605252500-sarutahiko-heavy-truck-manufacturing-r0.md",
+        "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
         "2605242000-wadachi-autonomous-mobility-rd-r0.md",
-        "2605261015-mitsuho-food-agriculture-tier-b-actor-r0.md",
-        "2605252400-kanayama-circular-metallurgy-r0.md",
-        "2605261200-igata-megacasting-tier-b-actor-r0.md",
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192200-etzhayyim-ip-free-release-charter-rider.md"
+        "adr-2605261015",
+        "adr-2605252400-kanayama-circular-metallurgy-r0",
+        "adr-2605261115-igata-megacasting-tier-b-actor-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "last_verified": "2026-05-26T00:00:00Z",
       "authoritative_for": [],
@@ -11922,20 +11878,20 @@
         "2605242000-wadachi-autonomous-mobility-rd-r0.md",
         "2605250500-yakushi-pharmaceutical-rd-tier-b-actor-r0.md",
         "2605250715-tatekata-construction-tier-b-actor-r0.md",
-        "2605252200-watatsumi-civilian-submersible-r0.md",
-        "2605252400-kanayama-circular-metallurgy-r0.md",
-        "2605252500-sarutahiko-heavy-truck-manufacturing-r0.md",
-        "2605261015-mitsuho-food-agriculture-tier-b-actor-r0.md",
+        "adr-2605252200-watatsumi-civilian-submersible-r0",
+        "adr-2605252400-kanayama-circular-metallurgy-r0",
+        "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
+        "adr-2605261015",
         "2605261115-makura-foam-pillow-manufacturing-r0.md",
-        "2605261200-igata-megacasting-tier-b-actor-r0.md",
-        "2605261215-igata-r1-benchtop-commissioning.md",
+        "adr-2605261115-igata-megacasting-tier-b-actor-r0",
+        "adr-2605261215-igata-r1-benchtop-commissioning",
         "2605261300-tsutae-handheld-communication-device-r0.md",
         "2605261330-futawa-small-motorcycle-manufacturing-r0.md",
-        "2605261500-suki-farm-tractor-tier-b-actor-r0.md",
+        "adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
         "2605242500-silicon-iwakura-inference-asic-r0.md",
-        "2605215000-etzhayyim-inference-murakumo-only-no-runpod.md",
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192200-etzhayyim-ip-free-release-charter-rider.md"
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
       ],
       "last_verified": "2026-05-26T00:00:00Z",
       "authoritative_for": [],
@@ -12294,7 +12250,7 @@
         "Procedural commitment to Council post-ratification at next vote"
       ],
       "related": [
-        "90-docs/baien/moemoekyun-bench-plan-260526.md",
+        "moemoekyun-bench-plan-260526",
         "90-docs/baien/moemoekyun-bench-cycle{1,2,3}-260526.md",
         "/tmp/runpod-5090-bench-bringup.sh (bringup script, NOT committed to repo)"
       ],
@@ -12345,8 +12301,8 @@
         "Constitutional justification for crossing the §1.2 train prohibition boundary"
       ],
       "related": [
-        "90-docs/baien/moemoekyun-mxfp4-training-260526.md",
-        "90-docs/baien/moemoekyun-precision-architecture-260526.md",
+        "moemoekyun-mxfp4-training-260526",
+        "moemoekyun-precision-architecture-260526",
         "90-docs/baien/bench-datasets-cid-manifest.jsonl",
         "90-docs/baien/runpod-5090-runlog-260526.jsonl"
       ],
@@ -12560,8 +12516,8 @@
         "Hydrogen NOT-categorically-prohibited carve-out from prior ADR-2605202000 SMR/水素 deferral"
       ],
       "related": [
-        "2605202000-etzhayyim-energy-substrate.md",
-        "2605215000-etzhayyim-inference-murakumo-only-no-runpod.md"
+        "adr-2605202000-etzhayyim-energy-substrate",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -12640,7 +12596,7 @@
         "Cross-actor mitsuho fertilizer-N pathway (anhydrous + UAN ≤32% urea-ammonium-nitrate-solution carve-out for liquid fertilizer)"
       ],
       "related": [
-        "2605192315-etzhayyim-transparent-force-rd.md"
+        "adr-2605192315-etzhayyim-transparent-force-rd"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -12729,7 +12685,7 @@
         "Digestate routing to mitsuho compost as fertilizer-N alternative"
       ],
       "related": [
-        "2605263700-green-ammonia-d-gate-evaluation-r0.md"
+        "adr-2605263700-green-ammonia-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -12880,7 +12836,7 @@
         "Flywheel + gravity-block conditional permits R&D scale"
       ],
       "related": [
-        "2605263600-hydrogen-economy-d-gate-evaluation-r0.md"
+        "adr-2605263600-hydrogen-economy-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -12902,7 +12858,7 @@
         "Thermal-storage extension (molten salt small ≤10 m³; phase-change ≤5 m³) referenced from hikari §2.1"
       ],
       "related": [
-        "2605263800-biomethane-d-gate-evaluation-r0.md"
+        "adr-2605263800-biomethane-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -12953,13 +12909,13 @@
         "3 lexicons: certPrepSession / personalMaterialImport / domainMasteryAttestation"
       ],
       "related": [
-        "2605261045-manabi-education-tier-b-actor-r0.md",
-        "2605261000-labor-liberation-transition-mechanism.md",
-        "2605192100-etzhayyim-mission-charter.md",
-        "2605192200-etzhayyim-ip-free-release-charter-rider.md",
+        "adr-2605261045",
+        "adr-2605261000",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "2605181100-encrypted-envelope-record.md",
         "2605262400-public-data-ipfs-ingestion-artificial-organism.md",
-        "2605215000-etzhayyim-inference-murakumo-only-no-runpod.md"
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -12981,7 +12937,7 @@
         "Cross-actor coupling: mizuho R2+ working-fluid water + hikari thermal-storage + CSP §5 heat-network integration"
       ],
       "related": [
-        "2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit.md"
+        "adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13004,7 +12960,7 @@
         "CCS commercial-vendor + state-licensed geological-sequestration prohibition (D1 + D2 multi-gen)"
       ],
       "related": [
-        "2605263600-hydrogen-economy-d-gate-evaluation-r0.md"
+        "adr-2605263600-hydrogen-economy-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13027,7 +12983,7 @@
         "Stoichiometry chain-of-custody attestation (green H₂ Lexicon CID + DAC CO₂ Lexicon CID → methanol/DME batch CID)"
       ],
       "related": [
-        "2605263700-green-ammonia-d-gate-evaluation-r0.md"
+        "adr-2605263700-green-ammonia-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13050,7 +13006,7 @@
         "Heterotrophic-sugar-fed algae absolute prohibition (food-crop-displacement N4 inheritance)"
       ],
       "related": [
-        "2605263800-biomethane-d-gate-evaluation-r0.md"
+        "adr-2605263800-biomethane-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13072,8 +13028,8 @@
         "Commercial-grid V2G + commercial-DR-program participation absolute prohibition (D1 + hikari G13 + N7)"
       ],
       "related": [
-        "2605264200-mechanical-energy-storage-d-gate-evaluation-r0.md",
-        "2605181100-mst-encrypted-records-signal-keywrap.md"
+        "adr-2605264200-mechanical-energy-storage-d-gate-evaluation-r0",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13120,7 +13076,7 @@
         "Loss-accounting + billing-policy framework (cost-recovery model only; NO profit-rate)"
       ],
       "related": [
-        "2605263800-biomethane-d-gate-evaluation-r0.md"
+        "adr-2605263800-biomethane-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13143,7 +13099,7 @@
         "Boron-11 supply chain (natural-abundance enrichment OR religious-corp-mineable; aneutronic-fusion enabler)"
       ],
       "related": [
-        "2605192300-etzhayyim-bootstrap-council-five.md"
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13190,7 +13146,7 @@
         "CORSIA credit trading absolute prohibition (Charter §2(b) financialization + N8 carbon-offset-trading inheritance)"
       ],
       "related": [
-        "2605264900-v2g-demand-response-d-gate-evaluation-r0.md"
+        "adr-2605264900-v2g-demand-response-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13213,7 +13169,7 @@
         "Lignin byproduct routing (combustion-CHP cross-actor to hikari OR biochar to mitsuho soil amendment)"
       ],
       "related": [
-        "2605263800-biomethane-d-gate-evaluation-r0.md"
+        "adr-2605263800-biomethane-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13235,7 +13191,7 @@
         "Religious-corp-internal cross-actor product routing (diesel → wadachi/sarutahiko backup; naphtha → algae solvent; wax → mitsuho crop protection; lubricant → kuni-umi robotics)"
       ],
       "related": [
-        "2605265300-cellulosic-ethanol-d-gate-evaluation-r0.md"
+        "adr-2605265300-cellulosic-ethanol-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13258,7 +13214,7 @@
         "Tracker accuracy + Council attestation per facility"
       ],
       "related": [
-        "2605265000-district-heating-cooling-d-gate-evaluation-r0.md"
+        "adr-2605265000-district-heating-cooling-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13281,7 +13237,7 @@
         "PRO vs RED selection criteria for religious-corp R&D"
       ],
       "related": [
-        "2605265000-district-heating-cooling-d-gate-evaluation-r0.md"
+        "adr-2605265000-district-heating-cooling-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13305,7 +13261,7 @@
         "Cross-actor with hikari mechanical-storage portfolio (ADR-2605264200 §6)"
       ],
       "related": [
-        "2605263800-biomethane-d-gate-evaluation-r0.md"
+        "adr-2605263800-biomethane-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13328,7 +13284,7 @@
         "Industrial-process-heat sink consumer matrix (yakushi WFI / mitsuho greenhouse heating / igata cement curing / tatekata MEP)"
       ],
       "related": [
-        "2605265700-sodium-sulfur-battery-d-gate-evaluation-r0.md"
+        "adr-2605265700-sodium-sulfur-battery-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13352,7 +13308,7 @@
         "Cross-actor heat byproduct (~10 MJ/kg-CH₄ exothermic) routing"
       ],
       "related": [
-        "2605264700-methanol-dme-synfuel-d-gate-evaluation-r0.md"
+        "adr-2605264700-methanol-dme-synfuel-d-gate-evaluation-r0"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13375,8 +13331,8 @@
         "InboxBuffer integration for inbound messages"
       ],
       "related": [
-        "2605181100-mst-encrypted-records-signal-keywrap.md",
-        "2605240030-unispsc-organism-followers.md"
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605240030-unispsc-organism-followers"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13714,7 +13670,7 @@
         "placement policy for open-scope ADRs"
       ],
       "related": [
-        "2605170900-etzhayyim-root-adr-canonical-home.md"
+        "adr-2605170900-etzhayyim-root-adr-canonical-home"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13812,27 +13768,7 @@
       "doc_type": "how-to",
       "topic": "ameno-deployment",
       "authoritative": true,
-      "related": [
-        "adr/2605190824-ameno-mediapipe-llm-browser-runtime.md",
-        "adr/2605191000-ameno-browser-pregel-reflection.md",
-        "adr/2605191113-ameno-active-inference-lexical-surprise.md",
-        "adr/2605191120-ameno-embedding-surprise-tier-c.md",
-        "adr/2605191129-ameno-browser-tool-use-react.md",
-        "adr/2605191135-ameno-tier2-daemon-residency.md",
-        "adr/2605191206-ameno-long-term-memory-vault.md",
-        "adr/2605191229-ameno-daemon-path-a-bun-langgraph.md",
-        "adr/2605191257-ameno-daemon-path-b-pymagatama-python.md",
-        "adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md",
-        "adr/2605191407-ameno-browser-viewer-mode.md",
-        "adr/2605191524-ameno-multi-tab-swarm-broadcast.md",
-        "adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md",
-        "adr/2605191603-ameno-swarm-leader-election.md",
-        "adr/2605191608-ameno-stage-3-ipfs-pin-activation.md",
-        "adr/2605191625-ameno-stage-4-l2-anchor.md",
-        "adr/2605191638-ameno-substrate-swarm-lease-lex.md",
-        "adr/2605191645-ameno-browser-daemon-checkpoint-sync.md",
-        "adr/2605191657-ameno-daemon-did-auth.md"
-      ],
+      "related": [],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -13849,10 +13785,7 @@
       "topic": "ameno-deployment",
       "authoritative": false,
       "related": [
-        "ameno-end-to-end-runbook.md",
-        "adr/2605190824-ameno-mediapipe-llm-browser-runtime.md",
-        "adr/2605191000-ameno-browser-pregel-reflection.md",
-        "adr/2605191648-substrate-boundary-lefthook.md"
+        "ameno-end-to-end-runbook"
       ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
@@ -13968,7 +13901,7 @@
       ],
       "related": [
         "90-docs/adr/0056-bpmn-as-actor.md",
-        "90-docs/adr/0061-tsukuru-isic-bpmn-actors.md"
+        "adr-0061"
       ],
       "last_verified": "2026-04-25",
       "supersedes": [],
@@ -14143,8 +14076,8 @@
       "related": [
         "COUNCIL.md",
         "COUNCIL-BOOTSTRAP-RFP.md",
-        "90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md",
-        "90-docs/adr/2605262200-charter-rider-2i-baien-train-rental-carveout.md"
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605262200-charter-rider-2i-baien-train-rental-carveout"
       ],
       "last_verified": "2026-05-26",
       "authoritative_for": [],
@@ -14182,8 +14115,8 @@
       "topic": "yobel-deployments",
       "authoritative": true,
       "related": [
-        "90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md",
-        "90-docs/governance/proposals/2605201800-yobel-ratification.md",
+        "adr-2605201800-etzhayyim-yobel-debt-release-actor",
+        "proposal-2605201800-yobel-ratification",
         "50-infra/etzhayyim-yobel-contract/script/Deploy.s.sol"
       ],
       "last_verified": "2026-05-20",
@@ -14468,9 +14401,9 @@
         "yatabase-migration-tracking"
       ],
       "related": [
-        "90-docs/adr/2605111200-cf-worker-edge-only-no-rw-connection.md",
-        "90-docs/adr/2605111300-pds-to-pod-bun-container.md",
-        "90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md"
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "adr-2605111300-pds-to-pod-bun-container",
+        "adr-2605080600-langgraph-server-granian-l3-runtime"
       ],
       "last_verified": "2026-05-11",
       "supersedes": [],
@@ -14682,7 +14615,7 @@
       "related": [
         "adr-2605232500-baien-mx-move1-image-graft-self-training",
         "70-tools/baien-mx-train/",
-        "90-docs/baien/frontier-bench-snapshot-260523.md"
+        "doc-260523-frontier-bench-snapshot"
       ],
       "last_verified": "2026-05-24",
       "authoritative_for": [],
@@ -14704,7 +14637,7 @@
         "which quantization libraries actually work on this ROCm install"
       ],
       "related": [
-        "90-docs/adr/2605242000-roso-pattern-frontier-distill.md",
+        "adr-2605242000-roso-pattern-frontier-distill",
         "70-tools/scripts/bench/quant-training-shootout/"
       ],
       "last_verified": "2026-05-24",
@@ -14728,7 +14661,7 @@
         "documented build blockers for the EVO Windows ComfyUI portable env"
       ],
       "related": [
-        "90-docs/adr/2605242000-roso-pattern-frontier-distill.md",
+        "adr-2605242000-roso-pattern-frontier-distill",
         "90-docs/baien/quant-shootout-260524/",
         "70-tools/scripts/bench/quant-training-shootout/kernels/"
       ],
@@ -14775,8 +14708,8 @@
         "architectural patterns surfaced during the 39-cycle rollout"
       ],
       "related": [
-        "90-docs/adr/2605262500-robotics-world-data-ingestion-and-usd-pipeline.md",
-        "90-docs/adr/2605262400-public-data-organism-ipfs-ingestion.md",
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
         "CLAUDE.md (row"
       ],
       "supersedes": [],
@@ -14797,8 +14730,8 @@
         "operator-facing entry point for ADR-2605262500 production rollout"
       ],
       "related": [
-        "90-docs/adr/2605262500-robotics-world-data-ingestion-and-usd-pipeline.md",
-        "90-docs/baien/adr-2605262500-implementation-retrospective-260527.md",
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
+        "doc-adr-2605262500-implementation-retrospective-260527",
         "CLAUDE.md (row"
       ],
       "supersedes": [],
@@ -14821,10 +14754,10 @@
         "reviewer-facing PR description template"
       ],
       "related": [
-        "90-docs/baien/adr-2605262500-implementation-retrospective-260527.md",
-        "90-docs/baien/adr-2605262500-operator-runbook-260527.md",
-        "90-docs/baien/adr-2605262500-runbook-smoke-260527.md",
-        "90-docs/adr/2605262500-robotics-world-data-ingestion-and-usd-pipeline.md"
+        "doc-adr-2605262500-implementation-retrospective-260527",
+        "doc-adr-2605262500-operator-runbook-260527",
+        "doc-adr-2605262500-runbook-smoke-260527",
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -14844,8 +14777,8 @@
         "empirical evidence that the cycle 42 operator runbook works end-to-end"
       ],
       "related": [
-        "90-docs/baien/adr-2605262500-operator-runbook-260527.md",
-        "90-docs/baien/adr-2605262500-implementation-retrospective-260527.md"
+        "doc-adr-2605262500-operator-runbook-260527",
+        "doc-adr-2605262500-implementation-retrospective-260527"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -14862,7 +14795,7 @@
       "topic": "edge-multimodal-model-1bit",
       "authoritative": false,
       "related": [
-        "90-docs/adr/2605092350-baien-1bit-multimodal-edge-browser-cpu-design.md",
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
         "60-apps/ai-gftd-project-ameno/CLAUDE.md"
       ],
       "last_verified": "2026-05-10",
@@ -14885,9 +14818,9 @@
         "Decision on what NOT to chase at 2B / 1.58-bit scale"
       ],
       "related": [
-        "90-docs/adr/2605092350-baien-1bit-multimodal-edge-browser-cpu-design.md",
-        "90-docs/adr/2605092345-runpod-l40s-fp8-multimodal-model-design.md",
-        "90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion.md"
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605092345-runpod-l40s-fp8-multimodal-model-design",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
       ],
       "last_verified": "2026-05-10",
       "supersedes": [],
@@ -14904,7 +14837,7 @@
       "topic": "edge-multimodal-model-1bit",
       "authoritative": false,
       "related": [
-        "90-docs/adr/2605092350-baien-1bit-multimodal-edge-browser-cpu-design.md"
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design"
       ],
       "last_verified": "2026-05-10",
       "authoritative_for": [],
@@ -15071,8 +15004,8 @@
         "w-protocol-at-superset-architecture",
         "did-path-lexicon-correspondence",
         "wit-lexicon-typed-alignment",
-        "90-docs/adr/0087-magatama-mcp-tool-facade.md",
-        "90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md"
+        "adr-0087-magatama-mcp-tool-facade",
+        "adr-2604261000-mcp-registry-via-kysely-schema"
       ],
       "supersedes": [
         "wit-lexicon-typed-alignment"
@@ -15324,7 +15257,7 @@
       "topic": "moemoekyun-bench-cycle1",
       "authoritative": true,
       "related": [
-        "90-docs/baien/moemoekyun-bench-plan-260526.md",
+        "moemoekyun-bench-plan-260526",
         "90-docs/baien/bench-snapshot-260526-bitnet2b-gpqa-diamond.jsonl",
         "70-tools/baien-moemoekyun-train/scripts/bench_gpqa_diamond.py"
       ],
@@ -15344,7 +15277,7 @@
       "topic": "moemoekyun-bench-cycle2",
       "authoritative": true,
       "related": [
-        "90-docs/baien/moemoekyun-bench-cycle1-260526.md",
+        "moemoekyun-bench-cycle1-260526",
         "90-docs/baien/bench-snapshot-260526-bitnet2b-gpqa-diamond.jsonl",
         "70-tools/baien-moemoekyun-train/scripts/bench_gpqa_diamond.py",
         "70-tools/baien-moemoekyun-train/scripts/bench_humanevalplus.py"
@@ -15365,8 +15298,8 @@
       "topic": "moemoekyun-bench-cycle3",
       "authoritative": true,
       "related": [
-        "90-docs/baien/moemoekyun-bench-cycle1-260526.md",
-        "90-docs/baien/moemoekyun-bench-cycle2-260526.md",
+        "moemoekyun-bench-cycle1-260526",
+        "moemoekyun-bench-cycle2-260526",
         "90-docs/baien/bench-snapshot-260526-bitnet2b-humanevalplus.jsonl"
       ],
       "last_verified": "2026-05-26",
@@ -15386,7 +15319,7 @@
       "authoritative": true,
       "related": [
         "90-docs/baien/moemoekyun-bench-cycle{1,2,3,4}-260526.md",
-        "90-docs/adr/2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim.md"
+        "adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim"
       ],
       "last_verified": "2026-05-26",
       "authoritative_for": [],
@@ -15405,8 +15338,8 @@
       "authoritative": true,
       "related": [
         "90-docs/baien/moemoekyun-bench-cycle{1,2,3,4,5}-260526.md",
-        "90-docs/adr/2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim.md",
-        "90-docs/baien/runpod-5090-access-status-260526.md",
+        "adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim",
+        "runpod-5090-access-status-260526",
         "90-docs/baien/runpod-5090-runlog-260526.jsonl"
       ],
       "last_verified": "2026-05-26",
@@ -15433,7 +15366,7 @@
         "90-docs/baien/bench-snapshot-260526-bitnet2b-canonical.jsonl",
         "90-docs/baien/cycle7-results/",
         "90-docs/baien/runpod-5090-runlog-260526.jsonl",
-        "90-docs/adr/2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim.md"
+        "adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim"
       ],
       "last_verified": "2026-05-26",
       "supersedes": [],
@@ -15459,7 +15392,7 @@
         "90-docs/baien/bench-snapshot-260526-bitnet2b-canonical.jsonl",
         "90-docs/baien/bench-snapshot-260526-bitnet2b-gpqa-diamond.jsonl",
         "90-docs/baien/cycle7-results/baien-bench/results/",
-        "90-docs/adr/2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim.md"
+        "adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim"
       ],
       "last_verified": "2026-05-26",
       "supersedes": [],
@@ -15476,11 +15409,11 @@
       "topic": "moemoekyun-bench-plan",
       "authoritative": true,
       "related": [
-        "90-docs/adr/2605262100-baien-moemoekyun-r1-phase0-coding-train.md",
-        "90-docs/adr/2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture.md",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
+        "adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture",
         "70-tools/baien-moemoekyun-train/scripts/bench_gpqa_diamond.py",
         "90-docs/baien/bench-snapshot-260526-bitnet2b-gpqa-diamond.jsonl",
-        "90-docs/baien/frontier-bench-snapshot-260523.md"
+        "doc-260523-frontier-bench-snapshot"
       ],
       "last_verified": "2026-05-26",
       "authoritative_for": [],
@@ -15503,9 +15436,9 @@
         "Applicability: moemoekyun R1.4+ MoE residual + BitNet trainable variant"
       ],
       "related": [
-        "90-docs/baien/moemoekyun-precision-architecture-260526.md",
-        "90-docs/adr/2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture.md",
-        "90-docs/adr/2605261900-baien-moemoekyun-moe-charter.md"
+        "moemoekyun-precision-architecture-260526",
+        "adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture",
+        "adr-2605261900-baien-moemoekyun-moe-charter"
       ],
       "last_verified": "2026-05-26",
       "supersedes": [],
@@ -15527,10 +15460,10 @@
         "Why TRT-LLM NVFP4 was considered + abandoned for inference"
       ],
       "related": [
-        "90-docs/baien/moemoekyun-bench-cycles-1-7-synthesis-260526.md",
-        "90-docs/adr/2605261900-baien-moemoekyun-moe-charter.md",
-        "90-docs/adr/2605262100-baien-moemoekyun-r1-phase0-coding-train.md",
-        "90-docs/adr/2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture.md"
+        "moemoekyun-bench-cycles-1-7-synthesis-260526",
+        "adr-2605261900-baien-moemoekyun-moe-charter",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
+        "adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture"
       ],
       "last_verified": "2026-05-26",
       "supersedes": [],
@@ -15547,8 +15480,8 @@
       "topic": "moemoekyun-smoke-inference",
       "authoritative": true,
       "related": [
-        "90-docs/adr/2605261900-baien-moemoekyun-moe-charter.md",
-        "90-docs/adr/2605262100-baien-moemoekyun-r1-phase0-coding-train.md",
+        "adr-2605261900-baien-moemoekyun-moe-charter",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
         "70-tools/baien-moemoekyun-train/scripts/smoke_inference.py"
       ],
       "last_verified": "2026-05-26",
@@ -15604,9 +15537,9 @@
         "What HW upgrade unlocks MXFP4 (B200/B300 data-center class)"
       ],
       "related": [
-        "90-docs/baien/moemoekyun-mxfp4-training-260526.md",
-        "90-docs/baien/moemoekyun-precision-architecture-260526.md",
-        "90-docs/adr/2605263100-founder-lv7-amendment-runpod-5090-train-mxfp4-extension.md",
+        "moemoekyun-mxfp4-training-260526",
+        "moemoekyun-precision-architecture-260526",
+        "adr-2605263100-founder-lv7-amendment-runpod-5090-train-mxfp4-extension",
         "90-docs/baien/runpod-5090-runlog-260526.jsonl"
       ],
       "last_verified": "2026-05-26",
@@ -15629,11 +15562,11 @@
         "phase-gates"
       ],
       "related": [
-        "90-docs/adr/2605180000-lawfirm-product-focus-bmc-lean.md",
-        "90-docs/adr/2605190000-yatabase-bmc-lean.md",
-        "90-docs/adr/2605190100-defense-cluster-topology.md",
-        "90-docs/adr/2605200000-nist-csf-respond-irp.md",
-        "90-docs/adr/2605200200-nist-csf-recover-rto-rpo.md",
+        "adr-2605180000-lawfirm-product-focus-bmc-lean",
+        "adr-2605190000-yatabase-bmc-lean",
+        "adr-2605190100-defense-cluster-topology",
+        "adr-2605200000-nist-csf-respond-irp",
+        "adr-2605200200-nist-csf-recover-rto-rpo",
         "deps.toml [etzhayyim_agent.product_portfolio]"
       ],
       "last_verified": "2026-05-20",
@@ -15651,10 +15584,10 @@
       "topic": "yobel-ratification",
       "authoritative": true,
       "related": [
-        "90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md",
-        "90-docs/adr/2605192100-etzhayyim-mission-charter.md",
-        "90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md",
-        "90-docs/adr/2605192230-etzhayyim-three-tier-enforcement-implementation.md"
+        "adr-2605201800-etzhayyim-yobel-debt-release-actor",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation"
       ],
       "last_verified": "2026-05-20",
       "authoritative_for": [],
@@ -15671,12 +15604,7 @@
       "doc_type": "how-to",
       "topic": "murakumo-operations",
       "authoritative": true,
-      "related": [
-        "adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md",
-        "adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md",
-        "50-infra/murakumo/fleet.toml",
-        "50-infra/cluster/murakumo/cell-runner/cells.toml"
-      ],
+      "related": [],
       "last_verified": "2026-05-21",
       "authoritative_for": [],
       "supersedes": [],
@@ -15783,9 +15711,9 @@
       "topic": "yorishiro-cell-runner-deploy",
       "authoritative": true,
       "related": [
-        "90-docs/adr/2605211900-etzhayyim-yorishiro-external-actor-bridge.md",
-        "90-docs/adr/2605202200-etzhayyim-cell-runtime-contract.md",
-        "90-docs/adr/2605202100-etzhayyim-magatama-cell-runner-launchd.md",
+        "adr-2605211900-etzhayyim-yorishiro-external-actor-bridge",
+        "adr-2605202200-etzhayyim-cell-runtime-contract",
+        "adr-2605202100-etzhayyim-magatama-cell-runner-launchd",
         "50-infra/cluster/murakumo/cell-runner/cells.toml",
         "50-infra/cluster/murakumo/cell-runner/com.etzhayyim.magatama-cell-runner.plist",
         "20-actors/magatama/py/src/pymagatama/cell_runner_main.py"
@@ -15806,8 +15734,8 @@
       "topic": "baien-moemoekyun-r1-bringup",
       "authoritative": true,
       "related": [
-        "90-docs/adr/2605262100-baien-moemoekyun-r1-phase0-coding-train.md",
-        "90-docs/adr/2605261900-baien-moemoekyun-moe-charter.md",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
+        "adr-2605261900-baien-moemoekyun-moe-charter",
         "70-tools/baien-moemoekyun-train/scripts/probe_rocm_moe.py",
         "70-tools/baien-moemoekyun-train/configs/r1.4-iter01.yaml"
       ],
@@ -15827,8 +15755,8 @@
       "topic": "baien-moemoekyun-runpod-bringup",
       "authoritative": true,
       "related": [
-        "90-docs/adr/2605262200-charter-rider-2i-baien-train-rental-carveout.md",
-        "90-docs/adr/2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture.md",
+        "adr-2605262200-charter-rider-2i-baien-train-rental-carveout",
+        "adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture",
         "70-tools/baien-moemoekyun-train/scripts/rental-orchestrator.py",
         "70-tools/baien-moemoekyun-train/configs/r2-iter01.yaml"
       ],
@@ -15848,9 +15776,9 @@
       "topic": "bitnet-cpp-build",
       "authoritative": true,
       "related": [
-        "90-docs/adr/2605241900-baien-edge-target-invariant.md",
-        "90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md",
-        "90-docs/adr/2605242100-baien-server-xl-carve-out.md",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605242100-baien-server-xl-carve-out",
         "70-tools/etzhayyim-cli/bench.go"
       ],
       "last_verified": "2026-05-24",
@@ -15869,7 +15797,7 @@
       "topic": "runpod-5090-access",
       "authoritative": true,
       "related": [
-        "90-docs/adr/2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim.md",
+        "adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim",
         "90-docs/baien/runpod-5090-runlog-260526.jsonl"
       ],
       "last_verified": "2026-05-26",
@@ -15936,8 +15864,8 @@
         "karma-edge-primary-spirit-in-physic"
       ],
       "related": [
-        "90-docs/adr/2604291800-well-becoming-formal-model.md",
-        "90-docs/adr/2604291800-well-becoming-spirit-objective-function.md"
+        "adr-2604291800-well-becoming-formal-model",
+        "adr-2604291800-well-becoming-spirit-objective-function"
       ],
       "last_verified": "2026-05-08",
       "supersedes": [],

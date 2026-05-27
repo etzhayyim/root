@@ -15,7 +15,7 @@ related:
   - 60-apps/ai-gftd-project-patent/worker/python/patent_expiry_worker.py
   - 70-tools/config/bpmn-coverage-manifest.json
   - 30-graph/graph-schema/migrations/20260427075000_open_patent_expired_pharma_bpmn_worker.ts
-  - 90-docs/adr/2604251024-patent-bulk-ingest-and-blob-cid.md
+  - adr-2604251024-patent-bulk-ingest-and-blob-cid
   - 90-docs/adr/0056-bpmn-as-actor.md
 supersedes: []
 superseded_by: []

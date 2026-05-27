@@ -7,9 +7,9 @@ topic: bitnet-cpp-build
 authoritative: true
 last_verified: 2026-05-24
 related:
-  - 90-docs/adr/2605241900-baien-edge-target-invariant.md
-  - 90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md
-  - 90-docs/adr/2605242100-baien-server-xl-carve-out.md
+  - adr-2605241900-baien-edge-target-invariant
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
+  - adr-2605242100-baien-server-xl-carve-out
   - 70-tools/etzhayyim-cli/bench.go
 ---
 

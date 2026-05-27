@@ -21,8 +21,8 @@ depends_on:
   - 2605211200-rw-free-belief-store-substrate-port.md
   - 2605231630-langgraph-chain-server-canonical-goose-retirement.md
 related:
-  - 2605171300-open-unispsc-generative-agent-fleet.md
-  - 2605192100-etzhayyim-mission-charter.md
+V05171300
+  - adr-2605192100-etzhayyim-mission-charter
 supersedes: []
 superseded_by: []
 ---

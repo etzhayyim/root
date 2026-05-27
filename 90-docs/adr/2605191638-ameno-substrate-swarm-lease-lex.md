@@ -11,7 +11,7 @@ depends_on:
   - 2605191603-ameno-swarm-leader-election.md
   - 2605191559-ameno-mst-checkpointer-stage-2-activation.md
 related:
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 ---
 
 # ADR 2605191638: Ameno substrate-level swarm lease (lex)

@@ -22,8 +22,8 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605172300-etzhayyim-bi-asset-substrate
 related:
-  - 2605192115-etzhayyim-non-profit-donation-only-no-ads.md
-  - 2605192145-etzhayyim-public-fund-architecture.md
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
+  - adr-2605192145-etzhayyim-public-fund-architecture
 supersedes: []
 superseded_by: []
 ---

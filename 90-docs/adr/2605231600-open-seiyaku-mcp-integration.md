@@ -11,7 +11,7 @@ authoritative_for:
   - robotics-supply-chain-visualization
   - social-posting-integration
 related:
-  - 90-docs/adr/2604271830-patent-expired-pharma-seiyaku-handoff.md
+  - adr-2604271830-patent-expired-pharma-seiyaku-handoff
   - 20-actors/magatama/mcp/open-seiyaku-mcp
 supersedes: []
 superseded_by: []

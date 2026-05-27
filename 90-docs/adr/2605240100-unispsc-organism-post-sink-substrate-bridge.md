@@ -20,8 +20,8 @@ depends_on:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605172100-etzhayyim-sdk-substrate-rules
 related:
-  - 2605240015-unispsc-organism-joucho-personality.md
-  - 2605240030-unispsc-organism-followers.md
+  - adr-2605240015-unispsc-organism-joucho-personality
+  - adr-2605240030-unispsc-organism-followers
 supersedes: []
 superseded_by: []
 ---

@@ -35,10 +35,10 @@ depends_on:
   - adr-2605241500-etzhayyim-dataset-cid-substrate
   - adr-2605181100-etzhayyim-confidential-records-xchacha20-envelope
 related:
-  - 20-actors/hodoki/README.md
-  - 20-actors/kanayama/README.md
-  - 20-actors/makura/README.md
-  - 20-actors/wadachi/README.md
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
 supersedes: []
 superseded_by: []
 ---

@@ -12,9 +12,9 @@ authoritative_for:
   - server-side-handler-placement
   - yatabase-migration-tracking
 related:
-  - 90-docs/adr/2605111200-cf-worker-edge-only-no-rw-connection.md
-  - 90-docs/adr/2605111300-pds-to-pod-bun-container.md
-  - 90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md
+  - adr-2605111200-cf-worker-edge-only-no-rw-connection
+  - adr-2605111300-pds-to-pod-bun-container
+  - adr-2605080600-langgraph-server-granian-l3-runtime
 ---
 
 # Phase 2 migration guide — App actor DB callsite

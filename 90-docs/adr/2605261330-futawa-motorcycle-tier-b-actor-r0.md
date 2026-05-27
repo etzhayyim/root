@@ -33,10 +33,10 @@ depends_on:
   - adr-2605191524-transparent-force-swarm-broadcast-witness-quorum
   - adr-2605241500-etzhayyim-dataset-cid-substrate
 related:
-  - 20-actors/futawa/README.md
-  - 20-actors/wadachi/README.md
-  - 20-actors/hodoki/README.md
-  - 20-actors/kanayama/README.md
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
 supersedes: []
 superseded_by: []
 ---

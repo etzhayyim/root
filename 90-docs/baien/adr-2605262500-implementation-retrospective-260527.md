@@ -10,8 +10,8 @@ authoritative_for:
   - chronology of ADR-2605262500 implementation cycles
   - architectural patterns surfaced during the 39-cycle rollout
 related:
-  - 90-docs/adr/2605262500-robotics-world-data-ingestion-and-usd-pipeline.md
-  - 90-docs/adr/2605262400-public-data-organism-ipfs-ingestion.md
+  - adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline
+  - adr-2605262400-public-data-organism-ipfs-ingestion
   - CLAUDE.md (row #71)
 supersedes: []
 superseded_by: []

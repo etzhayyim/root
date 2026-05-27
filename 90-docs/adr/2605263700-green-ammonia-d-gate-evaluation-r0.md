@@ -22,7 +22,7 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 2605192315-etzhayyim-transparent-force-rd.md
+  - adr-2605192315-etzhayyim-transparent-force-rd
 supersedes: []
 superseded_by: []
 ---

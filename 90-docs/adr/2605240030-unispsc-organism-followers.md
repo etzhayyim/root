@@ -18,7 +18,7 @@ depends_on:
   - adr-2605232345-unispsc-actor-as-organism
   - adr-2605240000-unispsc-organism-fleet-mass-deploy
 related:
-  - 2605240015-unispsc-organism-joucho-personality.md
+  - adr-2605240015-unispsc-organism-joucho-personality
 supersedes: []
 superseded_by: []
 ---

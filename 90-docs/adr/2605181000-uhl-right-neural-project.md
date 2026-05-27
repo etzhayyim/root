@@ -22,9 +22,9 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 related:
-  - 2605181040-uhl-medical-institution-registry.md
-  - 2605181050-uhl-overseas-referral-paths.md
-  - 2605181060-otarmeni-access-path.md
+  - adr-2605181040-uhl-medical-institution-registry
+  - adr-2605181050-uhl-overseas-referral-paths
+  - adr-2605181060-otarmeni-access-path
 supersedes: []
 superseded_by: []
 ---
@@ -112,7 +112,7 @@ superseded_by: []
         ┌───────────────┼───────────────────────────────┐
         ▼               ▼                ▼              ▼
   SGN present       SGN degenerating   SGN absent    Nerve aplasia
-  + HC loss only    + nerve present    + nerve OK    
+  + HC loss only    + nerve present    + nerve OK
         │               │                │              │
         ▼               ▼                ▼              ▼
   [V07 OTOF-tx     [V08 BDNF/NT-3   [V09 Reprog       [V11 ABI

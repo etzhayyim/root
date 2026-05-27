@@ -7,8 +7,8 @@ topic: moemoekyun-bench-cycle3
 authoritative: true
 last_verified: 2026-05-26
 related:
-  - 90-docs/baien/moemoekyun-bench-cycle1-260526.md
-  - 90-docs/baien/moemoekyun-bench-cycle2-260526.md
+  - moemoekyun-bench-cycle1-260526
+  - moemoekyun-bench-cycle2-260526
   - 90-docs/baien/bench-snapshot-260526-bitnet2b-humanevalplus.jsonl
 ---
 

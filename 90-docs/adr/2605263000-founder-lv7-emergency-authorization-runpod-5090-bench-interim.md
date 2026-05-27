@@ -20,7 +20,7 @@ depends_on:
   - adr-2605192300-etzhayyim-bootstrap-council-five
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 90-docs/baien/moemoekyun-bench-plan-260526.md
+  - moemoekyun-bench-plan-260526
   - 90-docs/baien/moemoekyun-bench-cycle{1,2,3}-260526.md
   - /tmp/runpod-5090-bench-bringup.sh (bringup script, NOT committed to repo)
 supersedes: []

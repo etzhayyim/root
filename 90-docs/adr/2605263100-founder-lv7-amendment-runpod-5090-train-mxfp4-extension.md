@@ -21,8 +21,8 @@ depends_on:
   - adr-2605192300-etzhayyim-bootstrap-council-five
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 90-docs/baien/moemoekyun-mxfp4-training-260526.md
-  - 90-docs/baien/moemoekyun-precision-architecture-260526.md
+  - moemoekyun-mxfp4-training-260526
+  - moemoekyun-precision-architecture-260526
   - 90-docs/baien/bench-datasets-cid-manifest.jsonl
   - 90-docs/baien/runpod-5090-runlog-260526.jsonl
 supersedes: []

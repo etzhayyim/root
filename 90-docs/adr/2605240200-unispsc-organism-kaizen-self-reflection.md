@@ -20,8 +20,8 @@ depends_on:
   - adr-2605240000-unispsc-organism-fleet-mass-deploy
   - adr-2605240100-unispsc-organism-post-sink-substrate-bridge
 related:
-  - 2605240015-unispsc-organism-joucho-personality.md
-  - 2605240030-unispsc-organism-followers.md
+  - adr-2605240015-unispsc-organism-joucho-personality
+  - adr-2605240030-unispsc-organism-followers
 supersedes: []
 superseded_by: []
 ---

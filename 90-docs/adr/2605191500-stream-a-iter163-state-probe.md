@@ -11,7 +11,7 @@ authoritative_for:
   - backblaze-b2-billing-critical
 related:
   - 90-docs/adr/0048-risingwave-vultr-b2-primary.md
-  - 90-docs/adr/2605181400-bpmn-extract-to-etzhayyim-root.md
+  - adr-2605181400-bpmn-extract-to-etzhayyim-root
   - _working/etzhayyim-revenue/DECISION-LOG.md
   - _working/etzhayyim-revenue/stream-a-activation-runbook.md
 supersedes: []

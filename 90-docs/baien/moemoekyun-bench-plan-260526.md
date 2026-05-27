@@ -7,11 +7,11 @@ topic: moemoekyun-bench-plan
 authoritative: true
 last_verified: 2026-05-26
 related:
-  - 90-docs/adr/2605262100-baien-moemoekyun-r1-phase0-coding-train.md
-  - 90-docs/adr/2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture.md
+  - adr-2605262100-baien-moemoekyun-r1-phase0-coding-train
+  - adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture
   - 70-tools/baien-moemoekyun-train/scripts/bench_gpqa_diamond.py
   - 90-docs/baien/bench-snapshot-260526-bitnet2b-gpqa-diamond.jsonl
-  - 90-docs/baien/frontier-bench-snapshot-260523.md
+  - doc-260523-frontier-bench-snapshot
 ---
 
 # baien-moemoekyun bench plan — Phase 1-5 (2026-05-26)

@@ -33,9 +33,9 @@ depends_on:
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
   - adr-2605191524-transparent-force-swarm-broadcast-witness-quorum
 related:
-  - 20-actors/yamabiko/README.md
-  - 20-actors/sarutahiko/README.md
-  - 20-actors/wadachi/README.md
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
 supersedes: []
 superseded_by: []
 ---

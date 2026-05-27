@@ -12,8 +12,8 @@ depends_on:
   - 2605191257-ameno-daemon-path-b-pymagatama-python.md
   - 2605191135-ameno-tier2-daemon-residency.md
 related:
-  - 2605190824-ameno-mediapipe-llm-browser-runtime.md
-  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane.md
+V05190824-ameno-mediapipe-llm-browser-runtime
+V05191346-etzhayyim-vultr-free-murakumo-control-plane
 ---
 
 # ADR 2605191407: Ameno browser viewer mode — svelte appview as thin client over daemon SSE

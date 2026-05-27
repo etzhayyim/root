@@ -10,7 +10,7 @@ authoritative_for:
   - which quantization libraries actually work on this ROCm install
 last_verified: 2026-05-24
 related:
-  - 90-docs/adr/2605242000-roso-pattern-frontier-distill.md
+  - adr-2605242000-roso-pattern-frontier-distill
   - 70-tools/scripts/bench/quant-training-shootout/
 ---
 

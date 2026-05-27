@@ -9,10 +9,10 @@ last_verified: 2026-05-20
 proposal_kind: actor-charter-binding
 ratification_target: adr-2605201800-etzhayyim-yobel-debt-release-actor
 related:
-  - 90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md
-  - 90-docs/adr/2605192100-etzhayyim-mission-charter.md
-  - 90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md
-  - 90-docs/adr/2605192230-etzhayyim-three-tier-enforcement-implementation.md
+  - adr-2605201800-etzhayyim-yobel-debt-release-actor
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
 voting_window_start: 2026-05-21T00:00:00Z
 voting_window_end: 2026-06-20T00:00:00Z
 ---

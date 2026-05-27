@@ -7,8 +7,8 @@ topic: baien-moemoekyun-r1-bringup
 authoritative: true
 last_verified: 2026-05-26
 related:
-  - 90-docs/adr/2605262100-baien-moemoekyun-r1-phase0-coding-train.md
-  - 90-docs/adr/2605261900-baien-moemoekyun-moe-charter.md
+  - adr-2605262100-baien-moemoekyun-r1-phase0-coding-train
+  - adr-2605261900-baien-moemoekyun-moe-charter
   - 70-tools/baien-moemoekyun-train/scripts/probe_rocm_moe.py
   - 70-tools/baien-moemoekyun-train/configs/r1.4-iter01.yaml
 ---

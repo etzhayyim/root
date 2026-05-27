@@ -12,13 +12,13 @@ authoritative_for:
   - N11..N13 cert-prep-scope additional non-goals layered onto manabi N1..N10
   - 3 lexicons: certPrepSession / personalMaterialImport / domainMasteryAttestation
 related:
-  - 2605261045-manabi-education-tier-b-actor-r0.md
-  - 2605261000-labor-liberation-transition-mechanism.md
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605192200-etzhayyim-ip-free-release-charter-rider.md
+  - adr-2605261045
+  - adr-2605261000
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - 2605181100-encrypted-envelope-record.md
   - 2605262400-public-data-ipfs-ingestion-artificial-organism.md
-  - 2605215000-etzhayyim-inference-murakumo-only-no-runpod.md
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 supersedes: []
 superseded_by: []
 depends_on:

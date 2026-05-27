@@ -13,7 +13,7 @@ authoritative_for:
   - mapillary-to-3dgs trainer + idempotency rules
   - per-tile spend cap + per-job cost telemetry
 related:
-  - 90-docs/platform/260416-maps-kami-street-asset-pipeline-design.md
+  - maps-kami-street-asset-pipeline
   - 90-docs/260409-kami-engineering-sdk-design.md
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-2604251830-shannon-optimal-layered-architecture

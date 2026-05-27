@@ -11,9 +11,9 @@ authoritative_for:
   - food/agriculture domain constitutional gates G1..G14
   - L2 Sustenance Tier food-supply substrate
 related:
-  - 2605261000-labor-liberation-transition-mechanism.md
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605192245-etzhayyim-global-land-sovereignty.md
+  - adr-2605261000
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192245-etzhayyim-global-land-sovereignty
   - 2605201400-kuni-umi-tier-b-planetary-infrastructure.md
 supersedes: []
 superseded_by: []

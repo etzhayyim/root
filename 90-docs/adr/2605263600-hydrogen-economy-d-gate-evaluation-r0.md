@@ -20,8 +20,8 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 2605202000-etzhayyim-energy-substrate.md
-  - 2605215000-etzhayyim-inference-murakumo-only-no-runpod.md
+  - adr-2605202000-etzhayyim-energy-substrate
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 supersedes: []
 superseded_by: []
 ---

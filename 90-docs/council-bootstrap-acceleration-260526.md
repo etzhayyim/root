@@ -9,8 +9,8 @@ last_verified: 2026-05-26
 related:
   - COUNCIL.md
   - COUNCIL-BOOTSTRAP-RFP.md
-  - 90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md
-  - 90-docs/adr/2605262200-charter-rider-2i-baien-train-rental-carveout.md
+  - adr-2605192300-etzhayyim-bootstrap-council-five
+  - adr-2605262200-charter-rider-2i-baien-train-rental-carveout
 ---
 
 # Council Bootstrap Acceleration — Day 7/30 Status + Plan

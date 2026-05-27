@@ -7,8 +7,8 @@ topic: baien-moemoekyun-runpod-bringup
 authoritative: true
 last_verified: 2026-05-26
 related:
-  - 90-docs/adr/2605262200-charter-rider-2i-baien-train-rental-carveout.md
-  - 90-docs/adr/2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture.md
+  - adr-2605262200-charter-rider-2i-baien-train-rental-carveout
+  - adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture
   - 70-tools/baien-moemoekyun-train/scripts/rental-orchestrator.py
   - 70-tools/baien-moemoekyun-train/configs/r2-iter01.yaml
 ---

@@ -11,10 +11,10 @@ authoritative_for:
   - care domain constitutional gates G1..G14
   - L4 Care Tier care-delivery substrate
 related:
-  - 2605261000-labor-liberation-transition-mechanism.md
-  - 2605260100-mitate-diagnostic-routing-charter.md
-  - 2605250500-yakushi-pharmaceutical-rd-charter.md
-  - 2605181100-mst-encrypted-records-signal-keywrap.md
+  - adr-2605261000
+  - adr-2605260100-mitate-diagnostic-routing-charter
+  - adr-2605250500-yakushi-pharmaceutical-rd-charter
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 supersedes: []
 superseded_by: []
 depends_on:

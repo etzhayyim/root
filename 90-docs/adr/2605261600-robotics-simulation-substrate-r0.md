@@ -10,23 +10,23 @@ related:
   - 2605242000-wadachi-autonomous-mobility-rd-r0.md
   - 2605250500-yakushi-pharmaceutical-rd-tier-b-actor-r0.md
   - 2605250715-tatekata-construction-tier-b-actor-r0.md
-  - 2605252200-watatsumi-civilian-submersible-r0.md
-  - 2605252400-kanayama-circular-metallurgy-r0.md
-  - 2605252500-sarutahiko-heavy-truck-manufacturing-r0.md
-  - 2605261015-mitsuho-food-agriculture-tier-b-actor-r0.md
+  - adr-2605252200-watatsumi-civilian-submersible-r0
+  - adr-2605252400-kanayama-circular-metallurgy-r0
+  - adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0
+  - adr-2605261015
   - 2605261115-makura-foam-pillow-manufacturing-r0.md
-  - 2605261200-igata-megacasting-tier-b-actor-r0.md
-  - 2605261215-igata-r1-benchtop-commissioning.md
+  - adr-2605261115-igata-megacasting-tier-b-actor-r0
+  - adr-2605261215-igata-r1-benchtop-commissioning
   - 2605261300-tsutae-handheld-communication-device-r0.md
   - 2605261330-futawa-small-motorcycle-manufacturing-r0.md
-  - 2605261500-suki-farm-tractor-tier-b-actor-r0.md
+  - adr-2605261500-suki-farm-tractor-tier-b-actor-r0
   - 2605242500-silicon-iwakura-inference-asic-r0.md
-  - 2605215000-etzhayyim-inference-murakumo-only-no-runpod.md
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605192200-etzhayyim-ip-free-release-charter-rider.md
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 depends_on:
-  - 2605215000-etzhayyim-inference-murakumo-only-no-runpod.md
-  - 2605192200-etzhayyim-ip-free-release-charter-rider.md
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - 2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md
   - 2605231400-yatachain-holochain-iso-substrate.md
 ---

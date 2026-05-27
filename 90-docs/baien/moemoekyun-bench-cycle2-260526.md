@@ -7,7 +7,7 @@ topic: moemoekyun-bench-cycle2
 authoritative: true
 last_verified: 2026-05-26
 related:
-  - 90-docs/baien/moemoekyun-bench-cycle1-260526.md
+  - moemoekyun-bench-cycle1-260526
   - 90-docs/baien/bench-snapshot-260526-bitnet2b-gpqa-diamond.jsonl
   - 70-tools/baien-moemoekyun-train/scripts/bench_gpqa_diamond.py
   - 70-tools/baien-moemoekyun-train/scripts/bench_humanevalplus.py

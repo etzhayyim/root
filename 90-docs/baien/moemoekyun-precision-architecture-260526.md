@@ -12,10 +12,10 @@ authoritative_for:
   - "moemoekyun R1.4+ training path: TransformerEngine FP4 (Blackwell native) per train_oka.py recipe"
   - "Why TRT-LLM NVFP4 was considered + abandoned for inference"
 related:
-  - 90-docs/baien/moemoekyun-bench-cycles-1-7-synthesis-260526.md
-  - 90-docs/adr/2605261900-baien-moemoekyun-moe-charter.md
-  - 90-docs/adr/2605262100-baien-moemoekyun-r1-phase0-coding-train.md
-  - 90-docs/adr/2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture.md
+  - moemoekyun-bench-cycles-1-7-synthesis-260526
+  - adr-2605261900-baien-moemoekyun-moe-charter
+  - adr-2605262100-baien-moemoekyun-r1-phase0-coding-train
+  - adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture
 ---
 
 # moemoekyun precision architecture — ternary inference + FP4 training

@@ -9,7 +9,7 @@ last_verified: 2026-05-24
 related:
   - adr-2605232500-baien-mx-move1-image-graft-self-training
   - 70-tools/baien-mx-train/
-  - 90-docs/baien/frontier-bench-snapshot-260523.md
+  - doc-260523-frontier-bench-snapshot
 ---
 
 # Move 1 Phase A real-train snapshot — 2026-05-24

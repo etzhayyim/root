@@ -11,7 +11,7 @@ authoritative_for:
   - BPMN XML / lexicon / graph seed binding requirements
 related:
   - 90-docs/adr/0056-bpmn-as-actor.md
-  - 90-docs/adr/0061-tsukuru-isic-bpmn-actors.md
+  - adr-0061
 ---
 
 # BPMN Coverage Policy

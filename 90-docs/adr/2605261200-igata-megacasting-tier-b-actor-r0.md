@@ -7,15 +7,15 @@ topic: igata-actor-r0
 authoritative: true
 last_verified: 2026-05-26
 related:
-  - 2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - 2605242000-wadachi-autonomous-mobility-rd-r0.md
   - 2605250715-tatekata-construction-tier-b-actor-r0.md
-  - 2605252200-watatsumi-civilian-submersible-r0.md
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605192200-etzhayyim-ip-free-release-charter-rider.md
+  - adr-2605252200-watatsumi-civilian-submersible-r0
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 depends_on:
   - 2605191524-transparent-force-swarm-broadcast-witness-quorum.md
-  - 2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
 ---
 
 # ADR-2605261115: igata (鋳型) — Megacasting / HPDC Tier-B Actor R0 Scaffold

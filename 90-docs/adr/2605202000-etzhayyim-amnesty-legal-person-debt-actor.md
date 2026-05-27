@@ -24,7 +24,7 @@ depends_on:
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
 related:
-  - 90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md
+  - adr-2605201800-etzhayyim-yobel-debt-release-actor
 supersedes: []
 superseded_by: []
 ---

@@ -12,9 +12,9 @@ authoritative_for:
   - "Why moemoekyun R1.4 train on RTX 5090 must use MXFP8 (not MXFP4) precision"
   - "What HW upgrade unlocks MXFP4 (B200/B300 data-center class)"
 related:
-  - 90-docs/baien/moemoekyun-mxfp4-training-260526.md
-  - 90-docs/baien/moemoekyun-precision-architecture-260526.md
-  - 90-docs/adr/2605263100-founder-lv7-amendment-runpod-5090-train-mxfp4-extension.md
+  - moemoekyun-mxfp4-training-260526
+  - moemoekyun-precision-architecture-260526
+  - adr-2605263100-founder-lv7-amendment-runpod-5090-train-mxfp4-extension
   - 90-docs/baien/runpod-5090-runlog-260526.jsonl
 ---
 

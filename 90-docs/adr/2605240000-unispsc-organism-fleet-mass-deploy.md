@@ -19,7 +19,7 @@ depends_on:
   - adr-2605171300-open-unispsc-generative-agent-fleet
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - 2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp.md
+  - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 supersedes:
   - cells.UnispscOrganismC10101500Cell  # subsumed by UnispscOrganismFleetCell shard-0
 superseded_by: []

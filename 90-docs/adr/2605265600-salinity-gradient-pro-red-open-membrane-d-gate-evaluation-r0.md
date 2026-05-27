@@ -23,7 +23,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit
 related:
-  - 2605265000-district-heating-cooling-d-gate-evaluation-r0.md
+  - adr-2605265000-district-heating-cooling-d-gate-evaluation-r0
 supersedes: []
 superseded_by: []
 ---

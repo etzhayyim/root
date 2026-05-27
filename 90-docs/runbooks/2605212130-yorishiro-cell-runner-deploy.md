@@ -10,9 +10,9 @@ priority: 5.5
 axis: operations
 weight: 0.55
 related:
-  - 90-docs/adr/2605211900-etzhayyim-yorishiro-external-actor-bridge.md
-  - 90-docs/adr/2605202200-etzhayyim-cell-runtime-contract.md
-  - 90-docs/adr/2605202100-etzhayyim-magatama-cell-runner-launchd.md
+  - adr-2605211900-etzhayyim-yorishiro-external-actor-bridge
+  - adr-2605202200-etzhayyim-cell-runtime-contract
+  - adr-2605202100-etzhayyim-magatama-cell-runner-launchd
   - 50-infra/cluster/murakumo/cell-runner/cells.toml
   - 50-infra/cluster/murakumo/cell-runner/com.etzhayyim.magatama-cell-runner.plist
   - 20-actors/magatama/py/src/pymagatama/cell_runner_main.py

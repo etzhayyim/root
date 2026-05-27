@@ -17,8 +17,8 @@ related:
   - 90-docs/adr/0010-per-did-signing-key-custody.md
   - 90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md
   - 90-docs/adr/0095-simplified-3layer-identity-rw-vault.md
-  - 90-docs/adr/2604240914-oauth-rs-binding-revocation-introspection.md
-  - 90-docs/adr/2605141700-agent-authentication-api-key-rotation-pattern.md
+  - adr-2604240914-oauth-rs-binding-revocation-introspection
+  - adr-2605141700-agent-authentication-api-key-rotation-pattern
 supersedes:
   - adr-0022-auth-topology-consolidation
   - adr-0023-auth-shannon-optimal-4-layer

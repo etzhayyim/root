@@ -19,8 +19,8 @@ depends_on:
   - adr-2605232345-unispsc-actor-as-organism
   - adr-2605240100-unispsc-organism-post-sink-substrate-bridge
 related:
-  - 2605181100-mst-encrypted-records-signal-keywrap.md
-  - 2605240030-unispsc-organism-followers.md
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605240030-unispsc-organism-followers
 supersedes: []
 superseded_by: []
 ---

@@ -14,7 +14,7 @@ depends_on:
   - adr-2605010000-runpod-6000ada-unified-pod
   - adr-2605092345-runpod-l40s-fp8-multimodal-model-design
 related:
-  - 50-infra/runpod/ansible/README.md
+  - wellbecoming-karma-lean-proofs
   - 60-apps/ai-gftd-project-comfyui/ansible/        # earlier L40S precedent
 supersedes: []
 superseded_by: []
@@ -245,7 +245,7 @@ After a successful apply, copy the assigned pod id into
 
 # References
 
-- 50-infra/runpod/ansible/README.md
+- wellbecoming-karma-lean-proofs
 - 60-apps/ai-gftd-project-comfyui/ansible/ (L40S Ansible precedent)
 - ADR 2605010000 (6000 Ada unified pod)
 - ADR 2605092345 (H100 training pod)

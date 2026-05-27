@@ -14,7 +14,7 @@ authoritative_for:
 related:
   - 60-apps/ai-gftd-project-ma/magatama.toml
   - 90-docs/260427-fund-ma-actor-activation-runbook.md
-  - 90-docs/adr/2604261200-fund-intel-zeebe-ingest.md
+  - adr-2604261200
   - 30-graph/graph-schema/migrations/20260427040000_seed_fund_ma_bpmn_actors.ts
   - 30-graph/graph-schema/migrations/20260424161100_seed_open_lei_bpmn_actors.ts
 supersedes: []

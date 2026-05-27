@@ -22,7 +22,7 @@ depends_on:
   - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605172300-etzhayyim-bi-asset-substrate
 related:
-  - 2605192145-etzhayyim-public-fund-architecture.md
+  - adr-2605192145-etzhayyim-public-fund-architecture
 supersedes: []
 superseded_by: []
 ---

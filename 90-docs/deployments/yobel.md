@@ -7,8 +7,8 @@ topic: yobel-deployments
 authoritative: true
 last_verified: 2026-05-20
 related:
-  - 90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md
-  - 90-docs/governance/proposals/2605201800-yobel-ratification.md
+  - adr-2605201800-etzhayyim-yobel-debt-release-actor
+  - proposal-2605201800-yobel-ratification
   - 50-infra/etzhayyim-yobel-contract/script/Deploy.s.sol
 ---
 

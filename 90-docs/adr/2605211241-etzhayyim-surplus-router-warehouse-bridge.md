@@ -22,8 +22,8 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605202015-etzhayyim-robotics-first-industry-agriculture
 related:
-  - 2605192115-etzhayyim-non-profit-donation-only-no-ads.md
-  - 2605202015-etzhayyim-robotics-first-industry-agriculture.md
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
+  - adr-2605202015-etzhayyim-robotics-first-industry-agriculture
 supersedes: []
 superseded_by: []
 ---

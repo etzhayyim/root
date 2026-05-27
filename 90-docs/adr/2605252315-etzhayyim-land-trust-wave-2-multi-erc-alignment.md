@@ -28,9 +28,9 @@ depends_on:
   - adr-2605172600-etzhayyim-membership-ritual
 related:
   - 50-infra/etzhayyim-chain-contracts/src/LandRegistry.sol
-  - 50-infra/etzhayyim-land-registry/README.md
+  - wellbecoming-karma-lean-proofs
   - LANDS.md
-  - 90-docs/adr/2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain.md
+  - adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain
 supersedes: []
 superseded_by: []
 ---

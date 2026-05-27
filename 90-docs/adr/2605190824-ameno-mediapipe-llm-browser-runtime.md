@@ -7,8 +7,8 @@ topic: ameno-browser-inference
 authoritative: true
 last_verified: 2026-05-19
 related:
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
-  - 2605182312-local-bring-up-murakumo-gemma4.md
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+V05182312-local-bring-up-murakumo-gemma4
 depends_on:
   - 2605172000-etzhayyim-rw-free-substrate.md
 ---

@@ -7,8 +7,8 @@ topic: moemoekyun-smoke-inference
 authoritative: true
 last_verified: 2026-05-26
 related:
-  - 90-docs/adr/2605261900-baien-moemoekyun-moe-charter.md
-  - 90-docs/adr/2605262100-baien-moemoekyun-r1-phase0-coding-train.md
+  - adr-2605261900-baien-moemoekyun-moe-charter
+  - adr-2605262100-baien-moemoekyun-r1-phase0-coding-train
   - 70-tools/baien-moemoekyun-train/scripts/smoke_inference.py
 ---
 

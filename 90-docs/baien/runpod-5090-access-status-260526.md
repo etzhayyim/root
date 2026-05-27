@@ -7,7 +7,7 @@ topic: runpod-5090-access
 authoritative: true
 last_verified: 2026-05-26
 related:
-  - 90-docs/adr/2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim.md
+  - adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim
   - 90-docs/baien/runpod-5090-runlog-260526.jsonl
 ---
 

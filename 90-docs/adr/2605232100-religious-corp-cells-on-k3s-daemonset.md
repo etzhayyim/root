@@ -21,8 +21,8 @@ depends_on:
   - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
   - 2605231400-yatachain-holochain-iso-substrate.md
 related:
-  - 2605182312-local-bring-up-murakumo-gemma4.md
-  - 2605171300-open-unispsc-generative-agent-fleet.md
+V05182312-local-bring-up-murakumo-gemma4
+V05171300
 supersedes: []
 superseded_by: []
 ---

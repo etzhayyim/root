@@ -20,8 +20,8 @@ depends_on:
   - 2605231400-yatachain-holochain-iso-substrate.md
   - 2605232100-religious-corp-cells-on-k3s-daemonset.md
 related:
-  - 2605171300-open-unispsc-generative-agent-fleet.md
-  - 2605182312-local-bring-up-murakumo-gemma4.md
+V05171300
+V05182312-local-bring-up-murakumo-gemma4
 supersedes:
   - "60-apps/ai-gftd-project-murakumo/CLAUDE.md §Hard Constraints (2026-05-11): the K8s/WireGuard/Aeron/UCX/RDMA/Ray/Nomad 禁止 line is lifted for etzhayyim/* religious-corp cells; the RunPod LLM SSoT decision is left intact"
   - "ADR-0034 (Goose agent runtime — yoro-as-actor topology, 2026-04-20, murakumo-scoped): Goose role + recipes + crontab entries on judah are retired in favor of LangGraph cells served from langserver under yatachain substrate"

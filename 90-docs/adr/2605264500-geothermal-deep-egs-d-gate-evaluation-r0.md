@@ -23,7 +23,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192245-etzhayyim-global-land-sovereignty
 related:
-  - 2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit.md
+  - adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit
 supersedes: []
 superseded_by: []
 ---

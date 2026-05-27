@@ -10,8 +10,8 @@ depends_on:
   - 2605172000-etzhayyim-rw-free-substrate.md
   - 2605172100-etzhayyim-payments-on-chain-only.md
 related:
-  - 2605173100-gitguardian-incident-response.md
-  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane.md
+  - adr-2605173100-gitguardian-incident-response
+V05191346-etzhayyim-vultr-free-murakumo-control-plane
 ---
 
 # ADR 2605191648: Substrate boundary enforcement via lefthook pre-commit

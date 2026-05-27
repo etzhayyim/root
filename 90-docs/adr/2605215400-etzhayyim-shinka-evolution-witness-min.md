@@ -12,10 +12,10 @@ authoritative_for:
   - 30-day Lv7 appeal window
   - Charter Compliance Gate canonical implementation
 related:
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605192230-etzhayyim-three-tier-enforcement-implementation.md
-  - 2605215200-etzhayyim-shinka-pregel-mst-rewrite.md
-  - 2605192300-etzhayyim-bootstrap-council-five.md
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
+  - adr-2605215200-shinka-pregel-mst
+  - adr-2605192300-etzhayyim-bootstrap-council-five
 supersedes: []
 superseded_by: []
 ---

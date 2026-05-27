@@ -17,7 +17,7 @@ related:
   - 90-docs/adr/0023-auth-shannon-optimal-4-layer.md
   - 90-docs/adr/0036-worker-direct-hyperdrive-persistence.md
   - 90-docs/260413-agent-loop-unification-path-analysis.md
-  - 90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md
+  - adr-2604261000-mcp-registry-via-kysely-schema
 supersedes: []
 superseded_by: []
 amended_by:

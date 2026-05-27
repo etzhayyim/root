@@ -7,13 +7,13 @@ topic: suki/farm-tractor/manufacturing
 authoritative: true
 last_verified: 2026-05-26T00:00:00Z
 related:
-  - 2605252500-sarutahiko-heavy-truck-manufacturing-r0.md
+  - adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0
   - 2605242000-wadachi-autonomous-mobility-rd-r0.md
-  - 2605261015-mitsuho-food-agriculture-tier-b-actor-r0.md
-  - 2605252400-kanayama-circular-metallurgy-r0.md
-  - 2605261200-igata-megacasting-tier-b-actor-r0.md
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605192200-etzhayyim-ip-free-release-charter-rider.md
+  - adr-2605261015
+  - adr-2605252400-kanayama-circular-metallurgy-r0
+  - adr-2605261115-igata-megacasting-tier-b-actor-r0
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 depends_on:
   - 2605191524-transparent-force-swarm-broadcast-witness-quorum.md
   - 2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md

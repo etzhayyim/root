@@ -11,17 +11,17 @@ authoritative_for:
   - Public Fund sizing per liberation stage
   - actor maturity gate sequencing for mission delivery
 related:
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605192115-etzhayyim-non-profit-donation-only-no-ads.md
-  - 2605192130-etzhayyim-tithe-redistribution.md
-  - 2605192145-etzhayyim-public-fund-architecture.md
-  - 2605172300-etzhayyim-bi-asset-substrate.md
-  - 2605172600-etzhayyim-membership-ritual.md
-  - 2605172700-membership-layering-shinto-adherent.md
-  - 2605261015-mitsuho-food-agriculture-tier-b-actor-r0.md
-  - 2605261030-hagukumi-care-tier-b-actor-r0.md
-  - 2605261045-manabi-education-tier-b-actor-r0.md
-  - 2605261100-hikari-energy-tier-b-actor-r0.md
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
+  - adr-2605192130-etzhayyim-tithe-redistribution
+  - adr-2605192145-etzhayyim-public-fund-architecture
+  - adr-2605172300-etzhayyim-bi-asset-substrate
+  - adr-2605172600-etzhayyim-membership-ritual
+  - adr-2605172700-membership-layering-shinto-adherent
+  - adr-2605261015
+  - adr-2605261030
+  - adr-2605261045
+  - adr-2605261100
 supersedes: []
 superseded_by: []
 depends_on:

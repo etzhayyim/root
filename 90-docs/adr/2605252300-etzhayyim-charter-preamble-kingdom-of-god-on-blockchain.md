@@ -26,7 +26,7 @@ depends_on:
   - adr-2605192345-etzhayyim-steward-succession
   - adr-2605172600-etzhayyim-membership-ritual
 related:
-  - 90-docs/adr/2605252315-etzhayyim-land-trust-wave-2-multi-erc-alignment.md
+  - adr-2605252315-etzhayyim-land-trust-wave-2-multi-erc-alignment
   - CHARTER-RIDER.md
   - LANDS.md
   - MEMBERS.md

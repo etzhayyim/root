@@ -7,25 +7,25 @@ topic: ameno-deployment
 authoritative: true
 last_verified: 2026-05-19
 related:
-  - adr/2605190824-ameno-mediapipe-llm-browser-runtime.md
-  - adr/2605191000-ameno-browser-pregel-reflection.md
-  - adr/2605191113-ameno-active-inference-lexical-surprise.md
-  - adr/2605191120-ameno-embedding-surprise-tier-c.md
-  - adr/2605191129-ameno-browser-tool-use-react.md
-  - adr/2605191135-ameno-tier2-daemon-residency.md
-  - adr/2605191206-ameno-long-term-memory-vault.md
-  - adr/2605191229-ameno-daemon-path-a-bun-langgraph.md
-  - adr/2605191257-ameno-daemon-path-b-pymagatama-python.md
-  - adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md
-  - adr/2605191407-ameno-browser-viewer-mode.md
-  - adr/2605191524-ameno-multi-tab-swarm-broadcast.md
-  - adr/2605191559-ameno-mst-checkpointer-stage-2-activation.md
-  - adr/2605191603-ameno-swarm-leader-election.md
-  - adr/2605191608-ameno-stage-3-ipfs-pin-activation.md
-  - adr/2605191625-ameno-stage-4-l2-anchor.md
-  - adr/2605191638-ameno-substrate-swarm-lease-lex.md
-  - adr/2605191645-ameno-browser-daemon-checkpoint-sync.md
-  - adr/2605191657-ameno-daemon-did-auth.md
+V05190824-ameno-mediapipe-llm-browser-runtime
+V05191000-ameno-browser-pregel-reflection
+V05191113-ameno-active-inference-lexical-surprise
+V05191120-ameno-embedding-surprise-tier-c
+V05191129-ameno-browser-tool-use-react
+V05191135-ameno-tier2-daemon-residency
+V05191206-ameno-long-term-memory-vault
+V05191229-ameno-daemon-path-a-bun-langgraph
+V05191257-ameno-daemon-path-b-pymagatama-python
+V05191346-etzhayyim-vultr-free-murakumo-control-plane
+V05191407-ameno-browser-viewer-mode
+V05191524-ameno-multi-tab-swarm-broadcast
+V05191559-ameno-mst-checkpointer-stage-2-activation
+V05191603-ameno-swarm-leader-election
+V05191608-ameno-stage-3-ipfs-pin-activation
+V05191625-ameno-stage-4-l2-anchor
+V05191638-ameno-substrate-swarm-lease-lex
+V05191645-ameno-browser-daemon-checkpoint-sync
+V05191657-ameno-daemon-did-auth
 ---
 
 # ameno — end-to-end runbook

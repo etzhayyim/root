@@ -23,7 +23,7 @@ depends_on:
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - vendor:90-docs/adr/2605201700-yobel-jubilee-shmita-debt-release-actor.md
+  - adr-2605201700-yobel-jubilee-shmita-debt-release-actor
   - vendor:60-apps/ai-gftd-project-bankruptcy/CLAUDE.md
   - vendor:90-docs/adr/0016-legal-cluster-topology.md
   - vendor:90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md

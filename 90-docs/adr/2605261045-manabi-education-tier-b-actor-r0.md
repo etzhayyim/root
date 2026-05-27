@@ -11,10 +11,10 @@ authoritative_for:
   - education domain constitutional gates G1..G14
   - L4 + L5 education-delivery substrate
 related:
-  - 2605261000-labor-liberation-transition-mechanism.md
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605192200-etzhayyim-ip-free-release-charter-rider.md
-  - 2605260100-mitate-diagnostic-routing-charter.md
+  - adr-2605261000
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605260100-mitate-diagnostic-routing-charter
 supersedes: []
 superseded_by: []
 depends_on:

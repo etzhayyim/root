@@ -9,8 +9,8 @@ last_verified: 2026-05-27
 authoritative_for:
   - operator-facing entry point for ADR-2605262500 production rollout
 related:
-  - 90-docs/adr/2605262500-robotics-world-data-ingestion-and-usd-pipeline.md
-  - 90-docs/baien/adr-2605262500-implementation-retrospective-260527.md
+  - adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline
+  - doc-adr-2605262500-implementation-retrospective-260527
   - CLAUDE.md (row #71)
 supersedes: []
 superseded_by: []

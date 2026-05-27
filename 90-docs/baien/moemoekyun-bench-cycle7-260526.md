@@ -15,7 +15,7 @@ related:
   - 90-docs/baien/bench-snapshot-260526-bitnet2b-canonical.jsonl
   - 90-docs/baien/cycle7-results/
   - 90-docs/baien/runpod-5090-runlog-260526.jsonl
-  - 90-docs/adr/2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim.md
+  - adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim
 ---
 
 # moemoekyun bench cycle 7 — 2026-05-26 16:44-17:05 JST

@@ -21,7 +21,7 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192315-etzhayyim-transparent-force-rd
 related:
-  - 2605192300-etzhayyim-bootstrap-council-five.md
+  - adr-2605192300-etzhayyim-bootstrap-council-five
 supersedes: []
 superseded_by: []
 ---

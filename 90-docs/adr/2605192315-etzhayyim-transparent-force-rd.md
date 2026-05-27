@@ -22,7 +22,7 @@ depends_on:
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
   - adr-2605192300-etzhayyim-bootstrap-council-five
 related:
-  - 2605192245-etzhayyim-global-land-sovereignty.md
+  - adr-2605192245-etzhayyim-global-land-sovereignty
 supersedes: []
 superseded_by: []
 ---

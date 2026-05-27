@@ -11,12 +11,12 @@ authoritative_for:
   - energy domain constitutional gates G1..G14
   - L2 Sustenance Tier energy-supply substrate
 related:
-  - 2605261000-labor-liberation-transition-mechanism.md
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605192245-etzhayyim-global-land-sovereignty.md
+  - adr-2605261000
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192245-etzhayyim-global-land-sovereignty
   - 2605201400-kuni-umi-tier-b-planetary-infrastructure.md
   - 2605242500-baien-iwakura-ternary-asic.md
-  - 2605263500-energy-substrate-dependency-vs-substance-reframing.md
+  - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
 supersedes: []
 superseded_by: []
 superseded_by_partial:

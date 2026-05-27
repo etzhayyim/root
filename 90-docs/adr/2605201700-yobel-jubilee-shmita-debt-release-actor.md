@@ -13,9 +13,9 @@ authoritative_for:
 related:
   - 90-docs/adr/0016-legal-cluster-topology.md
   - 90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md
-  - 90-docs/adr/2605152100-etzhayyim-github-org-boundary.md
+  - adr-2605152100-etzhayyim-github-org-boundary
   - 90-docs/adr/2605172000-etzhayyim-open-telecom-fabric.md
-  - 90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md
+  - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - 60-apps/ai-gftd-project-bankruptcy/CLAUDE.md
 supersedes: []
 superseded_by: []

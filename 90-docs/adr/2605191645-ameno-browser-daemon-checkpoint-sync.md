@@ -11,8 +11,8 @@ depends_on:
   - 2605191257-ameno-daemon-path-b-pymagatama-python.md
   - 2605191229-ameno-daemon-path-a-bun-langgraph.md
 related:
-  - 2605191135-ameno-tier2-daemon-residency.md
-  - 2605191559-ameno-mst-checkpointer-stage-2-activation.md
+V05191135-ameno-tier2-daemon-residency
+V05191559-ameno-mst-checkpointer-stage-2-activation
 ---
 
 # ADR 2605191645: Ameno browser ↔ daemon checkpoint sync (v0.1)

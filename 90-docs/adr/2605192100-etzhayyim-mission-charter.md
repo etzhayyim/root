@@ -22,10 +22,10 @@ depends_on:
   - adr-2605172300-etzhayyim-bi-asset-substrate
   - adr-2605172600-etzhayyim-membership-ritual
 related:
-  - 2605192115-etzhayyim-non-profit-donation-only-no-ads.md
-  - 2605192130-etzhayyim-tithe-redistribution.md
-  - 2605192145-etzhayyim-public-fund-architecture.md
-  - 2605192200-etzhayyim-ip-free-release-charter-rider.md
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
+  - adr-2605192130-etzhayyim-tithe-redistribution
+  - adr-2605192145-etzhayyim-public-fund-architecture
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 supersedes: []
 superseded_by: []
 ---

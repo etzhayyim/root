@@ -13,8 +13,8 @@ authoritative_for:
   - BPMN-native worker path alongside LangGraph Server main runtime
   - zeebe-replacement-runbook
 related:
-  - 90-docs/adr/2605080600-langgraph-server-granian-l3-runtime.md
-  - 90-docs/adr/2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic.md
+  - adr-2605080600-langgraph-server-granian-l3-runtime
+  - adr-2604282300
   - 90-docs/adr/0056-bpmn-as-actor.md
   - 90-docs/adr/0036-worker-direct-hyperdrive-persistence.md
   - 90-docs/adr/0094-risingwave-stable-three-node-topology.md

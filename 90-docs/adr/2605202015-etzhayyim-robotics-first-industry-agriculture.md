@@ -19,9 +19,9 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192245-etzhayyim-global-land-sovereignty
 related:
-  - 2605192200-etzhayyim-ip-free-release-charter-rider.md
-  - 2605202000-etzhayyim-energy-substrate.md
-  - 2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605202000-etzhayyim-energy-substrate
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
 supersedes: []
 superseded_by: []
 ---

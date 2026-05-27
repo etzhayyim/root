@@ -12,7 +12,7 @@ authoritative_for:
   - documented build blockers for the EVO Windows ComfyUI portable env
 last_verified: 2026-05-24
 related:
-  - 90-docs/adr/2605242000-roso-pattern-frontier-distill.md
+  - adr-2605242000-roso-pattern-frontier-distill
   - 90-docs/baien/quant-shootout-260524/
   - 70-tools/scripts/bench/quant-training-shootout/kernels/
 ---

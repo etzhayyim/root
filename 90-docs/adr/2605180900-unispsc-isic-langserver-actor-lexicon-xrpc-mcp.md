@@ -20,7 +20,7 @@ depends_on:
   - adr-2605171300-open-unispsc-generative-agent-fleet
   - adr-2605172000-etzhayyim-rw-free-substrate
 related:
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 supersedes: []
 superseded_by: []
 ---

@@ -19,8 +19,8 @@ depends_on:
   - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
-  - 2605231400-yatachain-holochain-iso-substrate.md
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - adr-2605231400-yatachain-holochain-iso-substrate
 supersedes: []
 superseded_by: []
 ---

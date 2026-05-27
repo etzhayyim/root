@@ -23,7 +23,7 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 2605263600-hydrogen-economy-d-gate-evaluation-r0.md
+  - adr-2605263600-hydrogen-economy-d-gate-evaluation-r0
 supersedes: []
 superseded_by: []
 ---

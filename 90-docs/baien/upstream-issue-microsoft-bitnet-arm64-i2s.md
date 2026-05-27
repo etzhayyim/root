@@ -7,7 +7,7 @@ topic: edge-multimodal-model-1bit
 authoritative: false
 last_verified: 2026-05-10
 related:
-  - 90-docs/adr/2605092350-baien-1bit-multimodal-edge-browser-cpu-design.md
+  - adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design
 ---
 
 # What this is

@@ -10,7 +10,7 @@ authoritative_for:
   - ADR index for etzhayyim/root
   - placement policy for open-scope ADRs
 related:
-  - 2605170900-etzhayyim-root-adr-canonical-home.md
+  - adr-2605170900-etzhayyim-root-adr-canonical-home
 supersedes: []
 superseded_by: []
 ---

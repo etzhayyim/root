@@ -21,8 +21,8 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
-  - 2605192130-etzhayyim-tithe-redistribution.md
-  - 2605192145-etzhayyim-public-fund-architecture.md
+  - adr-2605192130-etzhayyim-tithe-redistribution
+  - adr-2605192145-etzhayyim-public-fund-architecture
 supersedes: []
 superseded_by: []
 ---

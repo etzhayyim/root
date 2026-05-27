@@ -18,7 +18,7 @@ depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605172000-etzhayyim-rw-free-substrate
 related:
-  - 2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp.md
+  - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 supersedes: []
 superseded_by: []
 ---

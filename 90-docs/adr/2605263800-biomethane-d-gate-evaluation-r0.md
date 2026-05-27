@@ -23,7 +23,7 @@ depends_on:
   - adr-2605261215-hodoki-elv-disassembly-tier-b-actor-r0
   - adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0
 related:
-  - 2605263700-green-ammonia-d-gate-evaluation-r0.md
+  - adr-2605263700-green-ammonia-d-gate-evaluation-r0
 supersedes: []
 superseded_by: []
 ---

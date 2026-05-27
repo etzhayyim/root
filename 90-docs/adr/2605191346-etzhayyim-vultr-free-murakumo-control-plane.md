@@ -12,8 +12,8 @@ depends_on:
   - 2605172800-geth-private-migration-to-etzhayyim.md
   - 2605182312-local-bring-up-murakumo-gemma4.md
 related:
-  - 2605191229-ameno-daemon-path-a-bun-langgraph.md
-  - 2605191257-ameno-daemon-path-b-pymagatama-python.md
+V05191229-ameno-daemon-path-a-bun-langgraph
+V05191257-ameno-daemon-path-b-pymagatama-python
 supersedes:
   - "(strengthens, does not delete) 2605172800-geth-private-migration-to-etzhayyim §Option C"
 ---

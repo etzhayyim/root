@@ -14,9 +14,9 @@ depends_on:
   - adr-2605231300-baien-distill-react-loop
   - adr-2605241900-baien-edge-target-invariant
 related:
-  - 90-docs/baien/move1-phaseA-260524.md
-  - 90-docs/baien/distill-iter00-260524.md
-  - 90-docs/baien/context-extend-snapshot-260523.md
+  - doc-260524-move1-phaseA-snapshot
+  - doc-260524-distill-iter00-snapshot
+  - doc-260523-baien-context-extend-snapshot
 supersedes: []
 superseded_by: []
 ---

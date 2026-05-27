@@ -8,7 +8,7 @@ authoritative: true
 last_verified: 2026-05-26
 related:
   - 90-docs/baien/moemoekyun-bench-cycle{1,2,3,4}-260526.md
-  - 90-docs/adr/2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim.md
+  - adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim
 ---
 
 # moemoekyun bench cycle 5 — 2026-05-26 15:55 JST

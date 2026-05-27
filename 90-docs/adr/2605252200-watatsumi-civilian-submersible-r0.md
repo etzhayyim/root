@@ -33,11 +33,11 @@ depends_on:
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605191524-transparent-force-swarm-broadcast-witness-quorum
 related:
-  - 20-actors/watatsumi/README.md
-  - 20-actors/kuni-umi/README.md
-  - 20-actors/wadachi/README.md
-  - 20-actors/tatekata/README.md
-  - 20-actors/yakushi/README.md
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
+  - wellbecoming-karma-lean-proofs
 supersedes: []
 superseded_by: []
 ---

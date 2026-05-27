@@ -19,8 +19,8 @@ related:
   - w-protocol-at-superset-architecture
   - did-path-lexicon-correspondence
   - wit-lexicon-typed-alignment
-  - 90-docs/adr/0087-magatama-mcp-tool-facade.md
-  - 90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md
+  - adr-0087-magatama-mcp-tool-facade
+  - adr-2604261000-mcp-registry-via-kysely-schema
 supersedes:
   - wit-lexicon-typed-alignment
 superseded_by: []

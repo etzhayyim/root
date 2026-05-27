@@ -23,8 +23,8 @@ depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 related:
-  - 2605264200-mechanical-energy-storage-d-gate-evaluation-r0.md
-  - 2605181100-mst-encrypted-records-signal-keywrap.md
+  - adr-2605264200-mechanical-energy-storage-d-gate-evaluation-r0
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 supersedes: []
 superseded_by: []
 ---

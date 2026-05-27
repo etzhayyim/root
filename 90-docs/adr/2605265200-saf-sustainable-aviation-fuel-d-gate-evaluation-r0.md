@@ -24,7 +24,7 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 2605264900-v2g-demand-response-d-gate-evaluation-r0.md
+  - adr-2605264900-v2g-demand-response-d-gate-evaluation-r0
 supersedes: []
 superseded_by: []
 ---

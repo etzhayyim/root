@@ -22,8 +22,8 @@ related:
   - 90-docs/dt/260324-dt-secure-file-transfer-design.md
   - 10-protocol/signal/src/signal.ts
   - 30-graph/deps.toml
-  - 90-docs/260424-oauth-strict-mode-cutover-runbook.md
-  - 90-docs/adr/2604262100-erc725-erc8004-k8s-ipfs-agent-runtime.md
+  - doc-260424-oauth-strict-mode-cutover
+  - adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime
   - 50-infra/vultr/geth-private/contracts/ADDRESSES.md
 supersedes: []
 superseded_by: []

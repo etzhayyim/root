@@ -9,7 +9,7 @@ last_verified: 2026-05-19
 depends_on:
   - 2605191113-ameno-active-inference-lexical-surprise.md
 related:
-  - 2605191000-ameno-browser-pregel-reflection.md
+V05191000-ameno-browser-pregel-reflection
 ---
 
 # ADR 2605191120: Ameno active inference — Tier C embedding-based surprise (MiniLM)

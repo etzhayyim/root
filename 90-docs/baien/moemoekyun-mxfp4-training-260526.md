@@ -12,9 +12,9 @@ authoritative_for:
   - "Difference from NVIDIA NVFP4 + TransformerEngine FP4 path"
   - "Applicability: moemoekyun R1.4+ MoE residual + BitNet trainable variant"
 related:
-  - 90-docs/baien/moemoekyun-precision-architecture-260526.md
-  - 90-docs/adr/2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture.md
-  - 90-docs/adr/2605261900-baien-moemoekyun-moe-charter.md
+  - moemoekyun-precision-architecture-260526
+  - adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture
+  - adr-2605261900-baien-moemoekyun-moe-charter
 ---
 
 # moemoekyun + BitNet trainable — MXFP4 (OCP MX) training

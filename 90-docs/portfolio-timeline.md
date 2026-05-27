@@ -11,11 +11,11 @@ authoritative_for:
   - project-timeline
   - phase-gates
 related:
-  - 90-docs/adr/2605180000-lawfirm-product-focus-bmc-lean.md
-  - 90-docs/adr/2605190000-yatabase-bmc-lean.md
-  - 90-docs/adr/2605190100-defense-cluster-topology.md
-  - 90-docs/adr/2605200000-nist-csf-respond-irp.md
-  - 90-docs/adr/2605200200-nist-csf-recover-rto-rpo.md
+  - adr-2605180000-lawfirm-product-focus-bmc-lean
+  - adr-2605190000-yatabase-bmc-lean
+  - adr-2605190100-defense-cluster-topology
+  - adr-2605200000-nist-csf-respond-irp
+  - adr-2605200200-nist-csf-recover-rto-rpo
   - deps.toml [etzhayyim_agent.product_portfolio]
 ---
 

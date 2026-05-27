@@ -19,7 +19,7 @@ depends_on:
   - adr-2605192130-etzhayyim-tithe-redistribution
   - adr-2605192100-etzhayyim-mission-charter
 related:
-  - 2605192230-etzhayyim-three-tier-enforcement-implementation.md
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
 supersedes: []
 superseded_by: []
 ---
@@ -137,15 +137,15 @@ contract TitheRouterV1 {
     IConstitution public immutable constitution;
     IChartersComplianceRegistry public immutable charters;
     // publicFund immutable は削除
-    
+
     bytes32 public constant PUBLIC_FUND_ADDRESS_KEY = keccak256("public_fund.safe_address");
-    
+
     constructor(IERC20 _usdc, IConstitution _constitution, IChartersComplianceRegistry _charters) {
         usdc = _usdc;
         constitution = _constitution;
         charters = _charters;
     }
-    
+
     function route(address recipient, uint256 grossAmount, bytes32 purpose) external {
         // ... gate checks ...
         address publicFund = address(uint160(uint256(constitution.getMutable(PUBLIC_FUND_ADDRESS_KEY))));

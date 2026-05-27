@@ -10,10 +10,10 @@ authoritative_for:
   - bpmn-process-definition-ownership
   - bpmn-engine-infra-ownership
 related:
-  - 90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md
-  - 90-docs/adr/2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion.md
-  - 90-docs/adr/2605081200-spiffworkflow-bpmn-engine-replacement.md
-  - 90-docs/adr/2605082200-pyzeebe-handler-thin-dispatcher-contract.md
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
+  - adr-2605081200-spiffworkflow-bpmn-engine-replacement
+  - adr-2605082200-pyzeebe-handler-thin-dispatcher-contract
 supersedes: []
 superseded_by: []
 ---

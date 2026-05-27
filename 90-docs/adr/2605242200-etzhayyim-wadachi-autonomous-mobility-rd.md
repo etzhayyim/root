@@ -29,7 +29,7 @@ depends_on:
   - adr-2605172000-etzhayyim-sdk-rw-free-substrate
   - adr-2605231525-no-server-key-invariant
 related:
-  - 20-actors/kuni-umi/README.md
+  - wellbecoming-karma-lean-proofs
   - 60-apps/ai-gftd-project-open-robo/CLAUDE.md
 supersedes: []
 superseded_by: []

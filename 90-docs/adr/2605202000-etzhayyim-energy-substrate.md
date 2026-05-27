@@ -19,8 +19,8 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
-  - 2605192245-etzhayyim-global-land-sovereignty.md
-  - 2605263500-energy-substrate-dependency-vs-substance-reframing.md
+  - adr-2605192245-etzhayyim-global-land-sovereignty
+  - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
 supersedes: []
 superseded_by: []
 superseded_by_partial:

@@ -7,10 +7,10 @@ topic: ameno-deployment
 authoritative: false
 last_verified: 2026-05-19
 related:
-  - ameno-end-to-end-runbook.md
-  - adr/2605190824-ameno-mediapipe-llm-browser-runtime.md
-  - adr/2605191000-ameno-browser-pregel-reflection.md
-  - adr/2605191648-substrate-boundary-lefthook.md
+  - ameno-end-to-end-runbook
+V05190824-ameno-mediapipe-llm-browser-runtime
+V05191000-ameno-browser-pregel-reflection
+V05191648-substrate-boundary-lefthook
 ---
 
 # Ameno wave — session chronicle 2026-05-19

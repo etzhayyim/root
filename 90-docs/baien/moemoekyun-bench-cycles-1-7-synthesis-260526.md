@@ -19,7 +19,7 @@ related:
   - 90-docs/baien/bench-snapshot-260526-bitnet2b-canonical.jsonl
   - 90-docs/baien/bench-snapshot-260526-bitnet2b-gpqa-diamond.jsonl
   - 90-docs/baien/cycle7-results/baien-bench/results/
-  - 90-docs/adr/2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim.md
+  - adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim
 ---
 
 # moemoekyun bench cycles 1-7 synthesis — 2026-05-26

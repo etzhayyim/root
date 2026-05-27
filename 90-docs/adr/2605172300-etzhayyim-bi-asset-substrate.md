@@ -25,8 +25,8 @@ depends_on:
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
-  - 2605172700-membership-layering-shinto-adherent.md
-  - 2605172600-etzhayyim-membership-ritual.md
+  - adr-2605172700-membership-layering-shinto-adherent
+  - adr-2605172600-etzhayyim-membership-ritual
 supersedes: []
 superseded_by: []
 ---

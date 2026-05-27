@@ -19,7 +19,7 @@ depends_on:
   - adr-2605241930-baien-mx-move4-audio-graft
 related:
   - 70-tools/baien-mx-train/
-  - 90-docs/runbooks/bitnet-cpp-evo-x2-build.md
+  - runbook-bitnet-cpp-evo-x2-build
 supersedes: []
 superseded_by: []
 ---

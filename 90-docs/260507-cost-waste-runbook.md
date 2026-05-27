@@ -7,9 +7,9 @@ topic: infra-cost
 authoritative: true
 last_verified: 2026-05-07
 related:
-  - 90-docs/adr/2605010000-runpod-6000ada-unified-pod.md
+  - adr-2605010000
   - 90-docs/adr/0048-risingwave-vultr-b2-primary.md
-  - 90-docs/adr/2604292130-llm-gftd-ai-runpod-pass.md
+  - adr-2604292130
   - 50-infra/vultr/cloudflared/blockscout-tunnel.yaml
 ---
 

@@ -12,10 +12,10 @@ authoritative_for:
   - mst-projector wiring for server-side filter
   - charter compliance gate in evolution path
 related:
-  - 2605192100-etzhayyim-mission-charter.md
-  - 2605215400-etzhayyim-shinka-evolution-witness-min.md
-  - 2605192230-etzhayyim-three-tier-enforcement-implementation.md
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture.md
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605215400-evolution-witness-min
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 supersedes: []
 superseded_by: []
 ---

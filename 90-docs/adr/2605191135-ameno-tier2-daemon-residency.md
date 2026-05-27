@@ -14,8 +14,8 @@ depends_on:
   - 2605191129-ameno-browser-tool-use-react.md
   - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
 related:
-  - 2605171300-open-unispsc-generative-agent-fleet.md
-  - 2605172000-etzhayyim-rw-free-substrate.md
+V05171300
+  - adr-2605172000-etzhayyim-rw-free-substrate
 ---
 
 # ADR 2605191135: Ameno as resident Tier-2 daemon in the artificial-organism ecosystem
