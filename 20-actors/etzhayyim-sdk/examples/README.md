@@ -38,6 +38,34 @@ in the single HTML file. The inlined cartpole kernel is byte-for-byte
 the canonical SDK version at
 `../src/nv-compat/warp/examples.ts` (`cartpoleStepKernel`, iter 79).
 
+## `pendulum-energy-demo.html` (iter 83)
+
+Pendulum swinging via the iter 78 `pendulumStepKernel` JS impl, with
+real-time energy diagnostics. Visual companion to iter 78 PASS 12
+(the 50,000-step passive sim, energy bound 1%).
+
+**Open the file directly** — zero build step.
+
+**Controls:**
+
+- `↑` / `↓` — apply ±5 N·m impulsive torque
+- `R` — reset to θ=π/4, ω=0
+- `Space` — pause / resume
+- `D` — toggle viscous damping (-0.3·ω)
+
+**What you'll see:**
+
+- Left panel: the pendulum swinging (green rope, orange bob).
+- Right panel: real-time energy traces — T kinetic (red), V potential
+  (blue), E = T + V (orange overlay).
+- Live readout: θ, ω, T, V, E, energy drift %, sim time.
+- The orange E line stays flat in the absence of applied torque /
+  damping, visibly demonstrating semi-implicit Euler's O(dt²)
+  energy preservation. Tap `↑` / `↓` to inject energy; toggle `D` to
+  drain it back out via viscous damping.
+
+ADR-2605261800 §D6 nv-compat namespace localization.
+
 ## `two-link-ik-demo.html` (iter 82)
 
 Interactive 2-link arm reaching demo. Click on canvas to set an EE
