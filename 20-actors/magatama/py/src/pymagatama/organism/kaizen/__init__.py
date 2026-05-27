@@ -554,7 +554,12 @@ class FleetUnreachableRule:
 
 @register_rule
 class StaleSensorPinRule:
-    """R7 — sensor's latest datasetPin is older than 4× its refresh cadence."""
+    """R7 — sensor's latest datasetPin is older than 4× its refresh cadence.
+
+    Suggests re-pulling the upstream archive and emitting a fresh
+    datasetPin record. Severity = warn (organism keeps operating with a
+    stale pin, but the data is drifting).
+    """
 
     rule_id = "stale-sensor-pin"
 
@@ -583,9 +588,10 @@ class StaleSensorPinRule:
                         f"{s.license}) has not received a fresh "
                         f"app.etzhayyim.substrate.datasetPin record in "
                         f"{age_h:.1f}h. Upstream cadence is "
-                        f"{s.refresh_cadence_sec}s. Per ADR-2605262400 G12, "
-                        f"refresh MUST NOT undercut upstream cadence — but "
-                        f"stale-by-4x is the floor."
+                        f"{s.refresh_cadence_sec}s ≈ "
+                        f"{s.refresh_cadence_sec / 3600:.1f}h. Per "
+                        f"ADR-2605262400 G12, refresh MUST NOT undercut "
+                        f"upstream cadence — but stale-by-4x is the floor."
                     ),
                     evidence={
                         "sensor": s.name,
@@ -617,7 +623,13 @@ class StaleSensorPinRule:
 
 @register_rule
 class CharterFalsePositiveRateRule:
-    """R8 — Charter Rider §2 scanner false-positive rate > 5% / 24h."""
+    """R8 — Charter Rider §2 scanner false-positive rate > 5% / 24h.
+
+    The scanner is heuristic (ADR-2605192200) and is expected to have
+    some FP. >5% sustained means either the scanner pattern set is too
+    aggressive on this sensor's vocabulary, or the operator-curated
+    allow-context is too narrow. Either way it should be reviewed.
+    """
 
     rule_id = "charter-fail-rate"
 
@@ -646,7 +658,8 @@ class CharterFalsePositiveRateRule:
                         f"last 24h, {s.last_charter_fp_count} were demoted by "
                         f"allow-context (rate {rate * 100:.1f}%). Per "
                         f"ADR-2605262400 G11, this triggers a scanner-spec "
-                        f"review."
+                        f"review (allow-context regex widening, or category "
+                        f"pattern tightening)."
                     ),
                     evidence={
                         "sensor": s.name,
@@ -711,7 +724,9 @@ class TierCLeakBackstopRule:
                         f"A tier-C SensorObservation with internal_only=True "
                         f"reached PostSink '{la.sink_kind}' on actor "
                         f"{la.actor_did}. Per ADR-2605262400 §5 R9 + G4, "
-                        f"this is a constitutional backstop incident. "
+                        f"this is a constitutional backstop incident. The "
+                        f"offending organism cell SHOULD be halted and the "
+                        f"event escalated to Council Lv6+ for review. "
                         f"Detail: {la.detail}"
                     ),
                     evidence={
@@ -726,13 +741,15 @@ class TierCLeakBackstopRule:
                         description=(
                             "Halt the offending organism cell. Audit the "
                             "PostSink wiring on its host. Council Lv6+ "
-                            "reviews the incident."
+                            "reviews the incident and clears the cell back "
+                            "online once root cause is fixed."
                         ),
                         target_files=[
                             "20-actors/magatama/py/src/pymagatama/organism/post_sink.py",
                         ],
                         test_plan=[
-                            "Re-run R9 leak-test harness",
+                            "Re-run R9 leak-test harness "
+                            "(70-tools/baien-moemoekyun-train/tests/test_r9_leak.py)",
                             "Audit `PostSink.send()` callsites for tier-C drop",
                         ],
                     ),
