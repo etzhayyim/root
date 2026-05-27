@@ -1,11 +1,11 @@
 ---
 id: adr-2605263800-public-data-corporate-disclosure-ipfs-ingestion
 title: "ADR-2605263800: Global corporate-disclosure ingestion (SEC EDGAR / EDINET / Companies House / GLEIF LEI / OpenCorporates / regional registries) via IPFS-pinned DataLad subdatasets — extends ADR-2605262400; powers ossekai (ADR-2605264000) information-arbitrage publication + toritate (ADR-2605262900) recipient-transparency cross-reference + chigiri (ADR-2605262700) legal-entity ID lookup + baien-distill financial-literacy specialist artifacts"
-status: proposed
+status: w1-impl-landed
 doc_type: adr
 topic: public-data-corporate-disclosure-r0
 authoritative: true
-last_verified: 2026-05-26
+last_verified: 2026-05-27
 priority: 6.0
 axis: information-symmetry
 weight: 0.55

@@ -20,7 +20,15 @@ related:
 
 ## TL;DR
 
-Two ADRs landed 2026-05-26 (ADR-2605263800 corporate disclosure + ADR-2605263900 open government). Across 22 iterations of the recurring `/loop` task `eaeee13b`, W1 progressed from **R0 path-reserved scaffold** to **14 concrete sensor implementations + 15/15 pytest harness + complete cross-cutting infrastructure (recipes, lexicons, acceptance templates, deps.toml registration, cross-actor wiring, legacy script supersession)**. Fetcher code remains W0-stub (`NotImplementedError` w/ ADR pointer); the sensors consume operator-staged or fetcher-emitted NDJSON, so the W1 sensor layer is independently testable.
+Two ADRs landed 2026-05-26 (ADR-2605263800 corporate disclosure + ADR-2605263900 open government). Across **35 iterations of the recurring `/loop` task `eaeee13b` (2026-05-26 → 2026-05-27)**, W1 progressed from **R0 path-reserved scaffold** to **W1 IMPL LANDED**:
+
+- **12 / 12 concrete fetcher implementations** ═══ PARITY COMPLETE ═══ (corp 4 = gleif_lei + sec_edgar + uk_companies_house + jp_edinet; gov 8 = worldbank_open_data + eu_eurostat + 3 CKAN portals US/UK/JP + 3 Parliament US/UK/JP)
+- **14 concrete sensor implementations** (corp 4 + gov 10; covers gov 5-facet COMPLETE: Statistics + OpenData triad + Parliament triad + Budget + Procurement)
+- **15/15 sensor pytest harness PASS** (via importlib bypass runner; pytest-CI-ready)
+- **Per-fetcher end-to-end fetcher→sensor integration verified** (12/12 pipelines green at smoke-test phase: real Apple/Microsoft/JPM/Sony/Toyota/HSBC/NatWest/額賀議長/石破総理/Speaker Hoyle/Streeting/Schumer/Jeffries fixtures)
+- **Complete cross-cutting infrastructure**: 10 Lexicons + 4 corpus recipes + 4 acceptance templates + deps.toml [[modules]] +50 registrations + cross-actor wiring (ossekai/chigiri/toritate `lexiconReadAccess`) + 4 legacy script supersession markers + MIGRATION-NOTES.md
+
+ADR status (both): **`proposed` → `w1-impl-landed`** as of 2026-05-27. R1 activation gated on Bootstrap Council Seats 2-5 RFP closure 2026-06-19 + Council Lv6+ ≥3 ratify.
 
 All work respects: passive-only invariant (ADR-2605262400 §7), Murakumo-only inference (ADR-2605215000), Charter Rider §2(e)+§2(c) vendor terminal deny-list (Bloomberg Terminal / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro / GovWin IQ / Bloomberg Government / Politico Pro / E&E News Pro / FiscalNote / CQ Roll Call Pro — 13 vendors structurally rejected at lint).
 
@@ -50,24 +58,24 @@ All work respects: passive-only invariant (ADR-2605262400 §7), Murakumo-only in
 | 13 | `UsUsaspendingSensor` | `gov/us_usaspending_sensor.py` | `GovBudgetObservation` | Budget | public-domain |
 | 14 | `EuTedSensor` | `gov/eu_ted_sensor.py` | `GovProcurementObservation` | Procurement | eu-reuse-decision-2011-833 |
 
-## 2. W0-stub layer (path-reserved; NotImplementedError w/ ADR pointer)
+## 2. Concrete fetcher layer — W1 PARITY 12/12 (`70-tools/e7m-dataset/src/e7m_dataset/fetchers/`)
 
-### Fetchers (12 — `70-tools/e7m-dataset/src/e7m_dataset/fetchers/`)
+| File | ADR | Sensor consumer | Format / pattern | W1-impl status |
+|---|---|---|---|---|
+| `gleif_lei.py` | 263800 | GleifLeiSensor | JSON + ZIP detect; 4 input shapes | **w1-impl-landed-concrete** |
+| `sec_edgar.py` | 263800 | SecEdgarSensor | master.idx pipe-parse; CIK zero-pad | **w1-impl-landed-concrete** |
+| `uk_companies_house.py` | 263800 | UkCompaniesHouseSensor | FCD ZIP+CSV stream; CRN regex | **w1-impl-landed-concrete** |
+| `jp_edinet.py` | 263800 | JpEdinetSensor | v2 documents.json; JST→UTC | **w1-impl-landed-concrete** |
+| `worldbank_open_data.py` | 263900 | WorldBankOpenDataSensor | WB 2-elem `[header, [data]]` paging | **w1-impl-landed-concrete** |
+| `eu_eurostat.py` | 263900 | EuEurostatSensor | SDMX-JSON 2.0 flat-index decoder | **w1-impl-landed-concrete** |
+| `us_data_gov.py` | 263900 | UsDataGovSensor | CKAN `package_search` paging | **w1-impl-landed-concrete** |
+| `uk_data_gov_uk.py` | 263900 | UkDataGovUkSensor | CKAN; British `organisation` UX | **w1-impl-landed-concrete** |
+| `jp_data_go_jp.py` | 263900 | JpDataGoJpSensor | CKAN; 省庁 publisher preserved | **w1-impl-landed-concrete** |
+| `us_congress_gov.py` | 263900 | UsCongressGovSensor | api.congress.gov v3; bill-type synthesis | **w1-impl-landed-concrete** |
+| `uk_hansard.py` | 263900 | UkHansardSensor | Hansard search API; AttributedTo parser | **w1-impl-landed-concrete** |
+| `jp_kokkai_kaigiroku.py` | 263900 | JpKokkaiKaigirokuSensor | NDL `/api/meeting`; nameOfMeeting passthrough | **w1-impl-landed-concrete** |
 
-| File | ADR | Target sensor consumer | W1-impl status |
-|---|---|---|---|
-| `sec_edgar.py` | 263800 | SecEdgarSensor | stub |
-| `jp_edinet.py` | 263800 | JpEdinetSensor | stub |
-| `uk_companies_house.py` | 263800 | UkCompaniesHouseSensor | stub |
-| `gleif_lei.py` | 263800 | GleifLeiSensor | stub |
-| `us_data_gov.py` | 263900 | UsDataGovSensor | stub |
-| `uk_data_gov_uk.py` | 263900 | UkDataGovUkSensor | stub |
-| `jp_data_go_jp.py` | 263900 | JpDataGoJpSensor | stub |
-| `us_congress_gov.py` | 263900 | UsCongressGovSensor | stub |
-| `uk_hansard.py` | 263900 | UkHansardSensor | stub |
-| `jp_kokkai_kaigiroku.py` | 263900 | JpKokkaiKaigirokuSensor | stub |
-| `eu_eurostat.py` | 263900 | EuEurostatSensor | stub |
-| `worldbank_open_data.py` | 263900 | WorldBankOpenDataSensor | stub |
+All 12 fetchers share: (a) network mode + local-source mode (operator-staged or test fixtures); (b) 3-or-4 input shape dispatcher (native API / flat list / pre-normalized envelope / NDJSON pass-through); (c) `max_records` cap for memory-bounded operator runs; (d) per-source filters (date / chamber / form type / CRN / organization / etc.); (e) passive-only invariant (operator-triggered, NOT organism-tick); (f) Charter Rider §2(e)+§2(c) vendor terminal deny-list compliance; (g) raw + normalized output co-located in `<staging>/<name>-<capture_ts>/` for forensic auditability.
 
 **Workaround for sensor smoke-testing without fetchers**: operators stage NDJSON shards directly under `90-docs/baien/datasets/<subdataset>/<rev>/*.ndjson` using the row shape documented in each sensor's docstring; the sensors will read those without requiring the fetcher to run. This unblocks pytest validation + downstream actor wiring before fetcher impls land.
 
@@ -151,7 +159,7 @@ For ADR-2605263800 / ADR-2605263900 to move from R0 (proposed) to R1 (operationa
 - [ ] **G3**. Council Lv6+ ≥3 ratify ADR-2605263900
 - [ ] **G4**. Charter Rider §2 scanner FP rate ≤5% over 7-day trial on corp/gov-bound document samples (R8 KaizenObserver health)
 - [ ] **G5**. `app.etzhayyim.substrate.datasetPin` PDS extension verified accepting `corp/*` and `gov/dataset/*` revisions
-- [ ] **G6**. At least ONE fetcher concrete impl (sensor W1 layer is already covered; fetcher W1 is independently sequenced — see §7)
+- [x] **G6**. At least ONE fetcher concrete impl — **EXCEEDED 2026-05-27: 12/12 W1 fetcher parity COMPLETE (see §2 + §7 for the landed sequence)**
 - [ ] **G7**. lint hook deploy: vendor commercial terminal deny-list in `lefthook.yml` for `corp/*.py` + `gov/*.py` sensor sources (currently enforced in pytest only)
 - [ ] **G8**. chigiri R1 active (cross-actor `ipLicenseClaim` chain; ADR-2605262700 gates separately)
 - [ ] **G9**. ossekai R1 active (cross-actor aggregate-publication chain; ADR-2605263600 gates separately)
@@ -182,12 +190,15 @@ The vendor commercial terminal deny-list (Bloomberg Terminal / Refinitiv Eikon /
 
 ## 9. Cycle artifacts (this iteration cohort, 2026-05-26 → 2026-05-27)
 
-22 `/loop eaeee13b` iterations across ~14 hours. Cumulative deltas:
-- New files: 31 (.py sensor 14 + fetcher stubs 12 + lexicons 10 + recipes 4 + acceptance templates 4 + READMEs 4 + pytest 2 + ADR 2 + snapshot 1, minus some path overlaps)
-- `deps.toml` modules: 271 → ~323 (+52 entries)
-- `90-docs/adr/README.md`: +2 ADR rows
-- 4 legacy `.mjs` scripts: +supersession marker (~35 lines/file)
-- 3 actor `manifest.jsonld`: +`crossActor`/`lexiconReadAccess` entries (DID-array linter-safe)
-- 1 navigation hub: `70-tools/scripts/MIGRATION-NOTES-corp-gov-2026-05-26.md`
+**35 `/loop eaeee13b` iterations across ~24 hours**. Cumulative deltas at session-close:
 
-cron job `eaeee13b` ran auto-paced every 30 minutes at :07 + :37, 7-day session-only lifetime (auto-expires ~2026-06-02). CronDelete to halt sooner.
+- New `.py` files: 14 concrete sensors + 12 concrete fetchers + 2 sensor `base.py` + 2 sensor `__init__.py` + pytest conftest + harness = **31 Python modules**
+- New JSON: 10 Lexicons (5 corp + 5 gov.dataset)
+- New TOML: 4 corpus recipes + 4 acceptance templates
+- New Markdown: 2 ADRs + 1 RELEASE NOTES snapshot + 2 corpus README + 2 lexicon README + 1 acceptance template README + 1 migration-notes navigation hub = **9 docs**
+- `deps.toml` modules: 271 → **346** (**+75 entries** over the session)
+- `90-docs/adr/README.md`: +2 ADR rows (top of list)
+- 4 legacy `.mjs` scripts: +supersession marker (~35 lines/file annotation)
+- 3 actor `manifest.jsonld`: +`crossActor`/`lexiconReadAccess` entries (DID-array linter-safe after parallel-session schema arbitration)
+
+**Session-close state** (2026-05-27): ADR 2605263800 + 2605263900 status **`proposed` → `w1-impl-landed`**. cron `eaeee13b` halted via CronDelete (no further auto-fires). W1 is complete; next operator move is Council Lv6+ ≥3 ratification post-Bootstrap Seat 2-5 RFP close (2026-06-19+).
