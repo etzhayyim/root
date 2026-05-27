@@ -806,3 +806,239 @@ export function frankaFkJacobianInline(q: readonly number[]): {
   }
   return { ee, J };
 }
+
+// ── Franka full DLS-IK reach (env-parallel) ──────────────────────────────
+//
+// All-in-one IK kernel — combines iter 88 FK + iter 89 Jacobian + the
+// 3×3 cofactor DLS solve from iter 86's CPU demo. Per env, runs one
+// DLS step entirely on GPU:
+//
+//   Pass 1: FK at q → store all 7 joint poses (R, p) in private memory
+//   Pass 2: Linear Jacobian columns J[:,i] = axis_i × (p_ee - p_i)
+//   Pass 3: err = target - p_ee
+//   Pass 4: A = J·Jᵀ + λ²·I   (3×3)
+//   Pass 5: A⁻¹ via cofactor expansion
+//   Pass 6: y = A⁻¹ · err
+//   Pass 7: Δq = Jᵀ · y       (7-vec)
+//   Pass 8: q_new = q + α·Δq  (semi-implicit-equivalent step)
+//
+// Per-env input: q[7] + target[3] = 10 floats
+// Per-env output: q_new[7] = 7 floats (in-place over q_in)
+// Uniforms: lambda (DLS damping), alpha (step gain)
+//
+// Total per-thread temp memory: ~150 floats ≈ 600 bytes (well within
+// per-invocation private memory limits for any WebGPU adapter).
+
+/** Bindings:
+ *    @group(0) @binding(0) q_inout    (storage read_write, N*7 floats — q is overwritten)
+ *    @group(0) @binding(1) target_in  (storage read,       N*3 floats; writeback false)
+ *    @group(0) @binding(2) lambda     (uniform vec4<f32>.x — DLS damping)
+ *    @group(0) @binding(3) alpha      (uniform vec4<f32>.x — step gain)
+ */
+export const frankaReachKernel: WgpuKernel = wgpuKernel({
+  js: (
+    qInout: WpArray<number>,
+    targetIn: WpArray<number>,
+    lambda: number,
+    alpha: number,
+  ) => {
+    const env = tid();
+    const base = env * 7;
+    const q = [
+      qInout.get(base+0), qInout.get(base+1), qInout.get(base+2),
+      qInout.get(base+3), qInout.get(base+4), qInout.get(base+5),
+      qInout.get(base+6),
+    ];
+    const tbase = env * 3;
+    const target: [number, number, number] = [
+      targetIn.get(tbase+0), targetIn.get(tbase+1), targetIn.get(tbase+2),
+    ];
+    const qNew = frankaReachStepInline(q, target, lambda, alpha);
+    for (let i = 0; i < 7; i++) qInout.set(base + i, qNew[i]);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> q_inout:   array<f32>;
+@group(0) @binding(1) var<storage, read_write> target_in: array<f32>;
+@group(0) @binding(2) var<uniform>             lambda_u:  vec4<f32>;
+@group(0) @binding(3) var<uniform>             alpha_u:   vec4<f32>;
+
+fn rot_rpy_x(r: f32) -> mat3x3<f32> {
+  let cr = cos(r); let sr = sin(r);
+  return mat3x3<f32>(
+    vec3<f32>(1.0, 0.0, 0.0),
+    vec3<f32>(0.0, cr, sr),
+    vec3<f32>(0.0, -sr, cr),
+  );
+}
+
+fn rot_z(angle: f32) -> mat3x3<f32> {
+  let c = cos(angle); let s = sin(angle);
+  return mat3x3<f32>(
+    vec3<f32>(c, s, 0.0),
+    vec3<f32>(-s, c, 0.0),
+    vec3<f32>(0.0, 0.0, 1.0),
+  );
+}
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let env = gid.x;
+  let n_envs = arrayLength(&q_inout) / 7u;
+  if (env >= n_envs) { return; }
+
+  let base_q = env * 7u;
+  let base_t = env * 3u;
+  var q = array<f32, 7>(
+    q_inout[base_q + 0u], q_inout[base_q + 1u], q_inout[base_q + 2u], q_inout[base_q + 3u],
+    q_inout[base_q + 4u], q_inout[base_q + 5u], q_inout[base_q + 6u],
+  );
+  let target = vec3<f32>(target_in[base_t + 0u], target_in[base_t + 1u], target_in[base_t + 2u]);
+
+  let half_pi: f32 = 1.5707963267948966;
+  let xyz = array<vec3<f32>, 7>(
+    vec3<f32>(0.0,      0.0,     0.333),
+    vec3<f32>(0.0,      0.0,     0.0),
+    vec3<f32>(0.0,     -0.316,   0.0),
+    vec3<f32>(0.0825,   0.0,     0.0),
+    vec3<f32>(-0.0825,  0.384,   0.0),
+    vec3<f32>(0.0,      0.0,     0.0),
+    vec3<f32>(0.088,    0.0,     0.0),
+  );
+  let rpy_r = array<f32, 7>(0.0, -half_pi, half_pi, half_pi, -half_pi, half_pi, half_pi);
+
+  // ── Pass 1: FK with stored joint poses ──
+  var poses_R: array<mat3x3<f32>, 7>;
+  var poses_p: array<vec3<f32>, 7>;
+  var R_world = mat3x3<f32>(
+    vec3<f32>(1.0, 0.0, 0.0),
+    vec3<f32>(0.0, 1.0, 0.0),
+    vec3<f32>(0.0, 0.0, 1.0),
+  );
+  var p_world = vec3<f32>(0.0, 0.0, 0.0);
+  for (var i = 0u; i < 7u; i = i + 1u) {
+    let R_origin = rot_rpy_x(rpy_r[i]);
+    let R_q = rot_z(q[i]);
+    let R_iInP = R_origin * R_q;
+    let rotated = R_world * xyz[i];
+    p_world = p_world + rotated;
+    R_world = R_world * R_iInP;
+    poses_R[i] = R_world;
+    poses_p[i] = p_world;
+  }
+  let ee_pos = poses_p[6];
+
+  // ── Pass 2: Linear Jacobian columns ──
+  var J: array<vec3<f32>, 7>;   // 7 cols of (vx, vy, vz)
+  for (var i = 0u; i < 7u; i = i + 1u) {
+    let Ri = poses_R[i];
+    let a_world = vec3<f32>(Ri[2].x, Ri[2].y, Ri[2].z);
+    let dp = ee_pos - poses_p[i];
+    J[i] = vec3<f32>(
+      a_world.y * dp.z - a_world.z * dp.y,
+      a_world.z * dp.x - a_world.x * dp.z,
+      a_world.x * dp.y - a_world.y * dp.x,
+    );
+  }
+
+  // ── Pass 3: error ──
+  let err = target - ee_pos;
+
+  // ── Pass 4: A = J·Jᵀ + λ²·I (3×3) ──
+  let lam = lambda_u.x;
+  let lam2 = lam * lam;
+  var A00 = lam2; var A01 = 0.0; var A02 = 0.0;
+  var A11 = lam2; var A12 = 0.0;
+  var A22 = lam2;
+  for (var i = 0u; i < 7u; i = i + 1u) {
+    A00 = A00 + J[i].x * J[i].x;
+    A01 = A01 + J[i].x * J[i].y;
+    A02 = A02 + J[i].x * J[i].z;
+    A11 = A11 + J[i].y * J[i].y;
+    A12 = A12 + J[i].y * J[i].z;
+    A22 = A22 + J[i].z * J[i].z;
+  }
+  // A is symmetric (A10 = A01, A20 = A02, A21 = A12)
+
+  // ── Pass 5: A⁻¹ via cofactor expansion (3×3 closed form) ──
+  let det = A00 * (A11 * A22 - A12 * A12)
+          - A01 * (A01 * A22 - A12 * A02)
+          + A02 * (A01 * A12 - A11 * A02);
+  if (abs(det) < 1e-18) { return; }
+  let invDet = 1.0 / det;
+  let inv00 = (A11 * A22 - A12 * A12) * invDet;
+  let inv01 = (A02 * A12 - A01 * A22) * invDet;
+  let inv02 = (A01 * A12 - A02 * A11) * invDet;
+  let inv11 = (A00 * A22 - A02 * A02) * invDet;
+  let inv12 = (A02 * A01 - A00 * A12) * invDet;
+  let inv22 = (A00 * A11 - A01 * A01) * invDet;
+
+  // ── Pass 6: y = A⁻¹ · err (3-vec) ──
+  let y = vec3<f32>(
+    inv00 * err.x + inv01 * err.y + inv02 * err.z,
+    inv01 * err.x + inv11 * err.y + inv12 * err.z,
+    inv02 * err.x + inv12 * err.y + inv22 * err.z,
+  );
+
+  // ── Pass 7+8: Δq = Jᵀ · y; q_new = q + α·Δq ──
+  let alpha = alpha_u.x;
+  for (var i = 0u; i < 7u; i = i + 1u) {
+    let dq_i = J[i].x * y.x + J[i].y * y.y + J[i].z * y.z;
+    q_inout[base_q + i] = q[i] + alpha * dq_i;
+  }
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: true },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: false },
+    { binding: 2, kind: "uniform", inputIndex: 2 },
+    { binding: 3, kind: "uniform", inputIndex: 3 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference Franka one-step DLS IK in pure JS — used by
+ *  frankaReachKernel's JS fallback AND callable directly.
+ *  Performs one DLS-IK step and returns the new q[7].
+ */
+export function frankaReachStepInline(
+  q: readonly number[],
+  target: readonly [number, number, number],
+  lambda: number,
+  alpha: number,
+): number[] {
+  const { ee, J } = frankaFkJacobianInline(q);
+  const err: [number, number, number] = [target[0] - ee[0], target[1] - ee[1], target[2] - ee[2]];
+  // A = J·Jᵀ + λ²I
+  const lam2 = lambda * lambda;
+  let A00 = lam2, A01 = 0, A02 = 0, A11 = lam2, A12 = 0, A22 = lam2;
+  for (let i = 0; i < 7; i++) {
+    A00 += J[0][i] * J[0][i];
+    A01 += J[0][i] * J[1][i];
+    A02 += J[0][i] * J[2][i];
+    A11 += J[1][i] * J[1][i];
+    A12 += J[1][i] * J[2][i];
+    A22 += J[2][i] * J[2][i];
+  }
+  const det = A00 * (A11 * A22 - A12 * A12)
+            - A01 * (A01 * A22 - A12 * A02)
+            + A02 * (A01 * A12 - A11 * A02);
+  if (Math.abs(det) < 1e-18) return [...q];
+  const invDet = 1 / det;
+  const inv00 = (A11 * A22 - A12 * A12) * invDet;
+  const inv01 = (A02 * A12 - A01 * A22) * invDet;
+  const inv02 = (A01 * A12 - A02 * A11) * invDet;
+  const inv11 = (A00 * A22 - A02 * A02) * invDet;
+  const inv12 = (A02 * A01 - A00 * A12) * invDet;
+  const inv22 = (A00 * A11 - A01 * A01) * invDet;
+  const y: [number, number, number] = [
+    inv00 * err[0] + inv01 * err[1] + inv02 * err[2],
+    inv01 * err[0] + inv11 * err[1] + inv12 * err[2],
+    inv02 * err[0] + inv12 * err[1] + inv22 * err[2],
+  ];
+  const qNew: number[] = new Array(7);
+  for (let i = 0; i < 7; i++) {
+    const dq_i = J[0][i] * y[0] + J[1][i] * y[1] + J[2][i] * y[2];
+    qNew[i] = q[i] + alpha * dq_i;
+  }
+  return qNew;
+}
