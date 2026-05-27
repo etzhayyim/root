@@ -657,3 +657,218 @@ def articulated_step(
     for i in range(built.n):
         state.qdot[i] += dt * qddot[i]
         state.q[i] += dt * state.qdot[i]
+
+
+# ── RNEA: Recursive Newton-Euler inverse dynamics ─────────────────────────
+
+
+def rnea_inverse_dynamics(
+    built: BuiltArticulation,
+    q: List[float],
+    qdot: List[float],
+    qddot: List[float],
+    gravity: Tuple[float, float, float] = (0.0, 0.0, -9.81),
+) -> List[float]:
+    """Featherstone's Recursive Newton-Euler Algorithm — O(n) inverse dynamics.
+
+    Given joint positions q, velocities qdot, and desired accelerations
+    qddot, returns the joint torques tau required to produce qddot:
+
+        tau = M(q) · qddot + C(q, qdot) · qdot + g(q)
+
+    where M is the joint-space mass matrix (see `crba_mass_matrix`),
+    C captures Coriolis + centrifugal terms, and g is the gravity vector.
+
+    Use cases:
+      - Computed-torque control: feedforward tau to track a reference
+        trajectory; PD loop on top corrects tracking error.
+      - Gravity compensation: rnea_inverse_dynamics(q, 0, 0) returns
+        g(q) — the torques needed to hold the configuration against
+        gravity. Subtracting this from the desired tau before sending
+        to the motors removes gravity sag.
+      - ABA validation: forward(q, qdot, RNEA(q, qdot, qddot)) ≈ qddot
+        (within float roundoff).
+
+    Implementation: 2 passes (outward kinematics, inward force
+    propagation). Mirrors Featherstone (2008) ch. 5 algorithm.
+    """
+    n = built.n
+    if not (len(q) == len(qdot) == len(qddot) == n):
+        raise ValueError(
+            f"rnea_inverse_dynamics: q/qdot/qddot must all have length n={n}; "
+            f"got {len(q)}/{len(qdot)}/{len(qddot)}"
+        )
+    if n == 0:
+        return []
+
+    # Per-joint X[i] = parent → joint i transform.
+    X = [
+        _mat66_mul(
+            _joint_motion_transform(_jointlike(built, i), q[i]),
+            built.fixed_origin_transform[i],
+        )
+        for i in range(n)
+    ]
+
+    # Pass 1: outward kinematics + accelerations + bias forces.
+    v: List[List[float]] = [[0.0] * 6 for _ in range(n)]
+    a: List[List[float]] = [[0.0] * 6 for _ in range(n)]
+    f: List[List[float]] = [[0.0] * 6 for _ in range(n)]
+
+    # Base "spatial acceleration" includes gravity (Featherstone trick).
+    a_base = [0.0, 0.0, 0.0, -gravity[0], -gravity[1], -gravity[2]]
+
+    for i in range(n):
+        S_i = built.motion_subspace[i]
+        S_qdot = _vec6_scale(S_i, qdot[i])
+        S_qddot = _vec6_scale(S_i, qddot[i])
+        pidx = built.parent_joint[i]
+        if pidx < 0:
+            v_p_in_i = [0.0] * 6
+            a_p_in_i = _mat66_vec(X[i], a_base)
+        else:
+            v_p_in_i = _mat66_vec(X[i], v[pidx])
+            a_p_in_i = _mat66_vec(X[i], a[pidx])
+        v[i] = _vec6_add(v_p_in_i, S_qdot)
+        # a[i] = X[i]·a[λ(i)] + S[i]·qddot[i] + (v[i] ×_m (S[i]·qdot[i]))
+        cross_m = _spatial_cross_motion(v[i])
+        coriolis = _mat66_vec(cross_m, S_qdot)
+        a[i] = _vec6_add(_vec6_add(a_p_in_i, S_qddot), coriolis)
+        # f[i] = I[i]·a[i] + v[i] ×_f (I[i]·v[i])
+        I_i = built.child_link_inertia[i]
+        Ia = _mat66_vec(I_i, a[i])
+        Iv = _mat66_vec(I_i, v[i])
+        cross_f = _spatial_cross_force(v[i])
+        bias = _mat66_vec(cross_f, Iv)
+        f[i] = _vec6_add(Ia, bias)
+
+    # Pass 2: inward force propagation + extract joint torques.
+    tau = [0.0] * n
+    for i in reversed(range(n)):
+        S_i = built.motion_subspace[i]
+        tau[i] = _vec6_dot(S_i, f[i]) + built.joint_damping[i] * qdot[i]
+        pidx = built.parent_joint[i]
+        if pidx >= 0:
+            Xt = _mat66_t(X[i])
+            f[pidx] = _vec6_add(f[pidx], _mat66_vec(Xt, f[i]))
+    return tau
+
+
+def coriolis_gravity_vector(
+    built: BuiltArticulation,
+    q: List[float],
+    qdot: List[float],
+    gravity: Tuple[float, float, float] = (0.0, 0.0, -9.81),
+) -> List[float]:
+    """Returns h(q, qdot) = C(q, qdot)·qdot + g(q) — the non-acceleration
+    terms of the equation of motion. Equivalent to RNEA with qddot = 0.
+
+    Useful for:
+      - Gravity compensation: h(q, 0) = g(q).
+      - Manipulator equation residual: tau - h(q, qdot) = M(q) · qddot.
+    """
+    return rnea_inverse_dynamics(built, q, qdot, [0.0] * built.n, gravity)
+
+
+# ── CRBA: Composite Rigid Body Algorithm — joint-space inertia matrix ───
+
+
+def crba_mass_matrix(
+    built: BuiltArticulation,
+    q: List[float],
+) -> List[List[float]]:
+    """Featherstone's Composite Rigid Body Algorithm — O(n²) computation
+    of the joint-space inertia matrix M(q).
+
+    Returns the n×n symmetric positive-definite matrix M such that the
+    kinetic energy of the system is:
+
+        T = 0.5 · qdot^T · M(q) · qdot
+
+    and the equation of motion is M(q)·qddot + h(q, qdot) = tau (where
+    h = Coriolis + gravity, computed via RNEA with qddot=0).
+
+    Use cases:
+      - Operational-space control: needs M⁻¹ for task-space inertia.
+      - Energy-based verification (KE = 0.5 q̇ᵀ M q̇).
+      - Constraint Jacobian projection (e.g., contact LCP).
+      - Damping-ratio selection for IK + control gain tuning.
+
+    Implementation: 2 passes per Featherstone (2008) ch. 6.
+      Pass 1 — inward: accumulate composite rigid-body inertia I_c[i]
+                       by adding children's I_c into parents (via X^T·I·X
+                       similarity transform).
+      Pass 2 — for each i, propagate F = I_c[i]·S[i] up to the base,
+                       reading off M[i][j] = S[j]^T · F (and M[j][i] by
+                       symmetry).
+    """
+    n = built.n
+    if len(q) != n:
+        raise ValueError(
+            f"crba_mass_matrix: q length must be n={n}; got {len(q)}"
+        )
+    if n == 0:
+        return []
+
+    # Per-joint X[i] = parent → joint i transform.
+    X = [
+        _mat66_mul(
+            _joint_motion_transform(_jointlike(built, i), q[i]),
+            built.fixed_origin_transform[i],
+        )
+        for i in range(n)
+    ]
+
+    # Pass 1: composite rigid-body inertias.
+    I_c: List[List[List[float]]] = [
+        [row[:] for row in built.child_link_inertia[i]] for i in range(n)
+    ]
+    for i in reversed(range(n)):
+        pidx = built.parent_joint[i]
+        if pidx >= 0:
+            Xt = _mat66_t(X[i])
+            # I_c[λ(i)] += X[i]^T · I_c[i] · X[i]
+            tmp = _mat66_mul(Xt, I_c[i])
+            contrib = _mat66_mul(tmp, X[i])
+            I_c[pidx] = _mat66_add(I_c[pidx], contrib)
+
+    # Pass 2: assemble M row-by-row.
+    M = [[0.0] * n for _ in range(n)]
+    for i in range(n):
+        S_i = built.motion_subspace[i]
+        F = _mat66_vec(I_c[i], S_i)
+        M[i][i] = _vec6_dot(S_i, F)
+        j = i
+        while built.parent_joint[j] >= 0:
+            # Propagate F up to parent's frame: F = X[j]^T · F.
+            Xt = _mat66_t(X[j])
+            F = _mat66_vec(Xt, F)
+            j = built.parent_joint[j]
+            M[i][j] = _vec6_dot(built.motion_subspace[j], F)
+            M[j][i] = M[i][j]   # symmetric
+    return M
+
+
+# ── joint-space kinetic energy (CRBA-derived) ────────────────────────────
+
+
+def kinetic_energy(
+    built: BuiltArticulation,
+    q: List[float],
+    qdot: List[float],
+) -> float:
+    """Total kinetic energy T = 0.5 · qdotᵀ · M(q) · qdot.
+
+    Computed via CRBA; use for energy-conservation diagnostics or
+    Lagrangian formulations.
+    """
+    M = crba_mass_matrix(built, q)
+    n = built.n
+    # T = 0.5 · sum_{i,j} qdot[i] · M[i][j] · qdot[j]
+    s = 0.0
+    for i in range(n):
+        row = M[i]
+        qd_i = qdot[i]
+        for j in range(n):
+            s += qd_i * row[j] * qdot[j]
+    return 0.5 * s

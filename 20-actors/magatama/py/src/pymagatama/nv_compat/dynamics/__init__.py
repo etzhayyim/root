@@ -28,6 +28,10 @@ from .articulated_dynamics import (
     ArticulatedState,
     BuiltArticulation,
     build_articulation,
+    coriolis_gravity_vector,
+    crba_mass_matrix,
+    kinetic_energy,
+    rnea_inverse_dynamics,
     spatial_inertia_from_link,
 )
 
@@ -37,5 +41,9 @@ __all__ = [
     "ArticulatedState",
     "BuiltArticulation",
     "build_articulation",
+    "coriolis_gravity_vector",
+    "crba_mass_matrix",
+    "kinetic_energy",
+    "rnea_inverse_dynamics",
     "spatial_inertia_from_link",
 ]
