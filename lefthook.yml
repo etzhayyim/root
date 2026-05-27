@@ -365,6 +365,50 @@ pre-commit:
       stage_fixed: false
 
 
+    registry-schema-validation:
+      # When any 90-docs/_registry/ artifact changes, run schema
+      # validation (ADR-2605271100 cycle 50; 4th registry axis after
+      # docs-registry-freshness + docs-graph-jsonld-freshness + deps-toml-paths).
+      # Validates docs.json against docs.schema.json AND graph.jsonld
+      # against graph.schema.json.
+      #
+      # **Cycle 50 mode: WARN-ONLY** because 32 known baseline violations
+      # exist in 5-6 .md front-matter sources (4 missing-topic + 1 garbage
+      # last_verified + 27 empty-related-string entries). Operator can
+      # enable strict mode by exporting ETZ_REGISTRY_SCHEMA_STRICT=1.
+      # Will become unconditional after baseline reaches 0.
+      #
+      # Requires `jsonschema` Python package; if not installed, hook
+      # gracefully skips (operator non-blocking).
+      glob:
+        - "90-docs/_registry/docs.json"
+        - "90-docs/_registry/graph.jsonld"
+        - "90-docs/_registry/schemas/docs.schema.json"
+        - "90-docs/_registry/schemas/graph.schema.json"
+      run: |
+        python3 70-tools/scripts/docs/validate-registry-schemas.py \
+          > /tmp/registry-validation.$$.txt 2>&1
+        rc=$?
+        if [ $rc -ne 0 ] && [ "${ETZ_REGISTRY_SCHEMA_STRICT:-0}" = "1" ]; then
+          echo "✘ registry schema validation failed (strict mode):"
+          cat /tmp/registry-validation.$$.txt
+          rm -f /tmp/registry-validation.$$.txt
+          exit 1
+        fi
+        # Non-strict default: only complain if error count grows above baseline.
+        # (Baseline tracking is the CI workflow's responsibility — this hook
+        # just warns operator about schema issues.)
+        if [ $rc -ne 0 ]; then
+          echo "ℹ️ registry schema validation reported issue(s):"
+          cat /tmp/registry-validation.$$.txt
+          echo ""
+          echo "  (warn-only; commit allowed. Set ETZ_REGISTRY_SCHEMA_STRICT=1"
+          echo "   to make this hook blocking once baseline reaches 0.)"
+        fi
+        rm -f /tmp/registry-validation.$$.txt
+      stage_fixed: false
+
+
 # ─────────────────────────────────────────────────────────────────────────
 # pre-push — heavier regression checks that don't fit in the per-commit
 # budget. Mirror of .github/workflows/kami-engine-sdk.yml so contributors
