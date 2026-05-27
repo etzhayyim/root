@@ -388,6 +388,10 @@ class BuiltArticulation:
     child_link_inertia: List[List[List[float]]]      # length n, 6×6 each
     joint_damping: List[float]                # length n
     joint_friction: List[float]               # length n
+    # Forward-kinematics-ready URDF origin fields (iter 70).
+    rpy_rotation_matrix: List[List[List[float]]]   # length n, each 3×3 R
+    xyz_translation: List[List[float]]             # length n, each 3-vec r
+    joint_axis: List[List[float]]                  # length n, each unit 3-vec
 
 
 def build_articulation(sys: ArticulatedSystem) -> BuiltArticulation:
@@ -458,13 +462,26 @@ def build_articulation(sys: ArticulatedSystem) -> BuiltArticulation:
                 break
             guard += 1
         parent_joint.append(pidx)
-    # Per-joint motion subspace + fixed origin transform + child link inertia.
+    # Per-joint motion subspace + fixed origin transform + child link inertia
+    # + forward-kinematics-ready rpy/xyz/axis fields.
     motion_subspace = [_joint_motion_subspace(j) for j in moving]
     fixed_origin_transform = []
+    rpy_rotation_matrix = []
+    xyz_translation = []
+    joint_axis: List[List[float]] = []
     for j in moving:
         rot = _rot_from_rpy(j.origin.rpy)
-        r = j.origin.xyz
+        r = list(j.origin.xyz)
         fixed_origin_transform.append(_plucker_transform(rot, r))
+        rpy_rotation_matrix.append(rot)
+        xyz_translation.append(r)
+        # Unit-normalised axis (defensive — URDFs sometimes have non-unit axes).
+        ax, ay, az = j.axis
+        an = math.sqrt(ax * ax + ay * ay + az * az)
+        if an < 1e-12:
+            joint_axis.append([0.0, 0.0, 1.0])
+        else:
+            joint_axis.append([ax / an, ay / an, az / an])
     child_link_inertia = [
         spatial_inertia_from_link(link_by_name[j.child]) for j in moving
     ]
@@ -478,6 +495,9 @@ def build_articulation(sys: ArticulatedSystem) -> BuiltArticulation:
         child_link_inertia=child_link_inertia,
         joint_damping=[j.damping for j in moving],
         joint_friction=[j.friction for j in moving],
+        rpy_rotation_matrix=rpy_rotation_matrix,
+        xyz_translation=xyz_translation,
+        joint_axis=joint_axis,
     )
 
 
@@ -850,6 +870,199 @@ def crba_mass_matrix(
 
 
 # ── joint-space kinetic energy (CRBA-derived) ────────────────────────────
+
+
+# ── Forward kinematics (world-frame poses) ────────────────────────────────
+
+
+def forward_kinematics(
+    built: BuiltArticulation,
+    q: List[float],
+) -> List[Tuple[List[List[float]], List[float]]]:
+    """Compute world-frame pose (R, p) of each joint frame.
+
+    Returns a list of length `built.n`, where entry i is the tuple
+    (R_world_i, p_world_i):
+
+        R_world_i: 3×3 rotation taking joint i's body frame to world frame
+        p_world_i: 3-vec position of joint i's origin in world frame
+
+    For each joint i with parent p (or base if p=-1):
+        joint_pre_rotation_pose_in_parent =
+            (R_origin, p_origin)  from URDF (R_origin from rpy, p from xyz)
+        joint_body_pose_in_parent =
+            for revolute: rotate R_origin by q_i about body axis
+            for prismatic: translate p_origin by q_i along body axis
+        world pose = parent_world ∘ joint_body_pose_in_parent
+
+    Used by geometric_jacobian + downstream Cartesian-control logic.
+    Pure stdlib.
+    """
+    n = built.n
+    if len(q) != n:
+        raise ValueError(
+            f"forward_kinematics: q length must be n={n}; got {len(q)}"
+        )
+    poses: List[Tuple[List[List[float]], List[float]]] = []
+    for i in range(n):
+        R_origin = built.rpy_rotation_matrix[i]
+        p_origin = built.xyz_translation[i]
+        axis = built.joint_axis[i]
+        kind = built.joint_kinds[i]
+        # Joint motion in joint-body frame (active rotation / translation).
+        if kind in ("revolute", "continuous"):
+            R_q = _rodrigues_rotation(axis, q[i])
+            R_i_in_parent = _mat3_mul(R_origin, R_q)
+            p_i_in_parent = list(p_origin)
+        elif kind == "prismatic":
+            R_i_in_parent = [row[:] for row in R_origin]
+            # Translation by q along axis in joint's body frame; joint frame
+            # is offset from parent by R_origin · (q · axis_body).
+            delta = [q[i] * axis[k] for k in range(3)]
+            R_origin_delta = [
+                sum(R_origin[r][c] * delta[c] for c in range(3))
+                for r in range(3)
+            ]
+            p_i_in_parent = [p_origin[k] + R_origin_delta[k] for k in range(3)]
+        else:  # fixed (shouldn't occur post build_articulation, but handle)
+            R_i_in_parent = [row[:] for row in R_origin]
+            p_i_in_parent = list(p_origin)
+        # Compose with parent world pose.
+        pidx = built.parent_joint[i]
+        if pidx < 0:
+            R_world_i = R_i_in_parent
+            p_world_i = p_i_in_parent
+        else:
+            R_parent, p_parent = poses[pidx]
+            R_world_i = _mat3_mul(R_parent, R_i_in_parent)
+            # p_world_i = R_parent · p_i_in_parent + p_parent
+            rotated = [
+                sum(R_parent[r][c] * p_i_in_parent[c] for c in range(3))
+                for r in range(3)
+            ]
+            p_world_i = [rotated[k] + p_parent[k] for k in range(3)]
+        poses.append((R_world_i, p_world_i))
+    return poses
+
+
+def _rodrigues_rotation(axis: Sequence[float], angle: float) -> List[List[float]]:
+    """Active rotation matrix for unit-axis + angle (right-hand rule).
+
+    R · v rotates v by angle about axis. Caller must ensure axis is
+    unit-length.
+    """
+    ax, ay, az = axis
+    c = math.cos(angle)
+    s = math.sin(angle)
+    oc = 1.0 - c
+    return [
+        [c + ax * ax * oc,        ax * ay * oc - az * s,   ax * az * oc + ay * s],
+        [ay * ax * oc + az * s,   c + ay * ay * oc,        ay * az * oc - ax * s],
+        [az * ax * oc - ay * s,   az * ay * oc + ax * s,   c + az * az * oc],
+    ]
+
+
+# ── Geometric Jacobian ────────────────────────────────────────────────────
+
+
+def _is_ancestor(built: BuiltArticulation, ancestor: int, descendant: int) -> bool:
+    """Return True if `ancestor` is on the path from base to `descendant`
+    (inclusive of `descendant` itself; -1 means "always ancestor of any
+    joint" = base, but we filter out -1 callers)."""
+    cur = descendant
+    while cur >= 0:
+        if cur == ancestor:
+            return True
+        cur = built.parent_joint[cur]
+    return False
+
+
+def geometric_jacobian(
+    built: BuiltArticulation,
+    q: List[float],
+    target_joint_idx: int,
+    point_offset_body: Optional[Sequence[float]] = None,
+) -> List[List[float]]:
+    """Compute the 6×n geometric Jacobian J(q) of a target body link.
+
+    The Jacobian relates joint velocities to the spatial twist of the
+    target body:
+
+        twist_world = J(q) · qdot       (6-vec, (angular, linear) order)
+
+    For a revolute joint i on the path from base to target:
+        J[:, i] = [a_world_i; a_world_i × (p_world_target - p_world_i)]
+    For a prismatic joint i on the path:
+        J[:, i] = [(0, 0, 0); a_world_i]
+    Joints NOT on the path from base → target produce zero columns
+    (their motion does not affect the target body).
+
+    Args:
+        built:               iter 68 BuiltArticulation cache.
+        q:                   joint positions, length n.
+        target_joint_idx:    index of the joint whose CHILD link is the
+                             target body (e.g., 6 for Franka's EE).
+        point_offset_body:   optional 3-vec point offset in the target
+                             body frame (e.g., the EE point at (0,0,0.1)
+                             ahead of the wrist joint). Default = origin
+                             of the target joint's frame.
+
+    Returns:
+        6×n list-of-lists. Spatial twist convention: rows 0..2 = angular,
+        rows 3..5 = linear at the chosen target point.
+
+    Pure stdlib.
+    """
+    n = built.n
+    if not (0 <= target_joint_idx < n):
+        raise ValueError(
+            f"geometric_jacobian: target_joint_idx={target_joint_idx} "
+            f"out of range [0, {n})"
+        )
+    poses = forward_kinematics(built, q)
+    R_target, p_target = poses[target_joint_idx]
+    # Point offset in body frame → world frame.
+    if point_offset_body is not None:
+        if len(point_offset_body) != 3:
+            raise ValueError(
+                f"point_offset_body must be 3-vec; got length {len(point_offset_body)}"
+            )
+        offset_world = [
+            sum(R_target[r][c] * point_offset_body[c] for c in range(3))
+            for r in range(3)
+        ]
+        p_target = [p_target[k] + offset_world[k] for k in range(3)]
+    # Initialise zero 6×n matrix.
+    J = [[0.0] * n for _ in range(6)]
+    for i in range(n):
+        if not _is_ancestor(built, i, target_joint_idx):
+            continue
+        R_world_i, p_world_i = poses[i]
+        axis_body = built.joint_axis[i]
+        # World-frame axis = R_world_i · axis_body.
+        a_world = [
+            sum(R_world_i[r][c] * axis_body[c] for c in range(3))
+            for r in range(3)
+        ]
+        kind = built.joint_kinds[i]
+        if kind in ("revolute", "continuous"):
+            # Angular = axis; Linear = axis × (p_target - p_i)
+            dp = [p_target[k] - p_world_i[k] for k in range(3)]
+            linear = [
+                a_world[1] * dp[2] - a_world[2] * dp[1],
+                a_world[2] * dp[0] - a_world[0] * dp[2],
+                a_world[0] * dp[1] - a_world[1] * dp[0],
+            ]
+            for k in range(3):
+                J[k][i] = a_world[k]
+                J[k + 3][i] = linear[k]
+        elif kind == "prismatic":
+            # Angular = 0; Linear = axis_world
+            for k in range(3):
+                J[k][i] = 0.0
+                J[k + 3][i] = a_world[k]
+        # fixed joints have S=0 → column already zero.
+    return J
 
 
 def kinetic_energy(
