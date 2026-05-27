@@ -92,13 +92,14 @@ if [ "$TEST" -eq 1 ]; then
       exit 1
     fi
   else
-    echo "── pytest suite (5 files / 74 tests) ──"
+    echo "── pytest suite (6 files / 79 tests) ──"
     if ! PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest \
          70-tools/scripts/audit/test_adr_cross_ref_health.py \
          70-tools/scripts/audit/test_manifest_lexicon_drift.py \
          70-tools/scripts/audit/test_subrepo_scripts.py \
          70-tools/scripts/audit/test_simple_audits.py \
          70-tools/scripts/audit/test_e7m_verify_perf.py \
+         70-tools/scripts/audit/test_gitmodules.py \
          2>&1; then
       echo "pytest suite FAILED — see output above" >&2
       exit 1

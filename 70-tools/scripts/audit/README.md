@@ -166,9 +166,10 @@ Discovery: iter-40 of /loop (2026-05-27); filter improvements + categorization i
 
 ## Testing
 
-Six pytest suites lock in the substrate's structural invariants
+Seven pytest suites lock in the substrate's structural invariants
 so future refactors don't silently break filter/regex/path-mapping
-logic, undo perf optimizations, or change operator-facing CLI shape:
+logic, undo perf optimizations, change operator-facing CLI shape,
+or revert config-file fixes:
 
 | Suite | Tests | Locks in |
 |---|---|---|
@@ -177,6 +178,7 @@ logic, undo perf optimizations, or change operator-facing CLI shape:
 | `test_subrepo_scripts.py` | 16 | Stale-URL + escape-symlink counts + iter-57 perf budgets + structural canaries (git ls-files / xargs -P / no `find .`) |
 | `test_simple_audits.py` | 17 | dependabot-defunct + sdk-exports-dist + sibling-convention-drift smoke + aggregator format contract |
 | `test_e7m_verify_perf.py` | 7 | e7m verify 9-invariant correctness + iter-56 perf budget (5 s) + structural canaries (ThreadPoolExecutor + git-grep) |
+| `test_gitmodules.py` | 5 | iter-65 `.gitmodules ignore = dirty` fix + behavioral verification (git status emits no symlink-loop warning) |
 | `test_all_sh.py` | 13 | Aggregator end-to-end (rollup count = 25 baseline + all 6 scripts invoked + `--strict` / `--test` / `--all` modes + arg validation + perf budgets) |
 
 All six run via the same pytest invocation:
@@ -186,9 +188,9 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
   python3 -m pytest 70-tools/scripts/audit/ -v
 ```
 
-Combined: **87 tests, ~25 s total** (subrepo + e7m + all_sh tests run real subprocess invocations; correctness tests <0.1 s combined).
+Combined: **92 tests, ~26 s total** (subrepo + e7m + all_sh tests run real subprocess invocations; correctness tests <0.1 s combined).
 
-Every aggregator script (6/6) + the standalone adr-cross-ref-health + the e7m verify pre-commit hook + the aggregator orchestration itself are now test-covered.
+Every aggregator script (6/6) + the standalone adr-cross-ref-health + the e7m verify pre-commit hook + the aggregator orchestration + the .gitmodules config fix are now test-covered.
 
 `test_all_sh.py` uses `@pytest.fixture(scope="module")` to memoize the 4 distinct `bash all.sh` invocations across its 13 tests (52 s → 20 s).
 
