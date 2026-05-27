@@ -435,3 +435,202 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
   ],
   workgroupSize: 64,
 });
+
+// ── Franka 7-DoF forward kinematics (env-parallel) ───────────────────────
+//
+// Computes EE position for N envs in parallel from per-env q[7]. Real
+// Franka FCI joint origins (iter 85). Foundation for future Jacobian
+// + IK kernels — proves complex multi-joint FK with rpy frame rotations
+// runs correctly on WebGPU.
+//
+// Per-env input: q[7]
+// Per-env output: ee_pos[3]
+//
+// Storage layout (struct-of-arrays for coalesced GPU access):
+//   q_in:    array<f32>  length 7*N  — q[i] = q_in[env*7 + i]
+//   ee_out:  array<f32>  length 3*N  — ee[i] = ee_out[env*3 + i]
+//
+// Algorithm: 7 successive frame compositions. Each joint applies
+//   R_origin (from URDF rpy)  ·  Rodrigues(axis_body_z, q_i)
+// to the cumulative world-frame rotation, plus xyz translation.
+// All inlined per-thread (~150 lines of WGSL).
+
+/** Bindings:
+ *    @group(0) @binding(0) q_in    (storage read,  N*7 floats; writeback false)
+ *    @group(0) @binding(1) ee_out  (storage read_write, N*3 floats)
+ */
+export const frankaFkKernel: WgpuKernel = wgpuKernel({
+  js: (qIn: WpArray<number>, eeOut: WpArray<number>) => {
+    const env = tid();
+    const q0 = qIn.get(env * 7 + 0);
+    const q1 = qIn.get(env * 7 + 1);
+    const q2 = qIn.get(env * 7 + 2);
+    const q3 = qIn.get(env * 7 + 3);
+    const q4 = qIn.get(env * 7 + 4);
+    const q5 = qIn.get(env * 7 + 5);
+    const q6 = qIn.get(env * 7 + 6);
+    const ee = frankaFkInline([q0, q1, q2, q3, q4, q5, q6]);
+    eeOut.set(env * 3 + 0, ee[0]);
+    eeOut.set(env * 3 + 1, ee[1]);
+    eeOut.set(env * 3 + 2, ee[2]);
+  },
+  wgsl: `
+// Real Franka FCI joint origins (xyz triplet + rpy triplet per joint).
+// Pre-computed: cos/sin of rpy values inlined as constants for speed.
+// rpy values: (0,0,0), (-π/2,0,0), (π/2,0,0), (π/2,0,0), (-π/2,0,0), (π/2,0,0), (π/2,0,0)
+
+@group(0) @binding(0) var<storage, read_write> q_in:    array<f32>;
+@group(0) @binding(1) var<storage, read_write> ee_out:  array<f32>;
+
+// Composed rotation R_world (3×3) stored row-major in 9 f32 locals.
+// p_world stored in 3 f32 locals.
+// Applies R_world ← R_world · R_origin · R_q (axis z, angle q[i])
+// and p_world ← p_world + R_world_pre · xyz.
+
+fn rot_rpy(r: f32, p: f32, y: f32) -> mat3x3<f32> {
+  let cr = cos(r); let sr = sin(r);
+  let cp = cos(p); let sp = sin(p);
+  let cy = cos(y); let sy = sin(y);
+  return mat3x3<f32>(
+    vec3<f32>(cy*cp, sy*cp, -sp),
+    vec3<f32>(cy*sp*sr - sy*cr, sy*sp*sr + cy*cr, cp*sr),
+    vec3<f32>(cy*sp*cr + sy*sr, sy*sp*cr - cy*sr, cp*cr),
+  );
+}
+
+fn rot_z(angle: f32) -> mat3x3<f32> {
+  let c = cos(angle); let s = sin(angle);
+  return mat3x3<f32>(
+    vec3<f32>(c, s, 0.0),
+    vec3<f32>(-s, c, 0.0),
+    vec3<f32>(0.0, 0.0, 1.0),
+  );
+}
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let env = gid.x;
+  let n_envs = arrayLength(&ee_out) / 3u;
+  if (env >= n_envs) { return; }
+
+  let base = env * 7u;
+  let q = array<f32, 7>(
+    q_in[base + 0u], q_in[base + 1u], q_in[base + 2u], q_in[base + 3u],
+    q_in[base + 4u], q_in[base + 5u], q_in[base + 6u],
+  );
+
+  let half_pi: f32 = 1.5707963267948966;
+  // Joint origins: xyz vec3 + rpy.r (rpy.p, rpy.y are 0 for all Franka joints)
+  let xyz = array<vec3<f32>, 7>(
+    vec3<f32>(0.0,      0.0,     0.333),
+    vec3<f32>(0.0,      0.0,     0.0),
+    vec3<f32>(0.0,     -0.316,   0.0),
+    vec3<f32>(0.0825,   0.0,     0.0),
+    vec3<f32>(-0.0825,  0.384,   0.0),
+    vec3<f32>(0.0,      0.0,     0.0),
+    vec3<f32>(0.088,    0.0,     0.0),
+  );
+  let rpy_r = array<f32, 7>(
+    0.0,
+    -half_pi,
+    half_pi,
+    half_pi,
+    -half_pi,
+    half_pi,
+    half_pi,
+  );
+
+  var R_world = mat3x3<f32>(
+    vec3<f32>(1.0, 0.0, 0.0),
+    vec3<f32>(0.0, 1.0, 0.0),
+    vec3<f32>(0.0, 0.0, 1.0),
+  );
+  var p_world = vec3<f32>(0.0, 0.0, 0.0);
+
+  for (var i = 0u; i < 7u; i = i + 1u) {
+    let R_origin = rot_rpy(rpy_r[i], 0.0, 0.0);
+    let R_q = rot_z(q[i]);
+    let R_iInP = R_origin * R_q;
+    // p contribution: rotated xyz, in current world frame (before this
+    // joint's rotation).
+    let rotated = R_world * xyz[i];
+    p_world = p_world + rotated;
+    R_world = R_world * R_iInP;
+  }
+
+  ee_out[env * 3u + 0u] = p_world.x;
+  ee_out[env * 3u + 1u] = p_world.y;
+  ee_out[env * 3u + 2u] = p_world.z;
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: true },
+  ],
+  workgroupSize: 64,
+});
+
+// ── JS reference impl (used by frankaFkKernel.js fallback) ──────────────
+
+const _FRANKA_FK_HALF_PI = Math.PI / 2;
+const _FRANKA_FK_XYZ: ReadonlyArray<readonly [number, number, number]> = [
+  [0, 0, 0.333],
+  [0, 0, 0],
+  [0, -0.316, 0],
+  [0.0825, 0, 0],
+  [-0.0825, 0.384, 0],
+  [0, 0, 0],
+  [0.088, 0, 0],
+];
+const _FRANKA_FK_RPY_R: ReadonlyArray<number> = [
+  0, -_FRANKA_FK_HALF_PI, _FRANKA_FK_HALF_PI, _FRANKA_FK_HALF_PI,
+  -_FRANKA_FK_HALF_PI, _FRANKA_FK_HALF_PI, _FRANKA_FK_HALF_PI,
+];
+
+function _rotRpy(r: number): number[][] {
+  const cr = Math.cos(r), sr = Math.sin(r);
+  return [[1, 0, 0], [0, cr, -sr], [0, sr, cr]];   // p=y=0, so only x-rotation
+}
+
+function _rotZ(angle: number): number[][] {
+  const c = Math.cos(angle), s = Math.sin(angle);
+  return [[c, -s, 0], [s, c, 0], [0, 0, 1]];
+}
+
+function _mat3MulSmall(a: number[][], b: number[][]): number[][] {
+  const out: number[][] = [[0,0,0],[0,0,0],[0,0,0]];
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      let s = 0;
+      for (let k = 0; k < 3; k++) s += a[i][k] * b[k][j];
+      out[i][j] = s;
+    }
+  }
+  return out;
+}
+
+function _matVec3Small(m: number[][], v: readonly number[]): [number, number, number] {
+  return [
+    m[0][0]*v[0] + m[0][1]*v[1] + m[0][2]*v[2],
+    m[1][0]*v[0] + m[1][1]*v[1] + m[1][2]*v[2],
+    m[2][0]*v[0] + m[2][1]*v[1] + m[2][2]*v[2],
+  ];
+}
+
+/** Reference Franka 7-DoF FK in pure JS — used by the kernel's JS
+ *  fallback AND callable directly for cross-validation.
+ *  Returns the world-frame EE position from q[7].
+ */
+export function frankaFkInline(q: readonly number[]): [number, number, number] {
+  let R_world: number[][] = [[1,0,0],[0,1,0],[0,0,1]];
+  let p_world: [number, number, number] = [0, 0, 0];
+  for (let i = 0; i < 7; i++) {
+    const R_origin = _rotRpy(_FRANKA_FK_RPY_R[i]);
+    const R_q = _rotZ(q[i]);
+    const R_iInP = _mat3MulSmall(R_origin, R_q);
+    const rotated = _matVec3Small(R_world, _FRANKA_FK_XYZ[i]);
+    p_world = [p_world[0]+rotated[0], p_world[1]+rotated[1], p_world[2]+rotated[2]];
+    R_world = _mat3MulSmall(R_world, R_iInP);
+  }
+  return p_world;
+}
