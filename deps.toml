@@ -6057,6 +6057,13 @@ status = "shipped"
 description = "7 tests for e7m_preflight.py: run_preflight returns 4 results / pds check passes with --skip-network / assemble check passes (clean env) / verifier check passes for ADR-2605262500 filter / main CLI exit code matches pass status (without FACE_MODEL = 1) / JSON output shape contract / human output includes operator action items when failing."
 
 [[modules]]
+path = "90-docs/baien/adr-2605262500-operator-runbook-260527.md"
+adr = "ADR-2605262500"
+kind = "operator-runbook"
+status = "shipped"
+description = "Operator runbook for ADR-2605262500 production rollout (cycle 42, 2026-05-27). Action-oriented companion to the implementation retrospective: Quick start (1-command preflight) / Prerequisites (pip install list) / One-time operator setup (model download paths + Mapillary token + env config) / Daily workflow (Step A fetch → Step B inspect/dry-run → Step C production assemble → Step D quality gate) / Troubleshooting (5 common failure modes with concrete remediations) / Reference (backend selection / Tier-A vs Tier-C licensing / G* constitutional invariants / diagnostic CLI quick reference). doc_type: how-to."
+
+[[modules]]
 path = "70-tools/e7m-sim/tests/test_e2e_real_assets.py"
 adr = "ADR-2605262500"
 kind = "e2e-smoke"
