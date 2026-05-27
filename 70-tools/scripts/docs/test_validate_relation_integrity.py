@@ -87,6 +87,29 @@ def test_find_relation_issues_circular(mod):
     assert {pair["a"], pair["b"]} == {"a", "b"}
 
 
+def test_find_relation_issues_depends_on(mod):
+    """Cycle 64 added depends_on coverage. Dangling depends_on flagged."""
+    entries = [
+        {"id": "a", "depends_on": ["nonexistent-foundation"]},
+        {"id": "b", "depends_on": ["a"]},  # resolves
+    ]
+    issues = mod.find_relation_issues(entries)
+    # Dangling depends_on counted in total dangling
+    assert "depends_on" in issues["dangling"]
+    assert len(issues["dangling"]["depends_on"]) == 1
+    assert issues["dangling"]["depends_on"][0] == {"src": "a", "target": "nonexistent-foundation"}
+    # Resolved depends_on NOT flagged
+    assert all(d["src"] != "b" for d in issues["dangling"]["depends_on"])
+
+
+def test_find_relation_issues_depends_on_self_ref(mod):
+    """depends_on self-reference flagged like other fields."""
+    entries = [{"id": "self-dep", "depends_on": ["self-dep"]}]
+    issues = mod.find_relation_issues(entries)
+    assert issues["self_reference_count"] == 1
+    assert issues["self_references"][0] == {"src": "self-dep", "field": "depends_on"}
+
+
 def test_find_relation_issues_no_circular_flag(mod):
     """skip_circular=True suppresses circular detection."""
     entries = [

@@ -11506,6 +11506,26 @@
       "lastVerified": "2026-05-27"
     },
     {
+      "id": "doc:doc-registry-matrix-cycles-58-69-retrospective-260527",
+      "type": "TechArticle",
+      "title": "Registry enforcement matrix Part 2 — cycles 58-69 retrospective (8-axis defense-in-depth)",
+      "status": "active",
+      "topic": "registry-matrix-part2-retrospective",
+      "authoritative": false,
+      "authoritativeFor": [
+        "cycles 58-69 chronology — 8-axis matrix expansion from 5 to 8 axes",
+        "detection-first / categorize / auto-fix pattern productivity numbers",
+        "silent-bug-hunt discoveries (4 new bug classes found post-cycle-58)",
+        "tracker-mode + retrofit patterns"
+      ],
+      "related": [
+        "doc:doc-registry-matrix-cycles-46-57-retrospective-260527",
+        "doc:adr-2605271200-registry-4-axis-enforcement-matrix",
+        "doc:doc-registry-enforcement-matrix-runbook-260527"
+      ],
+      "lastVerified": "2026-05-27"
+    },
+    {
       "id": "doc:doc-tranche-f-index",
       "type": "TechArticle",
       "title": "Tranche F closure docs — operator navigation index",

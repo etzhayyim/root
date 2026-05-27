@@ -6197,6 +6197,13 @@ status = "shipped-tracker"
 description = "Cycle 69 GHA workflow — axis-7 id↔filename consistency tracker retrofit. Pattern parallel to cycle 68's md-link workflow. Nightly 03:59 UTC closes the 6-min × 8-axis cron spread (deps-toml :17 → id-filename :59). Step summary tracks total mismatches vs cycle-62 baseline of 53 (mostly rename-pending per CLAUDE.md §\"Do Not\" gftd/amanomibashira invariants; promotion to PR-gate awaits ADR-2605211845 cutover wave)."
 
 [[modules]]
+path = "90-docs/baien/registry-matrix-cycles-58-69-retrospective-260527.md"
+adr = "ADR-2605271200"
+kind = "retrospective-doc"
+status = "shipped"
+description = "Cycle 70 (2026-05-27) retrospective of cycles 58-69 — Part 2 of registry matrix journey covering 5-axis → 8-axis expansion. Sibling pattern to cycle 58's Part 1 retrospective. Captures: cycle-by-cycle chronology (12 cycles) / 5 silent-bug-hunt discoveries / 7 reusable patterns (cycle 52's 5 + Pattern F detection-first / Pattern G defense-in-depth retrofit) / 1107 data fixes across 6 bug classes / 8-axis matrix final state with all 3-layer defenses / lessons learned (5 worked + 3 friction) / canonical post-cycle-70 audit baseline. Sibling doc: cycles-46-57-retrospective covers cycles 1-57; this doc covers cycles 58-69."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"
