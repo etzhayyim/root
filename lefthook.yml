@@ -365,6 +365,28 @@ pre-commit:
       stage_fixed: false
 
 
+    md-link-validation:
+      # When any 90-docs/**/*.md changes, validate in-repo markdown
+      # links (ADR-2605271200 closure cycle 67; 8th axis defense-in-depth
+      # wired cycle 68). Tracker mode — exits 0 with baseline 33.
+      # Promotion to PR-gate awaits baseline = 0.
+      glob: "90-docs/**/*.md"
+      run: |
+        python3 70-tools/scripts/docs/validate-md-links.py \
+          > /tmp/md-link-check.$$.txt 2>&1
+        rc=$?
+        if [ $rc -eq 1 ] && [ "${ETZ_MD_LINK_STRICT:-0}" = "1" ]; then
+          echo "✘ markdown link validation failed (strict mode):"
+          cat /tmp/md-link-check.$$.txt
+          rm -f /tmp/md-link-check.$$.txt
+          exit 1
+        fi
+        # Default: tracker info-only output (still informative)
+        broken=$(grep -oE "^md-links: [0-9]+ broken" /tmp/md-link-check.$$.txt 2>/dev/null || echo "0")
+        rm -f /tmp/md-link-check.$$.txt
+      stage_fixed: false
+
+
     magatama-manifest-validation:
       # When any 60-apps/*/magatama.jsonld or the canonical
       # magatama.schema.json changes, validate every manifest

@@ -6176,6 +6176,13 @@ status = "shipped"
 description = "Cycle 67 — 8 unit tests for validate-md-links.py. Covers: script existence, clean import, URL_PREFIXES coverage, LINK_RE regex matches, find_broken_links returns typed list, tracker/strict mode exit codes, --json schema."
 
 [[modules]]
+path = ".github/workflows/md-link-validation.yml"
+adr = "ADR-2605271200"
+kind = "github-actions-workflow"
+status = "shipped-tracker"
+description = "Cycle 68 (2026-05-27) GHA workflow — 8th-axis md-link tracker. Runs validate-md-links.py + 8-test pytest suite on push/PR + nightly cron 03:47 UTC (off-minute :47 separates from magatama :41 / registry-schema :35 / docs-graph :29 / docs-registry :23 / deps-toml :17 — 6-min spread × 6 axes total). Step summary tracks broken count vs cycle-67 baseline of 33. Tracker mode — does not block PRs. Will promote to PR-gate when baseline reaches 0."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"
