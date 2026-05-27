@@ -41,3 +41,5 @@ export {
   forwardKinematics,
   geometricJacobian,
 } from "./articulated-dynamics.js";
+
+export { parseUrdf } from "./urdf-parser.js";
