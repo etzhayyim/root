@@ -267,3 +267,171 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
   ],
   workgroupSize: 64,
 });
+
+// ── Two-link arm step (env-parallel) ─────────────────────────────────────
+//
+// Closed-form 2-DoF planar arm dynamics — both joints revolute about
+// world Y-axis, both links pendulum-like (gravity pulls toward -Z).
+// Mirrors the iter 71 compound-pendulum reference (Python iter 68
+// PASS 9-10 / TS iter 71 PASS 9-10) but generalised for arbitrary
+// torques.
+//
+// Standard manipulator equation:
+//
+//   M(q) · q̈ + C(q, q̇) · q̇ + g(q) = τ
+//
+// For 2-link arm (link i has mass m_i, full length L_i, COM offset r_i
+// from joint i, inertia I_i about COM):
+//
+//   M(q) = [[a + b + 2c·cosθ₂, b + c·cosθ₂],
+//           [b + c·cosθ₂,       b           ]]
+//
+//   where a = m₁r₁² + I₁ + m₂L₁²
+//         b = m₂r₂² + I₂
+//         c = m₂·L₁·r₂
+//
+//   C(q,q̇)·q̇ = [[-c·sinθ₂·θ̇₂, -c·sinθ₂·(θ̇₁+θ̇₂)],     [θ̇₁]
+//                [ c·sinθ₂·θ̇₁,  0                  ]] · [θ̇₂]
+//
+//   g(q) = [m₁·g·r₁·sin θ₁ + m₂·g·(L₁·sin θ₁ + r₂·sin(θ₁+θ₂)),
+//           m₂·g·r₂·sin(θ₁+θ₂)]
+//
+// Invert M(q) by hand (2×2 closed form), solve for q̈, semi-implicit
+// Euler integrate. Reference: Spong, Robot Modeling & Control, Ch. 7.
+
+/** State + input + uniform bindings (11 total):
+ *    @group(0) @binding(0)  theta1     (storage read_write)
+ *    @group(0) @binding(1)  theta1_dot (storage read_write)
+ *    @group(0) @binding(2)  theta2     (storage read_write)
+ *    @group(0) @binding(3)  theta2_dot (storage read_write)
+ *    @group(0) @binding(4)  tau1       (storage read, writeback false)
+ *    @group(0) @binding(5)  tau2       (storage read, writeback false)
+ *    @group(0) @binding(6)  dt         (uniform vec4<f32>.x)
+ *    @group(0) @binding(7)  gravity    (uniform vec4<f32>.x)
+ *    @group(0) @binding(8)  link1      (uniform vec4<f32>: m1, L1, r1, I1)
+ *    @group(0) @binding(9)  link2      (uniform vec4<f32>: m2, L2, r2, I2)
+ *                                       (L2 unused — arm-tip is at r2 + L2/2
+ *                                        in conventional layout, but free
+ *                                        for caller's interpretation)
+ */
+export const twoLinkArmStepKernel: WgpuKernel = wgpuKernel({
+  js: (
+    theta1:     WpArray<number>,
+    theta1_dot: WpArray<number>,
+    theta2:     WpArray<number>,
+    theta2_dot: WpArray<number>,
+    tau1:       WpArray<number>,
+    tau2:       WpArray<number>,
+    dt:         number,
+    g:          number,
+    m1: number, L1: number, r1: number, I1: number,
+    m2: number, L2: number, r2: number, I2: number,
+  ) => {
+    const i = tid();
+    const q1 = theta1.get(i);
+    const q2 = theta2.get(i);
+    const dq1 = theta1_dot.get(i);
+    const dq2 = theta2_dot.get(i);
+    const t1 = tau1.get(i);
+    const t2 = tau2.get(i);
+    void L2; // L2 reserved for future tip-frame variants
+    const a = m1 * r1 * r1 + I1 + m2 * L1 * L1;
+    const b = m2 * r2 * r2 + I2;
+    const c = m2 * L1 * r2;
+    const cosT2 = cos(q2);
+    const sinT2 = sin(q2);
+    // M(q)
+    const M11 = a + b + 2 * c * cosT2;
+    const M12 = b + c * cosT2;
+    const M22 = b;
+    // h = C·q̇ + g
+    const h1 = -c * sinT2 * dq2 * dq1
+                - c * sinT2 * (dq1 + dq2) * dq2
+                + m1 * g * r1 * sin(q1)
+                + m2 * g * (L1 * sin(q1) + r2 * sin(q1 + q2));
+    const h2 =  c * sinT2 * dq1 * dq1
+                + m2 * g * r2 * sin(q1 + q2);
+    // Solve M·q̈ = τ - h via 2×2 inverse:
+    //   det = M11·M22 - M12²
+    //   q̈₁ = (M22·b₁ - M12·b₂) / det   where b = τ - h
+    //   q̈₂ = (M11·b₂ - M12·b₁) / det
+    const b1 = t1 - h1;
+    const b2 = t2 - h2;
+    const det = M11 * M22 - M12 * M12;
+    const ddq1 = (M22 * b1 - M12 * b2) / det;
+    const ddq2 = (M11 * b2 - M12 * b1) / det;
+    // Semi-implicit Euler
+    const dq1New = dq1 + dt * ddq1;
+    const dq2New = dq2 + dt * ddq2;
+    theta1_dot.set(i, dq1New);
+    theta1.set(i, q1 + dt * dq1New);
+    theta2_dot.set(i, dq2New);
+    theta2.set(i, q2 + dt * dq2New);
+  },
+  wgsl: `
+@group(0) @binding(0)  var<storage, read_write> theta1:     array<f32>;
+@group(0) @binding(1)  var<storage, read_write> theta1_dot: array<f32>;
+@group(0) @binding(2)  var<storage, read_write> theta2:     array<f32>;
+@group(0) @binding(3)  var<storage, read_write> theta2_dot: array<f32>;
+@group(0) @binding(4)  var<storage, read_write> tau1:       array<f32>;
+@group(0) @binding(5)  var<storage, read_write> tau2:       array<f32>;
+@group(0) @binding(6)  var<uniform>             dt_u:       vec4<f32>;
+@group(0) @binding(7)  var<uniform>             g_u:        vec4<f32>;
+@group(0) @binding(8)  var<uniform>             link1_u:    vec4<f32>;
+@group(0) @binding(9)  var<uniform>             link2_u:    vec4<f32>;
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let i = gid.x;
+  if (i >= arrayLength(&theta1)) { return; }
+  let q1 = theta1[i];
+  let q2 = theta2[i];
+  let dq1 = theta1_dot[i];
+  let dq2 = theta2_dot[i];
+  let t1 = tau1[i];
+  let t2 = tau2[i];
+  let dt = dt_u.x;
+  let g  = g_u.x;
+  let m1 = link1_u.x; let L1 = link1_u.y; let r1 = link1_u.z; let I1 = link1_u.w;
+  let m2 = link2_u.x;                     let r2 = link2_u.z; let I2 = link2_u.w;
+  let a = m1 * r1 * r1 + I1 + m2 * L1 * L1;
+  let b = m2 * r2 * r2 + I2;
+  let c = m2 * L1 * r2;
+  let cosT2 = cos(q2);
+  let sinT2 = sin(q2);
+  let M11 = a + b + 2.0 * c * cosT2;
+  let M12 = b + c * cosT2;
+  let M22 = b;
+  let h1 = -c * sinT2 * dq2 * dq1
+           - c * sinT2 * (dq1 + dq2) * dq2
+           + m1 * g * r1 * sin(q1)
+           + m2 * g * (L1 * sin(q1) + r2 * sin(q1 + q2));
+  let h2 =  c * sinT2 * dq1 * dq1
+           + m2 * g * r2 * sin(q1 + q2);
+  let b1 = t1 - h1;
+  let b2 = t2 - h2;
+  let det = M11 * M22 - M12 * M12;
+  let ddq1 = (M22 * b1 - M12 * b2) / det;
+  let ddq2 = (M11 * b2 - M12 * b1) / det;
+  let dq1New = dq1 + dt * ddq1;
+  let dq2New = dq2 + dt * ddq2;
+  theta1_dot[i] = dq1New;
+  theta1[i] = q1 + dt * dq1New;
+  theta2_dot[i] = dq2New;
+  theta2[i] = q2 + dt * dq2New;
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: true },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: true },
+    { binding: 2, kind: "storage", inputIndex: 2, writeback: true },
+    { binding: 3, kind: "storage", inputIndex: 3, writeback: true },
+    { binding: 4, kind: "storage", inputIndex: 4, writeback: false },
+    { binding: 5, kind: "storage", inputIndex: 5, writeback: false },
+    { binding: 6, kind: "uniform", inputIndex: 6 },
+    { binding: 7, kind: "uniform", inputIndex: 7 },
+    { binding: 8, kind: "uniform", inputIndex: 8 },
+    { binding: 9, kind: "uniform", inputIndex: 9 },
+  ],
+  workgroupSize: 64,
+});
