@@ -1257,3 +1257,147 @@ export function frankaGravCompInline(
   }
   return tau;
 }
+
+// ── ANYmal C 12-DoF branched-chain FK (env-parallel) ─────────────────────
+//
+// First branched-chain WGSL kernel. ANYmal C has 4 legs (LF, LH, RF, RH)
+// each with 3 joints (HAA, HFE, KFE) rooted at a common base. Each
+// thread runs FK on all 4 legs independently and outputs 4 foot
+// positions per env.
+//
+// Per-env input: q[12]   (LF_HAA, LF_HFE, LF_KFE, LH_HAA, LH_HFE, ...)
+// Per-env output: feet[12] = 4 feet × 3 (xyz) per env
+//
+// Joint specs match iter 75 AnymalC asset:
+//   per leg: HAA axis=(1,0,0), HFE axis=(0,1,0), KFE axis=(0,1,0)
+//   origin xyz=(0,0,-0.15) downward stack
+//   origin rpy=(0,0,0)
+//
+// Same closed-form per-joint frame composition as iter 88, but the
+// pattern now runs 4× (once per leg).
+//
+// NOTE: iter 75 uses placeholder joint origins; real ANYmal has
+// per-leg base offsets like LF_HAA at (0.277, 0.116, 0.043). A future
+// iter could update iter 75 with real ANYbotics URDF offsets (similar
+// to iter 85 for Franka). The kernel architecture supports it without
+// changes — only the AnymalC asset needs updating.
+
+const ANYMAL_LEG_NAMES = ["LF", "LH", "RF", "RH"] as const;
+const ANYMAL_JOINT_AXES: readonly (readonly [number, number, number])[] = [
+  [1, 0, 0], // HAA — hip ab/adduction
+  [0, 1, 0], // HFE — hip flex/extension
+  [0, 1, 0], // KFE — knee flex/extension
+];
+
+/** Bindings:
+ *    @group(0) @binding(0) q_in    (storage read, N*12 floats; writeback false)
+ *    @group(0) @binding(1) feet_out (storage read_write, N*12 floats — 4 feet × xyz)
+ */
+export const anymalFkKernel: WgpuKernel = wgpuKernel({
+  js: (qIn: WpArray<number>, feetOut: WpArray<number>) => {
+    const env = tid();
+    const q: number[] = [];
+    for (let i = 0; i < 12; i++) q.push(qIn.get(env * 12 + i));
+    const feet = anymalFkInline(q);
+    for (let leg = 0; leg < 4; leg++) {
+      for (let k = 0; k < 3; k++) {
+        feetOut.set(env * 12 + leg * 3 + k, feet[leg][k]);
+      }
+    }
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> q_in:     array<f32>;
+@group(0) @binding(1) var<storage, read_write> feet_out: array<f32>;
+
+fn rot_axis(axis: vec3<f32>, angle: f32) -> mat3x3<f32> {
+  let c = cos(angle); let s = sin(angle);
+  let oc = 1.0 - c;
+  let ax = axis.x; let ay = axis.y; let az = axis.z;
+  return mat3x3<f32>(
+    vec3<f32>(c + ax*ax*oc,        ay*ax*oc + az*s,    az*ax*oc - ay*s),
+    vec3<f32>(ax*ay*oc - az*s,     c + ay*ay*oc,        az*ay*oc + ax*s),
+    vec3<f32>(ax*az*oc + ay*s,     ay*az*oc - ax*s,    c + az*az*oc),
+  );
+}
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let env = gid.x;
+  let n_envs = arrayLength(&feet_out) / 12u;
+  if (env >= n_envs) { return; }
+
+  let base_q = env * 12u;
+  let base_out = env * 12u;
+
+  // Joint axes per leg (HAA, HFE, KFE).
+  let axes = array<vec3<f32>, 3>(
+    vec3<f32>(1.0, 0.0, 0.0),
+    vec3<f32>(0.0, 1.0, 0.0),
+    vec3<f32>(0.0, 1.0, 0.0),
+  );
+  // Origin offset per joint (iter 75 placeholder: downward stack).
+  let leg_offset = vec3<f32>(0.0, 0.0, -0.15);
+
+  // 4 legs, processed sequentially within this thread.
+  for (var leg = 0u; leg < 4u; leg = leg + 1u) {
+    var R_world = mat3x3<f32>(
+      vec3<f32>(1.0, 0.0, 0.0),
+      vec3<f32>(0.0, 1.0, 0.0),
+      vec3<f32>(0.0, 0.0, 1.0),
+    );
+    var p_world = vec3<f32>(0.0, 0.0, 0.0);
+    for (var j = 0u; j < 3u; j = j + 1u) {
+      let q = q_in[base_q + leg * 3u + j];
+      let R_q = rot_axis(axes[j], q);
+      let rotated = R_world * leg_offset;
+      p_world = p_world + rotated;
+      R_world = R_world * R_q;
+    }
+    // Foot is at the end of the kinematic chain — store p_world after
+    // all 3 joints applied + one more "leg_offset" (the foot link
+    // extends past KFE).
+    let foot = p_world + R_world * leg_offset;
+    feet_out[base_out + leg * 3u + 0u] = foot.x;
+    feet_out[base_out + leg * 3u + 1u] = foot.y;
+    feet_out[base_out + leg * 3u + 2u] = foot.z;
+  }
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: true },
+  ],
+  workgroupSize: 64,
+});
+
+function _rotAxis(axis: readonly number[], angle: number): number[][] {
+  const c = Math.cos(angle), s = Math.sin(angle), oc = 1 - c;
+  const [ax, ay, az] = axis;
+  return [
+    [c + ax*ax*oc,       ax*ay*oc - az*s,   ax*az*oc + ay*s],
+    [ay*ax*oc + az*s,    c + ay*ay*oc,      ay*az*oc - ax*s],
+    [az*ax*oc - ay*s,    az*ay*oc + ax*s,   c + az*az*oc],
+  ];
+}
+
+/** Reference ANYmal C foot positions in pure JS — used by anymalFkKernel's
+ *  JS fallback AND callable directly. Returns 4 foot positions, one per
+ *  leg in LF, LH, RF, RH order.
+ */
+export function anymalFkInline(q: readonly number[]): [number, number, number][] {
+  const legOffset: [number, number, number] = [0, 0, -0.15];
+  const feet: [number, number, number][] = [];
+  for (let leg = 0; leg < 4; leg++) {
+    let R_world: number[][] = [[1,0,0],[0,1,0],[0,0,1]];
+    let p_world: [number, number, number] = [0, 0, 0];
+    for (let j = 0; j < 3; j++) {
+      const R_q = _rotAxis(ANYMAL_JOINT_AXES[j], q[leg * 3 + j]);
+      const rotated = _matVec3Small(R_world, legOffset);
+      p_world = [p_world[0]+rotated[0], p_world[1]+rotated[1], p_world[2]+rotated[2]];
+      R_world = _mat3MulSmall(R_world, R_q);
+    }
+    const footRotated = _matVec3Small(R_world, legOffset);
+    feet.push([p_world[0]+footRotated[0], p_world[1]+footRotated[1], p_world[2]+footRotated[2]]);
+  }
+  return feet;
+}
