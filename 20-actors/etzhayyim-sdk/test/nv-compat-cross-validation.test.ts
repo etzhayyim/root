@@ -59,6 +59,8 @@ import {
   mlpPolicyForwardInline,
   conditionalResetKernel,
   conditionalResetInline,
+  groundContactKernel,
+  groundContactInline,
 } from "../src/nv-compat/warp/examples.js";
 import { makeUr10 } from "../src/nv-compat/assets/ur10.js";
 import { makeFrankaPanda } from "../src/nv-compat/assets/franka-panda.js";
@@ -1050,5 +1052,78 @@ describe("nv-compat policies/mlp — JSON round-trip + validation", () => {
     expect(actions.length).toBe(3);
     for (const a of actions) expect(Math.abs(a)).toBeLessThanOrEqual(1);
     expect(() => runMlpPolicy(spec, [0.1, 0.2, 0.3])).toThrow(/not a multiple/);
+  });
+});
+
+describe("nv-compat groundContactKernel — spring-damper normal force", () => {
+  it("foot above ground → F = 0; at ground → Fz = 0", () => {
+    const f1 = [0, 0, 0];
+    groundContactInline([0.1, 0.2, 0.1], [0,0,0], f1, 0, 1000, 50);
+    expect(f1).toEqual([0, 0, 0]);
+    const f2 = [0, 0, 0];
+    groundContactInline([0, 0, 0], [0,0,0], f2, 0, 1000, 50);
+    expect(f2[2]).toBe(0);
+  });
+
+  it("1cm penetration produces Kp·pen Fz; tangential forces stay 0 (frictionless)", () => {
+    const f = [0, 0, 0];
+    groundContactInline([0, 0, -0.01], [0,0,0], f, 0, 1000, 50);
+    expect(f[2]).toBeCloseTo(10, 12);
+    expect(f[0]).toBe(0);
+    expect(f[1]).toBe(0);
+  });
+
+  it("vertical velocity modulates Fz with non-pull clamp", () => {
+    const downward = [0, 0, 0];
+    groundContactInline([0, 0, -0.01], [0,0,-0.2], downward, 0, 1000, 50);
+    expect(downward[2]).toBeCloseTo(20, 12);
+    const upwardWeak = [0, 0, 0];
+    groundContactInline([0, 0, -0.01], [0,0,0.1], upwardWeak, 0, 1000, 50);
+    expect(upwardWeak[2]).toBeCloseTo(5, 12);
+    const upwardStrong = [0, 0, 0];
+    groundContactInline([0, 0, -0.01], [0,0,1.0], upwardStrong, 0, 1000, 50);
+    expect(upwardStrong[2]).toBe(0);  // clamped — ground can't pull
+  });
+
+  it("256-env × 4 feet WGSL byte-identical", () => {
+    const nEnvs = 256, nFeet = 4, total = nEnvs * nFeet;
+    const pBuf: number[] = new Array(total * 3);
+    const vBuf: number[] = new Array(total * 3);
+    for (let i = 0; i < total; i++) {
+      pBuf[i*3+0] = Math.sin(i * 0.1);
+      pBuf[i*3+1] = Math.cos(i * 0.1);
+      pBuf[i*3+2] = (i % 2 === 0) ? -0.02 : 0.05;
+      vBuf[i*3+0] = 0;
+      vBuf[i*3+1] = 0;
+      vBuf[i*3+2] = 0.1 * Math.sin(i * 0.07);
+    }
+    const pA = fromTypedArray<number>(pBuf);
+    const vA = fromTypedArray<number>(vBuf);
+    const fA = zeros<number>(total * 3);
+    launch({ kernel: groundContactKernel, dim: total,
+      inputs: [pA, vA, fA, 0, 1000, 50] });
+
+    const fRef: number[] = new Array(total * 3).fill(0);
+    groundContactInline(pBuf, vBuf, fRef, 0, 1000, 50);
+    let maxDiff = 0;
+    for (let i = 0; i < total * 3; i++) {
+      maxDiff = Math.max(maxDiff, Math.abs(fA.get(i) - fRef[i]));
+    }
+    expect(maxDiff).toBe(0);
+  });
+
+  it("realistic ANYmal 4-foot standing: all in contact with ground above feet", () => {
+    const feet = [
+      0.277, 0.116, -0.6,
+      -0.277, 0.116, -0.6,
+      0.277, -0.116, -0.6,
+      -0.277, -0.116, -0.6,
+    ];
+    const v = new Array(12).fill(0);
+    const f = new Array(12).fill(0);
+    groundContactInline(feet, v, f, -0.59, 2000, 100);
+    for (let foot = 0; foot < 4; foot++) {
+      expect(f[foot*3 + 2]).toBeCloseTo(20, 9);
+    }
   });
 });

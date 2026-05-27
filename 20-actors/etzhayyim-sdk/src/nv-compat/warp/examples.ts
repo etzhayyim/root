@@ -2368,3 +2368,108 @@ export function conditionalResetInline(
     if (done[env] >= 0.5) state[idx] = resetState[idx];
   }
 }
+
+// ── Ground-plane contact (env×foot parallel, frictionless) ───────────────
+//
+// Spring-damper normal-force model — the minimal physical contact
+// pattern that lets legged demos (ANYmal walking, biped standing)
+// push against a ground plane. Per-foot:
+//
+//     penetration = ground_z − p_z
+//     if penetration > 0:
+//         F_z = max(0,  Kp · penetration − Kd · v_z)
+//     else:
+//         F_z = 0
+//     F_x = F_y = 0  (frictionless; iter 110 will add Coulomb tangent)
+//
+// One thread per (env, foot) pair. ground_z, Kp, Kd, mu (unused R0)
+// shared across all envs as scalars.
+//
+// Bridges from the foot-FK pipeline (iter 70, 88, 95 ANYmal) to a
+// physically-driven simulation step — Fz can be summed into a base
+// reaction force or projected through Jᵀ to per-joint contact torques.
+
+export const groundContactKernel: WgpuKernel = wgpuKernel({
+  js: (
+    pWorld: WpArray<number>,
+    vWorld: WpArray<number>,
+    fOut: WpArray<number>,
+    groundZ: number,
+    kp: number,
+    kd: number,
+  ) => {
+    const idx = tid();
+    const base = idx * 3;
+    const pz = pWorld.get(base + 2);
+    const penetration = groundZ - pz;
+    let fz = 0;
+    if (penetration > 0) {
+      const vz = vWorld.get(base + 2);
+      const raw = kp * penetration - kd * vz;
+      fz = raw > 0 ? raw : 0;
+    }
+    fOut.set(base + 0, 0);
+    fOut.set(base + 1, 0);
+    fOut.set(base + 2, fz);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> p_world: array<f32>;
+@group(0) @binding(1) var<storage, read_write> v_world: array<f32>;
+@group(0) @binding(2) var<storage, read_write> f_out:   array<f32>;
+@group(0) @binding(3) var<uniform>             params:  vec4<f32>;
+//                                                       .x = ground_z
+//                                                       .y = Kp
+//                                                       .z = Kd
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let idx = gid.x;
+  let total = arrayLength(&f_out) / 3u;
+  if (idx >= total) { return; }
+  let base = idx * 3u;
+  let pz = p_world[base + 2u];
+  let penetration = params.x - pz;
+  var fz: f32 = 0.0;
+  if (penetration > 0.0) {
+    let vz = v_world[base + 2u];
+    fz = max(0.0, params.y * penetration - params.z * vz);
+  }
+  f_out[base + 0u] = 0.0;
+  f_out[base + 1u] = 0.0;
+  f_out[base + 2u] = fz;
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: false },
+    { binding: 2, kind: "storage", inputIndex: 2, writeback: true },
+    { binding: 3, kind: "uniform", inputIndex: 3 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference frictionless ground-plane contact per foot. */
+export function groundContactInline(
+  pWorld: readonly number[],
+  vWorld: readonly number[],
+  fOut: number[],
+  groundZ: number,
+  kp: number,
+  kd: number,
+): void {
+  const total = fOut.length / 3;
+  for (let i = 0; i < total; i++) {
+    const base = i * 3;
+    const pz = pWorld[base + 2];
+    const penetration = groundZ - pz;
+    let fz = 0;
+    if (penetration > 0) {
+      const vz = vWorld[base + 2];
+      const raw = kp * penetration - kd * vz;
+      fz = raw > 0 ? raw : 0;
+    }
+    fOut[base + 0] = 0;
+    fOut[base + 1] = 0;
+    fOut[base + 2] = fz;
+  }
+}
