@@ -439,7 +439,7 @@ Rider (see [CHARTER-RIDER.md](../../CHARTER-RIDER.md)).
 
 The Rider restricts use by entities engaged primarily in weapons production,
 speculative finance, surveillance capitalism, new fossil fuel extraction, or
-specialist gatekeeping. See [ADR-2605192200](90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md)
+specialist gatekeeping. See [ADR-2605192200](/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md)
 for full context.
 ```
 

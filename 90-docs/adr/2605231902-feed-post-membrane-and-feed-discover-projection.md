@@ -296,7 +296,7 @@ both become reasonable.
 - [ADR-2605191655](/90-docs/adr/2605191655-mst-projector-phase2-design.md) — mst-projector Phase 2 (true MST root + CAR)
 - [ADR-2605192100](/90-docs/adr/2605192100-etzhayyim-mission-charter.md) — mission charter (§1.13 Eros/Gore, §1.15 non-eschatological)
 - [ADR-2605192200](/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md) — Charter Compliance Rider §2(a)..(h)
-- [ADR-2605192400](2605192400-eros-gore-council-judging-framework.md) — gore educational-context override
+- [ADR-2605192400](/90-docs/adr/2605192400-etzhayyim-eros-gore-council-judging.md) — gore educational-context override
 - [ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md) — yatachain SPEC §4 membrane
 - [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md) — projection conformance levels
 - [ADR-2605231525](/90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md) — no platform-held keys

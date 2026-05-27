@@ -40,7 +40,7 @@ superseded_by: []
 
 Three pieces of work landed on 2026-05-21 that share a single authoritative ADR slot:
 
-1. **Murakumo no-VKE mesh placement contract** — a YAML manifest at `50-infra/multicluster/murakumo-mesh/placement-contract.yaml` that maps the 10-node Mac-mini fleet (12-tribes-named per [ADR-2605182312](2605182312-twelve-tribes-naming.md)) to Pregel cell groups per [ADR-2605192415](/90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) §4, deliberately *without* a Virtual Kubernetes Environment (VKE / managed control plane). The mesh runs k3s with local nodeSelector pinning.
+1. **Murakumo no-VKE mesh placement contract** — a YAML manifest at `50-infra/multicluster/murakumo-mesh/placement-contract.yaml` that maps the 10-node Mac-mini fleet (12-tribes-named per [ADR-2605182312](/90-docs/adr/2605182312-local-bring-up-murakumo-gemma4.md)) to Pregel cell groups per [ADR-2605192415](/90-docs/adr/2605192415-etzhayyim-religious-corp-daemon-architecture.md) §4, deliberately *without* a Virtual Kubernetes Environment (VKE / managed control plane). The mesh runs k3s with local nodeSelector pinning.
 2. **Vendor → religious-corp lexicon port verdict taxonomy** — a 3-verdict classifier (REDIRECT / VENDOR-ONLY / REIMPLEMENT) used by the per-package MIGRATION-NOTES.md sidecars to classify each gftd-side file's port path.
 3. **Atomic identifier cutover** — the §3 cited 14 times across the repo (6 SUBSTRATE-PORT-PENDING markers, 2 MIGRATION-NOTES.md sidecars, ADR-2605215000 §3, ADR-2605212100, CLAUDE.md §Do-Not / §Status). This specifies the rules for the 220-file `gftd-*` → `etzhayyim-*` identifier rename and the master gating condition.
 

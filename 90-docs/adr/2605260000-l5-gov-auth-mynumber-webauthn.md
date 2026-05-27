@@ -248,7 +248,7 @@ Once Council Seats 2-5 are filled (expected by 2026-06-19, per COUNCIL-BOOTSTRAP
 
 ## §9 References
 
-- [ADR-2605250100](./2605250100-l5-routing-around-gov-auth-mynumber-webauthn.md): L5 routing-around ladder (member_registry, religious_marriage, religious_corp_taxation)
+- [ADR-2605250100](/90-docs/adr/2605250100-l5-routing-around-member-registry-cell.md): L5 routing-around ladder (member_registry, religious_marriage, religious_corp_taxation)
 - [ADR-2605181100](./2605181100-mst-encrypted-records-signal-keywrap.md): XChaCha20-Poly1305 + Signal-wrapped per-recipient keys
 - [ADR-2605192100](./2605192100-etzhayyim-mission-charter.md): Religious-corp Charter (§0.4 non-registration, §1.13 Wellbecoming, §2(c) anti-surveillance)
 - [W3C WebAuthn Level 3](https://www.w3.org/TR/webauthn-3/): Web Authentication spec (2026-05-21 status: Candidate Recommendation)

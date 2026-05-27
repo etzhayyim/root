@@ -10569,6 +10569,26 @@
       "lastVerified": "2026-05-27"
     },
     {
+      "id": "doc:adr-2605281000-loop-arc-session-close",
+      "type": "TechArticle",
+      "title": "ADR-2605281000: /loop arc session close (cycles 27-75; 8-axis registry enforcement matrix complete; Pattern F saturated)",
+      "status": "proposed",
+      "topic": "loop-arc-session-close",
+      "authoritative": true,
+      "authoritativeFor": [
+        "/loop arc session-close marker (cycles 27-75)",
+        "canonical post-cycle-75 audit baseline",
+        "documented-deferred items handoff to next session"
+      ],
+      "related": [
+        "doc:doc-registry-matrix-cycles-46-57-retrospective-260527",
+        "doc:doc-registry-matrix-cycles-58-69-retrospective-260527",
+        "doc:doc-axis-9-saturation-survey-260527",
+        "doc:doc-lexicon-deep-dive-260528"
+      ],
+      "lastVerified": "2026-05-28"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

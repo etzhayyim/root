@@ -6217,6 +6217,16 @@ kind = "survey-doc"
 status = "shipped"
 description = "Cycle 73 (2026-05-28) lexicon deep dive — tested whether 3198 known lexicon violations contain Pattern F auto-fixable subsets. Scope split: 3017 gftd-legacy violations are constitutional pre-cutover skip; 181 non-gftd post-cutover violations are tractable (95.6% type='number' + 4.4% inline-object). Auto-fix would be BREAKING SCHEMA CHANGE requiring Council Lv6+ attestation per ADR-2605181100 + Charter Rider §6 — NOT safe for /loop infrastructure cycles. Recommendation: lexicon cleanup belongs to substantive Tier-B actor work (hagukumi/hikari/hodoki/iyashi/kokoro per-actor); /loop should pivot away from registry enforcement per cycle 72 saturation signal."
 
+
+# ─── ADR-2605281000 /loop arc session close (2026-05-28 cycle 75) ──
+
+[[adrs]]
+id = "2605281000"
+title = "/loop arc session close (cycles 27-75; 8-axis registry enforcement matrix complete; Pattern F saturated)"
+status = "proposed"
+status_note = "Session-close marker for the long-running /loop arc that built the 8-axis registry enforcement matrix. Cycles 27-75 (~49 cycles, ~21 wall-hours of build time across 2026-05-26 → 2026-05-28 JST). Documents the natural arc end: cycle 72 axis-9 saturation survey + cycle 73 lexicon deep dive confirmed Pattern F has reached diminishing returns. Cycle 74 closed CLAUDE.md row #80 housekeeping. Cycle 75 chipped 9 more md-links via timestamp resolution + user closed the session. Captures canonical post-cycle-75 audit baseline (5 PR-gate EXIT 0 / 3 tracker {relation 1011 / id-filename 53 / md-links 24} / 85 unit tests / 9 e7m verify / 8 validators / 3 schemas / 26 lefthook hooks / 17 GHA workflows / 8 nightly cron :17-:59) + documented-deferred handoff (6 items pending per-actor or Council action) + next-session recommendations (Tier-B actor follow-on / Council Bootstrap RFP / real-network smoke). Does NOT change any constitutional invariant; documents arc completion."
+path = "90-docs/adr/2605281000-loop-arc-session-close.md"
+
 [[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"

@@ -195,7 +195,7 @@ OAuth scopes are server-side and bound to access tokens, not records. Doesn't co
 - ADR-2605181100 [MST encrypted records + Signal key-wrap](./2605181100-mst-encrypted-records-signal-keywrap.md)
 - ADR-2605172000 [RW-free substrate](./2605172000-etzhayyim-rw-free-substrate.md)
 - ADR-2605172400 [etzhayyim/vendor 3-axis split](./2605172400-etzhayyim-vendor-three-axis-split-rule.md)
-- ADR-2605192115 [Non-profit-only payment purpose](./2605192115-non-profit-only-payment-purpose.md)
+- ADR-2605192115 [Non-profit-only payment purpose](/90-docs/adr/2605192115-etzhayyim-non-profit-donation-only-no-ads.md)
 - 個人情報保護法 §17, §17-2, §18, §27 (PHI 第三者提供同意)
 - 保険医療機関及び保険医療養担当規則 (レセプト記載 + 保管義務)
 - UCAN spec — https://ucan.xyz/

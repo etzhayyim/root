@@ -247,7 +247,7 @@ overall chain back to MST is documented.
   diverged from canonical state? Periodic random-slice replay + alert; cost
   budget per projection.
 - **Council deliberation projection**: the council deliberation cell (per
-  [ADR-2605192300](2605192300-council-bootstrap.md)) is itself a
+  [ADR-2605192300](/90-docs/adr/2605192300-etzhayyim-bootstrap-council-five.md)) is itself a
   projection (votes derived from `app.etzhayyim.governance.*` records). This
   ADR's framing applies — but the rebuild path must preserve the
   cryptographic chain of attestations, not just summarize them. Tracked as

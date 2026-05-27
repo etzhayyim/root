@@ -220,10 +220,10 @@ Expose the Pod via LoadBalancer + DNS. Rejected because (i) no static public IP 
 - ADR-2605231400 [karute consent capability + iryo billing bridge](./2605231400-karute-consent-capability-iryo-bridge.md)
 - ADR-2605231603 [per-record rekey + tombstone protocol](./2605231603-per-record-rekey-tombstone-protocol.md)
 - ADR-2605231700 [audit webhook subsystem](./2605231700-audit-webhook-subsystem.md)
-- ADR-2605171800 [LangGraph → MstCheckpointSaver → MST → IPFS → L2 anchor](./2605171800-langgraph-mst-checkpointer-saver.md)
+- ADR-2605171800 [LangGraph → MstCheckpointSaver → MST → IPFS → L2 anchor](/90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md)
 - ADR-2605181100 [encrypted records + Signal keywrap](./2605181100-mst-encrypted-records-signal-keywrap.md)
-- ADR-2605191346 [religious-corp cells HA stateful](./2605191346-religious-corp-cells-ha-stateful.md)
-- ADR-2605232100 [religious-corp cells k3s DaemonSet](./2605232100-religious-corp-cells-k3s-daemonset.md)
+- ADR-2605191346 [religious-corp cells HA stateful](/90-docs/adr/2605191346-etzhayyim-vultr-free-murakumo-control-plane.md)
+- ADR-2605232100 [religious-corp cells k3s DaemonSet](/90-docs/adr/2605232100-etzhayyim-organism-vertical-implementation.md)
 - Cloudflare Workers — https://developers.cloudflare.com/workers/
 - Cloudflare Tunnel — https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
 - Cloudflare Pages — https://developers.cloudflare.com/pages/
