@@ -6211,6 +6211,13 @@ status = "shipped"
 description = "Cycle 72 (2026-05-27) survey doc — investigated 3 axis-9 candidates (JSON Schema $defs / pyproject.toml / Cargo workspace) to test whether Pattern F (detection-first) still produces value. Result: 0/0/1 findings → 99% efficiency drop vs cycles 59-66 average. Documents matrix coverage saturation signal: 8-axis matrix substantively covers repo's systematic drift surfaces; future axis additions would catch isolated single findings not systematic bug classes. 1 known-deferred Cargo orphan (hrse api/) captured for owner attention without building a 9th axis."
 
 [[modules]]
+path = "90-docs/baien/lexicon-deep-dive-260528.md"
+adr = "ADR-2605271200"
+kind = "survey-doc"
+status = "shipped"
+description = "Cycle 73 (2026-05-28) lexicon deep dive — tested whether 3198 known lexicon violations contain Pattern F auto-fixable subsets. Scope split: 3017 gftd-legacy violations are constitutional pre-cutover skip; 181 non-gftd post-cutover violations are tractable (95.6% type='number' + 4.4% inline-object). Auto-fix would be BREAKING SCHEMA CHANGE requiring Council Lv6+ attestation per ADR-2605181100 + Charter Rider §6 — NOT safe for /loop infrastructure cycles. Recommendation: lexicon cleanup belongs to substantive Tier-B actor work (hagukumi/hikari/hodoki/iyashi/kokoro per-actor); /loop should pivot away from registry enforcement per cycle 72 saturation signal."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"

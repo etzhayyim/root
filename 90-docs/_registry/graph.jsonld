@@ -11482,6 +11482,24 @@
       "lastVerified": "2026-05-10"
     },
     {
+      "id": "doc:doc-lexicon-deep-dive-260528",
+      "type": "TechArticle",
+      "title": "Cycle 73 lexicon deep dive — Pattern F re-engagement test on AT Protocol Lexicon v1 violations",
+      "status": "active",
+      "topic": "lexicon-deep-dive",
+      "authoritative": false,
+      "authoritativeFor": [
+        "cycle 73 lexicon violation breakdown by gftd-legacy vs etzhayyim-native scope",
+        "181 non-gftd violation inventory with auto-fix safety analysis",
+        "escalation path for owner sign-off on schema migrations"
+      ],
+      "related": [
+        "doc:doc-axis-9-saturation-survey-260527",
+        "doc:doc-registry-matrix-cycles-58-69-retrospective-260527"
+      ],
+      "lastVerified": "2026-05-28"
+    },
+    {
       "id": "doc:doc-registry-enforcement-matrix-runbook-260527",
       "type": "TechArticle",
       "title": "Registry enforcement 5-axis matrix — operator runbook (cycle 55)",
