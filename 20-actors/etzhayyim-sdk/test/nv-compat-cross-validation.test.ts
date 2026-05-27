@@ -983,3 +983,72 @@ describe("nv-compat conditionalResetKernel — per-env state reset on done", () 
     expect(stepState).toEqual([50, 0, 0]);
   });
 });
+
+describe("nv-compat policies/mlp — JSON round-trip + validation", () => {
+  it("round-trip preserves forward output byte-for-byte", async () => {
+    const { loadMlpFromJson, serializeMlpToJson, makeRandomMlpSpec, runMlpPolicy } =
+      await import("../src/nv-compat/policies/index.js");
+    const original = makeRandomMlpSpec(14, 64, 7, 42);
+    const restored = loadMlpFromJson(serializeMlpToJson(original));
+    const obs = Array.from({length: 14}, (_, i) => Math.sin(i * 0.31));
+    const aOrig = runMlpPolicy(original, obs);
+    const aRestored = runMlpPolicy(restored, obs);
+    let maxDiff = 0;
+    for (let i = 0; i < 7; i++) maxDiff = Math.max(maxDiff, Math.abs(aOrig[i] - aRestored[i]));
+    expect(maxDiff).toBe(0);
+  });
+
+  it("accepts pre-parsed object input + validates dims", async () => {
+    const { loadMlpFromJson, makeRandomMlpSpec, serializeMlpToJson } =
+      await import("../src/nv-compat/policies/index.js");
+    const spec = makeRandomMlpSpec(4, 16, 1, 1);
+    const restored = loadMlpFromJson(JSON.parse(serializeMlpToJson(spec)));
+    expect(restored.obsDim).toBe(4);
+    expect(restored.hiddenDim).toBe(16);
+    expect(restored.actionDim).toBe(1);
+  });
+
+  it("wrong array lengths + wrong type + over-MAX dims all throw", async () => {
+    const { loadMlpFromJson } = await import("../src/nv-compat/policies/index.js");
+    expect(() => loadMlpFromJson({ type: "wrong", version: 1 })).toThrow(/mlp_policy/);
+    expect(() => loadMlpFromJson({
+      type: "mlp_policy", version: 1,
+      obs_dim: 3, hidden_dim: 4, action_dim: 2,
+      W1_flat: [1, 2, 3], b1: [0,0,0,0],
+      W2_flat: new Array(8).fill(0), b2: [0, 0],
+    })).toThrow(/W1_flat/);
+    expect(() => loadMlpFromJson({
+      type: "mlp_policy", version: 1,
+      obs_dim: 3, hidden_dim: 256, action_dim: 2,
+      W1_flat: new Array(3*256).fill(0), b1: new Array(256).fill(0),
+      W2_flat: new Array(2*256).fill(0), b2: [0, 0],
+    })).toThrow(/MAX_HIDDEN=128/);
+    expect(() => loadMlpFromJson({
+      type: "mlp_policy", version: 1,
+      obs_dim: 65, hidden_dim: 16, action_dim: 2,
+      W1_flat: new Array(65*16).fill(0), b1: new Array(16).fill(0),
+      W2_flat: new Array(2*16).fill(0), b2: [0, 0],
+    })).toThrow(/MAX_OBS=64/);
+  });
+
+  it("makeRandomMlpSpec is deterministic and respects He-init bounds", async () => {
+    const { makeRandomMlpSpec } = await import("../src/nv-compat/policies/index.js");
+    const a = makeRandomMlpSpec(8, 32, 4, 12345);
+    const b = makeRandomMlpSpec(8, 32, 4, 12345);
+    for (let i = 0; i < a.W1Flat.length; i++) expect(a.W1Flat[i]).toBe(b.W1Flat[i]);
+    const spec = makeRandomMlpSpec(64, 128, 7, 1);
+    let maxAbsW1 = 0;
+    for (const v of spec.W1Flat) maxAbsW1 = Math.max(maxAbsW1, Math.abs(v));
+    expect(maxAbsW1).toBeLessThanOrEqual(Math.sqrt(2 / 64));
+  });
+
+  it("runMlpPolicy handles multi-env obs and rejects bad-shape obs", async () => {
+    const { makeRandomMlpSpec, runMlpPolicy } =
+      await import("../src/nv-compat/policies/index.js");
+    const spec = makeRandomMlpSpec(4, 8, 1, 7);
+    const actions = runMlpPolicy(spec, [0.1,0,0.05,0, -0.1,0,-0.05,0, 0,0,0,0]);
+    expect(actions.length).toBe(3);
+    for (const a of actions) expect(Math.abs(a)).toBeLessThanOrEqual(1);
+    expect(() => runMlpPolicy(spec, [0.1, 0.2, 0.3])).toThrow(/not a multiple/);
+  });
+});

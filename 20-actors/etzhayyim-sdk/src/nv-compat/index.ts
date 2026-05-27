@@ -10,6 +10,7 @@ export * as controllers from "./controllers/index.js";
 export * as actions from "./actions/index.js";
 export * as assets from "./assets/index.js";
 export * as warp from "./warp/index.js";
+export * as policies from "./policies/index.js";
 
 export const ADR = "ADR-2605261800";
 export const PHASE = "R1.7-wgpu-backend";
