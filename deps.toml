@@ -8124,3 +8124,47 @@ adr = "ADR-2605270200"
 kind = "pytest-hardening"
 status = "production"
 description = "[tool.pytest.ini_options] addopts -p no:langsmith_plugin. Defeats the pydantic-core / pydantic version drift on system Python 3.14 that crashes pytest collection before any test code runs. Same hardening applied to magatama-py / baien-moemoekyun-train / gftd-py / graph-schema in commits 24788a73f + 0de43b5a6. All 5 in-tree Python packages with [tool.pytest.ini_options] are now resilient. Plugin name confirmed via langsmith-0.8.3.dist-info/entry_points.txt: [pytest11] langsmith_plugin = langsmith.pytest_plugin."
+
+# ─── moemoekyun R1.5 — empirical findings + expert-count scaling analysis (ADR-2605280800) ──
+
+[[adrs]]
+id = "2605280800"
+title = "moemoekyun R1.5 — 66-cycle empirical findings + expert-count scaling analysis (cycle 17-82)"
+status = "active"
+status_note = "66-cycle (~30 wall hours) cycle 17 → cycle 82 captured. R1.5 commit_gate canonically PASSED on 6/7 measured benches + composite: HumanEval+ +14.64pp / MBPP+ +7.50pp / GSM8K +25.50pp ★★ / xLAM-irrelevance +3.00pp (path-iso +0) / HellaSwag +6.50pp / BBH +1.50pp ✗ / MMLU-STEM +4.00pp / composite +8.95pp. **5-PLATEAU FINDING (critical)**: 3 ckpts (16×3×100=53M, 64×5×1000=354.7M, 32×3×1000=106.4M = R1.5) produce IDENTICAL bench scores (HE+ 33.54%, GSM8K 72%, MBPP+ 44%, xLAM 94%) across 6.7× trainable range + NC/NC-free/agentic corpus. Empirical evidence: scaling experts 16 → 32 → 64 = +0pp bench Δ. Theoretical: frozen-backbone MoE residual saturates at architectural ceiling, not scale-bound. **EXPERT SCALING PROJECTION (§3.3)**: 128/256/512 experts predicted +0pp (no benefit) per 5-plateau + Switch Transformer / LoRA literature on frozen-backbone MoE. **HIGHEST-LEVERAGE PATH** = R2 backbone unfreeze (ADR-2605262100 §3.2 partial unfreeze shared FFN + layernorm at LR 5e-6, predicted +20-40pp depending on bench). Substrate: 48 manifest entries IPFS-pinned (38 benches + 4 train + 3 corpora + harvest + misc); HF publish Path B engineering complete, Path A Council ratification ~2026-07-19+ blocking."
+path = "90-docs/adr/2605280800-moemoekyun-r15-empirical-findings-and-expert-scaling-analysis.md"
+
+[[modules]]
+path = "90-docs/baien/bench-snapshot-260526-bitnet2b-canonical.jsonl"
+adr = "ADR-2605280800"
+kind = "canonical-bench-snapshot-jsonl"
+status = "production"
+description = "Canonical 8-bench R1.5 ckpt Δ measurements: 7 R1.5 Δs measured + plateau-confirmation samples. Each entry includes baseline, post-train, delta_pp, r15_commit_gate_passed, scoring_note, ran_at. 14+ entries cumulative across cycles 7+24+33+40+56+62+65+70+73+ apples-to-apples checks."
+
+[[modules]]
+path = "90-docs/baien/bench-datasets-cid-manifest.jsonl"
+adr = "ADR-2605280800"
+kind = "ipfs-dataset-cid-manifest-jsonl"
+status = "production"
+description = "48-entry IPFS-pinned dataset manifest (38 unique benches + 4 R1.4 train + 3 corpora + langgraph harvest + misc). All Tier-A Apache-2.0/MIT/CC-BY-SA; HF-publish-safe substrate per ADR-2605262100 G13."
+
+[[modules]]
+path = "90-docs/baien/runpod-5090-runlog-260526.jsonl"
+adr = "ADR-2605280800"
+kind = "runpod-5090-runlog-jsonl"
+status = "production"
+description = "Append-only runlog of all RunPod RTX 5090 train + bench events per ADR-2605263000/263100 Founder Lv7+ emergency authorizations. ~12 entries cumulative (smoke/probe/train/bench cycles)."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/corpora/moemoekyun-r1.4-coding-math-v1-nc-free"
+adr = "ADR-2605280800"
+kind = "r14-nc-free-derivative-corpus"
+status = "production"
+description = "NC-free R1.4 corpus (4727 examples, 9.3 MB, no CodeAlpaca). HF-publish safe. CID: bafybeicczytakxscgmfeiugpfgif7d2ddenigiwn6c2jpd67u4zw76v22y. Used by cycle 43 derivative re-train (Path B)."
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/corpora/moemoekyun-r1.5-agentic-v1"
+adr = "ADR-2605280800"
+kind = "r15-agentic-corpus"
+status = "production"
+description = "R1.5 agentic corpus (5747 examples, 12.3 MB) with 33% NEW agentic mix (glaive/hermes/swe-bench/magpie) on top of NC-free R1.4 base. All Apache-2.0/MIT. CID: bafybeigy5bkbyigk27fqa4b6lutdtlmgxfactwmveabrvrgvgbaejo7aae."
