@@ -1329,34 +1329,46 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
   let base_q = env * 12u;
   let base_out = env * 12u;
 
-  // Joint axes per leg (HAA, HFE, KFE).
+  // Real ANYbotics joint axes (HAA, HFE, KFE per leg).
   let axes = array<vec3<f32>, 3>(
-    vec3<f32>(1.0, 0.0, 0.0),
-    vec3<f32>(0.0, 1.0, 0.0),
-    vec3<f32>(0.0, 1.0, 0.0),
+    vec3<f32>(1.0, 0.0, 0.0),    // HAA
+    vec3<f32>(0.0, 1.0, 0.0),    // HFE
+    vec3<f32>(0.0, 1.0, 0.0),    // KFE
   );
-  // Origin offset per joint (iter 75 placeholder: downward stack).
-  let leg_offset = vec3<f32>(0.0, 0.0, -0.15);
+
+  // Per-leg HAA base attachment (iter 94: real ANYbotics origins).
+  // Order: LF, LH, RF, RH
+  let haa_base = array<vec3<f32>, 4>(
+    vec3<f32>( 0.277,  0.116, 0.0),  // LF
+    vec3<f32>(-0.277,  0.116, 0.0),  // LH
+    vec3<f32>( 0.277, -0.116, 0.0),  // RF
+    vec3<f32>(-0.277, -0.116, 0.0),  // RH
+  );
+
+  // Canonical local joint origins (same for all legs).
+  let hfe_local = vec3<f32>(0.0, 0.0635, 0.0);     // HFE in HAA frame
+  let kfe_local = vec3<f32>(0.0, 0.041, -0.317);   // KFE in HFE frame
+  let foot_local = vec3<f32>(0.0, 0.0, -0.317);    // foot in KFE frame
 
   // 4 legs, processed sequentially within this thread.
   for (var leg = 0u; leg < 4u; leg = leg + 1u) {
+    // Start at per-leg HAA attachment point with identity frame.
     var R_world = mat3x3<f32>(
       vec3<f32>(1.0, 0.0, 0.0),
       vec3<f32>(0.0, 1.0, 0.0),
       vec3<f32>(0.0, 0.0, 1.0),
     );
-    var p_world = vec3<f32>(0.0, 0.0, 0.0);
-    for (var j = 0u; j < 3u; j = j + 1u) {
-      let q = q_in[base_q + leg * 3u + j];
-      let R_q = rot_axis(axes[j], q);
-      let rotated = R_world * leg_offset;
-      p_world = p_world + rotated;
-      R_world = R_world * R_q;
-    }
-    // Foot is at the end of the kinematic chain — store p_world after
-    // all 3 joints applied + one more "leg_offset" (the foot link
-    // extends past KFE).
-    let foot = p_world + R_world * leg_offset;
+    var p_world = haa_base[leg];
+    // HAA joint
+    R_world = R_world * rot_axis(axes[0], q_in[base_q + leg * 3u + 0u]);
+    // HFE origin + joint
+    p_world = p_world + R_world * hfe_local;
+    R_world = R_world * rot_axis(axes[1], q_in[base_q + leg * 3u + 1u]);
+    // KFE origin + joint
+    p_world = p_world + R_world * kfe_local;
+    R_world = R_world * rot_axis(axes[2], q_in[base_q + leg * 3u + 2u]);
+    // Foot origin
+    let foot = p_world + R_world * foot_local;
     feet_out[base_out + leg * 3u + 0u] = foot.x;
     feet_out[base_out + leg * 3u + 1u] = foot.y;
     feet_out[base_out + leg * 3u + 2u] = foot.z;
@@ -1383,21 +1395,40 @@ function _rotAxis(axis: readonly number[], angle: number): number[][] {
 /** Reference ANYmal C foot positions in pure JS — used by anymalFkKernel's
  *  JS fallback AND callable directly. Returns 4 foot positions, one per
  *  leg in LF, LH, RF, RH order.
+ *  Real ANYbotics joint origins per iter 94.
  */
+const ANYMAL_HAA_BASE: ReadonlyArray<readonly [number, number, number]> = [
+  [ 0.277,  0.116, 0.0],  // LF
+  [-0.277,  0.116, 0.0],  // LH
+  [ 0.277, -0.116, 0.0],  // RF
+  [-0.277, -0.116, 0.0],  // RH
+];
+const ANYMAL_HFE_LOCAL: readonly [number, number, number] = [0, 0.0635, 0];
+const ANYMAL_KFE_LOCAL: readonly [number, number, number] = [0, 0.041, -0.317];
+const ANYMAL_FOOT_LOCAL: readonly [number, number, number] = [0, 0, -0.317];
+
 export function anymalFkInline(q: readonly number[]): [number, number, number][] {
-  const legOffset: [number, number, number] = [0, 0, -0.15];
   const feet: [number, number, number][] = [];
   for (let leg = 0; leg < 4; leg++) {
     let R_world: number[][] = [[1,0,0],[0,1,0],[0,0,1]];
-    let p_world: [number, number, number] = [0, 0, 0];
-    for (let j = 0; j < 3; j++) {
-      const R_q = _rotAxis(ANYMAL_JOINT_AXES[j], q[leg * 3 + j]);
-      const rotated = _matVec3Small(R_world, legOffset);
-      p_world = [p_world[0]+rotated[0], p_world[1]+rotated[1], p_world[2]+rotated[2]];
-      R_world = _mat3MulSmall(R_world, R_q);
-    }
-    const footRotated = _matVec3Small(R_world, legOffset);
-    feet.push([p_world[0]+footRotated[0], p_world[1]+footRotated[1], p_world[2]+footRotated[2]]);
+    let p_world: [number, number, number] = [
+      ANYMAL_HAA_BASE[leg][0],
+      ANYMAL_HAA_BASE[leg][1],
+      ANYMAL_HAA_BASE[leg][2],
+    ];
+    // HAA joint
+    R_world = _mat3MulSmall(R_world, _rotAxis(ANYMAL_JOINT_AXES[0], q[leg * 3 + 0]));
+    // HFE origin (in HAA frame) + joint
+    const rH = _matVec3Small(R_world, ANYMAL_HFE_LOCAL);
+    p_world = [p_world[0] + rH[0], p_world[1] + rH[1], p_world[2] + rH[2]];
+    R_world = _mat3MulSmall(R_world, _rotAxis(ANYMAL_JOINT_AXES[1], q[leg * 3 + 1]));
+    // KFE origin (in HFE frame) + joint
+    const rK = _matVec3Small(R_world, ANYMAL_KFE_LOCAL);
+    p_world = [p_world[0] + rK[0], p_world[1] + rK[1], p_world[2] + rK[2]];
+    R_world = _mat3MulSmall(R_world, _rotAxis(ANYMAL_JOINT_AXES[2], q[leg * 3 + 2]));
+    // Foot origin (in KFE frame)
+    const rF = _matVec3Small(R_world, ANYMAL_FOOT_LOCAL);
+    feet.push([p_world[0] + rF[0], p_world[1] + rF[1], p_world[2] + rF[2]]);
   }
   return feet;
 }

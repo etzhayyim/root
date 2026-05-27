@@ -36,20 +36,52 @@ const LEG_JOINTS: ReadonlyArray<{
   { suffix: "KFE", axis: [0, 1, 0], lower: -9.42, upper: 9.42, velocity: 7.5, effort: 80 },
 ];
 
+// Real ANYbotics ANYmal C joint origins (per anymal_c_simple_description
+// URDF, BSD-3). Replaces iter 75 placeholder (0, 0, -0.15) uniform
+// downward stacking with the canonical quadruped geometry.
+//
+// Per-leg HAA base attachment (in body frame):
+//   LF: (+0.277, +0.116, 0.0)    LH: (-0.277, +0.116, 0.0)
+//   RF: (+0.277, -0.116, 0.0)    RH: (-0.277, -0.116, 0.0)
+//
+// HFE origin in HAA frame (local): (0, +0.0635, 0)
+// KFE origin in HFE frame (local): (0, +0.041, -0.317)
+// Foot origin in KFE frame (local): (0, 0, -0.317)
+//
+// At q=0, with default LF HAA at (+0.277, +0.116, 0), foot ends up at
+// world (0.277, 0.2205, -0.634).
+const ANYMAL_HAA_BASE_OFFSET: Record<LegName, [number, number, number]> = {
+  LF: [ 0.277,  0.116, 0.0],
+  LH: [-0.277,  0.116, 0.0],
+  RF: [ 0.277, -0.116, 0.0],
+  RH: [-0.277, -0.116, 0.0],
+};
+
 function buildAnymalUrdf(): string {
   const branches: UrdfJointSpec[][] = [];
   const branchLinkPrefixes: string[] = [];
   for (const leg of LEG_NAMES) {
-    const legJoints: UrdfJointSpec[] = LEG_JOINTS.map((j) => ({
-      name: `${leg}_${j.suffix}`,
-      type: "revolute",
-      axis: j.axis,
-      lower: j.lower,
-      upper: j.upper,
-      velocity: j.velocity,
-      effort: j.effort,
-      originXyz: [0, 0, -0.15],
-    }));
+    const haaXyz = ANYMAL_HAA_BASE_OFFSET[leg];
+    const legJoints: UrdfJointSpec[] = [
+      // HAA — attaches at per-leg base offset
+      {
+        name: `${leg}_HAA`, type: "revolute", axis: [1, 0, 0],
+        lower: -0.611, upper: 0.611, velocity: 7.5, effort: 80,
+        originXyz: haaXyz,
+      },
+      // HFE — origin in HAA frame
+      {
+        name: `${leg}_HFE`, type: "revolute", axis: [0, 1, 0],
+        lower: -9.42, upper: 9.42, velocity: 7.5, effort: 80,
+        originXyz: [0, 0.0635, 0],
+      },
+      // KFE — origin in HFE frame
+      {
+        name: `${leg}_KFE`, type: "revolute", axis: [0, 1, 0],
+        lower: -9.42, upper: 9.42, velocity: 7.5, effort: 80,
+        originXyz: [0, 0.041, -0.317],
+      },
+    ];
     branches.push(legJoints);
     branchLinkPrefixes.push(`${leg}_link`);
   }
