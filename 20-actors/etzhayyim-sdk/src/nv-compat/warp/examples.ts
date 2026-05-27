@@ -1760,3 +1760,64 @@ export function actionScaleClampInline(
   }
   return out;
 }
+
+// ── Effort saturation (env×joint parallel, in-place) ─────────────────────
+//
+// Canonical safety layer between PD controller (iter 100) and the
+// articulated-body forward dynamics (iter 68). Caps each joint's torque
+// at its actuator effort limit, matching Isaac Lab's per-joint
+// `effort_limit_sim` clamp.
+//
+//     τ_i = clamp(τ_i, −effort_limit_j, +effort_limit_j)
+//
+// In-place storage write; per-joint effort_limit shared across envs.
+
+export const effortLimitKernel: WgpuKernel = wgpuKernel({
+  js: (
+    tau: WpArray<number>,
+    effortLimit: WpArray<number>,
+    n: number,
+  ) => {
+    const idx = tid();
+    const j = idx % n;
+    const lim = effortLimit.get(j);
+    const t = tau.get(idx);
+    tau.set(idx, t < -lim ? -lim : t > lim ? lim : t);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> tau:          array<f32>;
+@group(0) @binding(1) var<storage, read_write> effort_limit: array<f32>;
+@group(0) @binding(2) var<uniform>             n_uniform:    vec4<u32>;
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let idx = gid.x;
+  let total = arrayLength(&tau);
+  if (idx >= total) { return; }
+  let n = n_uniform.x;
+  let j = idx % n;
+  let lim = effort_limit[j];
+  tau[idx] = clamp(tau[idx], -lim, lim);
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: true },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: false },
+    { binding: 2, kind: "uniform", inputIndex: 2 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference effort-saturation in pure JS (in-place mutation of tau). */
+export function effortLimitInline(
+  tau: number[],
+  effortLimit: readonly number[],
+  n: number,
+): void {
+  for (let i = 0; i < tau.length; i++) {
+    const j = i % n;
+    const lim = effortLimit[j];
+    if (tau[i] < -lim) tau[i] = -lim;
+    else if (tau[i] > lim) tau[i] = lim;
+  }
+}

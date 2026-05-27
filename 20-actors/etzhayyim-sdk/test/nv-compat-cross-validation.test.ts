@@ -43,6 +43,8 @@ import {
   pdJointControllerInline,
   actionScaleClampKernel,
   actionScaleClampInline,
+  effortLimitKernel,
+  effortLimitInline,
 } from "../src/nv-compat/warp/examples.js";
 import { makeUr10 } from "../src/nv-compat/assets/ur10.js";
 import { makeFrankaPanda } from "../src/nv-compat/assets/franka-panda.js";
@@ -571,5 +573,55 @@ describe("nv-compat actionScaleClampKernel — Isaac Lab ActionManager pipeline"
     let maxTau = 0;
     for (const t of tau) maxTau = Math.max(maxTau, Math.abs(t));
     expect(maxTau).toBeLessThanOrEqual(50 * Math.PI / 2 + 1e-9);
+  });
+});
+
+describe("nv-compat effortLimitKernel — actuator saturation", () => {
+  it("within-limit torques pass through unchanged", () => {
+    const tau = [1.0, -2.0, 3.5, -4.9];
+    const orig = [...tau];
+    effortLimitInline(tau, [10, 10, 10, 10], 4);
+    expect(tau).toEqual(orig);
+  });
+
+  it("above + below per-joint effort_limit clamps symmetrically", () => {
+    const tau = [100, -100, 50, -50];
+    effortLimitInline(tau, [30, 30], 2);
+    expect(tau).toEqual([30, -30, 30, -30]);
+  });
+
+  it("256×12 WGSL in-place clamp = inline byte-identical", () => {
+    const nEnvs = 256, n = 12;
+    const tauOrig = new Array(nEnvs * n);
+    for (let i = 0; i < nEnvs * n; i++) tauOrig[i] = Math.sin(i * 0.13) * 200;
+    const eff = new Array(n).fill(0).map((_, j) => 10 + j * 5);
+
+    const tauArr = fromTypedArray<number>([...tauOrig]);
+    const effArr = fromTypedArray<number>(eff);
+    launch({ kernel: effortLimitKernel, dim: nEnvs * n, inputs: [tauArr, effArr, n] });
+
+    const tauRef = [...tauOrig];
+    effortLimitInline(tauRef, eff, n);
+
+    let maxDiff = 0;
+    for (let i = 0; i < nEnvs * n; i++) {
+      maxDiff = Math.max(maxDiff, Math.abs(tauArr.get(i) - tauRef[i]));
+    }
+    expect(maxDiff).toBe(0);
+  });
+
+  it("real Franka effort limits (87/87/87/87/12/12/12) saturate PD output correctly", () => {
+    const n = 7;
+    const q = new Array(n).fill(0);
+    const qd = new Array(n).fill(0);
+    const qT = new Array(n).fill(10);
+    const kp = new Array(n).fill(1000);
+    const kd = new Array(n).fill(0);
+    const tau = pdJointControllerInline(q, qd, qT, kp, kd, n);
+    expect(tau[0]).toBe(10000);
+
+    const frankaEff = [87, 87, 87, 87, 12, 12, 12];
+    effortLimitInline(tau, frankaEff, n);
+    for (let j = 0; j < n; j++) expect(tau[j]).toBe(frankaEff[j]);
   });
 });
