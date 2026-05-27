@@ -1,5 +1,5 @@
 ---
-id: ADR-2605261600
+id: adr-2605261600-robotics-simulation-substrate-r0
 title: Robotics Simulation Substrate R0 Charter — OSS USD+Hydra+MuJoCo MJX+Embree+BlenderProc 5-stack reference; Omniverse / Isaac Sim / OptiX / RTX Renderer / Replicator structurally rejected
 status: proposed
 doc_type: adr

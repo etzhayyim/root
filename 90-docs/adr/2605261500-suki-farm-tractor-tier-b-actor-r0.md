@@ -1,5 +1,5 @@
 ---
-id: ADR-2605261500
+id: adr-2605261500-suki-farm-tractor-tier-b-actor-r0
 title: suki (鋤) — Farm Tractor Manufacturing Tier-B Actor R0 Scaffold
 status: proposed
 doc_type: adr

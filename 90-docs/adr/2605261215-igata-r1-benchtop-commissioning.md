@@ -1,5 +1,5 @@
 ---
-id: ADR-2605261215
+id: adr-2605261215-igata-r1-benchtop-commissioning
 title: igata R1 — Benchtop ≤500 ton HPDC commissioning and Council baseline
 status: proposed
 doc_type: adr

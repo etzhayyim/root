@@ -6148,6 +6148,20 @@ status = "shipped"
 description = "Cycle 60 — 10 unit tests for validate-relation-integrity.py. Covers: script existence, find_relation_issues helper on empty/dangling/resolved/self-ref/circular inputs, no-circular flag, tracker mode default exit 0, strict mode exit 1, --json schema."
 
 [[modules]]
+path = "70-tools/scripts/docs/validate-id-filename-consistency.py"
+adr = "ADR-2605271200"
+kind = "id-filename-consistency-validator"
+status = "shipped-tracker"
+description = "Cycle 61 (2026-05-27) 7th-axis validator — id↔filename consistency per 90-docs/CLAUDE.md ADR ID Convention. Categorizes mismatches into 5 classes: uppercase-ADR-prefix (cycle 61 cleaned 6 yakushi/igata/etc. cycle-53-era IDs) / pre-cutover-rename (gftdcojp + amanomibashira filenames per CLAUDE.md root §\"Do Not\" invariants) / short-id-missing-slug (legacy 4-digit ADR scheme) / engineering-policy-old-style (`/engineering/` docs) / other-rename-related. Tracker mode (Pattern B from cycles 50/60). Baseline 57 known mismatches after cycle 61 cleanup (down from initial 88 — 6 auto-fixed uppercase + ~25 false-positives eliminated by permissive matching: timestamp prefix / slug omission both accepted). 13 unit tests."
+
+[[modules]]
+path = "70-tools/scripts/docs/test_validate_id_filename_consistency.py"
+adr = "ADR-2605271200"
+kind = "unit-test-suite"
+status = "shipped"
+description = "Cycle 61 — 13 unit tests for validate-id-filename-consistency.py. Covers: 5 categorize_mismatch class boundaries, find_mismatches happy path + permissive matching + genuine flag, tracker/strict mode exit codes, --json schema."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"

@@ -1,5 +1,5 @@
 ---
-id: ADR-2605250645
+id: adr-2605250645-yakushi-wave-1c-r1.5-benzonatate-pmda-approval
 title: yakushi Wave 1c R1.5 — Benzonatate PMDA approval contingency (conditional activation)
 status: deferred
 doc_type: adr

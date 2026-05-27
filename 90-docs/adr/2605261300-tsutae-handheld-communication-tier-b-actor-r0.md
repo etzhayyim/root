@@ -1,5 +1,5 @@
 ---
-id: ADR-2605261300
+id: adr-2605261300-tsutae-handheld-communication-tier-b-actor-r0
 title: tsutae (伝え) — Handheld Communication Device Tier-B Actor R0 Scaffold
 status: proposed
 doc_type: adr

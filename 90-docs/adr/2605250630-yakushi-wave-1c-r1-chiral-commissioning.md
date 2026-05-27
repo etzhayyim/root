@@ -1,5 +1,5 @@
 ---
-id: ADR-2605250630
+id: adr-2605250630-yakushi-wave-1c-r1-chiral-commissioning
 title: yakushi Wave 1c R1 — Chiral synthesis commissioning and benzonatate PMDA jurisdiction
 status: proposed
 doc_type: adr
