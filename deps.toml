@@ -6134,6 +6134,20 @@ status = "shipped"
 description = "Cycle 58 (2026-05-27) retrospective of cycles 46-57 — the 12-cycle journey building the 5-axis registry enforcement matrix post-PR-287. Parallel pattern to cycle 40 ADR-2605262500 implementation retrospective. Captures: cycle-by-cycle headline table (12 rows) / Pattern A reuse maturity timeline (75 min → 13 min = 5.4× compression) / 6 key technical decisions ((reserved) markers / tracker→PR-gate promotion / cron deconfliction / graceful imports / pre-commit hygiene preemption / defense-in-depth ordering) / test coverage final state (48 tests across 5 scripts, all CI-gated) / 5-axis matrix final state / lessons learned (4 what worked + 4 friction) / future axis-6 candidates / total deliverables (2 ADRs + runbook + retrospective + 3 generators + 48 tests + 5 GHA workflows + 5 lefthook hooks + 3 schema rewrites + 38 data fixes + 15 path markers + 2 CLAUDE.md row updates). Sibling to cycle 40's adr-2605262500-implementation-retrospective covering cycles 1-39 of the parent ADR-2605262500 work."
 
 [[modules]]
+path = "70-tools/scripts/docs/validate-relation-integrity.py"
+adr = "ADR-2605271200"
+kind = "relation-integrity-validator"
+status = "shipped-tracker"
+description = "Cycle 60 (2026-05-27) 6th-axis validator — detects 4 relation-drift classes the schema validator does NOT catch: dangling targets (related/supersedes/superseded_by/amends/amended_by → non-existent id), self-references (related includes own id), circular related pairs (A↔B mutual). Ships in NIGHTLY TRACKER mode (Pattern B from cycle 50-51) because live baseline has 1461 known issues: 1366 dangling related (mostly historical 260319-/260403- IDs that don't conform to modern adr-YYMMDDhhmm- convention) + 56 supersedes + 6 superseded_by + 6 amends + 1 self-ref + 26 circular. --strict mode exits 1 on any issue (for future PR-gate promotion). 10 unit tests covering all 4 drift classes + tracker/strict mode semantics + JSON schema."
+
+[[modules]]
+path = "70-tools/scripts/docs/test_validate_relation_integrity.py"
+adr = "ADR-2605271200"
+kind = "unit-test-suite"
+status = "shipped"
+description = "Cycle 60 — 10 unit tests for validate-relation-integrity.py. Covers: script existence, find_relation_issues helper on empty/dangling/resolved/self-ref/circular inputs, no-circular flag, tracker mode default exit 0, strict mode exit 1, --json schema."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"
