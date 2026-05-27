@@ -1039,6 +1039,38 @@ def test_w2_2_load_elevation_handles_rgb_via_mean(assemble_mod, tmp_path):
     assert (out == 120.0).all()
 
 
+def test_w2_4_rasterio_path_documented_but_pillow_fallback_works(assemble_mod, tmp_path):
+    """W2.4 rasterio path is documented; this test verifies the Pillow
+    fallback still works when rasterio is unavailable (current env) so
+    operators without rasterio don't regress."""
+    import numpy as np
+    from PIL import Image
+    arr = np.full((16, 16), 300, dtype=np.uint16)
+    p = tmp_path / "dem-no-rasterio.tif"
+    Image.fromarray(arr, mode="I;16").save(p)
+    out = assemble_mod._load_elevation_image(
+        p, 4, 4, plan_bbox=(139.69, 35.65, 139.71, 35.67),
+    )
+    # Without rasterio, Pillow path returns the array; all uniform 300 m.
+    assert out is not None
+    assert (out == 300.0).all()
+
+
+def test_w2_4_load_elevation_image_accepts_plan_bbox_kwarg(assemble_mod, tmp_path):
+    """Plan bbox kwarg is the W2.4 routing hint; should not break the W2.2 path."""
+    import numpy as np
+    from PIL import Image
+    arr = np.full((8, 8), 500, dtype=np.uint16)
+    p = tmp_path / "dem.tif"
+    Image.fromarray(arr, mode="I;16").save(p)
+    # Pass plan_bbox → either rasterio path (if installed) or Pillow fallback.
+    out = assemble_mod._load_elevation_image(
+        p, 4, 4, plan_bbox=(0.0, 0.0, 1.0, 1.0),
+    )
+    assert out is not None
+    assert out.shape == (4, 4)
+
+
 def test_w2_2_terrain_emit_uses_real_elevation_when_path_set(assemble_mod, tmp_path):
     """`local_geotiff_path` on terrain layer → elevation comes from raster."""
     import numpy as np

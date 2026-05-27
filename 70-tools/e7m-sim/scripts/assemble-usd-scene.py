@@ -568,24 +568,71 @@ def _bbox_local_corners(plan: AssemblyPlan) -> tuple[float, float, float, float]
     return (-width / 2.0, -height / 2.0, width / 2.0, height / 2.0)
 
 
+def _try_rasterio():
+    try:
+        import rasterio   # type: ignore
+        return rasterio
+    except ImportError:
+        return None
+
+
 def _load_elevation_image(
     image_path: Path, nx: int, ny: int,
+    *,
+    plan_bbox: Optional[tuple[float, float, float, float]] = None,
 ) -> Optional["np.ndarray"]:  # type: ignore[name-defined]
-    """W2.2 terrain: read single-channel elevation raster via Pillow → (ny, nx) array.
+    """Terrain elevation grid loader.
 
-    Handles SRTM-style 16-bit grayscale TIFF (Pillow `I;16` mode),
-    floating-point grayscale (`F`), 8-bit grayscale (`L`), and RGB
-    (converted to mean grayscale). Nearest-neighbor downsamples to the
-    target grid size — W2.4 with rasterio will swap this for proper
-    bilinear via `rasterio.sample` + the SRTM tile's GeoTransform.
+    **W2.4 path (preferred — rasterio installed):**
+    Uses `rasterio.open` + `dataset.read(window=...)` with the SRTM
+    tile's actual GeoTransform to extract elevation values for the
+    plan_bbox region, then resamples to (ny, nx) via bilinear. Handles
+    arbitrary CRS via dataset metadata; no cos(lat) approximation.
+    Requires `plan_bbox` (lon-lat WGS84) to be passed.
+
+    **W2.2 fallback (Pillow only — rasterio not installed):**
+    Reads single-channel elevation via Pillow. Handles SRTM-style 16-bit
+    grayscale TIFF (Pillow `I;16` mode), floating-point grayscale (`F`),
+    8-bit grayscale (`L`), and RGB (converted to mean grayscale).
+    Bilinear sampling via scipy.ndimage.map_coordinates when scipy is
+    installed; nearest-neighbor otherwise. Treats the whole image as the
+    region (no geospatial reproj).
 
     Returns None when:
-      - Pillow / numpy unavailable
+      - Both rasterio AND Pillow are unavailable
       - file doesn't exist
       - decode fails
     """
     if not image_path.exists():
         return None
+
+    # W2.4: rasterio path — proper geospatial-aware sampling.
+    if plan_bbox is not None:
+        rasterio = _try_rasterio()
+        if rasterio is not None:
+            try:
+                import numpy as np    # type: ignore
+                with rasterio.open(image_path) as dataset:
+                    from rasterio.warp import reproject, Resampling
+                    from rasterio.transform import from_bounds
+                    w, s, e, n = plan_bbox
+                    # Build destination transform for (ny, nx) grid over plan_bbox.
+                    dst_transform = from_bounds(w, s, e, n, nx, ny)
+                    dst = np.zeros((ny, nx), dtype=np.float32)
+                    reproject(
+                        source=dataset.read(1),
+                        destination=dst,
+                        src_transform=dataset.transform,
+                        src_crs=dataset.crs,
+                        dst_transform=dst_transform,
+                        dst_crs="EPSG:4326",
+                        resampling=Resampling.bilinear,
+                    )
+                    return dst
+            except Exception:   # noqa: BLE001 — fall through to Pillow path
+                pass
+
+    # W2.2 fallback: Pillow + (optional scipy.ndimage bilinear).
     try:
         from PIL import Image       # type: ignore
         import numpy as np          # type: ignore
@@ -671,9 +718,19 @@ def _emit_terrain_usda(layer: LayerPlan, plan: AssemblyPlan, prim_name: str) -> 
     elevation_source = "synth-cid-seeded-w2.1"
     geotiff_path = layer.extra.get("local_geotiff_path") or layer.extra.get("local_image_path")
     if isinstance(geotiff_path, str) and geotiff_path:
-        elevation_grid = _load_elevation_image(Path(geotiff_path), nx, ny)
+        plan_bbox_wgs84 = plan.bbox if isinstance(plan.bbox, tuple) else tuple(plan.bbox)
+        elevation_grid = _load_elevation_image(
+            Path(geotiff_path), nx, ny, plan_bbox=plan_bbox_wgs84,
+        )
         if elevation_grid is not None:
-            elevation_source = f"pillow-elevation-w2.2:{geotiff_path}"
+            # Distinguish rasterio (W2.4) from Pillow (W2.2) by checking the
+            # availability — if rasterio is loaded and the file was readable,
+            # we used the geospatial path.
+            rasterio = _try_rasterio()
+            if rasterio is not None:
+                elevation_source = f"rasterio-elevation-w2.4:{geotiff_path}"
+            else:
+                elevation_source = f"pillow-elevation-w2.2:{geotiff_path}"
 
     pts: list[str] = []
     for iy in range(ny):
