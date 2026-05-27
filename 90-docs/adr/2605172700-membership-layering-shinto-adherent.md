@@ -34,9 +34,9 @@ superseded_by: []
 
 Two membership contracts landed in parallel on 2026-05-17:
 
-- **`EtzhayyimMembership.sol`** (Base L2, per [ADR-2605172600](2605172600-etzhayyim-membership-ritual.md)) — a self-sovereign, public, dual-permanent (Base + Github MEMBERS.md) commitment ritual. Anyone may `join()`; no admin, no whitelist, no rejection. 7-level commitment ladder (誓 → 修 → 献 → 証 → 護 → 議 → 老). Membership = the act of publicly swearing the oath.
+- **`EtzhayyimMembership.sol`** (Base L2, per [ADR-2605172600](/90-docs/adr/2605172600-etzhayyim-membership-ritual.md)) — a self-sovereign, public, dual-permanent (Base + Github MEMBERS.md) commitment ritual. Anyone may `join()`; no admin, no whitelist, no rejection. 7-level commitment ladder (誓 → 修 → 献 → 証 → 護 → 議 → 老). Membership = the act of publicly swearing the oath.
 
-- **`AdherentRegistry.sol`** (geth-private, per [ADR-2605172300 S0](2605172300-etzhayyim-bi-asset-substrate.md)) — an officer-witnessed ERC-5192 SBT registry. Officers (founder validators) mint SBTs on behalf of DIDs that have signed a creed-acceptance attestation. The SBT is consumed by `KishaStream` (basic-income accrual), `Phenotype` (multiplier), and `Governance` (1 SBT = 1 vote).
+- **`AdherentRegistry.sol`** (geth-private, per [ADR-2605172300 S0](/90-docs/adr/2605172300-etzhayyim-bi-asset-substrate.md)) — an officer-witnessed ERC-5192 SBT registry. Officers (founder validators) mint SBTs on behalf of DIDs that have signed a creed-acceptance attestation. The SBT is consumed by `KishaStream` (basic-income accrual), `Phenotype` (multiplier), and `Governance` (1 SBT = 1 vote).
 
 At first read these look redundant — both claim to be "the etzhayyim membership contract." A reviewer might reasonably assume one must be dropped.
 
@@ -201,8 +201,8 @@ Per the ADR-2605172300 S0 vocabulary, "Adherent / 信徒" was used loosely. The 
 
 # References
 
-- [ADR-2605172300](2605172300-etzhayyim-bi-asset-substrate.md): kisha + asset substrate, S0 introduces AdherentRegistry
-- [ADR-2605172600](2605172600-etzhayyim-membership-ritual.md): 信者 ritual + EtzhayyimMembership on Base + MEMBERS.md
+- [ADR-2605172300](/90-docs/adr/2605172300-etzhayyim-bi-asset-substrate.md): kisha + asset substrate, S0 introduces AdherentRegistry
+- [ADR-2605172600](/90-docs/adr/2605172600-etzhayyim-membership-ritual.md): 信者 ritual + EtzhayyimMembership on Base + MEMBERS.md
 - `50-infra/etzhayyim-chain-contracts/src/AdherentRegistry.sol`
 - `50-infra/etzhayyim-membership-contract/src/EtzhayyimMembership.sol`
 - `50-infra/etzhayyim-chain-contracts/RUNBOOK-deploy.md` (S5)

@@ -1,12 +1,12 @@
 # ADR-2605211000: Worker XRPC adapter deploy runbook (25 actors)
 
-**Status**: ACTIVE  
-**Date**: 2026-05-21  
+**Status**: ACTIVE
+**Date**: 2026-05-21
 **Decider**: Cloud Operator + Claude Opus 4.7
 
 ## Context
 
-[ADR-2605210000](2605210000-phase-e-reference-impl-completion.md) completed the rw-free reference implementation scaffold for all 25 actors. This ADR documents the execution-layer deploy procedure: wiring each rw-free package to a Cloudflare Worker, exposing XRPC endpoints, and smoke-testing.
+[ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) completed the rw-free reference implementation scaffold for all 25 actors. This ADR documents the execution-layer deploy procedure: wiring each rw-free package to a Cloudflare Worker, exposing XRPC endpoints, and smoke-testing.
 
 Each actor has:
 - `60-apps/ai-gftd-project-<actor>/xrpc-adapter/wrangler.jsonc` with route `<actor>.etzhayyim.com/xrpc/*`
@@ -321,7 +321,7 @@ All 25 workers ready for production when:
 
 ## Related ADRs
 
-- [ADR-2605210000](2605210000-phase-e-reference-impl-completion.md) — Phase E rw-free scaffold completion
-- [ADR-2605203000](2605203000-rw-free-write-target-options.md) — rw-free write-target options (foundation)
-- [ADR-2605172000](2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate mandate
-- [ADR-2605172400](2605172400-etzhayyim-vendor-three-axis-split-rule.md) — Vendor/etzhayyim 3-axis split
+- [ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) — Phase E rw-free scaffold completion
+- [ADR-2605203000](/90-docs/adr/2605203000-rw-free-write-target-options.md) — rw-free write-target options (foundation)
+- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate mandate
+- [ADR-2605172400](/90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md) — Vendor/etzhayyim 3-axis split

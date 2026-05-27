@@ -37,7 +37,7 @@ superseded_by: []
 
 # Context
 
-[ADR-2605201800](2605201800-etzhayyim-yobel-debt-release-actor.md) (yobel) restricts debt release to **natural persons** (自然人). Per its §Invariants amendment, DMN R14 short-circuits any debtor whose entityType ≠ `natural_person`. This is by design: shmita / yobel / individual jubilee / tax-amnesty-for-individuals all canonically apply to flesh-and-blood debtors.
+[ADR-2605201800](/90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md) (yobel) restricts debt release to **natural persons** (自然人). Per its §Invariants amendment, DMN R14 short-circuits any debtor whose entityType ≠ `natural_person`. This is by design: shmita / yobel / individual jubilee / tax-amnesty-for-individuals all canonically apply to flesh-and-blood debtors.
 
 **Setting aside that scope leaves a complementary gap**: legal-person debt restructuring (sovereign + corporate) is **also** a Charter §1 mission concern (structural labor liberation is undermined when sovereign debt strangles a nation's fiscal capacity for public goods, or when corporate debt forces mass layoffs that propagate labor coercion). The historical / ongoing instruments at this layer:
 

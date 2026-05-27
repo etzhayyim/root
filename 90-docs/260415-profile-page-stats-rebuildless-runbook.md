@@ -23,7 +23,7 @@
 
 実装ファイル:
 
-- [20260415200000_profile_page_stats_rebuildless_split.ts](/Users/junkawasaki/etzhayyim/etzhayyim-root/30-graph/graph-schema/migrations/20260415200000_profile_page_stats_rebuildless_split.ts)
+- [20260415200000_profile_page_stats_rebuildless_split.ts](/Users/junkawasaki/github/etzhayyim-root/30-graph/graph-schema/migrations/20260415200000_profile_page_stats_rebuildless_split.ts)
 - [feed.ts](/Users/junkawasaki/etzhayyim/etzhayyim-root/50-infra/cloudflare/workers/atproto/src/handlers/appview/feed.ts)
 
 適用:

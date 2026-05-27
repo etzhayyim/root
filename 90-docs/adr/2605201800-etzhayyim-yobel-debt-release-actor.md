@@ -85,7 +85,7 @@ etzhayyim Mission Charter (ADR-2605192100) は **構造的労働解放** を最�
 | `yobel_50yr` | יובל Jubilee | 49/50 年毎 | Lev 25:8-13 | debt + land tenure + bondage |
 | `tokusei_rei` | 徳政令 | 政治契機 | 室町/鎌倉幕府慣行 | 借券無効化 |
 | `religious_jubilee` | Catholic Holy Year | 25 年毎 | Boniface VIII 1300 + Paul VI 1967 | spiritual / temporal punishment |
-| `political_amnesty` | Modern Amnesty | ad-hoc | 主権者宣言 / 議会決議 | **mass amnesty for natural-person debtors** (e.g. national tax delinquency pardon, post-conflict veteran debt cancellation, individual loan amnesty). NOT sovereign/corporate debt restructuring — that is handled by the sibling [`amnesty.etzhayyim.com`](2605202000-etzhayyim-amnesty-legal-person-debt-actor.md) actor (ADR-2605202000). |
+| `political_amnesty` | Modern Amnesty | ad-hoc | 主権者宣言 / 議会決議 | **mass amnesty for natural-person debtors** (e.g. national tax delinquency pardon, post-conflict veteran debt cancellation, individual loan amnesty). NOT sovereign/corporate debt restructuring — that is handled by the sibling [`amnesty.etzhayyim.com`](/90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.md) actor (ADR-2605202000). |
 
 ## Invariants (NON-NEGOTIABLE)
 
@@ -112,7 +112,7 @@ Political amnesty rites under yobel handle **mass amnesty for individual debtors
 - Veteran debt cancellation acts
 - Individual loan amnesty under sovereign decree
 
-Examples **out of yobel scope but in [amnesty.etzhayyim.com](2605202000-etzhayyim-amnesty-legal-person-debt-actor.md) scope** (sibling actor, ADR-2605202000):
+Examples **out of yobel scope but in [amnesty.etzhayyim.com](/90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.md) scope** (sibling actor, ADR-2605202000):
 
 - HIPC / Paris Club sovereign debt restructuring (state-to-state) → `amnesty.sovereign_multilateral` / `amnesty.sovereign_bilateral`
 - Corporate Chapter 11 amnesty (legal person) → `amnesty.corporate_chapter_11`

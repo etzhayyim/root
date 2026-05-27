@@ -43,7 +43,7 @@ superseded_by: []
 
 # Context
 
-[ADR-2605201800 §Non-Goals](2605201800-etzhayyim-kuni-umi-s4-multi-site-fleet.md) explicitly states:
+[ADR-2605201800 §Non-Goals](/90-docs/adr/2605201800-etzhayyim-kuni-umi-s4-multi-site-fleet.md) explicitly states:
 
 > Cross-site fleet-rebalance robot autonomous driving — robot migration は human-driven transport (truck / 船 / rail); 自律走行 は別 R&D ADR
 

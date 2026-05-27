@@ -53,8 +53,8 @@ operating correctly. Two underlying gaps:
    no operator-facing CLI to seed one, and `Etzhayyim.write` had no
    yatachain §4 membrane in front of it.
 
-2. **Discover was bounded to a single DID.** [ADR-2605231400](2605231400-yatachain-holochain-iso-substrate.md)
-   names the substrate composition and [ADR-2605231500](2605231500-yatachain-projection.md)
+2. **Discover was bounded to a single DID.** [ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md)
+   names the substrate composition and [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md)
    defines the derived-read-path contract. Neither named a concrete first
    instance for `app.bsky.feed.post`. `yoro-rw-free/src/feed.ts:8-10`
    carried the TODO comment: *"Cross-DID discovery is a Relay /
@@ -78,7 +78,7 @@ Operator-side Node CLI that writes a single `app.bsky.feed.post` record
 into the configured DID's MST via `@atproto/api` `createRecord`. Reads
 credentials from macOS Keychain (`service=etzhayyim, account=PDS_HANDLE`
 / `account=PDS_APP_PASSWORD`) — no platform-held keys per
-[ADR-2605231525](2605231525-no-server-key-religious-corp-architecture.md).
+[ADR-2605231525](/90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md).
 
 Intentionally **does not** call the membrane during this transition
 window — Step 4 (server-side signing capability gate, pending Council)
@@ -117,7 +117,7 @@ drift fails the build (placeholder — hook itself is future work).
 
 ### 3. `feed-discover` yatachain-projection (L1 conformance)
 
-The first concrete instance of [ADR-2605231500](2605231500-yatachain-projection.md):
+The first concrete instance of [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md):
 
 - **Emitter**: `50-infra/mst-projector/src/feed-discover.ts` — extends
   the existing mst-projector daemon with a cross-DID in-memory sorted
@@ -141,7 +141,7 @@ The first concrete instance of [ADR-2605231500](2605231500-yatachain-projection.
   fixed firehose fixture (3 DIDs × 3 posts + update + delete + 3
   verdicts) replayed and byte-compared against golden. Regenerate with
   `ETZ_REGEN_GOLDEN=1 pnpm test`. Per
-  [ADR-2605231500](2605231500-yatachain-projection.md) §"Three
+  [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md) §"Three
   conformance levels" L1: "Rebuild tool exists and is exercised in CI" —
   this test IS the CI exercise.
 - **Read consumer**: `60-apps/ai-gftd-project-yoro/rw-free/src/feed.ts`
@@ -230,9 +230,9 @@ scope here.
 
 ### Neutral
 
-- **Does not change [ADR-2605172000](2605172000-etzhayyim-rw-free-substrate.md) prohibitions** —
+- **Does not change [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) prohibitions** —
   the projection is explicitly carved out as a derived-read path per
-  [ADR-2605231500](2605231500-yatachain-projection.md), not a state store.
+  [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md), not a state store.
 - **Council vote not required** — additive lexicons, additive policy,
   additive projection. The Charter Rider categories enforced are the
   same ones already in `pymagatama.organism.sensors.charter_rider`;
@@ -266,7 +266,7 @@ architectural gap.
 
 ### D. Use Workers KV or a Durable Object for the projection
 
-Status: rejected per [ADR-2605231500](2605231500-yatachain-projection.md)
+Status: rejected per [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md)
 §"Prohibited even for projections" — *"Workers KV writes are fire-and-
 forget without commit ack, which violates (2). KV is acceptable for
 read-only projection caches but not as the write surface a Worker
@@ -290,16 +290,16 @@ both become reasonable.
 
 ## References
 
-- [ADR-2605170900](2605170900-etzhayyim-root-adr-canonical-home.md) — open-scope ADR canonical home
-- [ADR-2605171800](2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) — MST→IPFS→L2 anchor pipeline
-- [ADR-2605172000](2605172000-etzhayyim-rw-free-substrate.md) — rw-free substrate hard rules
-- [ADR-2605191655](2605191655-mst-projector-phase2-design.md) — mst-projector Phase 2 (true MST root + CAR)
-- [ADR-2605192100](2605192100-etzhayyim-mission-charter.md) — mission charter (§1.13 Eros/Gore, §1.15 non-eschatological)
-- [ADR-2605192200](2605192200-etzhayyim-ip-free-release-charter-rider.md) — Charter Compliance Rider §2(a)..(h)
+- [ADR-2605170900](/90-docs/adr/2605170900-etzhayyim-root-adr-canonical-home.md) — open-scope ADR canonical home
+- [ADR-2605171800](/90-docs/adr/2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md) — MST→IPFS→L2 anchor pipeline
+- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — rw-free substrate hard rules
+- [ADR-2605191655](/90-docs/adr/2605191655-mst-projector-phase2-design.md) — mst-projector Phase 2 (true MST root + CAR)
+- [ADR-2605192100](/90-docs/adr/2605192100-etzhayyim-mission-charter.md) — mission charter (§1.13 Eros/Gore, §1.15 non-eschatological)
+- [ADR-2605192200](/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md) — Charter Compliance Rider §2(a)..(h)
 - [ADR-2605192400](2605192400-eros-gore-council-judging-framework.md) — gore educational-context override
-- [ADR-2605231400](2605231400-yatachain-holochain-iso-substrate.md) — yatachain SPEC §4 membrane
-- [ADR-2605231500](2605231500-yatachain-projection.md) — projection conformance levels
-- [ADR-2605231525](2605231525-no-server-key-religious-corp-architecture.md) — no platform-held keys
+- [ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md) — yatachain SPEC §4 membrane
+- [ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md) — projection conformance levels
+- [ADR-2605231525](/90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md) — no platform-held keys
 - `70-tools/seed-post/` — operator CLI
 - `00-contracts/policies/app/bsky/feed/{policy.rego, test.rego}` — L2
 - `20-actors/magatama/cells/feed_post/{cell.py, test_cell.py}` — L3

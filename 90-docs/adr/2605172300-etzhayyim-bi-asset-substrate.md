@@ -71,7 +71,7 @@ What is **still missing** is the economic body of the association: how members a
 
 Two structural pressures shape this layer:
 
-1. **Voluntary-association legal framing**. Without a 宗教法人 corporate shell, etzhayyim cannot hold a corporate bank account or employ members in the labor-law sense. Distributions must be framed as **voluntary gifts between the association and its constituent adherents (構成員 / Adherent — distinct from the broader 信者 commitment layer of [ADR-2605172600](2605172600-etzhayyim-membership-ritual.md); see [ADR-2605172700](2605172700-membership-layering-shinto-adherent.md))**, not as wages. Members declare receipts as 一時所得 / 雑所得 individually. The system therefore optimizes for **adherent-declarable, association-auditable, non-employer-employee** semantics.
+1. **Voluntary-association legal framing**. Without a 宗教法人 corporate shell, etzhayyim cannot hold a corporate bank account or employ members in the labor-law sense. Distributions must be framed as **voluntary gifts between the association and its constituent adherents (構成員 / Adherent — distinct from the broader 信者 commitment layer of [ADR-2605172600](/90-docs/adr/2605172600-etzhayyim-membership-ritual.md); see [ADR-2605172700](/90-docs/adr/2605172700-membership-layering-shinto-adherent.md))**, not as wages. Members declare receipts as 一時所得 / 雑所得 individually. The system therefore optimizes for **adherent-declarable, association-auditable, non-employer-employee** semantics.
 
 2. **Substrate-purity double bind**. ADR-2605172000 prohibits centralized off-chain DBs. ADR-2605172100 prohibits fiat processors and commits public payments to Base L2. But **internal constitutional state** (who is an adherent, what is each adherent's current kisha rate, what is the outcome of a doctrine-change vote) does not belong on a public, anyone-can-read L2 — both for PII reasons and for write-cost reasons. We need an **internal** programmable substrate that is *not* a centralized DB but also *not* a public chain.
 
@@ -92,7 +92,7 @@ This ADR composes those three building blocks into a single layer.
 | 護持資産 (goji-shisan) | corp assets | 流動 (liquid) / 準備 (reserve) / 本財 (corpus) three-tier |
 | 役員 (yakuin) | officer | Safe signer + geth-private validator |
 
-[^vocab]: Earlier drafts of this ADR used "信徒 (shinto) / adherent" interchangeably for the SBT holder. [ADR-2605172700](2605172700-membership-layering-shinto-adherent.md) clarifies that the looser cultural label 信者 belongs to the [ADR-2605172600](2605172600-etzhayyim-membership-ritual.md) public-commitment layer on Base. The SBT holder used here is "Adherent / 構成員" — a 信者 who has additionally been enrolled in the economic body.
+[^vocab]: Earlier drafts of this ADR used "信徒 (shinto) / adherent" interchangeably for the SBT holder. [ADR-2605172700](/90-docs/adr/2605172700-membership-layering-shinto-adherent.md) clarifies that the looser cultural label 信者 belongs to the [ADR-2605172600](/90-docs/adr/2605172600-etzhayyim-membership-ritual.md) public-commitment layer on Base. The SBT holder used here is "Adherent / 構成員" — a 信者 who has additionally been enrolled in the economic body.
 
 # Decision
 

@@ -39,9 +39,9 @@ superseded_by:
 
 ## Context
 
-[ADR-2605231400](2605231400-yatachain-holochain-iso-substrate.md) は
+[ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md) は
 `yatachain` を Holochain-isomorphic な substrate composition の名称として定義し、
-[ADR-2605231500](2605231500-yatachain-projection.md) は hot-path projection
+[ADR-2605231500](/90-docs/adr/2605231500-yatachain-projection.md) は hot-path projection
 layer (RW / Lance / Iroh / index) の使用条件を規定した。
 
 しかし **projection layer の具体的な engine 実装** は両 ADR ともオープン。一方で

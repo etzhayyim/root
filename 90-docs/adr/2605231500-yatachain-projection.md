@@ -32,8 +32,8 @@ superseded_by:
 
 ## Context
 
-[ADR-2605172000](2605172000-etzhayyim-rw-free-substrate.md) mandates RW-free substrate
-(`AT Protocol MST + IPFS + Base L2 anchor`) as the **state store**. [ADR-2605231400](2605231400-yatachain-holochain-iso-substrate.md)
+[ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) mandates RW-free substrate
+(`AT Protocol MST + IPFS + Base L2 anchor`) as the **state store**. [ADR-2605231400](/90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md)
 names the composed architecture `yatachain` and defines three conformance levels
 (L0 nominal / L1 witnessed / L2 anchored). Neither ADR addresses **derived read
 paths** — i.e., the question:

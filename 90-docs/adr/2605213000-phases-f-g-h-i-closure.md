@@ -122,9 +122,9 @@ All code-only deliverables from Phase E through Phase I are merged to `main`. Th
 
 ## Related
 
-- [ADR-2605203000](2605203000-rw-free-write-target-options.md) — Phase E foundation
-- [ADR-2605210000](2605210000-phase-e-reference-impl-completion.md) — Phase E completion
-- [ADR-2605211000](2605211000-worker-xrpc-adapter-deploy-runbook.md) — deploy runbook
-- [ADR-2605212000](2605212000-mst-projector-phase3-indexed-views.md) — mst-projector Phase 3
-- [ADR-2605172000](2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate
-- [ADR-2605172400](2605172400-etzhayyim-vendor-three-axis-split-rule.md) — vendor/etz boundary
+- [ADR-2605203000](/90-docs/adr/2605203000-rw-free-write-target-options.md) — Phase E foundation
+- [ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) — Phase E completion
+- [ADR-2605211000](/90-docs/adr/2605211000-worker-xrpc-adapter-deploy-runbook.md) — deploy runbook
+- [ADR-2605212000](/90-docs/adr/2605212000-mst-projector-phase3-indexed-views.md) — mst-projector Phase 3
+- [ADR-2605172000](/90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate
+- [ADR-2605172400](/90-docs/adr/2605172400-etzhayyim-vendor-three-axis-split-rule.md) — vendor/etz boundary

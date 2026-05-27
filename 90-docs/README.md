@@ -40,4 +40,4 @@ superseded_by: []
 - 重複内容を統合した場合、旧 doc は原則削除する
 - 統合先 doc の front matter `supersedes` に削除元 id を残す
 
-詳細ルールは [90-docs/CLAUDE.md](/Users/junkawasaki/etzhayyim/etzhayyim-root/90-docs/CLAUDE.md) を参照。
+詳細ルールは [90-docs/CLAUDE.md](/Users/junkawasaki/github/etzhayyim-root/90-docs/CLAUDE.md) を参照。
