@@ -242,6 +242,7 @@ def dry_run_summary(recipe: Recipe) -> dict[str, Any]:
         "sourceCount": len(recipe.sources),
         "sources": sources_preview,
         "placeholderPins": placeholders,
+        "warnings": recipe.warnings(),
         "seedBlock": (
             {
                 "weight": recipe.seed_block.weight,
@@ -297,6 +298,19 @@ def summary_markdown(recipe: Recipe) -> str:
                 lines.append("")
             else:
                 lines.append(f"- **{k}**: {v_str}")
+
+    # Surface non-fatal advisories prominently — ahead of the Sources
+    # section so an operator browsing the doc sees them first.
+    warns = recipe.warnings()
+    if warns:
+        lines.append("")
+        lines.append(
+            f"## ⚠ Issues ({len(warns)} non-fatal advisor"
+            f"{'y' if len(warns) == 1 else 'ies'})"
+        )
+        lines.append("")
+        for w in warns:
+            lines.append(f"- {w}")
 
     lines.append("")
     lines.append("## Sources")

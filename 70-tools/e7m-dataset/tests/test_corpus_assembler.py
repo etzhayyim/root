@@ -598,6 +598,120 @@ description = "Synthetic Q/A — CC0"
     assert "**Weight**: 0.50" in md
 
 
+def test_dry_run_surfaces_warnings_array(assembler, tmp_path):
+    """dry_run_summary().warnings carries the same list as
+    recipe.warnings() so machine-readable consumers (CI, tooling)
+    see what the operator sees on stderr."""
+    recipe_body = """
+target_artifact = "baien-server-w-v1"
+output_subdataset = "w/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_X"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 0.5
+
+[seed_block]
+weight = 0.5
+seed_path = "/tmp/missing-seed-XYZ-260527.jsonl"
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    summary = assembler.dry_run_summary(recipe)
+    # Both warning families present.
+    assert isinstance(summary["warnings"], list)
+    assert len(summary["warnings"]) == 2
+    assert any("seed_block" in w for w in summary["warnings"])
+    assert any("placeholder" in w for w in summary["warnings"])
+
+
+def test_dry_run_warnings_empty_when_clean(assembler, tmp_path):
+    """Clean recipe ⇒ dry_run_summary().warnings == []."""
+    seed_src = tmp_path / "seed.jsonl"
+    seed_src.write_text('{"q": "x", "a": "y"}\n', encoding="utf-8")
+    recipe_body = f"""
+target_artifact = "baien-server-w-v1"
+output_subdataset = "w/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 0.5
+
+[seed_block]
+weight = 0.5
+seed_path = "{seed_src}"
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    summary = assembler.dry_run_summary(recipe)
+    assert summary["warnings"] == []
+
+
+def test_summary_markdown_issues_section_when_warnings(assembler, tmp_path):
+    """Markdown summary surfaces a `## ⚠ Issues (N non-fatal advisories)`
+    section ahead of `## Sources` when warnings exist."""
+    recipe_body = """
+target_artifact = "baien-server-w-v1"
+output_subdataset = "w/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_X"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 1.0
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    md = assembler.summary_markdown(recipe)
+    assert "## ⚠ Issues (1 non-fatal advisory)" in md
+    assert "placeholder" in md
+    # Issues section comes BEFORE Sources.
+    assert md.index("## ⚠ Issues") < md.index("## Sources")
+
+
+def test_summary_markdown_no_issues_section_when_clean(assembler, tmp_path):
+    """Clean recipe ⇒ no `## ⚠ Issues` section."""
+    seed_src = tmp_path / "seed.jsonl"
+    seed_src.write_text('{"q": "x", "a": "y"}\n', encoding="utf-8")
+    recipe_body = f"""
+target_artifact = "baien-server-w-v1"
+output_subdataset = "w/"
+max_tier_cap = "A"
+
+[[source]]
+subdataset    = "netreg/iana-root"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+shard_glob    = "*.ndjson"
+tier          = "A"
+license       = "public-domain"
+weight        = 0.5
+
+[seed_block]
+weight = 0.5
+seed_path = "{seed_src}"
+"""
+    recipe_path = tmp_path / "r.toml"
+    recipe_path.write_text(recipe_body, encoding="utf-8")
+    recipe = assembler.load_recipe(recipe_path)
+    md = assembler.summary_markdown(recipe)
+    assert "⚠ Issues" not in md
+
+
 def test_warnings_missing_seed_block(assembler, tmp_path):
     """Recipe.warnings() reports a non-fatal advisory when seed_path
     doesn't resolve on disk. Distinct from validate() errors (which
