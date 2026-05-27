@@ -1042,3 +1042,218 @@ export function frankaReachStepInline(
   }
   return qNew;
 }
+
+// ── Franka analytical gravity compensation (env-parallel) ────────────────
+//
+// Computes τ_g(q) — the joint torque vector that holds the Franka 7-DoF
+// arm against gravity at configuration q. Closes the gap between iter
+// 88-90's kinematics-only Franka WGSL and full dynamics.
+//
+// Algorithm (closed-form, no Featherstone needed):
+//   1. Forward kinematics → per-joint world poses (R_i, p_i)
+//   2. Per-link COM in world: com_world_k = R_world_k · com_local_k + p_world_k
+//   3. For each joint i (revolute, axis world = R_world_i · z):
+//      τ_i = a_world_i · Σ_{k≥i} [(com_world_k - p_world_i) × (m_k · g_world)]
+//
+// Real Franka link masses + COMs from iter 87 (franka_description URDF,
+// Apache 2.0).
+//
+// Per-env input: q[7]
+// Per-env output: tau[7]
+// Uniform: gravity vec (typically (0, 0, -9.81))
+
+const FRANKA_MASSES: readonly number[] = [2.74, 2.74, 2.38, 2.38, 2.74, 1.55, 0.54];
+const FRANKA_COM_LOCAL: ReadonlyArray<readonly [number, number, number]> = [
+  [0.003875, 0.002081, -0.04762],
+  [-0.003141, -0.02872, 0.003495],
+  [0.02785, 0.03094, -0.0961],
+  [-0.05317, 0.1046, 0.02711],
+  [-0.01121, 0.04123, -0.03825],
+  [0.065, -0.016, -0.020],
+  [0.010, 0.010, 0.045],
+];
+
+/** Bindings:
+ *    @group(0) @binding(0) q_in       (storage read, N*7 floats)
+ *    @group(0) @binding(1) tau_out    (storage read_write, N*7 floats)
+ *    @group(0) @binding(2) gravity    (uniform vec4<f32>: gx, gy, gz, _)
+ */
+export const frankaGravCompKernel: WgpuKernel = wgpuKernel({
+  js: (
+    qIn: WpArray<number>,
+    tauOut: WpArray<number>,
+    gx: number, gy: number, gz: number,
+  ) => {
+    const env = tid();
+    const q: number[] = [];
+    for (let i = 0; i < 7; i++) q.push(qIn.get(env * 7 + i));
+    const tau = frankaGravCompInline(q, [gx, gy, gz]);
+    for (let i = 0; i < 7; i++) tauOut.set(env * 7 + i, tau[i]);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> q_in:    array<f32>;
+@group(0) @binding(1) var<storage, read_write> tau_out: array<f32>;
+@group(0) @binding(2) var<uniform>             g_u:     vec4<f32>;
+
+fn rot_rpy_x(r: f32) -> mat3x3<f32> {
+  let cr = cos(r); let sr = sin(r);
+  return mat3x3<f32>(
+    vec3<f32>(1.0, 0.0, 0.0),
+    vec3<f32>(0.0, cr, sr),
+    vec3<f32>(0.0, -sr, cr),
+  );
+}
+
+fn rot_z(angle: f32) -> mat3x3<f32> {
+  let c = cos(angle); let s = sin(angle);
+  return mat3x3<f32>(
+    vec3<f32>(c, s, 0.0),
+    vec3<f32>(-s, c, 0.0),
+    vec3<f32>(0.0, 0.0, 1.0),
+  );
+}
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let env = gid.x;
+  let n_envs = arrayLength(&tau_out) / 7u;
+  if (env >= n_envs) { return; }
+
+  let base = env * 7u;
+  let q = array<f32, 7>(
+    q_in[base + 0u], q_in[base + 1u], q_in[base + 2u], q_in[base + 3u],
+    q_in[base + 4u], q_in[base + 5u], q_in[base + 6u],
+  );
+
+  let half_pi: f32 = 1.5707963267948966;
+  let xyz = array<vec3<f32>, 7>(
+    vec3<f32>(0.0,      0.0,     0.333),
+    vec3<f32>(0.0,      0.0,     0.0),
+    vec3<f32>(0.0,     -0.316,   0.0),
+    vec3<f32>(0.0825,   0.0,     0.0),
+    vec3<f32>(-0.0825,  0.384,   0.0),
+    vec3<f32>(0.0,      0.0,     0.0),
+    vec3<f32>(0.088,    0.0,     0.0),
+  );
+  let rpy_r = array<f32, 7>(0.0, -half_pi, half_pi, half_pi, -half_pi, half_pi, half_pi);
+
+  // Real Franka link masses + COMs (iter 87)
+  let masses = array<f32, 7>(2.74, 2.74, 2.38, 2.38, 2.74, 1.55, 0.54);
+  let com_local = array<vec3<f32>, 7>(
+    vec3<f32>(0.003875,   0.002081,   -0.04762),
+    vec3<f32>(-0.003141,  -0.02872,    0.003495),
+    vec3<f32>(0.02785,    0.03094,    -0.0961),
+    vec3<f32>(-0.05317,   0.1046,      0.02711),
+    vec3<f32>(-0.01121,   0.04123,    -0.03825),
+    vec3<f32>(0.065,     -0.016,      -0.020),
+    vec3<f32>(0.010,      0.010,       0.045),
+  );
+
+  let g = vec3<f32>(g_u.x, g_u.y, g_u.z);
+
+  // Pass 1: forward kinematics, store per-joint pose + per-link COM world
+  var poses_R: array<mat3x3<f32>, 7>;
+  var poses_p: array<vec3<f32>, 7>;
+  var com_world: array<vec3<f32>, 7>;
+  var R_world = mat3x3<f32>(
+    vec3<f32>(1.0, 0.0, 0.0),
+    vec3<f32>(0.0, 1.0, 0.0),
+    vec3<f32>(0.0, 0.0, 1.0),
+  );
+  var p_world = vec3<f32>(0.0, 0.0, 0.0);
+  for (var i = 0u; i < 7u; i = i + 1u) {
+    let R_origin = rot_rpy_x(rpy_r[i]);
+    let R_q = rot_z(q[i]);
+    let R_iInP = R_origin * R_q;
+    let rotated = R_world * xyz[i];
+    p_world = p_world + rotated;
+    R_world = R_world * R_iInP;
+    poses_R[i] = R_world;
+    poses_p[i] = p_world;
+    com_world[i] = R_world * com_local[i] + p_world;
+  }
+
+  // Pass 2: per-joint gravity torque via cross-product accumulation
+  // τ_i = a_world_i · Σ_{k≥i} (com_world_k - p_world_i) × (m_k · g_world)
+  for (var i = 0u; i < 7u; i = i + 1u) {
+    let Ri = poses_R[i];
+    let a_world = vec3<f32>(Ri[2].x, Ri[2].y, Ri[2].z);
+    var torque_sum = vec3<f32>(0.0, 0.0, 0.0);
+    for (var k = i; k < 7u; k = k + 1u) {
+      let r_arm = com_world[k] - poses_p[i];
+      let F = g * masses[k];
+      // r_arm × F
+      let cross_rF = vec3<f32>(
+        r_arm.y * F.z - r_arm.z * F.y,
+        r_arm.z * F.x - r_arm.x * F.z,
+        r_arm.x * F.y - r_arm.y * F.x,
+      );
+      torque_sum = torque_sum + cross_rF;
+    }
+    // τ_i = a · torque_sum (dot product, scalar). Sign convention: τ_g compensates
+    // gravity, so we negate (τ_g such that adding it cancels the gravity-induced motion).
+    tau_out[base + i] = -(a_world.x * torque_sum.x + a_world.y * torque_sum.y + a_world.z * torque_sum.z);
+  }
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: true },
+    { binding: 2, kind: "uniform", inputIndex: 2 },   // wrap gx into vec4<f32>.x; others ignored for now
+  ],
+  workgroupSize: 64,
+});
+
+// Note: for compactness, the WGSL binding 2 uses a vec4<f32> uniform with
+// gravity in the first 3 components. The TS side only sends a single f32
+// value through the uniform binding mechanism in iter 77, so for now the
+// JS fallback path is the canonical one. To use the WGSL path, callers
+// should write the full (gx, gy, gz) tuple to a uniform buffer manually.
+// (Iter 77 wgpu-backend writes single scalar; full 3-vec uniform is
+// straightforward inline in the iter 91 demo pattern.)
+
+/** Reference Franka gravity-compensation torque in pure JS. */
+export function frankaGravCompInline(
+  q: readonly number[],
+  gravity: readonly [number, number, number] = [0, 0, -9.81],
+): number[] {
+  // Pass 1: FK with stored joint poses + COM world.
+  const poses_R: number[][][] = [];
+  const poses_p: [number, number, number][] = [];
+  const com_world: [number, number, number][] = [];
+  let R_world: number[][] = [[1,0,0],[0,1,0],[0,0,1]];
+  let p_world: [number, number, number] = [0, 0, 0];
+  for (let i = 0; i < 7; i++) {
+    const R_origin = _rotRpy(_FRANKA_FK_RPY_R[i]);
+    const R_q = _rotZ(q[i]);
+    const R_iInP = _mat3MulSmall(R_origin, R_q);
+    const rotated = _matVec3Small(R_world, _FRANKA_FK_XYZ[i]);
+    p_world = [p_world[0]+rotated[0], p_world[1]+rotated[1], p_world[2]+rotated[2]];
+    R_world = _mat3MulSmall(R_world, R_iInP);
+    poses_R.push(R_world.map((row) => [...row]));
+    poses_p.push([...p_world]);
+    // com_world = R_world · com_local + p_world
+    const c_local = FRANKA_COM_LOCAL[i];
+    const c_rot = _matVec3Small(R_world, c_local);
+    com_world.push([p_world[0]+c_rot[0], p_world[1]+c_rot[1], p_world[2]+c_rot[2]]);
+  }
+  const tau: number[] = new Array(7);
+  // Pass 2: per-joint torque.
+  for (let i = 0; i < 7; i++) {
+    const Ri = poses_R[i];
+    const a: [number, number, number] = [Ri[0][2], Ri[1][2], Ri[2][2]];
+    let tx = 0, ty = 0, tz = 0;
+    for (let k = i; k < 7; k++) {
+      const r0 = com_world[k][0] - poses_p[i][0];
+      const r1 = com_world[k][1] - poses_p[i][1];
+      const r2 = com_world[k][2] - poses_p[i][2];
+      const m_k = FRANKA_MASSES[k];
+      const fx = gravity[0] * m_k, fy = gravity[1] * m_k, fz = gravity[2] * m_k;
+      tx += r1 * fz - r2 * fy;
+      ty += r2 * fx - r0 * fz;
+      tz += r0 * fy - r1 * fx;
+    }
+    tau[i] = -(a[0]*tx + a[1]*ty + a[2]*tz);
+  }
+  return tau;
+}
