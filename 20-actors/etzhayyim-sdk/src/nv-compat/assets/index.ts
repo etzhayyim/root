@@ -26,3 +26,4 @@ export {
 
 export { type FrankaPanda, makeFrankaPanda } from "./franka-panda.js";
 export { type AnymalC, makeAnymalC } from "./anymal-c.js";
+export { type Ur10, makeUr10 } from "./ur10.js";
