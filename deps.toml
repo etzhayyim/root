@@ -6062,7 +6062,14 @@ path = "90-docs/baien/adr-2605262500-operator-runbook-260527.md"
 adr = "ADR-2605262500"
 kind = "operator-runbook"
 status = "shipped"
-description = "Operator runbook for ADR-2605262500 production rollout (cycle 42, 2026-05-27). Action-oriented companion to the implementation retrospective: Quick start (1-command preflight) / Prerequisites (pip install list) / One-time operator setup (model download paths + Mapillary token + env config) / Daily workflow (Step A fetch → Step B inspect/dry-run → Step C production assemble → Step D quality gate) / Troubleshooting (5 common failure modes with concrete remediations) / Reference (backend selection / Tier-A vs Tier-C licensing / G* constitutional invariants / diagnostic CLI quick reference). doc_type: how-to."
+description = "Operator runbook for ADR-2605262500 production rollout (cycle 42, 2026-05-27; cycle 44 added PYTHONPATH note for full Charter scan integration). Action-oriented companion to the implementation retrospective: Quick start (1-command preflight) / Prerequisites (pip install list) / One-time operator setup (model download paths + Mapillary token + env config) / Daily workflow (Step A fetch → Step B inspect/dry-run → Step C production assemble → Step D quality gate) / Troubleshooting (6 common failure modes with concrete remediations) / Reference (backend selection / Tier-A vs Tier-C licensing / G* constitutional invariants / diagnostic CLI quick reference). doc_type: how-to."
+
+[[modules]]
+path = "90-docs/baien/adr-2605262500-runbook-smoke-260527.md"
+adr = "ADR-2605262500"
+kind = "smoke-test-evidence-doc"
+status = "shipped"
+description = "Cycle 44 (2026-05-27) end-to-end smoke evidence for the cycle 42 operator runbook. 10/10 documented commands executed in dev shell with no operator-side model install / no Mapillary token; all produced expected output. USDA SHA `c76f6c7fb402` confirmed consistent between assemble_diagnose dry-run + assemble-usd-scene.py production (G6 determinism evidence). Documents what the smoke does NOT cover (operator-side env requiring real models / Mapillary token / network / rasterio) — those paths the runbook directs the operator to set up. Conclusion: runbook is production-ready as written; one troubleshooting entry added (cycle 44) for the assemble_diagnose stub-charter fallback."
 
 [[modules]]
 path = "70-tools/e7m-sim/tests/test_e2e_real_assets.py"

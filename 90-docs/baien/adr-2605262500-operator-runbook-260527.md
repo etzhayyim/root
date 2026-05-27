@@ -199,6 +199,22 @@ export PYTHONPATH=70-tools/e7m-dataset/src
 python3 70-tools/scripts/diagnose/e7m_preflight.py
 ```
 
+### `assemble_diagnose` reports `Charter scan: stub-no-e7m-dataset`
+
+Defensive fallback — assemble runs fine, but the Charter Rider §2
+scan is using the stub path because `e7m_dataset.charter` isn't on
+the Python import path. For the full real-scanner integration, set
+`PYTHONPATH=70-tools/e7m-dataset/src` before running diagnostics:
+
+```bash
+PYTHONPATH=70-tools/e7m-dataset/src \
+    python3 70-tools/e7m-sim/scripts/assemble_diagnose.py inspect <scene.yaml>
+# Charter scan: passed-recipe-scan  (scope: scene-recipe-yaml+parquet-text)
+```
+
+Production `assemble-usd-scene.py` does NOT depend on this — it uses
+the same defensive fallback automatically.
+
 ### Mapillary fetch produces 0 redacted frames
 
 ```bash
