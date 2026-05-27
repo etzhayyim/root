@@ -259,3 +259,60 @@ Naming: `<surface>-<problem>.{py,sh,mjs}`. Each script should:
 3. Idempotent + read-only (no mutation of the repo)
 4. Default exit code 0; `--strict` makes findings fatal (for CI integration)
 5. Pull repo root via `Path(__file__).resolve().parents[N]` (Python) or `cd "$(dirname "$0")/../../.."` (bash) so the script works regardless of caller's `cwd`
+
+## How to add a new audit (recipe)
+
+If you're adding a 7th aggregator script (or beyond), follow this 6-step recipe so the new audit fits the existing aggregator + test + CI conventions. Each step is small; missing one creates silent drift.
+
+### 1. Write the audit script
+
+Create `70-tools/scripts/audit/<surface>-<problem>.py` (or `.sh`). It MUST:
+
+- Discover files via `git ls-files` (never `find` or `pathlib.rglob` — see "Performance" section above)
+- Emit a final summary line in the format `<label>: <int>` (the aggregator's `tail -1 | grep -oE '[0-9]+$'` extractor depends on this)
+- Accept `--strict` and exit 1 when findings > 0 (otherwise exit 0)
+- Have a top-of-file docstring with: purpose, history (which `/loop` iter discovered the drift), `Usage:` examples
+
+### 2. Wire it into the aggregator
+
+Edit `70-tools/scripts/audit/all.sh`:
+
+```bash
+run "<surface>-<problem>" python3 70-tools/scripts/audit/<surface>-<problem>.py
+```
+
+Insert in declaration order (matches the script-list comment block at the top of the file). Update the comment block's history entry with the `/loop` iter that introduced this audit.
+
+### 3. Write a pytest suite
+
+Create `70-tools/scripts/audit/test_<surface>_<problem>.py`. Follow the iter-46/53/60/61 patterns:
+
+- Load the script via `importlib.util.spec_from_file_location` (for Python scripts) or `subprocess.run(["bash", str(path)])` (for shell scripts)
+- Test: script exists + runs clean (exit 0 non-strict) + emits the aggregator-compatible summary line + `--strict` semantics (exit 1 with findings)
+- If the script has non-trivial regex/filter/mapping logic, add per-function unit tests too (see `test_adr_cross_ref_health.py` as the gold standard)
+- If the script has a perf optimization to preserve, add a wall-time budget test AND a structural canary asserting the optimization pattern still appears in the source (see `test_subrepo_scripts.py`)
+
+### 4. Wire pytest into `all.sh --test` and the workflow
+
+Two locations need the new test file path:
+
+- `70-tools/scripts/audit/all.sh` — the pytest invocation inside the `if [ "$TEST" -eq 1 ]` block. Update the comment line `"── pytest suite (N files / M tests) ──"` count.
+- `.github/workflows/audit-health.yml` — the `python3 -m pytest ...` invocation under "Run audit script tests".
+
+### 5. Update this README
+
+Add a row in the "Scripts" section (above) with the script's purpose + initial baseline. If the finding count is high-volume and per-case-triage-y, document it as a standalone audit instead and skip step 2 (the aggregator-wire step) — see the `adr-cross-ref-health.py` + `validate-lexicons.py` precedents.
+
+Update the testing table near the top with the new pytest suite row.
+
+### 6. Run the full pipeline + verify baseline
+
+```bash
+bash 70-tools/scripts/audit/all.sh --all
+```
+
+The aggregator total should match the previous baseline + your new audit's count. Update the README's `Current baseline (as of iter-NN of /loop)` line. Update the `audit-health.yml` workflow's job-summary section to match.
+
+For the iter-39 precedent of how to phrase "documented + deferred" findings (the kotoba 18-symlink case + the 7-subrepo case), see the existing entries in the README's "Quick start" section.
+
+Optional 7th step: if your new audit closes drift that's discussed in CLAUDE.md (root or sub-CLAUDE), update those references. The audit substrate's institutional memory ADR (ADR-2605270735) is also a place to extend if your audit fits the design.
