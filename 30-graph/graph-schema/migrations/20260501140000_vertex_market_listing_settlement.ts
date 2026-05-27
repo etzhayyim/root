@@ -14,7 +14,7 @@ import { Kysely, sql } from "kysely";
 //   - VARCHAR JSON, no JSONB
 //   - GROUP BY in MV is bounded (lane × signalKind × created_date) ~50 rows/day
 //   - No streaming MAX(varchar) over high-cardinality keys
-//   - No ON CONFLICT (PK implicit upsert, ADR-2604240000)
+//   - No ON CONFLICT (PK implicit upsert, ADR-2604251220)
 
 export async function up(db: Kysely<any>): Promise<void> {
   // ── vertex_market_listing — published offers (information surface S) ──

@@ -1,6 +1,7 @@
 {
   "name": "@etzhayyim/e7m-cli",
   "version": "0.2.0",
+  "license": "Apache-2.0",
   "description": "Etzhayyim Monorepo Unified CLI (binary alias of etzhayyim)",
   "type": "module",
   "bin": {

@@ -1,10 +1,14 @@
 // @etzhayyim/sdk/nv-compat
 // NVIDIA Omniverse stack public-API drop-in compat facade.
-// R1.0 path reservation per ADR-2605261800.
+// R1.0 path reservation per ADR-2605261800; first implementation
+// surface (dynamics) landed iter 71 as TypeScript port of the Python
+// nv_compat reference impl (iter 68-70).
 // See README.md for trademark notice and sub-phase delivery plan.
 
+export * as dynamics from "./dynamics/index.js";
+
 export const ADR = "ADR-2605261800";
-export const PHASE = "R1.0-path-reservation";
+export const PHASE = "R1.1-dynamics-ts-port";
 
 export const NV_COMPAT_MAP: Readonly<Record<string, string>> = Object.freeze({
   "Omniverse Kit":     "amenominaka",

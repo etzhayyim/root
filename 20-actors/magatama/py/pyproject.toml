@@ -165,4 +165,12 @@ strict = true
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-addopts = "--import-mode=importlib"
+# `-p no:langsmith_plugin`: langsmith ships a pytest plugin that imports
+# pydantic at module-load time. On machines where pydantic-core and
+# pydantic versions are out of sync (common on system Python 3.14),
+# its autoload crashes pytest collection before any test code runs.
+# Pymagatama has langchain-* + pydantic in its dep tree, so this hits
+# constantly. We don't use langsmith in tests, so the safest fix is
+# to disable that plugin permanently. Ad-hoc alternative: prefix
+# invocations with PYTEST_DISABLE_PLUGIN_AUTOLOAD=1.
+addopts = "--import-mode=importlib -p no:langsmith_plugin"

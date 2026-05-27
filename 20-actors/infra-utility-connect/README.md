@@ -2,14 +2,14 @@
 
 **DID**: `did:web:etzhayyim.com:infra-utility-connect`
 **Namespace**: `app.etzhayyim.infra.*`
-**ADR**: ADR-2605250860 (R0 scaffold)
+**ADR**: ADR-2605250900 (R0 scaffold)
 **Status**: R0 scaffold (2026-05-26)
 
 ## Overview
 
 Phase 5+ actor: Coordinates final utility connections (water, gas, electric, telecom) with service providers.
 
-**Input**: `mepSignoffRecord` (from tatekata commissioning), `utilityRequirements`  
+**Input**: `mepSignoffRecord` (from tatekata commissioning), `utilityRequirements`
 **Output**: `utilityActivationRecord` (all services live, meters installed)
 
 ## 4 Pregel Cells (Utility activation sequence)

@@ -24,5 +24,13 @@
 	# operators run `datalad clone` against an annex-bearing remote (TBD —
 	# Phase 2 will publish a public read-only sibling). The gitlink in
 	# the parent records the superdataset's HEAD commit for reproducibility.
+	#
+	# `ignore = dirty` suppresses noisy git-annex symlink-loop warnings
+	# during `git status` traversal of nested DataLad subdatasets (their
+	# .git/annex/objects/ trees contain symlinks that exceed MAXSYMLINKS
+	# during walks but resolve fine at access time). The submodule's
+	# HEAD-commit pointer is still tracked normally; only working-tree
+	# dirtiness reports are skipped.
 	path = 90-docs/baien/datasets
 	url = ./90-docs/baien/datasets
+	ignore = dirty

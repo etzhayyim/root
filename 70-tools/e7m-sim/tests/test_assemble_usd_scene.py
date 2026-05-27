@@ -612,6 +612,281 @@ def test_w2_2_load_overture_default_height_when_null(assemble_mod, tmp_path):
     assert polygons[0][1] == 15.0   # fell back to default
 
 
+# ─── W2.2 cont. — WKB LineString roads ──────────────────────────────
+
+
+def _wkb_linestring_le(points: list[tuple[float, float]]) -> bytes:
+    """Encode (x, y) waypoints as a little-endian WKB LineString."""
+    import struct
+    out = bytearray()
+    out.append(1)                                          # little-endian
+    out += struct.pack("<I", 2)                            # geometry type = LineString
+    out += struct.pack("<I", len(points))                  # num points
+    for x, y in points:
+        out += struct.pack("<dd", x, y)
+    return bytes(out)
+
+
+def _wkb_point_le(x: float, y: float) -> bytes:
+    """Encode a WKB Point — used to test the 'skip non-LineString' path."""
+    import struct
+    return bytes([1]) + struct.pack("<I", 1) + struct.pack("<dd", x, y)
+
+
+def _make_overture_roads_parquet(path, rows: list[bytes]):
+    """Write a tiny Overture-shaped transportation Parquet with WKB geometry."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    table = pa.table({"geometry": pa.array(rows, type=pa.binary())})
+    pq.write_table(table, path)
+
+
+def test_w2_2_parse_wkb_linestring_basic(assemble_mod):
+    """Encode 3 waypoints → decode round-trip."""
+    pts = [(139.700, 35.660), (139.701, 35.661), (139.702, 35.660)]
+    wkb = _wkb_linestring_le(pts)
+    decoded = assemble_mod._parse_wkb_linestring(wkb)
+    assert decoded == pts
+
+
+def test_w2_2_parse_wkb_rejects_point(assemble_mod):
+    """A WKB Point (geometry type 1) must be skipped."""
+    decoded = assemble_mod._parse_wkb_linestring(_wkb_point_le(0.0, 0.0))
+    assert decoded is None
+
+
+def test_w2_2_parse_wkb_rejects_short_input(assemble_mod):
+    assert assemble_mod._parse_wkb_linestring(b"") is None
+    assert assemble_mod._parse_wkb_linestring(b"\x01\x02") is None
+
+
+def test_w2_2_load_overture_roads_basic(assemble_mod, tmp_path):
+    parquet = tmp_path / "roads.parquet"
+    _make_overture_roads_parquet(parquet, [
+        _wkb_linestring_le([(139.700, 35.660), (139.701, 35.661)]),
+        _wkb_linestring_le([(139.702, 35.662), (139.703, 35.663), (139.704, 35.664)]),
+        _wkb_point_le(139.705, 35.665),     # skipped (not LineString)
+    ])
+    polylines = assemble_mod._load_overture_roads_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67)
+    )
+    assert polylines is not None
+    assert len(polylines) == 2
+    # The 3-waypoint road must survive intact.
+    assert len(polylines[0]) == 2
+    assert len(polylines[1]) == 3
+
+
+def test_w2_2_load_overture_roads_skips_outside_bbox(assemble_mod, tmp_path):
+    parquet = tmp_path / "roads.parquet"
+    _make_overture_roads_parquet(parquet, [
+        _wkb_linestring_le([(0.0, 0.0), (1.0, 1.0)]),                       # far away
+        _wkb_linestring_le([(139.700, 35.660), (139.701, 35.661)]),         # inside
+        _wkb_linestring_le([(200.0, 35.0), (201.0, 36.0)]),                 # far away
+    ])
+    polylines = assemble_mod._load_overture_roads_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67)
+    )
+    assert polylines is not None
+    assert len(polylines) == 1
+
+
+def test_w2_2_load_overture_roads_missing_file_returns_none(assemble_mod, tmp_path):
+    polylines = assemble_mod._load_overture_roads_parquet(
+        tmp_path / "missing.parquet", (0, 0, 1, 1)
+    )
+    assert polylines is None
+
+
+def test_w2_2_emit_roads_uses_parquet_when_layer_points_to_it(assemble_mod, tmp_path):
+    parquet = tmp_path / "real-roads.parquet"
+    _make_overture_roads_parquet(parquet, [
+        _wkb_linestring_le([(139.700, 35.660), (139.701, 35.661), (139.702, 35.660)]),
+        _wkb_linestring_le([(139.703, 35.663), (139.704, 35.664)]),
+    ])
+    scene_dir = tmp_path / "wadachi-r1-with-real-roads"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: vector_roads\n"
+        "      source_subdataset: geo/overture/transportation/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_parquet_path: {parquet}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    roads = next(l for l in plan.layers if l.kind == "vector_roads")
+    usda = assemble_mod._emit_vector_roads_usda(roads, plan, "R")
+    # 2 polylines in Parquet → 2 child Meshes.
+    assert usda.count('def Mesh "R') == 2
+    assert "overture-parquet-w2.2" in usda
+    # Waypoint counts: 3-point line + 2-point line.
+    assert "kami_waypoint_count = 3" in usda
+    assert "kami_waypoint_count = 2" in usda
+
+
+# ─── W2.3 WKB Polygon + MultiLineString ─────────────────────────────
+
+
+def _wkb_polygon_le(rings: list[list[tuple[float, float]]]) -> bytes:
+    """Encode a WKB Polygon with one or more rings (outer + holes)."""
+    import struct
+    out = bytearray()
+    out.append(1)                          # little-endian
+    out += struct.pack("<I", 3)            # Polygon
+    out += struct.pack("<I", len(rings))
+    for ring in rings:
+        out += struct.pack("<I", len(ring))
+        for x, y in ring:
+            out += struct.pack("<dd", x, y)
+    return bytes(out)
+
+
+def _wkb_multilinestring_le(linestrings: list[list[tuple[float, float]]]) -> bytes:
+    """Encode a WKB MultiLineString (embeds full sub-LineString records)."""
+    import struct
+    out = bytearray()
+    out.append(1)
+    out += struct.pack("<I", 5)            # MultiLineString
+    out += struct.pack("<I", len(linestrings))
+    for line in linestrings:
+        out += _wkb_linestring_le(line)
+    return bytes(out)
+
+
+def test_w2_3_parse_wkb_polygon_outer_ring(assemble_mod):
+    """3-vertex closed polygon (with explicit closing duplicate) → 3 unique pts."""
+    ring = [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)]
+    wkb = _wkb_polygon_le([ring])
+    decoded = assemble_mod._parse_wkb_polygon_outer_ring(wkb)
+    assert decoded == [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0)]
+
+
+def test_w2_3_parse_wkb_polygon_drops_inner_rings(assemble_mod):
+    outer = [(0.0, 0.0), (10.0, 0.0), (10.0, 10.0), (0.0, 10.0), (0.0, 0.0)]
+    hole = [(2.0, 2.0), (3.0, 2.0), (3.0, 3.0), (2.0, 3.0), (2.0, 2.0)]
+    wkb = _wkb_polygon_le([outer, hole])
+    decoded = assemble_mod._parse_wkb_polygon_outer_ring(wkb)
+    # Only outer ring, hole discarded.
+    assert len(decoded) == 4
+    assert (0.0, 0.0) in decoded
+
+
+def test_w2_3_parse_wkb_polygon_rejects_linestring(assemble_mod):
+    """A WKB LineString must not be accepted by the polygon decoder."""
+    wkb = _wkb_linestring_le([(0.0, 0.0), (1.0, 1.0)])
+    assert assemble_mod._parse_wkb_polygon_outer_ring(wkb) is None
+
+
+def test_w2_3_parse_wkb_polygon_rejects_degenerate(assemble_mod):
+    """Polygon with < 3 unique points → None."""
+    ring = [(0.0, 0.0), (1.0, 0.0), (0.0, 0.0)]   # 2 unique after closing dedup
+    wkb = _wkb_polygon_le([ring])
+    assert assemble_mod._parse_wkb_polygon_outer_ring(wkb) is None
+
+
+def test_w2_3_parse_wkb_multilinestring(assemble_mod):
+    """3-segment MultiLineString → 3 polylines preserved."""
+    lines = [
+        [(0.0, 0.0), (1.0, 1.0)],
+        [(2.0, 2.0), (3.0, 3.0), (4.0, 4.0)],
+        [(5.0, 5.0), (6.0, 6.0)],
+    ]
+    wkb = _wkb_multilinestring_le(lines)
+    decoded = assemble_mod._parse_wkb_multilinestring(wkb)
+    assert decoded == lines
+
+
+def test_w2_3_parse_wkb_multilinestring_rejects_linestring(assemble_mod):
+    wkb = _wkb_linestring_le([(0.0, 0.0), (1.0, 1.0)])
+    assert assemble_mod._parse_wkb_multilinestring(wkb) is None
+
+
+# ─── W2.3 Parquet ingest paths ──────────────────────────────────────
+
+
+def test_w2_3_buildings_polygon_takes_precedence_over_bbox(assemble_mod, tmp_path):
+    """When `geometry` column has a real WKB Polygon, the emitted polygon
+    has the polygon's actual corner count, not 4 (the bbox fallback)."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    # Hexagon (6 corners) at known location.
+    hex_ring = [
+        (139.700, 35.660), (139.7005, 35.6603), (139.7005, 35.6607),
+        (139.700, 35.661), (139.6995, 35.6607), (139.6995, 35.6603),
+        (139.700, 35.660),
+    ]
+    bbox_struct = pa.struct([
+        ("xmin", pa.float64()), ("xmax", pa.float64()),
+        ("ymin", pa.float64()), ("ymax", pa.float64()),
+    ])
+    table = pa.table({
+        "bbox": pa.array(
+            [{"xmin": 139.6995, "xmax": 139.7005, "ymin": 35.660, "ymax": 35.661}],
+            type=bbox_struct,
+        ),
+        "height": pa.array([15.0], type=pa.float64()),
+        "geometry": pa.array([_wkb_polygon_le([hex_ring])], type=pa.binary()),
+    })
+    parquet = tmp_path / "buildings-with-geom.parquet"
+    pq.write_table(table, parquet)
+    polygons = assemble_mod._load_overture_buildings_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67), default_height_m=8.0
+    )
+    assert polygons is not None
+    assert len(polygons) == 1
+    poly, h = polygons[0]
+    # Hexagon outer ring → 6 corners (vs 4 for bbox fallback).
+    assert len(poly) == 6
+    assert h == 15.0
+
+
+def test_w2_3_roads_multilinestring(assemble_mod, tmp_path):
+    """A MultiLineString row expands into N polylines."""
+    multi = _wkb_multilinestring_le([
+        [(139.700, 35.660), (139.701, 35.661)],
+        [(139.702, 35.662), (139.703, 35.663), (139.704, 35.664)],
+    ])
+    parquet = tmp_path / "roads-multi.parquet"
+    _make_overture_roads_parquet(parquet, [multi])
+    polylines = assemble_mod._load_overture_roads_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67)
+    )
+    assert polylines is not None
+    assert len(polylines) == 2
+    assert len(polylines[0]) == 2
+    assert len(polylines[1]) == 3
+
+
+def test_w2_3_roads_mixed_linestring_and_multilinestring(assemble_mod, tmp_path):
+    """Mixed Parquet (LineString + MultiLineString) — both contribute polylines."""
+    parquet = tmp_path / "roads-mixed.parquet"
+    _make_overture_roads_parquet(parquet, [
+        _wkb_linestring_le([(139.700, 35.660), (139.701, 35.661)]),
+        _wkb_multilinestring_le([
+            [(139.702, 35.662), (139.703, 35.663)],
+            [(139.704, 35.664), (139.705, 35.665)],
+        ]),
+        _wkb_point_le(139.706, 35.666),    # unknown type — silently skipped
+    ])
+    polylines = assemble_mod._load_overture_roads_parquet(
+        parquet, (139.69, 35.65, 139.71, 35.67)
+    )
+    assert polylines is not None
+    # 1 single + 2 multi-sub = 3 polylines (Point skipped).
+    assert len(polylines) == 3
+
+
 def test_w2_2_emit_uses_parquet_when_layer_points_to_it(assemble_mod, tmp_path):
     """When the layer extra carries `local_parquet_path`, emit uses real polygons."""
     parquet = tmp_path / "real-buildings.parquet"
@@ -710,6 +985,590 @@ def test_w2_1_roads_determinism_g6_via_full_emit(assemble_mod):
     a = assemble_mod._emit_vector_roads_usda(layer, plan, "R")
     b = assemble_mod._emit_vector_roads_usda(layer, plan, "R")
     assert a == b
+
+
+# ─── W2.2 raster_overlay (Pillow GeoTIFF / PNG sidecar) ─────────────
+
+
+def _make_test_image(path: Path, *, size: tuple[int, int] = (32, 24)) -> None:
+    from PIL import Image
+    import numpy as _np
+    rng = _np.random.RandomState(99)
+    arr = rng.randint(0, 256, size=(size[1], size[0], 3), dtype=_np.uint8)
+    Image.fromarray(arr).save(path, format="PNG")
+
+
+# ─── W2.2 terrain real elevation ingest ─────────────────────────────
+
+
+def test_w2_2_load_elevation_image_round_trips(assemble_mod, tmp_path):
+    """16-bit grayscale TIFF → numpy array sampled at target grid size."""
+    import numpy as np
+    from PIL import Image
+    # Make a 32x32 grayscale gradient (uint16) — pretend elevation in meters.
+    arr = np.zeros((32, 32), dtype=np.uint16)
+    for y in range(32):
+        for x in range(32):
+            arr[y, x] = x * 100 + y * 50    # 0..3200+1550 range
+    src = tmp_path / "dem.tif"
+    Image.fromarray(arr, mode="I;16").save(src)
+
+    out = assemble_mod._load_elevation_image(src, 8, 8)
+    assert out is not None
+    assert out.shape == (8, 8)
+    # Corner values: (0,0) → arr[0,0] = 0; (7,7) → arr[31,31] = 31*100+31*50 = 4650
+    assert out[0, 0] == 0.0
+    assert out[7, 7] == pytest.approx(4650.0)
+
+
+def test_w2_2_load_elevation_missing_file_returns_none(assemble_mod, tmp_path):
+    out = assemble_mod._load_elevation_image(tmp_path / "no-such.tif", 4, 4)
+    assert out is None
+
+
+def test_w2_2_load_elevation_handles_rgb_via_mean(assemble_mod, tmp_path):
+    """RGB image → grayscale mean across channels."""
+    import numpy as np
+    from PIL import Image
+    arr = np.full((16, 16, 3), [60, 120, 180], dtype=np.uint8)
+    src = tmp_path / "rgb.png"
+    Image.fromarray(arr).save(src)
+    out = assemble_mod._load_elevation_image(src, 4, 4)
+    assert out is not None
+    # All pixels = mean(60, 120, 180) = 120
+    assert (out == 120.0).all()
+
+
+def test_w2_4_rasterio_path_documented_but_pillow_fallback_works(assemble_mod, tmp_path):
+    """W2.4 rasterio path is documented; this test verifies the Pillow
+    fallback still works when rasterio is unavailable (current env) so
+    operators without rasterio don't regress."""
+    import numpy as np
+    from PIL import Image
+    arr = np.full((16, 16), 300, dtype=np.uint16)
+    p = tmp_path / "dem-no-rasterio.tif"
+    Image.fromarray(arr, mode="I;16").save(p)
+    out = assemble_mod._load_elevation_image(
+        p, 4, 4, plan_bbox=(139.69, 35.65, 139.71, 35.67),
+    )
+    # Without rasterio, Pillow path returns the array; all uniform 300 m.
+    assert out is not None
+    assert (out == 300.0).all()
+
+
+def test_w2_4_load_elevation_image_accepts_plan_bbox_kwarg(assemble_mod, tmp_path):
+    """Plan bbox kwarg is the W2.4 routing hint; should not break the W2.2 path."""
+    import numpy as np
+    from PIL import Image
+    arr = np.full((8, 8), 500, dtype=np.uint16)
+    p = tmp_path / "dem.tif"
+    Image.fromarray(arr, mode="I;16").save(p)
+    # Pass plan_bbox → either rasterio path (if installed) or Pillow fallback.
+    out = assemble_mod._load_elevation_image(
+        p, 4, 4, plan_bbox=(0.0, 0.0, 1.0, 1.0),
+    )
+    assert out is not None
+    assert out.shape == (4, 4)
+
+
+def test_w2_2_terrain_emit_uses_real_elevation_when_path_set(assemble_mod, tmp_path):
+    """`local_geotiff_path` on terrain layer → elevation comes from raster."""
+    import numpy as np
+    from PIL import Image
+    # 8x8 single-band uint16, all elevation = 500m.
+    arr = np.full((8, 8), 500, dtype=np.uint16)
+    dem = tmp_path / "dem.tif"
+    Image.fromarray(arr, mode="I;16").save(dem)
+
+    scene_dir = tmp_path / "real-dem-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "      mesh: {target_edge_m: 200.0}\n"   # ~10×12 grid
+        f"      local_geotiff_path: {dem}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    layer = plan.layers[0]
+    usda = assemble_mod._emit_terrain_usda(layer, plan, "T")
+    # Source token must reflect real ingest.
+    assert "pillow-elevation-w2.2" in usda
+    assert "synth-cid-seeded" not in usda
+    # All elevation values should be exactly 500 (mass-uniform DEM).
+    assert ", 500.000)" in usda
+
+
+def test_w2_2_terrain_falls_back_to_synth_when_path_missing(assemble_mod, tmp_path):
+    scene_dir = tmp_path / "missing-dem-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_geotiff_path: {tmp_path / 'no-such-dem.tif'}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    usda = assemble_mod._emit_terrain_usda(plan.layers[0], plan, "T")
+    # Falls back to synth-cid-seeded (file doesn't exist).
+    assert "synth-cid-seeded-w2.1" in usda
+
+
+def test_w2_2_raster_overlay_stub_when_no_path(assemble_mod):
+    """No `local_geotiff_path` → emit W2.0 stub Material (no texture binding)."""
+    plan = assemble_mod.build_plan(_WADACHI_SCENE)
+    layer = next(l for l in plan.layers if l.kind == "raster_overlay")
+    usda = assemble_mod._emit_raster_overlay_usda(layer, plan, "M")
+    assert 'def Material "M"' in usda
+    assert "stub-w2.0-no-binding" in usda
+    # No texture shader nodes in stub mode.
+    assert "UsdUVTexture" not in usda
+
+
+def test_w2_2_raster_overlay_real_texture_when_path_set(assemble_mod, tmp_path):
+    """`local_geotiff_path` set → emit Material with UsdUVTexture binding."""
+    scene_dir = tmp_path / "wadachi-with-overlay"
+    scene_dir.mkdir()
+    raster = tmp_path / "shibuya-rgb.png"
+    _make_test_image(raster)
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: raster_overlay\n"
+        "      source_subdataset: geo/sentinel2/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_geotiff_path: {raster}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    layer = next(l for l in plan.layers if l.kind == "raster_overlay")
+    usda = assemble_mod._emit_raster_overlay_usda(layer, plan, "M")
+    assert "UsdUVTexture" in usda
+    assert "UsdPrimvarReader_float2" in usda
+    assert "@./textures/M.png@" in usda
+    assert "pillow-sidecar-w2.2" in usda
+
+
+def test_w2_2_write_raster_sidecar_creates_png(assemble_mod, tmp_path):
+    """`_write_raster_sidecar` reads source + writes PNG sidecar."""
+    src = tmp_path / "src.png"
+    out_dir = tmp_path / "scene_out"
+    _make_test_image(src)
+    sidecar = assemble_mod._write_raster_sidecar(src, out_dir, "Layer1_raster_overlay")
+    assert sidecar is not None
+    assert sidecar.exists()
+    assert sidecar.name == "Layer1_raster_overlay.png"
+    assert sidecar.parent.name == "textures"
+
+
+def test_w2_2_write_raster_sidecar_returns_none_when_src_missing(assemble_mod, tmp_path):
+    sidecar = assemble_mod._write_raster_sidecar(
+        tmp_path / "no-such-file.tif", tmp_path / "out", "M"
+    )
+    assert sidecar is None
+
+
+def test_w2_2_emit_scene_writes_sidecars_and_records_in_manifest(assemble_mod, tmp_path):
+    raster = tmp_path / "raster.png"
+    _make_test_image(raster)
+    scene_dir = tmp_path / "test-scene-with-overlay"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/x\n"
+        "      datasetPin_at: at://x/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: raster_overlay\n"
+        "      source_subdataset: geo/sentinel2/x\n"
+        "      datasetPin_at: at://x/<rkey>\n"
+        "      tier: A\n"
+        f"      local_geotiff_path: {raster}\n",
+        encoding="utf-8",
+    )
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    out_dir = tmp_path / "scene_out"
+    manifest = assemble_mod.emit_scene(plan, out_dir)
+    # The sidecar file must exist in the scene output dir.
+    sidecar = out_dir / "textures" / "Layer1_raster_overlay.png"
+    assert sidecar.exists()
+    # The manifest records the sidecar copy operation.
+    assert "texture_sidecars" in manifest
+    recs = manifest["texture_sidecars"]
+    assert len(recs) == 1
+    assert recs[0]["prim_name"] == "Layer1_raster_overlay"
+    assert recs[0]["sidecar"] == "textures/Layer1_raster_overlay.png"
+
+
+# ─── W2.3 Charter rescan deepening (Parquet text-column extraction) ─
+
+
+def test_charter_extract_parquet_text_sidecar_basic(assemble_mod, tmp_path):
+    """`_extract_parquet_text_to_tempfile` writes per-column rows for string cols."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    table = pa.table({
+        "class": pa.array(["building", "warehouse", "residential"], type=pa.string()),
+        "height": pa.array([10.0, 20.0, 8.0], type=pa.float64()),
+        "name": pa.array(["A", "B", None], type=pa.string()),
+    })
+    parquet = tmp_path / "buildings.parquet"
+    pq.write_table(table, parquet)
+    out = tmp_path / "out"
+    out.mkdir()
+    sidecar = assemble_mod._extract_parquet_text_to_tempfile(parquet, out)
+    assert sidecar is not None
+    text = sidecar.read_text(encoding="utf-8")
+    assert "class: building" in text
+    assert "class: warehouse" in text
+    assert "name: A" in text
+    # height (float64) not included; None value skipped.
+    assert "height" not in text
+    assert "name: None" not in text
+
+
+def test_charter_extract_returns_none_when_no_string_columns(assemble_mod, tmp_path):
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    table = pa.table({
+        "x": pa.array([1.0, 2.0], type=pa.float64()),
+        "y": pa.array([3, 4], type=pa.int64()),
+    })
+    parquet = tmp_path / "no-strings.parquet"
+    pq.write_table(table, parquet)
+    sidecar = assemble_mod._extract_parquet_text_to_tempfile(parquet, tmp_path)
+    assert sidecar is None
+
+
+def test_charter_collect_scan_targets_includes_parquet_sidecars(assemble_mod, tmp_path):
+    """`_collect_charter_scan_targets` adds Parquet text sidecars to scan list."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    parquet = tmp_path / "data.parquet"
+    pq.write_table(
+        pa.table({"name": pa.array(["safe-building"], type=pa.string())}),
+        parquet,
+    )
+    scene = tmp_path / "scene.yaml"
+    scene.write_text("test scene")
+    out = tmp_path / "out"
+    out.mkdir()
+
+    # Build a fake LayerPlan referencing the parquet.
+    layer = assemble_mod.LayerPlan(
+        index=0, kind="vector_buildings",
+        source_subdataset="x", datasetPin_at="at://x/<rkey>",
+        tier="A", resolved_cid="bafy0", dispatch_handler="kami-usd:test",
+        extra={"local_parquet_path": str(parquet)},
+    )
+    paths, sidecars = assemble_mod._collect_charter_scan_targets(
+        scene, [layer], [], out,
+    )
+    # scene.yaml + 1 sidecar
+    assert len(paths) == 2
+    assert paths[0] == scene
+    assert len(sidecars) == 1
+    assert sidecars[0].name == "charter-rescan-data.parquet.txt"
+    assert sidecars[0].read_text().startswith("name: safe-building")
+
+
+def test_charter_collect_skips_layers_without_parquet(assemble_mod, tmp_path):
+    scene = tmp_path / "scene.yaml"
+    scene.write_text("x")
+    out = tmp_path / "out"
+    out.mkdir()
+    layer = assemble_mod.LayerPlan(
+        index=0, kind="terrain",
+        source_subdataset="x", datasetPin_at="at://x/<rkey>",
+        tier="A", resolved_cid="bafy0", dispatch_handler="kami-usd:terrain",
+        extra={"local_geotiff_path": "/tmp/no-parquet.tif"},  # image, not Parquet
+    )
+    paths, sidecars = assemble_mod._collect_charter_scan_targets(
+        scene, [layer], [], out,
+    )
+    # Only scene.yaml; image path NOT scanned (vision-PII layer's job).
+    assert paths == [scene]
+    assert sidecars == []
+
+
+# ─── W2.3 Charter rescan E2E — prohibited content catches ──────────
+
+
+class _FakeCharterModule:
+    """Stand-in for `e7m_dataset.charter` that the assemble script can import.
+
+    Replaces the real wrapper around `pymagatama.organism.sensors.charter_rider`
+    with a controllable function. Used by tests to verify the assemble
+    plumbing actually wires Parquet sidecars into scan_sample and that a
+    `passed=False` verdict propagates as a RuntimeError.
+    """
+
+    def __init__(self, *, passed: bool, violations: list[dict] | None = None) -> None:
+        self.passed = passed
+        self.violations = violations or []
+        self.calls: list[dict] = []   # records each scan_sample invocation
+
+    def scan_sample(self, paths, *, kind, sample_rows=200):
+        # Record what the caller passed so tests can assert on the call shape.
+        path_strs = [str(p) for p in paths]
+        text_samples: list[str] = []
+        for p in paths:
+            try:
+                text_samples.append(_read_text(p))
+            except Exception:
+                text_samples.append("")
+        self.calls.append({
+            "paths": path_strs,
+            "kind": kind,
+            "sample_rows": sample_rows,
+            "texts": text_samples,
+        })
+        return {
+            "passed": self.passed,
+            "at": "2026-05-27T00:00:00Z",
+            "sampled": len(paths),
+            "violations": self.violations,
+            "note": "test-fake-scanner",
+        }
+
+
+def _read_text(p):
+    from pathlib import Path as _Path
+    return _Path(p).read_text(encoding="utf-8", errors="replace")
+
+
+def test_charter_rescan_e2e_passes_when_parquet_clean(
+    assemble_mod, monkeypatch, tmp_path,
+):
+    """Full integration: scene.yaml + safe Parquet → fake scanner passes →
+    no RuntimeError; manifest records Parquet sidecar count."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    parquet = tmp_path / "safe.parquet"
+    pq.write_table(
+        pa.table({
+            "class": pa.array(["building", "warehouse"], type=pa.string()),
+            "name": pa.array(["A", "B"], type=pa.string()),
+        }),
+        parquet,
+    )
+    scene_dir = tmp_path / "clean-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: vector_buildings\n"
+        "      source_subdataset: geo/overture/buildings/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_parquet_path: {parquet}\n",
+        encoding="utf-8",
+    )
+
+    fake = _FakeCharterModule(passed=True)
+    monkeypatch.setattr(assemble_mod, "_try_import_charter", lambda: fake)
+
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    assert plan.charter_attestations["scan_status"] == "passed-recipe-scan"
+    assert plan.charter_attestations["scope"] == "scene-recipe-yaml+parquet-text"
+    assert plan.charter_attestations["parquet_sidecar_count"] == 1
+    assert plan.charter_attestations["scan_target_count"] == 2   # scene.yaml + 1 sidecar
+
+    # The fake recorded one call; the Parquet text must be in the scanned content.
+    assert len(fake.calls) == 1
+    all_text = "\n".join(fake.calls[0]["texts"])
+    assert "class: building" in all_text
+    assert "name: A" in all_text
+
+
+def test_charter_rescan_e2e_aborts_when_parquet_has_prohibited_content(
+    assemble_mod, monkeypatch, tmp_path,
+):
+    """End-to-end §2 violation catch: Parquet row with prohibited keyword →
+    fake scanner returns passed=False → build_plan raises RuntimeError.
+
+    This proves the cycle 29 deepening actually closes the §2 catch loop —
+    Parquet text content (not just scene.yaml) flows through scan_sample
+    and a fail verdict propagates as an abort."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    parquet = tmp_path / "bad.parquet"
+    pq.write_table(
+        pa.table({
+            "class": pa.array(["assault_rifle_carrier_truck"], type=pa.string()),
+            "name": pa.array(["mil-vehicle-001"], type=pa.string()),
+        }),
+        parquet,
+    )
+    scene_dir = tmp_path / "bad-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: vector_buildings\n"
+        "      source_subdataset: geo/overture/buildings/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n"
+        f"      local_parquet_path: {parquet}\n",
+        encoding="utf-8",
+    )
+
+    fake = _FakeCharterModule(
+        passed=False,
+        violations=[{
+            "category": "2a",
+            "label": "WEAPONS_AND_MILITARY",
+            "match": "assault_rifle_carrier_truck",
+        }],
+    )
+    monkeypatch.setattr(assemble_mod, "_try_import_charter", lambda: fake)
+
+    with pytest.raises(RuntimeError, match="Charter Rider §2 scan FAILED"):
+        assemble_mod.build_plan(scene_dir / "scene.yaml")
+
+    # The fake was actually called with the Parquet sidecar content.
+    assert len(fake.calls) == 1
+    all_text = "\n".join(fake.calls[0]["texts"])
+    assert "assault_rifle_carrier_truck" in all_text
+
+
+def test_charter_rescan_e2e_no_parquet_only_scene_yaml(
+    assemble_mod, monkeypatch, tmp_path,
+):
+    """When no layer has local_parquet_path, only scene.yaml is in scan list."""
+    scene_dir = tmp_path / "no-parquet-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/test\n"
+        "      datasetPin_at: at://test/<rkey>\n"
+        "      tier: A\n",
+        encoding="utf-8",
+    )
+    fake = _FakeCharterModule(passed=True)
+    monkeypatch.setattr(assemble_mod, "_try_import_charter", lambda: fake)
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    assert plan.charter_attestations["parquet_sidecar_count"] == 0
+    assert plan.charter_attestations["scan_target_count"] == 1   # scene.yaml only
+    assert len(fake.calls) == 1
+    assert len(fake.calls[0]["paths"]) == 1
+
+
+def test_charter_rescan_e2e_temp_sidecars_cleaned_up(
+    assemble_mod, monkeypatch, tmp_path,
+):
+    """After successful build_plan, the temp sidecar directory should be removed."""
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+    parquet = tmp_path / "data.parquet"
+    pq.write_table(
+        pa.table({"name": pa.array(["safe-row"], type=pa.string())}),
+        parquet,
+    )
+    scene_dir = tmp_path / "cleanup-scene"
+    scene_dir.mkdir()
+    (scene_dir / "scene.yaml").write_text(
+        "adr: ADR-2605262500\nphase: W2\nsim_consumer: test\n"
+        "world:\n"
+        "  crs: EPSG:4326\n"
+        "  bbox: [139.69, 35.65, 139.71, 35.67]\n"
+        "  output_subdataset: x/\n"
+        "  layers:\n"
+        "    - kind: terrain\n"
+        "      source_subdataset: geo/srtm/x\n"
+        "      datasetPin_at: at://x/<rkey>\n"
+        "      tier: A\n"
+        "    - kind: vector_buildings\n"
+        "      source_subdataset: geo/overture/x\n"
+        "      datasetPin_at: at://x/<rkey>\n"
+        "      tier: A\n"
+        f"      local_parquet_path: {parquet}\n",
+        encoding="utf-8",
+    )
+    fake = _FakeCharterModule(passed=True)
+    monkeypatch.setattr(assemble_mod, "_try_import_charter", lambda: fake)
+
+    import tempfile as _tempfile
+    import glob
+    # Snapshot the system temp dir before + after.
+    before = set(glob.glob(str(_tempfile.gettempdir()) + "/e7m-charter-rescan-*"))
+    plan = assemble_mod.build_plan(scene_dir / "scene.yaml")
+    after = set(glob.glob(str(_tempfile.gettempdir()) + "/e7m-charter-rescan-*"))
+    # No new temp dirs left behind.
+    assert after - before == set()
+
+
+def test_charter_collect_skips_missing_parquet(assemble_mod, tmp_path):
+    """Non-existent local_parquet_path is silently skipped (no scan target)."""
+    scene = tmp_path / "scene.yaml"
+    scene.write_text("x")
+    out = tmp_path / "out"
+    out.mkdir()
+    layer = assemble_mod.LayerPlan(
+        index=0, kind="vector_buildings",
+        source_subdataset="x", datasetPin_at="at://x/<rkey>",
+        tier="A", resolved_cid="bafy0", dispatch_handler="kami-usd:test",
+        extra={"local_parquet_path": "/tmp/does-not-exist.parquet"},
+    )
+    paths, sidecars = assemble_mod._collect_charter_scan_targets(
+        scene, [layer], [], out,
+    )
+    assert paths == [scene]
+    assert sidecars == []
 
 
 def test_makura_indoor_carveout_has_no_scene_yaml():

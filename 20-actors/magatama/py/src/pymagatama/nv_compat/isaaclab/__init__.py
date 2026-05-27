@@ -13,6 +13,14 @@ Sub-namespaces:
              pre-built SPHERE / CUBOID / COORDINATE_FRAME / ARROW_* cfgs)
   - controllers (DifferentialIKController — Jacobian-based IK with DLS /
              pseudoinverse; pairs with envs.mdp.JointPositionAction)
+  - assets  (AssetBase / RigidObject / Articulation — declarative asset
+             wrappers; bridge sim.spawners ↔ env physics + cfg-driven reset)
+  - actuators (ImplicitActuator / IdealPDActuator / DCMotor / ActuatorNetMLP
+              — actuator dynamics between action terms + articulation; PD,
+              speed-torque saturation, residual-MLP correction hook)
+  - app    (AppLauncher CLI entry point — argparse integration +
+            SimulationApp handle; standard --task/--num_envs/--seed
+            /--device/--headless/--video/--enable_cameras/--livestream args)
   - utils  (utils.dr per-env DomainRandomizationCfg; utils.math quaternion +
             Euler + frame-transform helpers)
   - terrains (procedural height-field generators for legged locomotion)
@@ -20,10 +28,11 @@ Sub-namespaces:
 """
 
 from . import (
-    algos, controllers, managers, markers, scene, sensors, sim, terrains, utils,
+    actuators, algos, app, assets, controllers, managers, markers, scene,
+    sensors, sim, terrains, utils,
 )
 
 __all__ = [
-    "algos", "controllers", "managers", "markers", "scene", "sensors", "sim",
-    "terrains", "utils",
+    "actuators", "algos", "app", "assets", "controllers", "managers",
+    "markers", "scene", "sensors", "sim", "terrains", "utils",
 ]

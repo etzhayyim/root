@@ -1,6 +1,7 @@
 {
   "name": "@etzhayyim/narou-rw-free",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "type": "module",
   "description": "narou Phase E Option B rw-free reference implementation",
   "main": "dist/index.js",

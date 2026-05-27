@@ -1,7 +1,7 @@
 # ADR-2605250730: tatekata Construction R1 Activation Gate + R2 Benchtop PoC
 
-**Date**: 2026-05-26  
-**Status**: PROPOSED  
+**Date**: 2026-05-26
+**Status**: PROPOSED
 **Deciders**: Jun Kawasaki (author), Council Lv6+ (ratify for R1), Murakumo node operators (R2 benchtop)
 
 ## Context
@@ -79,14 +79,14 @@ Upon successful benchtop PoC, R2 opens:
 ### Regulatory Bridging (R2)
 - **gov-municipality** (ADR-2605250800) must issue permit before excavation starts (Phase 0 → foundation_excavation gate)
 - **yoro-supply** (ADR-2605250850) must verify material deliveries before each phase (materialAttestation per batch)
-- **infra-utility-connect** (ADR-2605250860) must activate utilities post-commissioning (Phase 5 → activation_test gate)
+- **infra-utility-connect** (ADR-2605250900) must activate utilities post-commissioning (Phase 5 → activation_test gate)
 
 ## Non-Decision: R3+ Carve-Outs
 
 The following are explicitly **deferred** to R3+ ADRs (not addressed in this ADR):
 
 - Residential housing (R3: ADR-2605250745) — requires additional gates (building code inspection, accessibility compliance)
-- High-rise (R3: ADR-2605250760) — requires structural engineer sign-off + fall protection systems
+- High-rise (R3: ADR-2605250800) — requires structural engineer sign-off + fall protection systems
 - Commercial/industrial large-scale (R4): Different regulatory regime per jurisdiction
 
 ---
@@ -109,5 +109,5 @@ The following are explicitly **deferred** to R3+ ADRs (not addressed in this ADR
 - ADR-2605250715 (tatekata R0 scaffold, constitutional gates)
 - ADR-2605250800 (gov-municipality Phase 0 permits)
 - ADR-2605250850 (yoro-supply material sourcing)
-- ADR-2605250860 (infra-utility-connect utility activation)
+- ADR-2605250900 (infra-utility-connect utility activation)
 - `20-actors/tatekata/` (all 5 cells, state machines, lexicons)

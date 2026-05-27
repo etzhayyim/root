@@ -20,6 +20,8 @@ output_subdataset = "training/corpora/dns-graph-nc-v1/"
 
 max_tier_cap = "C"
 
+description = "Tier-C DNS + AS-graph carve-out — Rapid7 Sonar FDNS + OpenINTEL Tranco-1M + CAIDA AS-rank/relationship, anchored by Tier-A IANA root + APNIC for structure. CC-BY-NC propagates G13 fleet-internal-only; judah LiteLLM + SBT-gate serve only. NOT publishable."
+
 [output_metadata]
 description = """
 Tier-C DNS + AS-graph carve-out corpus: Rapid7 Sonar FDNS shards +
@@ -38,6 +40,7 @@ shard_glob    = "*.json.gz"
 tier          = "C"
 license       = "rapid7-research-use"
 weight        = 0.15
+description   = "Rapid7 Sonar Forward DNS — Apr 2026 monthly internet-wide DNS A/AAAA/CNAME/TXT/MX scan"
 
 [[source]]
 subdataset    = "dns/rapid7-sonar-fdns"
@@ -46,6 +49,7 @@ shard_glob    = "*.json.gz"
 tier          = "C"
 license       = "rapid7-research-use"
 weight        = 0.15
+description   = "Rapid7 Sonar Forward DNS — May 2026 monthly snapshot (paired with 2604 for month-over-month delta)"
 
 # OpenINTEL — 7 daily Tranco-1M shards for one week.
 
@@ -56,6 +60,7 @@ shard_glob    = "*.parquet"
 tier          = "C"
 license       = "CC-BY-NC-4.0"
 weight        = 0.20
+description   = "OpenINTEL Tranco-1M daily DNS measurements — 7-day window over the most-visited 1M domains"
 
 # CAIDA — AS-relationship + AS-rank monthly snapshots.
 
@@ -66,6 +71,7 @@ shard_glob    = "*.txt.bz2"
 tier          = "C"
 license       = "CC-BY-NC-4.0"
 weight        = 0.10
+description   = "CAIDA AS Rank — ASN ⇒ customer-cone size + transit degree; AS-importance topology metric"
 
 [[source]]
 subdataset    = "routing/caida-as-relationship"
@@ -74,6 +80,7 @@ shard_glob    = "*.txt.bz2"
 tier          = "C"
 license       = "CC-BY-NC-4.0"
 weight        = 0.10
+description   = "CAIDA AS Relationships — pairwise ASN edges classified provider-customer / peer-peer"
 
 # Tier-A anchors (so the model has Tier-A reference structure
 # alongside the Tier-C bulk).
@@ -85,6 +92,7 @@ shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
 weight        = 0.05
+description   = "IANA root zone — Tier-A anchor giving the model authoritative DNS delegation structure"
 
 [[source]]
 subdataset    = "netreg/rir-delegated/apnic"
@@ -93,6 +101,7 @@ shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
 weight        = 0.05
+description   = "APNIC delegated stats — Tier-A anchor giving the model authoritative IP/ASN allocation structure"
 
 # Seed block.
 

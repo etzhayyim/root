@@ -4,24 +4,38 @@
 /// Auth:  initialize / tools/list / ping → public
 ///        tools/call → requires `Authorization: Bearer <AT-session-JWT>`
 ///
-/// Tools exposed (8):
-///   kotoba_quad_create   — assert a quad into the graph
-///   kotoba_graph_query   — SPO pattern query
-///   kotoba_infer_run     — run inference via inference engine
-///   kotoba_embed_create  — create and store a text embedding
-///   kotoba_weight_put    — store an FP8 tensor weight blob
-///   kotoba_lora_apply    — register a LoRA adapter delta
-///   kotoba_email_list    — list encrypted emails for an owner DID
-///   kotoba_email_read    — decrypt and return one email body + metadata
+/// Tools exposed (14):
+///   kotoba_quad_create      — assert a quad into the graph
+///   kotoba_graph_query      — SPO pattern query
+///   kotoba_infer_run        — run inference via inference engine
+///   kotoba_embed_create     — create and store a text embedding
+///   kotoba_weight_put       — store an FP8 tensor weight blob
+///   kotoba_lora_apply       — register a LoRA adapter delta
+///   kotoba_email_list       — list encrypted emails for an owner DID
+///   kotoba_email_read       — decrypt and return one email body + metadata
+///   kotoba_wasm_run         — run a WASM Component Model program via Pregel BSP
+///   kotoba_datalog_run      — evaluate Datalog with citation tracking + royalty flush
+///   kotoba_node_info        — return this node's DID, roles, NodeId, peer count
+///   kotoba_node_register    — write/refresh node registration Quads
+///   kotoba_network_peers    — list KDHT neighborhood peers
+///   kotoba_graph_gc         — mark-sweep GC: delete unreachable blocks from the block store
+///   kotoba_commit_prune     — prune historical non-HEAD commit entries from CommitDag (15)
 
-pub const MCP_TOOL_QUAD_CREATE:  &str = "kotoba_quad_create";
-pub const MCP_TOOL_GRAPH_QUERY:  &str = "kotoba_graph_query";
-pub const MCP_TOOL_INFER_RUN:    &str = "kotoba_infer_run";
-pub const MCP_TOOL_EMBED_CREATE: &str = "kotoba_embed_create";
-pub const MCP_TOOL_WEIGHT_PUT:   &str = "kotoba_weight_put";
-pub const MCP_TOOL_LORA_APPLY:   &str = "kotoba_lora_apply";
-pub const MCP_TOOL_EMAIL_LIST:   &str = "kotoba_email_list";
-pub const MCP_TOOL_EMAIL_READ:   &str = "kotoba_email_read";
+pub const MCP_TOOL_QUAD_CREATE:   &str = "kotoba_quad_create";
+pub const MCP_TOOL_GRAPH_QUERY:   &str = "kotoba_graph_query";
+pub const MCP_TOOL_INFER_RUN:     &str = "kotoba_infer_run";
+pub const MCP_TOOL_EMBED_CREATE:  &str = "kotoba_embed_create";
+pub const MCP_TOOL_WEIGHT_PUT:    &str = "kotoba_weight_put";
+pub const MCP_TOOL_LORA_APPLY:    &str = "kotoba_lora_apply";
+pub const MCP_TOOL_EMAIL_LIST:    &str = "kotoba_email_list";
+pub const MCP_TOOL_EMAIL_READ:    &str = "kotoba_email_read";
+pub const MCP_TOOL_WASM_RUN:        &str = "kotoba_wasm_run";
+pub const MCP_TOOL_DATALOG_RUN:     &str = "kotoba_datalog_run";
+pub const MCP_TOOL_NODE_INFO:       &str = "kotoba_node_info";
+pub const MCP_TOOL_NODE_REGISTER:   &str = "kotoba_node_register";
+pub const MCP_TOOL_NETWORK_PEERS:   &str = "kotoba_network_peers";
+pub const MCP_TOOL_GRAPH_GC:        &str = "kotoba_graph_gc";
+pub const MCP_TOOL_COMMIT_PRUNE:    &str = "kotoba_commit_prune";
 
 use std::sync::Arc;
 use axum::{
@@ -106,13 +120,15 @@ fn tools_list() -> Value {
             },
             {
                 "name": MCP_TOOL_GRAPH_QUERY,
-                "description": "SPO pattern query over a named graph Arrangement. Returns matching quads.",
+                "description": "Graph query over a named graph. Supports EAVT (subject), AVET (predicate+object), AVET-prefix (predicate_prefix) indexed paths in addition to full-scan SPO.",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "graph":     { "type": "string", "description": "Named graph CID (multibase)" },
-                        "subject":   { "type": "string", "description": "(optional) Subject filter" },
-                        "predicate": { "type": "string", "description": "(optional) Predicate filter (exact match)" }
+                        "graph":            { "type": "string", "description": "Named graph CID (multibase)" },
+                        "subject":          { "type": "string", "description": "(optional) Subject filter — EAVT index" },
+                        "predicate":        { "type": "string", "description": "(optional) Predicate filter — exact match" },
+                        "object":           { "type": "string", "description": "(optional) Object filter — combined with predicate for AVET P+O→S lookup" },
+                        "predicate_prefix": { "type": "string", "description": "(optional) Predicate prefix range scan — AVET BTree range (e.g. 'weight/' lists all weight quads)" }
                     },
                     "required": ["graph"]
                 }
@@ -197,6 +213,83 @@ fn tools_list() -> Value {
                     },
                     "required": ["model_cid", "rank", "graph", "adapter_b64"]
                 }
+            },
+            {
+                "name": MCP_TOOL_WASM_RUN,
+                "description": "Run a WASM Component Model program via the Pregel BSP engine. The guest controls continuation via output CBOR {\"status\":\"continue\"}. Gas consumed is billed as a mKOTO Quad per agent DID.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "wasm_b64":       { "type": "string",  "description": "Compiled WASM Component Model binary, base64-encoded" },
+                        "agent_did":      { "type": "string",  "description": "DID of the agent invoking the program (billed for gas)" },
+                        "ctx_cbor_b64":   { "type": "string",  "description": "Initial context CBOR map, base64-encoded (passed as first superstep inbox payload)" },
+                        "max_supersteps": { "type": "integer", "description": "Max BSP supersteps (default 32)" }
+                    },
+                    "required": ["wasm_b64", "agent_did", "ctx_cbor_b64"]
+                }
+            },
+            {
+                "name": MCP_TOOL_DATALOG_RUN,
+                "description": "Evaluate a Datalog program against a named graph arrangement. Citations are tracked per join hit; royalty Quads are written to the ledger graph at epoch flush.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "graph":            { "type": "string",  "description": "Named graph CID (multibase) to evaluate against" },
+                        "rules":            { "type": "array",   "description": "Array of DatalogRule objects ({head, body})" },
+                        "epoch_pool_koto":  { "type": "integer", "description": "mKOTO pool to distribute as royalties this epoch (default 1000000 = 1 KOTO)" }
+                    },
+                    "required": ["graph", "rules"]
+                }
+            },
+            {
+                "name": MCP_TOOL_NODE_INFO,
+                "description": "Return this node's DID, participation roles, NodeId hex, version, ephemeral flag, and KDHT peer count.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                }
+            },
+            {
+                "name": MCP_TOOL_NODE_REGISTER,
+                "description": "Write or refresh this node's registration Quads in the kotoba/network/nodes graph. Returns the operator DID.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                }
+            },
+            {
+                "name": MCP_TOOL_NETWORK_PEERS,
+                "description": "List KDHT neighborhood peers for this node.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                }
+            },
+            {
+                "name": MCP_TOOL_GRAPH_GC,
+                "description": "Mark-sweep GC: walk CommitDag to collect live block CIDs, then delete any block not reachable from a live commit. Returns the count of deleted blocks. Safe to call at any time — idempotent.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                }
+            },
+            {
+                "name": MCP_TOOL_COMMIT_PRUNE,
+                "description": "Prune historical non-HEAD commit entries from the in-memory CommitDag where seq < before_seq. HEAD commits are always preserved. Call after kotoba_graph_gc to free DAG memory. Returns pruned count and remaining dag_size.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "before_seq": {
+                            "type": "integer",
+                            "description": "Remove non-HEAD commits whose seq is strictly less than this value. Use the current committed_seq to discard all history."
+                        }
+                    },
+                    "required": ["before_seq"]
+                }
             }
         ]
     })
@@ -246,6 +339,16 @@ async fn call_tool(
             let predicate = get_str("predicate")?;
             let object    = get_str("object")?;
 
+            // Guard: reject oversized field values before any CID computation.
+            // Malformed inputs with multi-MiB strings would bloat the block store.
+            const MAX_FIELD_LEN: usize = 4096;
+            for (name, val) in [("graph", &graph), ("subject", &subject), ("predicate", &predicate), ("object", &object)] {
+                if val.len() > MAX_FIELD_LEN {
+                    return Err((ERR_INVALID_PARAMS,
+                        format!("field '{name}' too large ({} bytes, limit {MAX_FIELD_LEN})", val.len())));
+                }
+            }
+
             let quad = Quad {
                 graph:     KotobaCid::from_bytes(graph.as_bytes()),
                 subject:   KotobaCid::from_bytes(subject.as_bytes()),
@@ -265,25 +368,61 @@ async fn call_tool(
             let graph = get_str("graph")?;
             let graph_cid = KotobaCid::from_bytes(graph.as_bytes());
 
-            let arrangement = match state.quad_store.arrangement(&graph_cid).await {
-                None => return Ok(json!({ "graph": graph, "count": 0, "quads": [] })),
-                Some(a) => a,
+            const MAX_QUERY_RESULTS: usize = 1_000;
+            let limit = args.get("limit")
+                .and_then(Value::as_u64)
+                .unwrap_or(MAX_QUERY_RESULTS as u64)
+                .min(MAX_QUERY_RESULTS as u64) as usize;
+
+            let predicate_prefix = args.get("predicate_prefix").and_then(Value::as_str);
+            let predicate        = args.get("predicate").and_then(Value::as_str);
+            let object_key       = args.get("object").and_then(Value::as_str);
+            let subject_str      = args.get("subject").and_then(Value::as_str);
+
+            let quads: Vec<_> = if let Some(prefix) = predicate_prefix {
+                // AVET BTree prefix range scan — O(k) where k = matching quads
+                let mut q = state.quad_store.quads_by_predicate_prefix(Some(&graph_cid), prefix).await;
+                q.truncate(limit);
+                q
+            } else if let (Some(pred), Some(obj)) = (predicate, object_key) {
+                // AVET P+O→S lookup then EAVT subject→quad reconstruction
+                let subjects = state.quad_store
+                    .lookup_subject_by_po(Some(&graph_cid), pred, obj)
+                    .await;
+                let arr = match state.quad_store.arrangement(&graph_cid).await {
+                    None => return Ok(json!({ "graph": graph, "count": 0, "quads": [] })),
+                    Some(a) => a,
+                };
+                let pred_owned = pred.to_owned();
+                let mut q: Vec<_> = subjects.iter()
+                    .flat_map(|s| arr.get_subject_quads(&graph_cid, s))
+                    .filter(|q| q.predicate == pred_owned)
+                    .collect();
+                q.truncate(limit);
+                q
+            } else {
+                // Full-scan fallback with optional subject / predicate filters
+                let arr = match state.quad_store.arrangement(&graph_cid).await {
+                    None => return Ok(json!({ "graph": graph, "count": 0, "quads": [] })),
+                    Some(a) => a,
+                };
+                let mut qs = arr.quads(&graph_cid);
+                if let Some(s) = subject_str {
+                    let s_cid = KotobaCid::from_bytes(s.as_bytes());
+                    qs.retain(|q| q.subject == s_cid);
+                }
+                if let Some(p) = predicate {
+                    qs.retain(|q| q.predicate == p);
+                }
+                qs.truncate(limit);
+                qs
             };
-
-            let mut quads = arrangement.quads(&graph_cid);
-
-            if let Some(s) = args.get("subject").and_then(Value::as_str) {
-                let s_cid = KotobaCid::from_bytes(s.as_bytes());
-                quads.retain(|q| q.subject == s_cid);
-            }
-            if let Some(p) = args.get("predicate").and_then(Value::as_str) {
-                quads.retain(|q| q.predicate == p);
-            }
 
             Ok(json!({
                 "graph": graph,
                 "count": quads.len(),
                 "quads": quads,
+                "limit": limit,
             }))
         }
 
@@ -293,9 +432,16 @@ async fn call_tool(
                 .ok_or_else(|| (ERR_INTERNAL, "no inference engine loaded".into()))?;
 
             let prompt     = get_str("prompt")?;
+            const MAX_PROMPT_LEN:      usize = 64 * 1024;
+            const MAX_NEW_TOKENS_LIMIT: u64  = 4096;
+            if prompt.len() > MAX_PROMPT_LEN {
+                return Err((ERR_INVALID_PARAMS,
+                    format!("prompt too large ({} bytes, limit {MAX_PROMPT_LEN})", prompt.len())));
+            }
             let max_tokens = args.get("max_new_tokens")
                 .and_then(Value::as_u64)
-                .unwrap_or(256) as usize;
+                .unwrap_or(256)
+                .min(MAX_NEW_TOKENS_LIMIT) as usize;
 
             let output = tokio::task::spawn_blocking(move || engine(&prompt, max_tokens))
                 .await
@@ -314,6 +460,12 @@ async fn call_tool(
             let doc_cid   = get_str("doc_cid")?;
             let model_cid = get_str("model_cid")?;
             let graph     = get_str("graph")?;
+
+            const MAX_EMBED_TEXT_LEN: usize = 64 * 1024;
+            if text.len() > MAX_EMBED_TEXT_LEN {
+                return Err((ERR_INVALID_PARAMS,
+                    format!("text too large ({} bytes, limit {MAX_EMBED_TEXT_LEN})", text.len())));
+            }
 
             let doc_cid   = KotobaCid::from_bytes(doc_cid.as_bytes());
             let model_cid = KotobaCid::from_bytes(model_cid.as_bytes());
@@ -361,6 +513,11 @@ async fn call_tool(
                 .map(|a| a.iter().filter_map(|v| v.as_u64().map(|n| n as u32)).collect())
                 .unwrap_or_default();
 
+            const MAX_WEIGHT_B64_LEN: usize = 512 * 1024 * 1024;
+            if data_b64.len() > MAX_WEIGHT_B64_LEN {
+                return Err((ERR_INVALID_PARAMS,
+                    format!("data_b64 too large ({} bytes, limit {MAX_WEIGHT_B64_LEN})", data_b64.len())));
+            }
             let bytes = B64.decode(&data_b64)
                 .map_err(|e| (ERR_INVALID_PARAMS, e.to_string()))?;
 
@@ -409,6 +566,11 @@ async fn call_tool(
                 .and_then(Value::as_u64)
                 .ok_or_else(|| (ERR_INVALID_PARAMS, "missing required field: rank".into()))? as u32;
 
+            const MAX_ADAPTER_B64_LEN: usize = 128 * 1024 * 1024;
+            if adapter_b64.len() > MAX_ADAPTER_B64_LEN {
+                return Err((ERR_INVALID_PARAMS,
+                    format!("adapter_b64 too large ({} bytes, limit {MAX_ADAPTER_B64_LEN})", adapter_b64.len())));
+            }
             let bytes = B64.decode(&adapter_b64)
                 .map_err(|e| (ERR_INVALID_PARAMS, e.to_string()))?;
 
@@ -467,8 +629,8 @@ async fn call_tool(
             entries.sort_by(|a, b| b.1.cmp(&a.1));
             let total = entries.len();
 
-            let vault_key = state.vault_key;
-            let emails: Vec<Value> = entries.into_iter().skip(offset).take(limit).map(|(cid_mb, date)| {
+            let mut emails: Vec<Value> = Vec::new();
+            for (cid_mb, date) in entries.into_iter().skip(offset).take(limit) {
                 let get_text = |pred: &str| -> String {
                     if let Some(cid) = kotoba_core::cid::KotobaCid::from_multibase(&cid_mb) {
                         arrangement.get_objects(&cid, pred)
@@ -481,17 +643,18 @@ async fn call_tool(
                 let subject_enc = get_text("email/subject");
                 let from_enc    = get_text("email/from");
 
-                let subject = vault_key.as_ref()
-                    .and_then(|k| kotoba_crypto::envelope::decrypt_field(k, &subject_enc).ok())
-                    .and_then(|b| String::from_utf8(b).ok())
-                    .unwrap_or(subject_enc);
-                let from = vault_key.as_ref()
-                    .and_then(|k| kotoba_crypto::envelope::decrypt_field(k, &from_enc).ok())
-                    .and_then(|b| String::from_utf8(b).ok())
-                    .unwrap_or(from_enc);
+                let (subject, from) = if let Some(ref crypto) = state.crypto {
+                    let s = crypto.open_field(b"email/subject", &subject_enc).await
+                        .unwrap_or_else(|_| subject_enc.clone());
+                    let f = crypto.open_field(b"email/from", &from_enc).await
+                        .unwrap_or_else(|_| from_enc.clone());
+                    (s, f)
+                } else {
+                    (subject_enc, from_enc)
+                };
 
-                json!({ "cid": cid_mb, "date": date, "message_id": message_id, "subject": subject, "from": from })
-            }).collect();
+                emails.push(json!({ "cid": cid_mb, "date": date, "message_id": message_id, "subject": subject, "from": from }));
+            }
 
             Ok(json!({ "emails": emails, "total": total, "offset": offset, "limit": limit }))
         }
@@ -504,8 +667,8 @@ async fn call_tool(
             let email_cid_str = get_str("email_cid")?;
             let owner_did     = get_str("owner_did")?;
 
-            let vault_key = state.vault_key.ok_or_else(|| {
-                (ERR_INTERNAL, "vault_key not configured (set KOTOBA_VAULT_KEY)".to_string())
+            let crypto = state.crypto.as_ref().ok_or_else(|| {
+                (ERR_INTERNAL, "crypto not initialised".to_string())
             })?;
 
             let graph_cid = graph_cid_for(&owner_did);
@@ -522,36 +685,288 @@ async fn call_tool(
                     .unwrap_or_default()
             };
 
-            // body_cid → SecureVault decrypt
+            // body_cid → Vault decrypt via AgentCrypto
             let body_cid_str = get_text("email/body_cid");
             if body_cid_str.is_empty() {
                 return Err((ERR_NOT_FOUND, "email/body_cid not found".to_string()));
             }
             let blob_cid = kotoba_core::cid::KotobaCid::from_multibase(&body_cid_str)
                 .ok_or_else(|| (ERR_INTERNAL, "invalid body_cid multibase".to_string()))?;
-            let blob_ref  = kotoba_kse::BlobRef { cid: blob_cid, size: 0 };
-            let body_bytes = state.secure_vault.get(&vault_key, &blob_ref).await
-                .map_err(|e| (ERR_INTERNAL, format!("vault decrypt: {e}")))?
+            let enc_bytes = state.vault.get(&blob_cid).await
                 .ok_or_else(|| (ERR_NOT_FOUND, "body blob not found in vault".to_string()))?;
-            let body = String::from_utf8_lossy(&body_bytes).into_owned();
+            let body_pt = crypto.decrypt_blob(&enc_bytes).await
+                .map_err(|e| (ERR_INTERNAL, format!("decrypt body: {e}")))?;
+            let body = String::from_utf8_lossy(&body_pt).into_owned();
 
-            let dec = |pred: &str| -> String {
-                let enc = get_text(pred);
-                kotoba_crypto::envelope::decrypt_field(&vault_key, &enc)
-                    .ok().and_then(|b| String::from_utf8(b).ok()).unwrap_or(enc)
+            let open_f = |scope: &'static [u8], enc: String| {
+                let cr = Arc::clone(crypto);
+                async move {
+                    if enc.starts_with("signal:v1:") {
+                        cr.open_field(scope, &enc).await.unwrap_or(enc)
+                    } else { enc }
+                }
             };
-            let plain = |pred: &str| -> String { get_text(pred) };
 
             Ok(json!({
                 "email_cid":  email_cid_str,
-                "message_id": plain("email/message_id"),
-                "from":       dec("email/from"),
-                "to":         dec("email/to"),
-                "subject":    dec("email/subject"),
-                "date":       plain("email/date"),
-                "thread_id":  plain("email/thread_id"),
+                "message_id": get_text("email/message_id"),
+                "from":       open_f(b"email/from",    get_text("email/from")).await,
+                "to":         open_f(b"email/to",      get_text("email/to")).await,
+                "subject":    open_f(b"email/subject", get_text("email/subject")).await,
+                "date":       get_text("email/date"),
+                "thread_id":  get_text("email/thread_id"),
                 "body":       body,
             }))
+        }
+
+        // ── kotoba_wasm_run ──────────────────────────────────────────────────
+        MCP_TOOL_WASM_RUN => {
+            use base64::{Engine as _, engine::general_purpose::STANDARD as B64};
+            use kotoba_vm::WasmPregelRunner;
+
+            let wasm_b64     = get_str("wasm_b64")?;
+            let agent_did    = get_str("agent_did")?;
+            let ctx_b64      = get_str("ctx_cbor_b64")?;
+            const MAX_SUPERSTEPS: u64 = 256;
+            const MAX_WASM_B64_LEN: usize = 50 * 1024 * 1024;
+            const MAX_CTX_B64_LEN:  usize = 1 * 1024 * 1024;
+            let max_ss       = args.get("max_supersteps")
+                .and_then(Value::as_u64)
+                .unwrap_or(32)
+                .min(MAX_SUPERSTEPS) as u32;
+
+            if wasm_b64.len() > MAX_WASM_B64_LEN {
+                return Err((ERR_INVALID_PARAMS,
+                    format!("wasm_b64 too large ({} bytes, limit {MAX_WASM_B64_LEN})", wasm_b64.len())));
+            }
+            if ctx_b64.len() > MAX_CTX_B64_LEN {
+                return Err((ERR_INVALID_PARAMS,
+                    format!("ctx_cbor_b64 too large ({} bytes, limit {MAX_CTX_B64_LEN})", ctx_b64.len())));
+            }
+            let wasm_bytes = B64.decode(&wasm_b64)
+                .map_err(|e| (ERR_INVALID_PARAMS, format!("invalid wasm_b64: {e}")))?;
+            let ctx_cbor = B64.decode(&ctx_b64)
+                .map_err(|e| (ERR_INVALID_PARAMS, format!("invalid ctx_cbor_b64: {e}")))?;
+
+            let executor = Arc::clone(&state.executor);
+            let program_cid = format!("did/wasm/{agent_did}");
+
+            let runner = WasmPregelRunner::new(
+                executor,
+                &program_cid,
+                wasm_bytes,
+                &agent_did,
+                max_ss,
+            );
+
+            // Run in blocking thread (wasmtime JIT is CPU-bound)
+            let result = tokio::task::spawn_blocking(move || runner.run(ctx_cbor))
+                .await
+                .map_err(|e| (ERR_INTERNAL, e.to_string()))?
+                .map_err(|e| (ERR_INTERNAL, format!("WasmPregelRunner: {e:?}")))?;
+
+            // Write gas consumption Quad per agent DID + provider attribution
+            {
+                use kotoba_core::cid::KotobaCid;
+                use kotoba_kqe::quad::{Quad, QuadObject};
+                let gas_graph = KotobaCid::from_bytes(b"kotoba/gas/ledger");
+                let agent_cid = KotobaCid::from_bytes(agent_did.as_bytes());
+                let gas_quad  = Quad {
+                    graph:     gas_graph.clone(),
+                    subject:   agent_cid.clone(),
+                    predicate: "gas/consumed_mkoto".to_string(),
+                    object:    QuadObject::Integer(result.total_gas_used as i64),
+                };
+                state.journal_assert(&gas_quad).await;
+                state.quad_store.assert(gas_quad).await;
+
+                // Provider attribution — identifies which compute node served this run
+                let provider_quad = Quad {
+                    graph:     gas_graph,
+                    subject:   agent_cid,
+                    predicate: "gas/provider_did".to_string(),
+                    object:    QuadObject::Text(state.operator_did.clone()),
+                };
+                state.journal_assert(&provider_quad).await;
+                state.quad_store.assert(provider_quad).await;
+            }
+
+            // Write WASM-asserted quads into the store
+            {
+                use kotoba_core::cid::KotobaCid;
+                use kotoba_kqe::quad::{Quad, QuadObject};
+                for sq in &result.assert_quads {
+                    let quad = Quad {
+                        graph:     KotobaCid::from_bytes(sq.graph.as_bytes()),
+                        subject:   KotobaCid::from_bytes(sq.subject.as_bytes()),
+                        predicate: sq.predicate.clone(),
+                        object:    QuadObject::Bytes(sq.object_cbor.clone()),
+                    };
+                    state.journal_assert(&quad).await;
+                    state.quad_store.assert(quad).await;
+                }
+            }
+
+            let output_b64 = B64.encode(&result.final_output_cbor);
+            Ok(json!({
+                "status":           "ok",
+                "supersteps_run":   result.supersteps_run,
+                "total_gas_used":   result.total_gas_used,
+                "assert_quads":     result.assert_quads.len(),
+                "output_cbor_b64":  output_b64,
+            }))
+        }
+
+        // ── kotoba_datalog_run ───────────────────────────────────────────────
+        MCP_TOOL_DATALOG_RUN => {
+            use kotoba_core::cid::KotobaCid;
+            use kotoba_kqe::{CitationLedger, DatalogProgram, DatalogRule};
+            use kotoba_kqe::delta::Delta;
+
+            let graph_str      = get_str("graph")?;
+            let epoch_pool     = args.get("epoch_pool_koto")
+                .and_then(Value::as_u64)
+                .unwrap_or(1_000_000); // default 1 KOTO
+
+            // Deserialize rules array
+            let rules: Vec<DatalogRule> = match args.get("rules") {
+                Some(r) => serde_json::from_value(r.clone())
+                    .map_err(|e| (ERR_INVALID_PARAMS, format!("invalid rules: {e}")))?,
+                None => return Err((ERR_INVALID_PARAMS, "missing required field: rules".into())),
+            };
+
+            let graph_cid = KotobaCid::from_bytes(graph_str.as_bytes());
+
+            // Load arrangement from QuadStore
+            let arrangement = match state.quad_store.arrangement(&graph_cid).await {
+                None => return Ok(json!({
+                    "derived": [], "citations": 0, "royalty_quads": 0
+                })),
+                Some(a) => a,
+            };
+
+            // Convert arrangement quads to input Deltas
+            let input_deltas: Vec<Delta> = arrangement
+                .quads(&graph_cid)
+                .into_iter()
+                .map(Delta::assert)
+                .collect();
+
+            let mut program = DatalogProgram::new();
+            for rule in rules {
+                program.add_rule(rule);
+            }
+
+            // Evaluate with citation tracking (CPU-bound in spawn_blocking)
+            let (derived, ledger) = tokio::task::spawn_blocking(move || {
+                let mut ledger = CitationLedger::new();
+                let derived = program.evaluate_delta_cited(&input_deltas, &mut ledger);
+                (derived, ledger)
+            })
+            .await
+            .map_err(|e| (ERR_INTERNAL, e.to_string()))?;
+
+            let citation_count = ledger.total_citations();
+            let epoch          = ledger.epoch();
+
+            // Flush epoch → royalty Quads → QuadStore
+            let entries       = { let mut l = ledger; l.flush_epoch(epoch_pool) };
+            let royalty_quads = CitationLedger::royalty_quads(&entries, epoch);
+            let royalty_count = royalty_quads.len();
+
+            for rq in royalty_quads {
+                state.journal_assert(&rq).await;
+                state.quad_store.assert(rq).await;
+            }
+
+            // Pin provider attribution — identifies which pin node served this query
+            {
+                use kotoba_kqe::quad::{Quad, QuadObject};
+                let ledger_graph  = KotobaCid::from_bytes(
+                    format!("kotoba/ledger/epoch/{epoch}").as_bytes()
+                );
+                let provider_cid  = KotobaCid::from_bytes(state.operator_did.as_bytes());
+                let provider_quad = Quad {
+                    graph:     ledger_graph,
+                    subject:   provider_cid,
+                    predicate: "provider/did".to_string(),
+                    object:    QuadObject::Text(state.operator_did.clone()),
+                };
+                state.journal_assert(&provider_quad).await;
+                state.quad_store.assert(provider_quad).await;
+            }
+
+            // Write derived facts into the store
+            let derived_count = derived.len();
+            for d in &derived {
+                state.quad_store.assert(d.quad.clone()).await;
+            }
+
+            Ok(json!({
+                "status":        "ok",
+                "derived":       derived_count,
+                "citations":     citation_count,
+                "royalty_quads": royalty_count,
+                "epoch":         epoch,
+            }))
+        }
+
+        // ── kotoba_node_info ─────────────────────────────────────────────────
+        MCP_TOOL_NODE_INFO => {
+            use crate::server::NodeRole;
+            let roles: Vec<&str> = state.node_roles.iter().map(NodeRole::as_str).collect();
+            let node_id_hex = hex::encode(state.local_node_id.0);
+            let peer_count  = state.neighborhood.read().await.peers.len();
+            Ok(json!({
+                "did":          state.operator_did,
+                "node_id_hex":  node_id_hex,
+                "version":      state.version,
+                "roles":        roles,
+                "ephemeral":    state.is_ephemeral(),
+                "peer_count":   peer_count,
+            }))
+        }
+
+        // ── kotoba_node_register ─────────────────────────────────────────────
+        MCP_TOOL_NODE_REGISTER => {
+            state.register_node().await;
+            Ok(json!({
+                "status":       "ok",
+                "operator_did": state.operator_did,
+            }))
+        }
+
+        // ── kotoba_network_peers ─────────────────────────────────────────────
+        MCP_TOOL_NETWORK_PEERS => {
+            let nb = state.neighborhood.read().await;
+            let local_hex = hex::encode(nb.local.0);
+            let peers: Vec<Value> = nb.peers.iter()
+                .map(|p| json!({ "node_id_hex": hex::encode(p.0) }))
+                .collect();
+            Ok(json!({
+                "local_node_id_hex": local_hex,
+                "peer_count":        peers.len(),
+                "peers":             peers,
+            }))
+        }
+
+        // ── kotoba_graph_gc ──────────────────────────────────────────────────
+        MCP_TOOL_GRAPH_GC => {
+            let deleted = state.quad_store
+                .gc_dead_blocks()
+                .await
+                .map_err(|e| (ERR_INTERNAL, e.to_string()))?;
+            Ok(json!({ "status": "ok", "deleted_blocks": deleted }))
+        }
+
+        // ── kotoba_commit_prune ──────────────────────────────────────────────
+        MCP_TOOL_COMMIT_PRUNE => {
+            let before_seq = args.get("before_seq")
+                .and_then(Value::as_u64)
+                .ok_or_else(|| (ERR_INVALID_PARAMS, "missing required field: before_seq".into()))?;
+            let pruned   = state.quad_store.prune_old_commits(before_seq).await;
+            let dag_size = state.quad_store.commit_dag_size().await;
+            Ok(json!({ "status": "ok", "pruned_commits": pruned, "dag_size": dag_size }))
         }
 
         other => Err((ERR_NOT_FOUND, format!("unknown tool: {other}"))),
@@ -660,10 +1075,10 @@ mod tests {
     use super::*;
 
     #[test]
-    fn tools_list_contains_all_eight() {
+    fn tools_list_contains_all() {
         let list = tools_list();
         let tools = list["tools"].as_array().expect("tools array");
-        assert_eq!(tools.len(), 8);
+        assert_eq!(tools.len(), 15);
         let names: Vec<&str> = tools.iter()
             .map(|t| t["name"].as_str().unwrap())
             .collect();
@@ -673,6 +1088,13 @@ mod tests {
         assert!(names.contains(&MCP_TOOL_EMBED_CREATE));
         assert!(names.contains(&MCP_TOOL_WEIGHT_PUT));
         assert!(names.contains(&MCP_TOOL_LORA_APPLY));
+        assert!(names.contains(&MCP_TOOL_WASM_RUN));
+        assert!(names.contains(&MCP_TOOL_DATALOG_RUN));
+        assert!(names.contains(&MCP_TOOL_NODE_INFO));
+        assert!(names.contains(&MCP_TOOL_NODE_REGISTER));
+        assert!(names.contains(&MCP_TOOL_NETWORK_PEERS));
+        assert!(names.contains(&MCP_TOOL_GRAPH_GC));
+        assert!(names.contains(&MCP_TOOL_COMMIT_PRUNE));
     }
 
     #[test]
@@ -770,6 +1192,23 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn call_tool_quad_create_oversized_field_errors() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let big = "x".repeat(4097);
+        let result = call_tool(MCP_TOOL_QUAD_CREATE, &json!({
+            "graph":     "g",
+            "subject":   big,
+            "predicate": "p",
+            "object":    "o"
+        }), &state).await;
+        let (code, msg) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS);
+        assert!(msg.contains("too large"), "expected 'too large' in: {msg}");
+    }
+
+    #[tokio::test]
     async fn call_tool_graph_query_empty_graph() {
         let state = Arc::new(
             crate::server::KotobaState::new(None).expect("state")
@@ -780,5 +1219,79 @@ mod tests {
         assert!(result.is_ok());
         let v = result.unwrap();
         assert_eq!(v["count"], 0);
+    }
+
+    #[tokio::test]
+    async fn graph_query_avet_predicate_prefix_returns_matching_quads() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        // Seed two quads with predicate "weight/layer/0" and one with "other"
+        for (pred, obj) in [("weight/layer/0", "val0"), ("weight/layer/1", "val1"), ("other", "x")] {
+            call_tool(MCP_TOOL_QUAD_CREATE, &json!({
+                "graph": "g", "subject": "model", "predicate": pred, "object": obj
+            }), &state).await.unwrap();
+        }
+        // AVET prefix scan should return only the two weight quads
+        let v = call_tool(MCP_TOOL_GRAPH_QUERY, &json!({
+            "graph": "g",
+            "predicate_prefix": "weight/"
+        }), &state).await.unwrap();
+        assert_eq!(v["count"], 2, "prefix scan should return 2 weight quads, got {v}");
+    }
+
+    #[tokio::test]
+    async fn graph_query_avet_predicate_object_returns_subjects() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        // Seed: alice knows bob, carol knows bob, dave knows eve
+        for (s, o) in [("alice", "bob"), ("carol", "bob"), ("dave", "eve")] {
+            call_tool(MCP_TOOL_QUAD_CREATE, &json!({
+                "graph": "g2", "subject": s, "predicate": "knows", "object": o
+            }), &state).await.unwrap();
+        }
+        // AVET P+O→S: who knows bob?
+        let v = call_tool(MCP_TOOL_GRAPH_QUERY, &json!({
+            "graph": "g2",
+            "predicate": "knows",
+            "object": "bob"
+        }), &state).await.unwrap();
+        assert_eq!(v["count"], 2, "should find alice and carol, got {v}");
+    }
+
+    #[tokio::test]
+    async fn graph_gc_returns_ok_with_deleted_count() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        // Fresh store has no committed blocks — GC should delete 0 and succeed.
+        let v = call_tool(MCP_TOOL_GRAPH_GC, &json!({}), &state).await.unwrap();
+        assert_eq!(v["status"], "ok");
+        assert!(v["deleted_blocks"].as_u64().is_some(), "deleted_blocks must be a number");
+    }
+
+    #[tokio::test]
+    async fn commit_prune_returns_ok_with_counts() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        // Fresh store — no commits yet; prune with before_seq=0 removes nothing.
+        let v = call_tool(MCP_TOOL_COMMIT_PRUNE, &json!({ "before_seq": 0 }), &state)
+            .await
+            .unwrap();
+        assert_eq!(v["status"], "ok");
+        assert_eq!(v["pruned_commits"].as_u64().unwrap(), 0);
+        assert!(v["dag_size"].as_u64().is_some(), "dag_size must be a number");
+    }
+
+    #[tokio::test]
+    async fn commit_prune_missing_before_seq_errors() {
+        let state = Arc::new(
+            crate::server::KotobaState::new(None).expect("state")
+        );
+        let result = call_tool(MCP_TOOL_COMMIT_PRUNE, &json!({}), &state).await;
+        let (code, _) = result.unwrap_err();
+        assert_eq!(code, ERR_INVALID_PARAMS);
     }
 }

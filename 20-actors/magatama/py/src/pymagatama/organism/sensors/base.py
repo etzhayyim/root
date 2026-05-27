@@ -156,6 +156,65 @@ def make_observation(
     )
 
 
+def stream_bounded(
+    sensor: DatasetSensor,
+    pin: DatasetPin,
+    limit: int,
+) -> Iterator[SensorObservation]:
+    """Yield at most ``limit`` observations from any DatasetSensor.
+
+    Heartbeat-friendly bounded sampling helper (introduced 2026-05-27
+    after the W2 RIPE-RIS perf measurement showed unbounded
+    ``hot_sample`` taking minutes on multi-GB BGP archives). Operates
+    on any sensor implementing the ``DatasetSensor`` Protocol —
+    callers don't need a sensor-specific specialization.
+
+    The sample is **head-biased**: it returns the first ``limit``
+    records the sensor's ``stream()`` emits. Suitable for cadence-
+    driven organism polls (situational awareness). NOT suitable for
+    unbiased cold-path corpus assembly — use the sensor's
+    ``hot_sample(pin, n)`` (reservoir over full file) there.
+
+    Performance budget (measured 2026-05-27):
+      - NDJSON sensors (rir_delegated, iana_root, OSM, CAIDA):
+        ~400-500K obs/s. ``limit=1000`` ≈ 2-5ms.
+      - MRT sensors (RIPE-RIS, Routeviews via mrtparse):
+        ~15K obs/s. ``limit=1000`` ≈ 70ms; ``limit=10000`` ≈ 700ms.
+      - Parquet sensors (OpenINTEL via pyarrow):
+        pyarrow chunks at ~100K rows/batch; ``limit=1000`` ≈ 10ms.
+    """
+    import itertools
+    return itertools.islice(sensor.stream(pin), limit)
+
+
+def hot_sample_bounded(
+    sensor: DatasetSensor,
+    pin: DatasetPin,
+    n: int,
+    max_iter: int,
+) -> list[SensorObservation]:
+    """Reservoir-sample ``n`` from the first ``max_iter`` records.
+
+    Generic bounded version of any sensor's ``hot_sample``. Trades
+    uniform sampling over the entire backing file for bounded latency
+    — heartbeat callers pick ``max_iter`` to fit their tick budget.
+
+    G9 determinism: same (pin.revision, n, max_iter, sensor.name)
+    seed key → identical reservoir result.
+    """
+    import random
+    rng = random.Random(f"{pin.revision}:{n}:{max_iter}:{sensor.name}")
+    reservoir: list[SensorObservation] = []
+    for i, obs in enumerate(stream_bounded(sensor, pin, max_iter)):
+        if i < n:
+            reservoir.append(obs)
+        else:
+            j = rng.randint(0, i)
+            if j < n:
+                reservoir[j] = obs
+    return reservoir
+
+
 __all__ = [
     "DatasetPin",
     "DatasetSensor",
@@ -163,6 +222,8 @@ __all__ = [
     "SensorObservation",
     "StaticPinResolver",
     "Tier",
+    "hot_sample_bounded",
     "make_observation",
     "now_ms",
+    "stream_bounded",
 ]

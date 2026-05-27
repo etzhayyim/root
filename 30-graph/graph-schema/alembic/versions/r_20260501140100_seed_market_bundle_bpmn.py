@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
                  '  written by handleSettleInvoice at POST time (settlement_tx_hash\n'
                  "  starts as 'anchor:sha256:...'), so this BPMN's only job is the\n"
                  '  status flip (PK overwrite using INSERT, since RW does not support\n'
-                 '  UPDATE on regular tables — record-log semantics, ADR-2604240000).\n'
+                 '  UPDATE on regular tables — record-log semantics, ADR-2604251220).\n'
                  '\n'
                  '  Phase 1.3 will replace this with a real ERC-4337 bundler call that\n'
                  '  produces a userOpHash and submits to a public bundler endpoint.\n'

@@ -174,7 +174,52 @@ class RisRoutingSensor:
                     payload=row,
                 )
 
+    def stream_bounded(
+        self, pin: DatasetPin, limit: int
+    ) -> Iterator[SensorObservation]:
+        """Yield at most ``limit`` observations, then stop.
+
+        Forward to the generic ``base.stream_bounded`` helper. Kept as
+        a thin wrapper for API compatibility — callers who already
+        depend on ``sensor.stream_bounded(...)`` continue to work.
+        New code should prefer the free function
+        ``pymagatama.organism.sensors.base.stream_bounded(sensor,
+        pin, limit)`` which works uniformly across all sensors.
+        """
+        from .base import stream_bounded as _gen_stream_bounded
+        return _gen_stream_bounded(self, pin, limit)
+
+    def hot_sample_bounded(
+        self, pin: DatasetPin, n: int, max_iter: int
+    ) -> list[SensorObservation]:
+        """Reservoir-sample ``n`` from the first ``max_iter`` records.
+
+        Forward to the generic ``base.hot_sample_bounded`` helper.
+
+        NOTE: G9 seed key differs from the original per-class
+        implementation — the generic helper includes
+        ``sensor.name`` in the seed so two different sensors with
+        the same revision+n+max_iter still produce independent
+        samples. Tests that pinned exact reservoir outputs against
+        the old key need a one-time refresh; the determinism
+        property itself is preserved.
+        """
+        from .base import hot_sample_bounded as _gen_hot_sample_bounded
+        return _gen_hot_sample_bounded(self, pin, n, max_iter)
+
     def hot_sample(self, pin: DatasetPin, n: int) -> list[SensorObservation]:
+        # Performance note (measured 2026-05-27 on mac-260317, real
+        # 421 MB RIPE-RIS rrc00 bview): mrtparse + this reservoir loop
+        # streams ~15K observations/second. A full bview has roughly
+        # 5-10M RIB entries, so a complete reservoir sample takes
+        # several minutes. For the heartbeat hot-path, callers SHOULD
+        # use a much smaller bounded prefix-iteration strategy. A
+        # follow-up wave will add ``stream_prefix(limit)`` that
+        # early-exits after N records (uniform near the head; biased
+        # toward early peers but suitable for tick-cadence sampling).
+        # Until then, ``hot_sample`` on RIPE-RIS / Routeviews should
+        # be reserved for cold-path corpus assembly, not organism
+        # heartbeats.
         rng = random.Random(f"{pin.revision}:{n}")
         reservoir: list[SensorObservation] = []
         for i, obs in enumerate(self.stream(pin)):

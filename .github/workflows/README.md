@@ -48,12 +48,30 @@ Triggered on **push to main + PR to main + manual `workflow_dispatch`** when any
 
 **See also:** ADR-2605264300 (SDK three.js-free cutover) + ADR-2605265200 (20-actors duplicate retirement). Both ADRs' "CI regression-test addendum" §refers to this workflow.
 
-## Other workflows
+## audit-health.yml
 
-- **`council-nomination-watch.yml`** — watches PRs for Bootstrap Council Seat 2-5 nomination updates (ADR-2605192300).
-- **`openot-gate-c.yml`** — Open-OT Gate C deployment validation.
-- **`pymagatama-image.yml`** — builds the `pymagatama` container image on changes under `20-actors/magatama/py/`.
-- **`yorishiro-audit.yml`** — auditing for the yorishiro generator (ADR-2605211900).
+Triggered on **push to main + PR to main + manual `workflow_dispatch`** when `.github/dependabot.yml`, `.github/workflows/audit-health.yml`, `70-tools/scripts/audit/**`, the SDK's `package.json`, or any `.gitrepo` file changes.
+
+**Job:**
+- `monorepo-health` — runs `bash 70-tools/scripts/audit/all.sh` (the 4-script aggregator from iter-30/31/32 of /loop). Reports total findings vs. the documented baseline of 25 (0 dependabot + 0 SDK exports/dist + 7 stale subrepo URLs + 18 kotoba escape-symlinks). Non-strict by default — known-deferred findings (ADR-2605211845 + ADR-2605262130) don't fail PRs; new drift surfaces in the job summary for reviewer attention.
+
+**Purpose:** structural drift detection. When the documented findings are resolved (kotoba upstream symlink coordination + per-app `.gitrepo` decision), the workflow's strict-mode flag can be enabled to gate against re-introduction.
+
+## council-nomination-watch.yml
+
+Watches PRs for Bootstrap Council Seat 2-5 nomination updates per ADR-2605192300. Adds a check that the 30-day public objection period is honored before merge of Council Lv7+ amendments.
+
+## openot-gate-c.yml
+
+Open-OT (`60-apps/ai-gftd-project-open-ot/`) Gate C deployment validation per the open-ot ADR series.
+
+## pymagatama-image.yml
+
+Builds the `pymagatama` container image when changes land under `20-actors/magatama/py/`.
+
+## yorishiro-audit.yml
+
+Auditing for the yorishiro generator (`70-tools/etzhayyim-cli/yorishiro/`) emitted MCP servers (ADR-2605211900).
 
 ## Adding a new actor
 

@@ -38,7 +38,18 @@ on:
   #   - debugging — re-running with debug logging enabled
   # No inputs required; the workflow runs against the branch from which
   # it was dispatched.
-  workflow_dispatch: {}
+  #
+  # NOTE: GitHub Actions requires workflow_dispatch-triggerable workflows
+  # to exist on the **default branch** (`main`). Dispatching from a
+  # feature branch via `gh workflow run … --ref <feat-branch>` fails
+  # with HTTP 500 until the workflow file has merged to `main` at least
+  # once. After the first merge, `--ref` dispatch against feature
+  # branches works as documented. Normalized the trigger value from
+  # `workflow_dispatch: {}` to `workflow_dispatch:` to match the
+  # convention used by sibling workflows (e.g., pymagatama-image.yml);
+  # the two forms are equivalent at the YAML layer but the no-`{}`
+  # form is the GitHub Actions docs-default.
+  workflow_dispatch:
 
 permissions:
   contents: read

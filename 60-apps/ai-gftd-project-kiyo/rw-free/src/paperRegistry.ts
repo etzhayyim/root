@@ -10,7 +10,7 @@
  *   submitRevision   — new paper record with prevRevisionPaperId chain link
  *
  * Idempotency: paper rkey = paper-{paperId-slug}. paperId follows the
- * convention `kiyo:{YYYY}:{TID}` per ADR-2604300000.
+ * convention `kiyo:{YYYY}:{TID}` per `60-apps/ai-gftd-project-kiyo/CLAUDE.md`.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

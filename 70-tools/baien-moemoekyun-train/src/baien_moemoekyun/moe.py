@@ -73,9 +73,11 @@ class BaienMoEResidual(nn.Module):
         x_flat = x.reshape(-1, hidden)  # (batch*seq, hidden)
         num_tokens = x_flat.shape[0]
 
-        # Router logits + softmax
+        # Router logits + softmax — fp32 routing math prevents bf16 overflow on aux_loss
+        # (cycle 26 found bf16 routing → 36% NaN steps; fp32 cast then back stabilizes
+        # without inflating memory since router is small Linear hidden→E).
         router_logits = self.router(x_flat) / self.router_temperature  # (num_tokens, E)
-        router_probs = F.softmax(router_logits, dim=-1)  # (num_tokens, E)
+        router_probs = F.softmax(router_logits.float(), dim=-1).to(router_logits.dtype)
 
         # top-k expert selection
         topk_probs, topk_indices = torch.topk(router_probs, self.top_k, dim=-1)  # (num_tokens, k)
@@ -103,9 +105,9 @@ class BaienMoEResidual(nn.Module):
         # See Fedus et al. 2021 §4.1
         mask_per_expert = F.one_hot(topk_indices, num_classes=self.num_experts).float()  # (num_tokens, k, E)
         # fraction of tokens dispatched to each expert (across top-k positions)
-        token_frac = mask_per_expert.sum(dim=(0, 1)) / (num_tokens * self.top_k)  # (E,)
-        # mean router probability per expert (over all tokens)
-        prob_frac = router_probs.mean(dim=0)  # (E,)
+        token_frac = mask_per_expert.sum(dim=(0, 1)) / (num_tokens * self.top_k)  # (E,) fp32
+        # mean router probability per expert (over all tokens) — fp32 to avoid bf16 overflow
+        prob_frac = router_probs.float().mean(dim=0)  # (E,) fp32
         aux_loss = self.num_experts * (token_frac * prob_frac).sum()
 
         return output.reshape(batch, seq, hidden), aux_loss

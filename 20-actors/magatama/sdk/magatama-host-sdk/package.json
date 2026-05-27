@@ -35,6 +35,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@etzhayyim/sdk": "workspace:*",
     "@etzhayyim/did-etzhayyim": "workspace:*",
     "@etzhayyim/graph-schema": "workspace:*",
     "@etzhayyim/xrpc": "workspace:*",

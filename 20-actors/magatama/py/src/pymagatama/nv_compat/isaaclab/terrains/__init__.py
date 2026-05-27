@@ -13,9 +13,23 @@ Provided terrain types (R1.x scope):
   - stepping_stones       — sparse raised circles (foothold precision)
   - discrete_obstacles    — random raised boxes (obstacle avoidance)
 
+TerrainImporter:
+  - TerrainImporterCfg / TerrainImporter — declarative terrain loader
+    (plane/heightfield/generator/usd); composes per-env origin grid for
+    parallel envs + curriculum-level tracking for legged-locomotion
+    training.
+  - TerrainGeneratorCfg / TerrainSubTerrainCfg — grid of sub-terrains
+    assembled from the above generators.
+
 stdlib-only.
 """
 
+from .importer import (
+    TerrainGeneratorCfg,
+    TerrainImporter,
+    TerrainImporterCfg,
+    TerrainSubTerrainCfg,
+)
 from .terrain_generator import (
     HeightField,
     discrete_obstacles_terrain,
@@ -34,4 +48,6 @@ __all__ = [
     "pyramid_sloped_terrain",
     "stepping_stones_terrain",
     "discrete_obstacles_terrain",
+    "TerrainImporterCfg", "TerrainImporter",
+    "TerrainGeneratorCfg", "TerrainSubTerrainCfg",
 ]

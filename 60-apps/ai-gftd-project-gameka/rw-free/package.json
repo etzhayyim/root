@@ -1,6 +1,7 @@
 {
   "name": "@etzhayyim/gameka-rw-free",
   "version": "1.0.0",
+  "license": "Apache-2.0",
   "description": "Phase E Option B rw-free reference impl for gameka (game generation platform)",
   "type": "module",
   "exports": {

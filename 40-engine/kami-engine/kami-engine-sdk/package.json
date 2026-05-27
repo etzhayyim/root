@@ -1,7 +1,7 @@
 {
   "name": "@etzhayyim/kami-engine-sdk",
   "version": "0.1.0",
-  "description": "KAMI Engine SDK: Svelte 5 VRM character components, headless builders, Genko manga editor, trackpad embeds, and manufacturing planning helpers.",
+  "description": "KAMI Engine SDK: Svelte 5 VRM viewer (wgpu via WASM, three.js-free since 2026-05-26), headless builders, 3D Gaussian Splat preview bridge, headless incident-response engine, Genko manga editor, trackpad embeds, and manufacturing planning helpers.",
   "type": "module",
   "license": "Apache-2.0",
   "homepage": "https://github.com/etzhayyim/kami-engine-sdk#readme",
@@ -52,7 +52,7 @@
       "default": "./dist/genko/stores/doc.svelte.js"
     },
     "./genko/components": {
-      "types": "./dist/genko/components/index.d.ts",
+      "types": "./dist/genko/components/NodeTree.svelte.d.ts",
       "svelte": "./dist/genko/components/NodeTree.svelte",
       "default": "./dist/genko/components/NodeTree.svelte"
     },
@@ -79,13 +79,25 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "CHARTER-RIDER.md",
+    "CHANGELOG.md",
+    "NOTICE",
+    "SECURITY.md"
   ],
   "scripts": {
     "build": "svelte-package -i src/lib",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   },
   "peerDependencies": {
     "svelte": "^5.0.0",

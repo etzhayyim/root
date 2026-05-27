@@ -1,11 +1,11 @@
 ---
 id: adr-2605263900-public-data-open-government-ipfs-ingestion
 title: "ADR-2605263900: Global open-government-data ingestion (open-data portals / parliament / budget / procurement / statistics) via IPFS-pinned DataLad subdatasets — sibling of ADR-2605262400 + ADR-2605262800 + ADR-2605263800; powers ossekai (ADR-2605264000) information-arbitrage publication + toritate (ADR-2605262900) public-spending cross-reference + chigiri (ADR-2605262700) state-function-routing-around evidence base + manabi civic-literacy curriculum + baien-distill civic-reasoning specialist artifacts"
-status: proposed
+status: w1-impl-landed
 doc_type: adr
 topic: public-data-open-government-r0
 authoritative: true
-last_verified: 2026-05-26
+last_verified: 2026-05-27
 priority: 6.0
 axis: information-symmetry
 weight: 0.55

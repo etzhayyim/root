@@ -16,6 +16,7 @@ RewardType = Literal["like", "love"]
 
 _MAX_COMMITS = 100
 _MAX_REACTIONS = 50
+_MAX_OBSERVATIONS = 100
 
 
 @dataclass
@@ -68,9 +69,66 @@ class InboxBuffer:
 
     inbound_commits: list[InboundCommit] = field(default_factory=list)
     reactions: list[InboundReaction] = field(default_factory=list)
+    observations: list["Observation"] = field(default_factory=list)
     prev_joucho: "object | None" = None  # JouchoScores at last tick (avoid cyclic import)
     follower_snapshots: dict[str, FollowerSnapshot] = field(default_factory=dict)
     profile_incomplete: bool = False
+
+    def push(self, observation: 'str | "Observation"') -> None:
+        import time
+
+        if isinstance(observation, str):
+            from pymagatama.organism.observation import TextObservation
+            obs = TextObservation(
+                actorDid="",
+                createdAt=int(time.time() * 1000),
+                tier="A",
+                text=observation,
+            )
+        else:
+            obs = observation
+
+        # tier == "C" -> bind internal_only=True flag
+        if obs.tier == "C":
+            obs.internal_only = True
+
+        self.observations.append(obs)
+        if len(self.observations) > _MAX_OBSERVATIONS:
+            del self.observations[: len(self.observations) - _MAX_OBSERVATIONS]
+
+    def ingest_message(self, message: "OrganismMessage") -> None:
+        """Convert an OrganismMessage into a TextObservation and push it to the buffer."""
+        import time
+        from pymagatama.organism.observation import TextObservation
+
+        obs = TextObservation(
+            actorDid=message.actor_did,
+            createdAt=int(time.time() * 1000),
+            tier="A",
+            text=message.text,
+        )
+        if message.thread_id is not None:
+            # We use BaseModel's extra="allow" to attach arbitrary fields like metadata
+            obs.metadata = {"thread_id": message.thread_id}
+
+        self.push(obs)
+
+    def flush_to_warm(self, memory: "MemoryPersistence") -> list[str]:
+        """Flush old observations to warm storage if capacity exceeds 75%.
+        Keeps the newest 25% in the hot buffer to maintain context.
+        """
+        threshold = int(_MAX_OBSERVATIONS * 0.75)
+        keep_count = int(_MAX_OBSERVATIONS * 0.25)
+
+        if len(self.observations) > threshold:
+            flush_count = len(self.observations) - keep_count
+            to_flush = self.observations[:flush_count]
+
+            cids = memory.warm_flush(to_flush)
+
+            self.observations = self.observations[flush_count:]
+            return cids
+        return []
 
     def add_commit(self, commit: InboundCommit) -> None:
         self.inbound_commits.append(commit)

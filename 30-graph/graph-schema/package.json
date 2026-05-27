@@ -1,6 +1,7 @@
 {
   "name": "@etzhayyim/graph-schema",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "description": "Graph schema definitions for etzhayyim graph layer (P10v2 GraphAr).",
   "type": "module",
   "main": "src/index.ts",

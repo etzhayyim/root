@@ -21,7 +21,7 @@ Council Lv6+ ratification + voluntary creditor opt-in が gate.
 
     <bpmn:serviceTask id="Task_RiteDeclaration" name="rite_declaration cell (judah)"
                       implementation="cell:rite_declaration">
-      <bpmn:documentation>Lexicon ai.gftd.apps.etzhayyim.yobel.declareRite — validate riteType, doctrinalBasis, scope. Emit pending rite MST record.</bpmn:documentation>
+      <bpmn:documentation>Lexicon app.etzhayyim.yobel.declareRite — validate riteType, doctrinalBasis, scope. Emit pending rite MST record.</bpmn:documentation>
       <bpmn:incoming>flow_to_decl_cell</bpmn:incoming>
       <bpmn:outgoing>flow_to_council_gate</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -51,7 +51,7 @@ Council Lv6+ ratification + voluntary creditor opt-in が gate.
 
     <bpmn:serviceTask id="Task_CreditorEnrollment" name="creditor_enrollment cell (gad)"
                       implementation="cell:creditor_enrollment">
-      <bpmn:documentation>Lexicon ai.gftd.apps.etzhayyim.yobel.enrollCreditor — verify ERC725 EIP-712 signedConsent, hash debts[], append-only enrollment MST. Schema gate: debts[] is read-only historical record.</bpmn:documentation>
+      <bpmn:documentation>Lexicon app.etzhayyim.yobel.enrollCreditor — verify ERC725 EIP-712 signedConsent, hash debts[], append-only enrollment MST. Schema gate: debts[] is read-only historical record.</bpmn:documentation>
       <bpmn:incoming>flow_to_creditor_cell</bpmn:incoming>
       <bpmn:outgoing>flow_creditor_done</bpmn:outgoing>
       <bpmn:multiInstanceLoopCharacteristics isSequential="false">
@@ -61,7 +61,7 @@ Council Lv6+ ratification + voluntary creditor opt-in が gate.
 
     <bpmn:serviceTask id="Task_DebtorEnrollment" name="debtor_enrollment cell (issachar)"
                       implementation="cell:debtor_enrollment">
-      <bpmn:documentation>Lexicon ai.gftd.apps.etzhayyim.yobel.enrollDebtor — verify CouncilSBT Lv1+ membership, check DMN eligibility-by-rite-type, append-only enrollment MST.</bpmn:documentation>
+      <bpmn:documentation>Lexicon app.etzhayyim.yobel.enrollDebtor — verify CouncilSBT Lv1+ membership, check DMN eligibility-by-rite-type, append-only enrollment MST.</bpmn:documentation>
       <bpmn:incoming>flow_to_debtor_cell</bpmn:incoming>
       <bpmn:outgoing>flow_debtor_done</bpmn:outgoing>
       <bpmn:multiInstanceLoopCharacteristics isSequential="false">
@@ -77,7 +77,7 @@ Council Lv6+ ratification + voluntary creditor opt-in が gate.
 
     <bpmn:serviceTask id="Task_ReleaseSettlement" name="release_settlement cell (asher)"
                       implementation="cell:release_settlement">
-      <bpmn:documentation>Lexicon ai.gftd.apps.etzhayyim.yobel.recordRelease — pair (creditor, debtor) enrollment, run DMN eligibility-by-rite-type, execute Base L2 USDC release tx via ERC725 Paymaster, record releaseId + baseL2TxHash MST. Schema gate: releasedMicroUsdc ≤ debt.principalMicroUsdc + accruedMicroUsdc.</bpmn:documentation>
+      <bpmn:documentation>Lexicon app.etzhayyim.yobel.recordRelease — pair (creditor, debtor) enrollment, run DMN eligibility-by-rite-type, execute Base L2 USDC release tx via ERC725 Paymaster, record releaseId + baseL2TxHash MST. Schema gate: releasedMicroUsdc ≤ debt.principalMicroUsdc + accruedMicroUsdc.</bpmn:documentation>
       <bpmn:incoming>flow_to_release</bpmn:incoming>
       <bpmn:outgoing>flow_release_done</bpmn:outgoing>
       <bpmn:multiInstanceLoopCharacteristics isSequential="false">

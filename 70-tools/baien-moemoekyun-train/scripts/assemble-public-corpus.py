@@ -71,6 +71,9 @@ class SourceSpec:
     license: str
     weight: float
     sa_propagates: bool = False
+    max_rows: int = 0  # 0 = no cap (full file); per-source override
+    max_bytes: int = 0  # 0 = no cap (full file); per-source override
+    description: str = ""  # per-source operator-facing context (free-form)
 
 
 @dataclass
@@ -89,6 +92,7 @@ class Recipe:
     sources: list[SourceSpec]
     seed_block: SeedBlock | None = None
     recipe_path: Path | None = None
+    description: str = ""  # operator-facing context (free-form)
 
     @property
     def computed_max_tier(self) -> str:
@@ -131,6 +135,42 @@ class Recipe:
             )
         return errors
 
+    def warnings(self) -> list[str]:
+        """Non-fatal advisories. Returned alongside `validate()` errors
+        but DON'T block assembly. Mirrors the pattern of compiler
+        warnings: things the operator probably wants to know about
+        but that aren't constitutional violations.
+        """
+        warns: list[str] = []
+        # Missing seed-block file — declared weight, but the file won't
+        # contribute. Pairs with the dry-run / manifest / markdown
+        # honesty fix in commit e333b097a.
+        if (
+            self.seed_block is not None
+            and not self.seed_block.seed_path.exists()
+        ):
+            warns.append(
+                f"seed_block declares weight={self.seed_block.weight:.2f} "
+                f"but seed_path '{self.seed_block.seed_path}' doesn't exist "
+                f"on disk; assembly will silently emit ZERO seed rows for "
+                f"this block. Author the file or remove [seed_block]."
+            )
+        # Placeholder pins detected at parse time. Distinct from the
+        # hard-fail-at-assembly check in main() — surfacing here lets
+        # `--dry-run` and `--summary` show the operator the gap before
+        # they start any real work.
+        placeholders = [
+            s.subdataset for s in self.sources
+            if "PLACEHOLDER_" in s.dataset_pin_at
+        ]
+        if placeholders:
+            warns.append(
+                f"{len(placeholders)} source(s) carry placeholder "
+                f"datasetPin AT-URIs (will block actual assembly): "
+                f"{', '.join(placeholders)}"
+            )
+        return warns
+
 
 def load_recipe(path: Path) -> Recipe:
     raw = tomllib.loads(path.read_text(encoding="utf-8"))
@@ -144,6 +184,9 @@ def load_recipe(path: Path) -> Recipe:
             license=s["license"],
             weight=float(s["weight"]),
             sa_propagates=bool(s.get("sa_propagates", False)),
+            max_rows=int(s.get("max_rows", 0)),
+            max_bytes=int(s.get("max_bytes", 0)),
+            description=str(s.get("description", "")),
         )
         for s in sources_raw
     ]
@@ -163,6 +206,7 @@ def load_recipe(path: Path) -> Recipe:
         sources=sources,
         seed_block=seed_block,
         recipe_path=path,
+        description=str(raw.get("description", "")),
     )
 
 
@@ -174,23 +218,146 @@ def dry_run_summary(recipe: Recipe) -> dict[str, Any]:
     placeholders = [
         s.subdataset for s in recipe.sources if _is_placeholder(s.dataset_pin_at)
     ]
+    # Lightweight per-source preview (operator-facing). Helpful when the
+    # operator is browsing recipes via `--dry-run` and wants to see what
+    # each source actually contributes without opening the TOML.
+    sources_preview = [
+        {
+            "subdataset": s.subdataset,
+            "tier": s.tier,
+            "license": s.license,
+            "weight": s.weight,
+            "description": s.description,
+        }
+        for s in recipe.sources
+    ]
     return {
         "recipePath": str(recipe.recipe_path) if recipe.recipe_path else None,
         "targetArtifact": recipe.target_artifact,
         "outputSubdataset": recipe.output_subdataset,
+        "description": recipe.description,
+        "outputMetadata": recipe.output_metadata,
         "maxTierCap": recipe.max_tier_cap,
         "computedMaxTier": recipe.computed_max_tier,
         "sourceCount": len(recipe.sources),
+        "sources": sources_preview,
         "placeholderPins": placeholders,
+        "warnings": recipe.warnings(),
         "seedBlock": (
             {
                 "weight": recipe.seed_block.weight,
                 "seedPath": str(recipe.seed_block.seed_path),
+                # Honestly report whether the file is actually present
+                # on disk. Operators have been bitten by recipes that
+                # claim weight=0.50 seed but silently emit zero seed
+                # rows because the seed_path doesn't resolve (the
+                # assembler does an .exists() check before copying).
+                "exists": recipe.seed_block.seed_path.exists(),
             }
             if recipe.seed_block
             else None
         ),
     }
+
+
+def summary_markdown(recipe: Recipe) -> str:
+    """Render the recipe as an operator-facing markdown summary.
+
+    Consumes the operator-readability fields (top-level description +
+    output_metadata + per-source description) added in commits
+    2fbe6b4ad / 3d90961b5 / 503856f7b. Useful as `--summary` CLI
+    output or as a sidecar `.md` per recipe.
+    """
+    lines: list[str] = []
+    lines.append(f"# Recipe — {recipe.target_artifact}")
+    lines.append("")
+    if recipe.description:
+        lines.append(recipe.description)
+        lines.append("")
+
+    lines.append(f"- **Output subdataset**: `{recipe.output_subdataset}`")
+    lines.append(f"- **Max tier cap**: {recipe.max_tier_cap}")
+    lines.append(f"- **Computed max tier**: {recipe.computed_max_tier}")
+    lines.append(f"- **Source count**: {len(recipe.sources)}")
+    if recipe.recipe_path:
+        lines.append(f"- **Recipe path**: `{recipe.recipe_path}`")
+
+    if recipe.output_metadata:
+        lines.append("")
+        lines.append("## Output metadata")
+        lines.append("")
+        for k, v in recipe.output_metadata.items():
+            # Multi-line strings (e.g. existing `description = """..."""`)
+            # render as blockquotes; everything else as inline `key: value`.
+            v_str = str(v).strip()
+            if "\n" in v_str:
+                lines.append(f"**{k}**:")
+                lines.append("")
+                for line in v_str.split("\n"):
+                    lines.append(f"> {line}")
+                lines.append("")
+            else:
+                lines.append(f"- **{k}**: {v_str}")
+
+    # Surface non-fatal advisories prominently — ahead of the Sources
+    # section so an operator browsing the doc sees them first.
+    warns = recipe.warnings()
+    if warns:
+        lines.append("")
+        lines.append(
+            f"## ⚠ Issues ({len(warns)} non-fatal advisor"
+            f"{'y' if len(warns) == 1 else 'ies'})"
+        )
+        lines.append("")
+        for w in warns:
+            lines.append(f"- {w}")
+
+    lines.append("")
+    lines.append("## Sources")
+    lines.append("")
+    for i, s in enumerate(recipe.sources, 1):
+        lines.append(
+            f"### {i}. `{s.subdataset}` "
+            f"(Tier {s.tier}, weight {s.weight:.2f})"
+        )
+        lines.append("")
+        if s.description:
+            lines.append(s.description)
+            lines.append("")
+        lines.append(f"- **License**: {s.license}")
+        lines.append(f"- **Dataset pin**: `{s.dataset_pin_at}`")
+        lines.append(f"- **Shard glob**: `{s.shard_glob}`")
+        if s.sa_propagates:
+            lines.append("- **SA propagates**: yes")
+        if s.max_rows > 0:
+            lines.append(f"- **Per-source row cap**: {s.max_rows:,}")
+        if s.max_bytes > 0:
+            lines.append(f"- **Per-source byte cap**: {s.max_bytes:,}")
+        lines.append("")
+
+    if recipe.seed_block is not None:
+        exists = recipe.seed_block.seed_path.exists()
+        header = "## Seed block" if exists else "## Seed block — ⚠ MISSING"
+        lines.append(header)
+        lines.append("")
+        if not exists:
+            lines.append(
+                f"> The seed_path does not exist on disk. The assembler "
+                f"silently skips missing seed blocks, so a recipe declaring "
+                f"`weight = {recipe.seed_block.weight:.2f}` seed will in fact "
+                f"emit ZERO seed rows. Author the file or remove `[seed_block]` "
+                f"to keep the corpus honest about its composition."
+            )
+            lines.append("")
+        if recipe.seed_block.description:
+            lines.append(recipe.seed_block.description)
+            lines.append("")
+        lines.append(f"- **Weight**: {recipe.seed_block.weight:.2f}")
+        lines.append(f"- **Path**: `{recipe.seed_block.seed_path}`")
+        lines.append(f"- **Exists on disk**: {'yes' if exists else 'NO'}")
+        lines.append("")
+
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -215,10 +382,50 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument(
         "--dry-run",
         action="store_true",
-        help="Validate recipe + emit summary, do NOT resolve pins or "
-             "stream shards.",
+        help="Validate recipe + emit JSON summary, do NOT resolve pins "
+             "or stream shards.",
+    )
+    p.add_argument(
+        "--summary",
+        action="store_true",
+        help="Print an operator-facing markdown summary of the recipe "
+             "to stdout, then exit. Consumes the top-level description, "
+             "output_metadata, and per-source description fields. "
+             "Mutually exclusive with --dry-run.",
+    )
+    p.add_argument(
+        "--max-rows-per-source",
+        type=int,
+        default=0,
+        help="Cap row emission per source at N rows (head-biased; uses "
+             "itertools.islice-style early exit). 0 (default) = no cap "
+             "= full file iteration. Useful for partial corpora from "
+             "huge sources (e.g. RIPE-RIS bview NDJSON sidecars with "
+             "5-10M rows). Per-source override available via the recipe's "
+             "[[source]] `max_rows` field (takes precedence over this flag).",
+    )
+    p.add_argument(
+        "--max-bytes-per-source",
+        type=int,
+        default=0,
+        help="Cap emitted output bytes per source at N bytes (head-biased; "
+             "stops emission once total bytes written to the per-source "
+             "output shard reaches the cap, AFTER the row that crossed the "
+             "threshold is emitted). 0 (default) = no cap. Useful when an "
+             "operator has a disk-budget constraint rather than a row "
+             "count constraint (e.g. 'give me ≤10 MB of RIPE-RIS rows'). "
+             "Per-source override available via the recipe's [[source]] "
+             "`max_bytes` field (takes precedence). Both row and byte "
+             "caps can be active together — whichever fires first wins.",
     )
     args = p.parse_args(argv)
+
+    if args.summary and args.dry_run:
+        print(
+            "--summary and --dry-run are mutually exclusive; pick one.",
+            file=sys.stderr,
+        )
+        return 2
 
     recipe = load_recipe(args.recipe)
     errors = recipe.validate()
@@ -227,6 +434,15 @@ def main(argv: list[str] | None = None) -> int:
         for e in errors:
             print(f"  - {e}", file=sys.stderr)
         return 2
+
+    # Non-fatal advisories. Surfaced to stderr so they're visible at
+    # dry-run + summary time AND when piping stdout to a file.
+    for w in recipe.warnings():
+        print(f"WARN: {w}", file=sys.stderr)
+
+    if args.summary:
+        print(summary_markdown(recipe), end="")
+        return 0
 
     summary = dry_run_summary(recipe)
     print(json.dumps(summary, indent=2, ensure_ascii=False))
@@ -254,7 +470,13 @@ def main(argv: list[str] | None = None) -> int:
 
     out_dir = _resolve_out_dir(recipe, args.out_dir)
     try:
-        result = assemble(recipe, annex_root=annex_root, out_dir=out_dir)
+        result = assemble(
+            recipe,
+            annex_root=annex_root,
+            out_dir=out_dir,
+            max_rows_per_source=args.max_rows_per_source,
+            max_bytes_per_source=args.max_bytes_per_source,
+        )
     except CorpusAssemblyError as exc:
         print(f"Assembly aborted: {exc}", file=sys.stderr)
         return 6
@@ -463,7 +685,9 @@ def _emit_corpus_row(
     payload: dict,
     pin_revision: str,
     internal_only: bool,
-) -> None:
+) -> int:
+    """Write one corpus row. Returns the number of bytes written
+    (line + trailing newline). Used by the byte-cap accounting path."""
     row = {
         "v": SCHEMA_VERSION,
         "source": source.subdataset,
@@ -473,8 +697,11 @@ def _emit_corpus_row(
         "pinRevision": pin_revision,
         "payload": payload,
     }
-    out_fh.write(json.dumps(row, ensure_ascii=False, separators=(",", ":")))
+    line = json.dumps(row, ensure_ascii=False, separators=(",", ":"))
+    encoded_len = len(line.encode("utf-8")) + 1  # +1 for the trailing "\n"
+    out_fh.write(line)
     out_fh.write("\n")
+    return encoded_len
 
 
 def _slug_for(subdataset: str) -> str:
@@ -486,8 +713,23 @@ def assemble(
     *,
     annex_root: Path,
     out_dir: Path,
+    max_rows_per_source: int = 0,
+    max_bytes_per_source: int = 0,
 ) -> dict[str, Any]:
-    """Run the full assembly path. Returns a manifest dict."""
+    """Run the full assembly path. Returns a manifest dict.
+
+    ``max_rows_per_source`` (default 0 = no cap) caps row emission
+    per source. Per-source override available via
+    ``SourceSpec.max_rows`` (recipe field ``max_rows``) which takes
+    precedence over the global cap. Useful for partial corpora from
+    huge sources (e.g. RIPE-RIS bview NDJSON sidecars).
+
+    ``max_bytes_per_source`` (default 0 = no cap) caps emitted output
+    bytes per source. Per-source override available via
+    ``SourceSpec.max_bytes`` (recipe field ``max_bytes``). When both
+    row and byte caps are active, whichever fires first wins —
+    accounting checks happen on the same per-row boundary.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
 
     charter_scan = _try_import_charter_scanner()
@@ -507,6 +749,7 @@ def assemble(
 
         out_shard = out_dir / f"{_slug_for(src.subdataset)}.ndjson"
         rows_emitted = 0
+        bytes_emitted = 0
         rows_scanned_for_charter = 0
         pii_redactions = 0
         charter_violations: list[dict] = []
@@ -515,10 +758,39 @@ def assemble(
             s.suffix == ".ndjson" or s.name.endswith(".ndjson") for s in shards
         )
 
+        # Effective row/byte caps for this source: per-source override
+        # > CLI flag > 0 (unbounded). 0 means "no cap".
+        effective_cap = src.max_rows if src.max_rows > 0 else max_rows_per_source
+        effective_byte_cap = (
+            src.max_bytes if src.max_bytes > 0 else max_bytes_per_source
+        )
+
+        def _cap_reached() -> bool:
+            """True once either cap is met. Closes over the per-source
+            counters; recomputed at every check point."""
+            if effective_cap > 0 and rows_emitted >= effective_cap:
+                return True
+            if effective_byte_cap > 0 and bytes_emitted >= effective_byte_cap:
+                return True
+            return False
+
         with out_shard.open("w", encoding="utf-8") as out_fh:
             for shard in shards:
-                if shard.suffix.lower() == ".ndjson":
+                # Per-source caps shortcut at the outer shard loop too.
+                if _cap_reached():
+                    break
+                # NDJSON-like: one JSON object per line.
+                # `.geojsonl` / `.geojsonseq` are also NDJSON-shaped
+                # (RFC 8142 may RS-prefix records but json.loads
+                # tolerates that). `.jsonl` is the colloquial form.
+                if shard.suffix.lower() in (".ndjson", ".jsonl", ".geojsonl", ".geojsonseq"):
                     for i, payload in enumerate(_iter_ndjson_rows(shard)):
+                        # Per-source caps: stop emitting once either cap
+                        # is reached. The check is here (before any
+                        # other work) so capped rows incur zero PII/
+                        # Charter overhead.
+                        if _cap_reached():
+                            break
                         # PII filter on every row (autodetect string fields).
                         redacted, stats = redact_payload(payload)
                         pii_redactions += stats.total
@@ -543,7 +815,7 @@ def assemble(
                                         f"(showing first 3): "
                                         f"{json.dumps(charter_violations[:3])}"
                                     )
-                        _emit_corpus_row(
+                        n_bytes = _emit_corpus_row(
                             out_fh,
                             source=src,
                             payload=redacted,
@@ -551,13 +823,16 @@ def assemble(
                             internal_only=internal_only,
                         )
                         rows_emitted += 1
+                        bytes_emitted += n_bytes
                 elif is_ndjson is False and shard.suffix.lower() in (".zone", ".txt"):
+                    if _cap_reached():
+                        continue
                     # Treat as a single opaque payload row; the operator
                     # is responsible for downstream parsing.
                     text = shard.read_text(encoding="utf-8", errors="replace")
                     redacted_text, stats = redact_payload({"text": text}, fields=["text"])
                     pii_redactions += stats.total
-                    _emit_corpus_row(
+                    n_bytes = _emit_corpus_row(
                         out_fh,
                         source=src,
                         payload={
@@ -569,6 +844,7 @@ def assemble(
                         internal_only=internal_only,
                     )
                     rows_emitted += 1
+                    bytes_emitted += n_bytes
                 # Other binary formats (mmdb, .gz, .bz2, .parquet, .pbf)
                 # are NOT streamed inline — a sensor-driven path handles
                 # them. The assembler records that the source was seen
@@ -576,6 +852,7 @@ def assemble(
 
         per_source.append({
             "subdataset": src.subdataset,
+            "description": src.description,
             "tier": src.tier,
             "license": src.license,
             "weight": src.weight,
@@ -583,8 +860,15 @@ def assemble(
             "pinRevision": pin_revision,
             "shardCount": len(shards),
             "rowsEmitted": rows_emitted,
+            "bytesEmitted": bytes_emitted,
             "rowsScannedForCharter": rows_scanned_for_charter,
             "piiRedactions": pii_redactions,
+            "effectiveRowCap": effective_cap,
+            "capHit": effective_cap > 0 and rows_emitted >= effective_cap,
+            "effectiveByteCap": effective_byte_cap,
+            "byteCapHit": (
+                effective_byte_cap > 0 and bytes_emitted >= effective_byte_cap
+            ),
             "outShard": str(out_shard),
         })
 
@@ -604,6 +888,8 @@ def assemble(
         "v": SCHEMA_VERSION,
         "targetArtifact": recipe.target_artifact,
         "outputSubdataset": recipe.output_subdataset,
+        "description": recipe.description,
+        "outputMetadata": recipe.output_metadata,
         "computedMaxTier": recipe.computed_max_tier,
         "maxTierCap": recipe.max_tier_cap,
         "startedAt": started_at,
@@ -613,6 +899,10 @@ def assemble(
             "weight": recipe.seed_block.weight if recipe.seed_block else None,
             "emittedRows": seed_emitted,
             "path": seed_path_out,
+            "sourcePathExisted": (
+                recipe.seed_block.seed_path.exists()
+                if recipe.seed_block else False
+            ),
         } if recipe.seed_block else None,
         "outDir": str(out_dir),
     }

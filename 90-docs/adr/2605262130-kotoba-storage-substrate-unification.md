@@ -341,6 +341,50 @@ The following docs may still cite `yatachain` in prose form. They are NOT modifi
 
 Scoping note: at the time of this ADR's drafting, a `grep -i yatachain` against both READMEs returned zero matches on the worktree HEAD. The flag is preserved here in case the prose drifts before Phase 3 lands; it costs nothing to keep the list explicit.
 
+## Charter Rider symlink standalone-distribution issue (audit 2026-05-26 iter-31 of /loop)
+
+§"Constitutional gate checklist — Charter Rider §2(a)–(i) applied to kotoba" above + the original Phase-1 deliverable note ("Charter Rider NOTICE + symlink applied to all 17 kotoba crates per `70-tools/charter-rider-applicator/apply.sh`") describe the existing Rider propagation pattern: a `CHARTER-RIDER.md` symlink at the kotoba subrepo root + 17 per-crate symlinks, each pointing at the monorepo root's `/CHARTER-RIDER.md` via `../../CHARTER-RIDER.md` (subrepo root) or `../../../../CHARTER-RIDER.md` (per-crate).
+
+**Issue**: those symlinks **escape the subrepo boundary**. When the kotoba subrepo is cloned standalone (`git clone https://github.com/etzhayyim/kotoba.git`) or extracted as an npm tarball, the target directories don't exist (the `../../...` jumps land in a tree that isn't there) and the Charter Rider attestation becomes inaccessible. Same distribution-correctness pattern as the `@etzhayyim/kami-engine-sdk` `CHARTER-RIDER.md` symlink, which iter-24 of /loop fixed by replacing the symlink with a real-file mirror of the monorepo root's content (commit `bdecb113e`).
+
+An audit via `70-tools/scripts/audit/subrepo-symlink-health.sh` (added iter-31) enumerates the kotoba escape-symlinks:
+
+  40-engine/kotoba/CHARTER-RIDER.md                          → ../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-auth/CHARTER-RIDER.md       → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-core/CHARTER-RIDER.md       → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-crypto/CHARTER-RIDER.md     → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-dht/CHARTER-RIDER.md        → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-graph/CHARTER-RIDER.md      → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-guest/CHARTER-RIDER.md      → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-ingest/CHARTER-RIDER.md     → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-kqe/CHARTER-RIDER.md        → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-kse/CHARTER-RIDER.md        → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-llm/CHARTER-RIDER.md        → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-net/CHARTER-RIDER.md        → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-runtime/CHARTER-RIDER.md    → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-server/CHARTER-RIDER.md     → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-signal/CHARTER-RIDER.md     → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-store/CHARTER-RIDER.md      → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-store-web/CHARTER-RIDER.md  → ../../../../CHARTER-RIDER.md
+  40-engine/kotoba/crates/kotoba-vm/CHARTER-RIDER.md         → ../../../../CHARTER-RIDER.md
+
+  Total: 18 escape-symlinks.
+
+**Recommended fix (deferred for kotoba upstream coordination)**: replace each symlink with a real-file mirror of the monorepo root's CHARTER-RIDER.md content (byte-identical; same pattern as iter-24's SDK fix). The Rider remains constitutional content; only the storage form changes (symlink → real file). ADR-2605192200's Lv6+ amendment threshold is not affected.
+
+Doing this requires:
+
+  1. Modifying 18 files inside the kotoba subrepo's working tree
+  2. A `git subrepo push 40-engine/kotoba` to publish the change to
+     `github.com/etzhayyim/kotoba`
+  3. A subsequent `70-tools/charter-rider-applicator/apply.sh` update so
+     the applicator emits real files instead of symlinks for kotoba
+     crates (or any future subrepo)
+
+Step 1+2 are inside the kotoba subrepo's coordination scope (separate from `etzhayyim/root` proper). Step 3 is in scope for this monorepo. The audit + this documentation note unblocks future operator action; no code change in iter-31.
+
+`70-tools/charter-rider-applicator/`'s authoritative spec (per ADR-2605192200) determines the propagation pattern for ALL first-party packages. A future change to that applicator should also emit real files for any package whose `CHARTER-RIDER.md` is part of a subrepo / standalone-distributable target.
+
 ## References
 
 - `40-engine/kotoba/README.md` — kotoba workspace overview (17 crates, KOTOBA equation, perf table)

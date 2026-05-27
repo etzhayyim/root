@@ -35,3 +35,7 @@ packages = [
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
+# See 70-tools/e7m-dataset/pyproject.toml — langsmith's pytest plugin
+# imports pydantic at module-load time and crashes pytest collection
+# on machines where pydantic-core/pydantic are mis-pinned.
+addopts = "-p no:langsmith_plugin"
