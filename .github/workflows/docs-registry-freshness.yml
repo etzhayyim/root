@@ -59,6 +59,17 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run generator unit tests (cycle 57; 10/10 must pass)
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: |
+          python3 -m pytest \
+            70-tools/scripts/docs/test_regen_registry.py \
+            -v
+
       - name: Check registry freshness (PR gate)
         run: |
           python3 70-tools/scripts/docs/regen-registry.py --check \

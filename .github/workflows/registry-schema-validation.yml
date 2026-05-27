@@ -66,8 +66,16 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install jsonschema
-        run: pip install jsonschema
+      - name: Install jsonschema + pytest
+        run: pip install jsonschema pytest
+
+      - name: Run validator unit tests (cycle 56; 6/6 must pass)
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+        run: |
+          python3 -m pytest \
+            70-tools/scripts/docs/test_validate_registry_schemas.py \
+            -v
 
       - name: Validate registry artifacts (PR-gate — fail on any violation)
         id: validate
