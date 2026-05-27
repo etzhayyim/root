@@ -5329,8 +5329,9 @@ description = "kami-rtx — Mitsuba 3 WebGPU backend bind (upstream PR only, no 
 path = "40-engine/kami-engine/kami-usd"
 adr = "ADR-2605261800"
 kind = "usd-bind"
-status = "r1.0-path-reservation"
-description = "OpenUSD WASM (tinyusdz) + Hydra render delegate -> KAMI scene graph. omni.usd API-compat target."
+status = "r1.1-usda-mini"
+status_note = "Promoted from r1.0-path-reservation by ADR-2605272000 (2026-05-27). Native Rust USDA mini-parser (~280 LoC) covers Xform / Cube / Sphere / Plane / Mesh / PhysicsScene / Cartpole prims + xformOp:{translate,rotateXYZ,scale} + upAxis/metersPerUnit. Unknown prim types degrade to Xform. 3 native unit tests green. tinyusdz binding swap deferred to R1.2 behind unchanged Stage / Prim / PrimKind API surface (§D10.3 invariant)."
+description = "OpenUSD canonical impl — USDA mini-parser at R1.1, tinyusdz binding at R1.2+. omni.usd API-compat target. First consumer = ADR-2605272000 isekai.etzhayyim.com/omniverse.htm."
 
 [[modules]]
 path = "40-engine/kami-engine/kami-genesis"
@@ -7842,3 +7843,290 @@ sibling_modules = [
 remaining_work = "R1b commit 15 = real-weight load from HF microsoft/bitnet-b1.58-2B-4T-bf16-ONNX + microbench vs transformers.js fp16 baseline + iPhone-12 G1 close attestation"
 not_yet_real_dispatch = "fp32-fallback through scalar dequant + scalarMatmulF32; R1c lands wgpu/wasm dispatch through R0 kernels (WGSL_BITLINEAR_FORWARD + WASM SIMD)"
 charter_rider = "via @etzhayyim/ameno package NOTICE (inherited from ameno root)"
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# organism ecosystem R0+R1 sprint closure (ADR-2605270930)
+#
+# 26-iter /loop 30min sprint (2026-05-26 21:00 JST → 2026-05-27 10:30 JST)
+# All R0 carve-outs landed for axes A-H + first-cycle R1 implementation on all 8
+# + initial R1.1 deepening on H/D/B-D-bridge/C/E2E harness.
+# See ADR-2605270930 for full commit ledger + process learnings.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+[[adrs]]
+id = "2605266000"
+title = "organism inter-messaging R0 (axis A) — AT Proto custom Lexicon + Signal-keywrap"
+status = "active"
+path = "90-docs/adr/2605266000-organism-inter-messaging.md"
+status_note = "R0 ADR for inter-organism communication. Adopts AT Protocol custom Lexicon `app.etzhayyim.organism.message` + Signal-keywrap encrypted envelope per ADR-2605181100, rejecting in-memory Pregel boundaries in favour of decentralized substrate. Python sender/receiver impl landed iter 16 (`cc417fe91`)."
+
+[[adrs]]
+id = "2605266100"
+title = "organism post drainer Wave 3 (axis B) — TS daemon + k8s DaemonSet sidecar"
+status = "active"
+path = "90-docs/adr/2605266100-organism-post-drainer-wave-3.md"
+status_note = "R0 sub-charter for drainer sidecar — NDJSON queue → PDS dispatch by lexicon. TS skeleton landed iter 2 (`d1be9ba7d`); @etzhayyim/sdk wiring iter 3 (`126e84e6d`); Signal-keywrap mock iter 4 (`bc3b297fc`); real XChaCha20-Poly1305 in @etzhayyim/sdk iter 19 (`052cee795`); dispatchLifecycle 3rd-lexicon branch iter 24 (`8d33812a3`)."
+
+[[adrs]]
+id = "2605266200"
+title = "Kaizen PR agent Wave 4 R0 (axis C) — proposal NDJSON → markdown PR draft"
+status = "active"
+path = "90-docs/adr/2605266200-kaizen-pr-agent-wave-4.md"
+status_note = "R0 charter for self-modifying loop terminus. Pure function `kaizen_proposal_to_pr_draft` iter 5 (`eb048ebf7`); KaizenPrAgent skeleton with gh auth + dry-run default per H L5 invariant iter 18 (`18805f7bc`); KaizenPatcher with Charter §2 atomic-revert iter 26 (`6c27f347f`)."
+
+[[adrs]]
+id = "2605266300"
+title = "organism lifecycle semantics R0 (axis D) — birth/clone/retire/excommunication"
+status = "active"
+path = "90-docs/adr/2605266300-organism-lifecycle-r0.md"
+status_note = "R0 ADR for organism state machine + Lexicon `app.etzhayyim.organism.lifecycle`. excommunication requires Council Lv6+ ≥4/7 attestation (chigiri G12 cross-actor invariant per ADR-2605262700). State machine impl iter 15 (`6304b7a4f`); event publisher (hot→queue) iter 23 (`9932598d9` + syntax fix `316c1769b`)."
+
+[[adrs]]
+id = "2605266400"
+title = "organism memory persistence R0 (axis E) — hot/warm/cold 3-layer + provenance chain"
+status = "active"
+path = "90-docs/adr/2605266400-organism-memory-persistence-r0.md"
+status_note = "R0 design ADR for organism long-term memory. hot = InboxBuffer in-memory bounded (existing); warm = kotoba-kqe arrangement last 7d (Lexicon `observationArchive` + KotobaKqeMemory stub iter 13 `4b5f48f86`); cold = IPFS-pinned subdataset archival. Warm flush uses hash-chained `provenanceHash` per H L4 adversarial invariant."
+
+[[adrs]]
+id = "2605266500"
+title = "organism multi-modal observation R0 (axis F) — Tagged Union 5 modalities"
+status = "active"
+path = "90-docs/adr/2605266500-organism-multi-modal-observation-r0.md"
+status_note = "R0 ADR replacing text-only Observation with Tagged Union: Text/Image/Audio/Numeric/Timeseries. Vendor multi-modal API (OpenAI Vision/Anthropic Vision/Google Cloud Vision) constitutionally prohibited; stdlib + Pillow + numpy only. R1 Pydantic Tagged Union iter 11 (`8a587723f`); joucho + tick wiring with delta cap ±30 (H L3) iter 12 (`702f1d47f`)."
+
+[[adrs]]
+id = "2605266600"
+title = "organism embodiment bridge R0 (axis G) — embodied/disembodied + TelemetryObservation"
+status = "active"
+path = "90-docs/adr/2605266600-organism-embodiment-bridge-r0.md"
+status_note = "R0 ADR coupling artificial organism heartbeat to Tier-B physical actors (wadachi/suki/sarutahiko/igata/hodoki/yakushi/tatekata/watatsumi/futawa/tsutae/makura). Weapons + surveillance applications categorically excluded (§G7). PASSIVE-ONLY pull discipline extends to telemetry per ADR-2605262400. R1 wadachi first sample Lexicon + TelemetryObservation iter 17 (`4f71fb660`)."
+
+[[adrs]]
+id = "2605266700"
+title = "organism adversarial robustness R0 (axis H) — L1-L5 defense-in-depth"
+status = "active"
+path = "90-docs/adr/2605266700-organism-adversarial-robustness-r0.md"
+status_note = "R0 ADR for input-side defense layers L1-L5. L1 unicode normalize iter 14 (`2fbae81e8`); L2 semantic scan with iter 22 (`6a598fb20`) completes 32/32 pytest pass after iter 21 (`c6f2c11c5` uv.lock regen + `7201c97d2` regex broaden) unblocked the test env. L3 = joucho_delta caps (in iter 12 multi-modal). L4 = warm-layer provenance hash (in E R1 iter 13). L5 = Kaizen PR human-in-loop (in C R1 iter 18) + KaizenPatcher Charter §2 atomic-revert (in iter 26)."
+
+[[adrs]]
+id = "2605270930"
+title = "organism ecosystem R0+R1 26-iter /loop sprint — closure summary"
+status = "active"
+path = "90-docs/adr/2605270930-organism-ecosystem-r0-r1-sprint-closure.md"
+status_note = "Closure record for the bounded 26-iter sprint that landed A-H R0 + first-cycle R1 + initial R1.1 deepening on H/D/B-D-bridge/C/E2E. Documents 8 gemini-exec agent process incidents and recoveries, end-to-end pipelines opened (lifecycle / inter-org messaging / multi-modal / Kaizen self-modify), and the R1.1+ deferred list (firehose receiver / libsignal X3DH / kqe binding / ONNX PII models / more Tier-B telemetry / drainer Docker / UNSPSC Wave 2 apply)."
+
+
+# ─── Python organism modules landed in the 26-iter sprint ─────────────────────
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/observation.py"
+adr = "ADR-2605266500"
+kind = "organism-runtime"
+status = "r1-landed"
+description = "F R1 Pydantic v2 Tagged Union for Text/Image/Audio/Numeric/Timeseries observations. discriminator `kind`. Common base: actorDid / createdAt / tier (A/B/C) / internal_only. Pydantic model_validator chains L1 normalize → L2 semantic scan on TextObservation (iter 22 `6a598fb20`). image_joucho_delta uses Pillow HSV → hue entropy + saturation mean (no vendor VLM). Iter 11 `8a587723f` + iter 12 `702f1d47f` + iter 17 `4f71fb660` TelemetryObservation extension."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/messaging.py"
+adr = "ADR-2605266000"
+kind = "organism-runtime"
+status = "r1-landed"
+description = "A R1 Python inter-organism sender + receiver. OrganismMessage dataclass; OrganismMessageSender appends NDJSON to queue file synced with drainer TS NDJSONRecord schema; MockPdsReceiver (in-memory routing for tests); AtProtoFirehoseReceiver stub raises NotImplementedError (deferred to R1.1+). Iter 16 `cc417fe91`."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/memory.py"
+adr = "ADR-2605266400"
+kind = "organism-runtime"
+status = "r1-landed"
+description = "E R1 MemoryPersistence Protocol + KotobaKqeMemory in-memory stub. warm_flush returns warm CIDs; warm_lookup retrieves last n by (actor_did, kind); cold_archive returns IPFS subdataset CID (stub). provenance hash chain per H L4 invariant. R1.1 will swap stub for real kotoba-kqe arrangement binding. Iter 13 `4b5f48f86`."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/lifecycle.py"
+adr = "ADR-2605266300"
+kind = "organism-runtime"
+status = "r1-landed"
+description = "D R1 OrganismLifecycle state machine — inactive/active/cloned/retired/excommunicated with 4 transitions. excommunication requires Council ≥4/7 attestation. Lexicon bidirectional converters (event_from_lexicon / lifecycle_event_to_lexicon). event_publisher hook DI for external NDJSON queue (iter 23 `9932598d9`). UnispscOrganism.tick() skips when state not in (active, cloned). Iter 15 `6304b7a4f`."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/lifecycle_publisher.py"
+adr = "ADR-2605266300"
+kind = "organism-runtime"
+status = "r1.1-landed"
+description = "D R1.1 NdjsonLifecyclePublisher — atomic NDJSON file append publisher compatible with drainer TS NDJSONRecord interface. v=1 / lexicon=app.etzhayyim.organism.lifecycle / actorDid / createdAt / event union. Iter 23 base `9932598d9` shipped broken (literal LF instead of `\\n` string); iter 23 syntax fix `316c1769b`."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/embodiment.py"
+adr = "ADR-2605266600"
+kind = "organism-runtime"
+status = "r1-landed"
+description = "G R1 wadachi TelemetryObservation first sample. F R1 Tagged Union extension (kind=telemetry). telemetry_joucho_delta maps battery_soc_pct drop / fault_codes / runtime_hours to JouchoDelta. E7mSimTelemetrySource pull-only stub (PASSIVE-ONLY per ADR-2605266600 §G3 — no command/send/actuate). Iter 17 `4f71fb660` (commit also contaminated with 9 concurrent-agent gov/corp sensor files; content valid but attribution misleading)."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/adversarial/normalizer.py"
+adr = "ADR-2605266700"
+kind = "organism-runtime"
+status = "r1-landed"
+description = "H R1 L1 unicode normalizer. NFKC + Latin/Cyrillic confusable map + Bidi/RTL (U+202E) removal + zero-width (ZWSP) removal + Levenshtein-based suspicious flag. Confusable mapping also sets suspicious=True (single Cyrillic adversarial signal). Iter 14 `2fbae81e8`."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/adversarial/semantic.py"
+adr = "ADR-2605266700"
+kind = "organism-runtime"
+status = "r1.1-landed"
+description = "H R1.1 L2 semantic scan. 7 prompt injection regex patterns + hidden marker (`[ADMIN_OVERRIDE]` etc.) + forged DID attribution detection (actor_did vs text DID mismatch → high) + Charter §2 keyword sketch (low severity flag). Severity escalation: 3+ prompt_injection hits → high; forged_attribution any → high. Iter 20 base `d68d02e65` + iter 21 regex broaden `7201c97d2` + iter 22 final pass `6a598fb20` (32/32 test pass)."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/kaizen/proposal_to_pr_draft.py"
+adr = "ADR-2605266200"
+kind = "organism-runtime"
+status = "r0-landed"
+description = "C Wave 4 R0 pure function: KaizenProposal NDJSON line → markdown PR body. Schema validation (kind == 'kaizen-proposal'). Iter 5 `eb048ebf7`."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/kaizen/pr_agent.py"
+adr = "ADR-2605266200"
+kind = "organism-runtime"
+status = "r1-landed"
+description = "C R1 KaizenPrAgent consumer skeleton. gh auth status verify at init (KaizenPrAgentAuthError raise on failure). consume_one(): NDJSON read → proposal_to_pr_draft → branch create → simple string-replace patch → gh pr create. dry_run=True default per H L5 invariant. PR body appends 'Requires human review before merge — Council Lv6+ ≥3 attestation required if proposal touches Charter §2(a)-(h) areas'. Iter 18 `18805f7bc`."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/kaizen/patcher.py"
+adr = "ADR-2605266200"
+kind = "organism-runtime"
+status = "r1.1-landed"
+description = "C R1.1 KaizenPatcher standalone helper (separate from pr_agent.py for testability). apply_patch(target, patch_hint) supports 5 kinds: string_replace / line_insert / line_delete / append. Charter §2 sample scan via scan_with_normalization AFTER mutation; KaizenCharterViolationError raise + atomic revert (file bytes restored) on §2 hit. KaizenPatchError on IO error. 13/13 pytest. R2 will integrate into pr_agent.py. Iter 26 `6c27f347f`."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/testing/__init__.py"
+adr = "ADR-2605270930"
+kind = "organism-test-harness"
+status = "harness-landed"
+description = "E2E inter-organism messaging test harness. E2EMessagingHarness sets up 2 organisms (A, B) + shared MockPdsReceiver in tmp_path. API: send_from_A_to_B / tick_B / get_joucho_B. Exercises 5 axes in single test surface: A inter-msg ⊗ B drainer compat ⊗ D lifecycle gating ⊗ F multi-modal Observation ⊗ H adversarial L1. 5 pytest cases all pass. First gap-analysis 'inter-organism aggregate behavior test harness' footprint. Iter 25 `bd1b85199`."
+
+
+# ─── TS organism modules landed in the 26-iter sprint ─────────────────────────
+
+[[modules]]
+path = "20-actors/magatama/sdk/magatama-host-sdk/src/drainer/index.ts"
+adr = "ADR-2605266100"
+kind = "drainer-sidecar"
+status = "wave-3.4-landed"
+description = "B Wave 3-3.4 organism post drainer TypeScript daemon. processLine dispatches by lexicon: app.bsky.feed.post → dispatchPost; app.etzhayyim.organism.message → encryptMessage (Signal-keywrap mock; real via @etzhayyim/sdk iter 19) → dispatchMessage; app.etzhayyim.organism.lifecycle → dispatchLifecycle (iter 24). All dispatch via @etzhayyim/sdk.write (Etzhayyim class). Bundle path: iter 2 d1be9ba7d (skeleton) → iter 3 126e84e6d (sdk.write wire + Lexicon typo fix) → iter 4 bc3b297fc (Signal mock) → iter 24 8d33812a3 (dispatchLifecycle 3rd branch + NDJSONRecord.event field). 9/9 vitest pass."
+
+[[modules]]
+path = "20-actors/etzhayyim-sdk/src/signal.ts"
+adr = "ADR-2605181100"
+kind = "sdk-crypto"
+status = "r1.3-landed"
+description = "B Wave 3.3 @etzhayyim/sdk signal namespace — XChaCha20-Poly1305 via @noble/ciphers (constitutional substrate boundary: noble-ciphers + libsignal-client allowed inside @etzhayyim/sdk only, never in app code). R1.3 used noble-ciphers shortcut for drainer key-wrap; full libsignal X3DH handshake deferred to R1.5 (council-flow.test.ts + encrypted.test.ts regression on R1.3 swap, acknowledged in iter 19 commit `052cee795`)."
+
+
+# ─── Lexicons landed in the 26-iter sprint ────────────────────────────────────
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/organism/message.json"
+adr = "ADR-2605266000"
+kind = "atproto-lexicon"
+status = "r0-landed"
+description = "A R0 inter-organism message record schema. record key=tid; required: recipientDid (DID) + senderDid (DID) + encryptedPayload (Signal-keywrap base64) + createdAt; optional: threadId (conversation correlation). Lexicon ID typo `app.etzhayyim.apps.etzhayyim.message` → `app.etzhayyim.organism.message` fixed iter 3 `126e84e6d`."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/organism/lifecycle.json"
+adr = "ADR-2605266300"
+kind = "atproto-lexicon"
+status = "r0-landed"
+description = "D R0 lifecycle event record schema. Polymorphic `event` union: birth/clone/retire/excommunication. Required for all: actorDid + createdAt. excommunication requires councilAttestation chain (≥4/7 Council attestations). Iter 6 `437652f7f`."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/organism/observation_archive.json"
+adr = "ADR-2605266400"
+kind = "atproto-lexicon"
+status = "r1-landed"
+description = "E R1 warm-layer observation archive record schema. Required: observationCid + actorDid + kind (text/image/audio/numeric/timeseries discriminator) + tier (A/B/C) + internal_only + observedAt + flushedAt + provenanceHash (hash-chain head per H L4 invariant). Iter 13 `4b5f48f86`."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/organism/telemetry_wadachi.json"
+adr = "ADR-2605266600"
+kind = "atproto-lexicon"
+status = "r1-landed"
+description = "G R1 wadachi-specific TelemetryObservation record schema. Required: actorDid + vehicleSerial + landsParcelCid (LANDS.md parcel binding per ADR-2605192245) + pose {lat,lon,headingDeg,speedMps} + batterySocPct + mileageKm + runtimeHours + faultCodes + observedAt + provenanceHash + internal_only. First sample of 11-actor G R1 family (suki/sarutahiko/igata/hodoki/yakushi/tatekata/watatsumi/futawa/tsutae/makura deferred). Iter 17 `4f71fb660`."
+
+# ─── isekai.etzhayyim.com Omniverse / PhysX / OpenUSD R1.1 (ADR-2605272000) ──
+# First user-playable activation of ADR-2605261800 §D10.3 nv-compat facade across a
+# URL. Promotes kami-usd from R1.0-path-reservation to R1.1-usda-mini, adds
+# kami-app-isekai::omniverse module, IsekaiCanvas SDK component, and the
+# /omniverse.htm static page on the existing isekai CF worker.
+
+[[adrs]]
+id = "2605272000"
+title = "isekai.etzhayyim.com Omniverse / PhysX / OpenUSD R1.1 — playable via kami-engine-sdk + kami-usd USDA mini-parser + kami-genesis World"
+status = "proposed"
+status_note = "R1.1 activation of ADR-2605261800 §D10.3 nv-compat facade on the isekai.etzhayyim.com canvas. Three deliverables: (1) kami-usd promoted R1.0-path-reservation → R1.1-usda-mini (~280 LoC USDA parser; Xform/Cube/Sphere/Plane/Mesh/PhysicsScene/Cartpole; 3 native tests green); (2) kami-app-isekai gains `runIsekaiOmniverse(canvas_id, usda_src)` wasm-bindgen entry + `isekaiOmniverseBanner` / `isekaiOmniverseDefaultUsda` JS exports — drives kami-genesis World (PxScene-shape) + Articulation (PxArticulationReducedCoordinate-shape) per Cartpole prim; α=0 step-0 verify level (force input deferred to R1); (3) `<IsekaiCanvas/>` Svelte 5 component shipped via @etzhayyim/kami-engine-sdk dist mirroring `<VrmCanvas/>` topology. Deploy = existing magatama-is3k41w0 CF worker (no new infra); new `/omniverse.htm` static page joins `/v2.htm` + `/v3-demos.htm`. WASM artifact 372KB → 494KB. 77/77 native unit tests pass (3 new kami-usd, 2 new kami-app-isekai::omniverse, 71 unchanged kami-genesis, 1 kami-articulated). Constitutional grep clean: zero `omni.*` / `pxr.*` / `isaacsim.*` / `physx.*` direct imports."
+path = "90-docs/adr/2605272000-isekai-omniverse-r1-1-usd-physx-playable.md"
+
+[[modules]]
+path = "40-engine/kami-engine/kami-app-isekai/src/omniverse.rs"
+adr = "ADR-2605272000"
+kind = "wasm-entry-nv-compat"
+status = "r1.1-shipped"
+description = "kami-app-isekai · Omniverse / PhysX / OpenUSD facade entry. Three wasm-bindgen exports: runIsekaiOmniverse(canvas_id, usda_src) / isekaiOmniverseBanner() / isekaiOmniverseDefaultUsda(). Parses USDA via kami-usd::parse_usda → Stage, builds kami-genesis World with gravity from PhysicsScene prim, spawns one Articulation per def Cartpole using bundled cartpole.urdf, visualises as AtlasVisAdapter sprite pair (FLAME_MEDIUM cart + SPARKLE_STAR pole tip). World::step() per frame; force input = 0 (R1 will bind keyboard). 2 native unit tests green."
+
+[[modules]]
+path = "40-engine/kami-engine/kami-engine-sdk/src/lib/components/IsekaiCanvas.svelte"
+adr = "ADR-2605272000"
+kind = "sdk-svelte-component"
+status = "r1.1-shipped"
+description = "Svelte 5 canvas component mirroring <VrmCanvas/>. Props: wasmBase (default '/v2') / usda (default '' → use bundled DEFAULT_ISEKAI_USDA) / class / style / bgColor / loading snippet / error snippet / onready callback. Dynamically imports kami_app_isekai.js + .wasm, calls isekaiOmniverseBanner() for HUD, drives runIsekaiOmniverse(canvasId, effectiveUsda). Built into dist/components/IsekaiCanvas.svelte via svelte-package; re-exported from @etzhayyim/kami-engine-sdk top-level index."
+
+[[modules]]
+path = "60-apps/ai-gftd-project-isekai/appview/ai-gftd-wasm-isekai-is3k41w0/svelte/static/omniverse.htm"
+adr = "ADR-2605272000"
+kind = "playable-static-page"
+status = "r1.1-shipped"
+description = "isekai.etzhayyim.com/omniverse.htm — editable USDA textarea + Reload/Default buttons + HUD overlay (kami-usd / kami-genesis facade banner + pos/yaw/pitch/fps from window.__kami_hud_isekai). Loads ./v2/kami_app_isekai.js then runIsekaiOmniverse(canvas_id, usda_src). Deployed via existing magatama-is3k41w0 CF worker; no new Cloudflare resource. Wrangler routes (is3k41w0.etzhayyim.com/* + isekapp.etzhayyim.ai/*) unchanged. Vanity isekai.etzhayyim.com inherits routing."
+
+
+# ─── Assembler operator-readability arc closure (ADR-2605270200) ──
+
+[[adrs]]
+id = "2605270200"
+title = "ADR-2605262400 §4 cold-path assembler operator-readability arc closure — caps (rows + bytes) + description fields (Recipe / output_metadata / per-source) + --summary markdown verb + seed-block honesty + Recipe.warnings()"
+status = "proposed"
+status_note = "Records the 14-commit operator-readability arc on assemble-public-corpus.py landed 2026-05-27 JST across ~9 autonomous /loop cron windows. No ADR-2605262400 invariant is changed — pure operator-visibility scaffolding. Three independent visibility surfaces now show every recipe gap: stderr (WARN: lines), --dry-run JSON (warnings[]), --summary markdown (## ⚠ Issues section). Schema: top-level Recipe.description + per-source SourceSpec.description + per-source max_rows + max_bytes + surfaced output_metadata. CLI: --max-rows-per-source / --max-bytes-per-source / --summary. API: Recipe.warnings() distinct from Recipe.validate(). Real-data verified on 4 in-tree recipes (tier-a-netreg-foundations / tier-a-routing / tier-c-dns-graph-nc / tier-a-geo-and-netreg-mixed) + their TOML now carries 37 lines of operator-context backfill. 41/41 assembler tests pass. Also includes infra-hygiene pass: 1-char-chopped-suffix typo fix (1 broken production import pr_agent.py + 4 broken test imports from parallel-agent commit 023988900) + langsmith pytest plugin disable across all 5 in-tree Python packages with [tool.pytest.ini_options] (e7m-dataset / magatama-py / baien-moemoekyun-train / gftd-py / graph-schema)."
+path = "90-docs/adr/2605270200-assembler-operator-readability-arc-closure.md"
+
+[[modules]]
+path = "70-tools/baien-moemoekyun-train/scripts/assemble-public-corpus.py"
+adr = "ADR-2605270200"
+kind = "cold-path-corpus-assembler"
+status = "production"
+description = "Cold-path corpus assembler (ADR-2605262400 §4). Operator-readability surfaces: --dry-run JSON / --summary markdown / WARN: stderr / persisted manifest.json. Per-source row + byte caps with per-source TOML override > CLI flag > 0 (unbounded). Recipe.warnings() reports non-fatal advisories (missing seed-block files + placeholder pins) distinct from validate() errors. _emit_corpus_row() returns bytes written for honest byte accounting. _cap_reached() closure reads enclosing-scope counters at call time. Eight new schema fields plumbed end-to-end through load_recipe → dry_run_summary → assemble → manifest.json. 41/41 unit tests pass."
+
+[[modules]]
+path = "70-tools/e7m-dataset/tests/test_corpus_assembler.py"
+adr = "ADR-2605270200"
+kind = "pytest-suite"
+status = "production"
+description = "21 unit tests for the cold-path assembler: weights-sum validate / G5 NC infix gate / Tier-A full-path assembly / Tier-C internal_only + PII redact / seed-block copy / Charter §2 abort / description round-trips (top-level + per-source + output_metadata) / sources[] preview / SA-propagates rendering / Recipe.warnings() families (seed-block-missing + placeholder-pins) / dry-run warnings[] array / markdown ## ⚠ Issues section / --summary markdown shapes (minimal + full + sa-propagates). Direct-import the assembler module via importlib.util to avoid pymagatama __init__ pydantic-core poison on system Python 3.14."
+
+[[modules]]
+path = "70-tools/e7m-dataset/tests/test_corpus_assembler_caps.py"
+adr = "ADR-2605270200"
+kind = "pytest-suite"
+status = "production"
+description = "16 unit tests for the row-cap + byte-cap features: no-cap regression (full iteration) / CLI flag caps row emission / cap > file size doesn't truncate / per-source override > CLI / load_recipe parses max_rows + max_bytes fields / cap skips Charter scan on excluded rows (proves cap fires BEFORE pii/charter overhead) / byte cap unbounded tracks bytesEmitted / byte cap fires AFTER row crossing threshold / per-source override wins / row + byte caps interaction (whichever fires first wins)."
+
+[[modules]]
+path = "20-actors/magatama/py/src/pymagatama/organism/kaizen/pr_agent.py"
+adr = "ADR-2605270200"
+kind = "production-bugfix"
+status = "fixed"
+description = "Real production import bugfix: pr_agent.py line 9 imported kaizen_proposal_to_pr_draf (chopped suffix) but the actual function in proposal_to_pr_draft.py is kaizen_proposal_to_pr_draft with the trailing t. Module-load would crash for anyone consuming the Kaizen PR agent pipe per ADR-2605240200 §4. Discovered during this session's pytest infra audit; introduced by parallel-agent commit 023988900 alongside 4 broken test imports. All 5 chopped-suffix occurrences fixed in commit 532e2e331."
+
+[[modules]]
+path = "70-tools/e7m-dataset/pyproject.toml"
+adr = "ADR-2605270200"
+kind = "pytest-hardening"
+status = "production"
+description = "[tool.pytest.ini_options] addopts -p no:langsmith_plugin. Defeats the pydantic-core / pydantic version drift on system Python 3.14 that crashes pytest collection before any test code runs. Same hardening applied to magatama-py / baien-moemoekyun-train / gftd-py / graph-schema in commits 24788a73f + 0de43b5a6. All 5 in-tree Python packages with [tool.pytest.ini_options] are now resilient. Plugin name confirmed via langsmith-0.8.3.dist-info/entry_points.txt: [pytest11] langsmith_plugin = langsmith.pytest_plugin."
