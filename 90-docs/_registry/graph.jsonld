@@ -1121,33 +1121,6 @@
       "lastVerified": "2026-04-06"
     },
     {
-      "id": "doc:adr-0007-repo-error-visibility-policy",
-      "type": "TechArticle",
-      "title": "ADR-0007: API / Worker のエラーは必ず 4xx/5xx で可視化する。Fallback / fail-open 禁止",
-      "status": "active",
-      "topic": "error-visibility-policy",
-      "authoritative": true,
-      "authoritativeFor": [
-        "public API error handling policy",
-        "fallback / fail-open prohibition"
-      ],
-      "related": "doc:adr-0006-no-synthetic-data-in-production",
-      "lastVerified": "2026-04-29"
-    },
-    {
-      "id": "doc:adr-0008-repo-symlink-ban",
-      "type": "TechArticle",
-      "title": "ADR-0008: active tree での repo 内 symlink を全面禁止する",
-      "status": "active",
-      "topic": "repo-symlink-policy",
-      "authoritative": true,
-      "authoritativeFor": [
-        "repo symlink policy",
-        "shared contract / script path reference standard"
-      ],
-      "lastVerified": "2026-04-11"
-    },
-    {
       "id": "doc:adr-0031-kami-vrm-three-free-topology",
       "type": "TechArticle",
       "title": "ADR-0031: KAMI VRM three.js-free topology",
@@ -1179,30 +1152,6 @@
       ],
       "supersedes": "doc:adr-0014-self-hosted-did-plc",
       "lastVerified": "2026-04-23"
-    },
-    {
-      "id": "doc:adr-0042",
-      "type": "TechArticle",
-      "title": "magatama per-actor MCP tool facade (Hono Streamable HTTP)",
-      "status": "proposed",
-      "topic": "mcp-tool-facade",
-      "authoritative": true,
-      "authoritativeFor": [
-        "per-actor-mcp-endpoint",
-        "llm-agent-tool-discovery",
-        "asagenttool-external-exposure"
-      ],
-      "related": [
-        "doc:90-docs/adr/0004-write-only-derived-architecture.md",
-        "doc:90-docs/adr/0005-shannon-redundancy-prohibition.md",
-        "doc:90-docs/adr/0022-auth-topology-consolidation.md",
-        "doc:90-docs/adr/0023-auth-shannon-optimal-4-layer.md",
-        "doc:90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
-        "doc:90-docs/260413-agent-loop-unification-path-analysis.md",
-        "doc:90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md"
-      ],
-      "amendedBy": "doc:adr-2604261000-mcp-registry-via-kysely-schema",
-      "lastVerified": "2026-04-25"
     },
     {
       "id": "doc:adr-0046",
@@ -1309,6 +1258,30 @@
       "topic": "yoro-ads",
       "authoritative": true,
       "lastVerified": "2026-04-20"
+    },
+    {
+      "id": "doc:adr-0087-magatama-mcp-tool-facade",
+      "type": "TechArticle",
+      "title": "magatama per-actor MCP tool facade (Hono Streamable HTTP)",
+      "status": "proposed",
+      "topic": "mcp-tool-facade",
+      "authoritative": true,
+      "authoritativeFor": [
+        "per-actor-mcp-endpoint",
+        "llm-agent-tool-discovery",
+        "asagenttool-external-exposure"
+      ],
+      "related": [
+        "doc:90-docs/adr/0004-write-only-derived-architecture.md",
+        "doc:90-docs/adr/0005-shannon-redundancy-prohibition.md",
+        "doc:90-docs/adr/0022-auth-topology-consolidation.md",
+        "doc:90-docs/adr/0023-auth-shannon-optimal-4-layer.md",
+        "doc:90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
+        "doc:90-docs/260413-agent-loop-unification-path-analysis.md",
+        "doc:90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md"
+      ],
+      "amendedBy": "doc:adr-2604261000-mcp-registry-via-kysely-schema",
+      "lastVerified": "2026-04-25"
     },
     {
       "id": "doc:adr-2604231328-animeka-bpmn-l40s-pipeline",
@@ -10859,6 +10832,23 @@
       "lastVerified": "2026-04-25"
     },
     {
+      "id": "doc:bpmn-coverage-policy",
+      "type": "TechArticle",
+      "title": "BPMN Coverage Policy",
+      "status": "active",
+      "topic": "bpmn-coverage",
+      "authoritative": true,
+      "authoritativeFor": [
+        "BPMN-as-actor coverage checks",
+        "BPMN XML / lexicon / graph seed binding requirements"
+      ],
+      "related": [
+        "doc:90-docs/adr/0056-bpmn-as-actor.md",
+        "doc:90-docs/adr/0061-tsukuru-isic-bpmn-actors.md"
+      ],
+      "lastVerified": "2026-04-25"
+    },
+    {
       "id": "doc:buildx-remote-build-only",
       "type": "TechArticle",
       "title": "Container builds use remote buildx BuildKit",
@@ -11657,23 +11647,6 @@
       "lastVerified": "2026-05-20"
     },
     {
-      "id": "doc:engineering-bpmn-coverage-policy",
-      "type": "TechArticle",
-      "title": "BPMN Coverage Policy",
-      "status": "active",
-      "topic": "bpmn-coverage",
-      "authoritative": true,
-      "authoritativeFor": [
-        "BPMN-as-actor coverage checks",
-        "BPMN XML / lexicon / graph seed binding requirements"
-      ],
-      "related": [
-        "doc:90-docs/adr/0056-bpmn-as-actor.md",
-        "doc:90-docs/adr/0061-tsukuru-isic-bpmn-actors.md"
-      ],
-      "lastVerified": "2026-04-25"
-    },
-    {
       "id": "doc:f-plan-lexicon-as-contract",
       "type": "Article",
       "title": "F-Plan — Lexicon-as-Contract: Host Capability SSoT 統合 (WIT 廃止)",
@@ -12149,6 +12122,33 @@
         "doc:50-infra/cluster/murakumo/cell-runner/cells.toml"
       ],
       "lastVerified": "2026-05-21"
+    },
+    {
+      "id": "doc:repo-error-visibility-policy",
+      "type": "TechArticle",
+      "title": "ADR-0007: API / Worker のエラーは必ず 4xx/5xx で可視化する。Fallback / fail-open 禁止",
+      "status": "active",
+      "topic": "error-visibility-policy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "public API error handling policy",
+        "fallback / fail-open prohibition"
+      ],
+      "related": "doc:adr-0006-no-synthetic-data-in-production",
+      "lastVerified": "2026-04-29"
+    },
+    {
+      "id": "doc:repo-symlink-policy",
+      "type": "TechArticle",
+      "title": "ADR-0008: active tree での repo 内 symlink を全面禁止する",
+      "status": "active",
+      "topic": "repo-symlink-policy",
+      "authoritative": true,
+      "authoritativeFor": [
+        "repo symlink policy",
+        "shared contract / script path reference standard"
+      ],
+      "lastVerified": "2026-04-11"
     },
     {
       "id": "doc:richtext-facet-l1-extension",

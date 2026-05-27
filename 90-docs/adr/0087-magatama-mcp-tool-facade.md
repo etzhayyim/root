@@ -1,5 +1,5 @@
 ---
-id: adr-0042
+id: adr-0087-magatama-mcp-tool-facade
 title: magatama per-actor MCP tool facade (Hono Streamable HTTP)
 status: proposed
 doc_type: adr

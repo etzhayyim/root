@@ -1,5 +1,5 @@
 ---
-id: engineering-bpmn-coverage-policy
+id: bpmn-coverage-policy
 title: "BPMN Coverage Policy"
 status: active
 doc_type: engineering-policy

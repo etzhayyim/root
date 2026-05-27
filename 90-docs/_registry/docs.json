@@ -1524,46 +1524,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/engineering/repo-error-visibility-policy.md",
-      "id": "adr-0007-repo-error-visibility-policy",
-      "title": "ADR-0007: API / Worker のエラーは必ず 4xx/5xx で可視化する。Fallback / fail-open 禁止",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "error-visibility-policy",
-      "authoritative": true,
-      "authoritative_for": [
-        "public API error handling policy",
-        "fallback / fail-open prohibition"
-      ],
-      "related": [
-        "adr-0006-no-synthetic-data-in-production"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-29",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/engineering/repo-symlink-policy.md",
-      "id": "adr-0008-repo-symlink-ban",
-      "title": "ADR-0008: active tree での repo 内 symlink を全面禁止する",
-      "status": "active",
-      "doc_type": "adr",
-      "topic": "repo-symlink-policy",
-      "authoritative": true,
-      "authoritative_for": [
-        "repo symlink policy",
-        "shared contract / script path reference standard"
-      ],
-      "related": [],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-04-11",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/adr/0031-kami-vrm-three-free-topology.md",
       "id": "adr-0031-kami-vrm-three-free-topology",
       "title": "ADR-0031: KAMI VRM three.js-free topology",
@@ -1608,36 +1568,6 @@
       "last_verified": "2026-04-23",
       "amends": [],
       "amended_by": []
-    },
-    {
-      "path": "90-docs/adr/0087-magatama-mcp-tool-facade.md",
-      "id": "adr-0042",
-      "title": "magatama per-actor MCP tool facade (Hono Streamable HTTP)",
-      "status": "proposed",
-      "doc_type": "adr",
-      "topic": "mcp-tool-facade",
-      "authoritative": true,
-      "authoritative_for": [
-        "per-actor-mcp-endpoint",
-        "llm-agent-tool-discovery",
-        "asagenttool-external-exposure"
-      ],
-      "related": [
-        "90-docs/adr/0004-write-only-derived-architecture.md",
-        "90-docs/adr/0005-shannon-redundancy-prohibition.md",
-        "90-docs/adr/0022-auth-topology-consolidation.md",
-        "90-docs/adr/0023-auth-shannon-optimal-4-layer.md",
-        "90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
-        "90-docs/260413-agent-loop-unification-path-analysis.md",
-        "90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "amended_by": [
-        "adr-2604261000-mcp-registry-via-kysely-schema"
-      ],
-      "last_verified": "2026-04-25",
-      "amends": []
     },
     {
       "path": "90-docs/adr/0046-yoro-triple-witness-autonomy-monitoring.md",
@@ -1779,6 +1709,36 @@
       "authoritative_for": [],
       "amends": [],
       "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/0087-magatama-mcp-tool-facade.md",
+      "id": "adr-0087-magatama-mcp-tool-facade",
+      "title": "magatama per-actor MCP tool facade (Hono Streamable HTTP)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "mcp-tool-facade",
+      "authoritative": true,
+      "authoritative_for": [
+        "per-actor-mcp-endpoint",
+        "llm-agent-tool-discovery",
+        "asagenttool-external-exposure"
+      ],
+      "related": [
+        "90-docs/adr/0004-write-only-derived-architecture.md",
+        "90-docs/adr/0005-shannon-redundancy-prohibition.md",
+        "90-docs/adr/0022-auth-topology-consolidation.md",
+        "90-docs/adr/0023-auth-shannon-optimal-4-layer.md",
+        "90-docs/adr/0036-worker-direct-hyperdrive-persistence.md",
+        "90-docs/260413-agent-loop-unification-path-analysis.md",
+        "90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "amended_by": [
+        "adr-2604261000-mcp-registry-via-kysely-schema"
+      ],
+      "last_verified": "2026-04-25",
+      "amends": []
     },
     {
       "path": "90-docs/adr/2604231328-animeka-bpmn-l40s-pipeline.md",
@@ -13995,6 +13955,28 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/engineering/bpmn-coverage-policy.md",
+      "id": "bpmn-coverage-policy",
+      "title": "BPMN Coverage Policy",
+      "status": "active",
+      "doc_type": "engineering-policy",
+      "topic": "bpmn-coverage",
+      "authoritative": true,
+      "authoritative_for": [
+        "BPMN-as-actor coverage checks",
+        "BPMN XML / lexicon / graph seed binding requirements"
+      ],
+      "related": [
+        "90-docs/adr/0056-bpmn-as-actor.md",
+        "90-docs/adr/0061-tsukuru-isic-bpmn-actors.md"
+      ],
+      "last_verified": "2026-04-25",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2605142000-buildx-remote-build-only.md",
       "id": "buildx-remote-build-only",
       "title": "Container builds use remote buildx BuildKit",
@@ -15068,28 +15050,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/engineering/bpmn-coverage-policy.md",
-      "id": "engineering-bpmn-coverage-policy",
-      "title": "BPMN Coverage Policy",
-      "status": "active",
-      "doc_type": "engineering-policy",
-      "topic": "bpmn-coverage",
-      "authoritative": true,
-      "authoritative_for": [
-        "BPMN-as-actor coverage checks",
-        "BPMN XML / lexicon / graph seed binding requirements"
-      ],
-      "related": [
-        "90-docs/adr/0056-bpmn-as-actor.md",
-        "90-docs/adr/0061-tsukuru-isic-bpmn-actors.md"
-      ],
-      "last_verified": "2026-04-25",
-      "supersedes": [],
-      "superseded_by": [],
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/atproto/260413-f-plan-lexicon-as-contract.md",
       "id": "f-plan-lexicon-as-contract",
       "title": "F-Plan — Lexicon-as-Contract: Host Capability SSoT 統合 (WIT 廃止)",
@@ -15721,6 +15681,46 @@
       "authoritative_for": [],
       "supersedes": [],
       "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/engineering/repo-error-visibility-policy.md",
+      "id": "repo-error-visibility-policy",
+      "title": "ADR-0007: API / Worker のエラーは必ず 4xx/5xx で可視化する。Fallback / fail-open 禁止",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "error-visibility-policy",
+      "authoritative": true,
+      "authoritative_for": [
+        "public API error handling policy",
+        "fallback / fail-open prohibition"
+      ],
+      "related": [
+        "adr-0006-no-synthetic-data-in-production"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-04-29",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/engineering/repo-symlink-policy.md",
+      "id": "repo-symlink-policy",
+      "title": "ADR-0008: active tree での repo 内 symlink を全面禁止する",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "repo-symlink-policy",
+      "authoritative": true,
+      "authoritative_for": [
+        "repo symlink policy",
+        "shared contract / script path reference standard"
+      ],
+      "related": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-04-11",
       "amends": [],
       "amended_by": []
     },
