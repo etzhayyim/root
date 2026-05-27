@@ -6,7 +6,7 @@
 // shader (for actual GPU dispatch via `wgpuLaunch`). The runtime
 // picks WGSL when navigator.gpu is available.
 
-import { sin, tid, type WpArray } from "./warp.js";
+import { cos, sin, tid, type WpArray } from "./warp.js";
 import { wgpuKernel, type WgpuKernel } from "./wgpu-backend.js";
 
 /** Damping kernel: multiply each element of an array by a scalar.
@@ -134,6 +134,136 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
     { binding: 4, kind: "uniform", inputIndex: 4 },
     { binding: 5, kind: "uniform", inputIndex: 5 },
     { binding: 6, kind: "uniform", inputIndex: 6 },
+  ],
+  workgroupSize: 64,
+});
+
+// ── Cartpole semi-implicit Euler step (env-parallel) ─────────────────────
+//
+// Mirrors the Python iter 68 _kernel.cartpole_step (Sutton & Barto /
+// OpenAI Gym CartPole-v1 closed-form) stepped across N envs in parallel.
+// 2-DoF coupled dynamics — revolute pole on a prismatic cart — closer
+// to actual robot work than iter 78's single-pendulum.
+//
+// Per-env state: x (cart position), x_dot (cart velocity), theta
+//   (pole angle from vertical, +θ = pole leans in +x direction), theta_dot.
+// Per-env input: force (clamped to ±force_mag externally; this kernel
+//   does NOT clamp — caller is responsible).
+// Uniform params: dt, gravity, cart_mass, pole_mass, pole_half_length.
+//
+// Closed-form per Sutton & Barto:
+//   temp = (force + m_pole·L·θ̇²·sin θ) / total_mass
+//   θ̈   = (g·sin θ - cos θ · temp) / (L · (4/3 - m_pole·cos²θ / total_mass))
+//   ẍ   = temp - m_pole·L·θ̈·cos θ / total_mass
+//
+// Semi-implicit Euler:
+//   ẋ' = ẋ + dt·ẍ        x' = x + dt·ẋ'
+//   θ̇' = θ̇ + dt·θ̈        θ' = θ + dt·θ̇'
+
+/** Bindings:
+ *    @group(0) @binding(0) x         (storage read_write)
+ *    @group(0) @binding(1) x_dot     (storage read_write)
+ *    @group(0) @binding(2) theta     (storage read_write)
+ *    @group(0) @binding(3) theta_dot (storage read_write)
+ *    @group(0) @binding(4) force     (storage read, writeback false)
+ *    @group(0) @binding(5) dt        (uniform vec4<f32>.x)
+ *    @group(0) @binding(6) gravity   (uniform vec4<f32>.x)
+ *    @group(0) @binding(7) cart_mass (uniform vec4<f32>.x)
+ *    @group(0) @binding(8) pole_mass (uniform vec4<f32>.x)
+ *    @group(0) @binding(9) pole_half_length (uniform vec4<f32>.x)
+ */
+export const cartpoleStepKernel: WgpuKernel = wgpuKernel({
+  js: (
+    x: WpArray<number>,
+    x_dot: WpArray<number>,
+    theta: WpArray<number>,
+    theta_dot: WpArray<number>,
+    force: WpArray<number>,
+    dt: number,
+    gravity: number,
+    cart_mass: number,
+    pole_mass: number,
+    pole_half_length: number,
+  ) => {
+    const i = tid();
+    const t = theta.get(i);
+    const td = theta_dot.get(i);
+    const xd = x_dot.get(i);
+    const f = force.get(i);
+    const sinT = sin(t);
+    const cosT = cos(t);
+    const totalMass = cart_mass + pole_mass;
+    const pml = pole_mass * pole_half_length;
+    const temp = (f + pml * td * td * sinT) / totalMass;
+    const thetaAcc =
+      (gravity * sinT - cosT * temp) /
+      (pole_half_length * (4 / 3 - pole_mass * cosT * cosT / totalMass));
+    const xAcc = temp - pml * thetaAcc * cosT / totalMass;
+    const xDotNew = xd + dt * xAcc;
+    const xNew = x.get(i) + dt * xDotNew;
+    const thetaDotNew = td + dt * thetaAcc;
+    const thetaNew = t + dt * thetaDotNew;
+    x_dot.set(i, xDotNew);
+    x.set(i, xNew);
+    theta_dot.set(i, thetaDotNew);
+    theta.set(i, thetaNew);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> x:         array<f32>;
+@group(0) @binding(1) var<storage, read_write> x_dot:     array<f32>;
+@group(0) @binding(2) var<storage, read_write> theta:     array<f32>;
+@group(0) @binding(3) var<storage, read_write> theta_dot: array<f32>;
+@group(0) @binding(4) var<storage, read_write> force:     array<f32>;
+@group(0) @binding(5) var<uniform>             dt_u:      vec4<f32>;
+@group(0) @binding(6) var<uniform>             g_u:       vec4<f32>;
+@group(0) @binding(7) var<uniform>             cm_u:      vec4<f32>;
+@group(0) @binding(8) var<uniform>             pm_u:      vec4<f32>;
+@group(0) @binding(9) var<uniform>             L_u:       vec4<f32>;
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let i = gid.x;
+  if (i >= arrayLength(&theta)) {
+    return;
+  }
+  let t = theta[i];
+  let td = theta_dot[i];
+  let xd = x_dot[i];
+  let f = force[i];
+  let dt = dt_u.x;
+  let g = g_u.x;
+  let cart_mass = cm_u.x;
+  let pole_mass = pm_u.x;
+  let L = L_u.x;
+  let sinT = sin(t);
+  let cosT = cos(t);
+  let totalMass = cart_mass + pole_mass;
+  let pml = pole_mass * L;
+  let temp = (f + pml * td * td * sinT) / totalMass;
+  let theta_acc = (g * sinT - cosT * temp) /
+                    (L * (4.0 / 3.0 - pole_mass * cosT * cosT / totalMass));
+  let x_acc = temp - pml * theta_acc * cosT / totalMass;
+  let xDotNew = xd + dt * x_acc;
+  let xNew = x[i] + dt * xDotNew;
+  let thetaDotNew = td + dt * theta_acc;
+  let thetaNew = t + dt * thetaDotNew;
+  x_dot[i] = xDotNew;
+  x[i] = xNew;
+  theta_dot[i] = thetaDotNew;
+  theta[i] = thetaNew;
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: true },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: true },
+    { binding: 2, kind: "storage", inputIndex: 2, writeback: true },
+    { binding: 3, kind: "storage", inputIndex: 3, writeback: true },
+    { binding: 4, kind: "storage", inputIndex: 4, writeback: false },
+    { binding: 5, kind: "uniform", inputIndex: 5 },
+    { binding: 6, kind: "uniform", inputIndex: 6 },
+    { binding: 7, kind: "uniform", inputIndex: 7 },
+    { binding: 8, kind: "uniform", inputIndex: 8 },
+    { binding: 9, kind: "uniform", inputIndex: 9 },
   ],
   workgroupSize: 64,
 });
