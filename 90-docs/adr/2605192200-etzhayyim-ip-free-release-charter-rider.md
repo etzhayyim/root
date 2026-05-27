@@ -434,8 +434,8 @@ etzhayyim adherent SBT 保有者 (ADR-2605172300) は、所属組織が Non-Alig
 Apache License 2.0 with **etzhayyim Charter Compliance Rider v1.0**.
 
 By using, modifying, or redistributing this software, you accept both the
-Apache License 2.0 (see [LICENSE](./LICENSE)) and the Charter Compliance
-Rider (see [CHARTER-RIDER.md](./CHARTER-RIDER.md)).
+Apache License 2.0 (see [LICENSE](../../LICENSE)) and the Charter Compliance
+Rider (see [CHARTER-RIDER.md](../../CHARTER-RIDER.md)).
 
 The Rider restricts use by entities engaged primarily in weapons production,
 speculative finance, surveillance capitalism, new fossil fuel extraction, or

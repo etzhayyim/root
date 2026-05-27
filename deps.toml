@@ -6162,6 +6162,20 @@ status = "shipped"
 description = "Cycle 61 — 13 unit tests for validate-id-filename-consistency.py. Covers: 5 categorize_mismatch class boundaries, find_mismatches happy path + permissive matching + genuine flag, tracker/strict mode exit codes, --json schema."
 
 [[modules]]
+path = "70-tools/scripts/docs/validate-md-links.py"
+adr = "ADR-2605271200"
+kind = "md-link-validator"
+status = "shipped-tracker"
+description = "Cycle 67 (2026-05-27) 8th-axis validator — broken in-repo markdown link detector. Resolves 3 link styles: absolute (/Users/.../...), repo-root-relative (/90-docs/...), file-relative (./foo.md / ../bar.md / foo.md). Skips URLs/anchors/scheme-prefixed. Tracker mode (Pattern B). Baseline 33 broken after cycles 66+67 auto-fixed 56 (54 wrong-absolute-prefix + 2 line-number-suffix). Remaining 33 mostly truly-broken (target never existed in repo); manual cleanup needed."
+
+[[modules]]
+path = "70-tools/scripts/docs/test_validate_md_links.py"
+adr = "ADR-2605271200"
+kind = "unit-test-suite"
+status = "shipped"
+description = "Cycle 67 — 8 unit tests for validate-md-links.py. Covers: script existence, clean import, URL_PREFIXES coverage, LINK_RE regex matches, find_broken_links returns typed list, tracker/strict mode exit codes, --json schema."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"
