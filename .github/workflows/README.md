@@ -57,12 +57,21 @@ Triggered on **push to main + PR to main + manual `workflow_dispatch`** when `.g
 
 **Purpose:** structural drift detection. When the documented findings are resolved (kotoba upstream symlink coordination + per-app `.gitrepo` decision), the workflow's strict-mode flag can be enabled to gate against re-introduction.
 
-## Other workflows
+## council-nomination-watch.yml
 
-- **`council-nomination-watch.yml`** — watches PRs for Bootstrap Council Seat 2-5 nomination updates (ADR-2605192300).
-- **`openot-gate-c.yml`** — Open-OT Gate C deployment validation.
-- **`pymagatama-image.yml`** — builds the `pymagatama` container image on changes under `20-actors/magatama/py/`.
-- **`yorishiro-audit.yml`** — auditing for the yorishiro generator (ADR-2605211900).
+Watches PRs for Bootstrap Council Seat 2-5 nomination updates per ADR-2605192300. Adds a check that the 30-day public objection period is honored before merge of Council Lv7+ amendments.
+
+## openot-gate-c.yml
+
+Open-OT (`60-apps/ai-gftd-project-open-ot/`) Gate C deployment validation per the open-ot ADR series.
+
+## pymagatama-image.yml
+
+Builds the `pymagatama` container image when changes land under `20-actors/magatama/py/`.
+
+## yorishiro-audit.yml
+
+Auditing for the yorishiro generator (`70-tools/etzhayyim-cli/yorishiro/`) emitted MCP servers (ADR-2605211900).
 
 ## Adding a new actor
 
