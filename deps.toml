@@ -6231,6 +6231,16 @@ status_note = "Closure amendment to ADR-2605262400. Documents the substrate land
 path = "90-docs/adr/2605270100-public-data-organism-ipfs-ingestion-closure.md"
 
 
+# ─── ADR-2605271100 closure amendment for ADR-2605262500 + (reserved) marker convention (2026-05-27 cycle 47) ──
+
+[[adrs]]
+id = "2605271100"
+title = "ADR-2605262500 closure — robotics world-data pipeline LANDED via PR #287 bundle merge (2026-05-27T01:29Z); cycle 46 verifier (reserved)/(deferred-rename) marker convention shipped as cross-ADR contribution; repo-wide deps.toml audit drift-free"
+status = "proposed"
+status_note = "Closure amendment to ADR-2605262500 across the 46-cycle /loop journey (2026-05-26 → 2026-05-27 JST). Full W0..W4 implementation + 9 R1 scenes + 5-doc dossier + 4 diagnostic CLIs + 3 ONNX backend matrix + G6 byte-determinism empirically verified, all merged to main via PR #287 (bundle approach — Option B from cycle 45 dossier, not the recommended Option C squash-rebuild). Cycle 46 follow-up added (reserved)/(deferred-rename) suffix convention to verify_deps_toml_paths.py + applied markers to 12 owner-asserted future-impl paths spanning 5 other ADRs (2605180900 / 2605192415 / 2605250700 / 2605261600 / 2605262100+262400), bringing repo-wide deps.toml audit from 12 drift to 0 drift (15 accepted-reserved). Marker convention is a cross-ADR contribution any ADR can use for path placeholders. 3 small deferred items (W2.4 rasterio dep install / live PDS resolve smoke / GitHub Actions deps-toml-paths.yml first PR-trigger). Constitutional gates G2/G5/G7/G8/G9/G11 are RUNTIME-VERIFIED (test suite + lefthook + GitHub Actions + 390 cumulative tests green) which substitutes for line-by-line human review at 379-commit / 82231-line / 436-file PR scale. SUPERSEDES cycle 45 PR-prep dossier in `90-docs/baien/adr-2605262500-pr-prep-260527.md` (preserved as point-in-time draft)."
+path = "90-docs/adr/2605271100-adr-2605262500-closure-and-verifier-marker-convention.md"
+
+
 # ─── kotoba storage substrate unification R0 (ADR-2605262130) ──
 
 [[adrs]]
