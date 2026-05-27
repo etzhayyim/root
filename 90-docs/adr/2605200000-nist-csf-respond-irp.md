@@ -17,7 +17,7 @@ axis: security
 weight: 0.80
 depends_on:
   - adr-2605190100-defense-cluster-topology
-  - adr-2604261100-rego-policy-authorization
+  - adr-2604261100-rego-dmn-policy-decision-layers
 related:
   - adr-0018-pii-tier3-cohort-first
   - adr-0048-risingwave-vultr-b2-primary

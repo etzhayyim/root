@@ -18,7 +18,7 @@ depends_on:
   - adr-2605242600-baien-federated-train-via-ameno-webgpu
   - adr-2605241900-baien-edge-target-invariant
   - adr-2605231300-baien-distill-react-loop
-  - adr-2605231525-no-server-side-signing-keys
+  - adr-2605231525-no-server-key-religious-corp-architecture
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
   - 20-actors/ameno/src/train.ts

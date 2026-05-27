@@ -17,7 +17,7 @@ depends_on:
   - adr-2605231300-baien-distill-react-loop
   - adr-2605232500-baien-mx-move1-image-graft-self-training
   - adr-2605241900-baien-edge-target-invariant
-  - adr-2605242000-etzhayyim-wadachi-autonomous-mobility-rd
+  - adr-2605242000-roso-pattern-frontier-distill
   - adr-2605242100-baien-server-xl-carve-out
   - adr-2605242110-baien-mx-move5-video-graft
   - adr-2605192100-etzhayyim-mission-charter

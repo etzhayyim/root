@@ -23,7 +23,7 @@ priority_note: |
   narration-gated UX) are the contract every subsequent scenario inherits.
 depends_on:
   - adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate
-  - adr-2605092800-gsplat-preview-qc-baked-runtime
+  - adr-2605092800-kami-gsplat-preview-bake-pipeline
   - adr-2605202225-mangaka-comfyui-langgraph-pipeline
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
 related:

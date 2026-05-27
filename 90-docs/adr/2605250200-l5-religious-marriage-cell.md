@@ -13,9 +13,9 @@ priority_note: "L5 ladder P2 per ADR-2605250100. Council attestation required be
 authoritative_for:
   - l5-religious-marriage-cell
 depends_on:
-  - 2605250100-l5-routing-around-member-registry-cell
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192300-council-bootstrap-attestation
+  - adr-2605250100-l5-routing-around-member-registry-cell
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192300-etzhayyim-bootstrap-council-five
 related:
   - 2605192245-etzhayyim-global-land-sovereignty
   - 2605192115-tithe-router-public-fund

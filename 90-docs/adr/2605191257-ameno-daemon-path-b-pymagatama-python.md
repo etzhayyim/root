@@ -7,9 +7,9 @@ topic: ameno-headless-daemon
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191229-ameno-daemon-path-a-bun-langgraph.md
-  - 2605182312-local-bring-up-murakumo-gemma4.md
-  - 2605191135-ameno-tier2-daemon-residency.md
+  - 2605191229-ameno-daemon-path-a-bun-langgraph
+  - 2605182312-local-bring-up-murakumo-gemma4
+  - 2605191135-ameno-tier2-daemon-residency
 related:
 V05191000-ameno-browser-pregel-reflection
 V05191113-ameno-active-inference-lexical-surprise

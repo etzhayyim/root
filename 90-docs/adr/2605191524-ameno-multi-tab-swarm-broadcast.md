@@ -7,8 +7,8 @@ topic: ameno-swarm
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191135-ameno-tier2-daemon-residency.md
-  - 2605191407-ameno-browser-viewer-mode.md
+  - 2605191135-ameno-tier2-daemon-residency
+  - 2605191407-ameno-browser-viewer-mode
 ---
 
 # ADR 2605191524: Ameno multi-tab swarm via BroadcastChannel

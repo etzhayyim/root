@@ -16,7 +16,7 @@ authoritative_for:
   - "Cross-actor coupling: mizuho R2+ working-fluid water + hikari thermal-storage + CSP §5 heat-network integration"
 depends_on:
   - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
-  - adr-2605261100-hikari-energy-tier-b-actor-r0
+  - adr-2605261100
   - adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0
   - adr-2605264300-csp-solar-thermal-d-gate-evaluation-r0
   - adr-2605192100-etzhayyim-mission-charter

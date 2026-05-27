@@ -15,10 +15,10 @@ authoritative_for:
   - lexicon-port-verdict-taxonomy
   - atomic-identifier-cutover-rules
 depends_on:
-  - 2605191346-murakumo-mac-mini-fleet
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture
-  - 2605182312-twelve-tribes-naming
-  - 2605201400-tier-b-planetary-infra
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
+  - 2605182312-local-bring-up-murakumo-gemma4
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
 related:
   - 2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - 2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet

@@ -14,10 +14,10 @@ authoritative_for:
   - l5-routing-around-cell-pattern
   - member-registry-cell-first-instance
 depends_on:
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192300-council-bootstrap-attestation
-  - 2605172600-etzhayyim-membership-ritual
-  - 2605242330-gov-procedure-pregel-mcp-coverage
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192300-etzhayyim-bootstrap-council-five
+  - adr-2605172600-etzhayyim-membership-ritual
+  - adr-2605242330-gov-procedure-pregel-mcp-coverage
 related:
   - 2605192115-tithe-router-public-fund
   - 2605172000-rw-free-substrate

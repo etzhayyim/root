@@ -16,9 +16,9 @@ authoritative_for:
   - svelte/public/* → static/ build mirror discipline
   - documentation of yoro SPA hydration RangeError root cause (not fixed in this ADR)
 depends_on:
-  - 2605172000  # RW-free substrate, identity = DID + WebAuthn
-  - 2605192200  # Charter Compliance Rider v2.0 (§2(c) anti-surveillance)
-  - 2605192100  # Mission Charter
+  - adr-2605172000-etzhayyim-rw-free-substrate  # RW-free substrate, identity = DID + WebAuthn
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider  # Charter Compliance Rider v2.0 (§2(c) anti-surveillance)
+  - adr-2605192100-etzhayyim-mission-charter  # Mission Charter
 related:
   - 2605181100  # XChaCha20 envelope (touches localStorage-vs-cookie boundary)
 supersedes: []

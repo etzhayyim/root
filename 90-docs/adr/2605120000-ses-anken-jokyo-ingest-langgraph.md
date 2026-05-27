@@ -22,7 +22,7 @@ depends_on:
   - adr-2605080000-distributed-cognitive-actor-system
   - adr-2605080200-pydantic-l6-validation-contract
   - adr-2605080300-sqlalchemy-core-usage-contract
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-0095-simplified-3layer-identity-rw-vault

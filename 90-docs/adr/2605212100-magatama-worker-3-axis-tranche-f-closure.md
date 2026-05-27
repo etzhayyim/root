@@ -18,7 +18,7 @@ authoritative_for:
 depends_on:
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605172100-payments-on-chain-only
+  - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605211200-etzhayyim-active-inference-organism-on-murakumo
   - adr-2605173100-gitguardian-incident-response
 related:

@@ -19,7 +19,7 @@ depends_on:
   - adr-2605152100-etzhayyim-github-org-boundary
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605172100-payments-on-chain-only
+  - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
   - adr-2605172200-open-email
   - adr-2605172300-etzhayyim-open-telecom-fabric

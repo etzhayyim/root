@@ -15,10 +15,10 @@ authoritative_for:
   - "RunPod prohibition for all religious-corp workloads"
   - "pymagatama RunPod coupling audit and Step 8 cutover scope"
 depends_on:
-  - "2605191346-etzhayyim-vultr-free-murakumo-control-plane.md"
-  - "2605172000-etzhayyim-rw-free-substrate.md"
-  - "2605202345-evo-x2-gpu-pod-fleet-integration.md"
-  - "2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules.md"
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605202345-evo-x2-gpu-pod-fleet-integration
+  - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:
   - "2605192415-etzhayyim-religious-corp-daemon-architecture.md"
   - "2605202100-etzhayyim-magatama-cell-runner-launchd.md"

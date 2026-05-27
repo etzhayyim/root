@@ -15,9 +15,9 @@ related:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 depends_on:
-  - 2605191524-transparent-force-swarm-broadcast-witness-quorum.md
-  - 2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md
-  - 2605181100-mst-encrypted-records-signal-keywrap.md
+  - 2605191524-ameno-multi-tab-swarm-broadcast
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 ---
 
 # ADR-2605261300: tsutae (伝え) — Handheld Communication Device Tier-B Actor R0 Scaffold

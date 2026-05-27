@@ -7,9 +7,9 @@ topic: ameno-swarm
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191524-ameno-multi-tab-swarm-broadcast.md
-  - 2605191603-ameno-swarm-leader-election.md
-  - 2605191559-ameno-mst-checkpointer-stage-2-activation.md
+  - 2605191524-ameno-multi-tab-swarm-broadcast
+  - 2605191603-ameno-swarm-leader-election
+  - 2605191559-ameno-mst-checkpointer-stage-2-activation
 related:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 ---

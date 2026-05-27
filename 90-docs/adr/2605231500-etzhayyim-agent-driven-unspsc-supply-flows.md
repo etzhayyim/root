@@ -17,21 +17,21 @@ authoritative_for:
   - the canonical wiring matrix between UNSPSC LangGraph actors and religious-corp economic-body contracts
   - agent-vs-human signer distinction (AAT for AI agents, Adherent SBT for humans)
 depends_on:
-  - 2605170900-religious-corp-adr-canonical-home
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605172300-etzhayyim-bi-asset-substrate
-  - 2605172700-membership-layering-shinto-adherent
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192115-etzhayyim-non-profit-donation-only-no-ads
-  - 2605192130-etzhayyim-public-fund
-  - 2605192200-etzhayyim-ip-free-release-charter-rider
-  - 2605192230-etzhayyim-three-tier-enforcement-implementation
-  - 2605192300-etzhayyim-bootstrap-council-five
-  - 2605192315-etzhayyim-transparent-force-rd
-  - 2605211241-etzhayyim-surplus-router-warehouse-bridge
-  - 2605221411-etzhayyim-artificial-organism-ecosystem
-  - 2605231230-etzhayyim-esign-actor-did-bound-mst-anchored
+  - adr-2605170900-etzhayyim-root-adr-canonical-home
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172300-etzhayyim-bi-asset-substrate
+  - adr-2605172700-membership-layering-shinto-adherent
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
+  - adr-2605192130-etzhayyim-tithe-redistribution
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
+  - adr-2605192300-etzhayyim-bootstrap-council-five
+  - adr-2605192315-etzhayyim-transparent-force-rd
+  - adr-2605211241-etzhayyim-surplus-router-warehouse-bridge
+  - adr-2605221411-etzhayyim-artificial-organism-ecosystem
+  - adr-2605231230-etzhayyim-esign-actor-did-bound-mst-anchored
 related:
   - 2605222330-etzhayyim-com-substrate-violation-transition-window
 supersedes: []

@@ -13,9 +13,9 @@ priority_note: "Referenced by DEPRECATED.md in source archive; back-authored 202
 authoritative_for:
   - gftd-to-etzhayyim-60apps-batch
 depends_on:
-  - 2605172000-rw-free-substrate
-  - 2605172100-substrate-ladder
-  - 2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172100-etzhayyim-payments-on-chain-only
+  - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:
   - 2605171900-yoro-migration-to-etzhayyim
   - 2605172800-geth-private-migration-to-etzhayyim

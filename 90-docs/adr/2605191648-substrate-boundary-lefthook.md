@@ -7,8 +7,8 @@ topic: substrate-governance
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate.md
-  - 2605172100-etzhayyim-payments-on-chain-only.md
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
   - adr-2605173100-gitguardian-incident-response
 V05191346-etzhayyim-vultr-free-murakumo-control-plane

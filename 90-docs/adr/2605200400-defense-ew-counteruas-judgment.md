@@ -18,7 +18,7 @@ weight: 0.90
 depends_on:
   - adr-2605190100-defense-cluster-topology
   - adr-2605200300-defense-isr-sensor-fusion
-  - adr-2604261100-rego-authz-ssot
+  - adr-2604261100-rego-dmn-policy-decision-layers
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
 related:
   - adr-2605200100-defense-mission-orchestration-lattice

@@ -18,9 +18,9 @@ authoritative_for:
   - "Dan 昇格 = 自他非分離体験ゲート (D6 non-duality embodiment gate)"
   - "app.etzhayyim.apps.etzhayyim.nonDualityAttestation Lexicon 予約"
 depends_on:
-  - "2605172600-etzhayyim-membership-ritual"
-  - "2605192100-etzhayyim-mission-charter"
-  - "2605192230-etzhayyim-three-tier-enforcement-implementation"
+  - adr-2605172600-etzhayyim-membership-ritual
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
 related:
   - "20-actors/joucho/CLAUDE.md"
   - "20-actors/society6/CLAUDE.md"

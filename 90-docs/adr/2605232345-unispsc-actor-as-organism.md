@@ -15,7 +15,7 @@ authoritative_for:
   - UNSPSC actor → organism wrapping contract
   - one-organism-per-cell fleet placement convention
 depends_on:
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:

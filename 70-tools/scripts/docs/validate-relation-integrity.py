@@ -55,6 +55,7 @@ def find_relation_issues(
         "superseded_by": [],
         "amends": [],
         "amended_by": [],
+        "depends_on": [],  # added cycle 64
     }
     self_refs: list[dict[str, str]] = []
 

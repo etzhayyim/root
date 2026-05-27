@@ -20,7 +20,7 @@ authoritative_for:
 depends_on:
   - adr-2605241900-baien-edge-target-invariant
   - adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design
-  - adr-2605190824-ameno-mediapipe-llm-browser-runtime
+  - 2605190824-ameno-mediapipe-llm-browser-runtime
   - adr-2605242630-baien-federated-r1-webgpu-backward-poc
   - adr-2605252100-ameno-webnn-inference-fast-path
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod

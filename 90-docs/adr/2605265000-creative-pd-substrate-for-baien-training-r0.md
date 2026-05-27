@@ -23,14 +23,14 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605231300-baien-distill-commit-node-gate
-  - adr-2605241500-dataset-cid-substrate-datalad-ipfs
+  - adr-2605231300-baien-distill-react-loop
+  - adr-2605241500-etzhayyim-dataset-cid-substrate
   - adr-2605262100-baien-moemoekyun-r1-phase0-coding-train
   - adr-2605262130-kotoba-storage-substrate-unification
-  - adr-2605262400-public-data-ingestion-via-ipfs-datalad
-  - adr-2605262800-global-legal-corpus-ingestion-via-ipfs-datalad
+  - adr-2605262400-public-data-organism-ipfs-ingestion
+  - adr-2605262800-public-data-legal-corpus-ipfs-ingestion
   - adr-2605264000-ossekai-information-arbitrage-tier-b-actor-r0
-  - adr-2605261045-manabi-education-tier-b-actor-r0
+  - adr-2605261045
 related: []
 supersedes: []
 superseded_by: []

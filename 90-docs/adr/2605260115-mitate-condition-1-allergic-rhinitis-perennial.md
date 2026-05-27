@@ -17,7 +17,7 @@ depends_on:
   - adr-2605260100-mitate-diagnostic-routing-charter
   - adr-2605250500-yakushi-pharmaceutical-rd-charter
   - adr-2605250600-yakushi-wave-1b-otc-api-catalog-expansion
-  - adr-2605181100-etzhayyim-encrypted-confidentiality-substrate
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
   - 20-actors/magatama/cells/mitate_rhinitis_intake/
   - 20-actors/magatama/cells/mitate_rhinitis_triage/

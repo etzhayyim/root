@@ -22,7 +22,7 @@ depends_on:
   - adr-2605192130-etzhayyim-tithe-redistribution
   - adr-2605192145-etzhayyim-public-fund-architecture
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
   - adr-2605170900-etzhayyim-root-adr-canonical-home

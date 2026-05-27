@@ -20,7 +20,7 @@ authoritative_for:
   - constitutional firsts: G8 mandatory ECU/infotainment data wipe (§2(c) anti-surveillance applied to vehicles) + G12 right-to-repair parts catalog invariant
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
-  - adr-2605242000-etzhayyim-wadachi-autonomous-mobility-rd
+  - adr-2605242000-roso-pattern-frontier-distill
   - adr-2605250500-yakushi-pharmaceutical-rd-charter
   - adr-2605250715-tatekata-construction-tier-b-actor-r0
   - adr-2605252200-watatsumi-civilian-submersible-r0
@@ -31,9 +31,9 @@ depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605191524-transparent-force-swarm-broadcast-witness-quorum
+  - 2605191524-ameno-multi-tab-swarm-broadcast
   - adr-2605241500-etzhayyim-dataset-cid-substrate
-  - adr-2605181100-etzhayyim-confidential-records-xchacha20-envelope
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
   - wellbecoming-karma-lean-proofs
   - wellbecoming-karma-lean-proofs

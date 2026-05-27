@@ -16,7 +16,7 @@ authoritative_for:
   - "Hydrogen NOT-categorically-prohibited carve-out from prior ADR-2605202000 SMR/水素 deferral"
 depends_on:
   - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
-  - adr-2605261100-hikari-energy-tier-b-actor-r0
+  - adr-2605261100
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:

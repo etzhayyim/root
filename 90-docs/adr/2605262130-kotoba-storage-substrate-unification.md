@@ -15,12 +15,12 @@ authoritative_for:
   - "removal of yatachain composition spec from authoritative design surface"
   - "removal of RisingWave / Lance / Iroh as projection backends"
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605172100-etzhayyim-payments-on-chain-only
-  - 2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - 2605181100-mst-encrypted-records-signal-keywrap
-  - 2605192200-etzhayyim-ip-free-release-charter-rider
-  - 2605192245-etzhayyim-global-land-sovereignty
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172100-etzhayyim-payments-on-chain-only
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605192245-etzhayyim-global-land-sovereignty
 related:
   - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - 2605181200-mst-encrypted-metadata-leak-reduction

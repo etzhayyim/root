@@ -868,6 +868,9 @@
       "related": [
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
       ],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -886,6 +889,10 @@
       "related": [
         "adr-2605172000-etzhayyim-rw-free-substrate"
       ],
+      "depends_on": [
+        "2605190824-ameno-mediapipe-llm-browser-runtime",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -902,6 +909,9 @@
       "topic": "ameno-active-inference",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605191000-ameno-browser-pregel-reflection"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -918,6 +928,9 @@
       "topic": "ameno-active-inference",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605191113-ameno-active-inference-lexical-surprise"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -936,6 +949,11 @@
       "related": [
         "adr-2605172000-etzhayyim-rw-free-substrate"
       ],
+      "depends_on": [
+        "2605191000-ameno-browser-pregel-reflection",
+        "2605191113-ameno-active-inference-lexical-surprise",
+        "2605191120-ameno-embedding-surprise-tier-c"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -952,6 +970,14 @@
       "topic": "ameno-organism-daemon",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605182312-local-bring-up-murakumo-gemma4",
+        "2605191000-ameno-browser-pregel-reflection",
+        "2605191113-ameno-active-inference-lexical-surprise",
+        "2605191120-ameno-embedding-surprise-tier-c",
+        "2605191129-ameno-browser-tool-use-react",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -970,6 +996,12 @@
       "related": [
         "adr-2605172000-etzhayyim-rw-free-substrate"
       ],
+      "depends_on": [
+        "2605191120-ameno-embedding-surprise-tier-c",
+        "2605191129-ameno-browser-tool-use-react",
+        "2605191135-ameno-tier2-daemon-residency",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -986,6 +1018,11 @@
       "topic": "ameno-headless-daemon",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605191135-ameno-tier2-daemon-residency",
+        "2605191000-ameno-browser-pregel-reflection",
+        "2605191129-ameno-browser-tool-use-react"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1002,6 +1039,11 @@
       "topic": "ameno-headless-daemon",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605191229-ameno-daemon-path-a-bun-langgraph",
+        "2605182312-local-bring-up-murakumo-gemma4",
+        "2605191135-ameno-tier2-daemon-residency"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1021,6 +1063,12 @@
       "supersedes": [
         "(strengthens, does not delete) 2605172800-geth-private-migration-to-etzhayyim §Option C"
       ],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172800-geth-private-migration-to-etzhayyim",
+        "2605182312-local-bring-up-murakumo-gemma4"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "superseded_by": [],
@@ -1036,6 +1084,12 @@
       "topic": "ameno-viewer-mode",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605191000-ameno-browser-pregel-reflection",
+        "2605191229-ameno-daemon-path-a-bun-langgraph",
+        "2605191257-ameno-daemon-path-b-pymagatama-python",
+        "2605191135-ameno-tier2-daemon-residency"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1051,6 +1105,10 @@
       "doc_type": "adr",
       "topic": "ameno-swarm",
       "authoritative": true,
+      "depends_on": [
+        "2605191135-ameno-tier2-daemon-residency",
+        "2605191407-ameno-browser-viewer-mode"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "related": [],
@@ -1071,6 +1129,11 @@
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605172000-etzhayyim-rw-free-substrate"
       ],
+      "depends_on": [
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "2605191257-ameno-daemon-path-b-pymagatama-python",
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1087,6 +1150,9 @@
       "topic": "ameno-swarm",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605191524-ameno-multi-tab-swarm-broadcast"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1102,6 +1168,11 @@
       "doc_type": "adr",
       "topic": "ameno-substrate-pipeline",
       "authoritative": true,
+      "depends_on": [
+        "2605191559-ameno-mst-checkpointer-stage-2-activation",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "related": [],
@@ -1119,6 +1190,10 @@
       "topic": "ameno-substrate-pipeline",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605191608-ameno-stage-3-ipfs-pin-activation",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1137,6 +1212,11 @@
       "related": [
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
       ],
+      "depends_on": [
+        "2605191524-ameno-multi-tab-swarm-broadcast",
+        "2605191603-ameno-swarm-leader-election",
+        "2605191559-ameno-mst-checkpointer-stage-2-activation"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1153,6 +1233,9 @@
       "topic": "ameno-auth",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605191657-ameno-daemon-did-auth"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1169,6 +1252,11 @@
       "topic": "ameno-state-unification",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605191407-ameno-browser-viewer-mode",
+        "2605191257-ameno-daemon-path-b-pymagatama-python",
+        "2605191229-ameno-daemon-path-a-bun-langgraph"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1187,6 +1275,10 @@
       "related": [
         "adr-2605173100-gitguardian-incident-response"
       ],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1203,6 +1295,11 @@
       "topic": "ameno-auth",
       "authoritative": true,
       "related": [],
+      "depends_on": [
+        "2605191407-ameno-browser-viewer-mode",
+        "2605191229-ameno-daemon-path-a-bun-langgraph",
+        "2605191257-ameno-daemon-path-b-pymagatama-python"
+      ],
       "last_verified": "2026-05-19",
       "authoritative_for": [],
       "supersedes": [],
@@ -1230,6 +1327,7 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -1259,6 +1357,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "ADR-2605152100",
+        "ADR-2605172000",
+        "ADR-2605172100",
+        "ADR-2605172400"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -1288,6 +1392,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "ADR-2605211950",
+        "ADR-2605172100"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -1318,6 +1426,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "ADR-2605211950",
+        "ADR-2605212030",
+        "ADR-2605172100"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -1347,6 +1460,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "ADR-2605211950",
+        "ADR-2605172100",
+        "ADR-2605212030"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -1370,6 +1488,12 @@
         "ADR-0034 (Goose agent runtime — yoro-as-actor topology, 2026-04-20, murakumo-scoped): Goose role + recipes + crontab entries on judah are retired in favor of LangGraph cells served from langserver under yatachain substrate"
       ],
       "superseded_by": [],
+      "depends_on": [
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605232100-etzhayyim-organism-vertical-implementation"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -1390,6 +1514,13 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605231400-yatachain-holochain-iso-substrate"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -1410,6 +1541,13 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605232100-etzhayyim-organism-vertical-implementation",
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo",
+        "2605231630-langgraph-chain-server-canonical-goose-retirement"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -2823,6 +2961,12 @@
       "status": "accepted",
       "doc_type": "adr",
       "topic": "india-government-efiling",
+      "depends_on": [
+        "adr-0052-epfo-ecr-actor",
+        "adr-0054-esic-contribution-actor",
+        "adr-0070-itr1-sahaj-actor",
+        "adr-0071-gstr3b-actor"
+      ],
       "last_verified": "2026-04-26",
       "authoritative": false,
       "authoritative_for": [],
@@ -3391,6 +3535,9 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2604291800-well-becoming-spirit-objective-function"
+      ],
       "last_verified": "2026-04-29",
       "amends": [],
       "amended_by": []
@@ -3419,6 +3566,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2604291800-well-becoming-formal-model",
+        "adr-2604251830-shannon-optimal-layered-architecture",
+        "adr-2604240946-yoro-autonomous-actor-hybrid-loop",
+        "adr-0056-bpmn-as-actor"
+      ],
       "last_verified": "2026-04-29",
       "amends": [],
       "amended_by": []
@@ -3592,6 +3745,10 @@
         "adr-0056-bpmn-as-actor",
         "adr-2604282300"
       ],
+      "depends_on": [
+        "adr-0056-bpmn-as-actor",
+        "adr-2604282300"
+      ],
       "last_verified": "2026-05-01",
       "amended_by": []
     },
@@ -3617,6 +3774,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2604291800-well-becoming-spirit-objective-function",
+        "adr-2604291800-well-becoming-formal-model",
+        "adr-2604251830-shannon-optimal-layered-architecture",
+        "adr-0074-ethereum-identity-bridge-cacao-webauthn",
+        "adr-0095-simplified-3layer-identity-rw-vault",
+        "adr-0056-bpmn-as-actor"
+      ],
       "last_verified": "2026-05-01",
       "amends": [],
       "amended_by": []
@@ -3703,6 +3868,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2604291800-well-becoming-spirit-objective-function",
+        "adr-2604291800-well-becoming-formal-model",
+        "adr-2604251830-shannon-optimal-layered-architecture"
+      ],
       "last_verified": "2026-05-07",
       "amends": [],
       "amended_by": []
@@ -3732,6 +3902,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605061200-agi-active-inference-artificial-organism-architecture",
+        "adr-2604291800-well-becoming-spirit-objective-function",
+        "adr-2604291800-well-becoming-formal-model",
+        "adr-2604251215-etzhayyim-agent-authority-bounds",
+        "adr-2604252100-robotics-product-manufacturing-package"
+      ],
       "last_verified": "2026-05-06",
       "amends": [],
       "amended_by": []
@@ -3793,6 +3970,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605061200-agi-active-inference-artificial-organism-architecture",
+        "adr-2604291800-well-becoming-spirit-objective-function",
+        "adr-2604251830-shannon-optimal-layered-architecture",
+        "adr-0056-bpmn-as-actor",
+        "adr-0002-graph-storage",
+        "adr-0019-atproto-native-identifier-topology"
+      ],
       "last_verified": "2026-05-07",
       "amends": [],
       "amended_by": []
@@ -3816,6 +4001,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605061200-agi-active-inference-artificial-organism-architecture",
+        "adr-2605061300-real-world-effect-channel-boundary",
+        "adr-2605011200-graph-expand-bpmn-llm-edge-inference",
+        "adr-2604261900-risingwave-ddl-backfill-path-topology"
+      ],
       "last_verified": "2026-05-07",
       "amends": [],
       "amended_by": []
@@ -3997,6 +4188,14 @@
         "adr-2605082100-langgraph-checkpointer-storage",
         "adr-2605082200-pyzeebe-handler-thin-dispatcher-contract"
       ],
+      "depends_on": [
+        "adr-2605071200-myco-yeast-artificial-organism-jp-naming",
+        "adr-2605072000-langgraph-agent-loop-pattern",
+        "adr-2604282300",
+        "adr-2604251830-shannon-optimal-layered-architecture",
+        "adr-0056-bpmn-as-actor",
+        "adr-0044-risingwave-udf-language-strategy"
+      ],
       "last_verified": "2026-05-07",
       "amends": []
     },
@@ -4062,6 +4261,12 @@
         "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
         "adr-2605091800-pruning-protocol"
       ],
+      "depends_on": [
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605071200-myco-yeast-artificial-organism-jp-naming",
+        "adr-0056-bpmn-as-actor",
+        "adr-2604291800-well-becoming-spirit-objective-function"
+      ],
       "last_verified": "2026-05-07",
       "amends": [],
       "amended_by": []
@@ -4092,6 +4297,10 @@
         "adr-2605072000-langgraph-agent-loop-pattern"
       ],
       "amended_by": [],
+      "depends_on": [
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605072000-langgraph-agent-loop-pattern"
+      ],
       "last_verified": "2026-05-07"
     },
     {
@@ -4116,6 +4325,10 @@
       "superseded_by": [],
       "amends": [],
       "amended_by": [],
+      "depends_on": [
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605080200-pydantic-l6-validation-contract"
+      ],
       "last_verified": "2026-05-07"
     },
     {
@@ -4141,6 +4354,9 @@
       "amended_by": [
         "adr-2605080700-graph-schema-live-risingwave-baseline"
       ],
+      "depends_on": [
+        "adr-2605080300-sqlalchemy-core-usage-contract"
+      ],
       "last_verified": "2026-05-07"
     },
     {
@@ -4165,6 +4381,10 @@
       "superseded_by": [],
       "amends": [],
       "amended_by": [],
+      "depends_on": [
+        "adr-2605080300-sqlalchemy-core-usage-contract",
+        "adr-2605080000-distributed-cognitive-actor-system"
+      ],
       "last_verified": "2026-05-07"
     },
     {
@@ -4196,6 +4416,15 @@
         "adr-2605080000-distributed-cognitive-actor-system",
         "adr-2605072000-langgraph-agent-loop-pattern"
       ],
+      "depends_on": [
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605072000-langgraph-agent-loop-pattern",
+        "adr-2605061200-agi-active-inference-artificial-organism-architecture",
+        "adr-2604251821-vke-murakumo-multicluster-control",
+        "adr-2604282300",
+        "adr-0056-bpmn-as-actor",
+        "adr-2605081200-spiffworkflow-bpmn-engine-replacement"
+      ],
       "last_verified": "2026-05-08",
       "related": [],
       "amended_by": []
@@ -4219,6 +4448,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605080300-sqlalchemy-core-usage-contract",
+        "adr-2605080500-sqlmesh-mv-management"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4242,6 +4475,19 @@
       "amends": [
         "adr-2605010000"
       ],
+      "depends_on": [
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605080100-bonsai-growth-prune-model",
+        "adr-2605080200-pydantic-l6-validation-contract",
+        "adr-2605080300-sqlalchemy-core-usage-contract",
+        "adr-2605010000",
+        "adr-2604282300",
+        "adr-2604251830-shannon-optimal-layered-architecture",
+        "adr-0036-worker-direct-hyperdrive-persistence",
+        "adr-0041-pds-commit-content-addressed-pk",
+        "adr-0095-simplified-3layer-identity-rw-vault"
+      ],
       "last_verified": "2026-05-08",
       "related": [],
       "supersedes": [],
@@ -4264,6 +4510,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-0056",
+        "adr-2604282300"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4284,6 +4534,20 @@
         "non-federable PII actor の境界 (default に AT Repo emit を出さない)"
       ],
       "related": [],
+      "depends_on": [
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605080200-pydantic-l6-validation-contract",
+        "adr-2605080300-sqlalchemy-core-usage-contract",
+        "adr-2604282300",
+        "adr-2604251830-shannon-optimal-layered-architecture",
+        "adr-2604291800-well-becoming-spirit-objective-function",
+        "adr-0036-worker-direct-hyperdrive-persistence",
+        "adr-0041-pds-commit-content-addressed-pk",
+        "adr-0095-simplified-3layer-identity-rw-vault",
+        "adr-0026-agent-only-reverse-identity-topology",
+        "adr-0018-pii-tier3-cohort-first"
+      ],
       "last_verified": "2026-05-08",
       "supersedes": [],
       "superseded_by": [],
@@ -4342,6 +4606,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2604291800-well-becoming-formal-model",
+        "adr-2604291800-well-becoming-spirit-objective-function",
+        "adr-0036-worker-direct-hyperdrive-persistence",
+        "adr-0041-pds-commit-content-addressed-pk",
+        "adr-0056-bpmn-as-actor"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4368,6 +4639,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-0026-agent-only-reverse-identity-topology",
+        "adr-0056-bpmn-as-actor",
+        "adr-0036-worker-direct-hyperdrive-persistence",
+        "adr-2604291800-well-becoming-spirit-objective-function",
+        "adr-2605010000"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4415,6 +4694,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-2605081400-karma-self-growing-organism-ecosystem"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4439,6 +4722,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-2605081400-karma-self-growing-organism-ecosystem",
+        "adr-2605081500-karma-threat-model-and-counter-design",
+        "adr-2604291800-well-becoming-spirit-objective-function"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4460,6 +4749,11 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-2605081400-karma-self-growing-organism-ecosystem",
+        "adr-2605081600-karma-token-economy-k6-mandate"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4488,6 +4782,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-0036-worker-direct-hyperdrive-persistence",
+        "adr-0056-bpmn-as-actor",
+        "adr-0019-atproto-native-identifier-topology",
+        "adr-2604282300",
+        "adr-2604291800-well-becoming-spirit-objective-function"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4509,6 +4810,12 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-2605081400-karma-self-growing-organism-ecosystem",
+        "adr-0056-bpmn-as-actor",
+        "adr-2604241342-risingwave-out-of-band-migration-pattern"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4529,6 +4836,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-2604291800-well-becoming-spirit-objective-function"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4550,6 +4861,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-2605081600-karma-token-economy-k6-mandate"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4604,6 +4919,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605082200-langgraph-single-task-and-row-driven-runtime",
+        "adr-2604261000-mcp-registry-via-kysely-schema"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4625,6 +4944,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605082200-langgraph-single-task-and-row-driven-runtime",
+        "adr-2605080600-langgraph-server-granian-l3-runtime"
+      ],
       "last_verified": "2026-05-08",
       "amends": [],
       "amended_by": []
@@ -4680,6 +5003,11 @@
       "superseded_by": [],
       "amends": [
         "adr-2605080600-langgraph-server-granian-l3-runtime"
+      ],
+      "depends_on": [
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-0036-worker-direct-hyperdrive-persistence"
       ],
       "last_verified": "2026-05-08",
       "amended_by": []
@@ -4779,6 +5107,12 @@
         "adr-2605080100-bonsai-growth-prune-model"
       ],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605071200-myco-yeast-artificial-organism-jp-naming",
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-2605081400-karma-self-growing-organism-ecosystem",
+        "adr-2605061200-agi-active-inference-artificial-organism-architecture"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -4805,6 +5139,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
+        "adr-0087-magatama-mcp-tool-facade",
+        "adr-2604231828-appview-domain-separation-bsky-gftd-ai",
+        "adr-2605131600-malak-orchestration-langgraph-pregel-langserve"
+      ],
       "last_verified": "2026-05-15",
       "amends": [],
       "amended_by": []
@@ -4828,6 +5168,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -4852,6 +5198,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605071200-myco-yeast-artificial-organism-jp-naming"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -4910,6 +5261,12 @@
         "adr-2605080100-bonsai-growth-prune-model"
       ],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-2605081400-karma-self-growing-organism-ecosystem"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -4934,6 +5291,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
+        "adr-2605071200-myco-yeast-artificial-organism-jp-naming",
+        "adr-2605091800-pruning-protocol"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -4961,6 +5323,12 @@
         "adr-0096-lda-latent-entity-inference"
       ],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
+        "adr-2605071200-myco-yeast-artificial-organism-jp-naming",
+        "adr-2605010000",
+        "adr-2605082000-langgraph-graph-definition-as-data"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -4984,6 +5352,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
+        "adr-2605091600-plasmid-graft-horizontal-tool-acquisition",
+        "adr-2605071200-myco-yeast-artificial-organism-jp-naming",
+        "adr-2605081400-karma-self-growing-organism-ecosystem"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -5007,6 +5381,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
+        "adr-2605092100-lora-per-cell-moe-expert-cohort-fission",
+        "adr-2605091500-mycorrhizal-watering-consent-gated-mutation",
+        "adr-2605091800-pruning-protocol",
+        "adr-2605091900-yoro-flower-fruit-lifecycle",
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -5031,6 +5413,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605010000",
+        "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
+        "adr-2605092200-continuous-metabolic-training"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -5060,6 +5447,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605010000",
+        "adr-2605070700-rw-native-model-training-weight-lineage",
+        "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
+        "adr-2605092200-continuous-metabolic-training",
+        "adr-2605092300-fp8-train-inference-colocation",
+        "adr-2604262359-risingwave-multimodal-vector-search-topology"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -5085,6 +5480,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092345-runpod-l40s-fp8-multimodal-model-design",
+        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
+        "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
+        "adr-2605070700-rw-native-model-training-weight-lineage"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -5108,6 +5509,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
+        "adr-2605091600-plasmid-graft-horizontal-tool-acquisition",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605092200-continuous-metabolic-training"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -5132,6 +5539,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
+        "adr-2605092100-lora-per-cell-moe-expert-cohort-fission",
+        "adr-2605092400-tool-weight-as-learnable-plasmid-affinity",
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605082100-langgraph-checkpointer-storage"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -5155,6 +5569,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605082200-langgraph-single-task-and-row-driven-runtime",
+        "adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -5210,6 +5629,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605080700-graph-schema-live-risingwave-baseline",
+        "adr-2604231800-atproto-permission-spec-integration"
+      ],
       "last_verified": "2026-05-09",
       "amends": [],
       "amended_by": []
@@ -5303,6 +5727,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605070700-rw-native-model-training-weight-lineage",
+        "adr-2604262359-risingwave-multimodal-vector-search-topology"
+      ],
       "last_verified": "2026-05-10",
       "amends": [],
       "amended_by": []
@@ -5432,6 +5861,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605010000",
+        "adr-2605092345-runpod-l40s-fp8-multimodal-model-design"
+      ],
       "last_verified": "2026-05-10",
       "amends": [],
       "amended_by": []
@@ -5667,6 +6100,18 @@
         "adr-2605091200-global-product-resident-ingest-langgraph",
         "adr-0032-gmail-direct-ingest-yabai-classifier"
       ],
+      "depends_on": [
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605080200-pydantic-l6-validation-contract",
+        "adr-2605080300-sqlalchemy-core-usage-contract",
+        "adr-2604282300",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "adr-2604251830-shannon-optimal-layered-architecture",
+        "adr-0095-simplified-3layer-identity-rw-vault",
+        "adr-0018-pii-tier3-cohort-first",
+        "adr-0041-pds-commit-content-addressed-pk"
+      ],
       "last_verified": "2026-05-19",
       "supersedes": [],
       "superseded_by": [],
@@ -5691,6 +6136,11 @@
       "supersedes": [],
       "superseded_by": [],
       "amends": [],
+      "depends_on": [
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605072000-langgraph-agent-loop-pattern",
+        "adr-2605082100-langgraph-checkpointer-storage"
+      ],
       "last_verified": "2026-05-12",
       "related": [],
       "amended_by": []
@@ -5796,6 +6246,13 @@
         "adr-2605082200-pyzeebe-handler-thin-dispatcher-contract",
         "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate"
       ],
+      "depends_on": [
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605131800-pregel-triage-langgraph-email-intent-routing",
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605080600-langgraph-server-granian-l3-runtime"
+      ],
       "last_verified": "2026-05-13",
       "supersedes": [],
       "superseded_by": [],
@@ -5869,6 +6326,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "adr-2605010000",
+        "adr-0036-worker-direct-hyperdrive-persistence",
+        "adr-0095-simplified-3layer-identity-rw-vault"
+      ],
       "last_verified": "2026-05-13",
       "amends": [],
       "amended_by": []
@@ -5892,6 +6356,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605082100-langgraph-checkpointer-storage",
+        "adr-2605082200-pyzeebe-handler-thin-dispatcher-contract",
+        "adr-2605131500-malak-surveillance-collapse-from-mehikari"
+      ],
       "last_verified": "2026-05-13",
       "amends": [],
       "amended_by": []
@@ -5940,6 +6411,16 @@
         "adr-0032-gmail-direct-ingest-yabai-classifier",
         "adr-2605072000-langgraph-agent-loop-pattern",
         "adr-2605082000-langgraph-graph-definition-as-data"
+      ],
+      "depends_on": [
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605080200-pydantic-l6-validation-contract",
+        "adr-2605080300-sqlalchemy-core-usage-contract",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "adr-2604251830-shannon-optimal-layered-architecture",
+        "adr-0095-simplified-3layer-identity-rw-vault",
+        "adr-0018-pii-tier3-cohort-first"
       ],
       "last_verified": "2026-05-13",
       "supersedes": [],
@@ -6008,6 +6489,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605082100-langgraph-checkpointer-storage",
+        "adr-2605082200-pyzeebe-handler-thin-dispatcher-contract",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection"
+      ],
       "last_verified": "2026-05-14",
       "amends": [],
       "amended_by": []
@@ -6036,6 +6524,10 @@
       "amends": [
         "adr-2605082200-langgraph-single-task-and-row-driven-runtime"
       ],
+      "depends_on": [
+        "adr-2605082200-langgraph-single-task-and-row-driven-runtime",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection"
+      ],
       "last_verified": "2026-05-14",
       "amended_by": []
     },
@@ -6060,6 +6552,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605141200-mangaka-3d-scene-pregel-kami-sdk",
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "adr-2604261100-rego-dmn-policy-decision-layers",
+        "adr-2604300135-hume-distillation-artifact-persistence"
+      ],
       "last_verified": "2026-05-14",
       "amends": [],
       "amended_by": []
@@ -6112,6 +6612,11 @@
         "adr-2605072000-langgraph-agent-loop-pattern",
         "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
       ],
+      "depends_on": [
+        "adr-2605131800-pregel-triage-langgraph-email-intent-routing",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-0095-simplified-3layer-identity-rw-vault"
+      ],
       "last_verified": "2026-05-14",
       "supersedes": [],
       "superseded_by": [],
@@ -6137,6 +6642,11 @@
       ],
       "related": [
         "adr-0032-gmail-direct-ingest-yabai-classifier"
+      ],
+      "depends_on": [
+        "adr-2605141800-gftd-email-wire-protocol",
+        "adr-2605131800-pregel-triage-langgraph-email-intent-routing",
+        "adr-2605080000-distributed-cognitive-actor-system"
       ],
       "last_verified": "2026-05-21",
       "supersedes": [],
@@ -6165,6 +6675,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605141200-mangaka-3d-scene-pregel-kami-sdk",
+        "adr-2605141600-mangaka-phase-c-activation-and-emotion-loop"
+      ],
       "last_verified": "2026-05-14",
       "amends": [],
       "amended_by": []
@@ -6270,6 +6785,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2604251830-shannon-optimal-layered-architecture",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605082100-langgraph-checkpointer-storage",
+        "adr-2605082200-langgraph-single-task-and-row-driven-runtime",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast"
+      ],
       "last_verified": "2026-05-15",
       "amends": [],
       "amended_by": []
@@ -6333,6 +6858,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605131500-malak-surveillance-collapse-from-mehikari",
+        "adr-2605131600-malak-orchestration-langgraph-pregel-langserve",
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection"
+      ],
       "last_verified": "2026-05-15",
       "amends": [],
       "amended_by": []
@@ -6389,6 +6921,11 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605151500-bitnest-exit-pursuit-pregel-link-back-pattern",
+        "adr-2605131600-malak-orchestration-langgraph-pregel-langserve",
+        "adr-2605082000-langgraph-graph-definition-as-data"
+      ],
       "last_verified": "2026-05-15",
       "amends": [],
       "amended_by": []
@@ -6449,6 +6986,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605102200-operating-entity-etzhayyim-rename",
+        "adr-2604251830-shannon-optimal-layered-architecture"
+      ],
       "last_verified": "2026-05-15",
       "amends": [],
       "amended_by": []
@@ -6496,6 +7037,14 @@
         "adr-2604300135-hume-distillation-artifact-persistence",
         "adr-2605141600-mangaka-phase-c-activation-and-emotion-loop"
       ],
+      "depends_on": [
+        "adr-2604291800-well-becoming-spirit-objective-function",
+        "adr-2604291800-well-becoming-formal-model",
+        "adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "adr-0018-pii-tier3-cohort-first"
+      ],
       "last_verified": "2026-05-18",
       "supersedes": [],
       "superseded_by": [],
@@ -6518,6 +7067,7 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6541,6 +7091,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605151500-bitnest-exit-pursuit-pregel-link-back-pattern",
+        "adr-2605152000-wallet-deep-inspect-and-address-label-pregels",
+        "adr-2605131600-malak-orchestration-langgraph-pregel-langserve",
+        "adr-2605080600-langgraph-server-granian-l3-runtime"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6563,6 +7119,11 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6583,6 +7144,9 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home"
+      ],
       "last_verified": "2026-05-18",
       "amends": [],
       "amended_by": []
@@ -6604,6 +7168,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6650,6 +7218,11 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605170900-etzhayyim-root-adr-canonical-home"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6673,6 +7246,12 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6700,6 +7279,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "2605171300",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6724,6 +7310,9 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605152100-etzhayyim-github-org-boundary"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6748,6 +7337,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605152100-etzhayyim-github-org-boundary",
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -6770,6 +7365,11 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6791,6 +7391,11 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605172600-etzhayyim-membership-ritual"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6812,6 +7417,11 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172300-etzhayyim-bi-asset-substrate"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6834,6 +7444,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172800-geth-private-migration-to-etzhayyim",
+        "adr-2605172000-etzhayyim-rw-free-substrate"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6858,6 +7472,9 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate"
+      ],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -6963,6 +7580,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "2605171300",
+        "adr-2605172000-etzhayyim-rw-free-substrate"
+      ],
       "last_verified": "2026-05-18",
       "amends": [],
       "amended_by": []
@@ -6989,6 +7611,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "2605171300",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp"
+      ],
       "last_verified": "2026-05-18",
       "amends": [],
       "amended_by": []
@@ -7011,6 +7639,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605172000-etzhayyim-rw-free-substrate"
+      ],
       "last_verified": "2026-05-18",
       "amends": [],
       "amended_by": []
@@ -7033,6 +7665,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181040-uhl-medical-institution-registry"
+      ],
       "last_verified": "2026-05-18",
       "amends": [],
       "amended_by": []
@@ -7055,6 +7691,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181040-uhl-medical-institution-registry",
+        "adr-2605181050-uhl-overseas-referral-paths"
+      ],
       "last_verified": "2026-05-18",
       "amends": [],
       "amended_by": []
@@ -7081,6 +7722,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605173000-pds-did-web-resolution-worker"
+      ],
       "last_verified": "2026-05-18",
       "amends": [],
       "amended_by": []
@@ -7132,6 +7777,9 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
       "last_verified": "2026-05-18",
       "amends": [],
       "amended_by": []
@@ -7212,6 +7860,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-0016-legal-cluster-topology",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -7238,6 +7892,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7263,6 +7922,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605171900-yoro-migration-to-etzhayyim",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7311,6 +7977,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605191358-yoro-murakumo-rw-free-rewrite-map",
+        "2605191648-substrate-boundary-lefthook"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7332,6 +8005,11 @@
         "(strengthens, does not delete) 2605191358-yoro-murakumo-rw-free-rewrite-map §step 6"
       ],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "adr-2605191358-yoro-murakumo-rw-free-rewrite-map"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7358,6 +8036,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605172600-etzhayyim-membership-ritual"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7383,6 +8068,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7407,6 +8097,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605172300-etzhayyim-bi-asset-substrate"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7429,6 +8125,13 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7456,6 +8159,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605172300-etzhayyim-bi-asset-substrate"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7480,6 +8187,14 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605172600-etzhayyim-membership-ritual"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7505,6 +8220,14 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605172600-etzhayyim-membership-ritual",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605172000-etzhayyim-rw-free-substrate"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7528,6 +8251,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605172600-etzhayyim-membership-ritual"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -7552,6 +8281,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7574,6 +8309,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7596,6 +8335,12 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605172600-etzhayyim-membership-ritual"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7618,6 +8363,11 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7641,6 +8391,24 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192345-etzhayyim-steward-succession",
+        "adr-2605192400-etzhayyim-eros-gore-council-judging",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "2605171300",
+        "2605191229-ameno-daemon-path-a-bun-langgraph",
+        "2605191257-ameno-daemon-path-b-pymagatama-python",
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "2605191559-ameno-mst-checkpointer-stage-2-activation",
+        "2605191603-ameno-swarm-leader-election",
+        "2605191524-ameno-multi-tab-swarm-broadcast",
+        "2605182312-local-bring-up-murakumo-gemma4"
+      ],
       "last_verified": "2026-05-19",
       "amends": [],
       "amended_by": []
@@ -7667,6 +8435,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605190100-defense-cluster-topology",
+        "adr-2604261100-rego-dmn-policy-decision-layers"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7692,6 +8464,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605190100-defense-cluster-topology",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7715,6 +8492,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605200000-nist-csf-respond-irp",
+        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-2605190100-defense-cluster-topology"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7740,6 +8522,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605190100-defense-cluster-topology",
+        "adr-2605200100-defense-mission-orchestration-lattice",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7764,6 +8551,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605200000-nist-csf-respond-irp",
+        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7789,6 +8581,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605190100-defense-cluster-topology",
+        "adr-2605200100-defense-mission-orchestration-lattice",
+        "adr-0048-risingwave-vultr-b2-primary",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7814,6 +8612,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605190100-defense-cluster-topology",
+        "adr-2605200300-defense-isr-sensor-fusion",
+        "adr-2604261100-rego-dmn-policy-decision-layers",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7836,6 +8640,13 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605190100-defense-cluster-topology",
+        "adr-2605200100-defense-mission-orchestration-lattice",
+        "adr-2605200200-defense-platform-control-autonomous",
+        "adr-2605200300-defense-isr-sensor-fusion",
+        "adr-2605200400-defense-ew-counteruas-judgment"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7869,6 +8680,20 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "2605171300",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7894,6 +8719,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "2605171300",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "2605191559-ameno-mst-checkpointer-stage-2-activation",
+        "2605191657-ameno-daemon-did-auth",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7922,6 +8756,19 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605201500-etzhayyim-kuni-umi-s1-solo-survey",
+        "adr-2605151200-open-ot-wasm-plc-dlc",
+        "2605171300",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -7951,6 +8798,17 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605201500-etzhayyim-kuni-umi-s1-solo-survey",
+        "adr-2605201600-etzhayyim-kuni-umi-s2-community-microgrid",
+        "adr-2605151200-open-ot-wasm-plc-dlc",
+        "2605171300",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8007,6 +8865,20 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605201500-etzhayyim-kuni-umi-s1-solo-survey",
+        "adr-2605201600-etzhayyim-kuni-umi-s2-community-microgrid",
+        "adr-2605201700-etzhayyim-kuni-umi-s3-multi-utility",
+        "2605182312-local-bring-up-murakumo-gemma4",
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192345-etzhayyim-steward-succession",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8034,6 +8906,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8065,6 +8944,19 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605201500-etzhayyim-kuni-umi-s1-solo-survey",
+        "adr-2605201600-etzhayyim-kuni-umi-s2-community-microgrid",
+        "adr-2605201700-etzhayyim-kuni-umi-s3-multi-utility",
+        "adr-2605201800-etzhayyim-kuni-umi-s4-multi-site-fleet",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit",
+        "adr-2605192345-etzhayyim-steward-succession"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8090,6 +8982,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201800-etzhayyim-yobel-debt-release-actor",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8114,6 +9013,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8139,6 +9042,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8162,6 +9069,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8189,6 +9100,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "2605182312-local-bring-up-murakumo-gemma4",
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "2605191559-ameno-mst-checkpointer-stage-2-activation",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8215,6 +9132,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605202345-evo-x2-gpu-pod-fleet-integration"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8241,6 +9163,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605202100-etzhayyim-magatama-cell-runner-launchd",
+        "2605191559-ameno-mst-checkpointer-stage-2-activation",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "2605191603-ameno-swarm-leader-election"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8266,6 +9195,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8285,6 +9219,12 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605191655-mst-projector-phase2-design",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8308,6 +9248,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605202100-etzhayyim-magatama-cell-runner-launchd"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8329,6 +9273,9 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8371,6 +9318,13 @@
       "supersedes": [],
       "superseded_by": [],
       "amends": [],
+      "depends_on": [
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605082000-langgraph-graph-definition-as-data",
+        "adr-2605082100-langgraph-checkpointer-storage",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast"
+      ],
       "last_verified": "2026-05-20",
       "related": [],
       "amended_by": []
@@ -8395,6 +9349,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605171900-yoro-migration-to-etzhayyim",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8417,6 +9377,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605202800-tsukuru-etzhayyim-business-model-change"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8441,6 +9406,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605202400-gtfs-rt-vendor-mirror"
+      ],
       "last_verified": "2026-05-20",
       "amends": [],
       "amended_by": []
@@ -8535,6 +9505,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605190100-defense-cluster-topology",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605082000-langgraph-graph-definition-as-data"
+      ],
       "last_verified": "2026-05-21",
       "related": [],
       "amends": [],
@@ -8555,6 +9530,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605190100-defense-cluster-topology",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605082000-langgraph-graph-definition-as-data"
+      ],
       "last_verified": "2026-05-21",
       "related": [],
       "amends": [],
@@ -8575,6 +9555,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605190100-defense-cluster-topology",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605082000-langgraph-graph-definition-as-data"
+      ],
       "last_verified": "2026-05-21",
       "related": [],
       "amends": [],
@@ -8600,6 +9585,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "2605171300",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8656,6 +9650,22 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605061200-agi-active-inference-artificial-organism-architecture",
+        "adr-2605061300-real-world-effect-channel-boundary",
+        "adr-2605071200-myco-yeast-artificial-organism-jp-naming",
+        "adr-2605071700-graph-sos-intel-actor",
+        "adr-2605080000-distributed-cognitive-actor-system",
+        "adr-2605080600-langgraph-server-granian-l3-runtime",
+        "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
+        "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
+        "adr-2605010000",
+        "adr-2604251758-murakumo-yoro-actor-worker-fleet",
+        "adr-2605152100-etzhayyim-github-org-boundary",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8680,6 +9690,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605202015-etzhayyim-robotics-first-industry-agriculture"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8704,6 +9721,9 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8728,6 +9748,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8752,6 +9776,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8778,6 +9806,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate",
+        "adr-2605092800-kami-gsplat-preview-bake-pipeline",
+        "adr-2605202225-mangaka-comfyui-langgraph-pipeline",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8830,6 +9864,7 @@
       "superseded_by": [
         "adr-2605265200-kami-engine-sdk-20-actors-legacy-duplicate-retirement"
       ],
+      "depends_on": [],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8859,6 +9894,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp",
+        "adr-2605202200-etzhayyim-cell-runtime-contract",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8886,6 +9930,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
+        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8910,6 +9958,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
+        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+        "adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8936,6 +9989,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605203000-rw-free-write-target-options",
+        "adr-2605210000-search-gftd-ai-internal-only",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "adr-0019-atproto-native-identifier-topology"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -8983,6 +10042,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -9041,6 +10105,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo",
+        "adr-2605173100-gitguardian-incident-response"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -9063,6 +10134,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605211900-etzhayyim-yorishiro-external-actor-bridge"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -9086,6 +10162,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "2605182312-local-bring-up-murakumo-gemma4",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "2605211910-murakumo-fleet-lan-ip-rebaseline"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -9110,6 +10191,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo",
+        "adr-2605152100-etzhayyim-github-org-boundary",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
+        "adr-2605181400-bpmn-extract-to-etzhayyim-root"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -9152,6 +10240,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -9170,6 +10262,11 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192400-etzhayyim-eros-gore-council-judging"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -9194,6 +10291,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo",
+        "adr-2605212200-etzhayyim-organism-phase-3-vendor-decouple",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -9212,6 +10315,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -9239,6 +10346,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "2605182312-local-bring-up-murakumo-gemma4",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -9263,6 +10376,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605202345-evo-x2-gpu-pod-fleet-integration",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -9286,6 +10405,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
+        "adr-2605202345-evo-x2-gpu-pod-fleet-integration",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -9420,6 +10544,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-22",
       "amends": [],
       "amended_by": []
@@ -9446,6 +10576,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads"
+      ],
       "last_verified": "2026-05-22",
       "amends": [],
       "amended_by": []
@@ -9468,6 +10607,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605091900-yoro-flower-fruit-lifecycle",
+        "adr-2605111200-cf-worker-edge-only-no-rw-connection",
+        "adr-2605171900-yoro-migration-to-etzhayyim",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "doc-2605211900-tranche-f-all-gates-closure-confirmation"
+      ],
       "last_verified": "2026-05-22",
       "amends": [],
       "amended_by": []
@@ -9489,6 +10636,9 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605080300-sqlalchemy-core-usage-contract"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9513,6 +10663,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9535,6 +10691,17 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172600-etzhayyim-membership-ritual",
+        "adr-2605180600-lawyer-attorney-portal-design",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9563,6 +10730,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
+        "adr-2605070700-rw-native-model-training-weight-lineage",
+        "adr-2605202345-evo-x2-gpu-pod-fleet-integration",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9586,6 +10760,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605231100-karute-emr-phase1",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
+        "adr-2605172000-etzhayyim-rw-free-substrate"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9610,6 +10790,13 @@
       "supersedes": [],
       "superseded_by": [
         "2605262130-kotoba-storage-substrate-unification"
+      ],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture"
       ],
       "last_verified": "2026-05-23",
       "amends": [],
@@ -9639,6 +10826,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172600-etzhayyim-membership-ritual",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9663,6 +10855,23 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172300-etzhayyim-bi-asset-substrate",
+        "adr-2605172700-membership-layering-shinto-adherent",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605211241-etzhayyim-surplus-router-warehouse-bridge",
+        "adr-2605221411-etzhayyim-artificial-organism-ecosystem",
+        "adr-2605231230-etzhayyim-esign-actor-did-bound-mst-anchored"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9688,6 +10897,10 @@
       "superseded_by": [
         "2605262130-kotoba-storage-substrate-unification"
       ],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605231400-yatachain-holochain-iso-substrate"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9711,6 +10924,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231500-yatachain-projection"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9736,6 +10959,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605202345-evo-x2-gpu-pod-fleet-integration"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9782,6 +11011,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605231100-karute-emr-phase1",
+        "adr-2605231400-karute-consent-capability-iryo-bridge"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9805,6 +11039,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605231100-karute-emr-phase1",
+        "adr-2605231400-karute-consent-capability-iryo-bridge",
+        "adr-2605231603-per-record-rekey-tombstone-protocol"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9828,6 +11068,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605211000"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9854,6 +11099,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605231100-karute-emr-phase1",
+        "adr-2605231400-karute-consent-capability-iryo-bridge",
+        "adr-2605231603-per-record-rekey-tombstone-protocol",
+        "adr-2605231700-audit-webhook-subsystem",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9881,6 +11135,17 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605191655-mst-projector-phase2-design",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192400-etzhayyim-eros-gore-council-judging",
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231500-yatachain-projection"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9905,6 +11170,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605231100-karute-emr-phase1",
+        "adr-2605231400-karute-consent-capability-iryo-bridge",
+        "adr-2605231700-audit-webhook-subsystem",
+        "adr-2605231900-karute-deployment-topology"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9936,6 +11207,20 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "2605171300",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605202100-etzhayyim-magatama-cell-runner-launchd",
+        "adr-2605241800-peer-resolvable-agenturi-libp2p"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -9956,6 +11241,15 @@
       "supersedes": [],
       "superseded_by": [
         "2605262130-kotoba-storage-substrate-unification"
+      ],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231500-yatachain-projection",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture"
       ],
       "last_verified": "2026-05-23",
       "amends": [],
@@ -9980,6 +11274,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "2605171300",
+        "adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -10004,6 +11303,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605231600-baien-context-extension"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -10028,6 +11332,12 @@
       "supersedes": [],
       "superseded_by": [
         "2605262130-kotoba-storage-substrate-unification"
+      ],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231500-yatachain-projection",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate"
       ],
       "last_verified": "2026-05-23",
       "amends": [],
@@ -10056,6 +11366,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
+        "adr-2605202115-baien-graft-3d-augmented-dataset",
+        "adr-2605202345-evo-x2-gpu-pod-fleet-integration",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605231600-baien-context-extension"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -10080,6 +11398,11 @@
         "cells.UnispscOrganismC10101500Cell"
       ],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605232345-unispsc-actor-as-organism",
+        "2605171300",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10100,6 +11423,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605240000-unispsc-organism-fleet-mass-deploy"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10122,6 +11449,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605240000-unispsc-organism-fleet-mass-deploy"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10145,6 +11476,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605240000-unispsc-organism-fleet-mass-deploy",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10169,6 +11506,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605240000-unispsc-organism-fleet-mass-deploy",
+        "adr-2605240100-unispsc-organism-post-sink-substrate-bridge"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10197,6 +11539,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10222,6 +11570,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime",
+        "adr-2604262145-erc8004-protocol-root-atproto-profile",
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10247,6 +11602,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605231600-baien-context-extension",
+        "adr-2605232500-baien-mx-move1-image-graft-self-training"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -10269,6 +11631,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605232500-baien-mx-move1-image-graft-self-training",
+        "adr-2605241900-baien-edge-target-invariant"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -10292,6 +11661,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
+        "adr-2605202115-baien-graft-3d-augmented-dataset",
+        "adr-2605232500-baien-mx-move1-image-graft-self-training",
+        "adr-2605241900-baien-edge-target-invariant"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -10321,6 +11697,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605231600-baien-context-extension"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -10345,6 +11727,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605241930-baien-mx-move4-audio-graft"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10368,6 +11757,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605232500-baien-mx-move1-image-graft-self-training",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605241930-baien-mx-move4-audio-graft",
+        "adr-2605241940-baien-mx-move7-3d-graft",
+        "adr-2605242100-baien-server-xl-carve-out"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10391,6 +11790,18 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605232500-baien-mx-move1-image-graft-self-training",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605242100-baien-server-xl-carve-out",
+        "adr-2605242110-baien-mx-move5-video-graft",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10416,6 +11827,19 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605201800-etzhayyim-kuni-umi-s4-multi-site-fleet",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192400-etzhayyim-eros-gore-council-judging",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605231525-no-server-key-religious-corp-architecture"
+      ],
       "last_verified": "2026-05-23",
       "amends": [],
       "amended_by": []
@@ -10438,6 +11862,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605212100-gftd-to-etzhayyim-migration-batch",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10461,6 +11892,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605232500-baien-mx-move1-image-graft-self-training",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605241900-baien-edge-target-invariant"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10488,6 +11924,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10515,6 +11961,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10544,6 +11995,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605242515-iwakura-ternary-inference-asic",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605231600-baien-context-extension",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10579,6 +12039,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605242515-iwakura-ternary-inference-asic",
+        "adr-2605242530-fuigo-hybrid-ternary-bf16-training-asic",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-0061"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10607,6 +12075,19 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "2605191524-ameno-multi-tab-swarm-broadcast",
+        "2605191603-ameno-swarm-leader-election",
+        "2605191641-ameno-daemon-did-allowlist"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10633,6 +12114,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605242600-baien-federated-train-via-ameno-webgpu",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-24",
       "amends": [],
       "amended_by": []
@@ -10656,6 +12144,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605172600-etzhayyim-membership-ritual",
+        "adr-2605242330-gov-procedure-pregel-mcp-coverage"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10677,6 +12171,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605250100-l5-routing-around-member-registry-cell",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10697,6 +12196,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605250100-l5-routing-around-member-registry-cell",
+        "adr-2605250200-l5-religious-marriage-cell",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10722,6 +12229,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605202345-evo-x2-gpu-pod-fleet-integration",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10751,6 +12265,22 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192400-etzhayyim-eros-gore-council-judging",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605231500-yatachain-projection",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605242715-silicon-mask-supply-chain"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10782,6 +12312,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10812,6 +12348,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250515-yakushi-otc-ophthalmic-api-synthesis",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10845,6 +12388,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250515-yakushi-otc-ophthalmic-api-synthesis",
+        "adr-2605250530-yakushi-sterile-fill-finish-and-container",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605201800-etzhayyim-kuni-umi-s4-multi-site-fleet",
+        "adr-2605242715-silicon-mask-supply-chain",
+        "adr-2605242730-silicon-photoresist-supply-chain",
+        "adr-2605242900-silicon-logistics-funamori-class"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10873,6 +12426,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250515-yakushi-otc-ophthalmic-api-synthesis",
+        "adr-2605250530-yakushi-sterile-fill-finish-and-container",
+        "adr-2605250545-yakushi-pharma-supply-chain-and-robotics"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10900,6 +12459,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250515-yakushi-otc-ophthalmic-api-synthesis",
+        "adr-2605250530-yakushi-sterile-fill-finish-and-container",
+        "adr-2605250545-yakushi-pharma-supply-chain-and-robotics",
+        "adr-2605250600-yakushi-wave-1b-otc-api-catalog-expansion"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10912,6 +12478,11 @@
       "doc_type": "adr",
       "topic": "yakushi/pharmaceutical/chiral-synthesis",
       "authoritative": true,
+      "depends_on": [
+        "ADR-2605250500",
+        "ADR-2605250600",
+        "ADR-2605250615"
+      ],
       "last_verified": "2026-05-25T00:00:00Z",
       "authoritative_for": [],
       "related": [],
@@ -10928,6 +12499,9 @@
       "doc_type": "adr",
       "topic": "yakushi/pharmaceutical/benzonatate-contingency",
       "authoritative": true,
+      "depends_on": [
+        "ADR-2605250630"
+      ],
       "last_verified": "2026-05-25T00:00:00Z",
       "authoritative_for": [],
       "related": [],
@@ -10959,6 +12533,18 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605092345-runpod-l40s-fp8-multimodal-model-design",
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231500-yatachain-projection",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "adr-2605242600-baien-federated-train-via-ameno-webgpu",
+        "adr-2605250400-gemma-coder-distill-rocm"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -10989,6 +12575,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605242600-baien-federated-train-via-ameno-webgpu",
+        "adr-2605242630-baien-federated-r1-webgpu-backward-poc",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11019,6 +12613,22 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250715-tatekata-construction-tier-b-actor-r0",
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605242745-silicon-wave-2-funamori-marine-bulk-cargo",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192400-etzhayyim-eros-gore-council-judging",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "2605191524-ameno-multi-tab-swarm-broadcast"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11048,6 +12658,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192345-etzhayyim-steward-succession",
+        "adr-2605172600-etzhayyim-membership-ritual"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11077,6 +12696,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit",
+        "adr-2605192345-etzhayyim-steward-succession",
+        "adr-2605172600-etzhayyim-membership-ritual"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11103,6 +12731,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605252315-etzhayyim-land-trust-wave-2-multi-erc-alignment",
+        "adr-2605252300-etzhayyim-charter-preamble-kingdom-of-god-on-blockchain",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11134,6 +12770,21 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250715-tatekata-construction-tier-b-actor-r0",
+        "adr-2605252200-watatsumi-civilian-submersible-r0",
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "2605191524-ameno-multi-tab-swarm-broadcast"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11166,6 +12817,22 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250715-tatekata-construction-tier-b-actor-r0",
+        "adr-2605252200-watatsumi-civilian-submersible-r0",
+        "adr-2605252400-kanayama-circular-metallurgy-r0",
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "2605191524-ameno-multi-tab-swarm-broadcast"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11196,6 +12863,20 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605252200-watatsumi-civilian-submersible-r0",
+        "adr-2605252400-kanayama-circular-metallurgy-r0",
+        "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
+        "adr-2605250715-tatekata-construction-tier-b-actor-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules",
+        "2605191524-ameno-multi-tab-swarm-broadcast"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11223,6 +12904,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605261015",
+        "adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
+        "adr-2605261600-robotics-simulation-substrate-r0"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11246,6 +12937,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192100-etzhayyim-mission-charter"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11267,6 +12963,9 @@
         "adr-2605241900-baien-edge-target-invariant",
         "adr-2605231300-e7m-bench-distill",
         "adr-2605250400-gemma-coder-distill"
+      ],
+      "depends_on": [
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "last_verified": "2026-05-25",
       "supersedes": [],
@@ -11291,6 +12990,10 @@
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "adr-2605241900-baien-edge-target-invariant",
         "adr-2605231300-e7m-bench-distill"
+      ],
+      "depends_on": [
+        "adr-2605253000-mac-mini-m4-16gb-gemma4-26b-moe-disk-inference",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
       ],
       "last_verified": "2026-05-25",
       "supersedes": [],
@@ -11324,6 +13027,22 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192230-etzhayyim-three-tier-enforcement-implementation",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605192400-etzhayyim-eros-gore-council-judging",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605231500-yatachain-projection",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11353,6 +13072,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250600-yakushi-wave-1b-otc-api-catalog-expansion",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11379,6 +13104,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605260115-mitate-condition-1-allergic-rhinitis-perennial"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11408,6 +13137,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11435,6 +13168,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605260145-mitate-condition-3-chronic-sinusitis"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11462,6 +13199,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250515-yakushi-otc-ophthalmic-api-synthesis"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11490,6 +13232,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605260115-mitate-condition-1-allergic-rhinitis-perennial",
+        "adr-2605260130-mitate-condition-2-vasomotor-rhinitis",
+        "adr-2605260145-mitate-condition-3-chronic-sinusitis",
+        "adr-2605260160-mitate-condition-4-septal-deviation",
+        "adr-2605260175-mitate-condition-5-rhinitis-medicamentosa",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605231525-no-server-key-religious-corp-architecture"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11523,6 +13275,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605260175-mitate-condition-5-rhinitis-medicamentosa",
+        "adr-2605260200-mitate-r1-advisory-self-care-pwa",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11551,6 +13310,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605260145-mitate-condition-3-chronic-sinusitis",
+        "adr-2605260160-mitate-condition-4-septal-deviation",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231525-no-server-key-religious-corp-architecture"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11583,6 +13350,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "ADR-2605192100 (Mission Charter)",
+        "ADR-2605192130 (10% Tithe constitutional constant)",
+        "ADR-2605192145 (Public Fund Architecture)"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -11608,6 +13380,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "ADR-2605261000 (Liberation Ladder — defines mitsuho as L2 gate)",
+        "ADR-2605192100 (Mission Charter)",
+        "ADR-2605192245 (Land Trust — agricultural parcels are land-trust-bound)"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -11633,6 +13410,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "ADR-2605261000 (Liberation Ladder — defines hagukumi as L4 gate)",
+        "ADR-2605260100 (mitate — diagnostics complement)",
+        "ADR-2605181100 (encrypted records — privacy invariant)"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -11658,6 +13440,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "ADR-2605261000 (Liberation Ladder — defines manabi as L4 + L5 gate)",
+        "ADR-2605192100 (Mission Charter — anti-individualism + multi-gen + Wellbecoming)",
+        "ADR-2605192200 (Charter Rider v2.0 — pedagogy alignment)"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -11685,6 +13472,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "ADR-2605261000 (Liberation Ladder — defines hikari as L2 gate)",
+        "ADR-2605192100 (Mission Charter)",
+        "ADR-2605192245 (Land Trust — solar/geothermal parcels are land-trust-bound)"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -11704,6 +13496,10 @@
         "adr-2605252200-watatsumi-civilian-submersible-r0",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "depends_on": [
+        "2605191524-ameno-multi-tab-swarm-broadcast",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet"
       ],
       "last_verified": "2026-05-26",
       "authoritative_for": [],
@@ -11738,6 +13534,21 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250715-tatekata-construction-tier-b-actor-r0",
+        "adr-2605252200-watatsumi-civilian-submersible-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192400-etzhayyim-eros-gore-council-judging",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "2605191524-ameno-multi-tab-swarm-broadcast",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11768,6 +13579,23 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250715-tatekata-construction-tier-b-actor-r0",
+        "adr-2605252200-watatsumi-civilian-submersible-r0",
+        "adr-2605252400-kanayama-circular-metallurgy-r0",
+        "adr-2605261115-makura-foam-pillow-tier-b-actor-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "2605191524-ameno-multi-tab-swarm-broadcast",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
+      ],
       "last_verified": "2026-05-25",
       "amends": [],
       "amended_by": []
@@ -11780,6 +13608,13 @@
       "doc_type": "adr",
       "topic": "igata/megacasting/benchtop-hpdc",
       "authoritative": true,
+      "depends_on": [
+        "ADR-2605261200",
+        "ADR-2605192100",
+        "ADR-2605192200",
+        "ADR-2605191524",
+        "ADR-2605201400"
+      ],
       "last_verified": "2026-05-26T00:00:00Z",
       "authoritative_for": [],
       "related": [],
@@ -11804,6 +13639,11 @@
         "adr-2605261115-igata-megacasting-tier-b-actor-r0",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "depends_on": [
+        "2605191524-ameno-multi-tab-swarm-broadcast",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap"
       ],
       "last_verified": "2026-05-26T00:00:00Z",
       "authoritative_for": [],
@@ -11838,6 +13678,21 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605250715-tatekata-construction-tier-b-actor-r0",
+        "adr-2605252400-kanayama-circular-metallurgy-r0",
+        "adr-2605261115-makura-foam-pillow-tier-b-actor-r0",
+        "adr-2605261215-hodoki-elv-disassembly-tier-b-actor-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
+        "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "2605191524-ameno-multi-tab-swarm-broadcast",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -11858,6 +13713,10 @@
         "adr-2605261115-igata-megacasting-tier-b-actor-r0",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "depends_on": [
+        "2605191524-ameno-multi-tab-swarm-broadcast",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet"
       ],
       "last_verified": "2026-05-26T00:00:00Z",
       "authoritative_for": [],
@@ -11892,6 +13751,12 @@
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "depends_on": [
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
+        "adr-2605231400-yatachain-holochain-iso-substrate"
       ],
       "last_verified": "2026-05-26T00:00:00Z",
       "authoritative_for": [],
@@ -11929,6 +13794,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605261600-robotics-simulation-substrate-r0",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -11955,6 +13826,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605242100-baien-server-xl-carve-out",
+        "adr-2605092100-lora-per-cell-moe-expert-cohort-fission",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605232500-baien-mx-move1-image-graft-self-training"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -11984,6 +13864,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605261900-baien-moemoekyun-moe-charter",
+        "adr-2605250400-gemma-coder-distill-rocm",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605202345-evo-x2-gpu-pod-fleet-integration",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605242100-baien-server-xl-carve-out"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12020,6 +13910,14 @@
         "2605101000"
       ],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12045,6 +13943,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605202345-evo-x2-gpu-pod-fleet-integration",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605242100-baien-server-xl-carve-out",
+        "adr-2605261900-baien-moemoekyun-moe-charter",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12072,6 +13979,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605262200-charter-rider-2i-baien-train-rental-carveout",
+        "adr-2605261900-baien-moemoekyun-moe-charter",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
+        "adr-2605242100-baien-server-xl-carve-out",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12106,6 +14021,20 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605221411-etzhayyim-artificial-organism-ecosystem",
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12146,6 +14075,20 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605261600-robotics-simulation-substrate-r0",
+        "adr-2605261800-nvidia-omniverse-stack-api-compat",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262400-public-data-organism-ipfs-ingestion"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12177,6 +14120,26 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605181200-mst-encrypted-metadata-leak-reduction",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605221411-etzhayyim-artificial-organism-ecosystem",
+        "adr-2605231525-no-server-key-religious-corp-architecture",
+        "adr-2605261000",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12206,6 +14169,21 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605221411-etzhayyim-artificial-organism-ecosystem",
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12232,6 +14210,23 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605172000-etzhayyim-rw-free-substrate",
+        "adr-2605172100-etzhayyim-payments-on-chain-only",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605261000",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12256,6 +14251,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605262200-charter-rider-2i-baien-train-rental-carveout",
+        "adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12283,6 +14284,23 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605181200-mst-encrypted-metadata-leak-reduction",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605261000",
+        "adr-2605261030",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12311,6 +14329,13 @@
       "amends": [
         "adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim (§1.1, §1.2)"
       ],
+      "depends_on": [
+        "adr-2605263000-founder-lv7-emergency-authorization-runpod-5090-bench-interim",
+        "adr-2605262200-charter-rider-2i-baien-train-rental-carveout",
+        "adr-2605262300-baien-moemoekyun-r2-runpod-b200-train-architecture",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amended_by": []
     },
@@ -12335,6 +14360,24 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605261000",
+        "adr-2605261015",
+        "adr-2605261030",
+        "adr-2605261100",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12360,6 +14403,27 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605181200-mst-encrypted-metadata-leak-reduction",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192315-etzhayyim-transparent-force-rd",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605261000",
+        "adr-2605261015",
+        "adr-2605261030",
+        "adr-2605261100",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12389,6 +14453,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
+        "2605190824-ameno-mediapipe-llm-browser-runtime",
+        "adr-2605242630-baien-federated-r1-webgpu-backward-poc",
+        "adr-2605252100-ameno-webnn-inference-fast-path",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12415,6 +14488,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263300-baien-ameno-per-kernel-inference-r0",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12440,6 +14518,23 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605250200-l5-religious-marriage-cell",
+        "adr-2605261000",
+        "adr-2605261030",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12472,6 +14567,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605202000-etzhayyim-energy-substrate",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605261000",
+        "adr-2605261100"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12498,6 +14603,22 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192130-etzhayyim-tithe-redistribution",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605261000",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0",
+        "adr-2605263200-kazaori-disaster-response-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12521,6 +14642,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605261100",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12547,6 +14674,21 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605181200-mst-encrypted-metadata-leak-reduction",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605261000",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12577,6 +14719,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263400-baien-ameno-wgsl-bitlinear-numeric-test-r1a",
+        "adr-2605263300-baien-ameno-per-kernel-inference-r0",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605252100-ameno-webnn-inference-fast-path",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12600,6 +14750,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605263600-hydrogen-economy-d-gate-evaluation-r0",
+        "adr-2605261015",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12628,6 +14785,25 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605181200-mst-encrypted-metadata-leak-reduction",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605260100-mitate-diagnostic-routing-charter",
+        "adr-2605261000",
+        "adr-2605261030",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0",
+        "adr-2605263200-kazaori-disaster-response-tier-b-actor-r0",
+        "adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0",
+        "adr-2605263600-kataribe-press-publishing-translation-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12665,6 +14841,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263700-baien-ameno-onnx-graph-layer-replacement-r1b",
+        "adr-2605263300-baien-ameno-per-kernel-inference-r0",
+        "adr-2605241900-baien-edge-target-invariant"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -12689,6 +14870,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605263600-hydrogen-economy-d-gate-evaluation-r0",
+        "adr-2605261015",
+        "adr-2605261215-hodoki-elv-disassembly-tier-b-actor-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12717,6 +14905,22 @@
         "adr-2605150000-lg-isin-listed-company-ingest-langserver"
       ],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605264000-ossekai-information-arbitrage-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -12744,6 +14948,25 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192145-etzhayyim-public-fund-architecture",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605261000",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605263200-kazaori-disaster-response-tier-b-actor-r0",
+        "adr-2605263400-musubi-covenant-ceremony-tier-b-actor-r0",
+        "adr-2605263600-kataribe-press-publishing-translation-tier-b-actor-r0",
+        "adr-2605263700-kokoro-mental-health-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12770,6 +14993,23 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605264000-ossekai-information-arbitrage-tier-b-actor-r0",
+        "adr-2605263800-public-data-corporate-disclosure-ipfs-ingestion"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -12794,6 +15034,27 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "adr-2605181200-mst-encrypted-metadata-leak-reduction",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection",
+        "adr-2605261000",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
+        "adr-2605262900-toritate-accounting-audit-tier-b-actor-r0",
+        "adr-2605263000-iyashi-clinical-care-provider-tier-b-actor-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605263200-kazaori-disaster-response-tier-b-actor-r0"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12817,6 +15078,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605261100",
+        "adr-2605252200-watatsumi-civilian-submersible-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12840,6 +15110,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605261100",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192245-etzhayyim-global-land-sovereignty",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12862,6 +15140,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605261100",
+        "adr-2605261015",
+        "adr-2605250500-yakushi-pharmaceutical-rd-charter",
+        "adr-2605250715-tatekata-construction-tier-b-actor-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12890,6 +15177,9 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-0031-kami-vrm-three-free-topology"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12919,6 +15209,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "ADR-2605261045 (manabi master — G1..G14 + N1..N10 invariants this ADR extends)",
+        "ADR-2605261000 (Liberation Ladder — L5 vocational pathway)",
+        "ADR-2605192200 (Charter Rider §2(b) ad-free + §2(e) anti-gatekeeping)",
+        "ADR-2605181100 (encrypted envelope for adult session history)",
+        "ADR-2605262400 (Tier-C `internal_only` pattern for user-imported personal materials)",
+        "ADR-2605215000 (Murakumo-only inference for LLM assistance)"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12941,6 +15239,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605261100",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605264300-csp-solar-thermal-d-gate-evaluation-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12964,6 +15271,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605261100",
+        "adr-2605263800-biomethane-d-gate-evaluation-r0",
+        "adr-2605264500-geothermal-deep-egs-d-gate-evaluation-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -12987,6 +15302,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605263600-hydrogen-economy-d-gate-evaluation-r0",
+        "adr-2605264600-direct-air-capture-d-gate-evaluation-r0",
+        "adr-2605263800-biomethane-d-gate-evaluation-r0",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13010,6 +15335,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605263600-hydrogen-economy-d-gate-evaluation-r0",
+        "adr-2605264600-direct-air-capture-d-gate-evaluation-r0",
+        "adr-2605264700-methanol-dme-synfuel-d-gate-evaluation-r0",
+        "adr-2605261015",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13033,6 +15367,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605261100",
+        "adr-2605242000-roso-pattern-frontier-distill",
+        "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13057,6 +15400,20 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605170900-etzhayyim-root-adr-canonical-home",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605231300-baien-distill-react-loop",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605262100-baien-moemoekyun-r1-phase0-coding-train",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605262800-public-data-legal-corpus-ipfs-ingestion",
+        "adr-2605264000-ossekai-information-arbitrage-tier-b-actor-r0",
+        "adr-2605261045"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13080,6 +15437,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605264300-csp-solar-thermal-d-gate-evaluation-r0",
+        "adr-2605264500-geothermal-deep-egs-d-gate-evaluation-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605261100",
+        "adr-2605264900-v2g-demand-response-d-gate-evaluation-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13103,6 +15470,12 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192315-etzhayyim-transparent-force-rd"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13127,6 +15500,7 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13150,6 +15524,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605263600-hydrogen-economy-d-gate-evaluation-r0",
+        "adr-2605264600-direct-air-capture-d-gate-evaluation-r0",
+        "adr-2605264700-methanol-dme-synfuel-d-gate-evaluation-r0",
+        "adr-2605264800-algal-biofuel-d-gate-evaluation-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13173,6 +15556,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605265200-saf-sustainable-aviation-fuel-d-gate-evaluation-r0",
+        "adr-2605264800-algal-biofuel-d-gate-evaluation-r0",
+        "adr-2605264700-methanol-dme-synfuel-d-gate-evaluation-r0",
+        "adr-2605261015",
+        "adr-2605261215-hodoki-elv-disassembly-tier-b-actor-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13195,6 +15588,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605263600-hydrogen-economy-d-gate-evaluation-r0",
+        "adr-2605264600-direct-air-capture-d-gate-evaluation-r0",
+        "adr-2605264700-methanol-dme-synfuel-d-gate-evaluation-r0",
+        "adr-2605265200-saf-sustainable-aviation-fuel-d-gate-evaluation-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13218,6 +15620,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605261100",
+        "adr-2605264300-csp-solar-thermal-d-gate-evaluation-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13241,6 +15651,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605264100-marine-renewable-d-gate-evaluation-r0",
+        "adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13265,6 +15683,13 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605261100",
+        "adr-2605264200-mechanical-energy-storage-d-gate-evaluation-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13288,6 +15713,18 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605261100",
+        "adr-2605263700-green-ammonia-d-gate-evaluation-r0",
+        "adr-2605264300-csp-solar-thermal-d-gate-evaluation-r0",
+        "adr-2605264500-geothermal-deep-egs-d-gate-evaluation-r0",
+        "adr-2605264600-direct-air-capture-d-gate-evaluation-r0",
+        "adr-2605265000-district-heating-cooling-d-gate-evaluation-r0",
+        "adr-2605265500-concentrated-pv-d-gate-evaluation-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13312,6 +15749,17 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605263500-energy-substrate-dependency-vs-substance-reframing",
+        "adr-2605263600-hydrogen-economy-d-gate-evaluation-r0",
+        "adr-2605263800-biomethane-d-gate-evaluation-r0",
+        "adr-2605264600-direct-air-capture-d-gate-evaluation-r0",
+        "adr-2605264700-methanol-dme-synfuel-d-gate-evaluation-r0",
+        "adr-2605265000-district-heating-cooling-d-gate-evaluation-r0",
+        "adr-2605265800-high-temperature-heat-pump-d-gate-evaluation-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13336,6 +15784,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605240100-unispsc-organism-post-sink-substrate-bridge"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13355,6 +15807,11 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605240100-unispsc-organism-post-sink-substrate-bridge",
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605266000-organism-inter-messaging"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13373,6 +15830,9 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13388,6 +15848,10 @@
       "authoritative_for": [
         "Organism lifecycle events (birth, clone, retire, excommunication)",
         "Lexicon definitions for lifecycle events (`app.etzhayyim.organism.lifecycle`)"
+      ],
+      "depends_on": [
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0"
       ],
       "last_verified": "2026-05-26",
       "related": [],
@@ -13417,6 +15881,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605262130-kotoba-storage-substrate-unification"
+      ],
       "last_verified": "2026-05-26",
       "amends": [],
       "amended_by": []
@@ -13439,6 +15907,15 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -13464,6 +15941,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -13490,6 +15972,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605232345-unispsc-actor-as-organism",
+        "adr-2605240200-unispsc-organism-kaizen-self-reflection"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -13516,6 +16006,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605270100-public-data-organism-ipfs-ingestion-closure"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -13539,6 +16033,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
+        "adr-2604231349-timestamp-numbering-policy",
+        "adr-2605190900-kg-as-lexicon-ipld-oxigraph-appview"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -13563,6 +16065,16 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605266000-organism-inter-messaging",
+        "adr-2605266100-organism-post-drainer-wave-3",
+        "adr-2605266200-kaizen-pr-agent-wave-4",
+        "adr-2605266300-organism-lifecycle-r0",
+        "adr-2605266400-organism-memory-persistence-r0",
+        "adr-2605266500-organism-multi-modal-observation-r0",
+        "adr-2605266600-organism-embodiment-bridge-r0",
+        "adr-2605266700-organism-adversarial-robustness-r0"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -13588,6 +16100,15 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
+        "adr-2605262400-public-data-organism-ipfs-ingestion",
+        "adr-2605241500-etzhayyim-dataset-cid-substrate",
+        "adr-2605261600-robotics-simulation-substrate-r0",
+        "adr-2605261800-nvidia-omniverse-stack-api-compat",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -13612,6 +16133,10 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605271100-adr-2605262500-closure-and-verifier-marker-convention",
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -13635,6 +16160,14 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605261800-nvidia-omniverse-stack-api-compat",
+        "adr-2605261600-robotics-simulation-substrate-r0",
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605264300-kami-engine-sdk-three-free-cutover"
+      ],
       "last_verified": "2026-05-27",
       "amends": [],
       "amended_by": []
@@ -13653,6 +16186,7 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [],
       "last_verified": "2026-05-17",
       "amends": [],
       "amended_by": []
@@ -14444,6 +16978,10 @@
       "related": [],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
+        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -14468,6 +17006,9 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605212100-magatama-worker-3-axis-tranche-f-closure"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -14490,6 +17031,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
+        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+        "adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -14514,6 +17060,7 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -14539,6 +17086,11 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [
+        "adr-2605192300-etzhayyim-bootstrap-council-five",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -14920,6 +17472,7 @@
       ],
       "supersedes": [],
       "superseded_by": [],
+      "depends_on": [],
       "last_verified": "2026-05-21",
       "amends": [],
       "amended_by": []
@@ -15926,6 +18479,9 @@
       "doc_type": "how-to",
       "topic": "yakushi/pharmaceutical/chiral-synthesis",
       "authoritative": false,
+      "depends_on": [
+        "ADR-2605250630"
+      ],
       "last_verified": "2026-05-25T00:00:00Z",
       "authoritative_for": [],
       "related": [],
@@ -15942,6 +18498,10 @@
       "doc_type": "how-to",
       "topic": "yakushi/pharmaceutical/council-governance",
       "authoritative": false,
+      "depends_on": [
+        "ADR-2605250630",
+        "ADR-2605192300"
+      ],
       "last_verified": "2026-05-25T00:00:00Z",
       "authoritative_for": [],
       "related": [],
@@ -15958,6 +18518,10 @@
       "doc_type": "how-to",
       "topic": "yakushi/pharmaceutical/manufacturing",
       "authoritative": false,
+      "depends_on": [
+        "ADR-2605250630",
+        "ADR-2605250645"
+      ],
       "last_verified": "2026-05-25T00:00:00Z",
       "authoritative_for": [],
       "related": [],

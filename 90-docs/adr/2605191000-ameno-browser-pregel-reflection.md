@@ -7,8 +7,8 @@ topic: ameno-browser-agent-loop
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605190824-ameno-mediapipe-llm-browser-runtime.md
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
+  - 2605190824-ameno-mediapipe-llm-browser-runtime
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
   - adr-2605172000-etzhayyim-rw-free-substrate
 ---

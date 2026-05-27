@@ -18,7 +18,7 @@ priority_note: "Phase 0 — live deploy of vertex_malak_surveillance_* + outreac
 depends_on:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0095-simplified-3layer-identity-rw-vault
 related:

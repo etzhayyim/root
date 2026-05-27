@@ -17,8 +17,8 @@ authoritative_for:
   - "Tidal-lagoon barrage + large-array offshore wind: absolute prohibition (commercial-utility scale + ecosystem displacement)"
 depends_on:
   - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
-  - adr-2605261100-hikari-energy-tier-b-actor-r0
-  - adr-2605252200-watatsumi-civilian-submersible-tier-b-actor-r0
+  - adr-2605261100
+  - adr-2605252200-watatsumi-civilian-submersible-r0
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192245-etzhayyim-global-land-sovereignty

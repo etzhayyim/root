@@ -24,7 +24,7 @@ depends_on:
   - adr-2605080200-pydantic-l6-validation-contract
   - adr-2605080300-sqlalchemy-core-usage-contract
   - adr-2605010000
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0041-pds-commit-content-addressed-pk

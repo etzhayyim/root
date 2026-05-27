@@ -17,17 +17,17 @@ authoritative_for:
   - Sub-ADR registry (ADR-2605260115 / 2605260130 / 2605260145 / 2605260160 / 2605260175)
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
-  - adr-2605192115-etzhayyim-economic-substrate-non-profit
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605192230-etzhayyim-charters-compliance-attestation
-  - adr-2605192315-etzhayyim-transparent-religious-force
-  - adr-2605192400-etzhayyim-eros-gore-content-policy
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
+  - adr-2605192315-etzhayyim-transparent-force-rd
+  - adr-2605192400-etzhayyim-eros-gore-council-judging
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
-  - adr-2605181100-etzhayyim-encrypted-confidentiality-substrate
-  - adr-2605172000-etzhayyim-sdk-rw-free-substrate
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605231500-yatachain-projection
-  - adr-2605231525-no-server-key-invariant
+  - adr-2605231525-no-server-key-religious-corp-architecture
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605250500-yakushi-pharmaceutical-rd-charter
 related:

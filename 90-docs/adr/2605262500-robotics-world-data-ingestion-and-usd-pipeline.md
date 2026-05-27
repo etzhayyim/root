@@ -26,9 +26,9 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605215100-maps-sentinel-murakumo-m1
+  - adr-2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet
   - adr-2605241500-etzhayyim-dataset-cid-substrate
-  - adr-2605242000-wadachi-autonomous-mobility-tier-b-actor-r0
+  - adr-2605242000-roso-pattern-frontier-distill
   - adr-2605261600-robotics-simulation-substrate-r0
   - adr-2605261800-nvidia-omniverse-stack-api-compat
   - adr-2605262100-baien-moemoekyun-r1-phase0-coding-train

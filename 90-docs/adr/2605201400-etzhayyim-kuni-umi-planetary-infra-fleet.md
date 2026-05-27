@@ -17,7 +17,7 @@ authoritative_for:
   - open-* utility lexicons と open-robo / open-ot 間の orchestration seam
   - Multi-jurisdiction 施工 governance (land sovereignty + Charter Rider gate)
 depends_on:
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605172100-etzhayyim-payments-on-chain-only

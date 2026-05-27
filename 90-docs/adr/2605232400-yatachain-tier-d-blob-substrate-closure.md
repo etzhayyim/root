@@ -14,10 +14,10 @@ authoritative_for:
   - "gsplat trainer B2 → IPFS swap protocol"
   - "yoro substrate-facade migration (@atproto/api → @etzhayyim/sdk/atproto)"
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605231400-yatachain-holochain-iso-substrate
-  - 2605231500-yatachain-projection
-  - 2605241500-etzhayyim-dataset-cid-substrate
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231500-yatachain-projection
+  - adr-2605241500-etzhayyim-dataset-cid-substrate
 related:
   - 2605171800-mst-projector-stage-pipeline
   - 2605231525-no-server-key-religious-corp-architecture

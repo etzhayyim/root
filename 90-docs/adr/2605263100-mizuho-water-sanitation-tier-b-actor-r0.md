@@ -26,12 +26,12 @@ depends_on:
   - adr-2605192145-etzhayyim-public-fund-architecture
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192245-etzhayyim-global-land-sovereignty
-  - adr-2605192300-etzhayyim-council-5-of-7-safe
+  - adr-2605192300-etzhayyim-bootstrap-council-five
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605261000-labor-liberation-transition-mechanism
-  - adr-2605261015-mitsuho-food-agriculture-tier-b-actor-r0
-  - adr-2605261030-hagukumi-care-tier-b-actor-r0
-  - adr-2605261100-hikari-energy-tier-b-actor-r0
+  - adr-2605261000
+  - adr-2605261015
+  - adr-2605261030
+  - adr-2605261100
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0
   - adr-2605262900-toritate-accounting-audit-tier-b-actor-r0

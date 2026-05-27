@@ -7,7 +7,7 @@ topic: ameno-swarm
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191524-ameno-multi-tab-swarm-broadcast.md
+  - 2605191524-ameno-multi-tab-swarm-broadcast
 related:
 V05191135-ameno-tier2-daemon-residency
 ---

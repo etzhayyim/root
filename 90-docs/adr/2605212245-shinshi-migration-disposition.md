@@ -15,7 +15,7 @@ authoritative_for:
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605192400-eros-allowed-gore-prohibited
+  - adr-2605192400-etzhayyim-eros-gore-council-judging
 related: []
 supersedes: []
 superseded_by: []

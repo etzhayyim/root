@@ -13,12 +13,12 @@ priority_note: "L5 ladder P3 — highest constitutional risk (state corporate ta
 authoritative_for:
   - l5-religious-corp-taxation-cell
 depends_on:
-  - 2605250100-l5-routing-around-member-registry-cell
-  - 2605250200-l5-religious-marriage-cell
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192115-tithe-router-public-fund
-  - 2605192145-etzhayyim-public-fund-architecture
-  - 2605192300-council-bootstrap-attestation
+  - adr-2605250100-l5-routing-around-member-registry-cell
+  - adr-2605250200-l5-religious-marriage-cell
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
+  - adr-2605192145-etzhayyim-public-fund-architecture
+  - adr-2605192300-etzhayyim-bootstrap-council-five
 related:
   - 2605192245-etzhayyim-global-land-sovereignty
 supersedes: []

@@ -16,9 +16,9 @@ authoritative_for:
   - "Thermal-storage extension (molten salt small ≤10 m³; phase-change ≤5 m³) referenced from hikari §2.1"
 depends_on:
   - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
-  - adr-2605261100-hikari-energy-tier-b-actor-r0
-  - adr-2605261015-mitsuho-food-agriculture-tier-b-actor-r0
-  - adr-2605250500-yakushi-pharmaceutical-tier-b-actor-r0
+  - adr-2605261100
+  - adr-2605261015
+  - adr-2605250500-yakushi-pharmaceutical-rd-charter
   - adr-2605250715-tatekata-construction-tier-b-actor-r0
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider

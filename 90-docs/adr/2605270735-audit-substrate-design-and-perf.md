@@ -15,12 +15,12 @@ authoritative_for:
   - audit-script-perf-pattern
   - audit-test-coverage-conventions
 depends_on:
-  - "2605211845"
-  - "2605262130"
-  - "2605262400"
-  - "2605262700"
-  - "2604231349"
-  - "2605190900"
+  - adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone
+  - adr-2605262130-kotoba-storage-substrate-unification
+  - adr-2605262400-public-data-organism-ipfs-ingestion
+  - adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0
+  - adr-2604231349-timestamp-numbering-policy
+  - adr-2605190900-kg-as-lexicon-ipld-oxigraph-appview
 related:
   - "2605231525"
   - "2605192200"

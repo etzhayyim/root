@@ -23,7 +23,7 @@ authoritative_for:
   - 70-tools/etzhayyim-cli/kuni_umi.go — 6-subcommand human entry point
   - 70-tools/scripts/codemod/2605231{300,310,320,330}-*.py — 4 idempotent corpus-rebuild codemods
 depends_on:
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605192100-etzhayyim-mission-charter

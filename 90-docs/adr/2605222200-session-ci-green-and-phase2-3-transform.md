@@ -18,13 +18,13 @@ authoritative_for:
   - base-sepolia-and-mainnet-deploy-checklists
   - council-rfp-per-seat-discussions
 depends_on:
-  - 2605192100  # Mission Charter
-  - 2605192200  # Charter Rider v2.0
-  - 2605192300  # Bootstrap Council
-  - 2605192415  # Religious-corp daemon architecture (deploy roadmap S2)
-  - 2605172000  # State rule (AT MST + IPFS, no RW)
-  - 2605172100  # Payment rule (USDC + ERC-4337, no fiat)
-  - 2605192115  # Tithe + carve-out
+  - adr-2605192100-etzhayyim-mission-charter  # Mission Charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider  # Charter Rider v2.0
+  - adr-2605192300-etzhayyim-bootstrap-council-five  # Bootstrap Council
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture  # Religious-corp daemon architecture (deploy roadmap S2)
+  - adr-2605172000-etzhayyim-rw-free-substrate  # State rule (AT MST + IPFS, no RW)
+  - adr-2605172100-etzhayyim-payments-on-chain-only  # Payment rule (USDC + ERC-4337, no fiat)
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads  # Tithe + carve-out
 related:
   - 2605221411  # Artificial organism ecosystem framing
   - 2605220810  # Stall rotation cycle 18

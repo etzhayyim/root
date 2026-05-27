@@ -16,7 +16,7 @@ authoritative_for:
   - replacement of UnispscOrganismC10101500Cell single-organism cell
 depends_on:
   - adr-2605232345-unispsc-actor-as-organism
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
   - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp

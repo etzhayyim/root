@@ -14,8 +14,8 @@ authoritative_for:
   - "External non-macOS GPU compute pod integration into Murakumo fleet"
   - "EthicsContentClassifierCell LLM fallback ルーティング"
 depends_on:
-  - "2605192415"
-  - "2605202100"
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
+  - adr-2605202100-etzhayyim-magatama-cell-runner-launchd
 related:
   - "2605191346"
   - "2605182312"

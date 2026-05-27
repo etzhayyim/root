@@ -18,7 +18,7 @@ authoritative_for:
   - cross-actor fallback to bankruptcy.etzhayyim.com (vendor side, mandatory legal)
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
-  - adr-2605192115-etzhayyim-tithe-public-fund
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture

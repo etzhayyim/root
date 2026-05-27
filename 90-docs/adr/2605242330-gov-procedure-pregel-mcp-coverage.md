@@ -14,11 +14,11 @@ authoritative_for:
   - gov-procedure-coverage-taxonomy
   - 140-country-scale-out-plan
 depends_on:
-  - 2605172000-rw-free-substrate
-  - 2605172100-substrate-ladder
-  - 2605192100-etzhayyim-mission-charter
-  - 2605212100-gftd-to-etzhayyim-migration-batch
-  - 2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172100-etzhayyim-payments-on-chain-only
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605212100-gftd-to-etzhayyim-migration-batch
+  - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:
   - 2605231902-feed-post-membrane-and-feed-discover-projection
   - 2605231400-yatachain-holochain-iso-substrate

@@ -20,8 +20,8 @@ depends_on:
   - adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline
   - adr-2605262400-public-data-organism-ipfs-ingestion
   - adr-2605241500-etzhayyim-dataset-cid-substrate
-  - adr-2605261600-e7m-sim-robotics-simulation-substrate
-  - adr-2605261800-kami-engine-nvidia-omniverse-compat
+  - adr-2605261600-robotics-simulation-substrate-r0
+  - adr-2605261800-nvidia-omniverse-stack-api-compat
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:

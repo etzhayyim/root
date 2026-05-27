@@ -16,9 +16,9 @@ authoritative_for:
   - "Commercial-grid V2G + commercial-DR-program participation absolute prohibition (D1 + hikari G13 + N7)"
 depends_on:
   - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
-  - adr-2605261100-hikari-energy-tier-b-actor-r0
-  - adr-2605242000-wadachi-tier-b-autonomous-mobility-r0
-  - adr-2605252500-sarutahiko-heavy-class8-truck-mfg-tier-b-r0
+  - adr-2605261100
+  - adr-2605242000-roso-pattern-frontier-distill
+  - adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod

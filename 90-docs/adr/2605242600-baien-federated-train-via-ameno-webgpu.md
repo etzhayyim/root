@@ -17,15 +17,15 @@ authoritative_for:
 depends_on:
   - adr-2605241900-baien-edge-target-invariant
   - adr-2605231300-baien-distill-react-loop
-  - adr-2605231525-no-server-side-signing-keys
+  - adr-2605231525-no-server-key-religious-corp-architecture
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605172000-etzhayyim-substrate-boundary
+  - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605231400-yatachain-holochain-iso-substrate
-  - adr-2605191524-ameno-multi-tab-swarm-broadcast
-  - adr-2605191603-ameno-swarm-leader-election
-  - adr-2605191641-ameno-daemon-did-allowlist
+  - 2605191524-ameno-multi-tab-swarm-broadcast
+  - 2605191603-ameno-swarm-leader-election
+  - 2605191641-ameno-daemon-did-allowlist
 related:
   - 20-actors/ameno/src/train.ts
   - 70-tools/baien-distill/src/baien_distill/nodes/federated_aggregate.py

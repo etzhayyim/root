@@ -16,8 +16,8 @@ authoritative_for:
 depends_on:
   - adr-2605250500-yakushi-pharmaceutical-rd-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605192230-etzhayyim-charters-compliance-attestation
-  - adr-2605181100-etzhayyim-encrypted-confidentiality-substrate
+  - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
   - 20-actors/yakushi/
   - 20-actors/magatama/cells/pharma_api_synthesis/

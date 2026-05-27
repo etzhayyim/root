@@ -10,7 +10,7 @@ related:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 V05182312-local-bring-up-murakumo-gemma4
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate.md
+  - adr-2605172000-etzhayyim-rw-free-substrate
 ---
 
 # ADR 2605190824: Ameno MediaPipe LLM Inference Web — third browser kernel

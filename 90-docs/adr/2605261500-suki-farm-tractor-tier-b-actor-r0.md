@@ -15,8 +15,8 @@ related:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 depends_on:
-  - 2605191524-transparent-force-swarm-broadcast-witness-quorum.md
-  - 2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md
+  - 2605191524-ameno-multi-tab-swarm-broadcast
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
 ---
 
 # ADR-2605261500: suki (鋤) — Farm Tractor Manufacturing Tier-B Actor R0 Scaffold

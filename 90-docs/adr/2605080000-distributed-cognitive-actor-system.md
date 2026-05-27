@@ -24,7 +24,7 @@ authoritative_for:
 depends_on:
   - adr-2605071200-myco-yeast-artificial-organism-jp-naming
   - adr-2605072000-langgraph-agent-loop-pattern
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2604251830-shannon-optimal-layered-architecture
   - adr-0056-bpmn-as-actor
   - adr-0044-risingwave-udf-language-strategy

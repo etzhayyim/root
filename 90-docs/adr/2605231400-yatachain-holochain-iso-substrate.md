@@ -14,11 +14,11 @@ authoritative_for:
   - "Holochain-iso reference architecture name"
   - "validation membrane + witness quorum spec"
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605172100-etzhayyim-rw-free-substrate-payment
-  - 2605181100-app-etzhayyim-encrypted-records
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172100-etzhayyim-payments-on-chain-only
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
   - 2605171800-mst-projector-stage-pipeline
   - 2605222330-etzhayyim-com-substrate-violation-transition-window

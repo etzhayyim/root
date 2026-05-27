@@ -16,9 +16,9 @@ depends_on:
   - adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter
   - adr-2605242515-iwakura-ternary-inference-asic
   - adr-2605242530-fuigo-hybrid-ternary-bf16-training-asic
-  - adr-2605192315-etzhayyim-transparent-religious-force
+  - adr-2605192315-etzhayyim-transparent-force-rd
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-0061-tsukuru-isic-bpmn-actors
+  - adr-0061
 related:
   - 50-infra/silicon/equipment/
   - 20-actors/magatama/cells/silicon_litho/

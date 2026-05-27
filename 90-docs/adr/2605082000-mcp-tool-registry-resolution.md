@@ -18,7 +18,7 @@ authoritative_for:
   - In-process TTL cache (60s) for registry hits
 depends_on:
   - adr-2605082200-langgraph-single-task-and-row-driven-runtime
-  - adr-2604261000-mcp-tool-registry-as-kysely-schema
+  - adr-2604261000-mcp-registry-via-kysely-schema
 related:
   - adr-0087-magatama-mcp-tool-facade
 supersedes: []

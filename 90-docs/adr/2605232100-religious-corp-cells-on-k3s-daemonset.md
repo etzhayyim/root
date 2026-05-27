@@ -15,11 +15,11 @@ authoritative_for:
   - fleet.toml `control_plane` field SoT
   - lg-open-unispsc substrate decontamination scope
 depends_on:
-  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane.md
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture.md
-  - 2605172000-etzhayyim-rw-free-substrate.md
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline.md
-  - 2605231400-yatachain-holochain-iso-substrate.md
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - adr-2605231400-yatachain-holochain-iso-substrate
 related:
 V05182312-local-bring-up-murakumo-gemma4
 V05171300

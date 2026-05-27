@@ -11,7 +11,7 @@ authoritative_for:
   - Secret resolution path for RunPod env vars
   - Pod naming → manifest → API state SSoT chain
 depends_on:
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-2605092345-runpod-l40s-fp8-multimodal-model-design
 related:
   - wellbecoming-karma-lean-proofs

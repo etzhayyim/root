@@ -29,7 +29,7 @@ depends_on:
   - adr-2605072000-langgraph-agent-loop-pattern
   - adr-2605061200-agi-active-inference-artificial-organism-architecture
   - adr-2604251821-vke-murakumo-multicluster-control
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-0056-bpmn-as-actor
   - adr-2605081200-spiffworkflow-bpmn-engine-replacement
 supersedes: []

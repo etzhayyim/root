@@ -20,9 +20,9 @@ authoritative_for:
 depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605202100-etzhayyim-magatama-cell-runner-launchd
-  - adr-2605191559-ameno-mst-checkpointer-stage-2-activation
+  - 2605191559-ameno-mst-checkpointer-stage-2-activation
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605191603-ameno-swarm-leader-election
+  - 2605191603-ameno-swarm-leader-election
 related:
   - 20-actors/magatama/cells/
   - 20-actors/magatama/py/src/pymagatama/cell_runner_main.py

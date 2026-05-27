@@ -15,9 +15,9 @@ authoritative_for:
   - LSP daemon placement on Murakumo fleet
   - cell-runner ↔ LSP query path
 depends_on:
-  - 2605182312-local-bring-up-murakumo-gemma4.md
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture.md
-  - 2605211910-murakumo-fleet-lan-ip-rebaseline.md
+  - 2605182312-local-bring-up-murakumo-gemma4
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
+  - 2605211910-murakumo-fleet-lan-ip-rebaseline
 related:
   - 2605191346  # Murakumo Mac-mini fleet as sole Tier 1 deployment target
   - 2605171800  # LangGraph Pregel ← MST ← IPFS ← L2 pipeline

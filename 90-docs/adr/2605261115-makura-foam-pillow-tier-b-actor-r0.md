@@ -19,17 +19,17 @@ authoritative_for:
   - lexicon namespace reservation (`app.etzhayyim.makura.*`, 8 record types)
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
-  - adr-2605242000-etzhayyim-wadachi-autonomous-mobility-rd
+  - adr-2605242000-roso-pattern-frontier-distill
   - adr-2605250500-yakushi-pharmaceutical-rd-charter
   - adr-2605250715-tatekata-construction-tier-b-actor-r0
   - adr-2605252200-watatsumi-civilian-submersible-r0
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605192400-etzhayyim-eros-gore-content-policy
+  - adr-2605192400-etzhayyim-eros-gore-council-judging
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605191524-transparent-force-swarm-broadcast-witness-quorum
+  - 2605191524-ameno-multi-tab-swarm-broadcast
   - adr-2605241500-etzhayyim-dataset-cid-substrate
 related:
   - wellbecoming-karma-lean-proofs

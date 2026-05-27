@@ -20,7 +20,7 @@ authoritative_for:
   - constitutional firsts: G7 ABS-mandatory ≥125cc + G8 build-time anti-surveillance (no GPS/connected-app/telematics) + G12 right-to-repair forward-publishing at manufacture + G14 30-year service life
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
-  - adr-2605242000-etzhayyim-wadachi-autonomous-mobility-rd
+  - adr-2605242000-roso-pattern-frontier-distill
   - adr-2605250715-tatekata-construction-tier-b-actor-r0
   - adr-2605252400-kanayama-circular-metallurgy-r0
   - adr-2605261115-makura-foam-pillow-tier-b-actor-r0
@@ -30,7 +30,7 @@ depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605191524-transparent-force-swarm-broadcast-witness-quorum
+  - 2605191524-ameno-multi-tab-swarm-broadcast
   - adr-2605241500-etzhayyim-dataset-cid-substrate
 related:
   - wellbecoming-karma-lean-proofs

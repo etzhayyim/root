@@ -14,7 +14,7 @@ authoritative_for:
   - open-kyber Stripe integration policy in canonical etzhayyim repo
   - downstream commercial fork patch contract for billing
 depends_on:
-  - adr-2605192115-etzhayyim-sbt-internal-carveout
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605211900-etzhayyim-yorishiro-external-actor-bridge
 related:

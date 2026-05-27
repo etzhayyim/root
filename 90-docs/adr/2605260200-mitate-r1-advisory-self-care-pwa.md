@@ -20,8 +20,8 @@ depends_on:
   - adr-2605260145-mitate-condition-3-chronic-sinusitis
   - adr-2605260160-mitate-condition-4-septal-deviation
   - adr-2605260175-mitate-condition-5-rhinitis-medicamentosa
-  - adr-2605181100-etzhayyim-encrypted-confidentiality-substrate
-  - adr-2605231525-no-server-key-invariant
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605231525-no-server-key-religious-corp-architecture
 related:
   - 20-actors/mitate/                                       # R0 scaffold (this transitions to R1 active)
   - 20-actors/magatama/cells/mitate_{rhinitis_intake,emergency_screen,medication_history_audit,rhinitis_triage}/

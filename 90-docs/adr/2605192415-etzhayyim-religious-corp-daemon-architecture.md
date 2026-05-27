@@ -26,14 +26,14 @@ depends_on:
   - adr-2605192345-etzhayyim-steward-succession
   - adr-2605192400-etzhayyim-eros-gore-council-judging
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - adr-2605171300-open-unispsc-generative-agent-fleet
-  - adr-2605191229-ameno-daemon-path-a-bun-langgraph
-  - adr-2605191257-ameno-daemon-path-b-pymagatama-python
-  - adr-2605191346-etzhayyim-vultr-free-murakumo-control-plane
-  - adr-2605191559-ameno-mst-checkpointer-stage-2-activation
-  - adr-2605191603-ameno-swarm-leader-election
-  - adr-2605191524-ameno-multi-tab-swarm-broadcast
-  - adr-2605182312-local-bring-up-murakumo-gemma4
+  - 2605171300
+  - 2605191229-ameno-daemon-path-a-bun-langgraph
+  - 2605191257-ameno-daemon-path-b-pymagatama-python
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - 2605191559-ameno-mst-checkpointer-stage-2-activation
+  - 2605191603-ameno-swarm-leader-election
+  - 2605191524-ameno-multi-tab-swarm-broadcast
+  - 2605182312-local-bring-up-murakumo-gemma4
 related: []
 supersedes: []
 superseded_by: []

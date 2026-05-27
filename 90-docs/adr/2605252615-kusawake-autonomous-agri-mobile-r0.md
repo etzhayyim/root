@@ -19,10 +19,10 @@ authoritative_for:
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605201400-kuni-umi-tier-b-planetary-infrastructure
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605242000-etzhayyim-wadachi-autonomous-mobility-rd
-  - adr-2605261015-mitsuho-food-agriculture-tier-b-actor-r0
+  - adr-2605242000-roso-pattern-frontier-distill
+  - adr-2605261015
   - adr-2605261500-suki-farm-tractor-tier-b-actor-r0
   - adr-2605261600-robotics-simulation-substrate-r0
 related:

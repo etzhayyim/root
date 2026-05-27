@@ -20,7 +20,7 @@ depends_on:
   - adr-2605264300-csp-solar-thermal-d-gate-evaluation-r0
   - adr-2605264500-geothermal-deep-egs-d-gate-evaluation-r0
   - adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0
-  - adr-2605261100-hikari-energy-tier-b-actor-r0
+  - adr-2605261100
   - adr-2605264900-v2g-demand-response-d-gate-evaluation-r0
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider

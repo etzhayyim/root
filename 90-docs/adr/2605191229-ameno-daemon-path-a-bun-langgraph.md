@@ -7,9 +7,9 @@ topic: ameno-headless-daemon
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191135-ameno-tier2-daemon-residency.md
-  - 2605191000-ameno-browser-pregel-reflection.md
-  - 2605191129-ameno-browser-tool-use-react.md
+  - 2605191135-ameno-tier2-daemon-residency
+  - 2605191000-ameno-browser-pregel-reflection
+  - 2605191129-ameno-browser-tool-use-react
 related:
 V05182312-local-bring-up-murakumo-gemma4
 ---

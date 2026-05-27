@@ -18,7 +18,7 @@ authoritative_for:
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
-  - adr-2605192130-etzhayyim-tithe-public-fund
+  - adr-2605192130-etzhayyim-tithe-redistribution
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605202015-etzhayyim-robotics-first-industry-agriculture
 related:

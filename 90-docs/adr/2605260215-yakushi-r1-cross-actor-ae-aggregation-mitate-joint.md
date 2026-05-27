@@ -19,7 +19,7 @@ depends_on:
   - adr-2605260100-mitate-diagnostic-routing-charter
   - adr-2605260175-mitate-condition-5-rhinitis-medicamentosa
   - adr-2605260200-mitate-r1-advisory-self-care-pwa
-  - adr-2605181100-etzhayyim-encrypted-confidentiality-substrate
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
   - 20-actors/yakushi/                                         # yakushi sibling actor
   - 20-actors/mitate/                                          # mitate sibling actor

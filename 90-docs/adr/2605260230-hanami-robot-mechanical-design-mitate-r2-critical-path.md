@@ -20,7 +20,7 @@ depends_on:
   - adr-2605260160-mitate-condition-4-septal-deviation
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605231525-no-server-key-invariant
+  - adr-2605231525-no-server-key-religious-corp-architecture
 related:
   - 20-actors/mitate/                                              # owning actor
   - 20-actors/kuni-umi/                                            # robotics class ontology source

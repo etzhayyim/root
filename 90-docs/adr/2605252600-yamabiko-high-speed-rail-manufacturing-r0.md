@@ -21,17 +21,17 @@ authoritative_for:
   - lexicon namespace reservation (`app.etzhayyim.yamabiko.*`, 9 record types)
 depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
-  - adr-2605242000-etzhayyim-wadachi-autonomous-mobility-rd
+  - adr-2605242000-roso-pattern-frontier-distill
   - adr-2605252200-watatsumi-civilian-submersible-r0
   - adr-2605252400-kanayama-circular-metallurgy-r0
   - adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0
   - adr-2605250715-tatekata-construction-tier-b-actor-r0
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605192315-etzhayyim-transparent-religious-force
+  - adr-2605192315-etzhayyim-transparent-force-rd
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
-  - adr-2605191524-transparent-force-swarm-broadcast-witness-quorum
+  - 2605191524-ameno-multi-tab-swarm-broadcast
 related:
   - wellbecoming-karma-lean-proofs
   - wellbecoming-karma-lean-proofs

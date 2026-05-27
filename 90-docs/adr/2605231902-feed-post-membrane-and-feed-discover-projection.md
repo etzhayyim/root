@@ -14,15 +14,15 @@ authoritative_for:
   - "First yatachain-projection L1 conformance instance — feed-discover"
   - "Membrane → projection wire (verdict sidecar drives projection)"
 depends_on:
-  - 2605170900-etzhayyim-root-adr-canonical-home
-  - 2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605191655-mst-projector-phase2-design
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192200-etzhayyim-ip-free-release-charter-rider
-  - 2605192400-eros-gore-council-judging-framework
-  - 2605231400-yatachain-holochain-iso-substrate
-  - 2605231500-yatachain-projection
+  - adr-2605170900-etzhayyim-root-adr-canonical-home
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605191655-mst-projector-phase2-design
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605192400-etzhayyim-eros-gore-council-judging
+  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231500-yatachain-projection
 related:
   - 70-tools/seed-post/
   - 00-contracts/policies/app/bsky/feed/

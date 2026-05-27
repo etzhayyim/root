@@ -15,11 +15,11 @@ authoritative_for:
   - `_prior_consensus` wire-level contract (wrapper → cell)
   - cell-side opt-in shortcut pattern (reference impl c10101500)
 depends_on:
-  - 2605232100-religious-corp-cells-on-k3s-daemonset.md
-  - 2605231400-yatachain-holochain-iso-substrate.md
-  - 2605231525-no-server-key-religious-corp-architecture.md
-  - 2605211200-rw-free-belief-store-substrate-port.md
-  - 2605231630-langgraph-chain-server-canonical-goose-retirement.md
+  - adr-2605232100-etzhayyim-organism-vertical-implementation
+  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231525-no-server-key-religious-corp-architecture
+  - adr-2605211200-etzhayyim-active-inference-organism-on-murakumo
+  - 2605231630-langgraph-chain-server-canonical-goose-retirement
 related:
 V05171300
   - adr-2605192100-etzhayyim-mission-charter

@@ -7,7 +7,7 @@ topic: ameno-auth
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191657-ameno-daemon-did-auth.md
+  - 2605191657-ameno-daemon-did-auth
 related:
 V05191407-ameno-browser-viewer-mode
 V05191346-etzhayyim-vultr-free-murakumo-control-plane

@@ -17,7 +17,7 @@ authoritative_for:
   - ISIC Rev. 4 fleet generation pattern (Haiku Batch API, ast.parse validation)
 depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605172000-etzhayyim-rw-free-substrate
 related:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline

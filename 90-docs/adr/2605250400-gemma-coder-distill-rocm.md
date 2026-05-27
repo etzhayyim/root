@@ -16,11 +16,11 @@ authoritative_for:
   - "merged HF → GGUF → Ollama 配布 runbook"
   - "LangGraph coding bench を distill 改善信号として採用する宣言"
 depends_on:
-  - "2605215000-etzhayyim-inference-murakumo-only-no-runpod.md"
-  - "2605202345-evo-x2-gpu-pod-fleet-integration.md"
-  - "2605231300-baien-distill-react-loop.md"
-  - "2605241900-baien-edge-target-invariant.md"
-  - "2605192200-etzhayyim-ip-free-release-charter-rider.md"
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
+  - adr-2605202345-evo-x2-gpu-pod-fleet-integration
+  - adr-2605231300-baien-distill-react-loop
+  - adr-2605241900-baien-edge-target-invariant
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:
   - "70-tools/baien-distill/"
   - "50-infra/murakumo/fleet.toml"

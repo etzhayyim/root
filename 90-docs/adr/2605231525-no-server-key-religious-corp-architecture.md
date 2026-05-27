@@ -16,10 +16,10 @@ authoritative_for:
   - charter-rider-section-1-6-middleman-elimination
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
-  - adr-2605192115-no-advertising-no-purchase-purpose
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605172000-rw-free-substrate
-  - adr-2605172100-no-fiat-payment-processors
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605231400-yatachain-holochain-iso-substrate
   - adr-2605231500-yatachain-projection

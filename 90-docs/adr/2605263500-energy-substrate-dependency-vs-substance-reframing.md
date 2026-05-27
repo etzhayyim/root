@@ -25,8 +25,8 @@ depends_on:
   - adr-2605192300-etzhayyim-bootstrap-council-five
   - adr-2605202000-etzhayyim-energy-substrate
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605261000-labor-liberation-transition-mechanism
-  - adr-2605261100-hikari-energy-tier-b-actor-r0
+  - adr-2605261000
+  - adr-2605261100
 related:
   - CHARTER-RIDER.md §2(d) (new fossil fuel extraction ban — preserved as substantive constraint)
   - COUNCIL.md (Bootstrap Council roster + ratification ledger)

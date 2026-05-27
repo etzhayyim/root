@@ -17,7 +17,7 @@ authoritative_for:
   - "Industrial-process-heat sink consumer matrix (yakushi WFI / mitsuho greenhouse heating / igata cement curing / tatekata MEP)"
 depends_on:
   - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
-  - adr-2605261100-hikari-energy-tier-b-actor-r0
+  - adr-2605261100
   - adr-2605263700-green-ammonia-d-gate-evaluation-r0
   - adr-2605264300-csp-solar-thermal-d-gate-evaluation-r0
   - adr-2605264500-geothermal-deep-egs-d-gate-evaluation-r0

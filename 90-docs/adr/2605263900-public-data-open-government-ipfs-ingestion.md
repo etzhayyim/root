@@ -26,8 +26,8 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605240200-kaizen-observer-cell
-  - adr-2605241500-dataset-cid-substrate-datalad-ipfs
+  - adr-2605240200-unispsc-organism-kaizen-self-reflection
+  - adr-2605241500-etzhayyim-dataset-cid-substrate
   - adr-2605262100-baien-moemoekyun-r1-phase0-coding-train
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605262400-public-data-organism-ipfs-ingestion

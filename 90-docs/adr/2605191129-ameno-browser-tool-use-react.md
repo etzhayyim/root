@@ -7,9 +7,9 @@ topic: ameno-tool-use
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605191000-ameno-browser-pregel-reflection.md
-  - 2605191113-ameno-active-inference-lexical-surprise.md
-  - 2605191120-ameno-embedding-surprise-tier-c.md
+  - 2605191000-ameno-browser-pregel-reflection
+  - 2605191113-ameno-active-inference-lexical-surprise
+  - 2605191120-ameno-embedding-surprise-tier-c
 related:
   - adr-2605172000-etzhayyim-rw-free-substrate
 ---

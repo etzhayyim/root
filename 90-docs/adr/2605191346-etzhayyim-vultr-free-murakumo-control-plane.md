@@ -7,10 +7,10 @@ topic: etzhayyim-decentralized-control-plane
 authoritative: true
 last_verified: 2026-05-19
 depends_on:
-  - 2605170900-etzhayyim-root-adr-canonical-home.md
-  - 2605172000-etzhayyim-rw-free-substrate.md
-  - 2605172800-geth-private-migration-to-etzhayyim.md
-  - 2605182312-local-bring-up-murakumo-gemma4.md
+  - adr-2605170900-etzhayyim-root-adr-canonical-home
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172800-geth-private-migration-to-etzhayyim
+  - 2605182312-local-bring-up-murakumo-gemma4
 related:
 V05191229-ameno-daemon-path-a-bun-langgraph
 V05191257-ameno-daemon-path-b-pymagatama-python

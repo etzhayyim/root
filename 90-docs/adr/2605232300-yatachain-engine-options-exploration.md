@@ -12,13 +12,13 @@ weight: 0.7
 priority_note: "Exploratory only. No option adopted. Sets up a future authoritative ADR once Council/timeline trade-offs are resolved."
 authoritative_for: []
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605231400-yatachain-holochain-iso-substrate
-  - 2605231500-yatachain-projection
-  - 2605181100-encrypted-records-on-mst
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192200-etzhayyim-ip-free-release-charter-rider
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231500-yatachain-projection
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
   - 2604241342-risingwave-out-of-band-migration-pattern
   - 2605171300-magatama-unispsc-langgraph-agents

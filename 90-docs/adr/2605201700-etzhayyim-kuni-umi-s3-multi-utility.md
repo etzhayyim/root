@@ -23,7 +23,7 @@ depends_on:
   - adr-2605201500-etzhayyim-kuni-umi-s1-solo-survey
   - adr-2605201600-etzhayyim-kuni-umi-s2-community-microgrid
   - adr-2605151200-open-ot-wasm-plc-dlc
-  - adr-2605171300-open-unispsc-generative-agent-fleet
+  - 2605171300
   - adr-2605172300-etzhayyim-bi-asset-substrate
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192145-etzhayyim-public-fund-architecture

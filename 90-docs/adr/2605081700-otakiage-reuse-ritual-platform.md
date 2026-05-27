@@ -22,7 +22,7 @@ depends_on:
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0056-bpmn-as-actor
   - adr-0019-atproto-native-identifier-topology
-  - adr-2604282300-cf-worker-edge-layer-zeebe-rw-udf-business-logic
+  - adr-2604282300
   - adr-2604291800-well-becoming-spirit-objective-function
 related:
   - adr-2605080100-bonsai-growth-prune-model

@@ -27,8 +27,8 @@ related:
 depends_on:
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - 2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md
-  - 2605231400-yatachain-holochain-iso-substrate.md
+  - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
+  - adr-2605231400-yatachain-holochain-iso-substrate
 ---
 
 # ADR-2605261600: Robotics Simulation Substrate R0 Charter

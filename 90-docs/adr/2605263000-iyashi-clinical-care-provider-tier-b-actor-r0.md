@@ -26,12 +26,12 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192145-etzhayyim-public-fund-architecture
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605192300-etzhayyim-council-5-of-7-safe
+  - adr-2605192300-etzhayyim-bootstrap-council-five
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - adr-2605250500-yakushi-pharmaceutical-tier-b-actor-r0
+  - adr-2605250500-yakushi-pharmaceutical-rd-charter
   - adr-2605260100-mitate-diagnostic-routing-charter
-  - adr-2605261000-labor-liberation-transition-mechanism
-  - adr-2605261030-hagukumi-care-tier-b-actor-r0
+  - adr-2605261000
+  - adr-2605261030
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0
   - adr-2605262900-toritate-accounting-audit-tier-b-actor-r0

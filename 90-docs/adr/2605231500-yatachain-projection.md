@@ -14,8 +14,8 @@ authoritative_for:
   - "ADR-2605172000 hot-path escape hatch (when RW / Lance / Iroh / index serving range queries is permitted)"
   - "Bluesky AppView analog — PDS = state, projection = derivable cache"
 depends_on:
-  - 2605172000-etzhayyim-rw-free-substrate
-  - 2605231400-yatachain-holochain-iso-substrate
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605231400-yatachain-holochain-iso-substrate
 related:
   - 2605222330-etzhayyim-com-substrate-violation-transition-window
   - 2605111200-cf-worker-db-prohibition

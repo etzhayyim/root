@@ -15,12 +15,12 @@ authoritative_for:
   - "ADR-2605111200 transition window"
   - "Charter §2 substrate boundary current state"
 depends_on:
-  - 2605091900-flowering-fruiting-surface
-  - 2605111200-cf-worker-db-prohibition
-  - 2605171900-yoro-appview-migration
-  - 2605192100-etzhayyim-mission-charter
-  - 2605192200-etzhayyim-ip-free-release-charter-rider
-  - 2605211900-yorishiro-and-mcp-stack
+  - adr-2605091900-yoro-flower-fruit-lifecycle
+  - adr-2605111200-cf-worker-edge-only-no-rw-connection
+  - adr-2605171900-yoro-migration-to-etzhayyim
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - doc-2605211900-tranche-f-all-gates-closure-confirmation
 related:
   - 2605221411-etzhayyim-artificial-organism-ecosystem
 supersedes: []

@@ -15,12 +15,12 @@ authoritative_for:
   - kami-usd USDA mini-parser scope and behaviour
   - IsekaiCanvas SDK component contract
 depends_on:
-  - 2605261800-nvidia-omniverse-stack-api-compat
-  - 2605261600-e7m-sim-robotics-sim-substrate-r0
-  - 2605262500-robotics-sim-world-data-ingestion-usd-pipeline
-  - 2605215000-etzhayyim-inference-murakumo-only-no-runpod
-  - 2605192200-etzhayyim-ip-free-release-charter-rider
-  - 2605264300-kami-engine-sdk-three-free-cutover
+  - adr-2605261800-nvidia-omniverse-stack-api-compat
+  - adr-2605261600-robotics-simulation-substrate-r0
+  - adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
+  - adr-2605192200-etzhayyim-ip-free-release-charter-rider
+  - adr-2605264300-kami-engine-sdk-three-free-cutover
 related:
   - 0031-kami-vrm-three-free-topology
   - 2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone

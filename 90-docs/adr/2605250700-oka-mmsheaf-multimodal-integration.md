@@ -21,12 +21,12 @@ depends_on:
   - adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design # Baien ternary edge sibling
   - adr-2605101000-baien-mx-multimodal-expansion-from-rw       # Oka/Baien escalation pattern
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod # Murakumo-only inference invariant
-  - adr-2605241900                                              # Baien edge-target invariant (WASM-32 + iPhone 12+ + Android 4GB)
-  - adr-2605231400                                              # yatachain Holochain-iso substrate composition
-  - adr-2605231500                                              # yatachain-projection (regenerable cache rules)
-  - adr-2605231902                                              # feed-discover L1 projection (first MST → projection wire)
-  - adr-2605242600                                              # baien federated training via ameno WebGPU (R0 scaffold)
-  - adr-2605250400                                              # gemma-coder-distill precedent (EVO-X2 ROCm peft+trl)
+  - adr-2605241900-baien-edge-target-invariant                                              # Baien edge-target invariant (WASM-32 + iPhone 12+ + Android 4GB)
+  - adr-2605231400-yatachain-holochain-iso-substrate                                              # yatachain Holochain-iso substrate composition
+  - adr-2605231500-yatachain-projection                                              # yatachain-projection (regenerable cache rules)
+  - adr-2605231902-feed-post-membrane-and-feed-discover-projection                                              # feed-discover L1 projection (first MST → projection wire)
+  - adr-2605242600-baien-federated-train-via-ameno-webgpu                                              # baien federated training via ameno WebGPU (R0 scaffold)
+  - adr-2605250400-gemma-coder-distill-rocm                                              # gemma-coder-distill precedent (EVO-X2 ROCm peft+trl)
 related:
   - 20-actors/magatama/py/src/pymagatama/                       # pymagatama Pregel host (mmsheaf module sibling target)
   - 50-infra/murakumo/fleet.toml                                # Murakumo cell placement (mmsheaf_diffusion_aggregator → levi)

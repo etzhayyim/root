@@ -19,7 +19,7 @@ authoritative_for:
 depends_on:
   - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
   - adr-2605263600-hydrogen-economy-d-gate-evaluation-r0
-  - adr-2605261015-mitsuho-food-agriculture-tier-b-actor-r0
+  - adr-2605261015
   - adr-2605261215-hodoki-elv-disassembly-tier-b-actor-r0
   - adr-2605263100-mizuho-water-sanitation-tier-b-actor-r0
 related:

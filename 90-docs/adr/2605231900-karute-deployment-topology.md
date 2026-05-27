@@ -21,7 +21,7 @@ depends_on:
   - adr-2605231400-karute-consent-capability-iryo-bridge
   - adr-2605231603-per-record-rekey-tombstone-protocol
   - adr-2605231700-audit-webhook-subsystem
-  - adr-2605171800-langgraph-mst-checkpointer-saver
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
 related:

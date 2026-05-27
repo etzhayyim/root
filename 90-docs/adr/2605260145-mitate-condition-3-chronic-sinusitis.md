@@ -16,7 +16,7 @@ authoritative_for:
   - **mitate Wave 1 中 最も Rx + surgical routing 重い condition ― licensed MD-in-loop の最低 Case**
 depends_on:
   - adr-2605260100-mitate-diagnostic-routing-charter
-  - adr-2605181100-etzhayyim-encrypted-confidentiality-substrate
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
   - 20-actors/magatama/cells/mitate_rhinitis_triage/
   - 20-actors/magatama/cells/mitate_nasal_endoscopy_acquire/

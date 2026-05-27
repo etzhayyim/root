@@ -19,7 +19,7 @@ depends_on:
   - adr-2605250515-yakushi-otc-ophthalmic-api-synthesis
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605181100-etzhayyim-encrypted-confidentiality-substrate
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
 related:
   - 20-actors/yakushi/
   - 20-actors/magatama/cells/pharma_sterile_fill_finish/

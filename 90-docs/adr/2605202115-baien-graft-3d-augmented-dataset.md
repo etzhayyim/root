@@ -15,9 +15,9 @@ authoritative_for:
   - "TripoSR vs Hunyuan3D-2 selection for image→3D dataset generation"
   - "Role separation: evo-x2 (generation) / Mac M4 (render + caption)"
 depends_on:
-  - "2605092350"
-  - "2605091400"
-  - "2605202345"
+  - adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design
+  - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion
+  - adr-2605202345-evo-x2-gpu-pod-fleet-integration
 related:
   - "2605091300"
   - "2605091600"

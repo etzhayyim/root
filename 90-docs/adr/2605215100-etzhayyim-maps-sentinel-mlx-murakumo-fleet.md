@@ -15,9 +15,9 @@ authoritative_for:
   - "Tiered GPU/MLX placement for satellite imagery workloads"
   - "maps_sentinel_murakumo.py REIMPLEMENT successor implementation roadmap"
 depends_on:
-  - "2605191346-etzhayyim-vultr-free-murakumo-control-plane.md"
-  - "2605202345-evo-x2-gpu-pod-fleet-integration.md"
-  - "2605215000-etzhayyim-inference-murakumo-only-no-runpod.md"
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - adr-2605202345-evo-x2-gpu-pod-fleet-integration
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 related:
   - "2605201400-etzhayyim-kuni-umi-planetary-infra-fleet.md"
   - "2605192245-etzhayyim-global-land-sovereignty.md"

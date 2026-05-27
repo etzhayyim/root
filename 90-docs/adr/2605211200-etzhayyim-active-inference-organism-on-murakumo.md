@@ -25,11 +25,11 @@ depends_on:
   - adr-2605080600-langgraph-server-granian-l3-runtime
   - adr-2605091300-bonsai-cultivar-layer-above-myco-yeast
   - adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-2604251758-murakumo-yoro-actor-worker-fleet
   - adr-2605152100-etzhayyim-github-org-boundary
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605172100-payments-on-chain-only
+  - adr-2605172100-etzhayyim-payments-on-chain-only
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
 related:
   - adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion

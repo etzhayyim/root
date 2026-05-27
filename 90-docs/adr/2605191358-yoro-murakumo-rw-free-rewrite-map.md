@@ -19,8 +19,8 @@ depends_on:
   - adr-2605170900-etzhayyim-root-adr-canonical-home
   - adr-2605171900-yoro-migration-to-etzhayyim
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605181100-etzhayyim-encrypted-records
-  - adr-2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - adr-2605181100-mst-encrypted-records-signal-keywrap
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
 related:
   - ADR-2605172100 (substrate client imports — `@etzhayyim/sdk` only)
   - ADR-2605182312 (murakumo-gemma4 local bring-up)

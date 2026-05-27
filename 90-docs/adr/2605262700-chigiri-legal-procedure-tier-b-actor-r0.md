@@ -30,12 +30,12 @@ depends_on:
   - adr-2605192145-etzhayyim-public-fund-architecture
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192245-etzhayyim-global-land-sovereignty
-  - adr-2605192300-etzhayyim-council-5-of-7-safe
-  - adr-2605192315-etzhayyim-transparent-force-authorization
+  - adr-2605192300-etzhayyim-bootstrap-council-five
+  - adr-2605192315-etzhayyim-transparent-force-rd
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605221411-etzhayyim-artificial-organism-ecosystem
-  - adr-2605231525-server-side-signing-capability-restrictions
-  - adr-2605261000-labor-liberation-transition-mechanism
+  - adr-2605231525-no-server-key-religious-corp-architecture
+  - adr-2605261000
   - adr-2605262130-kotoba-storage-substrate-unification
   - adr-2605262400-public-data-organism-ipfs-ingestion
   - adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0

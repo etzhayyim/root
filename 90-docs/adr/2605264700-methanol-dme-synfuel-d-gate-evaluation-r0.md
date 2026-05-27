@@ -20,8 +20,8 @@ depends_on:
   - adr-2605263600-hydrogen-economy-d-gate-evaluation-r0
   - adr-2605264600-direct-air-capture-d-gate-evaluation-r0
   - adr-2605263800-biomethane-d-gate-evaluation-r0
-  - adr-2605242000-wadachi-tier-b-autonomous-mobility-r0
-  - adr-2605252500-sarutahiko-heavy-class8-truck-mfg-tier-b-r0
+  - adr-2605242000-roso-pattern-frontier-distill
+  - adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
 related:

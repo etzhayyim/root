@@ -13,7 +13,7 @@ authoritative_for:
   - modality encoder and embedding-model coverage
   - deployment split between vLLM inference (6000 Ada), H100 trainer, embedding workers, and RW lineage
 depends_on:
-  - adr-2605010000-runpod-6000ada-unified-pod
+  - adr-2605010000
   - adr-2605070700-rw-native-model-training-weight-lineage
   - adr-2605092000-ecosystem-as-model-unified-multimodal-fp8-vector-substrate
   - adr-2605092200-continuous-metabolic-training

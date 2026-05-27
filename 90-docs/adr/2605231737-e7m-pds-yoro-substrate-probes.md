@@ -15,9 +15,9 @@ authoritative_for:
   - e7m-mcp tool surface for substrate introspection
   - timeline incident 2026-05-23 RCA + remediation record
 depends_on:
-  - 2605172000
-  - 2605192100
-  - 2605211000
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605192100-etzhayyim-mission-charter
+  - adr-2605211000
 related:
   - 2605222330
   - 2605211000

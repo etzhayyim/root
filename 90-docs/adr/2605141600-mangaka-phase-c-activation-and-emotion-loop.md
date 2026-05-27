@@ -21,7 +21,7 @@ depends_on:
   - adr-2605080600-langgraph-server-granian-l3-runtime
   - adr-2605082000-langgraph-graph-definition-as-data
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
-  - adr-2604261100-rego-dmn-decision-table-ssot
+  - adr-2604261100-rego-dmn-policy-decision-layers
   - adr-2604300135-hume-distillation-artifact-persistence
 related:
   - adr-0044-risingwave-udf-language-strategy

@@ -15,10 +15,10 @@ authoritative_for:
   - religious-corp cell substrate (was launchd-only; now k3s on Mac mini fleet per ADR-2605232100)
   - K8s/k3s/GPU-pod reintroduction policy (was "禁止 再導入禁止"; now approved within etzhayyim/* scope)
 depends_on:
-  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane.md
-  - 2605192415-etzhayyim-religious-corp-daemon-architecture.md
-  - 2605231400-yatachain-holochain-iso-substrate.md
-  - 2605232100-religious-corp-cells-on-k3s-daemonset.md
+  - 2605191346-etzhayyim-vultr-free-murakumo-control-plane
+  - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
+  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605232100-etzhayyim-organism-vertical-implementation
 related:
 V05171300
 V05182312-local-bring-up-murakumo-gemma4

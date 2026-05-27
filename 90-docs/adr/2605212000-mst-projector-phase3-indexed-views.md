@@ -18,7 +18,7 @@ authoritative_for:
   - Phase 3 reference impl scope (kiyo starter actor)
 depends_on:
   - adr-2605203000-rw-free-write-target-options
-  - adr-2605210000-phase-e-reference-impl-completion
+  - adr-2605210000-search-gftd-ai-internal-only
   - adr-2605111200-cf-worker-edge-only-no-rw-connection
   - adr-0019-atproto-native-identifier-topology
 related:
@@ -124,7 +124,7 @@ export interface CollectionProjection {
 **Phase 3 reference implementation**: `kiyo` actor (smallest data, IVF embedding most demonstrative for `searchPapers`).
 
 1. **Scaffold**: types + class skeleton + kiyo example config (this PR)
-2. **Implementation** (Phase 3 work): 
+2. **Implementation** (Phase 3 work):
    - LanceDB client + embedding model loader
    - DuckDB cursor for incremental aggregate updates
    - Firehose subscription loop

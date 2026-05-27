@@ -18,7 +18,7 @@ authoritative_for:
   - "Cross-actor with hikari mechanical-storage portfolio (ADR-2605264200 §6)"
 depends_on:
   - adr-2605263500-energy-substrate-dependency-vs-substance-reframing
-  - adr-2605261100-hikari-energy-tier-b-actor-r0
+  - adr-2605261100
   - adr-2605264200-mechanical-energy-storage-d-gate-evaluation-r0
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider

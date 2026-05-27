@@ -19,7 +19,7 @@ depends_on:
   - adr-2605081300-karma-hegemon-edge-primary-spirit-in-physic
   - adr-2605081400-karma-self-growing-organism-ecosystem
   - adr-0056-bpmn-as-actor
-  - adr-2604241342-out-of-band-migration-pattern
+  - adr-2604241342-risingwave-out-of-band-migration-pattern
 related: []
 supersedes: []
 superseded_by: []

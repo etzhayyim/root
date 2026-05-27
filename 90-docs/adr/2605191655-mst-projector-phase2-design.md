@@ -19,7 +19,7 @@ depends_on:
   - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
   - adr-2605172000-etzhayyim-rw-free-substrate
   - adr-2605191358-yoro-murakumo-rw-free-rewrite-map
-  - adr-2605191648-substrate-boundary-lefthook
+  - 2605191648-substrate-boundary-lefthook
 related:
   - 50-infra/mst-projector/
   - 50-infra/ipfs-pinner/

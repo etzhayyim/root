@@ -18,7 +18,7 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605192245-etzhayyim-global-land-sovereignty
-  - adr-2605192315-etzhayyim-transparent-religious-force
+  - adr-2605192315-etzhayyim-transparent-force-rd
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules
 related:

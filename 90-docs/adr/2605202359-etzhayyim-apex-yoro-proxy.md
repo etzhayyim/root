@@ -14,7 +14,7 @@ authoritative_for:
   - "etzhayyim.com apex (/) HTTP behavior"
   - "did:web Worker と apex 配信の同居方針"
 depends_on:
-  - "2605171800"
+  - adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline
 related:
   - "2605170900"
 supersedes: []

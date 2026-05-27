@@ -17,12 +17,12 @@ authoritative_for:
   - Charter purpose enforcement の lefthook hook 拡張点
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
-  - adr-2605192115-etzhayyim-sbt-internal-carveout
+  - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
-  - adr-2605180900-langgraph-pregel-fleet-mcp-bridge
+  - adr-2605180900-unispsc-isic-langserver-actor-lexicon-xrpc-mcp
   - adr-2605202200-etzhayyim-cell-runtime-contract
-  - adr-2605172000-rw-free-substrate-architecture
-  - adr-2605172100-etzhayyim-sdk-substrate-client
+  - adr-2605172000-etzhayyim-rw-free-substrate
+  - adr-2605172100-etzhayyim-payments-on-chain-only
 related:
   - 20-actors/magatama/mcp/unispsc-isic-mcp/
   - 20-actors/magatama/cells/

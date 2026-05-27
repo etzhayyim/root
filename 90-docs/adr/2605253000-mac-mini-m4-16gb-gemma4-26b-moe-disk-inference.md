@@ -15,7 +15,7 @@ related:
   - adr-2605231300-e7m-bench-distill
   - adr-2605250400-gemma-coder-distill
 depends_on:
-  - adr-2605215000
+  - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
 ---
 
 # ADR-2605253000: Mac mini M4 16GB で Gemma 4 26B-A4B MoE を NVMe disk inference で動作確認
