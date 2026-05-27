@@ -2305,3 +2305,66 @@ export function mlpPolicyForwardInline(
   }
   return out;
 }
+
+// ── Conditional per-env reset (env×dim parallel) ─────────────────────────
+//
+// Closes the loop between TerminationManager (iter 105) and next-episode
+// initial state. Per-(env, dim) thread: if done[env] == 1, copy
+// resetState[env*d + i] → state[env*d + i]; else leave state untouched.
+//
+// One kernel handles any per-env array: joint state (d=N), velocity
+// buffer (d=N), step counter (d=1), arbitrary observation history etc.
+// Host invokes once per buffer with the appropriate d.
+
+export const conditionalResetKernel: WgpuKernel = wgpuKernel({
+  js: (
+    state: WpArray<number>,
+    resetState: WpArray<number>,
+    done: WpArray<number>,
+    d: number,
+  ) => {
+    const idx = tid();
+    const env = Math.floor(idx / d);
+    if (done.get(env) >= 0.5) {
+      state.set(idx, resetState.get(idx));
+    }
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> state:       array<f32>;
+@group(0) @binding(1) var<storage, read_write> reset_state: array<f32>;
+@group(0) @binding(2) var<storage, read_write> done:        array<f32>;
+@group(0) @binding(3) var<uniform>             d_uniform:   vec4<u32>;
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let idx = gid.x;
+  let total = arrayLength(&state);
+  if (idx >= total) { return; }
+  let d = d_uniform.x;
+  let env = idx / d;
+  if (done[env] >= 0.5) {
+    state[idx] = reset_state[idx];
+  }
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: true },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: false },
+    { binding: 2, kind: "storage", inputIndex: 2, writeback: false },
+    { binding: 3, kind: "uniform", inputIndex: 3 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference conditional reset (in-place mutation of state). */
+export function conditionalResetInline(
+  state: number[],
+  resetState: readonly number[],
+  done: readonly number[],
+  d: number,
+): void {
+  for (let idx = 0; idx < state.length; idx++) {
+    const env = Math.floor(idx / d);
+    if (done[env] >= 0.5) state[idx] = resetState[idx];
+  }
+}

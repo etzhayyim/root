@@ -57,6 +57,8 @@ import {
   terminationsInline,
   mlpPolicyForwardKernel,
   mlpPolicyForwardInline,
+  conditionalResetKernel,
+  conditionalResetInline,
 } from "../src/nv-compat/warp/examples.js";
 import { makeUr10 } from "../src/nv-compat/assets/ur10.js";
 import { makeFrankaPanda } from "../src/nv-compat/assets/franka-panda.js";
@@ -909,5 +911,75 @@ describe("nv-compat mlpPolicyForwardKernel — 2-layer Linear+ReLU+Linear+tanh",
     const b2 = [0];
     const action = mlpPolicyForwardInline([0.1, 0, 0.05, 0], W1, b1, W2, b2, obsD, hidD, actD);
     expect(Math.abs(action[0])).toBeLessThanOrEqual(1);
+  });
+});
+
+describe("nv-compat conditionalResetKernel — per-env state reset on done", () => {
+  it("done=1 → state replaced; done=0 → state unchanged", () => {
+    const a = [9, 8, 7];
+    conditionalResetInline(a, [1, 2, 3], [1], 3);
+    expect(a).toEqual([1, 2, 3]);
+
+    const b = [9, 8, 7];
+    conditionalResetInline(b, [1, 2, 3], [0], 3);
+    expect(b).toEqual([9, 8, 7]);
+  });
+
+  it("mixed envs: only done==1 envs are reset", () => {
+    const state = [10, 11, 12, 20, 21, 22];
+    conditionalResetInline(state, [1, 2, 3, 4, 5, 6], [0, 1], 3);
+    expect(state).toEqual([10, 11, 12, 4, 5, 6]);
+  });
+
+  it("step counter use case (d=1)", () => {
+    const step = [100, 200, 300, 400];
+    conditionalResetInline(step, [0, 0, 0, 0], [0, 1, 0, 1], 1);
+    expect(step).toEqual([100, 0, 300, 0]);
+  });
+
+  it("256-env × 7-dim WGSL byte-identical with sparse done pattern", () => {
+    const nEnvs = 256, d = 7;
+    const stateBuf: number[] = new Array(nEnvs * d);
+    const resetBuf: number[] = new Array(nEnvs * d);
+    const doneBuf: number[] = new Array(nEnvs);
+    for (let env = 0; env < nEnvs; env++) {
+      doneBuf[env] = (env % 5 === 0) ? 1 : 0;
+      for (let i = 0; i < d; i++) {
+        stateBuf[env*d+i] = env * 100 + i;
+        resetBuf[env*d+i] = -(env * 100 + i);
+      }
+    }
+    const sA = fromTypedArray<number>([...stateBuf]);
+    const rA = fromTypedArray<number>(resetBuf);
+    const dA = fromTypedArray<number>(doneBuf);
+    launch({ kernel: conditionalResetKernel, dim: nEnvs * d, inputs: [sA, rA, dA, d] });
+
+    const ref = [...stateBuf];
+    conditionalResetInline(ref, resetBuf, doneBuf, d);
+
+    let maxDiff = 0;
+    for (let i = 0; i < nEnvs * d; i++) {
+      maxDiff = Math.max(maxDiff, Math.abs(sA.get(i) - ref[i]));
+    }
+    expect(maxDiff).toBe(0);
+  });
+
+  it("end-to-end terminations → done → q+step reset closes the env loop", () => {
+    const n = 3;
+    const lower = [-1, -1, -1], upper = [1, 1, 1];
+    const q = [0,0,0, 2,0,0, 0,0,0];        // env 1 over-limit
+    const baseZ = [1, 1, 1];
+    const step = [50, 50, 1000];             // env 2 timed out
+    const term = terminationsInline(q, lower, upper, baseZ, step, n, 0.3, 500);
+    const done = term.terminated.map((t, i) => (t || term.truncated[i]) ? 1 : 0);
+    expect(done).toEqual([0, 1, 1]);
+
+    const qState = [...q];
+    conditionalResetInline(qState, [0,0,0, 0,0,0, 0,0,0], done, n);
+    expect(qState).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+
+    const stepState = [...step];
+    conditionalResetInline(stepState, [0, 0, 0], done, 1);
+    expect(stepState).toEqual([50, 0, 0]);
   });
 });
