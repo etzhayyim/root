@@ -12,7 +12,7 @@ export * as assets from "./assets/index.js";
 export * as warp from "./warp/index.js";
 
 export const ADR = "ADR-2605261800";
-export const PHASE = "R1.6-warp-ts-port";
+export const PHASE = "R1.7-wgpu-backend";
 
 export const NV_COMPAT_MAP: Readonly<Record<string, string>> = Object.freeze({
   "Omniverse Kit":     "amenominaka",
