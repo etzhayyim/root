@@ -38,6 +38,36 @@ in the single HTML file. The inlined cartpole kernel is byte-for-byte
 the canonical SDK version at
 `../src/nv-compat/warp/examples.ts` (`cartpoleStepKernel`, iter 79).
 
+## `anymal-walk-demo.html` (iter 95)
+
+ANYmal C quadruped walking with 4 selectable gaits (stand / trot /
+pace / bound). Real ANYbotics joint origins (iter 94). Dual side + top
+views show how the 4 legs phase relative to each other in each gait.
+
+**Open the file directly** — zero build step.
+
+**Controls:**
+
+- `1` — stand (all 4 legs static)
+- `2` — trot (LF+RH ↔ LH+RF diagonal)
+- `3` — pace (LF+LH ↔ RF+RH same-side)
+- `4` — bound (LF+RF ↔ LH+RH front/hind)
+- `Space` — pause / resume
+- `R` — reset phase to 0
+
+**What you'll see:**
+
+- Side view (xz): legs go up and down as they lift / plant
+- Top view (xy): rectangle of 4 HAA hip points + 4 legs reaching outward
+- Foot markers turn orange when in contact (z < -0.55) and green when
+  lifted — gait pattern becomes visible from the color phasing
+- Live readouts: current gait, phase ∈ [0, 1), feet-in-contact count,
+  min/max foot z, step count
+- 12 joint angles bar (q₁..q₁₂) updating per frame
+
+ADR-2605261800 §D6 nv-compat namespace localization. Joint origins from
+publicly-distributed anymal_c_simple_description URDF (BSD-3).
+
 ## `franka-batch-webgpu-demo.html` (iter 91)
 
 N=64 Frankas reaching 64 different randomly-generated targets in
