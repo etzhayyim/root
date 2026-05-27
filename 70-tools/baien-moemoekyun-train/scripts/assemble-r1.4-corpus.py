@@ -146,6 +146,19 @@ SOURCES = [
     {"name": "math_500",            "weight": 0.03, "task": "math_500",                          "hf_id": "HuggingFaceH4/MATH-500",       "hf_split": "test",  "extractor": extract_math500,          "tier": "A", "license": "MIT"},
 ]
 
+# Path B (HF-publish-ready) NC-free SOURCES: CodeAlpaca 10% removed,
+# redistributed to magicoder +5% + commitpack +5%. All Tier-A non-NC.
+# Per ADR-2605262100 G13: removing CC-BY-NC source removes internal_only
+# propagation, enabling external publication of derived checkpoint.
+SOURCES_NC_FREE = [
+    {"name": "magicoder",           "weight": 0.30, "task": "magicoder_oss_instruct_75k",       "hf_id": "ise-uiuc/Magicoder-OSS-Instruct-75K","hf_split": "train", "extractor": extract_magicoder,        "tier": "A", "license": "MIT"},
+    {"name": "commitpack",          "weight": 0.30, "task": "commitpackft",                     "hf_id": "bigcode/commitpackft",         "hf_split": "train", "hf_config": "python", "extractor": extract_commitpack,       "tier": "A", "license": "MIT"},
+    {"name": "reasoning_distill",   "weight": 0.20, "task": "reasoning_distill_opus_47_max_sft","hf_id": "lordx64/reasoning-distill-opus-4-7-max-sft","hf_split": "train", "extractor": extract_reasoning_distill,"tier": "A", "license": "distill-opus-attribution"},
+    {"name": "langgraph_internal",  "weight": 0.10, "task": "_local_langgraph",                 "extractor": extract_langgraph,        "tier": "A", "license": "Apache-2.0 + Charter Rider"},
+    {"name": "gsm8k",               "weight": 0.07, "task": "gsm8k",                             "hf_id": "openai/gsm8k",                 "hf_split": "train", "hf_config": "main", "extractor": extract_gsm8k,            "tier": "A", "license": "MIT"},
+    {"name": "math_500",            "weight": 0.03, "task": "math_500",                          "hf_id": "HuggingFaceH4/MATH-500",       "hf_split": "test",  "extractor": extract_math500,          "tier": "A", "license": "MIT"},
+]
+
 
 def iter_records_from_hf(hf_id: str, split: str, config: str | None = None) -> Iterator[dict]:
     """Use HF datasets.load_dataset as authoritative source (parquet auto-resolved).
@@ -381,7 +394,14 @@ def main():
     p.add_argument("--target-examples", type=int, default=5000)
     p.add_argument("--output-dir", default="70-tools/baien-moemoekyun-train/corpora/moemoekyun-r1.4-coding-math-v1/")
     p.add_argument("--seed", type=int, default=42)
+    p.add_argument("--nc-free", action="store_true",
+                   help="Use SOURCES_NC_FREE (CodeAlpaca removed, weights redistributed). "
+                        "Path B prerequisite for HF publish. Removes G13 internal_only propagation.")
     args = p.parse_args()
+    if args.nc_free:
+        global SOURCES
+        SOURCES = SOURCES_NC_FREE
+        log.info("=== NC-FREE mode: CodeAlpaca removed, weights redistributed ===")
     assemble(args)
 
 
