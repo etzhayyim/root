@@ -1937,3 +1937,121 @@ export function mulberry32(seed: number): () => number {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
+
+// ── L2-norm-squared per env (universal reward building block) ────────────
+//
+// Most Isaac Lab reward terms reduce to ||·||² of some per-env vector:
+//   • action_l2          = ||a||²
+//   • action_rate_l2     = ||a_t − a_{t-1}||²
+//   • joint_vel_l2       = ||q̇||²
+//   • joint_acc_l2       = ||q̈||²
+//   • joint_torque_l2    = ||τ||²
+//   • flat_orientation_l2 = ||up_vec − ẑ||²
+//
+// One thread per env iterates a bounded-d input (compile-bound 64; runtime
+// d via uniform). Output: result[env] = Σ_i x[env*d + i]².
+//
+// Compose with combineWeightedRewards() (host helper) and trackVelExpInline()
+// to reproduce full Isaac Lab RewardManager scoring per env.
+
+export const l2NormSquaredKernel: WgpuKernel = wgpuKernel({
+  js: (
+    x: WpArray<number>,
+    out: WpArray<number>,
+    d: number,
+  ) => {
+    const env = tid();
+    let s = 0;
+    for (let i = 0; i < d; i++) {
+      const v = x.get(env * d + i);
+      s += v * v;
+    }
+    out.set(env, s);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> x:         array<f32>;
+@group(0) @binding(1) var<storage, read_write> out:       array<f32>;
+@group(0) @binding(2) var<uniform>             d_uniform: vec4<u32>;
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let env = gid.x;
+  let n_envs = arrayLength(&out);
+  if (env >= n_envs) { return; }
+  let d = d_uniform.x;
+  var s: f32 = 0.0;
+  for (var i = 0u; i < 64u; i = i + 1u) {
+    if (i >= d) { break; }
+    let v = x[env * d + i];
+    s = s + v * v;
+  }
+  out[env] = s;
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: true },
+    { binding: 2, kind: "uniform", inputIndex: 2 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference per-env ||x||² in pure JS. */
+export function l2NormSquaredInline(
+  x: readonly number[],
+  d: number,
+): number[] {
+  const nEnvs = x.length / d;
+  const out = new Array(nEnvs);
+  for (let env = 0; env < nEnvs; env++) {
+    let s = 0;
+    for (let i = 0; i < d; i++) {
+      const v = x[env * d + i];
+      s += v * v;
+    }
+    out[env] = s;
+  }
+  return out;
+}
+
+/** Isaac Lab `track_lin_vel_xy_exp`-style tracking reward (host-side scalar).
+ *  reward = exp(−||v_target − v_actual||² / σ²)
+ */
+export function trackVelExpInline(
+  vTarget: readonly number[],
+  vActual: readonly number[],
+  sigma: number,
+  d: number,
+): number[] {
+  const nEnvs = vTarget.length / d;
+  const sigma2 = sigma * sigma;
+  const out = new Array(nEnvs);
+  for (let env = 0; env < nEnvs; env++) {
+    let s = 0;
+    for (let i = 0; i < d; i++) {
+      const dv = vTarget[env * d + i] - vActual[env * d + i];
+      s += dv * dv;
+    }
+    out[env] = Math.exp(-s / sigma2);
+  }
+  return out;
+}
+
+/** Compose K per-env reward terms with per-term weights into total per-env reward.
+ *  Mirror of Isaac Lab's RewardManager.compute(): weighted sum of term values.
+ */
+export function combineWeightedRewards(
+  termValues: ReadonlyArray<readonly number[]>,
+  weights: readonly number[],
+): number[] {
+  const nEnvs = termValues[0].length;
+  const out = new Array(nEnvs).fill(0);
+  for (let k = 0; k < termValues.length; k++) {
+    const term = termValues[k];
+    const w = weights[k];
+    for (let env = 0; env < nEnvs; env++) {
+      out[env] += w * term[env];
+    }
+  }
+  return out;
+}

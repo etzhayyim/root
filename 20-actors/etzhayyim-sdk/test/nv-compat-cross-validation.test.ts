@@ -49,6 +49,10 @@ import {
   observationNormalizeInline,
   gaussianMarsaglia,
   mulberry32,
+  l2NormSquaredKernel,
+  l2NormSquaredInline,
+  trackVelExpInline,
+  combineWeightedRewards,
 } from "../src/nv-compat/warp/examples.js";
 import { makeUr10 } from "../src/nv-compat/assets/ur10.js";
 import { makeFrankaPanda } from "../src/nv-compat/assets/franka-panda.js";
@@ -699,5 +703,75 @@ describe("nv-compat observationNormalizeKernel — Isaac Lab ObservationManager"
     for (let j = 0; j < 7; j++) expect(Math.abs(obs[j])).toBeLessThan(1e-12);
     expect(obs[7]).toBe(0.1);
     expect(obs[8]).toBe(0.2);
+  });
+});
+
+describe("nv-compat l2NormSquaredKernel — universal reward building block", () => {
+  it("zero vector → 0", () => {
+    const r = l2NormSquaredInline([0, 0, 0, 0, 0, 0], 3);
+    expect(r).toEqual([0, 0]);
+  });
+
+  it("[3,4] → 25, [1,1] → 2", () => {
+    const r = l2NormSquaredInline([3, 4, 1, 1], 2);
+    expect(r).toEqual([25, 2]);
+  });
+
+  it("256-env × 12-dim WGSL byte-identity vs inline", () => {
+    const nEnvs = 256, d = 12;
+    const x: number[] = new Array(nEnvs * d);
+    for (let i = 0; i < nEnvs * d; i++) x[i] = Math.sin(i * 0.137);
+    const xA = fromTypedArray<number>(x);
+    const out = zeros<number>(nEnvs);
+    launch({ kernel: l2NormSquaredKernel, dim: nEnvs, inputs: [xA, out, d] });
+
+    const ref = l2NormSquaredInline(x, d);
+    let maxDiff = 0;
+    for (let env = 0; env < nEnvs; env++) {
+      maxDiff = Math.max(maxDiff, Math.abs(out.get(env) - ref[env]));
+    }
+    expect(maxDiff).toBeLessThan(1e-6);
+  });
+
+  it("trackVelExp: matched target/actual → 1.0, huge error → ~0", () => {
+    const v = [0.5, 0.2, 0.0, -0.3, 0.5, 0.2, 0.0, -0.3];
+    expect(trackVelExpInline(v, v, 0.5, 4)).toEqual([1, 1]);
+    const r = trackVelExpInline([0, 0], [10, 10], 0.5, 2);
+    expect(r[0]).toBeLessThan(1e-300);
+  });
+
+  it("combineWeightedRewards: per-env weighted sum across K terms", () => {
+    const total = combineWeightedRewards(
+      [[1, 2, 3, 4], [0.1, 0.2, 0.3, 0.4], [0.9, 0.8, 0.5, 0.95]],
+      [-0.01, -0.001, 1.0]);
+    expect(total[0]).toBeCloseTo(0.8899, 10);
+    expect(total[3]).toBeCloseTo(0.9096, 10);
+  });
+
+  it("end-to-end locomotion reward: action_l2 + qd_l2 + track_exp → per-env scalar", () => {
+    const nEnvs = 16;
+    const action: number[] = new Array(nEnvs * 12);
+    const qd: number[] = new Array(nEnvs * 12);
+    const vCmd: number[] = new Array(nEnvs * 3);
+    const vAct: number[] = new Array(nEnvs * 3);
+    for (let env = 0; env < nEnvs; env++) {
+      for (let j = 0; j < 12; j++) {
+        action[env*12+j] = 0.1 * Math.sin(env + j);
+        qd[env*12+j] = 0.5 * Math.cos(env + j);
+      }
+      for (let k = 0; k < 3; k++) {
+        vCmd[env*3+k] = 0.5;
+        vAct[env*3+k] = 0.4 + 0.05 * Math.sin(env + k);
+      }
+    }
+    const reward = combineWeightedRewards(
+      [l2NormSquaredInline(action, 12),
+       l2NormSquaredInline(qd, 12),
+       trackVelExpInline(vCmd, vAct, 0.25, 3)],
+      [-0.01, -0.001, 1.0]);
+    let maxR = -Infinity, minR = Infinity;
+    for (const r of reward) { maxR = Math.max(maxR, r); minR = Math.min(minR, r); }
+    expect(maxR).toBeLessThan(1.0);
+    expect(minR).toBeGreaterThan(-1.0);
   });
 });
