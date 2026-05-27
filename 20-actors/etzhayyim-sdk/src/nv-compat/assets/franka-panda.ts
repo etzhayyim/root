@@ -47,9 +47,31 @@ const PANDA_FINGER_JOINTS: ReadonlyArray<{
   { name: "panda_finger_joint2", lower: 0, upper: 0.04, velocity: 0.2, effort: 20 },
 ];
 
+// Real Franka FCI joint origins per the publicly-distributed Franka
+// URDF (github.com/frankaemika/franka_description, Apache 2.0).
+// These origin rpy/xyz encode the modified-DH frame rotations so each
+// joint's axis="0 0 1" (body frame) gives the correct world-frame
+// rotation axis after composition. Replaces the iter 75 placeholder
+// xyz=(0,0,0.1) rpy=(0,0,0) which made the arm singular along z.
+const HALF_PI = Math.PI / 2;
+const PANDA_ARM_ORIGINS: ReadonlyArray<{
+  xyz: [number, number, number];
+  rpy: [number, number, number];
+}> = [
+  { xyz: [0, 0, 0.333], rpy: [0, 0, 0] },          // joint1
+  { xyz: [0, 0, 0],     rpy: [-HALF_PI, 0, 0] },    // joint2
+  { xyz: [0, -0.316, 0], rpy: [HALF_PI, 0, 0] },    // joint3
+  { xyz: [0.0825, 0, 0], rpy: [HALF_PI, 0, 0] },    // joint4
+  { xyz: [-0.0825, 0.384, 0], rpy: [-HALF_PI, 0, 0] }, // joint5
+  { xyz: [0, 0, 0],     rpy: [HALF_PI, 0, 0] },     // joint6
+  { xyz: [0.088, 0, 0], rpy: [HALF_PI, 0, 0] },     // joint7
+];
+
 function buildFrankaUrdf(): string {
   const joints: UrdfJointSpec[] = [];
-  for (const j of PANDA_ARM_JOINTS) {
+  for (let i = 0; i < PANDA_ARM_JOINTS.length; i++) {
+    const j = PANDA_ARM_JOINTS[i];
+    const origin = PANDA_ARM_ORIGINS[i];
     joints.push({
       name: j.name,
       type: "revolute",
@@ -58,19 +80,26 @@ function buildFrankaUrdf(): string {
       upper: j.upper,
       velocity: j.velocity,
       effort: j.effort,
-      originXyz: [0, 0, 0.1],
+      originXyz: origin.xyz,
+      originRpy: origin.rpy,
     });
   }
-  for (const j of PANDA_FINGER_JOINTS) {
+  // Finger joints attach beyond panda_link7 with simplified offsets
+  // (the real Franka has a panda_hand intermediate; this kinematic
+  // chain skips it for simplicity — fingers move in panda_link7 frame
+  // along ±y).
+  for (let i = 0; i < PANDA_FINGER_JOINTS.length; i++) {
+    const j = PANDA_FINGER_JOINTS[i];
     joints.push({
       name: j.name,
       type: "prismatic",
-      axis: [0, 1, 0],
+      axis: i === 0 ? [0, 1, 0] : [0, -1, 0],
       lower: j.lower,
       upper: j.upper,
       velocity: j.velocity,
       effort: j.effort,
-      originXyz: [0, 0, 0.05],
+      originXyz: [0, 0, 0.107],   // panda_hand offset along link7 z
+      originRpy: [0, 0, 0],
     });
   }
   return buildSerialChainUrdf("panda", joints);
