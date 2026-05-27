@@ -365,6 +365,60 @@ pre-commit:
       stage_fixed: false
 
 
+    relation-integrity:
+      # Validate doc-relation integrity (ADR-2605271200 cycle 60; axis-6
+      # defense-in-depth wired cycle 69). Tracker mode — info-only.
+      # ETZ_RELATION_STRICT=1 for blocking-mode local dev.
+      glob:
+        - "90-docs/**/*.md"
+        - "90-docs/_registry/docs.json"
+      run: |
+        python3 70-tools/scripts/docs/validate-relation-integrity.py \
+          > /tmp/relation-check.$$.txt 2>&1
+        rc=$?
+        if [ "${ETZ_RELATION_STRICT:-0}" = "1" ]; then
+          python3 70-tools/scripts/docs/validate-relation-integrity.py --strict \
+            > /tmp/relation-strict.$$.txt 2>&1
+          srcode=$?
+          if [ $srcode -eq 1 ]; then
+            echo "✘ relation integrity validation failed (strict mode):"
+            cat /tmp/relation-strict.$$.txt
+            rm -f /tmp/relation-check.$$.txt /tmp/relation-strict.$$.txt
+            exit 1
+          fi
+          rm -f /tmp/relation-strict.$$.txt
+        fi
+        rm -f /tmp/relation-check.$$.txt
+      stage_fixed: false
+
+
+    id-filename-consistency:
+      # Validate id↔filename per CLAUDE.md ADR ID Convention
+      # (ADR-2605271200 cycle 61; axis-7 defense-in-depth wired cycle 69).
+      # Tracker mode — info-only. ETZ_ID_FILENAME_STRICT=1 for blocking.
+      glob:
+        - "90-docs/**/*.md"
+        - "90-docs/_registry/docs.json"
+      run: |
+        python3 70-tools/scripts/docs/validate-id-filename-consistency.py \
+          > /tmp/id-filename-check.$$.txt 2>&1
+        rc=$?
+        if [ "${ETZ_ID_FILENAME_STRICT:-0}" = "1" ]; then
+          python3 70-tools/scripts/docs/validate-id-filename-consistency.py --strict \
+            > /tmp/id-filename-strict.$$.txt 2>&1
+          srcode=$?
+          if [ $srcode -eq 1 ]; then
+            echo "✘ id-filename consistency failed (strict mode):"
+            cat /tmp/id-filename-strict.$$.txt
+            rm -f /tmp/id-filename-check.$$.txt /tmp/id-filename-strict.$$.txt
+            exit 1
+          fi
+          rm -f /tmp/id-filename-strict.$$.txt
+        fi
+        rm -f /tmp/id-filename-check.$$.txt
+      stage_fixed: false
+
+
     md-link-validation:
       # When any 90-docs/**/*.md changes, validate in-repo markdown
       # links (ADR-2605271200 closure cycle 67; 8th axis defense-in-depth

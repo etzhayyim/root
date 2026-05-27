@@ -6183,6 +6183,20 @@ status = "shipped-tracker"
 description = "Cycle 68 (2026-05-27) GHA workflow — 8th-axis md-link tracker. Runs validate-md-links.py + 8-test pytest suite on push/PR + nightly cron 03:47 UTC (off-minute :47 separates from magatama :41 / registry-schema :35 / docs-graph :29 / docs-registry :23 / deps-toml :17 — 6-min spread × 6 axes total). Step summary tracks broken count vs cycle-67 baseline of 33. Tracker mode — does not block PRs. Will promote to PR-gate when baseline reaches 0."
 
 [[modules]]
+path = ".github/workflows/relation-integrity-validation.yml"
+adr = "ADR-2605271200"
+kind = "github-actions-workflow"
+status = "shipped-tracker"
+description = "Cycle 69 (2026-05-27) GHA workflow — axis-6 relation integrity tracker retrofit. Pattern parallel to cycle 68's md-link workflow. Nightly 03:53 UTC. Step summary breaks down dangling + self-refs + circular vs cycle-65 baseline of 1011 (post-cycles 63+64+65 auto-fixes — net -450 since cycle 60 origin)."
+
+[[modules]]
+path = ".github/workflows/id-filename-consistency.yml"
+adr = "ADR-2605271200"
+kind = "github-actions-workflow"
+status = "shipped-tracker"
+description = "Cycle 69 GHA workflow — axis-7 id↔filename consistency tracker retrofit. Pattern parallel to cycle 68's md-link workflow. Nightly 03:59 UTC closes the 6-min × 8-axis cron spread (deps-toml :17 → id-filename :59). Step summary tracks total mismatches vs cycle-62 baseline of 53 (mostly rename-pending per CLAUDE.md §\"Do Not\" gftd/amanomibashira invariants; promotion to PR-gate awaits ADR-2605211845 cutover wave)."
+
+[[modules]]
 path = ".github/workflows/docs-graph-jsonld-freshness.yml"
 adr = "ADR-2605271100"
 kind = "github-actions-workflow"
