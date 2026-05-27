@@ -55,6 +55,8 @@ import {
   combineWeightedRewards,
   terminationsKernel,
   terminationsInline,
+  mlpPolicyForwardKernel,
+  mlpPolicyForwardInline,
 } from "../src/nv-compat/warp/examples.js";
 import { makeUr10 } from "../src/nv-compat/assets/ur10.js";
 import { makeFrankaPanda } from "../src/nv-compat/assets/franka-panda.js";
@@ -850,5 +852,62 @@ describe("nv-compat terminationsKernel — Isaac Lab TerminationManager", () => 
     const r = terminationsInline(q, fLower, fUpper, baseZ, step, n, 0.3, 500);
     expect(r.terminated).toEqual([0, 1, 0]);
     expect(r.truncated).toEqual([0, 0, 1]);
+  });
+});
+
+describe("nv-compat mlpPolicyForwardKernel — 2-layer Linear+ReLU+Linear+tanh", () => {
+  it("zero input + zero biases → action = 0", () => {
+    const out = mlpPolicyForwardInline([0], [1], [0], [1], [0], 1, 1, 1);
+    expect(out[0]).toBe(0);
+  });
+
+  it("identity: obs=0.5 → tanh(ReLU(0.5)) = tanh(0.5)", () => {
+    const out = mlpPolicyForwardInline([0.5], [1.0], [0], [1.0], [0], 1, 1, 1);
+    expect(Math.abs(out[0] - Math.tanh(0.5))).toBeLessThan(1e-12);
+  });
+
+  it("negative obs → ReLU dead → action = tanh(b2)", () => {
+    const out = mlpPolicyForwardInline([-1.0], [1.0], [0], [1.0], [0.3], 1, 1, 1);
+    expect(Math.abs(out[0] - Math.tanh(0.3))).toBeLessThan(1e-12);
+  });
+
+  it("256-env × (obs=8, hidden=16, action=4) WGSL byte-identity + tanh-bounded", () => {
+    const nEnvs = 256, obsD = 8, hidD = 16, actD = 4;
+    const obs: number[] = new Array(nEnvs * obsD);
+    for (let i = 0; i < nEnvs * obsD; i++) obs[i] = Math.sin(i * 0.13);
+    const W1 = new Array(hidD * obsD).fill(0).map((_, i) => 0.1 * Math.sin(i * 0.71));
+    const b1 = new Array(hidD).fill(0).map((_, j) => 0.01 * j);
+    const W2 = new Array(actD * hidD).fill(0).map((_, i) => 0.05 * Math.cos(i * 0.49));
+    const b2 = [0, 0, 0, 0];
+
+    const obsA = fromTypedArray<number>(obs);
+    const W1A = fromTypedArray<number>(W1);
+    const b1A = fromTypedArray<number>(b1);
+    const W2A = fromTypedArray<number>(W2);
+    const b2A = fromTypedArray<number>(b2);
+    const actA = zeros<number>(nEnvs * actD);
+    launch({ kernel: mlpPolicyForwardKernel, dim: nEnvs,
+      inputs: [obsA, W1A, b1A, W2A, b2A, actA, obsD, hidD, actD] });
+
+    const ref = mlpPolicyForwardInline(obs, W1, b1, W2, b2, obsD, hidD, actD);
+    let maxDiff = 0;
+    for (let i = 0; i < nEnvs * actD; i++) {
+      maxDiff = Math.max(maxDiff, Math.abs(actA.get(i) - ref[i]));
+    }
+    expect(maxDiff).toBeLessThan(1e-9);
+
+    let absMax = 0;
+    for (let i = 0; i < nEnvs * actD; i++) absMax = Math.max(absMax, Math.abs(actA.get(i)));
+    expect(absMax).toBeLessThanOrEqual(1.0);
+  });
+
+  it("cartpole-shape MLP (obs=4, hidden=64, action=1) keeps action ∈ [-1, 1]", () => {
+    const obsD = 4, hidD = 64, actD = 1;
+    const W1 = new Array(hidD * obsD).fill(0).map((_, i) => 0.1 * Math.sin(i * 0.31));
+    const b1 = new Array(hidD).fill(0);
+    const W2 = new Array(actD * hidD).fill(0).map((_, i) => 0.05 * Math.cos(i * 0.27));
+    const b2 = [0];
+    const action = mlpPolicyForwardInline([0.1, 0, 0.05, 0], W1, b1, W2, b2, obsD, hidD, actD);
+    expect(Math.abs(action[0])).toBeLessThanOrEqual(1);
   });
 });

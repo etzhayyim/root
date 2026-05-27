@@ -2170,3 +2170,138 @@ export function terminationsInline(
   }
   return { terminated, truncated };
 }
+
+// ── MLP policy-net forward (env-parallel) ────────────────────────────────
+//
+// Isaac Lab's PPO/SAC default policy: 2-layer MLP `Linear → ReLU →
+// Linear → tanh`. Per-env forward pass:
+//
+//     hidden  = ReLU(W1 · obs + b1)        shape [hidden_dim]
+//     action  = tanh(W2 · hidden + b2)     shape [action_dim]
+//
+// Weights are shared across envs (storage); per-env obs input + action
+// output. Compile-bound MAX_HIDDEN=128 fits comfortably in 32 KB/
+// workgroup → iPhone-12 WebGPU safe per ADR-2605241900 edge-target
+// invariant.
+//
+// Closes the trained-policy inference gap: a checkpoint exported as
+// (W1, b1, W2, b2) flat float32 arrays can now run in-browser
+// alongside the full simulation loop.
+
+const MAX_HIDDEN_MLP = 128;
+const MAX_OBS_MLP    = 64;
+
+export const mlpPolicyForwardKernel: WgpuKernel = wgpuKernel({
+  js: (
+    obs: WpArray<number>,
+    W1: WpArray<number>,
+    b1: WpArray<number>,
+    W2: WpArray<number>,
+    b2: WpArray<number>,
+    actionOut: WpArray<number>,
+    obsDim: number,
+    hiddenDim: number,
+    actionDim: number,
+  ) => {
+    const env = tid();
+    const hidden = new Array(hiddenDim);
+    for (let h = 0; h < hiddenDim; h++) {
+      let s = b1.get(h);
+      for (let o = 0; o < obsDim; o++) {
+        s += W1.get(h * obsDim + o) * obs.get(env * obsDim + o);
+      }
+      hidden[h] = s > 0 ? s : 0;  // ReLU
+    }
+    for (let a = 0; a < actionDim; a++) {
+      let s = b2.get(a);
+      for (let h = 0; h < hiddenDim; h++) {
+        s += W2.get(a * hiddenDim + h) * hidden[h];
+      }
+      actionOut.set(env * actionDim + a, Math.tanh(s));
+    }
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> obs:        array<f32>;
+@group(0) @binding(1) var<storage, read_write> W1:         array<f32>;
+@group(0) @binding(2) var<storage, read_write> b1:         array<f32>;
+@group(0) @binding(3) var<storage, read_write> W2:         array<f32>;
+@group(0) @binding(4) var<storage, read_write> b2:         array<f32>;
+@group(0) @binding(5) var<storage, read_write> action_out: array<f32>;
+@group(0) @binding(6) var<uniform>             dims:       vec4<u32>;
+//                                                          .x = obs_dim
+//                                                          .y = hidden_dim
+//                                                          .z = action_dim
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let env = gid.x;
+  let obs_dim = dims.x;
+  let hidden_dim = dims.y;
+  let action_dim = dims.z;
+  let n_envs = arrayLength(&action_out) / action_dim;
+  if (env >= n_envs) { return; }
+
+  var hidden: array<f32, 128>;
+  for (var h = 0u; h < 128u; h = h + 1u) {
+    if (h >= hidden_dim) { break; }
+    var s: f32 = b1[h];
+    for (var o = 0u; o < 64u; o = o + 1u) {
+      if (o >= obs_dim) { break; }
+      s = s + W1[h * obs_dim + o] * obs[env * obs_dim + o];
+    }
+    hidden[h] = max(0.0, s);
+  }
+  for (var a = 0u; a < action_dim; a = a + 1u) {
+    var s: f32 = b2[a];
+    for (var h = 0u; h < 128u; h = h + 1u) {
+      if (h >= hidden_dim) { break; }
+      s = s + W2[a * hidden_dim + h] * hidden[h];
+    }
+    action_out[env * action_dim + a] = tanh(s);
+  }
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: false },
+    { binding: 2, kind: "storage", inputIndex: 2, writeback: false },
+    { binding: 3, kind: "storage", inputIndex: 3, writeback: false },
+    { binding: 4, kind: "storage", inputIndex: 4, writeback: false },
+    { binding: 5, kind: "storage", inputIndex: 5, writeback: true },
+    { binding: 6, kind: "uniform", inputIndex: 6 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference 2-layer MLP forward in pure JS. */
+export function mlpPolicyForwardInline(
+  obs: readonly number[],
+  W1: readonly number[],
+  b1: readonly number[],
+  W2: readonly number[],
+  b2: readonly number[],
+  obsDim: number,
+  hiddenDim: number,
+  actionDim: number,
+): number[] {
+  const nEnvs = obs.length / obsDim;
+  const out = new Array(nEnvs * actionDim);
+  for (let env = 0; env < nEnvs; env++) {
+    const hidden = new Array(hiddenDim);
+    for (let h = 0; h < hiddenDim; h++) {
+      let s = b1[h];
+      for (let o = 0; o < obsDim; o++) {
+        s += W1[h * obsDim + o] * obs[env * obsDim + o];
+      }
+      hidden[h] = s > 0 ? s : 0;
+    }
+    for (let a = 0; a < actionDim; a++) {
+      let s = b2[a];
+      for (let h = 0; h < hiddenDim; h++) {
+        s += W2[a * hiddenDim + h] * hidden[h];
+      }
+      out[env * actionDim + a] = Math.tanh(s);
+    }
+  }
+  return out;
+}
