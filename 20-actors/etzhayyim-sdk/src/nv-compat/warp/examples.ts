@@ -1598,3 +1598,84 @@ function _rotRpyFull(rpy: readonly [number, number, number]): number[][] {
     [-sp,   cp*sr,             cp*cr],
   ];
 }
+
+// ── PD joint controller (env-parallel) ───────────────────────────────────
+//
+// The most-used controller in Isaac Lab task definitions
+// (`JointPositionPDController` / equivalent). One thread per (env, joint)
+// pair computes:
+//
+//     τ_i = Kp_i · (q*_i − q_i) − Kd_i · q̇_i
+//
+// Per-joint Kp/Kd are shared across envs (storage), so a 1024-env ×
+// 12-joint dispatch needs only 24 floats of joint config.
+//
+// This is the bridge between policy-net output (target q) and the
+// τ-driven ABA forward dynamics already implemented at iter 68.
+
+export const pdJointControllerKernel: WgpuKernel = wgpuKernel({
+  js: (
+    qActual: WpArray<number>,
+    qdActual: WpArray<number>,
+    qTarget: WpArray<number>,
+    kp: WpArray<number>,
+    kd: WpArray<number>,
+    tauOut: WpArray<number>,
+    n: number,
+  ) => {
+    const idx = tid();
+    const j = idx % n;
+    const qErr = qTarget.get(idx) - qActual.get(idx);
+    const tau = kp.get(j) * qErr - kd.get(j) * qdActual.get(idx);
+    tauOut.set(idx, tau);
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> q_actual:  array<f32>;
+@group(0) @binding(1) var<storage, read_write> qd_actual: array<f32>;
+@group(0) @binding(2) var<storage, read_write> q_target:  array<f32>;
+@group(0) @binding(3) var<storage, read_write> kp:        array<f32>;
+@group(0) @binding(4) var<storage, read_write> kd:        array<f32>;
+@group(0) @binding(5) var<storage, read_write> tau_out:   array<f32>;
+@group(0) @binding(6) var<uniform>             n_uniform: vec4<u32>;
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let idx = gid.x;
+  let total = arrayLength(&tau_out);
+  if (idx >= total) { return; }
+  let n = n_uniform.x;
+  let j = idx % n;
+  let q_err = q_target[idx] - q_actual[idx];
+  tau_out[idx] = kp[j] * q_err - kd[j] * qd_actual[idx];
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: false },
+    { binding: 2, kind: "storage", inputIndex: 2, writeback: false },
+    { binding: 3, kind: "storage", inputIndex: 3, writeback: false },
+    { binding: 4, kind: "storage", inputIndex: 4, writeback: false },
+    { binding: 5, kind: "storage", inputIndex: 5, writeback: true },
+    { binding: 6, kind: "uniform", inputIndex: 6 },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference PD joint controller in pure JS.
+ *  τ[i] = Kp[i % n] · (q*[i] − q[i]) − Kd[i % n] · q̇[i]
+ */
+export function pdJointControllerInline(
+  qActual: readonly number[],
+  qdActual: readonly number[],
+  qTarget: readonly number[],
+  kp: readonly number[],
+  kd: readonly number[],
+  n: number,
+): number[] {
+  const out = new Array(qActual.length);
+  for (let i = 0; i < qActual.length; i++) {
+    const j = i % n;
+    out[i] = kp[j] * (qTarget[i] - qActual[i]) - kd[j] * qdActual[i];
+  }
+  return out;
+}

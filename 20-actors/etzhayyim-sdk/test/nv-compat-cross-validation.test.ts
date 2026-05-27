@@ -39,6 +39,8 @@ import {
   anymalFkInline,
   genericSerialFkKernel,
   genericSerialFkInline,
+  pdJointControllerKernel,
+  pdJointControllerInline,
 } from "../src/nv-compat/warp/examples.js";
 import { makeUr10 } from "../src/nv-compat/assets/ur10.js";
 import { makeFrankaPanda } from "../src/nv-compat/assets/franka-panda.js";
@@ -444,5 +446,66 @@ describe("nv-compat genericSerialFkKernel — Franka equivalence proof", () => {
     for (let k = 0; k < 3; k++) {
       expect(Math.abs(eeGeneric[k] - eeFranka[k])).toBeLessThan(1e-12);
     }
+  });
+});
+
+describe("nv-compat pdJointControllerKernel — env×joint parallel PD", () => {
+  it("hand-computed 3-joint PD: τ = Kp·(q*-q) - Kd·q̇", () => {
+    const tau = pdJointControllerInline(
+      [1.0, 2.0, 3.0], [0.1, 0.2, 0.3], [1.5, 1.8, 3.4],
+      [10, 20, 30], [1, 2, 3], 3);
+    expect(tau[0]).toBeCloseTo(4.9, 12);
+    expect(tau[1]).toBeCloseTo(-4.4, 12);
+    expect(tau[2]).toBeCloseTo(11.1, 12);
+  });
+
+  it("zero error + zero velocity → zero torque", () => {
+    const q = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7];
+    const tau = pdJointControllerInline(
+      q, new Array(7).fill(0), q,
+      new Array(7).fill(50), new Array(7).fill(5), 7);
+    for (const t of tau) expect(t).toBe(0);
+  });
+
+  it("256-env × 12-joint WGSL byte-identity vs inline", () => {
+    const nEnvs = 256, n = 12;
+    const q: number[] = new Array(nEnvs * n);
+    const qd: number[] = new Array(nEnvs * n);
+    const qT: number[] = new Array(nEnvs * n);
+    for (let i = 0; i < nEnvs * n; i++) {
+      q[i] = Math.sin(i * 0.137);
+      qd[i] = 0.1 * Math.cos(i * 0.241);
+      qT[i] = Math.sin(i * 0.137 + 0.05);
+    }
+    const kp = new Array(n).fill(0).map((_, j) => 20 + j * 5);
+    const kd = new Array(n).fill(0).map((_, j) => 1 + j * 0.2);
+
+    const qA = fromTypedArray<number>(q);
+    const qdA = fromTypedArray<number>(qd);
+    const qTA = fromTypedArray<number>(qT);
+    const kpA = fromTypedArray<number>(kp);
+    const kdA = fromTypedArray<number>(kd);
+    const tauOut = zeros<number>(nEnvs * n);
+    launch({ kernel: pdJointControllerKernel, dim: nEnvs * n,
+      inputs: [qA, qdA, qTA, kpA, kdA, tauOut, n] });
+
+    const ref = pdJointControllerInline(q, qd, qT, kp, kd, n);
+    let maxDiff = 0;
+    for (let i = 0; i < nEnvs * n; i++) {
+      maxDiff = Math.max(maxDiff, Math.abs(tauOut.get(i) - ref[i]));
+    }
+    expect(maxDiff).toBe(0);
+  });
+
+  it("critically-damped 1-DoF unit-mass converges to setpoint", () => {
+    const Kp = 100, Kd = 2 * Math.sqrt(Kp);
+    let q = 0, qd = 0;
+    const dt = 0.001;
+    for (let step = 0; step < 2000; step++) {
+      const tau = pdJointControllerInline([q], [qd], [1.0], [Kp], [Kd], 1)[0];
+      qd += tau * dt;
+      q += qd * dt;
+    }
+    expect(q).toBeCloseTo(1.0, 1);
   });
 });
