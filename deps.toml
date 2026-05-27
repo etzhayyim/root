@@ -2147,7 +2147,7 @@ adr = ["2605172200"]
 # ─── ADR-2605180900: UNSPSC + ISIC langserver / actor / xrpc / mcp stack ──
 
 [[modules]]
-path = "00-contracts/lexicons/ai/gftd/apps/unispsc"
+path = "00-contracts/lexicons/ai/gftd/apps/unispsc (deferred-rename)"
 kind = "atproto-lexicon"
 version = "0.0.0"
 status = "active"
@@ -2155,7 +2155,7 @@ description = "UNSPSC lexicons (classify + invokeAgent + listAgents + health). P
 adr = ["2605180900"]
 
 [[modules]]
-path = "00-contracts/lexicons/ai/gftd/apps/isic"
+path = "00-contracts/lexicons/ai/gftd/apps/isic (deferred-rename)"
 kind = "atproto-lexicon"
 version = "0.0.0"
 status = "active"
@@ -2171,7 +2171,7 @@ description = "Anthropic Batch API generator for the 428-class ISIC LangGraph Pr
 adr = ["2605180900"]
 
 [[modules]]
-path = "20-actors/magatama/py/src/pymagatama/langserver"
+path = "20-actors/magatama/py/src/pymagatama/langserver (deferred-rename)"
 kind = "python-package"
 version = "0.1.0"
 status = "active"
@@ -2190,7 +2190,7 @@ docker_image = "ghcr.io/etzhayyim/lg-open-unispsc"
 service_dns = "lg-open-unispsc.lg-open-unispsc.svc"
 
 [[modules]]
-path = "50-infra/k8s/lg-open-isic"
+path = "50-infra/k8s/lg-open-isic (deferred-rename)"
 kind = "k8s-manifests"
 version = "0.1.0"
 status = "manifests-ready"
@@ -2503,7 +2503,7 @@ description = "Transparent Religious Force の open-source R&D registry (ADR-260
 adr = ["2605192315", "2605192100"]
 
 [[modules]]
-path = "60-apps/etzhayyim-cell-fleet-dashboard"
+path = "60-apps/etzhayyim-cell-fleet-dashboard (reserved)"
 kind = "svelte-spa"
 version = "0.0.1"
 status = "scaffold"
@@ -2591,7 +2591,7 @@ sibling_modules = [
 # ─── MMSheaf multimodal fusion layer (ADR-2605250700, R0 scaffold) ───
 
 [[modules]]
-path = "20-actors/magatama/py/src/pymagatama/mmsheaf"
+path = "20-actors/magatama/py/src/pymagatama/mmsheaf (reserved)"
 kind = "pytorch-sheaf-diffusion-library"
 version = "0.0.0-r0-scaffold-declared"
 status = "scaffold-declared-no-code"
@@ -2605,7 +2605,7 @@ sibling_modules = [
 ]
 
 [[modules]]
-path = "20-actors/magatama/cells/mmsheaf_diffusion_aggregator"
+path = "20-actors/magatama/cells/mmsheaf_diffusion_aggregator (reserved)"
 kind = "pregel-cell"
 version = "0.0.0-r0-scaffold-declared"
 status = "scaffold-declared-runtime-error-gate"
@@ -5123,7 +5123,7 @@ bindings_r1_single_sot = [
 vendor_rejection_chain_extension = "religious-corp adds NVIDIA Omniverse Kit + Isaac Sim runtime + Isaac Lab runtime + RTX Renderer + OptiX + Replicator + DriveSim + Omniverse Cloud + Nucleus to constitutional rejection chain (silicon Wave 1 GPU + yakushi OTC + watatsumi 潜水艇 + kanayama Al + igata HPDC + tsutae handheld + sarutahiko truck + suki tractor + futawa motorcycle = full robotics + manufacturing + sim self-sufficiency)"
 
 [[modules]]
-path = "70-tools/isaac-lab-task-port"
+path = "70-tools/isaac-lab-task-port (reserved)"
 kind = "isaac-lab-task-dsl-port"
 version = "0.0.1-r0-path-reserved-no-code"
 status = "R0-path-reserved-no-code"
@@ -5562,21 +5562,21 @@ status = "r1.4-deliverable"
 description = "R1.4 deliverable: corpus mix (Magicoder 60% / commitpack 20% / reasoning-distill 10% / repo-internal 5% / CodeAlpaca 5% = 5000 ex), hparams (LR router 1e-4 / experts 2e-4 / alpha 5e-5 / aux 0.01 / AdamW beta1 0.9 beta2 0.95 wd 0.1 / cosine warmup 100 / batch 1 / grad_accum 4 / seq 2048 / bf16 / gradient_checkpointing). Acceptance: wall <=3h on EVO-X2 + final loss < initial loss x 0.85 + aux loss mean < 0.05 (utilization 良好)."
 
 [[modules]]
-path = "90-docs/baien/moemoekyun-r1.4-corpus-manifest.jsonl"
+path = "90-docs/baien/moemoekyun-r1.4-corpus-manifest.jsonl (reserved)"
 adr = "ADR-2605262100"
 kind = "dataset-manifest"
 status = "r1.4-deliverable"
 description = "G14 mandatory: per-dataset manifest with huggingface_id + license + sha256 + row_count + sampling_seed. Must be committed before R1.5 commit_node gate fires."
 
 [[modules]]
-path = "90-docs/baien/moemoekyun-r1.4-eval.jsonl"
+path = "90-docs/baien/moemoekyun-r1.4-eval.jsonl (reserved)"
 adr = "ADR-2605262100"
 kind = "eval-result"
 status = "r1.5-deliverable"
 description = "R1.5 deliverable: langgraph-coding bench (50 prompt exec-graded) + HumanEval+ (164 prompt exec-graded) pre-train baseline + post-train. commit_node gate = delta langgraph >= +3pp AND delta humaneval+ >= 0 (regression abort必須)."
 
 [[modules]]
-path = "90-docs/baien/moemoekyun-models.jsonl"
+path = "90-docs/baien/moemoekyun-models.jsonl (reserved)"
 adr = "ADR-2605262100"
 kind = "model-registry"
 status = "r1.5-deliverable"
@@ -6215,7 +6215,7 @@ status = "shipped-260527"
 description = "184-line operator runbook for OSM PBF (Geofabrik) → osmium export → GeoJSON-NDJSON sidecar → OsmRegionSensor. 7-step E2E walkthrough including real Liechtenstein anchor metrics (3.4 MB .pbf / 31 MB .geojsonl / 86,129 features / 152K features/s sensor stream / IPFS map CID bafkreibddfo6zxmhsycfzjnq3rjil7wvdfca6gf6z4bnjbdoptocbge4ii). License notes (ODbL-1.0 SA propagation), the WHY-osmium-runs-outside-organism-heartbeat invariant (ADR-2605262400 §7 + G8 lint), troubleshooting (osmium OOM / missing sidecar / coarse centroid)."
 
 [[modules]]
-path = "70-tools/baien-moemoekyun-train/recipes/seed-blocks/"
+path = "70-tools/baien-moemoekyun-train/recipes/seed-blocks/ (reserved)"
 adr = "ADR-2605262400"
 kind = "corpus-recipe-seed-blocks-dir"
 status = "path-reserved-no-content-yet"

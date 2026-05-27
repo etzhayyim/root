@@ -171,8 +171,8 @@ adr = "ADR-x"
     payload = json.loads(captured.out)
     assert payload["total"] == 2
     assert payload["ok"] == 1
-    assert payload["missing_count"] == 1
-    assert payload["missing"][0]["path"] == "fake.py"
+    assert payload["drift_count"] == 1
+    assert payload["drift"][0]["path"] == "fake.py"
 
 
 def test_main_cli_parse_error(verifier, tmp_path):
@@ -193,3 +193,147 @@ def test_main_cli_missing_deps_toml(verifier, tmp_path):
         "--repo-root", str(tmp_path),
     ])
     assert rc == 2
+
+
+def test_strip_reserved_marker_helper(verifier):
+    """_strip_reserved_marker recognizes (reserved) and (deferred-rename) suffixes."""
+    fn = verifier._strip_reserved_marker
+
+    # No marker → returns path unchanged + None
+    assert fn("90-docs/adr/2605262500-foo.md") == ("90-docs/adr/2605262500-foo.md", None)
+
+    # (reserved) marker
+    clean, marker = fn("90-docs/adr/foo.md (reserved)")
+    assert clean == "90-docs/adr/foo.md"
+    assert marker == "reserved"
+
+    # (deferred-rename) marker
+    clean, marker = fn("00-contracts/lexicons/ai/gftd/apps/unispsc (deferred-rename)")
+    assert clean == "00-contracts/lexicons/ai/gftd/apps/unispsc"
+    assert marker == "deferred-rename"
+
+    # Unknown marker token is NOT stripped (regex is exact-match)
+    assert fn("foo.md (placeholder)") == ("foo.md (placeholder)", None)
+
+    # Trailing whitespace after marker is tolerated
+    clean, marker = fn("foo.md (reserved)  ")
+    assert clean == "foo.md"
+    assert marker == "reserved"
+
+
+def test_reserved_marker_counted_as_accepted(verifier, tmp_path):
+    """Missing path with (reserved) suffix → is_accepted_missing, not drift."""
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[adrs]]
+id = "2605250730"
+path = "90-docs/adr/2605250730-tatekata-r1.md (reserved)"
+""")
+    results = verifier.check_paths(deps, tmp_path)
+    assert len(results) == 1
+    r = results[0]
+    assert not r.exists           # underlying file is missing
+    assert r.reserved_marker == "reserved"
+    assert r.is_accepted_missing
+    assert not r.is_drift
+    assert not r.is_stale_marker
+
+
+def test_reserved_marker_stale_when_path_exists(verifier, tmp_path):
+    """Path exists but still carries (reserved) marker → stale, not drift."""
+    (tmp_path / "real.md").write_text("# adr")
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[adrs]]
+id = "test-stale"
+path = "real.md (reserved)"
+""")
+    results = verifier.check_paths(deps, tmp_path)
+    assert len(results) == 1
+    r = results[0]
+    assert r.exists
+    assert r.reserved_marker == "reserved"
+    assert r.is_stale_marker
+    assert not r.is_drift
+    assert not r.is_accepted_missing
+
+
+def test_reserved_marker_exits_0_not_1(verifier, tmp_path):
+    """Audit with only accepted-reserved entries exits 0 (no real drift)."""
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[adrs]]
+id = "test-reserved-only"
+path = "future.md (reserved)"
+""")
+    rc = verifier.main([
+        "--deps-toml", str(deps),
+        "--repo-root", str(tmp_path),
+    ])
+    assert rc == 0  # accepted-reserved are NOT drift
+
+
+def test_stale_marker_exits_0_not_1(verifier, tmp_path):
+    """Audit with stale-marker entries exits 0 (warning, not drift)."""
+    (tmp_path / "real.md").write_text("x")
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[adrs]]
+id = "test-stale"
+path = "real.md (reserved)"
+""")
+    rc = verifier.main([
+        "--deps-toml", str(deps),
+        "--repo-root", str(tmp_path),
+    ])
+    assert rc == 0  # stale markers warn but don't fail
+
+
+def test_drift_still_exits_1(verifier, tmp_path):
+    """Bare missing entry (no marker) still exits 1."""
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "missing-no-marker.py"
+adr = "ADR-x"
+""")
+    rc = verifier.main([
+        "--deps-toml", str(deps),
+        "--repo-root", str(tmp_path),
+    ])
+    assert rc == 1
+
+
+def test_json_output_separates_categories(verifier, tmp_path, capsys):
+    """JSON payload exposes drift / accepted_missing / stale_markers separately."""
+    (tmp_path / "real-stale.md").write_text("x")
+    deps = tmp_path / "deps.toml"
+    _write_deps_toml(deps, """
+[[modules]]
+path = "real-stale.md (reserved)"
+adr = "ADR-stale"
+
+[[modules]]
+path = "missing-reserved.py (reserved)"
+adr = "ADR-accepted"
+
+[[modules]]
+path = "missing-drift.py"
+adr = "ADR-drift"
+""")
+    rc = verifier.main([
+        "--deps-toml", str(deps),
+        "--repo-root", str(tmp_path),
+        "--json",
+    ])
+    assert rc == 1  # drift entry forces exit 1
+    captured = capsys.readouterr()
+    import json
+    payload = json.loads(captured.out)
+    assert payload["total"] == 3
+    assert payload["drift_count"] == 1
+    assert payload["accepted_missing_count"] == 1
+    assert payload["stale_marker_count"] == 1
+    assert payload["drift"][0]["path"] == "missing-drift.py"
+    assert payload["accepted_missing"][0]["path"] == "missing-reserved.py (reserved)"
+    assert payload["stale_markers"][0]["path"] == "real-stale.md (reserved)"

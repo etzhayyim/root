@@ -16,19 +16,39 @@ Usage:
   python3 70-tools/scripts/lint/verify_deps_toml_paths.py --filter ADR-2605262500
 
 Exit codes:
-  0 — all paths resolve
-  1 — at least one missing path
+  0 — no drift (accepted-reserved + stale-marker counts may be nonzero)
+  1 — at least one drift entry (bare missing, no marker)
   2 — usage / parse error
 
+Reservation markers (cycle 46, 2026-05-27)
+--------------------------------------------
+Paths intentionally not yet present may carry a trailing marker:
+
+  path = "90-docs/adr/2605250730-tatekata-r1.md (reserved)"
+  path = "00-contracts/lexicons/ai/gftd/apps/unispsc (deferred-rename)"
+
+The verifier strips the marker before resolving and reports the
+entry as "accepted-reserved" instead of drift. Two markers supported:
+
+  (reserved)         — future R-cycle will produce this path
+  (deferred-rename)  — path is intentionally pre-cutover per CLAUDE.md
+                       gftd→etzhayyim rename invariant
+
+A path that EXISTS but still carries a marker is flagged as
+"stale-marker" (warning, not drift) — operator should drop the
+suffix.
+
 Honest scoring per Charter Rider §G10 / ADR-2605261600 §G10: no
-threshold-juggling — every missing path is a real audit-trail
-defect. Add the missing file, or remove the deps.toml entry.
+threshold-juggling — every BARE missing path is a real audit-trail
+defect. Add the missing file, mark with `(reserved)` if owner-asserted
+future-impl, or remove the deps.toml entry.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import tomllib
 from dataclasses import asdict, dataclass
@@ -36,14 +56,54 @@ from pathlib import Path
 from typing import Any, Iterator, Optional
 
 
+# Suffix conventions for paths intentionally not yet present.
+# Format: trailing " (token)" where token is one of:
+#   - reserved          → path will appear when a future R-cycle lands
+#   - deferred-rename   → path is intentionally pre-cutover (per CLAUDE.md)
+# Convention is owner-asserted: marker promises "this is not drift; the
+# operator who added the entry knows the path is missing on purpose."
+_RESERVED_SUFFIX_RE = re.compile(r"\s+\((?P<marker>reserved|deferred-rename)\)\s*$")
+
+
+def _strip_reserved_marker(raw_path: str) -> tuple[str, Optional[str]]:
+    """If raw_path ends in ' (reserved)' or ' (deferred-rename)', strip it.
+
+    Returns (clean_path, marker) where marker is None if no suffix found,
+    else the marker token (without parens).
+    """
+    m = _RESERVED_SUFFIX_RE.search(raw_path)
+    if not m:
+        return raw_path, None
+    return raw_path[:m.start()], m.group("marker")
+
+
 @dataclass
 class PathCheck:
     section: str              # "adrs" | "modules"
-    path: str                 # raw entry from deps.toml
-    exists: bool
-    resolved: str             # absolute resolved path (for diagnostics)
+    path: str                 # raw entry from deps.toml (including any marker)
+    exists: bool              # whether the cleaned path resolves
+    resolved: str             # absolute resolved cleaned path (for diagnostics)
     adr: Optional[str] = None    # ADR ref (when present in the [[modules]] block)
     id: Optional[str] = None     # ADR id (when section=="adrs")
+    reserved_marker: Optional[str] = None  # "reserved" / "deferred-rename" / None
+
+    @property
+    def is_drift(self) -> bool:
+        """True iff missing AND not owner-asserted as reserved/deferred."""
+        return not self.exists and self.reserved_marker is None
+
+    @property
+    def is_accepted_missing(self) -> bool:
+        """True iff missing AND owner-asserted via a reservation marker."""
+        return not self.exists and self.reserved_marker is not None
+
+    @property
+    def is_stale_marker(self) -> bool:
+        """True iff path exists but still carries a reservation marker.
+
+        Warning state: the operator should drop the marker. Not drift.
+        """
+        return self.exists and self.reserved_marker is not None
 
 
 def _iter_entries(data: dict[str, Any]) -> Iterator[tuple[str, dict[str, Any]]]:
@@ -74,7 +134,8 @@ def check_paths(
             adr_field = str(entry.get("adr") or entry.get("id") or "")
             if filter_token not in adr_field and filter_token not in raw_path:
                 continue
-        resolved = (repo_root / raw_path).resolve()
+        clean_path, marker = _strip_reserved_marker(raw_path)
+        resolved = (repo_root / clean_path).resolve()
         # Paths ending in '/' are explicit directory references.
         check = PathCheck(
             section=section,
@@ -83,6 +144,7 @@ def check_paths(
             resolved=str(resolved),
             adr=entry.get("adr") if section == "modules" else None,
             id=entry.get("id") if section == "adrs" else None,
+            reserved_marker=marker,
         )
         results.append(check)
     return results
@@ -141,29 +203,59 @@ def main(argv: Optional[list[str]] = None) -> int:
         print(f"verify_deps_toml_paths: toml parse error: {exc}", file=sys.stderr)
         return 2
 
-    missing = [r for r in results if not r.exists]
+    drift = [r for r in results if r.is_drift]
+    accepted_missing = [r for r in results if r.is_accepted_missing]
+    stale_markers = [r for r in results if r.is_stale_marker]
     n_total = len(results)
-    n_ok = n_total - len(missing)
+    n_ok = sum(1 for r in results if r.exists and r.reserved_marker is None)
 
     if args.json:
         print(json.dumps({
             "total": n_total,
             "ok": n_ok,
-            "missing_count": len(missing),
-            "missing": [asdict(m) for m in missing],
+            "drift_count": len(drift),
+            "drift": [asdict(d) for d in drift],
+            "accepted_missing_count": len(accepted_missing),
+            "accepted_missing": [asdict(a) for a in accepted_missing],
+            "stale_marker_count": len(stale_markers),
+            "stale_markers": [asdict(s) for s in stale_markers],
             "filter": args.filter_token,
         }, indent=2))
     else:
-        print(f"deps.toml path audit: {n_ok}/{n_total} entries resolve")
-        if missing:
-            print(f"MISSING ({len(missing)}):")
-            for m in missing:
-                tag = m.adr or m.id or "—"
-                print(f"  [{m.section}] {m.path}  ({tag})")
-        else:
-            print("All paths resolve. Clean.")
+        summary_parts = [f"{n_ok}/{n_total} entries resolve"]
+        if accepted_missing:
+            summary_parts.append(
+                f"{len(accepted_missing)} accepted-reserved (owner-asserted)"
+            )
+        if stale_markers:
+            summary_parts.append(
+                f"{len(stale_markers)} stale marker(s) — drop the suffix"
+            )
+        if drift:
+            summary_parts.append(f"{len(drift)} drift")
+        print("deps.toml path audit: " + " / ".join(summary_parts))
 
-    return 0 if not missing else 1
+        if accepted_missing:
+            print(f"ACCEPTED-RESERVED ({len(accepted_missing)}) — owner-asserted not drift:")
+            for a in accepted_missing:
+                tag = a.adr or a.id or "—"
+                print(f"  [{a.section}] {a.path}  ({tag})")
+        if stale_markers:
+            print(f"STALE-MARKER ({len(stale_markers)}) — path exists, remove ' ({stale_markers[0].reserved_marker})' suffix:")
+            for s in stale_markers:
+                tag = s.adr or s.id or "—"
+                print(f"  [{s.section}] {s.path}  ({tag})")
+        if drift:
+            print(f"DRIFT ({len(drift)}) — fix the file or remove the entry:")
+            for d in drift:
+                tag = d.adr or d.id or "—"
+                print(f"  [{d.section}] {d.path}  ({tag})")
+        if not drift and not stale_markers:
+            print("No drift. Clean.")
+
+    # Exit 1 only on real drift; stale markers + accepted-reserved are
+    # warnings (not drift, but operator should clean up stale markers).
+    return 1 if drift else 0
 
 
 if __name__ == "__main__":
