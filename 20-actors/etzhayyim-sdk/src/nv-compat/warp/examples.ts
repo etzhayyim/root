@@ -634,3 +634,175 @@ export function frankaFkInline(q: readonly number[]): [number, number, number] {
   }
   return p_world;
 }
+
+// ── Franka 7-DoF FK + linear Jacobian (env-parallel) ─────────────────────
+//
+// Extends frankaFkKernel (iter 88) with the 3×7 linear Jacobian. Each
+// thread runs FK, stores all 7 joint poses in private memory, then
+// computes per-joint Jacobian columns via axis_world_i × (p_ee - p_i).
+//
+// Per-env input: q[7]
+// Per-env output: ee_pos[3] + J[3][7] = 24 floats
+//
+// Storage layout (struct-of-arrays):
+//   q_in:    array<f32>  length 7*N
+//   out_buf: array<f32>  length 24*N
+//     env-i layout: [ee_x, ee_y, ee_z, J[0][0..6], J[1][0..6], J[2][0..6]]
+
+/** Bindings:
+ *    @group(0) @binding(0) q_in    (storage read,  N*7 floats)
+ *    @group(0) @binding(1) out_buf (storage read_write, N*24 floats)
+ */
+export const frankaFkJacobianKernel: WgpuKernel = wgpuKernel({
+  js: (qIn: WpArray<number>, outBuf: WpArray<number>) => {
+    const env = tid();
+    const q: number[] = [
+      qIn.get(env * 7 + 0), qIn.get(env * 7 + 1), qIn.get(env * 7 + 2),
+      qIn.get(env * 7 + 3), qIn.get(env * 7 + 4), qIn.get(env * 7 + 5),
+      qIn.get(env * 7 + 6),
+    ];
+    const { ee, J } = frankaFkJacobianInline(q);
+    const base = env * 24;
+    outBuf.set(base + 0, ee[0]);
+    outBuf.set(base + 1, ee[1]);
+    outBuf.set(base + 2, ee[2]);
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 7; c++) {
+        outBuf.set(base + 3 + r * 7 + c, J[r][c]);
+      }
+    }
+  },
+  wgsl: `
+@group(0) @binding(0) var<storage, read_write> q_in:    array<f32>;
+@group(0) @binding(1) var<storage, read_write> out_buf: array<f32>;
+
+fn rot_rpy_x(r: f32) -> mat3x3<f32> {
+  let cr = cos(r); let sr = sin(r);
+  return mat3x3<f32>(
+    vec3<f32>(1.0, 0.0, 0.0),
+    vec3<f32>(0.0, cr, sr),
+    vec3<f32>(0.0, -sr, cr),
+  );
+}
+
+fn rot_z(angle: f32) -> mat3x3<f32> {
+  let c = cos(angle); let s = sin(angle);
+  return mat3x3<f32>(
+    vec3<f32>(c, s, 0.0),
+    vec3<f32>(-s, c, 0.0),
+    vec3<f32>(0.0, 0.0, 1.0),
+  );
+}
+
+@compute @workgroup_size(64)
+fn main(@builtin(global_invocation_id) gid: vec3<u32>) {
+  let env = gid.x;
+  let n_envs = arrayLength(&out_buf) / 24u;
+  if (env >= n_envs) { return; }
+
+  let base_q = env * 7u;
+  let q = array<f32, 7>(
+    q_in[base_q + 0u], q_in[base_q + 1u], q_in[base_q + 2u], q_in[base_q + 3u],
+    q_in[base_q + 4u], q_in[base_q + 5u], q_in[base_q + 6u],
+  );
+
+  let half_pi: f32 = 1.5707963267948966;
+  let xyz = array<vec3<f32>, 7>(
+    vec3<f32>(0.0,      0.0,     0.333),
+    vec3<f32>(0.0,      0.0,     0.0),
+    vec3<f32>(0.0,     -0.316,   0.0),
+    vec3<f32>(0.0825,   0.0,     0.0),
+    vec3<f32>(-0.0825,  0.384,   0.0),
+    vec3<f32>(0.0,      0.0,     0.0),
+    vec3<f32>(0.088,    0.0,     0.0),
+  );
+  let rpy_r = array<f32, 7>(0.0, -half_pi, half_pi, half_pi, -half_pi, half_pi, half_pi);
+
+  // Pass 1: forward kinematics, store every joint's world-frame pose.
+  var poses_R: array<mat3x3<f32>, 7>;
+  var poses_p: array<vec3<f32>, 7>;
+  var R_world = mat3x3<f32>(
+    vec3<f32>(1.0, 0.0, 0.0),
+    vec3<f32>(0.0, 1.0, 0.0),
+    vec3<f32>(0.0, 0.0, 1.0),
+  );
+  var p_world = vec3<f32>(0.0, 0.0, 0.0);
+  for (var i = 0u; i < 7u; i = i + 1u) {
+    let R_origin = rot_rpy_x(rpy_r[i]);
+    let R_q = rot_z(q[i]);
+    let R_iInP = R_origin * R_q;
+    let rotated = R_world * xyz[i];
+    p_world = p_world + rotated;
+    R_world = R_world * R_iInP;
+    poses_R[i] = R_world;
+    poses_p[i] = p_world;
+  }
+
+  let ee_pos = poses_p[6];
+  let base_out = env * 24u;
+  out_buf[base_out + 0u] = ee_pos.x;
+  out_buf[base_out + 1u] = ee_pos.y;
+  out_buf[base_out + 2u] = ee_pos.z;
+
+  // Pass 2: Jacobian columns J[:,i] = axis_world_i × (p_ee - p_i)
+  // axis_world_i = R_world_i · (0,0,1) = third column of R_world_i
+  for (var i = 0u; i < 7u; i = i + 1u) {
+    let Ri = poses_R[i];
+    let a_world = vec3<f32>(Ri[2].x, Ri[2].y, Ri[2].z);
+    let dp = ee_pos - poses_p[i];
+    let col = vec3<f32>(
+      a_world.y * dp.z - a_world.z * dp.y,
+      a_world.z * dp.x - a_world.x * dp.z,
+      a_world.x * dp.y - a_world.y * dp.x,
+    );
+    out_buf[base_out + 3u + 0u * 7u + i] = col.x;
+    out_buf[base_out + 3u + 1u * 7u + i] = col.y;
+    out_buf[base_out + 3u + 2u * 7u + i] = col.z;
+  }
+}
+`,
+  bindings: [
+    { binding: 0, kind: "storage", inputIndex: 0, writeback: false },
+    { binding: 1, kind: "storage", inputIndex: 1, writeback: true },
+  ],
+  workgroupSize: 64,
+});
+
+/** Reference Franka FK + linear Jacobian in pure JS. Used by
+ *  frankaFkJacobianKernel's JS fallback AND callable directly.
+ *  Returns { ee, J } where ee is the EE world-frame position and
+ *  J is the 3×7 linear Jacobian.
+ */
+export function frankaFkJacobianInline(q: readonly number[]): {
+  ee: [number, number, number];
+  J: number[][];
+} {
+  // Pass 1: store per-joint world poses.
+  const poses_R: number[][][] = [];
+  const poses_p: [number, number, number][] = [];
+  let R_world: number[][] = [[1,0,0],[0,1,0],[0,0,1]];
+  let p_world: [number, number, number] = [0, 0, 0];
+  for (let i = 0; i < 7; i++) {
+    const R_origin = _rotRpy(_FRANKA_FK_RPY_R[i]);
+    const R_q = _rotZ(q[i]);
+    const R_iInP = _mat3MulSmall(R_origin, R_q);
+    const rotated = _matVec3Small(R_world, _FRANKA_FK_XYZ[i]);
+    p_world = [p_world[0]+rotated[0], p_world[1]+rotated[1], p_world[2]+rotated[2]];
+    R_world = _mat3MulSmall(R_world, R_iInP);
+    poses_R.push(R_world.map((row) => [...row]));
+    poses_p.push([...p_world]);
+  }
+  const ee = poses_p[6];
+  // Pass 2: Jacobian columns.
+  const J: number[][] = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]];
+  for (let i = 0; i < 7; i++) {
+    const Ri = poses_R[i];
+    // axis_world = third column of R_world_i = R_i[:,2]
+    const a: [number, number, number] = [Ri[0][2], Ri[1][2], Ri[2][2]];
+    const dp: [number, number, number] = [ee[0] - poses_p[i][0], ee[1] - poses_p[i][1], ee[2] - poses_p[i][2]];
+    J[0][i] = a[1] * dp[2] - a[2] * dp[1];
+    J[1][i] = a[2] * dp[0] - a[0] * dp[2];
+    J[2][i] = a[0] * dp[1] - a[1] * dp[0];
+  }
+  return { ee, J };
+}
