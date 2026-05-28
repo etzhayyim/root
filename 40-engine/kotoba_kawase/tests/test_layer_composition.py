@@ -346,3 +346,34 @@ def test_kawase_yui_manifest_back_references_three_siblings() -> None:
             f"kawase-yui.crossActorProcedure must reference "
             f"did:web:{name}.etzhayyim.com for relation-graph symmetry"
         )
+
+
+# ---------------------------------------------------------------------
+#  Iter 9: Documentation completeness — every kawase surface must
+#  be discoverable from the conventional index points.
+# ---------------------------------------------------------------------
+
+
+def test_lexicon_dir_has_readme() -> None:
+    """Sibling actors (wakai / chigiri / mitate) all carry a README.md
+    inside their Lexicon directory. kawase parity: same convention.
+    """
+    readme = _REPO_ROOT / "00-contracts/lexicons/app/etzhayyim/kawase/README.md"
+    assert readme.is_file(), f"Lexicon dir README missing: {readme}"
+    text = readme.read_text(encoding="utf-8")
+    # Must enumerate all 8 Lexicons + reference the master ADR.
+    for lex in _EXPECTED_LEXICONS:
+        assert lex in text, f"Lexicon dir README must mention `{lex}`"
+    assert "ADR-2605282200" in text
+
+
+def test_adr_index_lists_kawase_yui() -> None:
+    """The canonical ADR index at 90-docs/adr/README.md must carry a
+    row for ADR-2605282200 so the kawase-yui charter is discoverable
+    from the docs index.
+    """
+    index = _REPO_ROOT / "90-docs/adr/README.md"
+    text = index.read_text(encoding="utf-8")
+    # ADR ID + a stable phrase from the canonical title
+    assert "2605282200" in text, "ADR index must list 2605282200"
+    assert "kawase-yui" in text, "ADR index entry must mention kawase-yui"
