@@ -129,6 +129,23 @@ pre-commit:
       run: node 70-tools/scripts/lint/paywall-warn.mjs {staged_files}
       stage_fixed: false
 
+    no-commercial-remittance:
+      # Enforce ADR-2605282200 G7 + silenKawaseReview
+      # commercialRemittanceSoftwarePenetrationPct const 0. Forbids
+      # integration / import / URL reference to 15 named MSB vendors
+      # (Wise / Western Union / MoneyGram / Remitly / WorldRemit / Xoom /
+      # Revolut / OFX-money / Currencies Direct / Ria / Paysend /
+      # Atlantic Money / Sendwave / Boss Revolution / PayPal-Xoom) in any
+      # kawase-yui runtime source. Charter Rider §2(e) anti-gatekeeping +
+      # §2(c) covert-ops avoidance. Build-time enforcement so violations
+      # are caught BEFORE they reach the silenKawaseReview audit layer.
+      # Scans guarded roots only (kawase-yui actor + 5 magatama cells +
+      # kawase-pool contract + kotoba_kawase Python facade). Allow-listed
+      # files: the lint script itself + the ADR-2605282200 document.
+      glob: "*.{py,ts,tsx,js,mjs,cjs,rs,sol,go}"
+      run: python3 70-tools/scripts/lint/verify_no_commercial_remittance.py
+      stage_fixed: false
+
     sensor-no-active-probe:
       # Enforce ADR-2605262400 §7 + G8 (passive-only invariant). Scans
       # staged DatasetSensor sources under
