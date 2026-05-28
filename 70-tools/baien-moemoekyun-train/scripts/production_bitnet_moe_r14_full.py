@@ -82,6 +82,11 @@ def main():
     p.add_argument("--checkpoint-every", type=int, default=500)
     p.add_argument("--output", default="/workspace/r14-full-result.jsonl")
     p.add_argument("--checkpoint-dir", default="/workspace/moe-ckpt-r14-full/")
+    # R2 partial backbone unfreeze (ADR-2605262100 §3.2)
+    p.add_argument("--unfreeze-last-n-layers", type=int, default=0,
+                   help="R2: unfreeze backbone shared FFN + layernorm in last N layers (0 = pure R1 frozen-backbone)")
+    p.add_argument("--unfreeze-lr", type=float, default=5e-6,
+                   help="R2: LR for unfrozen backbone params (default 5e-6 = ~10x lower than MoE LR)")
     args = p.parse_args()
 
     sys.path.insert(0, args.moemoekyun_src)
@@ -129,6 +134,30 @@ def main():
     print(f"[moe] attached {len(moe_wrappers)} wrappers  vram={torch.cuda.memory_allocated()/1e9:.2f} GB")
 
     freeze_backbone_verify(model, moe_wrappers)
+    # R2 PARTIAL UNFREEZE per ADR-2605262100 §3.2: shared FFN + layernorm
+    # in the LAST `unfreeze_last_n_layers` layers at LR `unfreeze_lr`
+    # (default 5e-6 = 4-10x lower than MoE LR to prevent catastrophic forgetting)
+    backbone_unfrozen = []
+    if getattr(args, "unfreeze_last_n_layers", 0) > 0:
+        unfreeze_n = args.unfreeze_last_n_layers
+        n_layers = model.config.num_hidden_layers
+        unfreeze_layer_indices = list(range(n_layers - unfreeze_n, n_layers))
+        # Unfreeze backbone shared FFN (mlp.backbone_ffn = original BitNet FFN) + layernorm in target layers
+        for layer_idx in unfreeze_layer_indices:
+            layer = model.model.layers[layer_idx]
+            # The MoE wrapper preserved original backbone_ffn — unfreeze that
+            if hasattr(layer.mlp, "backbone_ffn"):
+                for p in layer.mlp.backbone_ffn.parameters():
+                    p.requires_grad = True
+                    backbone_unfrozen.append(p)
+            # Unfreeze layer norms
+            for ln_attr in ("input_layernorm", "post_attention_layernorm"):
+                ln = getattr(layer, ln_attr, None)
+                if ln is not None:
+                    for p in ln.parameters():
+                        p.requires_grad = True
+                        backbone_unfrozen.append(p)
+        print(f"[r2-unfreeze] unfroze {len(backbone_unfrozen)} backbone params across last {unfreeze_n} layers")
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in model.parameters())
     print(f"[moe] trainable={trainable/1e6:.2f}M / total={total/1e6:.2f}M ({100*trainable/total:.2f}%)")
@@ -149,6 +178,10 @@ def main():
         lr_experts=args.lr_experts,
         lr_alpha=args.lr_alpha,
     )
+    # R2: add backbone unfrozen params at much lower LR
+    if backbone_unfrozen:
+        opt.add_param_group({"params": backbone_unfrozen, "lr": args.unfreeze_lr, "name": "backbone_unfrozen"})
+        print(f"[r2-unfreeze] added backbone param group at LR {args.unfreeze_lr}")
     # Add linear warmup + cosine decay scheduler
     from torch.optim.lr_scheduler import LambdaLR
     def lr_lambda(step):
