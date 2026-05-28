@@ -31,6 +31,7 @@ class BaienMoEResidual(nn.Module):
         intermediate_size: int | None = None,
         expert_hidden_ratio: int = 32,  # dense_FFN / 32
         router_temperature: float = 1.0,
+        routing_mode: str = "learned",  # "learned" (default) | "distance" (MoCLE-style)
     ):
         super().__init__()
         if expert_hidden is None:
@@ -42,9 +43,20 @@ class BaienMoEResidual(nn.Module):
         self.expert_hidden = expert_hidden
         self.top_k = top_k
         self.router_temperature = router_temperature
+        self.routing_mode = routing_mode
 
-        # Router: linear projection from hidden -> E logits
-        self.router = nn.Linear(hidden_size, num_experts, bias=False)
+        if routing_mode == "learned":
+            # Standard MoE: linear projection hidden -> E logits
+            self.router = nn.Linear(hidden_size, num_experts, bias=False)
+            self.cluster_centroids = None
+        elif routing_mode == "distance":
+            # MoCLE-style: learnable cluster centroids; routing = softmax(-dist/temp)
+            # forces expert specialization via proximity-based assignment
+            # breaks router-collapse problem in frozen-backbone regime (cycle 17-101 8-plateau)
+            self.router = None
+            self.cluster_centroids = nn.Parameter(torch.randn(num_experts, hidden_size) * 0.02)
+        else:
+            raise ValueError(f"routing_mode={routing_mode!r} not in {{'learned', 'distance'}}")
 
         # Experts: standard 2-layer FFN with SiLU activation (NOT BitLinear in R1 per ADR-2605261900 §3)
         self.experts = nn.ModuleList([
@@ -57,7 +69,8 @@ class BaienMoEResidual(nn.Module):
         ])
 
         # Initialize router with small random for symmetry-breaking; not zero
-        nn.init.normal_(self.router.weight, mean=0.0, std=0.02)
+        if self.router is not None:
+            nn.init.normal_(self.router.weight, mean=0.0, std=0.02)
 
         # G7: experts MUST NOT be initialized from dense FFN copy (Drop-Upcycling partial-reinit OK; identical-expert collapse rejected).
         # Default torch init (Kaiming uniform for Linear) gives independent random init per expert. Verified by test_expert_init_independent.py.
@@ -76,7 +89,19 @@ class BaienMoEResidual(nn.Module):
         # Router logits + softmax — fp32 routing math prevents bf16 overflow on aux_loss
         # (cycle 26 found bf16 routing → 36% NaN steps; fp32 cast then back stabilizes
         # without inflating memory since router is small Linear hidden→E).
-        router_logits = self.router(x_flat) / self.router_temperature  # (num_tokens, E)
+        if self.routing_mode == "learned":
+            router_logits = self.router(x_flat) / self.router_temperature  # (num_tokens, E)
+        else:  # "distance" — MoCLE-style
+            # Squared L2 distance from each token to each centroid (fp32 for stability)
+            # x_flat: (num_tokens, hidden), centroids: (E, hidden)
+            # dist[i, j] = ||x_flat[i] - centroids[j]||^2
+            x_f32 = x_flat.float()
+            c_f32 = self.cluster_centroids.float()
+            # Efficient computation: ||x||^2 + ||c||^2 - 2*x@c.T
+            dist_sq = (x_f32.pow(2).sum(dim=-1, keepdim=True)
+                       + c_f32.pow(2).sum(dim=-1).unsqueeze(0)
+                       - 2 * x_f32 @ c_f32.t())  # (num_tokens, E)
+            router_logits = (-dist_sq / self.router_temperature).to(x_flat.dtype)
         router_probs = F.softmax(router_logits.float(), dim=-1).to(router_logits.dtype)
 
         # top-k expert selection
