@@ -89,6 +89,8 @@ def main():
                    help="R2: LR for unfrozen backbone params (default 5e-6 = ~10x lower than MoE LR)")
     p.add_argument("--routing-mode", default="learned", choices=["learned", "distance"],
                    help="MoE router type: 'learned' (default linear) | 'distance' (MoCLE-style cluster centroids)")
+    p.add_argument("--expert-kind", default="ffn", choices=["ffn", "memory"],
+                   help="Expert kind: 'ffn' (default 2-layer SiLU) | 'memory' (UltraMem-style single learnable vector)")
     args = p.parse_args()
 
     sys.path.insert(0, args.moemoekyun_src)
@@ -131,8 +133,9 @@ def main():
         expert_hidden_ratio=args.expert_hidden_ratio,
         ffn_attribute_name="mlp",
         routing_mode=args.routing_mode,
+        expert_kind=args.expert_kind,
     )
-    print(f"[moe] routing_mode={args.routing_mode}")
+    print(f"[moe] routing_mode={args.routing_mode} expert_kind={args.expert_kind}")
     for fqn, w in moe_wrappers.items():
         w.to(device=device, dtype=torch.bfloat16)
     print(f"[moe] attached {len(moe_wrappers)} wrappers  vram={torch.cuda.memory_allocated()/1e9:.2f} GB")

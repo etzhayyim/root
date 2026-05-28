@@ -32,6 +32,7 @@ class BaienMoEResidual(nn.Module):
         expert_hidden_ratio: int = 32,  # dense_FFN / 32
         router_temperature: float = 1.0,
         routing_mode: str = "learned",  # "learned" (default) | "distance" (MoCLE-style)
+        expert_kind: str = "ffn",  # "ffn" (default 2-layer SiLU) | "memory" (UltraMem-style single learnable vector)
     ):
         super().__init__()
         if expert_hidden is None:
@@ -44,6 +45,7 @@ class BaienMoEResidual(nn.Module):
         self.top_k = top_k
         self.router_temperature = router_temperature
         self.routing_mode = routing_mode
+        self.expert_kind = expert_kind
 
         if routing_mode == "learned":
             # Standard MoE: linear projection hidden -> E logits
@@ -58,15 +60,29 @@ class BaienMoEResidual(nn.Module):
         else:
             raise ValueError(f"routing_mode={routing_mode!r} not in {{'learned', 'distance'}}")
 
-        # Experts: standard 2-layer FFN with SiLU activation (NOT BitLinear in R1 per ADR-2605261900 §3)
-        self.experts = nn.ModuleList([
-            nn.Sequential(
-                nn.Linear(hidden_size, expert_hidden, bias=False),
-                nn.SiLU(),
-                nn.Linear(expert_hidden, hidden_size, bias=False),
-            )
-            for _ in range(num_experts)
-        ])
+        # Expert kind:
+        # - "ffn"    : standard 2-layer SiLU FFN (default, ADR-2605261900 §3)
+        # - "memory" : UltraMem-style — each expert collapses to a single
+        #              learnable vector ∈ R^H. Forward = top-k weighted sum
+        #              of selected memory vectors (independent of x). Massive
+        #              capacity drop per expert (≈100× fewer params) trades
+        #              against ability to scale E to 10^4–10^6 cheaply.
+        if expert_kind == "ffn":
+            self.experts = nn.ModuleList([
+                nn.Sequential(
+                    nn.Linear(hidden_size, expert_hidden, bias=False),
+                    nn.SiLU(),
+                    nn.Linear(expert_hidden, hidden_size, bias=False),
+                )
+                for _ in range(num_experts)
+            ])
+            self.memory_vectors = None
+        elif expert_kind == "memory":
+            # E × H learnable memory bank; one row per expert
+            self.experts = None
+            self.memory_vectors = nn.Parameter(torch.randn(num_experts, hidden_size) * 0.02)
+        else:
+            raise ValueError(f"expert_kind={expert_kind!r} not in {{'ffn', 'memory'}}")
 
         # Initialize router with small random for symmetry-breaking; not zero
         if self.router is not None:
@@ -110,18 +126,27 @@ class BaienMoEResidual(nn.Module):
         topk_probs = topk_probs / (topk_probs.sum(dim=-1, keepdim=True) + 1e-9)
 
         # Dispatch tokens to experts + gather outputs
-        output = torch.zeros_like(x_flat)
-        for k_pos in range(self.top_k):
-            expert_idx_per_token = topk_indices[:, k_pos]  # (num_tokens,)
-            gate_weight = topk_probs[:, k_pos].unsqueeze(-1)  # (num_tokens, 1)
-            # For each expert, select tokens routed to it
-            for e in range(self.num_experts):
-                mask = expert_idx_per_token == e
-                if not mask.any():
-                    continue
-                tokens_for_e = x_flat[mask]  # (n_e, hidden)
-                expert_out = self.experts[e](tokens_for_e)  # (n_e, hidden)
-                output[mask] += gate_weight[mask] * expert_out
+        if self.expert_kind == "memory":
+            # UltraMem-style: each "expert" is one memory vector ∈ R^H.
+            # Output = Σ_k topk_probs[:,k] * memory_vectors[topk_indices[:,k]]
+            # Vectorized — no per-expert loop needed.
+            # topk_indices: (num_tokens, k); memory_vectors: (E, H)
+            selected = self.memory_vectors[topk_indices]  # (num_tokens, k, H)
+            output = (topk_probs.unsqueeze(-1) * selected).sum(dim=1)  # (num_tokens, H)
+        else:
+            # FFN-expert path: per-expert scatter-gather
+            output = torch.zeros_like(x_flat)
+            for k_pos in range(self.top_k):
+                expert_idx_per_token = topk_indices[:, k_pos]  # (num_tokens,)
+                gate_weight = topk_probs[:, k_pos].unsqueeze(-1)  # (num_tokens, 1)
+                # For each expert, select tokens routed to it
+                for e in range(self.num_experts):
+                    mask = expert_idx_per_token == e
+                    if not mask.any():
+                        continue
+                    tokens_for_e = x_flat[mask]  # (n_e, hidden)
+                    expert_out = self.experts[e](tokens_for_e)  # (n_e, hidden)
+                    output[mask] += gate_weight[mask] * expert_out
 
         # Switch-Transformer load-balancing aux loss
         # = E * Σ_i (frac_tokens_i × frac_router_prob_i)

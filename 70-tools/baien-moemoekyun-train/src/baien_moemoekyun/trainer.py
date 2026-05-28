@@ -50,9 +50,16 @@ def split_moe_param_groups(
                 f"moe_branch has neither router nor cluster_centroids (routing_mode={branch.routing_mode!r})"
             )
 
-        # experts = all params in moe_branch.experts (the ModuleList of small FFNs)
-        for p in branch.experts.parameters():
-            expert_params.append(p)
+        # experts = all params in moe_branch.experts (FFN kind) OR moe_branch.memory_vectors (UltraMem kind)
+        if branch.experts is not None:
+            for p in branch.experts.parameters():
+                expert_params.append(p)
+        elif branch.memory_vectors is not None:
+            expert_params.append(branch.memory_vectors)
+        else:
+            raise RuntimeError(
+                f"moe_branch has neither experts nor memory_vectors (expert_kind={branch.expert_kind!r})"
+            )
 
         # alpha = per-wrapper scalar Parameter
         alpha_params.append(wrapper.alpha)

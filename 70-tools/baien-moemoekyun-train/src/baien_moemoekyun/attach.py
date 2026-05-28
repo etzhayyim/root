@@ -67,6 +67,7 @@ def attach_moe_to_model(
     alpha_init: float = 0.0,
     alpha_init_jitter: float = 1e-3,
     routing_mode: str = "learned",  # "learned" | "distance" (MoCLE-style)
+    expert_kind: str = "ffn",  # "ffn" | "memory" (UltraMem-style)
 ) -> dict[str, BitNetFFNWithMoE]:
     """Walk model.layers, replace `layer.<ffn_attribute_name>` with BitNetFFNWithMoE
     for each layer_idx in moe_layer_indices.
@@ -111,6 +112,7 @@ def attach_moe_to_model(
             intermediate_size=intermediate_size,
             expert_hidden_ratio=expert_hidden_ratio,
             routing_mode=routing_mode,
+            expert_kind=expert_kind,
         )
         wrapper = BitNetFFNWithMoE(
             original_ffn=original_ffn,
