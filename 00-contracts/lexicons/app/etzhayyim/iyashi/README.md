@@ -1,10 +1,10 @@
 # app.etzhayyim.iyashi.* — iyashi (癒) Lexicons
 
 **Owner actor**: `did:web:iyashi.etzhayyim.com` (`20-actors/iyashi/`)
-**ADR**: ADR-2605263000 (R0 scaffold)
+**ADR**: ADR-2605263000 (R0 scaffold); ADR-2605281950 (L7 phlebotomyAttestation, R2+)
 **Status**: R0 schema skeletons. Full schemas (additionalProperties=false + required fields + encryptedPayloadCid mandatory on L1+L3) at R1+.
 
-## 6 Lexicons
+## 7 Lexicons (6 R0 + 1 R2)
 
 | # | Lexicon | Consumer cell | Purpose |
 |---|---|---|---|
@@ -14,6 +14,7 @@
 | L4 | `vaccinationAttestation` | vaccination_administration | Per-administration; vaccine ID + lot # (yakushi cross-link if iyashi-administered yakushi-produced) + adverse-event-flag |
 | L5 | `clinicFacilityAttestation` | clinic_facility | Per-clinic-site standards; annual audit; building + equipment + sterile-zone certification |
 | L6 | `silenIyashiReview` | (Council attestation scope) | Wellbecoming + quality + multi-generational ratio + Charter Rider §1.13 compliance quarterly Council review |
+| L7 | `phlebotomyAttestation` | internal_phlebotomy (iyashi R2+ per [ADR-2605281950](../../../../../90-docs/adr/2605281950-mitate-r2-general-lab-orders-and-iyashi-phlebotomy.md)) | Per-event log for in-house venipuncture serving a `mitate.diagnosticOrder` with `orderRoutingTarget=iyashi-internal`; **phlebotomistClass const "community-witnessed-competent" + employmentRelation const "vocation-flow" + lLevel const "L5"** structural (ADR-2605281950 GE) |
 
 ## Schema Discipline (R1+)
 

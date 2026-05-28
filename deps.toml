@@ -5353,8 +5353,9 @@ description = "e7m-shugyo (修行) — Isaac Lab-equivalent RL training framewor
 path = "20-actors/etzhayyim-sdk/src/nv-compat"
 adr = "ADR-2605261800"
 kind = "nv-compat-facade-ts"
-status = "r1.0-path-reservation"
-description = "TypeScript drop-in NVIDIA Omniverse stack public-API compat facade for @etzhayyim/sdk. Trademark notice: NVIDIA®, Omniverse®, Isaac®, OptiX®, RTX®, Nucleus®, DriveSim® are trademarks of NVIDIA Corporation; this project is not affiliated with or endorsed by NVIDIA. Per Google v. Oracle 2021. Mirrors public documented API surface only (N7 limit)."
+status = "r1.0-surface-live"
+status_note = "Iter 71-109 of /loop ('robotics 関係で nvidia family を webgpu, wasm で実装、再現するのにまだ足りていないのは? それを実装') has shipped a functional TS-side surface ahead of R1.1 kami-genesis bind. Sub-namespaces live: dynamics (Featherstone ABA + RNEA + CRBA + FK + geometric Jacobian + DLS IK / URDF parser) / controllers (PD) / actions (action scale+clamp, effort_limit) / assets (Franka FCI 7-DoF + ANYmal C 12-DoF + UR10 6-DoF) / warp (~16 WGSL kernels: damping / pendulum / cartpole / two-link / Franka FK+Jac+reach+gravComp / ANYmal FK / genericSerial FK N≤12 / PD / action scale+clamp / effort_limit / observation normalize+gauss / L2² reward + track_exp + weighted-sum / terminations / MLP policy forward / conditional reset / ground contact spring-damper) / policies (MLP JSON checkpoint loader v1, He-init random fixture, runMlpPolicy wrapper). End-to-end Isaac Lab task loop closes in WebGPU/WASM: raw_obs → obs_norm → MLP policy → action_clamp → PD → effort_limit → ABA → reward → terminations → conditional_reset. 69-test persistent vitest cross-validation suite at test/nv-compat-cross-validation.test.ts, runtime 13-31ms. Trademark notice: NVIDIA®, Omniverse®, Isaac®, OptiX®, RTX®, Nucleus®, DriveSim®, PhysX® are trademarks of NVIDIA Corporation; this project is not affiliated with or endorsed by NVIDIA. Per Google v. Oracle 2021. Mirrors public documented API surface only (N7 limit)."
+description = "TypeScript drop-in NVIDIA Omniverse stack public-API compat facade for @etzhayyim/sdk."
 
 [[modules]]
 path = "20-actors/magatama/py/src/pymagatama/nv_compat"
@@ -5362,6 +5363,20 @@ adr = "ADR-2605261800"
 kind = "nv-compat-facade-py"
 status = "r1.0-path-reservation"
 description = "Python drop-in NVIDIA Omniverse stack public-API compat facade for pymagatama. Trademark notice: NVIDIA®, Omniverse®, Isaac®, OptiX®, RTX®, Nucleus®, DriveSim® are trademarks of NVIDIA Corporation; this project is not affiliated with or endorsed by NVIDIA. Per Google v. Oracle 2021. Mirrors public documented API surface only (N7 limit)."
+
+[[modules]]
+path = "20-actors/etzhayyim-sdk/src/nv-compat/assets/ur10.ts"
+adr = "ADR-2605261800"
+kind = "nv-compat-asset-vendor"
+status = "r1.0-surface-live"
+description = "Universal Robots UR10 6-DoF asset wrapper — real ur_description URDF joint origins (BSD-3 upstream), continuous joints ±2π, effort 330/330/150/54/54/54 N·m. Third vendor proving the genericSerialFkKernel iter 97 portability (Franka 7-DoF / ANYmal C 12-DoF branched / UR10 6-DoF serial). Iter 98+99."
+
+[[modules]]
+path = "20-actors/etzhayyim-sdk/src/nv-compat/policies/mlp.ts"
+adr = "ADR-2605261800"
+kind = "nv-compat-policy-loader"
+status = "r1.0-surface-live"
+description = "MLP policy-net JSON checkpoint loader. v1 schema: {type:'mlp_policy', obs_dim, hidden_dim, action_dim, W1_flat (hidden×obs row-major), b1, W2_flat (action×hidden row-major), b2}. Bridges externally-trained policies (stable-baselines3 / rsl_rl / Isaac Lab) into the iter 106 mlpPolicyForwardKernel. Strict validation: integer dims, hidden ≤128 (kernel compile-bound), obs ≤64, all array lengths cross-checked. He-init random fixture for test parity. Iter 108."
 
 # ─── ADR-2605261800 §D10.4 contingent fallback crates (amendment 2026-05-26) ──
 # Activated ONLY on Council Lv6+ >=3 attestation after upstream WASM+WebGPU viability gate failure.
@@ -8203,3 +8218,108 @@ adr = "ADR-2605281800"
 kind = "kotoba-quad-ndjson"
 status = "production"
 description = "Kotoba quad stream emitted by 70-tools/kotoba-monorepo-ingest/ingest_adr.py from the ADR corpus. 1 row per quad: {graph, subject, predicate, object}. Graph = kotoba:graph:etzhayyim-root. Regenerable from any git HEAD (deterministic given the same Kubo CIDv1 sha2-256 hash; placeholder CIDs in --dry-run mode). Current snapshot: 473 ADRs, 6564 quads (32 skipped due to YAML parse errors)."
+
+[[adrs]]
+id = "2605281950"
+title = "mitate R2 extension — general blood + clinical-chemistry diagnostic orders + iyashi internal phlebotomy + diagnosticConsentReceipt for 要配慮個人情報 移管 consent"
+status = "proposed"
+status_note = "Closes the 'allergy and blood test actor design?' gap surfaced 2026-05-28: mitate R0 diagnosticOrder was rhinitis-domain-bound (10 orderType + 8 conditionContext values, all rhinitis); 16 general orderType + 18 general conditionContext appended (R2+ activate). New lexicons app.etzhayyim.mitate.diagnosticConsentReceipt (per-order 要配慮個人情報 / APPI 第2条第3項 / GDPR Art. 9 consent receipt; structurally sealed-recipient set per G7 inherited + GD added) + app.etzhayyim.iyashi.phlebotomyAttestation (iyashi R2+ in-house venipuncture event log; phlebotomistClass const 'community-witnessed-competent' + employmentRelation const 'vocation-flow' + lLevel const 'L5' structural per GE). 4 cells path-reserved at R0: mitate_diagnostic_consent_orchestrator (R1) / mitate_diagnostic_order_general (R2) / mitate_diagnostic_result_ingest (R2) / iyashi_internal_phlebotomy (iyashi R2). 6 new constitutional gates GA..GF layered on top of mitate G1..G14: GA specific orderType+conditionContext (no shotgun ordering) / GB external lab vendor Charter Rider §2(a)-(h) scan + Council Lv6+ ≥3 / GC diagnosticConsentReceipt mandatory non-back-datable revocable / GD sealed-recipient set structurally excludes insurance/employer/advertiser/state-aligned / GE phlebotomist vocation-flow L5 (no payroll, no fee-for-service) / GF licensed MD co-sign for clinical-finding interpretation (UPL boundary preserved via chigiri G14). 12 non-goals N1..N12: genetic / DTC / NIPT / oncology markers / fertility hormones / STI / forensic / employer-titer-credential / heavy-metal commercial wellness / DTC paid panel / in-vivo skin prick / result-interpretation-without-MD. 4-phase R0→R3: R0 this commit (lexicons + paths reserved) / R1 consent orchestrator + chigiri annual template review / R2 ≤200-patient pilot + first 3 external lab vendors allowlisted + iyashi internal phlebotomy live / R3 multi-clinic + in-clinic centrifuge + ≤25,000 patient capacity. Depends on ADR-2605260100 mitate master + ADR-2605260115 IgE precedent + ADR-2605263000 iyashi R0 + ADR-2605262700 chigiri UPL G14 + ADR-2605262900 toritate Public Fund payment + ADR-2605181100 encrypted envelope + ADR-2605261000 Liberation Ladder L5 + ADR-2605215000 Murakumo-only + ADR-2605192200 Charter Rider §2. First R1 cell activation requires mitate R0 ratified + envelope production-deployed + ≥1 licensed MD on Council medical advisory + chigiri R1 active."
+path = "90-docs/adr/2605281950-mitate-r2-general-lab-orders-and-iyashi-phlebotomy.md"
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/mitate/diagnosticConsentReceipt.json"
+adr = "ADR-2605281950"
+kind = "lexicon"
+status = "r0-schema"
+description = "Per-order immutable consent receipt for 要配慮個人情報 (APPI 第2条第3項 / GDPR Art. 9 / HIPAA PHI equivalent) transfer to external clinical lab or to iyashi internal phlebotomy. Binds 1:1 to a mitate.diagnosticOrder via orderRefCid. Required fields: v / consentReceiptId / patientPseudonymDid / orderRefCid / templateVersion / jurisdictions / senderRecipientDids / dataCategoriesShared / revocableUntilUtc / consentingAdherentDid / digitalSignatureAlg / signedAt. GC mandatory + GD structurally sealed-recipient + chigiri annual template review."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/iyashi/phlebotomyAttestation.json"
+adr = "ADR-2605281950"
+kind = "lexicon"
+status = "r0-schema"
+description = "Per-event log emitted by iyashi.internal_phlebotomy when religious-corp clinic performs in-house venipuncture for a mitate.diagnosticOrder with orderRoutingTarget=iyashi-internal. iyashi R2+ only. phlebotomistAttestation structural enforces phlebotomistClass='community-witnessed-competent' + employmentRelation='vocation-flow' + lLevel='L5' (ADR-2605281950 GE; mirrors iyashi G14 + chigiri G13 volunteer ≠ employee). Encrypted tube labels per ADR-2605181100. Cold-chain transit vendor in EXTERNAL_LOGISTICS_REGISTRY with Charter Rider §2(a)-(h) PASS."
+
+[[modules]]
+path = "00-contracts/lexicons/app/etzhayyim/mitate/diagnosticOrder.json"
+adr = "ADR-2605281950"
+kind = "lexicon-extension"
+status = "r0-schema-extended"
+description = "ADR-2605281950 extends the R0 (ADR-2605260100) rhinitis-domain-bound diagnosticOrder lexicon: orderType += 16 general blood / clinical-chemistry / urinalysis values (blood-cbc-full, blood-biochemistry-basic-12, blood-liver-panel, blood-kidney-panel, blood-lipid-panel, blood-hba1c, blood-glucose-fasting, blood-glucose-ogtt-75g, blood-thyroid-tsh-ft3-ft4, blood-ferritin-iron-tibc, blood-vitamin-d-25oh, blood-vitamin-b12-folate, blood-crp, blood-esr, blood-coagulation-pt-aptt-fib, urinalysis-routine-with-microalbumin); conditionContext += 18 non-rhinitis values (general-health-baseline-screen, suspected-iron-deficiency-anemia, suspected-vitamin-b12-folate-deficiency, suspected-vitamin-d-deficiency, suspected-type2-diabetes, diabetes-glycemic-monitoring, suspected-dyslipidemia, suspected-thyroid-dysfunction, suspected-chronic-kidney-disease, suspected-hepatic-dysfunction, pre-medication-hepato-renal-baseline, post-medication-hepato-renal-monitoring, suspected-inflammation-acute-phase, pre-vaccination-medical-clearance-pediatric, prenatal-baseline-general-only, postnatal-maternal-screening, suspected-coagulation-disorder, geriatric-annual-baseline); new optional field orderRoutingTarget enum {iyashi-internal, external-lab} (required at R2+); R2+ activation only. Rhinitis-scoped R0 enum set preserved."
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_diagnostic_consent_orchestrator (reserved)"
+adr = "ADR-2605281950"
+kind = "pregel-cell (reserved)"
+status = "r0-path-reserved"
+description = "(reserved) mitate_diagnostic_consent_orchestrator Pregel cell — orchestrates 要配慮個人情報 consent flow per ADR-2605281950 D4. R1+ activation; import-time RuntimeError at R0."
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_diagnostic_order_general (reserved)"
+adr = "ADR-2605281950"
+kind = "pregel-cell (reserved)"
+status = "r0-path-reserved"
+description = "(reserved) mitate_diagnostic_order_general Pregel cell — generalized diagnostic ordering (R2+). Supersedes mitate_allergy_ige_panel_order semantically (IgE panel becomes one specialization). Per ADR-2605281950 D4."
+
+[[modules]]
+path = "20-actors/magatama/cells/mitate_diagnostic_result_ingest (reserved)"
+adr = "ADR-2605281950"
+kind = "pregel-cell (reserved)"
+status = "r0-path-reserved"
+description = "(reserved) mitate_diagnostic_result_ingest Pregel cell — generalized diagnostic result ingestion (R2+). Per ADR-2605281950 D4."
+
+[[modules]]
+path = "20-actors/magatama/cells/iyashi_internal_phlebotomy (reserved)"
+adr = "ADR-2605281950"
+kind = "pregel-cell (reserved)"
+status = "r0-path-reserved"
+description = "(reserved) iyashi_internal_phlebotomy Pregel cell — religious-corp in-house venipuncture for mitate.diagnosticOrder with orderRoutingTarget=iyashi-internal. iyashi R2+ activation; import-time RuntimeError at R0. Phlebotomist invariant: community-witnessed-competent vocation-flow L5 only (ADR-2605281950 GE)."
+
+[[adrs]]
+id = "2605282000"
+title = "kotoba_murakumo — Modal-compatible Python facade for Murakumo Mac mini fleet GPU inference (R0 scaffold)"
+status = "proposed"
+status_note = "R0 scaffold: Modal-compat surface + 3-backend routing policy (judah :4000 LiteLLM gateway / EVO-X2 :4000+:11434+:8188 / per-node own-node Ollama gemma3:4b). Pure stdlib (httpx optional R1). 16/16 pytest pass against the canonical 50-infra/murakumo/fleet.toml. Strengthens ADR-2605215000 Murakumo-only invariant by making the path of least resistance route to fleet rather than to RunPod-equivalent vendors. Modal-compat shim at kotoba_murakumo.modal_compat (`import kotoba_murakumo.modal_compat as modal`) maps gpu='A100'/'H100' to EvoX2 with honest warning per N5; Image.from_registry / web_endpoint / Sandbox raise MurakumoCompatNotImplemented with constitutional reason. R0 .remote() returns NotImplementedError carrying the resolved route (no surprises); R1 wires live LiteLLM/Ollama dispatch + Charter Rider §2 scan flip from advisory to enforce + invocation NDJSON → app.etzhayyim.murakumo.invocation Lexicon. R2 wires WASM Component dispatch via kotoba-vm. Depends on ADR-2605215000 (Murakumo-only) + ADR-2605262130 (kotoba substrate) + ADR-2605192200 (Charter Rider) + ADR-2605202345 (EVO-X2) + ADR-2605231525 (no platform keys) + ADR-2605232100 (k3s fleet) + ADR-2605262200 §2(i)(2) (train carve-out leaves inference unchanged)."
+path = "90-docs/adr/2605282000-kotoba-murakumo-modal-compat-python-fleet-inference.md"
+
+[[modules]]
+path = "40-engine/kotoba/py/kotoba_murakumo/"
+adr = "ADR-2605282000"
+kind = "python-package"
+status = "r0-scaffold"
+description = "Modal-compatible Python facade for Murakumo fleet inference. Sibling of kotoba_langgraph (pure stdlib + Apache 2.0 + Charter Rider). Public API: App / @app.function / @app.cls / @enter / @exit / @method / Image / Volume / Secret / gpu.{EvoX2,MacMini,WebGPU,Any}. Modal-compat shim at .modal_compat re-exports as if it were `modal` (Stub alias + gpu.{T4,L4,A10G,A100,H100,H200} → EvoX2 with N5 honest warning). 16/16 pytest pass: fleet.toml load + 7 routing decisions + 5 Modal-compat surface assertions. R0 .remote() raises MurakumoCompatNotImplemented carrying resolved route; R1 wires live dispatch."
+
+[[modules]]
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/fleet.py"
+adr = "ADR-2605282000"
+kind = "python-module"
+status = "r0-active"
+description = "stdlib tomllib-backed loader for 50-infra/murakumo/fleet.toml. Typed view (FleetNode + InferenceEndpoint dataclasses, slots+frozen). Raises FleetUnreachable when fleet.toml missing — no silent fallback per ADR-2605282000 N4. Parses [[inference_backends]] array + per-backend [inference_backends.<name>.endpoints.<kind>] nested form (the actual fleet.toml shape, tomllib-faithful). Verified against canonical SSoT: judah=192.168.1.17, evo-x2 litellm=192.168.1.70:4000 master_key_env=EVO_X2_LITELLM_KEY, evo-x2 ollama=192.168.1.70:11434, litellm gateway URL = http://192.168.1.17:4000."
+
+[[modules]]
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/_internal/routing.py"
+adr = "ADR-2605282000"
+kind = "python-module"
+status = "r0-active"
+description = "Pure-function selector→endpoint resolver. Inputs: (GpuSpec | str | None, model, FleetView). Output: ResolvedRoute(url, model, backend, kind, auth_bearer_env). Rules: gpu=None|Any → LiteLLM gateway judah:4000; gpu=MacMini(node=) → that node's own-node Ollama :11434; gpu=EvoX2(prefer=) → EVO-X2 LiteLLM/Ollama/ComfyUI; gpu=WebGPU → R2 not-implemented; gpu='A100'/'H100'/'A10G'/'T4'/'L4' string → EvoX2 with N5 honest warning logged. No HTTP traffic in this module."
+
+[[modules]]
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/modal_compat.py"
+adr = "ADR-2605282000"
+kind = "python-module"
+status = "r0-active"
+description = "Drop-in `import modal` shim. Stub = App (legacy alias); gpu namespace exposes T4/L4/A10G/A100/H100/H200 mapped to EvoX2. web_endpoint / asgi_app / fastapi_endpoint / Sandbox raise MurakumoCompatNotImplemented with canonical reason. Trademark notice: Modal® is Modal Labs Inc.; this is API-compat only (Google v. Oracle 2021 API fair-use; analogous to ADR-2605261800 §D10 nv_compat). NEVER contacts modal.com / api.modal.com (N1 CI grep gate lands R1)."
+
+[[modules]]
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/charter.py"
+adr = "ADR-2605282000"
+kind = "python-module"
+status = "r0-advisory-hook"
+description = "Charter Rider §2(a)-(h) scan hook. R0: stub returns 'clean' for every input (the point is to lock the API shape with `scan(text, *, side: 'input'|'output') -> CharterScanResult(severity)` so R1 can replace the body with the canonical etzhayyim_organism.sensors.charter_rider.scan binding without breaking callers). R1 flips advisory→enforce: severity >= 'major' raises CharterViolation and the .remote() call aborts before returning to caller (constitutional invariant per ADR-2605192200)."
+
+[[modules]]
+path = "40-engine/kotoba/py/kotoba_murakumo/kotoba_murakumo/client/litellm.py"
+adr = "ADR-2605282000"
+kind = "python-module"
+status = "r0-signature-only"
+description = "LiteLLM OpenAI-compat client. R0: chat_completions / chat_completions_async / chat_completions_stream signatures committed; bodies raise MurakumoCompatNotImplemented carrying the would-be POST URL. R1: httpx-backed live dispatch matching kotoba-llm::http_infer Rust wire format (POST /v1/chat/completions + Authorization: Bearer when auth_bearer present). Sibling stubs: client/ollama.py (own-node fallback) + client/comfyui.py (EVO-X2 image gen)."

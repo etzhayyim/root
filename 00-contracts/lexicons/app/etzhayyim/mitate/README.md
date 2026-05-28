@@ -7,14 +7,16 @@ Per mitate master charter [ADR-2605260100](../../../../../90-docs/adr/2605260100
 / [2605260160](../../../../../90-docs/adr/2605260160-mitate-condition-4-septal-deviation.md)
 / [2605260175](../../../../../90-docs/adr/2605260175-mitate-condition-5-rhinitis-medicamentosa.md)).
 
-8 lexicons covering the full diagnostic + treatment routing substrate from patient
-intake through longitudinal outcome followup:
+9 lexicons covering the full diagnostic + treatment routing substrate from patient
+intake through longitudinal outcome followup (8 at R0 per master charter +
+`diagnosticConsentReceipt` added at R2 per [ADR-2605281950](../../../../../90-docs/adr/2605281950-mitate-r2-general-lab-orders-and-iyashi-phlebotomy.md)):
 
 | Lexicon | Purpose | Encryption |
 |---|---|---|
 | `rhinitisIntake` | patient symptom + consent + medication history intake | `encryptedSymptomEnvelope` XChaCha20-Poly1305 (G2) |
 | `triageVerdict` | 5-condition Bayesian classifier output (top-3 posterior + escalation + disclaimer) | `encryptedTriageEnvelope` (G2) |
-| `diagnosticOrder` | 検査 ordering (IgE / smear / endoscopy / rhinomanometry / CT) | consent receipt mandatory (G1) |
+| `diagnosticOrder` | 検査 ordering (IgE / smear / endoscopy / rhinomanometry / CT + R2 general blood / chemistry / urinalysis per ADR-2605281950) | consent receipt mandatory (G1) |
+| `diagnosticConsentReceipt` | per-order 要配慮個人情報 (APPI 第2条第3項 / GDPR Art. 9) 移管 consent (R2+ per ADR-2605281950) | structurally sealed-recipient set (G7 + GD) |
 | `diagnosticResult` | 検査結果 (lab / DICOM / image classification) | `encryptedResultEnvelope` (G2) |
 | `treatmentPlan` | 治療経路 advisory (INN-only, brand 不可 except yakushi-distributed) | `disclaimerAccepted` mandatory (G3) |
 | `outcomeFollowup` | longitudinal QOL + adherence + AE tracker (yakushi cross-feed leg) | encrypted patient identity; aggregated public |
