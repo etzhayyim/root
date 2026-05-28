@@ -8572,6 +8572,20 @@ status = "r0-active"
 description = "kotoba-kawase Python package config — hatchling build backend + py>=3.11 + Apache-2.0 + no R0 runtime dependencies + pytest as optional test extra. Mirrors kotoba_murakumo's pyproject.toml shape (sibling-package precedent per ADR-2605282300). R1 will add httpx for the KawaseYuiPool dispatch + chainlink-feed-reader for the live mid-market quote + cryptography (or noble equivalent) for the ADR-2605181100 memo envelope."
 
 [[modules]]
+path = "40-engine/kotoba_kawase/tests/test_layer_composition.py"
+adr = "ADR-2605282200"
+kind = "test-suite"
+status = "r0-10-tests-pass"
+description = "Cross-layer composition smoke test asserting all 7 layers laid down in iters 1-6 actually compose: G7 lint hook executable + exits 0 clean / 8 Lexicons all parse + carry canonical id app.etzhayyim.kawase.* / ConstitutionKeys.sol declares KAWASE_MAX_BAND_BPS + KAWASE_PER_MONTH_CAP_USD_MINOR / Deploy.s.sol + DeployReligiousCorp.s.sol wire both keys / KawaseYuiPool.sol scaffold references both Constitution keys via immutable + has onlyAdherent + onlyCouncilSafe modifiers + reverts NotYetImplemented on ≥3 entry points / kotoba_kawase.send + claim raise NotYetImplemented with phase containing 'Bootstrap-Council' / each of 5 kawase_* cells raises RuntimeError on import with message containing 'scaffold-only' + 'ADR-2605282200' (subprocess per cell to avoid import-cache contamination) / 20-actors/kawase-yui/{README,manifest.jsonld} present + manifest carries DID + Tier-B / deps.toml has no kawase (reserved) markers. 10 tests; runs without forge / Murakumo fleet / network. PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 + PYTHONPATH=. invocation pattern."
+
+[[modules]]
+path = ".github/workflows/kawase-yui-r0-audit.yml"
+adr = "ADR-2605282200"
+kind = "github-actions-workflow"
+status = "r0-ci-gate"
+description = "CI gate for the kawase-yui R0 surface — 4 audit lanes: g7-no-commercial-remittance (runs the lint hook + its 23-test suite + live gate against working tree) + lexicon-schema-validation (validate-lexicons.py on all 8 Lexicons --exit-on-error) + python-facade-r0 (kotoba_kawase tests/test_r0.py + tests/test_layer_composition.py) + cell-r0-honesty (each kawase_* cell must raise RuntimeError on import with 'scaffold-only' + 'ADR-2605282200' markers). Triggers: push/PR to kawase paths + nightly cron 04:05 UTC (off-minute :05 to deconflict with the 7 other nightly audits) + workflow_dispatch. Two-layer defense Pattern A — lefthook (committer-local) + this workflow (PR-level) per ADR-2605271200 retrospective."
+
+[[modules]]
 path = "70-tools/scripts/lint/verify_no_commercial_remittance.py"
 adr = "ADR-2605282200"
 kind = "lint-hook"
